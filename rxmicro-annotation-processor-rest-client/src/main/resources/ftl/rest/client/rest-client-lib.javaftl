@@ -1,0 +1,97 @@
+<#-- ------------------------------------------------------------------------------------------------ -->
+<#-- ----------------- https://freemarker.apache.org/docs/ref_directive_macro.html ------------------ -->
+<#-- ------------------------------------------------------------------------------------------------ -->
+<#macro validateRequest MODE>
+<#-- ------------------------------------------------------------------------------------------------ -->
+<#if MODE.name() == 'THROW_EXCEPTION'>
+${REQUEST_MODEL_CLASS.modelValidatorInstanceName}.validate(${MODEL});
+<#else>
+try {
+    ${REQUEST_MODEL_CLASS.modelValidatorInstanceName}.validate(${MODEL});
+} catch (final ValidationException e) {
+    <#if RETURN.mono>
+    return Mono.error(e);
+    <#elseif RETURN.future>
+    return CompletableFuture.failedFuture(e);
+    <#elseif RETURN.single>
+    return Single.error(e);
+    <#elseif RETURN.maybe>
+    return Maybe.error(e);
+    <#elseif RETURN.completable>
+    return Completable.error(e);
+    <#else>
+    //"RxMicro does not know how to generate this method";
+    </#if>
+}
+</#if>
+<#-- ------------------------------------------------------------------------------------------------ -->
+</#macro>
+<#-- ------------------------------------------------------------------------------------------------ -->
+<#-- ----------------- https://freemarker.apache.org/docs/ref_directive_macro.html ------------------ -->
+<#-- ------------------------------------------------------------------------------------------------ -->
+<#macro returnResult>
+<#-- ------------------------------------------- Void ----------------------------------------------- -->
+<#if RETURN.void>
+<#if RETURN.mono>
+return Mono.fromFuture(response)
+        .then();
+<#elseif RETURN.future>
+return response
+        .thenApply(resp -> null);
+<#elseif RETURN.completable>
+return Completable.fromCompletionStage(response);
+<#else>
+//"RxMicro does not know how to generate this method";
+</#if>
+<#-- ------------------------------------- Single result -------------------------------------------- -->
+<#elseif RETURN.oneItem>
+<#if RETURN.mono>
+return Mono.fromFuture(response)
+        .map(resp -> ${RESPONSE_READER}.readSingle(resp))<#if !GENERATE_RESPONSE_VALIDATORS>;</#if>
+        <#if GENERATE_RESPONSE_VALIDATORS>
+        .doOnSuccess(resp -> validateResponse(${RESPONSE_MODEL_CLASS.modelValidatorInstanceName}, resp));
+        </#if>
+<#elseif RETURN.future>
+return response
+        .thenApply(resp -> ${RESPONSE_READER}.readSingle(resp))<#if !GENERATE_RESPONSE_VALIDATORS>;</#if>
+        <#if GENERATE_RESPONSE_VALIDATORS>
+        .whenComplete((resp, th) -> validateIfResponseExists(${RESPONSE_MODEL_CLASS.modelValidatorInstanceName}, resp));
+        </#if>
+<#elseif RETURN.single>
+return Single.fromCompletionStage(response)
+        .map(resp -> ${RESPONSE_READER}.readSingle(resp))<#if !GENERATE_RESPONSE_VALIDATORS>;</#if>
+        <#if GENERATE_RESPONSE_VALIDATORS>
+        .doOnSuccess(resp -> validateResponse(${RESPONSE_MODEL_CLASS.modelValidatorInstanceName}, resp));
+        </#if>
+<#else>
+//"RxMicro does not know how to generate this method";
+</#if>
+<#-- -------------------------------------- List result -------------------------------------------- -->
+<#else>
+<#if RETURN.mono>
+return Mono.fromFuture(response)
+        .map(resp -> ${RESPONSE_READER}.readList(resp))<#if !GENERATE_RESPONSE_VALIDATORS>;</#if>
+        <#if GENERATE_RESPONSE_VALIDATORS>
+        .doOnSuccess(resp -> validateResponse(${RESPONSE_MODEL_CLASS.modelValidatorInstanceName}, resp));
+        </#if>
+<#elseif RETURN.future>
+return response
+        .thenApply(resp -> ${RESPONSE_READER}.readList(resp))<#if !GENERATE_RESPONSE_VALIDATORS>;</#if>
+        <#if GENERATE_RESPONSE_VALIDATORS>
+        .whenComplete((resp, th) -> validateIfResponseExists(${RESPONSE_MODEL_CLASS.modelValidatorInstanceName}, resp));
+        </#if>
+<#elseif RETURN.single>
+return Single.fromCompletionStage(response)
+        .map(resp -> ${RESPONSE_READER}.readList(resp))<#if !GENERATE_RESPONSE_VALIDATORS>;</#if>
+        <#if GENERATE_RESPONSE_VALIDATORS>
+        .doOnSuccess(resp -> validateResponse(${RESPONSE_MODEL_CLASS.modelValidatorInstanceName}, resp));
+        </#if>
+<#else>
+//"RxMicro does not know how to generate this method";
+</#if>
+</#if>
+<#-- ------------------------------------------------------------------------------------------------ -->
+</#macro>
+<#-- ------------------------------------------------------------------------------------------------ -->
+<#-- ----------------- https://freemarker.apache.org/docs/ref_directive_macro.html ------------------ -->
+<#-- ------------------------------------------------------------------------------------------------ -->

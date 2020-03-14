@@ -1,0 +1,2901 @@
+= Examples Documentation Asciidoctor All Std Validators
+GeneratedBy RxMicroAnnotationProcessor <rxmicro.io@gmail.com>
+1.0-SNAPSHOT
+:icons: font
+:sectanchors: 
+:sectlinks: 
+:toc: left
+:toclevels: 3
+:sectnums: 
+:sectnumlevels: 5
+
+// ----------------------------------- Examples Documentation Asciidoctor All Std Validators Title and Description -----------------------------------
+This document describes *the Examples Documentation Asciidoctor All Std Validators*.
+
+<<<
+// ------------------------------------------------------------------ Micro Service ------------------------------------------------------------------
+== Micro Service
+
+<<<
+// ------------------------------------------------------------- Micro Service | POST / -------------------------------------------------------------
+=== POST /
+
+// -------------------------------------------------------- Micro Service | POST / | Request --------------------------------------------------------
+==== Request
+
+// --------------------------------------------------- Micro Service | POST / | Request | Example ---------------------------------------------------
+===== HTTP Request Example
+
+[source,http]
+----
+POST / HTTP/1.1
+Accept: application/json
+Content-Type: application/json
+Content-Length: 4456
+Request-Id: 62jJeu8x1310662
+
+{
+  "optional": "string",
+  "aBoolean": false,
+  "exampleBoolean": true,
+  "assertFalse": false,
+  "assertTrue": true,
+  "aByte": 10,
+  "exampleByte": 7,
+  "minIntByte": 5,
+  "maxIntByte": 15,
+  "minNumberByte": 5,
+  "maxNumberByte": 15,
+  "aShort": 10000,
+  "exampleShort": 7000,
+  "minIntShort": 5000,
+  "maxIntShort": 15000,
+  "minNumberShort": 5000,
+  "maxNumberShort": 15000,
+  "anInteger": 1000000000,
+  "exampleInteger": 700000000,
+  "minIntInteger": 500000000,
+  "maxIntInteger": 2000000000,
+  "minNumberInteger": 500000000,
+  "maxNumberInteger": 2000000000,
+  "aLong": 1000000000000,
+  "exampleLong": 700000000000,
+  "minIntLong": 500000000000,
+  "maxIntLong": 2000000000000,
+  "minNumberLong": 500000000000,
+  "maxNumberLong": 2000000000000,
+  "aBigInteger": 1000000000000000000000,
+  "exampleBigInteger": 700000000000000000000,
+  "minNumberBigInteger": 500000000000000000000,
+  "maxNumberBigInteger": 2000000000000000000000,
+  "aFloat": 3.14,
+  "exampleFloat": 2.78,
+  "minIntFloat": 1.1,
+  "maxIntFloat": 6.78,
+  "minNumberFloat": 1.1,
+  "maxNumberFloat": 6.78,
+  "aDouble": 3.1415926535,
+  "exampleDouble": 2.789654321,
+  "minIntDouble": 1.123456789,
+  "maxIntDouble": 6.7815926535,
+  "minNumberDouble": 1.1234567890,
+  "maxNumberDouble": 6.7815926535,
+  "aBigDecimal": 3.1415926535897932384626433832795028841971,
+  "exampleBigDecimal": 2.9876543210987654321098765432109876543210,
+  "minNumberBigDecimal": 1.1234567890123456789012345678901234567890,
+  "maxNumberBigDecimal": 6.7815926535897932384626433832795028841971,
+  "numericBigDecimal": 987654321.98765,
+  "lat111kmBigDecimal": 34,
+  "lng111kmBigDecimal": -118,
+  "lat11kmBigDecimal": 34.1,
+  "lng11kmBigDecimal": -118.3,
+  "lat1kmBigDecimal": 34.06,
+  "lng1kmBigDecimal": -118.30,
+  "lat111mBigDecimal": 34.064,
+  "lng111mBigDecimal": -118.296,
+  "lat11mBigDecimal": 34.0638,
+  "lng11mBigDecimal": -118.2963,
+  "lat1mBigDecimal": 34.06382,
+  "lng1mBigDecimal": -118.29634,
+  "lat11cmBigDecimal": 34.063821,
+  "lng11cmBigDecimal": -118.296339,
+  "lat1cmBigDecimal": 34.0638210,
+  "lng1cmBigDecimal": -118.2963390,
+  "aCharacter": "y",
+  "exampleCharacter": "h",
+  "enumerationChar": "y",
+  "enumerationWithExampleChar": "y",
+  "aString": "string",
+  "exampleString": "hello",
+  "lowercaseString": "string",
+  "uppercaseString": "STRING",
+  "length2String": "string",
+  "minLength2String": "string",
+  "maxLength2String": "string",
+  "emailString": "welcome@rxmicro.io",
+  "phoneString": "12254359430",
+  "phoneWithPlusString": "+12254359430",
+  "enumerationString": "new",
+  "patternString": "hello",
+  "uriString": "http://rxmicro.io",
+  "urlEncodedString": "Hello%20world%21",
+  "viberString": "12257111123",
+  "viberWithPlusString": "+12257111123",
+  "whatsAppString": "12257117934",
+  "whatsAppWithPlusString": "+12257117934",
+  "telegramString": "12256782613",
+  "telegramWithPlusString": "+12256782613",
+  "skypeString": "rxmicro.io",
+  "countryCodeAlpha2": "US",
+  "countryCodeAlpha3": "USA",
+  "countryCodeNumeric": "840",
+  "base64URLEncodedBase": "SGVsbG8gd29ybGQh",
+  "base64URLEncodedUrl": "SGVsbG8gd29ybGQh",
+  "ip": "8.8.8.8",
+  "ip4": "8.8.8.8",
+  "ip6": "2001:db8:85a3::8a2e:370:7334",
+  "hostNameString": "rxmicro.io",
+  "latinAlphabetOnlyString": "Latin alphabet only!",
+  "digitsOnlyString": "9876",
+  "anInstant": "1987-04-10T23:40:15.789Z",
+  "exampleInstant": "2020-04-10T23:40:15.789Z",
+  "instantFuture": "2187-04-10T23:40:15.789Z",
+  "instantFutureOrPresent": "2187-04-10T23:40:15.789Z",
+  "instantPast": "1987-04-10T23:40:15.789Z",
+  "instantPastOrPresent": "1987-04-10T23:40:15.789Z",
+  "instantTruncatedTimeMillis": "1987-04-10T23:40:15Z",
+  "instantTruncatedTimeSeconds": "1987-04-10T23:40:00Z",
+  "instantTruncatedTimeMinutes": "1987-04-10T23:00:00Z",
+  "instantTruncatedTimeHours": "1987-04-10T00:00:00Z",
+  "colorEnum": "RED",
+  "exampleEnum": "BLUE",
+  "subEnumInclude": "GREEN",
+  "subEnumExclude": "RED",
+  "subEnumWithExample": "BLUE",
+  "optionalList": [
+    "string"
+  ],
+  "aList": [
+    1000000000
+  ],
+  "exampleList": [
+    "item1",
+    "item2"
+  ],
+  "uniqueItemsList": [
+    1000000000
+  ],
+  "size5List": [
+    1000000000
+  ],
+  "minSize5List": [
+    1000000000
+  ],
+  "maxSize5List": [
+    1000000000
+  ],
+  "optionalNested": {
+    "string": "string"
+  },
+  "requiredNested": {
+    "string": "string"
+  },
+  "optionalNestedList": [
+    {
+      "string": "string"
+    }
+  ],
+  "requiredNestedList": [
+    {
+      "string": "string"
+    }
+  ]
+}
+----
+
+// --------------------------------------------------- Micro Service | POST / | Request | Headers ---------------------------------------------------
+===== HTTP Request Headers Description
+
+[cols="25%,9%,28%,32%"]
+|===
+^|*Name* |*Type* |*Restrictions*| *Description*
+|*Request-Id*
+|`string`
+a|
+* [small]#`optional: true`#
+
+* [small]#`unique: true`#
+a|An unique request string identifier.
+
+.Read more:
+* [small]#http://rxmicro.io/guides/latest/user-guide.html#rest-controller-request-id-section[_What is request id?_^]#
+|===
+
+// ----------------------------------------------- Micro Service | POST / | Request | Body Parameters -----------------------------------------------
+===== HTTP Request Body Parameters Description
+
+[cols="25%,9%,28%,32%"]
+|===
+^|*Name* |*Type* |*Restrictions*| *Description*
+|*optional*
+|`string`
+a|
+* [small]#`optional: true`#
+a|
+
+|*aBoolean*
+|`boolean`
+a|
+* [small]#`required: true`#
+a|
+
+|*exampleBoolean*
+|`boolean`
+a|
+* [small]#`required: true`#
+a|
+
+|*assertFalse*
+|`boolean`
+a|
+* [small]#`required: true`#
+
+* [small]#`expected: false`#
+a|Must be `false`.
+
+|*assertTrue*
+|`boolean`
+a|
+* [small]#`required: true`#
+
+* [small]#`expected: true`#
+a|Must be `true`.
+
+|*aByte*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: int8`#
+a|
+
+|*exampleByte*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: int8`#
+a|
+
+|*minIntByte*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: int8`#
+
+* [small]#`minimum: 5`#
+
+* [small]#`exclusiveMinimum: false`#
+a|
+
+|*maxIntByte*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: int8`#
+
+* [small]#`maximum: 15`#
+
+* [small]#`exclusiveMaximum: false`#
+a|
+
+|*minNumberByte*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: int8`#
+
+* [small]#`minimum: 5`#
+
+* [small]#`exclusiveMinimum: false`#
+a|
+
+|*maxNumberByte*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: int8`#
+
+* [small]#`maximum: 15`#
+
+* [small]#`exclusiveMaximum: false`#
+a|
+
+|*aShort*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: int16`#
+a|
+
+|*exampleShort*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: int16`#
+a|
+
+|*minIntShort*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: int16`#
+
+* [small]#`minimum: 5,000`#
+
+* [small]#`exclusiveMinimum: false`#
+a|
+
+|*maxIntShort*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: int16`#
+
+* [small]#`maximum: 15,000`#
+
+* [small]#`exclusiveMaximum: false`#
+a|
+
+|*minNumberShort*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: int16`#
+
+* [small]#`minimum: 5,000`#
+
+* [small]#`exclusiveMinimum: false`#
+a|
+
+|*maxNumberShort*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: int16`#
+
+* [small]#`maximum: 15,000`#
+
+* [small]#`exclusiveMaximum: false`#
+a|
+
+|*anInteger*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: int32`#
+a|
+
+|*exampleInteger*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: int32`#
+a|
+
+|*minIntInteger*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: int32`#
+
+* [small]#`minimum: 500,000,000`#
+
+* [small]#`exclusiveMinimum: false`#
+a|
+
+|*maxIntInteger*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: int32`#
+
+* [small]#`maximum: 2,000,000,000`#
+
+* [small]#`exclusiveMaximum: false`#
+a|
+
+|*minNumberInteger*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: int32`#
+
+* [small]#`minimum: 500,000,000`#
+
+* [small]#`exclusiveMinimum: false`#
+a|
+
+|*maxNumberInteger*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: int32`#
+
+* [small]#`maximum: 2,000,000,000`#
+
+* [small]#`exclusiveMaximum: false`#
+a|
+
+|*aLong*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: int64`#
+a|
+
+|*exampleLong*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: int64`#
+a|
+
+|*minIntLong*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: int64`#
+
+* [small]#`minimum: 500,000,000,000`#
+
+* [small]#`exclusiveMinimum: false`#
+a|
+
+|*maxIntLong*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: int64`#
+
+* [small]#`maximum: 2,000,000,000,000`#
+
+* [small]#`exclusiveMaximum: false`#
+a|
+
+|*minNumberLong*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: int64`#
+
+* [small]#`minimum: 500,000,000,000`#
+
+* [small]#`exclusiveMinimum: false`#
+a|
+
+|*maxNumberLong*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: int64`#
+
+* [small]#`maximum: 2,000,000,000,000`#
+
+* [small]#`exclusiveMaximum: false`#
+a|
+
+|*aBigInteger*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: integer`#
+a|
+
+|*exampleBigInteger*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: integer`#
+a|
+
+|*minNumberBigInteger*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: integer`#
+
+* [small]#`minimum: 500,000,000,000,000,000,000`#
+
+* [small]#`exclusiveMinimum: false`#
+a|
+
+|*maxNumberBigInteger*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: integer`#
+
+* [small]#`maximum: 2,000,000,000,000,000,000,000`#
+
+* [small]#`exclusiveMaximum: false`#
+a|
+
+|*aFloat*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: float`#
+a|
+
+|*exampleFloat*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: float`#
+a|
+
+|*minIntFloat*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: float`#
+
+* [small]#`minimum: 1.1`#
+
+* [small]#`exclusiveMinimum: true`#
+a|
+
+|*maxIntFloat*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: float`#
+
+* [small]#`maximum: 6.78`#
+
+* [small]#`exclusiveMaximum: true`#
+a|
+
+|*minNumberFloat*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: float`#
+
+* [small]#`minimum: 1.1`#
+
+* [small]#`exclusiveMinimum: false`#
+a|
+
+|*maxNumberFloat*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: float`#
+
+* [small]#`maximum: 6.78`#
+
+* [small]#`exclusiveMaximum: false`#
+a|
+
+|*aDouble*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: double`#
+a|
+
+|*exampleDouble*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: double`#
+a|
+
+|*minIntDouble*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: double`#
+
+* [small]#`minimum: 1.123`#
+
+* [small]#`exclusiveMinimum: true`#
+a|
+
+|*maxIntDouble*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: double`#
+
+* [small]#`maximum: 6.782`#
+
+* [small]#`exclusiveMaximum: true`#
+a|
+
+|*minNumberDouble*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: double`#
+
+* [small]#`minimum: 1.123`#
+
+* [small]#`exclusiveMinimum: false`#
+a|
+
+|*maxNumberDouble*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: double`#
+
+* [small]#`maximum: 6.782`#
+
+* [small]#`exclusiveMaximum: false`#
+a|
+
+|*aBigDecimal*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: decimal`#
+a|
+
+|*exampleBigDecimal*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: decimal`#
+a|
+
+|*minNumberBigDecimal*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: decimal`#
+
+* [small]#`minimum: 1.123`#
+
+* [small]#`exclusiveMinimum: false`#
+a|
+
+|*maxNumberBigDecimal*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: decimal`#
+
+* [small]#`maximum: 6.782`#
+
+* [small]#`exclusiveMaximum: false`#
+a|
+
+|*numericBigDecimal*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: decimal`#
+
+* [small]#`precision: 2`#
+
+* [small]#`scale: 5`#
+a|
+
+|*lat111kmBigDecimal*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: decimal`#
+a|Latitude of GPS location point.
+
+.Read more:
+* [small]#https://en.wikipedia.org/wiki/Latitude[_What is latitude?_^]#
+|*lng111kmBigDecimal*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: decimal`#
+a|Longitude of GPS location point.
+
+.Read more:
+* [small]#https://en.wikipedia.org/wiki/Longitude[_What is longitude?_^]#
+|*lat11kmBigDecimal*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: decimal`#
+a|Latitude of GPS location point.
+
+.Read more:
+* [small]#https://en.wikipedia.org/wiki/Latitude[_What is latitude?_^]#
+|*lng11kmBigDecimal*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: decimal`#
+a|Longitude of GPS location point.
+
+.Read more:
+* [small]#https://en.wikipedia.org/wiki/Longitude[_What is longitude?_^]#
+|*lat1kmBigDecimal*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: decimal`#
+a|Latitude of GPS location point.
+
+.Read more:
+* [small]#https://en.wikipedia.org/wiki/Latitude[_What is latitude?_^]#
+|*lng1kmBigDecimal*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: decimal`#
+a|Longitude of GPS location point.
+
+.Read more:
+* [small]#https://en.wikipedia.org/wiki/Longitude[_What is longitude?_^]#
+|*lat111mBigDecimal*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: decimal`#
+a|Latitude of GPS location point.
+
+.Read more:
+* [small]#https://en.wikipedia.org/wiki/Latitude[_What is latitude?_^]#
+|*lng111mBigDecimal*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: decimal`#
+a|Longitude of GPS location point.
+
+.Read more:
+* [small]#https://en.wikipedia.org/wiki/Longitude[_What is longitude?_^]#
+|*lat11mBigDecimal*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: decimal`#
+a|Latitude of GPS location point.
+
+.Read more:
+* [small]#https://en.wikipedia.org/wiki/Latitude[_What is latitude?_^]#
+|*lng11mBigDecimal*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: decimal`#
+a|Longitude of GPS location point.
+
+.Read more:
+* [small]#https://en.wikipedia.org/wiki/Longitude[_What is longitude?_^]#
+|*lat1mBigDecimal*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: decimal`#
+a|Latitude of GPS location point.
+
+.Read more:
+* [small]#https://en.wikipedia.org/wiki/Latitude[_What is latitude?_^]#
+|*lng1mBigDecimal*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: decimal`#
+a|Longitude of GPS location point.
+
+.Read more:
+* [small]#https://en.wikipedia.org/wiki/Longitude[_What is longitude?_^]#
+|*lat11cmBigDecimal*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: decimal`#
+a|Latitude of GPS location point.
+
+.Read more:
+* [small]#https://en.wikipedia.org/wiki/Latitude[_What is latitude?_^]#
+|*lng11cmBigDecimal*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: decimal`#
+a|Longitude of GPS location point.
+
+.Read more:
+* [small]#https://en.wikipedia.org/wiki/Longitude[_What is longitude?_^]#
+|*lat1cmBigDecimal*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: decimal`#
+a|Latitude of GPS location point.
+
+.Read more:
+* [small]#https://en.wikipedia.org/wiki/Latitude[_What is latitude?_^]#
+|*lng1cmBigDecimal*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: decimal`#
+a|Longitude of GPS location point.
+
+.Read more:
+* [small]#https://en.wikipedia.org/wiki/Longitude[_What is longitude?_^]#
+|*aCharacter*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: character`#
+a|
+
+|*exampleCharacter*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: character`#
+a|
+
+|*enumerationChar*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`enum: [y, n]`#
+
+* [small]#`format: character`#
+a|
+
+|*enumerationWithExampleChar*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`enum: [y, n]`#
+
+* [small]#`format: character`#
+a|
+
+|*aString*
+|`string`
+a|
+* [small]#`required: true`#
+a|
+
+|*exampleString*
+|`string`
+a|
+* [small]#`required: true`#
+a|
+
+|*lowercaseString*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`lowercase: true`#
+a|
+
+|*uppercaseString*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`uppercase: true`#
+a|
+
+|*length2String*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`length: 2`#
+a|
+
+|*minLength2String*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`minLength: 2`#
+
+* [small]#`exclusiveMinimum: false`#
+a|
+
+|*maxLength2String*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`maxLength: 2`#
+
+* [small]#`exclusiveMaximum: false`#
+a|
+
+|*emailString*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: email`#
+a|Well-formed email address
+
+.Read more:
+* [small]#https://tools.ietf.org/html/rfc5322#section-3.4.1[_What is email format?_^]#
+|*phoneString*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: phone number`#
+a|Phone number in the international format.
+
+.Read more:
+* [small]#https://en.wikipedia.org/wiki/National_conventions_for_writing_telephone_numbers[_What is phone number format?_^]#
+|*phoneWithPlusString*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: phone number`#
+a|Phone number in the international format.
+
+.Read more:
+* [small]#https://en.wikipedia.org/wiki/National_conventions_for_writing_telephone_numbers[_What is phone number format?_^]#
+|*enumerationString*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`enum: [new, old]`#
+a|
+
+|*patternString*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: regex`#
+
+* [small]#`pattern: /hello/`#
+
+* [small]#`flags: []`#
+a|
+
+.Read more:
+* [small]#https://www.regular-expressions.info/[_What is regular expressions?_^]#
+|*uriString*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: uri`#
+a|
+
+.Read more:
+* [small]#https://en.wikipedia.org/wiki/Uniform_Resource_Identifier[_What is URI?_^]#
+|*urlEncodedString*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: urlEncoded`#
+a|
+
+.Read more:
+* [small]#https://en.wikipedia.org/wiki/Percent-encoding[_What is URL encoded value?_^]#
+|*viberString*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: viber number`#
+a|Viber number in the international format.
+
+.Read more:
+* [small]#https://en.wikipedia.org/wiki/National_conventions_for_writing_telephone_numbers[_What is viber number format?_^]#
+|*viberWithPlusString*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: viber number`#
+a|Viber number in the international format.
+
+.Read more:
+* [small]#https://en.wikipedia.org/wiki/National_conventions_for_writing_telephone_numbers[_What is viber number format?_^]#
+|*whatsAppString*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: whatsapp number`#
+a|Whatsapp number in the international format.
+
+.Read more:
+* [small]#https://en.wikipedia.org/wiki/National_conventions_for_writing_telephone_numbers[_What is whatsapp number format?_^]#
+|*whatsAppWithPlusString*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: whatsapp number`#
+a|Whatsapp number in the international format.
+
+.Read more:
+* [small]#https://en.wikipedia.org/wiki/National_conventions_for_writing_telephone_numbers[_What is whatsapp number format?_^]#
+|*telegramString*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: telegram number`#
+a|Telegram number in the international format.
+
+.Read more:
+* [small]#https://en.wikipedia.org/wiki/National_conventions_for_writing_telephone_numbers[_What is telegram number format?_^]#
+|*telegramWithPlusString*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: telegram number`#
+a|Telegram number in the international format.
+
+.Read more:
+* [small]#https://en.wikipedia.org/wiki/National_conventions_for_writing_telephone_numbers[_What is telegram number format?_^]#
+|*skypeString*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: skype`#
+a|Skype name
+
+|*countryCodeAlpha2*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: countryCode`#
+
+* [small]#`ISO 3166-1: alpha2`#
+a|Two-letter country code according to ISO 3166-1 alpha2 standard.
+
+.Read more:
+* [small]#https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2[_What is ISO 3166-1 alpha2?_^]#
+|*countryCodeAlpha3*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: countryCode`#
+
+* [small]#`ISO 3166-1: alpha3`#
+a|Three-letter country code according to ISO 3166-1 alpha3 standard.
+
+.Read more:
+* [small]#https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3[_What is ISO 3166-1 alpha3?_^]#
+|*countryCodeNumeric*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: countryCode`#
+
+* [small]#`ISO 3166-1: numeric`#
+a|Three-digit country code according to ISO 3166-1 numeric standard.
+
+.Read more:
+* [small]#https://en.wikipedia.org/wiki/ISO_3166-1_numeric[_What is ISO 3166-1 numeric?_^]#
+|*base64URLEncodedBase*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: base64Encoded`#
+
+* [small]#`alphabet: BASE`#
+a|
+
+.Read more:
+* [small]#https://tools.ietf.org/html/rfc4648#section-4[_What is Base64 Encoding?_^]#
+|*base64URLEncodedUrl*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: base64Encoded`#
+
+* [small]#`alphabet: URL`#
+a|
+
+.Read more:
+* [small]#https://tools.ietf.org/html/rfc4648#section-5[_What is Base64 Url Encoding?_^]#
+|*ip*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: ip`#
+
+* [small]#`version: [ipv4, ipv6]`#
+a|IP address of version 4 or 6.
+
+.Read more:
+* [small]#https://en.wikipedia.org/wiki/IPv4[_What is IP version 4?_^]#
+* [small]#https://en.wikipedia.org/wiki/IPv6[_What is IP version 6?_^]#
+|*ip4*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: ip`#
+
+* [small]#`version: ipv4`#
+a|IP address of version 4.
+
+.Read more:
+* [small]#https://en.wikipedia.org/wiki/IPv4[_What is IP version 4?_^]#
+|*ip6*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: ip`#
+
+* [small]#`version: ipv6`#
+a|IP address of version 6.
+
+.Read more:
+* [small]#https://en.wikipedia.org/wiki/IPv6[_What is IP version 6?_^]#
+|*hostNameString*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: hostname`#
+a|Well-formed hostname
+
+.Read more:
+* [small]#https://tools.ietf.org/html/rfc1034#section-3.1[_What is hostname format?_^]#
+|*latinAlphabetOnlyString*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`alphabet: latinOnly`#
+
+* [small]#`allowsUppercase: true`#
+
+* [small]#`allowsLowercase: true`#
+
+* [small]#`allowsDigits: true`#
+
+* [small]#`allowsPunctuations: true`#
+a|
+
+|*digitsOnlyString*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: digitsOnly`#
+a|
+
+|*anInstant*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: UTC`#
+a|
+
+.Read more:
+* [small]#https://en.wikipedia.org/wiki/Coordinated_Universal_Time[_What is UTC?_^]#
+|*exampleInstant*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: UTC`#
+a|
+
+.Read more:
+* [small]#https://en.wikipedia.org/wiki/Coordinated_Universal_Time[_What is UTC?_^]#
+|*instantFuture*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: UTC`#
+
+* [small]#`future: true`#
+a|
+
+.Read more:
+* [small]#https://en.wikipedia.org/wiki/Coordinated_Universal_Time[_What is UTC?_^]#
+|*instantFutureOrPresent*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: UTC`#
+
+* [small]#`future: true`#
+
+* [small]#`present: true`#
+a|
+
+.Read more:
+* [small]#https://en.wikipedia.org/wiki/Coordinated_Universal_Time[_What is UTC?_^]#
+|*instantPast*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: UTC`#
+
+* [small]#`past: true`#
+a|
+
+.Read more:
+* [small]#https://en.wikipedia.org/wiki/Coordinated_Universal_Time[_What is UTC?_^]#
+|*instantPastOrPresent*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: UTC`#
+
+* [small]#`past: true`#
+
+* [small]#`present: true`#
+a|
+
+.Read more:
+* [small]#https://en.wikipedia.org/wiki/Coordinated_Universal_Time[_What is UTC?_^]#
+|*instantTruncatedTimeMillis*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: UTC`#
+
+* [small]#`truncated: millis`#
+a|
+
+.Read more:
+* [small]#https://en.wikipedia.org/wiki/Coordinated_Universal_Time[_What is UTC?_^]#
+|*instantTruncatedTimeSeconds*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: UTC`#
+
+* [small]#`truncated: seconds`#
+a|
+
+.Read more:
+* [small]#https://en.wikipedia.org/wiki/Coordinated_Universal_Time[_What is UTC?_^]#
+|*instantTruncatedTimeMinutes*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: UTC`#
+
+* [small]#`truncated: minutes`#
+a|
+
+.Read more:
+* [small]#https://en.wikipedia.org/wiki/Coordinated_Universal_Time[_What is UTC?_^]#
+|*instantTruncatedTimeHours*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: UTC`#
+
+* [small]#`truncated: hours`#
+a|
+
+.Read more:
+* [small]#https://en.wikipedia.org/wiki/Coordinated_Universal_Time[_What is UTC?_^]#
+|*colorEnum*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`enum: [RED, GREEN, BLUE]`#
+a|
+
+|*exampleEnum*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`enum: [RED, GREEN, BLUE]`#
+a|
+
+|*subEnumInclude*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`enum: [GREEN, BLUE]`#
+a|
+
+|*subEnumExclude*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`enum: [RED]`#
+a|
+
+|*subEnumWithExample*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`enum: [GREEN, BLUE]`#
+a|
+
+|*optionalList*
+|`array`
+a|
+* [small]#`required: true`#
+
+* [small]#`optionalItem: true`#
+a|
+
+|*aList*
+|`array`
+a|
+* [small]#`required: true`#
+a|
+
+|*exampleList*
+|`array`
+a|
+* [small]#`required: true`#
+a|
+
+|*uniqueItemsList*
+|`array`
+a|
+* [small]#`required: true`#
+
+* [small]#`uniqueItems: true`#
+a|
+
+|*size5List*
+|`array`
+a|
+* [small]#`required: true`#
+
+* [small]#`size: 5`#
+a|
+
+|*minSize5List*
+|`array`
+a|
+* [small]#`required: true`#
+
+* [small]#`minSize: 5`#
+
+* [small]#`exclusiveMinimum: false`#
+a|
+
+|*maxSize5List*
+|`array`
+a|
+* [small]#`required: true`#
+
+* [small]#`maxSize: 5`#
+
+* [small]#`exclusiveMaximum: false`#
+a|
+
+|*optionalNested*
+|`object`
+a|
+* [small]#`optional: true`#
+a|
+
+|*requiredNested*
+|`object`
+a|
+* [small]#`required: true`#
+a|
+
+|*optionalNestedList*
+|`array`
+a|
+* [small]#`required: true`#
+
+* [small]#`optionalItem: true`#
+a|
+
+|*requiredNestedList*
+|`array`
+a|
+* [small]#`required: true`#
+a|
+
+|===
+
+// ----------------------------------------- Micro Service | POST / | Request | "optionalNested" Parameters -----------------------------------------
+===== HTTP Request "optionalNested" Parameters Description
+
+[cols="25%,9%,28%,32%"]
+|===
+^|*Name* |*Type* |*Restrictions*| *Description*
+|*string*
+|`string`
+a|
+* [small]#`required: true`#
+a|
+
+|===
+
+// ----------------------------------------- Micro Service | POST / | Request | "requiredNested" Parameters -----------------------------------------
+===== HTTP Request "requiredNested" Parameters Description
+
+[cols="25%,9%,28%,32%"]
+|===
+^|*Name* |*Type* |*Restrictions*| *Description*
+|*string*
+|`string`
+a|
+* [small]#`required: true`#
+a|
+
+|===
+
+// ------------------------------------- Micro Service | POST / | Request | "optionalNestedList" Item Parameters -------------------------------------
+===== HTTP Request "optionalNestedList" Item Parameters Description
+
+[cols="25%,9%,28%,32%"]
+|===
+^|*Name* |*Type* |*Restrictions*| *Description*
+|*string*
+|`string`
+a|
+* [small]#`required: true`#
+a|
+
+|===
+
+// ------------------------------------- Micro Service | POST / | Request | "requiredNestedList" Item Parameters -------------------------------------
+===== HTTP Request "requiredNestedList" Item Parameters Description
+
+[cols="25%,9%,28%,32%"]
+|===
+^|*Name* |*Type* |*Restrictions*| *Description*
+|*string*
+|`string`
+a|
+* [small]#`required: true`#
+a|
+
+|===
+
+// ------------------------------------------------- Micro Service | POST / | Request | JSON Schema -------------------------------------------------
+===== HTTP Request Body JSON Schema
+
+[small]#https://json-schema.org/[_(Read more about JSON Schema)_^]#
+
+[source,json]
+----
+{
+  "$schema": "http://json-schema.org/schema#",
+  "type": "object",
+  "properties": {
+    "optional": {
+      "type": "string",
+      "examples": [
+        "string"
+      ]
+    },
+    "aBoolean": {
+      "type": "boolean",
+      "examples": [
+        false
+      ]
+    },
+    "exampleBoolean": {
+      "type": "boolean",
+      "examples": [
+        true
+      ]
+    },
+    "assertFalse": {
+      "type": "boolean",
+      "examples": [
+        false
+      ]
+    },
+    "assertTrue": {
+      "type": "boolean",
+      "examples": [
+        true
+      ]
+    },
+    "aByte": {
+      "type": "number",
+      "format": "int8",
+      "examples": [
+        10
+      ]
+    },
+    "exampleByte": {
+      "type": "number",
+      "format": "int8",
+      "examples": [
+        7
+      ]
+    },
+    "minIntByte": {
+      "type": "number",
+      "format": "int8",
+      "minimum": 5,
+      "exclusiveMinimum": false,
+      "examples": [
+        5
+      ]
+    },
+    "maxIntByte": {
+      "type": "number",
+      "format": "int8",
+      "maximum": 15,
+      "exclusiveMaximum": false,
+      "examples": [
+        15
+      ]
+    },
+    "minNumberByte": {
+      "type": "number",
+      "format": "int8",
+      "minimum": 5,
+      "exclusiveMinimum": false,
+      "examples": [
+        5
+      ]
+    },
+    "maxNumberByte": {
+      "type": "number",
+      "format": "int8",
+      "maximum": 15,
+      "exclusiveMaximum": false,
+      "examples": [
+        15
+      ]
+    },
+    "aShort": {
+      "type": "number",
+      "format": "int16",
+      "examples": [
+        10000
+      ]
+    },
+    "exampleShort": {
+      "type": "number",
+      "format": "int16",
+      "examples": [
+        7000
+      ]
+    },
+    "minIntShort": {
+      "type": "number",
+      "format": "int16",
+      "minimum": 5000,
+      "exclusiveMinimum": false,
+      "examples": [
+        5000
+      ]
+    },
+    "maxIntShort": {
+      "type": "number",
+      "format": "int16",
+      "maximum": 15000,
+      "exclusiveMaximum": false,
+      "examples": [
+        15000
+      ]
+    },
+    "minNumberShort": {
+      "type": "number",
+      "format": "int16",
+      "minimum": 5000,
+      "exclusiveMinimum": false,
+      "examples": [
+        5000
+      ]
+    },
+    "maxNumberShort": {
+      "type": "number",
+      "format": "int16",
+      "maximum": 15000,
+      "exclusiveMaximum": false,
+      "examples": [
+        15000
+      ]
+    },
+    "anInteger": {
+      "type": "number",
+      "format": "int32",
+      "examples": [
+        1000000000
+      ]
+    },
+    "exampleInteger": {
+      "type": "number",
+      "format": "int32",
+      "examples": [
+        700000000
+      ]
+    },
+    "minIntInteger": {
+      "type": "number",
+      "format": "int32",
+      "minimum": 500000000,
+      "exclusiveMinimum": false,
+      "examples": [
+        500000000
+      ]
+    },
+    "maxIntInteger": {
+      "type": "number",
+      "format": "int32",
+      "maximum": 2000000000,
+      "exclusiveMaximum": false,
+      "examples": [
+        2000000000
+      ]
+    },
+    "minNumberInteger": {
+      "type": "number",
+      "format": "int32",
+      "minimum": 500000000,
+      "exclusiveMinimum": false,
+      "examples": [
+        500000000
+      ]
+    },
+    "maxNumberInteger": {
+      "type": "number",
+      "format": "int32",
+      "maximum": 2000000000,
+      "exclusiveMaximum": false,
+      "examples": [
+        2000000000
+      ]
+    },
+    "aLong": {
+      "type": "number",
+      "format": "int64",
+      "examples": [
+        1000000000000
+      ]
+    },
+    "exampleLong": {
+      "type": "number",
+      "format": "int64",
+      "examples": [
+        700000000000
+      ]
+    },
+    "minIntLong": {
+      "type": "number",
+      "format": "int64",
+      "minimum": 500000000000,
+      "exclusiveMinimum": false,
+      "examples": [
+        500000000000
+      ]
+    },
+    "maxIntLong": {
+      "type": "number",
+      "format": "int64",
+      "maximum": 2000000000000,
+      "exclusiveMaximum": false,
+      "examples": [
+        2000000000000
+      ]
+    },
+    "minNumberLong": {
+      "type": "number",
+      "format": "int64",
+      "minimum": 500000000000,
+      "exclusiveMinimum": false,
+      "examples": [
+        500000000000
+      ]
+    },
+    "maxNumberLong": {
+      "type": "number",
+      "format": "int64",
+      "maximum": 2000000000000,
+      "exclusiveMaximum": false,
+      "examples": [
+        2000000000000
+      ]
+    },
+    "aBigInteger": {
+      "type": "number",
+      "format": "integer",
+      "examples": [
+        1000000000000000000000
+      ]
+    },
+    "exampleBigInteger": {
+      "type": "number",
+      "format": "integer",
+      "examples": [
+        700000000000000000000
+      ]
+    },
+    "minNumberBigInteger": {
+      "type": "number",
+      "format": "integer",
+      "minimum": 500000000000000000000,
+      "exclusiveMinimum": false,
+      "examples": [
+        500000000000000000000
+      ]
+    },
+    "maxNumberBigInteger": {
+      "type": "number",
+      "format": "integer",
+      "maximum": 2000000000000000000000,
+      "exclusiveMaximum": false,
+      "examples": [
+        2000000000000000000000
+      ]
+    },
+    "aFloat": {
+      "type": "number",
+      "format": "float",
+      "examples": [
+        3.14
+      ]
+    },
+    "exampleFloat": {
+      "type": "number",
+      "format": "float",
+      "examples": [
+        2.78
+      ]
+    },
+    "minIntFloat": {
+      "type": "number",
+      "format": "float",
+      "minimum": 1.1,
+      "exclusiveMinimum": false,
+      "examples": [
+        1.1
+      ]
+    },
+    "maxIntFloat": {
+      "type": "number",
+      "format": "float",
+      "maximum": 6.78,
+      "exclusiveMaximum": false,
+      "examples": [
+        6.78
+      ]
+    },
+    "minNumberFloat": {
+      "type": "number",
+      "format": "float",
+      "minimum": 1.1,
+      "exclusiveMinimum": false,
+      "examples": [
+        1.1
+      ]
+    },
+    "maxNumberFloat": {
+      "type": "number",
+      "format": "float",
+      "maximum": 6.78,
+      "exclusiveMaximum": false,
+      "examples": [
+        6.78
+      ]
+    },
+    "aDouble": {
+      "type": "number",
+      "format": "double",
+      "examples": [
+        3.1415926535
+      ]
+    },
+    "exampleDouble": {
+      "type": "number",
+      "format": "double",
+      "examples": [
+        2.789654321
+      ]
+    },
+    "minIntDouble": {
+      "type": "number",
+      "format": "double",
+      "minimum": 1.123456789,
+      "exclusiveMinimum": false,
+      "examples": [
+        1.123456789
+      ]
+    },
+    "maxIntDouble": {
+      "type": "number",
+      "format": "double",
+      "maximum": 6.7815926535,
+      "exclusiveMaximum": false,
+      "examples": [
+        6.7815926535
+      ]
+    },
+    "minNumberDouble": {
+      "type": "number",
+      "format": "double",
+      "minimum": 1.1234567890,
+      "exclusiveMinimum": false,
+      "examples": [
+        1.1234567890
+      ]
+    },
+    "maxNumberDouble": {
+      "type": "number",
+      "format": "double",
+      "maximum": 6.7815926535,
+      "exclusiveMaximum": false,
+      "examples": [
+        6.7815926535
+      ]
+    },
+    "aBigDecimal": {
+      "type": "number",
+      "format": "decimal",
+      "examples": [
+        3.1415926535897932384626433832795028841971
+      ]
+    },
+    "exampleBigDecimal": {
+      "type": "number",
+      "format": "decimal",
+      "examples": [
+        2.9876543210987654321098765432109876543210
+      ]
+    },
+    "minNumberBigDecimal": {
+      "type": "number",
+      "format": "decimal",
+      "minimum": 1.1234567890123456789012345678901234567890,
+      "exclusiveMinimum": false,
+      "examples": [
+        1.1234567890123456789012345678901234567890
+      ]
+    },
+    "maxNumberBigDecimal": {
+      "type": "number",
+      "format": "decimal",
+      "maximum": 6.7815926535897932384626433832795028841971,
+      "exclusiveMaximum": false,
+      "examples": [
+        6.7815926535897932384626433832795028841971
+      ]
+    },
+    "numericBigDecimal": {
+      "type": "number",
+      "format": "decimal",
+      "examples": [
+        987654321.98765
+      ]
+    },
+    "lat111kmBigDecimal": {
+      "type": "number",
+      "format": "decimal",
+      "minimum": -90,
+      "exclusiveMinimum": false,
+      "maximum": 90,
+      "exclusiveMaximum": false,
+      "examples": [
+        34
+      ]
+    },
+    "lng111kmBigDecimal": {
+      "type": "number",
+      "format": "decimal",
+      "minimum": -180,
+      "exclusiveMinimum": false,
+      "maximum": 180,
+      "exclusiveMaximum": false,
+      "examples": [
+        -118
+      ]
+    },
+    "lat11kmBigDecimal": {
+      "type": "number",
+      "format": "decimal",
+      "minimum": -90,
+      "exclusiveMinimum": false,
+      "maximum": 90,
+      "exclusiveMaximum": false,
+      "examples": [
+        34.1
+      ]
+    },
+    "lng11kmBigDecimal": {
+      "type": "number",
+      "format": "decimal",
+      "minimum": -180,
+      "exclusiveMinimum": false,
+      "maximum": 180,
+      "exclusiveMaximum": false,
+      "examples": [
+        -118.3
+      ]
+    },
+    "lat1kmBigDecimal": {
+      "type": "number",
+      "format": "decimal",
+      "minimum": -90,
+      "exclusiveMinimum": false,
+      "maximum": 90,
+      "exclusiveMaximum": false,
+      "examples": [
+        34.06
+      ]
+    },
+    "lng1kmBigDecimal": {
+      "type": "number",
+      "format": "decimal",
+      "minimum": -180,
+      "exclusiveMinimum": false,
+      "maximum": 180,
+      "exclusiveMaximum": false,
+      "examples": [
+        -118.30
+      ]
+    },
+    "lat111mBigDecimal": {
+      "type": "number",
+      "format": "decimal",
+      "minimum": -90,
+      "exclusiveMinimum": false,
+      "maximum": 90,
+      "exclusiveMaximum": false,
+      "examples": [
+        34.064
+      ]
+    },
+    "lng111mBigDecimal": {
+      "type": "number",
+      "format": "decimal",
+      "minimum": -180,
+      "exclusiveMinimum": false,
+      "maximum": 180,
+      "exclusiveMaximum": false,
+      "examples": [
+        -118.296
+      ]
+    },
+    "lat11mBigDecimal": {
+      "type": "number",
+      "format": "decimal",
+      "minimum": -90,
+      "exclusiveMinimum": false,
+      "maximum": 90,
+      "exclusiveMaximum": false,
+      "examples": [
+        34.0638
+      ]
+    },
+    "lng11mBigDecimal": {
+      "type": "number",
+      "format": "decimal",
+      "minimum": -180,
+      "exclusiveMinimum": false,
+      "maximum": 180,
+      "exclusiveMaximum": false,
+      "examples": [
+        -118.2963
+      ]
+    },
+    "lat1mBigDecimal": {
+      "type": "number",
+      "format": "decimal",
+      "minimum": -90,
+      "exclusiveMinimum": false,
+      "maximum": 90,
+      "exclusiveMaximum": false,
+      "examples": [
+        34.06382
+      ]
+    },
+    "lng1mBigDecimal": {
+      "type": "number",
+      "format": "decimal",
+      "minimum": -180,
+      "exclusiveMinimum": false,
+      "maximum": 180,
+      "exclusiveMaximum": false,
+      "examples": [
+        -118.29634
+      ]
+    },
+    "lat11cmBigDecimal": {
+      "type": "number",
+      "format": "decimal",
+      "minimum": -90,
+      "exclusiveMinimum": false,
+      "maximum": 90,
+      "exclusiveMaximum": false,
+      "examples": [
+        34.063821
+      ]
+    },
+    "lng11cmBigDecimal": {
+      "type": "number",
+      "format": "decimal",
+      "minimum": -180,
+      "exclusiveMinimum": false,
+      "maximum": 180,
+      "exclusiveMaximum": false,
+      "examples": [
+        -118.296339
+      ]
+    },
+    "lat1cmBigDecimal": {
+      "type": "number",
+      "format": "decimal",
+      "minimum": -90,
+      "exclusiveMinimum": false,
+      "maximum": 90,
+      "exclusiveMaximum": false,
+      "examples": [
+        34.0638210
+      ]
+    },
+    "lng1cmBigDecimal": {
+      "type": "number",
+      "format": "decimal",
+      "minimum": -180,
+      "exclusiveMinimum": false,
+      "maximum": 180,
+      "exclusiveMaximum": false,
+      "examples": [
+        -118.2963390
+      ]
+    },
+    "aCharacter": {
+      "type": "string",
+      "examples": [
+        "y"
+      ]
+    },
+    "exampleCharacter": {
+      "type": "string",
+      "examples": [
+        "h"
+      ]
+    },
+    "enumerationChar": {
+      "type": "string",
+      "enum": [
+        "y",
+        "n"
+      ],
+      "examples": [
+        "y"
+      ]
+    },
+    "enumerationWithExampleChar": {
+      "type": "string",
+      "enum": [
+        "y",
+        "n"
+      ],
+      "examples": [
+        "y"
+      ]
+    },
+    "aString": {
+      "type": "string",
+      "examples": [
+        "string"
+      ]
+    },
+    "exampleString": {
+      "type": "string",
+      "examples": [
+        "hello"
+      ]
+    },
+    "lowercaseString": {
+      "type": "string",
+      "examples": [
+        "string"
+      ]
+    },
+    "uppercaseString": {
+      "type": "string",
+      "examples": [
+        "STRING"
+      ]
+    },
+    "length2String": {
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 2,
+      "examples": [
+        "string"
+      ]
+    },
+    "minLength2String": {
+      "type": "string",
+      "minLength": 2,
+      "examples": [
+        "string"
+      ]
+    },
+    "maxLength2String": {
+      "type": "string",
+      "maxLength": 2,
+      "examples": [
+        "string"
+      ]
+    },
+    "emailString": {
+      "type": "string",
+      "format": "email",
+      "examples": [
+        "welcome@rxmicro.io"
+      ]
+    },
+    "phoneString": {
+      "type": "string",
+      "format": "phone",
+      "examples": [
+        "12254359430"
+      ]
+    },
+    "phoneWithPlusString": {
+      "type": "string",
+      "format": "phone",
+      "examples": [
+        "+12254359430"
+      ]
+    },
+    "enumerationString": {
+      "type": "string",
+      "enum": [
+        "new",
+        "old"
+      ],
+      "examples": [
+        "new"
+      ]
+    },
+    "patternString": {
+      "type": "string",
+      "pattern": "hello",
+      "examples": [
+        "hello"
+      ]
+    },
+    "uriString": {
+      "type": "string",
+      "format": "uri",
+      "examples": [
+        "http://rxmicro.io"
+      ]
+    },
+    "urlEncodedString": {
+      "type": "string",
+      "format": "url-encoded",
+      "examples": [
+        "Hello%20world%21"
+      ]
+    },
+    "viberString": {
+      "type": "string",
+      "format": "viber",
+      "examples": [
+        "12257111123"
+      ]
+    },
+    "viberWithPlusString": {
+      "type": "string",
+      "format": "viber",
+      "examples": [
+        "+12257111123"
+      ]
+    },
+    "whatsAppString": {
+      "type": "string",
+      "format": "whatsapp",
+      "examples": [
+        "12257117934"
+      ]
+    },
+    "whatsAppWithPlusString": {
+      "type": "string",
+      "format": "whatsapp",
+      "examples": [
+        "+12257117934"
+      ]
+    },
+    "telegramString": {
+      "type": "string",
+      "format": "telegram",
+      "examples": [
+        "12256782613"
+      ]
+    },
+    "telegramWithPlusString": {
+      "type": "string",
+      "format": "telegram",
+      "examples": [
+        "+12256782613"
+      ]
+    },
+    "skypeString": {
+      "type": "string",
+      "format": "skype",
+      "examples": [
+        "rxmicro.io"
+      ]
+    },
+    "countryCodeAlpha2": {
+      "type": "string",
+      "examples": [
+        "US"
+      ]
+    },
+    "countryCodeAlpha3": {
+      "type": "string",
+      "examples": [
+        "USA"
+      ]
+    },
+    "countryCodeNumeric": {
+      "type": "string",
+      "examples": [
+        "840"
+      ]
+    },
+    "base64URLEncodedBase": {
+      "type": "string",
+      "examples": [
+        "SGVsbG8gd29ybGQh"
+      ]
+    },
+    "base64URLEncodedUrl": {
+      "type": "string",
+      "examples": [
+        "SGVsbG8gd29ybGQh"
+      ]
+    },
+    "ip": {
+      "type": "string",
+      "format": "ipv4, ipv6",
+      "examples": [
+        "8.8.8.8"
+      ]
+    },
+    "ip4": {
+      "type": "string",
+      "format": "ipv4",
+      "examples": [
+        "8.8.8.8"
+      ]
+    },
+    "ip6": {
+      "type": "string",
+      "format": "ipv6",
+      "examples": [
+        "2001:db8:85a3::8a2e:370:7334"
+      ]
+    },
+    "hostNameString": {
+      "type": "string",
+      "format": "hostname",
+      "examples": [
+        "rxmicro.io"
+      ]
+    },
+    "latinAlphabetOnlyString": {
+      "type": "string",
+      "examples": [
+        "Latin alphabet only!"
+      ]
+    },
+    "digitsOnlyString": {
+      "type": "string",
+      "examples": [
+        "9876"
+      ]
+    },
+    "anInstant": {
+      "type": "string",
+      "format": "date-time",
+      "examples": [
+        "1987-04-10T23:40:15.789Z"
+      ]
+    },
+    "exampleInstant": {
+      "type": "string",
+      "format": "date-time",
+      "examples": [
+        "2020-04-10T23:40:15.789Z"
+      ]
+    },
+    "instantFuture": {
+      "type": "string",
+      "format": "date-time",
+      "examples": [
+        "2187-04-10T23:40:15.789Z"
+      ]
+    },
+    "instantFutureOrPresent": {
+      "type": "string",
+      "format": "date-time",
+      "examples": [
+        "2187-04-10T23:40:15.789Z"
+      ]
+    },
+    "instantPast": {
+      "type": "string",
+      "format": "date-time",
+      "examples": [
+        "1987-04-10T23:40:15.789Z"
+      ]
+    },
+    "instantPastOrPresent": {
+      "type": "string",
+      "format": "date-time",
+      "examples": [
+        "1987-04-10T23:40:15.789Z"
+      ]
+    },
+    "instantTruncatedTimeMillis": {
+      "type": "string",
+      "format": "date-time",
+      "examples": [
+        "1987-04-10T23:40:15Z"
+      ]
+    },
+    "instantTruncatedTimeSeconds": {
+      "type": "string",
+      "format": "date-time",
+      "examples": [
+        "1987-04-10T23:40:00Z"
+      ]
+    },
+    "instantTruncatedTimeMinutes": {
+      "type": "string",
+      "format": "date-time",
+      "examples": [
+        "1987-04-10T23:00:00Z"
+      ]
+    },
+    "instantTruncatedTimeHours": {
+      "type": "string",
+      "format": "date-time",
+      "examples": [
+        "1987-04-10T00:00:00Z"
+      ]
+    },
+    "colorEnum": {
+      "type": "string",
+      "enum": [
+        "RED",
+        "GREEN",
+        "BLUE"
+      ],
+      "examples": [
+        "RED"
+      ]
+    },
+    "exampleEnum": {
+      "type": "string",
+      "enum": [
+        "RED",
+        "GREEN",
+        "BLUE"
+      ],
+      "examples": [
+        "BLUE"
+      ]
+    },
+    "subEnumInclude": {
+      "type": "string",
+      "enum": [
+        "GREEN",
+        "BLUE"
+      ],
+      "examples": [
+        "GREEN"
+      ]
+    },
+    "subEnumExclude": {
+      "type": "string",
+      "enum": [
+        "RED"
+      ],
+      "examples": [
+        "RED"
+      ]
+    },
+    "subEnumWithExample": {
+      "type": "string",
+      "enum": [
+        "GREEN",
+        "BLUE"
+      ],
+      "examples": [
+        "BLUE"
+      ]
+    },
+    "optionalList": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "examples": [
+          "string"
+        ]
+      }
+    },
+    "aList": {
+      "type": "array",
+      "items": {
+        "type": "number",
+        "examples": [
+          1000000000
+        ]
+      }
+    },
+    "exampleList": {
+      "type": "array",
+      "items": {
+        "type": "number",
+        "examples": [
+          "item1",
+          "item2"
+        ]
+      }
+    },
+    "uniqueItemsList": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "number",
+        "examples": [
+          1000000000
+        ]
+      }
+    },
+    "size5List": {
+      "type": "array",
+      "minItems": 5,
+      "maxItems": 5,
+      "items": {
+        "type": "number",
+        "examples": [
+          1000000000
+        ]
+      }
+    },
+    "minSize5List": {
+      "type": "array",
+      "minItems": 5,
+      "items": {
+        "type": "number",
+        "examples": [
+          1000000000
+        ]
+      }
+    },
+    "maxSize5List": {
+      "type": "array",
+      "maxItems": 5,
+      "items": {
+        "type": "number",
+        "examples": [
+          1000000000
+        ]
+      }
+    },
+    "optionalNested": {
+      "type": "object",
+      "properties": {
+        "string": {
+          "type": "string",
+          "examples": [
+            "string"
+          ]
+        }
+      },
+      "required": [
+        "string"
+      ],
+      "minProperties": 1,
+      "maxProperties": 1
+    },
+    "requiredNested": {
+      "type": "object",
+      "properties": {
+        "string": {
+          "type": "string",
+          "examples": [
+            "string"
+          ]
+        }
+      },
+      "required": [
+        "string"
+      ],
+      "minProperties": 1,
+      "maxProperties": 1
+    },
+    "optionalNestedList": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "string": {
+            "type": "string",
+            "examples": [
+              "string"
+            ]
+          }
+        },
+        "required": [
+          "string"
+        ],
+        "minProperties": 1,
+        "maxProperties": 1
+      }
+    },
+    "requiredNestedList": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "string": {
+            "type": "string",
+            "examples": [
+              "string"
+            ]
+          }
+        },
+        "required": [
+          "string"
+        ],
+        "minProperties": 1,
+        "maxProperties": 1
+      }
+    }
+  },
+  "required": [
+    "aBoolean",
+    "exampleBoolean",
+    "assertFalse",
+    "assertTrue",
+    "aByte",
+    "exampleByte",
+    "minIntByte",
+    "maxIntByte",
+    "minNumberByte",
+    "maxNumberByte",
+    "aShort",
+    "exampleShort",
+    "minIntShort",
+    "maxIntShort",
+    "minNumberShort",
+    "maxNumberShort",
+    "anInteger",
+    "exampleInteger",
+    "minIntInteger",
+    "maxIntInteger",
+    "minNumberInteger",
+    "maxNumberInteger",
+    "aLong",
+    "exampleLong",
+    "minIntLong",
+    "maxIntLong",
+    "minNumberLong",
+    "maxNumberLong",
+    "aBigInteger",
+    "exampleBigInteger",
+    "minNumberBigInteger",
+    "maxNumberBigInteger",
+    "aFloat",
+    "exampleFloat",
+    "minIntFloat",
+    "maxIntFloat",
+    "minNumberFloat",
+    "maxNumberFloat",
+    "aDouble",
+    "exampleDouble",
+    "minIntDouble",
+    "maxIntDouble",
+    "minNumberDouble",
+    "maxNumberDouble",
+    "aBigDecimal",
+    "exampleBigDecimal",
+    "minNumberBigDecimal",
+    "maxNumberBigDecimal",
+    "numericBigDecimal",
+    "lat111kmBigDecimal",
+    "lng111kmBigDecimal",
+    "lat11kmBigDecimal",
+    "lng11kmBigDecimal",
+    "lat1kmBigDecimal",
+    "lng1kmBigDecimal",
+    "lat111mBigDecimal",
+    "lng111mBigDecimal",
+    "lat11mBigDecimal",
+    "lng11mBigDecimal",
+    "lat1mBigDecimal",
+    "lng1mBigDecimal",
+    "lat11cmBigDecimal",
+    "lng11cmBigDecimal",
+    "lat1cmBigDecimal",
+    "lng1cmBigDecimal",
+    "aCharacter",
+    "exampleCharacter",
+    "enumerationChar",
+    "enumerationWithExampleChar",
+    "aString",
+    "exampleString",
+    "lowercaseString",
+    "uppercaseString",
+    "length2String",
+    "minLength2String",
+    "maxLength2String",
+    "emailString",
+    "phoneString",
+    "phoneWithPlusString",
+    "enumerationString",
+    "patternString",
+    "uriString",
+    "urlEncodedString",
+    "viberString",
+    "viberWithPlusString",
+    "whatsAppString",
+    "whatsAppWithPlusString",
+    "telegramString",
+    "telegramWithPlusString",
+    "skypeString",
+    "countryCodeAlpha2",
+    "countryCodeAlpha3",
+    "countryCodeNumeric",
+    "base64URLEncodedBase",
+    "base64URLEncodedUrl",
+    "ip",
+    "ip4",
+    "ip6",
+    "hostNameString",
+    "latinAlphabetOnlyString",
+    "digitsOnlyString",
+    "anInstant",
+    "exampleInstant",
+    "instantFuture",
+    "instantFutureOrPresent",
+    "instantPast",
+    "instantPastOrPresent",
+    "instantTruncatedTimeMillis",
+    "instantTruncatedTimeSeconds",
+    "instantTruncatedTimeMinutes",
+    "instantTruncatedTimeHours",
+    "colorEnum",
+    "exampleEnum",
+    "subEnumInclude",
+    "subEnumExclude",
+    "subEnumWithExample",
+    "optionalList",
+    "aList",
+    "exampleList",
+    "uniqueItemsList",
+    "size5List",
+    "minSize5List",
+    "maxSize5List",
+    "requiredNested",
+    "optionalNestedList",
+    "requiredNestedList"
+  ],
+  "minProperties": 126,
+  "maxProperties": 128
+}
+----
+
+// ------------------------------------------------------ Micro Service | POST / | Response 200 ------------------------------------------------------
+==== Response 200
+
+// ------------------------------------------------- Micro Service | POST / | Response 200 | Example -------------------------------------------------
+===== HTTP Response Example
+
+[source,http]
+----
+HTTP/1.1 200 OK
+Content-Length: 0
+Request-Id: 62jJeu8x1310662
+
+----
+
+// ------------------------------------------------------ Micro Service | POST / | Response 400 ------------------------------------------------------
+==== Response 400
+
+If current request contains validation error.
+
+// ------------------------------------------------- Micro Service | POST / | Response 400 | Example -------------------------------------------------
+===== HTTP Response Example
+
+[source,http]
+----
+HTTP/1.1 400 Bad Request
+Content-Type: application/json
+Content-Length: 34
+Request-Id: 62jJeu8x1310662
+
+{
+  "message": "Invalid Request"
+}
+----
+
+// ------------------------------------------------- Micro Service | POST / | Response 400 | Headers -------------------------------------------------
+===== HTTP Response Headers Description
+
+[cols="25%,9%,28%,32%"]
+|===
+^|*Name* |*Type* |*Restrictions*| *Description*
+|*Request-Id*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`unique: true`#
+a|An unique request string identifier.
+
+.Read more:
+* [small]#http://rxmicro.io/guides/latest/user-guide.html#rest-controller-request-id-section[_What is request id?_^]#
+|===
+
+// --------------------------------------------- Micro Service | POST / | Response 400 | Body Parameters ---------------------------------------------
+===== HTTP Response Body Parameters Description
+
+[cols="25%,9%,28%,32%"]
+|===
+^|*Name* |*Type* |*Restrictions*| *Description*
+|*message*
+|`string`
+a|
+* [small]#`required: true`#
+a|The detailed cause of the arisen validation error.
+
+|===
+
+// ------------------------------------------------------ Micro Service | POST / | Response 500 ------------------------------------------------------
+==== Response 500
+
+If internal server error detected.
+
+// ------------------------------------------------- Micro Service | POST / | Response 500 | Example -------------------------------------------------
+===== HTTP Response Example
+
+[source,http]
+----
+HTTP/1.1 500 Internal Server Error
+Content-Type: application/json
+Content-Length: 33
+Request-Id: 62jJeu8x1310662
+
+{
+  "message": "Internal Error"
+}
+----
+
+// ------------------------------------------------- Micro Service | POST / | Response 500 | Headers -------------------------------------------------
+===== HTTP Response Headers Description
+
+[cols="25%,9%,28%,32%"]
+|===
+^|*Name* |*Type* |*Restrictions*| *Description*
+|*Request-Id*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`unique: true`#
+a|An unique request string identifier.
+
+.Read more:
+* [small]#http://rxmicro.io/guides/latest/user-guide.html#rest-controller-request-id-section[_What is request id?_^]#
+|===
+
+// --------------------------------------------- Micro Service | POST / | Response 500 | Body Parameters ---------------------------------------------
+===== HTTP Response Body Parameters Description
+
+[cols="25%,9%,28%,32%"]
+|===
+^|*Name* |*Type* |*Restrictions*| *Description*
+|*message*
+|`string`
+a|
+* [small]#`required: true`#
+a|`Internal Server Error` value (by default) or the detailed cause of the arisen internal server error.
+
+|===
+

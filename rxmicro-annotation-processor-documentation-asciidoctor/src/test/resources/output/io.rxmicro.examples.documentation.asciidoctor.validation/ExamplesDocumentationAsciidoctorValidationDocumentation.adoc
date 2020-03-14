@@ -1,0 +1,203 @@
+= Examples Documentation Asciidoctor Validation
+GeneratedBy RxMicroAnnotationProcessor <rxmicro.io@gmail.com>
+1.0-SNAPSHOT
+:icons: font
+:sectanchors: 
+:sectlinks: 
+:toc: left
+:toclevels: 3
+:sectnums: 
+:sectnumlevels: 5
+
+// --------------------------------------- Examples Documentation Asciidoctor Validation Title and Description ---------------------------------------
+This document describes *the Examples Documentation Asciidoctor Validation*.
+
+<<<
+// ------------------------------------------------------------------ Micro Service ------------------------------------------------------------------
+== Micro Service
+
+<<<
+// -------------------------------------------------------------- Micro Service | PUT / --------------------------------------------------------------
+=== PUT /
+
+// --------------------------------------------------------- Micro Service | PUT / | Request ---------------------------------------------------------
+==== Request
+
+// ---------------------------------------------------- Micro Service | PUT / | Request | Example ----------------------------------------------------
+===== HTTP Request Example
+
+[source,http]
+----
+PUT / HTTP/1.1
+Accept: application/json
+Content-Type: application/json
+Content-Length: 28
+
+{
+  "phone": "12254359430"
+}
+----
+
+// ------------------------------------------------ Micro Service | PUT / | Request | Body Parameters ------------------------------------------------
+===== HTTP Request Body Parameters Description
+
+[cols="25%,9%,28%,32%"]
+|===
+^|*Name* |*Type* |*Restrictions*| *Description*
+|*phone*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: phone number`#
+a|Phone number in the international format.
+
+.Read more:
+* [small]#https://en.wikipedia.org/wiki/National_conventions_for_writing_telephone_numbers[_What is phone number format?_^]#
+|===
+
+// -------------------------------------------------- Micro Service | PUT / | Request | JSON Schema --------------------------------------------------
+===== HTTP Request Body JSON Schema
+
+[small]#https://json-schema.org/[_(Read more about JSON Schema)_^]#
+
+[source,json]
+----
+{
+  "$schema": "http://json-schema.org/schema#",
+  "type": "object",
+  "properties": {
+    "phone": {
+      "type": "string",
+      "format": "phone",
+      "examples": [
+        "12254359430"
+      ]
+    }
+  },
+  "required": [
+    "phone"
+  ],
+  "minProperties": 1,
+  "maxProperties": 1
+}
+----
+
+// ------------------------------------------------------ Micro Service | PUT / | Response 200 ------------------------------------------------------
+==== Response 200
+
+// ------------------------------------------------- Micro Service | PUT / | Response 200 | Example -------------------------------------------------
+===== HTTP Response Example
+
+[source,http]
+----
+HTTP/1.1 200 OK
+Content-Length: 0
+Request-Id: 62jJeu8x1310662
+
+----
+
+// ------------------------------------------------------ Micro Service | PUT / | Response 400 ------------------------------------------------------
+==== Response 400
+
+If current request contains validation error.
+
+// ------------------------------------------------- Micro Service | PUT / | Response 400 | Example -------------------------------------------------
+===== HTTP Response Example
+
+[source,http]
+----
+HTTP/1.1 400 Bad Request
+Content-Type: application/json
+Content-Length: 34
+Request-Id: 62jJeu8x1310662
+
+{
+  "message": "Invalid Request"
+}
+----
+
+// ------------------------------------------------- Micro Service | PUT / | Response 400 | Headers -------------------------------------------------
+===== HTTP Response Headers Description
+
+[cols="25%,9%,28%,32%"]
+|===
+^|*Name* |*Type* |*Restrictions*| *Description*
+|*Request-Id*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`unique: true`#
+a|An unique request string identifier.
+
+.Read more:
+* [small]#http://rxmicro.io/guides/latest/user-guide.html#rest-controller-request-id-section[_What is request id?_^]#
+|===
+
+// --------------------------------------------- Micro Service | PUT / | Response 400 | Body Parameters ---------------------------------------------
+===== HTTP Response Body Parameters Description
+
+[cols="25%,9%,28%,32%"]
+|===
+^|*Name* |*Type* |*Restrictions*| *Description*
+|*message*
+|`string`
+a|
+* [small]#`required: true`#
+a|The detailed cause of the arisen validation error.
+
+|===
+
+// ------------------------------------------------------ Micro Service | PUT / | Response 500 ------------------------------------------------------
+==== Response 500
+
+If internal server error detected.
+
+// ------------------------------------------------- Micro Service | PUT / | Response 500 | Example -------------------------------------------------
+===== HTTP Response Example
+
+[source,http]
+----
+HTTP/1.1 500 Internal Server Error
+Content-Type: application/json
+Content-Length: 33
+Request-Id: 62jJeu8x1310662
+
+{
+  "message": "Internal Error"
+}
+----
+
+// ------------------------------------------------- Micro Service | PUT / | Response 500 | Headers -------------------------------------------------
+===== HTTP Response Headers Description
+
+[cols="25%,9%,28%,32%"]
+|===
+^|*Name* |*Type* |*Restrictions*| *Description*
+|*Request-Id*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`unique: true`#
+a|An unique request string identifier.
+
+.Read more:
+* [small]#http://rxmicro.io/guides/latest/user-guide.html#rest-controller-request-id-section[_What is request id?_^]#
+|===
+
+// --------------------------------------------- Micro Service | PUT / | Response 500 | Body Parameters ---------------------------------------------
+===== HTTP Response Body Parameters Description
+
+[cols="25%,9%,28%,32%"]
+|===
+^|*Name* |*Type* |*Restrictions*| *Description*
+|*message*
+|`string`
+a|
+* [small]#`required: true`#
+a|`Internal Server Error` value (by default) or the detailed cause of the arisen internal server error.
+
+|===
+

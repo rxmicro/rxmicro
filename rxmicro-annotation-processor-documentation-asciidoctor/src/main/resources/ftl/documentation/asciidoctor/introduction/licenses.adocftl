@@ -1,0 +1,17 @@
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#include "../comments.adocftl"/>
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#if PROJECT.licenses?has_content>
+<@commentH2 H1='Introduction' H2='License'/>
+=== License<#if PROJECT.fewLicenses>s</#if>
+
+<#if PROJECT.fewLicenses > 1>
+*The ${PROJECT.name}* is licensed under the: +
+
+<#list PROJECT.licenses as LICENSE>
+* ${LICENSE.url}[${LICENSE.name}^]
+</#list>
+<#else>
+*The ${PROJECT.name}* is licensed under the <#list PROJECT.licenses as LICENSE>${LICENSE.url}[${LICENSE.name}^]</#list>.
+</#if>
+</#if>

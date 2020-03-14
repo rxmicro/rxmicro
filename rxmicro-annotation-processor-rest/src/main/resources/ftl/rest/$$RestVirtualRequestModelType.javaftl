@@ -1,0 +1,53 @@
+<#include "../common-lib.javaftl">
+<#-- -------------------------------------------------------------------------------------------------------- -->
+public final class ${JAVA_MODEL_CLASS.javaSimpleClassName} {
+
+    <#if JAVA_MODEL_CLASS.internals?has_content>
+    // Internals
+    </#if>
+    <#list JAVA_MODEL_CLASS.internals as internal>
+    <#if WITH_CONSTRUCTOR>final </#if>${internal.fieldSimpleType} ${internal.fieldName};
+
+    </#list>
+    <#-- -------------------------------------------------------------------------------------------------------- -->
+    <#if JAVA_MODEL_CLASS.pathVariableEntries?has_content>
+    // Path variables
+    </#if>
+    <#list JAVA_MODEL_CLASS.pathVariableEntries as entry>
+    <#if WITH_CONSTRUCTOR>final </#if>${entry.key.fieldSimpleType} ${entry.key.fieldName};
+
+    </#list>
+    <#-- -------------------------------------------------------------------------------------------------------- -->
+    <#if JAVA_MODEL_CLASS.headerEntries?has_content>
+    // Headers
+    </#if>
+    <#list JAVA_MODEL_CLASS.headerEntries as entry>
+    <#if WITH_CONSTRUCTOR>final </#if>${entry.key.fieldSimpleType} ${entry.key.fieldName};
+
+    </#list>
+    <#-- -------------------------------------------------------------------------------------------------------- -->
+    <#if JAVA_MODEL_CLASS.paramEntries?has_content>
+    // Parameters
+    </#if>
+    <#list JAVA_MODEL_CLASS.paramEntries as entry>
+    <#if WITH_CONSTRUCTOR>final </#if>${entry.key.fieldSimpleType} ${entry.key.fieldName};
+
+    </#list>
+    <#if WITH_CONSTRUCTOR>
+    ${JAVA_MODEL_CLASS.javaSimpleClassName}(<#list PARAMS as PARAM>final ${PARAM.simpleType} ${PARAM.name}<#if PARAM?has_next>, </#if></#list>) {
+        <#list JAVA_MODEL_CLASS.internals as internal>
+        this.${internal.fieldName} = ${internal.fieldName};
+        </#list>
+        <#list JAVA_MODEL_CLASS.pathVariableEntries as entry>
+        this.${entry.key.fieldName} = ${entry.key.fieldName};
+        </#list>
+        <#list JAVA_MODEL_CLASS.headerEntries as entry>
+        this.${entry.key.fieldName} = ${entry.key.fieldName};
+        </#list>
+        <#list JAVA_MODEL_CLASS.paramEntries as entry>
+        this.${entry.key.fieldName} = ${entry.key.fieldName};
+        </#list>
+    }
+    </#if>
+}
+<#-- -------------------------------------------------------------------------------------------------------- -->

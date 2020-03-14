@@ -1,0 +1,80 @@
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#include "resource-group-macro.adocftl"/>
+<#include "resource-macro.adocftl"/>
+<#include "comments.adocftl"/>
+<#-- -------------------------------------------------------------------------------------------------------- -->
+= ${PROJECT.name}
+<#list PROJECT.authors as AUTHOR>${AUTHOR.name} <${AUTHOR.email}><#if AUTHOR?has_next>; </#if></#list>
+<#if PROJECT.versionPresent>${PROJECT.version}</#if><#if GENERATE_DATE>, ${PROJECT.currentDate}</#if>
+<#list DOCUMENT_ATTRIBUTES as attr>
+:${attr.key}: ${attr.value}
+</#list>
+
+<#-- --------------------------------------- Title and Description ------------------------------------------ -->
+<@commentH1 H1='${PROJECT.name} Title and Description' />
+This document describes *the ${PROJECT.name}*.
+
+<#if PROJECT.descriptionPresent>
+${PROJECT.description}
+
+</#if>
+<#if SECTIONS?has_content>
+<<<
+<#-- ------------------------------------------- Introduction ----------------------------------------------- -->
+<@commentH1 H1='Introduction' />
+== Introduction
+
+<#list SECTIONS as SECTION>
+<#if SECTION.includeTemplate>
+<#include "${SECTION.data}">
+<#else>
+${SECTION.data}
+</#if>
+
+</#list>
+</#if>
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#list RESOURCE_GROUPS as GROUP>
+<<<
+<@commentH1 H1=GROUP.name />
+== ${GROUP.name}
+
+<#if GROUP.descriptionPresent>
+${GROUP.description}
+
+</#if>
+<#if GROUP.sections?has_content>
+<@commentH2 H1=GROUP.name H2='Basics' />
+=== Basics
+
+<#list GROUP.sections as SECTION>
+<#if SECTION.invokeMacros>
+<@invoke NAME=SECTION.data GROUP=GROUP/>
+<#else>
+${SECTION.data}
+</#if>
+
+</#list>
+</#if>
+<#list GROUP.resources as RESOURCE>
+<<<
+<#-- --------------------------------------------- Resource ------------------------------------------------- -->
+<#assign RESOURCE_NAME>${RESOURCE.httpMethodMapping.method} ${RESOURCE.httpMethodMapping.exactOrTemplateUri}</#assign>
+<@commentH2 H1=GROUP.name H2=RESOURCE_NAME />
+=== ${RESOURCE_NAME}
+
+<#if RESOURCE.descriptionPresent>
+${RESOURCE.description}
+
+</#if>
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<@displayRequest GROUP=GROUP.name RESOURCE_NAME=RESOURCE_NAME REQUEST=RESOURCE.request/>
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#list RESOURCE.responses as RESPONSE>
+<@displayResponse GROUP=GROUP.name RESOURCE_NAME=RESOURCE_NAME RESPONSE=RESPONSE/>
+</#list>
+<#-- -------------------------------------------------------------------------------------------------------- -->
+</#list>
+</#list>

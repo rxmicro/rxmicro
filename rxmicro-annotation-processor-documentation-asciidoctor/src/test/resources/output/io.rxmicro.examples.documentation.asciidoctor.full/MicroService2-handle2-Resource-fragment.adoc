@@ -1,0 +1,493 @@
+// -------------------------------------------------------- Micro Service2 | GET /latest/test --------------------------------------------------------
+=== GET /latest/test
+
+// --------------------------------------------------- Micro Service2 | GET /latest/test | Request ---------------------------------------------------
+==== Request
+
+// ---------------------------------------------- Micro Service2 | GET /latest/test | Request | Example ----------------------------------------------
+===== HTTP Request Example
+
+[source,http]
+----
+GET /latest/test?validBoolean=true&inValidBoolean=false&validInstant=2187-04-10T23:40:15.789Z&inValidInstant=1987-04-10T23:40:15.789Z&status=created&validEnum=new&inValidEnum=string&validBigDecimal=34.06382&bigDecimal=987654321.987654321&inValidBigDecimal=3.1415926535897932384626433832795028841971&validInteger=100&inValidInteger=1000000000&validDouble=100.0&inValidDouble=3.1415926535&validString=SGVsbG8gd29ybGQh&inValidString=string&validItems=string&inValidItems=string&ip=8.8.8.8&character=y HTTP/1.1
+Host: api.rxmicro.io
+Accept: application/json
+
+----
+
+// ----------------------------------------- Micro Service2 | GET /latest/test | Request | Query Parameters -----------------------------------------
+===== HTTP Request Query Parameters Description
+
+[cols="25%,9%,28%,32%"]
+|===
+^|*Name* |*Type* |*Restrictions*| *Description*
+|*validBoolean*
+|`boolean`
+a|
+* [small]#`required: true`#
+
+* [small]#`expected: true`#
+
+* [small]#`expected: false`#
+a|Must be `true`.Must be `false`.
+
+|*inValidBoolean*
+|`boolean`
+a|
+* [small]#`required: true`#
+a|
+
+|*validInstant*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: UTC`#
+
+* [small]#`future: true`#
+
+* [small]#`future: true`#
+
+* [small]#`present: true`#
+
+* [small]#`past: true`#
+
+* [small]#`past: true`#
+
+* [small]#`present: true`#
+
+* [small]#`truncated: millis`#
+a|
+
+.Read more:
+* [small]#https://en.wikipedia.org/wiki/Coordinated_Universal_Time[_What is UTC?_^]#
+|*inValidInstant*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: UTC`#
+a|
+
+.Read more:
+* [small]#https://en.wikipedia.org/wiki/Coordinated_Universal_Time[_What is UTC?_^]#
+|*status*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`enum: [created, approved, rejected, completed]`#
+a|
+
+|*validEnum*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`enum: [new, old]`#
+a|
+
+|*inValidEnum*
+|`string`
+a|
+* [small]#`required: true`#
+a|
+
+|*validBigDecimal*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: decimal`#
+
+* [small]#`minimum: 0`#
+
+* [small]#`exclusiveMinimum: false`#
+
+* [small]#`maximum: 10`#
+
+* [small]#`exclusiveMaximum: false`#
+
+* [small]#`scale: 2`#
+a|Latitude of GPS location point.Longitude of GPS location point.
+
+.Read more:
+* [small]#https://en.wikipedia.org/wiki/Latitude[_What is latitude?_^]#
+* [small]#https://en.wikipedia.org/wiki/Longitude[_What is longitude?_^]#
+|*bigDecimal*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: decimal`#
+
+* [small]#`precision: 4`#
+a|
+
+|*inValidBigDecimal*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: decimal`#
+a|
+
+|*validInteger*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: int32`#
+
+* [small]#`minimum: 10`#
+
+* [small]#`exclusiveMinimum: false`#
+
+* [small]#`maximum: 100`#
+
+* [small]#`exclusiveMaximum: false`#
+a|
+
+|*inValidInteger*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: int32`#
+a|
+
+|*validDouble*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: double`#
+
+* [small]#`minimum: 10`#
+
+* [small]#`exclusiveMinimum: true`#
+
+* [small]#`maximum: 100`#
+
+* [small]#`exclusiveMaximum: true`#
+a|
+
+|*inValidDouble*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: double`#
+a|
+
+|*validString*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: base64Encoded`#
+
+* [small]#`alphabet: URL`#
+
+* [small]#`format: countryCode`#
+
+* [small]#`ISO 3166-1: alpha2`#
+
+* [small]#`format: digitsOnly`#
+
+* [small]#`format: email`#
+
+* [small]#`format: hostname`#
+
+* [small]#`format: ip`#
+
+* [small]#`version: [ipv4, ipv6]`#
+
+* [small]#`alphabet: latinOnly`#
+
+* [small]#`allowsUppercase: true`#
+
+* [small]#`allowsLowercase: true`#
+
+* [small]#`allowsDigits: true`#
+
+* [small]#`allowsPunctuations: true`#
+
+* [small]#`length: 10`#
+
+* [small]#`lowercase: true`#
+
+* [small]#`maxLength: 10`#
+
+* [small]#`exclusiveMaximum: false`#
+
+* [small]#`minLength: 10`#
+
+* [small]#`exclusiveMinimum: false`#
+
+* [small]#`format: regex`#
+
+* [small]#`pattern: /hello/`#
+
+* [small]#`flags: []`#
+
+* [small]#`format: phone number`#
+
+* [small]#`format: skype`#
+
+* [small]#`format: telegram number`#
+
+* [small]#`uppercase: true`#
+
+* [small]#`format: uri`#
+
+* [small]#`format: urlEncoded`#
+
+* [small]#`format: viber number`#
+
+* [small]#`format: whatsapp number`#
+a|Two-letter country code according to ISO 3166-1 alpha2 standard.Well-formed email addressWell-formed hostnameIP address of version 4 or 6.Phone number in the international format.Skype nameTelegram number in the international format.Viber number in the international format.Whatsapp number in the international format.
+
+.Read more:
+* [small]#https://tools.ietf.org/html/rfc4648#section-5[_What is Base64 Url Encoding?_^]#
+* [small]#https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2[_What is ISO 3166-1 alpha2?_^]#
+* [small]#https://tools.ietf.org/html/rfc5322#section-3.4.1[_What is email format?_^]#
+* [small]#https://tools.ietf.org/html/rfc1034#section-3.1[_What is hostname format?_^]#
+* [small]#https://en.wikipedia.org/wiki/IPv4[_What is IP version 4?_^]#
+* [small]#https://en.wikipedia.org/wiki/IPv6[_What is IP version 6?_^]#
+* [small]#https://www.regular-expressions.info/[_What is regular expressions?_^]#
+* [small]#https://en.wikipedia.org/wiki/National_conventions_for_writing_telephone_numbers[_What is phone number format?_^]#
+* [small]#https://en.wikipedia.org/wiki/National_conventions_for_writing_telephone_numbers[_What is telegram number format?_^]#
+* [small]#https://en.wikipedia.org/wiki/Uniform_Resource_Identifier[_What is URI?_^]#
+* [small]#https://en.wikipedia.org/wiki/Percent-encoding[_What is URL encoded value?_^]#
+* [small]#https://en.wikipedia.org/wiki/National_conventions_for_writing_telephone_numbers[_What is viber number format?_^]#
+* [small]#https://en.wikipedia.org/wiki/National_conventions_for_writing_telephone_numbers[_What is whatsapp number format?_^]#
+|*inValidString*
+|`string`
+a|
+* [small]#`required: true`#
+a|
+
+|*validItems*
+|`array`
+a|
+* [small]#`required: true`#
+
+* [small]#`maxSize: 10`#
+
+* [small]#`exclusiveMaximum: false`#
+
+* [small]#`minSize: 10`#
+
+* [small]#`exclusiveMinimum: false`#
+
+* [small]#`optionalItem: true`#
+
+* [small]#`size: 10`#
+
+* [small]#`uniqueItems: true`#
+a|
+
+|*inValidItems*
+|`array`
+a|
+* [small]#`required: true`#
+a|
+
+|*ip*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: ip`#
+
+* [small]#`version: ipv4`#
+a|IP address of version 4.
+
+.Read more:
+* [small]#https://en.wikipedia.org/wiki/IPv4[_What is IP version 4?_^]#
+|*character*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: character`#
+a|
+
+|===
+
+
+// ------------------------------------------------ Micro Service2 | GET /latest/test | Response 200 ------------------------------------------------
+==== Response 200
+
+// ------------------------------------------- Micro Service2 | GET /latest/test | Response 200 | Example -------------------------------------------
+===== HTTP Response Example
+
+[source,http]
+----
+HTTP/1.1 200 OK
+Content-Length: 0
+Request-Id: 62jJeu8x1310662
+
+----
+
+// ------------------------------------------------ Micro Service2 | GET /latest/test | Response 400 ------------------------------------------------
+==== Response 400
+
+If current request contains validation error.
+
+// ------------------------------------------- Micro Service2 | GET /latest/test | Response 400 | Example -------------------------------------------
+===== HTTP Response Example
+
+[source,http]
+----
+HTTP/1.1 400 Bad Request
+Content-Type: application/json
+Content-Length: 34
+Request-Id: 62jJeu8x1310662
+
+{
+  "message": "Invalid Request"
+}
+----
+
+// ------------------------------------------- Micro Service2 | GET /latest/test | Response 400 | Headers -------------------------------------------
+===== HTTP Response Headers Description
+
+[cols="25%,9%,28%,32%"]
+|===
+^|*Name* |*Type* |*Restrictions*| *Description*
+|*Request-Id*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`unique: true`#
+a|An unique request string identifier.
+
+.Read more:
+* [small]#http://rxmicro.io/guides/latest/user-guide.html#rest-controller-request-id-section[_What is request id?_^]#
+|===
+
+// --------------------------------------- Micro Service2 | GET /latest/test | Response 400 | Body Parameters ---------------------------------------
+===== HTTP Response Body Parameters Description
+
+[cols="25%,9%,28%,32%"]
+|===
+^|*Name* |*Type* |*Restrictions*| *Description*
+|*message*
+|`string`
+a|
+* [small]#`required: true`#
+a|The detailed cause of the arisen validation error.
+
+|===
+
+// ------------------------------------------------ Micro Service2 | GET /latest/test | Response 500 ------------------------------------------------
+==== Response 500
+
+If internal server error detected.
+
+// ------------------------------------------- Micro Service2 | GET /latest/test | Response 500 | Example -------------------------------------------
+===== HTTP Response Example
+
+[source,http]
+----
+HTTP/1.1 500 Internal Server Error
+Content-Type: application/json
+Content-Length: 33
+Request-Id: 62jJeu8x1310662
+
+{
+  "message": "Internal Error"
+}
+----
+
+// ------------------------------------------- Micro Service2 | GET /latest/test | Response 500 | Headers -------------------------------------------
+===== HTTP Response Headers Description
+
+[cols="25%,9%,28%,32%"]
+|===
+^|*Name* |*Type* |*Restrictions*| *Description*
+|*Request-Id*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`unique: true`#
+a|An unique request string identifier.
+
+.Read more:
+* [small]#http://rxmicro.io/guides/latest/user-guide.html#rest-controller-request-id-section[_What is request id?_^]#
+|===
+
+// --------------------------------------- Micro Service2 | GET /latest/test | Response 500 | Body Parameters ---------------------------------------
+===== HTTP Response Body Parameters Description
+
+[cols="25%,9%,28%,32%"]
+|===
+^|*Name* |*Type* |*Restrictions*| *Description*
+|*message*
+|`string`
+a|
+* [small]#`required: true`#
+a|`Internal Server Error` value (by default) or the detailed cause of the arisen internal server error.
+
+.Read more:
+* [small]#xref:internal-error-message-read-more[__(How to activate the displaying of the detailed error message?)__]#
+|===
+
+// ------------------------------------------------ Micro Service2 | GET /latest/test | Response 504 ------------------------------------------------
+==== Response 504
+
+If response is not received within a specified time period.
+
+// ------------------------------------------- Micro Service2 | GET /latest/test | Response 504 | Example -------------------------------------------
+===== HTTP Response Example
+
+[source,http]
+----
+HTTP/1.1 504 Gateway Timeout
+Content-Type: application/json
+Content-Length: 34
+Request-Id: 62jJeu8x1310662
+
+{
+  "message": "Request Timeout"
+}
+----
+
+// ------------------------------------------- Micro Service2 | GET /latest/test | Response 504 | Headers -------------------------------------------
+===== HTTP Response Headers Description
+
+[cols="25%,9%,28%,32%"]
+|===
+^|*Name* |*Type* |*Restrictions*| *Description*
+|*Request-Id*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`unique: true`#
+a|An unique request string identifier.
+
+.Read more:
+* [small]#http://rxmicro.io/guides/latest/user-guide.html#rest-controller-request-id-section[_What is request id?_^]#
+|===
+
+// --------------------------------------- Micro Service2 | GET /latest/test | Response 504 | Body Parameters ---------------------------------------
+===== HTTP Response Body Parameters Description
+
+[cols="25%,9%,28%,32%"]
+|===
+^|*Name* |*Type* |*Restrictions*| *Description*
+|*message*
+|`string`
+a|
+* [small]#`required: true`#
+a|`Gateway Timeout` value (by default) or contains external rest micro service endpoint, which is not available now.
+
+.Read more:
+* [small]#xref:internal-error-message-read-more[__(How to activate the displaying of the detailed error message?)__]#
+|===
+

@@ -1,0 +1,76 @@
+<#include "../mongo-lib.javaftl">
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#list PIPELINE as exp>
+${createBsonVar('pipeline${exp?index}', exp)}
+</#list>
+<#if HINT??>
+${createBsonVar('hint', HINT)}
+</#if>
+<#-- -------------------------------------------------------------------------------------------------------- -->
+final List<Document> pipeline = Arrays.asList(<#list PIPELINE as exp>pipeline${exp?index}<#if exp?has_next>, </#if></#list>);
+final AggregatePublisher<Document> result = collection
+        .aggregate(pipeline)
+<#if HINT??>
+        .hint(hint)
+</#if>
+        .allowDiskUse(${ALLOW_DISK_USE?c});
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#if RETURN.oneItem>
+<#if RETURN.mono>
+return Mono.from(result.first())
+        .map(${ENTITY_CONVERTER}::fromDB);
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#elseif RETURN.future && !RETURN.optional>
+return new PublisherToRequiredMonoFutureAdapter<>(
+        result.first(),
+        useOptionalExceptionSupplier(${RETURN.simpleReactiveType}.class, ${RETURN.simpleResultType}.class)
+).thenApply(${ENTITY_CONVERTER}::fromDB);
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#elseif RETURN.future && RETURN.optional>
+return new PublisherToOptionalMonoFutureAdapter<>(result.first())
+        .thenApply(o -> o.map(${ENTITY_CONVERTER}::fromDB));
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#elseif RETURN.single>
+return Single.fromPublisher(result.first())
+        .map(${ENTITY_CONVERTER}::fromDB);
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#elseif RETURN.maybe>
+return Flowable.fromPublisher(result.first())
+        .firstElement()
+        .map(${ENTITY_CONVERTER}::fromDB);
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#else>
+//"RxMicro does not know how to generate this method";
+</#if>
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#else>
+<#if RETURN.mono>
+return Flux.from(result)
+        .map(${ENTITY_CONVERTER}::fromDB)
+        .collectList();
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#elseif RETURN.flux>
+return Flux.from(result)
+        .map(${ENTITY_CONVERTER}::fromDB);
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#elseif RETURN.future>
+return new PublisherToFluxFutureAdapter<>(result)
+        .thenApply(l -> l.stream().map(${ENTITY_CONVERTER}::fromDB)
+                .collect(Collectors.toList()));
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#elseif RETURN.flowable>
+return Flowable.fromPublisher(result)
+        .map(${ENTITY_CONVERTER}::fromDB);
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#elseif RETURN.single>
+return Flowable.fromPublisher(result)
+        .map(${ENTITY_CONVERTER}::fromDB)
+        .collect(ArrayList::new, (l, e) -> l.add(e));
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#else>
+//"RxMicro does not know how to generate this method";
+</#if>
+</#if>
+<#-- -------------------------------------------------------------------------------------------------------- -->

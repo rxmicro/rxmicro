@@ -1,0 +1,25 @@
+<#include "../../../common-lib.javaftl">
+<#-- -------------------------------------------------------------------------------------------------------- -->
+public final class ${JAVA_REPOSITORY_IMPL_CLASS} extends ${JAVA_REPOSITORY_ABSTRACT_CLASS} implements ${JAVA_REPOSITORY_INTERFACE} {
+
+    <#list JAVA_MODEL_TRANSFORMERS as TRANSFORMER>
+    private final ${TRANSFORMER.javaSimpleClassName} ${TRANSFORMER.instanceName} =
+            new ${TRANSFORMER.javaSimpleClassName}();
+
+    </#list>
+    private final ConnectionPool pool;
+
+    public ${JAVA_REPOSITORY_IMPL_CLASS}(final ConnectionPool pool) {
+        super(${JAVA_REPOSITORY_INTERFACE}.class);
+        this.pool = pool;
+    }
+    <#list JAVA_REPOSITORY_METHODS as METHOD>
+
+    @Override
+    public ${METHOD.returnType} ${METHOD.name}(${METHOD.params}) {
+        <#list METHOD.bodyLines as line>
+        ${line}
+        </#list>
+    }
+    </#list>
+}

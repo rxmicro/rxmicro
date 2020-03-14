@@ -1,0 +1,59 @@
+<#include "../rest-client-lib.javaftl">
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#if IS_REQUEST_CLASS_VIRTUAL>
+final ${REQUEST_VIRTUAL_CLASS} virtualRequest = new ${REQUEST_VIRTUAL_CLASS}(<#list VIRTUAL_FIELDS as f>${f.simpleName}<#if f?has_next>, </#if></#list>);
+</#if>
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#if GENERATE_REQUEST_VALIDATORS>
+<@validateRequest MODE=VALIDATE_REQUEST_MODE/>
+</#if>
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#if URL_TEMPLATE??>
+final String path = ${PATH_BUILDER}.build("${URL_TEMPLATE}", ${MODEL});
+<#else>
+final String path = "${PATH}";
+</#if>
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#if HAS_MODEL_HEADERS || HEADERS?has_content>
+final HeaderBuilder headerBuilder = new HeaderBuilder();
+<#list HEADERS as HEADER>
+headerBuilder.add("${HEADER.key}", ${HEADER.value});
+</#list>
+</#if>
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#if HAS_MODEL_QUERY_PARAMS || QUERY_PARAMS?has_content>
+final QueryBuilder queryBuilder = new QueryBuilder();
+<#list QUERY_PARAMS as PARAM>
+queryBuilder.add("${PARAM.key}", ${PARAM.value});
+</#list>
+<#-- -------------------------------------------------------------------------------------------------------- -->
+</#if>
+<#if HAS_MODEL_HEADERS && HAS_MODEL_QUERY_PARAMS>
+${EXTRACTOR}.extract(${MODEL}, headerBuilder, queryBuilder);
+<#elseif HAS_MODEL_HEADERS>
+${EXTRACTOR}.extract(${MODEL}, headerBuilder);
+<#elseif HAS_MODEL_QUERY_PARAMS>
+${EXTRACTOR}.extract(${MODEL}, queryBuilder);
+</#if>
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#if (HAS_MODEL_HEADERS || HEADERS?has_content) && (HAS_MODEL_QUERY_PARAMS || QUERY_PARAMS?has_content)>
+final CompletableFuture<ClientHttpResponse> response = client
+        .sendAsync("${HTTP_METHOD}", joinPath(path, queryBuilder.build()), headerBuilder.build())
+        .handle(throwExceptionIfNotSuccess());
+<#elseif HAS_MODEL_HEADERS || HEADERS?has_content>
+final CompletableFuture<ClientHttpResponse> response = client
+        .sendAsync("${HTTP_METHOD}", path, headerBuilder.build())
+        .handle(throwExceptionIfNotSuccess());
+<#elseif HAS_MODEL_QUERY_PARAMS || QUERY_PARAMS?has_content>
+final CompletableFuture<ClientHttpResponse> response = client
+        .sendAsync("${HTTP_METHOD}", joinPath(path, queryBuilder.build()), EMPTY_HEADERS)
+        .handle(throwExceptionIfNotSuccess());
+<#else>
+final CompletableFuture<ClientHttpResponse> response = client
+        .sendAsync("${HTTP_METHOD}", path, EMPTY_HEADERS)
+        .handle(throwExceptionIfNotSuccess());
+</#if>
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<@returnResult/>

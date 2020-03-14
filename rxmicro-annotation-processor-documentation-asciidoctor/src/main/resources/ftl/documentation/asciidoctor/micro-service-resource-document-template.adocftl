@@ -1,0 +1,20 @@
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#include "resource-macro.adocftl"/>
+<#include "comments.adocftl"/>
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#-- --------------------------------------------- Resource ------------------------------------------------- -->
+<#assign RESOURCE_NAME>${RESOURCE.httpMethodMapping.method} ${RESOURCE.httpMethodMapping.exactOrTemplateUri}</#assign>
+<@commentH2 H1=GROUP.name H2=RESOURCE_NAME />
+=== ${RESOURCE_NAME}
+
+<#if RESOURCE.descriptionPresent>
+${RESOURCE.description}
+
+</#if>
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<@displayRequest GROUP=GROUP.name RESOURCE_NAME=RESOURCE_NAME REQUEST=RESOURCE.request/>
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#list RESOURCE.responses as RESPONSE>
+<@displayResponse GROUP=GROUP.name RESOURCE_NAME=RESOURCE_NAME RESPONSE=RESPONSE/>
+</#list>
+<#-- -------------------------------------------------------------------------------------------------------- -->

@@ -1,0 +1,14 @@
+<#include "../mongo-lib.javaftl">
+<#-- -------------------------------------------------------------------------------------------------------- -->
+${createBsonVar('update', UPDATE)}
+<#if FILTER??>
+${createBsonVar('filter', FILTER)}
+</#if>
+<#-- -------------------------------------------------------------------------------------------------------- -->
+final Publisher<UpdateResult> result = collection
+        .updateMany(
+                <#if FILTER??>filter<#else>MongoQueries.NULL</#if>,
+                update,
+                new UpdateOptions().upsert(${UPSERT?c})
+        );
+<@returnUpdateResult />

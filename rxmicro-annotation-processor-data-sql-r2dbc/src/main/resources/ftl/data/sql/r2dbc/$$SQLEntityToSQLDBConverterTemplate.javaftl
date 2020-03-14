@@ -1,0 +1,101 @@
+<#include "../../../common-lib.javaftl">
+<#-- -------------------------------------------------------------------------------------------------------- -->
+public final class ${JAVA_MODEL_CLASS.entityToDBConverterImplSimpleClassName} extends ${JAVA_MODEL_CLASS.entityToDBConverterParentSimpleClassName}<${JAVA_MODEL_CLASS.javaSimpleClassName}, Row> {
+    <#if INSERTABLE_PARAMS??>
+
+    public Object[] getInsertParams(final ${JAVA_MODEL_CLASS.javaSimpleClassName} entity) {
+        return new Object[]{
+            <#list INSERTABLE_PARAMS as entry>
+            <#if entry.key.insertValuePlaceholder>
+            <@getParamItem entry=entry addComma=entry?has_next/>
+            </#if>
+            </#list>
+        };
+    }
+    </#if>
+    <#if UPDATABLE_PARAMS?? && PRIMARY_KEY_PARAMS??>
+
+    public Object[] getUpdateParams(final ${JAVA_MODEL_CLASS.javaSimpleClassName} entity) {
+        return new Object[]{
+            <#list UPDATABLE_PARAMS as entry>
+            <@getParamItem entry=entry addComma=true/>
+            </#list>
+                // primary key(s):
+            <#list PRIMARY_KEY_PARAMS as entry>
+            <@getParamItem entry=entry addComma=entry?has_next/>
+            </#list>
+        };
+    }
+    </#if>
+    <#if IS_DELETABLE && PRIMARY_KEY_PARAM??>
+
+    public Object getPrimaryKey(final ${JAVA_MODEL_CLASS.javaSimpleClassName} entity) {
+        <#assign RESULT><@getParamItem entry=PRIMARY_KEY_PARAM addComma=false/></#assign>
+        return ${RESULT?trim};
+    }
+    <#elseif IS_DELETABLE && PRIMARY_KEY_PARAMS??>
+
+    public Object[] getPrimaryKeys(final ${JAVA_MODEL_CLASS.javaSimpleClassName} entity) {
+        return new Object[]{
+            <#list PRIMARY_KEY_PARAMS as entry>
+            <@getParamItem entry=entry addComma=entry?has_next/>
+            </#list>
+        };
+    }
+    </#if>
+    <#list SET_ENTITY_FIELDS_CONVERTER_METHODS as method>
+
+    public ${JAVA_MODEL_CLASS.javaSimpleClassName       } ${method.key       }(final ${JAVA_MODEL_CLASS.javaSimpleClassName} model,
+           ${space(JAVA_MODEL_CLASS.javaSimpleClassName)} ${space(method.key)} final Row dbRow,
+           ${space(JAVA_MODEL_CLASS.javaSimpleClassName)} ${space(method.key)} final RowMetadata metadata) {
+        <#-- ---------------------------------------------------------------------------------------------------- -->
+        <#list method.value as fieldEntry>
+        <@getParam index=fieldEntry?index entry=fieldEntry/>
+        </#list>
+        return model;
+    }
+    </#list>
+}
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#macro getParamItem entry addComma>
+<#assign param = entry.key>
+    <#if entry.value.primitive>
+        <#if param.modelWriteAccessorType.name() == "REFLECTION">
+                getFieldValue(entity, "${param.fieldName}")<#if addComma>,</#if>
+        <#elseif param.modelWriteAccessorType.name() == "DIRECT">
+                entity.${param.fieldName}<#if addComma>,</#if>
+        <#elseif param.modelWriteAccessorType.name() == "JAVA_BEAN">
+                entity.${param.getter}()<#if addComma>,</#if>
+        </#if>
+    <#elseif entry.value.enum>
+        <#if param.modelWriteAccessorType.name() == "REFLECTION">
+                ((Enum<?>) getFieldValue(entity, "${param.fieldName}")).name()<#if addComma>,</#if>
+        <#elseif param.modelWriteAccessorType.name() == "DIRECT">
+                entity.${param.fieldName}.name()<#if addComma>,</#if>
+        <#elseif param.modelWriteAccessorType.name() == "JAVA_BEAN">
+                entity.${param.getter}().name()<#if addComma>,</#if>
+        </#if>
+    </#if>
+</#macro>
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#macro getParam index entry>
+    <#assign param = entry.key>
+    <#if entry.value.primitive>
+        <#if param.modelWriteAccessorType.name() == "REFLECTION">
+        setFieldValue(model, "${param.fieldName}", dbRow.get(${index}, ${param.columnType}.class));
+        <#elseif param.modelWriteAccessorType.name() == "DIRECT">
+        model.${param.fieldName} = dbRow.get(${index}, ${param.columnType}.class);
+        <#elseif param.modelWriteAccessorType.name() == "JAVA_BEAN">
+         model.${param.setter}(dbRow.get(${index}, ${param.columnType}.class));
+    </#if>
+    <#elseif entry.value.enum>
+        <#if param.modelWriteAccessorType.name() == "REFLECTION">
+        setFieldValue(model, "${param.fieldName}", toEnum(${param.columnType}.class, dbRow.get(${index}, String.class), "${param.fieldName}"));
+        <#elseif param.modelWriteAccessorType.name() == "DIRECT">
+        model.${param.fieldName} = toEnum(${param.columnType}.class, dbRow.get(${index}, String.class), "${param.fieldName}");
+        <#elseif param.modelWriteAccessorType.name() == "JAVA_BEAN">
+        model.${param.setter}(toEnum(${param.columnType}.class, dbRow.get(${index}, String.class), "${param.fieldName}"));
+    </#if>
+    </#if>
+</#macro>
+<#-- -------------------------------------------------------------------------------------------------------- -->

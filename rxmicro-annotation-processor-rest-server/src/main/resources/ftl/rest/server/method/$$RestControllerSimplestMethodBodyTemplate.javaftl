@@ -1,0 +1,45 @@
+<#-- --------------------------------------------- Static headers -------------------------------------------------- -->
+<#if STATIC_HEADERS?has_content>
+<#if STATIC_HEADERS?size == 1>
+final HttpHeaders headers = HttpHeaders.of(<#list STATIC_HEADERS as e>"${e.key}", "${e.value}"</#list>);
+<#elseif STATIC_HEADERS?size <= 10>
+final HttpHeaders headers = HttpHeaders.of(
+    <#list STATIC_HEADERS as e>
+        "${e.key}", "${e.value}"<#if e?has_next>,</#if>
+    </#list>
+);
+<#else>
+final HttpHeaders headers = HttpHeaders.of(
+    <#list STATIC_HEADERS as e>
+        java.util.Map.entry("${e.key}", "${e.value}")<#if e?has_next>,</#if>
+    </#list>
+);
+</#if>
+<#else>
+final HttpHeaders headers = HttpHeaders.of();
+</#if>
+<#-- --------------------------------------------- Reactive Void --------------------------------------------------- -->
+<#if RETURN.reactiveVoid>
+<#-- -------------------------------------- Spring Reactor Mono<Void> ---------------------------------------------- -->
+<#if RETURN.mono>
+return restController.${METHOD_NAME.simpleName}()
+        .toFuture()
+        .thenApply(nothing -> buildResponse(${STATUS_CODE}, headers));
+<#-- ----------------------------------------- RxJava Completable -------------------------------------------------- -->
+<#elseif RETURN.completable>
+return restController.${METHOD_NAME.simpleName}()
+        .toCompletionStage(buildResponse(${STATUS_CODE}, headers));
+<#-- ------------------------------------ JSE CompletableFuture<Void> ---------------------------------------------- -->
+<#elseif RETURN.future>
+return restController.${METHOD_NAME.simpleName}()
+        .thenApply(nothing -> buildResponse(${STATUS_CODE}, headers));
+<#-- --------------------------------------------------------------------------------------------------------------- -->
+<#else>
+//"RxMicro does not know how to generate this method";
+</#if>
+<#-- ------------------------------------------------ Void --------------------------------------------------------- -->
+<#else>
+restController.${METHOD_NAME.simpleName}();
+return CompletableFuture.completedStage(buildResponse(${STATUS_CODE}, headers));
+<#-- --------------------------------------------------------------------------------------------------------------- -->
+</#if>

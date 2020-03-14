@@ -1,0 +1,13 @@
+<#include "../mongo-lib.javaftl">
+<#-- -------------------------------------------------------------------------------------------------------- -->
+${createBsonVar('filter', FILTER)}
+<#-- -------------------------------------------------------------------------------------------------------- -->
+final Document update = new Document("$set", ${DOCUMENT_CONVERTER}.toDB(${DOCUMENT}, false));
+<#-- -------------------------------------------------------------------------------------------------------- -->
+final Publisher<UpdateResult> result = collection
+        .updateMany(
+                filter,
+                update,
+                new UpdateOptions().upsert(${UPSERT?c})
+        );
+<@returnUpdateResult />

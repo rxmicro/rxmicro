@@ -1,0 +1,79 @@
+<#include "../../common-lib.javaftl">
+<#-- -------------------------------------------------------------------------------------------------------- -->
+public final class ${JAVA_MODEL_CLASS.entityFromDBConverterImplSimpleClassName} extends ${JAVA_MODEL_CLASS.entityFromDBConverterParentSimpleClassName}<Document, ${JAVA_MODEL_CLASS.javaSimpleClassName}> {
+
+    <#list JAVA_MODEL_CONVERTER_CHILDREN as CHILD>
+    private final ${CHILD.entityFromDBConverterImplSimpleClassName} ${CHILD.fromDBConverterInstanceName} =
+            new ${CHILD.entityFromDBConverterImplSimpleClassName}();
+
+    </#list>
+    @Override
+    public ${JAVA_MODEL_CLASS.javaSimpleClassName} fromDB(final Document document) {
+        final ${JAVA_MODEL_CLASS.javaSimpleClassName} model = new ${JAVA_MODEL_CLASS.javaSimpleClassName}();
+        <#list JAVA_MODEL_CLASS.paramEntries as fieldEntry>
+        <@getParam entry=fieldEntry/>
+        </#list>
+        return model;
+    }
+}
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#macro getParam entry>
+<#assign param = entry.key >
+    <#if entry.value.object>
+        <#assign element = entry.value>
+        <#if param.modelWriteAccessorType.name() == "REFLECTION">
+        setFieldValue(model, "${param.fieldName}", convertIfNotNull(${element.fromDBConverterInstanceName}, toType(Document.class, document.get("${param.modelName}"), "${param.fieldName}")));
+        <#elseif param.modelWriteAccessorType.name() == "DIRECT">
+        model.${param.fieldName} = convertIfNotNull(${element.fromDBConverterInstanceName}, toType(Document.class, document.get("${param.modelName}"), "${param.fieldName}"));
+        <#elseif param.modelWriteAccessorType.name() == "JAVA_BEAN">
+        model.${param.setter}(convertIfNotNull(${element.fromDBConverterInstanceName}, toType(Document.class, document.get("${param.modelName}"), "${param.fieldName}")));
+        </#if>
+    <#elseif entry.value.list>
+        <#assign element = entry.value.elementModelClass>
+        <#if entry.value.primitiveList>
+        <#assign M = element.primitiveType.convertMethod >
+        <#if param.modelWriteAccessorType.name() == "REFLECTION">
+        setFieldValue(model, "${param.fieldName}", ${M}Array(document.get("${param.modelName}"), "${param.fieldName}"));
+        <#elseif param.modelWriteAccessorType.name() == "DIRECT">
+        model.${param.fieldName} = ${M}Array(document.get("${param.modelName}"), "${param.fieldName}");
+        <#elseif param.modelWriteAccessorType.name() == "JAVA_BEAN">
+        model.${param.setter}(${M}Array(document.get("${param.modelName}"), "${param.fieldName}"));
+        </#if>
+        <#elseif entry.value.enumList>
+        <#if param.modelWriteAccessorType.name() == "REFLECTION">
+        setFieldValue(model, "${param.fieldName}", toEnumArray(${param.columnItemType}.class, document.get("${param.modelName}"), "${param.fieldName}"));
+        <#elseif param.modelWriteAccessorType.name() == "DIRECT">
+        model.${param.fieldName} = toEnumArray(${param.columnItemType}.class, document.get("${param.modelName}"), "${param.fieldName}");
+        <#elseif param.modelWriteAccessorType.name() == "JAVA_BEAN">
+        model.${param.setter}(toEnumArray(${param.columnItemType}.class, document.get("${param.modelName}"), "${param.fieldName}"));
+        </#if>
+        <#elseif entry.value.objectList>
+        <#if param.modelWriteAccessorType.name()=="REFLECTION">
+        setFieldValue(model, "${param.fieldName}", convertIfNotNull(${element.fromDBConverterInstanceName}, toArray(Document.class, document.get("${param.modelName}"), "${param.fieldName}")));
+        <#elseif param.modelWriteAccessorType.name()=="DIRECT">
+        model.${param.fieldName} = convertIfNotNull(${element.fromDBConverterInstanceName}, toArray(Document.class, document.get("${param.modelName}"), "${param.fieldName}"));
+        <#elseif param.modelWriteAccessorType.name()=="JAVA_BEAN">
+        model.${param.setter}(convertIfNotNull(${element.fromDBConverterInstanceName}, toArray(Document.class, document.get("${param.modelName}"), "${param.fieldName}")));
+        </#if>
+        </#if>
+    <#elseif entry.value.enum>
+        <#assign M = entry.value.primitiveType.convertMethod >
+        <#if param.modelWriteAccessorType.name() == "REFLECTION">
+        setFieldValue(model, "${param.fieldName}", ${M}(${param.columnType}.class, document.get("${param.modelName}"), "${param.fieldName}"));
+        <#elseif param.modelWriteAccessorType.name() == "DIRECT">
+        model.${param.fieldName} = ${M}(${param.columnType}.class, document.get("${param.modelName}"), "${param.fieldName}");
+        <#elseif param.modelWriteAccessorType.name() == "JAVA_BEAN">
+        model.${param.setter}(${M}(${param.columnType}.class, document.get("${param.modelName}"), "${param.fieldName}"));
+        </#if>
+    <#elseif entry.value.primitive>
+        <#assign M = entry.value.primitiveType.convertMethod >
+        <#if param.modelWriteAccessorType.name() == "REFLECTION">
+        setFieldValue(model, "${param.fieldName}", ${M}(document.get("${param.modelName}"), "${param.fieldName}"));
+        <#elseif param.modelWriteAccessorType.name() == "DIRECT">
+        model.${param.fieldName} = ${M}(document.get("${param.modelName}"), "${param.fieldName}");
+        <#elseif param.modelWriteAccessorType.name() == "JAVA_BEAN">
+        model.${param.setter}(${M}(document.get("${param.modelName}"), "${param.fieldName}"));
+        </#if>
+    </#if>
+</#macro>
+<#-- -------------------------------------------------------------------------------------------------------- -->

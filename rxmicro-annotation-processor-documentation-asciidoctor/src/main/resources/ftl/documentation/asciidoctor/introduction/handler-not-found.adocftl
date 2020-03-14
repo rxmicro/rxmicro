@@ -1,0 +1,42 @@
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#include "../comments.adocftl"/>
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<@commentH2 H1='Introduction' H2='Default Not Found Handler'/>
+=== Default Not Found Handler
+
+If *The ${PROJECT.name}* does not have a route that matches the current HTTP request, by default it invokes _Default Not Found Handler_ and returns a `HTTP/1.1 400 Bad Request` response with default JSON body:
+
+[source,json]
+----
+{
+    "message": "Handler not found"
+}
+----
+
+<#if WITH_TIPS>
+[TIP]
+====
+Other *REST* frameworks typically use a `HTTP/1.1 404 Not Found` response to inform the client of a missing request handler. +
+However, when developing the REST-based micro services, `HTTP/1.1 404 Not Found` response is very often used as a business value.
+For example, if the resource requested by its identifier is absent at the database, then the client receives `HTTP/1.1 404 Not Found` response.
+
+_Thus, on the client side, if the server returns `HTTP/1.1 404 Not Found` response, it is not possible to determine the reason: there is no request handler or there is no object in the database._ +
+Therefore, in order to unambiguously determine the cause of the error, RxMicro by default uses exactly `HTTP/1.1 400 Bad Request` response in case the handler is absent.
+====
+
+*Default Not Found Handler* could be configured. +
+_(If it necessary You could use `HTTP/1.1 404 Not Found` response status code instead of `HTTP/1.1 400 Bad Request`)_.
+
+[NOTE]
+====
+To use custom _Default Not Found Handler_ start REST server with
+`RestServerConfig.handlerNotFoundErrorStatusCode=*${r"${CUSTOM_STATUS_CODE}"}*`
+and/or
+`RestServerConfig.handlerNotFoundErrorMessage=*${r"${CUSTOM_MESSAGE}"}*`
+options, where:
+
+* *${r"${CUSTOM_STATUS_CODE}"}* - custom status code, which will be used instead of `HTTP/1.1 400 Bad Request`;
+* *${r"${CUSTOM_MESSAGE}"}* - custom message, which will be used instead of `"Handler not found"`;
+====
+</#if>
+

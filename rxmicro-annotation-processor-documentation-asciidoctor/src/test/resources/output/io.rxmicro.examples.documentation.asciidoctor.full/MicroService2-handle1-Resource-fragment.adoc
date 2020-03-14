@@ -1,0 +1,246 @@
+// ------------------------------------------------ Micro Service2 | GET /latest/${category}/${type} ------------------------------------------------
+=== GET /latest/${category}/${type}
+
+// ------------------------------------------- Micro Service2 | GET /latest/${category}/${type} | Request -------------------------------------------
+==== Request
+
+// -------------------------------------- Micro Service2 | GET /latest/${category}/${type} | Request | Example --------------------------------------
+===== HTTP Request Example
+
+[source,http]
+----
+GET /latest/${category}/${type} HTTP/1.1
+Host: api.rxmicro.io
+Accept: application/json
+
+----
+
+// ----------------------------------- Micro Service2 | GET /latest/${category}/${type} | Request | Path Variables -----------------------------------
+===== HTTP Request Path Variables Description
+
+[cols="25%,9%,28%,32%"]
+|===
+^|*Name* |*Type* |*Restrictions*| *Description*
+|*category*
+|`string`
+a|
+* [small]#`optional: true`#
+a|
+
+|*type*
+|`string`
+a|
+* [small]#`optional: true`#
+a|
+
+|===
+
+
+// ----------------------------------------- Micro Service2 | GET /latest/${category}/${type} | Response 200 -----------------------------------------
+==== Response 200
+
+// ------------------------------------ Micro Service2 | GET /latest/${category}/${type} | Response 200 | Example ------------------------------------
+===== HTTP Response Example
+
+[source,http]
+----
+HTTP/1.1 200 OK
+Content-Length: 0
+Request-Id: 62jJeu8x1310662
+
+----
+
+// ----------------------------------------- Micro Service2 | GET /latest/${category}/${type} | Response 400 -----------------------------------------
+==== Response 400
+
+If current request contains validation error.
+
+// ------------------------------------ Micro Service2 | GET /latest/${category}/${type} | Response 400 | Example ------------------------------------
+===== HTTP Response Example
+
+[source,http]
+----
+HTTP/1.1 400 Bad Request
+Content-Type: application/json
+Content-Length: 34
+Request-Id: 62jJeu8x1310662
+
+{
+  "message": "Invalid Request"
+}
+----
+
+// ------------------------------------ Micro Service2 | GET /latest/${category}/${type} | Response 400 | Headers ------------------------------------
+===== HTTP Response Headers Description
+
+[cols="25%,9%,28%,32%"]
+|===
+^|*Name* |*Type* |*Restrictions*| *Description*
+|*Request-Id*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`unique: true`#
+a|An unique request string identifier.
+
+.Read more:
+* [small]#http://rxmicro.io/guides/latest/user-guide.html#rest-controller-request-id-section[_What is request id?_^]#
+|===
+
+// -------------------------------- Micro Service2 | GET /latest/${category}/${type} | Response 400 | Body Parameters --------------------------------
+===== HTTP Response Body Parameters Description
+
+[cols="25%,9%,28%,32%"]
+|===
+^|*Name* |*Type* |*Restrictions*| *Description*
+|*message*
+|`string`
+a|
+* [small]#`required: true`#
+a|The detailed cause of the arisen validation error.
+
+|===
+
+// ----------------------------------------- Micro Service2 | GET /latest/${category}/${type} | Response 406 -----------------------------------------
+==== Response 406
+
+This error response indicates that the API is not able to generate any of the client's preferred media types, as indicated by the Accept request header.
+
+// ------------------------------------ Micro Service2 | GET /latest/${category}/${type} | Response 406 | Example ------------------------------------
+===== HTTP Response Example
+
+[source,http]
+----
+HTTP/1.1 406 Not Acceptable
+Content-Length: 0
+Request-Id: 62jJeu8x1310662
+
+----
+
+// ------------------------------------ Micro Service2 | GET /latest/${category}/${type} | Response 406 | Headers ------------------------------------
+===== HTTP Response Headers Description
+
+[cols="25%,9%,28%,32%"]
+|===
+^|*Name* |*Type* |*Restrictions*| *Description*
+|*Request-Id*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`unique: true`#
+a|An unique request string identifier.
+
+.Read more:
+* [small]#http://rxmicro.io/guides/latest/user-guide.html#rest-controller-request-id-section[_What is request id?_^]#
+|===
+
+// ----------------------------------------- Micro Service2 | GET /latest/${category}/${type} | Response 500 -----------------------------------------
+==== Response 500
+
+If internal server error detected.
+
+// ------------------------------------ Micro Service2 | GET /latest/${category}/${type} | Response 500 | Example ------------------------------------
+===== HTTP Response Example
+
+[source,http]
+----
+HTTP/1.1 500 Internal Server Error
+Content-Type: application/json
+Content-Length: 33
+Request-Id: 62jJeu8x1310662
+
+{
+  "message": "Internal Error"
+}
+----
+
+// ------------------------------------ Micro Service2 | GET /latest/${category}/${type} | Response 500 | Headers ------------------------------------
+===== HTTP Response Headers Description
+
+[cols="25%,9%,28%,32%"]
+|===
+^|*Name* |*Type* |*Restrictions*| *Description*
+|*Request-Id*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`unique: true`#
+a|An unique request string identifier.
+
+.Read more:
+* [small]#http://rxmicro.io/guides/latest/user-guide.html#rest-controller-request-id-section[_What is request id?_^]#
+|===
+
+// -------------------------------- Micro Service2 | GET /latest/${category}/${type} | Response 500 | Body Parameters --------------------------------
+===== HTTP Response Body Parameters Description
+
+[cols="25%,9%,28%,32%"]
+|===
+^|*Name* |*Type* |*Restrictions*| *Description*
+|*message*
+|`string`
+a|
+* [small]#`required: true`#
+a|`Internal Server Error` value (by default) or the detailed cause of the arisen internal server error.
+
+.Read more:
+* [small]#xref:internal-error-message-read-more[__(How to activate the displaying of the detailed error message?)__]#
+|===
+
+// ----------------------------------------- Micro Service2 | GET /latest/${category}/${type} | Response 504 -----------------------------------------
+==== Response 504
+
+504
+
+// ------------------------------------ Micro Service2 | GET /latest/${category}/${type} | Response 504 | Example ------------------------------------
+===== HTTP Response Example
+
+[source,http]
+----
+HTTP/1.1 504 Gateway Timeout
+Content-Type: application/json
+Content-Length: 28
+Request-Id: 62jJeu8x1310662
+
+{
+  "message": "Code: 504"
+}
+----
+
+// ------------------------------------ Micro Service2 | GET /latest/${category}/${type} | Response 504 | Headers ------------------------------------
+===== HTTP Response Headers Description
+
+[cols="25%,9%,28%,32%"]
+|===
+^|*Name* |*Type* |*Restrictions*| *Description*
+|*Request-Id*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`unique: true`#
+a|An unique request string identifier.
+
+.Read more:
+* [small]#http://rxmicro.io/guides/latest/user-guide.html#rest-controller-request-id-section[_What is request id?_^]#
+|===
+
+// -------------------------------- Micro Service2 | GET /latest/${category}/${type} | Response 504 | Body Parameters --------------------------------
+===== HTTP Response Body Parameters Description
+
+[cols="25%,9%,28%,32%"]
+|===
+^|*Name* |*Type* |*Restrictions*| *Description*
+|*message*
+|`string`
+a|
+* [small]#`required: true`#
+a|Code: 504
+
+.Read more:
+* [small]#xref:internal-error-message-read-more[__(How to activate the displaying of the detailed error message?)__]#
+|===
+

@@ -1,0 +1,67 @@
+<#include "../../common-lib.javaftl">
+<#-- -------------------------------------------------------------------------------------------------------- -->
+public final class ${JAVA_MODEL_CLASS.requestModelExtractorImplSimpleClassName} extends RequestModelExtractor<${JAVA_MODEL_CLASS.javaSimpleClassName}> {
+
+    <#if HAS_HEADERS && HAS_QUERY>
+    @Override
+    public void extract(final ${JAVA_MODEL_CLASS.javaSimpleClassName} model,
+                        final HeaderBuilder headerBuilder,
+                        final QueryBuilder queryBuilder) {
+        <#list JAVA_MODEL_CLASS.headerEntries as ENTRY>
+        <@setValue field=ENTRY.key builder='headerBuilder' type=ENTRY.value/>
+        </#list>
+        <#list JAVA_MODEL_CLASS.paramEntries as ENTRY>
+        <@setValue field=ENTRY.key builder='queryBuilder' type=ENTRY.value/>
+        </#list>
+    }
+    <#elseif HAS_HEADERS>
+    @Override
+    public void extract(final ${JAVA_MODEL_CLASS.javaSimpleClassName} model,
+                        final HeaderBuilder headerBuilder) {
+        <#list JAVA_MODEL_CLASS.headerEntries as ENTRY>
+        <@setValue field=ENTRY.key builder='headerBuilder' type=ENTRY.value/>
+        </#list>
+    }
+    <#elseif HAS_QUERY>
+    @Override
+    public void extract(final ${JAVA_MODEL_CLASS.javaSimpleClassName} model,
+                        final QueryBuilder queryBuilder) {
+        <#list JAVA_MODEL_CLASS.paramEntries as ENTRY>
+        <@setValue field=ENTRY.key builder='queryBuilder' type=ENTRY.value/>
+        </#list>
+    }
+    </#if>
+}
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#macro setValue field builder type>
+    <#if field.repeat>
+      <#assign list>${getHeaderList(field, type)}</#assign>
+        for (final ${type.elementModelClass.javaSimpleClassName} item : ${list}) {
+            ${builder}.add("${field.modelName}", item);
+        }
+    <#else>
+      <#if field.modelReadAccessorType.name() == "REFLECTION">
+        ${builder}.add("${field.modelName}", getFieldValue(model, "${field.fieldName}"));
+      <#elseif field.modelReadAccessorType.name() == "DIRECT">
+        ${builder}.add("${field.modelName}", model.${field.fieldName});
+      <#elseif field.modelReadAccessorType.name() == "JAVA_BEAN">
+        ${builder}.add("${field.modelName}", model.${field.getter}());
+      </#if>
+    </#if>
+</#macro>
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#-- -------------------- https://freemarker.apache.org/docs/ref_directive_function.html -------------------- -->
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#function getHeaderList header type>
+<#assign RESULT>
+<#if header.modelReadAccessorType.name() == "REFLECTION">
+(${type.javaSimpleClassName}) getFieldValue(model, "${header.fieldName}")
+<#elseif header.modelReadAccessorType.name() == "DIRECT">
+model.${header.fieldName}
+<#elseif header.modelReadAccessorType.name() == "JAVA_BEAN">
+model.${header.getter}()
+</#if>
+</#assign>
+<#return RESULT?trim>
+</#function>
+<#-- -------------------------------------------------------------------------------------------------------- -->

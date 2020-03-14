@@ -1,0 +1,22 @@
+<#include "../../common-lib.javaftl">
+<#-- -------------------------------------------------------------------------------------------------------- -->
+public final class ${JAVA_REPOSITORY_IMPL_CLASS} extends ${JAVA_REPOSITORY_ABSTRACT_CLASS} implements ${JAVA_REPOSITORY_INTERFACE} {
+
+    <#list JAVA_MODEL_TRANSFORMERS as TRANSFORMER>
+    private final ${TRANSFORMER.javaSimpleClassName} ${TRANSFORMER.instanceName} =
+            new ${TRANSFORMER.javaSimpleClassName}();
+
+    </#list>
+    public ${JAVA_REPOSITORY_IMPL_CLASS}(final MongoDatabase mongoDatabase) {
+        super(${JAVA_REPOSITORY_INTERFACE}.class, mongoDatabase.getCollection("${MONGO_COLLECTION_NAME}"));
+    }
+    <#list JAVA_REPOSITORY_METHODS as METHOD>
+
+    @Override
+    public ${METHOD.returnType} ${METHOD.name}(${METHOD.params}) {
+        <#list METHOD.bodyLines as line>
+        ${line}
+        </#list>
+    }
+    </#list>
+}

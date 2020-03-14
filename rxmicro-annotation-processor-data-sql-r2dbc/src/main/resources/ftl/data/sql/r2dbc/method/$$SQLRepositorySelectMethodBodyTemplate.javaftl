@@ -1,0 +1,177 @@
+<#include "../sql-lib.javaftl">
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<@defineGeneratedSQL SHOW_ORIGINAL_QUERY=SHOW_ORIGINAL_QUERY SQL=SQL/>
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#if TRANSACTION??>
+<#assign CONNECTION_PROVIDER>extractConnectionFrom(${TRANSACTION})</#assign>
+<#else>
+<#assign CONNECTION_PROVIDER>pool.create()</#assign>
+</#if>
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#if RETURN_ENTITY_FIELD_MAP>
+    <#assign RESULT_CONVERTER>toEntityFieldMap()</#assign>
+<#elseif RETURN_ENTITY_FIELD_LIST>
+    <#assign RESULT_CONVERTER>toEntityFieldList()</#assign>
+<#elseif RETURN.primitive>
+    <#if RETURN.enum>
+        <#assign RESULT_CONVERTER>(row, meta) -> toEnum(${RETURN.simpleResultType}.class, row.get(0, String.class))</#assign>
+    <#else>
+        <#assign RESULT_CONVERTER>(row, meta) -> row.get(0, ${RETURN.simpleResultType}.class)</#assign>
+    </#if>
+<#elseif ENTITY_CONVERTER??>
+    <#assign RESULT_CONVERTER>${ENTITY_CONVERTER}::${ENTITY_CONVERTER_METHOD}</#assign>
+</#if>
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#if RETURN.oneItem>
+<#if RETURN.mono>
+return ${CONNECTION_PROVIDER}
+        .flatMap(c -> executeStatement(c, generatedSQL${getBindArgs(SQL.bindParams)})
+                .flatMap(r -> Mono.from(r.map(${RESULT_CONVERTER})))
+                <#if !TRANSACTION??>
+                .switchIfEmpty(close(c)
+                        .then(Mono.empty()))
+                .delayUntil(s -> close(c))
+                .onErrorResume(e -> close(c)
+                        .then(Mono.error(e)))
+                </#if>
+        );
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#elseif RETURN.future && !RETURN.optional>
+return ${CONNECTION_PROVIDER}
+        .flatMap(c -> executeStatement(c, generatedSQL${getBindArgs(SQL.bindParams)})
+                .flatMap(r -> Mono.from(r.map(${RESULT_CONVERTER})))
+                <#if !TRANSACTION??>
+                .switchIfEmpty(close(c)
+                        .then(Mono.empty()))
+                .delayUntil(s -> close(c))
+                .onErrorResume(e -> close(c)
+                        .then(Mono.error(e)))
+                </#if>
+        )
+        .switchIfEmpty(Mono.error(useOptionalExceptionSupplier(${RETURN.simpleReactiveType}.class, ${RETURN.simpleResultType}.class)))
+        .toFuture();
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#elseif RETURN.future && RETURN.optional>
+return ${CONNECTION_PROVIDER}
+        .flatMap(c -> executeStatement(c, generatedSQL${getBindArgs(SQL.bindParams)})
+                .flatMap(r -> Mono.from(r.map(${RESULT_CONVERTER})))
+                <#if !TRANSACTION??>
+                .switchIfEmpty(close(c)
+                        .then(Mono.empty()))
+                .delayUntil(s -> close(c))
+                .onErrorResume(e -> close(c)
+                        .then(Mono.error(e)))
+                </#if>
+        )
+        .toFuture()
+        .thenApply(a -> Optional.ofNullable(a));
+<#elseif RETURN.single>
+return Single.fromPublisher(
+        ${CONNECTION_PROVIDER}
+                .flatMap(c -> executeStatement(c, generatedSQL${getBindArgs(SQL.bindParams)})
+                        .flatMap(r -> Mono.from(r.map(${RESULT_CONVERTER})))
+                        <#if !TRANSACTION??>
+                        .switchIfEmpty(close(c)
+                                .then(Mono.empty()))
+                        .delayUntil(s -> close(c))
+                        .onErrorResume(e -> close(c)
+                                .then(Mono.error(e)))
+                        </#if>
+                )
+);
+<#elseif RETURN.maybe>
+return Flowable.fromPublisher(
+        ${CONNECTION_PROVIDER}
+                .flatMap(c -> executeStatement(c, generatedSQL${getBindArgs(SQL.bindParams)})
+                        .flatMap(r -> Mono.from(r.map(${RESULT_CONVERTER})))
+                        <#if !TRANSACTION??>
+                        .switchIfEmpty(close(c)
+                                .then(Mono.empty()))
+                        .delayUntil(s -> close(c))
+                        .onErrorResume(e -> close(c)
+                                .then(Mono.error(e)))
+                        </#if>
+                )
+).firstElement();
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#else>
+//"RxMicro does not know how to generate this method";
+</#if>
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#else>
+<#if RETURN.mono>
+return ${CONNECTION_PROVIDER}
+        .flatMap(c -> executeStatement(c, generatedSQL${getBindArgs(SQL.bindParams)})
+                .flatMap(r -> Flux.from(r.map(${RESULT_CONVERTER}))
+                        .collectList())
+                <#if !TRANSACTION??>
+                .delayUntil(s -> close(c))
+                .onErrorResume(e -> close(c)
+                        .then(Mono.error(e)))
+                </#if>
+        );
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#elseif RETURN.flux>
+return ${CONNECTION_PROVIDER}
+        .flatMapMany(c -> executeStatement(c, generatedSQL${getBindArgs(SQL.bindParams)})
+                .flatMapMany(r -> Flux.from(r.map(${RESULT_CONVERTER})))
+                <#if !TRANSACTION??>
+                .onErrorResume(e -> close(c)
+                        .then(Mono.error(e)))
+                .concatWith(close(c)
+                        .then(Mono.empty()))
+                </#if>
+        );
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#elseif RETURN.future>
+return ${CONNECTION_PROVIDER}
+        .flatMap(c -> executeStatement(c, generatedSQL${getBindArgs(SQL.bindParams)})
+                .flatMap(r -> Flux.from(r.map(${RESULT_CONVERTER}))
+                        .collectList())
+                <#if !TRANSACTION??>
+                .delayUntil(s -> close(c))
+                .onErrorResume(e -> close(c)
+                        .then(Mono.error(e)))
+                </#if>
+        )
+        .toFuture();
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#elseif RETURN.flowable>
+return Flowable.fromPublisher(
+        ${CONNECTION_PROVIDER}
+                .flatMapMany(c -> executeStatement(c, generatedSQL${getBindArgs(SQL.bindParams)})
+                        .flatMapMany(r -> Flux.from(r.map(${RESULT_CONVERTER})))
+                        <#if !TRANSACTION??>
+                        .onErrorResume(e -> close(c)
+                                .then(Mono.error(e)))
+                        .concatWith(close(c)
+                                .then(Mono.empty()))
+                        </#if>
+                )
+);
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#elseif RETURN.single>
+return Flowable.fromPublisher(
+        ${CONNECTION_PROVIDER}
+                .flatMapMany(c -> executeStatement(c, generatedSQL${getBindArgs(SQL.bindParams)})
+                        .flatMapMany(r -> Flux.from(r.map(${RESULT_CONVERTER})))
+                        <#if !TRANSACTION??>
+                        .onErrorResume(e -> close(c)
+                                .then(Mono.error(e)))
+                        .concatWith(close(c)
+                                .then(Mono.empty()))
+                        </#if>
+                )
+).collect(ArrayList::new, (l, e) -> l.add(e));
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#else>
+//"RxMicro does not know how to generate this method";
+</#if>
+</#if>
+<#-- -------------------------------------------------------------------------------------------------------- -->

@@ -1,0 +1,20 @@
+<#include "../common-lib.javaftl">
+<#-- -------------------------------------------------------------------------------------------------------- -->
+public final class ${JAVA_CLASS_NAME} {
+
+    static {
+        final Module currentModule = ${JAVA_CLASS_NAME}.class.getModule();
+        currentModule.addExports("${PACKAGE_NAME}", getRuntimeModule());
+    }
+
+    public ${JAVA_CLASS_NAME}() {
+        final Module currentModule = getClass().getModule();
+        if (currentModule.isNamed()) {
+            final Module unNamedModule = getClass().getClassLoader().getUnnamedModule();
+            currentModule.getPackages().forEach(p -> {
+                currentModule.addOpens(p, unNamedModule);
+                System.out.println(format("opens ?/? to ALL-UNNAMED", currentModule.getName(), p));
+            });
+        }
+    }
+}

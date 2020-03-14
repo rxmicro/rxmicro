@@ -1,0 +1,17 @@
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#if RETURN.mono>
+return Mono.from(collection.estimatedDocumentCount());
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#elseif RETURN.future>
+return new PublisherToRequiredMonoFutureAdapter<>(
+        collection.estimatedDocumentCount(),
+        useOptionalExceptionSupplier(${RETURN.simpleReactiveType}.class, ${RETURN.simpleResultType}.class)
+);
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#elseif RETURN.single>
+return Single.fromPublisher(collection.estimatedDocumentCount());
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#else>
+//"RxMicro does not know how to generate this method";
+</#if>
+<#-- -------------------------------------------------------------------------------------------------------- -->

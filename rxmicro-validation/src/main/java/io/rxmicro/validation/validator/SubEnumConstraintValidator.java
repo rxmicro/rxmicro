@@ -1,0 +1,68 @@
+/*
+ * Copyright (c) 2020. http://rxmicro.io
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package io.rxmicro.validation.validator;
+
+import io.rxmicro.http.error.ValidationException;
+import io.rxmicro.rest.model.HttpModelType;
+import io.rxmicro.validation.ConstraintValidator;
+
+import java.util.HashSet;
+import java.util.Set;
+
+/**
+ * @author nedis
+ * @link http://rxmicro.io
+ * @see io.rxmicro.validation.constraint.SubEnum
+ * @since 0.1
+ */
+public class SubEnumConstraintValidator<T extends Enum<T>> implements ConstraintValidator<T> {
+
+    private final Set<String> allowed;
+
+    public SubEnumConstraintValidator(final Class<T> enumClass,
+                                      final Set<String> include,
+                                      final Set<String> exclude) {
+        allowed = new HashSet<>();
+        if (!include.isEmpty()) {
+            for (final Enum<T> en : enumClass.getEnumConstants()) {
+                if (include.contains(en.name())) {
+                    allowed.add(en.name());
+                }
+            }
+        }
+        if (!exclude.isEmpty()) {
+            for (final Enum<T> en : enumClass.getEnumConstants()) {
+                if (!exclude.contains(en.name())) {
+                    allowed.add(en.name());
+                }
+            }
+        }
+    }
+
+    @Override
+    public void validate(final T actual,
+                         final HttpModelType httpModelType,
+                         final String modelName) throws ValidationException {
+        if (actual != null) {
+            if (!allowed.contains(actual.name())) {
+                throw new ValidationException(
+                        "Invalid ? \"?\": Expected a value from the set ?, but actual is '?'!",
+                        httpModelType, modelName, allowed, actual);
+            }
+        }
+    }
+}

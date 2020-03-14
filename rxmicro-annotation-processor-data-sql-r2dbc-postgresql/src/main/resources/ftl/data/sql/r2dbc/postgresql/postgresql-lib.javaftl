@@ -1,0 +1,151 @@
+<#include "../sql-lib.javaftl">
+<#-- ------------------------------------------------------------------------------------------------ -->
+<#-- ---------------- https://freemarker.apache.org/docs/ref_directive_function.html ---------------- -->
+<#-- ------------------------------------------------------------------------------------------------ -->
+<#-- ------------------------------------------------------------------------------------------------ -->
+<#-- ----------------- https://freemarker.apache.org/docs/ref_directive_macro.html ------------------ -->
+<#-- ------------------------------------------------------------------------------------------------ -->
+<#macro returnEntityResult RETURN CONNECTION_PROVIDER SQL_PARAMS RESULT_CONVERTER CLOSE_CONNECTION>
+<#if RETURN.oneItem>
+<#if RETURN.mono>
+return ${CONNECTION_PROVIDER}
+        .flatMap(c -> executeStatement(c, generatedSQL${SQL_PARAMS})
+                .flatMap(r -> Mono.from(r.map(${RESULT_CONVERTER})))
+                <#if CLOSE_CONNECTION>
+                .switchIfEmpty(close(c)
+                        .then(Mono.empty()))
+                .delayUntil(s -> close(c))
+                .onErrorResume(e -> close(c)
+                        .then(Mono.error(e)))
+                </#if>
+        );
+<#elseif RETURN.future && !RETURN.optional>
+return ${CONNECTION_PROVIDER}
+        .flatMap(c -> executeStatement(c, generatedSQL${SQL_PARAMS})
+                .flatMap(r -> Mono.from(r.map(${RESULT_CONVERTER})))
+                <#if CLOSE_CONNECTION>
+                .switchIfEmpty(close(c)
+                        .then(Mono.empty()))
+                .delayUntil(s -> close(c))
+                .onErrorResume(e -> close(c)
+                        .then(Mono.error(e)))
+                </#if>
+        )
+        .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(${RETURN.simpleReactiveType}.class, ${RETURN.simpleResultType}.class))))
+        .toFuture();
+<#elseif RETURN.future && RETURN.optional>
+return ${CONNECTION_PROVIDER}
+        .flatMap(c -> executeStatement(c, generatedSQL${SQL_PARAMS})
+                .flatMap(r -> Mono.from(r.map(${RESULT_CONVERTER})))
+                <#if CLOSE_CONNECTION>
+                .switchIfEmpty(close(c)
+                        .then(Mono.empty()))
+                .delayUntil(s -> close(c))
+                .onErrorResume(e -> close(c)
+                        .then(Mono.error(e)))
+                </#if>
+        )
+        .toFuture()
+        .thenApply(a -> Optional.ofNullable(a));
+<#elseif RETURN.single>
+return Single.fromPublisher(
+        ${CONNECTION_PROVIDER}
+                .flatMap(c -> executeStatement(c, generatedSQL${SQL_PARAMS})
+                        .flatMap(r -> Mono.from(r.map(${RESULT_CONVERTER})))
+                        <#if CLOSE_CONNECTION>
+                        .switchIfEmpty(close(c)
+                                .then(Mono.empty()))
+                        .delayUntil(s -> close(c))
+                        .onErrorResume(e -> close(c)
+                                .then(Mono.error(e)))
+                        </#if>
+                )
+);
+<#elseif RETURN.maybe>
+return Flowable.fromPublisher(
+        ${CONNECTION_PROVIDER}
+                .flatMap(c -> executeStatement(c, generatedSQL${SQL_PARAMS})
+                        .flatMap(r -> Mono.from(r.map(${RESULT_CONVERTER})))
+                        <#if CLOSE_CONNECTION>
+                        .switchIfEmpty(close(c)
+                                .then(Mono.empty()))
+                        .delayUntil(s -> close(c))
+                        .onErrorResume(e -> close(c)
+                                .then(Mono.error(e)))
+                        </#if>
+                )
+).firstElement();
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#else>
+//"RxMicro does not know how to generate this method";
+</#if>
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#else>
+<#if RETURN.flux>
+return ${CONNECTION_PROVIDER}
+        .flatMapMany(c -> executeStatement(c, generatedSQL${SQL_PARAMS})
+                .flatMapMany(r -> Flux.from(r.map(${RESULT_CONVERTER})))
+                <#if CLOSE_CONNECTION>
+                .onErrorResume(e -> close(c)
+                        .then(Mono.error(e)))
+                .concatWith(close(c)
+                        .then(Mono.empty()))
+                </#if>
+        );
+<#elseif RETURN.mono>
+return ${CONNECTION_PROVIDER}
+        .flatMap(c -> executeStatement(c, generatedSQL${SQL_PARAMS})
+                .flatMap(r -> Flux.from(r.map(${RESULT_CONVERTER})).collectList())
+                <#if CLOSE_CONNECTION>
+                .delayUntil(s -> close(c))
+                .onErrorResume(e -> close(c)
+                        .then(Mono.error(e)))
+                </#if>
+        );
+<#elseif RETURN.future>
+return ${CONNECTION_PROVIDER}
+        .flatMap(c -> executeStatement(c, generatedSQL${SQL_PARAMS})
+                .flatMap(r -> Flux.from(r.map(${RESULT_CONVERTER})).collectList())
+                <#if CLOSE_CONNECTION>
+                .delayUntil(s -> close(c))
+                .onErrorResume(e -> close(c)
+                        .then(Mono.error(e)))
+                </#if>
+        )
+        .toFuture();
+<#elseif RETURN.flowable>
+return Flowable.fromPublisher(
+        ${CONNECTION_PROVIDER}
+                .flatMapMany(c -> executeStatement(c, generatedSQL${SQL_PARAMS})
+                        .flatMapMany(r -> Flux.from(r.map(${RESULT_CONVERTER})))
+                        <#if CLOSE_CONNECTION>
+                        .onErrorResume(e -> close(c)
+                                .then(Mono.error(e)))
+                        .concatWith(close(c)
+                                .then(Mono.empty()))
+                        </#if>
+                )
+);
+<#elseif RETURN.single>
+return Flowable.fromPublisher(
+        ${CONNECTION_PROVIDER}
+                .flatMapMany(c -> executeStatement(c, generatedSQL${SQL_PARAMS})
+                        .flatMapMany(r -> Flux.from(r.map(${RESULT_CONVERTER})))
+                        <#if CLOSE_CONNECTION>
+                        .onErrorResume(e -> close(c)
+                                .then(Mono.error(e)))
+                        .concatWith(close(c)
+                                .then(Mono.empty()))
+                        </#if>
+                )
+).collect(ArrayList::new, (l, e) -> l.add(e));
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#else>
+//"RxMicro does not know how to generate this method";
+</#if>
+<#-- -------------------------------------------------------------------------------------------------------- -->
+</#if>
+</#macro>
+<#-- ------------------------------------------------------------------------------------------------ -->
+<#-- ----------------- https://freemarker.apache.org/docs/ref_directive_macro.html ------------------ -->
+<#-- ------------------------------------------------------------------------------------------------ -->

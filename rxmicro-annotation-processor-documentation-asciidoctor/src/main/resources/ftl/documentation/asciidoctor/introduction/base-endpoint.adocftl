@@ -1,0 +1,7 @@
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#include "../comments.adocftl"/>
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<@commentH2 H1='Introduction' H2='Base Endpoint'/>
+=== ${PROJECT.name} base endpoint
+
+*The ${PROJECT.name}* is available at `${PROJECT.baseEndpoint}`.

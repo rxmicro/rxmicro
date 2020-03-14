@@ -1,0 +1,120 @@
+
+                                   The RxMicro Project
+
+                                    =================
+		The RxMicro is a framework to build a reactive micro services using Java
+                                    =================
+
+
+Copyright (c) 2020. http://rxmicro.io
+
+The RxMicro Project licenses this file to you under the Apache License,
+version 2.0 (the "License"); you may not use this file except in compliance
+with the License. You may obtain a copy of the License at:
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+License for the specific language governing permissions and limitations
+under the License.
+
+-------------------------------------------------------------------------------
+RxMicro requires OpenJDK 11 or later:
+
+ * LICENSE:
+   * https://openjdk.java.net/legal/gplv2+ce.html (GNU General Public License, version 2, with the Classpath Exception)
+ * HOMEPAGE:
+   * https://jdk.java.net/11/
+
+-------------------------------------------------------------------------------
+RxMicro requires Netty:
+
+ * LICENSE:
+   * https://github.com/netty/netty/blob/4.1/LICENSE.txt (Apache License 2.0)
+ * HOMEPAGE:
+   * https://netty.io/
+
+-------------------------------------------------------------------------------
+RxMicro requires Project Reactor:
+
+ * LICENSE:
+   * https://github.com/reactor/reactor-core/blob/master/LICENSE (Apache License 2.0)
+ * HOMEPAGE:
+   * https://projectreactor.io/
+
+-------------------------------------------------------------------------------
+RxMicro requires RxJava3:
+
+ * LICENSE:
+   * https://github.com/ReactiveX/RxJava/blob/3.x/LICENSE (Apache License 2.0)
+ * HOMEPAGE:
+   * https://github.com/ReactiveX/RxJava
+
+-------------------------------------------------------------------------------
+RxMicro Mongo integration module requires reactive Java Mongo driver:
+
+ * LICENSE:
+   * https://github.com/mongodb/mongo-java-driver-reactivestreams/blob/master/LICENSE (Apache License 2.0)
+ * HOMEPAGE:
+   * https://mongodb.github.io/mongo-java-driver-reactivestreams/
+
+-------------------------------------------------------------------------------
+RxMicro PostgreSQL integration module requires R2DBC pool and R2DBC PostgreSQL driver:
+
+ * LICENSE:
+   * https://github.com/r2dbc/r2dbc-postgresql/blob/master/LICENSE (Apache License 2.0)
+   * https://github.com/r2dbc/r2dbc-pool/blob/master/LICENSE (Apache License 2.0)
+ * HOMEPAGE:
+   * https://r2dbc.io/
+   * https://github.com/r2dbc/r2dbc-postgresql
+   * https://github.com/r2dbc/r2dbc-pool
+
+-------------------------------------------------------------------------------
+RxMicro annotation processor module requires Google Guice dependency injection framework:
+
+ * LICENSE:
+   * https://github.com/google/guice/blob/master/COPYING (Apache License 2.0)
+ * HOMEPAGE:
+   * https://github.com/google/guice
+
+-------------------------------------------------------------------------------
+RxMicro annotation processor module requires Freemarker template engine:
+
+ * LICENSE:
+   * https://freemarker.apache.org/docs/app_license.html (Apache License 2.0)
+ * HOMEPAGE:
+   * https://freemarker.apache.org/
+
+-------------------------------------------------------------------------------
+RxMicro annotation processor module requires Google compile testing framework:
+
+ * LICENSE:
+   * https://github.com/google/compile-testing/blob/master/LICENSE.txt (Apache License 2.0)
+ * HOMEPAGE:
+   * https://github.com/google/compile-testing
+
+-------------------------------------------------------------------------------
+RxMicro annotation processor module requires Maven model library:
+
+ * LICENSE:
+   * https://www.apache.org/licenses/LICENSE-2.0.txt (Apache License 2.0)
+ * HOMEPAGE:
+   * https://maven.apache.org/ref/3.6.3/maven-model/index.html
+
+-------------------------------------------------------------------------------
+RxMicro requires JUnit 5:
+
+ * LICENSE:
+   * http://www.eclipse.org/legal/epl-v20.html (Eclipse Public License v2.0)
+ * HOMEPAGE:
+   * https://junit.org/junit5/
+
+-------------------------------------------------------------------------------
+RxMicro requires Mockito:
+
+ * LICENSE:
+   * https://github.com/mockito/mockito/blob/master/LICENSE (The MIT License)
+ * HOMEPAGE:
+   * https://site.mockito.org

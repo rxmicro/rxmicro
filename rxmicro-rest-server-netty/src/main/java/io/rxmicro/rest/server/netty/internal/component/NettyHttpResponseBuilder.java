@@ -1,0 +1,51 @@
+/*
+ * Copyright (c) 2020. http://rxmicro.io
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package io.rxmicro.rest.server.netty.internal.component;
+
+import io.rxmicro.rest.server.RestServerConfig;
+import io.rxmicro.rest.server.StandardResponseHeader;
+import io.rxmicro.rest.server.detail.component.HttpResponseBuilder;
+import io.rxmicro.rest.server.detail.model.HttpResponse;
+import io.rxmicro.rest.server.netty.internal.model.NettyHttpResponse;
+
+import java.util.Set;
+
+import static io.rxmicro.config.Configs.getConfig;
+
+/**
+ * @author nedis
+ * @link http://rxmicro.io
+ * @since 0.1
+ */
+public final class NettyHttpResponseBuilder implements HttpResponseBuilder {
+
+    private final Set<StandardResponseHeader> standardResponseHeaders;
+
+    public NettyHttpResponseBuilder() {
+        standardResponseHeaders = getConfig(RestServerConfig.class).getStandardResponseHeaders();
+    }
+
+    @Override
+    public HttpResponse build(final boolean withStdHeaders) {
+        final HttpResponse response = new NettyHttpResponse();
+        if (withStdHeaders) {
+            standardResponseHeaders.forEach(header ->
+                    response.setHeader(header.getHeaderName(), header.getHeaderValue()));
+        }
+        return response;
+    }
+}

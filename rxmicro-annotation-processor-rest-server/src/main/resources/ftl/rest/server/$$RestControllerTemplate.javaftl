@@ -1,0 +1,121 @@
+<#include "../../common-lib.javaftl">
+<#-- -------------------------------------------------------------------------------------------------------- -->
+public final class ${PREFIX}${JAVA_CLASS_NAME} extends ${PARENT_CLASS_NAME} {
+
+    private ${JAVA_CLASS_NAME} restController;
+
+    <#list JAVA_REQUEST_CLASSES as JAVA_REQUEST_CLASS>
+    private ${JAVA_REQUEST_CLASS.modelReaderImplSimpleClassName} ${JAVA_REQUEST_CLASS.modelReaderInstanceName};
+
+    </#list>
+    <#list JAVA_RESPONSE_CLASSES as JAVA_RESPONSE_CLASS>
+    private ${JAVA_RESPONSE_CLASS.modelWriterImplSimpleClassName} ${JAVA_RESPONSE_CLASS.modelWriterInstanceName};
+
+    </#list>
+    <#list VALIDATORS_MAP?values as VALIDATOR>
+    private ${VALIDATOR.modelValidatorImplSimpleClassName} ${VALIDATOR.modelValidatorInstanceName};
+
+    </#list>
+    <#list NOT_FOUND_RESPONSES as NOT_FOUND_RESPONSE>
+    private HttpResponse ${NOT_FOUND_RESPONSE.key};
+
+    </#list>
+<#-- -------------------------------------------------------------------------------------------------------- -->
+    @Override
+    protected void postConstruct() {
+        <#if USE_CDI>
+        restController = getBean(${JAVA_CLASS_NAME}.class);
+        <#else>
+        restController = new ${JAVA_CLASS_NAME}();
+        </#if>
+        <#list JAVA_REQUEST_CLASSES as JAVA_REQUEST_CLASS>
+        ${JAVA_REQUEST_CLASS.modelReaderInstanceName} = new ${JAVA_REQUEST_CLASS.modelReaderImplSimpleClassName}();
+        </#list>
+        <#list JAVA_RESPONSE_CLASSES as JAVA_RESPONSE_CLASS>
+        ${JAVA_RESPONSE_CLASS.modelWriterInstanceName} = new ${JAVA_RESPONSE_CLASS.modelWriterImplSimpleClassName}(restServerConfig.isHumanReadableOutput());
+        </#list>
+        <#list VALIDATORS_MAP?values as VALIDATOR>
+        ${VALIDATOR.modelValidatorInstanceName} = new ${VALIDATOR.modelValidatorImplSimpleClassName}();
+        </#list>
+        <#list NOT_FOUND_RESPONSES as NOT_FOUND_RESPONSE>
+        ${NOT_FOUND_RESPONSE.key} = notFound("${NOT_FOUND_RESPONSE.value}");
+        </#list>
+    }
+
+<#-- -------------------------------------------------------------------------------------------------------- -->
+    @Override
+    public Class<?> getRestControllerClass() {
+        return ${JAVA_CLASS_NAME}.class;
+    }
+
+<#-- -------------------------------------------------------------------------------------------------------- -->
+    @Override
+    public void register(final RestControllerRegistrar registrar) {
+        registrar.register(
+                this,
+                <#list METHODS as METHOD>
+                new Registration(
+                        "${PARENT_URL}",
+                        "${METHOD.name.methodSignature}",
+                        this::${METHOD.name.uniqueJavaName},
+                        ${CORS_ENABLED?c},
+                        <#list METHOD.httpMethodMappings as MAPPING>
+                        <#if MAPPING.urlSegmentsPresent>
+                        new UrlTemplateRequestMappingRule(
+                                "${MAPPING.method}",
+                                new UrlSegments(
+                                        "${MAPPING.urlSegments.urlTemplate}",
+                                        List.of(<#list MAPPING.urlSegments.variables as v>"${v}"<#if v?has_next>, </#if></#list>)
+                                ),
+                                ${MAPPING.httpBody?c}<#if MAPPING.versionHeaderValuePresent>,
+                                "${MAPPING.versionHeaderValue}"</#if>
+                        )<#if MAPPING?has_next>,</#if>
+                        <#else>
+                        new ExactUrlRequestMappingRule(
+                                "${MAPPING.method}",
+                                "${MAPPING.uri}",
+                                ${MAPPING.httpBody?c}<#if MAPPING.versionHeaderValuePresent>,
+                                "${MAPPING.versionHeaderValue}"</#if>
+                        )<#if MAPPING?has_next>,</#if></#if>
+                        </#list>
+                )<#if METHOD?has_next>,</#if>
+                </#list>
+        );
+    }
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#list METHODS as METHOD>
+
+    private CompletionStage<HttpResponse> ${METHOD.name.uniqueJavaName       }(final PathVariableMapping pathVariableMapping,
+                                          ${space(METHOD.name.uniqueJavaName)} final HttpRequest request) {
+        <#list METHOD.body.lines as line>
+        ${line}
+        </#list>
+    }
+</#list>
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#list JAVA_RESPONSE_CLASSES as JAVA_RESPONSE_CLASS>
+
+    private HttpResponse buildResponse(final ${JAVA_RESPONSE_CLASS.simpleClassName} model,
+                                       final int statusCode,
+                                       final HttpHeaders headers) {
+        <#if GENERATE_RESPONSE_VALIDATORS && VALIDATORS_MAP[JAVA_RESPONSE_CLASS.fullClassName]?? >
+        validateResponse(${VALIDATORS_MAP[JAVA_RESPONSE_CLASS.fullClassName].modelValidatorInstanceName}, model);
+        </#if>
+        final HttpResponse response = httpResponseBuilder.build();
+        response.setStatus(statusCode);
+        response.setOrAddHeaders(headers);
+        ${JAVA_RESPONSE_CLASS.modelWriterInstanceName}.write(model, response);
+        return response;
+    }
+</#list>
+<#if VOID_RESPONSE_POSSIBLE>
+
+    private HttpResponse buildResponse(final int statusCode,
+                                       final HttpHeaders headers) {
+        final HttpResponse response = httpResponseBuilder.build();
+        response.setStatus(statusCode);
+        response.setOrAddHeaders(headers);
+        return response;
+    }
+</#if>
+}

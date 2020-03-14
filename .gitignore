@@ -1,0 +1,47 @@
+# https://git-scm.com/docs/gitignore
+# http://www.gitignore.io/
+
+# Build results
+target
+
+# IntelliJ IDEA configurations
+.idea
+.idea_modules
+*.iml
+*.iws
+*.ipr
+*.eml
+.shelf
+out/
+
+# Eclipse configurations
+.project
+.classpath
+.settings
+.metadata
+bin/
+
+# NetBeans configurations
+nb*.xml
+
+# Mac-specific directory that no other operating system needs.
+.DS_Store
+
+# docker environment file
+.env
+
+# attach pid files
+.*pid*
+
+# logs
+*.log
+
+# temp files
+temp.*
+tmp.*
+
+# cache
+*.cache
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*

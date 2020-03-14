@@ -1,0 +1,119 @@
+<#include "../../common-lib.javaftl">
+<#-- -------------------------------------------------------------------------------------------------------- -->
+public final class ${JAVA_MODEL_CLASS.entityToDBConverterImplSimpleClassName} extends ${JAVA_MODEL_CLASS.entityToDBConverterParentSimpleClassName}<${JAVA_MODEL_CLASS.javaSimpleClassName}, Document> {
+
+    <#list JAVA_MODEL_CONVERTER_CHILDREN as CHILD>
+    <#assign className=CHILD.javaSimpleClassName>
+    private final ${CHILD.entityToDBConverterImplSimpleClassName} ${CHILD.toDBConverterInstanceName} =
+            new ${CHILD.entityToDBConverterImplSimpleClassName}();
+
+    </#list>
+    @Override
+    public Document toDB(final ${JAVA_MODEL_CLASS.javaSimpleClassName} model,
+                         final boolean withId) {
+        final Document document = new Document();
+        <#list JAVA_MODEL_CLASS.paramEntries as fieldEntry>
+        <@setParam entry=fieldEntry/>
+        </#list>
+        return document;
+    }
+
+    <#if ID??>
+    @Override
+    public Object getId(final ${JAVA_MODEL_CLASS.javaSimpleClassName} model) {
+        return require(${getId()}, "Entity does not contain document id: ?", model);
+    }
+    <#if ID_NOT_FINAL>
+
+    @Override
+    public void setId(final Document document,
+                      final ${JAVA_MODEL_CLASS.javaSimpleClassName} model) {
+        final Object id = document.get("_id");
+        if (id != null) {
+            <#assign M = ID.value.primitiveType.convertMethod >
+            <#if ID.key.modelWriteAccessorType.name() == "REFLECTION">
+            setFieldValue(model, "${ID.key.fieldName}", ${M}(id, "${ID.key.fieldName}"));
+            <#elseif ID.key.modelWriteAccessorType.name() == "DIRECT">
+            model.${ID.key.fieldName} = ${M}(id, "${ID.key.fieldName}");
+            <#elseif ID.key.modelWriteAccessorType.name() == "JAVA_BEAN">
+            model.${ID.key.setter}(${M}(id, "${ID.key.fieldName}"));
+            </#if>
+        }
+    }
+    </#if>
+    </#if>
+}
+<#-- ------------------------------------------------------------------------------------------------ -->
+<#-- ---------------- https://freemarker.apache.org/docs/ref_directive_function.html ---------------- -->
+<#-- ------------------------------------------------------------------------------------------------ -->
+<#function getId>
+<#assign RESULT>
+<#if ID??>
+    <#if ID.key.modelWriteAccessorType.name() == "REFLECTION">
+        getFieldValue(model, "${ID.key.fieldName}")
+    <#elseif ID.key.modelWriteAccessorType.name() == "DIRECT">
+        model.${ID.key.fieldName}
+    <#elseif ID.key.modelWriteAccessorType.name() == "JAVA_BEAN">
+        model.${ID.key.getter}()
+    </#if>
+<#else>
+    null
+</#if>
+</#assign>
+<#return RESULT?trim>
+</#function>
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#macro setParam entry>
+<#assign param = entry.key >
+<#if entry.value.object>
+<#assign element = entry.value>
+<#if param.modelReadAccessorType.name() == "REFLECTION">
+        document.append("${param.modelName}", convertIfNotNull(${element.toDBConverterInstanceName}, (${element.javaSimpleClassName}) getFieldValue(model, "${param.fieldName}")));
+<#elseif param.modelReadAccessorType.name() == "DIRECT">
+        document.append("${param.modelName}", convertIfNotNull(${element.toDBConverterInstanceName}, model.${param.fieldName}));
+<#elseif param.modelReadAccessorType.name() == "JAVA_BEAN">
+        document.append("${param.modelName}", convertIfNotNull(${element.toDBConverterInstanceName}, model.${param.getter}()));
+</#if>
+<#elseif entry.value.list>
+<#assign element = entry.value.elementModelClass>
+<#if entry.value.primitiveList || entry.value.enumList>
+<#if param.modelReadAccessorType.name() == "REFLECTION">
+        document.append("${param.modelName}", getFieldValue(model, "${param.fieldName}"));
+<#elseif param.modelReadAccessorType.name() == "DIRECT">
+        document.append("${param.modelName}", model.${param.fieldName});
+<#elseif param.modelReadAccessorType.name() == "JAVA_BEAN">
+        document.append("${param.modelName}", model.${param.getter}());
+</#if>
+<#elseif entry.value.objectList>
+<#if param.modelReadAccessorType.name() == "REFLECTION">
+        document.append("${param.modelName}", convertIfNotNull(${element.toDBConverterInstanceName}, (List<${element.javaSimpleClassName}>) getFieldValue(model, "${param.fieldName}")));
+<#elseif param.modelReadAccessorType.name() == "DIRECT">
+        document.append("${param.modelName}", convertIfNotNull(${element.toDBConverterInstanceName}, model.${param.fieldName}));
+<#elseif param.modelReadAccessorType.name() == "JAVA_BEAN">
+        document.append("${param.modelName}", convertIfNotNull(${element.toDBConverterInstanceName}, model.${param.getter}()));
+</#if>
+</#if>
+<#elseif entry.value.primitive || entry.value.enum>
+<#if param.id>
+<#if param.modelReadAccessorType.name() == "REFLECTION">
+        final Object id = getFieldValue(model, "${param.fieldName}");
+<#elseif param.modelReadAccessorType.name() == "DIRECT">
+        final Object id = model.${param.fieldName};
+<#elseif param.modelReadAccessorType.name() == "JAVA_BEAN">
+        final Object id = model.${param.getter}();
+</#if>
+        if (id != null && withId) {
+            document.append("${param.modelName}", id);
+        }
+<#else>
+<#if param.modelReadAccessorType.name() == "REFLECTION">
+        document.append("${param.modelName}", getFieldValue(model, "${param.fieldName}"));
+<#elseif param.modelReadAccessorType.name() == "DIRECT">
+        document.append("${param.modelName}", model.${param.fieldName});
+<#elseif param.modelReadAccessorType.name() == "JAVA_BEAN">
+        document.append("${param.modelName}", model.${param.getter}());
+</#if>
+</#if>
+</#if>
+</#macro>
+<#-- -------------------------------------------------------------------------------------------------------- -->

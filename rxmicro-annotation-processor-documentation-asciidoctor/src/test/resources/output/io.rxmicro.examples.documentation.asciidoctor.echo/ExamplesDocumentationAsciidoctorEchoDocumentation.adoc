@@ -1,0 +1,650 @@
+= Examples Documentation Asciidoctor Echo
+GeneratedBy RxMicroAnnotationProcessor <rxmicro.io@gmail.com>
+1.0-SNAPSHOT
+:icons: font
+:sectanchors: 
+:sectlinks: 
+:toc: left
+:toclevels: 3
+:sectnums: 
+:sectnumlevels: 5
+
+// ------------------------------------------ Examples Documentation Asciidoctor Echo Title and Description ------------------------------------------
+This document describes *the Examples Documentation Asciidoctor Echo*.
+
+<<<
+// ------------------------------------------------------------------ Introduction ------------------------------------------------------------------
+== Introduction
+
+// ---------------------------------------------------------- Introduction | Common concept ----------------------------------------------------------
+=== Common concept
+
+*The Examples Documentation Asciidoctor Echo* is organized around https://en.wikipedia.org/wiki/Representational_state_transfer[REST^]
+and built using http://rxmicro.io[RxMicro^] framework. +
+*The Examples Documentation Asciidoctor Echo* has predictable resource-oriented URLs, accepts and returns http://www.json.org/[JSON-encoded^]
+requests/responses, and uses standard HTTP response codes, and verbs. +
+
+[TIP]
+====
+For requests and responses without body *the Examples Documentation Asciidoctor Echo* returns the empty body instead of the empty json object: `{}`. +
+So *the Examples Documentation Asciidoctor Echo* could accept and return json object or empty body only.
+====
+
+You could use your favorite HTTP/REST library for your programming language to use *The Examples Documentation Asciidoctor Echo*.
+
+// ------------------------------------------------------------ Introduction | HTTP Verbs ------------------------------------------------------------
+=== HTTP Verbs
+
+*The Examples Documentation Asciidoctor Echo* uses HTTP verbs appropriate to each action. +
+
+[cols="2", options="header"]
+|===
+|*Verb*
+|*Description*
+
+|GET
+|_Retrieving resource(s)_.
+
+|POST
+|_Creating resource(s)_.
+
+|PUT
+|_Full updating resource(s)_.
+
+|PATCH
+|_Partial updating resource(s)_.
+
+|DELETE
+|_Deleting resource(s)_.
+|===
+
+// ----------------------------------------------------------- Introduction | Error model -----------------------------------------------------------
+=== Error model
+
+*The Examples Documentation Asciidoctor Echo* uses conventional https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html[HTTP response codes^]
+to indicate the success or failure of an API request. +
+In general:
+
+- Codes in the `2xx` range indicate success.
+- Codes in the `4xx` range indicate an error that failed given the information provided (e.g., a required parameter was omitted or has invalid format, etc.).
+- Codes in the `5xx` range indicate an internal error with *the Examples Documentation Asciidoctor Echo* servers.
+
+TIP: Successes differ from errors in that their body may not be a simple response object with a message.
+
+If error occurs, *the Examples Documentation Asciidoctor Echo* returns correspond HTTP status code and standard JSON error model:
+
+[source,json]
+----
+{
+    "message": "'name' is required"
+}
+----
+
+Message field provides detailed cause of the arisen error.
+
+[NOTE]
+====
+[[internal-error-message-read-more]]
+By default, *the Examples Documentation Asciidoctor Echo* hides the cause of the arisen server error. +
+Thus, if internal error occurs (Errors with code in the `5xx` range), the value of message field will be `Internal Server Error`, `Gateway Timeout`, etc. +
+To activate the displaying of the detailed cause of the arisen server error, start REST server with `RestServerConfig.hideInternalErrorMessage=*false*` option.
+====
+
+
+// ---------------------------------------------------- Introduction | Default Not Found Handler ----------------------------------------------------
+=== Default Not Found Handler
+
+If *The Examples Documentation Asciidoctor Echo* does not have a route that matches the current HTTP request, by default it invokes _Default Not Found Handler_ and returns a `HTTP/1.1 400 Bad Request` response with default JSON body:
+
+[source,json]
+----
+{
+    "message": "Handler not found"
+}
+----
+
+[TIP]
+====
+Other *REST* frameworks typically use a `HTTP/1.1 404 Not Found` response to inform the client of a missing request handler. +
+However, when developing the REST-based micro services, `HTTP/1.1 404 Not Found` response is very often used as a business value.
+For example, if the resource requested by its identifier is absent at the database, then the client receives `HTTP/1.1 404 Not Found` response.
+
+_Thus, on the client side, if the server returns `HTTP/1.1 404 Not Found` response, it is not possible to determine the reason: there is no request handler or there is no object in the database._ +
+Therefore, in order to unambiguously determine the cause of the error, RxMicro by default uses exactly `HTTP/1.1 400 Bad Request` response in case the handler is absent.
+====
+
+*Default Not Found Handler* could be configured. +
+_(If it necessary You could use `HTTP/1.1 404 Not Found` response status code instead of `HTTP/1.1 400 Bad Request`)_.
+
+[NOTE]
+====
+To use custom _Default Not Found Handler_ start REST server with
+`RestServerConfig.handlerNotFoundErrorStatusCode=*${CUSTOM_STATUS_CODE}*`
+and/or
+`RestServerConfig.handlerNotFoundErrorMessage=*${CUSTOM_MESSAGE}*`
+options, where:
+
+* *${CUSTOM_STATUS_CODE}* - custom status code, which will be used instead of `HTTP/1.1 400 Bad Request`;
+* *${CUSTOM_MESSAGE}* - custom message, which will be used instead of `"Handler not found"`;
+====
+
+
+// ------------------------------------------------------------- Introduction | License -------------------------------------------------------------
+=== License
+
+*The Examples Documentation Asciidoctor Echo* is licensed under the http://www.apache.org/licenses/LICENSE-2.0[Apache License Version 2.0^].
+
+// ---------------------------------------------------------- Introduction | Specification ----------------------------------------------------------
+=== Specification
+
+*The Examples Documentation Asciidoctor Echo* documentation built using https://asciidoctor.org/docs/[Ascii Doctor^] markup language.
+
+<<<
+// ------------------------------------------------------------------ Micro Service ------------------------------------------------------------------
+== Micro Service
+
+<<<
+// -------------------------------------------------------------- Micro Service | GET / --------------------------------------------------------------
+=== GET /
+
+// --------------------------------------------------------- Micro Service | GET / | Request ---------------------------------------------------------
+==== Request
+
+// ---------------------------------------------------- Micro Service | GET / | Request | Example ----------------------------------------------------
+===== HTTP Request Example
+
+[source,http]
+----
+GET /?echo=EchoExample HTTP/1.1
+Accept: application/json
+
+----
+
+// ----------------------------------------------- Micro Service | GET / | Request | Query Parameters -----------------------------------------------
+===== HTTP Request Query Parameters Description
+
+[cols="25%,9%,28%,32%"]
+|===
+^|*Name* |*Type* |*Restrictions*| *Description*
+|*echo*
+|`string`
+a|
+* [small]#`optional: true`#
+a|EchoDescription
+
+|===
+
+
+// ------------------------------------------------------ Micro Service | GET / | Response 200 ------------------------------------------------------
+==== Response 200
+
+// ------------------------------------------------- Micro Service | GET / | Response 200 | Example -------------------------------------------------
+===== HTTP Response Example
+
+[source,http]
+----
+HTTP/1.1 200 OK
+Content-Type: application/json
+Content-Length: 27
+Request-Id: 62jJeu8x1310662
+
+{
+  "echo": "EchoExample"
+}
+----
+
+// ------------------------------------------------- Micro Service | GET / | Response 200 | Headers -------------------------------------------------
+===== HTTP Response Headers Description
+
+[cols="25%,9%,28%,32%"]
+|===
+^|*Name* |*Type* |*Restrictions*| *Description*
+|*Request-Id*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`unique: true`#
+a|An unique request string identifier.
+
+.Read more:
+* [small]#http://rxmicro.io/guides/latest/user-guide.html#rest-controller-request-id-section[_What is request id?_^]#
+|===
+
+// --------------------------------------------- Micro Service | GET / | Response 200 | Body Parameters ---------------------------------------------
+===== HTTP Response Body Parameters Description
+
+[cols="25%,9%,28%,32%"]
+|===
+^|*Name* |*Type* |*Restrictions*| *Description*
+|*echo*
+|`string`
+a|
+* [small]#`optional: true`#
+a|EchoDescription
+
+|===
+
+// ----------------------------------------------- Micro Service | GET / | Response 200 | JSON Schema -----------------------------------------------
+===== HTTP Response Body JSON Schema
+
+[small]#https://json-schema.org/[_(Read more about JSON Schema)_^]#
+
+[source,json]
+----
+{
+  "$schema": "http://json-schema.org/schema#",
+  "type": "object",
+  "properties": {
+    "echo": {
+      "type": "string",
+      "examples": [
+        "EchoExample"
+      ]
+    }
+  },
+  "minProperties": 0,
+  "maxProperties": 1
+}
+----
+
+// ------------------------------------------------------ Micro Service | GET / | Response 500 ------------------------------------------------------
+==== Response 500
+
+If internal server error detected.
+
+// ------------------------------------------------- Micro Service | GET / | Response 500 | Example -------------------------------------------------
+===== HTTP Response Example
+
+[source,http]
+----
+HTTP/1.1 500 Internal Server Error
+Content-Type: application/json
+Content-Length: 33
+Request-Id: 62jJeu8x1310662
+
+{
+  "message": "Internal Error"
+}
+----
+
+// ------------------------------------------------- Micro Service | GET / | Response 500 | Headers -------------------------------------------------
+===== HTTP Response Headers Description
+
+[cols="25%,9%,28%,32%"]
+|===
+^|*Name* |*Type* |*Restrictions*| *Description*
+|*Request-Id*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`unique: true`#
+a|An unique request string identifier.
+
+.Read more:
+* [small]#http://rxmicro.io/guides/latest/user-guide.html#rest-controller-request-id-section[_What is request id?_^]#
+|===
+
+// --------------------------------------------- Micro Service | GET / | Response 500 | Body Parameters ---------------------------------------------
+===== HTTP Response Body Parameters Description
+
+[cols="25%,9%,28%,32%"]
+|===
+^|*Name* |*Type* |*Restrictions*| *Description*
+|*message*
+|`string`
+a|
+* [small]#`required: true`#
+a|`Internal Server Error` value (by default) or the detailed cause of the arisen internal server error.
+
+.Read more:
+* [small]#xref:internal-error-message-read-more[__(How to activate the displaying of the detailed error message?)__]#
+|===
+
+<<<
+// ------------------------------------------------------------- Micro Service | POST / -------------------------------------------------------------
+=== POST /
+
+// -------------------------------------------------------- Micro Service | POST / | Request --------------------------------------------------------
+==== Request
+
+// --------------------------------------------------- Micro Service | POST / | Request | Example ---------------------------------------------------
+===== HTTP Request Example
+
+[source,http]
+----
+POST / HTTP/1.1
+Accept: application/json
+Content-Type: application/json
+Content-Length: 27
+
+{
+  "echo": "EchoExample"
+}
+----
+
+// ----------------------------------------------- Micro Service | POST / | Request | Body Parameters -----------------------------------------------
+===== HTTP Request Body Parameters Description
+
+[cols="25%,9%,28%,32%"]
+|===
+^|*Name* |*Type* |*Restrictions*| *Description*
+|*echo*
+|`string`
+a|
+* [small]#`optional: true`#
+a|EchoDescription
+
+|===
+
+// ------------------------------------------------- Micro Service | POST / | Request | JSON Schema -------------------------------------------------
+===== HTTP Request Body JSON Schema
+
+[small]#https://json-schema.org/[_(Read more about JSON Schema)_^]#
+
+[source,json]
+----
+{
+  "$schema": "http://json-schema.org/schema#",
+  "type": "object",
+  "properties": {
+    "echo": {
+      "type": "string",
+      "examples": [
+        "EchoExample"
+      ]
+    }
+  },
+  "minProperties": 0,
+  "maxProperties": 1
+}
+----
+
+// ------------------------------------------------------ Micro Service | POST / | Response 200 ------------------------------------------------------
+==== Response 200
+
+// ------------------------------------------------- Micro Service | POST / | Response 200 | Example -------------------------------------------------
+===== HTTP Response Example
+
+[source,http]
+----
+HTTP/1.1 200 OK
+Content-Type: application/json
+Content-Length: 27
+Request-Id: 62jJeu8x1310662
+
+{
+  "echo": "EchoExample"
+}
+----
+
+// ------------------------------------------------- Micro Service | POST / | Response 200 | Headers -------------------------------------------------
+===== HTTP Response Headers Description
+
+[cols="25%,9%,28%,32%"]
+|===
+^|*Name* |*Type* |*Restrictions*| *Description*
+|*Request-Id*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`unique: true`#
+a|An unique request string identifier.
+
+.Read more:
+* [small]#http://rxmicro.io/guides/latest/user-guide.html#rest-controller-request-id-section[_What is request id?_^]#
+|===
+
+// --------------------------------------------- Micro Service | POST / | Response 200 | Body Parameters ---------------------------------------------
+===== HTTP Response Body Parameters Description
+
+[cols="25%,9%,28%,32%"]
+|===
+^|*Name* |*Type* |*Restrictions*| *Description*
+|*echo*
+|`string`
+a|
+* [small]#`optional: true`#
+a|EchoDescription
+
+|===
+
+// ----------------------------------------------- Micro Service | POST / | Response 200 | JSON Schema -----------------------------------------------
+===== HTTP Response Body JSON Schema
+
+[small]#https://json-schema.org/[_(Read more about JSON Schema)_^]#
+
+[source,json]
+----
+{
+  "$schema": "http://json-schema.org/schema#",
+  "type": "object",
+  "properties": {
+    "echo": {
+      "type": "string",
+      "examples": [
+        "EchoExample"
+      ]
+    }
+  },
+  "minProperties": 0,
+  "maxProperties": 1
+}
+----
+
+// ------------------------------------------------------ Micro Service | POST / | Response 500 ------------------------------------------------------
+==== Response 500
+
+If internal server error detected.
+
+// ------------------------------------------------- Micro Service | POST / | Response 500 | Example -------------------------------------------------
+===== HTTP Response Example
+
+[source,http]
+----
+HTTP/1.1 500 Internal Server Error
+Content-Type: application/json
+Content-Length: 33
+Request-Id: 62jJeu8x1310662
+
+{
+  "message": "Internal Error"
+}
+----
+
+// ------------------------------------------------- Micro Service | POST / | Response 500 | Headers -------------------------------------------------
+===== HTTP Response Headers Description
+
+[cols="25%,9%,28%,32%"]
+|===
+^|*Name* |*Type* |*Restrictions*| *Description*
+|*Request-Id*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`unique: true`#
+a|An unique request string identifier.
+
+.Read more:
+* [small]#http://rxmicro.io/guides/latest/user-guide.html#rest-controller-request-id-section[_What is request id?_^]#
+|===
+
+// --------------------------------------------- Micro Service | POST / | Response 500 | Body Parameters ---------------------------------------------
+===== HTTP Response Body Parameters Description
+
+[cols="25%,9%,28%,32%"]
+|===
+^|*Name* |*Type* |*Restrictions*| *Description*
+|*message*
+|`string`
+a|
+* [small]#`required: true`#
+a|`Internal Server Error` value (by default) or the detailed cause of the arisen internal server error.
+
+.Read more:
+* [small]#xref:internal-error-message-read-more[__(How to activate the displaying of the detailed error message?)__]#
+|===
+
+<<<
+// ------------------------------------------------------------- Micro Service | POST / -------------------------------------------------------------
+=== POST /
+
+// -------------------------------------------------------- Micro Service | POST / | Request --------------------------------------------------------
+==== Request
+
+// --------------------------------------------------- Micro Service | POST / | Request | Example ---------------------------------------------------
+===== HTTP Request Example
+
+[source,http]
+----
+POST /?echo=EchoExample HTTP/1.1
+Accept: application/json
+Content-Length: 0
+
+----
+
+// ----------------------------------------------- Micro Service | POST / | Request | Query Parameters -----------------------------------------------
+===== HTTP Request Query Parameters Description
+
+[cols="25%,9%,28%,32%"]
+|===
+^|*Name* |*Type* |*Restrictions*| *Description*
+|*echo*
+|`string`
+a|
+* [small]#`optional: true`#
+a|EchoDescription
+
+|===
+
+
+// ------------------------------------------------------ Micro Service | POST / | Response 200 ------------------------------------------------------
+==== Response 200
+
+// ------------------------------------------------- Micro Service | POST / | Response 200 | Example -------------------------------------------------
+===== HTTP Response Example
+
+[source,http]
+----
+HTTP/1.1 200 OK
+Content-Type: application/json
+Content-Length: 27
+Request-Id: 62jJeu8x1310662
+
+{
+  "echo": "EchoExample"
+}
+----
+
+// ------------------------------------------------- Micro Service | POST / | Response 200 | Headers -------------------------------------------------
+===== HTTP Response Headers Description
+
+[cols="25%,9%,28%,32%"]
+|===
+^|*Name* |*Type* |*Restrictions*| *Description*
+|*Request-Id*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`unique: true`#
+a|An unique request string identifier.
+
+.Read more:
+* [small]#http://rxmicro.io/guides/latest/user-guide.html#rest-controller-request-id-section[_What is request id?_^]#
+|===
+
+// --------------------------------------------- Micro Service | POST / | Response 200 | Body Parameters ---------------------------------------------
+===== HTTP Response Body Parameters Description
+
+[cols="25%,9%,28%,32%"]
+|===
+^|*Name* |*Type* |*Restrictions*| *Description*
+|*echo*
+|`string`
+a|
+* [small]#`optional: true`#
+a|EchoDescription
+
+|===
+
+// ----------------------------------------------- Micro Service | POST / | Response 200 | JSON Schema -----------------------------------------------
+===== HTTP Response Body JSON Schema
+
+[small]#https://json-schema.org/[_(Read more about JSON Schema)_^]#
+
+[source,json]
+----
+{
+  "$schema": "http://json-schema.org/schema#",
+  "type": "object",
+  "properties": {
+    "echo": {
+      "type": "string",
+      "examples": [
+        "EchoExample"
+      ]
+    }
+  },
+  "minProperties": 0,
+  "maxProperties": 1
+}
+----
+
+// ------------------------------------------------------ Micro Service | POST / | Response 500 ------------------------------------------------------
+==== Response 500
+
+If internal server error detected.
+
+// ------------------------------------------------- Micro Service | POST / | Response 500 | Example -------------------------------------------------
+===== HTTP Response Example
+
+[source,http]
+----
+HTTP/1.1 500 Internal Server Error
+Content-Type: application/json
+Content-Length: 33
+Request-Id: 62jJeu8x1310662
+
+{
+  "message": "Internal Error"
+}
+----
+
+// ------------------------------------------------- Micro Service | POST / | Response 500 | Headers -------------------------------------------------
+===== HTTP Response Headers Description
+
+[cols="25%,9%,28%,32%"]
+|===
+^|*Name* |*Type* |*Restrictions*| *Description*
+|*Request-Id*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`unique: true`#
+a|An unique request string identifier.
+
+.Read more:
+* [small]#http://rxmicro.io/guides/latest/user-guide.html#rest-controller-request-id-section[_What is request id?_^]#
+|===
+
+// --------------------------------------------- Micro Service | POST / | Response 500 | Body Parameters ---------------------------------------------
+===== HTTP Response Body Parameters Description
+
+[cols="25%,9%,28%,32%"]
+|===
+^|*Name* |*Type* |*Restrictions*| *Description*
+|*message*
+|`string`
+a|
+* [small]#`required: true`#
+a|`Internal Server Error` value (by default) or the detailed cause of the arisen internal server error.
+
+.Read more:
+* [small]#xref:internal-error-message-read-more[__(How to activate the displaying of the detailed error message?)__]#
+|===
+

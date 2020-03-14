@@ -1,0 +1,22 @@
+<#include "../../common-lib.javaftl">
+<#-- -------------------------------------------------------------------------------------------------------- -->
+public final class ${IMPL_CLASS_NAME} extends RepositoryFactory {
+
+    static {
+        ${ENVIRONMENT_CUSTOMIZER_CLASS}.customize();
+        <#list DEFAULT_CONFIG_VALUES as V>
+        putDefaultConfigValue("${V.key}", "${V.value}");
+        </#list>
+    }
+
+    public ${IMPL_CLASS_NAME}() {
+        <#list MONGO_REPOSITORIES as REPOSITORY>
+        register(${REPOSITORY.simpleInterfaceName}.class,
+                () -> createMongoRepository("${REPOSITORY.configNameSpace}", ${REPOSITORY.targetSimpleClassName}::new));
+        </#list>
+        <#list POSTGRE_SQL_REPOSITORIES as REPOSITORY>
+        register(${REPOSITORY.simpleInterfaceName}.class,
+                () -> createPostgreSQLRepository("${REPOSITORY.configNameSpace}", ${REPOSITORY.targetSimpleClassName}::new));
+        </#list>
+    }
+}

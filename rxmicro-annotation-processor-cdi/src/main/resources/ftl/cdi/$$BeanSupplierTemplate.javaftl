@@ -1,0 +1,257 @@
+<#include "../common-lib.javaftl">
+<#-- ------------------------------------------------------------------------------------------------------------ -->
+public final class ${JAVA_MODEL_CLASS.beanSupplierImplSimpleClassName} extends BeanSupplier<${JAVA_MODEL_CLASS.javaSimpleClassName}> {
+
+    <#-- -------------------------------------------------------------------------------------------------------- -->
+    <#if JAVA_MODEL_CLASS.constructorInjection>
+    <#assign INSTANCE_NAME>builder</#assign>
+    <#else>
+    <#assign INSTANCE_NAME>bean</#assign>
+    </#if>
+    <#-- -------------------------------------------------------------------------------------------------------- -->
+    <#-- -------------------------------------------------------------------------------------------------------- -->
+    <#-- -------------------------------------------------------------------------------------------------------- -->
+    @Override
+    public ${JAVA_MODEL_CLASS.javaSimpleClassName} get() {
+        <#if JAVA_MODEL_CLASS.injectionPoints?has_content || JAVA_MODEL_CLASS.postConstructMethodPresent>
+            <#if JAVA_MODEL_CLASS.constructorInjection>
+        final Builder builder = new Builder();
+            <#elseif JAVA_MODEL_CLASS.factoryMethodPresent>
+                <#if JAVA_MODEL_CLASS.factoryMethod.privateMethod>
+        final ${JAVA_MODEL_CLASS.javaSimpleClassName} bean = (${JAVA_MODEL_CLASS.javaSimpleClassName}) invoke(${JAVA_MODEL_CLASS.javaSimpleClassName}.class, "${JAVA_MODEL_CLASS.factoryMethod.methodName.simpleName}");
+                <#else>
+        final ${JAVA_MODEL_CLASS.javaSimpleClassName} bean = ${JAVA_MODEL_CLASS.javaSimpleClassName}.${JAVA_MODEL_CLASS.factoryMethod.methodName.simpleName}();
+                </#if>
+            <#else>
+        final ${JAVA_MODEL_CLASS.javaSimpleClassName} bean = new ${JAVA_MODEL_CLASS.javaSimpleClassName}();
+        </#if>
+        <@generateInjectionsAndReturnBean />
+        <#-- ---------------------------------------------------------------------------------------------------- -->
+        <#else>
+            <#if JAVA_MODEL_CLASS.factoryMethodPresent>
+                <#if JAVA_MODEL_CLASS.factoryMethod.privateMethod>
+        return (${JAVA_MODEL_CLASS.javaSimpleClassName}) invoke(${JAVA_MODEL_CLASS.javaSimpleClassName}.class, "${JAVA_MODEL_CLASS.factoryMethod.methodName.simpleName}");
+                <#else>
+        return ${JAVA_MODEL_CLASS.javaSimpleClassName}.${JAVA_MODEL_CLASS.factoryMethod.methodName.simpleName}();
+                </#if>
+            <#else>
+        return new ${JAVA_MODEL_CLASS.javaSimpleClassName}();
+            </#if>
+        </#if>
+    }
+    <#if JAVA_MODEL_CLASS.factoryClass>
+
+    public static final class ${JAVA_MODEL_CLASS.beanFactoryTypeSupplierImplSimpleClassName} extends BeanSupplier<${JAVA_MODEL_CLASS.factoryTypeSimpleClassName}> {
+
+        @Override
+        public ${JAVA_MODEL_CLASS.factoryTypeSimpleClassName} get() {
+            return getBean(${JAVA_MODEL_CLASS.javaSimpleClassName}.class).get();
+        }
+
+    }
+    </#if>
+    <#if JAVA_MODEL_CLASS.constructorInjection>
+
+    private static final class Builder {
+
+        <#list JAVA_MODEL_CLASS.injectionPoints as injectionPoint>
+        private ${injectionPoint.modelField.fieldSimpleType} ${injectionPoint.modelField.fieldName};
+
+        </#list>
+        private ${JAVA_MODEL_CLASS.javaSimpleClassName} build() {
+            return new ${JAVA_MODEL_CLASS.javaSimpleClassName}(<#list JAVA_MODEL_CLASS.injectionPoints as p>${p.modelField.fieldName}<#if p?has_next>, </#if></#list>);
+        }
+
+    }
+    </#if>
+}
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#macro generateInjectionsAndReturnBean>
+        <#list JAVA_MODEL_CLASS.injectionPoints as point>
+        <@inject injectionPoint=point/>
+        </#list>
+        <#-- ------------------------------------------------------------------------------------------------ -->
+        <#if JAVA_MODEL_CLASS.constructorInjection && JAVA_MODEL_CLASS.postConstructMethodPresent>
+        final ${JAVA_MODEL_CLASS.javaSimpleClassName} bean = builder.build();
+        <#if JAVA_MODEL_CLASS.postConstructMethod.privateMethod>
+        invoke(bean, "${JAVA_MODEL_CLASS.postConstructMethod.methodName.simpleName}");
+        <#else>
+        bean.${JAVA_MODEL_CLASS.postConstructMethod.methodName.simpleName}();
+        </#if>
+        return bean;
+        <#-- ------------------------------------------------------------------------------------------------ -->
+        <#elseif JAVA_MODEL_CLASS.postConstructMethodPresent>
+        <#if JAVA_MODEL_CLASS.postConstructMethod.privateMethod>
+        invoke(bean, "${JAVA_MODEL_CLASS.postConstructMethod.methodName.simpleName}");
+        <#else>
+        bean.${JAVA_MODEL_CLASS.postConstructMethod.methodName.simpleName}();
+        </#if>
+        return bean;
+        <#-- ------------------------------------------------------------------------------------------------ -->
+        <#elseif JAVA_MODEL_CLASS.constructorInjection>
+        return builder.build();
+        <#else>
+        return bean;
+        </#if>
+</#macro>
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#macro inject injectionPoint>
+    <#if injectionPoint.type.name() == 'REPOSITORY'>
+        <@injectRepository injectionPoint=injectionPoint/>
+    <#elseif injectionPoint.type.name() == 'CONFIG'>
+        <@injectConfig injectionPoint=injectionPoint/>
+    <#elseif injectionPoint.type.name() == 'MONGO_CLIENT'>
+        <@injectMongoClient injectionPoint=injectionPoint/>
+    <#elseif injectionPoint.type.name() == 'POSTGRE_SQL_CONNECTION_FACTORY'>
+        <@injectConnectionFactory injectionPoint=injectionPoint/>
+    <#elseif injectionPoint.type.name() == 'POSTGRE_SQL_CONNECTION_POOL'>
+        <@injectConnectionPool injectionPoint=injectionPoint/>
+    <#elseif injectionPoint.type.name() == 'REST_CLIENT'>
+        <@injectRestClient injectionPoint=injectionPoint/>
+    <#elseif injectionPoint.type.name() == 'BEAN'>
+        <@injectBean injectionPoint=injectionPoint/>
+    <#elseif injectionPoint.type.name() == 'MULTI_BINDER'>
+        <@injectMultiBinder injectionPoint=injectionPoint/>
+    </#if>
+</#macro>
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#macro injectRepository injectionPoint>
+    <#if injectionPoint.injectionMethodPresent>
+        ${INSTANCE_NAME}.${injectionPoint.injectionMethodSimpleName}(getRepository(${injectionPoint.modelField.fieldSimpleType}.class));
+    <#elseif injectionPoint.modelField.modelWriteAccessorType.name() == "REFLECTION">
+        setFieldValue(${INSTANCE_NAME}, "${injectionPoint.modelField.fieldName}", getRepository(${injectionPoint.modelField.fieldSimpleType}.class));
+    <#elseif injectionPoint.modelField.modelWriteAccessorType.name() == "DIRECT">
+        ${INSTANCE_NAME}.${injectionPoint.modelField.fieldName} = getRepository(${injectionPoint.modelField.fieldSimpleType}.class);
+    </#if>
+</#macro>
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#macro injectConfig injectionPoint>
+    <#if injectionPoint.injectionMethodPresent>
+        ${INSTANCE_NAME}.${injectionPoint.injectionMethodSimpleName}(getConfig("${injectionPoint.modelField.modelName}", ${injectionPoint.modelField.fieldSimpleType}.class));
+    <#elseif injectionPoint.modelField.modelWriteAccessorType.name() == "REFLECTION">
+        setFieldValue(${INSTANCE_NAME}, "${injectionPoint.modelField.fieldName}", getConfig("${injectionPoint.modelField.modelName}", ${injectionPoint.modelField.fieldSimpleType}.class));
+    <#elseif injectionPoint.modelField.modelWriteAccessorType.name() == "DIRECT">
+        ${INSTANCE_NAME}.${injectionPoint.modelField.fieldName} = getConfig("${injectionPoint.modelField.modelName}", ${injectionPoint.modelField.fieldSimpleType}.class);
+    </#if>
+</#macro>
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#macro injectMongoClient injectionPoint>
+    <#if injectionPoint.injectionMethodPresent>
+        ${INSTANCE_NAME}.${injectionPoint.injectionMethodSimpleName}(getMongoClient("${injectionPoint.modelField.modelName}"));
+    <#elseif injectionPoint.modelField.modelWriteAccessorType.name() == "REFLECTION">
+        setFieldValue(${INSTANCE_NAME}, "${injectionPoint.modelField.fieldName}", getMongoClient("${injectionPoint.modelField.modelName}"));
+    <#elseif injectionPoint.modelField.modelWriteAccessorType.name() == "DIRECT">
+        ${INSTANCE_NAME}.${injectionPoint.modelField.fieldName} = getMongoClient("${injectionPoint.modelField.modelName}");
+    </#if>
+</#macro>
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#macro injectConnectionFactory injectionPoint>
+    <#if injectionPoint.injectionMethodPresent>
+        ${INSTANCE_NAME}.${injectionPoint.injectionMethodSimpleName}(getPostgreSQLConnectionFactory("${injectionPoint.modelField.modelName}"));
+    <#elseif injectionPoint.modelField.modelWriteAccessorType.name() == "REFLECTION">
+        setFieldValue(${INSTANCE_NAME}, "${injectionPoint.modelField.fieldName}", getPostgreSQLConnectionFactory("${injectionPoint.modelField.modelName}"));
+    <#elseif injectionPoint.modelField.modelWriteAccessorType.name() == "DIRECT">
+        ${INSTANCE_NAME}.${injectionPoint.modelField.fieldName} = getPostgreSQLConnectionFactory("${injectionPoint.modelField.modelName}");
+    </#if>
+</#macro>
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#macro injectConnectionPool injectionPoint>
+    <#if injectionPoint.injectionMethodPresent>
+        ${INSTANCE_NAME}.${injectionPoint.injectionMethodSimpleName}(getPostgreSQLConnectionPool("${injectionPoint.modelField.modelName}"));
+    <#elseif injectionPoint.modelField.modelWriteAccessorType.name() == "REFLECTION">
+        setFieldValue(${INSTANCE_NAME}, "${injectionPoint.modelField.fieldName}", getPostgreSQLConnectionPool("${injectionPoint.modelField.modelName}"));
+    <#elseif injectionPoint.modelField.modelWriteAccessorType.name() == "DIRECT">
+        ${INSTANCE_NAME}.${injectionPoint.modelField.fieldName} = getPostgreSQLConnectionPool("${injectionPoint.modelField.modelName}");
+    </#if>
+</#macro>
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#macro injectRestClient injectionPoint>
+    <#if injectionPoint.injectionMethodPresent>
+        ${INSTANCE_NAME}.${injectionPoint.injectionMethodSimpleName}(getRestClient(${injectionPoint.modelField.fieldSimpleType}.class));
+    <#elseif injectionPoint.modelField.modelWriteAccessorType.name() == "REFLECTION">
+        setFieldValue(${INSTANCE_NAME}, "${injectionPoint.modelField.fieldName}", getRestClient(${injectionPoint.modelField.fieldSimpleType}.class));
+    <#elseif injectionPoint.modelField.modelWriteAccessorType.name() == "DIRECT">
+        ${INSTANCE_NAME}.${injectionPoint.modelField.fieldName} = getRestClient(${injectionPoint.modelField.fieldSimpleType}.class);
+    </#if>
+</#macro>
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#macro injectBean injectionPoint>
+    <#if injectionPoint.injectionMethodPresent>
+      <#if injectionPoint.required>
+        ${INSTANCE_NAME}.${injectionPoint.injectionMethodSimpleName}(getRequiredBean(
+                ${INSTANCE_NAME},
+                "${injectionPoint.modelField.fieldName}",
+                <#list injectionPoint.qualifierRules as cdi>
+                ${cdi.javaCodeFragment}<#if cdi?has_next>,</#if>
+                </#list>
+        ));
+      <#else>
+        getOptionalBean(
+                ${INSTANCE_NAME},
+                "${injectionPoint.modelField.fieldName}",
+                <#list injectionPoint.qualifierRules as cdi>
+                ${cdi.javaCodeFragment}<#if cdi?has_next>,</#if>
+                </#list>
+        ).ifPresent(${INSTANCE_NAME}::${injectionPoint.injectionMethodSimpleName});
+      </#if>
+    <#elseif injectionPoint.modelField.modelWriteAccessorType.name() == "REFLECTION">
+      <#if injectionPoint.required>
+        setFieldValue(${INSTANCE_NAME}, "${injectionPoint.modelField.fieldName}", getRequiredBean(
+                ${INSTANCE_NAME},
+                "${injectionPoint.modelField.fieldName}",
+                <#list injectionPoint.qualifierRules as cdi>
+                ${cdi.javaCodeFragment}<#if cdi?has_next>,</#if>
+                </#list>
+        ));
+      <#else>
+        getOptionalBean(
+                ${INSTANCE_NAME},
+                "${injectionPoint.modelField.fieldName}",
+                <#list injectionPoint.qualifierRules as cdi>
+                ${cdi.javaCodeFragment}<#if cdi?has_next>,</#if>
+                </#list>
+        ).ifPresent(value -> setFieldValue(${INSTANCE_NAME}, "${injectionPoint.modelField.fieldName}", value));
+      </#if>
+    <#elseif injectionPoint.modelField.modelWriteAccessorType.name() == "DIRECT">
+      <#if injectionPoint.required>
+        ${INSTANCE_NAME}.${injectionPoint.modelField.fieldName} = getRequiredBean(
+                ${INSTANCE_NAME},
+                "${injectionPoint.modelField.fieldName}",
+                <#list injectionPoint.qualifierRules as cdi>
+                ${cdi.javaCodeFragment}<#if cdi?has_next>,</#if>
+                </#list>
+        );
+      <#else>
+        getOptionalBean(
+                ${INSTANCE_NAME},
+                "${injectionPoint.modelField.fieldName}",
+                <#list injectionPoint.qualifierRules as cdi>
+                ${cdi.javaCodeFragment}<#if cdi?has_next>,</#if>
+                </#list>
+        ).ifPresent(value -> ${INSTANCE_NAME}.${injectionPoint.modelField.fieldName} = value);
+      </#if>
+    </#if>
+</#macro>
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#macro injectMultiBinder injectionPoint>
+    <#if injectionPoint.injectionMethodPresent>
+        ${INSTANCE_NAME}.${injectionPoint.injectionMethodSimpleName}(getBeansByType(
+                ${INSTANCE_NAME},
+                "${injectionPoint.modelField.fieldName}",
+                ${injectionPoint.modelField.genericListItemSimpleClassName}.class
+        ));
+    <#elseif injectionPoint.modelField.modelWriteAccessorType.name() == "REFLECTION">
+        setFieldValue(${INSTANCE_NAME}, "${injectionPoint.modelField.fieldName}", getBeansByType(
+                ${INSTANCE_NAME},
+                "${injectionPoint.modelField.fieldName}",
+                ${injectionPoint.modelField.genericListItemSimpleClassName}.class
+        ));
+    <#elseif injectionPoint.modelField.modelWriteAccessorType.name() == "DIRECT">
+        ${INSTANCE_NAME}.${injectionPoint.modelField.fieldName} = getBeansByType(
+                ${INSTANCE_NAME},
+                "${injectionPoint.modelField.fieldName}",
+                ${injectionPoint.modelField.genericListItemSimpleClassName}.class
+        );
+    </#if>
+</#macro>
+<#-- -------------------------------------------------------------------------------------------------------- -->

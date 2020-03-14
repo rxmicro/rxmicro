@@ -1,0 +1,42 @@
+<#include "../postgresql-lib.javaftl">
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<@defineGeneratedSQL SHOW_ORIGINAL_QUERY=SHOW_ORIGINAL_QUERY SQL=SQL/>
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#if TRANSACTION??>
+<#assign CONNECTION_PROVIDER>extractConnectionFrom(${TRANSACTION})</#assign>
+<#else>
+<#assign CONNECTION_PROVIDER>pool.create()</#assign>
+</#if>
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#if IS_ENTITY_PARAM>
+final Object[] insertParams = ${ENTITY_CONVERTER}.getInsertParams(${ENTITY});
+<#assign SQL_PARAMS>, insertParams</#assign>
+<#else>
+<#assign SQL_PARAMS>${getBindArgs(SQL.bindParams)}</#assign>
+<#if !RETURN_ENTITY_FIELD_MAP && !RETURN_ENTITY_FIELD_LIST>
+final ${ENTITY_CLASS} entity = new ${ENTITY_CLASS}();
+<#assign ENTITY>entity</#assign>
+</#if>
+</#if>
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#if RETURN_ENTITY_FIELD_MAP>
+    <#assign RESULT_CONVERTER>toEntityFieldMap()</#assign>
+<#elseif RETURN_ENTITY_FIELD_LIST>
+    <#assign RESULT_CONVERTER>toEntityFieldList()</#assign>
+<#elseif ENTITY_CONVERTER??>
+    <#assign RESULT_CONVERTER>(row, meta) -> ${ENTITY_CONVERTER}.${ENTITY_CONVERTER_METHOD}(${ENTITY}, row, meta)</#assign>
+</#if>
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<@returnEntityResult    RETURN=RETURN
+                        CONNECTION_PROVIDER=CONNECTION_PROVIDER
+                        SQL_PARAMS=SQL_PARAMS
+                        RESULT_CONVERTER=RESULT_CONVERTER
+                        CLOSE_CONNECTION=!TRANSACTION?? />

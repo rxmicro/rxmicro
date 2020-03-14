@@ -1,0 +1,56 @@
+/*
+ * Copyright (c) 2020. http://rxmicro.io
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package io.rxmicro.annotation.processor.rest.server.failed;
+
+import io.rxmicro.annotation.processor.integration.test.ExternalModule;
+import io.rxmicro.annotation.processor.rest.server.AbstractRestServerAnnotationProcessorIntegrationTest;
+import io.rxmicro.common.RxMicroModule;
+
+import javax.tools.JavaFileObject;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Stream;
+
+import static io.rxmicro.common.RxMicroModule.RX_MICRO_REST_SERVER_EXCHANGE_JSON_MODULE;
+import static java.util.stream.Collectors.toList;
+
+/**
+ * @author nedis
+ * @link http://rxmicro.io
+ */
+public abstract class AbstractFailedRestServerAnnotationProcessorIntegrationTest
+        extends AbstractRestServerAnnotationProcessorIntegrationTest {
+
+    private final Set<ExternalModule> externalModules = new HashSet<>();
+
+    protected final JavaFileObject moduleInfo(final RxMicroModule... rxMicroModules) {
+        return moduleInfo(
+                Stream.concat(
+                        Stream.of(RX_MICRO_REST_SERVER_EXCHANGE_JSON_MODULE),
+                        Arrays.stream(rxMicroModules)
+                ).collect(toList()),
+                externalModules
+        );
+    }
+
+    @Override
+    protected void addExternalModule(final ExternalModule externalModule) {
+        super.addExternalModule(externalModule);
+        this.externalModules.add(externalModule);
+    }
+}

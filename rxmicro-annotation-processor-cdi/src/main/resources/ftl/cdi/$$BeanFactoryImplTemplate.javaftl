@@ -1,0 +1,27 @@
+<#include "../common-lib.javaftl">
+<#-- -------------------------------------------------------------------------------------------------------- -->
+public final class ${IMPL_CLASS_NAME} extends InternalBeanFactory {
+
+    static {
+        ${ENVIRONMENT_CUSTOMIZER_CLASS}.customize();
+    }
+
+    public ${IMPL_CLASS_NAME}() {
+        <#list BEAN_DEFINITIONS as DEF>
+        register(
+                ${DEF.beanSimpleClassName}.class, new ${DEF.beanSupplierImplSimpleClassName}(),
+                <#list DEF.beanRegistrationQualifierRules as q>
+                ${q.javaCodeFragment}<#if q?has_next>,</#if>
+                </#list>
+        );
+        <#if DEF.beanDefinition.factoryClass>
+        register(
+                ${DEF.beanDefinition.factoryTypeSimpleClassName}.class, new ${DEF.beanSupplierImplSimpleClassName}.${DEF.beanDefinition.beanFactoryTypeSupplierImplSimpleClassName}(),
+                <#list DEF.factoryRegistrationQualifierRules as q>
+                ${q.javaCodeFragment}<#if q?has_next>,</#if>
+                </#list>
+        );
+        </#if>
+        </#list>
+    }
+}

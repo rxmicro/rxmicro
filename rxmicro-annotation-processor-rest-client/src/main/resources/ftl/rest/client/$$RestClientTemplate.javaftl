@@ -1,0 +1,33 @@
+<#include "../../common-lib.javaftl">
+<#-- -------------------------------------------------------------------------------------------------------- -->
+public final class ${PREFIX}${JAVA_REST_CLIENT_INTERFACE} extends ${JAVA_REST_CLIENT_ABSTRACT_CLASS} implements ${JAVA_REST_CLIENT_INTERFACE} {
+
+    <#list JAVA_MODEL_TRANSFORMERS as TRANSFORMER>
+    private final ${TRANSFORMER.javaSimpleClassName} ${TRANSFORMER.instanceName} =
+            new ${TRANSFORMER.javaSimpleClassName}();
+
+    </#list>
+    <#list JAVA_VALIDATED_MODEL_CLASSES as JAVA_CLASS>
+    private final ${JAVA_CLASS.modelValidatorImplSimpleClassName} ${JAVA_CLASS.modelValidatorInstanceName} =
+            new ${JAVA_CLASS.modelValidatorImplSimpleClassName}();
+
+    </#list>
+    private final HttpClient client;
+
+    private final ${CONFIG_CLASS} config;
+
+    public ${PREFIX}${JAVA_REST_CLIENT_INTERFACE              }(final HttpClient client,
+           ${space(PREFIX)}${space(JAVA_REST_CLIENT_INTERFACE)} final ${CONFIG_CLASS} config) {
+        this.client = client;
+        this.config = config;
+    }
+    <#list JAVA_REST_CLIENT_METHODS as METHOD>
+
+    @Override
+    public ${METHOD.returnType} ${METHOD.name}(${METHOD.params}) {
+        <#list METHOD.bodyLines as line>
+        ${line}
+        </#list>
+    }
+    </#list>
+}

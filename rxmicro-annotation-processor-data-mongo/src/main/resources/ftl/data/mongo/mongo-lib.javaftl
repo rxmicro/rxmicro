@@ -1,0 +1,89 @@
+<#-- ------------------------------------------------------------------------------------------------ -->
+<#-- ---------------- https://freemarker.apache.org/docs/ref_directive_function.html ---------------- -->
+<#-- ------------------------------------------------------------------------------------------------ -->
+<#function createBsonVar VAR EXP>
+<#assign VALUE>
+<#list EXP.lines as line>
+${line}
+</#list>
+</#assign>
+<#assign RESULT>
+<#if SHOW_ORIGINAL_QUERY>
+// ${VAR} = "${EXP.originalExpression}
+</#if>
+final Document ${VAR} = ${VALUE?trim}
+</#assign>
+<#return RESULT?trim>
+</#function>
+<#-- ------------------------------------------------------------------------------------------------ -->
+<#-- ----------------- https://freemarker.apache.org/docs/ref_directive_macro.html ------------------ -->
+<#-- ------------------------------------------------------------------------------------------------ -->
+<#macro returnUpdateResult>
+    <@returnResult 'getModifiedCount'/>
+</#macro>
+<#-- ------------------------------------------------------------------------------------------------ -->
+<#-- ----------------- https://freemarker.apache.org/docs/ref_directive_macro.html ------------------ -->
+<#-- ------------------------------------------------------------------------------------------------ -->
+<#macro returnDeleteResult>
+    <@returnResult 'getDeletedCount'/>
+</#macro>
+<#-- ------------------------------------------------------------------------------------------------ -->
+<#-- ----------------- https://freemarker.apache.org/docs/ref_directive_macro.html ------------------ -->
+<#-- ------------------------------------------------------------------------------------------------ -->
+<#macro returnResult longResultMethod>
+<#-- ------------------------------------------------------------------------------------------------ -->
+<#if RETURN.mono>
+<#if RETURN.void>
+return Mono.from(result).then();
+<#elseif RETURN.long>
+return Mono.from(result)
+        .map(r -> r.${longResultMethod}());
+<#elseif RETURN.boolean>
+return Mono.from(result)
+        .map(r -> r.${longResultMethod}() == 1);
+<#else>
+return Mono.from(result);
+</#if>
+<#-- ------------------------------------------------------------------------------------------------ -->
+<#elseif RETURN.completable>
+return Completable.fromPublisher(result);
+<#-- ------------------------------------------------------------------------------------------------ -->
+<#elseif RETURN.single>
+<#if RETURN.long>
+return Single.fromPublisher(result)
+        .map(r -> r.${longResultMethod}());
+<#elseif RETURN.boolean>
+return Single.fromPublisher(result)
+        .map(r -> r.${longResultMethod}() == 1);
+<#else>
+return Single.fromPublisher(result);
+</#if>
+<#-- ------------------------------------------------------------------------------------------------ -->
+<#elseif RETURN.future>
+<#if RETURN.void>
+return new PublisherToRequiredMonoFutureAdapter<>(
+        result,
+        useOptionalExceptionSupplier(${RETURN.simpleReactiveType}.class, ${RETURN.simpleResultType}.class)
+).thenApply(r -> null);
+<#elseif RETURN.boolean>
+return new PublisherToRequiredMonoFutureAdapter<>(
+        result,
+        useOptionalExceptionSupplier(${RETURN.simpleReactiveType}.class, ${RETURN.simpleResultType}.class)
+).thenApply(r -> r.${longResultMethod}() == 1);
+<#elseif RETURN.long>
+return new PublisherToRequiredMonoFutureAdapter<>(
+        result,
+        useOptionalExceptionSupplier(${RETURN.simpleReactiveType}.class, ${RETURN.simpleResultType}.class)
+).thenApply(r -> r.${longResultMethod}());
+<#else>
+return new PublisherToRequiredMonoFutureAdapter<>(
+        result,
+        useOptionalExceptionSupplier(${RETURN.simpleReactiveType}.class, ${RETURN.simpleResultType}.class)
+);
+</#if>
+</#if>
+<#-- ------------------------------------------------------------------------------------------------ -->
+</#macro>
+<#-- ------------------------------------------------------------------------------------------------ -->
+<#-- ----------------- https://freemarker.apache.org/docs/ref_directive_macro.html ------------------ -->
+<#-- ------------------------------------------------------------------------------------------------ -->

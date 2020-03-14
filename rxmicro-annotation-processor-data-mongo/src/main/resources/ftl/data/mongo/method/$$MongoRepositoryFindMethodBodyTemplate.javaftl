@@ -1,0 +1,99 @@
+<#include "../mongo-lib.javaftl">
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#if QUERY??>
+${createBsonVar('query', QUERY)}
+</#if>
+<#if PROJECTION??>
+${createBsonVar('projection', PROJECTION)}
+</#if>
+<#if HINT??>
+${createBsonVar('hint', HINT)}
+</#if>
+<#if SORT??>
+${createBsonVar('sort', SORT)}
+</#if>
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#if QUERY??>
+final FindPublisher<Document> result = collection
+        .find(query)
+<#else>
+final FindPublisher<Document> result = collection
+        .find()
+</#if>
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#if PROJECTION??>
+        .projection(projection)
+</#if>
+<#if HINT??>
+        .hint(hint)
+</#if>
+<#if SORT??>
+        .sort(sort)
+</#if>
+<#if LIMIT??>
+        .limit(${LIMIT})
+</#if>
+<#if SKIP??>
+        .skip(${SKIP})
+</#if>
+        .returnKey(false);
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#if RETURN.oneItem>
+<#if RETURN.mono>
+return Mono.from(result)
+        .map(${ENTITY_CONVERTER}::fromDB);
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#elseif RETURN.future && !RETURN.optional>
+return new PublisherToRequiredMonoFutureAdapter<>(
+        result,
+        useOptionalExceptionSupplier(${RETURN.simpleReactiveType}.class, ${RETURN.simpleResultType}.class)
+).thenApply(${ENTITY_CONVERTER}::fromDB);
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#elseif RETURN.future && RETURN.optional>
+return new PublisherToOptionalMonoFutureAdapter<>(result)
+        .thenApply(o -> o.map(${ENTITY_CONVERTER}::fromDB));
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#elseif RETURN.single>
+return Single.fromPublisher(result)
+        .map(${ENTITY_CONVERTER}::fromDB);
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#elseif RETURN.maybe>
+return Flowable.fromPublisher(result)
+        .firstElement()
+        .map(${ENTITY_CONVERTER}::fromDB);
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#else>
+//"RxMicro does not know how to generate this method";
+</#if>
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#else>
+<#if RETURN.mono>
+return Flux.from(result)
+        .map(${ENTITY_CONVERTER}::fromDB)
+        .collectList();
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#elseif RETURN.flux>
+return Flux.from(result)
+        .map(${ENTITY_CONVERTER}::fromDB);
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#elseif RETURN.future>
+return new PublisherToFluxFutureAdapter<>(result)
+        .thenApply(l -> l.stream().map(${ENTITY_CONVERTER}::fromDB)
+                .collect(Collectors.toList()));
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#elseif RETURN.flowable>
+return Flowable.fromPublisher(result)
+        .map(${ENTITY_CONVERTER}::fromDB);
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#elseif RETURN.single>
+return Flowable.fromPublisher(result)
+        .map(${ENTITY_CONVERTER}::fromDB)
+        .collect(ArrayList::new, (l, e) -> l.add(e));
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#else>
+//"RxMicro does not know how to generate this method";
+</#if>
+</#if>
+<#-- -------------------------------------------------------------------------------------------------------- -->

@@ -1,0 +1,28 @@
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#include "../comments.adocftl"/>
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<@commentH2 H1='Introduction' H2='HTTP Verbs'/>
+=== HTTP Verbs
+
+*The ${PROJECT.name}* uses HTTP verbs appropriate to each action. +
+
+[cols="2", options="header"]
+|===
+|*Verb*
+|*Description*
+
+|GET
+|_Retrieving resource(s)_.
+
+|POST
+|_Creating resource(s)_.
+
+|PUT
+|_Full updating resource(s)_.
+
+|PATCH
+|_Partial updating resource(s)_.
+
+|DELETE
+|_Deleting resource(s)_.
+|===

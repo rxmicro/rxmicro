@@ -1,0 +1,45 @@
+<#include "../mongo-lib.javaftl">
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#if QUERY??>
+${createBsonVar('query', QUERY)}
+</#if>
+<#if HINT??>
+${createBsonVar('hint', HINT)}
+</#if>
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#if HINT?? || LIMIT?? || SKIP??>
+final Publisher<Long> result = collection
+        .countDocuments(<#if QUERY??>query, <#else>MongoQueries.NULL, </#if>new CountOptions()
+<#if HINT??>
+                .hint(hint)
+</#if>
+<#if LIMIT??>
+                .limit(${LIMIT})
+</#if>
+<#if SKIP??>
+                .skip(${SKIP})
+</#if>
+        );
+<#else>
+final Publisher<Long> result = collection
+        .countDocuments(<#if QUERY??>query</#if>);
+</#if>
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#if RETURN.mono>
+return Mono.from(result);
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#elseif RETURN.future>
+return new PublisherToRequiredMonoFutureAdapter<>(
+        result,
+        useOptionalExceptionSupplier(${RETURN.simpleReactiveType}.class, ${RETURN.simpleResultType}.class)
+);
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#elseif RETURN.single>
+return Single.fromPublisher(result);
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#else>
+//"RxMicro does not know how to generate this method";
+</#if>
+<#-- -------------------------------------------------------------------------------------------------------- -->

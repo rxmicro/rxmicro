@@ -1,0 +1,43 @@
+/*
+ * Copyright (c) 2020. http://rxmicro.io
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package io.rxmicro.validation.base;
+
+import io.rxmicro.http.error.ValidationException;
+import io.rxmicro.rest.model.HttpModelType;
+import io.rxmicro.validation.ConstraintValidator;
+
+import java.util.List;
+
+/**
+ * @author nedis
+ * @link http://rxmicro.io
+ * @since 0.1
+ */
+public abstract class AbstractListConstraintValidator implements ConstraintValidator<List<?>> {
+
+    @Override
+    public void validateList(final List<List<?>> list,
+                             final HttpModelType httpModelType,
+                             final String modelName) throws ValidationException {
+        throw new AbstractMethodError("Use 'validate' instead!");
+    }
+
+    @Override
+    public void validateList(final List<List<?>> models) throws ValidationException {
+        throw new AbstractMethodError("Use 'validate' instead!");
+    }
+}

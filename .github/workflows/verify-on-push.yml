@@ -1,0 +1,27 @@
+name: Verify on Push
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  verify-on-linux:
+    name: JDK-${{ matrix.jdk }}/${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        jdk: ['11']
+        os: [ubuntu-latest]
+      fail-fast: false
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/cache@v1
+        with:
+          path: ~/.m2/repository
+          key: rxmicro-maven-${{ runner.os }}-cache
+      - uses: actions/setup-java@v1
+        with:
+          java-version: '11'
+      - run: mvn -B test --file pom.xml
+

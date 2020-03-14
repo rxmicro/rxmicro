@@ -1,0 +1,18 @@
+# Set the default behavior, in case people don't have core.autocrlf set.
+* text=auto
+
+*.java          text diff=java
+*.javaftl       text diff=java
+
+*.properties    text
+*.json          text
+*.xml           text
+*.md            text
+*.txt           text
+
+*.adoc          text
+*.asciidoc      text
+*.adocftl       text
+
+LICENSE         text
+NOTICE          text

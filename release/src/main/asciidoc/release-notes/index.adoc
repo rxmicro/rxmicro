@@ -1,0 +1,4 @@
+[[release-notes]]
+= RxMicro Release Notes
+
+This document contains the _change log_ for all RxMicro releases since 0.2.

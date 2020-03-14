@@ -1,0 +1,45 @@
+<#include "../../common-lib.javaftl">
+<#-- -------------------------------------------------------------------------------------------------------- -->
+public final class ${IMPL_CLASS_NAME} extends RestControllerAggregator {
+
+    static {
+        ${ENVIRONMENT_CUSTOMIZER_CLASS}.customize();
+    }
+
+    protected List<AbstractRestController> listAllRestControllers() {
+        return List.of(
+                <#if CORS_RESOURCES?has_content>
+                new CrossOriginResourceSharingPreflightRestController(Set.of(
+                        <#list CORS_RESOURCES as CORS_RESOURCE>
+                        new CrossOriginResourceSharingResource(
+                                <#if CORS_RESOURCE.urlSegmentsPresent>
+                                new UrlSegments(
+                                        "${CORS_RESOURCE.urlSegments.urlTemplate}",
+                                        List.of(<#list CORS_RESOURCE.urlSegments.variables as v>"${v}"<#if v?has_next>, </#if></#list>)
+                                ),
+                                <#else>
+                                "${CORS_RESOURCE.uri}",
+                                </#if>
+                                ${CORS_RESOURCE.accessControlAllowCredentials?c},
+                                ${CORS_RESOURCE.accessControlMaxAge?c},
+                                Set.of(<#list CORS_RESOURCE.allowOrigins as item>"${item}"<#if item?has_next>, </#if></#list>),
+                                Set.of(<#list CORS_RESOURCE.allowMethods as item>"${item}"<#if item?has_next>, </#if></#list>),
+                                Set.of(<#list CORS_RESOURCE.allowHeaders as item>"${item}"<#if item?has_next>, </#if></#list>),
+                                Set.of(<#list CORS_RESOURCE.exposedHeaders as item>"${item}"<#if item?has_next>, </#if></#list>)
+                        )<#if CORS_RESOURCE?has_next>,</#if>
+                        </#list>
+                )),
+                </#if>
+                <#if HTTP_HEALTH_CHECKS?has_content>
+                new HttpHealthCheckRestController(
+                        <#list HTTP_HEALTH_CHECKS as CHECK>
+                        new HttpHealthCheckRegistration("${CHECK.method}", "${CHECK.endpoint}")<#if CHECK?has_next>,</#if>
+                        </#list>
+                ),
+                </#if>
+                <#list JAVA_REST_CONTROLLER_CLASSES as REST_CONTROLLER>
+                new ${REST_CONTROLLER}()<#if REST_CONTROLLER?has_next>,</#if>
+                </#list>
+        );
+    }
+}

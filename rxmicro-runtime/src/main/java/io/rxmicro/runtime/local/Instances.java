@@ -1,0 +1,134 @@
+/*
+ * Copyright 2019 http://rxmicro.io
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package io.rxmicro.runtime.local;
+
+import io.rxmicro.common.CheckedWrapperException;
+import io.rxmicro.common.RxMicroException;
+import io.rxmicro.common.util.Formats;
+
+import java.lang.reflect.InvocationTargetException;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.ServiceLoader;
+import java.util.function.Function;
+
+import static io.rxmicro.runtime.internal.RuntimeVersion.setRxMicroVersion;
+import static java.util.stream.Collectors.joining;
+
+/**
+ * @author nedis
+ * @link http://rxmicro.io
+ * @since 0.1
+ */
+public final class Instances {
+
+    static {
+        setRxMicroVersion();
+    }
+
+    @SuppressWarnings("unchecked")
+    public static <T> T instantiate(final String targetClassName,
+                                    final Object... constructorArgs) {
+        try {
+            return (T) instantiate(Class.forName(targetClassName), constructorArgs);
+        } catch (final ClassNotFoundException e) {
+            throw new CheckedWrapperException("Class ? not found", e, targetClassName);
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    public static <T> T instantiate(final String targetClassName,
+                                    final Class<?>[] argTypes,
+                                    final Object... constructorArgs) {
+        try {
+            return (T) instantiate(Class.forName(targetClassName), argTypes, constructorArgs);
+        } catch (final ClassNotFoundException e) {
+            throw new CheckedWrapperException("Class ? not found", e, targetClassName);
+        }
+    }
+
+    public static <T> T instantiate(final Class<T> targetClass,
+                                    final Object... constructorArgs) {
+        final Class<?>[] argTypes = Arrays.stream(constructorArgs).map(Object::getClass).toArray(Class[]::new);
+        return instantiate(targetClass, argTypes, constructorArgs);
+    }
+
+    public static <T> T instantiate(final Class<T> targetClass,
+                                    final Class<?>[] argTypes,
+                                    final Object[] constructorArgs) {
+        try {
+            return targetClass.getConstructor(argTypes).newInstance(constructorArgs);
+        } catch (final NoSuchMethodException e) {
+            throw new CheckedWrapperException("Class ? must contain a required constructor: " +
+                    "public <init>(?)", e, targetClass.getName(),
+                    Arrays.stream(argTypes)
+                            .map(cl -> cl.getName() + " arg" + cl.getSimpleName())
+                            .collect(joining(",")));
+        } catch (final IllegalAccessException | InstantiationException e) {
+            throw new CheckedWrapperException("Can't instantiate ? class: ?",
+                    e, targetClass.getName(), e.getMessage());
+        } catch (final InvocationTargetException e) {
+            throw new CheckedWrapperException("Can't instantiate ? class: ?",
+                    e.getTargetException(), targetClass.getName(), e.getTargetException().getMessage());
+        }
+    }
+
+    public static <T> T getImplementation(final Class<T> serviceInterface,
+                                          final boolean required,
+                                          final Function<Class<T>, ServiceLoader<T>> serviceLoader) {
+        final ServiceLoader<T> loader = serviceLoader.apply(serviceInterface);
+        final Iterator<T> iterator = loader.iterator();
+        T impl = null;
+
+        while (iterator.hasNext()) {
+            final T item = iterator.next();
+            if (impl != null) {
+                throw new ImplementationLoadFailedException(
+                        "Detected a few implementations of component ?: ? and ?",
+                        serviceInterface.getName(),
+                        impl.getClass().getName(),
+                        item.getClass().getName());
+            }
+            impl = item;
+        }
+
+        if (impl == null && required) {
+            throw new ImplementationLoadFailedException(
+                    "Missing an implementation of component ?", serviceInterface.getName());
+        }
+        return impl;
+    }
+
+    private Instances() {
+    }
+
+    /**
+     * @author nedis
+     * @link http://rxmicro.io
+     * @since 0.1
+     */
+    public static final class ImplementationLoadFailedException extends RxMicroException {
+
+        /**
+         * This constructor uses {@link Formats#format(String, Object...) Formats.format} to format error message
+         */
+        private ImplementationLoadFailedException(final String message,
+                                                  final Object... args) {
+            super(message, args);
+        }
+    }
+}

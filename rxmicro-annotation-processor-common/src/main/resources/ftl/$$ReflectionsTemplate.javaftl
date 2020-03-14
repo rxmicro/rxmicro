@@ -1,0 +1,59 @@
+<#include "common-lib.javaftl">
+<#-- -------------------------------------------------------------------------------------------------------- -->
+public final class ${CLASS_NAME} {
+
+    <#if GETTER_REQUIRED>
+    public static Object getFieldValue(final Object model,
+                                       final String fieldName) {
+        final Field field = getField(model, fieldName, f -> {
+            if (!f.canAccess(model)) {
+                f.setAccessible(true);
+            }
+        });
+        try {
+            return field.get(model);
+        } catch (IllegalAccessException e) {
+            throw new RxMicroException(e);
+        }
+    }
+
+    </#if>
+    <#if SETTER_REQUIRED>
+    public static void setFieldValue(final Object model,
+                                     final String fieldName,
+                                     final Object value) {
+        final Field field = getField(model, fieldName, f -> {
+            if (!f.canAccess(model)) {
+                f.setAccessible(true);
+            }
+        });
+        try {
+            field.set(model, value);
+        } catch (IllegalAccessException e) {
+            throw new RxMicroException(e);
+        }
+    }
+
+    </#if>
+    <#if INVOKE_REQUIRED>
+    public static Object invoke(final Object bean,
+                                final String methodName,
+                                final Object... args) {
+        final Method method = getMethod(bean, methodName, stream(args).map(Object::getClass).collect(toList()), m -> {
+            if (!m.canAccess(bean instanceof Class ? null : bean)) {
+                m.setAccessible(true);
+            }
+        });
+        try {
+            return method.invoke(bean, args);
+        } catch (IllegalAccessException e) {
+            throw new RxMicroException(e);
+        } catch (InvocationTargetException e) {
+            throw new RxMicroException(e.getTargetException());
+        }
+    }
+
+    </#if>
+    private ${CLASS_NAME}() {
+    }
+}

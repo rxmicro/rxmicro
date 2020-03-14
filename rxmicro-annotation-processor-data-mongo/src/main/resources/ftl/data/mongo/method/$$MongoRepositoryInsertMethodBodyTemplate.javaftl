@@ -1,0 +1,47 @@
+final Document document = ${ENTITY_CONVERTER}.toDB(${ENTITY}, true);
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#if RETURN.mono>
+<#if RETURN.void>
+return Mono.from(collection.insertOne(document))
+        .then()
+        .doOnSuccess(a -> ${ENTITY_CONVERTER}.setId(document, ${ENTITY}));
+<#else>
+return Mono.from(collection.insertOne(document))
+        .map(s -> ${ENTITY})
+        .doOnSuccess(a -> ${ENTITY_CONVERTER}.setId(document, ${ENTITY}));
+</#if>
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#elseif RETURN.future>
+<#if RETURN.void>
+return new PublisherToRequiredMonoFutureAdapter<>(
+        collection.insertOne(document),
+        useOptionalExceptionSupplier(${RETURN.simpleReactiveType}.class, ${RETURN.simpleResultType}.class)
+).thenApply(s -> {
+    ${ENTITY_CONVERTER}.setId(document, ${ENTITY});
+    return null;
+});
+<#else>
+return new PublisherToRequiredMonoFutureAdapter<>(
+        collection.insertOne(document),
+        useOptionalExceptionSupplier(${RETURN.simpleReactiveType}.class, ${RETURN.simpleResultType}.class)
+).thenApply(s -> {
+    ${ENTITY_CONVERTER}.setId(document, ${ENTITY});
+    return account;
+});
+</#if>
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#elseif RETURN.completable>
+return Completable.fromPublisher(collection.insertOne(document))
+        .doOnComplete(() -> ${ENTITY_CONVERTER}.setId(document, ${ENTITY}));
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#elseif RETURN.single>
+return Single.fromPublisher(collection.insertOne(document))
+        .map(s -> account)
+        .doOnSuccess(a -> ${ENTITY_CONVERTER}.setId(document, ${ENTITY}));
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#else>
+//"RxMicro does not know how to generate this method";
+</#if>
+<#-- -------------------------------------------------------------------------------------------------------- -->

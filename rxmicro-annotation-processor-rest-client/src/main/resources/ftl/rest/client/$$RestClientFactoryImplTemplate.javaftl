@@ -1,0 +1,29 @@
+<#include "../../common-lib.javaftl">
+<#-- -------------------------------------------------------------------------------------------------------- -->
+public final class ${IMPL_CLASS_NAME} extends RestClientFactory {
+
+    static {
+        ${ENVIRONMENT_CUSTOMIZER_CLASS}.customize();
+        <#list DEFAULT_CONFIG_VALUES as V>
+        putDefaultConfigValue("${V.key}", "${V.value}");
+        </#list>
+        <#if MODULE_INFO_ITEMS?has_content>
+        // Add required module declaration automatically
+        final Module currentModule = ${IMPL_CLASS_NAME}.class.getModule();
+        <#list MODULE_INFO_ITEMS as ITEM>
+        currentModule.${ITEM.addMethod}("${ITEM.packageName}", ${ITEM.moduleExpression});
+        </#list>
+        </#if>
+    }
+
+    public ${IMPL_CLASS_NAME}() {
+        <#list REST_CLIENTS as REST_CLIENT>
+        register(${REST_CLIENT.simpleInterfaceName}.class, () -> createRestClient(
+                "${REST_CLIENT.configNameSpace}",
+                ${REST_CLIENT.httpClientConfigSimpleClassName}.class,
+                ${REST_CLIENT.simpleInterfaceName}.class,
+                ${REST_CLIENT.targetSimpleClassName}::new)
+        );
+        </#list>
+    }
+}

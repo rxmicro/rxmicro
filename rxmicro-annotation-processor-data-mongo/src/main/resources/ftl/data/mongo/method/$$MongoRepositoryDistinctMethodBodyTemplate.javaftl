@@ -1,0 +1,63 @@
+<#include "../mongo-lib.javaftl">
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#if QUERY??>
+${createBsonVar('query', QUERY)}
+</#if>
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#if RETURN.oneItem>
+<#if RETURN.mono>
+return Mono.from(collection
+        .distinct("${FIELD}", <#if QUERY??>query, </#if>${RETURN.simpleResultType}.class));
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#elseif RETURN.future>
+return new PublisherToFluxFutureAdapter<>(collection
+        .distinct("${FIELD}", <#if QUERY??>query, </#if>${RETURN.simpleResultType}.class))
+        <#if RETURN.optional>
+        .thenApply(l -> l.isEmpty() ? Optional.empty() : Optional.ofNullable(l.get(0)));
+        <#else>
+        .thenApply(l -> l.get(0));
+        </#if>
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#elseif RETURN.single>
+return Single.fromPublisher(collection
+        .distinct("${FIELD}", <#if QUERY??>query, </#if>${RETURN.simpleResultType}.class));
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#elseif RETURN.maybe>
+return Flowable.fromPublisher(collection
+        .distinct("${FIELD}", <#if QUERY??>query, </#if>${RETURN.simpleResultType}.class))
+        .firstElement();
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#else>
+//"RxMicro does not know how to generate this method";
+</#if>
+<#else>
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#if RETURN.mono>
+return Flux.from(collection
+        .distinct("${FIELD}", <#if QUERY??>query, </#if>${RETURN.simpleResultType}.class))
+        .collectList();
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#elseif RETURN.flux>
+return Flux.from(collection
+        .distinct("${FIELD}", <#if QUERY??>query, </#if>${RETURN.simpleResultType}.class));
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#elseif RETURN.future>
+return new PublisherToFluxFutureAdapter<>(collection
+        .distinct("${FIELD}", <#if QUERY??>query, </#if>${RETURN.simpleResultType}.class));
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#elseif RETURN.single>
+return Flowable.fromPublisher(collection
+        .distinct("${FIELD}", <#if QUERY??>query, </#if>${RETURN.simpleResultType}.class))
+        .collect(ArrayList::new, (l, e) -> l.add(e));
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#elseif RETURN.flowable>
+return Flowable.fromPublisher(collection
+        .distinct("${FIELD}", <#if QUERY??>query, </#if>${RETURN.simpleResultType}.class));
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#else>
+//"RxMicro does not know how to generate this method";
+</#if>
+</#if>
+<#-- -------------------------------------------------------------------------------------------------------- -->

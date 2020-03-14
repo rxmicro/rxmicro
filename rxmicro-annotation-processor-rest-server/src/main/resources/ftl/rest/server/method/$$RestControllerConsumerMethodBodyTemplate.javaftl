@@ -1,0 +1,69 @@
+final ${REQUEST_CLASS} req = ${REQUEST_READER}.read(pathVariableMapping, request, request.contentExists());
+<#if GENERATE_REQUEST_VALIDATORS>
+${REQUEST_VALIDATOR}.validate(req);
+</#if>
+<#-- --------------------------------------------- Static headers -------------------------------------------------- -->
+<#if STATIC_HEADERS?has_content>
+<#if STATIC_HEADERS?size == 1>
+final HttpHeaders headers = HttpHeaders.of(<#list STATIC_HEADERS as e>"${e.key}", "${e.value}"</#list>);
+<#elseif STATIC_HEADERS?size <= 10>
+final HttpHeaders headers = HttpHeaders.of(
+    <#list STATIC_HEADERS as e>
+        "${e.key}", "${e.value}"<#if e?has_next>,</#if>
+    </#list>
+);
+<#else>
+final HttpHeaders headers = HttpHeaders.of(
+    <#list STATIC_HEADERS as e>
+        java.util.Map.entry("${e.key}", "${e.value}")<#if e?has_next>,</#if>
+    </#list>
+);
+</#if>
+<#else>
+final HttpHeaders headers = HttpHeaders.of();
+</#if>
+<#-- --------------------------------------------- Reactive Void --------------------------------------------------- -->
+<#if RETURN.reactiveVoid>
+<#if RETURN.mono>
+<#-- -------------------------------------- Spring Reactor Mono<Void> ---------------------------------------------- -->
+<#if IS_REQUEST_CLASS_VIRTUAL>
+return restController.${METHOD_NAME.simpleName}(<#list VIRTUAL_FIELDS as f>req.${f}<#if f?has_next>, </#if></#list>)
+        .toFuture()
+        .thenApply(nothing -> buildResponse(${STATUS_CODE}, headers));
+<#else>
+return restController.${METHOD_NAME.simpleName}(req)
+        .toFuture()
+        .thenApply(nothing -> buildResponse(${STATUS_CODE}, headers));
+</#if>
+<#-- ----------------------------------------- RxJava Completable -------------------------------------------------- -->
+<#elseif RETURN.completable>
+<#if IS_REQUEST_CLASS_VIRTUAL>
+return restController.${METHOD_NAME.simpleName}(<#list VIRTUAL_FIELDS as f>req.${f}<#if f?has_next>, </#if></#list>)
+        .toCompletionStage(buildResponse(${STATUS_CODE}, headers));
+<#else>
+return restController.${METHOD_NAME.simpleName}(req)
+        .toCompletionStage(buildResponse(${STATUS_CODE}, headers));
+</#if>
+<#-- ------------------------------------ JSE CompletableFuture<Void> ---------------------------------------------- -->
+<#elseif RETURN.future>
+<#if IS_REQUEST_CLASS_VIRTUAL>
+return restController.${METHOD_NAME.simpleName}(<#list VIRTUAL_FIELDS as f>req.${f}<#if f?has_next>, </#if></#list>)
+        .thenApply(nothing -> buildResponse(${STATUS_CODE}, headers));
+<#else>
+return restController.${METHOD_NAME.simpleName}(req)
+        .thenApply(nothing -> buildResponse(${STATUS_CODE}, headers));
+</#if>
+<#-- --------------------------------------------------------------------------------------------------------------- -->
+<#else>
+//"RxMicro does not know how to generate this method";
+</#if>
+<#else>
+<#-- ------------------------------------------------ Void --------------------------------------------------------- -->
+<#if IS_REQUEST_CLASS_VIRTUAL>
+restController.${METHOD_NAME.simpleName}(<#list VIRTUAL_FIELDS as f>req.${f}<#if f?has_next>, </#if></#list>);
+<#else>
+restController.${METHOD_NAME.simpleName}(req);
+</#if>
+return CompletableFuture.completedStage(buildResponse(${STATUS_CODE}, headers));
+<#-- --------------------------------------------------------------------------------------------------------------- -->
+</#if>

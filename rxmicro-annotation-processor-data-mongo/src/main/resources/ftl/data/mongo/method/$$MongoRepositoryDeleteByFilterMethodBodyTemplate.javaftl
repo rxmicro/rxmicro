@@ -1,0 +1,6 @@
+<#include "../mongo-lib.javaftl">
+<#-- -------------------------------------------------------------------------------------------------------- -->
+${createBsonVar('filter', FILTER)}
+<#-- -------------------------------------------------------------------------------------------------------- -->
+final Publisher<DeleteResult> result = collection.deleteMany(filter);
+<@returnDeleteResult />

@@ -1,0 +1,15 @@
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#include "resource-group-macro.adocftl"/>
+<#include "comments.adocftl"/>
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<@commentH2 H1=GROUP.name H2='Basics' />
+=== Basics
+
+<#list GROUP.sections as SECTION>
+<#if SECTION.invokeMacros>
+<@invoke NAME=SECTION.data GROUP=GROUP/>
+<#else>
+${SECTION.data}
+</#if>
+
+</#list>

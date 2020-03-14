@@ -1,0 +1,47 @@
+<#include "../common-lib.javaftl">
+<#-- -------------------------------------------------------------------------------------------------------- -->
+public final class ${JAVA_MODEL_CLASS.modelValidatorImplSimpleClassName} implements ConstraintValidator<${JAVA_MODEL_CLASS.javaSimpleClassName}> {
+
+    <#list JAVA_MODEL_VALIDATOR_CHILDREN as CHILD>
+    private final ${CHILD.modelClass.modelValidatorImplSimpleClassName} ${CHILD.modelClass.modelValidatorInstanceName} =
+            new ${CHILD.modelClass.modelValidatorImplSimpleClassName}();
+
+    </#list>
+    <#list JAVA_MODEL_VALIDATOR_CREATORS as CREATOR>
+    <#if CREATOR.stateless>
+    private final ${CREATOR.className} ${CREATOR.instanceName} =
+            getStatelessValidator(${CREATOR.className}.class);
+    <#else>
+    private final ${CREATOR.className} ${CREATOR.instanceName} =
+            new ${CREATOR.className}(${CREATOR.constructorArgs});
+    </#if>
+
+    </#list>
+    @Override
+    public void validate(final ${JAVA_MODEL_CLASS.javaSimpleClassName} model,
+                         final HttpModelType httpModelType,
+                         final String name) throws ValidationException {
+        <#if OPTIONAL>
+        if (model == null){
+            return;
+        }
+        </#if>
+        <#-- -------------------------------------------------------------------------------------------------------- -->
+        <#list JAVA_MODEL_VALIDATOR_INVOKERS as INV>
+        <#list INV.validators as V>
+        <#if INV.field.modelReadAccessorType.name() == "REFLECTION">
+        ${V.instanceName}.${V.method}((${INV.field.fieldClass}) getFieldValue(model, "${INV.field.fieldName}"), HttpModelType.${INV.field.httpModelType}, "${INV.field.modelName}");
+        <#-- -------------------------------------------------------------------------------------------------------- -->
+        <#elseif INV.field.modelReadAccessorType.name() == "DIRECT">
+        ${V.instanceName}.${V.method}(model.${INV.field.fieldName}, HttpModelType.${INV.field.httpModelType}, "${INV.field.modelName}");
+        <#-- -------------------------------------------------------------------------------------------------------- -->
+        <#elseif INV.field.modelReadAccessorType.name() == "JAVA_BEAN">
+        ${V.instanceName}.${V.method}(model.${INV.field.getter}(), HttpModelType.${INV.field.httpModelType}, "${INV.field.modelName}");
+        </#if>
+        </#list>
+        <#if INV?has_next>
+
+        </#if>
+        </#list>
+    }
+}

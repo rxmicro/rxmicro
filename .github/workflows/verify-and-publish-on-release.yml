@@ -1,0 +1,27 @@
+name: Verify and Publish on Release
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  verify-on-all-supported-platforms:
+    name: JDK-${{ matrix.jdk }}/${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        jdk: ['11', '12', '13']
+        os: [ubuntu-latest, windows-latest, macOS-latest]
+      fail-fast: false
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/cache@v1
+        with:
+          path: ~/.m2/repository
+          key: rxmicro-maven-${{ runner.os }}-cache
+      - uses: actions/setup-java@v1
+        with:
+          java-version: ${{ matrix.jdk }}
+      - run: mvn -B test --file pom.xml
+

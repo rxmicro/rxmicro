@@ -1,0 +1,32 @@
+<#include "../rest-client-lib.javaftl">
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#if HEADERS?has_content>
+final HeaderBuilder headerBuilder = new HeaderBuilder();
+<#list HEADERS as HEADER>
+headerBuilder.add("${HEADER.key}", ${HEADER.value});
+</#list>
+</#if>
+<#if QUERY_PARAMS?has_content>
+final QueryBuilder queryBuilder = new QueryBuilder();
+<#list QUERY_PARAMS as PARAM>
+queryBuilder.add("${PARAM.key}", ${PARAM.value});
+</#list>
+</#if>
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#if HEADERS?has_content>
+final CompletableFuture<ClientHttpResponse> response = client
+        .sendAsync("${HTTP_METHOD}", "${PATH}", headerBuilder.build())
+        .handle(throwExceptionIfNotSuccess());
+<#elseif QUERY_PARAMS?has_content>
+final CompletableFuture<ClientHttpResponse> response = client
+        .sendAsync("${HTTP_METHOD}", joinPath("${PATH}", queryBuilder.build()), EMPTY_HEADERS)
+        .handle(throwExceptionIfNotSuccess());
+<#else>
+final CompletableFuture<ClientHttpResponse> response = client
+        .sendAsync("${HTTP_METHOD}", "${PATH}", EMPTY_HEADERS)
+        .handle(throwExceptionIfNotSuccess());
+</#if>
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<@returnResult/>

@@ -1,0 +1,37 @@
+<#-- ------------------------------------------------------------------------------------------------ -->
+<#-- ----------------- https://freemarker.apache.org/docs/ref_directive_macro.html ------------------ -->
+<#-- ------------------------------------------------------------------------------------------------ -->
+<#macro invoke NAME GROUP>
+<#if NAME == 'versioning'>
+<@versioning GROUP=GROUP/>
+<#elseif NAME == 'cors'>
+<@cors GROUP=GROUP/>
+</#if>
+</#macro>
+<#-- ------------------------------------------------------------------------------------------------ -->
+<#-- ----------------- https://freemarker.apache.org/docs/ref_directive_macro.html ------------------ -->
+<#-- ------------------------------------------------------------------------------------------------ -->
+<#macro versioning GROUP>
+==== Versioning
+
+The ${GROUP.name} supports versioning with ${GROUP.versionStrategyType} based strategy. +
+<#if GROUP.versionStrategyType == 'URL'>
+_(This means that each URL to the ${GROUP.name} contains version path, i.e. `/${GROUP.currentApiVersion}/`)_.
+<#else>
+_(This means that each HTTP request to the ${GROUP.name} contains required header `${GROUP.apiVersionHeader}`)_.
+</#if>
+
+Current version is `${GROUP.currentApiVersion}`.
+</#macro>
+<#-- ------------------------------------------------------------------------------------------------ -->
+<#-- ----------------- https://freemarker.apache.org/docs/ref_directive_macro.html ------------------ -->
+<#-- ------------------------------------------------------------------------------------------------ -->
+<#macro cors GROUP>
+==== Cross origin resource sharing
+
+The ${GROUP.name} supports https://en.wikipedia.org/wiki/Cross-origin_resource_sharing[Cross origin resource sharing^]. +
+_(So this API could be used via JavaScript on the any web page)_.
+</#macro>
+<#-- ------------------------------------------------------------------------------------------------ -->
+<#-- ----------------- https://freemarker.apache.org/docs/ref_directive_macro.html ------------------ -->
+<#-- ------------------------------------------------------------------------------------------------ -->

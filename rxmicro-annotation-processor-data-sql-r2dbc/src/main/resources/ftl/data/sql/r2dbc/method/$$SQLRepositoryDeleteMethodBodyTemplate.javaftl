@@ -1,0 +1,32 @@
+<#include "../sql-lib.javaftl">
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<@defineGeneratedSQL SHOW_ORIGINAL_QUERY=SHOW_ORIGINAL_QUERY SQL=SQL/>
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#if TRANSACTION??>
+<#assign CONNECTION_PROVIDER>extractConnectionFrom(${TRANSACTION})</#assign>
+<#else>
+<#assign CONNECTION_PROVIDER>pool.create()</#assign>
+</#if>
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#if IS_ENTITY_PARAM>
+<#if IS_PRIMARY_KEY_SIMPLE>
+final Object primaryKey = ${ENTITY_CONVERTER}.getPrimaryKey(${ENTITY});
+<#assign SQL_PARAMS>, primaryKey</#assign>
+<#else>
+final Object[] primaryKeys = ${ENTITY_CONVERTER}.getPrimaryKeys(${ENTITY});
+<#assign SQL_PARAMS>, primaryKeys</#assign>
+</#if>
+<#else>
+<#assign SQL_PARAMS>${getBindArgs(SQL.bindParams)}</#assign>
+</#if>
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<@returnPrimitiveResult RETURN=RETURN
+                        CONNECTION_PROVIDER=CONNECTION_PROVIDER
+                        SQL_PARAMS=SQL_PARAMS
+                        CLOSE_CONNECTION=!TRANSACTION?? />

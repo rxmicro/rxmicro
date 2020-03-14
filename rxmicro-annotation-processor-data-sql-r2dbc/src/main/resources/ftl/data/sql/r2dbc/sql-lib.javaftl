@@ -1,0 +1,99 @@
+<#-- ------------------------------------------------------------------------------------------------ -->
+<#-- ---------------- https://freemarker.apache.org/docs/ref_directive_function.html ---------------- -->
+<#-- ------------------------------------------------------------------------------------------------ -->
+<#function getBindArgs bindArgs>
+<#assign RESULT>
+<#if bindArgs?has_content>, <#list bindArgs as ARG>${ARG}<#if ARG?has_next>, </#if></#list></#if>
+</#assign>
+<#return RESULT?trim>
+</#function>
+<#-- ------------------------------------------------------------------------------------------------ -->
+<#-- ----------------- https://freemarker.apache.org/docs/ref_directive_macro.html ------------------ -->
+<#-- ------------------------------------------------------------------------------------------------ -->
+<#macro defineGeneratedSQL SHOW_ORIGINAL_QUERY SQL>
+<#if SHOW_ORIGINAL_QUERY && SQL.originalSql??>
+// Original SQL statement:  '${SQL.originalSql}'
+</#if>
+final String generatedSQL = ${SQL.sqlExpression};
+</#macro>
+<#-- ------------------------------------------------------------------------------------------------ -->
+<#-- ----------------- https://freemarker.apache.org/docs/ref_directive_macro.html ------------------ -->
+<#-- ------------------------------------------------------------------------------------------------ -->
+<#macro returnPrimitiveResult RETURN CONNECTION_PROVIDER SQL_PARAMS CLOSE_CONNECTION>
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#if RETURN.mono>
+<@defineRESULT_PUBLISHER shift='' CONNECTION_PROVIDER=CONNECTION_PROVIDER CLOSE_CONNECTION=CLOSE_CONNECTION/>
+<#if RETURN.void>
+return ${RESULT_PUBLISHER}
+        .then();
+<#elseif RETURN.integer>
+return ${RESULT_PUBLISHER}
+<#elseif RETURN.boolean>
+return ${RESULT_PUBLISHER}
+        .map(r -> r > 0);
+<#else>
+//"RxMicro does not know how to generate this method";
+</#if>
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#elseif RETURN.future>
+<@defineRESULT_PUBLISHER shift='' CONNECTION_PROVIDER=CONNECTION_PROVIDER CLOSE_CONNECTION=CLOSE_CONNECTION/>
+<#if RETURN.void>
+return ${RESULT_PUBLISHER}
+        .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(${RETURN.simpleReactiveType}.class, ${RETURN.simpleResultType}.class))))
+        .toFuture()
+        .thenApply(r -> null);
+<#elseif RETURN.integer>
+return ${RESULT_PUBLISHER}
+        .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(${RETURN.simpleReactiveType}.class, ${RETURN.simpleResultType}.class))))
+        .toFuture();
+<#elseif RETURN.boolean>
+return ${RESULT_PUBLISHER}
+        .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(${RETURN.simpleReactiveType}.class, ${RETURN.simpleResultType}.class))))
+        .map(r -> r > 0)
+        .toFuture();
+<#else>
+//"RxMicro does not know how to generate this method";
+</#if>
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#elseif RETURN.completable>
+<@defineRESULT_PUBLISHER shift='        ' CONNECTION_PROVIDER=CONNECTION_PROVIDER CLOSE_CONNECTION=CLOSE_CONNECTION/>
+return Completable.fromPublisher(
+        ${RESULT_PUBLISHER}
+);
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#elseif RETURN.single>
+<@defineRESULT_PUBLISHER shift='        ' CONNECTION_PROVIDER=CONNECTION_PROVIDER CLOSE_CONNECTION=CLOSE_CONNECTION/>
+<#if RETURN.integer>
+return Single.fromPublisher(
+        ${RESULT_PUBLISHER}
+);
+<#elseif RETURN.boolean>
+return Single.fromPublisher(
+        ${RESULT_PUBLISHER}
+).map(r -> r > 0);
+<#else>
+//"RxMicro does not know how to generate this method";
+</#if>
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#else>
+//"RxMicro does not know how to generate this method";
+</#if>
+</#macro>
+<#-- ------------------------------------------------------------------------------------------------ -->
+<#-- ----------------- https://freemarker.apache.org/docs/ref_directive_macro.html ------------------ -->
+<#-- ------------------------------------------------------------------------------------------------ -->
+<#macro defineRESULT_PUBLISHER shift CONNECTION_PROVIDER CLOSE_CONNECTION>
+<#assign RESULT_PUBLISHER>
+${CONNECTION_PROVIDER}
+${shift}        .flatMap(c -> executeStatement(c, generatedSQL${SQL_PARAMS})
+${shift}                .flatMap(r -> Mono.from(r.getRowsUpdated()))
+${shift}                <#if CLOSE_CONNECTION>
+${shift}                .delayUntil(s -> close(c))
+${shift}                .onErrorResume(e -> close(c)
+${shift}                        .then(Mono.error(e)))
+${shift}                </#if>
+${shift}        )<#if RETURN.mono && RETURN.integer>;</#if></#assign>
+</#macro>
+<#-- ------------------------------------------------------------------------------------------------ -->
+<#-- ----------------- https://freemarker.apache.org/docs/ref_directive_macro.html ------------------ -->
+<#-- ------------------------------------------------------------------------------------------------ -->

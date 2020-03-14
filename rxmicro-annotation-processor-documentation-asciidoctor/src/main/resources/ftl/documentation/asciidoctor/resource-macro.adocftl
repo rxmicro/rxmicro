@@ -1,0 +1,133 @@
+<#include "comments.adocftl"/>
+<#-- ------------------------------------------------------------------------------------------------ -->
+<#-- ----------------- https://freemarker.apache.org/docs/ref_directive_macro.html ------------------ -->
+<#-- ------------------------------------------------------------------------------------------------ -->
+<#macro displayRequest GROUP RESOURCE_NAME REQUEST>
+<@commentH3 H1=GROUP H2=RESOURCE_NAME H3='Request'/>
+==== Request
+
+<#if REQUEST.examplePresent>
+<@commentH4 H1=GROUP H2=RESOURCE_NAME H3='Request' H4='Example'/>
+===== HTTP Request Example
+
+[source,http]
+----
+${REQUEST.example}
+----
+
+</#if>
+<#if REQUEST.pathVariables?has_content>
+<@commentH4 H1=GROUP H2=RESOURCE_NAME H3='Request' H4='Path Variables'/>
+<@descriptionTable TITLE='HTTP Request Path Variables Description' ITEMS=REQUEST.pathVariables/>
+
+</#if>
+<#if REQUEST.headers?has_content>
+<@commentH4 H1=GROUP H2=RESOURCE_NAME H3='Request' H4='Headers'/>
+<@descriptionTable TITLE='HTTP Request Headers Description' ITEMS=REQUEST.headers/>
+
+</#if>
+<#if REQUEST.queryParameters?has_content>
+<@commentH4 H1=GROUP H2=RESOURCE_NAME H3='Request' H4='Query Parameters'/>
+<@descriptionTable TITLE='HTTP Request Query Parameters Description' ITEMS=REQUEST.queryParameters/>
+
+</#if>
+<#if REQUEST.bodyParameters?has_content>
+<#list REQUEST.bodyParameters as entry>
+<@commentH4 H1=GROUP H2=RESOURCE_NAME H3='Request' H4='${entry.key} Parameters'/>
+<#assign title>HTTP Request ${entry.key} Parameters Description</#assign>
+<@descriptionTable TITLE=title ITEMS=entry.value/>
+
+</#list>
+</#if>
+<#if REQUEST.schemaPresent>
+<@commentH4 H1=GROUP H2=RESOURCE_NAME H3='Request' H4='JSON Schema'/>
+===== HTTP Request Body JSON Schema
+
+[small]#https://json-schema.org/[_(Read more about JSON Schema)_^]#
+
+[source,json]
+----
+${REQUEST.schema}
+----
+</#if>
+
+</#macro>
+<#-- ------------------------------------------------------------------------------------------------ -->
+<#-- ----------------- https://freemarker.apache.org/docs/ref_directive_macro.html ------------------ -->
+<#-- ------------------------------------------------------------------------------------------------ -->
+<#macro displayResponse GROUP RESOURCE_NAME RESPONSE>
+<@commentH3 H1=GROUP H2=RESOURCE_NAME H3='Response ${RESPONSE.code}'/>
+==== Response ${RESPONSE.code}
+
+<#if RESPONSE.descriptionPresent>
+${RESPONSE.description}
+
+</#if>
+<#if RESPONSE.examplePresent>
+<@commentH4 H1=GROUP H2=RESOURCE_NAME H3='Response ${RESPONSE.code}' H4='Example'/>
+===== HTTP Response Example
+
+[source,http]
+----
+${RESPONSE.example}
+----
+
+</#if>
+<#if RESPONSE.headers?has_content>
+<@commentH4 H1=GROUP H2=RESOURCE_NAME H3='Response ${RESPONSE.code}' H4='Headers'/>
+<@descriptionTable TITLE='HTTP Response Headers Description' ITEMS=RESPONSE.headers/>
+
+</#if>
+<#if RESPONSE.parameters?has_content>
+<#list RESPONSE.parameters as entry>
+<@commentH4 H1=GROUP H2=RESOURCE_NAME H3='Response ${RESPONSE.code}' H4='${entry.key} Parameters'/>
+<#assign title>HTTP Response ${entry.key} Parameters Description</#assign>
+<@descriptionTable TITLE=title ITEMS=entry.value/>
+
+</#list>
+</#if>
+<#if RESPONSE.schemaPresent>
+<@commentH4 H1=GROUP H2=RESOURCE_NAME H3='Response ${RESPONSE.code}' H4='JSON Schema'/>
+===== HTTP Response Body JSON Schema
+
+[small]#https://json-schema.org/[_(Read more about JSON Schema)_^]#
+
+[source,json]
+----
+${RESPONSE.schema}
+----
+
+</#if>
+</#macro>
+<#-- ------------------------------------------------------------------------------------------------ -->
+<#-- ----------------- https://freemarker.apache.org/docs/ref_directive_macro.html ------------------ -->
+<#-- ------------------------------------------------------------------------------------------------ -->
+<#macro descriptionTable TITLE ITEMS>
+===== ${TITLE}
+
+[cols="25%,9%,28%,32%"]
+|===
+^|*Name* |*Type* |*Restrictions*| *Description*
+<#list ITEMS as V>
+|*${V.name}*
+|`${V.type}`
+a|<#list V.restrictions as R>
+* [small]#`${R}`#
+</#list>
+a|<#if V.descriptionPresent>${V.description}</#if>
+
+<#if V.readMorePresent>.Read more:
+<#list V.readMore as readMore>
+<#if readMore.local>
+* [small]#xref:${readMore.link}[_${readMore.caption}_]#
+<#else>
+* [small]#${readMore.link}[_${readMore.caption}_^]#
+</#if>
+</#list>
+</#if>
+</#list>
+|===
+</#macro>
+<#-- ------------------------------------------------------------------------------------------------ -->
+<#-- ----------------- https://freemarker.apache.org/docs/ref_directive_macro.html ------------------ -->
+<#-- ------------------------------------------------------------------------------------------------ -->

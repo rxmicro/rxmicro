@@ -1,0 +1,7 @@
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#include "../comments.adocftl"/>
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<@commentH2 H1='Introduction' H2='Specification'/>
+=== Specification
+
+*The ${PROJECT.name}* documentation built using https://asciidoctor.org/docs/[Ascii Doctor^] markup language.

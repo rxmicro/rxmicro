@@ -1,0 +1,20 @@
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#include "../comments.adocftl"/>
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<@commentH2 H1='Introduction' H2='Common concept'/>
+=== Common concept
+
+*The ${PROJECT.name}* is organized around https://en.wikipedia.org/wiki/Representational_state_transfer[REST^]
+and built using http://rxmicro.io[RxMicro^] framework. +
+*The ${PROJECT.name}* has predictable resource-oriented URLs, accepts and returns http://www.json.org/[JSON-encoded^]
+requests/responses, and uses standard HTTP response codes, and verbs. +
+
+<#if WITH_TIPS>
+[TIP]
+====
+For requests and responses without body *the ${PROJECT.name}* returns the empty body instead of the empty json object: `{}`. +
+So *the ${PROJECT.name}* could accept and return json object or empty body only.
+====
+
+</#if>
+You could use your favorite HTTP/REST library for your programming language to use *The ${PROJECT.name}*.

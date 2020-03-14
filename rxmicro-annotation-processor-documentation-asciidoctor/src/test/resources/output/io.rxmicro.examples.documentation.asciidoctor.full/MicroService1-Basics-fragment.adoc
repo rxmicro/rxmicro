@@ -1,0 +1,15 @@
+// ------------------------------------------------------------- Micro Service1 | Basics -------------------------------------------------------------
+=== Basics
+
+==== Versioning
+
+The Micro Service1 supports versioning with Header based strategy. +
+_(This means that each HTTP request to the Micro Service1 contains required header `Api-Version`)_.
+
+Current version is `latest`.
+
+==== Cross origin resource sharing
+
+The Micro Service1 supports https://en.wikipedia.org/wiki/Cross-origin_resource_sharing[Cross origin resource sharing^]. +
+_(So this API could be used via JavaScript on the any web page)_.
+

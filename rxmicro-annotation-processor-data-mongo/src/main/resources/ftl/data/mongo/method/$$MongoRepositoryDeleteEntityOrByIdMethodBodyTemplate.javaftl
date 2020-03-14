@@ -1,0 +1,10 @@
+<#include "../mongo-lib.javaftl">
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#if ENTITY??>
+final Document filter = new Document("_id", ${ENTITY_CONVERTER}.getId(${ENTITY}));
+<#else>
+final Document filter = new Document("_id", ${ID_VAR});
+</#if>
+<#-- -------------------------------------------------------------------------------------------------------- -->
+final Publisher<DeleteResult> result = collection.deleteMany(filter);
+<@returnDeleteResult />

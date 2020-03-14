@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2020 http://rxmicro.io
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~ http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>io.rxmicro</groupId>
+    <artifactId>rxmicro</artifactId>
+    <packaging>pom</packaging>
+    <version>0.1</version>
+
+    <name>RxMicro framework</name>
+    <description>A framework to build a reactive micro services using Java</description>
+    <url>http://rxmicro.io</url>
+    <organization>
+        <name>RxMicro framework</name>
+        <url>http://rxmicro.io</url>
+    </organization>
+    <developers>
+        <developer>
+            <name>nedis</name>
+            <email>rxmicro.io@gmail.com</email>
+        </developer>
+    </developers>
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0</url>
+        </license>
+    </licenses>
+
+    <modules>
+        <module>release</module>
+
+        <module>rxmicro-common</module>
+        <module>rxmicro-model</module>
+        <module>rxmicro-runtime</module>
+        <module>rxmicro-logger</module>
+        <module>rxmicro-config</module>
+        <module>rxmicro-cdi</module>
+
+        <module>rxmicro-http</module>
+        <module>rxmicro-http-client</module>
+        <module>rxmicro-http-client-jdk</module>
+        <module>rxmicro-rest</module>
+        <module>rxmicro-rest-client</module>
+        <module>rxmicro-rest-client-jdk</module>
+        <module>rxmicro-rest-server</module>
+        <module>rxmicro-rest-server-netty</module>
+        <module>rxmicro-validation</module>
+
+        <module>rxmicro-json</module>
+        <module>rxmicro-exchange-json</module>
+        <module>rxmicro-rest-server-exchange-json</module>
+        <module>rxmicro-rest-client-exchange-json</module>
+
+        <module>rxmicro-data</module>
+        <module>rxmicro-data-mongo</module>
+        <module>rxmicro-data-sql</module>
+        <module>rxmicro-data-sql-r2dbc</module>
+        <module>rxmicro-data-sql-r2dbc-postgresql</module>
+
+        <module>rxmicro-documentation</module>
+        <module>rxmicro-documentation-asciidoctor</module>
+
+        <module>rxmicro-tool-common</module>
+
+        <module>rxmicro-test</module>
+        <module>rxmicro-test-junit</module>
+        <module>rxmicro-test-mockito</module>
+        <module>rxmicro-test-mockito-junit</module>
+
+        <module>rxmicro-files</module>
+        <module>rxmicro-monitoring</module>
+
+        <module>rxmicro-netty-native</module>
+        <module>rxmicro-netty-native-linux</module>
+        <module>rxmicro-netty-native-osx</module>
+        <module>rxmicro-netty-native-all</module>
+
+        <module>rxmicro-annotation-processor</module>
+        <module>rxmicro-annotation-processor-integration-test</module>
+        <module>rxmicro-annotation-processor-common</module>
+        <module>rxmicro-annotation-processor-cdi</module>
+        <module>rxmicro-annotation-processor-rest</module>
+        <module>rxmicro-annotation-processor-rest-server</module>
+        <module>rxmicro-annotation-processor-rest-client</module>
+        <module>rxmicro-annotation-processor-data</module>
+        <module>rxmicro-annotation-processor-data-mongo</module>
+        <module>rxmicro-annotation-processor-data-sql</module>
+        <module>rxmicro-annotation-processor-data-sql-r2dbc</module>
+        <module>rxmicro-annotation-processor-data-sql-r2dbc-postgresql</module>
+        <module>rxmicro-annotation-processor-data-aggregator</module>
+        <module>rxmicro-annotation-processor-documentation</module>
+        <module>rxmicro-annotation-processor-documentation-asciidoctor</module>
+    </modules>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!-- Used By Annotation Processor libraries -->
+        <freemarker.version>2.3.29</freemarker.version>
+        <google.guice.version>4.2.2</google.guice.version>
+        <google.guava.version>28.2-jre</google.guava.version>
+        <maven.model.version>3.6.3</maven.model.version>
+        <!-- Test libraries -->
+        <junit.version>5.6.0</junit.version>
+        <mockito.version>3.2.4</mockito.version>
+        <compile.google.testing.version>0.18</compile.google.testing.version>
+        <!-- Runtime Libraries -->
+        <netty.version>4.1.44.Final</netty.version>
+
+        <external.lib.rxjava.version>3.0.0</external.lib.rxjava.version>
+        <external.lib.projectreactor.version>3.3.2.RELEASE</external.lib.projectreactor.version>
+        <external.lib.reactivestreams.version>1.0.3</external.lib.reactivestreams.version>
+
+        <external.lib.mongodb-driver-reactivestreams.version>1.13.0</external.lib.mongodb-driver-reactivestreams.version>
+        <external.lib.mongodb-driver-core.version>3.12.1</external.lib.mongodb-driver-core.version>
+        <external.lib.bson.version>3.12.1</external.lib.bson.version>
+
+        <external.lib.r2dbc-spi.version>0.8.1.RELEASE</external.lib.r2dbc-spi.version>
+        <external.lib.r2dbc-postgresql.version>0.8.1.RELEASE</external.lib.r2dbc-postgresql.version>
+        <external.lib.r2dbc-pool.version>0.8.1.RELEASE</external.lib.r2dbc-pool.version>
+        <!-- Tests -->
+        <external.lib.junit-platform-commons.version>1.6.0</external.lib.junit-platform-commons.version>
+        <external.lib.apiguardian-api.version>1.1.0</external.lib.apiguardian-api.version>
+        <external.lib.opentest4j.version>1.2.0</external.lib.opentest4j.version>
+
+        <!-- Maven core plugins -->
+        <maven-clean-plugin.version>3.1.0</maven-clean-plugin.version>
+        <maven-resources-plugin.version>3.1.0</maven-resources-plugin.version>
+        <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
+        <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
+        <maven-jar-plugin.version>3.2.0</maven-jar-plugin.version>
+        <maven-install-plugin.version>2.5.2</maven-install-plugin.version>
+        <maven-deploy-plugin.version>2.8.2</maven-deploy-plugin.version>
+        <maven-site-plugin.version>3.8.2</maven-site-plugin.version>
+        <maven-project-info-reports-plugin.version>3.0.0</maven-project-info-reports-plugin.version>
+
+        <!-- Maven additional plugins -->
+        <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
+        <maven-enforcer-plugin.version>3.0.0-M3</maven-enforcer-plugin.version>
+        <jacoco-maven-plugin.version>0.8.5</jacoco-maven-plugin.version>
+        <versions-maven-plugin.version>2.7</versions-maven-plugin.version>
+    </properties>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <artifactId>maven-clean-plugin</artifactId>
+                    <version>${maven-clean-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <version>${maven-resources-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${maven-compiler-plugin.version}</version>
+                    <configuration>
+                        <release>11</release>
+                        <showWarnings>true</showWarnings>
+                        <showDeprecation>true</showDeprecation>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>${maven-surefire-plugin.version}</version>
+                    <configuration>
+                        <properties>
+                            <!-- https://junit.org/junit5/docs/5.5.1/api/org/junit/jupiter/api/Timeout.html -->
+                            <configurationParameters>
+                                junit.jupiter.execution.timeout.default = 60
+                                junit.jupiter.execution.timeout.mode = disabled_on_debug
+                            </configurationParameters>
+                        </properties>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>${maven-jar-plugin.version}</version>
+                    <configuration>
+                        <archive>
+                            <manifest>
+                                <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                                <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                            </manifest>
+                        </archive>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-install-plugin</artifactId>
+                    <version>${maven-install-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-deploy-plugin</artifactId>
+                    <version>${maven-deploy-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-site-plugin</artifactId>
+                    <version>${maven-site-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-project-info-reports-plugin</artifactId>
+                    <version>${maven-project-info-reports-plugin.version}</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>${maven-source-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <version>${maven-enforcer-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <!-- https://maven.apache.org/enforcer/enforcer-rules/index.html -->
+                            <rules>
+                                <requireJavaVersion>
+                                    <version>11</version>
+                                </requireJavaVersion>
+                            </rules>
+                            <fail>true</fail>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <!-- https://www.eclemma.org/jacoco/ -->
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>${jacoco-maven-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>prepare-agent-execution</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>report-execution</id>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>versions-maven-plugin</artifactId>
+                <version>${versions-maven-plugin.version}</version>
+                <configuration>
+                    <generateBackupPoms>false</generateBackupPoms>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <report>report</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+        </plugins>
+    </reporting>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-params</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-junit-jupiter</artifactId>
+            <version>${mockito.version}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <distributionManagement>
+        <site>
+            <id>rxmicro.io</id>
+            <url>scp://github.com/rxmicro/rxmicro</url>
+        </site>
+    </distributionManagement>
+</project>

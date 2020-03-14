@@ -1,0 +1,60 @@
+<#include "../common-lib.javaftl">
+<#-- -------------------------------------------------------------------------------------------------------- -->
+public final class ${JAVA_MODEL_CLASS.modelToJsonConverterImplSimpleClassName} extends ModelToJsonConverter<${JAVA_MODEL_CLASS.javaSimpleClassName}> {
+
+    <#list JAVA_MODEL_CONVERTER_CHILDREN as CHILD>
+    <#assign className=CHILD.javaSimpleClassName>
+    private final ${CHILD.modelToJsonConverterImplSimpleClassName} ${CHILD.toJsonConverterInstanceName} =
+            new ${CHILD.modelToJsonConverterImplSimpleClassName}();
+
+    </#list>
+    @Override
+    public Map<String, Object> toJsonObject(final ${JAVA_MODEL_CLASS.javaSimpleClassName} model) {
+        return new JsonObjectBuilder()
+                <#list JAVA_MODEL_CLASS.paramEntries as fieldEntry>
+                <@putJsonEntry entry=fieldEntry/>
+                </#list>
+                .build();
+    }
+}
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#macro putJsonEntry entry>
+    <#if entry.value.object>
+        <#assign element = entry.value>
+        <#if entry.key.modelReadAccessorType.name() == "REFLECTION">
+                .put("${entry.key.modelName}", convertIfNotNull(${element.toJsonConverterInstanceName}, (${element.javaSimpleClassName}) getFieldValue(model, "${entry.key.fieldName}")))
+        <#elseif entry.key.modelReadAccessorType.name() == "DIRECT">
+                .put("${entry.key.modelName}", convertIfNotNull(${element.toJsonConverterInstanceName}, model.${entry.key.fieldName}))
+        <#elseif entry.key.modelReadAccessorType.name() == "JAVA_BEAN">
+                .put("${entry.key.modelName}", convertIfNotNull(${element.toJsonConverterInstanceName}, model.${entry.key.getter}()))
+        </#if>
+    <#elseif entry.value.list>
+        <#if entry.value.primitiveList || entry.value.enumList>
+            <#if entry.key.modelReadAccessorType.name() == "REFLECTION">
+                .put("${entry.key.modelName}", getFieldValue(model, "${entry.key.fieldName}"))
+            <#elseif entry.key.modelReadAccessorType.name() == "DIRECT">
+                .put("${entry.key.modelName}", model.${entry.key.fieldName})
+            <#elseif entry.key.modelReadAccessorType.name() == "JAVA_BEAN">
+                .put("${entry.key.modelName}", model.${entry.key.getter}())
+            </#if>
+        <#elseif entry.value.objectList>
+            <#assign element = entry.value.elementModelClass>
+            <#if entry.key.modelReadAccessorType.name() == "REFLECTION">
+                .put("${entry.key.modelName}", convertIfNotNull(${element.toJsonConverterInstanceName}, (List<${element.javaSimpleClassName}>) getFieldValue(model, "${entry.key.fieldName}")))
+            <#elseif entry.key.modelReadAccessorType.name() == "DIRECT">
+                .put("${entry.key.modelName}", convertIfNotNull(${element.toJsonConverterInstanceName}, model.${entry.key.fieldName}))
+            <#elseif entry.key.modelReadAccessorType.name() == "JAVA_BEAN">
+                .put("${entry.key.modelName}", convertIfNotNull(${element.toJsonConverterInstanceName}, model.${entry.key.getter}()))
+            </#if>
+        </#if>
+    <#else>
+        <#if entry.key.modelReadAccessorType.name() == "REFLECTION">
+                .put("${entry.key.modelName}", getFieldValue(model, "${entry.key.fieldName}"))
+        <#elseif entry.key.modelReadAccessorType.name() == "DIRECT">
+                .put("${entry.key.modelName}", model.${entry.key.fieldName})
+        <#elseif entry.key.modelReadAccessorType.name() == "JAVA_BEAN">
+                .put("${entry.key.modelName}", model.${entry.key.getter}())
+        </#if>
+    </#if>
+</#macro>
+<#-- -------------------------------------------------------------------------------------------------------- -->
