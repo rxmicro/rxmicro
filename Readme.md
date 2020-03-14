@@ -1,6 +1,8 @@
 # RxMicro Project
 
-[![CI](https://github.com/rxmicro/rxmicro/workflows/CI/badge.svg?branch=master)](https://github.com/rxmicro/rxmicro/actions)
+[![Verify on Push](https://github.com/rxmicro/rxmicro/workflows/Verify%20on%20Push/badge.svg)](https://github.com/rxmicro/rxmicro/actions)
+
+[![codecov](https://codecov.io/gh/rxmicro/rxmicro/branch/master/graph/badge.svg)](https://codecov.io/gh/rxmicro/rxmicro)
 
 A framework to build reactive micro services using Java
 
