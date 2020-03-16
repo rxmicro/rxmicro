@@ -43,7 +43,7 @@
             <plugins>
                 <plugin>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <version>${maven-compiler-plugin.version}</version>
+                    <version>${maven.compiler.plugin.version}</version>
                     <configuration>
                         <release>11</release>
                         <annotationProcessorPaths>
@@ -91,12 +91,12 @@
                 </plugin>
                 <plugin>
                     <artifactId>maven-surefire-plugin</artifactId>
-                    <version>${maven-surefire-plugin.version}</version>
+                    <version>${maven.surefire.plugin.version}</version>
                     <configuration>
                         <properties>
                             <!-- https://junit.org/junit5/docs/5.5.1/api/org/junit/jupiter/api/Timeout.html -->
                             <configurationParameters>
-                                junit.jupiter.execution.timeout.default = 15
+                                junit.jupiter.execution.timeout.default = 60
                                 junit.jupiter.execution.timeout.mode = disabled_on_debug
                             </configurationParameters>
                         </properties>
@@ -149,6 +149,23 @@
                                 <toclevels>3</toclevels>
                             </attributes>
                         </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>${maven-antrun-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <phase>clean</phase>
+                        <configuration>
+                            <tasks>
+                                <delete dir="${basedir}/src/main/asciidoc/" />
+                            </tasks>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
                     </execution>
                 </executions>
             </plugin>

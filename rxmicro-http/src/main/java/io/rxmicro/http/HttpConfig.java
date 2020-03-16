@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 http://rxmicro.io
+ * Copyright 2019 https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,7 +25,7 @@ import static io.rxmicro.config.Networks.validatePort;
 
 /**
  * @author nedis
- * @link http://rxmicro.io
+ * @link https://rxmicro.io
  * @since 0.1
  */
 public abstract class HttpConfig extends Config {
@@ -95,10 +95,10 @@ public abstract class HttpConfig extends Config {
      * Example of valid connectionString:
      * <p>
      * rxmicro.io
-     * http://rxmicro.io
+     * https://rxmicro.io
      * https://rxmicro.io
      * rxmicro.io:8080
-     * http://rxmicro.io:8080
+     * https://rxmicro.io:8080
      * https://rxmicro.io:8443
      *
      * @param connectionString connection string. See description above.

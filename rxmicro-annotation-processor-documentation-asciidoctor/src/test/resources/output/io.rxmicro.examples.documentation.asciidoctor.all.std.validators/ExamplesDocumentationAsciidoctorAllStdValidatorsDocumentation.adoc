@@ -31,7 +31,7 @@ This document describes *the Examples Documentation Asciidoctor All Std Validato
 POST / HTTP/1.1
 Accept: application/json
 Content-Type: application/json
-Content-Length: 4456
+Content-Length: 4457
 Request-Id: 62jJeu8x1310662
 
 {
@@ -117,7 +117,7 @@ Request-Id: 62jJeu8x1310662
   "phoneWithPlusString": "+12254359430",
   "enumerationString": "new",
   "patternString": "hello",
-  "uriString": "http://rxmicro.io",
+  "uriString": "https://rxmicro.io",
   "urlEncodedString": "Hello%20world%21",
   "viberString": "12257111123",
   "viberWithPlusString": "+12257111123",
@@ -208,7 +208,7 @@ a|
 a|An unique request string identifier.
 
 .Read more:
-* [small]#http://rxmicro.io/guides/latest/user-guide.html#rest-controller-request-id-section[_What is request id?_^]#
+* [small]#https://rxmicro.io/guides/latest/user-guide.html#rest-controller-request-id-section[_What is request id?_^]#
 |===
 
 // ----------------------------------------------- Micro Service | POST / | Request | Body Parameters -----------------------------------------------
@@ -2258,7 +2258,7 @@ a|
       "type": "string",
       "format": "uri",
       "examples": [
-        "http://rxmicro.io"
+        "https://rxmicro.io"
       ]
     },
     "urlEncodedString": {
@@ -2830,7 +2830,7 @@ a|
 a|An unique request string identifier.
 
 .Read more:
-* [small]#http://rxmicro.io/guides/latest/user-guide.html#rest-controller-request-id-section[_What is request id?_^]#
+* [small]#https://rxmicro.io/guides/latest/user-guide.html#rest-controller-request-id-section[_What is request id?_^]#
 |===
 
 // --------------------------------------------- Micro Service | POST / | Response 400 | Body Parameters ---------------------------------------------
@@ -2882,7 +2882,7 @@ a|
 a|An unique request string identifier.
 
 .Read more:
-* [small]#http://rxmicro.io/guides/latest/user-guide.html#rest-controller-request-id-section[_What is request id?_^]#
+* [small]#https://rxmicro.io/guides/latest/user-guide.html#rest-controller-request-id-section[_What is request id?_^]#
 |===
 
 // --------------------------------------------- Micro Service | POST / | Response 500 | Body Parameters ---------------------------------------------

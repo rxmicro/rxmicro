@@ -49,7 +49,7 @@ Download and import [rxmicro-copyright-profile.xml](../.coding/rxmicro-copyright
 ```
 /**
  * @author ${USER}
- * @link http://rxmicro.io
+ * @link https://rxmicro.io
  * @since 0.1
  */
 ```

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. http://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -60,7 +60,7 @@ import static org.mockito.Mockito.when;
 
 /**
  * @author nedis
- * @link http://rxmicro.io
+ * @link https://rxmicro.io
  * @since 0.1
  */
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
@@ -124,7 +124,7 @@ final class BaseRestControllerMethod_Redirect_IntegrationTest extends AbstractBa
 
     /**
      * @author nedis
-     * @link http://rxmicro.io
+     * @link https://rxmicro.io
      */
     @SuppressWarnings("CodeBlock2Expr")
     private static class ThrowRedirectExceptionArgumentsProvider implements ArgumentsProvider {
@@ -204,17 +204,17 @@ final class BaseRestControllerMethod_Redirect_IntegrationTest extends AbstractBa
                     ),
                     arguments(
                             (BiFunction<PathVariableMapping, HttpRequest, CompletionStage<HttpResponse>>) (pathVariableMapping, httpRequest) -> {
-                                throw new PermanentRedirectException("http://rxmicro.io");
+                                throw new PermanentRedirectException("https://rxmicro.io");
                             },
                             "",
-                            "http://rxmicro.io"
+                            "https://rxmicro.io"
                     ),
                     arguments(
                             (BiFunction<PathVariableMapping, HttpRequest, CompletionStage<HttpResponse>>) (pathVariableMapping, httpRequest) -> {
-                                return failedStage(new PermanentRedirectException("http://rxmicro.io"));
+                                return failedStage(new PermanentRedirectException("https://rxmicro.io"));
                             },
                             "",
-                            "http://rxmicro.io"
+                            "https://rxmicro.io"
                     ),
                     arguments(
                             (BiFunction<PathVariableMapping, HttpRequest, CompletionStage<HttpResponse>>) (pathVariableMapping, httpRequest) -> {
@@ -236,7 +236,7 @@ final class BaseRestControllerMethod_Redirect_IntegrationTest extends AbstractBa
 
     /**
      * @author nedis
-     * @link http://rxmicro.io
+     * @link https://rxmicro.io
      */
     private static final class UserRedirectException extends HttpErrorException {
 

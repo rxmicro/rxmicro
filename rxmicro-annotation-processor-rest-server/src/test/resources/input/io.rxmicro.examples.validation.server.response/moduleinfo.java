@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. http://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@
 import io.rxmicro.rest.model.GenerateOption;
 import io.rxmicro.rest.server.RestServerGeneratorConfig;
 
+// tag::content[]
 @RestServerGeneratorConfig(
         generateResponseValidators = GenerateOption.AUTO_DETECT // <1>
 )
@@ -25,3 +26,4 @@ module examples.validation.server.response {
     requires rxmicro.rest.server.exchange.json;
     requires rxmicro.validation;
 }
+// end::content[]

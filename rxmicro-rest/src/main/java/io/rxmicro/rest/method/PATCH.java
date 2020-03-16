@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. http://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,7 +29,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * See https://tools.ietf.org/html/rfc5789.
  *
  * @author nedis
- * @link http://rxmicro.io
+ * @link https://rxmicro.io
  * @link https://tools.ietf.org/html/rfc5789
  * @since 0.1
  */
@@ -54,7 +54,7 @@ public @interface PATCH {
      * Defines several {@link PATCH} annotations on the same element.
      *
      * @author nedis
-     * @link http://rxmicro.io
+     * @link https://rxmicro.io
      * @since 0.1
      */
     @Documented

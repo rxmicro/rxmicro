@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. http://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,7 +22,7 @@ import static java.util.Map.entry;
 
 /**
  * @author nedis
- * @link http://rxmicro.io
+ * @link https://rxmicro.io
  * @link https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
  * @since 0.1
  */

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. http://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,7 +35,7 @@ import static io.rxmicro.logger.impl.LoggerImplFactoryProvider.setLoggerImplFact
 
 /**
  * @author nedis
- * @link http://rxmicro.io
+ * @link https://rxmicro.io
  * @since 0.1
  */
 abstract class AbstractBaseRestControllerMethodTest {
@@ -81,7 +81,7 @@ abstract class AbstractBaseRestControllerMethodTest {
 
     /**
      * @author nedis
-     * @link http://rxmicro.io
+     * @link https://rxmicro.io
      * @since 0.1
      */
     private static final class MockLoggerImplFactory implements LoggerImplFactory {
@@ -104,7 +104,7 @@ abstract class AbstractBaseRestControllerMethodTest {
 
     /**
      * @author nedis
-     * @link http://rxmicro.io
+     * @link https://rxmicro.io
      * @since 0.1
      */
     private static final class ProxyLogger implements Logger {

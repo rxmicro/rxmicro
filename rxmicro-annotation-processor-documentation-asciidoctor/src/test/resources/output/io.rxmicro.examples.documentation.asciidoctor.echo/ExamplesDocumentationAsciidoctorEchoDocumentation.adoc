@@ -20,7 +20,7 @@ This document describes *the Examples Documentation Asciidoctor Echo*.
 === Common concept
 
 *The Examples Documentation Asciidoctor Echo* is organized around https://en.wikipedia.org/wiki/Representational_state_transfer[REST^]
-and built using http://rxmicro.io[RxMicro^] framework. +
+and built using https://rxmicro.io[RxMicro^] framework. +
 *The Examples Documentation Asciidoctor Echo* has predictable resource-oriented URLs, accepts and returns http://www.json.org/[JSON-encoded^]
 requests/responses, and uses standard HTTP response codes, and verbs. +
 
@@ -208,7 +208,7 @@ a|
 a|An unique request string identifier.
 
 .Read more:
-* [small]#http://rxmicro.io/guides/latest/user-guide.html#rest-controller-request-id-section[_What is request id?_^]#
+* [small]#https://rxmicro.io/guides/latest/user-guide.html#rest-controller-request-id-section[_What is request id?_^]#
 |===
 
 // --------------------------------------------- Micro Service | GET / | Response 200 | Body Parameters ---------------------------------------------
@@ -283,7 +283,7 @@ a|
 a|An unique request string identifier.
 
 .Read more:
-* [small]#http://rxmicro.io/guides/latest/user-guide.html#rest-controller-request-id-section[_What is request id?_^]#
+* [small]#https://rxmicro.io/guides/latest/user-guide.html#rest-controller-request-id-section[_What is request id?_^]#
 |===
 
 // --------------------------------------------- Micro Service | GET / | Response 500 | Body Parameters ---------------------------------------------
@@ -394,7 +394,7 @@ a|
 a|An unique request string identifier.
 
 .Read more:
-* [small]#http://rxmicro.io/guides/latest/user-guide.html#rest-controller-request-id-section[_What is request id?_^]#
+* [small]#https://rxmicro.io/guides/latest/user-guide.html#rest-controller-request-id-section[_What is request id?_^]#
 |===
 
 // --------------------------------------------- Micro Service | POST / | Response 200 | Body Parameters ---------------------------------------------
@@ -469,7 +469,7 @@ a|
 a|An unique request string identifier.
 
 .Read more:
-* [small]#http://rxmicro.io/guides/latest/user-guide.html#rest-controller-request-id-section[_What is request id?_^]#
+* [small]#https://rxmicro.io/guides/latest/user-guide.html#rest-controller-request-id-section[_What is request id?_^]#
 |===
 
 // --------------------------------------------- Micro Service | POST / | Response 500 | Body Parameters ---------------------------------------------
@@ -554,7 +554,7 @@ a|
 a|An unique request string identifier.
 
 .Read more:
-* [small]#http://rxmicro.io/guides/latest/user-guide.html#rest-controller-request-id-section[_What is request id?_^]#
+* [small]#https://rxmicro.io/guides/latest/user-guide.html#rest-controller-request-id-section[_What is request id?_^]#
 |===
 
 // --------------------------------------------- Micro Service | POST / | Response 200 | Body Parameters ---------------------------------------------
@@ -629,7 +629,7 @@ a|
 a|An unique request string identifier.
 
 .Read more:
-* [small]#http://rxmicro.io/guides/latest/user-guide.html#rest-controller-request-id-section[_What is request id?_^]#
+* [small]#https://rxmicro.io/guides/latest/user-guide.html#rest-controller-request-id-section[_What is request id?_^]#
 |===
 
 // --------------------------------------------- Micro Service | POST / | Response 500 | Body Parameters ---------------------------------------------

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. http://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,16 +32,16 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * <p>
  * By default, RxMicro converts query parameter model value as comma separated string, for example:
  * <p>
- * ...&queryParameterName=value1,value2,value3&...
+ * ...&amp;queryParameterName=value1,value2,value3&amp;...
  * <p>
  * If this annotation is present, result will be:
  * <p>
- * ...&queryParameterName=value1&queryParameterName=value2&queryParameterName=value3&...
+ * ...&amp;queryParameterName=value1&amp;queryParameterName=value2&amp;queryParameterName=value3&amp;...
  * <p>
  * Supported for REST client HTTP request model only!
  *
  * @author nedis
- * @link http://rxmicro.io
+ * @link https://rxmicro.io
  * @see io.rxmicro.http.HttpValues
  * @since 0.1
  */

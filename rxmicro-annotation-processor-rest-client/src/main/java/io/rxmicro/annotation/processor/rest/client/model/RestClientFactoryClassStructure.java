@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 http://rxmicro.io
+ * Copyright 2019 https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,7 +38,7 @@ import static io.rxmicro.runtime.detail.Runtimes.ENTRY_POINT_PACKAGE;
 
 /**
  * @author nedis
- * @link http://rxmicro.io
+ * @link https://rxmicro.io
  * @since 0.1
  */
 public final class RestClientFactoryClassStructure extends ClassStructure {

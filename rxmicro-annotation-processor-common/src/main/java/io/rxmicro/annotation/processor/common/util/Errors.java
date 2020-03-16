@@ -6,7 +6,7 @@ import java.util.function.Supplier;
 
 /**
  * @author nedis
- * @link http://rxmicro.io
+ * @link https://rxmicro.io
  * @since 0.1
  */
 public final class Errors {

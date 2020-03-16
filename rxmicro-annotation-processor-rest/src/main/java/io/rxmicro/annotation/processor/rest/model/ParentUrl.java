@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 http://rxmicro.io
+ * Copyright 2019 https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,7 +26,7 @@ import static io.rxmicro.common.util.UrlPaths.normalizeUrlPath;
 
 /**
  * @author nedis
- * @link http://rxmicro.io
+ * @link https://rxmicro.io
  * @since 0.1
  */
 public final class ParentUrl {
@@ -83,7 +83,7 @@ public final class ParentUrl {
 
     /**
      * @author nedis
-     * @link http://rxmicro.io
+     * @link https://rxmicro.io
      * @since 0.1
      */
     @SuppressWarnings("UnusedReturnValue")

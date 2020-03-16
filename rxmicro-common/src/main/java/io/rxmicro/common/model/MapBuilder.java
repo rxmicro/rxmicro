@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 http://rxmicro.io
+ * Copyright 2019 https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,7 +23,7 @@ import static io.rxmicro.common.util.ExCollections.unmodifiableMap;
 
 /**
  * @author nedis
- * @link http://rxmicro.io
+ * @link https://rxmicro.io
  * @since 0.1
  */
 public class MapBuilder<K, V> {

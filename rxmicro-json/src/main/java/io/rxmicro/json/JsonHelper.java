@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. http://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,13 +29,13 @@ import java.util.Map;
  * <p>
  * Java                              JSON
  * -----------------------------------------------
- * Map<String, Object>          ->   object
- * List<Object>                 ->   array
- * java.lang.Boolean            ->   true / false
- * null                         ->   null
- * java.lang.String             ->   string
- * ? extends java.lang.Number   ->   number
- * <any java class>             ->   string
+ * {@code Map<String, Object>}          ->   object
+ * {@code List<Object>}                 ->   array
+ * {@code java.lang.Boolean}            ->   true / false
+ * {@code null}                         ->   null
+ * {@code java.lang.String}             ->   string
+ * {@code ? extends java.lang.Number}   ->   number
+ * {@code <any java class>}             ->   string
  * <p>
  * 2. From Json types to Java types:
  * <p>
@@ -49,7 +49,7 @@ import java.util.Map;
  * number   ->      io.rxmicro.json.JsonNumber
  *
  * @author nedis
- * @link http://rxmicro.io
+ * @link https://rxmicro.io
  * @since 0.1
  */
 public final class JsonHelper {

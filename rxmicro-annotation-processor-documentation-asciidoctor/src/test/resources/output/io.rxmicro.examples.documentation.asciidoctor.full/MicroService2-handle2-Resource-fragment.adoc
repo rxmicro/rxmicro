@@ -366,7 +366,7 @@ a|
 a|An unique request string identifier.
 
 .Read more:
-* [small]#http://rxmicro.io/guides/latest/user-guide.html#rest-controller-request-id-section[_What is request id?_^]#
+* [small]#https://rxmicro.io/guides/latest/user-guide.html#rest-controller-request-id-section[_What is request id?_^]#
 |===
 
 // --------------------------------------- Micro Service2 | GET /latest/test | Response 400 | Body Parameters ---------------------------------------
@@ -418,7 +418,7 @@ a|
 a|An unique request string identifier.
 
 .Read more:
-* [small]#http://rxmicro.io/guides/latest/user-guide.html#rest-controller-request-id-section[_What is request id?_^]#
+* [small]#https://rxmicro.io/guides/latest/user-guide.html#rest-controller-request-id-section[_What is request id?_^]#
 |===
 
 // --------------------------------------- Micro Service2 | GET /latest/test | Response 500 | Body Parameters ---------------------------------------
@@ -472,7 +472,7 @@ a|
 a|An unique request string identifier.
 
 .Read more:
-* [small]#http://rxmicro.io/guides/latest/user-guide.html#rest-controller-request-id-section[_What is request id?_^]#
+* [small]#https://rxmicro.io/guides/latest/user-guide.html#rest-controller-request-id-section[_What is request id?_^]#
 |===
 
 // --------------------------------------- Micro Service2 | GET /latest/test | Response 504 | Body Parameters ---------------------------------------

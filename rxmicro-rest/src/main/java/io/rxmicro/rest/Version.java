@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. http://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,7 +33,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * where @Category, @Version and @BaseUrl are optional
  *
  * @author nedis
- * @link http://rxmicro.io
+ * @link https://rxmicro.io
  * @since 0.1
  */
 @Documented
@@ -55,7 +55,7 @@ public @interface Version {
      * REST API version strategy
      *
      * @author nedis
-     * @link http://rxmicro.io
+     * @link https://rxmicro.io
      * @since 0.1
      */
     enum Strategy {
@@ -65,8 +65,8 @@ public @interface Version {
          * <p>
          * For example:
          * <p>
-         * GET http://rxmicro.io/api/status - REST endpoint without version
-         * GET http://rxmicro.io/api/v1.0/status - REST endpoint with version v1.0
+         * GET https://rxmicro.io/api/status - REST endpoint without version
+         * GET https://rxmicro.io/api/v1.0/status - REST endpoint with version v1.0
          */
         URL_PATH(null),
 
@@ -74,9 +74,9 @@ public @interface Version {
          * Adds HTTP header, which defines REST API version.
          *
          * <p>
-         * GET http://rxmicro.io/api/status - REST endpoint without version
+         * GET https://rxmicro.io/api/status - REST endpoint without version
          * <p>
-         * GET http://rxmicro.io/api/status - REST endpoint with version v1.0
+         * GET https://rxmicro.io/api/status - REST endpoint with version v1.0
          * Api-Version: v1.0
          *
          * @see io.rxmicro.http.HttpHeaders

@@ -1,6 +1,6 @@
 /**
  * @author nedis
- * @link http://rxmicro.io
+ * @link https://rxmicro.io
  * @since 0.1
  */
 module rxmicro.rest.client.jdk {

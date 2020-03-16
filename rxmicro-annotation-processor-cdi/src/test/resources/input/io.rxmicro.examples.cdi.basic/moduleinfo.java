@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. http://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,8 +14,10 @@
  * limitations under the License.
  */
 
+// tag::content[]
 module examples.cdi.basic {
     requires rxmicro.rest.server.netty;
     requires rxmicro.rest.server.exchange.json;
     requires rxmicro.cdi; // <1>
 }
+// end::content[]

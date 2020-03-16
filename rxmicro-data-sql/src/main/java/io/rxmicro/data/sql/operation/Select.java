@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. http://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,7 +25,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
  * @author nedis
- * @link http://rxmicro.io
+ * @link https://rxmicro.io
  * @link https://www.postgresql.org/docs/12/sql-select.html
  * @see CustomSelect
  * @see io.rxmicro.data.sql.SupportedVariables
@@ -45,7 +45,7 @@ public @interface Select {
     String value() default "";
 
     /**
-     * Useful for 'SELECT count(*) FROM ${table}' -> Mono<Long>,
+     * Useful for 'SELECT count(*) FROM ${table}' -> {@code Mono<Long>},
      * i.e. for resolving ${table} variable Rx Micro will use this entity class
      *
      * @return entity class

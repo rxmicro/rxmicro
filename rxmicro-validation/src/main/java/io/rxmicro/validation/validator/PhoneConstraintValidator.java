@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. http://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,7 +22,7 @@ import io.rxmicro.validation.ConstraintValidator;
 
 /**
  * @author nedis
- * @link http://rxmicro.io
+ * @link https://rxmicro.io
  * @link https://en.wikipedia.org/wiki/National_conventions_for_writing_telephone_numbers
  * @see io.rxmicro.validation.constraint.Phone
  * @since 0.1

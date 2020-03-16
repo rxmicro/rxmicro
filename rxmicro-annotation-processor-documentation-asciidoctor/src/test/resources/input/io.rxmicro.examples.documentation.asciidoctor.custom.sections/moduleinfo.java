@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. http://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@ import io.rxmicro.documentation.IntroductionDefinition;
 import io.rxmicro.documentation.ResourceDefinition;
 import io.rxmicro.documentation.ResourceGroupDefinition;
 
+// tag::content[]
 @DocumentationDefinition(
         withGeneratedDate = false,
         introduction = @IntroductionDefinition(
@@ -57,3 +58,4 @@ module examples.documentation.asciidoctor.custom.sections {
     requires rxmicro.rest.server.exchange.json;
     requires static rxmicro.documentation.asciidoctor;
 }
+// end::content[]

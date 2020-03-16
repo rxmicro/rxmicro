@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. http://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,7 +29,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * See https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html#sec9.3.
  *
  * @author nedis
- * @link http://rxmicro.io
+ * @link https://rxmicro.io
  * @link https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html#sec9.3
  * @since 0.1
  */
@@ -48,7 +48,7 @@ public @interface GET {
      * Defines several {@link GET} annotations on the same element.
      *
      * @author nedis
-     * @link http://rxmicro.io
+     * @link https://rxmicro.io
      * @since 0.1
      */
     @Documented

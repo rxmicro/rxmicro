@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 http://rxmicro.io
+ * Copyright 2019 https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -45,7 +45,7 @@ import static io.rxmicro.tool.common.TestFixers.REST_BASED_MICRO_SERVICE_TEST_FI
 
 /**
  * @author nedis
- * @link http://rxmicro.io
+ * @link https://rxmicro.io
  * @since 0.1
  */
 public final class RxMicroTestsAnnotationProcessor extends BaseRxMicroAnnotationProcessor {
@@ -61,7 +61,7 @@ public final class RxMicroTestsAnnotationProcessor extends BaseRxMicroAnnotation
 
     /**
      * @author nedis
-     * @link http://rxmicro.io
+     * @link https://rxmicro.io
      * @since 0.1
      */
     private static final class TestModuleClassStructuresBuilder extends AbstractModuleClassStructuresBuilder {
@@ -98,7 +98,7 @@ public final class RxMicroTestsAnnotationProcessor extends BaseRxMicroAnnotation
 
     /**
      * @author nedis
-     * @link http://rxmicro.io
+     * @link https://rxmicro.io
      * @since 0.1
      */
     private static final class ComponentTestFixerClassStructure extends ClassStructure {
@@ -134,7 +134,7 @@ public final class RxMicroTestsAnnotationProcessor extends BaseRxMicroAnnotation
 
     /**
      * @author nedis
-     * @link http://rxmicro.io
+     * @link https://rxmicro.io
      * @since 0.1
      */
     private static final class RestBasedMicroServiceTestFixerClassStructure extends ClassStructure {
@@ -168,7 +168,7 @@ public final class RxMicroTestsAnnotationProcessor extends BaseRxMicroAnnotation
 
     /**
      * @author nedis
-     * @link http://rxmicro.io
+     * @link https://rxmicro.io
      * @since 0.1
      */
     private static final class IntegrationTestFixerClassStructure extends ClassStructure {

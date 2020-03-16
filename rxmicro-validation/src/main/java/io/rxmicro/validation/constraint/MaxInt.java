@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. http://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,7 +36,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * whose value must be lower or equal to the specified maximum.
  *
  * @author nedis
- * @link http://rxmicro.io
+ * @link https://rxmicro.io
  * @see MaxByteConstraintValidator
  * @see MaxShortConstraintValidator
  * @see MaxIntConstraintValidator
