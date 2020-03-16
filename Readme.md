@@ -19,7 +19,7 @@ Status of all supported features is available at the [Features Table](Features.m
 
 ## Latest Releases
 
-* rxmicro-0.1 (TODO)
+* [RxMicro 0.1](https://github.com/rxmicro/rxmicro/releases/tag/0.1)
 
 ## Documentation
 
