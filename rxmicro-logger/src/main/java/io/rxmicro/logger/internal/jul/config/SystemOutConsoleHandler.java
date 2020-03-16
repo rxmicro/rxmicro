@@ -31,13 +31,8 @@ public class SystemOutConsoleHandler extends StreamHandler {
     }
 
     @Override
-    public void publish(final LogRecord record) {
+    public synchronized void publish(final LogRecord record) {
         super.publish(record);
-        flush();
-    }
-
-    @Override
-    public void close() {
         flush();
     }
 }
