@@ -3,6 +3,8 @@ name: Verify on Push
 on:
   push:
     branches: [ master ]
+    paths:
+      - 'rxmicro-*/**'
 
 jobs:
   verify-on-linux:
