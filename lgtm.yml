@@ -1,0 +1,7 @@
+# https://lgtm.com/help/lgtm/lgtm.yml-configuration-file
+# https://help.semmle.com/wiki/display/SD/Java+analysis+1.19
+
+extraction:
+  java:
+    index:
+      java_version: 11
