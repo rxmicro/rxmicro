@@ -25,3 +25,39 @@ jobs:
           java-version: ${{ matrix.jdk }}
       - run: mvn -B test --file pom.xml
 
+
+  verify-examples-build-and-upload-jacoco-report:
+    name: Verify Examples, Build and Upload Coverage Report
+    runs-on: ubuntu-latest
+    needs: verify-on-all-supported-platforms
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/cache@v1
+        with:
+          path: ~/.m2/repository
+          key: rxmicro-maven-${{ runner.os }}-cache
+      - uses: actions/setup-java@v1
+        with:
+          java-version: '11'
+      - name: Build and Install rxmicro
+        run: mvn -B install --file pom.xml
+
+      - name: Checkout rxmicro-usage
+        run: git clone https://github.com/rxmicro/rxmicro-usage
+
+      - name: Verify examples
+        run: |
+          cd rxmicro-usage/examples
+          mvn -B verify --file pom.xml
+
+      - name: Merge Jacoco Execs
+        run: find ./rxmicro-usage/examples -name '*.exec' -exec /bin/bash -c 'count=0; for name in "$@"; do count=`expr $count + 1`; cp $name ./rxmicro-annotation-processor/target/jacoco-$count.exec; done' argv0 {} +
+
+      - name: Create Jacoco Aggregate
+        run: mvn -B site --file pom.xml
+
+      - name: Upload to codecov.io
+        run : |
+          export CODECOV_TOKEN="${{ secrets.CODECOV_IO_TOKEN }}"
+          bash <(curl -s https://codecov.io/bash)
