@@ -34,3 +34,22 @@ For specific guidelines regarding contributions, please see [CONTRIBUTING.md](.g
 ## Check Lists
 
 See [CHECK-LISTS.md](.github/CHECK-LISTS.md). 
+
+## Publish to Maven Central
+
+https://central.sonatype.org/pages/apache-maven.html
+
+If your version is a release version (does not end in -SNAPSHOT) and with this setup in place, 
+you can run a deployment to OSSRH and an automated release to the Central Repository with the usual:
+
+`mvn -P release -DskipTests clean deploy`
+
+You can manually inspect the staging repository in the Nexus Repository Manager and trigger a release of the staging repository later with:
+
+`mvn -P release nexus-staging:release`
+
+If you find something went wrong you can drop the staging repository with:
+
+`mvn -P release nexus-staging:drop`
+
+https://oss.sonatype.org/#stagingRepositories
