@@ -52,7 +52,9 @@ jobs:
           mvn -B verify --file pom.xml
 
       - name: Merge Jacoco Execs
-        run: find ./rxmicro-usage/examples -name '*.exec' -exec /bin/bash -c 'count=0; for name in "$@"; do count=`expr $count + 1`; cp $name ./rxmicro-annotation-processor/target/jacoco-$count.exec; done' argv0 {} +
+        run: find ./rxmicro-usage/examples -name '*.exec' -exec /bin/bash -c \
+                  'count=0; for name in "$@"; do count=`expr $count + 1`; \
+                          cp $name ./rxmicro-annotation-processor/target/jacoco-$count.exec; done' argv0 {} +
 
       - name: Create Jacoco Aggregate
         run: mvn -B site --file pom.xml
