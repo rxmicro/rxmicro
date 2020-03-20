@@ -58,3 +58,7 @@ If you find something went wrong you can drop the staging repository with:
 `mvn -P release nexus-staging:drop`
 
 https://oss.sonatype.org/#stagingRepositories
+
+## Licence
+
+[![Apache Licence 2.0](https://img.shields.io/badge/licence-Apache%20License%202.0-red?logo=apache)](https://github.com/rxmicro/rxmicro/blob/master/LICENSE)
