@@ -38,7 +38,7 @@ For specific guidelines regarding contributions, please see [CONTRIBUTING.md](.g
 
 ## Check Lists
 
-See [CHECK-LISTS.md](.github/CHECK-LISTS.md). 
+See [CHECK_LISTS.md](.github/CHECK_LISTS.md). 
 
 ## Publish to Maven Central
 

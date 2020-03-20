@@ -10,10 +10,6 @@
 * Add test cases for created `rxmicro annotation processor module`;
 * Change the status of implemented feature at the [Features Table.md];
 
-## Fix an issue
-
-TODO
-
 ## Release Check List
 
 - [ ] There are no TODOs or FIXMEs left in the code;

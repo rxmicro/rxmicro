@@ -1,6 +1,8 @@
 # Commit Messages
 
-## The seven rules of a great Git commit message
+## Usual commit
+
+### The seven rules of a great Git commit message
 
 1. Separate subject from body with a blank line
 2. Limit the subject line to 50 characters
@@ -16,3 +18,11 @@
 7. Use the body to explain what and why (not how!)
 
 *Read more: [How to Write a Git Commit Message.](https://chris.beams.io/posts/git-commit/)*
+
+## Fix issue
+
+**Use `Fix` keyword for `rxmicro` repository!**
+
+For example: `Fix #${issue-number}`
+
+*Read more: [Closing issues using keywords.](https://help.github.com/en/enterprise/2.16/user/github/managing-your-work-on-github/closing-issues-using-keywords)*

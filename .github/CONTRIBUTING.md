@@ -13,7 +13,7 @@ All modules use [Apache License 2.0.](https://github.com/rxmicro/rxmicro/blob/ma
 
 ## Commit Messages
 
-As a general rule, the style and formatting of commit messages should follow the guidelines in [How to Write a Git Commit Message](COMMIT-MESSAGE-TEMPLATE.md).
+As a general rule, the style and formatting of commit messages should follow the guidelines in [How to Write a Git Commit Message](COMMIT_MESSAGE_TEMPLATE.md).
     
 ## Coding Conventions
 
