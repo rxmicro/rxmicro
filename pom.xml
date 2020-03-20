@@ -261,14 +261,23 @@
                 <plugin>
                     <artifactId>maven-jar-plugin</artifactId>
                     <version>${maven-jar-plugin.version}</version>
-                    <configuration>
-                        <archive>
-                            <manifest>
-                                <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-                                <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
-                            </manifest>
-                        </archive>
-                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>default-jar</id>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>jar</goal>
+                            </goals>
+                            <configuration>
+                                <archive>
+                                    <manifest>
+                                        <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                                        <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                                    </manifest>
+                                </archive>
+                            </configuration>
+                        </execution>
+                    </executions>
                 </plugin>
                 <plugin>
                     <artifactId>maven-install-plugin</artifactId>
