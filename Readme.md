@@ -2,6 +2,7 @@
 
 A framework to build reactive micro services using Java
 
+[![Java 11](https://img.shields.io/badge/JDK-11-brightgreen?logo=java)](https://openjdk.java.net/projects/jdk/11/)
 [![Apache Licence 2.0](https://img.shields.io/badge/licence-Apache%20License%202.0-red?logo=apache)](https://github.com/rxmicro/rxmicro/blob/master/LICENSE)
 [![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/rxmicro/rxmicro?color=blue&logo=webpack)](https://github.com/rxmicro/rxmicro/releases)
 [![Maven Central](https://img.shields.io/maven-central/v/io.rxmicro/rxmicro?color=green&logoColor=yellow&style=plastic&logo=apache-maven)](https://search.maven.org/search?q=io.rxmicro)
@@ -23,15 +24,7 @@ Status of all supported features is available at the [Features Table](Features.m
 
 ## Latest Releases
 
-* [RxMicro 0.1](https://github.com/rxmicro/rxmicro/releases)
-
-```
-<dependency>
-  <groupId>io.rxmicro</groupId>
-  <artifactId>${rxmicro-artifact-id}</artifactId>
-  <version>0.1</version>
-</dependency>
-```
+[![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/rxmicro/rxmicro?color=blue&logo=webpack)](https://github.com/rxmicro/rxmicro/releases)
 
 ## Documentation
 
