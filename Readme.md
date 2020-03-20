@@ -1,16 +1,15 @@
 # RxMicro Project
 
+[![Apache Licence 2.0](https://img.shields.io/badge/licence-Apache%20License%202.0-red?logo=apache)](https://github.com/rxmicro/rxmicro/blob/master/LICENSE)
+[![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/rxmicro/rxmicro?color=blue&logo=webpack)](https://github.com/rxmicro/rxmicro/releases)
+[![Maven Central](https://img.shields.io/maven-central/v/io.rxmicro/rxmicro?color=green&logoColor=yellow&style=plastic&logo=apache-maven)](https://search.maven.org/search?q=io.rxmicro)
+
 [![codecov](https://codecov.io/gh/rxmicro/rxmicro/branch/master/graph/badge.svg)](https://codecov.io/gh/rxmicro/rxmicro)
 [![Code Quality: Java](https://img.shields.io/lgtm/grade/java/g/rxmicro/rxmicro.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/rxmicro/rxmicro/context:java)
 [![Total Alerts](https://img.shields.io/lgtm/alerts/g/rxmicro/rxmicro.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/rxmicro/rxmicro/alerts)
 
 [![Verify on Push](https://github.com/rxmicro/rxmicro/workflows/Verify%20on%20Push/badge.svg)](https://github.com/rxmicro/rxmicro/actions?query=workflow%3A%22Verify+on+Push%22)
 [![Verify and Publish on Release](https://github.com/rxmicro/rxmicro/workflows/Verify%20and%20Publish%20on%20Release/badge.svg)](https://github.com/rxmicro/rxmicro/actions?query=workflow%3A%22Verify+and+Publish+on+Release%22)
-
-[![Apache Licence 2.0](https://img.shields.io/badge/licence-Apache%20License%202.0-red)](https://github.com/rxmicro/rxmicro/blob/master/LICENSE)
-[![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/rxmicro/rxmicro?color=blue&logo=webpack)](https://github.com/rxmicro/rxmicro/releases)
-[![Maven Central](https://img.shields.io/maven-central/v/io.rxmicro/rxmicro?color=green&logoColor=yellow&style=plastic&logo=apache-maven)](https://search.maven.org/search?q=io.rxmicro)
-
 A framework to build reactive micro services using Java
 
 ## Requirements
