@@ -34,9 +34,11 @@ import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnv
 import static io.rxmicro.annotation.processor.common.util.Elements.allFields;
 import static io.rxmicro.annotation.processor.common.util.validators.AnnotationValidators.validateCustomAnnotation;
 import static io.rxmicro.annotation.processor.common.util.validators.FieldValidators.validateExpectedFieldType;
+import static io.rxmicro.annotation.processor.common.util.validators.TypeValidators.validateExpectedElementKind;
 import static io.rxmicro.common.Constants.VirtualModuleInfo.RX_MICRO_VIRTUAL_MODULE_INFO_ANNOTATION_NAME;
 import static io.rxmicro.common.Constants.VirtualModuleInfo.RX_MICRO_VIRTUAL_MODULE_INFO_DEFAULT_NAME;
 import static io.rxmicro.common.Constants.VirtualModuleInfo.RX_MICRO_VIRTUAL_MODULE_INFO_NAME;
+import static javax.lang.model.element.ElementKind.ANNOTATION_TYPE;
 
 /**
  * @author nedis
@@ -84,6 +86,12 @@ public final class CurrentModuleDecoratorImpl implements CurrentModuleDecorator 
     }
 
     private void validateAnnotation(final TypeElement moduleInfo) {
+        validateExpectedElementKind(
+                moduleInfo,
+                ANNOTATION_TYPE,
+                "The '?' must be an annotation!",
+                RX_MICRO_VIRTUAL_MODULE_INFO_ANNOTATION_NAME
+        );
         validateCustomAnnotation(moduleInfo, Set.of());
     }
 
