@@ -25,5 +25,5 @@ jobs:
       - uses: actions/setup-java@v1
         with:
           java-version: '11'
-      - run: mvn -B test --file pom.xml
+      - run: mvn --fail-at-end -B test --file pom.xml
 

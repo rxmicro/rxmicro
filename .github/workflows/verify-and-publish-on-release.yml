@@ -41,7 +41,7 @@ jobs:
         with:
           java-version: '11'
       - name: Build and Install rxmicro
-        run: mvn -B install --file pom.xml
+        run: mvn --fail-at-end -B install --file pom.xml
 
       - name: Checkout rxmicro-usage
         run: git clone https://github.com/rxmicro/rxmicro-usage
@@ -49,7 +49,7 @@ jobs:
       - name: Verify examples
         run: |
           cd rxmicro-usage/examples
-          mvn -B verify --file pom.xml
+          mvn --fail-at-end -B verify --file pom.xml
 
       - name: Merge Jacoco Execs
         run: find ./rxmicro-usage/examples -name '*.exec' -exec /bin/bash -c \
