@@ -86,13 +86,13 @@ public final class TestSupportedTypesInstance {
         supportedTypes.instant = Instant.parse("2020-02-02T02:20:00.00Z");
         supportedTypes.instantList = List.of(supportedTypes.instant);
 
-        supportedTypes.localDate = supportedTypes.instant.atZone(ZoneId.systemDefault()).toLocalDate();
+        supportedTypes.localDate = supportedTypes.instant.atZone(ZoneId.of("UTC")).toLocalDate();
         supportedTypes.localDateList = List.of(supportedTypes.localDate);
 
-        supportedTypes.localDateTime = supportedTypes.instant.atZone(ZoneId.systemDefault()).toLocalDateTime();
+        supportedTypes.localDateTime = supportedTypes.instant.atZone(ZoneId.of("UTC")).toLocalDateTime();
         supportedTypes.localDateTimeList = List.of(supportedTypes.localDateTime);
 
-        supportedTypes.localTime = supportedTypes.instant.atZone(ZoneId.systemDefault()).toLocalTime();
+        supportedTypes.localTime = supportedTypes.instant.atZone(ZoneId.of("UTC")).toLocalTime();
         supportedTypes.localTimeList = List.of(supportedTypes.localTime);
 
         supportedTypes.uuid = UUID.fromString("d3129be8-6745-3e12-0000-4442665556a4");

@@ -26,6 +26,7 @@ import org.junit.jupiter.params.provider.ArgumentsSource;
 import java.io.IOException;
 
 import static com.google.testing.compile.CompilationSubject.assertThat;
+import static io.rxmicro.annotation.processor.common.SupportedOptions.RX_MICRO_ENABLE_AUTOMATIC_MODULE;
 import static io.rxmicro.annotation.processor.documentation.TestSystemProperties.RX_MICRO_POM_XML_ABSOLUTE_PATH;
 import static io.rxmicro.common.util.Formats.format;
 
@@ -42,6 +43,9 @@ final class AsciidoctorProjectDocumentation_IntegrationTest
     @ArgumentsSource(AllInputPackagesArgumentsProvider.class)
     void verify(final String packageName) throws IOException {
         System.setProperty(RX_MICRO_POM_XML_ABSOLUTE_PATH, format("?/?/pom.xml", INPUT_DIR, packageName));
+        if (packageName.startsWith("io.rxmicro.examples.auto.module")) {
+            addCompilerOption(RX_MICRO_ENABLE_AUTOMATIC_MODULE, "true");
+        }
         final Compilation compilation = compileAllIn(packageName);
         assertThat(compilation).succeeded();
         assertGeneratedDoc(packageName);

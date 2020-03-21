@@ -211,12 +211,4 @@
         </dependency>
     </dependencies>
 
-    <repositories>
-        <repository>
-            <id>rxmicro-repo</id>
-            <name>RxMicro Repository</name>
-            <url>https://maven.rxmicro.io/</url>
-        </repository>
-    </repositories>
-
 </project>

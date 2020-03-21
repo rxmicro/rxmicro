@@ -95,6 +95,10 @@ public abstract class AbstractRxMicroAnnotationProcessorIntegrationTest extends 
         ).collect(toMap(identity(), cl -> format("?.?", ENTRY_POINT_PACKAGE, cl)));
     }
 
+    protected void addAggregator(final String name) {
+        this.aggregators.put(name, format("?.?", ENTRY_POINT_PACKAGE, name));
+    }
+
     protected JavaFileObject moduleInfo(final Collection<RxMicroModule> rxMicroModules,
                                         final Collection<ExternalModule> externalModules) {
         return forSourceLines("module-info",
@@ -116,10 +120,6 @@ public abstract class AbstractRxMicroAnnotationProcessorIntegrationTest extends 
     }
 
     protected void verifyAllClassesInPackage(final String packageName) throws IOException {
-        if (packageName == null) {
-            // ignore not found packageName
-            return;
-        }
         final Compilation compilation = compileAllIn(packageName);
         assertThat(compilation).succeeded();
         assertAllGeneratedIn(compilation, packageName);
@@ -183,12 +183,7 @@ public abstract class AbstractRxMicroAnnotationProcessorIntegrationTest extends 
 
         @Override
         public Stream<? extends Arguments> provideArguments(final ExtensionContext extensionContext) {
-            try {
-                return getOnlyChildrenAtTheFolder(INPUT, r -> r.startsWith("io.rxmicro.examples")).stream().map(Arguments::of);
-            } catch (final IllegalArgumentException e) {
-                // Temp fix. See verifyAllClassesInPackage
-                return Stream.of(arguments((Object) null));
-            }
+            return getOnlyChildrenAtTheFolder(INPUT, r -> r.startsWith("io.rxmicro.examples")).stream().map(Arguments::of);
         }
     }
 }

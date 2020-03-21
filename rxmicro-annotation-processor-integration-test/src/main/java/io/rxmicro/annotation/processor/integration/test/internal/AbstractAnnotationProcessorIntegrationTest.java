@@ -94,11 +94,17 @@ public abstract class AbstractAnnotationProcessorIntegrationTest {
     }
 
     protected Compilation compile(final JavaFileObject... files) {
+        final Stream<String> pathStream;
+        if (Arrays.stream(files).anyMatch(jfo -> jfo.getName().endsWith("module-info.java"))) {
+            pathStream = Stream.of("--module-path", String.join(File.pathSeparator, modulePath));
+        } else {
+            pathStream = Stream.of("-classpath", String.join(File.pathSeparator, modulePath));
+        }
         return javac()
                 .withOptions(Stream.of(
                         compilerOptions.entrySet().stream()
                                 .map(e -> format("-A?=?", e.getKey(), e.getValue())),
-                        Stream.of("--module-path", String.join(File.pathSeparator, modulePath))
+                        pathStream
                 ).flatMap(identity()).collect(Collectors.toList()))
                 .withProcessors(createAnnotationProcessor())
                 .compile(files);
