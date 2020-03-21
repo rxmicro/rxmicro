@@ -50,7 +50,7 @@ Download and import [rxmicro-copyright-profile.xml](../.coding/rxmicro-copyright
 /**
  * @author ${USER}
  * @link https://rxmicro.io
- * @since 0.1
+ * @since 0.2
  */
 ```
 
