@@ -46,6 +46,10 @@ public final class SupportedOptions {
      */
     public static final String RX_MICRO_DOC_DESTINATION_DIR = "RX_MICRO_DOC_DESTINATION_DIR";
 
+    public static final String RX_MICRO_ENABLE_AUTOMATIC_MODULE = "RX_MICRO_ENABLE_AUTOMATIC_MODULE";
+
+    public static final boolean RX_MICRO_ENABLE_AUTOMATIC_MODULE_DEFAULT_VALUE = false;
+
     private SupportedOptions() {
     }
 }

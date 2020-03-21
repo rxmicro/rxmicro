@@ -160,7 +160,7 @@ public final class RestClientModuleClassStructuresBuilder extends AbstractModule
                         moduleInfoItems
                 ));
                 addAllVirtualRequestClassStructures(classStructures, classSignatures, restClientClassStructureStorage);
-                classStructures.add(new EnvironmentCustomizerClassStructure(environmentContext.getDefaultConfigValues()));
+                classStructures.add(new EnvironmentCustomizerClassStructure(environmentContext));
                 return classStructures;
             }
             return Set.of();
@@ -292,7 +292,8 @@ public final class RestClientModuleClassStructuresBuilder extends AbstractModule
 
     private List<ModuleInfoItem> buildModuleInfoItems(final EnvironmentContext environmentContext,
                                                       final Set<RestClientClassStructure> restClientClassStructures) {
-        if (environmentContext.get(RestClientModuleGeneratorConfig.class).isGenerateRequiredModuleDirectives()) {
+        if (environmentContext.get(RestClientModuleGeneratorConfig.class).isGenerateRequiredModuleDirectives() &&
+                !environmentContext.getCurrentModule().isUnnamed()) {
             final Set<String> allModulePackages = environmentContext.get(RestClientModuleGeneratorConfig.class).getAllModulePackages();
             final Set<String> packages = restClientClassStructures.stream()
                     .map(r -> getPackageName(r.getHttpClientConfigFullClassName().asType()))

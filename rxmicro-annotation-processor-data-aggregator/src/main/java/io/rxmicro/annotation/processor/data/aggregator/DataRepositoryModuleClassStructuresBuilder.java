@@ -69,7 +69,7 @@ public final class DataRepositoryModuleClassStructuresBuilder
                                             .map(s -> (DataRepositoryClassStructure) s)
                                             .collect(toSet())
                             ),
-                            new EnvironmentCustomizerClassStructure(environmentContext.getDefaultConfigValues())
+                            new EnvironmentCustomizerClassStructure(environmentContext)
                     )
             ).collect(toSet());
         } else {

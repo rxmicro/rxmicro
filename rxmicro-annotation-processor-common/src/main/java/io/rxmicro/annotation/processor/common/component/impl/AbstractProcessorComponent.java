@@ -22,6 +22,7 @@ import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingExc
 import javax.lang.model.element.Element;
 import javax.tools.Diagnostic;
 import java.util.Arrays;
+import java.util.Optional;
 import java.util.function.Supplier;
 
 import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.compilerOptions;
@@ -151,10 +152,16 @@ public abstract class AbstractProcessorComponent {
             try {
                 return Integer.parseInt(value);
             } catch (final NumberFormatException e) {
-                // do nothing
+                // return defaultValue
             }
         }
         return defaultValue;
+    }
+
+    protected final boolean getBooleanOption(final String propertyName,
+                                             final boolean defaultValue) {
+        final String value = getStringOption(propertyName, null);
+        return Optional.ofNullable(value).map(Boolean::parseBoolean).orElse(defaultValue);
     }
 
     protected final String getStringOption(final String propertyName,

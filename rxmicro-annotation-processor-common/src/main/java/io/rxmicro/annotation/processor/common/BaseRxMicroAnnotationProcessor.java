@@ -31,9 +31,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import static io.rxmicro.annotation.processor.common.SupportedOptions.RX_MICRO_ENABLE_AUTOMATIC_MODULE;
 import static io.rxmicro.annotation.processor.common.model.AnnotationProcessorType.PROJECT_COMPILE;
 import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.elements;
 import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.messager;
+import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.Requires.require;
 
 /**
@@ -67,16 +69,31 @@ public class BaseRxMicroAnnotationProcessor extends AbstractRxMicroProcessor {
         final Optional<ModuleElement> moduleElementOptional = getCurrentModule(annotations, roundEnv);
         if (moduleElementOptional.isPresent()) {
             final ModuleElement currentModule = moduleElementOptional.get();
-            final EnvironmentContext environmentContext =
-                    environmentContextBuilder.build(roundEnv, currentModule);
-            final List<SourceCode> sourceCodes =
-                    moduleClassStructuresBuilder.buildSourceCode(environmentContext, annotations, roundEnv);
-            generateClasses(sourceCodes);
-            return true;
+            if(currentModule.isUnnamed() && moduleClassStructuresBuilder.isAutomaticModuleDisabled()){
+                displayModuleError();
+                return false;
+            } else {
+                final EnvironmentContext environmentContext =
+                        environmentContextBuilder.build(roundEnv, currentModule);
+                final List<SourceCode> sourceCodes =
+                        moduleClassStructuresBuilder.buildSourceCode(environmentContext, annotations, roundEnv);
+                generateClasses(sourceCodes);
+                return true;
+            }
         } else {
-            messager().printMessage(Diagnostic.Kind.ERROR, "Missing module-info.java");
+            displayModuleError();
             return false;
         }
+    }
+
+    private void displayModuleError() {
+        messager().printMessage(
+                Diagnostic.Kind.ERROR,
+                format(
+                        "Add `module-info.java` or set compiler option: '?'=true!",
+                        RX_MICRO_ENABLE_AUTOMATIC_MODULE
+                )
+        );
     }
 
     private Optional<ModuleElement> getCurrentModule(final Set<? extends TypeElement> annotations,
@@ -84,7 +101,6 @@ public class BaseRxMicroAnnotationProcessor extends AbstractRxMicroProcessor {
         return annotations.stream()
                 .flatMap(a -> roundEnv.getElementsAnnotatedWith(a).stream())
                 .flatMap(e -> Optional.ofNullable(elements().getModuleOf(e)).stream())
-                .filter(m -> !m.isUnnamed())
                 .findFirst();
     }
 }

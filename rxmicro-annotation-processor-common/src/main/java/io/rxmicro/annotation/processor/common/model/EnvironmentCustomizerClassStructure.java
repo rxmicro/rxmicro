@@ -35,10 +35,10 @@ import static io.rxmicro.runtime.detail.Runtimes.ENTRY_POINT_PACKAGE;
  */
 public final class EnvironmentCustomizerClassStructure extends ClassStructure {
 
-    private final List<Map.Entry<String, String>> defaultConfigValues;
+    private final EnvironmentContext environmentContext;
 
-    public EnvironmentCustomizerClassStructure(final List<Map.Entry<String, String>> defaultConfigValues) {
-        this.defaultConfigValues = require(defaultConfigValues);
+    public EnvironmentCustomizerClassStructure(final EnvironmentContext environmentContext) {
+        this.environmentContext = environmentContext;
     }
 
     @Override
@@ -55,8 +55,9 @@ public final class EnvironmentCustomizerClassStructure extends ClassStructure {
     public Map<String, Object> getTemplateVariables() {
         return Map.of(
                 "PACKAGE_NAME", ENTRY_POINT_PACKAGE,
+                "CURRENT_MODULE_IS_NAMED", !environmentContext.getCurrentModule().isUnnamed(),
                 "CLASS_NAME", $$_ENVIRONMENT_CUSTOMIZER_SIMPLE_CLASS_NAME,
-                "DEFAULT_CONFIG_VALUES", defaultConfigValues
+                "DEFAULT_CONFIG_VALUES", environmentContext.getDefaultConfigValues()
         );
     }
 

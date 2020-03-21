@@ -93,6 +93,8 @@ public enum RxMicroModule {
 
     private final String name;
 
+    private final String rootPackage;
+
     public static boolean isSqlR2DBCModule(final String moduleFullName) {
         return moduleFullName.contains("rxmicro.data.sql.r2dbc.");
     }
@@ -108,10 +110,15 @@ public enum RxMicroModule {
 
     RxMicroModule(final String name) {
         this.name = name;
+        this.rootPackage = "io." + name;
     }
 
     public String getName() {
         return name;
+    }
+
+    public String getRootPackage() {
+        return rootPackage;
     }
 
     @Override

@@ -173,7 +173,7 @@ public final class RestServerModuleClassStructuresBuilder extends AbstractModule
                                 environmentContext,
                                 restControllerClassStructures
                         )));
-                classStructures.add(new EnvironmentCustomizerClassStructure(environmentContext.getDefaultConfigValues()));
+                classStructures.add(new EnvironmentCustomizerClassStructure(environmentContext));
                 if (!environmentContext.get(RestServerModuleGeneratorConfig.class).getDocumentationTypes().isEmpty()) {
                     restDocumentationGenerator.generate(
                             environmentContext,

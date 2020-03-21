@@ -36,6 +36,7 @@ import java.util.Collection;
 import java.util.Set;
 
 import static io.rxmicro.annotation.processor.common.SupportedOptions.RX_MICRO_DOC_DESTINATION_DIR;
+import static io.rxmicro.annotation.processor.common.SupportedOptions.RX_MICRO_ENABLE_AUTOMATIC_MODULE;
 import static io.rxmicro.annotation.processor.common.SupportedOptions.RX_MICRO_LOG_LEVEL;
 import static io.rxmicro.annotation.processor.common.SupportedOptions.RX_MICRO_MAX_JSON_NESTED_DEPTH;
 import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.doesNotContainErrors;
@@ -71,7 +72,8 @@ public abstract class AbstractRxMicroProcessor extends AbstractProcessor {
         return Set.of(
                 RX_MICRO_LOG_LEVEL,
                 RX_MICRO_MAX_JSON_NESTED_DEPTH,
-                RX_MICRO_DOC_DESTINATION_DIR
+                RX_MICRO_DOC_DESTINATION_DIR,
+                RX_MICRO_ENABLE_AUTOMATIC_MODULE
         );
     }
 

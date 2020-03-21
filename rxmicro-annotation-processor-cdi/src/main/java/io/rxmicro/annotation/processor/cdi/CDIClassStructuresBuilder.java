@@ -98,7 +98,7 @@ public final class CDIClassStructuresBuilder extends AbstractModuleClassStructur
                         beanSupplierClassStructures.stream(),
                         Stream.of(
                                 new BeanFactoryImplClassStructure(beanSupplierClassStructures),
-                                new EnvironmentCustomizerClassStructure(environmentContext.getDefaultConfigValues())
+                                new EnvironmentCustomizerClassStructure(environmentContext)
                         )
                 )
                 .collect(toSet());

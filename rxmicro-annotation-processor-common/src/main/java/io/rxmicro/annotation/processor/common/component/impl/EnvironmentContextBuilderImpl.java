@@ -30,6 +30,7 @@ import javax.lang.model.element.Element;
 import javax.lang.model.element.ModuleElement;
 import javax.lang.model.element.PackageElement;
 import javax.lang.model.element.QualifiedNameable;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -51,10 +52,7 @@ public final class EnvironmentContextBuilderImpl extends AbstractProcessorCompon
     @Override
     public EnvironmentContext build(final RoundEnvironment roundEnv,
                                     final ModuleElement currentModule) {
-        final Set<? extends ModuleElement> allModuleElements = elements().getAllModuleElements();
-        final Set<RxMicroModule> rxMicroModules = allModuleElements.stream()
-                .flatMap(me -> RxMicroModule.of(me.getQualifiedName().toString()).stream())
-                .collect(toSet());
+        final Set<RxMicroModule> rxMicroModules = getRxMicroModules(currentModule);
         final Map<String, Element> includePackages = roundEnv.getElementsAnnotatedWith(IncludeAll.class)
                 .stream()
                 .map(el -> entry(((QualifiedNameable) el).getQualifiedName().toString(), el))
@@ -73,6 +71,18 @@ public final class EnvironmentContextBuilderImpl extends AbstractProcessorCompon
                 getDefaultConfigValues(currentModule));
         info("?", environmentContext);
         return environmentContext;
+    }
+
+    private Set<RxMicroModule> getRxMicroModules(final ModuleElement currentModule) {
+        if (currentModule.isUnnamed()) {
+            return Arrays.stream(RxMicroModule.values())
+                    .filter(m -> elements().getPackageElement(m.getRootPackage()) != null)
+                    .collect(toSet());
+        } else {
+            return elements().getAllModuleElements().stream()
+                    .flatMap(me -> RxMicroModule.of(me.getQualifiedName().toString()).stream())
+                    .collect(toSet());
+        }
     }
 
     private void validate(final Map<String, Element> includePackages,

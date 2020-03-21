@@ -120,7 +120,7 @@ public final class EnvironmentContext {
     public String toString() {
         return "Current environment context is:" + lineSeparator() +
                 "  Current module:" + lineSeparator() + "    `" +
-                currentModule.getQualifiedName().toString() + "`" + lineSeparator() +
+                (currentModule.isUnnamed() ? "UNNAMED" : currentModule.getQualifiedName()) + "`" + lineSeparator() +
                 "  Available RxMicro modules: " + lineSeparator() +
                 rxMicroModules.stream()
                         .map(s -> "    `" + s + "`;")

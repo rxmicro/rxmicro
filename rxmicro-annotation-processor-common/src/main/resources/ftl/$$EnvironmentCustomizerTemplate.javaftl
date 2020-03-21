@@ -3,22 +3,26 @@
 final class ${CLASS_NAME} {
 
     static {
+        <#if CURRENT_MODULE_IS_NAMED>
         addExportsToRuntime();
+        </#if>
         <#if DEFAULT_CONFIG_VALUES?has_content>
         putGlobalDefaultConfigValues();
         </#if>
-        // Add here all required environment customization
+        // All required customization must be here
     }
 
     public static void customize() {
         //do nothing. All customization is done at the static section
     }
 
+    <#if CURRENT_MODULE_IS_NAMED>
     private static void addExportsToRuntime() {
         final Module currentModule = $$EnvironmentCustomizer.class.getModule();
         currentModule.addExports("${PACKAGE_NAME}", getRuntimeModule());
     }
 
+    </#if>
     <#if DEFAULT_CONFIG_VALUES?has_content>
     private static void putGlobalDefaultConfigValues() {
         <#list DEFAULT_CONFIG_VALUES as V>
