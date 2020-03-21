@@ -11,7 +11,7 @@ final class $$EnvironmentCustomizer {
 
     static {
         addExportsToRuntime();
-        // Add here all required environment customization
+        // All required customization must be here
     }
 
     public static void customize() {
@@ -25,5 +25,4 @@ final class $$EnvironmentCustomizer {
 
     private $$EnvironmentCustomizer() {
     }
-
 }
