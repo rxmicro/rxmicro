@@ -90,9 +90,13 @@ public final class RxMicroTestsAnnotationProcessor extends BaseRxMicroAnnotation
         protected Set<? extends ClassStructure> buildClassStructures(final EnvironmentContext environmentContext,
                                                                      final Set<? extends TypeElement> annotations,
                                                                      final RoundEnvironment roundEnv) {
-            return annotations.stream()
-                    .map(a -> testFixerMap.get(a.getQualifiedName().toString()))
-                    .collect(Collectors.toSet());
+            if (environmentContext.getCurrentModule().isUnnamed()) {
+                return Set.of();
+            } else {
+                return annotations.stream()
+                        .map(a -> testFixerMap.get(a.getQualifiedName().toString()))
+                        .collect(Collectors.toSet());
+            }
         }
     }
 
