@@ -56,7 +56,7 @@ public final class RestClientModuleGeneratorConfig extends RestModuleGeneratorCo
         this.generateRequestValidators = getOption(restClientGeneratorConfig.generateRequestValidators(), autoValue);
         this.generateResponseValidators = getOption(restClientGeneratorConfig.generateResponseValidators(), autoValue);
         this.generateRequiredModuleDirectives = restClientGeneratorConfig.generateRequiredModuleDirectives();
-        this.allModulePackages = this.generateRequiredModuleDirectives ?
+        this.allModulePackages = this.generateRequiredModuleDirectives && !environmentContext.getCurrentModule().isUnnamed() ?
                 environmentContext.getCurrentModule().getEnclosedElements().stream()
                         .map(e -> (PackageElement) e)
                         .map(pe -> pe.getQualifiedName().toString())

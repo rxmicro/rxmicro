@@ -24,20 +24,19 @@ import io.rxmicro.annotation.processor.common.model.virtual.VirtualModuleElement
 import javax.lang.model.element.ModuleElement;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
-import java.lang.annotation.Target;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.elements;
 import static io.rxmicro.annotation.processor.common.util.Elements.allFields;
-import static io.rxmicro.annotation.processor.common.util.validators.AnnotationValidators.validateRetention;
+import static io.rxmicro.annotation.processor.common.util.validators.AnnotationValidators.validateCustomAnnotation;
 import static io.rxmicro.annotation.processor.common.util.validators.FieldValidators.validateExpectedFieldType;
 import static io.rxmicro.common.Constants.VirtualModuleInfo.RX_MICRO_VIRTUAL_MODULE_INFO_ANNOTATION_NAME;
 import static io.rxmicro.common.Constants.VirtualModuleInfo.RX_MICRO_VIRTUAL_MODULE_INFO_DEFAULT_NAME;
 import static io.rxmicro.common.Constants.VirtualModuleInfo.RX_MICRO_VIRTUAL_MODULE_INFO_NAME;
-import static io.rxmicro.common.Constants.VirtualModuleInfo.RX_MICRO_VIRTUAL_MODULE_INFO_ROOT_PACKAGE;
 
 /**
  * @author nedis
@@ -54,14 +53,10 @@ public final class CurrentModuleDecoratorImpl implements CurrentModuleDecorator 
             if (moduleInfo != null) {
                 validateAnnotation(moduleInfo);
                 final Map<String, VariableElement> parameters = extractParameters(moduleInfo);
-                return new VirtualModuleElement(
-                        currentModuleElement,
-                        moduleInfo,
-                        Optional.ofNullable(parameters.get(RX_MICRO_VIRTUAL_MODULE_INFO_NAME))
-                                .map(v -> (String) v.getConstantValue())
-                                .orElse(RX_MICRO_VIRTUAL_MODULE_INFO_DEFAULT_NAME),
-                        (String) parameters.get(RX_MICRO_VIRTUAL_MODULE_INFO_ROOT_PACKAGE).getConstantValue()
-                );
+                final String moduleName = Optional.ofNullable(parameters.get(RX_MICRO_VIRTUAL_MODULE_INFO_NAME))
+                        .map(v -> (String) v.getConstantValue())
+                        .orElse(RX_MICRO_VIRTUAL_MODULE_INFO_DEFAULT_NAME);
+                return new VirtualModuleElement(currentModuleElement, moduleInfo, moduleName);
             } else {
                 return currentModuleElement;
             }
@@ -76,51 +71,23 @@ public final class CurrentModuleDecoratorImpl implements CurrentModuleDecorator 
             if (RX_MICRO_VIRTUAL_MODULE_INFO_NAME.equals(field.getSimpleName().toString())) {
                 validateName(field);
                 map.put(RX_MICRO_VIRTUAL_MODULE_INFO_NAME, field);
-            } else if (RX_MICRO_VIRTUAL_MODULE_INFO_ROOT_PACKAGE.equals(field.getSimpleName().toString())) {
-                validateRootPackage(field);
-                map.put(RX_MICRO_VIRTUAL_MODULE_INFO_ROOT_PACKAGE, field);
             } else {
                 throw new InterruptProcessingException(
                         moduleInfo,
                         "Unsupported field for virtual module info annotation: '?'. " +
                                 "The following fields are supported only: ?",
                         field.getSimpleName(),
-                        List.of(RX_MICRO_VIRTUAL_MODULE_INFO_NAME, RX_MICRO_VIRTUAL_MODULE_INFO_ROOT_PACKAGE));
+                        List.of(RX_MICRO_VIRTUAL_MODULE_INFO_NAME));
             }
         }
-        validateRequiredFields(moduleInfo, map);
         return map;
     }
 
     private void validateAnnotation(final TypeElement moduleInfo) {
-        validateRetention(moduleInfo);
-        final Target target = moduleInfo.getAnnotation(Target.class);
-        if (target != null) {
-            throw new InterruptProcessingException(
-                    moduleInfo,
-                    "Virtual module info annotation should not be annotated by '@?' annotation! Remove it!",
-                    Target.class.getName()
-            );
-        }
+        validateCustomAnnotation(moduleInfo, Set.of());
     }
 
     private void validateName(final VariableElement field) {
         validateExpectedFieldType(field, String.class);
-    }
-
-    private void validateRootPackage(final VariableElement field) {
-        validateExpectedFieldType(field, String.class);
-    }
-
-    private void validateRequiredFields(final TypeElement moduleInfo,
-                                        final Map<String, VariableElement> map) {
-        if (!map.containsKey(RX_MICRO_VIRTUAL_MODULE_INFO_ROOT_PACKAGE)) {
-            throw new InterruptProcessingException(
-                    moduleInfo,
-                    "Missing required annotation field for virtual module info annotation. " +
-                            "Add 'String ? = \"${ROOT-PACKAGE}\"; to virtual module info annotation",
-                    RX_MICRO_VIRTUAL_MODULE_INFO_ROOT_PACKAGE
-            );
-        }
     }
 }

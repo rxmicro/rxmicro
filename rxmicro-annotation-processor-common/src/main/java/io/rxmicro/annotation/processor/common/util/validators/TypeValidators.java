@@ -169,22 +169,24 @@ public final class TypeValidators {
                                                   final Element owner,
                                                   final String validPrefix,
                                                   final TypeElement typeElement) {
-        TypeElement currentTypeElement = typeElement;
-        while (true) {
-            if (currentTypeElement.getEnclosedElements().stream().anyMatch(e -> e instanceof VariableElement)) {
-                final ModuleElement resultModule = elements().getModuleOf(currentTypeElement);
-                if (resultModule == null ||
-                        !ownerModule.getQualifiedName().equals(resultModule.getQualifiedName())) {
-                    throw new InterruptProcessingException(owner,
-                            "?Model class '?' must be declared at '?' module",
-                            validPrefix, currentTypeElement.getQualifiedName(), ownerModule.getQualifiedName());
+        if (!ownerModule.isUnnamed()) {
+            TypeElement currentTypeElement = typeElement;
+            while (true) {
+                if (currentTypeElement.getEnclosedElements().stream().anyMatch(e -> e instanceof VariableElement)) {
+                    final ModuleElement resultModule = elements().getModuleOf(currentTypeElement);
+                    if (resultModule == null ||
+                            !ownerModule.getQualifiedName().equals(resultModule.getQualifiedName())) {
+                        throw new InterruptProcessingException(owner,
+                                "?Model class '?' must be declared at '?' module",
+                                validPrefix, currentTypeElement.getQualifiedName(), ownerModule.getQualifiedName());
+                    }
                 }
-            }
-            final TypeMirror superClass = currentTypeElement.getSuperclass();
-            if (superClassIsObject(superClass)) {
-                break;
-            } else {
-                currentTypeElement = asTypeElement(superClass).orElseThrow();
+                final TypeMirror superClass = currentTypeElement.getSuperclass();
+                if (superClassIsObject(superClass)) {
+                    break;
+                } else {
+                    currentTypeElement = asTypeElement(superClass).orElseThrow();
+                }
             }
         }
     }

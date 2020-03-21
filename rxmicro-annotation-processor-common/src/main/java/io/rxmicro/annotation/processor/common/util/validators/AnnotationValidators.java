@@ -159,6 +159,15 @@ public final class AnnotationValidators {
             );
         }
         for (final ElementType elementType : target.value()) {
+            if(allowedElementType.isEmpty()){
+                throw new InterruptProcessingException(
+                        annotationElement,
+                        "Unsupported target element: '?' for '?' annotation type. Current annotation must have empty targets, i.e. @?({})",
+                        elementType,
+                        annotationElement.asType(),
+                        Target.class.getSimpleName()
+                );
+            }
             if (!allowedElementType.contains(elementType)) {
                 throw new InterruptProcessingException(
                         annotationElement,

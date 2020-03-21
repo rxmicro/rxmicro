@@ -16,6 +16,7 @@
 
 package io.rxmicro.annotation.processor.common.model.virtual;
 
+import io.rxmicro.annotation.processor.common.model.error.InternalErrorException;
 import io.rxmicro.annotation.processor.common.util.Names;
 
 import javax.lang.model.element.AnnotationMirror;
@@ -26,10 +27,7 @@ import javax.lang.model.element.Modifier;
 import javax.lang.model.element.ModuleElement;
 import javax.lang.model.element.Name;
 import javax.lang.model.element.TypeElement;
-import javax.lang.model.type.NoType;
-import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeMirror;
-import javax.lang.model.type.TypeVisitor;
 import java.lang.annotation.Annotation;
 import java.util.List;
 import java.util.Set;
@@ -50,16 +48,12 @@ public final class VirtualModuleElement implements ModuleElement, VirtualElement
 
     private final String name;
 
-    private final String rootPackage;
-
     public VirtualModuleElement(final ModuleElement unnamedModuleElement,
                                 final TypeElement virtualModuleInfoAnnotation,
-                                final String name,
-                                final String rootPackage) {
+                                final String name) {
         this.unnamedModuleElement = require(unnamedModuleElement);
         this.virtualModuleInfoAnnotation = require(virtualModuleInfoAnnotation);
         this.name = require(name);
-        this.rootPackage = require(rootPackage);
     }
 
     @Override
@@ -94,7 +88,7 @@ public final class VirtualModuleElement implements ModuleElement, VirtualElement
 
     @Override
     public List<? extends Element> getEnclosedElements() {
-        return List.of(elements().getPackageElement(rootPackage));
+        throw new InternalErrorException("?.getEnclosedElements() must be implemented!", getClass().getSimpleName());
     }
 
     @Override
