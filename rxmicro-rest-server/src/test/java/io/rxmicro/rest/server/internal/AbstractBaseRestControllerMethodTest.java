@@ -76,7 +76,7 @@ abstract class AbstractBaseRestControllerMethodTest {
     }
 
     protected final void setLoggerMock(final Logger logger) {
-        ((MockLoggerImplFactory)getLoggerImplFactory()).setLogger(logger);
+        ((MockLoggerImplFactory) getLoggerImplFactory()).setLogger(logger);
     }
 
     /**

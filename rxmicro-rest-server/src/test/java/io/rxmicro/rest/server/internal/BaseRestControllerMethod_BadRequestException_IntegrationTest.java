@@ -79,7 +79,7 @@ final class BaseRestControllerMethod_BadRequestException_IntegrationTest extends
     private Logger logger;
 
     @BeforeEach
-    void beforeEach(){
+    void beforeEach() {
         setLoggerMock(logger);
     }
 

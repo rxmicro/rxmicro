@@ -40,14 +40,14 @@ import static javax.tools.JavaFileObject.Kind.SOURCE;
 public final class JavaSources {
 
     public static JavaFileObject forResource(final String resourceName) {
-        if(resourceName.endsWith("moduleinfo.java")) {
+        if (resourceName.endsWith("moduleinfo.java")) {
             return new ModuleInfoSimpleJavaFileObject(Resources.getResource(resourceName));
-        } else{
+        } else {
             return JavaFileObjects.forResource(resourceName);
         }
     }
 
-    private JavaSources(){
+    private JavaSources() {
     }
 
     /**
@@ -64,16 +64,16 @@ public final class JavaSources {
             this.resourceByteSource = Resources.asByteSource(resourceUrl);
         }
 
-        public CharSequence getCharContent(final boolean ignoreEncodingErrors) throws IOException {
-            return this.resourceByteSource.asCharSource(Charset.defaultCharset()).read();
-        }
-
         public InputStream openInputStream() throws IOException {
             return this.resourceByteSource.openStream();
         }
 
         public Reader openReader(final boolean ignoreEncodingErrors) throws IOException {
             return this.resourceByteSource.asCharSource(Charset.defaultCharset()).openStream();
+        }
+
+        public CharSequence getCharContent(final boolean ignoreEncodingErrors) throws IOException {
+            return this.resourceByteSource.asCharSource(Charset.defaultCharset()).read();
         }
     }
 }

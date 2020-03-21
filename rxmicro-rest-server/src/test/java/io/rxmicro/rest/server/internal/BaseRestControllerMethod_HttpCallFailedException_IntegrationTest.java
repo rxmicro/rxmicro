@@ -79,7 +79,7 @@ final class BaseRestControllerMethod_HttpCallFailedException_IntegrationTest ext
     private Logger logger;
 
     @BeforeEach
-    void beforeEach(){
+    void beforeEach() {
         setLoggerMock(logger);
     }
 

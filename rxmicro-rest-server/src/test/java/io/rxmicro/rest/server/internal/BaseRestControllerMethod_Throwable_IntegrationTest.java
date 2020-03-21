@@ -79,7 +79,7 @@ final class BaseRestControllerMethod_Throwable_IntegrationTest extends AbstractB
     private Logger logger;
 
     @BeforeEach
-    void beforeEach(){
+    void beforeEach() {
         setLoggerMock(logger);
     }
 

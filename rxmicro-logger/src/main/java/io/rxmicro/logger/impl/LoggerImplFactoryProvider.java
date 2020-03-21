@@ -38,15 +38,15 @@ public final class LoggerImplFactoryProvider {
         StartTimeStamp.init();
     }
 
+    public static LoggerImplFactory getLoggerImplFactory() {
+        init = true;
+        return requireNonNullElseGet(impl, JULLoggerImplFactory::new);
+    }
+
     public static void setLoggerImplFactory(final LoggerImplFactory impl) {
         if (init) {
             throw new RxMicroException("LoggerImplFactory instance already created");
         }
         LoggerImplFactoryProvider.impl = require(impl);
-    }
-
-    public static LoggerImplFactory getLoggerImplFactory() {
-        init = true;
-        return requireNonNullElseGet(impl, JULLoggerImplFactory::new);
     }
 }

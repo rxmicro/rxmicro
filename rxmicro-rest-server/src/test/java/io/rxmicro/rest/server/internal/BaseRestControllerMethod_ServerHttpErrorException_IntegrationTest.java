@@ -22,7 +22,6 @@ import io.rxmicro.logger.Logger;
 import io.rxmicro.rest.model.PathVariableMapping;
 import io.rxmicro.rest.server.detail.model.HttpRequest;
 import io.rxmicro.rest.server.detail.model.HttpResponse;
-import io.rxmicro.rest.server.internal.component.impl.error.AnyHttpErrorHttpResponseBuilder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
@@ -43,7 +42,6 @@ import java.util.function.BiFunction;
 import java.util.stream.Stream;
 
 import static io.rxmicro.http.HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN;
-import static io.rxmicro.tool.common.Reflections.setFieldValue;
 import static java.util.concurrent.CompletableFuture.failedStage;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
@@ -81,7 +79,7 @@ final class BaseRestControllerMethod_ServerHttpErrorException_IntegrationTest ex
     private Logger logger;
 
     @BeforeEach
-    void beforeEach(){
+    void beforeEach() {
         setLoggerMock(logger);
     }
 
