@@ -16,6 +16,7 @@
 
 package io.rxmicro.annotation.processor.common.model;
 
+import io.rxmicro.annotation.processor.common.model.virtual.VirtualModuleElement;
 import io.rxmicro.common.RxMicroModule;
 
 import javax.lang.model.element.ModuleElement;
@@ -120,7 +121,7 @@ public final class EnvironmentContext {
     public String toString() {
         return "Current environment context is:" + lineSeparator() +
                 "  Current module:" + lineSeparator() + "    `" +
-                (currentModule.isUnnamed() ? "UNNAMED" : currentModule.getQualifiedName()) + "`" + lineSeparator() +
+                getModuleName() + "`" + lineSeparator() +
                 "  Available RxMicro modules: " + lineSeparator() +
                 rxMicroModules.stream()
                         .map(s -> "    `" + s + "`;")
@@ -135,6 +136,14 @@ public final class EnvironmentContext {
                 lineSeparator() + excludePackages.stream()
                         .map(s -> "    " + s + ".*")
                         .collect(joining(lineSeparator())));
+    }
+
+    private CharSequence getModuleName() {
+        if (currentModule instanceof VirtualModuleElement || !currentModule.isUnnamed()) {
+            return currentModule.getQualifiedName();
+        } else {
+            return "UNNAMED";
+        }
     }
 
     /**
