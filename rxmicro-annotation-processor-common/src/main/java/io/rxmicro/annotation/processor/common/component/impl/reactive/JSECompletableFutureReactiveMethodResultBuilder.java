@@ -31,7 +31,7 @@ import static io.rxmicro.annotation.processor.common.model.method.MethodResult.c
 import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.types;
 import static io.rxmicro.annotation.processor.common.util.Names.getSimpleName;
 import static io.rxmicro.annotation.processor.common.util.Reactives.isFuture;
-import static io.rxmicro.annotation.processor.common.util.TypeValidators.validateGenericType;
+import static io.rxmicro.annotation.processor.common.util.validators.TypeValidators.validateGenericType;
 
 /**
  * @author nedis

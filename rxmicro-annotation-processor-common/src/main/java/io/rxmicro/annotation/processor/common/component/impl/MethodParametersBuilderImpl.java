@@ -28,8 +28,8 @@ import javax.lang.model.element.VariableElement;
 import javax.lang.model.type.TypeMirror;
 import java.util.List;
 
-import static io.rxmicro.annotation.processor.common.util.TypeValidators.validateAndGetModelType;
-import static io.rxmicro.annotation.processor.common.util.TypeValidators.validateGenericType;
+import static io.rxmicro.annotation.processor.common.util.validators.TypeValidators.validateAndGetModelType;
+import static io.rxmicro.annotation.processor.common.util.validators.TypeValidators.validateGenericType;
 import static io.rxmicro.common.util.Formats.format;
 import static java.util.stream.Collectors.toList;
 

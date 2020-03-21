@@ -33,7 +33,7 @@ import static io.rxmicro.annotation.processor.common.util.Names.getSimpleName;
 import static io.rxmicro.annotation.processor.common.util.Reactives.isFlux;
 import static io.rxmicro.annotation.processor.common.util.Reactives.isMono;
 import static io.rxmicro.annotation.processor.common.util.Reactives.isSpringReactorType;
-import static io.rxmicro.annotation.processor.common.util.TypeValidators.validateGenericType;
+import static io.rxmicro.annotation.processor.common.util.validators.TypeValidators.validateGenericType;
 
 /**
  * @author nedis

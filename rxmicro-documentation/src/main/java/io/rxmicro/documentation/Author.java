@@ -23,6 +23,7 @@ import java.lang.annotation.Target;
 
 import static io.rxmicro.documentation.Constants.DEFAULT_AUTHOR;
 import static io.rxmicro.documentation.Constants.DEFAULT_EMAIL;
+import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
 import static java.lang.annotation.ElementType.MODULE;
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
@@ -35,7 +36,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  */
 @Documented
 @Retention(SOURCE)
-@Target(MODULE)
+@Target({MODULE, ANNOTATION_TYPE})
 @Repeatable(Author.List.class)
 public @interface Author {
 
@@ -52,7 +53,7 @@ public @interface Author {
      */
     @Documented
     @Retention(SOURCE)
-    @Target(MODULE)
+    @Target({MODULE, ANNOTATION_TYPE})
     @interface List {
 
         Author[] value();

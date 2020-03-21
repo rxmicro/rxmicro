@@ -25,12 +25,12 @@ import java.util.List;
 import java.util.Set;
 
 import static io.rxmicro.annotation.processor.common.util.Elements.methodSignatureEquals;
-import static io.rxmicro.annotation.processor.common.util.MethodValidators.validateNotAbstractMethod;
-import static io.rxmicro.annotation.processor.common.util.MethodValidators.validateNotDefaultMethod;
-import static io.rxmicro.annotation.processor.common.util.MethodValidators.validateNotNativeMethod;
-import static io.rxmicro.annotation.processor.common.util.MethodValidators.validateNotPrivateMethod;
-import static io.rxmicro.annotation.processor.common.util.MethodValidators.validateNotStaticMethod;
-import static io.rxmicro.annotation.processor.common.util.MethodValidators.validateNotSynchronizedMethod;
+import static io.rxmicro.annotation.processor.common.util.validators.MethodValidators.validateNotAbstractMethod;
+import static io.rxmicro.annotation.processor.common.util.validators.MethodValidators.validateNotDefaultMethod;
+import static io.rxmicro.annotation.processor.common.util.validators.MethodValidators.validateNotNativeMethod;
+import static io.rxmicro.annotation.processor.common.util.validators.MethodValidators.validateNotPrivateMethod;
+import static io.rxmicro.annotation.processor.common.util.validators.MethodValidators.validateNotStaticMethod;
+import static io.rxmicro.annotation.processor.common.util.validators.MethodValidators.validateNotSynchronizedMethod;
 import static io.rxmicro.common.util.Formats.format;
 import static java.util.stream.Collectors.joining;
 

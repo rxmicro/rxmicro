@@ -59,6 +59,20 @@ module rxmicro.annotation.processor.common {
             rxmicro.annotation.processor.data.sql.r2dbc,
             rxmicro.annotation.processor.data.sql.r2dbc.postgresql,
             rxmicro.annotation.processor.cdi;
+    exports io.rxmicro.annotation.processor.common.util.validators to
+            rxmicro.annotation.processor,
+            rxmicro.annotation.processor.data,
+            rxmicro.annotation.processor.data.mongo,
+            rxmicro.annotation.processor.data.aggregator,
+            rxmicro.annotation.processor.rest,
+            rxmicro.annotation.processor.rest.client,
+            rxmicro.annotation.processor.rest.server,
+            rxmicro.annotation.processor.documentation,
+            rxmicro.annotation.processor.documentation.asciidoctor,
+            rxmicro.annotation.processor.data.sql,
+            rxmicro.annotation.processor.data.sql.r2dbc,
+            rxmicro.annotation.processor.data.sql.r2dbc.postgresql,
+            rxmicro.annotation.processor.cdi;
     exports io.rxmicro.annotation.processor.common.model to
             freemarker,
             rxmicro.annotation.processor,

@@ -23,6 +23,7 @@ import java.lang.annotation.Target;
 
 import static io.rxmicro.documentation.Constants.DEFAULT_LICENSE_NAME;
 import static io.rxmicro.documentation.Constants.DEFAULT_LICENSE_URL;
+import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
 import static java.lang.annotation.ElementType.MODULE;
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
@@ -33,7 +34,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  */
 @Documented
 @Retention(SOURCE)
-@Target(MODULE)
+@Target({MODULE, ANNOTATION_TYPE})
 @Repeatable(License.List.class)
 public @interface License {
 
@@ -50,7 +51,7 @@ public @interface License {
      */
     @Documented
     @Retention(SOURCE)
-    @Target(MODULE)
+    @Target({MODULE, ANNOTATION_TYPE})
     @interface List {
 
         License[] value();

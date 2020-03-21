@@ -20,6 +20,7 @@ import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
+import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
 import static java.lang.annotation.ElementType.MODULE;
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
@@ -30,7 +31,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  */
 @Documented
 @Retention(SOURCE)
-@Target(MODULE)
+@Target({MODULE, ANNOTATION_TYPE})
 public @interface BaseEndpoint {
 
     String value();

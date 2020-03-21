@@ -29,11 +29,11 @@ import java.util.List;
 import java.util.Optional;
 
 import static io.rxmicro.annotation.processor.common.util.Elements.allMethods;
-import static io.rxmicro.annotation.processor.common.util.MethodValidators.validateNotAbstractMethod;
-import static io.rxmicro.annotation.processor.common.util.MethodValidators.validateNotNativeMethod;
-import static io.rxmicro.annotation.processor.common.util.MethodValidators.validateNotStaticMethod;
-import static io.rxmicro.annotation.processor.common.util.MethodValidators.validateNotSynchronizedMethod;
-import static io.rxmicro.annotation.processor.common.util.MethodValidators.validateWithoutParametersMethod;
+import static io.rxmicro.annotation.processor.common.util.validators.MethodValidators.validateNotAbstractMethod;
+import static io.rxmicro.annotation.processor.common.util.validators.MethodValidators.validateNotNativeMethod;
+import static io.rxmicro.annotation.processor.common.util.validators.MethodValidators.validateNotStaticMethod;
+import static io.rxmicro.annotation.processor.common.util.validators.MethodValidators.validateNotSynchronizedMethod;
+import static io.rxmicro.annotation.processor.common.util.validators.MethodValidators.validateWithoutParametersMethod;
 import static io.rxmicro.common.util.Formats.format;
 import static java.util.stream.Collectors.joining;
 import static java.util.stream.Collectors.toList;

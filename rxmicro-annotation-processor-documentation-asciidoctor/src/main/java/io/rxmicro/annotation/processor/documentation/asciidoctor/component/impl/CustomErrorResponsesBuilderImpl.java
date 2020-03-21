@@ -50,6 +50,7 @@ import static io.rxmicro.annotation.processor.common.util.Elements.allConstructo
 import static io.rxmicro.annotation.processor.common.util.Elements.allFields;
 import static io.rxmicro.annotation.processor.documentation.asciidoctor.component.DocumentedModelFieldBuilder.buildApiVersionHeaderDocumentedModelField;
 import static io.rxmicro.annotation.processor.documentation.asciidoctor.component.RestrictionReader.REQUIRED_RESTRICTION;
+import static io.rxmicro.documentation.asciidoctor.Constants.STATUS_CODE_STATIC_FIELD_NAME;
 import static java.util.Map.entry;
 
 /**
@@ -190,7 +191,7 @@ public final class CustomErrorResponsesBuilderImpl implements CustomErrorRespons
                                   final TypeElement exceptionTypeElement) {
         final Predicate<VariableElement> variableElementPredicate = el ->
                 el.getModifiers().containsAll(Set.of(Modifier.STATIC, Modifier.FINAL)) &&
-                        "STATUS_CODE".equals(el.getSimpleName().toString()) &&
+                        STATUS_CODE_STATIC_FIELD_NAME.equals(el.getSimpleName().toString()) &&
                         el.asType().getKind() == TypeKind.INT;
 
         return (int) allFields(exceptionTypeElement, variableElementPredicate).stream()

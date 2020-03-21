@@ -33,8 +33,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import static io.rxmicro.annotation.processor.common.util.AnnotationValidators.validateNoRxMicroAnnotationsPerElement;
-import static io.rxmicro.annotation.processor.common.util.AnnotationValidators.validateRedundantAnnotationsPerElement;
+import static io.rxmicro.annotation.processor.common.util.validators.AnnotationValidators.validateNoRxMicroAnnotationsPerElement;
+import static io.rxmicro.annotation.processor.common.util.validators.AnnotationValidators.validateRedundantAnnotationsPerElement;
 import static io.rxmicro.annotation.processor.common.util.Elements.allImplementableMethods;
 import static io.rxmicro.annotation.processor.common.util.Elements.methodSignatureEquals;
 import static java.util.stream.Collectors.toList;

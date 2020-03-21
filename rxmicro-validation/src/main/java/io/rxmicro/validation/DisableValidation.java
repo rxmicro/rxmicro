@@ -20,6 +20,7 @@ import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
+import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
 import static java.lang.annotation.ElementType.MODULE;
 import static java.lang.annotation.ElementType.PACKAGE;
 import static java.lang.annotation.ElementType.TYPE;
@@ -32,7 +33,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  */
 @Documented
 @Retention(SOURCE)
-@Target({TYPE, PACKAGE, MODULE})
+@Target({TYPE, PACKAGE, MODULE, ANNOTATION_TYPE})
 public @interface DisableValidation {
 
 }

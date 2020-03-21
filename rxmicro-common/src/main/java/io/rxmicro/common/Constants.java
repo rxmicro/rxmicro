@@ -27,4 +27,23 @@ public final class Constants {
 
     private Constants() {
     }
+
+    /**
+     * @author nedis
+     * @link https://rxmicro.io
+     * @since 0.2
+     */
+    public static final class VirtualModuleInfo {
+
+        public static final String RX_MICRO_VIRTUAL_MODULE_INFO_ANNOTATION_NAME = "ModuleInfo";
+
+        public static final String RX_MICRO_VIRTUAL_MODULE_INFO_NAME = "NAME";
+
+        public static final String RX_MICRO_VIRTUAL_MODULE_INFO_DEFAULT_NAME = "virtual.module";
+
+        public static final String RX_MICRO_VIRTUAL_MODULE_INFO_ROOT_PACKAGE = "ROOT_PACKAGE";
+
+        private VirtualModuleInfo () {
+        }
+    }
 }

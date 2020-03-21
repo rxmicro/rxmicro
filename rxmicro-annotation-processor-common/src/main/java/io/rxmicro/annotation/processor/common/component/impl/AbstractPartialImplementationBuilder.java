@@ -39,10 +39,10 @@ import static io.rxmicro.annotation.processor.common.util.Annotations.getAnnotat
 import static io.rxmicro.annotation.processor.common.util.Elements.asTypeElement;
 import static io.rxmicro.annotation.processor.common.util.Elements.superClassIsObject;
 import static io.rxmicro.annotation.processor.common.util.Names.getSimpleName;
-import static io.rxmicro.annotation.processor.common.util.TypeValidators.validateExpectedElementKind;
-import static io.rxmicro.annotation.processor.common.util.TypeValidators.validateNotNestedClass;
-import static io.rxmicro.annotation.processor.common.util.TypeValidators.validateNotSuperInterfaces;
-import static io.rxmicro.annotation.processor.common.util.TypeValidators.validateThatElementIsPublic;
+import static io.rxmicro.annotation.processor.common.util.validators.TypeValidators.validateExpectedElementKind;
+import static io.rxmicro.annotation.processor.common.util.validators.TypeValidators.validateNotNestedClass;
+import static io.rxmicro.annotation.processor.common.util.validators.TypeValidators.validateNotSuperInterfaces;
+import static io.rxmicro.annotation.processor.common.util.validators.TypeValidators.validateThatElementIsPublic;
 import static java.util.Map.entry;
 import static javax.lang.model.element.ElementKind.INTERFACE;
 import static javax.lang.model.element.Modifier.PRIVATE;

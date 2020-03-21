@@ -55,8 +55,8 @@ import static io.rxmicro.annotation.processor.common.util.Elements.asEnumElement
 import static io.rxmicro.annotation.processor.common.util.Elements.findGetters;
 import static io.rxmicro.annotation.processor.common.util.Elements.findSetters;
 import static io.rxmicro.annotation.processor.common.util.Names.getPackageName;
-import static io.rxmicro.annotation.processor.common.util.TypeValidators.validateAndGetModelType;
-import static io.rxmicro.annotation.processor.common.util.TypeValidators.validateGenericType;
+import static io.rxmicro.annotation.processor.common.util.validators.TypeValidators.validateAndGetModelType;
+import static io.rxmicro.annotation.processor.common.util.validators.TypeValidators.validateGenericType;
 import static io.rxmicro.common.util.ExCollectors.toOrderedMap;
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.Strings.splitByCamelCase;

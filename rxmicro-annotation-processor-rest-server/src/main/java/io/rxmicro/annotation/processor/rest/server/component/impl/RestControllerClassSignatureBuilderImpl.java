@@ -37,10 +37,10 @@ import java.util.Set;
 
 import static io.rxmicro.annotation.processor.common.util.Elements.allConstructors;
 import static io.rxmicro.annotation.processor.common.util.Elements.allMethods;
-import static io.rxmicro.annotation.processor.common.util.TypeValidators.validateAccessibleDefaultConstructor;
-import static io.rxmicro.annotation.processor.common.util.TypeValidators.validateNotAbstractClass;
-import static io.rxmicro.annotation.processor.common.util.TypeValidators.validateNotNestedClass;
-import static io.rxmicro.annotation.processor.common.util.TypeValidators.validateNotSuperClass;
+import static io.rxmicro.annotation.processor.common.util.validators.TypeValidators.validateAccessibleDefaultConstructor;
+import static io.rxmicro.annotation.processor.common.util.validators.TypeValidators.validateNotAbstractClass;
+import static io.rxmicro.annotation.processor.common.util.validators.TypeValidators.validateNotNestedClass;
+import static io.rxmicro.annotation.processor.common.util.validators.TypeValidators.validateNotSuperClass;
 import static io.rxmicro.cdi.local.AnnotationsSupport.INJECT_ANNOTATIONS;
 import static javax.lang.model.element.ElementKind.CLASS;
 import static javax.lang.model.element.ElementKind.INTERFACE;

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. https://rxmicro.io
+ * Copyright (c) 2020. http://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,25 +14,17 @@
  * limitations under the License.
  */
 
-package io.rxmicro.documentation;
-
-import java.lang.annotation.Documented;
-import java.lang.annotation.Retention;
-import java.lang.annotation.Target;
-
-import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
-import static java.lang.annotation.ElementType.MODULE;
-import static java.lang.annotation.RetentionPolicy.SOURCE;
+package io.rxmicro.documentation.asciidoctor;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
- * @since 0.1
+ * @link http://rxmicro.io
+ * @since 0.2
  */
-@Documented
-@Retention(SOURCE)
-@Target({MODULE, ANNOTATION_TYPE})
-public @interface DocumentationVersion {
+public final class Constants {
 
-    String value();
+    public static final String STATUS_CODE_STATIC_FIELD_NAME = "STATUS_CODE";
+
+    private Constants(){
+    }
 }

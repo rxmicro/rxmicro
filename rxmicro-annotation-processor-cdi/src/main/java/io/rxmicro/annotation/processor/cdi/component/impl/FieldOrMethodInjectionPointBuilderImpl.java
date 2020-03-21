@@ -30,9 +30,9 @@ import java.util.stream.Stream;
 
 import static io.rxmicro.annotation.processor.common.util.Elements.allFields;
 import static io.rxmicro.annotation.processor.common.util.Elements.allMethods;
-import static io.rxmicro.annotation.processor.common.util.MethodValidators.validateNotAbstractMethod;
-import static io.rxmicro.annotation.processor.common.util.MethodValidators.validateNotPrivateMethod;
-import static io.rxmicro.annotation.processor.common.util.MethodValidators.validateNotStaticMethod;
+import static io.rxmicro.annotation.processor.common.util.validators.MethodValidators.validateNotAbstractMethod;
+import static io.rxmicro.annotation.processor.common.util.validators.MethodValidators.validateNotPrivateMethod;
+import static io.rxmicro.annotation.processor.common.util.validators.MethodValidators.validateNotStaticMethod;
 import static io.rxmicro.cdi.local.AnnotationsSupport.INJECT_ANNOTATIONS;
 import static java.util.stream.Collectors.toList;
 

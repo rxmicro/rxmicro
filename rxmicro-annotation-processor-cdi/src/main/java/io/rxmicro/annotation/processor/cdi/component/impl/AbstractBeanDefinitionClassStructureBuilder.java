@@ -40,9 +40,9 @@ import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnv
 import static io.rxmicro.annotation.processor.common.util.Elements.allMethods;
 import static io.rxmicro.annotation.processor.common.util.Elements.asTypeElement;
 import static io.rxmicro.annotation.processor.common.util.Elements.findSuperType;
-import static io.rxmicro.annotation.processor.common.util.TypeValidators.validateAccessibleDefaultConstructor;
-import static io.rxmicro.annotation.processor.common.util.TypeValidators.validateGenericType;
-import static io.rxmicro.annotation.processor.common.util.TypeValidators.validateThatElementIsPublic;
+import static io.rxmicro.annotation.processor.common.util.validators.TypeValidators.validateAccessibleDefaultConstructor;
+import static io.rxmicro.annotation.processor.common.util.validators.TypeValidators.validateGenericType;
+import static io.rxmicro.annotation.processor.common.util.validators.TypeValidators.validateThatElementIsPublic;
 import static java.util.Map.entry;
 
 /**

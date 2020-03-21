@@ -37,7 +37,7 @@ import static io.rxmicro.annotation.processor.common.util.Reactives.isFlowable;
 import static io.rxmicro.annotation.processor.common.util.Reactives.isMaybe;
 import static io.rxmicro.annotation.processor.common.util.Reactives.isRxJavaType;
 import static io.rxmicro.annotation.processor.common.util.Reactives.isSingle;
-import static io.rxmicro.annotation.processor.common.util.TypeValidators.validateGenericType;
+import static io.rxmicro.annotation.processor.common.util.validators.TypeValidators.validateGenericType;
 
 /**
  * @author nedis

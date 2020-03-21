@@ -40,7 +40,7 @@ import java.lang.annotation.Annotation;
 import java.util.Optional;
 import java.util.Set;
 
-import static io.rxmicro.annotation.processor.common.util.AnnotationValidators.validateSupportedTypes;
+import static io.rxmicro.annotation.processor.common.util.validators.AnnotationValidators.validateSupportedTypes;
 import static io.rxmicro.annotation.processor.common.util.Elements.asTypeElement;
 
 /**

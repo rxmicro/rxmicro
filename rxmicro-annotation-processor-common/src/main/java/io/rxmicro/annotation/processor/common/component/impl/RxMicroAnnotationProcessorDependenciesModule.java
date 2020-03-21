@@ -19,6 +19,7 @@ package io.rxmicro.annotation.processor.common.component.impl;
 import com.google.inject.AbstractModule;
 import io.rxmicro.annotation.processor.common.component.AnnotationProcessingInformer;
 import io.rxmicro.annotation.processor.common.component.ClassWriter;
+import io.rxmicro.annotation.processor.common.component.CurrentModuleDecorator;
 import io.rxmicro.annotation.processor.common.component.EnvironmentContextBuilder;
 
 /**
@@ -36,5 +37,7 @@ public final class RxMicroAnnotationProcessorDependenciesModule extends Abstract
                 .to(EnvironmentContextBuilderImpl.class);
         bind(AnnotationProcessingInformer.class)
                 .to(AnnotationProcessingInformerImpl.class);
+        bind(CurrentModuleDecorator.class)
+                .to(CurrentModuleDecoratorImpl.class);
     }
 }

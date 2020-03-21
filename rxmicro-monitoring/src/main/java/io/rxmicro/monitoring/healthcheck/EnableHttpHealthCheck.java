@@ -22,6 +22,7 @@ import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
+import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
 import static java.lang.annotation.ElementType.MODULE;
 import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.SOURCE;
@@ -33,7 +34,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  */
 @Documented
 @Retention(SOURCE)
-@Target({TYPE, MODULE})
+@Target({TYPE, MODULE, ANNOTATION_TYPE})
 public @interface EnableHttpHealthCheck {
 
     HttpMethod method() default HttpMethod.GET;

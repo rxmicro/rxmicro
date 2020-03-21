@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. https://rxmicro.io
+ * Copyright (c) 2020. http://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package io.rxmicro.annotation.processor.common.util;
+package io.rxmicro.annotation.processor.common.util.validators;
 
 import io.rxmicro.annotation.processor.common.model.SupportedAnnotations;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
@@ -129,7 +129,7 @@ public final class AnnotationValidators {
         }
     }
 
-    private static void validateRetention(final TypeElement annotationElement) {
+    public static void validateRetention(final TypeElement annotationElement) {
         final Retention retention = annotationElement.getAnnotation(Retention.class);
         if (retention == null) {
             throw new InterruptProcessingException(

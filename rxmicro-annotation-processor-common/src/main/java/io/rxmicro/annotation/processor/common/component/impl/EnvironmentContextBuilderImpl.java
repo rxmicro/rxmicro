@@ -16,7 +16,9 @@
 
 package io.rxmicro.annotation.processor.common.component.impl;
 
+import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import io.rxmicro.annotation.processor.common.component.CurrentModuleDecorator;
 import io.rxmicro.annotation.processor.common.component.EnvironmentContextBuilder;
 import io.rxmicro.annotation.processor.common.model.EnvironmentContext;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
@@ -49,9 +51,13 @@ import static java.util.stream.Collectors.toSet;
 public final class EnvironmentContextBuilderImpl extends AbstractProcessorComponent
         implements EnvironmentContextBuilder {
 
+    @Inject
+    private CurrentModuleDecorator currentModuleDecorator;
+
     @Override
     public EnvironmentContext build(final RoundEnvironment roundEnv,
-                                    final ModuleElement currentModule) {
+                                    final ModuleElement realModuleElement) {
+        final ModuleElement currentModule = currentModuleDecorator.decorate(realModuleElement);
         final Set<RxMicroModule> rxMicroModules = getRxMicroModules(currentModule);
         final Map<String, Element> includePackages = roundEnv.getElementsAnnotatedWith(IncludeAll.class)
                 .stream()

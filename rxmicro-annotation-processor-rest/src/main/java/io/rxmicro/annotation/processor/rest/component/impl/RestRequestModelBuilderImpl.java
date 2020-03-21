@@ -29,7 +29,7 @@ import javax.lang.model.element.ModuleElement;
 import javax.lang.model.element.VariableElement;
 import java.util.List;
 
-import static io.rxmicro.annotation.processor.common.util.TypeValidators.validateAndGetModelType;
+import static io.rxmicro.annotation.processor.common.util.validators.TypeValidators.validateAndGetModelType;
 
 /**
  * @author nedis

@@ -49,7 +49,7 @@ import java.util.Set;
 
 import static io.rxmicro.annotation.processor.common.model.ModelFieldType.REST_SERVER_REQUEST;
 import static io.rxmicro.annotation.processor.common.model.ModelFieldType.REST_SERVER_RESPONSE;
-import static io.rxmicro.annotation.processor.common.util.AnnotationValidators.validateSupportedTypes;
+import static io.rxmicro.annotation.processor.common.util.validators.AnnotationValidators.validateSupportedTypes;
 import static io.rxmicro.annotation.processor.common.util.Elements.asTypeElement;
 
 /**
