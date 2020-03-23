@@ -2,3 +2,9 @@
 = RxMicro Release Notes
 
 This document contains the _change log_ for all RxMicro releases since 0.2.
+
+== RxMicro 0.2
+
+- Any RxMicro project can package as automatic module.
+  _(i.e. JPMS can be disabled for any RxMicro project)._
+- Initial support for https://www.graalvm.org/docs/reference-manual/native-image/[graalvm native images].
