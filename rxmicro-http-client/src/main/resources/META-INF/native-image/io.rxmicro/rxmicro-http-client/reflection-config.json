@@ -1,0 +1,8 @@
+[
+  {
+    "name": "io.rxmicro.http.client.HttpClientConfig",
+    "methods": [
+      { "name": "<init>", "parameterTypes": [] }
+    ]
+  }
+]

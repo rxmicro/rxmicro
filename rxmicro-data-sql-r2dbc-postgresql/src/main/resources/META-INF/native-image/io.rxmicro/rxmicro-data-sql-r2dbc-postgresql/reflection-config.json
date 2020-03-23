@@ -1,0 +1,14 @@
+[
+  {
+    "name": "io.rxmicro.data.sql.r2dbc.postgresql.PostgreSQLConfig",
+    "methods": [
+      { "name": "<init>", "parameterTypes": [] }
+    ]
+  },
+  {
+    "name": "rxmicro.$$RepositoryFactoryImpl",
+    "methods": [
+      { "name": "<init>", "parameterTypes": [] }
+    ]
+  }
+]

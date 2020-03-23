@@ -1,0 +1,8 @@
+[
+  {
+    "name": "io.rxmicro.rest.server.netty.NettyRestServerConfig",
+    "methods": [
+      { "name": "<init>", "parameterTypes": [] }
+    ]
+  }
+]

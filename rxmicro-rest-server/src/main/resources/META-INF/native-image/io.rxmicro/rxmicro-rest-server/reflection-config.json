@@ -1,0 +1,20 @@
+[
+  {
+    "name": "io.rxmicro.rest.server.RestServerConfig",
+    "methods": [
+      { "name": "<init>", "parameterTypes": [] }
+    ]
+  },
+  {
+    "name": "io.rxmicro.rest.server.HttpServerConfig",
+    "methods": [
+      { "name": "<init>", "parameterTypes": [] }
+    ]
+  },
+  {
+    "name": "rxmicro.$$RestControllerAggregatorImpl",
+    "methods": [
+      { "name": "<init>", "parameterTypes": [] }
+    ]
+  }
+]

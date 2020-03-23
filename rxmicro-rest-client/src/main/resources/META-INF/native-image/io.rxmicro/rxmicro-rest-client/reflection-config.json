@@ -1,0 +1,8 @@
+[
+  {
+    "name": "rxmicro.$$RestClientFactoryImpl",
+    "methods": [
+      { "name": "<init>", "parameterTypes": [] }
+    ]
+  }
+]

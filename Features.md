@@ -36,7 +36,7 @@ Link to documentation in error message                  | TODO
 Runtime context                                         | **Supported**
 Transient model fields                                  | **Supported**
 Netty native support (Linux/OSX)                        | **Supported**
-https://www.graalvm.org/                                | TODO
+GraalVM native images                                   | **Supported**
 XML exchange format                                     | TODO
 
 ## Context Dependency Injection
