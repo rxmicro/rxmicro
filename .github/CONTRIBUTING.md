@@ -63,6 +63,14 @@ Add annotations:
 * com.google.inject.Inject
 * io.rxmicro.annotation.processor.common.util.UsedByFreemarker
 
+#### Configure Commit Dialog
+
+`File -> Settings -> Version Control -> Commit Dialog`
+
+- [x] Blank line between subject and body
+- [x] Limit body line -> **72**
+- [x] Limit subject line -> **50**
+
 
 ## Package structure:
 
