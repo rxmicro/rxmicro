@@ -1,8 +1,14 @@
 package io.rxmicro.examples.validation.server.all.standard;
 
+import io.rxmicro.examples.validation.server.all.standard.model.Color;
 import io.rxmicro.http.error.ValidationException;
 import io.rxmicro.rest.model.HttpModelType;
 import io.rxmicro.validation.ConstraintValidator;
+import io.rxmicro.validation.base.LocationAccuracy;
+import io.rxmicro.validation.constraint.Base64URLEncoded.Alphabet;
+import io.rxmicro.validation.constraint.CountryCode.Format;
+import io.rxmicro.validation.constraint.IP.Version;
+import io.rxmicro.validation.constraint.TruncatedTime.Truncated;
 import io.rxmicro.validation.validator.AssertFalseConstraintValidator;
 import io.rxmicro.validation.validator.AssertTrueConstraintValidator;
 import io.rxmicro.validation.validator.Base64URLEncodedConstraintValidator;
@@ -58,7 +64,7 @@ import io.rxmicro.validation.validator.UppercaseConstraintValidator;
 import io.rxmicro.validation.validator.ViberConstraintValidator;
 import io.rxmicro.validation.validator.WhatsAppConstraintValidator;
 
-import java.util.Set;
+import java.util.List;
 
 import static io.rxmicro.validation.detail.ValidatorPool.getStatelessValidator;
 
@@ -118,37 +124,37 @@ public final class $$VirtualRequestConstraintValidator implements ConstraintVali
             getStatelessValidator(UniqueItemsConstraintValidator.class);
 
     private final MaxByteConstraintValidator byteParameterMaxIntMaxByteConstraintValidator =
-            new MaxByteConstraintValidator((byte) 10, true);
+            new MaxByteConstraintValidator(10L, true);
 
     private final MaxByteConstraintValidator byteParameterMaxNumberMaxByteConstraintValidator =
             new MaxByteConstraintValidator("10", true);
 
     private final MinByteConstraintValidator byteParameterMinIntMinByteConstraintValidator =
-            new MinByteConstraintValidator((byte) 3, true);
+            new MinByteConstraintValidator(3L, true);
 
     private final MinByteConstraintValidator byteParameterMinNumberMinByteConstraintValidator =
             new MinByteConstraintValidator("3", true);
 
     private final MaxShortConstraintValidator shortParameterMaxIntMaxShortConstraintValidator =
-            new MaxShortConstraintValidator((short) 10, true);
+            new MaxShortConstraintValidator(10L, true);
 
     private final MaxShortConstraintValidator shortParameterMaxNumberMaxShortConstraintValidator =
             new MaxShortConstraintValidator("10", true);
 
     private final MinShortConstraintValidator shortParameterMinIntMinShortConstraintValidator =
-            new MinShortConstraintValidator((short) 3, true);
+            new MinShortConstraintValidator(3L, true);
 
     private final MinShortConstraintValidator shortParameterMinNumberMinShortConstraintValidator =
             new MinShortConstraintValidator("3", true);
 
     private final MaxIntConstraintValidator intParameterMaxIntMaxIntConstraintValidator =
-            new MaxIntConstraintValidator(10, true);
+            new MaxIntConstraintValidator(10L, true);
 
     private final MaxIntConstraintValidator intParameterMaxNumberMaxIntConstraintValidator =
             new MaxIntConstraintValidator("10", true);
 
     private final MinIntConstraintValidator intParameterMinIntMinIntConstraintValidator =
-            new MinIntConstraintValidator(3, true);
+            new MinIntConstraintValidator(3L, true);
 
     private final MinIntConstraintValidator intParameterMinNumberMinIntConstraintValidator =
             new MinIntConstraintValidator("3", true);
@@ -172,13 +178,13 @@ public final class $$VirtualRequestConstraintValidator implements ConstraintVali
             new MinBigIntegerNumberConstraintValidator("3", true);
 
     private final MaxFloatConstraintValidator floatParameterMaxDoubleMaxFloatConstraintValidator =
-            new MaxFloatConstraintValidator((float) 10.9);
+            new MaxFloatConstraintValidator(10.9);
 
     private final MaxFloatConstraintValidator floatParameterMaxNumberMaxFloatConstraintValidator =
             new MaxFloatConstraintValidator("10", true);
 
     private final MinFloatConstraintValidator floatParameterMinDoubleMinFloatConstraintValidator =
-            new MinFloatConstraintValidator((float) 3.1);
+            new MinFloatConstraintValidator(3.1);
 
     private final MinFloatConstraintValidator floatParameterMinNumberMinFloatConstraintValidator =
             new MinFloatConstraintValidator("3", true);
@@ -196,10 +202,10 @@ public final class $$VirtualRequestConstraintValidator implements ConstraintVali
             new MinDoubleConstraintValidator("3", true);
 
     private final LatConstraintValidator decimalParameterLatLatConstraintValidator =
-            new LatConstraintValidator(io.rxmicro.validation.base.LocationAccuracy.ACCURACY_1_METER);
+            new LatConstraintValidator(LocationAccuracy.ACCURACY_1_METER);
 
     private final LngConstraintValidator decimalParameterLngLngConstraintValidator =
-            new LngConstraintValidator(io.rxmicro.validation.base.LocationAccuracy.ACCURACY_1_METER);
+            new LngConstraintValidator(LocationAccuracy.ACCURACY_1_METER);
 
     private final MaxBigDecimalNumberConstraintValidator decimalParameterMaxNumberMaxBigDecimalNumberConstraintValidator =
             new MaxBigDecimalNumberConstraintValidator("10.9", true);
@@ -211,19 +217,19 @@ public final class $$VirtualRequestConstraintValidator implements ConstraintVali
             new NumericConstraintValidator(5, 2);
 
     private final EnumerationCharacterConstraintValidator charParameterEnumerationEnumerationCharacterConstraintValidator =
-            new EnumerationCharacterConstraintValidator(Set.of("y", "n"));
+            new EnumerationCharacterConstraintValidator(List.of("y", "n"));
 
     private final Base64URLEncodedConstraintValidator stringParameterBase64URLEncodedBase64URLEncodedConstraintValidator =
-            new Base64URLEncodedConstraintValidator(io.rxmicro.validation.constraint.Base64URLEncoded.Alphabet.URL);
+            new Base64URLEncodedConstraintValidator(Alphabet.URL);
 
     private final CountryCodeConstraintValidator stringParameterCountryCodeCountryCodeConstraintValidator =
-            new CountryCodeConstraintValidator(io.rxmicro.validation.constraint.CountryCode.Format.ISO_3166_1_alpha2);
+            new CountryCodeConstraintValidator(Format.ISO_3166_1_alpha2);
 
     private final EnumerationStringConstraintValidator stringParameterEnumerationEnumerationStringConstraintValidator =
-            new EnumerationStringConstraintValidator(Set.of("3", "2", "3"));
+            new EnumerationStringConstraintValidator(List.of("3", "2", "3"));
 
     private final IPConstraintValidator stringParameterIPIPConstraintValidator =
-            new IPConstraintValidator(Set.of(io.rxmicro.validation.constraint.IP.Version.IP_V4, io.rxmicro.validation.constraint.IP.Version.IP_V6));
+            new IPConstraintValidator(List.of(Version.IP_V4, Version.IP_V6));
 
     private final LatinAlphabetOnlyConstraintValidator stringParameterLatinAlphabetOnlyLatinAlphabetOnlyConstraintValidator =
             new LatinAlphabetOnlyConstraintValidator(true, true, true, "~!@#$%^&*()_+=-[]{},.;:<>?/\\\"' \t|\r\n");
@@ -238,7 +244,7 @@ public final class $$VirtualRequestConstraintValidator implements ConstraintVali
             new MinLengthConstraintValidator(2, true);
 
     private final PatternConstraintValidator stringParameterPatternPatternConstraintValidator =
-            new PatternConstraintValidator("hello", Set.of());
+            new PatternConstraintValidator("hello", List.of());
 
     private final PhoneConstraintValidator stringParameterPhonePhoneConstraintValidator =
             new PhoneConstraintValidator(true, false);
@@ -253,10 +259,10 @@ public final class $$VirtualRequestConstraintValidator implements ConstraintVali
             new WhatsAppConstraintValidator(true, false);
 
     private final TruncatedTimeInstantConstraintValidator instantParameterTruncatedTimeTruncatedTimeInstantConstraintValidator =
-            new TruncatedTimeInstantConstraintValidator(io.rxmicro.validation.constraint.TruncatedTime.Truncated.MILLIS);
+            new TruncatedTimeInstantConstraintValidator(Truncated.MILLIS);
 
     private final SubEnumConstraintValidator colorParameterSubEnumSubEnumConstraintValidator =
-            new SubEnumConstraintValidator(io.rxmicro.examples.validation.server.all.standard.model.Color.class, Set.of("RED", "BLUE"), Set.of());
+            new SubEnumConstraintValidator(Color.class, List.of("RED", "BLUE"), List.of());
 
     private final MaxSizeConstraintValidator booleanValuesMaxSizeMaxSizeConstraintValidator =
             new MaxSizeConstraintValidator(50, true);
@@ -268,13 +274,13 @@ public final class $$VirtualRequestConstraintValidator implements ConstraintVali
             new SizeConstraintValidator(12);
 
     private final MaxByteConstraintValidator byteValuesMaxIntMaxByteConstraintValidator =
-            new MaxByteConstraintValidator((byte) 10, true);
+            new MaxByteConstraintValidator(10L, true);
 
     private final MaxSizeConstraintValidator byteValuesMaxSizeMaxSizeConstraintValidator =
             new MaxSizeConstraintValidator(50, true);
 
     private final MinByteConstraintValidator byteValuesMinIntMinByteConstraintValidator =
-            new MinByteConstraintValidator((byte) 3, true);
+            new MinByteConstraintValidator(3L, true);
 
     private final MinSizeConstraintValidator byteValuesMinSizeMinSizeConstraintValidator =
             new MinSizeConstraintValidator(2, true);
@@ -283,13 +289,13 @@ public final class $$VirtualRequestConstraintValidator implements ConstraintVali
             new SizeConstraintValidator(12);
 
     private final MaxShortConstraintValidator shortValuesMaxIntMaxShortConstraintValidator =
-            new MaxShortConstraintValidator((short) 10, true);
+            new MaxShortConstraintValidator(10L, true);
 
     private final MaxSizeConstraintValidator shortValuesMaxSizeMaxSizeConstraintValidator =
             new MaxSizeConstraintValidator(50, true);
 
     private final MinShortConstraintValidator shortValuesMinIntMinShortConstraintValidator =
-            new MinShortConstraintValidator((short) 3, true);
+            new MinShortConstraintValidator(3L, true);
 
     private final MinSizeConstraintValidator shortValuesMinSizeMinSizeConstraintValidator =
             new MinSizeConstraintValidator(2, true);
@@ -298,13 +304,13 @@ public final class $$VirtualRequestConstraintValidator implements ConstraintVali
             new SizeConstraintValidator(12);
 
     private final MaxIntConstraintValidator intValuesMaxIntMaxIntConstraintValidator =
-            new MaxIntConstraintValidator(10, true);
+            new MaxIntConstraintValidator(10L, true);
 
     private final MaxSizeConstraintValidator intValuesMaxSizeMaxSizeConstraintValidator =
             new MaxSizeConstraintValidator(50, true);
 
     private final MinIntConstraintValidator intValuesMinIntMinIntConstraintValidator =
-            new MinIntConstraintValidator(3, true);
+            new MinIntConstraintValidator(3L, true);
 
     private final MinSizeConstraintValidator intValuesMinSizeMinSizeConstraintValidator =
             new MinSizeConstraintValidator(2, true);
@@ -328,7 +334,7 @@ public final class $$VirtualRequestConstraintValidator implements ConstraintVali
             new SizeConstraintValidator(12);
 
     private final EnumerationCharacterConstraintValidator charValuesEnumerationEnumerationCharacterConstraintValidator =
-            new EnumerationCharacterConstraintValidator(Set.of("y", "n"));
+            new EnumerationCharacterConstraintValidator(List.of("y", "n"));
 
     private final MaxSizeConstraintValidator charValuesMaxSizeMaxSizeConstraintValidator =
             new MaxSizeConstraintValidator(50, true);
@@ -340,13 +346,13 @@ public final class $$VirtualRequestConstraintValidator implements ConstraintVali
             new SizeConstraintValidator(12);
 
     private final MaxFloatConstraintValidator floatValuesMaxDoubleMaxFloatConstraintValidator =
-            new MaxFloatConstraintValidator((float) 10.9);
+            new MaxFloatConstraintValidator(10.9);
 
     private final MaxSizeConstraintValidator floatValuesMaxSizeMaxSizeConstraintValidator =
             new MaxSizeConstraintValidator(50, true);
 
     private final MinFloatConstraintValidator floatValuesMinDoubleMinFloatConstraintValidator =
-            new MinFloatConstraintValidator((float) 3.1);
+            new MinFloatConstraintValidator(3.1);
 
     private final MinSizeConstraintValidator floatValuesMinSizeMinSizeConstraintValidator =
             new MinSizeConstraintValidator(2, true);
@@ -370,10 +376,10 @@ public final class $$VirtualRequestConstraintValidator implements ConstraintVali
             new SizeConstraintValidator(12);
 
     private final LatConstraintValidator decimalsLatLatConstraintValidator =
-            new LatConstraintValidator(io.rxmicro.validation.base.LocationAccuracy.ACCURACY_1_METER);
+            new LatConstraintValidator(LocationAccuracy.ACCURACY_1_METER);
 
     private final LngConstraintValidator decimalsLngLngConstraintValidator =
-            new LngConstraintValidator(io.rxmicro.validation.base.LocationAccuracy.ACCURACY_1_METER);
+            new LngConstraintValidator(LocationAccuracy.ACCURACY_1_METER);
 
     private final MaxBigDecimalNumberConstraintValidator decimalsMaxNumberMaxBigDecimalNumberConstraintValidator =
             new MaxBigDecimalNumberConstraintValidator("10.9", true);
@@ -409,16 +415,16 @@ public final class $$VirtualRequestConstraintValidator implements ConstraintVali
             new SizeConstraintValidator(12);
 
     private final Base64URLEncodedConstraintValidator stringsBase64URLEncodedBase64URLEncodedConstraintValidator =
-            new Base64URLEncodedConstraintValidator(io.rxmicro.validation.constraint.Base64URLEncoded.Alphabet.URL);
+            new Base64URLEncodedConstraintValidator(Alphabet.URL);
 
     private final CountryCodeConstraintValidator stringsCountryCodeCountryCodeConstraintValidator =
-            new CountryCodeConstraintValidator(io.rxmicro.validation.constraint.CountryCode.Format.ISO_3166_1_alpha2);
+            new CountryCodeConstraintValidator(Format.ISO_3166_1_alpha2);
 
     private final EnumerationStringConstraintValidator stringsEnumerationEnumerationStringConstraintValidator =
-            new EnumerationStringConstraintValidator(Set.of("3", "2", "3"));
+            new EnumerationStringConstraintValidator(List.of("3", "2", "3"));
 
     private final IPConstraintValidator stringsIPIPConstraintValidator =
-            new IPConstraintValidator(Set.of(io.rxmicro.validation.constraint.IP.Version.IP_V4, io.rxmicro.validation.constraint.IP.Version.IP_V6));
+            new IPConstraintValidator(List.of(Version.IP_V4, Version.IP_V6));
 
     private final LatinAlphabetOnlyConstraintValidator stringsLatinAlphabetOnlyLatinAlphabetOnlyConstraintValidator =
             new LatinAlphabetOnlyConstraintValidator(true, true, true, "~!@#$%^&*()_+=-[]{},.;:<>?/\\\"' \t|\r\n");
@@ -439,7 +445,7 @@ public final class $$VirtualRequestConstraintValidator implements ConstraintVali
             new MinSizeConstraintValidator(2, true);
 
     private final PatternConstraintValidator stringsPatternPatternConstraintValidator =
-            new PatternConstraintValidator("hello", Set.of());
+            new PatternConstraintValidator("hello", List.of());
 
     private final PhoneConstraintValidator stringsPhonePhoneConstraintValidator =
             new PhoneConstraintValidator(true, false);
@@ -466,7 +472,7 @@ public final class $$VirtualRequestConstraintValidator implements ConstraintVali
             new SizeConstraintValidator(12);
 
     private final TruncatedTimeInstantConstraintValidator instantsTruncatedTimeTruncatedTimeInstantConstraintValidator =
-            new TruncatedTimeInstantConstraintValidator(io.rxmicro.validation.constraint.TruncatedTime.Truncated.MILLIS);
+            new TruncatedTimeInstantConstraintValidator(Truncated.MILLIS);
 
     private final MaxSizeConstraintValidator colorsMaxSizeMaxSizeConstraintValidator =
             new MaxSizeConstraintValidator(50, true);
@@ -478,79 +484,79 @@ public final class $$VirtualRequestConstraintValidator implements ConstraintVali
             new SizeConstraintValidator(12);
 
     private final SubEnumConstraintValidator colorsSubEnumSubEnumConstraintValidator =
-            new SubEnumConstraintValidator(io.rxmicro.examples.validation.server.all.standard.model.Color.class, Set.of("RED", "BLUE"), Set.of());
+            new SubEnumConstraintValidator(Color.class, List.of("RED", "BLUE"), List.of());
 
     private final CountryCodeConstraintValidator countryCodeAlpha2CountryCodeCountryCodeConstraintValidator =
-            new CountryCodeConstraintValidator(io.rxmicro.validation.constraint.CountryCode.Format.ISO_3166_1_alpha2);
+            new CountryCodeConstraintValidator(Format.ISO_3166_1_alpha2);
 
     private final CountryCodeConstraintValidator countryCodeAlpha3CountryCodeCountryCodeConstraintValidator =
-            new CountryCodeConstraintValidator(io.rxmicro.validation.constraint.CountryCode.Format.ISO_3166_1_alpha3);
+            new CountryCodeConstraintValidator(Format.ISO_3166_1_alpha3);
 
     private final CountryCodeConstraintValidator countryCodeNumericCountryCodeCountryCodeConstraintValidator =
-            new CountryCodeConstraintValidator(io.rxmicro.validation.constraint.CountryCode.Format.ISO_3166_1_numeric);
+            new CountryCodeConstraintValidator(Format.ISO_3166_1_numeric);
 
     private final Base64URLEncodedConstraintValidator base64URLEncodedBaseBase64URLEncodedBase64URLEncodedConstraintValidator =
-            new Base64URLEncodedConstraintValidator(io.rxmicro.validation.constraint.Base64URLEncoded.Alphabet.BASE);
+            new Base64URLEncodedConstraintValidator(Alphabet.BASE);
 
     private final Base64URLEncodedConstraintValidator base64URLEncodedUrlBase64URLEncodedBase64URLEncodedConstraintValidator =
-            new Base64URLEncodedConstraintValidator(io.rxmicro.validation.constraint.Base64URLEncoded.Alphabet.URL);
+            new Base64URLEncodedConstraintValidator(Alphabet.URL);
 
     private final IPConstraintValidator ipIPIPConstraintValidator =
-            new IPConstraintValidator(Set.of(io.rxmicro.validation.constraint.IP.Version.IP_V4, io.rxmicro.validation.constraint.IP.Version.IP_V6));
+            new IPConstraintValidator(List.of(Version.IP_V4, Version.IP_V6));
 
     private final IPConstraintValidator ip4IPIPConstraintValidator =
-            new IPConstraintValidator(Set.of(io.rxmicro.validation.constraint.IP.Version.IP_V4));
+            new IPConstraintValidator(List.of(Version.IP_V4));
 
     private final IPConstraintValidator ip6IPIPConstraintValidator =
-            new IPConstraintValidator(Set.of(io.rxmicro.validation.constraint.IP.Version.IP_V6));
+            new IPConstraintValidator(List.of(Version.IP_V6));
 
     private final LatConstraintValidator lat111kmLatLatConstraintValidator =
-            new LatConstraintValidator(io.rxmicro.validation.base.LocationAccuracy.ACCURACY_111_KILOMETERS);
+            new LatConstraintValidator(LocationAccuracy.ACCURACY_111_KILOMETERS);
 
     private final LngConstraintValidator lng111kmLngLngConstraintValidator =
-            new LngConstraintValidator(io.rxmicro.validation.base.LocationAccuracy.ACCURACY_111_KILOMETERS);
+            new LngConstraintValidator(LocationAccuracy.ACCURACY_111_KILOMETERS);
 
     private final LatConstraintValidator lat11kmLatLatConstraintValidator =
-            new LatConstraintValidator(io.rxmicro.validation.base.LocationAccuracy.ACCURACY_11_KILOMETERS);
+            new LatConstraintValidator(LocationAccuracy.ACCURACY_11_KILOMETERS);
 
     private final LngConstraintValidator lng11kmLngLngConstraintValidator =
-            new LngConstraintValidator(io.rxmicro.validation.base.LocationAccuracy.ACCURACY_11_KILOMETERS);
+            new LngConstraintValidator(LocationAccuracy.ACCURACY_11_KILOMETERS);
 
     private final LatConstraintValidator lat1kmLatLatConstraintValidator =
-            new LatConstraintValidator(io.rxmicro.validation.base.LocationAccuracy.ACCURACY_1_KILOMETER);
+            new LatConstraintValidator(LocationAccuracy.ACCURACY_1_KILOMETER);
 
     private final LngConstraintValidator lng1kmLngLngConstraintValidator =
-            new LngConstraintValidator(io.rxmicro.validation.base.LocationAccuracy.ACCURACY_1_KILOMETER);
+            new LngConstraintValidator(LocationAccuracy.ACCURACY_1_KILOMETER);
 
     private final LatConstraintValidator lat111mLatLatConstraintValidator =
-            new LatConstraintValidator(io.rxmicro.validation.base.LocationAccuracy.ACCURACY_111_METERS);
+            new LatConstraintValidator(LocationAccuracy.ACCURACY_111_METERS);
 
     private final LngConstraintValidator lng111mLngLngConstraintValidator =
-            new LngConstraintValidator(io.rxmicro.validation.base.LocationAccuracy.ACCURACY_111_METERS);
+            new LngConstraintValidator(LocationAccuracy.ACCURACY_111_METERS);
 
     private final LatConstraintValidator lat11mLatLatConstraintValidator =
-            new LatConstraintValidator(io.rxmicro.validation.base.LocationAccuracy.ACCURACY_11_METERS);
+            new LatConstraintValidator(LocationAccuracy.ACCURACY_11_METERS);
 
     private final LngConstraintValidator lng11mLngLngConstraintValidator =
-            new LngConstraintValidator(io.rxmicro.validation.base.LocationAccuracy.ACCURACY_11_METERS);
+            new LngConstraintValidator(LocationAccuracy.ACCURACY_11_METERS);
 
     private final LatConstraintValidator lat1mLatLatConstraintValidator =
-            new LatConstraintValidator(io.rxmicro.validation.base.LocationAccuracy.ACCURACY_1_METER);
+            new LatConstraintValidator(LocationAccuracy.ACCURACY_1_METER);
 
     private final LngConstraintValidator lng1mLngLngConstraintValidator =
-            new LngConstraintValidator(io.rxmicro.validation.base.LocationAccuracy.ACCURACY_1_METER);
+            new LngConstraintValidator(LocationAccuracy.ACCURACY_1_METER);
 
     private final LatConstraintValidator lat11cmLatLatConstraintValidator =
-            new LatConstraintValidator(io.rxmicro.validation.base.LocationAccuracy.ACCURACY_11_CENTIMETERS);
+            new LatConstraintValidator(LocationAccuracy.ACCURACY_11_CENTIMETERS);
 
     private final LngConstraintValidator lng11cmLngLngConstraintValidator =
-            new LngConstraintValidator(io.rxmicro.validation.base.LocationAccuracy.ACCURACY_11_CENTIMETERS);
+            new LngConstraintValidator(LocationAccuracy.ACCURACY_11_CENTIMETERS);
 
     private final LatConstraintValidator lat1cmLatLatConstraintValidator =
-            new LatConstraintValidator(io.rxmicro.validation.base.LocationAccuracy.ACCURACY_1_CENTIMETER);
+            new LatConstraintValidator(LocationAccuracy.ACCURACY_1_CENTIMETER);
 
     private final LngConstraintValidator lng1cmLngLngConstraintValidator =
-            new LngConstraintValidator(io.rxmicro.validation.base.LocationAccuracy.ACCURACY_1_CENTIMETER);
+            new LngConstraintValidator(LocationAccuracy.ACCURACY_1_CENTIMETER);
 
     @Override
     public void validate(final $$VirtualRequest model,

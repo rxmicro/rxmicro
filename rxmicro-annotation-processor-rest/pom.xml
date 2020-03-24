@@ -34,6 +34,7 @@
                         @{argLine}
                         --add-opens java.base/java.lang=com.google.guice
                         --add-opens rxmicro.annotation.processor.rest/io.rxmicro.annotation.processor.rest.model=ALL-UNNAMED
+                        --add-opens rxmicro.annotation.processor.rest/io.rxmicro.annotation.processor.rest.component.impl=ALL-UNNAMED
                         --add-exports
                         rxmicro.annotation.processor.common/io.rxmicro.annotation.processor.common.component.impl=ALL-UNNAMED
                     </argLine>
