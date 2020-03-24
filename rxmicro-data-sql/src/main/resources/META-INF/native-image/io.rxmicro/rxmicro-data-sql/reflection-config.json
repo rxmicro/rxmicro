@@ -2,13 +2,19 @@
   {
     "name": "io.rxmicro.data.sql.SQLDatabaseConfig",
     "methods": [
-      { "name": "<init>", "parameterTypes": [] }
+      {
+        "name": "<init>",
+        "parameterTypes": []
+      }
     ]
   },
   {
     "name": "io.rxmicro.data.sql.SQLPooledDatabaseConfig",
     "methods": [
-      { "name": "<init>", "parameterTypes": [] }
+      {
+        "name": "<init>",
+        "parameterTypes": []
+      }
     ]
   }
 ]

@@ -1,0 +1,8 @@
+{
+  "resources": [
+    {
+      "pattern": "\\QMETA-INF/maven/io.rxmicro/rxmicro-runtime/pom.properties\\E"
+    }
+  ],
+  "bundles": []
+}

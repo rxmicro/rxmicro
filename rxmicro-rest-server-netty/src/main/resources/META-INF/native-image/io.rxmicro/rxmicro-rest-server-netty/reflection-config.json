@@ -1,8 +1,24 @@
 [
   {
     "name": "io.rxmicro.rest.server.netty.NettyRestServerConfig",
+    "allDeclaredMethods": true,
     "methods": [
-      { "name": "<init>", "parameterTypes": [] }
+      {
+        "name": "<init>",
+        "parameterTypes": []
+      }
+    ]
+  },
+  {
+    "name": "io.rxmicro.rest.server.netty.internal.component.NettyRequestHandler",
+    "methods": [
+      {
+        "name": "exceptionCaught",
+        "parameterTypes": [
+          "io.netty.channel.ChannelHandlerContext",
+          "java.lang.Throwable"
+        ]
+      }
     ]
   }
 ]

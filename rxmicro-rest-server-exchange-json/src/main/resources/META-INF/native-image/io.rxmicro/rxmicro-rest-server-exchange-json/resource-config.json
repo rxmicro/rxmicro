@@ -1,0 +1,8 @@
+{
+  "resources": [
+    {
+      "pattern": "\\QMETA-INF/services/io.rxmicro.rest.server.local.component.HttpErrorResponseBodyBuilder\\E"
+    }
+  ],
+  "bundles": []
+}

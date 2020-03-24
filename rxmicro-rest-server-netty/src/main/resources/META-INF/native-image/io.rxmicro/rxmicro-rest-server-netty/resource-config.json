@@ -1,0 +1,11 @@
+{
+  "resources": [
+    {
+      "pattern": "\\QMETA-INF/services/io.rxmicro.rest.server.detail.component.HttpResponseBuilder\\E"
+    },
+    {
+      "pattern": "\\QMETA-INF/services/io.rxmicro.rest.server.local.component.ServerFactory\\E"
+    }
+  ],
+  "bundles": []
+}

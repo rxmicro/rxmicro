@@ -2,7 +2,10 @@
   {
     "name": "io.rxmicro.logger.internal.jul.config.SystemOutConsoleHandler",
     "methods": [
-      { "name": "<init>", "parameterTypes": [] }
+      {
+        "name": "<init>",
+        "parameterTypes": []
+      }
     ]
   }
 ]

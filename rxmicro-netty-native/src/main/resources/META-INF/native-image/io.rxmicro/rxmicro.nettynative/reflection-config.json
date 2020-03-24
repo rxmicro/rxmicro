@@ -1,7 +1,9 @@
 [
   {
-    "name": "io.rxmicro.rest.server.RestServerConfig",
-    "allDeclaredMethods": true,
+    "name": "io.netty.channel.epoll.Epoll"
+  },
+  {
+    "name": "io.netty.channel.epoll.EpollEventLoopGroup",
     "methods": [
       {
         "name": "<init>",
@@ -10,8 +12,7 @@
     ]
   },
   {
-    "name": "io.rxmicro.rest.server.HttpServerConfig",
-    "allDeclaredMethods": true,
+    "name": "io.netty.channel.epoll.EpollServerSocketChannel",
     "methods": [
       {
         "name": "<init>",
@@ -20,7 +21,7 @@
     ]
   },
   {
-    "name": "rxmicro.$$RestControllerAggregatorImpl",
+    "name": "io.netty.channel.epoll.EpollSocketChannel",
     "methods": [
       {
         "name": "<init>",

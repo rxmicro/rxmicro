@@ -1,0 +1,8 @@
+{
+  "resources": [
+    {
+      "pattern": "\\QMETA-INF/services/io.rxmicro.http.client.HttpClientContentConverter\\E"
+    }
+  ],
+  "bundles": []
+}
