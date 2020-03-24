@@ -29,9 +29,9 @@ import io.rxmicro.validation.base.AbstractMinConstraintValidator;
 public class MinShortConstraintValidator extends AbstractMinConstraintValidator<Short>
         implements ConstraintValidator<Short> {
 
-    public MinShortConstraintValidator(final Short minValue,
+    public MinShortConstraintValidator(final long minValue,
                                        final boolean inclusive) {
-        super(minValue, inclusive);
+        super((short) minValue, inclusive);
     }
 
     public MinShortConstraintValidator(final String minValue,

@@ -19,8 +19,8 @@ package io.rxmicro.annotation.processor.rest.component.impl;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import io.rxmicro.annotation.processor.common.component.impl.AbstractProcessorComponent;
-import io.rxmicro.annotation.processor.common.model.ClassHeader;
 import io.rxmicro.annotation.processor.common.model.type.ModelClass;
+import io.rxmicro.annotation.processor.rest.component.AnnotationValueConverter;
 import io.rxmicro.annotation.processor.rest.component.AnnotationValueValidator;
 import io.rxmicro.annotation.processor.rest.component.ConstraintAnnotationExtractor;
 import io.rxmicro.annotation.processor.rest.component.RestModelValidatorBuilder;
@@ -35,18 +35,15 @@ import io.rxmicro.validation.constraint.NullableArrayItem;
 import io.rxmicro.validation.validator.RequiredConstraintValidator;
 import io.rxmicro.validation.validator.RequiredListConstraintValidator;
 
-import javax.lang.model.element.ElementKind;
-import javax.lang.model.element.VariableElement;
-import javax.lang.model.type.DeclaredType;
-import javax.lang.model.type.TypeMirror;
+import javax.lang.model.element.AnnotationValue;
+import javax.lang.model.element.ExecutableElement;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import static io.rxmicro.annotation.processor.common.util.Names.getGenericType;
-import static io.rxmicro.annotation.processor.common.util.Numbers.convertIfNecessary;
-import static io.rxmicro.common.util.Formats.format;
+import static io.rxmicro.annotation.processor.common.util.Numbers.removeUnderscoresIfPresent;
 import static java.util.function.Function.identity;
 import static java.util.stream.Collectors.joining;
 
@@ -64,6 +61,9 @@ public final class RestModelValidatorBuilderImpl extends AbstractProcessorCompon
 
     @Inject
     private AnnotationValueValidator annotationValueValidator;
+
+    @Inject
+    private AnnotationValueConverter annotationValueConverter;
 
     @Override
     public Set<ModelValidatorClassStructure> build(final List<RestObjectModelClass> objectModelClasses) {
@@ -112,15 +112,9 @@ public final class RestModelValidatorBuilderImpl extends AbstractProcessorCompon
             annotationValueValidator.validate(m, restModelField);
             final String constraintConstructorArg = m.getElementValues().entrySet().stream()
                     .filter(e -> !e.getKey().getSimpleName().toString().equals("off"))
-                    .map(e -> annotationValueToString(
-                            builder.getClassHeaderBuilder(),
-                            e.getValue().getValue(),
-                            restModelField.getFieldClass(),
-                            m)
-                    )
+                    .map(e -> convertAnnotationValue(builder, restModelField, m, e))
                     .collect(joining(", "));
-            final String constructorArg =
-                    getConstructorArgs(modelFieldType, constraintConstructorArg, m.isListConstraint());
+            final String constructorArg = getConstructorArgs(builder, modelFieldType, constraintConstructorArg, m.isListConstraint());
             final boolean validateList = m.isListConstraint() ? false : modelFieldType.isList();
 
             builder.add(restModelField, m.getAnnotationSimpleName(),
@@ -130,6 +124,22 @@ public final class RestModelValidatorBuilderImpl extends AbstractProcessorCompon
             builder.add(restModelField, modelFieldType.asObject().getJavaSimpleClassName(), false);
         } else if (modelFieldType.isList() && modelFieldType.asList().isObjectList()) {
             builder.add(restModelField, modelFieldType.asList().getElementModelClass().getJavaSimpleClassName(), true);
+        }
+    }
+
+    private String convertAnnotationValue(final ModelValidatorClassStructure.Builder builder,
+                                          final RestModelField restModelField,
+                                          final ModelConstraintAnnotation modelConstraintAnnotation,
+                                          final Map.Entry<? extends ExecutableElement, ? extends AnnotationValue> e) {
+        final String result = annotationValueConverter.convert(
+                restModelField.getFieldElement(), builder.getClassHeaderBuilder(),
+                e.getValue().getValue()
+        );
+        if (MinNumber.class.getSimpleName().equals(modelConstraintAnnotation.getAnnotationSimpleName()) ||
+                MaxNumber.class.getSimpleName().equals(modelConstraintAnnotation.getAnnotationSimpleName())) {
+            return removeUnderscoresIfPresent(result);
+        } else {
+            return result;
         }
     }
 
@@ -153,125 +163,24 @@ public final class RestModelValidatorBuilderImpl extends AbstractProcessorCompon
         }
     }
 
-    private String getConstructorArgs(final ModelClass modelFieldType,
+    private String getConstructorArgs(final ModelValidatorClassStructure.Builder builder,
+                                      final ModelClass modelFieldType,
                                       final String constraintConstructorArg,
                                       final boolean isListConstraint) {
         if (isListConstraint) {
             return constraintConstructorArg;
         } else if (modelFieldType.isEnum()) {
             //Add enum class to constructorArg
-            return modelFieldType.getJavaFullClassName() + ".class, " + constraintConstructorArg;
+            builder.getClassHeaderBuilder().addImports(modelFieldType.getJavaFullClassName());
+            return modelFieldType.getJavaSimpleClassName() + ".class, " + constraintConstructorArg;
         } else if (modelFieldType.isList()) {
             final ModelClass elementModelClass = modelFieldType.asList().getElementModelClass();
             //Add enum class to constructorArg
             if (elementModelClass.isEnum()) {
-                return elementModelClass.getJavaFullClassName() + ".class, " + constraintConstructorArg;
+                builder.getClassHeaderBuilder().addImports(elementModelClass.getJavaFullClassName());
+                return elementModelClass.getJavaSimpleClassName() + ".class, " + constraintConstructorArg;
             }
         }
         return constraintConstructorArg;
-    }
-
-    /*
-     * https://docs.oracle.com/javase/specs/jls/se8/html/jls-9.html#jls-9.6.1
-     *
-     * A primitive type:
-     * - boolean, byte, short, int, long, float, double, char -> java.lang.*
-     * - String -> java.lang.String
-     * - Class or an invocation of Class -> com.sun.tools.javac.code.Type$ClassType
-     * - An enum value -> com.sun.tools.javac.code.Symbol$VarSymbol
-     * - An annotation type --> !!not supported by rxmicro.validation
-     * - An array type whose component type is one of the preceding types -> com.sun.tools.javac.util.List
-     *
-     * Array Element:
-     * - primitive + String -> com.sun.tools.javac.code.Attribute$Constant
-     * - Class -> com.sun.tools.javac.code.Attribute$Class
-     * - Enum value -> com.sun.tools.javac.code.Attribute$Enum
-     */
-    private String annotationValueToString(final ClassHeader.Builder classHeaderBuilder,
-                                           final Object value,
-                                           final TypeMirror expectedFieldType,
-                                           final ModelConstraintAnnotation modelConstraintAnnotation) {
-        if (value instanceof List) {
-            classHeaderBuilder.addImports(Set.class);
-            return format("Set.of(?)",
-                    ((List<?>) value).stream()
-                            .map(Object::toString)
-                            .collect(joining(", ")));
-        } else if (value instanceof VariableElement &&
-                ((VariableElement) value).getKind() == ElementKind.ENUM_CONSTANT) {
-            return format("?.?",
-                    ((VariableElement) value).getEnclosingElement().toString(), value);
-        } else if (value instanceof DeclaredType) {
-            return value.toString() + ".class";
-        } else if (value instanceof Character) {
-            return format("'?'", escapeString(value));
-        } else if (value instanceof String) {
-            if (MinNumber.class.getSimpleName().equals(modelConstraintAnnotation.getAnnotationSimpleName()) ||
-                    MaxNumber.class.getSimpleName().equals(modelConstraintAnnotation.getAnnotationSimpleName())) {
-                return format("\"?\"", convertIfNecessary(value.toString()));
-            } else {
-                return format("\"?\"", escapeString(value));
-            }
-        } else if (value instanceof Boolean) {
-            return value.toString();
-        } else if (modelConstraintAnnotation.isListConstraint()) {
-            return value.toString();
-        } else {
-            final String className = expectedFieldType.toString();
-            if (className.startsWith(List.class.getName())) {
-                final String genericType = getGenericType(expectedFieldType);
-                return convertNumber(value, genericType);
-            } else {
-                return convertNumber(value, className);
-            }
-        }
-    }
-
-    private String escapeString(final Object value) {
-        final String s = value.toString();
-        final StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < s.length(); i++) {
-            final char ch = s.charAt(i);
-            if (ch == '\\' || ch == '"') {
-                sb.append('\\').append(ch);
-            } else if (ch == '\b') {
-                sb.append('\\').append('b');
-            } else if (ch == '\t') {
-                sb.append('\\').append('t');
-            } else if (ch == '\n') {
-                sb.append('\\').append('n');
-            } else if (ch == '\f') {
-                sb.append('\\').append('f');
-            } else if (ch == '\r') {
-                sb.append('\\').append('r');
-            } else if (ch < ' ' || (ch >= '\u0080' && ch < '\u00a0')
-                    || (ch >= '\u2000' && ch < '\u2100')) {
-                sb.append("\\u");
-                final String hexCode = Integer.toHexString(ch);
-                sb.append("0000", 0, 4 - hexCode.length());
-                sb.append(hexCode);
-            } else {
-                sb.append(ch);
-            }
-        }
-        return sb.toString();
-    }
-
-    private String convertNumber(final Object value, final String className) {
-        if (Byte.class.getName().equals(className)) {
-            return "(byte) " + value;
-        } else if (Short.class.getName().equals(className)) {
-            return "(short) " + value;
-        } else if (Integer.class.getName().equals(className)) {
-            return value.toString();
-        } else if (Long.class.getName().equals(className)) {
-            return value + "L";
-        } else if (Float.class.getName().equals(className)) {
-            return "(float) " + value;
-        } else if (Double.class.getName().equals(className)) {
-            return value.toString();
-        } else {
-            return value.toString();
-        }
     }
 }

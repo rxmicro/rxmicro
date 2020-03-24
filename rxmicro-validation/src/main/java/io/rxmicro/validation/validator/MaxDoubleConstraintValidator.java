@@ -29,7 +29,7 @@ import io.rxmicro.validation.base.AbstractMaxConstraintValidator;
 public class MaxDoubleConstraintValidator extends AbstractMaxConstraintValidator<Double>
         implements ConstraintValidator<Double> {
 
-    public MaxDoubleConstraintValidator(final Double maxValue) {
+    public MaxDoubleConstraintValidator(final double maxValue) {
         super(maxValue, false);
     }
 

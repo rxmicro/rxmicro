@@ -30,7 +30,7 @@ import io.rxmicro.validation.base.AbstractMinConstraintValidator;
 public class MinLengthConstraintValidator extends AbstractMinConstraintValidator<Integer>
         implements ConstraintValidator<String> {
 
-    public MinLengthConstraintValidator(final Integer minValue,
+    public MinLengthConstraintValidator(final int minValue,
                                         final boolean inclusive) {
         super(minValue, inclusive);
     }

@@ -29,8 +29,8 @@ import io.rxmicro.validation.base.AbstractMinConstraintValidator;
 public class MinFloatConstraintValidator extends AbstractMinConstraintValidator<Float>
         implements ConstraintValidator<Float> {
 
-    public MinFloatConstraintValidator(final Float minValue) {
-        super(minValue, false);
+    public MinFloatConstraintValidator(final double minValue) {
+        super((float) minValue, false);
     }
 
     public MinFloatConstraintValidator(final String minValue,

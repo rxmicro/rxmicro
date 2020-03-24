@@ -17,6 +17,7 @@
 package io.rxmicro.annotation.processor.rest;
 
 import com.google.inject.AbstractModule;
+import io.rxmicro.annotation.processor.rest.component.AnnotationValueConverter;
 import io.rxmicro.annotation.processor.rest.component.AnnotationValueValidator;
 import io.rxmicro.annotation.processor.rest.component.ConstraintAnnotationExtractor;
 import io.rxmicro.annotation.processor.rest.component.HttpMethodMappingBuilder;
@@ -29,6 +30,7 @@ import io.rxmicro.annotation.processor.rest.component.RestModelToJsonConverterBu
 import io.rxmicro.annotation.processor.rest.component.RestModelValidatorBuilder;
 import io.rxmicro.annotation.processor.rest.component.RestRequestModelBuilder;
 import io.rxmicro.annotation.processor.rest.component.RestResponseModelBuilder;
+import io.rxmicro.annotation.processor.rest.component.impl.AnnotationValueConverterImpl;
 import io.rxmicro.annotation.processor.rest.component.impl.AnnotationValueValidatorImpl;
 import io.rxmicro.annotation.processor.rest.component.impl.ConstraintAnnotationExtractorImpl;
 import io.rxmicro.annotation.processor.rest.component.impl.HttpMethodMappingBuilderImpl;
@@ -75,5 +77,7 @@ public final class RestCommonDependenciesModule extends AbstractModule {
                 .to(RestRequestModelBuilderImpl.class);
         bind(RestResponseModelBuilder.class)
                 .to(RestResponseModelBuilderImpl.class);
+        bind(AnnotationValueConverter.class)
+                .to(AnnotationValueConverterImpl.class);
     }
 }

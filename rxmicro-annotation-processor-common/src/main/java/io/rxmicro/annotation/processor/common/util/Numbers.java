@@ -38,7 +38,7 @@ public final class Numbers {
             BigDecimal.class.getName(), "decimal"
     );
 
-    public static String convertIfNecessary(final String value) {
+    public static String removeUnderscoresIfPresent(final String value) {
         return value.replace("_", "");
     }
 

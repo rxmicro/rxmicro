@@ -21,7 +21,7 @@ import io.rxmicro.rest.model.HttpModelType;
 import io.rxmicro.validation.ConstraintValidator;
 import io.rxmicro.validation.constraint.Pattern;
 
-import java.util.Set;
+import java.util.Collection;
 
 /**
  * @author nedis
@@ -37,7 +37,7 @@ public class PatternConstraintValidator implements ConstraintValidator<String> {
 
     @SuppressWarnings("MagicConstant")
     public PatternConstraintValidator(final String regex,
-                                      final Set<Pattern.Flag> flags) {
+                                      final Collection<Pattern.Flag> flags) {
         this.pattern = java.util.regex.Pattern.compile(
                 regex,
                 flags.stream().map(Pattern.Flag::getValue).reduce((f1, f2) -> f1 | f2).orElse(0)

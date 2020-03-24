@@ -29,7 +29,7 @@ import io.rxmicro.validation.base.AbstractMinConstraintValidator;
 public class MinDoubleConstraintValidator extends AbstractMinConstraintValidator<Double>
         implements ConstraintValidator<Double> {
 
-    public MinDoubleConstraintValidator(final Double minValue) {
+    public MinDoubleConstraintValidator(final double minValue) {
         super(minValue, false);
     }
 

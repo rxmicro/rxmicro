@@ -131,6 +131,40 @@ public final class Strings {
         }
     }
 
+    public static String escapeString(final String original) {
+        final StringBuilder resultBuilder = new StringBuilder();
+        escapeString(resultBuilder, original);
+        return resultBuilder.toString();
+    }
+
+    public static void escapeString(final StringBuilder resultBuilder,
+                                    final String original) {
+        for (int i = 0; i < original.length(); i++) {
+            final char ch = original.charAt(i);
+            if (ch == '\\' || ch == '"') {
+                resultBuilder.append('\\').append(ch);
+            } else if (ch == '\b') {
+                resultBuilder.append('\\').append('b');
+            } else if (ch == '\t') {
+                resultBuilder.append('\\').append('t');
+            } else if (ch == '\n') {
+                resultBuilder.append('\\').append('n');
+            } else if (ch == '\f') {
+                resultBuilder.append('\\').append('f');
+            } else if (ch == '\r') {
+                resultBuilder.append('\\').append('r');
+            } else if (ch < ' ' || (ch >= '\u0080' && ch < '\u00a0')
+                    || (ch >= '\u2000' && ch < '\u2100')) {
+                resultBuilder.append("\\u");
+                final String hexCode = Integer.toHexString(ch);
+                resultBuilder.append("0000", 0, 4 - hexCode.length());
+                resultBuilder.append(hexCode);
+            } else {
+                resultBuilder.append(ch);
+            }
+        }
+    }
+
     private Strings() {
     }
 }

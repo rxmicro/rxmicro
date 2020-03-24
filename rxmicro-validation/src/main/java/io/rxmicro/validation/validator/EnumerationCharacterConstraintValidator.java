@@ -20,8 +20,10 @@ import io.rxmicro.http.error.ValidationException;
 import io.rxmicro.rest.model.HttpModelType;
 import io.rxmicro.validation.ConstraintValidator;
 
+import java.util.Collection;
 import java.util.Set;
-import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toUnmodifiableSet;
 
 /**
  * @author nedis
@@ -33,8 +35,8 @@ public class EnumerationCharacterConstraintValidator implements ConstraintValida
 
     private final Set<Character> allowed;
 
-    public EnumerationCharacterConstraintValidator(final Set<String> allowed) {
-        this.allowed = allowed.stream().map(s -> s.charAt(0)).collect(Collectors.toSet());
+    public EnumerationCharacterConstraintValidator(final Collection<String> allowed) {
+        this.allowed = allowed.stream().map(s -> s.charAt(0)).collect(toUnmodifiableSet());
     }
 
     @Override

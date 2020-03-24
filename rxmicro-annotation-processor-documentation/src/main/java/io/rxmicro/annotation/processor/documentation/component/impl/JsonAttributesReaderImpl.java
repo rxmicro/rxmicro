@@ -61,7 +61,7 @@ import java.util.Set;
 
 import static io.rxmicro.annotation.processor.common.util.Elements.getAllowedEnumConstants;
 import static io.rxmicro.annotation.processor.common.util.Numbers.NUMBER_FORMATS;
-import static io.rxmicro.annotation.processor.common.util.Numbers.convertIfNecessary;
+import static io.rxmicro.annotation.processor.common.util.Numbers.removeUnderscoresIfPresent;
 import static java.util.stream.Collectors.joining;
 
 /**
@@ -195,7 +195,7 @@ public final class JsonAttributesReaderImpl implements JsonAttributesReader {
         }
         final MinNumber minNumber = annotated.getAnnotation(MinNumber.class);
         if (minNumber != null && !minNumber.off()) {
-            builder.put("minimum", new BigDecimal(convertIfNecessary(minNumber.value())));
+            builder.put("minimum", new BigDecimal(removeUnderscoresIfPresent(minNumber.value())));
             builder.put("exclusiveMinimum", !minNumber.inclusive());
         }
         final MaxDouble maxDouble = annotated.getAnnotation(MaxDouble.class);
@@ -210,7 +210,7 @@ public final class JsonAttributesReaderImpl implements JsonAttributesReader {
         }
         final MaxNumber maxNumber = annotated.getAnnotation(MaxNumber.class);
         if (maxNumber != null && !maxNumber.off()) {
-            builder.put("maximum", new BigDecimal(convertIfNecessary(maxNumber.value())));
+            builder.put("maximum", new BigDecimal(removeUnderscoresIfPresent(maxNumber.value())));
             builder.put("exclusiveMaximum", !maxNumber.inclusive());
         }
     }

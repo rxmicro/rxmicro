@@ -32,7 +32,7 @@ import java.util.List;
 public class MinSizeConstraintValidator extends AbstractMinConstraintValidator<Integer>
         implements ConstraintValidator<List<?>> {
 
-    public MinSizeConstraintValidator(final Integer minValue,
+    public MinSizeConstraintValidator(final int minValue,
                                       final boolean inclusive) {
         super(minValue, inclusive);
     }

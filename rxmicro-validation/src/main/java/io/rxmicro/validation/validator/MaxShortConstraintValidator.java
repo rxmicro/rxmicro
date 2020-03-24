@@ -29,9 +29,9 @@ import io.rxmicro.validation.base.AbstractMaxConstraintValidator;
 public class MaxShortConstraintValidator extends AbstractMaxConstraintValidator<Short>
         implements ConstraintValidator<Short> {
 
-    public MaxShortConstraintValidator(final Short maxValue,
+    public MaxShortConstraintValidator(final long maxValue,
                                        final boolean inclusive) {
-        super(maxValue, inclusive);
+        super((short) maxValue, inclusive);
     }
 
     public MaxShortConstraintValidator(final String maxValue,

@@ -29,9 +29,9 @@ import io.rxmicro.validation.base.AbstractMaxConstraintValidator;
 public class MaxByteConstraintValidator extends AbstractMaxConstraintValidator<Byte>
         implements ConstraintValidator<Byte> {
 
-    public MaxByteConstraintValidator(final Byte maxValue,
+    public MaxByteConstraintValidator(final long maxValue,
                                       final boolean inclusive) {
-        super(maxValue, inclusive);
+        super((byte) maxValue, inclusive);
     }
 
     public MaxByteConstraintValidator(final String maxValue,

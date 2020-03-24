@@ -21,6 +21,7 @@ import io.rxmicro.rest.model.HttpModelType;
 import io.rxmicro.validation.ConstraintValidator;
 import io.rxmicro.validation.constraint.IP;
 
+import java.util.Collection;
 import java.util.Set;
 import java.util.StringTokenizer;
 
@@ -36,8 +37,8 @@ public class IPConstraintValidator implements ConstraintValidator<String> {
 
     private final Set<IP.Version> versions;
 
-    public IPConstraintValidator(final Set<IP.Version> versions) {
-        this.versions = versions;
+    public IPConstraintValidator(final Collection<IP.Version> versions) {
+        this.versions = Set.copyOf(versions);
     }
 
     @Override
