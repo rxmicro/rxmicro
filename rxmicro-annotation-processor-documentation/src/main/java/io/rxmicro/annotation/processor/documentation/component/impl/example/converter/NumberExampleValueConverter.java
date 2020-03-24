@@ -29,7 +29,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Map;
 
-import static io.rxmicro.annotation.processor.common.util.Numbers.convertIfNecessary;
+import static io.rxmicro.annotation.processor.common.util.Numbers.removeUnderscoresIfPresent;
 
 /**
  * @author nedis
@@ -63,7 +63,7 @@ public final class NumberExampleValueConverter extends ExampleValueConverter {
     @Override
     public Object convert(final RestModelField restModelField,
                           final String value) {
-        final String v = convertIfNecessary(value);
+        final String v = removeUnderscoresIfPresent(value);
         if (validatorTypeMap.get(restModelField.getFieldClass().toString()).validate(restModelField, value, Example.class)) {
             return new JsonNumber(v);
         } else {

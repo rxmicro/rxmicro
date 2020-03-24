@@ -36,7 +36,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Set;
 
-import static io.rxmicro.annotation.processor.common.util.Numbers.convertIfNecessary;
+import static io.rxmicro.annotation.processor.common.util.Numbers.removeUnderscoresIfPresent;
 import static java.math.RoundingMode.HALF_UP;
 
 /**
@@ -85,7 +85,7 @@ public final class NumberExampleBuilder implements TypeExampleBuilder {
         }
         final MaxNumber maxNumber = restModelField.getAnnotation(MaxNumber.class);
         if (maxNumber != null && !maxNumber.off()) {
-            return new JsonNumber(convertIfNecessary(maxNumber.value()));
+            return new JsonNumber(removeUnderscoresIfPresent(maxNumber.value()));
         }
         final MinDouble minDouble = restModelField.getAnnotation(MinDouble.class);
         if (minDouble != null && !minDouble.off()) {
@@ -97,7 +97,7 @@ public final class NumberExampleBuilder implements TypeExampleBuilder {
         }
         final MinNumber minNumber = restModelField.getAnnotation(MinNumber.class);
         if (minNumber != null && !minNumber.off()) {
-            return new JsonNumber(convertIfNecessary(minNumber.value()));
+            return new JsonNumber(removeUnderscoresIfPresent(minNumber.value()));
         }
         final Numeric numeric = restModelField.getAnnotation(Numeric.class);
         if (numeric != null && !numeric.off()) {
@@ -112,13 +112,13 @@ public final class NumberExampleBuilder implements TypeExampleBuilder {
         if (Byte.class.getName().equals(typeMirror.toString())) {
             return new JsonNumber("10");
         } else if (Short.class.getName().equals(typeMirror.toString())) {
-            return new JsonNumber(convertIfNecessary("10_000"));
+            return new JsonNumber(removeUnderscoresIfPresent("10_000"));
         } else if (Integer.class.getName().equals(typeMirror.toString())) {
-            return new JsonNumber(convertIfNecessary("1_000_000_000"));
+            return new JsonNumber(removeUnderscoresIfPresent("1_000_000_000"));
         } else if (Long.class.getName().equals(typeMirror.toString())) {
-            return new JsonNumber(convertIfNecessary("1_000_000_000_000"));
+            return new JsonNumber(removeUnderscoresIfPresent("1_000_000_000_000"));
         } else if (BigInteger.class.getName().equals(typeMirror.toString())) {
-            return new JsonNumber(convertIfNecessary("1_000_000_000_000_000_000_000"));
+            return new JsonNumber(removeUnderscoresIfPresent("1_000_000_000_000_000_000_000"));
         } else if (Float.class.getName().equals(typeMirror.toString())) {
             return new JsonNumber("3.14");
         } else if (Double.class.getName().equals(typeMirror.toString())) {

@@ -29,9 +29,9 @@ import io.rxmicro.validation.base.AbstractMinConstraintValidator;
 public class MinByteConstraintValidator extends AbstractMinConstraintValidator<Byte>
         implements ConstraintValidator<Byte> {
 
-    public MinByteConstraintValidator(final Byte minValue,
+    public MinByteConstraintValidator(final long minValue,
                                       final boolean inclusive) {
-        super(minValue, inclusive);
+        super((byte) minValue, inclusive);
     }
 
     public MinByteConstraintValidator(final String minValue,

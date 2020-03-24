@@ -29,8 +29,8 @@ import io.rxmicro.validation.base.AbstractMaxConstraintValidator;
 public class MaxFloatConstraintValidator extends AbstractMaxConstraintValidator<Float>
         implements ConstraintValidator<Float> {
 
-    public MaxFloatConstraintValidator(final Float maxValue) {
-        super(maxValue, false);
+    public MaxFloatConstraintValidator(final double maxValue) {
+        super((float) maxValue, false);
     }
 
     public MaxFloatConstraintValidator(final String maxValue,

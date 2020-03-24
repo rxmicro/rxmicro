@@ -32,7 +32,7 @@ import java.util.List;
 public class MaxSizeConstraintValidator extends AbstractMaxConstraintValidator<Integer>
         implements ConstraintValidator<List<?>> {
 
-    public MaxSizeConstraintValidator(final Integer maxValue,
+    public MaxSizeConstraintValidator(final int maxValue,
                                       final boolean inclusive) {
         super(maxValue, inclusive);
     }

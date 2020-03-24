@@ -29,9 +29,9 @@ import io.rxmicro.validation.base.AbstractMinConstraintValidator;
 public class MinIntConstraintValidator extends AbstractMinConstraintValidator<Integer>
         implements ConstraintValidator<Integer> {
 
-    public MinIntConstraintValidator(final Integer minValue,
+    public MinIntConstraintValidator(final long minValue,
                                      final boolean inclusive) {
-        super(minValue, inclusive);
+        super((int) minValue, inclusive);
     }
 
     public MinIntConstraintValidator(final String minValue,

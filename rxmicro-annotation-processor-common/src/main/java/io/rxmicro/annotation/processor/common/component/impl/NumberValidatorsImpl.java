@@ -24,7 +24,7 @@ import java.lang.annotation.Annotation;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
-import static io.rxmicro.annotation.processor.common.util.Numbers.convertIfNecessary;
+import static io.rxmicro.annotation.processor.common.util.Numbers.removeUnderscoresIfPresent;
 
 /**
  * @author nedis
@@ -212,7 +212,7 @@ public final class NumberValidatorsImpl extends AbstractProcessorComponent imple
                                            final String value,
                                            final Class<? extends Annotation> annotationClass) {
         try {
-            return new BigInteger(convertIfNecessary(value));
+            return new BigInteger(removeUnderscoresIfPresent(value));
         } catch (final NumberFormatException e) {
             error(modelField.getElementAnnotatedBy(annotationClass), "Annotation '@?' has invalid parameter: " +
                     "Expected an integer number", annotationClass.getSimpleName());
@@ -224,7 +224,7 @@ public final class NumberValidatorsImpl extends AbstractProcessorComponent imple
                                            final String value,
                                            final Class<? extends Annotation> annotationClass) {
         try {
-            return new BigDecimal(convertIfNecessary(value));
+            return new BigDecimal(removeUnderscoresIfPresent(value));
         } catch (final NumberFormatException e) {
             error(modelField.getElementAnnotatedBy(annotationClass), "Annotation '@?' has invalid parameter: " +
                     "Expected a number", annotationClass.getSimpleName());

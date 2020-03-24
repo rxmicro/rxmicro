@@ -21,6 +21,7 @@ import io.rxmicro.rest.model.HttpModelType;
 import io.rxmicro.validation.ConstraintValidator;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -34,8 +35,8 @@ public class SubEnumConstraintValidator<T extends Enum<T>> implements Constraint
     private final Set<String> allowed;
 
     public SubEnumConstraintValidator(final Class<T> enumClass,
-                                      final Set<String> include,
-                                      final Set<String> exclude) {
+                                      final List<String> include,
+                                      final List<String> exclude) {
         allowed = new HashSet<>();
         if (!include.isEmpty()) {
             for (final Enum<T> en : enumClass.getEnumConstants()) {

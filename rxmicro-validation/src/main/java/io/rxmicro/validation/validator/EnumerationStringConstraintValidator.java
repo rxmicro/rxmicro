@@ -20,6 +20,7 @@ import io.rxmicro.http.error.ValidationException;
 import io.rxmicro.rest.model.HttpModelType;
 import io.rxmicro.validation.ConstraintValidator;
 
+import java.util.Collection;
 import java.util.Set;
 
 /**
@@ -32,8 +33,8 @@ public class EnumerationStringConstraintValidator implements ConstraintValidator
 
     private final Set<String> allowed;
 
-    public EnumerationStringConstraintValidator(final Set<String> allowed) {
-        this.allowed = allowed;
+    public EnumerationStringConstraintValidator(final Collection<String> allowed) {
+        this.allowed = Set.copyOf(allowed);
     }
 
     @Override

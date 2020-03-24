@@ -30,7 +30,7 @@ import io.rxmicro.validation.base.AbstractMaxConstraintValidator;
 public class MaxLengthConstraintValidator extends AbstractMaxConstraintValidator<Integer>
         implements ConstraintValidator<String> {
 
-    public MaxLengthConstraintValidator(final Integer maxValue,
+    public MaxLengthConstraintValidator(final int maxValue,
                                         final boolean inclusive) {
         super(maxValue, inclusive);
     }

@@ -29,9 +29,9 @@ import io.rxmicro.validation.base.AbstractMaxConstraintValidator;
 public class MaxIntConstraintValidator extends AbstractMaxConstraintValidator<Integer>
         implements ConstraintValidator<Integer> {
 
-    public MaxIntConstraintValidator(final Integer maxValue,
+    public MaxIntConstraintValidator(final long maxValue,
                                      final boolean inclusive) {
-        super(maxValue, inclusive);
+        super((int) maxValue, inclusive);
     }
 
     public MaxIntConstraintValidator(final String maxValue,

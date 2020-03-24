@@ -18,6 +18,8 @@ package io.rxmicro.json.internal.writer;
 
 import java.math.BigDecimal;
 
+import static io.rxmicro.common.util.Strings.escapeString;
+
 /**
  * @author nedis
  * @link https://rxmicro.io
@@ -58,30 +60,7 @@ abstract class JsonToStringBuilder {
 
     JsonToStringBuilder string(final String value) {
         sb.append('"');
-        for (int i = 0; i < value.length(); i++) {
-            final char ch = value.charAt(i);
-            if (ch == '\\' || ch == '"') {
-                sb.append('\\').append(ch);
-            } else if (ch == '\b') {
-                sb.append('\\').append('b');
-            } else if (ch == '\t') {
-                sb.append('\\').append('t');
-            } else if (ch == '\n') {
-                sb.append('\\').append('n');
-            } else if (ch == '\f') {
-                sb.append('\\').append('f');
-            } else if (ch == '\r') {
-                sb.append('\\').append('r');
-            } else if (ch < ' ' || (ch >= '\u0080' && ch < '\u00a0')
-                    || (ch >= '\u2000' && ch < '\u2100')) {
-                sb.append("\\u");
-                final String hexCode = Integer.toHexString(ch);
-                sb.append("0000", 0, 4 - hexCode.length());
-                sb.append(hexCode);
-            } else {
-                sb.append(ch);
-            }
-        }
+        escapeString(sb, value);
         sb.append('"');
         return this;
     }

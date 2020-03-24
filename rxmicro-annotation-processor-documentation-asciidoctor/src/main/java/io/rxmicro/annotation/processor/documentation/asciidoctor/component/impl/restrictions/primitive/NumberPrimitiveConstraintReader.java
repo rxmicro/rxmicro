@@ -40,7 +40,7 @@ import java.util.Optional;
 
 import static io.rxmicro.annotation.processor.common.util.Annotations.getReadMore;
 import static io.rxmicro.annotation.processor.common.util.Numbers.NUMBER_FORMATS;
-import static io.rxmicro.annotation.processor.common.util.Numbers.convertIfNecessary;
+import static io.rxmicro.annotation.processor.common.util.Numbers.removeUnderscoresIfPresent;
 import static io.rxmicro.common.util.Formats.format;
 
 /**
@@ -125,6 +125,6 @@ public final class NumberPrimitiveConstraintReader implements ConstraintReader {
     }
 
     private String formatNumber(final String number) {
-        return formatNumber(new BigDecimal(convertIfNecessary(number)));
+        return formatNumber(new BigDecimal(removeUnderscoresIfPresent(number)));
     }
 }

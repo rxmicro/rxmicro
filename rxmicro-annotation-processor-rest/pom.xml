@@ -34,6 +34,8 @@
                         @{argLine}
                         --add-opens java.base/java.lang=com.google.guice
                         --add-opens rxmicro.annotation.processor.rest/io.rxmicro.annotation.processor.rest.model=ALL-UNNAMED
+                        --add-exports
+                        rxmicro.annotation.processor.common/io.rxmicro.annotation.processor.common.component.impl=ALL-UNNAMED
                     </argLine>
                 </configuration>
             </plugin>
@@ -60,6 +62,13 @@
             <groupId>io.rxmicro</groupId>
             <artifactId>rxmicro-annotation-processor-common</artifactId>
             <version>0.2-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.rxmicro</groupId>
+            <artifactId>rxmicro-annotation-processor-integration-test</artifactId>
+            <version>0.2-SNAPSHOT</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 </project>
