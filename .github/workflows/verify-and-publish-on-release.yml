@@ -42,13 +42,16 @@ jobs:
       - name: Build and Install rxmicro
         run: mvn --fail-at-end -B install --file pom.xml
 
+      - name: Resolve current RxMicro version
+        run : RXMICRO_VERSION=$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)
+
       - name: Checkout rxmicro-usage
         run: git clone https://github.com/rxmicro/rxmicro-usage
 
       - name: Verify examples
         run: |
           cd rxmicro-usage/examples
-          mvn --fail-at-end -B verify --file pom.xml
+          mvn --fail-at-end -Drxmicro.version=$RXMICRO_VERSION -B verify --file pom.xml
 
       - name: Merge Jacoco Execs
         run: find ./rxmicro-usage/examples -name '*.exec' -exec /bin/bash -c \
