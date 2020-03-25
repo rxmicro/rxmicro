@@ -124,6 +124,11 @@ public final class Configs {
             return this;
         }
 
+        public Builder withoutAnyConfigLoadSources() {
+            configLoadSources.clear();
+            return this;
+        }
+
         public Builder withAllConfigLoadSources() {
             withOrderedConfigLoadSources(ConfigLoadSource.values());
             return this;

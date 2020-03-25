@@ -43,7 +43,9 @@ public final class EnvironmentConfigLoader {
     public Config getEnvironmentConfig(final String nameSpace,
                                        final Class<? extends Config> configClass) {
         final Config config = instantiate(configClass);
-        resolveEnvironmentVariables(nameSpace, config);
+        if (!configLoadSources.isEmpty()) {
+            resolveEnvironmentVariables(nameSpace, config);
+        }
         return config;
     }
 
