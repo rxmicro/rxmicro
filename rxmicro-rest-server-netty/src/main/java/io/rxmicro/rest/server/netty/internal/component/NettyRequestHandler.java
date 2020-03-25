@@ -130,7 +130,7 @@ final class NettyRequestHandler extends SimpleChannelInboundHandler<FullHttpRequ
         } else {
             httpResponse.setHeader(REQUEST_ID, request.getRequestId());
         }
-        ctx.writeAndFlush(httpResponse.toFullHttpResponse());
+        ctx.writeAndFlush(httpResponse.toFullHttpResponse(), ctx.voidPromise());
         logResponse(request, startTime, httpResponse);
 
     }
@@ -172,7 +172,7 @@ final class NettyRequestHandler extends SimpleChannelInboundHandler<FullHttpRequ
                 responseBuilder.build(),
                 HttpResponseStatus.INTERNAL_SERVER_ERROR.code(),
                 "Internal error");
-        ctx.writeAndFlush(errorResponse.toFullHttpResponse());
+        ctx.writeAndFlush(errorResponse.toFullHttpResponse(), ctx.voidPromise());
         return null;
     }
 }

@@ -83,8 +83,8 @@ final class NettyServer implements Runnable {
                         public void initChannel(final SocketChannel ch) {
                             LOGGER.debug("New client connected: id=?, ip=?",
                                     () -> ch.id().asShortText(), ch::remoteAddress);
-                            final ChannelPipeline pipeline = ch.pipeline();
-                            nettyRestServerConfig.getHandlerSuppliers().forEach(s -> pipeline.addLast(s.get()));
+                            nettyRestServerConfig.getHandlerSuppliers().forEach(s ->
+                                    ch.pipeline().addLast(s.get()));
                         }
                     });
             nettyRestServerConfig.getServerOptions().forEach((o, v) -> b.option((ChannelOption<Object>) o, v));
