@@ -61,7 +61,7 @@ final class ConfigCustomizer {
     private void customize(final Map<String, String> dest,
                            final Map<String, String> src) {
         for (final Map.Entry<String, String> entry : src.entrySet()) {
-            dest.put(entry.getKey(), LevelMapping.fixLevelValue(entry.getValue()));
+            dest.put(entry.getKey().trim(), LevelMapping.fixLevelValue(entry.getValue().trim()));
         }
     }
 
