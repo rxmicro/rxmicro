@@ -25,7 +25,7 @@ import org.junit.jupiter.params.provider.ArgumentsSource;
 
 import java.io.IOException;
 
-import static io.rxmicro.annotation.processor.common.SupportedOptions.RX_MICRO_ENABLE_AUTOMATIC_MODULE;
+import static io.rxmicro.annotation.processor.common.SupportedOptions.RX_MICRO_BUILD_UNNAMED_MODULE;
 import static io.rxmicro.annotation.processor.integration.test.ExternalModule.EXTERNAL_REACTIVE_STREAMS_MODULE;
 import static io.rxmicro.annotation.processor.integration.test.ExternalModule.EXTERNAL_REACTOR_CORE_MODULE;
 import static io.rxmicro.annotation.processor.integration.test.ExternalModule.EXTERNAL_RX_JAVA_3_MODULE;
@@ -49,7 +49,7 @@ final class RestClient_IntegrationTest extends AbstractRestClientAnnotationProce
     void verify(final String packageName) throws IOException {
         if (packageName.startsWith("io.rxmicro.examples.auto.module")) {
             addAggregator("$$EnvironmentCustomizer");
-            addCompilerOption(RX_MICRO_ENABLE_AUTOMATIC_MODULE, "true");
+            addCompilerOption(RX_MICRO_BUILD_UNNAMED_MODULE, "true");
         }
         super.verifyAllClassesInPackage(packageName);
     }

@@ -31,7 +31,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import static io.rxmicro.annotation.processor.common.SupportedOptions.RX_MICRO_ENABLE_AUTOMATIC_MODULE;
+import static io.rxmicro.annotation.processor.common.SupportedOptions.RX_MICRO_BUILD_UNNAMED_MODULE;
 import static io.rxmicro.annotation.processor.common.model.AnnotationProcessorType.PROJECT_COMPILE;
 import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.elements;
 import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.messager;
@@ -69,7 +69,7 @@ public class BaseRxMicroAnnotationProcessor extends AbstractRxMicroProcessor {
         final Optional<ModuleElement> moduleElementOptional = getCurrentModule(annotations, roundEnv);
         if (moduleElementOptional.isPresent()) {
             final ModuleElement currentModule = moduleElementOptional.get();
-            if (currentModule.isUnnamed() && moduleClassStructuresBuilder.isAutomaticModuleDisabled()) {
+            if (currentModule.isUnnamed() && moduleClassStructuresBuilder.isUnnamedModuleDisabled()) {
                 displayModuleError();
                 return false;
             } else {
@@ -91,7 +91,7 @@ public class BaseRxMicroAnnotationProcessor extends AbstractRxMicroProcessor {
                 Diagnostic.Kind.ERROR,
                 format(
                         "Add `module-info.java` or set compiler option: '?'=true!",
-                        RX_MICRO_ENABLE_AUTOMATIC_MODULE
+                        RX_MICRO_BUILD_UNNAMED_MODULE
                 )
         );
     }

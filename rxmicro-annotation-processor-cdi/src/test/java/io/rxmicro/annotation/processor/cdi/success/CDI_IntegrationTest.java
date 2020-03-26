@@ -25,7 +25,7 @@ import org.junit.jupiter.params.provider.ArgumentsSource;
 
 import java.io.IOException;
 
-import static io.rxmicro.annotation.processor.common.SupportedOptions.RX_MICRO_ENABLE_AUTOMATIC_MODULE;
+import static io.rxmicro.annotation.processor.common.SupportedOptions.RX_MICRO_BUILD_UNNAMED_MODULE;
 import static io.rxmicro.annotation.processor.integration.test.ExternalModule.EXTERNAL_MONGO_DB_BSON_MODULE;
 import static io.rxmicro.annotation.processor.integration.test.ExternalModule.EXTERNAL_MONGO_DB_DRIVER_CORE_MODULE;
 import static io.rxmicro.annotation.processor.integration.test.ExternalModule.EXTERNAL_MONGO_DB_REACTIVE_DRIVER_MODULE;
@@ -74,7 +74,7 @@ final class CDI_IntegrationTest extends AbstractCDIAnnotationProcessorIntegratio
     void verify(final String packageName) throws IOException {
         if (packageName.startsWith("io.rxmicro.examples.auto.module")) {
             addAggregator("$$EnvironmentCustomizer");
-            addCompilerOption(RX_MICRO_ENABLE_AUTOMATIC_MODULE, "true");
+            addCompilerOption(RX_MICRO_BUILD_UNNAMED_MODULE, "true");
         }
         super.verifyAllClassesInPackage(packageName);
     }

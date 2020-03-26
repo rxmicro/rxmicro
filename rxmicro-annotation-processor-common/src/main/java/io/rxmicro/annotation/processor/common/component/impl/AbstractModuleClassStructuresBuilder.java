@@ -37,8 +37,8 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
-import static io.rxmicro.annotation.processor.common.SupportedOptions.RX_MICRO_ENABLE_AUTOMATIC_MODULE;
-import static io.rxmicro.annotation.processor.common.SupportedOptions.RX_MICRO_ENABLE_AUTOMATIC_MODULE_DEFAULT_VALUE;
+import static io.rxmicro.annotation.processor.common.SupportedOptions.RX_MICRO_BUILD_UNNAMED_MODULE;
+import static io.rxmicro.annotation.processor.common.SupportedOptions.RX_MICRO_BUILD_UNNAMED_MODULE_DEFAULT_VALUE;
 import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.elements;
 import static java.util.stream.Collectors.toList;
 
@@ -89,8 +89,8 @@ public abstract class AbstractModuleClassStructuresBuilder extends AbstractProce
         }
     }
 
-    public boolean isAutomaticModuleDisabled() {
-        return !getBooleanOption(RX_MICRO_ENABLE_AUTOMATIC_MODULE, RX_MICRO_ENABLE_AUTOMATIC_MODULE_DEFAULT_VALUE);
+    public boolean isUnnamedModuleDisabled() {
+        return !getBooleanOption(RX_MICRO_BUILD_UNNAMED_MODULE, RX_MICRO_BUILD_UNNAMED_MODULE_DEFAULT_VALUE);
     }
 
     public void afterAllClassStructuresBuilt(final Set<? extends ClassStructure> classStructures) {
