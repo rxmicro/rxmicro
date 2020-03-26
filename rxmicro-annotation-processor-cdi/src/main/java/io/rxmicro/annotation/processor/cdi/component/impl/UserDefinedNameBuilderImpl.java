@@ -86,8 +86,10 @@ public final class UserDefinedNameBuilderImpl implements UserDefinedNameBuilder 
         final List<? extends AnnotationMirror> mirrors = annotationElement.getAnnotationMirrors().stream()
                 .filter(a -> QUALIFIER_ANNOTATIONS.stream().anyMatch(cl -> cl.getName().equals(a.getAnnotationType().toString())))
                 .collect(toList());
-        validate(annotationElement, mirrors, () -> QUALIFIER_ANNOTATIONS.stream().map(Class::getName).collect(toList()));
-        validateCustomAnnotation(annotationElement, Set.of(FIELD, METHOD, TYPE, PARAMETER, CONSTRUCTOR));
+        if (!mirrors.isEmpty()) {
+            validate(annotationElement, mirrors, () -> QUALIFIER_ANNOTATIONS.stream().map(Class::getName).collect(toList()));
+            validateCustomAnnotation(annotationElement, Set.of(FIELD, METHOD, TYPE, PARAMETER, CONSTRUCTOR));
+        }
         return mirrors.stream().findFirst()
                 .map(a -> (String) getAnnotationValue(elements().getElementValuesWithDefaults(a)))
                 .map(value -> Optional.of(value)
