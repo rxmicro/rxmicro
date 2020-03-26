@@ -16,11 +16,14 @@
 
 package io.rxmicro.rest.server.netty.internal.component;
 
+import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.codec.http.FullHttpRequest;
 import io.netty.handler.codec.http.HttpResponseStatus;
 import io.netty.util.AttributeKey;
+import io.rxmicro.http.HttpHeaders;
 import io.rxmicro.logger.Logger;
 import io.rxmicro.logger.LoggerFactory;
 import io.rxmicro.rest.server.detail.component.HttpResponseBuilder;
@@ -33,6 +36,7 @@ import io.rxmicro.rest.server.netty.internal.model.NettyHttpRequest;
 import io.rxmicro.rest.server.netty.internal.model.NettyHttpResponse;
 
 import static io.rxmicro.common.util.Formats.format;
+import static io.rxmicro.http.HttpHeaders.CONNECTION;
 import static io.rxmicro.http.HttpHeaders.REQUEST_ID;
 import static java.lang.System.lineSeparator;
 import static java.nio.charset.StandardCharsets.UTF_8;
@@ -81,14 +85,20 @@ final class NettyRequestHandler extends SimpleChannelInboundHandler<FullHttpRequ
                     msg,
                     ctx.channel().remoteAddress()
             );
+            final boolean keepAlive = isKeepAlive(msg);
             ctx.channel().attr(REQUEST_ID_KEY).set(request.getRequestId());
             logRequest(request);
             requestHandler.handle(request)
-                    .thenAccept(response -> writeResponse(ctx, request, response, startTime))
+                    .thenAccept(response -> writeResponse(ctx, request, response, startTime, keepAlive))
                     .exceptionally(th -> handleError(ctx, th));
         } catch (final Throwable th) {
             handleError(ctx, th);
         }
+    }
+
+    private boolean isKeepAlive(final FullHttpRequest msg) {
+        final String value = msg.headers().getAsString(HttpHeaders.CONNECTION);
+        return !"close".equalsIgnoreCase(value);
     }
 
     private void logRequest(final HttpRequest request) {
@@ -121,7 +131,8 @@ final class NettyRequestHandler extends SimpleChannelInboundHandler<FullHttpRequ
     private void writeResponse(final ChannelHandlerContext ctx,
                                final NettyHttpRequest request,
                                final HttpResponse response,
-                               final long startTime) {
+                               final long startTime,
+                               final boolean keepAlive) {
         final NettyHttpResponse httpResponse = ((NettyHttpResponse) response);
         if (request.isRequestIdGenerated()) {
             if (returnGeneratedRequestId) {
@@ -130,7 +141,14 @@ final class NettyRequestHandler extends SimpleChannelInboundHandler<FullHttpRequ
         } else {
             httpResponse.setHeader(REQUEST_ID, request.getRequestId());
         }
-        ctx.writeAndFlush(httpResponse.toFullHttpResponse(), ctx.voidPromise());
+        if (!keepAlive) {
+            httpResponse.setHeader(CONNECTION, "close");
+        }
+        final ChannelFuture channelFuture =
+                ctx.writeAndFlush(httpResponse.toFullHttpResponse(), ctx.voidPromise());
+        if (!keepAlive) {
+            channelFuture.addListener(ChannelFutureListener.CLOSE);
+        }
         logResponse(request, startTime, httpResponse);
 
     }

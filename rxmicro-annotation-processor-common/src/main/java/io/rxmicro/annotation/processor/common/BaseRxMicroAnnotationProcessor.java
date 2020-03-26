@@ -69,7 +69,7 @@ public class BaseRxMicroAnnotationProcessor extends AbstractRxMicroProcessor {
         final Optional<ModuleElement> moduleElementOptional = getCurrentModule(annotations, roundEnv);
         if (moduleElementOptional.isPresent()) {
             final ModuleElement currentModule = moduleElementOptional.get();
-            if(currentModule.isUnnamed() && moduleClassStructuresBuilder.isAutomaticModuleDisabled()){
+            if (currentModule.isUnnamed() && moduleClassStructuresBuilder.isAutomaticModuleDisabled()) {
                 displayModuleError();
                 return false;
             } else {

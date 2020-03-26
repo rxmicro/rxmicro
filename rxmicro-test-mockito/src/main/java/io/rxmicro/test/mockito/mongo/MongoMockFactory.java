@@ -17,6 +17,7 @@
 package io.rxmicro.test.mockito.mongo;
 
 import com.mongodb.client.result.DeleteResult;
+import com.mongodb.client.result.InsertOneResult;
 import com.mongodb.client.result.UpdateResult;
 import com.mongodb.reactivestreams.client.MongoDatabase;
 import io.rxmicro.test.mockito.mongo.internal.AggregateOperationMockFactory;
@@ -198,7 +199,34 @@ public final class MongoMockFactory {
                 require(mongoDatabase, "'mongoDatabase' could not be a null!"),
                 require(collectionName, "'collectionName' could not be a null!"),
                 require(operationMock, "'operationMock' could not be a null!"),
-                null
+                null,
+                InsertOneResult.unacknowledged()
+        );
+    }
+
+    public static void prepareMongoOperationMocks(final MongoDatabase mongoDatabase,
+                                                  final String collectionName,
+                                                  final InsertOperationMock operationMock,
+                                                  final BsonValue insertId) {
+        INSERT_OPERATION_MOCK_FACTORY.prepare(
+                require(mongoDatabase, "'mongoDatabase' could not be a null!"),
+                require(collectionName, "'collectionName' could not be a null!"),
+                require(operationMock, "'operationMock' could not be a null!"),
+                null,
+                InsertOneResult.acknowledged(insertId)
+        );
+    }
+
+    public static void prepareMongoOperationMocks(final MongoDatabase mongoDatabase,
+                                                  final String collectionName,
+                                                  final InsertOperationMock operationMock,
+                                                  final InsertOneResult insertOneResult) {
+        INSERT_OPERATION_MOCK_FACTORY.prepare(
+                require(mongoDatabase, "'mongoDatabase' could not be a null!"),
+                require(collectionName, "'collectionName' could not be a null!"),
+                require(operationMock, "'operationMock' could not be a null!"),
+                null,
+                insertOneResult
         );
     }
 
@@ -210,7 +238,8 @@ public final class MongoMockFactory {
                 require(mongoDatabase, "'mongoDatabase' could not be a null!"),
                 require(collectionName, "'collectionName' could not be a null!"),
                 require(operationMock, "'operationMock' could not be a null!"),
-                require(throwable, "'throwable' could not be a null!")
+                require(throwable, "'throwable' could not be a null!"),
+                null
         );
     }
 
@@ -236,17 +265,7 @@ public final class MongoMockFactory {
                 require(collectionName, "'collectionName' could not be a null!"),
                 require(operationMock, "'operationMock' could not be a null!"),
                 null,
-                new DeleteResult() {
-                    @Override
-                    public boolean wasAcknowledged() {
-                        return false;
-                    }
-
-                    @Override
-                    public long getDeletedCount() {
-                        return deletedCount;
-                    }
-                }
+                DeleteResult.acknowledged(deletedCount)
         );
     }
 
@@ -286,32 +305,7 @@ public final class MongoMockFactory {
                 require(collectionName, "'collectionName' could not be a null!"),
                 require(operationMock, "'operationMock' could not be a null!"),
                 null,
-                new UpdateResult() {
-                    @Override
-                    public boolean wasAcknowledged() {
-                        return false;
-                    }
-
-                    @Override
-                    public long getMatchedCount() {
-                        return matchedCount;
-                    }
-
-                    @Override
-                    public boolean isModifiedCountAvailable() {
-                        return false;
-                    }
-
-                    @Override
-                    public long getModifiedCount() {
-                        return modifiedCount;
-                    }
-
-                    @Override
-                    public BsonValue getUpsertedId() {
-                        return null;
-                    }
-                }
+                UpdateResult.acknowledged(matchedCount, modifiedCount, null)
         );
     }
 

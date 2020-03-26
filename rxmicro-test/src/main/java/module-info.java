@@ -33,7 +33,7 @@ module rxmicro.test {
     requires static rxmicro.rest.server.exchange.json;
 
     requires java.net.http;
-    requires mongodb.driver.reactivestreams;
+    requires org.mongodb.driver.reactivestreams;
 
     exports io.rxmicro.test;
     exports io.rxmicro.test.json;

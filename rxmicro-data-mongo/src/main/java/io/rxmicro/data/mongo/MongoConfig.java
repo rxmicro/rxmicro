@@ -19,17 +19,11 @@ package io.rxmicro.data.mongo;
 import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
 import io.rxmicro.config.Config;
-import org.bson.codecs.configuration.CodecRegistry;
-
-import java.util.Set;
-import java.util.TreeSet;
+import io.rxmicro.data.mongo.internal.RxMicroMongoCodecRegistry;
 
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.Requires.require;
 import static io.rxmicro.config.Networks.validatePort;
-import static io.rxmicro.data.mongo.internal.RxMicroCodecRegistries.DEFAULT_CODEC_REGISTRIES;
-import static java.util.Comparator.comparing;
-import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
 
 /**
  * @author nedis
@@ -44,20 +38,16 @@ public final class MongoConfig extends Config {
 
     public static final String DEFAULT_DB = "db";
 
-    private final Set<CodecRegistry> codecRegistries = new TreeSet<>(comparing(o -> o.getClass().getName()));
-
     private final MongoClientSettings.Builder builder = MongoClientSettings.builder()
             .applyConnectionString(new ConnectionString(format("mongodb://?:?", DEFAULT_HOST, DEFAULT_PORT)));
+
+    private MongoCodecsConfigurator mongoCodecsConfigurator = new MongoCodecsConfigurator();
 
     private String host = DEFAULT_HOST;
 
     private int port = DEFAULT_PORT;
 
     private String database = DEFAULT_DB;
-
-    public MongoConfig() {
-        codecRegistries.addAll(DEFAULT_CODEC_REGISTRIES);
-    }
 
     /**
      * Sets the server host name
@@ -98,12 +88,13 @@ public final class MongoConfig extends Config {
         return this;
     }
 
-    public String getConnectionString() {
-        return format("mongodb://?:?", host, port);
+    public MongoConfig setMongoCodecsConfigurator(final MongoCodecsConfigurator mongoCodecsConfigurator) {
+        this.mongoCodecsConfigurator = require(mongoCodecsConfigurator);
+        return this;
     }
 
-    public Set<CodecRegistry> getCodecRegistries() {
-        return codecRegistries;
+    public String getConnectionString() {
+        return format("mongodb://?:?", host, port);
     }
 
     public MongoClientSettings.Builder getMongoClientSettingsBuilder() {
@@ -112,7 +103,11 @@ public final class MongoConfig extends Config {
 
     public MongoClientSettings buildMongoClientSettings() {
         return builder
-                .codecRegistry(fromRegistries(codecRegistries.toArray(new CodecRegistry[0])))
+                .codecRegistry(
+                        new RxMicroMongoCodecRegistry(
+                                mongoCodecsConfigurator.withDefaultConfigurationIfNotConfigured()
+                        )
+                )
                 .build();
     }
 

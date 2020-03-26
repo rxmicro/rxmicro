@@ -17,6 +17,7 @@
 package io.rxmicro.annotation.processor.data.mongo.component.impl.method;
 
 import com.google.inject.Singleton;
+import com.mongodb.client.result.InsertOneResult;
 import io.rxmicro.annotation.processor.common.model.ClassHeader;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
 import io.rxmicro.annotation.processor.common.model.method.MethodResult;
@@ -64,12 +65,15 @@ public final class InsertOperationMongoRepositoryMethodModelBuilder extends Abst
         final MongoVar entity = getEntity(method, methodParameterReader, dataGenerationContext);
         validateRequiredSingleReturnType(method, methodResult);
         validateReturnType(method, methodResult.getResultType(),
-                Void.class.getName(), entity.getType().toString()
+                Void.class.getName(),
+                entity.getType().toString(),
+                InsertOneResult.class.getName()
         );
 
         final Map<String, Object> templateArguments = new HashMap<>();
         putCommonArguments(dataRepositoryGeneratorConfig, templateArguments);
         templateArguments.put("RETURN", methodResult);
+        templateArguments.put("RETURN_ENTITY", methodResult.isResultType(entity.getType().toString()));
         templateArguments.put("ENTITY_CONVERTER", getModelTransformerInstanceName(
                 getSimpleName(entity.getType()),
                 EntityToMongoDBConverter.class)

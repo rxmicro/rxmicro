@@ -89,7 +89,7 @@ public abstract class AbstractModuleClassStructuresBuilder extends AbstractProce
         }
     }
 
-    public boolean isAutomaticModuleDisabled(){
+    public boolean isAutomaticModuleDisabled() {
         return !getBooleanOption(RX_MICRO_ENABLE_AUTOMATIC_MODULE, RX_MICRO_ENABLE_AUTOMATIC_MODULE_DEFAULT_VALUE);
     }
 

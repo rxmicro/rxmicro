@@ -25,7 +25,7 @@ public final class $$MongoInsertDataRepository extends AbstractMongoRepository i
     public Mono<SupportedTypesEntity> insert(final SupportedTypesEntity supportedTypesEntity) {
         final Document document = supportedTypesEntityEntityToMongoDBConverter.toDB(supportedTypesEntity, true);
         return Mono.from(collection.insertOne(document))
-                .map(s -> supportedTypesEntity)
+                .map(result -> supportedTypesEntity)
                 .doOnSuccess(a -> supportedTypesEntityEntityToMongoDBConverter.setId(document, supportedTypesEntity));
     }
 }

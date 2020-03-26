@@ -56,9 +56,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import static io.rxmicro.annotation.processor.common.util.Elements.allMethods;
 import static io.rxmicro.annotation.processor.common.util.validators.AnnotationValidators.validateNoAnnotationPerElement;
 import static io.rxmicro.annotation.processor.common.util.validators.AnnotationValidators.validateRedundantAnnotationsPerElement;
-import static io.rxmicro.annotation.processor.common.util.Elements.allMethods;
 import static io.rxmicro.cdi.PostConstruct.DEFAULT_POST_CONSTRUCT_METHOD_NAME;
 import static io.rxmicro.common.util.ExCollections.unmodifiableOrderedSet;
 import static java.util.Arrays.asList;

@@ -29,7 +29,7 @@ public final class FieldValidators {
 
     public static void validateExpectedFieldType(final VariableElement variableElement,
                                                  final Class<?> expectedType) {
-        if(!expectedType.getName().equals(variableElement.asType().toString())){
+        if (!expectedType.getName().equals(variableElement.asType().toString())) {
             throw new InterruptProcessingException(
                     variableElement,
                     "Field '?' must have '?' type!",
@@ -39,6 +39,6 @@ public final class FieldValidators {
         }
     }
 
-    private FieldValidators (){
+    private FieldValidators() {
     }
 }

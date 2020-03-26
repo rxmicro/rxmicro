@@ -21,7 +21,7 @@
     <groupId>io.rxmicro</groupId>
     <artifactId>rxmicro</artifactId>
     <packaging>pom</packaging>
-    <version>0.2-SNAPSHOT</version>
+    <version>0.2</version>
 
     <name>RxMicro framework</name>
     <description>
@@ -120,30 +120,30 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!-- Used By Annotation Processor libraries -->
-        <freemarker.version>2.3.29</freemarker.version>
-        <google.guice.version>4.2.2</google.guice.version>
+        <freemarker.version>2.3.30</freemarker.version>
+        <google.guice.version>4.2.3</google.guice.version>
         <google.guava.version>28.2-jre</google.guava.version>
         <maven.model.version>3.6.3</maven.model.version>
         <!-- Test libraries -->
-        <junit.version>5.6.0</junit.version>
-        <mockito.version>3.2.4</mockito.version>
+        <junit.version>5.6.1</junit.version>
+        <mockito.version>3.3.3</mockito.version>
         <compile.google.testing.version>0.18</compile.google.testing.version>
         <!-- Runtime Libraries -->
-        <netty.version>4.1.44.Final</netty.version>
+        <netty.version>4.1.48.Final</netty.version>
 
         <external.lib.rxjava.version>3.0.0</external.lib.rxjava.version>
-        <external.lib.projectreactor.version>3.3.2.RELEASE</external.lib.projectreactor.version>
+        <external.lib.projectreactor.version>3.3.4.RELEASE</external.lib.projectreactor.version>
         <external.lib.reactivestreams.version>1.0.3</external.lib.reactivestreams.version>
 
-        <external.lib.mongodb-driver-reactivestreams.version>1.13.0</external.lib.mongodb-driver-reactivestreams.version>
-        <external.lib.mongodb-driver-core.version>3.12.1</external.lib.mongodb-driver-core.version>
-        <external.lib.bson.version>3.12.1</external.lib.bson.version>
+        <external.lib.mongodb-driver-reactivestreams.version>4.0.1</external.lib.mongodb-driver-reactivestreams.version>
+        <external.lib.mongodb-driver-core.version>4.0.1</external.lib.mongodb-driver-core.version>
+        <external.lib.bson.version>4.0.1</external.lib.bson.version>
 
         <external.lib.r2dbc-spi.version>0.8.1.RELEASE</external.lib.r2dbc-spi.version>
         <external.lib.r2dbc-postgresql.version>0.8.1.RELEASE</external.lib.r2dbc-postgresql.version>
         <external.lib.r2dbc-pool.version>0.8.1.RELEASE</external.lib.r2dbc-pool.version>
         <!-- Tests -->
-        <external.lib.junit-platform-commons.version>1.6.0</external.lib.junit-platform-commons.version>
+        <external.lib.junit-platform-commons.version>1.6.1</external.lib.junit-platform-commons.version>
         <external.lib.apiguardian-api.version>1.1.0</external.lib.apiguardian-api.version>
         <external.lib.opentest4j.version>1.2.0</external.lib.opentest4j.version>
 
@@ -205,6 +205,12 @@
                                 <goals>
                                     <goal>sign</goal>
                                 </goals>
+                                <configuration>
+                                    <gpgArguments>
+                                        <arg>--pinentry-mode</arg>
+                                        <arg>loopback</arg>
+                                    </gpgArguments>
+                                </configuration>
                             </execution>
                         </executions>
                     </plugin>

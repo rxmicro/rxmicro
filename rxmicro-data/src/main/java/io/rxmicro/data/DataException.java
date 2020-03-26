@@ -33,4 +33,13 @@ public abstract class DataException extends RxMicroException {
                          final Object... args) {
         super(message, args);
     }
+
+    /**
+     * This constructor uses {@link Formats#format(String, Object...) Formats.format} to format error message
+     */
+    public DataException(final String message,
+                         final Throwable throwable,
+                         final Object... args) {
+        super(message, throwable, args);
+    }
 }

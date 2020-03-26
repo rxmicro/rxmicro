@@ -17,7 +17,9 @@
 package io.rxmicro.data.mongo.internal;
 
 import io.rxmicro.data.local.InvalidValueTypeException;
+import io.rxmicro.data.mongo.internal.codec.CustomBinaryCodec;
 import io.rxmicro.data.mongo.internal.converter.PatternConverter;
+import org.bson.BSONException;
 import org.bson.BsonRegularExpression;
 import org.bson.types.Binary;
 import org.bson.types.Code;
@@ -311,12 +313,23 @@ public abstract class AbstractEntityMongoDBConverter {
 
     protected final UUID toUUID(final Object value,
                                 final String fieldName) {
-        return toType(UUID.class, value, fieldName);
+        if (value instanceof CustomBinaryCodec.UUIDBinary) {
+            try {
+                return ((CustomBinaryCodec.UUIDBinary) value).toUUID();
+            } catch (final BSONException e) {
+                throw new InvalidValueTypeException(
+                        "Invalid value for \"?\" field: ? (Error code: ?)",
+                        fieldName, e, e.getMessage(), e.getErrorCode()
+                );
+            }
+        } else {
+            return toType(UUID.class, value, fieldName);
+        }
     }
 
     protected final List<UUID> toUUIDArray(final Object list,
                                            final String fieldName) {
-        return toArray(UUID.class, list, fieldName);
+        return toArray(list, fieldName, this::toUUID);
     }
 
     // -----------------------------------------------------------------------------------------------------------------

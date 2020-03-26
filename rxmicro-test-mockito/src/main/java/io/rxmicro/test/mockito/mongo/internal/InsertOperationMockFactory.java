@@ -16,9 +16,9 @@
 
 package io.rxmicro.test.mockito.mongo.internal;
 
+import com.mongodb.client.result.InsertOneResult;
 import com.mongodb.reactivestreams.client.MongoCollection;
 import com.mongodb.reactivestreams.client.MongoDatabase;
-import com.mongodb.reactivestreams.client.Success;
 import io.rxmicro.test.mockito.mongo.InsertOperationMock;
 import org.bson.Document;
 import org.reactivestreams.Publisher;
@@ -39,12 +39,13 @@ public final class InsertOperationMockFactory extends AbstractOperationMockFacto
     public void prepare(final MongoDatabase mongoDatabase,
                         final String collectionName,
                         final InsertOperationMock operationMock,
-                        final Throwable throwable) {
+                        final Throwable throwable,
+                        final InsertOneResult insertOneResult) {
         final MongoCollection<Document> collection = newMongoCollection(mongoDatabase, collectionName);
-        final Publisher<Success> publisher = mock(Publisher.class);
+        final Publisher<InsertOneResult> publisher = mock(Publisher.class);
         final Document insertedDocument = operationMock.getDocument()
                 .orElseGet(() -> any(Document.class, ANY_DOCUMENT));
         when(collection.insertOne(insertedDocument)).thenReturn(publisher);
-        ifThrowableNotNullThenFailOtherwiseReturnItems(publisher, throwable, Success.SUCCESS);
+        ifThrowableNotNullThenFailOtherwiseReturnItems(publisher, throwable, insertOneResult);
     }
 }

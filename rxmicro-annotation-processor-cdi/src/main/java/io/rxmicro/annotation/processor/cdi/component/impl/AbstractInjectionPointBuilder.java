@@ -35,9 +35,9 @@ import javax.lang.model.element.VariableElement;
 import java.lang.annotation.Annotation;
 import java.util.Optional;
 
-import static io.rxmicro.annotation.processor.common.util.validators.AnnotationValidators.validateOnlyOneAnnotationPerElement;
 import static io.rxmicro.annotation.processor.common.util.Errors.createInternalErrorSupplier;
 import static io.rxmicro.annotation.processor.common.util.Names.getPackageName;
+import static io.rxmicro.annotation.processor.common.util.validators.AnnotationValidators.validateOnlyOneAnnotationPerElement;
 import static io.rxmicro.cdi.local.AnnotationsSupport.INJECT_ANNOTATIONS;
 
 /**

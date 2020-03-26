@@ -23,7 +23,7 @@
 module rxmicro.data.mongo {
     requires transitive rxmicro.data;
     requires transitive org.mongodb.bson;
-    requires transitive mongodb.driver.reactivestreams;
+    requires transitive org.mongodb.driver.reactivestreams;
     requires transitive org.mongodb.driver.core;
     requires transitive org.reactivestreams;
 

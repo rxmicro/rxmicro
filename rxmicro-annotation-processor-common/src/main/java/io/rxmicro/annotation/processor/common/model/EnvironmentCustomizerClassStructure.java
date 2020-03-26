@@ -19,13 +19,11 @@ package io.rxmicro.annotation.processor.common.model;
 import io.rxmicro.config.detail.DefaultConfigValuePopulator;
 import io.rxmicro.runtime.detail.Runtimes;
 
-import java.util.List;
 import java.util.Map;
 
 import static io.rxmicro.annotation.processor.common.model.ClassHeader.newClassHeaderBuilder;
 import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.$$_ENVIRONMENT_CUSTOMIZER_SIMPLE_CLASS_NAME;
 import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.getEntryPointFullClassName;
-import static io.rxmicro.common.util.Requires.require;
 import static io.rxmicro.runtime.detail.Runtimes.ENTRY_POINT_PACKAGE;
 
 /**

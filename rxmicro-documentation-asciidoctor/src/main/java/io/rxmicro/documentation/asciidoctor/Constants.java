@@ -25,6 +25,6 @@ public final class Constants {
 
     public static final String STATUS_CODE_STATIC_FIELD_NAME = "STATUS_CODE";
 
-    private Constants(){
+    private Constants() {
     }
 }

@@ -28,6 +28,8 @@ import io.rxmicro.annotation.processor.data.mongo.component.BsonExpressionBuilde
 import io.rxmicro.annotation.processor.data.mongo.model.BsonExpression;
 import io.rxmicro.annotation.processor.data.mongo.model.BsonTokenParserRule;
 import io.rxmicro.annotation.processor.data.mongo.model.MongoVar;
+import org.bson.internal.UuidHelper;
+import org.bson.types.Binary;
 import org.bson.types.Decimal128;
 import org.bson.types.ObjectId;
 
@@ -48,6 +50,8 @@ import static io.rxmicro.common.util.Formats.FORMAT_PLACEHOLDER_TOKEN;
 import static io.rxmicro.common.util.Formats.format;
 import static java.util.Map.entry;
 import static java.util.stream.Collectors.joining;
+import static org.bson.BsonBinarySubType.UUID_LEGACY;
+import static org.bson.UuidRepresentation.JAVA_LEGACY;
 
 /**
  * @author nedis
@@ -200,6 +204,9 @@ public final class BsonExpressionBuilderImpl implements BsonExpressionBuilder {
             return format("Instant.ofEpochMilli(?L)", ((Date) value).getTime());
         } else if (SUPPORTED_EXPRESSION_TYPES.contains(value.getClass())) {
             return value.toString();
+        } else if (value instanceof Binary && ((Binary) value).getType() == UUID_LEGACY.getValue()) {
+            final UUID uuid = UuidHelper.decodeBinaryToUuid(((Binary) value).getData(), UUID_LEGACY.getValue(), JAVA_LEGACY);
+            return format("UUID.fromString(\"?\")", uuid.toString());
         } else {
             throw new InterruptProcessingException(
                     repositoryMethod,

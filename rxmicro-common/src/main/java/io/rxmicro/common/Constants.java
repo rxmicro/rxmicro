@@ -41,7 +41,7 @@ public final class Constants {
 
         public static final String RX_MICRO_VIRTUAL_MODULE_INFO_DEFAULT_NAME = "virtual.module";
 
-        private VirtualModuleInfo () {
+        private VirtualModuleInfo() {
         }
     }
 }

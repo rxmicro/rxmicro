@@ -9,7 +9,9 @@ return Mono.from(collection.insertOne(document))
         .doOnSuccess(a -> ${ENTITY_CONVERTER}.setId(document, ${ENTITY}));
 <#else>
 return Mono.from(collection.insertOne(document))
-        .map(s -> ${ENTITY})
+        <#if RETURN_ENTITY>
+        .map(result -> ${ENTITY})
+        </#if>
         .doOnSuccess(a -> ${ENTITY_CONVERTER}.setId(document, ${ENTITY}));
 </#if>
 <#-- -------------------------------------------------------------------------------------------------------- -->
@@ -18,7 +20,7 @@ return Mono.from(collection.insertOne(document))
 return new PublisherToRequiredMonoFutureAdapter<>(
         collection.insertOne(document),
         useOptionalExceptionSupplier(${RETURN.simpleReactiveType}.class, ${RETURN.simpleResultType}.class)
-).thenApply(s -> {
+).thenApply(result -> {
     ${ENTITY_CONVERTER}.setId(document, ${ENTITY});
     return null;
 });
@@ -26,9 +28,9 @@ return new PublisherToRequiredMonoFutureAdapter<>(
 return new PublisherToRequiredMonoFutureAdapter<>(
         collection.insertOne(document),
         useOptionalExceptionSupplier(${RETURN.simpleReactiveType}.class, ${RETURN.simpleResultType}.class)
-).thenApply(s -> {
+).thenApply(result -> {
     ${ENTITY_CONVERTER}.setId(document, ${ENTITY});
-    return account;
+    return <#if RETURN_ENTITY>account<#else>result</#if>;
 });
 </#if>
 <#-- -------------------------------------------------------------------------------------------------------- -->
@@ -38,7 +40,9 @@ return Completable.fromPublisher(collection.insertOne(document))
 <#-- -------------------------------------------------------------------------------------------------------- -->
 <#elseif RETURN.single>
 return Single.fromPublisher(collection.insertOne(document))
-        .map(s -> account)
+        <#if RETURN_ENTITY>
+        .map(result -> account)
+        </#if>
         .doOnSuccess(a -> ${ENTITY_CONVERTER}.setId(document, ${ENTITY}));
 <#-- -------------------------------------------------------------------------------------------------------- -->
 <#else>

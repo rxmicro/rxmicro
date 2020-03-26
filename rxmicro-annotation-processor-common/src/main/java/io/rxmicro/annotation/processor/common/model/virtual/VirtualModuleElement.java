@@ -67,21 +67,6 @@ public final class VirtualModuleElement implements ModuleElement, VirtualElement
     }
 
     @Override
-    public TypeMirror asType() {
-        return new VirtualModuleTypeMirror(virtualModuleInfoAnnotation);
-    }
-
-    @Override
-    public ElementKind getKind() {
-        return ElementKind.MODULE;
-    }
-
-    @Override
-    public Set<Modifier> getModifiers() {
-        return unnamedModuleElement.getModifiers();
-    }
-
-    @Override
     public Name getSimpleName() {
         return elements().getName(Names.getSimpleName(name));
     }
@@ -89,26 +74,6 @@ public final class VirtualModuleElement implements ModuleElement, VirtualElement
     @Override
     public List<? extends Element> getEnclosedElements() {
         throw new InternalErrorException("?.getEnclosedElements() must be implemented!", getClass().getSimpleName());
-    }
-
-    @Override
-    public List<? extends AnnotationMirror> getAnnotationMirrors() {
-        return virtualModuleInfoAnnotation.getAnnotationMirrors();
-    }
-
-    @Override
-    public <A extends Annotation> A getAnnotation(final Class<A> annotationType) {
-        return virtualModuleInfoAnnotation.getAnnotation(annotationType);
-    }
-
-    @Override
-    public <A extends Annotation> A[] getAnnotationsByType(final Class<A> annotationType) {
-        return virtualModuleInfoAnnotation.getAnnotationsByType(annotationType);
-    }
-
-    @Override
-    public <R, P> R accept(final ElementVisitor<R, P> v, final P p) {
-        return null;
     }
 
     @Override
@@ -129,5 +94,40 @@ public final class VirtualModuleElement implements ModuleElement, VirtualElement
     @Override
     public List<? extends Directive> getDirectives() {
         return List.of();
+    }
+
+    @Override
+    public TypeMirror asType() {
+        return new VirtualModuleTypeMirror(virtualModuleInfoAnnotation);
+    }
+
+    @Override
+    public ElementKind getKind() {
+        return ElementKind.MODULE;
+    }
+
+    @Override
+    public Set<Modifier> getModifiers() {
+        return unnamedModuleElement.getModifiers();
+    }
+
+    @Override
+    public List<? extends AnnotationMirror> getAnnotationMirrors() {
+        return virtualModuleInfoAnnotation.getAnnotationMirrors();
+    }
+
+    @Override
+    public <A extends Annotation> A getAnnotation(final Class<A> annotationType) {
+        return virtualModuleInfoAnnotation.getAnnotation(annotationType);
+    }
+
+    @Override
+    public <R, P> R accept(final ElementVisitor<R, P> v, final P p) {
+        return null;
+    }
+
+    @Override
+    public <A extends Annotation> A[] getAnnotationsByType(final Class<A> annotationType) {
+        return virtualModuleInfoAnnotation.getAnnotationsByType(annotationType);
     }
 }

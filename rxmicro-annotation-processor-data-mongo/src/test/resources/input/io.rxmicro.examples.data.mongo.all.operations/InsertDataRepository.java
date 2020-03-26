@@ -16,6 +16,7 @@
 
 package io.rxmicro.examples.data.mongo.all.operations;
 
+import com.mongodb.client.result.InsertOneResult;
 import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Single;
 import io.rxmicro.data.mongo.MongoRepository;
@@ -24,6 +25,7 @@ import io.rxmicro.examples.data.mongo.all.operations.model.Account;
 import reactor.core.publisher.Mono;
 
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionStage;
 
 @MongoRepository(collection = "collection")
 public interface InsertDataRepository {
@@ -35,14 +37,32 @@ public interface InsertDataRepository {
     Mono<Void> insert2(Account account);
 
     @Insert
-    Single<Account> insert3(Account account);
+    Mono<InsertOneResult> insert3(Account account);
 
     @Insert
-    Completable insert4(Account account);
+    Single<Account> insert4(Account account);
 
     @Insert
-    CompletableFuture<Account> insert5(Account account);
+    Completable insert5(Account account);
 
     @Insert
-    CompletableFuture<Void> insert6(Account account);
+    Single<InsertOneResult> insert6(Account account);
+
+    @Insert
+    CompletableFuture<Account> insert7(Account account);
+
+    @Insert
+    CompletableFuture<Void> insert8(Account account);
+
+    @Insert
+    CompletableFuture<InsertOneResult> insert9(Account account);
+
+    @Insert
+    CompletionStage<Account> insert10(Account account);
+
+    @Insert
+    CompletionStage<Void> insert11(Account account);
+
+    @Insert
+    CompletionStage<InsertOneResult> insert12(Account account);
 }

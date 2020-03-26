@@ -5,30 +5,30 @@ on:
     types: [published]
 
 jobs:
-  verify-on-all-supported-platforms:
-    name: JDK-${{ matrix.jdk }}/${{ matrix.os }}
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        jdk: ['11', '12', '13', '14']
-        os: [ubuntu-latest, windows-latest, macOS-latest]
-      fail-fast: false
+  #verify-on-all-supported-platforms:
+  #  name: JDK-${{ matrix.jdk }}/${{ matrix.os }}
+  #  runs-on: ${{ matrix.os }}
+  #  strategy:
+  #    matrix:
+  #      jdk: ['11', '12', '13', '14']
+  #      os: [ubuntu-latest, windows-latest, macOS-latest]
+  #    fail-fast: false
 
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/cache@v1
-        with:
-          path: ~/.m2/repository
-          key: rxmicro-maven-${{ runner.os }}-cache
-      - uses: actions/setup-java@v1
-        with:
-          java-version: ${{ matrix.jdk }}
-      - run: mvn -B test --file pom.xml
+  #  steps:
+  #    - uses: actions/checkout@v2
+  #    - uses: actions/cache@v1
+  #      with:
+  #        path: ~/.m2/repository
+  #        key: rxmicro-maven-${{ runner.os }}-cache
+  #    - uses: actions/setup-java@v1
+  #      with:
+  #        java-version: ${{ matrix.jdk }}
+  #    - run: mvn -B test --file pom.xml
 
   verify-examples-build-and-upload-jacoco-report:
     name: Verify Examples, Build and Upload Coverage Report
     runs-on: ubuntu-latest
-    needs: verify-on-all-supported-platforms
+    #needs: verify-on-all-supported-platforms
 
     steps:
       - uses: actions/checkout@v2
@@ -39,29 +39,41 @@ jobs:
       - uses: actions/setup-java@v1
         with:
           java-version: '11'
-      - name: Build and Install rxmicro
-        run: mvn --fail-at-end -B install --file pom.xml
+      #- name: Build and Install rxmicro
+      #  run: mvn --fail-at-end -B install --file pom.xml
 
-      - name: Resolve current RxMicro version
-        run : RXMICRO_VERSION=$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)
+      #- name: Checkout rxmicro-usage
+      #  run: git clone https://github.com/rxmicro/rxmicro-usage
 
-      - name: Checkout rxmicro-usage
-        run: git clone https://github.com/rxmicro/rxmicro-usage
+      #- name: Resolve current RxMicro version
+      #  run : |
+      #    LATEST_VERSION=$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)
+      #    echo "RxMicro version is $LATEST_VERSION"
 
-      - name: Verify examples
-        run: |
-          cd rxmicro-usage/examples
-          mvn --fail-at-end -Drxmicro.version=$RXMICRO_VERSION -B verify --file pom.xml
+      #- name: Verify examples
+      #  run: |
+      #    LATEST_VERSION=$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)
+      #    cd rxmicro-usage/examples
+      #    mvn --fail-at-end -Drxmicro.version=$LATEST_VERSION -B verify --file pom.xml
 
-      - name: Merge Jacoco Execs
-        run: find ./rxmicro-usage/examples -name '*.exec' -exec /bin/bash -c \
-                  'count=0; for name in "$@"; do count=`expr $count + 1`; \
-                          cp $name ./rxmicro-annotation-processor/target/jacoco-$count.exec; done' argv0 {} +
+      #- name: Merge Jacoco Execs
+      #  run: find ./rxmicro-usage/examples -name '*.exec' -exec /bin/bash -c 'count=0; for name in "$@"; do count=`expr $count + 1`; cp $name ./rxmicro-annotation-processor/target/jacoco-$count.exec; done' argv0 {} +
 
-      - name: Create Jacoco Aggregate
-        run: mvn -B site --file pom.xml
+      #- name: Create Jacoco Aggregate
+      #  run: mvn -B site --file pom.xml
 
-      - name: Upload to codecov.io
+      #- name: Upload to codecov.io
+      #  run : |
+      #    export CODECOV_TOKEN="${{ secrets.CODECOV_IO_TOKEN }}"
+      #    bash <(curl -s https://codecov.io/bash)
+
+      - name: Prepare deploy
         run : |
-          export CODECOV_TOKEN="${{ secrets.CODECOV_IO_TOKEN }}"
-          bash <(curl -s https://codecov.io/bash)
+          cp .mvn/settings.xml ~/.m2/settings.xml
+          sed -i 's/OSSRH_PASSWORD/${{ secrets.OSSRH_PASSWORD}}/' ~/.m2/settings.xml
+          sed -i 's/OSSRH_PASSPHRASE/${{ secrets.OSSRH_PASSPHRASE}}/' ~/.m2/settings.xml
+          echo '${{secrets.SIGN_KEY}}' > rxmicro.txt
+          gpg --quiet --batch --yes --passphrase="${{ secrets.OSSRH_PASSPHRASE}}" --allow-secret-key-import --import rxmicro.txt
+
+      - name: Deploy to OSSRH
+        run : mvn -P release -DskipTests clean deploy

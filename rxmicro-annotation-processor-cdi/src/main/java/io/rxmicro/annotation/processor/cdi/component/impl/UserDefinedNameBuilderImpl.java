@@ -35,9 +35,9 @@ import java.util.Set;
 import java.util.function.Supplier;
 
 import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.elements;
-import static io.rxmicro.annotation.processor.common.util.validators.AnnotationValidators.validateCustomAnnotation;
 import static io.rxmicro.annotation.processor.common.util.Annotations.getAnnotationElement;
 import static io.rxmicro.annotation.processor.common.util.Annotations.getAnnotationValue;
+import static io.rxmicro.annotation.processor.common.util.validators.AnnotationValidators.validateCustomAnnotation;
 import static io.rxmicro.cdi.local.AnnotationsSupport.QUALIFIER_ANNOTATIONS;
 import static java.lang.annotation.ElementType.CONSTRUCTOR;
 import static java.lang.annotation.ElementType.FIELD;
