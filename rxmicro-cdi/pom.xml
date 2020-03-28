@@ -21,7 +21,7 @@
     <parent>
         <artifactId>rxmicro</artifactId>
         <groupId>io.rxmicro</groupId>
-        <version>0.2</version>
+        <version>0.3-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>rxmicro-cdi</artifactId>
@@ -43,7 +43,7 @@
         <dependency>
             <groupId>io.rxmicro</groupId>
             <artifactId>rxmicro-config</artifactId>
-            <version>0.2</version>
+            <version>0.3-SNAPSHOT</version>
         </dependency>
     </dependencies>
 </project>
