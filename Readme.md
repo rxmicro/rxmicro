@@ -28,8 +28,8 @@ Status of all supported features is available at the [Features Table](Features.m
 
 ## Documentation
 
-* [User Guide](https://rxmicro.io/doc/latest/ru/user-guide/index.html)
-* [Samples](https://github.com/rxmicro/rxmicro-usage/tree/master/examples)
+* [User Guide](https://rxmicro.io/doc/latest/user-guide/index.html)
+* [Examples](https://github.com/rxmicro/rxmicro-usage/tree/master/examples)
 * [Release Notes](https://github.com/rxmicro/rxmicro/blob/master/release/src/main/asciidoc/release-notes/index.md)
 
 ## Contributing
