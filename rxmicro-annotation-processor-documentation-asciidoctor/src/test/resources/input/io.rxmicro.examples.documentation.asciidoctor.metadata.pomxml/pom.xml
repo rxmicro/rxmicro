@@ -10,7 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.rxmicro.examples</groupId>
     <artifactId>documentation-asciidoctor-metadata-pomxml</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>0.0.1</version>
 
     <!-- tag::content[] -->
     <name>Metadata Pom Xml</name>
@@ -32,8 +32,8 @@
     <url>https://api.rxmicro.io</url>
     <licenses>
         <license>
-            <name>MIT License</name>
-            <url>https://github.com/rxmicro/rxmicro-usage/blob/master/examples/LICENSE</url>
+            <name>Apache License 2.0</name>
+            <url>https://github.com/rxmicro/rxmicro/blob/master/LICENSE</url>
         </license>
     </licenses>
     <!-- end::content[] -->
@@ -160,7 +160,7 @@
                         <phase>clean</phase>
                         <configuration>
                             <tasks>
-                                <delete dir="${basedir}/src/main/asciidoc/" />
+                                <delete dir="${basedir}/src/main/asciidoc/"/>
                             </tasks>
                         </configuration>
                         <goals>

@@ -22,9 +22,11 @@ import io.rxmicro.http.client.HttpClientConfig;
 // tag::content[]
 public final class BusinessServiceFacade {
 
+    // <1>
     @Inject
     RESTClient restClient;
 
+    // <2>
     @Inject
     HttpClientConfig config;
 

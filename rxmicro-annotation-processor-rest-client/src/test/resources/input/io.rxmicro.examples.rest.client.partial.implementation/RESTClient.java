@@ -24,6 +24,7 @@ import java.util.concurrent.CompletableFuture;
 
 // tag::content[]
 @RestClient
+// <1>
 @PartialImplementation(AbstractRESTClient.class)
 public interface RESTClient {
 

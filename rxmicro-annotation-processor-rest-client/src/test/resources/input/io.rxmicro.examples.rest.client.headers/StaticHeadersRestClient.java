@@ -24,6 +24,7 @@ import java.util.concurrent.CompletableFuture;
 
 // tag::content[]
 @RestClient
+// <1>
 @SetHeader(name = "Mode", value = "Demo")
 public interface StaticHeadersRestClient {
 
@@ -31,6 +32,7 @@ public interface StaticHeadersRestClient {
     CompletableFuture<Void> get1();
 
     @GET("/get2")
+    // <2>
     @SetHeader(name = "Debug", value = "true")
     CompletableFuture<Void> get2();
 }

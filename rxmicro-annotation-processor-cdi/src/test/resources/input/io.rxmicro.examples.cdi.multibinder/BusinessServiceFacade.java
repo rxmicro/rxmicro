@@ -26,7 +26,7 @@ import static java.util.stream.Collectors.joining;
 public final class BusinessServiceFacade {
 
     @Inject
-    Set<BusinessService> businessServices; // <1>
+    Set<BusinessService> businessServices;
 
     void postConstruct() {
         System.out.println(

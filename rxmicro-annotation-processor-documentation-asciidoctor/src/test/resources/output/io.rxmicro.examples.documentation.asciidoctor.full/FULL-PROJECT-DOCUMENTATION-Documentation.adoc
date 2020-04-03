@@ -20,7 +20,7 @@ This document describes *the FULL-PROJECT-DOCUMENTATION-*.
 === Common concept
 
 *The FULL-PROJECT-DOCUMENTATION-* is organized around https://en.wikipedia.org/wiki/Representational_state_transfer[REST^]
-and built using https://rxmicro.io[RxMicro^] framework. +
+and built using the https://rxmicro.io[RxMicro^] framework. +
 *The FULL-PROJECT-DOCUMENTATION-* has predictable resource-oriented URLs, accepts and returns http://www.json.org/[JSON-encoded^]
 requests/responses, and uses standard HTTP response codes, and verbs. +
 
@@ -115,7 +115,7 @@ However, when developing the REST-based micro services, `HTTP/1.1 404 Not Found`
 For example, if the resource requested by its identifier is absent at the database, then the client receives `HTTP/1.1 404 Not Found` response.
 
 _Thus, on the client side, if the server returns `HTTP/1.1 404 Not Found` response, it is not possible to determine the reason: there is no request handler or there is no object in the database._ +
-Therefore, in order to unambiguously determine the cause of the error, The RxMicro framework by default uses exactly `HTTP/1.1 400 Bad Request` response in case the handler is absent.
+Therefore, in order to unambiguously determine the cause of the error, the RxMicro framework by default uses exactly `HTTP/1.1 400 Bad Request` response in case the handler is absent.
 ====
 
 *Default Not Found Handler* could be configured. +
@@ -137,7 +137,7 @@ options, where:
 // ------------------------------------------------------------- Introduction | License -------------------------------------------------------------
 === License
 
-*The FULL-PROJECT-DOCUMENTATION-* is licensed under the https://github.com/rxmicro/rxmicro-usage/blob/master/examples/LICENSE[MIT License^].
+*The FULL-PROJECT-DOCUMENTATION-* is licensed under the https://github.com/rxmicro/rxmicro/blob/master/LICENSE[Apache License 2.0^].
 
 // ---------------------------------------------------------- Introduction | Specification ----------------------------------------------------------
 === Specification
@@ -972,7 +972,7 @@ a|
 * [small]#`required: true`#
 
 * [small]#`expected: latest`#
-a|Api version required header, value of which is used by the RxMicro framework to define appropriate request handler.
+a|Api version required header, value of which is used by the RxMicro framework framework to define appropriate request handler.
 
 |*Request-Id*
 |`string`
@@ -1599,7 +1599,7 @@ a|
 * [small]#`required: true`#
 
 * [small]#`expected: latest`#
-a|Api version required header, value of which is used by RxMicro framework to define appropriate request handler.
+a|Api version required header, value of which is used by the RxMicro framework framework to define appropriate request handler.
 
 |*Request-Id*
 |`string`

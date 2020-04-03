@@ -18,6 +18,7 @@ import io.rxmicro.documentation.Author;
 import io.rxmicro.documentation.BaseEndpoint;
 import io.rxmicro.documentation.Description;
 import io.rxmicro.documentation.DocumentationDefinition;
+import io.rxmicro.documentation.DocumentationVersion;
 import io.rxmicro.documentation.IntroductionDefinition;
 import io.rxmicro.documentation.License;
 import io.rxmicro.documentation.ResourceDefinition;
@@ -26,6 +27,7 @@ import io.rxmicro.documentation.Title;
 // tag::content[]
 @Title("Metadata Annotations")
 @Description("*Project* _Description_")
+@DocumentationVersion("0.0.1")
 @Author(
         name = "Richard Hendricks",
         email = "richard.hendricks@piedpiper.com"
@@ -40,8 +42,8 @@ import io.rxmicro.documentation.Title;
 )
 @BaseEndpoint("https://api.rxmicro.io")
 @License(
-        name = "MIT License",
-        url = "https://github.com/rxmicro/rxmicro-usage/blob/master/examples/LICENSE"
+        name = "Apache License 2.0",
+        url = "https://github.com/rxmicro/rxmicro/blob/master/LICENSE"
 )
 @DocumentationDefinition(
         introduction = @IntroductionDefinition(

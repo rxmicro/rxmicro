@@ -22,8 +22,9 @@ import io.rxmicro.rest.method.PATCH;
 // tag::content[]
 public final class RestController {
 
+    // <1>
     @Inject
-    BusinessService businessService; // <1>
+    BusinessService businessService;
 
     @PATCH("/")
     void handle() {

@@ -24,6 +24,7 @@ import java.util.concurrent.CompletableFuture;
 
 // tag::content[]
 @PostgreSQLRepository
+// <1>
 @PartialImplementation(AbstractDataRepository.class)
 public interface DataRepository {
 

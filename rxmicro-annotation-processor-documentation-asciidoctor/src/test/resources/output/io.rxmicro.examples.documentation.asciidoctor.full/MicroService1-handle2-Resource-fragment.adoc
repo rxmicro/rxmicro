@@ -51,7 +51,7 @@ a|
 * [small]#`required: true`#
 
 * [small]#`expected: latest`#
-a|Api version required header, value of which is used by RxMicro framework to define appropriate request handler.
+a|Api version required header, value of which is used by the RxMicro framework framework to define appropriate request handler.
 
 |*Request-Id*
 |`string`

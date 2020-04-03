@@ -30,11 +30,9 @@ public interface DataRepository {
 
     String COLLECTION_NAME = "account";
 
-    // <2>
     @CountDocuments
     CompletableFuture<Long> generatedMethod();
 
-    // <3>
     CompletableFuture<Long> userDefinedMethod();
 }
 // end::content[]

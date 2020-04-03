@@ -24,15 +24,15 @@ import java.util.concurrent.CompletableFuture;
 
 // tag::content[]
 @RestClient(
-        configNameSpace = "custom",
-        configClass = CustomHttpClientConfig.class
+        configClass = CustomHttpClientConfig.class,    // <1>
+        configNameSpace = "custom"                     // <2>
 )
-@AddHeader(name = "Use-Proxy", value = "${useProxy}")
+@AddHeader(name = "Use-Proxy", value = "${useProxy}")  // <3>
 public interface RESTClient {
 
     @PUT("/")
-    @AddHeader(name = "Debug", value = "Use-Proxy=${useProxy}, Mode=${mode}")
-    @AddHeader(name = "Endpoint", value = "Schema=${schema}, Host=${host}, Port=${port}")
+    @AddHeader(name = "Debug", value = "Use-Proxy=${useProxy}, Mode=${mode}")             // <3>
+    @AddHeader(name = "Endpoint", value = "Schema=${schema}, Host=${host}, Port=${port}") // <3>
     CompletableFuture<Void> put();
 }
 // end::content[]

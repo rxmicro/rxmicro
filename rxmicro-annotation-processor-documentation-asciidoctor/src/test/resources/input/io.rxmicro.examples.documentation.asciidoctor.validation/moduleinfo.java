@@ -19,13 +19,13 @@ import io.rxmicro.documentation.IntroductionDefinition;
 
 // tag::content[]
 @DocumentationDefinition(
-        introduction = @IntroductionDefinition(sectionOrder = {}), // <1>
+        introduction = @IntroductionDefinition(sectionOrder = {}),
         withGeneratedDate = false
 )
 module examples.documentation.asciidoctor.validation {
     requires rxmicro.rest.server.netty;
     requires rxmicro.rest.server.exchange.json;
-    requires rxmicro.validation; // <2>
+    requires rxmicro.validation;
     requires static rxmicro.documentation.asciidoctor;
 }
 // end::content[]

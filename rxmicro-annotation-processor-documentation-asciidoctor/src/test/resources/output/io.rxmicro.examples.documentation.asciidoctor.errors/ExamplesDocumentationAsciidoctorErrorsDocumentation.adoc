@@ -170,9 +170,13 @@ This error response indicates that the API is not able to generate any of the cl
 [source,http]
 ----
 HTTP/1.1 406 Not Acceptable
-Content-Length: 0
+Content-Type: application/json
+Content-Length: 33
 Request-Id: 62jJeu8x1310662
 
+{
+  "message": "Not-Acceptable"
+}
 ----
 
 // ---------------------------------------------- Proxy Micro Service | GET / | Response 406 | Headers ----------------------------------------------
@@ -191,6 +195,20 @@ a|An unique request string identifier.
 
 .Read more:
 * [small]#https://rxmicro.io/guides/latest/user-guide.html#rest-controller-request-id-section[_What is request id?_^]#
+|===
+
+// ------------------------------------------ Proxy Micro Service | GET / | Response 406 | Body Parameters ------------------------------------------
+===== HTTP Response Body Parameters Description
+
+[cols="25%,9%,28%,32%"]
+|===
+^|*Name* |*Type* |*Restrictions*| *Description*
+|*message*
+|`string`
+a|
+* [small]#`required: true`#
+a|The detailed cause of the arisen error.
+
 |===
 
 // --------------------------------------------------- Proxy Micro Service | GET / | Response 504 ---------------------------------------------------
