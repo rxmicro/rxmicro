@@ -34,7 +34,7 @@ Status of all supported features is available at the [Features Table](Features.m
 
 ## Contributing
 
-Contributions to RxMicro are both welcomed and appreciated. 
+Contributions to the RxMicro framework are both welcomed and appreciated. 
 For specific guidelines regarding contributions, please see [CONTRIBUTING.md](.github/CONTRIBUTING.md). 
 
 ## Check Lists

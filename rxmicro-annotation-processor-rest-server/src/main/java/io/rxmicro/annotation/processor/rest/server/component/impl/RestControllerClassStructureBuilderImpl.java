@@ -226,7 +226,7 @@ public final class RestControllerClassStructureBuilderImpl implements RestContro
         }
         throw new InterruptProcessingException(
                 methodSignature.getExecutableElement(),
-                "RxMicro does not know how to generate a body of this method"
+                "The RxMicro framework does not know how to generate a body of this method"
         );
     }
 

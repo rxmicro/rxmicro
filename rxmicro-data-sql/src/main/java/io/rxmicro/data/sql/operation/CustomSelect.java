@@ -35,7 +35,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 public @interface CustomSelect {
 
     /**
-     * @return {@code true} if RxMicro must replace '?' placeholder by db specific placeholder before executing of the custom SQL,
+     * @return {@code true} if the RxMicro framework must replace '?' placeholder by db specific placeholder before executing of the custom SQL,
      * {@code false} if custom select query must contain only db specific placeholders. i.e. '$1', '$2', etc.
      * @link https://r2dbc.io/spec/0.8.0.RELEASE/spec/html/#statements.parameterized
      */

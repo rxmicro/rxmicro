@@ -46,6 +46,6 @@ return Single.fromPublisher(collection.insertOne(document))
         .doOnSuccess(a -> ${ENTITY_CONVERTER}.setId(document, ${ENTITY}));
 <#-- -------------------------------------------------------------------------------------------------------- -->
 <#else>
-//"RxMicro does not know how to generate this method";
+//"The RxMicro framework does not know how to generate this method";
 </#if>
 <#-- -------------------------------------------------------------------------------------------------------- -->

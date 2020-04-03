@@ -89,7 +89,7 @@ public abstract class AbstractDataClassStructureBuilder<DMF extends DataModelFie
                         .collect(Collectors.toSet());
         if (methodModelBuilders.isEmpty()) {
             throw new InterruptProcessingException(methodSignature.getMethod(),
-                    "RxMicro does not know how to generate a body of this method: " +
+                    "The RxMicro framework does not know how to generate a body of this method: " +
                             "Missing operation annotation.");
         } else if (methodModelBuilders.size() > 1) {
             throw new InterruptProcessingException(methodSignature.getMethod(),

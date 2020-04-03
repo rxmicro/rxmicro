@@ -35,7 +35,7 @@ return restController.${METHOD_NAME.simpleName}()
         .thenApply(nothing -> buildResponse(${STATUS_CODE}, headers));
 <#-- --------------------------------------------------------------------------------------------------------------- -->
 <#else>
-//"RxMicro does not know how to generate this method";
+//"The RxMicro framework does not know how to generate this method";
 </#if>
 <#-- ------------------------------------------------ Void --------------------------------------------------------- -->
 <#else>

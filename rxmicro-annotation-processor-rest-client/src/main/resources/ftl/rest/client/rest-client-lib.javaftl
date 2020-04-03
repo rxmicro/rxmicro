@@ -20,7 +20,7 @@ try {
     <#elseif RETURN.completable>
     return Completable.error(e);
     <#else>
-    //"RxMicro does not know how to generate this method";
+    //"The RxMicro framework does not know how to generate this method";
     </#if>
 }
 </#if>
@@ -41,7 +41,7 @@ return response
 <#elseif RETURN.completable>
 return Completable.fromCompletionStage(response);
 <#else>
-//"RxMicro does not know how to generate this method";
+//"The RxMicro framework does not know how to generate this method";
 </#if>
 <#-- ------------------------------------- Single result -------------------------------------------- -->
 <#elseif RETURN.oneItem>
@@ -64,7 +64,7 @@ return Single.fromCompletionStage(response)
         .doOnSuccess(resp -> validateResponse(${RESPONSE_MODEL_CLASS.modelValidatorInstanceName}, resp));
         </#if>
 <#else>
-//"RxMicro does not know how to generate this method";
+//"The RxMicro framework does not know how to generate this method";
 </#if>
 <#-- -------------------------------------- List result -------------------------------------------- -->
 <#else>
@@ -87,7 +87,7 @@ return Single.fromCompletionStage(response)
         .doOnSuccess(resp -> validateResponse(${RESPONSE_MODEL_CLASS.modelValidatorInstanceName}, resp));
         </#if>
 <#else>
-//"RxMicro does not know how to generate this method";
+//"The RxMicro framework does not know how to generate this method";
 </#if>
 </#if>
 <#-- ------------------------------------------------------------------------------------------------ -->

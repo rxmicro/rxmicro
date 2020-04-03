@@ -30,7 +30,7 @@ return Flowable.fromPublisher(collection
         .firstElement();
 <#-- -------------------------------------------------------------------------------------------------------- -->
 <#else>
-//"RxMicro does not know how to generate this method";
+//"The RxMicro framework does not know how to generate this method";
 </#if>
 <#else>
 <#-- -------------------------------------------------------------------------------------------------------- -->
@@ -57,7 +57,7 @@ return Flowable.fromPublisher(collection
         .distinct("${FIELD}", <#if QUERY??>query, </#if>${RETURN.simpleResultType}.class));
 <#-- -------------------------------------------------------------------------------------------------------- -->
 <#else>
-//"RxMicro does not know how to generate this method";
+//"The RxMicro framework does not know how to generate this method";
 </#if>
 </#if>
 <#-- -------------------------------------------------------------------------------------------------------- -->

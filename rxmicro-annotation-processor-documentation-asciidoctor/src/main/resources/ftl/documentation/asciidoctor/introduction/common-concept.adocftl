@@ -5,7 +5,7 @@
 === Common concept
 
 *The ${PROJECT.name}* is organized around https://en.wikipedia.org/wiki/Representational_state_transfer[REST^]
-and built using https://rxmicro.io[RxMicro^] framework. +
+and built using the https://rxmicro.io[RxMicro^] framework. +
 *The ${PROJECT.name}* has predictable resource-oriented URLs, accepts and returns http://www.json.org/[JSON-encoded^]
 requests/responses, and uses standard HTTP response codes, and verbs. +
 

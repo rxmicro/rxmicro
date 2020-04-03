@@ -175,7 +175,7 @@ public final class InjectionPointTypeBuilderImpl extends AbstractR2DBCConnection
         } else {
             throw new InterruptProcessingException(
                     field,
-                    "RxMicro does not know which sql r2dbc module must be used to inject this dependency. Specify which module must be used!"
+                    "The RxMicro framework does not know which sql r2dbc module must be used to inject this dependency. Specify which module must be used!"
             );
         }
     }

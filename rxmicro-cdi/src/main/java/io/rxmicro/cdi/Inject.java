@@ -38,11 +38,11 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 public @interface Inject {
 
     /**
-     * If true, and the appropriate binding is not found, the RxMicro will skip injection of this
+     * If true, and the appropriate binding is not found, the RxMicro framework will skip injection of this
      * method or field rather than produce an error.
      * <p>
      * When applied to a field, any default value already assigned to the field will remain for optional injection
-     * (RxMicro will not actively null out the field).
+     * (The RxMicro framework will not actively null out the field).
      */
     boolean optional() default false;
 }

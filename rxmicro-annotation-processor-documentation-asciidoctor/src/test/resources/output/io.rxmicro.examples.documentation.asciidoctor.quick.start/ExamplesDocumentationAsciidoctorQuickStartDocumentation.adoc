@@ -20,7 +20,7 @@ This document describes *the Examples Documentation Asciidoctor Quick Start*.
 === Common concept
 
 *The Examples Documentation Asciidoctor Quick Start* is organized around https://en.wikipedia.org/wiki/Representational_state_transfer[REST^]
-and built using https://rxmicro.io[RxMicro^] framework. +
+and built using the https://rxmicro.io[RxMicro^] framework. +
 *The Examples Documentation Asciidoctor Quick Start* has predictable resource-oriented URLs, accepts and returns http://www.json.org/[JSON-encoded^]
 requests/responses, and uses standard HTTP response codes, and verbs. +
 
@@ -110,7 +110,7 @@ However, when developing the REST-based micro services, `HTTP/1.1 404 Not Found`
 For example, if the resource requested by its identifier is absent at the database, then the client receives `HTTP/1.1 404 Not Found` response.
 
 _Thus, on the client side, if the server returns `HTTP/1.1 404 Not Found` response, it is not possible to determine the reason: there is no request handler or there is no object in the database._ +
-Therefore, in order to unambiguously determine the cause of the error, RxMicro by default uses exactly `HTTP/1.1 400 Bad Request` response in case the handler is absent.
+Therefore, in order to unambiguously determine the cause of the error, The RxMicro framework by default uses exactly `HTTP/1.1 400 Bad Request` response in case the handler is absent.
 ====
 
 *Default Not Found Handler* could be configured. +
