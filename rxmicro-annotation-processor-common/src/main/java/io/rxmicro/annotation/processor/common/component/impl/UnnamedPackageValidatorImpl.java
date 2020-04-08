@@ -57,17 +57,26 @@ public final class UnnamedPackageValidatorImpl extends AbstractProcessorComponen
                                 "Each class (interface, enum or annotation) must be declared at a package! " +
                                         "Unnamed (default) package is not supported! " +
                                         "Move this element to the named package! " +
-                                        "FYI: If you want to add the virtual module you should use the predefined by RxMicro framework name: '?' instead of '?'!",
+                                        "FYI: If you want to add the virtual module " +
+                                        "you should use the predefined by RxMicro framework name: '?' instead of '?'!",
                                 RX_MICRO_VIRTUAL_MODULE_INFO_ANNOTATION_NAME,
                                 element.getSimpleName()
                         );
                     }
                 } else {
-                    error(element,
-                            "Each class (interface, enum or annotation) must be declared at a package! " +
-                                    "Unnamed (default) package is not supported! " +
-                                    "Move this element to the named package!"
-                    );
+                    if (RX_MICRO_VIRTUAL_MODULE_INFO_ANNOTATION_NAME.equals(element.getSimpleName().toString())) {
+                        error(element,
+                                "? is used as alternative of `module-info.java` only! " +
+                                        "To configure project use `module-info.java` instead of `?.java`",
+                                RX_MICRO_VIRTUAL_MODULE_INFO_ANNOTATION_NAME, RX_MICRO_VIRTUAL_MODULE_INFO_ANNOTATION_NAME
+                        );
+                    } else {
+                        error(element,
+                                "Each class (interface, enum or annotation) must be declared at a package! " +
+                                        "Unnamed (default) package is not supported! " +
+                                        "Move this element to the named package!"
+                        );
+                    }
                 }
             }
         }
