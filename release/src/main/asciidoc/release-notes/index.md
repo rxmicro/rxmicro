@@ -22,3 +22,7 @@ This document contains the *change log* for all RxMicro releases since **0.2**.
   * mongodb-driver-core: 3.12.1 -> 4.0.1
   * bson: 3.12.1 -> 4.0.1
   * junit-platform-commons: 1.6.0 -> 1.6.1
+  
+## RxMicro v0.3
+
+* Fix "Connection: close" issue

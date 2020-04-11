@@ -16,7 +16,6 @@
 
 package io.rxmicro.rest.server.netty.internal.component;
 
-import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
@@ -141,13 +140,11 @@ final class NettyRequestHandler extends SimpleChannelInboundHandler<FullHttpRequ
         } else {
             httpResponse.setHeader(REQUEST_ID, request.getRequestId());
         }
-        if (!keepAlive) {
+        if (keepAlive) {
+            ctx.writeAndFlush(httpResponse.toFullHttpResponse(), ctx.voidPromise());
+        } else {
             httpResponse.setHeader(CONNECTION, "close");
-        }
-        final ChannelFuture channelFuture =
-                ctx.writeAndFlush(httpResponse.toFullHttpResponse(), ctx.voidPromise());
-        if (!keepAlive) {
-            channelFuture.addListener(ChannelFutureListener.CLOSE);
+            ctx.writeAndFlush(httpResponse.toFullHttpResponse()).addListener(ChannelFutureListener.CLOSE);
         }
         logResponse(request, startTime, httpResponse);
 
