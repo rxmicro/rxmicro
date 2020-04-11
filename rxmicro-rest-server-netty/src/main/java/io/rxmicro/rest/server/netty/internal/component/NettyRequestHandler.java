@@ -100,7 +100,7 @@ final class NettyRequestHandler extends SimpleChannelInboundHandler<FullHttpRequ
         return !"close".equalsIgnoreCase(value);
     }
 
-    private void logRequest(final HttpRequest request) {
+    private void logRequest(final NettyHttpRequest request) {
         if (LOGGER.isTraceEnabled()) {
             LOGGER.trace("HTTP request received (Id=?):\n? ?\n?\n\n?",
                     request.getRequestId(),
@@ -111,6 +111,7 @@ final class NettyRequestHandler extends SimpleChannelInboundHandler<FullHttpRequ
                     ),
                     request.getVersion().getText(),
                     request.getHeaders().getEntries().stream()
+                            .filter(e -> request.isRequestIdGenerated() && !REQUEST_ID.equals(e.getKey()))
                             .map(e -> format("?: ?", e.getKey(), String.join(", ", e.getValue())))
                             .collect(joining(lineSeparator())),
                     request.contentExists() ? new String(request.getContent(), UTF_8) : ""
