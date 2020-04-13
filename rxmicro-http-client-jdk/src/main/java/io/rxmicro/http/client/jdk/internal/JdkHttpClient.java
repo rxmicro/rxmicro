@@ -16,6 +16,7 @@
 
 package io.rxmicro.http.client.jdk.internal;
 
+import io.rxmicro.config.RxMicroSecrets;
 import io.rxmicro.http.ProtocolSchema;
 import io.rxmicro.http.client.ClientHttpResponse;
 import io.rxmicro.http.client.HttpClient;
@@ -68,6 +69,8 @@ final class JdkHttpClient implements HttpClient {
     private final String host;
 
     private final int port;
+
+    private final RxMicroSecrets rxMicroSecrets = RxMicroSecrets.getInstance();
 
     private final Function<Object, byte[]> requestBodyConverter;
 
@@ -182,49 +185,57 @@ final class JdkHttpClient implements HttpClient {
     private CompletableFuture<HttpResponse<byte[]>> trace(final HttpRequest request,
                                                           final byte[] requestBody,
                                                           final CompletableFuture<HttpResponse<byte[]>> response) {
-        final String requestId = request.headers().firstValue(REQUEST_ID).orElse("<undefined>");
+        final String requestId = request.headers().firstValue(REQUEST_ID).orElse(null);
         final long startTime = System.nanoTime();
-        logger.trace("HTTP request sent (Id=?):\n? ?\n?\n\n?",
-                requestId,
-                format("? ?", request.method(), request.uri()),
+        logger.trace("HTTP request sent?:\n? ?\n?\n\n?",
+                requestId != null ? format(" (Id=?)", requestId) : "",
+                format("? ?", request.method(), rxMicroSecrets.replaceAllSecretsIfFound(request.uri().toString())),
                 request.version().map(Enum::toString).orElse(""),
                 request.headers().map().entrySet().stream()
-                        .map(e -> format("?: ?", e.getKey(), String.join(", ", e.getValue())))
+                        .flatMap(e -> e.getValue().stream().map(v -> entry(e.getKey(), v)))
+                        .map(e -> format("?: ?", e.getKey(), rxMicroSecrets.hideIfSecret(e.getValue())))
                         .collect(joining(lineSeparator())),
-                requestBody != null ? new String(requestBody, UTF_8) : ""
+                requestBody != null ?
+                        rxMicroSecrets.replaceAllSecretsIfFound(new String(requestBody, UTF_8)) :
+                        ""
         );
         return response.whenComplete((resp, th) -> {
             if (resp != null) {
-                final long duration = (System.nanoTime() - startTime) / 1_000_000;
-                logger.trace("HTTP response received (Id=?, Duration=? millis):\n? ?\n?\n\n?",
-                        requestId,
-                        duration,
+                logger.trace("HTTP response received (?Duration=?):\n? ?\n?\n\n?",
+                        requestId != null ? format("Id=?, ", requestId) : "",
+                        format(Duration.ofNanos(System.nanoTime() - startTime)),
                         resp.version(),
                         resp.statusCode(),
                         resp.headers().map().entrySet().stream()
-                                .map(e -> format("?: ?", e.getKey(), String.join(", ", e.getValue())))
+                                .flatMap(e -> e.getValue().stream().map(v -> entry(e.getKey(), v)))
+                                .map(e -> format("?: ?", e.getKey(), rxMicroSecrets.hideIfSecret(e.getValue())))
                                 .collect(joining(lineSeparator())),
-                        resp.body().length > 0 ? new String(resp.body(), UTF_8) : "");
+                        resp.body().length > 0 ?
+                                rxMicroSecrets.replaceAllSecretsIfFound(new String(resp.body(), UTF_8)) :
+                                ""
+                );
             }
         });
     }
 
     private CompletableFuture<HttpResponse<byte[]>> debug(final HttpRequest request,
                                                           final CompletableFuture<HttpResponse<byte[]>> response) {
+        final String requestId = request.headers().firstValue(REQUEST_ID).orElse(null);
         final String uri = request.uri().toString();
         final int index = uri.indexOf('?');
         final long startTime = System.nanoTime();
-        logger.debug("HTTP request sent: '?'",
+        logger.debug("HTTP request sent?: '?'",
+                requestId != null ? format(" (Id=?)", requestId) : "",
                 format("? ?", request.method(),
                         index != -1 ? uri.substring(0, index) : uri));
         return response.whenComplete((resp, th) -> {
             if (resp != null) {
-                final long duration = (System.nanoTime() - startTime) / 1_000_000;
-                logger.debug("HTTP response received (Id=?, Duration=? millis): '?/?' ",
-                        "",
-                        duration,
+                logger.debug("HTTP response received (?Duration=?): '?/?', Content=? bytes",
+                        requestId != null ? format("Id=?, ", requestId) : "",
+                        format(Duration.ofNanos(System.nanoTime() - startTime)),
                         resp.statusCode(),
-                        resp.version()
+                        resp.version(),
+                        resp.body().length
                 );
             }
         });

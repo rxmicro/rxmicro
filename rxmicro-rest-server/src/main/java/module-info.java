@@ -50,8 +50,6 @@ module rxmicro.rest.server {
     exports io.rxmicro.rest.server.local.model to
             rxmicro.test,
             rxmicro.test.junit;
-    exports io.rxmicro.rest.server.local.util to
-            rxmicro.rest.server.netty;
 
     opens io.rxmicro.rest.server to
             rxmicro.config;

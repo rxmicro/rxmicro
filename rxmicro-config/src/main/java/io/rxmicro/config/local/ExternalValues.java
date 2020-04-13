@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package io.rxmicro.rest.server.local.util;
+package io.rxmicro.config.local;
 
 import java.util.Optional;
 

@@ -26,3 +26,4 @@ This document contains the *change log* for all RxMicro releases since **0.2**.
 ## RxMicro v0.3
 
 * Fix "Connection: close" issue
+* Introduce secrets feature that allows hiding secrets in log files

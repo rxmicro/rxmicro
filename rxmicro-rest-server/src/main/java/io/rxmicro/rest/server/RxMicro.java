@@ -29,7 +29,7 @@ import static io.rxmicro.common.util.Formats.formatSize;
 import static io.rxmicro.rest.server.Constants.RX_MICRO_PRINT_RUNTIME;
 import static io.rxmicro.rest.server.local.component.RestServerLauncher.launchWithFilter;
 import static io.rxmicro.rest.server.local.model.RestControllerRegistrationFilter.createFilter;
-import static io.rxmicro.rest.server.local.util.ExternalValues.getExternalValue;
+import static io.rxmicro.config.local.ExternalValues.getExternalValue;
 
 /**
  * To run netty successfully it is necessary to add:

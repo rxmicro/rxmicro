@@ -23,6 +23,9 @@ module rxmicro.config {
     requires transitive rxmicro.runtime;
     requires rxmicro.files;
 
+    exports io.rxmicro.config.local to
+            rxmicro.rest.server;
+
     exports io.rxmicro.config;
 
     exports io.rxmicro.config.detail;

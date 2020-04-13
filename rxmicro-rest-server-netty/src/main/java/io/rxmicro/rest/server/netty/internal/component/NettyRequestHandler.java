@@ -22,6 +22,7 @@ import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.codec.http.FullHttpRequest;
 import io.netty.handler.codec.http.HttpResponseStatus;
 import io.netty.util.AttributeKey;
+import io.rxmicro.config.RxMicroSecrets;
 import io.rxmicro.http.HttpHeaders;
 import io.rxmicro.logger.Logger;
 import io.rxmicro.logger.LoggerFactory;
@@ -42,6 +43,7 @@ import static io.rxmicro.http.HttpHeaders.CONNECTION;
 import static io.rxmicro.http.HttpHeaders.REQUEST_ID;
 import static java.lang.System.lineSeparator;
 import static java.nio.charset.StandardCharsets.UTF_8;
+import static java.util.Map.entry;
 import static java.util.stream.Collectors.joining;
 
 /**
@@ -54,6 +56,8 @@ final class NettyRequestHandler extends SimpleChannelInboundHandler<FullHttpRequ
     private static final Logger LOGGER = LoggerFactory.getLogger(NettyRequestHandler.class);
 
     private static final AttributeKey<String> REQUEST_ID_KEY = AttributeKey.valueOf(REQUEST_ID);
+
+    private final RxMicroSecrets rxMicroSecrets = RxMicroSecrets.getInstance();
 
     private final NettyRestServerConfig nettyRestServerConfig;
 
@@ -116,14 +120,18 @@ final class NettyRequestHandler extends SimpleChannelInboundHandler<FullHttpRequ
                     format("? ??",
                             request.getMethod(),
                             request.getUri(),
-                            request.isQueryStringPresent() ? "" : "?" + request.getQueryString()
+                            request.isQueryStringPresent() ?
+                                    "" :
+                                    "?" + rxMicroSecrets.replaceAllSecretsIfFound(request.getQueryString())
                     ),
                     request.getVersion().getText(),
                     request.getHeaders().getEntries().stream()
                             .filter(e -> request.isRequestIdGenerated() && !REQUEST_ID.equals(e.getKey()))
-                            .map(e -> format("?: ?", e.getKey(), String.join(", ", e.getValue())))
+                            .map(e -> format("?: ?", e.getKey(), rxMicroSecrets.hideIfSecret(e.getValue())))
                             .collect(joining(lineSeparator())),
-                    request.contentExists() ? new String(request.getContent(), UTF_8) : ""
+                    request.contentExists() ?
+                            rxMicroSecrets.replaceAllSecretsIfFound(new String(request.getContent(), UTF_8)) :
+                            ""
             );
         } else if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("HTTP request received: Id=?, Channel=?, Request=?",
@@ -132,7 +140,9 @@ final class NettyRequestHandler extends SimpleChannelInboundHandler<FullHttpRequ
                     format("? ??",
                             request.getMethod(),
                             request.getUri(),
-                            request.isQueryStringPresent() ? "" : "?" + request.getQueryString()
+                            request.isQueryStringPresent() ?
+                                    "" :
+                                    "?" + rxMicroSecrets.replaceAllSecretsIfFound(request.getQueryString())
                     )
             );
         }
@@ -175,15 +185,19 @@ final class NettyRequestHandler extends SimpleChannelInboundHandler<FullHttpRequ
                     httpResponse.getHttpVersion(),
                     httpResponse.getStatus(),
                     httpResponse.getHeaders().getEntries().stream()
-                            .map(e -> format("?: ?", e.getKey(), String.join(", ", e.getValue())))
+                            .map(e -> format("?: ?", e.getKey(), rxMicroSecrets.hideIfSecret(e.getValue())))
                             .collect(joining(lineSeparator())),
-                    httpResponse.getContentLength() > 0 ? new String(httpResponse.getContent(), UTF_8) : "");
+                    httpResponse.getContentLength() > 0 ?
+                            rxMicroSecrets.replaceAllSecretsIfFound(new String(httpResponse.getContent(), UTF_8)) :
+                            ""
+            );
         } else if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("HTTP response sent: Id=?, Channel=?, Content=? bytes, Duration=?",
                     request.getRequestId(),
                     nettyRestServerConfig.getChannelIdType().getId(ctx.channel().id()),
                     httpResponse.getContentLength(),
-                    format(Duration.ofNanos((System.nanoTime() - startTime))));
+                    format(Duration.ofNanos((System.nanoTime() - startTime)))
+            );
         }
     }
 
