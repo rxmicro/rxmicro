@@ -30,7 +30,10 @@ import static io.rxmicro.rest.server.local.component.RestServerLauncher.launchWi
 import static io.rxmicro.rest.server.local.model.RestControllerRegistrationFilter.createFilter;
 
 /**
- * To run netty successfully it is necessary to add --add-opens=java.base/jdk.internal.misc=io.netty.common
+ * To run netty successfully it is necessary to add:
+ * --add-opens=java.base/jdk.internal.misc=io.netty.common
+ * --add-opens=java.base/java.nio=io.netty.common
+ * -Dio.netty.tryReflectionSetAccessible=true
  *
  * @author nedis
  * @link https://rxmicro.io
