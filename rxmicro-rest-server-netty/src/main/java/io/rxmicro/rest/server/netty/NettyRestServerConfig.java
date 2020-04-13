@@ -52,6 +52,8 @@ public final class NettyRestServerConfig extends Config {
 
     private NettyTransport transport = NettyTransport.AUTO;
 
+    private NettyChannelIdType channelIdType = NettyChannelIdType.SHORT;
+
     /**
      * Adds server channel option
      *
@@ -126,6 +128,26 @@ public final class NettyRestServerConfig extends Config {
      */
     public NettyRestServerConfig setTransport(final NettyTransport transport) {
         this.transport = require(transport);
+        return this;
+    }
+
+    /**
+     *
+     * @since 0.3
+     */
+    public NettyChannelIdType getChannelIdType() {
+        return channelIdType;
+    }
+
+    /**
+     * Sets channelIdType
+     *
+     * @since 0.3
+     * @param channelIdType {@code NettyChannelIdType} which must be used
+     * @return A reference to this {@code NettyServerConfig}
+     */
+    public NettyRestServerConfig setChannelIdType(final NettyChannelIdType channelIdType) {
+        this.channelIdType = channelIdType;
         return this;
     }
 

@@ -79,14 +79,15 @@ public final class NettyServerFactory implements ServerFactory {
             }
             final RestServerConfig restServerConfig = getConfig(RestServerConfig.class);
             final RequestIdGenerator requestIdGenerator = requestIdGeneratorMap.get(restServerConfig.getGeneratorType());
-            final NettyRestServerConfig nettyRestServerConfig =
-                    getConfig(NettyRestServerConfig.class).addLast(() ->
-                            new NettyRequestHandler(
-                                    requestHandler,
-                                    requestIdGenerator,
-                                    responseBuilder,
-                                    responseContentBuilder,
-                                    restServerConfig.isReturnGeneratedRequestId()));
+            final NettyRestServerConfig nettyRestServerConfig = getConfig(NettyRestServerConfig.class);
+            nettyRestServerConfig.addLast(() -> new NettyRequestHandler(
+                    nettyRestServerConfig,
+                    requestHandler,
+                    requestIdGenerator,
+                    responseBuilder,
+                    responseContentBuilder,
+                    restServerConfig.isReturnGeneratedRequestId()
+            ));
             return start(httpServerConfig, nettyRestServerConfig);
         } catch (final ClassNotFoundException e) {
             throw new ConfigException("Required class not found: " + e.getMessage());

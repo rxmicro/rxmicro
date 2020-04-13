@@ -23,15 +23,18 @@ import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.socket.ServerSocketChannel;
 import io.netty.channel.socket.SocketChannel;
+import io.netty.util.AttributeKey;
 import io.netty.util.concurrent.Future;
 import io.rxmicro.logger.Logger;
 import io.rxmicro.logger.LoggerFactory;
 import io.rxmicro.rest.server.HttpServerConfig;
 import io.rxmicro.rest.server.netty.NettyRestServerConfig;
 
+import java.time.Duration;
 import java.util.concurrent.CountDownLatch;
 
 import static io.rxmicro.common.local.StartTimeStamp.START_TIME_STAMP;
+import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.Requires.require;
 import static io.rxmicro.rest.server.netty.internal.util.NettyTransportFactory.getCurrentNettyTransport;
 
@@ -41,6 +44,8 @@ import static io.rxmicro.rest.server.netty.internal.util.NettyTransportFactory.g
  * @since 0.1
  */
 final class NettyServer implements Runnable {
+
+    private static final AttributeKey<Long> CHANNEL_TTL = AttributeKey.valueOf("CHANNEL_TTL");
 
     private static final Logger LOGGER = LoggerFactory.getLogger(NettyServer.class);
 
@@ -77,15 +82,7 @@ final class NettyServer implements Runnable {
             final ServerBootstrap b = new ServerBootstrap()
                     .group(serverGroup, workerGroup)
                     .channel(serverSocketChannelClass)
-                    .childHandler(new ChannelInitializer<SocketChannel>() {
-                        @Override
-                        public void initChannel(final SocketChannel ch) {
-                            LOGGER.debug("New client connected: id=?, ip=?",
-                                    () -> ch.id().asShortText(), ch::remoteAddress);
-                            nettyRestServerConfig.getHandlerSuppliers().forEach(s ->
-                                    ch.pipeline().addLast(s.get()));
-                        }
-                    });
+                    .childHandler(new RxMicroChannelInitializer(nettyRestServerConfig));
             nettyRestServerConfig.getServerOptions().forEach((o, v) -> b.option((ChannelOption<Object>) o, v));
             nettyRestServerConfig.getClientOptions().forEach((o, v) -> b.childOption((ChannelOption<Object>) o, v));
 
@@ -120,6 +117,43 @@ final class NettyServer implements Runnable {
                     httpServerConfig::getHost,
                     httpServerConfig::getPort,
                     () -> getCurrentNettyTransport(nettyRestServerConfig)
+            );
+        }
+    }
+
+    /**
+     * @author nedis
+     * @link https://rxmicro.io
+     * @since 0.3
+     */
+    private static final class RxMicroChannelInitializer extends ChannelInitializer<SocketChannel> {
+
+        private final NettyRestServerConfig nettyRestServerConfig;
+
+        public RxMicroChannelInitializer(final NettyRestServerConfig nettyRestServerConfig) {
+            this.nettyRestServerConfig = require(nettyRestServerConfig);
+        }
+
+        @Override
+        protected void initChannel(final SocketChannel ch) {
+            if (LOGGER.isDebugEnabled()) {
+                ch.attr(CHANNEL_TTL).set(System.nanoTime());
+                LOGGER.debug(
+                        "Client connection created: Channel=?, IP=?",
+                        ch.id().asShortText(), ch.remoteAddress()
+                );
+            }
+            nettyRestServerConfig.getHandlerSuppliers().forEach(s -> ch.pipeline().addLast(s.get()));
+            ch.closeFuture().addListener(future -> {
+                        if (LOGGER.isDebugEnabled()) {
+                            LOGGER.debug(
+                                    "Client connection closed: Channel=?, IP=?, TTL=?",
+                                    ch.id().asShortText(),
+                                    ch.remoteAddress(),
+                                    format(Duration.ofNanos(System.nanoTime() - ch.attr(CHANNEL_TTL).get()))
+                            );
+                        }
+                    }
             );
         }
     }

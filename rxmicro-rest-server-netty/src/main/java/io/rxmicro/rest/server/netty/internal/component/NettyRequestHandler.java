@@ -31,8 +31,11 @@ import io.rxmicro.rest.server.detail.model.HttpResponse;
 import io.rxmicro.rest.server.local.component.HttpErrorResponseBodyBuilder;
 import io.rxmicro.rest.server.local.component.RequestHandler;
 import io.rxmicro.rest.server.local.component.RequestIdGenerator;
+import io.rxmicro.rest.server.netty.NettyRestServerConfig;
 import io.rxmicro.rest.server.netty.internal.model.NettyHttpRequest;
 import io.rxmicro.rest.server.netty.internal.model.NettyHttpResponse;
+
+import java.time.Duration;
 
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.http.HttpHeaders.CONNECTION;
@@ -52,6 +55,8 @@ final class NettyRequestHandler extends SimpleChannelInboundHandler<FullHttpRequ
 
     private static final AttributeKey<String> REQUEST_ID_KEY = AttributeKey.valueOf(REQUEST_ID);
 
+    private final NettyRestServerConfig nettyRestServerConfig;
+
     private final RequestHandler requestHandler;
 
     private final RequestIdGenerator requestIdGenerator;
@@ -62,11 +67,13 @@ final class NettyRequestHandler extends SimpleChannelInboundHandler<FullHttpRequ
 
     private final boolean returnGeneratedRequestId;
 
-    NettyRequestHandler(final RequestHandler requestHandler,
+    NettyRequestHandler(final NettyRestServerConfig nettyRestServerConfig,
+                        final RequestHandler requestHandler,
                         final RequestIdGenerator requestIdGenerator,
                         final HttpResponseBuilder responseBuilder,
                         final HttpErrorResponseBodyBuilder responseContentBuilder,
                         final boolean returnGeneratedRequestId) {
+        this.nettyRestServerConfig = nettyRestServerConfig;
         this.requestHandler = requestHandler;
         this.requestIdGenerator = requestIdGenerator;
         this.responseBuilder = responseBuilder;
@@ -86,7 +93,7 @@ final class NettyRequestHandler extends SimpleChannelInboundHandler<FullHttpRequ
             );
             final boolean keepAlive = isKeepAlive(msg);
             ctx.channel().attr(REQUEST_ID_KEY).set(request.getRequestId());
-            logRequest(request);
+            logRequest(request, ctx);
             requestHandler.handle(request)
                     .thenAccept(response -> writeResponse(ctx, request, response, startTime, keepAlive))
                     .exceptionally(th -> handleError(ctx, th));
@@ -100,10 +107,12 @@ final class NettyRequestHandler extends SimpleChannelInboundHandler<FullHttpRequ
         return !"close".equalsIgnoreCase(value);
     }
 
-    private void logRequest(final NettyHttpRequest request) {
+    private void logRequest(final NettyHttpRequest request,
+                            final ChannelHandlerContext ctx) {
         if (LOGGER.isTraceEnabled()) {
-            LOGGER.trace("HTTP request received (Id=?):\n? ?\n?\n\n?",
+            LOGGER.trace("HTTP request received (Id=?, Channel=?):\n? ?\n?\n\n?",
                     request.getRequestId(),
+                    nettyRestServerConfig.getChannelIdType().getId(ctx.channel().id()),
                     format("? ??",
                             request.getMethod(),
                             request.getUri(),
@@ -117,8 +126,9 @@ final class NettyRequestHandler extends SimpleChannelInboundHandler<FullHttpRequ
                     request.contentExists() ? new String(request.getContent(), UTF_8) : ""
             );
         } else if (LOGGER.isDebugEnabled()) {
-            LOGGER.debug("HTTP request received: Id=?, Request=?",
+            LOGGER.debug("HTTP request received: Id=?, Channel=?, Request=?",
                     request.getRequestId(),
+                    nettyRestServerConfig.getChannelIdType().getId(ctx.channel().id()),
                     format("? ??",
                             request.getMethod(),
                             request.getUri(),
@@ -141,23 +151,27 @@ final class NettyRequestHandler extends SimpleChannelInboundHandler<FullHttpRequ
         } else {
             httpResponse.setHeader(REQUEST_ID, request.getRequestId());
         }
-        if (keepAlive) {
-            ctx.writeAndFlush(httpResponse.toFullHttpResponse(), ctx.voidPromise());
-        } else {
+        if (!keepAlive) {
             httpResponse.setHeader(CONNECTION, "close");
-            ctx.writeAndFlush(httpResponse.toFullHttpResponse()).addListener(ChannelFutureListener.CLOSE);
         }
-        logResponse(request, startTime, httpResponse);
-
+        ctx.writeAndFlush(httpResponse.toFullHttpResponse())
+                .addListener((ChannelFutureListener) future -> {
+                    logResponse(request, startTime, httpResponse, ctx);
+                    if (!keepAlive) {
+                        future.channel().close();
+                    }
+                });
     }
 
     private void logResponse(final HttpRequest request,
                              final long startTime,
-                             final NettyHttpResponse httpResponse) {
+                             final NettyHttpResponse httpResponse,
+                             final ChannelHandlerContext ctx) {
         if (LOGGER.isTraceEnabled()) {
-            LOGGER.trace("HTTP response sent (Id=?, Duration=? millis):\n? ?\n?\n\n?",
+            LOGGER.trace("HTTP response sent (Id=?, Channel=?, Duration=?):\n? ?\n?\n\n?",
                     request.getRequestId(),
-                    (System.nanoTime() - startTime) / 1_000_000,
+                    nettyRestServerConfig.getChannelIdType().getId(ctx.channel().id()),
+                    format(Duration.ofNanos((System.nanoTime() - startTime))),
                     httpResponse.getHttpVersion(),
                     httpResponse.getStatus(),
                     httpResponse.getHeaders().getEntries().stream()
@@ -165,10 +179,11 @@ final class NettyRequestHandler extends SimpleChannelInboundHandler<FullHttpRequ
                             .collect(joining(lineSeparator())),
                     httpResponse.getContentLength() > 0 ? new String(httpResponse.getContent(), UTF_8) : "");
         } else if (LOGGER.isDebugEnabled()) {
-            LOGGER.debug("HTTP response sent: Id=?, Content=? bytes, Duration=? millis",
+            LOGGER.debug("HTTP response sent: Id=?, Channel=?, Content=? bytes, Duration=?",
                     request.getRequestId(),
+                    nettyRestServerConfig.getChannelIdType().getId(ctx.channel().id()),
                     httpResponse.getContentLength(),
-                    (System.nanoTime() - startTime) / 1_000_000);
+                    format(Duration.ofNanos((System.nanoTime() - startTime))));
         }
     }
 
