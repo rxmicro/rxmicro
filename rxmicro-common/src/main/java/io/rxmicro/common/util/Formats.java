@@ -17,6 +17,7 @@
 package io.rxmicro.common.util;
 
 import java.text.NumberFormat;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -123,6 +124,21 @@ public final class Formats {
                 return "Tb";
         }
         throw new IllegalArgumentException("Unsupported units");
+    }
+
+    /**
+     *
+     * @since 0.3
+     */
+    public static String format(final Duration duration) {
+        if (duration.getSeconds() == 0) {
+            return (((double) duration.getNano()) / 1_000_000.) + "ms";
+        } else {
+            return duration.toString()
+                    .substring(2)
+                    .replaceAll("(\\d[HMS])(?!$)", "$1 ")
+                    .toLowerCase();
+        }
     }
 
     private Formats() {
