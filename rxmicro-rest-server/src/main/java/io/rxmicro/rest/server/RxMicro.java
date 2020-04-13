@@ -24,6 +24,7 @@ import io.rxmicro.rest.server.local.model.RestControllerRegistrationFilter;
 import java.util.Scanner;
 import java.util.Set;
 
+import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.Formats.formatSize;
 import static io.rxmicro.rest.server.local.component.RestServerLauncher.launchWithFilter;
 import static io.rxmicro.rest.server.local.model.RestControllerRegistrationFilter.createFilter;
@@ -37,7 +38,11 @@ import static io.rxmicro.rest.server.local.model.RestControllerRegistrationFilte
  */
 public final class RxMicro {
 
+    // Use RX_MICRO_PRINT_RUNTIME instead
+    @Deprecated(since = "0.3", forRemoval = true)
     private static final String PRINT_ENV = "PRINT_ENV";
+
+    private static final String RX_MICRO_PRINT_RUNTIME = "RX_MICRO_PRINT_RUNTIME";
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RxMicro.class);
 
@@ -104,7 +109,19 @@ public final class RxMicro {
     }
 
     private static void printCurrentEnvironment() {
+        final boolean printRuntime;
+        // TODO Remove it release 0.4
         if (Boolean.parseBoolean(System.getenv(PRINT_ENV))) {
+            printRuntime = true;
+            LOGGER.warn(format(
+                    "'?' environment variable is deprecated and will be removed in 0.4 release. Use '?' instead!",
+                    PRINT_ENV,
+                    RX_MICRO_PRINT_RUNTIME
+            ));
+        } else {
+            printRuntime = Boolean.parseBoolean(System.getenv(RX_MICRO_PRINT_RUNTIME));
+        }
+        if (printRuntime) {
             final Runtime runtime = Runtime.getRuntime();
             final long totalMemory = runtime.totalMemory();
             final long freeMemory = runtime.freeMemory();
