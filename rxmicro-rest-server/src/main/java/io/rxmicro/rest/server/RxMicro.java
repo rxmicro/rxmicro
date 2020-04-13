@@ -153,7 +153,9 @@ public final class RxMicro {
                     "q",
                     "e",
                     "quit",
-                    "exit"
+                    "exit",
+                    "close",
+                    "shutdown"
             );
             while (true) {
                 final String cmd = new Scanner(System.in).nextLine();
