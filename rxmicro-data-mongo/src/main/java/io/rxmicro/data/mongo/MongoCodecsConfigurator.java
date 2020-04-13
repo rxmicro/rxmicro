@@ -26,7 +26,9 @@ import org.bson.BsonArray;
 import org.bson.BsonDocument;
 import org.bson.BsonDocumentWrapper;
 import org.bson.BsonJavaScriptWithScope;
+import org.bson.BsonReader;
 import org.bson.BsonValue;
+import org.bson.BsonWriter;
 import org.bson.Document;
 import org.bson.Transformer;
 import org.bson.UuidRepresentation;
@@ -65,8 +67,10 @@ import org.bson.codecs.CodeWithScopeCodec;
 import org.bson.codecs.Codec;
 import org.bson.codecs.DateCodec;
 import org.bson.codecs.Decimal128Codec;
+import org.bson.codecs.DecoderContext;
 import org.bson.codecs.DocumentCodec;
 import org.bson.codecs.DoubleCodec;
+import org.bson.codecs.EncoderContext;
 import org.bson.codecs.FloatCodec;
 import org.bson.codecs.IntegerCodec;
 import org.bson.codecs.LongCodec;
@@ -88,6 +92,7 @@ import org.bson.conversions.Bson;
 import org.bson.types.CodeWithScope;
 
 import java.util.Date;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
@@ -207,7 +212,13 @@ public final class MongoCodecsConfigurator extends AbstractMongoCodecsConfigurat
     public MongoCodecsConfigurator withMongoDocumentCodecs() {
         final BsonTypeClassMap bsonTypeClassMap = new BsonTypeClassMap();
         final Transformer valueTransformer = new DocumentToDBRefTransformer();
-        addCodecProvider(Document.class, r -> new DocumentCodec(r, bsonTypeClassMap, valueTransformer));
+        addCodecProvider(Document.class, r -> {
+            final AtomicReference<Codec<Document>> ref = new AtomicReference<>();
+            final Codec<Document> proxy = new DocumentProxyCodec(ref);
+            final DocumentCodec documentCodec = new DocumentCodec(new CodecRegistryProxy(r, proxy), bsonTypeClassMap, valueTransformer);
+            ref.set(documentCodec);
+            return documentCodec;
+        });
         return this;
     }
 
@@ -251,6 +262,76 @@ public final class MongoCodecsConfigurator extends AbstractMongoCodecsConfigurat
             return withDefaultConfiguration();
         } else {
             return this;
+        }
+    }
+
+    /**
+     * @author nedis
+     * @link http://rxmicro.io
+     * @since 0.3
+     */
+    private static final class DocumentProxyCodec implements Codec<Document> {
+
+        private final AtomicReference<Codec<Document>> codecSupplier;
+
+        public DocumentProxyCodec(final AtomicReference<Codec<Document>> codecSupplier) {
+            this.codecSupplier = codecSupplier;
+        }
+
+        @Override
+        public Document decode(final BsonReader reader,
+                               final DecoderContext decoderContext) {
+            return codecSupplier.get().decode(reader, decoderContext);
+        }
+
+        @Override
+        public void encode(final BsonWriter writer,
+                           final Document value,
+                           final EncoderContext encoderContext) {
+            codecSupplier.get().encode(writer, value, encoderContext);
+        }
+
+        @Override
+        public Class<Document> getEncoderClass() {
+            return Document.class;
+        }
+    }
+
+    /**
+     * @author nedis
+     * @link http://rxmicro.io
+     * @since 0.3
+     */
+    @SuppressWarnings("unchecked")
+    private static final class CodecRegistryProxy implements CodecRegistry {
+
+        private final CodecRegistry codecRegistry;
+
+        private final Codec<Document> documentCodec;
+
+        public CodecRegistryProxy(final CodecRegistry codecRegistry,
+                                  final Codec<Document> documentCodec) {
+            this.codecRegistry = codecRegistry;
+            this.documentCodec = documentCodec;
+        }
+
+        @Override
+        public <T> Codec<T> get(final Class<T> clazz) {
+            if (clazz == Document.class) {
+                return (Codec<T>) documentCodec;
+            } else {
+                return codecRegistry.get(clazz);
+            }
+        }
+
+        @Override
+        public <T> Codec<T> get(final Class<T> clazz,
+                                final CodecRegistry registry) {
+            if (clazz == Document.class) {
+                return (Codec<T>) documentCodec;
+            } else {
+                return codecRegistry.get(clazz, registry);
+            }
         }
     }
 }

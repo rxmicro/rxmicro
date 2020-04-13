@@ -27,3 +27,4 @@ This document contains the *change log* for all RxMicro releases since **0.2**.
 
 * Fix "Connection: close" issue
 * Introduce secrets feature that allows hiding secrets in log files
+* Fix for support of mongo nested documents
