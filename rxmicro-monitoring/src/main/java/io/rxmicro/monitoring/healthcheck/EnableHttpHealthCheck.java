@@ -16,6 +16,7 @@
 
 package io.rxmicro.monitoring.healthcheck;
 
+import io.rxmicro.http.local.PredefinedUrls;
 import io.rxmicro.rest.model.HttpMethod;
 
 import java.lang.annotation.Documented;
@@ -28,6 +29,9 @@ import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
+ * Enables a `${schema}://${host}:${port}/http-health-check` endpoint.
+ * This endpoint verifies that RxMicro HTTP server is up.
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1
@@ -37,7 +41,13 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 @Target({TYPE, MODULE, ANNOTATION_TYPE})
 public @interface EnableHttpHealthCheck {
 
-    HttpMethod method() default HttpMethod.GET;
+    /**
+     * The predefined URL path
+     */
+    String HTTP_HEALTH_CHECK_ENDPOINT = PredefinedUrls.HTTP_HEALTH_CHECK_ENDPOINT;
 
-    String endpoint() default "/health";
+    /**
+     * @return HTTP method that must be used to send a verification HTTP request
+     */
+    HttpMethod method() default HttpMethod.GET;
 }
