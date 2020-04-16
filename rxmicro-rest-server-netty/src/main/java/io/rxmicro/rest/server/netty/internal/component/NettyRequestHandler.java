@@ -26,6 +26,7 @@ import io.rxmicro.config.RxMicroSecrets;
 import io.rxmicro.http.HttpHeaders;
 import io.rxmicro.logger.Logger;
 import io.rxmicro.logger.LoggerFactory;
+import io.rxmicro.rest.server.RestServerConfig;
 import io.rxmicro.rest.server.detail.component.HttpResponseBuilder;
 import io.rxmicro.rest.server.detail.model.HttpRequest;
 import io.rxmicro.rest.server.detail.model.HttpResponse;
@@ -41,6 +42,7 @@ import java.time.Duration;
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.http.HttpHeaders.CONNECTION;
 import static io.rxmicro.http.HttpHeaders.REQUEST_ID;
+import static io.rxmicro.http.local.PredefinedUrls.HTTP_HEALTH_CHECK_ENDPOINT;
 import static java.lang.System.lineSeparator;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.util.stream.Collectors.joining;
@@ -70,18 +72,21 @@ final class NettyRequestHandler extends SimpleChannelInboundHandler<FullHttpRequ
 
     private final boolean returnGeneratedRequestId;
 
+    private final boolean disableLoggerMessagesForHttpHealthChecks;
+
     NettyRequestHandler(final NettyRestServerConfig nettyRestServerConfig,
                         final RequestHandler requestHandler,
                         final RequestIdGenerator requestIdGenerator,
                         final HttpResponseBuilder responseBuilder,
                         final HttpErrorResponseBodyBuilder responseContentBuilder,
-                        final boolean returnGeneratedRequestId) {
+                        final RestServerConfig restServerConfig) {
         this.nettyRestServerConfig = nettyRestServerConfig;
         this.requestHandler = requestHandler;
         this.requestIdGenerator = requestIdGenerator;
         this.responseBuilder = responseBuilder;
         this.responseContentBuilder = responseContentBuilder;
-        this.returnGeneratedRequestId = returnGeneratedRequestId;
+        this.returnGeneratedRequestId = restServerConfig.isReturnGeneratedRequestId();
+        this.disableLoggerMessagesForHttpHealthChecks = restServerConfig.isDisableLoggerMessagesForHttpHealthChecks();
     }
 
     @Override
@@ -113,6 +118,9 @@ final class NettyRequestHandler extends SimpleChannelInboundHandler<FullHttpRequ
     private void logRequest(final NettyHttpRequest request,
                             final ChannelHandlerContext ctx) {
         if (LOGGER.isTraceEnabled()) {
+            if (disableLoggerMessagesForHttpHealthChecks && HTTP_HEALTH_CHECK_ENDPOINT.equals(request.getUri())) {
+                return;
+            }
             LOGGER.trace("HTTP request received (Id=?, Channel=?):\n? ?\n?\n\n?",
                     request.getRequestId(),
                     nettyRestServerConfig.getChannelIdType().getId(ctx.channel().id()),
@@ -133,6 +141,9 @@ final class NettyRequestHandler extends SimpleChannelInboundHandler<FullHttpRequ
                             ""
             );
         } else if (LOGGER.isDebugEnabled()) {
+            if (disableLoggerMessagesForHttpHealthChecks && HTTP_HEALTH_CHECK_ENDPOINT.equals(request.getUri())) {
+                return;
+            }
             LOGGER.debug("HTTP request received: Id=?, Channel=?, Request=?",
                     request.getRequestId(),
                     nettyRestServerConfig.getChannelIdType().getId(ctx.channel().id()),
@@ -177,6 +188,9 @@ final class NettyRequestHandler extends SimpleChannelInboundHandler<FullHttpRequ
                              final NettyHttpResponse httpResponse,
                              final ChannelHandlerContext ctx) {
         if (LOGGER.isTraceEnabled()) {
+            if (disableLoggerMessagesForHttpHealthChecks && HTTP_HEALTH_CHECK_ENDPOINT.equals(request.getUri())) {
+                return;
+            }
             LOGGER.trace("HTTP response sent (Id=?, Channel=?, Duration=?):\n? ?\n?\n\n?",
                     request.getRequestId(),
                     nettyRestServerConfig.getChannelIdType().getId(ctx.channel().id()),
@@ -191,6 +205,9 @@ final class NettyRequestHandler extends SimpleChannelInboundHandler<FullHttpRequ
                             ""
             );
         } else if (LOGGER.isDebugEnabled()) {
+            if (disableLoggerMessagesForHttpHealthChecks && HTTP_HEALTH_CHECK_ENDPOINT.equals(request.getUri())) {
+                return;
+            }
             LOGGER.debug("HTTP response sent: Id=?, Channel=?, Content=? bytes, Duration=?",
                     request.getRequestId(),
                     nettyRestServerConfig.getChannelIdType().getId(ctx.channel().id()),

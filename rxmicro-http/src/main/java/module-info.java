@@ -32,7 +32,8 @@ module rxmicro.http {
             rxmicro.rest.client,
             rxmicro.rest.server,
             rxmicro.rest.server.netty,
-            rxmicro.annotation.processor.rest;
+            rxmicro.annotation.processor.rest,
+            rxmicro.monitoring;
 
     opens io.rxmicro.http to
             rxmicro.config;

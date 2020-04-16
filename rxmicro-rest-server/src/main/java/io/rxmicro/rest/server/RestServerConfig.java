@@ -55,6 +55,8 @@ public class RestServerConfig extends Config {
 
     private boolean returnGeneratedRequestId = true;
 
+    private boolean disableLoggerMessagesForHttpHealthChecks = true;
+
     /**
      * Configures REST server for development environment
      *
@@ -170,6 +172,16 @@ public class RestServerConfig extends Config {
         return this;
     }
 
+    public boolean isDisableLoggerMessagesForHttpHealthChecks() {
+        return disableLoggerMessagesForHttpHealthChecks;
+    }
+
+    public RestServerConfig setDisableLoggerMessagesForHttpHealthChecks(
+            final boolean disableLoggerMessagesForHttpHealthChecks) {
+        this.disableLoggerMessagesForHttpHealthChecks = disableLoggerMessagesForHttpHealthChecks;
+        return this;
+    }
+
     @Override
     public String toString() {
         return "RestServerConfig{" +
@@ -179,9 +191,11 @@ public class RestServerConfig extends Config {
                 ", corsNotAllowedErrorMessage='" + corsNotAllowedErrorMessage + '\'' +
                 ", humanReadableOutput=" + humanReadableOutput +
                 ", hideInternalErrorMessage=" + hideInternalErrorMessage +
+                ", logNotServerErrors=" + logNotServerErrors +
                 ", standardResponseHeaders=" + standardResponseHeaders +
                 ", generatorType=" + generatorType +
                 ", returnGeneratedRequestId=" + returnGeneratedRequestId +
+                ", disableTraceLoggerMessagesForHttpHealthChecks=" + disableLoggerMessagesForHttpHealthChecks +
                 '}';
     }
 }

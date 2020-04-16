@@ -86,7 +86,7 @@ public final class NettyServerFactory implements ServerFactory {
                     requestIdGenerator,
                     responseBuilder,
                     responseContentBuilder,
-                    restServerConfig.isReturnGeneratedRequestId()
+                    restServerConfig
             ));
             return start(httpServerConfig, nettyRestServerConfig);
         } catch (final ClassNotFoundException e) {
