@@ -136,17 +136,17 @@ final class NettyServer implements Runnable {
 
         @Override
         protected void initChannel(final SocketChannel ch) {
-            if (LOGGER.isDebugEnabled()) {
+            if (LOGGER.isTraceEnabled()) {
                 ch.attr(CHANNEL_TTL).set(System.nanoTime());
-                LOGGER.debug(
+                LOGGER.trace(
                         "Client connection created: Channel=?, IP=?",
                         ch.id().asShortText(), ch.remoteAddress()
                 );
             }
             nettyRestServerConfig.getHandlerSuppliers().forEach(s -> ch.pipeline().addLast(s.get()));
             ch.closeFuture().addListener(future -> {
-                        if (LOGGER.isDebugEnabled()) {
-                            LOGGER.debug(
+                        if (LOGGER.isTraceEnabled()) {
+                            LOGGER.trace(
                                     "Client connection closed: Channel=?, IP=?, TTL=?",
                                     ch.id().asShortText(),
                                     ch.remoteAddress(),

@@ -43,7 +43,6 @@ import static io.rxmicro.http.HttpHeaders.CONNECTION;
 import static io.rxmicro.http.HttpHeaders.REQUEST_ID;
 import static java.lang.System.lineSeparator;
 import static java.nio.charset.StandardCharsets.UTF_8;
-import static java.util.Map.entry;
 import static java.util.stream.Collectors.joining;
 
 /**
