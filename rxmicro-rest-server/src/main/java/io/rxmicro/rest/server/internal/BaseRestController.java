@@ -32,7 +32,7 @@ public abstract class BaseRestController {
 
     protected RestServerConfig restServerConfig;
 
-    HttpErrorResponseBodyBuilder httpErrorResponseBodyBuilder;
+    protected HttpErrorResponseBodyBuilder httpErrorResponseBodyBuilder;
 
     @SuppressWarnings("EmptyMethod")
     protected void postConstruct() {

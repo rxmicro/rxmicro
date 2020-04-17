@@ -161,15 +161,14 @@ public final class Router implements DynamicRestControllerRegistrar, RequestHand
     @Override
     public CompletionStage<HttpResponse> handle(final HttpRequest request) {
         final String requestMappingKey = requestMappingKeyBuilder.build(request);
-        RestControllerMethod restControllerMethod = exactUrlRestControllerMap.get(requestMappingKey);
+        final RestControllerMethod restControllerMethod = exactUrlRestControllerMap.get(requestMappingKey);
         if (restControllerMethod != null) {
             return restControllerMethod.call(NO_PATH_VARIABLES, request);
         }
         for (final var entry : urlTemplateRestControllers) {
             final PathMatcherResult match = entry.getKey().match(request);
             if (match.matches()) {
-                restControllerMethod = entry.getValue();
-                return restControllerMethod.call(newPathVariableMapping(entry, match), request);
+                return entry.getValue().call(newPathVariableMapping(entry, match), request);
             }
         }
         if (OPTIONS.name().equals(request.getMethod())) {

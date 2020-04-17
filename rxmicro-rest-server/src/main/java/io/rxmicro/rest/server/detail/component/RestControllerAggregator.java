@@ -36,7 +36,8 @@ public abstract class RestControllerAggregator {
 
     private static final Set<Class<?>> INTERNAL_CLASSES = Set.of(
             CrossOriginResourceSharingPreflightRestController.class,
-            HttpHealthCheckRestController.class
+            HttpHealthCheckRestController.class,
+            BadHttpRequestRestController.class
     );
 
     public final int register(final RestControllerRegistrar registrar,

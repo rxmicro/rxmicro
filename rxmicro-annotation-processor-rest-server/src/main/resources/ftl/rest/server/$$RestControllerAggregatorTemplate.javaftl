@@ -37,6 +37,10 @@ public final class ${IMPL_CLASS_NAME} extends RestControllerAggregator {
                         </#list>
                 ),
                 </#if>
+                <#if IS_NETTY_REST_SERVER>
+                // See https://github.com/netty/netty/blob/c10c697e5bf664d9d8d1dcee93569265b19ca03a/codec-http/src/main/java/io/netty/handler/codec/http/HttpRequestDecoder.java#L93
+                new BadHttpRequestRestController(new ExactUrlRequestMappingRule("GET", "/bad-request", false)),
+                </#if>
                 <#list JAVA_REST_CONTROLLER_CLASSES as REST_CONTROLLER>
                 new ${REST_CONTROLLER}()<#if REST_CONTROLLER?has_next>,</#if>
                 </#list>

@@ -164,6 +164,7 @@ public final class RestServerModuleClassStructuresBuilder extends AbstractModule
 
                 classStructures.addAll(restControllerClassStructures);
                 classStructures.add(new RestControllerAggregatorClassStructure(
+                        environmentContext,
                         restControllerClassStructures,
                         crossOriginResourceSharingResourceBuilder.build(
                                 restControllerClassStructures,

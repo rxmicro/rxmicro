@@ -18,13 +18,17 @@ package io.rxmicro.annotation.processor.rest.server.model;
 
 import io.rxmicro.annotation.processor.common.model.ClassHeader;
 import io.rxmicro.annotation.processor.common.model.ClassStructure;
+import io.rxmicro.annotation.processor.common.model.EnvironmentContext;
+import io.rxmicro.common.RxMicroModule;
 import io.rxmicro.rest.model.UrlSegments;
 import io.rxmicro.rest.server.detail.component.AbstractRestController;
+import io.rxmicro.rest.server.detail.component.BadHttpRequestRestController;
 import io.rxmicro.rest.server.detail.component.CrossOriginResourceSharingPreflightRestController;
 import io.rxmicro.rest.server.detail.component.HttpHealthCheckRestController;
 import io.rxmicro.rest.server.detail.component.RestControllerAggregator;
 import io.rxmicro.rest.server.detail.model.CrossOriginResourceSharingResource;
 import io.rxmicro.rest.server.detail.model.HttpHealthCheckRegistration;
+import io.rxmicro.rest.server.detail.model.mapping.ExactUrlRequestMappingRule;
 
 import java.util.Collection;
 import java.util.Comparator;
@@ -54,13 +58,17 @@ public final class RestControllerAggregatorClassStructure extends ClassStructure
 
     private final Set<HttpHealthCheck> httpHealthChecks;
 
-    public RestControllerAggregatorClassStructure(final Collection<RestControllerClassStructure> classStructures,
+    private final boolean isRestServerNetty;
+
+    public RestControllerAggregatorClassStructure(final EnvironmentContext environmentContext,
+                                                  final Collection<RestControllerClassStructure> classStructures,
                                                   final Set<CrossOriginResourceSharingResource> resources,
                                                   final Set<HttpHealthCheck> httpHealthChecks) {
         this.crossOriginResourceSharingResources = require(resources);
         this.httpHealthChecks = require(httpHealthChecks);
         this.classStructures = new TreeSet<>(Comparator.comparing(RestControllerClassStructure::getTargetFullClassName));
         this.classStructures.addAll(require(classStructures));
+        this.isRestServerNetty = environmentContext.isRxMicroModuleEnabled(RxMicroModule.RX_MICRO_REST_SERVER_NETTY_MODULE);
     }
 
     @Override
@@ -83,6 +91,7 @@ public final class RestControllerAggregatorClassStructure extends ClassStructure
         map.put("CORS_RESOURCES", crossOriginResourceSharingResources);
         map.put("HTTP_HEALTH_CHECKS", httpHealthChecks);
         map.put("ENVIRONMENT_CUSTOMIZER_CLASS", $$_ENVIRONMENT_CUSTOMIZER_SIMPLE_CLASS_NAME);
+        map.put("IS_NETTY_REST_SERVER", isRestServerNetty);
         return map;
     }
 
@@ -102,6 +111,9 @@ public final class RestControllerAggregatorClassStructure extends ClassStructure
                     HttpHealthCheckRestController.class,
                     HttpHealthCheckRegistration.class
             );
+        }
+        if (isRestServerNetty) {
+            classHeaderBuilder.addImports(ExactUrlRequestMappingRule.class, BadHttpRequestRestController.class);
         }
         return classHeaderBuilder
                 .addImports(
