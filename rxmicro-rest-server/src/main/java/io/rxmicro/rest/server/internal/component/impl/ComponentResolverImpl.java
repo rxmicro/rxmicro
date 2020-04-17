@@ -16,7 +16,6 @@
 
 package io.rxmicro.rest.server.internal.component.impl;
 
-
 import io.rxmicro.rest.server.RestServerConfig;
 import io.rxmicro.rest.server.detail.component.HttpResponseBuilder;
 import io.rxmicro.rest.server.internal.component.ComponentResolver;

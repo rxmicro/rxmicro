@@ -17,7 +17,7 @@
 package io.rxmicro.rest.server.netty.internal.component;
 
 import io.rxmicro.rest.server.RestServerConfig;
-import io.rxmicro.rest.server.StandardResponseHeader;
+import io.rxmicro.rest.server.StaticResponseHeader;
 import io.rxmicro.rest.server.detail.component.HttpResponseBuilder;
 import io.rxmicro.rest.server.detail.model.HttpResponse;
 import io.rxmicro.rest.server.netty.internal.model.NettyHttpResponse;
@@ -33,18 +33,18 @@ import static io.rxmicro.config.Configs.getConfig;
  */
 public final class NettyHttpResponseBuilder implements HttpResponseBuilder {
 
-    private final Set<StandardResponseHeader> standardResponseHeaders;
+    private final Set<StaticResponseHeader> staticResponseHeaders;
 
     public NettyHttpResponseBuilder() {
-        standardResponseHeaders = getConfig(RestServerConfig.class).getStandardResponseHeaders();
+        staticResponseHeaders = getConfig(RestServerConfig.class).getStaticResponseHeaders();
     }
 
     @Override
     public HttpResponse build(final boolean withStdHeaders) {
         final HttpResponse response = new NettyHttpResponse();
         if (withStdHeaders) {
-            standardResponseHeaders.forEach(header ->
-                    response.setHeader(header.getHeaderName(), header.getHeaderValue()));
+            staticResponseHeaders.forEach(header ->
+                    response.setHeader(header.getName(), header.getValue()));
         }
         return response;
     }

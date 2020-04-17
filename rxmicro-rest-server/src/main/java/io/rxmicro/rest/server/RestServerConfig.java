@@ -18,6 +18,8 @@ package io.rxmicro.rest.server;
 
 import io.rxmicro.config.Config;
 
+import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 import static io.rxmicro.common.util.Requires.require;
@@ -46,9 +48,11 @@ public class RestServerConfig extends Config {
 
     private boolean logNotServerErrors = true;
 
-    private Set<StandardResponseHeader> standardResponseHeaders = Set.of(
-            StandardResponseHeader.SERVER,
-            StandardResponseHeader.DATE
+    private Set<StaticResponseHeader> staticResponseHeaders = new LinkedHashSet<>(
+            List.of(
+                    StandardStaticResponseHeader.SERVER,
+                    StandardStaticResponseHeader.DATE
+            )
     );
 
     private RequestIdGeneratorType generatorType = RequestIdGeneratorType.FASTER_BUT_UNSAFE;
@@ -145,12 +149,17 @@ public class RestServerConfig extends Config {
         return this;
     }
 
-    public Set<StandardResponseHeader> getStandardResponseHeaders() {
-        return standardResponseHeaders;
+    public Set<StaticResponseHeader> getStaticResponseHeaders() {
+        return staticResponseHeaders;
     }
 
-    public RestServerConfig setStandardResponseHeaders(final Set<StandardResponseHeader> standardResponseHeaders) {
-        this.standardResponseHeaders = require(standardResponseHeaders);
+    public RestServerConfig setStaticResponseHeaders(final Set<StaticResponseHeader> staticResponseHeaders) {
+        this.staticResponseHeaders = require(staticResponseHeaders);
+        return this;
+    }
+
+    public RestServerConfig addStaticResponseHeader(final StaticResponseHeader staticResponseHeader) {
+        this.staticResponseHeaders.add(require(staticResponseHeader));
         return this;
     }
 
@@ -192,7 +201,7 @@ public class RestServerConfig extends Config {
                 ", humanReadableOutput=" + humanReadableOutput +
                 ", hideInternalErrorMessage=" + hideInternalErrorMessage +
                 ", logNotServerErrors=" + logNotServerErrors +
-                ", standardResponseHeaders=" + standardResponseHeaders +
+                ", standardResponseHeaders=" + staticResponseHeaders +
                 ", generatorType=" + generatorType +
                 ", returnGeneratedRequestId=" + returnGeneratedRequestId +
                 ", disableTraceLoggerMessagesForHttpHealthChecks=" + disableLoggerMessagesForHttpHealthChecks +
