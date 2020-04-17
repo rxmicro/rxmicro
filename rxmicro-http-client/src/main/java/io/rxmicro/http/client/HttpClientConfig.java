@@ -21,6 +21,7 @@ import io.rxmicro.http.ProtocolSchema;
 
 import java.time.Duration;
 
+import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.Requires.require;
 import static io.rxmicro.common.util.Strings.hideSecureInfo;
 import static java.time.Duration.ofSeconds;
@@ -99,7 +100,7 @@ public class HttpClientConfig extends HttpConfig {
         return "HttpClientConfig {connectionString=" + getConnectionString() +
                 ", accessKey=" + hideSecureInfo(getAccessKey()) +
                 ", followRedirects=" + followRedirects + '}' +
-                ", requestTimeout=" + requestTimeout + '}';
+                ", requestTimeout=" + format(requestTimeout) + '}';
 
     }
 }
