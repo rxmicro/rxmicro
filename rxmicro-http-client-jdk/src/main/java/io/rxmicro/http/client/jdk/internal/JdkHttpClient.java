@@ -16,7 +16,7 @@
 
 package io.rxmicro.http.client.jdk.internal;
 
-import io.rxmicro.config.RxMicroSecrets;
+import io.rxmicro.config.Secrets;
 import io.rxmicro.http.ProtocolSchema;
 import io.rxmicro.http.client.ClientHttpResponse;
 import io.rxmicro.http.client.HttpClient;
@@ -70,7 +70,7 @@ final class JdkHttpClient implements HttpClient {
 
     private final int port;
 
-    private final RxMicroSecrets rxMicroSecrets = RxMicroSecrets.getInstance();
+    private final Secrets secrets = Secrets.getInstance();
 
     private final Function<Object, byte[]> requestBodyConverter;
 
@@ -189,14 +189,14 @@ final class JdkHttpClient implements HttpClient {
         final long startTime = System.nanoTime();
         logger.trace("HTTP request sent?:\n? ?\n?\n\n?",
                 requestId != null ? format(" (Id=?)", requestId) : "",
-                format("? ?", request.method(), rxMicroSecrets.replaceAllSecretsIfFound(request.uri().toString())),
+                format("? ?", request.method(), secrets.replaceAllSecretsIfFound(request.uri().toString())),
                 request.version().map(Enum::toString).orElse(""),
                 request.headers().map().entrySet().stream()
                         .flatMap(e -> e.getValue().stream().map(v -> entry(e.getKey(), v)))
-                        .map(e -> format("?: ?", e.getKey(), rxMicroSecrets.hideIfSecret(e.getValue())))
+                        .map(e -> format("?: ?", e.getKey(), secrets.hideIfSecret(e.getValue())))
                         .collect(joining(lineSeparator())),
                 requestBody != null ?
-                        rxMicroSecrets.replaceAllSecretsIfFound(new String(requestBody, UTF_8)) :
+                        secrets.replaceAllSecretsIfFound(new String(requestBody, UTF_8)) :
                         ""
         );
         return response.whenComplete((resp, th) -> {
@@ -208,10 +208,10 @@ final class JdkHttpClient implements HttpClient {
                         resp.statusCode(),
                         resp.headers().map().entrySet().stream()
                                 .flatMap(e -> e.getValue().stream().map(v -> entry(e.getKey(), v)))
-                                .map(e -> format("?: ?", e.getKey(), rxMicroSecrets.hideIfSecret(e.getValue())))
+                                .map(e -> format("?: ?", e.getKey(), secrets.hideIfSecret(e.getValue())))
                                 .collect(joining(lineSeparator())),
                         resp.body().length > 0 ?
-                                rxMicroSecrets.replaceAllSecretsIfFound(new String(resp.body(), UTF_8)) :
+                                secrets.replaceAllSecretsIfFound(new String(resp.body(), UTF_8)) :
                                 ""
                 );
             }

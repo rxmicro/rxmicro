@@ -20,7 +20,7 @@ import java.util.Arrays;
 import java.util.Map;
 
 import static io.rxmicro.common.util.Strings.hideSecureInfo;
-import static io.rxmicro.config.local.ExternalValues.getExternalValue;
+import static io.rxmicro.config.Configs.getConfig;
 import static java.util.Map.entry;
 import static java.util.stream.Collectors.toUnmodifiableMap;
 
@@ -29,32 +29,26 @@ import static java.util.stream.Collectors.toUnmodifiableMap;
  * @link http://rxmicro.io
  * @since 0.3
  */
-public final class RxMicroSecrets {
+public final class Secrets {
 
-    /**
-     * This is an environment variable or Java system property.
-     *
-     * This variable describes values that must be hidden at log files
-     *
-     * Format: strings separated by semicolon.
-     * Example: RX_MICRO_SECRETS=my-password;my-access-token
-     */
-    public static final String RX_MICRO_SECRETS = "RX_MICRO_SECRETS";
+    private static final Secrets INSTANCE = new Secrets();
 
-    private static final RxMicroSecrets INSTANCE = new RxMicroSecrets();
-
-    public static RxMicroSecrets getInstance() {
+    public static Secrets getInstance() {
         return INSTANCE;
     }
 
-    private RxMicroSecrets() {
-    }
+    private final Map<String, String> secrets;
 
-    private final Map<String, String> secrets = getExternalValue(RX_MICRO_SECRETS)
-            .stream()
-            .flatMap(values -> Arrays.stream(values.split(";")))
-            .map(secret -> entry(secret, hideSecureInfo(secret)))
-            .collect(toUnmodifiableMap(Map.Entry::getKey, Map.Entry::getValue));
+    private Secrets() {
+        final SecretsConfig config = getConfig(SecretsConfig.class);
+        if (config.hasValues()) {
+            this.secrets = Arrays.stream(config.getValues().split(config.getRegex()))
+                    .map(secret -> entry(secret, hideSecureInfo(secret)))
+                    .collect(toUnmodifiableMap(Map.Entry::getKey, Map.Entry::getValue));
+        } else {
+            this.secrets = Map.of();
+        }
+    }
 
     public String hideIfSecret(final String value) {
         if (secrets.isEmpty()) {

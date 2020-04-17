@@ -22,7 +22,7 @@ import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.codec.http.FullHttpRequest;
 import io.netty.handler.codec.http.HttpResponseStatus;
 import io.netty.util.AttributeKey;
-import io.rxmicro.config.RxMicroSecrets;
+import io.rxmicro.config.Secrets;
 import io.rxmicro.http.HttpHeaders;
 import io.rxmicro.logger.Logger;
 import io.rxmicro.logger.LoggerFactory;
@@ -57,7 +57,7 @@ final class NettyRequestHandler extends SimpleChannelInboundHandler<FullHttpRequ
 
     private static final AttributeKey<String> REQUEST_ID_KEY = AttributeKey.valueOf(REQUEST_ID);
 
-    private final RxMicroSecrets rxMicroSecrets = RxMicroSecrets.getInstance();
+    private final Secrets secrets = Secrets.getInstance();
 
     private final NettyRestServerConfig nettyRestServerConfig;
 
@@ -140,15 +140,15 @@ final class NettyRequestHandler extends SimpleChannelInboundHandler<FullHttpRequ
                         request.getUri(),
                         request.isQueryStringPresent() ?
                                 "" :
-                                "?" + rxMicroSecrets.replaceAllSecretsIfFound(request.getQueryString())
+                                "?" + secrets.replaceAllSecretsIfFound(request.getQueryString())
                 ),
                 request.getVersion().getText(),
                 request.getHeaders().getEntries().stream()
                         .filter(e -> request.isRequestIdGenerated() && !REQUEST_ID.equals(e.getKey()))
-                        .map(e -> format("?: ?", e.getKey(), rxMicroSecrets.hideIfSecret(e.getValue())))
+                        .map(e -> format("?: ?", e.getKey(), secrets.hideIfSecret(e.getValue())))
                         .collect(joining(lineSeparator())),
                 request.contentExists() ?
-                        rxMicroSecrets.replaceAllSecretsIfFound(new String(request.getContent(), UTF_8)) :
+                        secrets.replaceAllSecretsIfFound(new String(request.getContent(), UTF_8)) :
                         ""
         );
     }
@@ -164,7 +164,7 @@ final class NettyRequestHandler extends SimpleChannelInboundHandler<FullHttpRequ
                         request.getUri(),
                         request.isQueryStringPresent() ?
                                 "" :
-                                "?" + rxMicroSecrets.replaceAllSecretsIfFound(request.getQueryString())
+                                "?" + secrets.replaceAllSecretsIfFound(request.getQueryString())
                 )
         );
     }
@@ -232,10 +232,10 @@ final class NettyRequestHandler extends SimpleChannelInboundHandler<FullHttpRequ
                 httpResponse.getHttpVersion(),
                 httpResponse.getStatus(),
                 httpResponse.getHeaders().getEntries().stream()
-                        .map(e -> format("?: ?", e.getKey(), rxMicroSecrets.hideIfSecret(e.getValue())))
+                        .map(e -> format("?: ?", e.getKey(), secrets.hideIfSecret(e.getValue())))
                         .collect(joining(lineSeparator())),
                 httpResponse.getContentLength() > 0 ?
-                        rxMicroSecrets.replaceAllSecretsIfFound(new String(httpResponse.getContent(), UTF_8)) :
+                        secrets.replaceAllSecretsIfFound(new String(httpResponse.getContent(), UTF_8)) :
                         ""
         );
     }
