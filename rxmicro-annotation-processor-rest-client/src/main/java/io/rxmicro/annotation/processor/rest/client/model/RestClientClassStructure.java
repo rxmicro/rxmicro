@@ -18,6 +18,7 @@ package io.rxmicro.annotation.processor.rest.client.model;
 
 import io.rxmicro.annotation.processor.common.model.ClassHeader;
 import io.rxmicro.annotation.processor.common.model.ClassStructure;
+import io.rxmicro.annotation.processor.common.model.DefaultConfigProxyValue;
 import io.rxmicro.annotation.processor.common.model.ModelTransformer;
 import io.rxmicro.annotation.processor.common.model.virtual.VirtualFieldElement;
 import io.rxmicro.annotation.processor.common.model.virtual.VirtualTypeElement;
@@ -59,7 +60,7 @@ public final class RestClientClassStructure extends ClassStructure {
 
     private final String configNameSpace;
 
-    private final List<Map.Entry<String, String>> defaultConfigValues;
+    private final List<Map.Entry<String, DefaultConfigProxyValue>> defaultConfigValues;
 
     private final TypeElement httpClientConfigClass;
 
@@ -77,7 +78,7 @@ public final class RestClientClassStructure extends ClassStructure {
 
     public RestClientClassStructure(final ClassHeader.Builder classHeaderBuilder,
                                     final String configNameSpace,
-                                    final List<Map.Entry<String, String>> defaultConfigValues,
+                                    final List<Map.Entry<String, DefaultConfigProxyValue>> defaultConfigValues,
                                     final TypeElement httpClientConfigClass,
                                     final TypeElement restClientInterface,
                                     final TypeElement restClientAbstractClass,
@@ -113,7 +114,7 @@ public final class RestClientClassStructure extends ClassStructure {
         this.allValidators = join(getRequestValidators(), getResponseValidators());
     }
 
-    public List<Map.Entry<String, String>> getDefaultConfigValues() {
+    public List<Map.Entry<String, DefaultConfigProxyValue>> getDefaultConfigValues() {
         return defaultConfigValues;
     }
 

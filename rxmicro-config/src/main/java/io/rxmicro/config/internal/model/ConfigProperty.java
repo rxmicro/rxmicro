@@ -24,6 +24,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Properties;
+import java.util.function.Supplier;
 
 import static io.rxmicro.config.internal.Converters.convert;
 import static java.util.Map.entry;
@@ -43,7 +44,7 @@ public final class ConfigProperty implements Comparable<ConfigProperty> {
 
     private final Object configInstance;
 
-    private String propertyValue;
+    private Object propertyValue;
 
     public ConfigProperty(final String nameSpace,
                           final String propertyName,
@@ -55,10 +56,10 @@ public final class ConfigProperty implements Comparable<ConfigProperty> {
         this.configInstance = configInstance;
     }
 
-    public Optional<Map.Entry<String, String>> resolve(final Map<String, String> properties,
+    public <T> Optional<Map.Entry<String, T>> resolve(final Map<String, T> properties,
                                                        final boolean useFullName) {
         final String property = useFullName ? fullPropertyName : propertyName;
-        final String value = properties.get(property);
+        final T value = properties.get(property);
         if (value != null) {
             propertyValue = value;
             return Optional.of(entry(property, value));
@@ -82,7 +83,11 @@ public final class ConfigProperty implements Comparable<ConfigProperty> {
     public void setProperty() {
         if (propertyValue != null) {
             try {
-                propertySetter.invoke(configInstance, convert(propertySetter.getParameterTypes()[0], propertyValue));
+                if (propertyValue instanceof String) {
+                    propertySetter.invoke(configInstance, convert(propertySetter.getParameterTypes()[0], (String) propertyValue));
+                } else {
+                    propertySetter.invoke(configInstance, ((Supplier<?>) propertyValue).get());
+                }
             } catch (final IllegalAccessException e) {
                 throw new CheckedWrapperException("Can't set property: ?", e, propertyName);
             } catch (final InvocationTargetException e) {

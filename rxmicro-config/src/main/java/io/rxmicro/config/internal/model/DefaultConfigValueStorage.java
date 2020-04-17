@@ -16,8 +16,9 @@
 
 package io.rxmicro.config.internal.model;
 
-import java.util.LinkedHashMap;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Supplier;
 
 /**
  * @author nedis
@@ -26,7 +27,9 @@ import java.util.Map;
  */
 public abstract class DefaultConfigValueStorage {
 
-    protected static final Map<String, String> CONFIGS = new LinkedHashMap<>();
+    protected static final Map<String, String> DEFAULT_STRING_VALUES_STORAGE = new HashMap<>();
+
+    protected static final Map<String, Supplier<?>> DEFAULT_SUPPLIER_VALUES_STORAGE = new HashMap<>();
 
     protected DefaultConfigValueStorage() {
     }

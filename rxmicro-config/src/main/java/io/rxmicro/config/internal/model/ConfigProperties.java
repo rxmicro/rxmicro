@@ -44,7 +44,8 @@ import static io.rxmicro.config.ConfigLoadSource.RXMICRO_FILE_AT_THE_HOME_DIR;
 import static io.rxmicro.config.ConfigLoadSource.SEPARATE_CLASS_PATH_RESOURCE;
 import static io.rxmicro.config.ConfigLoadSource.SEPARATE_FILE_AT_THE_CURRENT_DIR;
 import static io.rxmicro.config.ConfigLoadSource.SEPARATE_FILE_AT_THE_HOME_DIR;
-import static io.rxmicro.config.internal.model.DefaultConfigValueStorage.CONFIGS;
+import static io.rxmicro.config.internal.model.DefaultConfigValueStorage.DEFAULT_STRING_VALUES_STORAGE;
+import static io.rxmicro.config.internal.model.DefaultConfigValueStorage.DEFAULT_SUPPLIER_VALUES_STORAGE;
 import static io.rxmicro.files.PropertiesResources.loadProperties;
 
 /**
@@ -103,9 +104,13 @@ public final class ConfigProperties {
     }
 
     private void loadDefaultConfigValues() {
-        properties.forEach(p -> p.resolve(CONFIGS, true));
-        if (!CONFIGS.isEmpty()) {
-            LOGGER.debug("Discovered properties from default config value storage: ?", CONFIGS);
+        if (!DEFAULT_STRING_VALUES_STORAGE.isEmpty()) {
+            properties.forEach(p -> p.resolve(DEFAULT_STRING_VALUES_STORAGE, true));
+            LOGGER.debug("Discovered properties from default config value storage: ?", DEFAULT_STRING_VALUES_STORAGE);
+        }
+        if (!DEFAULT_SUPPLIER_VALUES_STORAGE.isEmpty()) {
+            properties.forEach(p -> p.resolve(DEFAULT_SUPPLIER_VALUES_STORAGE, true));
+            LOGGER.debug("Discovered properties from default config value storage: ?", DEFAULT_SUPPLIER_VALUES_STORAGE);
         }
     }
 

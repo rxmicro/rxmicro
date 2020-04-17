@@ -20,6 +20,7 @@ import java.lang.annotation.Documented;
 import java.lang.annotation.Repeatable;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
+import java.util.function.Supplier;
 
 import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
 import static java.lang.annotation.ElementType.MODULE;
@@ -34,17 +35,17 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 @Documented
 @Retention(SOURCE)
 @Target({TYPE, MODULE, ANNOTATION_TYPE})
-@Repeatable(DefaultConfigValue.List.class)
-public @interface DefaultConfigValue {
+@Repeatable(DefaultConfigValueSupplier.List.class)
+public @interface DefaultConfigValueSupplier {
 
     Class<? extends Config> configClass() default Config.class;
 
     String name();
 
-    String value();
+    Class<? extends Supplier<?>> supplier();
 
     /**
-     * Defines several {@link DefaultConfigValue} annotations on the same element.
+     * Defines several {@link DefaultConfigValueSupplier} annotations on the same element.
      *
      * @author nedis
      * @link https://rxmicro.io
@@ -55,6 +56,6 @@ public @interface DefaultConfigValue {
     @Target({TYPE, MODULE, ANNOTATION_TYPE})
     @interface List {
 
-        DefaultConfigValue[] value();
+        DefaultConfigValueSupplier[] value();
     }
 }

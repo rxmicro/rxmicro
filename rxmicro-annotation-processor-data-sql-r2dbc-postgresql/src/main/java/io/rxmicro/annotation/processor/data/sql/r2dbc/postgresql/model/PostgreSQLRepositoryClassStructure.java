@@ -17,6 +17,7 @@
 package io.rxmicro.annotation.processor.data.sql.r2dbc.postgresql.model;
 
 import io.rxmicro.annotation.processor.common.model.ClassHeader;
+import io.rxmicro.annotation.processor.common.model.DefaultConfigProxyValue;
 import io.rxmicro.annotation.processor.data.sql.model.SQLDataRepositoryMethod;
 import io.rxmicro.annotation.processor.data.sql.r2dbc.model.AbstractSQLDataRepositoryClassStructure;
 import io.rxmicro.data.local.EntityFromDBConverter;
@@ -40,7 +41,7 @@ public final class PostgreSQLRepositoryClassStructure extends AbstractSQLDataRep
                                               final TypeElement abstractClass,
                                               final String configNameSpace,
                                               final List<SQLDataRepositoryMethod> methods,
-                                              final List<Map.Entry<String, String>> defaultConfigValues) {
+                                              final List<Map.Entry<String, DefaultConfigProxyValue>> defaultConfigValues) {
         super(classHeaderBuilder, repositoryInterface, abstractClass, configNameSpace, methods, defaultConfigValues);
     }
 

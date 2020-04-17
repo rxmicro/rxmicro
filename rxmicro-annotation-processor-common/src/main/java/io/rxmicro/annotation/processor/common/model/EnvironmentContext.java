@@ -49,13 +49,13 @@ public final class EnvironmentContext {
 
     private final Set<String> excludePackages;
 
-    private final List<Map.Entry<String, String>> defaultConfigValues;
+    private final List<Map.Entry<String, DefaultConfigProxyValue>> defaultConfigValues;
 
     public EnvironmentContext(final ModuleElement currentModule,
                               final Set<RxMicroModule> rxMicroModules,
                               final Set<String> includePackages,
                               final Set<String> excludePackages,
-                              final List<Map.Entry<String, String>> defaultConfigValues) {
+                              final List<Map.Entry<String, DefaultConfigProxyValue>> defaultConfigValues) {
         this.currentModule = require(currentModule);
         this.rxMicroModules = new TreeSet<>(rxMicroModules);
         this.includePackages = require(includePackages);
@@ -113,7 +113,7 @@ public final class EnvironmentContext {
         }
     }
 
-    public List<Map.Entry<String, String>> getDefaultConfigValues() {
+    public List<Map.Entry<String, DefaultConfigProxyValue>> getDefaultConfigValues() {
         return defaultConfigValues;
     }
 

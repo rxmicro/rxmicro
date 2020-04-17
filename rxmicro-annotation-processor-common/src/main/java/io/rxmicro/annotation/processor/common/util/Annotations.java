@@ -16,9 +16,12 @@
 
 package io.rxmicro.annotation.processor.common.util;
 
+import io.rxmicro.annotation.processor.common.model.DefaultConfigProxyValue;
+import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
 import io.rxmicro.common.meta.ReadMore;
 import io.rxmicro.config.Config;
 import io.rxmicro.config.DefaultConfigValue;
+import io.rxmicro.config.DefaultConfigValueSupplier;
 
 import javax.lang.model.AnnotatedConstruct;
 import javax.lang.model.element.AnnotationMirror;
@@ -35,6 +38,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.elements;
 import static io.rxmicro.annotation.processor.common.util.Elements.asTypeElement;
@@ -117,21 +121,38 @@ public final class Annotations {
         return getAnnotationClassParameter(classSupplier, Void.class);
     }
 
-    public static List<Map.Entry<String, String>> getDefaultConfigValues(final String defaultConfigNameSpace,
-                                                                         final Element element) {
-        return Arrays.stream(element.getAnnotationsByType(DefaultConfigValue.class)).map(defaultConfigValue -> {
-            final String name = defaultConfigValue.name();
-            if (name.indexOf('.') != -1) {
-                return entry(name, defaultConfigValue.value());
-            } else {
-                return entry(
-                        getAnnotationClassParameter(defaultConfigValue::configClass, Config.class)
-                                .map(te -> getDefaultNameSpace(getSimpleName(te)))
-                                .orElse(defaultConfigNameSpace) + "." + name,
-                        defaultConfigValue.value()
-                );
+    public static List<Map.Entry<String, DefaultConfigProxyValue>> getDefaultConfigValues(final String defaultConfigNameSpace,
+                                                                                          final Element element) {
+        return Stream.concat(
+                Arrays.stream(element.getAnnotationsByType(DefaultConfigValue.class)).map(defaultConfigValue -> entry(
+                        getDefaultConfigValueName(
+                                element, defaultConfigValue.name(), defaultConfigValue::configClass, defaultConfigNameSpace
+                        ),
+                        new DefaultConfigProxyValue(defaultConfigValue.value())
+                )),
+                Arrays.stream(element.getAnnotationsByType(DefaultConfigValueSupplier.class)).map(defaultConfigValue -> entry(
+                        getDefaultConfigValueName(
+                                element, defaultConfigValue.name(), defaultConfigValue::configClass, defaultConfigNameSpace
+                        ),
+                        new DefaultConfigProxyValue(getRequiredAnnotationClassParameter(defaultConfigValue::supplier))
+                ))
+        ).collect(Collectors.toList());
+    }
+
+    private static String getDefaultConfigValueName(final Element element,
+                                                    final String name,
+                                                    final Supplier<Class<?>> classSupplier,
+                                                    final String defaultConfigNameSpace) {
+        if (name.indexOf('.') != -1) {
+            if (getAnnotationClassParameter(classSupplier, Config.class).isPresent()) {
+                throw new InterruptProcessingException(element, "Redundant config class! Remove it!");
             }
-        }).collect(Collectors.toList());
+            return name;
+        } else {
+            return getAnnotationClassParameter(classSupplier, Config.class)
+                    .map(te -> getDefaultNameSpace(getSimpleName(te)))
+                    .orElse(defaultConfigNameSpace) + "." + name;
+        }
     }
 
     private Annotations() {

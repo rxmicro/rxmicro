@@ -20,6 +20,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import io.rxmicro.annotation.processor.common.component.impl.AbstractProcessorComponent;
 import io.rxmicro.annotation.processor.common.model.ClassHeader;
+import io.rxmicro.annotation.processor.common.model.DefaultConfigProxyValue;
 import io.rxmicro.annotation.processor.common.model.EnvironmentContext;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
 import io.rxmicro.annotation.processor.rest.client.component.ClientCommonOptionBuilder;
@@ -102,7 +103,7 @@ public final class RestClientClassStructureBuilderImpl extends AbstractProcessor
         final String restClientConfigNameSpace = configNameSpace.isBlank() ?
                 getDefaultNameSpace(getSimpleName(configClass)) :
                 configNameSpace;
-        final List<Map.Entry<String, String>> defaultConfigValues = getDefaultConfigValues(restClientConfigNameSpace, restClientInterface);
+        final List<Map.Entry<String, DefaultConfigProxyValue>> defaultConfigValues = getDefaultConfigValues(restClientConfigNameSpace, restClientInterface);
         validateDefaultConfigValues(restClientInterface, configClass, defaultConfigValues);
         return new RestClientClassStructure(
                 classHeaderBuilder,
@@ -117,7 +118,7 @@ public final class RestClientClassStructureBuilderImpl extends AbstractProcessor
 
     private void validateDefaultConfigValues(final TypeElement restClientInterface,
                                              final TypeElement configClass,
-                                             final List<Map.Entry<String, String>> defaultConfigValues) {
+                                             final List<Map.Entry<String, DefaultConfigProxyValue>> defaultConfigValues) {
         final Set<String> detectedNames = allMethods(configClass, e ->
                 e.getModifiers().contains(PUBLIC) &&
                         !e.getModifiers().contains(STATIC) &&
@@ -128,7 +129,7 @@ public final class RestClientClassStructureBuilderImpl extends AbstractProcessor
                 .filter(name -> name.length() > 3)
                 .map(name -> unCapitalize(name.substring(3)))
                 .collect(toSet());
-        for (final Map.Entry<String, String> value : defaultConfigValues) {
+        for (final Map.Entry<String, DefaultConfigProxyValue> value : defaultConfigValues) {
             final String propertyName = value.getKey().substring(value.getKey().lastIndexOf('.') + 1);
             if (!detectedNames.contains(propertyName)) {
                 throw new InterruptProcessingException(restClientInterface,

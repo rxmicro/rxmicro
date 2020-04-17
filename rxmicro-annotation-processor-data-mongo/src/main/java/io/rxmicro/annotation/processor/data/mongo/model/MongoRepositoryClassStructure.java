@@ -18,6 +18,7 @@ package io.rxmicro.annotation.processor.data.mongo.model;
 
 import com.mongodb.reactivestreams.client.MongoDatabase;
 import io.rxmicro.annotation.processor.common.model.ClassHeader;
+import io.rxmicro.annotation.processor.common.model.DefaultConfigProxyValue;
 import io.rxmicro.annotation.processor.data.model.DataRepositoryClassStructure;
 import io.rxmicro.data.local.EntityFromDBConverter;
 import io.rxmicro.data.local.EntityToDBConverter;
@@ -47,7 +48,7 @@ public final class MongoRepositoryClassStructure extends DataRepositoryClassStru
                                          final String collectionName,
                                          final String configNameSpace,
                                          final List<MongoRepositoryMethod> methods,
-                                         final List<Map.Entry<String, String>> defaultConfigValues) {
+                                         final List<Map.Entry<String, DefaultConfigProxyValue>> defaultConfigValues) {
         super(classHeaderBuilder, repositoryInterface, abstractClass, configNameSpace, methods, defaultConfigValues);
         this.collectionName = require(collectionName);
     }

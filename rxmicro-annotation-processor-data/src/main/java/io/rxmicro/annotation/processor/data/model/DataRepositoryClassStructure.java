@@ -18,6 +18,7 @@ package io.rxmicro.annotation.processor.data.model;
 
 import io.rxmicro.annotation.processor.common.model.ClassHeader;
 import io.rxmicro.annotation.processor.common.model.ClassStructure;
+import io.rxmicro.annotation.processor.common.model.DefaultConfigProxyValue;
 import io.rxmicro.annotation.processor.common.model.ModelTransformer;
 import io.rxmicro.annotation.processor.common.util.Names;
 import io.rxmicro.annotation.processor.common.util.UsedByFreemarker;
@@ -55,14 +56,14 @@ public abstract class DataRepositoryClassStructure extends ClassStructure {
 
     protected final Set<ModelTransformer> modelTransformers;
 
-    private final List<Map.Entry<String, String>> defaultConfigValues;
+    private final List<Map.Entry<String, DefaultConfigProxyValue>> defaultConfigValues;
 
 
     protected DataRepositoryClassStructure(final ClassHeader.Builder classHeaderBuilder,
                                            final TypeElement repositoryInterface,
                                            final TypeElement abstractClass, final String configNameSpace,
                                            final List<? extends DataRepositoryMethod> methods,
-                                           final List<Map.Entry<String, String>> defaultConfigValues) {
+                                           final List<Map.Entry<String, DefaultConfigProxyValue>> defaultConfigValues) {
         this.classHeaderBuilder = require(classHeaderBuilder);
         this.repositoryInterface = require(repositoryInterface);
         this.abstractClass = require(abstractClass);
@@ -72,7 +73,7 @@ public abstract class DataRepositoryClassStructure extends ClassStructure {
         this.modelTransformers = getModelTransformers();
     }
 
-    public List<Map.Entry<String, String>> getDefaultConfigValues() {
+    public List<Map.Entry<String, DefaultConfigProxyValue>> getDefaultConfigValues() {
         return defaultConfigValues;
     }
 

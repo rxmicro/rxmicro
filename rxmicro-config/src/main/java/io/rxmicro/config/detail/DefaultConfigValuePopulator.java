@@ -19,6 +19,10 @@ package io.rxmicro.config.detail;
 import io.rxmicro.config.ConfigException;
 import io.rxmicro.config.internal.model.DefaultConfigValueStorage;
 
+import java.util.function.Supplier;
+
+import static io.rxmicro.runtime.local.Instances.instantiate;
+
 /**
  * @author nedis
  * @link https://rxmicro.io
@@ -28,11 +32,21 @@ public final class DefaultConfigValuePopulator extends DefaultConfigValueStorage
 
     public static void putDefaultConfigValue(final String name,
                                              final String value) {
-        final String oldValue = CONFIGS.put(name, value);
+        validateDuplicates(name, value, DEFAULT_STRING_VALUES_STORAGE.put(name, value));
+    }
+
+    public static void putDefaultConfigValue(final String name,
+                                             final Class<? extends Supplier<?>> supplierClass) {
+        validateDuplicates(name, supplierClass, DEFAULT_SUPPLIER_VALUES_STORAGE.put(name, instantiate(supplierClass)));
+    }
+
+    private static void validateDuplicates(final String name,
+                                           final Object newValue,
+                                           final Object oldValue) {
         if (oldValue != null) {
             throw new ConfigException(
                     "Detected a duplicate of default config value: key=?, value1=?, value2=?",
-                    name, value, oldValue
+                    name, newValue, oldValue
             );
         }
     }

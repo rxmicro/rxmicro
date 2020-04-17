@@ -5,7 +5,7 @@ public final class ${IMPL_CLASS_NAME} extends RepositoryFactory {
     static {
         ${ENVIRONMENT_CUSTOMIZER_CLASS}.customize();
         <#list DEFAULT_CONFIG_VALUES as V>
-        putDefaultConfigValue("${V.key}", "${V.value}");
+        putDefaultConfigValue("${V.key}", ${V.value});
         </#list>
     }
 

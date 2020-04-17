@@ -18,6 +18,7 @@ package io.rxmicro.annotation.processor.data.sql.r2dbc.model;
 
 import io.r2dbc.pool.ConnectionPool;
 import io.rxmicro.annotation.processor.common.model.ClassHeader;
+import io.rxmicro.annotation.processor.common.model.DefaultConfigProxyValue;
 import io.rxmicro.annotation.processor.data.model.DataRepositoryClassStructure;
 import io.rxmicro.annotation.processor.data.sql.model.SQLDataRepositoryMethod;
 
@@ -40,7 +41,7 @@ public abstract class AbstractSQLDataRepositoryClassStructure extends DataReposi
                                                    final TypeElement abstractClass,
                                                    final String configNameSpace,
                                                    final List<SQLDataRepositoryMethod> methods,
-                                                   final List<Map.Entry<String, String>> defaultConfigValues) {
+                                                   final List<Map.Entry<String, DefaultConfigProxyValue>> defaultConfigValues) {
         super(classHeaderBuilder, repositoryInterface, abstractClass, configNameSpace, methods, defaultConfigValues);
     }
 

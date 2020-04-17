@@ -18,6 +18,7 @@ package io.rxmicro.annotation.processor.rest.client.model;
 
 import io.rxmicro.annotation.processor.common.model.ClassHeader;
 import io.rxmicro.annotation.processor.common.model.ClassStructure;
+import io.rxmicro.annotation.processor.common.model.DefaultConfigProxyValue;
 import io.rxmicro.annotation.processor.common.model.ModuleInfoItem;
 import io.rxmicro.config.detail.DefaultConfigValuePopulator;
 import io.rxmicro.rest.client.RestClientFactory;
@@ -45,12 +46,12 @@ public final class RestClientFactoryClassStructure extends ClassStructure {
 
     private final Set<RestClientClassStructure> classStructures;
 
-    private final List<Map.Entry<String, String>> defaultConfigValues;
+    private final List<Map.Entry<String, DefaultConfigProxyValue>> defaultConfigValues;
 
     private final List<ModuleInfoItem> moduleInfoItems;
 
     public RestClientFactoryClassStructure(final Set<RestClientClassStructure> classStructures,
-                                           final List<Map.Entry<String, String>> defaultConfigValues,
+                                           final List<Map.Entry<String, DefaultConfigProxyValue>> defaultConfigValues,
                                            final List<ModuleInfoItem> moduleInfoItems) {
         this.classStructures = new TreeSet<>(require(classStructures));
         this.defaultConfigValues = require(defaultConfigValues);

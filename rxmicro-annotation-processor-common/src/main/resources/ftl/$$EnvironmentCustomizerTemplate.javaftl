@@ -26,7 +26,7 @@ final class ${CLASS_NAME} {
     <#if DEFAULT_CONFIG_VALUES?has_content>
     private static void putGlobalDefaultConfigValues() {
         <#list DEFAULT_CONFIG_VALUES as V>
-        putDefaultConfigValue("${V.key}", "${V.value}");
+        putDefaultConfigValue("${V.key}", ${V.value});
         </#list>
     }
 

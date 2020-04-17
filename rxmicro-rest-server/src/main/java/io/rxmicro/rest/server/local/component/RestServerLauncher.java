@@ -57,10 +57,10 @@ public final class RestServerLauncher {
     }
 
     private static ServerContainer launch0(final RestControllerRegistrationFilter filter) {
+        final RestControllerAggregator restControllerAggregator = instantiate(REST_CONTROLLER_AGGREGATOR_IMPL_FULL_CLASS_NAME);
         final RestServerConfig restServerConfig = getConfig(RestServerConfig.class);
         final ComponentResolver componentResolver = new ComponentResolverImpl(restServerConfig);
         final Router router = new Router(componentResolver);
-        final RestControllerAggregator restControllerAggregator = instantiate(REST_CONTROLLER_AGGREGATOR_IMPL_FULL_CLASS_NAME);
         if (filter != null) {
             restControllerAggregator.register(router, filter);
         }

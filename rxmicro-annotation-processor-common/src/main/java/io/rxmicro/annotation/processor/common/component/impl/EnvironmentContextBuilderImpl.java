@@ -21,6 +21,7 @@ import com.google.inject.Singleton;
 import io.rxmicro.annotation.processor.common.component.CurrentModuleDecorator;
 import io.rxmicro.annotation.processor.common.component.EnvironmentContextBuilder;
 import io.rxmicro.annotation.processor.common.component.UnnamedPackageValidator;
+import io.rxmicro.annotation.processor.common.model.DefaultConfigProxyValue;
 import io.rxmicro.annotation.processor.common.model.EnvironmentContext;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
 import io.rxmicro.annotation.processor.common.util.Annotations;
@@ -110,10 +111,10 @@ public final class EnvironmentContextBuilderImpl extends AbstractProcessorCompon
         }
     }
 
-    private List<Map.Entry<String, String>> getDefaultConfigValues(final ModuleElement currentModule) {
-        final List<Map.Entry<String, String>> defaultConfigValues =
+    private List<Map.Entry<String, DefaultConfigProxyValue>> getDefaultConfigValues(final ModuleElement currentModule) {
+        final List<Map.Entry<String, DefaultConfigProxyValue>> defaultConfigValues =
                 Annotations.getDefaultConfigValues("", currentModule);
-        for (final Map.Entry<String, String> defaultConfigValue : defaultConfigValues) {
+        for (final Map.Entry<String, DefaultConfigProxyValue> defaultConfigValue : defaultConfigValues) {
             if (defaultConfigValue.getKey().startsWith(".")) {
                 throw new InterruptProcessingException(
                         currentModule,
