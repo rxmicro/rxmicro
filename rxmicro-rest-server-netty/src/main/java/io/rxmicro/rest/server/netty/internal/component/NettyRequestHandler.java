@@ -28,7 +28,6 @@ import io.rxmicro.logger.Logger;
 import io.rxmicro.logger.LoggerFactory;
 import io.rxmicro.rest.server.RestServerConfig;
 import io.rxmicro.rest.server.detail.component.HttpResponseBuilder;
-import io.rxmicro.rest.server.detail.model.HttpRequest;
 import io.rxmicro.rest.server.detail.model.HttpResponse;
 import io.rxmicro.rest.server.local.component.HttpErrorResponseBodyBuilder;
 import io.rxmicro.rest.server.local.component.RequestHandler;
@@ -92,21 +91,21 @@ final class NettyRequestHandler extends SimpleChannelInboundHandler<FullHttpRequ
     @Override
     protected void channelRead0(final ChannelHandlerContext ctx,
                                 final FullHttpRequest msg) {
+        final boolean keepAlive = isKeepAlive(msg);
+        final long startTime = System.nanoTime();
         try {
-            final long startTime = System.nanoTime();
             final NettyHttpRequest request = new NettyHttpRequest(
                     requestIdGenerator,
                     msg,
                     ctx.channel().remoteAddress()
             );
-            final boolean keepAlive = isKeepAlive(msg);
             ctx.channel().attr(REQUEST_ID_KEY).set(request.getRequestId());
             logRequest(request, ctx);
             requestHandler.handle(request)
                     .thenAccept(response -> writeResponse(ctx, request, response, startTime, keepAlive))
-                    .exceptionally(th -> handleError(ctx, th));
+                    .exceptionally(th -> handleError(ctx, th, startTime, keepAlive));
         } catch (final Throwable th) {
-            handleError(ctx, th);
+            handleError(ctx, th, startTime, keepAlive);
         }
     }
 
@@ -121,41 +120,53 @@ final class NettyRequestHandler extends SimpleChannelInboundHandler<FullHttpRequ
             if (disableLoggerMessagesForHttpHealthChecks && HTTP_HEALTH_CHECK_ENDPOINT.equals(request.getUri())) {
                 return;
             }
-            LOGGER.trace("HTTP request received (Id=?, Channel=?):\n? ?\n?\n\n?",
-                    request.getRequestId(),
-                    nettyRestServerConfig.getChannelIdType().getId(ctx.channel().id()),
-                    format("? ??",
-                            request.getMethod(),
-                            request.getUri(),
-                            request.isQueryStringPresent() ?
-                                    "" :
-                                    "?" + rxMicroSecrets.replaceAllSecretsIfFound(request.getQueryString())
-                    ),
-                    request.getVersion().getText(),
-                    request.getHeaders().getEntries().stream()
-                            .filter(e -> request.isRequestIdGenerated() && !REQUEST_ID.equals(e.getKey()))
-                            .map(e -> format("?: ?", e.getKey(), rxMicroSecrets.hideIfSecret(e.getValue())))
-                            .collect(joining(lineSeparator())),
-                    request.contentExists() ?
-                            rxMicroSecrets.replaceAllSecretsIfFound(new String(request.getContent(), UTF_8)) :
-                            ""
-            );
+            traceRequest(request, ctx);
         } else if (LOGGER.isDebugEnabled()) {
             if (disableLoggerMessagesForHttpHealthChecks && HTTP_HEALTH_CHECK_ENDPOINT.equals(request.getUri())) {
                 return;
             }
-            LOGGER.debug("HTTP request received: Id=?, Channel=?, Request=?",
-                    request.getRequestId(),
-                    nettyRestServerConfig.getChannelIdType().getId(ctx.channel().id()),
-                    format("? ??",
-                            request.getMethod(),
-                            request.getUri(),
-                            request.isQueryStringPresent() ?
-                                    "" :
-                                    "?" + rxMicroSecrets.replaceAllSecretsIfFound(request.getQueryString())
-                    )
-            );
+            debugRequest(request, ctx);
         }
+    }
+
+    private void traceRequest(final NettyHttpRequest request,
+                              final ChannelHandlerContext ctx) {
+        LOGGER.trace("HTTP request:  (Id=?, Channel=?, IP=?):\n? ?\n?\n\n?",
+                request.getRequestId(),
+                nettyRestServerConfig.getChannelIdType().getId(ctx.channel().id()),
+                ctx.channel().remoteAddress(),
+                format("? ??",
+                        request.getMethod(),
+                        request.getUri(),
+                        request.isQueryStringPresent() ?
+                                "" :
+                                "?" + rxMicroSecrets.replaceAllSecretsIfFound(request.getQueryString())
+                ),
+                request.getVersion().getText(),
+                request.getHeaders().getEntries().stream()
+                        .filter(e -> request.isRequestIdGenerated() && !REQUEST_ID.equals(e.getKey()))
+                        .map(e -> format("?: ?", e.getKey(), rxMicroSecrets.hideIfSecret(e.getValue())))
+                        .collect(joining(lineSeparator())),
+                request.contentExists() ?
+                        rxMicroSecrets.replaceAllSecretsIfFound(new String(request.getContent(), UTF_8)) :
+                        ""
+        );
+    }
+
+    private void debugRequest(final NettyHttpRequest request, 
+                              final ChannelHandlerContext ctx) {
+        LOGGER.debug("HTTP request:  Id=?, Channel=?, IP=?, Request=?",
+                request.getRequestId(),
+                nettyRestServerConfig.getChannelIdType().getId(ctx.channel().id()),
+                ctx.channel().remoteAddress(),
+                format("? ??",
+                        request.getMethod(),
+                        request.getUri(),
+                        request.isQueryStringPresent() ?
+                                "" :
+                                "?" + rxMicroSecrets.replaceAllSecretsIfFound(request.getQueryString())
+                )
+        );
     }
 
     private void writeResponse(final ChannelHandlerContext ctx,
@@ -174,66 +185,99 @@ final class NettyRequestHandler extends SimpleChannelInboundHandler<FullHttpRequ
         if (!keepAlive) {
             httpResponse.setHeader(CONNECTION, "close");
         }
+        writeAndFlush(ctx, request.getRequestId(), request.getUri(), startTime, keepAlive, httpResponse);
+    }
+
+    private void writeAndFlush(final ChannelHandlerContext ctx,
+                               final String requestId,
+                               final String requestUri,
+                               final long startTime,
+                               final boolean keepAlive,
+                               final NettyHttpResponse httpResponse) {
         ctx.writeAndFlush(httpResponse.toFullHttpResponse())
                 .addListener((ChannelFutureListener) future -> {
-                    logResponse(request, startTime, httpResponse, ctx);
+                    logResponse(requestId, requestUri, startTime, httpResponse, ctx);
                     if (!keepAlive) {
                         future.channel().close();
                     }
                 });
     }
 
-    private void logResponse(final HttpRequest request,
+    private void logResponse(final String requestId,
+                             final String requestUri,
                              final long startTime,
                              final NettyHttpResponse httpResponse,
                              final ChannelHandlerContext ctx) {
         if (LOGGER.isTraceEnabled()) {
-            if (disableLoggerMessagesForHttpHealthChecks && HTTP_HEALTH_CHECK_ENDPOINT.equals(request.getUri())) {
+            if (disableLoggerMessagesForHttpHealthChecks && HTTP_HEALTH_CHECK_ENDPOINT.equals(requestUri)) {
                 return;
             }
-            LOGGER.trace("HTTP response sent (Id=?, Channel=?, Duration=?):\n? ?\n?\n\n?",
-                    request.getRequestId(),
-                    nettyRestServerConfig.getChannelIdType().getId(ctx.channel().id()),
-                    format(Duration.ofNanos((System.nanoTime() - startTime))),
-                    httpResponse.getHttpVersion(),
-                    httpResponse.getStatus(),
-                    httpResponse.getHeaders().getEntries().stream()
-                            .map(e -> format("?: ?", e.getKey(), rxMicroSecrets.hideIfSecret(e.getValue())))
-                            .collect(joining(lineSeparator())),
-                    httpResponse.getContentLength() > 0 ?
-                            rxMicroSecrets.replaceAllSecretsIfFound(new String(httpResponse.getContent(), UTF_8)) :
-                            ""
-            );
+            traceResponse(requestId, startTime, httpResponse, ctx);
         } else if (LOGGER.isDebugEnabled()) {
-            if (disableLoggerMessagesForHttpHealthChecks && HTTP_HEALTH_CHECK_ENDPOINT.equals(request.getUri())) {
+            if (disableLoggerMessagesForHttpHealthChecks && HTTP_HEALTH_CHECK_ENDPOINT.equals(requestUri)) {
                 return;
             }
-            LOGGER.debug("HTTP response sent: Id=?, Channel=?, Content=? bytes, Duration=?",
-                    request.getRequestId(),
-                    nettyRestServerConfig.getChannelIdType().getId(ctx.channel().id()),
-                    httpResponse.getContentLength(),
-                    format(Duration.ofNanos((System.nanoTime() - startTime)))
-            );
+            debugResponse(requestId, startTime, httpResponse, ctx);
         }
+    }
+
+    private void traceResponse(final String requestId,
+                               final long startTime,
+                               final NettyHttpResponse httpResponse,
+                               final ChannelHandlerContext ctx) {
+        LOGGER.trace("HTTP response: (Id=?, Channel=?, Duration=?):\n? ?\n?\n\n?",
+                requestId,
+                nettyRestServerConfig.getChannelIdType().getId(ctx.channel().id()),
+                startTime == 0L ? "undefined" : format(Duration.ofNanos((System.nanoTime() - startTime))),
+                httpResponse.getHttpVersion(),
+                httpResponse.getStatus(),
+                httpResponse.getHeaders().getEntries().stream()
+                        .map(e -> format("?: ?", e.getKey(), rxMicroSecrets.hideIfSecret(e.getValue())))
+                        .collect(joining(lineSeparator())),
+                httpResponse.getContentLength() > 0 ?
+                        rxMicroSecrets.replaceAllSecretsIfFound(new String(httpResponse.getContent(), UTF_8)) :
+                        ""
+        );
+    }
+
+    private void debugResponse(final String requestId,
+                               final long startTime,
+                               final NettyHttpResponse httpResponse,
+                               final ChannelHandlerContext ctx) {
+        LOGGER.debug("HTTP response: Id=?, Channel=?, Content=? bytes, Duration=?",
+                requestId,
+                nettyRestServerConfig.getChannelIdType().getId(ctx.channel().id()),
+                httpResponse.getContentLength(),
+                startTime == 0L ? "undefined" : format(Duration.ofNanos((System.nanoTime() - startTime)))
+        );
     }
 
     @Override
     public void exceptionCaught(final ChannelHandlerContext ctx,
                                 final Throwable cause) throws Exception {
         super.exceptionCaught(ctx, cause);
-        handleError(ctx, cause);
+        handleError(ctx, cause, 0L, false);
     }
 
     @SuppressWarnings("SameReturnValue")
     private Void handleError(final ChannelHandlerContext ctx,
-                             final Throwable cause) {
+                             final Throwable cause,
+                             final long startTime,
+                             final boolean keepAlive) {
         final String requestId = ctx.channel().attr(REQUEST_ID_KEY).get();
-        LOGGER.error(cause, "Error: message=?, ?=?", cause.getMessage(), REQUEST_ID, requestId);
+        LOGGER.error(
+                cause,
+                "Error: message=?, Id=?, Channel=?, IP=?",
+                cause.getMessage(),
+                requestId,
+                nettyRestServerConfig.getChannelIdType().getId(ctx.channel().id()),
+                ctx.channel().remoteAddress()
+        );
         final NettyHttpResponse errorResponse = (NettyHttpResponse) responseContentBuilder.build(
                 responseBuilder.build(),
                 HttpResponseStatus.INTERNAL_SERVER_ERROR.code(),
                 "Internal error");
-        ctx.writeAndFlush(errorResponse.toFullHttpResponse(), ctx.voidPromise());
+        writeAndFlush(ctx, requestId, "", startTime, keepAlive, errorResponse);
         return null;
     }
 }
