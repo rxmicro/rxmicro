@@ -113,7 +113,7 @@ public final class RxMicro {
 
     private static void printCurrentEnvironment() {
         final boolean printRuntime;
-        // TODO Remove it release 0.4
+        // TODO Remove in release 0.4
         if (Boolean.parseBoolean(System.getenv(PRINT_ENV))) {
             printRuntime = true;
             LOGGER.warn(format(

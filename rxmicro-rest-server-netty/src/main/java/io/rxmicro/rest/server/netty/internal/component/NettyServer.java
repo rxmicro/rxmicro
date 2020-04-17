@@ -87,8 +87,8 @@ final class NettyServer implements Runnable {
             nettyRestServerConfig.getClientOptions().forEach((o, v) -> b.childOption((ChannelOption<Object>) o, v));
 
             final ChannelFuture f = b.bind(httpServerConfig.getHost(), httpServerConfig.getPort()).sync();
-            latch.countDown();
             logStartedMessage();
+            latch.countDown();
             f.channel().closeFuture().sync();
         } catch (final InterruptedException e) {
             LOGGER.info("Retrieved shutdown request ...");
