@@ -61,6 +61,8 @@ public class RestServerConfig extends Config {
 
     private boolean disableLoggerMessagesForHttpHealthChecks = true;
 
+    private boolean printRuntimeEnvironment = false;
+
     /**
      * Configures REST server for development environment
      *
@@ -153,11 +155,21 @@ public class RestServerConfig extends Config {
         return staticResponseHeaders;
     }
 
+    /**
+     *
+     * @param staticResponseHeaders static response header set
+     * @return A reference to this {@code RestConfig}
+     */
     public RestServerConfig setStaticResponseHeaders(final Set<StaticResponseHeader> staticResponseHeaders) {
         this.staticResponseHeaders = require(staticResponseHeaders);
         return this;
     }
 
+    /**
+     *
+     * @param staticResponseHeader a new static response header
+     * @return A reference to this {@code RestConfig}
+     */
     public RestServerConfig addStaticResponseHeader(final StaticResponseHeader staticResponseHeader) {
         this.staticResponseHeaders.add(require(staticResponseHeader));
         return this;
@@ -167,6 +179,11 @@ public class RestServerConfig extends Config {
         return generatorType;
     }
 
+    /**
+     *
+     * @param generatorType generator type
+     * @return A reference to this {@code RestConfig}
+     */
     public RestServerConfig setGeneratorType(final RequestIdGeneratorType generatorType) {
         this.generatorType = require(generatorType);
         return this;
@@ -176,6 +193,11 @@ public class RestServerConfig extends Config {
         return returnGeneratedRequestId;
     }
 
+    /**
+     *
+     * @param returnGeneratedRequestId return generated Request-Id o not
+     * @return A reference to this {@code RestConfig}
+     */
     public RestServerConfig setReturnGeneratedRequestId(final boolean returnGeneratedRequestId) {
         this.returnGeneratedRequestId = returnGeneratedRequestId;
         return this;
@@ -185,9 +207,30 @@ public class RestServerConfig extends Config {
         return disableLoggerMessagesForHttpHealthChecks;
     }
 
+    /**
+     *
+     * @param disableLoggerMessagesForHttpHealthChecks disable logger messages or not
+     * @return A reference to this {@code RestConfig}
+     */
     public RestServerConfig setDisableLoggerMessagesForHttpHealthChecks(
             final boolean disableLoggerMessagesForHttpHealthChecks) {
         this.disableLoggerMessagesForHttpHealthChecks = disableLoggerMessagesForHttpHealthChecks;
+        return this;
+    }
+
+    public boolean isPrintRuntimeEnvironment() {
+        return printRuntimeEnvironment;
+    }
+
+    /**
+     * If this variable is set and rest server is started,
+     * the RxMicro framework will print the short info about the current runtime: available processor cores and memory usage.
+     *
+     * @param printRuntimeEnvironment print runtime environment or not
+     * @return A reference to this {@code RestConfig}
+     */
+    public RestServerConfig setPrintRuntimeEnvironment(final boolean printRuntimeEnvironment) {
+        this.printRuntimeEnvironment = printRuntimeEnvironment;
         return this;
     }
 

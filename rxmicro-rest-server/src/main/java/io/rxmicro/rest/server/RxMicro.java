@@ -17,6 +17,7 @@
 package io.rxmicro.rest.server;
 
 import io.rxmicro.common.local.StartTimeStamp;
+import io.rxmicro.config.Config;
 import io.rxmicro.logger.Logger;
 import io.rxmicro.logger.LoggerFactory;
 import io.rxmicro.rest.server.local.model.RestControllerRegistrationFilter;
@@ -26,10 +27,9 @@ import java.util.Set;
 
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.Formats.formatSize;
-import static io.rxmicro.rest.server.Constants.RX_MICRO_PRINT_RUNTIME;
+import static io.rxmicro.config.Configs.getConfig;
 import static io.rxmicro.rest.server.local.component.RestServerLauncher.launchWithFilter;
 import static io.rxmicro.rest.server.local.model.RestControllerRegistrationFilter.createFilter;
-import static io.rxmicro.config.local.ExternalValues.getExternalValue;
 
 /**
  * To run netty successfully it is necessary to add:
@@ -43,7 +43,7 @@ import static io.rxmicro.config.local.ExternalValues.getExternalValue;
  */
 public final class RxMicro {
 
-    // Use Constants.RX_MICRO_PRINT_RUNTIME instead
+    // Use RestServerConfig.printRuntimeEnvironment instead
     @Deprecated(since = "0.3", forRemoval = true)
     private static final String PRINT_ENV = "PRINT_ENV";
 
@@ -117,12 +117,13 @@ public final class RxMicro {
         if (Boolean.parseBoolean(System.getenv(PRINT_ENV))) {
             printRuntime = true;
             LOGGER.warn(format(
-                    "'?' environment variable is deprecated and will be removed in 0.4 release. Use '?' instead!",
+                    "'?' environment variable is deprecated and will be removed in 0.4 release. " +
+                            "Use '?.printRuntimeEnvironment' instead!",
                     PRINT_ENV,
-                    RX_MICRO_PRINT_RUNTIME
+                    Config.getDefaultNameSpace(RestServerConfig.class)
             ));
         } else {
-            printRuntime = Boolean.parseBoolean(getExternalValue(RX_MICRO_PRINT_RUNTIME).orElse("false"));
+            printRuntime = getConfig(RestServerConfig.class).isPrintRuntimeEnvironment();
         }
         if (printRuntime) {
             final Runtime runtime = Runtime.getRuntime();
