@@ -26,11 +26,12 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 import static io.rxmicro.config.Config.getDefaultNameSpace;
-import static io.rxmicro.config.ConfigLoadSource.DEFAULT_CONFIG_VALUES;
-import static io.rxmicro.config.ConfigLoadSource.ENVIRONMENT_VARIABLES;
-import static io.rxmicro.config.ConfigLoadSource.JAVA_SYSTEM_PROPERTIES;
-import static io.rxmicro.config.ConfigLoadSource.RXMICRO_CLASS_PATH_RESOURCE;
-import static io.rxmicro.config.ConfigLoadSource.SEPARATE_CLASS_PATH_RESOURCE;
+import static io.rxmicro.config.ConfigSource.DEFAULT_CONFIG_VALUES;
+import static io.rxmicro.config.ConfigSource.ENVIRONMENT_VARIABLES;
+import static io.rxmicro.config.ConfigSource.JAVA_SYSTEM_PROPERTIES;
+import static io.rxmicro.config.ConfigSource.RXMICRO_CLASS_PATH_RESOURCE;
+import static io.rxmicro.config.ConfigSource.SEPARATE_CLASS_PATH_RESOURCE;
+import static io.rxmicro.config.ConfigSource.SEPARATE_FILE_AT_THE_RXMICRO_CONFIG_DIR;
 import static java.util.Arrays.asList;
 
 /**
@@ -40,7 +41,7 @@ import static java.util.Arrays.asList;
  */
 public final class Configs {
 
-    private static final Set<ConfigLoadSource> DEFAULT_CONFIG_LOAD_SOURCE_ORDER = new LinkedHashSet<>(asList(
+    private static final Set<ConfigSource> DEFAULT_CONFIG_LOAD_SOURCE_ORDER = new LinkedHashSet<>(asList(
             DEFAULT_CONFIG_VALUES,
             RXMICRO_CLASS_PATH_RESOURCE,
             SEPARATE_CLASS_PATH_RESOURCE,
@@ -74,8 +75,8 @@ public final class Configs {
     }
 
     private Configs(final Map<String, Config> storage,
-                    final Set<ConfigLoadSource> configLoadSources) {
-        this.loader = new EnvironmentConfigLoader(configLoadSources);
+                    final Set<ConfigSource> configSources) {
+        this.loader = new EnvironmentConfigLoader(configSources);
         this.storage = new ConcurrentHashMap<>(storage);
     }
 
@@ -89,7 +90,7 @@ public final class Configs {
 
         private final Map<String, Config> storage;
 
-        private final Set<ConfigLoadSource> configLoadSources = new LinkedHashSet<>(DEFAULT_CONFIG_LOAD_SOURCE_ORDER);
+        private final Set<ConfigSource> configSources = new LinkedHashSet<>(DEFAULT_CONFIG_LOAD_SOURCE_ORDER);
 
         public Builder() {
             storage = new HashMap<>();
@@ -118,32 +119,33 @@ public final class Configs {
             return this;
         }
 
-        public Builder withOrderedConfigLoadSources(final ConfigLoadSource... sources) {
-            configLoadSources.clear();
-            configLoadSources.addAll(Arrays.asList(sources));
+        public Builder withOrderedConfigSources(final ConfigSource... sources) {
+            configSources.clear();
+            configSources.addAll(Arrays.asList(sources));
             return this;
         }
 
-        public Builder withoutAnyConfigLoadSources() {
-            configLoadSources.clear();
+        public Builder withoutAnyConfigSources() {
+            configSources.clear();
             return this;
         }
 
-        public Builder withAllConfigLoadSources() {
-            withOrderedConfigLoadSources(ConfigLoadSource.values());
+        public Builder withAllConfigSources() {
+            withOrderedConfigSources(ConfigSource.values());
             return this;
         }
 
-        public Builder withDockerConfigLoadSources() {
-            withOrderedConfigLoadSources(
+        public Builder withContainerConfigSources() {
+            withOrderedConfigSources(
                     DEFAULT_CONFIG_VALUES,
-                    ENVIRONMENT_VARIABLES
+                    ENVIRONMENT_VARIABLES,
+                    SEPARATE_FILE_AT_THE_RXMICRO_CONFIG_DIR
             );
             return this;
         }
 
         public void build() {
-            INSTANCE = new Configs(storage, configLoadSources);
+            INSTANCE = new Configs(storage, configSources);
         }
 
         public void buildIfNotConfigured() {

@@ -4,7 +4,7 @@ This document contains the *change log* for all RxMicro releases since **0.2**.
 
 ## RxMicro v0.2
 
-* Any RxMicro project can package as automatic module.
+* Any RxMicro project can package a unnamed module.
 *(i.e. JPMS can be disabled for any RxMicro project).*
 * Initial support for [graalvm native images](https://www.graalvm.org/docs/reference-manual/native-image/).
   * No-fallback native images for rest server, rest client, mongo data repositories
@@ -29,3 +29,4 @@ This document contains the *change log* for all RxMicro releases since **0.2**.
 * Introduce secrets feature that allows hiding secrets in log files
 * Fix for support of mongo nested documents
 * Add handler for invalid HTTP requests
+* Add config directory (`~/.rxmicro/`) support

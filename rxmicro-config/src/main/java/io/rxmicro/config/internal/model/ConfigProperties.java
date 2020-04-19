@@ -17,7 +17,7 @@
 package io.rxmicro.config.internal.model;
 
 import io.rxmicro.config.ConfigException;
-import io.rxmicro.config.ConfigLoadSource;
+import io.rxmicro.config.ConfigSource;
 import io.rxmicro.logger.Logger;
 import io.rxmicro.logger.LoggerFactory;
 
@@ -34,16 +34,19 @@ import java.util.function.Supplier;
 
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.Strings.capitalize;
+import static io.rxmicro.config.Config.RX_MICRO_CONFIG_DIRECTORY_NAME;
 import static io.rxmicro.config.Config.RX_MICRO_CONFIG_FILE_NAME;
-import static io.rxmicro.config.ConfigLoadSource.DEFAULT_CONFIG_VALUES;
-import static io.rxmicro.config.ConfigLoadSource.ENVIRONMENT_VARIABLES;
-import static io.rxmicro.config.ConfigLoadSource.JAVA_SYSTEM_PROPERTIES;
-import static io.rxmicro.config.ConfigLoadSource.RXMICRO_CLASS_PATH_RESOURCE;
-import static io.rxmicro.config.ConfigLoadSource.RXMICRO_FILE_AT_THE_CURRENT_DIR;
-import static io.rxmicro.config.ConfigLoadSource.RXMICRO_FILE_AT_THE_HOME_DIR;
-import static io.rxmicro.config.ConfigLoadSource.SEPARATE_CLASS_PATH_RESOURCE;
-import static io.rxmicro.config.ConfigLoadSource.SEPARATE_FILE_AT_THE_CURRENT_DIR;
-import static io.rxmicro.config.ConfigLoadSource.SEPARATE_FILE_AT_THE_HOME_DIR;
+import static io.rxmicro.config.ConfigSource.DEFAULT_CONFIG_VALUES;
+import static io.rxmicro.config.ConfigSource.ENVIRONMENT_VARIABLES;
+import static io.rxmicro.config.ConfigSource.JAVA_SYSTEM_PROPERTIES;
+import static io.rxmicro.config.ConfigSource.RXMICRO_CLASS_PATH_RESOURCE;
+import static io.rxmicro.config.ConfigSource.RXMICRO_FILE_AT_THE_CURRENT_DIR;
+import static io.rxmicro.config.ConfigSource.RXMICRO_FILE_AT_THE_HOME_DIR;
+import static io.rxmicro.config.ConfigSource.RXMICRO_FILE_AT_THE_RXMICRO_CONFIG_DIR;
+import static io.rxmicro.config.ConfigSource.SEPARATE_CLASS_PATH_RESOURCE;
+import static io.rxmicro.config.ConfigSource.SEPARATE_FILE_AT_THE_CURRENT_DIR;
+import static io.rxmicro.config.ConfigSource.SEPARATE_FILE_AT_THE_HOME_DIR;
+import static io.rxmicro.config.ConfigSource.SEPARATE_FILE_AT_THE_RXMICRO_CONFIG_DIR;
 import static io.rxmicro.config.internal.model.DefaultConfigValueStorage.DEFAULT_STRING_VALUES_STORAGE;
 import static io.rxmicro.config.internal.model.DefaultConfigValueStorage.DEFAULT_SUPPLIER_VALUES_STORAGE;
 import static io.rxmicro.files.PropertiesResources.loadProperties;
@@ -75,29 +78,33 @@ public final class ConfigProperties {
         this.properties = properties;
     }
 
-    public void discoverProperties(final Set<ConfigLoadSource> configLoadSources) {
-        LOGGER.debug("Discovering properties for '?' namespace from sources: ?", nameSpace, configLoadSources);
-        for (final ConfigLoadSource configLoadSource : configLoadSources) {
-            if (configLoadSource == DEFAULT_CONFIG_VALUES) {
+    public void discoverProperties(final Set<ConfigSource> configSources) {
+        LOGGER.debug("Discovering properties for '?' namespace from sources: ?", nameSpace, configSources);
+        for (final ConfigSource configSource : configSources) {
+            if (configSource == DEFAULT_CONFIG_VALUES) {
                 loadDefaultConfigValues();
-            } else if (configLoadSource == SEPARATE_CLASS_PATH_RESOURCE) {
+            } else if (configSource == SEPARATE_CLASS_PATH_RESOURCE) {
                 loadFromClassPathResource(nameSpace, false);
-            } else if (configLoadSource == RXMICRO_CLASS_PATH_RESOURCE) {
+            } else if (configSource == RXMICRO_CLASS_PATH_RESOURCE) {
                 loadFromClassPathResource(RX_MICRO_CONFIG_FILE_NAME, true);
-            } else if (configLoadSource == ENVIRONMENT_VARIABLES) {
+            } else if (configSource == ENVIRONMENT_VARIABLES) {
                 loadFromEnvironmentVariables();
-            } else if (configLoadSource == RXMICRO_FILE_AT_THE_HOME_DIR) {
+            } else if (configSource == RXMICRO_FILE_AT_THE_HOME_DIR) {
                 loadFromPropertiesFileIfExists(USER_HOME, RX_MICRO_CONFIG_FILE_NAME, true);
-            } else if (configLoadSource == RXMICRO_FILE_AT_THE_CURRENT_DIR) {
+            } else if (configSource == RXMICRO_FILE_AT_THE_RXMICRO_CONFIG_DIR) {
+                loadFromPropertiesFileIfExists(USER_HOME + RX_MICRO_CONFIG_DIRECTORY_NAME, RX_MICRO_CONFIG_FILE_NAME, true);
+            } else if (configSource == RXMICRO_FILE_AT_THE_CURRENT_DIR) {
                 loadFromPropertiesFileIfExists("", RX_MICRO_CONFIG_FILE_NAME, true);
-            } else if (configLoadSource == SEPARATE_FILE_AT_THE_HOME_DIR) {
+            } else if (configSource == SEPARATE_FILE_AT_THE_HOME_DIR) {
                 loadFromPropertiesFileIfExists(USER_HOME, nameSpace, false);
-            } else if (configLoadSource == SEPARATE_FILE_AT_THE_CURRENT_DIR) {
+            } else if (configSource == SEPARATE_FILE_AT_THE_RXMICRO_CONFIG_DIR) {
+                loadFromPropertiesFileIfExists(USER_HOME + RX_MICRO_CONFIG_DIRECTORY_NAME, nameSpace, false);
+            } else if (configSource == SEPARATE_FILE_AT_THE_CURRENT_DIR) {
                 loadFromPropertiesFileIfExists("", nameSpace, false);
-            } else if (configLoadSource == JAVA_SYSTEM_PROPERTIES) {
+            } else if (configSource == JAVA_SYSTEM_PROPERTIES) {
                 loadFromJavaSystemProperties();
             } else {
-                throw new ConfigException("Unsupported load order: " + configLoadSource);
+                throw new ConfigException("Unsupported load order: " + configSource);
             }
         }
         LOGGER.debug("All properties discovered for '?' namespace", nameSpace);

@@ -17,7 +17,7 @@
 package io.rxmicro.config.internal;
 
 import io.rxmicro.config.Config;
-import io.rxmicro.config.ConfigLoadSource;
+import io.rxmicro.config.ConfigSource;
 import io.rxmicro.config.internal.component.ConfigPropertiesBuilder;
 import io.rxmicro.config.internal.model.ConfigProperties;
 
@@ -34,16 +34,16 @@ public final class EnvironmentConfigLoader {
 
     private final ConfigPropertiesBuilder configPropertiesBuilder = new ConfigPropertiesBuilder();
 
-    private final Set<ConfigLoadSource> configLoadSources;
+    private final Set<ConfigSource> configSources;
 
-    public EnvironmentConfigLoader(final Set<ConfigLoadSource> configLoadSources) {
-        this.configLoadSources = configLoadSources;
+    public EnvironmentConfigLoader(final Set<ConfigSource> configSources) {
+        this.configSources = configSources;
     }
 
     public Config getEnvironmentConfig(final String nameSpace,
                                        final Class<? extends Config> configClass) {
         final Config config = instantiate(configClass);
-        if (!configLoadSources.isEmpty()) {
+        if (!configSources.isEmpty()) {
             resolveEnvironmentVariables(nameSpace, config);
         }
         return config;
@@ -52,7 +52,7 @@ public final class EnvironmentConfigLoader {
     private void resolveEnvironmentVariables(final String nameSpace,
                                              final Config config) {
         final ConfigProperties configProperties = configPropertiesBuilder.build(nameSpace, config);
-        configProperties.discoverProperties(configLoadSources);
+        configProperties.discoverProperties(configSources);
         configProperties.setProperties();
     }
 }
