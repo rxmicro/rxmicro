@@ -50,6 +50,8 @@ import static io.rxmicro.config.ConfigSource.SEPARATE_FILE_AT_THE_HOME_DIR;
 import static io.rxmicro.config.ConfigSource.SEPARATE_FILE_AT_THE_RXMICRO_CONFIG_DIR;
 import static io.rxmicro.config.internal.model.DefaultConfigValueStorage.DEFAULT_STRING_VALUES_STORAGE;
 import static io.rxmicro.config.internal.model.DefaultConfigValueStorage.DEFAULT_SUPPLIER_VALUES_STORAGE;
+import static io.rxmicro.config.internal.model.PropertyNames.CURRENT_DIR_PROPERTY;
+import static io.rxmicro.config.internal.model.PropertyNames.USER_HOME_PROPERTY;
 import static io.rxmicro.files.PropertiesResources.loadProperties;
 import static java.util.Map.entry;
 import static java.util.stream.Collectors.toMap;
@@ -67,7 +69,10 @@ public final class ConfigProperties {
 
     private static final Properties SYSTEM_PROPERTIES = System.getProperties();
 
-    private static final String USER_HOME = SYSTEM_PROPERTIES.getProperty("user.home") + "/";
+    private static final String USER_HOME = SYSTEM_PROPERTIES.getProperty(USER_HOME_PROPERTY);
+
+    // Allow to override the current dir for tests
+    private static final String CURRENT_DIR = SYSTEM_PROPERTIES.getProperty(CURRENT_DIR_PROPERTY, "");
 
     private static final Map<String, Optional<Map<String, String>>> RESOURCE_CACHE = new HashMap<>();
 
@@ -96,15 +101,15 @@ public final class ConfigProperties {
             } else if (configSource == RXMICRO_FILE_AT_THE_HOME_DIR) {
                 loadFromPropertiesFileIfExists(USER_HOME, RX_MICRO_CONFIG_FILE_NAME, true);
             } else if (configSource == RXMICRO_FILE_AT_THE_RXMICRO_CONFIG_DIR) {
-                loadFromPropertiesFileIfExists(USER_HOME + RX_MICRO_CONFIG_DIRECTORY_NAME, RX_MICRO_CONFIG_FILE_NAME, true);
+                loadFromPropertiesFileIfExists(USER_HOME + "/" + RX_MICRO_CONFIG_DIRECTORY_NAME, RX_MICRO_CONFIG_FILE_NAME, true);
             } else if (configSource == RXMICRO_FILE_AT_THE_CURRENT_DIR) {
-                loadFromPropertiesFileIfExists("", RX_MICRO_CONFIG_FILE_NAME, true);
+                loadFromPropertiesFileIfExists(CURRENT_DIR, RX_MICRO_CONFIG_FILE_NAME, true);
             } else if (configSource == SEPARATE_FILE_AT_THE_HOME_DIR) {
                 loadFromPropertiesFileIfExists(USER_HOME, nameSpace, false);
             } else if (configSource == SEPARATE_FILE_AT_THE_RXMICRO_CONFIG_DIR) {
-                loadFromPropertiesFileIfExists(USER_HOME + RX_MICRO_CONFIG_DIRECTORY_NAME, nameSpace, false);
+                loadFromPropertiesFileIfExists(USER_HOME + "/" + RX_MICRO_CONFIG_DIRECTORY_NAME, nameSpace, false);
             } else if (configSource == SEPARATE_FILE_AT_THE_CURRENT_DIR) {
-                loadFromPropertiesFileIfExists("", nameSpace, false);
+                loadFromPropertiesFileIfExists(CURRENT_DIR, nameSpace, false);
             } else if (configSource == JAVA_SYSTEM_PROPERTIES) {
                 loadFromJavaSystemProperties();
             } else {
@@ -161,7 +166,7 @@ public final class ConfigProperties {
     private void loadFromPropertiesFileIfExists(final String path,
                                                 final String fileName,
                                                 final boolean useFullName) {
-        final Path fullFilePath = Paths.get(format("??.properties", path, fileName)).toAbsolutePath();
+        final Path fullFilePath = Paths.get(format("?/?.properties", path, fileName)).toAbsolutePath();
         final String fullFilePathName = fullFilePath.toString();
         loadResource(
                 useFullName ?

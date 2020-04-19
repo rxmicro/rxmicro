@@ -30,7 +30,7 @@ public abstract class Config {
 
     public static final String RX_MICRO_CONFIG_FILE_NAME = "rxmicro";
 
-    public static final String RX_MICRO_CONFIG_DIRECTORY_NAME = ".rxmicro/";
+    public static final String RX_MICRO_CONFIG_DIRECTORY_NAME = ".rxmicro";
 
     public static String getDefaultNameSpace(final Class<? extends Config> configClass) {
         return getDefaultNameSpace(configClass.getSimpleName());

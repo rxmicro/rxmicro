@@ -32,6 +32,8 @@
                 <configuration>
                     <argLine>
                         @{argLine}
+                        --add-opens rxmicro.config/io.rxmicro.config=ALL-UNNAMED
+                        --add-opens rxmicro.config/io.rxmicro.config.internal.model=ALL-UNNAMED
                     </argLine>
                 </configuration>
             </plugin>
@@ -48,6 +50,12 @@
             <groupId>io.rxmicro</groupId>
             <artifactId>rxmicro-files</artifactId>
             <version>0.3-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>io.rxmicro</groupId>
+            <artifactId>rxmicro-tool-common</artifactId>
+            <version>0.3-SNAPSHOT</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 </project>
