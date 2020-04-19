@@ -198,14 +198,10 @@ public final class RxMicroRestBasedMicroServiceTestExtension
         beforeTestInvoker.invokeIfFound(context, testInstances);
 
         serverContainer.register(restControllerInstanceResolver.getRestControllerClasses());
-        if (beanFactoryInjector.isBeansFound()) {
-            beanFactoryInjector.validateThatAllAlternativesAreUsed();
-        } else {
-            userCreatedComponentInjector.injectIfFound(
-                    testInstances,
-                    restControllerInstanceResolver.getRestControllerInstances()
-            );
-        }
+        userCreatedComponentInjector.injectIfFound(
+                testInstances,
+                restControllerInstanceResolver.getRestControllerInstances()
+        );
     }
 
     @Override

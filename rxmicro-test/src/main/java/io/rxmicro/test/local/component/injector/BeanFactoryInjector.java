@@ -46,17 +46,6 @@ public final class BeanFactoryInjector extends AbstractFactory {
         return !beanComponents.isEmpty();
     }
 
-    public void validateThatAllAlternativesAreUsed() {
-        for (final AlternativeEntryPointBean bean : beanComponents) {
-            if (!bean.used) {
-                throw new InvalidTestConfigException(
-                        "'?' alternative is redundant. " +
-                                "Remove redundant alternative!",
-                        bean.alternativeEntryPoint.getHumanReadableErrorName());
-            }
-        }
-    }
-
     @SuppressWarnings("unchecked")
     public void injectIfFound(final List<Object> testInstances) {
         if (isBeansFound()) {

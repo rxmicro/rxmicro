@@ -133,12 +133,7 @@ public final class RxMicroComponentTestExtension
                     .build();
         }
         final Object testedComponentInstance = testedComponentResolver.getTestedComponentInstance(testInstances);
-        if (!beanFactoryInjector.isBeansFound()) {
-            userCreatedComponentInjector.injectIfFound(testInstances, List.of(testedComponentInstance));
-        }
-        if (beanFactoryInjector.isBeansFound()) {
-            beanFactoryInjector.validateThatAllAlternativesAreUsed();
-        }
+        userCreatedComponentInjector.injectIfFound(testInstances, List.of(testedComponentInstance));
     }
 
     @Override
