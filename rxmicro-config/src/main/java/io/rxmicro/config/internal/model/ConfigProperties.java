@@ -26,6 +26,7 @@ import java.nio.file.Paths;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Properties;
@@ -50,6 +51,8 @@ import static io.rxmicro.config.ConfigSource.SEPARATE_FILE_AT_THE_RXMICRO_CONFIG
 import static io.rxmicro.config.internal.model.DefaultConfigValueStorage.DEFAULT_STRING_VALUES_STORAGE;
 import static io.rxmicro.config.internal.model.DefaultConfigValueStorage.DEFAULT_SUPPLIER_VALUES_STORAGE;
 import static io.rxmicro.files.PropertiesResources.loadProperties;
+import static java.util.Map.entry;
+import static java.util.stream.Collectors.toMap;
 
 /**
  * @author nedis
@@ -78,7 +81,8 @@ public final class ConfigProperties {
         this.properties = properties;
     }
 
-    public void discoverProperties(final Set<ConfigSource> configSources) {
+    public void discoverProperties(final Set<ConfigSource> configSources,
+                                   final List<String> commandLineArgs) {
         LOGGER.debug("Discovering properties for '?' namespace from sources: ?", nameSpace, configSources);
         for (final ConfigSource configSource : configSources) {
             if (configSource == DEFAULT_CONFIG_VALUES) {
@@ -107,6 +111,9 @@ public final class ConfigProperties {
                 throw new ConfigException("Unsupported load order: " + configSource);
             }
         }
+        if (!commandLineArgs.isEmpty()) {
+            loadFromCommandLineArguments(commandLineArgs);
+        }
         LOGGER.debug("All properties discovered for '?' namespace", nameSpace);
     }
 
@@ -126,10 +133,15 @@ public final class ConfigProperties {
     }
 
     private void loadFromEnvironmentVariables() {
+        loadFromMap(SYSTEM_ENV, "environment variables");
+    }
+
+    private void loadFromMap(final Map<String, String> map,
+                             final String sourceName) {
         final Set<Map.Entry<String, String>> resolvedEntries = new LinkedHashSet<>();
-        properties.forEach(p -> p.resolve(SYSTEM_ENV, true).ifPresent(resolvedEntries::add));
+        properties.forEach(p -> p.resolve(map, true).ifPresent(resolvedEntries::add));
         if (!resolvedEntries.isEmpty()) {
-            LOGGER.debug("Discovered properties from environment variables: ?", resolvedEntries);
+            LOGGER.debug("Discovered properties from ?: ?", sourceName, resolvedEntries);
         }
     }
 
@@ -183,5 +195,17 @@ public final class ConfigProperties {
         if (!resolvedEntries.isEmpty()) {
             LOGGER.debug("Discovered properties from Java system properties: ?", resolvedEntries);
         }
+    }
+
+    private void loadFromCommandLineArguments(final List<String> commandLineArgs) {
+        final Map<String, String> sourceMap = commandLineArgs.stream().map(cmd -> {
+            final String[] data = cmd.split("=");
+            if (data.length != 2) {
+                throw new ConfigException("Invalid command line arguments. " +
+                        "Expected: 'name_space.propertyName=propertyValue', but actual is '?'", cmd);
+            }
+            return entry(data[0], data[1]);
+        }).collect(toMap(Map.Entry::getKey, Map.Entry::getValue));
+        loadFromMap(sourceMap, "command line arguments");
     }
 }

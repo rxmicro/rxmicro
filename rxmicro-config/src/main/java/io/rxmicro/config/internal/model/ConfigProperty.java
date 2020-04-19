@@ -57,7 +57,7 @@ public final class ConfigProperty implements Comparable<ConfigProperty> {
     }
 
     public <T> Optional<Map.Entry<String, T>> resolve(final Map<String, T> properties,
-                                                       final boolean useFullName) {
+                                                      final boolean useFullName) {
         final String property = useFullName ? fullPropertyName : propertyName;
         final T value = properties.get(property);
         if (value != null) {

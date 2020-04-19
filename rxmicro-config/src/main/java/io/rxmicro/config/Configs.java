@@ -18,9 +18,11 @@ package io.rxmicro.config;
 
 import io.rxmicro.config.internal.EnvironmentConfigLoader;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
@@ -55,6 +57,8 @@ public final class Configs {
 
     private final Map<String, Config> storage;
 
+    private final List<String> commandLineArgs;
+
     @SuppressWarnings("unchecked")
     public static <T extends Config> T getConfig(final String nameSpace,
                                                  final Class<T> configClass) {
@@ -63,7 +67,7 @@ public final class Configs {
                     "Configs are not built. Use Configs.Builder to build configuration");
         }
         return (T) INSTANCE.storage.computeIfAbsent(nameSpace, n ->
-                INSTANCE.loader.getEnvironmentConfig(nameSpace, configClass));
+                INSTANCE.loader.getEnvironmentConfig(nameSpace, configClass, INSTANCE.commandLineArgs));
     }
 
     public static <T extends Config> T getConfig(final Class<T> configClass) {
@@ -75,9 +79,11 @@ public final class Configs {
     }
 
     private Configs(final Map<String, Config> storage,
-                    final Set<ConfigSource> configSources) {
+                    final Set<ConfigSource> configSources,
+                    final List<String> commandLineArgs) {
         this.loader = new EnvironmentConfigLoader(configSources);
         this.storage = new ConcurrentHashMap<>(storage);
+        this.commandLineArgs = commandLineArgs;
     }
 
     /**
@@ -87,6 +93,8 @@ public final class Configs {
      */
     @SuppressWarnings("UnusedReturnValue")
     public static final class Builder {
+
+        private final List<String> commandLineArgs = new ArrayList<>();
 
         private final Map<String, Config> storage;
 
@@ -144,8 +152,13 @@ public final class Configs {
             return this;
         }
 
+        public Builder withCommandLineArguments(final String[] args) {
+            commandLineArgs.addAll(List.of(args));
+            return this;
+        }
+
         public void build() {
-            INSTANCE = new Configs(storage, configSources);
+            INSTANCE = new Configs(storage, configSources, commandLineArgs);
         }
 
         public void buildIfNotConfigured() {
