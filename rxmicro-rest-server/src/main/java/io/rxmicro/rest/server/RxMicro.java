@@ -17,7 +17,6 @@
 package io.rxmicro.rest.server;
 
 import io.rxmicro.common.local.StartTimeStamp;
-import io.rxmicro.config.Config;
 import io.rxmicro.logger.Logger;
 import io.rxmicro.logger.LoggerFactory;
 import io.rxmicro.rest.server.local.model.RestControllerRegistrationFilter;
@@ -25,7 +24,6 @@ import io.rxmicro.rest.server.local.model.RestControllerRegistrationFilter;
 import java.util.Scanner;
 import java.util.Set;
 
-import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.Formats.formatSize;
 import static io.rxmicro.config.Configs.getConfig;
 import static io.rxmicro.rest.server.local.component.RestServerLauncher.launchWithFilter;
@@ -42,10 +40,6 @@ import static io.rxmicro.rest.server.local.model.RestControllerRegistrationFilte
  * @since 0.1
  */
 public final class RxMicro {
-
-    // Use RestServerConfig.printRuntimeEnvironment instead
-    @Deprecated(since = "0.3", forRemoval = true)
-    private static final String PRINT_ENV = "PRINT_ENV";
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RxMicro.class);
 
@@ -112,20 +106,7 @@ public final class RxMicro {
     }
 
     private static void printCurrentEnvironment() {
-        final boolean printRuntime;
-        // TODO Remove in release 0.4
-        if (Boolean.parseBoolean(System.getenv(PRINT_ENV))) {
-            printRuntime = true;
-            LOGGER.warn(format(
-                    "'?' environment variable is deprecated and will be removed in 0.4 release. " +
-                            "Use '?.printRuntimeEnvironment' instead!",
-                    PRINT_ENV,
-                    Config.getDefaultNameSpace(RestServerConfig.class)
-            ));
-        } else {
-            printRuntime = getConfig(RestServerConfig.class).isPrintRuntimeEnvironment();
-        }
-        if (printRuntime) {
+        if (getConfig(RestServerConfig.class).isPrintRuntimeEnvironment()) {
             final Runtime runtime = Runtime.getRuntime();
             final long totalMemory = runtime.totalMemory();
             final long freeMemory = runtime.freeMemory();
