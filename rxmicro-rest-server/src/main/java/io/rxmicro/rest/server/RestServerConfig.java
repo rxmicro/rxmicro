@@ -61,7 +61,7 @@ public class RestServerConfig extends Config {
 
     private boolean disableLoggerMessagesForHttpHealthChecks = true;
 
-    private boolean printRuntimeEnvironment = false;
+    private boolean showRuntimeEnv = false;
 
     /**
      * Configures REST server for development environment
@@ -218,19 +218,19 @@ public class RestServerConfig extends Config {
         return this;
     }
 
-    public boolean isPrintRuntimeEnvironment() {
-        return printRuntimeEnvironment;
+    public boolean isShowRuntimeEnv() {
+        return showRuntimeEnv;
     }
 
     /**
      * If this variable is set and rest server is started,
      * the RxMicro framework will print the short info about the current runtime: available processor cores and memory usage.
      *
-     * @param printRuntimeEnvironment print runtime environment or not
+     * @param showRuntimeEnv print runtime environment or not
      * @return A reference to this {@code RestConfig}
      */
-    public RestServerConfig setPrintRuntimeEnvironment(final boolean printRuntimeEnvironment) {
-        this.printRuntimeEnvironment = printRuntimeEnvironment;
+    public RestServerConfig setShowRuntimeEnv(final boolean showRuntimeEnv) {
+        this.showRuntimeEnv = showRuntimeEnv;
         return this;
     }
 

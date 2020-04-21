@@ -106,7 +106,7 @@ public final class RxMicro {
     }
 
     private static void printCurrentEnvironment() {
-        if (getConfig(RestServerConfig.class).isPrintRuntimeEnvironment()) {
+        if (getConfig(RestServerConfig.class).isShowRuntimeEnv()) {
             final Runtime runtime = Runtime.getRuntime();
             final long totalMemory = runtime.totalMemory();
             final long freeMemory = runtime.freeMemory();
