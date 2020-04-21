@@ -33,11 +33,11 @@ public final class Secrets {
 
     private static final Secrets INSTANCE = new Secrets();
 
+    private final Map<String, String> secrets;
+
     public static Secrets getInstance() {
         return INSTANCE;
     }
-
-    private final Map<String, String> secrets;
 
     private Secrets() {
         final SecretsConfig config = getConfig(SecretsConfig.class);

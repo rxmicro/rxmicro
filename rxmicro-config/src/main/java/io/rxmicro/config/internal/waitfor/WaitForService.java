@@ -14,19 +14,14 @@
  * limitations under the License.
  */
 
-package io.rxmicro.config.internal.model;
+package io.rxmicro.config.internal.waitfor;
 
 /**
  * @author nedis
  * @link http://rxmicro.io
  * @since 0.3
  */
-public final class PropertyNames {
+public interface WaitForService {
 
-    public static final String USER_HOME_PROPERTY = "user.home";
-
-    public static final String CURRENT_DIR_PROPERTY = "rxmicro.current.dir";
-
-    private PropertyNames() {
-    }
+    void start();
 }

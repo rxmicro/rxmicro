@@ -34,6 +34,7 @@ import static io.rxmicro.config.ConfigSource.JAVA_SYSTEM_PROPERTIES;
 import static io.rxmicro.config.ConfigSource.RXMICRO_CLASS_PATH_RESOURCE;
 import static io.rxmicro.config.ConfigSource.SEPARATE_CLASS_PATH_RESOURCE;
 import static io.rxmicro.config.ConfigSource.SEPARATE_FILE_AT_THE_RXMICRO_CONFIG_DIR;
+import static io.rxmicro.config.internal.waitfor.component.WaitForUtils.withoutWaitForArguments;
 import static java.util.Arrays.asList;
 
 /**
@@ -153,7 +154,9 @@ public final class Configs {
         }
 
         public Builder withCommandLineArguments(final String[] args) {
-            commandLineArgs.addAll(List.of(args));
+            if (args.length > 0) {
+                commandLineArgs.addAll(withoutWaitForArguments(args));
+            }
             return this;
         }
 

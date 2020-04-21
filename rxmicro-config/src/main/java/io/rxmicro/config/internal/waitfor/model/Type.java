@@ -14,19 +14,18 @@
  * limitations under the License.
  */
 
-package io.rxmicro.config.internal.model;
+package io.rxmicro.config.internal.waitfor.model;
 
 /**
  * @author nedis
  * @link http://rxmicro.io
  * @since 0.3
  */
-public final class PropertyNames {
+public enum Type {
 
-    public static final String USER_HOME_PROPERTY = "user.home";
+    tcp_socket;
 
-    public static final String CURRENT_DIR_PROPERTY = "rxmicro.current.dir";
-
-    private PropertyNames() {
+    public String getValue() {
+        return name().replace('_', '-');
     }
 }

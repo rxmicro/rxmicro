@@ -30,3 +30,4 @@ This document contains the *change log* for all RxMicro releases since **0.2**.
 * Fix for support of mongo nested documents
 * Add handler for invalid HTTP requests
 * Add config directory (`~/.rxmicro/`) support
+* Add WaitForService

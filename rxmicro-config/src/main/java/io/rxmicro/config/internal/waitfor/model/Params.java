@@ -14,19 +14,40 @@
  * limitations under the License.
  */
 
-package io.rxmicro.config.internal.model;
+package io.rxmicro.config.internal.waitfor.model;
+
+import java.time.Duration;
 
 /**
  * @author nedis
  * @link http://rxmicro.io
  * @since 0.3
  */
-public final class PropertyNames {
+public final class Params {
 
-    public static final String USER_HOME_PROPERTY = "user.home";
+    private final String type;
 
-    public static final String CURRENT_DIR_PROPERTY = "rxmicro.current.dir";
+    private final Duration timeout;
 
-    private PropertyNames() {
+    private final String destination;
+
+    public Params(final String type,
+                  final Duration timeout,
+                  final String destination) {
+        this.type = type;
+        this.timeout = timeout;
+        this.destination = destination;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public Duration getTimeout() {
+        return timeout;
+    }
+
+    public String getDestination() {
+        return destination;
     }
 }

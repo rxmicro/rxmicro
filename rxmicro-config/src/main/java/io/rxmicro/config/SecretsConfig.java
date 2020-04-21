@@ -44,6 +44,10 @@ public final class SecretsConfig extends Config {
         return this;
     }
 
+    public String getValues() {
+        return values;
+    }
+
     /**
      * Sets a secret values that used as string source
      *
@@ -53,10 +57,6 @@ public final class SecretsConfig extends Config {
     public SecretsConfig setValues(final String values) {
         this.values = values;
         return this;
-    }
-
-    public String getValues() {
-        return values;
     }
 
     public boolean hasValues() {

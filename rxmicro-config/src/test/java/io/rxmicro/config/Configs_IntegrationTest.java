@@ -66,29 +66,29 @@ public final class Configs_IntegrationTest {
 
         final String root = tempDir.toAbsolutePath().toString();
         Files.write(
-                Paths.get(root+"/home/rxmicro.properties"),
+                Paths.get(root + "/home/rxmicro.properties"),
                 List.of("test.rxmicroFileAtTheHomeDir=rxmicroFileAtTheHomeDir")
         );
         Files.write(
-                Paths.get(root+"/home/test.properties"),
+                Paths.get(root + "/home/test.properties"),
                 List.of("separateFileAtTheHomeDir=separateFileAtTheHomeDir")
         );
 
         Files.write(
-                Paths.get(root+"/home/.rxmicro/rxmicro.properties"),
+                Paths.get(root + "/home/.rxmicro/rxmicro.properties"),
                 List.of("test.rxmicroFileAtTheRxmicroConfigDir=rxmicroFileAtTheRxmicroConfigDir")
         );
         Files.write(
-                Paths.get(root+"/home/.rxmicro/test.properties"),
+                Paths.get(root + "/home/.rxmicro/test.properties"),
                 List.of("separateFileAtTheRxmicroConfigDir=separateFileAtTheRxmicroConfigDir")
         );
 
         Files.write(
-                Paths.get(root+"/current/rxmicro.properties"),
+                Paths.get(root + "/current/rxmicro.properties"),
                 List.of("test.rxmicroFileAtTheCurrentDir=rxmicroFileAtTheCurrentDir")
         );
         Files.write(
-                Paths.get(root+"/current/test.properties"),
+                Paths.get(root + "/current/test.properties"),
                 List.of("separateFileAtTheCurrentDir=separateFileAtTheCurrentDir")
         );
 
