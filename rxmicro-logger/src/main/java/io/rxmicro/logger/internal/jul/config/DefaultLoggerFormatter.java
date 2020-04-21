@@ -40,7 +40,8 @@ public class DefaultLoggerFormatter extends Formatter {
     private static final Map<java.util.logging.Level, Level> LEVEL_MAPPING = Map.of(
             java.util.logging.Level.OFF, Level.OFF,
             java.util.logging.Level.SEVERE, Level.ERROR,
-            java.util.logging.Level.CONFIG, Level.WARN,
+            java.util.logging.Level.WARNING, Level.WARN,
+            java.util.logging.Level.CONFIG, Level.INFO,
             java.util.logging.Level.INFO, Level.INFO,
             java.util.logging.Level.FINE, Level.DEBUG,
             java.util.logging.Level.FINER, Level.DEBUG,
