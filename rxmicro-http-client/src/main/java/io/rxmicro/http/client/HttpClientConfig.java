@@ -23,7 +23,7 @@ import java.time.Duration;
 
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.Requires.require;
-import static io.rxmicro.common.util.Strings.hideSecureInfo;
+import static io.rxmicro.config.Secrets.hideSecretInfo;
 import static java.time.Duration.ofSeconds;
 
 /**
@@ -98,7 +98,7 @@ public class HttpClientConfig extends HttpConfig {
     @Override
     public String toString() {
         return "HttpClientConfig {connectionString=" + getConnectionString() +
-                ", accessKey=" + hideSecureInfo(getAccessKey()) +
+                ", accessKey=" + hideSecretInfo(getAccessKey()) +
                 ", followRedirects=" + followRedirects + '}' +
                 ", requestTimeout=" + format(requestTimeout) + '}';
 

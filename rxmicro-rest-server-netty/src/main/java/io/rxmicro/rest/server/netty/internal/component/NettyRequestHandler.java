@@ -57,7 +57,7 @@ final class NettyRequestHandler extends SimpleChannelInboundHandler<FullHttpRequ
 
     private static final AttributeKey<String> REQUEST_ID_KEY = AttributeKey.valueOf(REQUEST_ID);
 
-    private final Secrets secrets = Secrets.getInstance();
+    private final Secrets secrets = Secrets.getDefaultInstance();
 
     private final NettyRestServerConfig nettyRestServerConfig;
 
@@ -140,7 +140,7 @@ final class NettyRequestHandler extends SimpleChannelInboundHandler<FullHttpRequ
                         request.getUri(),
                         request.isQueryStringPresent() ?
                                 "" :
-                                "?" + secrets.replaceAllSecretsIfFound(request.getQueryString())
+                                "?" + secrets.hideAllSecretsIn(request.getQueryString())
                 ),
                 request.getVersion().getText(),
                 request.getHeaders().getEntries().stream()
@@ -148,7 +148,7 @@ final class NettyRequestHandler extends SimpleChannelInboundHandler<FullHttpRequ
                         .map(e -> format("?: ?", e.getKey(), secrets.hideIfSecret(e.getValue())))
                         .collect(joining(lineSeparator())),
                 request.contentExists() ?
-                        secrets.replaceAllSecretsIfFound(new String(request.getContent(), UTF_8)) :
+                        secrets.hideAllSecretsIn(new String(request.getContent(), UTF_8)) :
                         ""
         );
     }
@@ -164,7 +164,7 @@ final class NettyRequestHandler extends SimpleChannelInboundHandler<FullHttpRequ
                         request.getUri(),
                         request.isQueryStringPresent() ?
                                 "" :
-                                "?" + secrets.replaceAllSecretsIfFound(request.getQueryString())
+                                "?" + secrets.hideAllSecretsIn(request.getQueryString())
                 )
         );
     }
@@ -235,7 +235,7 @@ final class NettyRequestHandler extends SimpleChannelInboundHandler<FullHttpRequ
                         .map(e -> format("?: ?", e.getKey(), secrets.hideIfSecret(e.getValue())))
                         .collect(joining(lineSeparator())),
                 httpResponse.getContentLength() > 0 ?
-                        secrets.replaceAllSecretsIfFound(new String(httpResponse.getContent(), UTF_8)) :
+                        secrets.hideAllSecretsIn(new String(httpResponse.getContent(), UTF_8)) :
                         ""
         );
     }

@@ -16,58 +16,57 @@
 
 package io.rxmicro.config;
 
-import java.util.Arrays;
-import java.util.Map;
-
-import static io.rxmicro.common.util.Strings.hideSecureInfo;
-import static io.rxmicro.config.Configs.getConfig;
-import static java.util.Map.entry;
-import static java.util.stream.Collectors.toUnmodifiableMap;
+import io.rxmicro.config.internal.SecretsImpl;
 
 /**
+ * Base interface that supports hiding a secret info.
+ * This feature is useful for hiding a secret info in log messages.
+ *
  * @author nedis
  * @link http://rxmicro.io
  * @since 0.3
  */
-public final class Secrets {
+public interface Secrets {
 
-    private static final Secrets INSTANCE = new Secrets();
-
-    private final Map<String, String> secrets;
-
-    public static Secrets getInstance() {
-        return INSTANCE;
+    /**
+     * @return Default implementation
+     */
+    static Secrets getDefaultInstance() {
+        return SecretsImpl.INSTANCE;
     }
 
-    private Secrets() {
-        final SecretsConfig config = getConfig(SecretsConfig.class);
-        if (config.hasValues()) {
-            this.secrets = Arrays.stream(config.getValues().split(config.getRegex()))
-                    .map(secret -> entry(secret, hideSecureInfo(secret)))
-                    .collect(toUnmodifiableMap(Map.Entry::getKey, Map.Entry::getValue));
-        } else {
-            this.secrets = Map.of();
-        }
-    }
+    /**
+     * Return `****` placeholder if value is secret
+     *
+     * @param value secret candidate
+     * @return `****` placeholder if value is secret,
+     *          otherwise value
+     */
+    String hideIfSecret(String value);
 
-    public String hideIfSecret(final String value) {
-        if (secrets.isEmpty()) {
-            return value;
-        } else {
-            final String result = secrets.get(value);
-            return result != null ? result : value;
-        }
-    }
+    /**
+     * Replace all substrings if there are secrets
+     *
+     * @param message string that can contain secret substrings
+     * @return processed string
+     */
+    String hideAllSecretsIn(String message);
 
-    public String replaceAllSecretsIfFound(final String message) {
-        if (secrets.isEmpty()) {
-            return message;
-        } else {
-            String result = message;
-            for (final Map.Entry<String, String> secret : secrets.entrySet()) {
-                result = result.replace(secret.getKey(), secret.getValue());
+    /**
+     * Define an algorithm to hide secure info
+     *
+     * @param value string value
+     * @return secret value or {@code null} if argument is {@code null}
+     */
+    static String hideSecretInfo(final String value) {
+        if (value != null) {
+            if (value.length() > 10) {
+                return "****" + value.substring(value.length() - 4);
+            } else {
+                return "********";
             }
-            return result;
+        } else {
+            return null;
         }
     }
 }

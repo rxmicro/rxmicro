@@ -16,6 +16,7 @@
 
 package io.rxmicro.test.local.component.builder;
 
+import io.rxmicro.config.Secrets;
 import io.rxmicro.http.client.HttpClient;
 import io.rxmicro.http.client.HttpClientConfig;
 import io.rxmicro.http.client.HttpClientContentConverter;
@@ -38,6 +39,26 @@ public final class HttpClientBuilder {
                 getImplementation(HttpClientFactory.class, true, ServiceLoader::load);
         final HttpClientContentConverter converter =
                 getImplementation(HttpClientContentConverter.class, true, ServiceLoader::load);
-        return httpClientFactory.create(loggerClass, httpClientConfig, converter);
+        return httpClientFactory.create(loggerClass, httpClientConfig, DisabledSecretsImpl.INSTANCE, converter);
+    }
+
+    /**
+     * @author nedis
+     * @link https://rxmicro.io
+     * @since 0.3
+     */
+    private static final class DisabledSecretsImpl implements Secrets {
+
+        private static final DisabledSecretsImpl INSTANCE = new DisabledSecretsImpl();
+
+        @Override
+        public String hideIfSecret(final String value) {
+            return value;
+        }
+
+        @Override
+        public String hideAllSecretsIn(final String message) {
+            return message;
+        }
     }
 }

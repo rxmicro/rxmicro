@@ -70,7 +70,7 @@ final class JdkHttpClient implements HttpClient {
 
     private final int port;
 
-    private final Secrets secrets = Secrets.getInstance();
+    private final Secrets secrets;
 
     private final Function<Object, byte[]> requestBodyConverter;
 
@@ -82,11 +82,13 @@ final class JdkHttpClient implements HttpClient {
 
     JdkHttpClient(final Class<?> loggerClass,
                   final HttpClientConfig httpClientConfig,
+                  final Secrets secrets,
                   final HttpClientContentConverter contentConverter) {
         this.logger = LoggerFactory.getLogger(loggerClass);
         this.protocol = httpClientConfig.getSchema();
         this.host = httpClientConfig.getHost();
         this.port = httpClientConfig.getPort();
+        this.secrets = secrets;
         this.requiredHeaders = List.of(
                 entry(ACCEPT, require(contentConverter.getContentType())),
                 entry(USER_AGENT, format("?-JdkHttpClient/?", RX_MICRO_FRAMEWORK_NAME, getRxMicroVersion()))
@@ -189,14 +191,14 @@ final class JdkHttpClient implements HttpClient {
         final long startTime = System.nanoTime();
         logger.trace("HTTP request sent?:\n? ?\n?\n\n?",
                 requestId != null ? format(" (Id=?)", requestId) : "",
-                format("? ?", request.method(), secrets.replaceAllSecretsIfFound(request.uri().toString())),
+                format("? ?", request.method(), secrets.hideAllSecretsIn(request.uri().toString())),
                 request.version().map(Enum::toString).orElse(""),
                 request.headers().map().entrySet().stream()
                         .flatMap(e -> e.getValue().stream().map(v -> entry(e.getKey(), v)))
                         .map(e -> format("?: ?", e.getKey(), secrets.hideIfSecret(e.getValue())))
                         .collect(joining(lineSeparator())),
                 requestBody != null ?
-                        secrets.replaceAllSecretsIfFound(new String(requestBody, UTF_8)) :
+                        secrets.hideAllSecretsIn(new String(requestBody, UTF_8)) :
                         ""
         );
         return response.whenComplete((resp, th) -> {
@@ -211,7 +213,7 @@ final class JdkHttpClient implements HttpClient {
                                 .map(e -> format("?: ?", e.getKey(), secrets.hideIfSecret(e.getValue())))
                                 .collect(joining(lineSeparator())),
                         resp.body().length > 0 ?
-                                secrets.replaceAllSecretsIfFound(new String(resp.body(), UTF_8)) :
+                                secrets.hideAllSecretsIn(new String(resp.body(), UTF_8)) :
                                 ""
                 );
             }

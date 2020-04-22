@@ -104,19 +104,6 @@ public final class Strings {
         return result;
     }
 
-    public static String hideSecureInfo(final String message) {
-        if (message != null) {
-            if (message.length() > 10) {
-                return "****" + message.substring(message.length() - 4);
-            } else {
-                return "********";
-            }
-        } else {
-            return null;
-        }
-
-    }
-
     public static List<String> split(final String source,
                                      final String delimiter) {
         if (source == null || source.isEmpty()) {

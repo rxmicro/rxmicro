@@ -16,6 +16,7 @@
 
 package io.rxmicro.rest.client.internal;
 
+import io.rxmicro.config.Secrets;
 import io.rxmicro.http.client.HttpClient;
 import io.rxmicro.http.client.HttpClientConfig;
 import io.rxmicro.http.client.HttpClientContentConverter;
@@ -41,6 +42,7 @@ public final class RestClientBuilder {
                 .create(
                         restClientInterface,
                         httpClientConfig,
+                        Secrets.getDefaultInstance(),
                         getHttpClientBodyConverter()
                 );
     }

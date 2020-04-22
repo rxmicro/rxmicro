@@ -16,6 +16,7 @@
 
 package io.rxmicro.http.client.jdk.internal;
 
+import io.rxmicro.config.Secrets;
 import io.rxmicro.http.client.HttpClient;
 import io.rxmicro.http.client.HttpClientConfig;
 import io.rxmicro.http.client.HttpClientContentConverter;
@@ -31,7 +32,8 @@ public final class JdkHttpClientFactory implements HttpClientFactory {
     @Override
     public HttpClient create(final Class<?> loggerClass,
                              final HttpClientConfig httpClientConfig,
+                             final Secrets secrets,
                              final HttpClientContentConverter contentConverter) {
-        return new JdkHttpClient(loggerClass, httpClientConfig, contentConverter);
+        return new JdkHttpClient(loggerClass, httpClientConfig, secrets, contentConverter);
     }
 }

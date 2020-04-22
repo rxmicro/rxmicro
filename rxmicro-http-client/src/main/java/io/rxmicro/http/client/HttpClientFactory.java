@@ -16,6 +16,8 @@
 
 package io.rxmicro.http.client;
 
+import io.rxmicro.config.Secrets;
+
 /**
  * @author nedis
  * @link https://rxmicro.io
@@ -25,5 +27,6 @@ public interface HttpClientFactory {
 
     HttpClient create(Class<?> loggerClass,
                       HttpClientConfig httpClientConfig,
+                      Secrets secrets,
                       HttpClientContentConverter contentConverter);
 }
