@@ -80,5 +80,12 @@
             <artifactId>netty-transport</artifactId>
             <version>${netty.version}</version>
         </dependency>
+
+        <!-- To use slf4j-api exclude this dependency! -->
+        <dependency>
+            <groupId>io.rxmicro</groupId>
+            <artifactId>rxmicro-slf4j-proxy</artifactId>
+            <version>0.3-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 </project>

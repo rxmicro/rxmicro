@@ -115,6 +115,7 @@
         <module>rxmicro-annotation-processor-data-aggregator</module>
         <module>rxmicro-annotation-processor-documentation</module>
         <module>rxmicro-annotation-processor-documentation-asciidoctor</module>
+        <module>rxmicro-slf4j-proxy</module>
     </modules>
 
     <properties>
@@ -135,9 +136,9 @@
         <external.lib.projectreactor.version>3.3.4.RELEASE</external.lib.projectreactor.version>
         <external.lib.reactivestreams.version>1.0.3</external.lib.reactivestreams.version>
 
-        <external.lib.mongodb-driver-reactivestreams.version>4.0.1</external.lib.mongodb-driver-reactivestreams.version>
-        <external.lib.mongodb-driver-core.version>4.0.1</external.lib.mongodb-driver-core.version>
-        <external.lib.bson.version>4.0.1</external.lib.bson.version>
+        <external.lib.mongodb-driver-reactivestreams.version>4.0.2</external.lib.mongodb-driver-reactivestreams.version>
+        <external.lib.mongodb-driver-core.version>4.0.2</external.lib.mongodb-driver-core.version>
+        <external.lib.bson.version>4.0.2</external.lib.bson.version>
 
         <external.lib.r2dbc-spi.version>0.8.1.RELEASE</external.lib.r2dbc-spi.version>
         <external.lib.r2dbc-postgresql.version>0.8.1.RELEASE</external.lib.r2dbc-postgresql.version>
