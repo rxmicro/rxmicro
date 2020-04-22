@@ -32,6 +32,7 @@ public interface DataRepository {
     CompletableFuture<Boolean> update1(Account account);
 
     @Update("UPDATE ${table} SET first_name=?, last_name=? WHERE id=?")
+    // <1>
     @VariableValues({
             "${table}", "account"
     })

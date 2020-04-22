@@ -17,11 +17,12 @@
 package io.rxmicro.examples.data.r2dbc.postgresql.transactional;
 
 import io.rxmicro.data.sql.model.IsolationLevel;
-import io.rxmicro.data.sql.model.reactor.Transaction;
 import io.rxmicro.data.sql.r2dbc.postgresql.PostgreSQLRepository;
 import reactor.core.publisher.Mono;
 
 // tag::content[]
+import io.rxmicro.data.sql.model.reactor.Transaction;
+
 @PostgreSQLRepository
 public interface BeginReactorTransactionRepository {
 

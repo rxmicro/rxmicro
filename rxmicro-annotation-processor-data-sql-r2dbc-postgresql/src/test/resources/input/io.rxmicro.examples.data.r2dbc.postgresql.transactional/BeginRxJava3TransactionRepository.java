@@ -18,10 +18,11 @@ package io.rxmicro.examples.data.r2dbc.postgresql.transactional;
 
 import io.reactivex.rxjava3.core.Single;
 import io.rxmicro.data.sql.model.IsolationLevel;
-import io.rxmicro.data.sql.model.rxjava3.Transaction;
 import io.rxmicro.data.sql.r2dbc.postgresql.PostgreSQLRepository;
 
 // tag::content[]
+import io.rxmicro.data.sql.model.rxjava3.Transaction;
+
 @PostgreSQLRepository
 public interface BeginRxJava3TransactionRepository {
 

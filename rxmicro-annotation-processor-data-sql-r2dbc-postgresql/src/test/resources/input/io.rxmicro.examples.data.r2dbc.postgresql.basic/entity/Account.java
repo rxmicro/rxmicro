@@ -21,6 +21,7 @@ import io.rxmicro.data.sql.Table;
 
 // tag::content[]
 @Table
+// <1>
 @ColumnMappingStrategy
 public final class Account {
 

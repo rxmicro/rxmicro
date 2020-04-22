@@ -137,7 +137,7 @@ options, where:
 // ------------------------------------------------------------- Introduction | License -------------------------------------------------------------
 === License
 
-*The FULL-PROJECT-DOCUMENTATION-* is licensed under the https://github.com/rxmicro/rxmicro-usage/blob/master/examples/LICENSE[MIT License^].
+*The FULL-PROJECT-DOCUMENTATION-* is licensed under the https://github.com/rxmicro/rxmicro/blob/master/LICENSE[Apache License 2.0^].
 
 // ---------------------------------------------------------- Introduction | Specification ----------------------------------------------------------
 === Specification

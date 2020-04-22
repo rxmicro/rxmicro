@@ -1,6 +1,6 @@
 = Metadata Annotations
 Richard Hendricks <richard.hendricks@piedpiper.com>; Bertram Gilfoyle <bertram.gilfoyle@piedpiper.com>; Dinesh Chugtai <dinesh.chugtai@piedpiper.com>
-1.0-SNAPSHOT
+0.0.1
 :icons: font
 :sectanchors: 
 :sectlinks: 
@@ -26,7 +26,7 @@ This document describes *the Metadata Annotations*.
 // ------------------------------------------------------------- Introduction | License -------------------------------------------------------------
 === License
 
-*The Metadata Annotations* is licensed under the https://github.com/rxmicro/rxmicro-usage/blob/master/examples/LICENSE[MIT License^].
+*The Metadata Annotations* is licensed under the https://github.com/rxmicro/rxmicro/blob/master/LICENSE[Apache License 2.0^].
 
 <<<
 // ------------------------------------------------------------------ Micro Service ------------------------------------------------------------------

@@ -22,9 +22,11 @@ import io.rxmicro.examples.data.mongo.basic.model.Account;
 import reactor.core.publisher.Mono;
 
 // tag::content[]
+// <1>
 @MongoRepository(collection = "account")
 public interface DataRepository {
 
+    // <2>
     @Find(query = "{email: ?}")
     Mono<Account> findByEmail(String email);
 }

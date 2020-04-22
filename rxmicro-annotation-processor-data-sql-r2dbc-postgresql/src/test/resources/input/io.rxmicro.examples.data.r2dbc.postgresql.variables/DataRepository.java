@@ -26,7 +26,7 @@ public interface DataRepository {
 
     // tag::content[]
     // <1>
-    String TABLE_NAME = "entity";
+    public static final String TABLE_NAME = "table1";
 
     // <2>
     @Select("SELECT id, value FROM " + TABLE_NAME + " WHERE id = ?")

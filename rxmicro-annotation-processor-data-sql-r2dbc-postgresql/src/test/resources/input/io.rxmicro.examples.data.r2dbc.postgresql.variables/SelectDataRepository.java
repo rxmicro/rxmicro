@@ -32,21 +32,25 @@ import java.util.concurrent.CompletableFuture;
 })
 public interface SelectDataRepository {
 
-    String GLOBAL_TABLE = "global_table";
+    public static final String GLOBAL_TABLE = "global_table";
 
-    String ENTITY_TABLE = "entity_table";
+    public static final String ENTITY_TABLE = "entity_table";
 
-    String LOCAL_TABLE = "local_table";
+    public static final String LOCAL_TABLE = "local_table";
 
+    // <1>
     @Select("SELECT * FROM ${table}")
     CompletableFuture<List<Entity>> findFromEntityTable1();
 
+    // <2>
     @Select(value = "SELECT * FROM ${table}", entityClass = Entity.class)
     CompletableFuture<List<EntityFieldMap>> findFromEntityTable2();
 
+    // <3>
     @Select("SELECT * FROM ${table}")
     CompletableFuture<List<EntityFieldMap>> findFromGlobalTable();
 
+    // <4>
     @Select("SELECT * FROM ${table}")
     @VariableValues({
             "${table}", SelectDataRepository.LOCAL_TABLE

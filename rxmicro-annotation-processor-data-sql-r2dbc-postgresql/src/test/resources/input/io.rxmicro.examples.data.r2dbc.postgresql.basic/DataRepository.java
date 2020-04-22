@@ -19,14 +19,15 @@ package io.rxmicro.examples.data.r2dbc.postgresql.basic;
 import io.rxmicro.data.sql.operation.Select;
 import io.rxmicro.data.sql.r2dbc.postgresql.PostgreSQLRepository;
 import io.rxmicro.examples.data.r2dbc.postgresql.basic.entity.Account;
-
-import java.util.concurrent.CompletableFuture;
+import reactor.core.publisher.Mono;
 
 // tag::content[]
+// <1>
 @PostgreSQLRepository
 public interface DataRepository {
 
+    // <2>
     @Select("SELECT * FROM ${table} WHERE email = ?")
-    CompletableFuture<Account> findByEmail(String email);
+    Mono<Account> findByEmail(String email);
 }
 // end::content[]

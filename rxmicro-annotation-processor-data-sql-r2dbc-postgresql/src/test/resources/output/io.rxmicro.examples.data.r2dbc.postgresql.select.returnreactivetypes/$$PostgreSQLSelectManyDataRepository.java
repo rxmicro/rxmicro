@@ -90,23 +90,7 @@ public final class $$PostgreSQLSelectManyDataRepository extends AbstractPostgreS
     }
 
     @Override
-    public Flowable<Account> findAll5() {
-        // Original SQL statement:  'SELECT * FROM ${table} ORDER BY id'
-        final String generatedSQL = "SELECT first_name, last_name FROM account ORDER BY id";
-        return Flowable.fromPublisher(
-                pool.create()
-                        .flatMapMany(c -> executeStatement(c, generatedSQL)
-                                .flatMapMany(r -> Flux.from(r.map(accountEntityFromR2DBCSQLDBConverter::fromDB)))
-                                .onErrorResume(e -> close(c)
-                                        .then(Mono.error(e)))
-                                .concatWith(close(c)
-                                        .then(Mono.empty()))
-                        )
-        );
-    }
-
-    @Override
-    public Single<List<Account>> findAll6() {
+    public Single<List<Account>> findAll5() {
         // Original SQL statement:  'SELECT * FROM ${table} ORDER BY id'
         final String generatedSQL = "SELECT first_name, last_name FROM account ORDER BY id";
         return Flowable.fromPublisher(
@@ -119,5 +103,21 @@ public final class $$PostgreSQLSelectManyDataRepository extends AbstractPostgreS
                                         .then(Mono.empty()))
                         )
         ).collect(ArrayList::new, (l, e) -> l.add(e));
+    }
+
+    @Override
+    public Flowable<Account> findAll6() {
+        // Original SQL statement:  'SELECT * FROM ${table} ORDER BY id'
+        final String generatedSQL = "SELECT first_name, last_name FROM account ORDER BY id";
+        return Flowable.fromPublisher(
+                pool.create()
+                        .flatMapMany(c -> executeStatement(c, generatedSQL)
+                                .flatMapMany(r -> Flux.from(r.map(accountEntityFromR2DBCSQLDBConverter::fromDB)))
+                                .onErrorResume(e -> close(c)
+                                        .then(Mono.error(e)))
+                                .concatWith(close(c)
+                                        .then(Mono.empty()))
+                        )
+        );
     }
 }

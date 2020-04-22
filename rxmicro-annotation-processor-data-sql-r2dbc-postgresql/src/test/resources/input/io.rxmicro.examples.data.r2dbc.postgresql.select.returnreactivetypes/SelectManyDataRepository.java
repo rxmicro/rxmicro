@@ -45,9 +45,9 @@ public interface SelectManyDataRepository {
     CompletionStage<List<Account>> findAll4();
 
     @Select("SELECT * FROM ${table} ORDER BY id")
-    Flowable<Account> findAll5();
+    Single<List<Account>> findAll5();
 
     @Select("SELECT * FROM ${table} ORDER BY id")
-    Single<List<Account>> findAll6();
+    Flowable<Account> findAll6();
 }
 // end::content[]

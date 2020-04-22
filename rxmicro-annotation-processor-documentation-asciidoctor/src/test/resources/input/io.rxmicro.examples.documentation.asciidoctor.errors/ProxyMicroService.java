@@ -35,13 +35,14 @@ final class ProxyMicroService {
             getRestClient(ExternalMicroService.class);
 
     @GET("/")
+    // <1>
     @SimpleErrorResponse(
-            status = 404,
-            description = "If data not found",
-            exampleErrorMessage = "Data not found!"
+            status = 404,                               // <2>
+            description = "If data not found",          // <3>
+            exampleErrorMessage = "Data not found!"     // <4>
     )
-    @ModelExceptionErrorResponse(HttpClientTimeoutException.class)
-    @ModelExceptionErrorResponse(NotAcceptableException.class)
+    @ModelExceptionErrorResponse(HttpClientTimeoutException.class)  // <5>
+    @ModelExceptionErrorResponse(NotAcceptableException.class)      // <6>
     CompletableFuture<Optional<Response>> get() {
         return externalMicroService.get().thenApply(Optional::of);
     }

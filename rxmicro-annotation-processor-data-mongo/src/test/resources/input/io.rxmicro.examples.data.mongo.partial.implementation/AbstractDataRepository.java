@@ -23,14 +23,14 @@ import org.bson.Document;
 import java.util.concurrent.CompletableFuture;
 
 // tag::content[]
-public abstract class AbstractDataRepository extends AbstractMongoRepository implements DataRepository {
+public abstract class AbstractDataRepository extends AbstractMongoRepository
+        implements DataRepository {
 
     protected AbstractDataRepository(final Class<?> repositoryClass,
                                      final MongoCollection<Document> collection) {
         super(repositoryClass, collection);
     }
 
-    // <1>
     @Override
     public CompletableFuture<Long> userDefinedMethod() {
         return CompletableFuture.completedFuture(100L);

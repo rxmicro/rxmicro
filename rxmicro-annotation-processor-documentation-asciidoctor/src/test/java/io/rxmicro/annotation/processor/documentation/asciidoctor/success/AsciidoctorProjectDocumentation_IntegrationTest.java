@@ -43,7 +43,7 @@ final class AsciidoctorProjectDocumentation_IntegrationTest
     @ArgumentsSource(AllInputPackagesArgumentsProvider.class)
     void verify(final String packageName) throws IOException {
         System.setProperty(RX_MICRO_POM_XML_ABSOLUTE_PATH, format("?/?/pom.xml", INPUT_DIR, packageName));
-        if (packageName.startsWith("io.rxmicro.examples.auto.module")) {
+        if (packageName.startsWith("io.rxmicro.examples.unnamed.module")) {
             addCompilerOption(RX_MICRO_BUILD_UNNAMED_MODULE, "true");
         }
         final Compilation compilation = compileAllIn(packageName);

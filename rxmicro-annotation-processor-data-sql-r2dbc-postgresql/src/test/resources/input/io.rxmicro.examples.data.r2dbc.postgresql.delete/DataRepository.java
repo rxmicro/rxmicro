@@ -33,6 +33,7 @@ public interface DataRepository {
     CompletableFuture<Boolean> delete1(Account account);
 
     @Delete("DELETE FROM ${table} WHERE balance < ?")
+    // <1>
     @VariableValues({
             "${table}", "account"
     })

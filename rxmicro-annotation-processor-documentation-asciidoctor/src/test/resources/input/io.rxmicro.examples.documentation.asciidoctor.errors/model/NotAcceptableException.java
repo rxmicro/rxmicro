@@ -17,16 +17,19 @@
 package io.rxmicro.examples.documentation.asciidoctor.errors.model;
 
 import io.rxmicro.documentation.Description;
+import io.rxmicro.documentation.Example;
 import io.rxmicro.http.error.HttpErrorException;
 
+// tag::content[]
 @Description("This error response indicates that the API " +
         "is not able to generate any of the client's preferred media types, " +
-        "as indicated by the Accept request header.")
+        "as indicated by the Accept request header.") // <2>
 public final class NotAcceptableException extends HttpErrorException {
 
-    public static final int STATUS_CODE = 406;
+    public static final int STATUS_CODE = 406; // <1>
 
-    public NotAcceptableException(final String message) {
+    public NotAcceptableException(@Example("Not-Acceptable") final String message) { // <3>
         super(STATUS_CODE, message);
     }
 }
+// end::content[]

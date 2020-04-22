@@ -21,8 +21,7 @@ import io.rxmicro.data.sql.r2dbc.postgresql.detail.AbstractPostgreSQLRepository;
 import java.util.concurrent.CompletableFuture;
 
 // tag::content[]
-public abstract class AbstractDataRepository
-        extends AbstractPostgreSQLRepository
+public abstract class AbstractDataRepository extends AbstractPostgreSQLRepository
         implements DataRepository {
 
     protected AbstractDataRepository(final Class<?> repositoryClass) {

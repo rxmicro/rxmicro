@@ -49,7 +49,7 @@ public interface CustomSelectRepository {
 
     @Select
     CompletableFuture<Optional<Account>> findLastAndFirstName(
-            @CustomSelect(selectedColumns = {"last_name", "first_name"}) String sql,
+            @CustomSelect(selectedColumns = {"last_name", "first_name"}) String sql, // <4>
             String firstName
     );
 }

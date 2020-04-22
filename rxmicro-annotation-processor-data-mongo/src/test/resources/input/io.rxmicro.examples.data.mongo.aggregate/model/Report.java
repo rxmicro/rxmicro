@@ -28,8 +28,8 @@ public final class Report {
     Role id;
 
     BigDecimal total;
-
     // end::content[]
+
     public Report() {
     }
 

@@ -17,13 +17,14 @@
 package io.rxmicro.examples.data.r2dbc.postgresql.transactional;
 
 import io.rxmicro.data.sql.model.IsolationLevel;
-import io.rxmicro.data.sql.model.completablefuture.Transaction;
 import io.rxmicro.data.sql.r2dbc.postgresql.PostgreSQLRepository;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 
 // tag::content[]
+import io.rxmicro.data.sql.model.completablefuture.Transaction;
+
 @PostgreSQLRepository
 public interface BeginCompletableFutureTransactionRepository {
 

@@ -24,6 +24,7 @@ import java.util.concurrent.CompletableFuture;
 
 // tag::content[]
 @RestClient
+// <1>
 @SetQueryParameter(name = "mode", value = "demo")
 public interface StaticQueryParametersRestClient {
 
@@ -31,6 +32,7 @@ public interface StaticQueryParametersRestClient {
     CompletableFuture<Void> get1();
 
     @GET("/get2")
+    // <2>
     @SetQueryParameter(name = "debug", value = "true")
     CompletableFuture<Void> get2();
 }

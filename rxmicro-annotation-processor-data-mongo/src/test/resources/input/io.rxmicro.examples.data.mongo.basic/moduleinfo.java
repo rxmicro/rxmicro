@@ -16,7 +16,7 @@
 
 // tag::content[]
 module examples.data.mongo.basic {
-    requires rxmicro.data.mongo; // <1>
-    requires reactor.core;       // <2>
+    requires rxmicro.data.mongo;
+    requires reactor.core;       // <1>
 }
 // end::content[]

@@ -47,7 +47,7 @@ final class RestClient_IntegrationTest extends AbstractRestClientAnnotationProce
     @ParameterizedTest
     @ArgumentsSource(AllInputPackagesArgumentsProvider.class)
     void verify(final String packageName) throws IOException {
-        if (packageName.startsWith("io.rxmicro.examples.auto.module")) {
+        if (packageName.startsWith("io.rxmicro.examples.unnamed.module")) {
             addAggregator("$$EnvironmentCustomizer");
             addCompilerOption(RX_MICRO_BUILD_UNNAMED_MODULE, "true");
         }

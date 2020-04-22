@@ -35,6 +35,7 @@ public interface DataRepository {
     CompletableFuture<Boolean> insert1(Account account);
 
     @Insert("INSERT INTO ${table} VALUES(nextval('account_seq'),?,?,?,?,?)")
+    // <1>
     @VariableValues({
             "${table}", "account"
     })
