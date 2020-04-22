@@ -42,7 +42,7 @@ return Flowable.fromPublisher(result.first())
         .map(${ENTITY_CONVERTER}::fromDB);
 <#-- -------------------------------------------------------------------------------------------------------- -->
 <#else>
-//"RxMicro does not know how to generate this method";
+//"The RxMicro framework does not know how to generate this method";
 </#if>
 <#-- -------------------------------------------------------------------------------------------------------- -->
 <#else>
@@ -70,7 +70,7 @@ return Flowable.fromPublisher(result)
         .collect(ArrayList::new, (l, e) -> l.add(e));
 <#-- -------------------------------------------------------------------------------------------------------- -->
 <#else>
-//"RxMicro does not know how to generate this method";
+//"The RxMicro framework does not know how to generate this method";
 </#if>
 </#if>
 <#-- -------------------------------------------------------------------------------------------------------- -->

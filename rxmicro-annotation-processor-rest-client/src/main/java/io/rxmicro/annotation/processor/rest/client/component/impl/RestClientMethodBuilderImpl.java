@@ -112,7 +112,7 @@ public final class RestClientMethodBuilderImpl implements RestClientMethodBuilde
                         .collect(toSet());
         if (methodBuilders.isEmpty()) {
             throw new InterruptProcessingException(methodSignature.getMethod(),
-                    "RxMicro does not know how to generate a body of this method.");
+                    "The RxMicro framework does not know how to generate a body of this method.");
         } else if (methodBuilders.size() > 1) {
             throw new InterruptProcessingException(methodSignature.getMethod(),
                     "Rest client method has ambiguous definitions: ?", methodBuilders);

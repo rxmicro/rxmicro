@@ -28,9 +28,9 @@ import static java.lang.annotation.ElementType.PARAMETER;
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
- * Informs the RxMicro annotation processor, that a header model field with array type must be converted to the repeating HTTP header.
+ * Informs the RxMicro Annotation Processor, that a header model field with array type must be converted to the repeating HTTP header.
  * <p>
- * By default, RxMicro converts header model value as comma separated string, for example:
+ * By default, the RxMicro framework converts header model value as comma separated string, for example:
  * <p>
  * HeaderName: value1,value2,value3.
  * <p>

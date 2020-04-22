@@ -19,7 +19,7 @@ package io.rxmicro.rest.client.jdk;
 /**
  * This is special interface, which is used to define a root package for the current module.
  *
- * This feature is a workaround and used by RxMicro Annotation Processor for projects which don't use JPMS.
+ * This feature is a workaround and used by the RxMicro Annotation Processor for projects which don't support the JPMS.
  *
  * @author nedis
  * @link http://rxmicro.io

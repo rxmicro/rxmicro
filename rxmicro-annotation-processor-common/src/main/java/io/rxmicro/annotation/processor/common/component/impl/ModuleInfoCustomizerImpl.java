@@ -95,7 +95,7 @@ public final class ModuleInfoCustomizerImpl implements ModuleInfoCustomizer {
 
     private Map.Entry<Class<?>, String> getModuleResolveExpressionEntry(final Map.Entry<String, RxMicroModule> entry) {
         return Optional.ofNullable(moduleMapping.get(entry.getValue())).orElseThrow(() -> {
-            throw new InternalErrorException("RxMicro module not configured: ?", entry.getValue());
+            throw new InternalErrorException("The RxMicro module not configured: ?", entry.getValue());
         });
     }
 

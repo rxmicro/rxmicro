@@ -23,7 +23,7 @@ import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
- * Method annotated by this annotation will be invoked by RxMicro after injection of all dependencies to bean instance.
+ * Method annotated by this annotation will be invoked by the RxMicro framework after injection of the all dependencies to current instance.
  *
  * @author nedis
  * @link https://rxmicro.io
@@ -35,7 +35,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 public @interface PostConstruct {
 
     /**
-     * Default name of method, which RxMicro interprets as method annotated by this annotation,
+     * Default name of method, which the RxMicro framework interprets as method annotated by this annotation,
      * i.e.
      * <p>
      * void postConstruct() {

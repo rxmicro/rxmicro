@@ -28,13 +28,13 @@ Status of all supported features is available at the [Features Table](Features.m
 
 ## Documentation
 
-* [User Guide](https://rxmicro.io/doc/latest/ru/user-guide/index.html)
-* [Samples](https://github.com/rxmicro/rxmicro-usage/tree/master/examples)
+* [User Guide](https://rxmicro.io/doc/latest/user-guide/index.html)
+* [Examples](https://github.com/rxmicro/rxmicro-usage/tree/master/examples)
 * [Release Notes](https://github.com/rxmicro/rxmicro/blob/master/release/src/main/asciidoc/release-notes/index.md)
 
 ## Contributing
 
-Contributions to RxMicro are both welcomed and appreciated. 
+Contributions to the RxMicro framework are both welcomed and appreciated. 
 For specific guidelines regarding contributions, please see [CONTRIBUTING.md](.github/CONTRIBUTING.md). 
 
 ## Check Lists

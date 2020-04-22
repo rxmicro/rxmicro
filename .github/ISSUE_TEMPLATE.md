@@ -9,7 +9,7 @@
 
 ### Actual behavior
 
-### Source code which couldn't be compiled using RxMicro Annotation Processor (1 or 2 issue kind)
+### Source code which couldn't be compiled using the RxMicro Annotation Processor (1 or 2 issue kind)
 
 ### Steps to reproduce (3 or 4 issue kind)
 

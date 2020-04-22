@@ -54,7 +54,7 @@ public @interface Select {
 
     /**
      * It is not recommend to set this parameter to <code>false</code>.
-     * If this parameter set to <code>false</code>, RxMicro will not validate fields order during SELECT query.
+     * If this parameter set to <code>false</code>, the RxMicro framework will not validate fields order during SELECT query.
      *
      * @return <code>true</code> if sql query 'SELECT * FROM table1' must be converted to 'SELECT ${fields} FROM table1' automatically,
      * <code>false</code> otherwise

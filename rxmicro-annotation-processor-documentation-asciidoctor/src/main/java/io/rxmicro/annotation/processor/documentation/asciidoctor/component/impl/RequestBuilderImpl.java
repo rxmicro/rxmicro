@@ -186,7 +186,7 @@ public final class RequestBuilderImpl implements RequestBuilder {
                 "expected: " + parentUrl.getVersionValue()
         );
         final String description = "Api version required header, value of which is used " +
-                "by RxMicro framework to define appropriate request handler.";
+                "by the RxMicro framework framework to define appropriate request handler.";
         return new DocumentedModelField(parentUrl.getVersionHeaderName(), STRING, restrictions, description, List.of());
     }
 

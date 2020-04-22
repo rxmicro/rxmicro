@@ -12,6 +12,6 @@ return new PublisherToRequiredMonoFutureAdapter<>(
 return Single.fromPublisher(collection.estimatedDocumentCount());
 <#-- -------------------------------------------------------------------------------------------------------- -->
 <#else>
-//"RxMicro does not know how to generate this method";
+//"The RxMicro framework does not know how to generate this method";
 </#if>
 <#-- -------------------------------------------------------------------------------------------------------- -->

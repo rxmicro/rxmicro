@@ -55,7 +55,7 @@ return restController.${METHOD_NAME.simpleName}(req)
 </#if>
 <#-- --------------------------------------------------------------------------------------------------------------- -->
 <#else>
-//"RxMicro does not know how to generate this method";
+//"The RxMicro framework does not know how to generate this method";
 </#if>
 <#else>
 <#-- ------------------------------------------------ Void --------------------------------------------------------- -->

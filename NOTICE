@@ -21,7 +21,7 @@ License for the specific language governing permissions and limitations
 under the License.
 
 -------------------------------------------------------------------------------
-RxMicro requires OpenJDK 11 or later:
+The RxMicro framework requires OpenJDK 11 or later:
 
  * LICENSE:
    * https://openjdk.java.net/legal/gplv2+ce.html (GNU General Public License, version 2, with the Classpath Exception)
@@ -29,7 +29,7 @@ RxMicro requires OpenJDK 11 or later:
    * https://jdk.java.net/11/
 
 -------------------------------------------------------------------------------
-RxMicro requires Netty:
+The RxMicro framework requires Netty:
 
  * LICENSE:
    * https://github.com/netty/netty/blob/4.1/LICENSE.txt (Apache License 2.0)
@@ -37,7 +37,7 @@ RxMicro requires Netty:
    * https://netty.io/
 
 -------------------------------------------------------------------------------
-RxMicro requires Project Reactor:
+The RxMicro framework requires Project Reactor:
 
  * LICENSE:
    * https://github.com/reactor/reactor-core/blob/master/LICENSE (Apache License 2.0)
@@ -45,7 +45,7 @@ RxMicro requires Project Reactor:
    * https://projectreactor.io/
 
 -------------------------------------------------------------------------------
-RxMicro requires RxJava3:
+The RxMicro framework requires RxJava3:
 
  * LICENSE:
    * https://github.com/ReactiveX/RxJava/blob/3.x/LICENSE (Apache License 2.0)
@@ -53,7 +53,7 @@ RxMicro requires RxJava3:
    * https://github.com/ReactiveX/RxJava
 
 -------------------------------------------------------------------------------
-RxMicro Mongo integration module requires reactive Java Mongo driver:
+The RxMicro framework Mongo integration module requires reactive Java Mongo driver:
 
  * LICENSE:
    * https://github.com/mongodb/mongo-java-driver-reactivestreams/blob/master/LICENSE (Apache License 2.0)
@@ -61,7 +61,7 @@ RxMicro Mongo integration module requires reactive Java Mongo driver:
    * https://mongodb.github.io/mongo-java-driver-reactivestreams/
 
 -------------------------------------------------------------------------------
-RxMicro PostgreSQL integration module requires R2DBC pool and R2DBC PostgreSQL driver:
+The RxMicro framework PostgreSQL integration module requires R2DBC pool and R2DBC PostgreSQL driver:
 
  * LICENSE:
    * https://github.com/r2dbc/r2dbc-postgresql/blob/master/LICENSE (Apache License 2.0)
@@ -72,7 +72,7 @@ RxMicro PostgreSQL integration module requires R2DBC pool and R2DBC PostgreSQL d
    * https://github.com/r2dbc/r2dbc-pool
 
 -------------------------------------------------------------------------------
-RxMicro annotation processor module requires Google Guice dependency injection framework:
+The RxMicro Annotation Processor module requires Google Guice dependency injection framework:
 
  * LICENSE:
    * https://github.com/google/guice/blob/master/COPYING (Apache License 2.0)
@@ -80,7 +80,7 @@ RxMicro annotation processor module requires Google Guice dependency injection f
    * https://github.com/google/guice
 
 -------------------------------------------------------------------------------
-RxMicro annotation processor module requires Freemarker template engine:
+The RxMicro Annotation Processor module requires Freemarker template engine:
 
  * LICENSE:
    * https://freemarker.apache.org/docs/app_license.html (Apache License 2.0)
@@ -88,7 +88,7 @@ RxMicro annotation processor module requires Freemarker template engine:
    * https://freemarker.apache.org/
 
 -------------------------------------------------------------------------------
-RxMicro annotation processor module requires Google compile testing framework:
+The RxMicro Annotation Processor module requires Google compile testing framework:
 
  * LICENSE:
    * https://github.com/google/compile-testing/blob/master/LICENSE.txt (Apache License 2.0)
@@ -96,7 +96,7 @@ RxMicro annotation processor module requires Google compile testing framework:
    * https://github.com/google/compile-testing
 
 -------------------------------------------------------------------------------
-RxMicro annotation processor module requires Maven model library:
+The RxMicro Annotation Processor module requires Maven model library:
 
  * LICENSE:
    * https://www.apache.org/licenses/LICENSE-2.0.txt (Apache License 2.0)
@@ -104,7 +104,7 @@ RxMicro annotation processor module requires Maven model library:
    * https://maven.apache.org/ref/3.6.3/maven-model/index.html
 
 -------------------------------------------------------------------------------
-RxMicro requires JUnit 5:
+The RxMicro framework requires JUnit 5:
 
  * LICENSE:
    * http://www.eclipse.org/legal/epl-v20.html (Eclipse Public License v2.0)
@@ -112,7 +112,7 @@ RxMicro requires JUnit 5:
    * https://junit.org/junit5/
 
 -------------------------------------------------------------------------------
-RxMicro requires Mockito:
+The RxMicro framework requires Mockito:
 
  * LICENSE:
    * https://github.com/mockito/mockito/blob/master/LICENSE (The MIT License)

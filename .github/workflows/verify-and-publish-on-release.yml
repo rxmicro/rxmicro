@@ -45,7 +45,7 @@ jobs:
       - name: Checkout rxmicro-usage
         run: git clone https://github.com/rxmicro/rxmicro-usage
 
-      - name: Resolve current RxMicro version
+      - name: Resolve current version of the RxMicro framework
         run : |
           LATEST_VERSION=$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)
           echo "RxMicro version is $LATEST_VERSION"

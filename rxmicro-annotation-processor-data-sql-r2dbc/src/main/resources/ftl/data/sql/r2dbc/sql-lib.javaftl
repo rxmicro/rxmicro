@@ -32,7 +32,7 @@ return ${RESULT_PUBLISHER}
 return ${RESULT_PUBLISHER}
         .map(r -> r > 0);
 <#else>
-//"RxMicro does not know how to generate this method";
+//"The RxMicro framework does not know how to generate this method";
 </#if>
 <#-- -------------------------------------------------------------------------------------------------------- -->
 <#elseif RETURN.future>
@@ -52,7 +52,7 @@ return ${RESULT_PUBLISHER}
         .map(r -> r > 0)
         .toFuture();
 <#else>
-//"RxMicro does not know how to generate this method";
+//"The RxMicro framework does not know how to generate this method";
 </#if>
 <#-- -------------------------------------------------------------------------------------------------------- -->
 <#elseif RETURN.completable>
@@ -72,11 +72,11 @@ return Single.fromPublisher(
         ${RESULT_PUBLISHER}
 ).map(r -> r > 0);
 <#else>
-//"RxMicro does not know how to generate this method";
+//"The RxMicro framework does not know how to generate this method";
 </#if>
 <#-- -------------------------------------------------------------------------------------------------------- -->
 <#else>
-//"RxMicro does not know how to generate this method";
+//"The RxMicro framework does not know how to generate this method";
 </#if>
 </#macro>
 <#-- ------------------------------------------------------------------------------------------------ -->
