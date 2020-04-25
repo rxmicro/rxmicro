@@ -51,7 +51,9 @@ public final class Converters {
         final Map<Class<?>, Function<String, Object>> map = new HashMap<>();
         // String
         map.put(String.class, s -> s);
+        map.put(CharSequence.class, s -> s);
         map.put(Character.class, s -> s.charAt(0));
+        map.put(Character.TYPE, s -> s.charAt(0));
         // Boolean
         map.put(Boolean.class, Boolean::parseBoolean);
         map.put(Boolean.TYPE, Boolean::parseBoolean);
