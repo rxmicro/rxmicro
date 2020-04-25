@@ -1,0 +1,11 @@
+[
+  {
+    "name": "io.rxmicro.config.SecretsConfig",
+    "methods": [
+      {
+        "name": "<init>",
+        "parameterTypes": []
+      }
+    ]
+  }
+]
