@@ -295,8 +295,10 @@ public final class ConfigProperties {
         }
 
         public void addResolvedEntries(final Set<Map.Entry<String, String>> resolvedEntries) {
-            count += resolvedEntries.size();
-            resolvedEntries.forEach(e -> this.resolvedEntries.put(e, INSTANCE));
+            if (debugEnabled) {
+                count += resolvedEntries.size();
+                resolvedEntries.forEach(e -> this.resolvedEntries.put(e, INSTANCE));
+            }
         }
 
         @Override
