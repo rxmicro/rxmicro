@@ -19,6 +19,7 @@ package io.rxmicro.examples.documentation.asciidoctor.validation;
 import io.rxmicro.rest.method.PUT;
 import io.rxmicro.validation.constraint.Phone;
 
+@SuppressWarnings("EmptyMethod")
 // tag::content[]
 final class MicroService {
 

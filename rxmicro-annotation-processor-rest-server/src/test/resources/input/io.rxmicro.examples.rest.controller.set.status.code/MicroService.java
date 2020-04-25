@@ -19,6 +19,7 @@ package io.rxmicro.examples.rest.controller.set.status.code;
 import io.rxmicro.rest.method.GET;
 import io.rxmicro.rest.server.SetStatusCode;
 
+@SuppressWarnings("EmptyMethod")
 // tag::content[]
 final class MicroService {
 

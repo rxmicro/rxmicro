@@ -25,11 +25,11 @@ import io.rxmicro.rest.ParameterMappingStrategy;
 public final class Request {
 
     // <2>
-    String endpointVersion;
+    final String endpointVersion;
 
     // <3>
     @Parameter("use-Proxy")
-    Boolean useProxy;
+    final Boolean useProxy;
 
     public Request(final String endpointVersion, final Boolean useProxy) {
         this.endpointVersion = endpointVersion;

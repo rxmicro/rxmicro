@@ -22,6 +22,7 @@ import io.rxmicro.data.sql.operation.Select;
 
 import java.util.concurrent.CompletableFuture;
 
+@SuppressWarnings("UnnecessaryInterfaceModifier")
 public interface DataRepository {
 
     // tag::content[]

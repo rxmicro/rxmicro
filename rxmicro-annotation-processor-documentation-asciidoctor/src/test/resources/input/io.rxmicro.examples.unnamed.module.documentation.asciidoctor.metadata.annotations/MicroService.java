@@ -18,6 +18,7 @@ package io.rxmicro.examples.unnamed.module.documentation.asciidoctor.metadata.an
 
 import io.rxmicro.rest.method.GET;
 
+@SuppressWarnings("EmptyMethod")
 final class MicroService {
 
     @GET("/")

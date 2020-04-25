@@ -23,6 +23,7 @@ import io.rxmicro.rest.method.POST;
 import io.rxmicro.rest.method.PUT;
 import io.rxmicro.rest.server.feature.EnableCrossOriginResourceSharing;
 
+@SuppressWarnings("EmptyMethod")
 @EnableCrossOriginResourceSharing(
         allowOrigins = {
                 "http://localhost:8080",

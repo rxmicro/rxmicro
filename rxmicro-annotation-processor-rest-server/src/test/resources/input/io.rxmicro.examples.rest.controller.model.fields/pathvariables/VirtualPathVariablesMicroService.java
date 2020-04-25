@@ -24,6 +24,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.Instant;
 
+@SuppressWarnings("EmptyMethod")
 final class VirtualPathVariablesMicroService {
 
     @PUT("/path-variables/virtual/${a}/${b}/${c}/${d}/${e}/${f}/${g}/${j}/${h}/${i}/${j}/${k}/${l}/${m}")

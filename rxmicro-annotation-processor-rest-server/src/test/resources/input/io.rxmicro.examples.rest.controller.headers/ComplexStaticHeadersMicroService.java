@@ -20,6 +20,7 @@ import io.rxmicro.rest.AddHeader;
 import io.rxmicro.rest.SetHeader;
 import io.rxmicro.rest.method.GET;
 
+@SuppressWarnings("EmptyMethod")
 @SetHeader(name = "Parent-Header1", value = "old-Parent-Header1-value")
 @SetHeader(name = "Parent-Header1", value = "new-Parent-Header1-value")
 @AddHeader(name = "Parent-Header2", value = "new-Parent-Header2-value")

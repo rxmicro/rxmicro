@@ -16,6 +16,7 @@
 
 package io.rxmicro.examples.cdi.constructor.injection;
 
+@SuppressWarnings("SameReturnValue")
 // tag::content[]
 public interface BusinessService {
 

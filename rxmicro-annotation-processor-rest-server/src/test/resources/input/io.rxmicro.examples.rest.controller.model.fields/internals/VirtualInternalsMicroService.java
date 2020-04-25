@@ -28,6 +28,7 @@ import io.rxmicro.rest.server.detail.model.HttpRequest;
 
 import java.net.SocketAddress;
 
+@SuppressWarnings("EmptyMethod")
 final class VirtualInternalsMicroService {
 
     @PUT("/internals/virtual")

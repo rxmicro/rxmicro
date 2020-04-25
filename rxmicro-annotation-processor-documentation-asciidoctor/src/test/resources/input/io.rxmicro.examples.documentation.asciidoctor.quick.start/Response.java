@@ -18,6 +18,7 @@ package io.rxmicro.examples.documentation.asciidoctor.quick.start;
 
 import static java.util.Objects.requireNonNull;
 
+@SuppressWarnings("SameParameterValue")
 // tag::content[]
 final class Response {
 

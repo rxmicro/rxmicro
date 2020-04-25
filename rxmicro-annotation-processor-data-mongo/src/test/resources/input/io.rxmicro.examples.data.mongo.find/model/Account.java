@@ -21,6 +21,7 @@ import io.rxmicro.data.mongo.DocumentId;
 import java.math.BigDecimal;
 import java.util.Objects;
 
+@SuppressWarnings("unused")
 public class Account {
 
     @DocumentId

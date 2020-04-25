@@ -27,6 +27,7 @@ import java.time.Instant;
 import static io.rxmicro.model.MappingStrategy.CAPITALIZE_WITH_UNDERSCORED;
 import static io.rxmicro.model.MappingStrategy.LOWERCASE_WITH_HYPHEN;
 
+@SuppressWarnings("EmptyMethod")
 @ParameterMappingStrategy
 @HeaderMappingStrategy
 final class MappingStrategyMicroService {

@@ -25,6 +25,7 @@ import java.util.concurrent.CompletionStage;
 // tag::content[]
 import io.rxmicro.data.sql.model.completablefuture.Transaction;
 
+@SuppressWarnings("unused")
 @PostgreSQLRepository
 public interface BeginCompletableFutureTransactionRepository {
 

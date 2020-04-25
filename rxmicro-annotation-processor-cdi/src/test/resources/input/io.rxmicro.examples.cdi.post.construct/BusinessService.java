@@ -16,6 +16,7 @@
 
 package io.rxmicro.examples.cdi.post.construct;
 
+@SuppressWarnings("SameReturnValue")
 // tag::content[]
 public interface BusinessService {
 

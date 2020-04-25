@@ -19,6 +19,7 @@ package io.rxmicro.examples.cdi.optional.injection;
 import io.rxmicro.cdi.Autowired;
 import io.rxmicro.cdi.Inject;
 
+@SuppressWarnings("CanBeFinal")
 // tag::content[]
 public final class BusinessServiceFacade {
 

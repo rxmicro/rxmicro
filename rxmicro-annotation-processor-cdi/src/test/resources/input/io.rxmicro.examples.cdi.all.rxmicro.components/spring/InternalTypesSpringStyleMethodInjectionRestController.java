@@ -38,6 +38,7 @@ import io.rxmicro.rest.server.netty.NettyRestServerConfig;
  * @author nedis
  * @link https://rxmicro.io
  */
+@SuppressWarnings({"FieldCanBeLocal", "EmptyMethod"})
 public final class InternalTypesSpringStyleMethodInjectionRestController {
 
     private MongoRepository mongoRepository;

@@ -19,6 +19,7 @@ package io.rxmicro.examples.processor.microservice;
 import io.rxmicro.config.IncludeAll;
 import io.rxmicro.rest.method.GET;
 
+@SuppressWarnings("EmptyMethod")
 @IncludeAll
 final class MicroService {
 

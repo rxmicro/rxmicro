@@ -86,6 +86,7 @@ import static io.rxmicro.validation.constraint.CountryCode.Format.ISO_3166_1_num
 import static io.rxmicro.validation.constraint.IP.Version.IP_V4;
 import static io.rxmicro.validation.constraint.IP.Version.IP_V6;
 
+@SuppressWarnings("unused")
 abstract class Abstract {
 
     @Nullable

@@ -23,6 +23,7 @@ import java.math.BigInteger;
 import java.time.Instant;
 import java.util.List;
 
+@SuppressWarnings("unused")
 abstract class Abstract {
 
     private Boolean booleanParameter;

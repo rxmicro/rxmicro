@@ -19,10 +19,10 @@ package io.rxmicro.examples.rest.controller.model.fields.internals.reflection;
 import io.rxmicro.http.HttpHeaders;
 import io.rxmicro.http.HttpVersion;
 
+@SuppressWarnings("unused")
 abstract class Abstract {
 
     private HttpVersion version;
 
     private HttpHeaders headers;
-
 }

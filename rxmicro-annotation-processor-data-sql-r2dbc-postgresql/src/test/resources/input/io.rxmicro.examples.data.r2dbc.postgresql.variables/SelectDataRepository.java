@@ -25,6 +25,7 @@ import io.rxmicro.examples.data.r2dbc.postgresql.variables.model.Entity;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
+@SuppressWarnings("UnnecessaryInterfaceModifier")
 // tag::content[]
 @PostgreSQLRepository
 @VariableValues({

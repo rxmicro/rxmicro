@@ -16,6 +16,7 @@
 
 package io.rxmicro.examples.unnamed.module.cdi.find.beans.api;
 
+@SuppressWarnings("SameReturnValue")
 public interface NestedComponent {
 
     String getValue();

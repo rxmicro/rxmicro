@@ -19,6 +19,7 @@ package io.rxmicro.examples.rest.controller.model.fields.pathvariables;
 import io.rxmicro.examples.rest.controller.model.fields.pathvariables.reflection.Request;
 import io.rxmicro.rest.method.PUT;
 
+@SuppressWarnings("EmptyMethod")
 final class ReflectionPathVariablesMicroService {
 
     @PUT("/path-variables/reflection/${a}/${b}/${c}/${d}/${e}/${f}/${g}/${j}/${h}/${i}/${j}/${k}/${l}/${m}")

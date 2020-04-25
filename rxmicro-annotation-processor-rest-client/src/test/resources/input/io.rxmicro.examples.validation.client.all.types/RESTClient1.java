@@ -27,6 +27,7 @@ import reactor.core.publisher.Mono;
 
 import java.util.concurrent.CompletableFuture;
 
+@SuppressWarnings("UnusedReturnValue")
 @RestClient
 public interface RESTClient1 {
 

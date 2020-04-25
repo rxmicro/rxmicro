@@ -19,6 +19,7 @@ package io.rxmicro.examples.processor.microservice;
 import io.rxmicro.config.ExcludeAll;
 import io.rxmicro.rest.method.GET;
 
+@SuppressWarnings("EmptyMethod")
 @ExcludeAll
 final class MicroServiceCopy {
 

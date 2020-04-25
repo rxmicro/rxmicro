@@ -19,6 +19,7 @@ package io.rxmicro.examples.rest.controller.base.url.path;
 import io.rxmicro.rest.BaseUrlPath;
 import io.rxmicro.rest.method.GET;
 
+@SuppressWarnings("EmptyMethod")
 // tag::content[]
 @BaseUrlPath("base-url-path")
 final class MicroService {

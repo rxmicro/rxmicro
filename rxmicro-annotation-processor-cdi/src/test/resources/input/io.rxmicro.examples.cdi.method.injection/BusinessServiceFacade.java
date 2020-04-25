@@ -18,6 +18,7 @@ package io.rxmicro.examples.cdi.method.injection;
 
 import io.rxmicro.cdi.Inject;
 
+@SuppressWarnings("FieldCanBeLocal")
 // tag::content[]
 public final class BusinessServiceFacade {
 

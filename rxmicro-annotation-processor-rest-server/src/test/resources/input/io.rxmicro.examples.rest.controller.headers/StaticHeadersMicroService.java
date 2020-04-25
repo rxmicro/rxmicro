@@ -19,6 +19,7 @@ package io.rxmicro.examples.rest.controller.headers;
 import io.rxmicro.rest.SetHeader;
 import io.rxmicro.rest.method.GET;
 
+@SuppressWarnings("EmptyMethod")
 // tag::content[]
 // <1>
 @SetHeader(name = "Mode", value = "Demo")

@@ -19,6 +19,7 @@ package io.rxmicro.examples.documentation.asciidoctor.all.std.validators;
 import io.rxmicro.examples.documentation.asciidoctor.all.std.validators.model.Request;
 import io.rxmicro.rest.method.POST;
 
+@SuppressWarnings("EmptyMethod")
 final class MicroService {
 
     @POST("/")

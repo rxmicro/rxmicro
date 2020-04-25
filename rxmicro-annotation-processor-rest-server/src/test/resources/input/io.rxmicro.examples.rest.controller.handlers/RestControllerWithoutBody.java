@@ -23,6 +23,7 @@ import reactor.core.publisher.Mono;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 
+@SuppressWarnings("EmptyMethod")
 // tag::content[]
 final class RestControllerWithoutBody {
 

@@ -29,6 +29,7 @@ import java.util.regex.Pattern;
 
 import static org.bson.BsonBinarySubType.USER_DEFINED;
 
+@SuppressWarnings("ConstantConditions")
 public final class TestSupportedTypesInstance {
 
     public static final SupportedTypesEntity SUPPORTED_TYPES = newSupportedTypes(SupportedTypesEntity.class);

@@ -25,6 +25,7 @@ import java.math.BigInteger;
 import java.time.Instant;
 import java.util.List;
 
+@SuppressWarnings("unused")
 @HeaderMappingStrategy
 abstract class Abstract {
 
