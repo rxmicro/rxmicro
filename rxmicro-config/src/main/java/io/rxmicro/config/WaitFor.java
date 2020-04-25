@@ -24,8 +24,8 @@ import static io.rxmicro.config.internal.waitfor.WaitForServiceFactory.createWai
  * Example of usage:
  *
  * public static void main(final String[] args) {
- * new WaitFor(args).waitFor();
- * startRestServer(MicroService.class);
+ *      new WaitFor(args).waitFor();
+ *      startRestServer(MicroService.class);
  * }
  *
  * -----------------------------------------------------------------------------------------------------------------------------------------

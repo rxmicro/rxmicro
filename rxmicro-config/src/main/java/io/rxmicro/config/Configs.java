@@ -36,6 +36,8 @@ import static io.rxmicro.config.ConfigSource.SEPARATE_CLASS_PATH_RESOURCE;
 import static io.rxmicro.config.ConfigSource.SEPARATE_FILE_AT_THE_RXMICRO_CONFIG_DIR;
 import static io.rxmicro.config.internal.waitfor.component.WaitForUtils.withoutWaitForArguments;
 import static java.util.Arrays.asList;
+import static java.util.Map.entry;
+import static java.util.stream.Collectors.toMap;
 
 /**
  * @author nedis
@@ -58,7 +60,7 @@ public final class Configs {
 
     private final Map<String, Config> storage;
 
-    private final List<String> commandLineArgs;
+    private final Map<String, String> commandLineArgs;
 
     @SuppressWarnings("unchecked")
     public static <T extends Config> T getConfig(final String nameSpace,
@@ -84,7 +86,16 @@ public final class Configs {
                     final List<String> commandLineArgs) {
         this.loader = new EnvironmentConfigLoader(configSources);
         this.storage = new ConcurrentHashMap<>(storage);
-        this.commandLineArgs = commandLineArgs;
+        this.commandLineArgs = commandLineArgs.isEmpty() ?
+                Map.of() :
+                commandLineArgs.stream().map(cmd -> {
+                    final String[] data = cmd.split("=");
+                    if (data.length != 2) {
+                        throw new ConfigException("Invalid command line arguments. " +
+                                "Expected: 'name_space.propertyName=propertyValue', but actual is '?'", cmd);
+                    }
+                    return entry(data[0], data[1]);
+                }).collect(toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 
     /**

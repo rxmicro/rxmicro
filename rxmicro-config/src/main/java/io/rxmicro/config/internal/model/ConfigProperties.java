@@ -23,15 +23,19 @@ import io.rxmicro.logger.LoggerFactory;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Properties;
 import java.util.Set;
+import java.util.WeakHashMap;
 import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.Strings.capitalize;
@@ -54,7 +58,7 @@ import static io.rxmicro.config.internal.model.PropertyNames.CURRENT_DIR_PROPERT
 import static io.rxmicro.config.internal.model.PropertyNames.USER_HOME_PROPERTY;
 import static io.rxmicro.files.PropertiesResources.loadProperties;
 import static java.util.Map.entry;
-import static java.util.stream.Collectors.toMap;
+import static java.util.stream.Collectors.toList;
 
 /**
  * @author nedis
@@ -71,10 +75,12 @@ public final class ConfigProperties {
 
     private static final String USER_HOME = SYSTEM_PROPERTIES.getProperty(USER_HOME_PROPERTY);
 
+    private static final String RX_MICRO_CONFIG_DIRECTORY = USER_HOME + "/" + RX_MICRO_CONFIG_DIRECTORY_NAME;
+
     // Allow to override the current dir for tests
     private static final String CURRENT_DIR = SYSTEM_PROPERTIES.getProperty(CURRENT_DIR_PROPERTY, "");
 
-    private static final Map<String, Optional<Map<String, String>>> RESOURCE_CACHE = new HashMap<>();
+    private static final Map<String, Optional<Map<String, String>>> RESOURCE_CACHE = new WeakHashMap<>();
 
     private final String nameSpace;
 
@@ -87,49 +93,61 @@ public final class ConfigProperties {
     }
 
     public void discoverProperties(final Set<ConfigSource> configSources,
-                                   final List<String> commandLineArgs) {
-        LOGGER.debug("Discovering properties for '?' namespace from sources: ?", nameSpace, configSources);
+                                   final Map<String, String> commandLineArgs) {
+        final DebugMessageBuilder debugMessageBuilder = new DebugMessageBuilder(nameSpace, configSources, commandLineArgs);
+        discoverProperties(configSources, commandLineArgs, debugMessageBuilder);
+        LOGGER.debug(debugMessageBuilder.toString());
+    }
+
+    private void discoverProperties(final Set<ConfigSource> configSources,
+                                    final Map<String, String> commandLineArgs,
+                                    final DebugMessageBuilder debugMessageBuilder) {
         for (final ConfigSource configSource : configSources) {
             if (configSource == DEFAULT_CONFIG_VALUES) {
-                loadDefaultConfigValues();
+                loadDefaultConfigValues(debugMessageBuilder);
             } else if (configSource == SEPARATE_CLASS_PATH_RESOURCE) {
-                loadFromClassPathResource(nameSpace, false);
+                loadFromClassPathResource(nameSpace, false, debugMessageBuilder);
             } else if (configSource == RXMICRO_CLASS_PATH_RESOURCE) {
-                loadFromClassPathResource(RX_MICRO_CONFIG_FILE_NAME, true);
+                loadFromClassPathResource(RX_MICRO_CONFIG_FILE_NAME, true, debugMessageBuilder);
             } else if (configSource == ENVIRONMENT_VARIABLES) {
-                loadFromEnvironmentVariables();
+                loadFromEnvironmentVariables(debugMessageBuilder);
             } else if (configSource == RXMICRO_FILE_AT_THE_HOME_DIR) {
-                loadFromPropertiesFileIfExists(USER_HOME, RX_MICRO_CONFIG_FILE_NAME, true);
+                loadFromPropertiesFileIfExists(USER_HOME, RX_MICRO_CONFIG_FILE_NAME, true, debugMessageBuilder);
             } else if (configSource == RXMICRO_FILE_AT_THE_RXMICRO_CONFIG_DIR) {
-                loadFromPropertiesFileIfExists(USER_HOME + "/" + RX_MICRO_CONFIG_DIRECTORY_NAME, RX_MICRO_CONFIG_FILE_NAME, true);
+                loadFromPropertiesFileIfExists(RX_MICRO_CONFIG_DIRECTORY, RX_MICRO_CONFIG_FILE_NAME, true, debugMessageBuilder);
             } else if (configSource == RXMICRO_FILE_AT_THE_CURRENT_DIR) {
-                loadFromPropertiesFileIfExists(CURRENT_DIR, RX_MICRO_CONFIG_FILE_NAME, true);
+                loadFromPropertiesFileIfExists(CURRENT_DIR, RX_MICRO_CONFIG_FILE_NAME, true, debugMessageBuilder);
             } else if (configSource == SEPARATE_FILE_AT_THE_HOME_DIR) {
-                loadFromPropertiesFileIfExists(USER_HOME, nameSpace, false);
+                loadFromPropertiesFileIfExists(USER_HOME, nameSpace, false, debugMessageBuilder);
             } else if (configSource == SEPARATE_FILE_AT_THE_RXMICRO_CONFIG_DIR) {
-                loadFromPropertiesFileIfExists(USER_HOME + "/" + RX_MICRO_CONFIG_DIRECTORY_NAME, nameSpace, false);
+                loadFromPropertiesFileIfExists(RX_MICRO_CONFIG_DIRECTORY, nameSpace, false, debugMessageBuilder);
             } else if (configSource == SEPARATE_FILE_AT_THE_CURRENT_DIR) {
-                loadFromPropertiesFileIfExists(CURRENT_DIR, nameSpace, false);
+                loadFromPropertiesFileIfExists(CURRENT_DIR, nameSpace, false, debugMessageBuilder);
             } else if (configSource == JAVA_SYSTEM_PROPERTIES) {
-                loadFromJavaSystemProperties();
+                loadFromJavaSystemProperties(debugMessageBuilder);
             } else {
                 throw new ConfigException("Unsupported load order: " + configSource);
             }
         }
         if (!commandLineArgs.isEmpty()) {
-            loadFromCommandLineArguments(commandLineArgs);
+            loadFromCommandLineArguments(commandLineArgs, debugMessageBuilder);
         }
-        LOGGER.debug("All properties discovered for '?' namespace", nameSpace);
     }
 
-    private void loadDefaultConfigValues() {
+    private void loadDefaultConfigValues(final DebugMessageBuilder debugMessageBuilder) {
+        final Set<Map.Entry<String, String>> resolvedEntries = new LinkedHashSet<>();
         if (!DEFAULT_STRING_VALUES_STORAGE.isEmpty()) {
-            properties.forEach(p -> p.resolve(DEFAULT_STRING_VALUES_STORAGE, true));
-            LOGGER.debug("Discovered properties from default config value storage: ?", DEFAULT_STRING_VALUES_STORAGE);
+            properties.forEach(p -> p.resolve(DEFAULT_STRING_VALUES_STORAGE, true).ifPresent(resolvedEntries::add));
+            debugMessageBuilder.append("Discovered properties from default config storage: ?", DEFAULT_STRING_VALUES_STORAGE);
         }
         if (!DEFAULT_SUPPLIER_VALUES_STORAGE.isEmpty()) {
-            properties.forEach(p -> p.resolve(DEFAULT_SUPPLIER_VALUES_STORAGE, true));
-            LOGGER.debug("Discovered properties from default config value storage: ?", DEFAULT_SUPPLIER_VALUES_STORAGE);
+            properties.forEach(p -> p.resolve(DEFAULT_SUPPLIER_VALUES_STORAGE, true)
+                    .ifPresent(e -> resolvedEntries.add(entry(e.getKey(), e.getValue().toString()))));
+            debugMessageBuilder.append("Discovered properties from default config storage: ?", DEFAULT_SUPPLIER_VALUES_STORAGE);
+        }
+        if (!resolvedEntries.isEmpty()) {
+            debugMessageBuilder.addResolvedEntries(resolvedEntries);
+            debugMessageBuilder.append("Discovered properties from default config storage: ?", resolvedEntries);
         }
     }
 
@@ -137,21 +155,24 @@ public final class ConfigProperties {
         properties.forEach(ConfigProperty::setProperty);
     }
 
-    private void loadFromEnvironmentVariables() {
-        loadFromMap(SYSTEM_ENV, "environment variables");
+    private void loadFromEnvironmentVariables(final DebugMessageBuilder debugMessageBuilder) {
+        loadFromMap(SYSTEM_ENV, "environment variables", debugMessageBuilder);
     }
 
     private void loadFromMap(final Map<String, String> map,
-                             final String sourceName) {
+                             final String sourceName,
+                             final DebugMessageBuilder debugMessageBuilder) {
         final Set<Map.Entry<String, String>> resolvedEntries = new LinkedHashSet<>();
         properties.forEach(p -> p.resolve(map, true).ifPresent(resolvedEntries::add));
         if (!resolvedEntries.isEmpty()) {
-            LOGGER.debug("Discovered properties from ?: ?", sourceName, resolvedEntries);
+            debugMessageBuilder.addResolvedEntries(resolvedEntries);
+            debugMessageBuilder.append("Discovered properties from ?: ?", sourceName, resolvedEntries);
         }
     }
 
     private void loadFromClassPathResource(final String name,
-                                           final boolean useFullName) {
+                                           final boolean useFullName,
+                                           final DebugMessageBuilder debugMessageBuilder) {
         final String fullClassPathFileName = name + ".properties";
         loadResource(
                 useFullName ?
@@ -159,13 +180,15 @@ public final class ConfigProperties {
                         () -> loadProperties(fullClassPathFileName),
                 "classpath resource",
                 fullClassPathFileName,
-                useFullName
+                useFullName,
+                debugMessageBuilder
         );
     }
 
     private void loadFromPropertiesFileIfExists(final String path,
                                                 final String fileName,
-                                                final boolean useFullName) {
+                                                final boolean useFullName,
+                                                final DebugMessageBuilder debugMessageBuilder) {
         final Path fullFilePath = Paths.get(format("?/?.properties", path, fileName)).toAbsolutePath();
         final String fullFilePathName = fullFilePath.toString();
         loadResource(
@@ -174,43 +197,153 @@ public final class ConfigProperties {
                         () -> loadProperties(fullFilePath),
                 "config file",
                 fullFilePathName,
-                useFullName
+                useFullName,
+                debugMessageBuilder
         );
     }
 
     private void loadResource(final Supplier<Optional<Map<String, String>>> propertiesSupplier,
                               final String resourceType,
                               final String resourceName,
-                              final boolean useFullName) {
+                              final boolean useFullName,
+                              final DebugMessageBuilder debugMessageBuilder) {
         final Optional<Map<String, String>> resourceOptional = propertiesSupplier.get();
         if (resourceOptional.isPresent()) {
             final Set<Map.Entry<String, String>> resolvedEntries = new LinkedHashSet<>();
             properties.forEach(p -> p.resolve(resourceOptional.get(), useFullName).ifPresent(resolvedEntries::add));
             if (!resolvedEntries.isEmpty()) {
-                LOGGER.debug("Discovered properties from '?' ?: ?", resourceName, resourceType, resolvedEntries);
+                debugMessageBuilder.addResolvedEntries(resolvedEntries);
+                debugMessageBuilder.append("Discovered properties from '?' ?: ?", resourceName, resourceType, resolvedEntries);
             }
         } else {
-            LOGGER.debug("? not found: ?", capitalize(resourceType), resourceName);
+            debugMessageBuilder.append("? not found: ?", capitalize(resourceType), resourceName);
         }
     }
 
-    private void loadFromJavaSystemProperties() {
+    private void loadFromJavaSystemProperties(final DebugMessageBuilder debugMessageBuilder) {
         final Set<Map.Entry<String, String>> resolvedEntries = new LinkedHashSet<>();
         properties.forEach(p -> p.resolve(SYSTEM_PROPERTIES, true).ifPresent(resolvedEntries::add));
         if (!resolvedEntries.isEmpty()) {
-            LOGGER.debug("Discovered properties from Java system properties: ?", resolvedEntries);
+            debugMessageBuilder.addResolvedEntries(resolvedEntries);
+            debugMessageBuilder.append("Discovered properties from Java system properties: ?", resolvedEntries);
         }
     }
 
-    private void loadFromCommandLineArguments(final List<String> commandLineArgs) {
-        final Map<String, String> sourceMap = commandLineArgs.stream().map(cmd -> {
-            final String[] data = cmd.split("=");
-            if (data.length != 2) {
-                throw new ConfigException("Invalid command line arguments. " +
-                        "Expected: 'name_space.propertyName=propertyValue', but actual is '?'", cmd);
+    private void loadFromCommandLineArguments(final Map<String, String> commandLineArgs,
+                                              final DebugMessageBuilder debugMessageBuilder) {
+        loadFromMap(commandLineArgs, "command line arguments", debugMessageBuilder);
+    }
+
+    /**
+     * @author nedis
+     * @link https://rxmicro.io
+     * @since 0.3
+     */
+    private static final class DebugMessageBuilder {
+
+        private static final String SHIFT = "  ";
+
+        private static final Object INSTANCE = null;
+
+        private final boolean debugEnabled;
+
+        private final String nameSpace;
+
+        private final List<String> messages;
+
+        private final Map<Map.Entry<String, String>, Object> resolvedEntries;
+
+        private final Set<ConfigSource> configSources;
+
+        private final Map<String, String> commandLineArgs;
+
+        private int count;
+
+        public DebugMessageBuilder(final String nameSpace,
+                                   final Set<ConfigSource> configSources,
+                                   final Map<String, String> commandLineArgs) {
+            this.configSources = configSources;
+            this.commandLineArgs = commandLineArgs;
+            this.debugEnabled = LOGGER.isDebugEnabled();
+            this.nameSpace = nameSpace;
+            this.messages = debugEnabled ? new ArrayList<>() : List.of();
+            this.resolvedEntries = debugEnabled ? new LinkedHashMap<>() : Map.of();
+        }
+
+        public void append(final String message,
+                           final Object arg1) {
+            if (debugEnabled) {
+                messages.add(SHIFT + SHIFT + format(message, arg1));
             }
-            return entry(data[0], data[1]);
-        }).collect(toMap(Map.Entry::getKey, Map.Entry::getValue));
-        loadFromMap(sourceMap, "command line arguments");
+        }
+
+        public void append(final String message,
+                           final Object arg1,
+                           final Object arg2) {
+            if (debugEnabled) {
+                messages.add(SHIFT + SHIFT + format(message, arg1, arg2));
+            }
+        }
+
+        public void append(final String message,
+                           final Object arg1,
+                           final Object arg2,
+                           final Object arg3) {
+            if (debugEnabled) {
+                messages.add(SHIFT + SHIFT + format(message, arg1, arg2, arg3));
+            }
+        }
+
+        public void addResolvedEntries(final Set<Map.Entry<String, String>> resolvedEntries) {
+            count += resolvedEntries.size();
+            resolvedEntries.forEach(e -> this.resolvedEntries.put(e, INSTANCE));
+        }
+
+        @Override
+        public String toString() {
+            if (debugEnabled) {
+                messages.add(0, format("Discovering properties for '?' namespace:", nameSpace));
+                messages.add(1, format("?Config source: ?", SHIFT, new ConfigSourceProvider(configSources, commandLineArgs)));
+                if (count == 0) {
+                    messages.add(format("?No properties found for '?' namespace. Using default config instance!", SHIFT, nameSpace));
+                } else {
+                    messages.add(format("?Property(ies) discovered for '?' namespace:", SHIFT, nameSpace));
+                    messages.add(format("??Count: ?, Entries: ?", SHIFT, SHIFT, count, resolvedEntries.keySet()));
+                }
+                return String.join(System.lineSeparator(), messages);
+            } else {
+                return "";
+            }
+        }
+    }
+
+    /**
+     * @author nedis
+     * @link https://rxmicro.io
+     * @since 0.3
+     */
+    private static final class ConfigSourceProvider {
+
+        private final Set<ConfigSource> configSources;
+
+        private final Map<String, String> commandLineArgs;
+
+        public ConfigSourceProvider(final Set<ConfigSource> configSources,
+                                    final Map<String, String> commandLineArgs) {
+            this.configSources = configSources;
+            this.commandLineArgs = commandLineArgs;
+        }
+
+        @Override
+        public String toString() {
+            if (commandLineArgs.isEmpty()) {
+                return commandLineArgs.toString();
+            } else {
+                return Stream.concat(
+                        configSources.stream().map(Objects::toString),
+                        Stream.of("COMMAND_LINE_ARGUMENTS")
+                ).collect(toList()).toString();
+            }
+        }
     }
 }
