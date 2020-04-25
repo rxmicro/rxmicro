@@ -127,7 +127,6 @@ public final class Formats {
     }
 
     /**
-     *
      * @since 0.3
      */
     public static String format(final Duration duration) {

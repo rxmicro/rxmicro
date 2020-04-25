@@ -28,6 +28,6 @@ public final class PredefinedUrls {
      */
     public static final String HTTP_HEALTH_CHECK_ENDPOINT = "/http-health-check";
 
-    private PredefinedUrls(){
+    private PredefinedUrls() {
     }
 }

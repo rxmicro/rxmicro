@@ -153,7 +153,7 @@ final class NettyRequestHandler extends SimpleChannelInboundHandler<FullHttpRequ
         );
     }
 
-    private void debugRequest(final NettyHttpRequest request, 
+    private void debugRequest(final NettyHttpRequest request,
                               final ChannelHandlerContext ctx) {
         LOGGER.debug("HTTP request:  Id=?, Channel=?, IP=?, Request=?",
                 request.getRequestId(),

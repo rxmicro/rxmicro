@@ -37,7 +37,7 @@ public enum NettyChannelIdType {
     LONG;
 
     public String getId(final ChannelId channelId) {
-        if(this == LONG) {
+        if (this == LONG) {
             return channelId.asLongText();
         } else {
             return channelId.asShortText();

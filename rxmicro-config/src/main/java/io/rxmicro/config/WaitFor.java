@@ -22,33 +22,34 @@ import static io.rxmicro.config.internal.waitfor.WaitForServiceFactory.createWai
 
 /**
  * Example of usage:
- *
+ * <pre>
  * public static void main(final String[] args) {
  *      new WaitFor(args).waitFor();
  *      startRestServer(MicroService.class);
  * }
+ * </pre>
  *
  * -----------------------------------------------------------------------------------------------------------------------------------------
  * Command line arguments:
- * java -p lib:. -m my.module/my_package.Launcher wait-for --type=tcp-socket --timeout=30 localhost:12017
- * java -p lib:. -m my.module/my_package.Launcher wait-for localhost:12017
+ * {@code java -p lib:. -m my.module/my_package.Launcher wait-for --type=tcp-socket --timeout=30 localhost:12017}
+ * {@code java -p lib:. -m my.module/my_package.Launcher wait-for localhost:12017 }
  *
  * -----------------------------------------------------------------------------------------------------------------------------------------
  * Using java system properties:
  *
- * SYS_PROP="-DWAIT_FOR=--type=tcp-socket --timeout=30 localhost:12017"
- * java -p lib:. "$SYS_PROP" -m my.module/my_package.Launcher
+ * {@code SYS_PROP="-DWAIT_FOR=--type=tcp-socket --timeout=30 localhost:12017"}
+ * {@code java -p lib:. "$SYS_PROP" -m my.module/my_package.Launcher }
  *
- * SYS_PROP="-DWAIT_FOR=localhost:12017"
- * java -p lib:. "$SYS_PROP" -m my.module/my_package.Launcher
+ * {@code SYS_PROP="-DWAIT_FOR=localhost:12017" }
+ * {@code java -p lib:. "$SYS_PROP" -m my.module/my_package.Launcher }
  * -----------------------------------------------------------------------------------------------------------------------------------------
  * Using environment variables:
  *
- * export WAIT_FOR="--type=tcp-socket --timeout=30 localhost:12017"
- * java -p lib:. -m my.module/my_package.Launcher
+ * {@code export WAIT_FOR="--type=tcp-socket --timeout=30 localhost:12017"}
+ * {@code java -p lib:. -m my.module/my_package.Launcher}
  *
- * export WAIT_FOR=localhost:12017
- * java -p lib:. -m my.module/my_package.Launcher
+ * {@code export WAIT_FOR=localhost:12017}
+ * {@code java -p lib:. -m my.module/my_package.Launcher}
  * -----------------------------------------------------------------------------------------------------------------------------------------
  *
  * @author nedis

@@ -133,7 +133,6 @@ public final class NettyRestServerConfig extends Config {
     }
 
     /**
-     *
      * @since 0.3
      */
     public NettyChannelIdType getChannelIdType() {
@@ -143,9 +142,9 @@ public final class NettyRestServerConfig extends Config {
     /**
      * Sets channelIdType
      *
-     * @since 0.3
      * @param channelIdType {@code NettyChannelIdType} which must be used
      * @return A reference to this {@code NettyServerConfig}
+     * @since 0.3
      */
     public NettyRestServerConfig setChannelIdType(final NettyChannelIdType channelIdType) {
         this.channelIdType = channelIdType;

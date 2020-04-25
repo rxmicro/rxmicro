@@ -157,7 +157,6 @@ public class RestServerConfig extends Config {
     }
 
     /**
-     *
      * @param staticResponseHeaders static response header set
      * @return A reference to this {@code RestConfig}
      */
@@ -167,7 +166,6 @@ public class RestServerConfig extends Config {
     }
 
     /**
-     *
      * @param staticResponseHeader a new static response header
      * @return A reference to this {@code RestConfig}
      */
@@ -181,7 +179,6 @@ public class RestServerConfig extends Config {
     }
 
     /**
-     *
      * @param generatorType generator type
      * @return A reference to this {@code RestConfig}
      */
@@ -195,7 +192,6 @@ public class RestServerConfig extends Config {
     }
 
     /**
-     *
      * @param returnGeneratedRequestId return generated Request-Id o not
      * @return A reference to this {@code RestConfig}
      */
@@ -209,7 +205,6 @@ public class RestServerConfig extends Config {
     }
 
     /**
-     *
      * @param disableLoggerMessagesForHttpHealthChecks disable logger messages or not
      * @return A reference to this {@code RestConfig}
      */

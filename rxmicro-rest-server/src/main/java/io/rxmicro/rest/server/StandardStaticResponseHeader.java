@@ -28,7 +28,7 @@ import static io.rxmicro.rest.server.internal.StandardResponseHeaderValueSupplie
  * @link https://rxmicro.io
  * @since 0.1
  */
-public enum StandardStaticResponseHeader implements StaticResponseHeader{
+public enum StandardStaticResponseHeader implements StaticResponseHeader {
 
     SERVER(HttpHeaders.SERVER, serverResponseHeaderValueSupplier()),
 
