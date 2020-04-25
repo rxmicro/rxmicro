@@ -6,6 +6,78 @@
       {
         "name": "<init>",
         "parameterTypes": []
+      },
+      {
+        "name": "setHandlerNotFoundErrorStatusCode",
+        "parameterTypes": [
+          "int"
+        ]
+      },
+      {
+        "name": "setHandlerNotFoundErrorMessage",
+        "parameterTypes": [
+          "java.lang.String"
+        ]
+      },
+      {
+        "name": "setCorsNotAllowedErrorStatusCode",
+        "parameterTypes": [
+          "int"
+        ]
+      },
+      {
+        "name": "setCorsNotAllowedErrorMessage",
+        "parameterTypes": [
+          "java.lang.String"
+        ]
+      },
+      {
+        "name": "setHumanReadableOutput",
+        "parameterTypes": [
+          "boolean"
+        ]
+      },
+      {
+        "name": "setHideInternalErrorMessage",
+        "parameterTypes": [
+          "boolean"
+        ]
+      },
+      {
+        "name": "setLogNotServerErrors",
+        "parameterTypes": [
+          "boolean"
+        ]
+      },
+      {
+        "name": "setStaticResponseHeaders",
+        "parameterTypes": [
+          "java.util.Set"
+        ]
+      },
+      {
+        "name": "setGeneratorType",
+        "parameterTypes": [
+          "io.rxmicro.rest.server.RequestIdGeneratorType"
+        ]
+      },
+      {
+        "name": "setReturnGeneratedRequestId",
+        "parameterTypes": [
+          "boolean"
+        ]
+      },
+      {
+        "name": "setDisableLoggerMessagesForHttpHealthChecks",
+        "parameterTypes": [
+          "boolean"
+        ]
+      },
+      {
+        "name": "setShowRuntimeEnv",
+        "parameterTypes": [
+          "boolean"
+        ]
       }
     ]
   },
@@ -16,6 +88,60 @@
       {
         "name": "<init>",
         "parameterTypes": []
+      },
+      {
+        "name": "setSchema",
+        "parameterTypes": [
+          "io.rxmicro.http.ProtocolSchema"
+        ]
+      },
+      {
+        "name": "setSchema",
+        "parameterTypes": [
+          "io.rxmicro.http.ProtocolSchema"
+        ]
+      },
+      {
+        "name": "setHost",
+        "parameterTypes": [
+          "java.lang.String"
+        ]
+      },
+      {
+        "name": "setHost",
+        "parameterTypes": [
+          "java.lang.String"
+        ]
+      },
+      {
+        "name": "setStartTimeTrackerEnabled",
+        "parameterTypes": [
+          "boolean"
+        ]
+      },
+      {
+        "name": "setConnectionString",
+        "parameterTypes": [
+          "java.lang.String"
+        ]
+      },
+      {
+        "name": "setConnectionString",
+        "parameterTypes": [
+          "java.lang.String"
+        ]
+      },
+      {
+        "name": "setPort",
+        "parameterTypes": [
+          "int"
+        ]
+      },
+      {
+        "name": "setPort",
+        "parameterTypes": [
+          "int"
+        ]
       }
     ]
   },

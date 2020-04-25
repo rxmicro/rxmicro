@@ -5,6 +5,18 @@
       {
         "name": "<init>",
         "parameterTypes": []
+      },
+      {
+        "name": "setRegex",
+        "parameterTypes": [
+          "java.lang.String"
+        ]
+      },
+      {
+        "name": "setValues",
+        "parameterTypes": [
+          "java.lang.String"
+        ]
       }
     ]
   }

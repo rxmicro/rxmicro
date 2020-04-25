@@ -30,6 +30,7 @@ import static io.rxmicro.common.util.Formats.format;
  * @link https://rxmicro.io
  * @since 0.1
  */
+@SuppressWarnings("UnusedReturnValue")
 public final class PostgreSQLConfig extends SQLPooledDatabaseConfig {
 
     private Function<Connection, Connection> connectionDecorator;

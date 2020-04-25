@@ -37,6 +37,7 @@ import static io.rxmicro.common.util.Requires.require;
  * @link https://rxmicro.io
  * @since 0.1
  */
+@SuppressWarnings("UnusedReturnValue")
 public final class NettyRestServerConfig extends Config {
 
     private final Map<ChannelOption<?>, Object> serverOptions = new LinkedHashMap<>(

@@ -31,6 +31,7 @@ import static io.rxmicro.common.util.Requires.require;
  * @link https://rxmicro.io
  * @since 0.1
  */
+@SuppressWarnings("UnusedReturnValue")
 public class RestServerConfig extends Config {
 
     private int handlerNotFoundErrorStatusCode = 400;

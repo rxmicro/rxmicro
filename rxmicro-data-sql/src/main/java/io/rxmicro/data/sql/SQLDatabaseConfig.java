@@ -32,6 +32,7 @@ import static io.rxmicro.config.Networks.validatePort;
  * @link https://rxmicro.io
  * @since 0.1
  */
+@SuppressWarnings("UnusedReturnValue")
 public class SQLDatabaseConfig extends Config {
 
     private final Map<String, String> options = new HashMap<>();

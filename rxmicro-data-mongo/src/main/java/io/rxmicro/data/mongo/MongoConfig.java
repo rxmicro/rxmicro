@@ -30,6 +30,7 @@ import static io.rxmicro.config.Networks.validatePort;
  * @link https://rxmicro.io
  * @since 0.1
  */
+@SuppressWarnings("UnusedReturnValue")
 public final class MongoConfig extends Config {
 
     public static final String DEFAULT_HOST = "localhost";

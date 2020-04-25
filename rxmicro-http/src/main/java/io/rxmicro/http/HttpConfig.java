@@ -28,6 +28,7 @@ import static io.rxmicro.config.Networks.validatePort;
  * @link https://rxmicro.io
  * @since 0.1
  */
+@SuppressWarnings("UnusedReturnValue")
 public abstract class HttpConfig extends Config {
 
     private ProtocolSchema schema = ProtocolSchema.http;

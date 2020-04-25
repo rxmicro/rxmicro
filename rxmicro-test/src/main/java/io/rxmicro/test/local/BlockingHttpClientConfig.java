@@ -27,6 +27,7 @@ import java.time.Duration;
  * @link https://rxmicro.io
  * @since 0.1
  */
+@SuppressWarnings("UnusedReturnValue")
 public final class BlockingHttpClientConfig extends HttpClientConfig {
 
     private Version.Strategy versionStrategy = Version.Strategy.URL_PATH;

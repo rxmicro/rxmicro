@@ -25,6 +25,7 @@ import static io.rxmicro.common.util.Requires.require;
  * @link https://rxmicro.io
  * @since 0.1
  */
+@SuppressWarnings("UnusedReturnValue")
 public class SQLPooledDatabaseConfig extends SQLDatabaseConfig {
 
     private int acquireRetry = 2;

@@ -24,6 +24,7 @@ import io.rxmicro.http.ProtocolSchema;
  * @link https://rxmicro.io
  * @since 0.1
  */
+@SuppressWarnings("UnusedReturnValue")
 public class HttpServerConfig extends HttpConfig {
 
     private boolean startTimeTrackerEnabled = true;

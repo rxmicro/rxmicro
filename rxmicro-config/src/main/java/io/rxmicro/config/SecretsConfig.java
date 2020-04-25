@@ -23,6 +23,7 @@ package io.rxmicro.config;
  * @link http://rxmicro.io
  * @since 0.3
  */
+@SuppressWarnings("UnusedReturnValue")
 public final class SecretsConfig extends Config {
 
     private String regex = ";";

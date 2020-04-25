@@ -28,5 +28,35 @@
         "parameterTypes": []
       }
     ]
+  },
+  {
+    "name": "io.netty.channel.kqueue.KQueue"
+  },
+  {
+    "name": "io.netty.channel.kqueue.KQueueEventLoopGroup",
+    "methods": [
+      {
+        "name": "<init>",
+        "parameterTypes": []
+      }
+    ]
+  },
+  {
+    "name": "io.netty.channel.kqueue.KQueueServerSocketChannel",
+    "methods": [
+      {
+        "name": "<init>",
+        "parameterTypes": []
+      }
+    ]
+  },
+  {
+    "name": "io.netty.channel.kqueue.KQueueSocketChannel",
+    "methods": [
+      {
+        "name": "<init>",
+        "parameterTypes": []
+      }
+    ]
   }
 ]

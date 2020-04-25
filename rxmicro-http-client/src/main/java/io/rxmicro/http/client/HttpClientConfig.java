@@ -31,6 +31,7 @@ import static java.time.Duration.ofSeconds;
  * @link https://rxmicro.io
  * @since 0.1
  */
+@SuppressWarnings("UnusedReturnValue")
 public class HttpClientConfig extends HttpConfig {
 
     public static final int DEFAULT_HTTP_CLIENT_TIMEOUT_VALUE_IN_SECONDS = 7;
