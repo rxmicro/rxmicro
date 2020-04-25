@@ -31,6 +31,7 @@ This document contains the *change log* for all RxMicro releases since **0.2**.
 * Add handler for invalid HTTP requests
 * Add config directory (`~/.rxmicro/`) support
 * Add WaitForService
+* Add TestedProcessBuilder
 * Add rxmicro-slf4j-proxy module, which emulates slf4j-api library.
   *(This emulation required for external libraries, for example: mongo-db-driver, which removed support for JUL.
   Read more here: https://github.com/mongodb/mongo-java-driver/commit/6a163f715fe08ed8d39acac3d11c896ae547df73)*  
@@ -43,3 +44,4 @@ This document contains the *change log* for all RxMicro releases since **0.2**.
   * mongodb-driver-core: 4.0.1-> 4.0.2
   * bson: 4.0.1 -> 4.0.2
   * junit-platform-commons: 1.6.1 -> 1.6.2
+* Fix config setters for graalvm native images

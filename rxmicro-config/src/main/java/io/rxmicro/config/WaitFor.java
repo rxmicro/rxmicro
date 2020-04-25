@@ -94,11 +94,19 @@ public final class WaitFor {
     /**
      * Default timeout value
      */
-    public static final String WAIT_FOR_TIMEOUT_DEFAULT_VALUE_IN_SECONDS = "30";
+    public static final String WAIT_FOR_TIMEOUT_DEFAULT_VALUE_IN_SECONDS = "10";
 
     private final WaitForService waitForService;
 
-    public WaitFor(final String[] commandLineArgs) {
+    public WaitFor(final String commandLineArgs) {
+        if (commandLineArgs.indexOf(' ') != -1) {
+            waitForService = createWaitForService(commandLineArgs.split(" ")).orElse(null);
+        } else {
+            waitForService = createWaitForService(new String[]{commandLineArgs}).orElse(null);
+        }
+    }
+
+    public WaitFor(final String... commandLineArgs) {
         waitForService = createWaitForService(commandLineArgs).orElse(null);
     }
 
