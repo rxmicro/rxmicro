@@ -123,16 +123,16 @@
         <!-- Used By Annotation Processor libraries -->
         <freemarker.version>2.3.30</freemarker.version>
         <google.guice.version>4.2.3</google.guice.version>
-        <google.guava.version>28.2-jre</google.guava.version>
+        <google.guava.version>29.0-jre</google.guava.version>
         <maven.model.version>3.6.3</maven.model.version>
         <!-- Test libraries -->
-        <junit.version>5.6.1</junit.version>
+        <junit.version>5.6.2</junit.version>
         <mockito.version>3.3.3</mockito.version>
         <compile.google.testing.version>0.18</compile.google.testing.version>
         <!-- Runtime Libraries -->
-        <netty.version>4.1.48.Final</netty.version>
+        <netty.version>4.1.49.Final</netty.version>
 
-        <external.lib.rxjava.version>3.0.0</external.lib.rxjava.version>
+        <external.lib.rxjava.version>3.0.2</external.lib.rxjava.version>
         <external.lib.projectreactor.version>3.3.4.RELEASE</external.lib.projectreactor.version>
         <external.lib.reactivestreams.version>1.0.3</external.lib.reactivestreams.version>
 
@@ -144,7 +144,7 @@
         <external.lib.r2dbc-postgresql.version>0.8.1.RELEASE</external.lib.r2dbc-postgresql.version>
         <external.lib.r2dbc-pool.version>0.8.1.RELEASE</external.lib.r2dbc-pool.version>
         <!-- Tests -->
-        <external.lib.junit-platform-commons.version>1.6.1</external.lib.junit-platform-commons.version>
+        <external.lib.junit-platform-commons.version>1.6.2</external.lib.junit-platform-commons.version>
         <external.lib.apiguardian-api.version>1.1.0</external.lib.apiguardian-api.version>
         <external.lib.opentest4j.version>1.2.0</external.lib.opentest4j.version>
 

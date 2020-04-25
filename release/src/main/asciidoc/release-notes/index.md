@@ -35,6 +35,11 @@ This document contains the *change log* for all RxMicro releases since **0.2**.
   *(This emulation required for external libraries, for example: mongo-db-driver, which removed support for JUL.
   Read more here: https://github.com/mongodb/mongo-java-driver/commit/6a163f715fe08ed8d39acac3d11c896ae547df73)*  
 * Dependency updates:
+  * guava: 28.2-jre -> 29.0-jre  
+  * junit: 5.6.1 -> 5.6.2
+  * netty: 4.1.48.Final -> 4.1.49.Final
+  * rxjava: 3.0.0 -> 3.0.2
   * mongodb-driver-reactivestreams: 4.0.1 -> 4.0.2
   * mongodb-driver-core: 4.0.1-> 4.0.2
   * bson: 4.0.1 -> 4.0.2
+  * junit-platform-commons: 1.6.1 -> 1.6.2
