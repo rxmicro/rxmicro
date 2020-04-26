@@ -21,7 +21,6 @@ import io.rxmicro.common.CheckedWrapperException;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashSet;
@@ -31,6 +30,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import static io.rxmicro.common.util.Formats.format;
+import static io.rxmicro.tool.common.internal.FinalFieldUpdater.setFinalFieldValue;
 import static java.lang.reflect.Modifier.isFinal;
 import static java.lang.reflect.Modifier.isStatic;
 import static java.util.Collections.unmodifiableSet;
@@ -189,26 +189,12 @@ public final class Reflections {
                 field.setAccessible(true);
             }
             if (isFinal(field.getModifiers())) {
-                removeFinalModifier(field);
+                setFinalFieldValue(validInstance, field, value);
+            }else{
+                field.set(validInstance, value);
             }
-            field.set(validInstance, value);
         } catch (final IllegalAccessException e) {
             throw new CheckedWrapperException(e);
-        }
-    }
-
-    private static void removeFinalModifier(final Field field)
-            throws IllegalAccessException {
-        try {
-            final Field modifiersField = Field.class.getDeclaredField("modifiers");
-            modifiersField.setAccessible(true);
-            modifiersField.setInt(field, field.getModifiers() & ~Modifier.FINAL);
-        } catch (final NoSuchFieldException e) {
-            // Read more: https://bugs.openjdk.java.net/browse/JDK-8217225
-            throw new IllegalArgumentException(format(
-                    "Can't update final field: ?. Read more: https://bugs.openjdk.java.net/browse/JDK-8217225",
-                    field
-            ));
         }
     }
 
