@@ -45,7 +45,7 @@ public final class PropertiesResources {
                 return Optional.of(loadProperties(in));
             }
         } catch (final IOException e) {
-            throw new ResourceException("Can't read from classpath resource: ?", e, classPathResource);
+            throw new ResourceException(e, "Can't read from classpath resource: ?", classPathResource);
         }
     }
 
@@ -55,7 +55,7 @@ public final class PropertiesResources {
         } catch (final NoSuchFileException e) {
             return Optional.empty();
         } catch (final IOException e) {
-            throw new ResourceException("Can't read from file resource: ?", e, filePath.toAbsolutePath());
+            throw new ResourceException(e, "Can't read from file resource: ?", filePath.toAbsolutePath());
         }
     }
 

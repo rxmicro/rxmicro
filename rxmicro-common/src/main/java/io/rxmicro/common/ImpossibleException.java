@@ -33,6 +33,15 @@ public final class ImpossibleException extends RxMicroException {
         super(message, args);
     }
 
+    /**
+     * This constructor uses {@link Formats#format(String, Object...) Formats.format} to format error message
+     */
+    public ImpossibleException(final Throwable throwable,
+                               final String message,
+                               final Object... args) {
+        super(throwable, message, args);
+    }
+
     public ImpossibleException(final Throwable throwable) {
         super(throwable);
     }

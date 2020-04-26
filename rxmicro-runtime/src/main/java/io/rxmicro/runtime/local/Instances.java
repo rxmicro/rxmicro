@@ -46,7 +46,7 @@ public final class Instances {
         try {
             return (T) instantiate(Class.forName(targetClassName), constructorArgs);
         } catch (final ClassNotFoundException e) {
-            throw new CheckedWrapperException("Class ? not found", e, targetClassName);
+            throw new CheckedWrapperException(e, "Class ? not found", targetClassName);
         }
     }
 
@@ -57,7 +57,7 @@ public final class Instances {
         try {
             return (T) instantiate(Class.forName(targetClassName), argTypes, constructorArgs);
         } catch (final ClassNotFoundException e) {
-            throw new CheckedWrapperException("Class ? not found", e, targetClassName);
+            throw new CheckedWrapperException(e, "Class ? not found", targetClassName);
         }
     }
 
@@ -73,17 +73,17 @@ public final class Instances {
         try {
             return targetClass.getConstructor(argTypes).newInstance(constructorArgs);
         } catch (final NoSuchMethodException e) {
-            throw new CheckedWrapperException("Class ? must contain a required constructor: " +
-                    "public <init>(?)", e, targetClass.getName(),
+            throw new CheckedWrapperException(e, "Class ? must contain a required constructor: " +
+                    "public <init>(?)", targetClass.getName(),
                     Arrays.stream(argTypes)
                             .map(cl -> cl.getName() + " arg" + cl.getSimpleName())
                             .collect(joining(",")));
         } catch (final IllegalAccessException | InstantiationException e) {
-            throw new CheckedWrapperException("Can't instantiate ? class: ?",
-                    e, targetClass.getName(), e.getMessage());
+            throw new CheckedWrapperException(e, "Can't instantiate ? class: ?",
+                    targetClass.getName(), e.getMessage());
         } catch (final InvocationTargetException e) {
-            throw new CheckedWrapperException("Can't instantiate ? class: ?",
-                    e.getTargetException(), targetClass.getName(), e.getTargetException().getMessage());
+            throw new CheckedWrapperException(e.getTargetException(), "Can't instantiate ? class: ?",
+                    targetClass.getName(), e.getTargetException().getMessage());
         }
     }
 

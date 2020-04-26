@@ -30,7 +30,7 @@ public class HttpErrorException extends RxMicroException {
 
     public HttpErrorException(final int statusCode,
                               final String message) {
-        super(message, null, false, false);
+        super(null, false, false, message);
         this.statusCode = statusCode;
     }
 
@@ -40,12 +40,12 @@ public class HttpErrorException extends RxMicroException {
     public HttpErrorException(final int statusCode,
                               final String message,
                               final Object... args) {
-        super(message, null, false, false, args);
+        super(null, false, false, message, args);
         this.statusCode = statusCode;
     }
 
     public HttpErrorException(final int statusCode) {
-        super(null, null, false, false);
+        super(null, false, false, null);
         this.statusCode = statusCode;
     }
 

@@ -33,13 +33,4 @@ public final class InvalidValueTypeException extends DataException {
                                      final Object... args) {
         super(message, args);
     }
-
-    /**
-     * This constructor uses {@link Formats#format(String, Object...) Formats.format} to format error message
-     */
-    public InvalidValueTypeException(final String message,
-                                     final Throwable throwable,
-                                     final Object... args) {
-        super(message, throwable, args);
-    }
 }

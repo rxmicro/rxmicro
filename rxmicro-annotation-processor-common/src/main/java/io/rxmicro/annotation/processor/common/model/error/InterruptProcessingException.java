@@ -38,7 +38,7 @@ public final class InterruptProcessingException extends RxMicroException {
     public InterruptProcessingException(final Element element,
                                         final String message,
                                         final Object... args) {
-        super(require(message), args);
+        super(false, false, require(message), args);
         this.element = require(element);
     }
 

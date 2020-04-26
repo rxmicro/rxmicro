@@ -89,9 +89,9 @@ public final class ConfigProperty implements Comparable<ConfigProperty> {
                     propertySetter.invoke(configInstance, ((Supplier<?>) propertyValue).get());
                 }
             } catch (final IllegalAccessException e) {
-                throw new CheckedWrapperException("Can't set property: ?", e, propertyName);
+                throw new CheckedWrapperException(e, "Can't set property: ?", propertyName);
             } catch (final InvocationTargetException e) {
-                throw new CheckedWrapperException("Can't set property: ?", e.getTargetException(), propertyName);
+                throw new CheckedWrapperException(e.getTargetException(), "Can't set property: ?", propertyName);
             }
         }
     }

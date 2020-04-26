@@ -41,7 +41,7 @@ public final class ClasspathResources {
                 return readLines(in);
             }
         } catch (final IOException e) {
-            throw new ResourceException("Can't read from classpath resource: ?", e, classPathResource);
+            throw new ResourceException(e, "Can't read from classpath resource: ?", classPathResource);
         }
     }
 

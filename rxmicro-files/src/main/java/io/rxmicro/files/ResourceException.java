@@ -37,9 +37,9 @@ public final class ResourceException extends RxMicroException {
     /**
      * This constructor uses {@link Formats#format(String, Object...) Formats.format} to format error message
      */
-    public ResourceException(final String message,
-                             final Throwable throwable,
+    public ResourceException(final Throwable throwable,
+                             final String message,
                              final Object... args) {
-        super(message, throwable, args);
+        super(throwable, message, args);
     }
 }

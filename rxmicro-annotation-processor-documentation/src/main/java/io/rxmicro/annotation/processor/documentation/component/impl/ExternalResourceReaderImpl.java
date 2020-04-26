@@ -56,7 +56,7 @@ public final class ExternalResourceReaderImpl implements ExternalResourceReader 
         try {
             return Files.readString(filePath, UTF_8);
         } catch (IOException e) {
-            throw new RxMicroException("Can't read data from file: ?", e, filePath.toAbsolutePath());
+            throw new RxMicroException(e, "Can't read data from file: ?", filePath.toAbsolutePath());
         }
     }
 
@@ -68,7 +68,7 @@ public final class ExternalResourceReaderImpl implements ExternalResourceReader 
             }
             throw new RxMicroException("Can't read data from http resource: ?: Empty content", resourcePath);
         } catch (IOException e) {
-            throw new RxMicroException("Can't read data from http resource: ?", e, resourcePath);
+            throw new RxMicroException(e, "Can't read data from http resource: ?", resourcePath);
         }
     }
 }

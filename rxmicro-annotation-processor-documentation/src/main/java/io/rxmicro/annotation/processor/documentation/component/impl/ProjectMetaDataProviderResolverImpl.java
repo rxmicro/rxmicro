@@ -84,7 +84,7 @@ public final class ProjectMetaDataProviderResolverImpl implements ProjectMetaDat
                 tempResource.delete();
             }
         } catch (final IOException e) {
-            new RxMicroException("Can't detect `pom.xml` location!", e).printStackTrace();
+            new RxMicroException(e, "Can't detect `pom.xml` location!").printStackTrace();
         }
         return Optional.empty();
     }
@@ -109,7 +109,7 @@ public final class ProjectMetaDataProviderResolverImpl implements ProjectMetaDat
             }
             return Optional.of(new MavenPOMProjectMetaDataProvider(pomXmlPath.getParentFile().getAbsolutePath(), models));
         } catch (final IOException | XmlPullParserException | RuntimeException e) {
-            new RxMicroException("Can't read data from `pom.xml`!", e).printStackTrace();
+            new RxMicroException(e, "Can't read data from `pom.xml`!").printStackTrace();
             return Optional.empty();
         }
     }

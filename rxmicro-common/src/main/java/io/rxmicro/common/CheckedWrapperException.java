@@ -30,10 +30,10 @@ public final class CheckedWrapperException extends RxMicroException {
     /**
      * This constructor uses {@link Formats#format(String, Object...) Formats.format} to format error message
      */
-    public CheckedWrapperException(final String message,
-                                   final Throwable throwable,
+    public CheckedWrapperException(final Throwable throwable,
+                                   final String message,
                                    final Object... args) {
-        super(message, require(throwable), args);
+        super(require(throwable), message, args);
     }
 
     public CheckedWrapperException(final Throwable throwable) {

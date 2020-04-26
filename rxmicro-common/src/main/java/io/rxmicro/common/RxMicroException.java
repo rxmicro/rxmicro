@@ -40,16 +40,16 @@ public class RxMicroException extends RuntimeException {
         super(format(message, args));
     }
 
-    public RxMicroException(final String message,
-                            final Throwable throwable) {
+    public RxMicroException(final Throwable throwable,
+                            final String message) {
         super(require(message), require(throwable));
     }
 
     /**
      * This constructor uses {@link Formats#format(String, Object...) Formats.format} to format error message
      */
-    public RxMicroException(final String message,
-                            final Throwable throwable,
+    public RxMicroException(final Throwable throwable,
+                            final String message,
                             final Object... args) {
         super(format(message, args), throwable);
     }
@@ -58,36 +58,36 @@ public class RxMicroException extends RuntimeException {
         super(require(throwable));
     }
 
-    protected RxMicroException(final String message,
-                               final boolean enableSuppression,
-                               final boolean writableStackTrace) {
+    protected RxMicroException(final boolean enableSuppression,
+                               final boolean writableStackTrace,
+                               final String message) {
         super(message, null, enableSuppression, writableStackTrace);
     }
 
     /**
      * This constructor uses {@link Formats#format(String, Object...) Formats.format} to format error message
      */
-    protected RxMicroException(final String message,
-                               final boolean enableSuppression,
+    protected RxMicroException(final boolean enableSuppression,
                                final boolean writableStackTrace,
+                               final String message,
                                final Object... args) {
         super(format(message, args), null, enableSuppression, writableStackTrace);
     }
 
-    protected RxMicroException(final String message,
-                               final Throwable cause,
+    protected RxMicroException(final Throwable cause,
                                final boolean enableSuppression,
-                               final boolean writableStackTrace) {
+                               final boolean writableStackTrace,
+                               final String message) {
         super(message, cause, enableSuppression, writableStackTrace);
     }
 
     /**
      * This constructor uses {@link Formats#format(String, Object...) Formats.format} to format error message
      */
-    protected RxMicroException(final String message,
-                               final Throwable cause,
+    protected RxMicroException(final Throwable cause,
                                final boolean enableSuppression,
                                final boolean writableStackTrace,
+                               final String message,
                                final Object... args) {
         super(format(message, args), cause, enableSuppression, writableStackTrace);
     }

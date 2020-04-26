@@ -129,7 +129,7 @@ public final class Reflections {
             final Field field = classInstance.getDeclaredField(fieldName);
             return getFieldValue(validInstance, field);
         } catch (final NoSuchFieldException e) {
-            throw new CheckedWrapperException("Field '?.?' not defined", e, instance.getClass().getName(), fieldName);
+            throw new CheckedWrapperException(e, "Field '?.?' not defined", instance.getClass().getName(), fieldName);
         }
     }
 
@@ -138,7 +138,7 @@ public final class Reflections {
         try {
             return classInstance.getDeclaredField(fieldName);
         } catch (final NoSuchFieldException e) {
-            throw new CheckedWrapperException("Field '?.?' not defined", e, classInstance.getName(), fieldName);
+            throw new CheckedWrapperException(e, "Field '?.?' not defined", classInstance.getName(), fieldName);
         }
     }
 
@@ -159,7 +159,7 @@ public final class Reflections {
             final Field field = classInstance.getDeclaredField(fieldName);
             setFieldValue(validInstance, field, value);
         } catch (final NoSuchFieldException e) {
-            throw new CheckedWrapperException("Field '?.?' not defined", e, instance.getClass().getName(), fieldName);
+            throw new CheckedWrapperException(e, "Field '?.?' not defined", instance.getClass().getName(), fieldName);
         }
     }
 
@@ -225,8 +225,7 @@ public final class Reflections {
             }
         }
         throw new CheckedWrapperException(
-                "At least one class must contain the method 'void ?()': classes=?",
-                new NoSuchMethodException(),
+                new NoSuchMethodException(), "At least one class must contain the method 'void ?()': classes=?",
                 methodName, instances.stream().map(Object::getClass).collect(toList())
         );
     }

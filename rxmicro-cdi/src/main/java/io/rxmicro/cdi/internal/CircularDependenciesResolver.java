@@ -81,11 +81,10 @@ public final class CircularDependenciesResolver {
          */
         private CircularDependenciesDetectedException(final Object... args) {
             super(
+                    false,
+                    false,
                     "The following beans contain the circular dependencies: \n?.\n\n" +
                             "Remove these circular dependencies!",
-                    null,
-                    false,
-                    false,
                     args
             );
         }

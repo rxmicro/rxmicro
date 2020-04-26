@@ -31,6 +31,6 @@ public final class InvalidTestConfigException extends RxMicroException {
      */
     public InvalidTestConfigException(final String message,
                                       final Object... args) {
-        super(message, null, false, false, args);
+        super(null, false, false, message, args);
     }
 }
