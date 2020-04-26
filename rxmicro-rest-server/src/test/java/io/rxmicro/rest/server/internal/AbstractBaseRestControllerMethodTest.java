@@ -126,95 +126,123 @@ abstract class AbstractBaseRestControllerMethodTest {
         }
 
         @Override
-        public void trace(final String msg,
-                          final Object arg1) {
+        public void trace(final String msg, final Object arg1) {
             logger.trace(msg, arg1);
         }
 
         @Override
-        public void trace(final String msg,
-                          final Object arg1,
-                          final Object arg2) {
+        public void trace(final String msg, final Object arg1, final Object arg2) {
             logger.trace(msg, arg1, arg2);
         }
 
         @Override
-        public void trace(final String msg,
-                          final Object arg1,
-                          final Object arg2,
-                          final Object arg3) {
+        public void trace(final String msg, final Object arg1, final Object arg2, final Object arg3) {
             logger.trace(msg, arg1, arg2, arg3);
         }
 
         @Override
-        public void trace(final String msg,
-                          final Object arg1,
-                          final Object arg2,
-                          final Object arg3,
-                          final Object arg4) {
+        public void trace(final String msg, final Object arg1, final Object arg2, final Object arg3, final Object arg4) {
             logger.trace(msg, arg1, arg2, arg3, arg4);
         }
 
         @Override
-        public void trace(final String msg,
-                          final Object arg1,
-                          final Object arg2,
-                          final Object arg3,
-                          final Object arg4,
-                          final Object arg5) {
+        public void trace(final String msg, final Object arg1, final Object arg2, final Object arg3, final Object arg4, final Object arg5) {
             logger.trace(msg, arg1, arg2, arg3, arg4, arg5);
         }
 
         @Override
-        public void trace(final String msg,
-                          final Object... arguments) {
+        public void trace(final String msg, final Object... arguments) {
             logger.trace(msg, arguments);
         }
 
         @Override
-        public void trace(final String msg,
-                          final Supplier<?> arg1) {
+        public void trace(final String msg, final Supplier<?> arg1) {
             logger.trace(msg, arg1);
         }
 
         @Override
-        public void trace(final String msg,
-                          final Supplier<?> arg1,
-                          final Supplier<?> arg2) {
+        public void trace(final String msg, final Supplier<?> arg1, final Supplier<?> arg2) {
             logger.trace(msg, arg1, arg2);
         }
 
         @Override
-        public void trace(final String msg,
-                          final Supplier<?> arg1,
-                          final Supplier<?> arg2,
-                          final Supplier<?> arg3) {
+        public void trace(final String msg, final Supplier<?> arg1, final Supplier<?> arg2, final Supplier<?> arg3) {
             logger.trace(msg, arg1, arg2, arg3);
         }
 
         @Override
-        public void trace(final String msg,
-                          final Supplier<?> arg1,
-                          final Supplier<?> arg2,
-                          final Supplier<?> arg3,
-                          final Supplier<?> arg4) {
+        public void trace(final String msg, final Supplier<?> arg1, final Supplier<?> arg2, final Supplier<?> arg3, final Supplier<?> arg4) {
             logger.trace(msg, arg1, arg2, arg3, arg4);
         }
 
         @Override
-        public void trace(final String msg,
-                          final Supplier<?> arg1,
-                          final Supplier<?> arg2,
-                          final Supplier<?> arg3,
-                          final Supplier<?> arg4,
-                          final Supplier<?> arg5) {
+        public void trace(final String msg, final Supplier<?> arg1, final Supplier<?> arg2, final Supplier<?> arg3, final Supplier<?> arg4, final Supplier<?> arg5) {
             logger.trace(msg, arg1, arg2, arg3, arg4, arg5);
         }
 
         @Override
-        public void trace(final String msg,
-                          final Supplier<?>... suppliers) {
+        public void trace(final String msg, final Supplier<?>... suppliers) {
             logger.trace(msg, suppliers);
+        }
+
+        @Override
+        public void trace(final Throwable throwable, final String msg, final Object arg1) {
+            logger.trace(throwable, msg, arg1);
+        }
+
+        @Override
+        public void trace(final Throwable throwable, final String msg, final Object arg1, final Object arg2) {
+            logger.trace(throwable, msg, arg1, arg2);
+        }
+
+        @Override
+        public void trace(final Throwable throwable, final String msg, final Object arg1, final Object arg2, final Object arg3) {
+            logger.trace(throwable, msg, arg1, arg2, arg3);
+        }
+
+        @Override
+        public void trace(final Throwable throwable, final String msg, final Object arg1, final Object arg2, final Object arg3, final Object arg4) {
+            logger.trace(throwable, msg, arg1, arg2, arg3, arg4);
+        }
+
+        @Override
+        public void trace(final Throwable throwable, final String msg, final Object arg1, final Object arg2, final Object arg3, final Object arg4, final Object arg5) {
+            logger.trace(throwable, msg, arg1, arg2, arg3, arg4, arg5);
+        }
+
+        @Override
+        public void trace(final Throwable throwable, final String msg, final Object... arguments) {
+            logger.trace(throwable, msg, arguments);
+        }
+
+        @Override
+        public void trace(final Throwable throwable, final String msg, final Supplier<?> arg1) {
+            logger.trace(throwable, msg, arg1);
+        }
+
+        @Override
+        public void trace(final Throwable throwable, final String msg, final Supplier<?> arg1, final Supplier<?> arg2) {
+            logger.trace(throwable, msg, arg1, arg2);
+        }
+
+        @Override
+        public void trace(final Throwable throwable, final String msg, final Supplier<?> arg1, final Supplier<?> arg2, final Supplier<?> arg3) {
+            logger.trace(throwable, msg, arg1, arg2, arg3);
+        }
+
+        @Override
+        public void trace(final Throwable throwable, final String msg, final Supplier<?> arg1, final Supplier<?> arg2, final Supplier<?> arg3, final Supplier<?> arg4) {
+            logger.trace(throwable, msg, arg1, arg2, arg3, arg4);
+        }
+
+        @Override
+        public void trace(final Throwable throwable, final String msg, final Supplier<?> arg1, final Supplier<?> arg2, final Supplier<?> arg3, final Supplier<?> arg4, final Supplier<?> arg5) {
+            logger.trace(throwable, msg, arg1, arg2, arg3, arg4, arg5);
+        }
+
+        @Override
+        public void trace(final Throwable throwable, final String msg, final Supplier<?>... suppliers) {
+            logger.trace(throwable, msg, suppliers);
         }
 
         @Override
@@ -228,95 +256,123 @@ abstract class AbstractBaseRestControllerMethodTest {
         }
 
         @Override
-        public void debug(final String msg,
-                          final Object arg1) {
+        public void debug(final String msg, final Object arg1) {
             logger.debug(msg, arg1);
         }
 
         @Override
-        public void debug(final String msg,
-                          final Object arg1,
-                          final Object arg2) {
+        public void debug(final String msg, final Object arg1, final Object arg2) {
             logger.debug(msg, arg1, arg2);
         }
 
         @Override
-        public void debug(final String msg,
-                          final Object arg1,
-                          final Object arg2,
-                          final Object arg3) {
+        public void debug(final String msg, final Object arg1, final Object arg2, final Object arg3) {
             logger.debug(msg, arg1, arg2, arg3);
         }
 
         @Override
-        public void debug(final String msg,
-                          final Object arg1,
-                          final Object arg2,
-                          final Object arg3,
-                          final Object arg4) {
+        public void debug(final String msg, final Object arg1, final Object arg2, final Object arg3, final Object arg4) {
             logger.debug(msg, arg1, arg2, arg3, arg4);
         }
 
         @Override
-        public void debug(final String msg,
-                          final Object arg1,
-                          final Object arg2,
-                          final Object arg3,
-                          final Object arg4,
-                          final Object arg5) {
+        public void debug(final String msg, final Object arg1, final Object arg2, final Object arg3, final Object arg4, final Object arg5) {
             logger.debug(msg, arg1, arg2, arg3, arg4, arg5);
         }
 
         @Override
-        public void debug(final String msg,
-                          final Object... arguments) {
+        public void debug(final String msg, final Object... arguments) {
             logger.debug(msg, arguments);
         }
 
         @Override
-        public void debug(final String msg,
-                          final Supplier<?> arg1) {
+        public void debug(final String msg, final Supplier<?> arg1) {
             logger.debug(msg, arg1);
         }
 
         @Override
-        public void debug(final String msg,
-                          final Supplier<?> arg1,
-                          final Supplier<?> arg2) {
+        public void debug(final String msg, final Supplier<?> arg1, final Supplier<?> arg2) {
             logger.debug(msg, arg1, arg2);
         }
 
         @Override
-        public void debug(final String msg,
-                          final Supplier<?> arg1,
-                          final Supplier<?> arg2,
-                          final Supplier<?> arg3) {
+        public void debug(final String msg, final Supplier<?> arg1, final Supplier<?> arg2, final Supplier<?> arg3) {
             logger.debug(msg, arg1, arg2, arg3);
         }
 
         @Override
-        public void debug(final String msg,
-                          final Supplier<?> arg1,
-                          final Supplier<?> arg2,
-                          final Supplier<?> arg3,
-                          final Supplier<?> arg4) {
+        public void debug(final String msg, final Supplier<?> arg1, final Supplier<?> arg2, final Supplier<?> arg3, final Supplier<?> arg4) {
             logger.debug(msg, arg1, arg2, arg3, arg4);
         }
 
         @Override
-        public void debug(final String msg,
-                          final Supplier<?> arg1,
-                          final Supplier<?> arg2,
-                          final Supplier<?> arg3,
-                          final Supplier<?> arg4,
-                          final Supplier<?> arg5) {
+        public void debug(final String msg, final Supplier<?> arg1, final Supplier<?> arg2, final Supplier<?> arg3, final Supplier<?> arg4, final Supplier<?> arg5) {
             logger.debug(msg, arg1, arg2, arg3, arg4, arg5);
         }
 
         @Override
-        public void debug(final String msg,
-                          final Supplier<?>... suppliers) {
+        public void debug(final String msg, final Supplier<?>... suppliers) {
             logger.debug(msg, suppliers);
+        }
+
+        @Override
+        public void debug(final Throwable throwable, final String msg, final Object arg1) {
+            logger.debug(throwable, msg, arg1);
+        }
+
+        @Override
+        public void debug(final Throwable throwable, final String msg, final Object arg1, final Object arg2) {
+            logger.debug(throwable, msg, arg1, arg2);
+        }
+
+        @Override
+        public void debug(final Throwable throwable, final String msg, final Object arg1, final Object arg2, final Object arg3) {
+            logger.debug(throwable, msg, arg1, arg2, arg3);
+        }
+
+        @Override
+        public void debug(final Throwable throwable, final String msg, final Object arg1, final Object arg2, final Object arg3, final Object arg4) {
+            logger.debug(throwable, msg, arg1, arg2, arg3, arg4);
+        }
+
+        @Override
+        public void debug(final Throwable throwable, final String msg, final Object arg1, final Object arg2, final Object arg3, final Object arg4, final Object arg5) {
+            logger.debug(throwable, msg, arg1, arg2, arg3, arg4, arg5);
+        }
+
+        @Override
+        public void debug(final Throwable throwable, final String msg, final Object... arguments) {
+            logger.debug(throwable, msg, arguments);
+        }
+
+        @Override
+        public void debug(final Throwable throwable, final String msg, final Supplier<?> arg1) {
+            logger.debug(throwable, msg, arg1);
+        }
+
+        @Override
+        public void debug(final Throwable throwable, final String msg, final Supplier<?> arg1, final Supplier<?> arg2) {
+            logger.debug(throwable, msg, arg1, arg2);
+        }
+
+        @Override
+        public void debug(final Throwable throwable, final String msg, final Supplier<?> arg1, final Supplier<?> arg2, final Supplier<?> arg3) {
+            logger.debug(throwable, msg, arg1, arg2, arg3);
+        }
+
+        @Override
+        public void debug(final Throwable throwable, final String msg, final Supplier<?> arg1, final Supplier<?> arg2, final Supplier<?> arg3, final Supplier<?> arg4) {
+            logger.debug(throwable, msg, arg1, arg2, arg3, arg4);
+        }
+
+        @Override
+        public void debug(final Throwable throwable, final String msg, final Supplier<?> arg1, final Supplier<?> arg2, final Supplier<?> arg3, final Supplier<?> arg4, final Supplier<?> arg5) {
+            logger.debug(throwable, msg, arg1, arg2, arg3, arg4, arg5);
+        }
+
+        @Override
+        public void debug(final Throwable throwable, final String msg, final Supplier<?>... suppliers) {
+            logger.debug(throwable, msg, suppliers);
         }
 
         @Override
@@ -330,95 +386,123 @@ abstract class AbstractBaseRestControllerMethodTest {
         }
 
         @Override
-        public void info(final String msg,
-                         final Object arg1) {
+        public void info(final String msg, final Object arg1) {
             logger.info(msg, arg1);
         }
 
         @Override
-        public void info(final String msg,
-                         final Object arg1,
-                         final Object arg2) {
+        public void info(final String msg, final Object arg1, final Object arg2) {
             logger.info(msg, arg1, arg2);
         }
 
         @Override
-        public void info(final String msg,
-                         final Object arg1,
-                         final Object arg2,
-                         final Object arg3) {
+        public void info(final String msg, final Object arg1, final Object arg2, final Object arg3) {
             logger.info(msg, arg1, arg2, arg3);
         }
 
         @Override
-        public void info(final String msg,
-                         final Object arg1,
-                         final Object arg2,
-                         final Object arg3,
-                         final Object arg4) {
+        public void info(final String msg, final Object arg1, final Object arg2, final Object arg3, final Object arg4) {
             logger.info(msg, arg1, arg2, arg3, arg4);
         }
 
         @Override
-        public void info(final String msg,
-                         final Object arg1,
-                         final Object arg2,
-                         final Object arg3,
-                         final Object arg4,
-                         final Object arg5) {
+        public void info(final String msg, final Object arg1, final Object arg2, final Object arg3, final Object arg4, final Object arg5) {
             logger.info(msg, arg1, arg2, arg3, arg4, arg5);
         }
 
         @Override
-        public void info(final String msg,
-                         final Object... arguments) {
+        public void info(final String msg, final Object... arguments) {
             logger.info(msg, arguments);
         }
 
         @Override
-        public void info(final String msg,
-                         final Supplier<?> arg1) {
+        public void info(final String msg, final Supplier<?> arg1) {
             logger.info(msg, arg1);
         }
 
         @Override
-        public void info(final String msg,
-                         final Supplier<?> arg1,
-                         final Supplier<?> arg2) {
+        public void info(final String msg, final Supplier<?> arg1, final Supplier<?> arg2) {
             logger.info(msg, arg1, arg2);
         }
 
         @Override
-        public void info(final String msg,
-                         final Supplier<?> arg1,
-                         final Supplier<?> arg2,
-                         final Supplier<?> arg3) {
+        public void info(final String msg, final Supplier<?> arg1, final Supplier<?> arg2, final Supplier<?> arg3) {
             logger.info(msg, arg1, arg2, arg3);
         }
 
         @Override
-        public void info(final String msg,
-                         final Supplier<?> arg1,
-                         final Supplier<?> arg2,
-                         final Supplier<?> arg3,
-                         final Supplier<?> arg4) {
+        public void info(final String msg, final Supplier<?> arg1, final Supplier<?> arg2, final Supplier<?> arg3, final Supplier<?> arg4) {
             logger.info(msg, arg1, arg2, arg3, arg4);
         }
 
         @Override
-        public void info(final String msg,
-                         final Supplier<?> arg1,
-                         final Supplier<?> arg2,
-                         final Supplier<?> arg3,
-                         final Supplier<?> arg4,
-                         final Supplier<?> arg5) {
+        public void info(final String msg, final Supplier<?> arg1, final Supplier<?> arg2, final Supplier<?> arg3, final Supplier<?> arg4, final Supplier<?> arg5) {
             logger.info(msg, arg1, arg2, arg3, arg4, arg5);
         }
 
         @Override
-        public void info(final String msg,
-                         final Supplier<?>... suppliers) {
+        public void info(final String msg, final Supplier<?>... suppliers) {
             logger.info(msg, suppliers);
+        }
+
+        @Override
+        public void info(final Throwable throwable, final String msg, final Object arg1) {
+            logger.info(throwable, msg, arg1);
+        }
+
+        @Override
+        public void info(final Throwable throwable, final String msg, final Object arg1, final Object arg2) {
+            logger.info(throwable, msg, arg1, arg2);
+        }
+
+        @Override
+        public void info(final Throwable throwable, final String msg, final Object arg1, final Object arg2, final Object arg3) {
+            logger.info(throwable, msg, arg1, arg2, arg3);
+        }
+
+        @Override
+        public void info(final Throwable throwable, final String msg, final Object arg1, final Object arg2, final Object arg3, final Object arg4) {
+            logger.info(throwable, msg, arg1, arg2, arg3, arg4);
+        }
+
+        @Override
+        public void info(final Throwable throwable, final String msg, final Object arg1, final Object arg2, final Object arg3, final Object arg4, final Object arg5) {
+            logger.info(throwable, msg, arg1, arg2, arg3, arg4, arg5);
+        }
+
+        @Override
+        public void info(final Throwable throwable, final String msg, final Object... arguments) {
+            logger.info(throwable, msg, arguments);
+        }
+
+        @Override
+        public void info(final Throwable throwable, final String msg, final Supplier<?> arg1) {
+            logger.info(throwable, msg, arg1);
+        }
+
+        @Override
+        public void info(final Throwable throwable, final String msg, final Supplier<?> arg1, final Supplier<?> arg2) {
+            logger.info(throwable, msg, arg1, arg2);
+        }
+
+        @Override
+        public void info(final Throwable throwable, final String msg, final Supplier<?> arg1, final Supplier<?> arg2, final Supplier<?> arg3) {
+            logger.info(throwable, msg, arg1, arg2, arg3);
+        }
+
+        @Override
+        public void info(final Throwable throwable, final String msg, final Supplier<?> arg1, final Supplier<?> arg2, final Supplier<?> arg3, final Supplier<?> arg4) {
+            logger.info(throwable, msg, arg1, arg2, arg3, arg4);
+        }
+
+        @Override
+        public void info(final Throwable throwable, final String msg, final Supplier<?> arg1, final Supplier<?> arg2, final Supplier<?> arg3, final Supplier<?> arg4, final Supplier<?> arg5) {
+            logger.info(throwable, msg, arg1, arg2, arg3, arg4, arg5);
+        }
+
+        @Override
+        public void info(final Throwable throwable, final String msg, final Supplier<?>... suppliers) {
+            logger.info(throwable, msg, suppliers);
         }
 
         @Override
@@ -432,95 +516,123 @@ abstract class AbstractBaseRestControllerMethodTest {
         }
 
         @Override
-        public void warn(final String msg,
-                         final Object arg1) {
+        public void warn(final String msg, final Object arg1) {
             logger.warn(msg, arg1);
         }
 
         @Override
-        public void warn(final String msg,
-                         final Object arg1,
-                         final Object arg2) {
+        public void warn(final String msg, final Object arg1, final Object arg2) {
             logger.warn(msg, arg1, arg2);
         }
 
         @Override
-        public void warn(final String msg,
-                         final Object arg1,
-                         final Object arg2,
-                         final Object arg3) {
+        public void warn(final String msg, final Object arg1, final Object arg2, final Object arg3) {
             logger.warn(msg, arg1, arg2, arg3);
         }
 
         @Override
-        public void warn(final String msg,
-                         final Object arg1,
-                         final Object arg2,
-                         final Object arg3,
-                         final Object arg4) {
+        public void warn(final String msg, final Object arg1, final Object arg2, final Object arg3, final Object arg4) {
             logger.warn(msg, arg1, arg2, arg3, arg4);
         }
 
         @Override
-        public void warn(final String msg,
-                         final Object arg1,
-                         final Object arg2,
-                         final Object arg3,
-                         final Object arg4,
-                         final Object arg5) {
+        public void warn(final String msg, final Object arg1, final Object arg2, final Object arg3, final Object arg4, final Object arg5) {
             logger.warn(msg, arg1, arg2, arg3, arg4, arg5);
         }
 
         @Override
-        public void warn(final String msg,
-                         final Object... arguments) {
+        public void warn(final String msg, final Object... arguments) {
             logger.warn(msg, arguments);
         }
 
         @Override
-        public void warn(final String msg,
-                         final Supplier<?> arg1) {
+        public void warn(final String msg, final Supplier<?> arg1) {
             logger.warn(msg, arg1);
         }
 
         @Override
-        public void warn(final String msg,
-                         final Supplier<?> arg1,
-                         final Supplier<?> arg2) {
+        public void warn(final String msg, final Supplier<?> arg1, final Supplier<?> arg2) {
             logger.warn(msg, arg1, arg2);
         }
 
         @Override
-        public void warn(final String msg,
-                         final Supplier<?> arg1,
-                         final Supplier<?> arg2,
-                         final Supplier<?> arg3) {
+        public void warn(final String msg, final Supplier<?> arg1, final Supplier<?> arg2, final Supplier<?> arg3) {
             logger.warn(msg, arg1, arg2, arg3);
         }
 
         @Override
-        public void warn(final String msg,
-                         final Supplier<?> arg1,
-                         final Supplier<?> arg2,
-                         final Supplier<?> arg3,
-                         final Supplier<?> arg4) {
+        public void warn(final String msg, final Supplier<?> arg1, final Supplier<?> arg2, final Supplier<?> arg3, final Supplier<?> arg4) {
             logger.warn(msg, arg1, arg2, arg3, arg4);
         }
 
         @Override
-        public void warn(final String msg,
-                         final Supplier<?> arg1,
-                         final Supplier<?> arg2,
-                         final Supplier<?> arg3,
-                         final Supplier<?> arg4,
-                         final Supplier<?> arg5) {
+        public void warn(final String msg, final Supplier<?> arg1, final Supplier<?> arg2, final Supplier<?> arg3, final Supplier<?> arg4, final Supplier<?> arg5) {
             logger.warn(msg, arg1, arg2, arg3, arg4, arg5);
         }
 
         @Override
-        public void warn(final String msg,
-                         final Supplier<?>... suppliers) {
+        public void warn(final String msg, final Supplier<?>... suppliers) {
             logger.warn(msg, suppliers);
+        }
+
+        @Override
+        public void warn(final Throwable throwable, final String msg, final Object arg1) {
+            logger.warn(throwable, msg, arg1);
+        }
+
+        @Override
+        public void warn(final Throwable throwable, final String msg, final Object arg1, final Object arg2) {
+            logger.warn(throwable, msg, arg1, arg2);
+        }
+
+        @Override
+        public void warn(final Throwable throwable, final String msg, final Object arg1, final Object arg2, final Object arg3) {
+            logger.warn(throwable, msg, arg1, arg2, arg3);
+        }
+
+        @Override
+        public void warn(final Throwable throwable, final String msg, final Object arg1, final Object arg2, final Object arg3, final Object arg4) {
+            logger.warn(throwable, msg, arg1, arg2, arg3, arg4);
+        }
+
+        @Override
+        public void warn(final Throwable throwable, final String msg, final Object arg1, final Object arg2, final Object arg3, final Object arg4, final Object arg5) {
+            logger.warn(throwable, msg, arg1, arg2, arg3, arg4, arg5);
+        }
+
+        @Override
+        public void warn(final Throwable throwable, final String msg, final Object... arguments) {
+            logger.warn(throwable, msg, arguments);
+        }
+
+        @Override
+        public void warn(final Throwable throwable, final String msg, final Supplier<?> arg1) {
+            logger.warn(throwable, msg, arg1);
+        }
+
+        @Override
+        public void warn(final Throwable throwable, final String msg, final Supplier<?> arg1, final Supplier<?> arg2) {
+            logger.warn(throwable, msg, arg1, arg2);
+        }
+
+        @Override
+        public void warn(final Throwable throwable, final String msg, final Supplier<?> arg1, final Supplier<?> arg2, final Supplier<?> arg3) {
+            logger.warn(throwable, msg, arg1, arg2, arg3);
+        }
+
+        @Override
+        public void warn(final Throwable throwable, final String msg, final Supplier<?> arg1, final Supplier<?> arg2, final Supplier<?> arg3, final Supplier<?> arg4) {
+            logger.warn(throwable, msg, arg1, arg2, arg3, arg4);
+        }
+
+        @Override
+        public void warn(final Throwable throwable, final String msg, final Supplier<?> arg1, final Supplier<?> arg2, final Supplier<?> arg3, final Supplier<?> arg4, final Supplier<?> arg5) {
+            logger.warn(throwable, msg, arg1, arg2, arg3, arg4, arg5);
+        }
+
+        @Override
+        public void warn(final Throwable throwable, final String msg, final Supplier<?>... suppliers) {
+            logger.warn(throwable, msg, suppliers);
         }
 
         @Override
@@ -534,198 +646,122 @@ abstract class AbstractBaseRestControllerMethodTest {
         }
 
         @Override
-        public void error(final String msg,
-                          final Object arg1) {
+        public void error(final String msg, final Object arg1) {
             logger.error(msg, arg1);
         }
 
         @Override
-        public void error(final String msg,
-                          final Object arg1,
-                          final Object arg2) {
+        public void error(final String msg, final Object arg1, final Object arg2) {
             logger.error(msg, arg1, arg2);
         }
 
         @Override
-        public void error(final String msg,
-                          final Object arg1,
-                          final Object arg2,
-                          final Object arg3) {
+        public void error(final String msg, final Object arg1, final Object arg2, final Object arg3) {
             logger.error(msg, arg1, arg2, arg3);
         }
 
         @Override
-        public void error(final String msg,
-                          final Object arg1,
-                          final Object arg2,
-                          final Object arg3,
-                          final Object arg4) {
+        public void error(final String msg, final Object arg1, final Object arg2, final Object arg3, final Object arg4) {
             logger.error(msg, arg1, arg2, arg3, arg4);
         }
 
         @Override
-        public void error(final String msg,
-                          final Object arg1,
-                          final Object arg2,
-                          final Object arg3,
-                          final Object arg4,
-                          final Object arg5) {
+        public void error(final String msg, final Object arg1, final Object arg2, final Object arg3, final Object arg4, final Object arg5) {
             logger.error(msg, arg1, arg2, arg3, arg4, arg5);
         }
 
         @Override
-        public void error(final String msg,
-                          final Supplier<?> arg1) {
+        public void error(final String msg, final Supplier<?> arg1) {
             logger.error(msg, arg1);
         }
 
         @Override
-        public void error(final String msg,
-                          final Supplier<?> arg1,
-                          final Supplier<?> arg2) {
+        public void error(final String msg, final Supplier<?> arg1, final Supplier<?> arg2) {
             logger.error(msg, arg1, arg2);
         }
 
         @Override
-        public void error(final String msg,
-                          final Supplier<?> arg1,
-                          final Supplier<?> arg2,
-                          final Supplier<?> arg3) {
+        public void error(final String msg, final Supplier<?> arg1, final Supplier<?> arg2, final Supplier<?> arg3) {
             logger.error(msg, arg1, arg2, arg3);
         }
 
         @Override
-        public void error(final String msg,
-                          final Supplier<?> arg1,
-                          final Supplier<?> arg2,
-                          final Supplier<?> arg3,
-                          final Supplier<?> arg4) {
+        public void error(final String msg, final Supplier<?> arg1, final Supplier<?> arg2, final Supplier<?> arg3, final Supplier<?> arg4) {
             logger.error(msg, arg1, arg2, arg3, arg4);
         }
 
         @Override
-        public void error(final String msg,
-                          final Supplier<?> arg1,
-                          final Supplier<?> arg2,
-                          final Supplier<?> arg3,
-                          final Supplier<?> arg4,
-                          final Supplier<?> arg5) {
+        public void error(final String msg, final Supplier<?> arg1, final Supplier<?> arg2, final Supplier<?> arg3, final Supplier<?> arg4, final Supplier<?> arg5) {
             logger.error(msg, arg1, arg2, arg3, arg4, arg5);
         }
 
         @Override
-        public void error(final String msg,
-                          final Object... arguments) {
+        public void error(final String msg, final Object... arguments) {
             logger.error(msg, arguments);
         }
 
         @Override
-        public void error(final String msg,
-                          final Supplier<?>... suppliers) {
+        public void error(final String msg, final Supplier<?>... suppliers) {
             logger.error(msg, suppliers);
         }
 
         @Override
-        public void error(final Throwable throwable,
-                          final String msg,
-                          final Object arg1) {
+        public void error(final Throwable throwable, final String msg, final Object arg1) {
             logger.error(throwable, msg, arg1);
         }
 
         @Override
-        public void error(final Throwable throwable,
-                          final String msg,
-                          final Object arg1,
-                          final Object arg2) {
+        public void error(final Throwable throwable, final String msg, final Object arg1, final Object arg2) {
             logger.error(throwable, msg, arg1, arg2);
         }
 
         @Override
-        public void error(final Throwable throwable,
-                          final String msg,
-                          final Object arg1,
-                          final Object arg2,
-                          final Object arg3) {
+        public void error(final Throwable throwable, final String msg, final Object arg1, final Object arg2, final Object arg3) {
             logger.error(throwable, msg, arg1, arg2, arg3);
         }
 
         @Override
-        public void error(final Throwable throwable,
-                          final String msg,
-                          final Object arg1,
-                          final Object arg2,
-                          final Object arg3,
-                          final Object arg4) {
+        public void error(final Throwable throwable, final String msg, final Object arg1, final Object arg2, final Object arg3, final Object arg4) {
             logger.error(throwable, msg, arg1, arg2, arg3, arg4);
         }
 
         @Override
-        public void error(final Throwable throwable,
-                          final String msg,
-                          final Object arg1,
-                          final Object arg2,
-                          final Object arg3,
-                          final Object arg4,
-                          final Object arg5) {
+        public void error(final Throwable throwable, final String msg, final Object arg1, final Object arg2, final Object arg3, final Object arg4, final Object arg5) {
             logger.error(throwable, msg, arg1, arg2, arg3, arg4, arg5);
         }
 
         @Override
-        public void error(final Throwable throwable,
-                          final String msg,
-                          final Object... arguments) {
+        public void error(final Throwable throwable, final String msg, final Object... arguments) {
             logger.error(throwable, msg, arguments);
         }
 
         @Override
-        public void error(final Throwable throwable,
-                          final String msg,
-                          final Supplier<?> arg1) {
+        public void error(final Throwable throwable, final String msg, final Supplier<?> arg1) {
             logger.error(throwable, msg, arg1);
         }
 
         @Override
-        public void error(final Throwable throwable,
-                          final String msg,
-                          final Supplier<?> arg1,
-                          final Supplier<?> arg2) {
+        public void error(final Throwable throwable, final String msg, final Supplier<?> arg1, final Supplier<?> arg2) {
             logger.error(throwable, msg, arg1, arg2);
         }
 
         @Override
-        public void error(final Throwable throwable,
-                          final String msg,
-                          final Supplier<?> arg1,
-                          final Supplier<?> arg2,
-                          final Supplier<?> arg3) {
+        public void error(final Throwable throwable, final String msg, final Supplier<?> arg1, final Supplier<?> arg2, final Supplier<?> arg3) {
             logger.error(throwable, msg, arg1, arg2, arg3);
         }
 
         @Override
-        public void error(final Throwable throwable,
-                          final String msg,
-                          final Supplier<?> arg1,
-                          final Supplier<?> arg2,
-                          final Supplier<?> arg3,
-                          final Supplier<?> arg4) {
+        public void error(final Throwable throwable, final String msg, final Supplier<?> arg1, final Supplier<?> arg2, final Supplier<?> arg3, final Supplier<?> arg4) {
             logger.error(throwable, msg, arg1, arg2, arg3, arg4);
         }
 
         @Override
-        public void error(final Throwable throwable,
-                          final String msg,
-                          final Supplier<?> arg1,
-                          final Supplier<?> arg2,
-                          final Supplier<?> arg3,
-                          final Supplier<?> arg4,
-                          final Supplier<?> arg5) {
+        public void error(final Throwable throwable, final String msg, final Supplier<?> arg1, final Supplier<?> arg2, final Supplier<?> arg3, final Supplier<?> arg4, final Supplier<?> arg5) {
             logger.error(throwable, msg, arg1, arg2, arg3, arg4, arg5);
         }
 
         @Override
-        public void error(final Throwable throwable,
-                          final String msg,
-                          final Supplier<?>... suppliers) {
+        public void error(final Throwable throwable, final String msg, final Supplier<?>... suppliers) {
             logger.error(throwable, msg, suppliers);
         }
     }

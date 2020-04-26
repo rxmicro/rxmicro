@@ -45,3 +45,4 @@ This document contains the *change log* for all RxMicro releases since **0.2**.
   * bson: 4.0.1 -> 4.0.2
   * junit-platform-commons: 1.6.1 -> 1.6.2
 * Fix config setters for graalvm native images
+* Add `Throwable` argument for all log levels: `TRACE`, `DEBUG`, `INFO`, `WARN`, `ERROR` 
