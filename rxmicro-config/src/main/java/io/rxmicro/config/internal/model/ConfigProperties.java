@@ -52,9 +52,10 @@ import static io.rxmicro.config.ConfigSource.SEPARATE_CLASS_PATH_RESOURCE;
 import static io.rxmicro.config.ConfigSource.SEPARATE_FILE_AT_THE_CURRENT_DIR;
 import static io.rxmicro.config.ConfigSource.SEPARATE_FILE_AT_THE_HOME_DIR;
 import static io.rxmicro.config.ConfigSource.SEPARATE_FILE_AT_THE_RXMICRO_CONFIG_DIR;
+import static io.rxmicro.config.internal.ExternalSourceProvider.getCurrentDir;
+import static io.rxmicro.config.internal.ExternalSourceProvider.getEnvironmentVariables;
 import static io.rxmicro.config.internal.model.DefaultConfigValueStorage.DEFAULT_STRING_VALUES_STORAGE;
 import static io.rxmicro.config.internal.model.DefaultConfigValueStorage.DEFAULT_SUPPLIER_VALUES_STORAGE;
-import static io.rxmicro.config.internal.model.PropertyNames.CURRENT_DIR_PROPERTY;
 import static io.rxmicro.config.internal.model.PropertyNames.USER_HOME_PROPERTY;
 import static io.rxmicro.files.PropertiesResources.loadProperties;
 import static java.util.Map.entry;
@@ -69,7 +70,7 @@ public final class ConfigProperties {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ConfigProperties.class);
 
-    private static final Map<String, String> SYSTEM_ENV = System.getenv();
+    private static final Map<String, String> SYSTEM_ENV = getEnvironmentVariables();
 
     private static final Properties SYSTEM_PROPERTIES = System.getProperties();
 
@@ -77,8 +78,7 @@ public final class ConfigProperties {
 
     private static final String RX_MICRO_CONFIG_DIRECTORY = USER_HOME + "/" + RX_MICRO_CONFIG_DIRECTORY_NAME;
 
-    // Allow to override the current dir for tests
-    private static final String CURRENT_DIR = SYSTEM_PROPERTIES.getProperty(CURRENT_DIR_PROPERTY, "");
+    private static final String CURRENT_DIR = getCurrentDir();
 
     private static final Map<String, Optional<Map<String, String>>> RESOURCE_CACHE = new WeakHashMap<>();
 

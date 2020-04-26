@@ -25,8 +25,6 @@ public final class PropertyNames {
 
     public static final String USER_HOME_PROPERTY = "user.home";
 
-    public static final String CURRENT_DIR_PROPERTY = "rxmicro.current.dir";
-
     private PropertyNames() {
     }
 }

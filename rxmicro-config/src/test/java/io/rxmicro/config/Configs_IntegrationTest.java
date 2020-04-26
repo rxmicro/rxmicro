@@ -16,7 +16,6 @@
 
 package io.rxmicro.config;
 
-import io.rxmicro.config.internal.model.ConfigProperties;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -35,9 +34,9 @@ import java.util.List;
 import java.util.Map;
 
 import static io.rxmicro.config.detail.DefaultConfigValuePopulator.putDefaultConfigValue;
-import static io.rxmicro.config.internal.model.PropertyNames.CURRENT_DIR_PROPERTY;
+import static io.rxmicro.config.internal.ExternalSourceProvider.setCurrentDir;
+import static io.rxmicro.config.internal.ExternalSourceProvider.setEnvironmentVariables;
 import static io.rxmicro.config.internal.model.PropertyNames.USER_HOME_PROPERTY;
-import static io.rxmicro.tool.common.Reflections.setFieldValue;
 import static java.nio.file.Files.createDirectories;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -61,7 +60,8 @@ public final class Configs_IntegrationTest {
 
         System.setProperty(USER_HOME_PROPERTY, mkDir("home/"));
         mkDir("home/.rxmicro/");
-        System.setProperty(CURRENT_DIR_PROPERTY, mkDir("current/"));
+        setCurrentDir(mkDir("current/"));
+        setEnvironmentVariables(Map.of("test.environmentVariables", "environmentVariables"));
         System.setProperty("test.javaSystemProperties", "javaSystemProperties");
 
         final String root = tempDir.toAbsolutePath().toString();
@@ -91,8 +91,6 @@ public final class Configs_IntegrationTest {
                 Paths.get(root + "/current/test.properties"),
                 List.of("separateFileAtTheCurrentDir=separateFileAtTheCurrentDir")
         );
-
-        setFieldValue(ConfigProperties.class, "SYSTEM_ENV", Map.of("test.environmentVariables", "environmentVariables"));
     }
 
     private static String mkDir(final String relativePath) throws IOException {
@@ -127,7 +125,6 @@ public final class Configs_IntegrationTest {
     @AfterAll
     static void afterAll() {
         System.setProperty(USER_HOME_PROPERTY, REAL_USER_HOME);
-        System.clearProperty(CURRENT_DIR_PROPERTY);
     }
 
     /**
