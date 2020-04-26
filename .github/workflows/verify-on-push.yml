@@ -17,13 +17,20 @@ jobs:
       fail-fast: false
 
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/cache@v1
+      - name: Checkout rxmicro repo
+        uses: actions/checkout@v2
+
+      - name: Setup m2 local repo
+        uses: actions/cache@v1
         with:
           path: ~/.m2/repository
           key: rxmicro-maven-${{ runner.os }}-cache
-      - uses: actions/setup-java@v1
+
+      - name: Setup JDK 11
+        uses: actions/setup-java@v1
         with:
           java-version: '11'
-      - run: mvn --fail-at-end -B test --file pom.xml
+
+      - name: Run all tests
+        run: mvn --fail-at-end -B test --file pom.xml
 
