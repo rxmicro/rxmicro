@@ -5,9 +5,30 @@ on:
     types: [published]
 
 jobs:
-  verify-on-all-supported-platforms:
+  verify-on-all-jdk-on-linux:
     name: JDK-${{ matrix.jdk }}/${{ matrix.os }}
     runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        jdk: ['11', '12', '13', '14']
+        os: [ubuntu-latest]
+      fail-fast: false
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/cache@v1
+        with:
+          path: ~/.m2/repository
+          key: rxmicro-maven-${{ runner.os }}-cache
+      - uses: actions/setup-java@v1
+        with:
+          java-version: ${{ matrix.jdk }}
+      - run: mvn -B test --file pom.xml
+
+  verify-on-all-jdk-on-windows-and-macos:
+    name: JDK-${{ matrix.jdk }}/${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    needs: verify-on-all-jdk-on-linux
     strategy:
       matrix:
         jdk: ['11', '12', '13', '14']
@@ -28,7 +49,7 @@ jobs:
   verify-examples-build-and-upload-jacoco-report:
     name: Verify Examples, Build and Upload Coverage Report
     runs-on: ubuntu-latest
-    needs: verify-on-all-supported-platforms
+    needs: verify-on-all-jdk-on-windows-and-macos
 
     steps:
       - uses: actions/checkout@v2
