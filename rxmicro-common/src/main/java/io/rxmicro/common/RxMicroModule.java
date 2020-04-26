@@ -16,6 +16,7 @@
 
 package io.rxmicro.common;
 
+import java.util.Arrays;
 import java.util.Optional;
 
 /**
@@ -106,6 +107,13 @@ public enum RxMicroModule {
             }
         }
         return Optional.empty();
+    }
+
+    public static boolean isRxMicroPackage(final String packageName) {
+        return Arrays.stream(RxMicroModule.values()).anyMatch(module ->
+                module.getRootPackage().equals(packageName) ||
+                        packageName.startsWith(module.getRootPackage()+".")
+        );
     }
 
     RxMicroModule(final String name) {

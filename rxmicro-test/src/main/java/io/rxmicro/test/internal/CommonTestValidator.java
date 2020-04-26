@@ -34,11 +34,11 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+import static io.rxmicro.common.RxMicroModule.isRxMicroPackage;
 import static io.rxmicro.common.util.ExCollections.unmodifiableOrderedSet;
 import static io.rxmicro.test.local.component.TestExtensions.supportedPerClassAnnotationsFromTestExtensions;
 import static io.rxmicro.test.local.component.TestExtensions.validateUsingTestExtensions;
 import static io.rxmicro.test.local.util.FieldNames.getHumanReadableFieldName;
-import static io.rxmicro.tool.common.DeniedPackages.isRxMicroPackage;
 import static java.util.stream.Collectors.toSet;
 
 /**
