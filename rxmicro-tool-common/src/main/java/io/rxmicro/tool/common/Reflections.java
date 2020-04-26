@@ -204,7 +204,11 @@ public final class Reflections {
             modifiersField.setAccessible(true);
             modifiersField.setInt(field, field.getModifiers() & ~Modifier.FINAL);
         } catch (final NoSuchFieldException e) {
-            // do nothing. Starting with java 12 field 'java.lang.reflect.Field.modifiers' not defined
+            // Read more: https://bugs.openjdk.java.net/browse/JDK-8217225
+            throw new IllegalArgumentException(format(
+                    "Can't update final field: ?. Read more: https://bugs.openjdk.java.net/browse/JDK-8217225",
+                    field
+            ));
         }
     }
 
