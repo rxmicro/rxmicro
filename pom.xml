@@ -147,6 +147,8 @@
         <external.lib.junit-platform-commons.version>1.6.2</external.lib.junit-platform-commons.version>
         <external.lib.apiguardian-api.version>1.1.0</external.lib.apiguardian-api.version>
         <external.lib.opentest4j.version>1.2.0</external.lib.opentest4j.version>
+        <!-- Code quality -->
+        <spotbugs.version>4.0.2</spotbugs.version>
 
         <!-- Maven core plugins -->
         <maven-clean-plugin.version>3.1.0</maven-clean-plugin.version>
@@ -159,14 +161,18 @@
         <maven-site-plugin.version>3.8.2</maven-site-plugin.version>
         <maven-project-info-reports-plugin.version>3.0.0</maven-project-info-reports-plugin.version>
 
-        <!-- Maven additional plugins -->
+        <!-- Maven tools plugins -->
+        <maven-enforcer-plugin.version>3.0.0-M3</maven-enforcer-plugin.version>
+        <versions-maven-plugin.version>2.7</versions-maven-plugin.version>
+        <!-- Maven publish plugins -->
         <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
         <maven-javadoc-plugin.version>3.1.1</maven-javadoc-plugin.version>
-        <maven-enforcer-plugin.version>3.0.0-M3</maven-enforcer-plugin.version>
-        <jacoco-maven-plugin.version>0.8.5</jacoco-maven-plugin.version>
-        <versions-maven-plugin.version>2.7</versions-maven-plugin.version>
         <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
         <nexus-staging-maven-plugin.version>1.6.8</nexus-staging-maven-plugin.version>
+        <!-- Code quality plugins -->
+        <jacoco-maven-plugin.version>0.8.5</jacoco-maven-plugin.version>
+        <spotbugs-maven-plugin.version>4.0.0</spotbugs-maven-plugin.version>
+
     </properties>
 
     <profiles>
@@ -372,6 +378,31 @@
                     <generateBackupPoms>false</generateBackupPoms>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <groupId>com.github.spotbugs</groupId>
+                <artifactId>spotbugs-maven-plugin</artifactId>
+                <version>${spotbugs-maven-plugin.version}</version>
+                <!--executions>
+                    <execution>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                        <phase>verify</phase>
+                    </execution>
+                </executions-->
+                <configuration>
+                    <excludeFilterFile>release/src/main/filters/spotbugs-exclude.xml</excludeFilterFile>
+                    <skipEmptyReport>true</skipEmptyReport>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.github.spotbugs</groupId>
+                        <artifactId>spotbugs</artifactId>
+                        <version>${spotbugs.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
         </plugins>
     </build>
 
@@ -387,6 +418,14 @@
                         </reports>
                     </reportSet>
                 </reportSets>
+            </plugin>
+            <plugin>
+                <groupId>com.github.spotbugs</groupId>
+                <artifactId>spotbugs-maven-plugin</artifactId>
+                <configuration>
+                    <excludeFilterFile>release/src/main/filters/spotbugs-exclude.xml</excludeFilterFile>
+                    <skipEmptyReport>true</skipEmptyReport>
+                </configuration>
             </plugin>
         </plugins>
     </reporting>
