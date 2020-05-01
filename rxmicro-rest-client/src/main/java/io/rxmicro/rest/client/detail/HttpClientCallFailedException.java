@@ -17,15 +17,16 @@
 package io.rxmicro.rest.client.detail;
 
 import io.rxmicro.http.client.ClientHttpResponse;
+import io.rxmicro.rest.model.HttpCallFailedException;
 
 /**
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1
  */
-final class HttpCallFailedException extends io.rxmicro.rest.model.HttpCallFailedException {
+final class HttpClientCallFailedException extends HttpCallFailedException {
 
-    HttpCallFailedException(final ClientHttpResponse clientHttpResponse) {
+    HttpClientCallFailedException(final ClientHttpResponse clientHttpResponse) {
         super(
                 clientHttpResponse.statusCode(),
                 clientHttpResponse.version(),

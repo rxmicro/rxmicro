@@ -38,7 +38,7 @@ public final class ErrorResponseChecker {
                 if (status >= 200 && status < 300) {
                     return clientHttpResponse;
                 } else {
-                    throw new HttpCallFailedException(clientHttpResponse);
+                    throw new HttpClientCallFailedException(clientHttpResponse);
                 }
             };
 
