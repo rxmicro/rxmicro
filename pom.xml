@@ -238,9 +238,72 @@
         </profile>
         <profile>
             <!-- https://pmd.github.io/latest/pmd_rules_java.html -->
+            <id>pmd</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-pmd-plugin</artifactId>
+                        <version>${maven-pmd-plugin.version}</version>
+                        <dependencies>
+                            <dependency>
+                                <groupId>net.sourceforge.pmd</groupId>
+                                <artifactId>pmd-core</artifactId>
+                                <version>${pmd.version}</version>
+                            </dependency>
+                            <dependency>
+                                <groupId>net.sourceforge.pmd</groupId>
+                                <artifactId>pmd-java</artifactId>
+                                <version>${pmd.version}</version>
+                            </dependency>
+                            <dependency>
+                                <groupId>net.sourceforge.pmd</groupId>
+                                <artifactId>pmd-java8</artifactId>
+                                <version>${pmd.version}</version>
+                            </dependency>
+                        </dependencies>
+                        <!--executions>
+                            <execution>
+                                <goals>
+                                    <goal>check</goal>
+                                    <goal>cpd-check</goal>
+                                </goals>
+                            </execution>
+                        </executions-->
+                        <configuration>
+                            <rulesets>
+                                <ruleset>${basedir}/../release/src/main/filters/pmd-ruleset.xml</ruleset>
+                            </rulesets>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+            <reporting>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-pmd-plugin</artifactId>
+                        <configuration>
+                            <skipEmptyReport>true</skipEmptyReport>
+                            <rulesets>
+                                <ruleset>${basedir}/../release/src/main/filters/pmd-ruleset.xml</ruleset>
+                            </rulesets>
+                        </configuration>
+                        <reportSets>
+                            <reportSet>
+                                <reports>
+                                    <report>pmd</report>
+                                    <report>cpd</report>
+                                </reports>
+                            </reportSet>
+                        </reportSets>
+                    </plugin>
+                </plugins>
+            </reporting>
+        </profile>
+        <profile>
             <!-- https://spotbugs.github.io/ -->
-            <!-- https://www.eclemma.org/jacoco/ -->
-            <id>verification</id>
+            <id>spotbugs</id>
             <build>
                 <plugins>
                     <plugin>
@@ -268,42 +331,26 @@
                             </dependency>
                         </dependencies>
                     </plugin>
+                </plugins>
+            </build>
+            <reporting>
+                <plugins>
                     <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-pmd-plugin</artifactId>
-                        <version>${maven-pmd-plugin.version}</version>
-                        <dependencies>
-                            <dependency>
-                                <groupId>net.sourceforge.pmd</groupId>
-                                <artifactId>pmd-core</artifactId>
-                                <version>${pmd.version}</version>
-                            </dependency>
-                            <dependency>
-                                <groupId>net.sourceforge.pmd</groupId>
-                                <artifactId>pmd-java</artifactId>
-                                <version>${pmd.version}</version>
-                            </dependency>
-                            <dependency>
-                                <groupId>net.sourceforge.pmd</groupId>
-                                <artifactId>pmd-java8</artifactId>
-                                <version>${pmd.version}</version>
-                            </dependency>
-                        </dependencies>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>check</goal>
-                                    <goal>cpd-check</goal>
-                                </goals>
-                            </execution>
-                        </executions>
+                        <groupId>com.github.spotbugs</groupId>
+                        <artifactId>spotbugs-maven-plugin</artifactId>
                         <configuration>
-                            <rulesets>
-                                <ruleset>${basedir}/../release/src/main/filters/pmd-ruleset.xml</ruleset>
-                            </rulesets>
-                            <printFailingErrors>true</printFailingErrors>
+                            <excludeFilterFile>${basedir}/../release/src/main/filters/spotbugs-exclude.xml</excludeFilterFile>
+                            <skipEmptyReport>true</skipEmptyReport>
                         </configuration>
                     </plugin>
+                </plugins>
+            </reporting>
+        </profile>
+        <profile>
+            <!-- https://www.eclemma.org/jacoco/ -->
+            <id>jacoco</id>
+            <build>
+                <plugins>
                     <plugin>
                         <groupId>org.jacoco</groupId>
                         <artifactId>jacoco-maven-plugin</artifactId>
@@ -325,32 +372,8 @@
                     </plugin>
                 </plugins>
             </build>
-
             <reporting>
                 <plugins>
-                    <plugin>
-                        <groupId>com.github.spotbugs</groupId>
-                        <artifactId>spotbugs-maven-plugin</artifactId>
-                        <configuration>
-                            <excludeFilterFile>${basedir}/../release/src/main/filters/spotbugs-exclude.xml</excludeFilterFile>
-                            <skipEmptyReport>true</skipEmptyReport>
-                        </configuration>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-pmd-plugin</artifactId>
-                        <configuration>
-                            <skipEmptyReport>true</skipEmptyReport>
-                        </configuration>
-                        <reportSets>
-                            <reportSet>
-                                <reports>
-                                    <report>pmd</report>
-                                    <report>cpd</report>
-                                </reports>
-                            </reportSet>
-                        </reportSets>
-                    </plugin>
                     <plugin>
                         <groupId>org.jacoco</groupId>
                         <artifactId>jacoco-maven-plugin</artifactId>
