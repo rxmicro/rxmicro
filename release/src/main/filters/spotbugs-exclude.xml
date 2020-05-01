@@ -48,4 +48,12 @@
         <Class name="io.rxmicro.annotation.processor.rest.component.AbstractRestModelFieldBuilder"/>
         <Bug pattern="DMI_ANNOTATION_IS_NOT_VISIBLE_TO_REFLECTION"/>
     </Match>
+
+    <!--Direct access increases a performance.
+        Besides that it is a class for internal use only!-->
+    <Match>
+        <Class name="io.rxmicro.rest.server.netty.internal.model.NettyHttpResponse"/>
+        <Bug pattern="EI_EXPOSE_REP"/>
+        <Bug pattern="EI_EXPOSE_REP2"/>
+    </Match>
 </FindBugsFilter>
