@@ -383,17 +383,18 @@
                 <groupId>com.github.spotbugs</groupId>
                 <artifactId>spotbugs-maven-plugin</artifactId>
                 <version>${spotbugs-maven-plugin.version}</version>
-                <!--executions>
+                <executions>
                     <execution>
                         <goals>
                             <goal>check</goal>
                         </goals>
                         <phase>verify</phase>
                     </execution>
-                </executions-->
+                </executions>
                 <configuration>
-                    <excludeFilterFile>release/src/main/filters/spotbugs-exclude.xml</excludeFilterFile>
+                    <excludeFilterFile>${basedir}/../release/src/main/filters/spotbugs-exclude.xml</excludeFilterFile>
                     <skipEmptyReport>true</skipEmptyReport>
+                    <fork>false</fork>
                 </configuration>
                 <dependencies>
                     <dependency>
@@ -423,7 +424,7 @@
                 <groupId>com.github.spotbugs</groupId>
                 <artifactId>spotbugs-maven-plugin</artifactId>
                 <configuration>
-                    <excludeFilterFile>release/src/main/filters/spotbugs-exclude.xml</excludeFilterFile>
+                    <excludeFilterFile>${basedir}/../release/src/main/filters/spotbugs-exclude.xml</excludeFilterFile>
                     <skipEmptyReport>true</skipEmptyReport>
                 </configuration>
             </plugin>
@@ -454,6 +455,12 @@
             <artifactId>mockito-junit-jupiter</artifactId>
             <version>${mockito.version}</version>
             <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.spotbugs</groupId>
+            <artifactId>spotbugs-maven-plugin</artifactId>
+            <version>${spotbugs-maven-plugin.version}</version>
         </dependency>
     </dependencies>
 
