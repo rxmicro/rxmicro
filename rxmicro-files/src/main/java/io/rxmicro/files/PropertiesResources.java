@@ -28,6 +28,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import static io.rxmicro.common.util.ExCollections.unmodifiableOrderedMap;
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 /**
  * @author nedis
@@ -60,7 +61,7 @@ public final class PropertiesResources {
     }
 
     private static Map<String, String> loadProperties(final InputStream in) throws IOException {
-        try (final BufferedReader br = new BufferedReader(new InputStreamReader(in))) {
+        try (final BufferedReader br = new BufferedReader(new InputStreamReader(in, UTF_8))) {
             final Map<String, String> map = new LinkedHashMap<>();
             String line;
             while ((line = br.readLine()) != null) {
