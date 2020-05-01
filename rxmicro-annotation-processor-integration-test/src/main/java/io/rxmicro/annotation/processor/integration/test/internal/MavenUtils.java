@@ -22,6 +22,7 @@ import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.Reader;
 import java.util.Properties;
 
 import static io.rxmicro.common.util.Requires.require;
@@ -41,11 +42,16 @@ public final class MavenUtils {
         try {
             final MavenXpp3Reader reader = new MavenXpp3Reader();
             final String currentDir = System.getProperty("user.dir");
-            Model model = reader.read(new FileReader(currentDir + "/pom.xml", UTF_8));
-            if (model.getParent() != null) {
-                model = reader.read(new FileReader(currentDir + "/" + model.getParent().getRelativePath(), UTF_8));
+            try (final Reader currentPomReader = new FileReader(currentDir + "/pom.xml", UTF_8)) {
+                Model model = reader.read(currentPomReader);
+                if (model.getParent() != null) {
+                    final String parentFileName = currentDir + "/" + model.getParent().getRelativePath();
+                    try (final Reader parentPomReader = new FileReader(parentFileName, UTF_8)) {
+                        model = reader.read(parentPomReader);
+                    }
+                }
+                return model.getProperties();
             }
-            return model.getProperties();
         } catch (final IOException | XmlPullParserException e) {
             throw new RuntimeException(e);
         }
