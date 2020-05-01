@@ -22,6 +22,8 @@ import io.rxmicro.data.Pageable;
 import javax.lang.model.element.VariableElement;
 import javax.lang.model.type.TypeKind;
 
+import java.util.Objects;
+
 import static io.rxmicro.data.Pageable.LIMIT_NAMES;
 import static io.rxmicro.data.Pageable.OFFSET_NAMES;
 
@@ -56,5 +58,20 @@ public class MongoVar extends Var {
 
     public boolean isSkip() {
         return skip;
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        final MongoVar mongoVar = (MongoVar) o;
+        return limit == mongoVar.limit &&
+                skip == mongoVar.skip;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), limit, skip);
     }
 }
