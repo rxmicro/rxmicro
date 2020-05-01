@@ -28,6 +28,7 @@ import static io.rxmicro.common.util.Formats.formatSize;
 import static io.rxmicro.config.Configs.getConfig;
 import static io.rxmicro.rest.server.local.component.RestServerLauncher.launchWithFilter;
 import static io.rxmicro.rest.server.local.model.RestControllerRegistrationFilter.createFilter;
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 /**
  * To run netty successfully it is necessary to add:
@@ -143,7 +144,7 @@ public final class RxMicro {
                     "shutdown"
             );
             while (true) {
-                final String cmd = new Scanner(System.in).nextLine();
+                final String cmd = new Scanner(System.in, UTF_8).nextLine();
                 if (exitCommands.contains(cmd)) {
                     try {
                         serverInstance.shutdownAndWait();
