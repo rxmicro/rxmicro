@@ -90,4 +90,11 @@
         <Bug pattern="RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE"/>
         <Bug pattern="RCN_REDUNDANT_NULLCHECK_OF_NULL_VALUE"/>
     </Match>
+
+    <!--It seems that it is issue in spotbugs tool or java generates inefficient code.-->
+    <Match>
+        <Class name="io.rxmicro.annotation.processor.common.component.impl.ClassWriterImpl"/>
+        <Method name="write" />
+        <Bug pattern="RCN_REDUNDANT_NULLCHECK_WOULD_HAVE_BEEN_A_NPE"/>
+    </Match>
 </FindBugsFilter>
