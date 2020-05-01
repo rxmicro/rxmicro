@@ -20,6 +20,8 @@ import org.bson.Document;
 import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;
 
+import java.util.Objects;
+
 /**
  * @author nedis
  * @link https://rxmicro.io
@@ -51,6 +53,20 @@ public final class AnyValues {
         @Override
         public String toString() {
             return name;
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            if (!super.equals(o)) return false;
+            final TempDocument that = (TempDocument) o;
+            return name.equals(that.name);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(super.hashCode(), name);
         }
     }
 
