@@ -41,4 +41,11 @@
         <Method name="toBoolean" params="java.lang.Object,java.lang.String"  />
         <Bug pattern="NP_BOOLEAN_RETURN_NULL"/>
     </Match>
+
+    <!--This class does not use reflection, it uses annotation processing API.
+        It seems that it is issue in spotbugs tool.-->
+    <Match>
+        <Class name="io.rxmicro.annotation.processor.rest.component.AbstractRestModelFieldBuilder"/>
+        <Bug pattern="DMI_ANNOTATION_IS_NOT_VISIBLE_TO_REFLECTION"/>
+    </Match>
 </FindBugsFilter>
