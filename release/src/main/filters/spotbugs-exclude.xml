@@ -56,4 +56,8 @@
         <Bug pattern="EI_EXPOSE_REP"/>
         <Bug pattern="EI_EXPOSE_REP2"/>
     </Match>
+    <Match>
+        <Class name="io.rxmicro.rest.model.HttpCallFailedException"/>
+        <Bug pattern="EI_EXPOSE_REP"/>
+    </Match>
 </FindBugsFilter>
