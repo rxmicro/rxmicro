@@ -22,7 +22,7 @@ import io.rxmicro.annotation.processor.common.model.error.InternalErrorException
 import io.rxmicro.annotation.processor.data.model.DataRepositoryClassStructure;
 import io.rxmicro.annotation.processor.data.mongo.model.MongoRepositoryClassStructure;
 import io.rxmicro.annotation.processor.data.sql.r2dbc.postgresql.model.PostgreSQLRepositoryClassStructure;
-import io.rxmicro.config.detail.DefaultConfigValuePopulator;
+import io.rxmicro.config.detail.DefaultConfigValueBuilder;
 import io.rxmicro.data.RepositoryFactory;
 import io.rxmicro.data.mongo.detail.MongoRepositoryFactory;
 import io.rxmicro.data.sql.r2dbc.postgresql.detail.PostgreSQLRepositoryFactory;
@@ -96,7 +96,7 @@ public final class RepositoryFactoryClassStructure extends ClassStructure {
     public ClassHeader getClassHeader() {
         final ClassHeader.Builder builder = newClassHeaderBuilder(ENTRY_POINT_PACKAGE)
                 .addImports(RepositoryFactory.class)
-                .addStaticImport(DefaultConfigValuePopulator.class, "putDefaultConfigValue");
+                .addStaticImport(DefaultConfigValueBuilder.class, "putDefaultConfigValue");
         addRepositoryImports(
                 builder, mongoRepositories, MongoRepositoryFactory.class, "createMongoRepository");
         addRepositoryImports(

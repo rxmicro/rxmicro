@@ -54,8 +54,7 @@ import static io.rxmicro.config.ConfigSource.SEPARATE_FILE_AT_THE_HOME_DIR;
 import static io.rxmicro.config.ConfigSource.SEPARATE_FILE_AT_THE_RXMICRO_CONFIG_DIR;
 import static io.rxmicro.config.internal.ExternalSourceProvider.getCurrentDir;
 import static io.rxmicro.config.internal.ExternalSourceProvider.getEnvironmentVariables;
-import static io.rxmicro.config.internal.model.DefaultConfigValueStorage.DEFAULT_STRING_VALUES_STORAGE;
-import static io.rxmicro.config.internal.model.DefaultConfigValueStorage.DEFAULT_SUPPLIER_VALUES_STORAGE;
+import static io.rxmicro.config.internal.model.AbstractDefaultConfigValueBuilder.getCurrentDefaultConfigValueStorage;
 import static io.rxmicro.config.internal.model.PropertyNames.USER_HOME_PROPERTY;
 import static io.rxmicro.files.PropertiesResources.loadProperties;
 import static java.util.Map.entry;
@@ -136,14 +135,15 @@ public final class ConfigProperties {
 
     private void loadDefaultConfigValues(final DebugMessageBuilder debugMessageBuilder) {
         final Set<Map.Entry<String, String>> resolvedEntries = new LinkedHashSet<>();
-        if (!DEFAULT_STRING_VALUES_STORAGE.isEmpty()) {
-            properties.forEach(p -> p.resolve(DEFAULT_STRING_VALUES_STORAGE, true).ifPresent(resolvedEntries::add));
-            debugMessageBuilder.append("Discovered properties from default config storage: ?", DEFAULT_STRING_VALUES_STORAGE);
+        final DefaultConfigValueStorage storage = getCurrentDefaultConfigValueStorage();
+        if (storage.hasDefaultStringValuesStorage()) {
+            properties.forEach(p -> p.resolve(storage.getDefaultStringValuesStorage(), true).ifPresent(resolvedEntries::add));
+            debugMessageBuilder.append("Discovered properties from default config storage: ?", storage.getDefaultStringValuesStorage());
         }
-        if (!DEFAULT_SUPPLIER_VALUES_STORAGE.isEmpty()) {
-            properties.forEach(p -> p.resolve(DEFAULT_SUPPLIER_VALUES_STORAGE, true)
+        if (storage.hasDefaultSupplierValuesStorage()) {
+            properties.forEach(p -> p.resolve(storage.getDefaultSupplierValuesStorage(), true)
                     .ifPresent(e -> resolvedEntries.add(entry(e.getKey(), e.getValue().toString()))));
-            debugMessageBuilder.append("Discovered properties from default config storage: ?", DEFAULT_SUPPLIER_VALUES_STORAGE);
+            debugMessageBuilder.append("Discovered properties from default config storage: ?", storage.getDefaultSupplierValuesStorage());
         }
         if (!resolvedEntries.isEmpty()) {
             debugMessageBuilder.addResolvedEntries(resolvedEntries);

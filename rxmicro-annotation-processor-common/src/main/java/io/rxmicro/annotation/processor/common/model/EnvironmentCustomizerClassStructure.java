@@ -16,7 +16,7 @@
 
 package io.rxmicro.annotation.processor.common.model;
 
-import io.rxmicro.config.detail.DefaultConfigValuePopulator;
+import io.rxmicro.config.detail.DefaultConfigValueBuilder;
 import io.rxmicro.runtime.detail.Runtimes;
 
 import java.util.Map;
@@ -63,7 +63,7 @@ public final class EnvironmentCustomizerClassStructure extends ClassStructure {
     public ClassHeader getClassHeader() {
         return newClassHeaderBuilder(ENTRY_POINT_PACKAGE)
                 .addStaticImport(Runtimes.class, "getRuntimeModule")
-                .addStaticImport(DefaultConfigValuePopulator.class, "putDefaultConfigValue")
+                .addStaticImport(DefaultConfigValueBuilder.class, "putDefaultConfigValue")
                 .build();
     }
 }

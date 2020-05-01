@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. https://rxmicro.io
+ * Copyright (c) 2020. http://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,21 +16,82 @@
 
 package io.rxmicro.config.internal.model;
 
+import io.rxmicro.config.ConfigException;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Supplier;
 
+import static io.rxmicro.common.util.ExCollections.unmodifiableMap;
+import static io.rxmicro.runtime.local.Instances.instantiate;
+
 /**
  * @author nedis
  * @link https://rxmicro.io
- * @since 0.1
+ * @since 0.3
  */
-public abstract class DefaultConfigValueStorage {
+public final class DefaultConfigValueStorage {
 
-    protected static final Map<String, String> DEFAULT_STRING_VALUES_STORAGE = new HashMap<>();
+    private final Map<String, String> defaultStringValuesStorage;
 
-    protected static final Map<String, Supplier<?>> DEFAULT_SUPPLIER_VALUES_STORAGE = new HashMap<>();
+    private final Map<String, Supplier<?>> defaultSupplierValuesStorage;
 
-    protected DefaultConfigValueStorage() {
+    private DefaultConfigValueStorage(final Map<String, String> defaultStringValuesStorage,
+                                      final Map<String, Supplier<?>> defaultSupplierValuesStorage) {
+        this.defaultStringValuesStorage = unmodifiableMap(defaultStringValuesStorage);
+        this.defaultSupplierValuesStorage = unmodifiableMap(defaultSupplierValuesStorage);
+    }
+
+    public boolean hasDefaultStringValuesStorage(){
+        return !defaultStringValuesStorage.isEmpty();
+    }
+
+    public Map<String, String> getDefaultStringValuesStorage() {
+        return defaultStringValuesStorage;
+    }
+
+    public boolean hasDefaultSupplierValuesStorage(){
+        return !getDefaultSupplierValuesStorage().isEmpty();
+    }
+
+    public Map<String, Supplier<?>> getDefaultSupplierValuesStorage() {
+        return defaultSupplierValuesStorage;
+    }
+
+    /**
+     * @author nedis
+     * @link https://rxmicro.io
+     * @since 0.3
+     */
+    public static final class Builder {
+
+        private final Map<String, String> defaultStringValuesStorage = new HashMap<>();
+
+        private final Map<String, Supplier<?>> defaultSupplierValuesStorage = new HashMap<>();
+
+        public void addDefaultStringValues(final String name,
+                                           final String value) {
+            validateDuplicates(name, value, defaultStringValuesStorage.put(name, value));
+        }
+
+        public void addDefaultSupplierValues(final String name,
+                                             final Class<? extends Supplier<?>> supplierClass) {
+            validateDuplicates(name, supplierClass, defaultSupplierValuesStorage.put(name, instantiate(supplierClass)));
+        }
+
+        private void validateDuplicates(final String name,
+                                        final Object newValue,
+                                        final Object oldValue) {
+            if (oldValue != null) {
+                throw new ConfigException(
+                        "Detected a duplicate of default config value: key=?, value1=?, value2=?",
+                        name, newValue, oldValue
+                );
+            }
+        }
+
+        public DefaultConfigValueStorage build(){
+            return new DefaultConfigValueStorage(defaultStringValuesStorage, defaultSupplierValuesStorage);
+        }
     }
 }

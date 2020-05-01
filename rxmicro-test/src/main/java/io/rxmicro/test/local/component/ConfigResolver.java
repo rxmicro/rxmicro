@@ -32,7 +32,7 @@ import java.util.Optional;
 import static io.rxmicro.common.util.ExCollections.unmodifiableOrderedMap;
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.config.Config.getDefaultNameSpace;
-import static io.rxmicro.config.detail.DefaultConfigValuePopulator.putDefaultConfigValue;
+import static io.rxmicro.config.detail.DefaultConfigValueBuilder.putDefaultConfigValue;
 import static io.rxmicro.test.local.util.Inners.getOuterClass;
 import static io.rxmicro.test.local.util.Inners.isInnerClass;
 import static io.rxmicro.tool.common.Reflections.getFieldValue;
