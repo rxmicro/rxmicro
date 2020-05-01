@@ -54,7 +54,6 @@ public final class BeanFactoryInjector extends AbstractFactory {
                 bean.alternativeEntryPoint.readValue(testInstances);
                 override(
                         bean.alternativeEntryPoint.getValue(),
-                        o -> bean.used = true,
                         new ByTypeInstanceQualifier<>((Class<Object>) bean.alternativeEntryPoint.getFieldType())
                 );
             }
@@ -69,8 +68,6 @@ public final class BeanFactoryInjector extends AbstractFactory {
     private static final class AlternativeEntryPointBean {
 
         private final AlternativeEntryPoint alternativeEntryPoint;
-
-        private boolean used;
 
         private AlternativeEntryPointBean(final AlternativeEntryPoint alternativeEntryPoint) {
             this.alternativeEntryPoint = alternativeEntryPoint;

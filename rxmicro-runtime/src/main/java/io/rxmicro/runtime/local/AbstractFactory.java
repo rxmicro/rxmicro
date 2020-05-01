@@ -21,12 +21,10 @@ import io.rxmicro.runtime.detail.ByTypeInstanceQualifier;
 import io.rxmicro.runtime.detail.InstanceQualifier;
 import io.rxmicro.runtime.local.provider.EagerInstanceProvider;
 import io.rxmicro.runtime.local.provider.LazyInstanceProvider;
-import io.rxmicro.runtime.local.provider.ProxyInstanceProvider;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
-import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 import static io.rxmicro.common.util.Formats.format;
@@ -108,10 +106,9 @@ public abstract class AbstractFactory {
 
     @SafeVarargs
     protected final <T> void override(final T instance,
-                                      final Consumer<T> afterConstructCallBack,
                                       final InstanceQualifier<? super T>... instanceQualifiers) {
         overrideSingleton(
-                new ProxyInstanceProvider<>(new EagerInstanceProvider<>(instance), afterConstructCallBack),
+                new EagerInstanceProvider<>(instance),
                 instanceQualifiers
         );
     }
