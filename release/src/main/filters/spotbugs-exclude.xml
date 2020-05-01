@@ -28,5 +28,12 @@
         <Bug pattern="BC_BAD_CAST_TO_ABSTRACT_COLLECTION"/>
     </Match>
 
-
+    <!--Model instances must support fields with `null` values.
+        `Null` value means that field contains no data.
+        Developer of model class must decide how `null` value for Boolean type must be converted to boolean primitive.-->
+    <Match>
+        <Class name="io.rxmicro.rest.local.FromStringValueConverter"/>
+        <Method name="toBoolean" params="java.lang.String,io.rxmicro.rest.model.HttpModelType,java.lang.String"  />
+        <Bug pattern="NP_BOOLEAN_RETURN_NULL"/>
+    </Match>
 </FindBugsFilter>
