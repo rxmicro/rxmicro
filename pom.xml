@@ -297,6 +297,12 @@
                                 </goals>
                             </execution>
                         </executions>
+                        <configuration>
+                            <rulesets>
+                                <ruleset>${basedir}/../release/src/main/filters/pmd-ruleset.xml</ruleset>
+                            </rulesets>
+                            <printFailingErrors>true</printFailingErrors>
+                        </configuration>
                     </plugin>
                     <plugin>
                         <groupId>org.jacoco</groupId>
