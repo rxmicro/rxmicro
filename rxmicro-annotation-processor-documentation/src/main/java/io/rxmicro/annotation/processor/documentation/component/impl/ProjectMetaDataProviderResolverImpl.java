@@ -30,6 +30,7 @@ import javax.tools.FileObject;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.Reader;
 import java.lang.invoke.MethodHandles;
 import java.net.URI;
 import java.util.ArrayList;
@@ -39,6 +40,7 @@ import java.util.Optional;
 import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.filer;
 import static io.rxmicro.annotation.processor.common.util.Stubs.stub;
 import static io.rxmicro.annotation.processor.documentation.TestSystemProperties.RX_MICRO_POM_XML_ABSOLUTE_PATH;
+import static java.nio.charset.StandardCharsets.UTF_8;
 import static javax.tools.StandardLocation.SOURCE_OUTPUT;
 
 /**
@@ -95,7 +97,10 @@ public final class ProjectMetaDataProviderResolverImpl implements ProjectMetaDat
             final List<Model> models = new ArrayList<>();
             File pomXml = pomXmlPath;
             while (true) {
-                Model model = reader.read(new FileReader(pomXml));
+                Model model;
+                try (final Reader fileReader = new FileReader(pomXml, UTF_8)) {
+                    model = reader.read(fileReader);
+                }
                 model.setPomFile(pomXmlPath);
                 models.add(model);
                 Parent parent = model.getParent();
@@ -109,6 +114,7 @@ public final class ProjectMetaDataProviderResolverImpl implements ProjectMetaDat
             }
             return Optional.of(new MavenPOMProjectMetaDataProvider(pomXmlPath.getParentFile().getAbsolutePath(), models));
         } catch (final IOException | XmlPullParserException | RuntimeException e) {
+            // This case must be interpret as warning
             new RxMicroException(e, "Can't read data from `pom.xml`!").printStackTrace();
             return Optional.empty();
         }
