@@ -21,6 +21,8 @@ import io.rxmicro.test.SystemOut;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
+import static java.nio.charset.StandardCharsets.UTF_8;
+
 /**
  * @author nedis
  * @link https://rxmicro.io
@@ -31,7 +33,7 @@ public final class SystemOutImpl implements SystemOut {
     private final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
     public PrintStream getPrintStream() {
-        return new PrintStream(outputStream);
+        return new PrintStream(outputStream, false, UTF_8);
     }
 
     @Override
