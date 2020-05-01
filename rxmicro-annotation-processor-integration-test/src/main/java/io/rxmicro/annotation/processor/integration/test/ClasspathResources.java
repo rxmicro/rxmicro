@@ -52,7 +52,7 @@ public final class ClasspathResources {
     public static Set<String> getOnlyChildrenAtTheFolder(final String folder,
                                                          final Predicate<String> resourcePredicate) {
         final Set<String> resources = new TreeSet<>();
-        try (final BufferedReader br = new BufferedReader(new InputStreamReader(getResourceAsStream(folder)))) {
+        try (final BufferedReader br = new BufferedReader(new InputStreamReader(getResourceAsStream(folder), UTF_8))) {
             String line;
             while ((line = br.readLine()) != null) {
                 if (resourcePredicate.test(line)) {
@@ -75,7 +75,7 @@ public final class ClasspathResources {
     private static void readAll(final Set<String> resources,
                                 final String folder,
                                 final Predicate<String> resourcePredicate) {
-        try (final BufferedReader br = new BufferedReader(new InputStreamReader(getResourceAsStream(folder)))) {
+        try (final BufferedReader br = new BufferedReader(new InputStreamReader(getResourceAsStream(folder), UTF_8))) {
             String line;
             while ((line = br.readLine()) != null) {
                 final String resource = normalize(folder + "/" + line);
