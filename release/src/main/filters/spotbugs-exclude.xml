@@ -36,4 +36,9 @@
         <Method name="toBoolean" params="java.lang.String,io.rxmicro.rest.model.HttpModelType,java.lang.String"  />
         <Bug pattern="NP_BOOLEAN_RETURN_NULL"/>
     </Match>
+    <Match>
+        <Class name="io.rxmicro.exchange.json.detail.ModelFromJsonConverter"/>
+        <Method name="toBoolean" params="java.lang.Object,java.lang.String"  />
+        <Bug pattern="NP_BOOLEAN_RETURN_NULL"/>
+    </Match>
 </FindBugsFilter>
