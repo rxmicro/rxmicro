@@ -25,6 +25,10 @@
     <!--This is util class and it must support direct cast for list or set instances.-->
     <Match>
         <Class name="io.rxmicro.common.util.ExCollections"/>
+        <Or>
+            <Method name="unmodifiableList" params="java.util.Collection" />
+            <Method name="unmodifiableOrderedSet" params="java.util.Collection" />
+        </Or>
         <Bug pattern="BC_BAD_CAST_TO_ABSTRACT_COLLECTION"/>
     </Match>
 
@@ -46,6 +50,10 @@
         It seems that it is issue in spotbugs tool.-->
     <Match>
         <Class name="io.rxmicro.annotation.processor.rest.component.AbstractRestModelFieldBuilder"/>
+        <Or>
+            <Method name="buildHeader" />
+            <Method name="buildParameter" />
+        </Or>
         <Bug pattern="DMI_ANNOTATION_IS_NOT_VISIBLE_TO_REFLECTION"/>
     </Match>
 
@@ -53,17 +61,24 @@
         Besides that it is a class for internal use only!-->
     <Match>
         <Class name="io.rxmicro.rest.server.netty.internal.model.NettyHttpResponse"/>
+        <Method name="getContent" />
         <Bug pattern="EI_EXPOSE_REP"/>
+    </Match>
+    <Match>
+        <Class name="io.rxmicro.rest.server.netty.internal.model.NettyHttpResponse"/>
+        <Method name="setContent" />
         <Bug pattern="EI_EXPOSE_REP2"/>
     </Match>
     <Match>
         <Class name="io.rxmicro.rest.model.HttpCallFailedException"/>
+        <Method name="getBody" />
         <Bug pattern="EI_EXPOSE_REP"/>
     </Match>
 
     <!--Configs$Builder used to configure a global Configs instance.-->
     <Match>
         <Class name="io.rxmicro.config.Configs$Builder"/>
+        <Method name="build" />
         <Bug pattern="ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD"/>
     </Match>
 </FindBugsFilter>
