@@ -25,6 +25,7 @@ import org.bson.codecs.DecoderContext;
 import org.bson.internal.UuidHelper;
 import org.bson.types.Binary;
 
+import java.util.Objects;
 import java.util.UUID;
 
 /**
@@ -70,6 +71,20 @@ public class CustomBinaryCodec extends BinaryCodec {
 
         public UUID toUUID() {
             return UuidHelper.decodeBinaryToUuid(getData(), getType(), uuidRepresentation);
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            if (!super.equals(o)) return false;
+            final UUIDBinary that = (UUIDBinary) o;
+            return uuidRepresentation == that.uuidRepresentation;
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(super.hashCode(), uuidRepresentation);
         }
     }
 }
