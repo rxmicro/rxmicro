@@ -27,4 +27,6 @@
         <Class name="io.rxmicro.common.util.ExCollections"/>
         <Bug pattern="BC_BAD_CAST_TO_ABSTRACT_COLLECTION"/>
     </Match>
+
+
 </FindBugsFilter>
