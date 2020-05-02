@@ -86,7 +86,7 @@ public final class UpdateOperationMock extends AbstractUpdateOperationMock {
 
         @BuilderMethod
         public Builder setFilter(final Document filter) {
-            this.filter = Validators.validateBson(filter, "filter");
+            this.filter = validateBson(filter, "filter");
             this.anyFilter = false;
             return this;
         }

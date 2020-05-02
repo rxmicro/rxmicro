@@ -84,7 +84,7 @@ public final class HttpClientMockLogger {
                         "\t? ?\n?\n\n\t?",
                         response.getStatusCode(), response.getVersion(),
                         getHeaders(response.getHeaders().getEntries()),
-                        response.body())).orElseGet(() -> responseModel.getThrowable()
+                        response.getBody())).orElseGet(() -> responseModel.getThrowable()
                         .map(e -> format("?: ?", e.getClass().getName(), e.getMessage()))
                         .orElseThrow());
     }

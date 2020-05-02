@@ -68,12 +68,12 @@ final class JdkClientHttpResponse implements ClientHttpResponse {
     }
 
     @Override
-    public Object body() {
+    public Object getBody() {
         return responseBodyConverter.apply(response.body());
     }
 
     @Override
-    public byte[] bodyAsBytes() {
+    public byte[] getBodyAsBytes() {
         return response.body();
     }
 }

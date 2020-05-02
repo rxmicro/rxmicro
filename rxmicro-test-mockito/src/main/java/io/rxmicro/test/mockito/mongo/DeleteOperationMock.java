@@ -55,7 +55,7 @@ public final class DeleteOperationMock extends AbstractDeleteOperationMock {
 
         @BuilderMethod
         public Builder setFilter(final Document filter) {
-            this.filter = Validators.validateBson(filter, "filter");
+            this.filter = validateBson(filter, "filter");
             this.anyFilter = false;
             return this;
         }

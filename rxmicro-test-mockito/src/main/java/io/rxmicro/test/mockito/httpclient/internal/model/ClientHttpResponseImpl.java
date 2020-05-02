@@ -95,12 +95,12 @@ public final class ClientHttpResponseImpl implements ClientHttpResponse {
     }
 
     @Override
-    public Object body() {
+    public Object getBody() {
         return body;
     }
 
     @Override
-    public byte[] bodyAsBytes() {
+    public byte[] getBodyAsBytes() {
         if (body == null) {
             return new byte[0];
         } else if (body instanceof String) {

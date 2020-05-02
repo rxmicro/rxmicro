@@ -18,7 +18,6 @@ package io.rxmicro.test.mockito.mongo;
 
 import io.rxmicro.common.meta.BuilderMethod;
 import io.rxmicro.test.mockito.mongo.internal.AbstractAggregateOperationMock;
-import io.rxmicro.test.mockito.mongo.internal.util.Validators;
 import org.bson.Document;
 
 import java.util.ArrayList;
@@ -64,7 +63,7 @@ public final class AggregateOperationMock extends AbstractAggregateOperationMock
 
         @BuilderMethod
         public Builder addPipeline(final Document pipeline) {
-            this.pipeline.add(Validators.validateBson(pipeline, "pipeline"));
+            this.pipeline.add(validateBson(pipeline, "pipeline"));
             this.anyPipeline = false;
             return this;
         }
@@ -78,7 +77,7 @@ public final class AggregateOperationMock extends AbstractAggregateOperationMock
 
         @BuilderMethod
         public Builder setHint(final Document hint) {
-            this.hint = Validators.validateBson(hint, "hint");
+            this.hint = validateBson(hint, "hint");
             return this;
         }
 

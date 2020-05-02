@@ -28,6 +28,7 @@ import io.rxmicro.validation.constraint.TruncatedTime;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import static io.rxmicro.annotation.processor.common.util.Annotations.getReadMore;
@@ -76,7 +77,7 @@ public final class DateTimePrimitiveConstraintReader implements ConstraintReader
         }
         final TruncatedTime truncatedTime = annotated.getAnnotation(TruncatedTime.class);
         if (truncatedTime != null && !truncatedTime.off()) {
-            restrictions.add("truncated: " + truncatedTime.value().name().toLowerCase());
+            restrictions.add("truncated: " + truncatedTime.value().name().toLowerCase(Locale.ENGLISH));
             getReadMore(TruncatedTime.class).ifPresent(readMores::add);
         }
     }

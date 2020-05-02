@@ -21,10 +21,10 @@ import org.apache.maven.model.Model;
 import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
 import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Properties;
 
 import static io.rxmicro.common.util.Requires.require;
@@ -43,11 +43,11 @@ public final class MavenUtils {
         try {
             final MavenXpp3Reader reader = new MavenXpp3Reader();
             final String currentDir = System.getProperty("user.dir");
-            try (Reader currentPomReader = new BufferedReader(new FileReader(currentDir + "/pom.xml", UTF_8))) {
+            try (Reader currentPomReader = Files.newBufferedReader(Paths.get(currentDir + "/pom.xml"), UTF_8)) {
                 Model model = reader.read(currentPomReader);
                 if (model.getParent() != null) {
                     final String parentFileName = currentDir + "/" + model.getParent().getRelativePath();
-                    try (Reader parentPomReader = new BufferedReader(new FileReader(parentFileName, UTF_8))) {
+                    try (Reader parentPomReader = Files.newBufferedReader(Paths.get(parentFileName), UTF_8)) {
                         model = reader.read(parentPomReader);
                     }
                 }

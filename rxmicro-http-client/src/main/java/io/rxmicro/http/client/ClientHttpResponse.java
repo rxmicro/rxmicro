@@ -36,15 +36,15 @@ public interface ClientHttpResponse {
 
     boolean isBodyEmpty();
 
-    Object body();
+    Object getBody();
 
-    byte[] bodyAsBytes();
+    byte[] getBodyAsBytes();
 
-    default String bodyAsString() {
+    default String getBodyAsString() {
         if (isBodyEmpty()) {
             return "";
         } else {
-            return new String(bodyAsBytes(), UTF_8);
+            return new String(getBodyAsBytes(), UTF_8);
         }
     }
 }

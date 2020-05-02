@@ -15,6 +15,6 @@ public final class $$ComplexResponseModelReader extends ModelReader<ComplexRespo
 
     @Override
     public ComplexResponse readSingle(final ClientHttpResponse response) {
-        return complexResponseModelFromJsonConverter.fromJsonObject(response.body());
+        return complexResponseModelFromJsonConverter.fromJsonObject(response.getBody());
     }
 }

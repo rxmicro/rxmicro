@@ -15,6 +15,6 @@ public final class $$AccountModelReader extends ModelReader<Account> {
 
     @Override
     public Account readSingle(final ClientHttpResponse response) {
-        return accountModelFromJsonConverter.fromJsonObject(response.body());
+        return accountModelFromJsonConverter.fromJsonObject(response.getBody());
     }
 }

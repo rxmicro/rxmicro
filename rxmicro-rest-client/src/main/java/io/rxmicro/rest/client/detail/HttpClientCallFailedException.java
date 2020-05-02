@@ -31,7 +31,7 @@ final class HttpClientCallFailedException extends HttpCallFailedException {
                 clientHttpResponse.getStatusCode(),
                 clientHttpResponse.getVersion(),
                 clientHttpResponse.getHeaders(),
-                clientHttpResponse.bodyAsBytes(),
+                clientHttpResponse.getBodyAsBytes(),
                 null
         );
     }

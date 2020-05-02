@@ -44,6 +44,6 @@ public final class Safes {
      */
     public interface Consumer<T> {
 
-        void accept(T t) throws Throwable;
+        void accept(T item) throws Throwable;
     }
 }

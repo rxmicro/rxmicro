@@ -18,7 +18,7 @@ public final class $$ResponseModelReader extends ModelReader<Response> {
         setFieldValue(model, "status", response.getStatusCode());
         setFieldValue(model, "version", response.getVersion());
         setFieldValue(model, "headers", response.getHeaders());
-        setFieldValue(model, "body", response.bodyAsBytes());
+        setFieldValue(model, "body", response.getBodyAsBytes());
         return model;
     }
 }

@@ -15,6 +15,6 @@ public final class $$ResponseModelReader extends ModelReader<Response> {
 
     @Override
     public Response readSingle(final ClientHttpResponse response) {
-        return responseModelFromJsonConverter.fromJsonObject(response.body());
+        return responseModelFromJsonConverter.fromJsonObject(response.getBody());
     }
 }
