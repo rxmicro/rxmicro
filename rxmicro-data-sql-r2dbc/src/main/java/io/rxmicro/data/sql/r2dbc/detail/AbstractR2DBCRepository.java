@@ -43,8 +43,8 @@ public abstract class AbstractR2DBCRepository extends AbstractSQLRepository {
 
     protected AbstractR2DBCRepository(final Class<?> repositoryClass) {
         super(repositoryClass);
-        connections = new Connections(LOGGER);
-        statements = new Statements(LOGGER);
+        connections = new Connections(logger);
+        statements = new Statements(logger);
     }
 
     protected final Mono<Connection> extractConnectionFrom(final io.rxmicro.data.sql.model.reactor.Transaction transaction) {

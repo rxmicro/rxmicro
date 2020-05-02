@@ -87,7 +87,7 @@ public class CreateTransactionSQLRepositoryMethodModelBuilder<DMF extends SQLDat
                                          final MethodResult methodResult,
                                          final TransactionType transactionType) {
         if (methodResult.isMono()) {
-            if (transactionType != TransactionType.reactor) {
+            if (transactionType != TransactionType.REACTOR) {
                 throw new InterruptProcessingException(
                         repositoryMethod,
                         "Invalid transaction type: '?'! Use '?' instead!",
@@ -96,7 +96,7 @@ public class CreateTransactionSQLRepositoryMethodModelBuilder<DMF extends SQLDat
                 );
             }
         } else if (methodResult.isSingle()) {
-            if (transactionType != TransactionType.rxjava3) {
+            if (transactionType != TransactionType.RX_JAVA_3) {
                 throw new InterruptProcessingException(
                         repositoryMethod,
                         "Invalid transaction type: '?'! Use '?' instead!",
@@ -105,7 +105,7 @@ public class CreateTransactionSQLRepositoryMethodModelBuilder<DMF extends SQLDat
                 );
             }
         } else if (methodResult.isFuture()) {
-            if (transactionType != TransactionType.completable_future) {
+            if (transactionType != TransactionType.COMPLETABLE_FUTURE) {
                 throw new InterruptProcessingException(
                         repositoryMethod,
                         "Invalid transaction type: '?'! Use '?' instead!",

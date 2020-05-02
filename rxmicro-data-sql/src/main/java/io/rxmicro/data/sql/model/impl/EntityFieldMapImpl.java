@@ -43,17 +43,17 @@ public final class EntityFieldMapImpl extends AbstractMap<String, Object> implem
     }
 
     @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
+    public boolean equals(final Object other) {
+        if (this == other) {
             return true;
         }
-        if (!(o instanceof Map)) {
+        if (!(other instanceof Map)) {
             return false;
         }
-        if (o instanceof EntityFieldMapImpl) {
-            return map.equals(((EntityFieldMapImpl) o).map);
+        if (other instanceof EntityFieldMapImpl) {
+            return map.equals(((EntityFieldMapImpl) other).map);
         }
-        return entrySet().equals(((Map<?, ?>) o).entrySet());
+        return entrySet().equals(((Map<?, ?>) other).entrySet());
     }
 
     @Override

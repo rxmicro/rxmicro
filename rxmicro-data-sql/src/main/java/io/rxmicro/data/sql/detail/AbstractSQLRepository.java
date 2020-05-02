@@ -27,9 +27,9 @@ import io.rxmicro.logger.LoggerFactory;
  */
 public abstract class AbstractSQLRepository extends AbstractDataRepository {
 
-    protected final Logger LOGGER;
+    protected final Logger logger;
 
     protected AbstractSQLRepository(final Class<?> repositoryClass) {
-        this.LOGGER = LoggerFactory.getLogger(repositoryClass);
+        this.logger = LoggerFactory.getLogger(repositoryClass);
     }
 }

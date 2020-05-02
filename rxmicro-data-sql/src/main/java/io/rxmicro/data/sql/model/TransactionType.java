@@ -27,11 +27,11 @@ import java.util.stream.Collectors;
  */
 public enum TransactionType {
 
-    reactor(io.rxmicro.data.sql.model.reactor.Transaction.class),
+    REACTOR(io.rxmicro.data.sql.model.reactor.Transaction.class),
 
-    rxjava3(io.rxmicro.data.sql.model.rxjava3.Transaction.class),
+    RX_JAVA_3(io.rxmicro.data.sql.model.rxjava3.Transaction.class),
 
-    completable_future(io.rxmicro.data.sql.model.completablefuture.Transaction.class);
+    COMPLETABLE_FUTURE(io.rxmicro.data.sql.model.completablefuture.Transaction.class);
 
     public static final Set<String> SUPPORTED_TRANSACTION_TYPES = Arrays.stream(TransactionType.values())
             .map(e -> e.transactionClass.getName())

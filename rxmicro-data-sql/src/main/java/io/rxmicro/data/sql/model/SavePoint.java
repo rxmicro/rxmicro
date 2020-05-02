@@ -41,10 +41,14 @@ public final class SavePoint {
     }
 
     @Override
-    public boolean equals(final Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        final SavePoint savePoint = (SavePoint) o;
+    public boolean equals(final Object other) {
+        if (this == other) {
+            return true;
+        }
+        if (other == null || getClass() != other.getClass()) {
+            return false;
+        }
+        final SavePoint savePoint = (SavePoint) other;
         return name.equals(savePoint.name);
     }
 

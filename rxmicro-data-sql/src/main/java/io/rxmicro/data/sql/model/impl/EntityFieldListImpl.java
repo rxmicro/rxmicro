@@ -42,17 +42,17 @@ public final class EntityFieldListImpl extends AbstractList<Object> implements E
     }
 
     @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
+    public boolean equals(final Object other) {
+        if (this == other) {
             return true;
         }
-        if (!(o instanceof List)) {
+        if (!(other instanceof List)) {
             return false;
         }
-        if (o instanceof EntityFieldListImpl) {
-            return list.equals(((EntityFieldListImpl) o).list);
+        if (other instanceof EntityFieldListImpl) {
+            return list.equals(((EntityFieldListImpl) other).list);
         }
-        return list.equals(o);
+        return list.equals(other);
     }
 
     @Override
