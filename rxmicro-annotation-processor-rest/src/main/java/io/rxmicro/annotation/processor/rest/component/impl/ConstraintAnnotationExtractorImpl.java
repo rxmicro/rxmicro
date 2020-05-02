@@ -38,8 +38,8 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
-import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.elements;
-import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.types;
+import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.getElements;
+import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.getTypes;
 import static io.rxmicro.annotation.processor.common.util.Annotations.getAnnotationValue;
 import static io.rxmicro.annotation.processor.common.util.Elements.asTypeElement;
 import static io.rxmicro.annotation.processor.common.util.validators.AnnotationValidators.validateCustomAnnotation;
@@ -79,7 +79,7 @@ public final class ConstraintAnnotationExtractorImpl extends AbstractProcessorCo
     }
 
     private void validateConstraintAnnotation(final TypeElement annotationElement) {
-        if (Optional.ofNullable(elements().getModuleOf(annotationElement))
+        if (Optional.ofNullable(getElements().getModuleOf(annotationElement))
                 .map(me -> !me.getQualifiedName().toString().equals(RX_MICRO_VALIDATION_MODULE.getName()))
                 .orElse(true)) {
             validateCustomAnnotation(annotationElement, Set.of(FIELD, METHOD, PARAMETER));
@@ -91,7 +91,7 @@ public final class ConstraintAnnotationExtractorImpl extends AbstractProcessorCo
                                                                                final AnnotationMirror customConstraint,
                                                                                final ModelClass modelFieldType) {
         final Map<? extends ExecutableElement, ? extends AnnotationValue> elementValues =
-                elements().getElementValuesWithDefaults(annotationMirror);
+                getElements().getElementValuesWithDefaults(annotationMirror);
         if (isValidationDisabled(annotationMirror, elementValues)) {
             return Optional.empty();
         }
@@ -101,7 +101,7 @@ public final class ConstraintAnnotationExtractorImpl extends AbstractProcessorCo
 
     private Optional<? extends AnnotationMirror> getAnnotationMirror(final Element element,
                                                                      final String annotationClass) {
-        return elements().getAllAnnotationMirrors(element)
+        return getElements().getAllAnnotationMirrors(element)
                 .stream()
                 .filter(a -> asTypeElement(a.getAnnotationType())
                         .orElseThrow()
@@ -181,7 +181,7 @@ public final class ConstraintAnnotationExtractorImpl extends AbstractProcessorCo
                                       final List<?> supportedTypes) {
         for (int i = 0; i < supportedTypes.size(); i++) {
             final TypeMirror supportedType = (TypeMirror) ((AnnotationValue) supportedTypes.get(i)).getValue();
-            if (types().isSameType(fieldType, supportedType) || types().isSubtype(fieldType, supportedType)) {
+            if (getTypes().isSameType(fieldType, supportedType) || getTypes().isSubtype(fieldType, supportedType)) {
                 return i;
             }
         }

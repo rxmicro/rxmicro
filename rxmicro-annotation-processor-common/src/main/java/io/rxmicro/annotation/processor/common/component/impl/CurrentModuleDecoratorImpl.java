@@ -30,7 +30,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
-import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.elements;
+import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.getElements;
 import static io.rxmicro.annotation.processor.common.util.Elements.allFields;
 import static io.rxmicro.annotation.processor.common.util.validators.AnnotationValidators.validateCustomAnnotation;
 import static io.rxmicro.annotation.processor.common.util.validators.FieldValidators.validateExpectedFieldType;
@@ -51,7 +51,7 @@ public final class CurrentModuleDecoratorImpl implements CurrentModuleDecorator 
     @Override
     public ModuleElement decorate(final ModuleElement currentModuleElement) {
         if (currentModuleElement.isUnnamed()) {
-            final TypeElement moduleInfo = elements().getTypeElement(RX_MICRO_VIRTUAL_MODULE_INFO_ANNOTATION_NAME);
+            final TypeElement moduleInfo = getElements().getTypeElement(RX_MICRO_VIRTUAL_MODULE_INFO_ANNOTATION_NAME);
             if (moduleInfo != null) {
                 validateAnnotation(moduleInfo);
                 final Map<String, VariableElement> parameters = extractParameters(moduleInfo);

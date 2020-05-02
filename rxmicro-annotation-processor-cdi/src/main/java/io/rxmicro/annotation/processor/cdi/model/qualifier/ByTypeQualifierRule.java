@@ -23,7 +23,7 @@ import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.TypeMirror;
 import java.util.Set;
 
-import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.types;
+import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.getTypes;
 import static io.rxmicro.annotation.processor.common.util.Names.getSimpleName;
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.Requires.require;
@@ -38,7 +38,7 @@ public class ByTypeQualifierRule implements QualifierRule {
     private final String fullTypeName;
 
     public ByTypeQualifierRule(final TypeMirror typeMirror) {
-        this(types().erasure(typeMirror).toString());
+        this(getTypes().erasure(typeMirror).toString());
     }
 
     public ByTypeQualifierRule(final TypeElement typeElement) {

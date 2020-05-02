@@ -34,7 +34,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.elements;
+import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.getElements;
 import static io.rxmicro.annotation.processor.common.util.Annotations.getAnnotationValue;
 import static io.rxmicro.annotation.processor.common.util.Elements.asTypeElement;
 import static io.rxmicro.annotation.processor.common.util.Elements.superClassIsObject;
@@ -124,7 +124,7 @@ public abstract class AbstractPartialImplementationBuilder extends AbstractProce
 
     protected final Map.Entry<TypeElement, List<ExecutableElement>> getOverriddenMethodCandidates(final TypeElement restClientInterface) {
         final Class<? extends Annotation> partialImplementationAnnotationClass = getPartialImplementationAnnotationClass();
-        final TypeElement defaultAbstractClass = elements().getTypeElement(getDefaultAbstractClass().getName());
+        final TypeElement defaultAbstractClass = getElements().getTypeElement(getDefaultAbstractClass().getName());
 
         return restClientInterface.getAnnotationMirrors().stream()
                 .filter(a -> a.getAnnotationType().toString().equals(partialImplementationAnnotationClass.getName()))

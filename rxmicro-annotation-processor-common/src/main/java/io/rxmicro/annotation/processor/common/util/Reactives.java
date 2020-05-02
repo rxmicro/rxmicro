@@ -27,7 +27,7 @@ import javax.lang.model.type.TypeMirror;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 
-import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.types;
+import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.getTypes;
 
 /**
  * @author nedis
@@ -37,11 +37,11 @@ import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnv
 public final class Reactives {
 
     public static boolean isMono(final TypeMirror reactiveType) {
-        return Mono.class.getName().equals(types().erasure(reactiveType).toString());
+        return Mono.class.getName().equals(getTypes().erasure(reactiveType).toString());
     }
 
     public static boolean isFlux(final TypeMirror reactiveType) {
-        return Flux.class.getName().equals(types().erasure(reactiveType).toString());
+        return Flux.class.getName().equals(getTypes().erasure(reactiveType).toString());
     }
 
     public static boolean isSpringReactorType(final TypeMirror reactiveType) {
@@ -49,25 +49,25 @@ public final class Reactives {
     }
 
     public static boolean isFuture(final TypeMirror reactiveType) {
-        final TypeMirror typeMirror = types().erasure(reactiveType);
+        final TypeMirror typeMirror = getTypes().erasure(reactiveType);
         return (CompletionStage.class.getName().equals(typeMirror.toString()) ||
                 CompletableFuture.class.getName().equals(typeMirror.toString()));
     }
 
     public static boolean isMaybe(final TypeMirror reactiveType) {
-        return Maybe.class.getName().equals(types().erasure(reactiveType).toString());
+        return Maybe.class.getName().equals(getTypes().erasure(reactiveType).toString());
     }
 
     public static boolean isSingle(final TypeMirror reactiveType) {
-        return Single.class.getName().equals(types().erasure(reactiveType).toString());
+        return Single.class.getName().equals(getTypes().erasure(reactiveType).toString());
     }
 
     public static boolean isFlowable(final TypeMirror reactiveType) {
-        return Flowable.class.getName().equals(types().erasure(reactiveType).toString());
+        return Flowable.class.getName().equals(getTypes().erasure(reactiveType).toString());
     }
 
     public static boolean isCompletable(final TypeMirror reactiveType) {
-        return Completable.class.getName().equals(types().erasure(reactiveType).toString());
+        return Completable.class.getName().equals(getTypes().erasure(reactiveType).toString());
     }
 
     public static boolean isRxJavaType(final TypeMirror reactiveType) {

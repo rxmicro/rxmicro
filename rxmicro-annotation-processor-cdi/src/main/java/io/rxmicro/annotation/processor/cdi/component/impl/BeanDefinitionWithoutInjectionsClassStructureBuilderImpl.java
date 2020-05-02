@@ -36,7 +36,7 @@ import java.util.Set;
 
 import static io.rxmicro.annotation.processor.cdi.model.InjectionPointType.BEAN;
 import static io.rxmicro.annotation.processor.cdi.model.InjectionPointType.MULTI_BINDER;
-import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.elements;
+import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.getElements;
 import static io.rxmicro.annotation.processor.common.util.Elements.allSuperTypesAndInterfaces;
 import static io.rxmicro.common.util.ExCollectors.toTreeSet;
 import static io.rxmicro.tool.common.DeniedPackages.isDeniedPackage;
@@ -107,7 +107,7 @@ public final class BeanDefinitionWithoutInjectionsClassStructureBuilderImpl
     }
 
     private Set<TypeElement> getAllClassesAtAllNotStandardModules(final EnvironmentContext environmentContext) {
-        final Set<PackageElement> packageElements = elements().getAllModuleElements().stream()
+        final Set<PackageElement> packageElements = getElements().getAllModuleElements().stream()
                 .flatMap(me -> me.getEnclosedElements().stream().map(e -> (PackageElement) e))
                 .filter(pe -> !isDeniedPackage(pe.getQualifiedName().toString()))
                 .collect(toSet());

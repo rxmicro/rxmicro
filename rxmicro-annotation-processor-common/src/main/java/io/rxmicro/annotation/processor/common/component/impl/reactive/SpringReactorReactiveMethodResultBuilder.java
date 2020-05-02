@@ -28,7 +28,7 @@ import javax.lang.model.type.TypeMirror;
 import java.util.Optional;
 
 import static io.rxmicro.annotation.processor.common.model.method.MethodResult.createProjectReactorResult;
-import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.types;
+import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.getTypes;
 import static io.rxmicro.annotation.processor.common.util.Names.getSimpleName;
 import static io.rxmicro.annotation.processor.common.util.Reactives.isFlux;
 import static io.rxmicro.annotation.processor.common.util.Reactives.isMono;
@@ -53,11 +53,11 @@ public final class SpringReactorReactiveMethodResultBuilder implements ReactiveM
                               final SupportedTypesProvider supportedTypesProvider) {
         final TypeMirror returnType = method.getReturnType();
         validateGenericType(method, returnType, "Invalid return type");
-        final TypeMirror reactiveType = types().erasure(returnType);
+        final TypeMirror reactiveType = getTypes().erasure(returnType);
         final TypeMirror genericType = ((DeclaredType) returnType).getTypeArguments().get(0);
         validateNotOptional(method, reactiveType, genericType);
 
-        final boolean isGenericList = supportedTypesProvider.collectionContainers().contains(types().erasure(genericType));
+        final boolean isGenericList = supportedTypesProvider.collectionContainers().contains(getTypes().erasure(genericType));
         validateNotGenericListIfFlux(method, reactiveType, genericType, isGenericList);
         if (isGenericList) {
             validateGenericType(method, genericType, "Invalid return type");
@@ -74,7 +74,7 @@ public final class SpringReactorReactiveMethodResultBuilder implements ReactiveM
     private void validateNotOptional(final ExecutableElement method,
                                      final TypeMirror reactiveType,
                                      final TypeMirror genericType) {
-        if (types().erasure(genericType).toString().equals(Optional.class.getName())) {
+        if (getTypes().erasure(genericType).toString().equals(Optional.class.getName())) {
             if (isMono(reactiveType)) {
                 throw new InterruptProcessingException(method,
                         "Mono type already supports optional logic. Replace Mono<Optional<TYPE>> by Mono<TYPE>!");
@@ -94,7 +94,7 @@ public final class SpringReactorReactiveMethodResultBuilder implements ReactiveM
             throw new InterruptProcessingException(
                     method,
                     "Flux type already supports iterable logic. Replace Flux<?<TYPE>> by Flux<TYPE>!",
-                    getSimpleName(types().erasure(genericType).toString())
+                    getSimpleName(getTypes().erasure(genericType).toString())
             );
         }
     }

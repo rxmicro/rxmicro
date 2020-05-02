@@ -39,7 +39,7 @@ import static io.rxmicro.annotation.processor.common.SupportedOptions.RX_MICRO_D
 import static io.rxmicro.annotation.processor.common.SupportedOptions.RX_MICRO_LOG_LEVEL;
 import static io.rxmicro.annotation.processor.common.SupportedOptions.RX_MICRO_MAX_JSON_NESTED_DEPTH;
 import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.doesNotContainErrors;
-import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.messager;
+import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.getMessager;
 import static io.rxmicro.annotation.processor.common.util.Injects.injectDependencies;
 import static io.rxmicro.annotation.processor.common.util.InternalLoggers.logThrowableStackTrace;
 import static javax.tools.Diagnostic.Kind.ERROR;
@@ -99,10 +99,10 @@ public abstract class AbstractRxMicroProcessor extends AbstractProcessor {
                 annotationProcessingInformer.annotationProcessingStarted(getAnnotationProcessorType());
                 return process(environmentContextBuilder, annotations, roundEnv);
             } catch (final InterruptProcessingException e) {
-                messager().printMessage(ERROR, e.getMessage(), e.getElement());
+                getMessager().printMessage(ERROR, e.getMessage(), e.getElement());
                 return false;
             } catch (final RuntimeException | Error throwable) {
-                messager().printMessage(ERROR, "RxMicroAnnotationProcessor internal error: " + throwable.getMessage());
+                getMessager().printMessage(ERROR, "RxMicroAnnotationProcessor internal error: " + throwable.getMessage());
                 logThrowableStackTrace(throwable);
                 return false;
             }

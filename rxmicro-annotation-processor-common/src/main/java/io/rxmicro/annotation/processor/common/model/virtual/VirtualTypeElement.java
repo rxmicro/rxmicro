@@ -35,7 +35,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import static io.rxmicro.annotation.processor.common.model.virtual.VirtualNames.buildVirtualClassName;
-import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.elements;
+import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.getElements;
 import static io.rxmicro.common.util.Requires.require;
 import static javax.lang.model.element.ElementKind.CLASS;
 import static javax.lang.model.element.Modifier.FINAL;
@@ -86,17 +86,17 @@ public final class VirtualTypeElement implements TypeElement, VirtualElement {
 
     @Override
     public Name getQualifiedName() {
-        return elements().getName(packageName + "." + className);
+        return getElements().getName(packageName + "." + className);
     }
 
     @Override
     public Name getSimpleName() {
-        return elements().getName(className);
+        return getElements().getName(className);
     }
 
     @Override
     public TypeMirror getSuperclass() {
-        return elements().getTypeElement(Object.class.getName()).asType();
+        return getElements().getTypeElement(Object.class.getName()).asType();
     }
 
     @Override

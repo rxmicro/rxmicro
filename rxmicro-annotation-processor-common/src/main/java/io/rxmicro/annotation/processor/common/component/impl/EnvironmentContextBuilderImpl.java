@@ -39,7 +39,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.elements;
+import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.getElements;
 import static java.util.Map.entry;
 import static java.util.stream.Collectors.toMap;
 import static java.util.stream.Collectors.toSet;
@@ -88,10 +88,10 @@ public final class EnvironmentContextBuilderImpl extends AbstractProcessorCompon
     private Set<RxMicroModule> getRxMicroModules(final ModuleElement currentModule) {
         if (currentModule.isUnnamed()) {
             return Arrays.stream(RxMicroModule.values())
-                    .filter(m -> elements().getPackageElement(m.getRootPackage()) != null)
+                    .filter(m -> getElements().getPackageElement(m.getRootPackage()) != null)
                     .collect(toSet());
         } else {
-            return elements().getAllModuleElements().stream()
+            return getElements().getAllModuleElements().stream()
                     .flatMap(me -> RxMicroModule.of(me.getQualifiedName().toString()).stream())
                     .collect(toSet());
         }

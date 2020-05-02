@@ -48,25 +48,25 @@ public final class ProxyMessager implements Messager {
     @Override
     public void printMessage(final Diagnostic.Kind kind,
                              final CharSequence msg,
-                             final Element e) {
-        messager.printMessage(kind, msg, unwrap(e));
+                             final Element element) {
+        messager.printMessage(kind, msg, unwrap(element));
     }
 
     @Override
     public void printMessage(final Diagnostic.Kind kind,
                              final CharSequence msg,
-                             final Element e,
-                             final AnnotationMirror a) {
-        messager.printMessage(kind, msg, unwrap(e), a);
+                             final Element element,
+                             final AnnotationMirror annotationMirror) {
+        messager.printMessage(kind, msg, unwrap(element), annotationMirror);
     }
 
     @Override
     public void printMessage(final Diagnostic.Kind kind,
                              final CharSequence msg,
-                             final Element e,
-                             final AnnotationMirror a,
-                             final AnnotationValue v) {
-        messager.printMessage(kind, msg, unwrap(e), a, v);
+                             final Element element,
+                             final AnnotationMirror annotationMirror,
+                             final AnnotationValue annotationValue) {
+        messager.printMessage(kind, msg, unwrap(element), annotationMirror, annotationValue);
     }
 
     private Element unwrap(final Element element) {

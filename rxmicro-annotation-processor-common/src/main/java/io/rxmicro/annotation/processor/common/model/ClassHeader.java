@@ -32,7 +32,7 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Stream;
 
-import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.types;
+import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.getTypes;
 import static io.rxmicro.annotation.processor.common.util.Elements.asTypeElement;
 import static io.rxmicro.annotation.processor.common.util.Names.getSimpleName;
 import static io.rxmicro.common.util.Formats.format;
@@ -190,7 +190,7 @@ public final class ClassHeader {
                     populate(result, typeArgument);
                 }
             }
-            result.add(types().erasure(type));
+            result.add(getTypes().erasure(type));
         }
 
         public Builder addImports(final Class<?>... classes) {

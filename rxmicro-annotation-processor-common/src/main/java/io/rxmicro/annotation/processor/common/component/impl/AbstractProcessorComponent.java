@@ -25,9 +25,9 @@ import java.util.Arrays;
 import java.util.Optional;
 import java.util.function.Supplier;
 
-import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.compilerOptions;
+import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.getCompilerOptions;
 import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.errorDetected;
-import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.messager;
+import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.getMessager;
 import static io.rxmicro.annotation.processor.common.util.InternalLoggers.logThrowableStackTrace;
 import static io.rxmicro.annotation.processor.common.util.InternalLoggers.logMessage;
 import static io.rxmicro.common.util.Formats.format;
@@ -102,7 +102,7 @@ public abstract class AbstractProcessorComponent {
                               final String message,
                               final Object... args) {
         final String mes = (args.length == 0) ? message : format(message, args);
-        messager().printMessage(Diagnostic.Kind.MANDATORY_WARNING, mes, element);
+        getMessager().printMessage(Diagnostic.Kind.MANDATORY_WARNING, mes, element);
     }
 
     protected final void error(final InterruptProcessingException e) {
@@ -113,14 +113,14 @@ public abstract class AbstractProcessorComponent {
                                final String message,
                                final Object... args) {
         final String mes = (args.length == 0) ? message : format(message, args);
-        messager().printMessage(Diagnostic.Kind.ERROR, mes, element);
+        getMessager().printMessage(Diagnostic.Kind.ERROR, mes, element);
         errorDetected();
     }
 
     protected final void cantGenerateClass(final String generatedClassName,
                                            final Throwable throwable) {
         logThrowableStackTrace(throwable);
-        messager().printMessage(Diagnostic.Kind.ERROR,
+        getMessager().printMessage(Diagnostic.Kind.ERROR,
                 format("Can't generate class ?: ?", generatedClassName, throwable.getMessage()));
         errorDetected();
     }
@@ -128,7 +128,7 @@ public abstract class AbstractProcessorComponent {
     protected final void cantGenerateDocument(final String documentName,
                                               final Throwable throwable) {
         logThrowableStackTrace(throwable);
-        messager().printMessage(Diagnostic.Kind.ERROR,
+        getMessager().printMessage(Diagnostic.Kind.ERROR,
                 format("Can't generate document ?: ?", documentName, throwable.getMessage()));
         errorDetected();
     }
@@ -136,7 +136,7 @@ public abstract class AbstractProcessorComponent {
     protected final void cantGenerateMethodBody(final String templateName,
                                                 final Throwable throwable) {
         logThrowableStackTrace(throwable);
-        messager().printMessage(Diagnostic.Kind.ERROR,
+        getMessager().printMessage(Diagnostic.Kind.ERROR,
                 format("Can't generate method body using '?' template: ?",
                         templateName, throwable.getMessage()));
         errorDetected();
@@ -164,7 +164,7 @@ public abstract class AbstractProcessorComponent {
     protected final String getStringOption(final String propertyName,
                                            final String defaultValue) {
 
-        String value = compilerOptions().get(propertyName);
+        String value = getCompilerOptions().get(propertyName);
         if (value != null) {
             return value;
         }

@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.types;
+import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.getTypes;
 import static io.rxmicro.annotation.processor.common.util.Elements.asEnumElement;
 import static io.rxmicro.annotation.processor.common.util.Names.getSimpleName;
 import static io.rxmicro.common.util.Formats.format;
@@ -169,7 +169,7 @@ public final class MethodResult {
     }
 
     public boolean isReactiveType(final Class<?> candidateClass) {
-        return candidateClass.getName().equals(types().erasure(reactiveType).toString());
+        return candidateClass.getName().equals(getTypes().erasure(reactiveType).toString());
     }
 
     public boolean isResultType(final Class<?> candidateClass) {
@@ -177,7 +177,7 @@ public final class MethodResult {
     }
 
     public boolean isResultType(final String candidateClass) {
-        return candidateClass.equals(types().erasure(resultType).toString());
+        return candidateClass.equals(getTypes().erasure(resultType).toString());
     }
 
     @UsedByFreemarker
@@ -262,7 +262,7 @@ public final class MethodResult {
 
     public Set<String> getRequiredImports() {
         final Set<String> set = new HashSet<>();
-        set.add(types().erasure(reactiveType).toString());
+        set.add(getTypes().erasure(reactiveType).toString());
         addRecursiveImports(set, resultType);
         if (oneItem && optional && !isMaybe()) {
             set.add(Optional.class.getName());
@@ -275,7 +275,7 @@ public final class MethodResult {
 
     private void addRecursiveImports(final Set<String> set,
                                      final TypeMirror type) {
-        set.add(types().erasure(type).toString());
+        set.add(getTypes().erasure(type).toString());
         if (type instanceof DeclaredType) {
             final List<? extends TypeMirror> typeArguments = ((DeclaredType) type).getTypeArguments();
             for (final TypeMirror typeArgument : typeArguments) {

@@ -32,7 +32,7 @@ import java.lang.annotation.Annotation;
 import java.util.List;
 import java.util.Set;
 
-import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.elements;
+import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.getElements;
 import static io.rxmicro.common.util.Requires.require;
 
 /**
@@ -63,12 +63,12 @@ public final class VirtualModuleElement implements ModuleElement, VirtualElement
 
     @Override
     public Name getQualifiedName() {
-        return elements().getName(name);
+        return getElements().getName(name);
     }
 
     @Override
     public Name getSimpleName() {
-        return elements().getName(Names.getSimpleName(name));
+        return getElements().getName(Names.getSimpleName(name));
     }
 
     @Override

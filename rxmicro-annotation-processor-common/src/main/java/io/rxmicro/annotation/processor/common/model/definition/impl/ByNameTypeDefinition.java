@@ -21,7 +21,7 @@ import io.rxmicro.annotation.processor.common.model.definition.TypeDefinition;
 import javax.lang.model.element.Element;
 import javax.lang.model.type.TypeMirror;
 
-import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.types;
+import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.getTypes;
 import static io.rxmicro.common.util.Requires.require;
 
 /**
@@ -39,7 +39,7 @@ public final class ByNameTypeDefinition implements TypeDefinition {
 
     @Override
     public boolean equals(final TypeMirror typeMirror) {
-        return types().erasure(typeMirror).toString().equals(requiredClass.getName());
+        return getTypes().erasure(typeMirror).toString().equals(requiredClass.getName());
     }
 
     @Override

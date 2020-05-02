@@ -27,7 +27,7 @@ import javax.lang.model.type.TypeMirror;
 import java.util.List;
 import java.util.ListIterator;
 
-import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.types;
+import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.getTypes;
 import static io.rxmicro.annotation.processor.common.util.Elements.asEnumElement;
 import static io.rxmicro.annotation.processor.data.sql.model.SQLKeywords.IN;
 import static io.rxmicro.common.util.Formats.FORMAT_PLACEHOLDER_TOKEN;
@@ -74,7 +74,7 @@ public class INSelectSQLOperatorReader implements SelectSQLOperatorReader {
 
     private String resolveParameter(final ClassHeader.Builder classHeaderBuilder,
                                     final Var var) {
-        if (List.class.getName().equals(types().erasure(var.getType()).toString())) {
+        if (List.class.getName().equals(getTypes().erasure(var.getType()).toString())) {
             final TypeMirror itemType = ((DeclaredType) var.getType()).getTypeArguments().get(0);
             if (String.class.getName().equals(itemType.toString())) {
                 classHeaderBuilder.addStaticImport(SQLParams.class, "joinStringParams");

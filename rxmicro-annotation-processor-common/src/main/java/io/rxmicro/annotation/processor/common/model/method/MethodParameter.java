@@ -24,7 +24,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.types;
+import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.getTypes;
 import static io.rxmicro.annotation.processor.common.util.Elements.isGenericType;
 import static io.rxmicro.annotation.processor.common.util.Names.getSimpleName;
 import static io.rxmicro.annotation.processor.common.util.validators.TypeValidators.validateGenericType;
@@ -72,7 +72,7 @@ public final class MethodParameter {
     private void extractGenerics(final Set<String> set,
                                  final StringBuilder simpleTypeBuilder,
                                  final TypeMirror type) {
-        final TypeMirror containerType = types().erasure(type);
+        final TypeMirror containerType = getTypes().erasure(type);
         if (!containerType.getKind().isPrimitive()) {
             set.add(containerType.toString());
         }

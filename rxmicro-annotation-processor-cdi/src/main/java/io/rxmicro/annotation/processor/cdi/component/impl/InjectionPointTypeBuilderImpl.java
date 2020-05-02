@@ -47,8 +47,8 @@ import static io.rxmicro.annotation.processor.cdi.model.InjectionPointType.MONGO
 import static io.rxmicro.annotation.processor.cdi.model.InjectionPointType.MULTI_BINDER;
 import static io.rxmicro.annotation.processor.cdi.model.InjectionPointType.REPOSITORY;
 import static io.rxmicro.annotation.processor.cdi.model.InjectionPointType.REST_CLIENT;
-import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.elements;
-import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.types;
+import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.getElements;
+import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.getTypes;
 import static io.rxmicro.annotation.processor.common.util.Elements.asTypeElement;
 import static io.rxmicro.annotation.processor.common.util.Elements.findSuperType;
 import static io.rxmicro.annotation.processor.common.util.Names.getPackageName;
@@ -89,7 +89,7 @@ public final class InjectionPointTypeBuilderImpl extends AbstractR2DBCConnection
     private InjectionPointType getBeanType(final VariableElement field,
                                            final TypeElement fieldType,
                                            final String modelName) {
-        if (SUPPORTED_MULTI_BINDER_TYPES.contains(types().erasure(field.asType()).toString())) {
+        if (SUPPORTED_MULTI_BINDER_TYPES.contains(getTypes().erasure(field.asType()).toString())) {
             validateGenericType(field, field.asType(), "Invalid multi binder type: ");
             final TypeMirror genericType = ((DeclaredType) field.asType()).getTypeArguments().get(0);
             return asTypeElement(genericType)
@@ -103,9 +103,9 @@ public final class InjectionPointTypeBuilderImpl extends AbstractR2DBCConnection
                     .orElseThrow(() -> {
                         throw new InterruptProcessingException(field, "Unsupported generic bean type: ?", genericType);
                     });
-        } else if (types().isAssignable(
-                types().erasure(fieldType.asType()),
-                types().erasure(elements().getTypeElement(Iterable.class.getName()).asType()))) {
+        } else if (getTypes().isAssignable(
+                getTypes().erasure(fieldType.asType()),
+                getTypes().erasure(getElements().getTypeElement(Iterable.class.getName()).asType()))) {
             throw new InterruptProcessingException(
                     field,
                     "For multi binder use the following containers only: ?",

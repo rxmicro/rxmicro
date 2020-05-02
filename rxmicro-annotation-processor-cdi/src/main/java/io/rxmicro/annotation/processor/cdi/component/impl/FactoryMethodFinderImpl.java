@@ -27,7 +27,7 @@ import javax.lang.model.element.TypeElement;
 import java.util.List;
 import java.util.Optional;
 
-import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.types;
+import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.getTypes;
 import static io.rxmicro.annotation.processor.common.util.Elements.allMethods;
 import static io.rxmicro.annotation.processor.common.util.validators.MethodValidators.validateNotNativeMethod;
 import static io.rxmicro.annotation.processor.common.util.validators.MethodValidators.validateNotSynchronizedMethod;
@@ -71,7 +71,7 @@ public final class FactoryMethodFinderImpl implements FactoryMethodFinder {
             validateNotNativeMethod(method, "Factory method couldn't be native.");
             validateNotSynchronizedMethod(method, "Factory method method couldn't be synchronized.");
             validateWithoutParametersMethod(method, "Factory method method couldn't contain any parameters.");
-            if (!types().erasure(method.getReturnType()).toString().equals(beanTypeElement.getQualifiedName().toString())) {
+            if (!getTypes().erasure(method.getReturnType()).toString().equals(beanTypeElement.getQualifiedName().toString())) {
                 throw new InterruptProcessingException(
                         method,
                         "Factory method method must instance of '?' type",

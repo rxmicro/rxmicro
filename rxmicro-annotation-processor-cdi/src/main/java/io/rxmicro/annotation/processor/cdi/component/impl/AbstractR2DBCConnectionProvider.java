@@ -31,7 +31,7 @@ import java.util.stream.Collectors;
 import static io.rxmicro.annotation.processor.cdi.component.impl.AbstractR2DBCConnectionProvider.R2DBCConnectionProvider.POSTGRE_SQL_CONNECTION_PROVIDER;
 import static io.rxmicro.annotation.processor.cdi.model.InjectionPointType.POSTGRE_SQL_CONNECTION_FACTORY;
 import static io.rxmicro.annotation.processor.cdi.model.InjectionPointType.POSTGRE_SQL_CONNECTION_POOL;
-import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.elements;
+import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.getElements;
 import static io.rxmicro.common.RxMicroModule.RX_MICRO_DATA_SQL_R2DBC_POSTGRESQL_MODULE;
 import static io.rxmicro.common.util.Requires.require;
 
@@ -46,7 +46,7 @@ public abstract class AbstractR2DBCConnectionProvider {
             Map.of(RX_MICRO_DATA_SQL_R2DBC_POSTGRESQL_MODULE.getName(), POSTGRE_SQL_CONNECTION_PROVIDER);
 
     protected final Set<R2DBCConnectionProvider> getR2DBCConnectionProviders(final Element element) {
-        final Set<String> sqlModuleElementNames = elements().getAllModuleElements().stream()
+        final Set<String> sqlModuleElementNames = getElements().getAllModuleElements().stream()
                 .map(me -> me.getQualifiedName().toString())
                 .filter(RxMicroModule::isSqlR2DBCModule)
                 .collect(Collectors.toSet());

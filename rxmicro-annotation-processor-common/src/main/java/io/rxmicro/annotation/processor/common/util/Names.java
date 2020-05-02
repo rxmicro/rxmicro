@@ -23,7 +23,7 @@ import javax.lang.model.type.DeclaredType;
 import javax.lang.model.type.TypeMirror;
 import java.util.List;
 
-import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.types;
+import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.getTypes;
 
 /**
  * @author nedis
@@ -62,7 +62,7 @@ public final class Names {
 
     private static void populate(final StringBuilder nameBuilder,
                                  final TypeMirror type) {
-        nameBuilder.append(getSimpleName(types().erasure(type).toString()));
+        nameBuilder.append(getSimpleName(getTypes().erasure(type).toString()));
         if (type instanceof DeclaredType) {
             final List<? extends TypeMirror> typeArguments = ((DeclaredType) type).getTypeArguments();
             if (!typeArguments.isEmpty()) {

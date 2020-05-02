@@ -30,7 +30,7 @@ import java.lang.annotation.Annotation;
 import java.util.List;
 import java.util.Set;
 
-import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.elements;
+import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.getElements;
 import static io.rxmicro.common.util.Requires.require;
 
 /**
@@ -161,7 +161,7 @@ public abstract class ModelField implements Comparable<ModelField>, Element {
 
     @Override
     public List<? extends AnnotationMirror> getAnnotationMirrors() {
-        return annotatedModelElement.getAllAnnotationMirrors(elements());
+        return annotatedModelElement.getAllAnnotationMirrors(getElements());
     }
 
     @Override

@@ -28,7 +28,7 @@ import javax.lang.model.type.TypeMirror;
 import java.util.Optional;
 
 import static io.rxmicro.annotation.processor.common.model.method.MethodResult.createCompletableFutureResult;
-import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.types;
+import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.getTypes;
 import static io.rxmicro.annotation.processor.common.util.Names.getSimpleName;
 import static io.rxmicro.annotation.processor.common.util.Reactives.isFuture;
 import static io.rxmicro.annotation.processor.common.util.validators.TypeValidators.validateGenericType;
@@ -51,19 +51,19 @@ public final class JSECompletableFutureReactiveMethodResultBuilder implements Re
                               final SupportedTypesProvider supportedTypesProvider) {
         final TypeMirror returnType = method.getReturnType();
         validateGenericType(method, returnType, "Invalid return type");
-        final TypeMirror reactiveType = types().erasure(returnType);
+        final TypeMirror reactiveType = getTypes().erasure(returnType);
         final TypeMirror genericType = ((DeclaredType) returnType).getTypeArguments().get(0);
 
         final TypeMirror resultType;
         final boolean oneItem;
         final boolean optional;
-        final boolean isGenericList = supportedTypesProvider.collectionContainers().contains(types().erasure(genericType));
+        final boolean isGenericList = supportedTypesProvider.collectionContainers().contains(getTypes().erasure(genericType));
         if (isGenericList) {
             validateGenericType(method, genericType, "Invalid return type");
             resultType = ((DeclaredType) genericType).getTypeArguments().get(0);
             oneItem = false;
             optional = false;
-        } else if (types().erasure(genericType).toString().equals(Optional.class.getName())) {
+        } else if (getTypes().erasure(genericType).toString().equals(Optional.class.getName())) {
             validateGenericType(method, genericType, "Invalid return type");
             resultType = ((DeclaredType) genericType).getTypeArguments().get(0);
             validateNotVoid(method, resultType);
@@ -85,7 +85,7 @@ public final class JSECompletableFutureReactiveMethodResultBuilder implements Re
                     method,
                     "Void does not support optional logic. " +
                             "Use ?<Void> instead of ?<Optional<Void>!",
-                    getSimpleName(types().erasure(method.getReturnType()))
+                    getSimpleName(getTypes().erasure(method.getReturnType()))
             );
         }
     }

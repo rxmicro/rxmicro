@@ -26,7 +26,7 @@ import io.rxmicro.annotation.processor.common.model.method.MethodResult;
 import javax.lang.model.element.ExecutableElement;
 import java.util.Set;
 
-import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.types;
+import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.getTypes;
 
 /**
  * @author nedis
@@ -45,7 +45,7 @@ public final class MethodResultBuilderImpl extends AbstractProcessorComponent
                               final SupportedTypesProvider supportedTypesProvider) {
         return reactiveMethodResultBuilders.stream()
                 .filter(builder -> builder.isSupport(method) &&
-                        supportedTypesProvider.reactiveReturnTypes().contains(types().erasure(method.getReturnType())))
+                        supportedTypesProvider.reactiveReturnTypes().contains(getTypes().erasure(method.getReturnType())))
                 .map(builder -> builder.build(method, supportedTypesProvider))
                 .findFirst()
                 .orElseThrow(() -> {

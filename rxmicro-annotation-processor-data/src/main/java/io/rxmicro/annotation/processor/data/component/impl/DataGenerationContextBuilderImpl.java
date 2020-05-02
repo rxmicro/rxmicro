@@ -34,7 +34,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.elements;
+import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.getElements;
 import static java.util.stream.Collectors.toSet;
 
 /**
@@ -61,7 +61,7 @@ public final class DataGenerationContextBuilderImpl<DMF extends DataModelField, 
                                 .flatMap(m -> m.getParamEntityClasses().stream()
                                         .map(TypeMirror::toString)))
                         .distinct()
-                        .map(elements()::getTypeElement)
+                        .map(getElements()::getTypeElement)
                         .filter(Objects::nonNull)
                         .collect(toSet()),
                 false);
@@ -73,7 +73,7 @@ public final class DataGenerationContextBuilderImpl<DMF extends DataModelField, 
                                 .flatMap(m -> m.getReturnEntityClasses().stream()
                                         .map(TypeMirror::toString)))
                         .distinct()
-                        .map(elements()::getTypeElement)
+                        .map(getElements()::getTypeElement)
                         .filter(Objects::nonNull)
                         .collect(toSet()),
                 true);

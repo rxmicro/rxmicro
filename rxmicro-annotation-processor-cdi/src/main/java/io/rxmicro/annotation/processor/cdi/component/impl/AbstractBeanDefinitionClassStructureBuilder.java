@@ -36,7 +36,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.function.Supplier;
 
-import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.types;
+import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.getTypes;
 import static io.rxmicro.annotation.processor.common.util.Elements.allMethods;
 import static io.rxmicro.annotation.processor.common.util.Elements.asTypeElement;
 import static io.rxmicro.annotation.processor.common.util.Elements.findSuperType;
@@ -115,7 +115,7 @@ abstract class AbstractBeanDefinitionClassStructureBuilder {
                 throw new InterruptProcessingException(
                         beanTypeElement,
                         "? is not class",
-                        types().erasure(factoryTypeMirror).toString()
+                        getTypes().erasure(factoryTypeMirror).toString()
                 );
             });
             return allMethods(beanTypeElement, e -> "get".equals(e.getSimpleName().toString()) && e.getParameters().isEmpty()).stream()

@@ -37,7 +37,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.filer;
+import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.getFiler;
 import static io.rxmicro.annotation.processor.common.util.InternalLoggers.logThrowableStackTrace;
 import static io.rxmicro.annotation.processor.common.util.Stubs.stub;
 import static io.rxmicro.annotation.processor.documentation.TestSystemProperties.RX_MICRO_POM_XML_ABSOLUTE_PATH;
@@ -65,7 +65,7 @@ public final class ProjectMetaDataProviderResolverImpl implements ProjectMetaDat
     // TODO It is necessary to find other approach to detect current working directory
     private Optional<File> getPomXmlAbsolutePath() {
         try {
-            final FileObject tempResource = filer()
+            final FileObject tempResource = getFiler()
                     .createResource(SOURCE_OUTPUT, "", "test.properties");
             try {
                 final URI uri = tempResource.toUri();

@@ -40,7 +40,7 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.elements;
+import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.getElements;
 import static io.rxmicro.annotation.processor.common.util.Elements.asTypeElement;
 import static io.rxmicro.annotation.processor.common.util.Errors.createInternalErrorSupplier;
 import static io.rxmicro.annotation.processor.common.util.Names.getSimpleName;
@@ -105,7 +105,7 @@ public final class Annotations {
                                                                     final Class<?> excludeClass) {
         TypeElement type;
         try {
-            type = elements().getTypeElement(classSupplier.get().getName());
+            type = getElements().getTypeElement(classSupplier.get().getName());
         } catch (final MirroredTypeException e) {
             type = asTypeElement(e.getTypeMirror()).orElse(null);
         }

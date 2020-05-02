@@ -30,7 +30,7 @@ import java.util.Optional;
 
 import static io.rxmicro.annotation.processor.common.model.method.MethodResult.createRxJavaResult;
 import static io.rxmicro.annotation.processor.common.model.method.MethodResult.createWithVoidResult;
-import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.types;
+import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.getTypes;
 import static io.rxmicro.annotation.processor.common.util.Names.getSimpleName;
 import static io.rxmicro.annotation.processor.common.util.Reactives.isCompletable;
 import static io.rxmicro.annotation.processor.common.util.Reactives.isFlowable;
@@ -60,13 +60,13 @@ public final class RxJavaReactiveMethodResultBuilder implements ReactiveMethodRe
             return createWithVoidResult(returnType);
         } else {
             validateGenericType(method, returnType, "Invalid return type");
-            final TypeMirror reactiveType = types().erasure(returnType);
+            final TypeMirror reactiveType = getTypes().erasure(returnType);
             final TypeMirror genericType = ((DeclaredType) returnType).getTypeArguments().get(0);
             validateNotVoid(method, genericType);
             validateNotOptional(method, reactiveType, genericType);
 
             final TypeMirror resultType;
-            final boolean isGenericList = supportedTypesProvider.collectionContainers().contains(types().erasure(genericType));
+            final boolean isGenericList = supportedTypesProvider.collectionContainers().contains(getTypes().erasure(genericType));
             validateGenericListIfSingleOnly(method, reactiveType, genericType, isGenericList);
             if (isGenericList) {
                 validateGenericType(method, genericType, "Invalid return type");
@@ -97,7 +97,7 @@ public final class RxJavaReactiveMethodResultBuilder implements ReactiveMethodRe
     private void validateNotOptional(final ExecutableElement method,
                                      final TypeMirror reactiveType,
                                      final TypeMirror genericType) {
-        if (types().erasure(genericType).toString().equals(Optional.class.getName())) {
+        if (getTypes().erasure(genericType).toString().equals(Optional.class.getName())) {
             if (isSingle(reactiveType)) {
                 throw new InterruptProcessingException(
                         method,
@@ -127,11 +127,11 @@ public final class RxJavaReactiveMethodResultBuilder implements ReactiveMethodRe
                                                  final TypeMirror genericType,
                                                  final boolean genericList) {
         if (genericList && !isSingle(reactiveType)) {
-            final String type = getSimpleName(types().erasure(genericType).toString());
+            final String type = getSimpleName(getTypes().erasure(genericType).toString());
             throw new InterruptProcessingException(
                     method,
                     "Only Single could be parametrized by ?<TYPE>. Replace ?<?<TYPE>> by Single<?<TYPE>>",
-                    type, getSimpleName(types().erasure(reactiveType)), type, type
+                    type, getSimpleName(getTypes().erasure(reactiveType)), type, type
             );
         }
     }

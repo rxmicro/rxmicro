@@ -23,7 +23,7 @@ import io.rxmicro.annotation.processor.common.util.UsedByFreemarker;
 
 import javax.lang.model.type.DeclaredType;
 
-import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.types;
+import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.getTypes;
 
 /**
  * @author nedis
@@ -40,7 +40,7 @@ public final class InjectionModelField extends ModelField {
     @UsedByFreemarker("$$BeanSupplierTemplate.javaftl")
     public String getGenericListItemSimpleClassName() {
         return Names.getSimpleName(
-                types().erasure(((DeclaredType) getFieldClass()).getTypeArguments().get(0)).toString()
+                getTypes().erasure(((DeclaredType) getFieldClass()).getTypeArguments().get(0)).toString()
         );
     }
 }

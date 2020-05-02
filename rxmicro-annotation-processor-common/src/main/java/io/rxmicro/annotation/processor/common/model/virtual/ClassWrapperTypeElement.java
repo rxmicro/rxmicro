@@ -30,7 +30,7 @@ import java.lang.annotation.Annotation;
 import java.util.List;
 import java.util.Set;
 
-import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.elements;
+import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.getElements;
 
 /**
  * @author nedis
@@ -57,12 +57,12 @@ public final class ClassWrapperTypeElement implements TypeElement {
 
     @Override
     public Name getQualifiedName() {
-        return elements().getName(typeClass.getName());
+        return getElements().getName(typeClass.getName());
     }
 
     @Override
     public Name getSimpleName() {
-        return elements().getName(typeClass.getSimpleName());
+        return getElements().getName(typeClass.getSimpleName());
     }
 
     @Override

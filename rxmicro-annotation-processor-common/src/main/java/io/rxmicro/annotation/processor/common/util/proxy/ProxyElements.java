@@ -97,35 +97,35 @@ public final class ProxyElements implements Elements {
     }
 
     @Override
-    public String getDocComment(final Element e) {
-        return elements.getDocComment(e);
+    public String getDocComment(final Element element) {
+        return elements.getDocComment(element);
     }
 
     @Override
-    public boolean isDeprecated(final Element e) {
-        return elements.isDeprecated(e);
+    public boolean isDeprecated(final Element element) {
+        return elements.isDeprecated(element);
     }
 
     @Override
-    public Origin getOrigin(final Element e) {
-        return elements.getOrigin(e);
+    public Origin getOrigin(final Element element) {
+        return elements.getOrigin(element);
     }
 
     @Override
-    public Origin getOrigin(final AnnotatedConstruct c,
-                            final AnnotationMirror a) {
-        return elements.getOrigin(c, a);
+    public Origin getOrigin(final AnnotatedConstruct annotatedConstruct,
+                            final AnnotationMirror annotationMirror) {
+        return elements.getOrigin(annotatedConstruct, annotationMirror);
     }
 
     @Override
-    public Origin getOrigin(final ModuleElement m,
+    public Origin getOrigin(final ModuleElement moduleElement,
                             final ModuleElement.Directive directive) {
-        return elements.getOrigin(m, directive);
+        return elements.getOrigin(moduleElement, directive);
     }
 
     @Override
-    public boolean isBridge(final ExecutableElement e) {
-        return elements.isBridge(e);
+    public boolean isBridge(final ExecutableElement element) {
+        return elements.isBridge(element);
     }
 
     @Override
@@ -149,11 +149,11 @@ public final class ProxyElements implements Elements {
     }
 
     @Override
-    public List<? extends AnnotationMirror> getAllAnnotationMirrors(final Element e) {
-        if (e instanceof VirtualTypeElement || e instanceof VirtualFieldElement) {
-            return e.getAnnotationMirrors();
+    public List<? extends AnnotationMirror> getAllAnnotationMirrors(final Element element) {
+        if (element instanceof VirtualTypeElement || element instanceof VirtualFieldElement) {
+            return element.getAnnotationMirrors();
         } else {
-            return elements.getAllAnnotationMirrors(e);
+            return elements.getAllAnnotationMirrors(element);
         }
     }
 
@@ -176,9 +176,9 @@ public final class ProxyElements implements Elements {
     }
 
     @Override
-    public void printElements(final Writer w,
+    public void printElements(final Writer writer,
                               final Element... elements) {
-        this.elements.printElements(w, elements);
+        this.elements.printElements(writer, elements);
     }
 
     @Override

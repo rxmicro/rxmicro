@@ -36,7 +36,7 @@ import static io.rxmicro.annotation.processor.cdi.model.InjectionPointType.POSTG
 import static io.rxmicro.annotation.processor.cdi.model.InjectionPointType.POSTGRE_SQL_CONNECTION_POOL;
 import static io.rxmicro.annotation.processor.cdi.model.InjectionPointType.REPOSITORY;
 import static io.rxmicro.annotation.processor.cdi.model.InjectionPointType.REST_CLIENT;
-import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.types;
+import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.getTypes;
 import static io.rxmicro.common.util.Requires.require;
 
 /**
@@ -105,7 +105,7 @@ public final class InjectionPoint {
 
     public void populateClassHeaderBuilder(final ClassHeader.Builder classHeaderBuilder) {
         if (constructorInjection) {
-            classHeaderBuilder.addImports(types().erasure(modelField.getFieldClass()));
+            classHeaderBuilder.addImports(getTypes().erasure(modelField.getFieldClass()));
         }
         if (type == MULTI_BINDER) {
             classHeaderBuilder.addImports(modelField.getFieldClass());
@@ -114,10 +114,10 @@ public final class InjectionPoint {
         }
         if (type == REPOSITORY) {
             classHeaderBuilder.addStaticImport(RepositoryFactory.class, "getRepository");
-            classHeaderBuilder.addImports(types().erasure(modelField.getFieldClass()));
+            classHeaderBuilder.addImports(getTypes().erasure(modelField.getFieldClass()));
         } else if (type == CONFIG) {
             classHeaderBuilder.addStaticImport(Configs.class, "getConfig");
-            classHeaderBuilder.addImports(types().erasure(modelField.getFieldClass()));
+            classHeaderBuilder.addImports(getTypes().erasure(modelField.getFieldClass()));
         } else if (type == MONGO_CLIENT) {
             classHeaderBuilder.addStaticImport(MongoClientFactory.class, "getMongoClient");
         } else if (type == POSTGRE_SQL_CONNECTION_FACTORY) {
@@ -126,14 +126,14 @@ public final class InjectionPoint {
             classHeaderBuilder.addStaticImport(PostgreSQLClientFactory.class, "getPostgreSQLConnectionPool");
         } else if (type == REST_CLIENT) {
             classHeaderBuilder.addStaticImport(RestClientFactory.class, "getRestClient");
-            classHeaderBuilder.addImports(types().erasure(modelField.getFieldClass()));
+            classHeaderBuilder.addImports(getTypes().erasure(modelField.getFieldClass()));
         } else if (type == BEAN) {
             if (required) {
                 classHeaderBuilder.addStaticImport(InternalBeanFactory.class, "getRequiredBean");
             } else {
                 classHeaderBuilder.addStaticImport(InternalBeanFactory.class, "getOptionalBean");
             }
-            classHeaderBuilder.addImports(types().erasure(modelField.getFieldClass()));
+            classHeaderBuilder.addImports(getTypes().erasure(modelField.getFieldClass()));
         } else if (type == MULTI_BINDER) {
             classHeaderBuilder.addStaticImport(InternalBeanFactory.class, "getBeansByType");
         }

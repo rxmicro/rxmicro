@@ -34,7 +34,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.function.Supplier;
 
-import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.elements;
+import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.getElements;
 import static io.rxmicro.annotation.processor.common.util.Annotations.getAnnotationElement;
 import static io.rxmicro.annotation.processor.common.util.Annotations.getAnnotationValue;
 import static io.rxmicro.annotation.processor.common.util.validators.AnnotationValidators.validateCustomAnnotation;
@@ -66,7 +66,7 @@ public final class UserDefinedNameBuilderImpl implements UserDefinedNameBuilder 
         final List<Map.Entry<TypeMirror, String>> result = new ArrayList<>();
         for (final AnnotationMirror annotation : element.getAnnotationMirrors()) {
             if (QUALIFIER_ANNOTATIONS.stream().anyMatch(cl -> cl.getName().equals(annotation.getAnnotationType().toString()))) {
-                final String annotationValue = (String) getAnnotationValue(elements().getElementValuesWithDefaults(annotation));
+                final String annotationValue = (String) getAnnotationValue(getElements().getElementValuesWithDefaults(annotation));
                 validateNotEmpty(element, annotationValue);
                 validateStringQualifier(element, annotationValue);
                 result.add(entry(
@@ -91,7 +91,7 @@ public final class UserDefinedNameBuilderImpl implements UserDefinedNameBuilder 
             validateCustomAnnotation(annotationElement, Set.of(FIELD, METHOD, TYPE, PARAMETER, CONSTRUCTOR));
         }
         return mirrors.stream().findFirst()
-                .map(a -> (String) getAnnotationValue(elements().getElementValuesWithDefaults(a)))
+                .map(a -> (String) getAnnotationValue(getElements().getElementValuesWithDefaults(a)))
                 .map(value -> Optional.of(value)
                         .filter(v -> !v.isEmpty())
                         .map(v -> {
@@ -148,7 +148,7 @@ public final class UserDefinedNameBuilderImpl implements UserDefinedNameBuilder 
         final StringBuilder builder = new StringBuilder("@");
         builder.append(annotation.getAnnotationType());
         final Map<? extends ExecutableElement, ? extends AnnotationValue> elementValues =
-                elements().getElementValuesWithDefaults(annotation);
+                getElements().getElementValuesWithDefaults(annotation);
         if (!elementValues.isEmpty()) {
             builder.append('(');
             boolean entryAdded = false;

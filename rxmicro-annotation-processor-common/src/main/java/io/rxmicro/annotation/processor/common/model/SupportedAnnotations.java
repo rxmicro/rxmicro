@@ -24,7 +24,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.TreeSet;
 
-import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.elements;
+import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.getElements;
 import static io.rxmicro.annotation.processor.common.util.Annotations.getRequiredAnnotationClassParameter;
 import static java.util.Collections.unmodifiableSet;
 
@@ -45,7 +45,7 @@ public final class SupportedAnnotations {
         for (final Class<? extends Annotation> annotationClass : supportedAnnotationClasses) {
             supportedAnnotations.add(annotationClass.getName());
             supportedAnnotationsWithRepeatable.add(annotationClass.getName());
-            Optional.ofNullable(elements().getTypeElement(annotationClass.getName()))
+            Optional.ofNullable(getElements().getTypeElement(annotationClass.getName()))
                     .flatMap(annotationElement ->
                             Optional.ofNullable(annotationElement.getAnnotation(Repeatable.class)))
                     .ifPresent(repeatable ->

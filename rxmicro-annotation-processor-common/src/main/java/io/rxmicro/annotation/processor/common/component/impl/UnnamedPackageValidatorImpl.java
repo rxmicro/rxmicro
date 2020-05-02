@@ -24,7 +24,7 @@ import javax.lang.model.element.ModuleElement;
 import javax.lang.model.element.PackageElement;
 import javax.lang.model.element.TypeElement;
 
-import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.elements;
+import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.getElements;
 import static io.rxmicro.common.Constants.VirtualModuleInfoConstants.RX_MICRO_VIRTUAL_MODULE_INFO_ANNOTATION_NAME;
 
 /**
@@ -38,9 +38,9 @@ public final class UnnamedPackageValidatorImpl extends AbstractProcessorComponen
     @Override
     public void validate(final ModuleElement realModuleElement) {
         if (realModuleElement.isUnnamed()) {
-            validate(elements().getPackageElement(""), true);
+            validate(getElements().getPackageElement(""), true);
         } else {
-            validate(elements().getPackageElement(realModuleElement, ""), false);
+            validate(getElements().getPackageElement(realModuleElement, ""), false);
         }
     }
 

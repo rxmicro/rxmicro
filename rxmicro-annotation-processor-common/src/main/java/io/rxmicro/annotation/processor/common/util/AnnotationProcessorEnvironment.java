@@ -58,23 +58,23 @@ public final class AnnotationProcessorEnvironment {
         errorCount = 0;
     }
 
-    public static Elements elements() {
+    public static Elements getElements() {
         return require(elements, "? is not initialized yet", AnnotationProcessorEnvironment.class.getName());
     }
 
-    public static Types types() {
+    public static Types getTypes() {
         return require(types, "? is not initialized yet", AnnotationProcessorEnvironment.class.getName());
     }
 
-    public static Filer filer() {
+    public static Filer getFiler() {
         return require(filer, "? is not initialized yet", AnnotationProcessorEnvironment.class.getName());
     }
 
-    public static Messager messager() {
+    public static Messager getMessager() {
         return require(messager, "? is not initialized yet", AnnotationProcessorEnvironment.class.getName());
     }
 
-    public static Map<String, String> compilerOptions() {
+    public static Map<String, String> getCompilerOptions() {
         return require(compilerOptions, "? is not initialized yet", AnnotationProcessorEnvironment.class.getName());
     }
 

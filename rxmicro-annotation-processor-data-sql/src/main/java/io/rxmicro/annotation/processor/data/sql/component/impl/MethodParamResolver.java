@@ -33,7 +33,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.types;
+import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.getTypes;
 import static io.rxmicro.annotation.processor.common.util.Elements.asEnumElement;
 import static io.rxmicro.annotation.processor.common.util.Elements.isNotStandardEnum;
 import static io.rxmicro.common.util.Formats.format;
@@ -88,7 +88,7 @@ public final class MethodParamResolver {
 
     @SuppressWarnings("RedundantIfStatement")
     private boolean isParameterShouldBeIgnored(final VariableElement parameter) {
-        if (IGNORED_BY_TYPE.contains(types().erasure(parameter.asType()).toString())) {
+        if (IGNORED_BY_TYPE.contains(getTypes().erasure(parameter.asType()).toString())) {
             return true;
         }
         if (IGNORED_BY_ANNOTATION_PRESENT.stream().anyMatch(a -> parameter.getAnnotation(a) != null)) {

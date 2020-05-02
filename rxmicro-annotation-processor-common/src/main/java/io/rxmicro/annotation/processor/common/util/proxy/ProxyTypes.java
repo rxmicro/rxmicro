@@ -50,13 +50,13 @@ public final class ProxyTypes implements Types {
     }
 
     @Override
-    public Element asElement(final TypeMirror t) {
-        if (t instanceof VirtualTypeMirror) {
-            return ((VirtualTypeMirror) t).getVirtualTypeElement();
-        } else if (t instanceof ClassWrapperTypeMirror) {
-            return new ClassWrapperTypeElement(((ClassWrapperTypeMirror) t).getTypeClass());
+    public Element asElement(final TypeMirror typeMirror) {
+        if (typeMirror instanceof VirtualTypeMirror) {
+            return ((VirtualTypeMirror) typeMirror).getVirtualTypeElement();
+        } else if (typeMirror instanceof ClassWrapperTypeMirror) {
+            return new ClassWrapperTypeElement(((ClassWrapperTypeMirror) typeMirror).getTypeClass());
         } else {
-            return types.asElement(t);
+            return types.asElement(typeMirror);
         }
     }
 
@@ -91,32 +91,32 @@ public final class ProxyTypes implements Types {
     }
 
     @Override
-    public List<? extends TypeMirror> directSupertypes(final TypeMirror t) {
-        return types.directSupertypes(t);
+    public List<? extends TypeMirror> directSupertypes(final TypeMirror typeMirror) {
+        return types.directSupertypes(typeMirror);
     }
 
     @Override
-    public TypeMirror erasure(final TypeMirror t) {
-        if (t instanceof VirtualTypeMirror || t instanceof ClassWrapperTypeMirror) {
-            return t;
+    public TypeMirror erasure(final TypeMirror typeMirror) {
+        if (typeMirror instanceof VirtualTypeMirror || typeMirror instanceof ClassWrapperTypeMirror) {
+            return typeMirror;
         } else {
-            return types.erasure(t);
+            return types.erasure(typeMirror);
         }
     }
 
     @Override
-    public TypeElement boxedClass(final PrimitiveType p) {
-        return types.boxedClass(p);
+    public TypeElement boxedClass(final PrimitiveType primitiveType) {
+        return types.boxedClass(primitiveType);
     }
 
     @Override
-    public PrimitiveType unboxedType(final TypeMirror t) {
-        return types.unboxedType(t);
+    public PrimitiveType unboxedType(final TypeMirror typeMirror) {
+        return types.unboxedType(typeMirror);
     }
 
     @Override
-    public TypeMirror capture(final TypeMirror t) {
-        return types.capture(t);
+    public TypeMirror capture(final TypeMirror typeMirror) {
+        return types.capture(typeMirror);
     }
 
     @Override

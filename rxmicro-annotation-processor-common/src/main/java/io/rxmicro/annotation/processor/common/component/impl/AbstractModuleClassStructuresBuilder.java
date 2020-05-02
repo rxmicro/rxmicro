@@ -39,7 +39,7 @@ import java.util.Set;
 
 import static io.rxmicro.annotation.processor.common.SupportedOptions.RX_MICRO_BUILD_UNNAMED_MODULE;
 import static io.rxmicro.annotation.processor.common.SupportedOptions.RX_MICRO_BUILD_UNNAMED_MODULE_DEFAULT_VALUE;
-import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.elements;
+import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.getElements;
 import static java.util.stream.Collectors.toList;
 
 /**
@@ -142,7 +142,7 @@ public abstract class AbstractModuleClassStructuresBuilder extends AbstractProce
             if (packageName == null) {
                 return true;
             } else {
-                final PackageElement packageElement1 = elements().getPackageElement(packageName);
+                final PackageElement packageElement1 = getElements().getPackageElement(packageName);
                 if (packageElement1 == null) {
                     return true;
                 } else if (packageElement1.getAnnotation(annotationClass) != null) {

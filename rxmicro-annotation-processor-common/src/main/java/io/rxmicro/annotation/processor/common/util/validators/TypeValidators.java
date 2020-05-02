@@ -29,8 +29,8 @@ import javax.lang.model.type.DeclaredType;
 import javax.lang.model.type.TypeMirror;
 import java.util.List;
 
-import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.elements;
-import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.types;
+import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.getElements;
+import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.getTypes;
 import static io.rxmicro.annotation.processor.common.util.Elements.asTypeElement;
 import static io.rxmicro.annotation.processor.common.util.Elements.expectedGenericArgumentCount;
 import static io.rxmicro.annotation.processor.common.util.Elements.isGenericType;
@@ -136,7 +136,7 @@ public final class TypeValidators {
             return ((VirtualTypeMirror) type).getVirtualTypeElement();
         } else {
             final String validPrefix = prefix == null || prefix.trim().isEmpty() ? "" : prefix + ": ";
-            final Element element = types().asElement(type);
+            final Element element = getTypes().asElement(type);
             if (type.getKind() != DECLARED || !(element instanceof TypeElement)) {
                 throw new InterruptProcessingException(owner, "?? is not a class", validPrefix, type);
             }
@@ -173,7 +173,7 @@ public final class TypeValidators {
             TypeElement currentTypeElement = typeElement;
             while (true) {
                 if (currentTypeElement.getEnclosedElements().stream().anyMatch(e -> e instanceof VariableElement)) {
-                    final ModuleElement resultModule = elements().getModuleOf(currentTypeElement);
+                    final ModuleElement resultModule = getElements().getModuleOf(currentTypeElement);
                     if (resultModule == null ||
                             !ownerModule.getQualifiedName().equals(resultModule.getQualifiedName())) {
                         throw new InterruptProcessingException(owner,

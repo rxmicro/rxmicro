@@ -33,8 +33,8 @@ import java.util.Set;
 
 import static io.rxmicro.annotation.processor.common.SupportedOptions.RX_MICRO_BUILD_UNNAMED_MODULE;
 import static io.rxmicro.annotation.processor.common.model.AnnotationProcessorType.PROJECT_COMPILE;
-import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.elements;
-import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.messager;
+import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.getElements;
+import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.getMessager;
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.Requires.require;
 
@@ -87,7 +87,7 @@ public class BaseRxMicroAnnotationProcessor extends AbstractRxMicroProcessor {
     }
 
     private void displayModuleError() {
-        messager().printMessage(
+        getMessager().printMessage(
                 Diagnostic.Kind.ERROR,
                 format(
                         "Add `module-info.java` or set compiler option: '?'=true!",
@@ -100,7 +100,7 @@ public class BaseRxMicroAnnotationProcessor extends AbstractRxMicroProcessor {
                                                      final RoundEnvironment roundEnv) {
         return annotations.stream()
                 .flatMap(a -> roundEnv.getElementsAnnotatedWith(a).stream())
-                .flatMap(e -> Optional.ofNullable(elements().getModuleOf(e)).stream())
+                .flatMap(e -> Optional.ofNullable(getElements().getModuleOf(e)).stream())
                 .findFirst();
     }
 }

@@ -38,7 +38,7 @@ import java.util.TreeSet;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.types;
+import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.getTypes;
 import static io.rxmicro.annotation.processor.common.util.Names.getPackageName;
 import static io.rxmicro.common.util.ExCollectors.toUnmodifiableOrderedSet;
 import static io.rxmicro.common.util.Strings.capitalize;
@@ -175,7 +175,7 @@ public final class Elements {
     }
 
     public static Optional<TypeElement> asTypeElement(final TypeMirror typeMirror) {
-        return Optional.ofNullable(types().asElement(typeMirror))
+        return Optional.ofNullable(getTypes().asElement(typeMirror))
                 .filter(e -> e instanceof TypeElement)
                 .map(e -> (TypeElement) e);
     }
@@ -250,7 +250,7 @@ public final class Elements {
         TypeElement currentTypeElement = type;
         while (true) {
             final Optional<? extends TypeMirror> first = currentTypeElement.getInterfaces().stream()
-                    .filter(t -> types().erasure(t).toString().equals(expectedType.getName()))
+                    .filter(t -> getTypes().erasure(t).toString().equals(expectedType.getName()))
                     .findFirst();
             if (first.isPresent()) {
                 return first;
@@ -258,7 +258,7 @@ public final class Elements {
             final TypeMirror superClass = currentTypeElement.getSuperclass();
             if (superClassIsObject(superClass)) {
                 return Optional.empty();
-            } else if (types().erasure(superClass).toString().equals(expectedType.getName())) {
+            } else if (getTypes().erasure(superClass).toString().equals(expectedType.getName())) {
                 return Optional.of(superClass);
             } else {
                 currentTypeElement = asTypeElement(superClass).orElseThrow();
