@@ -46,9 +46,7 @@ public final class JULLoggerImplProvider implements LoggerImplProvider {
     @Override
     public void setup() {
         final Map<String, String> config = getDefaultConfiguration();
-        final Optional<String> customConfig = configCustomizer.customizeConfig(config);
         final byte[] configBytes = toConfigBytes(config);
-
         final LogManager logManager = LogManager.getLogManager();
         try {
             logManager.readConfiguration(new ByteArrayInputStream(configBytes));
@@ -56,6 +54,7 @@ public final class JULLoggerImplProvider implements LoggerImplProvider {
             // configuration created automatically, so IO error is impossible
             throw new ImpossibleException(e);
         }
+        final Optional<String> customConfig = configCustomizer.customizeConfig(config);
         if (customConfig.isPresent()) {
             java.util.logging.Logger.getGlobal().log(Level.INFO,
                     "Using java.util.logging with custom config: " + customConfig.get());
