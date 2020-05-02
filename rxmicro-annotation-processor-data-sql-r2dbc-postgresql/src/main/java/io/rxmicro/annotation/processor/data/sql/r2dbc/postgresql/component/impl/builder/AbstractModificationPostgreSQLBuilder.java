@@ -74,7 +74,7 @@ public abstract class AbstractModificationPostgreSQLBuilder<A extends Annotation
                                     .build()
                     );
             if (selectedColumns.isEmpty()) {
-                throw new InterruptProcessingException(method, "Missing columns after '?' keyword", PostgreSQLKeywords.RETURNING);
+                throw new InterruptProcessingException(method, "Missing columns after '?' keyword", RETURNING);
             }
             sqlFieldsOrderValidator.validateSelectedColumn(method, selectedColumns);
             if (sqlMethodDescriptor.getEntityParam().isEmpty() &&
