@@ -139,14 +139,14 @@ public abstract class AbstractRepeatableValues<T extends RepeatableValues<T>> {
                 final Object newValue = entry.getValue();
                 if (isAddedValue(oldValue)) {
                     if (isAddedValue(newValue)) {
-                        ((List<String>) oldValue).addAll(((List<String>) newValue));
+                        ((List<String>) oldValue).addAll((List<String>) newValue);
                     } else {
                         this.valuesMap.put(entry.getKey(), entry.getValue());
                     }
                 } else {
                     if (isAddedValue(newValue)) {
                         final List<String> mergeValues = new ListImpl((String) oldValue);
-                        mergeValues.addAll(((List<String>) newValue));
+                        mergeValues.addAll((List<String>) newValue);
                         this.valuesMap.put(entry.getKey(), mergeValues);
                     } else {
                         this.valuesMap.put(entry.getKey(), entry.getValue());
@@ -162,7 +162,7 @@ public abstract class AbstractRepeatableValues<T extends RepeatableValues<T>> {
         final List<Map.Entry<String, String>> result = new ArrayList<>(valuesMap.size());
         for (final Map.Entry<String, Object> entry : valuesMap.entrySet()) {
             if (isAddedValue(entry.getValue())) {
-                for (final String value : ((List<String>) entry.getValue())) {
+                for (final String value : (List<String>) entry.getValue()) {
                     result.add(entry(entry.getKey(), value));
                 }
             } else {

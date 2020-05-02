@@ -40,7 +40,7 @@ public abstract class RedirectException extends HttpErrorException {
         if (this.absolute) {
             this.location = location;
         } else {
-            this.location = location.startsWith("/") ? location : "/" + location;
+            this.location = !location.isEmpty() && location.charAt(0) == '/' ? location : "/" + location;
         }
     }
 

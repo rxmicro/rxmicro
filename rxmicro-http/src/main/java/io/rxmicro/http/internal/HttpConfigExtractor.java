@@ -42,7 +42,7 @@ public final class HttpConfigExtractor {
     private ProtocolSchema getSchema(final StringBuilder connectionStringSource) {
         final int index = connectionStringSource.indexOf("://");
         if (index == -1) {
-            return ProtocolSchema.http;
+            return ProtocolSchema.HTTP;
         } else {
             final String schema = connectionStringSource.substring(0, index);
             connectionStringSource.delete(0, index + 3);

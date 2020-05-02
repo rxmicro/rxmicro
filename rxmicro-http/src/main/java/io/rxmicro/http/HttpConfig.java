@@ -32,7 +32,7 @@ import static io.rxmicro.config.Networks.validatePort;
 @SuppressWarnings("UnusedReturnValue")
 public abstract class HttpConfig extends Config {
 
-    private ProtocolSchema schema = ProtocolSchema.http;
+    private ProtocolSchema schema = ProtocolSchema.HTTP;
 
     private String host;
 

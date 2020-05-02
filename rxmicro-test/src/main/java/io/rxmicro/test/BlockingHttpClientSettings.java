@@ -57,7 +57,7 @@ public @interface BlockingHttpClientSettings {
     /**
      * @return HTTP protocol schema
      */
-    ProtocolSchema schema() default ProtocolSchema.http;
+    ProtocolSchema schema() default ProtocolSchema.HTTP;
 
     /**
      * @return HTTP server host

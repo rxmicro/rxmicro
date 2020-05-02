@@ -16,6 +16,8 @@
 
 package io.rxmicro.http;
 
+import java.util.Locale;
+
 /**
  * @author nedis
  * @link https://rxmicro.io
@@ -23,18 +25,21 @@ package io.rxmicro.http;
  */
 public enum ProtocolSchema {
 
-    http(80),
+    HTTP(80),
 
-    https(443);
+    HTTPS(443);
 
     private final int port;
 
+    private final String schema;
+
     ProtocolSchema(final int port) {
         this.port = port;
+        this.schema = name().toLowerCase(Locale.ENGLISH);
     }
 
     public String getSchema() {
-        return name();
+        return schema;
     }
 
     public int getPort() {

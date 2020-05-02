@@ -74,7 +74,7 @@ public final class NettyServerFactory implements ServerFactory {
     public ServerInstance startNewServer(final RequestHandler requestHandler) {
         try {
             final HttpServerConfig httpServerConfig = getConfig(HttpServerConfig.class);
-            if (httpServerConfig.getSchema() != ProtocolSchema.http) {
+            if (httpServerConfig.getSchema() != ProtocolSchema.HTTP) {
                 throw new ConfigException("Only http schema supported now");
             }
             final RestServerConfig restServerConfig = getConfig(RestServerConfig.class);

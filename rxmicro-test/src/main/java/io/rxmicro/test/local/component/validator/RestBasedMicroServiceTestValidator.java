@@ -70,7 +70,7 @@ public final class RestBasedMicroServiceTestValidator extends CommonTestValidato
                     "For REST based micro service tests HTTP server host must be 'localhost' only!"
             );
         }
-        if (config.getSchema() != ProtocolSchema.http) {
+        if (config.getSchema() != ProtocolSchema.HTTP) {
             throw new InvalidTestConfigException(
                     "For REST based micro service tests HTTP server supports the 'http' schema only!"
             );

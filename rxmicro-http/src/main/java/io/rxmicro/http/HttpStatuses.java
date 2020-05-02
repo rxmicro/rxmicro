@@ -29,7 +29,7 @@ import static java.util.Map.entry;
 public final class HttpStatuses {
 
     @SuppressWarnings("JavacQuirks")
-    private static final Map<Integer, String> statues = Map.ofEntries(
+    private static final Map<Integer, String> STATUES = Map.ofEntries(
             // ------------- Informational -------------
             entry(100, "Continue"),
             entry(101, "Switching Protocols"),
@@ -104,7 +104,10 @@ public final class HttpStatuses {
         if (status < 100 || status > 599) {
             throw new IllegalArgumentException("Invalid status code: " + status);
         } else {
-            return statues.getOrDefault(status, "Unofficial code: " + status);
+            return STATUES.getOrDefault(status, "Unofficial code: " + status);
         }
+    }
+
+    private HttpStatuses(){
     }
 }
