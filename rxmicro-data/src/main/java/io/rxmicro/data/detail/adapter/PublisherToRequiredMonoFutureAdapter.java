@@ -38,25 +38,25 @@ public class PublisherToRequiredMonoFutureAdapter<T> extends CompletableFuture<T
                                                 final Supplier<Throwable> supplier) {
         publisher.subscribe(new Subscriber<>() {
             @Override
-            public void onSubscribe(final Subscription s) {
-                subscription = s;
-                s.request(1);
+            public void onSubscribe(final Subscription sub) {
+                subscription = sub;
+                sub.request(1);
             }
 
             @Override
-            public void onNext(final T t) {
+            public void onNext(final T item) {
                 subscription.cancel();
-                if (t == null) {
+                if (item == null) {
                     completeExceptionally(supplier.get());
                 } else {
-                    value = t;
+                    value = item;
                     onComplete();
                 }
             }
 
             @Override
-            public void onError(final Throwable t) {
-                completeExceptionally(t);
+            public void onError(final Throwable throwable) {
+                completeExceptionally(throwable);
             }
 
             @Override

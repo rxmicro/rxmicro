@@ -36,18 +36,18 @@ public class PublisherToFluxFutureAdapter<T> extends CompletableFuture<List<T>> 
     public PublisherToFluxFutureAdapter(final Publisher<T> publisher) {
         publisher.subscribe(new Subscriber<>() {
             @Override
-            public void onSubscribe(final Subscription s) {
-                s.request(Long.MAX_VALUE);
+            public void onSubscribe(final Subscription subscription) {
+                subscription.request(Long.MAX_VALUE);
             }
 
             @Override
-            public void onNext(final T t) {
-                list.add(t);
+            public void onNext(final T item) {
+                list.add(item);
             }
 
             @Override
-            public void onError(final Throwable t) {
-                completeExceptionally(t);
+            public void onError(final Throwable throwable) {
+                completeExceptionally(throwable);
             }
 
             @Override
