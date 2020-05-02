@@ -18,7 +18,6 @@ package io.rxmicro.test.mockito.mongo;
 
 import io.rxmicro.common.meta.BuilderMethod;
 import io.rxmicro.test.mockito.mongo.internal.AbstractUpdateOperationMock;
-import io.rxmicro.test.mockito.mongo.internal.util.Validators;
 import org.bson.Document;
 
 import static io.rxmicro.test.mockito.mongo.internal.util.Validators.validateBson;
