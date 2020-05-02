@@ -16,7 +16,7 @@
 
 package io.rxmicro.tool.common;
 
-import static io.rxmicro.tool.common.internal.DeniedPackageList.DENIED_PACKAGES;
+import static io.rxmicro.tool.common.internal.DeniedPackageConstants.DENIED_PACKAGES;
 
 /**
  * @author nedis

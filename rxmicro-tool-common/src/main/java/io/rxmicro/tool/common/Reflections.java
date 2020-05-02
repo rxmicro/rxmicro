@@ -27,7 +27,6 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.tool.common.internal.FinalFieldUpdater.setFinalFieldValue;
@@ -54,7 +53,7 @@ public final class Reflections {
         while (current != null && current != Object.class) {
             fields.addAll(Arrays.stream(current.getDeclaredFields())
                     .filter(predicate)
-                    .collect(Collectors.toList()));
+                    .collect(toList()));
             current = current.getSuperclass();
         }
         return fields;
@@ -67,7 +66,7 @@ public final class Reflections {
         while (current != null && current != Object.class) {
             methods.addAll(Arrays.stream(current.getDeclaredMethods())
                     .filter(predicate)
-                    .collect(Collectors.toList()));
+                    .collect(toList()));
             current = current.getSuperclass();
         }
         return methods;

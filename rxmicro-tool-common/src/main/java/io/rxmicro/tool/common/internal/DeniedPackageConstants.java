@@ -31,7 +31,7 @@ import static java.util.stream.Collectors.toUnmodifiableSet;
  * @link http://rxmicro.io
  * @since 0.3
  */
-public final class DeniedPackageList {
+public final class DeniedPackageConstants {
 
     private static final Set<String> RX_MICRO_PACKAGES =
             Stream.concat(

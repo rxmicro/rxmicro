@@ -77,4 +77,7 @@ public final class FinalFieldUpdater {
             }
         }
     }
+
+    private FinalFieldUpdater(){
+    }
 }
