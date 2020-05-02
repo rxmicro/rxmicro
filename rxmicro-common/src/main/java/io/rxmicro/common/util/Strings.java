@@ -153,6 +153,10 @@ public final class Strings {
         }
     }
 
+    public static boolean startsWith(final String string, final char prefix) {
+        return !string.isEmpty() && string.charAt(0) == prefix;
+    }
+
     private Strings() {
     }
 }

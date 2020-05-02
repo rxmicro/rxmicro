@@ -28,6 +28,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import static io.rxmicro.common.util.ExCollections.unmodifiableOrderedMap;
+import static io.rxmicro.common.util.Strings.startsWith;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 /**
@@ -65,9 +66,10 @@ public final class PropertiesResources {
             final Map<String, String> map = new LinkedHashMap<>();
             String line;
             while ((line = br.readLine()) != null) {
-                if (!line.trim().isEmpty() && !line.startsWith("#")) {
-                    addProperty(map, line);
+                if(line.isBlank() || startsWith(line, '#')) {
+                    continue;
                 }
+                addProperty(map, line);
             }
             return unmodifiableOrderedMap(map);
         }

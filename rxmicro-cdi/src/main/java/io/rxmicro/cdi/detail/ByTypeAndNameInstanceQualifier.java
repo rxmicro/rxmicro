@@ -23,6 +23,7 @@ import java.util.Objects;
 
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.Requires.require;
+import static io.rxmicro.common.util.Strings.startsWith;
 
 /**
  * @author nedis
@@ -61,7 +62,7 @@ public class ByTypeAndNameInstanceQualifier<T> extends ByTypeInstanceQualifier<T
 
     @Override
     public String toString() {
-        if (!name.isEmpty() && name.charAt(0) == '@') {
+        if (startsWith(name, '@')) {
             return format("@ByTypeAndAnnotated(?, ?)", getType().getName(), name);
         } else {
             return format("@ByTypeAndName(?, '?')", getType().getName(), name);

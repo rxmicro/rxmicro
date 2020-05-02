@@ -44,6 +44,7 @@ import static io.rxmicro.common.util.Exceptions.isInstanceOf;
 import static io.rxmicro.common.util.Exceptions.reThrow;
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.Requires.require;
+import static io.rxmicro.common.util.Strings.startsWith;
 import static io.rxmicro.http.HttpHeaders.ACCEPT;
 import static io.rxmicro.http.HttpHeaders.REQUEST_ID;
 import static io.rxmicro.http.HttpHeaders.USER_AGENT;
@@ -129,7 +130,7 @@ final class JdkHttpClient implements HttpClient {
                                                   final List<Map.Entry<String, String>> headers) {
         final HttpRequest.Builder requestBuilder = HttpRequest.newBuilder()
                 .uri(URI.create(format("?://?:??",
-                        protocol.getSchema(), host, port, path.startsWith("/") ? path : "/" + path)));
+                        protocol.getSchema(), host, port,  startsWith(path, '/') ? path : "/" + path)));
         setHeaders(requestBuilder, headers);
         if (!timeout.isZero()) {
             requestBuilder.timeout(timeout);

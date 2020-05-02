@@ -19,6 +19,7 @@ package io.rxmicro.http.error;
 import io.rxmicro.common.util.Formats;
 
 import static io.rxmicro.common.util.Formats.format;
+import static io.rxmicro.common.util.Strings.startsWith;
 
 /**
  * @author nedis
@@ -40,7 +41,7 @@ public abstract class RedirectException extends HttpErrorException {
         if (this.absolute) {
             this.location = location;
         } else {
-            this.location = !location.isEmpty() && location.charAt(0) == '/' ? location : "/" + location;
+            this.location = startsWith(location, '/') ? location : "/" + location;
         }
     }
 

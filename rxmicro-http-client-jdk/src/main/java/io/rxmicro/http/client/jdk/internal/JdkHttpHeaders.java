@@ -46,7 +46,7 @@ final class JdkHttpHeaders implements HttpHeaders {
     }
 
     @Override
-    public List<String> getValues(String name) {
+    public List<String> getValues(final String name) {
         return httpHeaders.allValues(name);
     }
 
