@@ -28,6 +28,7 @@ public final class StaticHeaders extends AbstractRepeatableValues<StaticHeaders>
         implements RepeatableValues<StaticHeaders> {
 
     public StaticHeaders() {
+        // Default constructor
     }
 
     public StaticHeaders(final StaticHeaders other) {

@@ -39,6 +39,7 @@ import static io.rxmicro.annotation.processor.common.util.Annotations.getAnnotat
 import static io.rxmicro.annotation.processor.common.util.Annotations.getAnnotationValue;
 import static io.rxmicro.annotation.processor.common.util.validators.AnnotationValidators.validateCustomAnnotation;
 import static io.rxmicro.cdi.local.Annotations.QUALIFIER_ANNOTATIONS;
+import static io.rxmicro.common.util.Strings.startsWith;
 import static java.lang.annotation.ElementType.CONSTRUCTOR;
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.ElementType.METHOD;
@@ -116,7 +117,7 @@ public final class UserDefinedNameBuilderImpl implements UserDefinedNameBuilder 
 
     private void validateStringQualifier(final Element element,
                                          final String annotationValue) {
-        if (annotationValue.startsWith("@")) {
+        if (startsWith(annotationValue, '@')) {
             throw new InterruptProcessingException(
                     element,
                     "String qualifier couldn't start with '@' character. Remote invalid character!"
@@ -126,7 +127,7 @@ public final class UserDefinedNameBuilderImpl implements UserDefinedNameBuilder 
 
     private void validateNotEmpty(final Element element,
                                   final String annotationValue) {
-        if (annotationValue.trim().isEmpty()) {
+        if (annotationValue.isBlank()) {
             throw new InterruptProcessingException(
                     element,
                     "String qualifier couldn't be empty. Add qualifier name!"

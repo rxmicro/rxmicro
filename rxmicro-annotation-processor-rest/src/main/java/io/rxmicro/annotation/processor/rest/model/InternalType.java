@@ -23,21 +23,21 @@ package io.rxmicro.annotation.processor.rest.model;
  */
 public enum InternalType {
 
-    http_request,
+    HTTP_REQUEST,
 
-    remote_address,
+    REMOTE_ADDRESS,
 
-    request_url,
+    REQUEST_URL,
 
-    request_method,
+    REQUEST_METHOD,
 
-    request_body,
+    REQUEST_BODY,
 
-    http_headers,
+    HTTP_HEADERS,
 
-    http_version,
+    HTTP_VERSION,
 
-    response_status,
+    RESPONSE_STATUS,
 
-    response_body
+    RESPONSE_BODY
 }

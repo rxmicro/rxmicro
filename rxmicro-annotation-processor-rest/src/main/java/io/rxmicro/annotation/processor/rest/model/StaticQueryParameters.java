@@ -28,6 +28,7 @@ public final class StaticQueryParameters extends AbstractRepeatableValues<Static
         implements RepeatableValues<StaticQueryParameters> {
 
     public StaticQueryParameters() {
+        // Default constructor
     }
 
     public StaticQueryParameters(final StaticQueryParameters other) {

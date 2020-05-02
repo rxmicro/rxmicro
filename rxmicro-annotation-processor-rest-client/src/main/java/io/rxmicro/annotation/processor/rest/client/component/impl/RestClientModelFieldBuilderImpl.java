@@ -69,22 +69,22 @@ public final class RestClientModelFieldBuilderImpl extends AbstractRestModelFiel
                                                      final AnnotatedModelElement annotated) {
         if (HttpVersion.class.getName().equals(annotated.getField().asType().toString())) {
             validateInternalByType(modelFieldType, annotated);
-            return Optional.of(new RestModelField(annotated, InternalType.http_version));
+            return Optional.of(new RestModelField(annotated, InternalType.HTTP_VERSION));
         } else if (HttpHeaders.class.getName().equals(annotated.getField().asType().toString())) {
             validateInternalByType(modelFieldType, annotated);
-            return Optional.of(new RestModelField(annotated, InternalType.http_headers));
+            return Optional.of(new RestModelField(annotated, InternalType.HTTP_HEADERS));
         } else {
             final ResponseStatusCode responseStatusCode = annotated.getAnnotation(ResponseStatusCode.class);
             if (responseStatusCode != null) {
                 validateInternalByAnnotation(modelFieldType, annotated, ResponseStatusCode.class);
                 validateSupportedTypes(annotated.getElement(), responseStatusCode.annotationType());
-                return Optional.of(new RestModelField(annotated, InternalType.response_status));
+                return Optional.of(new RestModelField(annotated, InternalType.RESPONSE_STATUS));
             }
             final ResponseBody responseBody = annotated.getAnnotation(ResponseBody.class);
             if (responseBody != null) {
                 validateInternalByAnnotation(modelFieldType, annotated, ResponseBody.class);
                 validateSupportedTypes(annotated.getElement(), responseBody.annotationType());
-                return Optional.of(new RestModelField(annotated, InternalType.response_body));
+                return Optional.of(new RestModelField(annotated, InternalType.RESPONSE_BODY));
             }
         }
         return Optional.empty();

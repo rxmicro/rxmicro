@@ -92,15 +92,9 @@ public final class BeanSupplierClassStructure extends ClassStructure {
     }
 
     @Override
-    @SuppressWarnings("RedundantIfStatement")
     public boolean isRequiredReflectionInvoke() {
-        if (beanDefinition.isPostConstructMethodPresent() && beanDefinition.getPostConstructMethod().isPrivateMethod()) {
-            return true;
-        } else if (beanDefinition.isFactoryMethodPresent() && beanDefinition.getFactoryMethod().isPrivateMethod()) {
-            return true;
-        } else {
-            return false;
-        }
+        return beanDefinition.isPostConstructMethodPresent() && beanDefinition.getPostConstructMethod().isPrivateMethod() ||
+                        beanDefinition.isFactoryMethodPresent() && beanDefinition.getFactoryMethod().isPrivateMethod();
     }
 
     @UsedByFreemarker("$$BeanFactoryImplTemplate.javaftl")

@@ -130,10 +130,10 @@ public final class RestModelValidatorBuilderImpl extends AbstractProcessorCompon
     private String convertAnnotationValue(final ModelValidatorClassStructure.Builder builder,
                                           final RestModelField restModelField,
                                           final ModelConstraintAnnotation modelConstraintAnnotation,
-                                          final Map.Entry<? extends ExecutableElement, ? extends AnnotationValue> e) {
+                                          final Map.Entry<? extends ExecutableElement, ? extends AnnotationValue> entry) {
         final String result = annotationValueConverter.convert(
                 restModelField.getFieldElement(), builder.getClassHeaderBuilder(),
-                e.getValue().getValue()
+                entry.getValue().getValue()
         );
         if (MinNumber.class.getSimpleName().equals(modelConstraintAnnotation.getAnnotationSimpleName()) ||
                 MaxNumber.class.getSimpleName().equals(modelConstraintAnnotation.getAnnotationSimpleName())) {
@@ -147,7 +147,7 @@ public final class RestModelValidatorBuilderImpl extends AbstractProcessorCompon
                                       final RestModelField restModelField,
                                       final ModelClass modelFieldType) {
         final Nullable nullable = restModelField.getAnnotation(Nullable.class);
-        if ((nullable == null || nullable.off())) {
+        if (nullable == null || nullable.off()) {
             if (modelFieldType.isList()) {
                 builder.add(restModelField, Nullable.class.getSimpleName(),
                         RequiredListConstraintValidator.class.getName(), null, false);

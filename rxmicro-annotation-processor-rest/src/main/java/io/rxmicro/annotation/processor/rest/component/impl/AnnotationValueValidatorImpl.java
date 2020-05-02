@@ -56,6 +56,8 @@ import java.util.stream.Stream;
 public final class AnnotationValueValidatorImpl extends AbstractProcessorComponent
         implements AnnotationValueValidator {
 
+    private static final String ANNOTATION_ERROR_PREFFIX = "Annotation '@?' has invalid parameter: ";
+
     @Inject
     private NumberValidators numberValidators;
 
@@ -141,14 +143,14 @@ public final class AnnotationValueValidatorImpl extends AbstractProcessorCompone
         final String[] enums = enumeration.value();
         if (enums.length == 0) {
             error(restModelField.getElementAnnotatedBy(Enumeration.class),
-                    "Annotation '@?' has invalid parameter: " +
+                    ANNOTATION_ERROR_PREFFIX +
                             "Value couldn't be empty", Enumeration.class.getSimpleName());
         }
         if (Character.class.getName().equals(restModelField.getFieldClass().toString())) {
             for (final String item : enums) {
                 if (item.length() != 1) {
                     error(restModelField.getElementAnnotatedBy(Enumeration.class),
-                            "Annotation '@?' has invalid parameter: " +
+                            ANNOTATION_ERROR_PREFFIX +
                                     "Expected character enum constant, but actual is '?'", Enumeration.class.getSimpleName(), item);
                 }
             }
@@ -165,7 +167,7 @@ public final class AnnotationValueValidatorImpl extends AbstractProcessorCompone
             );
         } catch (final PatternSyntaxException e) {
             error(restModelField.getElementAnnotatedBy(Pattern.class),
-                    "Annotation '@?' has invalid parameter: " +
+                    ANNOTATION_ERROR_PREFFIX +
                             "Invalid regular expression: ?", Pattern.class.getSimpleName(), e.getMessage());
         }
     }
@@ -178,14 +180,14 @@ public final class AnnotationValueValidatorImpl extends AbstractProcessorCompone
         ).collect(Collectors.toList());
         if (names.isEmpty()) {
             error(restModelField.getElementAnnotatedBy(SubEnum.class),
-                    "Annotation '@?' has invalid parameter: " +
+                    ANNOTATION_ERROR_PREFFIX +
                             "Expected include or exclude values", SubEnum.class.getSimpleName());
         }
         final Set<String> allowedEnumConstants = getAllowedEnumConstants(restModelField);
         for (final String name : names) {
             if (!allowedEnumConstants.contains(name)) {
                 error(restModelField.getElementAnnotatedBy(SubEnum.class),
-                        "Annotation '@?' has invalid parameter: " +
+                        ANNOTATION_ERROR_PREFFIX +
                                 "Value '?' is invalid enum constant. Allowed values: ?",
                         SubEnum.class.getSimpleName(), name, allowedEnumConstants);
             }
@@ -194,7 +196,7 @@ public final class AnnotationValueValidatorImpl extends AbstractProcessorCompone
         for (final String include : subEnum.include()) {
             if (excludes.contains(include)) {
                 error(restModelField.getElementAnnotatedBy(SubEnum.class),
-                        "Annotation '@?' has invalid parameter: " +
+                        ANNOTATION_ERROR_PREFFIX +
                                 "Value '?' couldn't be included and excluded at the same time",
                         SubEnum.class.getSimpleName(), include);
             }

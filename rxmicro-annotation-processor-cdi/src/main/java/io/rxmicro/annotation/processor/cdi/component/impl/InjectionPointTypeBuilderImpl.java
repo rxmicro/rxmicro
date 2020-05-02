@@ -37,6 +37,7 @@ import javax.lang.model.type.TypeMirror;
 import java.lang.annotation.Annotation;
 import java.util.Collection;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.Set;
 
@@ -162,7 +163,7 @@ public final class InjectionPointTypeBuilderImpl extends AbstractR2DBCConnection
         final Set<R2DBCConnectionProvider> set = getR2DBCConnectionProviders(field);
         if (set.size() == 1) {
             return set.iterator().next();
-        } else if (modelName.toLowerCase().contains("postgre")) {
+        } else if (modelName.toLowerCase(Locale.ENGLISH).contains("postgre")) {
             if (set.contains(POSTGRE_SQL_CONNECTION_PROVIDER)) {
                 return POSTGRE_SQL_CONNECTION_PROVIDER;
             } else {

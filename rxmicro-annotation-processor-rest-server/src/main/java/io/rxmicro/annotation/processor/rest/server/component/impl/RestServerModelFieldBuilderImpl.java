@@ -85,56 +85,56 @@ public final class RestServerModelFieldBuilderImpl extends AbstractRestModelFiel
         validateInternalTypes(annotated);
         if (HttpRequest.class.getName().equals(annotated.getField().asType().toString())) {
             validateInternalByType(modelFieldType, annotated, HttpRequest.class);
-            return Optional.of(new RestModelField(annotated, InternalType.http_request));
+            return Optional.of(new RestModelField(annotated, InternalType.HTTP_REQUEST));
         } else if (HttpVersion.class.getName().equals(annotated.getField().asType().toString())) {
             validateInternalByType(modelFieldType, annotated, HttpVersion.class);
-            return Optional.of(new RestModelField(annotated, InternalType.http_version));
+            return Optional.of(new RestModelField(annotated, InternalType.HTTP_VERSION));
         } else if (HttpHeaders.class.getName().equals(annotated.getField().asType().toString())) {
             validateInternalByType(modelFieldType, annotated, HttpHeaders.class);
-            return Optional.of(new RestModelField(annotated, InternalType.http_headers));
+            return Optional.of(new RestModelField(annotated, InternalType.HTTP_HEADERS));
         } else if (SocketAddress.class.getName().equals(annotated.getField().asType().toString())) {
             if (annotated.getAnnotation(RemoteAddress.class) != null) {
                 validateInternalByAnnotation(modelFieldType, annotated, RemoteAddress.class);
             } else {
                 validateInternalByType(modelFieldType, annotated, SocketAddress.class);
             }
-            return Optional.of(new RestModelField(annotated, InternalType.remote_address));
+            return Optional.of(new RestModelField(annotated, InternalType.REMOTE_ADDRESS));
         } else {
             final RequestUrlPath requestUrlPath = annotated.getAnnotation(RequestUrlPath.class);
             if (requestUrlPath != null) {
                 validateInternalByAnnotation(modelFieldType, annotated, RequestUrlPath.class);
                 validateSupportedTypes(annotated.getElement(), requestUrlPath.annotationType());
-                return Optional.of(new RestModelField(annotated, InternalType.request_url));
+                return Optional.of(new RestModelField(annotated, InternalType.REQUEST_URL));
             }
             final RequestMethod requestMethod = annotated.getAnnotation(RequestMethod.class);
             if (requestMethod != null) {
                 validateInternalByAnnotation(modelFieldType, annotated, RequestMethod.class);
                 validateSupportedTypes(annotated.getElement(), requestMethod.annotationType());
-                return Optional.of(new RestModelField(annotated, InternalType.request_method));
+                return Optional.of(new RestModelField(annotated, InternalType.REQUEST_METHOD));
             }
             final RemoteAddress remoteAddress = annotated.getAnnotation(RemoteAddress.class);
             if (remoteAddress != null) {
                 validateInternalByAnnotation(modelFieldType, annotated, RemoteAddress.class);
                 validateSupportedTypes(annotated.getElement(), remoteAddress.annotationType());
-                return Optional.of(new RestModelField(annotated, InternalType.remote_address));
+                return Optional.of(new RestModelField(annotated, InternalType.REMOTE_ADDRESS));
             }
             final RequestBody requestBody = annotated.getAnnotation(RequestBody.class);
             if (requestBody != null) {
                 validateInternalByAnnotation(modelFieldType, annotated, RequestBody.class);
                 validateSupportedTypes(annotated.getElement(), requestBody.annotationType());
-                return Optional.of(new RestModelField(annotated, InternalType.request_body));
+                return Optional.of(new RestModelField(annotated, InternalType.REQUEST_BODY));
             }
             final ResponseStatusCode responseStatusCode = annotated.getAnnotation(ResponseStatusCode.class);
             if (responseStatusCode != null) {
                 validateInternalByAnnotation(modelFieldType, annotated, ResponseStatusCode.class);
                 validateSupportedTypes(annotated.getElement(), responseStatusCode.annotationType());
-                return Optional.of(new RestModelField(annotated, InternalType.response_status));
+                return Optional.of(new RestModelField(annotated, InternalType.RESPONSE_STATUS));
             }
             final ResponseBody responseBody = annotated.getAnnotation(ResponseBody.class);
             if (responseBody != null) {
                 validateInternalByAnnotation(modelFieldType, annotated, ResponseBody.class);
                 validateSupportedTypes(annotated.getElement(), responseBody.annotationType());
-                return Optional.of(new RestModelField(annotated, InternalType.response_body));
+                return Optional.of(new RestModelField(annotated, InternalType.RESPONSE_BODY));
             }
         }
         return Optional.empty();

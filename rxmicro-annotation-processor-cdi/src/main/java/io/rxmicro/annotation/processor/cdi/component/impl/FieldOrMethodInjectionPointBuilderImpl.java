@@ -63,16 +63,22 @@ public final class FieldOrMethodInjectionPointBuilderImpl extends AbstractInject
         ).collect(toList());
     }
 
-    private void validateInjectionMethod(final ExecutableElement m) {
-        if (m.getParameters().size() == 0) {
-            throw new InterruptProcessingException(m, "Injection method must contain a parameter. This parameter is injectable component!");
+    private void validateInjectionMethod(final ExecutableElement method) {
+        if (method.getParameters().size() == 0) {
+            throw new InterruptProcessingException(
+                    method,
+                    "Injection method must contain a parameter. This parameter is injectable component!"
+            );
         }
-        if (m.getParameters().size() > 1) {
-            throw new InterruptProcessingException(m, "Injection method must contain only one parameter. This parameter is injectable component!");
+        if (method.getParameters().size() > 1) {
+            throw new InterruptProcessingException(
+                    method,
+                    "Injection method must contain only one parameter. This parameter is injectable component!"
+            );
         }
-        validateNotPrivateMethod(m, "Injection method couldn't be a private. Use public or protected od <default> modifier instead!");
-        validateNotStaticMethod(m, "Injection method couldn't be a static. Remove the 'static' modifier!");
-        validateNotAbstractMethod(m, "Injection method couldn't be an abstract. Remove the 'abstract' modifier!");
+        validateNotPrivateMethod(method, "Injection method couldn't be a private. Use public or protected od <default> modifier instead!");
+        validateNotStaticMethod(method, "Injection method couldn't be a static. Remove the 'static' modifier!");
+        validateNotAbstractMethod(method, "Injection method couldn't be an abstract. Remove the 'abstract' modifier!");
     }
 
     @Override

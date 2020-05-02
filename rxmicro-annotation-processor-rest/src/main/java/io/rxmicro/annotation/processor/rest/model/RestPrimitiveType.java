@@ -102,6 +102,7 @@ public enum RestPrimitiveType implements PrimitiveType {
     }
 
     @UsedByFreemarker
+    @Override
     public String getConvertMethod() {
         return convertMethod;
     }

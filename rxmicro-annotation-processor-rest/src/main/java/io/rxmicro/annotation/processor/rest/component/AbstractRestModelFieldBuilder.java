@@ -302,16 +302,14 @@ public abstract class AbstractRestModelFieldBuilder
         final Set<Class<? extends Annotation>> supportedAnnotationClasses = getSupportedAnnotations(modelFieldType);
         for (final Class<? extends Annotation> annotationClass : annotationClasses) {
             final Annotation annotation = annotated.getAnnotation(annotationClass);
-            if (annotation != null) {
-                if (!supportedAnnotationClasses.contains(annotation.annotationType())) {
-                    error(annotated.getElementAnnotatedBy(annotationClass).orElseThrow(ERROR_SUPPLIER),
-                            "REST annotation '@?' is not allowed here. " +
-                                    "All supported REST annotations are: ?. " +
-                                    "Remove the unsupported annotation!",
-                            annotation.annotationType().getName(),
-                            supportedAnnotationClasses
-                    );
-                }
+            if (annotation != null && !supportedAnnotationClasses.contains(annotation.annotationType())) {
+                error(annotated.getElementAnnotatedBy(annotationClass).orElseThrow(ERROR_SUPPLIER),
+                        "REST annotation '@?' is not allowed here. " +
+                                "All supported REST annotations are: ?. " +
+                                "Remove the unsupported annotation!",
+                        annotation.annotationType().getName(),
+                        supportedAnnotationClasses
+                );
             }
         }
     }

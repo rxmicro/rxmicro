@@ -105,6 +105,6 @@ public abstract class AbstractModelJsonConverterClassStructure extends ClassStru
     protected abstract Class<?> getBaseTransformerClass();
 
     protected void customize(final Map<String, Object> map) {
-
+        // Sub classes can add additional attributes to template map
     }
 }

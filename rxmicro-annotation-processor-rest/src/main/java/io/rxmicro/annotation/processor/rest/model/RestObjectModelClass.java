@@ -16,7 +16,6 @@
 
 package io.rxmicro.annotation.processor.rest.model;
 
-import io.rxmicro.annotation.processor.common.model.ModelAccessorType;
 import io.rxmicro.annotation.processor.common.model.ModelField;
 import io.rxmicro.annotation.processor.common.model.type.ModelClass;
 import io.rxmicro.annotation.processor.common.model.type.ObjectModelClass;
@@ -77,7 +76,7 @@ public abstract class RestObjectModelClass extends ObjectModelClass<RestModelFie
     @Override
     public boolean isReadReflectionRequired() {
         final Predicate<RestModelField> predicate = m ->
-                m.getModelReadAccessorType() == ModelAccessorType.REFLECTION;
+                m.getModelReadAccessorType() == REFLECTION;
         return super.isReadReflectionRequired() ||
                 pathVariables.keySet().stream().anyMatch(predicate) ||
                 headers.keySet().stream().anyMatch(predicate) ||
@@ -87,7 +86,7 @@ public abstract class RestObjectModelClass extends ObjectModelClass<RestModelFie
     @Override
     public boolean isWriteReflectionRequired() {
         final Predicate<RestModelField> predicate = m ->
-                m.getModelWriteAccessorType() == ModelAccessorType.REFLECTION;
+                m.getModelWriteAccessorType() == REFLECTION;
         return super.isWriteReflectionRequired() ||
                 pathVariables.keySet().stream().anyMatch(predicate) ||
                 headers.keySet().stream().anyMatch(predicate) ||
@@ -107,17 +106,17 @@ public abstract class RestObjectModelClass extends ObjectModelClass<RestModelFie
     @UsedByFreemarker("$$RestJsonModelWriterTemplate.javaftl")
     public boolean isHeaderReadReflectionRequired() {
         return headers.keySet().stream().anyMatch(m ->
-                m.getModelReadAccessorType() == ModelAccessorType.REFLECTION);
+                m.getModelReadAccessorType() == REFLECTION);
     }
 
     public boolean isInternalsReadReflectionRequired() {
         return internals.stream().anyMatch(m ->
-                m.getModelReadAccessorType() == ModelAccessorType.REFLECTION);
+                m.getModelReadAccessorType() == REFLECTION);
     }
 
     public boolean isPathVariablesReadReflectionRequired() {
         return pathVariables.keySet().stream().anyMatch(m ->
-                m.getModelReadAccessorType() == ModelAccessorType.REFLECTION);
+                m.getModelReadAccessorType() == REFLECTION);
     }
 
     public boolean isParamsWriteReflectionRequired() {

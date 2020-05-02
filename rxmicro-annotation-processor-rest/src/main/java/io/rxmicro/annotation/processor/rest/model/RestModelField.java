@@ -109,7 +109,7 @@ public final class RestModelField extends ModelField {
 
     @UsedByFreemarker("$$RestJsonModelReaderTemplate.javaftl")
     public boolean isRemoteAddress() {
-        return isInternalType() && internalType == InternalType.remote_address;
+        return isInternalType() && internalType == InternalType.REMOTE_ADDRESS;
     }
 
     @UsedByFreemarker("$$RestJsonModelReaderTemplate.javaftl")
@@ -119,41 +119,41 @@ public final class RestModelField extends ModelField {
 
     @UsedByFreemarker("$$RestJsonModelReaderTemplate.javaftl")
     public boolean isRequestBody() {
-        return isInternalType() && internalType == InternalType.request_body;
+        return isInternalType() && internalType == InternalType.REQUEST_BODY;
     }
 
     @UsedByFreemarker("$$RestJsonModelReaderTemplate.javaftl")
     public boolean isHttpRequest() {
-        return isInternalType() && internalType == InternalType.http_request;
+        return isInternalType() && internalType == InternalType.HTTP_REQUEST;
     }
 
     @UsedByFreemarker("$$RestJsonModelReaderTemplate.javaftl")
     public boolean isHttpHeaders() {
-        return isInternalType() && internalType == InternalType.http_headers;
+        return isInternalType() && internalType == InternalType.HTTP_HEADERS;
     }
 
     @UsedByFreemarker("$$RestJsonModelReaderTemplate.javaftl")
     public boolean isHttpVersion() {
-        return isInternalType() && internalType == InternalType.http_version;
+        return isInternalType() && internalType == InternalType.HTTP_VERSION;
     }
 
     @UsedByFreemarker("$$RestJsonModelWriterTemplate.javaftl")
     public boolean isResponseStatus() {
-        return isInternalType() && internalType == InternalType.response_status;
+        return isInternalType() && internalType == InternalType.RESPONSE_STATUS;
     }
 
     @UsedByFreemarker("$$RestJsonModelWriterTemplate.javaftl")
     public boolean isResponseBody() {
-        return isInternalType() && internalType == InternalType.response_body;
+        return isInternalType() && internalType == InternalType.RESPONSE_BODY;
     }
 
     @UsedByFreemarker("$$RestJsonModelReaderTemplate.javaftl")
     public boolean isRequestUrl() {
-        return isInternalType() && internalType == InternalType.request_url;
+        return isInternalType() && internalType == InternalType.REQUEST_URL;
     }
 
     @UsedByFreemarker("$$RestJsonModelReaderTemplate.javaftl")
     public boolean isRequestMethod() {
-        return isInternalType() && internalType == InternalType.request_method;
+        return isInternalType() && internalType == InternalType.REQUEST_METHOD;
     }
 }
