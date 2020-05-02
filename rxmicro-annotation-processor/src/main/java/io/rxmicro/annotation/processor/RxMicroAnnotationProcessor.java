@@ -26,6 +26,7 @@ import io.rxmicro.annotation.processor.rest.server.RestServerModuleClassStructur
 
 import java.util.List;
 
+import static io.rxmicro.annotation.processor.common.util.InternalLoggers.logThrowableStackTrace;
 import static io.rxmicro.common.util.Exceptions.reThrow;
 
 /**
@@ -45,9 +46,9 @@ public final class RxMicroAnnotationProcessor extends BaseRxMicroAnnotationProce
                             CDIClassStructuresBuilder.create()
                     )
             );
-        } catch (final Throwable th) {
-            th.printStackTrace();
-            return reThrow(th);
+        } catch (final Throwable throwable) {
+            logThrowableStackTrace(throwable);
+            return reThrow(throwable);
         }
     }
 

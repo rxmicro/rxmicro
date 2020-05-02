@@ -18,6 +18,7 @@ package io.rxmicro.annotation.processor.common.util;
 
 import static com.google.inject.Guice.createInjector;
 import static com.google.inject.Stage.DEVELOPMENT;
+import static io.rxmicro.annotation.processor.common.util.InternalLoggers.logThrowableStackTrace;
 import static io.rxmicro.common.util.Exceptions.reThrow;
 
 /**
@@ -31,9 +32,9 @@ public final class Injects {
                                           final com.google.inject.Module... modules) {
         try {
             createInjector(DEVELOPMENT, modules).injectMembers(instance);
-        } catch (final Throwable th) {
-            th.printStackTrace();
-            reThrow(th);
+        } catch (final Throwable throwable) {
+            logThrowableStackTrace(throwable);
+            reThrow(throwable);
         }
     }
 

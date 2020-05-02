@@ -28,6 +28,8 @@ import java.util.function.Supplier;
 import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.compilerOptions;
 import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.errorDetected;
 import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.messager;
+import static io.rxmicro.annotation.processor.common.util.InternalLoggers.logThrowableStackTrace;
+import static io.rxmicro.annotation.processor.common.util.InternalLoggers.logMessage;
 import static io.rxmicro.common.util.Formats.format;
 
 /**
@@ -38,11 +40,6 @@ import static io.rxmicro.common.util.Formats.format;
 public abstract class AbstractProcessorComponent {
 
     private Level level;
-
-    private static void logInternal(final String level,
-                                    final String message) {
-        System.out.println("[" + level + "] " + message);
-    }
 
     private Level getLevel() {
         if (level == null) {
@@ -56,48 +53,48 @@ public abstract class AbstractProcessorComponent {
 
     protected final void debug(final Supplier<String> supplier) {
         if (getLevel() == Level.DEBUG) {
-            logInternal(Level.DEBUG.name(), supplier.get());
+            logMessage(Level.DEBUG.name(), supplier.get());
         }
     }
 
     protected final void debug(final String message,
                                final Object... args) {
         if (getLevel() == Level.DEBUG) {
-            logInternal(Level.DEBUG.name(), format(message, args));
+            logMessage(Level.DEBUG.name(), format(message, args));
         }
     }
 
     protected final void debug(final String message,
                                final Supplier<?>... args) {
         if (getLevel() == Level.DEBUG) {
-            logInternal(Level.DEBUG.name(), format(message, Arrays.stream(args).map(Supplier::get).toArray()));
+            logMessage(Level.DEBUG.name(), format(message, Arrays.stream(args).map(Supplier::get).toArray()));
         }
     }
 
     protected final void info(final Supplier<String> supplier) {
         if (getLevel() == Level.INFO) {
-            logInternal(Level.INFO.name(), supplier.get());
+            logMessage(Level.INFO.name(), supplier.get());
         }
     }
 
     protected final void info(final String message,
                               final Object... args) {
         if (getLevel() == Level.INFO) {
-            logInternal(Level.INFO.name(), format(message, args));
+            logMessage(Level.INFO.name(), format(message, args));
         }
     }
 
     protected final void info(final String message,
                               final Supplier<?>... args) {
         if (getLevel() == Level.INFO) {
-            logInternal(Level.INFO.name(), format(message, Arrays.stream(args).map(Supplier::get).toArray()));
+            logMessage(Level.INFO.name(), format(message, Arrays.stream(args).map(Supplier::get).toArray()));
         }
     }
 
     protected final void error(final String message,
                                final Object... args) {
         if (getLevel() != Level.OFF) {
-            logInternal("ERROR", format(message, args));
+            logMessage("ERROR", format(message, args));
         }
     }
 
@@ -122,7 +119,7 @@ public abstract class AbstractProcessorComponent {
 
     protected final void cantGenerateClass(final String generatedClassName,
                                            final Throwable throwable) {
-        throwable.printStackTrace();
+        logThrowableStackTrace(throwable);
         messager().printMessage(Diagnostic.Kind.ERROR,
                 format("Can't generate class ?: ?", generatedClassName, throwable.getMessage()));
         errorDetected();
@@ -130,7 +127,7 @@ public abstract class AbstractProcessorComponent {
 
     protected final void cantGenerateDocument(final String documentName,
                                               final Throwable throwable) {
-        throwable.printStackTrace();
+        logThrowableStackTrace(throwable);
         messager().printMessage(Diagnostic.Kind.ERROR,
                 format("Can't generate document ?: ?", documentName, throwable.getMessage()));
         errorDetected();
@@ -138,7 +135,7 @@ public abstract class AbstractProcessorComponent {
 
     protected final void cantGenerateMethodBody(final String templateName,
                                                 final Throwable throwable) {
-        throwable.printStackTrace();
+        logThrowableStackTrace(throwable);
         messager().printMessage(Diagnostic.Kind.ERROR,
                 format("Can't generate method body using '?' template: ?",
                         templateName, throwable.getMessage()));

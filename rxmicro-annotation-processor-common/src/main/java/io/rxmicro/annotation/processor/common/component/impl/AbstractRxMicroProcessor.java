@@ -31,7 +31,6 @@ import javax.annotation.processing.ProcessingEnvironment;
 import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.TypeElement;
-import javax.tools.Diagnostic;
 import java.util.Collection;
 import java.util.Set;
 
@@ -42,6 +41,8 @@ import static io.rxmicro.annotation.processor.common.SupportedOptions.RX_MICRO_M
 import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.doesNotContainErrors;
 import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.messager;
 import static io.rxmicro.annotation.processor.common.util.Injects.injectDependencies;
+import static io.rxmicro.annotation.processor.common.util.InternalLoggers.logThrowableStackTrace;
+import static javax.tools.Diagnostic.Kind.ERROR;
 
 /**
  * @author nedis
@@ -98,12 +99,11 @@ public abstract class AbstractRxMicroProcessor extends AbstractProcessor {
                 annotationProcessingInformer.annotationProcessingStarted(getAnnotationProcessorType());
                 return process(environmentContextBuilder, annotations, roundEnv);
             } catch (final InterruptProcessingException e) {
-                messager().printMessage(Diagnostic.Kind.ERROR, e.getMessage(), e.getElement());
+                messager().printMessage(ERROR, e.getMessage(), e.getElement());
                 return false;
-            } catch (final RuntimeException | Error e) {
-                messager().printMessage(Diagnostic.Kind.ERROR,
-                        "RxMicroAnnotationProcessor internal error: " + e.getMessage());
-                e.printStackTrace();
+            } catch (final RuntimeException | Error throwable) {
+                messager().printMessage(ERROR, "RxMicroAnnotationProcessor internal error: " + throwable.getMessage());
+                logThrowableStackTrace(throwable);
                 return false;
             }
         }

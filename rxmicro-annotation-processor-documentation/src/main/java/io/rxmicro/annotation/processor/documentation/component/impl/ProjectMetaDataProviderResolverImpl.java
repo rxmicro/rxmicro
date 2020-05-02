@@ -38,6 +38,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.filer;
+import static io.rxmicro.annotation.processor.common.util.InternalLoggers.logThrowableStackTrace;
 import static io.rxmicro.annotation.processor.common.util.Stubs.stub;
 import static io.rxmicro.annotation.processor.documentation.TestSystemProperties.RX_MICRO_POM_XML_ABSOLUTE_PATH;
 import static java.nio.charset.StandardCharsets.UTF_8;
@@ -86,7 +87,7 @@ public final class ProjectMetaDataProviderResolverImpl implements ProjectMetaDat
                 tempResource.delete();
             }
         } catch (final IOException e) {
-            new RxMicroException(e, "Can't detect `pom.xml` location!").printStackTrace();
+            logThrowableStackTrace(new RxMicroException(e, "Can't detect `pom.xml` location!"));
         }
         return Optional.empty();
     }
@@ -115,7 +116,7 @@ public final class ProjectMetaDataProviderResolverImpl implements ProjectMetaDat
             return Optional.of(new MavenPOMProjectMetaDataProvider(pomXmlPath.getParentFile().getAbsolutePath(), models));
         } catch (final IOException | XmlPullParserException | RuntimeException e) {
             // This case must be interpret as warning
-            new RxMicroException(e, "Can't read data from `pom.xml`!").printStackTrace();
+            logThrowableStackTrace(new RxMicroException(e, "Can't read data from `pom.xml`!"));
             return Optional.empty();
         }
     }

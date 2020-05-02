@@ -202,15 +202,11 @@ final class AnnotationValueConverterImplTest extends AbstractRxMicroAnnotationPr
     }
 
     private Object getAnnotationValue(final String name) {
-        final Object value = annotation.getElementValues().entrySet().stream()
+        return annotation.getElementValues().entrySet().stream()
                 .filter(e -> e.getKey().getSimpleName().toString().equals(name))
                 .findFirst()
                 .map(e -> e.getValue().getValue())
                 .orElseGet(() -> fail("Annotation parameter not found: " + name));
-        System.out.println(
-                format("Annotation value: name=?, value=?, type=?", name, value, value.getClass().getName())
-        );
-        return value;
     }
 
     /**
