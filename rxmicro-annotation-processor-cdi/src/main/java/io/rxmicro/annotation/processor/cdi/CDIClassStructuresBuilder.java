@@ -35,7 +35,7 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 import static io.rxmicro.annotation.processor.common.util.Injects.injectDependencies;
-import static io.rxmicro.cdi.local.AnnotationsSupport.INJECT_ANNOTATIONS;
+import static io.rxmicro.cdi.local.Annotations.INJECT_ANNOTATIONS;
 import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toSet;
 

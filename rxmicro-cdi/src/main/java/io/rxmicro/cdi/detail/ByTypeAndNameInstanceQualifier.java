@@ -46,16 +46,22 @@ public class ByTypeAndNameInstanceQualifier<T> extends ByTypeInstanceQualifier<T
 
     @Override
     public boolean equals(final Object other) {
-        if (this == other) return true;
-        if (other == null || getClass() != other.getClass()) return false;
-        if (!super.equals(other)) return false;
+        if (this == other) {
+            return true;
+        }
+        if (other == null || getClass() != other.getClass()) {
+            return false;
+        }
+        if (!super.equals(other)) {
+            return false;
+        }
         final ByTypeAndNameInstanceQualifier<?> that = (ByTypeAndNameInstanceQualifier<?>) other;
         return name.equals(that.name);
     }
 
     @Override
     public String toString() {
-        if (name.startsWith("@")) {
+        if (!name.isEmpty() && name.charAt(0) == '@') {
             return format("@ByTypeAndAnnotated(?, ?)", getType().getName(), name);
         } else {
             return format("@ByTypeAndName(?, '?')", getType().getName(), name);
@@ -66,10 +72,8 @@ public class ByTypeAndNameInstanceQualifier<T> extends ByTypeInstanceQualifier<T
     public int compareTo(final InstanceQualifier<T> other) {
         if (other instanceof ByTypeInstanceQualifier) {
             final int compareResult = super.compareTo(other);
-            if (other instanceof ByTypeAndNameInstanceQualifier) {
-                if (compareResult == 0) {
-                    return name.compareTo(((ByTypeAndNameInstanceQualifier<?>) other).name);
-                }
+            if (other instanceof ByTypeAndNameInstanceQualifier && compareResult == 0) {
+                return name.compareTo(((ByTypeAndNameInstanceQualifier<?>) other).name);
             }
             return compareResult;
         }

@@ -29,7 +29,7 @@ import java.util.Set;
  * @link https://rxmicro.io
  * @since 0.1
  */
-public final class AnnotationsSupport {
+public final class Annotations {
 
     public static final Set<Class<? extends Annotation>> INJECT_ANNOTATIONS =
             Set.of(Inject.class, Autowired.class);
@@ -37,6 +37,6 @@ public final class AnnotationsSupport {
     public static final Set<Class<? extends Annotation>> QUALIFIER_ANNOTATIONS =
             Set.of(Named.class, Qualifier.class);
 
-    private AnnotationsSupport() {
+    private Annotations() {
     }
 }

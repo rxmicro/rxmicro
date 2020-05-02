@@ -32,7 +32,7 @@ import java.util.Set;
 import static io.rxmicro.annotation.processor.common.util.Elements.asTypeElement;
 import static io.rxmicro.annotation.processor.common.util.Elements.findSuperType;
 import static io.rxmicro.annotation.processor.common.util.Names.getSimpleName;
-import static io.rxmicro.cdi.local.AnnotationsSupport.QUALIFIER_ANNOTATIONS;
+import static io.rxmicro.cdi.local.Annotations.QUALIFIER_ANNOTATIONS;
 import static io.rxmicro.common.util.Strings.unCapitalize;
 
 /**

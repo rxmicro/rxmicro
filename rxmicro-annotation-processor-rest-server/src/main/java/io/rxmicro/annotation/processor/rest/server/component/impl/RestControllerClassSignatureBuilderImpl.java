@@ -41,7 +41,7 @@ import static io.rxmicro.annotation.processor.common.util.validators.TypeValidat
 import static io.rxmicro.annotation.processor.common.util.validators.TypeValidators.validateNotAbstractClass;
 import static io.rxmicro.annotation.processor.common.util.validators.TypeValidators.validateNotNestedClass;
 import static io.rxmicro.annotation.processor.common.util.validators.TypeValidators.validateNotSuperClass;
-import static io.rxmicro.cdi.local.AnnotationsSupport.INJECT_ANNOTATIONS;
+import static io.rxmicro.cdi.local.Annotations.INJECT_ANNOTATIONS;
 import static javax.lang.model.element.ElementKind.CLASS;
 import static javax.lang.model.element.ElementKind.INTERFACE;
 

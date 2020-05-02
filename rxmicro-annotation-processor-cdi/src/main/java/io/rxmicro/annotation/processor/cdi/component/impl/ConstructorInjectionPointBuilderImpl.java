@@ -31,7 +31,7 @@ import static io.rxmicro.annotation.processor.common.util.Elements.allConstructo
 import static io.rxmicro.annotation.processor.common.util.Elements.allFields;
 import static io.rxmicro.annotation.processor.common.util.Elements.allMethods;
 import static io.rxmicro.annotation.processor.common.util.validators.TypeValidators.validateAccessibleConstructor;
-import static io.rxmicro.cdi.local.AnnotationsSupport.INJECT_ANNOTATIONS;
+import static io.rxmicro.cdi.local.Annotations.INJECT_ANNOTATIONS;
 import static io.rxmicro.common.util.Formats.format;
 import static java.util.stream.Collectors.joining;
 import static java.util.stream.Collectors.toList;
