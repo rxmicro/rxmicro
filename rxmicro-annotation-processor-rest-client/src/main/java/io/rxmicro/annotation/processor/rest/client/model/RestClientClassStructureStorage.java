@@ -23,6 +23,7 @@ import io.rxmicro.annotation.processor.rest.model.RestObjectModelClass;
 import io.rxmicro.annotation.processor.rest.model.converter.ModelFromJsonConverterClassStructure;
 import io.rxmicro.annotation.processor.rest.model.converter.ModelToJsonConverterClassStructure;
 import io.rxmicro.annotation.processor.rest.model.validator.ModelValidatorClassStructure;
+import io.rxmicro.common.meta.BuilderMethod;
 
 import java.util.HashSet;
 import java.util.Map;
@@ -164,30 +165,35 @@ public final class RestClientClassStructureStorage {
             this.responseValidators.addAll(responseValidators);
         }
 
+        @BuilderMethod
         public Builder addPathBuilders(
                 final Set<PathBuilderClassStructure> pathBuilders) {
             this.pathBuilders.addAll(pathBuilders);
             return this;
         }
 
+        @BuilderMethod
         public Builder addModelReaders(
                 final Set<ModelReaderClassStructure> modelReaders) {
             this.modelReaders.addAll(modelReaders);
             return this;
         }
 
+        @BuilderMethod
         public Builder addRequestModelExtractors(
                 final Set<RequestModelExtractorClassStructure> requestModelExtractors) {
             this.requestModelExtractors.addAll(requestModelExtractors);
             return this;
         }
 
+        @BuilderMethod
         public Builder addModelFromJsonConverters(
                 final Set<ModelFromJsonConverterClassStructure> modelFromJsonConverters) {
             this.modelFromJsonConverters.addAll(modelFromJsonConverters);
             return this;
         }
 
+        @BuilderMethod
         public Builder addModelToJsonConverters(
                 final Set<ModelToJsonConverterClassStructure> modelToJsonConverters) {
             this.modelToJsonConverters.addAll(modelToJsonConverters);

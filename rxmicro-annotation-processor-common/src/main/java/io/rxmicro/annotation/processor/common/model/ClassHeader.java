@@ -18,6 +18,7 @@ package io.rxmicro.annotation.processor.common.model;
 
 import io.rxmicro.annotation.processor.common.model.type.ObjectModelClass;
 import io.rxmicro.annotation.processor.common.util.Names;
+import io.rxmicro.common.meta.BuilderMethod;
 
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.DeclaredType;
@@ -164,11 +165,13 @@ public final class ClassHeader {
             this.packageName = require(packageName);
         }
 
+        @BuilderMethod
         public Builder addImports(final TypeElement... types) {
             Arrays.stream(types).forEach(t -> addImport(t.getQualifiedName().toString()));
             return this;
         }
 
+        @BuilderMethod
         public Builder addImports(final TypeMirror... types) {
             Arrays.stream(types)
                     .flatMap(this::expand)
@@ -193,11 +196,13 @@ public final class ClassHeader {
             result.add(getTypes().erasure(type));
         }
 
+        @BuilderMethod
         public Builder addImports(final Class<?>... classes) {
             Arrays.stream(classes).forEach(cl -> addImport(cl.getName()));
             return this;
         }
 
+        @BuilderMethod
         public Builder addImports(final String... fullClassNames) {
             for (final String fullClassName : fullClassNames) {
                 addImport(fullClassName);
@@ -205,6 +210,7 @@ public final class ClassHeader {
             return this;
         }
 
+        @BuilderMethod
         public Builder addImports(final Collection<TypeMirror> fullClassNames) {
             addImports(fullClassNames.toArray(EMPTY_TYPE_MIRROR_ARRAY));
             return this;
@@ -214,12 +220,14 @@ public final class ClassHeader {
             imports.add(fullClassName);
         }
 
+        @BuilderMethod
         public Builder addStaticImport(final Class<?> className,
                                        final String methodName) {
             addStaticImport(className.getName(), methodName);
             return this;
         }
 
+        @BuilderMethod
         public Builder addStaticImport(final String className,
                                        final String methodName) {
             staticImports.add(format("?.?", className, methodName));

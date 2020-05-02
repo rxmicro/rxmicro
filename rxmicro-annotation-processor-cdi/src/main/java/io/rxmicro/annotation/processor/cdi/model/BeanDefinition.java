@@ -20,6 +20,7 @@ import io.rxmicro.annotation.processor.common.model.ClassHeader;
 import io.rxmicro.annotation.processor.common.util.UsedByFreemarker;
 import io.rxmicro.cdi.detail.BeanSupplier;
 import io.rxmicro.cdi.detail.InternalBeanFactory;
+import io.rxmicro.common.meta.BuilderMethod;
 
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
@@ -167,36 +168,43 @@ public final class BeanDefinition {
 
         private FactoryMethod factoryMethod;
 
+        @BuilderMethod
         public Builder setBeanTypeElement(final TypeElement beanTypeElement) {
             this.beanTypeElement = require(beanTypeElement);
             return this;
         }
 
+        @BuilderMethod
         public Builder setFactoryTypeProviderMethod(final ExecutableElement factoryTypeProviderMethod) {
             this.factoryTypeProviderMethod = require(factoryTypeProviderMethod);
             return this;
         }
 
+        @BuilderMethod
         public Builder setFactoryTypeProviderType(final TypeElement factoryTypeProviderType) {
             this.factoryTypeProviderType = require(factoryTypeProviderType);
             return this;
         }
 
+        @BuilderMethod
         public Builder setConstructorInjection(final boolean constructorInjection) {
             this.constructorInjection = constructorInjection;
             return this;
         }
 
+        @BuilderMethod
         public Builder setInjectionPoints(final List<InjectionPoint> injectionPoints) {
             this.injectionPoints = require(injectionPoints);
             return this;
         }
 
+        @BuilderMethod
         public Builder setPostConstructMethod(final PostConstructMethod postConstructMethod) {
             this.postConstructMethod = require(postConstructMethod);
             return this;
         }
 
+        @BuilderMethod
         public Builder setFactoryMethod(final FactoryMethod factoryMethod) {
             this.factoryMethod = require(factoryMethod);
             return this;

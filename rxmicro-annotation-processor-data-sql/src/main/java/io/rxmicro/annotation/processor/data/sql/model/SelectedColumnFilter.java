@@ -16,6 +16,8 @@
 
 package io.rxmicro.annotation.processor.data.sql.model;
 
+import io.rxmicro.common.meta.BuilderMethod;
+
 import java.util.Set;
 
 import static io.rxmicro.common.util.Requires.require;
@@ -67,16 +69,19 @@ public final class SelectedColumnFilter {
 
         private Set<String> breakTokens = Set.of();
 
+        @BuilderMethod
         public Builder setStartIndex(final int startIndex) {
             this.startIndex = startIndex;
             return this;
         }
 
+        @BuilderMethod
         public Builder setIgnoredTokens(final Set<String> ignoredTokens) {
             this.ignoredTokens = ignoredTokens;
             return this;
         }
 
+        @BuilderMethod
         public Builder setBreakTokens(final Set<String> breakTokens) {
             this.breakTokens = breakTokens;
             return this;

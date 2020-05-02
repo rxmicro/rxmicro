@@ -19,6 +19,7 @@ package io.rxmicro.annotation.processor.cdi.model;
 import io.rxmicro.annotation.processor.common.model.ClassHeader;
 import io.rxmicro.annotation.processor.common.util.UsedByFreemarker;
 import io.rxmicro.cdi.detail.InternalBeanFactory;
+import io.rxmicro.common.meta.BuilderMethod;
 import io.rxmicro.config.Configs;
 import io.rxmicro.data.RepositoryFactory;
 import io.rxmicro.data.mongo.MongoClientFactory;
@@ -159,31 +160,37 @@ public final class InjectionPoint {
 
         private List<QualifierRule> qualifierRules = List.of();
 
+        @BuilderMethod
         public Builder setConstructorInjection(final boolean constructorInjection) {
             this.constructorInjection = constructorInjection;
             return this;
         }
 
+        @BuilderMethod
         public Builder setInjectionMethod(final ExecutableElement injectionMethod) {
             this.injectionMethod = require(injectionMethod);
             return this;
         }
 
+        @BuilderMethod
         public Builder setType(final InjectionPointType type) {
             this.type = require(type);
             return this;
         }
 
+        @BuilderMethod
         public Builder setRequired(final boolean required) {
             this.required = required;
             return this;
         }
 
+        @BuilderMethod
         public Builder setModelField(final InjectionModelField modelField) {
             this.modelField = require(modelField);
             return this;
         }
 
+        @BuilderMethod
         public Builder setQualifierRules(final List<QualifierRule> qualifierRules) {
             this.qualifierRules = require(qualifierRules);
             return this;

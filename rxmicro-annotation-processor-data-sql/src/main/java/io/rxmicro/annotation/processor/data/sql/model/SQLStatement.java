@@ -17,6 +17,7 @@
 package io.rxmicro.annotation.processor.data.sql.model;
 
 import io.rxmicro.annotation.processor.common.util.UsedByFreemarker;
+import io.rxmicro.common.meta.BuilderMethod;
 
 import java.util.List;
 
@@ -101,26 +102,31 @@ public final class SQLStatement {
 
         private List<String> bindParams = List.of();
 
+        @BuilderMethod
         public Builder setOriginalSql(final String originalSql) {
             this.originalSql = require(originalSql);
             return this;
         }
 
+        @BuilderMethod
         public Builder setResultColumns(final List<String> resultColumns) {
             this.resultColumns = require(resultColumns);
             return this;
         }
 
+        @BuilderMethod
         public Builder setDefaultColumnOrder(final boolean defaultColumnOrder) {
             this.defaultColumnOrder = defaultColumnOrder;
             return this;
         }
 
+        @BuilderMethod
         public Builder setSqlExpression(final String sqlExpression) {
             this.sqlExpression = require(sqlExpression);
             return this;
         }
 
+        @BuilderMethod
         public Builder setBindParams(final List<String> bindParams) {
             this.bindParams = require(bindParams);
             return this;

@@ -17,6 +17,7 @@
 package io.rxmicro.annotation.processor.documentation.model;
 
 import io.rxmicro.annotation.processor.common.util.UsedByFreemarker;
+import io.rxmicro.common.meta.BuilderMethod;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -144,36 +145,43 @@ public final class ProjectMetaData {
 
         private List<LicenseMetaData> licenses;
 
+        @BuilderMethod
         public Builder setProjectDirectory(final String projectDirectory) {
             this.projectDirectory = require(projectDirectory);
             return this;
         }
 
+        @BuilderMethod
         public Builder setName(final String name) {
             this.name = require(name);
             return this;
         }
 
+        @BuilderMethod
         public Builder setDescription(final String description) {
             this.description = require(description);
             return this;
         }
 
+        @BuilderMethod
         public Builder setVersion(final String version) {
             this.version = require(version);
             return this;
         }
 
+        @BuilderMethod
         public Builder setBaseEndpoint(final String baseEndpoint) {
             this.baseEndpoint = require(baseEndpoint);
             return this;
         }
 
+        @BuilderMethod
         public Builder setAuthors(final List<AuthorMetaData> authors) {
             this.authors = require(authors);
             return this;
         }
 
+        @BuilderMethod
         public Builder setLicenses(final List<LicenseMetaData> licenses) {
             this.licenses = require(licenses);
             return this;

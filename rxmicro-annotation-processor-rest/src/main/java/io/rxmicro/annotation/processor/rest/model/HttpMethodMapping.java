@@ -17,6 +17,7 @@
 package io.rxmicro.annotation.processor.rest.model;
 
 import io.rxmicro.annotation.processor.common.util.UsedByFreemarker;
+import io.rxmicro.common.meta.BuilderMethod;
 import io.rxmicro.rest.model.UrlSegments;
 
 import java.lang.annotation.Annotation;
@@ -136,26 +137,31 @@ public final class HttpMethodMapping {
 
         private String versionHeaderValue;
 
+        @BuilderMethod
         public Builder setMethod(final Class<? extends Annotation> method) {
             this.method = require(method).getSimpleName();
             return this;
         }
 
+        @BuilderMethod
         public Builder setUri(final String uri) {
             this.uri = require(uri);
             return this;
         }
 
+        @BuilderMethod
         public Builder setUrlSegments(final UrlSegments urlSegments) {
             this.urlSegments = require(urlSegments);
             return this;
         }
 
+        @BuilderMethod
         public Builder setHttpBody(final boolean httpBody) {
             this.httpBody = httpBody;
             return this;
         }
 
+        @BuilderMethod
         public Builder setVersionHeaderValue(final String versionHeaderValue) {
             this.versionHeaderValue = require(versionHeaderValue);
             return this;

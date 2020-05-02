@@ -16,6 +16,8 @@
 
 package io.rxmicro.annotation.processor.documentation.model;
 
+import io.rxmicro.common.meta.BuilderMethod;
+
 import static io.rxmicro.common.util.Requires.require;
 import static io.rxmicro.http.HttpStatuses.getErrorMessage;
 
@@ -87,27 +89,32 @@ public final class StandardHttpError {
 
         private boolean withShowErrorCauseReadMoreLink;
 
+        @BuilderMethod
         public Builder setStatus(final int status) {
             this.status = status;
             this.exampleErrorMessage = getErrorMessage(status);
             return this;
         }
 
+        @BuilderMethod
         public Builder setDescription(final String description) {
             this.description = require(description);
             return this;
         }
 
+        @BuilderMethod
         public Builder setExampleErrorMessage(final String exampleErrorMessage) {
             this.exampleErrorMessage = require(exampleErrorMessage);
             return this;
         }
 
+        @BuilderMethod
         public Builder setMessageDescription(final String messageDescription) {
             this.messageDescription = require(messageDescription);
             return this;
         }
 
+        @BuilderMethod
         public Builder setWithShowErrorCauseReadMoreLink() {
             this.withShowErrorCauseReadMoreLink = true;
             return this;
