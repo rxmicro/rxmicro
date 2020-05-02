@@ -43,15 +43,14 @@ public final class MockitoTestExtension implements TestExtension {
             for (final Annotation annotation : testModel.getTestClass().getAnnotations()) {
                 if (isInitMocksAnnotation(annotation)) {
                     initMocksAnnotation = annotation;
-                } else if (supportedRxMicroTestAnnotations.contains(annotation.annotationType())) {
-                    if (initMocksAnnotation == null) {
-                        throw new InvalidTestConfigException(
-                                "'@?' must be added before '@?' annotation for class: '?'",
-                                InitMocks.class.getName(),
-                                annotation.annotationType().getName(),
-                                testModel.getTestClass().getName()
-                        );
-                    }
+                } else if (supportedRxMicroTestAnnotations.contains(annotation.annotationType()) &&
+                        initMocksAnnotation == null) {
+                    throw new InvalidTestConfigException(
+                            "'@?' must be added before '@?' annotation for class: '?'",
+                            InitMocks.class.getName(),
+                            annotation.annotationType().getName(),
+                            testModel.getTestClass().getName()
+                    );
                 }
             }
             if (initMocksAnnotation == null) {
