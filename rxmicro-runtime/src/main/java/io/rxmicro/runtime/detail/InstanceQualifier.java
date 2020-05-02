@@ -25,5 +25,6 @@ public interface InstanceQualifier<T> extends Comparable<InstanceQualifier<T>> {
 
     Class<T> getType();
 
+    @Override
     String toString();
 }

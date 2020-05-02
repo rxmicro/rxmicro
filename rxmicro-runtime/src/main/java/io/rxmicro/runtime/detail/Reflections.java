@@ -36,7 +36,7 @@ import static java.util.stream.Collectors.joining;
  */
 public final class Reflections {
 
-    private static final Map<Class<?>, Map<String, Field>> cache = new HashMap<>();
+    private static final Map<Class<?>, Map<String, Field>> CACHE = new HashMap<>();
 
     static {
         setRxMicroVersion();
@@ -46,7 +46,7 @@ public final class Reflections {
                                  final String fieldName,
                                  final Consumer<Field> setAccessibleConsumer) {
         final Class<?> cl = model.getClass();
-        final Map<String, Field> fieldMap = cache.computeIfAbsent(cl, c -> createFieldMap(cl, setAccessibleConsumer));
+        final Map<String, Field> fieldMap = CACHE.computeIfAbsent(cl, c -> createFieldMap(cl, setAccessibleConsumer));
 
         final Field field = fieldMap.get(fieldName);
         if (field == null) {

@@ -69,7 +69,7 @@ public final class Instances {
 
     public static <T> T instantiate(final Class<T> targetClass,
                                     final Class<?>[] argTypes,
-                                    final Object[] constructorArgs) {
+                                    final Object... constructorArgs) {
         try {
             return targetClass.getConstructor(argTypes).newInstance(constructorArgs);
         } catch (final NoSuchMethodException e) {

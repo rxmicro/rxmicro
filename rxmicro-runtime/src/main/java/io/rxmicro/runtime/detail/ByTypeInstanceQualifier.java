@@ -43,10 +43,14 @@ public class ByTypeInstanceQualifier<T> implements InstanceQualifier<T> {
     }
 
     @Override
-    public boolean equals(final Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        final ByTypeInstanceQualifier<?> that = (ByTypeInstanceQualifier<?>) o;
+    public boolean equals(final Object other) {
+        if (this == other) {
+            return true;
+        }
+        if (other == null || getClass() != other.getClass()) {
+            return false;
+        }
+        final ByTypeInstanceQualifier<?> that = (ByTypeInstanceQualifier<?>) other;
         return type.equals(that.type);
     }
 
@@ -57,9 +61,9 @@ public class ByTypeInstanceQualifier<T> implements InstanceQualifier<T> {
 
     @SuppressWarnings("NullableProblems")
     @Override
-    public int compareTo(final InstanceQualifier<T> o) {
-        if (o instanceof ByTypeInstanceQualifier) {
-            return type.getName().compareTo(((ByTypeInstanceQualifier<?>) o).type.getName());
+    public int compareTo(final InstanceQualifier<T> other) {
+        if (other instanceof ByTypeInstanceQualifier) {
+            return type.getName().compareTo(((ByTypeInstanceQualifier<?>) other).type.getName());
         }
         return 1;
     }

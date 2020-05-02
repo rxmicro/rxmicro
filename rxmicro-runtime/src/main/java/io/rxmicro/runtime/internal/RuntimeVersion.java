@@ -49,8 +49,8 @@ public final class RuntimeVersion {
     }
 
     private static String resolveVersion() {
-        final Package p = RuntimeVersion.class.getPackage();
-        final String implVersion = p.getImplementationVersion();
+        final Package pkg = RuntimeVersion.class.getPackage();
+        final String implVersion = pkg.getImplementationVersion();
         if (implVersion != null) {
             return implVersion;
         } else {
@@ -61,12 +61,12 @@ public final class RuntimeVersion {
     private static String tryReadPomProperties() {
         final String unresolved = "unresolved";
         try {
-            final Properties p = new Properties();
-            try (final InputStream in = RuntimeVersion.class.getClassLoader()
+            final Properties properties = new Properties();
+            try (InputStream in = RuntimeVersion.class.getClassLoader()
                     .getResourceAsStream("META-INF/maven/io.rxmicro/rxmicro-runtime/pom.properties")) {
                 if (in != null) {
-                    p.load(in);
-                    return p.getProperty("version", unresolved);
+                    properties.load(in);
+                    return properties.getProperty("version", unresolved);
                 } else {
                     return unresolved;
                 }

@@ -45,11 +45,11 @@ public class ByTypeAndNameInstanceQualifier<T> extends ByTypeInstanceQualifier<T
     }
 
     @Override
-    public boolean equals(final Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
-        final ByTypeAndNameInstanceQualifier<?> that = (ByTypeAndNameInstanceQualifier<?>) o;
+    public boolean equals(final Object other) {
+        if (this == other) return true;
+        if (other == null || getClass() != other.getClass()) return false;
+        if (!super.equals(other)) return false;
+        final ByTypeAndNameInstanceQualifier<?> that = (ByTypeAndNameInstanceQualifier<?>) other;
         return name.equals(that.name);
     }
 
@@ -63,12 +63,12 @@ public class ByTypeAndNameInstanceQualifier<T> extends ByTypeInstanceQualifier<T
     }
 
     @Override
-    public int compareTo(final InstanceQualifier<T> o) {
-        if (o instanceof ByTypeInstanceQualifier) {
-            final int compareResult = super.compareTo(o);
-            if (o instanceof ByTypeAndNameInstanceQualifier) {
+    public int compareTo(final InstanceQualifier<T> other) {
+        if (other instanceof ByTypeInstanceQualifier) {
+            final int compareResult = super.compareTo(other);
+            if (other instanceof ByTypeAndNameInstanceQualifier) {
                 if (compareResult == 0) {
-                    return name.compareTo(((ByTypeAndNameInstanceQualifier<?>) o).name);
+                    return name.compareTo(((ByTypeAndNameInstanceQualifier<?>) other).name);
                 }
             }
             return compareResult;

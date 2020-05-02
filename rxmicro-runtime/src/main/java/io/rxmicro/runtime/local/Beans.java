@@ -37,10 +37,9 @@ public final class Beans {
         Class<?> current = classInstance;
         while (current != null && current != Object.class) {
             for (final Method method : current.getDeclaredMethods()) {
-                if (isPublicSetter(method)) {
-                    if (methodNames.add(method.getName() + method.getParameterTypes()[0].getName())) {
-                        methods.add(method);
-                    }
+                if (isPublicSetter(method) &&
+                        methodNames.add(method.getName() + method.getParameterTypes()[0].getName())) {
+                    methods.add(method);
                 }
             }
             current = current.getSuperclass();
