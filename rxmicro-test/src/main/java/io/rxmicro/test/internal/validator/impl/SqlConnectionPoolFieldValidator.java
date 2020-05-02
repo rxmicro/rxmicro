@@ -17,7 +17,6 @@
 package io.rxmicro.test.internal.validator.impl;
 
 import io.r2dbc.pool.ConnectionPool;
-import io.rxmicro.test.local.InvalidTestConfigException;
 
 import java.lang.reflect.Field;
 import java.util.List;

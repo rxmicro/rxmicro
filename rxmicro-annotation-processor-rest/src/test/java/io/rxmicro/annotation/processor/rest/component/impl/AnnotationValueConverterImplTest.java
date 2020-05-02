@@ -49,7 +49,6 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import static com.google.testing.compile.CompilationSubject.assertThat;
-import static io.rxmicro.common.util.Formats.format;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;

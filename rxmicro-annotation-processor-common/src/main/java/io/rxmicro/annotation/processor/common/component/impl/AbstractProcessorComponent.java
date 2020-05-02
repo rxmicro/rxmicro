@@ -25,11 +25,11 @@ import java.util.Arrays;
 import java.util.Optional;
 import java.util.function.Supplier;
 
-import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.getCompilerOptions;
 import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.errorDetected;
+import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.getCompilerOptions;
 import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.getMessager;
-import static io.rxmicro.annotation.processor.common.util.InternalLoggers.logThrowableStackTrace;
 import static io.rxmicro.annotation.processor.common.util.InternalLoggers.logMessage;
+import static io.rxmicro.annotation.processor.common.util.InternalLoggers.logThrowableStackTrace;
 import static io.rxmicro.common.util.Formats.format;
 
 /**
