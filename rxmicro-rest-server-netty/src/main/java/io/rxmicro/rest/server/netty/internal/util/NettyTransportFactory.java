@@ -95,4 +95,7 @@ public final class NettyTransportFactory {
             }
         }
     }
+
+    private NettyTransportFactory(){
+    }
 }

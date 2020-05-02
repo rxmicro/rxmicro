@@ -95,7 +95,7 @@ public final class $$MicroService2 extends AbstractRestController {
 
     private CompletionStage<HttpResponse> put(final PathVariableMapping pathVariableMapping,
                                               final HttpRequest request) {
-        final $$Virtual2Request req = virtual2RequestModelReader.read(pathVariableMapping, request, request.contentExists());
+        final $$Virtual2Request req = virtual2RequestModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         restController.put(req.parameter);
         return CompletableFuture.completedStage(buildResponse(200, headers));

@@ -46,7 +46,7 @@ public interface HttpRequest {
 
     HttpHeaders getHeaders();
 
-    boolean contentExists();
+    boolean isContentPresent();
 
     byte[] getContent();
 }

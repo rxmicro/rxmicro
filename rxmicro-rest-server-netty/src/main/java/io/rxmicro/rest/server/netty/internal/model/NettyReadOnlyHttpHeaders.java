@@ -59,7 +59,7 @@ public final class NettyReadOnlyHttpHeaders implements HttpHeaders {
     }
 
     @Override
-    public List<String> getValues(String name) {
+    public List<String> getValues(final String name) {
         if (requestIdGenerated && REQUEST_ID.equalsIgnoreCase(name)) {
             return List.of(requestId);
         } else {

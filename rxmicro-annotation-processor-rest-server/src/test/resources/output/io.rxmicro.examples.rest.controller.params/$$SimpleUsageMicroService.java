@@ -84,7 +84,7 @@ public final class $$SimpleUsageMicroService extends AbstractRestController {
 
     private CompletionStage<HttpResponse> get1(final PathVariableMapping pathVariableMapping,
                                                final HttpRequest request) {
-        final Request req = requestModelReader.read(pathVariableMapping, request, request.contentExists());
+        final Request req = requestModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         return restController.get1(req)
                 .thenApply(response -> buildResponse(response, 200, headers));
@@ -92,7 +92,7 @@ public final class $$SimpleUsageMicroService extends AbstractRestController {
 
     private CompletionStage<HttpResponse> get2(final PathVariableMapping pathVariableMapping,
                                                final HttpRequest request) {
-        final $$VirtualSimpleUsageRequest req = virtualSimpleUsageRequestModelReader.read(pathVariableMapping, request, request.contentExists());
+        final $$VirtualSimpleUsageRequest req = virtualSimpleUsageRequestModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         return restController.get2(req.endpointVersion, req.useProxy)
                 .thenApply(response -> buildResponse(response, 200, headers));

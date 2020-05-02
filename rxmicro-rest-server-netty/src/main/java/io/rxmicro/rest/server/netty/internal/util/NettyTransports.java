@@ -89,4 +89,7 @@ final class NettyTransports {
         }
         return cl;
     }
+
+    private NettyTransports(){
+    }
 }

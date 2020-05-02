@@ -60,7 +60,7 @@ public final class $$ComplexModelMicroService extends AbstractRestController {
 
     private CompletionStage<HttpResponse> handle(final PathVariableMapping pathVariableMapping,
                                                  final HttpRequest request) {
-        final ComplexRequest req = complexRequestModelReader.read(pathVariableMapping, request, request.contentExists());
+        final ComplexRequest req = complexRequestModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         return restController.handle(req)
                 .thenApply(response -> buildResponse(response, 200, headers));

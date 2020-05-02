@@ -340,7 +340,7 @@ public final class $$RestControllerWithBody extends AbstractRestController {
 
     private CompletionStage<HttpResponse> completedFuture2(final PathVariableMapping pathVariableMapping,
                                                            final HttpRequest request) {
-        final Request req = requestModelReader.read(pathVariableMapping, request, request.contentExists());
+        final Request req = requestModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         return restController.completedFuture2(req)
                 .thenApply(response -> buildResponse(response, 200, headers));
@@ -348,7 +348,7 @@ public final class $$RestControllerWithBody extends AbstractRestController {
 
     private CompletionStage<HttpResponse> completedFuture3(final PathVariableMapping pathVariableMapping,
                                                            final HttpRequest request) {
-        final $$VirtualWithBodyRequest req = virtualWithBodyRequestModelReader.read(pathVariableMapping, request, request.contentExists());
+        final $$VirtualWithBodyRequest req = virtualWithBodyRequestModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         return restController.completedFuture3(req.requestParameter)
                 .thenApply(response -> buildResponse(response, 200, headers));
@@ -365,7 +365,7 @@ public final class $$RestControllerWithBody extends AbstractRestController {
 
     private CompletionStage<HttpResponse> completedFuture5(final PathVariableMapping pathVariableMapping,
                                                            final HttpRequest request) {
-        final Request req = requestModelReader.read(pathVariableMapping, request, request.contentExists());
+        final Request req = requestModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         return restController.completedFuture5(req)
                 .thenApply(optionalResponse -> optionalResponse
@@ -375,7 +375,7 @@ public final class $$RestControllerWithBody extends AbstractRestController {
 
     private CompletionStage<HttpResponse> completedFuture6(final PathVariableMapping pathVariableMapping,
                                                            final HttpRequest request) {
-        final $$VirtualWithBodyRequest2 req = virtualWithBodyRequest2ModelReader.read(pathVariableMapping, request, request.contentExists());
+        final $$VirtualWithBodyRequest2 req = virtualWithBodyRequest2ModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         return restController.completedFuture6(req.requestParameter)
                 .thenApply(optionalResponse -> optionalResponse
@@ -392,7 +392,7 @@ public final class $$RestControllerWithBody extends AbstractRestController {
 
     private CompletionStage<HttpResponse> completionStage2(final PathVariableMapping pathVariableMapping,
                                                            final HttpRequest request) {
-        final Request req = requestModelReader.read(pathVariableMapping, request, request.contentExists());
+        final Request req = requestModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         return restController.completionStage2(req)
                 .thenApply(response -> buildResponse(response, 200, headers));
@@ -400,7 +400,7 @@ public final class $$RestControllerWithBody extends AbstractRestController {
 
     private CompletionStage<HttpResponse> completionStage3(final PathVariableMapping pathVariableMapping,
                                                            final HttpRequest request) {
-        final $$VirtualWithBodyRequest3 req = virtualWithBodyRequest3ModelReader.read(pathVariableMapping, request, request.contentExists());
+        final $$VirtualWithBodyRequest3 req = virtualWithBodyRequest3ModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         return restController.completionStage3(req.requestParameter)
                 .thenApply(response -> buildResponse(response, 200, headers));
@@ -417,7 +417,7 @@ public final class $$RestControllerWithBody extends AbstractRestController {
 
     private CompletionStage<HttpResponse> completionStage5(final PathVariableMapping pathVariableMapping,
                                                            final HttpRequest request) {
-        final Request req = requestModelReader.read(pathVariableMapping, request, request.contentExists());
+        final Request req = requestModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         return restController.completionStage5(req)
                 .thenApply(optionalResponse -> optionalResponse
@@ -427,7 +427,7 @@ public final class $$RestControllerWithBody extends AbstractRestController {
 
     private CompletionStage<HttpResponse> completionStage6(final PathVariableMapping pathVariableMapping,
                                                            final HttpRequest request) {
-        final $$VirtualWithBodyRequest4 req = virtualWithBodyRequest4ModelReader.read(pathVariableMapping, request, request.contentExists());
+        final $$VirtualWithBodyRequest4 req = virtualWithBodyRequest4ModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         return restController.completionStage6(req.requestParameter)
                 .thenApply(optionalResponse -> optionalResponse
@@ -446,7 +446,7 @@ public final class $$RestControllerWithBody extends AbstractRestController {
 
     private CompletionStage<HttpResponse> mono2(final PathVariableMapping pathVariableMapping,
                                                 final HttpRequest request) {
-        final Request req = requestModelReader.read(pathVariableMapping, request, request.contentExists());
+        final Request req = requestModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         return restController.mono2(req)
                 .map(response -> buildResponse(response, 200, headers))
@@ -456,7 +456,7 @@ public final class $$RestControllerWithBody extends AbstractRestController {
 
     private CompletionStage<HttpResponse> mono3(final PathVariableMapping pathVariableMapping,
                                                 final HttpRequest request) {
-        final $$VirtualWithBodyRequest5 req = virtualWithBodyRequest5ModelReader.read(pathVariableMapping, request, request.contentExists());
+        final $$VirtualWithBodyRequest5 req = virtualWithBodyRequest5ModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         return restController.mono3(req.requestParameter)
                 .map(response -> buildResponse(response, 200, headers))
@@ -474,7 +474,7 @@ public final class $$RestControllerWithBody extends AbstractRestController {
 
     private CompletionStage<HttpResponse> single2(final PathVariableMapping pathVariableMapping,
                                                   final HttpRequest request) {
-        final Request req = requestModelReader.read(pathVariableMapping, request, request.contentExists());
+        final Request req = requestModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         return restController.single2(req)
                 .map(response -> buildResponse(response, 200, headers))
@@ -483,7 +483,7 @@ public final class $$RestControllerWithBody extends AbstractRestController {
 
     private CompletionStage<HttpResponse> single3(final PathVariableMapping pathVariableMapping,
                                                   final HttpRequest request) {
-        final $$VirtualWithBodyRequest6 req = virtualWithBodyRequest6ModelReader.read(pathVariableMapping, request, request.contentExists());
+        final $$VirtualWithBodyRequest6 req = virtualWithBodyRequest6ModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         return restController.single3(req.requestParameter)
                 .map(response -> buildResponse(response, 200, headers))
@@ -501,7 +501,7 @@ public final class $$RestControllerWithBody extends AbstractRestController {
 
     private CompletionStage<HttpResponse> maybe2(final PathVariableMapping pathVariableMapping,
                                                  final HttpRequest request) {
-        final Request req = requestModelReader.read(pathVariableMapping, request, request.contentExists());
+        final Request req = requestModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         return restController.maybe2(req)
                 .map(response -> buildResponse(response, 200, headers))
@@ -511,7 +511,7 @@ public final class $$RestControllerWithBody extends AbstractRestController {
 
     private CompletionStage<HttpResponse> maybe3(final PathVariableMapping pathVariableMapping,
                                                  final HttpRequest request) {
-        final $$VirtualWithBodyRequest7 req = virtualWithBodyRequest7ModelReader.read(pathVariableMapping, request, request.contentExists());
+        final $$VirtualWithBodyRequest7 req = virtualWithBodyRequest7ModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         return restController.maybe3(req.requestParameter)
                 .map(response -> buildResponse(response, 200, headers))

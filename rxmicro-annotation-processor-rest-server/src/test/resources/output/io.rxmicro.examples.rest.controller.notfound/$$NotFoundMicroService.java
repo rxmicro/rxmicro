@@ -93,7 +93,7 @@ public final class $$NotFoundMicroService extends AbstractRestController {
 
     private CompletionStage<HttpResponse> getOptional1(final PathVariableMapping pathVariableMapping,
                                                        final HttpRequest request) {
-        final $$VirtualNotFoundRequest req = virtualNotFoundRequestModelReader.read(pathVariableMapping, request, request.contentExists());
+        final $$VirtualNotFoundRequest req = virtualNotFoundRequestModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         return restController.getOptional1(req.found)
                 .thenApply(optionalResponse -> optionalResponse
@@ -103,7 +103,7 @@ public final class $$NotFoundMicroService extends AbstractRestController {
 
     private CompletionStage<HttpResponse> getOptional2(final PathVariableMapping pathVariableMapping,
                                                        final HttpRequest request) {
-        final $$VirtualNotFoundRequest2 req = virtualNotFoundRequest2ModelReader.read(pathVariableMapping, request, request.contentExists());
+        final $$VirtualNotFoundRequest2 req = virtualNotFoundRequest2ModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         return restController.getOptional2(req.found)
                 .map(response -> buildResponse(response, 200, headers))
@@ -113,7 +113,7 @@ public final class $$NotFoundMicroService extends AbstractRestController {
 
     private CompletionStage<HttpResponse> getOptional3(final PathVariableMapping pathVariableMapping,
                                                        final HttpRequest request) {
-        final $$VirtualNotFoundRequest3 req = virtualNotFoundRequest3ModelReader.read(pathVariableMapping, request, request.contentExists());
+        final $$VirtualNotFoundRequest3 req = virtualNotFoundRequest3ModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         return restController.getOptional3(req.found)
                 .map(response -> buildResponse(response, 200, headers))

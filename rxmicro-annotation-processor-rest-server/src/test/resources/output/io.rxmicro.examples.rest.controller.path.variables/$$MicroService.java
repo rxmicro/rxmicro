@@ -134,7 +134,7 @@ public final class $$MicroService extends AbstractRestController {
 
     private CompletionStage<HttpResponse> consumeRequest(final PathVariableMapping pathVariableMapping,
                                                          final HttpRequest request) {
-        final Request req = requestModelReader.read(pathVariableMapping, request, request.contentExists());
+        final Request req = requestModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         restController.consume(req);
         return CompletableFuture.completedStage(buildResponse(200, headers));
@@ -142,7 +142,7 @@ public final class $$MicroService extends AbstractRestController {
 
     private CompletionStage<HttpResponse> consumeStringStringString(final PathVariableMapping pathVariableMapping,
                                                                     final HttpRequest request) {
-        final $$VirtualRequest req = virtualRequestModelReader.read(pathVariableMapping, request, request.contentExists());
+        final $$VirtualRequest req = virtualRequestModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         restController.consume(req.category, req.type, req.subType);
         return CompletableFuture.completedStage(buildResponse(200, headers));

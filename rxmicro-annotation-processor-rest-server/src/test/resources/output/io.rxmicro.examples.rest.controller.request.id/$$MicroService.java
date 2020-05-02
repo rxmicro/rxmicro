@@ -56,7 +56,7 @@ public final class $$MicroService extends AbstractRestController {
 
     private CompletionStage<HttpResponse> handle(final PathVariableMapping pathVariableMapping,
                                                  final HttpRequest request) {
-        final Request req = requestModelReader.read(pathVariableMapping, request, request.contentExists());
+        final Request req = requestModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         restController.handle(req);
         return CompletableFuture.completedStage(buildResponse(200, headers));

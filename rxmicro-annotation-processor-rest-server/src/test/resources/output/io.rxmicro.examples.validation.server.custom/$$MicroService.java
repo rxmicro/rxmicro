@@ -57,7 +57,7 @@ public final class $$MicroService extends AbstractRestController {
 
     private CompletionStage<HttpResponse> consume(final PathVariableMapping pathVariableMapping,
                                                   final HttpRequest request) {
-        final $$VirtualRequest req = virtualRequestModelReader.read(pathVariableMapping, request, request.contentExists());
+        final $$VirtualRequest req = virtualRequestModelReader.read(pathVariableMapping, request, request.isContentPresent());
         virtualRequestConstraintValidator.validate(req);
         final HttpHeaders headers = HttpHeaders.of();
         restController.consume(req.value);

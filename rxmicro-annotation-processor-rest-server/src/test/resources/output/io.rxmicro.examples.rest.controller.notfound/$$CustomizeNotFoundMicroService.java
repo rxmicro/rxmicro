@@ -59,7 +59,7 @@ public final class $$CustomizeNotFoundMicroService extends AbstractRestControlle
 
     private CompletionStage<HttpResponse> getOptional1(final PathVariableMapping pathVariableMapping,
                                                        final HttpRequest request) {
-        final $$VirtualCustomizeNotFoundRequest req = virtualCustomizeNotFoundRequestModelReader.read(pathVariableMapping, request, request.contentExists());
+        final $$VirtualCustomizeNotFoundRequest req = virtualCustomizeNotFoundRequestModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         return restController.getOptional1(req.found)
                 .thenApply(optionalResponse -> optionalResponse

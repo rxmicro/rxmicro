@@ -82,7 +82,7 @@ public final class $$GetterSetterParamsMicroService extends AbstractRestControll
 
     private CompletionStage<HttpResponse> get(final PathVariableMapping pathVariableMapping,
                                               final HttpRequest request) {
-        final QueryRequest req = queryRequestModelReader.read(pathVariableMapping, request, request.contentExists());
+        final QueryRequest req = queryRequestModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         return restController.get(req)
                 .thenApply(optionalResponse -> optionalResponse
@@ -92,7 +92,7 @@ public final class $$GetterSetterParamsMicroService extends AbstractRestControll
 
     private CompletionStage<HttpResponse> put(final PathVariableMapping pathVariableMapping,
                                               final HttpRequest request) {
-        final BodyRequest req = bodyRequestModelReader.read(pathVariableMapping, request, request.contentExists());
+        final BodyRequest req = bodyRequestModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         return restController.put(req)
                 .thenApply(optionalResponse -> optionalResponse

@@ -97,7 +97,7 @@ public final class $$RoutingUsingUrlPath extends AbstractRestController {
 
     private CompletionStage<HttpResponse> get3(final PathVariableMapping pathVariableMapping,
                                                final HttpRequest request) {
-        final $$VirtualRoutingUsingUrlPathRequest req = virtualRoutingUsingUrlPathRequestModelReader.read(pathVariableMapping, request, request.contentExists());
+        final $$VirtualRoutingUsingUrlPathRequest req = virtualRoutingUsingUrlPathRequestModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         restController.get3(req.type);
         return CompletableFuture.completedStage(buildResponse(200, headers));

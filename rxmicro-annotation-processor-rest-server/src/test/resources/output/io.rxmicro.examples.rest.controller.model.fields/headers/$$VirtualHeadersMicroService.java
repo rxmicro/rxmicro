@@ -54,7 +54,7 @@ public final class $$VirtualHeadersMicroService extends AbstractRestController {
 
     private CompletionStage<HttpResponse> put(final PathVariableMapping pathVariableMapping,
                                               final HttpRequest request) {
-        final $$VirtualVirtualHeadersRequest req = virtualVirtualHeadersRequestModelReader.read(pathVariableMapping, request, request.contentExists());
+        final $$VirtualVirtualHeadersRequest req = virtualVirtualHeadersRequestModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         restController.put(req.booleanParameter, req.byteParameter, req.shortParameter, req.intParameter, req.longParameter, req.bigIntParameter, req.floatParameter, req.doubleParameter, req.decimalParameter, req.charParameter, req.stringParameter, req.instantParameter, req.status, req.booleanParameters, req.byteParameters, req.shortParameters, req.intParameters, req.longParameters, req.bigIntParameters, req.floatParameters, req.doubleParameters, req.decimalParameters, req.charParameters, req.stringParameters, req.instantParameters, req.statuses);
         return CompletableFuture.completedStage(buildResponse(200, headers));

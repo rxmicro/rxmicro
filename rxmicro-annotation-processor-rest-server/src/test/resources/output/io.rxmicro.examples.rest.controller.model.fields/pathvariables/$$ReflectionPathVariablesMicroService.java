@@ -62,7 +62,7 @@ public final class $$ReflectionPathVariablesMicroService extends AbstractRestCon
 
     private CompletionStage<HttpResponse> put(final PathVariableMapping pathVariableMapping,
                                               final HttpRequest request) {
-        final Request req = requestModelReader.read(pathVariableMapping, request, request.contentExists());
+        final Request req = requestModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         restController.put(req);
         return CompletableFuture.completedStage(buildResponse(200, headers));

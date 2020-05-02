@@ -54,7 +54,7 @@ public final class $$VirtualParamsMicroService extends AbstractRestController {
 
     private CompletionStage<HttpResponse> put(final PathVariableMapping pathVariableMapping,
                                               final HttpRequest request) {
-        final $$VirtualVirtualParamsRequest req = virtualVirtualParamsRequestModelReader.read(pathVariableMapping, request, request.contentExists());
+        final $$VirtualVirtualParamsRequest req = virtualVirtualParamsRequestModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         restController.put(req.booleanParameter, req.byteParameter, req.shortParameter, req.intParameter, req.longParameter, req.bigIntParameter, req.floatParameter, req.doubleParameter, req.decimalParameter, req.charParameter, req.stringParameter, req.instantParameter, req.status, req.nested, req.booleanParameters, req.byteParameters, req.shortParameters, req.intParameters, req.longParameters, req.bigIntParameters, req.floatParameters, req.doubleParameters, req.decimalParameters, req.charParameters, req.stringParameters, req.instantParameters, req.statuses, req.nestedList);
         return CompletableFuture.completedStage(buildResponse(200, headers));

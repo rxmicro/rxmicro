@@ -79,17 +79,17 @@ final class NettyServer implements Runnable {
     @SuppressWarnings("unchecked")
     public void run() {
         try {
-            final ServerBootstrap b = new ServerBootstrap()
+            final ServerBootstrap bootstrap = new ServerBootstrap()
                     .group(serverGroup, workerGroup)
                     .channel(serverSocketChannelClass)
                     .childHandler(new RxMicroChannelInitializer(nettyRestServerConfig));
-            nettyRestServerConfig.getServerOptions().forEach((o, v) -> b.option((ChannelOption<Object>) o, v));
-            nettyRestServerConfig.getClientOptions().forEach((o, v) -> b.childOption((ChannelOption<Object>) o, v));
+            nettyRestServerConfig.getServerOptions().forEach((o, v) -> bootstrap.option((ChannelOption<Object>) o, v));
+            nettyRestServerConfig.getClientOptions().forEach((o, v) -> bootstrap.childOption((ChannelOption<Object>) o, v));
 
-            final ChannelFuture f = b.bind(httpServerConfig.getHost(), httpServerConfig.getPort()).sync();
+            final ChannelFuture channelFuture = bootstrap.bind(httpServerConfig.getHost(), httpServerConfig.getPort()).sync();
             logStartedMessage();
             latch.countDown();
-            f.channel().closeFuture().sync();
+            channelFuture.channel().closeFuture().sync();
         } catch (final InterruptedException e) {
             LOGGER.info("Retrieved shutdown request ...");
         } finally {

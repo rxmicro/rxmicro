@@ -54,7 +54,7 @@ public final class $$VirtualInternalsMicroService extends AbstractRestController
 
     private CompletionStage<HttpResponse> put(final PathVariableMapping pathVariableMapping,
                                               final HttpRequest request) {
-        final $$VirtualVirtualInternalsRequest req = virtualVirtualInternalsRequestModelReader.read(pathVariableMapping, request, request.contentExists());
+        final $$VirtualVirtualInternalsRequest req = virtualVirtualInternalsRequestModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         restController.put(req.request, req.version, req.headers, req.remoteAddress1, req.remoteAddress2, req.urlPath, req.method, req.body, req.id);
         return CompletableFuture.completedStage(buildResponse(200, headers));

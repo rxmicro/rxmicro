@@ -59,7 +59,7 @@ public final class $$AllSupportedTypesMicroService extends AbstractRestControlle
 
     private CompletionStage<HttpResponse> get(final PathVariableMapping pathVariableMapping,
                                               final HttpRequest request) {
-        final AllSupportedTypes req = allSupportedTypesModelReader.read(pathVariableMapping, request, request.contentExists());
+        final AllSupportedTypes req = allSupportedTypesModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         return restController.get(req)
                 .thenApply(response -> buildResponse(response, 200, headers));

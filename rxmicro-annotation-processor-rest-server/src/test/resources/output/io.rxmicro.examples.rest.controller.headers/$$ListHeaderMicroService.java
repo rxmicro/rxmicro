@@ -54,7 +54,7 @@ public final class $$ListHeaderMicroService extends AbstractRestController {
 
     private CompletionStage<HttpResponse> consume(final PathVariableMapping pathVariableMapping,
                                                   final HttpRequest request) {
-        final $$VirtualListHeaderRequest req = virtualListHeaderRequestModelReader.read(pathVariableMapping, request, request.contentExists());
+        final $$VirtualListHeaderRequest req = virtualListHeaderRequestModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         restController.consume(req.supportedStatuses);
         return CompletableFuture.completedStage(buildResponse(200, headers));

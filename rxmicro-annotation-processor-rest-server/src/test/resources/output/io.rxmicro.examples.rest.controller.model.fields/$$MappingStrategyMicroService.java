@@ -82,7 +82,7 @@ public final class $$MappingStrategyMicroService extends AbstractRestController 
 
     private CompletionStage<HttpResponse> consume1(final PathVariableMapping pathVariableMapping,
                                                    final HttpRequest request) {
-        final $$VirtualMappingStrategyRequest req = virtualMappingStrategyRequestModelReader.read(pathVariableMapping, request, request.contentExists());
+        final $$VirtualMappingStrategyRequest req = virtualMappingStrategyRequestModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         restController.consume1(req.supportedApiVersionCode, req.maxSupportedDateTime);
         return CompletableFuture.completedStage(buildResponse(200, headers));
@@ -90,7 +90,7 @@ public final class $$MappingStrategyMicroService extends AbstractRestController 
 
     private CompletionStage<HttpResponse> consume2(final PathVariableMapping pathVariableMapping,
                                                    final HttpRequest request) {
-        final $$VirtualMappingStrategyRequest2 req = virtualMappingStrategyRequest2ModelReader.read(pathVariableMapping, request, request.contentExists());
+        final $$VirtualMappingStrategyRequest2 req = virtualMappingStrategyRequest2ModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         restController.consume2(req.supportedApiVersionCode, req.maxSupportedDateTime);
         return CompletableFuture.completedStage(buildResponse(200, headers));
@@ -98,7 +98,7 @@ public final class $$MappingStrategyMicroService extends AbstractRestController 
 
     private CompletionStage<HttpResponse> consume3(final PathVariableMapping pathVariableMapping,
                                                    final HttpRequest request) {
-        final $$VirtualMappingStrategyRequest3 req = virtualMappingStrategyRequest3ModelReader.read(pathVariableMapping, request, request.contentExists());
+        final $$VirtualMappingStrategyRequest3 req = virtualMappingStrategyRequest3ModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         restController.consume3(req.supportedApiVersionCode, req.maxSupportedDateTime);
         return CompletableFuture.completedStage(buildResponse(200, headers));

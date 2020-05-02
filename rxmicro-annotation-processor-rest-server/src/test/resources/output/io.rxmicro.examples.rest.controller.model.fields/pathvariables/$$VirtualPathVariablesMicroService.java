@@ -60,7 +60,7 @@ public final class $$VirtualPathVariablesMicroService extends AbstractRestContro
 
     private CompletionStage<HttpResponse> put(final PathVariableMapping pathVariableMapping,
                                               final HttpRequest request) {
-        final $$VirtualVirtualPathVariablesRequest req = virtualVirtualPathVariablesRequestModelReader.read(pathVariableMapping, request, request.contentExists());
+        final $$VirtualVirtualPathVariablesRequest req = virtualVirtualPathVariablesRequestModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         restController.put(req.booleanParameter, req.byteParameter, req.shortParameter, req.intParameter, req.longParameter, req.bigIntParameter, req.floatParameter, req.doubleParameter, req.decimalParameter, req.charParameter, req.stringParameter, req.instantParameter, req.status);
         return CompletableFuture.completedStage(buildResponse(200, headers));

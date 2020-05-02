@@ -62,7 +62,7 @@ public final class UrlTemplateRequestMappingRule extends AbstractRequestMappingR
     }
 
     public PathMatcherResult match(final HttpRequest request) {
-        if (getHttpBody() != request.contentExists()) {
+        if (getHttpBody() != request.isContentPresent()) {
             return NO_MATCH;
         } else if (!getMethod().equals(request.getMethod())) {
             return NO_MATCH;

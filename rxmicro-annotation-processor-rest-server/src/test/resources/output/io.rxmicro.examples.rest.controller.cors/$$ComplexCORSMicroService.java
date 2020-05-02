@@ -135,7 +135,7 @@ public final class $$ComplexCORSMicroService extends AbstractRestController {
 
     private CompletionStage<HttpResponse> handler3(final PathVariableMapping pathVariableMapping,
                                                    final HttpRequest request) {
-        final $$VirtualComplexCORSRequest req = virtualComplexCORSRequestModelReader.read(pathVariableMapping, request, request.contentExists());
+        final $$VirtualComplexCORSRequest req = virtualComplexCORSRequestModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         restController.handler3(req.path);
         return CompletableFuture.completedStage(buildResponse(200, headers));

@@ -23,7 +23,6 @@ import io.netty.handler.codec.http.FullHttpRequest;
 import io.netty.handler.codec.http.HttpResponseStatus;
 import io.netty.util.AttributeKey;
 import io.rxmicro.config.Secrets;
-import io.rxmicro.http.HttpHeaders;
 import io.rxmicro.logger.Logger;
 import io.rxmicro.logger.LoggerFactory;
 import io.rxmicro.rest.server.RestServerConfig;
@@ -110,7 +109,7 @@ final class NettyRequestHandler extends SimpleChannelInboundHandler<FullHttpRequ
     }
 
     private boolean isKeepAlive(final FullHttpRequest msg) {
-        final String value = msg.headers().getAsString(HttpHeaders.CONNECTION);
+        final String value = msg.headers().getAsString(CONNECTION);
         return !"close".equalsIgnoreCase(value);
     }
 
@@ -147,7 +146,7 @@ final class NettyRequestHandler extends SimpleChannelInboundHandler<FullHttpRequ
                         .filter(e -> request.isRequestIdGenerated() && !REQUEST_ID.equals(e.getKey()))
                         .map(e -> format("?: ?", e.getKey(), secrets.hideIfSecret(e.getValue())))
                         .collect(joining(lineSeparator())),
-                request.contentExists() ?
+                request.isContentPresent() ?
                         secrets.hideAllSecretsIn(new String(request.getContent(), UTF_8)) :
                         ""
         );

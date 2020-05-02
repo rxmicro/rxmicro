@@ -50,7 +50,7 @@ public final class NettyHttpRequest implements HttpRequest {
 
     private HttpHeaders httpHeaders;
 
-    private Boolean contentExists;
+    private Boolean contentPresent;
 
     public NettyHttpRequest(final RequestIdGenerator requestIdGenerator,
                             final FullHttpRequest request,
@@ -122,16 +122,16 @@ public final class NettyHttpRequest implements HttpRequest {
     }
 
     @Override
-    public boolean contentExists() {
-        if (contentExists == null) {
-            contentExists = request.content().readableBytes() > 0;
+    public boolean isContentPresent() {
+        if (contentPresent == null) {
+            contentPresent = request.content().readableBytes() > 0;
         }
-        return contentExists;
+        return contentPresent;
     }
 
     @Override
     public byte[] getContent() {
-        if (contentExists()) {
+        if (isContentPresent()) {
             return ByteBufUtil.getBytes(request.content());
         } else {
             return EMPTY;

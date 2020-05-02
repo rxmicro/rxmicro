@@ -82,7 +82,7 @@ public final class $$MicroService extends AbstractRestController {
 
     private CompletionStage<HttpResponse> put1(final PathVariableMapping pathVariableMapping,
                                                final HttpRequest request) {
-        final Model req = modelModelReader.read(pathVariableMapping, request, request.contentExists());
+        final Model req = modelModelReader.read(pathVariableMapping, request, request.isContentPresent());
         modelConstraintValidator.validate(req);
         final HttpHeaders headers = HttpHeaders.of();
         return restController.put1(req)
@@ -91,7 +91,7 @@ public final class $$MicroService extends AbstractRestController {
 
     private CompletionStage<HttpResponse> put2(final PathVariableMapping pathVariableMapping,
                                                final HttpRequest request) {
-        final $$VirtualRequest req = virtualRequestModelReader.read(pathVariableMapping, request, request.contentExists());
+        final $$VirtualRequest req = virtualRequestModelReader.read(pathVariableMapping, request, request.isContentPresent());
         virtualRequestConstraintValidator.validate(req);
         final HttpHeaders headers = HttpHeaders.of();
         return restController.put2(req.optionalParameter, req.booleanParameter, req.byteParameter, req.shortParameter, req.intParameter, req.longParameter, req.bigIntParameter, req.floatParameter, req.doubleParameter, req.decimalParameter, req.charParameter, req.stringParameter, req.instantParameter, req.colorParameter, req.optionalList, req.booleanValues, req.byteValues, req.shortValues, req.intValues, req.longValues, req.charValues, req.floatValues, req.doubleValues, req.decimals, req.bigIntegers, req.strings, req.instants, req.colors, req.countryCodeAlpha2, req.countryCodeAlpha3, req.countryCodeNumeric, req.base64URLEncodedBase, req.base64URLEncodedUrl, req.ip, req.ip4, req.ip6, req.lat111km, req.lng111km, req.lat11km, req.lng11km, req.lat1km, req.lng1km, req.lat111m, req.lng111m, req.lat11m, req.lng11m, req.lat1m, req.lng1m, req.lat11cm, req.lng11cm, req.lat1cm, req.lng1cm)

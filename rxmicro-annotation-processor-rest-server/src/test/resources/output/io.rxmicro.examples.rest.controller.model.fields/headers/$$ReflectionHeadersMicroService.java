@@ -63,7 +63,7 @@ public final class $$ReflectionHeadersMicroService extends AbstractRestControlle
 
     private CompletionStage<HttpResponse> put(final PathVariableMapping pathVariableMapping,
                                               final HttpRequest request) {
-        final Request req = requestModelReader.read(pathVariableMapping, request, request.contentExists());
+        final Request req = requestModelReader.read(pathVariableMapping, request, request.isContentPresent());
         final HttpHeaders headers = HttpHeaders.of();
         return restController.put(req)
                 .thenApply(optionalResponse -> optionalResponse

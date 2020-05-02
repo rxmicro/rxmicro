@@ -43,7 +43,7 @@ public final class RequestMappingKeyBuilderImpl implements RequestMappingKeyBuil
         if (versionHeader != null) {
             keyBuilder.append(API_VERSION).append("='").append(versionHeader).append("' ");
         }
-        if (request.contentExists()) {
+        if (request.isContentPresent()) {
             keyBuilder.append(WITH_BODY);
         }
         return keyBuilder.toString();
