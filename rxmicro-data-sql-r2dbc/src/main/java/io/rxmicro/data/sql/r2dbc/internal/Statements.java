@@ -31,22 +31,22 @@ import java.util.Arrays;
  */
 public final class Statements {
 
-    private final Logger LOGGER;
+    private final Logger logger;
 
     public Statements(final Logger logger) {
-        LOGGER = logger;
+        this.logger = logger;
     }
 
     public Mono<? extends Result> executeStatement(final Connection connection,
                                                    final String sql) {
-        if (LOGGER.isTraceEnabled()) {
+        if (logger.isTraceEnabled()) {
             logCreateStatement(connection);
         }
         final Statement statement = connection.createStatement(sql);
         final Mono<? extends Result> resultMono = Mono.from(statement.execute());
-        if (LOGGER.isTraceEnabled()) {
+        if (logger.isTraceEnabled()) {
             return resultMono.doOnSuccess(r ->
-                    LOGGER.trace("Statement{sql=?} executed", sql)
+                    logger.trace("Statement{sql=?} executed", sql)
             );
         } else {
             return resultMono;
@@ -56,15 +56,15 @@ public final class Statements {
     public Mono<? extends Result> executeStatement(final Connection connection,
                                                    final String sql,
                                                    final Object param) {
-        if (LOGGER.isTraceEnabled()) {
+        if (logger.isTraceEnabled()) {
             logCreateStatement(connection);
         }
         final Statement statement = connection.createStatement(sql)
                 .bind(0, param);
         final Mono<? extends Result> resultMono = Mono.from(statement.execute());
-        if (LOGGER.isTraceEnabled()) {
+        if (logger.isTraceEnabled()) {
             return resultMono.doOnSuccess(r ->
-                    LOGGER.trace("Statement{sql=?, params=[?]} executed", sql, param)
+                    logger.trace("Statement{sql=?, params=[?]} executed", sql, param)
             );
         } else {
             return resultMono;
@@ -75,16 +75,16 @@ public final class Statements {
                                                    final String sql,
                                                    final Object param1,
                                                    final Object param2) {
-        if (LOGGER.isTraceEnabled()) {
+        if (logger.isTraceEnabled()) {
             logCreateStatement(connection);
         }
         final Statement statement = connection.createStatement(sql)
                 .bind(0, param1)
                 .bind(1, param2);
         final Mono<? extends Result> resultMono = Mono.from(statement.execute());
-        if (LOGGER.isTraceEnabled()) {
+        if (logger.isTraceEnabled()) {
             return resultMono.doOnSuccess(r ->
-                    LOGGER.trace("Statement{sql=?, params=[?, ?]} executed", sql, param1, param2)
+                    logger.trace("Statement{sql=?, params=[?, ?]} executed", sql, param1, param2)
             );
         } else {
             return resultMono;
@@ -96,7 +96,7 @@ public final class Statements {
                                                    final Object param1,
                                                    final Object param2,
                                                    final Object param3) {
-        if (LOGGER.isTraceEnabled()) {
+        if (logger.isTraceEnabled()) {
             logCreateStatement(connection);
         }
         final Statement statement = connection.createStatement(sql)
@@ -104,9 +104,9 @@ public final class Statements {
                 .bind(1, param2)
                 .bind(2, param3);
         final Mono<? extends Result> resultMono = Mono.from(statement.execute());
-        if (LOGGER.isTraceEnabled()) {
+        if (logger.isTraceEnabled()) {
             return resultMono.doOnSuccess(r ->
-                    LOGGER.trace("Statement{sql=?, params=[?, ?, ?]} executed", sql, param1, param2, param3)
+                    logger.trace("Statement{sql=?, params=[?, ?, ?]} executed", sql, param1, param2, param3)
             );
         } else {
             return resultMono;
@@ -119,7 +119,7 @@ public final class Statements {
                                                    final Object param2,
                                                    final Object param3,
                                                    final Object param4) {
-        if (LOGGER.isTraceEnabled()) {
+        if (logger.isTraceEnabled()) {
             logCreateStatement(connection);
         }
         final Statement statement = connection.createStatement(sql)
@@ -128,9 +128,9 @@ public final class Statements {
                 .bind(2, param3)
                 .bind(3, param4);
         final Mono<? extends Result> resultMono = Mono.from(statement.execute());
-        if (LOGGER.isTraceEnabled()) {
+        if (logger.isTraceEnabled()) {
             return resultMono.doOnSuccess(r ->
-                    LOGGER.trace("Statement{sql=?, params=[?, ?, ?, ?]} executed", sql, param1, param2, param3, param4)
+                    logger.trace("Statement{sql=?, params=[?, ?, ?, ?]} executed", sql, param1, param2, param3, param4)
             );
         } else {
             return resultMono;
@@ -144,7 +144,7 @@ public final class Statements {
                                                    final Object param3,
                                                    final Object param4,
                                                    final Object param5) {
-        if (LOGGER.isTraceEnabled()) {
+        if (logger.isTraceEnabled()) {
             logCreateStatement(connection);
         }
         final Statement statement = connection.createStatement(sql)
@@ -154,9 +154,9 @@ public final class Statements {
                 .bind(3, param4)
                 .bind(4, param5);
         final Mono<? extends Result> resultMono = Mono.from(statement.execute());
-        if (LOGGER.isTraceEnabled()) {
+        if (logger.isTraceEnabled()) {
             return resultMono.doOnSuccess(r ->
-                    LOGGER.trace("Statement{sql=?, params=[?, ?, ?, ?, ?]} executed", sql, param1, param2, param3, param4, param5)
+                    logger.trace("Statement{sql=?, params=[?, ?, ?, ?, ?]} executed", sql, param1, param2, param3, param4, param5)
             );
         } else {
             return resultMono;
@@ -166,7 +166,7 @@ public final class Statements {
     public Mono<? extends Result> executeStatement(final Connection connection,
                                                    final String sql,
                                                    final Object... params) {
-        if (LOGGER.isTraceEnabled()) {
+        if (logger.isTraceEnabled()) {
             logCreateStatement(connection);
         }
         final Statement statement = connection.createStatement(sql);
@@ -175,9 +175,9 @@ public final class Statements {
             statement.bind(index++, param);
         }
         final Mono<? extends Result> resultMono = Mono.from(statement.execute());
-        if (LOGGER.isTraceEnabled()) {
+        if (logger.isTraceEnabled()) {
             return resultMono.doOnSuccess(r ->
-                    LOGGER.trace("Statement{sql=?, params=?} executed", sql, Arrays.toString(params))
+                    logger.trace("Statement{sql=?, params=?} executed", sql, Arrays.toString(params))
             );
         } else {
             return resultMono;
@@ -185,7 +185,7 @@ public final class Statements {
     }
 
     private void logCreateStatement(final Connection connection) {
-        LOGGER.trace("Connection{type=?, id=?} received from pool",
+        logger.trace("Connection{type=?, id=?} received from pool",
                 connection.getClass().getSimpleName(),
                 System.identityHashCode(connection)
         );

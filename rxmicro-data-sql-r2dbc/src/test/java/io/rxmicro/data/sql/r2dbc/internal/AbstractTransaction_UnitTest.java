@@ -74,7 +74,7 @@ final class AbstractTransaction_UnitTest {
         when(connection.commitTransaction()).thenReturn(mockPublisher);
         when(connection.close()).thenReturn(mockPublisher);
 
-        transaction._commit();
+        transaction.baseCommit();
 
         assertCurrentTransactionNotActive();
     }
@@ -84,7 +84,7 @@ final class AbstractTransaction_UnitTest {
         when(connection.rollbackTransaction()).thenReturn(mockPublisher);
         when(connection.close()).thenReturn(mockPublisher);
 
-        transaction._rollback();
+        transaction.baseRollback();
 
         assertCurrentTransactionNotActive();
     }
@@ -94,13 +94,13 @@ final class AbstractTransaction_UnitTest {
         when(connection.rollbackTransaction()).thenReturn(mockPublisher);
         when(connection.close()).thenReturn(mockPublisher);
 
-        transaction._create(SAVE_POINT_A);
-        transaction._create(SAVE_POINT_B);
-        transaction._create(SAVE_POINT_C);
-        transaction._rollback(SAVE_POINT_C);
-        transaction._rollback(SAVE_POINT_B);
-        transaction._rollback(SAVE_POINT_A);
-        transaction._rollback();
+        transaction.baseCreate(SAVE_POINT_A);
+        transaction.baseCreate(SAVE_POINT_B);
+        transaction.baseCreate(SAVE_POINT_C);
+        transaction.baseRollback(SAVE_POINT_C);
+        transaction.baseRollback(SAVE_POINT_B);
+        transaction.baseRollback(SAVE_POINT_A);
+        transaction.baseRollback();
 
         assertCurrentTransactionNotActive();
     }
@@ -110,23 +110,23 @@ final class AbstractTransaction_UnitTest {
         when(connection.rollbackTransaction()).thenReturn(mockPublisher);
         when(connection.close()).thenReturn(mockPublisher);
 
-        transaction._create(SAVE_POINT_A);
-        transaction._create(SAVE_POINT_B);
-        transaction._create(SAVE_POINT_C);
-        transaction._rollback(SAVE_POINT_A);
-        transaction._rollback();
+        transaction.baseCreate(SAVE_POINT_A);
+        transaction.baseCreate(SAVE_POINT_B);
+        transaction.baseCreate(SAVE_POINT_C);
+        transaction.baseRollback(SAVE_POINT_A);
+        transaction.baseRollback();
 
         assertCurrentTransactionNotActive();
     }
 
     private void assertCurrentTransactionNotActive() {
-        assertCurrentTransactionNotActive(() -> transaction._commit());
-        assertCurrentTransactionNotActive(() -> transaction._rollback());
-        assertCurrentTransactionNotActive(() -> transaction._create(SAVE_POINT_A));
-        assertCurrentTransactionNotActive(() -> transaction._release(SAVE_POINT_A));
-        assertCurrentTransactionNotActive(() -> transaction._rollback(SAVE_POINT_A));
+        assertCurrentTransactionNotActive(() -> transaction.baseCommit());
+        assertCurrentTransactionNotActive(() -> transaction.baseRollback());
+        assertCurrentTransactionNotActive(() -> transaction.baseCreate(SAVE_POINT_A));
+        assertCurrentTransactionNotActive(() -> transaction.baseRelease(SAVE_POINT_A));
+        assertCurrentTransactionNotActive(() -> transaction.baseRollback(SAVE_POINT_A));
         assertCurrentTransactionNotActive(() -> transaction.getIsolationLevel());
-        assertCurrentTransactionNotActive(() -> transaction._setIsolationLevel(ISOLATION_LEVEL));
+        assertCurrentTransactionNotActive(() -> transaction.baseSetIsolationLevel(ISOLATION_LEVEL));
     }
 
     private void assertCurrentTransactionNotActive(final Executable executable) {

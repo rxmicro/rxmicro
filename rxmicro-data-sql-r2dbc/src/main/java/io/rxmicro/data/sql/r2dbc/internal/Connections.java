@@ -30,10 +30,10 @@ import reactor.core.publisher.Mono;
  */
 public final class Connections {
 
-    private final Logger LOGGER;
+    private final Logger logger;
 
-    public Connections(final Logger LOGGER) {
-        this.LOGGER = LOGGER;
+    public Connections(final Logger logger) {
+        this.logger = logger;
     }
 
     public Mono<Connection> extractConnectionFrom(final io.rxmicro.data.sql.model.reactor.Transaction transaction) {
@@ -65,9 +65,9 @@ public final class Connections {
 
     public Mono<Void> close(final Connection connection) {
         final Mono<Void> closeMono = Mono.from(connection.close());
-        if (LOGGER.isTraceEnabled()) {
+        if (logger.isTraceEnabled()) {
             return closeMono.doFinally(s ->
-                    LOGGER.trace("Connection{type=?, id=?} closed: signal: '?'",
+                    logger.trace("Connection{type=?, id=?} closed: signal: '?'",
                             connection.getClass().getSimpleName(),
                             System.identityHashCode(connection),
                             s

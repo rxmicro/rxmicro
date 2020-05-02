@@ -38,31 +38,31 @@ public final class RxJava3Transaction extends AbstractTransaction implements Tra
 
     @Override
     public Completable commit() {
-        return fromPublisher(_commit());
+        return fromPublisher(baseCommit());
     }
 
     @Override
     public Completable rollback() {
-        return fromPublisher(_rollback());
+        return fromPublisher(baseRollback());
     }
 
     @Override
     public Completable create(final SavePoint savePoint) {
-        return fromPublisher(_create(savePoint));
+        return fromPublisher(baseCreate(savePoint));
     }
 
     @Override
     public Completable release(final SavePoint savePoint) {
-        return fromPublisher(_release(savePoint));
+        return fromPublisher(baseRelease(savePoint));
     }
 
     @Override
     public Completable rollback(final SavePoint savePoint) {
-        return fromPublisher(_rollback(savePoint));
+        return fromPublisher(baseRollback(savePoint));
     }
 
     @Override
     public Completable setIsolationLevel(final IsolationLevel isolationLevel) {
-        return fromPublisher(_setIsolationLevel(isolationLevel));
+        return fromPublisher(baseSetIsolationLevel(isolationLevel));
     }
 }

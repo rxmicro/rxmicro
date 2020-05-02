@@ -38,31 +38,31 @@ public final class CompletableFutureTransaction extends AbstractTransaction impl
 
     @Override
     public CompletableFuture<Void> commit() {
-        return Mono.from(_commit()).toFuture();
+        return Mono.from(baseCommit()).toFuture();
     }
 
     @Override
     public CompletableFuture<Void> rollback() {
-        return Mono.from(_rollback()).toFuture();
+        return Mono.from(baseRollback()).toFuture();
     }
 
     @Override
     public CompletableFuture<Void> create(final SavePoint savePoint) {
-        return Mono.from(_create(savePoint)).toFuture();
+        return Mono.from(baseCreate(savePoint)).toFuture();
     }
 
     @Override
     public CompletableFuture<Void> release(final SavePoint savePoint) {
-        return Mono.from(_release(savePoint)).toFuture();
+        return Mono.from(baseRelease(savePoint)).toFuture();
     }
 
     @Override
     public CompletableFuture<Void> rollback(final SavePoint savePoint) {
-        return Mono.from(_rollback(savePoint)).toFuture();
+        return Mono.from(baseRollback(savePoint)).toFuture();
     }
 
     @Override
     public CompletableFuture<Void> setIsolationLevel(final IsolationLevel isolationLevel) {
-        return Mono.from(_setIsolationLevel(isolationLevel)).toFuture();
+        return Mono.from(baseSetIsolationLevel(isolationLevel)).toFuture();
     }
 }

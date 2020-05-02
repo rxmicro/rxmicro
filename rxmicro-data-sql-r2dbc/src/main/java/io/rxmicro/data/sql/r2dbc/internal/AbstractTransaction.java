@@ -69,21 +69,21 @@ public abstract class AbstractTransaction {
         return connection;
     }
 
-    protected Publisher<Void> _commit() {
+    protected Publisher<Void> baseCommit() {
         checkActive();
         active = false;
         return Mono.from(connection.commitTransaction())
                 .then(Mono.from(connection.close()));
     }
 
-    protected Publisher<Void> _rollback() {
+    protected Publisher<Void> baseRollback() {
         checkActive();
         active = false;
         return Mono.from(connection.rollbackTransaction())
                 .then(Mono.from(connection.close()));
     }
 
-    protected Publisher<Void> _create(final SavePoint savePoint) {
+    protected Publisher<Void> baseCreate(final SavePoint savePoint) {
         checkActive();
         if (savePoints.getClass() == List.of().getClass()) {
             savePoints = new ArrayList<>();
@@ -94,7 +94,7 @@ public abstract class AbstractTransaction {
         return connection.createSavepoint(savePoint.getName());
     }
 
-    protected Publisher<Void> _release(final SavePoint savePoint) {
+    protected Publisher<Void> baseRelease(final SavePoint savePoint) {
         checkActive();
         if (!savePoints.remove(savePoint)) {
             throw new IllegalStateException("Save point not defined: " + savePoint);
@@ -102,15 +102,15 @@ public abstract class AbstractTransaction {
         return connection.releaseSavepoint(savePoint.getName());
     }
 
-    protected Publisher<Void> _rollback(final SavePoint savePoint) {
+    protected Publisher<Void> baseRollback(final SavePoint savePoint) {
         checkActive();
         if (!savePoints.contains(savePoint)) {
             throw new IllegalStateException("Save point not defined: " + savePoint);
         } else {
             final ListIterator<SavePoint> listIterator = savePoints.listIterator(savePoints.size());
             while (listIterator.hasPrevious()) {
-                final SavePoint s = listIterator.previous();
-                if (!savePoint.equals(s)) {
+                final SavePoint previous = listIterator.previous();
+                if (!savePoint.equals(previous)) {
                     listIterator.remove();
                 } else {
                     break;
@@ -126,7 +126,7 @@ public abstract class AbstractTransaction {
         return REVERSE_MAPPING.getOrDefault(connection.getTransactionIsolationLevel(), READ_COMMITTED);
     }
 
-    protected Publisher<Void> _setIsolationLevel(final IsolationLevel isolationLevel) {
+    protected Publisher<Void> baseSetIsolationLevel(final IsolationLevel isolationLevel) {
         checkActive();
         return connection.setTransactionIsolationLevel(MAPPING.get(require(isolationLevel)));
     }

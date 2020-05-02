@@ -36,31 +36,31 @@ public final class ReactorTransaction extends AbstractTransaction implements Tra
 
     @Override
     public Mono<Void> commit() {
-        return Mono.from(_commit());
+        return Mono.from(baseCommit());
     }
 
     @Override
     public Mono<Void> rollback() {
-        return Mono.from(_rollback());
+        return Mono.from(baseRollback());
     }
 
     @Override
     public Mono<Void> create(final SavePoint savePoint) {
-        return Mono.from(_create(savePoint));
+        return Mono.from(baseCreate(savePoint));
     }
 
     @Override
     public Mono<Void> release(final SavePoint savePoint) {
-        return Mono.from(_release(savePoint));
+        return Mono.from(baseRelease(savePoint));
     }
 
     @Override
     public Mono<Void> rollback(final SavePoint savePoint) {
-        return Mono.from(_rollback(savePoint));
+        return Mono.from(baseRollback(savePoint));
     }
 
     @Override
     public Mono<Void> setIsolationLevel(final IsolationLevel isolationLevel) {
-        return Mono.from(_setIsolationLevel(isolationLevel));
+        return Mono.from(baseSetIsolationLevel(isolationLevel));
     }
 }
