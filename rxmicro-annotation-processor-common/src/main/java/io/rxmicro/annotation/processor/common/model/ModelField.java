@@ -122,10 +122,14 @@ public abstract class ModelField implements Comparable<ModelField>, Element {
     }
 
     @Override
-    public final boolean equals(final Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        final ModelField that = (ModelField) o;
+    public final boolean equals(final Object other) {
+        if (this == other) {
+            return true;
+        }
+        if (other == null || getClass() != other.getClass()) {
+            return false;
+        }
+        final ModelField that = (ModelField) other;
         return getFieldName().equals(that.getFieldName());
     }
 

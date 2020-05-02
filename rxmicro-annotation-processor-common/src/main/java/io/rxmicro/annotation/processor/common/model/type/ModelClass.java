@@ -80,10 +80,14 @@ public abstract class ModelClass {
     }
 
     @Override
-    public final boolean equals(final Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        final ModelClass that = (ModelClass) o;
+    public final boolean equals(final Object other) {
+        if (this == other) {
+            return true;
+        }
+        if (other == null || getClass() != other.getClass()) {
+            return false;
+        }
+        final ModelClass that = (ModelClass) other;
         return Objects.equals(getJavaFullClassName(), that.getJavaFullClassName());
     }
 

@@ -51,11 +51,14 @@ public abstract class ClassStructure implements Comparable<ClassStructure> {
     }
 
     @Override
-    public final boolean equals(final Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        final ClassStructure that = (ClassStructure) o;
+    public final boolean equals(final Object other) {
+        if (this == other) {
+            return true;
+        }
+        if (other == null || getClass() != other.getClass()) {
+            return false;
+        }
+        final ClassStructure that = (ClassStructure) other;
         return getTargetFullClassName().equals(that.getTargetFullClassName());
     }
 

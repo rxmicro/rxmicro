@@ -31,10 +31,14 @@ public abstract class TypeSignature implements Comparable<TypeSignature> {
     }
 
     @Override
-    public final boolean equals(final Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        final TypeSignature that = (TypeSignature) o;
+    public final boolean equals(final Object other) {
+        if (this == other) {
+            return true;
+        }
+        if (other == null || getClass() != other.getClass()) {
+            return false;
+        }
+        final TypeSignature that = (TypeSignature) other;
         return getTypeFullName().equals(that.getTypeFullName());
     }
 

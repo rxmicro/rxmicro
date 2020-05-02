@@ -100,10 +100,14 @@ public final class HttpMethodMapping {
     }
 
     @Override
-    public boolean equals(final Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        final HttpMethodMapping that = (HttpMethodMapping) o;
+    public boolean equals(final Object other) {
+        if (this == other) {
+            return true;
+        }
+        if (other == null || getClass() != other.getClass()) {
+            return false;
+        }
+        final HttpMethodMapping that = (HttpMethodMapping) other;
         if (httpBody != that.httpBody) return false;
         if (!method.equals(that.method)) return false;
         return uri.equals(that.uri);

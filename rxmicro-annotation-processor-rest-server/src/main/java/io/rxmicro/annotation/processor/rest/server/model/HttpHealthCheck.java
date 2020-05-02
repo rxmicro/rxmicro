@@ -53,10 +53,14 @@ public final class HttpHealthCheck implements Comparable<HttpHealthCheck> {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        HttpHealthCheck that = (HttpHealthCheck) o;
+    public boolean equals(final Object other) {
+        if (this == other) {
+            return true;
+        }
+        if (other == null || getClass() != other.getClass()) {
+            return false;
+        }
+        HttpHealthCheck that = (HttpHealthCheck) other;
         return method.equals(that.method) &&
                 endpoint.equals(that.endpoint);
     }
