@@ -47,7 +47,7 @@ public final class RestControllerInstanceResolver {
     }
 
     public List<Object> getRestControllerInstances() {
-        return serverContainer.registeredRestControllers()
+        return serverContainer.getRegisteredRestControllers()
                 .stream()
                 .filter(s -> restControllerClasses.contains(s.getRestControllerClass()))
                 .map(wrapper -> getFieldValue(wrapper, "restController"))

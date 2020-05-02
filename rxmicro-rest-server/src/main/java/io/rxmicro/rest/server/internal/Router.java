@@ -154,7 +154,7 @@ public final class Router implements DynamicRestControllerRegistrar, RequestHand
     }
 
     @Override
-    public Set<AbstractRestController> registeredRestControllers() {
+    public Set<AbstractRestController> getRegisteredRestControllers() {
         return unmodifiableSet(registeredRestControllers);
     }
 

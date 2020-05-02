@@ -30,5 +30,5 @@ public interface DynamicRestControllerRegistrar extends RestControllerRegistrar 
 
     void clear();
 
-    Set<AbstractRestController> registeredRestControllers();
+    Set<AbstractRestController> getRegisteredRestControllers();
 }

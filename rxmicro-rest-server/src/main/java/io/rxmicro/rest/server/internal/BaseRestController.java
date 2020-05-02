@@ -36,7 +36,7 @@ public abstract class BaseRestController {
 
     @SuppressWarnings("EmptyMethod")
     protected void postConstruct() {
-
+        // Sub class can override this method
     }
 
     protected final HttpResponse notFound(final String message) {
@@ -51,11 +51,14 @@ public abstract class BaseRestController {
     }
 
     @Override
-    public final boolean equals(final Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        final BaseRestController that = (BaseRestController) o;
+    public final boolean equals(final Object other) {
+        if (this == other) {
+            return true;
+        }
+        if (other == null || getClass() != other.getClass()) {
+            return false;
+        }
+        final BaseRestController that = (BaseRestController) other;
         return getRestControllerClass().equals(that.getRestControllerClass());
     }
 }

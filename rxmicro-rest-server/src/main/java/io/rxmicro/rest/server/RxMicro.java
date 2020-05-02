@@ -101,7 +101,7 @@ public final class RxMicro {
 
     private static ServerInstance start(final RestControllerRegistrationFilter filter) {
         LOGGER.debug("Received start server request");
-        final ServerInstance serverInstance = launchWithFilter(filter).serverInstance();
+        final ServerInstance serverInstance = launchWithFilter(filter).getServerInstance();
         printCurrentEnvironment();
         return serverInstance;
     }
@@ -119,6 +119,9 @@ public final class RxMicro {
             LOGGER.info("Max   RAM: ?", formatSize(runtime.maxMemory()));
             LOGGER.info("----------------------------------------------------------------------------------");
         }
+    }
+
+    private RxMicro(){
     }
 
     /**
@@ -148,8 +151,8 @@ public final class RxMicro {
                 if (exitCommands.contains(cmd)) {
                     try {
                         serverInstance.shutdownAndWait();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
+                    } catch (final InterruptedException e) {
+                        LOGGER.warn(e, "Shutdown interrupted: ?", e.getMessage());
                     }
                     return;
                 }

@@ -51,14 +51,14 @@ public final class JsonHttpErrorResponseBodyBuilder implements HttpErrorResponse
     }
 
     @Override
-    public boolean isRxMicroError(final HttpCallFailedException e) {
-        final String server = e.getHeaders().getValue(SERVER);
+    public boolean isRxMicroError(final HttpCallFailedException exception) {
+        final String server = exception.getHeaders().getValue(SERVER);
         if (server != null && server.startsWith(RX_MICRO_FRAMEWORK_NAME)) {
             return true;
         }
-        if (CONTENT_TYPE_APPLICATION_JSON.equals(e.getHeaders().getValue(CONTENT_TYPE))) {
+        if (CONTENT_TYPE_APPLICATION_JSON.equals(exception.getHeaders().getValue(CONTENT_TYPE))) {
             try {
-                final Object json = JsonHelper.readJson(e.getBodyAsString());
+                final Object json = JsonHelper.readJson(exception.getBodyAsString());
                 if (isJsonObject(json)) {
                     final Map<String, Object> jsonObject = asJsonObject(json);
                     return jsonObject.size() == 1 && jsonObject.containsKey(MESSAGE);
@@ -72,12 +72,12 @@ public final class JsonHttpErrorResponseBodyBuilder implements HttpErrorResponse
 
     @Override
     public HttpResponse build(final HttpResponse emptyResponse,
-                              final HttpCallFailedException e) {
-        emptyResponse.setStatus(e.getStatusCode());
-        emptyResponse.setVersion(e.getVersion());
-        emptyResponse.setOrAddHeaders(e.getHeaders());
-        if (e.isBodyPresent()) {
-            emptyResponse.setContent(e.getBody());
+                              final HttpCallFailedException exception) {
+        emptyResponse.setStatus(exception.getStatusCode());
+        emptyResponse.setVersion(exception.getVersion());
+        emptyResponse.setOrAddHeaders(exception.getHeaders());
+        if (exception.isBodyPresent()) {
+            emptyResponse.setContent(exception.getBody());
         }
         return emptyResponse;
     }

@@ -63,13 +63,13 @@ public final class ErrorHttpResponseBuilderImpl implements ErrorHttpResponseBuil
     public HttpResponse build(final Throwable throwable) {
         final Throwable th = getRealThrowable(throwable);
         if (th instanceof HttpErrorException) {
-            final HttpErrorException e = (HttpErrorException) th;
-            if (e.isRedirectCode()) {
-                return redirectHttpResponseBuilder.build(e);
-            } else if (e instanceof HttpCallFailedException) {
-                return httpCallFailedHttpResponseBuilder.build((HttpCallFailedException) e);
+            final HttpErrorException exception = (HttpErrorException) th;
+            if (exception.isRedirectCode()) {
+                return redirectHttpResponseBuilder.build(exception);
+            } else if (exception instanceof HttpCallFailedException) {
+                return httpCallFailedHttpResponseBuilder.build((HttpCallFailedException) exception);
             } else {
-                return anyHttpErrorHttpResponseBuilder.build(e);
+                return anyHttpErrorHttpResponseBuilder.build(exception);
             }
         } else {
             return throwableHttpResponseBuilder.build(th);

@@ -30,6 +30,7 @@ import io.rxmicro.rest.server.local.component.PathMatcher;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.CompletionStage;
@@ -155,17 +156,13 @@ public final class CrossOriginResourceSharingPreflightRestController extends Abs
     private void validateAccessControlRequestHeaders(final HttpRequest request,
                                                      final CrossOriginResourceSharingResource resource) {
         final String accessControlRequestHeaders = request.getHeaders().getValue(ACCESS_CONTROL_REQUEST_HEADERS);
-        if (accessControlRequestHeaders != null) {
-            if (Arrays.stream(accessControlRequestHeaders.split(","))
-                    .map(s -> s.trim().toLowerCase())
-                    .noneMatch(h ->
-                            resource.getAllowHeaders().contains(h) ||
-                                    resource.getExposedHeaders().contains(h)
-                    )) {
-                throw new ValidationException(
-                        "Not a valid preflight request: Header(s) {?} not supported. Allowed header(s): {?}",
-                        accessControlRequestHeaders, resource.getAllHeadersCommaSeparated().orElse("<none>"));
-            }
+        if (accessControlRequestHeaders != null &&
+                Arrays.stream(accessControlRequestHeaders.split(","))
+                        .map(s -> s.trim().toLowerCase(Locale.ENGLISH))
+                        .noneMatch(h -> resource.getAllowHeaders().contains(h) || resource.getExposedHeaders().contains(h))) {
+            throw new ValidationException(
+                    "Not a valid preflight request: Header(s) {?} not supported. Allowed header(s): {?}",
+                    accessControlRequestHeaders, resource.getAllHeadersCommaSeparated().orElse("<none>"));
         }
     }
 

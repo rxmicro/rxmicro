@@ -51,17 +51,17 @@ abstract class AbstractRequestMappingRule implements RequestMappingRule {
     }
 
     @Override
-    public final String method() {
+    public final String getMethod() {
         return method;
     }
 
     @Override
-    public final Optional<String> versionHeaderValue() {
+    public final Optional<String> getVersionHeaderValue() {
         return Optional.ofNullable(versionHeaderValue);
     }
 
     @Override
-    public final boolean httpBody() {
+    public final boolean getHttpBody() {
         return httpBody;
     }
 
@@ -74,19 +74,27 @@ abstract class AbstractRequestMappingRule implements RequestMappingRule {
     }
 
     @Override
-    public boolean equals(final Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        final AbstractRequestMappingRule that = (AbstractRequestMappingRule) o;
-        if (httpBody != that.httpBody) return false;
-        if (!method.equals(that.method)) return false;
+    public boolean equals(final Object other) {
+        if (this == other) {
+            return true;
+        }
+        if (other == null || getClass() != other.getClass()) {
+            return false;
+        }
+        final AbstractRequestMappingRule that = (AbstractRequestMappingRule) other;
+        if (httpBody != that.httpBody) {
+            return false;
+        }
+        if (!method.equals(that.method)) {
+            return false;
+        }
         return Objects.equals(versionHeaderValue, that.versionHeaderValue);
     }
 
     @Override
     public final String toString() {
         final StringBuilder stringBuilder = new StringBuilder("\"");
-        stringBuilder.append(method).append(" '").append(uri()).append("' ");
+        stringBuilder.append(method).append(" '").append(getUri()).append("' ");
         if (versionHeaderValue != null) {
             stringBuilder.append(API_VERSION).append(": ").append(versionHeaderValue).append(' ');
         }

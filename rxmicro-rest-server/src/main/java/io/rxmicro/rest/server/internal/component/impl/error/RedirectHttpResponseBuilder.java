@@ -56,13 +56,13 @@ public final class RedirectHttpResponseBuilder {
         }
     }
 
-    private HttpResponse build(final RedirectException e) {
+    private HttpResponse build(final RedirectException redirectException) {
         final HttpResponse response = httpResponseBuilder.build();
-        response.setStatus(e.getStatusCode());
-        if (parentUrlNotFound || e.isAbsolute()) {
-            response.setHeader(LOCATION, e.getLocation());
+        response.setStatus(redirectException.getStatusCode());
+        if (parentUrlNotFound || redirectException.isAbsolute()) {
+            response.setHeader(LOCATION, redirectException.getLocation());
         } else {
-            response.setHeader(LOCATION, getFullLocationUrl(e.getLocation()));
+            response.setHeader(LOCATION, getFullLocationUrl(redirectException.getLocation()));
         }
         return response;
     }

@@ -41,7 +41,9 @@ public final class PathMatcher {
     public PathMatcherResult matches(final String url) {
         final String urlTemplate = urlSegments.getUrlTemplate();
         final List<String> variableValues = new ArrayList<>();
-        for (int indexUrl = 0, indexTemplate = 0; ; indexUrl++, indexTemplate++) {
+        int indexUrl = 0;
+        int indexTemplate = 0;
+        while (true) {
             if (indexUrl == url.length() && indexTemplate == urlTemplate.length()) {
                 return new PathMatcherResult(variableValues);
             } else if (indexUrl >= url.length() || indexTemplate >= urlTemplate.length()) {
@@ -78,6 +80,8 @@ public final class PathMatcher {
                     }
                 }
             }
+            indexUrl++;
+            indexTemplate++;
         }
     }
 }

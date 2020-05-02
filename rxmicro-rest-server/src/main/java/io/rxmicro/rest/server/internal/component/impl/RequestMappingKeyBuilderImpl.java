@@ -36,9 +36,9 @@ public final class RequestMappingKeyBuilderImpl implements RequestMappingKeyBuil
 
     @Override
     public String build(final HttpRequest request) {
-        final StringBuilder keyBuilder = new StringBuilder(50);
-        keyBuilder.append(request.getMethod()).append(" '");
-        keyBuilder.append(request.getUri()).append("' ");
+        final StringBuilder keyBuilder = new StringBuilder(50)
+                .append(request.getMethod()).append(" '")
+                .append(request.getUri()).append("' ");
         final String versionHeader = request.getHeaders().getValue(API_VERSION);
         if (versionHeader != null) {
             keyBuilder.append(API_VERSION).append("='").append(versionHeader).append("' ");
@@ -51,12 +51,12 @@ public final class RequestMappingKeyBuilderImpl implements RequestMappingKeyBuil
 
     @Override
     public String build(final ExactUrlRequestMappingRule registration) {
-        final StringBuilder keyBuilder = new StringBuilder(50);
-        keyBuilder.append(registration.method()).append(" '");
-        keyBuilder.append(registration.uri()).append("' ");
-        registration.versionHeaderValue().ifPresent(versionHeader ->
+        final StringBuilder keyBuilder = new StringBuilder(50)
+                .append(registration.getMethod()).append(" '")
+                .append(registration.getUri()).append("' ");
+        registration.getVersionHeaderValue().ifPresent(versionHeader ->
                 keyBuilder.append(API_VERSION).append("='").append(versionHeader).append("' "));
-        if (registration.httpBody()) {
+        if (registration.getHttpBody()) {
             keyBuilder.append(WITH_BODY);
         }
         return keyBuilder.toString();

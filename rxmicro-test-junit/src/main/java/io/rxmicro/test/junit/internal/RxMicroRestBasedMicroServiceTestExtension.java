@@ -216,9 +216,9 @@ public final class RxMicroRestBasedMicroServiceTestExtension
     public void afterAll(final ExtensionContext context) {
         safeInvoke(blockingHttpClient, BlockingHttpClient::release);
         if (DO_NOT_WAIT_FOR_RX_MICRO_TEST_REST_SERVER_STOPPED) {
-            safeInvoke(serverContainer, container -> container.serverInstance().shutdown());
+            safeInvoke(serverContainer, container -> container.getServerInstance().shutdown());
         } else {
-            safeInvoke(serverContainer, container -> container.serverInstance().shutdownAndWait());
+            safeInvoke(serverContainer, container -> container.getServerInstance().shutdownAndWait());
         }
     }
 }

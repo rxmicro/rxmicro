@@ -43,7 +43,7 @@ public final class ExactUrlRequestMappingRule extends AbstractRequestMappingRule
     }
 
     @Override
-    public String uri() {
+    public String getUri() {
         return uri;
     }
 
@@ -55,11 +55,17 @@ public final class ExactUrlRequestMappingRule extends AbstractRequestMappingRule
     }
 
     @Override
-    public boolean equals(final Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
-        final ExactUrlRequestMappingRule that = (ExactUrlRequestMappingRule) o;
+    public boolean equals(final Object other) {
+        if (this == other) {
+            return true;
+        }
+        if (other == null || getClass() != other.getClass()) {
+            return false;
+        }
+        if (!super.equals(other)) {
+            return false;
+        }
+        final ExactUrlRequestMappingRule that = (ExactUrlRequestMappingRule) other;
         return uri.equals(that.uri);
     }
 }

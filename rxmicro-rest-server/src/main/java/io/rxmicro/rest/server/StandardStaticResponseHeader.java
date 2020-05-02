@@ -44,10 +44,12 @@ public enum StandardStaticResponseHeader implements StaticResponseHeader {
         this.headerValueSupplier = headerValueSupplier;
     }
 
+    @Override
     public String getName() {
         return headerName;
     }
 
+    @Override
     public String getValue() {
         return headerValueSupplier.get();
     }

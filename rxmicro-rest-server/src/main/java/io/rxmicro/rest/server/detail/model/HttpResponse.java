@@ -57,7 +57,7 @@ public interface HttpResponse {
 
     default void addHeader(final String name,
                            final List<?> value) {
-        if (value != null && value.size() > 0) {
+        if (value != null && !value.isEmpty()) {
             addHeader(name, listToString(value));
         }
     }
@@ -83,7 +83,7 @@ public interface HttpResponse {
 
     default void setHeader(final String name,
                            final List<?> value) {
-        if (value != null && value.size() > 0) {
+        if (value != null && !value.isEmpty()) {
             setHeader(name, listToString(value));
         }
     }

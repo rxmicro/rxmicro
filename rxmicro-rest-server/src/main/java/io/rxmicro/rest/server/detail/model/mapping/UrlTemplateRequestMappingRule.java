@@ -57,17 +57,17 @@ public final class UrlTemplateRequestMappingRule extends AbstractRequestMappingR
     }
 
     @Override
-    public String uri() {
+    public String getUri() {
         return urlSegments.getOriginalUrl();
     }
 
     public PathMatcherResult match(final HttpRequest request) {
-        if (httpBody() != request.contentExists()) {
+        if (getHttpBody() != request.contentExists()) {
             return NO_MATCH;
-        } else if (!method().equals(request.getMethod())) {
+        } else if (!getMethod().equals(request.getMethod())) {
             return NO_MATCH;
         } else {
-            final Optional<String> expectedVersionHeaderOptional = versionHeaderValue();
+            final Optional<String> expectedVersionHeaderOptional = getVersionHeaderValue();
             if (expectedVersionHeaderOptional.isPresent()) {
                 final String actualVersionHeader = request.getHeaders().getValue(API_VERSION);
                 if (actualVersionHeader == null) {
@@ -88,11 +88,17 @@ public final class UrlTemplateRequestMappingRule extends AbstractRequestMappingR
     }
 
     @Override
-    public boolean equals(final Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
-        final UrlTemplateRequestMappingRule that = (UrlTemplateRequestMappingRule) o;
+    public boolean equals(final Object other) {
+        if (this == other) {
+            return true;
+        }
+        if (other == null || getClass() != other.getClass()) {
+            return false;
+        }
+        if (!super.equals(other)) {
+            return false;
+        }
+        final UrlTemplateRequestMappingRule that = (UrlTemplateRequestMappingRule) other;
         return urlSegments.getUrlTemplate().equals(that.urlSegments.getUrlTemplate());
     }
 }

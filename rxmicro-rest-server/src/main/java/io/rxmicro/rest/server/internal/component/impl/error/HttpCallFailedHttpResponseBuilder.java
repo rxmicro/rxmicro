@@ -49,20 +49,22 @@ public final class HttpCallFailedHttpResponseBuilder {
         this.hideInternalErrorMessage = hideInternalErrorMessage;
     }
 
-    public HttpResponse build(final HttpCallFailedException e) {
-        if (e.isServerErrorCode()) {
-            LOGGER.error("Http call failed: ?", e.getMessage());
+    public HttpResponse build(final HttpCallFailedException exception) {
+        if (exception.isServerErrorCode()) {
+            LOGGER.error("Http call failed: ?", exception.getMessage());
         }
-        if (httpErrorResponseBodyBuilder.isRxMicroError(e)) {
+        if (httpErrorResponseBodyBuilder.isRxMicroError(exception)) {
             final HttpResponse response = httpResponseBuilder.build(false);
-            return httpErrorResponseBodyBuilder.build(response, e);
+            return httpErrorResponseBodyBuilder.build(response, exception);
         } else {
             final HttpResponse response = httpResponseBuilder.build();
-            if (hideInternalErrorMessage && e.isServerErrorCode()) {
-                return httpErrorResponseBodyBuilder.build(response, e.getStatusCode(), getErrorMessage(e.getStatusCode()));
+            final String message;
+            if (hideInternalErrorMessage && exception.isServerErrorCode()) {
+                message = getErrorMessage(exception.getStatusCode());
             } else {
-                return httpErrorResponseBodyBuilder.build(response, e.getStatusCode(), e.getMessage());
+                message = exception.getMessage();
             }
+            return httpErrorResponseBodyBuilder.build(response, exception.getStatusCode(), message);
         }
     }
 }

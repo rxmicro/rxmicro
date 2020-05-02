@@ -68,4 +68,7 @@ public final class RestServerLauncher {
         final ServerInstance serverInstance = serverFactory.startNewServer(router);
         return new ServerContainer(serverInstance, router, restControllerAggregator);
     }
+
+    private RestServerLauncher(){
+    }
 }

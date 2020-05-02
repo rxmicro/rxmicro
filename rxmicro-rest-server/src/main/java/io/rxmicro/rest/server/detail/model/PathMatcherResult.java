@@ -29,13 +29,13 @@ public final class PathMatcherResult {
 
     public static final PathMatcherResult NO_MATCH = new PathMatcherResult(false, List.of());
 
-    private final boolean matches;
+    private final boolean result;
 
     private final List<String> extractedVariableValues;
 
-    private PathMatcherResult(final boolean matches,
+    private PathMatcherResult(final boolean result,
                               final List<String> extractedVariableValues) {
-        this.matches = matches;
+        this.result = result;
         this.extractedVariableValues = unmodifiableList(extractedVariableValues);
     }
 
@@ -44,7 +44,7 @@ public final class PathMatcherResult {
     }
 
     public boolean matches() {
-        return matches;
+        return result;
     }
 
     public List<String> getExtractedVariableValues() {

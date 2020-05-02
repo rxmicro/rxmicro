@@ -51,11 +51,14 @@ public final class HttpHealthCheckRegistration {
     }
 
     @Override
-    public boolean equals(final Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        final HttpHealthCheckRegistration that = (HttpHealthCheckRegistration) o;
-        return method.equals(that.method) &&
-                endpoint.equals(that.endpoint);
+    public boolean equals(final Object other) {
+        if (this == other) {
+            return true;
+        }
+        if (other == null || getClass() != other.getClass()) {
+            return false;
+        }
+        final HttpHealthCheckRegistration that = (HttpHealthCheckRegistration) other;
+        return method.equals(that.method) && endpoint.equals(that.endpoint);
     }
 }

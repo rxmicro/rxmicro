@@ -25,13 +25,13 @@ import java.util.Optional;
  */
 public interface RequestMappingRule {
 
-    String method();
+    String getMethod();
 
-    Optional<String> versionHeaderValue();
+    Optional<String> getVersionHeaderValue();
 
-    String uri();
+    String getUri();
 
-    boolean httpBody();
+    boolean getHttpBody();
 
     default boolean isExactUrlRequestMappingRule() {
         return this instanceof ExactUrlRequestMappingRule;

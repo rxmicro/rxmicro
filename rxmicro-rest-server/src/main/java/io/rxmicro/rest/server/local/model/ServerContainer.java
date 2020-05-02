@@ -46,7 +46,7 @@ public final class ServerContainer {
         this.restControllerAggregator = restControllerAggregator;
     }
 
-    public ServerInstance serverInstance() {
+    public ServerInstance getServerInstance() {
         return serverInstance;
     }
 
@@ -58,7 +58,7 @@ public final class ServerContainer {
         dynamicRestControllerRegistrar.clear();
     }
 
-    public Set<AbstractRestController> registeredRestControllers() {
-        return dynamicRestControllerRegistrar.registeredRestControllers();
+    public Set<AbstractRestController> getRegisteredRestControllers() {
+        return dynamicRestControllerRegistrar.getRegisteredRestControllers();
     }
 }

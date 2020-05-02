@@ -54,7 +54,7 @@ public @interface EnableCrossOriginResourceSharing {
      * @return Maximum number of seconds the results can be cached or
      * <code>-1</code> if cache must be disabled
      */
-    int accessControlMaxAge() default 86400;
+    int accessControlMaxAge() default 86_400;
 
     /**
      * Allows to add HTTP headers to ALL CORS requests
