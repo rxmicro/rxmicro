@@ -96,7 +96,7 @@
             <property name="interfacePattern" value="[A-Z][a-zA-Z0-9]*" />
             <property name="enumPattern" value="[A-Z][a-zA-Z0-9]*" />
             <property name="annotationPattern" value="[A-Z][a-zA-Z0-9]*" />
-            <property name="utilityClassPattern" value="[A-Z][a-zA-Z0-9]+(Util|Factory|Helper|Constants|s)" />
+            <property name="utilityClassPattern" value="[A-Z][a-zA-Z0-9]+(Utils|Factory|Helper|Constants|s)" />
         </properties>
     </rule>
     <!--rule ref="category/java/codestyle.xml/CommentDefaultAccessModifier" /-->
@@ -113,7 +113,22 @@
     <rule ref="category/java/codestyle.xml/FormalParameterNamingConventions"/>
     <!--rule ref="category/java/codestyle.xml/GenericsNaming"/-->
     <rule ref="category/java/codestyle.xml/IdenticalCatchBranches"/>
-    <rule ref="category/java/codestyle.xml/LinguisticNaming"/>
+    <rule ref="category/java/codestyle.xml/LinguisticNaming">
+        <properties>
+            <property name="ignoredAnnotations"
+                      value="java.lang.Override|io.rxmicro.common.meta.BuilderMethod" />
+            <property name="checkBooleanMethod" value="true" />
+            <property name="checkGetters" value="true" />
+            <property name="checkSetters" value="true" />
+            <property name="checkPrefixedTransformMethods" value="true" />
+            <property name="checkTransformMethods" value="false" />
+            <property name="booleanMethodPrefixes" value="is|has|can|have|will|should" />
+            <property name="transformMethodNames" value="to|as" />
+            <property name="checkFields" value="true" />
+            <property name="checkVariables" value="true" />
+            <property name="booleanFieldPrefixes" value="is|has|can|have|will|should" />
+        </properties>
+    </rule>
     <!--rule ref="category/java/codestyle.xml/LocalHomeNamingConvention" />
     <rule ref="category/java/codestyle.xml/LocalInterfaceSessionNamingConvention" /-->
     <rule ref="category/java/codestyle.xml/LocalVariableCouldBeFinal"/>
@@ -214,7 +229,7 @@
     <!--rule ref="category/java/documentation.xml/CommentRequired"/-->
     <rule ref="category/java/documentation.xml/CommentSize">
         <properties>
-            <property name="maxLines" value="20"/>
+            <property name="maxLines" value="60"/>
             <property name="maxLineLength" value="140"/>
         </properties>
     </rule>
@@ -336,7 +351,7 @@
     <rule ref="category/java/multithreading.xml/DoNotUseThreads"/>
     <rule ref="category/java/multithreading.xml/DontCallThreadRun"/>
     <rule ref="category/java/multithreading.xml/DoubleCheckedLocking"/>
-    <rule ref="category/java/multithreading.xml/NonThreadSafeSingleton"/>
+    <!--rule ref="category/java/multithreading.xml/NonThreadSafeSingleton"/-->
     <rule ref="category/java/multithreading.xml/UnsynchronizedStaticFormatter"/>
     <!--rule ref="category/java/multithreading.xml/UseConcurrentHashMap"/-->
     <rule ref="category/java/multithreading.xml/UseNotifyAllInsteadOfNotify"/>

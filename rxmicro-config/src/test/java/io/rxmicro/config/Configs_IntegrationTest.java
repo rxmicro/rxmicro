@@ -34,8 +34,8 @@ import java.util.List;
 import java.util.Map;
 
 import static io.rxmicro.config.detail.DefaultConfigValueBuilder.putDefaultConfigValue;
-import static io.rxmicro.config.internal.ExternalSourceProvider.setCurrentDir;
-import static io.rxmicro.config.internal.ExternalSourceProvider.setEnvironmentVariables;
+import static io.rxmicro.config.internal.ExternalSourceProviderFactory.setCurrentDir;
+import static io.rxmicro.config.internal.ExternalSourceProviderFactory.setEnvironmentVariables;
 import static io.rxmicro.config.internal.model.PropertyNames.USER_HOME_PROPERTY;
 import static java.nio.file.Files.createDirectories;
 import static org.junit.jupiter.api.Assertions.assertEquals;

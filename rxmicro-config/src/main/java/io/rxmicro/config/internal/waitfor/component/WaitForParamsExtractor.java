@@ -35,7 +35,7 @@ import static io.rxmicro.config.WaitFor.WAIT_FOR_ENV_VAR_OF_JAVA_SYS_PROP_NAME;
  */
 public final class WaitForParamsExtractor {
 
-    public static List<String> extractWaitForParams(final String[] commandLineArgs) {
+    public static List<String> extractWaitForParams(final String... commandLineArgs) {
         validateEnvVariables();
         if (commandLineArgs.length > 0) {
             final Iterator<String> iterator = Arrays.asList(commandLineArgs).iterator();
@@ -43,22 +43,31 @@ public final class WaitForParamsExtractor {
             while (iterator.hasNext()) {
                 final String arg = iterator.next();
                 validateCommandLineArg(arg);
-                if (WAIT_FOR_COMMAND_LINE_ARG.equals(arg)) {
-                    while (iterator.hasNext()) {
-                        final String next = iterator.next();
-                        result.add(next);
-                        if (!next.startsWith("--")) {
-                            break;
-                        }
-                    }
-                    if (result.isEmpty()) {
-                        throw new ConfigException("Expected destination. For example: java Main.class wait-for ${destination}");
-                    }
+                if (extract(iterator, result, arg)) {
                     return unmodifiableList(result);
                 }
             }
         }
         return getParamsFromEvnVariables();
+    }
+
+    private static boolean extract(final Iterator<String> iterator,
+                                   final List<String> result,
+                                   final String arg) {
+        if (WAIT_FOR_COMMAND_LINE_ARG.equals(arg)) {
+            while (iterator.hasNext()) {
+                final String next = iterator.next();
+                result.add(next);
+                if (!next.startsWith("--")) {
+                    break;
+                }
+            }
+            if (result.isEmpty()) {
+                throw new ConfigException("Expected destination. For example: java Main.class wait-for ${destination}");
+            }
+            return true;
+        }
+        return false;
     }
 
     private static void validateEnvVariables() {

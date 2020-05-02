@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. http://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,18 +14,27 @@
  * limitations under the License.
  */
 
-package io.rxmicro.config.internal.waitfor.model;
+package io.rxmicro.common.meta;
+
+import java.lang.annotation.Documented;
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
+
+import static java.lang.annotation.ElementType.METHOD;
+import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
+ * Indicates a builder method.
+ *
+ * Used by PMD plugin
+ *
  * @author nedis
- * @link http://rxmicro.io
- * @since 0.3
+ * @link https://rxmicro.io
+ * @since 0.4
  */
-public enum Type {
+@Documented
+@Retention(SOURCE)
+@Target({METHOD})
+public @interface BuilderMethod {
 
-    tcp_socket;
-
-    public String getValue() {
-        return name().replace('_', '-');
-    }
 }

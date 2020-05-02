@@ -78,7 +78,7 @@ public final class TcpSocketWaitForService implements WaitForService {
         final long start = System.nanoTime();
         do {
             LOGGER.trace("Connecting to '?' ...", params.getDestination());
-            try (final Socket ignored = new Socket(host, port)) {
+            try (Socket ignored = new Socket(host, port)) {
                 LOGGER.debug("tcp socket is available: ?", params.getDestination());
                 return;
             } catch (final IOException e) {

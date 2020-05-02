@@ -38,7 +38,7 @@ public final class WaitForServiceFactory {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(WaitForServiceFactory.class);
 
-    public static Optional<WaitForService> createWaitForService(final String[] commandLineArgs) {
+    public static Optional<WaitForService> createWaitForService(final String... commandLineArgs) {
         final List<String> paramsList = extractWaitForParams(commandLineArgs);
         if (paramsList.isEmpty()) {
             LOGGER.warn("wait-for is not configured");

@@ -30,9 +30,6 @@ public abstract class AbstractDefaultConfigValueBuilder {
 
     private static DefaultConfigValueStorage defaultConfigValueStorage;
 
-    protected AbstractDefaultConfigValueBuilder() {
-    }
-
     public static DefaultConfigValueStorage.Builder getCurrentBuilder() {
         if (defaultConfigValueStorage != null) {
             throw new ImpossibleException("Detected logic issue in the RxMicro framework! " +

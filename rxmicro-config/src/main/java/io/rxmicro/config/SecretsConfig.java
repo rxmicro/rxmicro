@@ -16,6 +16,10 @@
 
 package io.rxmicro.config;
 
+import io.rxmicro.common.meta.BuilderMethod;
+
+import static io.rxmicro.common.util.Requires.require;
+
 /**
  * RxMicro uses {@link String#split(String)} to split values by regex!
  *
@@ -40,8 +44,9 @@ public final class SecretsConfig extends Config {
      * @param regex regex that used at {@link String#split(String)} method
      * @return A reference to this {@code SecretsConfig}
      */
+    @BuilderMethod
     public SecretsConfig setRegex(final String regex) {
-        this.regex = regex;
+        this.regex = require(regex);
         return this;
     }
 
@@ -55,12 +60,13 @@ public final class SecretsConfig extends Config {
      * @param values values
      * @return A reference to this {@code SecretsConfig}
      */
+    @BuilderMethod
     public SecretsConfig setValues(final String values) {
-        this.values = values;
+        this.values = require(values);
         return this;
     }
 
     public boolean hasValues() {
-        return values != null && !values.trim().isEmpty();
+        return values != null && !values.isBlank();
     }
 }

@@ -102,16 +102,20 @@ public final class ConfigProperty implements Comparable<ConfigProperty> {
     }
 
     @Override
-    public boolean equals(final Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        final ConfigProperty that = (ConfigProperty) o;
+    public boolean equals(final Object other) {
+        if (this == other) {
+            return true;
+        }
+        if (other == null || getClass() != other.getClass()) {
+            return false;
+        }
+        final ConfigProperty that = (ConfigProperty) other;
         return fullPropertyName.equals(that.fullPropertyName);
     }
 
     @Override
     @SuppressWarnings("NullableProblems")
-    public int compareTo(final ConfigProperty o) {
-        return o == null ? 1 : fullPropertyName.compareTo(o.fullPropertyName);
+    public int compareTo(final ConfigProperty other) {
+        return other == null ? 1 : fullPropertyName.compareTo(other.fullPropertyName);
     }
 }

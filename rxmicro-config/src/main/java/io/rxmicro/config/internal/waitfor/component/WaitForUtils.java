@@ -31,7 +31,7 @@ import static io.rxmicro.config.WaitFor.WAIT_FOR_COMMAND_LINE_ARG;
  */
 public final class WaitForUtils {
 
-    public static List<String> withoutWaitForArguments(final String[] commandLineArguments) {
+    public static List<String> withoutWaitForArguments(final String... commandLineArguments) {
         final Iterator<String> iterator = Arrays.asList(commandLineArguments).iterator();
         final List<String> result = new ArrayList<>();
         while (iterator.hasNext()) {

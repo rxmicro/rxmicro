@@ -25,7 +25,7 @@ import java.util.Map;
  * @link http://rxmicro.io
  * @since 0.3
  */
-public final class ExternalSourceProvider {
+public final class ExternalSourceProviderFactory {
 
     private static Map<String, String> environmentVariables = System.getenv();
 
@@ -36,7 +36,7 @@ public final class ExternalSourceProvider {
     }
 
     public static void setEnvironmentVariables(final Map<String, String> environmentVariables) {
-        ExternalSourceProvider.environmentVariables = environmentVariables;
+        ExternalSourceProviderFactory.environmentVariables = environmentVariables;
     }
 
     public static String getCurrentDir() {
@@ -44,6 +44,9 @@ public final class ExternalSourceProvider {
     }
 
     public static void setCurrentDir(final String currentDir) {
-        ExternalSourceProvider.currentDir = currentDir;
+        ExternalSourceProviderFactory.currentDir = currentDir;
+    }
+
+    private ExternalSourceProviderFactory(){
     }
 }

@@ -23,13 +23,15 @@ package io.rxmicro.config;
  */
 public final class Networks {
 
+    public static final int MIN_PORT = 0;
+
+    public static final int MAX_PORT = 65_535;
+
     public static int validatePort(final int port) {
-        final int minPort = 0;
-        final int maxPort = 65535;
-        if (port <= minPort || port >= maxPort) {
+        if (port <= MIN_PORT || port >= MAX_PORT) {
             throw new ConfigException(
                     "Invalid port value: ? (Must be ? < ? < ?)",
-                    port, minPort, port, maxPort);
+                    port, MIN_PORT, port, MAX_PORT);
         }
         return port;
     }

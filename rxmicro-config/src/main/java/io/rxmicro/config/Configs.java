@@ -19,7 +19,6 @@ package io.rxmicro.config;
 import io.rxmicro.config.internal.EnvironmentConfigLoader;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -54,7 +53,7 @@ public final class Configs {
             JAVA_SYSTEM_PROPERTIES
     ));
 
-    private static Configs INSTANCE;
+    private static Configs instance;
 
     private final EnvironmentConfigLoader loader;
 
@@ -65,12 +64,12 @@ public final class Configs {
     @SuppressWarnings("unchecked")
     public static <T extends Config> T getConfig(final String nameSpace,
                                                  final Class<T> configClass) {
-        if (INSTANCE == null) {
+        if (instance == null) {
             throw new ConfigException(
                     "Configs are not built. Use Configs.Builder to build configuration");
         }
-        return (T) INSTANCE.storage.computeIfAbsent(nameSpace, n ->
-                INSTANCE.loader.getEnvironmentConfig(nameSpace, configClass, INSTANCE.commandLineArgs));
+        return (T) instance.storage.computeIfAbsent(nameSpace, n ->
+                instance.loader.getEnvironmentConfig(nameSpace, configClass, instance.commandLineArgs));
     }
 
     public static <T extends Config> T getConfig(final Class<T> configClass) {
@@ -141,7 +140,7 @@ public final class Configs {
 
         public Builder withOrderedConfigSources(final ConfigSource... sources) {
             configSources.clear();
-            configSources.addAll(Arrays.asList(sources));
+            configSources.addAll(asList(sources));
             return this;
         }
 
@@ -164,7 +163,7 @@ public final class Configs {
             return this;
         }
 
-        public Builder withCommandLineArguments(final String[] args) {
+        public Builder withCommandLineArguments(final String... args) {
             if (args.length > 0) {
                 commandLineArgs.addAll(withoutWaitForArguments(args));
             }
@@ -172,11 +171,11 @@ public final class Configs {
         }
 
         public void build() {
-            INSTANCE = new Configs(storage, configSources, commandLineArgs);
+            instance = new Configs(storage, configSources, commandLineArgs);
         }
 
         public void buildIfNotConfigured() {
-            if (INSTANCE == null) {
+            if (instance == null) {
                 build();
             }
         }
