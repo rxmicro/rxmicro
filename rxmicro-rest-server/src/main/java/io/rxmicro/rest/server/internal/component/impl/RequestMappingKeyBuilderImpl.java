@@ -56,7 +56,7 @@ public final class RequestMappingKeyBuilderImpl implements RequestMappingKeyBuil
                 .append(registration.getUri()).append("' ");
         registration.getVersionHeaderValue().ifPresent(versionHeader ->
                 keyBuilder.append(API_VERSION).append("='").append(versionHeader).append("' "));
-        if (registration.getHttpBody()) {
+        if (registration.hasHttpBody()) {
             keyBuilder.append(WITH_BODY);
         }
         return keyBuilder.toString();

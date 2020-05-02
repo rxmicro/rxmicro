@@ -63,10 +63,10 @@ public final class LatinAlphabetOnlyConstraintValidator implements ConstraintVal
     private static final class LatinAlphabetHelper {
 
         private static String buildLatinAlphabet(final boolean allowsUppercase,
-                                                final boolean allowsLowercase,
-                                                final boolean allowsDigits,
-                                                final String punctuations) {
-            final StringBuilder builder = new StringBuilder();
+                                                 final boolean allowsLowercase,
+                                                 final boolean allowsDigits,
+                                                 final String punctuations) {
+            final StringBuilder builder = new StringBuilder(69);
             if (allowsUppercase) {
                 builder.append("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
             }
@@ -83,9 +83,6 @@ public final class LatinAlphabetOnlyConstraintValidator implements ConstraintVal
                 }
             }
             return builder.toString();
-        }
-
-        private LatinAlphabetHelper(){
         }
     }
 }

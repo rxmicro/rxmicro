@@ -65,7 +65,7 @@ public interface ConstraintValidator<T> {
      */
     default void validateList(final List<T> list,
                               final HttpModelType httpModelType,
-                              final String modelName){
+                              final String modelName) {
         if (list != null) {
             for (final T actual : list) {
                 validate(actual, httpModelType, modelName);

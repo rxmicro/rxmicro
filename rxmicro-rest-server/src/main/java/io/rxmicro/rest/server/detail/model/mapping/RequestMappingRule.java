@@ -31,7 +31,7 @@ public interface RequestMappingRule {
 
     String getUri();
 
-    boolean getHttpBody();
+    boolean hasHttpBody();
 
     default boolean isExactUrlRequestMappingRule() {
         return this instanceof ExactUrlRequestMappingRule;

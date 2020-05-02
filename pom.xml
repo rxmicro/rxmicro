@@ -269,6 +269,7 @@
                                     <goal>check</goal>
                                 </goals>
                                 <configuration>
+                                    <skipEmptyReport>true</skipEmptyReport>
                                     <excludeFromFailureFile>${basedir}/../release/src/main/filters/exclude-pmd.properties</excludeFromFailureFile>
                                 </configuration>
                             </execution>
@@ -278,6 +279,7 @@
                                     <goal>cpd-check</goal>
                                 </goals>
                                 <configuration>
+                                    <skipEmptyReport>true</skipEmptyReport>
                                     <excludeFromFailureFile>${basedir}/../release/src/main/filters/exclude-cpd.properties</excludeFromFailureFile>
                                 </configuration>
                             </execution>
@@ -296,7 +298,6 @@
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-pmd-plugin</artifactId>
                         <configuration>
-                            <skipEmptyReport>true</skipEmptyReport>
                             <rulesets>
                                 <ruleset>${basedir}/../release/src/main/filters/pmd-ruleset.xml</ruleset>
                             </rulesets>
@@ -308,6 +309,7 @@
                                     <report>pmd</report>
                                 </reports>
                                 <configuration>
+                                    <skipEmptyReport>true</skipEmptyReport>
                                     <excludeFromFailureFile>${basedir}/../release/src/main/filters/exclude-pmd.properties</excludeFromFailureFile>
                                 </configuration>
                             </reportSet>
@@ -317,6 +319,7 @@
                                     <report>cpd</report>
                                 </reports>
                                 <configuration>
+                                    <skipEmptyReport>true</skipEmptyReport>
                                     <excludeFromFailureFile>${basedir}/../release/src/main/filters/exclude-cpd.properties</excludeFromFailureFile>
                                 </configuration>
                             </reportSet>

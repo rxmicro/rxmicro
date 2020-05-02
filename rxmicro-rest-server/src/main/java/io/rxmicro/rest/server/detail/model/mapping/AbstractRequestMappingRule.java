@@ -61,7 +61,7 @@ abstract class AbstractRequestMappingRule implements RequestMappingRule {
     }
 
     @Override
-    public final boolean getHttpBody() {
+    public final boolean hasHttpBody() {
         return httpBody;
     }
 

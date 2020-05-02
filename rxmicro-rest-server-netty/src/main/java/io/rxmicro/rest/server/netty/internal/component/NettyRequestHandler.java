@@ -173,7 +173,7 @@ final class NettyRequestHandler extends SimpleChannelInboundHandler<FullHttpRequ
                                final HttpResponse response,
                                final long startTime,
                                final boolean keepAlive) {
-        final NettyHttpResponse httpResponse = ((NettyHttpResponse) response);
+        final NettyHttpResponse httpResponse = (NettyHttpResponse) response;
         if (request.isRequestIdGenerated()) {
             if (returnGeneratedRequestId) {
                 httpResponse.setHeader(REQUEST_ID, request.getRequestId());
@@ -227,7 +227,7 @@ final class NettyRequestHandler extends SimpleChannelInboundHandler<FullHttpRequ
         LOGGER.trace("HTTP response: (Id=?, Channel=?, Duration=?):\n? ?\n?\n\n?",
                 requestId,
                 nettyRestServerConfig.getChannelIdType().getId(ctx.channel().id()),
-                startTime == 0L ? "undefined" : format(Duration.ofNanos((System.nanoTime() - startTime))),
+                startTime == 0L ? "undefined" : format(Duration.ofNanos(System.nanoTime() - startTime)),
                 httpResponse.getHttpVersion(),
                 httpResponse.getStatus(),
                 httpResponse.getHeaders().getEntries().stream()
@@ -247,7 +247,7 @@ final class NettyRequestHandler extends SimpleChannelInboundHandler<FullHttpRequ
                 requestId,
                 nettyRestServerConfig.getChannelIdType().getId(ctx.channel().id()),
                 httpResponse.getContentLength(),
-                startTime == 0L ? "undefined" : format(Duration.ofNanos((System.nanoTime() - startTime)))
+                startTime == 0L ? "undefined" : format(Duration.ofNanos(System.nanoTime() - startTime))
         );
     }
 
