@@ -150,7 +150,7 @@ public final class RxMicroRestBasedMicroServiceTestExtension
         createInjectors(testClass, testModel, configs);
     }
 
-    private void validateNotEmptyArray(final Class<?>[] restControllerClasses) {
+    private void validateNotEmptyArray(final Class<?>... restControllerClasses) {
         if (restControllerClasses.length == 0) {
             throw new InvalidTestConfigException(
                     "Annotation '?' must contain at least one REST controller class",
