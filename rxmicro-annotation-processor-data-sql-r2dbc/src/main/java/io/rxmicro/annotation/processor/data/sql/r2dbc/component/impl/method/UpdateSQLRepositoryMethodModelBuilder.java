@@ -19,7 +19,7 @@ package io.rxmicro.annotation.processor.data.sql.r2dbc.component.impl.method;
 import com.google.inject.Singleton;
 import io.rxmicro.annotation.processor.common.model.method.MethodResult;
 import io.rxmicro.annotation.processor.data.model.DataGenerationContext;
-import io.rxmicro.annotation.processor.data.model.Var;
+import io.rxmicro.annotation.processor.data.model.Variable;
 import io.rxmicro.annotation.processor.data.sql.model.ParsedSQL;
 import io.rxmicro.annotation.processor.data.sql.model.SQLDataModelField;
 import io.rxmicro.annotation.processor.data.sql.model.SQLDataObjectModelClass;
@@ -59,7 +59,7 @@ public class UpdateSQLRepositoryMethodModelBuilder<DMF extends SQLDataModelField
                                   final MethodResult methodResult,
                                   final DataGenerationContext<DMF, DMC> dataGenerationContext,
                                   final ExecutableElement method,
-                                  final List<Var> params) {
+                                  final List<Variable> params) {
         super.validateMethod(parsedSQL, methodResult, dataGenerationContext, method, params);
         validateThatEntityContainsPrimaryKeyIfCurrentParamIsEntity(dataGenerationContext, method, params);
     }

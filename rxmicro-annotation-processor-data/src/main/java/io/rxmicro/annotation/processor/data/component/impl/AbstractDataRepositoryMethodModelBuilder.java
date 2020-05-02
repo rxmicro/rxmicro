@@ -94,7 +94,7 @@ public abstract class AbstractDataRepositoryMethodModelBuilder<DMF extends DataM
                                             DataGenerationContext<DMF, DMC> dataGenerationContext);
 
     protected final TypeDefinitions<TypeDefinition> allowedPrimitives() {
-        return supportedTypesProvider.primitives();
+        return supportedTypesProvider.getPrimitives();
     }
 
     protected final void validateRequiredReturnType(final ExecutableElement repositoryMethod,
@@ -141,7 +141,7 @@ public abstract class AbstractDataRepositoryMethodModelBuilder<DMF extends DataM
                 throw new InterruptProcessingException(
                         repositoryMethod,
                         "Method must return a reactive result of the following types only: ?",
-                        supportedTypesProvider.reactiveReturnTypes().typeDefinitions().stream()
+                        supportedTypesProvider.getReactiveReturnTypes().typeDefinitions().stream()
                                 .filter(td -> Set.of(excludeReactiveTypes).stream().noneMatch(cl -> cl.getName().equals(td.toString())))
                                 .map(Objects::toString)
                                 .collect(joining(", "))
@@ -215,7 +215,7 @@ public abstract class AbstractDataRepositoryMethodModelBuilder<DMF extends DataM
 
     protected void addCommonImports(final ClassHeader.Builder classHeaderBuilder,
                                     final MethodResult methodResult) {
-
+        // Sub class can add common imports here
     }
 
     @Override
@@ -224,10 +224,14 @@ public abstract class AbstractDataRepositoryMethodModelBuilder<DMF extends DataM
     }
 
     @Override
-    public final boolean equals(final Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        return toString().equals(o.toString());
+    public final boolean equals(final Object other) {
+        if (this == other) {
+            return true;
+        }
+        if (other == null || getClass() != other.getClass()) {
+            return false;
+        }
+        return toString().equals(other.toString());
     }
 
     @Override

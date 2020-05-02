@@ -18,8 +18,8 @@ package io.rxmicro.annotation.processor.data.mongo.component.impl;
 
 import io.rxmicro.annotation.processor.common.model.definition.SupportedTypesProvider;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
-import io.rxmicro.annotation.processor.data.model.Var;
-import io.rxmicro.annotation.processor.data.mongo.model.MongoVar;
+import io.rxmicro.annotation.processor.data.model.Variable;
+import io.rxmicro.annotation.processor.data.mongo.model.MongoVariable;
 import io.rxmicro.data.Pageable;
 import io.rxmicro.data.RepeatParameter;
 
@@ -43,16 +43,16 @@ import static java.util.stream.Collectors.toList;
  */
 public final class MethodParameterReader {
 
-    private final ListIterator<MongoVar> iterator;
+    private final ListIterator<MongoVariable> iterator;
 
     public MethodParameterReader(final List<? extends VariableElement> parameters,
                                  final SupportedTypesProvider supportedTypesProvider) {
-        final List<MongoVar> vars = new ArrayList<>(parameters.size());
+        final List<MongoVariable> vars = new ArrayList<>(parameters.size());
         VariableElement page = null;
         for (final VariableElement parameter : parameters) {
             final String value = parameter.getSimpleName().toString();
-            if (!supportedTypesProvider.standardMethodParameters().contains(parameter.asType())) {
-                final MongoVar var = new MongoVar(parameter, value);
+            if (!supportedTypesProvider.getStandardMethodParameters().contains(parameter.asType())) {
+                final MongoVariable var = new MongoVariable(parameter, value);
                 final int repeatCount = Optional.ofNullable(parameter.getAnnotation(RepeatParameter.class))
                         .map(RepeatParameter::value)
                         .orElse(1);
@@ -69,8 +69,8 @@ public final class MethodParameterReader {
                         );
                     } else {
                         page = parameter;
-                        vars.add(new MongoVar(parameter, format("?.getLimit()", value)));
-                        vars.add(new MongoVar(parameter, format("?.getSkip()", value)));
+                        vars.add(new MongoVariable(parameter, format("?.getLimit()", value)));
+                        vars.add(new MongoVariable(parameter, format("?.getSkip()", value)));
                     }
                 }
             }
@@ -78,21 +78,21 @@ public final class MethodParameterReader {
         iterator = vars.listIterator();
     }
 
-    public Optional<MongoVar> nextVar() {
+    public Optional<MongoVariable> nextVar() {
         return iterator.hasNext() ? Optional.of(iterator.next()) : Optional.empty();
     }
 
-    public Optional<MongoVar> nextIfLimit() {
-        return nextIf(MongoVar::isLimit);
+    public Optional<MongoVariable> nextIfLimit() {
+        return nextIf(MongoVariable::isLimit);
     }
 
-    public Optional<MongoVar> nextIfSkip() {
-        return nextIf(MongoVar::isSkip);
+    public Optional<MongoVariable> nextIfSkip() {
+        return nextIf(MongoVariable::isSkip);
     }
 
-    private Optional<MongoVar> nextIf(final Predicate<MongoVar> predicate) {
+    private Optional<MongoVariable> nextIf(final Predicate<MongoVariable> predicate) {
         if (iterator.hasNext()) {
-            final MongoVar mongoVar = iterator.next();
+            final MongoVariable mongoVar = iterator.next();
             if (predicate.test(mongoVar)) {
                 return Optional.of(mongoVar);
             } else {
@@ -102,8 +102,8 @@ public final class MethodParameterReader {
         return Optional.empty();
     }
 
-    public List<MongoVar> getVars(final ExecutableElement repositoryMethod,
-                                  final int count) {
+    public List<MongoVariable> getVars(final ExecutableElement repositoryMethod,
+                                       final int count) {
         if (count == 0) {
             return List.of();
         } else {
@@ -116,10 +116,10 @@ public final class MethodParameterReader {
         }
     }
 
-    public List<Var> getUnusedVars() {
-        final List<Var> res = new ArrayList<>();
+    public List<Variable> getUnusedVars() {
+        final List<Variable> res = new ArrayList<>();
         while (iterator.hasNext()) {
-            final MongoVar mongoVar = iterator.next();
+            final MongoVariable mongoVar = iterator.next();
             if (mongoVar.is(Pageable.class)) {
                 if (mongoVar.isLimit()) {
                     res.add(mongoVar);

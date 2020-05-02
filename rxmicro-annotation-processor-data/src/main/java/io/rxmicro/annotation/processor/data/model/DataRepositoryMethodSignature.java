@@ -72,7 +72,7 @@ public final class DataRepositoryMethodSignature {
     }
 
     public Set<TypeMirror> getParamEntityClasses() {
-        final TypeDefinitions<TypeDefinition> notEntityMethodParameters = supportedTypesProvider.notEntityMethodParameters();
+        final TypeDefinitions<TypeDefinition> notEntityMethodParameters = supportedTypesProvider.getNotEntityMethodParameters();
         return params.stream()
                 .map(MethodParameter::getType)
                 .filter(p -> !notEntityMethodParameters.contains(p) &&
@@ -81,7 +81,7 @@ public final class DataRepositoryMethodSignature {
     }
 
     public Set<TypeMirror> getReturnEntityClasses() {
-        final TypeDefinitions<TypeDefinition> primitives = supportedTypesProvider.resultReturnPrimitiveTypes();
+        final TypeDefinitions<TypeDefinition> primitives = supportedTypesProvider.getResultReturnPrimitiveTypes();
         if (methodResult.isVoid() ||
                 primitives.contains(methodResult.getResultType()) ||
                 operationReturnVoid ||

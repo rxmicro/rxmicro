@@ -20,7 +20,7 @@ import com.google.inject.Singleton;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
 import io.rxmicro.annotation.processor.common.model.method.MethodResult;
 import io.rxmicro.annotation.processor.data.model.DataGenerationContext;
-import io.rxmicro.annotation.processor.data.model.Var;
+import io.rxmicro.annotation.processor.data.model.Variable;
 import io.rxmicro.annotation.processor.data.sql.model.EntitySetFieldsConverterMethod;
 import io.rxmicro.annotation.processor.data.sql.model.ParsedSQL;
 import io.rxmicro.annotation.processor.data.sql.model.SQLDataModelField;
@@ -60,7 +60,7 @@ public final class PostgreSQLUpdateWithReturningSQLRepositoryMethodModelBuilder
     protected void validateMethod(final ParsedSQL<Update> parsedSQL,
                                   final MethodResult methodResult,
                                   final DataGenerationContext<SQLDataModelField, PostgreSQLDataObjectModelClass> dataGenerationContext,
-                                  final ExecutableElement method, final List<Var> params) {
+                                  final ExecutableElement method, final List<Variable> params) {
         if (parsedSQL.doesNotContain(RETURNING)) {
             throw new InterruptProcessingException(method, "Missing '?' keyword in the '?' statement", RETURNING, UPDATE);
         }
@@ -78,7 +78,7 @@ public final class PostgreSQLUpdateWithReturningSQLRepositoryMethodModelBuilder
     protected void addEntityConverter(final MethodResult methodResult,
                                       final SQLMethodDescriptor<SQLDataModelField, PostgreSQLDataObjectModelClass> sqlMethodDescriptor,
                                       final DataGenerationContext<SQLDataModelField, PostgreSQLDataObjectModelClass> dataGenerationContext,
-                                      final List<Var> params,
+                                      final List<Variable> params,
                                       final SQLStatement sqlStatement,
                                       final Map<String, Object> templateArguments) {
         final boolean isEntityParam = isEntityParam(params, dataGenerationContext);

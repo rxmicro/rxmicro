@@ -28,7 +28,7 @@ import static io.rxmicro.common.util.Requires.require;
  * @link https://rxmicro.io
  * @since 0.1
  */
-public class Var {
+public class Variable {
 
     private final TypeMirror type;
 
@@ -36,23 +36,23 @@ public class Var {
 
     private final String getter;
 
-    public Var(final VariableElement element) {
+    public Variable(final VariableElement element) {
         this(element.asType(), element.getSimpleName().toString());
     }
 
-    public Var(final VariableElement element,
-               final String getter) {
+    public Variable(final VariableElement element,
+                    final String getter) {
         this(element.asType(), element.getSimpleName().toString(), getter);
     }
 
-    public Var(final TypeMirror type,
-               final String name) {
+    public Variable(final TypeMirror type,
+                    final String name) {
         this(type, name, name);
     }
 
-    public Var(final TypeMirror type,
-               final String name,
-               final String getter) {
+    public Variable(final TypeMirror type,
+                    final String name,
+                    final String getter) {
         this.type = require(type);
         this.name = require(name);
         this.getter = require(getter);
@@ -80,12 +80,16 @@ public class Var {
     }
 
     @Override
-    public boolean equals(final Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        final Var var = (Var) o;
-        return type.toString().equals(var.type.toString()) &&
-                name.equals(var.name);
+    public boolean equals(final Object other) {
+        if (this == other) {
+            return true;
+        }
+        if (other == null || getClass() != other.getClass()) {
+            return false;
+        }
+        final Variable variable = (Variable) other;
+        return type.toString().equals(variable.type.toString()) &&
+                name.equals(variable.name);
     }
 
     @Override

@@ -91,7 +91,7 @@ public abstract class AbstractModelFieldBuilder<MF extends ModelField, MC extend
 
     private int maxNestedLevel = -1;
 
-    protected abstract SupportedTypesProvider supportedTypesProvider();
+    protected abstract SupportedTypesProvider getSupportedTypesProvider();
 
     @Override
     @SuppressWarnings("unchecked")
@@ -153,15 +153,15 @@ public abstract class AbstractModelFieldBuilder<MF extends ModelField, MC extend
                                 int nestedLevel);
 
     protected final boolean isModelPrimitive(final TypeMirror typeMirror) {
-        return supportedTypesProvider().primitives().contains(typeMirror);
+        return getSupportedTypesProvider().getPrimitives().contains(typeMirror);
     }
 
     protected final boolean isModelInternalType(final Element owner) {
-        return supportedTypesProvider().internalTypes().contains(owner);
+        return getSupportedTypesProvider().getInternalTypes().contains(owner);
     }
 
     protected final boolean isModelPrimitiveList(final TypeMirror typeMirror) {
-        return supportedTypesProvider().primitiveContainers().contains(typeMirror);
+        return getSupportedTypesProvider().getPrimitiveContainers().contains(typeMirror);
     }
 
     protected final <M extends ModelField> M validate(final M modelField,
@@ -241,13 +241,13 @@ public abstract class AbstractModelFieldBuilder<MF extends ModelField, MC extend
             return asEnumElement(type)
                     .map(e -> (ModelClass) new EnumModelClass(type))
                     .orElseGet(() -> createPrimitiveModelClass(type));
-        } else if (supportedTypesProvider().collectionContainers().contains(type)) {
+        } else if (getSupportedTypesProvider().getCollectionContainers().contains(type)) {
             validateGenericType(owner, type, "Invalid container");
             return buildListModelClass(
                     currentModule, modelFieldType, owner, (DeclaredType) type, nestedLevel + 1, requireDefConstructor
             );
         } else {
-            supportedTypesProvider().getReplacePrimitiveSuggestions(type.toString()).ifPresent(replace -> {
+            getSupportedTypesProvider().getReplacePrimitiveSuggestions(type.toString()).ifPresent(replace -> {
                 throw new InterruptProcessingException(
                         owner,
                         "Use '?' type instead of '?' one!",

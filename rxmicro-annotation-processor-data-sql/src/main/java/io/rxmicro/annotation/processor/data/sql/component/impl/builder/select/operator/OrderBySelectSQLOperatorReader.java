@@ -17,7 +17,7 @@
 package io.rxmicro.annotation.processor.data.sql.component.impl.builder.select.operator;
 
 import io.rxmicro.annotation.processor.common.model.ClassHeader;
-import io.rxmicro.annotation.processor.data.model.Var;
+import io.rxmicro.annotation.processor.data.model.Variable;
 import io.rxmicro.annotation.processor.data.sql.component.impl.builder.select.SelectSQLOperatorReader;
 
 import java.util.List;
@@ -48,7 +48,7 @@ public class OrderBySelectSQLOperatorReader implements SelectSQLOperatorReader {
     @Override
     public void read(final ClassHeader.Builder classHeaderBuilder,
                      final ListIterator<String> iterator,
-                     final List<Var> methodParams,
+                     final List<Variable> methodParams,
                      final List<String> formatParams) {
         int nested = 0;
         while (iterator.hasNext()) {

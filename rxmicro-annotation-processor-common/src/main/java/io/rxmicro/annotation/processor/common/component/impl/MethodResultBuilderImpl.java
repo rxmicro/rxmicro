@@ -45,14 +45,14 @@ public final class MethodResultBuilderImpl extends AbstractProcessorComponent
                               final SupportedTypesProvider supportedTypesProvider) {
         return reactiveMethodResultBuilders.stream()
                 .filter(builder -> builder.isSupport(method) &&
-                        supportedTypesProvider.reactiveReturnTypes().contains(getTypes().erasure(method.getReturnType())))
+                        supportedTypesProvider.getReactiveReturnTypes().contains(getTypes().erasure(method.getReturnType())))
                 .map(builder -> builder.build(method, supportedTypesProvider))
                 .findFirst()
                 .orElseThrow(() -> {
                     throw new InterruptProcessingException(
                             method,
                             "Invalid return type. Expected one of the following: ?",
-                            supportedTypesProvider.reactiveReturnTypes().typeDefinitions()
+                            supportedTypesProvider.getReactiveReturnTypes().typeDefinitions()
                     );
                 });
     }

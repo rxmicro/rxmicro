@@ -20,7 +20,7 @@ import com.google.inject.Inject;
 import io.rxmicro.annotation.processor.common.component.impl.AbstractProcessorComponent;
 import io.rxmicro.annotation.processor.common.model.ClassHeader;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
-import io.rxmicro.annotation.processor.data.model.Var;
+import io.rxmicro.annotation.processor.data.model.Variable;
 import io.rxmicro.annotation.processor.data.sql.component.PlatformPlaceHolderGeneratorFactory;
 import io.rxmicro.annotation.processor.data.sql.component.impl.builder.select.SelectSQLOperatorReader;
 import io.rxmicro.annotation.processor.data.sql.model.PlatformPlaceHolderGenerator;
@@ -171,7 +171,7 @@ public abstract class AbstractSQLBuilder extends AbstractProcessorComponent {
     protected final void splitParams(final Element owner,
                                      final ClassHeader.Builder classHeaderBuilder,
                                      final List<String> sqlTokens,
-                                     final List<Var> methodParams,
+                                     final List<Variable> methodParams,
                                      final List<String> formatParams,
                                      final List<String> bindParams) {
         final PlatformPlaceHolderGenerator platformPlaceHolderGenerator =

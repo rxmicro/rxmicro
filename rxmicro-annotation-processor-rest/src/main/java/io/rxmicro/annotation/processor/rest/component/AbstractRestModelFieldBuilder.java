@@ -77,7 +77,7 @@ public abstract class AbstractRestModelFieldBuilder
     private SupportedTypesProvider supportedTypesProvider;
 
     @Override
-    protected final SupportedTypesProvider supportedTypesProvider() {
+    protected final SupportedTypesProvider getSupportedTypesProvider() {
         return supportedTypesProvider;
     }
 
@@ -160,10 +160,10 @@ public abstract class AbstractRestModelFieldBuilder
             error(annotated.getElementAnnotatedBy(PathVariable.class).orElse(field),
                     "Detected duplicate of path variable name: " + modelName);
         }
-        if (!supportedTypesProvider().primitives().contains(field.asType())) {
+        if (!getSupportedTypesProvider().getPrimitives().contains(field.asType())) {
             error(annotated.getElementAnnotatedBy(PathVariable.class).orElse(field),
                     "Invalid path variable type. Allowed types are: ?",
-                    supportedTypesProvider().primitives());
+                    getSupportedTypesProvider().getPrimitives());
         }
         return new RestModelField(annotated, HttpModelType.PATH, modelName);
     }
@@ -186,7 +186,7 @@ public abstract class AbstractRestModelFieldBuilder
         if (!isModelPrimitive(fieldType) && !isModelPrimitiveList(fieldType)) {
             error(annotated.getElementAnnotatedBy(Header.class).orElse(field),
                     "Invalid header type. Allowed types are: ?",
-                    supportedTypesProvider().primitives());
+                    getSupportedTypesProvider().getPrimitives());
         }
         final HeaderMappingStrategy strategy = typeElement.getAnnotation(HeaderMappingStrategy.class);
         final String modelName = getModelName(header.value(), strategy, fieldName, () -> strategy.value());
@@ -325,7 +325,7 @@ public abstract class AbstractRestModelFieldBuilder
                     RepeatQueryParameter.class
             );
         }
-        if (!supportedTypesProvider().primitiveContainers().contains(annotated.getField().asType())) {
+        if (!getSupportedTypesProvider().getPrimitiveContainers().contains(annotated.getField().asType())) {
             throw new InterruptProcessingException(
                     annotated.getElementAnnotatedBy(RepeatQueryParameter.class).orElseThrow(ERROR_SUPPLIER),
                     "'@?' annotation can be applied for array type only! Remove the redundant annotation!",
@@ -350,7 +350,7 @@ public abstract class AbstractRestModelFieldBuilder
                     RepeatHeader.class
             );
         }
-        if (!supportedTypesProvider().primitiveContainers().contains(annotated.getField().asType())) {
+        if (!getSupportedTypesProvider().getPrimitiveContainers().contains(annotated.getField().asType())) {
             throw new InterruptProcessingException(
                     annotated.getElementAnnotatedBy(RepeatHeader.class).orElseThrow(ERROR_SUPPLIER),
                     "'@?' annotation can be applied for array type only! Remove the redundant annotation!",

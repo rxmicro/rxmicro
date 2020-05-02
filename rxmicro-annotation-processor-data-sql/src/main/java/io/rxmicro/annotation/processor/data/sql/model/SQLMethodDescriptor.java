@@ -17,7 +17,7 @@
 package io.rxmicro.annotation.processor.data.sql.model;
 
 import io.rxmicro.annotation.processor.common.model.method.MethodResult;
-import io.rxmicro.annotation.processor.data.model.Var;
+import io.rxmicro.annotation.processor.data.model.Variable;
 
 import javax.lang.model.element.ModuleElement;
 import java.util.List;
@@ -34,7 +34,7 @@ public final class SQLMethodDescriptor<DMF extends SQLDataModelField, DMC extend
 
     private final ModuleElement currentModule;
 
-    private final List<Var> params;
+    private final List<Variable> params;
 
     private final MethodResult result;
 
@@ -43,7 +43,7 @@ public final class SQLMethodDescriptor<DMF extends SQLDataModelField, DMC extend
     private final DMC entityResult;
 
     private SQLMethodDescriptor(final ModuleElement currentModule,
-                                final List<Var> params,
+                                final List<Variable> params,
                                 final MethodResult result,
                                 final DMC entityParam,
                                 final DMC entityResult) {
@@ -58,7 +58,7 @@ public final class SQLMethodDescriptor<DMF extends SQLDataModelField, DMC extend
         return currentModule;
     }
 
-    public List<Var> getParams() {
+    public List<Variable> getParams() {
         return params;
     }
 
@@ -84,7 +84,7 @@ public final class SQLMethodDescriptor<DMF extends SQLDataModelField, DMC extend
 
         private final ModuleElement currentModule;
 
-        private final List<Var> params;
+        private final List<Variable> params;
 
         private final MethodResult result;
 
@@ -93,7 +93,7 @@ public final class SQLMethodDescriptor<DMF extends SQLDataModelField, DMC extend
         private DMC entityResult;
 
         public Builder(final ModuleElement currentModule,
-                       final List<Var> params,
+                       final List<Variable> params,
                        final MethodResult result) {
             this.currentModule = require(currentModule);
             this.params = require(params);

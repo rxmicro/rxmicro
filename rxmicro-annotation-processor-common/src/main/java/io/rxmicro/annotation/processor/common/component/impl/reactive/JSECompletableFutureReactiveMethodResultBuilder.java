@@ -57,7 +57,7 @@ public final class JSECompletableFutureReactiveMethodResultBuilder implements Re
         final TypeMirror resultType;
         final boolean oneItem;
         final boolean optional;
-        final boolean isGenericList = supportedTypesProvider.collectionContainers().contains(getTypes().erasure(genericType));
+        final boolean isGenericList = supportedTypesProvider.getCollectionContainers().contains(getTypes().erasure(genericType));
         if (isGenericList) {
             validateGenericType(method, genericType, "Invalid return type");
             resultType = ((DeclaredType) genericType).getTypeArguments().get(0);
@@ -74,7 +74,7 @@ public final class JSECompletableFutureReactiveMethodResultBuilder implements Re
             oneItem = true;
             optional = false;
         }
-        final boolean primitive = supportedTypesProvider.resultReturnPrimitiveTypes().contains(resultType);
+        final boolean primitive = supportedTypesProvider.getResultReturnPrimitiveTypes().contains(resultType);
         return createCompletableFutureResult(reactiveType, oneItem, optional, resultType, primitive);
     }
 

@@ -21,7 +21,7 @@ import io.rxmicro.annotation.processor.common.model.ClassHeader;
 import io.rxmicro.annotation.processor.common.model.method.MethodBody;
 import io.rxmicro.annotation.processor.common.model.method.MethodResult;
 import io.rxmicro.annotation.processor.data.model.DataGenerationContext;
-import io.rxmicro.annotation.processor.data.model.Var;
+import io.rxmicro.annotation.processor.data.model.Variable;
 import io.rxmicro.annotation.processor.data.sql.component.SQLBuilder;
 import io.rxmicro.annotation.processor.data.sql.component.impl.AbstractSQLDataRepositoryMethodModelBuilder;
 import io.rxmicro.annotation.processor.data.sql.component.impl.MethodParamResolver;
@@ -73,7 +73,7 @@ public abstract class AbstractSQLOperationDataRepositoryMethodModelBuilder<A ext
                                    final DataGenerationContext<DMF, DMC> dataGenerationContext) {
         customizeClassHeaderBuilder(classHeaderBuilder, methodResult, dataGenerationContext, method);
 
-        final List<Var> params = methodParamResolver.getMethodParams(method.getParameters());
+        final List<Variable> params = methodParamResolver.getMethodParams(method.getParameters());
         final SQLMethodDescriptor<DMF, DMC> sqlMethodDescriptor =
                 buildSQLMethodDescriptor(method, params, methodResult, dataGenerationContext);
 
@@ -112,14 +112,14 @@ public abstract class AbstractSQLOperationDataRepositoryMethodModelBuilder<A ext
                                            final MethodResult methodResult,
                                            final DataGenerationContext<DMF, DMC> dataGenerationContext,
                                            final ExecutableElement method,
-                                           final List<Var> params);
+                                           final List<Variable> params);
 
     protected abstract ParsedSQL<A> parseSQL(ExecutableElement method);
 
     protected abstract void addEntityConverter(MethodResult methodResult,
                                                SQLMethodDescriptor<DMF, DMC> sqlMethodDescriptor,
                                                DataGenerationContext<DMF, DMC> dataGenerationContext,
-                                               List<Var> params,
+                                               List<Variable> params,
                                                SQLStatement sqlStatement,
                                                Map<String, Object> templateArguments);
 

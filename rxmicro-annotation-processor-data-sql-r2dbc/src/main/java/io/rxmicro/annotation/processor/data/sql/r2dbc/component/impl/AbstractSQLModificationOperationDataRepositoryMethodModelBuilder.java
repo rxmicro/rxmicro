@@ -19,7 +19,7 @@ package io.rxmicro.annotation.processor.data.sql.r2dbc.component.impl;
 import io.rxmicro.annotation.processor.common.model.method.MethodResult;
 import io.rxmicro.annotation.processor.data.model.DataGenerationContext;
 import io.rxmicro.annotation.processor.data.model.DataRepositoryMethodSignature;
-import io.rxmicro.annotation.processor.data.model.Var;
+import io.rxmicro.annotation.processor.data.model.Variable;
 import io.rxmicro.annotation.processor.data.sql.model.ParsedSQL;
 import io.rxmicro.annotation.processor.data.sql.model.SQLDataModelField;
 import io.rxmicro.annotation.processor.data.sql.model.SQLDataObjectModelClass;
@@ -54,7 +54,7 @@ public abstract class AbstractSQLModificationOperationDataRepositoryMethodModelB
     protected void validateMethod(final ParsedSQL<A> parsedSQL, final MethodResult methodResult,
                                   final DataGenerationContext<DMF, DMC> dataGenerationContext,
                                   final ExecutableElement method,
-                                  final List<Var> params) {
+                                  final List<Variable> params) {
         validateRequiredSingleReturnType(method, methodResult);
         validateReturnType(method, methodResult.getResultType(), Void.class, Integer.class, Boolean.class);
     }
@@ -63,16 +63,16 @@ public abstract class AbstractSQLModificationOperationDataRepositoryMethodModelB
     protected void addEntityConverter(final MethodResult methodResult,
                                       final SQLMethodDescriptor<DMF, DMC> sqlMethodDescriptor,
                                       final DataGenerationContext<DMF, DMC> dataGenerationContext,
-                                      final List<Var> params,
+                                      final List<Variable> params,
                                       final SQLStatement sqlStatement,
                                       final Map<String, Object> templateArguments) {
         final boolean isEntityParam = isEntityParam(params, dataGenerationContext);
         templateArguments.put("IS_ENTITY_PARAM", isEntityParam);
         if (isEntityParam) {
-            final Var entityVar = params.get(0);
-            templateArguments.put("ENTITY", entityVar.getGetter());
+            final Variable entityVariable = params.get(0);
+            templateArguments.put("ENTITY", entityVariable.getGetter());
             templateArguments.put("ENTITY_CONVERTER", getModelTransformerInstanceName(
-                    getSimpleName(entityVar.getType()),
+                    getSimpleName(entityVariable.getType()),
                     EntityToR2DBCSQLDBConverter.class)
             );
         }

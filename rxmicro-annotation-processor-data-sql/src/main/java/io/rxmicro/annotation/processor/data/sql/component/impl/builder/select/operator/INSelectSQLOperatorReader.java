@@ -18,7 +18,7 @@ package io.rxmicro.annotation.processor.data.sql.component.impl.builder.select.o
 
 import com.google.inject.Singleton;
 import io.rxmicro.annotation.processor.common.model.ClassHeader;
-import io.rxmicro.annotation.processor.data.model.Var;
+import io.rxmicro.annotation.processor.data.model.Variable;
 import io.rxmicro.annotation.processor.data.sql.component.impl.builder.select.SelectSQLOperatorReader;
 import io.rxmicro.data.sql.detail.SQLParams;
 
@@ -49,7 +49,7 @@ public class INSelectSQLOperatorReader implements SelectSQLOperatorReader {
     @Override
     public void read(final ClassHeader.Builder classHeaderBuilder,
                      final ListIterator<String> iterator,
-                     final List<Var> methodParams,
+                     final List<Variable> methodParams,
                      final List<String> formatParams) {
         boolean isOpenParenthesesFound = false;
         while (iterator.hasNext()) {
@@ -61,8 +61,8 @@ public class INSelectSQLOperatorReader implements SelectSQLOperatorReader {
                     iterator.next();
                     iterator.add(")");
                 }
-                final Var var = methodParams.remove(0);
-                formatParams.add(resolveParameter(classHeaderBuilder, var));
+                final Variable variable = methodParams.remove(0);
+                formatParams.add(resolveParameter(classHeaderBuilder, variable));
             } else if (!"(".equals(token)) {
                 iterator.previous();
                 break;
@@ -73,29 +73,29 @@ public class INSelectSQLOperatorReader implements SelectSQLOperatorReader {
     }
 
     private String resolveParameter(final ClassHeader.Builder classHeaderBuilder,
-                                    final Var var) {
-        if (List.class.getName().equals(getTypes().erasure(var.getType()).toString())) {
-            final TypeMirror itemType = ((DeclaredType) var.getType()).getTypeArguments().get(0);
+                                    final Variable variable) {
+        if (List.class.getName().equals(getTypes().erasure(variable.getType()).toString())) {
+            final TypeMirror itemType = ((DeclaredType) variable.getType()).getTypeArguments().get(0);
             if (String.class.getName().equals(itemType.toString())) {
                 classHeaderBuilder.addStaticImport(SQLParams.class, "joinStringParams");
-                return format("joinStringParams(?)", var.getName());
+                return format("joinStringParams(?)", variable.getName());
             } else {
                 return asEnumElement(itemType)
                         .map(e -> {
                             classHeaderBuilder.addStaticImport(SQLParams.class, "joinEnumParams");
-                            return format("joinEnumParams(?)", var.getName());
+                            return format("joinEnumParams(?)", variable.getName());
                         })
                         .orElseGet(() -> {
                             classHeaderBuilder.addStaticImport(SQLParams.class, "joinParams");
-                            return format("joinParams(?)", var.getName());
+                            return format("joinParams(?)", variable.getName());
                         });
             }
-        } else if (String.class.getName().equals(var.getType().toString())) {
-            return format("\"'\" + ? + \"'\"", var.getName());
+        } else if (String.class.getName().equals(variable.getType().toString())) {
+            return format("\"'\" + ? + \"'\"", variable.getName());
         } else {
-            return asEnumElement(var.getType())
-                    .map(e -> format("\"'\" + ?.name() + \"'\"", var.getName()))
-                    .orElseGet(var::getName);
+            return asEnumElement(variable.getType())
+                    .map(e -> format("\"'\" + ?.name() + \"'\"", variable.getName()))
+                    .orElseGet(variable::getName);
         }
     }
 }

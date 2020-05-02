@@ -63,56 +63,56 @@ public abstract class SupportedTypesProvider {
         return Optional.ofNullable(replacePrimitiveSuggestions.get(currentClass));
     }
 
-    public final TypeDefinitions<TypeDefinition> primitives() {
+    public final TypeDefinitions<TypeDefinition> getPrimitives() {
         if (primitiveTypes == null) {
             primitiveTypes = createPrimitives();
         }
         return primitiveTypes;
     }
 
-    public final TypeDefinitions<ContainerTypeDefinition> collectionContainers() {
+    public final TypeDefinitions<ContainerTypeDefinition> getCollectionContainers() {
         if (collectionContainerTypes == null) {
             collectionContainerTypes = createCollectionContainers();
         }
         return collectionContainerTypes;
     }
 
-    public final TypeDefinitions<ContainerTypeDefinition> primitiveContainers() {
+    public final TypeDefinitions<ContainerTypeDefinition> getPrimitiveContainers() {
         if (primitiveContainerTypes == null) {
             primitiveContainerTypes = createPrimitiveCollectionContainers();
         }
         return primitiveContainerTypes;
     }
 
-    public final TypeDefinitions<TypeDefinition> reactiveReturnTypes() {
+    public final TypeDefinitions<TypeDefinition> getReactiveReturnTypes() {
         if (reactiveReturnTypes == null) {
             reactiveReturnTypes = createReactiveReturnTypes();
         }
         return reactiveReturnTypes;
     }
 
-    public final TypeDefinitions<TypeDefinition> resultReturnPrimitiveTypes() {
+    public final TypeDefinitions<TypeDefinition> getResultReturnPrimitiveTypes() {
         if (resultReturnPrimitiveTypes == null) {
             resultReturnPrimitiveTypes = createResultReturnPrimitiveTypes();
         }
         return resultReturnPrimitiveTypes;
     }
 
-    public final TypeDefinitions<TypeDefinition> notEntityMethodParameters() {
+    public final TypeDefinitions<TypeDefinition> getNotEntityMethodParameters() {
         if (notEntityMethodParameterTypes == null) {
             notEntityMethodParameterTypes = createNotEntityMethodParameters();
         }
         return notEntityMethodParameterTypes;
     }
 
-    public final TypeDefinitions<TypeDefinition> standardMethodParameters() {
+    public final TypeDefinitions<TypeDefinition> getStandardMethodParameters() {
         if (standardMethodParameterTypes == null) {
             standardMethodParameterTypes = createStandardMethodParameterTypes();
         }
         return standardMethodParameterTypes;
     }
 
-    public final TypeDefinitions<TypeDefinition> internalTypes() {
+    public final TypeDefinitions<TypeDefinition> getInternalTypes() {
         if (internalTypes == null) {
             internalTypes = createInternalTypes();
         }
@@ -123,9 +123,9 @@ public abstract class SupportedTypesProvider {
 
     protected TypeDefinitions<ContainerTypeDefinition> createPrimitiveCollectionContainers() {
         final List<ContainerTypeDefinition> definitions = new ArrayList<>();
-        for (final ContainerTypeDefinition typeDefinition : collectionContainers().typeDefinitions()) {
+        for (final ContainerTypeDefinition typeDefinition : getCollectionContainers().typeDefinitions()) {
             final TypeDefinition container = typeDefinition.getContainerTypeDefinition();
-            for (final TypeDefinition primitiveDefinition : primitives().typeDefinitions()) {
+            for (final TypeDefinition primitiveDefinition : getPrimitives().typeDefinitions()) {
                 definitions.add(new ContainerTypeDefinition(container, primitiveDefinition));
             }
         }
@@ -148,9 +148,9 @@ public abstract class SupportedTypesProvider {
 
     protected TypeDefinitions<TypeDefinition> createResultReturnPrimitiveTypes() {
         return new TypeDefinitionsImpl<>(List.of(
-                primitives(),
+                getPrimitives(),
                 new TypeDefinitionsImpl<>(
-                        primitiveContainers().typeDefinitions()
+                        getPrimitiveContainers().typeDefinitions()
                                 .stream()
                                 .map(c -> (TypeDefinition) c)
                                 .toArray(TypeDefinition[]::new))
@@ -159,10 +159,10 @@ public abstract class SupportedTypesProvider {
 
     protected TypeDefinitions<TypeDefinition> createNotEntityMethodParameters() {
         return new TypeDefinitionsImpl<>(List.of(
-                primitives(),
-                standardMethodParameters(),
+                getPrimitives(),
+                getStandardMethodParameters(),
                 new TypeDefinitionsImpl<>(
-                        primitiveContainers().typeDefinitions()
+                        getPrimitiveContainers().typeDefinitions()
                                 .stream()
                                 .map(c -> (TypeDefinition) c)
                                 .toArray(TypeDefinition[]::new))

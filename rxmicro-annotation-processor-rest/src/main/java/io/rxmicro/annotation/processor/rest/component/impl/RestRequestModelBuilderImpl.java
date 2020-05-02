@@ -54,7 +54,7 @@ public final class RestRequestModelBuilderImpl implements RestRequestModelBuilde
         } else {
             final VariableElement parameter = parameters.get(0);
             if (parameters.size() == 1 &&
-                    !supportedTypesProvider.notEntityMethodParameters().contains(parameter.asType()) &&
+                    !supportedTypesProvider.getNotEntityMethodParameters().contains(parameter.asType()) &&
                     !parameter.asType().getKind().isPrimitive()) {
                 return new RestRequestModel(
                         validateAndGetModelType(

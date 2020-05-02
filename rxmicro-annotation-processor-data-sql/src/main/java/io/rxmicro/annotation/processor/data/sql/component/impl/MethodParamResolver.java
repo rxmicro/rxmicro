@@ -21,7 +21,7 @@ import com.google.inject.Singleton;
 import io.rxmicro.annotation.processor.common.model.definition.SupportedTypesProvider;
 import io.rxmicro.annotation.processor.common.model.error.InternalErrorException;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
-import io.rxmicro.annotation.processor.data.model.Var;
+import io.rxmicro.annotation.processor.data.model.Variable;
 import io.rxmicro.data.Pageable;
 import io.rxmicro.data.RepeatParameter;
 import io.rxmicro.data.sql.operation.CustomSelect;
@@ -56,15 +56,15 @@ public final class MethodParamResolver {
     @Inject
     private SupportedTypesProvider supportedTypesProvider;
 
-    public List<Var> getMethodParams(final List<? extends VariableElement> parameters) {
-        final List<Var> vars = new ArrayList<>(parameters.size() + 1);
+    public List<Variable> getMethodParams(final List<? extends VariableElement> parameters) {
+        final List<Variable> variables = new ArrayList<>(parameters.size() + 1);
         final StandardParameterHolder standardParameterHolder = new StandardParameterHolder();
         for (final VariableElement parameter : parameters) {
             if (isParameterShouldBeIgnored(parameter)) {
                 continue;
             }
-            if (supportedTypesProvider.standardMethodParameters().contains(parameter.asType())) {
-                addStandardMethodParameters(vars, standardParameterHolder, parameter);
+            if (supportedTypesProvider.getStandardMethodParameters().contains(parameter.asType())) {
+                addStandardMethodParameters(variables, standardParameterHolder, parameter);
             } else {
                 final int repeatCount = Optional.ofNullable(parameter.getAnnotation(RepeatParameter.class))
                         .map(RepeatParameter::value)
@@ -73,17 +73,17 @@ public final class MethodParamResolver {
                     asEnumElement(parameter.asType()).ifPresentOrElse(
                             e -> {
                                 if (isNotStandardEnum(parameter.asType())) {
-                                    vars.add(new Var(parameter, format("?.sql()", parameter.getSimpleName())));
+                                    variables.add(new Variable(parameter, format("?.sql()", parameter.getSimpleName())));
                                 } else {
-                                    vars.add(new Var(parameter, format("?.name()", parameter.getSimpleName())));
+                                    variables.add(new Variable(parameter, format("?.name()", parameter.getSimpleName())));
                                 }
                             },
-                            () -> vars.add(new Var(parameter))
+                            () -> variables.add(new Variable(parameter))
                     );
                 }
             }
         }
-        return vars;
+        return variables;
     }
 
     @SuppressWarnings("RedundantIfStatement")
@@ -97,7 +97,7 @@ public final class MethodParamResolver {
         return false;
     }
 
-    private void addStandardMethodParameters(final List<Var> bindParams,
+    private void addStandardMethodParameters(final List<Variable> bindParams,
                                              final StandardParameterHolder standardParameterHolder,
                                              final VariableElement parameter) {
         if (Pageable.class.getName().equals(parameter.asType().toString())) {
@@ -110,7 +110,7 @@ public final class MethodParamResolver {
         }
     }
 
-    private void addPageableParameter(final List<Var> bindParams,
+    private void addPageableParameter(final List<Variable> bindParams,
                                       final StandardParameterHolder standardParameterHolder,
                                       final VariableElement parameter) {
         if (standardParameterHolder.page != null) {
@@ -119,8 +119,8 @@ public final class MethodParamResolver {
         } else {
             standardParameterHolder.page = parameter;
             final String name = parameter.getSimpleName().toString();
-            bindParams.add(new Var(parameter, format("?.getLimit()", name)));
-            bindParams.add(new Var(parameter, format("?.getOffset()", name)));
+            bindParams.add(new Variable(parameter, format("?.getLimit()", name)));
+            bindParams.add(new Variable(parameter, format("?.getOffset()", name)));
         }
     }
 

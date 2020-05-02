@@ -19,7 +19,7 @@ package io.rxmicro.annotation.processor.data.sql.component.impl.builder.select;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
-import io.rxmicro.annotation.processor.data.model.Var;
+import io.rxmicro.annotation.processor.data.model.Variable;
 import io.rxmicro.annotation.processor.data.sql.component.SQLVariableValueResolver;
 import io.rxmicro.annotation.processor.data.sql.component.impl.SQLFieldsOrderValidator;
 import io.rxmicro.annotation.processor.data.sql.model.ParsedSQL;
@@ -66,7 +66,7 @@ public class CustomSelectSQLBuilder<DMF extends SQLDataModelField, DMC extends S
         final CustomSelect customSelect = customSQL.getAnnotation(CustomSelect.class);
         final SQLStatement.Builder builder = new SQLStatement.Builder()
                 .setDefaultColumnOrder(true)
-                .setBindParams(sqlMethodDescriptor.getParams().stream().map(Var::getGetter).collect(Collectors.toList()));
+                .setBindParams(sqlMethodDescriptor.getParams().stream().map(Variable::getGetter).collect(Collectors.toList()));
         if (customSelect.supportUniversalPlaceholder()) {
             // See AbstractPostgreSQLRepository.replaceUniversalPlaceholder
             builder.setSqlExpression(format("replaceUniversalPlaceholder(?)", customSQL.getSimpleName().toString()));

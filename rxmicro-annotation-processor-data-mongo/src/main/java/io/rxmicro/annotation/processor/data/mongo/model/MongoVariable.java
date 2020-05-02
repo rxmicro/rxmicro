@@ -16,7 +16,7 @@
 
 package io.rxmicro.annotation.processor.data.mongo.model;
 
-import io.rxmicro.annotation.processor.data.model.Var;
+import io.rxmicro.annotation.processor.data.model.Variable;
 import io.rxmicro.data.Pageable;
 
 import javax.lang.model.element.VariableElement;
@@ -32,14 +32,14 @@ import static io.rxmicro.data.Pageable.OFFSET_NAMES;
  * @link https://rxmicro.io
  * @since 0.1
  */
-public class MongoVar extends Var {
+public class MongoVariable extends Variable {
 
     private final boolean limit;
 
     private final boolean skip;
 
-    public MongoVar(final VariableElement element,
-                    final String name) {
+    public MongoVariable(final VariableElement element,
+                         final String name) {
         super(element, name);
         if (Pageable.class.getName().equals(element.asType().toString())) {
             this.limit = name.contains("getLimit");
@@ -61,11 +61,11 @@ public class MongoVar extends Var {
     }
 
     @Override
-    public boolean equals(final Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
-        final MongoVar mongoVar = (MongoVar) o;
+    public boolean equals(final Object other) {
+        if (this == other) return true;
+        if (other == null || getClass() != other.getClass()) return false;
+        if (!super.equals(other)) return false;
+        final MongoVariable mongoVar = (MongoVariable) other;
         return limit == mongoVar.limit &&
                 skip == mongoVar.skip;
     }

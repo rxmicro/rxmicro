@@ -30,7 +30,7 @@ import io.rxmicro.annotation.processor.data.mongo.component.impl.AbstractMongoRe
 import io.rxmicro.annotation.processor.data.mongo.component.impl.MethodParameterReader;
 import io.rxmicro.annotation.processor.data.mongo.model.MongoDataModelField;
 import io.rxmicro.annotation.processor.data.mongo.model.MongoDataObjectModelClass;
-import io.rxmicro.annotation.processor.data.mongo.model.MongoVar;
+import io.rxmicro.annotation.processor.data.mongo.model.MongoVariable;
 import io.rxmicro.data.DataRepositoryGeneratorConfig;
 import io.rxmicro.data.mongo.DocumentId;
 import io.rxmicro.data.mongo.detail.EntityToMongoDBConverter;
@@ -90,7 +90,7 @@ public final class UpdateDocumentOperationMongoRepositoryMethodModelBuilder exte
         validateReturnType(method, methodResult.getResultType(),
                 Void.class, Long.class, Boolean.class, UpdateResult.class
         );
-        final MongoVar document = getDocument(method, methodParameterReader, dataGenerationContext);
+        final MongoVariable document = getDocument(method, methodParameterReader, dataGenerationContext);
 
         final Map<String, Object> templateArguments = new HashMap<>();
         putCommonArguments(dataRepositoryGeneratorConfig, templateArguments);
@@ -111,10 +111,10 @@ public final class UpdateDocumentOperationMongoRepositoryMethodModelBuilder exte
         );
     }
 
-    private MongoVar getDocument(final ExecutableElement method,
-                                 final MethodParameterReader methodParameterReader,
-                                 final DataGenerationContext<MongoDataModelField, MongoDataObjectModelClass> dataGenerationContext) {
-        final MongoVar mongoVar = methodParameterReader.nextVar().orElseThrow(() -> {
+    private MongoVariable getDocument(final ExecutableElement method,
+                                      final MethodParameterReader methodParameterReader,
+                                      final DataGenerationContext<MongoDataModelField, MongoDataObjectModelClass> dataGenerationContext) {
+        final MongoVariable mongoVar = methodParameterReader.nextVar().orElseThrow(() -> {
             throw new InterruptProcessingException(
                     method,
                     "The first method parameter must be a document!"

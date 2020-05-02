@@ -19,7 +19,7 @@ package io.rxmicro.annotation.processor.data.sql.component.impl.builder.select;
 import com.google.inject.Inject;
 import io.rxmicro.annotation.processor.common.model.ClassHeader;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
-import io.rxmicro.annotation.processor.data.model.Var;
+import io.rxmicro.annotation.processor.data.model.Variable;
 import io.rxmicro.annotation.processor.data.sql.component.SQLFieldsOrderExtractor;
 import io.rxmicro.annotation.processor.data.sql.component.SQLVariableValueResolver;
 import io.rxmicro.annotation.processor.data.sql.component.impl.SQLFieldsOrderValidator;
@@ -123,7 +123,7 @@ public class PredefinedSelectSQLBuilder<DMF extends SQLDataModelField, DMC exten
     private SQLStatement build(final ClassHeader.Builder classHeaderBuilder,
                                final ExecutableElement method,
                                final List<String> sqlTokens,
-                               final List<Var> methodParams,
+                               final List<Variable> methodParams,
                                final VariableValuesMap variableValuesMap,
                                final String originalSQL,
                                final SQLMethodDescriptor<DMF, DMC> sqlMethodDescriptor) {

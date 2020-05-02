@@ -66,16 +66,16 @@ public final class RxJavaReactiveMethodResultBuilder implements ReactiveMethodRe
             validateNotOptional(method, reactiveType, genericType);
 
             final TypeMirror resultType;
-            final boolean isGenericList = supportedTypesProvider.collectionContainers().contains(getTypes().erasure(genericType));
+            final boolean isGenericList = supportedTypesProvider.getCollectionContainers().contains(getTypes().erasure(genericType));
             validateGenericListIfSingleOnly(method, reactiveType, genericType, isGenericList);
             if (isGenericList) {
                 validateGenericType(method, genericType, "Invalid return type");
                 resultType = ((DeclaredType) genericType).getTypeArguments().get(0);
-                final boolean primitive = supportedTypesProvider.resultReturnPrimitiveTypes().contains(resultType);
+                final boolean primitive = supportedTypesProvider.getResultReturnPrimitiveTypes().contains(resultType);
                 return MethodResult.createRxJavaResult(reactiveType, false, resultType, primitive);
             } else {
                 resultType = genericType;
-                final boolean primitive = supportedTypesProvider.resultReturnPrimitiveTypes().contains(resultType);
+                final boolean primitive = supportedTypesProvider.getResultReturnPrimitiveTypes().contains(resultType);
                 return createRxJavaResult(reactiveType, resultType, primitive);
             }
         }

@@ -46,7 +46,7 @@ public abstract class AbstractDataModelFieldBuilder<DMF extends DataModelField, 
     private SupportedTypesProvider supportedTypesProvider;
 
     @Override
-    protected final SupportedTypesProvider supportedTypesProvider() {
+    protected final SupportedTypesProvider getSupportedTypesProvider() {
         return supportedTypesProvider;
     }
 

@@ -18,7 +18,7 @@ package io.rxmicro.annotation.processor.data.sql.component.impl;
 
 import com.google.inject.Singleton;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
-import io.rxmicro.annotation.processor.data.model.Var;
+import io.rxmicro.annotation.processor.data.model.Variable;
 import io.rxmicro.data.sql.model.reactor.Transaction;
 
 import javax.lang.model.element.ExecutableElement;
@@ -37,7 +37,7 @@ import static io.rxmicro.data.sql.model.TransactionType.SUPPORTED_TRANSACTION_TY
 @Singleton
 public final class TransactionResolver {
 
-    public Optional<Var> getTransactionParameter(final ExecutableElement method) {
+    public Optional<Variable> getTransactionParameter(final ExecutableElement method) {
         final List<VariableElement> transactions = method.getParameters().stream()
                 .filter(v -> SUPPORTED_TRANSACTION_TYPES.contains(v.asType().toString()))
                 .collect(Collectors.toList());
@@ -50,7 +50,7 @@ public final class TransactionResolver {
                     Transaction.class.getSimpleName()
             );
         } else {
-            return Optional.of(new Var(transactions.get(0)));
+            return Optional.of(new Variable(transactions.get(0)));
         }
     }
 }

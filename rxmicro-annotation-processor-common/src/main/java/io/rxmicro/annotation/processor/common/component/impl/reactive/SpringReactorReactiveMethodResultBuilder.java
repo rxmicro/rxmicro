@@ -57,15 +57,15 @@ public final class SpringReactorReactiveMethodResultBuilder implements ReactiveM
         final TypeMirror genericType = ((DeclaredType) returnType).getTypeArguments().get(0);
         validateNotOptional(method, reactiveType, genericType);
 
-        final boolean isGenericList = supportedTypesProvider.collectionContainers().contains(getTypes().erasure(genericType));
+        final boolean isGenericList = supportedTypesProvider.getCollectionContainers().contains(getTypes().erasure(genericType));
         validateNotGenericListIfFlux(method, reactiveType, genericType, isGenericList);
         if (isGenericList) {
             validateGenericType(method, genericType, "Invalid return type");
             final TypeMirror resultType = ((DeclaredType) genericType).getTypeArguments().get(0);
-            final boolean primitive = supportedTypesProvider.resultReturnPrimitiveTypes().contains(resultType);
+            final boolean primitive = supportedTypesProvider.getResultReturnPrimitiveTypes().contains(resultType);
             return MethodResult.createProjectReactorResult(reactiveType, false, resultType, primitive);
         } else {
-            final boolean primitive = supportedTypesProvider.resultReturnPrimitiveTypes().contains(genericType);
+            final boolean primitive = supportedTypesProvider.getResultReturnPrimitiveTypes().contains(genericType);
             return createProjectReactorResult(reactiveType, genericType, primitive);
         }
 

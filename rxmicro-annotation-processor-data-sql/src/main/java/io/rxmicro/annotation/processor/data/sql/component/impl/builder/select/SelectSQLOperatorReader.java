@@ -17,7 +17,7 @@
 package io.rxmicro.annotation.processor.data.sql.component.impl.builder.select;
 
 import io.rxmicro.annotation.processor.common.model.ClassHeader;
-import io.rxmicro.annotation.processor.data.model.Var;
+import io.rxmicro.annotation.processor.data.model.Variable;
 
 import java.util.List;
 import java.util.ListIterator;
@@ -33,6 +33,6 @@ public interface SelectSQLOperatorReader {
 
     void read(ClassHeader.Builder classHeaderBuilder,
               ListIterator<String> iterator,
-              List<Var> methodParams,
+              List<Variable> methodParams,
               List<String> formatParams);
 }

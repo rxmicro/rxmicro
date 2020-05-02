@@ -24,13 +24,13 @@ import io.rxmicro.annotation.processor.common.model.method.MethodResult;
 import io.rxmicro.annotation.processor.data.component.impl.AbstractDataRepositoryMethodModelBuilder;
 import io.rxmicro.annotation.processor.data.model.DataGenerationContext;
 import io.rxmicro.annotation.processor.data.model.DataRepositoryMethodSignature;
-import io.rxmicro.annotation.processor.data.model.Var;
+import io.rxmicro.annotation.processor.data.model.Variable;
 import io.rxmicro.annotation.processor.data.mongo.component.MongoRepositoryMethodModelBuilder;
 import io.rxmicro.annotation.processor.data.mongo.model.MongoDataModelField;
 import io.rxmicro.annotation.processor.data.mongo.model.MongoDataObjectModelClass;
 import io.rxmicro.annotation.processor.data.mongo.model.MongoMethodBody;
 import io.rxmicro.annotation.processor.data.mongo.model.MongoRepositoryMethod;
-import io.rxmicro.annotation.processor.data.mongo.model.MongoVar;
+import io.rxmicro.annotation.processor.data.mongo.model.MongoVariable;
 import io.rxmicro.data.DataRepositoryGeneratorConfig;
 import io.rxmicro.data.detail.adapter.PublisherToFluxFutureAdapter;
 import io.rxmicro.data.detail.adapter.PublisherToOptionalMonoFutureAdapter;
@@ -112,12 +112,12 @@ public abstract class AbstractMongoRepositoryMethodModelBuilder
 
     private void validateUnusedMethodParameters(final ExecutableElement repositoryMethod,
                                                 final MethodParameterReader methodParameterReader) {
-        final List<Var> unusedParameters = methodParameterReader.getUnusedVars();
+        final List<Variable> unusedParameters = methodParameterReader.getUnusedVars();
         if (!unusedParameters.isEmpty()) {
             throw new InterruptProcessingException(repositoryMethod,
                     "The following parameter(s) unused: [?]. Remove it or add missing placeholder(s)!",
                     unusedParameters.stream()
-                            .map(Var::toString)
+                            .map(Variable::toString)
                             .collect(joining(", ")));
         }
     }
@@ -134,8 +134,8 @@ public abstract class AbstractMongoRepositoryMethodModelBuilder
         if (skip > -1) {
             templateArguments.put("SKIP", skip);
         }
-        Optional<MongoVar> limitVar = methodParameterReader.nextIfLimit();
-        final Optional<MongoVar> skipVar = methodParameterReader.nextIfSkip();
+        Optional<MongoVariable> limitVar = methodParameterReader.nextIfLimit();
+        final Optional<MongoVariable> skipVar = methodParameterReader.nextIfSkip();
         if (limitVar.isEmpty()) {
             limitVar = methodParameterReader.nextIfLimit();
         }

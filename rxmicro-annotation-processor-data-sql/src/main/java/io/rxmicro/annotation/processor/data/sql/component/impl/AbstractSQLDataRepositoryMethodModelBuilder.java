@@ -25,7 +25,7 @@ import io.rxmicro.annotation.processor.common.model.method.MethodResult;
 import io.rxmicro.annotation.processor.data.component.impl.AbstractDataRepositoryMethodModelBuilder;
 import io.rxmicro.annotation.processor.data.model.DataGenerationContext;
 import io.rxmicro.annotation.processor.data.model.DataRepositoryMethodSignature;
-import io.rxmicro.annotation.processor.data.model.Var;
+import io.rxmicro.annotation.processor.data.model.Variable;
 import io.rxmicro.annotation.processor.data.sql.component.SQLRepositoryMethodModelBuilder;
 import io.rxmicro.annotation.processor.data.sql.model.ParsedSQL;
 import io.rxmicro.annotation.processor.data.sql.model.SQLDataModelField;
@@ -70,7 +70,7 @@ public abstract class AbstractSQLDataRepositoryMethodModelBuilder<DMF extends SQ
     }
 
     protected final SQLMethodDescriptor<DMF, DMC> buildSQLMethodDescriptor(final ExecutableElement method,
-                                                                           final List<Var> methodParams,
+                                                                           final List<Variable> methodParams,
                                                                            final MethodResult methodResult,
                                                                            final DataGenerationContext<DMF, DMC> dataGenerationContext) {
         final SQLMethodDescriptor.Builder<DMF, DMC> builder = new SQLMethodDescriptor.Builder<>(
@@ -109,7 +109,7 @@ public abstract class AbstractSQLDataRepositoryMethodModelBuilder<DMF extends SQ
         return new ParsedSQL<>(annotation, sqlTokens);
     }
 
-    protected final boolean isEntityParam(final List<Var> params,
+    protected final boolean isEntityParam(final List<Variable> params,
                                           final DataGenerationContext<DMF, DMC> dataGenerationContext) {
         if (params.size() != 1) {
             return false;
@@ -120,7 +120,7 @@ public abstract class AbstractSQLDataRepositoryMethodModelBuilder<DMF extends SQ
 
     protected final void validateThatEntityContainsPrimaryKeyIfCurrentParamIsEntity(final DataGenerationContext<DMF, DMC> dataGenerationContext,
                                                                                     final ExecutableElement method,
-                                                                                    final List<Var> params) {
+                                                                                    final List<Variable> params) {
         final boolean isEntityParam = isEntityParam(params, dataGenerationContext);
         if (isEntityParam) {
             final DMC modelClass = dataGenerationContext.getEntityParamMap().get(asTypeElement(params.get(0).getType()).orElseThrow());
@@ -143,7 +143,7 @@ public abstract class AbstractSQLDataRepositoryMethodModelBuilder<DMF extends SQ
     }
 
     protected final Optional<String> getTransactionMethodParameter(final ExecutableElement method) {
-        return transactionResolver.getTransactionParameter(method).map(Var::getGetter);
+        return transactionResolver.getTransactionParameter(method).map(Variable::getGetter);
     }
 
     private void validate(final ExecutableElement method,

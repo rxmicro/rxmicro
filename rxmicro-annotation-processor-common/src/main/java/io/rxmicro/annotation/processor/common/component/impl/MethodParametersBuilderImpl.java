@@ -56,11 +56,11 @@ public final class MethodParametersBuilderImpl implements MethodParametersBuilde
                                    final VariableElement parameter,
                                    final SupportedTypesProvider typesProvider) {
         final TypeMirror type = parameter.asType();
-        if (typesProvider.notEntityMethodParameters().contains(type) ||
+        if (typesProvider.getNotEntityMethodParameters().contains(type) ||
                 type.getKind().isPrimitive()) {
             return;
         }
-        if (typesProvider.collectionContainers().contains(type)) {
+        if (typesProvider.getCollectionContainers().contains(type)) {
             validateGenericType(repositoryMethod, type, format("Method parameter type '?' not supported", type));
         } else {
             try {
@@ -74,7 +74,7 @@ public final class MethodParametersBuilderImpl implements MethodParametersBuilde
                         "Method parameter type '?' not supported: ?." +
                                 "Use a model class or one of the following types: ?",
                         type, e.getMessage(),
-                        typesProvider.notEntityMethodParameters().typeDefinitions()
+                        typesProvider.getNotEntityMethodParameters().typeDefinitions()
                 );
             }
         }

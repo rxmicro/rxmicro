@@ -19,7 +19,7 @@ package io.rxmicro.annotation.processor.data.sql.r2dbc.component.impl.method;
 import com.google.inject.Singleton;
 import io.rxmicro.annotation.processor.common.model.method.MethodResult;
 import io.rxmicro.annotation.processor.data.model.DataGenerationContext;
-import io.rxmicro.annotation.processor.data.model.Var;
+import io.rxmicro.annotation.processor.data.model.Variable;
 import io.rxmicro.annotation.processor.data.sql.model.ParsedSQL;
 import io.rxmicro.annotation.processor.data.sql.model.SQLDataModelField;
 import io.rxmicro.annotation.processor.data.sql.model.SQLDataObjectModelClass;
@@ -62,7 +62,7 @@ public class DeleteSQLRepositoryMethodModelBuilder<DMF extends SQLDataModelField
                                   final MethodResult methodResult,
                                   final DataGenerationContext<DMF, DMC> dataGenerationContext,
                                   final ExecutableElement method,
-                                  final List<Var> params) {
+                                  final List<Variable> params) {
         super.validateMethod(parsedSQL, methodResult, dataGenerationContext, method, params);
         validateThatEntityContainsPrimaryKeyIfCurrentParamIsEntity(dataGenerationContext, method, params);
     }
@@ -71,7 +71,7 @@ public class DeleteSQLRepositoryMethodModelBuilder<DMF extends SQLDataModelField
     protected void addEntityConverter(final MethodResult methodResult,
                                       final SQLMethodDescriptor<DMF, DMC> sqlMethodDescriptor,
                                       final DataGenerationContext<DMF, DMC> dataGenerationContext,
-                                      final List<Var> params,
+                                      final List<Variable> params,
                                       final SQLStatement sqlStatement,
                                       final Map<String, Object> templateArguments) {
         super.addEntityConverter(methodResult, sqlMethodDescriptor, dataGenerationContext, params, sqlStatement, templateArguments);

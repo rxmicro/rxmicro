@@ -27,7 +27,7 @@ import io.rxmicro.annotation.processor.data.mongo.component.impl.AbstractMongoRe
 import io.rxmicro.annotation.processor.data.mongo.component.impl.MethodParameterReader;
 import io.rxmicro.annotation.processor.data.mongo.model.MongoDataModelField;
 import io.rxmicro.annotation.processor.data.mongo.model.MongoDataObjectModelClass;
-import io.rxmicro.annotation.processor.data.mongo.model.MongoVar;
+import io.rxmicro.annotation.processor.data.mongo.model.MongoVariable;
 import io.rxmicro.common.util.Formats;
 import io.rxmicro.data.DataRepositoryGeneratorConfig;
 import io.rxmicro.data.mongo.detail.EntityToMongoDBConverter;
@@ -85,7 +85,7 @@ public final class DeleteEntityOrByIdOperationMongoRepositoryMethodModelBuilder 
         final Map<String, Object> templateArguments = new HashMap<>();
         putCommonArguments(dataRepositoryGeneratorConfig, templateArguments);
         templateArguments.put("RETURN", methodResult);
-        final MongoVar arg = getEntityOrDocumentId(method, methodParameterReader, dataGenerationContext);
+        final MongoVariable arg = getEntityOrDocumentId(method, methodParameterReader, dataGenerationContext);
         if (dataGenerationContext.isEntityParamType(arg.getType())) {
             templateArguments.put("ENTITY", arg.getName());
             templateArguments.put("ENTITY_CONVERTER", getModelTransformerInstanceName(
@@ -101,10 +101,10 @@ public final class DeleteEntityOrByIdOperationMongoRepositoryMethodModelBuilder 
         );
     }
 
-    private MongoVar getEntityOrDocumentId(final ExecutableElement method,
-                                           final MethodParameterReader methodParameterReader,
-                                           final DataGenerationContext<MongoDataModelField, MongoDataObjectModelClass> dataGenerationContext) {
-        final MongoVar mongoVar = methodParameterReader.nextVar().orElseThrow(() -> {
+    private MongoVariable getEntityOrDocumentId(final ExecutableElement method,
+                                                final MethodParameterReader methodParameterReader,
+                                                final DataGenerationContext<MongoDataModelField, MongoDataObjectModelClass> dataGenerationContext) {
+        final MongoVariable mongoVar = methodParameterReader.nextVar().orElseThrow(() -> {
             throw new InterruptProcessingException(method,
                     "Method must have only one parameter. It must be a document id or a document with document id field!."
             );
