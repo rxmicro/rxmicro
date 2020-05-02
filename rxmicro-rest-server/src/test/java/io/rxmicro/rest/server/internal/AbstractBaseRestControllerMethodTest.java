@@ -17,7 +17,7 @@
 package io.rxmicro.rest.server.internal;
 
 import io.rxmicro.logger.Logger;
-import io.rxmicro.logger.impl.LoggerImplFactory;
+import io.rxmicro.logger.impl.LoggerImplProvider;
 import io.rxmicro.rest.model.PathVariableMapping;
 import io.rxmicro.rest.server.RestServerConfig;
 import io.rxmicro.rest.server.detail.component.HttpResponseBuilder;
@@ -30,8 +30,8 @@ import java.util.concurrent.CompletionStage;
 import java.util.function.BiFunction;
 import java.util.function.Supplier;
 
-import static io.rxmicro.logger.impl.LoggerImplFactoryProvider.getLoggerImplFactory;
-import static io.rxmicro.logger.impl.LoggerImplFactoryProvider.setLoggerImplFactory;
+import static io.rxmicro.logger.impl.LoggerImplProviderFactory.getLoggerImplFactory;
+import static io.rxmicro.logger.impl.LoggerImplProviderFactory.setLoggerImplFactory;
 
 /**
  * @author nedis
@@ -41,7 +41,7 @@ import static io.rxmicro.logger.impl.LoggerImplFactoryProvider.setLoggerImplFact
 abstract class AbstractBaseRestControllerMethodTest {
 
     static {
-        setLoggerImplFactory(new MockLoggerImplFactory());
+        setLoggerImplFactory(new MockLoggerImplProvider());
     }
 
     @Mock
@@ -76,7 +76,7 @@ abstract class AbstractBaseRestControllerMethodTest {
     }
 
     protected final void setLoggerMock(final Logger logger) {
-        ((MockLoggerImplFactory) getLoggerImplFactory()).setLogger(logger);
+        ((MockLoggerImplProvider) getLoggerImplFactory()).setLogger(logger);
     }
 
     /**
@@ -84,7 +84,7 @@ abstract class AbstractBaseRestControllerMethodTest {
      * @link https://rxmicro.io
      * @since 0.1
      */
-    private static final class MockLoggerImplFactory implements LoggerImplFactory {
+    private static final class MockLoggerImplProvider implements LoggerImplProvider {
 
         private final ProxyLogger logger = new ProxyLogger();
 

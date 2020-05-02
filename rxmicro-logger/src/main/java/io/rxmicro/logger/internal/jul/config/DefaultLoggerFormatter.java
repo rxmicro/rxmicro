@@ -69,14 +69,13 @@ public class DefaultLoggerFormatter extends Formatter {
             throwable = null;
         }
 
-        final StringBuilder sb = new StringBuilder(localDateTime.format(FORMATTER));
-        sb.append(" [").append(LEVEL_MAPPING.get(record.getLevel())).append("] ");
-        sb.append(source).append(" : ");
-        sb.append(record.getMessage());
+        final StringBuilder sb = new StringBuilder(localDateTime.format(FORMATTER))
+                .append(" [").append(LEVEL_MAPPING.get(record.getLevel())).append("] ")
+                .append(source).append(" : ")
+                .append(record.getMessage());
         if (throwable != null) {
             sb.append(throwable);
         }
-        sb.append(lineSeparator());
-        return sb.toString();
+        return sb.append(lineSeparator()).toString();
     }
 }

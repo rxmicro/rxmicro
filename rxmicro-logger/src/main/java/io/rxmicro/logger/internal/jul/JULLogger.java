@@ -19,7 +19,7 @@ package io.rxmicro.logger.internal.jul;
 import io.rxmicro.logger.Level;
 import io.rxmicro.logger.impl.AbstractLogger;
 
-import static io.rxmicro.logger.internal.jul.LevelMapping.LEVEL_MAPPING;
+import static io.rxmicro.logger.internal.jul.LevelMappings.LEVEL_MAPPING;
 
 /**
  * @author nedis

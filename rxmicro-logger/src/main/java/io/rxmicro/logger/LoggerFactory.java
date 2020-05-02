@@ -17,9 +17,9 @@
 package io.rxmicro.logger;
 
 import io.rxmicro.common.local.StartTimeStampHelper;
-import io.rxmicro.logger.impl.LoggerImplFactory;
+import io.rxmicro.logger.impl.LoggerImplProvider;
 
-import static io.rxmicro.logger.impl.LoggerImplFactoryProvider.getLoggerImplFactory;
+import static io.rxmicro.logger.impl.LoggerImplProviderFactory.getLoggerImplFactory;
 
 /**
  * @author nedis
@@ -28,7 +28,7 @@ import static io.rxmicro.logger.impl.LoggerImplFactoryProvider.getLoggerImplFact
  */
 public final class LoggerFactory {
 
-    private static final LoggerImplFactory LOGGER_IMPL_FACTORY;
+    private static final LoggerImplProvider LOGGER_IMPL_FACTORY;
 
     static {
         StartTimeStampHelper.init();

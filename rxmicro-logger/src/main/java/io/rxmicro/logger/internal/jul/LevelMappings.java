@@ -28,7 +28,7 @@ import static java.util.stream.Collectors.toUnmodifiableMap;
  * @link https://rxmicro.io
  * @since 0.1
  */
-final class LevelMapping {
+final class LevelMappings {
 
     static final Map<Level, java.util.logging.Level> LEVEL_MAPPING = Map.of(
             Level.OFF, java.util.logging.Level.OFF,
@@ -46,5 +46,8 @@ final class LevelMapping {
 
     public static String fixLevelValue(final String value) {
         return LEVEL_NAME_MAPPING.getOrDefault(value, value);
+    }
+
+    private LevelMappings(){
     }
 }

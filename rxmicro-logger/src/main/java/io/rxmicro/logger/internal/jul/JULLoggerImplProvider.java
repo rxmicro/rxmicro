@@ -18,7 +18,7 @@ package io.rxmicro.logger.internal.jul;
 
 import io.rxmicro.common.ImpossibleException;
 import io.rxmicro.logger.Logger;
-import io.rxmicro.logger.impl.LoggerImplFactory;
+import io.rxmicro.logger.impl.LoggerImplProvider;
 import io.rxmicro.logger.internal.jul.config.SystemOutConsoleHandler;
 
 import java.io.BufferedWriter;
@@ -37,20 +37,25 @@ import java.util.logging.LogManager;
  * @link https://rxmicro.io
  * @since 0.1
  */
-public final class JULLoggerImplFactory implements LoggerImplFactory {
+public final class JULLoggerImplProvider implements LoggerImplProvider {
 
     private static final String DEFAULT_LOGGER_ROOT_LEVEL = "INFO";
 
     private final ConfigCustomizer configCustomizer = new ConfigCustomizer();
 
     @Override
-    public void setup() throws IOException {
+    public void setup() {
         final Map<String, String> config = getDefaultConfiguration();
         final Optional<String> customConfig = configCustomizer.customizeConfig(config);
         final byte[] configBytes = toConfigBytes(config);
 
         final LogManager logManager = LogManager.getLogManager();
-        logManager.readConfiguration(new ByteArrayInputStream(configBytes));
+        try {
+            logManager.readConfiguration(new ByteArrayInputStream(configBytes));
+        } catch (final IOException e) {
+            // configuration created automatically, so IO error is impossible
+            throw new ImpossibleException(e);
+        }
         if (customConfig.isPresent()) {
             java.util.logging.Logger.getGlobal().log(Level.INFO,
                     "Using java.util.logging with custom config: " + customConfig.get());
@@ -69,7 +74,7 @@ public final class JULLoggerImplFactory implements LoggerImplFactory {
     // @see java.util.Properties.store
     private byte[] toConfigBytes(final Map<String, String> config) {
         final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        try (final BufferedWriter writer =
+        try (BufferedWriter writer =
                      new BufferedWriter(new OutputStreamWriter(byteArrayOutputStream, "8859_1"))) {
             for (final Map.Entry<String, String> entry : config.entrySet()) {
                 writer.write(entry.getKey());

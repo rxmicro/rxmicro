@@ -23,9 +23,9 @@ import io.rxmicro.logger.Logger;
  * @link https://rxmicro.io
  * @since 0.1
  */
-public interface LoggerImplFactory {
+public interface LoggerImplProvider {
 
-    void setup() throws Exception;
+    void setup();
 
     Logger getLogger(String name);
 }

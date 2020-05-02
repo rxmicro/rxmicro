@@ -18,7 +18,7 @@ package io.rxmicro.logger.impl;
 
 import io.rxmicro.common.RxMicroException;
 import io.rxmicro.common.local.StartTimeStampHelper;
-import io.rxmicro.logger.internal.jul.JULLoggerImplFactory;
+import io.rxmicro.logger.internal.jul.JULLoggerImplProvider;
 
 import static io.rxmicro.common.util.Requires.require;
 import static java.util.Objects.requireNonNullElseGet;
@@ -28,9 +28,9 @@ import static java.util.Objects.requireNonNullElseGet;
  * @link https://rxmicro.io
  * @since 0.1
  */
-public final class LoggerImplFactoryProvider {
+public final class LoggerImplProviderFactory {
 
-    private static LoggerImplFactory impl;
+    private static LoggerImplProvider impl;
 
     private static boolean init;
 
@@ -38,15 +38,18 @@ public final class LoggerImplFactoryProvider {
         StartTimeStampHelper.init();
     }
 
-    public static LoggerImplFactory getLoggerImplFactory() {
+    public static LoggerImplProvider getLoggerImplFactory() {
         init = true;
-        return requireNonNullElseGet(impl, JULLoggerImplFactory::new);
+        return requireNonNullElseGet(impl, JULLoggerImplProvider::new);
     }
 
-    public static void setLoggerImplFactory(final LoggerImplFactory impl) {
+    public static void setLoggerImplFactory(final LoggerImplProvider impl) {
         if (init) {
             throw new RxMicroException("LoggerImplFactory instance already created");
         }
-        LoggerImplFactoryProvider.impl = require(impl);
+        LoggerImplProviderFactory.impl = require(impl);
+    }
+
+    private LoggerImplProviderFactory(){
     }
 }

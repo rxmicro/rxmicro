@@ -96,7 +96,7 @@
             <property name="interfacePattern" value="[A-Z][a-zA-Z0-9]*" />
             <property name="enumPattern" value="[A-Z][a-zA-Z0-9]*" />
             <property name="annotationPattern" value="[A-Z][a-zA-Z0-9]*" />
-            <property name="utilityClassPattern" value="[A-Z][a-zA-Z0-9]+(Util|Helper|Constants|s)" />
+            <property name="utilityClassPattern" value="[A-Z][a-zA-Z0-9]+(Util|Factory|Helper|Constants|s)" />
         </properties>
     </rule>
     <!--rule ref="category/java/codestyle.xml/CommentDefaultAccessModifier" /-->
