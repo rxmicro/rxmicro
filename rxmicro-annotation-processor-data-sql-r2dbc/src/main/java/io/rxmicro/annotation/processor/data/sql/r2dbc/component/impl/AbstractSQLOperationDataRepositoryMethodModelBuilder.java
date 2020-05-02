@@ -57,6 +57,7 @@ public abstract class AbstractSQLOperationDataRepositoryMethodModelBuilder<A ext
     @Inject
     private SQLBuilder<A, DMF, DMC> sqlBuilder;
 
+    @Override
     protected boolean isEntityResultReturn(final DataGenerationContext<DMF, DMC> dataGenerationContext,
                                            final MethodResult methodResult) {
         return dataGenerationContext.isEntityResultType(methodResult.getResultType()) ||
@@ -96,10 +97,10 @@ public abstract class AbstractSQLOperationDataRepositoryMethodModelBuilder<A ext
         );
     }
 
-    protected void customizeClassHeaderBuilder(ClassHeader.Builder classHeaderBuilder,
-                                               MethodResult methodResult,
-                                               DataGenerationContext<DMF, DMC> dataGenerationContext,
-                                               ExecutableElement method) {
+    protected void customizeClassHeaderBuilder(final ClassHeader.Builder classHeaderBuilder,
+                                               final MethodResult methodResult,
+                                               final DataGenerationContext<DMF, DMC> dataGenerationContext,
+                                               final ExecutableElement method) {
         classHeaderBuilder
                 .addImports(
                         Mono.class,
