@@ -66,7 +66,7 @@ public final class ClientCommonOptionBuilderImpl implements ClientCommonOptionBu
     public StaticQueryParameters getStaticQueryParameters(final ClassHeader.Builder classHeaderBuilder,
                                                           final Element element,
                                                           final TypeElement configClass) {
-        StaticQueryParameters staticQueryParameters = new StaticQueryParameters();
+        final StaticQueryParameters staticQueryParameters = new StaticQueryParameters();
         Arrays.stream(element.getAnnotationsByType(AddQueryParameter.class)).forEach(a ->
                 staticQueryParameters.add(a.name(), resolveExpression(classHeaderBuilder, element, configClass, a.value())));
         Arrays.stream(element.getAnnotationsByType(SetQueryParameter.class)).forEach(a ->

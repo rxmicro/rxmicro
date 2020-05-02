@@ -56,7 +56,7 @@ public final class ModelReaderClassStructure extends ClassStructure {
         this.modelReaderType = modelReaderType;
     }
 
-    public final String getModelFullClassName() {
+    public String getModelFullClassName() {
         return modelClass.getJavaFullClassName();
     }
 

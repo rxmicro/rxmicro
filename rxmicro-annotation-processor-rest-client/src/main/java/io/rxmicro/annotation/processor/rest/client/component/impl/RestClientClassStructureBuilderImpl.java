@@ -84,7 +84,6 @@ public final class RestClientClassStructureBuilderImpl extends AbstractProcessor
         final ClassHeader.Builder classHeaderBuilder =
                 ClassHeader.newClassHeaderBuilder(getPackageName(restClientInterface.asType()));
         final RestClient restClientAnnotation = restClientInterface.getAnnotation(RestClient.class);
-        final String configNameSpace = restClientAnnotation.configNameSpace();
         final TypeElement configClass = getRequiredAnnotationClassParameter(restClientAnnotation::configClass);
         final StaticHeaders staticHeaders =
                 getCommonHeaders(signature, restClientInterface, classHeaderBuilder, configClass);
@@ -100,6 +99,7 @@ public final class RestClientClassStructureBuilderImpl extends AbstractProcessor
                     "Rest client implementation couldn't be generated because some methods have errors. " +
                             "Fix these errors and compile again.");
         }
+        final String configNameSpace = restClientAnnotation.configNameSpace();
         final String restClientConfigNameSpace = configNameSpace.isBlank() ?
                 getDefaultNameSpace(getSimpleName(configClass)) :
                 configNameSpace;

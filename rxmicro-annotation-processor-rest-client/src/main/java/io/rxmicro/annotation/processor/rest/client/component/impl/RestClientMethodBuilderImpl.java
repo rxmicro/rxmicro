@@ -18,7 +18,6 @@ package io.rxmicro.annotation.processor.rest.client.component.impl;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import io.rxmicro.annotation.processor.common.component.MethodResultBuilder;
 import io.rxmicro.annotation.processor.common.model.ClassHeader;
 import io.rxmicro.annotation.processor.common.model.EnvironmentContext;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
@@ -50,9 +49,6 @@ public final class RestClientMethodBuilderImpl implements RestClientMethodBuilde
 
     @Inject
     private Set<RestClientMethodBodyBuilder> restClientMethodBodyBuilders;
-
-    @Inject
-    private MethodResultBuilder methodResultBuilder;
 
     @Inject
     private ClientCommonOptionBuilder clientCommonOptionBuilder;

@@ -20,7 +20,6 @@ import com.google.inject.Inject;
 import io.rxmicro.annotation.processor.common.component.MethodBodyGenerator;
 import io.rxmicro.annotation.processor.common.model.ClassHeader;
 import io.rxmicro.annotation.processor.common.model.EnvironmentContext;
-import io.rxmicro.annotation.processor.common.model.definition.SupportedTypesProvider;
 import io.rxmicro.annotation.processor.rest.client.component.RestClientMethodBodyBuilder;
 import io.rxmicro.annotation.processor.rest.client.model.RestClientClassStructureStorage;
 import io.rxmicro.annotation.processor.rest.client.model.RestClientMethodSignature;
@@ -55,9 +54,6 @@ public abstract class BaseRestClientMethodBodyBuilder implements RestClientMetho
 
     @Inject
     protected MethodBodyGenerator methodBodyGenerator;
-
-    @Inject
-    private SupportedTypesProvider restSupportedTypesProvider;
 
     @Inject
     private PathVariableValidator pathVariableValidator;
@@ -141,10 +137,9 @@ public abstract class BaseRestClientMethodBodyBuilder implements RestClientMetho
                 methodSignature.getRestClientClassSignature().getRestClientInterface().getAnnotationsByType(OverrideGeneratorConfig.class);
         for (final OverrideGeneratorConfig overrideGeneratorConfig : overrideGeneratorConfigs) {
             if (RestClientGeneratorConfig.class.getName().equals(
-                    getRequiredAnnotationClassParameter(overrideGeneratorConfig::annotationConfigClass).getQualifiedName().toString())) {
-                if ("requestValidationMode".equals(overrideGeneratorConfig.parameterName())) {
-                    return RestClientGeneratorConfig.RequestValidationMode.valueOf(overrideGeneratorConfig.overriddenValue());
-                }
+                    getRequiredAnnotationClassParameter(overrideGeneratorConfig::annotationConfigClass).getQualifiedName().toString()) &&
+                    "requestValidationMode".equals(overrideGeneratorConfig.parameterName())) {
+                return RestClientGeneratorConfig.RequestValidationMode.valueOf(overrideGeneratorConfig.overriddenValue());
             }
         }
         return environmentContext.get(RestClientModuleGeneratorConfig.class).getRequestValidationMode();
