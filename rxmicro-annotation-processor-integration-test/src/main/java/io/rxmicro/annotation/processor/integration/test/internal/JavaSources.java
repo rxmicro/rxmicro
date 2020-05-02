@@ -64,14 +64,17 @@ public final class JavaSources {
             this.resourceByteSource = Resources.asByteSource(resourceUrl);
         }
 
+        @Override
         public InputStream openInputStream() throws IOException {
             return this.resourceByteSource.openStream();
         }
 
+        @Override
         public Reader openReader(final boolean ignoreEncodingErrors) throws IOException {
             return this.resourceByteSource.asCharSource(Charset.defaultCharset()).openStream();
         }
 
+        @Override
         public CharSequence getCharContent(final boolean ignoreEncodingErrors) throws IOException {
             return this.resourceByteSource.asCharSource(Charset.defaultCharset()).read();
         }

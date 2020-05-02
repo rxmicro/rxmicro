@@ -16,10 +16,12 @@
 
 package io.rxmicro.annotation.processor.integration.test.internal;
 
+import io.rxmicro.files.ResourceException;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
 import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
 
+import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
@@ -35,30 +37,29 @@ import static java.nio.charset.StandardCharsets.UTF_8;
  */
 public final class MavenUtils {
 
-    private static final Properties properties =
-            getPropertiesFromMavenPOM();
+    private static final Properties PROPERTIES_FROM_MAVEN_POM = getPropertiesFromMavenPOM();
 
     private static Properties getPropertiesFromMavenPOM() {
         try {
             final MavenXpp3Reader reader = new MavenXpp3Reader();
             final String currentDir = System.getProperty("user.dir");
-            try (final Reader currentPomReader = new FileReader(currentDir + "/pom.xml", UTF_8)) {
+            try (Reader currentPomReader = new BufferedReader(new FileReader(currentDir + "/pom.xml", UTF_8))) {
                 Model model = reader.read(currentPomReader);
                 if (model.getParent() != null) {
                     final String parentFileName = currentDir + "/" + model.getParent().getRelativePath();
-                    try (final Reader parentPomReader = new FileReader(parentFileName, UTF_8)) {
+                    try (Reader parentPomReader = new BufferedReader(new FileReader(parentFileName, UTF_8))) {
                         model = reader.read(parentPomReader);
                     }
                 }
                 return model.getProperties();
             }
         } catch (final IOException | XmlPullParserException e) {
-            throw new RuntimeException(e);
+            throw new ResourceException(e, "Can't read properties from `pom.xml`: ?", e.getMessage());
         }
     }
 
     public static String getMavenProperty(final String name) {
-        return require(properties.getProperty(name), "Property '" + name + "' not defined");
+        return require(PROPERTIES_FROM_MAVEN_POM.getProperty(name), "Property '" + name + "' not defined");
     }
 
     private MavenUtils() {

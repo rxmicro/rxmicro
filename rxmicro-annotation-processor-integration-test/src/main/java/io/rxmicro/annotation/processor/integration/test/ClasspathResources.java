@@ -17,6 +17,7 @@
 package io.rxmicro.annotation.processor.integration.test;
 
 import io.rxmicro.common.util.UrlPaths;
+import io.rxmicro.files.ResourceException;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -52,15 +53,15 @@ public final class ClasspathResources {
     public static Set<String> getOnlyChildrenAtTheFolder(final String folder,
                                                          final Predicate<String> resourcePredicate) {
         final Set<String> resources = new TreeSet<>();
-        try (final BufferedReader br = new BufferedReader(new InputStreamReader(getResourceAsStream(folder), UTF_8))) {
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(getResourceAsStream(folder), UTF_8))) {
             String line;
             while ((line = br.readLine()) != null) {
                 if (resourcePredicate.test(line)) {
                     resources.add(line);
                 }
             }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        } catch (final IOException e) {
+            throw new ResourceException(e, "Can't load resources from folder: ?", folder);
         }
         return Collections.unmodifiableSet(resources);
     }
@@ -75,7 +76,7 @@ public final class ClasspathResources {
     private static void readAll(final Set<String> resources,
                                 final String folder,
                                 final Predicate<String> resourcePredicate) {
-        try (final BufferedReader br = new BufferedReader(new InputStreamReader(getResourceAsStream(folder), UTF_8))) {
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(getResourceAsStream(folder), UTF_8))) {
             String line;
             while ((line = br.readLine()) != null) {
                 final String resource = normalize(folder + "/" + line);
@@ -87,7 +88,7 @@ public final class ClasspathResources {
                 }
             }
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new ResourceException(e, "Can't read resources from folder: ?", folder);
         }
     }
 
