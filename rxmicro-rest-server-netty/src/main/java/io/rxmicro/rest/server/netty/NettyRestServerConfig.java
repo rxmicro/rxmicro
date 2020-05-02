@@ -20,6 +20,7 @@ import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelOption;
 import io.netty.handler.codec.http.HttpObjectAggregator;
 import io.netty.handler.codec.http.HttpServerCodec;
+import io.rxmicro.common.meta.BuilderMethod;
 import io.rxmicro.config.Config;
 
 import java.util.ArrayList;
@@ -64,6 +65,7 @@ public final class NettyRestServerConfig extends Config {
      * @return A reference to this {@code NettyServerConfig}
      * @see ChannelOption
      */
+    @BuilderMethod
     public <T> NettyRestServerConfig serverOption(final ChannelOption<T> option, final T value) {
         serverOptions.put(require(option), require(value));
         return this;
@@ -78,6 +80,7 @@ public final class NettyRestServerConfig extends Config {
      * @return A reference to this {@code NettyServerConfig}
      * @see ChannelOption
      */
+    @BuilderMethod
     public <T> NettyRestServerConfig clientOption(final ChannelOption<T> option, final T value) {
         clientOptions.put(require(option), require(value));
         return this;
@@ -89,6 +92,7 @@ public final class NettyRestServerConfig extends Config {
      * @param channelHandlerSupplier channel handler supplier
      * @return A reference to this {@code NettyServerConfig}
      */
+    @BuilderMethod
     public NettyRestServerConfig addLast(final Supplier<ChannelHandler> channelHandlerSupplier) {
         handlerSuppliers.add(require(channelHandlerSupplier));
         return this;
@@ -99,6 +103,7 @@ public final class NettyRestServerConfig extends Config {
      *
      * @return A reference to this {@code NettyServerConfig}
      */
+    @BuilderMethod
     public NettyRestServerConfig resetChannelHandlers() {
         handlerSuppliers.clear();
         return this;
@@ -127,6 +132,7 @@ public final class NettyRestServerConfig extends Config {
      * @param transport {@code NettyTransport} which must be used
      * @return A reference to this {@code NettyServerConfig}
      */
+    @BuilderMethod
     public NettyRestServerConfig setTransport(final NettyTransport transport) {
         this.transport = require(transport);
         return this;
@@ -146,6 +152,7 @@ public final class NettyRestServerConfig extends Config {
      * @return A reference to this {@code NettyServerConfig}
      * @since 0.3
      */
+    @BuilderMethod
     public NettyRestServerConfig setChannelIdType(final NettyChannelIdType channelIdType) {
         this.channelIdType = channelIdType;
         return this;

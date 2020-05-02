@@ -16,6 +16,7 @@
 
 package io.rxmicro.test.local;
 
+import io.rxmicro.common.meta.BuilderMethod;
 import io.rxmicro.http.ProtocolSchema;
 import io.rxmicro.http.client.HttpClientConfig;
 import io.rxmicro.rest.Version;
@@ -38,6 +39,7 @@ public final class BlockingHttpClientConfig extends HttpClientConfig {
         return versionStrategy;
     }
 
+    @BuilderMethod
     public BlockingHttpClientConfig setVersionStrategy(final Version.Strategy versionStrategy) {
         this.versionStrategy = versionStrategy;
         return this;
@@ -47,6 +49,7 @@ public final class BlockingHttpClientConfig extends HttpClientConfig {
         return versionValue;
     }
 
+    @BuilderMethod
     public BlockingHttpClientConfig setVersionValue(final String versionValue) {
         this.versionValue = versionValue;
         return this;

@@ -16,6 +16,7 @@
 
 package io.rxmicro.http;
 
+import io.rxmicro.common.meta.BuilderMethod;
 import io.rxmicro.config.Config;
 import io.rxmicro.http.internal.HttpConfigExtractor;
 
@@ -47,6 +48,7 @@ public abstract class HttpConfig extends Config {
      * @param schema protocol schema
      * @return A reference to this {@code HttpConfig}
      */
+    @BuilderMethod
     public HttpConfig setSchema(final ProtocolSchema schema) {
         this.schema = require(schema);
         return this;
@@ -62,6 +64,7 @@ public abstract class HttpConfig extends Config {
      * @param host host name
      * @return A reference to this {@code HttpConfig}
      */
+    @BuilderMethod
     public HttpConfig setHost(final String host) {
         this.host = require(host);
         return this;
@@ -77,6 +80,7 @@ public abstract class HttpConfig extends Config {
      * @param port server port
      * @return A reference to this {@code HttpConfig}
      */
+    @BuilderMethod
     public HttpConfig setPort(final int port) {
         this.port = validatePort(port);
         return this;
@@ -105,6 +109,7 @@ public abstract class HttpConfig extends Config {
      * @param connectionString connection string. See description above.
      * @return A reference to this {@code HttpConfig}
      */
+    @BuilderMethod
     public HttpConfig setConnectionString(final String connectionString) {
         new HttpConfigExtractor().extract(connectionString, this);
         return this;

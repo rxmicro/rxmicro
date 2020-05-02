@@ -16,6 +16,8 @@
 
 package io.rxmicro.data.sql;
 
+import io.rxmicro.common.meta.BuilderMethod;
+
 import java.time.Duration;
 
 import static io.rxmicro.common.util.Requires.require;
@@ -48,6 +50,7 @@ public class SQLPooledDatabaseConfig extends SQLDatabaseConfig {
         return acquireRetry;
     }
 
+    @BuilderMethod
     public SQLPooledDatabaseConfig setAcquireRetry(final int acquireRetry) {
         this.acquireRetry = acquireRetry;
         return this;
@@ -57,6 +60,7 @@ public class SQLPooledDatabaseConfig extends SQLDatabaseConfig {
         return initialSize;
     }
 
+    @BuilderMethod
     public SQLPooledDatabaseConfig setInitialSize(final int initialSize) {
         this.initialSize = initialSize;
         if (initialSize > this.maxSize) {
@@ -69,6 +73,7 @@ public class SQLPooledDatabaseConfig extends SQLDatabaseConfig {
         return maxSize;
     }
 
+    @BuilderMethod
     public SQLPooledDatabaseConfig setMaxSize(final int maxSize) {
         this.maxSize = maxSize;
         if (this.initialSize > maxSize) {
@@ -81,6 +86,7 @@ public class SQLPooledDatabaseConfig extends SQLDatabaseConfig {
         return validationQuery;
     }
 
+    @BuilderMethod
     public SQLPooledDatabaseConfig setValidationQuery(final String validationQuery) {
         this.validationQuery = require(validationQuery);
         return this;
@@ -90,6 +96,7 @@ public class SQLPooledDatabaseConfig extends SQLDatabaseConfig {
         return maxIdleTime;
     }
 
+    @BuilderMethod
     public SQLPooledDatabaseConfig setMaxIdleTime(final Duration maxIdleTime) {
         this.maxIdleTime = require(maxIdleTime);
         return this;
@@ -99,6 +106,7 @@ public class SQLPooledDatabaseConfig extends SQLDatabaseConfig {
         return maxCreateConnectionTime;
     }
 
+    @BuilderMethod
     public SQLPooledDatabaseConfig setMaxCreateConnectionTime(final Duration maxCreateConnectionTime) {
         this.maxCreateConnectionTime = require(maxCreateConnectionTime);
         return this;
@@ -108,6 +116,7 @@ public class SQLPooledDatabaseConfig extends SQLDatabaseConfig {
         return maxAcquireTime;
     }
 
+    @BuilderMethod
     public SQLPooledDatabaseConfig setMaxAcquireTime(final Duration maxAcquireTime) {
         this.maxAcquireTime = require(maxAcquireTime);
         return this;
@@ -117,6 +126,7 @@ public class SQLPooledDatabaseConfig extends SQLDatabaseConfig {
         return maxLifeTime;
     }
 
+    @BuilderMethod
     public SQLPooledDatabaseConfig setMaxLifeTime(final Duration maxLifeTime) {
         this.maxLifeTime = require(maxLifeTime);
         return this;

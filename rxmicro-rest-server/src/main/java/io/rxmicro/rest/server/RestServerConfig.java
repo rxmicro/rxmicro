@@ -16,6 +16,7 @@
 
 package io.rxmicro.rest.server;
 
+import io.rxmicro.common.meta.BuilderMethod;
 import io.rxmicro.config.Config;
 
 import java.util.LinkedHashSet;
@@ -69,6 +70,7 @@ public class RestServerConfig extends Config {
      *
      * @return A reference to this {@code RestConfig}
      */
+    @BuilderMethod
     public RestServerConfig setDevelopmentMode() {
         return this
                 .setHumanReadableOutput(true)
@@ -79,6 +81,7 @@ public class RestServerConfig extends Config {
         return handlerNotFoundErrorStatusCode;
     }
 
+    @BuilderMethod
     public RestServerConfig setHandlerNotFoundErrorStatusCode(final int handlerNotFoundErrorStatusCode) {
         this.handlerNotFoundErrorStatusCode = handlerNotFoundErrorStatusCode;
         return this;
@@ -88,6 +91,7 @@ public class RestServerConfig extends Config {
         return handlerNotFoundErrorMessage;
     }
 
+    @BuilderMethod
     public RestServerConfig setHandlerNotFoundErrorMessage(final String handlerNotFoundErrorMessage) {
         this.handlerNotFoundErrorMessage = require(handlerNotFoundErrorMessage);
         return this;
@@ -97,6 +101,7 @@ public class RestServerConfig extends Config {
         return corsNotAllowedErrorStatusCode;
     }
 
+    @BuilderMethod
     public RestServerConfig setCorsNotAllowedErrorStatusCode(final int corsNotAllowedErrorStatusCode) {
         this.corsNotAllowedErrorStatusCode = corsNotAllowedErrorStatusCode;
         return this;
@@ -106,6 +111,7 @@ public class RestServerConfig extends Config {
         return corsNotAllowedErrorMessage;
     }
 
+    @BuilderMethod
     public RestServerConfig setCorsNotAllowedErrorMessage(final String corsNotAllowedErrorMessage) {
         this.corsNotAllowedErrorMessage = require(corsNotAllowedErrorMessage);
         return this;
@@ -122,6 +128,7 @@ public class RestServerConfig extends Config {
      * @param humanReadableOutput human readable or not
      * @return A reference to this {@code RestConfig}
      */
+    @BuilderMethod
     public RestServerConfig setHumanReadableOutput(final boolean humanReadableOutput) {
         this.humanReadableOutput = humanReadableOutput;
         return this;
@@ -138,6 +145,7 @@ public class RestServerConfig extends Config {
      * @param hideInternalErrorMessage hide internal error cause or not
      * @return A reference to this {@code RestConfig}
      */
+    @BuilderMethod
     public RestServerConfig setHideInternalErrorMessage(final boolean hideInternalErrorMessage) {
         this.hideInternalErrorMessage = hideInternalErrorMessage;
         return this;
@@ -147,6 +155,7 @@ public class RestServerConfig extends Config {
         return logNotServerErrors;
     }
 
+    @BuilderMethod
     public RestServerConfig setLogNotServerErrors(final boolean logNotServerErrors) {
         this.logNotServerErrors = logNotServerErrors;
         return this;
@@ -160,6 +169,7 @@ public class RestServerConfig extends Config {
      * @param staticResponseHeaders static response header set
      * @return A reference to this {@code RestConfig}
      */
+    @BuilderMethod
     public RestServerConfig setStaticResponseHeaders(final Set<StaticResponseHeader> staticResponseHeaders) {
         this.staticResponseHeaders = require(staticResponseHeaders);
         return this;
@@ -169,6 +179,7 @@ public class RestServerConfig extends Config {
      * @param staticResponseHeader a new static response header
      * @return A reference to this {@code RestConfig}
      */
+    @BuilderMethod
     public RestServerConfig addStaticResponseHeader(final StaticResponseHeader staticResponseHeader) {
         this.staticResponseHeaders.add(require(staticResponseHeader));
         return this;
@@ -182,6 +193,7 @@ public class RestServerConfig extends Config {
      * @param generatorType generator type
      * @return A reference to this {@code RestConfig}
      */
+    @BuilderMethod
     public RestServerConfig setGeneratorType(final RequestIdGeneratorType generatorType) {
         this.generatorType = require(generatorType);
         return this;
@@ -195,6 +207,7 @@ public class RestServerConfig extends Config {
      * @param returnGeneratedRequestId return generated Request-Id o not
      * @return A reference to this {@code RestConfig}
      */
+    @BuilderMethod
     public RestServerConfig setReturnGeneratedRequestId(final boolean returnGeneratedRequestId) {
         this.returnGeneratedRequestId = returnGeneratedRequestId;
         return this;
@@ -208,6 +221,7 @@ public class RestServerConfig extends Config {
      * @param disableLoggerMessagesForHttpHealthChecks disable logger messages or not
      * @return A reference to this {@code RestConfig}
      */
+    @BuilderMethod
     public RestServerConfig setDisableLoggerMessagesForHttpHealthChecks(
             final boolean disableLoggerMessagesForHttpHealthChecks) {
         this.disableLoggerMessagesForHttpHealthChecks = disableLoggerMessagesForHttpHealthChecks;
@@ -225,6 +239,7 @@ public class RestServerConfig extends Config {
      * @param showRuntimeEnv print runtime environment or not
      * @return A reference to this {@code RestConfig}
      */
+    @BuilderMethod
     public RestServerConfig setShowRuntimeEnv(final boolean showRuntimeEnv) {
         this.showRuntimeEnv = showRuntimeEnv;
         return this;

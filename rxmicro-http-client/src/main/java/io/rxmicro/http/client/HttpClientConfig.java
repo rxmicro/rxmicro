@@ -16,6 +16,7 @@
 
 package io.rxmicro.http.client;
 
+import io.rxmicro.common.meta.BuilderMethod;
 import io.rxmicro.http.HttpConfig;
 import io.rxmicro.http.ProtocolSchema;
 
@@ -50,6 +51,7 @@ public class HttpClientConfig extends HttpConfig {
         return accessKey;
     }
 
+    @BuilderMethod
     public HttpClientConfig setAccessKey(final String accessKey) {
         this.accessKey = require(accessKey);
         return this;
@@ -59,6 +61,7 @@ public class HttpClientConfig extends HttpConfig {
         return followRedirects;
     }
 
+    @BuilderMethod
     public HttpClientConfig setFollowRedirects(final boolean followRedirects) {
         this.followRedirects = followRedirects;
         return this;
@@ -71,6 +74,7 @@ public class HttpClientConfig extends HttpConfig {
     /**
      * Duration.ZERO means infinite timeout
      */
+    @BuilderMethod
     public HttpClientConfig setRequestTimeout(final Duration requestTimeout) {
         this.requestTimeout = require(requestTimeout);
         return this;

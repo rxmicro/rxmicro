@@ -18,6 +18,7 @@ package io.rxmicro.data.mongo;
 
 import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
+import io.rxmicro.common.meta.BuilderMethod;
 import io.rxmicro.config.Config;
 import io.rxmicro.data.mongo.internal.RxMicroMongoCodecRegistry;
 
@@ -56,6 +57,7 @@ public final class MongoConfig extends Config {
      * @param host host name
      * @return A reference to this {@code MongoConfig}
      */
+    @BuilderMethod
     public MongoConfig setHost(final String host) {
         this.host = require(host);
         builder.applyConnectionString(new ConnectionString(getConnectionString()));
@@ -68,6 +70,7 @@ public final class MongoConfig extends Config {
      * @param port server port
      * @return A reference to this {@code MongoConfig}
      */
+    @BuilderMethod
     public MongoConfig setPort(final int port) {
         this.port = validatePort(port);
         builder.applyConnectionString(new ConnectionString(getConnectionString()));
@@ -84,11 +87,13 @@ public final class MongoConfig extends Config {
      * @param database database name
      * @return A reference to this {@code MongoConfig}
      */
+    @BuilderMethod
     public MongoConfig setDatabase(final String database) {
         this.database = require(database);
         return this;
     }
 
+    @BuilderMethod
     public MongoConfig setMongoCodecsConfigurator(final MongoCodecsConfigurator mongoCodecsConfigurator) {
         this.mongoCodecsConfigurator = require(mongoCodecsConfigurator);
         return this;

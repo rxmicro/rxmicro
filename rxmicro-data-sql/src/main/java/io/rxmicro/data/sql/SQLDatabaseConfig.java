@@ -16,6 +16,7 @@
 
 package io.rxmicro.data.sql;
 
+import io.rxmicro.common.meta.BuilderMethod;
 import io.rxmicro.config.Config;
 
 import java.time.Duration;
@@ -53,6 +54,7 @@ public class SQLDatabaseConfig extends Config {
         return host;
     }
 
+    @BuilderMethod
     public SQLDatabaseConfig setHost(final String host) {
         this.host = require(host);
         return this;
@@ -62,6 +64,7 @@ public class SQLDatabaseConfig extends Config {
         return port;
     }
 
+    @BuilderMethod
     public SQLDatabaseConfig setPort(final int port) {
         this.port = validatePort(port);
         return this;
@@ -71,6 +74,7 @@ public class SQLDatabaseConfig extends Config {
         return user;
     }
 
+    @BuilderMethod
     public SQLDatabaseConfig setUser(final String user) {
         this.user = require(user);
         return this;
@@ -80,6 +84,7 @@ public class SQLDatabaseConfig extends Config {
         return password;
     }
 
+    @BuilderMethod
     public SQLDatabaseConfig setPassword(final CharSequence password) {
         this.password = require(password);
         return this;
@@ -89,11 +94,13 @@ public class SQLDatabaseConfig extends Config {
         return database;
     }
 
+    @BuilderMethod
     public SQLDatabaseConfig setDatabase(final String database) {
         this.database = require(database);
         return this;
     }
 
+    @BuilderMethod
     public SQLDatabaseConfig addOption(final String name,
                                        final String value) {
         options.put(require(name), require(value));
@@ -108,6 +115,7 @@ public class SQLDatabaseConfig extends Config {
         return connectTimeout;
     }
 
+    @BuilderMethod
     public SQLDatabaseConfig setConnectTimeout(final Duration connectTimeout) {
         this.connectTimeout = require(connectTimeout);
         return this;

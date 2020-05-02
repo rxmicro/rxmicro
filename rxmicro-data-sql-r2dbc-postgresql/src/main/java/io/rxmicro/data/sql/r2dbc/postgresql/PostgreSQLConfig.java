@@ -17,6 +17,7 @@
 package io.rxmicro.data.sql.r2dbc.postgresql;
 
 import io.r2dbc.spi.Connection;
+import io.rxmicro.common.meta.BuilderMethod;
 import io.rxmicro.data.sql.SQLPooledDatabaseConfig;
 
 import java.time.Duration;
@@ -124,6 +125,7 @@ public final class PostgreSQLConfig extends SQLPooledDatabaseConfig {
         return Optional.ofNullable(connectionDecorator);
     }
 
+    @BuilderMethod
     public PostgreSQLConfig setConnectionDecorator(final Function<Connection, Connection> connectionDecorator) {
         this.connectionDecorator = connectionDecorator;
         return this;

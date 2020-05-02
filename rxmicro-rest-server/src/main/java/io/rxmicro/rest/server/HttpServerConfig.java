@@ -16,6 +16,7 @@
 
 package io.rxmicro.rest.server;
 
+import io.rxmicro.common.meta.BuilderMethod;
 import io.rxmicro.http.HttpConfig;
 import io.rxmicro.http.ProtocolSchema;
 
@@ -37,6 +38,7 @@ public class HttpServerConfig extends HttpConfig {
         return startTimeTrackerEnabled;
     }
 
+    @BuilderMethod
     public HttpServerConfig setStartTimeTrackerEnabled(final boolean startTimeTrackerEnabled) {
         this.startTimeTrackerEnabled = startTimeTrackerEnabled;
         return this;
