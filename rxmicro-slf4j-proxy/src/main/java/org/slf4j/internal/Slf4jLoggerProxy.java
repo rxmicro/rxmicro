@@ -74,7 +74,7 @@ public final class Slf4jLoggerProxy implements org.slf4j.Logger {
     }
 
     @Override
-    public void trace(final String msg, final Throwable t) {
+    public void trace(final String msg, final Throwable throwable) {
         //TODO
     }
 
@@ -104,7 +104,7 @@ public final class Slf4jLoggerProxy implements org.slf4j.Logger {
     }
 
     @Override
-    public void trace(final Marker marker, final String msg, final Throwable t) {
+    public void trace(final Marker marker, final String msg, final Throwable throwable) {
         throw new UnsupportedOperationException();
     }
 
@@ -134,7 +134,7 @@ public final class Slf4jLoggerProxy implements org.slf4j.Logger {
     }
 
     @Override
-    public void debug(final String msg, final Throwable t) {
+    public void debug(final String msg, final Throwable throwable) {
         //TODO
     }
 
@@ -164,7 +164,7 @@ public final class Slf4jLoggerProxy implements org.slf4j.Logger {
     }
 
     @Override
-    public void debug(final Marker marker, final String msg, final Throwable t) {
+    public void debug(final Marker marker, final String msg, final Throwable throwable) {
         throw new UnsupportedOperationException();
     }
 
@@ -194,7 +194,7 @@ public final class Slf4jLoggerProxy implements org.slf4j.Logger {
     }
 
     @Override
-    public void info(final String msg, final Throwable t) {
+    public void info(final String msg, final Throwable throwable) {
         //TODO
     }
 
@@ -224,7 +224,7 @@ public final class Slf4jLoggerProxy implements org.slf4j.Logger {
     }
 
     @Override
-    public void info(final Marker marker, final String msg, final Throwable t) {
+    public void info(final Marker marker, final String msg, final Throwable throwable) {
         throw new UnsupportedOperationException();
     }
 
@@ -254,7 +254,7 @@ public final class Slf4jLoggerProxy implements org.slf4j.Logger {
     }
 
     @Override
-    public void warn(final String msg, final Throwable t) {
+    public void warn(final String msg, final Throwable throwable) {
         //TODO
     }
 
@@ -284,7 +284,7 @@ public final class Slf4jLoggerProxy implements org.slf4j.Logger {
     }
 
     @Override
-    public void warn(final Marker marker, final String msg, final Throwable t) {
+    public void warn(final Marker marker, final String msg, final Throwable throwable) {
         throw new UnsupportedOperationException();
     }
 
@@ -314,8 +314,8 @@ public final class Slf4jLoggerProxy implements org.slf4j.Logger {
     }
 
     @Override
-    public void error(final String msg, final Throwable t) {
-        logger.error(t, msg);
+    public void error(final String msg, final Throwable throwable) {
+        logger.error(throwable, msg);
     }
 
     @Override
@@ -344,7 +344,7 @@ public final class Slf4jLoggerProxy implements org.slf4j.Logger {
     }
 
     @Override
-    public void error(final Marker marker, final String msg, final Throwable t) {
+    public void error(final Marker marker, final String msg, final Throwable throwable) {
         throw new UnsupportedOperationException();
     }
 }

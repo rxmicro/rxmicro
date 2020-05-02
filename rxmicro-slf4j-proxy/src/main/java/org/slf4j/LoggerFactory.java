@@ -30,15 +30,18 @@ import org.slf4j.internal.Slf4jLoggerProxy;
  */
 public final class LoggerFactory {
 
-    public static Logger getLogger(String name) {
+    public static Logger getLogger(final String name) {
         return new Slf4jLoggerProxy(name);
     }
 
-    public static Logger getLogger(Class<?> clazz) {
+    public static Logger getLogger(final Class<?> clazz) {
         return getLogger(clazz.getName());
     }
 
     public static ILoggerFactory getILoggerFactory() {
         throw new UnsupportedOperationException("Proxy does not contain ILoggerFactory implementation");
+    }
+
+    private LoggerFactory(){
     }
 }

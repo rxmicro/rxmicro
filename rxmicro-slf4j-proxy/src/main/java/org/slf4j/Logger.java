@@ -40,7 +40,7 @@ public interface Logger {
 
     void trace(String format, Object... arguments);
 
-    void trace(String msg, Throwable t);
+    void trace(String msg, Throwable throwable);
 
     boolean isTraceEnabled(Marker marker);
 
@@ -52,7 +52,7 @@ public interface Logger {
 
     void trace(Marker marker, String format, Object... argArray);
 
-    void trace(Marker marker, String msg, Throwable t);
+    void trace(Marker marker, String msg, Throwable throwable);
 
     boolean isDebugEnabled();
 
@@ -64,7 +64,7 @@ public interface Logger {
 
     void debug(String format, Object... arguments);
 
-    void debug(String msg, Throwable t);
+    void debug(String msg, Throwable throwable);
 
     boolean isDebugEnabled(Marker marker);
 
@@ -76,7 +76,7 @@ public interface Logger {
 
     void debug(Marker marker, String format, Object... arguments);
 
-    void debug(Marker marker, String msg, Throwable t);
+    void debug(Marker marker, String msg, Throwable throwable);
 
     boolean isInfoEnabled();
 
@@ -88,7 +88,7 @@ public interface Logger {
 
     void info(String format, Object... arguments);
 
-    void info(String msg, Throwable t);
+    void info(String msg, Throwable throwable);
 
     boolean isInfoEnabled(Marker marker);
 
@@ -100,7 +100,7 @@ public interface Logger {
 
     void info(Marker marker, String format, Object... arguments);
 
-    void info(Marker marker, String msg, Throwable t);
+    void info(Marker marker, String msg, Throwable throwable);
 
     boolean isWarnEnabled();
 
@@ -112,7 +112,7 @@ public interface Logger {
 
     void warn(String format, Object arg1, Object arg2);
 
-    void warn(String msg, Throwable t);
+    void warn(String msg, Throwable throwable);
 
     boolean isWarnEnabled(Marker marker);
 
@@ -124,7 +124,7 @@ public interface Logger {
 
     void warn(Marker marker, String format, Object... arguments);
 
-    void warn(Marker marker, String msg, Throwable t);
+    void warn(Marker marker, String msg, Throwable throwable);
 
     boolean isErrorEnabled();
 
@@ -136,7 +136,7 @@ public interface Logger {
 
     void error(String format, Object... arguments);
 
-    void error(String msg, Throwable t);
+    void error(String msg, Throwable throwable);
 
     boolean isErrorEnabled(Marker marker);
 
@@ -148,5 +148,5 @@ public interface Logger {
 
     void error(Marker marker, String format, Object... arguments);
 
-    void error(Marker marker, String msg, Throwable t);
+    void error(Marker marker, String msg, Throwable throwable);
 }

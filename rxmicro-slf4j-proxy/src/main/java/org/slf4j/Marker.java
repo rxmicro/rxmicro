@@ -50,8 +50,4 @@ public interface Marker extends Serializable {
     boolean contains(Marker other);
 
     boolean contains(String name);
-
-    int hashCode();
-
-    boolean equals(Object o);
 }
