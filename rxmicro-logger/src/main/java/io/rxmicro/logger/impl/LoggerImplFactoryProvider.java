@@ -17,7 +17,7 @@
 package io.rxmicro.logger.impl;
 
 import io.rxmicro.common.RxMicroException;
-import io.rxmicro.common.local.StartTimeStamp;
+import io.rxmicro.common.local.StartTimeStampHelper;
 import io.rxmicro.logger.internal.jul.JULLoggerImplFactory;
 
 import static io.rxmicro.common.util.Requires.require;
@@ -35,7 +35,7 @@ public final class LoggerImplFactoryProvider {
     private static boolean init;
 
     static {
-        StartTimeStamp.init();
+        StartTimeStampHelper.init();
     }
 
     public static LoggerImplFactory getLoggerImplFactory() {

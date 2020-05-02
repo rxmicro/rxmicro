@@ -21,6 +21,7 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 import static io.rxmicro.common.util.Environments.isCurrentOsWindows;
 import static io.rxmicro.common.util.Requires.require;
@@ -122,8 +123,9 @@ public final class Formats {
                 return "Gb";
             case 5:
                 return "Tb";
+            default:
+                throw new IllegalArgumentException("Unsupported units");
         }
-        throw new IllegalArgumentException("Unsupported units");
     }
 
     /**
@@ -131,12 +133,12 @@ public final class Formats {
      */
     public static String format(final Duration duration) {
         if (duration.getSeconds() == 0) {
-            return (((double) duration.getNano()) / 1_000_000.) + "ms";
+            return (((double) duration.getNano()) / 1_000_000) + "ms";
         } else {
             return duration.toString()
                     .substring(2)
                     .replaceAll("(\\d[HMS])(?!$)", "$1 ")
-                    .toLowerCase();
+                    .toLowerCase(Locale.ENGLISH);
         }
     }
 

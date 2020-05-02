@@ -21,7 +21,7 @@ package io.rxmicro.common.local;
  * @link https://rxmicro.io
  * @since 0.1
  */
-public final class StartTimeStamp {
+public final class StartTimeStampHelper {
 
     public static final long START_TIME_STAMP = System.nanoTime();
 
@@ -30,6 +30,6 @@ public final class StartTimeStamp {
         // do nothing. All required logic done at the static section
     }
 
-    private StartTimeStamp() {
+    private StartTimeStampHelper() {
     }
 }

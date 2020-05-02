@@ -33,7 +33,7 @@ public final class Constants {
      * @link https://rxmicro.io
      * @since 0.2
      */
-    public static final class VirtualModuleInfo {
+    public static final class VirtualModuleInfoConstants {
 
         public static final String RX_MICRO_VIRTUAL_MODULE_INFO_ANNOTATION_NAME = "ModuleInfo";
 
@@ -41,7 +41,7 @@ public final class Constants {
 
         public static final String RX_MICRO_VIRTUAL_MODULE_INFO_DEFAULT_NAME = "virtual.module";
 
-        private VirtualModuleInfo() {
+        private VirtualModuleInfoConstants() {
         }
     }
 }

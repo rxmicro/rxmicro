@@ -16,7 +16,7 @@
 
 package io.rxmicro.logger;
 
-import io.rxmicro.common.local.StartTimeStamp;
+import io.rxmicro.common.local.StartTimeStampHelper;
 import io.rxmicro.logger.impl.LoggerImplFactory;
 
 import static io.rxmicro.logger.impl.LoggerImplFactoryProvider.getLoggerImplFactory;
@@ -31,7 +31,7 @@ public final class LoggerFactory {
     private static final LoggerImplFactory LOGGER_IMPL_FACTORY;
 
     static {
-        StartTimeStamp.init();
+        StartTimeStampHelper.init();
         LOGGER_IMPL_FACTORY = getLoggerImplFactory();
         try {
             LOGGER_IMPL_FACTORY.setup();

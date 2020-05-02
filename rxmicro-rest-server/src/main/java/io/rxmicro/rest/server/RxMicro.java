@@ -16,7 +16,7 @@
 
 package io.rxmicro.rest.server;
 
-import io.rxmicro.common.local.StartTimeStamp;
+import io.rxmicro.common.local.StartTimeStampHelper;
 import io.rxmicro.logger.Logger;
 import io.rxmicro.logger.LoggerFactory;
 import io.rxmicro.rest.server.local.model.RestControllerRegistrationFilter;
@@ -45,7 +45,7 @@ public final class RxMicro {
     private static final Logger LOGGER = LoggerFactory.getLogger(RxMicro.class);
 
     static {
-        StartTimeStamp.init();
+        StartTimeStampHelper.init();
     }
 
     public static void startRestServerInteractive(final String rootPackage) {

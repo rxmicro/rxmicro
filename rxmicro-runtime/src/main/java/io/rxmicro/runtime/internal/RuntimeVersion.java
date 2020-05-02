@@ -16,7 +16,7 @@
 
 package io.rxmicro.runtime.internal;
 
-import io.rxmicro.common.local.StartTimeStamp;
+import io.rxmicro.common.local.StartTimeStampHelper;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -34,7 +34,7 @@ public final class RuntimeVersion {
     private static final String RX_MICRO_VERSION_PROPERTY = "rxmicro.version";
 
     static {
-        StartTimeStamp.init();
+        StartTimeStampHelper.init();
         RX_MICRO_VERSION = resolveVersion();
         System.setProperty(RX_MICRO_VERSION_PROPERTY, RX_MICRO_VERSION);
     }

@@ -264,10 +264,22 @@
                         </dependencies>
                         <!--executions>
                             <execution>
+                                <id>pmd-check</id>
                                 <goals>
                                     <goal>check</goal>
+                                </goals>
+                                <configuration>
+                                    <excludeFromFailureFile>${basedir}/../release/src/main/filters/exclude-pmd.properties</excludeFromFailureFile>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>cpd-check</id>
+                                <goals>
                                     <goal>cpd-check</goal>
                                 </goals>
+                                <configuration>
+                                    <excludeFromFailureFile>${basedir}/../release/src/main/filters/exclude-cpd.properties</excludeFromFailureFile>
+                                </configuration>
                             </execution>
                         </executions-->
                         <configuration>
@@ -291,10 +303,22 @@
                         </configuration>
                         <reportSets>
                             <reportSet>
+                                <id>pmd</id>
                                 <reports>
                                     <report>pmd</report>
+                                </reports>
+                                <configuration>
+                                    <excludeFromFailureFile>${basedir}/../release/src/main/filters/exclude-pmd.properties</excludeFromFailureFile>
+                                </configuration>
+                            </reportSet>
+                            <reportSet>
+                                <id>cpd</id>
+                                <reports>
                                     <report>cpd</report>
                                 </reports>
+                                <configuration>
+                                    <excludeFromFailureFile>${basedir}/../release/src/main/filters/exclude-cpd.properties</excludeFromFailureFile>
+                                </configuration>
                             </reportSet>
                         </reportSets>
                     </plugin>

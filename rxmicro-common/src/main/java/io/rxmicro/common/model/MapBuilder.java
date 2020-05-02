@@ -19,7 +19,7 @@ package io.rxmicro.common.model;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import static io.rxmicro.common.util.ExCollections.unmodifiableMap;
+import static io.rxmicro.common.util.ExCollections.unmodifiableOrderedMap;
 
 /**
  * @author nedis
@@ -28,20 +28,21 @@ import static io.rxmicro.common.util.ExCollections.unmodifiableMap;
  */
 public class MapBuilder<K, V> {
 
-    private Map<K, V> map = new LinkedHashMap<>();
+    private final Map<K, V> map = new LinkedHashMap<>();
+
+    private boolean built;
 
     public MapBuilder<K, V> put(final K name,
                                 final V value) {
+        if (built) {
+            throw new IllegalStateException("This builder can't be used. Create a new one!");
+        }
         map.put(name, value);
         return this;
     }
 
     public Map<K, V> build() {
-        try {
-            return unmodifiableMap(map);
-        } finally {
-            // After built current instance of builder must not be used.
-            map = null;
-        }
+        built = true;
+        return unmodifiableOrderedMap(map);
     }
 }

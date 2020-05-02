@@ -16,6 +16,8 @@
 
 package io.rxmicro.common.util;
 
+import java.util.Locale;
+
 import static java.lang.System.getProperty;
 
 /**
@@ -28,15 +30,15 @@ public final class Environments {
     private static final String UNKNOWN = "unknown";
 
     public static boolean isCurrentOsMac() {
-        return getProperty("os.name", UNKNOWN).toLowerCase().contains("mac");
+        return getProperty("os.name", UNKNOWN).toLowerCase(Locale.ENGLISH).contains("mac");
     }
 
     public static boolean isCurrentOsLinux() {
-        return getProperty("os.name", UNKNOWN).toLowerCase().contains("linux");
+        return getProperty("os.name", UNKNOWN).toLowerCase(Locale.ENGLISH).contains("linux");
     }
 
     public static boolean isCurrentOsWindows() {
-        return getProperty("os.name", UNKNOWN).toLowerCase().contains("windows");
+        return getProperty("os.name", UNKNOWN).toLowerCase(Locale.ENGLISH).contains("windows");
     }
 
     private Environments() {

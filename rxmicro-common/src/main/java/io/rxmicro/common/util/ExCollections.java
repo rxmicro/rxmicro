@@ -284,7 +284,7 @@ public final class ExCollections {
 
     @SafeVarargs
     @SuppressWarnings("varargs")
-    public static <K, V> Map<K, V> orderedMapFromEntries(Map.Entry<? extends K, ? extends V>... entries) {
+    public static <K, V> Map<K, V> orderedMapFromEntries(final Map.Entry<? extends K, ? extends V>... entries) {
         final Map<K, V> map = new LinkedHashMap<>();
         for (final Map.Entry<? extends K, ? extends V> entry : entries) {
             map.put(entry.getKey(), entry.getValue());

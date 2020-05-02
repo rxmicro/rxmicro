@@ -33,7 +33,7 @@ import io.rxmicro.rest.server.netty.NettyRestServerConfig;
 import java.time.Duration;
 import java.util.concurrent.CountDownLatch;
 
-import static io.rxmicro.common.local.StartTimeStamp.START_TIME_STAMP;
+import static io.rxmicro.common.local.StartTimeStampHelper.START_TIME_STAMP;
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.Requires.require;
 import static io.rxmicro.rest.server.netty.internal.util.NettyTransportFactory.getCurrentNettyTransport;

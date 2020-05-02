@@ -19,6 +19,7 @@ package io.rxmicro.common.util;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.StringTokenizer;
 
 import static java.lang.Character.isLowerCase;
@@ -34,6 +35,8 @@ import static java.util.Collections.unmodifiableList;
  */
 public final class Strings {
 
+    private static final int HEX_CODE_LENGTH = 4;
+
     public static String capitalize(final String message) {
         if (message.length() > 1) {
             if (isUpperCase(message.charAt(0))) {
@@ -42,7 +45,7 @@ public final class Strings {
                 return toUpperCase(message.charAt(0)) + message.substring(1);
             }
         } else if (message.length() == 1) {
-            return message.toUpperCase();
+            return message.toUpperCase(Locale.ENGLISH);
         } else {
             return message;
         }
@@ -56,7 +59,7 @@ public final class Strings {
                 return toLowerCase(message.charAt(0)) + message.substring(1);
             }
         } else if (message.length() == 1) {
-            return message.toLowerCase();
+            return message.toLowerCase(Locale.ENGLISH);
         } else {
             return message;
         }
@@ -67,11 +70,9 @@ public final class Strings {
         final StringBuilder wordBuilder = new StringBuilder();
         for (int i = 0; i < variableName.length(); i++) {
             final char ch = variableName.charAt(i);
-            if (isUpperCase(ch)) {
-                if (wordBuilder.length() > 0) {
-                    list.add(wordBuilder.toString());
-                    wordBuilder.delete(0, wordBuilder.length());
-                }
+            if (isUpperCase(ch) && wordBuilder.length() > 0) {
+                list.add(wordBuilder.toString());
+                wordBuilder.delete(0, wordBuilder.length());
             }
             wordBuilder.append(ch);
         }
@@ -87,7 +88,7 @@ public final class Strings {
         final StringBuilder abbreviationBuilder = new StringBuilder();
         while (iterator.hasNext()) {
             final String word = iterator.next();
-            if (word.length() == 1 && Character.isUpperCase(word.charAt(0))) {
+            if (word.length() == 1 && isUpperCase(word.charAt(0))) {
                 abbreviationBuilder.append(word);
             } else {
                 if (abbreviationBuilder.length() > 0) {
@@ -131,20 +132,20 @@ public final class Strings {
             if (ch == '\\' || ch == '"') {
                 resultBuilder.append('\\').append(ch);
             } else if (ch == '\b') {
-                resultBuilder.append('\\').append('b');
+                resultBuilder.append("\\b");
             } else if (ch == '\t') {
-                resultBuilder.append('\\').append('t');
+                resultBuilder.append("\\t");
             } else if (ch == '\n') {
-                resultBuilder.append('\\').append('n');
+                resultBuilder.append("\\n");
             } else if (ch == '\f') {
-                resultBuilder.append('\\').append('f');
+                resultBuilder.append("\\f");
             } else if (ch == '\r') {
-                resultBuilder.append('\\').append('r');
+                resultBuilder.append("\\r");
             } else if (ch < ' ' || (ch >= '\u0080' && ch < '\u00a0')
                     || (ch >= '\u2000' && ch < '\u2100')) {
                 resultBuilder.append("\\u");
                 final String hexCode = Integer.toHexString(ch);
-                resultBuilder.append("0000", 0, 4 - hexCode.length());
+                resultBuilder.append("0000", 0, HEX_CODE_LENGTH - hexCode.length());
                 resultBuilder.append(hexCode);
             } else {
                 resultBuilder.append(ch);

@@ -28,19 +28,20 @@ import static io.rxmicro.common.util.ExCollections.unmodifiableList;
  */
 public class ListBuilder<E> {
 
-    private List<E> list = new ArrayList<>();
+    private final List<E> list = new ArrayList<>();
+
+    private boolean built;
 
     public ListBuilder<E> add(final E value) {
+        if (built) {
+            throw new IllegalStateException("This builder can't be used. Create a new one!");
+        }
         list.add(value);
         return this;
     }
 
     public List<E> build() {
-        try {
-            return unmodifiableList(list);
-        } finally {
-            // After built current instance of builder must not be used.
-            list = null;
-        }
+        built = true;
+        return unmodifiableList(list);
     }
 }
