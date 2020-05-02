@@ -17,6 +17,7 @@
 package io.rxmicro.model;
 
 import java.util.List;
+import java.util.Locale;
 
 import static io.rxmicro.common.util.Strings.capitalize;
 import static java.util.stream.Collectors.joining;
@@ -78,9 +79,9 @@ public enum MappingStrategy {
 
     private String convert(final String word) {
         if (name().startsWith("LOWERCASE")) {
-            return word.toLowerCase();
+            return word.toLowerCase(Locale.ENGLISH);
         } else if (name().startsWith("UPPERCASE")) {
-            return word.toUpperCase();
+            return word.toUpperCase(Locale.ENGLISH);
         } else if (name().startsWith("CAPITALIZE")) {
             return capitalize(word);
         } else {
