@@ -29,7 +29,7 @@ import java.util.List;
 public final class RestClientFieldValidator extends AbstractAlternativeFieldValidator {
 
     @Override
-    public void validate(final List<Field> fields) throws InvalidTestConfigException {
+    public void validate(final List<Field> fields) {
         super.validate(fields);
         validateThatFieldWithGivenTypeIsSinglePerClass(fields);
     }

@@ -60,12 +60,10 @@ public final class TestedComponentResolver {
 
     public void verifyState(final List<Object> testInstances,
                             final Class<? extends Annotation> beforeEachAnnotation) {
-        if (testedComponent != null) {
-            if (getInstance(testInstances, testedComponent, false) != null) {
-                throw new InvalidTestConfigException("Invalid initialization of tested component: ?. " +
-                        "These components must be instantiated by the RxMicro framework automatically or " +
-                        "inside method, annotated by '@?' annotation.", testedComponent, beforeEachAnnotation.getName());
-            }
+        if (testedComponent != null && getInstance(testInstances, testedComponent, false) != null) {
+            throw new InvalidTestConfigException("Invalid initialization of tested component: ?. " +
+                    "These components must be instantiated by the RxMicro framework automatically or " +
+                    "inside method, annotated by '@?' annotation.", testedComponent, beforeEachAnnotation.getName());
         }
     }
 

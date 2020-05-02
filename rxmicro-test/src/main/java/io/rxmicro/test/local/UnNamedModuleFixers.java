@@ -32,10 +32,10 @@ import static io.rxmicro.tool.common.TestFixers.REST_BASED_MICRO_SERVICE_TEST_FI
  * @link https://rxmicro.io
  * @since 0.1
  */
-public final class UnNamedModuleFixer {
+public final class UnNamedModuleFixers {
 
     public static void commonFix() {
-        final Module unNamedModule = UnNamedModuleFixer.class.getClassLoader().getUnnamedModule();
+        final Module unNamedModule = UnNamedModuleFixers.class.getClassLoader().getUnnamedModule();
         final ServiceLoader<io.rxmicro.common.model.UnNamedModuleFixer> loader = ServiceLoader.load(io.rxmicro.common.model.UnNamedModuleFixer.class);
         for (final io.rxmicro.common.model.UnNamedModuleFixer namedModule : loader) {
             namedModule.fix(unNamedModule);
@@ -75,6 +75,6 @@ public final class UnNamedModuleFixer {
         }
     }
 
-    private UnNamedModuleFixer() {
+    private UnNamedModuleFixers() {
     }
 }

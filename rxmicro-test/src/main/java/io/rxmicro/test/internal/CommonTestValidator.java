@@ -116,32 +116,28 @@ public abstract class CommonTestValidator {
     }
 
     private void validateRestClientFactoryState(final TestModel testModel) {
-        if (!testModel.getRestClients().isEmpty()) {
-            if (!testModel.getHttpClientFactories().isEmpty()) {
-                final String httpClientFactoryField = getHumanReadableFieldName(testModel.getHttpClientFactories().get(0));
-                final String restClientField = getHumanReadableFieldName(testModel.getRestClients().get(0));
-                throw new InvalidTestConfigException(
-                        "'?' http client factory alternative conflicts with '?' rest client. " +
-                                "Remove the http client factory alternative or the rest client field!",
-                        httpClientFactoryField,
-                        restClientField
-                );
-            }
+        if (!testModel.getRestClients().isEmpty() && !testModel.getHttpClientFactories().isEmpty()) {
+            final String httpClientFactoryField = getHumanReadableFieldName(testModel.getHttpClientFactories().get(0));
+            final String restClientField = getHumanReadableFieldName(testModel.getRestClients().get(0));
+            throw new InvalidTestConfigException(
+                    "'?' http client factory alternative conflicts with '?' rest client. " +
+                            "Remove the http client factory alternative or the rest client field!",
+                    httpClientFactoryField,
+                    restClientField
+            );
         }
     }
 
     private void validateRepositoryFactoryState(final TestModel testModel) {
-        if (!testModel.getRepositories().isEmpty()) {
-            if (!testModel.getMongoDataBases().isEmpty()) {
-                final String mongoField = getHumanReadableFieldName(testModel.getMongoDataBases().get(0));
-                final String repositoryField = getHumanReadableFieldName(testModel.getRepositories().get(0));
-                throw new InvalidTestConfigException(
-                        "'?' mongo database alternative conflicts with '?' repository. " +
-                                "Remove the mongo database alternative or the repository field!",
-                        mongoField,
-                        repositoryField
-                );
-            }
+        if (!testModel.getRepositories().isEmpty() && !testModel.getMongoDataBases().isEmpty()) {
+            final String mongoField = getHumanReadableFieldName(testModel.getMongoDataBases().get(0));
+            final String repositoryField = getHumanReadableFieldName(testModel.getRepositories().get(0));
+            throw new InvalidTestConfigException(
+                    "'?' mongo database alternative conflicts with '?' repository. " +
+                            "Remove the mongo database alternative or the repository field!",
+                    mongoField,
+                    repositoryField
+            );
         }
     }
 }

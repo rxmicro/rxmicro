@@ -76,10 +76,10 @@ public final class BlockingHttpClientImpl implements BlockingHttpClient {
                                    final String path,
                                    final HttpHeaders headers,
                                    final Object body) {
-        shouldNotContainQueryParams(path);
+        validateThatPathNotContainsQueryParams(path);
         return httpClient.sendAsync(
                 nonNull(method, "method"),
-                shouldNotContainQueryParams(path),
+                getValidPath(path),
                 getHeaders(headers),
                 nonNull(body, "body")
         ).join();
@@ -113,11 +113,10 @@ public final class BlockingHttpClientImpl implements BlockingHttpClient {
         httpClient.release();
     }
 
-    private String shouldNotContainQueryParams(final String path) {
+    private void validateThatPathNotContainsQueryParams(final String path) {
         if (nonNull(path, "path").indexOf('?') != -1) {
             throw new IllegalArgumentException("Query params not supported here. Use HTTP body instead!");
         }
-        return getValidPath(path);
     }
 
     private <T> T nonNull(final T object,

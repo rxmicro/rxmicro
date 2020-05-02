@@ -37,7 +37,7 @@ import static io.rxmicro.tool.common.DeniedPackages.isDeniedPackage;
 public final class UserCreatedComponentFieldValidator extends FieldValidator {
 
     @Override
-    public void validate(final Field field) throws InvalidTestConfigException {
+    public void validate(final Field field) {
         validateThatFieldIsNotStatic(field);
         for (final Annotation annotation : field.getAnnotations()) {
             final Class<? extends Annotation> annotationClass = annotation.annotationType();

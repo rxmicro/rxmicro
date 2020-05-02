@@ -53,7 +53,7 @@ public final class InjectedCandidateInjector {
                 injectSingleAlternativeToInjectionCandidate(injectedAlternatives, injectedCandidates, alternatives);
             } else if (injectedCandidates.size() == 1 && alternatives.size() > 1) {
                 throwConfigError(injectedCandidates, alternatives);
-            } else if (alternatives.size() >= 1 && injectedCandidates.size() > 1) {
+            } else if (!alternatives.isEmpty() && injectedCandidates.size() > 1) {
                 injectMultipleAlternativesToInjectionCandidates(injectedAlternatives, injectedCandidates, alternatives);
             } else {
                 throw new ImpossibleException("Injected candidate internal logic error");

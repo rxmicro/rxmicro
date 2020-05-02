@@ -28,7 +28,7 @@ import java.util.Random;
 public final class HttpServers {
 
     public static int getRandomFreePort() {
-        try (final ServerSocket serverSocket = new ServerSocket(0)) {
+        try (ServerSocket serverSocket = new ServerSocket(0)) {
             return serverSocket.getLocalPort();
         } catch (final IOException e) {
             // returns 9000 - 9999

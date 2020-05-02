@@ -46,8 +46,8 @@ public interface SystemOut {
 
     default String asString(final Charset charset,
                             final boolean trim) {
-        final String s = new String(asBytes(), charset);
-        return trim ? s.trim() : s;
+        final String string = new String(asBytes(), charset);
+        return trim ? string.trim() : string;
     }
 
     default List<String> asStrings() {

@@ -58,7 +58,7 @@ import static io.rxmicro.test.HttpServers.getRandomFreePort;
 import static io.rxmicro.test.junit.internal.TestObjects.SUPPORTED_TEST_ANNOTATIONS;
 import static io.rxmicro.test.junit.internal.TestObjects.getOwnerTestClass;
 import static io.rxmicro.test.junit.internal.TestObjects.getTestInstances;
-import static io.rxmicro.test.local.UnNamedModuleFixer.restBasedMicroServiceTestsFix;
+import static io.rxmicro.test.local.UnNamedModuleFixers.restBasedMicroServiceTestsFix;
 import static io.rxmicro.test.local.util.Annotations.getRequiredAnnotation;
 import static io.rxmicro.test.local.util.Modules.isRequiredModule;
 import static io.rxmicro.test.local.util.Safes.safeInvoke;

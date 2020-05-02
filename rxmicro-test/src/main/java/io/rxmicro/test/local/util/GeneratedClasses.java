@@ -37,7 +37,7 @@ public final class GeneratedClasses {
             final Class<?> implClass = Class.forName(implClassName);
             Class<?> currentClass = implClass.getSuperclass();
             while (currentClass != null && currentClass != Object.class) {
-                if (currentClass == parentClass) {
+                if (currentClass.equals(parentClass)) {
                     return true;
                 } else {
                     currentClass = currentClass.getSuperclass();

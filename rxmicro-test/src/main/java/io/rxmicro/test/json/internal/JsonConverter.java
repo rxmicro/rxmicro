@@ -87,23 +87,23 @@ public final class JsonConverter {
         }
     }
 
-    private static void validateJsonItem(final Object o) {
-        if (o instanceof List) {
-            validateJsonArray((List<?>) o);
-        } else if (o instanceof Map) {
-            validateJsonObject((Map<?, ?>) o);
+    private static void validateJsonItem(final Object object) {
+        if (object instanceof List) {
+            validateJsonArray((List<?>) object);
+        } else if (object instanceof Map) {
+            validateJsonObject((Map<?, ?>) object);
         } else {
-            validatePrimitive(o);
+            validatePrimitive(object);
         }
     }
 
-    private static void validatePrimitive(final Object o) {
-        if (o instanceof JsonNumber || o instanceof Boolean || o instanceof String || o == null) {
+    private static void validatePrimitive(final Object object) {
+        if (object instanceof JsonNumber || object instanceof Boolean || object instanceof String || object == null) {
             return;
         }
         throw new IllegalArgumentException(format(
                 "'?' class is not valid JSON primitive. Use jsonObject() or jsonArray() factory methods instead!",
-                o.getClass().getName()));
+                object.getClass().getName()));
     }
 
     private JsonConverter() {

@@ -38,13 +38,13 @@ public final class TestedComponentFieldValidator extends FieldValidator {
     }
 
     @Override
-    public void validate(final List<Field> fields) throws InvalidTestConfigException {
+    public void validate(final List<Field> fields) {
         super.validate(fields);
         validateThatFieldWithGivenTypeIsSinglePerClass(fields, testedComponentClass);
     }
 
     @Override
-    protected void validate(final Field field) throws InvalidTestConfigException {
+    protected void validate(final Field field) {
         validateThatFieldIsNotFinal(field);
         validateThatFieldIsNotStatic(field);
         validateThatFieldIsAnnotatedOnlyBySupportedAnnotations(field);

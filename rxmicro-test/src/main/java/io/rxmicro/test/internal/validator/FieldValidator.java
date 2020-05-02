@@ -38,13 +38,13 @@ import static java.lang.reflect.Modifier.isStatic;
  */
 public abstract class FieldValidator {
 
-    public void validate(final List<Field> fields) throws InvalidTestConfigException {
+    public void validate(final List<Field> fields) {
         for (final Field field : fields) {
             validate(field);
         }
     }
 
-    protected abstract void validate(Field field) throws InvalidTestConfigException;
+    protected abstract void validate(Field field);
 
     protected final String fieldNamePrefix(final Field field) {
         return format(

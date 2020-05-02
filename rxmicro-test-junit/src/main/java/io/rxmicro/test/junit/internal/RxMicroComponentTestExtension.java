@@ -44,7 +44,7 @@ import static io.rxmicro.runtime.local.AbstractFactory.clearFactories;
 import static io.rxmicro.runtime.local.InstanceContainer.clearContainer;
 import static io.rxmicro.test.junit.internal.TestObjects.SUPPORTED_TEST_ANNOTATIONS;
 import static io.rxmicro.test.junit.internal.TestObjects.getTestInstances;
-import static io.rxmicro.test.local.UnNamedModuleFixer.componentTestsFix;
+import static io.rxmicro.test.local.UnNamedModuleFixers.componentTestsFix;
 import static io.rxmicro.test.local.util.Annotations.getRequiredAnnotation;
 import static io.rxmicro.test.local.util.Modules.isRequiredModule;
 

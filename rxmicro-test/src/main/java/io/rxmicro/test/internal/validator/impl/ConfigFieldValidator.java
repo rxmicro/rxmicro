@@ -30,7 +30,7 @@ import java.lang.reflect.Field;
 public final class ConfigFieldValidator extends FieldValidator {
 
     @Override
-    public void validate(final Field field) throws InvalidTestConfigException {
+    public void validate(final Field field) {
         validateThatFieldAnnotatedByRequiredAnnotation(field, WithConfig.class);
         validateThatFieldIsAnnotatedOnlyBySupportedAnnotations(field, WithConfig.class);
     }

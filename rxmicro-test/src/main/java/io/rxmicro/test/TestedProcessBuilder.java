@@ -16,6 +16,7 @@
 
 package io.rxmicro.test;
 
+import io.rxmicro.common.meta.BuilderMethod;
 import io.rxmicro.test.internal.TestedProcessProxy;
 
 import java.io.File;
@@ -36,16 +37,19 @@ public final class TestedProcessBuilder {
 
     private boolean withProcessOutputCatcher = true;
 
+    @BuilderMethod
     public TestedProcessBuilder setCommandWithArgs(final String... commandWithArgs) {
         this.commandWithArgs = require(commandWithArgs);
         return this;
     }
 
+    @BuilderMethod
     public TestedProcessBuilder setWorkingDir(final File workingDir) {
         this.workingDir = require(workingDir);
         return this;
     }
 
+    @BuilderMethod
     public TestedProcessBuilder setWithProcessOutputCatcher(final boolean withProcessOutputCatcher) {
         this.withProcessOutputCatcher = withProcessOutputCatcher;
         return this;

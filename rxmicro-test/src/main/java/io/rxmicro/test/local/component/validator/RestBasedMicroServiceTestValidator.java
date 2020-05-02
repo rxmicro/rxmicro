@@ -40,7 +40,7 @@ public final class RestBasedMicroServiceTestValidator extends CommonTestValidato
     }
 
     public void validate(final TestModel testModel,
-                         final Class<?>[] restControllerClasses) {
+                         final Class<?>... restControllerClasses) {
         validate(testModel);
         validate(testModel.getTestClass(), restControllerClasses);
         if (testModel.isInstanceConfigsPresent()) {
@@ -51,7 +51,7 @@ public final class RestBasedMicroServiceTestValidator extends CommonTestValidato
     }
 
     private void validate(final Class<?> testClass,
-                          final Class<?>[] restControllerClasses) {
+                          final Class<?>... restControllerClasses) {
         for (final Class<?> restControllerClass : restControllerClasses) {
             if (!isClassGenerated(restControllerClass, "?.$$?", AbstractRestController.class)) {
                 throw new InvalidTestConfigException(

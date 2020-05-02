@@ -31,13 +31,13 @@ import java.util.List;
 public final class SystemOutFieldValidator extends FieldValidator {
 
     @Override
-    public void validate(final List<Field> fields) throws InvalidTestConfigException {
+    public void validate(final List<Field> fields) {
         super.validate(fields);
         validateThatFieldWithGivenTypeIsSinglePerClass(fields, SystemOut.class);
     }
 
     @Override
-    public void validate(final Field field) throws InvalidTestConfigException {
+    public void validate(final Field field) {
         validateThatFieldIsNotStatic(field);
         validateThatFieldIsNotFinal(field);
         validateThatFieldIsAnnotatedOnlyBySupportedAnnotations(field);

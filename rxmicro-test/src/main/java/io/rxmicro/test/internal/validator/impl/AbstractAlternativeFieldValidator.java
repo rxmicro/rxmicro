@@ -30,7 +30,7 @@ import java.lang.reflect.Field;
 abstract class AbstractAlternativeFieldValidator extends FieldValidator {
 
     @Override
-    public void validate(final Field field) throws InvalidTestConfigException {
+    public void validate(final Field field) {
         validateThatFieldIsNotStatic(field);
         validateThatFieldAnnotatedByRequiredAnnotation(field, Alternative.class);
         validateThatFieldIsAnnotatedOnlyBySupportedAnnotations(field, Alternative.class);

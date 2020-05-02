@@ -32,13 +32,13 @@ import java.util.List;
 public final class BlockingHttpClientFieldValidator extends FieldValidator {
 
     @Override
-    public void validate(final List<Field> fields) throws InvalidTestConfigException {
+    public void validate(final List<Field> fields) {
         super.validate(fields);
         validateThatFieldWithGivenTypeIsSinglePerClass(fields, BlockingHttpClient.class);
     }
 
     @Override
-    public void validate(final Field field) throws InvalidTestConfigException {
+    public void validate(final Field field) {
         validateThatFieldIsNotStatic(field);
         validateThatFieldIsNotFinal(field);
         validateThatFieldIsAnnotatedOnlyBySupportedAnnotations(field, BlockingHttpClientSettings.class);

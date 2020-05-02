@@ -44,13 +44,13 @@ public final class SystemOutInjector {
 
     public void injectIfFound(final List<Object> testInstances) {
         if (systemOutField != null) {
-            final SystemOutImpl systemOutImpl = new SystemOutImpl();
             if (getFieldValue(testInstances, this.systemOutField) != null) {
                 throw new InvalidTestConfigException(
                         "Field with type '?' could not be initialized. Remove initialize statement!",
                         SystemOut.class.getSimpleName()
                 );
             }
+            final SystemOutImpl systemOutImpl = new SystemOutImpl();
             setFieldValue(testInstances, this.systemOutField, systemOutImpl);
             System.setOut(systemOutImpl.getPrintStream());
         }

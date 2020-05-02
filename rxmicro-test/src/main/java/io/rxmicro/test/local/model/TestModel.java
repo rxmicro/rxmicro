@@ -101,7 +101,7 @@ public final class TestModel {
     }
 
     public boolean isStaticConfigsPresent() {
-        return staticConfigs.size() > 0;
+        return !staticConfigs.isEmpty();
     }
 
     public List<Field> getInstanceConfigs() {
@@ -109,7 +109,7 @@ public final class TestModel {
     }
 
     public boolean isInstanceConfigsPresent() {
-        return instanceConfigs.size() > 0;
+        return !instanceConfigs.isEmpty();
     }
 
     public List<Field> getBlockingHttpClients() {
