@@ -25,7 +25,7 @@ final class HumanReadableJsonToStringBuilder extends JsonToStringBuilder {
 
     private static final String NEW_LINE = "\n";
 
-    private static final String TAB = " ".repeat(2);
+    private static final String TABULATION = " ".repeat(2);
 
     @Override
     JsonToStringBuilder nameSeparator() {
@@ -42,7 +42,7 @@ final class HumanReadableJsonToStringBuilder extends JsonToStringBuilder {
     @Override
     JsonToStringBuilder tab(final int count) {
         if (count > 0) {
-            sb.append(TAB.repeat(count));
+            sb.append(TABULATION.repeat(count));
         }
         return this;
     }

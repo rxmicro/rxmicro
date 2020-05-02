@@ -36,7 +36,7 @@ import static io.rxmicro.common.util.ExCollections.unmodifiableMap;
 public final class JsonReader {
 
     public static Map<String, Object> readJsonObject(final String jsonObject,
-                                                     final int recursionDepth) throws JsonException {
+                                                     final int recursionDepth) {
         final StringIterator iterator = new StringIterator(jsonObject);
         final char ch = getNextSignificantCharacter(iterator);
         if (ch == '{') {
@@ -47,7 +47,7 @@ public final class JsonReader {
     }
 
     public static List<Object> readJsonArray(final String jsonObject,
-                                             final int recursionDepth) throws JsonException {
+                                             final int recursionDepth) {
         final StringIterator iterator = new StringIterator(jsonObject);
         final char ch = getNextSignificantCharacter(iterator);
         if (ch == '[') {

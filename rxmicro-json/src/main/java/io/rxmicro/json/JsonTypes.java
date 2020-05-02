@@ -37,63 +37,63 @@ public final class JsonTypes {
 
     public static final String ARRAY = "array";
 
-    public static boolean isJsonObject(final Object o) {
-        return o instanceof Map;
+    public static boolean isJsonObject(final Object object) {
+        return object instanceof Map;
     }
 
-    public static Map<String, Object> asJsonObject(final Object o) {
+    public static Map<String, Object> asJsonObject(final Object object) {
         try {
-            return (Map<String, Object>) o;
+            return (Map<String, Object>) object;
         } catch (final ClassCastException e) {
-            throw new JsonException("Not a json object: " + o);
+            throw new JsonException("Not a json object: " + object);
         }
     }
 
-    public static boolean isJsonArray(final Object o) {
-        return o instanceof List;
+    public static boolean isJsonArray(final Object object) {
+        return object instanceof List;
     }
 
-    public static List<Object> asJsonArray(final Object o) {
+    public static List<Object> asJsonArray(final Object object) {
         try {
-            return (List<Object>) o;
+            return (List<Object>) object;
         } catch (final ClassCastException e) {
-            throw new JsonException("Not a json array: " + o);
+            throw new JsonException("Not a json array: " + object);
         }
     }
 
-    public static boolean isJsonString(final Object o) {
-        return o instanceof String;
+    public static boolean isJsonString(final Object object) {
+        return object instanceof String;
     }
 
-    public static String asJsonString(final Object o) {
+    public static String asJsonString(final Object object) {
         try {
-            return (String) o;
+            return (String) object;
         } catch (final ClassCastException e) {
-            throw new JsonException("Not a json string: " + o);
+            throw new JsonException("Not a json string: " + object);
         }
     }
 
-    public static boolean isJsonNumber(final Object o) {
-        return o instanceof JsonNumber;
+    public static boolean isJsonNumber(final Object object) {
+        return object instanceof JsonNumber;
     }
 
-    public static JsonNumber asJsonNumber(final Object o) {
+    public static JsonNumber asJsonNumber(final Object object) {
         try {
-            return (JsonNumber) o;
+            return (JsonNumber) object;
         } catch (final ClassCastException e) {
-            throw new JsonException("Not a json number: " + o);
+            throw new JsonException("Not a json number: " + object);
         }
     }
 
-    public static boolean isJsonBoolean(final Object o) {
-        return o instanceof Boolean;
+    public static boolean isJsonBoolean(final Object object) {
+        return object instanceof Boolean;
     }
 
-    public static Boolean asJsonBoolean(final Object o) {
+    public static Boolean asJsonBoolean(final Object object) {
         try {
-            return (Boolean) o;
+            return (Boolean) object;
         } catch (final ClassCastException e) {
-            throw new JsonException("Not a json boolean: " + o);
+            throw new JsonException("Not a json boolean: " + object);
         }
     }
 

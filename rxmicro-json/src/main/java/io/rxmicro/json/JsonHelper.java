@@ -22,6 +22,8 @@ import io.rxmicro.json.internal.writer.JsonWriter;
 import java.util.List;
 import java.util.Map;
 
+import static io.rxmicro.common.util.Strings.startsWith;
+
 /**
  * Type conversion:
  * <p>
@@ -147,8 +149,7 @@ public final class JsonHelper {
      * @throws NumberFormatException if json number has invalid format
      */
     public static Map<String, Object> readJsonObject(final String jsonObject,
-                                                     final int recursionDepth)
-            throws JsonException, NumberFormatException {
+                                                     final int recursionDepth) {
         return JsonReader.readJsonObject(jsonObject, recursionDepth);
     }
 
@@ -160,8 +161,7 @@ public final class JsonHelper {
      * @throws JsonException         if json syntax error found or if stack overflow
      * @throws NumberFormatException if json number has invalid format
      */
-    public static Map<String, Object> readJsonObject(final String jsonObject)
-            throws JsonException, NumberFormatException {
+    public static Map<String, Object> readJsonObject(final String jsonObject) {
         return readJsonObject(jsonObject, DEFAULT_RECURSION_DEPTH);
     }
 
@@ -175,8 +175,7 @@ public final class JsonHelper {
      * @throws NumberFormatException if json number has invalid format
      */
     public static List<Object> readJsonArray(final String jsonArray,
-                                             final int recursionDepth)
-            throws JsonException, NumberFormatException {
+                                             final int recursionDepth) {
         return JsonReader.readJsonArray(jsonArray, recursionDepth);
     }
 
@@ -188,8 +187,7 @@ public final class JsonHelper {
      * @throws JsonException         if json syntax error found or if stack overflow
      * @throws NumberFormatException if json number has invalid format
      */
-    public static List<Object> readJsonArray(final String jsonArray)
-            throws JsonException, NumberFormatException {
+    public static List<Object> readJsonArray(final String jsonArray) {
         return readJsonArray(jsonArray, DEFAULT_RECURSION_DEPTH);
     }
 
@@ -205,9 +203,12 @@ public final class JsonHelper {
     public static Object readJson(final String json,
                                   final int recursionDepth) {
         final String trimJson = json.trim();
-        if (trimJson.startsWith("{")) {
+        if (trimJson.isEmpty()) {
+            throw new JsonException("empty string");
+        }
+        if (startsWith(trimJson, '{')) {
             return JsonReader.readJsonObject(json, recursionDepth);
-        } else if (trimJson.startsWith("[")) {
+        } else if (startsWith(trimJson, '[')) {
             return JsonReader.readJsonArray(json, recursionDepth);
         } else {
             return JsonReader.readJsonPrimitive(json);

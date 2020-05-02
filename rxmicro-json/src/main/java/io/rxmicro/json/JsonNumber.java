@@ -19,6 +19,8 @@ package io.rxmicro.json;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
+import static io.rxmicro.common.util.Strings.startsWith;
+
 /**
  * Java class which store json number value.
  * Json number is stored as Java string and parsed by demand
@@ -43,11 +45,11 @@ public final class JsonNumber extends Number {
 
     private final String number;
 
-    public JsonNumber(final String number) throws NumberFormatException {
+    public JsonNumber(final String number) {
         this.number = validate(number);
     }
 
-    private String validate(final String number) throws NumberFormatException {
+    private String validate(final String number) {
         if (isNan(number)) {
             return NAN;
         } else if (isPositiveInfinite(number)) {
@@ -56,7 +58,7 @@ public final class JsonNumber extends Number {
             return NEGATIVE_INFINITY;
         } else if (number.isEmpty() ||
                 "+".equals(number) || "-".equals(number) ||
-                number.startsWith("e") || number.startsWith("E")) {
+                startsWith(number, 'e') || startsWith(number, 'E')) {
             throw new NumberFormatException("Not a number: " + number);
         } else {
             validateNumber(number);
@@ -67,9 +69,9 @@ public final class JsonNumber extends Number {
     private void validateNumber(final String number) {
         boolean foundPoint = false;
         boolean foundE = false;
-        final int startIndex = number.startsWith("+") || number.startsWith("-") ? 1 : 0;
-        for (int i = startIndex; i < number.length(); i++) {
-            final char ch = number.charAt(i);
+        int index = startsWith(number, '+') || startsWith(number, '-') ? 1 : 0;
+        while (index < number.length()) {
+            final char ch = number.charAt(index);
             if (ch == '.') {
                 if (foundPoint) {
                     if (foundE) {
@@ -90,26 +92,25 @@ public final class JsonNumber extends Number {
                 // For verification of exponent value, i.e.
                 // if scientific notation detected then point not allowed more
                 foundPoint = true;
-                if (i == number.length() - 1) {
+                if (index == number.length() - 1) {
                     throw new NumberFormatException(
                             "Missing exponent value for scientific notation of number: " + number);
-                } else if (number.charAt(i + 1) == '-' || number.charAt(i + 1) == '+') {
-                    i++;
+                } else if (number.charAt(index + 1) == '-' || number.charAt(index + 1) == '+') {
+                    index++;
                 }
             } else if (ch < '0' || ch > '9') {
                 throw new NumberFormatException(
                         "Not a number: " + number);
             }
+            index++;
         }
     }
 
     private boolean isNan(final String number) {
         if (number.length() >= 2) {
             return (number.charAt(0) == NAN.charAt(0) && NAN.equals(number)) ||
-                    (number.charAt(0) == '+' && number.charAt(1) == POSITIVE_NAN.charAt(1)
-                            && POSITIVE_NAN.equals(number)) ||
-                    (number.charAt(0) == '-' && number.charAt(1) == POSITIVE_NAN.charAt(1)
-                            && NEGATIVE_NAN.equals(number));
+                    (number.charAt(0) == '+' && number.charAt(1) == POSITIVE_NAN.charAt(1) && POSITIVE_NAN.equals(number)) ||
+                    (number.charAt(0) == '-' && number.charAt(1) == POSITIVE_NAN.charAt(1) && NEGATIVE_NAN.equals(number));
         }
         return false;
     }
@@ -132,40 +133,40 @@ public final class JsonNumber extends Number {
     }
 
     @Override
-    public int intValue() throws NumberFormatException {
+    public int intValue() {
         return Integer.parseInt(number);
     }
 
     @Override
-    public long longValue() throws NumberFormatException {
+    public long longValue() {
         return Long.parseLong(number);
     }
 
     @Override
-    public float floatValue() throws NumberFormatException {
+    public float floatValue() {
         return Float.parseFloat(number);
     }
 
     @Override
-    public double doubleValue() throws NumberFormatException {
+    public double doubleValue() {
         return Double.parseDouble(number);
     }
 
     @Override
-    public byte byteValue() throws NumberFormatException {
+    public byte byteValue() {
         return Byte.parseByte(number);
     }
 
     @Override
-    public short shortValue() throws NumberFormatException {
+    public short shortValue() {
         return Short.parseShort(number);
     }
 
-    public BigInteger bigIntegerValue() throws NumberFormatException {
+    public BigInteger bigIntegerValue() {
         return new BigInteger(number);
     }
 
-    public BigDecimal bigDecimalValue() throws NumberFormatException {
+    public BigDecimal bigDecimalValue() {
         return new BigDecimal(number);
     }
 
@@ -191,10 +192,14 @@ public final class JsonNumber extends Number {
     }
 
     @Override
-    public boolean equals(final Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        final JsonNumber that = (JsonNumber) o;
+    public boolean equals(final Object other) {
+        if (this == other) {
+            return true;
+        }
+        if (other == null || getClass() != other.getClass()) {
+            return false;
+        }
+        final JsonNumber that = (JsonNumber) other;
         return number.equals(that.number);
     }
 
