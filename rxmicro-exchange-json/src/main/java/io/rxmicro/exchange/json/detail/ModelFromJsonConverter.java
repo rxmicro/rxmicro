@@ -386,9 +386,9 @@ public abstract class ModelFromJsonConverter<T> {
             return null;
         } else {
             try {
-                final String s = (String) value;
-                if (s.length() == 1) {
-                    return s.charAt(0);
+                final String string = (String) value;
+                if (string.length() == 1) {
+                    return string.charAt(0);
                 }
             } catch (final ClassCastException e) {
                 //goto ValidationException
@@ -691,17 +691,17 @@ public abstract class ModelFromJsonConverter<T> {
 
     // -----------------------------------------------------------------------------------------------------------------
 
-    private String getJsonActual(final Object o) {
-        if (o instanceof String) {
-            return format("string: '?'", o);
-        } else if (o instanceof Number) {
-            return format("number: ?", o);
-        } else if (o instanceof Boolean) {
-            return format("boolean: ?", o);
-        } else if (o instanceof List) {
-            return format("json array: ?", toJsonString(o, false));
-        } else if (o instanceof Map) {
-            return format("json object: ?", toJsonString(o, false));
+    private String getJsonActual(final Object object) {
+        if (object instanceof String) {
+            return format("string: '?'", object);
+        } else if (object instanceof Number) {
+            return format("number: ?", object);
+        } else if (object instanceof Boolean) {
+            return format("boolean: ?", object);
+        } else if (object instanceof List) {
+            return format("json array: ?", toJsonString(object, false));
+        } else if (object instanceof Map) {
+            return format("json object: ?", toJsonString(object, false));
         } else {
             return "null";
         }
