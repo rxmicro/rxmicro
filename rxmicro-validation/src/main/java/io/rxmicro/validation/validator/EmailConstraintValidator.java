@@ -36,12 +36,9 @@ public class EmailConstraintValidator implements ConstraintValidator<String> {
     @Override
     public void validate(final String actual,
                          final HttpModelType httpModelType,
-                         final String modelName) throws ValidationException {
-        if (actual != null) {
-            if (!PATTERN.matcher(actual).matches()) {
-                throw new ValidationException("Invalid ? \"?\": Expected a valid email format!",
-                        httpModelType, modelName);
-            }
+                         final String modelName) {
+        if (actual != null && !PATTERN.matcher(actual).matches()) {
+            throw new ValidationException("Invalid ? \"?\": Expected a valid email format!", httpModelType, modelName);
         }
     }
 }

@@ -33,6 +33,9 @@ import java.time.Instant;
 public class TruncatedTimeInstantConstraintValidator extends AbstractDateTimeEqualsConstraintValidator
         implements ConstraintValidator<Instant> {
 
+    private static final String ERROR_MESSAGE_TEMPLATE =
+            "Invalid ? \"?\": Expected a time without ?, but actual is '?'!";
+
     private final TruncatedTime.Truncated truncated;
 
     public TruncatedTimeInstantConstraintValidator(final TruncatedTime.Truncated truncated) {
@@ -42,36 +45,28 @@ public class TruncatedTimeInstantConstraintValidator extends AbstractDateTimeEqu
     @Override
     public void validate(final Instant actual,
                          final HttpModelType httpModelType,
-                         final String modelName) throws ValidationException {
+                         final String modelName) {
         if (actual != null) {
             final long instantMillis = actual.toEpochMilli();
             switch (truncated) {
                 case MILLIS: {
                     if (!isTruncatedToMillis(instantMillis)) {
-                        throw new ValidationException(
-                                "Invalid ? \"?\": Expected a time without milli seconds, but actual is '?'!",
-                                httpModelType, modelName, actual);
+                        throw new ValidationException(ERROR_MESSAGE_TEMPLATE, httpModelType, modelName, "milli seconds", actual);
                     }
                 }
                 case SECONDS: {
                     if (!isTruncatedToSeconds(instantMillis)) {
-                        throw new ValidationException(
-                                "Invalid ? \"?\": Expected a time without milli seconds, but actual is '?'!",
-                                httpModelType, modelName, actual);
+                        throw new ValidationException(ERROR_MESSAGE_TEMPLATE, httpModelType, modelName, "seconds", actual);
                     }
                 }
                 case MINUTES: {
                     if (!isTruncatedToMinutes(instantMillis)) {
-                        throw new ValidationException(
-                                "Invalid ? \"?\": Expected a time without milli seconds, but actual is '?'!",
-                                httpModelType, modelName, actual);
+                        throw new ValidationException(ERROR_MESSAGE_TEMPLATE, httpModelType, modelName, "minutes", actual);
                     }
                 }
                 case HOURS: {
                     if (!isTruncatedToHour(instantMillis)) {
-                        throw new ValidationException(
-                                "Invalid ? \"?\": Expected a time without milli seconds, but actual is '?'!",
-                                httpModelType, modelName, actual);
+                        throw new ValidationException(ERROR_MESSAGE_TEMPLATE, httpModelType, modelName, "hours", actual);
                     }
                 }
             }

@@ -22,12 +22,12 @@ import io.rxmicro.rest.model.HttpModelType;
 import io.rxmicro.validation.ConstraintValidator;
 import io.rxmicro.validation.base.AbstractCompositionConstraintValidator;
 import io.rxmicro.validation.constraint.CountryCode;
-import io.rxmicro.validation.detail.ValidatorPool;
+import io.rxmicro.validation.detail.StatelessValidators;
 
 import java.util.List;
 import java.util.Map;
 
-import static io.rxmicro.validation.detail.ValidatorPool.getStatelessValidator;
+import static io.rxmicro.validation.detail.StatelessValidators.getStatelessValidator;
 import static java.util.Optional.ofNullable;
 
 /**
@@ -38,16 +38,16 @@ import static java.util.Optional.ofNullable;
 public final class CountryCodeConstraintValidator implements ConstraintValidator<String> {
 
     private static final Map<CountryCode.Format, Class<? extends ConstraintValidator<String>>> map = Map.of(
-            CountryCode.Format.ISO_3166_1_alpha2, ISO_3166_1_alpha2ConstraintValidator.class,
-            CountryCode.Format.ISO_3166_1_alpha3, ISO_3166_1_alpha3ConstraintValidator.class,
-            CountryCode.Format.ISO_3166_1_numeric, ISO_3166_1_numericConstraintValidator.class
+            CountryCode.Format.ISO_3166_1_ALPHA_2, Alpha2ConstraintValidator.class,
+            CountryCode.Format.ISO_3166_1_ALPHA_3, Alpha3ConstraintValidator.class,
+            CountryCode.Format.ISO_3166_1_NUMERIC, NumericConstraintValidator.class
     );
 
     private final ConstraintValidator<String> constraintValidator;
 
     public CountryCodeConstraintValidator(final CountryCode.Format format) {
         this.constraintValidator = ofNullable(map.get(format))
-                .map(ValidatorPool::getStatelessValidator)
+                .map(StatelessValidators::getStatelessValidator)
                 .orElseThrow(() -> {
                     throw new RxMicroException("Unsupported format: " + format);
                 });
@@ -56,7 +56,7 @@ public final class CountryCodeConstraintValidator implements ConstraintValidator
     @Override
     public void validate(final String actual,
                          final HttpModelType httpModelType,
-                         final String modelName) throws ValidationException {
+                         final String modelName) {
         constraintValidator.validate(actual, httpModelType, modelName);
     }
 
@@ -65,9 +65,9 @@ public final class CountryCodeConstraintValidator implements ConstraintValidator
      * @link https://rxmicro.io
      * @since 0.1
      */
-    public static final class ISO_3166_1_alpha2ConstraintValidator extends AbstractCompositionConstraintValidator<String> {
+    private static final class Alpha2ConstraintValidator extends AbstractCompositionConstraintValidator<String> {
 
-        public ISO_3166_1_alpha2ConstraintValidator() {
+        private Alpha2ConstraintValidator() {
             super(List.of(
                     new LengthConstraintValidator(2),
                     getStatelessValidator(UppercaseConstraintValidator.class)
@@ -80,9 +80,9 @@ public final class CountryCodeConstraintValidator implements ConstraintValidator
      * @link https://rxmicro.io
      * @since 0.1
      */
-    public static final class ISO_3166_1_alpha3ConstraintValidator extends AbstractCompositionConstraintValidator<String> {
+    private static final class Alpha3ConstraintValidator extends AbstractCompositionConstraintValidator<String> {
 
-        public ISO_3166_1_alpha3ConstraintValidator() {
+        private Alpha3ConstraintValidator() {
             super(List.of(
                     new LengthConstraintValidator(3),
                     getStatelessValidator(UppercaseConstraintValidator.class)
@@ -95,9 +95,9 @@ public final class CountryCodeConstraintValidator implements ConstraintValidator
      * @link https://rxmicro.io
      * @since 0.1
      */
-    public static final class ISO_3166_1_numericConstraintValidator extends AbstractCompositionConstraintValidator<String> {
+    private static final class NumericConstraintValidator extends AbstractCompositionConstraintValidator<String> {
 
-        public ISO_3166_1_numericConstraintValidator() {
+        private NumericConstraintValidator() {
             super(List.of(
                     new LengthConstraintValidator(3),
                     getStatelessValidator(DigitsOnlyConstraintValidator.class)

@@ -42,7 +42,7 @@ public class PhoneConstraintValidator implements ConstraintValidator<String> {
     @Override
     public void validate(final String actual,
                          final HttpModelType httpModelType,
-                         final String modelName) throws ValidationException {
+                         final String modelName) {
         if (actual != null) {
             if (actual.length() == 0) {
                 throw new ValidationException("Invalid ? \"?\": Empty string not allowed!",

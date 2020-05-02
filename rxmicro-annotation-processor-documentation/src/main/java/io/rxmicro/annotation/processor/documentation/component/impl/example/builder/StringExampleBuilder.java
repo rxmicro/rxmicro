@@ -177,11 +177,11 @@ public final class StringExampleBuilder implements TypeExampleBuilder {
     }
 
     private String getCountryCodeExample(final CountryCode countryCode) {
-        if (countryCode.format() == CountryCode.Format.ISO_3166_1_alpha2) {
+        if (countryCode.format() == CountryCode.Format.ISO_3166_1_ALPHA_2) {
             return "US";
-        } else if (countryCode.format() == CountryCode.Format.ISO_3166_1_alpha3) {
+        } else if (countryCode.format() == CountryCode.Format.ISO_3166_1_ALPHA_3) {
             return "USA";
-        } else if (countryCode.format() == CountryCode.Format.ISO_3166_1_numeric) {
+        } else if (countryCode.format() == CountryCode.Format.ISO_3166_1_NUMERIC) {
             return "840";
         } else {
             throw new UnsupportedOperationException(

@@ -28,20 +28,20 @@ import static io.rxmicro.runtime.local.Instances.instantiate;
  * @link https://rxmicro.io
  * @since 0.1
  */
-public final class ValidatorPool {
+public final class StatelessValidators {
 
-    private static final Map<Class<? extends ConstraintValidator<?>>, ConstraintValidator<?>> map = new HashMap<>();
+    private static final Map<Class<? extends ConstraintValidator<?>>, ConstraintValidator<?>> VALIDATOR_MAP = new HashMap<>();
 
     @SuppressWarnings("unchecked")
     public static <T extends ConstraintValidator<?>> T getStatelessValidator(final Class<T> constraintValidatorClass) {
-        T constraintValidator = (T) map.get(constraintValidatorClass);
+        T constraintValidator = (T) VALIDATOR_MAP.get(constraintValidatorClass);
         if (constraintValidator == null) {
             constraintValidator = instantiate(constraintValidatorClass);
-            map.put(constraintValidatorClass, constraintValidator);
+            VALIDATOR_MAP.put(constraintValidatorClass, constraintValidator);
         }
         return constraintValidator;
     }
 
-    private ValidatorPool() {
+    private StatelessValidators() {
     }
 }

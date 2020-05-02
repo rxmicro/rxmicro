@@ -42,13 +42,12 @@ public class EnumerationCharacterConstraintValidator implements ConstraintValida
     @Override
     public void validate(final Character actual,
                          final HttpModelType httpModelType,
-                         final String modelName) throws ValidationException {
-        if (actual != null) {
-            if (!allowed.contains(actual)) {
-                throw new ValidationException(
-                        "Invalid ? \"?\": Expected a value from the set ?, but actual is '?'!",
-                        httpModelType, modelName, allowed, actual);
-            }
+                         final String modelName) {
+        if (actual != null && !allowed.contains(actual)) {
+            throw new ValidationException(
+                    "Invalid ? \"?\": Expected a value from the set ?, but actual is '?'!",
+                    httpModelType, modelName, allowed, actual
+            );
         }
     }
 }

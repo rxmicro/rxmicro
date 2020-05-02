@@ -33,7 +33,7 @@ public class PastInstantConstraintValidator implements ConstraintValidator<Insta
     @Override
     public void validate(final Instant actual,
                          final HttpModelType httpModelType,
-                         final String modelName) throws ValidationException {
+                         final String modelName) {
         if (actual != null) {
             final Instant now = Instant.now();
             if (actual.compareTo(now) >= 0) {

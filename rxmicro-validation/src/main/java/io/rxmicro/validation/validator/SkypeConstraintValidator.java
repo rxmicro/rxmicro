@@ -31,7 +31,7 @@ public class SkypeConstraintValidator implements ConstraintValidator<String> {
     @Override
     public void validate(final String actual,
                          final HttpModelType httpModelType,
-                         final String modelName) throws ValidationException {
+                         final String modelName) {
         // TODO
     }
 }

@@ -33,7 +33,7 @@ public final class LatinAlphabetOnlyConstraintValidator implements ConstraintVal
                                                 final boolean allowsLowercase,
                                                 final boolean allowsDigits,
                                                 final String punctuations) {
-        this.alphabet = LatinAlphabetBuilder.buildLatinAlphabet(
+        this.alphabet = LatinAlphabetHelper.buildLatinAlphabet(
                 allowsUppercase, allowsLowercase, allowsDigits, punctuations
         );
     }
@@ -41,7 +41,7 @@ public final class LatinAlphabetOnlyConstraintValidator implements ConstraintVal
     @Override
     public void validate(final String actual,
                          final HttpModelType httpModelType,
-                         final String modelName) throws ValidationException {
+                         final String modelName) {
         if (actual != null) {
             for (int i = 0; i < actual.length(); i++) {
                 final char ch = actual.charAt(i);
@@ -60,9 +60,9 @@ public final class LatinAlphabetOnlyConstraintValidator implements ConstraintVal
      * @link https://rxmicro.io
      * @since 0.1
      */
-    public static final class LatinAlphabetBuilder {
+    private static final class LatinAlphabetHelper {
 
-        public static String buildLatinAlphabet(final boolean allowsUppercase,
+        private static String buildLatinAlphabet(final boolean allowsUppercase,
                                                 final boolean allowsLowercase,
                                                 final boolean allowsDigits,
                                                 final String punctuations) {
@@ -83,6 +83,9 @@ public final class LatinAlphabetOnlyConstraintValidator implements ConstraintVal
                 }
             }
             return builder.toString();
+        }
+
+        private LatinAlphabetHelper(){
         }
     }
 }

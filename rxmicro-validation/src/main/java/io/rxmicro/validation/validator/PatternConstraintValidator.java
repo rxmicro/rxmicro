@@ -48,13 +48,12 @@ public class PatternConstraintValidator implements ConstraintValidator<String> {
     @Override
     public void validate(final String actual,
                          final HttpModelType httpModelType,
-                         final String modelName) throws ValidationException {
-        if (actual != null) {
-            if (!pattern.matcher(actual).matches()) {
-                throw new ValidationException(
-                        "Invalid ? \"?\": Expected that 'value' matches the pattern: /?/, where 'value' is '?'!",
-                        httpModelType, modelName, regexp, actual);
-            }
+                         final String modelName) {
+        if (actual != null && !pattern.matcher(actual).matches()) {
+            throw new ValidationException(
+                    "Invalid ? \"?\": Expected that 'value' matches the pattern: /?/, where 'value' is '?'!",
+                    httpModelType, modelName, regexp, actual
+            );
         }
     }
 }

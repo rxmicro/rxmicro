@@ -43,7 +43,7 @@ public class NumericConstraintValidator implements ConstraintValidator<BigDecima
     @Override
     public void validate(final BigDecimal actual,
                          final HttpModelType httpModelType,
-                         final String modelName) throws ValidationException {
+                         final String modelName) {
         if (actual != null) {
             if (expectedScale != -1 && expectedScale != actual.scale()) {
                 throw new ValidationException(

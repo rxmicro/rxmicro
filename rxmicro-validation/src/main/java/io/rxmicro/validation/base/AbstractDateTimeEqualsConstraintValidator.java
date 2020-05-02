@@ -43,7 +43,7 @@ public class AbstractDateTimeEqualsConstraintValidator {
         long expectedClearTimeInMillis = expectedDirtyTimeInMillis;
         for (final int characteristic : TRUNCATED_CHARACTERISTICS) {
             if (actualClearTimeInMillis % characteristic == 0) {
-                expectedClearTimeInMillis = ((expectedDirtyTimeInMillis / characteristic) * characteristic);
+                expectedClearTimeInMillis = (expectedDirtyTimeInMillis / characteristic) * characteristic;
             } else {
                 break;
             }

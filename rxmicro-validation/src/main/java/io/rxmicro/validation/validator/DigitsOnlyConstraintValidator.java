@@ -30,7 +30,7 @@ public class DigitsOnlyConstraintValidator implements ConstraintValidator<String
     @Override
     public void validate(final String actual,
                          final HttpModelType httpModelType,
-                         final String modelName) throws ValidationException {
+                         final String modelName) {
         if (actual != null) {
             for (int i = 0; i < actual.length(); i++) {
                 final char ch = actual.charAt(i);

@@ -38,7 +38,7 @@ public abstract class AbstractCompositionConstraintValidator<T> implements Const
     @Override
     public final void validate(final T actual,
                                final HttpModelType httpModelType,
-                               final String modelName) throws ValidationException {
+                               final String modelName) {
         for (final ConstraintValidator<T> validator : validators) {
             validator.validate(actual, httpModelType, modelName);
         }

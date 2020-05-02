@@ -79,9 +79,9 @@ import static io.rxmicro.validation.base.LocationAccuracy.ACCURACY_1_KILOMETER;
 import static io.rxmicro.validation.base.LocationAccuracy.ACCURACY_1_METER;
 import static io.rxmicro.validation.constraint.Base64URLEncoded.Alphabet.BASE;
 import static io.rxmicro.validation.constraint.Base64URLEncoded.Alphabet.URL;
-import static io.rxmicro.validation.constraint.CountryCode.Format.ISO_3166_1_alpha2;
-import static io.rxmicro.validation.constraint.CountryCode.Format.ISO_3166_1_alpha3;
-import static io.rxmicro.validation.constraint.CountryCode.Format.ISO_3166_1_numeric;
+import static io.rxmicro.validation.constraint.CountryCode.Format.ISO_3166_1_ALPHA_2;
+import static io.rxmicro.validation.constraint.CountryCode.Format.ISO_3166_1_ALPHA_3;
+import static io.rxmicro.validation.constraint.CountryCode.Format.ISO_3166_1_NUMERIC;
 import static io.rxmicro.validation.constraint.IP.Version.IP_V4;
 import static io.rxmicro.validation.constraint.IP.Version.IP_V6;
 import static java.util.concurrent.CompletableFuture.completedStage;
@@ -259,9 +259,9 @@ final class MicroService {
                                 @MaxSize(50)
                                 @SubEnum(include = {"RED", "BLUE"}) final List<Color> colors,
                                 // ----------------------------------------------------------------------------------
-                                @CountryCode(format = ISO_3166_1_alpha2) final String countryCodeAlpha2,
-                                @CountryCode(format = ISO_3166_1_alpha3) final String countryCodeAlpha3,
-                                @CountryCode(format = ISO_3166_1_numeric) final String countryCodeNumeric,
+                                @CountryCode(format = ISO_3166_1_ALPHA_2) final String countryCodeAlpha2,
+                                @CountryCode(format = ISO_3166_1_ALPHA_3) final String countryCodeAlpha3,
+                                @CountryCode(format = ISO_3166_1_NUMERIC) final String countryCodeNumeric,
                                 @Base64URLEncoded(alphabet = BASE) final String base64URLEncodedBase,
                                 @Base64URLEncoded(alphabet = URL) final String base64URLEncodedUrl,
                                 @IP({IP_V4, IP_V6}) final String ip,

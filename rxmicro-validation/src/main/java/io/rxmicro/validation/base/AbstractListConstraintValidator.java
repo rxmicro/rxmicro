@@ -32,12 +32,12 @@ public abstract class AbstractListConstraintValidator implements ConstraintValid
     @Override
     public void validateList(final List<List<?>> list,
                              final HttpModelType httpModelType,
-                             final String modelName) throws ValidationException {
+                             final String modelName) {
         throw new AbstractMethodError("Use 'validate' instead!");
     }
 
     @Override
-    public void validateList(final List<List<?>> models) throws ValidationException {
+    public void validateList(final List<List<?>> models) {
         throw new AbstractMethodError("Use 'validate' instead!");
     }
 }

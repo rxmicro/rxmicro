@@ -34,7 +34,7 @@ public final class RequiredListConstraintValidator implements ConstraintValidato
     @Override
     public void validate(final List<?> actual,
                          final HttpModelType httpModelType,
-                         final String modelName) throws ValidationException {
+                         final String modelName) {
         if (actual.isEmpty()) {
             throw new ValidationException("? \"?\" is required!", httpModelType, modelName);
         }

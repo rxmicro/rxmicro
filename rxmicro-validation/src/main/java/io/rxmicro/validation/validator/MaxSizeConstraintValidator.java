@@ -40,7 +40,7 @@ public class MaxSizeConstraintValidator extends AbstractMaxConstraintValidator<I
     @Override
     public void validate(final List<?> value,
                          final HttpModelType httpModelType,
-                         final String modelName) throws ValidationException {
+                         final String modelName) {
         if (value != null) {
             final int actual = value.size();
             validate(actual, httpModelType, modelName,
@@ -52,12 +52,12 @@ public class MaxSizeConstraintValidator extends AbstractMaxConstraintValidator<I
     @Override
     public void validateList(final List<List<?>> list,
                              final HttpModelType httpModelType,
-                             final String modelName) throws ValidationException {
+                             final String modelName) {
         throw new AbstractMethodError("Use 'validate' instead!");
     }
 
     @Override
-    public void validateList(final List<List<?>> models) throws ValidationException {
+    public void validateList(final List<List<?>> models) {
         throw new AbstractMethodError("Use 'validate' instead!");
     }
 }

@@ -23,7 +23,7 @@ import io.rxmicro.annotation.processor.rest.model.RestObjectModelClass;
 import io.rxmicro.http.error.ValidationException;
 import io.rxmicro.rest.model.HttpModelType;
 import io.rxmicro.validation.ConstraintValidator;
-import io.rxmicro.validation.detail.ValidatorPool;
+import io.rxmicro.validation.detail.StatelessValidators;
 import io.rxmicro.validation.validator.RequiredConstraintValidator;
 
 import java.util.ArrayList;
@@ -130,7 +130,7 @@ public final class ModelValidatorClassStructure extends ClassStructure {
                                 )
                                 .toArray(String[]::new)
                 )
-                .addStaticImport(ValidatorPool.class, "getStatelessValidator");
+                .addStaticImport(StatelessValidators.class, "getStatelessValidator");
         if (isRequiredReflectionGetter()) {
             classHeaderBuilder.addStaticImport($$_REFLECTIONS_FULL_CLASS_NAME, "getFieldValue");
         }

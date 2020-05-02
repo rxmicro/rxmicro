@@ -34,7 +34,7 @@ public final class RequiredConstraintValidator<T> implements ConstraintValidator
     @Override
     public void validate(final T actual,
                          final HttpModelType httpModelType,
-                         final String modelName) throws ValidationException {
+                         final String modelName) {
         if (actual == null) {
             throw new ValidationException("? \"?\" is required!", httpModelType, modelName);
         }

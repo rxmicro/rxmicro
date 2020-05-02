@@ -38,7 +38,7 @@ public class MaxLengthConstraintValidator extends AbstractMaxConstraintValidator
     @Override
     public void validate(final String value,
                          final HttpModelType httpModelType,
-                         final String modelName) throws ValidationException {
+                         final String modelName) {
         if (value != null) {
             final int actual = value.length();
             validate(actual, httpModelType, modelName,

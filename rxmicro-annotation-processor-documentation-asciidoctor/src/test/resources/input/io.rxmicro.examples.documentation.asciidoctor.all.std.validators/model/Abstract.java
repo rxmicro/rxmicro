@@ -80,9 +80,9 @@ import static io.rxmicro.validation.base.LocationAccuracy.ACCURACY_1_KILOMETER;
 import static io.rxmicro.validation.base.LocationAccuracy.ACCURACY_1_METER;
 import static io.rxmicro.validation.constraint.Base64URLEncoded.Alphabet.BASE;
 import static io.rxmicro.validation.constraint.Base64URLEncoded.Alphabet.URL;
-import static io.rxmicro.validation.constraint.CountryCode.Format.ISO_3166_1_alpha2;
-import static io.rxmicro.validation.constraint.CountryCode.Format.ISO_3166_1_alpha3;
-import static io.rxmicro.validation.constraint.CountryCode.Format.ISO_3166_1_numeric;
+import static io.rxmicro.validation.constraint.CountryCode.Format.ISO_3166_1_ALPHA_2;
+import static io.rxmicro.validation.constraint.CountryCode.Format.ISO_3166_1_ALPHA_3;
+import static io.rxmicro.validation.constraint.CountryCode.Format.ISO_3166_1_NUMERIC;
 import static io.rxmicro.validation.constraint.IP.Version.IP_V4;
 import static io.rxmicro.validation.constraint.IP.Version.IP_V6;
 
@@ -374,13 +374,13 @@ abstract class Abstract {
     @Skype
     private String skypeString;
 
-    @CountryCode(format = ISO_3166_1_alpha2)
+    @CountryCode(format = ISO_3166_1_ALPHA_2)
     private String countryCodeAlpha2;
 
-    @CountryCode(format = ISO_3166_1_alpha3)
+    @CountryCode(format = ISO_3166_1_ALPHA_3)
     private String countryCodeAlpha3;
 
-    @CountryCode(format = ISO_3166_1_numeric)
+    @CountryCode(format = ISO_3166_1_NUMERIC)
     private String countryCodeNumeric;
 
     @Base64URLEncoded(alphabet = BASE)

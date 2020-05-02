@@ -54,7 +54,7 @@ public class Base64URLEncodedConstraintValidator implements ConstraintValidator<
     @Override
     public void validate(final String actual,
                          final HttpModelType httpModelType,
-                         final String modelName) throws ValidationException {
+                         final String modelName) {
         if (actual != null) {
             if (alphabet == Base64URLEncoded.Alphabet.BASE) {
                 validate(actual, httpModelType, modelName, ALPHABET_BASE);

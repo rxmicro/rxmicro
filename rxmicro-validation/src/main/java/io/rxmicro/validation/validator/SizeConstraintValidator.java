@@ -39,7 +39,7 @@ public class SizeConstraintValidator extends AbstractListConstraintValidator {
     @Override
     public void validate(final List<?> value,
                          final HttpModelType httpModelType,
-                         final String modelName) throws ValidationException {
+                         final String modelName) {
         if (value != null) {
             final int actual = value.size();
             if (actual != expectedLength) {

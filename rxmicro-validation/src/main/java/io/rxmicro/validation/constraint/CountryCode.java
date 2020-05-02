@@ -61,7 +61,7 @@ public @interface CountryCode {
      */
     boolean off() default false;
 
-    Format format() default Format.ISO_3166_1_alpha2;
+    Format format() default Format.ISO_3166_1_ALPHA_2;
 
     /**
      * @author nedis
@@ -74,19 +74,19 @@ public @interface CountryCode {
                 caption = "What is ISO 3166-1 alpha2?",
                 link = "https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2"
         )
-        ISO_3166_1_alpha2("Two-letter country code according to ISO 3166-1 alpha2 standard."),
+        ISO_3166_1_ALPHA_2("Two-letter country code according to ISO 3166-1 alpha2 standard."),
 
         @ReadMore(
                 caption = "What is ISO 3166-1 alpha3?",
                 link = "https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3"
         )
-        ISO_3166_1_alpha3("Three-letter country code according to ISO 3166-1 alpha3 standard."),
+        ISO_3166_1_ALPHA_3("Three-letter country code according to ISO 3166-1 alpha3 standard."),
 
         @ReadMore(
                 caption = "What is ISO 3166-1 numeric?",
                 link = "https://en.wikipedia.org/wiki/ISO_3166-1_numeric"
         )
-        ISO_3166_1_numeric("Three-digit country code according to ISO 3166-1 numeric standard.");
+        ISO_3166_1_NUMERIC("Three-digit country code according to ISO 3166-1 numeric standard.");
 
         private final String description;
 

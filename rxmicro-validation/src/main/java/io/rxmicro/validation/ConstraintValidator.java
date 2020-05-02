@@ -41,7 +41,7 @@ public interface ConstraintValidator<T> {
      */
     void validate(T actual,
                   HttpModelType httpModelType,
-                  String modelName) throws ValidationException;
+                  String modelName);
 
     /**
      * Validates a root model.
@@ -50,7 +50,7 @@ public interface ConstraintValidator<T> {
      * @param model object to validate
      * @throws ValidationException if value does not pass the constraint
      */
-    default void validate(final T model) throws ValidationException {
+    default void validate(final T model) {
         validate(model, null, null);
     }
 
@@ -65,7 +65,7 @@ public interface ConstraintValidator<T> {
      */
     default void validateList(final List<T> list,
                               final HttpModelType httpModelType,
-                              final String modelName) throws ValidationException {
+                              final String modelName){
         if (list != null) {
             for (final T actual : list) {
                 validate(actual, httpModelType, modelName);
@@ -80,7 +80,7 @@ public interface ConstraintValidator<T> {
      * @param models object list to validate
      * @throws ValidationException if value does not pass the constraint
      */
-    default void validateList(final List<T> models) throws ValidationException {
+    default void validateList(final List<T> models) {
         validateList(models, null, null);
     }
 }

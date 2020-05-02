@@ -37,7 +37,7 @@ public class LengthConstraintValidator implements ConstraintValidator<String> {
     @Override
     public void validate(final String value,
                          final HttpModelType httpModelType,
-                         final String modelName) throws ValidationException {
+                         final String modelName) {
         if (value != null) {
             final int actual = value.length();
             if (expectedLength != actual) {

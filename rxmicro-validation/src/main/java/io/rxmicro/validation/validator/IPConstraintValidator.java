@@ -44,7 +44,7 @@ public class IPConstraintValidator implements ConstraintValidator<String> {
     @Override
     public void validate(final String actual,
                          final HttpModelType httpModelType,
-                         final String modelName) throws ValidationException {
+                         final String modelName) {
         if (actual != null) {
             if (versions.size() == 1) {
                 if (versions.contains(IP_V4)) {
@@ -78,11 +78,11 @@ public class IPConstraintValidator implements ConstraintValidator<String> {
         while (tokenizer.hasMoreTokens()) {
             final String value = tokenizer.nextToken();
             try {
-                final int v = Integer.parseInt(value);
-                if (v < 0 || v > 255) {
+                final int ip4AddressPart = Integer.parseInt(value);
+                if (ip4AddressPart < 0 || ip4AddressPart > 255) {
                     throw new ValidationException(
                             "Invalid ? \"?\": Expected a number between 0 and 255, but actual is '?' (IP = '?')!",
-                            httpModelType, fieldName, v, actual);
+                            httpModelType, fieldName, ip4AddressPart, actual);
                 }
             } catch (final NumberFormatException e) {
                 throw new ValidationException(
@@ -105,11 +105,11 @@ public class IPConstraintValidator implements ConstraintValidator<String> {
             final String value = tokenizer.nextToken();
             if (!value.isEmpty()) {
                 try {
-                    final int v = Integer.decode("0x" + value);
-                    if (v < 0 || v > 0xFFFF) {
+                    final int ip6AddressPart = Integer.decode("0x" + value);
+                    if (ip6AddressPart < 0 || ip6AddressPart > 0xFFFF) {
                         throw new ValidationException(
                                 "Invalid ? \"?\": Expected a number between 0 and FFFF, but actual is '?' (IP = '?')!",
-                                httpModelType, fieldName, v, actual);
+                                httpModelType, fieldName, ip6AddressPart, actual);
                     }
                 } catch (final NumberFormatException e) {
                     throw new ValidationException(
