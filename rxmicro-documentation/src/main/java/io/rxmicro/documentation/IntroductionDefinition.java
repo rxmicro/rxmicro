@@ -38,13 +38,13 @@ public @interface IntroductionDefinition {
     IncludeMode includeMode() default IncludeMode.INCLUDE_REFERENCE;
 
     Section[] sectionOrder() default {
-            Section.Common_Concept,
-            Section.Base_Endpoint,
-            Section.Http_Verbs,
-            Section.Error_Model,
-            Section.Handler_Not_Found,
-            Section.Licenses,
-            Section.Specification
+            Section.COMMON_CONCEPT,
+            Section.BASE_ENDPOINT,
+            Section.HTTP_VERBS,
+            Section.ERROR_MODEL,
+            Section.HANDLER_NOT_FOUND,
+            Section.LICENSES,
+            Section.SPECIFICATION
     };
 
     /**
@@ -54,24 +54,24 @@ public @interface IntroductionDefinition {
      */
     enum Section {
 
-        Common_Concept,
+        COMMON_CONCEPT,
 
-        Base_Endpoint,
+        BASE_ENDPOINT,
 
-        Http_Verbs,
+        HTTP_VERBS,
 
-        Error_Model,
+        ERROR_MODEL,
 
-        Handler_Not_Found,
+        HANDLER_NOT_FOUND,
 
-        Licenses,
+        LICENSES,
 
-        Specification,
+        SPECIFICATION,
 
-        Custom_section;
+        CUSTOM_SECTION;
 
         public boolean isCustomSection() {
-            return this == Custom_section;
+            return this == CUSTOM_SECTION;
         }
     }
 }

@@ -25,9 +25,9 @@ import io.rxmicro.documentation.ResourceGroupDefinition;
         withGeneratedDate = false,
         introduction = @IntroductionDefinition(
                 sectionOrder = {
-                        IntroductionDefinition.Section.Licenses,
-                        IntroductionDefinition.Section.Specification,
-                        IntroductionDefinition.Section.Custom_section
+                        IntroductionDefinition.Section.LICENSES,
+                        IntroductionDefinition.Section.SPECIFICATION,
+                        IntroductionDefinition.Section.CUSTOM_SECTION
                 },
                 customSection = {
                         "$PROJECT_DIR/src/main/asciidoc/_fragment/" +
@@ -37,7 +37,7 @@ import io.rxmicro.documentation.ResourceGroupDefinition;
         ),
         resourceGroup = @ResourceGroupDefinition(
                 sectionOrder = {
-                        ResourceGroupDefinition.Section.Custom_section
+                        ResourceGroupDefinition.Section.CUSTOM_SECTION
                 },
                 customSection = {
                         "$PROJECT_DIR/src/main/asciidoc/_fragment/" +

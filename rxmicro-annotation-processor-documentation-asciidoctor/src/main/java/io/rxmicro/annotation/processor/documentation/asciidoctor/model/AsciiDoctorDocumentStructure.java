@@ -128,14 +128,14 @@ public final class AsciiDoctorDocumentStructure extends DocumentStructure {
         final List<Section> sections = new ArrayList<>();
         int index = 0;
         for (final IntroductionDefinition.Section section : introductionDefinition.sectionOrder()) {
-            if (section == IntroductionDefinition.Section.Base_Endpoint) {
+            if (section == IntroductionDefinition.Section.BASE_ENDPOINT) {
                 if (projectMetaData.isBaseEndpointPresent()) {
                     sections.add(toSection(section, index));
                 }
             } else {
                 sections.add(toSection(section, index));
             }
-            if (section == IntroductionDefinition.Section.Custom_section) {
+            if (section == IntroductionDefinition.Section.CUSTOM_SECTION) {
                 index++;
             }
         }

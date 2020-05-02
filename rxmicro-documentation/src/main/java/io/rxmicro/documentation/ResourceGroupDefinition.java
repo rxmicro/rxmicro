@@ -39,7 +39,7 @@ public @interface ResourceGroupDefinition {
     IncludeMode includeMode() default IncludeMode.INCLUDE_REFERENCE;
 
     Section[] sectionOrder() default {
-            Section.Versioning,
+            Section.VERSIONING,
             Section.CORS
     };
 
@@ -50,14 +50,14 @@ public @interface ResourceGroupDefinition {
      */
     enum Section {
 
-        Versioning,
+        VERSIONING,
 
         CORS,
 
-        Custom_section;
+        CUSTOM_SECTION;
 
         public boolean isCustomSection() {
-            return this == Custom_section;
+            return this == CUSTOM_SECTION;
         }
     }
 }

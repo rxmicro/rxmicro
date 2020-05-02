@@ -87,7 +87,7 @@ public final class ResourceGroup {
         final List<Section> sections = new ArrayList<>();
         int index = 0;
         for (final ResourceGroupDefinition.Section section : resourceGroupDefinition.sectionOrder()) {
-            if (section == ResourceGroupDefinition.Section.Versioning) {
+            if (section == ResourceGroupDefinition.Section.VERSIONING) {
                 if (restControllerClassStructure.getParentUrl().isVersionPresent()) {
                     sections.add(new Section(SectionType.INVOKE_MACROS, "versioning"));
                 }

@@ -57,7 +57,7 @@ public final class CustomSectionsReaderImpl implements CustomSectionsReader {
                 owner,
                 introductionDefinition.customSection().length,
                 (int) Arrays.stream(introductionDefinition.sectionOrder())
-                        .filter(s -> s == IntroductionDefinition.Section.Custom_section)
+                        .filter(s -> s == IntroductionDefinition.Section.CUSTOM_SECTION)
                         .count()
         );
         return read(
@@ -78,7 +78,7 @@ public final class CustomSectionsReaderImpl implements CustomSectionsReader {
                 owner,
                 resourceGroupDefinition.customSection().length,
                 (int) Arrays.stream(resourceGroupDefinition.sectionOrder())
-                        .filter(s -> s == ResourceGroupDefinition.Section.Custom_section)
+                        .filter(s -> s == ResourceGroupDefinition.Section.CUSTOM_SECTION)
                         .count()
         );
         return read(

@@ -53,8 +53,8 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 @DocumentationDefinition(
         introduction = @IntroductionDefinition(
                 sectionOrder = {
-                        IntroductionDefinition.Section.Base_Endpoint,
-                        IntroductionDefinition.Section.Licenses
+                        IntroductionDefinition.Section.BASE_ENDPOINT,
+                        IntroductionDefinition.Section.LICENSES
                 }
         ),
         resource = @ResourceDefinition(

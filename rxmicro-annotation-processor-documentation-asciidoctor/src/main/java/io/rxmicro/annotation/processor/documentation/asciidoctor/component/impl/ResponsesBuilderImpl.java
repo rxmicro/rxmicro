@@ -202,7 +202,7 @@ public final class ResponsesBuilderImpl implements ResponsesBuilder {
     private List<ReadMoreModel> getShowErrorCauseReadMoreLinks(final DocumentationDefinition documentationDefinition,
                                                                final ResourceDefinition resourceDefinition) {
         return Arrays.stream(documentationDefinition.introduction().sectionOrder())
-                .anyMatch(s -> s == IntroductionDefinition.Section.Error_Model) && resourceDefinition.withReadMore() ?
+                .anyMatch(s -> s == IntroductionDefinition.Section.ERROR_MODEL) && resourceDefinition.withReadMore() ?
                 List.of(new ReadMoreModel(
                         "_(How to activate the displaying of the detailed error message?)_",
                         "internal-error-message-read-more",

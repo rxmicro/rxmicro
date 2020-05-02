@@ -48,8 +48,8 @@ import io.rxmicro.documentation.Title;
 @DocumentationDefinition(
         introduction = @IntroductionDefinition(
                 sectionOrder = {
-                        IntroductionDefinition.Section.Base_Endpoint,
-                        IntroductionDefinition.Section.Licenses
+                        IntroductionDefinition.Section.BASE_ENDPOINT,
+                        IntroductionDefinition.Section.LICENSES
                 }
         ),
         resource = @ResourceDefinition(

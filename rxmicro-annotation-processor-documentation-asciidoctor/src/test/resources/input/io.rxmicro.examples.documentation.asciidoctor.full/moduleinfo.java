@@ -63,18 +63,18 @@ import io.rxmicro.documentation.asciidoctor.DocumentAttributes;
         },
         introduction = @IntroductionDefinition(
                 sectionOrder = {
-                        IntroductionDefinition.Section.Common_Concept,
-                        IntroductionDefinition.Section.Base_Endpoint,
-                        IntroductionDefinition.Section.Http_Verbs,
-                        IntroductionDefinition.Section.Error_Model,
-                        IntroductionDefinition.Section.Handler_Not_Found,
-                        IntroductionDefinition.Section.Licenses,
-                        IntroductionDefinition.Section.Specification
+                        IntroductionDefinition.Section.COMMON_CONCEPT,
+                        IntroductionDefinition.Section.BASE_ENDPOINT,
+                        IntroductionDefinition.Section.HTTP_VERBS,
+                        IntroductionDefinition.Section.ERROR_MODEL,
+                        IntroductionDefinition.Section.HANDLER_NOT_FOUND,
+                        IntroductionDefinition.Section.LICENSES,
+                        IntroductionDefinition.Section.SPECIFICATION
                 }
         ),
         resourceGroup = @ResourceGroupDefinition(
                 sectionOrder = {
-                        ResourceGroupDefinition.Section.Versioning,
+                        ResourceGroupDefinition.Section.VERSIONING,
                         ResourceGroupDefinition.Section.CORS
                 }
         ),
