@@ -22,6 +22,7 @@ import io.rxmicro.test.mockito.httpclient.internal.model.ResponseModel;
 import java.util.List;
 import java.util.Map;
 
+import static io.rxmicro.common.local.TestLoggers.logTestMessage;
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.http.QueryParams.joinPath;
 import static io.rxmicro.test.mockito.httpclient.internal.AnyValues.ANY_BODY;
@@ -40,22 +41,22 @@ public final class HttpClientMockLogger {
     public void log(final HttpRequestMock httpRequestMock,
                     final ResponseModel responseModel) {
         if (httpRequestMock.isBodyPresent() || httpRequestMock.isAny()) {
-            System.out.println(format(
+            logTestMessage(
                     "HttpRequestMock:\n\t? '?'\n?\n\n\t?\nHttpResponseMock:\n?",
                     httpRequestMock.getMethod().map(Enum::name).orElse(ANY_METHOD),
                     httpRequestMock.getPath().orElse(ANY_URL_PATH),
                     httpRequestMock.getHeaders().map(allHeaders -> getHeaders(allHeaders.getEntries())).orElse("\t" + ANY_HEADERS),
                     httpRequestMock.getBody().orElse(ANY_BODY),
                     getResponse(responseModel)
-            ));
+            );
         } else {
-            System.out.println(format(
+            logTestMessage(
                     "HttpRequestMock:\n\t? '?'\n?\nHttpResponseMock:\n?",
                     httpRequestMock.getMethod().map(Enum::name).orElse(ANY_METHOD),
                     getPath(httpRequestMock),
                     httpRequestMock.getHeaders().map(allHeaders -> getHeaders(allHeaders.getEntries())).orElse("\t" + ANY_HEADERS),
                     getResponse(responseModel)
-            ));
+            );
         }
 
     }
@@ -81,8 +82,8 @@ public final class HttpClientMockLogger {
                 .map(AbstractHttpResponseMock::getClientHttpResponse)
                 .map(response -> format(
                         "\t? ?\n?\n\n\t?",
-                        response.statusCode(), response.version(),
-                        getHeaders(response.headers().getEntries()),
+                        response.getStatusCode(), response.getVersion(),
+                        getHeaders(response.getHeaders().getEntries()),
                         response.body())).orElseGet(() -> responseModel.getThrowable()
                         .map(e -> format("?: ?", e.getClass().getName(), e.getMessage()))
                         .orElseThrow());

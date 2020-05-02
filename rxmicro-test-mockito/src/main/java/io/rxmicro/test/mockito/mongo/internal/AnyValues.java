@@ -56,11 +56,17 @@ public final class AnyValues {
         }
 
         @Override
-        public boolean equals(final Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-            if (!super.equals(o)) return false;
-            final TempDocument that = (TempDocument) o;
+        public boolean equals(final Object other) {
+            if (this == other) {
+                return true;
+            }
+            if (other == null || getClass() != other.getClass()) {
+                return false;
+            }
+            if (!super.equals(other)) {
+                return false;
+            }
+            final TempDocument that = (TempDocument) other;
             return name.equals(that.name);
         }
 
@@ -78,23 +84,23 @@ public final class AnyValues {
     private static final class SubscriberImpl<T> implements Subscriber<T> {
 
         @Override
-        public void onSubscribe(final Subscription s) {
-
+        public void onSubscribe(final Subscription subscription) {
+            // do nothing
         }
 
         @Override
-        public void onNext(final Object o) {
-
+        public void onNext(final Object item) {
+            // do nothing
         }
 
         @Override
-        public void onError(final Throwable t) {
-
+        public void onError(final Throwable throwable) {
+            // do nothing
         }
 
         @Override
         public void onComplete() {
-
+            // do nothing
         }
 
         @Override

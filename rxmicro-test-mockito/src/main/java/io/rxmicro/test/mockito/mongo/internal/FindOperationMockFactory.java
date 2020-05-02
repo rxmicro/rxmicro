@@ -50,7 +50,7 @@ public final class FindOperationMockFactory extends AbstractOperationMockFactory
 
     private FindPublisher<Document> newFindPublisher(final MongoCollection<Document> collection,
                                                      final FindOperationMock operationMock) {
-        FindPublisher<Document> findPublisher = mock(FindPublisher.class);
+        final FindPublisher<Document> findPublisher = mock(FindPublisher.class);
         final Optional<Document> query = operationMock.getQuery();
         if (query.isPresent()) {
             when(collection.find(query.get())).thenReturn(findPublisher);

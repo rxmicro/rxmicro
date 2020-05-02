@@ -34,7 +34,7 @@ public final class ErrorResponseCheckerHelper {
                 if (throwable != null) {
                     return reThrow(throwable);
                 }
-                final int status = clientHttpResponse.statusCode();
+                final int status = clientHttpResponse.getStatusCode();
                 if (status >= 200 && status < 300) {
                     return clientHttpResponse;
                 } else {

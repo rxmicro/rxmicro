@@ -33,5 +33,5 @@ module rxmicro.common {
             rxmicro.rest.server.netty,
             rxmicro.json,
             rxmicro.exchange.json,
-            rxmicro.annotation.processor.documentation;
+            rxmicro.annotation.processor.documentation, rxmicro.test.mockito;
 }

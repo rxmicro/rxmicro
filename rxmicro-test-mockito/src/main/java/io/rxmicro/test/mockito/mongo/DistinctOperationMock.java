@@ -16,6 +16,7 @@
 
 package io.rxmicro.test.mockito.mongo;
 
+import io.rxmicro.common.meta.BuilderMethod;
 import io.rxmicro.test.mockito.mongo.internal.AbstractDistinctOperationMock;
 import org.bson.Document;
 
@@ -53,28 +54,33 @@ public final class DistinctOperationMock<T> extends AbstractDistinctOperationMoc
 
         private Document query;
 
+        @BuilderMethod
         public Builder<T> setResultClass(final Class<T> resultClass) {
             this.resultClass = require(resultClass);
             return this;
         }
 
+        @BuilderMethod
         public Builder<T> setField(final String field) {
             this.field = validateString(field, "field");
             return this;
         }
 
+        @BuilderMethod
         public Builder<T> setAnyQuery() {
             this.anyQuery = true;
             this.query = null;
             return this;
         }
 
+        @BuilderMethod
         public Builder<T> setQuery(final Document query) {
             this.query = validateBson(query, "query");
             this.anyQuery = false;
             return this;
         }
 
+        @BuilderMethod
         public Builder<T> setQuery(final String query) {
             this.query = validateBson(query, "query");
             this.anyQuery = false;

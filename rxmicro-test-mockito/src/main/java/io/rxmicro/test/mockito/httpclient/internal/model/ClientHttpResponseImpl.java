@@ -62,17 +62,17 @@ public final class ClientHttpResponseImpl implements ClientHttpResponse {
     }
 
     @Override
-    public int statusCode() {
+    public int getStatusCode() {
         return status;
     }
 
     @Override
-    public HttpVersion version() {
+    public HttpVersion getVersion() {
         return version;
     }
 
     @Override
-    public HttpHeaders headers() {
+    public HttpHeaders getHeaders() {
         return headers;
     }
 

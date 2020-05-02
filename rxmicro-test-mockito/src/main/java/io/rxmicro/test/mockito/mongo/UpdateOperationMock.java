@@ -16,6 +16,7 @@
 
 package io.rxmicro.test.mockito.mongo;
 
+import io.rxmicro.common.meta.BuilderMethod;
 import io.rxmicro.test.mockito.mongo.internal.AbstractUpdateOperationMock;
 import io.rxmicro.test.mockito.mongo.internal.util.Validators;
 import org.bson.Document;
@@ -55,42 +56,49 @@ public final class UpdateOperationMock extends AbstractUpdateOperationMock {
 
         private boolean upsert;
 
+        @BuilderMethod
         public Builder setAnyUpdate() {
             this.anyUpdate = true;
             this.update = null;
             return this;
         }
 
+        @BuilderMethod
         public Builder setUpdate(final Document update) {
             this.update = validateBson(update, "update");
             this.anyUpdate = false;
             return this;
         }
 
+        @BuilderMethod
         public Builder setUpdate(final String update) {
             this.update = validateBson(update, "update");
             this.anyUpdate = false;
             return this;
         }
 
+        @BuilderMethod
         public Builder setAnyFilter() {
             this.anyFilter = true;
             this.filter = null;
             return this;
         }
 
+        @BuilderMethod
         public Builder setFilter(final Document filter) {
             this.filter = Validators.validateBson(filter, "filter");
             this.anyFilter = false;
             return this;
         }
 
+        @BuilderMethod
         public Builder setFilter(final String filter) {
             this.filter = validateBson(filter, "filter");
             this.anyFilter = false;
             return this;
         }
 
+        @BuilderMethod
         public Builder setUpsert(final boolean upsert) {
             this.upsert = upsert;
             return this;

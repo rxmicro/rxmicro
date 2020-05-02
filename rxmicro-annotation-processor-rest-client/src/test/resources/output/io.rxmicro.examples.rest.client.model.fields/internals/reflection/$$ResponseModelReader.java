@@ -15,9 +15,9 @@ public final class $$ResponseModelReader extends ModelReader<Response> {
     @Override
     public Response readSingle(final ClientHttpResponse response) {
         final Response model = new Response();
-        setFieldValue(model, "status", response.statusCode());
-        setFieldValue(model, "version", response.version());
-        setFieldValue(model, "headers", response.headers());
+        setFieldValue(model, "status", response.getStatusCode());
+        setFieldValue(model, "version", response.getVersion());
+        setFieldValue(model, "headers", response.getHeaders());
         setFieldValue(model, "body", response.bodyAsBytes());
         return model;
     }

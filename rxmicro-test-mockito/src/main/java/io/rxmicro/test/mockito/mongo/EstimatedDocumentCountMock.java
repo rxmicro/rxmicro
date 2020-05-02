@@ -21,6 +21,7 @@ package io.rxmicro.test.mockito.mongo;
  * @link https://rxmicro.io
  * @since 0.1
  */
+@SuppressWarnings("InstantiationOfUtilityClass")
 public final class EstimatedDocumentCountMock {
 
     public static final EstimatedDocumentCountMock ESTIMATED_DOCUMENT_COUNT_MOCK = new EstimatedDocumentCountMock();

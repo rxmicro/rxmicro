@@ -28,9 +28,9 @@ final class HttpClientCallFailedException extends HttpCallFailedException {
 
     HttpClientCallFailedException(final ClientHttpResponse clientHttpResponse) {
         super(
-                clientHttpResponse.statusCode(),
-                clientHttpResponse.version(),
-                clientHttpResponse.headers(),
+                clientHttpResponse.getStatusCode(),
+                clientHttpResponse.getVersion(),
+                clientHttpResponse.getHeaders(),
                 clientHttpResponse.bodyAsBytes(),
                 null
         );

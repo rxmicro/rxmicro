@@ -45,8 +45,8 @@ public final class Validators {
         if (value == null) {
             throw new IllegalArgumentException(format("'?' must be not null!", paramName));
         }
-        if (value.trim().isEmpty()) {
-            throw new IllegalArgumentException(format("'?' must be not empty!", paramName));
+        if (value.isBlank()) {
+            throw new IllegalArgumentException(format("'?' must be not blank!", paramName));
         }
         return value;
     }

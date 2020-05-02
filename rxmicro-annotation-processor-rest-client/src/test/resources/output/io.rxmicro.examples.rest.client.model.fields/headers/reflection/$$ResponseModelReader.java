@@ -18,7 +18,7 @@ public final class $$ResponseModelReader extends ModelReader<Response> {
     @Override
     public Response readSingle(final ClientHttpResponse response) {
         final Response model = new Response();
-        final HttpHeaders httpHeaders = response.headers();
+        final HttpHeaders httpHeaders = response.getHeaders();
         setFieldValue(model, "booleanParameter", toBoolean(httpHeaders.getValue("booleanParameter"), HttpModelType.HEADER, "booleanParameter"));
         setFieldValue(model, "byteParameter", toByte(httpHeaders.getValue("byteParameter"), HttpModelType.HEADER, "byteParameter"));
         setFieldValue(model, "shortParameter", toShort(httpHeaders.getValue("shortParameter"), HttpModelType.HEADER, "shortParameter"));

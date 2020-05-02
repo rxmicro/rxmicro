@@ -42,12 +42,12 @@ final class JdkClientHttpResponse implements ClientHttpResponse {
     }
 
     @Override
-    public int statusCode() {
+    public int getStatusCode() {
         return response.statusCode();
     }
 
     @Override
-    public HttpVersion version() {
+    public HttpVersion getVersion() {
         if (response.version() == HttpClient.Version.HTTP_1_1) {
             return HttpVersion.HTTP_1_1;
         } else if (response.version() == HttpClient.Version.HTTP_2) {
@@ -58,7 +58,7 @@ final class JdkClientHttpResponse implements ClientHttpResponse {
     }
 
     @Override
-    public HttpHeaders headers() {
+    public HttpHeaders getHeaders() {
         return new JdkHttpHeaders(response.headers());
     }
 

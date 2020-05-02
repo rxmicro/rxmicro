@@ -46,14 +46,14 @@ final class ListMapEntriesEquals implements ArgumentMatcher<List<Map.Entry<Strin
         if (actual.size() != expected.size()) {
             return false;
         }
-        final List<Map.Entry<String, String>> _actual = new ArrayList<>(actual);
+        final List<Map.Entry<String, String>> actualCopy = new ArrayList<>(actual);
         for (final Map.Entry<String, String> expectedEntry : expected) {
             boolean found = false;
-            for (int i = 0; i < _actual.size(); i++) {
-                final Map.Entry<String, String> actualEntry = _actual.get(i);
+            for (int i = 0; i < actualCopy.size(); i++) {
+                final Map.Entry<String, String> actualEntry = actualCopy.get(i);
                 if (expectedEntry.getKey().equals(actualEntry.getKey()) &&
                         expectedEntry.getValue().equals(actualEntry.getValue())) {
-                    _actual.remove(i);
+                    actualCopy.remove(i);
                     found = true;
                     break;
                 }
@@ -62,6 +62,6 @@ final class ListMapEntriesEquals implements ArgumentMatcher<List<Map.Entry<Strin
                 return false;
             }
         }
-        return _actual.isEmpty();
+        return actualCopy.isEmpty();
     }
 }

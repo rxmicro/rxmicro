@@ -16,6 +16,7 @@
 
 package io.rxmicro.test.mockito.httpclient;
 
+import io.rxmicro.common.meta.BuilderMethod;
 import io.rxmicro.http.HttpHeaders;
 import io.rxmicro.http.QueryParams;
 import io.rxmicro.rest.Version;
@@ -78,6 +79,7 @@ public final class HttpRequestMock extends AbstractHttpRequestMock {
 
         private boolean any;
 
+        @BuilderMethod
         public Builder setAnyRequest() {
             this.method = null;
             this.versionValue = null;
@@ -91,68 +93,79 @@ public final class HttpRequestMock extends AbstractHttpRequestMock {
             return this;
         }
 
+        @BuilderMethod
         public Builder setMethod(final HttpMethod method) {
             this.method = require(method);
             return this;
         }
 
+        @BuilderMethod
         public Builder setAnyMethod() {
             this.method = null;
             this.anyMethod = true;
             return this;
         }
 
+        @BuilderMethod
         public Builder setVersionValue(final String versionValue) {
             this.versionValue = require(versionValue);
             return this;
         }
 
+        @BuilderMethod
         public Builder setVersionStrategy(final Version.Strategy versionStrategy) {
             this.versionStrategy = require(versionStrategy);
             return this;
         }
 
+        @BuilderMethod
         public Builder setPath(final String path) {
             this.path = normalizeUrlPath(path);
             return this;
         }
 
+        @BuilderMethod
         public Builder setAnyPath() {
             this.path = null;
             this.anyPath = true;
             return this;
         }
 
+        @BuilderMethod
         public Builder setHeaders(final HttpHeaders headers) {
             this.headers = require(headers);
             return this;
         }
 
+        @BuilderMethod
         public Builder setAnyHeaders() {
             this.headers = null;
             return this;
         }
 
+        @BuilderMethod
         public Builder setQueryParameters(final QueryParams queryParameters) {
             this.queryParameters = require(queryParameters);
             return this;
         }
 
+        @BuilderMethod
         public Builder setAnyQueryParameters() {
             this.queryParameters = null;
             return this;
         }
 
+        @BuilderMethod
         public Builder setBody(final Object body) {
             this.body = require(body);
             return this;
         }
 
+        @BuilderMethod
         public Builder setAnyBody() {
             this.body = null;
             return this;
         }
-
 
         public HttpRequestMock build() {
             validate();

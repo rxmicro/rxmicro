@@ -16,6 +16,7 @@
 
 package io.rxmicro.test.mockito.mongo;
 
+import io.rxmicro.common.meta.BuilderMethod;
 import io.rxmicro.test.mockito.mongo.internal.AbstractFindOperationMock;
 import org.bson.Document;
 
@@ -60,54 +61,64 @@ public final class FindOperationMock extends AbstractFindOperationMock {
 
         private int skip = -1;
 
+        @BuilderMethod
         public Builder setAnyQuery() {
             this.anyQuery = true;
             this.query = null;
             return this;
         }
 
+        @BuilderMethod
         public Builder setQuery(final Document query) {
             this.query = validateBson(query, "query");
             this.anyQuery = false;
             return this;
         }
 
+        @BuilderMethod
         public Builder setQuery(final String query) {
             this.query = validateBson(query, "query");
             this.anyQuery = false;
             return this;
         }
 
+        @BuilderMethod
         public Builder setProjection(final Document projection) {
             this.projection = validateBson(projection, "projection");
             return this;
         }
 
+        @BuilderMethod
         public Builder setProjection(final String projection) {
             this.projection = validateBson(projection, "projection");
             return this;
         }
 
+        @BuilderMethod
         public Builder setHint(final Document hint) {
             this.hint = validateBson(hint, "hint");
             return this;
         }
 
+        @BuilderMethod
         public Builder setHint(final String hint) {
             this.hint = validateBson(hint, "hint");
             return this;
         }
 
+        @BuilderMethod
         public Builder setSort(final Document sort) {
             this.sort = validateBson(sort, "sort");
             return this;
         }
 
+        @BuilderMethod
         public Builder setSort(final String sort) {
             this.sort = validateBson(sort, "sort");
             return this;
         }
 
+        @BuilderMethod
         public Builder setLimit(final int limit) {
             if (limit < 0) {
                 throw new IllegalArgumentException("'limit' must be >= 0");
@@ -116,6 +127,7 @@ public final class FindOperationMock extends AbstractFindOperationMock {
             return this;
         }
 
+        @BuilderMethod
         public Builder setSkip(final int skip) {
             if (skip < 0) {
                 throw new IllegalArgumentException("'skip' must be >= 0");

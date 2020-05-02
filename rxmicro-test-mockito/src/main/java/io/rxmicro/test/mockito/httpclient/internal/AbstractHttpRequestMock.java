@@ -74,11 +74,11 @@ public abstract class AbstractHttpRequestMock {
     }
 
     protected Optional<Object> getBody() {
-        return Optional.ofNullable(body).filter(b -> b != EMPTY_BODY);
+        return Optional.ofNullable(body).filter(b -> !EMPTY_BODY.equals(b));
     }
 
     protected boolean isBodyPresent() {
-        return body != EMPTY_BODY;
+        return !EMPTY_BODY.equals(body);
     }
 
     protected boolean isAny() {

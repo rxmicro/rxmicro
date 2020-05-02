@@ -16,6 +16,7 @@
 
 package io.rxmicro.test.mockito.httpclient;
 
+import io.rxmicro.common.meta.BuilderMethod;
 import io.rxmicro.http.HttpHeaders;
 import io.rxmicro.http.HttpVersion;
 import io.rxmicro.test.mockito.httpclient.internal.AbstractHttpResponseMock;
@@ -59,21 +60,25 @@ public final class HttpResponseMock extends AbstractHttpResponseMock {
 
         private boolean returnRequestBody;
 
+        @BuilderMethod
         public Builder setStatus(final int status) {
             this.status = status;
             return this;
         }
 
+        @BuilderMethod
         public Builder setVersion(final HttpVersion version) {
             this.version = require(version);
             return this;
         }
 
+        @BuilderMethod
         public Builder setHeaders(final HttpHeaders headers) {
             this.headers = require(headers);
             return this;
         }
 
+        @BuilderMethod
         public Builder setBody(final Object body) {
             if (body instanceof Throwable) {
                 throw new IllegalArgumentException("Throwable couldn't be a HTTP body");
@@ -84,6 +89,7 @@ public final class HttpResponseMock extends AbstractHttpResponseMock {
             return this;
         }
 
+        @BuilderMethod
         public Builder setReturnRequestBody() {
             if (body != null) {
                 throw new IllegalStateException("Remove the body for mock response!");

@@ -16,6 +16,7 @@
 
 package io.rxmicro.test.mockito.mongo;
 
+import io.rxmicro.common.meta.BuilderMethod;
 import io.rxmicro.test.mockito.mongo.internal.AbstractAggregateOperationMock;
 import io.rxmicro.test.mockito.mongo.internal.util.Validators;
 import org.bson.Document;
@@ -54,34 +55,40 @@ public final class AggregateOperationMock extends AbstractAggregateOperationMock
 
         private boolean allowDiskUse;
 
+        @BuilderMethod
         public Builder setAnyPipeline() {
             this.anyPipeline = true;
             this.pipeline.clear();
             return this;
         }
 
+        @BuilderMethod
         public Builder addPipeline(final Document pipeline) {
             this.pipeline.add(Validators.validateBson(pipeline, "pipeline"));
             this.anyPipeline = false;
             return this;
         }
 
+        @BuilderMethod
         public Builder addPipeline(final String pipeline) {
             this.pipeline.add(validateBson(pipeline, "pipeline"));
             this.anyPipeline = false;
             return this;
         }
 
+        @BuilderMethod
         public Builder setHint(final Document hint) {
             this.hint = Validators.validateBson(hint, "hint");
             return this;
         }
 
+        @BuilderMethod
         public Builder setHint(final String hint) {
             this.hint = validateBson(hint, "hint");
             return this;
         }
 
+        @BuilderMethod
         public Builder setAllowDiskUse(final boolean allowDiskUse) {
             this.allowDiskUse = allowDiskUse;
             return this;

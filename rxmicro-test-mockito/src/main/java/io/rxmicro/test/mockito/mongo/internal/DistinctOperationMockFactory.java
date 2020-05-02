@@ -50,7 +50,7 @@ public final class DistinctOperationMockFactory extends AbstractOperationMockFac
 
     private <T> DistinctPublisher<T> newDistinctPublisher(final MongoCollection<Document> collection,
                                                           final DistinctOperationMock<T> operationMock) {
-        DistinctPublisher<T> distinctPublisher = mock(DistinctPublisher.class);
+        final DistinctPublisher<T> distinctPublisher = mock(DistinctPublisher.class);
         final Optional<Document> query = operationMock.getQuery();
         if (query.isPresent()) {
             when(collection.distinct(

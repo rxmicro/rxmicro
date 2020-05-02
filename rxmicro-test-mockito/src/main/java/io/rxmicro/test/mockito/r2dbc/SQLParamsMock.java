@@ -16,6 +16,7 @@
 
 package io.rxmicro.test.mockito.r2dbc;
 
+import io.rxmicro.common.meta.BuilderMethod;
 import io.rxmicro.test.mockito.r2dbc.internal.AbstractSQLParamsMock;
 
 import java.util.List;
@@ -52,11 +53,13 @@ public final class SQLParamsMock extends AbstractSQLParamsMock {
 
         private List<Object> bindParams = List.of();
 
+        @BuilderMethod
         public Builder setTransactional(final boolean transactional) {
             this.transactional = transactional;
             return this;
         }
 
+        @BuilderMethod
         public Builder setAnySql() {
             this.anySql = true;
             this.sql = null;
@@ -64,12 +67,14 @@ public final class SQLParamsMock extends AbstractSQLParamsMock {
             return this;
         }
 
+        @BuilderMethod
         public Builder setSql(final String sql) {
             this.sql = require(sql);
             this.anySql = false;
             return this;
         }
 
+        @BuilderMethod
         public Builder setBindParams(final Object... bindParams) {
             require(bindParams);
             try {

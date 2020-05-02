@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 https://rxmicro.io
+ * Copyright (c) 2020. http://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,37 +14,27 @@
  * limitations under the License.
  */
 
-package io.rxmicro.http.client;
+package io.rxmicro.common.local;
 
-import io.rxmicro.http.HttpHeaders;
-import io.rxmicro.http.HttpVersion;
+import io.rxmicro.common.util.Formats;
 
-import static java.nio.charset.StandardCharsets.UTF_8;
+import static io.rxmicro.common.util.Formats.format;
 
 /**
  * @author nedis
  * @link https://rxmicro.io
- * @since 0.1
+ * @since 0.4
  */
-public interface ClientHttpResponse {
+public final class TestLoggers {
 
-    int getStatusCode();
+    /**
+     * This method uses {@link Formats#format(String, Object...) Formats.format} to format log message
+     */
+    public static void logTestMessage(final String message,
+                                      final Object ... args) {
+        System.out.println(format(message, args));
+    }
 
-    HttpVersion getVersion();
-
-    HttpHeaders getHeaders();
-
-    boolean isBodyEmpty();
-
-    Object body();
-
-    byte[] bodyAsBytes();
-
-    default String bodyAsString() {
-        if (isBodyEmpty()) {
-            return "";
-        } else {
-            return new String(bodyAsBytes(), UTF_8);
-        }
+    private TestLoggers(){
     }
 }

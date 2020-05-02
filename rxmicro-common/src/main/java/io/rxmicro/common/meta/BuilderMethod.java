@@ -26,7 +26,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 /**
  * Indicates a builder method.
  *
- * Used by PMD plugin
+ * Used by PMD plugin. See https://github.com/pmd/pmd/issues/2462
  *
  * @author nedis
  * @link https://rxmicro.io

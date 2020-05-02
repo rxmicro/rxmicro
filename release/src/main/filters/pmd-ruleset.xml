@@ -115,6 +115,7 @@
     <rule ref="category/java/codestyle.xml/IdenticalCatchBranches"/>
     <rule ref="category/java/codestyle.xml/LinguisticNaming">
         <properties>
+            <!-- Wait for resolved: https://github.com/pmd/pmd/issues/2462 -->
             <property name="ignoredAnnotations"
                       value="java.lang.Override|io.rxmicro.common.meta.BuilderMethod" />
             <property name="checkBooleanMethod" value="true" />
@@ -143,7 +144,11 @@
     <rule ref="category/java/codestyle.xml/PrematureDeclaration"/>
     <!--rule ref="category/java/codestyle.xml/RemoteInterfaceNamingConvention" /-->
     <!--rule ref="category/java/codestyle.xml/RemoteSessionInterfaceNamingConvention" /-->
-    <rule ref="category/java/codestyle.xml/ShortClassName"/>
+    <rule ref="category/java/codestyle.xml/ShortClassName">
+        <properties>
+            <property name="minimum" value="4" />
+        </properties>
+    </rule>
     <rule ref="category/java/codestyle.xml/ShortMethodName">
         <properties>
             <property name="minimum" value="2"/>

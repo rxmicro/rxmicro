@@ -16,6 +16,7 @@
 
 package io.rxmicro.test.mockito.mongo;
 
+import io.rxmicro.common.meta.BuilderMethod;
 import io.rxmicro.test.mockito.mongo.internal.AbstractDeleteOperationMock;
 import io.rxmicro.test.mockito.mongo.internal.util.Validators;
 import org.bson.Document;
@@ -45,18 +46,21 @@ public final class DeleteOperationMock extends AbstractDeleteOperationMock {
 
         private Document filter;
 
+        @BuilderMethod
         public Builder setAnyFilter() {
             this.anyFilter = true;
             this.filter = null;
             return this;
         }
 
+        @BuilderMethod
         public Builder setFilter(final Document filter) {
             this.filter = Validators.validateBson(filter, "filter");
             this.anyFilter = false;
             return this;
         }
 
+        @BuilderMethod
         public Builder setFilter(final String filter) {
             this.filter = validateBson(filter, "filter");
             this.anyFilter = false;

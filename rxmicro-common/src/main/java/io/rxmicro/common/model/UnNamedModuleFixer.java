@@ -19,7 +19,7 @@ package io.rxmicro.common.model;
 import java.util.Arrays;
 import java.util.function.BiConsumer;
 
-import static io.rxmicro.common.util.Formats.format;
+import static io.rxmicro.common.local.TestLoggers.logTestMessage;
 
 /**
  * @author nedis
@@ -35,7 +35,7 @@ public abstract class UnNamedModuleFixer {
                                   final String... packageNames) {
         if (currentModule.isNamed()) {
             Arrays.stream(packageNames).forEach(p -> {
-                System.out.println(format("opens ?/? to ALL-UNNAMED", currentModule.getName(), p));
+                logTestMessage("opens ?/? to ALL-UNNAMED", currentModule.getName(), p);
                 addOpenConsumer.accept(currentModule, p);
             });
         }

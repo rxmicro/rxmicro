@@ -45,9 +45,9 @@ import static java.lang.reflect.Proxy.newProxyInstance;
  */
 public final class TypeFixer {
 
-    private static final PatternCodec patternCodec = new PatternCodec();
+    private static final PatternCodec PATTERN_CODEC = new PatternCodec();
 
-    public static void fixDocumentTypes(Document... documents) {
+    public static void fixDocumentTypes(final Document... documents) {
         for (final Document document : documents) {
             fixDocumentType(document);
         }
@@ -96,7 +96,7 @@ public final class TypeFixer {
                     list.add((BsonRegularExpression) args[0]);
                     return null;
                 });
-        patternCodec.encode(writer, value, null);
+        PATTERN_CODEC.encode(writer, value, null);
         return list.get(0);
     }
 

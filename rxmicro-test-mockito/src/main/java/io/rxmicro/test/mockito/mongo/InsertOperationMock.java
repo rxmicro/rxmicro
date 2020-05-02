@@ -16,6 +16,7 @@
 
 package io.rxmicro.test.mockito.mongo;
 
+import io.rxmicro.common.meta.BuilderMethod;
 import io.rxmicro.test.mockito.mongo.internal.AbstractInsertOperationMock;
 import org.bson.Document;
 
@@ -44,12 +45,14 @@ public final class InsertOperationMock extends AbstractInsertOperationMock {
 
         private Document document;
 
+        @BuilderMethod
         public Builder setAnyDocument() {
             this.anyDocument = true;
             this.document = null;
             return this;
         }
 
+        @BuilderMethod
         public Builder setDocument(final Document document) {
             this.document = validateBson(document, "document");
             this.anyDocument = false;
