@@ -157,12 +157,12 @@ public final class RequestBuilderImpl implements RequestBuilder {
         }
     }
 
-    private ArrayList<DocumentedModelField> getHeaders(final EnvironmentContext environmentContext,
-                                                       final ResourceDefinition resourceDefinition,
-                                                       final ProjectMetaData projectMetaData,
-                                                       final RestControllerClassStructure classStructure,
-                                                       final RestObjectModelClass restObjectModelClass,
-                                                       final boolean withReadMore) {
+    private List<DocumentedModelField> getHeaders(final EnvironmentContext environmentContext,
+                                                  final ResourceDefinition resourceDefinition,
+                                                  final ProjectMetaData projectMetaData,
+                                                  final RestControllerClassStructure classStructure,
+                                                  final RestObjectModelClass restObjectModelClass,
+                                                  final boolean withReadMore) {
         return new ArrayList<>(
                 Stream.concat(
                         classStructure.getParentUrl().isHeaderVersionStrategy() ?

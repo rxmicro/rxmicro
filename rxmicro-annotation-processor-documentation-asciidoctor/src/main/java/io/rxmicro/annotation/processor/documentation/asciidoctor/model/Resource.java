@@ -19,6 +19,7 @@ package io.rxmicro.annotation.processor.documentation.asciidoctor.model;
 import io.rxmicro.annotation.processor.common.util.UsedByFreemarker;
 import io.rxmicro.annotation.processor.rest.model.HttpMethodMapping;
 import io.rxmicro.annotation.processor.rest.server.model.RestControllerMethod;
+import io.rxmicro.common.meta.BuilderMethod;
 
 import java.util.Set;
 import java.util.TreeSet;
@@ -112,31 +113,37 @@ public final class Resource {
 
         private Request request;
 
+        @BuilderMethod
         public Builder setRestControllerMethod(final RestControllerMethod restControllerMethod) {
             this.restControllerMethod = restControllerMethod;
             return this;
         }
 
+        @BuilderMethod
         public Builder setHttpMethodMapping(final HttpMethodMapping httpMethodMapping) {
             this.httpMethodMapping = require(httpMethodMapping);
             return this;
         }
 
+        @BuilderMethod
         public Builder setName(final String name) {
             this.name = require(name);
             return this;
         }
 
+        @BuilderMethod
         public Builder setDescription(final String description) {
             this.description = require(description);
             return this;
         }
 
+        @BuilderMethod
         public Builder setRequest(final Request request) {
             this.request = request;
             return this;
         }
 
+        @BuilderMethod
         public Builder addResponse(final Response response) {
             this.responses.add(response);
             return this;

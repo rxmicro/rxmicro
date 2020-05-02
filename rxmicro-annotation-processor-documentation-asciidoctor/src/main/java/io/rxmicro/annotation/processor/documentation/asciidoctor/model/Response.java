@@ -17,6 +17,7 @@
 package io.rxmicro.annotation.processor.documentation.asciidoctor.model;
 
 import io.rxmicro.annotation.processor.common.util.UsedByFreemarker;
+import io.rxmicro.common.meta.BuilderMethod;
 
 import java.util.List;
 import java.util.Map;
@@ -107,16 +108,20 @@ public final class Response implements Comparable<Response> {
     }
 
     @Override
-    public boolean equals(final Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        final Response response = (Response) o;
+    public boolean equals(final Object other) {
+        if (this == other) {
+            return true;
+        }
+        if (other == null || getClass() != other.getClass()) {
+            return false;
+        }
+        final Response response = (Response) other;
         return code == response.code;
     }
 
     @Override
-    public int compareTo(final Response o) {
-        return Integer.compare(code, o.code);
+    public int compareTo(final Response other) {
+        return Integer.compare(code, other.code);
     }
 
     /**
@@ -139,31 +144,37 @@ public final class Response implements Comparable<Response> {
 
         private String schema;
 
+        @BuilderMethod
         public Builder setCode(final int code) {
             this.code = code;
             return this;
         }
 
+        @BuilderMethod
         public Builder setDescription(final String description) {
             this.description = require(description);
             return this;
         }
 
+        @BuilderMethod
         public Builder setHeaders(final List<DocumentedModelField> headers) {
             this.headers = require(headers);
             return this;
         }
 
+        @BuilderMethod
         public Builder setParameters(final List<Map.Entry<String, List<DocumentedModelField>>> parameters) {
             this.parameters = require(parameters);
             return this;
         }
 
+        @BuilderMethod
         public Builder setExample(final String example) {
             this.example = require(example);
             return this;
         }
 
+        @BuilderMethod
         public Builder setSchema(final String schema) {
             this.schema = require(schema);
             return this;

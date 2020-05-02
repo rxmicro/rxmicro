@@ -80,7 +80,7 @@ public final class GenerationOutputOrganizerImpl implements GenerationOutputOrga
     }
 
     private void validateGenerationOutput(final ModuleElement currentModule,
-                                          final DocumentationDefinition.GenerationOutput[] outputs) {
+                                          final DocumentationDefinition.GenerationOutput... outputs) {
         if (outputs.length == 0) {
             throw new InterruptProcessingException(currentModule, "Expected at least one GenerationOutput item");
         }

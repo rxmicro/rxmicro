@@ -28,6 +28,7 @@ import javax.lang.model.element.ModuleElement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 
@@ -113,11 +114,11 @@ public final class AsciiDoctorDocumentStructure extends DocumentStructure {
 
     private List<Map.Entry<String, String>> getDocumentAttributes(final ModuleElement currentModule,
                                                                   final DocumentAttributes documentAttributes) {
-        final List<Map.Entry<String, String>> list = new ArrayList<>();
         final String[] attrs = documentAttributes.value();
         if (attrs.length % 2 == 1) {
             throw new InterruptProcessingException(currentModule, "Missing value for '?' attribute", attrs[attrs.length - 1]);
         }
+        final List<Map.Entry<String, String>> list = new ArrayList<>();
         for (int i = 0; i < attrs.length; i += 2) {
             list.add(entry(attrs[i], attrs[i + 1]));
         }
@@ -147,8 +148,8 @@ public final class AsciiDoctorDocumentStructure extends DocumentStructure {
         if (section.isCustomSection()) {
             return new Section(SectionType.CUSTOM_TEXT, customSections.get(index));
         } else {
-            return new Section(SectionType.INCLUDE_TEMPLATE,
-                    format("introduction/?.adocftl", section.name().toLowerCase().replace("_", "-")));
+            final String sectionName = section.name().toLowerCase(Locale.ENGLISH).replace("_", "-");
+            return new Section(SectionType.INCLUDE_TEMPLATE, format("introduction/?.adocftl", sectionName));
         }
     }
 }

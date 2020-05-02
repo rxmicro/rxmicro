@@ -31,6 +31,7 @@ import java.util.Set;
 import static io.rxmicro.annotation.processor.common.util.Annotations.getReadMore;
 import static io.rxmicro.annotation.processor.common.util.Elements.getAllowedEnumConstants;
 import static io.rxmicro.common.util.ExCollectors.toOrderedSet;
+import static io.rxmicro.common.util.Formats.format;
 
 /**
  * @author nedis
@@ -38,6 +39,8 @@ import static io.rxmicro.common.util.ExCollectors.toOrderedSet;
  * @since 0.1
  */
 public final class EnumPrimitiveConstraintReader implements ConstraintReader {
+
+    private static final String RESTRICTION_TEMPLATE = "enum: ?";
 
     @Override
     public void readIfConstraintEnabled(final List<String> restrictions,
@@ -47,7 +50,7 @@ public final class EnumPrimitiveConstraintReader implements ConstraintReader {
         final RestModelField annotated = entry.getKey();
         final Enumeration enumeration = annotated.getAnnotation(Enumeration.class);
         if (enumeration != null && !enumeration.off()) {
-            restrictions.add("enum: " + Arrays.toString(enumeration.value()));
+            restrictions.add(format(RESTRICTION_TEMPLATE, Arrays.toString(enumeration.value())));
             getReadMore(Enumeration.class).ifPresent(readMores::add);
         }
         if (entry.getValue().isEnum()) {
@@ -55,15 +58,18 @@ public final class EnumPrimitiveConstraintReader implements ConstraintReader {
             final SubEnum subEnum = annotated.getAnnotation(SubEnum.class);
             if (subEnum != null && !subEnum.off()) {
                 if (subEnum.include().length > 0) {
-                    restrictions.add("enum: " + Arrays.toString(subEnum.include()));
+                    restrictions.add(format(RESTRICTION_TEMPLATE, Arrays.toString(subEnum.include())));
                 } else {
                     final Set<String> excludes = Set.of(subEnum.exclude());
-                    restrictions.add("enum: " + enumConstants.stream()
-                            .filter(e -> !excludes.contains(e))
-                            .collect(toOrderedSet()));
+                    restrictions.add(format(
+                            RESTRICTION_TEMPLATE,
+                            enumConstants.stream()
+                                    .filter(e -> !excludes.contains(e))
+                                    .collect(toOrderedSet())
+                    ));
                 }
             } else {
-                restrictions.add("enum: " + enumConstants);
+                restrictions.add(format(RESTRICTION_TEMPLATE, enumConstants));
             }
         }
     }

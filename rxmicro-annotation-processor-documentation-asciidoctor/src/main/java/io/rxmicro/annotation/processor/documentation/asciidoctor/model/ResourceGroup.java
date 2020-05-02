@@ -98,7 +98,7 @@ public final class ResourceGroup {
                     sections.add(new Section(SectionType.INVOKE_MACROS, "cors"));
                 }
             } else {
-                sections.add(new Section(SectionType.CUSTOM_TEXT, customSections.get(index)));
+                sections.add(new Section(SectionType.CUSTOM_TEXT, customSections.get(index++)));
             }
         }
         return sections;
