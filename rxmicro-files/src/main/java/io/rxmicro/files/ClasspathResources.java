@@ -34,11 +34,12 @@ public final class ClasspathResources {
 
     public static List<String> readLines(final String classPathResource) {
         try {
-            final InputStream in = ClasspathResources.class.getClassLoader().getResourceAsStream(classPathResource);
-            if (in == null) {
-                return List.of();
-            } else {
-                return readLines(in);
+            try (InputStream in = ClasspathResources.class.getClassLoader().getResourceAsStream(classPathResource)) {
+                if (in == null) {
+                    return List.of();
+                } else {
+                    return readLines(in);
+                }
             }
         } catch (final IOException e) {
             throw new ResourceException(e, "Can't read from classpath resource: ?", classPathResource);
@@ -46,7 +47,7 @@ public final class ClasspathResources {
     }
 
     private static List<String> readLines(final InputStream in) throws IOException {
-        try (final BufferedReader br = new BufferedReader(new InputStreamReader(in, UTF_8))) {
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(in, UTF_8))) {
             final List<String> lines = new ArrayList<>();
             String line;
             while ((line = br.readLine()) != null) {

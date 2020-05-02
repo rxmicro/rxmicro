@@ -40,11 +40,12 @@ public final class PropertiesResources {
 
     public static Optional<Map<String, String>> loadProperties(final String classPathResource) {
         try {
-            final InputStream in = PropertiesResources.class.getClassLoader().getResourceAsStream(classPathResource);
-            if (in == null) {
-                return Optional.empty();
-            } else {
-                return Optional.of(loadProperties(in));
+            try (InputStream in = PropertiesResources.class.getClassLoader().getResourceAsStream(classPathResource)) {
+                if (in == null) {
+                    return Optional.empty();
+                } else {
+                    return Optional.of(loadProperties(in));
+                }
             }
         } catch (final IOException e) {
             throw new ResourceException(e, "Can't read from classpath resource: ?", classPathResource);
@@ -62,11 +63,11 @@ public final class PropertiesResources {
     }
 
     private static Map<String, String> loadProperties(final InputStream in) throws IOException {
-        try (final BufferedReader br = new BufferedReader(new InputStreamReader(in, UTF_8))) {
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(in, UTF_8))) {
             final Map<String, String> map = new LinkedHashMap<>();
             String line;
             while ((line = br.readLine()) != null) {
-                if(line.isBlank() || startsWith(line, '#')) {
+                if (line.isBlank() || startsWith(line, '#')) {
                     continue;
                 }
                 addProperty(map, line);
