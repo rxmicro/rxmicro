@@ -31,7 +31,7 @@ import io.rxmicro.annotation.processor.rest.client.model.RestClientMethod;
 import io.rxmicro.annotation.processor.rest.client.model.RestClientMethodSignature;
 import io.rxmicro.annotation.processor.rest.model.StaticHeaders;
 import io.rxmicro.annotation.processor.rest.model.StaticQueryParameters;
-import io.rxmicro.rest.client.detail.ErrorResponseChecker;
+import io.rxmicro.rest.client.detail.ErrorResponseCheckerHelper;
 
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
@@ -69,7 +69,7 @@ public final class RestClientMethodBuilderImpl implements RestClientMethodBuilde
         methodSignature.getRequestModel().getRequestType().ifPresent(classHeaderBuilder::addImports);
         classHeaderBuilder
                 .addImports(methodSignature.getResponseModel().getRequiredImports().toArray(EMPTY_STRING_ARRAY))
-                .addStaticImport(ErrorResponseChecker.class, "throwExceptionIfNotSuccess");
+                .addStaticImport(ErrorResponseCheckerHelper.class, "throwExceptionIfNotSuccess");
 
         final MethodBody methodBody = methodBodyBuilder.build(
                 environmentContext,

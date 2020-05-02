@@ -17,7 +17,7 @@ import reactor.core.publisher.Mono;
 
 import java.util.concurrent.CompletableFuture;
 
-import static io.rxmicro.rest.client.detail.ErrorResponseChecker.throwExceptionIfNotSuccess;
+import static io.rxmicro.rest.client.detail.ErrorResponseCheckerHelper.throwExceptionIfNotSuccess;
 import static io.rxmicro.validation.detail.ResponseValidators.validateIfResponseExists;
 import static io.rxmicro.validation.detail.ResponseValidators.validateResponse;
 

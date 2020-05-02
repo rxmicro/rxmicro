@@ -28,7 +28,7 @@ import static java.lang.System.lineSeparator;
  * @link https://rxmicro.io
  * @since 0.1
  */
-public final class HttpClientLogger {
+public final class HttpClientLoggerHelper {
 
     public static void logClientConfig(final Class<?> restClientInterface,
                                        final HttpClient httpClient,
@@ -45,6 +45,6 @@ public final class HttpClientLogger {
         }
     }
 
-    private HttpClientLogger() {
+    private HttpClientLoggerHelper() {
     }
 }

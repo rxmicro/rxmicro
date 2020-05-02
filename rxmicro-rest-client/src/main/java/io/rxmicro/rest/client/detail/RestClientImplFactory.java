@@ -24,7 +24,7 @@ import io.rxmicro.rest.client.internal.RestClientBuilder;
 import java.util.function.BiFunction;
 
 import static io.rxmicro.config.Configs.getConfig;
-import static io.rxmicro.rest.client.internal.HttpClientLogger.logClientConfig;
+import static io.rxmicro.rest.client.internal.HttpClientLoggerHelper.logClientConfig;
 import static io.rxmicro.runtime.local.InstanceContainer.registerAutoRelease;
 
 /**

@@ -27,7 +27,7 @@ import static io.rxmicro.common.util.Exceptions.reThrow;
  * @link https://rxmicro.io
  * @since 0.1
  */
-public final class ErrorResponseChecker {
+public final class ErrorResponseCheckerHelper {
 
     private static final BiFunction<ClientHttpResponse, Throwable, ClientHttpResponse> BI_FUNCTION =
             (clientHttpResponse, throwable) -> {
@@ -47,6 +47,6 @@ public final class ErrorResponseChecker {
         return BI_FUNCTION;
     }
 
-    private ErrorResponseChecker() {
+    private ErrorResponseCheckerHelper() {
     }
 }

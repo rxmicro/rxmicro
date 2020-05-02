@@ -28,7 +28,7 @@ import java.util.Map;
  */
 public abstract class AbstractRestClient {
 
-    protected final List<Map.Entry<String, String>> EMPTY_HEADERS = List.of();
+    protected static final List<Map.Entry<String, String>> EMPTY_HEADERS = List.of();
 
     protected final String joinPath(final String path,
                                     final List<Map.Entry<String, String>> parameters) {

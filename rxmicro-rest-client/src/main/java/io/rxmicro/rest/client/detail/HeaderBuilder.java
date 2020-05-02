@@ -50,7 +50,7 @@ public final class HeaderBuilder extends ListBuilder<Map.Entry<String, String>> 
 
     public HeaderBuilder add(final String name,
                              final List<?> list) {
-        if (list != null && list.size() > 0) {
+        if (list != null && !list.isEmpty()) {
             super.add(entry(name, listToString(list)));
         }
         return this;
