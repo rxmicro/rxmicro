@@ -120,7 +120,7 @@ public final class RestControllerClassStructureBuilderImpl implements RestContro
         return map.entrySet().stream()
                 .filter(e -> e.getValue().size() > 1)
                 .map(Map.Entry::getKey)
-                .collect(Collectors.toSet());
+                .collect(toSet());
     }
 
     private RestControllerMethod buildRestControllerMethod(final RestServerModuleGeneratorConfig restServerModuleGeneratorConfig,
@@ -191,14 +191,13 @@ public final class RestControllerClassStructureBuilderImpl implements RestContro
                                      final RestControllerClassStructureStorage restControllerClassStructureStorage) {
         if (!methodSignature.getRequestModel().requestModelNotExists()) {
             for (final HttpMethodMapping httpMethodMapping : httpMethodMappings) {
-                if (!httpMethodMapping.isHttpBody()) {
-                    if (!restControllerClassStructureStorage.getModelReaderClassStructure(
-                            methodSignature.getRequestModel().getRequiredRequestType().asType().toString()
-                    ).orElseThrow().getModelClass().getAllChildrenObjectModelClasses().isEmpty()) {
-                        throw new InterruptProcessingException(methodSignature.getExecutableElement(),
-                                "Nested model classes not allowed for @?(\"?\")",
-                                httpMethodMapping.getMethod(), httpMethodMapping.getExactOrTemplateUri());
-                    }
+                if (!httpMethodMapping.isHttpBody() &&
+                        !restControllerClassStructureStorage.getModelReaderClassStructure(
+                                methodSignature.getRequestModel().getRequiredRequestType().asType().toString()
+                        ).orElseThrow().getModelClass().getAllChildrenObjectModelClasses().isEmpty()) {
+                    throw new InterruptProcessingException(methodSignature.getExecutableElement(),
+                            "Nested model classes not allowed for @?(\"?\")",
+                            httpMethodMapping.getMethod(), httpMethodMapping.getExactOrTemplateUri());
                 }
             }
         }

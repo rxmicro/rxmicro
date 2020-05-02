@@ -46,26 +46,31 @@ public final class RestServerModuleGeneratorConfigBuilder implements ModuleGener
                                                          final RestServerGeneratorConfig config) {
         final ServerExchangeFormatModule exchangeFormat = config.exchangeFormat();
         if (exchangeFormat == ServerExchangeFormatModule.AUTO_DETECT) {
-            ServerExchangeFormatModule serverExchangeFormatModule = null;
-            for (final ServerExchangeFormatModule exchangeFormatModule : exchangeFormat.allExchangeFormatModules()) {
-                if (environmentContext.getRxMicroModules().contains(exchangeFormatModule.getRxMicroModule())) {
-                    if (serverExchangeFormatModule != null) {
-                        throw new InterruptProcessingException(
-                                environmentContext.getCurrentModule(),
-                                "Specify exchangeFormat for all REST controllers!"
-                        );
-                    }
-                    serverExchangeFormatModule = exchangeFormatModule;
-                }
-            }
-            if (serverExchangeFormatModule == null) {
-                throw new InterruptProcessingException(
-                        environmentContext.getCurrentModule(),
-                        "Missing exchange format rxmicro module. Add 'requires rxmicro.rest.server.exchange.json;' to 'module-info.java'"
-                );
-            }
-            return serverExchangeFormatModule;
+            return detectExchangeFormatAuto(environmentContext, exchangeFormat);
         }
         return exchangeFormat;
+    }
+
+    private ServerExchangeFormatModule detectExchangeFormatAuto(final EnvironmentContext environmentContext,
+                                                                final ServerExchangeFormatModule exchangeFormat) {
+        ServerExchangeFormatModule serverExchangeFormatModule = null;
+        for (final ServerExchangeFormatModule exchangeFormatModule : exchangeFormat.allExchangeFormatModules()) {
+            if (environmentContext.getRxMicroModules().contains(exchangeFormatModule.getRxMicroModule())) {
+                if (serverExchangeFormatModule != null) {
+                    throw new InterruptProcessingException(
+                            environmentContext.getCurrentModule(),
+                            "Specify exchangeFormat for all REST controllers!"
+                    );
+                }
+                serverExchangeFormatModule = exchangeFormatModule;
+            }
+        }
+        if (serverExchangeFormatModule == null) {
+            throw new InterruptProcessingException(
+                    environmentContext.getCurrentModule(),
+                    "Missing exchange format rxmicro module. Add 'requires rxmicro.rest.server.exchange.json;' to 'module-info.java'"
+            );
+        }
+        return serverExchangeFormatModule;
     }
 }

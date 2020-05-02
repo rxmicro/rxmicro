@@ -148,6 +148,7 @@ public final class RestControllerClassStructure extends CDIUsageCandidateClassSt
         return map;
     }
 
+    @Override
     public ClassHeader getClassHeader() {
         classHeaderBuilder.addImports(methods.stream()
                 .flatMap(m -> m.getFromHttpDataType().stream())

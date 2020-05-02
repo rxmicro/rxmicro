@@ -95,7 +95,7 @@ public final class RestServerDependenciesModule extends AbstractModule {
     }
 
     private void bindMethodBodyBuilders() {
-        Multibinder<RestControllerMethodBodyBuilder> binder =
+        final Multibinder<RestControllerMethodBodyBuilder> binder =
                 newSetBinder(binder(), RestControllerMethodBodyBuilder.class);
         binder.addBinding().to(SimplestRestControllerMethodBodyBuilder.class);
         binder.addBinding().to(ConsumerRestControllerMethodBodyBuilder.class);

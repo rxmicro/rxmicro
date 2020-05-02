@@ -90,7 +90,7 @@ public abstract class AbstractRestControllerModelClassStructure extends ClassStr
     protected abstract Class<?> getBaseTransformerClass();
 
     protected void customize(final Map<String, Object> map) {
-
+        // Sub classes can add additional attributes to template map
     }
 
     protected abstract void addRequiredImports(final ClassHeader.Builder classHeaderBuilder);

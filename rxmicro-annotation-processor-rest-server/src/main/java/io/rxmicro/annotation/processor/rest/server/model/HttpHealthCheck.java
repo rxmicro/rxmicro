@@ -66,10 +66,10 @@ public final class HttpHealthCheck implements Comparable<HttpHealthCheck> {
     }
 
     @Override
-    public int compareTo(final HttpHealthCheck o) {
-        final int result = endpoint.compareTo(o.endpoint);
+    public int compareTo(final HttpHealthCheck other) {
+        final int result = endpoint.compareTo(other.endpoint);
         if (result == 0) {
-            return method.compareTo(o.method);
+            return method.compareTo(other.method);
         } else {
             return result;
         }
