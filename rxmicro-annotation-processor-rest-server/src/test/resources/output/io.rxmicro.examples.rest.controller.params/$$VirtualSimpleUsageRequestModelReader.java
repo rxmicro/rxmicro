@@ -32,8 +32,8 @@ public final class $$VirtualSimpleUsageRequestModelReader extends ModelReader<$$
         } else {
             final $$VirtualSimpleUsageRequest model = new $$VirtualSimpleUsageRequest();
             final QueryParams params = extractParams(request.getQueryString());
-            model.endpointVersion = toString(params.getValue("endpoint_version"), HttpModelType.parameter, "endpoint_version");
-            model.useProxy = toBoolean(params.getValue("use-Proxy"), HttpModelType.parameter, "use-Proxy");
+            model.endpointVersion = toString(params.getValue("endpoint_version"), HttpModelType.PARAMETER, "endpoint_version");
+            model.useProxy = toBoolean(params.getValue("use-Proxy"), HttpModelType.PARAMETER, "use-Proxy");
             return model;
         }
     }

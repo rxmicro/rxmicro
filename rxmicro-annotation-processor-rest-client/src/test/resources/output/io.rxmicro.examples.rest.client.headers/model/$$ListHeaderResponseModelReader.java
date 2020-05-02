@@ -16,7 +16,7 @@ public final class $$ListHeaderResponseModelReader extends ModelReader<ListHeade
     public ListHeaderResponse readSingle(final ClientHttpResponse response) {
         final ListHeaderResponse model = new ListHeaderResponse();
         final HttpHeaders httpHeaders = response.headers();
-        model.supportedStatuses = toEnumArray(Status.class, httpHeaders.getValues("Supported-Statuses"), HttpModelType.header, "Supported-Statuses");
+        model.supportedStatuses = toEnumArray(Status.class, httpHeaders.getValues("Supported-Statuses"), HttpModelType.HEADER, "Supported-Statuses");
         return model;
     }
 }

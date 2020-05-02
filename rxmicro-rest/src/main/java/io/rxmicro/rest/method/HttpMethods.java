@@ -30,13 +30,13 @@ import static java.util.Arrays.asList;
 public final class HttpMethods {
 
     public static final Set<Class<? extends Annotation>> HTTP_METHOD_ANNOTATIONS = unmodifiableOrderedSet(asList(
-            io.rxmicro.rest.method.GET.class,
-            io.rxmicro.rest.method.POST.class,
-            io.rxmicro.rest.method.PUT.class,
-            io.rxmicro.rest.method.DELETE.class,
-            io.rxmicro.rest.method.PATCH.class,
-            io.rxmicro.rest.method.OPTIONS.class,
-            io.rxmicro.rest.method.HEAD.class
+            GET.class,
+            POST.class,
+            PUT.class,
+            DELETE.class,
+            PATCH.class,
+            OPTIONS.class,
+            HEAD.class
     ));
 
     private HttpMethods() {

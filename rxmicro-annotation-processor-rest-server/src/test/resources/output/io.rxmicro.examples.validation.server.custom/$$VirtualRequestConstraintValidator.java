@@ -24,7 +24,7 @@ public final class $$VirtualRequestConstraintValidator implements ConstraintVali
     public void validate(final $$VirtualRequest model,
                          final HttpModelType httpModelType,
                          final String name) throws ValidationException {
-        requiredConstraintValidator.validate(model.value, HttpModelType.parameter, "value");
-        valueExpectedZeroExpectedZeroConstraintValidator.validate(model.value, HttpModelType.parameter, "value");
+        requiredConstraintValidator.validate(model.value, HttpModelType.PARAMETER, "value");
+        valueExpectedZeroExpectedZeroConstraintValidator.validate(model.value, HttpModelType.PARAMETER, "value");
     }
 }

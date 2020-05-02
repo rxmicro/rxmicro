@@ -29,7 +29,7 @@ public final class $$RequestModelReader extends ModelReader<Request> {
         setFieldValue(model, "method", request.getMethod());
         setFieldValue(model, "body", request.getContent());
         final HttpHeaders httpHeaders = request.getHeaders();
-        setFieldValue(model, "id", toString(httpHeaders.getValue("Request-Id"), HttpModelType.header, "Request-Id"));
+        setFieldValue(model, "id", toString(httpHeaders.getValue("Request-Id"), HttpModelType.HEADER, "Request-Id"));
         return model;
     }
 }

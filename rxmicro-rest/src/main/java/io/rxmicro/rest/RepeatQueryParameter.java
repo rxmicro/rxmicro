@@ -28,7 +28,8 @@ import static java.lang.annotation.ElementType.PARAMETER;
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
- * Informs the RxMicro Annotation Processor, that a query parameter model field with array type must be converted to the repeating query parameter.
+ * Informs the RxMicro Annotation Processor,
+ * that a query parameter model field with array type must be converted to the repeating query parameter.
  * <p>
  * By default, the RxMicro framework converts query parameter model value as comma separated string, for example:
  * <p>

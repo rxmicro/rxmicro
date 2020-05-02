@@ -27,7 +27,7 @@ public final class $$RequestModelReader extends ModelReader<Request> {
         model.method = request.getMethod();
         model.body = request.getContent();
         final HttpHeaders httpHeaders = request.getHeaders();
-        model.id = toString(httpHeaders.getValue("Request-Id"), HttpModelType.header, "Request-Id");
+        model.id = toString(httpHeaders.getValue("Request-Id"), HttpModelType.HEADER, "Request-Id");
         return model;
     }
 }

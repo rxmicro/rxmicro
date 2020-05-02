@@ -18,19 +18,19 @@ public final class $$VirtualVirtualPathVariablesRequestModelReader extends Model
                                                      final HttpRequest request,
                                                      final boolean readParametersFromBody) {
         final $$VirtualVirtualPathVariablesRequest model = new $$VirtualVirtualPathVariablesRequest();
-        model.booleanParameter = toBoolean(pathVariableMapping.getValue("a"), HttpModelType.path, "a");
-        model.byteParameter = toByte(pathVariableMapping.getValue("b"), HttpModelType.path, "b");
-        model.shortParameter = toShort(pathVariableMapping.getValue("c"), HttpModelType.path, "c");
-        model.intParameter = toInteger(pathVariableMapping.getValue("d"), HttpModelType.path, "d");
-        model.longParameter = toLong(pathVariableMapping.getValue("e"), HttpModelType.path, "e");
-        model.bigIntParameter = toBigInteger(pathVariableMapping.getValue("f"), HttpModelType.path, "f");
-        model.floatParameter = toFloat(pathVariableMapping.getValue("g"), HttpModelType.path, "g");
-        model.doubleParameter = toDouble(pathVariableMapping.getValue("h"), HttpModelType.path, "h");
-        model.decimalParameter = toBigDecimal(pathVariableMapping.getValue("i"), HttpModelType.path, "i");
-        model.charParameter = toCharacter(pathVariableMapping.getValue("j"), HttpModelType.path, "j");
-        model.stringParameter = toString(pathVariableMapping.getValue("k"), HttpModelType.path, "k");
-        model.instantParameter = toInstant(pathVariableMapping.getValue("l"), HttpModelType.path, "l");
-        model.status = toEnum(Status.class, pathVariableMapping.getValue("m"), HttpModelType.path, "m");
+        model.booleanParameter = toBoolean(pathVariableMapping.getValue("a"), HttpModelType.PATH, "a");
+        model.byteParameter = toByte(pathVariableMapping.getValue("b"), HttpModelType.PATH, "b");
+        model.shortParameter = toShort(pathVariableMapping.getValue("c"), HttpModelType.PATH, "c");
+        model.intParameter = toInteger(pathVariableMapping.getValue("d"), HttpModelType.PATH, "d");
+        model.longParameter = toLong(pathVariableMapping.getValue("e"), HttpModelType.PATH, "e");
+        model.bigIntParameter = toBigInteger(pathVariableMapping.getValue("f"), HttpModelType.PATH, "f");
+        model.floatParameter = toFloat(pathVariableMapping.getValue("g"), HttpModelType.PATH, "g");
+        model.doubleParameter = toDouble(pathVariableMapping.getValue("h"), HttpModelType.PATH, "h");
+        model.decimalParameter = toBigDecimal(pathVariableMapping.getValue("i"), HttpModelType.PATH, "i");
+        model.charParameter = toCharacter(pathVariableMapping.getValue("j"), HttpModelType.PATH, "j");
+        model.stringParameter = toString(pathVariableMapping.getValue("k"), HttpModelType.PATH, "k");
+        model.instantParameter = toInstant(pathVariableMapping.getValue("l"), HttpModelType.PATH, "l");
+        model.status = toEnum(Status.class, pathVariableMapping.getValue("m"), HttpModelType.PATH, "m");
         return model;
     }
 }

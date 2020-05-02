@@ -25,7 +25,7 @@ public final class $$ResponseConstraintValidator implements ConstraintValidator<
     public void validate(final Response model,
                          final HttpModelType httpModelType,
                          final String name) throws ValidationException {
-        requiredConstraintValidator.validate(model.email, HttpModelType.parameter, "email");
-        emailConstraintValidator.validate(model.email, HttpModelType.parameter, "email");
+        requiredConstraintValidator.validate(model.email, HttpModelType.PARAMETER, "email");
+        emailConstraintValidator.validate(model.email, HttpModelType.PARAMETER, "email");
     }
 }

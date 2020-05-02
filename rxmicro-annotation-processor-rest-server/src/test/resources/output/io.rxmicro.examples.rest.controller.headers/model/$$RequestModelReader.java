@@ -19,8 +19,8 @@ public final class $$RequestModelReader extends ModelReader<Request> {
                         final boolean readParametersFromBody) {
         final Request model = new Request();
         final HttpHeaders httpHeaders = request.getHeaders();
-        model.endpointVersion = toString(httpHeaders.getValue("Endpoint-Version"), HttpModelType.header, "Endpoint-Version");
-        model.useProxy = toBoolean(httpHeaders.getValue("UseProxy"), HttpModelType.header, "UseProxy");
+        model.endpointVersion = toString(httpHeaders.getValue("Endpoint-Version"), HttpModelType.HEADER, "Endpoint-Version");
+        model.useProxy = toBoolean(httpHeaders.getValue("UseProxy"), HttpModelType.HEADER, "UseProxy");
         return model;
     }
 }

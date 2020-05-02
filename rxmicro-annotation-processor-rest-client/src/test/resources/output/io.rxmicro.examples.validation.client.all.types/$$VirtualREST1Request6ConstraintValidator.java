@@ -25,7 +25,7 @@ public final class $$VirtualREST1Request6ConstraintValidator implements Constrai
     public void validate(final $$VirtualREST1Request6 model,
                          final HttpModelType httpModelType,
                          final String name) throws ValidationException {
-        requiredConstraintValidator.validate(model.email, HttpModelType.parameter, "email");
-        emailConstraintValidator.validate(model.email, HttpModelType.parameter, "email");
+        requiredConstraintValidator.validate(model.email, HttpModelType.PARAMETER, "email");
+        emailConstraintValidator.validate(model.email, HttpModelType.PARAMETER, "email");
     }
 }

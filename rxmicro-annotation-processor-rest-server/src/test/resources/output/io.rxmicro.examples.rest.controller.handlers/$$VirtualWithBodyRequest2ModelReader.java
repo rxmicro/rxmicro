@@ -19,7 +19,7 @@ public final class $$VirtualWithBodyRequest2ModelReader extends ModelReader<$$Vi
                                           final boolean readParametersFromBody) {
         final $$VirtualWithBodyRequest2 model = new $$VirtualWithBodyRequest2();
         final QueryParams params = extractParams(request.getQueryString());
-        model.requestParameter = toString(params.getValue("requestParameter"), HttpModelType.parameter, "requestParameter");
+        model.requestParameter = toString(params.getValue("requestParameter"), HttpModelType.PARAMETER, "requestParameter");
         return model;
     }
 }

@@ -33,7 +33,7 @@ import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.json.JsonHelper.toJsonString;
 import static io.rxmicro.json.JsonTypes.asJsonArray;
 import static io.rxmicro.json.JsonTypes.asJsonObject;
-import static io.rxmicro.rest.model.HttpModelType.parameter;
+import static io.rxmicro.rest.model.HttpModelType.PARAMETER;
 import static java.util.Collections.unmodifiableList;
 
 /**
@@ -59,7 +59,7 @@ public abstract class ModelFromJsonConverter<T> {
         try {
             return fromJsonArray(list);
         } catch (final ClassCastException e) {
-            throw new ValidationException("Invalid ? \"?\": Expected an object array!", parameter, modelName);
+            throw new ValidationException("Invalid ? \"?\": Expected an object array!", PARAMETER, modelName);
         }
     }
 
@@ -116,13 +116,13 @@ public abstract class ModelFromJsonConverter<T> {
             } catch (final IllegalArgumentException e) {
                 throw new ValidationException(
                         "Invalid ? \"?\": Expected a value from the set ?, but actual is ?!",
-                        parameter, modelName, Arrays.toString(enumClass.getEnumConstants()), getJsonActual(value)
+                        PARAMETER, modelName, Arrays.toString(enumClass.getEnumConstants()), getJsonActual(value)
                 );
             }
         } else {
             throw new ValidationException(
                     "Invalid ? \"?\": Expected a string value, but actual is ?!",
-                    parameter, modelName, getJsonActual(value)
+                    PARAMETER, modelName, getJsonActual(value)
             );
         }
     }
@@ -146,7 +146,7 @@ public abstract class ModelFromJsonConverter<T> {
             }
             throw new ValidationException(
                     "Invalid ? \"?\": Expected a string array, but actual is ?!",
-                    parameter, modelName, getJsonActual(list)
+                    PARAMETER, modelName, getJsonActual(list)
             );
         } else {
             return List.of();
@@ -164,7 +164,7 @@ public abstract class ModelFromJsonConverter<T> {
         } else {
             throw new ValidationException(
                     "Invalid ? \"?\": Expected a boolean value, but actual is ?!",
-                    parameter, modelName, getJsonActual(value)
+                    PARAMETER, modelName, getJsonActual(value)
             );
         }
     }
@@ -187,7 +187,7 @@ public abstract class ModelFromJsonConverter<T> {
             }
             throw new ValidationException(
                     "Invalid ? \"?\": Expected a boolean array, but actual is ?!",
-                    parameter, modelName, getJsonActual(list)
+                    PARAMETER, modelName, getJsonActual(list)
             );
         } else {
             return List.of();
@@ -210,7 +210,7 @@ public abstract class ModelFromJsonConverter<T> {
             }
             throw new ValidationException(
                     "Invalid ? \"?\": Expected a byte value, but actual is ?!",
-                    parameter, modelName, getJsonActual(value)
+                    PARAMETER, modelName, getJsonActual(value)
             );
         }
     }
@@ -233,7 +233,7 @@ public abstract class ModelFromJsonConverter<T> {
             }
             throw new ValidationException(
                     "Invalid ? \"?\": Expected a byte array, but actual is ?!",
-                    parameter, modelName, getJsonActual(list)
+                    PARAMETER, modelName, getJsonActual(list)
             );
         } else {
             return List.of();
@@ -256,7 +256,7 @@ public abstract class ModelFromJsonConverter<T> {
             }
             throw new ValidationException(
                     "Invalid ? \"?\": Expected a short value, but actual is ?!",
-                    parameter, modelName, getJsonActual(value)
+                    PARAMETER, modelName, getJsonActual(value)
             );
         }
     }
@@ -279,7 +279,7 @@ public abstract class ModelFromJsonConverter<T> {
             }
             throw new ValidationException(
                     "Invalid ? \"?\": Expected a short array, but actual is ?!",
-                    parameter, modelName, getJsonActual(list)
+                    PARAMETER, modelName, getJsonActual(list)
             );
         } else {
             return List.of();
@@ -302,7 +302,7 @@ public abstract class ModelFromJsonConverter<T> {
             }
             throw new ValidationException(
                     "Invalid ? \"?\": Expected a integer value, but actual is ?!",
-                    parameter, modelName, getJsonActual(value)
+                    PARAMETER, modelName, getJsonActual(value)
             );
         }
     }
@@ -325,7 +325,7 @@ public abstract class ModelFromJsonConverter<T> {
             }
             throw new ValidationException(
                     "Invalid ? \"?\": Expected an integer array, but actual is ?!",
-                    parameter, modelName, getJsonActual(list)
+                    PARAMETER, modelName, getJsonActual(list)
             );
         } else {
             return List.of();
@@ -348,7 +348,7 @@ public abstract class ModelFromJsonConverter<T> {
             }
             throw new ValidationException(
                     "Invalid ? \"?\": Expected a long value, but actual is ?!",
-                    parameter, modelName, getJsonActual(value)
+                    PARAMETER, modelName, getJsonActual(value)
             );
         }
     }
@@ -371,7 +371,7 @@ public abstract class ModelFromJsonConverter<T> {
             }
             throw new ValidationException(
                     "Invalid ? \"?\": Expected a long array, but actual is ?!",
-                    parameter, modelName, getJsonActual(list)
+                    PARAMETER, modelName, getJsonActual(list)
             );
         } else {
             return List.of();
@@ -395,7 +395,7 @@ public abstract class ModelFromJsonConverter<T> {
             }
             throw new ValidationException(
                     "Invalid ? \"?\": Expected a character, but actual is ?!",
-                    parameter, modelName, getJsonActual(value)
+                    PARAMETER, modelName, getJsonActual(value)
             );
         }
     }
@@ -418,7 +418,7 @@ public abstract class ModelFromJsonConverter<T> {
             }
             throw new ValidationException(
                     "Invalid ? \"?\": Expected a character array, but actual is ?!",
-                    parameter, modelName, getJsonActual(list)
+                    PARAMETER, modelName, getJsonActual(list)
             );
         } else {
             return List.of();
@@ -441,7 +441,7 @@ public abstract class ModelFromJsonConverter<T> {
             }
             throw new ValidationException(
                     "Invalid ? \"?\": Expected a float value, but actual is ?!",
-                    parameter, modelName, getJsonActual(value)
+                    PARAMETER, modelName, getJsonActual(value)
             );
         }
     }
@@ -464,7 +464,7 @@ public abstract class ModelFromJsonConverter<T> {
             }
             throw new ValidationException(
                     "Invalid ? \"?\": Expected a float array, but actual is ?!",
-                    parameter, modelName, getJsonActual(list)
+                    PARAMETER, modelName, getJsonActual(list)
             );
         } else {
             return List.of();
@@ -487,7 +487,7 @@ public abstract class ModelFromJsonConverter<T> {
             }
             throw new ValidationException(
                     "Invalid ? \"?\": Expected a double value, but actual is ?!",
-                    parameter, modelName, getJsonActual(value)
+                    PARAMETER, modelName, getJsonActual(value)
             );
         }
     }
@@ -510,7 +510,7 @@ public abstract class ModelFromJsonConverter<T> {
             }
             throw new ValidationException(
                     "Invalid ? \"?\": Expected a double array, but actual is ?!",
-                    parameter, modelName, getJsonActual(list)
+                    PARAMETER, modelName, getJsonActual(list)
             );
         } else {
             return List.of();
@@ -528,7 +528,7 @@ public abstract class ModelFromJsonConverter<T> {
         } else {
             throw new ValidationException(
                     "Invalid ? \"?\": Expected a big decimal value, but actual is ?!",
-                    parameter, modelName, getJsonActual(value)
+                    PARAMETER, modelName, getJsonActual(value)
             );
         }
     }
@@ -551,7 +551,7 @@ public abstract class ModelFromJsonConverter<T> {
             }
             throw new ValidationException(
                     "Invalid ? \"?\": Expected a big decimal array, but actual is ?!",
-                    parameter, modelName, getJsonActual(list)
+                    PARAMETER, modelName, getJsonActual(list)
             );
         } else {
             return List.of();
@@ -574,7 +574,7 @@ public abstract class ModelFromJsonConverter<T> {
             }
             throw new ValidationException(
                     "Invalid ? \"?\": Expected a big integer value, but actual is ?!",
-                    parameter, modelName, getJsonActual(value)
+                    PARAMETER, modelName, getJsonActual(value)
             );
         }
     }
@@ -597,7 +597,7 @@ public abstract class ModelFromJsonConverter<T> {
             }
             throw new ValidationException(
                     "Invalid ? \"?\": Expected a big integer array, but actual is ?!",
-                    parameter, modelName, getJsonActual(list)
+                    PARAMETER, modelName, getJsonActual(list)
             );
         } else {
             return List.of();
@@ -617,7 +617,7 @@ public abstract class ModelFromJsonConverter<T> {
                 throw new ValidationException(
                         "Invalid ? \"?\": Expected an ISO-8601 instant " +
                                 "(Example: '?'), but actual is ?!",
-                        parameter, modelName, INSTANT_EXAMPLE, getJsonActual(value)
+                        PARAMETER, modelName, INSTANT_EXAMPLE, getJsonActual(value)
                 );
             }
         }
@@ -640,7 +640,7 @@ public abstract class ModelFromJsonConverter<T> {
             }
             throw new ValidationException(
                     "Invalid ? \"?\": Expected an instant array, but actual is ?!",
-                    parameter, modelName, getJsonActual(list)
+                    PARAMETER, modelName, getJsonActual(list)
             );
         } else {
             return List.of();
@@ -659,7 +659,7 @@ public abstract class ModelFromJsonConverter<T> {
             }
             throw new ValidationException(
                     "Invalid ? \"?\": Expected a string value, but actual is ?!",
-                    parameter, modelName, getJsonActual(value)
+                    PARAMETER, modelName, getJsonActual(value)
             );
         }
     }
@@ -682,7 +682,7 @@ public abstract class ModelFromJsonConverter<T> {
             }
             throw new ValidationException(
                     "Invalid ? \"?\": Expected a string array, but actual is ?!",
-                    parameter, modelName, getJsonActual(list)
+                    PARAMETER, modelName, getJsonActual(list)
             );
         } else {
             return List.of();

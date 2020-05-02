@@ -30,7 +30,7 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
  */
 abstract class AbstractConstraintValidatorTest<T> {
 
-    final HttpModelType type = HttpModelType.parameter;
+    final HttpModelType type = HttpModelType.PARAMETER;
 
     final String fieldName = "fieldName";
 

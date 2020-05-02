@@ -57,8 +57,8 @@ import static io.rxmicro.annotation.processor.documentation.asciidoctor.componen
 import static io.rxmicro.annotation.processor.documentation.asciidoctor.component.RestrictionReader.REQUIRED_RESTRICTION;
 import static io.rxmicro.common.RxMicroModule.RX_MICRO_VALIDATION_MODULE;
 import static io.rxmicro.json.JsonHelper.toJsonString;
-import static io.rxmicro.rest.model.HttpModelType.header;
-import static io.rxmicro.rest.model.HttpModelType.parameter;
+import static io.rxmicro.rest.model.HttpModelType.HEADER;
+import static io.rxmicro.rest.model.HttpModelType.PARAMETER;
 import static java.util.Map.entry;
 
 /**
@@ -122,7 +122,7 @@ public final class ResponsesBuilderImpl implements ResponsesBuilder {
                                     environmentContext,
                                     resourceDefinition.withStandardDescriptions(),
                                     projectMetaData.getProjectDirectory(),
-                                    cl, parameter, withReadMore
+                                    cl, PARAMETER, withReadMore
                             ) :
                             List.of()
                     )
@@ -179,7 +179,7 @@ public final class ResponsesBuilderImpl implements ResponsesBuilder {
                             environmentContext,
                             resourceDefinition.withStandardDescriptions(),
                             projectMetaData.getProjectDirectory(),
-                            cl, header, withReadMore
+                            cl, HEADER, withReadMore
                     ).stream()
             ).collect(Collectors.toList());
         } else {
@@ -187,7 +187,7 @@ public final class ResponsesBuilderImpl implements ResponsesBuilder {
                     environmentContext,
                     resourceDefinition.withStandardDescriptions(),
                     projectMetaData.getProjectDirectory(),
-                    cl, header, withReadMore
+                    cl, HEADER, withReadMore
             );
         }
     }

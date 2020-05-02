@@ -44,9 +44,9 @@ import static io.rxmicro.annotation.processor.documentation.asciidoctor.componen
 import static io.rxmicro.common.util.ExCollectors.toOrderedSet;
 import static io.rxmicro.json.JsonHelper.toJsonString;
 import static io.rxmicro.json.JsonTypes.STRING;
-import static io.rxmicro.rest.model.HttpModelType.header;
-import static io.rxmicro.rest.model.HttpModelType.parameter;
-import static io.rxmicro.rest.model.HttpModelType.path;
+import static io.rxmicro.rest.model.HttpModelType.HEADER;
+import static io.rxmicro.rest.model.HttpModelType.PARAMETER;
+import static io.rxmicro.rest.model.HttpModelType.PATH;
 
 /**
  * @author nedis
@@ -113,7 +113,7 @@ public final class RequestBuilderImpl implements RequestBuilder {
                         environmentContext,
                         resourceDefinition.withStandardDescriptions(),
                         projectMetaData.getProjectDirectory(),
-                        restObjectModelClass, path, withReadMore
+                        restObjectModelClass, PATH, withReadMore
                 ) :
                 List.of();
         final List<DocumentedModelField> headers = getHeaders(
@@ -134,7 +134,7 @@ public final class RequestBuilderImpl implements RequestBuilder {
                                     environmentContext,
                                     resourceDefinition.withStandardDescriptions(),
                                     projectMetaData.getProjectDirectory(),
-                                    restObjectModelClass, parameter, withReadMore
+                                    restObjectModelClass, PARAMETER, withReadMore
                             ) :
                             List.of(),
                     List.of(),
@@ -150,7 +150,7 @@ public final class RequestBuilderImpl implements RequestBuilder {
                                     environmentContext,
                                     resourceDefinition.withStandardDescriptions(),
                                     projectMetaData.getProjectDirectory(),
-                                    restObjectModelClass, parameter, withReadMore
+                                    restObjectModelClass, PARAMETER, withReadMore
                             ) :
                             List.of(),
                     schema);
@@ -173,7 +173,7 @@ public final class RequestBuilderImpl implements RequestBuilder {
                                         environmentContext,
                                         resourceDefinition.withStandardDescriptions(),
                                         projectMetaData.getProjectDirectory(),
-                                        restObjectModelClass, header, withReadMore
+                                        restObjectModelClass, HEADER, withReadMore
                                 ).stream() :
                                 Stream.of()
                 ).collect(toOrderedSet())

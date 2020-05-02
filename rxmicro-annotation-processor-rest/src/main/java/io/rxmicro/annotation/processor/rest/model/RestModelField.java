@@ -60,7 +60,7 @@ public final class RestModelField extends ModelField {
     public RestModelField(final AnnotatedModelElement annotatedModelElement,
                           final InternalType internalType) {
         super(annotatedModelElement, internalType.name());
-        this.httpModelType = HttpModelType.internal;
+        this.httpModelType = HttpModelType.INTERNAL;
         this.internalType = internalType;
         this.repeat = false;
     }
@@ -90,21 +90,21 @@ public final class RestModelField extends ModelField {
 
     @UsedByFreemarker
     public boolean isHttpHeader() {
-        return httpModelType == HttpModelType.header;
+        return httpModelType == HttpModelType.HEADER;
     }
 
     @UsedByFreemarker
     public boolean isHttpParameter() {
-        return httpModelType == HttpModelType.parameter;
+        return httpModelType == HttpModelType.PARAMETER;
     }
 
     @UsedByFreemarker
     public boolean isHttpPathVariable() {
-        return httpModelType == HttpModelType.path;
+        return httpModelType == HttpModelType.PATH;
     }
 
     public boolean isInternalType() {
-        return httpModelType == HttpModelType.internal;
+        return httpModelType == HttpModelType.INTERNAL;
     }
 
     @UsedByFreemarker("$$RestJsonModelReaderTemplate.javaftl")

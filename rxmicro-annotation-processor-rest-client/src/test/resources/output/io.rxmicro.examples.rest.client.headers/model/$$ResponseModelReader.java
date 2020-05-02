@@ -16,8 +16,8 @@ public final class $$ResponseModelReader extends ModelReader<Response> {
     public Response readSingle(final ClientHttpResponse response) {
         final Response model = new Response();
         final HttpHeaders httpHeaders = response.headers();
-        model.endpointVersion = toString(httpHeaders.getValue("Endpoint-Version"), HttpModelType.header, "Endpoint-Version");
-        model.useProxy = toBoolean(httpHeaders.getValue("UseProxy"), HttpModelType.header, "UseProxy");
+        model.endpointVersion = toString(httpHeaders.getValue("Endpoint-Version"), HttpModelType.HEADER, "Endpoint-Version");
+        model.useProxy = toBoolean(httpHeaders.getValue("UseProxy"), HttpModelType.HEADER, "UseProxy");
         return model;
     }
 }

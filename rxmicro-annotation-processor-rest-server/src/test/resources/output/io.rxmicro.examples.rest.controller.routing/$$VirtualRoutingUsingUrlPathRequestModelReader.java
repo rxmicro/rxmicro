@@ -17,7 +17,7 @@ public final class $$VirtualRoutingUsingUrlPathRequestModelReader extends ModelR
                                                     final HttpRequest request,
                                                     final boolean readParametersFromBody) {
         final $$VirtualRoutingUsingUrlPathRequest model = new $$VirtualRoutingUsingUrlPathRequest();
-        model.type = toString(pathVariableMapping.getValue("type"), HttpModelType.path, "type");
+        model.type = toString(pathVariableMapping.getValue("type"), HttpModelType.PATH, "type");
         return model;
     }
 }

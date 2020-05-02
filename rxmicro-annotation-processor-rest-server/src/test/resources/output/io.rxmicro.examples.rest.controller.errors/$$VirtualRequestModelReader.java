@@ -19,7 +19,7 @@ public final class $$VirtualRequestModelReader extends ModelReader<$$VirtualRequ
                                  final boolean readParametersFromBody) {
         final $$VirtualRequest model = new $$VirtualRequest();
         final QueryParams params = extractParams(request.getQueryString());
-        model.id = toInteger(params.getValue("id"), HttpModelType.parameter, "id");
+        model.id = toInteger(params.getValue("id"), HttpModelType.PARAMETER, "id");
         return model;
     }
 }

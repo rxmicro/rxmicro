@@ -19,7 +19,7 @@ public final class $$VirtualCustomizeNotFoundRequestModelReader extends ModelRea
                                                   final boolean readParametersFromBody) {
         final $$VirtualCustomizeNotFoundRequest model = new $$VirtualCustomizeNotFoundRequest();
         final QueryParams params = extractParams(request.getQueryString());
-        model.found = toBoolean(params.getValue("found"), HttpModelType.parameter, "found");
+        model.found = toBoolean(params.getValue("found"), HttpModelType.PARAMETER, "found");
         return model;
     }
 }

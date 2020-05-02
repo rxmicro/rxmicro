@@ -65,7 +65,7 @@ public final class DocumentedModelFieldBuilderImpl implements DocumentedModelFie
                                                                             final RestObjectModelClass restObjectModelClass,
                                                                             final HttpModelType httpModelType,
                                                                             final boolean withReadMore) {
-        if (httpModelType == HttpModelType.path) {
+        if (httpModelType == HttpModelType.PATH) {
             return List.of(entry(
                     "@null",
                     restObjectModelClass.getPathVariableEntries().stream()
@@ -74,7 +74,7 @@ public final class DocumentedModelFieldBuilderImpl implements DocumentedModelFie
                             ))
                             .collect(toList())
             ));
-        } else if (httpModelType == HttpModelType.header) {
+        } else if (httpModelType == HttpModelType.HEADER) {
             return List.of(entry(
                     "@null",
                     restObjectModelClass.getHeaderEntries().stream()
@@ -83,7 +83,7 @@ public final class DocumentedModelFieldBuilderImpl implements DocumentedModelFie
                             ))
                             .collect(toList())
             ));
-        } else if (httpModelType == HttpModelType.parameter) {
+        } else if (httpModelType == HttpModelType.PARAMETER) {
             final List<Map.Entry<String, List<DocumentedModelField>>> list = new ArrayList<>();
             extractModelRecursive(
                     environmentContext, withStandardDescriptions, projectDirectory, "Body", list, restObjectModelClass, withReadMore

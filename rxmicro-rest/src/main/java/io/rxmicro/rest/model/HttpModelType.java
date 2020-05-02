@@ -23,11 +23,11 @@ package io.rxmicro.rest.model;
  */
 public enum HttpModelType {
 
-    parameter,
+    PARAMETER,
 
-    header,
+    HEADER,
 
-    path,
+    PATH,
 
-    internal
+    INTERNAL
 }

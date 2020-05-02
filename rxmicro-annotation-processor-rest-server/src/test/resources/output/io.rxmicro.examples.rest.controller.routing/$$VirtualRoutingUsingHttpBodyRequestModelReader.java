@@ -19,7 +19,7 @@ public final class $$VirtualRoutingUsingHttpBodyRequestModelReader extends Model
                                                      final boolean readParametersFromBody) {
         final $$VirtualRoutingUsingHttpBodyRequest model = new $$VirtualRoutingUsingHttpBodyRequest();
         final QueryParams params = extractParams(request.getQueryString());
-        model.parameter = toString(params.getValue("parameter"), HttpModelType.parameter, "parameter");
+        model.parameter = toString(params.getValue("parameter"), HttpModelType.PARAMETER, "parameter");
         return model;
     }
 }

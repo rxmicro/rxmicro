@@ -561,301 +561,301 @@ public final class $$ModelConstraintValidator implements ConstraintValidator<Mod
     public void validate(final Model model,
                          final HttpModelType httpModelType,
                          final String name) throws ValidationException {
-        requiredConstraintValidator.validate(model.booleanParameter, HttpModelType.parameter, "booleanParameter");
-        assertFalseConstraintValidator.validate(model.booleanParameter, HttpModelType.parameter, "booleanParameter");
-        assertTrueConstraintValidator.validate(model.booleanParameter, HttpModelType.parameter, "booleanParameter");
+        requiredConstraintValidator.validate(model.booleanParameter, HttpModelType.PARAMETER, "booleanParameter");
+        assertFalseConstraintValidator.validate(model.booleanParameter, HttpModelType.PARAMETER, "booleanParameter");
+        assertTrueConstraintValidator.validate(model.booleanParameter, HttpModelType.PARAMETER, "booleanParameter");
 
-        requiredConstraintValidator.validate(model.byteParameter, HttpModelType.parameter, "byteParameter");
-        byteParameterMaxIntMaxByteConstraintValidator.validate(model.byteParameter, HttpModelType.parameter, "byteParameter");
-        byteParameterMaxNumberMaxByteConstraintValidator.validate(model.byteParameter, HttpModelType.parameter, "byteParameter");
-        byteParameterMinIntMinByteConstraintValidator.validate(model.byteParameter, HttpModelType.parameter, "byteParameter");
-        byteParameterMinNumberMinByteConstraintValidator.validate(model.byteParameter, HttpModelType.parameter, "byteParameter");
+        requiredConstraintValidator.validate(model.byteParameter, HttpModelType.PARAMETER, "byteParameter");
+        byteParameterMaxIntMaxByteConstraintValidator.validate(model.byteParameter, HttpModelType.PARAMETER, "byteParameter");
+        byteParameterMaxNumberMaxByteConstraintValidator.validate(model.byteParameter, HttpModelType.PARAMETER, "byteParameter");
+        byteParameterMinIntMinByteConstraintValidator.validate(model.byteParameter, HttpModelType.PARAMETER, "byteParameter");
+        byteParameterMinNumberMinByteConstraintValidator.validate(model.byteParameter, HttpModelType.PARAMETER, "byteParameter");
 
-        requiredConstraintValidator.validate(model.shortParameter, HttpModelType.parameter, "shortParameter");
-        shortParameterMaxIntMaxShortConstraintValidator.validate(model.shortParameter, HttpModelType.parameter, "shortParameter");
-        shortParameterMaxNumberMaxShortConstraintValidator.validate(model.shortParameter, HttpModelType.parameter, "shortParameter");
-        shortParameterMinIntMinShortConstraintValidator.validate(model.shortParameter, HttpModelType.parameter, "shortParameter");
-        shortParameterMinNumberMinShortConstraintValidator.validate(model.shortParameter, HttpModelType.parameter, "shortParameter");
+        requiredConstraintValidator.validate(model.shortParameter, HttpModelType.PARAMETER, "shortParameter");
+        shortParameterMaxIntMaxShortConstraintValidator.validate(model.shortParameter, HttpModelType.PARAMETER, "shortParameter");
+        shortParameterMaxNumberMaxShortConstraintValidator.validate(model.shortParameter, HttpModelType.PARAMETER, "shortParameter");
+        shortParameterMinIntMinShortConstraintValidator.validate(model.shortParameter, HttpModelType.PARAMETER, "shortParameter");
+        shortParameterMinNumberMinShortConstraintValidator.validate(model.shortParameter, HttpModelType.PARAMETER, "shortParameter");
 
-        requiredConstraintValidator.validate(model.intParameter, HttpModelType.parameter, "intParameter");
-        intParameterMaxIntMaxIntConstraintValidator.validate(model.intParameter, HttpModelType.parameter, "intParameter");
-        intParameterMaxNumberMaxIntConstraintValidator.validate(model.intParameter, HttpModelType.parameter, "intParameter");
-        intParameterMinIntMinIntConstraintValidator.validate(model.intParameter, HttpModelType.parameter, "intParameter");
-        intParameterMinNumberMinIntConstraintValidator.validate(model.intParameter, HttpModelType.parameter, "intParameter");
+        requiredConstraintValidator.validate(model.intParameter, HttpModelType.PARAMETER, "intParameter");
+        intParameterMaxIntMaxIntConstraintValidator.validate(model.intParameter, HttpModelType.PARAMETER, "intParameter");
+        intParameterMaxNumberMaxIntConstraintValidator.validate(model.intParameter, HttpModelType.PARAMETER, "intParameter");
+        intParameterMinIntMinIntConstraintValidator.validate(model.intParameter, HttpModelType.PARAMETER, "intParameter");
+        intParameterMinNumberMinIntConstraintValidator.validate(model.intParameter, HttpModelType.PARAMETER, "intParameter");
 
-        requiredConstraintValidator.validate(model.longParameter, HttpModelType.parameter, "longParameter");
-        longParameterMaxIntMaxLongConstraintValidator.validate(model.longParameter, HttpModelType.parameter, "longParameter");
-        longParameterMaxNumberMaxLongConstraintValidator.validate(model.longParameter, HttpModelType.parameter, "longParameter");
-        longParameterMinIntMinLongConstraintValidator.validate(model.longParameter, HttpModelType.parameter, "longParameter");
-        longParameterMinNumberMinLongConstraintValidator.validate(model.longParameter, HttpModelType.parameter, "longParameter");
+        requiredConstraintValidator.validate(model.longParameter, HttpModelType.PARAMETER, "longParameter");
+        longParameterMaxIntMaxLongConstraintValidator.validate(model.longParameter, HttpModelType.PARAMETER, "longParameter");
+        longParameterMaxNumberMaxLongConstraintValidator.validate(model.longParameter, HttpModelType.PARAMETER, "longParameter");
+        longParameterMinIntMinLongConstraintValidator.validate(model.longParameter, HttpModelType.PARAMETER, "longParameter");
+        longParameterMinNumberMinLongConstraintValidator.validate(model.longParameter, HttpModelType.PARAMETER, "longParameter");
 
-        requiredConstraintValidator.validate(model.bigIntParameter, HttpModelType.parameter, "bigIntParameter");
-        bigIntParameterMaxNumberMaxBigIntegerNumberConstraintValidator.validate(model.bigIntParameter, HttpModelType.parameter, "bigIntParameter");
-        bigIntParameterMinNumberMinBigIntegerNumberConstraintValidator.validate(model.bigIntParameter, HttpModelType.parameter, "bigIntParameter");
+        requiredConstraintValidator.validate(model.bigIntParameter, HttpModelType.PARAMETER, "bigIntParameter");
+        bigIntParameterMaxNumberMaxBigIntegerNumberConstraintValidator.validate(model.bigIntParameter, HttpModelType.PARAMETER, "bigIntParameter");
+        bigIntParameterMinNumberMinBigIntegerNumberConstraintValidator.validate(model.bigIntParameter, HttpModelType.PARAMETER, "bigIntParameter");
 
-        requiredConstraintValidator.validate(model.floatParameter, HttpModelType.parameter, "floatParameter");
-        floatParameterMaxDoubleMaxFloatConstraintValidator.validate(model.floatParameter, HttpModelType.parameter, "floatParameter");
-        floatParameterMaxNumberMaxFloatConstraintValidator.validate(model.floatParameter, HttpModelType.parameter, "floatParameter");
-        floatParameterMinDoubleMinFloatConstraintValidator.validate(model.floatParameter, HttpModelType.parameter, "floatParameter");
-        floatParameterMinNumberMinFloatConstraintValidator.validate(model.floatParameter, HttpModelType.parameter, "floatParameter");
+        requiredConstraintValidator.validate(model.floatParameter, HttpModelType.PARAMETER, "floatParameter");
+        floatParameterMaxDoubleMaxFloatConstraintValidator.validate(model.floatParameter, HttpModelType.PARAMETER, "floatParameter");
+        floatParameterMaxNumberMaxFloatConstraintValidator.validate(model.floatParameter, HttpModelType.PARAMETER, "floatParameter");
+        floatParameterMinDoubleMinFloatConstraintValidator.validate(model.floatParameter, HttpModelType.PARAMETER, "floatParameter");
+        floatParameterMinNumberMinFloatConstraintValidator.validate(model.floatParameter, HttpModelType.PARAMETER, "floatParameter");
 
-        requiredConstraintValidator.validate(model.doubleParameter, HttpModelType.parameter, "doubleParameter");
-        doubleParameterMaxDoubleMaxDoubleConstraintValidator.validate(model.doubleParameter, HttpModelType.parameter, "doubleParameter");
-        doubleParameterMaxNumberMaxDoubleConstraintValidator.validate(model.doubleParameter, HttpModelType.parameter, "doubleParameter");
-        doubleParameterMinDoubleMinDoubleConstraintValidator.validate(model.doubleParameter, HttpModelType.parameter, "doubleParameter");
-        doubleParameterMinNumberMinDoubleConstraintValidator.validate(model.doubleParameter, HttpModelType.parameter, "doubleParameter");
+        requiredConstraintValidator.validate(model.doubleParameter, HttpModelType.PARAMETER, "doubleParameter");
+        doubleParameterMaxDoubleMaxDoubleConstraintValidator.validate(model.doubleParameter, HttpModelType.PARAMETER, "doubleParameter");
+        doubleParameterMaxNumberMaxDoubleConstraintValidator.validate(model.doubleParameter, HttpModelType.PARAMETER, "doubleParameter");
+        doubleParameterMinDoubleMinDoubleConstraintValidator.validate(model.doubleParameter, HttpModelType.PARAMETER, "doubleParameter");
+        doubleParameterMinNumberMinDoubleConstraintValidator.validate(model.doubleParameter, HttpModelType.PARAMETER, "doubleParameter");
 
-        requiredConstraintValidator.validate(model.decimalParameter, HttpModelType.parameter, "decimalParameter");
-        decimalParameterLatLatConstraintValidator.validate(model.decimalParameter, HttpModelType.parameter, "decimalParameter");
-        decimalParameterLngLngConstraintValidator.validate(model.decimalParameter, HttpModelType.parameter, "decimalParameter");
-        decimalParameterMaxNumberMaxBigDecimalNumberConstraintValidator.validate(model.decimalParameter, HttpModelType.parameter, "decimalParameter");
-        decimalParameterMinNumberMinBigDecimalNumberConstraintValidator.validate(model.decimalParameter, HttpModelType.parameter, "decimalParameter");
-        decimalParameterNumericNumericConstraintValidator.validate(model.decimalParameter, HttpModelType.parameter, "decimalParameter");
+        requiredConstraintValidator.validate(model.decimalParameter, HttpModelType.PARAMETER, "decimalParameter");
+        decimalParameterLatLatConstraintValidator.validate(model.decimalParameter, HttpModelType.PARAMETER, "decimalParameter");
+        decimalParameterLngLngConstraintValidator.validate(model.decimalParameter, HttpModelType.PARAMETER, "decimalParameter");
+        decimalParameterMaxNumberMaxBigDecimalNumberConstraintValidator.validate(model.decimalParameter, HttpModelType.PARAMETER, "decimalParameter");
+        decimalParameterMinNumberMinBigDecimalNumberConstraintValidator.validate(model.decimalParameter, HttpModelType.PARAMETER, "decimalParameter");
+        decimalParameterNumericNumericConstraintValidator.validate(model.decimalParameter, HttpModelType.PARAMETER, "decimalParameter");
 
-        requiredConstraintValidator.validate(model.charParameter, HttpModelType.parameter, "charParameter");
-        charParameterEnumerationEnumerationCharacterConstraintValidator.validate(model.charParameter, HttpModelType.parameter, "charParameter");
+        requiredConstraintValidator.validate(model.charParameter, HttpModelType.PARAMETER, "charParameter");
+        charParameterEnumerationEnumerationCharacterConstraintValidator.validate(model.charParameter, HttpModelType.PARAMETER, "charParameter");
 
-        requiredConstraintValidator.validate(model.stringParameter, HttpModelType.parameter, "stringParameter");
-        stringParameterBase64URLEncodedBase64URLEncodedConstraintValidator.validate(model.stringParameter, HttpModelType.parameter, "stringParameter");
-        stringParameterCountryCodeCountryCodeConstraintValidator.validate(model.stringParameter, HttpModelType.parameter, "stringParameter");
-        emailConstraintValidator.validate(model.stringParameter, HttpModelType.parameter, "stringParameter");
-        stringParameterEnumerationEnumerationStringConstraintValidator.validate(model.stringParameter, HttpModelType.parameter, "stringParameter");
-        hostNameConstraintValidator.validate(model.stringParameter, HttpModelType.parameter, "stringParameter");
-        stringParameterIPIPConstraintValidator.validate(model.stringParameter, HttpModelType.parameter, "stringParameter");
-        stringParameterLatinAlphabetOnlyLatinAlphabetOnlyConstraintValidator.validate(model.stringParameter, HttpModelType.parameter, "stringParameter");
-        stringParameterLengthLengthConstraintValidator.validate(model.stringParameter, HttpModelType.parameter, "stringParameter");
-        lowercaseConstraintValidator.validate(model.stringParameter, HttpModelType.parameter, "stringParameter");
-        stringParameterMaxLengthMaxLengthConstraintValidator.validate(model.stringParameter, HttpModelType.parameter, "stringParameter");
-        stringParameterMinLengthMinLengthConstraintValidator.validate(model.stringParameter, HttpModelType.parameter, "stringParameter");
-        stringParameterPatternPatternConstraintValidator.validate(model.stringParameter, HttpModelType.parameter, "stringParameter");
-        stringParameterPhonePhoneConstraintValidator.validate(model.stringParameter, HttpModelType.parameter, "stringParameter");
-        skypeConstraintValidator.validate(model.stringParameter, HttpModelType.parameter, "stringParameter");
-        stringParameterTelegramTelegramConstraintValidator.validate(model.stringParameter, HttpModelType.parameter, "stringParameter");
-        uRIConstraintValidator.validate(model.stringParameter, HttpModelType.parameter, "stringParameter");
-        uRLEncodedConstraintValidator.validate(model.stringParameter, HttpModelType.parameter, "stringParameter");
-        uppercaseConstraintValidator.validate(model.stringParameter, HttpModelType.parameter, "stringParameter");
-        stringParameterViberViberConstraintValidator.validate(model.stringParameter, HttpModelType.parameter, "stringParameter");
-        stringParameterWhatsAppWhatsAppConstraintValidator.validate(model.stringParameter, HttpModelType.parameter, "stringParameter");
+        requiredConstraintValidator.validate(model.stringParameter, HttpModelType.PARAMETER, "stringParameter");
+        stringParameterBase64URLEncodedBase64URLEncodedConstraintValidator.validate(model.stringParameter, HttpModelType.PARAMETER, "stringParameter");
+        stringParameterCountryCodeCountryCodeConstraintValidator.validate(model.stringParameter, HttpModelType.PARAMETER, "stringParameter");
+        emailConstraintValidator.validate(model.stringParameter, HttpModelType.PARAMETER, "stringParameter");
+        stringParameterEnumerationEnumerationStringConstraintValidator.validate(model.stringParameter, HttpModelType.PARAMETER, "stringParameter");
+        hostNameConstraintValidator.validate(model.stringParameter, HttpModelType.PARAMETER, "stringParameter");
+        stringParameterIPIPConstraintValidator.validate(model.stringParameter, HttpModelType.PARAMETER, "stringParameter");
+        stringParameterLatinAlphabetOnlyLatinAlphabetOnlyConstraintValidator.validate(model.stringParameter, HttpModelType.PARAMETER, "stringParameter");
+        stringParameterLengthLengthConstraintValidator.validate(model.stringParameter, HttpModelType.PARAMETER, "stringParameter");
+        lowercaseConstraintValidator.validate(model.stringParameter, HttpModelType.PARAMETER, "stringParameter");
+        stringParameterMaxLengthMaxLengthConstraintValidator.validate(model.stringParameter, HttpModelType.PARAMETER, "stringParameter");
+        stringParameterMinLengthMinLengthConstraintValidator.validate(model.stringParameter, HttpModelType.PARAMETER, "stringParameter");
+        stringParameterPatternPatternConstraintValidator.validate(model.stringParameter, HttpModelType.PARAMETER, "stringParameter");
+        stringParameterPhonePhoneConstraintValidator.validate(model.stringParameter, HttpModelType.PARAMETER, "stringParameter");
+        skypeConstraintValidator.validate(model.stringParameter, HttpModelType.PARAMETER, "stringParameter");
+        stringParameterTelegramTelegramConstraintValidator.validate(model.stringParameter, HttpModelType.PARAMETER, "stringParameter");
+        uRIConstraintValidator.validate(model.stringParameter, HttpModelType.PARAMETER, "stringParameter");
+        uRLEncodedConstraintValidator.validate(model.stringParameter, HttpModelType.PARAMETER, "stringParameter");
+        uppercaseConstraintValidator.validate(model.stringParameter, HttpModelType.PARAMETER, "stringParameter");
+        stringParameterViberViberConstraintValidator.validate(model.stringParameter, HttpModelType.PARAMETER, "stringParameter");
+        stringParameterWhatsAppWhatsAppConstraintValidator.validate(model.stringParameter, HttpModelType.PARAMETER, "stringParameter");
 
-        requiredConstraintValidator.validate(model.instantParameter, HttpModelType.parameter, "instantParameter");
-        futureInstantConstraintValidator.validate(model.instantParameter, HttpModelType.parameter, "instantParameter");
-        futureOrPresentInstantConstraintValidator.validate(model.instantParameter, HttpModelType.parameter, "instantParameter");
-        pastInstantConstraintValidator.validate(model.instantParameter, HttpModelType.parameter, "instantParameter");
-        pastOrPresentInstantConstraintValidator.validate(model.instantParameter, HttpModelType.parameter, "instantParameter");
-        instantParameterTruncatedTimeTruncatedTimeInstantConstraintValidator.validate(model.instantParameter, HttpModelType.parameter, "instantParameter");
+        requiredConstraintValidator.validate(model.instantParameter, HttpModelType.PARAMETER, "instantParameter");
+        futureInstantConstraintValidator.validate(model.instantParameter, HttpModelType.PARAMETER, "instantParameter");
+        futureOrPresentInstantConstraintValidator.validate(model.instantParameter, HttpModelType.PARAMETER, "instantParameter");
+        pastInstantConstraintValidator.validate(model.instantParameter, HttpModelType.PARAMETER, "instantParameter");
+        pastOrPresentInstantConstraintValidator.validate(model.instantParameter, HttpModelType.PARAMETER, "instantParameter");
+        instantParameterTruncatedTimeTruncatedTimeInstantConstraintValidator.validate(model.instantParameter, HttpModelType.PARAMETER, "instantParameter");
 
-        requiredConstraintValidator.validate(model.colorParameter, HttpModelType.parameter, "colorParameter");
-        colorParameterSubEnumSubEnumConstraintValidator.validate(model.colorParameter, HttpModelType.parameter, "colorParameter");
+        requiredConstraintValidator.validate(model.colorParameter, HttpModelType.PARAMETER, "colorParameter");
+        colorParameterSubEnumSubEnumConstraintValidator.validate(model.colorParameter, HttpModelType.PARAMETER, "colorParameter");
 
-        requiredListConstraintValidator.validate(model.booleanValues, HttpModelType.parameter, "booleanValues");
-        requiredConstraintValidator.validateList(model.booleanValues, HttpModelType.parameter, "booleanValues");
-        assertFalseConstraintValidator.validateList(model.booleanValues, HttpModelType.parameter, "booleanValues");
-        assertTrueConstraintValidator.validateList(model.booleanValues, HttpModelType.parameter, "booleanValues");
-        booleanValuesMaxSizeMaxSizeConstraintValidator.validate(model.booleanValues, HttpModelType.parameter, "booleanValues");
-        booleanValuesMinSizeMinSizeConstraintValidator.validate(model.booleanValues, HttpModelType.parameter, "booleanValues");
-        booleanValuesSizeSizeConstraintValidator.validate(model.booleanValues, HttpModelType.parameter, "booleanValues");
-        uniqueItemsConstraintValidator.validate(model.booleanValues, HttpModelType.parameter, "booleanValues");
+        requiredListConstraintValidator.validate(model.booleanValues, HttpModelType.PARAMETER, "booleanValues");
+        requiredConstraintValidator.validateList(model.booleanValues, HttpModelType.PARAMETER, "booleanValues");
+        assertFalseConstraintValidator.validateList(model.booleanValues, HttpModelType.PARAMETER, "booleanValues");
+        assertTrueConstraintValidator.validateList(model.booleanValues, HttpModelType.PARAMETER, "booleanValues");
+        booleanValuesMaxSizeMaxSizeConstraintValidator.validate(model.booleanValues, HttpModelType.PARAMETER, "booleanValues");
+        booleanValuesMinSizeMinSizeConstraintValidator.validate(model.booleanValues, HttpModelType.PARAMETER, "booleanValues");
+        booleanValuesSizeSizeConstraintValidator.validate(model.booleanValues, HttpModelType.PARAMETER, "booleanValues");
+        uniqueItemsConstraintValidator.validate(model.booleanValues, HttpModelType.PARAMETER, "booleanValues");
 
-        requiredListConstraintValidator.validate(model.byteValues, HttpModelType.parameter, "byteValues");
-        requiredConstraintValidator.validateList(model.byteValues, HttpModelType.parameter, "byteValues");
-        byteValuesMaxIntMaxByteConstraintValidator.validateList(model.byteValues, HttpModelType.parameter, "byteValues");
-        byteValuesMaxSizeMaxSizeConstraintValidator.validate(model.byteValues, HttpModelType.parameter, "byteValues");
-        byteValuesMinIntMinByteConstraintValidator.validateList(model.byteValues, HttpModelType.parameter, "byteValues");
-        byteValuesMinSizeMinSizeConstraintValidator.validate(model.byteValues, HttpModelType.parameter, "byteValues");
-        byteValuesSizeSizeConstraintValidator.validate(model.byteValues, HttpModelType.parameter, "byteValues");
-        uniqueItemsConstraintValidator.validate(model.byteValues, HttpModelType.parameter, "byteValues");
+        requiredListConstraintValidator.validate(model.byteValues, HttpModelType.PARAMETER, "byteValues");
+        requiredConstraintValidator.validateList(model.byteValues, HttpModelType.PARAMETER, "byteValues");
+        byteValuesMaxIntMaxByteConstraintValidator.validateList(model.byteValues, HttpModelType.PARAMETER, "byteValues");
+        byteValuesMaxSizeMaxSizeConstraintValidator.validate(model.byteValues, HttpModelType.PARAMETER, "byteValues");
+        byteValuesMinIntMinByteConstraintValidator.validateList(model.byteValues, HttpModelType.PARAMETER, "byteValues");
+        byteValuesMinSizeMinSizeConstraintValidator.validate(model.byteValues, HttpModelType.PARAMETER, "byteValues");
+        byteValuesSizeSizeConstraintValidator.validate(model.byteValues, HttpModelType.PARAMETER, "byteValues");
+        uniqueItemsConstraintValidator.validate(model.byteValues, HttpModelType.PARAMETER, "byteValues");
 
-        requiredListConstraintValidator.validate(model.shortValues, HttpModelType.parameter, "shortValues");
-        requiredConstraintValidator.validateList(model.shortValues, HttpModelType.parameter, "shortValues");
-        shortValuesMaxIntMaxShortConstraintValidator.validateList(model.shortValues, HttpModelType.parameter, "shortValues");
-        shortValuesMaxSizeMaxSizeConstraintValidator.validate(model.shortValues, HttpModelType.parameter, "shortValues");
-        shortValuesMinIntMinShortConstraintValidator.validateList(model.shortValues, HttpModelType.parameter, "shortValues");
-        shortValuesMinSizeMinSizeConstraintValidator.validate(model.shortValues, HttpModelType.parameter, "shortValues");
-        shortValuesSizeSizeConstraintValidator.validate(model.shortValues, HttpModelType.parameter, "shortValues");
-        uniqueItemsConstraintValidator.validate(model.shortValues, HttpModelType.parameter, "shortValues");
+        requiredListConstraintValidator.validate(model.shortValues, HttpModelType.PARAMETER, "shortValues");
+        requiredConstraintValidator.validateList(model.shortValues, HttpModelType.PARAMETER, "shortValues");
+        shortValuesMaxIntMaxShortConstraintValidator.validateList(model.shortValues, HttpModelType.PARAMETER, "shortValues");
+        shortValuesMaxSizeMaxSizeConstraintValidator.validate(model.shortValues, HttpModelType.PARAMETER, "shortValues");
+        shortValuesMinIntMinShortConstraintValidator.validateList(model.shortValues, HttpModelType.PARAMETER, "shortValues");
+        shortValuesMinSizeMinSizeConstraintValidator.validate(model.shortValues, HttpModelType.PARAMETER, "shortValues");
+        shortValuesSizeSizeConstraintValidator.validate(model.shortValues, HttpModelType.PARAMETER, "shortValues");
+        uniqueItemsConstraintValidator.validate(model.shortValues, HttpModelType.PARAMETER, "shortValues");
 
-        requiredListConstraintValidator.validate(model.intValues, HttpModelType.parameter, "intValues");
-        requiredConstraintValidator.validateList(model.intValues, HttpModelType.parameter, "intValues");
-        intValuesMaxIntMaxIntConstraintValidator.validateList(model.intValues, HttpModelType.parameter, "intValues");
-        intValuesMaxSizeMaxSizeConstraintValidator.validate(model.intValues, HttpModelType.parameter, "intValues");
-        intValuesMinIntMinIntConstraintValidator.validateList(model.intValues, HttpModelType.parameter, "intValues");
-        intValuesMinSizeMinSizeConstraintValidator.validate(model.intValues, HttpModelType.parameter, "intValues");
-        intValuesSizeSizeConstraintValidator.validate(model.intValues, HttpModelType.parameter, "intValues");
-        uniqueItemsConstraintValidator.validate(model.intValues, HttpModelType.parameter, "intValues");
+        requiredListConstraintValidator.validate(model.intValues, HttpModelType.PARAMETER, "intValues");
+        requiredConstraintValidator.validateList(model.intValues, HttpModelType.PARAMETER, "intValues");
+        intValuesMaxIntMaxIntConstraintValidator.validateList(model.intValues, HttpModelType.PARAMETER, "intValues");
+        intValuesMaxSizeMaxSizeConstraintValidator.validate(model.intValues, HttpModelType.PARAMETER, "intValues");
+        intValuesMinIntMinIntConstraintValidator.validateList(model.intValues, HttpModelType.PARAMETER, "intValues");
+        intValuesMinSizeMinSizeConstraintValidator.validate(model.intValues, HttpModelType.PARAMETER, "intValues");
+        intValuesSizeSizeConstraintValidator.validate(model.intValues, HttpModelType.PARAMETER, "intValues");
+        uniqueItemsConstraintValidator.validate(model.intValues, HttpModelType.PARAMETER, "intValues");
 
-        requiredListConstraintValidator.validate(model.longValues, HttpModelType.parameter, "longValues");
-        requiredConstraintValidator.validateList(model.longValues, HttpModelType.parameter, "longValues");
-        longValuesMaxIntMaxLongConstraintValidator.validateList(model.longValues, HttpModelType.parameter, "longValues");
-        longValuesMaxSizeMaxSizeConstraintValidator.validate(model.longValues, HttpModelType.parameter, "longValues");
-        longValuesMinIntMinLongConstraintValidator.validateList(model.longValues, HttpModelType.parameter, "longValues");
-        longValuesMinSizeMinSizeConstraintValidator.validate(model.longValues, HttpModelType.parameter, "longValues");
-        longValuesSizeSizeConstraintValidator.validate(model.longValues, HttpModelType.parameter, "longValues");
-        uniqueItemsConstraintValidator.validate(model.longValues, HttpModelType.parameter, "longValues");
+        requiredListConstraintValidator.validate(model.longValues, HttpModelType.PARAMETER, "longValues");
+        requiredConstraintValidator.validateList(model.longValues, HttpModelType.PARAMETER, "longValues");
+        longValuesMaxIntMaxLongConstraintValidator.validateList(model.longValues, HttpModelType.PARAMETER, "longValues");
+        longValuesMaxSizeMaxSizeConstraintValidator.validate(model.longValues, HttpModelType.PARAMETER, "longValues");
+        longValuesMinIntMinLongConstraintValidator.validateList(model.longValues, HttpModelType.PARAMETER, "longValues");
+        longValuesMinSizeMinSizeConstraintValidator.validate(model.longValues, HttpModelType.PARAMETER, "longValues");
+        longValuesSizeSizeConstraintValidator.validate(model.longValues, HttpModelType.PARAMETER, "longValues");
+        uniqueItemsConstraintValidator.validate(model.longValues, HttpModelType.PARAMETER, "longValues");
 
-        requiredListConstraintValidator.validate(model.charValues, HttpModelType.parameter, "charValues");
-        requiredConstraintValidator.validateList(model.charValues, HttpModelType.parameter, "charValues");
-        charValuesEnumerationEnumerationCharacterConstraintValidator.validateList(model.charValues, HttpModelType.parameter, "charValues");
-        charValuesMaxSizeMaxSizeConstraintValidator.validate(model.charValues, HttpModelType.parameter, "charValues");
-        charValuesMinSizeMinSizeConstraintValidator.validate(model.charValues, HttpModelType.parameter, "charValues");
-        charValuesSizeSizeConstraintValidator.validate(model.charValues, HttpModelType.parameter, "charValues");
-        uniqueItemsConstraintValidator.validate(model.charValues, HttpModelType.parameter, "charValues");
+        requiredListConstraintValidator.validate(model.charValues, HttpModelType.PARAMETER, "charValues");
+        requiredConstraintValidator.validateList(model.charValues, HttpModelType.PARAMETER, "charValues");
+        charValuesEnumerationEnumerationCharacterConstraintValidator.validateList(model.charValues, HttpModelType.PARAMETER, "charValues");
+        charValuesMaxSizeMaxSizeConstraintValidator.validate(model.charValues, HttpModelType.PARAMETER, "charValues");
+        charValuesMinSizeMinSizeConstraintValidator.validate(model.charValues, HttpModelType.PARAMETER, "charValues");
+        charValuesSizeSizeConstraintValidator.validate(model.charValues, HttpModelType.PARAMETER, "charValues");
+        uniqueItemsConstraintValidator.validate(model.charValues, HttpModelType.PARAMETER, "charValues");
 
-        requiredListConstraintValidator.validate(model.floatValues, HttpModelType.parameter, "floatValues");
-        requiredConstraintValidator.validateList(model.floatValues, HttpModelType.parameter, "floatValues");
-        floatValuesMaxDoubleMaxFloatConstraintValidator.validateList(model.floatValues, HttpModelType.parameter, "floatValues");
-        floatValuesMaxSizeMaxSizeConstraintValidator.validate(model.floatValues, HttpModelType.parameter, "floatValues");
-        floatValuesMinDoubleMinFloatConstraintValidator.validateList(model.floatValues, HttpModelType.parameter, "floatValues");
-        floatValuesMinSizeMinSizeConstraintValidator.validate(model.floatValues, HttpModelType.parameter, "floatValues");
-        floatValuesSizeSizeConstraintValidator.validate(model.floatValues, HttpModelType.parameter, "floatValues");
-        uniqueItemsConstraintValidator.validate(model.floatValues, HttpModelType.parameter, "floatValues");
+        requiredListConstraintValidator.validate(model.floatValues, HttpModelType.PARAMETER, "floatValues");
+        requiredConstraintValidator.validateList(model.floatValues, HttpModelType.PARAMETER, "floatValues");
+        floatValuesMaxDoubleMaxFloatConstraintValidator.validateList(model.floatValues, HttpModelType.PARAMETER, "floatValues");
+        floatValuesMaxSizeMaxSizeConstraintValidator.validate(model.floatValues, HttpModelType.PARAMETER, "floatValues");
+        floatValuesMinDoubleMinFloatConstraintValidator.validateList(model.floatValues, HttpModelType.PARAMETER, "floatValues");
+        floatValuesMinSizeMinSizeConstraintValidator.validate(model.floatValues, HttpModelType.PARAMETER, "floatValues");
+        floatValuesSizeSizeConstraintValidator.validate(model.floatValues, HttpModelType.PARAMETER, "floatValues");
+        uniqueItemsConstraintValidator.validate(model.floatValues, HttpModelType.PARAMETER, "floatValues");
 
-        requiredListConstraintValidator.validate(model.doubleValues, HttpModelType.parameter, "doubleValues");
-        requiredConstraintValidator.validateList(model.doubleValues, HttpModelType.parameter, "doubleValues");
-        doubleValuesMaxDoubleMaxDoubleConstraintValidator.validateList(model.doubleValues, HttpModelType.parameter, "doubleValues");
-        doubleValuesMaxSizeMaxSizeConstraintValidator.validate(model.doubleValues, HttpModelType.parameter, "doubleValues");
-        doubleValuesMinDoubleMinDoubleConstraintValidator.validateList(model.doubleValues, HttpModelType.parameter, "doubleValues");
-        doubleValuesMinSizeMinSizeConstraintValidator.validate(model.doubleValues, HttpModelType.parameter, "doubleValues");
-        doubleValuesSizeSizeConstraintValidator.validate(model.doubleValues, HttpModelType.parameter, "doubleValues");
-        uniqueItemsConstraintValidator.validate(model.doubleValues, HttpModelType.parameter, "doubleValues");
+        requiredListConstraintValidator.validate(model.doubleValues, HttpModelType.PARAMETER, "doubleValues");
+        requiredConstraintValidator.validateList(model.doubleValues, HttpModelType.PARAMETER, "doubleValues");
+        doubleValuesMaxDoubleMaxDoubleConstraintValidator.validateList(model.doubleValues, HttpModelType.PARAMETER, "doubleValues");
+        doubleValuesMaxSizeMaxSizeConstraintValidator.validate(model.doubleValues, HttpModelType.PARAMETER, "doubleValues");
+        doubleValuesMinDoubleMinDoubleConstraintValidator.validateList(model.doubleValues, HttpModelType.PARAMETER, "doubleValues");
+        doubleValuesMinSizeMinSizeConstraintValidator.validate(model.doubleValues, HttpModelType.PARAMETER, "doubleValues");
+        doubleValuesSizeSizeConstraintValidator.validate(model.doubleValues, HttpModelType.PARAMETER, "doubleValues");
+        uniqueItemsConstraintValidator.validate(model.doubleValues, HttpModelType.PARAMETER, "doubleValues");
 
-        requiredListConstraintValidator.validate(model.decimals, HttpModelType.parameter, "decimals");
-        requiredConstraintValidator.validateList(model.decimals, HttpModelType.parameter, "decimals");
-        decimalsLatLatConstraintValidator.validateList(model.decimals, HttpModelType.parameter, "decimals");
-        decimalsLngLngConstraintValidator.validateList(model.decimals, HttpModelType.parameter, "decimals");
-        decimalsMaxNumberMaxBigDecimalNumberConstraintValidator.validateList(model.decimals, HttpModelType.parameter, "decimals");
-        decimalsMaxSizeMaxSizeConstraintValidator.validate(model.decimals, HttpModelType.parameter, "decimals");
-        decimalsMinNumberMinBigDecimalNumberConstraintValidator.validateList(model.decimals, HttpModelType.parameter, "decimals");
-        decimalsMinSizeMinSizeConstraintValidator.validate(model.decimals, HttpModelType.parameter, "decimals");
-        decimalsNumericNumericConstraintValidator.validateList(model.decimals, HttpModelType.parameter, "decimals");
-        decimalsSizeSizeConstraintValidator.validate(model.decimals, HttpModelType.parameter, "decimals");
-        uniqueItemsConstraintValidator.validate(model.decimals, HttpModelType.parameter, "decimals");
+        requiredListConstraintValidator.validate(model.decimals, HttpModelType.PARAMETER, "decimals");
+        requiredConstraintValidator.validateList(model.decimals, HttpModelType.PARAMETER, "decimals");
+        decimalsLatLatConstraintValidator.validateList(model.decimals, HttpModelType.PARAMETER, "decimals");
+        decimalsLngLngConstraintValidator.validateList(model.decimals, HttpModelType.PARAMETER, "decimals");
+        decimalsMaxNumberMaxBigDecimalNumberConstraintValidator.validateList(model.decimals, HttpModelType.PARAMETER, "decimals");
+        decimalsMaxSizeMaxSizeConstraintValidator.validate(model.decimals, HttpModelType.PARAMETER, "decimals");
+        decimalsMinNumberMinBigDecimalNumberConstraintValidator.validateList(model.decimals, HttpModelType.PARAMETER, "decimals");
+        decimalsMinSizeMinSizeConstraintValidator.validate(model.decimals, HttpModelType.PARAMETER, "decimals");
+        decimalsNumericNumericConstraintValidator.validateList(model.decimals, HttpModelType.PARAMETER, "decimals");
+        decimalsSizeSizeConstraintValidator.validate(model.decimals, HttpModelType.PARAMETER, "decimals");
+        uniqueItemsConstraintValidator.validate(model.decimals, HttpModelType.PARAMETER, "decimals");
 
-        requiredListConstraintValidator.validate(model.bigIntegers, HttpModelType.parameter, "bigIntegers");
-        requiredConstraintValidator.validateList(model.bigIntegers, HttpModelType.parameter, "bigIntegers");
-        bigIntegersMaxNumberMaxBigIntegerNumberConstraintValidator.validateList(model.bigIntegers, HttpModelType.parameter, "bigIntegers");
-        bigIntegersMaxSizeMaxSizeConstraintValidator.validate(model.bigIntegers, HttpModelType.parameter, "bigIntegers");
-        bigIntegersMinNumberMinBigIntegerNumberConstraintValidator.validateList(model.bigIntegers, HttpModelType.parameter, "bigIntegers");
-        bigIntegersMinSizeMinSizeConstraintValidator.validate(model.bigIntegers, HttpModelType.parameter, "bigIntegers");
-        bigIntegersSizeSizeConstraintValidator.validate(model.bigIntegers, HttpModelType.parameter, "bigIntegers");
-        uniqueItemsConstraintValidator.validate(model.bigIntegers, HttpModelType.parameter, "bigIntegers");
+        requiredListConstraintValidator.validate(model.bigIntegers, HttpModelType.PARAMETER, "bigIntegers");
+        requiredConstraintValidator.validateList(model.bigIntegers, HttpModelType.PARAMETER, "bigIntegers");
+        bigIntegersMaxNumberMaxBigIntegerNumberConstraintValidator.validateList(model.bigIntegers, HttpModelType.PARAMETER, "bigIntegers");
+        bigIntegersMaxSizeMaxSizeConstraintValidator.validate(model.bigIntegers, HttpModelType.PARAMETER, "bigIntegers");
+        bigIntegersMinNumberMinBigIntegerNumberConstraintValidator.validateList(model.bigIntegers, HttpModelType.PARAMETER, "bigIntegers");
+        bigIntegersMinSizeMinSizeConstraintValidator.validate(model.bigIntegers, HttpModelType.PARAMETER, "bigIntegers");
+        bigIntegersSizeSizeConstraintValidator.validate(model.bigIntegers, HttpModelType.PARAMETER, "bigIntegers");
+        uniqueItemsConstraintValidator.validate(model.bigIntegers, HttpModelType.PARAMETER, "bigIntegers");
 
-        requiredListConstraintValidator.validate(model.strings, HttpModelType.parameter, "strings");
-        requiredConstraintValidator.validateList(model.strings, HttpModelType.parameter, "strings");
-        stringsBase64URLEncodedBase64URLEncodedConstraintValidator.validateList(model.strings, HttpModelType.parameter, "strings");
-        stringsCountryCodeCountryCodeConstraintValidator.validateList(model.strings, HttpModelType.parameter, "strings");
-        emailConstraintValidator.validateList(model.strings, HttpModelType.parameter, "strings");
-        stringsEnumerationEnumerationStringConstraintValidator.validateList(model.strings, HttpModelType.parameter, "strings");
-        hostNameConstraintValidator.validateList(model.strings, HttpModelType.parameter, "strings");
-        stringsIPIPConstraintValidator.validateList(model.strings, HttpModelType.parameter, "strings");
-        stringsLatinAlphabetOnlyLatinAlphabetOnlyConstraintValidator.validateList(model.strings, HttpModelType.parameter, "strings");
-        stringsLengthLengthConstraintValidator.validateList(model.strings, HttpModelType.parameter, "strings");
-        lowercaseConstraintValidator.validateList(model.strings, HttpModelType.parameter, "strings");
-        stringsMaxLengthMaxLengthConstraintValidator.validateList(model.strings, HttpModelType.parameter, "strings");
-        stringsMaxSizeMaxSizeConstraintValidator.validate(model.strings, HttpModelType.parameter, "strings");
-        stringsMinLengthMinLengthConstraintValidator.validateList(model.strings, HttpModelType.parameter, "strings");
-        stringsMinSizeMinSizeConstraintValidator.validate(model.strings, HttpModelType.parameter, "strings");
-        stringsPatternPatternConstraintValidator.validateList(model.strings, HttpModelType.parameter, "strings");
-        stringsPhonePhoneConstraintValidator.validateList(model.strings, HttpModelType.parameter, "strings");
-        stringsSizeSizeConstraintValidator.validate(model.strings, HttpModelType.parameter, "strings");
-        skypeConstraintValidator.validateList(model.strings, HttpModelType.parameter, "strings");
-        stringsTelegramTelegramConstraintValidator.validateList(model.strings, HttpModelType.parameter, "strings");
-        uRIConstraintValidator.validateList(model.strings, HttpModelType.parameter, "strings");
-        uRLEncodedConstraintValidator.validateList(model.strings, HttpModelType.parameter, "strings");
-        uniqueItemsConstraintValidator.validate(model.strings, HttpModelType.parameter, "strings");
-        uppercaseConstraintValidator.validateList(model.strings, HttpModelType.parameter, "strings");
-        stringsViberViberConstraintValidator.validateList(model.strings, HttpModelType.parameter, "strings");
-        stringsWhatsAppWhatsAppConstraintValidator.validateList(model.strings, HttpModelType.parameter, "strings");
+        requiredListConstraintValidator.validate(model.strings, HttpModelType.PARAMETER, "strings");
+        requiredConstraintValidator.validateList(model.strings, HttpModelType.PARAMETER, "strings");
+        stringsBase64URLEncodedBase64URLEncodedConstraintValidator.validateList(model.strings, HttpModelType.PARAMETER, "strings");
+        stringsCountryCodeCountryCodeConstraintValidator.validateList(model.strings, HttpModelType.PARAMETER, "strings");
+        emailConstraintValidator.validateList(model.strings, HttpModelType.PARAMETER, "strings");
+        stringsEnumerationEnumerationStringConstraintValidator.validateList(model.strings, HttpModelType.PARAMETER, "strings");
+        hostNameConstraintValidator.validateList(model.strings, HttpModelType.PARAMETER, "strings");
+        stringsIPIPConstraintValidator.validateList(model.strings, HttpModelType.PARAMETER, "strings");
+        stringsLatinAlphabetOnlyLatinAlphabetOnlyConstraintValidator.validateList(model.strings, HttpModelType.PARAMETER, "strings");
+        stringsLengthLengthConstraintValidator.validateList(model.strings, HttpModelType.PARAMETER, "strings");
+        lowercaseConstraintValidator.validateList(model.strings, HttpModelType.PARAMETER, "strings");
+        stringsMaxLengthMaxLengthConstraintValidator.validateList(model.strings, HttpModelType.PARAMETER, "strings");
+        stringsMaxSizeMaxSizeConstraintValidator.validate(model.strings, HttpModelType.PARAMETER, "strings");
+        stringsMinLengthMinLengthConstraintValidator.validateList(model.strings, HttpModelType.PARAMETER, "strings");
+        stringsMinSizeMinSizeConstraintValidator.validate(model.strings, HttpModelType.PARAMETER, "strings");
+        stringsPatternPatternConstraintValidator.validateList(model.strings, HttpModelType.PARAMETER, "strings");
+        stringsPhonePhoneConstraintValidator.validateList(model.strings, HttpModelType.PARAMETER, "strings");
+        stringsSizeSizeConstraintValidator.validate(model.strings, HttpModelType.PARAMETER, "strings");
+        skypeConstraintValidator.validateList(model.strings, HttpModelType.PARAMETER, "strings");
+        stringsTelegramTelegramConstraintValidator.validateList(model.strings, HttpModelType.PARAMETER, "strings");
+        uRIConstraintValidator.validateList(model.strings, HttpModelType.PARAMETER, "strings");
+        uRLEncodedConstraintValidator.validateList(model.strings, HttpModelType.PARAMETER, "strings");
+        uniqueItemsConstraintValidator.validate(model.strings, HttpModelType.PARAMETER, "strings");
+        uppercaseConstraintValidator.validateList(model.strings, HttpModelType.PARAMETER, "strings");
+        stringsViberViberConstraintValidator.validateList(model.strings, HttpModelType.PARAMETER, "strings");
+        stringsWhatsAppWhatsAppConstraintValidator.validateList(model.strings, HttpModelType.PARAMETER, "strings");
 
-        requiredListConstraintValidator.validate(model.instants, HttpModelType.parameter, "instants");
-        requiredConstraintValidator.validateList(model.instants, HttpModelType.parameter, "instants");
-        futureInstantConstraintValidator.validateList(model.instants, HttpModelType.parameter, "instants");
-        futureOrPresentInstantConstraintValidator.validateList(model.instants, HttpModelType.parameter, "instants");
-        instantsMaxSizeMaxSizeConstraintValidator.validate(model.instants, HttpModelType.parameter, "instants");
-        instantsMinSizeMinSizeConstraintValidator.validate(model.instants, HttpModelType.parameter, "instants");
-        pastInstantConstraintValidator.validateList(model.instants, HttpModelType.parameter, "instants");
-        pastOrPresentInstantConstraintValidator.validateList(model.instants, HttpModelType.parameter, "instants");
-        instantsSizeSizeConstraintValidator.validate(model.instants, HttpModelType.parameter, "instants");
-        instantsTruncatedTimeTruncatedTimeInstantConstraintValidator.validateList(model.instants, HttpModelType.parameter, "instants");
-        uniqueItemsConstraintValidator.validate(model.instants, HttpModelType.parameter, "instants");
+        requiredListConstraintValidator.validate(model.instants, HttpModelType.PARAMETER, "instants");
+        requiredConstraintValidator.validateList(model.instants, HttpModelType.PARAMETER, "instants");
+        futureInstantConstraintValidator.validateList(model.instants, HttpModelType.PARAMETER, "instants");
+        futureOrPresentInstantConstraintValidator.validateList(model.instants, HttpModelType.PARAMETER, "instants");
+        instantsMaxSizeMaxSizeConstraintValidator.validate(model.instants, HttpModelType.PARAMETER, "instants");
+        instantsMinSizeMinSizeConstraintValidator.validate(model.instants, HttpModelType.PARAMETER, "instants");
+        pastInstantConstraintValidator.validateList(model.instants, HttpModelType.PARAMETER, "instants");
+        pastOrPresentInstantConstraintValidator.validateList(model.instants, HttpModelType.PARAMETER, "instants");
+        instantsSizeSizeConstraintValidator.validate(model.instants, HttpModelType.PARAMETER, "instants");
+        instantsTruncatedTimeTruncatedTimeInstantConstraintValidator.validateList(model.instants, HttpModelType.PARAMETER, "instants");
+        uniqueItemsConstraintValidator.validate(model.instants, HttpModelType.PARAMETER, "instants");
 
-        requiredListConstraintValidator.validate(model.colors, HttpModelType.parameter, "colors");
-        requiredConstraintValidator.validateList(model.colors, HttpModelType.parameter, "colors");
-        colorsMaxSizeMaxSizeConstraintValidator.validate(model.colors, HttpModelType.parameter, "colors");
-        colorsMinSizeMinSizeConstraintValidator.validate(model.colors, HttpModelType.parameter, "colors");
-        colorsSizeSizeConstraintValidator.validate(model.colors, HttpModelType.parameter, "colors");
-        colorsSubEnumSubEnumConstraintValidator.validateList(model.colors, HttpModelType.parameter, "colors");
-        uniqueItemsConstraintValidator.validate(model.colors, HttpModelType.parameter, "colors");
+        requiredListConstraintValidator.validate(model.colors, HttpModelType.PARAMETER, "colors");
+        requiredConstraintValidator.validateList(model.colors, HttpModelType.PARAMETER, "colors");
+        colorsMaxSizeMaxSizeConstraintValidator.validate(model.colors, HttpModelType.PARAMETER, "colors");
+        colorsMinSizeMinSizeConstraintValidator.validate(model.colors, HttpModelType.PARAMETER, "colors");
+        colorsSizeSizeConstraintValidator.validate(model.colors, HttpModelType.PARAMETER, "colors");
+        colorsSubEnumSubEnumConstraintValidator.validateList(model.colors, HttpModelType.PARAMETER, "colors");
+        uniqueItemsConstraintValidator.validate(model.colors, HttpModelType.PARAMETER, "colors");
 
-        requiredConstraintValidator.validate(model.countryCodeAlpha2, HttpModelType.parameter, "countryCodeAlpha2");
-        countryCodeAlpha2CountryCodeCountryCodeConstraintValidator.validate(model.countryCodeAlpha2, HttpModelType.parameter, "countryCodeAlpha2");
+        requiredConstraintValidator.validate(model.countryCodeAlpha2, HttpModelType.PARAMETER, "countryCodeAlpha2");
+        countryCodeAlpha2CountryCodeCountryCodeConstraintValidator.validate(model.countryCodeAlpha2, HttpModelType.PARAMETER, "countryCodeAlpha2");
 
-        requiredConstraintValidator.validate(model.countryCodeAlpha3, HttpModelType.parameter, "countryCodeAlpha3");
-        countryCodeAlpha3CountryCodeCountryCodeConstraintValidator.validate(model.countryCodeAlpha3, HttpModelType.parameter, "countryCodeAlpha3");
+        requiredConstraintValidator.validate(model.countryCodeAlpha3, HttpModelType.PARAMETER, "countryCodeAlpha3");
+        countryCodeAlpha3CountryCodeCountryCodeConstraintValidator.validate(model.countryCodeAlpha3, HttpModelType.PARAMETER, "countryCodeAlpha3");
 
-        requiredConstraintValidator.validate(model.countryCodeNumeric, HttpModelType.parameter, "countryCodeNumeric");
-        countryCodeNumericCountryCodeCountryCodeConstraintValidator.validate(model.countryCodeNumeric, HttpModelType.parameter, "countryCodeNumeric");
+        requiredConstraintValidator.validate(model.countryCodeNumeric, HttpModelType.PARAMETER, "countryCodeNumeric");
+        countryCodeNumericCountryCodeCountryCodeConstraintValidator.validate(model.countryCodeNumeric, HttpModelType.PARAMETER, "countryCodeNumeric");
 
-        requiredConstraintValidator.validate(model.base64URLEncodedBase, HttpModelType.parameter, "base64URLEncodedBase");
-        base64URLEncodedBaseBase64URLEncodedBase64URLEncodedConstraintValidator.validate(model.base64URLEncodedBase, HttpModelType.parameter, "base64URLEncodedBase");
+        requiredConstraintValidator.validate(model.base64URLEncodedBase, HttpModelType.PARAMETER, "base64URLEncodedBase");
+        base64URLEncodedBaseBase64URLEncodedBase64URLEncodedConstraintValidator.validate(model.base64URLEncodedBase, HttpModelType.PARAMETER, "base64URLEncodedBase");
 
-        requiredConstraintValidator.validate(model.base64URLEncodedUrl, HttpModelType.parameter, "base64URLEncodedUrl");
-        base64URLEncodedUrlBase64URLEncodedBase64URLEncodedConstraintValidator.validate(model.base64URLEncodedUrl, HttpModelType.parameter, "base64URLEncodedUrl");
+        requiredConstraintValidator.validate(model.base64URLEncodedUrl, HttpModelType.PARAMETER, "base64URLEncodedUrl");
+        base64URLEncodedUrlBase64URLEncodedBase64URLEncodedConstraintValidator.validate(model.base64URLEncodedUrl, HttpModelType.PARAMETER, "base64URLEncodedUrl");
 
-        requiredConstraintValidator.validate(model.ip, HttpModelType.parameter, "ip");
-        ipIPIPConstraintValidator.validate(model.ip, HttpModelType.parameter, "ip");
+        requiredConstraintValidator.validate(model.ip, HttpModelType.PARAMETER, "ip");
+        ipIPIPConstraintValidator.validate(model.ip, HttpModelType.PARAMETER, "ip");
 
-        requiredConstraintValidator.validate(model.ip4, HttpModelType.parameter, "ip4");
-        ip4IPIPConstraintValidator.validate(model.ip4, HttpModelType.parameter, "ip4");
+        requiredConstraintValidator.validate(model.ip4, HttpModelType.PARAMETER, "ip4");
+        ip4IPIPConstraintValidator.validate(model.ip4, HttpModelType.PARAMETER, "ip4");
 
-        requiredConstraintValidator.validate(model.ip6, HttpModelType.parameter, "ip6");
-        ip6IPIPConstraintValidator.validate(model.ip6, HttpModelType.parameter, "ip6");
+        requiredConstraintValidator.validate(model.ip6, HttpModelType.PARAMETER, "ip6");
+        ip6IPIPConstraintValidator.validate(model.ip6, HttpModelType.PARAMETER, "ip6");
 
-        requiredConstraintValidator.validate(model.lat111km, HttpModelType.parameter, "lat111km");
-        lat111kmLatLatConstraintValidator.validate(model.lat111km, HttpModelType.parameter, "lat111km");
+        requiredConstraintValidator.validate(model.lat111km, HttpModelType.PARAMETER, "lat111km");
+        lat111kmLatLatConstraintValidator.validate(model.lat111km, HttpModelType.PARAMETER, "lat111km");
 
-        requiredConstraintValidator.validate(model.lng111km, HttpModelType.parameter, "lng111km");
-        lng111kmLngLngConstraintValidator.validate(model.lng111km, HttpModelType.parameter, "lng111km");
+        requiredConstraintValidator.validate(model.lng111km, HttpModelType.PARAMETER, "lng111km");
+        lng111kmLngLngConstraintValidator.validate(model.lng111km, HttpModelType.PARAMETER, "lng111km");
 
-        requiredConstraintValidator.validate(model.lat11km, HttpModelType.parameter, "lat11km");
-        lat11kmLatLatConstraintValidator.validate(model.lat11km, HttpModelType.parameter, "lat11km");
+        requiredConstraintValidator.validate(model.lat11km, HttpModelType.PARAMETER, "lat11km");
+        lat11kmLatLatConstraintValidator.validate(model.lat11km, HttpModelType.PARAMETER, "lat11km");
 
-        requiredConstraintValidator.validate(model.lng11km, HttpModelType.parameter, "lng11km");
-        lng11kmLngLngConstraintValidator.validate(model.lng11km, HttpModelType.parameter, "lng11km");
+        requiredConstraintValidator.validate(model.lng11km, HttpModelType.PARAMETER, "lng11km");
+        lng11kmLngLngConstraintValidator.validate(model.lng11km, HttpModelType.PARAMETER, "lng11km");
 
-        requiredConstraintValidator.validate(model.lat1km, HttpModelType.parameter, "lat1km");
-        lat1kmLatLatConstraintValidator.validate(model.lat1km, HttpModelType.parameter, "lat1km");
+        requiredConstraintValidator.validate(model.lat1km, HttpModelType.PARAMETER, "lat1km");
+        lat1kmLatLatConstraintValidator.validate(model.lat1km, HttpModelType.PARAMETER, "lat1km");
 
-        requiredConstraintValidator.validate(model.lng1km, HttpModelType.parameter, "lng1km");
-        lng1kmLngLngConstraintValidator.validate(model.lng1km, HttpModelType.parameter, "lng1km");
+        requiredConstraintValidator.validate(model.lng1km, HttpModelType.PARAMETER, "lng1km");
+        lng1kmLngLngConstraintValidator.validate(model.lng1km, HttpModelType.PARAMETER, "lng1km");
 
-        requiredConstraintValidator.validate(model.lat111m, HttpModelType.parameter, "lat111m");
-        lat111mLatLatConstraintValidator.validate(model.lat111m, HttpModelType.parameter, "lat111m");
+        requiredConstraintValidator.validate(model.lat111m, HttpModelType.PARAMETER, "lat111m");
+        lat111mLatLatConstraintValidator.validate(model.lat111m, HttpModelType.PARAMETER, "lat111m");
 
-        requiredConstraintValidator.validate(model.lng111m, HttpModelType.parameter, "lng111m");
-        lng111mLngLngConstraintValidator.validate(model.lng111m, HttpModelType.parameter, "lng111m");
+        requiredConstraintValidator.validate(model.lng111m, HttpModelType.PARAMETER, "lng111m");
+        lng111mLngLngConstraintValidator.validate(model.lng111m, HttpModelType.PARAMETER, "lng111m");
 
-        requiredConstraintValidator.validate(model.lat11m, HttpModelType.parameter, "lat11m");
-        lat11mLatLatConstraintValidator.validate(model.lat11m, HttpModelType.parameter, "lat11m");
+        requiredConstraintValidator.validate(model.lat11m, HttpModelType.PARAMETER, "lat11m");
+        lat11mLatLatConstraintValidator.validate(model.lat11m, HttpModelType.PARAMETER, "lat11m");
 
-        requiredConstraintValidator.validate(model.lng11m, HttpModelType.parameter, "lng11m");
-        lng11mLngLngConstraintValidator.validate(model.lng11m, HttpModelType.parameter, "lng11m");
+        requiredConstraintValidator.validate(model.lng11m, HttpModelType.PARAMETER, "lng11m");
+        lng11mLngLngConstraintValidator.validate(model.lng11m, HttpModelType.PARAMETER, "lng11m");
 
-        requiredConstraintValidator.validate(model.lat1m, HttpModelType.parameter, "lat1m");
-        lat1mLatLatConstraintValidator.validate(model.lat1m, HttpModelType.parameter, "lat1m");
+        requiredConstraintValidator.validate(model.lat1m, HttpModelType.PARAMETER, "lat1m");
+        lat1mLatLatConstraintValidator.validate(model.lat1m, HttpModelType.PARAMETER, "lat1m");
 
-        requiredConstraintValidator.validate(model.lng1m, HttpModelType.parameter, "lng1m");
-        lng1mLngLngConstraintValidator.validate(model.lng1m, HttpModelType.parameter, "lng1m");
+        requiredConstraintValidator.validate(model.lng1m, HttpModelType.PARAMETER, "lng1m");
+        lng1mLngLngConstraintValidator.validate(model.lng1m, HttpModelType.PARAMETER, "lng1m");
 
-        requiredConstraintValidator.validate(model.lat11cm, HttpModelType.parameter, "lat11cm");
-        lat11cmLatLatConstraintValidator.validate(model.lat11cm, HttpModelType.parameter, "lat11cm");
+        requiredConstraintValidator.validate(model.lat11cm, HttpModelType.PARAMETER, "lat11cm");
+        lat11cmLatLatConstraintValidator.validate(model.lat11cm, HttpModelType.PARAMETER, "lat11cm");
 
-        requiredConstraintValidator.validate(model.lng11cm, HttpModelType.parameter, "lng11cm");
-        lng11cmLngLngConstraintValidator.validate(model.lng11cm, HttpModelType.parameter, "lng11cm");
+        requiredConstraintValidator.validate(model.lng11cm, HttpModelType.PARAMETER, "lng11cm");
+        lng11cmLngLngConstraintValidator.validate(model.lng11cm, HttpModelType.PARAMETER, "lng11cm");
 
-        requiredConstraintValidator.validate(model.lat1cm, HttpModelType.parameter, "lat1cm");
-        lat1cmLatLatConstraintValidator.validate(model.lat1cm, HttpModelType.parameter, "lat1cm");
+        requiredConstraintValidator.validate(model.lat1cm, HttpModelType.PARAMETER, "lat1cm");
+        lat1cmLatLatConstraintValidator.validate(model.lat1cm, HttpModelType.PARAMETER, "lat1cm");
 
-        requiredConstraintValidator.validate(model.lng1cm, HttpModelType.parameter, "lng1cm");
-        lng1cmLngLngConstraintValidator.validate(model.lng1cm, HttpModelType.parameter, "lng1cm");
+        requiredConstraintValidator.validate(model.lng1cm, HttpModelType.PARAMETER, "lng1cm");
+        lng1cmLngLngConstraintValidator.validate(model.lng1cm, HttpModelType.PARAMETER, "lng1cm");
     }
 }

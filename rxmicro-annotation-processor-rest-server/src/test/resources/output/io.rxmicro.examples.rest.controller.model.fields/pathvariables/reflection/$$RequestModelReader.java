@@ -20,19 +20,19 @@ public final class $$RequestModelReader extends ModelReader<Request> {
                         final HttpRequest request,
                         final boolean readParametersFromBody) {
         final Request model = new Request();
-        setFieldValue(model, "booleanParameter", toBoolean(pathVariableMapping.getValue("a"), HttpModelType.path, "a"));
-        setFieldValue(model, "byteParameter", toByte(pathVariableMapping.getValue("b"), HttpModelType.path, "b"));
-        setFieldValue(model, "shortParameter", toShort(pathVariableMapping.getValue("c"), HttpModelType.path, "c"));
-        setFieldValue(model, "intParameter", toInteger(pathVariableMapping.getValue("d"), HttpModelType.path, "d"));
-        setFieldValue(model, "longParameter", toLong(pathVariableMapping.getValue("e"), HttpModelType.path, "e"));
-        setFieldValue(model, "bigIntParameter", toBigInteger(pathVariableMapping.getValue("f"), HttpModelType.path, "f"));
-        setFieldValue(model, "floatParameter", toFloat(pathVariableMapping.getValue("g"), HttpModelType.path, "g"));
-        setFieldValue(model, "doubleParameter", toDouble(pathVariableMapping.getValue("h"), HttpModelType.path, "h"));
-        setFieldValue(model, "decimalParameter", toBigDecimal(pathVariableMapping.getValue("i"), HttpModelType.path, "i"));
-        setFieldValue(model, "charParameter", toCharacter(pathVariableMapping.getValue("j"), HttpModelType.path, "j"));
-        setFieldValue(model, "stringParameter", toString(pathVariableMapping.getValue("k"), HttpModelType.path, "k"));
-        setFieldValue(model, "instantParameter", toInstant(pathVariableMapping.getValue("l"), HttpModelType.path, "l"));
-        setFieldValue(model, "status", toEnum(Status.class, pathVariableMapping.getValue("m"), HttpModelType.path, "m"));
+        setFieldValue(model, "booleanParameter", toBoolean(pathVariableMapping.getValue("a"), HttpModelType.PATH, "a"));
+        setFieldValue(model, "byteParameter", toByte(pathVariableMapping.getValue("b"), HttpModelType.PATH, "b"));
+        setFieldValue(model, "shortParameter", toShort(pathVariableMapping.getValue("c"), HttpModelType.PATH, "c"));
+        setFieldValue(model, "intParameter", toInteger(pathVariableMapping.getValue("d"), HttpModelType.PATH, "d"));
+        setFieldValue(model, "longParameter", toLong(pathVariableMapping.getValue("e"), HttpModelType.PATH, "e"));
+        setFieldValue(model, "bigIntParameter", toBigInteger(pathVariableMapping.getValue("f"), HttpModelType.PATH, "f"));
+        setFieldValue(model, "floatParameter", toFloat(pathVariableMapping.getValue("g"), HttpModelType.PATH, "g"));
+        setFieldValue(model, "doubleParameter", toDouble(pathVariableMapping.getValue("h"), HttpModelType.PATH, "h"));
+        setFieldValue(model, "decimalParameter", toBigDecimal(pathVariableMapping.getValue("i"), HttpModelType.PATH, "i"));
+        setFieldValue(model, "charParameter", toCharacter(pathVariableMapping.getValue("j"), HttpModelType.PATH, "j"));
+        setFieldValue(model, "stringParameter", toString(pathVariableMapping.getValue("k"), HttpModelType.PATH, "k"));
+        setFieldValue(model, "instantParameter", toInstant(pathVariableMapping.getValue("l"), HttpModelType.PATH, "l"));
+        setFieldValue(model, "status", toEnum(Status.class, pathVariableMapping.getValue("m"), HttpModelType.PATH, "m"));
         return model;
     }
 }

@@ -37,7 +37,7 @@ import static java.util.Collections.unmodifiableList;
  * @link https://rxmicro.io
  * @since 0.1
  */
-@SuppressWarnings({"ForLoopReplaceableByForEach", "rawtypes"})
+@SuppressWarnings({"ForLoopReplaceableByForEach", "rawtypes", "unchecked"})
 public abstract class FromStringValueConverter {
 
     private static final int DEFAULT_SIZE = 5;
@@ -72,7 +72,6 @@ public abstract class FromStringValueConverter {
         }
     }
 
-    @SuppressWarnings("unchecked")
     protected final <E extends Enum<E>> List<E> toEnumArray(final Class<E> enumClass,
                                                             final List<String> list,
                                                             final HttpModelType httpModelType,
@@ -120,7 +119,6 @@ public abstract class FromStringValueConverter {
         }
     }
 
-    @SuppressWarnings("unchecked")
     protected final List<Boolean> toBooleanArray(final List<String> list,
                                                  final HttpModelType httpModelType,
                                                  final String modelName) {
@@ -159,7 +157,6 @@ public abstract class FromStringValueConverter {
         }
     }
 
-    @SuppressWarnings("unchecked")
     protected final List<Byte> toByteArray(final List<String> list,
                                            final HttpModelType httpModelType,
                                            final String modelName) {
@@ -198,7 +195,6 @@ public abstract class FromStringValueConverter {
         }
     }
 
-    @SuppressWarnings("unchecked")
     protected final List<Short> toShortArray(final List<String> list,
                                              final HttpModelType httpModelType,
                                              final String modelName) {
@@ -237,7 +233,6 @@ public abstract class FromStringValueConverter {
         }
     }
 
-    @SuppressWarnings("unchecked")
     protected final List<Integer> toIntegerArray(final List<String> list,
                                                  final HttpModelType httpModelType,
                                                  final String modelName) {
@@ -276,7 +271,6 @@ public abstract class FromStringValueConverter {
         }
     }
 
-    @SuppressWarnings("unchecked")
     protected final List<Long> toLongArray(final List<String> list,
                                            final HttpModelType httpModelType,
                                            final String modelName) {
@@ -314,7 +308,6 @@ public abstract class FromStringValueConverter {
         }
     }
 
-    @SuppressWarnings("unchecked")
     protected final List<Character> toCharacterArray(final List<String> list,
                                                      final HttpModelType httpModelType,
                                                      final String modelName) {
@@ -353,7 +346,6 @@ public abstract class FromStringValueConverter {
         }
     }
 
-    @SuppressWarnings("unchecked")
     protected final List<Float> toFloatArray(final List<String> list,
                                              final HttpModelType httpModelType,
                                              final String modelName) {
@@ -392,7 +384,6 @@ public abstract class FromStringValueConverter {
         }
     }
 
-    @SuppressWarnings("unchecked")
     protected final List<Double> toDoubleArray(final List<String> list,
                                                final HttpModelType httpModelType,
                                                final String modelName) {
@@ -431,7 +422,6 @@ public abstract class FromStringValueConverter {
         }
     }
 
-    @SuppressWarnings("unchecked")
     protected final List<BigDecimal> toBigDecimalArray(final List<String> list,
                                                        final HttpModelType httpModelType,
                                                        final String modelName) {
@@ -470,7 +460,6 @@ public abstract class FromStringValueConverter {
         }
     }
 
-    @SuppressWarnings("unchecked")
     protected final List<BigInteger> toBigIntegerArray(final List<String> list,
                                                        final HttpModelType httpModelType,
                                                        final String modelName) {
@@ -509,7 +498,6 @@ public abstract class FromStringValueConverter {
         }
     }
 
-    @SuppressWarnings("unchecked")
     protected final List<Instant> toInstantArray(final List<String> list,
                                                  final HttpModelType httpModelType,
                                                  final String modelName) {
@@ -538,7 +526,6 @@ public abstract class FromStringValueConverter {
         return value;
     }
 
-    @SuppressWarnings("unchecked")
     protected final List<String> toStringArray(final List<String> list,
                                                final HttpModelType httpModelType,
                                                final String modelName) {

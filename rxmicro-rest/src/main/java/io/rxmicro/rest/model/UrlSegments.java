@@ -59,12 +59,14 @@ public final class UrlSegments {
     }
 
     @Override
-    public boolean equals(final Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        final UrlSegments that = (UrlSegments) o;
-
+    public boolean equals(final Object other) {
+        if (this == other) {
+            return true;
+        }
+        if (other == null || getClass() != other.getClass()) {
+            return false;
+        }
+        final UrlSegments that = (UrlSegments) other;
         return urlTemplate.equals(that.urlTemplate);
     }
 

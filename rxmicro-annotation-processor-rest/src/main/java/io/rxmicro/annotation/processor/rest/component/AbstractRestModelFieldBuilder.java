@@ -165,7 +165,7 @@ public abstract class AbstractRestModelFieldBuilder
                     "Invalid path variable type. Allowed types are: ?",
                     supportedTypesProvider().primitives());
         }
-        return new RestModelField(annotated, HttpModelType.path, modelName);
+        return new RestModelField(annotated, HttpModelType.PATH, modelName);
     }
 
     @SuppressWarnings("Convert2MethodRef")
@@ -208,7 +208,7 @@ public abstract class AbstractRestModelFieldBuilder
         if (repeat) {
             validateRepeatHeader(modelFieldType, annotated);
         }
-        return new RestModelField(annotated, HttpModelType.header, modelName, repeat);
+        return new RestModelField(annotated, HttpModelType.HEADER, modelName, repeat);
     }
 
     private RestModelField buildRequestIdHeader(final VariableElement field,
@@ -230,7 +230,7 @@ public abstract class AbstractRestModelFieldBuilder
             error(annotated.getElementAnnotatedBy(RequestId.class).orElse(field),
                     "Detected duplicate of HTTP header name: " + modelName);
         }
-        return new RestModelField(annotated, HttpModelType.header, modelName);
+        return new RestModelField(annotated, HttpModelType.HEADER, modelName);
     }
 
     @SuppressWarnings("Convert2MethodRef")
@@ -258,7 +258,7 @@ public abstract class AbstractRestModelFieldBuilder
         if (repeat) {
             validateRepeatQueryParameter(modelFieldType, annotated);
         }
-        return new RestModelField(annotated, HttpModelType.parameter, modelName, repeat);
+        return new RestModelField(annotated, HttpModelType.PARAMETER, modelName, repeat);
     }
 
     protected abstract Set<Class<? extends Annotation>> supportedRequestAnnotations();

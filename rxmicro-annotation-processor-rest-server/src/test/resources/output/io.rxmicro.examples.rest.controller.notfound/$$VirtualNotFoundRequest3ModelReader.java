@@ -19,7 +19,7 @@ public final class $$VirtualNotFoundRequest3ModelReader extends ModelReader<$$Vi
                                           final boolean readParametersFromBody) {
         final $$VirtualNotFoundRequest3 model = new $$VirtualNotFoundRequest3();
         final QueryParams params = extractParams(request.getQueryString());
-        model.found = toBoolean(params.getValue("found"), HttpModelType.parameter, "found");
+        model.found = toBoolean(params.getValue("found"), HttpModelType.PARAMETER, "found");
         return model;
     }
 }
