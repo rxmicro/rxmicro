@@ -75,7 +75,7 @@ public final class Slf4jLoggerProxy implements org.slf4j.Logger {
 
     @Override
     public void trace(final String msg, final Throwable throwable) {
-        //TODO
+        logger.trace(throwable, msg);
     }
 
     @Override
@@ -135,7 +135,7 @@ public final class Slf4jLoggerProxy implements org.slf4j.Logger {
 
     @Override
     public void debug(final String msg, final Throwable throwable) {
-        //TODO
+        logger.debug(throwable, msg);
     }
 
     @Override
@@ -195,7 +195,7 @@ public final class Slf4jLoggerProxy implements org.slf4j.Logger {
 
     @Override
     public void info(final String msg, final Throwable throwable) {
-        //TODO
+        logger.info(throwable, msg);
     }
 
     @Override
@@ -255,7 +255,7 @@ public final class Slf4jLoggerProxy implements org.slf4j.Logger {
 
     @Override
     public void warn(final String msg, final Throwable throwable) {
-        //TODO
+        logger.warn(throwable, msg);
     }
 
     @Override
