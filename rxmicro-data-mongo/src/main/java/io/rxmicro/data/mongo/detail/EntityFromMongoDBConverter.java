@@ -34,7 +34,7 @@ public abstract class EntityFromMongoDBConverter<DB, E> extends AbstractEntityMo
 
     public abstract E fromDB(DB dbRow);
 
-    public final List<E> fromDB(List<DB> list) {
+    public final List<E> fromDB(final List<DB> list) {
         if (list == null || list.isEmpty()) {
             return null;
         } else {

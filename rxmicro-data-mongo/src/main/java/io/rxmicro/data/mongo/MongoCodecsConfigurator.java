@@ -20,6 +20,7 @@ import com.mongodb.BSONTimestampCodec;
 import com.mongodb.DBRef;
 import com.mongodb.DBRefCodec;
 import com.mongodb.DocumentToDBRefTransformer;
+import io.rxmicro.common.meta.BuilderMethod;
 import io.rxmicro.data.mongo.internal.AbstractMongoCodecsConfigurator;
 import io.rxmicro.data.mongo.internal.codec.CustomBinaryCodec;
 import org.bson.BsonArray;
@@ -107,6 +108,7 @@ public final class MongoCodecsConfigurator extends AbstractMongoCodecsConfigurat
 
     private UuidRepresentation uuidRepresentation = UuidRepresentation.JAVA_LEGACY;
 
+    @BuilderMethod
     public MongoCodecsConfigurator setDefaultUuidRepresentation(final UuidRepresentation uuidRepresentation) {
         if (isNotConfigured()) {
             this.uuidRepresentation = uuidRepresentation;
@@ -238,22 +240,22 @@ public final class MongoCodecsConfigurator extends AbstractMongoCodecsConfigurat
                 .withDBRefCodec();
     }
 
-    public final MongoCodecsConfigurator putCodec(final Codec<?> codec) {
+    public MongoCodecsConfigurator putCodec(final Codec<?> codec) {
         return addCodec(require(codec));
     }
 
-    public final MongoCodecsConfigurator putCodecProvider(final Class<?> encodedClass,
-                                                          final Function<CodecRegistry, Codec<?>> codecProvider) {
+    public MongoCodecsConfigurator putCodecProvider(final Class<?> encodedClass,
+                                                    final Function<CodecRegistry, Codec<?>> codecProvider) {
         return addCodecProvider(require(encodedClass), require(codecProvider));
     }
 
-    public final MongoCodecsConfigurator putCodecProvider(final Predicate<Class<?>> encodedClassPredicate,
-                                                          final Function<CodecRegistry, Codec<?>> codecProvider) {
+    public MongoCodecsConfigurator putCodecProvider(final Predicate<Class<?>> encodedClassPredicate,
+                                                    final Function<CodecRegistry, Codec<?>> codecProvider) {
         return addCodecProvider(require(encodedClassPredicate), require(codecProvider));
     }
 
-    public final MongoCodecsConfigurator putCodec(final Predicate<Class<?>> encodedClassPredicate,
-                                                  final Codec<?> codec) {
+    public MongoCodecsConfigurator putCodec(final Predicate<Class<?>> encodedClassPredicate,
+                                            final Codec<?> codec) {
         return addCodec(require(encodedClassPredicate), require(codec));
     }
 

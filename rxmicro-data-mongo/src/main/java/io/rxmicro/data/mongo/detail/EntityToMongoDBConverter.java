@@ -33,7 +33,7 @@ public abstract class EntityToMongoDBConverter<E, DB> extends AbstractEntityMong
     public abstract DB toDB(E entity,
                             boolean withId);
 
-    public Object getId(E entity) {
+    public Object getId(final E entity) {
         throw new UnsupportedOperationException("Entity does not contain document id: " + entity);
     }
 

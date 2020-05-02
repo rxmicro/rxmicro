@@ -36,7 +36,7 @@ public final class MongoConfig extends Config {
 
     public static final String DEFAULT_HOST = "localhost";
 
-    public static final int DEFAULT_PORT = 27017;
+    public static final int DEFAULT_PORT = 27_017;
 
     public static final String DEFAULT_DB = "db";
 

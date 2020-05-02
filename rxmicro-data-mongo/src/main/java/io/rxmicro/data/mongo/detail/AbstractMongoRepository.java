@@ -29,13 +29,13 @@ import org.bson.Document;
  */
 public abstract class AbstractMongoRepository extends AbstractDataRepository {
 
-    protected final Logger LOGGER;
+    protected final Logger logger;
 
     protected final MongoCollection<Document> collection;
 
     protected AbstractMongoRepository(final Class<?> repositoryClass,
                                       final MongoCollection<Document> collection) {
-        this.LOGGER = LoggerFactory.getLogger(repositoryClass);
+        this.logger = LoggerFactory.getLogger(repositoryClass);
         this.collection = collection;
     }
 }
