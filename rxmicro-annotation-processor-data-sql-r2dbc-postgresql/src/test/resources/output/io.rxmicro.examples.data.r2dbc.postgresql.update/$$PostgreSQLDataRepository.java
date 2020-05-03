@@ -38,11 +38,11 @@ public final class $$PostgreSQLDataRepository extends AbstractPostgreSQLReposito
         return pool.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, updateParams)
                         .flatMap(r -> Mono.from(r.getRowsUpdated()))
-                        
+
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
                                 .then(Mono.error(e)))
-                        
+
                 )
                 .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletableFuture.class, Boolean.class))))
                 .map(r -> r > 0)
@@ -56,11 +56,11 @@ public final class $$PostgreSQLDataRepository extends AbstractPostgreSQLReposito
         return pool.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, firstName, lastName, id)
                         .flatMap(r -> Mono.from(r.getRowsUpdated()))
-                        
+
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
                                 .then(Mono.error(e)))
-                        
+
                 )
                 .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletableFuture.class, Integer.class))))
                 .toFuture();
@@ -91,11 +91,11 @@ public final class $$PostgreSQLDataRepository extends AbstractPostgreSQLReposito
         return pool.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, firstName, lastName, id)
                         .flatMap(r -> Mono.from(r.getRowsUpdated()))
-                        
+
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
                                 .then(Mono.error(e)))
-                        
+
                 )
                 .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletableFuture.class, Integer.class))))
                 .toFuture();

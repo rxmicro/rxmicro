@@ -18,25 +18,14 @@ package io.rxmicro.annotation.processor.rest.client.component.impl.method;
 
 import com.google.inject.Singleton;
 import io.rxmicro.annotation.processor.common.model.ClassHeader;
-import io.rxmicro.annotation.processor.common.model.EnvironmentContext;
-import io.rxmicro.annotation.processor.common.model.method.MethodBody;
-import io.rxmicro.annotation.processor.common.model.virtual.VirtualTypeElement;
-import io.rxmicro.annotation.processor.rest.client.component.impl.BaseRestClientMethodBodyBuilder;
-import io.rxmicro.annotation.processor.rest.client.model.RestClientClassStructureStorage;
-import io.rxmicro.annotation.processor.rest.client.model.RestClientMethodBody;
 import io.rxmicro.annotation.processor.rest.client.model.RestClientMethodSignature;
 import io.rxmicro.annotation.processor.rest.model.RestObjectModelClass;
-import io.rxmicro.annotation.processor.rest.model.RestRequestModel;
-import io.rxmicro.annotation.processor.rest.model.StaticHeaders;
 import io.rxmicro.annotation.processor.rest.model.StaticQueryParameters;
 import io.rxmicro.rest.client.detail.HeaderBuilder;
 import io.rxmicro.rest.client.detail.QueryBuilder;
-import io.rxmicro.rest.client.detail.RequestModelExtractor;
 
 import javax.lang.model.element.TypeElement;
 import java.util.Map;
-
-import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.getModelTransformerInstanceName;
 
 /**
  * @author nedis
@@ -45,7 +34,7 @@ import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.ge
  */
 @Singleton
 public final class QueryWithObjectParameterRestClientMethodBodyBuilder
-        extends BaseRestClientMethodBodyBuilder {
+        extends AbstractParametrizedBaseRestClientMethodBodyBuilder {
 
     @Override
     public boolean isSupported(final RestClientMethodSignature methodSignature) {
@@ -56,38 +45,28 @@ public final class QueryWithObjectParameterRestClientMethodBodyBuilder
     }
 
     @Override
-    public MethodBody build(final EnvironmentContext environmentContext,
-                            final RestClientClassStructureStorage storage,
-                            final ClassHeader.Builder classHeaderBuilder,
-                            final StaticHeaders staticHeaders,
-                            final StaticQueryParameters staticQueryParameters,
-                            final RestClientMethodSignature methodSignature) {
-        final RestRequestModel requestModel = methodSignature.getRequestModel();
-        final TypeElement parameterType = requestModel.getRequiredRequestType();
-        final RestObjectModelClass modelClass = storage.getModelClass(parameterType.asType().toString()).orElseThrow();
-        classHeaderBuilder
-                .addImports(
-                        QueryBuilder.class,
-                        HeaderBuilder.class
-                );
-        final Map<String, Object> templateArguments = createTemplateArguments(staticHeaders, staticQueryParameters, methodSignature);
-        templateArguments.put("VALIDATE_REQUEST_MODE", getRequestValidationMode(methodSignature, environmentContext));
-        templateArguments.put("HAS_MODEL_HEADERS", modelClass.isHeadersPresent());
-        templateArguments.put("HAS_MODEL_QUERY_PARAMS", modelClass.isParamsPresent());
-        templateArguments.put("MODEL", requestModel.getRequiredVariableName());
-        templateArguments.put("EXTRACTOR", getModelTransformerInstanceName(parameterType, RequestModelExtractor.class));
-        addValidators(environmentContext, storage, classHeaderBuilder, parameterType, methodSignature.getResponseModel(), templateArguments);
-        addPathBuilder(methodSignature, templateArguments);
-        final boolean isRequestClassVirtual = requestModel.getRequiredRequestType() instanceof VirtualTypeElement;
-        templateArguments.put("IS_REQUEST_CLASS_VIRTUAL", isRequestClassVirtual);
-        if (isRequestClassVirtual) {
-            templateArguments.put("REQUEST_VIRTUAL_CLASS", requestModel.getRequiredRequestType().getSimpleName().toString());
-            templateArguments.put("VIRTUAL_FIELDS", ((VirtualTypeElement) requestModel.getRequiredRequestType()).getVirtualFieldElements());
-        }
-        return new RestClientMethodBody(
-                methodBodyGenerator.generate(
-                        "rest/client/method/$$RestClientQueryWithObjectParameterMethodBodyTemplate.javaftl",
-                        templateArguments)
+    protected String getTemplateName() {
+        return "rest/client/method/$$RestClientQueryWithObjectParameterMethodBodyTemplate.javaftl";
+    }
+
+    @Override
+    protected void validate(final RestClientMethodSignature methodSignature,
+                            final StaticQueryParameters staticQueryParameters) {
+        // do nothing
+    }
+
+    @Override
+    protected void customizeClassHeaderBuilder(final ClassHeader.Builder classHeaderBuilder) {
+        classHeaderBuilder.addImports(
+                QueryBuilder.class,
+                HeaderBuilder.class
         );
+    }
+
+    @Override
+    protected void customizeTemplateArguments(final Map<String, Object> templateArguments,
+                                              final RestObjectModelClass modelClass,
+                                              final TypeElement parameterType) {
+        templateArguments.put("HAS_MODEL_QUERY_PARAMS", modelClass.isParamsPresent());
     }
 }

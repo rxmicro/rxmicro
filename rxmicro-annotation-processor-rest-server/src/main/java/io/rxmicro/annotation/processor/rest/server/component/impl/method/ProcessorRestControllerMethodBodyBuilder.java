@@ -16,31 +16,9 @@
 
 package io.rxmicro.annotation.processor.rest.server.component.impl.method;
 
-import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import io.rxmicro.annotation.processor.common.component.MethodBodyGenerator;
 import io.rxmicro.annotation.processor.common.model.ClassHeader;
-import io.rxmicro.annotation.processor.common.model.method.MethodBody;
-import io.rxmicro.annotation.processor.common.model.method.MethodName;
-import io.rxmicro.annotation.processor.common.model.virtual.VirtualTypeMirror;
-import io.rxmicro.annotation.processor.rest.model.RestRequestModel;
-import io.rxmicro.annotation.processor.rest.model.RestResponseModel;
-import io.rxmicro.annotation.processor.rest.model.StaticHeaders;
-import io.rxmicro.annotation.processor.rest.server.component.RestControllerMethodBodyBuilder;
-import io.rxmicro.annotation.processor.rest.server.model.RestControllerClassStructureStorage;
-import io.rxmicro.annotation.processor.rest.server.model.RestControllerMethodBody;
 import io.rxmicro.annotation.processor.rest.server.model.RestControllerMethodSignature;
-import io.rxmicro.annotation.processor.rest.server.model.RestServerModuleGeneratorConfig;
-import io.rxmicro.rest.server.detail.component.ModelReader;
-import io.rxmicro.validation.ConstraintValidator;
-
-import javax.lang.model.type.TypeMirror;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-
-import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.getModelTransformerInstanceName;
-import static io.rxmicro.annotation.processor.common.util.Names.getSimpleName;
 
 /**
  * @author nedis
@@ -48,10 +26,7 @@ import static io.rxmicro.annotation.processor.common.util.Names.getSimpleName;
  * @since 0.1
  */
 @Singleton
-public final class ProcessorRestControllerMethodBodyBuilder implements RestControllerMethodBodyBuilder {
-
-    @Inject
-    private MethodBodyGenerator methodBodyGenerator;
+public final class ProcessorRestControllerMethodBodyBuilder extends AbstractParametrizedRestControllerMethodBodyBuilder {
 
     @Override
     public boolean isSupport(final RestControllerMethodSignature methodSignature) {
@@ -60,41 +35,12 @@ public final class ProcessorRestControllerMethodBodyBuilder implements RestContr
     }
 
     @Override
-    public MethodBody build(final RestServerModuleGeneratorConfig restServerModuleGeneratorConfig,
-                            final ClassHeader.Builder classHeaderBuilder,
-                            final MethodName methodName,
-                            final int successStatusCode,
-                            final StaticHeaders staticHeaders,
-                            final RestRequestModel requestModel,
-                            final RestResponseModel responseModel,
-                            final RestControllerClassStructureStorage restControllerClassStructureStorage) {
-        final TypeMirror type = requestModel.getRequiredRequestType().asType();
-        final String requestSimpleClassName = getSimpleName(type);
-        final boolean isRequestClassVirtual = type instanceof VirtualTypeMirror;
-        final List<String> virtualFields;
-        if (isRequestClassVirtual) {
-            virtualFields = ((VirtualTypeMirror) type).getVirtualTypeElement().getVirtualFieldElements().stream()
-                    .map(v -> v.getSimpleName().toString())
-                    .collect(Collectors.toList());
-        } else {
-            virtualFields = List.of();
-        }
-        return new RestControllerMethodBody(
-                methodBodyGenerator.generate(
-                        "rest/server/method/$$RestControllerProcessorMethodBodyTemplate.javaftl",
-                        Map.of(
-                                "METHOD_NAME", methodName,
-                                "STATUS_CODE", successStatusCode,
-                                "RETURN", responseModel,
-                                "REQUEST_CLASS", requestSimpleClassName,
-                                "IS_REQUEST_CLASS_VIRTUAL", isRequestClassVirtual,
-                                "VIRTUAL_FIELDS", virtualFields,
-                                "REQUEST_READER", getModelTransformerInstanceName(type, ModelReader.class),
-                                "REQUEST_VALIDATOR", getModelTransformerInstanceName(type, ConstraintValidator.class),
-                                "GENERATE_REQUEST_VALIDATORS", restServerModuleGeneratorConfig.isGenerateRequestValidators() &&
-                                        restControllerClassStructureStorage.isRequestValidatorPresent(type.toString()),
-                                "STATIC_HEADERS", staticHeaders.getEntries()
-                        ))
-        );
+    protected void customizeClassHeaderBuilder(final ClassHeader.Builder classHeaderBuilder) {
+        // do nothing
+    }
+
+    @Override
+    protected String getTemplateName() {
+        return "rest/server/method/$$RestControllerProcessorMethodBodyTemplate.javaftl";
     }
 }

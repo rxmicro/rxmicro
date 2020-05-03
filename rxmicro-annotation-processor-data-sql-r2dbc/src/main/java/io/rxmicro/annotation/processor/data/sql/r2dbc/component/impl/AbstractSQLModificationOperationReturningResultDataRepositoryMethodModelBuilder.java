@@ -21,14 +21,29 @@ import io.rxmicro.annotation.processor.common.model.ClassHeader;
 import io.rxmicro.annotation.processor.common.model.method.MethodResult;
 import io.rxmicro.annotation.processor.data.model.DataGenerationContext;
 import io.rxmicro.annotation.processor.data.model.DataRepositoryMethodSignature;
+import io.rxmicro.annotation.processor.data.model.Variable;
+import io.rxmicro.annotation.processor.data.sql.model.EntitySetFieldsConverterMethod;
 import io.rxmicro.annotation.processor.data.sql.model.SQLDataModelField;
 import io.rxmicro.annotation.processor.data.sql.model.SQLDataObjectModelClass;
+import io.rxmicro.annotation.processor.data.sql.model.SQLMethodDescriptor;
+import io.rxmicro.annotation.processor.data.sql.model.SQLStatement;
+import io.rxmicro.data.sql.model.EntityFieldList;
+import io.rxmicro.data.sql.model.EntityFieldMap;
+import io.rxmicro.data.sql.r2dbc.detail.EntityFromR2DBCSQLDBConverter;
+import io.rxmicro.data.sql.r2dbc.detail.EntityToR2DBCSQLDBConverter;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import javax.lang.model.element.ExecutableElement;
 import java.lang.annotation.Annotation;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+
+import static io.rxmicro.annotation.processor.common.util.Errors.createInternalErrorSupplier;
+import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.getModelTransformerInstanceName;
+import static io.rxmicro.annotation.processor.common.util.Names.getSimpleName;
 
 /**
  * @author nedis
@@ -57,5 +72,57 @@ public abstract class AbstractSQLModificationOperationReturningResultDataReposit
                         Flowable.class,
                         ArrayList.class
                 );
+    }
+
+    @Override
+    protected void addEntityConverter(final MethodResult methodResult,
+                                      final SQLMethodDescriptor<DMF, DMC> sqlMethodDescriptor,
+                                      final DataGenerationContext<DMF, DMC> dataGenerationContext,
+                                      final List<Variable> params,
+                                      final SQLStatement sqlStatement,
+                                      final Map<String, Object> templateArguments) {
+        final boolean isEntityParam = isEntityParam(params, dataGenerationContext);
+        final boolean isEntityFieldMap = sqlMethodDescriptor.getResult().isResultType(EntityFieldMap.class);
+        final boolean isEntityFieldList = sqlMethodDescriptor.getResult().isResultType(EntityFieldList.class);
+        templateArguments.put("IS_ENTITY_PARAM", isEntityParam);
+        templateArguments.put("RETURN_ENTITY_FIELD_MAP", isEntityFieldMap);
+        templateArguments.put("RETURN_ENTITY_FIELD_LIST", isEntityFieldList);
+
+        final DMC modelClass = getResultModelClassOrNull(sqlMethodDescriptor, isEntityFieldMap, isEntityFieldList);
+
+        if (isEntityParam) {
+            templateArguments.put("ENTITY", params.get(0).getGetter());
+            templateArguments.put("ENTITY_CONVERTER", getModelTransformerInstanceName(
+                    params.get(0).getType(),
+                    EntityToR2DBCSQLDBConverter.class)
+            );
+        } else if (modelClass != null) {
+            final String entityClass = getSimpleName(modelClass.getJavaFullClassName());
+            templateArguments.put("ENTITY_CLASS", entityClass);
+            templateArguments.put("ENTITY_CONVERTER", getModelTransformerInstanceName(
+                    entityClass,
+                    EntityFromR2DBCSQLDBConverter.class)
+            );
+        }
+        // repository method can read entity parameter and return field list or map
+        if (modelClass != null) {
+            final EntitySetFieldsConverterMethod converterMethod = new EntitySetFieldsConverterMethod(sqlStatement);
+            modelClass.addEntitySetFieldsConverterMethod(converterMethod);
+            templateArguments.put("ENTITY_CONVERTER_METHOD", converterMethod.getName());
+        }
+    }
+
+    private DMC getResultModelClassOrNull(final SQLMethodDescriptor<DMF, DMC> sqlMethodDescriptor,
+                                          final boolean isEntityFieldMap,
+                                          final boolean isEntityFieldList) {
+        if (!isEntityFieldList && !isEntityFieldMap) {
+            return sqlMethodDescriptor.getEntityResult()
+                    .orElseThrow(createInternalErrorSupplier(
+                            "Method return result not found for '?' operation",
+                            operationType().getSimpleName().toUpperCase(Locale.ENGLISH))
+                    );
+        } else {
+            return null;
+        }
     }
 }

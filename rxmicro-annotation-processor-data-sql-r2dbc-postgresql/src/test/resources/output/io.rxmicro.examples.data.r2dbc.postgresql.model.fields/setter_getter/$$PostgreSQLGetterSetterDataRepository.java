@@ -54,11 +54,11 @@ public final class $$PostgreSQLGetterSetterDataRepository extends AbstractPostgr
         return pool.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, insertParams)
                         .flatMap(r -> Mono.from(r.getRowsUpdated()))
-                        
+
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
                                 .then(Mono.error(e)))
-                        
+
                 )
                 .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletableFuture.class, Void.class))))
                 .toFuture()
@@ -73,11 +73,11 @@ public final class $$PostgreSQLGetterSetterDataRepository extends AbstractPostgr
         return pool.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, updateParams)
                         .flatMap(r -> Mono.from(r.getRowsUpdated()))
-                        
+
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
                                 .then(Mono.error(e)))
-                        
+
                 )
                 .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletableFuture.class, Void.class))))
                 .toFuture()
@@ -92,11 +92,11 @@ public final class $$PostgreSQLGetterSetterDataRepository extends AbstractPostgr
         return pool.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, primaryKey)
                         .flatMap(r -> Mono.from(r.getRowsUpdated()))
-                        
+
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
                                 .then(Mono.error(e)))
-                        
+
                 )
                 .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletableFuture.class, Void.class))))
                 .toFuture()

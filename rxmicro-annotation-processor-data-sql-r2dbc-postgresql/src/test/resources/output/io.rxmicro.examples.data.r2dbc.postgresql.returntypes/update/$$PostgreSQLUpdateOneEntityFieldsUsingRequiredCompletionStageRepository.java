@@ -34,11 +34,11 @@ public final class $$PostgreSQLUpdateOneEntityFieldsUsingRequiredCompletionStage
         return pool.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, firstName, lastName, id)
                         .flatMap(r -> Mono.from(r.getRowsUpdated()))
-                        
+
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
                                 .then(Mono.error(e)))
-                        
+
                 )
                 .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletionStage.class, Void.class))))
                 .toFuture()
@@ -52,11 +52,11 @@ public final class $$PostgreSQLUpdateOneEntityFieldsUsingRequiredCompletionStage
         return pool.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, firstName, lastName, id)
                         .flatMap(r -> Mono.from(r.getRowsUpdated()))
-                        
+
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
                                 .then(Mono.error(e)))
-                        
+
                 )
                 .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletionStage.class, Integer.class))))
                 .toFuture();
@@ -69,11 +69,11 @@ public final class $$PostgreSQLUpdateOneEntityFieldsUsingRequiredCompletionStage
         return pool.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, firstName, lastName, id)
                         .flatMap(r -> Mono.from(r.getRowsUpdated()))
-                        
+
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
                                 .then(Mono.error(e)))
-                        
+
                 )
                 .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletionStage.class, Boolean.class))))
                 .map(r -> r > 0)

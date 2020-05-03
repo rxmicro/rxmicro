@@ -33,11 +33,11 @@ public final class $$PostgreSQLUpdateOneEntityUsingMonoRepository extends Abstra
         return pool.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, updateParams)
                         .flatMap(r -> Mono.from(r.getRowsUpdated()))
-                        
+
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
                                 .then(Mono.error(e)))
-                        
+
                 )
                 .then();
     }
@@ -50,11 +50,11 @@ public final class $$PostgreSQLUpdateOneEntityUsingMonoRepository extends Abstra
         return pool.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, updateParams)
                         .flatMap(r -> Mono.from(r.getRowsUpdated()))
-                        
+
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
                                 .then(Mono.error(e)))
-                        
+
                 );
     }
 
@@ -66,11 +66,11 @@ public final class $$PostgreSQLUpdateOneEntityUsingMonoRepository extends Abstra
         return pool.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, updateParams)
                         .flatMap(r -> Mono.from(r.getRowsUpdated()))
-                        
+
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
                                 .then(Mono.error(e)))
-                        
+
                 )
                 .map(r -> r > 0);
     }

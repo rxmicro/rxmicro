@@ -21,28 +21,17 @@ import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingExc
 import io.rxmicro.annotation.processor.common.model.method.MethodResult;
 import io.rxmicro.annotation.processor.data.model.DataGenerationContext;
 import io.rxmicro.annotation.processor.data.model.Variable;
-import io.rxmicro.annotation.processor.data.sql.model.EntitySetFieldsConverterMethod;
 import io.rxmicro.annotation.processor.data.sql.model.ParsedSQL;
 import io.rxmicro.annotation.processor.data.sql.model.SQLDataModelField;
-import io.rxmicro.annotation.processor.data.sql.model.SQLMethodDescriptor;
-import io.rxmicro.annotation.processor.data.sql.model.SQLStatement;
 import io.rxmicro.annotation.processor.data.sql.r2dbc.component.impl.AbstractSQLModificationOperationReturningResultDataRepositoryMethodModelBuilder;
 import io.rxmicro.annotation.processor.data.sql.r2dbc.postgresql.model.PostgreSQLDataObjectModelClass;
-import io.rxmicro.data.sql.model.EntityFieldList;
-import io.rxmicro.data.sql.model.EntityFieldMap;
 import io.rxmicro.data.sql.operation.Update;
-import io.rxmicro.data.sql.r2dbc.detail.EntityFromR2DBCSQLDBConverter;
-import io.rxmicro.data.sql.r2dbc.detail.EntityToR2DBCSQLDBConverter;
 
 import javax.lang.model.element.ExecutableElement;
 import java.lang.annotation.Annotation;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
-import static io.rxmicro.annotation.processor.common.util.Errors.createInternalErrorSupplier;
-import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.getModelTransformerInstanceName;
-import static io.rxmicro.annotation.processor.common.util.Names.getSimpleName;
 import static io.rxmicro.annotation.processor.data.sql.model.SQLKeywords.UPDATE;
 import static io.rxmicro.annotation.processor.data.sql.r2dbc.postgresql.model.PostgreSQLKeywords.RETURNING;
 import static io.rxmicro.data.sql.operation.Update.DEFAULT_UPDATE;
@@ -72,47 +61,6 @@ public final class PostgreSQLUpdateWithReturningSQLRepositoryMethodModelBuilder
         final Update annotation = method.getAnnotation(Update.class);
         final String originalSQL = Optional.of(annotation.value()).filter(v -> !v.isEmpty()).orElse(DEFAULT_UPDATE);
         return parseSQL(originalSQL, annotation);
-    }
-
-    @Override
-    protected void addEntityConverter(final MethodResult methodResult,
-                                      final SQLMethodDescriptor<SQLDataModelField, PostgreSQLDataObjectModelClass> sqlMethodDescriptor,
-                                      final DataGenerationContext<SQLDataModelField, PostgreSQLDataObjectModelClass> dataGenerationContext,
-                                      final List<Variable> params,
-                                      final SQLStatement sqlStatement,
-                                      final Map<String, Object> templateArguments) {
-        final boolean isEntityParam = isEntityParam(params, dataGenerationContext);
-        final boolean isEntityFieldMap = sqlMethodDescriptor.getResult().isResultType(EntityFieldMap.class);
-        final boolean isEntityFieldList = sqlMethodDescriptor.getResult().isResultType(EntityFieldList.class);
-        templateArguments.put("RETURN_ENTITY_FIELD_MAP", isEntityFieldMap);
-        templateArguments.put("RETURN_ENTITY_FIELD_LIST", isEntityFieldList);
-        templateArguments.put("IS_ENTITY_PARAM", isEntityParam);
-
-        if (isEntityParam) {
-            templateArguments.put("ENTITY", params.get(0).getGetter());
-            templateArguments.put("ENTITY_CONVERTER", getModelTransformerInstanceName(
-                    getSimpleName(params.get(0).getType()),
-                    EntityToR2DBCSQLDBConverter.class)
-            );
-        } else if (!isEntityFieldList && !isEntityFieldMap) {
-            final PostgreSQLDataObjectModelClass modelClass = sqlMethodDescriptor.getEntityResult()
-                    .orElseThrow(createInternalErrorSupplier("PostgreSQLDataObjectModelClass method return result not found for UPDATE operation"));
-            final String entityClass = getSimpleName(modelClass.getJavaFullClassName());
-            templateArguments.put("ENTITY_CLASS", entityClass);
-            templateArguments.put("ENTITY_CONVERTER", getModelTransformerInstanceName(
-                    entityClass,
-                    EntityFromR2DBCSQLDBConverter.class)
-            );
-        }
-
-        if (!isEntityFieldList && !isEntityFieldMap) {
-            final EntitySetFieldsConverterMethod converterMethod = new EntitySetFieldsConverterMethod(sqlStatement);
-            final PostgreSQLDataObjectModelClass modelClass =
-                    sqlMethodDescriptor.getEntityParam().or(sqlMethodDescriptor::getEntityResult)
-                            .orElseThrow(createInternalErrorSupplier("PostgreSQLDataObjectModelClass method entity param not found for UPDATE operation"));
-            modelClass.addEntitySetFieldsConverterMethod(converterMethod);
-            templateArguments.put("ENTITY_CONVERTER_METHOD", converterMethod.getName());
-        }
     }
 
     @Override

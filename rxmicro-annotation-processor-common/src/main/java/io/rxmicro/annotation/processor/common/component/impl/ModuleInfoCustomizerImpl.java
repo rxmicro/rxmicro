@@ -32,6 +32,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.Predicate;
 
 import static io.rxmicro.common.RxMicroModule.RX_MICRO_CONFIG_MODULE;
 import static io.rxmicro.common.RxMicroModule.RX_MICRO_RUNTIME_MODULE;
@@ -81,16 +82,16 @@ public final class ModuleInfoCustomizerImpl implements ModuleInfoCustomizer {
     private void addMissingExports(final List<ExportsDirective> directives,
                                    final List<Map.Entry<String, RxMicroModule>> toExports,
                                    final List<ModuleInfoItem> result) {
-        for (final Map.Entry<String, RxMicroModule> entry : toExports) {
-            if (directives.stream()
-                    .filter(d -> d.getPackage().getQualifiedName().toString().equals(entry.getKey()))
-                    .flatMap(d -> d.getTargetModules().stream()
-                            .filter(m -> m.getQualifiedName().toString().equals(entry.getValue().getName())))
-                    .findFirst().isEmpty()) {
-                final Map.Entry<Class<?>, String> moduleResolveExpressionEntry = getModuleResolveExpressionEntry(entry);
-                result.add(new ModuleInfoItem(EXPORTS, entry.getKey(), moduleResolveExpressionEntry.getKey(), moduleResolveExpressionEntry.getValue()));
-            }
-        }
+        addMissingDirectives(
+                EXPORTS,
+                entry -> directives.stream()
+                        .filter(d -> d.getPackage().getQualifiedName().toString().equals(entry.getKey()))
+                        .flatMap(d -> d.getTargetModules().stream()
+                                .filter(m -> m.getQualifiedName().toString().equals(entry.getValue().getName())))
+                        .findFirst().isEmpty(),
+                toExports,
+                result
+        );
     }
 
     private Map.Entry<Class<?>, String> getModuleResolveExpressionEntry(final Map.Entry<String, RxMicroModule> entry) {
@@ -102,14 +103,28 @@ public final class ModuleInfoCustomizerImpl implements ModuleInfoCustomizer {
     private void addMissingOpens(final List<OpensDirective> directives,
                                  final List<Map.Entry<String, RxMicroModule>> toOpens,
                                  final List<ModuleInfoItem> result) {
-        for (final Map.Entry<String, RxMicroModule> entry : toOpens) {
-            if (directives.stream()
-                    .filter(d -> d.getPackage().getQualifiedName().toString().equals(entry.getKey()))
-                    .flatMap(d -> d.getTargetModules().stream()
-                            .filter(m -> m.getQualifiedName().toString().equals(entry.getValue().getName())))
-                    .findFirst().isEmpty()) {
+        addMissingDirectives(
+                OPENS,
+                entry -> directives.stream()
+                        .filter(d -> d.getPackage().getQualifiedName().toString().equals(entry.getKey()))
+                        .flatMap(d -> d.getTargetModules().stream()
+                                .filter(m -> m.getQualifiedName().toString().equals(entry.getValue().getName())))
+                        .findFirst().isEmpty(),
+                toOpens,
+                result
+        );
+    }
+
+    private void addMissingDirectives(final ModuleElement.DirectiveKind directiveKind,
+                                      final Predicate<Map.Entry<String, RxMicroModule>> missingDirectivePredicate,
+                                      final List<Map.Entry<String, RxMicroModule>> toAdd,
+                                      final List<ModuleInfoItem> result) {
+        for (final Map.Entry<String, RxMicroModule> entry : toAdd) {
+            if (missingDirectivePredicate.test(entry)) {
                 final Map.Entry<Class<?>, String> moduleResolveExpressionEntry = getModuleResolveExpressionEntry(entry);
-                result.add(new ModuleInfoItem(OPENS, entry.getKey(), moduleResolveExpressionEntry.getKey(), moduleResolveExpressionEntry.getValue()));
+                result.add(new ModuleInfoItem(
+                        directiveKind, entry.getKey(), moduleResolveExpressionEntry.getKey(), moduleResolveExpressionEntry.getValue()
+                ));
             }
         }
     }

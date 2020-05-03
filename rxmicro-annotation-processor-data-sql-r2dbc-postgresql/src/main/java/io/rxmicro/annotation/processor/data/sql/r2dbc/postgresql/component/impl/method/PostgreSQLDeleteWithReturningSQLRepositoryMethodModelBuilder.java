@@ -21,28 +21,17 @@ import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingExc
 import io.rxmicro.annotation.processor.common.model.method.MethodResult;
 import io.rxmicro.annotation.processor.data.model.DataGenerationContext;
 import io.rxmicro.annotation.processor.data.model.Variable;
-import io.rxmicro.annotation.processor.data.sql.model.EntitySetFieldsConverterMethod;
 import io.rxmicro.annotation.processor.data.sql.model.ParsedSQL;
 import io.rxmicro.annotation.processor.data.sql.model.SQLDataModelField;
-import io.rxmicro.annotation.processor.data.sql.model.SQLMethodDescriptor;
-import io.rxmicro.annotation.processor.data.sql.model.SQLStatement;
 import io.rxmicro.annotation.processor.data.sql.r2dbc.component.impl.AbstractSQLModificationOperationReturningResultDataRepositoryMethodModelBuilder;
 import io.rxmicro.annotation.processor.data.sql.r2dbc.postgresql.model.PostgreSQLDataObjectModelClass;
 import io.rxmicro.annotation.processor.data.sql.r2dbc.postgresql.model.PostgreSQLKeywords;
-import io.rxmicro.data.sql.model.EntityFieldList;
-import io.rxmicro.data.sql.model.EntityFieldMap;
 import io.rxmicro.data.sql.operation.Delete;
-import io.rxmicro.data.sql.r2dbc.detail.EntityFromR2DBCSQLDBConverter;
-import io.rxmicro.data.sql.r2dbc.detail.EntityToR2DBCSQLDBConverter;
 
 import javax.lang.model.element.ExecutableElement;
 import java.lang.annotation.Annotation;
 import java.util.List;
-import java.util.Map;
 
-import static io.rxmicro.annotation.processor.common.util.Errors.createInternalErrorSupplier;
-import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.getModelTransformerInstanceName;
-import static io.rxmicro.annotation.processor.common.util.Names.getSimpleName;
 import static io.rxmicro.annotation.processor.data.sql.model.SQLKeywords.INSERT;
 
 /**
@@ -75,47 +64,6 @@ public final class PostgreSQLDeleteWithReturningSQLRepositoryMethodModelBuilder
             throw new InterruptProcessingException(method, "Missing a delete SQL statement. Add it!");
         }
         return parsedSQL;
-    }
-
-    @Override
-    protected void addEntityConverter(final MethodResult methodResult,
-                                      final SQLMethodDescriptor<SQLDataModelField, PostgreSQLDataObjectModelClass> sqlMethodDescriptor,
-                                      final DataGenerationContext<SQLDataModelField, PostgreSQLDataObjectModelClass> dataGenerationContext,
-                                      final List<Variable> params,
-                                      final SQLStatement sqlStatement,
-                                      final Map<String, Object> templateArguments) {
-        sqlMethodDescriptor.getEntityParam().ifPresent(modelClass -> {
-            modelClass.setDeletable(true);
-            templateArguments.put("IS_PRIMARY_KEY_SIMPLE", modelClass.getPrimaryKeysParams().size() == 1);
-        });
-        final boolean isEntityParam = isEntityParam(params, dataGenerationContext);
-        final boolean isEntityFieldMap = sqlMethodDescriptor.getResult().isResultType(EntityFieldMap.class);
-        final boolean isEntityFieldList = sqlMethodDescriptor.getResult().isResultType(EntityFieldList.class);
-        templateArguments.put("IS_ENTITY_PARAM", isEntityParam);
-        templateArguments.put("RETURN_ENTITY_FIELD_MAP", isEntityFieldMap);
-        templateArguments.put("RETURN_ENTITY_FIELD_LIST", isEntityFieldList);
-        if (isEntityParam) {
-            templateArguments.put("ENTITY", params.get(0).getGetter());
-            templateArguments.put("ENTITY_CONVERTER", getModelTransformerInstanceName(
-                    params.get(0).getType(),
-                    EntityToR2DBCSQLDBConverter.class)
-            );
-        }
-        if (!isEntityFieldList && !isEntityFieldMap) {
-            final PostgreSQLDataObjectModelClass modelClass = sqlMethodDescriptor.getEntityResult()
-                    .orElseThrow(createInternalErrorSupplier("PostgreSQLDataObjectModelClass method return result not found for DELETE operation"));
-            final String entityClass = getSimpleName(modelClass.getJavaFullClassName());
-            templateArguments.put("ENTITY_CLASS", entityClass);
-            if (!isEntityParam) {
-                templateArguments.put("ENTITY_CONVERTER", getModelTransformerInstanceName(
-                        entityClass,
-                        EntityFromR2DBCSQLDBConverter.class)
-                );
-            }
-            final EntitySetFieldsConverterMethod converterMethod = new EntitySetFieldsConverterMethod(sqlStatement);
-            modelClass.addEntitySetFieldsConverterMethod(converterMethod);
-            templateArguments.put("ENTITY_CONVERTER_METHOD", converterMethod.getName());
-        }
     }
 
     @Override

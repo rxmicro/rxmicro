@@ -18,25 +18,19 @@ package io.rxmicro.annotation.processor.data.mongo.component.impl.method;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import com.mongodb.client.model.UpdateOptions;
-import com.mongodb.client.result.UpdateResult;
 import io.rxmicro.annotation.processor.common.model.ClassHeader;
 import io.rxmicro.annotation.processor.common.model.method.MethodResult;
 import io.rxmicro.annotation.processor.data.model.DataGenerationContext;
 import io.rxmicro.annotation.processor.data.model.DataRepositoryMethodSignature;
 import io.rxmicro.annotation.processor.data.mongo.component.BsonExpressionBuilder;
-import io.rxmicro.annotation.processor.data.mongo.component.impl.AbstractMongoRepositoryMethodModelBuilder;
 import io.rxmicro.annotation.processor.data.mongo.component.impl.MethodParameterReader;
 import io.rxmicro.annotation.processor.data.mongo.model.MongoDataModelField;
 import io.rxmicro.annotation.processor.data.mongo.model.MongoDataObjectModelClass;
 import io.rxmicro.data.DataRepositoryGeneratorConfig;
 import io.rxmicro.data.mongo.detail.MongoQueries;
 import io.rxmicro.data.mongo.operation.Update;
-import org.bson.Document;
-import org.reactivestreams.Publisher;
 
 import javax.lang.model.element.ExecutableElement;
-import java.lang.annotation.Annotation;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -47,7 +41,8 @@ import java.util.Map;
  * @since 0.1
  */
 @Singleton
-public final class UpdateExpressionOperationMongoRepositoryMethodModelBuilder extends AbstractMongoRepositoryMethodModelBuilder {
+public final class UpdateExpressionOperationMongoRepositoryMethodModelBuilder
+        extends AbstractUpdateOperationMongoRepositoryMethodModelBuilder {
 
     @Inject
     private BsonExpressionBuilder bsonExpressionBuilder;
@@ -60,28 +55,13 @@ public final class UpdateExpressionOperationMongoRepositoryMethodModelBuilder ex
     }
 
     @Override
-    public Class<? extends Annotation> operationType() {
-        return Update.class;
-    }
-
-    @Override
-    protected List<String> buildBody(final ClassHeader.Builder classHeaderBuilder,
-                                     final ExecutableElement method,
-                                     final MethodResult methodResult,
-                                     final MethodParameterReader methodParameterReader,
-                                     final DataRepositoryGeneratorConfig dataRepositoryGeneratorConfig,
-                                     final DataGenerationContext<MongoDataModelField, MongoDataObjectModelClass> dataGenerationContext) {
-        classHeaderBuilder.addImports(
-                Publisher.class,
-                UpdateResult.class,
-                Document.class,
-                UpdateOptions.class,
-                MongoQueries.class
-        );
-        validateRequiredSingleReturnType(method, methodResult);
-        validateReturnType(method, methodResult.getResultType(),
-                Void.class, Long.class, Boolean.class, UpdateResult.class
-        );
+    List<String> buildUpdateBody(final ClassHeader.Builder classHeaderBuilder,
+                                 final ExecutableElement method,
+                                 final MethodResult methodResult,
+                                 final MethodParameterReader methodParameterReader,
+                                 final DataRepositoryGeneratorConfig dataRepositoryGeneratorConfig,
+                                 final DataGenerationContext<MongoDataModelField, MongoDataObjectModelClass> dataGenerationContext) {
+        classHeaderBuilder.addImports(MongoQueries.class);
 
         final Map<String, Object> templateArguments = new HashMap<>();
         putCommonArguments(dataRepositoryGeneratorConfig, templateArguments);

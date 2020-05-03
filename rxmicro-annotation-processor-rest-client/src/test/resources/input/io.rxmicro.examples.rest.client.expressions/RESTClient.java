@@ -32,7 +32,8 @@ public interface RESTClient {
 
     @PUT("/")
     @AddHeader(name = "Debug", value = "Use-Proxy=${useProxy}, Mode=${mode}")             // <3>
-    @AddHeader(name = "Endpoint", value = "Schema=${schema}, Host=${host}, Port=${port}") // <3>
+    @AddHeader(name = "Endpoint", value = "Schema=${schema}, Host=${host}, Port=${port}")
+        // <3>
     CompletableFuture<Void> put();
 }
 // end::content[]
