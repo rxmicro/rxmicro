@@ -60,7 +60,7 @@ public final class HttpHealthCheck implements Comparable<HttpHealthCheck> {
         if (other == null || getClass() != other.getClass()) {
             return false;
         }
-        HttpHealthCheck that = (HttpHealthCheck) other;
+        final HttpHealthCheck that = (HttpHealthCheck) other;
         return method.equals(that.method) &&
                 endpoint.equals(that.endpoint);
     }

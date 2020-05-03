@@ -108,8 +108,12 @@ public final class HttpMethodMapping {
             return false;
         }
         final HttpMethodMapping that = (HttpMethodMapping) other;
-        if (httpBody != that.httpBody) return false;
-        if (!method.equals(that.method)) return false;
+        if (httpBody != that.httpBody) {
+            return false;
+        }
+        if (!method.equals(that.method)) {
+            return false;
+        }
         return uri.equals(that.uri);
     }
 
