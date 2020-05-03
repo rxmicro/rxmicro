@@ -164,8 +164,8 @@ public final class NumberValidatorsImpl extends AbstractProcessorComponent imple
         final BigInteger result = toBigIntegerOrNull(modelField, value, annotationClass);
         if (result == null) {
             return false;
-        } else if ((result.compareTo(BigInteger.valueOf(Long.MIN_VALUE)) < 0 ||
-                result.compareTo(BigInteger.valueOf(Long.MAX_VALUE)) > 0)) {
+        } else if (result.compareTo(BigInteger.valueOf(Long.MIN_VALUE)) < 0 ||
+                result.compareTo(BigInteger.valueOf(Long.MAX_VALUE)) > 0) {
             error(modelField.getElementAnnotatedBy(annotationClass),
                     ERROR_MESSAGE_PREFIX +
                             VALUE_OUT_OF_RANGE_EXPECTED_TEMPLATE,

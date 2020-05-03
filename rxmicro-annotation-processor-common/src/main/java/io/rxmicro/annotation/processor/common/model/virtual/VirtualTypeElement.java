@@ -158,8 +158,8 @@ public final class VirtualTypeElement implements TypeElement, VirtualElement {
 
     @Override
     public <A extends Annotation> A getAnnotation(final Class<A> annotationType) {
-        final A a = method.getAnnotation(annotationType);
-        return a != null ? a : ownerClass.getAnnotation(annotationType);
+        final A annotation = method.getAnnotation(annotationType);
+        return annotation != null ? annotation : ownerClass.getAnnotation(annotationType);
     }
 
     @Override

@@ -98,21 +98,21 @@ public abstract class AbstractSQLBuilder extends AbstractProcessorComponent {
                                            final VariableValuesMap variableValuesMap) {
         if (!vars.isEmpty()) {
             final Set<String> removableVars = new HashSet<>(vars);
-            int i = 0;
-            while (i < sqlTokens.size()) {
-                final String token = sqlTokens.get(i);
-                if ("*".equals(token) && isAsteriskShouldBeIgnored(i, sqlTokens)) {
+            int index = 0;
+            while (index < sqlTokens.size()) {
+                final String token = sqlTokens.get(index);
+                if ("*".equals(token) && isAsteriskShouldBeIgnored(index, sqlTokens)) {
                     continue;
                 }
                 if (vars.contains(token)) {
                     removableVars.remove(token);
                     if (variableValuesMap.isStringValue(token)) {
-                        sqlTokens.set(i, variableValuesMap.getString(token));
+                        sqlTokens.set(index, variableValuesMap.getString(token));
                     } else if (variableValuesMap.isSqlVariableValue(token)) {
-                        sqlTokens.remove(i);
+                        sqlTokens.remove(index);
                         final List<String> tokens = variableValuesMap.getSqlVariableValue(token).getSQLTokens();
-                        sqlTokens.addAll(i, tokens);
-                        i += tokens.size();
+                        sqlTokens.addAll(index, tokens);
+                        index += tokens.size();
                     } else {
                         throw new InterruptProcessingException(
                                 method,
@@ -121,7 +121,7 @@ public abstract class AbstractSQLBuilder extends AbstractProcessorComponent {
                         );
                     }
                 }
-                i++;
+                index++;
             }
             // Asterisk is not a variable
             removableVars.remove("*");

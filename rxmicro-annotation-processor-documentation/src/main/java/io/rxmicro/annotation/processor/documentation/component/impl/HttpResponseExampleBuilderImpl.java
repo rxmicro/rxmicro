@@ -26,6 +26,8 @@ import io.rxmicro.annotation.processor.rest.server.model.RestControllerMethod;
 import io.rxmicro.documentation.ResourceDefinition;
 import io.rxmicro.json.JsonHelper;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -109,13 +111,13 @@ public final class HttpResponseExampleBuilderImpl implements HttpResponseExample
     @Override
     public String buildErrorExample(final ResourceDefinition resourceDefinition,
                                     final int statusCode) {
-        final StringBuilder stringBuilder = new StringBuilder()
-                .append(format("? ? ??", HTTP_VERSION, statusCode, getStatusMessage(statusCode), lineSeparator()))
-                .append(format("Content-Length: 0?", lineSeparator()));
+        final List<String> lines = new ArrayList<>(3);
+        lines.add(format("? ? ?", HTTP_VERSION, statusCode, getStatusMessage(statusCode)));
+        lines.add("Content-Length: 0");
         if (resourceDefinition.withRequestIdResponseHeader()) {
-            stringBuilder.append(format("Request-Id: ??", REQUEST_ID_EXAMPLE, lineSeparator()));
+            lines.add(format("Request-Id: ?", REQUEST_ID_EXAMPLE));
         }
-        return stringBuilder.toString();
+        return String.join(lineSeparator(), lines);
     }
 
     @Override
