@@ -63,7 +63,7 @@ public abstract class EntityConverterMethod implements Comparable<EntityConverte
     }
 
     @Override
-    public int compareTo(final EntityConverterMethod o) {
-        return name.compareTo(o.name);
+    public int compareTo(final EntityConverterMethod other) {
+        return name.compareTo(other.name);
     }
 }

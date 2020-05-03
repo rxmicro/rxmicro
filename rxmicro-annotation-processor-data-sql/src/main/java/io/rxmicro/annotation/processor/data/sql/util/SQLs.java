@@ -17,6 +17,7 @@
 package io.rxmicro.annotation.processor.data.sql.util;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 
 /**
@@ -48,7 +49,7 @@ public final class SQLs {
                 }
                 sql.append(escape(token));
             }
-            prevToken = token.toUpperCase();
+            prevToken = token.toUpperCase(Locale.ENGLISH);
         }
         return sql.toString();
     }

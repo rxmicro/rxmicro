@@ -94,6 +94,7 @@ public final class MethodParamResolver {
         if (IGNORED_BY_ANNOTATION_PRESENT.stream().anyMatch(a -> parameter.getAnnotation(a) != null)) {
             return true;
         }
+        // Add a new condition here
         return false;
     }
 

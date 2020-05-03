@@ -31,7 +31,7 @@ public abstract class VariableContext {
         return require(currentTable, "Current table is not set");
     }
 
-    public void setCurrentTable(TableContext tableContext) {
+    public void setCurrentTable(final TableContext tableContext) {
         if (this.currentTable != null) {
             throw new IllegalStateException("currentTable  already set");
         }
@@ -47,5 +47,5 @@ public abstract class VariableContext {
      * @return get next sequence value expression
      * @throws UnsupportedOperationException if variable context does not support sequences
      */
-    public abstract String getNextSequenceValue(String sequenceName) throws UnsupportedOperationException;
+    public abstract String getNextSequenceValue(String sequenceName);
 }

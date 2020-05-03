@@ -44,5 +44,6 @@ public class SQLKeywords {
     public static final String AS = "AS";
 
     protected SQLKeywords() {
+        // this class is extendable
     }
 }

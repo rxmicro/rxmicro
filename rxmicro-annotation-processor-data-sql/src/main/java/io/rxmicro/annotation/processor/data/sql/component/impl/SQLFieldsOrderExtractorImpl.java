@@ -24,6 +24,7 @@ import io.rxmicro.annotation.processor.data.sql.model.SelectedColumnFilter;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 
 import static io.rxmicro.annotation.processor.data.sql.model.SQLKeywords.AS;
 import static io.rxmicro.annotation.processor.data.sql.util.SQLs.joinTokensToSQL;
@@ -47,11 +48,11 @@ public final class SQLFieldsOrderExtractorImpl implements SQLFieldsOrderExtracto
         int bracketsCount = 0;
         while (iterator.hasNext()) {
             final String token = iterator.next();
-            if (!selectedColumnFilter.getIgnoredTokens().contains(token.toUpperCase())) {
+            if (!selectedColumnFilter.getIgnoredTokens().contains(token.toUpperCase(Locale.ENGLISH))) {
                 if (parenthesesCount == 0 &&
                         bracesCount == 0 &&
                         bracketsCount == 0 &&
-                        selectedColumnFilter.getBreakTokens().contains(token.toUpperCase())) {
+                        selectedColumnFilter.getBreakTokens().contains(token.toUpperCase(Locale.ENGLISH))) {
                     break;
                 } else if ("(".equals(token)) {
                     parenthesesCount++;
@@ -66,19 +67,21 @@ public final class SQLFieldsOrderExtractorImpl implements SQLFieldsOrderExtracto
                 } else if ("]".equals(token)) {
                     bracketsCount--;
                 } else if (",".equals(token) && parenthesesCount == 0 && bracesCount == 0 && bracketsCount == 0) {
-                    if (!columnTokens.isEmpty()) {
-                        result.add(build(columnTokens));
-                        columnTokens.clear();
-                    }
+                    addColumnTokensToResult(result, columnTokens);
                     continue;
                 }
                 columnTokens.add(token);
             }
         }
+        addColumnTokensToResult(result, columnTokens);
+        return result;
+    }
+
+    private void addColumnTokensToResult(final List<SelectedColumn> result, final List<String> columnTokens) {
         if (!columnTokens.isEmpty()) {
             result.add(build(columnTokens));
+            columnTokens.clear();
         }
-        return result;
     }
 
     private SelectedColumn build(final List<String> columnTokens) {

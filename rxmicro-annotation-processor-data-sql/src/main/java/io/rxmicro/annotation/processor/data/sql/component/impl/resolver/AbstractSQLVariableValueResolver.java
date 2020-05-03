@@ -67,6 +67,7 @@ public abstract class AbstractSQLVariableValueResolver<A extends Annotation, DMF
     @Inject
     private TableContextBuilder tableContextBuilder;
 
+    @Override
     public final VariableValuesMap resolveVariableValues(final VariableContext variableContext,
                                                          final ParsedSQL<A> parsedSQL,
                                                          final ExecutableElement method,
@@ -153,7 +154,7 @@ public abstract class AbstractSQLVariableValueResolver<A extends Annotation, DMF
 
     private void setVariables(final Element owner,
                               final VariableValuesMap variableValuesMap,
-                              final String[] variables) {
+                              final String ... variables) {
         if (variables.length % 2 == 1) {
             throw new InterruptProcessingException(
                     owner,

@@ -28,10 +28,11 @@ import java.util.Optional;
 public final class VariableValuesMap extends HashMap<String, Object> {
 
     public VariableValuesMap() {
+        // Default constructor
     }
 
-    public VariableValuesMap(final Map<String, Object> m) {
-        super(m);
+    public VariableValuesMap(final Map<String, Object> map) {
+        super(map);
     }
 
     public boolean isStringValue(final String key) {

@@ -86,10 +86,8 @@ public abstract class AbstractSQLBuilder extends AbstractProcessorComponent {
         return sqlTokens.stream()
                 .filter(token -> extraVarNames.contains(token) || token.startsWith("${"))
                 .peek(token -> {
-                    if (token.startsWith("${")) {
-                        if (!token.endsWith("}")) {
-                            throw new InterruptProcessingException(method, "Missing '}' for variable: ?", token.substring(2));
-                        }
+                    if (token.startsWith("${") && !token.endsWith("}")) {
+                        throw new InterruptProcessingException(method, "Missing '}' for variable: ?", token.substring(2));
                     }
                 }).collect(toSet());
     }
@@ -100,7 +98,8 @@ public abstract class AbstractSQLBuilder extends AbstractProcessorComponent {
                                            final VariableValuesMap variableValuesMap) {
         if (!vars.isEmpty()) {
             final Set<String> removableVars = new HashSet<>(vars);
-            for (int i = 0; i < sqlTokens.size(); i++) {
+            int i = 0;
+            while (i < sqlTokens.size()) {
                 final String token = sqlTokens.get(i);
                 if ("*".equals(token) && isAsteriskShouldBeIgnored(i, sqlTokens)) {
                     continue;
@@ -122,6 +121,7 @@ public abstract class AbstractSQLBuilder extends AbstractProcessorComponent {
                         );
                     }
                 }
+                i++;
             }
             // Asterisk is not a variable
             removableVars.remove("*");

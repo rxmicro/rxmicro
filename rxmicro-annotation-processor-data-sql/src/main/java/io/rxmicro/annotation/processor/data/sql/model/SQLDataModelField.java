@@ -27,6 +27,8 @@ import io.rxmicro.data.sql.SequenceGenerator;
 
 import java.util.Optional;
 
+import static io.rxmicro.common.util.Strings.startsWith;
+
 /**
  * @author nedis
  * @link https://rxmicro.io
@@ -94,18 +96,17 @@ public class SQLDataModelField extends DataModelField {
                 .replace("${schema}", schema)
                 .replace("${table}", table)
                 .trim();
-        return sequenceName.startsWith(".") ? sequenceName.substring(1) : sequenceName;
+        return startsWith(sequenceName, '.') ? sequenceName.substring(1) : sequenceName;
     }
 
     private void validateSequenceGenerator(final SequenceGenerator sequenceGenerator) {
-        if (!sequenceGenerator.schema().isEmpty()) {
-            if (!sequenceGenerator.value().contains("${schema}")) {
-                throw new InterruptProcessingException(
-                        getFieldElement(),
-                        "If schema is provided for sequence generator, sequence name must contain required ${schema} variable." +
-                                " Add the required variable or remove the sequence schema"
-                );
-            }
+        if (!sequenceGenerator.schema().isEmpty() &&
+                !sequenceGenerator.value().contains("${schema}")) {
+            throw new InterruptProcessingException(
+                    getFieldElement(),
+                    "If schema is provided for sequence generator, sequence name must contain required ${schema} variable." +
+                            " Add the required variable or remove the sequence schema"
+            );
         }
     }
 

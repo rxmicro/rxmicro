@@ -22,6 +22,7 @@ import io.rxmicro.annotation.processor.data.sql.component.impl.builder.select.Se
 
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Locale;
 import java.util.Set;
 
 import static io.rxmicro.annotation.processor.data.sql.model.SQLKeywords.ORDER;
@@ -53,7 +54,7 @@ public class OrderBySelectSQLOperatorReader implements SelectSQLOperatorReader {
         int nested = 0;
         while (iterator.hasNext()) {
             final String token = iterator.next();
-            if (afterOrderKeywords.contains(token.toUpperCase())) {
+            if (afterOrderKeywords.contains(token.toUpperCase(Locale.ENGLISH))) {
                 return;
             } else if (FORMAT_PLACEHOLDER_TOKEN.equals(token)) {
                 formatParams.add(methodParams.remove(0).getGetter());
