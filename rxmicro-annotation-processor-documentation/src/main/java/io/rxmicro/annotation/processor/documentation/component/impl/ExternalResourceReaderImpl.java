@@ -61,7 +61,7 @@ public final class ExternalResourceReaderImpl implements ExternalResourceReader 
     }
 
     private String readFromHttpResource(final String resourcePath) {
-        try (final Scanner scanner = new Scanner(new URL(resourcePath).openStream(), UTF_8)) {
+        try (Scanner scanner = new Scanner(new URL(resourcePath).openStream(), UTF_8)) {
             scanner.useDelimiter("\\A");
             if (scanner.hasNext()) {
                 return scanner.next();

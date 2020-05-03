@@ -96,7 +96,7 @@ public final class HttpRequestExampleBuilderImpl implements HttpRequestExampleBu
         return stringBuilder.toString();
     }
 
-    private int getContentLength(String body) {
+    private int getContentLength(final String body) {
         // Remove CL if detected
         return body.replace("\r", "").length();
     }

@@ -20,6 +20,8 @@ import io.rxmicro.annotation.processor.common.component.impl.AbstractProcessorCo
 import io.rxmicro.annotation.processor.rest.model.RestModelField;
 import io.rxmicro.documentation.Example;
 
+import java.util.Locale;
+
 /**
  * @author nedis
  * @link https://rxmicro.io
@@ -40,7 +42,7 @@ public abstract class ExampleValueConverter extends AbstractProcessorComponent {
         error(
                 restModelField.getElementAnnotatedBy(Example.class),
                 "Invalid example value type! Expected: ? type, Actual: '?'",
-                expectedType.getSimpleName().toLowerCase(),
+                expectedType.getSimpleName().toLowerCase(Locale.ENGLISH),
                 actualValue
         );
     }

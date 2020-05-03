@@ -48,6 +48,8 @@ public final class DateTimeExampleBuilder implements TypeExampleBuilder {
 
     private static final int TRUNCATED_HOURS = 24 * TRUNCATED_MINUTES;
 
+    private static final String NOT_IMPL_YET = "Not impl yet";
+
     @Override
     public boolean isSupported(final RestModelField restModelField,
                                final TypeMirror typeMirror) {
@@ -89,7 +91,7 @@ public final class DateTimeExampleBuilder implements TypeExampleBuilder {
             }
             return Instant.ofEpochMilli(epochMilli).toString();
         }
-        throw new UnsupportedOperationException("Not impl yet");
+        throw new UnsupportedOperationException(NOT_IMPL_YET);
     }
 
     @SuppressWarnings("SameReturnValue")
@@ -101,7 +103,7 @@ public final class DateTimeExampleBuilder implements TypeExampleBuilder {
                     .toInstant()
                     .toString();
         }
-        throw new UnsupportedOperationException("Not impl yet");
+        throw new UnsupportedOperationException(NOT_IMPL_YET);
     }
 
     @SuppressWarnings("SameReturnValue")
@@ -109,7 +111,7 @@ public final class DateTimeExampleBuilder implements TypeExampleBuilder {
         if (typeMirror.toString().equals(Instant.class.getName())) {
             return INSTANT_EXAMPLE;
         }
-        throw new UnsupportedOperationException("Not impl yet");
+        throw new UnsupportedOperationException(NOT_IMPL_YET);
     }
 
     @SuppressWarnings("SameReturnValue")
@@ -117,6 +119,6 @@ public final class DateTimeExampleBuilder implements TypeExampleBuilder {
         if (typeMirror.toString().equals(Instant.class.getName())) {
             return INSTANT_EXAMPLE;
         }
-        throw new UnsupportedOperationException("Not impl yet");
+        throw new UnsupportedOperationException(NOT_IMPL_YET);
     }
 }

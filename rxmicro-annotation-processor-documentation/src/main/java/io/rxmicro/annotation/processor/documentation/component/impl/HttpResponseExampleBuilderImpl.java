@@ -92,32 +92,26 @@ public final class HttpResponseExampleBuilderImpl implements HttpResponseExample
                                     final int statusCode,
                                     final String message) {
         final StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(format("? ? ??",
-                HTTP_VERSION,
-                statusCode,
-                getStatusMessage(statusCode),
-                lineSeparator()));
+        stringBuilder.append(format("? ? ??", HTTP_VERSION, statusCode, getStatusMessage(statusCode), lineSeparator()));
         final String body = JsonHelper.toJsonString(Map.of("message", message), true);
-        stringBuilder.append(format("Content-Type: application/json?", lineSeparator()));
-        stringBuilder.append(format("Content-Length: ??", getContentLength(body), lineSeparator()));
+        stringBuilder
+                .append(format("Content-Type: application/json?", lineSeparator()))
+                .append(format("Content-Length: ??", getContentLength(body), lineSeparator()));
         if (resourceDefinition.withRequestIdResponseHeader()) {
             stringBuilder.append(format("Request-Id: ??", REQUEST_ID_EXAMPLE, lineSeparator()));
         }
-        stringBuilder.append(lineSeparator());
-        stringBuilder.append(body);
+        stringBuilder
+                .append(lineSeparator())
+                .append(body);
         return stringBuilder.toString();
     }
 
     @Override
     public String buildErrorExample(final ResourceDefinition resourceDefinition,
                                     final int statusCode) {
-        final StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(format("? ? ??",
-                HTTP_VERSION,
-                statusCode,
-                getStatusMessage(statusCode),
-                lineSeparator()));
-        stringBuilder.append(format("Content-Length: 0?", lineSeparator()));
+        final StringBuilder stringBuilder = new StringBuilder()
+                .append(format("? ? ??", HTTP_VERSION, statusCode, getStatusMessage(statusCode), lineSeparator()))
+                .append(format("Content-Length: 0?", lineSeparator()));
         if (resourceDefinition.withRequestIdResponseHeader()) {
             stringBuilder.append(format("Request-Id: ??", REQUEST_ID_EXAMPLE, lineSeparator()));
         }
@@ -138,7 +132,7 @@ public final class HttpResponseExampleBuilderImpl implements HttpResponseExample
                                 .getModelClass()));
     }
 
-    private int getContentLength(String body) {
+    private int getContentLength(final String body) {
         // Remove CL if detected
         return body.replace("\r", "").length();
     }

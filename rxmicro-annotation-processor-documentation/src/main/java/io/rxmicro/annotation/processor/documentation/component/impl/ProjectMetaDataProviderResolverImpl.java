@@ -28,11 +28,11 @@ import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
 
 import javax.tools.FileObject;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.lang.invoke.MethodHandles;
 import java.net.URI;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -99,12 +99,12 @@ public final class ProjectMetaDataProviderResolverImpl implements ProjectMetaDat
             File pomXml = pomXmlPath;
             while (true) {
                 Model model;
-                try (final Reader fileReader = new FileReader(pomXml, UTF_8)) {
+                try (Reader fileReader = Files.newBufferedReader(pomXml.toPath(), UTF_8)) {
                     model = reader.read(fileReader);
                 }
                 model.setPomFile(pomXmlPath);
                 models.add(model);
-                Parent parent = model.getParent();
+                final Parent parent = model.getParent();
                 if (parent == null) {
                     break;
                 }
@@ -114,7 +114,7 @@ public final class ProjectMetaDataProviderResolverImpl implements ProjectMetaDat
                 }
             }
             return Optional.of(new MavenPOMProjectMetaDataProvider(pomXmlPath.getParentFile().getAbsolutePath(), models));
-        } catch (final IOException | XmlPullParserException | RuntimeException e) {
+        } catch (final IOException | XmlPullParserException e) {
             // This case must be interpret as warning
             logThrowableStackTrace(new RxMicroException(e, "Can't read data from `pom.xml`!"));
             return Optional.empty();

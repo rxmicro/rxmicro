@@ -44,14 +44,19 @@ public final class BooleanExampleValueConverter extends ExampleValueConverter {
                 if (!result) {
                     showInvalidExampleValueError(restModelField, "true", "false");
                     return ERROR_DETECTED;
+                } else {
+                    return result;
                 }
             } else if (restModelField.getAnnotation(AssertFalse.class) != null) {
                 if (result) {
                     showInvalidExampleValueError(restModelField, "false", "true");
                     return ERROR_DETECTED;
+                } else {
+                    return result;
                 }
+            } else {
+                return result;
             }
-            return result;
         } else {
             showInvalidExampleTypeError(restModelField, Boolean.class, value);
             return ERROR_DETECTED;

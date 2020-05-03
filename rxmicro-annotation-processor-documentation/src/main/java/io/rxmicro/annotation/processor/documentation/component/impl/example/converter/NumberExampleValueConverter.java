@@ -63,9 +63,9 @@ public final class NumberExampleValueConverter extends ExampleValueConverter {
     @Override
     public Object convert(final RestModelField restModelField,
                           final String value) {
-        final String v = removeUnderscoresIfPresent(value);
+        final String number = removeUnderscoresIfPresent(value);
         if (validatorTypeMap.get(restModelField.getFieldClass().toString()).validate(restModelField, value, Example.class)) {
-            return new JsonNumber(v);
+            return new JsonNumber(number);
         } else {
             return ERROR_DETECTED;
         }

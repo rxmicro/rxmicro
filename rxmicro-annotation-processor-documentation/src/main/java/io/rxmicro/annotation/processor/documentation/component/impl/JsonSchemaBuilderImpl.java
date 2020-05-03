@@ -52,6 +52,24 @@ import static io.rxmicro.common.RxMicroModule.RX_MICRO_VALIDATION_MODULE;
 @Singleton
 public final class JsonSchemaBuilderImpl implements JsonSchemaBuilder {
 
+    private static final String SCHEMA = "$schema";
+
+    private static final String TYPE = "type";
+
+    private static final String PROPERTIES = "properties";
+
+    private static final String REQUIRED = "required";
+
+    private static final String MIN_PROPERTIES = "minProperties";
+
+    private static final String MAX_PROPERTIES = "maxProperties";
+
+    private static final String DESCRIPTION = "description";
+
+    private static final String ITEMS = "items";
+
+    private static final String EXAMPLES = "examples";
+
     @Inject
     private ExampleValueBuilder exampleValueBuilder;
 
@@ -74,29 +92,29 @@ public final class JsonSchemaBuilderImpl implements JsonSchemaBuilder {
                                                     final RestObjectModelClass restObjectModelClass) {
         final JsonObjectBuilder builder = new JsonObjectBuilder();
         if (modelField == null) {
-            builder.put("$schema", "http://json-schema.org/schema#");
+            builder.put(SCHEMA, "http://json-schema.org/schema#");
         }
-        builder.put("type", "object");
+        builder.put(TYPE, "object");
         readDescription(builder, projectDirectory, modelField, restObjectModelClass);
         final JsonObjectBuilder propertiesBuilder = new JsonObjectBuilder();
         for (final Map.Entry<RestModelField, ModelClass> entry : restObjectModelClass.getParamEntries()) {
             propertiesBuilder.put(entry.getKey().getModelName(), getJsonSchema(environmentContext, projectDirectory, entry));
         }
         final Map<String, Object> properties = propertiesBuilder.build();
-        builder.put("properties", properties);
+        builder.put(PROPERTIES, properties);
         if (environmentContext.isRxMicroModuleEnabled(RX_MICRO_VALIDATION_MODULE)) {
             final List<String> required = restObjectModelClass.getParamEntries().stream()
                     .filter(e -> e.getKey().getAnnotation(Nullable.class) == null)
                     .map(e -> e.getKey().getModelName())
                     .collect(Collectors.toList());
             if (!required.isEmpty()) {
-                builder.put("required", required);
+                builder.put(REQUIRED, required);
             }
-            builder.put("minProperties", required.size());
+            builder.put(MIN_PROPERTIES, required.size());
         } else {
-            builder.put("minProperties", 0);
+            builder.put(MIN_PROPERTIES, 0);
         }
-        builder.put("maxProperties", properties.size());
+        builder.put(MAX_PROPERTIES, properties.size());
         return builder.build();
     }
 
@@ -108,13 +126,13 @@ public final class JsonSchemaBuilderImpl implements JsonSchemaBuilder {
             final Optional<String> descriptionOptional =
                     descriptionReader.readDescription(modelField.getFieldElement(), projectDirectory);
             if (descriptionOptional.isPresent()) {
-                builder.put("description", descriptionOptional.get());
+                builder.put(DESCRIPTION, descriptionOptional.get());
                 return;
             }
         }
         if (restObjectModelClass != null) {
             descriptionReader.readDescription(restObjectModelClass.getModelTypeElement(), projectDirectory)
-                    .ifPresent(description -> builder.put("description", description));
+                    .ifPresent(description -> builder.put(DESCRIPTION, description));
         }
     }
 
@@ -166,10 +184,10 @@ public final class JsonSchemaBuilderImpl implements JsonSchemaBuilder {
                                                    final RestObjectModelClass restObjectModelClass,
                                                    final Supplier<Map<String, Object>> itemSupplier) {
         final JsonObjectBuilder builder = new JsonObjectBuilder();
-        builder.put("type", "array");
+        builder.put(TYPE, "array");
         readDescription(builder, projectDirectory, modelField, restObjectModelClass);
         jsonAttributesReader.readArrayAttributes(environmentContext, builder, modelField);
-        builder.put("items", itemSupplier.get());
+        builder.put(ITEMS, itemSupplier.get());
         return builder.build();
     }
 
@@ -178,7 +196,7 @@ public final class JsonSchemaBuilderImpl implements JsonSchemaBuilder {
                                                        final PrimitiveModelClass primitiveModelClass) {
         final JsonObjectBuilder builder = new JsonObjectBuilder();
         final String jsonType = primitiveModelClass.getPrimitiveType().toJsonType();
-        builder.put("type", jsonType);
+        builder.put(TYPE, jsonType);
         if (SUPPORTED_DATE_TIME_CLASSES.contains(primitiveModelClass.getTypeMirror().toString())) {
             jsonAttributesReader.readDateTimePrimitiveAttributes(environmentContext, builder, restModelField);
         } else if (JsonTypes.STRING.equals(jsonType)) {
@@ -186,7 +204,7 @@ public final class JsonSchemaBuilderImpl implements JsonSchemaBuilder {
         } else if (JsonTypes.NUMBER.equals(jsonType)) {
             jsonAttributesReader.readNumberPrimitiveAttributes(environmentContext, builder, restModelField);
         }
-        builder.put("examples", exampleValueBuilder.getExamples(restModelField));
+        builder.put(EXAMPLES, exampleValueBuilder.getExamples(restModelField));
         return builder.build();
     }
 
@@ -194,9 +212,9 @@ public final class JsonSchemaBuilderImpl implements JsonSchemaBuilder {
                                                   final EnvironmentContext environmentContext,
                                                   final EnumModelClass enumModelClass) {
         final JsonObjectBuilder builder = new JsonObjectBuilder();
-        builder.put("type", enumModelClass.getPrimitiveType().toJsonType());
+        builder.put(TYPE, enumModelClass.getPrimitiveType().toJsonType());
         jsonAttributesReader.readEnumAttributes(environmentContext, builder, restModelField, enumModelClass);
-        builder.put("examples", exampleValueBuilder.getExamples(restModelField));
+        builder.put(EXAMPLES, exampleValueBuilder.getExamples(restModelField));
         return builder.build();
     }
 }
