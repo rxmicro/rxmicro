@@ -77,14 +77,15 @@ public final class SQLParamsMock extends AbstractSQLParamsMock {
         @BuilderMethod
         public Builder setBindParams(final Object... bindParams) {
             require(bindParams);
-            try {
-                this.bindParams = List.of(bindParams);
-            } catch (final NullPointerException e) {
-                throw new IllegalArgumentException(
-                        format("`null` is not allowed bind parameter. Use new ?(<TYPE>) instead.",
-                                Null.class.getName())
-                );
+            for (final Object bindParam : bindParams) {
+                if (bindParam == null) {
+                    throw new IllegalArgumentException(
+                            format("`null` is not allowed bind parameter. Use new ?(<TYPE>) instead.",
+                                    Null.class.getName())
+                    );
+                }
             }
+            this.bindParams = List.of(bindParams);
             return this;
         }
 
