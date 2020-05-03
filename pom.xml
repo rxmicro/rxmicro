@@ -60,6 +60,7 @@
         <module>rxmicro-logger</module>
         <module>rxmicro-config</module>
         <module>rxmicro-cdi</module>
+        <module>rxmicro-slf4j-proxy</module>
 
         <module>rxmicro-http</module>
         <module>rxmicro-http-client</module>
@@ -115,7 +116,6 @@
         <module>rxmicro-annotation-processor-data-aggregator</module>
         <module>rxmicro-annotation-processor-documentation</module>
         <module>rxmicro-annotation-processor-documentation-asciidoctor</module>
-        <module>rxmicro-slf4j-proxy</module>
     </modules>
 
     <properties>
