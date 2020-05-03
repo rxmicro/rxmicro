@@ -29,6 +29,7 @@ import io.rxmicro.annotation.processor.data.mongo.model.BsonExpression;
 import io.rxmicro.annotation.processor.data.mongo.model.BsonTokenParserRule;
 import io.rxmicro.annotation.processor.data.mongo.model.MongoVariable;
 import org.bson.internal.UuidHelper;
+import org.bson.json.JsonParseException;
 import org.bson.types.Binary;
 import org.bson.types.Decimal128;
 import org.bson.types.ObjectId;
@@ -100,7 +101,7 @@ public final class BsonExpressionBuilderImpl implements BsonExpressionBuilder {
         final BasicDBObject basicDBObject;
         try {
             basicDBObject = BasicDBObject.parse(entry.getKey());
-        } catch (final RuntimeException e) {
+        } catch (final JsonParseException e) {
             throw new InterruptProcessingException(
                     repositoryMethod,
                     "Expression '?' is invalid: ?!",

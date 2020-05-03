@@ -21,7 +21,6 @@ import io.rxmicro.data.Pageable;
 
 import javax.lang.model.element.VariableElement;
 import javax.lang.model.type.TypeKind;
-
 import java.util.Objects;
 
 import static io.rxmicro.data.Pageable.LIMIT_NAMES;
@@ -62,9 +61,15 @@ public class MongoVariable extends Variable {
 
     @Override
     public boolean equals(final Object other) {
-        if (this == other) return true;
-        if (other == null || getClass() != other.getClass()) return false;
-        if (!super.equals(other)) return false;
+        if (this == other) {
+            return true;
+        }
+        if (other == null || getClass() != other.getClass()) {
+            return false;
+        }
+        if (!super.equals(other)) {
+            return false;
+        }
         final MongoVariable mongoVar = (MongoVariable) other;
         return limit == mongoVar.limit &&
                 skip == mongoVar.skip;

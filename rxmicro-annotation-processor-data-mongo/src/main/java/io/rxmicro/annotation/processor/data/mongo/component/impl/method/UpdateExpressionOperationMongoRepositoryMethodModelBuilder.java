@@ -56,7 +56,7 @@ public final class UpdateExpressionOperationMongoRepositoryMethodModelBuilder ex
     public boolean isSupported(final DataRepositoryMethodSignature dataRepositoryMethodSignature,
                                final DataGenerationContext<MongoDataModelField, MongoDataObjectModelClass> dataGenerationContext) {
         return super.isSupported(dataRepositoryMethodSignature, dataGenerationContext) &&
-                !dataRepositoryMethodSignature.getMethod().getAnnotation(Update.class).update().trim().isEmpty();
+                !dataRepositoryMethodSignature.getMethod().getAnnotation(Update.class).update().isBlank();
     }
 
     @Override
@@ -91,7 +91,7 @@ public final class UpdateExpressionOperationMongoRepositoryMethodModelBuilder ex
         templateArguments.put("UPDATE",
                 bsonExpressionBuilder.build(method, classHeaderBuilder, annotation.update(), methodParameterReader));
         final String filter = annotation.filter();
-        if (!filter.trim().isEmpty()) {
+        if (!filter.isBlank()) {
             templateArguments.put("FILTER", bsonExpressionBuilder.build(method, classHeaderBuilder, filter, methodParameterReader));
         }
         templateArguments.put("UPSERT", annotation.upsert());

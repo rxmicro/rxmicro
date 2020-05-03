@@ -77,13 +77,13 @@ public final class MongoDocumentEntityConverterBuilder extends AbstractProcessor
         return result;
     }
 
-    private EntityToDBConverterClassStructure createEntityToDBConverterClassStructure(final MongoDataObjectModelClass m) {
-        return getIdField(m)
+    private EntityToDBConverterClassStructure createEntityToDBConverterClassStructure(final MongoDataObjectModelClass modelClass) {
+        return getIdField(modelClass)
                 .map(id -> {
                     validateIdFieldType(id.getKey());
-                    return new EntityToDBConverterClassStructure(id, m);
+                    return new EntityToDBConverterClassStructure(id, modelClass);
                 })
-                .orElse(new EntityToDBConverterClassStructure(m));
+                .orElse(new EntityToDBConverterClassStructure(modelClass));
     }
 
     private void validateIdFieldType(final DataModelField id) {

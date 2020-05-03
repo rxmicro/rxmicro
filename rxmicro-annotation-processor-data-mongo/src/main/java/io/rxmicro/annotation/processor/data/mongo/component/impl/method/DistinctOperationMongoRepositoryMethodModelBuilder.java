@@ -76,7 +76,7 @@ public final class DistinctOperationMongoRepositoryMethodModelBuilder extends Ab
         templateArguments.put("RETURN", methodResult);
         final Distinct annotation = method.getAnnotation(Distinct.class);
         final String query = annotation.query();
-        if (!query.trim().isEmpty()) {
+        if (!query.isBlank()) {
             templateArguments.put("QUERY", bsonExpressionBuilder.build(method, classHeaderBuilder, query, methodParameterReader));
         }
         templateArguments.put("FIELD", annotation.field());

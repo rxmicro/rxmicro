@@ -27,17 +27,17 @@ import io.rxmicro.annotation.processor.data.model.DataModelField;
  */
 public final class MongoDataModelField extends DataModelField {
 
-    private final boolean isId;
+    private final boolean id;
 
     public MongoDataModelField(final AnnotatedModelElement annotatedModelElement,
                                final String modelName,
-                               final boolean isId) {
+                               final boolean id) {
         super(annotatedModelElement, modelName);
-        this.isId = isId;
+        this.id = id;
     }
 
     @UsedByFreemarker("$$MongoEntityToDBConverterTemplate.javaftl")
     public boolean isId() {
-        return isId;
+        return id;
     }
 }

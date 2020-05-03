@@ -56,7 +56,7 @@ public final class DeleteEntityOrByIdOperationMongoRepositoryMethodModelBuilder 
     public boolean isSupported(final DataRepositoryMethodSignature dataRepositoryMethodSignature,
                                final DataGenerationContext<MongoDataModelField, MongoDataObjectModelClass> dataGenerationContext) {
         return super.isSupported(dataRepositoryMethodSignature, dataGenerationContext) &&
-                dataRepositoryMethodSignature.getMethod().getAnnotation(Delete.class).filter().trim().isEmpty();
+                dataRepositoryMethodSignature.getMethod().getAnnotation(Delete.class).filter().isBlank();
     }
 
     @Override

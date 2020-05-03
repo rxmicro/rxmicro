@@ -63,8 +63,8 @@ public final class UpdateDocumentOperationMongoRepositoryMethodModelBuilder exte
     public boolean isSupported(final DataRepositoryMethodSignature dataRepositoryMethodSignature,
                                final DataGenerationContext<MongoDataModelField, MongoDataObjectModelClass> dataGenerationContext) {
         return super.isSupported(dataRepositoryMethodSignature, dataGenerationContext) &&
-                dataRepositoryMethodSignature.getMethod().getAnnotation(Update.class).update().trim().isEmpty() &&
-                !dataRepositoryMethodSignature.getMethod().getAnnotation(Update.class).filter().trim().isEmpty();
+                dataRepositoryMethodSignature.getMethod().getAnnotation(Update.class).update().isBlank() &&
+                !dataRepositoryMethodSignature.getMethod().getAnnotation(Update.class).filter().isBlank();
     }
 
     @Override

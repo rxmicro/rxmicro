@@ -78,11 +78,11 @@ public final class CountDocumentsOperationMongoRepositoryMethodModelBuilder exte
         templateArguments.put("RETURN", methodResult);
         final CountDocuments annotation = method.getAnnotation(CountDocuments.class);
         final String query = annotation.query();
-        if (!query.trim().isEmpty()) {
+        if (!query.isBlank()) {
             templateArguments.put("QUERY", bsonExpressionBuilder.build(method, classHeaderBuilder, query, methodParameterReader));
         }
         final String hint = annotation.hint();
-        if (!hint.trim().isEmpty()) {
+        if (!hint.isBlank()) {
             templateArguments.put("HINT", bsonExpressionBuilder.build(method, classHeaderBuilder, hint, methodParameterReader));
         }
 

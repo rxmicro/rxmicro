@@ -89,7 +89,7 @@ public final class AggregateOperationMongoRepositoryMethodModelBuilder extends A
                 .map(p -> bsonExpressionBuilder.build(method, classHeaderBuilder, p, methodParameterReader))
                 .collect(toList()));
         final String hint = annotation.hint();
-        if (!hint.trim().isEmpty()) {
+        if (!hint.isBlank()) {
             templateArguments.put("HINT", bsonExpressionBuilder.build(method, classHeaderBuilder, hint, methodParameterReader));
         }
         templateArguments.put("ALLOW_DISK_USE", annotation.allowDiskUse());
