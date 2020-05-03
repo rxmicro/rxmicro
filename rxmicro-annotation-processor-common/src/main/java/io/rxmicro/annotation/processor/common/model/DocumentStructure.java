@@ -53,7 +53,7 @@ public abstract class DocumentStructure implements Comparable<DocumentStructure>
         if (this == other) {
             return true;
         }
-        if (other == null || getClass() != other.getClass()){
+        if (other == null || getClass() != other.getClass()) {
             return false;
         }
         final DocumentStructure that = (DocumentStructure) other;

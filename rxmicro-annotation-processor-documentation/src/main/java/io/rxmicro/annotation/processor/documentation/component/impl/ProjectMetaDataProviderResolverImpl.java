@@ -37,8 +37,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getFiler;
 import static io.rxmicro.annotation.processor.common.util.InternalLoggers.logThrowableStackTrace;
+import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getFiler;
 import static io.rxmicro.annotation.processor.common.util.Stubs.stub;
 import static io.rxmicro.annotation.processor.documentation.TestSystemProperties.RX_MICRO_POM_XML_ABSOLUTE_PATH;
 import static java.nio.charset.StandardCharsets.UTF_8;

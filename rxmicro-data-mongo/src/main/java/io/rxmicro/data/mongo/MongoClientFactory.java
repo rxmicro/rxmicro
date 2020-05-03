@@ -44,6 +44,6 @@ public final class MongoClientFactory {
         return getMongoClient(getDefaultNameSpace(MongoConfig.class));
     }
 
-    private MongoClientFactory(){
+    private MongoClientFactory() {
     }
 }

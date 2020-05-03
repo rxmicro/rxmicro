@@ -189,7 +189,7 @@ public final class Reflections {
             }
             if (isFinal(field.getModifiers())) {
                 setFinalFieldValue(validInstance, field, value);
-            }else{
+            } else {
                 field.set(validInstance, value);
             }
         } catch (final IllegalAccessException e) {

@@ -69,6 +69,6 @@ public final class RestServerLauncher {
         return new ServerContainer(serverInstance, router, restControllerAggregator);
     }
 
-    private RestServerLauncher(){
+    private RestServerLauncher() {
     }
 }

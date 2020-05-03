@@ -30,8 +30,8 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
-import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getElements;
 import static io.rxmicro.annotation.processor.common.util.Elements.allFields;
+import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getElements;
 import static io.rxmicro.annotation.processor.common.util.validators.AnnotationValidators.validateCustomAnnotation;
 import static io.rxmicro.annotation.processor.common.util.validators.FieldValidators.validateExpectedFieldType;
 import static io.rxmicro.annotation.processor.common.util.validators.TypeValidators.validateExpectedElementKind;

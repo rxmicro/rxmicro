@@ -42,6 +42,6 @@ public final class LoggerFactory {
         throw new UnsupportedOperationException("Proxy does not contain ILoggerFactory implementation");
     }
 
-    private LoggerFactory(){
+    private LoggerFactory() {
     }
 }

@@ -48,11 +48,11 @@ import static io.rxmicro.annotation.processor.cdi.model.InjectionPointType.MONGO
 import static io.rxmicro.annotation.processor.cdi.model.InjectionPointType.MULTI_BINDER;
 import static io.rxmicro.annotation.processor.cdi.model.InjectionPointType.REPOSITORY;
 import static io.rxmicro.annotation.processor.cdi.model.InjectionPointType.REST_CLIENT;
-import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getElements;
-import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getTypes;
 import static io.rxmicro.annotation.processor.common.util.Elements.asTypeElement;
 import static io.rxmicro.annotation.processor.common.util.Elements.findSuperType;
 import static io.rxmicro.annotation.processor.common.util.Names.getPackageName;
+import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getElements;
+import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getTypes;
 import static io.rxmicro.annotation.processor.common.util.validators.TypeValidators.validateGenericType;
 import static io.rxmicro.common.RxMicroModule.RX_MICRO_DATA_SQL_R2DBC_POSTGRESQL_MODULE;
 import static io.rxmicro.tool.common.DeniedPackages.isDeniedPackage;

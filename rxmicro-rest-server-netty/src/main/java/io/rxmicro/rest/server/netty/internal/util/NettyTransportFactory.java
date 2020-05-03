@@ -96,6 +96,6 @@ public final class NettyTransportFactory {
         }
     }
 
-    private NettyTransportFactory(){
+    private NettyTransportFactory() {
     }
 }

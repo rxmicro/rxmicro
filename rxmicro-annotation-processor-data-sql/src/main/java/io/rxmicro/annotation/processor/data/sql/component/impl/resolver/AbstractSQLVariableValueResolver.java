@@ -154,7 +154,7 @@ public abstract class AbstractSQLVariableValueResolver<A extends Annotation, DMF
 
     private void setVariables(final Element owner,
                               final VariableValuesMap variableValuesMap,
-                              final String ... variables) {
+                              final String... variables) {
         if (variables.length % 2 == 1) {
             throw new InterruptProcessingException(
                     owner,

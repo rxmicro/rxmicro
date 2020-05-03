@@ -50,6 +50,6 @@ public final class LoggerImplProviderFactory {
         LoggerImplProviderFactory.impl = require(impl);
     }
 
-    private LoggerImplProviderFactory(){
+    private LoggerImplProviderFactory() {
     }
 }

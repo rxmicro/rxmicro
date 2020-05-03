@@ -31,10 +31,10 @@ public final class TestLoggers {
      * This method uses {@link Formats#format(String, Object...) Formats.format} to format log message
      */
     public static void logTestMessage(final String message,
-                                      final Object ... args) {
+                                      final Object... args) {
         System.out.println(format(message, args));
     }
 
-    private TestLoggers(){
+    private TestLoggers() {
     }
 }

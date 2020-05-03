@@ -42,7 +42,7 @@ public final class DefaultConfigValueStorage {
         this.defaultSupplierValuesStorage = unmodifiableMap(defaultSupplierValuesStorage);
     }
 
-    public boolean hasDefaultStringValuesStorage(){
+    public boolean hasDefaultStringValuesStorage() {
         return !defaultStringValuesStorage.isEmpty();
     }
 
@@ -50,7 +50,7 @@ public final class DefaultConfigValueStorage {
         return defaultStringValuesStorage;
     }
 
-    public boolean hasDefaultSupplierValuesStorage(){
+    public boolean hasDefaultSupplierValuesStorage() {
         return !getDefaultSupplierValuesStorage().isEmpty();
     }
 
@@ -90,7 +90,7 @@ public final class DefaultConfigValueStorage {
             }
         }
 
-        public DefaultConfigValueStorage build(){
+        public DefaultConfigValueStorage build() {
             return new DefaultConfigValueStorage(defaultStringValuesStorage, defaultSupplierValuesStorage);
         }
     }

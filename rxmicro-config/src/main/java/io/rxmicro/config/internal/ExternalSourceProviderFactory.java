@@ -47,6 +47,6 @@ public final class ExternalSourceProviderFactory {
         ExternalSourceProviderFactory.currentDir = currentDir;
     }
 
-    private ExternalSourceProviderFactory(){
+    private ExternalSourceProviderFactory() {
     }
 }

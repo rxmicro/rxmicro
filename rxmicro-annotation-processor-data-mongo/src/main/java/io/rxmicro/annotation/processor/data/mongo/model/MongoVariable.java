@@ -60,6 +60,11 @@ public class MongoVariable extends Variable {
     }
 
     @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), limit, skip);
+    }
+
+    @Override
     public boolean equals(final Object other) {
         if (this == other) {
             return true;
@@ -73,10 +78,5 @@ public class MongoVariable extends Variable {
         final MongoVariable mongoVar = (MongoVariable) other;
         return limit == mongoVar.limit &&
                 skip == mongoVar.skip;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(super.hashCode(), limit, skip);
     }
 }

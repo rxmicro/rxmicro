@@ -130,7 +130,7 @@ final class JdkHttpClient implements HttpClient {
                                                   final List<Map.Entry<String, String>> headers) {
         final HttpRequest.Builder requestBuilder = HttpRequest.newBuilder()
                 .uri(URI.create(format("?://?:??",
-                        protocol.getSchema(), host, port,  startsWith(path, '/') ? path : "/" + path)));
+                        protocol.getSchema(), host, port, startsWith(path, '/') ? path : "/" + path)));
         setHeaders(requestBuilder, headers);
         if (!timeout.isZero()) {
             requestBuilder.timeout(timeout);

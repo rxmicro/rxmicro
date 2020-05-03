@@ -48,6 +48,6 @@ final class LevelMappings {
         return LEVEL_NAME_MAPPING.getOrDefault(value, value);
     }
 
-    private LevelMappings(){
+    private LevelMappings() {
     }
 }

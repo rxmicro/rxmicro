@@ -30,8 +30,8 @@ import java.util.Optional;
 
 import static io.rxmicro.annotation.processor.common.model.method.MethodResult.createRxJavaResult;
 import static io.rxmicro.annotation.processor.common.model.method.MethodResult.createWithVoidResult;
-import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getTypes;
 import static io.rxmicro.annotation.processor.common.util.Names.getSimpleName;
+import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getTypes;
 import static io.rxmicro.annotation.processor.common.util.Reactives.isCompletable;
 import static io.rxmicro.annotation.processor.common.util.Reactives.isFlowable;
 import static io.rxmicro.annotation.processor.common.util.Reactives.isMaybe;

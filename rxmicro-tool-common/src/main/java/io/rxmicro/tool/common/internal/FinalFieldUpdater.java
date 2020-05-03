@@ -78,6 +78,6 @@ public final class FinalFieldUpdater {
         }
     }
 
-    private FinalFieldUpdater(){
+    private FinalFieldUpdater() {
     }
 }

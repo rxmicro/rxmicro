@@ -36,23 +36,6 @@ public interface Secrets {
     }
 
     /**
-     * Return `****` placeholder if value is secret
-     *
-     * @param value secret candidate
-     * @return `****` placeholder if value is secret,
-     *          otherwise value
-     */
-    String hideIfSecret(String value);
-
-    /**
-     * Replace all substrings if there are secrets
-     *
-     * @param message string that can contain secret substrings
-     * @return processed string
-     */
-    String hideAllSecretsIn(String message);
-
-    /**
      * Define an algorithm to hide secure info
      *
      * @param value string value
@@ -69,4 +52,21 @@ public interface Secrets {
             return null;
         }
     }
+
+    /**
+     * Return `****` placeholder if value is secret
+     *
+     * @param value secret candidate
+     * @return `****` placeholder if value is secret,
+     * otherwise value
+     */
+    String hideIfSecret(String value);
+
+    /**
+     * Replace all substrings if there are secrets
+     *
+     * @param message string that can contain secret substrings
+     * @return processed string
+     */
+    String hideAllSecretsIn(String message);
 }

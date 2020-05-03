@@ -94,7 +94,7 @@ public final class BeanSupplierClassStructure extends ClassStructure {
     @Override
     public boolean isRequiredReflectionInvoke() {
         return beanDefinition.isPostConstructMethodPresent() && beanDefinition.getPostConstructMethod().isPrivateMethod() ||
-                        beanDefinition.isFactoryMethodPresent() && beanDefinition.getFactoryMethod().isPrivateMethod();
+                beanDefinition.isFactoryMethodPresent() && beanDefinition.getFactoryMethod().isPrivateMethod();
     }
 
     @UsedByFreemarker("$$BeanFactoryImplTemplate.javaftl")

@@ -121,7 +121,7 @@ public final class RxMicro {
         }
     }
 
-    private RxMicro(){
+    private RxMicro() {
     }
 
     /**

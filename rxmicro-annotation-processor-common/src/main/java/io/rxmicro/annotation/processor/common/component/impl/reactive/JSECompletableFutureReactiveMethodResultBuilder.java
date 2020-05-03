@@ -28,8 +28,8 @@ import javax.lang.model.type.TypeMirror;
 import java.util.Optional;
 
 import static io.rxmicro.annotation.processor.common.model.method.MethodResult.createCompletableFutureResult;
-import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getTypes;
 import static io.rxmicro.annotation.processor.common.util.Names.getSimpleName;
+import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getTypes;
 import static io.rxmicro.annotation.processor.common.util.Reactives.isFuture;
 import static io.rxmicro.annotation.processor.common.util.validators.TypeValidators.validateGenericType;
 

@@ -51,11 +51,6 @@ public final class AnyValues {
         }
 
         @Override
-        public String toString() {
-            return name;
-        }
-
-        @Override
         public boolean equals(final Object other) {
             if (this == other) {
                 return true;
@@ -73,6 +68,11 @@ public final class AnyValues {
         @Override
         public int hashCode() {
             return Objects.hash(super.hashCode(), name);
+        }
+
+        @Override
+        public String toString() {
+            return name;
         }
     }
 

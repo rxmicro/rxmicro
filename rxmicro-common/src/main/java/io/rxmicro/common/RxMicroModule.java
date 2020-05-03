@@ -112,7 +112,7 @@ public enum RxMicroModule {
     public static boolean isRxMicroPackage(final String packageName) {
         return Arrays.stream(RxMicroModule.values()).anyMatch(module ->
                 module.getRootPackage().equals(packageName) ||
-                        packageName.startsWith(module.getRootPackage()+".")
+                        packageName.startsWith(module.getRootPackage() + ".")
         );
     }
 

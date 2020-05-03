@@ -108,6 +108,6 @@ public final class HttpStatuses {
         }
     }
 
-    private HttpStatuses(){
+    private HttpStatuses() {
     }
 }

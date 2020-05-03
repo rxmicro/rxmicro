@@ -24,8 +24,8 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.TreeSet;
 
-import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getElements;
 import static io.rxmicro.annotation.processor.common.util.Annotations.getRequiredAnnotationClassParameter;
+import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getElements;
 import static java.util.Collections.unmodifiableSet;
 
 /**
