@@ -1,4 +1,4 @@
-final ${REQUEST_CLASS} req = ${REQUEST_READER}.read(pathVariableMapping, request, request.contentExists());
+final ${REQUEST_CLASS} req = ${REQUEST_READER}.read(pathVariableMapping, request, request.isContentPresent());
 <#if GENERATE_REQUEST_VALIDATORS>
 ${REQUEST_VALIDATOR}.validate(req);
 </#if>

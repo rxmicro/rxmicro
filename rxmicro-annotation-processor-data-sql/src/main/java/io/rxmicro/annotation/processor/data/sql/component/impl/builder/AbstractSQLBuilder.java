@@ -102,6 +102,7 @@ public abstract class AbstractSQLBuilder extends AbstractProcessorComponent {
             while (index < sqlTokens.size()) {
                 final String token = sqlTokens.get(index);
                 if ("*".equals(token) && isAsteriskShouldBeIgnored(index, sqlTokens)) {
+                    index++;
                     continue;
                 }
                 if (vars.contains(token)) {

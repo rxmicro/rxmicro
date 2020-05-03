@@ -40,6 +40,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Optional;
 
 import static io.rxmicro.annotation.processor.common.util.Errors.createInternalErrorSupplier;
 import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.getModelTransformerInstanceName;
@@ -88,7 +89,7 @@ public abstract class AbstractSQLModificationOperationReturningResultDataReposit
         templateArguments.put("RETURN_ENTITY_FIELD_MAP", isEntityFieldMap);
         templateArguments.put("RETURN_ENTITY_FIELD_LIST", isEntityFieldList);
 
-        final DMC modelClass = getResultModelClassOrNull(sqlMethodDescriptor, isEntityFieldMap, isEntityFieldList);
+        final DMC modelClass = getResultModelClassOrNull(sqlMethodDescriptor, isEntityParam, isEntityFieldMap, isEntityFieldList);
 
         if (isEntityParam) {
             templateArguments.put("ENTITY", params.get(0).getGetter());
@@ -113,14 +114,22 @@ public abstract class AbstractSQLModificationOperationReturningResultDataReposit
     }
 
     private DMC getResultModelClassOrNull(final SQLMethodDescriptor<DMF, DMC> sqlMethodDescriptor,
+                                          final boolean isEntityParam,
                                           final boolean isEntityFieldMap,
                                           final boolean isEntityFieldList) {
         if (!isEntityFieldList && !isEntityFieldMap) {
-            return sqlMethodDescriptor.getEntityResult()
-                    .orElseThrow(createInternalErrorSupplier(
-                            "Method return result not found for '?' operation",
-                            operationType().getSimpleName().toUpperCase(Locale.ENGLISH))
-                    );
+            final Optional<DMC> modelClassOptional;
+            final String errorMessageTemplate;
+            if (isEntityParam) {
+                modelClassOptional = sqlMethodDescriptor.getEntityParam().or(sqlMethodDescriptor::getEntityResult);
+                errorMessageTemplate = "Method entity param or return result not found for '?' operation";
+            } else {
+                modelClassOptional = sqlMethodDescriptor.getEntityResult();
+                errorMessageTemplate = "Method return result not found for '?' operation";
+            }
+            return modelClassOptional.orElseThrow(
+                    createInternalErrorSupplier(errorMessageTemplate, operationType().getSimpleName().toUpperCase(Locale.ENGLISH))
+            );
         } else {
             return null;
         }

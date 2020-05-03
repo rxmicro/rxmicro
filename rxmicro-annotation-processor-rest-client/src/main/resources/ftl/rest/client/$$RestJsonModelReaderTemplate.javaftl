@@ -12,7 +12,7 @@ public final class ${JAVA_MODEL_CLASS.modelReaderImplSimpleClassName} extends Mo
     public ${JAVA_MODEL_CLASS.javaSimpleClassName} readSingle(final ClientHttpResponse response) {
         <#if JAVA_MODEL_CLASS.internals?has_content || JAVA_MODEL_CLASS.headerEntries?has_content>
         <#if WITH_BODY>
-        final ${JAVA_MODEL_CLASS.javaSimpleClassName} model = ${JAVA_MODEL_CLASS.fromJsonConverterInstanceName}.fromJsonObject(response.body());
+        final ${JAVA_MODEL_CLASS.javaSimpleClassName} model = ${JAVA_MODEL_CLASS.fromJsonConverterInstanceName}.fromJsonObject(response.getBody());
         <#else>
         final ${JAVA_MODEL_CLASS.javaSimpleClassName} model = new ${JAVA_MODEL_CLASS.javaSimpleClassName}();
         </#if>
@@ -22,7 +22,7 @@ public final class ${JAVA_MODEL_CLASS.modelReaderImplSimpleClassName} extends Mo
         </#list>
         <#-- ------------------------------------------------------------------------------------------------ -->
         <#if JAVA_MODEL_CLASS.headerEntries?has_content>
-        final HttpHeaders httpHeaders = response.headers();
+        final HttpHeaders httpHeaders = response.getHeaders();
         <#list JAVA_MODEL_CLASS.headerEntries as ENTRY>
         <@setHeaderFieldValue entry=ENTRY/>
         </#list>
@@ -31,7 +31,7 @@ public final class ${JAVA_MODEL_CLASS.modelReaderImplSimpleClassName} extends Mo
         return model;
 <#-- -------------------------------------------------------------------------------------------------------- -->
         <#else>
-        return ${JAVA_MODEL_CLASS.fromJsonConverterInstanceName}.fromJsonObject(response.body());
+        return ${JAVA_MODEL_CLASS.fromJsonConverterInstanceName}.fromJsonObject(response.getBody());
         </#if>
     }
     </#if>
@@ -39,7 +39,7 @@ public final class ${JAVA_MODEL_CLASS.modelReaderImplSimpleClassName} extends Mo
 
     @Override
     public List<${JAVA_MODEL_CLASS.javaSimpleClassName}> readList(final ClientHttpResponse response) {
-        return ${JAVA_MODEL_CLASS.fromJsonConverterInstanceName}.fromJsonArray(response.body());
+        return ${JAVA_MODEL_CLASS.fromJsonConverterInstanceName}.fromJsonArray(response.getBody());
     }
     </#if>
 }
@@ -88,13 +88,13 @@ public final class ${JAVA_MODEL_CLASS.modelReaderImplSimpleClassName} extends Mo
 <#-- -------------------------------------------------------------------------------------------------------- -->
 <#macro setInternal INTERNAL>
     <#if INTERNAL.responseStatus>
-        <@setInternalValue item=INTERNAL value="response.statusCode()" />
+        <@setInternalValue item=INTERNAL value="response.getStatusCode()" />
     <#elseif INTERNAL.httpVersion>
-        <@setInternalValue item=INTERNAL value="response.version()" />
+        <@setInternalValue item=INTERNAL value="response.getVersion()" />
     <#elseif INTERNAL.httpHeaders>
-        <@setInternalValue item=INTERNAL value="response.headers()" />
+        <@setInternalValue item=INTERNAL value="response.getHeaders()" />
     <#elseif INTERNAL.responseBody>
-        <@setInternalValue item=INTERNAL value="response.bodyAsBytes()" />
+        <@setInternalValue item=INTERNAL value="response.getBodyAsBytes()" />
     </#if>
 </#macro>
 <#-- -------------------------------------------------------------------------------------------------------- -->

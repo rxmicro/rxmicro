@@ -262,14 +262,13 @@
                                 <version>${pmd.version}</version>
                             </dependency>
                         </dependencies>
-                        <!--executions>
+                        <executions>
                             <execution>
                                 <id>pmd-check</id>
                                 <goals>
                                     <goal>check</goal>
                                 </goals>
                                 <configuration>
-                                    <skipEmptyReport>true</skipEmptyReport>
                                     <excludeFromFailureFile>${basedir}/../release/src/main/filters/exclude-pmd.properties</excludeFromFailureFile>
                                 </configuration>
                             </execution>
@@ -279,11 +278,10 @@
                                     <goal>cpd-check</goal>
                                 </goals>
                                 <configuration>
-                                    <skipEmptyReport>true</skipEmptyReport>
                                     <excludeFromFailureFile>${basedir}/../release/src/main/filters/exclude-cpd.properties</excludeFromFailureFile>
                                 </configuration>
                             </execution>
-                        </executions-->
+                        </executions>
                         <configuration>
                             <rulesets>
                                 <ruleset>${basedir}/../release/src/main/filters/pmd-ruleset.xml</ruleset>
@@ -349,6 +347,7 @@
                             <excludeFilterFile>${basedir}/../release/src/main/filters/spotbugs-exclude.xml</excludeFilterFile>
                             <skipEmptyReport>true</skipEmptyReport>
                             <fork>false</fork>
+                            <failOnError>false</failOnError>
                         </configuration>
                         <dependencies>
                             <dependency>

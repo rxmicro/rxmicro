@@ -82,7 +82,10 @@
         <Bug pattern="ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD"/>
     </Match>
 
-    <!--It seems that it is issue in spotbugs tool or java generates inefficient code.-->
+    <!--This is spotbugs issue. Spotbug does not resolve try-with-resources statement correctly.
+        Read more:
+        https://github.com/spotbugs/spotbugs/issues?q=is%3Aissue+is%3Aopen+Redundant+nullcheck
+        -->
     <Match>
         <Class name="io.rxmicro.runtime.internal.RuntimeVersion"/>
         <Method name="tryReadPomProperties" />
@@ -92,8 +95,24 @@
             <Bug pattern="RCN_REDUNDANT_NULLCHECK_OF_NULL_VALUE"/>
         </Or>
     </Match>
-
-    <!--It seems that it is issue in spotbugs tool or java generates inefficient code.-->
+    <Match>
+        <Class name="io.rxmicro.files.ClasspathResources"/>
+        <Method name="readLines" />
+        <Or>
+            <Bug pattern="NP_LOAD_OF_KNOWN_NULL_VALUE"/>
+            <Bug pattern="RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE"/>
+            <Bug pattern="RCN_REDUNDANT_NULLCHECK_OF_NULL_VALUE"/>
+        </Or>
+    </Match>
+    <Match>
+        <Class name="io.rxmicro.files.PropertiesResources"/>
+        <Method name="loadProperties" />
+        <Or>
+            <Bug pattern="NP_LOAD_OF_KNOWN_NULL_VALUE"/>
+            <Bug pattern="RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE"/>
+            <Bug pattern="RCN_REDUNDANT_NULLCHECK_OF_NULL_VALUE"/>
+        </Or>
+    </Match>
     <Match>
         <Class name="io.rxmicro.annotation.processor.common.component.impl.ClassWriterImpl"/>
         <Method name="write" />

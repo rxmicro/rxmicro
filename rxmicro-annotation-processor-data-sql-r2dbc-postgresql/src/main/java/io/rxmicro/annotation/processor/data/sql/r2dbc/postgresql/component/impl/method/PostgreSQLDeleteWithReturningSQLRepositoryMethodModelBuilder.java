@@ -23,6 +23,8 @@ import io.rxmicro.annotation.processor.data.model.DataGenerationContext;
 import io.rxmicro.annotation.processor.data.model.Variable;
 import io.rxmicro.annotation.processor.data.sql.model.ParsedSQL;
 import io.rxmicro.annotation.processor.data.sql.model.SQLDataModelField;
+import io.rxmicro.annotation.processor.data.sql.model.SQLMethodDescriptor;
+import io.rxmicro.annotation.processor.data.sql.model.SQLStatement;
 import io.rxmicro.annotation.processor.data.sql.r2dbc.component.impl.AbstractSQLModificationOperationReturningResultDataRepositoryMethodModelBuilder;
 import io.rxmicro.annotation.processor.data.sql.r2dbc.postgresql.model.PostgreSQLDataObjectModelClass;
 import io.rxmicro.annotation.processor.data.sql.r2dbc.postgresql.model.PostgreSQLKeywords;
@@ -31,6 +33,7 @@ import io.rxmicro.data.sql.operation.Delete;
 import javax.lang.model.element.ExecutableElement;
 import java.lang.annotation.Annotation;
 import java.util.List;
+import java.util.Map;
 
 import static io.rxmicro.annotation.processor.data.sql.model.SQLKeywords.INSERT;
 
@@ -69,6 +72,20 @@ public final class PostgreSQLDeleteWithReturningSQLRepositoryMethodModelBuilder
     @Override
     protected String getTemplateName() {
         return "data/sql/r2dbc/postgresql/method/$$PostgreSQLRepositoryDeleteWithReturningMethodBodyTemplate.javaftl";
+    }
+
+    @Override
+    protected void addEntityConverter(final MethodResult methodResult,
+                                      final SQLMethodDescriptor<SQLDataModelField, PostgreSQLDataObjectModelClass> sqlMethodDescriptor,
+                                      final DataGenerationContext<SQLDataModelField, PostgreSQLDataObjectModelClass> dataGenerationContext,
+                                      final List<Variable> params,
+                                      final SQLStatement sqlStatement,
+                                      final Map<String, Object> templateArguments) {
+        sqlMethodDescriptor.getEntityParam().ifPresent(modelClass -> {
+            modelClass.setDeletable(true);
+            templateArguments.put("IS_PRIMARY_KEY_SIMPLE", modelClass.getPrimaryKeysParams().size() == 1);
+        });
+        super.addEntityConverter(methodResult, sqlMethodDescriptor, dataGenerationContext, params, sqlStatement, templateArguments);
     }
 
     @Override
