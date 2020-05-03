@@ -31,7 +31,7 @@ import io.rxmicro.rest.server.detail.model.HttpRequest;
 
 import java.util.Map;
 
-import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.$$_REFLECTIONS_FULL_CLASS_NAME;
+import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.REFLECTIONS_FULL_CLASS_NAME;
 import static io.rxmicro.common.util.Requires.require;
 
 /**
@@ -75,7 +75,7 @@ public final class ModelReaderClassStructure extends AbstractRestControllerModel
                         JsonExchangeDataFormatConverter.class
                 );
         if (isRequiredReflectionSetter()) {
-            classHeaderBuilder.addStaticImport($$_REFLECTIONS_FULL_CLASS_NAME, "setFieldValue");
+            classHeaderBuilder.addStaticImport(REFLECTIONS_FULL_CLASS_NAME, "setFieldValue");
         }
     }
 

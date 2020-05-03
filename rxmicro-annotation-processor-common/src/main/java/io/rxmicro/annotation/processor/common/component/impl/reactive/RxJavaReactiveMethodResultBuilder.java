@@ -30,7 +30,7 @@ import java.util.Optional;
 
 import static io.rxmicro.annotation.processor.common.model.method.MethodResult.createRxJavaResult;
 import static io.rxmicro.annotation.processor.common.model.method.MethodResult.createWithVoidResult;
-import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.getTypes;
+import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getTypes;
 import static io.rxmicro.annotation.processor.common.util.Names.getSimpleName;
 import static io.rxmicro.annotation.processor.common.util.Reactives.isCompletable;
 import static io.rxmicro.annotation.processor.common.util.Reactives.isFlowable;
@@ -72,7 +72,7 @@ public final class RxJavaReactiveMethodResultBuilder implements ReactiveMethodRe
                 validateGenericType(method, genericType, "Invalid return type");
                 resultType = ((DeclaredType) genericType).getTypeArguments().get(0);
                 final boolean primitive = supportedTypesProvider.getResultReturnPrimitiveTypes().contains(resultType);
-                return MethodResult.createRxJavaResult(reactiveType, false, resultType, primitive);
+                return createRxJavaResult(reactiveType, false, resultType, primitive);
             } else {
                 resultType = genericType;
                 final boolean primitive = supportedTypesProvider.getResultReturnPrimitiveTypes().contains(resultType);

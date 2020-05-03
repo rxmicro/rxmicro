@@ -27,7 +27,7 @@ import javax.lang.model.type.TypeMirror;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 
-import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.getTypes;
+import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getTypes;
 
 /**
  * @author nedis
@@ -50,8 +50,8 @@ public final class Reactives {
 
     public static boolean isFuture(final TypeMirror reactiveType) {
         final TypeMirror typeMirror = getTypes().erasure(reactiveType);
-        return (CompletionStage.class.getName().equals(typeMirror.toString()) ||
-                CompletableFuture.class.getName().equals(typeMirror.toString()));
+        return CompletionStage.class.getName().equals(typeMirror.toString()) ||
+                CompletableFuture.class.getName().equals(typeMirror.toString());
     }
 
     public static boolean isMaybe(final TypeMirror reactiveType) {

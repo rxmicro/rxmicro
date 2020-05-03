@@ -26,7 +26,7 @@ import io.rxmicro.annotation.processor.common.model.method.MethodResult;
 import javax.lang.model.element.ExecutableElement;
 import java.util.Set;
 
-import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.getTypes;
+import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getTypes;
 
 /**
  * @author nedis
@@ -52,7 +52,7 @@ public final class MethodResultBuilderImpl extends AbstractProcessorComponent
                     throw new InterruptProcessingException(
                             method,
                             "Invalid return type. Expected one of the following: ?",
-                            supportedTypesProvider.getReactiveReturnTypes().typeDefinitions()
+                            supportedTypesProvider.getReactiveReturnTypes().getTypeDefinitions()
                     );
                 });
     }

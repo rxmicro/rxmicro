@@ -34,7 +34,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.getElements;
+import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getElements;
 import static java.util.stream.Collectors.toSet;
 
 /**

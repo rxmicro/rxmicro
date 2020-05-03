@@ -34,11 +34,11 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.getElements;
 import static io.rxmicro.annotation.processor.common.util.Annotations.getAnnotationValue;
 import static io.rxmicro.annotation.processor.common.util.Elements.asTypeElement;
 import static io.rxmicro.annotation.processor.common.util.Elements.superClassIsObject;
 import static io.rxmicro.annotation.processor.common.util.Names.getSimpleName;
+import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getElements;
 import static io.rxmicro.annotation.processor.common.util.validators.TypeValidators.validateExpectedElementKind;
 import static io.rxmicro.annotation.processor.common.util.validators.TypeValidators.validateNotNestedClass;
 import static io.rxmicro.annotation.processor.common.util.validators.TypeValidators.validateNotSuperInterfaces;
@@ -109,15 +109,14 @@ public abstract class AbstractPartialImplementationBuilder extends AbstractProce
                                                                          final Class<? extends Annotation> partialImplementationAnnotation) {
         for (final AnnotationMirror annotationMirror : interfaceType.getAnnotationMirrors()) {
             final DeclaredType annotationType = annotationMirror.getAnnotationType();
-            if (!annotationType.toString().equals(partialImplementationAnnotation.getName())) {
-                if ("PartialImplementation".equals(getSimpleName(annotationType))) {
-                    throw new InterruptProcessingException(
-                            interfaceType,
-                            "Annotation '@?' is not valid! Use '@?' instead",
-                            annotationType.toString(),
-                            partialImplementationAnnotation.getName()
-                    );
-                }
+            if (!annotationType.toString().equals(partialImplementationAnnotation.getName()) &&
+                    "PartialImplementation".equals(getSimpleName(annotationType))) {
+                throw new InterruptProcessingException(
+                        interfaceType,
+                        "Annotation '@?' is not valid! Use '@?' instead",
+                        annotationType.toString(),
+                        partialImplementationAnnotation.getName()
+                );
             }
         }
     }

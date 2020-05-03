@@ -81,7 +81,7 @@ public final class HttpRequestExampleBuilderImpl implements HttpRequestExampleBu
         if (parentUrl.isHeaderVersionStrategy()) {
             stringBuilder.append(format("?: ??", parentUrl.getVersionHeaderName(), parentUrl.getVersionValue(), lineSeparator()));
         }
-        final String body = getRequestHttpBody(httpMethodMapping, method, restControllerClassStructureStorage);
+        final String body = getRequestHttpBodyOrNull(httpMethodMapping, method, restControllerClassStructureStorage);
         if (body != null) {
             stringBuilder.append(format("Content-Type: application/json?", lineSeparator()));
             stringBuilder.append(format("Content-Length: ??", getContentLength(body), lineSeparator()));
@@ -132,9 +132,9 @@ public final class HttpRequestExampleBuilderImpl implements HttpRequestExampleBu
         return "";
     }
 
-    private String getRequestHttpBody(final HttpMethodMapping httpMethodMapping,
-                                      final RestControllerMethod method,
-                                      final RestControllerClassStructureStorage restControllerClassStructureStorage) {
+    private String getRequestHttpBodyOrNull(final HttpMethodMapping httpMethodMapping,
+                                            final RestControllerMethod method,
+                                            final RestControllerClassStructureStorage restControllerClassStructureStorage) {
         final Optional<TypeElement> requestModel = method.getFromHttpDataType();
         if (httpMethodMapping.isHttpBody() && requestModel.isPresent()) {
             return jsonStructureExampleBuilder.build(

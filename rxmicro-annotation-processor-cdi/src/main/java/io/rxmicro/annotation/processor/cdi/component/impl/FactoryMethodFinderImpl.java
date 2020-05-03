@@ -27,7 +27,7 @@ import javax.lang.model.element.TypeElement;
 import java.util.List;
 import java.util.Optional;
 
-import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.getTypes;
+import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getTypes;
 import static io.rxmicro.annotation.processor.common.util.Elements.allMethods;
 import static io.rxmicro.annotation.processor.common.util.validators.MethodValidators.validateNotNativeMethod;
 import static io.rxmicro.annotation.processor.common.util.validators.MethodValidators.validateNotSynchronizedMethod;

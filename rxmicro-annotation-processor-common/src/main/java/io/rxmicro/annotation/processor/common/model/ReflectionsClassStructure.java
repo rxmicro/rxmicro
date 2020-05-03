@@ -27,8 +27,8 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import static io.rxmicro.annotation.processor.common.model.ClassHeader.newClassHeaderBuilder;
-import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.$$_REFLECTIONS_FULL_CLASS_NAME;
-import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.$$_REFLECTIONS_SIMPLE_CLASS_NAME;
+import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.REFLECTIONS_FULL_CLASS_NAME;
+import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.REFLECTIONS_SIMPLE_CLASS_NAME;
 import static io.rxmicro.runtime.detail.Runtimes.ENTRY_POINT_PACKAGE;
 
 /**
@@ -54,7 +54,7 @@ public final class ReflectionsClassStructure extends ClassStructure {
 
     @Override
     public String getTargetFullClassName() {
-        return $$_REFLECTIONS_FULL_CLASS_NAME;
+        return REFLECTIONS_FULL_CLASS_NAME;
     }
 
     @Override
@@ -65,7 +65,7 @@ public final class ReflectionsClassStructure extends ClassStructure {
     @Override
     public Map<String, Object> getTemplateVariables() {
         return Map.of(
-                "CLASS_NAME", $$_REFLECTIONS_SIMPLE_CLASS_NAME,
+                "CLASS_NAME", REFLECTIONS_SIMPLE_CLASS_NAME,
                 "GETTER_REQUIRED", getterRequired,
                 "SETTER_REQUIRED", setterRequired,
                 "INVOKE_REQUIRED", invokeRequired

@@ -49,8 +49,8 @@ public final class VirtualTypeMirror implements TypeMirror {
     }
 
     @Override
-    public <R, P> R accept(final TypeVisitor<R, P> v, final P p) {
-        return null;
+    public <R, P> R accept(final TypeVisitor<R, P> visitor, final P parameter) {
+        throw new UnsupportedOperationException();
     }
 
     @Override

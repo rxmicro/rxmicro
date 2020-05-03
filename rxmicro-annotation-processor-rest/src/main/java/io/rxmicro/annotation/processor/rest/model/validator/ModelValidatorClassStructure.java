@@ -36,7 +36,7 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Stream;
 
-import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.$$_REFLECTIONS_FULL_CLASS_NAME;
+import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.REFLECTIONS_FULL_CLASS_NAME;
 import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.getModelTransformerFullClassName;
 import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.getModelTransformerInstanceName;
 import static io.rxmicro.annotation.processor.common.util.Names.getDefaultVarName;
@@ -132,7 +132,7 @@ public final class ModelValidatorClassStructure extends ClassStructure {
                 )
                 .addStaticImport(StatelessValidators.class, "getStatelessValidator");
         if (isRequiredReflectionGetter()) {
-            classHeaderBuilder.addStaticImport($$_REFLECTIONS_FULL_CLASS_NAME, "getFieldValue");
+            classHeaderBuilder.addStaticImport(REFLECTIONS_FULL_CLASS_NAME, "getFieldValue");
         }
         return classHeaderBuilder.build();
     }

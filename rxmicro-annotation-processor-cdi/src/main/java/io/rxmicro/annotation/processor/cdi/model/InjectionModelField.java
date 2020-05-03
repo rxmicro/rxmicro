@@ -23,7 +23,7 @@ import io.rxmicro.annotation.processor.common.util.UsedByFreemarker;
 
 import javax.lang.model.type.DeclaredType;
 
-import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.getTypes;
+import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getTypes;
 
 /**
  * @author nedis

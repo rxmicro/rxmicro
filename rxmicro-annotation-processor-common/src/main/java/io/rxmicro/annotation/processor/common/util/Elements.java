@@ -38,7 +38,7 @@ import java.util.TreeSet;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.getTypes;
+import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getTypes;
 import static io.rxmicro.annotation.processor.common.util.Names.getPackageName;
 import static io.rxmicro.common.util.ExCollectors.toUnmodifiableOrderedSet;
 import static io.rxmicro.common.util.Strings.capitalize;
@@ -112,7 +112,7 @@ public final class Elements {
                     .filter(el -> el.getKind() == ElementKind.FIELD)
                     .map(el -> (VariableElement) el)
                     .filter(filter)
-                    .collect(Collectors.toList()));
+                    .collect(toList()));
             final TypeMirror superClass = currentTypeElement.getSuperclass();
             if (superClassIsObject(superClass)) {
                 break;
@@ -133,7 +133,7 @@ public final class Elements {
                 .filter(el -> el.getKind() == CONSTRUCTOR)
                 .map(el -> (ExecutableElement) el)
                 .filter(filter)
-                .collect(Collectors.toList());
+                .collect(toList());
     }
 
     public static List<ExecutableElement> allImplementableMethods(final TypeElement typeElement) {
@@ -159,7 +159,7 @@ public final class Elements {
                     .filter(el -> el.getKind() == ElementKind.METHOD)
                     .map(el -> (ExecutableElement) el)
                     .filter(filter)
-                    .collect(Collectors.toList()));
+                    .collect(toList()));
             final TypeMirror superClass = currentTypeElement.getSuperclass();
             if (superClassIsObject(superClass)) {
                 break;
@@ -227,7 +227,7 @@ public final class Elements {
                             el.getReturnType().toString().equals(fieldType) :
                             el.getParameters().size() == 1 &&
                                     el.getParameters().get(0).asType().toString().equals(fieldType))
-                    .collect(Collectors.toList()));
+                    .collect(toList()));
             final TypeMirror superClass = currentTypeElement.getSuperclass();
             if (superClassIsObject(superClass)) {
                 break;

@@ -52,7 +52,7 @@ public final class DocumentationGeneratorImpl extends AbstractGenerator implemen
         try {
             final String destinationFile = getDestinationFile(documentStructure);
             final StringWriter stringWriter = new StringWriter();
-            try (final Writer writer = stringWriter) {
+            try (Writer writer = stringWriter) {
                 final Template template = getTemplate(documentStructure.getTemplateName());
                 template.process(variables, writer);
             }

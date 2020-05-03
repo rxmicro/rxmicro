@@ -44,7 +44,7 @@ public abstract class TypeSignature implements Comparable<TypeSignature> {
 
     @SuppressWarnings("NullableProblems")
     @Override
-    public final int compareTo(final TypeSignature o) {
-        return o == null ? 1 : getTypeFullName().compareTo(o.getTypeFullName());
+    public final int compareTo(final TypeSignature other) {
+        return other == null ? 1 : getTypeFullName().compareTo(other.getTypeFullName());
     }
 }

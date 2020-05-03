@@ -29,7 +29,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static io.rxmicro.annotation.processor.common.model.DocumentationType.Ascii_Doctor;
+import static io.rxmicro.annotation.processor.common.model.DocumentationType.ASCII_DOCTOR;
 import static io.rxmicro.common.RxMicroModule.RX_MICRO_DOCUMENTATION_ASCIIDOCTOR_MODULE;
 import static io.rxmicro.common.RxMicroModule.RX_MICRO_VALIDATION_MODULE;
 
@@ -41,7 +41,7 @@ import static io.rxmicro.common.RxMicroModule.RX_MICRO_VALIDATION_MODULE;
 public final class RestServerModuleGeneratorConfig extends RestModuleGeneratorConfig {
 
     private static final Map<RxMicroModule, DocumentationType> DOCUMENTATION_MAPPING = Map.of(
-            RX_MICRO_DOCUMENTATION_ASCIIDOCTOR_MODULE, Ascii_Doctor
+            RX_MICRO_DOCUMENTATION_ASCIIDOCTOR_MODULE, ASCII_DOCTOR
     );
 
     private final ServerExchangeFormatModule exchangeFormat;

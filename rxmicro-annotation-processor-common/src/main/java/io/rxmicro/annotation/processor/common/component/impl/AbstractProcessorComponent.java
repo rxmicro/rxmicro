@@ -25,9 +25,9 @@ import java.util.Arrays;
 import java.util.Optional;
 import java.util.function.Supplier;
 
-import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.errorDetected;
-import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.getCompilerOptions;
-import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.getMessager;
+import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.errorDetected;
+import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getCompilerOptions;
+import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getMessager;
 import static io.rxmicro.annotation.processor.common.util.InternalLoggers.logMessage;
 import static io.rxmicro.annotation.processor.common.util.InternalLoggers.logThrowableStackTrace;
 import static io.rxmicro.common.util.Formats.format;
@@ -105,8 +105,8 @@ public abstract class AbstractProcessorComponent {
         getMessager().printMessage(Diagnostic.Kind.MANDATORY_WARNING, mes, element);
     }
 
-    protected final void error(final InterruptProcessingException e) {
-        error(e.getElement(), e.getMessage());
+    protected final void error(final InterruptProcessingException exception) {
+        error(exception.getElement(), exception.getMessage());
     }
 
     protected final void error(final Element element,

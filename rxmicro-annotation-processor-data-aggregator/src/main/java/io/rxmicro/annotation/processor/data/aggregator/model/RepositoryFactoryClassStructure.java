@@ -34,7 +34,7 @@ import java.util.Map;
 import java.util.Set;
 
 import static io.rxmicro.annotation.processor.common.model.ClassHeader.newClassHeaderBuilder;
-import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.$$_ENVIRONMENT_CUSTOMIZER_SIMPLE_CLASS_NAME;
+import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.ENVIRONMENT_CUSTOMIZER_SIMPLE_CLASS_NAME;
 import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.getEntryPointFullClassName;
 import static io.rxmicro.common.util.Requires.require;
 import static io.rxmicro.data.RepositoryFactory.REPOSITORY_FACTORY_IMPL_CLASS_NAME;
@@ -85,7 +85,7 @@ public final class RepositoryFactoryClassStructure extends ClassStructure {
         map.put("IMPL_CLASS_NAME", REPOSITORY_FACTORY_IMPL_CLASS_NAME);
         map.put("MONGO_REPOSITORIES", mongoRepositories);
         map.put("POSTGRE_SQL_REPOSITORIES", postgreSQLRepositories);
-        map.put("ENVIRONMENT_CUSTOMIZER_CLASS", $$_ENVIRONMENT_CUSTOMIZER_SIMPLE_CLASS_NAME);
+        map.put("ENVIRONMENT_CUSTOMIZER_CLASS", ENVIRONMENT_CUSTOMIZER_SIMPLE_CLASS_NAME);
         map.put("DEFAULT_CONFIG_VALUES", classStructures.stream()
                 .flatMap(s -> s.getDefaultConfigValues().stream())
                 .collect(toList()));

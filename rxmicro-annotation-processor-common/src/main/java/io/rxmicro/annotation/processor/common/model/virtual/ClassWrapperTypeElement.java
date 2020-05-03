@@ -30,7 +30,7 @@ import java.lang.annotation.Annotation;
 import java.util.List;
 import java.util.Set;
 
-import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.getElements;
+import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getElements;
 
 /**
  * @author nedis
@@ -116,7 +116,7 @@ public final class ClassWrapperTypeElement implements TypeElement {
     }
 
     @Override
-    public <R, P> R accept(final ElementVisitor<R, P> v, final P p) {
+    public <R, P> R accept(final ElementVisitor<R, P> visitor, final P parameter) {
         throw new UnsupportedOperationException();
     }
 

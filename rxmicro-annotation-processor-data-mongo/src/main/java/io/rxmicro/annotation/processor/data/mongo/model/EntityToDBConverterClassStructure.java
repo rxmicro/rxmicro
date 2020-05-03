@@ -31,7 +31,7 @@ import java.util.Map;
 import java.util.Set;
 
 import static io.rxmicro.annotation.processor.common.model.ClassHeader.newClassHeaderBuilder;
-import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.$$_REFLECTIONS_FULL_CLASS_NAME;
+import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.REFLECTIONS_FULL_CLASS_NAME;
 import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.getModelTransformerFullClassName;
 import static io.rxmicro.common.util.Requires.require;
 
@@ -100,10 +100,10 @@ public final class EntityToDBConverterClassStructure extends ClassStructure {
                         .toArray(String[]::new))
                 .addImports(modelClass.getModelFieldTypes());
         if (isRequiredReflectionGetter()) {
-            classHeaderBuilder.addStaticImport($$_REFLECTIONS_FULL_CLASS_NAME, "getFieldValue");
+            classHeaderBuilder.addStaticImport(REFLECTIONS_FULL_CLASS_NAME, "getFieldValue");
         }
         if (isRequiredReflectionSetter()) {
-            classHeaderBuilder.addStaticImport($$_REFLECTIONS_FULL_CLASS_NAME, "setFieldValue");
+            classHeaderBuilder.addStaticImport(REFLECTIONS_FULL_CLASS_NAME, "setFieldValue");
         }
         classHeaderBuilder.addStaticImport(Requires.class, "require");
         return classHeaderBuilder.build();

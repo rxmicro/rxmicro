@@ -38,7 +38,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
-import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.$$_ENVIRONMENT_CUSTOMIZER_SIMPLE_CLASS_NAME;
+import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.ENVIRONMENT_CUSTOMIZER_SIMPLE_CLASS_NAME;
 import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.getEntryPointFullClassName;
 import static io.rxmicro.common.util.Requires.require;
 import static io.rxmicro.rest.server.detail.component.RestControllerAggregator.REST_CONTROLLER_AGGREGATOR_IMPL_CLASS_NAME;
@@ -90,7 +90,7 @@ public final class RestControllerAggregatorClassStructure extends ClassStructure
                 .collect(toList()));
         map.put("CORS_RESOURCES", crossOriginResourceSharingResources);
         map.put("HTTP_HEALTH_CHECKS", httpHealthChecks);
-        map.put("ENVIRONMENT_CUSTOMIZER_CLASS", $$_ENVIRONMENT_CUSTOMIZER_SIMPLE_CLASS_NAME);
+        map.put("ENVIRONMENT_CUSTOMIZER_CLASS", ENVIRONMENT_CUSTOMIZER_SIMPLE_CLASS_NAME);
         map.put("IS_NETTY_REST_SERVER", isRestServerNetty);
         return map;
     }

@@ -74,7 +74,7 @@ public final class MethodParametersBuilderImpl implements MethodParametersBuilde
                         "Method parameter type '?' not supported: ?." +
                                 "Use a model class or one of the following types: ?",
                         type, e.getMessage(),
-                        typesProvider.getNotEntityMethodParameters().typeDefinitions()
+                        typesProvider.getNotEntityMethodParameters().getTypeDefinitions()
                 );
             }
         }

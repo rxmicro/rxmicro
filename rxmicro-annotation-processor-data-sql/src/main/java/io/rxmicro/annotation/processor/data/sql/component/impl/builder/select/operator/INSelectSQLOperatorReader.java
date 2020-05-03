@@ -27,7 +27,7 @@ import javax.lang.model.type.TypeMirror;
 import java.util.List;
 import java.util.ListIterator;
 
-import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.getTypes;
+import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getTypes;
 import static io.rxmicro.annotation.processor.common.util.Elements.asEnumElement;
 import static io.rxmicro.annotation.processor.data.sql.model.SQLKeywords.IN;
 import static io.rxmicro.common.util.Formats.FORMAT_PLACEHOLDER_TOKEN;

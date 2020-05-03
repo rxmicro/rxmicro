@@ -33,11 +33,11 @@ import static io.rxmicro.runtime.detail.Runtimes.ENTRY_POINT_PACKAGE;
  */
 public final class GeneratedClassNames {
 
-    public static final String $$_ENVIRONMENT_CUSTOMIZER_SIMPLE_CLASS_NAME = format("?EnvironmentCustomizer", GENERATED_CLASS_NAME_PREFIX);
+    public static final String ENVIRONMENT_CUSTOMIZER_SIMPLE_CLASS_NAME = format("?EnvironmentCustomizer", GENERATED_CLASS_NAME_PREFIX);
 
-    public static final String $$_REFLECTIONS_SIMPLE_CLASS_NAME = format("?Reflections", GENERATED_CLASS_NAME_PREFIX);
+    public static final String REFLECTIONS_SIMPLE_CLASS_NAME = format("?Reflections", GENERATED_CLASS_NAME_PREFIX);
 
-    public static final String $$_REFLECTIONS_FULL_CLASS_NAME = getEntryPointFullClassName($$_REFLECTIONS_SIMPLE_CLASS_NAME);
+    public static final String REFLECTIONS_FULL_CLASS_NAME = getEntryPointFullClassName(REFLECTIONS_SIMPLE_CLASS_NAME);
 
     public static String getEntryPointFullClassName(final String simpleClassName) {
         return format("?.?", ENTRY_POINT_PACKAGE, simpleClassName);

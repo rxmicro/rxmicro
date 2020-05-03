@@ -50,7 +50,7 @@ class ModelReader_UnitTest {
         public Object read(final PathVariableMapping pathVariableMapping,
                            final HttpRequest request,
                            final boolean readParametersFromBody) {
-            return null;
+            throw new UnsupportedOperationException();
         }
     };
 

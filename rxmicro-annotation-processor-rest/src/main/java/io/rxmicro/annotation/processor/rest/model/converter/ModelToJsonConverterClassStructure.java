@@ -25,7 +25,7 @@ import io.rxmicro.rest.model.ExchangeFormat;
 
 import java.util.Map;
 
-import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.$$_REFLECTIONS_FULL_CLASS_NAME;
+import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.REFLECTIONS_FULL_CLASS_NAME;
 
 /**
  * @author nedis
@@ -48,7 +48,7 @@ public final class ModelToJsonConverterClassStructure extends AbstractModelJsonC
                         Map.class
                 );
         if (isRequiredReflectionGetter()) {
-            classHeaderBuilder.addStaticImport($$_REFLECTIONS_FULL_CLASS_NAME, "getFieldValue");
+            classHeaderBuilder.addStaticImport(REFLECTIONS_FULL_CLASS_NAME, "getFieldValue");
         }
     }
 

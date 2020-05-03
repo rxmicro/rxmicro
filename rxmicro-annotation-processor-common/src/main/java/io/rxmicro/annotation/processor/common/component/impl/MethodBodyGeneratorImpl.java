@@ -40,7 +40,7 @@ public final class MethodBodyGeneratorImpl extends AbstractGenerator
     public List<String> generate(final String templateName,
                                  final Map<String, Object> parameters) {
         final StringWriter stringWriter = new StringWriter();
-        try (final Writer writer = stringWriter) {
+        try (Writer writer = stringWriter) {
             getTemplate(templateName).process(parameters, writer);
         } catch (final TemplateException | IOException e) {
             cantGenerateMethodBody(templateName, e);

@@ -32,12 +32,12 @@ import static io.rxmicro.annotation.processor.common.util.Elements.asEnumElement
 public final class EnumTypeDefinition implements TypeDefinition {
 
     @Override
-    public boolean equals(final TypeMirror typeMirror) {
+    public boolean isEqual(final TypeMirror typeMirror) {
         return asEnumElement(typeMirror).isPresent();
     }
 
     @Override
-    public boolean equals(final Element element) {
+    public boolean isEqual(final Element element) {
         return element.getKind() == ElementKind.ENUM;
     }
 

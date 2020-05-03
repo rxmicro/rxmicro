@@ -141,7 +141,7 @@ public abstract class AbstractDataRepositoryMethodModelBuilder<DMF extends DataM
                 throw new InterruptProcessingException(
                         repositoryMethod,
                         "Method must return a reactive result of the following types only: ?",
-                        supportedTypesProvider.getReactiveReturnTypes().typeDefinitions().stream()
+                        supportedTypesProvider.getReactiveReturnTypes().getTypeDefinitions().stream()
                                 .filter(td -> Set.of(excludeReactiveTypes).stream().noneMatch(cl -> cl.getName().equals(td.toString())))
                                 .map(Objects::toString)
                                 .collect(joining(", "))
@@ -202,7 +202,7 @@ public abstract class AbstractDataRepositoryMethodModelBuilder<DMF extends DataM
                 repositoryMethod,
                 "Method must return a reactive result of the following types only: ?",
                 Stream.concat(
-                        typeDefinitions.stream().flatMap(v -> v.typeDefinitions().stream().map(Object::toString)),
+                        typeDefinitions.stream().flatMap(v -> v.getTypeDefinitions().stream().map(Object::toString)),
                         supportedClasses.stream()
                 ).collect(toList())
         );

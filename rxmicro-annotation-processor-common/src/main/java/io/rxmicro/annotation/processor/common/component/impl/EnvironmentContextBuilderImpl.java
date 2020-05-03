@@ -39,7 +39,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.getElements;
+import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getElements;
+import static io.rxmicro.common.util.Strings.startsWith;
 import static java.util.Map.entry;
 import static java.util.stream.Collectors.toMap;
 import static java.util.stream.Collectors.toSet;
@@ -115,7 +116,7 @@ public final class EnvironmentContextBuilderImpl extends AbstractProcessorCompon
         final List<Map.Entry<String, DefaultConfigProxyValue>> defaultConfigValues =
                 Annotations.getDefaultConfigValues("", currentModule);
         for (final Map.Entry<String, DefaultConfigProxyValue> defaultConfigValue : defaultConfigValues) {
-            if (defaultConfigValue.getKey().startsWith(".")) {
+            if (startsWith(defaultConfigValue.getKey(), '.')) {
                 throw new InterruptProcessingException(
                         currentModule,
                         "Missing name space for default config name: ?",

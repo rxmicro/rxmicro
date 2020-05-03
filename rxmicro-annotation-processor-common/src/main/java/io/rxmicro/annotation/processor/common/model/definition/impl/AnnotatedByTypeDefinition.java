@@ -39,12 +39,12 @@ public final class AnnotatedByTypeDefinition implements TypeDefinition {
     }
 
     @Override
-    public boolean equals(final TypeMirror typeMirror) {
+    public boolean isEqual(final TypeMirror typeMirror) {
         return typeMirror.getAnnotation(annotationClass) != null;
     }
 
     @Override
-    public boolean equals(final Element element) {
+    public boolean isEqual(final Element element) {
         return element.getAnnotation(annotationClass) != null;
     }
 

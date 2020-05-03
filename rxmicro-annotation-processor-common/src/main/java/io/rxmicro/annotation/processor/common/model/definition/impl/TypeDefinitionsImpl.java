@@ -42,22 +42,22 @@ public final class TypeDefinitionsImpl<T extends TypeDefinition> implements Type
 
     public TypeDefinitionsImpl(final List<TypeDefinitions<T>> typeDefinitions) {
         this.typeDefinitions = typeDefinitions.stream()
-                .flatMap(d -> d.typeDefinitions().stream())
+                .flatMap(d -> d.getTypeDefinitions().stream())
                 .collect(toUnmodifiableList());
     }
 
     @Override
     public boolean contains(final TypeMirror typeMirror) {
-        return typeDefinitions.stream().anyMatch(d -> d.equals(typeMirror));
+        return typeDefinitions.stream().anyMatch(d -> d.isEqual(typeMirror));
     }
 
     @Override
     public boolean contains(final Element element) {
-        return typeDefinitions.stream().anyMatch(d -> d.equals(element));
+        return typeDefinitions.stream().anyMatch(d -> d.isEqual(element));
     }
 
     @Override
-    public Collection<T> typeDefinitions() {
+    public Collection<T> getTypeDefinitions() {
         return typeDefinitions;
     }
 

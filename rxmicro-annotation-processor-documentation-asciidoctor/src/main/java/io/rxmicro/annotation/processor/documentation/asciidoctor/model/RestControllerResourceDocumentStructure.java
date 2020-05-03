@@ -65,7 +65,7 @@ public final class RestControllerResourceDocumentStructure extends DocumentStruc
 
     @Override
     public DocumentationType getDocumentationType() {
-        return DocumentationType.Ascii_Doctor;
+        return DocumentationType.ASCII_DOCTOR;
     }
 
     @Override

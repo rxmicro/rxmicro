@@ -32,7 +32,7 @@ import java.lang.annotation.Annotation;
 import java.util.List;
 import java.util.Set;
 
-import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.getElements;
+import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getElements;
 import static io.rxmicro.common.util.Requires.require;
 
 /**
@@ -122,8 +122,8 @@ public final class VirtualModuleElement implements ModuleElement, VirtualElement
     }
 
     @Override
-    public <R, P> R accept(final ElementVisitor<R, P> v, final P p) {
-        return null;
+    public <R, P> R accept(final ElementVisitor<R, P> visitor, final P parameter) {
+        throw new UnsupportedOperationException();
     }
 
     @Override

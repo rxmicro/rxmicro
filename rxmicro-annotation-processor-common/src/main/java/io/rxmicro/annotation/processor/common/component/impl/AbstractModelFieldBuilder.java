@@ -78,7 +78,7 @@ import static javax.lang.model.type.TypeKind.SHORT;
 public abstract class AbstractModelFieldBuilder<MF extends ModelField, MC extends ObjectModelClass<MF>>
         extends AbstractProcessorComponent implements ModelFieldBuilder<MF, MC> {
 
-    private final Map<TypeKind, Class<?>> JAVA_PRIMITIVE_REPLACEMENT = Map.of(
+    private static final Map<TypeKind, Class<?>> JAVA_PRIMITIVE_REPLACEMENT = Map.of(
             BOOLEAN, Boolean.class,
             BYTE, Byte.class,
             SHORT, Short.class,
@@ -119,7 +119,7 @@ public abstract class AbstractModelFieldBuilder<MF extends ModelField, MC extend
     }
 
     protected void validateModelClass(final TypeElement typeElement) {
-
+        // Sub classes can add additional validators for this type element
     }
 
     protected abstract PrimitiveModelClass createPrimitiveModelClass(TypeMirror type);
@@ -311,9 +311,8 @@ public abstract class AbstractModelFieldBuilder<MF extends ModelField, MC extend
 
         private final Map<String, Set<String>> models = new HashMap<>();
 
-        public final Set<String> modelNames(final String name) {
+        public Set<String> modelNames(final String name) {
             return models.computeIfAbsent(name, NEW_SET_CREATOR);
         }
-
     }
 }

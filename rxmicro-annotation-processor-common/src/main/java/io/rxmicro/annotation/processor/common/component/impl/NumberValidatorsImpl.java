@@ -34,14 +34,18 @@ import static io.rxmicro.annotation.processor.common.util.Numbers.removeUndersco
 @Singleton
 public final class NumberValidatorsImpl extends AbstractProcessorComponent implements NumberValidators {
 
+    private static final String ERROR_MESSAGE_PREFIX = "Annotation '@?' has invalid parameter: ";
+
+    private static final String VALUE_OUT_OF_RANGE_EXPECTED_TEMPLATE = "Value out of range: Expected ? < ? < ?";
+
     @Override
     public void validateFloat(final ModelField modelField,
                               final double value,
                               final Class<? extends Annotation> annotationClass) {
         if (value < Float.MIN_VALUE || value > Float.MAX_VALUE) {
             error(modelField.getElementAnnotatedBy(annotationClass),
-                    "Annotation '@?' has invalid parameter: " +
-                            "Value out of range: Expected ? < ? < ?",
+                    ERROR_MESSAGE_PREFIX +
+                            VALUE_OUT_OF_RANGE_EXPECTED_TEMPLATE,
                     annotationClass.getSimpleName(), Float.MIN_VALUE, value, Float.MAX_VALUE);
         }
     }
@@ -52,8 +56,8 @@ public final class NumberValidatorsImpl extends AbstractProcessorComponent imple
                              final Class<? extends Annotation> annotationClass) {
         if (value < Byte.MIN_VALUE || value > Byte.MAX_VALUE) {
             error(modelField.getElementAnnotatedBy(annotationClass),
-                    "Annotation '@?' has invalid parameter: " +
-                            "Value out of range: Expected ? < ? < ?",
+                    ERROR_MESSAGE_PREFIX +
+                            VALUE_OUT_OF_RANGE_EXPECTED_TEMPLATE,
                     annotationClass.getSimpleName(), Byte.MIN_VALUE, value, Byte.MAX_VALUE);
         }
     }
@@ -64,8 +68,8 @@ public final class NumberValidatorsImpl extends AbstractProcessorComponent imple
                               final Class<? extends Annotation> annotationClass) {
         if (value < Short.MIN_VALUE || value > Short.MAX_VALUE) {
             error(modelField.getElementAnnotatedBy(annotationClass),
-                    "Annotation '@?' has invalid parameter: " +
-                            "Value out of range: Expected ? < ? < ?",
+                    ERROR_MESSAGE_PREFIX +
+                            VALUE_OUT_OF_RANGE_EXPECTED_TEMPLATE,
                     annotationClass.getSimpleName(), Short.MIN_VALUE, value, Short.MAX_VALUE);
         }
     }
@@ -76,8 +80,8 @@ public final class NumberValidatorsImpl extends AbstractProcessorComponent imple
                                 final Class<? extends Annotation> annotationClass) {
         if (value < Integer.MIN_VALUE || value > Integer.MAX_VALUE) {
             error(modelField.getElementAnnotatedBy(annotationClass),
-                    "Annotation '@?' has invalid parameter: " +
-                            "Value out of range: Expected ? < ? < ?",
+                    ERROR_MESSAGE_PREFIX +
+                            VALUE_OUT_OF_RANGE_EXPECTED_TEMPLATE,
                     annotationClass.getSimpleName(), Integer.MIN_VALUE, value, Integer.MAX_VALUE);
         }
     }
@@ -86,27 +90,28 @@ public final class NumberValidatorsImpl extends AbstractProcessorComponent imple
     public boolean validateBigInteger(final ModelField modelField,
                                       final String value,
                                       final Class<? extends Annotation> annotationClass) {
-        return _validateBigInteger(modelField, value, annotationClass) != null;
+        return toBigIntegerOrNull(modelField, value, annotationClass) != null;
     }
 
     @Override
     public boolean validateBigDecimal(final ModelField modelField,
                                       final String value,
                                       final Class<? extends Annotation> annotationClass) {
-        return _validateBigDecimal(modelField, value, annotationClass) != null;
+        return toBigDecimalOrNull(modelField, value, annotationClass) != null;
     }
 
     @Override
     public boolean validateByte(final ModelField modelField,
                                 final String value,
                                 final Class<? extends Annotation> annotationClass) {
-        final BigInteger result = _validateBigInteger(modelField, value, annotationClass);
+        final BigInteger result = toBigIntegerOrNull(modelField, value, annotationClass);
         if (result == null) {
             return false;
-        } else if ((result.compareTo(BigInteger.valueOf(Byte.MIN_VALUE)) < 0 || result.compareTo(BigInteger.valueOf(Byte.MAX_VALUE)) > 0)) {
+        } else if (result.compareTo(BigInteger.valueOf(Byte.MIN_VALUE)) < 0 ||
+                result.compareTo(BigInteger.valueOf(Byte.MAX_VALUE)) > 0) {
             error(modelField.getElementAnnotatedBy(annotationClass),
-                    "Annotation '@?' has invalid parameter: " +
-                            "Value out of range: Expected ? < ? < ?",
+                    ERROR_MESSAGE_PREFIX +
+                            VALUE_OUT_OF_RANGE_EXPECTED_TEMPLATE,
                     annotationClass.getSimpleName(), Byte.MIN_VALUE, value, Byte.MAX_VALUE);
             return false;
         } else {
@@ -118,13 +123,14 @@ public final class NumberValidatorsImpl extends AbstractProcessorComponent imple
     public boolean validateShort(final ModelField modelField,
                                  final String value,
                                  final Class<? extends Annotation> annotationClass) {
-        final BigInteger result = _validateBigInteger(modelField, value, annotationClass);
+        final BigInteger result = toBigIntegerOrNull(modelField, value, annotationClass);
         if (result == null) {
             return false;
-        } else if ((result.compareTo(BigInteger.valueOf(Short.MIN_VALUE)) < 0 || result.compareTo(BigInteger.valueOf(Short.MAX_VALUE)) > 0)) {
+        } else if (result.compareTo(BigInteger.valueOf(Short.MIN_VALUE)) < 0 ||
+                result.compareTo(BigInteger.valueOf(Short.MAX_VALUE)) > 0) {
             error(modelField.getElementAnnotatedBy(annotationClass),
-                    "Annotation '@?' has invalid parameter: " +
-                            "Value out of range: Expected ? < ? < ?",
+                    ERROR_MESSAGE_PREFIX +
+                            VALUE_OUT_OF_RANGE_EXPECTED_TEMPLATE,
                     annotationClass.getSimpleName(), Short.MIN_VALUE, value, Short.MAX_VALUE);
             return false;
         } else {
@@ -136,14 +142,14 @@ public final class NumberValidatorsImpl extends AbstractProcessorComponent imple
     public boolean validateInteger(final ModelField modelField,
                                    final String value,
                                    final Class<? extends Annotation> annotationClass) {
-        final BigInteger result = _validateBigInteger(modelField, value, annotationClass);
+        final BigInteger result = toBigIntegerOrNull(modelField, value, annotationClass);
         if (result == null) {
             return false;
-        } else if ((result.compareTo(BigInteger.valueOf(Integer.MIN_VALUE)) < 0 ||
-                result.compareTo(BigInteger.valueOf(Integer.MAX_VALUE)) > 0)) {
+        } else if (result.compareTo(BigInteger.valueOf(Integer.MIN_VALUE)) < 0 ||
+                result.compareTo(BigInteger.valueOf(Integer.MAX_VALUE)) > 0) {
             error(modelField.getElementAnnotatedBy(annotationClass),
-                    "Annotation '@?' has invalid parameter: " +
-                            "Value out of range: Expected ? < ? < ?",
+                    ERROR_MESSAGE_PREFIX +
+                            VALUE_OUT_OF_RANGE_EXPECTED_TEMPLATE,
                     annotationClass.getSimpleName(), Integer.MIN_VALUE, value, Integer.MAX_VALUE);
             return false;
         } else {
@@ -155,14 +161,14 @@ public final class NumberValidatorsImpl extends AbstractProcessorComponent imple
     public boolean validateLong(final ModelField modelField,
                                 final String value,
                                 final Class<? extends Annotation> annotationClass) {
-        final BigInteger result = _validateBigInteger(modelField, value, annotationClass);
+        final BigInteger result = toBigIntegerOrNull(modelField, value, annotationClass);
         if (result == null) {
             return false;
         } else if ((result.compareTo(BigInteger.valueOf(Long.MIN_VALUE)) < 0 ||
                 result.compareTo(BigInteger.valueOf(Long.MAX_VALUE)) > 0)) {
             error(modelField.getElementAnnotatedBy(annotationClass),
-                    "Annotation '@?' has invalid parameter: " +
-                            "Value out of range: Expected ? < ? < ?",
+                    ERROR_MESSAGE_PREFIX +
+                            VALUE_OUT_OF_RANGE_EXPECTED_TEMPLATE,
                     annotationClass.getSimpleName(), Long.MIN_VALUE, value, Long.MAX_VALUE);
             return false;
         } else {
@@ -174,14 +180,14 @@ public final class NumberValidatorsImpl extends AbstractProcessorComponent imple
     public boolean validateFloat(final ModelField modelField,
                                  final String value,
                                  final Class<? extends Annotation> annotationClass) {
-        final BigDecimal result = _validateBigDecimal(modelField, value, annotationClass);
+        final BigDecimal result = toBigDecimalOrNull(modelField, value, annotationClass);
         if (result == null) {
             return false;
-        } else if ((result.compareTo(BigDecimal.valueOf(Float.MIN_VALUE)) < 0 ||
-                result.compareTo(BigDecimal.valueOf(Float.MAX_VALUE)) > 0)) {
+        } else if (result.compareTo(BigDecimal.valueOf(Float.MIN_VALUE)) < 0 ||
+                result.compareTo(BigDecimal.valueOf(Float.MAX_VALUE)) > 0) {
             error(modelField.getElementAnnotatedBy(annotationClass),
-                    "Annotation '@?' has invalid parameter: " +
-                            "Value out of range: Expected ? < ? < ?",
+                    ERROR_MESSAGE_PREFIX +
+                            VALUE_OUT_OF_RANGE_EXPECTED_TEMPLATE,
                     annotationClass.getSimpleName(), Float.MIN_VALUE, value, Float.MAX_VALUE);
             return false;
         } else {
@@ -193,14 +199,14 @@ public final class NumberValidatorsImpl extends AbstractProcessorComponent imple
     public boolean validateDouble(final ModelField modelField,
                                   final String value,
                                   final Class<? extends Annotation> annotationClass) {
-        final BigDecimal result = _validateBigDecimal(modelField, value, annotationClass);
+        final BigDecimal result = toBigDecimalOrNull(modelField, value, annotationClass);
         if (result == null) {
             return false;
-        } else if ((result.compareTo(BigDecimal.valueOf(Double.MIN_VALUE)) < 0 ||
-                result.compareTo(BigDecimal.valueOf(Double.MAX_VALUE)) > 0)) {
+        } else if (result.compareTo(BigDecimal.valueOf(Double.MIN_VALUE)) < 0 ||
+                result.compareTo(BigDecimal.valueOf(Double.MAX_VALUE)) > 0) {
             error(modelField.getElementAnnotatedBy(annotationClass),
-                    "Annotation '@?' has invalid parameter: " +
-                            "Value out of range: Expected ? < ? < ?",
+                    ERROR_MESSAGE_PREFIX +
+                            VALUE_OUT_OF_RANGE_EXPECTED_TEMPLATE,
                     annotationClass.getSimpleName(), Double.MIN_VALUE, value, Double.MAX_VALUE);
             return false;
         } else {
@@ -208,25 +214,25 @@ public final class NumberValidatorsImpl extends AbstractProcessorComponent imple
         }
     }
 
-    private BigInteger _validateBigInteger(final ModelField modelField,
-                                           final String value,
-                                           final Class<? extends Annotation> annotationClass) {
+    private BigInteger toBigIntegerOrNull(final ModelField modelField,
+                                          final String value,
+                                          final Class<? extends Annotation> annotationClass) {
         try {
             return new BigInteger(removeUnderscoresIfPresent(value));
         } catch (final NumberFormatException e) {
-            error(modelField.getElementAnnotatedBy(annotationClass), "Annotation '@?' has invalid parameter: " +
+            error(modelField.getElementAnnotatedBy(annotationClass), ERROR_MESSAGE_PREFIX +
                     "Expected an integer number", annotationClass.getSimpleName());
             return null;
         }
     }
 
-    private BigDecimal _validateBigDecimal(final ModelField modelField,
-                                           final String value,
-                                           final Class<? extends Annotation> annotationClass) {
+    private BigDecimal toBigDecimalOrNull(final ModelField modelField,
+                                          final String value,
+                                          final Class<? extends Annotation> annotationClass) {
         try {
             return new BigDecimal(removeUnderscoresIfPresent(value));
         } catch (final NumberFormatException e) {
-            error(modelField.getElementAnnotatedBy(annotationClass), "Annotation '@?' has invalid parameter: " +
+            error(modelField.getElementAnnotatedBy(annotationClass), ERROR_MESSAGE_PREFIX +
                     "Expected a number", annotationClass.getSimpleName());
             return null;
         }

@@ -46,7 +46,7 @@ public final class ClassWrapperTypeMirror implements TypeMirror {
     }
 
     @Override
-    public <R, P> R accept(final TypeVisitor<R, P> v, final P p) {
+    public <R, P> R accept(final TypeVisitor<R, P> visitor, final P parameter) {
         throw new UnsupportedOperationException();
     }
 

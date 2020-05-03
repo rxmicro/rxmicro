@@ -39,7 +39,7 @@ import java.util.Set;
 
 import static io.rxmicro.annotation.processor.common.SupportedOptions.RX_MICRO_BUILD_UNNAMED_MODULE;
 import static io.rxmicro.annotation.processor.common.SupportedOptions.RX_MICRO_BUILD_UNNAMED_MODULE_DEFAULT_VALUE;
-import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.getElements;
+import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getElements;
 import static java.util.stream.Collectors.toList;
 
 /**
@@ -138,7 +138,7 @@ public abstract class AbstractModuleClassStructuresBuilder extends AbstractProce
         }
         String packageName = packageElement.getQualifiedName().toString();
         while (true) {
-            packageName = getParentPackage(packageName);
+            packageName = getParentPackageOrNull(packageName);
             if (packageName == null) {
                 return true;
             } else {
@@ -152,7 +152,7 @@ public abstract class AbstractModuleClassStructuresBuilder extends AbstractProce
         }
     }
 
-    private String getParentPackage(final String packageName) {
+    private String getParentPackageOrNull(final String packageName) {
         final int index = packageName.lastIndexOf('.');
         if (index == -1) {
             return null;

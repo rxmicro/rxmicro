@@ -98,8 +98,8 @@ public final class VirtualFieldElement implements VariableElement, VirtualElemen
     }
 
     @Override
-    public <R, P> R accept(final ElementVisitor<R, P> v, final P p) {
-        return null;
+    public <R, P> R accept(final ElementVisitor<R, P> visitor, final P parameter) {
+        throw new UnsupportedOperationException();
     }
 
     @Override

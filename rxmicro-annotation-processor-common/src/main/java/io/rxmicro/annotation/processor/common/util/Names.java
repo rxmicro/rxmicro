@@ -23,7 +23,7 @@ import javax.lang.model.type.DeclaredType;
 import javax.lang.model.type.TypeMirror;
 import java.util.List;
 
-import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.getTypes;
+import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getTypes;
 
 /**
  * @author nedis
@@ -32,9 +32,11 @@ import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnv
  */
 public final class Names {
 
+    private static final String PRIMITIVE_NOT_ALLOWED_HERE = "Primitive not allowed here";
+
     public static String getPackageName(final TypeMirror type) {
         if (type.getKind().isPrimitive()) {
-            throw new InternalErrorException("Primitive not allowed here");
+            throw new InternalErrorException(PRIMITIVE_NOT_ALLOWED_HERE);
         }
         return getPackageName(getTypeWithoutGeneric(type));
     }
@@ -53,7 +55,7 @@ public final class Names {
 
     public static String getSimpleName(final TypeMirror type) {
         if (type.getKind().isPrimitive()) {
-            throw new InternalErrorException("Primitive not allowed here");
+            throw new InternalErrorException(PRIMITIVE_NOT_ALLOWED_HERE);
         }
         final StringBuilder nameBuilder = new StringBuilder();
         populate(nameBuilder, type);
@@ -101,19 +103,19 @@ public final class Names {
 
     public static String getGenericType(final TypeMirror type) {
         if (type.getKind().isPrimitive()) {
-            throw new InternalErrorException("Primitive not allowed here");
+            throw new InternalErrorException(PRIMITIVE_NOT_ALLOWED_HERE);
         }
-        final String t = type.toString();
-        return t.substring(t.indexOf('<') + 1, t.lastIndexOf('>'));
+        final String string = type.toString();
+        return string.substring(string.indexOf('<') + 1, string.lastIndexOf('>'));
     }
 
     public static String getTypeWithoutGeneric(final TypeMirror type) {
         if (type.getKind().isPrimitive()) {
-            throw new InternalErrorException("Primitive not allowed here");
+            throw new InternalErrorException(PRIMITIVE_NOT_ALLOWED_HERE);
         }
-        final String t = type.toString();
-        final int index = t.indexOf('<');
-        return index > 0 ? t.substring(0, index) : t;
+        final String string = type.toString();
+        final int index = string.indexOf('<');
+        return index > 0 ? string.substring(0, index) : string;
     }
 
     public static String getTypeWithoutGeneric(final String type) {

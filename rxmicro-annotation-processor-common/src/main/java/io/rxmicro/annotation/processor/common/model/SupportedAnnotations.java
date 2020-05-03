@@ -24,7 +24,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.TreeSet;
 
-import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.getElements;
+import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getElements;
 import static io.rxmicro.annotation.processor.common.util.Annotations.getRequiredAnnotationClassParameter;
 import static java.util.Collections.unmodifiableSet;
 
@@ -54,11 +54,11 @@ public final class SupportedAnnotations {
         this.supportedAnnotations = unmodifiableSet(supportedAnnotations);
     }
 
-    public final Set<String> getSupportedAnnotations() {
+    public Set<String> getSupportedAnnotations() {
         return supportedAnnotations;
     }
 
-    public final boolean isAnnotationSupported(final DeclaredType annotationType) {
+    public boolean isAnnotationSupported(final DeclaredType annotationType) {
         return supportedAnnotationsWithRepeatable.contains(annotationType.toString());
     }
 }

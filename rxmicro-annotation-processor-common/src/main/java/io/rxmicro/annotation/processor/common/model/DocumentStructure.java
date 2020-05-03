@@ -61,7 +61,7 @@ public abstract class DocumentStructure implements Comparable<DocumentStructure>
     }
 
     @Override
-    public final int compareTo(final DocumentStructure o) {
-        return getName().compareTo(o.getName());
+    public final int compareTo(final DocumentStructure other) {
+        return getName().compareTo(other.getName());
     }
 }

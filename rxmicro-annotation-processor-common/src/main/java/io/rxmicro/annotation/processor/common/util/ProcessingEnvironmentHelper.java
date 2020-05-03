@@ -35,7 +35,9 @@ import static io.rxmicro.common.util.Requires.require;
  * @link https://rxmicro.io
  * @since 0.1
  */
-public final class AnnotationProcessorEnvironment {
+public final class ProcessingEnvironmentHelper {
+
+    private static final String ERROR_TEMPLATE = "? is not initialized yet";
 
     private static int errorCount;
 
@@ -59,23 +61,23 @@ public final class AnnotationProcessorEnvironment {
     }
 
     public static Elements getElements() {
-        return require(elements, "? is not initialized yet", AnnotationProcessorEnvironment.class.getName());
+        return require(elements, ERROR_TEMPLATE, ProcessingEnvironmentHelper.class.getName());
     }
 
     public static Types getTypes() {
-        return require(types, "? is not initialized yet", AnnotationProcessorEnvironment.class.getName());
+        return require(types, ERROR_TEMPLATE, ProcessingEnvironmentHelper.class.getName());
     }
 
     public static Filer getFiler() {
-        return require(filer, "? is not initialized yet", AnnotationProcessorEnvironment.class.getName());
+        return require(filer, ERROR_TEMPLATE, ProcessingEnvironmentHelper.class.getName());
     }
 
     public static Messager getMessager() {
-        return require(messager, "? is not initialized yet", AnnotationProcessorEnvironment.class.getName());
+        return require(messager, ERROR_TEMPLATE, ProcessingEnvironmentHelper.class.getName());
     }
 
     public static Map<String, String> getCompilerOptions() {
-        return require(compilerOptions, "? is not initialized yet", AnnotationProcessorEnvironment.class.getName());
+        return require(compilerOptions, ERROR_TEMPLATE, ProcessingEnvironmentHelper.class.getName());
     }
 
     public static boolean doesNotContainErrors() {
@@ -86,6 +88,6 @@ public final class AnnotationProcessorEnvironment {
         errorCount++;
     }
 
-    private AnnotationProcessorEnvironment() {
+    private ProcessingEnvironmentHelper() {
     }
 }

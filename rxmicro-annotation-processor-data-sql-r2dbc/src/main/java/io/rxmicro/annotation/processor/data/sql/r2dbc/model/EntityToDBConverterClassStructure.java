@@ -29,7 +29,7 @@ import java.util.Map;
 import java.util.Set;
 
 import static io.rxmicro.annotation.processor.common.model.ClassHeader.newClassHeaderBuilder;
-import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.$$_REFLECTIONS_FULL_CLASS_NAME;
+import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.REFLECTIONS_FULL_CLASS_NAME;
 import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.getModelTransformerFullClassName;
 
 /**
@@ -89,7 +89,7 @@ public final class EntityToDBConverterClassStructure<DMF extends SQLDataModelFie
                         RowMetadata.class
                 );
         if (isRequiredReflectionGetter()) {
-            classHeaderBuilder.addStaticImport($$_REFLECTIONS_FULL_CLASS_NAME, "getFieldValue");
+            classHeaderBuilder.addStaticImport(REFLECTIONS_FULL_CLASS_NAME, "getFieldValue");
         }
         setEntityFieldsConverterMethods.stream()
                 .flatMap(converterMethod -> converterMethod.getValue().stream())

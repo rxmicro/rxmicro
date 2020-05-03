@@ -33,7 +33,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import static io.rxmicro.annotation.processor.common.model.ClassHeader.newClassHeaderBuilder;
-import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.$$_REFLECTIONS_FULL_CLASS_NAME;
+import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.REFLECTIONS_FULL_CLASS_NAME;
 import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.getModelTransformerFullClassName;
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.Requires.require;
@@ -90,7 +90,7 @@ public final class PathBuilderClassStructure extends ClassStructure {
         final ClassHeader.Builder classHeaderBuilder = newClassHeaderBuilder(modelClass)
                 .addImports(PathBuilder.class);
         if (isRequiredReflectionGetter()) {
-            classHeaderBuilder.addStaticImport($$_REFLECTIONS_FULL_CLASS_NAME, "getFieldValue");
+            classHeaderBuilder.addStaticImport(REFLECTIONS_FULL_CLASS_NAME, "getFieldValue");
         }
         return classHeaderBuilder.build();
     }

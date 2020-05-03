@@ -79,7 +79,7 @@ public final class ModelTransformer implements Comparable<ModelTransformer> {
     }
 
     @Override
-    public int compareTo(final ModelTransformer o) {
-        return getJavaFullClassName().compareTo(o.getJavaFullClassName());
+    public int compareTo(final ModelTransformer other) {
+        return getJavaFullClassName().compareTo(other.getJavaFullClassName());
     }
 }

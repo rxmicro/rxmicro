@@ -36,7 +36,7 @@ public abstract class AbstractExpressionParser extends AbstractProcessorComponen
                                                      final String expression,
                                                      final boolean safeVariableSyntax) {
         final StringBuilder variableBuilder = new StringBuilder();
-        boolean variableFound = extract(
+        final boolean variableFound = extract(
                 owner,
                 templateBuilder,
                 variables,
@@ -57,10 +57,11 @@ public abstract class AbstractExpressionParser extends AbstractProcessorComponen
                             final StringBuilder variableBuilder,
                             final boolean safeVariableSyntax) {
         boolean variableFound = false;
-        for (int i = 0; i < expression.length(); i++) {
-            final char ch = expression.charAt(i);
+        int index = 0;
+        while (index < expression.length()) {
+            final char ch = expression.charAt(index);
             if (variableFound) {
-                validateNotOpenExpression(owner, ch, i, expression);
+                validateNotOpenExpression(owner, ch, index, expression);
                 if (ch == '}') {
                     variableFound = false;
                     variables.add(safeVariableSyntax ?
@@ -73,37 +74,38 @@ public abstract class AbstractExpressionParser extends AbstractProcessorComponen
                 }
             } else {
                 if (ch == '$') {
-                    if (i < expression.length() - 1) {
-                        final char next = expression.charAt(i + 1);
+                    if (index < expression.length() - 1) {
+                        final char next = expression.charAt(index + 1);
                         if (next == '{') {
                             templateBuilder.append('?');
-                            i++;
+                            index++;
                             variableFound = true;
                         } else {
-                            validateNotOpenExpression(owner, ch, i, expression);
+                            validateNotOpenExpression(owner, ch, index, expression);
                         }
                     } else {
-                        validateNotOpenExpression(owner, ch, i, expression);
+                        validateNotOpenExpression(owner, ch, index, expression);
                     }
                 } else {
-                    validateNotOpenExpression(owner, ch, i, expression);
+                    validateNotOpenExpression(owner, ch, index, expression);
                     templateBuilder.append(ch);
                 }
             }
+            index++;
         }
         return variableFound;
     }
 
     private void validateNotOpenExpression(final Element owner,
                                            final char ch,
-                                           final int i,
+                                           final int index,
                                            final String expression) {
         if (ch == '{') {
             throw new InterruptProcessingException(owner,
                     "Invalid expression: '?' -> Missing '$' before '{'", expression);
         } else if (ch == '$') {
-            if (i < expression.length() - 1) {
-                final char next = expression.charAt(i + 1);
+            if (index < expression.length() - 1) {
+                final char next = expression.charAt(index + 1);
                 if (next == '{') {
                     throw new InterruptProcessingException(owner,
                             "Invalid expression: '?' -> Nested expression not allowed", expression);

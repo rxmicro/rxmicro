@@ -28,7 +28,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.$$_REFLECTIONS_FULL_CLASS_NAME;
+import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.REFLECTIONS_FULL_CLASS_NAME;
 import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.getModelTransformerFullClassName;
 import static java.util.Map.entry;
 import static java.util.stream.Collectors.toList;
@@ -78,7 +78,7 @@ public final class EntityFromDBConverterClassStructure<DMF extends SQLDataModelF
                         RowMetadata.class
                 );
         if (isRequiredReflectionSetter()) {
-            classHeaderBuilder.addStaticImport($$_REFLECTIONS_FULL_CLASS_NAME, "setFieldValue");
+            classHeaderBuilder.addStaticImport(REFLECTIONS_FULL_CLASS_NAME, "setFieldValue");
         }
         fromDBConverterMethods.stream()
                 .flatMap(converterMethod -> converterMethod.getValue().stream())

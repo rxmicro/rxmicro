@@ -25,7 +25,7 @@ import static io.rxmicro.documentation.PathVariables.PROJECT_DIR;
  */
 public enum DocumentationType {
 
-    Ascii_Doctor(PROJECT_DIR + "/src/main/asciidoc");
+    ASCII_DOCTOR(PROJECT_DIR + "/src/main/asciidoc");
 
     private final String destinationDirectory;
 

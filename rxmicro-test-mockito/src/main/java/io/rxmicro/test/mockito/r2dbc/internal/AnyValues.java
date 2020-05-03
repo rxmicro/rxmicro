@@ -49,7 +49,7 @@ public final class AnyValues {
 
         @Override
         public R apply(final T first, final U second) {
-            return null;
+            throw new UnsupportedOperationException();
         }
 
         @Override

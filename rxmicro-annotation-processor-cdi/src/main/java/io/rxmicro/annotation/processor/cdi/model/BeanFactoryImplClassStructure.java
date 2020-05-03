@@ -26,7 +26,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import static io.rxmicro.annotation.processor.common.model.ClassHeader.newClassHeaderBuilder;
-import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.$$_ENVIRONMENT_CUSTOMIZER_SIMPLE_CLASS_NAME;
+import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.ENVIRONMENT_CUSTOMIZER_SIMPLE_CLASS_NAME;
 import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.getEntryPointFullClassName;
 import static io.rxmicro.cdi.BeanFactory.BEAN_FACTORY_IMPL_CLASS_NAME;
 import static io.rxmicro.common.util.ExCollections.EMPTY_STRING_ARRAY;
@@ -60,7 +60,7 @@ public final class BeanFactoryImplClassStructure extends ClassStructure {
         final Map<String, Object> map = new HashMap<>();
         map.put("IMPL_CLASS_NAME", BEAN_FACTORY_IMPL_CLASS_NAME);
         map.put("BEAN_DEFINITIONS", beanSupplierClassStructures);
-        map.put("ENVIRONMENT_CUSTOMIZER_CLASS", $$_ENVIRONMENT_CUSTOMIZER_SIMPLE_CLASS_NAME);
+        map.put("ENVIRONMENT_CUSTOMIZER_CLASS", ENVIRONMENT_CUSTOMIZER_SIMPLE_CLASS_NAME);
         return map;
     }
 

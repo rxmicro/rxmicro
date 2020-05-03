@@ -28,7 +28,7 @@ import javax.lang.model.type.TypeMirror;
 import java.util.Optional;
 
 import static io.rxmicro.annotation.processor.common.model.method.MethodResult.createProjectReactorResult;
-import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.getTypes;
+import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getTypes;
 import static io.rxmicro.annotation.processor.common.util.Names.getSimpleName;
 import static io.rxmicro.annotation.processor.common.util.Reactives.isFlux;
 import static io.rxmicro.annotation.processor.common.util.Reactives.isMono;
@@ -63,7 +63,7 @@ public final class SpringReactorReactiveMethodResultBuilder implements ReactiveM
             validateGenericType(method, genericType, "Invalid return type");
             final TypeMirror resultType = ((DeclaredType) genericType).getTypeArguments().get(0);
             final boolean primitive = supportedTypesProvider.getResultReturnPrimitiveTypes().contains(resultType);
-            return MethodResult.createProjectReactorResult(reactiveType, false, resultType, primitive);
+            return createProjectReactorResult(reactiveType, false, resultType, primitive);
         } else {
             final boolean primitive = supportedTypesProvider.getResultReturnPrimitiveTypes().contains(genericType);
             return createProjectReactorResult(reactiveType, genericType, primitive);

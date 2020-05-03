@@ -59,7 +59,7 @@ abstract class AbstractBaseRestControllerMethodTest {
         final BaseRestController baseRestController = new BaseRestController() {
             @Override
             public Class<?> getRestControllerClass() {
-                return null;
+                throw new UnsupportedOperationException();
             }
         };
         baseRestController.httpResponseBuilder = httpResponseBuilder;

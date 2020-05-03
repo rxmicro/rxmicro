@@ -62,7 +62,7 @@ public final class MethodName {
             "$$RestControllerProducerMethodBodyTemplate.javaftl"
     })
     public String getUniqueJavaName() {
-        if (isOverloaded && parameterTypes.size() > 0) {
+        if (isOverloaded && !parameterTypes.isEmpty()) {
             return format("??", simpleName, parameterTypes.stream().map(t ->
                     t.getKind().isPrimitive() ? t.toString() : Names.getSimpleName(t)).collect(joining("")));
         } else {

@@ -116,7 +116,7 @@ public final class DeleteEntityOrByIdOperationMongoRepositoryMethodModelBuilder 
                 throw new InterruptProcessingException(method,
                         "Method parameter must be a document id of primitive type. " +
                                 "(FYI: Allowed primitive types are: ?)",
-                        allowedPrimitives().typeDefinitions());
+                        allowedPrimitives().getTypeDefinitions());
             }
             return mongoVar;
         }

@@ -123,9 +123,9 @@ public abstract class SupportedTypesProvider {
 
     protected TypeDefinitions<ContainerTypeDefinition> createPrimitiveCollectionContainers() {
         final List<ContainerTypeDefinition> definitions = new ArrayList<>();
-        for (final ContainerTypeDefinition typeDefinition : getCollectionContainers().typeDefinitions()) {
+        for (final ContainerTypeDefinition typeDefinition : getCollectionContainers().getTypeDefinitions()) {
             final TypeDefinition container = typeDefinition.getContainerTypeDefinition();
-            for (final TypeDefinition primitiveDefinition : getPrimitives().typeDefinitions()) {
+            for (final TypeDefinition primitiveDefinition : getPrimitives().getTypeDefinitions()) {
                 definitions.add(new ContainerTypeDefinition(container, primitiveDefinition));
             }
         }
@@ -150,7 +150,7 @@ public abstract class SupportedTypesProvider {
         return new TypeDefinitionsImpl<>(List.of(
                 getPrimitives(),
                 new TypeDefinitionsImpl<>(
-                        getPrimitiveContainers().typeDefinitions()
+                        getPrimitiveContainers().getTypeDefinitions()
                                 .stream()
                                 .map(c -> (TypeDefinition) c)
                                 .toArray(TypeDefinition[]::new))
@@ -162,7 +162,7 @@ public abstract class SupportedTypesProvider {
                 getPrimitives(),
                 getStandardMethodParameters(),
                 new TypeDefinitionsImpl<>(
-                        getPrimitiveContainers().typeDefinitions()
+                        getPrimitiveContainers().getTypeDefinitions()
                                 .stream()
                                 .map(c -> (TypeDefinition) c)
                                 .toArray(TypeDefinition[]::new))

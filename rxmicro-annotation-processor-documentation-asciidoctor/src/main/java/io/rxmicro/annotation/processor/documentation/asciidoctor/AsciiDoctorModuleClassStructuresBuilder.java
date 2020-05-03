@@ -47,7 +47,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import static io.rxmicro.annotation.processor.common.model.DocumentationType.Ascii_Doctor;
+import static io.rxmicro.annotation.processor.common.model.DocumentationType.ASCII_DOCTOR;
 import static io.rxmicro.annotation.processor.common.util.Annotations.getPresentOrDefaultAnnotation;
 import static io.rxmicro.annotation.processor.common.util.Injects.injectDependencies;
 import static java.util.Map.entry;
@@ -125,7 +125,7 @@ public final class AsciiDoctorModuleClassStructuresBuilder extends AbstractDocum
 
     @Override
     public DocumentationType getDocumentationType() {
-        return Ascii_Doctor;
+        return ASCII_DOCTOR;
     }
 
     private List<ResourceGroup> buildResourceGroups(final EnvironmentContext environmentContext,

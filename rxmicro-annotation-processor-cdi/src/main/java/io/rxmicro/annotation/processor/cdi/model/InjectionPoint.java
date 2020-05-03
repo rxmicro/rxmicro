@@ -37,7 +37,7 @@ import static io.rxmicro.annotation.processor.cdi.model.InjectionPointType.POSTG
 import static io.rxmicro.annotation.processor.cdi.model.InjectionPointType.POSTGRE_SQL_CONNECTION_POOL;
 import static io.rxmicro.annotation.processor.cdi.model.InjectionPointType.REPOSITORY;
 import static io.rxmicro.annotation.processor.cdi.model.InjectionPointType.REST_CLIENT;
-import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.getTypes;
+import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getTypes;
 import static io.rxmicro.common.util.Requires.require;
 
 /**

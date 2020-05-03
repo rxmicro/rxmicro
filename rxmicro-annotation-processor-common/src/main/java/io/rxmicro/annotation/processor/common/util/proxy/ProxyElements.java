@@ -92,8 +92,8 @@ public final class ProxyElements implements Elements {
     }
 
     @Override
-    public Map<? extends ExecutableElement, ? extends AnnotationValue> getElementValuesWithDefaults(final AnnotationMirror a) {
-        return elements.getElementValuesWithDefaults(a);
+    public Map<? extends ExecutableElement, ? extends AnnotationValue> getElementValuesWithDefaults(final AnnotationMirror mirror) {
+        return elements.getElementValuesWithDefaults(mirror);
     }
 
     @Override

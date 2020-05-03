@@ -100,9 +100,9 @@ public class RxMicroMongoCodecRegistry implements CodecRegistry {
                 if (provider != null) {
                     codec = provider.apply(registry);
                 } else {
-                    codec = findCodecByUsingPredicate(clazz);
+                    codec = findCodecByUsingPredicateOrNull(clazz);
                     if (codec == null) {
-                        provider = findCodecProviderByUsingPredicate(clazz);
+                        provider = findCodecProviderByUsingPredicateOrNull(clazz);
                         if (provider != null) {
                             codec = provider.apply(registry);
                         }
@@ -118,7 +118,7 @@ public class RxMicroMongoCodecRegistry implements CodecRegistry {
         return updatableCache.computeIfAbsent(clazz, cl -> new EnumCodec<>((Class<? extends Enum>) cl));
     }
 
-    private Codec<?> findCodecByUsingPredicate(final Class<?> clazz) {
+    private Codec<?> findCodecByUsingPredicateOrNull(final Class<?> clazz) {
         for (final Map.Entry<Predicate<Class<?>>, Codec<?>> entry : predicateCodecList) {
             if (entry.getKey().test(clazz)) {
                 return entry.getValue();
@@ -127,7 +127,7 @@ public class RxMicroMongoCodecRegistry implements CodecRegistry {
         return null;
     }
 
-    private Function<CodecRegistry, Codec<?>> findCodecProviderByUsingPredicate(final Class<?> clazz) {
+    private Function<CodecRegistry, Codec<?>> findCodecProviderByUsingPredicateOrNull(final Class<?> clazz) {
         for (final Map.Entry<Predicate<Class<?>>, Function<CodecRegistry, Codec<?>>> entry : predicateProviderList) {
             if (entry.getKey().test(clazz)) {
                 return entry.getValue();

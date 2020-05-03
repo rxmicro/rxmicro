@@ -48,8 +48,8 @@ import static io.rxmicro.annotation.processor.cdi.model.InjectionPointType.MONGO
 import static io.rxmicro.annotation.processor.cdi.model.InjectionPointType.MULTI_BINDER;
 import static io.rxmicro.annotation.processor.cdi.model.InjectionPointType.REPOSITORY;
 import static io.rxmicro.annotation.processor.cdi.model.InjectionPointType.REST_CLIENT;
-import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.getElements;
-import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.getTypes;
+import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getElements;
+import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getTypes;
 import static io.rxmicro.annotation.processor.common.util.Elements.asTypeElement;
 import static io.rxmicro.annotation.processor.common.util.Elements.findSuperType;
 import static io.rxmicro.annotation.processor.common.util.Names.getPackageName;

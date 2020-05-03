@@ -76,7 +76,7 @@ public final class AsciiDoctorDocumentStructure extends DocumentStructure {
 
     @Override
     public DocumentationType getDocumentationType() {
-        return DocumentationType.Ascii_Doctor;
+        return DocumentationType.ASCII_DOCTOR;
     }
 
     @Override

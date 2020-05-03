@@ -55,7 +55,7 @@ import java.util.function.Supplier;
 
 import static io.rxmicro.annotation.processor.common.model.ModelFieldType.REST_CLIENT_RESPONSE;
 import static io.rxmicro.annotation.processor.common.model.ModelFieldType.REST_SERVER_REQUEST;
-import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.getElements;
+import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getElements;
 import static io.rxmicro.annotation.processor.common.util.Errors.createInternalErrorSupplier;
 import static io.rxmicro.annotation.processor.common.util.Names.getSimpleName;
 import static io.rxmicro.http.HttpHeaders.REQUEST_ID;

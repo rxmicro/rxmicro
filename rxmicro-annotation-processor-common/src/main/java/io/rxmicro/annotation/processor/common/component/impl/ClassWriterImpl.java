@@ -24,7 +24,7 @@ import javax.annotation.processing.FilerException;
 import java.io.IOException;
 import java.io.Writer;
 
-import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.getFiler;
+import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getFiler;
 
 /**
  * @author nedis
@@ -36,7 +36,7 @@ public final class ClassWriterImpl extends AbstractProcessorComponent implements
 
     @Override
     public void write(final SourceCode sourceCode) {
-        try (final Writer writer = getFiler().createSourceFile(sourceCode.getName()).openWriter()) {
+        try (Writer writer = getFiler().createSourceFile(sourceCode.getName()).openWriter()) {
             writer.write(sourceCode.getContent());
             debug("Class generated successfully: ?", sourceCode::getName);
         } catch (final FilerException e) {

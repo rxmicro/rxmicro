@@ -68,7 +68,7 @@ public abstract class ClassStructure implements Comparable<ClassStructure> {
     }
 
     @Override
-    public final int compareTo(final ClassStructure o) {
-        return getTargetFullClassName().compareTo(o.getTargetFullClassName());
+    public final int compareTo(final ClassStructure other) {
+        return getTargetFullClassName().compareTo(other.getTargetFullClassName());
     }
 }

@@ -31,7 +31,7 @@ public interface TypeDefinitions<T extends TypeDefinition> {
 
     boolean contains(Element element);
 
-    Collection<T> typeDefinitions();
+    Collection<T> getTypeDefinitions();
 
     @Override
     String toString();

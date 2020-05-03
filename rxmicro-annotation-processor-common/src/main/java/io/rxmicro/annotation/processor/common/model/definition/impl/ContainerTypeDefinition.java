@@ -52,15 +52,15 @@ public final class ContainerTypeDefinition implements TypeDefinition {
     }
 
     @Override
-    public boolean equals(final TypeMirror typeMirror) {
-        final boolean result = containerTypeDefinition.equals(typeMirror);
+    public boolean isEqual(final TypeMirror typeMirror) {
+        final boolean result = containerTypeDefinition.isEqual(typeMirror);
         if (!result) {
             return false;
         }
         if (itemTypeDefinition != null && typeMirror instanceof DeclaredType) {
             final List<? extends TypeMirror> typeArguments = ((DeclaredType) typeMirror).getTypeArguments();
             if (typeArguments.size() == 1) {
-                return itemTypeDefinition.equals(typeArguments.get(0));
+                return itemTypeDefinition.isEqual(typeArguments.get(0));
             } else {
                 return false;
             }
@@ -69,12 +69,12 @@ public final class ContainerTypeDefinition implements TypeDefinition {
     }
 
     @Override
-    public boolean equals(final Element element) {
-        final boolean result = containerTypeDefinition.equals(element);
+    public boolean isEqual(final Element element) {
+        final boolean result = containerTypeDefinition.isEqual(element);
         if (!result) {
             return false;
         }
-        return equals(element.asType());
+        return isEqual(element.asType());
     }
 
     @Override

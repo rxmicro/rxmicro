@@ -26,9 +26,9 @@ import javax.lang.model.type.TypeMirror;
  */
 public interface TypeDefinition {
 
-    boolean equals(TypeMirror typeMirror);
+    boolean isEqual(TypeMirror typeMirror);
 
-    boolean equals(Element element);
+    boolean isEqual(Element element);
 
     @Override
     String toString();

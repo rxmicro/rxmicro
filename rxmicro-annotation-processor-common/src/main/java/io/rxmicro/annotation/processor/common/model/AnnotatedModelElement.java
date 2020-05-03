@@ -94,12 +94,11 @@ public final class AnnotatedModelElement {
     }
 
     String getSetter() {
-        try {
-            return setter.getSimpleName().toString();
-        } catch (final NullPointerException e) {
+        if (setter == null) {
             throw new InternalErrorException("Setter not defined: class=?, field=?",
                     field.getEnclosingElement().asType(), field.getSimpleName());
         }
+        return setter.getSimpleName().toString();
     }
 
     ModelAccessorType getModelReadAccessorType() {
@@ -148,7 +147,7 @@ public final class AnnotatedModelElement {
     }
 
     @SuppressWarnings("unchecked")
-    public final <A extends Annotation> A[] getAnnotationsByType(final Class<A> annotationType) {
+    public <A extends Annotation> A[] getAnnotationsByType(final Class<A> annotationType) {
         return Stream.concat(
                 getters.stream(),
                 Stream.of(field))

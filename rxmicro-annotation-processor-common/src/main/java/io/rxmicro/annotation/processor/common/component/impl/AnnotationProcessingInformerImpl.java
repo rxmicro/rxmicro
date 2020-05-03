@@ -53,7 +53,7 @@ public final class AnnotationProcessingInformerImpl extends AbstractProcessorCom
     public void classesGenerationCompleted() {
         if (classesGenerationStartedTime > 0) {
             info("All java classes generated successful in ? seconds.",
-                    BigDecimal.valueOf(((double) (System.nanoTime() - classesGenerationStartedTime)) / 1_000_000_000.)
+                    BigDecimal.valueOf(((double) (System.nanoTime() - classesGenerationStartedTime)) / 1_000_000_000)
                             .setScale(3, HALF_UP));
         } else {
             info("All java classes generated successful.");

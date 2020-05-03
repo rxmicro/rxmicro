@@ -24,7 +24,7 @@ import io.rxmicro.annotation.processor.common.component.EnvironmentContextBuilde
 import io.rxmicro.annotation.processor.common.model.AnnotationProcessorType;
 import io.rxmicro.annotation.processor.common.model.SourceCode;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
-import io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment;
+import io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper;
 
 import javax.annotation.processing.AbstractProcessor;
 import javax.annotation.processing.ProcessingEnvironment;
@@ -38,10 +38,10 @@ import static io.rxmicro.annotation.processor.common.SupportedOptions.RX_MICRO_B
 import static io.rxmicro.annotation.processor.common.SupportedOptions.RX_MICRO_DOC_DESTINATION_DIR;
 import static io.rxmicro.annotation.processor.common.SupportedOptions.RX_MICRO_LOG_LEVEL;
 import static io.rxmicro.annotation.processor.common.SupportedOptions.RX_MICRO_MAX_JSON_NESTED_DEPTH;
-import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.doesNotContainErrors;
-import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.getMessager;
 import static io.rxmicro.annotation.processor.common.util.Injects.injectDependencies;
 import static io.rxmicro.annotation.processor.common.util.InternalLoggers.logThrowableStackTrace;
+import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.doesNotContainErrors;
+import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getMessager;
 import static javax.tools.Diagnostic.Kind.ERROR;
 
 /**
@@ -61,7 +61,7 @@ public abstract class AbstractRxMicroProcessor extends AbstractProcessor {
     private AnnotationProcessingInformer annotationProcessingInformer;
 
     public AbstractRxMicroProcessor() {
-        injectDependencies(this, getDependenciesModules().toArray(new com.google.inject.Module[0]));
+        injectDependencies(this, getDependenciesModules().toArray(new Module[0]));
     }
 
     protected Set<Module> getDependenciesModules() {
@@ -84,9 +84,11 @@ public abstract class AbstractRxMicroProcessor extends AbstractProcessor {
     }
 
     @Override
-    public synchronized final void init(final ProcessingEnvironment processingEnv) {
-        super.init(processingEnv);
-        AnnotationProcessorEnvironment.init(processingEnv);
+    public final void init(final ProcessingEnvironment processingEnv) {
+        synchronized (this) {
+            super.init(processingEnv);
+            ProcessingEnvironmentHelper.init(processingEnv);
+        }
     }
 
     @Override

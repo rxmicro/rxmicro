@@ -31,7 +31,7 @@ import java.util.stream.Collectors;
 import static io.rxmicro.annotation.processor.cdi.component.impl.AbstractR2DBCConnectionProvider.R2DBCConnectionProvider.POSTGRE_SQL_CONNECTION_PROVIDER;
 import static io.rxmicro.annotation.processor.cdi.model.InjectionPointType.POSTGRE_SQL_CONNECTION_FACTORY;
 import static io.rxmicro.annotation.processor.cdi.model.InjectionPointType.POSTGRE_SQL_CONNECTION_POOL;
-import static io.rxmicro.annotation.processor.common.util.AnnotationProcessorEnvironment.getElements;
+import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getElements;
 import static io.rxmicro.common.RxMicroModule.RX_MICRO_DATA_SQL_R2DBC_POSTGRESQL_MODULE;
 import static io.rxmicro.common.util.Requires.require;
 

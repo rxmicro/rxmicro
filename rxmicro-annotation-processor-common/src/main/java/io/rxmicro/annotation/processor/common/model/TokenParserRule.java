@@ -63,11 +63,11 @@ public abstract class TokenParserRule {
                 });
     }
 
-    public boolean isIgnoredDelimiter(char ch) {
+    public boolean isIgnoredDelimiter(final char ch) {
         return Set.of(' ', '\u00A0', '\n', '\t', '\r').contains(ch);
     }
 
-    public boolean isStringDelimiter(char ch) {
+    public boolean isStringDelimiter(final char ch) {
         return Set.of('\'', '"').contains(ch);
     }
 
