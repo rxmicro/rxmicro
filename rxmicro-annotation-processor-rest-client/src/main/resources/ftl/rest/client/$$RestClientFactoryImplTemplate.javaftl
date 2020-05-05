@@ -4,9 +4,6 @@ public final class ${IMPL_CLASS_NAME} extends RestClientFactory {
 
     static {
         ${ENVIRONMENT_CUSTOMIZER_CLASS}.customize();
-        <#list DEFAULT_CONFIG_VALUES as V>
-        putDefaultConfigValue("${V.key}", ${V.value});
-        </#list>
         <#if MODULE_INFO_ITEMS?has_content>
         // Add required module declaration automatically
         final Module currentModule = ${IMPL_CLASS_NAME}.class.getModule();

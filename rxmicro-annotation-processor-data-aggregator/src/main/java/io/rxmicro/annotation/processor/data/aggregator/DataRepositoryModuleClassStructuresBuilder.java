@@ -19,7 +19,6 @@ package io.rxmicro.annotation.processor.data.aggregator;
 import io.rxmicro.annotation.processor.common.component.impl.CompositeModuleClassStructuresBuilder;
 import io.rxmicro.annotation.processor.common.model.ClassStructure;
 import io.rxmicro.annotation.processor.common.model.EnvironmentContext;
-import io.rxmicro.annotation.processor.common.model.EnvironmentCustomizerClassStructure;
 import io.rxmicro.annotation.processor.data.AbstractDataModuleClassStructuresBuilder;
 import io.rxmicro.annotation.processor.data.aggregator.model.RepositoryFactoryClassStructure;
 import io.rxmicro.annotation.processor.data.model.DataRepositoryClassStructure;
@@ -68,8 +67,7 @@ public final class DataRepositoryModuleClassStructuresBuilder
                                             .filter(s -> s instanceof DataRepositoryClassStructure)
                                             .map(s -> (DataRepositoryClassStructure) s)
                                             .collect(toSet())
-                            ),
-                            new EnvironmentCustomizerClassStructure(environmentContext)
+                            )
                     )
             ).collect(toSet());
         } else {

@@ -24,7 +24,6 @@ import io.rxmicro.annotation.processor.common.component.ModuleInfoCustomizer;
 import io.rxmicro.annotation.processor.common.component.impl.AbstractModuleClassStructuresBuilder;
 import io.rxmicro.annotation.processor.common.model.ClassStructure;
 import io.rxmicro.annotation.processor.common.model.EnvironmentContext;
-import io.rxmicro.annotation.processor.common.model.EnvironmentCustomizerClassStructure;
 import io.rxmicro.annotation.processor.common.model.ModuleInfoItem;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
 import io.rxmicro.annotation.processor.common.model.virtual.VirtualTypeElement;
@@ -160,7 +159,6 @@ public final class RestClientModuleClassStructuresBuilder extends AbstractModule
                         moduleInfoItems
                 ));
                 addAllVirtualRequestClassStructures(classStructures, classSignatures, restClientClassStructureStorage);
-                classStructures.add(new EnvironmentCustomizerClassStructure(environmentContext));
                 return classStructures;
             }
             return Set.of();

@@ -27,7 +27,6 @@ import io.rxmicro.annotation.processor.common.component.impl.AbstractModuleClass
 import io.rxmicro.annotation.processor.common.model.CDIUsageCandidateClassStructure;
 import io.rxmicro.annotation.processor.common.model.ClassStructure;
 import io.rxmicro.annotation.processor.common.model.EnvironmentContext;
-import io.rxmicro.annotation.processor.common.model.EnvironmentCustomizerClassStructure;
 
 import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.element.TypeElement;
@@ -96,10 +95,7 @@ public final class CDIClassStructuresBuilder extends AbstractModuleClassStructur
         return Stream
                 .concat(
                         beanSupplierClassStructures.stream(),
-                        Stream.of(
-                                new BeanFactoryImplClassStructure(beanSupplierClassStructures),
-                                new EnvironmentCustomizerClassStructure(environmentContext)
-                        )
+                        Stream.of(new BeanFactoryImplClassStructure(beanSupplierClassStructures))
                 )
                 .collect(toSet());
     }

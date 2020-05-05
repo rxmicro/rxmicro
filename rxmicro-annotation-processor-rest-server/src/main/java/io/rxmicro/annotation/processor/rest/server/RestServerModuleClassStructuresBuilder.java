@@ -23,7 +23,6 @@ import io.rxmicro.annotation.processor.common.component.ModuleGeneratorConfigBui
 import io.rxmicro.annotation.processor.common.component.impl.AbstractModuleClassStructuresBuilder;
 import io.rxmicro.annotation.processor.common.model.ClassStructure;
 import io.rxmicro.annotation.processor.common.model.EnvironmentContext;
-import io.rxmicro.annotation.processor.common.model.EnvironmentCustomizerClassStructure;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
 import io.rxmicro.annotation.processor.common.model.virtual.VirtualTypeElement;
 import io.rxmicro.annotation.processor.rest.RestCommonDependenciesModule;
@@ -174,7 +173,6 @@ public final class RestServerModuleClassStructuresBuilder extends AbstractModule
                                 environmentContext,
                                 restControllerClassStructures
                         )));
-                classStructures.add(new EnvironmentCustomizerClassStructure(environmentContext));
                 if (!environmentContext.get(RestServerModuleGeneratorConfig.class).getDocumentationTypes().isEmpty()) {
                     restDocumentationGenerator.generate(
                             environmentContext,

@@ -19,7 +19,9 @@ package io.rxmicro.annotation.processor.common.component.impl;
 import com.google.inject.Inject;
 import io.rxmicro.annotation.processor.common.component.SourceCodeGenerator;
 import io.rxmicro.annotation.processor.common.model.ClassStructure;
+import io.rxmicro.annotation.processor.common.model.DefaultConfigProxyValue;
 import io.rxmicro.annotation.processor.common.model.EnvironmentContext;
+import io.rxmicro.annotation.processor.common.model.EnvironmentCustomizerClassStructure;
 import io.rxmicro.annotation.processor.common.model.ReflectionsClassStructure;
 import io.rxmicro.annotation.processor.common.model.SourceCode;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
@@ -36,6 +38,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import static io.rxmicro.annotation.processor.common.SupportedOptions.RX_MICRO_BUILD_UNNAMED_MODULE;
 import static io.rxmicro.annotation.processor.common.SupportedOptions.RX_MICRO_BUILD_UNNAMED_MODULE_DEFAULT_VALUE;
@@ -63,6 +66,7 @@ public abstract class AbstractModuleClassStructuresBuilder extends AbstractProce
                                                   final RoundEnvironment roundEnv) {
         final Set<ClassStructure> classStructures = new HashSet<>(buildClassStructures(environmentContext, annotations, roundEnv));
         getReflectionStructure(classStructures).ifPresent(classStructures::add);
+        classStructures.add(getEnvironmentCustomizerClassStructure(environmentContext, classStructures));
         validateClassStructureDuplicates(environmentContext, classStructures);
         return classStructures.stream().map(cl -> sourceCodeGenerator.generate(cl)).collect(toList());
     }
@@ -97,7 +101,7 @@ public abstract class AbstractModuleClassStructuresBuilder extends AbstractProce
         // do nothing
     }
 
-    protected final Optional<ReflectionsClassStructure> getReflectionStructure(final Set<? extends ClassStructure> structures) {
+    private Optional<ReflectionsClassStructure> getReflectionStructure(final Set<? extends ClassStructure> structures) {
         boolean getterRequired = false;
         boolean setterRequired = false;
         boolean invokeRequired = false;
@@ -120,6 +124,16 @@ public abstract class AbstractModuleClassStructuresBuilder extends AbstractProce
         } else {
             return Optional.empty();
         }
+    }
+
+    private EnvironmentCustomizerClassStructure getEnvironmentCustomizerClassStructure(final EnvironmentContext environmentContext,
+                                                                                       final Set<? extends ClassStructure> structures) {
+        final List<Map.Entry<String, DefaultConfigProxyValue>> defaultConfigValues =
+                Stream.concat(
+                        environmentContext.getDefaultConfigValues().stream(),
+                        structures.stream().flatMap(classStructure -> classStructure.getDefaultConfigProxyValues().stream())
+                ).collect(toList());
+        return new EnvironmentCustomizerClassStructure(environmentContext.getCurrentModule(), defaultConfigValues);
     }
 
     protected final boolean isAnnotationPerPackageHierarchyAbsent(final TypeElement modelTypeElement,

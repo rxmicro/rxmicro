@@ -19,6 +19,8 @@ package io.rxmicro.annotation.processor.common.model;
 import io.rxmicro.config.detail.DefaultConfigValueBuilder;
 import io.rxmicro.runtime.detail.Runtimes;
 
+import javax.lang.model.element.ModuleElement;
+import java.util.List;
 import java.util.Map;
 
 import static io.rxmicro.annotation.processor.common.model.ClassHeader.newClassHeaderBuilder;
@@ -33,10 +35,14 @@ import static io.rxmicro.runtime.detail.Runtimes.ENTRY_POINT_PACKAGE;
  */
 public final class EnvironmentCustomizerClassStructure extends ClassStructure {
 
-    private final EnvironmentContext environmentContext;
+    private final ModuleElement currentModule;
 
-    public EnvironmentCustomizerClassStructure(final EnvironmentContext environmentContext) {
-        this.environmentContext = environmentContext;
+    private final List<Map.Entry<String, DefaultConfigProxyValue>> defaultConfigProxyValues;
+
+    public EnvironmentCustomizerClassStructure(final ModuleElement currentModule,
+                                               final List<Map.Entry<String, DefaultConfigProxyValue>> defaultConfigProxyValues) {
+        this.currentModule = currentModule;
+        this.defaultConfigProxyValues = defaultConfigProxyValues;
     }
 
     @Override
@@ -53,9 +59,9 @@ public final class EnvironmentCustomizerClassStructure extends ClassStructure {
     public Map<String, Object> getTemplateVariables() {
         return Map.of(
                 "PACKAGE_NAME", ENTRY_POINT_PACKAGE,
-                "CURRENT_MODULE_IS_NAMED", !environmentContext.getCurrentModule().isUnnamed(),
+                "CURRENT_MODULE_IS_NAMED", !currentModule.isUnnamed(),
                 "CLASS_NAME", ENVIRONMENT_CUSTOMIZER_SIMPLE_CLASS_NAME,
-                "DEFAULT_CONFIG_VALUES", environmentContext.getDefaultConfigValues()
+                "DEFAULT_CONFIG_VALUES", defaultConfigProxyValues
         );
     }
 

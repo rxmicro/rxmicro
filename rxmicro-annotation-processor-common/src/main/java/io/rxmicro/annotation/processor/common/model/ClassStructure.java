@@ -16,6 +16,7 @@
 
 package io.rxmicro.annotation.processor.common.model;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -43,6 +44,10 @@ public abstract class ClassStructure implements Comparable<ClassStructure> {
 
     public boolean isRequiredReflectionInvoke() {
         return false;
+    }
+
+    public List<Map.Entry<String, DefaultConfigProxyValue>> getDefaultConfigProxyValues() {
+        return List.of();
     }
 
     @Override
