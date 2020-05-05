@@ -33,6 +33,8 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 /**
  * The annotated element must be a well-formed email address.
  *
+ * Valid email format: ${username}@${domain}, so example of valid email with min length is: a@b
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @see EmailConstraintValidator

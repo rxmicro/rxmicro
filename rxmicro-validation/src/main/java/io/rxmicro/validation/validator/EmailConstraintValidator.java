@@ -20,25 +20,32 @@ import io.rxmicro.http.error.ValidationException;
 import io.rxmicro.rest.model.HttpModelType;
 import io.rxmicro.validation.ConstraintValidator;
 
-import java.util.regex.Pattern;
-
 /**
+ * Valid email format: ${username}@${domain}, so example of valid email with min length is: a@b
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @see io.rxmicro.validation.constraint.Email
  * @since 0.1
  */
-public class EmailConstraintValidator implements ConstraintValidator<String> {
-
-    private static final Pattern PATTERN =
-            Pattern.compile("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$");
+public final class EmailConstraintValidator implements ConstraintValidator<String> {
 
     @Override
     public void validate(final String actual,
                          final HttpModelType httpModelType,
                          final String modelName) {
-        if (actual != null && !PATTERN.matcher(actual).matches()) {
-            throw new ValidationException("Invalid ? \"?\": Expected a valid email format!", httpModelType, modelName);
+        if (actual != null) {
+            // Min valid length is 3: a@b
+            final boolean notValidEmail = actual.length() < 3 ||
+                    // Email invalid if it starts with '@' (without username)
+                    actual.charAt(0) == '@' ||
+                    // Email invalid if it ends with '@' (without domain)
+                    actual.charAt(actual.length() - 1) == '@' ||
+                    // Email invalid if it does not contain '@' separator
+                    actual.indexOf('@') == -1;
+            if (notValidEmail) {
+                throw new ValidationException("Invalid ? \"?\": Expected a valid email format!", httpModelType, modelName);
+            }
         }
     }
 }
