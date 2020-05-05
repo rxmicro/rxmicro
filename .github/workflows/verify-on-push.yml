@@ -12,6 +12,7 @@ on:
     paths:
       - 'rxmicro-*/**'
   pull_request:
+    types: [assigned, opened, edited, reopened]
     paths:
       - 'rxmicro-*/**'
 

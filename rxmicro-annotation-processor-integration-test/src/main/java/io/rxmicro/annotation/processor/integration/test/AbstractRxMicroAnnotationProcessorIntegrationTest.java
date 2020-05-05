@@ -94,7 +94,7 @@ public abstract class AbstractRxMicroAnnotationProcessorIntegrationTest extends 
         ).collect(toMap(identity(), cl -> format("?.?", ENTRY_POINT_PACKAGE, cl)));
     }
 
-    protected void addAggregator(final String name) {
+    protected final void addAggregator(final String name) {
         this.aggregators.put(name, format("?.?", ENTRY_POINT_PACKAGE, name));
     }
 
@@ -115,7 +115,7 @@ public abstract class AbstractRxMicroAnnotationProcessorIntegrationTest extends 
     }
 
     protected void addExternalModule(final ExternalModule externalModule) {
-        addModulePath(externalModule.getJarPath());
+        addToModulePath(externalModule.getJarPath());
     }
 
     protected void verifyAllClassesInPackage(final String packageName) throws IOException {

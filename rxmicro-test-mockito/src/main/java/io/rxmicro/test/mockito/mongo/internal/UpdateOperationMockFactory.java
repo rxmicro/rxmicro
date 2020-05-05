@@ -20,14 +20,13 @@ import com.mongodb.client.model.UpdateOptions;
 import com.mongodb.client.result.UpdateResult;
 import com.mongodb.reactivestreams.client.MongoCollection;
 import com.mongodb.reactivestreams.client.MongoDatabase;
-import io.rxmicro.test.mockito.internal.CommonMatchers;
 import io.rxmicro.test.mockito.mongo.UpdateOperationMock;
 import io.rxmicro.test.mockito.mongo.internal.util.UpdateOptionsMatcher;
 import org.bson.Document;
 import org.reactivestreams.Publisher;
 
 import static io.rxmicro.test.mockito.internal.CommonMatchers.any;
-import static io.rxmicro.test.mockito.internal.CommonMatchers.isEqual;
+import static io.rxmicro.test.mockito.internal.CommonMatchers.eq;
 import static io.rxmicro.test.mockito.mongo.internal.AnyValues.ANY_DOCUMENT;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -49,16 +48,16 @@ public final class UpdateOperationMockFactory extends AbstractOperationMockFacto
         final Publisher<UpdateResult> publisher = mock(Publisher.class);
         final Document filter = operationMock.isAnyFilter() ?
                 any(Document.class, ANY_DOCUMENT) :
-                CommonMatchers.isEqual(operationMock.getFilter());
+                eq(operationMock.getFilter());
         final Document update = operationMock.isAnyUpdate() ?
                 any(Document.class, ANY_DOCUMENT) :
-                CommonMatchers.isEqual(operationMock.getUpdate());
+                eq(operationMock.getUpdate());
         final UpdateOptions updateOptions = new UpdateOptions()
                 .upsert(operationMock.isUpsert());
         when(collection.updateMany(
                 filter,
                 update,
-                isEqual(new UpdateOptionsMatcher(updateOptions), updateOptions)
+                eq(new UpdateOptionsMatcher(updateOptions), updateOptions)
         )).thenReturn(publisher);
         ifThrowableNotNullThenFailOtherwiseReturnItems(publisher, throwable, updateResult);
     }

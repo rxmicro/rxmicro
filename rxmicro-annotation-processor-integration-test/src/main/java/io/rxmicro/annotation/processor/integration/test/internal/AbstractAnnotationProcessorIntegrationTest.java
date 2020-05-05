@@ -69,8 +69,12 @@ public abstract class AbstractAnnotationProcessorIntegrationTest {
         this.modulePath = modulePath;
     }
 
-    protected void addModulePath(final String path) {
+    protected void addToModulePath(final String path) {
         modulePath.add(path);
+    }
+
+    protected void removeFromModulePath(final String pathFragment) {
+        modulePath.removeIf(path -> path.contains(pathFragment));
     }
 
     protected void addCompilerOption(final String name,

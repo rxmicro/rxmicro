@@ -27,8 +27,7 @@ import static io.rxmicro.rest.server.detail.component.RestControllerAggregator.R
  * @author nedis
  * @link https://rxmicro.io
  */
-public abstract class AbstractRestServerAnnotationProcessorIntegrationTest
-        extends AbstractRxMicroAnnotationProcessorIntegrationTest {
+public abstract class AbstractRestServerAnnotationProcessorIntegrationTest extends AbstractRxMicroAnnotationProcessorIntegrationTest {
 
     public AbstractRestServerAnnotationProcessorIntegrationTest() {
         super(REST_CONTROLLER_AGGREGATOR_IMPL_CLASS_NAME);

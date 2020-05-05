@@ -8,7 +8,7 @@ name: Verify and Publish on Release
 
 on:
   release:
-    types: [published]
+    types: [prereleased]
 
 jobs:
 

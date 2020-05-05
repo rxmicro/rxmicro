@@ -56,21 +56,6 @@ public final class AnyValues {
         }
 
         @Override
-        public boolean equals(final Object other) {
-            if (this == other) {
-                return true;
-            }
-            if (other == null || getClass() != other.getClass()) {
-                return false;
-            }
-            if (!super.equals(other)) {
-                return false;
-            }
-            final TempDocument that = (TempDocument) other;
-            return name.equals(that.name);
-        }
-
-        @Override
         public TempDocument append(final String key, final Object value) {
             throw new UnsupportedOperationException();
         }
@@ -111,6 +96,31 @@ public final class AnyValues {
         }
 
         @Override
+        public boolean equals(final Object other) {
+            if (this == other) {
+                return true;
+            }
+            if (other == null || getClass() != other.getClass()) {
+                return false;
+            }
+            if (!super.equals(other)) {
+                return false;
+            }
+            final TempDocument that = (TempDocument) other;
+            return name.equals(that.name);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(super.hashCode(), name);
+        }
+
+        @Override
+        public String toString() {
+            return name;
+        }
+
+        @Override
         public void replaceAll(final BiFunction<? super String, ? super Object, ?> function) {
             throw new UnsupportedOperationException();
         }
@@ -133,16 +143,6 @@ public final class AnyValues {
         @Override
         public Object replace(final String key, final Object value) {
             throw new UnsupportedOperationException();
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(super.hashCode(), name);
-        }
-
-        @Override
-        public String toString() {
-            return name;
         }
     }
 

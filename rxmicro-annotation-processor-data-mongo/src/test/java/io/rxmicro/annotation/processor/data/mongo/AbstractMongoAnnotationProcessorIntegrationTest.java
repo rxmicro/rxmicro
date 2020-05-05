@@ -38,9 +38,4 @@ public abstract class AbstractMongoAnnotationProcessorIntegrationTest
     protected final Processor createAnnotationProcessor() {
         return new BaseRxMicroAnnotationProcessor(MongoModuleClassStructuresBuilder.create());
     }
-
-    @Override
-    protected boolean withEnvironmentCustomizer() {
-        return false;
-    }
 }

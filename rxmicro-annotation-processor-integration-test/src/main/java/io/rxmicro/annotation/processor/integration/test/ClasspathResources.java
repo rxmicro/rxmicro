@@ -23,6 +23,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.URL;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -33,7 +34,6 @@ import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 import static io.rxmicro.common.util.Formats.format;
-import static io.rxmicro.common.util.Requires.require;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 /**
@@ -53,7 +53,7 @@ public final class ClasspathResources {
     public static Set<String> getOnlyChildrenAtTheFolder(final String folder,
                                                          final Predicate<String> resourcePredicate) {
         final Set<String> resources = new TreeSet<>();
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(getResourceAsStream(folder), UTF_8))) {
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(getResource(folder).openStream(), UTF_8))) {
             String line;
             while ((line = br.readLine()) != null) {
                 if (resourcePredicate.test(line)) {
@@ -67,16 +67,17 @@ public final class ClasspathResources {
     }
 
     public static String getResourceContent(final String resource) {
-        return new Scanner(require(
-                getResourceAsStream(resource),
-                "Resource '" + resource + "' not found"
-        ), UTF_8).useDelimiter("\\A").next();
+        try(InputStream in = getResource(resource).openStream()){
+            return new Scanner(in, UTF_8).useDelimiter("\\A").next();
+        } catch (IOException e) {
+            throw new ResourceException(e, "Can't read resource: ?", resource);
+        }
     }
 
     private static void readAll(final Set<String> resources,
                                 final String folder,
                                 final Predicate<String> resourcePredicate) {
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(getResourceAsStream(folder), UTF_8))) {
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(getResource(folder).openStream(), UTF_8))) {
             String line;
             while ((line = br.readLine()) != null) {
                 final String resource = normalize(folder + "/" + line);
@@ -92,16 +93,16 @@ public final class ClasspathResources {
         }
     }
 
-    private static InputStream getResourceAsStream(final String resource) {
-        final List<Supplier<InputStream>> inputStreamSuppliers = List.of(
-                () -> Thread.currentThread().getContextClassLoader().getResourceAsStream(resource),
-                () -> ClasspathResources.class.getClassLoader().getResourceAsStream(resource),
-                () -> ClasspathResources.class.getResourceAsStream(resource)
+    private static URL getResource(final String resource) {
+        final List<Supplier<URL>> resourceSuppliers = List.of(
+                () -> Thread.currentThread().getContextClassLoader().getResource(resource),
+                () -> ClasspathResources.class.getClassLoader().getResource(resource),
+                () -> ClasspathResources.class.getResource(resource)
         );
-        for (final Supplier<InputStream> supplier : inputStreamSuppliers) {
-            final InputStream in = supplier.get();
-            if (in != null) {
-                return in;
+        for (final Supplier<URL> supplier : resourceSuppliers) {
+            final URL url = supplier.get();
+            if (url != null) {
+                return url;
             }
         }
         throw new IllegalArgumentException(format("Classpath resource not found: '?'", resource));

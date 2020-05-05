@@ -57,14 +57,14 @@ public final class CommonMatchers {
         };
     }
 
-    public static <T> T isEqual(final T value) {
+    public static <T> T eq(final T value) {
         ArgumentMatchers.eq(value);
         return value;
     }
 
     @SuppressWarnings("ResultOfMethodCallIgnored")
-    public static <T> T isEqual(final ArgumentMatcher<T> argumentMatcher,
-                                final T value) {
+    public static <T> T eq(final ArgumentMatcher<T> argumentMatcher,
+                           final T value) {
         argThat(argumentMatcher);
         return value;
     }

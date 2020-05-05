@@ -35,11 +35,6 @@ public abstract class AbstractPostgreSQLAnnotationProcessorIntegrationTest
     }
 
     @Override
-    protected final boolean withEnvironmentCustomizer() {
-        return false;
-    }
-
-    @Override
     protected final Processor createAnnotationProcessor() {
         return new BaseRxMicroAnnotationProcessor(PostgreSQLModuleClassStructuresBuilder.create());
     }

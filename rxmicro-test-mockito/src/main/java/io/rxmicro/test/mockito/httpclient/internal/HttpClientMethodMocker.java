@@ -25,7 +25,6 @@ import io.rxmicro.test.mockito.httpclient.internal.matchers.BodyArgumentMatcher;
 import io.rxmicro.test.mockito.httpclient.internal.matchers.HeadersArgumentMatcher;
 import io.rxmicro.test.mockito.httpclient.internal.matchers.UrlPathArgumentMatcher;
 import io.rxmicro.test.mockito.httpclient.internal.model.ResponseModel;
-import io.rxmicro.test.mockito.internal.CommonMatchers;
 import org.mockito.invocation.InvocationOnMock;
 
 import java.util.List;
@@ -41,7 +40,7 @@ import static io.rxmicro.test.mockito.httpclient.internal.AnyValues.ANY_URL_PATH
 import static io.rxmicro.test.mockito.internal.CommonMatchers.any;
 import static io.rxmicro.test.mockito.internal.CommonMatchers.anyList;
 import static io.rxmicro.test.mockito.internal.CommonMatchers.anyString;
-import static io.rxmicro.test.mockito.internal.CommonMatchers.isEqual;
+import static io.rxmicro.test.mockito.internal.CommonMatchers.eq;
 import static java.util.concurrent.CompletableFuture.completedFuture;
 import static java.util.concurrent.CompletableFuture.failedFuture;
 import static org.mockito.Mockito.lenient;
@@ -126,7 +125,7 @@ public final class HttpClientMethodMocker {
 
     private String mockMethod(final HttpRequestMock httpRequestMock) {
         if (httpRequestMock.getMethod().isPresent()) {
-            return CommonMatchers.isEqual(httpRequestMock.getMethod().get().name());
+            return eq(httpRequestMock.getMethod().get().name());
         } else {
             return anyString(ANY_METHOD);
         }
@@ -135,10 +134,10 @@ public final class HttpClientMethodMocker {
     private String mockPath(final HttpRequestMock httpRequestMock) {
         if (httpRequestMock.getPath().isPresent() && httpRequestMock.getQueryParameters().isPresent()) {
             final String path = joinPath(httpRequestMock.getPath().get(), httpRequestMock.getQueryParameters().get());
-            return isEqual(new UrlPathArgumentMatcher(path), path);
+            return eq(new UrlPathArgumentMatcher(path), path);
         } else if (httpRequestMock.getPath().isPresent()) {
             final String path = httpRequestMock.getPath().get();
-            return isEqual(new UrlPathArgumentMatcher(path), path);
+            return eq(new UrlPathArgumentMatcher(path), path);
         } else if (httpRequestMock.getQueryParameters().isPresent()) {
             throw new InvalidTestConfigException("Set 'URL Path'!");
         } else {
@@ -149,7 +148,7 @@ public final class HttpClientMethodMocker {
     private List<Map.Entry<String, String>> mockHeaders(final HttpRequestMock httpRequestMock) {
         if (httpRequestMock.getHeaders().isPresent()) {
             final List<Map.Entry<String, String>> headers = httpRequestMock.getHeaders().get().getEntries();
-            return isEqual(new HeadersArgumentMatcher(headers), headers);
+            return eq(new HeadersArgumentMatcher(headers), headers);
         } else {
             return anyList(ANY_HEADERS);
         }
@@ -160,7 +159,7 @@ public final class HttpClientMethodMocker {
             final Optional<Object> bodyOptional = httpRequestMock.getBody();
             if (bodyOptional.isPresent()) {
                 final Object value = bodyOptional.get();
-                return isEqual(new BodyArgumentMatcher(value), value);
+                return eq(new BodyArgumentMatcher(value), value);
             } else {
                 return any(Object.class, ANY_BODY);
             }
