@@ -17,7 +17,14 @@
 - [ ] A code is formatted according to [Coding conventions](CONTRIBUTING.md).
 - [ ] Change is covered by automated tests.
 - [ ] Change is documented in the [User Guide](https://github.com/rxmicro/rxmicro-usage/tree/master/documentation) and [Release Notes](https://github.com/rxmicro/rxmicro/tree/master/release/src/main/asciidoc/release-notes).
-- [ ] All continuous integration builds pass.
+- [ ] All continuous integration builds pass:
+
+      `mvn --fail-at-end clean test`  
+      
+- [ ] Source code does not contain violations:
+
+      `mvn --fail-at-end -DskipTests -P spotbugs,pmd clean verify`   
+           
 - [ ] **All branches are merged to master!**
 - [ ] A new release is available on Git Hub.
 - [ ] A new release is available on maven central.

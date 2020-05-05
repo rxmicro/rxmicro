@@ -120,6 +120,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.release>11</maven.compiler.release>
         <!-- Used By Annotation Processor libraries -->
         <freemarker.version>2.3.30</freemarker.version>
         <google.guice.version>4.2.3</google.guice.version>
@@ -269,6 +270,7 @@
                                     <goal>check</goal>
                                 </goals>
                                 <configuration>
+                                    <verbose>true</verbose>
                                     <excludeFromFailureFile>${basedir}/../release/src/main/filters/exclude-pmd.properties</excludeFromFailureFile>
                                 </configuration>
                             </execution>
@@ -278,6 +280,7 @@
                                     <goal>cpd-check</goal>
                                 </goals>
                                 <configuration>
+                                    <verbose>true</verbose>
                                     <excludeFromFailureFile>${basedir}/../release/src/main/filters/exclude-cpd.properties</excludeFromFailureFile>
                                 </configuration>
                             </execution>
@@ -346,8 +349,7 @@
                         <configuration>
                             <excludeFilterFile>${basedir}/../release/src/main/filters/spotbugs-exclude.xml</excludeFilterFile>
                             <skipEmptyReport>true</skipEmptyReport>
-                            <fork>false</fork>
-                            <failOnError>false</failOnError>
+                            <debug>true</debug>
                         </configuration>
                         <dependencies>
                             <dependency>
@@ -372,42 +374,6 @@
                 </plugins>
             </reporting>
         </profile>
-        <profile>
-            <!-- https://www.eclemma.org/jacoco/ -->
-            <id>jacoco</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.jacoco</groupId>
-                        <artifactId>jacoco-maven-plugin</artifactId>
-                        <version>${jacoco-maven-plugin.version}</version>
-                        <executions>
-                            <execution>
-                                <id>report-execution</id>
-                                <goals>
-                                    <goal>report</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-            <reporting>
-                <plugins>
-                    <plugin>
-                        <groupId>org.jacoco</groupId>
-                        <artifactId>jacoco-maven-plugin</artifactId>
-                        <reportSets>
-                            <reportSet>
-                                <reports>
-                                    <report>report</report>
-                                </reports>
-                            </reportSet>
-                        </reportSets>
-                    </plugin>
-                </plugins>
-            </reporting>
-        </profile>
     </profiles>
 
     <build>
@@ -425,7 +391,7 @@
                     <artifactId>maven-compiler-plugin</artifactId>
                     <version>${maven-compiler-plugin.version}</version>
                     <configuration>
-                        <release>11</release>
+                        <release>${maven.compiler.release}</release>
                         <showWarnings>true</showWarnings>
                         <showDeprecation>true</showDeprecation>
                     </configuration>
@@ -530,6 +496,7 @@
                 </executions>
             </plugin>
 
+            <!-- https://www.eclemma.org/jacoco/ -->
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
@@ -541,10 +508,33 @@
                             <goal>prepare-agent</goal>
                         </goals>
                     </execution>
+                    <execution>
+                        <id>report-execution</id>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
                 </executions>
             </plugin>
         </plugins>
     </build>
+
+    <reporting>
+        <plugins>
+            <!-- https://www.eclemma.org/jacoco/ -->
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <report>report</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+        </plugins>
+    </reporting>
 
     <dependencies>
         <dependency>

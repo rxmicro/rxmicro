@@ -16,8 +16,8 @@ jobs:
   # ------------- Verify on Linux -------------
   #
 
-  verify-on-linux:
-    name: JDK-${{ matrix.jdk }}/${{ matrix.os }}
+  run-unit-tests-on-linux:
+    name: Run Unit Tests on JDK-${{ matrix.jdk }}/${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -41,14 +41,14 @@ jobs:
           java-version: '11'
 
       - name: Run all tests
-        run: mvn --fail-at-end -B test --file pom.xml
+        run: mvn --fail-at-end test
 
   #
   # ------------- Verify on Windows and MacOS -------------
   #
 
-  verify-on-windows-and-macos:
-    name: JDK-${{ matrix.jdk }}/${{ matrix.os }}
+  run-unit-tests-on-windows-and-macos:
+    name: Run Unit Tests on JDK-${{ matrix.jdk }}/${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     needs: verify-on-linux
     strategy:
@@ -73,7 +73,7 @@ jobs:
           java-version: '11'
 
       - name: Run all tests
-        run: mvn --fail-at-end -B test --file pom.xml
+        run: mvn --fail-at-end test
 
   #
   # ------------- Verify Examples and Upload Coverage Report -------------
@@ -82,7 +82,7 @@ jobs:
   verify-examples-and-upload-jacoco-report:
     name: Verify Examples and Upload Coverage Report
     runs-on: ubuntu-latest
-    needs: verify-on-windows-and-macos
+    needs: run-unit-tests-on-windows-and-macos
 
     steps:
       - name: Checkout rxmicro repo
@@ -105,7 +105,7 @@ jobs:
           echo "RxMicro version is $LATEST_VERSION"
 
       - name: Install latest version of rxmicro
-        run: mvn --fail-at-end -B install --file pom.xml
+        run: mvn --fail-at-end install
 
       - name: Checkout rxmicro-usage
         run: git clone https://github.com/rxmicro/rxmicro-usage
@@ -126,13 +126,13 @@ jobs:
           LATEST_VERSION=$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)
           GRAALVM_HOME=~/GraalVM
           cd rxmicro-usage/examples
-          mvn --fail-at-end -Drxmicro.version=$LATEST_VERSION -B verify --file pom.xml
+          mvn --fail-at-end -Drxmicro.version=$LATEST_VERSION verify
 
       - name: Merge Jacoco Execs
         run: find ./rxmicro-usage/examples -name '*.exec' -exec /bin/bash -c 'count=0; for name in "$@"; do count=`expr $count + 1`; cp $name ./rxmicro-annotation-processor/target/jacoco-$count.exec; done' argv0 {} +
 
       - name: Create Jacoco Aggregate
-        run: mvn -B site --file pom.xml
+        run: mvn site
 
       - name: Upload to codecov.io
         run: |

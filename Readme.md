@@ -41,6 +41,20 @@ For specific guidelines regarding contributions, please see [CONTRIBUTING.md](.g
 
 See [CHECK_LISTS.md](.github/CHECK_LISTS.md). 
 
+## Code Quality
+
+* To run `spotbugs` tool it is necessary to activate `spotbugs` maven profile:
+
+`mvn --fail-at-end -DskipTests -P spotbugs clean verify`
+
+* To run `pmd` tool it is necessary to activate `pmd` maven profile:
+
+`mvn --fail-at-end -DskipTests -P pmd clean verify`
+
+* To run all quality tools it is necessary to activate all maven profiles:
+
+`mvn --fail-at-end -DskipTests -P spotbugs,pmd clean verify`
+
 ## Publish to Maven Central
 
 https://central.sonatype.org/pages/apache-maven.html
