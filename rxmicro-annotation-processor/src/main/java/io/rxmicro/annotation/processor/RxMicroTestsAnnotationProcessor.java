@@ -82,6 +82,11 @@ public final class RxMicroTestsAnnotationProcessor extends BaseRxMicroAnnotation
         }
 
         @Override
+        protected boolean isEnvironmentCustomizerMustBeGenerated() {
+            return false;
+        }
+
+        @Override
         public Set<String> getSupportedAnnotationTypes() {
             return testFixerMap.keySet();
         }

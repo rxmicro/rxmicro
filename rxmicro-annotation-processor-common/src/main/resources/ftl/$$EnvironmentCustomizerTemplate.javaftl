@@ -7,7 +7,7 @@ final class ${CLASS_NAME} {
         addExportsToRuntime();
         </#if>
         <#if DEFAULT_CONFIG_VALUES?has_content>
-        putGlobalDefaultConfigValues();
+        putDefaultConfigValues();
         </#if>
         // All required customization must be here
     }
@@ -24,7 +24,7 @@ final class ${CLASS_NAME} {
 
     </#if>
     <#if DEFAULT_CONFIG_VALUES?has_content>
-    private static void putGlobalDefaultConfigValues() {
+    private static void putDefaultConfigValues() {
         <#list DEFAULT_CONFIG_VALUES as V>
         putDefaultConfigValue("${V.key}", ${V.value});
         </#list>

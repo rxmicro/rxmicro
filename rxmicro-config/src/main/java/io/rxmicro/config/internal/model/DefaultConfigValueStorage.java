@@ -51,7 +51,7 @@ public final class DefaultConfigValueStorage {
     }
 
     public boolean hasDefaultSupplierValuesStorage() {
-        return !getDefaultSupplierValuesStorage().isEmpty();
+        return !defaultSupplierValuesStorage.isEmpty();
     }
 
     public Map<String, Supplier<?>> getDefaultSupplierValuesStorage() {

@@ -61,12 +61,18 @@ public abstract class AbstractModuleClassStructuresBuilder extends AbstractProce
                                                                           final Set<? extends TypeElement> annotations,
                                                                           final RoundEnvironment roundEnv);
 
+    protected boolean isEnvironmentCustomizerMustBeGenerated() {
+        return true;
+    }
+
     public final List<SourceCode> buildSourceCode(final EnvironmentContext environmentContext,
                                                   final Set<? extends TypeElement> annotations,
                                                   final RoundEnvironment roundEnv) {
         final Set<ClassStructure> classStructures = new HashSet<>(buildClassStructures(environmentContext, annotations, roundEnv));
         getReflectionStructure(classStructures).ifPresent(classStructures::add);
-        classStructures.add(getEnvironmentCustomizerClassStructure(environmentContext, classStructures));
+        if (isEnvironmentCustomizerMustBeGenerated()) {
+            classStructures.add(getEnvironmentCustomizerClassStructure(environmentContext, classStructures));
+        }
         validateClassStructureDuplicates(environmentContext, classStructures);
         return classStructures.stream().map(cl -> sourceCodeGenerator.generate(cl)).collect(toList());
     }
