@@ -34,11 +34,11 @@ public final class $$PostgreSQLUpdateOneEntityFieldsUsingSingleRepository extend
                 pool.create()
                         .flatMap(c -> executeStatement(c, generatedSQL, firstName, lastName, id)
                                 .flatMap(r -> Mono.from(r.getRowsUpdated()))
-
+                                
                                 .delayUntil(s -> close(c))
                                 .onErrorResume(e -> close(c)
                                         .then(Mono.error(e)))
-
+                                
                         )
         );
     }
@@ -51,11 +51,11 @@ public final class $$PostgreSQLUpdateOneEntityFieldsUsingSingleRepository extend
                 pool.create()
                         .flatMap(c -> executeStatement(c, generatedSQL, firstName, lastName, id)
                                 .flatMap(r -> Mono.from(r.getRowsUpdated()))
-
+                                
                                 .delayUntil(s -> close(c))
                                 .onErrorResume(e -> close(c)
                                         .then(Mono.error(e)))
-
+                                
                         )
         ).map(r -> r > 0);
     }

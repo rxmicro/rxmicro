@@ -1126,7 +1126,7 @@ a|
 
 * [small]#`format: countryCode`#
 
-* [small]#`ISO 3166-1: alpha2`#
+* [small]#`ISO 3166-1: ALPHA_2`#
 a|Two-letter country code according to ISO 3166-1 alpha2 standard.
 
 .Read more:
@@ -1138,7 +1138,7 @@ a|
 
 * [small]#`format: countryCode`#
 
-* [small]#`ISO 3166-1: alpha3`#
+* [small]#`ISO 3166-1: ALPHA_3`#
 a|Three-letter country code according to ISO 3166-1 alpha3 standard.
 
 .Read more:
@@ -1150,7 +1150,7 @@ a|
 
 * [small]#`format: countryCode`#
 
-* [small]#`ISO 3166-1: numeric`#
+* [small]#`ISO 3166-1: NUMERIC`#
 a|Three-digit country code according to ISO 3166-1 numeric standard.
 
 .Read more:

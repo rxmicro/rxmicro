@@ -33,11 +33,11 @@ public final class $$PostgreSQLInsertOneEntityUsingCompletableRepository extends
                 pool.create()
                         .flatMap(c -> executeStatement(c, generatedSQL, insertParams)
                                 .flatMap(r -> Mono.from(r.getRowsUpdated()))
-
+                                
                                 .delayUntil(s -> close(c))
                                 .onErrorResume(e -> close(c)
                                         .then(Mono.error(e)))
-
+                                
                         )
         );
     }

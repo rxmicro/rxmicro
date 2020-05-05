@@ -30,13 +30,13 @@ public final class ${JAVA_MODEL_CLASS.modelValidatorImplSimpleClassName} impleme
         <#list JAVA_MODEL_VALIDATOR_INVOKERS as INV>
         <#list INV.validators as V>
         <#if INV.field.modelReadAccessorType.name() == "REFLECTION">
-        ${V.instanceName}.${V.method}((${INV.field.fieldClass}) getFieldValue(model, "${INV.field.fieldName}"), HttpModelType.${INV.field.httpModelType}, "${INV.field.modelName}");
+        ${V.instanceName}.${V.method}((${INV.field.fieldClass}) getFieldValue(model, "${INV.field.fieldName}"), HttpModelType.${INV.field.httpModelType.name()}, "${INV.field.modelName}");
         <#-- -------------------------------------------------------------------------------------------------------- -->
         <#elseif INV.field.modelReadAccessorType.name() == "DIRECT">
-        ${V.instanceName}.${V.method}(model.${INV.field.fieldName}, HttpModelType.${INV.field.httpModelType}, "${INV.field.modelName}");
+        ${V.instanceName}.${V.method}(model.${INV.field.fieldName}, HttpModelType.${INV.field.httpModelType.name()}, "${INV.field.modelName}");
         <#-- -------------------------------------------------------------------------------------------------------- -->
         <#elseif INV.field.modelReadAccessorType.name() == "JAVA_BEAN">
-        ${V.instanceName}.${V.method}(model.${INV.field.getter}(), HttpModelType.${INV.field.httpModelType}, "${INV.field.modelName}");
+        ${V.instanceName}.${V.method}(model.${INV.field.getter}(), HttpModelType.${INV.field.httpModelType.name()}, "${INV.field.modelName}");
         </#if>
         </#list>
         <#if INV?has_next>

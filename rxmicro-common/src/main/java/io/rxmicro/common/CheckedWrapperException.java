@@ -41,6 +41,6 @@ public final class CheckedWrapperException extends RxMicroException {
     }
 
     public boolean isCause(final Class<? extends Throwable> throwableClass) {
-        return throwableClass.isAssignableFrom(getCause().getClass());
+        return getCause() != null && throwableClass.isAssignableFrom(getCause().getClass());
     }
 }

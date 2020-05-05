@@ -14,6 +14,9 @@
  * limitations under the License.
  */
 
+import io.rxmicro.common.internal.CommonUnNamedModuleFixer;
+import io.rxmicro.common.model.UnNamedModuleFixer;
+
 /**
  * @author nedis
  * @link https://rxmicro.io
@@ -33,5 +36,8 @@ module rxmicro.common {
             rxmicro.rest.server.netty,
             rxmicro.json,
             rxmicro.exchange.json,
-            rxmicro.annotation.processor.documentation, rxmicro.test.mockito;
+            rxmicro.annotation.processor.documentation,
+            rxmicro.test.mockito;
+
+    provides UnNamedModuleFixer with CommonUnNamedModuleFixer;
 }

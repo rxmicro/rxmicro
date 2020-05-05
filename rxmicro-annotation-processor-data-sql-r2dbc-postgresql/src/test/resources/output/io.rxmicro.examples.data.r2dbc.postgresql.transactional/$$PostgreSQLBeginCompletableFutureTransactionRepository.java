@@ -33,9 +33,9 @@ public final class $$PostgreSQLBeginCompletableFutureTransactionRepository exten
     public CompletionStage<Transaction> beginTransaction1(final IsolationLevel isolationLevel) {
         return pool.create()
                 .flatMap(c -> beginCompletableFutureTransaction(c))
-                .toFuture()
-                .thenCompose(t -> t.setIsolationLevel(isolationLevel)
-                        .thenApply(v -> t));
+                        .toFuture()
+                        .thenCompose(t -> t.setIsolationLevel(isolationLevel)
+                                .thenApply(v -> t));
     }
 
     @Override
@@ -49,8 +49,8 @@ public final class $$PostgreSQLBeginCompletableFutureTransactionRepository exten
     public CompletableFuture<Transaction> beginTransaction2(final IsolationLevel isolationLevel) {
         return pool.create()
                 .flatMap(c -> beginCompletableFutureTransaction(c))
-                .toFuture()
-                .thenCompose(t -> t.setIsolationLevel(isolationLevel)
-                        .thenApply(v -> t));
+                        .toFuture()
+                        .thenCompose(t -> t.setIsolationLevel(isolationLevel)
+                                .thenApply(v -> t));
     }
 }

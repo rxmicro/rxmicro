@@ -32,11 +32,11 @@ public final class $$PostgreSQLInsertOneEntityFieldsUsingMonoRepository extends 
         return pool.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, firstName, lastName)
                         .flatMap(r -> Mono.from(r.getRowsUpdated()))
-
+                        
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
                                 .then(Mono.error(e)))
-
+                        
                 )
                 .then();
     }
@@ -48,11 +48,11 @@ public final class $$PostgreSQLInsertOneEntityFieldsUsingMonoRepository extends 
         return pool.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, firstName, lastName)
                         .flatMap(r -> Mono.from(r.getRowsUpdated()))
-
+                        
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
                                 .then(Mono.error(e)))
-
+                        
                 );
     }
 
@@ -63,11 +63,11 @@ public final class $$PostgreSQLInsertOneEntityFieldsUsingMonoRepository extends 
         return pool.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, firstName, lastName)
                         .flatMap(r -> Mono.from(r.getRowsUpdated()))
-
+                        
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
                                 .then(Mono.error(e)))
-
+                        
                 )
                 .map(r -> r > 0);
     }

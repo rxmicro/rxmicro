@@ -115,7 +115,6 @@ This error response indicates that the API is not able to generate any of the cl
 HTTP/1.1 406 Not Acceptable
 Content-Length: 0
 Request-Id: 62jJeu8x1310662
-
 ----
 
 // ------------------------------------ Micro Service2 | GET /latest/${category}/${type} | Response 406 | Headers ------------------------------------

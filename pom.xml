@@ -383,12 +383,6 @@
                         <version>${jacoco-maven-plugin.version}</version>
                         <executions>
                             <execution>
-                                <id>prepare-agent-execution</id>
-                                <goals>
-                                    <goal>prepare-agent</goal>
-                                </goals>
-                            </execution>
-                            <execution>
                                 <id>report-execution</id>
                                 <goals>
                                     <goal>report</goal>
@@ -531,6 +525,20 @@
                         <phase>verify</phase>
                         <goals>
                             <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>${jacoco-maven-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>prepare-agent-execution</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
                         </goals>
                     </execution>
                 </executions>

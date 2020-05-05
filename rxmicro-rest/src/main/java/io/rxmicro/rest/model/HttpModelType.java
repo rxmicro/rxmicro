@@ -16,6 +16,8 @@
 
 package io.rxmicro.rest.model;
 
+import java.util.Locale;
+
 /**
  * @author nedis
  * @link https://rxmicro.io
@@ -29,5 +31,10 @@ public enum HttpModelType {
 
     PATH,
 
-    INTERNAL
+    INTERNAL;
+
+    @Override
+    public String toString() {
+        return name().toLowerCase(Locale.ENGLISH);
+    }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. https://rxmicro.io
+ * Copyright (c) 2020. http://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,20 +14,23 @@
  * limitations under the License.
  */
 
-package io.rxmicro.examples.data.r2dbc.postgresql.transactional;
+package io.rxmicro.common.internal;
 
-import io.reactivex.rxjava3.core.Single;
-import io.rxmicro.data.sql.model.IsolationLevel;
-import io.rxmicro.data.sql.r2dbc.postgresql.PostgreSQLRepository;
+import io.rxmicro.common.model.UnNamedModuleFixer;
 
-// tag::content[]
-import io.rxmicro.data.sql.model.rxjava3.Transaction;
+/**
+ * @author nedis
+ * @link https://rxmicro.io
+ * @since 0.4
+ */
+public final class CommonUnNamedModuleFixer extends UnNamedModuleFixer {
 
-@PostgreSQLRepository
-public interface BeginRxJava3TransactionRepository {
-
-    Single<Transaction> beginTransaction();
-
-    Single<Transaction> beginTransaction(IsolationLevel isolationLevel);
+    @Override
+    public void fix(final Module unNamedModule) {
+        addOpens(
+                getClass().getModule(),
+                (currentModule, packageName) -> currentModule.addOpens(packageName, unNamedModule),
+                "io.rxmicro.common.local"
+        );
+    }
 }
-// end::content[]

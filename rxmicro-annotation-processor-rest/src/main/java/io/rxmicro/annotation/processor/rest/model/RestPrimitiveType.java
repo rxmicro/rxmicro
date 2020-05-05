@@ -89,8 +89,6 @@ public enum RestPrimitiveType implements PrimitiveType {
             return FLOAT;
         } else if (Double.class.getName().equals(type)) {
             return DOUBLE;
-        } else if (Double.class.getName().equals(type)) {
-            return DOUBLE;
         } else {
             throw new InternalErrorException("Json primitive allowed only: " + type);
         }

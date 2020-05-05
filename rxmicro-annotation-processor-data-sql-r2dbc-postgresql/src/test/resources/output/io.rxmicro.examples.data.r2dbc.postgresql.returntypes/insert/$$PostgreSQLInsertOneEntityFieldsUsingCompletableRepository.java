@@ -27,11 +27,11 @@ public final class $$PostgreSQLInsertOneEntityFieldsUsingCompletableRepository e
                 pool.create()
                         .flatMap(c -> executeStatement(c, generatedSQL, firstName, lastName)
                                 .flatMap(r -> Mono.from(r.getRowsUpdated()))
-
+                                
                                 .delayUntil(s -> close(c))
                                 .onErrorResume(e -> close(c)
                                         .then(Mono.error(e)))
-
+                                
                         )
         );
     }

@@ -17,6 +17,9 @@
 package io.rxmicro.test.local;
 
 import io.rxmicro.common.CheckedWrapperException;
+import io.rxmicro.common.model.UnNamedModuleFixer;
+import io.rxmicro.logger.Logger;
+import io.rxmicro.logger.LoggerFactory;
 
 import java.util.ServiceLoader;
 
@@ -34,44 +37,36 @@ import static io.rxmicro.tool.common.TestFixers.REST_BASED_MICRO_SERVICE_TEST_FI
  */
 public final class UnNamedModuleFixers {
 
-    public static void commonFix() {
-        final Module unNamedModule = UnNamedModuleFixers.class.getClassLoader().getUnnamedModule();
-        final ServiceLoader<io.rxmicro.common.model.UnNamedModuleFixer> loader = ServiceLoader.load(io.rxmicro.common.model.UnNamedModuleFixer.class);
-        for (final io.rxmicro.common.model.UnNamedModuleFixer namedModule : loader) {
-            namedModule.fix(unNamedModule);
-        }
-    }
+    private static final Logger LOGGER = LoggerFactory.getLogger(UnNamedModuleFixers.class);
 
     public static void componentTestsFix() {
-        commonFix();
-        try {
-            instantiate(format("?.?", ENTRY_POINT_PACKAGE, COMPONENT_TEST_FIXER));
-        } catch (final CheckedWrapperException e) {
-            if (!e.isCause(ClassNotFoundException.class)) {
-                e.printStackTrace();
-            }
-        }
+        testFix(COMPONENT_TEST_FIXER);
     }
 
     public static void restBasedMicroServiceTestsFix() {
+        testFix(REST_BASED_MICRO_SERVICE_TEST_FIXER);
+    }
+
+    public static void integrationTestsFix() {
+        testFix(INTEGRATION_TEST_FIXER);
+    }
+
+    private static void testFix(final String testFixSimpleClassName) {
         commonFix();
         try {
-            instantiate(format("?.?", ENTRY_POINT_PACKAGE, REST_BASED_MICRO_SERVICE_TEST_FIXER));
+            instantiate(format("?.?", ENTRY_POINT_PACKAGE, testFixSimpleClassName));
         } catch (final CheckedWrapperException e) {
             if (!e.isCause(ClassNotFoundException.class)) {
-                e.printStackTrace();
+                LOGGER.error(e, "Can't instantiate a `?.?` class: ?", ENTRY_POINT_PACKAGE, testFixSimpleClassName, e.getMessage());
             }
         }
     }
 
-    public static void integrationTestsFix() {
-        commonFix();
-        try {
-            instantiate(format("?.?", ENTRY_POINT_PACKAGE, INTEGRATION_TEST_FIXER));
-        } catch (final CheckedWrapperException e) {
-            if (!e.isCause(ClassNotFoundException.class)) {
-                e.printStackTrace();
-            }
+    private static void commonFix() {
+        final Module unNamedModule = UnNamedModuleFixers.class.getClassLoader().getUnnamedModule();
+        final ServiceLoader<UnNamedModuleFixer> loader = ServiceLoader.load(UnNamedModuleFixer.class);
+        for (final UnNamedModuleFixer namedModule : loader) {
+            namedModule.fix(unNamedModule);
         }
     }
 

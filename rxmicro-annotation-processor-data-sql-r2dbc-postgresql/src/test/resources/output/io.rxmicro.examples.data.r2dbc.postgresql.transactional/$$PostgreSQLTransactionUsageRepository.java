@@ -79,7 +79,7 @@ public final class $$PostgreSQLTransactionUsageRepository extends AbstractPostgr
         return extractConnectionFrom(transaction)
                 .flatMap(c -> executeStatement(c, generatedSQL, updateParams)
                         .flatMap(r -> Mono.from(r.getRowsUpdated()))
-
+                        
                 )
                 .map(r -> r > 0);
     }
@@ -92,7 +92,7 @@ public final class $$PostgreSQLTransactionUsageRepository extends AbstractPostgr
         return extractConnectionFrom(transaction)
                 .flatMap(c -> executeStatement(c, generatedSQL, primaryKey)
                         .flatMap(r -> Mono.from(r.getRowsUpdated()))
-
+                        
                 )
                 .map(r -> r > 0);
     }

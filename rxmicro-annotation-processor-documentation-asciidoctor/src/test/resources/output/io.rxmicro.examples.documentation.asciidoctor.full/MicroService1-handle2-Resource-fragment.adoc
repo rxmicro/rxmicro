@@ -211,7 +211,7 @@ a|
 
 * [small]#`format: countryCode`#
 
-* [small]#`ISO 3166-1: alpha2`#
+* [small]#`ISO 3166-1: ALPHA_2`#
 a|Two-letter country code according to ISO 3166-1 alpha2 standard.
 
 .Read more:
@@ -495,7 +495,6 @@ This error response indicates that the API is not able to generate any of the cl
 HTTP/1.1 406 Not Acceptable
 Content-Length: 0
 Request-Id: 62jJeu8x1310662
-
 ----
 
 // --------------------------------------- Micro Service1 | GET /${category}-${type} | Response 406 | Headers ---------------------------------------
