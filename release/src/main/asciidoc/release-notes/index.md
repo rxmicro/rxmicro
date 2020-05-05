@@ -46,3 +46,10 @@ This document contains the *change log* for all RxMicro releases since **0.2**.
   * junit-platform-commons: 1.6.1 -> 1.6.2
 * Fix config setters for graalvm native images
 * Add `Throwable` argument for all log levels: `TRACE`, `DEBUG`, `INFO`, `WARN`, `ERROR` 
+
+## RxMicro v0.4
+
+* Add spotbugs tool to rxmicro project
+* Add PMD tool to rxmicro project
+* Add missing implementation to Slf4jLoggerProxy
+* Add missing javadoc to Public API

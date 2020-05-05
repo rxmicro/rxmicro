@@ -25,6 +25,7 @@
 
       `mvn --fail-at-end -DskipTests -P spotbugs,pmd clean verify`   
            
-- [ ] **All branches are merged to master!**
+- [ ] **All branches merged to master!**
+- [ ] Add release notes to `release-notes/index.md`
 - [ ] A new release is available on Git Hub.
 - [ ] A new release is available on maven central.
