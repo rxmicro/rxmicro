@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. https://rxmicro.io
+ * Copyright (c) 2020. http://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -44,5 +44,10 @@ public abstract class AbstractDefaultConfigValueBuilder {
             builder = null;
         }
         return defaultConfigValueStorage;
+    }
+
+    protected static void resetDefaultConfigValueStorage(){
+        defaultConfigValueStorage = null;
+        builder = new DefaultConfigValueStorage.Builder();
     }
 }

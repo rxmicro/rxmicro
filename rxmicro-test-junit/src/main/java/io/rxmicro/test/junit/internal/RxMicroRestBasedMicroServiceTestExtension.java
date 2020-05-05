@@ -50,6 +50,7 @@ import org.junit.jupiter.api.extension.ExtensionContext;
 import java.util.List;
 import java.util.Map;
 
+import static io.rxmicro.config.local.DefaultConfigValueBuilderReSetter.resetDefaultConfigValueStorage;
 import static io.rxmicro.rest.server.RequestIdGeneratorType.FOR_TESTS_ONLY;
 import static io.rxmicro.rest.server.local.component.RestServerLauncher.launchWithoutRestControllers;
 import static io.rxmicro.runtime.local.AbstractFactory.clearFactories;
@@ -208,6 +209,7 @@ public final class RxMicroRestBasedMicroServiceTestExtension
     public void afterEach(final ExtensionContext context) {
         clearContainer();
         clearFactories();
+        resetDefaultConfigValueStorage();
         serverContainer.unregisterAllRestControllers();
         systemOutInjector.resetIfNecessary();
     }

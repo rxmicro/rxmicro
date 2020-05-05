@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. https://rxmicro.io
+ * Copyright (c) 2020. http://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,23 +14,23 @@
  * limitations under the License.
  */
 
+package io.rxmicro.config.internal.test;
+
 import io.rxmicro.common.model.UnNamedModuleFixer;
-import io.rxmicro.config.internal.test.ConfigUnNamedModuleFixer;
 
 /**
  * @author nedis
  * @link https://rxmicro.io
- * @since 0.1
+ * @since 0.4
  */
-module rxmicro.config {
-    requires transitive rxmicro.runtime;
-    requires rxmicro.files;
+public final class ConfigUnNamedModuleFixer extends UnNamedModuleFixer {
 
-    exports io.rxmicro.config;
-    exports io.rxmicro.config.detail;
-
-    exports io.rxmicro.config.local to
-            rxmicro.test.junit;
-
-    provides UnNamedModuleFixer with ConfigUnNamedModuleFixer;
+    @Override
+    public void fix(final Module unNamedModule) {
+        addOpens(
+                getClass().getModule(),
+                (currentModule, packageName) -> currentModule.addOpens(packageName, unNamedModule),
+                "io.rxmicro.config.local"
+        );
+    }
 }
