@@ -21,6 +21,10 @@ import io.rxmicro.common.util.Formats;
 import java.util.function.Supplier;
 
 /**
+ * Logger is an integral component of any software system.
+ * The RxMicro framework provides the rxmicro.logger module for logging important events during the work of microservices.
+ * The Logger interface is an abstraction over the real logger.
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @link https://docs.oracle.com/en/java/javase/11/docs/api/java.logging/java/util/logging/package-summary.html

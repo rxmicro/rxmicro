@@ -27,7 +27,7 @@ import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
- * Allows to set a result HTTP response status code
+ * Indicates to the RxMicro framework that the value of the Java model field should be used as a status code to be sent to the client.
  *
  * @author nedis
  * @link https://rxmicro.io

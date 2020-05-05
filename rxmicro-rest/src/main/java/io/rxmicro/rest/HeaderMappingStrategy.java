@@ -27,6 +27,11 @@ import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
+ * Declares a strategy of header name formation based on Java model field name analysis.
+ *
+ * By default, the CAPITALIZE_WITH_HYPHEN strategy is used.
+ * Thus, by using this strategy, the {@code 'Header-Name'} name header corresponds to the {@code 'headerName'} field name.
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1
@@ -36,5 +41,11 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 @Target({TYPE, METHOD})
 public @interface HeaderMappingStrategy {
 
+    /**
+     * By default, the CAPITALIZE_WITH_HYPHEN strategy is used.
+     * Thus, by using this strategy, the {@code 'Header-Name'} name header corresponds to the {@code 'headerName'} field name.
+     *
+     * @return mapping strategy
+     */
     MappingStrategy value() default MappingStrategy.CAPITALIZE_WITH_HYPHEN;
 }

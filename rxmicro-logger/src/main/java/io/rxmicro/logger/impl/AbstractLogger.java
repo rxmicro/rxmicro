@@ -26,6 +26,8 @@ import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.Requires.require;
 
 /**
+ * Abstract logger implementation that delegate log event to `log` methods
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1

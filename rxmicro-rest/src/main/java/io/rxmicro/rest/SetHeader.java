@@ -26,6 +26,10 @@ import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
+ * Denotes a static HTTP header that must be set to the response, created by the request handler from REST controller
+ * or
+ * denotes a static HTTP header that must be set to the request, formed by the request handler from REST client.
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1
@@ -36,11 +40,19 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 @Repeatable(SetHeader.List.class)
 public @interface SetHeader {
 
+    /**
+     * @return static header name
+     */
     String name();
 
+    /**
+     * @return static header value
+     */
     String value();
 
     /**
+     * Defines several {@link SetHeader} annotations on the same element.
+     *
      * @author nedis
      * @link https://rxmicro.io
      * @since 0.1

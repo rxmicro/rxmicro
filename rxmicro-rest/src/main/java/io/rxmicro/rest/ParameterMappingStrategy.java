@@ -27,6 +27,11 @@ import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
+ * Declares a strategy of parameter name formation based on Java model field name analysis.
+ *
+ * By default, the LOWERCASE_WITH_UNDERSCORED strategy is used.
+ * Thus, by using this strategy, the {@code header_name} name header corresponds to the {@code headerName} field name.
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1
@@ -36,5 +41,11 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 @Target({TYPE, METHOD})
 public @interface ParameterMappingStrategy {
 
+    /**
+     * By default, the LOWERCASE_WITH_UNDERSCORED strategy is used.
+     * Thus, by using this strategy, the {@code header_name} name header corresponds to the {@code headerName} field name.
+     *
+     * @return mapping strategy
+     */
     MappingStrategy value() default MappingStrategy.LOWERCASE_WITH_UNDERSCORED;
 }

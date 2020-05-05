@@ -22,6 +22,8 @@ import static io.rxmicro.common.util.Strings.splitByCamelCase;
 import static java.util.stream.Collectors.joining;
 
 /**
+ * The parent class for all config classes.
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1

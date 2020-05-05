@@ -29,7 +29,7 @@ import static java.lang.annotation.ElementType.PARAMETER;
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
- * Maps remote socket address to annotated class field
+ * Declares the Java model field as a field, in which which the RxMicro framework must inject the remote client connection address.
  *
  * @author nedis
  * @link https://rxmicro.io

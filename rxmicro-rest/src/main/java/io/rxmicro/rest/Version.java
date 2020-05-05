@@ -25,12 +25,7 @@ import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
- * Allows to version a REST API
- * <p>
- * Each endpoint url can contain:
- * [/@Category][/@Version][/@BaseUrl]/@URL,
- * <p>
- * where @Category, @Version and @BaseUrl are optional
+ * Denotes a version of the REST controller or REST client.
  *
  * @author nedis
  * @link https://rxmicro.io
@@ -47,12 +42,12 @@ public @interface Version {
     String value();
 
     /**
-     * @return version {@code Strategy}
+     * @return version {@link Strategy}
      */
     Strategy strategy() default Strategy.URL_PATH;
 
     /**
-     * REST API version strategy
+     * REST version strategy
      *
      * @author nedis
      * @link https://rxmicro.io

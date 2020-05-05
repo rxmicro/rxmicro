@@ -17,19 +17,30 @@
 package io.rxmicro.annotation.processor.common;
 
 import io.rxmicro.annotation.processor.common.component.impl.AbstractProcessorComponent;
+import io.rxmicro.annotation.processor.common.model.DocumentationType;
 
 /**
+ * Supported options by RxMicro Annotation Processor
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1
  */
 public final class SupportedOptions {
 
+    /**
+     * Maximum stack size for recursive invocations when analyzing models containing JSON nested objects.
+     */
     public static final String RX_MICRO_MAX_JSON_NESTED_DEPTH = "RX_MICRO_MAX_JSON_NESTED_DEPTH";
 
+    /**
+     * Default stack size.
+     */
     public static final int RX_MICRO_MAX_JSON_NESTED_DEPTH_OPTION_DEFAULT_VALUE = 20;
 
     /**
+     * RxMicro Annotation Processor logging level.
+     *
      * OFF
      * INFO
      * DEBUG
@@ -39,15 +50,28 @@ public final class SupportedOptions {
      */
     public static final String RX_MICRO_LOG_LEVEL = "RX_MICRO_LOG_LEVEL";
 
+    /**
+     * Default logging level.
+     */
     public static final String RX_MICRO_LOG_LEVEL_DEFAULT_VALUE = AbstractProcessorComponent.Level.INFO.name();
 
     /**
-     * @see io.rxmicro.annotation.processor.common.model.DocumentationType
+     * The resulting directory for generated documentation.
+     *
+     * Default value is defined at {@link DocumentationType} enum
+     *
+     * @see DocumentationType
      */
     public static final String RX_MICRO_DOC_DESTINATION_DIR = "RX_MICRO_DOC_DESTINATION_DIR";
 
+    /**
+     * The unnamed module support for a microservice project.
+     */
     public static final String RX_MICRO_BUILD_UNNAMED_MODULE = "RX_MICRO_BUILD_UNNAMED_MODULE";
 
+    /**
+     * The unnamed module support is disabled by default.
+     */
     public static final boolean RX_MICRO_BUILD_UNNAMED_MODULE_DEFAULT_VALUE = false;
 
     private SupportedOptions() {

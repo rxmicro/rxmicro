@@ -38,5 +38,8 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 @Target({FIELD, METHOD, PARAMETER})
 public @interface Header {
 
+    /**
+     * @return HTTP header name
+     */
     String value() default "";
 }

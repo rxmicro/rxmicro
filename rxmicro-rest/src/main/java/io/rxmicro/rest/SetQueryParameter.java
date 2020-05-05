@@ -26,6 +26,8 @@ import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
+ * Denotes a static query parameter that must be set to the request, created by REST client implementation.
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1
@@ -36,11 +38,19 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 @Repeatable(SetQueryParameter.List.class)
 public @interface SetQueryParameter {
 
+    /**
+     * @return static query parameter name
+     */
     String name();
 
+    /**
+     * @return static query parameter value
+     */
     String value();
 
     /**
+     * Defines several {@link SetQueryParameter} annotations on the same element.
+     *
      * @author nedis
      * @link https://rxmicro.io
      * @since 0.1
