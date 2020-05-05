@@ -53,48 +53,48 @@ public abstract class AbstractProcessorComponent {
 
     protected final void debug(final Supplier<String> supplier) {
         if (getLevel() == Level.DEBUG) {
-            logMessage(Level.DEBUG.name(), supplier.get());
+            logMessage(Level.DEBUG, supplier.get());
         }
     }
 
     protected final void debug(final String message,
                                final Object... args) {
         if (getLevel() == Level.DEBUG) {
-            logMessage(Level.DEBUG.name(), format(message, args));
+            logMessage(Level.DEBUG, format(message, args));
         }
     }
 
     protected final void debug(final String message,
                                final Supplier<?>... args) {
         if (getLevel() == Level.DEBUG) {
-            logMessage(Level.DEBUG.name(), format(message, Arrays.stream(args).map(Supplier::get).toArray()));
+            logMessage(Level.DEBUG, format(message, Arrays.stream(args).map(Supplier::get).toArray()));
         }
     }
 
     protected final void info(final Supplier<String> supplier) {
         if (getLevel() == Level.INFO) {
-            logMessage(Level.INFO.name(), supplier.get());
+            logMessage(Level.INFO, supplier.get());
         }
     }
 
     protected final void info(final String message,
                               final Object... args) {
         if (getLevel() == Level.INFO) {
-            logMessage(Level.INFO.name(), format(message, args));
+            logMessage(Level.INFO, format(message, args));
         }
     }
 
     protected final void info(final String message,
                               final Supplier<?>... args) {
         if (getLevel() == Level.INFO) {
-            logMessage(Level.INFO.name(), format(message, Arrays.stream(args).map(Supplier::get).toArray()));
+            logMessage(Level.INFO, format(message, Arrays.stream(args).map(Supplier::get).toArray()));
         }
     }
 
     protected final void error(final String message,
                                final Object... args) {
         if (getLevel() != Level.OFF) {
-            logMessage("ERROR", format(message, args));
+            getMessager().printMessage(Diagnostic.Kind.ERROR, format(message, args));
         }
     }
 

@@ -16,6 +16,8 @@
 
 package io.rxmicro.annotation.processor.common.util;
 
+import io.rxmicro.annotation.processor.common.component.impl.AbstractProcessorComponent;
+
 /**
  * @author nedis
  * @link https://rxmicro.io
@@ -23,7 +25,7 @@ package io.rxmicro.annotation.processor.common.util;
  */
 public final class InternalLoggers {
 
-    public static void logMessage(final String level,
+    public static void logMessage(final AbstractProcessorComponent.Level level,
                                   final String message) {
         System.out.println("[" + level + "] " + message);
     }

@@ -16,6 +16,9 @@
 
 package io.rxmicro.test.local.util;
 
+import io.rxmicro.logger.Logger;
+import io.rxmicro.logger.LoggerFactory;
+
 /**
  * @author nedis
  * @link https://rxmicro.io
@@ -23,13 +26,15 @@ package io.rxmicro.test.local.util;
  */
 public final class Safes {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(Safes.class);
+
     public static <T> void safeInvoke(final T instance,
                                       final Consumer<T> consumer) {
         if (instance != null) {
             try {
                 consumer.accept(instance);
             } catch (final Throwable throwable) {
-                throwable.printStackTrace();
+                LOGGER.warn(throwable, "Can't safe invoke: ?", throwable.getMessage());
             }
         }
     }

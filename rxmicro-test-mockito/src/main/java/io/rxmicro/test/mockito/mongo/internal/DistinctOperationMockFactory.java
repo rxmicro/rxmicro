@@ -19,13 +19,14 @@ package io.rxmicro.test.mockito.mongo.internal;
 import com.mongodb.reactivestreams.client.DistinctPublisher;
 import com.mongodb.reactivestreams.client.MongoCollection;
 import com.mongodb.reactivestreams.client.MongoDatabase;
+import io.rxmicro.test.mockito.internal.CommonMatchers;
 import io.rxmicro.test.mockito.mongo.DistinctOperationMock;
 import org.bson.Document;
 
 import java.util.Optional;
 
 import static io.rxmicro.test.mockito.internal.CommonMatchers.any;
-import static io.rxmicro.test.mockito.internal.CommonMatchers.equal;
+import static io.rxmicro.test.mockito.internal.CommonMatchers.isEqual;
 import static io.rxmicro.test.mockito.mongo.internal.AnyValues.ANY_DOCUMENT;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -60,9 +61,9 @@ public final class DistinctOperationMockFactory extends AbstractOperationMockFac
             ).thenReturn(distinctPublisher);
         } else if (operationMock.isAnyQuery()) {
             when(collection.distinct(
-                    equal(operationMock.getField()),
+                    CommonMatchers.isEqual(operationMock.getField()),
                     any(Document.class, ANY_DOCUMENT),
-                    equal(operationMock.getResultClass()))
+                    CommonMatchers.isEqual(operationMock.getResultClass()))
             ).thenReturn(distinctPublisher);
         } else {
             when(collection.distinct(

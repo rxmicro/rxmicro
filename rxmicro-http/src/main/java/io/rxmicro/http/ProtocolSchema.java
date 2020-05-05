@@ -45,9 +45,4 @@ public enum ProtocolSchema {
     public int getPort() {
         return port;
     }
-
-    @Override
-    public String toString() {
-        return schema;
-    }
 }

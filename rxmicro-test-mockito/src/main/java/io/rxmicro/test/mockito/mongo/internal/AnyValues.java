@@ -20,7 +20,11 @@ import org.bson.Document;
 import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;
 
+import java.util.Collection;
+import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
+import java.util.function.BiFunction;
 
 /**
  * @author nedis
@@ -43,6 +47,7 @@ public final class AnyValues {
      * @link https://rxmicro.io
      * @since 0.1
      */
+    @SuppressWarnings("NullableProblems")
     private static final class TempDocument extends Document {
         private final String name;
 
@@ -63,6 +68,71 @@ public final class AnyValues {
             }
             final TempDocument that = (TempDocument) other;
             return name.equals(that.name);
+        }
+
+        @Override
+        public TempDocument append(final String key, final Object value) {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public Object put(final String key, final Object value) {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public Object remove(final Object key) {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public void putAll(final Map<? extends String, ?> map) {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public void clear() {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public Set<String> keySet() {
+            return Set.of();
+        }
+
+        @Override
+        public Collection<Object> values() {
+            return Set.of();
+        }
+
+        @Override
+        public Set<Entry<String, Object>> entrySet() {
+            return Set.of();
+        }
+
+        @Override
+        public void replaceAll(final BiFunction<? super String, ? super Object, ?> function) {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public Object putIfAbsent(final String key, final Object value) {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public boolean remove(final Object key, final Object value) {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public boolean replace(final String key, final Object oldValue, final Object newValue) {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public Object replace(final String key, final Object value) {
+            throw new UnsupportedOperationException();
         }
 
         @Override

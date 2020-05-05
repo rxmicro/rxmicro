@@ -29,7 +29,7 @@ import reactor.core.publisher.Mono;
 import java.util.Optional;
 
 import static io.rxmicro.test.mockito.internal.CommonMatchers.any;
-import static io.rxmicro.test.mockito.internal.CommonMatchers.equal;
+import static io.rxmicro.test.mockito.internal.CommonMatchers.isEqual;
 import static io.rxmicro.test.mockito.mongo.internal.AnyValues.ANY_DOCUMENT;
 import static org.mockito.Mockito.when;
 
@@ -69,14 +69,14 @@ public final class CountDocumentsOperationMockFactory extends AbstractOperationM
         if (operationMock.isAnyQuery()) {
             when(collection.countDocuments(
                     any(Document.class, ANY_DOCUMENT),
-                    equal(new CountOptionsMatcher(countOptions), countOptions))
+                    isEqual(new CountOptionsMatcher(countOptions), countOptions))
             ).thenReturn(result);
         } else {
             when(collection.countDocuments(
                     operationMock.getQuery()
-                            .map(CommonMatchers::equal)
+                            .map(CommonMatchers::isEqual)
                             .orElse(MongoQueries.NULL),
-                    equal(new CountOptionsMatcher(countOptions), countOptions))
+                    isEqual(new CountOptionsMatcher(countOptions), countOptions))
             ).thenReturn(result);
         }
     }
@@ -89,7 +89,7 @@ public final class CountDocumentsOperationMockFactory extends AbstractOperationM
         } else {
             final Optional<Document> query = operationMock.getQuery();
             if (query.isPresent()) {
-                when(collection.countDocuments(equal(query.get()))).thenReturn(result);
+                when(collection.countDocuments(CommonMatchers.isEqual(query.get()))).thenReturn(result);
             } else {
                 when(collection.countDocuments()).thenReturn(result);
             }
