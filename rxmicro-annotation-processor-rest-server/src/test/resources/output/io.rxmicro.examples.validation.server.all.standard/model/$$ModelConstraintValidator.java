@@ -83,12 +83,6 @@ public final class $$ModelConstraintValidator implements ConstraintValidator<Mod
     private final AssertTrueConstraintValidator assertTrueConstraintValidator =
             getStatelessValidator(AssertTrueConstraintValidator.class);
 
-    private final EmailConstraintValidator emailConstraintValidator =
-            getStatelessValidator(EmailConstraintValidator.class);
-
-    private final HostNameConstraintValidator hostNameConstraintValidator =
-            getStatelessValidator(HostNameConstraintValidator.class);
-
     private final LowercaseConstraintValidator lowercaseConstraintValidator =
             getStatelessValidator(LowercaseConstraintValidator.class);
 
@@ -224,8 +218,14 @@ public final class $$ModelConstraintValidator implements ConstraintValidator<Mod
     private final CountryCodeConstraintValidator stringParameterCountryCodeCountryCodeConstraintValidator =
             new CountryCodeConstraintValidator(Format.ISO_3166_1_ALPHA_2);
 
+    private final EmailConstraintValidator stringParameterEmailEmailConstraintValidator =
+            new EmailConstraintValidator(false);
+
     private final EnumerationStringConstraintValidator stringParameterEnumerationEnumerationStringConstraintValidator =
             new EnumerationStringConstraintValidator(List.of("3", "2", "3"));
+
+    private final HostNameConstraintValidator stringParameterHostNameHostNameConstraintValidator =
+            new HostNameConstraintValidator(false);
 
     private final IPConstraintValidator stringParameterIPIPConstraintValidator =
             new IPConstraintValidator(List.of(Version.IP_V4, Version.IP_V6));
@@ -419,8 +419,14 @@ public final class $$ModelConstraintValidator implements ConstraintValidator<Mod
     private final CountryCodeConstraintValidator stringsCountryCodeCountryCodeConstraintValidator =
             new CountryCodeConstraintValidator(Format.ISO_3166_1_ALPHA_2);
 
+    private final EmailConstraintValidator stringsEmailEmailConstraintValidator =
+            new EmailConstraintValidator(false);
+
     private final EnumerationStringConstraintValidator stringsEnumerationEnumerationStringConstraintValidator =
             new EnumerationStringConstraintValidator(List.of("3", "2", "3"));
+
+    private final HostNameConstraintValidator stringsHostNameHostNameConstraintValidator =
+            new HostNameConstraintValidator(false);
 
     private final IPConstraintValidator stringsIPIPConstraintValidator =
             new IPConstraintValidator(List.of(Version.IP_V4, Version.IP_V6));
@@ -618,9 +624,9 @@ public final class $$ModelConstraintValidator implements ConstraintValidator<Mod
         requiredConstraintValidator.validate(model.stringParameter, HttpModelType.PARAMETER, "stringParameter");
         stringParameterBase64URLEncodedBase64URLEncodedConstraintValidator.validate(model.stringParameter, HttpModelType.PARAMETER, "stringParameter");
         stringParameterCountryCodeCountryCodeConstraintValidator.validate(model.stringParameter, HttpModelType.PARAMETER, "stringParameter");
-        emailConstraintValidator.validate(model.stringParameter, HttpModelType.PARAMETER, "stringParameter");
+        stringParameterEmailEmailConstraintValidator.validate(model.stringParameter, HttpModelType.PARAMETER, "stringParameter");
         stringParameterEnumerationEnumerationStringConstraintValidator.validate(model.stringParameter, HttpModelType.PARAMETER, "stringParameter");
-        hostNameConstraintValidator.validate(model.stringParameter, HttpModelType.PARAMETER, "stringParameter");
+        stringParameterHostNameHostNameConstraintValidator.validate(model.stringParameter, HttpModelType.PARAMETER, "stringParameter");
         stringParameterIPIPConstraintValidator.validate(model.stringParameter, HttpModelType.PARAMETER, "stringParameter");
         stringParameterLatinAlphabetOnlyLatinAlphabetOnlyConstraintValidator.validate(model.stringParameter, HttpModelType.PARAMETER, "stringParameter");
         stringParameterLengthLengthConstraintValidator.validate(model.stringParameter, HttpModelType.PARAMETER, "stringParameter");
@@ -743,9 +749,9 @@ public final class $$ModelConstraintValidator implements ConstraintValidator<Mod
         requiredConstraintValidator.validateList(model.strings, HttpModelType.PARAMETER, "strings");
         stringsBase64URLEncodedBase64URLEncodedConstraintValidator.validateList(model.strings, HttpModelType.PARAMETER, "strings");
         stringsCountryCodeCountryCodeConstraintValidator.validateList(model.strings, HttpModelType.PARAMETER, "strings");
-        emailConstraintValidator.validateList(model.strings, HttpModelType.PARAMETER, "strings");
+        stringsEmailEmailConstraintValidator.validateList(model.strings, HttpModelType.PARAMETER, "strings");
         stringsEnumerationEnumerationStringConstraintValidator.validateList(model.strings, HttpModelType.PARAMETER, "strings");
-        hostNameConstraintValidator.validateList(model.strings, HttpModelType.PARAMETER, "strings");
+        stringsHostNameHostNameConstraintValidator.validateList(model.strings, HttpModelType.PARAMETER, "strings");
         stringsIPIPConstraintValidator.validateList(model.strings, HttpModelType.PARAMETER, "strings");
         stringsLatinAlphabetOnlyLatinAlphabetOnlyConstraintValidator.validateList(model.strings, HttpModelType.PARAMETER, "strings");
         stringsLengthLengthConstraintValidator.validateList(model.strings, HttpModelType.PARAMETER, "strings");

@@ -18,14 +18,14 @@ public final class $$VirtualREST2Request5ConstraintValidator implements Constrai
     private final RequiredConstraintValidator requiredConstraintValidator =
             getStatelessValidator(RequiredConstraintValidator.class);
 
-    private final EmailConstraintValidator emailConstraintValidator =
-            getStatelessValidator(EmailConstraintValidator.class);
+    private final EmailConstraintValidator emailEmailEmailConstraintValidator =
+            new EmailConstraintValidator(false);
 
     @Override
     public void validate(final $$VirtualREST2Request5 model,
                          final HttpModelType httpModelType,
                          final String name) throws ValidationException {
         requiredConstraintValidator.validate(model.email, HttpModelType.PARAMETER, "email");
-        emailConstraintValidator.validate(model.email, HttpModelType.PARAMETER, "email");
+        emailEmailEmailConstraintValidator.validate(model.email, HttpModelType.PARAMETER, "email");
     }
 }

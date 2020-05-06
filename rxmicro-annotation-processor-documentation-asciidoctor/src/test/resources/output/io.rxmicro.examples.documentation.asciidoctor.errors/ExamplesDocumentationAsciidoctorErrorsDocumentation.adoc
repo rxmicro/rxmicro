@@ -67,7 +67,7 @@ a|
 a|An unique request string identifier.
 
 .Read more:
-* [small]#https://rxmicro.io/guides/latest/user-guide.html#rest-controller-request-id-section[_What is request id?_^]#
+* [small]#https://rxmicro.io/doc/latest/user-guide/rest-controller.html#rest-controller-rqeuest-id-section[_What is request id?_^]#
 |===
 
 // ------------------------------------------ Proxy Micro Service | GET / | Response 200 | Body Parameters ------------------------------------------
@@ -142,7 +142,7 @@ a|
 a|An unique request string identifier.
 
 .Read more:
-* [small]#https://rxmicro.io/guides/latest/user-guide.html#rest-controller-request-id-section[_What is request id?_^]#
+* [small]#https://rxmicro.io/doc/latest/user-guide/rest-controller.html#rest-controller-rqeuest-id-section[_What is request id?_^]#
 |===
 
 // ------------------------------------------ Proxy Micro Service | GET / | Response 404 | Body Parameters ------------------------------------------
@@ -194,7 +194,7 @@ a|
 a|An unique request string identifier.
 
 .Read more:
-* [small]#https://rxmicro.io/guides/latest/user-guide.html#rest-controller-request-id-section[_What is request id?_^]#
+* [small]#https://rxmicro.io/doc/latest/user-guide/rest-controller.html#rest-controller-rqeuest-id-section[_What is request id?_^]#
 |===
 
 // ------------------------------------------ Proxy Micro Service | GET / | Response 406 | Body Parameters ------------------------------------------
@@ -246,7 +246,7 @@ a|
 a|An unique request string identifier.
 
 .Read more:
-* [small]#https://rxmicro.io/guides/latest/user-guide.html#rest-controller-request-id-section[_What is request id?_^]#
+* [small]#https://rxmicro.io/doc/latest/user-guide/rest-controller.html#rest-controller-rqeuest-id-section[_What is request id?_^]#
 |===
 
 // ------------------------------------------ Proxy Micro Service | GET / | Response 504 | Body Parameters ------------------------------------------
