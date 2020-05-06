@@ -1,6 +1,8 @@
 # Github Actions Tutorials:
 #
 # https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions
+# https://help.github.com/en/actions/reference/events-that-trigger-workflows
+#
 # https://help.github.com/en/actions/reference/virtual-environments-for-github-hosted-runners
 # https://help.github.com/en/actions/reference/software-installed-on-github-hosted-runners
 
@@ -19,11 +21,11 @@ on:
 jobs:
 
   #
-  # ------------- Verify on Linux -------------
+  # ------------- Run Unit tests on Linux with JDK LTS and JDK latest version -------------
   #
 
-  run-unit-tests-on-linux:
-    name: Run Unit Tests on JDK-${{ matrix.jdk }}/${{ matrix.os }}
+  test-on-linux:
+    name: Test on JDK-${{ matrix.jdk }}/${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -51,11 +53,12 @@ jobs:
         run: mvn --fail-at-end test
 
   #
-  # ------------- Verify Code Quality -------------
+  # ------------- Verify Code Quality via Spotbugs Tool -------------
+  # ------------------ https://spotbugs.github.io/ ------------------
   #
 
-  verify-code-quality-using-spotbugs:
-    name: Verify Code Quality Using Spotbugs Tool
+  verify-via-spotbugs:
+    name: Verify via Spotbugs Tool
     runs-on: ubuntu-latest
 
     steps:
@@ -76,8 +79,13 @@ jobs:
       - name: Verify
         run: mvn --fail-at-end -DskipTests -P spotbugs verify
 
-  verify-code-quality-using-pmd:
-    name: Verify Code Quality Using PMD Tool
+  #
+  # ------------- Verify Code Quality via PMD Tool -------------
+  # ------------------ https://pmd.github.io/ ------------------
+  #
+
+  verify-via-pmd:
+    name: Verify via PMD Tool
     runs-on: ubuntu-latest
 
     steps:
