@@ -74,7 +74,7 @@ jobs:
           java-version: '11'
 
       - name: Verify
-        run: mvn --fail-at-end -P spotbugs verify
+        run: mvn --fail-at-end -DskipTests -P spotbugs verify
 
   verify-code-quality-using-pmd:
     name: Verify Code Quality Using PMD Tool
@@ -96,4 +96,4 @@ jobs:
           java-version: '11'
 
       - name: Verify
-        run: mvn --fail-at-end -P pmd verify
+        run: mvn --fail-at-end -DskipTests -P pmd verify
