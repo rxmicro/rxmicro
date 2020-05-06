@@ -21,6 +21,8 @@ import io.rxmicro.data.local.InvalidValueTypeException;
 import java.util.Arrays;
 
 /**
+ * Used by generated code that was created by RxMicro Annotation Processor
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1

@@ -30,6 +30,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
  * Returns value of HTTP header with name = "Request-Id" or auto generated unique request id if HTTP header is absent.
+ * <p>
  * Request id is used to trace an user request which can be resend via multiple REST-based micro services.
  *
  * @author nedis
@@ -43,7 +44,6 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 @SupportedTypes({
         String.class
 })
-// TODO
 // FIXME
 // Set valid read more link
 @ReadMore(

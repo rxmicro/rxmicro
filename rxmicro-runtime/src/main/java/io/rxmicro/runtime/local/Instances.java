@@ -18,7 +18,6 @@ package io.rxmicro.runtime.local;
 
 import io.rxmicro.common.CheckedWrapperException;
 import io.rxmicro.common.RxMicroException;
-import io.rxmicro.common.util.Formats;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
@@ -123,9 +122,6 @@ public final class Instances {
      */
     public static final class ImplementationLoadFailedException extends RxMicroException {
 
-        /**
-         * This constructor uses {@link Formats#format(String, Object...) Formats.format} to format error message
-         */
         private ImplementationLoadFailedException(final String message,
                                                   final Object... args) {
             super(message, args);

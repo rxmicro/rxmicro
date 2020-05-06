@@ -24,6 +24,8 @@ import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
+ * Denotes that an interface is a dynamic generated PostgreSQL data repository.
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1
@@ -33,5 +35,10 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 @Target(TYPE)
 public @interface PostgreSQLRepository {
 
+    /**
+     * Returns the config namespace for the current repository
+     *
+     * @return the config namespace for the current repository
+     */
     String configNameSpace() default "postgre-sql";
 }

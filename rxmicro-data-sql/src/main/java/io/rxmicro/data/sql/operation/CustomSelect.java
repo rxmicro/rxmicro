@@ -24,6 +24,8 @@ import static java.lang.annotation.ElementType.PARAMETER;
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
+ * Denotes a string parameter of repository method, the value of that must be used as custom {@code SELECT} SQL query.
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @link https://www.postgresql.org/docs/12/sql-select.html
@@ -35,11 +37,24 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 public @interface CustomSelect {
 
     /**
-     * @return {@code true} if the RxMicro framework must replace '?' placeholder by db specific placeholder before executing of the custom SQL,
-     * {@code false} if custom select query must contain only db specific placeholders. i.e. '$1', '$2', etc.
+     * Returns the support of the universal placeholder.
+     * <p>
+     * Read more about db specific placeholders:
+     * <a href="https://r2dbc.io/spec/0.8.0.RELEASE/spec/html/#statements.parameterized">
+     *     https://r2dbc.io/spec/0.8.0.RELEASE/spec/html/#statements.parameterized
+     * </a>
+     *
+     * @return {@code true} if the RxMicro framework must replace '?' placeholder by db specific placeholder before executing of
+     *                      the custom SQL,
+     *         {@code false} if custom select query must contain only db specific placeholders. i.e. '$1', '$2', etc.
      * @link https://r2dbc.io/spec/0.8.0.RELEASE/spec/html/#statements.parameterized
      */
     boolean supportUniversalPlaceholder() default true;
 
+    /**
+     * Returns the selected columns that returned by this custom {@code SELECT} query.
+     *
+     * @return the selected columns that returned by this custom {@code SELECT} query.
+     */
     String[] selectedColumns() default {};
 }

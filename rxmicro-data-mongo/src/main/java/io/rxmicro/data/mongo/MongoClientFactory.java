@@ -25,6 +25,10 @@ import static io.rxmicro.config.Config.getDefaultNameSpace;
 import static io.rxmicro.runtime.local.InstanceContainer.getSingleton;
 
 /**
+ * Utility class that must be used to get an instance of the {@link MongoClient} integrated to the RxMicro framework.
+ * <p>
+ * This utility class allows using additional features that {@link MongoClient} is provided.
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1
@@ -33,13 +37,24 @@ public final class MongoClientFactory {
 
     private static final MongoClientBuilder BUILDER = new MongoClientBuilder();
 
-    public static MongoClient getMongoClient(final String nameSpace) {
+    /**
+     * Returns the instance of the {@link MongoClient} that is bound to config with the requested namespace
+     *
+     * @param namespace the requested namespace
+     * @return the instance of the {@link MongoClient}
+     */
+    public static MongoClient getMongoClient(final String namespace) {
         return getSingleton(
                 new ByTypeInstanceQualifier<>(MongoClient.class),
-                new LazyInstanceProvider<>(MongoClient.class, () -> BUILDER.getMongoClient(nameSpace))
+                new LazyInstanceProvider<>(MongoClient.class, () -> BUILDER.getMongoClient(namespace))
         );
     }
 
+    /**
+     * Returns the instance of the {@link MongoClient} that is bound to config with the default namespace
+     *
+     * @return the instance of the {@link MongoClient}
+     */
     public static MongoClient getMongoClient() {
         return getMongoClient(getDefaultNameSpace(MongoConfig.class));
     }

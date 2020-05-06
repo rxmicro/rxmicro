@@ -26,6 +26,11 @@ import static io.rxmicro.config.Config.getDefaultNameSpace;
 import static io.rxmicro.runtime.local.InstanceContainer.getSingleton;
 
 /**
+ * Utility class that must be used to get an instance of the {@link ConnectionFactory} or {@link ConnectionPool}
+ * integrated to the RxMicro framework.
+ * <p>
+ * This utility class allows using additional features that {@link ConnectionFactory} or {@link ConnectionPool} is provided.
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1
@@ -34,22 +39,44 @@ public final class PostgreSQLClientFactory {
 
     private static final PostgreSQLConnectionPoolBuilder BUILDER = new PostgreSQLConnectionPoolBuilder();
 
+    /**
+     * Returns the instance of the {@link ConnectionFactory} that is bound to config with the default namespace
+     *
+     * @return the instance of the {@link ConnectionFactory}
+     */
     public static ConnectionFactory getPostgreSQLConnectionFactory() {
         return getPostgreSQLConnectionPool();
     }
 
-    public static ConnectionFactory getPostgreSQLConnectionFactory(final String nameSpace) {
-        return getPostgreSQLConnectionPool(nameSpace);
+    /**
+     * Returns the instance of the {@link ConnectionFactory} that is bound to config with the requested namespace
+     *
+     * @param namespace the requested namespace
+     * @return the instance of the {@link ConnectionFactory}
+     */
+    public static ConnectionFactory getPostgreSQLConnectionFactory(final String namespace) {
+        return getPostgreSQLConnectionPool(namespace);
     }
 
+    /**
+     * Returns the instance of the {@link ConnectionPool} that is bound to config with the default namespace
+     *
+     * @return the instance of the {@link ConnectionPool}
+     */
     public static ConnectionPool getPostgreSQLConnectionPool() {
         return getPostgreSQLConnectionPool(getDefaultNameSpace(PostgreSQLConfig.class));
     }
 
-    public static ConnectionPool getPostgreSQLConnectionPool(final String nameSpace) {
+    /**
+     * Returns the instance of the {@link ConnectionPool} that is bound to config with the requested namespace
+     *
+     * @param namespace the requested namespace
+     * @return the instance of the {@link ConnectionPool}
+     */
+    public static ConnectionPool getPostgreSQLConnectionPool(final String namespace) {
         return getSingleton(
                 new ByTypeInstanceQualifier<>(ConnectionPool.class),
-                new LazyInstanceProvider<>(ConnectionPool.class, () -> BUILDER.createConnectionPool(nameSpace))
+                new LazyInstanceProvider<>(ConnectionPool.class, () -> BUILDER.createConnectionPool(namespace))
         );
     }
 

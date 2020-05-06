@@ -20,6 +20,8 @@ import io.rxmicro.common.RxMicroException;
 import io.rxmicro.common.util.Formats;
 
 /**
+ * Signals about invalid mock prepared state
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1
@@ -31,7 +33,13 @@ public final class InvalidPreparedMockException extends RxMicroException {
     }
 
     /**
-     * This constructor uses {@link Formats#format(String, Object...) Formats.format} to format error message
+     * Creates a {@link InvalidPreparedMockException} instance
+     * <p>
+     * <i>(FYI: This constructor uses {@link Formats#format(String, Object...)} method to format error message.)</i>
+     *
+     * @param message error message template
+     * @param args error message template arguments
+     * @throws NullPointerException if {@code message} is {@code null}
      */
     public InvalidPreparedMockException(final String message,
                                         final Object... args) {

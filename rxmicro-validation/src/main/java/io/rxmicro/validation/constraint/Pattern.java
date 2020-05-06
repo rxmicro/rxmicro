@@ -18,7 +18,7 @@ package io.rxmicro.validation.constraint;
 
 import io.rxmicro.common.meta.ReadMore;
 import io.rxmicro.validation.base.ConstraintRule;
-import io.rxmicro.validation.base.SelfDocumented;
+import io.rxmicro.validation.internal.SelfDocumented;
 import io.rxmicro.validation.validator.PatternConstraintValidator;
 
 import java.lang.annotation.Documented;
@@ -60,21 +60,24 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 public @interface Pattern {
 
     /**
-     * Allows to disable validation rule if validation inherited from super class.
+     * Allows disabling the validation rule if this rule is inherited from super class. <p>
      * By default, disable is off
      *
-     * @return {@code true} if the validation must be disabled,
-     * {@code false} otherwise
+     * @return  {@code true} if the validation must be disabled,
      */
     boolean off() default false;
 
     /**
+     * Returns the regular expression to match
+     *
      * @return the regular expression to match
      */
     String regexp();
 
     /**
-     * @return array of {@code Flag}s considered when resolving the regular expression
+     * Returns the array of {@code Flag}s considered when resolving the regular expression
+     *
+     * @return the array of {@code Flag}s considered when resolving the regular expression
      */
     Flag[] flags() default {};
 
@@ -139,7 +142,9 @@ public @interface Pattern {
         }
 
         /**
-         * @return flag value as defined in {@link java.util.regex.Pattern}
+         * Returns the flag value as defined in {@link java.util.regex.Pattern}
+         *
+         * @return the flag value as defined in {@link java.util.regex.Pattern}
          */
         public int getValue() {
             return value;

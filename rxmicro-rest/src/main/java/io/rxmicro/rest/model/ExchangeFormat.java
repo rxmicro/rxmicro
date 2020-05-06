@@ -25,5 +25,8 @@ package io.rxmicro.rest.model;
  */
 public enum ExchangeFormat {
 
+    /**
+     * JSON exchange format
+     */
     JSON_EXCHANGE_FORMAT
 }

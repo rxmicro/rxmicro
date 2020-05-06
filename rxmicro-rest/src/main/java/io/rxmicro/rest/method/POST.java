@@ -26,7 +26,9 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
  * Annotation that can be applied to method to signify the method receives a GET request.
- * See https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html#sec9.5.
+ * See <a href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html#sec9.5">
+ *     https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html#sec9.5
+ * </a>
  *
  * @author nedis
  * @link https://rxmicro.io
@@ -40,13 +42,17 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 public @interface POST {
 
     /**
-     * @return The URI of the route
+     * Returns the URI of the route
+     *
+     * @return the URI of the route
      */
     String value();
 
     /**
-     * @return {@code true} if HTTP body is used for transferring of http parameters,
-     * {@code false} if parameters are transferred via HTTP query string
+     * Informs how the request parameters must be transferred via HTTP protocol: in the start line or in the request body.
+     *
+     * @return  {@code true} if HTTP body is used for transferring of http parameters,
+     *          {@code false} if parameters are transferred via HTTP query string
      */
     boolean httpBody() default true;
 
@@ -62,6 +68,11 @@ public @interface POST {
     @Target(METHOD)
     @interface List {
 
+        /**
+         * Returns the several {@link POST} annotations on the same element.
+         *
+         * @return the several {@link POST} annotations on the same element.
+         */
         POST[] value();
     }
 }

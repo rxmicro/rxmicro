@@ -18,6 +18,17 @@ package io.rxmicro.config;
 
 /**
  * Defines sources for configuration.
+ * <p>
+ * The RxMicro framework supports the following source of configurations:
+ * <ul>
+ *     <li>Properties files</li>
+ *     <li>Classpath properties resources</li>
+ *     <li>Environment variables</li>
+ *     <li>Java system properties</li>
+ *     <li>Command line arguments</li>
+ *     <li>Java configuration classes</li>
+ *     <li>Java annotations</li>
+ * </ul>
  *
  * @author nedis
  * @link https://rxmicro.io
@@ -27,62 +38,79 @@ public enum ConfigSource {
 
     /**
      * Hardcoded config using annotations.
+     * <p>
      *
      * @see DefaultConfigValue
      */
     DEFAULT_CONFIG_VALUES,
 
     /**
-     * Config from classpath:rxmicro.properties
+     * Config from {@code classpath:rxmicro.properties}
+     * <p>
+     *
+     * @see Config#RX_MICRO_CONFIG_FILE_NAME
      */
     RXMICRO_CLASS_PATH_RESOURCE,
 
     /**
-     * Config from classpath:${name_space}.properties
+     * Config from {@code classpath:${name_space}.properties}
      */
     SEPARATE_CLASS_PATH_RESOURCE,
 
     /**
      * Config from env variables
-     *
-     * export name_space.property=value
+     * <p>
+     * {@code export name_space.property=value}
      */
     ENVIRONMENT_VARIABLES,
 
     /**
-     * Config from file: ~/rxmicro.properties
+     * Config from file: {@code ~/rxmicro.properties}
+     * <p>
+     *
+     * @see Config#RX_MICRO_CONFIG_FILE_NAME
      */
     RXMICRO_FILE_AT_THE_HOME_DIR,
 
     /**
-     * Config from file: ~/.rxmicro/rxmicro.properties
+     * Config from file: {@code ~/.rxmicro/rxmicro.properties}
+     * <p>
+     *
+     * @see Config#RX_MICRO_CONFIG_DIRECTORY_NAME
+     * @see Config#RX_MICRO_CONFIG_FILE_NAME
      */
     RXMICRO_FILE_AT_THE_RXMICRO_CONFIG_DIR,
 
     /**
-     * Config from file: ./rxmicro.properties
+     * Config from file: {@code ./rxmicro.properties}
+     * <p>
+     *
+     * @see Config#RX_MICRO_CONFIG_FILE_NAME
      */
     RXMICRO_FILE_AT_THE_CURRENT_DIR,
 
     /**
-     * Config from file: ~/${name_space}.properties
+     * Config from file: {@code ~/${name_space}.properties}
      */
     SEPARATE_FILE_AT_THE_HOME_DIR,
 
     /**
-     * Config from file: ~/.rxmicro/${name_space}.properties
+     * Config from file: {@code ~/.rxmicro/${name_space}.properties}
+     * <p>
+     *
+     * @see Config#RX_MICRO_CONFIG_DIRECTORY_NAME
      */
     SEPARATE_FILE_AT_THE_RXMICRO_CONFIG_DIR,
 
     /**
-     * Config from file: ./${name_space}.properties
+     * Config from file: {@code ./${name_space}.properties}
      */
     SEPARATE_FILE_AT_THE_CURRENT_DIR,
 
     /**
      * Config from Java system properties
-     *
-     * java ... -Dname_space.property=value ...
+     * <p>
+     * {@code java ... -Dname_space.property=value ...}
      */
     JAVA_SYSTEM_PROPERTIES
 }

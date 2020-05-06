@@ -26,6 +26,8 @@ import java.util.function.Function;
 import static io.rxmicro.runtime.local.InstanceContainer.getSingleton;
 
 /**
+ * Used by generated code that was created by RxMicro Annotation Processor
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1
@@ -34,11 +36,11 @@ public final class MongoRepositoryFactory {
 
     private static final MongoDatabaseBuilder BUILDER = new MongoDatabaseBuilder();
 
-    public static <T> T createMongoRepository(final String nameSpace,
+    public static <T> T createMongoRepository(final String namespace,
                                               final Function<MongoDatabase, T> creator) {
         final MongoDatabase mongoDatabase = getSingleton(
                 new ByTypeInstanceQualifier<>(MongoDatabase.class),
-                new LazyInstanceProvider<>(MongoDatabase.class, () -> BUILDER.createMongoDatabase(nameSpace))
+                new LazyInstanceProvider<>(MongoDatabase.class, () -> BUILDER.createMongoDatabase(namespace))
         );
         return creator.apply(mongoDatabase);
     }

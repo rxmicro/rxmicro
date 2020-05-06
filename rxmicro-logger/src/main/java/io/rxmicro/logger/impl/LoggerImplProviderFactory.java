@@ -16,7 +16,7 @@
 
 package io.rxmicro.logger.impl;
 
-import io.rxmicro.common.RxMicroException;
+import io.rxmicro.common.InvalidStateException;
 import io.rxmicro.common.local.StartTimeStampHelper;
 import io.rxmicro.logger.internal.jul.JULLoggerImplProvider;
 
@@ -24,6 +24,14 @@ import static io.rxmicro.common.util.Requires.require;
 import static java.util.Objects.requireNonNullElseGet;
 
 /**
+ * Factory class that can be used for retrieving the {@link LoggerImplProvider} instance.
+ * <p>
+ * Developer must use the {@link io.rxmicro.logger.LoggerFactory} utility class instead this one to get an instance
+ * of the {@link io.rxmicro.logger.Logger} for his (her) production code.
+ * <p>
+ * {@link LoggerImplProviderFactory} can be used by developer only for testing purposes.
+ * For example to create a {@link io.rxmicro.logger.Logger} mock.
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1
@@ -38,14 +46,26 @@ public final class LoggerImplProviderFactory {
         StartTimeStampHelper.init();
     }
 
+    /**
+     * Returns the {@link LoggerImplProvider} instance that configured by default
+     *
+     * @return the {@link LoggerImplProvider} instance that configured by default
+     */
     public static LoggerImplProvider getLoggerImplFactory() {
         init = true;
         return requireNonNullElseGet(impl, JULLoggerImplProvider::new);
     }
 
+    /**
+     * Sets the {@link LoggerImplProvider} instance.
+     * <p>
+     * This method is useful for testing purposes, because it allows replacing the default {@link LoggerImplProvider} by the mock.
+     *
+     * @param impl the {@link LoggerImplProvider} instance
+     */
     public static void setLoggerImplFactory(final LoggerImplProvider impl) {
         if (init) {
-            throw new RxMicroException("LoggerImplFactory instance already created");
+            throw new InvalidStateException("LoggerImplFactory instance already created");
         }
         LoggerImplProviderFactory.impl = require(impl);
     }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. http://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,11 +18,11 @@ package io.rxmicro.data.sql.r2dbc;
 
 /**
  * This is special interface, which is used to define a root package for the current module.
- *
+ * <p>
  * This feature is a workaround and used by RxMicro Annotation Processor for projects which don't use JPMS.
  *
  * @author nedis
- * @link http://rxmicro.io
+ * @link https://rxmicro.io
  * @link https://www.oracle.com/corporate/features/understanding-java-9-modules.html
  * @since 0.2
  */

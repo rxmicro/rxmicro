@@ -25,6 +25,10 @@ import static java.lang.annotation.ElementType.MODULE;
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
+ * Allows specifying AsciiDoc attributes for the generated REST-based microservice documentation.
+ * <p>
+ * Read more: <a href="https://asciidoctor.org/docs/user-manual/#attributes">https://asciidoctor.org/docs/user-manual/#attributes</a>
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @link https://asciidoctor.org/docs/user-manual/#attributes
@@ -36,7 +40,11 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 public @interface DocumentAttributes {
 
     /**
-     * @return document attributes, using key-value format.
+     * Returns the document attributes, using key-value format.
+     * <p>
+     * Read more: <a href="https://asciidoctor.org/docs/user-manual/#attributes">https://asciidoctor.org/docs/user-manual/#attributes</a>
+     *
+     * @return the document attributes
      */
     String[] value() default {
             // https://asciidoctor.org/docs/user-manual/#admonition-icons

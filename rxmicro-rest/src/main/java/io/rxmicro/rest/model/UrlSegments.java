@@ -23,6 +23,8 @@ import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.Requires.require;
 
 /**
+ * Instance of this class represents a URL path with path variables
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1
@@ -39,14 +41,29 @@ public final class UrlSegments {
         this.variables = unmodifiableList(variables);
     }
 
+    /**
+     * Returns the url template with path variables
+     *
+     * @return the url template with path variables
+     */
     public String getUrlTemplate() {
         return urlTemplate;
     }
 
+    /**
+     * Returns all predefined path variables for current URL path
+     *
+     * @return all predefined path variables for current URL path
+     */
     public List<String> getVariables() {
         return variables;
     }
 
+    /**
+     * Returns the original URL path with all path variables
+     *
+     * @return the original URL path with all path variables
+     */
     public String getOriginalUrl() {
         return format(urlTemplate, variables.stream()
                 .map(v -> format("${?}", v))

@@ -29,6 +29,8 @@ import java.util.stream.Stream;
 import static io.rxmicro.validation.base.ConstraintUtils.getLatinLettersAndDigits;
 
 /**
+ * Validator for the {@link io.rxmicro.validation.constraint.Base64URLEncoded} constraint
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @see io.rxmicro.validation.constraint.Base64URLEncoded

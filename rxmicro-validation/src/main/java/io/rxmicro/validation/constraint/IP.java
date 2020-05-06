@@ -18,7 +18,7 @@ package io.rxmicro.validation.constraint;
 
 import io.rxmicro.common.meta.ReadMore;
 import io.rxmicro.validation.base.ConstraintRule;
-import io.rxmicro.validation.base.SelfDocumented;
+import io.rxmicro.validation.internal.SelfDocumented;
 import io.rxmicro.validation.validator.IPConstraintValidator;
 
 import java.lang.annotation.Documented;
@@ -55,34 +55,41 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 public @interface IP {
 
     /**
-     * Allows to disable validation rule if validation inherited from super class.
+     * Allows disabling the validation rule if this rule is inherited from super class. <p>
      * By default, disable is off
      *
-     * @return {@code true} if the validation must be disabled,
-     * {@code false} otherwise
+     * @return  {@code true} if the validation must be disabled,
      */
     boolean off() default false;
 
     /**
      * By default, support all versions, i.e. versions 4 and 6
      *
-     * @return supported IP protocol @{code Version}s
+     * @return the supported IP protocol @{code Version}s
      */
     Version[] value() default {IP_V4, IP_V6};
 
     /**
+     * IP versions
+     *
      * @author nedis
      * @link https://rxmicro.io
      * @since 0.1
      */
     enum Version {
 
+        /**
+         * IP version 4
+         */
         @ReadMore(
                 caption = "What is IP version 4?",
                 link = "https://en.wikipedia.org/wiki/IPv4"
         )
         IP_V4("ipv4", 4),
 
+        /**
+         * IP version 6
+         */
         @ReadMore(
                 caption = "What is IP version 6?",
                 link = "https://en.wikipedia.org/wiki/IPv6"

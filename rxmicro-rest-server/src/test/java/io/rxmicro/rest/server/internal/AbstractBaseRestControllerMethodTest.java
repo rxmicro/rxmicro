@@ -136,23 +136,23 @@ abstract class AbstractBaseRestControllerMethodTest {
         }
 
         @Override
-        public void trace(final String msg, final Object arg1, final Object arg2, final Object arg3) {
-            logger.trace(msg, arg1, arg2, arg3);
+        public void trace(final String format, final Object arg1, final Object arg2, final Object arg3) {
+            logger.trace(format, arg1, arg2, arg3);
         }
 
         @Override
-        public void trace(final String msg, final Object arg1, final Object arg2, final Object arg3, final Object arg4) {
-            logger.trace(msg, arg1, arg2, arg3, arg4);
+        public void trace(final String format, final Object arg1, final Object arg2, final Object arg3, final Object arg4) {
+            logger.trace(format, arg1, arg2, arg3, arg4);
         }
 
         @Override
-        public void trace(final String msg, final Object arg1, final Object arg2, final Object arg3, final Object arg4, final Object arg5) {
-            logger.trace(msg, arg1, arg2, arg3, arg4, arg5);
+        public void trace(final String format, final Object arg1, final Object arg2, final Object arg3, final Object arg4, final Object arg5) {
+            logger.trace(format, arg1, arg2, arg3, arg4, arg5);
         }
 
         @Override
-        public void trace(final String msg, final Object... arguments) {
-            logger.trace(msg, arguments);
+        public void trace(final String format, final Object... arguments) {
+            logger.trace(format, arguments);
         }
 
         @Override

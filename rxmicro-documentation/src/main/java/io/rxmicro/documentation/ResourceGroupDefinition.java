@@ -25,6 +25,8 @@ import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
+ * A composite annotation that specifies the settings for generating the ResourceGroupDefinition section.
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1
@@ -34,28 +36,63 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 @Target({ANNOTATION_TYPE, TYPE})
 public @interface ResourceGroupDefinition {
 
+    /**
+     * Returns the custom sections
+     *
+     * @return the custom sections
+     */
     String[] customSection() default {};
 
+    /**
+     * Returns the include mode. See {@link IncludeMode} for details.
+     *
+     * @return the include mode.
+     */
     IncludeMode includeMode() default IncludeMode.INCLUDE_REFERENCE;
 
+    /**
+     * Returns the current section order
+     *
+     * @return the current section order
+     */
     Section[] sectionOrder() default {
             Section.VERSIONING,
             Section.CORS
     };
 
     /**
+     * Supported section types
+     *
      * @author nedis
      * @link https://rxmicro.io
      * @since 0.1
      */
     enum Section {
 
+        /**
+         * Versioning standard section
+         */
         VERSIONING,
 
+        /**
+         * CORS standard section
+         */
         CORS,
 
+        /**
+         * Custom section.
+         *
+         * If CUSTOM_SECTION is added to {@link ResourceGroupDefinition#sectionOrder()} it is necessary to
+         * add path to custom section to {@link ResourceGroupDefinition#customSection()}.
+         * Otherwise the RxMicro framework throws error during generation of REST-based microservice documentation.
+         */
         CUSTOM_SECTION;
 
+        /**
+         * Returns {@code true} if current section is custom.
+         *
+         * @return {@code true} if current section is custom.
+         */
         public boolean isCustomSection() {
             return this == CUSTOM_SECTION;
         }

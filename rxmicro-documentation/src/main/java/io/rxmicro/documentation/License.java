@@ -28,6 +28,10 @@ import static java.lang.annotation.ElementType.MODULE;
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
+ * Denotes the license of REST-based microservice in the generated REST-based microservice documentation.
+ * <p>
+ * (<i>Allows overriding the license of REST-based microservice specified in the license directive to pom.xml</i>)
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1
@@ -38,12 +42,22 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 @Repeatable(License.List.class)
 public @interface License {
 
+    /**
+     * Returns the license name
+     *
+     * @return the license name
+     */
     String name() default DEFAULT_LICENSE_NAME;
 
+    /**
+     * Returns the license url
+     *
+     * @return the license url
+     */
     String url() default DEFAULT_LICENSE_URL;
 
     /**
-     * Defines several licenses per project.
+     * Defines several {@link License} annotations on the same element.
      *
      * @author nedis
      * @link https://rxmicro.io
@@ -54,6 +68,11 @@ public @interface License {
     @Target({MODULE, ANNOTATION_TYPE})
     @interface List {
 
+        /**
+         * Returns the several {@link License} annotations on the same element.
+         *
+         * @return the several {@link License} annotations on the same element.
+         */
         License[] value();
     }
 }

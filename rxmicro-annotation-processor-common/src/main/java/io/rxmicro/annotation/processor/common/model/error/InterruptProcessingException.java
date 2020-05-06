@@ -17,7 +17,6 @@
 package io.rxmicro.annotation.processor.common.model.error;
 
 import io.rxmicro.common.RxMicroException;
-import io.rxmicro.common.util.Formats;
 
 import javax.lang.model.element.Element;
 
@@ -32,13 +31,10 @@ public final class InterruptProcessingException extends RxMicroException {
 
     private final Element element;
 
-    /**
-     * This constructor uses {@link Formats#format(String, Object...) Formats.format} to format error message
-     */
     public InterruptProcessingException(final Element element,
                                         final String message,
                                         final Object... args) {
-        super(false, false, require(message), args);
+        super(false, false, message, args);
         this.element = require(element);
     }
 

@@ -18,7 +18,7 @@ package io.rxmicro.validation.constraint;
 
 import io.rxmicro.common.meta.ReadMore;
 import io.rxmicro.validation.base.ConstraintRule;
-import io.rxmicro.validation.base.SelfDocumented;
+import io.rxmicro.validation.internal.SelfDocumented;
 import io.rxmicro.validation.validator.TelegramConstraintValidator;
 
 import java.lang.annotation.Documented;
@@ -57,23 +57,24 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 public @interface Telegram {
 
     /**
-     * Allows to disable validation rule if validation inherited from super class.
+     * Allows disabling the validation rule if this rule is inherited from super class. <p>
      * By default, disable is off
      *
-     * @return {@code true} if the validation must be disabled,
-     * {@code false} otherwise
+     * @return  {@code true} if the validation must be disabled,
      */
     boolean off() default false;
 
     /**
-     * @return {@code true} if phone number must not start with plus character,
-     * {@code false} otherwise
+     * Returns {@code true} if phone number must not start with plus character
+     *
+     * @return {@code true} if phone number must not start with plus character
      */
     boolean withoutPlus() default true;
 
     /**
-     * @return {@code true} if phone number can contain space characters,
-     * {@code false} otherwise
+     * Returns {@code true} if phone number can contain space characters
+     *
+     * @return {@code true} if phone number can contain space characters
      */
     boolean allowsSpaces() default false;
 }

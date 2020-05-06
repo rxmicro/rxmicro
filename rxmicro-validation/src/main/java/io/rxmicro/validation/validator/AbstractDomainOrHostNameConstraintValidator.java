@@ -28,6 +28,9 @@ import static io.rxmicro.validation.base.ConstraintUtils.getLatinLettersAndDigit
 import static java.util.stream.Collectors.toUnmodifiableSet;
 
 /**
+ * Base validator for the {@link io.rxmicro.validation.constraint.DomainName} and the {@link io.rxmicro.validation.constraint.HostName}
+ * constraints
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.4

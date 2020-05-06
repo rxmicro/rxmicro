@@ -23,6 +23,8 @@ import static io.rxmicro.common.util.Strings.capitalize;
 import static java.util.stream.Collectors.joining;
 
 /**
+ * Declares predefined mapping strategies for different usage: ORM mapping, HTTP mapping, etc.
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1
@@ -30,37 +32,37 @@ import static java.util.stream.Collectors.joining;
 public enum MappingStrategy {
 
     /**
-     * Example: hello_world == helloWorld
+     * Example: {@code hello_world = helloWorld}
      */
     LOWERCASE_WITH_UNDERSCORED("_"),
 
     /**
-     * Example: hello-world == helloWorld
+     * Example: {@code hello-world = helloWorld}
      */
     LOWERCASE_WITH_HYPHEN("-"),
 
     /**
-     * Example: HELLO_WORLD == helloWorld
+     * Example: {@code HELLO_WORLD = helloWorld}
      */
     UPPERCASE_WITH_UNDERSCORED("_"),
 
     /**
-     * Example: HELLO-WORLD == helloWorld
+     * Example: {@code HELLO-WORLD = helloWorld}
      */
     UPPERCASE_WITH_HYPHEN("-"),
 
     /**
-     * Example: Hello_World == helloWorld
+     * Example: {@code Hello_World = helloWorld}
      */
     CAPITALIZE_WITH_UNDERSCORED("_"),
 
     /**
-     * Example: Hello-World == helloWorld
+     * Example: {@code Hello-World = helloWorld}
      */
     CAPITALIZE_WITH_HYPHEN("-"),
 
     /**
-     * Example: HelloWorld == helloWorld
+     * Example: {@code HelloWorld = helloWorld}
      */
     CAPITALIZE_CAMEL_CASE("");
 
@@ -70,6 +72,12 @@ public enum MappingStrategy {
         this.delimiter = delimiter;
     }
 
+    /**
+     * Returns the model name based on defined mapping strategy and word list.
+     *
+     * @param words the word list
+     * @return the model name based on defined mapping strategy and word list.
+     */
     public String getModelName(final List<String> words) {
         return words.stream()
                 .map(this::convert)

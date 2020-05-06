@@ -17,6 +17,8 @@
 package io.rxmicro.validation.validator;
 
 /**
+ * Validator for the {@link io.rxmicro.validation.constraint.Viber} constraint
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @see io.rxmicro.validation.constraint.Viber

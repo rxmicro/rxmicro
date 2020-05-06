@@ -21,6 +21,8 @@ import io.rxmicro.rest.model.HttpModelType;
 import io.rxmicro.validation.ConstraintValidator;
 
 /**
+ * Validator for the {@link io.rxmicro.validation.constraint.AssertTrue} constraint
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @see io.rxmicro.validation.constraint.AssertTrue

@@ -27,6 +27,8 @@ import static java.lang.annotation.ElementType.PARAMETER;
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
+ * Denotes the model field value used as an example in the generated REST-based microservice documentation.
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1
@@ -37,6 +39,11 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 @Repeatable(Example.List.class)
 public @interface Example {
 
+    /**
+     * Returns the example value
+     *
+     * @return the example value
+     */
     String value();
 
     /**
@@ -51,6 +58,11 @@ public @interface Example {
     @Target({FIELD, METHOD, PARAMETER})
     @interface List {
 
+        /**
+         * Returns the several {@link Example} annotations on the same element.
+         *
+         * @return the several {@link Example} annotations on the same element.
+         */
         Example[] value();
     }
 }

@@ -25,6 +25,10 @@ import static java.lang.annotation.ElementType.MODULE;
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
+ * Denotes the basic endpoint in the generated REST-based microservice documentation.
+ * <p>
+ * (<i>Allows overriding the basic endpoint specified in the url directive to pom.xml</i>)
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1
@@ -34,5 +38,10 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 @Target({MODULE, ANNOTATION_TYPE})
 public @interface BaseEndpoint {
 
+    /**
+     * Returns the basic endpoint
+     *
+     * @return the basic endpoint
+     */
     String value();
 }

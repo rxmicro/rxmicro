@@ -23,6 +23,10 @@ import java.util.Base64;
 import java.util.UUID;
 
 /**
+ * Generates unique IDs independently of starting the JVM.
+ *
+ * As a unique value uses the {@link UUID#randomUUID()}.
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1

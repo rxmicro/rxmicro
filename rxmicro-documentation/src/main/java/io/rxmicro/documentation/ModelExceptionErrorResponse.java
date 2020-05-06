@@ -28,6 +28,9 @@ import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
+ * Denotes the exception class to be analyzed by the RxMicro Annotation Processor for generating the unsuccessful
+ * HTTP response description of REST-based microservice.
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1
@@ -38,10 +41,15 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 @Repeatable(ModelExceptionErrorResponse.List.class)
 public @interface ModelExceptionErrorResponse {
 
+    /**
+     * Returns the HTTP error exception class
+     *
+     * @return the HTTP error exception class
+     */
     Class<? extends HttpErrorException> value();
 
     /**
-     * Defines several error responses per handler.
+     * Defines several {@link ModelExceptionErrorResponse} annotations on the same element.
      *
      * @author nedis
      * @link https://rxmicro.io
@@ -52,6 +60,11 @@ public @interface ModelExceptionErrorResponse {
     @Target({METHOD, TYPE})
     @interface List {
 
+        /**
+         * Returns the several {@link ModelExceptionErrorResponse} annotations on the same element.
+         *
+         * @return the several {@link ModelExceptionErrorResponse} annotations on the same element.
+         */
         ModelExceptionErrorResponse[] value();
     }
 }

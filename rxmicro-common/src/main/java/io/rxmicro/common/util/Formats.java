@@ -28,14 +28,22 @@ import static io.rxmicro.common.util.Requires.require;
 import static java.lang.System.lineSeparator;
 
 /**
+ * TODO
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1
  */
 public final class Formats {
 
+    /**
+     * TODO
+     */
     public static final char FORMAT_PLACEHOLDER_CHAR = '?';
 
+    /**
+     * TODO
+     */
     public static final String FORMAT_PLACEHOLDER_TOKEN = String.valueOf(FORMAT_PLACEHOLDER_CHAR);
 
     private static final String LINE_SEPARATOR = lineSeparator();
@@ -50,6 +58,7 @@ public final class Formats {
      * @param template string template
      * @param args     arguments
      * @return formatted string
+     * @throws NullPointerException if {@code template} is {@code null}
      */
     public static String format(final String template,
                                 final Object... args) {
@@ -94,6 +103,13 @@ public final class Formats {
         }
     }
 
+    /**
+     * TODO
+     *
+     * @param size
+     * @param withOriginalValue
+     * @return
+     */
     public static String formatSize(final long size,
                                     final boolean withOriginalValue) {
         final List<String> parts = new ArrayList<>();
@@ -107,6 +123,12 @@ public final class Formats {
                 (withOriginalValue ? " (" + NumberFormat.getNumberInstance().format(size) + " bytes)" : "");
     }
 
+    /**
+     * TODO
+     *
+     * @param size
+     * @return
+     */
     public static String formatSize(final long size) {
         return formatSize(size, true);
     }
@@ -129,6 +151,10 @@ public final class Formats {
     }
 
     /**
+     * TODO
+     *
+     * @param duration
+     * @return
      * @since 0.3
      */
     public static String format(final Duration duration) {

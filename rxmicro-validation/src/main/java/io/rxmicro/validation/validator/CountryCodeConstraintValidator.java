@@ -16,7 +16,7 @@
 
 package io.rxmicro.validation.validator;
 
-import io.rxmicro.common.RxMicroException;
+import io.rxmicro.common.ImpossibleException;
 import io.rxmicro.rest.model.HttpModelType;
 import io.rxmicro.validation.ConstraintValidator;
 import io.rxmicro.validation.base.AbstractCompositionConstraintValidator;
@@ -30,8 +30,11 @@ import static io.rxmicro.validation.detail.StatelessValidators.getStatelessValid
 import static java.util.Optional.ofNullable;
 
 /**
+ * Validator for the {@link CountryCode} constraint
+ *
  * @author nedis
  * @link https://rxmicro.io
+ * @see CountryCode
  * @since 0.1
  */
 public final class CountryCodeConstraintValidator implements ConstraintValidator<String> {
@@ -48,7 +51,7 @@ public final class CountryCodeConstraintValidator implements ConstraintValidator
         this.constraintValidator = ofNullable(CLASS_MAP.get(format))
                 .map(StatelessValidators::getStatelessValidator)
                 .orElseThrow(() -> {
-                    throw new RxMicroException("Unsupported format: " + format);
+                    throw new ImpossibleException("Unsupported format: ?", format);
                 });
     }
 

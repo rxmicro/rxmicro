@@ -32,7 +32,7 @@ import java.util.function.Supplier;
 import static io.rxmicro.common.util.Requires.require;
 
 /**
- * Allows to customize netty HTTP server
+ * Allows customizing netty REST server options.
  *
  * @author nedis
  * @link https://rxmicro.io
@@ -62,7 +62,7 @@ public final class NettyRestServerConfig extends Config {
      * @param option option name
      * @param value  option value
      * @param <T>    option type
-     * @return A reference to this {@code NettyServerConfig}
+     * @return the reference to this {@link NettyRestServerConfig} instance
      * @see ChannelOption
      */
     @BuilderMethod
@@ -77,7 +77,7 @@ public final class NettyRestServerConfig extends Config {
      * @param option option name
      * @param value  option value
      * @param <T>    option type
-     * @return A reference to this {@code NettyServerConfig}
+     * @return the reference to this {@link NettyRestServerConfig} instance
      * @see ChannelOption
      */
     @BuilderMethod
@@ -90,7 +90,7 @@ public final class NettyRestServerConfig extends Config {
      * Adds channel handler supplier to the last position of channel handlers
      *
      * @param channelHandlerSupplier channel handler supplier
-     * @return A reference to this {@code NettyServerConfig}
+     * @return the reference to this {@link NettyRestServerConfig} instance
      */
     @BuilderMethod
     public NettyRestServerConfig addLast(final Supplier<ChannelHandler> channelHandlerSupplier) {
@@ -99,9 +99,9 @@ public final class NettyRestServerConfig extends Config {
     }
 
     /**
-     * Resets channel handlers
+     * Resets channel handlers, i.e. removes all configured channel handlers
      *
-     * @return A reference to this {@code NettyServerConfig}
+     * @return the reference to this {@link NettyRestServerConfig} instance
      */
     @BuilderMethod
     public NettyRestServerConfig resetChannelHandlers() {
@@ -109,28 +109,48 @@ public final class NettyRestServerConfig extends Config {
         return this;
     }
 
+    /**
+     * Returns configured server options
+     *
+     * @return configured server options
+     */
     public Map<ChannelOption<?>, Object> getServerOptions() {
         return serverOptions;
     }
 
+    /**
+     * Returns configured client options
+     *
+     * @return configured client options
+     */
     public Map<ChannelOption<?>, Object> getClientOptions() {
         return clientOptions;
     }
 
+    /**
+     * Returns configured {@link ChannelHandler} suppliers
+     *
+     * @return configured {@link ChannelHandler} suppliers
+     */
     public List<Supplier<ChannelHandler>> getHandlerSuppliers() {
         return handlerSuppliers;
     }
 
+    /**
+     * Returns current {@link NettyTransport}
+     *
+     * @return current {@link NettyTransport}
+     */
     public NettyTransport getTransport() {
         return transport;
     }
 
     /**
-     * Sets which {@code NettyTransport} must be used.
-     * If required {@code NettyTransport} couldn't be used, {@code NettyTransport.NETTY} will be set automatically
+     * Sets which {@link NettyTransport} must be used.
+     * If required {@link NettyTransport} couldn't be used, {@link NettyTransport#NETTY} will be set automatically.
      *
-     * @param transport {@code NettyTransport} which must be used
-     * @return A reference to this {@code NettyServerConfig}
+     * @param transport {@link NettyTransport} which must be used
+     * @return the reference to this {@link NettyRestServerConfig} instance
      */
     @BuilderMethod
     public NettyRestServerConfig setTransport(final NettyTransport transport) {
@@ -139,7 +159,10 @@ public final class NettyRestServerConfig extends Config {
     }
 
     /**
+     * Returns the channel id type
+     *
      * @since 0.3
+     * @return the channel id type
      */
     public NettyChannelIdType getChannelIdType() {
         return channelIdType;
@@ -148,13 +171,13 @@ public final class NettyRestServerConfig extends Config {
     /**
      * Sets channelIdType
      *
-     * @param channelIdType {@code NettyChannelIdType} which must be used
-     * @return A reference to this {@code NettyServerConfig}
      * @since 0.3
+     * @param channelIdType {@link NettyChannelIdType} which must be used
+     * @return the reference to this {@link NettyRestServerConfig} instanc
      */
     @BuilderMethod
     public NettyRestServerConfig setChannelIdType(final NettyChannelIdType channelIdType) {
-        this.channelIdType = channelIdType;
+        this.channelIdType = require(channelIdType);
         return this;
     }
 

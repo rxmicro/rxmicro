@@ -23,6 +23,8 @@ import io.rxmicro.validation.ConstraintValidator;
 import java.time.Instant;
 
 /**
+ * Validator for the {@link io.rxmicro.validation.constraint.Past} constraint
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @see io.rxmicro.validation.constraint.Past

@@ -24,6 +24,8 @@ import java.util.Collection;
 import java.util.Set;
 
 /**
+ * Validator for the {@link io.rxmicro.validation.constraint.Enumeration} constraint
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @see io.rxmicro.validation.constraint.Enumeration

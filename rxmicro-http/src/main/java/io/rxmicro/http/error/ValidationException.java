@@ -22,6 +22,8 @@ import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.Strings.capitalize;
 
 /**
+ * A class signaling that the client has sent a {@code Bad Request}.
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1
@@ -30,12 +32,34 @@ public final class ValidationException extends HttpErrorException {
 
     public static final int STATUS_CODE = 400;
 
+    /**
+     * Creates a {@code Bad Request} HTTP error with error message.
+     * <p>
+     * For all child classes which extend the HttpErrorException class, when creating an exception instance the stack trace is not filled,
+     * as this information is redundant.
+     * <p>
+     * (<i>This behavior is achieved by using the {@link RuntimeException#RuntimeException(String, Throwable, boolean, boolean)}.</i>)
+     *
+     * @param message the error message
+     * @throws NullPointerException if {@code message} is {@code null}
+     */
     public ValidationException(final String message) {
         super(STATUS_CODE, capitalize(message));
     }
 
     /**
-     * This constructor uses {@link Formats#format(String, Object...) Formats.format} to format error message
+     * Creates a {@code Bad Request} HTTP error with error message.
+     * <p>
+     * For all child classes which extend the HttpErrorException class, when creating an exception instance the stack trace is not filled,
+     * as this information is redundant.
+     * <p>
+     * (<i>This behavior is achieved by using the {@link RuntimeException#RuntimeException(String, Throwable, boolean, boolean)}.</i>)
+     * <p>
+     * <i>(FYI: This constructor uses {@link Formats#format(String, Object...)} method to format error message.)</i>
+     *
+     * @param message the error message template
+     * @param args the error message template argument
+     * @throws NullPointerException if {@code message} is {@code null}
      */
     public ValidationException(final String message,
                                final Object... args) {

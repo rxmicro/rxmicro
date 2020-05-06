@@ -36,6 +36,8 @@ import static java.util.Collections.unmodifiableSet;
 import static java.util.stream.Collectors.toList;
 
 /**
+ * Reflection utils
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1

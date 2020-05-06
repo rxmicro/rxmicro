@@ -24,6 +24,9 @@ import static java.lang.annotation.ElementType.PARAMETER;
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
+ * Allows setting mapping between one method parameter marked with this annotation and several universal placeholders
+ * that are used in the query to db.
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1
@@ -33,5 +36,10 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 @Target(PARAMETER)
 public @interface RepeatParameter {
 
+    /**
+     * Returns the repeat count
+     *
+     * @return the repeat count
+     */
     int value();
 }

@@ -27,6 +27,23 @@ import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
+ * This annotation provides an opportunity to disable the generation of validators for the selected group of classes in the project:
+ * <p>
+ * <ul>
+ *     <li>
+ *         If a model class is annotated by this annotation, then only for this model class the validator won’t be generated.
+ *     </li>
+ *     <li>
+ *         If this annotation annotates the package-info.java class, then for all classes from the specified package and all its
+ *          subpackages no validators will be generated.
+ *          </li>
+ *     <li>
+ *         If this annotation annotates the module-info.java descriptor, then for all classes in the current module no validators
+ *         will be generated. (This behavior is similar to the removal of the {@code rxmicro.validation} module from the
+ *         {@code module-info.java} descriptor.)
+ *     </li>
+ * </ul>
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1

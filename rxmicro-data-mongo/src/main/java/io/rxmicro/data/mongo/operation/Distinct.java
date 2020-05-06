@@ -24,6 +24,9 @@ import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
+ * Denotes a repository method that must execute a
+ * <a href="https://docs.mongodb.com/manual/reference/method/db.collection.distinct/">{@code db.collection.distinct()}</a> operation.
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @link https://docs.mongodb.com/manual/reference/method/db.collection.distinct/
@@ -34,9 +37,22 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 @Target(METHOD)
 public @interface Distinct {
 
+    /**
+     * Returns the field for which to return distinct values.
+     *
+     * @return the field for which to return distinct values.
+     */
     String field();
 
     /**
+     * Returns the query that specifies the documents from which to retrieve the distinct values.
+     * <p>
+     * Read more:
+     * <a href="https://docs.mongodb.com/manual/reference/operator/">
+     *     https://docs.mongodb.com/manual/reference/operator/
+     * </a>
+     *
+     * @return the query that specifies the documents from which to retrieve the distinct values.
      * @link https://docs.mongodb.com/manual/reference/operator/
      */
     String query() default "";

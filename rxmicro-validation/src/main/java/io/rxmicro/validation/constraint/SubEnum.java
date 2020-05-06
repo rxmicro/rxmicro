@@ -17,7 +17,7 @@
 package io.rxmicro.validation.constraint;
 
 import io.rxmicro.validation.base.ConstraintRule;
-import io.rxmicro.validation.base.SelfDocumented;
+import io.rxmicro.validation.internal.SelfDocumented;
 import io.rxmicro.validation.validator.SubEnumConstraintValidator;
 
 import java.lang.annotation.Documented;
@@ -52,11 +52,10 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 public @interface SubEnum {
 
     /**
-     * Allows to disable validation rule if validation inherited from super class.
+     * Allows disabling the validation rule if this rule is inherited from super class. <p>
      * By default, disable is off
      *
-     * @return {@code true} if the validation must be disabled,
-     * {@code false} otherwise
+     * @return  {@code true} if the validation must be disabled,
      */
     boolean off() default false;
 
@@ -64,14 +63,14 @@ public @interface SubEnum {
      * Only include values allowed.
      * 'include' has more priority, so if 'include' and 'exclude' are defined, 'exclude' will be ignored
      *
-     * @return include enum names
+     * @return the include enum names
      */
     String[] include() default {};
 
     /**
-     * Only exclude values allowed
+     * Only not exclude values allowed
      *
-     * @return exclude enum names
+     * @return the exclude enum names
      */
     String[] exclude() default {};
 }

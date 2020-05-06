@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. http://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,12 +19,19 @@ package io.rxmicro.validation.base;
 import java.util.Set;
 
 /**
+ * Constraint utility class
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.4
  */
 public final class ConstraintUtils {
 
+    /**
+     * Returns the unmodifiable set of latin letters [a-z] and [A-Z] and digits [0-9]
+     *
+     * @return the unmodifiable set of latin letters [a-z] and [A-Z] and digits [0-9]
+     */
     public static Set<Character> getLatinLettersAndDigits() {
         return Set.of(
                 // [a-z]

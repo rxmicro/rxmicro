@@ -25,6 +25,8 @@ import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
+ * Denotes a model field, the value of that ignored during {@code INSERT} SQL operation.
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1

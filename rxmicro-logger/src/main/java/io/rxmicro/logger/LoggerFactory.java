@@ -22,7 +22,7 @@ import io.rxmicro.logger.impl.LoggerImplProvider;
 import static io.rxmicro.logger.impl.LoggerImplProviderFactory.getLoggerImplFactory;
 
 /**
- * Factory that must be used to get Logger instance.
+ * Factory that must be used to get a {@link Logger} instance.
  *
  * @author nedis
  * @link https://rxmicro.io
@@ -44,20 +44,20 @@ public final class LoggerFactory {
     }
 
     /**
-     * Returns a {@link Logger} instance by name
+     * Returns the {@link Logger} instance by name
      *
-     * @param className class name
-     * @return a {@link Logger} instance
+     * @param className the class name
+     * @return the {@link Logger} instance
      */
     public static Logger getLogger(final Class<?> className) {
         return LOGGER_IMPL_FACTORY.getLogger(className.getName());
     }
 
     /**
-     * Returns a {@link Logger} instance by name
+     * Returns the {@link Logger} instance by name
      *
-     * @param name name
-     * @return a {@link Logger} instance
+     * @param name the name
+     * @return the {@link Logger} instance
      */
     public static Logger getLogger(final String name) {
         return LOGGER_IMPL_FACTORY.getLogger(name);

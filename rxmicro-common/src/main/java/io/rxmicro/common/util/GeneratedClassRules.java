@@ -17,16 +17,30 @@
 package io.rxmicro.common.util;
 
 /**
+ * TODO
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1
  */
 public final class GeneratedClassRules {
 
+    /**
+     * TODO
+     */
     public static final String GENERATED_CLASS_NAME_PREFIX = "$$";
 
+    /**
+     * TODO
+     */
     public static final String GENERATED_VIRTUAL_CLASS_SUB_PREFIX = "Virtual";
 
+    /**
+     * TODO
+     *
+     * @param clazz
+     * @return
+     */
     public static boolean isGeneratedClass(final Class<?> clazz) {
         return clazz.getSimpleName().startsWith(GENERATED_CLASS_NAME_PREFIX);
     }

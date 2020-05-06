@@ -22,14 +22,28 @@ import java.util.Collection;
 import java.util.List;
 
 /**
+ * Utility class for HTTP values
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1
  */
 public final class HttpValues {
 
+    /**
+     * Defines a delimiter that used for separation of the list values.
+     * <p>
+     * If the HTTP header (or HTT query parameter) of an HTTP request (or response) is a list of values,
+     * the list elements are transferred by default via the HTTP protocol as a string separated by the {@code |} symbol.
+     */
     public static final String STRING_ARRAY_DELIMITER = "|";
 
+    /**
+     * Converts the array to the string separated by the {@code |} symbol
+     *
+     * @param array the array to convert
+     * @return the string separated by the {@code |} symbol
+     */
     public static String arrayToString(final Object array) {
         final StringBuilder stringBuilder = new StringBuilder(50);
         final int length = Array.getLength(array);
@@ -42,6 +56,12 @@ public final class HttpValues {
         return stringBuilder.toString();
     }
 
+    /**
+     * Converts the list to the string separated by the {@code |} symbol
+     *
+     * @param list the list to convert
+     * @return the string separated by the {@code |} symbol
+     */
     public static String listToString(final List<?> list) {
         final StringBuilder stringBuilder = new StringBuilder(50);
         for (int i = 0; i < list.size(); i++) {
@@ -53,6 +73,12 @@ public final class HttpValues {
         return stringBuilder.toString();
     }
 
+    /**
+     * Converts the collection to the string separated by the {@code |} symbol
+     *
+     * @param collection the collection to convert
+     * @return the string separated by the {@code |} symbol
+     */
     public static String collectionToString(final Collection<?> collection) {
         final StringBuilder stringBuilder = new StringBuilder(50);
         for (final Object o : collection) {
@@ -64,16 +90,12 @@ public final class HttpValues {
         return stringBuilder.toString();
     }
 
-    private static String simpleObjectToString(final Object value) {
-        if (value == null) {
-            return null;
-        } else if (value instanceof BigDecimal) {
-            return ((BigDecimal) value).toPlainString();
-        } else {
-            return value.toString();
-        }
-    }
-
+    /**
+     * Converts the object value to the string representation
+     *
+     * @param value the object value
+     * @return the string representation of the specified object value.
+     */
     public static String objectToString(final Object value) {
         if (value == null) {
             return null;
@@ -83,6 +105,16 @@ public final class HttpValues {
             return collectionToString((Collection<?>) value);
         } else if (value.getClass().isArray()) {
             return arrayToString(value);
+        } else {
+            return value.toString();
+        }
+    }
+
+    private static String simpleObjectToString(final Object value) {
+        if (value == null) {
+            return null;
+        } else if (value instanceof BigDecimal) {
+            return ((BigDecimal) value).toPlainString();
         } else {
             return value.toString();
         }

@@ -29,8 +29,8 @@ import static io.rxmicro.data.mongo.MongoClientFactory.getMongoClient;
  */
 public final class MongoDatabaseBuilder {
 
-    public MongoDatabase createMongoDatabase(final String nameSpace) {
-        final MongoConfig mongoConfig = getConfig(nameSpace, MongoConfig.class);
-        return getMongoClient(nameSpace).getDatabase(mongoConfig.getDatabase());
+    public MongoDatabase createMongoDatabase(final String namespace) {
+        final MongoConfig mongoConfig = getConfig(namespace, MongoConfig.class);
+        return getMongoClient(namespace).getDatabase(mongoConfig.getDatabase());
     }
 }

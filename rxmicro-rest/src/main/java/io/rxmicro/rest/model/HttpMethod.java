@@ -17,23 +17,46 @@
 package io.rxmicro.rest.model;
 
 /**
+ * All Supported HTTP methods
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1
  */
 public enum HttpMethod {
 
+    /**
+     * HTTP GET method
+     */
     GET,
 
+    /**
+     * HTTP POST method
+     */
     POST,
 
+    /**
+     * HTTP PUT method
+     */
     PUT,
 
+    /**
+     * HTTP DELETE method
+     */
     DELETE,
 
+    /**
+     * HTTP PATCH method
+     */
     PATCH,
 
+    /**
+     * HTTP OPTIONS method
+     */
     OPTIONS,
 
+    /**
+     * HTTP HEAD method
+     */
     HEAD
 }

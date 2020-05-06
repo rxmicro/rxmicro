@@ -26,12 +26,22 @@ import java.util.List;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 /**
+ * Utility class to get data from classpath resources
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1
  */
 public final class ClasspathResources {
 
+    /**
+     * Reads bytes from the classpath resource and converts it to the {@link List} of {@code UTF-8} strings.
+     *
+     * @param classPathResource the classpath resource
+     * @return the {@link List} of {@code UTF-8} strings read from the classpath resource or
+     *          the empty list if the classpath resource not found
+     * @throws ResourceException if IO error occurs
+     */
     public static List<String> readLines(final String classPathResource) {
         try {
             try (InputStream in = ClasspathResources.class.getClassLoader().getResourceAsStream(classPathResource)) {

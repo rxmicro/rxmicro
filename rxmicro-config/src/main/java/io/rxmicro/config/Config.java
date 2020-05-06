@@ -30,14 +30,40 @@ import static java.util.stream.Collectors.joining;
  */
 public abstract class Config {
 
+    /**
+     * Default name for config file or class path resource without extension.
+     *
+     * This name used by {@link ConfigSource#RXMICRO_CLASS_PATH_RESOURCE} or
+     *                   {@link ConfigSource#RXMICRO_FILE_AT_THE_HOME_DIR} or
+     *                   {@link ConfigSource#RXMICRO_FILE_AT_THE_RXMICRO_CONFIG_DIR} or
+     *                   {@link ConfigSource#RXMICRO_FILE_AT_THE_CURRENT_DIR}
+     */
     public static final String RX_MICRO_CONFIG_FILE_NAME = "rxmicro";
 
+    /**
+     * Default name for config directory.
+     *
+     * This name used by {@link ConfigSource#SEPARATE_FILE_AT_THE_RXMICRO_CONFIG_DIR} or
+     *                   {@link ConfigSource#RXMICRO_FILE_AT_THE_RXMICRO_CONFIG_DIR}
+     */
     public static final String RX_MICRO_CONFIG_DIRECTORY_NAME = ".rxmicro";
 
+    /**
+     * Defines the default namespace for the config class.
+     *
+     * @param configClass the config class
+     * @return the default namespace
+     */
     public static String getDefaultNameSpace(final Class<? extends Config> configClass) {
         return getDefaultNameSpace(configClass.getSimpleName());
     }
 
+    /**
+     * Defines the default namespace for config simple class name (without package).
+     *
+     * @param configSimpleClassName the config simple class name
+     * @return the default namespace
+     */
     public static String getDefaultNameSpace(final String configSimpleClassName) {
         final List<String> words = splitByCamelCase(configSimpleClassName);
         return words.stream()
@@ -46,6 +72,11 @@ public abstract class Config {
                 .collect(joining("-"));
     }
 
+    /**
+     * Returns the default namespace for config instance
+     *
+     * @return the default namespace for config instance
+     */
     public String getNameSpace() {
         return getDefaultNameSpace(getClass());
     }

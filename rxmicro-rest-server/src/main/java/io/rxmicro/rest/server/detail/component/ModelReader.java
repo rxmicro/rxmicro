@@ -29,6 +29,8 @@ import static io.rxmicro.http.local.HttpValidators.validateQueryParameterNameCha
 import static java.net.URLDecoder.decode;
 
 /**
+ * Used by generated code that was created by RxMicro Annotation Processor
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1

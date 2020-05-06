@@ -22,7 +22,7 @@ import io.rxmicro.http.error.HttpErrorException;
 import static io.rxmicro.common.util.Requires.require;
 
 /**
- * If response is not received within a specified time period
+ * A class signaling that the HTTP client didn’t receive a response from the server in given time.
  *
  * @author nedis
  * @link https://rxmicro.io
@@ -33,7 +33,18 @@ public final class HttpClientTimeoutException extends HttpErrorException {
     public static final int STATUS_CODE = 504;
 
     /**
-     * This constructor uses {@link Formats#format(String, Object...) Formats.format} to format error message
+     * Creates a HTTP error with error message.
+     * <p>
+     * For all child classes which extend the HttpErrorException class, when creating an exception instance the stack trace is not filled,
+     * as this information is redundant.
+     * <p>
+     * (<i>This behavior is achieved by using the {@link RuntimeException#RuntimeException(String, Throwable, boolean, boolean)}.</i>)
+     * <p>
+     * <i>(FYI: This constructor uses {@link Formats#format(String, Object...)} method to format error message.)</i>
+     *
+     * @param message the error message template
+     * @param args the error message template argument
+     * @throws NullPointerException if {@code message} is {@code null}
      */
     public HttpClientTimeoutException(final String message,
                                       final Object... args) {

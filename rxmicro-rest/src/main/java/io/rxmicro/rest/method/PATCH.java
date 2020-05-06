@@ -26,7 +26,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
  * Annotation that can be applied to method to signify the method receives a PATCH request.
- * See https://tools.ietf.org/html/rfc5789.
+ * See <a href="https://tools.ietf.org/html/rfc5789">https://tools.ietf.org/html/rfc5789</a>
  *
  * @author nedis
  * @link https://rxmicro.io
@@ -40,13 +40,17 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 public @interface PATCH {
 
     /**
-     * @return The URI of the route
+     * Returns the URI of the route
+     *
+     * @return the URI of the route
      */
     String value();
 
     /**
-     * @return {@code true} if HTTP body is used for transferring of http parameters,
-     * {@code false} if parameters are transferred via HTTP query string
+     * Informs how the request parameters must be transferred via HTTP protocol: in the start line or in the request body.
+     *
+     * @return  {@code true} if HTTP body is used for transferring of http parameters,
+     *          {@code false} if parameters are transferred via HTTP query string
      */
     boolean httpBody() default false;
 
@@ -62,6 +66,11 @@ public @interface PATCH {
     @Target(METHOD)
     @interface List {
 
+        /**
+         * Returns the several {@link PATCH} annotations on the same element.
+         *
+         * @return the several {@link PATCH} annotations on the same element.
+         */
         PATCH[] value();
     }
 }

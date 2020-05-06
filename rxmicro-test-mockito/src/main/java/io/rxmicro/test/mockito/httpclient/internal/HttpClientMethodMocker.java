@@ -16,7 +16,7 @@
 
 package io.rxmicro.test.mockito.httpclient.internal;
 
-import io.rxmicro.common.ImpossibleException;
+import io.rxmicro.common.InvalidStateException;
 import io.rxmicro.http.client.HttpClient;
 import io.rxmicro.http.client.HttpClientContentConverter;
 import io.rxmicro.test.local.InvalidTestConfigException;
@@ -114,7 +114,7 @@ public final class HttpClientMethodMocker {
                 ServiceLoader.load(HttpClientContentConverter.class)
                         .findFirst()
                         .orElseThrow(() -> {
-                            throw new ImpossibleException(
+                            throw new InvalidStateException(
                                     "Implementation of '?' not found for test environment!",
                                     HttpClientContentConverter.class.getName()
                             );

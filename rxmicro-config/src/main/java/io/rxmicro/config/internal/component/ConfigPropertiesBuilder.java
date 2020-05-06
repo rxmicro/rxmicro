@@ -31,13 +31,13 @@ import static java.util.stream.Collectors.toList;
  */
 public final class ConfigPropertiesBuilder {
 
-    public ConfigProperties build(final String nameSpace,
+    public ConfigProperties build(final String namespace,
                                   final Config config) {
         return new ConfigProperties(
-                nameSpace,
+                namespace,
                 findPublicSetters(config.getClass()).stream()
                         .map(method -> new ConfigProperty(
-                                nameSpace,
+                                namespace,
                                 getPropertyName(method.getName()),
                                 method,
                                 config))

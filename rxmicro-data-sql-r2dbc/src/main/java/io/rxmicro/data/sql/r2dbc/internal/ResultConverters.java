@@ -19,10 +19,10 @@ package io.rxmicro.data.sql.r2dbc.internal;
 import io.r2dbc.spi.ColumnMetadata;
 import io.r2dbc.spi.Row;
 import io.r2dbc.spi.RowMetadata;
+import io.rxmicro.data.sql.local.impl.EntityFieldListImpl;
+import io.rxmicro.data.sql.local.impl.EntityFieldMapImpl;
 import io.rxmicro.data.sql.model.EntityFieldList;
 import io.rxmicro.data.sql.model.EntityFieldMap;
-import io.rxmicro.data.sql.model.impl.EntityFieldListImpl;
-import io.rxmicro.data.sql.model.impl.EntityFieldMapImpl;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;

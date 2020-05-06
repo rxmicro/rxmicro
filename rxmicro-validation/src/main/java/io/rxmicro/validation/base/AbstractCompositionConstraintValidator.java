@@ -22,6 +22,8 @@ import io.rxmicro.validation.ConstraintValidator;
 import java.util.List;
 
 /**
+ * Base composition constraint validator
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1
@@ -30,6 +32,11 @@ public abstract class AbstractCompositionConstraintValidator<T> implements Const
 
     private final List<ConstraintValidator<T>> validators;
 
+    /**
+     * Creates the base composition constraint validator with the specified validators
+     *
+     * @param validators the specified validators
+     */
     protected AbstractCompositionConstraintValidator(final List<ConstraintValidator<T>> validators) {
         this.validators = List.copyOf(validators);
     }

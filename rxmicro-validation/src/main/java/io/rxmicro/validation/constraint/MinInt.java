@@ -64,25 +64,26 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 public @interface MinInt {
 
     /**
-     * Allows to disable validation rule if validation inherited from super class.
+     * Allows disabling the validation rule if this rule is inherited from super class. <p>
      * By default, disable is off
      *
-     * @return {@code true} if the validation must be disabled,
-     * {@code false} otherwise
+     * @return  {@code true} if the validation must be disabled,
      */
     boolean off() default false;
 
     /**
-     * @return value the element must be higher or equal to
+     * Returns the value the element must be higher or equal to
+     *
+     * @return the value the element must be higher or equal to
      */
     long value();
 
     /**
-     * Specifies whether the specified maximum is inclusive or exclusive.
+     * Specifies whether the specified minimum is inclusive or exclusive.
      * By default, it is inclusive.
      *
-     * @return {@code true} if the value must be lower or equal to the specified maximum,
-     * {@code false} if the value must be lower
+     * @return  {@code true} if the value must be lower or equal to the specified maximum,
+     *          {@code false} if the value must be lower
      */
     boolean inclusive() default true;
 }

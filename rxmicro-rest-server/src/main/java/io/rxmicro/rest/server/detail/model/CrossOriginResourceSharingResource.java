@@ -31,6 +31,8 @@ import static java.util.Arrays.asList;
 import static java.util.stream.Collectors.joining;
 
 /**
+ * Used by generated code that was created by RxMicro Annotation Processor
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1

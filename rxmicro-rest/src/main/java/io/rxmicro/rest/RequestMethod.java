@@ -29,8 +29,8 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
  * Declares the Java model field as a field, in which the RxMicro framework must inject a method of the received request.
- *
- * (This feature is useful for request logging when one handler supports different HTTP methods.)
+ * <p>
+ * (<i>This feature is useful for request logging when one handler supports different HTTP methods.</i>)
  *
  * @author nedis
  * @link https://rxmicro.io

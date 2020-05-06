@@ -21,6 +21,10 @@ import java.util.List;
 import static io.rxmicro.common.util.Formats.format;
 
 /**
+ * Path variable mapping storage.
+ * <p>
+ * Instance of this class contains path variable names and values for HTTP request handlers that supports path variables.
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1
@@ -34,12 +38,25 @@ public final class PathVariableMapping {
 
     private final List<String> pathVariableValues;
 
+    /**
+     * Creates a new instance of {@link PathVariableMapping} class
+     *
+     * @param pathVariableNames the specified path variable name list
+     * @param pathVariableValues the specified path variable value list
+     */
     public PathVariableMapping(final List<String> pathVariableNames,
                                final List<String> pathVariableValues) {
         this.pathVariableNames = pathVariableNames;
         this.pathVariableValues = pathVariableValues;
     }
 
+    /**
+     * Returns value for predefined path variable
+     *
+     * @param variableName path variable name
+     * @return path variable value
+     * @throws IllegalArgumentException if path variable name is not defined
+     */
     public String getValue(final String variableName) {
         for (int i = 0; i < pathVariableNames.size(); i++) {
             if (variableName.equals(pathVariableNames.get(i))) {

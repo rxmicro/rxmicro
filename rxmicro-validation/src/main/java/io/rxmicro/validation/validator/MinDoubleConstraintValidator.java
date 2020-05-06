@@ -20,6 +20,9 @@ import io.rxmicro.validation.ConstraintValidator;
 import io.rxmicro.validation.base.AbstractMinConstraintValidator;
 
 /**
+ * Validator for the {@link io.rxmicro.validation.constraint.MinDouble} and the {@link io.rxmicro.validation.constraint.MinNumber}
+ * constraints
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @see io.rxmicro.validation.constraint.MinDouble

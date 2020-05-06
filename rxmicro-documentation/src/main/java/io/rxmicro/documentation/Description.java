@@ -31,6 +31,13 @@ import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
+ * Denotes the description of the generated REST-based microservice documentation.
+ * <p>
+ * (<i>Allows overriding the description specified in the description directive to pom.xml</i>)
+ * <p>
+ * In addition to the description of all REST-based microservice documentation, this annotation also allows to developer to specify
+ * a description of separate elements: sections, model fields, etc.
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1
@@ -40,5 +47,10 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 @Target({FIELD, TYPE, MODULE, PACKAGE, PARAMETER, CONSTRUCTOR, ANNOTATION_TYPE, METHOD})
 public @interface Description {
 
+    /**
+     * Returns the description
+     *
+     * @return the description
+     */
     String value();
 }

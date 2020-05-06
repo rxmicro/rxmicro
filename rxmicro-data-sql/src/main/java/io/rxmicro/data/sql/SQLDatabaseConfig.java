@@ -29,6 +29,8 @@ import static io.rxmicro.common.util.Requires.require;
 import static io.rxmicro.config.Networks.validatePort;
 
 /**
+ * Allows configuring SQL DB options.
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1
@@ -50,56 +52,118 @@ public class SQLDatabaseConfig extends Config {
 
     private Duration connectTimeout;
 
+    /**
+     * Returns the server host name
+     *
+     * @return the server host name
+     */
     public String getHost() {
         return host;
     }
 
+    /**
+     * Sets the server host name
+     *
+     * @param host the server host name
+     * @return the reference to this {@link SQLDatabaseConfig} instance
+     */
     @BuilderMethod
     public SQLDatabaseConfig setHost(final String host) {
         this.host = require(host);
         return this;
     }
 
+    /**
+     * Returns the server port
+     *
+     * @return the server port
+     */
     public int getPort() {
         return port;
     }
 
+    /**
+     * Sets the server port
+     *
+     * @param port the server port
+     * @return the reference to this {@link SQLDatabaseConfig} instance
+     */
     @BuilderMethod
     public SQLDatabaseConfig setPort(final int port) {
         this.port = validatePort(port);
         return this;
     }
 
+    /**
+     * Returns the database username
+     *
+     * @return the database username
+     */
     public String getUser() {
         return user;
     }
 
+    /**
+     * Sets the database username
+     *
+     * @param user the database username
+     * @return the reference to this {@link SQLDatabaseConfig} instance
+     */
     @BuilderMethod
     public SQLDatabaseConfig setUser(final String user) {
         this.user = require(user);
         return this;
     }
 
+    /**
+     * Returns the database password
+     *
+     * @return the database password
+     */
     public CharSequence getPassword() {
         return password;
     }
 
+    /**
+     * Sets the database password
+     *
+     * @param password the database password
+     * @return the reference to this {@link SQLDatabaseConfig} instance
+     */
     @BuilderMethod
     public SQLDatabaseConfig setPassword(final CharSequence password) {
         this.password = require(password);
         return this;
     }
 
+    /**
+     * Returns the database name
+     *
+     * @return the database name
+     */
     public String getDatabase() {
         return database;
     }
 
+    /**
+     * Sets the database name
+     *
+     * @param database the database name
+     * @return the reference to this {@link SQLDatabaseConfig} instance
+     */
     @BuilderMethod
     public SQLDatabaseConfig setDatabase(final String database) {
         this.database = require(database);
         return this;
     }
 
+    /**
+     * Adds the new db specific option
+     *
+     * @param name the option name
+     * @param value the option value
+     * @return the reference to this {@link SQLDatabaseConfig} instance
+     */
     @BuilderMethod
     public SQLDatabaseConfig addOption(final String name,
                                        final String value) {
@@ -107,20 +171,41 @@ public class SQLDatabaseConfig extends Config {
         return this;
     }
 
+    /**
+     * Returns the db specific options
+     *
+     * @return the db specific options
+     */
     public Optional<Map<String, String>> getOptions() {
         return Optional.of(options).filter(m -> !m.isEmpty());
     }
 
+    /**
+     * Returns the connection timeout
+     *
+     * @return the connection timeout
+     */
     public Duration getConnectTimeout() {
         return connectTimeout;
     }
 
+    /**
+     * Sets the connection timeout
+     *
+     * @param connectTimeout the connection timeout
+     * @return the reference to this {@link SQLDatabaseConfig} instance
+     */
     @BuilderMethod
     public SQLDatabaseConfig setConnectTimeout(final Duration connectTimeout) {
         this.connectTimeout = require(connectTimeout);
         return this;
     }
 
+    /**
+     * Returns the connection string built from schema, host, port and database parameters
+     *
+     * @return the connection string built from schema, host, port and database parameters
+     */
     public String getConnectionString() {
         return format("sql://?:?/?", host, port, database);
     }

@@ -23,17 +23,28 @@ import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.GeneratedClassRules.GENERATED_CLASS_NAME_PREFIX;
 
 /**
+ * Utility class that must be used to get an instance of the dynamic data repository
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1
  */
 public abstract class RepositoryFactory extends AbstractFactory {
 
+    /**
+     * Default name of the repository factory implementation class
+     */
     public static final String REPOSITORY_FACTORY_IMPL_CLASS_NAME =
             format("??Impl", GENERATED_CLASS_NAME_PREFIX, RepositoryFactory.class.getSimpleName());
 
-    public static <T> T getRepository(final Class<T> repositoryClass) {
-        return get(REPOSITORY_FACTORY_IMPL_CLASS_NAME).getImpl(new ByTypeInstanceQualifier<>(repositoryClass))
-                .orElseThrow(implNotFoundError(repositoryClass));
+    /**
+     * Returns the instance of the requested dynamic data repository
+     *
+     * @param repositoryInterface the requested dynamic data repository interface
+     * @return the instance of the requested dynamic data repository
+     */
+    public static <T> T getRepository(final Class<T> repositoryInterface) {
+        return get(REPOSITORY_FACTORY_IMPL_CLASS_NAME).getImpl(new ByTypeInstanceQualifier<>(repositoryInterface))
+                .orElseThrow(implNotFoundError(repositoryInterface));
     }
 }

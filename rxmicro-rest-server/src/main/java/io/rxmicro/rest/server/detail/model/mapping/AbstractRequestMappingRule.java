@@ -23,6 +23,8 @@ import static io.rxmicro.common.util.Requires.require;
 import static io.rxmicro.http.HttpHeaders.API_VERSION;
 
 /**
+ * Used by generated code that was created by RxMicro Annotation Processor
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1

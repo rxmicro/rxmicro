@@ -34,8 +34,14 @@ import static java.util.stream.Collectors.toSet;
  */
 public enum ServerExchangeFormatModule implements ExchangeFormatModule {
 
+    /**
+     * Exchange format must be resolved automatically
+     */
     AUTO_DETECT(null, null),
 
+    /**
+     * JSON exchange format
+     */
     JSON(RX_MICRO_REST_SERVER_EXCHANGE_JSON_MODULE, JSON_EXCHANGE_FORMAT);
 
     private final RxMicroModule rxMicroModule;

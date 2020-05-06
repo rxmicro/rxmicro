@@ -19,7 +19,8 @@ package io.rxmicro.annotation.processor.documentation.component.impl;
 import com.google.inject.Singleton;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
 import io.rxmicro.annotation.processor.documentation.component.ExternalResourceReader;
-import io.rxmicro.common.RxMicroException;
+import io.rxmicro.common.CheckedWrapperException;
+import io.rxmicro.common.InvalidStateException;
 
 import javax.lang.model.element.Element;
 import java.io.IOException;
@@ -55,8 +56,8 @@ public final class ExternalResourceReaderImpl implements ExternalResourceReader 
     private String readFromFile(final Path filePath) {
         try {
             return Files.readString(filePath, UTF_8);
-        } catch (IOException e) {
-            throw new RxMicroException(e, "Can't read data from file: ?", filePath.toAbsolutePath());
+        } catch (final IOException e) {
+            throw new CheckedWrapperException(e, "Can't read data from file: ?", filePath.toAbsolutePath());
         }
     }
 
@@ -66,9 +67,9 @@ public final class ExternalResourceReaderImpl implements ExternalResourceReader 
             if (scanner.hasNext()) {
                 return scanner.next();
             }
-            throw new RxMicroException("Can't read data from http resource: ?: Empty content", resourcePath);
-        } catch (IOException e) {
-            throw new RxMicroException(e, "Can't read data from http resource: ?", resourcePath);
+            throw new InvalidStateException("Can't read data from http resource: ?: Empty content", resourcePath);
+        } catch (final IOException e) {
+            throw new CheckedWrapperException(e, "Can't read data from http resource: ?", resourcePath);
         }
     }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. http://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -100,29 +100,62 @@ import java.util.function.Predicate;
 import static io.rxmicro.common.util.Requires.require;
 
 /**
+ * Allows configuring the Mongo DB codecs
+ *
  * @author nedis
- * @link http://rxmicro.io
+ * @link https://rxmicro.io
  * @since 0.2
  */
 public final class MongoCodecsConfigurator extends AbstractMongoCodecsConfigurator<MongoCodecsConfigurator> {
 
     private UuidRepresentation uuidRepresentation = UuidRepresentation.JAVA_LEGACY;
 
+    /**
+     * Sets the default {@link UuidRepresentation}
+     *
+     * @param defaultUuidRepresentation the default {@link UuidRepresentation}
+     * @return the reference to this {@link MongoCodecsConfigurator} instance
+     */
     @BuilderMethod
-    public MongoCodecsConfigurator setDefaultUuidRepresentation(final UuidRepresentation uuidRepresentation) {
+    public MongoCodecsConfigurator setDefaultUuidRepresentation(final UuidRepresentation defaultUuidRepresentation) {
         if (isNotConfigured()) {
-            this.uuidRepresentation = uuidRepresentation;
+            this.uuidRepresentation = defaultUuidRepresentation;
             return this;
         } else {
             throw new IllegalStateException("`setDefaultUuidRepresentation` must be invoked before any configuration!");
         }
     }
 
+    /**
+     * Removes all configured Mongo codecs
+     *
+     * @return the reference to this {@link MongoCodecsConfigurator} instance
+     */
     public MongoCodecsConfigurator withoutAnyCodecs() {
         clear();
         return this;
     }
 
+    /**
+     * Adds the common codecs that supports the following java types:
+     * <ul>
+     *     <li>{@link Boolean}</li>
+     *     <li>{@link Byte}</li>
+     *     <li>{@link Short}</li>
+     *     <li>{@link Integer}</li>
+     *     <li>{@link Long}</li>
+     *     <li>{@link Float}</li>
+     *     <li>{@link Double}</li>
+     *     <li>{@link java.math.BigDecimal}</li>
+     *     <li>{@link Character}</li>
+     *     <li>{@link String}</li>
+     *     <li>{@link org.bson.types.ObjectId}</li>
+     *     <li>{@link org.bson.types.Binary}</li>
+     *     <li>{@link org.bson.types.Decimal128}</li>
+     * </ul>
+     *
+     * @return the reference to this {@link MongoCodecsConfigurator} instance
+     */
     public MongoCodecsConfigurator withCommonCodecs() {
         addCodec(new BooleanCodec());
 
@@ -144,6 +177,20 @@ public final class MongoCodecsConfigurator extends AbstractMongoCodecsConfigurat
         return this;
     }
 
+    /**
+     * Adds the date and time codecs that supports the following java types:
+     * <ul>
+     *     <li>{@link java.time.Instant}</li>
+     *     <li>{@link java.time.LocalDate}</li>
+     *     <li>{@link java.time.LocalDateTime}</li>
+     *     <li>{@link java.time.LocalTime}</li>
+     *     <li>{@link Date}</li>
+     *     <li>{@code ? extends }{@link Date}</li>
+     *     <li>{@link org.bson.types.BSONTimestamp}</li>
+     * </ul>
+     *
+     * @return the reference to this {@link MongoCodecsConfigurator} instance
+     */
     public MongoCodecsConfigurator withDateTimeCodecs() {
         addCodec(new InstantCodec());
         addCodec(new LocalDateCodec());
@@ -156,6 +203,18 @@ public final class MongoCodecsConfigurator extends AbstractMongoCodecsConfigurat
         return this;
     }
 
+    /**
+     * Adds the extend java codecs that supports the following java types:
+     * <ul>
+     *     <li>{@link java.util.UUID}</li>
+     *     <li>{@link java.util.regex.Pattern}</li>
+     *     <li>{@code byte[]}</li>
+     *     <li>{@link org.bson.BsonRegularExpression}</li>
+     *     <li>{@link org.bson.types.Binary}</li>
+     * </ul>
+     *
+     * @return the reference to this {@link MongoCodecsConfigurator} instance
+     */
     public MongoCodecsConfigurator withExtendJavaCodecs() {
         addCodec(new UuidCodec(uuidRepresentation));
         addCodec(new PatternCodec());
@@ -166,6 +225,19 @@ public final class MongoCodecsConfigurator extends AbstractMongoCodecsConfigurat
         return this;
     }
 
+    /**
+     * Adds the extend mongo codecs that supports the following java types:
+     * <ul>
+     *     <li>{@link org.bson.types.Symbol}</li>
+     *     <li>{@link org.bson.types.BSONTimestamp}</li>
+     *     <li>{@link org.bson.types.MinKey}</li>
+     *     <li>{@link org.bson.types.MaxKey}</li>
+     *     <li>{@link org.bson.types.Code}</li>
+     *     <li>{@link org.bson.types.CodeWithScope}</li>
+     * </ul>
+     *
+     * @return the reference to this {@link MongoCodecsConfigurator} instance
+     */
     public MongoCodecsConfigurator withExtendMongoCodecs() {
         addCodec(new SymbolCodec());
         addCodec(new BSONTimestampCodec());
@@ -176,6 +248,38 @@ public final class MongoCodecsConfigurator extends AbstractMongoCodecsConfigurat
         return this;
     }
 
+    /**
+     * Adds the BSON values codecs that supports the following java types:
+     * <ul>
+     *     <li>{@link org.bson.BsonNull}</li>
+     *     <li>{@link org.bson.BsonBinary}</li>
+     *     <li>{@link org.bson.BsonBoolean}</li>
+     *     <li>{@link org.bson.BsonDateTime}</li>
+     *     <li>{@link org.bson.BsonDbPointer}</li>
+     *     <li>{@link org.bson.BsonDouble}</li>
+     *     <li>{@link org.bson.BsonInt32}</li>
+     *     <li>{@link org.bson.BsonInt64}</li>
+     *     <li>{@link org.bson.BsonDecimal128}</li>
+     *     <li>{@link org.bson.BsonMinKey}</li>
+     *     <li>{@link org.bson.BsonMaxKey}</li>
+     *     <li>{@link org.bson.BsonJavaScript}</li>
+     *     <li>{@link org.bson.BsonObjectId}</li>
+     *     <li>{@link org.bson.BsonRegularExpression}</li>
+     *     <li>{@link org.bson.BsonString}</li>
+     *     <li>{@link org.bson.BsonSymbol}</li>
+     *     <li>{@link org.bson.BsonTimestamp}</li>
+     *     <li>{@link org.bson.BsonUndefined}</li>
+     *     <li>{@link BsonJavaScriptWithScope}</li>
+     *     <li>{@link BsonValue}</li>
+     *     <li>{@link BsonDocumentWrapper}</li>
+     *     <li>{@link org.bson.RawBsonDocument}</li>
+     *     <li>{@link BsonDocument}</li>
+     *     <li>{@link BsonArray}</li>
+     *     <li>{@link Bson}</li>
+     * </ul>
+     *
+     * @return the reference to this {@link MongoCodecsConfigurator} instance
+     */
     public MongoCodecsConfigurator withBsonValuesCodes() {
         addCodec(new BsonNullCodec());
         addCodec(new BsonBinaryCodec());
@@ -206,11 +310,27 @@ public final class MongoCodecsConfigurator extends AbstractMongoCodecsConfigurat
         return this;
     }
 
+    /**
+     * Adds the {@link DBRef} codec that supports the following java type:
+     * <ul>
+     *     <li>{@link DBRef}</li>
+     * </ul>
+     *
+     * @return the reference to this {@link MongoCodecsConfigurator} instance
+     */
     public MongoCodecsConfigurator withDBRefCodec() {
         addCodecProvider(DBRef.class, DBRefCodec::new);
         return this;
     }
 
+    /**
+     * Adds the {@link Document} codec that supports the following java type:
+     * <ul>
+     *     <li>{@link Document}</li>
+     * </ul>
+     *
+     * @return the reference to this {@link MongoCodecsConfigurator} instance
+     */
     public MongoCodecsConfigurator withMongoDocumentCodecs() {
         final BsonTypeClassMap bsonTypeClassMap = new BsonTypeClassMap();
         final Transformer valueTransformer = new DocumentToDBRefTransformer();
@@ -224,12 +344,22 @@ public final class MongoCodecsConfigurator extends AbstractMongoCodecsConfigurat
         return this;
     }
 
+    /**
+     * Provides the combination of default used codecs
+     *
+     * @return the reference to this {@link MongoCodecsConfigurator} instance
+     */
     public MongoCodecsConfigurator withDefaultConfiguration() {
         return withCommonCodecs()
                 .withDateTimeCodecs()
                 .withMongoDocumentCodecs();
     }
 
+    /**
+     * Allows enabling all supported codecs
+     *
+     * @return the reference to this {@link MongoCodecsConfigurator} instance
+     */
     public MongoCodecsConfigurator withAllCodecs() {
         return withCommonCodecs()
                 .withDateTimeCodecs()
@@ -240,25 +370,57 @@ public final class MongoCodecsConfigurator extends AbstractMongoCodecsConfigurat
                 .withDBRefCodec();
     }
 
+    /**
+     * Sets or replaces the codec
+     *
+     * @param codec the codec to put
+     * @return the reference to this {@link MongoCodecsConfigurator} instance
+     */
     public MongoCodecsConfigurator putCodec(final Codec<?> codec) {
         return addCodec(require(codec));
     }
 
+    /**
+     * Sets or replaces the codec provider
+     *
+     * @param encodedClass the type class
+     * @param codecProvider the codec provider
+     * @return the reference to this {@link MongoCodecsConfigurator} instance
+     */
     public MongoCodecsConfigurator putCodecProvider(final Class<?> encodedClass,
                                                     final Function<CodecRegistry, Codec<?>> codecProvider) {
         return addCodecProvider(require(encodedClass), require(codecProvider));
     }
 
+    /**
+     * Sets or replaces the codec provider
+     *
+     * @param encodedClassPredicate the type class predicate that defines a rule to get a codec for requested class
+     * @param codecProvider the codec provider
+     * @return the reference to this {@link MongoCodecsConfigurator} instance
+     */
     public MongoCodecsConfigurator putCodecProvider(final Predicate<Class<?>> encodedClassPredicate,
                                                     final Function<CodecRegistry, Codec<?>> codecProvider) {
         return addCodecProvider(require(encodedClassPredicate), require(codecProvider));
     }
 
+    /**
+     * Sets or replaces the codec
+     *
+     * @param encodedClassPredicate the type class predicate that defines a rule to get a codec for requested class
+     * @param codec the codec to put
+     * @return the reference to this {@link MongoCodecsConfigurator} instance
+     */
     public MongoCodecsConfigurator putCodec(final Predicate<Class<?>> encodedClassPredicate,
                                             final Codec<?> codec) {
         return addCodec(require(encodedClassPredicate), require(codec));
     }
 
+    /**
+     * Provides the default configuration if a custom configuration is not set
+     *
+     * @return the reference to this {@link MongoCodecsConfigurator} instance
+     */
     MongoCodecsConfigurator withDefaultConfigurationIfNotConfigured() {
         if (isNotConfigured()) {
             return withDefaultConfiguration();
@@ -269,7 +431,7 @@ public final class MongoCodecsConfigurator extends AbstractMongoCodecsConfigurat
 
     /**
      * @author nedis
-     * @link http://rxmicro.io
+     * @link https://rxmicro.io
      * @since 0.3
      */
     private static final class DocumentProxyCodec implements Codec<Document> {
@@ -301,7 +463,7 @@ public final class MongoCodecsConfigurator extends AbstractMongoCodecsConfigurat
 
     /**
      * @author nedis
-     * @link http://rxmicro.io
+     * @link https://rxmicro.io
      * @since 0.3
      */
     @SuppressWarnings("unchecked")

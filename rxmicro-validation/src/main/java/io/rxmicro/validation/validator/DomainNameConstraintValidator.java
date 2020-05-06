@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. http://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,8 @@
 package io.rxmicro.validation.validator;
 
 /**
+ * Validator for the {@link io.rxmicro.validation.constraint.DomainName} constraint
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @see io.rxmicro.validation.constraint.DomainName

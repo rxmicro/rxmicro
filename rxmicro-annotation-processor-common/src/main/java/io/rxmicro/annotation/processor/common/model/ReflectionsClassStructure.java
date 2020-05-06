@@ -16,7 +16,7 @@
 
 package io.rxmicro.annotation.processor.common.model;
 
-import io.rxmicro.common.RxMicroException;
+import io.rxmicro.common.CheckedWrapperException;
 import io.rxmicro.runtime.detail.Reflections;
 
 import java.lang.reflect.Field;
@@ -75,7 +75,7 @@ public final class ReflectionsClassStructure extends ClassStructure {
     @Override
     public ClassHeader getClassHeader() {
         final ClassHeader.Builder builder = newClassHeaderBuilder(ENTRY_POINT_PACKAGE)
-                .addImports(RxMicroException.class);
+                .addImports(CheckedWrapperException.class);
         if (getterRequired || setterRequired) {
             builder
                     .addImports(Field.class)

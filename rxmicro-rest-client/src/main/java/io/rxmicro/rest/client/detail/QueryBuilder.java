@@ -26,6 +26,8 @@ import static io.rxmicro.http.HttpValues.listToString;
 import static java.util.Map.entry;
 
 /**
+ * Used by generated code that was created by RxMicro Annotation Processor
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1

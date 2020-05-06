@@ -67,7 +67,7 @@ public final class ClasspathResources {
     }
 
     public static String getResourceContent(final String resource) {
-        try(InputStream in = getResource(resource).openStream()){
+        try (InputStream in = getResource(resource).openStream()) {
             return new Scanner(in, UTF_8).useDelimiter("\\A").next();
         } catch (IOException e) {
             throw new ResourceException(e, "Can't read resource: ?", resource);

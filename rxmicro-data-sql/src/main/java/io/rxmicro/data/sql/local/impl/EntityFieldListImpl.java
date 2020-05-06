@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. https://rxmicro.io
+ * Copyright (c) 2020. http://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package io.rxmicro.data.sql.model.impl;
+package io.rxmicro.data.sql.local.impl;
 
 import io.rxmicro.data.sql.model.EntityFieldList;
 

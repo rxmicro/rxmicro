@@ -28,7 +28,11 @@ import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
- * JEE CDI or Google Guice style injection point qualifier annotation
+ * Allows to customize an injection point by specifying a string value or custom annotation.
+ * This annotation can also be used to specify a component name.
+ * <p>
+ * Is a synonym of the {@link Qualifier} annotation, and is recommended for developers who have used JEE or
+ * Google Guice as CDI implementation in their previous projects.
  *
  * @author nedis
  * @link https://rxmicro.io
@@ -39,5 +43,10 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 @Target({FIELD, TYPE, METHOD, CONSTRUCTOR, PARAMETER})
 public @interface Named {
 
+    /**
+     * Returns the customized name of component or injection point
+     *
+     * @return the customized name of component or injection point
+     */
     String value();
 }

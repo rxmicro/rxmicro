@@ -24,6 +24,9 @@ import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
+ * Denotes a repository method that must execute a
+ * <a href="https://docs.mongodb.com/manual/reference/method/db.collection.deleteMany/">{@code db.collection.deleteMany()}</a> operation.
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @link https://docs.mongodb.com/manual/reference/method/db.collection.deleteMany/
@@ -35,6 +38,14 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 public @interface Delete {
 
     /**
+     * Returns the deletion criteria using query operators.
+     * <p>
+     * Read more:
+     * <a href="https://docs.mongodb.com/manual/reference/operator/">
+     *     https://docs.mongodb.com/manual/reference/operator/
+     * </a>
+     *
+     * @return the deletion criteria using query operators.
      * @link https://docs.mongodb.com/manual/reference/operator/
      */
     String filter() default "";

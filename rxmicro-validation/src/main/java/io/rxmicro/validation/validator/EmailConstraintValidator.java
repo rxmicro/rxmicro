@@ -29,6 +29,8 @@ import static io.rxmicro.validation.validator.DomainNameConstraintValidator.DOMA
 import static java.util.stream.Collectors.toUnmodifiableSet;
 
 /**
+ * Validator for the {@link io.rxmicro.validation.constraint.Email} constraint
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @see io.rxmicro.validation.constraint.Email

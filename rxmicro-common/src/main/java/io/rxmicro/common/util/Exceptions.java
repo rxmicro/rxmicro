@@ -23,12 +23,21 @@ import java.util.Optional;
 import java.util.concurrent.CompletionException;
 
 /**
+ * Utils class to work with exceptions
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1
  */
 public final class Exceptions {
 
+    /**
+     * Rethrows {@code throwable} if it is unchecked exception, otherwise throws a {@link CheckedWrapperException}
+     * instance with {@code throwable} as cause.
+     *
+     * @param throwable throwable that must be thrown
+     * @return nothing
+     */
     public static <T> T reThrow(final Throwable throwable) {
         if (throwable instanceof RuntimeException) {
             throw (RuntimeException) throwable;
@@ -39,6 +48,16 @@ public final class Exceptions {
         }
     }
 
+    /**
+     * Verifies if {@code throwable} is instance of {@code exceptionType} type.
+     * <p>
+     * In comparison with the {@code instanceof} operator this method extract real throwable from
+     * {@link CompletionException} and {@link CheckedWrapperException} ones.
+     *
+     * @param throwable tested throwable
+     * @param exceptionType expected exception type
+     * @return  {@code true} if {@code throwable} is instance of {@code exceptionType} type
+     */
     public static boolean isInstanceOf(final Throwable throwable,
                                        final Class<? extends Throwable> exceptionType) {
         if (throwable != null) {
@@ -59,6 +78,15 @@ public final class Exceptions {
         return false;
     }
 
+    /**
+     * Returns the {@link Optional} containing the cause of {@code throwable}.
+     * <p>
+     * If the cause is one of provided {@code containerExceptionClasses} this methods inspects the cause deeper.
+     *
+     * @param throwable the tested throwable
+     * @param containerExceptionClasses the ignored container exception classes
+     * @return the {@link Optional} containing the cause of the {@code throwable}, if present
+     */
     @SafeVarargs
     public static Optional<Throwable> getCause(final Throwable throwable,
                                                final Class<? extends Throwable>... containerExceptionClasses) {
@@ -76,6 +104,12 @@ public final class Exceptions {
         return Optional.ofNullable(result);
     }
 
+    /**
+     * Returns real throwable ignoring {@link CompletionException} and {@link CheckedWrapperException} containers.
+     *
+     * @param throwable tested throwable
+     * @return real throwable
+     */
     public static Throwable getRealThrowable(final Throwable throwable) {
         return getCause(throwable, CompletionException.class, CheckedWrapperException.class).orElse(throwable);
     }

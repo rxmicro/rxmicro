@@ -37,12 +37,16 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 public @interface Version {
 
     /**
-     * @return REST API version value
+     * Returns the REST API version value
+     *
+     * @return the REST API version value
      */
     String value();
 
     /**
-     * @return version {@link Strategy}
+     * Returns the version {@link Strategy}
+     *
+     * @return the version {@link Strategy}
      */
     Strategy strategy() default Strategy.URL_PATH;
 
@@ -59,20 +63,25 @@ public @interface Version {
          * Overrides an url.
          * <p>
          * For example:
-         * <p>
-         * GET https://rxmicro.io/api/status - REST endpoint without version
-         * GET https://rxmicro.io/api/v1.0/status - REST endpoint with version v1.0
+         * <ul>
+         *     <li>{@code GET https://rxmicro.io/api/status} - REST endpoint without version</li>
+         *     <li>{@code GET https://rxmicro.io/api/v1.0/status} - REST endpoint with version {@code v1.0}</li>
+         * </ul>
          */
         URL_PATH(null),
 
         /**
          * Adds HTTP header, which defines REST API version.
-         *
          * <p>
-         * GET https://rxmicro.io/api/status - REST endpoint without version
-         * <p>
-         * GET https://rxmicro.io/api/status - REST endpoint with version v1.0
-         * Api-Version: v1.0
+         * <ul>
+         *     <li>
+         *         {@code GET https://rxmicro.io/api/status} - REST endpoint without version
+         *     </li>
+         *     <li>
+         *         {@code GET https://rxmicro.io/api/v1.0/status} - REST endpoint with version {@code v1.0} <br>
+         *         {@code Api-Version: v1.0}
+         *     </li>
+         * </ul>
          *
          * @see io.rxmicro.http.HttpHeaders
          */

@@ -12,8 +12,8 @@ public final class ${CLASS_NAME} {
         });
         try {
             return field.get(model);
-        } catch (IllegalAccessException e) {
-            throw new RxMicroException(e);
+        } catch (final IllegalAccessException e) {
+            throw new CheckedWrapperException(e);
         }
     }
 
@@ -29,8 +29,8 @@ public final class ${CLASS_NAME} {
         });
         try {
             field.set(model, value);
-        } catch (IllegalAccessException e) {
-            throw new RxMicroException(e);
+        } catch (final IllegalAccessException e) {
+            throw new CheckedWrapperException(e);
         }
     }
 
@@ -46,10 +46,10 @@ public final class ${CLASS_NAME} {
         });
         try {
             return method.invoke(bean, args);
-        } catch (IllegalAccessException e) {
-            throw new RxMicroException(e);
-        } catch (InvocationTargetException e) {
-            throw new RxMicroException(e.getTargetException());
+        } catch (final IllegalAccessException e) {
+            throw new CheckedWrapperException(e);
+        } catch (final InvocationTargetException e) {
+            throw new CheckedWrapperException(e.getTargetException());
         }
     }
 

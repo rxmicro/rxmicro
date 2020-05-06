@@ -16,6 +16,8 @@
 
 package io.rxmicro.data.sql.operation;
 
+import io.rxmicro.data.sql.VariableValues;
+
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
@@ -24,6 +26,8 @@ import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
+ * Denotes a repository method that must execute a {@code UPDATE} SQL operation
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @link https://www.postgresql.org/docs/12/sql-update.html
@@ -36,26 +40,57 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 public @interface Update {
 
     /**
-     * The default update statement if value is empty
+     * The default {@code UPDATE} statement if value is empty
      *
      * @see io.rxmicro.data.sql.SupportedVariables
      */
     String DEFAULT_UPDATE = "UPDATE ${table} SET ${updated-columns} WHERE ${by-id-filter}";
 
     /**
-     * Customize UPDATE query.
+     * Customize {@code UPDATE} query.
      * <p>
      * By default, Rx Micro generate the default sql.
+     * <p>
      * See {@link #DEFAULT_UPDATE} for details
      *
-     * @return custom update sql
+     * @return the custom {@code UPDATE} SQL
      */
     String value() default "";
 
     /**
-     * entityClass is used to resolve ${table}, ${updated-columns} or ${by-id-filter} variable value.
+     * entityClass is used to resolve
+     * <code>${table}</code>, <code>${updated-columns}</code> or <code>${by-id-filter}</code> variable values.
+     * <p>
+     * To determine the value of the predefined variable used in the query specified for the repository method, the RxMicro framework
+     * uses the following algorithm:
+     * <ol>
+     *     <li>
+     *         If the repository method returns or accepts the entity model as a parameter, the entity model class is used to define
+     *         the variable value.
+     *     </li>
+     *     <li>
+     *         Otherwise, the RxMicro framework analyzes the optional entityClass parameter defined in the
+     *         {@link Select}, {@link Insert}, {@link Update} and {@link Delete} annotations.
+     *     </li>
+     *     <li>
+     *         If the optional entityClass parameter is set, the class specified in this parameter is used to define the variable value.
+     *     </li>
+     *     <li>
+     *         If the optional entityClass parameter is missing, the RxMicro framework tries to extract the variable value from the
+     *         {@link VariableValues} annotation, which annotates this repository method.
+     *     </li>
+     *     <li>
+     *         If the repository method is not annotated with the {@link VariableValues} annotation or the {@link VariableValues} annotation
+     *         does not contain the value of a predefined variable, then the RxMicro framework tries to extract the value of this variable
+     *         from the {@link VariableValues} annotation, which annotates the repository interface.
+     *     </li>
+     *     <li>
+     *         If the variable value is undefined in all specified places, then the RxMicro framework notifies the developer
+     *         about the error.
+     *     </li>
+     * </ol>
      *
-     * @return entity class
+     * @return the entity class
      */
     Class<?> entityClass() default Void.class;
 }

@@ -14,26 +14,20 @@
  * limitations under the License.
  */
 
-package io.rxmicro.common;
-
-import io.rxmicro.common.util.Formats;
+package io.rxmicro.rest.detail;
 
 /**
+ * Used by generated code that was created by RxMicro Annotation Processor
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1
  */
-public final class InvalidBusinessLogicException extends RxMicroException {
+public interface ExchangeDataFormatConverter<T> {
 
-    public InvalidBusinessLogicException(final String message) {
-        super(message);
-    }
+    T fromBytes(byte[] httpBody);
 
-    /**
-     * This constructor uses {@link Formats#format(String, Object...) Formats.format} to format error message
-     */
-    public InvalidBusinessLogicException(final String message,
-                                         final Object... args) {
-        super(message, args);
-    }
+    byte[] toBytes(T data);
+
+    String getMimeType();
 }

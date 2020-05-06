@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. http://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +21,8 @@ import io.rxmicro.config.internal.waitfor.WaitForService;
 import static io.rxmicro.config.internal.waitfor.WaitForServiceFactory.createWaitForService;
 
 /**
+ * Allows suspending current thread until configured service is up.
+ * <p>
  * Example of usage:
  * <pre>
  * public static void main(final String[] args) {
@@ -28,43 +30,51 @@ import static io.rxmicro.config.internal.waitfor.WaitForServiceFactory.createWai
  *      startRestServer(MicroService.class);
  * }
  * </pre>
- *
+ * <p>
  * -----------------------------------------------------------------------------------------------------------------------------------------
  * Command line arguments:
- * {@code java -p lib:. -m my.module/my_package.Launcher wait-for --type=tcp-socket --timeout=30 localhost:12017}
- * {@code java -p lib:. -m my.module/my_package.Launcher wait-for localhost:12017 }
- *
+ * <p>
+ * <ul>
+ *     <li>{@code java -p lib:. -m my.module/my_package.Launcher wait-for --type=tcp-socket --timeout=30 localhost:12017}</li>
+ *     <li>{@code java -p lib:. -m my.module/my_package.Launcher wait-for localhost:12017 }</li>
+ * </ul>
+ * <p>
  * -----------------------------------------------------------------------------------------------------------------------------------------
  * Using java system properties:
- *
- * {@code SYS_PROP="-DWAIT_FOR=--type=tcp-socket --timeout=30 localhost:12017"}
- * {@code java -p lib:. "$SYS_PROP" -m my.module/my_package.Launcher }
- *
- * {@code SYS_PROP="-DWAIT_FOR=localhost:12017" }
- * {@code java -p lib:. "$SYS_PROP" -m my.module/my_package.Launcher }
+ * <p>
+ * <ul>
+ *     <li>{@code SYS_PROP="-DWAIT_FOR=--type=tcp-socket --timeout=30 localhost:12017"}</li>
+ *     <li>{@code java -p lib:. "$SYS_PROP" -m my.module/my_package.Launcher }</li>
+ *     <li></li>
+ *     <li>{@code SYS_PROP="-DWAIT_FOR=localhost:12017" }</li>
+ *     <li>{@code java -p lib:. "$SYS_PROP" -m my.module/my_package.Launcher }</li>
+ * </ul>
+ * <p>
  * -----------------------------------------------------------------------------------------------------------------------------------------
  * Using environment variables:
- *
- * {@code export WAIT_FOR="--type=tcp-socket --timeout=30 localhost:12017"}
- * {@code java -p lib:. -m my.module/my_package.Launcher}
- *
- * {@code export WAIT_FOR=localhost:12017}
- * {@code java -p lib:. -m my.module/my_package.Launcher}
+ * <p>
+ * <ul>
+ *     <li>{@code export WAIT_FOR="--type=tcp-socket --timeout=30 localhost:12017"}</li>
+ *     <li>{@code java -p lib:. -m my.module/my_package.Launcher}</li>
+ *     <li></li>
+ *     <li>{@code export WAIT_FOR=localhost:12017}</li>
+ *     <li>{@code java -p lib:. -m my.module/my_package.Launcher}</li>
+ * </ul>
  * -----------------------------------------------------------------------------------------------------------------------------------------
  *
  * @author nedis
- * @link http://rxmicro.io
+ * @link https://rxmicro.io
  * @since 0.3
  */
 public final class WaitFor {
 
     /**
-     * For configuration WaitForService using environment variables or Java system properties, use `WAIT_FOR` name.
+     * For configuration WaitForService using environment variables or Java system properties, use {@code `WAIT_FOR`} name.
      */
     public static final String WAIT_FOR_ENV_VAR_OF_JAVA_SYS_PROP_NAME = "WAIT_FOR";
 
     /**
-     * For configuration WaitForService using command line arguments, use `wait-for` name.
+     * For configuration WaitForService using command line arguments, use {@code `wait-for`} name.
      */
     public static final String WAIT_FOR_COMMAND_LINE_ARG = "wait-for";
 
@@ -74,20 +84,21 @@ public final class WaitFor {
     public static final String WAIT_FOR_TYPE_PARAM_NAME = "type";
 
     /**
-     * Default wait for type: tcp-socket
+     * Default wait for type: {@code tcp-socket}
      */
     public static final String WAIT_FOR_TCP_SOCKET_TYPE_NAME = "tcp-socket";
 
     /**
      * Wait for timeout.
-     *
-     * Integer value means timeout in seconds, i.e. `--timeout=5` equals to `--timeout=5 seconds`
-     *
+     * <p>
+     * Integer value means timeout in seconds, i.e. {@code `--timeout=5`} equals to {@code `--timeout=5 seconds`}
+     * <p>
      * Other units can be used as string using Duration format:
-     *
-     * `--timeout=PT15M` equals to `--timeout=15 minutes`
-     * `--timeout=P2D` equals to `--timeout=2 days`
-     *
+     * <ul>
+     *     <li>{@code `--timeout=PT15M`} equals to {@code `--timeout=15 minutes`}</li>
+     *     <li>{@code `--timeout=P2D`} equals to {@code `--timeout=2 days`}</li>
+     * </ul>
+     * <p>
      * See for detail: {@link java.time.Duration#parse(CharSequence)}
      */
     public static final String WAIT_FOR_TIMEOUT = "timeout";
@@ -99,6 +110,11 @@ public final class WaitFor {
 
     private final WaitForService waitForService;
 
+    /**
+     * Creates a WaitFor instance.
+     *
+     * @param commandLineArgs command line arguments
+     */
     public WaitFor(final String commandLineArgs) {
         if (commandLineArgs.indexOf(' ') != -1) {
             waitForService = createWaitForService(commandLineArgs.split(" ")).orElse(null);
@@ -107,10 +123,18 @@ public final class WaitFor {
         }
     }
 
+    /**
+     * Creates a WaitFor instance.
+     *
+     * @param commandLineArgs command line arguments
+     */
     public WaitFor(final String... commandLineArgs) {
         waitForService = createWaitForService(commandLineArgs).orElse(null);
     }
 
+    /**
+     * Starts the suspending the current thread until configured service is up.
+     */
     public void start() {
         if (waitForService != null) {
             waitForService.start();

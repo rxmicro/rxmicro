@@ -19,12 +19,21 @@ package io.rxmicro.common.util;
 import static io.rxmicro.common.util.Formats.format;
 
 /**
+ * TODO
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1
  */
 public final class Requires {
 
+    /**
+     *
+     *
+     * @param instance
+     * @param <T>
+     * @return
+     */
     public static <T> T require(final T instance) {
         //assert instance != null;
         if (instance == null) {
@@ -33,6 +42,15 @@ public final class Requires {
         return instance;
     }
 
+    /**
+     *
+     *
+     * @param instance
+     * @param message
+     * @param args
+     * @param <T>
+     * @return
+     */
     public static <T> T require(final T instance,
                                 final String message,
                                 final Object... args) {

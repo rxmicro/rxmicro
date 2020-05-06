@@ -24,6 +24,8 @@ import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
+ * Denotes a schema of a database table.
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1
@@ -33,5 +35,10 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 @Target(TYPE)
 public @interface Schema {
 
+    /**
+     * Returns the db schema name
+     *
+     * @return the db schema name
+     */
     String value();
 }

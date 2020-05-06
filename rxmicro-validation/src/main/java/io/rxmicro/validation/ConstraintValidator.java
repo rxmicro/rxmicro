@@ -31,12 +31,12 @@ import java.util.List;
 public interface ConstraintValidator<T> {
 
     /**
-     * Validates a single actual.
-     * The state of {@code actual} must not be altered.
+     * Validates the single actual.<p>
+     * The state of the {@code actual} must not be altered.
      *
-     * @param actual        actual value to validate
-     * @param httpModelType http model type
-     * @param modelName     parameter or header name
+     * @param actual        the actual value to validate
+     * @param httpModelType the http model type
+     * @param modelName     the parameter or header name
      * @throws ValidationException if actual does not pass the constraint
      */
     void validate(T actual,
@@ -44,10 +44,10 @@ public interface ConstraintValidator<T> {
                   String modelName);
 
     /**
-     * Validates a root model.
-     * The state of {@code value} must not be altered.
+     * Validates the root model.<p>
+     * The state of the {@code model} must not be altered.
      *
-     * @param model object to validate
+     * @param model the root model to validate
      * @throws ValidationException if value does not pass the constraint
      */
     default void validate(final T model) {
@@ -55,12 +55,12 @@ public interface ConstraintValidator<T> {
     }
 
     /**
-     * Validates a value list.
-     * The state of {@code list} must not be altered.
+     * Validates the value list.<p>
+     * The state of the {@code list} must not be altered.
      *
-     * @param list          list to validate
-     * @param httpModelType http model type
-     * @param modelName     parameter or header name
+     * @param list          the list to validate
+     * @param httpModelType the http model type
+     * @param modelName     the parameter or header name
      * @throws ValidationException if value does not pass the constraint
      */
     default void validateList(final List<T> list,
@@ -74,10 +74,10 @@ public interface ConstraintValidator<T> {
     }
 
     /**
-     * Validates a root model list.
-     * The state of {@code value} must not be altered.
+     * Validates the root model list.<p>
+     * The state of the {@code value} must not be altered.
      *
-     * @param models object list to validate
+     * @param models the model list to validate
      * @throws ValidationException if value does not pass the constraint
      */
     default void validateList(final List<T> models) {

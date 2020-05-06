@@ -31,13 +31,17 @@ import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toSet;
 
 /**
+ * TODO
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1
  */
-
 public final class ExCollections {
 
+    /**
+     * TODO
+     */
     public static final String[] EMPTY_STRING_ARRAY = new String[0];
 
     @SuppressWarnings("rawtypes")
@@ -61,11 +65,24 @@ public final class ExCollections {
             List.of(1).getClass()                    // java.util.ImmutableCollections.List12
     );
 
+    /**
+     * TODO
+     *
+     * @param object
+     * @return
+     */
     public static boolean isUnmodifiableList(final Object object) {
         return object != null &&
                 UNMODIFIABLE_LIST_CLASSES.contains(object.getClass());
     }
 
+    /**
+     * TODO
+     *
+     * @param collection
+     * @param <E>
+     * @return
+     */
     @SuppressWarnings("Java9CollectionFactory")
     public static <E> List<E> unmodifiableList(final Collection<E> collection) {
         if (collection.isEmpty()) {
@@ -81,15 +98,37 @@ public final class ExCollections {
         }
     }
 
+    /**
+     * TODO
+     *
+     * @param object
+     * @return
+     */
     public static boolean isUnmodifiableMap(final Object object) {
         return object != null &&
                 UNMODIFIABLE_MAP_CLASSES.contains(object.getClass());
     }
 
+    /**
+     * TODO
+     *
+     * @param map
+     * @param <K>
+     * @param <V>
+     * @return
+     */
     public static <K, V> Map<K, V> unmodifiableMap(final Map<K, V> map) {
         return unmodifiableOrderedMap(map);
     }
 
+    /**
+     * TODO
+     *
+     * @param map
+     * @param <K>
+     * @param <V>
+     * @return
+     */
     public static <K, V> Map<K, V> unmodifiableOrderedMap(final Map<K, V> map) {
         if (map.isEmpty()) {
             return Map.of();
@@ -103,6 +142,13 @@ public final class ExCollections {
         }
     }
 
+    /**
+     * TODO
+     *
+     * @param collection
+     * @param <E>
+     * @return
+     */
     public static <E> Set<E> unmodifiableOrderedSet(final Collection<E> collection) {
         if (collection.isEmpty()) {
             return Set.of();
@@ -117,27 +163,68 @@ public final class ExCollections {
         }
     }
 
+    /**
+     * TODO
+     *
+     * @param elements
+     * @param <E>
+     * @return
+     */
     @SafeVarargs
     public static <E> Set<E> unmodifiableOrderedSet(final E... elements) {
         return unmodifiableOrderedSet(Arrays.asList(elements));
     }
 
+    /**
+     * TODO
+     *
+     * @param items
+     * @param <E>
+     * @return
+     */
     @SafeVarargs
     public static <E> Set<E> join(final Set<E>... items) {
         return Arrays.stream(items).flatMap(Collection::stream).collect(toSet());
     }
 
+    /**
+     * TODO
+     *
+     * @param items
+     * @param <E>
+     * @return
+     */
     @SafeVarargs
     public static <E> List<E> join(final List<E>... items) {
         return Arrays.stream(items).flatMap(Collection::stream).collect(toList());
     }
 
+    /**
+     * TODO
+     *
+     * @param k1
+     * @param v1
+     * @param <K>
+     * @param <V>
+     * @return
+     */
     public static <K, V> Map<K, V> orderedMap(final K k1, final V v1) {
         return orderedMapFromEntries(
                 entry(k1, v1)
         );
     }
 
+    /**
+     * TODO
+     *
+     * @param k1
+     * @param v1
+     * @param k2
+     * @param v2
+     * @param <K>
+     * @param <V>
+     * @return
+     */
     public static <K, V> Map<K, V> orderedMap(final K k1, final V v1,
                                               final K k2, final V v2) {
         return orderedMapFromEntries(
@@ -146,6 +233,19 @@ public final class ExCollections {
         );
     }
 
+    /**
+     * TODO
+     *
+     * @param k1
+     * @param v1
+     * @param k2
+     * @param v2
+     * @param k3
+     * @param v3
+     * @param <K>
+     * @param <V>
+     * @return
+     */
     public static <K, V> Map<K, V> orderedMap(final K k1, final V v1,
                                               final K k2, final V v2,
                                               final K k3, final V v3) {
@@ -156,6 +256,21 @@ public final class ExCollections {
         );
     }
 
+    /**
+     * TODO
+     *
+     * @param k1
+     * @param v1
+     * @param k2
+     * @param v2
+     * @param k3
+     * @param v3
+     * @param k4
+     * @param v4
+     * @param <K>
+     * @param <V>
+     * @return
+     */
     public static <K, V> Map<K, V> orderedMap(final K k1, final V v1,
                                               final K k2, final V v2,
                                               final K k3, final V v3,
@@ -168,6 +283,23 @@ public final class ExCollections {
         );
     }
 
+    /**
+     * TODO
+     *
+     * @param k1
+     * @param v1
+     * @param k2
+     * @param v2
+     * @param k3
+     * @param v3
+     * @param k4
+     * @param v4
+     * @param k5
+     * @param v5
+     * @param <K>
+     * @param <V>
+     * @return
+     */
     public static <K, V> Map<K, V> orderedMap(final K k1, final V v1,
                                               final K k2, final V v2,
                                               final K k3, final V v3,
@@ -182,6 +314,25 @@ public final class ExCollections {
         );
     }
 
+    /**
+     * TODO
+     *
+     * @param k1
+     * @param v1
+     * @param k2
+     * @param v2
+     * @param k3
+     * @param v3
+     * @param k4
+     * @param v4
+     * @param k5
+     * @param v5
+     * @param k6
+     * @param v6
+     * @param <K>
+     * @param <V>
+     * @return
+     */
     public static <K, V> Map<K, V> orderedMap(final K k1, final V v1,
                                               final K k2, final V v2,
                                               final K k3, final V v3,
@@ -198,6 +349,27 @@ public final class ExCollections {
         );
     }
 
+    /**
+     * TODO
+     *
+     * @param k1
+     * @param v1
+     * @param k2
+     * @param v2
+     * @param k3
+     * @param v3
+     * @param k4
+     * @param v4
+     * @param k5
+     * @param v5
+     * @param k6
+     * @param v6
+     * @param k7
+     * @param v7
+     * @param <K>
+     * @param <V>
+     * @return
+     */
     public static <K, V> Map<K, V> orderedMap(final K k1, final V v1,
                                               final K k2, final V v2,
                                               final K k3, final V v3,
@@ -216,6 +388,29 @@ public final class ExCollections {
         );
     }
 
+    /**
+     * TODO
+     *
+     * @param k1
+     * @param v1
+     * @param k2
+     * @param v2
+     * @param k3
+     * @param v3
+     * @param k4
+     * @param v4
+     * @param k5
+     * @param v5
+     * @param k6
+     * @param v6
+     * @param k7
+     * @param v7
+     * @param k8
+     * @param v8
+     * @param <K>
+     * @param <V>
+     * @return
+     */
     public static <K, V> Map<K, V> orderedMap(final K k1, final V v1,
                                               final K k2, final V v2,
                                               final K k3, final V v3,
@@ -236,6 +431,31 @@ public final class ExCollections {
         );
     }
 
+    /**
+     * TODO
+     *
+     * @param k1
+     * @param v1
+     * @param k2
+     * @param v2
+     * @param k3
+     * @param v3
+     * @param k4
+     * @param v4
+     * @param k5
+     * @param v5
+     * @param k6
+     * @param v6
+     * @param k7
+     * @param v7
+     * @param k8
+     * @param v8
+     * @param k9
+     * @param v9
+     * @param <K>
+     * @param <V>
+     * @return
+     */
     public static <K, V> Map<K, V> orderedMap(final K k1, final V v1,
                                               final K k2, final V v2,
                                               final K k3, final V v3,
@@ -258,6 +478,33 @@ public final class ExCollections {
         );
     }
 
+    /**
+     * TODO
+     *
+     * @param k1
+     * @param v1
+     * @param k2
+     * @param v2
+     * @param k3
+     * @param v3
+     * @param k4
+     * @param v4
+     * @param k5
+     * @param v5
+     * @param k6
+     * @param v6
+     * @param k7
+     * @param v7
+     * @param k8
+     * @param v8
+     * @param k9
+     * @param v9
+     * @param k10
+     * @param v10
+     * @param <K>
+     * @param <V>
+     * @return
+     */
     public static <K, V> Map<K, V> orderedMap(final K k1, final V v1,
                                               final K k2, final V v2,
                                               final K k3, final V v3,
@@ -282,6 +529,14 @@ public final class ExCollections {
         );
     }
 
+    /**
+     * TODO
+     *
+     * @param entries
+     * @param <K>
+     * @param <V>
+     * @return
+     */
     @SafeVarargs
     @SuppressWarnings("varargs")
     public static <K, V> Map<K, V> orderedMapFromEntries(final Map.Entry<? extends K, ? extends V>... entries) {

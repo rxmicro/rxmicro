@@ -23,6 +23,8 @@ import java.time.Duration;
 import static io.rxmicro.common.util.Requires.require;
 
 /**
+ * Allows configuring SQL DB pool options.
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1
@@ -46,20 +48,50 @@ public class SQLPooledDatabaseConfig extends SQLDatabaseConfig {
 
     private Duration maxLifeTime = Duration.ZERO;  // ZERO indicates no-timeout
 
+    /**
+     * Returns the number of retries if the first connection acquire attempt fails.
+     * <p>
+     * Defaults to {@code 2}
+     *
+     * @return the number of retries if the first connection acquire attempt fails.
+     */
     public int getAcquireRetry() {
         return acquireRetry;
     }
 
+    /**
+     * Sets the number of retries if the first connection acquire attempt fails.
+     * <p>
+     * Defaults to {@code 2}
+     *
+     * @param acquireRetry the number of retries if the first connection acquire attempt fails.
+     * @return the reference to this {@link SQLPooledDatabaseConfig} instance
+     */
     @BuilderMethod
     public SQLPooledDatabaseConfig setAcquireRetry(final int acquireRetry) {
         this.acquireRetry = acquireRetry;
         return this;
     }
 
+    /**
+     * Returns the initial pool size
+     * <p>
+     * Defaults to {@code 3}
+     *
+     * @return the initial pool size
+     */
     public int getInitialSize() {
         return initialSize;
     }
 
+    /**
+     * Sets the initial pool size
+     * <p>
+     * Defaults to {@code 3}
+     *
+     * @param initialSize the initial pool size
+     * @return the reference to this {@link SQLPooledDatabaseConfig} instance
+     */
     @BuilderMethod
     public SQLPooledDatabaseConfig setInitialSize(final int initialSize) {
         this.initialSize = initialSize;
@@ -69,10 +101,25 @@ public class SQLPooledDatabaseConfig extends SQLDatabaseConfig {
         return this;
     }
 
+    /**
+     * Returns the maximum pool size
+     * <p>
+     * Defaults to {@code 5}
+     *
+     * @return the maximum pool size
+     */
     public int getMaxSize() {
         return maxSize;
     }
 
+    /**
+     * Sets the maximum pool size
+     * <p>
+     * Defaults to {@code 5}
+     *
+     * @param maxSize the maximum pool size
+     * @return the reference to this {@link SQLPooledDatabaseConfig} instance
+     */
     @BuilderMethod
     public SQLPooledDatabaseConfig setMaxSize(final int maxSize) {
         this.maxSize = maxSize;
@@ -82,50 +129,109 @@ public class SQLPooledDatabaseConfig extends SQLDatabaseConfig {
         return this;
     }
 
+    /**
+     * Returns the query that will be executed just before a connection is given to you from the pool to validate that the
+     * connection to the database is still alive.
+     *
+     * @return the query that will be executed just before a connection is given to you from the pool to validate that the
+     *         connection to the database is still alive.
+     */
     public String getValidationQuery() {
         return validationQuery;
     }
 
+    /**
+     * Sets the query that will be executed just before a connection is given to you from the pool to validate that the
+     * connection to the database is still alive.
+     *
+     * @param validationQuery the query that will be executed just before a connection is given to you from the pool to validate that the
+     *                        connection to the database is still alive.
+     * @return the reference to this {@link SQLPooledDatabaseConfig} instance
+     */
     @BuilderMethod
     public SQLPooledDatabaseConfig setValidationQuery(final String validationQuery) {
         this.validationQuery = require(validationQuery);
         return this;
     }
 
+    /**
+     * Returns the maximum idle time of the connection in the pool.
+     *
+     * @return the maximum idle time of the connection in the pool.
+     */
     public Duration getMaxIdleTime() {
         return maxIdleTime;
     }
 
+    /**
+     * Sets the maximum idle time of the connection in the pool.
+     *
+     * @param maxIdleTime the maximum idle time of the connection in the pool.
+     * @return the reference to this {@link SQLPooledDatabaseConfig} instance
+     */
     @BuilderMethod
     public SQLPooledDatabaseConfig setMaxIdleTime(final Duration maxIdleTime) {
         this.maxIdleTime = require(maxIdleTime);
         return this;
     }
 
+    /**
+     * Returns the maximum time to create a new connection.
+     *
+     * @return the maximum time to create a new connection.
+     */
     public Duration getMaxCreateConnectionTime() {
         return maxCreateConnectionTime;
     }
 
+    /**
+     * Sets the maximum time to create a new connection.
+     *
+     * @param maxCreateConnectionTime the maximum time to create a new connection.
+     * @return the reference to this {@link SQLPooledDatabaseConfig} instance
+     */
     @BuilderMethod
     public SQLPooledDatabaseConfig setMaxCreateConnectionTime(final Duration maxCreateConnectionTime) {
         this.maxCreateConnectionTime = require(maxCreateConnectionTime);
         return this;
     }
 
+    /**
+     * Returns the maximum time to acquire connection from pool.
+     *
+     * @return the maximum time to acquire connection from pool.
+     */
     public Duration getMaxAcquireTime() {
         return maxAcquireTime;
     }
 
+    /**
+     * Sets the maximum time to acquire connection from pool.
+     *
+     * @param maxAcquireTime the maximum time to acquire connection from pool.
+     * @return the reference to this {@link SQLPooledDatabaseConfig} instance
+     */
     @BuilderMethod
     public SQLPooledDatabaseConfig setMaxAcquireTime(final Duration maxAcquireTime) {
         this.maxAcquireTime = require(maxAcquireTime);
         return this;
     }
 
+    /**
+     * Returns the maximum lifetime of the connection in the pool.
+     *
+     * @return the maximum lifetime of the connection in the pool.
+     */
     public Duration getMaxLifeTime() {
         return maxLifeTime;
     }
 
+    /**
+     * Sets the maximum lifetime of the connection in the pool.
+     *
+     * @param maxLifeTime the maximum lifetime of the connection in the pool.
+     * @return the reference to this {@link SQLPooledDatabaseConfig} instance
+     */
     @BuilderMethod
     public SQLPooledDatabaseConfig setMaxLifeTime(final Duration maxLifeTime) {
         this.maxLifeTime = require(maxLifeTime);

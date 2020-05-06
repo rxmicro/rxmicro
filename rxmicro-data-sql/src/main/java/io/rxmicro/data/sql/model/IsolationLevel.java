@@ -17,6 +17,8 @@
 package io.rxmicro.data.sql.model;
 
 /**
+ * Represents a transaction isolation level constant.
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @link https://www.postgresql.org/docs/12/transaction-iso.html
@@ -24,11 +26,23 @@ package io.rxmicro.data.sql.model;
  */
 public enum IsolationLevel {
 
+    /**
+     * The read committed isolation level.
+     */
     READ_COMMITTED,
 
+    /**
+     * The read uncommitted isolation level.
+     */
     READ_UNCOMMITTED,
 
+    /**
+     * The repeatable read isolation level.
+     */
     REPEATABLE_READ,
 
+    /**
+     * The serializable isolation level.
+     */
     SERIALIZABLE
 }

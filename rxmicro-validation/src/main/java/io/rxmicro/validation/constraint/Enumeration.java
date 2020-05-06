@@ -17,7 +17,7 @@
 package io.rxmicro.validation.constraint;
 
 import io.rxmicro.validation.base.ConstraintRule;
-import io.rxmicro.validation.base.SelfDocumented;
+import io.rxmicro.validation.internal.SelfDocumented;
 import io.rxmicro.validation.validator.EnumerationCharacterConstraintValidator;
 import io.rxmicro.validation.validator.EnumerationStringConstraintValidator;
 
@@ -34,15 +34,17 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * The annotated element must be an element of the predefined enumeration.
  * <p>
  * This validation rule is useful when java enum type is not applicable.
+ * <p>
  * For example if enum value equals to java keyword.
- * The following enum couldn't be compiled, because 'new' is java keyword
- * <p>
+ * The following enum couldn't be compiled, because {@code 'new'} is java keyword
+ * <pre>
  * enum OrderType {
- * new,    // compile error
- * old
+ *      new,    // compile error
+ *      old
  * }
+ * </pre>
  * <p>
- * To solve this issue use @Enumeration annotation, otherwise use Java enum.
+ * To solve this issue use @{@link Enumeration} annotation, otherwise use Java enum.
  *
  * @author nedis
  * @link https://rxmicro.io
@@ -67,16 +69,17 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 public @interface Enumeration {
 
     /**
-     * Allows to disable validation rule if validation inherited from super class.
+     * Allows disabling the validation rule if this rule is inherited from super class. <p>
      * By default, disable is off
      *
-     * @return {@code true} if the validation must be disabled,
-     * {@code false} otherwise
+     * @return  {@code true} if the validation must be disabled,
      */
     boolean off() default false;
 
     /**
-     * @return enum string values
+     * Returns the enum string values
+     *
+     * @return the enum string values
      */
     String[] value();
 }

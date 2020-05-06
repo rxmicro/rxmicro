@@ -21,6 +21,8 @@ import java.util.Map;
 import static java.util.Map.entry;
 
 /**
+ * Wide used HTTP statuses and its short descriptions
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @link https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
@@ -100,6 +102,14 @@ public final class HttpStatuses {
             entry(511, "Network Authentication Required")
     );
 
+    /**
+     * Returns the short description for the specified status code
+     *
+     * @param status the specified status code
+     * @return the short description for the specified status code or
+     *          <code>`Unofficial code: ${statusCode}`</code> if the short description not defined
+     * @throws IllegalArgumentException if the specified status code is not in range [100-599]
+     */
     public static String getErrorMessage(final int status) {
         if (status < 100 || status > 599) {
             throw new IllegalArgumentException("Invalid status code: " + status);

@@ -2,7 +2,7 @@ package io.rxmicro.examples.rest.controller.handlers;
 
 import io.rxmicro.exchange.json.detail.JsonExchangeDataFormatConverter;
 import io.rxmicro.http.HttpHeaders;
-import io.rxmicro.rest.component.ExchangeDataFormatConverter;
+import io.rxmicro.rest.detail.ExchangeDataFormatConverter;
 import io.rxmicro.rest.server.detail.component.ModelWriter;
 import io.rxmicro.rest.server.detail.model.HttpResponse;
 

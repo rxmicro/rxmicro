@@ -17,12 +17,17 @@
 package io.rxmicro.exchange.json;
 
 /**
+ * Defines the JSON constants
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1
  */
 public final class Constants {
 
+    /**
+     * Mime content type for JSON format
+     */
     public static final String CONTENT_TYPE_APPLICATION_JSON = "application/json";
 
     private Constants() {

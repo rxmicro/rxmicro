@@ -26,6 +26,10 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.util.stream.Collectors.joining;
 
 /**
+ * Represents the invalid http call to the external REST endpoint.
+ * <p>
+ * An instance of this class contains the received HTTP response to get additional info about error
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1
@@ -40,6 +44,20 @@ public abstract class HttpCallFailedException extends HttpErrorException {
 
     private String bodyAsString;
 
+    /**
+     * Creates a {@link HttpCallFailedException} instance with received failed HTTP response
+     * <p>
+     * For all child classes which extend the HttpErrorException class, when creating an exception instance the stack trace is not filled,
+     * as this information is redundant.
+     * <p>
+     * (<i>This behavior is achieved by using the {@link RuntimeException#RuntimeException(String, Throwable, boolean, boolean)}.</i>)
+     *
+     * @param statusCode the status code
+     * @param version the HTTP protocol version
+     * @param headers the HTTP headers
+     * @param body the HTTP body as byte array
+     * @param bodyAsString the HTTP body as string
+     */
     protected HttpCallFailedException(final int statusCode,
                                       final HttpVersion version,
                                       final HttpHeaders headers,
@@ -52,14 +70,29 @@ public abstract class HttpCallFailedException extends HttpErrorException {
         this.bodyAsString = bodyAsString;
     }
 
+    /**
+     * Returns the received HTTP protocol version
+     *
+     * @return the received HTTP protocol version
+     */
     public final HttpVersion getVersion() {
         return version;
     }
 
+    /**
+     * Returns the received HTTP headers
+     *
+     * @return the received HTTP headers
+     */
     public final HttpHeaders getHeaders() {
         return headers;
     }
 
+    /**
+     * Returns the received HTTP body as byte array
+     *
+     * @return the received HTTP body as byte array
+     */
     public final byte[] getBody() {
         if (body == null) {
             body = bodyAsString.getBytes(UTF_8);
@@ -67,11 +100,29 @@ public abstract class HttpCallFailedException extends HttpErrorException {
         return body;
     }
 
+    /**
+     * Returns the received HTTP body as {@link String}
+     *
+     * @return the received HTTP body as {@link String}
+     */
     public final String getBodyAsString() {
         if (bodyAsString == null) {
             bodyAsString = body.length > 0 ? new String(body, UTF_8) : "";
         }
         return bodyAsString;
+    }
+
+    /**
+     * Returns {@code true} if HTTP body is present
+     *
+     * @return {@code true} if HTTP body is present
+     */
+    public boolean isBodyPresent() {
+        if (body != null) {
+            return body.length != 0;
+        } else {
+            return !getBodyAsString().isEmpty();
+        }
     }
 
     @Override
@@ -86,13 +137,5 @@ public abstract class HttpCallFailedException extends HttpErrorException {
                 lineSeparator(),
                 lineSeparator(),
                 getBodyAsString());
-    }
-
-    public boolean isBodyPresent() {
-        if (body != null) {
-            return body.length != 0;
-        } else {
-            return !getBodyAsString().isEmpty();
-        }
     }
 }

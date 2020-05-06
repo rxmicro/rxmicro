@@ -19,14 +19,22 @@ package io.rxmicro.data;
 import io.rxmicro.model.NotStandardSerializableEnum;
 
 /**
+ * Sort option for queries.
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1
  */
 public enum SortOrder implements NotStandardSerializableEnum {
 
+    /**
+     * Ascending order
+     */
     ASCENDING,
 
+    /**
+     * Descending order
+     */
     DESCENDING;
 
     @Override

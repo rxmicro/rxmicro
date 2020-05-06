@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 https://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,18 +14,25 @@
  * limitations under the License.
  */
 
-package io.rxmicro.rest.component;
+package io.rxmicro.validation.internal;
+
+import java.lang.annotation.Documented;
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
+
+import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
+import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
+ * For internal use only
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1
  */
-public interface ExchangeDataFormatConverter<T> {
+@Documented
+@Retention(SOURCE)
+@Target(ANNOTATION_TYPE)
+public @interface SelfDocumented {
 
-    T fromBytes(byte[] httpBody);
-
-    byte[] toBytes(T data);
-
-    String getMimeType();
 }

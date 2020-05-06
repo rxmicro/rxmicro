@@ -39,9 +39,10 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 public @interface BlockingHttpClientSettings {
 
     /**
-     * @return AUTO is ENABLED for integration tests and DISABLED for REST-based micro service tests
-     * ENABLED if http client must support redirects automatically
-     * DISABLED if http client must not support redirects automatically
+     * @return  {@link Option#AUTO} is {@link Option#ENABLED} for integration tests and
+     *                      {@link Option#DISABLED} for REST-based micro service tests,
+     *          {@link Option#ENABLED} if http client must support redirects automatically
+     *          {@link Option#DISABLED} if http client must not support redirects automatically
      */
     Option followRedirects() default Option.AUTO;
 

@@ -19,6 +19,8 @@ package io.rxmicro.http.error;
 import io.rxmicro.common.util.Formats;
 
 /**
+ * A class that signals the need to perform Temporary Redirect ({@code 307}).
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1
@@ -27,12 +29,34 @@ public final class TemporaryRedirectException extends RedirectException {
 
     public static final int STATUS_CODE = 307;
 
+    /**
+     * Creates a Temporary Redirect instance with new URL path.
+     * <p>
+     * For all child classes which extend the HttpErrorException class, when creating an exception instance the stack trace is not filled,
+     * as this information is redundant.
+     * <p>
+     * (<i>This behavior is achieved by using the {@link RuntimeException#RuntimeException(String, Throwable, boolean, boolean)}.</i>)
+     *
+     * @param location the HTTP {@code Location} header value
+     * @throws NullPointerException if {@code location} is {@code null}
+     */
     public TemporaryRedirectException(final String location) {
         super(STATUS_CODE, location);
     }
 
     /**
-     * This constructor uses {@link Formats#format(String, Object...) Formats.format} to format `Location` header
+     * Creates a Temporary Redirect instance with new URL path.
+     * <p>
+     * For all child classes which extend the HttpErrorException class, when creating an exception instance the stack trace is not filled,
+     * as this information is redundant.
+     * <p>
+     * (<i>This behavior is achieved by using the {@link RuntimeException#RuntimeException(String, Throwable, boolean, boolean)}.</i>)
+     * <p>
+     * This constructor uses {@link Formats#format(String, Object...)} method to format `Location` header
+     *
+     * @param location the HTTP {@code Location} header value template
+     * @param args the HTTP {@code Location} header value template arguments
+     * @throws NullPointerException if {@code location} is {@code null}
      */
     public TemporaryRedirectException(final String location,
                                       final Object... args) {

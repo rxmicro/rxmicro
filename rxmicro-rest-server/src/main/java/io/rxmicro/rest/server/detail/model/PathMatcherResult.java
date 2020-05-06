@@ -21,6 +21,8 @@ import java.util.List;
 import static io.rxmicro.common.util.ExCollections.unmodifiableList;
 
 /**
+ * Used by generated code that was created by RxMicro Annotation Processor
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1

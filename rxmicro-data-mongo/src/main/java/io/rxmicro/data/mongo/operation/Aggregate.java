@@ -24,6 +24,9 @@ import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
+ * Denotes a repository method that must execute a
+ * <a href="https://docs.mongodb.com/manual/reference/method/db.collection.aggregate/">{@code db.collection.aggregate()}</a> operation.
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @link https://docs.mongodb.com/manual/reference/method/db.collection.aggregate/
@@ -35,11 +38,29 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 public @interface Aggregate {
 
     /**
+     * Returns the aggregate pipeline.
+     * <p>
+     * Read more:
+     * <a href="https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline/">
+     *     https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline/
+     * </a>
+     *
+     * @return the aggregate pipeline
      * @link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline/
      */
     String[] pipeline();
 
+    /**
+     * Returns {@code true} if the writing to temporary files must be enabled.
+     *
+     * @return {@code true} if the writing to temporary files must be enabled.
+     */
     boolean allowDiskUse() default false;
 
+    /**
+     * Returns the index to use for the aggregation.
+     *
+     * @return the index to use for the aggregation.
+     */
     String hint() default "";
 }

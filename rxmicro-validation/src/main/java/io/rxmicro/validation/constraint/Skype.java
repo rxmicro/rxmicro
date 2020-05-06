@@ -17,7 +17,7 @@
 package io.rxmicro.validation.constraint;
 
 import io.rxmicro.validation.base.ConstraintRule;
-import io.rxmicro.validation.base.SelfDocumented;
+import io.rxmicro.validation.internal.SelfDocumented;
 import io.rxmicro.validation.validator.SkypeConstraintValidator;
 
 import java.lang.annotation.Documented;
@@ -52,11 +52,10 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 public @interface Skype {
 
     /**
-     * Allows to disable validation rule if validation inherited from super class.
+     * Allows disabling the validation rule if this rule is inherited from super class. <p>
      * By default, disable is off
      *
-     * @return {@code true} if the validation must be disabled,
-     * {@code false} otherwise
+     * @return  {@code true} if the validation must be disabled,
      */
     boolean off() default false;
 }

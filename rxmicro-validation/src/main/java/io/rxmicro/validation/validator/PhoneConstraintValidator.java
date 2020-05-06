@@ -21,6 +21,8 @@ import io.rxmicro.rest.model.HttpModelType;
 import io.rxmicro.validation.ConstraintValidator;
 
 /**
+ * Validator for the {@link io.rxmicro.validation.constraint.Phone} constraint
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @link https://en.wikipedia.org/wiki/National_conventions_for_writing_telephone_numbers

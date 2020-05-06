@@ -16,7 +16,7 @@
 
 package io.rxmicro.exchange.json.detail;
 
-import io.rxmicro.rest.component.ExchangeDataFormatConverter;
+import io.rxmicro.rest.detail.ExchangeDataFormatConverter;
 
 import static io.rxmicro.exchange.json.Constants.CONTENT_TYPE_APPLICATION_JSON;
 import static io.rxmicro.json.JsonHelper.readJson;
@@ -24,6 +24,8 @@ import static io.rxmicro.json.JsonHelper.toJsonString;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 /**
+ * Used by generated code that was created by RxMicro Annotation Processor
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1

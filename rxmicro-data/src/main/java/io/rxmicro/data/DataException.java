@@ -20,6 +20,8 @@ import io.rxmicro.common.RxMicroException;
 import io.rxmicro.common.util.Formats;
 
 /**
+ * The basic exception type for modules that work with dynamic data repositories.
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1
@@ -27,19 +29,32 @@ import io.rxmicro.common.util.Formats;
 public abstract class DataException extends RxMicroException {
 
     /**
-     * This constructor uses {@link Formats#format(String, Object...) Formats.format} to format error message
+     * Creates a data error with error message.
+     * <p>
+     * <i>(FYI: This constructor uses {@link Formats#format(String, Object...)} method to format error message.)</i>
+     * <p>
+     * @param message error message or error message template
+     * @param args error message template arguments
+     * @throws NullPointerException if {@code message} is {@code null}
      */
-    public DataException(final String message,
-                         final Object... args) {
+    protected DataException(final String message,
+                            final Object... args) {
         super(message, args);
     }
 
     /**
-     * This constructor uses {@link Formats#format(String, Object...) Formats.format} to format error message
+     * Creates a data error with error message.
+     * <p>
+     * <i>(FYI: This constructor uses {@link Formats#format(String, Object...)} method to format error message.)</i>
+     *
+     * @param cause the cause (which is saved for later retrieval by the {@link #getCause()} method).
+     * @param message error message or error message template
+     * @param args error message template arguments
+     * @throws NullPointerException if {@code message} or {@code cause} is {@code null}
      */
-    public DataException(final Throwable throwable,
-                         final String message,
-                         final Object... args) {
-        super(throwable, message, args);
+    protected DataException(final Throwable cause,
+                            final String message,
+                            final Object... args) {
+        super(cause, message, args);
     }
 }

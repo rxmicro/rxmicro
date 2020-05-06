@@ -18,6 +18,34 @@ import io.rxmicro.http.client.HttpClientFactory;
 import io.rxmicro.http.client.jdk.internal.JdkHttpClientFactory;
 
 /**
+ * The module that is a low-level HTTP client implementation module based on
+ * <a href="https://openjdk.java.net/groups/net/httpclient/intro.html">Java HTTP Client</a>;
+ * <p>
+ * This module can be used for REST based microservice testing.
+ * <p><br><p>
+ * This module follows the next package structure rules:
+ * <ul>
+ *     <li>
+ *         {@code io.rxmicro.http.client.jdk} - is root module package that contains:
+ *         <ul>
+ *             <li>
+ *                 {@code internal} - is sub package with classes for current module use only.
+ *             </li>
+ *             <li>
+ *                 {@code local} - is shared sub package, which can be used by other {@code rxmicro} modules only.
+ *             </li>
+ *             <li>
+ *                 {@code detail} - is sub package for generated code by RxMicro Annotation Processor use preferably.<br>
+ *                 <i>Developer must not use classes from this sub package!</i><br>
+ *                 <i>(Except documented abilities: HTTP internal types, partial implementations, etc.)</i>
+ *             </li>
+ *             <li>
+ *                 any other sub packages and root package - are public API that available for usage.
+ *             </li>
+ *         </ul>
+ *     </li>
+ * </ul>
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1

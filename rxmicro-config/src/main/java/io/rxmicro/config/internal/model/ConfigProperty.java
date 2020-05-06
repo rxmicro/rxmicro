@@ -46,12 +46,12 @@ public final class ConfigProperty implements Comparable<ConfigProperty> {
 
     private Object propertyValue;
 
-    public ConfigProperty(final String nameSpace,
+    public ConfigProperty(final String namespace,
                           final String propertyName,
                           final Method propertySetter,
                           final Object configInstance) {
         this.propertyName = propertyName;
-        this.fullPropertyName = nameSpace + "." + propertyName;
+        this.fullPropertyName = namespace + "." + propertyName;
         this.propertySetter = propertySetter;
         this.configInstance = configInstance;
     }

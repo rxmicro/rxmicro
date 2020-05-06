@@ -19,14 +19,15 @@ package io.rxmicro.validation.validator;
 import io.rxmicro.http.error.ValidationException;
 import io.rxmicro.rest.model.HttpModelType;
 import io.rxmicro.validation.ConstraintValidator;
-import io.rxmicro.validation.constraint.URI;
 
 import java.net.URISyntaxException;
 
 /**
+ * Validator for the {@link io.rxmicro.validation.constraint.URI} constraint
+ *
  * @author nedis
  * @link https://rxmicro.io
- * @see URI
+ * @see io.rxmicro.validation.constraint.URI
  * @since 0.1
  */
 public class URIConstraintValidator implements ConstraintValidator<String> {

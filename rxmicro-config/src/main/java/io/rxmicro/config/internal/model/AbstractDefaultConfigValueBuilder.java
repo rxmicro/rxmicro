@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. http://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,7 +16,7 @@
 
 package io.rxmicro.config.internal.model;
 
-import io.rxmicro.common.ImpossibleException;
+import io.rxmicro.common.InvalidStateException;
 
 /**
  * @author nedis
@@ -32,8 +32,9 @@ public abstract class AbstractDefaultConfigValueBuilder {
 
     public static DefaultConfigValueStorage.Builder getCurrentBuilder() {
         if (defaultConfigValueStorage != null) {
-            throw new ImpossibleException("Detected logic issue in the RxMicro framework! " +
-                    "Could not return DefaultConfigValueStorage.Builder after creation of DefaultConfigValueStorage instance.");
+            throw new InvalidStateException(
+                    "Could not return DefaultConfigValueStorage.Builder after creation of DefaultConfigValueStorage instance."
+            );
         }
         return builder;
     }
@@ -46,7 +47,7 @@ public abstract class AbstractDefaultConfigValueBuilder {
         return defaultConfigValueStorage;
     }
 
-    protected static void resetDefaultConfigValueStorage(){
+    protected static void resetDefaultConfigValueStorage() {
         defaultConfigValueStorage = null;
         builder = new DefaultConfigValueStorage.Builder();
     }

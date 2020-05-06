@@ -19,6 +19,11 @@ package io.rxmicro.rest.server.local.component.impl;
 import io.rxmicro.rest.server.local.component.RequestIdGenerator;
 
 /**
+ * Request id generator used for test environment only.
+ *
+ * By default, it is automatically activated for test environment.
+ * Returns predefined value: {@code TestRequestId}. See {@link TestRequestIdGenerator#TEST_REQUEST_ID}
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1

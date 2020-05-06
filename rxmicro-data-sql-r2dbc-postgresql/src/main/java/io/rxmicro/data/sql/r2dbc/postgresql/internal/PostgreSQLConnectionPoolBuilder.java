@@ -47,8 +47,8 @@ public final class PostgreSQLConnectionPoolBuilder {
             format("?.PostgreSQLPooledClient", PostgreSQLConnectionPoolBuilder.class.getPackageName())
     );
 
-    public ConnectionPool createConnectionPool(final String nameSpace) {
-        final PostgreSQLConfig postgreSQLConfig = getConfig(nameSpace, PostgreSQLConfig.class);
+    public ConnectionPool createConnectionPool(final String namespace) {
+        final PostgreSQLConfig postgreSQLConfig = getConfig(namespace, PostgreSQLConfig.class);
         final ConnectionFactory connectionFactory = createConnectionFactory(postgreSQLConfig);
         return createConnectionPool(postgreSQLConfig, connectionFactory);
     }

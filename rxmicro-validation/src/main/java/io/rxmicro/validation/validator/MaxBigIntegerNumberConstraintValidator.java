@@ -22,6 +22,8 @@ import io.rxmicro.validation.base.AbstractMaxConstraintValidator;
 import java.math.BigInteger;
 
 /**
+ * Validator for the {@link io.rxmicro.validation.constraint.MaxNumber} constraint
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @see io.rxmicro.validation.constraint.MaxNumber

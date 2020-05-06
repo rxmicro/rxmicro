@@ -24,6 +24,10 @@ import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
+ * Activates the Cross Origin Resource Sharing for all request handlers in the REST controller.
+ * <p>
+ * When activating this feature, the RxMicro framework automatically adds a standard handler that handles preflighted requests.
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1
@@ -34,30 +38,39 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 public @interface EnableCrossOriginResourceSharing {
 
     /**
-     * https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin
+     * <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin">
+     *     https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin
+     * </a>
      *
      * @return array of allowed origins, that must be supported.
-     * If Origin is not valid server returns the first origin as default expected Origin
+     *         If Origin is not valid server returns the first origin as default expected Origin
      */
     String[] allowOrigins() default {"*"};
 
     /**
-     * https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Credentials#Directives
+     * <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Credentials#Directives">
+     *     https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Credentials#Directives
+     * </a>
+     *
+     * @return {@code true} if access control allows the credentials
      */
     boolean accessControlAllowCredentials() default false;
 
     /**
-     * https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Max-Age#Directives
+     * <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Max-Age#Directives">
+     *     https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Max-Age#Directives
+     * </a>
      * <p>
-     * Default value is 86400 sec = 24 hours
+     * Default value is {@code 86400} sec =  {@code 24} hours
      *
-     * @return Maximum number of seconds the results can be cached or
-     * <code>-1</code> if cache must be disabled
+     * @return the maximum number of seconds the results can be cached or {@code -1} if cache must be disabled
      */
     int accessControlMaxAge() default 86_400;
 
     /**
-     * Allows to add HTTP headers to ALL CORS requests
+     * Allows adding HTTP headers to ALL CORS requests.
+     *
+     * @return the exposed HTTP headers
      */
     String[] exposedHeaders() default {};
 }

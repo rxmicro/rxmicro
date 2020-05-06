@@ -38,7 +38,17 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Target({ANNOTATION_TYPE, FIELD})
 public @interface ReadMore {
 
+    /**
+     * Returns the caption
+     *
+     * @return the caption
+     */
     String caption();
 
+    /**
+     * Provides the link to get additional info
+     *
+     * @return the link to get additional info
+     */
     String link();
 }

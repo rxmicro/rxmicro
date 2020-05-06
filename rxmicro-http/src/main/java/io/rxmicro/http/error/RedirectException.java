@@ -22,6 +22,14 @@ import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.Strings.startsWith;
 
 /**
+ * A base class to inform the client about the need to perform redirect.
+ *
+ * Instead of using a base class, it is recommended to use one of the following child ones:
+ * <ul>
+ *     <li>{@link TemporaryRedirectException}</li>
+ *     <li>{@link PermanentRedirectException}</li>
+ * </ul>
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1
@@ -32,6 +40,20 @@ public abstract class RedirectException extends HttpErrorException {
 
     private final boolean absolute;
 
+    /**
+     * Creates a {@link RedirectException} instance with the specified status and expected redirect location
+     * <p>
+     * For all child classes which extend the HttpErrorException class, when creating an exception instance the stack trace is not filled,
+     * as this information is redundant.
+     * <p>
+     * (<i>This behavior is achieved by using the {@link RuntimeException#RuntimeException(String, Throwable, boolean, boolean)}.</i>)
+     * <p>
+     * This constructor uses {@link Formats#format(String, Object...)} method to format `Location` header
+     *
+     * @param status the specified redirect status code
+     * @param location the HTTP {@code Location} header value
+     * @throws NullPointerException if {@code location} is {@code null}
+     */
     RedirectException(final int status,
                       final String location) {
         super(status);
@@ -46,7 +68,19 @@ public abstract class RedirectException extends HttpErrorException {
     }
 
     /**
-     * This constructor uses {@link Formats#format(String, Object...) Formats.format} to format `Location` header
+     * Creates a {@link RedirectException} instance with the specified status and expected redirect location
+     * <p>
+     * For all child classes which extend the HttpErrorException class, when creating an exception instance the stack trace is not filled,
+     * as this information is redundant.
+     * <p>
+     * (<i>This behavior is achieved by using the {@link RuntimeException#RuntimeException(String, Throwable, boolean, boolean)}.</i>)
+     * <p>
+     * This constructor uses {@link Formats#format(String, Object...)} method to format `Location` header
+     *
+     * @param status the specified redirect status code
+     * @param location the HTTP {@code Location} header value template
+     * @param args the HTTP {@code Location} header value template arguments
+     * @throws NullPointerException if {@code location} is {@code null}
      */
     RedirectException(final int status,
                       final String location,
@@ -54,10 +88,20 @@ public abstract class RedirectException extends HttpErrorException {
         this(status, format(location, args));
     }
 
+    /**
+     * Returns {@code true} if a new redirect location is absolute URL path.
+     *
+     * @return {@code true} if a new redirect location is absolute URL path.
+     */
     public boolean isAbsolute() {
         return absolute;
     }
 
+    /**
+     * Returns the new redirect location
+     *
+     * @return the new redirect location
+     */
     public final String getLocation() {
         return location;
     }

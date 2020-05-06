@@ -26,6 +26,8 @@ import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
+ * Denotes a table name for entity.
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1
@@ -36,17 +38,23 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 public @interface Table {
 
     /**
-     * @return table name
+     * Returns the table name
+     *
+     * @return the table name
      */
     String name() default "";
 
     /**
-     * @return mappingStrategy which is used to generate table name using the simple class name automatically
+     * Returns the mapping strategy which is used to generate table name using the simple class name automatically
+     *
+     * @return the mapping strategy which is used to generate table name using the simple class name automatically
      */
     MappingStrategy mappingStrategy() default MappingStrategy.LOWERCASE_WITH_UNDERSCORED;
 
     /**
-     * @return schema name
+     * Returns the schema name
+     *
+     * @return the schema name
      */
     String schema() default "";
 }

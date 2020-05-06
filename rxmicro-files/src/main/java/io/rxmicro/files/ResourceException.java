@@ -20,6 +20,8 @@ import io.rxmicro.common.RxMicroException;
 import io.rxmicro.common.util.Formats;
 
 /**
+ * Signals that an error with file resource has occurred.
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1
@@ -27,7 +29,13 @@ import io.rxmicro.common.util.Formats;
 public final class ResourceException extends RxMicroException {
 
     /**
-     * This constructor uses {@link Formats#format(String, Object...) Formats.format} to format error message
+     * Creates a {@link ResourceException} instance
+     * <p>
+     * <i>(FYI: This constructor uses {@link Formats#format(String, Object...)} method to format error message.)</i>
+     *
+     * @param message the error message template
+     * @param args the error message template arguments
+     * @throws NullPointerException if {@code message} is {@code null}
      */
     public ResourceException(final String message,
                              final Object... args) {
@@ -35,11 +43,18 @@ public final class ResourceException extends RxMicroException {
     }
 
     /**
-     * This constructor uses {@link Formats#format(String, Object...) Formats.format} to format error message
+     * Creates a {@link ResourceException} instance
+     * <p>
+     * <i>(FYI: This constructor uses {@link Formats#format(String, Object...)} method to format error message.)</i>
+     *
+     * @param cause the cause (which is saved for later retrieval by the {@link #getCause()} method).
+     * @param message the error message template
+     * @param args the error message template arguments
+     * @throws NullPointerException if {@code message} or {@code cause} is {@code null}
      */
-    public ResourceException(final Throwable throwable,
+    public ResourceException(final Throwable cause,
                              final String message,
                              final Object... args) {
-        super(throwable, message, args);
+        super(cause, message, args);
     }
 }

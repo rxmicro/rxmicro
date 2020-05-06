@@ -25,6 +25,13 @@ import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
+ * Sets mapping between the column name in the DB table (document) and the Java model class field name.
+ * <p>
+ * By default, the RxMicro framework uses the Java model class field name as the column name in the DB table (document).
+ * <p>
+ * If the name should differ for some reason, (for example, as a column name is the keyword Java is used),
+ * it should be specified using this annotation!
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1
@@ -34,5 +41,10 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 @Target({FIELD, METHOD})
 public @interface Column {
 
+    /**
+     * By default, the RxMicro framework uses the Java model class field name as the column name in the DB table (document).
+     *
+     * @return the column name
+     */
     String value();
 }

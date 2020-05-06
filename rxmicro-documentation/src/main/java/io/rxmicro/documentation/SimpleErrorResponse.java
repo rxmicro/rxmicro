@@ -26,6 +26,8 @@ import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
+ * Contains metadata about the unsuccessful HTTP response of REST-based microservice.
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1
@@ -36,16 +38,36 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 @Repeatable(SimpleErrorResponse.List.class)
 public @interface SimpleErrorResponse {
 
+    /**
+     * Returns the status code
+     *
+     * @return the status code
+     */
     int status();
 
+    /**
+     * Returns the error description
+     *
+     * @return the error description
+     */
     String description() default "";
 
+    /**
+     * Returns the included description if it is necessary add a complex formatted description
+     *
+     * @return the included description
+     */
     IncludeDescription includeDescription() default @IncludeDescription(resource = "");
 
+    /**
+     * Returns the example of error message
+     *
+     * @return the example of error message
+     */
     String exampleErrorMessage() default "";
 
     /**
-     * Defines several error responses per handler.
+     * Defines several {@link SimpleErrorResponse} annotations on the same element.
      *
      * @author nedis
      * @link https://rxmicro.io
@@ -56,6 +78,11 @@ public @interface SimpleErrorResponse {
     @Target({METHOD, TYPE})
     @interface List {
 
+        /**
+         * Returns the several {@link SimpleErrorResponse} annotations on the same element.
+         *
+         * @return the several {@link SimpleErrorResponse} annotations on the same element.
+         */
         SimpleErrorResponse[] value();
     }
 }

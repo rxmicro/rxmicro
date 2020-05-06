@@ -28,6 +28,8 @@ import java.util.StringTokenizer;
 import static io.rxmicro.validation.constraint.IP.Version.IP_V4;
 
 /**
+ * Validator for the {@link io.rxmicro.validation.constraint.IP} constraint
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @see io.rxmicro.validation.constraint.IP

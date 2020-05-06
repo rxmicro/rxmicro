@@ -17,6 +17,8 @@
 package io.rxmicro.config;
 
 /**
+ * Network utils
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1
@@ -27,6 +29,13 @@ public final class Networks {
 
     public static final int MAX_PORT = 65_535;
 
+    /**
+     * Validates that provided integer value is valid port number
+     *
+     * @param port the port value to verify
+     * @return the provided port value
+     * @throws ConfigException if provided integer value is not valid port number
+     */
     public static int validatePort(final int port) {
         if (port <= MIN_PORT || port >= MAX_PORT) {
             throw new ConfigException(

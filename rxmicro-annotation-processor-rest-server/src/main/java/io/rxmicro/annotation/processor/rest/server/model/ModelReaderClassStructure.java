@@ -22,7 +22,7 @@ import io.rxmicro.annotation.processor.rest.model.converter.ReaderType;
 import io.rxmicro.exchange.json.detail.JsonExchangeDataFormatConverter;
 import io.rxmicro.http.HttpHeaders;
 import io.rxmicro.http.QueryParams;
-import io.rxmicro.rest.component.ExchangeDataFormatConverter;
+import io.rxmicro.rest.detail.ExchangeDataFormatConverter;
 import io.rxmicro.rest.model.ExchangeFormat;
 import io.rxmicro.rest.model.HttpModelType;
 import io.rxmicro.rest.model.PathVariableMapping;

@@ -29,6 +29,8 @@ import static io.rxmicro.http.HttpHeaders.API_VERSION;
 import static io.rxmicro.rest.server.detail.model.PathMatcherResult.NO_MATCH;
 
 /**
+ * Used by generated code that was created by RxMicro Annotation Processor
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1

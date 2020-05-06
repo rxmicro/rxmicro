@@ -17,6 +17,8 @@
 package io.rxmicro.validation.base;
 
 /**
+ * A Location accuracy enum
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @link https://en.wikipedia.org/wiki/Decimal_degrees

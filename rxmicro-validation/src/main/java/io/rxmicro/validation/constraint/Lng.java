@@ -19,7 +19,7 @@ package io.rxmicro.validation.constraint;
 import io.rxmicro.common.meta.ReadMore;
 import io.rxmicro.validation.base.ConstraintRule;
 import io.rxmicro.validation.base.LocationAccuracy;
-import io.rxmicro.validation.base.SelfDocumented;
+import io.rxmicro.validation.internal.SelfDocumented;
 import io.rxmicro.validation.validator.LngConstraintValidator;
 
 import java.lang.annotation.Documented;
@@ -60,18 +60,19 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 public @interface Lng {
 
     /**
-     * Allows to disable validation rule if validation inherited from super class.
+     * Allows disabling the validation rule if this rule is inherited from super class. <p>
      * By default, disable is off
      *
-     * @return {@code true} if the validation must be disabled,
-     * {@code false} otherwise
+     * @return  {@code true} if the validation must be disabled,
      */
     boolean off() default false;
 
     /**
+     * Returns the longitude {@link LocationAccuracy}
+     * <p>
      * By default, accuracy equals to 1 meter
      *
-     * @return longitude @{code LocationAccuracy}s
+     * @return the longitude {@link LocationAccuracy}
      */
     LocationAccuracy value() default LocationAccuracy.ACCURACY_1_METER;
 }

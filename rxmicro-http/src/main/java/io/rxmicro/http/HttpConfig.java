@@ -25,6 +25,8 @@ import static io.rxmicro.common.util.Requires.require;
 import static io.rxmicro.config.Networks.validatePort;
 
 /**
+ * Allows configuring common HTTP options.
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1
@@ -45,8 +47,8 @@ public abstract class HttpConfig extends Config {
     /**
      * Sets the protocol schema
      *
-     * @param schema protocol schema
-     * @return A reference to this {@code HttpConfig}
+     * @param schema the protocol schema
+     * @return the reference to this {@link HttpConfig} instance
      */
     @BuilderMethod
     public HttpConfig setSchema(final ProtocolSchema schema) {
@@ -54,6 +56,11 @@ public abstract class HttpConfig extends Config {
         return this;
     }
 
+    /**
+     * Returns the host name
+     *
+     * @return the host name
+     */
     public String getHost() {
         return host;
     }
@@ -61,8 +68,8 @@ public abstract class HttpConfig extends Config {
     /**
      * Sets the host name
      *
-     * @param host host name
-     * @return A reference to this {@code HttpConfig}
+     * @param host the host name
+     * @return the reference to this {@link HttpConfig} instance
      */
     @BuilderMethod
     public HttpConfig setHost(final String host) {
@@ -70,6 +77,11 @@ public abstract class HttpConfig extends Config {
         return this;
     }
 
+    /**
+     * Returns the server port
+     *
+     * @return the server port
+     */
     public int getPort() {
         return port;
     }
@@ -77,8 +89,8 @@ public abstract class HttpConfig extends Config {
     /**
      * Sets the port
      *
-     * @param port server port
-     * @return A reference to this {@code HttpConfig}
+     * @param port the server port
+     * @return the reference to this {@link HttpConfig} instance
      */
     @BuilderMethod
     public HttpConfig setPort(final int port) {
@@ -86,6 +98,11 @@ public abstract class HttpConfig extends Config {
         return this;
     }
 
+    /**
+     * Returns the connection string built from schema, host and port parameters
+     *
+     * @return the connection string
+     */
     public String getConnectionString() {
         if (port == schema.getPort()) {
             return format("?://?", schema.getSchema(), host);
@@ -98,16 +115,16 @@ public abstract class HttpConfig extends Config {
      * Sets protocol schema, host and port
      * <p>
      * Example of valid connectionString:
-     * <p>
-     * rxmicro.io
-     * https://rxmicro.io
-     * https://rxmicro.io
-     * rxmicro.io:8080
-     * https://rxmicro.io:8080
-     * https://rxmicro.io:8443
+     * <ul>
+     *     <li>rxmicro.io</li>
+     *     <li>https://rxmicro.io</li>
+     *     <li>rxmicro.io:8080</li>
+     *     <li>http://rxmicro.io:8080</li>
+     *     <li>https://rxmicro.io:8443</li>
+     * </ul>
      *
-     * @param connectionString connection string. See description above.
-     * @return A reference to this {@code HttpConfig}
+     * @param connectionString the connection string. See description above.
+     * @return the reference to this {@link HttpConfig} instance
      */
     @BuilderMethod
     public HttpConfig setConnectionString(final String connectionString) {

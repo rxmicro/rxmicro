@@ -21,12 +21,21 @@ import io.rxmicro.common.model.MapBuilder;
 import java.util.List;
 
 /**
+ * JSON object builder
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1
  */
 public final class JsonObjectBuilder extends MapBuilder<String, Object> {
 
+    /**
+     * Puts the specified name and value to the building JSON object if the specified value is not {@code null}
+     *
+     * @param name the specified name
+     * @param value the specified value
+     * @return the reference to this {@link JsonObjectBuilder} instance
+     */
     @Override
     public JsonObjectBuilder put(final String name,
                                  final Object value) {
@@ -36,6 +45,13 @@ public final class JsonObjectBuilder extends MapBuilder<String, Object> {
         return this;
     }
 
+    /**
+     * Puts the specified name and value to the building JSON object  if the specified value is not {@code null} or not empty
+     *
+     * @param name the specified name
+     * @param value the specified value
+     * @return the reference to this {@link JsonObjectBuilder} instance
+     */
     public JsonObjectBuilder put(final String name,
                                  final List<?> value) {
         if (value != null && !value.isEmpty()) {

@@ -25,7 +25,7 @@ import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
- * Allows to ignore a generation of code by the RxMicro Annotation Processor
+ * Allows ignoring a generation of code by the RxMicro Annotation Processor
  * for all classes in package and all sub packages annotated by this annotation.
  * <p>
  * If this annotation applied to type (class, interface, enum, annotation),

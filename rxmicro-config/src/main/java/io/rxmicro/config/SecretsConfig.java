@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. http://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,10 +21,12 @@ import io.rxmicro.common.meta.BuilderMethod;
 import static io.rxmicro.common.util.Requires.require;
 
 /**
- * RxMicro uses {@link String#split(String)} to split values by regex!
+ * Allows configuring the {@link Secrets} instance.
+ * <p>
+ * The RxMicro framework uses {@link String#split(String)} to split values by regex!
  *
  * @author nedis
- * @link http://rxmicro.io
+ * @link https://rxmicro.io
  * @since 0.3
  */
 @SuppressWarnings("UnusedReturnValue")
@@ -42,7 +44,7 @@ public final class SecretsConfig extends Config {
      * Sets a regex that used at {@link String#split(String)} method
      *
      * @param regex regex that used at {@link String#split(String)} method
-     * @return A reference to this {@code SecretsConfig}
+     * @return the reference to this {@link SecretsConfig} instance
      */
     @BuilderMethod
     public SecretsConfig setRegex(final String regex) {
@@ -58,7 +60,7 @@ public final class SecretsConfig extends Config {
      * Sets a secret values that used as string source
      *
      * @param values values
-     * @return A reference to this {@code SecretsConfig}
+     * @return the reference to this {@link SecretsConfig} instance
      */
     @BuilderMethod
     public SecretsConfig setValues(final String values) {

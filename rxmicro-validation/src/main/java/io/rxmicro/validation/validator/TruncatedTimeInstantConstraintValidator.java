@@ -25,6 +25,8 @@ import io.rxmicro.validation.constraint.TruncatedTime;
 import java.time.Instant;
 
 /**
+ * Validator for the {@link io.rxmicro.validation.constraint.TruncatedTime} constraint
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @see io.rxmicro.validation.constraint.TruncatedTime

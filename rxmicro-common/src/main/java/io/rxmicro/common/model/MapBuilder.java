@@ -16,12 +16,16 @@
 
 package io.rxmicro.common.model;
 
+import io.rxmicro.common.InvalidStateException;
+
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 import static io.rxmicro.common.util.ExCollections.unmodifiableOrderedMap;
 
 /**
+ * The builder that builds a short-lived unmodified ordered {@link Map} instance.
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1
@@ -32,15 +36,28 @@ public class MapBuilder<K, V> {
 
     private boolean built;
 
+    /**
+     * Puts the specified name and value to the end of the building ordered {@link Map} instance
+     *
+     * @param name the specified name
+     * @param value the specified value
+     * @return the reference to this {@link MapBuilder} instance
+     * @throws InvalidStateException if the {@link Map} instance already built
+     */
     public MapBuilder<K, V> put(final K name,
                                 final V value) {
         if (built) {
-            throw new IllegalStateException("This builder can't be used. Create a new one!");
+            throw new InvalidStateException("This builder can't be used, because the map instance already built! Create a new builder!");
         }
         map.put(name, value);
         return this;
     }
 
+    /**
+     * Builds the short-lived unmodified ordered {@link Map} instance
+     *
+     * @return the short-lived unmodified ordered {@link Map} instance
+     */
     public Map<K, V> build() {
         built = true;
         return unmodifiableOrderedMap(map);

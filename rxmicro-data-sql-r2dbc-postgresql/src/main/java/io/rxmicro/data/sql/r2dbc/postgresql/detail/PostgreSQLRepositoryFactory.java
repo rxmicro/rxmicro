@@ -26,6 +26,8 @@ import java.util.function.Function;
 import static io.rxmicro.runtime.local.InstanceContainer.getSingleton;
 
 /**
+ * Used by generated code that was created by RxMicro Annotation Processor
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1
@@ -39,11 +41,11 @@ public final class PostgreSQLRepositoryFactory {
         System.setProperty("reactor.logging.fallback", "JDK");
     }
 
-    public static <T> T createPostgreSQLRepository(final String nameSpace,
+    public static <T> T createPostgreSQLRepository(final String namespace,
                                                    final Function<ConnectionPool, T> creator) {
         final ConnectionPool connectionPool = getSingleton(
                 new ByTypeInstanceQualifier<>(ConnectionPool.class),
-                new LazyInstanceProvider<>(ConnectionPool.class, () -> BUILDER.createConnectionPool(nameSpace)));
+                new LazyInstanceProvider<>(ConnectionPool.class, () -> BUILDER.createConnectionPool(namespace)));
         return creator.apply(connectionPool);
     }
 

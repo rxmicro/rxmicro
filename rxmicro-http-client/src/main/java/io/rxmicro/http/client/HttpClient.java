@@ -23,16 +23,35 @@ import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 /**
+ * A low-level reactive HTTP client
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1
  */
 public interface HttpClient extends AutoRelease {
 
+    /**
+     * Sends the HTTP request
+     *
+     * @param method the HTTP method
+     * @param path the HTTP path
+     * @param headers the HTTP headers
+     * @return the {@link CompletableFuture} that contains async result of sending the HTTP request
+     */
     CompletableFuture<ClientHttpResponse> sendAsync(String method,
                                                     String path,
                                                     List<Map.Entry<String, String>> headers);
 
+    /**
+     * Sends the HTTP request
+     *
+     * @param method the HTTP method
+     * @param path the HTTP path
+     * @param headers the HTTP headers
+     * @param body the HTTP body
+     * @return the {@link CompletableFuture} that contains async result of sending the HTTP request
+     */
     CompletableFuture<ClientHttpResponse> sendAsync(String method,
                                                     String path,
                                                     List<Map.Entry<String, String>> headers,

@@ -30,15 +30,16 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 /**
  * Informs the RxMicro Annotation Processor, that a header model field with array type must be converted to the repeating HTTP header.
  * <p>
- * By default, the RxMicro framework converts header model value as comma separated string, for example:
+ * By default, the RxMicro framework converts header model value as string, separated by the | symbol
+ * (See {@link io.rxmicro.http.HttpValues#STRING_ARRAY_DELIMITER}), for example:
  * <p>
- * HeaderName: value1,value2,value3.
+ * {@code HeaderName: value1|value2|value3.}
  * <p>
  * If this annotation is present, result will be:
  * <p>
- * HeaderName: value1
- * HeaderName: value2
- * HeaderName: value3
+ * {@code HeaderName: value1}
+ * {@code HeaderName: value2}
+ * {@code HeaderName: value3}
  * <p>
  * Supported for REST client HTTP request and REST controller handler HTTP response models only!
  *

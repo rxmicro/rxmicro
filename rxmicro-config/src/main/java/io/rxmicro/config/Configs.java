@@ -39,6 +39,11 @@ import static java.util.Map.entry;
 import static java.util.stream.Collectors.toMap;
 
 /**
+ * Allows working with all supported configs.
+ * <p>
+ * To get an instance of the requested config it is necessary to use
+ * {@link Configs#getConfig(Class)} or {@link Configs#getConfig(String, Class)} methods
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1
@@ -61,21 +66,43 @@ public final class Configs {
 
     private final Map<String, String> commandLineArgs;
 
+    /**
+     * Returns the requested config instance that corresponds to the provided {@code namespace} and {@code configClass}
+     *
+     * @param namespace the requested namespace
+     * @param configClass the requested config class
+     * @param <T> config type
+     * @return the config instance
+     */
     @SuppressWarnings("unchecked")
-    public static <T extends Config> T getConfig(final String nameSpace,
+    public static <T extends Config> T getConfig(final String namespace,
                                                  final Class<T> configClass) {
         if (instance == null) {
             throw new ConfigException(
                     "Configs are not built. Use Configs.Builder to build configuration");
         }
-        return (T) instance.storage.computeIfAbsent(nameSpace, n ->
-                instance.loader.getEnvironmentConfig(nameSpace, configClass, instance.commandLineArgs));
+        return (T) instance.storage.computeIfAbsent(namespace, n ->
+                instance.loader.getEnvironmentConfig(namespace, configClass, instance.commandLineArgs));
     }
 
+    /**
+     * Returns the requested config instance that corresponds to the provided {@code configClass} and the default namespace.
+     * <p>
+     * The RxMicro framework uses the {@link Config#getDefaultNameSpace(Class)} method to define the default namespace.
+     *
+     * @param configClass the requested config class
+     * @param <T> the config type
+     * @return the config instance
+     */
     public static <T extends Config> T getConfig(final Class<T> configClass) {
         return getConfig(getDefaultNameSpace(configClass), configClass);
     }
 
+    /**
+     * Returns the {@link Module} instance for the current class
+     *
+     * @return the {@link Module} instance for the current class
+     */
     public static Module getConfigModule() {
         return Configs.class.getModule();
     }
@@ -98,6 +125,8 @@ public final class Configs {
     }
 
     /**
+     * Allows configuring the {@link Configs} manager before usage
+     *
      * @author nedis
      * @link https://rxmicro.io
      * @since 0.1
@@ -115,17 +144,32 @@ public final class Configs {
             storage = new HashMap<>();
         }
 
-        public Builder withConfig(final String nameSpace,
+        /**
+         * Allows adding the configuration using java classes with custom namespace.
+         *
+         * @param namespace the custom namespace
+         * @param config the created by developer config instance
+         * @return the reference to this {@link Builder} instance
+         */
+        public Builder withConfig(final String namespace,
                                   final Config config) {
-            final Config oldConfig = storage.put(nameSpace, config);
+            final Config oldConfig = storage.put(namespace, config);
             if (oldConfig != null) {
                 throw new ConfigException(
-                        "'?' name space is already configured. Old class is '?', new class is '?'",
-                        nameSpace, oldConfig.getClass().getName(), config.getClass().getName());
+                        "'?' namespace is already configured. Old class is '?', new class is '?'",
+                        namespace, oldConfig.getClass().getName(), config.getClass().getName());
             }
             return this;
         }
 
+        /**
+         * Allows adding configurations using java classes with default namespace.
+         * <p>
+         * The RxMicro framework uses {@link Config#getDefaultNameSpace(Class)} method to define a default namespace.
+         *
+         * @param configs the var args of config instances
+         * @return the reference to this {@link Builder} instance
+         */
         public Builder withConfigs(final Config... configs) {
             for (final Config config : configs) {
                 withConfig(config.getNameSpace(), config);
@@ -133,27 +177,66 @@ public final class Configs {
             return this;
         }
 
+        /**
+         * Allows adding the configuration using java classes with custom namespace.
+         *
+         * @param configs the map that contains entries with custom namespaces and config instances.
+         * @return the reference to this {@link Builder} instance
+         */
         public Builder withConfigs(final Map<String, Config> configs) {
             configs.forEach(this::withConfig);
             return this;
         }
 
+        /**
+         * Allows changing the order of the configuration reading
+         *
+         * @param sources the custom order of the configuration reading
+         * @return the reference to this {@link Builder} instance
+         */
         public Builder withOrderedConfigSources(final ConfigSource... sources) {
             configSources.clear();
             configSources.addAll(asList(sources));
             return this;
         }
 
+        /**
+         * Disables all configuration sources.
+         * <p>
+         * <i>This method can be useful for tests.</i>
+         *
+         * @return the reference to this {@link Builder} instance
+         */
         public Builder withoutAnyConfigSources() {
             configSources.clear();
             return this;
         }
 
+        /**
+         * Enables all supported config sources according to natural order.
+         * <p>
+         * Natural order is defined by {@link ConfigSource} enum.
+         *
+         * @return the reference to this {@link Builder} instance
+         */
         public Builder withAllConfigSources() {
             withOrderedConfigSources(ConfigSource.values());
             return this;
         }
 
+        /**
+         * Enables config sources according to recommended order for docker or kubernetes environments.
+         * <p>
+         * Recommended order for docker or kubernetes environments:
+         * <p>
+         * <ol>
+         *     <li>Hardcoded config using annotations.</li>
+         *     <li>Config from env variables.</li>
+         *     <li>Config from file: {@code ~/.rxmicro/${name_space}.properties}</li>
+         * </ol>
+         *
+         * @return the reference to this {@link Builder} instance
+         */
         public Builder withContainerConfigSources() {
             withOrderedConfigSources(
                     DEFAULT_CONFIG_VALUES,
@@ -163,6 +246,16 @@ public final class Configs {
             return this;
         }
 
+        /**
+         * Enables the config reading from command line arguments.
+         * <p>
+         * This type of configuration has the highest priority and overrides all other types.
+         * <p>
+         * (Except of configuration using Java classes.)
+         *
+         * @param args command line arguments
+         * @return the reference to this {@link Builder} instance
+         */
         public Builder withCommandLineArguments(final String... args) {
             if (args.length > 0) {
                 commandLineArgs.addAll(withoutWaitForArguments(args));
@@ -170,10 +263,23 @@ public final class Configs {
             return this;
         }
 
+        /**
+         * Creates a new immutable instance of the {@link Configs} manager.
+         * <p>
+         * Each subsequent invocation of this method overrides all configuration manager settings.
+         * <p>
+         * <b>(In any microservice project there is only one configuration manager object!)</b>
+         * <p>
+         * It means that if the developer creates several {@link Builder} instances,
+         * it will be the last invocation of the build method that matters, the others will be ignored.
+         */
         public void build() {
             instance = new Configs(storage, configSources, commandLineArgs);
         }
 
+        /**
+         * Creates a new immutable instance of the {@link Configs} manager only if it not be created before.
+         */
         public void buildIfNotConfigured() {
             if (instance == null) {
                 build();

@@ -17,29 +17,34 @@
 package io.rxmicro.cdi;
 
 import io.rxmicro.runtime.detail.ByTypeInstanceQualifier;
-import io.rxmicro.runtime.detail.InstanceQualifier;
 import io.rxmicro.runtime.local.AbstractFactory;
 
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.GeneratedClassRules.GENERATED_CLASS_NAME_PREFIX;
 
 /**
+ * Utility class that must be used to get the instance of the requested bean
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1
  */
 public abstract class BeanFactory extends AbstractFactory {
 
+    /**
+     * Default name of the bean factory implementation class
+     */
     public static final String BEAN_FACTORY_IMPL_CLASS_NAME =
             format("??Impl", GENERATED_CLASS_NAME_PREFIX, BeanFactory.class.getSimpleName());
 
-    public static <T> T getBean(final InstanceQualifier<T> instanceQualifier) {
-        return get(BEAN_FACTORY_IMPL_CLASS_NAME).getImpl(instanceQualifier)
-                .orElseThrow(implNotFoundError(instanceQualifier));
-    }
-
-    public static <T> T getBean(final Class<T> classInstance) {
-        return get(BEAN_FACTORY_IMPL_CLASS_NAME).getImpl(new ByTypeInstanceQualifier<>(classInstance))
-                .orElseThrow(implNotFoundError(classInstance));
+    /**
+     * Returns the instance of the requested bean
+     *
+     * @param beanClass the bean interface or class
+     * @return the instance of the requested bean
+     */
+    public static <T> T getBean(final Class<T> beanClass) {
+        return get(BEAN_FACTORY_IMPL_CLASS_NAME).getImpl(new ByTypeInstanceQualifier<>(beanClass))
+                .orElseThrow(implNotFoundError(beanClass));
     }
 }

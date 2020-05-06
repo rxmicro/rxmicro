@@ -19,14 +19,15 @@ package io.rxmicro.validation.validator;
 import io.rxmicro.http.error.ValidationException;
 import io.rxmicro.rest.model.HttpModelType;
 import io.rxmicro.validation.ConstraintValidator;
-import io.rxmicro.validation.constraint.Nullable;
 
 import java.util.List;
 
 /**
+ * Validator for the required list constraint
+ *
  * @author nedis
  * @link https://rxmicro.io
- * @see Nullable
+ * @see io.rxmicro.validation.constraint.Nullable
  * @since 0.1
  */
 public final class RequiredListConstraintValidator implements ConstraintValidator<List<?>> {

@@ -19,7 +19,7 @@ package io.rxmicro.json;
 import io.rxmicro.common.RxMicroException;
 
 /**
- * If json syntax error detected
+ * Signals that json syntax error detected
  *
  * @author nedis
  * @link https://rxmicro.io
@@ -27,6 +27,12 @@ import io.rxmicro.common.RxMicroException;
  */
 public final class JsonException extends RxMicroException {
 
+    /**
+     * Creates a new {@link JsonException} instance with error message.
+     *
+     * @param message error message
+     * @throws NullPointerException if {@code message} is {@code null}
+     */
     public JsonException(final String message) {
         super(message);
     }

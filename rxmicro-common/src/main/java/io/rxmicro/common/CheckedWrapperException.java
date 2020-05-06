@@ -18,9 +18,9 @@ package io.rxmicro.common;
 
 import io.rxmicro.common.util.Formats;
 
-import static io.rxmicro.common.util.Requires.require;
-
 /**
+ * Wrapper for checked exceptions
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1
@@ -28,18 +28,37 @@ import static io.rxmicro.common.util.Requires.require;
 public final class CheckedWrapperException extends RxMicroException {
 
     /**
-     * This constructor uses {@link Formats#format(String, Object...) Formats.format} to format error message
+     * Creates a new {@link CheckedWrapperException} instance with error message and cause.
+     * <p>
+     * <i>(FYI: This constructor uses {@link Formats#format(String, Object...)} method to format error message.)</i>
+     *
+     * @param cause the cause (which is saved for later retrieval by the {@link #getCause()} method).
+     * @param message error message template
+     * @param args error message template arguments
+     * @throws NullPointerException if {@code message} or {@code cause} is {@code null}
      */
-    public CheckedWrapperException(final Throwable throwable,
+    public CheckedWrapperException(final Throwable cause,
                                    final String message,
                                    final Object... args) {
-        super(require(throwable), message, args);
+        super(cause, message, args);
     }
 
-    public CheckedWrapperException(final Throwable throwable) {
-        super(require(throwable));
+    /**
+     * Creates a new {@link CheckedWrapperException} instance with cause only.
+     *
+     * @param cause the cause (which is saved for later retrieval by the {@link #getCause()} method).
+     * @throws NullPointerException if {@code cause} is {@code null}
+     */
+    public CheckedWrapperException(final Throwable cause) {
+        super(cause);
     }
 
+    /**
+     * Returns {@code true} if current instance contains a cause one of the specified throwable class
+     *
+     * @param throwableClass the specified throwable class
+     * @return {@code true} if current instance contains a cause one of the specified throwable class
+     */
     public boolean isCause(final Class<? extends Throwable> throwableClass) {
         return getCause() != null && throwableClass.isAssignableFrom(getCause().getClass());
     }

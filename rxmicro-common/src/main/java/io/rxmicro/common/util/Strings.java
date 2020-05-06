@@ -29,6 +29,8 @@ import static java.lang.Character.toUpperCase;
 import static java.util.Collections.unmodifiableList;
 
 /**
+ * TODO
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1
@@ -37,6 +39,12 @@ public final class Strings {
 
     private static final int HEX_CODE_LENGTH = 4;
 
+    /**
+     * TODO
+     *
+     * @param message
+     * @return
+     */
     public static String capitalize(final String message) {
         if (message.length() > 1) {
             if (isUpperCase(message.charAt(0))) {
@@ -51,6 +59,12 @@ public final class Strings {
         }
     }
 
+    /**
+     * TODO
+     *
+     * @param message
+     * @return
+     */
     public static String unCapitalize(final String message) {
         if (message.length() > 1) {
             if (isLowerCase(message.charAt(0))) {
@@ -65,6 +79,12 @@ public final class Strings {
         }
     }
 
+    /**
+     * TODO
+     *
+     * @param variableName
+     * @return
+     */
     public static List<String> splitByCamelCase(final String variableName) {
         final List<String> list = new ArrayList<>();
         final StringBuilder wordBuilder = new StringBuilder();
@@ -82,6 +102,12 @@ public final class Strings {
         return collectAbbreviation(list);
     }
 
+    /**
+     * TODO
+     *
+     * @param list
+     * @return
+     */
     private static List<String> collectAbbreviation(final List<String> list) {
         final List<String> result = new ArrayList<>();
         final Iterator<String> iterator = list.iterator();
@@ -105,6 +131,13 @@ public final class Strings {
         return result;
     }
 
+    /**
+     * TODO
+     *
+     * @param source
+     * @param delimiter
+     * @return
+     */
     public static List<String> split(final String source,
                                      final String delimiter) {
         if (source == null || source.isEmpty()) {
@@ -119,12 +152,24 @@ public final class Strings {
         }
     }
 
+    /**
+     * TODO
+     *
+     * @param original
+     * @return
+     */
     public static String escapeString(final String original) {
         final StringBuilder resultBuilder = new StringBuilder();
         escapeString(resultBuilder, original);
         return resultBuilder.toString();
     }
 
+    /**
+     * TODO
+     *
+     * @param resultBuilder
+     * @param original
+     */
     public static void escapeString(final StringBuilder resultBuilder,
                                     final String original) {
         for (int i = 0; i < original.length(); i++) {
@@ -153,6 +198,13 @@ public final class Strings {
         }
     }
 
+    /**
+     * TODO
+     *
+     * @param string
+     * @param prefix
+     * @return
+     */
     public static boolean startsWith(final String string, final char prefix) {
         return !string.isEmpty() && string.charAt(0) == prefix;
     }

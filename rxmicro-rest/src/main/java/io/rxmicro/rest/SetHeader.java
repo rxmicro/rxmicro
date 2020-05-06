@@ -41,12 +41,16 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 public @interface SetHeader {
 
     /**
-     * @return static header name
+     * Returns the static header name
+     *
+     * @return the static header name
      */
     String name();
 
     /**
-     * @return static header value
+     * Returns the static header value
+     *
+     * @return the static header value
      */
     String value();
 
@@ -62,6 +66,11 @@ public @interface SetHeader {
     @Target({TYPE, METHOD})
     @interface List {
 
+        /**
+         * Returns the several {@link SetHeader} annotations on the same element.
+         *
+         * @return the several {@link SetHeader} annotations on the same element.
+         */
         SetHeader[] value();
     }
 }

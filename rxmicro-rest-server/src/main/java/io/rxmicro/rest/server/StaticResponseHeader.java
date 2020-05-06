@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. http://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,13 +17,27 @@
 package io.rxmicro.rest.server;
 
 /**
+ * Defines the static HTTP response headers that must be returned by HTTP server for all HTTP responses.
+ * <p>
+ * {@code `static`} term means that a header value does not depend on any HTTP request parameter or any config setting.
+ *
  * @author nedis
- * @link http://rxmicro.io
+ * @link https://rxmicro.io
  * @since 0.3
  */
 public interface StaticResponseHeader {
 
+    /**
+     * Returns the static HTTP header name
+     *
+     * @return the static HTTP header name
+     */
     String getName();
 
+    /**
+     * Returns the static HTTP header value
+     *
+     * @return the static HTTP header value
+     */
     String getValue();
 }

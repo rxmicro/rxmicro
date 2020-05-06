@@ -17,7 +17,7 @@
 package io.rxmicro.validation.constraint;
 
 import io.rxmicro.validation.base.ConstraintRule;
-import io.rxmicro.validation.base.SelfDocumented;
+import io.rxmicro.validation.internal.SelfDocumented;
 import io.rxmicro.validation.validator.LatinAlphabetOnlyConstraintValidator;
 
 import java.lang.annotation.Documented;
@@ -52,19 +52,38 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 public @interface LatinAlphabetOnly {
 
     /**
-     * Allows to disable validation rule if validation inherited from super class.
+     * Allows disabling the validation rule if this rule is inherited from super class. <p>
      * By default, disable is off
      *
-     * @return {@code true} if the validation must be disabled,
-     * {@code false} otherwise
+     * @return  {@code true} if the validation must be disabled,
      */
     boolean off() default false;
 
+    /**
+     * Returns {@code true} if the annotated element can contain uppercase letters
+     *
+     * @return {@code true} if the annotated element can contain uppercase letters
+     */
     boolean allowsUppercase() default true;
 
+    /**
+     * Returns {@code true} if the annotated element can contain lowercase letters
+     *
+     * @return {@code true} if the annotated element can contain lowercase letters
+     */
     boolean allowsLowercase() default true;
 
+    /**
+     * Returns {@code true} if the annotated element can contain digits
+     *
+     * @return {@code true} if the annotated element can contain digits
+     */
     boolean allowsDigits() default true;
 
+    /**
+     * Returns all supported punctuations
+     *
+     * @return all supported punctuations
+     */
     String punctuations() default "~!@#$%^&*()_+=-[]{},.;:<>?/\\\"' \t|\r\n";
 }

@@ -34,17 +34,39 @@ import static java.util.stream.Collectors.toCollection;
 import static java.util.stream.Collectors.toMap;
 
 /**
+ * TODO
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1
  */
 public final class ExCollectors {
 
+    /**
+     * TODO
+     *
+     * @param keyMapper
+     * @param valueMapper
+     * @param <T>
+     * @param <K>
+     * @param <U>
+     * @return
+     */
     public static <T, K, U> Collector<T, ?, Map<K, U>> toOrderedMap(final Function<? super T, ? extends K> keyMapper,
                                                                     final Function<? super T, ? extends U> valueMapper) {
         return toMap(keyMapper, valueMapper, throwingMerger(), LinkedHashMap::new);
     }
 
+    /**
+     * TODO
+     *
+     * @param keyMapper
+     * @param valueMapper
+     * @param <T>
+     * @param <K>
+     * @param <U>
+     * @return
+     */
     @SuppressWarnings("unchecked")
     public static <T, K, U> Collector<T, ?, Map<K, U>> toUnmodifiableOrderedMap(final Function<? super T, ? extends K> keyMapper,
                                                                                 final Function<? super T, ? extends U> valueMapper) {
@@ -54,23 +76,58 @@ public final class ExCollectors {
         );
     }
 
+    /**
+     * TODO
+     *
+     * @param keyMapper
+     * @param valueMapper
+     * @param <T>
+     * @param <K>
+     * @param <U>
+     * @return
+     */
     public static <T, K, U> Collector<T, ?, Map<K, U>> toTreeMap(final Function<? super T, ? extends K> keyMapper,
                                                                  final Function<? super T, ? extends U> valueMapper) {
         return toMap(keyMapper, valueMapper, throwingMerger(), TreeMap::new);
     }
 
+    /**
+     * TODO
+     *
+     * @param <T>
+     * @return
+     */
     public static <T> Collector<T, ?, Set<T>> toOrderedSet() {
         return toCollection(LinkedHashSet::new);
     }
 
+    /**
+     * TODO
+     *
+     * @param <T>
+     * @return
+     */
     public static <T> Collector<T, ?, Set<T>> toTreeSet() {
         return toCollection(TreeSet::new);
     }
 
+    /**
+     * TODO
+     *
+     * @param comparator
+     * @param <T>
+     * @return
+     */
     public static <T> Collector<T, ?, Set<T>> toTreeSet(final Comparator<T> comparator) {
         return toCollection(() -> new TreeSet<>(comparator));
     }
 
+    /**
+     * TODO
+     *
+     * @param <T>
+     * @return
+     */
     public static <T> Collector<T, ?, Set<T>> toUnmodifiableTreeSet() {
         return collectingAndThen(
                 toCollection(TreeSet::new),
@@ -78,6 +135,12 @@ public final class ExCollectors {
         );
     }
 
+    /**
+     * TODO
+     *
+     * @param <T>
+     * @return
+     */
     public static <T> Collector<T, ?, Set<T>> toUnmodifiableOrderedSet() {
         return collectingAndThen(
                 toCollection(LinkedHashSet::new),

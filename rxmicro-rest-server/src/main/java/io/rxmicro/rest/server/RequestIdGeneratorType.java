@@ -16,16 +16,36 @@
 
 package io.rxmicro.rest.server;
 
+import java.util.UUID;
+
 /**
+ * Defines supported HTTP request id generator types.
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1
  */
 public enum RequestIdGeneratorType {
 
+    /**
+     * Generates unique IDs only within the framework of starting one JVM.
+     * <p>
+     * Uses a random increment counter.
+     * (<i><b>Used by default</b></i>).
+     */
     FASTER_BUT_UNSAFE,
 
+    /**
+     * Generates unique IDs independently of starting the JVM.
+     * <p>
+     * As a unique value uses the {@link UUID#randomUUID()}.
+     */
     SAFE_BUT_SLOWER,
 
+    /**
+     * Recommended for test environment only.
+     * <p>
+     * <i><b>By default, it is automatically activated for test environment.</b></i>
+     */
     FOR_TESTS_ONLY
 }

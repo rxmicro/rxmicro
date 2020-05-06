@@ -20,14 +20,20 @@ import io.rxmicro.http.error.ValidationException;
 import io.rxmicro.rest.model.HttpModelType;
 import io.rxmicro.validation.ConstraintValidator;
 
+import java.util.Set;
+import java.util.stream.Collectors;
+
 /**
+ * Validator for the {@link io.rxmicro.validation.constraint.LatinAlphabetOnly} constraint
+ *
  * @author nedis
  * @link https://rxmicro.io
+ * @see io.rxmicro.validation.constraint.LatinAlphabetOnly
  * @since 0.1
  */
 public final class LatinAlphabetOnlyConstraintValidator implements ConstraintValidator<String> {
 
-    private final String alphabet;
+    private final Set<Character> alphabet;
 
     public LatinAlphabetOnlyConstraintValidator(final boolean allowsUppercase,
                                                 final boolean allowsLowercase,
@@ -45,7 +51,7 @@ public final class LatinAlphabetOnlyConstraintValidator implements ConstraintVal
         if (actual != null) {
             for (int i = 0; i < actual.length(); i++) {
                 final char ch = actual.charAt(i);
-                if (alphabet.indexOf(ch) == -1) {
+                if (!alphabet.contains(ch)) {
                     throw new ValidationException("Invalid ? \"?\": " +
                             "Expected a string which contains the following characters only [?], " +
                             "but actual value contains invalid character: '?'!",
@@ -62,10 +68,10 @@ public final class LatinAlphabetOnlyConstraintValidator implements ConstraintVal
      */
     private static final class LatinAlphabetHelper {
 
-        private static String buildLatinAlphabet(final boolean allowsUppercase,
-                                                 final boolean allowsLowercase,
-                                                 final boolean allowsDigits,
-                                                 final String punctuations) {
+        private static Set<Character> buildLatinAlphabet(final boolean allowsUppercase,
+                                                         final boolean allowsLowercase,
+                                                         final boolean allowsDigits,
+                                                         final String punctuations) {
             final StringBuilder builder = new StringBuilder(69);
             if (allowsUppercase) {
                 builder.append("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
@@ -82,7 +88,7 @@ public final class LatinAlphabetOnlyConstraintValidator implements ConstraintVal
                     builder.append(ch);
                 }
             }
-            return builder.toString();
+            return builder.toString().chars().mapToObj(ch -> (char) ch).collect(Collectors.toSet());
         }
     }
 }

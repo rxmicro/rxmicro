@@ -30,6 +30,8 @@ import static java.lang.reflect.Modifier.isStatic;
 import static java.util.stream.Collectors.joining;
 
 /**
+ * Used by generated code that was created by RxMicro Annotation Processor
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1

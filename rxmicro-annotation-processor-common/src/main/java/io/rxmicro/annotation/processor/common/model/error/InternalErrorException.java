@@ -17,7 +17,6 @@
 package io.rxmicro.annotation.processor.common.model.error;
 
 import io.rxmicro.common.RxMicroException;
-import io.rxmicro.common.util.Formats;
 
 /**
  * @author nedis
@@ -26,9 +25,6 @@ import io.rxmicro.common.util.Formats;
  */
 public final class InternalErrorException extends RxMicroException {
 
-    /**
-     * This constructor uses {@link Formats#format(String, Object...) Formats.format} to format error message
-     */
     public InternalErrorException(final String message,
                                   final Object... args) {
         super(message, args);

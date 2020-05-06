@@ -19,6 +19,8 @@ package io.rxmicro.common.util;
 import static io.rxmicro.common.util.Requires.require;
 
 /**
+ * TODO
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1
@@ -27,6 +29,12 @@ public final class UrlPaths {
 
     private static final String IGNORED_CHARS = " \t\n\r";
 
+    /**
+     * TODO
+     *
+     * @param path
+     * @return
+     */
     public static String normalizeUrlPath(final String path) {
         require(path);
         final StringBuilder pathBuilder = new StringBuilder();

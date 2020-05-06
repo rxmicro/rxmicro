@@ -23,7 +23,19 @@ import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
- * Method annotated by this annotation will be invoked by the RxMicro framework after injection of the all dependencies to current instance.
+ * Denotes a method, that should be invoked automatically after all dependencies have been injected into the current component.
+ * In its semantics, it completely corresponds to the {@code javax.annotation.PostConstruct} annotation.
+ * <p>
+ * The postConstruct method must meet the following requirements:
+ * <ul>
+ *     <li>This method should be a single method in the class.</li>
+ *     <li>The method must not be {@code static}.</li>
+ *     <li>The method must not be {@code abstract}.</li>
+ *     <li>The method must be non-{@code native}.</li>
+ *     <li>The method must not be {@code synchronized}.</li>
+ *     <li>The method must not contain parameters.</li>
+ *     <li>The method must return the void type.</li>
+ * </ul>
  *
  * @author nedis
  * @link https://rxmicro.io
@@ -37,17 +49,19 @@ public @interface PostConstruct {
     /**
      * Default name of method, which the RxMicro framework interprets as method annotated by this annotation,
      * i.e.
-     * <p>
+     * <pre>
      * void postConstruct() {
-     * <p>
+     *
      * }
-     * <p>
+     * </pre>
      * is equivalent to
      *
-     * <code>@PostConstruct</code>
+     * <pre>
+     * {@code @PostConstruct}
      * void ${any-method-name}() {
-     * <p>
+     *
      * }
+     * </pre>
      */
     String DEFAULT_POST_CONSTRUCT_METHOD_NAME = "postConstruct";
 }

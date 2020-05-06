@@ -81,19 +81,19 @@ public final class ConfigProperties {
 
     private static final Map<String, Optional<Map<String, String>>> RESOURCE_CACHE = new WeakHashMap<>();
 
-    private final String nameSpace;
+    private final String namespace;
 
     private final Collection<ConfigProperty> properties;
 
-    public ConfigProperties(final String nameSpace,
+    public ConfigProperties(final String namespace,
                             final Collection<ConfigProperty> properties) {
-        this.nameSpace = nameSpace;
+        this.namespace = namespace;
         this.properties = properties;
     }
 
     public void discoverProperties(final Set<ConfigSource> configSources,
                                    final Map<String, String> commandLineArgs) {
-        final DebugMessageBuilder debugMessageBuilder = new DebugMessageBuilder(nameSpace, configSources, commandLineArgs);
+        final DebugMessageBuilder debugMessageBuilder = new DebugMessageBuilder(namespace, configSources, commandLineArgs);
         discoverProperties(configSources, commandLineArgs, debugMessageBuilder);
         LOGGER.debug(debugMessageBuilder.toString());
     }
@@ -105,7 +105,7 @@ public final class ConfigProperties {
             if (configSource == DEFAULT_CONFIG_VALUES) {
                 loadDefaultConfigValues(debugMessageBuilder);
             } else if (configSource == SEPARATE_CLASS_PATH_RESOURCE) {
-                loadFromClassPathResource(nameSpace, false, debugMessageBuilder);
+                loadFromClassPathResource(namespace, false, debugMessageBuilder);
             } else if (configSource == RXMICRO_CLASS_PATH_RESOURCE) {
                 loadFromClassPathResource(RX_MICRO_CONFIG_FILE_NAME, true, debugMessageBuilder);
             } else if (configSource == ENVIRONMENT_VARIABLES) {
@@ -117,11 +117,11 @@ public final class ConfigProperties {
             } else if (configSource == RXMICRO_FILE_AT_THE_CURRENT_DIR) {
                 loadFromPropertiesFileIfExists(CURRENT_DIR, RX_MICRO_CONFIG_FILE_NAME, true, debugMessageBuilder);
             } else if (configSource == SEPARATE_FILE_AT_THE_HOME_DIR) {
-                loadFromPropertiesFileIfExists(USER_HOME, nameSpace, false, debugMessageBuilder);
+                loadFromPropertiesFileIfExists(USER_HOME, namespace, false, debugMessageBuilder);
             } else if (configSource == SEPARATE_FILE_AT_THE_RXMICRO_CONFIG_DIR) {
-                loadFromPropertiesFileIfExists(RX_MICRO_CONFIG_DIRECTORY, nameSpace, false, debugMessageBuilder);
+                loadFromPropertiesFileIfExists(RX_MICRO_CONFIG_DIRECTORY, namespace, false, debugMessageBuilder);
             } else if (configSource == SEPARATE_FILE_AT_THE_CURRENT_DIR) {
-                loadFromPropertiesFileIfExists(CURRENT_DIR, nameSpace, false, debugMessageBuilder);
+                loadFromPropertiesFileIfExists(CURRENT_DIR, namespace, false, debugMessageBuilder);
             } else if (configSource == JAVA_SYSTEM_PROPERTIES) {
                 loadFromJavaSystemProperties(debugMessageBuilder);
             } else {
@@ -247,7 +247,7 @@ public final class ConfigProperties {
 
         private final boolean debugEnabled;
 
-        private final String nameSpace;
+        private final String namespace;
 
         private final List<String> messages;
 
@@ -259,13 +259,13 @@ public final class ConfigProperties {
 
         private int count;
 
-        public DebugMessageBuilder(final String nameSpace,
+        public DebugMessageBuilder(final String namespace,
                                    final Set<ConfigSource> configSources,
                                    final Map<String, String> commandLineArgs) {
             this.configSources = configSources;
             this.commandLineArgs = commandLineArgs;
             this.debugEnabled = LOGGER.isDebugEnabled();
-            this.nameSpace = nameSpace;
+            this.namespace = namespace;
             this.messages = debugEnabled ? new ArrayList<>() : List.of();
             this.resolvedEntries = debugEnabled ? new LinkedHashMap<>() : Map.of();
         }
@@ -304,12 +304,12 @@ public final class ConfigProperties {
         @Override
         public String toString() {
             if (debugEnabled) {
-                messages.add(0, format("Discovering properties for '?' namespace:", nameSpace));
+                messages.add(0, format("Discovering properties for '?' namespace:", namespace));
                 messages.add(1, format("?Config source: ?", SHIFT, new ConfigSourceProvider(configSources, commandLineArgs)));
                 if (count == 0) {
-                    messages.add(format("?No properties found for '?' namespace. Using default config instance!", SHIFT, nameSpace));
+                    messages.add(format("?No properties found for '?' namespace. Using default config instance!", SHIFT, namespace));
                 } else {
-                    messages.add(format("?Property(ies) discovered for '?' namespace:", SHIFT, nameSpace));
+                    messages.add(format("?Property(ies) discovered for '?' namespace:", SHIFT, namespace));
                     messages.add(format("??Count: ?, Entries: ?", SHIFT, SHIFT, count, resolvedEntries.keySet()));
                 }
                 return String.join(System.lineSeparator(), messages);

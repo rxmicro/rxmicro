@@ -15,8 +15,37 @@
  */
 
 /**
+ * The basic module to work with dynamic repositories for interaction with relational SQL databases using
+ * the Reactive Relational Database Connectivity (R2DBC).
+ * <p>
+ * Read more: <a href="https://r2dbc.io/">https://r2dbc.io</a>
+ * <p><br><p>
+ * This module follows the next package structure rules:
+ * <ul>
+ *     <li>
+ *         {@code io.rxmicro.data.sql.r2dbc} - is root module package that contains:
+ *         <ul>
+ *             <li>
+ *                 {@code internal} - is sub package with classes for current module use only.
+ *             </li>
+ *             <li>
+ *                 {@code local} - is shared sub package, which can be used by other {@code rxmicro} modules only.
+ *             </li>
+ *             <li>
+ *                 {@code detail} - is sub package for generated code by RxMicro Annotation Processor use preferably.<br>
+ *                 <i>Developer must not use classes from this sub package!</i><br>
+ *                 <i>(Except documented abilities: HTTP internal types, partial implementations, etc.)</i>
+ *             </li>
+ *             <li>
+ *                 any other sub packages and root package - are public API that available for usage.
+ *             </li>
+ *         </ul>
+ *     </li>
+ * </ul>
+ *
  * @author nedis
  * @link https://rxmicro.io
+ * @link https://r2dbc.io
  * @since 0.1
  */
 @SuppressWarnings("JavaRequiresAutoModule")

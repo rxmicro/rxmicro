@@ -24,7 +24,7 @@ import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
- * Overrides the default HTTP status code for the method-handler.
+ * Declares a status code, which should be sent to the client in case of successful execution of the HTTP request handler.
  *
  * @author nedis
  * @link https://rxmicro.io
@@ -36,7 +36,9 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 public @interface SetStatusCode {
 
     /**
-     * @return HTTP response status code
+     * Returns the HTTP response status code
+     *
+     * @return the HTTP response status code
      */
     int value();
 }

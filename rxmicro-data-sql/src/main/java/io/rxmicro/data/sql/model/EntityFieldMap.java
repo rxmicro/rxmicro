@@ -19,6 +19,11 @@ package io.rxmicro.data.sql.model;
 import java.util.Map;
 
 /**
+ * The base interface of virtual model that represents a database result set row as a {@link Map},
+ * where {@code key} is a column name and {@code value} is a column value.
+ * <p>
+ * This interface can be used instead of custom entity class.
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1

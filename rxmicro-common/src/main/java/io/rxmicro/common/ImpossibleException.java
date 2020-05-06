@@ -19,6 +19,18 @@ package io.rxmicro.common;
 import io.rxmicro.common.util.Formats;
 
 /**
+ * Indicates that an exception cannot be thrown.
+ * <p>
+ * For example:
+ * <pre>
+ * final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+ * try (OutputStream out = byteArrayOutputStream) {
+ *      // do something
+ * } catch (final IOException e) {
+ *     throw new ImpossibleException(e, "Writer uses the byte array, so IO exception is impossible!");
+ * }
+ * </pre>
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1
@@ -26,7 +38,13 @@ import io.rxmicro.common.util.Formats;
 public final class ImpossibleException extends RxMicroException {
 
     /**
-     * This constructor uses {@link Formats#format(String, Object...) Formats.format} to format error message
+     * Creates a new {@link ImpossibleException} instance with error message.
+     * <p>
+     * <i>(FYI: This constructor uses {@link Formats#format(String, Object...)} method to format error message.)</i>
+     *
+     * @param message error message template
+     * @param args error message template arguments
+     * @throws NullPointerException if {@code message} is {@code null}
      */
     public ImpossibleException(final String message,
                                final Object... args) {
@@ -34,15 +52,18 @@ public final class ImpossibleException extends RxMicroException {
     }
 
     /**
-     * This constructor uses {@link Formats#format(String, Object...) Formats.format} to format error message
+     * Creates a new {@link ImpossibleException} instance with error message and cause.
+     * <p>
+     * <i>(FYI: This constructor uses {@link Formats#format(String, Object...)} method to format error message.)</i>
+     *
+     * @param cause the cause (which is saved for later retrieval by the {@link #getCause()} method).
+     * @param message error message template
+     * @param args error message template arguments
+     * @throws NullPointerException if {@code message} or {@code cause} is {@code null}
      */
-    public ImpossibleException(final Throwable throwable,
+    public ImpossibleException(final Throwable cause,
                                final String message,
                                final Object... args) {
-        super(throwable, message, args);
-    }
-
-    public ImpossibleException(final Throwable throwable) {
-        super(throwable);
+        super(cause, message, args);
     }
 }

@@ -27,6 +27,8 @@ import static io.rxmicro.common.util.Requires.require;
 import static io.rxmicro.config.Networks.validatePort;
 
 /**
+ * Allows configuring Monfo DB options.
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1
@@ -54,8 +56,8 @@ public final class MongoConfig extends Config {
     /**
      * Sets the server host name
      *
-     * @param host host name
-     * @return A reference to this {@code MongoConfig}
+     * @param host the server host name
+     * @return the reference to this {@link MongoConfig} instance
      */
     @BuilderMethod
     public MongoConfig setHost(final String host) {
@@ -67,8 +69,8 @@ public final class MongoConfig extends Config {
     /**
      * Sets the server port
      *
-     * @param port server port
-     * @return A reference to this {@code MongoConfig}
+     * @param port the server port
+     * @return the reference to this {@link MongoConfig} instance
      */
     @BuilderMethod
     public MongoConfig setPort(final int port) {
@@ -77,6 +79,11 @@ public final class MongoConfig extends Config {
         return this;
     }
 
+    /**
+     * Returns the database name
+     *
+     * @return the database name
+     */
     public String getDatabase() {
         return database;
     }
@@ -84,8 +91,8 @@ public final class MongoConfig extends Config {
     /**
      * Sets the database name
      *
-     * @param database database name
-     * @return A reference to this {@code MongoConfig}
+     * @param database the database name
+     * @return the reference to this {@link MongoConfig} instance
      */
     @BuilderMethod
     public MongoConfig setDatabase(final String database) {
@@ -93,20 +100,42 @@ public final class MongoConfig extends Config {
         return this;
     }
 
+    /**
+     * Sets the custom mongo codecs configurator
+     *
+     * @param mongoCodecsConfigurator the custom mongo codecs configurator
+     * @return the reference to this {@link MongoConfig} instance
+     */
     @BuilderMethod
     public MongoConfig setMongoCodecsConfigurator(final MongoCodecsConfigurator mongoCodecsConfigurator) {
         this.mongoCodecsConfigurator = require(mongoCodecsConfigurator);
         return this;
     }
 
+    /**
+     * Returns the connection string built from schema, host and port parameters
+     *
+     * @return the connection string built from schema, host and port parameters
+     */
     public String getConnectionString() {
         return format("mongodb://?:?", host, port);
     }
 
+    /**
+     * Returns {@link MongoClientSettings.Builder} instance that allows configuring the
+     * {@link com.mongodb.reactivestreams.client.MongoClient} using low-level reactive Mongo DB java driver API.
+     *
+     * @return Returns {@link MongoClientSettings.Builder} instance
+     */
     public MongoClientSettings.Builder getMongoClientSettingsBuilder() {
         return builder;
     }
 
+    /**
+     * Builds the {@link MongoClientSettings} instance
+     *
+     * @return the {@link MongoClientSettings} instance
+     */
     public MongoClientSettings buildMongoClientSettings() {
         return builder
                 .codecRegistry(

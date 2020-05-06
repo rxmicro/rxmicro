@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. http://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,10 +20,11 @@ import io.rxmicro.config.internal.SecretsImpl;
 
 /**
  * Base interface that supports hiding a secret info.
+ * <p>
  * This feature is useful for hiding a secret info in log messages.
  *
  * @author nedis
- * @link http://rxmicro.io
+ * @link https://rxmicro.io
  * @since 0.3
  */
 public interface Secrets {
@@ -54,7 +55,7 @@ public interface Secrets {
     }
 
     /**
-     * Return `****` placeholder if value is secret
+     * Returns `****` placeholder if value is secret
      *
      * @param value secret candidate
      * @return `****` placeholder if value is secret,

@@ -24,6 +24,26 @@ import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
+ * Declares a message returned by the HTTP request handler in case of no result.
+ * <p>
+ * The RxMicro framework supports Not Found Logic for HTTP request handlers. <p>
+ * To activate this feature it’s necessary to return a reactive type that supports optional result.
+ * <p>
+ * When handling requests, the RxMicro framework checks the handler result:
+ * <ul>
+ *     <li>
+ *          If the handler returns a response model, the RxMicro framework will convert it to an HTTP response with the 200 status and
+ *          JSON representation of this model.
+ *     </li>
+ *     <li>
+ *         If the handler returns an empty result, the RxMicro framework generates an HTTP response with the 404 and the custom
+ *         error message that defined via this annotation. This this annotation is missing the RxMicro framework generates
+ *         default "Not Found" error message.
+ *     </li>
+ * </ul>
+ * <p>
+ * For more control over the HTTP response generated in case of an error, use exception instead of {@code Not Found} Logic feature!
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1
@@ -34,7 +54,9 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 public @interface NotFoundMessage {
 
     /**
-     * @return not found message
+     * Returns custom not found message
+     *
+     * @return custom not found message
      */
     String value();
 }

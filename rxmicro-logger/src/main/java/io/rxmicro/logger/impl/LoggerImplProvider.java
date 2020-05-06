@@ -19,13 +19,24 @@ package io.rxmicro.logger.impl;
 import io.rxmicro.logger.Logger;
 
 /**
+ * Basic interface for the all supported {@link Logger} implementations
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1
  */
 public interface LoggerImplProvider {
 
+    /**
+     * Sets up the current provider
+     */
     void setup();
 
+    /**
+     * Returns the {@link Logger} instance by the specified name
+     *
+     * @param name the specified name
+     * @return the {@link Logger} instance
+     */
     Logger getLogger(String name);
 }

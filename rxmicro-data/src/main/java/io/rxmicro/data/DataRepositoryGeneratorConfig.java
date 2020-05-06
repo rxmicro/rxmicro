@@ -26,6 +26,8 @@ import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
+ * Allows configuring the repository generation process.
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1
@@ -36,8 +38,9 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 public @interface DataRepositoryGeneratorConfig {
 
     /**
-     * @return <code>true</code> if the RxMicro framework must add original query to generated code as string comment
-     * <code>false</code> otherwise
+     * Returns {@code true} if the RxMicro framework must add original query to generated code as string comment
+     *
+     * @return {@code true} if the RxMicro framework must add original query to generated code as string comment
      */
     boolean addOriginalQueryToGeneratedCodeAsComment() default true;
 }

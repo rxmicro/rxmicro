@@ -17,18 +17,32 @@
 package io.rxmicro.documentation;
 
 /**
+ * Default values.
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1
  */
 public final class Constants {
 
+    /**
+     * Default author name
+     */
     public static final String DEFAULT_AUTHOR = "GeneratedBy RxMicroAnnotationProcessor";
 
+    /**
+     * Default author email
+     */
     public static final String DEFAULT_EMAIL = "rxmicro.io@gmail.com";
 
+    /**
+     * Default license name
+     */
     public static final String DEFAULT_LICENSE_NAME = "Apache License Version 2.0";
 
+    /**
+     * Default license url
+     */
     public static final String DEFAULT_LICENSE_URL = "http://www.apache.org/licenses/LICENSE-2.0";
 
     private Constants() {

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. http://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,8 +19,10 @@ package io.rxmicro.rest.server.netty;
 import io.netty.channel.ChannelId;
 
 /**
+ * Allows configuring a netty channel id
+ *
  * @author nedis
- * @link http://rxmicro.io
+ * @link https://rxmicro.io
  * @see io.netty.channel.ChannelId
  * @since 0.3
  */
@@ -36,6 +38,10 @@ public enum NettyChannelIdType {
      */
     LONG;
 
+    /**
+     * @param channelId channel id
+     * @return unique string representation of channel id
+     */
     public String getId(final ChannelId channelId) {
         if (this == LONG) {
             return channelId.asLongText();

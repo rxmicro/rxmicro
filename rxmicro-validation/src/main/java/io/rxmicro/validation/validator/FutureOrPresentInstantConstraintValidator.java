@@ -24,6 +24,8 @@ import io.rxmicro.validation.base.AbstractDateTimeEqualsConstraintValidator;
 import java.time.Instant;
 
 /**
+ * Validator for the {@link io.rxmicro.validation.constraint.FutureOrPresent} constraint
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @see io.rxmicro.validation.constraint.FutureOrPresent
@@ -38,7 +40,7 @@ public class FutureOrPresentInstantConstraintValidator extends AbstractDateTimeE
                          final String modelName) {
         if (actual != null) {
             final Instant expected = Instant.now();
-            if (isNotEqualsAfterTruncated(expected.toEpochMilli(), actual.toEpochMilli()) &&
+            if (isNotEqualsAfterTruncation(expected.toEpochMilli(), actual.toEpochMilli()) &&
                     actual.compareTo(expected) <= 0) {
                 throw new ValidationException(
                         "Invalid ? \"?\": Expected a future or present instant, but actual is '?' (now is '?')!",

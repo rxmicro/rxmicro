@@ -23,6 +23,7 @@ import static io.rxmicro.common.util.Strings.startsWith;
 
 /**
  * Java class which store json number value.
+ * <p>
  * Json number is stored as Java string and parsed by demand
  *
  * @author nedis
@@ -45,6 +46,12 @@ public final class JsonNumber extends Number {
 
     private final String number;
 
+    /**
+     * Creates a new instance of {@link JsonNumber} type from the string representation of a number
+     *
+     * @param number the string representation of a number
+     * @throws NumberFormatException if the specified string is not the string representation of a number
+     */
     public JsonNumber(final String number) {
         this.number = validate(number);
     }
@@ -162,26 +169,58 @@ public final class JsonNumber extends Number {
         return Short.parseShort(number);
     }
 
+    /**
+     * Returns the value of the specified number as an {@link BigInteger}.
+     *
+     * @return the value of the specified number as an {@link BigInteger}.
+     * @throws NumberFormatException If the string does not contain a parsable {@link BigInteger}.
+     */
     public BigInteger bigIntegerValue() {
         return new BigInteger(number);
     }
 
+    /**
+     * Returns the value of the specified number as an {@link BigDecimal}.
+     *
+     * @return the value of the specified number as an {@link BigDecimal}.
+     * @throws NumberFormatException If the string does not contain a parsable {@link BigInteger}.
+     */
     public BigDecimal bigDecimalValue() {
         return new BigDecimal(number);
     }
 
+    /**
+     * Returns {@code true} if current number is {@code NaN}
+     *
+     * @return {@code true} if current number is {@code NaN}
+     */
     public boolean isNaN() {
         return number.charAt(0) == NAN.charAt(0);
     }
 
+    /**
+     * Returns {@code true} if current number is {@code infinite}
+     *
+     * @return {@code true} if current number is {@code infinite}
+     */
     public boolean isInfinite() {
         return isPositiveInfinite() || isNegativeInfinite();
     }
 
+    /**
+     * Returns {@code true} if current number is {@code positive infinite}
+     *
+     * @return {@code true} if current number is {@code positive infinite}
+     */
     public boolean isPositiveInfinite() {
         return number.charAt(0) == INFINITY.charAt(0);
     }
 
+    /**
+     * Returns {@code true} if current number is {@code negative infinite}
+     *
+     * @return {@code true} if current number is {@code negative infinite}
+     */
     public boolean isNegativeInfinite() {
         return number.length() >= 2 && number.charAt(0) == '-' && number.charAt(1) == NEGATIVE_INFINITY.charAt(1);
     }

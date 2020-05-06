@@ -25,6 +25,10 @@ import static java.lang.annotation.ElementType.MODULE;
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
+ * Denotes the version of REST-based microservice in the generated REST-based microservice documentation.
+ * <p>
+ * (<i>Allows overriding the version of REST-based microservice specified in the version directive to pom.xml</i>)
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1
@@ -34,5 +38,10 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 @Target({MODULE, ANNOTATION_TYPE})
 public @interface DocumentationVersion {
 
+    /**
+     * Returns the version of REST-based microservice
+     *
+     * @return the version of REST-based microservice
+     */
     String value();
 }

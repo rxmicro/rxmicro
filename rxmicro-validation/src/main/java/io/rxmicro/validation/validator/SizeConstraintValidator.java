@@ -23,6 +23,8 @@ import io.rxmicro.validation.base.AbstractListConstraintValidator;
 import java.util.List;
 
 /**
+ * Validator for the {@link io.rxmicro.validation.constraint.Size} constraint
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @see io.rxmicro.validation.constraint.Size

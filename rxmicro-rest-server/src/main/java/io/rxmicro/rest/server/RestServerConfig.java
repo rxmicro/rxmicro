@@ -26,7 +26,7 @@ import java.util.Set;
 import static io.rxmicro.common.util.Requires.require;
 
 /**
- * Allows to configure REST options
+ * Allows to configure a REST server options.
  *
  * @author nedis
  * @link https://rxmicro.io
@@ -68,7 +68,7 @@ public class RestServerConfig extends Config {
     /**
      * Configures REST server for development environment
      *
-     * @return A reference to this {@code RestConfig}
+     * @return the reference to this  {@link RestServerConfig} instance
      */
     @BuilderMethod
     public RestServerConfig setDevelopmentMode() {
@@ -77,56 +77,105 @@ public class RestServerConfig extends Config {
                 .setHideInternalErrorMessage(false);
     }
 
+    /**
+     * Returns the error status code if the RxMicro framework can't find handler for current HTTP request
+     *
+     * @return the error status code if the RxMicro framework can't find handler for current HTTP request
+     */
     public int getHandlerNotFoundErrorStatusCode() {
         return handlerNotFoundErrorStatusCode;
     }
 
+    /**
+     * Sets the error status code if the RxMicro framework can't find handler for current HTTP request
+     *
+     * @param handlerNotFoundErrorStatusCode the custom error status code
+     * @return the reference to this  {@link RestServerConfig} instance
+     */
     @BuilderMethod
     public RestServerConfig setHandlerNotFoundErrorStatusCode(final int handlerNotFoundErrorStatusCode) {
         this.handlerNotFoundErrorStatusCode = handlerNotFoundErrorStatusCode;
         return this;
     }
 
+    /**
+     * Returns the error message if the RxMicro framework can't find handler for current HTTP request
+     *
+     * @return the error message if the RxMicro framework can't find handler for current HTTP request
+     */
     public String getHandlerNotFoundErrorMessage() {
         return handlerNotFoundErrorMessage;
     }
 
+    /**
+     * Sets the error message if the RxMicro framework can't find handler for current HTTP request
+     *
+     * @param handlerNotFoundErrorMessage the custom error message
+     * @return the reference to this  {@link RestServerConfig} instance
+     */
     @BuilderMethod
     public RestServerConfig setHandlerNotFoundErrorMessage(final String handlerNotFoundErrorMessage) {
         this.handlerNotFoundErrorMessage = require(handlerNotFoundErrorMessage);
         return this;
     }
 
+    /**
+     * Returns the error status code if the RxMicro framework does not support CORS feature for the current HTTP request
+     *
+     * @return the error status code if the RxMicro framework does not support CORS feature for the current HTTP request
+     */
     public int getCorsNotAllowedErrorStatusCode() {
         return corsNotAllowedErrorStatusCode;
     }
 
+    /**
+     * Sets the error status code if the RxMicro framework does not support CORS feature for the current HTTP request
+     *
+     * @param corsNotAllowedErrorStatusCode the custom error status code
+     * @return the reference to this  {@link RestServerConfig} instance
+     */
     @BuilderMethod
     public RestServerConfig setCorsNotAllowedErrorStatusCode(final int corsNotAllowedErrorStatusCode) {
         this.corsNotAllowedErrorStatusCode = corsNotAllowedErrorStatusCode;
         return this;
     }
 
+    /**
+     * Returns the error message if the RxMicro framework does not support CORS feature for the current HTTP request
+     *
+     * @return the error message if the RxMicro framework does not support CORS feature for the current HTTP request
+     */
     public String getCorsNotAllowedErrorMessage() {
         return corsNotAllowedErrorMessage;
     }
 
+    /**
+     * Sets the error message if the RxMicro framework does not support CORS feature for the current HTTP request
+     *
+     * @param corsNotAllowedErrorMessage the custom error message
+     * @return the reference to this  {@link RestServerConfig} instance
+     */
     @BuilderMethod
     public RestServerConfig setCorsNotAllowedErrorMessage(final String corsNotAllowedErrorMessage) {
         this.corsNotAllowedErrorMessage = require(corsNotAllowedErrorMessage);
         return this;
     }
 
+    /**
+     * Returns {@code true} if the RxMicro framework returns HTTP response body in human readable format
+     *
+     * @return {@code true} if the RxMicro framework returns HTTP response body in human readable format
+     */
     public boolean isHumanReadableOutput() {
         return humanReadableOutput;
     }
 
     /**
-     * Activates or disables the human readable of response.
-     * It is recommended to activate this option on development environment only
+     * Activates or disables the human readable of response. <p>
+     * <i>It is recommended to activate this option on development environment only!</i>
      *
      * @param humanReadableOutput human readable or not
-     * @return A reference to this {@code RestConfig}
+     * @return the reference to this  {@link RestServerConfig} instance
      */
     @BuilderMethod
     public RestServerConfig setHumanReadableOutput(final boolean humanReadableOutput) {
@@ -134,16 +183,21 @@ public class RestServerConfig extends Config {
         return this;
     }
 
+    /**
+     * Returns {@code true} if the RxMicro framework hides a cause of internal error from client
+     *
+     * @return {@code true} if the RxMicro framework hides a cause of internal error from client
+     */
     public boolean isHideInternalErrorMessage() {
         return hideInternalErrorMessage;
     }
 
     /**
-     * Activates or disables the displaying of cause of internal error if it occur.
-     * It is recommended to activate this option on production environment only
+     * Activates or disables the displaying of cause of internal error if it occur.<p>
+     * <i>It is recommended to activate this option on production environment only!</i>
      *
      * @param hideInternalErrorMessage hide internal error cause or not
-     * @return A reference to this {@code RestConfig}
+     * @return the reference to this  {@link RestServerConfig} instance
      */
     @BuilderMethod
     public RestServerConfig setHideInternalErrorMessage(final boolean hideInternalErrorMessage) {
@@ -151,23 +205,41 @@ public class RestServerConfig extends Config {
         return this;
     }
 
+    /**
+     * Returns {@code true} if the RxMicro framework must log all not server errors (i.e. status codes from 300 to 499)
+     *
+     * @return {@code true} if the RxMicro framework must log all not server errors (i.e. status codes from 300 to 499)
+     */
     public boolean isLogNotServerErrors() {
         return logNotServerErrors;
     }
 
+    /**
+     * Activates or disables the logging of not server errors
+     *
+     * @param logNotServerErrors log not server errors or not
+     * @return the reference to this  {@link RestServerConfig} instance
+     */
     @BuilderMethod
     public RestServerConfig setLogNotServerErrors(final boolean logNotServerErrors) {
         this.logNotServerErrors = logNotServerErrors;
         return this;
     }
 
+    /**
+     * Returns all defined static HTTP response headers for all HTTP request handlers
+     *
+     * @return all defined static HTTP response headers for all HTTP request handlers
+     */
     public Set<StaticResponseHeader> getStaticResponseHeaders() {
         return staticResponseHeaders;
     }
 
     /**
+     * Allows customizing static HTTP response headers for all HTTP request handlers
+     *
      * @param staticResponseHeaders static response header set
-     * @return A reference to this {@code RestConfig}
+     * @return the reference to this  {@link RestServerConfig} instance
      */
     @BuilderMethod
     public RestServerConfig setStaticResponseHeaders(final Set<StaticResponseHeader> staticResponseHeaders) {
@@ -176,8 +248,10 @@ public class RestServerConfig extends Config {
     }
 
     /**
+     * Allows customizing static HTTP response headers for all HTTP request handlers
+     *
      * @param staticResponseHeader a new static response header
-     * @return A reference to this {@code RestConfig}
+     * @return the reference to this  {@link RestServerConfig} instance
      */
     @BuilderMethod
     public RestServerConfig addStaticResponseHeader(final StaticResponseHeader staticResponseHeader) {
@@ -185,13 +259,20 @@ public class RestServerConfig extends Config {
         return this;
     }
 
+    /**
+     * Returns used {@link RequestIdGeneratorType}
+     *
+     * @return used {@link RequestIdGeneratorType}
+     */
     public RequestIdGeneratorType getGeneratorType() {
         return generatorType;
     }
 
     /**
+     * Allows changing a {@link RequestIdGeneratorType}
+     *
      * @param generatorType generator type
-     * @return A reference to this {@code RestConfig}
+     * @return the reference to this  {@link RestServerConfig} instance
      */
     @BuilderMethod
     public RestServerConfig setGeneratorType(final RequestIdGeneratorType generatorType) {
@@ -199,13 +280,20 @@ public class RestServerConfig extends Config {
         return this;
     }
 
+    /**
+     * Returns {@code true} if the RxMicro framework must returns generated request id for each HTTP request
+     *
+     * @return {@code true} if the RxMicro framework must returns generated request id for each HTTP request
+     */
     public boolean isReturnGeneratedRequestId() {
         return returnGeneratedRequestId;
     }
 
     /**
+     * Activates or disables the returning of generated request id for each HTTP request
+     *
      * @param returnGeneratedRequestId return generated Request-Id o not
-     * @return A reference to this {@code RestConfig}
+     * @return the reference to this  {@link RestServerConfig} instance
      */
     @BuilderMethod
     public RestServerConfig setReturnGeneratedRequestId(final boolean returnGeneratedRequestId) {
@@ -213,13 +301,20 @@ public class RestServerConfig extends Config {
         return this;
     }
 
+    /**
+     * Returns {@code true} if the RxMicro framework must disable logger for http health checks
+     *
+     * @return {@code true} if the RxMicro framework must disable logger for http health checks
+     */
     public boolean isDisableLoggerMessagesForHttpHealthChecks() {
         return disableLoggerMessagesForHttpHealthChecks;
     }
 
     /**
-     * @param disableLoggerMessagesForHttpHealthChecks disable logger messages or not
-     * @return A reference to this {@code RestConfig}
+     * Activates or disables logger messages for http health checks
+     *
+     * @param disableLoggerMessagesForHttpHealthChecks disable logger messages for http health checks or not
+     * @return the reference to this  {@link RestServerConfig} instance
      */
     @BuilderMethod
     public RestServerConfig setDisableLoggerMessagesForHttpHealthChecks(
@@ -228,16 +323,21 @@ public class RestServerConfig extends Config {
         return this;
     }
 
+    /**
+     * Returns {@code true} if the RxMicro framework must print current runtime env after HTTP server is started successful.
+     *
+     * @return {@code true} if the RxMicro framework must print current runtime env after HTTP server is started successful.
+     */
     public boolean isShowRuntimeEnv() {
         return showRuntimeEnv;
     }
 
     /**
-     * If this variable is set and rest server is started,
+     * If this variable is set and HTTP server is started,
      * the RxMicro framework will print the short info about the current runtime: available processor cores and memory usage.
      *
      * @param showRuntimeEnv print runtime environment or not
-     * @return A reference to this {@code RestConfig}
+     * @return the reference to this {@link RestServerConfig} instance
      */
     @BuilderMethod
     public RestServerConfig setShowRuntimeEnv(final boolean showRuntimeEnv) {

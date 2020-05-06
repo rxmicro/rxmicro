@@ -55,6 +55,11 @@ public @interface SetConfigValue {
     @Target(TYPE)
     @interface List {
 
+        /**
+         * Returns the several {@link SetConfigValue} annotations on the same element.
+         *
+         * @return the several {@link SetConfigValue} annotations on the same element.
+         */
         SetConfigValue[] value();
     }
 }

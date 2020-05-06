@@ -23,6 +23,8 @@ import io.rxmicro.validation.UnexpectedResponseException;
 import java.util.List;
 
 /**
+ * Used by generated code that was created by RxMicro Annotation Processor
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1

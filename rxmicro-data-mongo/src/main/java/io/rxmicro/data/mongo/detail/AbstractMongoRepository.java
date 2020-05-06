@@ -23,6 +23,8 @@ import io.rxmicro.logger.LoggerFactory;
 import org.bson.Document;
 
 /**
+ * Used by generated code that was created by RxMicro Annotation Processor
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1

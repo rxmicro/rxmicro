@@ -38,10 +38,17 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 public @interface BaseUrlPath {
 
     /**
-     * @return base url
+     * Returns the base url
+     *
+     * @return the base url
      */
     String value();
 
+    /**
+     * Returns the position of the base url according to {@link Version} if {@link Version.Strategy#URL_PATH} is used
+     *
+     * @return the position of the base url according to {@link Version} if {@link Version.Strategy#URL_PATH} is used
+     */
     Position position() default Position.AFTER_VERSION;
 
     /**
@@ -51,8 +58,14 @@ public @interface BaseUrlPath {
      */
     enum Position {
 
+        /**
+         * Base url must be generated before {@link Version} if {@link Version.Strategy#URL_PATH} is used
+         */
         BEFORE_VERSION,
 
+        /**
+         * Base url must be generated after {@link Version} if {@link Version.Strategy#URL_PATH} is used
+         */
         AFTER_VERSION
     }
 
@@ -68,6 +81,11 @@ public @interface BaseUrlPath {
     @Target(TYPE)
     @interface List {
 
+        /**
+         * Returns the several {@link BaseUrlPath} annotations on the same element.
+         *
+         * @return the several {@link BaseUrlPath} annotations on the same element.
+         */
         BaseUrlPath[] value();
     }
 }

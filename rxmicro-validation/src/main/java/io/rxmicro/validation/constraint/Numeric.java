@@ -51,23 +51,26 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 public @interface Numeric {
 
     /**
-     * Allows to disable validation rule if validation inherited from super class.
+     * Allows disabling the validation rule if this rule is inherited from super class. <p>
      * By default, disable is off
      *
-     * @return {@code true} if the validation must be disabled,
-     * {@code false} otherwise
+     * @return  {@code true} if the validation must be disabled,
      */
     boolean off() default false;
 
     /**
-     * @return expected precision of fractional digits accepted for this number or
-     * {@code -1} if validation of precision must be ignored
+     * Returns the expected precision
+     *
+     * @return the expected precision of fractional digits accepted for this number or
+     *         {@code -1} if validation of precision must be ignored
      */
     int precision() default -1;
 
     /**
-     * @return expected scale of fractional digits accepted for this number or
-     * {@code -1} if validation of scale must be ignored
+     * Returns the expected scale
+     *
+     * @return the expected scale of fractional digits accepted for this number or
+     *          {@code -1} if validation of scale must be ignored
      */
     int scale();
 }

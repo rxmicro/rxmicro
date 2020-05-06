@@ -24,6 +24,11 @@ import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
+ * Denotes a repository method that must execute a
+ * <a hreaf="https://docs.mongodb.com/manual/reference/method/db.collection.estimatedDocumentCount/">
+ *     {@code db.collection.estimatedDocumentCount()}
+ * </a> operation.
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @link https://docs.mongodb.com/manual/reference/method/db.collection.estimatedDocumentCount/

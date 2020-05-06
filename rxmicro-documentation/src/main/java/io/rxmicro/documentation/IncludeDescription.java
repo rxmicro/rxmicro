@@ -31,6 +31,11 @@ import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
+ * Denotes the AsciiDoc fragment to be imported into the generated REST-based microservice documentation.
+ * <p>
+ * In addition to the description of all REST-based microservice documentation, this annotation also allows to developer
+ * to specify the AsciiDoc fragment for separate elements: sections, model fields, etc.
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1
@@ -40,7 +45,17 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 @Target({FIELD, TYPE, MODULE, PACKAGE, PARAMETER, CONSTRUCTOR, ANNOTATION_TYPE, METHOD})
 public @interface IncludeDescription {
 
+    /**
+     * Returns the resource name
+     *
+     * @return the resource name
+     */
     String resource();
 
+    /**
+     * Returns the include mode. See {@link IncludeMode} for details.
+     *
+     * @return the include mode.
+     */
     IncludeMode includeMode() default IncludeMode.INCLUDE_REFERENCE;
 }

@@ -21,6 +21,8 @@ import io.rxmicro.data.sql.r2dbc.detail.AbstractR2DBCRepository;
 import static io.rxmicro.common.util.Formats.FORMAT_PLACEHOLDER_CHAR;
 
 /**
+ * Used by generated code that was created by RxMicro Annotation Processor
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1

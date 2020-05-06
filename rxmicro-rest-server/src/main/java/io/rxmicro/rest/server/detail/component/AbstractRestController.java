@@ -19,6 +19,8 @@ package io.rxmicro.rest.server.detail.component;
 import io.rxmicro.rest.server.internal.BaseRestController;
 
 /**
+ * Used by generated code that was created by RxMicro Annotation Processor
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1

@@ -189,8 +189,8 @@
                         <configuration>
                             <nohelp>true</nohelp>
                             <debug>true</debug>
-                            <detectOfflineLinks>false</detectOfflineLinks>
-                            <failOnError>false</failOnError>
+                            <detectOfflineLinks>true</detectOfflineLinks>
+                            <failOnError>true</failOnError>
                         </configuration>
                         <executions>
                             <execution>

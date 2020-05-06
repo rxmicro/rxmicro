@@ -19,20 +19,37 @@ package io.rxmicro.documentation;
 import java.util.List;
 
 /**
+ * Predefined variables used during a generation of REST-based microservice documentation.
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1
  */
 public final class PathVariables {
 
+    /**
+     * Current user directory
+     */
     public static final String USER_DIR = "$USER_DIR";
 
+    /**
+     * Project home directory
+     */
     public static final String PROJECT_DIR = "$PROJECT_DIR";
 
+    /**
+     * Temp directory provided by OS
+     */
     public static final String TEMP_DIR = "$TEMP_DIR";
 
+    /**
+     * User home directory
+     */
     public static final String USER_HOME = "$USER_HOME";
 
+    /**
+     * All supported variables
+     */
     public static final List<String> SUPPORTED_VARIABLES = List.of(
             USER_DIR,
             PROJECT_DIR,

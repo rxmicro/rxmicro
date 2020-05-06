@@ -25,6 +25,10 @@ import java.util.Base64;
 import java.util.Random;
 
 /**
+ * Generates unique IDs only within the framework of starting one JVM.
+ *
+ * Uses a random increment counter. (Used by default).
+ *
  * Example:
  * 62jJeu8x1310662,
  * 62jQa6Ux1584949

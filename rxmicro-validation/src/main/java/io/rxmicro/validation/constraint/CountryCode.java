@@ -18,7 +18,7 @@ package io.rxmicro.validation.constraint;
 
 import io.rxmicro.common.meta.ReadMore;
 import io.rxmicro.validation.base.ConstraintRule;
-import io.rxmicro.validation.base.SelfDocumented;
+import io.rxmicro.validation.internal.SelfDocumented;
 import io.rxmicro.validation.validator.CountryCodeConstraintValidator;
 
 import java.lang.annotation.Documented;
@@ -53,35 +53,50 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 public @interface CountryCode {
 
     /**
-     * Allows to disable validation rule if validation inherited from super class.
+     * Allows disabling the validation rule if this rule is inherited from super class. <p>
      * By default, disable is off
      *
-     * @return {@code true} if the validation must be disabled,
-     * {@code false} otherwise
+     * @return  {@code true} if the validation must be disabled,
      */
     boolean off() default false;
 
+    /**
+     * Return the country code {@link Format}
+     *
+     * @return the country code {@link Format}
+     */
     Format format() default Format.ISO_3166_1_ALPHA_2;
 
     /**
+     * The country code format
+     *
      * @author nedis
      * @link https://rxmicro.io
      * @since 0.1
      */
     enum Format {
 
+        /**
+         * ISO 3166-1 alpha2 format
+         */
         @ReadMore(
                 caption = "What is ISO 3166-1 alpha2?",
                 link = "https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2"
         )
         ISO_3166_1_ALPHA_2("Two-letter country code according to ISO 3166-1 alpha2 standard."),
 
+        /**
+         * ISO 3166-1 alpha3 format
+         */
         @ReadMore(
                 caption = "What is ISO 3166-1 alpha3?",
                 link = "https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3"
         )
         ISO_3166_1_ALPHA_3("Three-letter country code according to ISO 3166-1 alpha3 standard."),
 
+        /**
+         * ISO 3166-1 numeric format
+         */
         @ReadMore(
                 caption = "What is ISO 3166-1 numeric?",
                 link = "https://en.wikipedia.org/wiki/ISO_3166-1_numeric"

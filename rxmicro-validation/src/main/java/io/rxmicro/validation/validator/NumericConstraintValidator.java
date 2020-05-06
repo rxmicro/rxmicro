@@ -23,6 +23,8 @@ import io.rxmicro.validation.ConstraintValidator;
 import java.math.BigDecimal;
 
 /**
+ * Validator for the {@link io.rxmicro.validation.constraint.Numeric} constraint
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @see io.rxmicro.validation.constraint.Numeric

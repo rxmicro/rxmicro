@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. http://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,7 +25,7 @@ import io.rxmicro.config.internal.model.AbstractDefaultConfigValueBuilder;
  */
 public final class DefaultConfigValueBuilderReSetter extends AbstractDefaultConfigValueBuilder {
 
-    public static void resetDefaultConfigValueStorage(){
+    public static void resetDefaultConfigValueStorage() {
         AbstractDefaultConfigValueBuilder.resetDefaultConfigValueStorage();
     }
 }

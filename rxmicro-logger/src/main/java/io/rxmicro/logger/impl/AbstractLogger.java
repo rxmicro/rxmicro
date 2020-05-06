@@ -26,7 +26,7 @@ import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.Requires.require;
 
 /**
- * Abstract logger implementation that delegate log event to `log` methods
+ * Abstract logger implementation that delegates the log events to `log` methods
  *
  * @author nedis
  * @link https://rxmicro.io
@@ -72,46 +72,46 @@ public abstract class AbstractLogger implements Logger {
     }
 
     @Override
-    public final void trace(final String msg,
+    public final void trace(final String format,
                             final Object arg1,
                             final Object arg2,
                             final Object arg3) {
         if (isLevelEnabled(Level.TRACE)) {
-            final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3);
+            final String finalMessage = getFinalMessage(format, arg1, arg2, arg3);
             log(Level.TRACE, finalMessage);
         }
     }
 
     @Override
-    public final void trace(final String msg,
+    public final void trace(final String format,
                             final Object arg1,
                             final Object arg2,
                             final Object arg3,
                             final Object arg4) {
         if (isLevelEnabled(Level.TRACE)) {
-            final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4);
+            final String finalMessage = getFinalMessage(format, arg1, arg2, arg3, arg4);
             log(Level.TRACE, finalMessage);
         }
     }
 
     @Override
-    public final void trace(final String msg,
+    public final void trace(final String format,
                             final Object arg1,
                             final Object arg2,
                             final Object arg3,
                             final Object arg4,
                             final Object arg5) {
         if (isLevelEnabled(Level.TRACE)) {
-            final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4, arg5);
+            final String finalMessage = getFinalMessage(format, arg1, arg2, arg3, arg4, arg5);
             log(Level.TRACE, finalMessage);
         }
     }
 
     @Override
-    public final void trace(final String msg,
+    public final void trace(final String format,
                             final Object... arguments) {
         if (isLevelEnabled(Level.TRACE)) {
-            final String finalMessage = getFinalMessage(msg, arguments);
+            final String finalMessage = getFinalMessage(format, arguments);
             log(Level.TRACE, finalMessage);
         }
     }
@@ -1229,6 +1229,15 @@ public abstract class AbstractLogger implements Logger {
 
     @Override
     public final void error(final String msg,
+                            final Object... arguments) {
+        if (isLevelEnabled(Level.ERROR)) {
+            final String finalMessage = getFinalMessage(msg, arguments);
+            log(Level.ERROR, finalMessage);
+        }
+    }
+
+    @Override
+    public final void error(final String msg,
                             final Supplier<?> arg1) {
         if (isLevelEnabled(Level.ERROR)) {
             final String finalMessage = getFinalMessage(msg, arg1);
@@ -1278,15 +1287,6 @@ public abstract class AbstractLogger implements Logger {
                             final Supplier<?> arg5) {
         if (isLevelEnabled(Level.ERROR)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4, arg5);
-            log(Level.ERROR, finalMessage);
-        }
-    }
-
-    @Override
-    public final void error(final String msg,
-                            final Object... arguments) {
-        if (isLevelEnabled(Level.ERROR)) {
-            final String finalMessage = getFinalMessage(msg, arguments);
             log(Level.ERROR, finalMessage);
         }
     }

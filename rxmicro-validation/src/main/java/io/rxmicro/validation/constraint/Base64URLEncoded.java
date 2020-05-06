@@ -18,7 +18,7 @@ package io.rxmicro.validation.constraint;
 
 import io.rxmicro.common.meta.ReadMore;
 import io.rxmicro.validation.base.ConstraintRule;
-import io.rxmicro.validation.base.SelfDocumented;
+import io.rxmicro.validation.internal.SelfDocumented;
 import io.rxmicro.validation.validator.Base64URLEncodedConstraintValidator;
 
 import java.lang.annotation.Documented;
@@ -57,20 +57,23 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 public @interface Base64URLEncoded {
 
     /**
-     * Allows to disable validation rule if validation inherited from super class.
+     * Allows disabling the validation rule if this rule is inherited from super class. <p>
      * By default, disable is off
      *
-     * @return {@code true} if the validation must be disabled,
-     * {@code false} otherwise
+     * @return  {@code true} if the validation must be disabled,
      */
     boolean off() default false;
 
     /**
-     * @return validation {@code Alphabet}.
+     * Returns the validation {@link Alphabet}.
+     *
+     * @return the validation {@link Alphabet}.
      */
     Alphabet alphabet() default Alphabet.URL;
 
     /**
+     * Validation alphabet
+     *
      * @author nedis
      * @link https://rxmicro.io
      * @since 0.1

@@ -25,6 +25,13 @@ import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
+ * Denotes a model field that must be used as document unique identifier.
+ * <p>
+ * Read more:
+ * <a href="https://docs.mongodb.com/manual/core/document/#field-names">
+ *     https://docs.mongodb.com/manual/core/document/#field-names
+ * </a>
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @link https://docs.mongodb.com/manual/core/document/#field-names

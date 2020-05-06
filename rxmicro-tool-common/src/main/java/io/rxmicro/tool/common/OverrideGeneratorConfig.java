@@ -26,7 +26,7 @@ import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
- * For internal use only!
+ * For internal use only! <p>
  * Don't use this annotation for your project!
  *
  * @author nedis

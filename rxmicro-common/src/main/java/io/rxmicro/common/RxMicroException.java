@@ -22,50 +22,122 @@ import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.Requires.require;
 
 /**
+ * Basic exception class for all RxMicro modules.
+ * <p>
+ * This class adds the string formatting support using {@link Formats#format(String, Object...)} method.
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1
  */
 public class RxMicroException extends RuntimeException {
 
-    public RxMicroException(final String message) {
+    /**
+     * Creates a new {@link RxMicroException} instance with error message.
+     *
+     * @param message error message
+     * @throws NullPointerException if {@code message} is {@code null}
+     */
+    protected RxMicroException(final String message) {
         super(require(message));
     }
 
     /**
-     * This constructor uses {@link Formats#format(String, Object...) Formats.format} to format error message
+     * Creates a new {@link RxMicroException} instance with error message.
+     * <p>
+     * <i>(FYI: This constructor uses {@link Formats#format(String, Object...)} method to format error message.)</i>
+     *
+     * @param message error message template
+     * @param args error message template arguments
+     * @throws NullPointerException if {@code message} is {@code null}
      */
-    public RxMicroException(final String message,
-                            final Object... args) {
+    protected RxMicroException(final String message,
+                               final Object... args) {
         super(format(message, args));
     }
 
-    public RxMicroException(final Throwable throwable,
-                            final String message) {
-        super(require(message), require(throwable));
+    /**
+     * Creates a new {@link RxMicroException} instance with error message and cause.
+     *
+     * @param cause the cause (which is saved for later retrieval by the {@link #getCause()} method).
+     * @param message error message
+     * @throws NullPointerException if {@code message} or {@code cause} is {@code null}
+     */
+    protected RxMicroException(final Throwable cause,
+                               final String message) {
+        super(require(message), require(cause));
     }
 
     /**
-     * This constructor uses {@link Formats#format(String, Object...) Formats.format} to format error message
+     * Creates a new {@link RxMicroException} instance with error message and cause.
+     * <p>
+     * <i>(FYI: This constructor uses {@link Formats#format(String, Object...)} method to format error message.)</i>
+     *
+     * @param cause the cause (which is saved for later retrieval by the {@link #getCause()} method).
+     * @param message error message template
+     * @param args error message template arguments
+     * @throws NullPointerException if {@code message} or {@code cause} is {@code null}
      */
-    public RxMicroException(final Throwable throwable,
-                            final String message,
-                            final Object... args) {
-        super(format(message, args), throwable);
+    protected RxMicroException(final Throwable cause,
+                               final String message,
+                               final Object... args) {
+        super(format(message, args), require(cause));
     }
 
-    public RxMicroException(final Throwable throwable) {
-        super(require(throwable));
+    /**
+     * Creates a new {@link RxMicroException} instance with cause only.
+     *
+     * @param cause the cause (which is saved for later retrieval by the {@link #getCause()} method).
+     * @throws NullPointerException if {@code cause} is {@code null}
+     */
+    protected RxMicroException(final Throwable cause) {
+        super(require(cause));
     }
 
+    /**
+     * Creates a {@link RxMicroException} instance with the specified suppression enabled or disabled
+     * and writable stack trace enabled or disabled.
+     * <p>
+     * <i>This constructor must be used from child classes only!</i>
+     *
+     * @param enableSuppression whether or not suppression is enabled or disabled
+     * @param writableStackTrace whether or not the stack trace should be writable
+     */
+    protected RxMicroException(final boolean enableSuppression,
+                               final boolean writableStackTrace) {
+        super(null, null, enableSuppression, writableStackTrace);
+    }
+
+    /**
+     * Creates a {@link RxMicroException} instance with the specified error message, suppression enabled or disabled
+     * and writable stack trace enabled or disabled.
+     * <p>
+     * <i>This constructor must be used from child classes only!</i>
+     *
+     * @param enableSuppression whether or not suppression is enabled or disabled
+     * @param writableStackTrace whether or not the stack trace should be writable
+     * @param message error message
+     * @throws NullPointerException if {@code message} is {@code null}
+     */
     protected RxMicroException(final boolean enableSuppression,
                                final boolean writableStackTrace,
                                final String message) {
-        super(message, null, enableSuppression, writableStackTrace);
+        super(require(message), null, enableSuppression, writableStackTrace);
     }
 
     /**
-     * This constructor uses {@link Formats#format(String, Object...) Formats.format} to format error message
+     * Creates a {@link RxMicroException} instance with the specified error message, suppression enabled or disabled
+     * and writable stack trace enabled or disabled.
+     * <p>
+     * <i>(FYI: This constructor uses {@link Formats#format(String, Object...)} method to format error message.)</i>
+     * <p>
+     * <i>This constructor must be used from child classes only!</i>
+     *
+     * @param enableSuppression whether or not suppression is enabled or disabled
+     * @param writableStackTrace whether or not the stack trace should be writable
+     * @param message error message template
+     * @param args error message template arguments
+     * @throws NullPointerException if {@code message} is {@code null}
      */
     protected RxMicroException(final boolean enableSuppression,
                                final boolean writableStackTrace,
@@ -74,21 +146,47 @@ public class RxMicroException extends RuntimeException {
         super(format(message, args), null, enableSuppression, writableStackTrace);
     }
 
+    /**
+     * Creates a {@link RxMicroException} instance with the specified error message, cause, suppression enabled or disabled
+     * and writable stack trace enabled or disabled.
+     * <p>
+     * <i>(FYI: This constructor uses {@link Formats#format(String, Object...)} method to format error message.)</i>
+     * <p>
+     * <i>This constructor must be used from child classes only!</i>
+     *
+     * @param cause the cause (which is saved for later retrieval by the {@link #getCause()} method).
+     * @param enableSuppression whether or not suppression is enabled or disabled
+     * @param writableStackTrace whether or not the stack trace should be writable
+     * @param message error message
+     * @throws NullPointerException if {@code message} or {@code cause} is {@code null}
+     */
     protected RxMicroException(final Throwable cause,
                                final boolean enableSuppression,
                                final boolean writableStackTrace,
                                final String message) {
-        super(message, cause, enableSuppression, writableStackTrace);
+        super(require(message), require(cause), enableSuppression, writableStackTrace);
     }
 
     /**
-     * This constructor uses {@link Formats#format(String, Object...) Formats.format} to format error message
+     * Creates a {@link RxMicroException} instance with the specified error message, cause, suppression enabled or disabled
+     * and writable stack trace enabled or disabled.
+     * <p>
+     * <i>(FYI: This constructor uses {@link Formats#format(String, Object...)} method to format error message.)</i>
+     * <p>
+     * <i>This constructor must be used from child classes only!</i>
+     *
+     * @param cause the cause (which is saved for later retrieval by the {@link #getCause()} method).
+     * @param enableSuppression whether or not suppression is enabled or disabled
+     * @param writableStackTrace whether or not the stack trace should be writable
+     * @param message error message template
+     * @param args error message template arguments
+     * @throws NullPointerException if {@code message} or {@code cause} is {@code null}
      */
     protected RxMicroException(final Throwable cause,
                                final boolean enableSuppression,
                                final boolean writableStackTrace,
                                final String message,
                                final Object... args) {
-        super(format(message, args), cause, enableSuppression, writableStackTrace);
+        super(format(message, args), require(cause), enableSuppression, writableStackTrace);
     }
 }

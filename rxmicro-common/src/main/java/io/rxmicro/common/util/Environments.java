@@ -21,6 +21,8 @@ import java.util.Locale;
 import static java.lang.System.getProperty;
 
 /**
+ * TODO
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1
@@ -29,14 +31,29 @@ public final class Environments {
 
     private static final String UNKNOWN = "unknown";
 
+    /**
+     * TODO
+     *
+     * @return
+     */
     public static boolean isCurrentOsMac() {
         return getProperty("os.name", UNKNOWN).toLowerCase(Locale.ENGLISH).contains("mac");
     }
 
+    /**
+     * TODO
+     *
+     * @return
+     */
     public static boolean isCurrentOsLinux() {
         return getProperty("os.name", UNKNOWN).toLowerCase(Locale.ENGLISH).contains("linux");
     }
 
+    /**
+     * TODO
+     *
+     * @return
+     */
     public static boolean isCurrentOsWindows() {
         return getProperty("os.name", UNKNOWN).toLowerCase(Locale.ENGLISH).contains("windows");
     }

@@ -31,10 +31,14 @@ import static io.rxmicro.rest.server.local.model.RestControllerRegistrationFilte
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 /**
- * To run netty successfully it is necessary to add:
- * --add-opens=java.base/jdk.internal.misc=io.netty.common
- * --add-opens=java.base/java.nio=io.netty.common
- * -Dio.netty.tryReflectionSetAccessible=true
+ * Utility class that helps to start a HTTP server with REST controllers.
+ * <p><br><p>
+ * To run netty successfully it is necessary to add the following arguments:
+ * <ul>
+ *     <li>{@code --add-opens=java.base/jdk.internal.misc=io.netty.common}</li>
+ *     <li>{@code --add-opens=java.base/java.nio=io.netty.common}</li>
+ *     <li>{@code -Dio.netty.tryReflectionSetAccessible=true}</li>
+ * </ul>
  *
  * @author nedis
  * @link https://rxmicro.io
@@ -48,55 +52,204 @@ public final class RxMicro {
         StartTimeStampHelper.init();
     }
 
-    public static void startRestServerInteractive(final String rootPackage) {
-        new InteractiveWrapper(start(createFilter(rootPackage))).waitForQuit();
+    /**
+     * Starts all REST controllers that are located inside the {@code rootPackage} on HTTP server. <p>
+     * <i>Alias for {@link RxMicro#startRESTServer(String)} method.</i>
+     *
+     * @param rootPackage root package
+     * @return the {@link ServerInstance} to manage the started HTTP server
+     */
+    public static ServerInstance startRestServer(final String rootPackage) {
+        return start(createFilter(rootPackage));
     }
 
-    public static void startRestServerInteractive(final Class<?> restControllerClass) {
-        new InteractiveWrapper(start(createFilter(restControllerClass))).waitForQuit();
+    /**
+     * Starts all REST controllers that are located inside the {@code rootPackage} on HTTP server. <p>
+     * <i>Alias for {@link RxMicro#startRestServer(String)} method.</i>
+     *
+     * @param rootPackage root package
+     * @return the {@link ServerInstance} to manage the started HTTP server
+     */
+    public static ServerInstance startRESTServer(final String rootPackage) {
+        return start(createFilter(rootPackage));
     }
 
-    public static void startRestServerInteractive(final Set<Class<?>> restControllerClasses) {
-        new InteractiveWrapper(start(createFilter(restControllerClasses))).waitForQuit();
-    }
-
-    public static void startRestServerInteractive(final Class<?> restControllerClass,
-                                                  final Class<?>... restControllerClasses) {
-        new InteractiveWrapper(start(createFilter(restControllerClass, restControllerClasses))).waitForQuit();
-    }
-
+    /**
+     * Starts only one REST controller on HTTP server. <p>
+     * <i>Alias for {@link RxMicro#startRESTServer(Class)} method.</i>
+     *
+     * @param restControllerClass REST controller class to start
+     * @return the {@link ServerInstance} to manage the started HTTP server
+     */
     public static ServerInstance startRestServer(final Class<?> restControllerClass) {
         return start(createFilter(restControllerClass));
     }
 
+    /**
+     * Starts only one REST controller on HTTP server. <p>
+     * <i>Alias for {@link RxMicro#startRestServer(Class)} method.</i>
+     *
+     * @param restControllerClass REST controller class to start
+     * @return the {@link ServerInstance} to manage the started HTTP server
+     */
     public static ServerInstance startRESTServer(final Class<?> restControllerClass) {
         return start(createFilter(restControllerClass));
     }
 
+    /**
+     * Starts a set of REST controllers on HTTP server. <p>
+     * <i>Alias for {@link RxMicro#startRESTServer(Set)} method.</i>
+     *
+     * @param restControllerClasses a REST controllers set to start
+     * @return the {@link ServerInstance} to manage the started HTTP server
+     */
     public static ServerInstance startRestServer(final Set<Class<?>> restControllerClasses) {
         return start(createFilter(restControllerClasses));
     }
 
+    /**
+     * Starts a set of REST controllers on HTTP server. <p>
+     * <i>Alias for {@link RxMicro#startRestServer(Set)} method.</i>
+     *
+     * @param restControllerClasses a REST controllers set to start
+     * @return the {@link ServerInstance} to manage the started HTTP server
+     */
     public static ServerInstance startRESTServer(final Set<Class<?>> restControllerClasses) {
         return start(createFilter(restControllerClasses));
     }
 
+    /**
+     * Starts an array of REST controllers on HTTP server. <p>
+     * <i>Alias for {@link RxMicro#startRESTServer(Class, Class[])} method.</i>
+     *
+     * @param restControllerClass a first instance of REST controller to start
+     * @param restControllerClasses a REST controllers arrays to start
+     * @return the {@link ServerInstance} to manage the started HTTP server
+     */
     public static ServerInstance startRestServer(final Class<?> restControllerClass,
                                                  final Class<?>... restControllerClasses) {
         return start(createFilter(restControllerClass, restControllerClasses));
     }
 
+    /**
+     * Starts an array of REST controllers on HTTP server. <p>
+     * <i>Alias for {@link RxMicro#startRestServer(Class, Class[])} method.</i>
+     *
+     * @param restControllerClass a first instance of REST controller to start
+     * @param restControllerClasses a REST controllers arrays to start
+     * @return the {@link ServerInstance} to manage the started HTTP server
+     */
     public static ServerInstance startRESTServer(final Class<?> restControllerClass,
                                                  final Class<?>... restControllerClasses) {
         return start(createFilter(restControllerClass, restControllerClasses));
     }
 
-    public static ServerInstance startRestServer(final String rootPackage) {
-        return start(createFilter(rootPackage));
+    /**
+     * Starts all REST controllers that are located inside the {@code rootPackage} on HTTP server. <p>
+     * <i>Alias for {@link RxMicro#startRESTServerInteractive(String)} method.</i>
+     *
+     * The RxMicro framework creates a thread that binds to the terminal and waits for exit command.
+     * Exit command list is defined at {@link ForExitCommandWaiter#exitCommands}.
+     *
+     * @param rootPackage root package
+     */
+    public static void startRestServerInteractive(final String rootPackage) {
+        new ForExitCommandWaiter(start(createFilter(rootPackage))).waitForQuit();
     }
 
-    public static ServerInstance startRESTServer(final String rootPackage) {
-        return start(createFilter(rootPackage));
+    /**
+     * Starts all REST controllers that are located inside the {@code rootPackage} on HTTP server. <p>
+     * <i>Alias for {@link RxMicro#startRestServerInteractive(String)} method.</i> <p>
+     * <p>
+     * The RxMicro framework creates a thread that binds to the terminal and waits for exit command. <p>
+     * Exit command list is defined at {@link ForExitCommandWaiter#exitCommands}. <p>
+     *
+     * @param rootPackage root package
+     */
+    public static void startRESTServerInteractive(final String rootPackage) {
+        new ForExitCommandWaiter(start(createFilter(rootPackage))).waitForQuit();
+    }
+
+    /**
+     * Starts only one REST controller on HTTP server. <p>
+     * <i>Alias for {@link RxMicro#startRESTServerInteractive(Class)} method.</i> <p>
+     * <p>
+     * The RxMicro framework creates a thread that binds to the terminal and waits for exit command. <p>
+     * Exit command list is defined at {@link ForExitCommandWaiter#exitCommands}. <p>
+     *
+     * @param restControllerClass REST controller class to start
+     */
+    public static void startRestServerInteractive(final Class<?> restControllerClass) {
+        new ForExitCommandWaiter(start(createFilter(restControllerClass))).waitForQuit();
+    }
+
+    /**
+     * Starts only one REST controller on HTTP server. <p>
+     * <i>Alias for {@link RxMicro#startRestServerInteractive(Class)} method.</i> <p>
+     * <p>
+     * The RxMicro framework creates a thread that binds to the terminal and waits for exit command. <p>
+     * Exit command list is defined at {@link ForExitCommandWaiter#exitCommands}. <p>
+     *
+     * @param restControllerClass REST controller class to start
+     */
+    public static void startRESTServerInteractive(final Class<?> restControllerClass) {
+        new ForExitCommandWaiter(start(createFilter(restControllerClass))).waitForQuit();
+    }
+
+    /**
+     * Starts a set of REST controllers on HTTP server. <p>
+     * <i>Alias for {@link RxMicro#startRESTServerInteractive(Set)} method.</i> <p>
+     * <p>
+     * The RxMicro framework creates a thread that binds to the terminal and waits for exit command. <p>
+     * Exit command list is defined at {@link ForExitCommandWaiter#exitCommands}. <p>
+     *
+     * @param restControllerClasses a REST controllers set to start
+     */
+    public static void startRestServerInteractive(final Set<Class<?>> restControllerClasses) {
+        new ForExitCommandWaiter(start(createFilter(restControllerClasses))).waitForQuit();
+    }
+
+    /**
+     * Starts a set of REST controllers on HTTP server. <p>
+     * <i>Alias for {@link RxMicro#startRestServerInteractive(Set)} method.</i> <p>
+     * <p>
+     * The RxMicro framework creates a thread that binds to the terminal and waits for exit command. <p>
+     * Exit command list is defined at {@link ForExitCommandWaiter#exitCommands}. <p>
+     *
+     * @param restControllerClasses a REST controllers set to start
+     */
+    public static void startRESTServerInteractive(final Set<Class<?>> restControllerClasses) {
+        new ForExitCommandWaiter(start(createFilter(restControllerClasses))).waitForQuit();
+    }
+
+    /**
+     * Starts an array of REST controllers on HTTP server. <p>
+     * <i>Alias for {@link RxMicro#startRESTServerInteractive(Class, Class[])} method.</i> <p>
+     * <p>
+     * The RxMicro framework creates a thread that binds to the terminal and waits for exit command. <p>
+     * Exit command list is defined at {@link ForExitCommandWaiter#exitCommands}. <p>
+     *
+     * @param restControllerClass a first instance of REST controller to start
+     * @param restControllerClasses a REST controllers arrays to start
+     */
+    public static void startRestServerInteractive(final Class<?> restControllerClass,
+                                                  final Class<?>... restControllerClasses) {
+        new ForExitCommandWaiter(start(createFilter(restControllerClass, restControllerClasses))).waitForQuit();
+    }
+
+    /**
+     * Starts an array of REST controllers on HTTP server. <p>
+     * <i>Alias for {@link RxMicro#startRestServerInteractive(Class, Class[])} method.</i> <p>
+     * <p>
+     * The RxMicro framework creates a thread that binds to the terminal and waits for exit command. <p>
+     * Exit command list is defined at {@link ForExitCommandWaiter#exitCommands}. <p>
+     *
+     * @param restControllerClass a first instance of REST controller to start
+     * @param restControllerClasses a REST controllers arrays to start
+     */
+    public static void startRESTServerInteractive(final Class<?> restControllerClass,
+                                                  final Class<?>... restControllerClasses) {
+        new ForExitCommandWaiter(start(createFilter(restControllerClass, restControllerClasses))).waitForQuit();
     }
 
     private static ServerInstance start(final RestControllerRegistrationFilter filter) {
@@ -125,27 +278,30 @@ public final class RxMicro {
     }
 
     /**
+     * For exit commands waiter
+     *
      * @author nedis
      * @link https://rxmicro.io
      * @since 0.1
      */
-    private static final class InteractiveWrapper {
+    private static final class ForExitCommandWaiter {
+
+        private final Set<String> exitCommands = Set.of(
+                "q",
+                "e",
+                "quit",
+                "exit",
+                "close",
+                "shutdown"
+        );
 
         private final ServerInstance serverInstance;
 
-        private InteractiveWrapper(final ServerInstance serverInstance) {
+        private ForExitCommandWaiter(final ServerInstance serverInstance) {
             this.serverInstance = serverInstance;
         }
 
         private void waitForQuit() {
-            final Set<String> exitCommands = Set.of(
-                    "q",
-                    "e",
-                    "quit",
-                    "exit",
-                    "close",
-                    "shutdown"
-            );
             while (true) {
                 final String cmd = new Scanner(System.in, UTF_8).nextLine();
                 if (exitCommands.contains(cmd)) {

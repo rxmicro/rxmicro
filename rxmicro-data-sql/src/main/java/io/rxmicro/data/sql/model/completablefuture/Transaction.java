@@ -22,7 +22,7 @@ import io.rxmicro.data.sql.model.SavePoint;
 import java.util.concurrent.CompletableFuture;
 
 /**
- * Current implementation delegates all method calls to <code>io.r2dbc.spi.Connection</code>,
+ * Current implementation delegates all method calls to {@code io.r2dbc.spi.Connection},
  * but in future this API can be extended by using other SPI
  *
  * @author nedis
@@ -34,39 +34,39 @@ public interface Transaction {
     /**
      * Commits the current transaction and close transactional connection.
      *
-     * @return a {@link CompletableFuture} that indicates that a transaction has been committed and a connection has been closed.
+     * @return the {@link CompletableFuture} that indicates that the transaction has been committed and the connection has been closed.
      */
     CompletableFuture<Void> commit();
 
     /**
      * Rolls back the current transaction and close transactional connection.
      *
-     * @return a {@link CompletableFuture} that indicates that a transaction has been rolled back and a connection has been closed.
+     * @return the {@link CompletableFuture} that indicates that the transaction has been rolled back and the connection has been closed.
      */
     CompletableFuture<Void> rollback();
 
     /**
-     * Creates a save point in the current transaction.
+     * Creates the save point in the current transaction.
      *
      * @param savePoint the save point to create
-     * @return a {@link CompletableFuture} that indicates that a save point has been created
+     * @return the {@link CompletableFuture} that indicates that the save point has been created
      * @throws UnsupportedOperationException if save points are not supported
      */
     CompletableFuture<Void> create(SavePoint savePoint);
 
     /**
-     * Releases a save point in the current transaction.  Calling this for drivers not supporting save point release results in a no-op.
+     * Releases the save point in the current transaction.  Calling this for drivers not supporting save point release results in a no-op.
      *
      * @param savePoint the save point to release
-     * @return a {@link CompletableFuture} that indicates that a save point has been released
+     * @return the {@link CompletableFuture} that indicates that the save point has been released
      */
     CompletableFuture<Void> release(SavePoint savePoint);
 
     /**
-     * Rolls back to a save point in the current transaction.
+     * Rolls back to the save point in the current transaction.
      *
      * @param savePoint the save point to rollback to
-     * @return a {@link CompletableFuture} that indicates that a save point has been rolled back to
+     * @return the {@link CompletableFuture} that indicates that the save point has been rolled back to
      * @throws UnsupportedOperationException if save points are not supported
      */
     CompletableFuture<Void> rollback(SavePoint savePoint);
@@ -100,7 +100,7 @@ public interface Transaction {
      * <p>
      *
      * @param isolationLevel the isolation level for this transaction
-     * @return a {@link CompletableFuture} that indicates that a transaction level has been configured
+     * @return the {@link CompletableFuture} that indicates that the transaction level has been configured
      * @throws NullPointerException if {@code isolationLevel} is {@code null}
      */
     CompletableFuture<Void> setIsolationLevel(IsolationLevel isolationLevel);

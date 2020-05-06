@@ -44,6 +44,10 @@ import static io.rxmicro.tool.common.TestFixers.INTEGRATION_TEST_FIXER;
 import static io.rxmicro.tool.common.TestFixers.REST_BASED_MICRO_SERVICE_TEST_FIXER;
 
 /**
+ * This is {@code the RxMicro Test Annotation Processor}.
+ * <p>
+ * The RxMicro framework uses the {@link javax.annotation.processing.Processor}, which generates standard code using RxMicro annotations.
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1
@@ -82,11 +86,6 @@ public final class RxMicroTestsAnnotationProcessor extends BaseRxMicroAnnotation
         }
 
         @Override
-        protected boolean isEnvironmentCustomizerMustBeGenerated() {
-            return false;
-        }
-
-        @Override
         public Set<String> getSupportedAnnotationTypes() {
             return testFixerMap.keySet();
         }
@@ -102,6 +101,11 @@ public final class RxMicroTestsAnnotationProcessor extends BaseRxMicroAnnotation
                         .map(a -> testFixerMap.get(a.getQualifiedName().toString()))
                         .collect(Collectors.toSet());
             }
+        }
+
+        @Override
+        protected boolean isEnvironmentCustomizerMustBeGenerated() {
+            return false;
         }
     }
 

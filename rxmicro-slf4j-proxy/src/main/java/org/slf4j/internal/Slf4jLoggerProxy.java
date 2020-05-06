@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. http://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,11 +25,15 @@ import static io.rxmicro.common.util.Requires.require;
 /**
  * Unfortunately some db drivers removed support of JUL,
  * so the RxMicro framework requires a org.slf4j proxy to enable logging without slf4j-api
- *
- * Read more: https://github.com/mongodb/mongo-java-driver/commit/6a163f715fe08ed8d39acac3d11c896ae547df73
+ * <p>
+ * Read more:
+ * <a href="https://github.com/mongodb/mongo-java-driver/commit/6a163f715fe08ed8d39acac3d11c896ae547df73">
+ *     https://github.com/mongodb/mongo-java-driver/commit/6a163f715fe08ed8d39acac3d11c896ae547df73
+ * </a>
  *
  * @author nedis
- * @link http://rxmicro.io
+ * @link https://rxmicro.io
+ * @link http://www.slf4j.org
  * @since 0.3
  */
 public final class Slf4jLoggerProxy implements org.slf4j.Logger {

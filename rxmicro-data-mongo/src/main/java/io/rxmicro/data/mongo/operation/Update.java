@@ -24,6 +24,9 @@ import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
+ * Denotes a repository method that must execute a
+ * <a href="https://docs.mongodb.com/manual/reference/method/db.collection.updateMany/">{@code db.collection.updateOne()}</a> operation.
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @link https://docs.mongodb.com/manual/reference/method/db.collection.updateMany/
@@ -35,14 +38,35 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 public @interface Update {
 
     /**
+     * Returns the modifications to apply.
+     * <p>
+     * Read more:
+     * <a href="https://docs.mongodb.com/manual/reference/operator/update/">
+     *     https://docs.mongodb.com/manual/reference/operator/update/
+     * </a>
+     *
+     * @return the modifications to apply.
      * @link https://docs.mongodb.com/manual/reference/operator/update/
      */
     String update() default "";
 
     /**
+     * Returns the selection criteria for the update.
+     * <p>
+     * Read more:
+     * <a href="https://docs.mongodb.com/manual/reference/operator/">
+     *     https://docs.mongodb.com/manual/reference/operator/
+     * </a>
+     *
+     * @return the selection criteria for the update.
      * @link https://docs.mongodb.com/manual/reference/operator/
      */
     String filter() default "";
 
+    /**
+     * Returns {@code true} if Mongo server must create a new document if no documents match the filter.
+     *
+     * @return {@code true} if Mongo server must create a new document if no documents match the filter.
+     */
     boolean upsert() default false;
 }

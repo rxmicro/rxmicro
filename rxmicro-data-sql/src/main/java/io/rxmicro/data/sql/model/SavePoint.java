@@ -19,6 +19,8 @@ package io.rxmicro.data.sql.model;
 import static io.rxmicro.common.util.Requires.require;
 
 /**
+ * Base savepoint class
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1
@@ -27,10 +29,20 @@ public final class SavePoint {
 
     private final String name;
 
+    /**
+     * Creates a new instance of savepoint with the given savepoint name
+     *
+     * @param name the save point name
+     */
     public SavePoint(final String name) {
         this.name = require(name);
     }
 
+    /**
+     * Returns the savepoint name
+     *
+     * @return the savepoint name
+     */
     public String getName() {
         return name;
     }

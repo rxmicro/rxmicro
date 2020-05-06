@@ -16,7 +16,7 @@
 
 package io.rxmicro.runtime.local;
 
-import io.rxmicro.common.RxMicroException;
+import io.rxmicro.common.InvalidStateException;
 import io.rxmicro.runtime.detail.ByTypeInstanceQualifier;
 import io.rxmicro.runtime.detail.InstanceQualifier;
 import io.rxmicro.runtime.local.provider.EagerInstanceProvider;
@@ -52,15 +52,15 @@ public abstract class AbstractFactory {
         FACTORIES.clear();
     }
 
-    protected static Supplier<RxMicroException> implNotFoundError(final InstanceQualifier<?> instanceQualifier) {
+    protected static Supplier<InvalidStateException> implNotFoundError(final InstanceQualifier<?> instanceQualifier) {
         return () -> {
-            throw new RxMicroException("Implementation not found: ?", instanceQualifier);
+            throw new InvalidStateException("Implementation not found: ?", instanceQualifier);
         };
     }
 
-    protected static Supplier<RxMicroException> implNotFoundError(final Class<?> interfaceName) {
+    protected static Supplier<InvalidStateException> implNotFoundError(final Class<?> interfaceName) {
         return () -> {
-            throw new RxMicroException("Implementation not found: ?", interfaceName.getName());
+            throw new InvalidStateException("Implementation not found: ?", interfaceName.getName());
         };
     }
 
@@ -72,7 +72,7 @@ public abstract class AbstractFactory {
     protected static void registerFactory(final String implClassName,
                                           final AbstractFactory factory) {
         if (FACTORIES.put(implClassName, factory) != null) {
-            throw new RxMicroException("Factory already registered: implClassName=?", implClassName);
+            throw new InvalidStateException("Factory already registered: implClassName=?", implClassName);
         }
     }
 

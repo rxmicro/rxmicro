@@ -28,6 +28,8 @@ import static io.rxmicro.rest.client.internal.HttpClientLoggerHelper.logClientCo
 import static io.rxmicro.runtime.local.InstanceContainer.registerAutoRelease;
 
 /**
+ * Used by generated code that was created by RxMicro Annotation Processor
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1
@@ -40,11 +42,11 @@ public final class RestClientImplFactory {
         new Configs.Builder().buildIfNotConfigured();
     }
 
-    public static <T, C extends HttpClientConfig> T createRestClient(final String nameSpace,
+    public static <T, C extends HttpClientConfig> T createRestClient(final String namespace,
                                                                      final Class<C> configClass,
                                                                      final Class<?> restClientInterface,
                                                                      final BiFunction<HttpClient, C, T> creator) {
-        final C config = getConfig(nameSpace, configClass);
+        final C config = getConfig(namespace, configClass);
         final HttpClient httpClient = BUILDER.createHttpClient(restClientInterface, config);
         logClientConfig(restClientInterface, httpClient, config);
         registerAutoRelease(httpClient);

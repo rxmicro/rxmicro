@@ -19,14 +19,14 @@ package io.rxmicro.validation.validator;
 import io.rxmicro.http.error.ValidationException;
 import io.rxmicro.rest.model.HttpModelType;
 import io.rxmicro.validation.ConstraintValidator;
-import io.rxmicro.validation.constraint.Nullable;
-import io.rxmicro.validation.constraint.NullableArrayItem;
 
 /**
+ * Validator for the required constraint
+ *
  * @author nedis
  * @link https://rxmicro.io
- * @see Nullable
- * @see NullableArrayItem
+ * @see io.rxmicro.validation.constraint.Nullable
+ * @see io.rxmicro.validation.constraint.NullableArrayItem
  * @since 0.1
  */
 public final class RequiredConstraintValidator<T> implements ConstraintValidator<T> {

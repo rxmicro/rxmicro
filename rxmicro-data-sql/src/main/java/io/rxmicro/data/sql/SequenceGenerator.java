@@ -25,6 +25,8 @@ import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
+ * Denotes a sequence that must be used to get the next unique value for model field.
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1
@@ -36,21 +38,24 @@ public @interface SequenceGenerator {
 
     /**
      * Sequence name can be template.
-     * Allowed variables:
-     * ${schema} - the table schema
-     * ${table} - the table name
      * <p>
-     * If 'schema' parameter is set, 'value' must contain required ${schema} variable,
-     * otherwise 'value' is absolute sequence name
+     * Allowed variables:
+     * <ul>
+     *     <li><code>${schema}</code> - the table schema</li>
+     *     <li><code>${table}</code> - the table name</li>
+     * </ul>
+     * <p>
+     * If 'schema' parameter is set, 'value' must contain required <code>${schema}</code> variable,
+     * otherwise 'value' is absolute sequence name.
      *
-     * @return sequence name.
+     * @return the sequence name.
      */
     String value() default "${schema}.${table}_seq";
 
     /**
-     * Provides schema for sequence object
+     * Provides the schema name for sequence object
      *
-     * @return schema name
+     * @return the schema name
      */
     String schema() default "";
 }

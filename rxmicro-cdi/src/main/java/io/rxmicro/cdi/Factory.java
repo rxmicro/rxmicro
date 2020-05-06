@@ -24,6 +24,42 @@ import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
+ * Denotes a factory method or a factory, that creates instances of the specified class.
+ * <p>
+ * When using the dependency injection mechanisms, the RxMicro framework creates instances of the specified classes and injects links
+ * to them to injection points. For successful implementation of this behavior, each class, the instance of which should be injected,
+ * must contain an accessible constructor without parameters or a constructor annotated by the
+ * {@link Inject} or {@link Autowired} annotation.
+ * <p>
+ * In other words, the RxMicro framework determines the instance of which class should be created and creates this instance
+ * automatically at the start of the CDI container. If it is necessary to get more control over creation of the implementation
+ * instance, it is necessary to use the Factory Method template.
+ * If the RxMicro framework detects a method in the class, annotated by the {@link Factory} annotation, then this method is used instead
+ * of the constructor when creating the instance of this class.
+ * <p>
+ * The factory method must meet the following requirements:
+ * <ul>
+ *     <li>The method must be {@code static}.</li>
+ *     <li>The method must be non-{@code native}.</li>
+ *     <li>The method must not be {@code synchronized}.</li>
+ *     <li>The method must return the class instance in which it is declared.</li>
+ *     <li>The method must not contain parameters.</li>
+ * </ul>
+ * <p>
+ * Besides factory method the RxMicro framework supports creation of factory classes, that can be used to create instances of other types.
+ * By using factory classes, it is possible to get the following benefits:
+ * <ul>
+ *     <li>Create dynamic classes. (For example, using the {@link java.lang.reflect.Proxy} class.)</li>
+ *     <li>Implement a {@code prototype} scope.</li>
+ * </ul>
+ * <p>
+ * To create a factory class, it is necessary:
+ * <ul>
+ *     <li>Create a class implementing the {@link java.util.function.Supplier} interface.</li>
+ *     <li>Annotate this class by the {@link Factory} annotation.</li>
+ *     <li>Implement the {@link java.util.function.Supplier#get()} method, which should return the instance of the created class.</li>
+ * </ul>
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1

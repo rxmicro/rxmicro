@@ -20,7 +20,7 @@ import com.google.inject.Singleton;
 import io.rxmicro.annotation.processor.documentation.component.ProjectMetaDataProviderResolver;
 import io.rxmicro.annotation.processor.documentation.component.impl.model.MavenPOMProjectMetaDataProvider;
 import io.rxmicro.annotation.processor.documentation.model.ProjectMetaDataProvider;
-import io.rxmicro.common.RxMicroException;
+import io.rxmicro.common.CheckedWrapperException;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.Parent;
 import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
@@ -87,7 +87,7 @@ public final class ProjectMetaDataProviderResolverImpl implements ProjectMetaDat
                 tempResource.delete();
             }
         } catch (final IOException e) {
-            logThrowableStackTrace(new RxMicroException(e, "Can't detect `pom.xml` location!"));
+            logThrowableStackTrace(new CheckedWrapperException(e, "Can't detect `pom.xml` location!"));
         }
         return Optional.empty();
     }
@@ -116,7 +116,7 @@ public final class ProjectMetaDataProviderResolverImpl implements ProjectMetaDat
             return Optional.of(new MavenPOMProjectMetaDataProvider(pomXmlPath.getParentFile().getAbsolutePath(), models));
         } catch (final IOException | XmlPullParserException e) {
             // This case must be interpret as warning
-            logThrowableStackTrace(new RxMicroException(e, "Can't read data from `pom.xml`!"));
+            logThrowableStackTrace(new CheckedWrapperException(e, "Can't read data from `pom.xml`!"));
             return Optional.empty();
         }
     }

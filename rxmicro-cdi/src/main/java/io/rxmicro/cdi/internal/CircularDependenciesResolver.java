@@ -17,7 +17,6 @@
 package io.rxmicro.cdi.internal;
 
 import io.rxmicro.common.RxMicroException;
-import io.rxmicro.common.util.Formats;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
@@ -76,9 +75,6 @@ public final class CircularDependenciesResolver {
      */
     private static final class CircularDependenciesDetectedException extends RxMicroException {
 
-        /**
-         * This constructor uses {@link Formats#format(String, Object...) Formats.format} to format error message
-         */
         private CircularDependenciesDetectedException(final Object... args) {
             super(
                     false,

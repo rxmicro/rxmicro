@@ -17,8 +17,11 @@
 package io.rxmicro.rest.server.netty;
 
 /**
- * Allows to configure netty transport.
- * See https://netty.io/wiki/native-transports.html
+ * Allows configuring a netty transport. <p>
+ * See
+ * <a href="https://netty.io/wiki/native-transports.html">
+ *     https://netty.io/wiki/native-transports.html
+ * </a>
  *
  * @author nedis
  * @link https://rxmicro.io
@@ -30,30 +33,40 @@ public enum NettyTransport {
     /**
      * Auto detect transport.
      * <p>
-     * If current platform is linux and netty-transport-native-epoll dependency added, then E_POLL will be used
-     * If current platform is osx and netty-transport-native-kqueue dependency added, then K_QUEUE will be used
-     * Otherwise cross platform java implementation will be used
+     * <ul>
+     *     <li>If current platform is linux and netty-transport-native-epoll dependency added, then {@link #EPOLL} will be used.</li>
+     *     <li>If current platform is osx and netty-transport-native-kqueue dependency added, then {@link #KQUEUE} will be used.</li>
+     *     <li>Otherwise cross platform java implementation ({@link #NETTY}) will be used</li>
+     * </ul>
      */
     AUTO,
 
     /**
-     * Cross platform java implementation
+     * Cross platform java implementation.
      */
     NETTY,
 
     /**
-     * Try to use netty-transport-native-epoll implementation.
-     * (See https://netty.io/wiki/native-transports.html#using-the-linux-native-transport)
-     * If native implementation couldn't be used, switch to the cross platform java implementation
+     * Tries to use netty-transport-native-epoll implementation. <p>
+     * See
+     * <a href="https://netty.io/wiki/native-transports.html#using-the-linux-native-transport">
+     *     https://netty.io/wiki/native-transports.html#using-the-linux-native-transport
+     * </a>
+     * <p>
+     * If native implementation couldn't be used, switches to the cross platform java implementation: {@link #NETTY}
      *
      * @link https://netty.io/wiki/native-transports.html#using-the-linux-native-transport
      */
     EPOLL,
 
     /**
-     * Try to use netty-transport-native-kqueue implementation.
-     * (See https://netty.io/wiki/native-transports.html#using-the-macosbsd-native-transport)
-     * If native implementation couldn't be used, switch to the cross platform java implementation
+     * Tries to use netty-transport-native-kqueue implementation. <p>
+     * See
+     * <a href="https://netty.io/wiki/native-transports.html#using-the-macosbsd-native-transport">
+     *     https://netty.io/wiki/native-transports.html#using-the-macosbsd-native-transport
+     * </a>
+     * <p>
+     * If native implementation couldn't be used, switches to the cross platform java implementation: {@link #NETTY}
      *
      * @link https://netty.io/wiki/native-transports.html#using-the-macosbsd-native-transport
      */

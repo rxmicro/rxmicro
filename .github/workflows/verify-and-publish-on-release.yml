@@ -172,6 +172,3 @@ jobs:
           sed -i 's/OSSRH_PASSPHRASE/${{ secrets.OSSRH_PASSPHRASE}}/' ~/.m2/settings.xml
           echo '${{secrets.SIGN_KEY}}' > rxmicro.txt
           gpg --quiet --batch --yes --passphrase="${{ secrets.OSSRH_PASSPHRASE}}" --allow-secret-key-import --import rxmicro.txt
-
-      - name: Deploy to OSSRH
-        run: mvn -P release -DskipTests clean deploy

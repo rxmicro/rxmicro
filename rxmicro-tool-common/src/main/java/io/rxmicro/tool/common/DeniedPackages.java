@@ -19,12 +19,20 @@ package io.rxmicro.tool.common;
 import static io.rxmicro.tool.common.internal.DeniedPackageConstants.DENIED_PACKAGES;
 
 /**
+ * Utility class that verifies that the tested package name is denied or not
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1
  */
 public final class DeniedPackages {
 
+    /**
+     * Returns {@code true} if the tested package name is denied
+     *
+     * @param packageName the tested package name
+     * @return {@code true} if the tested package name is denied
+     */
     public static boolean isDeniedPackage(final String packageName) {
         return DENIED_PACKAGES.stream().anyMatch(prefix ->
                 packageName.equals(prefix.substring(0, prefix.length() - 1)) ||

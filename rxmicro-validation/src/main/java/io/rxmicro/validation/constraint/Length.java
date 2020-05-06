@@ -50,16 +50,17 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 public @interface Length {
 
     /**
-     * Allows to disable validation rule if validation inherited from super class.
+     * Allows disabling the validation rule if this rule is inherited from super class. <p>
      * By default, disable is off
      *
-     * @return {@code true} if the validation must be disabled,
-     * {@code false} otherwise
+     * @return  {@code true} if the validation must be disabled,
      */
     boolean off() default false;
 
     /**
-     * @return expected string length
+     * Returns the expected string length
+     *
+     * @return the expected string length
      */
     int value();
 }

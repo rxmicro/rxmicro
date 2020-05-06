@@ -1,7 +1,7 @@
 package io.rxmicro.examples.rest.controller.complex.model.model;
 
 import io.rxmicro.exchange.json.detail.JsonExchangeDataFormatConverter;
-import io.rxmicro.rest.component.ExchangeDataFormatConverter;
+import io.rxmicro.rest.detail.ExchangeDataFormatConverter;
 import io.rxmicro.rest.model.PathVariableMapping;
 import io.rxmicro.rest.server.detail.component.ModelReader;
 import io.rxmicro.rest.server.detail.model.HttpRequest;

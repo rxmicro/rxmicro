@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. http://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@ import static io.rxmicro.common.util.Formats.format;
 public final class TestLoggers {
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format log message
+     * This method uses {@link Formats#format(String, Object...)} method to format log message
      */
     public static void logTestMessage(final String message,
                                       final Object... args) {

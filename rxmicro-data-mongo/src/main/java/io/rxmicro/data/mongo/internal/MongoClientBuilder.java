@@ -40,8 +40,8 @@ public final class MongoClientBuilder {
             format("?.MongoClient", MongoClientBuilder.class.getPackageName())
     );
 
-    public MongoClient getMongoClient(final String nameSpace) {
-        final MongoConfig mongoConfig = getConfig(nameSpace, MongoConfig.class);
+    public MongoClient getMongoClient(final String namespace) {
+        final MongoConfig mongoConfig = getConfig(namespace, MongoConfig.class);
         return getMongoClient(mongoConfig);
     }
 

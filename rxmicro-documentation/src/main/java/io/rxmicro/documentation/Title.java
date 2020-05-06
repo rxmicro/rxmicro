@@ -27,6 +27,10 @@ import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
+ * Denotes the name of the generated REST-based microservice documentation.
+ * <p>
+ * (<i>Allows overriding the name of the generated REST-based microservice documentation specified in the name directive to pom.xml</i>)
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1
@@ -36,5 +40,10 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 @Target({MODULE, METHOD, TYPE, ANNOTATION_TYPE})
 public @interface Title {
 
+    /**
+     * Returns the title
+     *
+     * @return the title
+     */
     String value();
 }

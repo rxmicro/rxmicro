@@ -41,20 +41,20 @@ public final class EnvironmentConfigLoader {
         this.configSources = configSources;
     }
 
-    public Config getEnvironmentConfig(final String nameSpace,
+    public Config getEnvironmentConfig(final String namespace,
                                        final Class<? extends Config> configClass,
                                        final Map<String, String> commandLineArgs) {
         final Config config = instantiate(configClass);
         if (!configSources.isEmpty()) {
-            resolveEnvironmentVariables(nameSpace, config, commandLineArgs);
+            resolveEnvironmentVariables(namespace, config, commandLineArgs);
         }
         return config;
     }
 
-    private void resolveEnvironmentVariables(final String nameSpace,
+    private void resolveEnvironmentVariables(final String namespace,
                                              final Config config,
                                              final Map<String, String> commandLineArgs) {
-        final ConfigProperties configProperties = configPropertiesBuilder.build(nameSpace, config);
+        final ConfigProperties configProperties = configPropertiesBuilder.build(namespace, config);
         configProperties.discoverProperties(configSources, commandLineArgs);
         configProperties.setProperties();
     }

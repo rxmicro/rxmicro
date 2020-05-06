@@ -26,7 +26,10 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
  * Annotation that can be applied to method to signify the method receives a DELETE request.
- * See https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html#sec9.7.
+ * See
+ * <a href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html#sec9.7">
+ *     https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html#sec9.7
+ * </a>
  *
  * @author nedis
  * @link https://rxmicro.io
@@ -40,7 +43,9 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 public @interface DELETE {
 
     /**
-     * @return The URI of the route
+     * Returns the URI of the route
+     *
+     * @return the URI of the route
      */
     String value();
 
@@ -56,6 +61,11 @@ public @interface DELETE {
     @Target(METHOD)
     @interface List {
 
+        /**
+         * Returns the several {@link DELETE} annotations on the same element.
+         *
+         * @return the several {@link DELETE} annotations on the same element.
+         */
         DELETE[] value();
     }
 }

@@ -38,14 +38,17 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 public @interface ConstraintRule {
 
     /**
+     * Returns all supported types, which can be validated by constraint annotation
+     *
      * @return all supported types, which can be validated by constraint annotation
      */
     Class<?>[] supportedTypes();
 
     /**
-     * @return {@code ConstraintValidator} class per each supported type, i.e.
-     * supportedTypes.length must be equal to validatorClass.length,
-     * otherwise compile error will be throw
+     * Returns {@link ConstraintValidator} class per each supported type, i.e.
+     * {@code supportedTypes.length} must be equal to {@code validatorClass.length}, otherwise compile error will be thrown
+     *
+     * @return {@link ConstraintValidator} class per each supported type
      */
     @SuppressWarnings("rawtypes")
     Class<? extends ConstraintValidator>[] validatorClass();

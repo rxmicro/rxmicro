@@ -17,16 +17,28 @@
 package io.rxmicro.model;
 
 /**
+ * Custom options for dynamic data repositories
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1
  */
 public interface NotStandardSerializableEnum {
 
+    /**
+     * Converts enum value to the mongo specific format
+     *
+     * @return the mongo specific format of the enum value
+     */
     default int mongo() {
         throw new UnsupportedOperationException();
     }
 
+    /**
+     * Converts enum value to the SQL specific format
+     *
+     * @return the SQL specific format of the enum value
+     */
     default String sql() {
         throw new UnsupportedOperationException();
     }

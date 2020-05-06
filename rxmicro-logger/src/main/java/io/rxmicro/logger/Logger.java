@@ -21,9 +21,11 @@ import io.rxmicro.common.util.Formats;
 import java.util.function.Supplier;
 
 /**
+ * The {@link Logger} interface is an abstraction over the real logger.
+ * <p>
  * Logger is an integral component of any software system.
- * The RxMicro framework provides the rxmicro.logger module for logging important events during the work of microservices.
- * The Logger interface is an abstraction over the real logger.
+ * <p>
+ * The RxMicro framework provides the {@code rxmicro.logger } module for logging important events during the work of microservices.
  *
  * @author nedis
  * @link https://rxmicro.io
@@ -33,823 +35,2091 @@ import java.util.function.Supplier;
  */
 public interface Logger {
 
+    /**
+     * Is the logger instance enabled for the {@code TRACE} level?
+     *
+     * @return {@code true} if this Logger is enabled for the {@code TRACE} level
+     */
     boolean isTraceEnabled();
 
+    /**
+     * Log the message at the {@code TRACE} level.
+     *
+     * @param msg the message string to be logged
+     */
     void trace(String msg);
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message at the {@code TRACE} level according to the specified format and argument.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param format the format string
+     * @param arg1 the argument
      */
-    default void trace(String msg, Object arg1) {
-        trace(msg, new Object[]{arg1});
+    default void trace(final String format,
+                       final Object arg1) {
+        trace(format, new Object[]{arg1});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message at the {@code TRACE} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
      */
-    default void trace(String msg, Object arg1, Object arg2) {
-        trace(msg, new Object[]{arg1, arg2});
+    default void trace(final String format,
+                       final Object arg1,
+                       final Object arg2) {
+        trace(format, new Object[]{arg1, arg2});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message at the {@code TRACE} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
      */
-    default void trace(String msg, Object arg1, Object arg2, Object arg3) {
-        trace(msg, new Object[]{arg1, arg2, arg3});
+    default void trace(final String format,
+                       final Object arg1,
+                       final Object arg2,
+                       final Object arg3) {
+        trace(format, new Object[]{arg1, arg2, arg3});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message at the {@code TRACE} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @param arg4 the forth argument
      */
-    default void trace(String msg, Object arg1, Object arg2, Object arg3, Object arg4) {
-        trace(msg, new Object[]{arg1, arg2, arg3, arg4});
+    default void trace(final String format,
+                       final Object arg1,
+                       final Object arg2,
+                       final Object arg3,
+                       final Object arg4) {
+        trace(format, new Object[]{arg1, arg2, arg3, arg4});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message at the {@code TRACE} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @param arg4 the forth argument
+     * @param arg5 the fifth argument
      */
-    default void trace(String msg, Object arg1, Object arg2, Object arg3, Object arg4, Object arg5) {
-        trace(msg, new Object[]{arg1, arg2, arg3, arg4, arg5});
+    default void trace(final String format,
+                       final Object arg1,
+                       final Object arg2,
+                       final Object arg3,
+                       final Object arg4,
+                       final Object arg5) {
+        trace(format, new Object[]{arg1, arg2, arg3, arg4, arg5});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message at the {@code TRACE} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param format the format string
+     * @param arguments the arguments
      */
-    void trace(String msg, Object... arguments);
+    void trace(String format, Object... arguments);
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message at the {@code TRACE} level according to the specified format and argument.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param format the format string
+     * @param arg1 the argument
      */
-    default void trace(String msg, Supplier<?> arg1) {
-        trace(msg, new Object[]{arg1});
+    default void trace(final String format,
+                       final Supplier<?> arg1) {
+        trace(format, new Object[]{arg1});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message at the {@code TRACE} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
      */
-    default void trace(String msg, Supplier<?> arg1, Supplier<?> arg2) {
-        trace(msg, new Object[]{arg1, arg2});
+    default void trace(final String format,
+                       final Supplier<?> arg1,
+                       final Supplier<?> arg2) {
+        trace(format, new Object[]{arg1, arg2});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message at the {@code TRACE} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
      */
-    default void trace(String msg, Supplier<?> arg1, Supplier<?> arg2, Supplier<?> arg3) {
-        trace(msg, new Object[]{arg1, arg2, arg3});
+    default void trace(final String format,
+                       final Supplier<?> arg1,
+                       final Supplier<?> arg2,
+                       final Supplier<?> arg3) {
+        trace(format, new Object[]{arg1, arg2, arg3});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message at the {@code TRACE} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @param arg4 the forth argument
      */
-    default void trace(String msg, Supplier<?> arg1, Supplier<?> arg2, Supplier<?> arg3, Supplier<?> arg4) {
-        trace(msg, new Object[]{arg1, arg2, arg3, arg4});
+    default void trace(final String format,
+                       final Supplier<?> arg1,
+                       final Supplier<?> arg2,
+                       final Supplier<?> arg3,
+                       final Supplier<?> arg4) {
+        trace(format, new Object[]{arg1, arg2, arg3, arg4});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message at the {@code TRACE} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @param arg4 the forth argument
+     * @param arg5 the fifth argument
      */
-    default void trace(String msg, Supplier<?> arg1, Supplier<?> arg2, Supplier<?> arg3, Supplier<?> arg4, Supplier<?> arg5) {
-        trace(msg, new Object[]{arg1, arg2, arg3, arg4, arg5});
+    default void trace(final String format,
+                       final Supplier<?> arg1,
+                       final Supplier<?> arg2,
+                       final Supplier<?> arg3,
+                       final Supplier<?> arg4,
+                       final Supplier<?> arg5) {
+        trace(format, new Object[]{arg1, arg2, arg3, arg4, arg5});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message at the {@code TRACE} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param format the format string
+     * @param suppliers the argument suppliers
      */
-    void trace(String msg, Supplier<?>... suppliers);
+    void trace(String format, Supplier<?>... suppliers);
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message with the throwable at the {@code TRACE} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the argument
      */
-    default void trace(Throwable throwable, String msg, Object arg1) {
-        trace(throwable, msg, new Object[]{arg1});
+    default void trace(final Throwable throwable,
+                       final String format,
+                       final Object arg1) {
+        trace(throwable, format, new Object[]{arg1});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message with the throwable at the {@code TRACE} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
      */
-    default void trace(Throwable throwable, String msg, Object arg1, Object arg2) {
-        trace(throwable, msg, new Object[]{arg1, arg2});
+    default void trace(final Throwable throwable,
+                       final String format,
+                       final Object arg1,
+                       final Object arg2) {
+        trace(throwable, format, new Object[]{arg1, arg2});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message with the throwable at the {@code TRACE} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
      */
-    default void trace(Throwable throwable, String msg, Object arg1, Object arg2, Object arg3) {
-        trace(throwable, msg, new Object[]{arg1, arg2, arg3});
+    default void trace(final Throwable throwable,
+                       final String format,
+                       final Object arg1,
+                       final Object arg2,
+                       final Object arg3) {
+        trace(throwable, format, new Object[]{arg1, arg2, arg3});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message with the throwable at the {@code TRACE} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @param arg4 the forth argument
      */
-    default void trace(Throwable throwable, String msg, Object arg1, Object arg2, Object arg3, Object arg4) {
-        trace(throwable, msg, new Object[]{arg1, arg2, arg3, arg4});
+    default void trace(final Throwable throwable,
+                       final String format,
+                       final Object arg1,
+                       final Object arg2,
+                       final Object arg3,
+                       final Object arg4) {
+        trace(throwable, format, new Object[]{arg1, arg2, arg3, arg4});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message with the throwable at the {@code TRACE} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @param arg4 the forth argument
+     * @param arg5 the fifth argument
      */
-    default void trace(Throwable throwable, String msg, Object arg1, Object arg2, Object arg3, Object arg4, Object arg5) {
-        trace(throwable, msg, new Object[]{arg1, arg2, arg3, arg4, arg5});
+    default void trace(final Throwable throwable,
+                       final String format,
+                       final Object arg1,
+                       final Object arg2,
+                       final Object arg3,
+                       final Object arg4,
+                       final Object arg5) {
+        trace(throwable, format, new Object[]{arg1, arg2, arg3, arg4, arg5});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message with the throwable at the {@code TRACE} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arguments the arguments
      */
-    void trace(Throwable throwable, String msg, Object... arguments);
+    void trace(Throwable throwable, String format, Object... arguments);
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message with the throwable at the {@code TRACE} level according to the specified format and argument.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the argument
      */
-    default void trace(Throwable throwable, String msg, Supplier<?> arg1) {
-        trace(throwable, msg, new Object[]{arg1});
+    default void trace(final Throwable throwable,
+                       final String format,
+                       final Supplier<?> arg1) {
+        trace(throwable, format, new Object[]{arg1});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message with the throwable at the {@code TRACE} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
      */
-    default void trace(Throwable throwable, String msg, Supplier<?> arg1, Supplier<?> arg2) {
-        trace(throwable, msg, new Object[]{arg1, arg2});
+    default void trace(final Throwable throwable,
+                       final String format,
+                       final Supplier<?> arg1,
+                       final Supplier<?> arg2) {
+        trace(throwable, format, new Object[]{arg1, arg2});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message with the throwable at the {@code TRACE} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
      */
-    default void trace(Throwable throwable, String msg, Supplier<?> arg1, Supplier<?> arg2, Supplier<?> arg3) {
-        trace(throwable, msg, new Object[]{arg1, arg2, arg3});
+    default void trace(final Throwable throwable,
+                       final String format,
+                       final Supplier<?> arg1,
+                       final Supplier<?> arg2,
+                       final Supplier<?> arg3) {
+        trace(throwable, format, new Object[]{arg1, arg2, arg3});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message with the throwable at the {@code TRACE} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @param arg4 the forth argument
      */
-    default void trace(Throwable throwable, String msg, Supplier<?> arg1, Supplier<?> arg2, Supplier<?> arg3, Supplier<?> arg4) {
-        trace(throwable, msg, new Object[]{arg1, arg2, arg3, arg4});
+    default void trace(final Throwable throwable,
+                       final String format,
+                       final Supplier<?> arg1,
+                       final Supplier<?> arg2,
+                       final Supplier<?> arg3,
+                       final Supplier<?> arg4) {
+        trace(throwable, format, new Object[]{arg1, arg2, arg3, arg4});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message with the throwable at the {@code TRACE} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @param arg4 the forth argument
+     * @param arg5 the fifth argument
      */
-    default void trace(Throwable throwable, String msg, Supplier<?> arg1, Supplier<?> arg2, Supplier<?> arg3, Supplier<?> arg4, Supplier<?> arg5) {
-        trace(throwable, msg, new Object[]{arg1, arg2, arg3, arg4, arg5});
+    default void trace(final Throwable throwable,
+                       final String format,
+                       final Supplier<?> arg1,
+                       final Supplier<?> arg2,
+                       final Supplier<?> arg3,
+                       final Supplier<?> arg4,
+                       final Supplier<?> arg5) {
+        trace(throwable, format, new Object[]{arg1, arg2, arg3, arg4, arg5});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message with the throwable at the {@code TRACE} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param throwable the throwable
+     * @param format the format string
+     * @param suppliers the suppliers
      */
-    void trace(Throwable throwable, String msg, Supplier<?>... suppliers);
+    void trace(Throwable throwable, String format, Supplier<?>... suppliers);
 
+    // -------------------------------------------------------------------------------------------------------------------------------------
+
+    /**
+     * Is the logger instance enabled for the {@code DEBUG} level?
+     *
+     * @return {@code true} if this Logger is enabled for the {@code DEBUG} level
+     */
     boolean isDebugEnabled();
 
+    /**
+     * Log the message at the {@code DEBUG} level.
+     *
+     * @param msg the message string to be logged
+     */
     void debug(String msg);
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message at the {@code DEBUG} level according to the specified format and argument.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param format the format string
+     * @param arg1 the argument
      */
-    default void debug(String msg, Object arg1) {
-        debug(msg, new Object[]{arg1});
+    default void debug(final String format,
+                       final Object arg1) {
+        debug(format, new Object[]{arg1});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message at the {@code DEBUG} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
      */
-    default void debug(String msg, Object arg1, Object arg2) {
-        debug(msg, new Object[]{arg1, arg2});
+    default void debug(final String format,
+                       final Object arg1,
+                       final Object arg2) {
+        debug(format, new Object[]{arg1, arg2});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message at the {@code DEBUG} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
      */
-    default void debug(String msg, Object arg1, Object arg2, Object arg3) {
-        debug(msg, new Object[]{arg1, arg2, arg3});
+    default void debug(final String format,
+                       final Object arg1,
+                       final Object arg2,
+                       final Object arg3) {
+        debug(format, new Object[]{arg1, arg2, arg3});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message at the {@code DEBUG} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @param arg4 the forth argument
      */
-    default void debug(String msg, Object arg1, Object arg2, Object arg3, Object arg4) {
-        debug(msg, new Object[]{arg1, arg2, arg3, arg4});
+    default void debug(final String format,
+                       final Object arg1,
+                       final Object arg2,
+                       final Object arg3,
+                       final Object arg4) {
+        debug(format, new Object[]{arg1, arg2, arg3, arg4});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message at the {@code DEBUG} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @param arg4 the forth argument
+     * @param arg5 the fifth argument
      */
-    default void debug(String msg, Object arg1, Object arg2, Object arg3, Object arg4, Object arg5) {
-        debug(msg, new Object[]{arg1, arg2, arg3, arg4, arg5});
+    default void debug(final String format,
+                       final Object arg1,
+                       final Object arg2,
+                       final Object arg3,
+                       final Object arg4,
+                       final Object arg5) {
+        debug(format, new Object[]{arg1, arg2, arg3, arg4, arg5});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message at the {@code DEBUG} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param format the format string
+     * @param arguments the arguments
      */
-    void debug(String msg, Object... arguments);
+    void debug(String format, Object... arguments);
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message at the {@code DEBUG} level according to the specified format and argument.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param format the format string
+     * @param arg1 the argument
      */
-    default void debug(String msg, Supplier<?> arg1) {
-        debug(msg, new Object[]{arg1});
+    default void debug(final String format,
+                       final Supplier<?> arg1) {
+        debug(format, new Object[]{arg1});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message at the {@code DEBUG} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
      */
-    default void debug(String msg, Supplier<?> arg1, Supplier<?> arg2) {
-        debug(msg, new Object[]{arg1, arg2});
+    default void debug(final String format,
+                       final Supplier<?> arg1,
+                       final Supplier<?> arg2) {
+        debug(format, new Object[]{arg1, arg2});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message at the {@code DEBUG} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
      */
-    default void debug(String msg, Supplier<?> arg1, Supplier<?> arg2, Supplier<?> arg3) {
-        debug(msg, new Object[]{arg1, arg2, arg3});
+    default void debug(final String format,
+                       final Supplier<?> arg1,
+                       final Supplier<?> arg2,
+                       final Supplier<?> arg3) {
+        debug(format, new Object[]{arg1, arg2, arg3});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message at the {@code DEBUG} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @param arg4 the forth argument
      */
-    default void debug(String msg, Supplier<?> arg1, Supplier<?> arg2, Supplier<?> arg3, Supplier<?> arg4) {
-        debug(msg, new Object[]{arg1, arg2, arg3, arg4});
+    default void debug(final String format,
+                       final Supplier<?> arg1,
+                       final Supplier<?> arg2,
+                       final Supplier<?> arg3,
+                       final Supplier<?> arg4) {
+        debug(format, new Object[]{arg1, arg2, arg3, arg4});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message at the {@code DEBUG} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @param arg4 the forth argument
+     * @param arg5 the fifth argument
      */
-    default void debug(String msg, Supplier<?> arg1, Supplier<?> arg2, Supplier<?> arg3, Supplier<?> arg4, Supplier<?> arg5) {
-        debug(msg, new Object[]{arg1, arg2, arg3, arg4, arg5});
+    default void debug(final String format,
+                       final Supplier<?> arg1,
+                       final Supplier<?> arg2,
+                       final Supplier<?> arg3,
+                       final Supplier<?> arg4,
+                       final Supplier<?> arg5) {
+        debug(format, new Object[]{arg1, arg2, arg3, arg4, arg5});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message at the {@code DEBUG} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param format the format string
+     * @param suppliers the argument suppliers
      */
-    void debug(String msg, Supplier<?>... suppliers);
+    void debug(String format, Supplier<?>... suppliers);
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message with the throwable at the {@code DEBUG} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the argument
      */
-    default void debug(Throwable throwable, String msg, Object arg1) {
-        debug(throwable, msg, new Object[]{arg1});
+    default void debug(final Throwable throwable,
+                       final String format,
+                       final Object arg1) {
+        debug(throwable, format, new Object[]{arg1});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message with the throwable at the {@code DEBUG} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
      */
-    default void debug(Throwable throwable, String msg, Object arg1, Object arg2) {
-        debug(throwable, msg, new Object[]{arg1, arg2});
+    default void debug(final Throwable throwable,
+                       final String format,
+                       final Object arg1,
+                       final Object arg2) {
+        debug(throwable, format, new Object[]{arg1, arg2});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message with the throwable at the {@code DEBUG} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
      */
-    default void debug(Throwable throwable, String msg, Object arg1, Object arg2, Object arg3) {
-        debug(throwable, msg, new Object[]{arg1, arg2, arg3});
+    default void debug(final Throwable throwable,
+                       final String format,
+                       final Object arg1,
+                       final Object arg2,
+                       final Object arg3) {
+        debug(throwable, format, new Object[]{arg1, arg2, arg3});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message with the throwable at the {@code DEBUG} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @param arg4 the forth argument
      */
-    default void debug(Throwable throwable, String msg, Object arg1, Object arg2, Object arg3, Object arg4) {
-        debug(throwable, msg, new Object[]{arg1, arg2, arg3, arg4});
+    default void debug(final Throwable throwable,
+                       final String format,
+                       final Object arg1,
+                       final Object arg2,
+                       final Object arg3,
+                       final Object arg4) {
+        debug(throwable, format, new Object[]{arg1, arg2, arg3, arg4});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message with the throwable at the {@code DEBUG} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @param arg4 the forth argument
+     * @param arg5 the fifth argument
      */
-    default void debug(Throwable throwable, String msg, Object arg1, Object arg2, Object arg3, Object arg4, Object arg5) {
-        debug(throwable, msg, new Object[]{arg1, arg2, arg3, arg4, arg5});
+    default void debug(final Throwable throwable,
+                       final String format,
+                       final Object arg1,
+                       final Object arg2,
+                       final Object arg3,
+                       final Object arg4,
+                       final Object arg5) {
+        debug(throwable, format, new Object[]{arg1, arg2, arg3, arg4, arg5});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message with the throwable at the {@code DEBUG} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arguments the arguments
      */
-    void debug(Throwable throwable, String msg, Object... arguments);
+    void debug(Throwable throwable, String format, Object... arguments);
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message with the throwable at the {@code DEBUG} level according to the specified format and argument.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the argument
      */
-    default void debug(Throwable throwable, String msg, Supplier<?> arg1) {
-        debug(throwable, msg, new Object[]{arg1});
+    default void debug(final Throwable throwable,
+                       final String format,
+                       final Supplier<?> arg1) {
+        debug(throwable, format, new Object[]{arg1});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message with the throwable at the {@code DEBUG} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
      */
-    default void debug(Throwable throwable, String msg, Supplier<?> arg1, Supplier<?> arg2) {
-        debug(throwable, msg, new Object[]{arg1, arg2});
+    default void debug(final Throwable throwable,
+                       final String format,
+                       final Supplier<?> arg1,
+                       final Supplier<?> arg2) {
+        debug(throwable, format, new Object[]{arg1, arg2});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message with the throwable at the {@code DEBUG} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
      */
-    default void debug(Throwable throwable, String msg, Supplier<?> arg1, Supplier<?> arg2, Supplier<?> arg3) {
-        debug(throwable, msg, new Object[]{arg1, arg2, arg3});
+    default void debug(final Throwable throwable,
+                       final String format,
+                       final Supplier<?> arg1,
+                       final Supplier<?> arg2,
+                       final Supplier<?> arg3) {
+        debug(throwable, format, new Object[]{arg1, arg2, arg3});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message with the throwable at the {@code DEBUG} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @param arg4 the forth argument
      */
-    default void debug(Throwable throwable, String msg, Supplier<?> arg1, Supplier<?> arg2, Supplier<?> arg3, Supplier<?> arg4) {
-        debug(throwable, msg, new Object[]{arg1, arg2, arg3, arg4});
+    default void debug(final Throwable throwable,
+                       final String format,
+                       final Supplier<?> arg1,
+                       final Supplier<?> arg2,
+                       final Supplier<?> arg3,
+                       final Supplier<?> arg4) {
+        debug(throwable, format, new Object[]{arg1, arg2, arg3, arg4});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message with the throwable at the {@code DEBUG} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @param arg4 the forth argument
+     * @param arg5 the fifth argument
      */
-    default void debug(Throwable throwable, String msg, Supplier<?> arg1, Supplier<?> arg2, Supplier<?> arg3, Supplier<?> arg4, Supplier<?> arg5) {
-        debug(throwable, msg, new Object[]{arg1, arg2, arg3, arg4, arg5});
+    default void debug(final Throwable throwable,
+                       final String format,
+                       final Supplier<?> arg1,
+                       final Supplier<?> arg2,
+                       final Supplier<?> arg3,
+                       final Supplier<?> arg4,
+                       final Supplier<?> arg5) {
+        debug(throwable, format, new Object[]{arg1, arg2, arg3, arg4, arg5});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message with the throwable at the {@code DEBUG} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param throwable the throwable
+     * @param format the format string
+     * @param suppliers the suppliers
      */
-    void debug(Throwable throwable, String msg, Supplier<?>... suppliers);
+    void debug(Throwable throwable, String format, Supplier<?>... suppliers);
 
+    // -------------------------------------------------------------------------------------------------------------------------------------
+
+    /**
+     * Is the logger instance enabled for the {@code INFO} level?
+     *
+     * @return {@code true} if this Logger is enabled for the {@code INFO} level
+     */
     boolean isInfoEnabled();
 
+    /**
+     * Log the message at the {@code INFO} level.
+     *
+     * @param msg the message string to be logged
+     */
     void info(String msg);
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message at the {@code INFO} level according to the specified format and argument.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param format the format string
+     * @param arg1 the argument
      */
-    default void info(String msg, Object arg1) {
-        info(msg, new Object[]{arg1});
+    default void info(final String format,
+                      final Object arg1) {
+        info(format, new Object[]{arg1});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message at the {@code INFO} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
      */
-    default void info(String msg, Object arg1, Object arg2) {
-        info(msg, new Object[]{arg1, arg2});
+    default void info(final String format,
+                      final Object arg1,
+                      final Object arg2) {
+        info(format, new Object[]{arg1, arg2});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message at the {@code INFO} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
      */
-    default void info(String msg, Object arg1, Object arg2, Object arg3) {
-        info(msg, new Object[]{arg1, arg2, arg3});
+    default void info(final String format,
+                      final Object arg1,
+                      final Object arg2,
+                      final Object arg3) {
+        info(format, new Object[]{arg1, arg2, arg3});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message at the {@code INFO} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @param arg4 the forth argument
      */
-    default void info(String msg, Object arg1, Object arg2, Object arg3, Object arg4) {
-        info(msg, new Object[]{arg1, arg2, arg3, arg4});
+    default void info(final String format,
+                      final Object arg1,
+                      final Object arg2,
+                      final Object arg3,
+                      final Object arg4) {
+        info(format, new Object[]{arg1, arg2, arg3, arg4});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message at the {@code INFO} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @param arg4 the forth argument
+     * @param arg5 the fifth argument
      */
-    default void info(String msg, Object arg1, Object arg2, Object arg3, Object arg4, Object arg5) {
-        info(msg, new Object[]{arg1, arg2, arg3, arg4, arg5});
+    default void info(final String format,
+                      final Object arg1,
+                      final Object arg2,
+                      final Object arg3,
+                      final Object arg4,
+                      final Object arg5) {
+        info(format, new Object[]{arg1, arg2, arg3, arg4, arg5});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message at the {@code INFO} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param format the format string
+     * @param arguments the arguments
      */
-    void info(String msg, Object... arguments);
+    void info(String format, Object... arguments);
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message at the {@code INFO} level according to the specified format and argument.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param format the format string
+     * @param arg1 the argument
      */
-    default void info(String msg, Supplier<?> arg1) {
-        info(msg, new Object[]{arg1});
+    default void info(final String format,
+                      final Supplier<?> arg1) {
+        info(format, new Object[]{arg1});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message at the {@code INFO} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
      */
-    default void info(String msg, Supplier<?> arg1, Supplier<?> arg2) {
-        info(msg, new Object[]{arg1, arg2});
+    default void info(final String format,
+                      final Supplier<?> arg1,
+                      final Supplier<?> arg2) {
+        info(format, new Object[]{arg1, arg2});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message at the {@code INFO} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
      */
-    default void info(String msg, Supplier<?> arg1, Supplier<?> arg2, Supplier<?> arg3) {
-        info(msg, new Object[]{arg1, arg2, arg3});
+    default void info(final String format,
+                      final Supplier<?> arg1,
+                      final Supplier<?> arg2,
+                      final Supplier<?> arg3) {
+        info(format, new Object[]{arg1, arg2, arg3});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message at the {@code INFO} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @param arg4 the forth argument
      */
-    default void info(String msg, Supplier<?> arg1, Supplier<?> arg2, Supplier<?> arg3, Supplier<?> arg4) {
-        info(msg, new Object[]{arg1, arg2, arg3, arg4});
+    default void info(final String format,
+                      final Supplier<?> arg1,
+                      final Supplier<?> arg2,
+                      final Supplier<?> arg3,
+                      final Supplier<?> arg4) {
+        info(format, new Object[]{arg1, arg2, arg3, arg4});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message at the {@code INFO} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @param arg4 the forth argument
+     * @param arg5 the fifth argument
      */
-    default void info(String msg, Supplier<?> arg1, Supplier<?> arg2, Supplier<?> arg3, Supplier<?> arg4, Supplier<?> arg5) {
-        info(msg, new Object[]{arg1, arg2, arg3, arg4, arg5});
+    default void info(final String format,
+                      final Supplier<?> arg1,
+                      final Supplier<?> arg2,
+                      final Supplier<?> arg3,
+                      final Supplier<?> arg4,
+                      final Supplier<?> arg5) {
+        info(format, new Object[]{arg1, arg2, arg3, arg4, arg5});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message at the {@code INFO} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param format the format string
+     * @param suppliers the argument suppliers
      */
-    void info(String msg, Supplier<?>... suppliers);
+    void info(String format, Supplier<?>... suppliers);
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message with the throwable at the {@code INFO} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the argument
      */
-    default void info(Throwable throwable, String msg, Object arg1) {
-        info(throwable, msg, new Object[]{arg1});
+    default void info(final Throwable throwable,
+                      final String format,
+                      final Object arg1) {
+        info(throwable, format, new Object[]{arg1});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message with the throwable at the {@code INFO} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
      */
-    default void info(Throwable throwable, String msg, Object arg1, Object arg2) {
-        info(throwable, msg, new Object[]{arg1, arg2});
+    default void info(final Throwable throwable,
+                      final String format,
+                      final Object arg1,
+                      final Object arg2) {
+        info(throwable, format, new Object[]{arg1, arg2});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message with the throwable at the {@code INFO} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
      */
-    default void info(Throwable throwable, String msg, Object arg1, Object arg2, Object arg3) {
-        info(throwable, msg, new Object[]{arg1, arg2, arg3});
+    default void info(final Throwable throwable,
+                      final String format,
+                      final Object arg1,
+                      final Object arg2,
+                      final Object arg3) {
+        info(throwable, format, new Object[]{arg1, arg2, arg3});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message with the throwable at the {@code INFO} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @param arg4 the forth argument
      */
-    default void info(Throwable throwable, String msg, Object arg1, Object arg2, Object arg3, Object arg4) {
-        info(throwable, msg, new Object[]{arg1, arg2, arg3, arg4});
+    default void info(final Throwable throwable,
+                      final String format,
+                      final Object arg1,
+                      final Object arg2,
+                      final Object arg3,
+                      final Object arg4) {
+        info(throwable, format, new Object[]{arg1, arg2, arg3, arg4});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message with the throwable at the {@code INFO} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @param arg4 the forth argument
+     * @param arg5 the fifth argument
      */
-    default void info(Throwable throwable, String msg, Object arg1, Object arg2, Object arg3, Object arg4, Object arg5) {
-        info(throwable, msg, new Object[]{arg1, arg2, arg3, arg4, arg5});
+    default void info(final Throwable throwable,
+                      final String format,
+                      final Object arg1,
+                      final Object arg2,
+                      final Object arg3,
+                      final Object arg4,
+                      final Object arg5) {
+        info(throwable, format, new Object[]{arg1, arg2, arg3, arg4, arg5});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message with the throwable at the {@code INFO} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arguments the arguments
      */
-    void info(Throwable throwable, String msg, Object... arguments);
+    void info(Throwable throwable, String format, Object... arguments);
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message with the throwable at the {@code INFO} level according to the specified format and argument.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the argument
      */
-    default void info(Throwable throwable, String msg, Supplier<?> arg1) {
-        info(throwable, msg, new Object[]{arg1});
+    default void info(final Throwable throwable,
+                      final String format,
+                      final Supplier<?> arg1) {
+        info(throwable, format, new Object[]{arg1});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message with the throwable at the {@code INFO} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
      */
-    default void info(Throwable throwable, String msg, Supplier<?> arg1, Supplier<?> arg2) {
-        info(throwable, msg, new Object[]{arg1, arg2});
+    default void info(final Throwable throwable,
+                      final String format,
+                      final Supplier<?> arg1,
+                      final Supplier<?> arg2) {
+        info(throwable, format, new Object[]{arg1, arg2});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message with the throwable at the {@code INFO} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
      */
-    default void info(Throwable throwable, String msg, Supplier<?> arg1, Supplier<?> arg2, Supplier<?> arg3) {
-        info(throwable, msg, new Object[]{arg1, arg2, arg3});
+    default void info(final Throwable throwable,
+                      final String format,
+                      final Supplier<?> arg1,
+                      final Supplier<?> arg2,
+                      final Supplier<?> arg3) {
+        info(throwable, format, new Object[]{arg1, arg2, arg3});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message with the throwable at the {@code INFO} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @param arg4 the forth argument
      */
-    default void info(Throwable throwable, String msg, Supplier<?> arg1, Supplier<?> arg2, Supplier<?> arg3, Supplier<?> arg4) {
-        info(throwable, msg, new Object[]{arg1, arg2, arg3, arg4});
+    default void info(final Throwable throwable,
+                      final String format,
+                      final Supplier<?> arg1,
+                      final Supplier<?> arg2,
+                      final Supplier<?> arg3,
+                      final Supplier<?> arg4) {
+        info(throwable, format, new Object[]{arg1, arg2, arg3, arg4});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message with the throwable at the {@code INFO} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @param arg4 the forth argument
+     * @param arg5 the fifth argument
      */
-    default void info(Throwable throwable, String msg, Supplier<?> arg1, Supplier<?> arg2, Supplier<?> arg3, Supplier<?> arg4, Supplier<?> arg5) {
-        info(throwable, msg, new Object[]{arg1, arg2, arg3, arg4, arg5});
+    default void info(final Throwable throwable,
+                      final String format,
+                      final Supplier<?> arg1,
+                      final Supplier<?> arg2,
+                      final Supplier<?> arg3,
+                      final Supplier<?> arg4,
+                      final Supplier<?> arg5) {
+        info(throwable, format, new Object[]{arg1, arg2, arg3, arg4, arg5});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message with the throwable at the {@code INFO} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param throwable the throwable
+     * @param format the format string
+     * @param suppliers the suppliers
      */
-    void info(Throwable throwable, String msg, Supplier<?>... suppliers);
+    void info(Throwable throwable, String format, Supplier<?>... suppliers);
 
+    // -------------------------------------------------------------------------------------------------------------------------------------
+
+    /**
+     * Is the logger instance enabled for the {@code WARN} level?
+     *
+     * @return {@code true} if this Logger is enabled for the {@code WARN} level
+     */
     boolean isWarnEnabled();
 
+    /**
+     * Log the message at the {@code WARN} level.
+     *
+     * @param msg the message string to be logged
+     */
     void warn(String msg);
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message at the {@code WARN} level according to the specified format and argument.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param format the format string
+     * @param arg1 the argument
      */
-    default void warn(String msg, Object arg1) {
-        warn(msg, new Object[]{arg1});
+    default void warn(final String format,
+                      final Object arg1) {
+        warn(format, new Object[]{arg1});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message at the {@code WARN} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
      */
-    default void warn(String msg, Object arg1, Object arg2) {
-        warn(msg, new Object[]{arg1, arg2});
+    default void warn(final String format,
+                      final Object arg1,
+                      final Object arg2) {
+        warn(format, new Object[]{arg1, arg2});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message at the {@code WARN} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
      */
-    default void warn(String msg, Object arg1, Object arg2, Object arg3) {
-        warn(msg, new Object[]{arg1, arg2, arg3});
+    default void warn(final String format,
+                      final Object arg1,
+                      final Object arg2,
+                      final Object arg3) {
+        warn(format, new Object[]{arg1, arg2, arg3});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message at the {@code WARN} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @param arg4 the forth argument
      */
-    default void warn(String msg, Object arg1, Object arg2, Object arg3, Object arg4) {
-        warn(msg, new Object[]{arg1, arg2, arg3, arg4});
+    default void warn(final String format,
+                      final Object arg1,
+                      final Object arg2,
+                      final Object arg3,
+                      final Object arg4) {
+        warn(format, new Object[]{arg1, arg2, arg3, arg4});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message at the {@code WARN} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @param arg4 the forth argument
+     * @param arg5 the fifth argument
      */
-    default void warn(String msg, Object arg1, Object arg2, Object arg3, Object arg4, Object arg5) {
-        warn(msg, new Object[]{arg1, arg2, arg3, arg4, arg5});
+    default void warn(final String format,
+                      final Object arg1,
+                      final Object arg2,
+                      final Object arg3,
+                      final Object arg4,
+                      final Object arg5) {
+        warn(format, new Object[]{arg1, arg2, arg3, arg4, arg5});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message at the {@code WARN} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param format the format string
+     * @param arguments the arguments
      */
-    void warn(String msg, Object... arguments);
+    void warn(String format, Object... arguments);
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message at the {@code WARN} level according to the specified format and argument.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param format the format string
+     * @param arg1 the argument
      */
-    default void warn(String msg, Supplier<?> arg1) {
-        warn(msg, new Object[]{arg1});
+    default void warn(final String format,
+                      final Supplier<?> arg1) {
+        warn(format, new Object[]{arg1});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message at the {@code WARN} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
      */
-    default void warn(String msg, Supplier<?> arg1, Supplier<?> arg2) {
-        warn(msg, new Object[]{arg1, arg2});
+    default void warn(final String format,
+                      final Supplier<?> arg1,
+                      final Supplier<?> arg2) {
+        warn(format, new Object[]{arg1, arg2});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message at the {@code WARN} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
      */
-    default void warn(String msg, Supplier<?> arg1, Supplier<?> arg2, Supplier<?> arg3) {
-        warn(msg, new Object[]{arg1, arg2, arg3});
+    default void warn(final String format,
+                      final Supplier<?> arg1,
+                      final Supplier<?> arg2,
+                      final Supplier<?> arg3) {
+        warn(format, new Object[]{arg1, arg2, arg3});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message at the {@code WARN} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @param arg4 the forth argument
      */
-    default void warn(String msg, Supplier<?> arg1, Supplier<?> arg2, Supplier<?> arg3, Supplier<?> arg4) {
-        warn(msg, new Object[]{arg1, arg2, arg3, arg4});
+    default void warn(final String format,
+                      final Supplier<?> arg1,
+                      final Supplier<?> arg2,
+                      final Supplier<?> arg3,
+                      final Supplier<?> arg4) {
+        warn(format, new Object[]{arg1, arg2, arg3, arg4});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message at the {@code WARN} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @param arg4 the forth argument
+     * @param arg5 the fifth argument
      */
-    default void warn(String msg, Supplier<?> arg1, Supplier<?> arg2, Supplier<?> arg3, Supplier<?> arg4, Supplier<?> arg5) {
-        warn(msg, new Object[]{arg1, arg2, arg3, arg4, arg5});
+    default void warn(final String format,
+                      final Supplier<?> arg1,
+                      final Supplier<?> arg2,
+                      final Supplier<?> arg3,
+                      final Supplier<?> arg4,
+                      final Supplier<?> arg5) {
+        warn(format, new Object[]{arg1, arg2, arg3, arg4, arg5});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message at the {@code WARN} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param format the format string
+     * @param suppliers the argument suppliers
      */
-    void warn(String msg, Supplier<?>... suppliers);
+    void warn(String format, Supplier<?>... suppliers);
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message with the throwable at the {@code WARN} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the argument
      */
-    default void warn(Throwable throwable, String msg, Object arg1) {
-        warn(throwable, msg, new Object[]{arg1});
+    default void warn(final Throwable throwable,
+                      final String format,
+                      final Object arg1) {
+        warn(throwable, format, new Object[]{arg1});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message with the throwable at the {@code WARN} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
      */
-    default void warn(Throwable throwable, String msg, Object arg1, Object arg2) {
-        warn(throwable, msg, new Object[]{arg1, arg2});
+    default void warn(final Throwable throwable,
+                      final String format,
+                      final Object arg1,
+                      final Object arg2) {
+        warn(throwable, format, new Object[]{arg1, arg2});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message with the throwable at the {@code WARN} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
      */
-    default void warn(Throwable throwable, String msg, Object arg1, Object arg2, Object arg3) {
-        warn(throwable, msg, new Object[]{arg1, arg2, arg3});
+    default void warn(final Throwable throwable,
+                      final String format,
+                      final Object arg1,
+                      final Object arg2,
+                      final Object arg3) {
+        warn(throwable, format, new Object[]{arg1, arg2, arg3});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message with the throwable at the {@code WARN} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @param arg4 the forth argument
      */
-    default void warn(Throwable throwable, String msg, Object arg1, Object arg2, Object arg3, Object arg4) {
-        warn(throwable, msg, new Object[]{arg1, arg2, arg3, arg4});
+    default void warn(final Throwable throwable,
+                      final String format,
+                      final Object arg1,
+                      final Object arg2,
+                      final Object arg3,
+                      final Object arg4) {
+        warn(throwable, format, new Object[]{arg1, arg2, arg3, arg4});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message with the throwable at the {@code WARN} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @param arg4 the forth argument
+     * @param arg5 the fifth argument
      */
-    default void warn(Throwable throwable, String msg, Object arg1, Object arg2, Object arg3, Object arg4, Object arg5) {
-        warn(throwable, msg, new Object[]{arg1, arg2, arg3, arg4, arg5});
+    default void warn(final Throwable throwable,
+                      final String format,
+                      final Object arg1,
+                      final Object arg2,
+                      final Object arg3,
+                      final Object arg4,
+                      final Object arg5) {
+        warn(throwable, format, new Object[]{arg1, arg2, arg3, arg4, arg5});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message with the throwable at the {@code WARN} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arguments the arguments
      */
-    void warn(Throwable throwable, String msg, Object... arguments);
+    void warn(Throwable throwable, String format, Object... arguments);
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message with the throwable at the {@code WARN} level according to the specified format and argument.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the argument
      */
-    default void warn(Throwable throwable, String msg, Supplier<?> arg1) {
-        warn(throwable, msg, new Object[]{arg1});
+    default void warn(final Throwable throwable,
+                      final String format,
+                      final Supplier<?> arg1) {
+        warn(throwable, format, new Object[]{arg1});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message with the throwable at the {@code WARN} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
      */
-    default void warn(Throwable throwable, String msg, Supplier<?> arg1, Supplier<?> arg2) {
-        warn(throwable, msg, new Object[]{arg1, arg2});
+    default void warn(final Throwable throwable,
+                      final String format,
+                      final Supplier<?> arg1,
+                      final Supplier<?> arg2) {
+        warn(throwable, format, new Object[]{arg1, arg2});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message with the throwable at the {@code WARN} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
      */
-    default void warn(Throwable throwable, String msg, Supplier<?> arg1, Supplier<?> arg2, Supplier<?> arg3) {
-        warn(throwable, msg, new Object[]{arg1, arg2, arg3});
+    default void warn(final Throwable throwable,
+                      final String format,
+                      final Supplier<?> arg1,
+                      final Supplier<?> arg2,
+                      final Supplier<?> arg3) {
+        warn(throwable, format, new Object[]{arg1, arg2, arg3});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message with the throwable at the {@code WARN} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @param arg4 the forth argument
      */
-    default void warn(Throwable throwable, String msg, Supplier<?> arg1, Supplier<?> arg2, Supplier<?> arg3, Supplier<?> arg4) {
-        warn(throwable, msg, new Object[]{arg1, arg2, arg3, arg4});
+    default void warn(final Throwable throwable,
+                      final String format,
+                      final Supplier<?> arg1,
+                      final Supplier<?> arg2,
+                      final Supplier<?> arg3,
+                      final Supplier<?> arg4) {
+        warn(throwable, format, new Object[]{arg1, arg2, arg3, arg4});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message with the throwable at the {@code WARN} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @param arg4 the forth argument
+     * @param arg5 the fifth argument
      */
-    default void warn(Throwable throwable, String msg, Supplier<?> arg1, Supplier<?> arg2, Supplier<?> arg3, Supplier<?> arg4, Supplier<?> arg5) {
-        warn(throwable, msg, new Object[]{arg1, arg2, arg3, arg4, arg5});
+    default void warn(final Throwable throwable,
+                      final String format,
+                      final Supplier<?> arg1,
+                      final Supplier<?> arg2,
+                      final Supplier<?> arg3,
+                      final Supplier<?> arg4,
+                      final Supplier<?> arg5) {
+        warn(throwable, format, new Object[]{arg1, arg2, arg3, arg4, arg5});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message with the throwable at the {@code WARN} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param throwable the throwable
+     * @param format the format string
+     * @param suppliers the suppliers
      */
-    void warn(Throwable throwable, String msg, Supplier<?>... suppliers);
+    void warn(Throwable throwable, String format, Supplier<?>... suppliers);
 
+    // -------------------------------------------------------------------------------------------------------------------------------------
+
+    /**
+     * Is the logger instance enabled for the {@code ERROR} level?
+     *
+     * @return {@code true} if this Logger is enabled for the {@code ERROR} level
+     */
     boolean isErrorEnabled();
 
+    /**
+     * Log the message at the {@code ERROR} level.
+     *
+     * @param msg the message string to be logged
+     */
     void error(String msg);
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message at the {@code ERROR} level according to the specified format and argument.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param format the format string
+     * @param arg1 the argument
      */
-    default void error(String msg, Object arg1) {
-        error(msg, new Object[]{arg1});
+    default void error(final String format,
+                       final Object arg1) {
+        error(format, new Object[]{arg1});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message at the {@code ERROR} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
      */
-    default void error(String msg, Object arg1, Object arg2) {
-        error(msg, new Object[]{arg1, arg2});
+    default void error(final String format,
+                       final Object arg1,
+                       final Object arg2) {
+        error(format, new Object[]{arg1, arg2});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message at the {@code ERROR} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
      */
-    default void error(String msg, Object arg1, Object arg2, Object arg3) {
-        error(msg, new Object[]{arg1, arg2, arg3});
+    default void error(final String format,
+                       final Object arg1,
+                       final Object arg2,
+                       final Object arg3) {
+        error(format, new Object[]{arg1, arg2, arg3});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message at the {@code ERROR} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @param arg4 the forth argument
      */
-    default void error(String msg, Object arg1, Object arg2, Object arg3, Object arg4) {
-        error(msg, new Object[]{arg1, arg2, arg3, arg4});
+    default void error(final String format,
+                       final Object arg1,
+                       final Object arg2,
+                       final Object arg3,
+                       final Object arg4) {
+        error(format, new Object[]{arg1, arg2, arg3, arg4});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message at the {@code ERROR} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @param arg4 the forth argument
+     * @param arg5 the fifth argument
      */
-    default void error(String msg, Object arg1, Object arg2, Object arg3, Object arg4, Object arg5) {
-        error(msg, new Object[]{arg1, arg2, arg3, arg4, arg5});
+    default void error(final String format,
+                       final Object arg1,
+                       final Object arg2,
+                       final Object arg3,
+                       final Object arg4,
+                       final Object arg5) {
+        error(format, new Object[]{arg1, arg2, arg3, arg4, arg5});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message at the {@code ERROR} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param format the format string
+     * @param arguments the arguments
      */
-    default void error(String msg, Supplier<?> arg1) {
-        error(msg, new Object[]{arg1});
+    void error(String format, Object... arguments);
+
+    /**
+     * Log the message at the {@code ERROR} level according to the specified format and argument.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param format the format string
+     * @param arg1 the argument
+     */
+    default void error(final String format,
+                       final Supplier<?> arg1) {
+        error(format, new Object[]{arg1});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message at the {@code ERROR} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
      */
-    default void error(String msg, Supplier<?> arg1, Supplier<?> arg2) {
-        error(msg, new Object[]{arg1, arg2});
+    default void error(final String format,
+                       final Supplier<?> arg1,
+                       final Supplier<?> arg2) {
+        error(format, new Object[]{arg1, arg2});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message at the {@code ERROR} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
      */
-    default void error(String msg, Supplier<?> arg1, Supplier<?> arg2, Supplier<?> arg3) {
-        error(msg, new Object[]{arg1, arg2, arg3});
+    default void error(final String format,
+                       final Supplier<?> arg1,
+                       final Supplier<?> arg2,
+                       final Supplier<?> arg3) {
+        error(format, new Object[]{arg1, arg2, arg3});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message at the {@code ERROR} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @param arg4 the forth argument
      */
-    default void error(String msg, Supplier<?> arg1, Supplier<?> arg2, Supplier<?> arg3, Supplier<?> arg4) {
-        error(msg, new Object[]{arg1, arg2, arg3, arg4});
+    default void error(final String format,
+                       final Supplier<?> arg1,
+                       final Supplier<?> arg2,
+                       final Supplier<?> arg3,
+                       final Supplier<?> arg4) {
+        error(format, new Object[]{arg1, arg2, arg3, arg4});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message at the {@code ERROR} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @param arg4 the forth argument
+     * @param arg5 the fifth argument
      */
-    default void error(String msg, Supplier<?> arg1, Supplier<?> arg2, Supplier<?> arg3, Supplier<?> arg4, Supplier<?> arg5) {
-        error(msg, new Object[]{arg1, arg2, arg3, arg4, arg5});
+    default void error(final String format,
+                       final Supplier<?> arg1,
+                       final Supplier<?> arg2,
+                       final Supplier<?> arg3,
+                       final Supplier<?> arg4,
+                       final Supplier<?> arg5) {
+        error(format, new Object[]{arg1, arg2, arg3, arg4, arg5});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message at the {@code ERROR} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param format the format string
+     * @param suppliers the argument suppliers
      */
-    void error(String msg, Object... arguments);
+    void error(String format, Supplier<?>... suppliers);
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message with the throwable at the {@code ERROR} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the argument
      */
-    void error(String msg, Supplier<?>... suppliers);
-
-    /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
-     */
-    default void error(Throwable throwable, String msg, Object arg1) {
-        error(throwable, msg, new Object[]{arg1});
+    default void error(final Throwable throwable,
+                       final String format,
+                       final Object arg1) {
+        error(throwable, format, new Object[]{arg1});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message with the throwable at the {@code ERROR} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
      */
-    default void error(Throwable throwable, String msg, Object arg1, Object arg2) {
-        error(throwable, msg, new Object[]{arg1, arg2});
+    default void error(final Throwable throwable,
+                       final String format,
+                       final Object arg1,
+                       final Object arg2) {
+        error(throwable, format, new Object[]{arg1, arg2});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message with the throwable at the {@code ERROR} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
      */
-    default void error(Throwable throwable, String msg, Object arg1, Object arg2, Object arg3) {
-        error(throwable, msg, new Object[]{arg1, arg2, arg3});
+    default void error(final Throwable throwable,
+                       final String format,
+                       final Object arg1,
+                       final Object arg2,
+                       final Object arg3) {
+        error(throwable, format, new Object[]{arg1, arg2, arg3});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message with the throwable at the {@code ERROR} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @param arg4 the forth argument
      */
-    default void error(Throwable throwable, String msg, Object arg1, Object arg2, Object arg3, Object arg4) {
-        error(throwable, msg, new Object[]{arg1, arg2, arg3, arg4});
+    default void error(final Throwable throwable,
+                       final String format,
+                       final Object arg1,
+                       final Object arg2,
+                       final Object arg3,
+                       final Object arg4) {
+        error(throwable, format, new Object[]{arg1, arg2, arg3, arg4});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message with the throwable at the {@code ERROR} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @param arg4 the forth argument
+     * @param arg5 the fifth argument
      */
-    default void error(Throwable throwable, String msg, Object arg1, Object arg2, Object arg3, Object arg4, Object arg5) {
-        error(throwable, msg, new Object[]{arg1, arg2, arg3, arg4, arg5});
+    default void error(final Throwable throwable,
+                       final String format,
+                       final Object arg1,
+                       final Object arg2,
+                       final Object arg3,
+                       final Object arg4,
+                       final Object arg5) {
+        error(throwable, format, new Object[]{arg1, arg2, arg3, arg4, arg5});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message with the throwable at the {@code ERROR} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arguments the arguments
      */
-    void error(Throwable throwable, String msg, Object... arguments);
+    void error(Throwable throwable, String format, Object... arguments);
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message with the throwable at the {@code ERROR} level according to the specified format and argument.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the argument
      */
-    default void error(Throwable throwable, String msg, Supplier<?> arg1) {
-        error(throwable, msg, new Object[]{arg1});
+    default void error(final Throwable throwable,
+                       final String format,
+                       final Supplier<?> arg1) {
+        error(throwable, format, new Object[]{arg1});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message with the throwable at the {@code ERROR} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
      */
-    default void error(Throwable throwable, String msg, Supplier<?> arg1, Supplier<?> arg2) {
-        error(throwable, msg, new Object[]{arg1, arg2});
+    default void error(final Throwable throwable,
+                       final String format,
+                       final Supplier<?> arg1,
+                       final Supplier<?> arg2) {
+        error(throwable, format, new Object[]{arg1, arg2});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message with the throwable at the {@code ERROR} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
      */
-    default void error(Throwable throwable, String msg, Supplier<?> arg1, Supplier<?> arg2, Supplier<?> arg3) {
-        error(throwable, msg, new Object[]{arg1, arg2, arg3});
+    default void error(final Throwable throwable,
+                       final String format,
+                       final Supplier<?> arg1,
+                       final Supplier<?> arg2,
+                       final Supplier<?> arg3) {
+        error(throwable, format, new Object[]{arg1, arg2, arg3});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message with the throwable at the {@code ERROR} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @param arg4 the forth argument
      */
-    default void error(Throwable throwable, String msg, Supplier<?> arg1, Supplier<?> arg2, Supplier<?> arg3, Supplier<?> arg4) {
-        error(throwable, msg, new Object[]{arg1, arg2, arg3, arg4});
+    default void error(final Throwable throwable,
+                       final String format,
+                       final Supplier<?> arg1,
+                       final Supplier<?> arg2,
+                       final Supplier<?> arg3,
+                       final Supplier<?> arg4) {
+        error(throwable, format, new Object[]{arg1, arg2, arg3, arg4});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message with the throwable at the {@code ERROR} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @param arg4 the forth argument
+     * @param arg5 the fifth argument
      */
-    default void error(Throwable throwable, String msg, Supplier<?> arg1, Supplier<?> arg2, Supplier<?> arg3, Supplier<?> arg4, Supplier<?> arg5) {
-        error(throwable, msg, new Object[]{arg1, arg2, arg3, arg4, arg5});
+    default void error(final Throwable throwable,
+                       final String format,
+                       final Supplier<?> arg1,
+                       final Supplier<?> arg2,
+                       final Supplier<?> arg3,
+                       final Supplier<?> arg4,
+                       final Supplier<?> arg5) {
+        error(throwable, format, new Object[]{arg1, arg2, arg3, arg4, arg5});
     }
 
     /**
-     * This method uses {@link Formats#format(String, Object...) Formats.format} to format logger message
+     * Log the message with the throwable at the {@code ERROR} level according to the specified format and arguments.
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param throwable the throwable
+     * @param format the format string
+     * @param suppliers the suppliers
      */
-    void error(Throwable throwable, String msg, Supplier<?>... suppliers);
+    void error(Throwable throwable, String format, Supplier<?>... suppliers);
 }

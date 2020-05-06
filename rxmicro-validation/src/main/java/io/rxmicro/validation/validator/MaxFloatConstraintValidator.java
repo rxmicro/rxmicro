@@ -20,6 +20,9 @@ import io.rxmicro.validation.ConstraintValidator;
 import io.rxmicro.validation.base.AbstractMaxConstraintValidator;
 
 /**
+ * Validator for the {@link io.rxmicro.validation.constraint.MaxDouble} and the {@link io.rxmicro.validation.constraint.MaxNumber}
+ * constraints
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @see io.rxmicro.validation.constraint.MaxDouble

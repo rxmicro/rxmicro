@@ -69,11 +69,6 @@ public final class RestClientFactoryClassStructure extends ClassStructure {
     }
 
     @Override
-    public List<Map.Entry<String, DefaultConfigProxyValue>> getDefaultConfigProxyValues() {
-        return defaultConfigValues;
-    }
-
-    @Override
     public Map<String, Object> getTemplateVariables() {
         final Map<String, Object> map = new HashMap<>();
         map.put("IMPL_CLASS_NAME", REST_CLIENT_FACTORY_IMPL_CLASS_NAME);
@@ -95,5 +90,10 @@ public final class RestClientFactoryClassStructure extends ClassStructure {
             classHeaderBuilder.addImports(classStructure.getHttpClientConfigFullClassName());
         }
         return classHeaderBuilder.build();
+    }
+
+    @Override
+    public List<Map.Entry<String, DefaultConfigProxyValue>> getDefaultConfigProxyValues() {
+        return defaultConfigValues;
     }
 }

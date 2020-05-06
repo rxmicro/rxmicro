@@ -17,6 +17,8 @@
 package io.rxmicro.validation.base;
 
 /**
+ * Base validator class for date and time constraints
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1
@@ -38,8 +40,15 @@ public class AbstractDateTimeEqualsConstraintValidator {
             TRUNCATED_HOURS
     };
 
-    protected boolean isNotEqualsAfterTruncated(final long expectedDirtyTimeInMillis,
-                                                final long actualClearTimeInMillis) {
+    /**
+     * Returns {@code true} if values are not equals after truncation
+     *
+     * @param expectedDirtyTimeInMillis expected time in millis without truncation
+     * @param actualClearTimeInMillis actual time in millis after truncation
+     * @return {@code true} if values are not equals after truncation
+     */
+    protected boolean isNotEqualsAfterTruncation(final long expectedDirtyTimeInMillis,
+                                                 final long actualClearTimeInMillis) {
         long expectedClearTimeInMillis = expectedDirtyTimeInMillis;
         for (final int characteristic : TRUNCATED_CHARACTERISTICS) {
             if (actualClearTimeInMillis % characteristic == 0) {

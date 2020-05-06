@@ -16,7 +16,7 @@
 
 package io.rxmicro.rest.server.internal.component.impl.error;
 
-import io.rxmicro.common.InvalidBusinessLogicException;
+import io.rxmicro.common.InvalidStateException;
 import io.rxmicro.http.error.RedirectException;
 import io.rxmicro.rest.server.detail.component.HttpResponseBuilder;
 import io.rxmicro.rest.server.detail.model.HttpResponse;
@@ -48,10 +48,8 @@ public final class RedirectHttpResponseBuilder {
         if (th instanceof RedirectException) {
             return build((RedirectException) th);
         } else {
-            throw new InvalidBusinessLogicException(
-                    "Class '?' must extend '?' class!",
-                    th.getClass().getName(),
-                    RedirectException.class.getName()
+            throw new InvalidStateException(
+                    "Class '?' must extend '?' class!", th.getClass().getName(), RedirectException.class.getName()
             );
         }
     }

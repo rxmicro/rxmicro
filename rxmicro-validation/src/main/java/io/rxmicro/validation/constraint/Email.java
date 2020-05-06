@@ -18,7 +18,7 @@ package io.rxmicro.validation.constraint;
 
 import io.rxmicro.common.meta.ReadMore;
 import io.rxmicro.validation.base.ConstraintRule;
-import io.rxmicro.validation.base.SelfDocumented;
+import io.rxmicro.validation.internal.SelfDocumented;
 import io.rxmicro.validation.validator.EmailConstraintValidator;
 
 import java.lang.annotation.Documented;
@@ -32,8 +32,8 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
  * The annotated element must be a well-formed email address.
- *
- * Valid email format: ${username}@${domain}, so example of valid email with min length is: a@b
+ * <p>
+ * Valid email format: <code>${prefix}@${domain}</code>
  *
  * @author nedis
  * @link https://rxmicro.io
@@ -59,17 +59,17 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 public @interface Email {
 
     /**
-     * Allows to disable validation rule if validation inherited from super class.
+     * Allows disabling the validation rule if this rule is inherited from super class. <p>
      * By default, disable is off
      *
      * @return  {@code true} if the validation must be disabled,
-     *          {@code false} otherwise
      */
     boolean off() default false;
 
     /**
-     * @return  {@code true} if validation message must contains error details
-     *          {@code false} otherwise
+     * Returns {@code true} if validation message must contains error details
+     *
+     * @return {@code true} if validation message must contains error details
      */
     boolean errorWithDetails() default false;
 }

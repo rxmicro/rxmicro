@@ -28,7 +28,9 @@ import static java.lang.annotation.ElementType.MODULE;
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
- * The full name and email of the project author
+ * Denotes the author of the generated REST-based microservice documentation.
+ * <p>
+ * (<i>Allows overriding the author specified in the developer directive to pom.xml</i>)
  *
  * @author nedis
  * @link https://rxmicro.io
@@ -40,12 +42,22 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 @Repeatable(Author.List.class)
 public @interface Author {
 
+    /**
+     * Returns the author name
+     *
+     * @return the author name
+     */
     String name() default DEFAULT_AUTHOR;
 
+    /**
+     * Returns the author email
+     *
+     * @return the author email
+     */
     String email() default DEFAULT_EMAIL;
 
     /**
-     * Defines several authors per project.
+     * Defines several {@link Author} annotations on the same element.
      *
      * @author nedis
      * @link https://rxmicro.io
@@ -56,6 +68,11 @@ public @interface Author {
     @Target({MODULE, ANNOTATION_TYPE})
     @interface List {
 
+        /**
+         * Returns the several {@link Author} annotations on the same element.
+         *
+         * @return the several {@link Author} annotations on the same element.
+         */
         Author[] value();
     }
 }

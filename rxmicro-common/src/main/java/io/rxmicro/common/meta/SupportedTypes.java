@@ -24,7 +24,7 @@ import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
- * Defines java types which can be used for class field annotated by owner annotation
+ * Defines java types which can be used for class field annotated by owner annotation.
  *
  * @author nedis
  * @link https://rxmicro.io
@@ -35,5 +35,10 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Target(ANNOTATION_TYPE)
 public @interface SupportedTypes {
 
+    /**
+     * Returns the array of supported types
+     *
+     * @return the array of supported types
+     */
     Class<?>[] value() default {};
 }

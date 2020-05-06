@@ -39,12 +39,16 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 public @interface AddQueryParameter {
 
     /**
-     * @return static query parameter name
+     * Returns the static query parameter name
+     *
+     * @return the static query parameter name
      */
     String name();
 
     /**
-     * @return static query parameter value
+     * Returns the static query parameter value
+     *
+     * @return the static query parameter value
      */
     String value();
 
@@ -60,6 +64,11 @@ public @interface AddQueryParameter {
     @Target({TYPE, METHOD})
     @interface List {
 
+        /**
+         * Returns the several {@link AddQueryParameter} annotations on the same element.
+         *
+         * @return the several {@link AddQueryParameter} annotations on the same element.
+         */
         AddQueryParameter[] value();
     }
 }

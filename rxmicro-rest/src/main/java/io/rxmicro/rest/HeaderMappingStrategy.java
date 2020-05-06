@@ -28,9 +28,29 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
  * Declares a strategy of header name formation based on Java model field name analysis.
- *
- * By default, the CAPITALIZE_WITH_HYPHEN strategy is used.
+ * <p>
+ * By default, the {@link MappingStrategy#CAPITALIZE_WITH_HYPHEN} strategy is used.
  * Thus, by using this strategy, the {@code 'Header-Name'} name header corresponds to the {@code 'headerName'} field name.
+ * <p>
+ * The RxMicro framework uses the following algorithm to define the HTTP header name for the specified model field:
+ * <ol>
+ *     <li>
+ *          If the field is annotated by the {@link Header} annotation with an explicit indication of the HTTP header name,
+ *          the specified name is used.
+ *     </li>
+ *     <li>
+ *          If no HTTP header name is specified in the {@link Header} annotation, the RxMicro framework checks for the
+ *          {@link HeaderMappingStrategy} annotation above the model class.
+ *     </li>
+ *     <li>
+ *          If the model class is annotated by the {@link HeaderMappingStrategy} annotation, then the specified naming strategy is used.
+ *          (The field name is used as the basic name, and then, following the rules of the specified strategy,
+ *          the HTTP header name is generated.)
+ *     </li>
+ *     <li>
+ *          If the {@link HeaderMappingStrategy} annotation is missing, the model class field name is used as the HTTP header name.
+ *     </li>
+ * </ol>
  *
  * @author nedis
  * @link https://rxmicro.io
@@ -42,10 +62,11 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 public @interface HeaderMappingStrategy {
 
     /**
-     * By default, the CAPITALIZE_WITH_HYPHEN strategy is used.
+     * By default, the {@link MappingStrategy#CAPITALIZE_WITH_HYPHEN} strategy is used.
+     * <p>
      * Thus, by using this strategy, the {@code 'Header-Name'} name header corresponds to the {@code 'headerName'} field name.
      *
-     * @return mapping strategy
+     * @return the mapping strategy
      */
     MappingStrategy value() default MappingStrategy.CAPITALIZE_WITH_HYPHEN;
 }

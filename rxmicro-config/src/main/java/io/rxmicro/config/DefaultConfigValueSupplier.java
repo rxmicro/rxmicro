@@ -28,9 +28,22 @@ import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
+ * Allows overriding a default value for config property.
+ * <p>
+ * Configuration using java classes similar to configuration using java annotations.
+ * The main difference between configuring with annotations and configuring with Java classes is support of the settings inheritance and
+ * overriding. In other words, when using configuration via annotations, the RxMicro can also read other configuration sources.
+ * When using configuration via Java classes, other configuration sources are always ignored.
+ * <p>
+ * Please, pay attention when overriding the default value with the annotations!
+ * If You make a mistake when specifying a setting name (this refers to the namespace and field name),
+ * no error will occur upon starting! The overridden value will be simply ignored!
+ * <p>
+ * If it is necessary to override a simple value, {@link DefaultConfigValue} annotation must be used instead.
+ *
  * @author nedis
  * @link https://rxmicro.io
- * @since 0.1
+ * @since 0.3
  */
 @Documented
 @Retention(SOURCE)
@@ -38,10 +51,34 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 @Repeatable(DefaultConfigValueSupplier.List.class)
 public @interface DefaultConfigValueSupplier {
 
+    /**
+     * When overriding the configuration value, it is necessary to specify the configuration class.
+     * <p>
+     * If the configuration class is specified, the namespace may not be specified.
+     * <p>
+     * See {@link DefaultConfigValue#name()}.
+     * <p>
+     * (It means the field of the specified configuration class.)
+     *
+     * @return the config class
+     */
     Class<? extends Config> configClass() default Config.class;
 
+    /**
+     * If no configuration class is specified, the name must contain a namespace.
+     * <p>
+     * (The namespace allows You to clearly define to which configuration class the specified setting belongs.)
+     *
+     * @return the property name without namespace if {@link DefaultConfigValue#configClass()} is specified
+     *         or the property name with required namespace if {@link DefaultConfigValue#configClass()} is not set
+     */
     String name();
 
+    /**
+     * Returns the supplier class instance of which generate default value
+     *
+     * @return the supplier class instance of which generate default value
+     */
     Class<? extends Supplier<?>> supplier();
 
     /**
@@ -49,13 +86,18 @@ public @interface DefaultConfigValueSupplier {
      *
      * @author nedis
      * @link https://rxmicro.io
-     * @since 0.1
+     * @since 0.3
      */
     @Documented
     @Retention(SOURCE)
     @Target({TYPE, MODULE, ANNOTATION_TYPE})
     @interface List {
 
+        /**
+         * Returns the several {@link DefaultConfigValueSupplier} annotations on the same element.
+         *
+         * @return the several {@link DefaultConfigValueSupplier} annotations on the same element.
+         */
         DefaultConfigValueSupplier[] value();
     }
 }

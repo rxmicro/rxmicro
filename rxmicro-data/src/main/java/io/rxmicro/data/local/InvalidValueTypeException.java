@@ -16,7 +16,6 @@
 
 package io.rxmicro.data.local;
 
-import io.rxmicro.common.util.Formats;
 import io.rxmicro.data.DataException;
 
 /**
@@ -26,9 +25,6 @@ import io.rxmicro.data.DataException;
  */
 public final class InvalidValueTypeException extends DataException {
 
-    /**
-     * This constructor uses {@link Formats#format(String, Object...) Formats.format} to format error message
-     */
     public InvalidValueTypeException(final String message,
                                      final Object... args) {
         super(message, args);

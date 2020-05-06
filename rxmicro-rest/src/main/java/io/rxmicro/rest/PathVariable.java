@@ -26,7 +26,25 @@ import static java.lang.annotation.ElementType.PARAMETER;
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
- * Maps HTTP path variable to annotated class field
+ * Maps HTTP path variable to annotated class field.
+ * <p>
+ * The RxMicro framework supports the following Java types, which can be path variables of the request model:
+ * <ul>
+ *     <li>? extends {@link Enum}&lt;?&gt</li>
+ *     <li>{@link Boolean}</li>
+ *     <li>{@link Byte}</li>
+ *     <li>{@link Short}</li>
+ *     <li>{@link Integer}</li>
+ *     <li>{@link Long}</li>
+ *     <li>{@link java.math.BigInteger}</li>
+ *     <li>{@link Float}</li>
+ *     <li>{@link Double}</li>
+ *     <li>{@link java.math.BigDecimal}</li>
+ *     <li>{@link Character}</li>
+ *     <li>{@link String}</li>
+ *     <li>{@link java.time.Instant}</li>
+ *     <li>{@link java.util.List}&lt;PRIMITIVE&gt</li>
+ * </ul>
  *
  * @author nedis
  * @link https://rxmicro.io
@@ -40,7 +58,7 @@ public @interface PathVariable {
     /**
      * By default, HTTP path variable name equals to field name
      *
-     * @return HTTP path variable
+     * @return the HTTP path variable
      */
     String value() default "";
 }

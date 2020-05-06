@@ -19,6 +19,8 @@ package io.rxmicro.http.error;
 import io.rxmicro.common.util.Formats;
 
 /**
+ * A class signaling that an internal error has occurred during execution.
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1
@@ -27,18 +29,48 @@ public final class InternalHttpErrorException extends HttpErrorException {
 
     public static final int STATUS_CODE = 500;
 
+    /**
+     * Creates an internal HTTP error with error message.
+     * <p>
+     * For all child classes which extend the HttpErrorException class, when creating an exception instance the stack trace is not filled,
+     * as this information is redundant.
+     * <p>
+     * (<i>This behavior is achieved by using the {@link RuntimeException#RuntimeException(String, Throwable, boolean, boolean)}.</i>)
+     *
+     * @param message the error message
+     * @throws NullPointerException if {@code message} is {@code null}
+     */
     public InternalHttpErrorException(final String message) {
         super(STATUS_CODE, message);
     }
 
     /**
-     * This constructor uses {@link Formats#format(String, Object...) Formats.format} to format error message
+     * Creates an internal HTTP error with error message.
+     * <p>
+     * For all child classes which extend the HttpErrorException class, when creating an exception instance the stack trace is not filled,
+     * as this information is redundant.
+     * <p>
+     * (<i>This behavior is achieved by using the {@link RuntimeException#RuntimeException(String, Throwable, boolean, boolean)}.</i>)
+     * <p>
+     * <i>(FYI: This constructor uses {@link Formats#format(String, Object...)} method to format error message.)</i>
+     *
+     * @param message the error message template
+     * @param args the error message template argument
+     * @throws NullPointerException if {@code message} is {@code null}
      */
     public InternalHttpErrorException(final String message,
                                       final Object... args) {
         super(STATUS_CODE, message, args);
     }
 
+    /**
+     * Creates an internal HTTP error without error message.
+     * <p>
+     * For all child classes which extend the HttpErrorException class, when creating an exception instance the stack trace is not filled,
+     * as this information is redundant.
+     * <p>
+     * (<i>This behavior is achieved by using the {@link RuntimeException#RuntimeException(String, Throwable, boolean, boolean)}.</i>)
+     */
     public InternalHttpErrorException() {
         super(STATUS_CODE);
     }

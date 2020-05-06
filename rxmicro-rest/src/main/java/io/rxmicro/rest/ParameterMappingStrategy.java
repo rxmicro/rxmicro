@@ -28,9 +28,29 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
  * Declares a strategy of parameter name formation based on Java model field name analysis.
- *
- * By default, the LOWERCASE_WITH_UNDERSCORED strategy is used.
+ * <p>
+ * By default, the {@link MappingStrategy#LOWERCASE_WITH_UNDERSCORED} strategy is used.
  * Thus, by using this strategy, the {@code header_name} name header corresponds to the {@code headerName} field name.
+ * <p>
+ * The RxMicro framework uses the following algorithm to define the HTTP parameter name for the specified model field:
+ * <ul>
+ *     <li>
+ *         If the field is annotated by the {@link Parameter} annotation with an explicit indication of the HTTP parameter name,
+ *         the specified name is used.
+ *     </li>
+ *     <li>
+ *         If no HTTP parameter name is specified in the {@link Parameter} annotation, the RxMicro framework checks for the
+ *         {@link ParameterMappingStrategy} annotation above the model class.
+ *     </li>
+ *     <li>
+ *         If the model class is annotated by the  {@link ParameterMappingStrategy} annotation, then the specified naming strategy is used.
+ *         (The field name is used as the basic name, and then, following the rules of the specified strategy,
+ *         the HTTP parameter name is generated.)
+ *     </li>
+ *     <li>
+ *         If the {@link ParameterMappingStrategy} annotation is missing, the model class field name is used as the HTTP parameter name.
+ *     </li>
+ * </ul>
  *
  * @author nedis
  * @link https://rxmicro.io
@@ -42,10 +62,11 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 public @interface ParameterMappingStrategy {
 
     /**
-     * By default, the LOWERCASE_WITH_UNDERSCORED strategy is used.
+     * By default, the {@link MappingStrategy#LOWERCASE_WITH_UNDERSCORED} strategy is used.
+     * <p>
      * Thus, by using this strategy, the {@code header_name} name header corresponds to the {@code headerName} field name.
      *
-     * @return mapping strategy
+     * @return the mapping strategy
      */
     MappingStrategy value() default MappingStrategy.LOWERCASE_WITH_UNDERSCORED;
 }

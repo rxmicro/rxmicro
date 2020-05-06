@@ -22,12 +22,19 @@ import java.util.function.BiConsumer;
 import static io.rxmicro.common.local.TestLoggers.logTestMessage;
 
 /**
+ * TODO
+ *
  * @author nedis
  * @link https://rxmicro.io
  * @since 0.1
  */
 public abstract class UnNamedModuleFixer {
 
+    /**
+     * Adds missing exports or opens for the current {@link Module}
+     *
+     * @param unNamedModule the reference to the unnamed {@link Module}
+     */
     public abstract void fix(Module unNamedModule);
 
     protected final void addOpens(final Module currentModule,
