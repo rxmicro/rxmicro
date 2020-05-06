@@ -60,8 +60,14 @@ public @interface HostName {
      * Allows to disable validation rule if validation inherited from super class.
      * By default, disable is off
      *
-     * @return {@code true} if the validation must be disabled,
-     * {@code false} otherwise
+     * @return  {@code true} if the validation must be disabled,
+     *          {@code false} otherwise
      */
     boolean off() default false;
+
+    /**
+     * @return  {@code true} if validation message must contains error details
+     *          {@code false} otherwise
+     */
+    boolean errorWithDetails() default false;
 }

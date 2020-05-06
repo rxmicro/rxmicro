@@ -19,7 +19,7 @@ package io.rxmicro.validation.constraint;
 import io.rxmicro.common.meta.ReadMore;
 import io.rxmicro.validation.base.ConstraintRule;
 import io.rxmicro.validation.base.SelfDocumented;
-import io.rxmicro.validation.validator.EmailConstraintValidator;
+import io.rxmicro.validation.validator.DomainNameConstraintValidator;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
@@ -31,13 +31,12 @@ import static java.lang.annotation.ElementType.PARAMETER;
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
- * The annotated element must be a well-formed email address.
- *
- * Valid email format: ${username}@${domain}, so example of valid email with min length is: a@b
+ * The annotated element must be a valid domain name.
  *
  * @author nedis
  * @link https://rxmicro.io
- * @see EmailConstraintValidator
+ * @see HostName
+ * @see DomainNameConstraintValidator
  * @since 0.1
  */
 @Documented
@@ -48,15 +47,15 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
                 String.class
         },
         validatorClass = {
-                EmailConstraintValidator.class
+                DomainNameConstraintValidator.class
         }
 )
 @SelfDocumented
 @ReadMore(
-        caption = "What is email format?",
-        link = "https://tools.ietf.org/html/rfc5322#section-3.4.1"
+        caption = "What is domain name format?",
+        link = "https://tools.ietf.org/html/rfc1034#section-3.1"
 )
-public @interface Email {
+public @interface DomainName {
 
     /**
      * Allows to disable validation rule if validation inherited from super class.

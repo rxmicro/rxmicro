@@ -23,6 +23,7 @@ import io.rxmicro.common.meta.ReadMore;
 import io.rxmicro.validation.constraint.Base64URLEncoded;
 import io.rxmicro.validation.constraint.CountryCode;
 import io.rxmicro.validation.constraint.DigitsOnly;
+import io.rxmicro.validation.constraint.DomainName;
 import io.rxmicro.validation.constraint.Email;
 import io.rxmicro.validation.constraint.HostName;
 import io.rxmicro.validation.constraint.IP;
@@ -94,6 +95,12 @@ public final class StringPrimitiveConstraintReader implements ConstraintReader {
             restrictions.add("format: hostname");
             descriptionBuilder.append("Well-formed hostname");
             getReadMore(HostName.class).ifPresent(readMores::add);
+        }
+        final DomainName domainName = annotated.getAnnotation(DomainName.class);
+        if (domainName != null && !domainName.off()) {
+            restrictions.add("format: domainName");
+            descriptionBuilder.append("Well-formed domainName");
+            getReadMore(DomainName.class).ifPresent(readMores::add);
         }
         final IP ip = annotated.getAnnotation(IP.class);
         if (ip != null && !ip.off()) {

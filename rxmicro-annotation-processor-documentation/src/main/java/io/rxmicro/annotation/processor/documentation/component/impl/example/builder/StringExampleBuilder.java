@@ -23,6 +23,7 @@ import io.rxmicro.rest.RequestId;
 import io.rxmicro.validation.constraint.Base64URLEncoded;
 import io.rxmicro.validation.constraint.CountryCode;
 import io.rxmicro.validation.constraint.DigitsOnly;
+import io.rxmicro.validation.constraint.DomainName;
 import io.rxmicro.validation.constraint.Email;
 import io.rxmicro.validation.constraint.HostName;
 import io.rxmicro.validation.constraint.IP;
@@ -80,6 +81,10 @@ public final class StringExampleBuilder implements TypeExampleBuilder {
         }
         final HostName hostName = restModelField.getAnnotation(HostName.class);
         if (hostName != null && !hostName.off()) {
+            return "rxmicro.io";
+        }
+        final DomainName domainName = restModelField.getAnnotation(DomainName.class);
+        if (domainName != null && !domainName.off()) {
             return "rxmicro.io";
         }
         final IP ip = restModelField.getAnnotation(IP.class);

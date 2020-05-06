@@ -22,6 +22,7 @@ import io.rxmicro.annotation.processor.common.model.ModelField;
 import io.rxmicro.annotation.processor.common.model.type.EnumModelClass;
 import io.rxmicro.annotation.processor.documentation.component.JsonAttributesReader;
 import io.rxmicro.json.JsonObjectBuilder;
+import io.rxmicro.validation.constraint.DomainName;
 import io.rxmicro.validation.constraint.Email;
 import io.rxmicro.validation.constraint.Enumeration;
 import io.rxmicro.validation.constraint.HostName;
@@ -99,6 +100,8 @@ public final class JsonAttributesReaderImpl implements JsonAttributesReader {
     private static final String URL_ENCODED = "url-encoded";
 
     private static final String HOSTNAME = "hostname";
+
+    private static final String DOMAIN_NAME = "domainName";
 
     private static final String DATE_TIME = "date-time";
 
@@ -195,6 +198,10 @@ public final class JsonAttributesReaderImpl implements JsonAttributesReader {
         final HostName hostName = modelField.getAnnotation(HostName.class);
         if (hostName != null) {
             builder.put(FORMAT, HOSTNAME);
+        }
+        final DomainName domainName = modelField.getAnnotation(DomainName.class);
+        if (domainName != null) {
+            builder.put(FORMAT, DOMAIN_NAME);
         }
     }
 

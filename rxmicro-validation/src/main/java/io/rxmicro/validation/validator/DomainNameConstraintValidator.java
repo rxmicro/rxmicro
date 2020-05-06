@@ -19,23 +19,23 @@ package io.rxmicro.validation.validator;
 /**
  * @author nedis
  * @link https://rxmicro.io
- * @see io.rxmicro.validation.constraint.HostName
+ * @see io.rxmicro.validation.constraint.DomainName
  * @since 0.4
  */
-public final class HostNameConstraintValidator extends AbstractDomainOrHostNameConstraintValidator{
+public final class DomainNameConstraintValidator extends AbstractDomainOrHostNameConstraintValidator{
 
-    private static final String NAME = "hostname";
+    private static final String NAME = "domain name";
 
-    public static final String HOSTNAME_RULE =
-            "Hostname must contains letters [a-z] or [A-Z], digits [0-9], underscores, periods, and dashes only!";
+    public static final String DOMAIN_RULE =
+            "Domain name must contains letters [a-z] or [A-Z], digits [0-9], underscores, periods, and dashes only!";
 
-    public HostNameConstraintValidator(final boolean errorWithDetails) {
+    public DomainNameConstraintValidator(final boolean errorWithDetails) {
         super(errorWithDetails);
     }
 
     @Override
     protected String getRule() {
-        return HOSTNAME_RULE;
+        return DOMAIN_RULE;
     }
 
     @Override
