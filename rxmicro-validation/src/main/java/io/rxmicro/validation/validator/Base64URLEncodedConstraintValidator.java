@@ -21,6 +21,13 @@ import io.rxmicro.rest.model.HttpModelType;
 import io.rxmicro.validation.ConstraintValidator;
 import io.rxmicro.validation.constraint.Base64URLEncoded;
 
+import java.util.Set;
+import java.util.TreeSet;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import static io.rxmicro.validation.base.ConstraintUtils.getLatinLettersAndDigits;
+
 /**
  * @author nedis
  * @link https://rxmicro.io
@@ -29,27 +36,27 @@ import io.rxmicro.validation.constraint.Base64URLEncoded;
  */
 public class Base64URLEncodedConstraintValidator implements ConstraintValidator<String> {
 
-    private static final String BASIC_ALPHABET = new String(new char[]{
-            'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
-            'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
-            'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
-            'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
-            '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'
-    });
-
     /**
      * This array is a lookup table that translates 6-bit positive integer
      * index values into their "Base64 Alphabet" equivalents as specified
      * in "Table 1: The Base64 Alphabet" of RFC 2045 (and RFC 4648).
      */
-    private static final String ALPHABET_BASE = BASIC_ALPHABET + new String(new char[]{'+', '/'});
+    private static final Set<Character> ALPHABET_BASE =
+            Stream.concat(
+                    getLatinLettersAndDigits().stream(),
+                    Stream.of('+', '/')
+            ).collect(Collectors.toUnmodifiableSet());
 
     /**
      * It's the lookup table for "URL and Filename safe Base64" as specified
      * in Table 2 of the RFC 4648, with the '+' and '/' changed to '-' and
      * '_'. This table is used when BASE64_URL is specified.
      */
-    private static final String ALPHABET_URL = BASIC_ALPHABET + new String(new char[]{'-', '_'});
+    private static final Set<Character> ALPHABET_URL =
+            Stream.concat(
+                    getLatinLettersAndDigits().stream(),
+                    Stream.of('-', '_')
+            ).collect(Collectors.toUnmodifiableSet());
 
     private final Base64URLEncoded.Alphabet alphabet;
 
@@ -73,14 +80,14 @@ public class Base64URLEncodedConstraintValidator implements ConstraintValidator<
     private void validate(final CharSequence value,
                           final HttpModelType httpModelType,
                           final String fieldName,
-                          final String alphabet) {
+                          final Set<Character> alphabet) {
         for (int i = 0; i < value.length(); i++) {
             final char ch = value.charAt(i);
-            if (alphabet.indexOf(ch) == -1) {
+            if (!alphabet.contains(ch)) {
                 throw new ValidationException("Invalid ? \"?\": Expected a valid Base64 string, i.e. " +
                         "string which contains the following characters only [?], " +
                         "but actual value contains invalid character: '?'!",
-                        httpModelType, fieldName, alphabet, ch);
+                        httpModelType, fieldName, new TreeSet<>(alphabet), ch);
             }
         }
     }

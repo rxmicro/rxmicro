@@ -21,9 +21,12 @@ import io.rxmicro.rest.model.HttpModelType;
 import io.rxmicro.validation.ConstraintValidator;
 
 import java.util.Set;
+import java.util.stream.Stream;
 
 import static io.rxmicro.common.util.Formats.format;
+import static io.rxmicro.validation.base.ConstraintUtils.getLatinLettersAndDigits;
 import static io.rxmicro.validation.validator.DomainNameConstraintValidator.DOMAIN_RULE;
+import static java.util.stream.Collectors.toUnmodifiableSet;
 
 /**
  * @author nedis
@@ -34,24 +37,20 @@ import static io.rxmicro.validation.validator.DomainNameConstraintValidator.DOMA
 public final class EmailConstraintValidator implements ConstraintValidator<String> {
 
     public static final String EMAIL_PREFIX_RULE =
-            "Prefix must contains letters [a-z] or [A-Z], digits [0-9], underscores, periods, and dashes only!";
-
-    private static final Set<Character> ALLOWED_PREFIX_CHARACTERS = Set.of(
-            //  [a-z]
-            'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
-            'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
-            // [A-Z]
-            'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
-            'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
-            // [0-9]
-            '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
-            // underscores, periods, and dashes
-            '-', '.', '_',
-            // apostrophe and plus
-            '\'', '+'
-    );
+            "Prefix must contains letters [a-z] or [A-Z], digits [0-9], underscores, periods, dashes, apostrophe and plus only!";
 
     public static final String EMAIL_DOMAIN_RULE = DOMAIN_RULE;
+
+    private static final Set<Character> ALLOWED_PREFIX_CHARACTERS =
+            Stream.concat(
+                    getLatinLettersAndDigits().stream(),
+                    Stream.of(
+                            // underscores, periods, and dashes
+                            '-', '.', '_',
+                            // apostrophe and plus
+                            '\'', '+'
+                    )
+            ).collect(toUnmodifiableSet());
 
     private final boolean errorWithDetails;
 
@@ -67,40 +66,38 @@ public final class EmailConstraintValidator implements ConstraintValidator<Strin
                          final HttpModelType httpModelType,
                          final String modelName) {
         if (actual != null) {
-            boolean atSignFound = false;
-            final int lastIndex = actual.length() - 1;
-            for (int i = 0; i <= lastIndex; i++) {
-                final char ch = actual.charAt(i);
-                if (ch == '@') {
-                    validatePrefix(actual, httpModelType, modelName, lastIndex, i, ch);
-                    atSignFound = true;
-                    break;
-                } else if (!ALLOWED_PREFIX_CHARACTERS.contains(ch)) {
-                    final String details = format("Unsupported prefix character: '?'. ?", ch, EMAIL_PREFIX_RULE);
-                    throwException(httpModelType, modelName, details);
-                } else if (ch == '.' || ch == '-' || ch == '_' || ch == '\'' || ch == '+') {
-                    if (i == 0) {
-                        throwException(httpModelType, modelName, format("Prefix can't start with '?'!", ch));
-                    } else {
-                        final char prev = actual.charAt(i - 1);
-                        if (prev == '.' || prev == '-' || prev == '_' || prev == '\'' || prev == '+') {
-                            throwException(httpModelType, modelName, format(";Prefix contains redundant character: '?'!", ch));
-                        }
-                    }
-                }
-            }
-            if (!atSignFound) {
-                throwException(httpModelType, modelName, "Missing '@'!");
-            }
+            validateActual(actual, httpModelType, modelName);
         }
     }
 
-    private void validatePrefix(final String actual,
+    private void validateActual(final String actual,
                                 final HttpModelType httpModelType,
-                                final String modelName,
-                                final int lastIndex,
-                                final int index,
-                                final char ch) {
+                                final String modelName) {
+        boolean atSignDelimiterFound = false;
+        final int lastIndex = actual.length() - 1;
+        for (int i = 0; i <= lastIndex; i++) {
+            final char ch = actual.charAt(i);
+            if (ch == '@') {
+                validatePrefixAndDomain(actual, httpModelType, modelName, lastIndex, i);
+                atSignDelimiterFound = true;
+                break;
+            } else if (!ALLOWED_PREFIX_CHARACTERS.contains(ch)) {
+                final String details = format("Unsupported prefix character: '?'. ?", ch, EMAIL_PREFIX_RULE);
+                throwException(httpModelType, modelName, details);
+            } else if (ch == '.' || ch == '-' || ch == '_' || ch == '\'' || ch == '+') {
+                validateDelimiters(actual, httpModelType, modelName, i, ch);
+            }
+        }
+        if (!atSignDelimiterFound) {
+            throwException(httpModelType, modelName, "Missing '@'!");
+        }
+    }
+
+    private void validatePrefixAndDomain(final String actual,
+                                         final HttpModelType httpModelType,
+                                         final String modelName,
+                                         final int lastIndex,
+                                         final int index) {
         if (index == 0) {
             throwException(httpModelType, modelName, "Missing prefix!");
         } else if (index == lastIndex) {
@@ -108,9 +105,24 @@ public final class EmailConstraintValidator implements ConstraintValidator<Strin
         } else {
             final char prev = actual.charAt(index - 1);
             if (prev == '.' || prev == '_' || prev == '-' || prev == '\'' || prev == '+') {
-                throwException(httpModelType, modelName, format("Prefix can't end with '?'!", ch));
+                throwException(httpModelType, modelName, format("Prefix can't end with '?'!", prev));
             } else {
                 domainNameConstraintValidator.validate(actual.substring(index + 1), httpModelType, modelName);
+            }
+        }
+    }
+
+    private void validateDelimiters(final String actual,
+                                    final HttpModelType httpModelType,
+                                    final String modelName,
+                                    final int index,
+                                    final char ch) {
+        if (index == 0) {
+            throwException(httpModelType, modelName, format("Prefix can't start with '?'!", ch));
+        } else {
+            final char prev = actual.charAt(index - 1);
+            if (prev == '.' || prev == '-' || prev == '_' || prev == '\'' || prev == '+') {
+                throwException(httpModelType, modelName, format("Prefix contains redundant character: '?'!", ch));
             }
         }
     }
@@ -120,7 +132,7 @@ public final class EmailConstraintValidator implements ConstraintValidator<Strin
                                 final String details) {
         final String errorMessage;
         if (errorWithDetails) {
-            errorMessage = format("Invalid ? \"?\": Expected a valid email format: ?", httpModelType, modelName, details);
+            errorMessage = format("Invalid ? \"?\": ?", httpModelType, modelName, details);
         } else {
             errorMessage = format("Invalid ? \"?\": Expected a valid email format!", httpModelType, modelName);
         }

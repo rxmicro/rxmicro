@@ -21,8 +21,11 @@ import io.rxmicro.rest.model.HttpModelType;
 import io.rxmicro.validation.ConstraintValidator;
 
 import java.util.Set;
+import java.util.stream.Stream;
 
 import static io.rxmicro.common.util.Formats.format;
+import static io.rxmicro.validation.base.ConstraintUtils.getLatinLettersAndDigits;
+import static java.util.stream.Collectors.toUnmodifiableSet;
 
 /**
  * @author nedis
@@ -31,18 +34,12 @@ import static io.rxmicro.common.util.Formats.format;
  */
 public abstract class AbstractDomainOrHostNameConstraintValidator implements ConstraintValidator<String> {
 
-    private static final Set<Character> ALLOWED_CHARACTERS = Set.of(
-            //  [a-z]
-            'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
-            'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
-            // [A-Z]
-            'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
-            'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
-            // [0-9]
-            '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
-            // underscores, periods, and dashes
-            '-', '.', '_'
-    );
+    private static final Set<Character> ALLOWED_CHARACTERS =
+            Stream.concat(
+                    getLatinLettersAndDigits().stream(),
+                    // underscores, periods, and dashes
+                    Stream.of('-', '.', '_')
+            ).collect(toUnmodifiableSet());
 
     private final boolean errorWithDetails;
 
@@ -59,25 +56,31 @@ public abstract class AbstractDomainOrHostNameConstraintValidator implements Con
                                final HttpModelType httpModelType,
                                final String modelName) {
         if (actual != null) {
-            int lastPeriodIndex = -1;
-            final int lastIndex = actual.length() - 1;
-            for (int i = 0; i <= lastIndex; i++) {
-                final char ch = actual.charAt(i);
-                if (!ALLOWED_CHARACTERS.contains(ch)) {
-                    final String details = format("Unsupported domain name character: '?'. ?", ch, getRule());
-                    throwException(httpModelType, modelName, details);
-                } else if (ch == '.' || ch == '-' || ch == '_') {
-                    if (ch == '.') {
-                        lastPeriodIndex = i;
-                    }
-                    validateDelimiterCharacters(actual, httpModelType, modelName, lastIndex, i, ch);
-                }
+            validateActual(actual, httpModelType, modelName);
+        }
+    }
+
+    private void validateActual(final String actual,
+                                final HttpModelType httpModelType,
+                                final String modelName) {
+        int lastPeriodIndex = -1;
+        final int lastIndex = actual.length() - 1;
+        for (int i = 0; i <= lastIndex; i++) {
+            final char ch = actual.charAt(i);
+            if (!ALLOWED_CHARACTERS.contains(ch)) {
+                final String details = format("Unsupported domain name character: '?'. ?", ch, getRule());
+                throwException(httpModelType, modelName, details);
+            } else if (ch == '.') {
+                lastPeriodIndex = i;
+                validateDelimiterCharacters(actual, httpModelType, modelName, lastIndex, i, ch);
+            } else if (ch == '-' || ch == '_') {
+                validateDelimiterCharacters(actual, httpModelType, modelName, lastIndex, i, ch);
             }
-            if (lastPeriodIndex == -1) {
-                throwException(httpModelType, modelName, "Domain name must contain at least two levels!");
-            } else if (lastIndex - lastPeriodIndex < 2) {
-                throwException(httpModelType, modelName, "The last portion of the domain name must be at least two characters!");
-            }
+        }
+        if (lastPeriodIndex == -1) {
+            throwException(httpModelType, modelName, "Domain name must contain at least two levels!");
+        } else if (lastIndex - lastPeriodIndex < 2) {
+            throwException(httpModelType, modelName, "The last portion of the domain name must be at least two characters!");
         }
     }
 
@@ -104,7 +107,7 @@ public abstract class AbstractDomainOrHostNameConstraintValidator implements Con
                                 final String details) {
         final String errorMessage;
         if (errorWithDetails) {
-            errorMessage = format("Invalid ? \"?\": Expected a valid ?: ?", httpModelType, modelName, getName(), details);
+            errorMessage = format("Invalid ? \"?\": ?", httpModelType, modelName, details);
         } else {
             errorMessage = format("Invalid ? \"?\": Expected a valid ?!", httpModelType, modelName, getName());
         }

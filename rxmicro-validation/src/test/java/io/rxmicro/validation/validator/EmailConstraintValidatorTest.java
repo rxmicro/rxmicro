@@ -53,7 +53,7 @@ final class EmailConstraintValidatorTest {
             "alice+one@example.com",
             "alice+two@example.com"
     })
-    void Should_resolve_emails_as_valid_ones(final String email){
+    void Should_resolve_emails_as_valid_ones(final String email) {
         assertDoesNotThrow(() -> validator.validate(email, PARAMETER, "email"));
     }
 

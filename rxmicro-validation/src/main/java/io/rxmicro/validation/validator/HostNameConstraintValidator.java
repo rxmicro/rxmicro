@@ -22,12 +22,12 @@ package io.rxmicro.validation.validator;
  * @see io.rxmicro.validation.constraint.HostName
  * @since 0.4
  */
-public final class HostNameConstraintValidator extends AbstractDomainOrHostNameConstraintValidator{
-
-    private static final String NAME = "hostname";
+public final class HostNameConstraintValidator extends AbstractDomainOrHostNameConstraintValidator {
 
     public static final String HOSTNAME_RULE =
             "Hostname must contains letters [a-z] or [A-Z], digits [0-9], underscores, periods, and dashes only!";
+
+    private static final String NAME = "hostname";
 
     public HostNameConstraintValidator(final boolean errorWithDetails) {
         super(errorWithDetails);
