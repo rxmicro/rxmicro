@@ -19,7 +19,7 @@ package io.rxmicro.annotation.processor.rest.server.model;
 import io.rxmicro.annotation.processor.common.model.ClassHeader;
 import io.rxmicro.annotation.processor.rest.model.RestObjectModelClass;
 import io.rxmicro.exchange.json.detail.JsonExchangeDataFormatConverter;
-import io.rxmicro.http.HttpHeaders;
+import io.rxmicro.http.HttpStandardHeaderNames;
 import io.rxmicro.rest.detail.ExchangeDataFormatConverter;
 import io.rxmicro.rest.model.ExchangeFormat;
 import io.rxmicro.rest.server.detail.component.ModelWriter;
@@ -60,7 +60,7 @@ public final class ModelWriterClassStructure extends AbstractRestControllerModel
                         Map.class,
                         ExchangeDataFormatConverter.class,
                         JsonExchangeDataFormatConverter.class,
-                        HttpHeaders.class
+                        HttpStandardHeaderNames.class
                 );
         if (modelClass.isReadReflectionRequired()) {
             classHeaderBuilder.addStaticImport(REFLECTIONS_FULL_CLASS_NAME, "getFieldValue");

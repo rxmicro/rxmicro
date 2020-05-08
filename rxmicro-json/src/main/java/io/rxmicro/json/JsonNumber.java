@@ -115,26 +115,24 @@ public final class JsonNumber extends Number {
 
     private boolean isNan(final String number) {
         if (number.length() >= 2) {
-            return (number.charAt(0) == NAN.charAt(0) && NAN.equals(number)) ||
-                    (number.charAt(0) == '+' && number.charAt(1) == POSITIVE_NAN.charAt(1) && POSITIVE_NAN.equals(number)) ||
-                    (number.charAt(0) == '-' && number.charAt(1) == POSITIVE_NAN.charAt(1) && NEGATIVE_NAN.equals(number));
+            return number.charAt(0) == NAN.charAt(0) && NAN.equals(number) ||
+                    number.charAt(0) == '+' && number.charAt(1) == POSITIVE_NAN.charAt(1) && POSITIVE_NAN.equals(number) ||
+                    number.charAt(0) == '-' && number.charAt(1) == POSITIVE_NAN.charAt(1) && NEGATIVE_NAN.equals(number);
         }
         return false;
     }
 
     private boolean isPositiveInfinite(final String number) {
         if (number.length() >= 2) {
-            return (number.charAt(0) == INFINITY.charAt(0) && INFINITY.equals(number)) ||
-                    (number.charAt(0) == '+' && number.charAt(1) == POSITIVE_INFINITY.charAt(1)
-                            && POSITIVE_INFINITY.equals(number));
+            return number.charAt(0) == INFINITY.charAt(0) && INFINITY.equals(number) ||
+                    number.charAt(0) == '+' && number.charAt(1) == POSITIVE_INFINITY.charAt(1) && POSITIVE_INFINITY.equals(number);
         }
         return false;
     }
 
     private boolean isNegativeInfinite(final String number) {
         if (number.length() >= 2) {
-            return (number.charAt(0) == '-' && number.charAt(1) == NEGATIVE_INFINITY.charAt(1)
-                    && NEGATIVE_INFINITY.equals(number));
+            return number.charAt(0) == '-' && number.charAt(1) == NEGATIVE_INFINITY.charAt(1) && NEGATIVE_INFINITY.equals(number);
         }
         return false;
     }

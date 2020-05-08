@@ -232,12 +232,7 @@
         </properties>
     </rule>
     <!--rule ref="category/java/documentation.xml/CommentRequired"/-->
-    <rule ref="category/java/documentation.xml/CommentSize">
-        <properties>
-            <property name="maxLines" value="60"/>
-            <property name="maxLineLength" value="140"/>
-        </properties>
-    </rule>
+    <!--rule ref="category/java/documentation.xml/CommentSize"/ -->
     <rule ref="category/java/documentation.xml/UncommentedEmptyConstructor"/>
     <rule ref="category/java/documentation.xml/UncommentedEmptyMethodBody"/>
 

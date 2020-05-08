@@ -25,7 +25,7 @@ public final class ${JAVA_MODEL_CLASS.modelWriterImplSimpleClassName} extends Mo
         <@setHeader header=ENTRY.key type=ENTRY.value/>
         </#list>
         final Map<String, Object> json = ${JAVA_MODEL_CLASS.toJsonConverterInstanceName}.toJsonObject(model);
-        response.setHeader(HttpHeaders.CONTENT_TYPE, outputMimeType);
+        response.setHeader(HttpStandardHeaderNames.CONTENT_TYPE, outputMimeType);
         response.setContent(exchangeDataFormatConverter.toBytes(json));
     }
 <#-- -------------------------------------------------------------------------------------------------------- -->
