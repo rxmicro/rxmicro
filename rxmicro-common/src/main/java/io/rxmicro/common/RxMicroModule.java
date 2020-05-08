@@ -197,11 +197,6 @@ public enum RxMicroModule {
     /**
      * TODO
      */
-    RX_MICRO_TEST_JSON_MODULE("rxmicro.test.json"),
-
-    /**
-     * TODO
-     */
     RX_MICRO_TEST_JUNIT_MODULE("rxmicro.test.junit"),
 
     /**
