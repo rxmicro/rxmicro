@@ -42,8 +42,8 @@ import java.util.function.BiFunction;
 import java.util.stream.Stream;
 
 import static io.rxmicro.common.util.Formats.format;
-import static io.rxmicro.http.HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN;
 import static io.rxmicro.http.HttpHeaders.of;
+import static io.rxmicro.http.HttpStandardHeaderNames.ACCESS_CONTROL_ALLOW_ORIGIN;
 import static io.rxmicro.http.HttpVersion.HTTP_1_1;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.params.provider.Arguments.arguments;

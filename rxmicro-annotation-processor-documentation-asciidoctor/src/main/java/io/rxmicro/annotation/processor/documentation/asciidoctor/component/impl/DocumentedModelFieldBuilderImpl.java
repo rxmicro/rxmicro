@@ -38,7 +38,7 @@ import java.util.Map;
 
 import static io.rxmicro.annotation.processor.documentation.asciidoctor.component.DocumentedModelFieldBuilder.buildApiVersionHeaderDocumentedModelField;
 import static io.rxmicro.common.util.Formats.format;
-import static io.rxmicro.http.HttpHeaders.REQUEST_ID;
+import static io.rxmicro.http.HttpStandardHeaderNames.REQUEST_ID;
 import static io.rxmicro.json.JsonTypes.ARRAY;
 import static io.rxmicro.json.JsonTypes.OBJECT;
 import static java.util.Map.entry;

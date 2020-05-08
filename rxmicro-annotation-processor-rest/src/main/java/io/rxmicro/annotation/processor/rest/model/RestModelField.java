@@ -26,7 +26,7 @@ import java.lang.annotation.Annotation;
 
 import static io.rxmicro.annotation.processor.common.util.Annotations.defaultAnnotationInstance;
 import static io.rxmicro.common.util.Requires.require;
-import static io.rxmicro.http.HttpHeaders.REQUEST_ID;
+import static io.rxmicro.http.HttpStandardHeaderNames.REQUEST_ID;
 
 /**
  * @author nedis

@@ -41,7 +41,7 @@ import java.util.concurrent.CompletionStage;
 import java.util.function.BiFunction;
 import java.util.stream.Stream;
 
-import static io.rxmicro.http.HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN;
+import static io.rxmicro.http.HttpStandardHeaderNames.ACCESS_CONTROL_ALLOW_ORIGIN;
 import static java.util.concurrent.CompletableFuture.failedStage;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.params.provider.Arguments.arguments;

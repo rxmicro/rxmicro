@@ -671,6 +671,11 @@ abstract class AbstractBaseRestControllerMethodTest {
         }
 
         @Override
+        public void error(final String msg, final Object... arguments) {
+            logger.error(msg, arguments);
+        }
+
+        @Override
         public void error(final String msg, final Supplier<?> arg1) {
             logger.error(msg, arg1);
         }
@@ -693,11 +698,6 @@ abstract class AbstractBaseRestControllerMethodTest {
         @Override
         public void error(final String msg, final Supplier<?> arg1, final Supplier<?> arg2, final Supplier<?> arg3, final Supplier<?> arg4, final Supplier<?> arg5) {
             logger.error(msg, arg1, arg2, arg3, arg4, arg5);
-        }
-
-        @Override
-        public void error(final String msg, final Object... arguments) {
-            logger.error(msg, arguments);
         }
 
         @Override

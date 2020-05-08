@@ -58,7 +58,7 @@ import static io.rxmicro.annotation.processor.common.model.ModelFieldType.REST_S
 import static io.rxmicro.annotation.processor.common.util.Errors.createInternalErrorSupplier;
 import static io.rxmicro.annotation.processor.common.util.Names.getSimpleName;
 import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getElements;
-import static io.rxmicro.http.HttpHeaders.REQUEST_ID;
+import static io.rxmicro.http.HttpStandardHeaderNames.REQUEST_ID;
 import static io.rxmicro.http.local.HttpValidators.validateHeaderName;
 import static io.rxmicro.http.local.HttpValidators.validateParameterName;
 

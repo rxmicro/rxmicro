@@ -21,7 +21,6 @@ import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingExc
 import io.rxmicro.annotation.processor.rest.model.ParentUrl;
 import io.rxmicro.annotation.processor.rest.model.StaticHeaders;
 import io.rxmicro.annotation.processor.rest.server.component.ServerCommonOptionBuilder;
-import io.rxmicro.http.HttpHeaders;
 import io.rxmicro.rest.AddHeader;
 import io.rxmicro.rest.SetHeader;
 
@@ -29,6 +28,7 @@ import javax.lang.model.element.Element;
 import java.util.Arrays;
 
 import static io.rxmicro.common.util.UrlPaths.normalizeUrlPath;
+import static io.rxmicro.http.HttpStandardHeaderNames.LOCATION;
 
 /**
  * @author nedis
@@ -55,7 +55,7 @@ public final class ServerCommonOptionBuilderImpl implements ServerCommonOptionBu
                             final String value) {
         if (value.contains("${")) {
             throw new InterruptProcessingException(element, "Expressions not supported here. Remove redundant expressions!");
-        } else if (HttpHeaders.LOCATION.equalsIgnoreCase(name)) {
+        } else if (LOCATION.equalsIgnoreCase(name)) {
             final String parent = parentUrl.getFullUrlPath("");
             if (value.startsWith(parent)) {
                 return value;

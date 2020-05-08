@@ -20,7 +20,7 @@ import io.rxmicro.rest.server.detail.model.HttpRequest;
 import io.rxmicro.rest.server.detail.model.mapping.ExactUrlRequestMappingRule;
 import io.rxmicro.rest.server.internal.component.RequestMappingKeyBuilder;
 
-import static io.rxmicro.http.HttpHeaders.API_VERSION;
+import static io.rxmicro.http.HttpStandardHeaderNames.API_VERSION;
 
 /**
  * Example:

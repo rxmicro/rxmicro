@@ -20,7 +20,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 import static io.rxmicro.common.util.Requires.require;
-import static io.rxmicro.http.HttpHeaders.API_VERSION;
+import static io.rxmicro.http.HttpStandardHeaderNames.API_VERSION;
 
 /**
  * Used by generated code that was created by RxMicro Annotation Processor

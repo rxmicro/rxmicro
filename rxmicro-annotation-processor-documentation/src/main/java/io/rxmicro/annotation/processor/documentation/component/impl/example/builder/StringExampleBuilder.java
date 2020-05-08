@@ -43,7 +43,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-import static io.rxmicro.http.HttpHeaders.REQUEST_ID;
+import static io.rxmicro.http.HttpStandardHeaderNames.REQUEST_ID;
 import static io.rxmicro.rest.RequestId.REQUEST_ID_EXAMPLE;
 
 /**

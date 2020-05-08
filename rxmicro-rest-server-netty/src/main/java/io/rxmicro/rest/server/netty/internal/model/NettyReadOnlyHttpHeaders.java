@@ -25,6 +25,7 @@ import java.util.stream.Stream;
 
 import static io.rxmicro.common.util.ExCollections.unmodifiableList;
 import static io.rxmicro.common.util.Formats.format;
+import static io.rxmicro.http.HttpStandardHeaderNames.REQUEST_ID;
 import static java.util.Map.entry;
 import static java.util.stream.Collectors.joining;
 

@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static io.rxmicro.common.util.Requires.require;
-import static io.rxmicro.http.HttpHeaders.API_VERSION;
+import static io.rxmicro.http.HttpStandardHeaderNames.API_VERSION;
 import static io.rxmicro.rest.server.detail.model.PathMatcherResult.NO_MATCH;
 
 /**

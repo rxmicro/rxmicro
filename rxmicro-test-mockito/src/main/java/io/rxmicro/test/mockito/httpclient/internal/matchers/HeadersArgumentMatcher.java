@@ -21,7 +21,7 @@ import org.mockito.ArgumentMatcher;
 import java.util.List;
 import java.util.Map;
 
-import static io.rxmicro.http.HttpHeaders.REQUEST_ID;
+import static io.rxmicro.http.HttpStandardHeaderNames.REQUEST_ID;
 import static java.util.stream.Collectors.toList;
 
 /**

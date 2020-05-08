@@ -28,8 +28,8 @@ import java.util.List;
 import java.util.Map;
 
 import static io.netty.buffer.Unpooled.wrappedBuffer;
-import static io.rxmicro.http.HttpHeaders.CONTENT_LENGTH;
 import static io.rxmicro.http.HttpHeaders.EMPTY_HEADERS;
+import static io.rxmicro.http.HttpStandardHeaderNames.CONTENT_LENGTH;
 
 /**
  * @author nedis

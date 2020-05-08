@@ -16,7 +16,7 @@
 
 package io.rxmicro.rest.server;
 
-import io.rxmicro.http.HttpHeaders;
+import io.rxmicro.http.HttpStandardHeaderNames;
 
 import java.util.function.Supplier;
 
@@ -35,12 +35,12 @@ public enum StandardStaticResponseHeader implements StaticResponseHeader {
     /**
      * {@code `Server`} header that returns a server name
      */
-    SERVER(HttpHeaders.SERVER, serverResponseHeaderValueSupplier()),
+    SERVER(HttpStandardHeaderNames.SERVER, serverResponseHeaderValueSupplier()),
 
     /**
      * {@code `Date`} header that returns a date with time of a HTTP response generation
      */
-    DATE(HttpHeaders.DATE, dateResponseHeaderValueSupplier());
+    DATE(HttpStandardHeaderNames.DATE, dateResponseHeaderValueSupplier());
 
     private final String headerName;
 

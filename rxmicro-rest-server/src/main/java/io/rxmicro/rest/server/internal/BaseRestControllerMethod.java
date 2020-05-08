@@ -24,8 +24,8 @@ import io.rxmicro.rest.server.internal.component.impl.ErrorHttpResponseBuilderIm
 
 import java.util.concurrent.CompletionStage;
 
-import static io.rxmicro.http.HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN;
-import static io.rxmicro.http.HttpHeaders.ORIGIN;
+import static io.rxmicro.http.HttpStandardHeaderNames.ACCESS_CONTROL_ALLOW_ORIGIN;
+import static io.rxmicro.http.HttpStandardHeaderNames.ORIGIN;
 import static java.util.concurrent.CompletableFuture.completedStage;
 
 /**

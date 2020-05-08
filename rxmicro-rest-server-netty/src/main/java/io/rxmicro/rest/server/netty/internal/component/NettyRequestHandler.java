@@ -38,8 +38,8 @@ import io.rxmicro.rest.server.netty.internal.model.NettyHttpResponse;
 import java.time.Duration;
 
 import static io.rxmicro.common.util.Formats.format;
-import static io.rxmicro.http.HttpHeaders.CONNECTION;
-import static io.rxmicro.http.HttpHeaders.REQUEST_ID;
+import static io.rxmicro.http.HttpStandardHeaderNames.CONNECTION;
+import static io.rxmicro.http.HttpStandardHeaderNames.REQUEST_ID;
 import static io.rxmicro.http.local.PredefinedUrls.HTTP_HEALTH_CHECK_ENDPOINT;
 import static java.lang.System.lineSeparator;
 import static java.nio.charset.StandardCharsets.UTF_8;

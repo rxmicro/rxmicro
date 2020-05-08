@@ -30,8 +30,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static io.rxmicro.http.HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN;
-import static io.rxmicro.http.HttpHeaders.ORIGIN;
+import static io.rxmicro.http.HttpStandardHeaderNames.ACCESS_CONTROL_ALLOW_ORIGIN;
+import static io.rxmicro.http.HttpStandardHeaderNames.ORIGIN;
 import static java.util.concurrent.CompletableFuture.completedStage;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.mockito.ArgumentMatchers.anyString;

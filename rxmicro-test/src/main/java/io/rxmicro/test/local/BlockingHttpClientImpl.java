@@ -29,7 +29,7 @@ import java.util.Map;
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.Requires.require;
 import static io.rxmicro.common.util.UrlPaths.normalizeUrlPath;
-import static io.rxmicro.http.HttpHeaders.API_VERSION;
+import static io.rxmicro.http.HttpStandardHeaderNames.API_VERSION;
 import static java.util.Map.entry;
 
 /**

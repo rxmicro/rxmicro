@@ -22,7 +22,7 @@ import io.rxmicro.rest.server.detail.component.HttpResponseBuilder;
 import io.rxmicro.rest.server.detail.model.HttpResponse;
 
 import static io.rxmicro.common.util.Requires.require;
-import static io.rxmicro.http.HttpHeaders.LOCATION;
+import static io.rxmicro.http.HttpStandardHeaderNames.LOCATION;
 
 /**
  * @author nedis

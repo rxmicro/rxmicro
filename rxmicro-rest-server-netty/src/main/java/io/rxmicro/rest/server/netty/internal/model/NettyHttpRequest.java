@@ -25,7 +25,7 @@ import io.rxmicro.rest.server.local.component.RequestIdGenerator;
 
 import java.net.SocketAddress;
 
-import static io.rxmicro.http.HttpHeaders.REQUEST_ID;
+import static io.rxmicro.http.HttpStandardHeaderNames.REQUEST_ID;
 
 /**
  * @author nedis
