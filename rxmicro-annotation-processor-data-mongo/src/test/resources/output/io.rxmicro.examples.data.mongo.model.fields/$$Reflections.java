@@ -1,6 +1,6 @@
 package rxmicro;
 
-import io.rxmicro.common.RxMicroException;
+import io.rxmicro.common.CheckedWrapperException;
 
 import java.lang.reflect.Field;
 
@@ -22,8 +22,8 @@ public final class $$Reflections {
         });
         try {
             return field.get(model);
-        } catch (IllegalAccessException e) {
-            throw new RxMicroException(e);
+        } catch (final IllegalAccessException e) {
+            throw new CheckedWrapperException(e);
         }
     }
 
@@ -37,8 +37,8 @@ public final class $$Reflections {
         });
         try {
             field.set(model, value);
-        } catch (IllegalAccessException e) {
-            throw new RxMicroException(e);
+        } catch (final IllegalAccessException e) {
+            throw new CheckedWrapperException(e);
         }
     }
 

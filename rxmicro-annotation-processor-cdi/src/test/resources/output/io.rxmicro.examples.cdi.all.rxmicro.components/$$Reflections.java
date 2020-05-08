@@ -1,6 +1,6 @@
 package rxmicro;
 
-import io.rxmicro.common.RxMicroException;
+import io.rxmicro.common.CheckedWrapperException;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -28,8 +28,8 @@ public final class $$Reflections {
         });
         try {
             field.set(model, value);
-        } catch (IllegalAccessException e) {
-            throw new RxMicroException(e);
+        } catch (final IllegalAccessException e) {
+            throw new CheckedWrapperException(e);
         }
     }
 
@@ -43,10 +43,10 @@ public final class $$Reflections {
         });
         try {
             return method.invoke(bean, args);
-        } catch (IllegalAccessException e) {
-            throw new RxMicroException(e);
-        } catch (InvocationTargetException e) {
-            throw new RxMicroException(e.getTargetException());
+        } catch (final IllegalAccessException e) {
+            throw new CheckedWrapperException(e);
+        } catch (final InvocationTargetException e) {
+            throw new CheckedWrapperException(e.getTargetException());
         }
     }
 

@@ -1,7 +1,7 @@
 package io.rxmicro.examples.rest.controller.complex.model.model;
 
 import io.rxmicro.exchange.json.detail.JsonExchangeDataFormatConverter;
-import io.rxmicro.http.HttpHeaders;
+import io.rxmicro.http.HttpStandardHeaderNames;
 import io.rxmicro.rest.detail.ExchangeDataFormatConverter;
 import io.rxmicro.rest.server.detail.component.ModelWriter;
 import io.rxmicro.rest.server.detail.model.HttpResponse;
@@ -31,7 +31,7 @@ public final class $$ComplexModelModelWriter extends ModelWriter<ComplexModel> {
     public void write(final ComplexModel model,
                       final HttpResponse response) {
         final Map<String, Object> json = complexModelModelToJsonConverter.toJsonObject(model);
-        response.setHeader(HttpHeaders.CONTENT_TYPE, outputMimeType);
+        response.setHeader(HttpStandardHeaderNames.CONTENT_TYPE, outputMimeType);
         response.setContent(exchangeDataFormatConverter.toBytes(json));
     }
 }

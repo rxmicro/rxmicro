@@ -19,7 +19,7 @@ package io.rxmicro.examples.rest.controller.redirect.model;
 import io.rxmicro.rest.Header;
 import io.rxmicro.rest.ResponseStatusCode;
 
-import static io.rxmicro.http.HttpHeaders.LOCATION;
+import static io.rxmicro.http.HttpStandardHeaderNames.LOCATION;
 import static java.util.Objects.requireNonNull;
 
 // tag::content[]

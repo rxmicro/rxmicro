@@ -1,7 +1,7 @@
 package io.rxmicro.examples.rest.controller.model.fields.params.gettersetter;
 
 import io.rxmicro.exchange.json.detail.JsonExchangeDataFormatConverter;
-import io.rxmicro.http.HttpHeaders;
+import io.rxmicro.http.HttpStandardHeaderNames;
 import io.rxmicro.rest.detail.ExchangeDataFormatConverter;
 import io.rxmicro.rest.server.detail.component.ModelWriter;
 import io.rxmicro.rest.server.detail.model.HttpResponse;
@@ -31,7 +31,7 @@ public final class $$ResponseModelWriter extends ModelWriter<Response> {
     public void write(final Response model,
                       final HttpResponse response) {
         final Map<String, Object> json = responseModelToJsonConverter.toJsonObject(model);
-        response.setHeader(HttpHeaders.CONTENT_TYPE, outputMimeType);
+        response.setHeader(HttpStandardHeaderNames.CONTENT_TYPE, outputMimeType);
         response.setContent(exchangeDataFormatConverter.toBytes(json));
     }
 }

@@ -69,7 +69,7 @@ import java.math.BigInteger;
 import java.time.Instant;
 import java.util.List;
 
-import static io.rxmicro.http.HttpHeaders.REQUEST_ID;
+import static io.rxmicro.http.HttpStandardHeaderNames.REQUEST_ID;
 import static io.rxmicro.validation.base.LocationAccuracy.ACCURACY_111_KILOMETERS;
 import static io.rxmicro.validation.base.LocationAccuracy.ACCURACY_111_METERS;
 import static io.rxmicro.validation.base.LocationAccuracy.ACCURACY_11_CENTIMETERS;

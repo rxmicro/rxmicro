@@ -23,7 +23,7 @@ import io.rxmicro.rest.server.SetStatusCode;
 
 import java.util.concurrent.CompletableFuture;
 
-import static io.rxmicro.http.HttpHeaders.LOCATION;
+import static io.rxmicro.http.HttpStandardHeaderNames.LOCATION;
 import static java.util.concurrent.CompletableFuture.completedFuture;
 
 @SuppressWarnings("EmptyMethod")

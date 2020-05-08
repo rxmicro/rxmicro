@@ -16,7 +16,7 @@
 
 package io.rxmicro.rest.server.internal;
 
-import io.rxmicro.common.ImpossibleException;
+import io.rxmicro.common.InvalidStateException;
 import io.rxmicro.http.HttpHeaders;
 import io.rxmicro.http.error.HttpErrorException;
 import io.rxmicro.http.error.PermanentRedirectException;
@@ -114,7 +114,7 @@ final class BaseRestControllerMethod_Redirect_IntegrationTest extends AbstractBa
                     (pv, req) -> failedStage(new UserRedirectException()));
             method.call(pathVariableMapping, request).toCompletableFuture().join();
         });
-        assertEquals(ImpossibleException.class, exception.getCause().getClass());
+        assertEquals(InvalidStateException.class, exception.getCause().getClass());
         assertEquals(
                 format("Class '?' must extend '?' class!",
                         UserRedirectException.class.getName(),
