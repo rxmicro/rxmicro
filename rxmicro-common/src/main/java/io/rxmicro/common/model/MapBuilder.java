@@ -27,8 +27,10 @@ import static io.rxmicro.common.util.ExCollections.unmodifiableOrderedMap;
  * The builder that builds a short-lived unmodified ordered {@link Map} instance.
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
+ * @see Map
+ * @see LinkedHashMap
+ * @see io.rxmicro.common.util.ExCollections#unmodifiableOrderedMap(Map)
  */
 public class MapBuilder<K, V> {
 

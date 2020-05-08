@@ -26,7 +26,6 @@ import static java.util.Collections.unmodifiableMap;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class EntityFieldMapImpl extends AbstractMap<String, Object> implements EntityFieldMap {

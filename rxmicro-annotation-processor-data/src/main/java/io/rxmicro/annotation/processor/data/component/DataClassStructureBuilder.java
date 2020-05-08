@@ -25,7 +25,6 @@ import io.rxmicro.annotation.processor.data.model.DataRepositoryInterfaceSignatu
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public interface DataClassStructureBuilder<DMF extends DataModelField, DMC extends DataObjectModelClass<DMF>> {

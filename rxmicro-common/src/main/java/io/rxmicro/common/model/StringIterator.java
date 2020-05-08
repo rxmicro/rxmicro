@@ -20,8 +20,9 @@ package io.rxmicro.common.model;
  * The implementation of the {@code iterator} design pattern for {@link String} type
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
+ * @see java.util.Iterator
+ * @see String
  */
 public final class StringIterator {
 

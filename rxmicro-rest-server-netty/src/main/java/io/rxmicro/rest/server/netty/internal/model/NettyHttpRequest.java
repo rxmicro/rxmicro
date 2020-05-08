@@ -18,6 +18,7 @@ package io.rxmicro.rest.server.netty.internal.model;
 
 import io.netty.buffer.ByteBufUtil;
 import io.netty.handler.codec.http.FullHttpRequest;
+import io.rxmicro.common.InvalidStateException;
 import io.rxmicro.http.HttpHeaders;
 import io.rxmicro.http.HttpVersion;
 import io.rxmicro.rest.server.detail.model.HttpRequest;
@@ -29,7 +30,6 @@ import static io.rxmicro.http.HttpStandardHeaderNames.REQUEST_ID;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class NettyHttpRequest implements HttpRequest {
@@ -109,7 +109,7 @@ public final class NettyHttpRequest implements HttpRequest {
         } else if (httpVersion == io.netty.handler.codec.http.HttpVersion.HTTP_1_0) {
             return HttpVersion.HTTP_1_0;
         } else {
-            throw new IllegalStateException("Unsupported HTTP version: " + httpVersion);
+            throw new InvalidStateException("Unsupported HTTP version: ?", httpVersion);
         }
     }
 

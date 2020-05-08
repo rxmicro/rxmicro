@@ -30,7 +30,6 @@ import static io.rxmicro.annotation.processor.data.sql.model.SQLKeywords.INSERT;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 @Singleton

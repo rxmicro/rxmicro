@@ -29,14 +29,18 @@ import static java.lang.annotation.ElementType.PARAMETER;
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
- * Returns value of HTTP header with name = "Request-Id" or auto generated unique request id if HTTP header is absent.
+ * Returns value of HTTP header with name = {@value io.rxmicro.http.HttpStandardHeaderNames#REQUEST_ID} or
+ * auto generated unique request id if HTTP header is absent.
  * <p>
  * Request id is used to trace an user request which can be resend via multiple REST-based micro services.
  *
  * @author nedis
- * @link https://rxmicro.io
- * @see io.rxmicro.http.HttpHeaders
  * @since 0.1
+ * @see RemoteAddress
+ * @see RequestBody
+ * @see RequestMethod
+ * @see RequestUrlPath
+ * @see io.rxmicro.http.HttpStandardHeaderNames
  */
 @Documented
 @Retention(SOURCE)
@@ -44,11 +48,9 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 @SupportedTypes({
         String.class
 })
-// FIXME
-// Set valid read more link
 @ReadMore(
         caption = "What is request id?",
-        link = "https://rxmicro.io/doc/latest/user-guide/rest-controller.html#rest-controller-rqeuest-id-section"
+        link = "https://docs.rxmicro.io/latest/user-guide/rest-controller.html#rest-controller-rqeuest-id-section"
 )
 public @interface RequestId {
 

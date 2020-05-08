@@ -27,7 +27,6 @@ import static io.rxmicro.common.util.Formats.format;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.3
  */
 public final class FinalFieldUpdater {

@@ -26,7 +26,6 @@ import static io.rxmicro.common.util.ExCollections.unmodifiableList;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 final class ListMapEntriesEquals implements ArgumentMatcher<List<Map.Entry<String, String>>> {

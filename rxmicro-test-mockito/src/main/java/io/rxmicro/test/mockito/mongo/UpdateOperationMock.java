@@ -16,6 +16,7 @@
 
 package io.rxmicro.test.mockito.mongo;
 
+import io.rxmicro.common.InvalidStateException;
 import io.rxmicro.common.meta.BuilderMethod;
 import io.rxmicro.test.mockito.mongo.internal.AbstractUpdateOperationMock;
 import org.bson.Document;
@@ -23,9 +24,13 @@ import org.bson.Document;
 import static io.rxmicro.test.mockito.mongo.internal.util.Validators.validateBson;
 
 /**
+ * The Mongo {@link io.rxmicro.data.mongo.operation.Update} operation mock using
+ * <a href="https://site.mockito.org/">Mockito</a> testing framework
+ *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
+ * @see io.rxmicro.data.mongo.operation.Update
+ * @see io.rxmicro.data.mongo.MongoRepository
  */
 public final class UpdateOperationMock extends AbstractUpdateOperationMock {
 
@@ -38,8 +43,9 @@ public final class UpdateOperationMock extends AbstractUpdateOperationMock {
     }
 
     /**
+     * The builder for building a Mongo {@link io.rxmicro.data.mongo.operation.Update} operation mock
+     *
      * @author nedis
-     * @link https://rxmicro.io
      * @since 0.1
      */
     @SuppressWarnings("UnusedReturnValue")
@@ -55,6 +61,12 @@ public final class UpdateOperationMock extends AbstractUpdateOperationMock {
 
         private boolean upsert;
 
+        /**
+         * Configures the Mongo {@link io.rxmicro.data.mongo.operation.Update} operation mock that it will match to
+         * a Mongo {@link io.rxmicro.data.mongo.operation.Update} operation with any update expression
+         *
+         * @return the reference to this {@link Builder} instance
+         */
         @BuilderMethod
         public Builder setAnyUpdate() {
             this.anyUpdate = true;
@@ -62,6 +74,14 @@ public final class UpdateOperationMock extends AbstractUpdateOperationMock {
             return this;
         }
 
+        /**
+         * Sets the update document for the Mongo {@link io.rxmicro.data.mongo.operation.Find} operation mock that it will match to
+         * a Mongo {@link io.rxmicro.data.mongo.operation.Find} operation with the specified update document
+         *
+         * @param update the specified update document
+         * @return the reference to this {@link Builder} instance
+         * @throws NullPointerException if the specified query is {@code null}
+         */
         @BuilderMethod
         public Builder setUpdate(final Document update) {
             this.update = validateBson(update, "update");
@@ -69,6 +89,16 @@ public final class UpdateOperationMock extends AbstractUpdateOperationMock {
             return this;
         }
 
+        /**
+         * Sets the update expression for the Mongo {@link io.rxmicro.data.mongo.operation.Find} operation mock that it will match to
+         * a Mongo {@link io.rxmicro.data.mongo.operation.Find} operation with the specified update expression
+         *
+         * @param update the specified update document
+         * @return the reference to this {@link Builder} instance
+         * @throws NullPointerException if the specified query is {@code null}
+         * @throws IllegalArgumentException if the specified update expression is blank
+         * @throws org.bson.json.JsonParseException if the specified update expression has invalid JSON structure
+         */
         @BuilderMethod
         public Builder setUpdate(final String update) {
             this.update = validateBson(update, "update");
@@ -76,6 +106,12 @@ public final class UpdateOperationMock extends AbstractUpdateOperationMock {
             return this;
         }
 
+        /**
+         * Configures the Mongo {@link io.rxmicro.data.mongo.operation.Update} operation mock that it will match to
+         * a Mongo {@link io.rxmicro.data.mongo.operation.Update} operation with any filter
+         *
+         * @return the reference to this {@link Builder} instance
+         */
         @BuilderMethod
         public Builder setAnyFilter() {
             this.anyFilter = true;
@@ -83,6 +119,14 @@ public final class UpdateOperationMock extends AbstractUpdateOperationMock {
             return this;
         }
 
+        /**
+         * Sets the query for the Mongo {@link io.rxmicro.data.mongo.operation.Update} operation mock that it will match to
+         * a Mongo {@link io.rxmicro.data.mongo.operation.Update} operation with the specified filter
+         *
+         * @param filter the specified filter
+         * @return the reference to this {@link Builder} instance
+         * @throws NullPointerException if the specified filter is {@code null}
+         */
         @BuilderMethod
         public Builder setFilter(final Document filter) {
             this.filter = validateBson(filter, "filter");
@@ -90,6 +134,16 @@ public final class UpdateOperationMock extends AbstractUpdateOperationMock {
             return this;
         }
 
+        /**
+         * Sets the query for the Mongo {@link io.rxmicro.data.mongo.operation.Update} operation mock that it will match to
+         * a Mongo {@link io.rxmicro.data.mongo.operation.Update} operation with the specified filter
+         *
+         * @param filter the specified filter
+         * @return the reference to this {@link Builder} instance
+         * @throws NullPointerException if the specified filter is {@code null}
+         * @throws IllegalArgumentException if the specified filter is blank
+         * @throws org.bson.json.JsonParseException if the specified filter has invalid JSON structure
+         */
         @BuilderMethod
         public Builder setFilter(final String filter) {
             this.filter = validateBson(filter, "filter");
@@ -97,18 +151,33 @@ public final class UpdateOperationMock extends AbstractUpdateOperationMock {
             return this;
         }
 
+        /**
+         * Sets the {@code upsert} option for the Mongo {@link io.rxmicro.data.mongo.operation.Update} operation mock
+         * that it will match to a Mongo {@link io.rxmicro.data.mongo.operation.Update} operation with
+         * the specified {@code upsert} option
+         *
+         * @param upsert the specified option
+         * @return the reference to this {@link Builder} instance
+         */
         @BuilderMethod
         public Builder setUpsert(final boolean upsert) {
             this.upsert = upsert;
             return this;
         }
 
+        /**
+         * Builds the immutable Mongo {@link io.rxmicro.data.mongo.operation.Update} operation mock
+         * instance using the configured {@link Builder} settings
+         *
+         * @return the immutable Mongo {@link io.rxmicro.data.mongo.operation.Update} operation mock instance
+         * @throws InvalidStateException if the current {@link Builder} contains invalid settings
+         */
         public UpdateOperationMock build() {
             if (!anyUpdate && update == null) {
-                throw new IllegalStateException("'setUpdate' or 'setAnyUpdate' must be invoked!");
+                throw new InvalidStateException("'setUpdate' or 'setAnyUpdate' must be invoked!");
             }
             if (!anyFilter && filter == null) {
-                throw new IllegalStateException("'setFilter' or 'setAnyFilter' must be invoked!");
+                throw new InvalidStateException("'setFilter' or 'setAnyFilter' must be invoked!");
             }
             return new UpdateOperationMock(anyUpdate, update, anyFilter, filter, upsert);
         }

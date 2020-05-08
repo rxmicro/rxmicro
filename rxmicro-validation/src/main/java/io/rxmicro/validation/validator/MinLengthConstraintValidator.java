@@ -24,9 +24,8 @@ import io.rxmicro.validation.base.AbstractMinConstraintValidator;
  * Validator for the {@link io.rxmicro.validation.constraint.MinLength} constraint
  *
  * @author nedis
- * @link https://rxmicro.io
- * @see io.rxmicro.validation.constraint.MinLength
  * @since 0.1
+ * @see io.rxmicro.validation.constraint.MinLength
  */
 public class MinLengthConstraintValidator extends AbstractMinConstraintValidator<Integer>
         implements ConstraintValidator<String> {

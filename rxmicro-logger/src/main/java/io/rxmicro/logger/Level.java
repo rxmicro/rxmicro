@@ -20,8 +20,9 @@ package io.rxmicro.logger;
  * Supported {@link Logger} levels
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
+ * @see LoggerFactory
+ * @see Logger
  */
 public enum Level {
 

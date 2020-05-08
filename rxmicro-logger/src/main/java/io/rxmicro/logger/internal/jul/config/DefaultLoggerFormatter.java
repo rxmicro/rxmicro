@@ -32,7 +32,6 @@ import static java.time.ZoneId.systemDefault;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public class DefaultLoggerFormatter extends Formatter {

@@ -28,7 +28,6 @@ import io.rxmicro.annotation.processor.rest.server.model.RestServerModuleGenerat
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public interface RestControllerMethodBodyBuilder {

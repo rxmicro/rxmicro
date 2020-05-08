@@ -25,7 +25,7 @@ import static io.rxmicro.rest.client.RestClientFactory.REST_CLIENT_FACTORY_IMPL_
 
 /**
  * @author nedis
- * @link https://rxmicro.io
+ *
  */
 public abstract class AbstractRestClientAnnotationProcessorIntegrationTest
         extends AbstractRxMicroAnnotationProcessorIntegrationTest {

@@ -23,7 +23,6 @@ import io.rxmicro.rest.model.HttpModelType;
  * Base validator class for minimum constraints
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public abstract class AbstractMinConstraintValidator<T extends Comparable<T>> {

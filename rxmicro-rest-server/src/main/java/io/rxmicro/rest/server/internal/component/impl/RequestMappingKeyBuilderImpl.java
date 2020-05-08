@@ -27,7 +27,6 @@ import static io.rxmicro.http.HttpStandardHeaderNames.API_VERSION;
  * GET /hello-world v1.0 true
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class RequestMappingKeyBuilderImpl implements RequestMappingKeyBuilder {

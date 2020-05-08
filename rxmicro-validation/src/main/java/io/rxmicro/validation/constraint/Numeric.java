@@ -33,9 +33,10 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * The annotated element must be a decimal within accepted range (scale and precision).
  *
  * @author nedis
- * @link https://rxmicro.io
- * @see NumericConstraintValidator
  * @since 0.1
+ * @see MinNumber
+ * @see MaxNumber
+ * @see NumericConstraintValidator
  */
 @Documented
 @Retention(SOURCE)

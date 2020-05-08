@@ -29,7 +29,6 @@ import static java.lang.reflect.Modifier.isStatic;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class BlockingHttpClientSettingsRandomPortReader {

@@ -18,6 +18,7 @@ package io.rxmicro.annotation.processor.data.sql.model;
 
 import io.rxmicro.annotation.processor.common.model.method.MethodResult;
 import io.rxmicro.annotation.processor.data.model.Variable;
+import io.rxmicro.common.InvalidStateException;
 
 import javax.lang.model.element.ModuleElement;
 import java.util.List;
@@ -27,7 +28,6 @@ import static io.rxmicro.common.util.Requires.require;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class SQLMethodDescriptor<DMF extends SQLDataModelField, DMC extends SQLDataObjectModelClass<DMF>> {
@@ -76,7 +76,6 @@ public final class SQLMethodDescriptor<DMF extends SQLDataModelField, DMC extend
 
     /**
      * @author nedis
-     * @link https://rxmicro.io
      * @since 0.1
      */
     @SuppressWarnings("UnusedReturnValue")
@@ -106,14 +105,14 @@ public final class SQLMethodDescriptor<DMF extends SQLDataModelField, DMC extend
 
         public void setEntityParam(final DMC entityParam) {
             if (this.entityParam != null) {
-                throw new IllegalStateException("entityParam already set");
+                throw new InvalidStateException("entityParam already set");
             }
             this.entityParam = require(entityParam);
         }
 
         public void setEntityResult(final DMC entityResult) {
             if (this.entityResult != null) {
-                throw new IllegalStateException("entityResult already set");
+                throw new InvalidStateException("entityResult already set");
             }
             this.entityResult = require(entityResult);
         }

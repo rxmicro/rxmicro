@@ -22,8 +22,8 @@ import java.util.UUID;
  * Defines supported HTTP request id generator types.
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
+ * @see RestServerConfig
  */
 public enum RequestIdGeneratorType {
 

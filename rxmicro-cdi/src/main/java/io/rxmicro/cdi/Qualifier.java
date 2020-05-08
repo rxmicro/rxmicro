@@ -34,8 +34,9 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * implementation in their previous projects.
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
+ * @see Named
+ * @see Autowired
  */
 @Documented
 @Retention(SOURCE)

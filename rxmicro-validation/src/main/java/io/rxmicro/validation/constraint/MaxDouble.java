@@ -34,10 +34,11 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * to the specified maximum.
  *
  * @author nedis
- * @link https://rxmicro.io
+ * @since 0.1
+ * @see MaxInt
+ * @see MaxNumber
  * @see MaxFloatConstraintValidator
  * @see MaxDoubleConstraintValidator
- * @since 0.1
  */
 @Documented
 @Retention(SOURCE)

@@ -26,21 +26,25 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import static io.rxmicro.common.util.Formats.format;
 import static java.util.Map.entry;
 import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toSet;
 
 /**
- * TODO
+ * Extended {@link Collections} utils
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
+ * @see Collections
+ * @see Map
+ * @see Set
+ * @see List
  */
 public final class ExCollections {
 
     /**
-     * TODO
+     * Empty string array
      */
     public static final String[] EMPTY_STRING_ARRAY = new String[0];
 
@@ -66,10 +70,10 @@ public final class ExCollections {
     );
 
     /**
-     * TODO
+     * Returns {@code true} if the tested object is the unmodifiable {@link List}
      *
-     * @param object
-     * @return
+     * @param object the tested object
+     * @return {@code true} if the tested object is the unmodifiable {@link List}
      */
     public static boolean isUnmodifiableList(final Object object) {
         return object != null &&
@@ -77,11 +81,13 @@ public final class ExCollections {
     }
 
     /**
-     * TODO
+     * Returns the short-lived unmodifiable {@link List} of the specified collection.
      *
-     * @param collection
-     * @param <E>
-     * @return
+     * @param collection the specified collection
+     * @param <E> the class of the objects in the collection
+     * @return the short-lived unmodifiable {@link List} of the specified collection
+     * @see List#of()
+     * @see Collections#unmodifiableList(List)
      */
     @SuppressWarnings("Java9CollectionFactory")
     public static <E> List<E> unmodifiableList(final Collection<E> collection) {
@@ -99,10 +105,10 @@ public final class ExCollections {
     }
 
     /**
-     * TODO
+     * Returns {@code true} if the tested object is the unmodifiable {@link Map}
      *
-     * @param object
-     * @return
+     * @param object the tested object
+     * @return {@code true} if the tested object is the unmodifiable {@link Map}
      */
     public static boolean isUnmodifiableMap(final Object object) {
         return object != null &&
@@ -110,24 +116,28 @@ public final class ExCollections {
     }
 
     /**
-     * TODO
+     * Returns the short-lived unmodifiable {@link Map} of the specified map.
      *
-     * @param map
-     * @param <K>
-     * @param <V>
-     * @return
+     * @param map the specified map
+     * @param <K> the class of the map keys
+     * @param <V> the class of the map values
+     * @return the short-lived unmodifiable {@link Map} of the specified map.
+     * @see Map#of()
+     * @see Collections#unmodifiableMap(Map)
      */
     public static <K, V> Map<K, V> unmodifiableMap(final Map<K, V> map) {
         return unmodifiableOrderedMap(map);
     }
 
     /**
-     * TODO
+     * Returns the short-lived unmodifiable ordered {@link Map} of the specified map.
      *
-     * @param map
-     * @param <K>
-     * @param <V>
-     * @return
+     * @param map the specified map
+     * @param <K> the class of the map keys
+     * @param <V> the class of the map values
+     * @return the short-lived unmodifiable ordered {@link Map} of the specified map.
+     * @see Map#of()
+     * @see Collections#unmodifiableMap(Map)
      */
     public static <K, V> Map<K, V> unmodifiableOrderedMap(final Map<K, V> map) {
         if (map.isEmpty()) {
@@ -143,11 +153,13 @@ public final class ExCollections {
     }
 
     /**
-     * TODO
+     * Returns the short-lived unmodifiable ordered {@link Set} of the specified collection.
      *
-     * @param collection
-     * @param <E>
-     * @return
+     * @param collection the specified collection.
+     * @param <E> the class of the objects in the collection
+     * @return the short-lived unmodifiable ordered {@link Set} of the specified collection.
+     * @see Set#of()
+     * @see Collections#unmodifiableSet(Set)
      */
     public static <E> Set<E> unmodifiableOrderedSet(final Collection<E> collection) {
         if (collection.isEmpty()) {
@@ -164,11 +176,13 @@ public final class ExCollections {
     }
 
     /**
-     * TODO
+     * Returns the short-lived unmodifiable ordered {@link Set} of the specified elements.
      *
-     * @param elements
-     * @param <E>
-     * @return
+     * @param elements the specified elements
+     * @param <E> the class of the objects in the collection
+     * @return the short-lived unmodifiable ordered {@link Set} of the specified elements.
+     * @see Set#of()
+     * @see Collections#unmodifiableSet(Set)
      */
     @SafeVarargs
     public static <E> Set<E> unmodifiableOrderedSet(final E... elements) {
@@ -176,11 +190,11 @@ public final class ExCollections {
     }
 
     /**
-     * TODO
+     * Joins the specified array of the {@link Set}s into one modifiable {@link Set}
      *
-     * @param items
-     * @param <E>
-     * @return
+     * @param items the specified array of the {@link Set}s
+     * @param <E> the class of the objects in the each {@link Set}
+     * @return the joined modifiable {@link Set}
      */
     @SafeVarargs
     public static <E> Set<E> join(final Set<E>... items) {
@@ -188,11 +202,11 @@ public final class ExCollections {
     }
 
     /**
-     * TODO
+     * Joins the specified array of the {@link List}s into one modifiable {@link List}
      *
-     * @param items
-     * @param <E>
-     * @return
+     * @param items the specified array of the {@link List}s
+     * @param <E> the class of the objects in the each {@link List}
+     * @return the joined modifiable {@link List}
      */
     @SafeVarargs
     public static <E> List<E> join(final List<E>... items) {
@@ -200,13 +214,16 @@ public final class ExCollections {
     }
 
     /**
-     * TODO
+     * Returns the short-lived unmodifiable ordered {@link Map} containing a single mapping.
      *
-     * @param k1
-     * @param v1
-     * @param <K>
-     * @param <V>
-     * @return
+     * @param <K> the {@code Map}'s key type
+     * @param <V> the {@code Map}'s value type
+     * @param k1 the mapping's key
+     * @param v1 the mapping's value
+     * @return the short-lived unmodifiable ordered {@link Map} containing the specified mapping
+     * @throws NullPointerException if the key or the value is {@code null}
+     * @see LinkedHashMap
+     * @see Map#of(Object, Object)
      */
     public static <K, V> Map<K, V> orderedMap(final K k1, final V v1) {
         return orderedMapFromEntries(
@@ -215,15 +232,19 @@ public final class ExCollections {
     }
 
     /**
-     * TODO
+     * Returns the short-lived unmodifiable ordered {@link Map} containing two mappings.
      *
-     * @param k1
-     * @param v1
-     * @param k2
-     * @param v2
-     * @param <K>
-     * @param <V>
-     * @return
+     * @param <K> the {@code Map}'s key type
+     * @param <V> the {@code Map}'s value type
+     * @param k1 the first mapping's key
+     * @param v1 the first mapping's value
+     * @param k2 the second mapping's key
+     * @param v2 the second mapping's value
+     * @return the short-lived unmodifiable ordered {@link Map} containing the specified mappings
+     * @throws IllegalArgumentException if the keys are duplicates
+     * @throws NullPointerException if any key or value is {@code null}
+     * @see LinkedHashMap
+     * @see Map#of(Object, Object, Object, Object)
      */
     public static <K, V> Map<K, V> orderedMap(final K k1, final V v1,
                                               final K k2, final V v2) {
@@ -234,17 +255,21 @@ public final class ExCollections {
     }
 
     /**
-     * TODO
+     * Returns the short-lived unmodifiable ordered {@link Map} containing three mappings.
      *
-     * @param k1
-     * @param v1
-     * @param k2
-     * @param v2
-     * @param k3
-     * @param v3
-     * @param <K>
-     * @param <V>
-     * @return
+     * @param <K> the {@code Map}'s key type
+     * @param <V> the {@code Map}'s value type
+     * @param k1 the first mapping's key
+     * @param v1 the first mapping's value
+     * @param k2 the second mapping's key
+     * @param v2 the second mapping's value
+     * @param k3 the third mapping's key
+     * @param v3 the third mapping's value
+     * @return the short-lived unmodifiable ordered {@link Map} containing the specified mappings
+     * @throws IllegalArgumentException if there are any duplicate keys
+     * @throws NullPointerException if any key or value is {@code null}
+     * @see LinkedHashMap
+     * @see Map#of(Object, Object, Object, Object, Object, Object)
      */
     public static <K, V> Map<K, V> orderedMap(final K k1, final V v1,
                                               final K k2, final V v2,
@@ -257,19 +282,23 @@ public final class ExCollections {
     }
 
     /**
-     * TODO
+     * Returns the short-lived unmodifiable ordered {@link Map} containing four mappings.
      *
-     * @param k1
-     * @param v1
-     * @param k2
-     * @param v2
-     * @param k3
-     * @param v3
-     * @param k4
-     * @param v4
-     * @param <K>
-     * @param <V>
-     * @return
+     * @param <K> the {@code Map}'s key type
+     * @param <V> the {@code Map}'s value type
+     * @param k1 the first mapping's key
+     * @param v1 the first mapping's value
+     * @param k2 the second mapping's key
+     * @param v2 the second mapping's value
+     * @param k3 the third mapping's key
+     * @param v3 the third mapping's value
+     * @param k4 the fourth mapping's key
+     * @param v4 the fourth mapping's value
+     * @return the short-lived unmodifiable ordered {@link Map} containing the specified mappings
+     * @throws IllegalArgumentException if there are any duplicate keys
+     * @throws NullPointerException if any key or value is {@code null}
+     * @see LinkedHashMap
+     * @see Map#of(Object, Object, Object, Object, Object, Object, Object, Object)
      */
     public static <K, V> Map<K, V> orderedMap(final K k1, final V v1,
                                               final K k2, final V v2,
@@ -284,21 +313,25 @@ public final class ExCollections {
     }
 
     /**
-     * TODO
+     * Returns the short-lived unmodifiable ordered {@link Map} containing five mappings.
      *
-     * @param k1
-     * @param v1
-     * @param k2
-     * @param v2
-     * @param k3
-     * @param v3
-     * @param k4
-     * @param v4
-     * @param k5
-     * @param v5
-     * @param <K>
-     * @param <V>
-     * @return
+     * @param <K> the {@code Map}'s key type
+     * @param <V> the {@code Map}'s value type
+     * @param k1 the first mapping's key
+     * @param v1 the first mapping's value
+     * @param k2 the second mapping's key
+     * @param v2 the second mapping's value
+     * @param k3 the third mapping's key
+     * @param v3 the third mapping's value
+     * @param k4 the fourth mapping's key
+     * @param v4 the fourth mapping's value
+     * @param k5 the fifth mapping's key
+     * @param v5 the fifth mapping's value
+     * @return the short-lived unmodifiable ordered {@link Map} containing the specified mappings
+     * @throws IllegalArgumentException if there are any duplicate keys
+     * @throws NullPointerException if any key or value is {@code null}
+     * @see LinkedHashMap
+     * @see Map#of(Object, Object, Object, Object, Object, Object, Object, Object, Object, Object)
      */
     public static <K, V> Map<K, V> orderedMap(final K k1, final V v1,
                                               final K k2, final V v2,
@@ -315,23 +348,27 @@ public final class ExCollections {
     }
 
     /**
-     * TODO
+     * Returns the short-lived unmodifiable ordered {@link Map} containing six mappings.
      *
-     * @param k1
-     * @param v1
-     * @param k2
-     * @param v2
-     * @param k3
-     * @param v3
-     * @param k4
-     * @param v4
-     * @param k5
-     * @param v5
-     * @param k6
-     * @param v6
-     * @param <K>
-     * @param <V>
-     * @return
+     * @param <K> the {@code Map}'s key type
+     * @param <V> the {@code Map}'s value type
+     * @param k1 the first mapping's key
+     * @param v1 the first mapping's value
+     * @param k2 the second mapping's key
+     * @param v2 the second mapping's value
+     * @param k3 the third mapping's key
+     * @param v3 the third mapping's value
+     * @param k4 the fourth mapping's key
+     * @param v4 the fourth mapping's value
+     * @param k5 the fifth mapping's key
+     * @param v5 the fifth mapping's value
+     * @param k6 the sixth mapping's key
+     * @param v6 the sixth mapping's value
+     * @return the short-lived unmodifiable ordered {@link Map} containing the specified mappings
+     * @throws IllegalArgumentException if there are any duplicate keys
+     * @throws NullPointerException if any key or value is {@code null}
+     * @see LinkedHashMap
+     * @see Map#of(Object, Object, Object, Object, Object, Object, Object, Object, Object, Object)
      */
     public static <K, V> Map<K, V> orderedMap(final K k1, final V v1,
                                               final K k2, final V v2,
@@ -350,25 +387,29 @@ public final class ExCollections {
     }
 
     /**
-     * TODO
+     * Returns the short-lived unmodifiable ordered {@link Map} containing seven mappings.
      *
-     * @param k1
-     * @param v1
-     * @param k2
-     * @param v2
-     * @param k3
-     * @param v3
-     * @param k4
-     * @param v4
-     * @param k5
-     * @param v5
-     * @param k6
-     * @param v6
-     * @param k7
-     * @param v7
-     * @param <K>
-     * @param <V>
-     * @return
+     * @param <K> the {@code Map}'s key type
+     * @param <V> the {@code Map}'s value type
+     * @param k1 the first mapping's key
+     * @param v1 the first mapping's value
+     * @param k2 the second mapping's key
+     * @param v2 the second mapping's value
+     * @param k3 the third mapping's key
+     * @param v3 the third mapping's value
+     * @param k4 the fourth mapping's key
+     * @param v4 the fourth mapping's value
+     * @param k5 the fifth mapping's key
+     * @param v5 the fifth mapping's value
+     * @param k6 the sixth mapping's key
+     * @param v6 the sixth mapping's value
+     * @param k7 the seventh mapping's key
+     * @param v7 the seventh mapping's value
+     * @return the short-lived unmodifiable ordered {@link Map} containing the specified mappings
+     * @throws IllegalArgumentException if there are any duplicate keys
+     * @throws NullPointerException if any key or value is {@code null}
+     * @see LinkedHashMap
+     * @see Map#of(Object, Object, Object, Object, Object, Object, Object, Object, Object, Object)
      */
     public static <K, V> Map<K, V> orderedMap(final K k1, final V v1,
                                               final K k2, final V v2,
@@ -389,27 +430,31 @@ public final class ExCollections {
     }
 
     /**
-     * TODO
+     * Returns the short-lived unmodifiable ordered {@link Map} containing eight mappings.
      *
-     * @param k1
-     * @param v1
-     * @param k2
-     * @param v2
-     * @param k3
-     * @param v3
-     * @param k4
-     * @param v4
-     * @param k5
-     * @param v5
-     * @param k6
-     * @param v6
-     * @param k7
-     * @param v7
-     * @param k8
-     * @param v8
-     * @param <K>
-     * @param <V>
-     * @return
+     * @param <K> the {@code Map}'s key type
+     * @param <V> the {@code Map}'s value type
+     * @param k1 the first mapping's key
+     * @param v1 the first mapping's value
+     * @param k2 the second mapping's key
+     * @param v2 the second mapping's value
+     * @param k3 the third mapping's key
+     * @param v3 the third mapping's value
+     * @param k4 the fourth mapping's key
+     * @param v4 the fourth mapping's value
+     * @param k5 the fifth mapping's key
+     * @param v5 the fifth mapping's value
+     * @param k6 the sixth mapping's key
+     * @param v6 the sixth mapping's value
+     * @param k7 the seventh mapping's key
+     * @param v7 the seventh mapping's value
+     * @param k8 the eighth mapping's key
+     * @param v8 the eighth mapping's value
+     * @return the short-lived unmodifiable ordered {@link Map} containing the specified mappings
+     * @throws IllegalArgumentException if there are any duplicate keys
+     * @throws NullPointerException if any key or value is {@code null}
+     * @see LinkedHashMap
+     * @see Map#of(Object, Object, Object, Object, Object, Object, Object, Object, Object, Object)
      */
     public static <K, V> Map<K, V> orderedMap(final K k1, final V v1,
                                               final K k2, final V v2,
@@ -432,29 +477,33 @@ public final class ExCollections {
     }
 
     /**
-     * TODO
+     * Returns the short-lived unmodifiable ordered {@link Map} containing nine mappings.
      *
-     * @param k1
-     * @param v1
-     * @param k2
-     * @param v2
-     * @param k3
-     * @param v3
-     * @param k4
-     * @param v4
-     * @param k5
-     * @param v5
-     * @param k6
-     * @param v6
-     * @param k7
-     * @param v7
-     * @param k8
-     * @param v8
-     * @param k9
-     * @param v9
-     * @param <K>
-     * @param <V>
-     * @return
+     * @param <K> the {@code Map}'s key type
+     * @param <V> the {@code Map}'s value type
+     * @param k1 the first mapping's key
+     * @param v1 the first mapping's value
+     * @param k2 the second mapping's key
+     * @param v2 the second mapping's value
+     * @param k3 the third mapping's key
+     * @param v3 the third mapping's value
+     * @param k4 the fourth mapping's key
+     * @param v4 the fourth mapping's value
+     * @param k5 the fifth mapping's key
+     * @param v5 the fifth mapping's value
+     * @param k6 the sixth mapping's key
+     * @param v6 the sixth mapping's value
+     * @param k7 the seventh mapping's key
+     * @param v7 the seventh mapping's value
+     * @param k8 the eighth mapping's key
+     * @param v8 the eighth mapping's value
+     * @param k9 the ninth mapping's key
+     * @param v9 the ninth mapping's value
+     * @return the short-lived unmodifiable ordered {@link Map} containing the specified mappings
+     * @throws IllegalArgumentException if there are any duplicate keys
+     * @throws NullPointerException if any key or value is {@code null}
+     * @see LinkedHashMap
+     * @see Map#of(Object, Object, Object, Object, Object, Object, Object, Object, Object, Object)
      */
     public static <K, V> Map<K, V> orderedMap(final K k1, final V v1,
                                               final K k2, final V v2,
@@ -479,31 +528,35 @@ public final class ExCollections {
     }
 
     /**
-     * TODO
+     * Returns the short-lived unmodifiable ordered {@link Map} containing ten mappings.
      *
-     * @param k1
-     * @param v1
-     * @param k2
-     * @param v2
-     * @param k3
-     * @param v3
-     * @param k4
-     * @param v4
-     * @param k5
-     * @param v5
-     * @param k6
-     * @param v6
-     * @param k7
-     * @param v7
-     * @param k8
-     * @param v8
-     * @param k9
-     * @param v9
-     * @param k10
-     * @param v10
-     * @param <K>
-     * @param <V>
-     * @return
+     * @param <K> the {@code Map}'s key type
+     * @param <V> the {@code Map}'s value type
+     * @param k1 the first mapping's key
+     * @param v1 the first mapping's value
+     * @param k2 the second mapping's key
+     * @param v2 the second mapping's value
+     * @param k3 the third mapping's key
+     * @param v3 the third mapping's value
+     * @param k4 the fourth mapping's key
+     * @param v4 the fourth mapping's value
+     * @param k5 the fifth mapping's key
+     * @param v5 the fifth mapping's value
+     * @param k6 the sixth mapping's key
+     * @param v6 the sixth mapping's value
+     * @param k7 the seventh mapping's key
+     * @param v7 the seventh mapping's value
+     * @param k8 the eighth mapping's key
+     * @param v8 the eighth mapping's value
+     * @param k9 the ninth mapping's key
+     * @param v9 the ninth mapping's value
+     * @param k10 the tenth mapping's key
+     * @param v10 the tenth mapping's value
+     * @return the short-lived unmodifiable ordered {@link Map} containing the specified mappings
+     * @throws IllegalArgumentException if there are any duplicate keys
+     * @throws NullPointerException if any key or value is {@code null}
+     * @see LinkedHashMap
+     * @see Map#of(Object, Object, Object, Object, Object, Object, Object, Object, Object, Object)
      */
     public static <K, V> Map<K, V> orderedMap(final K k1, final V v1,
                                               final K k2, final V v2,
@@ -530,19 +583,29 @@ public final class ExCollections {
     }
 
     /**
-     * TODO
+     * Returns the short-lived unmodifiable ordered {@link Map} containing keys and values extracted from the given entries.
      *
-     * @param entries
-     * @param <K>
-     * @param <V>
-     * @return
+     * @param <K> the {@code Map}'s key type
+     * @param <V> the {@code Map}'s value type
+     * @param entries {@code Map.Entry}s containing the keys and values from which the map is populated
+     * @return the short-lived unmodifiable ordered {@link Map} containing the specified mappings
+     * @throws IllegalArgumentException if there are any duplicate keys
+     * @throws NullPointerException if any entry, key, or value is {@code null}, or if
+     *         the {@code entries} array is {@code null}
+     * @see LinkedHashMap
+     * @see Map#ofEntries(Map.Entry[])
      */
     @SafeVarargs
     @SuppressWarnings("varargs")
     public static <K, V> Map<K, V> orderedMapFromEntries(final Map.Entry<? extends K, ? extends V>... entries) {
         final Map<K, V> map = new LinkedHashMap<>();
         for (final Map.Entry<? extends K, ? extends V> entry : entries) {
-            map.put(entry.getKey(), entry.getValue());
+            final V oldValue = map.put(entry.getKey(), entry.getValue());
+            if (oldValue != null) {
+                throw new IllegalArgumentException(
+                        format("Duplicate detected: key=?, value1=?, value2=?", entry.getKey(), entry.getValue(), oldValue)
+                );
+            }
         }
         return unmodifiableMap(map);
     }

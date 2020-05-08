@@ -31,7 +31,6 @@ import static java.util.stream.Collectors.joining;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class NettyReadOnlyHttpHeaders implements HttpHeaders {

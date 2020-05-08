@@ -30,8 +30,9 @@ import static io.rxmicro.common.util.Formats.format;
  * Allows configuring Postgre SQL DB pool options.
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
+ * @see PostgreSQLRepository
+ * @see PostgreSQLClientFactory
  */
 @SuppressWarnings("UnusedReturnValue")
 public final class PostgreSQLConfig extends SQLPooledDatabaseConfig {

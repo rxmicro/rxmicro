@@ -37,7 +37,6 @@ import static io.rxmicro.common.util.Strings.unCapitalize;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 @Singleton

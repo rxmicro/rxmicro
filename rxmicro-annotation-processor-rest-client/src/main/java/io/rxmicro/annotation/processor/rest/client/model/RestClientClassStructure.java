@@ -51,7 +51,6 @@ import static java.util.stream.Collectors.toSet;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class RestClientClassStructure extends ClassStructure {

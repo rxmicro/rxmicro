@@ -22,7 +22,6 @@ import static io.rxmicro.tool.common.internal.DeniedPackageConstants.DENIED_PACK
  * Utility class that verifies that the tested package name is denied or not
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class DeniedPackages {

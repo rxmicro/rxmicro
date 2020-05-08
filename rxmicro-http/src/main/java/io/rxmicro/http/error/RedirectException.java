@@ -31,7 +31,6 @@ import static io.rxmicro.common.util.Strings.startsWith;
  * </ul>
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public abstract class RedirectException extends HttpErrorException {
@@ -52,7 +51,8 @@ public abstract class RedirectException extends HttpErrorException {
      *
      * @param status the specified redirect status code
      * @param location the HTTP {@code Location} header value
-     * @throws NullPointerException if {@code location} is {@code null}
+     * @throws NullPointerException if the location is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     RedirectException(final int status,
                       final String location) {
@@ -80,7 +80,8 @@ public abstract class RedirectException extends HttpErrorException {
      * @param status the specified redirect status code
      * @param location the HTTP {@code Location} header value template
      * @param args the HTTP {@code Location} header value template arguments
-     * @throws NullPointerException if {@code location} is {@code null}
+     * @throws NullPointerException if the location is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     RedirectException(final int status,
                       final String location,

@@ -18,7 +18,6 @@ package io.rxmicro.json.internal.writer;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 final class CompactJsonToStringBuilder extends JsonToStringBuilder {

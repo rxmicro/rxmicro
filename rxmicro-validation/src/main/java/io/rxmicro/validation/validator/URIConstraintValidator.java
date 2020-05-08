@@ -26,9 +26,8 @@ import java.net.URISyntaxException;
  * Validator for the {@link io.rxmicro.validation.constraint.URI} constraint
  *
  * @author nedis
- * @link https://rxmicro.io
- * @see io.rxmicro.validation.constraint.URI
  * @since 0.1
+ * @see io.rxmicro.validation.constraint.URI
  */
 public class URIConstraintValidator implements ConstraintValidator<String> {
 

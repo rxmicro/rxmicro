@@ -25,9 +25,8 @@ import java.math.BigDecimal;
  * Validator for the {@link io.rxmicro.validation.constraint.MaxNumber} constraint
  *
  * @author nedis
- * @link https://rxmicro.io
- * @see io.rxmicro.validation.constraint.MaxNumber
  * @since 0.1
+ * @see io.rxmicro.validation.constraint.MaxNumber
  */
 public class MaxBigDecimalNumberConstraintValidator extends AbstractMaxConstraintValidator<BigDecimal>
         implements ConstraintValidator<BigDecimal> {

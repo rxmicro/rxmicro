@@ -28,7 +28,6 @@ import static java.util.stream.Collectors.toUnmodifiableList;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class TypeDefinitionsImpl<T extends TypeDefinition> implements TypeDefinitions<T> {

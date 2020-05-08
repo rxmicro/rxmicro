@@ -24,14 +24,31 @@ import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
+ * Declares the static field of the test class as a configuration which must be registered in the configuration manager
+ * before starting the test.
+ * <p>
+ * This annotation allows declaring a configuration using Java classes.
+ * <i>(The configuration defined in this way is only available while the test is running.)</i>
+ * <p>
+ * The RxMicro framework supports test configuration only for REST-based microservice tests and component unit tests.
+ *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
+ * @see io.rxmicro.config.Config
+ * @see io.rxmicro.config.Configs#getConfig(Class)
+ * @see io.rxmicro.config.Configs#getConfig(String, Class)
  */
 @Documented
 @Retention(RUNTIME)
 @Target(FIELD)
 public @interface WithConfig {
 
+    /**
+     * Returns the custom namespace for specified configuration
+     *
+     * @return the custom namespace for specified configuration
+     * @see io.rxmicro.config.Config#getDefaultNameSpace(Class)
+     * @see io.rxmicro.config.Configs#getConfig(String, Class)
+     */
     String value() default "";
 }

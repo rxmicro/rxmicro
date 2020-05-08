@@ -33,7 +33,6 @@ import static io.rxmicro.common.util.ExCollectors.toOrderedSet;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public abstract class SQLDataObjectModelClass<DMF extends SQLDataModelField> extends DataObjectModelClass<DMF> {

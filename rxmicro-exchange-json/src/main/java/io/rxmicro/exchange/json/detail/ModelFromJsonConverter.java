@@ -37,10 +37,9 @@ import static io.rxmicro.rest.model.HttpModelType.PARAMETER;
 import static java.util.Collections.unmodifiableList;
 
 /**
- * Used by generated code that was created by RxMicro Annotation Processor
+ * Used by generated code that was created by {@code RxMicro Annotation Processor}
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 @SuppressWarnings({"unchecked", "ForLoopReplaceableByForEach"})

@@ -26,7 +26,6 @@ import static io.rxmicro.common.util.Requires.require;
  * Instance of this class represents a URL path with path variables
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class UrlSegments {

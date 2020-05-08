@@ -28,9 +28,8 @@ import java.util.Set;
  * Validator for the {@link io.rxmicro.validation.constraint.SubEnum} constraint
  *
  * @author nedis
- * @link https://rxmicro.io
- * @see io.rxmicro.validation.constraint.SubEnum
  * @since 0.1
+ * @see io.rxmicro.validation.constraint.SubEnum
  */
 public class SubEnumConstraintValidator<T extends Enum<T>> implements ConstraintValidator<T> {
 

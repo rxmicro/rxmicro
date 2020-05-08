@@ -28,8 +28,9 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * that are used in the query to db.
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
+ * @see SortOrder
+ * @see Pageable
  */
 @Documented
 @Retention(SOURCE)

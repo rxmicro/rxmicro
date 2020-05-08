@@ -51,8 +51,11 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * If it is necessary to override a complex value, {@link DefaultConfigValueSupplier} annotation must be used instead.
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
+ * @see DefaultConfigValueSupplier
+ * @see Config
+ * @see Configs#getConfig(String, Class)
+ * @see Configs#getConfig(Class)
  */
 @Documented
 @Retention(SOURCE)
@@ -84,7 +87,9 @@ public @interface DefaultConfigValue {
     String name();
 
     /**
-     * @return overridden property value
+     * Returns the overridden property value
+     *
+     * @return the overridden property value
      */
     String value();
 
@@ -92,7 +97,6 @@ public @interface DefaultConfigValue {
      * Defines several {@link DefaultConfigValue} annotations on the same element.
      *
      * @author nedis
-     * @link https://rxmicro.io
      * @since 0.1
      */
     @Documented

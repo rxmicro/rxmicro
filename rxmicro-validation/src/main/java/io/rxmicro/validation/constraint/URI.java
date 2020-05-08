@@ -34,10 +34,13 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * The annotated element must be a valid {@link java.net.URI} address.
  *
  * @author nedis
- * @link https://rxmicro.io
- * @see URIConstraintValidator
- * @see java.net.URI
  * @since 0.1
+ * @see URLEncoded
+ * @see Base64URLEncoded
+ * @see java.net.URI
+ * @see URIConstraintValidator
+ *
+ *
  */
 @Documented
 @Retention(SOURCE)

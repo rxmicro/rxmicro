@@ -17,25 +17,38 @@
 package io.rxmicro.test.mockito.mongo;
 
 /**
+ * The Mongo {@link io.rxmicro.data.mongo.operation.EstimatedDocumentCount} operation mock using
+ * <a href="https://site.mockito.org/">Mockito</a> testing framework
+ *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
+ * @see io.rxmicro.data.mongo.operation.EstimatedDocumentCount
+ * @see io.rxmicro.data.mongo.MongoRepository
  */
 @SuppressWarnings("InstantiationOfUtilityClass")
 public final class EstimatedDocumentCountMock {
 
+    /**
+     * The singleton instance of the Mongo {@link io.rxmicro.data.mongo.operation.EstimatedDocumentCount} operation mock
+     */
     public static final EstimatedDocumentCountMock ESTIMATED_DOCUMENT_COUNT_MOCK = new EstimatedDocumentCountMock();
 
     private EstimatedDocumentCountMock() {
     }
 
     /**
+     * The builder for building a Mongo {@link io.rxmicro.data.mongo.operation.EstimatedDocumentCount} operation mock
+     *
      * @author nedis
-     * @link https://rxmicro.io
      * @since 0.1
      */
     public static final class Builder {
 
+        /**
+         * Returns the singleton instance of the Mongo {@link io.rxmicro.data.mongo.operation.EstimatedDocumentCount} operation mock
+         *
+         * @return the singleton instance of the Mongo {@link io.rxmicro.data.mongo.operation.EstimatedDocumentCount} operation mock
+         */
         public EstimatedDocumentCountMock build() {
             return ESTIMATED_DOCUMENT_COUNT_MOCK;
         }

@@ -31,8 +31,6 @@ import static io.rxmicro.documentation.PathVariables.USER_HOME;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
- * @link https://docs.oracle.com/javase/tutorial/essential/environment/sysprop.html
  * @since 0.1
  */
 @Singleton

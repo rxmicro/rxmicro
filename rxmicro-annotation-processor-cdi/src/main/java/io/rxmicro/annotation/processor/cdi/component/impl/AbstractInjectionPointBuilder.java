@@ -42,7 +42,6 @@ import static io.rxmicro.cdi.local.Annotations.INJECT_ANNOTATIONS;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public abstract class AbstractInjectionPointBuilder {

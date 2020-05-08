@@ -34,8 +34,8 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * This endpoint can be used that the RxMicro HTTP server is up.
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
+ * @see HttpMethod
  */
 @Documented
 @Retention(SOURCE)

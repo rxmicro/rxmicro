@@ -23,34 +23,36 @@ import java.util.Map;
  * Utility class for all supported JSON types
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
+ * @see JsonHelper
+ * @see JsonNumber
+ * @see JsonException
  */
-@SuppressWarnings("unchecked")
+@SuppressWarnings({"unchecked", "JavaDoc"})
 public final class JsonTypes {
 
     /**
-     * The {@code string} JSON type
+     * The {@value #STRING} JSON type
      */
     public static final String STRING = "string";
 
     /**
-     * The {@code number} JSON type
+     * The {@value #NUMBER} JSON type
      */
     public static final String NUMBER = "number";
 
     /**
-     * The {@code boolean} JSON type
+     * The {@value #BOOLEAN} JSON type
      */
     public static final String BOOLEAN = "boolean";
 
     /**
-     * The {@code object} JSON type
+     * The {@value #OBJECT} JSON type
      */
     public static final String OBJECT = "object";
 
     /**
-     * The {@code array} JSON type
+     * The {@value #ARRAY} JSON type
      */
     public static final String ARRAY = "array";
 
@@ -75,7 +77,7 @@ public final class JsonTypes {
         try {
             return (Map<String, Object>) object;
         } catch (final ClassCastException e) {
-            throw new JsonException("Not a json object: " + object);
+            throw new JsonException("Not a json object: ?", object);
         }
     }
 
@@ -100,7 +102,7 @@ public final class JsonTypes {
         try {
             return (List<Object>) object;
         } catch (final ClassCastException e) {
-            throw new JsonException("Not a json array: " + object);
+            throw new JsonException("Not a json array: ?", object);
         }
     }
 
@@ -125,7 +127,7 @@ public final class JsonTypes {
         try {
             return (String) object;
         } catch (final ClassCastException e) {
-            throw new JsonException("Not a json string: " + object);
+            throw new JsonException("Not a json string: ?", object);
         }
     }
 
@@ -150,7 +152,7 @@ public final class JsonTypes {
         try {
             return (JsonNumber) object;
         } catch (final ClassCastException e) {
-            throw new JsonException("Not a json number: " + object);
+            throw new JsonException("Not a json number: ?", object);
         }
     }
 
@@ -175,7 +177,7 @@ public final class JsonTypes {
         try {
             return (Boolean) object;
         } catch (final ClassCastException e) {
-            throw new JsonException("Not a json boolean: " + object);
+            throw new JsonException("Not a json boolean: ?", object);
         }
     }
 

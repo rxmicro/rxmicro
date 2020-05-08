@@ -44,7 +44,6 @@ import static java.util.Collections.unmodifiableList;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 @SuppressWarnings({"ForLoopReplaceableByForEach", "unchecked", "SameParameterValue"})

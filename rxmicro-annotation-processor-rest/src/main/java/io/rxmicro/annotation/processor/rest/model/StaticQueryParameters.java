@@ -21,7 +21,6 @@ import io.rxmicro.http.local.RepeatableValues;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class StaticQueryParameters extends AbstractRepeatableValues<StaticQueryParameters>

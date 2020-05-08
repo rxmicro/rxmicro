@@ -31,9 +31,15 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * </a>
  *
  * @author nedis
- * @link https://rxmicro.io
- * @link https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html#sec9.6
  * @since 0.1
+ * @see DELETE
+ * @see GET
+ * @see HEAD
+ * @see OPTIONS
+ * @see PATCH
+ * @see POST
+ * @see io.rxmicro.rest.model.HttpMethod
+ * @see HttpMethods
  */
 @Documented
 @Retention(SOURCE)
@@ -60,7 +66,6 @@ public @interface PUT {
      * Defines several {@link PUT} annotations on the same element.
      *
      * @author nedis
-     * @link https://rxmicro.io
      * @since 0.1
      */
     @Documented

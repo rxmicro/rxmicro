@@ -39,7 +39,6 @@ import static io.rxmicro.data.sql.operation.Insert.DEFAULT_INSERT_WITH_RETURNING
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 @Singleton

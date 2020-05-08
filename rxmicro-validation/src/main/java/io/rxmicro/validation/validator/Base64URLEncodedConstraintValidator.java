@@ -32,9 +32,8 @@ import static io.rxmicro.validation.base.ConstraintUtils.getLatinLettersAndDigit
  * Validator for the {@link io.rxmicro.validation.constraint.Base64URLEncoded} constraint
  *
  * @author nedis
- * @link https://rxmicro.io
- * @see io.rxmicro.validation.constraint.Base64URLEncoded
  * @since 0.1
+ * @see io.rxmicro.validation.constraint.Base64URLEncoded
  */
 public class Base64URLEncodedConstraintValidator implements ConstraintValidator<String> {
 

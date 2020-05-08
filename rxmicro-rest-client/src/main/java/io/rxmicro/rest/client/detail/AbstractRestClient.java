@@ -22,10 +22,9 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Used by generated code that was created by RxMicro Annotation Processor
+ * Used by generated code that was created by {@code RxMicro Annotation Processor}
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public abstract class AbstractRestClient {

@@ -32,7 +32,6 @@ import static io.rxmicro.http.HttpStandardHeaderNames.LOCATION;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 @Singleton

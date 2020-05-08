@@ -27,7 +27,6 @@ import java.io.IOException;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public abstract class AbstractGenerator extends AbstractProcessorComponent {

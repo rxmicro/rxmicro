@@ -38,7 +38,6 @@ import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.ge
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.4
  */
 public abstract class AbstractParametrizedBaseRestClientMethodBodyBuilder

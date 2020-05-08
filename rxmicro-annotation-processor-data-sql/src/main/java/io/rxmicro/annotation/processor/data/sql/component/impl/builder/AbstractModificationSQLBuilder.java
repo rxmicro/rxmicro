@@ -40,7 +40,6 @@ import static io.rxmicro.common.util.Formats.format;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public abstract class AbstractModificationSQLBuilder<A extends Annotation, DMF extends SQLDataModelField, DMC extends SQLDataObjectModelClass<DMF>>

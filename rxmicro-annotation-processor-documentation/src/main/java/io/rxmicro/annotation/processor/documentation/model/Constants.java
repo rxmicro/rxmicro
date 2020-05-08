@@ -18,7 +18,6 @@ package io.rxmicro.annotation.processor.documentation.model;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class Constants {

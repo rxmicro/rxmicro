@@ -20,7 +20,6 @@ import java.lang.reflect.Field;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public interface ReplacementExclusion {

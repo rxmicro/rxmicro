@@ -43,7 +43,6 @@ import static java.lang.System.lineSeparator;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 @Singleton

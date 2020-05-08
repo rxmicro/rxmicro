@@ -28,12 +28,16 @@ import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
- * Denotes the exception class to be analyzed by the RxMicro Annotation Processor for generating the unsuccessful
+ * Denotes the exception class to be analyzed by the {@code RxMicro Annotation Processor} for generating the unsuccessful
  * HTTP response description of REST-based microservice.
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
+ * @see Description
+ * @see Example
+ * @see IncludeDescription
+ * @see IncludeMode
+ * @see SimpleErrorResponse
  */
 @Documented
 @Retention(SOURCE)
@@ -52,7 +56,6 @@ public @interface ModelExceptionErrorResponse {
      * Defines several {@link ModelExceptionErrorResponse} annotations on the same element.
      *
      * @author nedis
-     * @link https://rxmicro.io
      * @since 0.1
      */
     @Documented

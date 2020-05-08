@@ -24,7 +24,6 @@ import org.bson.codecs.EncoderContext;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class EnumCodec<T extends Enum<T>> implements Codec<T> {

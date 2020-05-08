@@ -20,13 +20,13 @@ package io.rxmicro.common;
  * The common constants for the RxMicro framework
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
+@SuppressWarnings("JavaDoc")
 public final class Constants {
 
     /**
-     * The RxMicro framework name
+     * The RxMicro framework name: {@value #RX_MICRO_FRAMEWORK_NAME}
      */
     public static final String RX_MICRO_FRAMEWORK_NAME = "RxMicro";
 
@@ -46,23 +46,22 @@ public final class Constants {
      * In such cases a virtual descriptor must be used.
      *
      * @author nedis
-     * @link https://rxmicro.io
      * @since 0.2
      */
     public static final class VirtualModuleInfoConstants {
 
         /**
-         * The virtual descriptor annotation name
+         * The virtual descriptor annotation name: {@value #RX_MICRO_VIRTUAL_MODULE_INFO_ANNOTATION_NAME}
          */
         public static final String RX_MICRO_VIRTUAL_MODULE_INFO_ANNOTATION_NAME = "ModuleInfo";
 
         /**
-         * The static final field that describes the module name for the virtual descriptor
+         * The static final field that describes the module name for the virtual descriptor: {@value #RX_MICRO_FRAMEWORK_NAME}
          */
         public static final String RX_MICRO_VIRTUAL_MODULE_INFO_NAME = "NAME";
 
         /**
-         * The default module name for the virtual descriptor
+         * The default module name for the virtual descriptor: {@value #RX_MICRO_VIRTUAL_MODULE_INFO_DEFAULT_NAME}
          */
         public static final String RX_MICRO_VIRTUAL_MODULE_INFO_DEFAULT_NAME = "virtual.module";
 

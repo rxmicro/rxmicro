@@ -28,7 +28,6 @@ import static io.rxmicro.config.Configs.getConfig;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class NettyHttpResponseBuilder implements HttpResponseBuilder {

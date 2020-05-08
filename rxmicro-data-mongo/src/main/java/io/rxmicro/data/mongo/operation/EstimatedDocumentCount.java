@@ -30,9 +30,15 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * </a> operation.
  *
  * @author nedis
- * @link https://rxmicro.io
- * @link https://docs.mongodb.com/manual/reference/method/db.collection.estimatedDocumentCount/
  * @since 0.1
+ * @see io.rxmicro.data.mongo.MongoRepository
+ * @see Aggregate
+ * @see CountDocuments
+ * @see Delete
+ * @see Distinct
+ * @see Find
+ * @see Insert
+ * @see Update
  */
 @Documented
 @Retention(SOURCE)

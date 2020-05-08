@@ -47,10 +47,11 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * To solve this issue use @{@link Enumeration} annotation, otherwise use Java enum.
  *
  * @author nedis
- * @link https://rxmicro.io
+ * @since 0.1
+ * @see Enum
+ * @see SubEnum
  * @see EnumerationStringConstraintValidator
  * @see EnumerationCharacterConstraintValidator
- * @since 0.1
  */
 @Documented
 @Retention(SOURCE)

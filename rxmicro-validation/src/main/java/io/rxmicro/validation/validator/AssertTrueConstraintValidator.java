@@ -24,9 +24,8 @@ import io.rxmicro.validation.ConstraintValidator;
  * Validator for the {@link io.rxmicro.validation.constraint.AssertTrue} constraint
  *
  * @author nedis
- * @link https://rxmicro.io
- * @see io.rxmicro.validation.constraint.AssertTrue
  * @since 0.1
+ * @see io.rxmicro.validation.constraint.AssertTrue
  */
 public class AssertTrueConstraintValidator implements ConstraintValidator<Boolean> {
 

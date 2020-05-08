@@ -26,7 +26,6 @@ import static java.util.stream.Collectors.toList;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class HeadersArgumentMatcher implements ArgumentMatcher<List<Map.Entry<String, String>>> {

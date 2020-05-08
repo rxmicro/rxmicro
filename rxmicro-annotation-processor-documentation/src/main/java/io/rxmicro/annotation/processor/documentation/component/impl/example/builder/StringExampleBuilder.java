@@ -48,7 +48,6 @@ import static io.rxmicro.rest.RequestId.REQUEST_ID_EXAMPLE;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 @Singleton

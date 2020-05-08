@@ -28,7 +28,6 @@ import io.rxmicro.rest.model.ExchangeFormat;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 @Singleton

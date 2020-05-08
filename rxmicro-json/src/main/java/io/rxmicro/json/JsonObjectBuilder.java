@@ -24,8 +24,11 @@ import java.util.List;
  * JSON object builder
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
+ * @see JsonTypes
+ * @see JsonHelper
+ * @see JsonNumber
+ * @see JsonException
  */
 public final class JsonObjectBuilder extends MapBuilder<String, Object> {
 

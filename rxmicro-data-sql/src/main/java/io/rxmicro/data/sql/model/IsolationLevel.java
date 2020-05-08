@@ -20,9 +20,12 @@ package io.rxmicro.data.sql.model;
  * Represents a transaction isolation level constant.
  *
  * @author nedis
- * @link https://rxmicro.io
- * @link https://www.postgresql.org/docs/12/transaction-iso.html
  * @since 0.1
+ * @see TransactionType
+ * @see io.rxmicro.data.sql.model.reactor.Transaction
+ * @see io.rxmicro.data.sql.model.rxjava3.Transaction
+ * @see io.rxmicro.data.sql.model.completablefuture.Transaction
+ * @see SavePoint
  */
 public enum IsolationLevel {
 

@@ -26,9 +26,8 @@ import java.util.List;
  * Validator for the {@link io.rxmicro.validation.constraint.Lng} constraint
  *
  * @author nedis
- * @link https://rxmicro.io
- * @see io.rxmicro.validation.constraint.Lng
  * @since 0.1
+ * @see io.rxmicro.validation.constraint.Lng
  */
 public final class LngConstraintValidator extends AbstractCompositionConstraintValidator<BigDecimal> {
 

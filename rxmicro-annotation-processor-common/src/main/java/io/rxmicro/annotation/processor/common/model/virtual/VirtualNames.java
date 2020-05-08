@@ -28,7 +28,6 @@ import static io.rxmicro.common.util.GeneratedClassRules.GENERATED_VIRTUAL_CLASS
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 final class VirtualNames {

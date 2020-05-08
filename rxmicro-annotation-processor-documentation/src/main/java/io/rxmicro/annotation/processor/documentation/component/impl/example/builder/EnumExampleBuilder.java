@@ -36,7 +36,6 @@ import static io.rxmicro.annotation.processor.common.util.Elements.getAllowedEnu
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 @Singleton

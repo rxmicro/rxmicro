@@ -29,7 +29,6 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * When activating this feature, the RxMicro framework automatically adds a standard handler that handles preflighted requests.
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 @Documented

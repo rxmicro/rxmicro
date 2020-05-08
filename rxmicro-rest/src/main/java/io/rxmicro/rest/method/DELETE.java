@@ -32,9 +32,15 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * </a>
  *
  * @author nedis
- * @link https://rxmicro.io
- * @link https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html#sec9.7
  * @since 0.1
+ * @see GET
+ * @see HEAD
+ * @see OPTIONS
+ * @see PATCH
+ * @see POST
+ * @see PUT
+ * @see io.rxmicro.rest.model.HttpMethod
+ * @see HttpMethods
  */
 @Documented
 @Retention(SOURCE)
@@ -53,7 +59,6 @@ public @interface DELETE {
      * Defines several {@link DELETE} annotations on the same element.
      *
      * @author nedis
-     * @link https://rxmicro.io
      * @since 0.1
      */
     @Documented

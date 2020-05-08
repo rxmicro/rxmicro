@@ -26,7 +26,6 @@ package io.rxmicro.rest.server.local.component;
  * To store the request id, the `Request-Id` (See {@link io.rxmicro.http.HttpHeaders#REQUEST_ID}) HTTP additional header is used.
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public interface RequestIdGenerator {

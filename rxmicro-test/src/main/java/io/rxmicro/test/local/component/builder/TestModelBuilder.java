@@ -48,7 +48,6 @@ import static io.rxmicro.tool.common.Reflections.allFields;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class TestModelBuilder {
@@ -156,7 +155,6 @@ public final class TestModelBuilder {
 
     /**
      * @author nedis
-     * @link https://rxmicro.io
      * @since 0.1
      */
     private static final class NotAccessedClass {

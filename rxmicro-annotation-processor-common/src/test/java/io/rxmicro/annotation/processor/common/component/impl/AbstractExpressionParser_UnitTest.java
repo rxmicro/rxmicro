@@ -40,7 +40,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
+ *
  */
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)

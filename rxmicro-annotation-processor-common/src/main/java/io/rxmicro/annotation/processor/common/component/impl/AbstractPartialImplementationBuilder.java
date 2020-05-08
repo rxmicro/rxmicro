@@ -50,7 +50,6 @@ import static javax.lang.model.element.Modifier.STATIC;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public abstract class AbstractPartialImplementationBuilder extends AbstractProcessorComponent {

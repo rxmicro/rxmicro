@@ -31,7 +31,6 @@ import static io.rxmicro.config.internal.waitfor.component.WaitForParamsExtracto
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.3
  */
 public final class WaitForServiceFactory {

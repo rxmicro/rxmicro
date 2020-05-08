@@ -33,8 +33,6 @@ import javax.lang.model.element.ExecutableElement;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
- * @link https://www.postgresql.org/docs/12/sql-select.html
  * @since 0.1
  */
 @Singleton

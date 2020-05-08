@@ -37,7 +37,6 @@ import static java.nio.file.Files.writeString;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 @Singleton

@@ -30,8 +30,9 @@ import static java.util.Map.entry;
  * Represents a HTTP query parameters instance
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
+ * @see HttpHeaders
+ * @see HttpValues
  */
 public interface QueryParams {
 

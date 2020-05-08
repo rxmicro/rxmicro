@@ -53,7 +53,6 @@ import static com.google.inject.multibindings.Multibinder.newSetBinder;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class MongoDependenciesModule extends AbstractModule {

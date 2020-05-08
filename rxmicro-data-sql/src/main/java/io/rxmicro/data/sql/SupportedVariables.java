@@ -24,8 +24,8 @@ import io.rxmicro.data.sql.operation.Update;
 /**
  * Supported variables that can be used in the SQL queries.
  * <p>
- * To determine the value of the predefined variable used in the query specified for the repository method, the RxMicro framework
- * uses the following algorithm:
+ * <h4>To determine the value of the predefined variable used in the query specified for the repository method, the RxMicro framework
+ * uses the following algorithm:</h4>
  * <ol>
  *     <li>
  *         If the repository method returns or accepts the entity model as a parameter, the entity model class is used to define
@@ -53,11 +53,11 @@ import io.rxmicro.data.sql.operation.Update;
  * </ol>
  *
  * @author nedis
- * @link https://rxmicro.io
  * @see io.rxmicro.data.sql.operation.Select
  * @see io.rxmicro.data.sql.operation.Insert
  * @see io.rxmicro.data.sql.operation.Update
  * @see io.rxmicro.data.sql.operation.Delete
+ * @see VariableValues
  * @since 0.1
  */
 public final class SupportedVariables {

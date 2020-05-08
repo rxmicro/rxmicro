@@ -28,7 +28,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 /**
  * Maps HTTP path variable to annotated class field.
  * <p>
- * The RxMicro framework supports the following Java types, which can be path variables of the request model:
+ * <h4>The RxMicro framework supports the following Java types, which can be path variables of the request model:</h4>
  * <ul>
  *     <li>? extends {@link Enum}&lt;?&gt</li>
  *     <li>{@link Boolean}</li>
@@ -47,8 +47,9 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * </ul>
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
+ * @see Parameter
+ * @see Header
  */
 @Documented
 @Retention(SOURCE)

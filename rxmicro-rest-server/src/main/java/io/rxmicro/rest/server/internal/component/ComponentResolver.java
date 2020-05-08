@@ -24,7 +24,6 @@ import io.rxmicro.rest.server.local.component.ServerFactory;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public interface ComponentResolver {

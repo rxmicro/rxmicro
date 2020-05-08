@@ -31,7 +31,6 @@ import static java.util.stream.Collectors.joining;
  * An instance of this class contains the received HTTP response to get additional info about error
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public abstract class HttpCallFailedException extends HttpErrorException {

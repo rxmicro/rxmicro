@@ -33,8 +33,19 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * (<i>Allows overriding the license of REST-based microservice specified in the license directive to pom.xml</i>)
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
+ * @see Author
+ * @see BaseEndpoint
+ * @see Constants
+ * @see Description
+ * @see DocumentationDefinition
+ * @see DocumentationVersion
+ * @see IncludeDescription
+ * @see IncludeMode
+ * @see IntroductionDefinition
+ * @see ResourceDefinition
+ * @see ResourceGroupDefinition
+ * @see Title
  */
 @Documented
 @Retention(SOURCE)
@@ -60,7 +71,6 @@ public @interface License {
      * Defines several {@link License} annotations on the same element.
      *
      * @author nedis
-     * @link https://rxmicro.io
      * @since 0.1
      */
     @Documented

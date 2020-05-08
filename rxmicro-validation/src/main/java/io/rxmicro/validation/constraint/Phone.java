@@ -34,9 +34,11 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * The annotated element must be a valid phone number.
  *
  * @author nedis
- * @link https://rxmicro.io
- * @see PhoneConstraintValidator
  * @since 0.1
+ * @see Viber
+ * @see Telegram
+ * @see WhatsApp
+ * @see PhoneConstraintValidator
  */
 @Documented
 @Retention(SOURCE)

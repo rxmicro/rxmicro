@@ -31,7 +31,6 @@ import static io.rxmicro.tool.common.Reflections.getFieldValue;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 final class TestObjects {

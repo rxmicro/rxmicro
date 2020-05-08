@@ -22,7 +22,6 @@ import io.rxmicro.annotation.processor.rest.model.RestModelField;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 @Singleton

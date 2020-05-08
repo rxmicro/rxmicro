@@ -22,7 +22,6 @@ import javax.lang.model.element.VariableElement;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.2
  */
 public final class FieldValidators {

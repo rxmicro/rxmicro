@@ -29,11 +29,12 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * Denotes a repository method that must execute a {@code SELECT} SQL operation
  *
  * @author nedis
- * @link https://rxmicro.io
- * @link https://www.postgresql.org/docs/12/sql-select.html
- * @see CustomSelect
- * @see io.rxmicro.data.sql.SupportedVariables
  * @since 0.1
+ * @see io.rxmicro.data.sql.SupportedVariables
+ * @see CustomSelect
+ * @see Delete
+ * @see Insert
+ * @see Update
  */
 @Documented
 @Retention(SOURCE)

@@ -35,8 +35,11 @@ import static io.rxmicro.common.util.Requires.require;
 import static io.rxmicro.test.mockito.mongo.internal.util.TypeFixer.fixDocumentTypes;
 
 /**
+ * Helper class with useful static methods that help to configure a Mongo operation mocks.
+ * <p>
+ * This class must be used for testing purposes
+ *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class MongoMockFactory {
@@ -73,6 +76,19 @@ public final class MongoMockFactory {
 
     private static final String THROWABLE_COULD_NOT_BE_A_NULL_MESSAGE = "'throwable' could not be a null!";
 
+    /**
+     * Configures the specified {@link MongoDatabase} mock with predefined collection name.
+     * The specified {@link Document}s will be returned
+     * if the RxMicro framework will execute the specified {@link FindOperationMock}.
+     * <p>
+     * (<i>This method requires that {@link MongoDatabase} will be a mock!</i>)
+     *
+     * @param mongoDatabase the specified Mongo database
+     * @param collectionName the specified collection name
+     * @param operationMock the specified Mongo operation mock
+     * @param documents the specified Mongo documents the must be returned
+     * @throws io.rxmicro.test.local.InvalidTestConfigException if the specified parameters are invalid
+     */
     public static void prepareMongoOperationMocks(final MongoDatabase mongoDatabase,
                                                   final String collectionName,
                                                   final FindOperationMock operationMock,
@@ -87,6 +103,19 @@ public final class MongoMockFactory {
         );
     }
 
+    /**
+     * Configures the specified {@link MongoDatabase} mock with predefined collection name.
+     * The error signal with the specified {@link Throwable} will be returned
+     * if the RxMicro framework will execute the specified {@link FindOperationMock}.
+     * <p>
+     * (<i>This method requires that {@link MongoDatabase} will be a mock!</i>)
+     *
+     * @param mongoDatabase the specified Mongo database
+     * @param collectionName the specified collection name
+     * @param operationMock the specified Mongo operation mock
+     * @param throwable the specified throwable
+     * @throws io.rxmicro.test.local.InvalidTestConfigException if the specified parameters are invalid
+     */
     public static void prepareMongoOperationMocks(final MongoDatabase mongoDatabase,
                                                   final String collectionName,
                                                   final FindOperationMock operationMock,
@@ -99,6 +128,19 @@ public final class MongoMockFactory {
         );
     }
 
+    /**
+     * Configures the specified {@link MongoDatabase} mock with predefined collection name.
+     * The specified document count will be returned
+     * if the RxMicro framework will execute the specified {@link CountDocumentsOperationMock}.
+     * <p>
+     * (<i>This method requires that {@link MongoDatabase} will be a mock!</i>)
+     *
+     * @param mongoDatabase the specified Mongo database
+     * @param collectionName the specified collection name
+     * @param operationMock the specified Mongo operation mock
+     * @param count the specified document count that must be returned
+     * @throws io.rxmicro.test.local.InvalidTestConfigException if the specified parameters are invalid
+     */
     public static void prepareMongoOperationMocks(final MongoDatabase mongoDatabase,
                                                   final String collectionName,
                                                   final CountDocumentsOperationMock operationMock,
@@ -111,6 +153,19 @@ public final class MongoMockFactory {
         );
     }
 
+    /**
+     * Configures the specified {@link MongoDatabase} mock with predefined collection name.
+     * The error signal with the specified {@link Throwable}will be returned
+     * if the RxMicro framework will execute the specified {@link CountDocumentsOperationMock}.
+     * <p>
+     * (<i>This method requires that {@link MongoDatabase} will be a mock!</i>)
+     *
+     * @param mongoDatabase the specified Mongo database
+     * @param collectionName the specified collection name
+     * @param operationMock the specified Mongo operation mock
+     * @param throwable the specified throwable
+     * @throws io.rxmicro.test.local.InvalidTestConfigException if the specified parameters are invalid
+     */
     public static void prepareMongoOperationMocks(final MongoDatabase mongoDatabase,
                                                   final String collectionName,
                                                   final CountDocumentsOperationMock operationMock,
@@ -123,6 +178,19 @@ public final class MongoMockFactory {
         );
     }
 
+    /**
+     * Configures the specified {@link MongoDatabase} mock with predefined collection name.
+     * The specified document count will be returned
+     * if the RxMicro framework will execute the specified {@link EstimatedDocumentCountMock}.
+     * <p>
+     * (<i>This method requires that {@link MongoDatabase} will be a mock!</i>)
+     *
+     * @param mongoDatabase the specified Mongo database
+     * @param collectionName the specified collection name
+     * @param operationMock the specified Mongo operation mock
+     * @param count the specified document count that must be returned
+     * @throws io.rxmicro.test.local.InvalidTestConfigException if the specified parameters are invalid
+     */
     public static void prepareMongoOperationMocks(final MongoDatabase mongoDatabase,
                                                   final String collectionName,
                                                   final EstimatedDocumentCountMock operationMock,
@@ -135,6 +203,19 @@ public final class MongoMockFactory {
         );
     }
 
+    /**
+     * Configures the specified {@link MongoDatabase} mock with predefined collection name.
+     * The error signal with the specified {@link Throwable} will be returned
+     * if the RxMicro framework will execute the specified {@link EstimatedDocumentCountMock}.
+     * <p>
+     * (<i>This method requires that {@link MongoDatabase} will be a mock!</i>)
+     *
+     * @param mongoDatabase the specified Mongo database
+     * @param collectionName the specified collection name
+     * @param operationMock the specified Mongo operation mock
+     * @param throwable the specified throwable
+     * @throws io.rxmicro.test.local.InvalidTestConfigException if the specified parameters are invalid
+     */
     public static void prepareMongoOperationMocks(final MongoDatabase mongoDatabase,
                                                   final String collectionName,
                                                   final EstimatedDocumentCountMock operationMock,
@@ -147,6 +228,19 @@ public final class MongoMockFactory {
         );
     }
 
+    /**
+     * Configures the specified {@link MongoDatabase} mock with predefined collection name.
+     * The specified items will be returned
+     * if the RxMicro framework will execute the specified {@link DistinctOperationMock}.
+     * <p>
+     * (<i>This method requires that {@link MongoDatabase} will be a mock!</i>)
+     *
+     * @param mongoDatabase the specified Mongo database
+     * @param collectionName the specified collection name
+     * @param operationMock the specified Mongo operation mock
+     * @param items the specified items that must be returned
+     * @throws io.rxmicro.test.local.InvalidTestConfigException if the specified parameters are invalid
+     */
     @SafeVarargs
     public static <T> void prepareMongoOperationMocks(final MongoDatabase mongoDatabase,
                                                       final String collectionName,
@@ -161,6 +255,19 @@ public final class MongoMockFactory {
         );
     }
 
+    /**
+     * Configures the specified {@link MongoDatabase} mock with predefined collection name.
+     * The error signal with the specified {@link Throwable} will be returned
+     * if the RxMicro framework will execute the specified {@link DistinctOperationMock}.
+     * <p>
+     * (<i>This method requires that {@link MongoDatabase} will be a mock!</i>)
+     *
+     * @param mongoDatabase the specified Mongo database
+     * @param collectionName the specified collection name
+     * @param operationMock the specified Mongo operation mock
+     * @param throwable the specified throwable
+     * @throws io.rxmicro.test.local.InvalidTestConfigException if the specified parameters are invalid
+     */
     @SuppressWarnings("unchecked")
     public static <T> void prepareMongoOperationMocks(final MongoDatabase mongoDatabase,
                                                       final String collectionName,
@@ -174,6 +281,19 @@ public final class MongoMockFactory {
         );
     }
 
+    /**
+     * Configures the specified {@link MongoDatabase} mock with predefined collection name.
+     * The specified {@link Document}s will be returned
+     * if the RxMicro framework will execute the specified {@link AggregateOperationMock}.
+     * <p>
+     * (<i>This method requires that {@link MongoDatabase} will be a mock!</i>)
+     *
+     * @param mongoDatabase the specified Mongo database
+     * @param collectionName the specified collection name
+     * @param operationMock the specified Mongo operation mock
+     * @param documents the specified Mongo documents the must be returned
+     * @throws io.rxmicro.test.local.InvalidTestConfigException if the specified parameters are invalid
+     */
     public static void prepareMongoOperationMocks(final MongoDatabase mongoDatabase,
                                                   final String collectionName,
                                                   final AggregateOperationMock operationMock,
@@ -188,6 +308,19 @@ public final class MongoMockFactory {
         );
     }
 
+    /**
+     * Configures the specified {@link MongoDatabase} mock with predefined collection name.
+     * The error signal with the specified {@link Throwable} will be returned
+     * if the RxMicro framework will execute the specified {@link AggregateOperationMock}.
+     * <p>
+     * (<i>This method requires that {@link MongoDatabase} will be a mock!</i>)
+     *
+     * @param mongoDatabase the specified Mongo database
+     * @param collectionName the specified collection name
+     * @param operationMock the specified Mongo operation mock
+     * @param throwable the specified throwable
+     * @throws io.rxmicro.test.local.InvalidTestConfigException if the specified parameters are invalid
+     */
     public static void prepareMongoOperationMocks(final MongoDatabase mongoDatabase,
                                                   final String collectionName,
                                                   final AggregateOperationMock operationMock,
@@ -200,6 +333,18 @@ public final class MongoMockFactory {
         );
     }
 
+    /**
+     * Configures the specified {@link MongoDatabase} mock with predefined collection name.
+     * The empty success signal will be returned
+     * if the RxMicro framework will execute the specified {@link InsertOperationMock}.
+     * <p>
+     * (<i>This method requires that {@link MongoDatabase} will be a mock!</i>)
+     *
+     * @param mongoDatabase the specified Mongo database
+     * @param collectionName the specified collection name
+     * @param operationMock the specified Mongo operation mock
+     * @throws io.rxmicro.test.local.InvalidTestConfigException if the specified parameters are invalid
+     */
     public static void prepareMongoOperationMocks(final MongoDatabase mongoDatabase,
                                                   final String collectionName,
                                                   final InsertOperationMock operationMock) {
@@ -212,6 +357,19 @@ public final class MongoMockFactory {
         );
     }
 
+    /**
+     * Configures the specified {@link MongoDatabase} mock with predefined collection name.
+     * The the specified insert id will be returned
+     * if the RxMicro framework will execute the specified {@link InsertOperationMock}.
+     * <p>
+     * (<i>This method requires that {@link MongoDatabase} will be a mock!</i>)
+     *
+     * @param mongoDatabase the specified Mongo database
+     * @param collectionName the specified collection name
+     * @param operationMock the specified Mongo operation mock
+     * @param insertId the specified insert id that must be returned
+     * @throws io.rxmicro.test.local.InvalidTestConfigException if the specified parameters are invalid
+     */
     public static void prepareMongoOperationMocks(final MongoDatabase mongoDatabase,
                                                   final String collectionName,
                                                   final InsertOperationMock operationMock,
@@ -225,6 +383,19 @@ public final class MongoMockFactory {
         );
     }
 
+    /**
+     * Configures the specified {@link MongoDatabase} mock with predefined collection name.
+     * The the specified {@link InsertOneResult} will be returned
+     * if the RxMicro framework will execute the specified {@link InsertOperationMock}.
+     * <p>
+     * (<i>This method requires that {@link MongoDatabase} will be a mock!</i>)
+     *
+     * @param mongoDatabase the specified Mongo database
+     * @param collectionName the specified collection name
+     * @param operationMock the specified Mongo operation mock
+     * @param insertOneResult the specified result that must be returned
+     * @throws io.rxmicro.test.local.InvalidTestConfigException if the specified parameters are invalid
+     */
     public static void prepareMongoOperationMocks(final MongoDatabase mongoDatabase,
                                                   final String collectionName,
                                                   final InsertOperationMock operationMock,
@@ -238,6 +409,19 @@ public final class MongoMockFactory {
         );
     }
 
+    /**
+     * Configures the specified {@link MongoDatabase} mock with predefined collection name.
+     * The error signal with the specified {@link Throwable} will be returned
+     * if the RxMicro framework will execute the specified {@link InsertOperationMock}.
+     * <p>
+     * (<i>This method requires that {@link MongoDatabase} will be a mock!</i>)
+     *
+     * @param mongoDatabase the specified Mongo database
+     * @param collectionName the specified collection name
+     * @param operationMock the specified Mongo operation mock
+     * @param throwable the specified throwable
+     * @throws io.rxmicro.test.local.InvalidTestConfigException if the specified parameters are invalid
+     */
     public static void prepareMongoOperationMocks(final MongoDatabase mongoDatabase,
                                                   final String collectionName,
                                                   final InsertOperationMock operationMock,
@@ -251,6 +435,19 @@ public final class MongoMockFactory {
         );
     }
 
+    /**
+     * Configures the specified {@link MongoDatabase} mock with predefined collection name.
+     * The the specified {@link DeleteResult} will be returned
+     * if the RxMicro framework will execute the specified {@link DeleteOperationMock}.
+     * <p>
+     * (<i>This method requires that {@link MongoDatabase} will be a mock!</i>)
+     *
+     * @param mongoDatabase the specified Mongo database
+     * @param collectionName the specified collection name
+     * @param operationMock the specified Mongo operation mock
+     * @param deleteResult the specified result that must be returned
+     * @throws io.rxmicro.test.local.InvalidTestConfigException if the specified parameters are invalid
+     */
     public static void prepareMongoOperationMocks(final MongoDatabase mongoDatabase,
                                                   final String collectionName,
                                                   final DeleteOperationMock operationMock,
@@ -264,6 +461,19 @@ public final class MongoMockFactory {
         );
     }
 
+    /**
+     * Configures the specified {@link MongoDatabase} mock with predefined collection name.
+     * The the specified delete count will be returned
+     * if the RxMicro framework will execute the specified {@link DeleteOperationMock}.
+     * <p>
+     * (<i>This method requires that {@link MongoDatabase} will be a mock!</i>)
+     *
+     * @param mongoDatabase the specified Mongo database
+     * @param collectionName the specified collection name
+     * @param operationMock the specified Mongo operation mock
+     * @param deletedCount the specified delete count that must be returned
+     * @throws io.rxmicro.test.local.InvalidTestConfigException if the specified parameters are invalid
+     */
     public static void prepareMongoOperationMocks(final MongoDatabase mongoDatabase,
                                                   final String collectionName,
                                                   final DeleteOperationMock operationMock,
@@ -277,6 +487,19 @@ public final class MongoMockFactory {
         );
     }
 
+    /**
+     * Configures the specified {@link MongoDatabase} mock with predefined collection name.
+     * The error signal with the specified {@link Throwable} will be returned
+     * if the RxMicro framework will execute the specified {@link DeleteOperationMock}.
+     * <p>
+     * (<i>This method requires that {@link MongoDatabase} will be a mock!</i>)
+     *
+     * @param mongoDatabase the specified Mongo database
+     * @param collectionName the specified collection name
+     * @param operationMock the specified Mongo operation mock
+     * @param throwable the specified throwable
+     * @throws io.rxmicro.test.local.InvalidTestConfigException if the specified parameters are invalid
+     */
     public static void prepareMongoOperationMocks(final MongoDatabase mongoDatabase,
                                                   final String collectionName,
                                                   final DeleteOperationMock operationMock,
@@ -290,6 +513,19 @@ public final class MongoMockFactory {
         );
     }
 
+    /**
+     * Configures the specified {@link MongoDatabase} mock with predefined collection name.
+     * The the specified {@link UpdateResult} will be returned
+     * if the RxMicro framework will execute the specified {@link UpdateOperationMock}.
+     * <p>
+     * (<i>This method requires that {@link MongoDatabase} will be a mock!</i>)
+     *
+     * @param mongoDatabase the specified Mongo database
+     * @param collectionName the specified collection name
+     * @param operationMock the specified Mongo operation mock
+     * @param updateResult the specified result that must be returned
+     * @throws io.rxmicro.test.local.InvalidTestConfigException if the specified parameters are invalid
+     */
     public static void prepareMongoOperationMocks(final MongoDatabase mongoDatabase,
                                                   final String collectionName,
                                                   final UpdateOperationMock operationMock,
@@ -303,6 +539,20 @@ public final class MongoMockFactory {
         );
     }
 
+    /**
+     * Configures the specified {@link MongoDatabase} mock with predefined collection name.
+     * The the specified matched count and modified count will be returned
+     * if the RxMicro framework will execute the specified {@link UpdateOperationMock}.
+     * <p>
+     * (<i>This method requires that {@link MongoDatabase} will be a mock!</i>)
+     *
+     * @param mongoDatabase the specified Mongo database
+     * @param collectionName the specified collection name
+     * @param operationMock the specified Mongo operation mock
+     * @param matchedCount the specified matched count that must be returned
+     * @param modifiedCount the specified modified count that must be returned
+     * @throws io.rxmicro.test.local.InvalidTestConfigException if the specified parameters are invalid
+     */
     public static void prepareMongoOperationMocks(final MongoDatabase mongoDatabase,
                                                   final String collectionName,
                                                   final UpdateOperationMock operationMock,
@@ -317,6 +567,19 @@ public final class MongoMockFactory {
         );
     }
 
+    /**
+     * Configures the specified {@link MongoDatabase} mock with predefined collection name.
+     * The the specified modified count will be returned
+     * if the RxMicro framework will execute the specified {@link UpdateOperationMock}.
+     * <p>
+     * (<i>This method requires that {@link MongoDatabase} will be a mock!</i>)
+     *
+     * @param mongoDatabase the specified Mongo database
+     * @param collectionName the specified collection name
+     * @param operationMock the specified Mongo operation mock
+     * @param modifiedCount the specified modified count that must be returned
+     * @throws io.rxmicro.test.local.InvalidTestConfigException if the specified parameters are invalid
+     */
     public static void prepareMongoOperationMocks(final MongoDatabase mongoDatabase,
                                                   final String collectionName,
                                                   final UpdateOperationMock operationMock,
@@ -324,6 +587,19 @@ public final class MongoMockFactory {
         prepareMongoOperationMocks(mongoDatabase, collectionName, operationMock, 0L, modifiedCount);
     }
 
+    /**
+     * Configures the specified {@link MongoDatabase} mock with predefined collection name.
+     * The error signal with the specified {@link Throwable} will be returned
+     * if the RxMicro framework will execute the specified {@link UpdateOperationMock}.
+     * <p>
+     * (<i>This method requires that {@link MongoDatabase} will be a mock!</i>)
+     *
+     * @param mongoDatabase the specified Mongo database
+     * @param collectionName the specified collection name
+     * @param operationMock the specified Mongo operation mock
+     * @param throwable the specified throwable
+     * @throws io.rxmicro.test.local.InvalidTestConfigException if the specified parameters are invalid
+     */
     public static void prepareMongoOperationMocks(final MongoDatabase mongoDatabase,
                                                   final String collectionName,
                                                   final UpdateOperationMock operationMock,

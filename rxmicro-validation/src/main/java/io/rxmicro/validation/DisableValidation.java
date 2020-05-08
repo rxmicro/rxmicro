@@ -45,7 +45,6 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * </ul>
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 @Documented

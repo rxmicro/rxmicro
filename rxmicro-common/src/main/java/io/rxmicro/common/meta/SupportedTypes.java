@@ -27,7 +27,6 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * Defines java types which can be used for class field annotated by owner annotation.
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 @Documented

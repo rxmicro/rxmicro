@@ -29,7 +29,6 @@ import static io.rxmicro.common.Constants.VirtualModuleInfoConstants.RX_MICRO_VI
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.2
  */
 @Singleton

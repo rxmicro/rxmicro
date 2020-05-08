@@ -18,7 +18,6 @@ package io.rxmicro.annotation.processor.common.model;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public abstract class TypeSignature implements Comparable<TypeSignature> {

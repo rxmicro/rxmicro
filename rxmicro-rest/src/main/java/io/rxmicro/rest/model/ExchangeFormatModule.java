@@ -24,7 +24,6 @@ import java.util.Collection;
  * Base interface for supported exchange format modules
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public interface ExchangeFormatModule {

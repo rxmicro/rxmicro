@@ -39,8 +39,21 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * a description of separate elements: sections, model fields, etc.
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
+ * @see Author
+ * @see BaseEndpoint
+ * @see Constants
+ * @see Description
+ * @see DocumentationDefinition
+ * @see DocumentationVersion
+ * @see Example
+ * @see IncludeDescription
+ * @see IncludeMode
+ * @see IntroductionDefinition
+ * @see License
+ * @see ResourceDefinition
+ * @see ResourceGroupDefinition
+ * @see Title
  */
 @Documented
 @Retention(SOURCE)

@@ -29,7 +29,6 @@ import static java.util.Collections.unmodifiableSet;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 @Singleton

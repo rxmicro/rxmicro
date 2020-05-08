@@ -26,7 +26,6 @@ import static java.lang.reflect.Modifier.isPublic;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class Beans {

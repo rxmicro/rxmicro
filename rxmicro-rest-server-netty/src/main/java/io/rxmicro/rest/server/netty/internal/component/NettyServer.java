@@ -40,7 +40,6 @@ import static io.rxmicro.rest.server.netty.internal.util.NettyTransportFactory.g
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 final class NettyServer implements Runnable {
@@ -123,7 +122,6 @@ final class NettyServer implements Runnable {
 
     /**
      * @author nedis
-     * @link https://rxmicro.io
      * @since 0.3
      */
     private static final class RxMicroChannelInitializer extends ChannelInitializer<SocketChannel> {

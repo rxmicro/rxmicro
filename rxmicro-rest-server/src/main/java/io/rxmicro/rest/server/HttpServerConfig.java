@@ -24,7 +24,6 @@ import io.rxmicro.http.ProtocolSchema;
  * Allows configuring HTTP server options.
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 @SuppressWarnings("UnusedReturnValue")

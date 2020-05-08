@@ -26,7 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
+ *
  */
 final class ClasspathResources_Test {
 

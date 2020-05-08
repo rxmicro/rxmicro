@@ -26,7 +26,6 @@ import java.util.Map;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public interface DataRepositoryMethodSignatureBuilder {

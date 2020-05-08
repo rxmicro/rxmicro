@@ -22,7 +22,6 @@ import java.io.OutputStream;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.3
  */
 public final class TestedProcessProxy extends Process {

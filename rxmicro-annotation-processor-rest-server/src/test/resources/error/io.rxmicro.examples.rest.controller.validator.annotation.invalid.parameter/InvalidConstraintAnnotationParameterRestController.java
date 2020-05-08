@@ -32,7 +32,7 @@ import java.math.BigInteger;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
+ *
  */
 enum Color {
 
@@ -45,7 +45,7 @@ enum Color {
 
 /**
  * @author nedis
- * @link https://rxmicro.io
+ *
  */
 final class InvalidConstraintAnnotationParameterRestController {
 
@@ -57,7 +57,7 @@ final class InvalidConstraintAnnotationParameterRestController {
 
 /**
  * @author nedis
- * @link https://rxmicro.io
+ *
  */
 final class Request {
 

@@ -25,7 +25,6 @@ import static io.rxmicro.annotation.processor.common.util.Names.getGenericType;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public abstract class DataModelField extends ModelField {

@@ -32,8 +32,8 @@ import static io.rxmicro.config.Networks.validatePort;
  * Allows configuring SQL DB options.
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
+ * @see Duration
  */
 @SuppressWarnings("UnusedReturnValue")
 public class SQLDatabaseConfig extends Config {

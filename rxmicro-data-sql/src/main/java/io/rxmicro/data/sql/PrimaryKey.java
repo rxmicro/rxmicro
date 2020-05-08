@@ -28,8 +28,8 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * Denotes a model field that must be used as primary key.
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
+ * @see SequenceGenerator
  */
 @Documented
 @Retention(SOURCE)

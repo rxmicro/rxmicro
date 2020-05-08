@@ -24,8 +24,12 @@ import java.util.stream.Collectors;
  * Supported reactive libraries for database transactions
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
+ * @see io.rxmicro.data.sql.model.reactor.Transaction
+ * @see io.rxmicro.data.sql.model.rxjava3.Transaction
+ * @see io.rxmicro.data.sql.model.completablefuture.Transaction
+ * @see SavePoint
+ * @see IsolationLevel
  */
 public enum TransactionType {
 

@@ -26,8 +26,6 @@ import io.rxmicro.annotation.processor.common.component.impl.TokenParserImpl;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
- * @link https://github.com/google/guice/wiki/GettingStarted
  * @since 0.1
  */
 public final class FormatSourceCodeDependenciesModule extends AbstractModule {

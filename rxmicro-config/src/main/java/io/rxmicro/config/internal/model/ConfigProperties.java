@@ -62,7 +62,6 @@ import static java.util.stream.Collectors.toList;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class ConfigProperties {
@@ -236,7 +235,6 @@ public final class ConfigProperties {
 
     /**
      * @author nedis
-     * @link https://rxmicro.io
      * @since 0.3
      */
     private static final class DebugMessageBuilder {
@@ -321,7 +319,6 @@ public final class ConfigProperties {
 
     /**
      * @author nedis
-     * @link https://rxmicro.io
      * @since 0.3
      */
     private static final class ConfigSourceProvider {

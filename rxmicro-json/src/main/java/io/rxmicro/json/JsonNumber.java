@@ -27,8 +27,10 @@ import static io.rxmicro.common.util.Strings.startsWith;
  * Json number is stored as Java string and parsed by demand
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
+ * @see JsonTypes
+ * @see JsonHelper
+ * @see JsonException
  */
 public final class JsonNumber extends Number {
 

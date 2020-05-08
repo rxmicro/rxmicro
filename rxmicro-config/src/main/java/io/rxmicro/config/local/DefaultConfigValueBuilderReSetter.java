@@ -20,7 +20,6 @@ import io.rxmicro.config.internal.model.AbstractDefaultConfigValueBuilder;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.4
  */
 public final class DefaultConfigValueBuilderReSetter extends AbstractDefaultConfigValueBuilder {

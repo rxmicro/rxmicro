@@ -44,7 +44,6 @@ import static io.rxmicro.data.sql.model.TransactionType.SUPPORTED_TRANSACTION_TY
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 @Singleton
@@ -137,7 +136,6 @@ public class CreateTransactionSQLRepositoryMethodModelBuilder<DMF extends SQLDat
 
     /**
      * @author nedis
-     * @link https://rxmicro.io
      * @since 0.1
      */
     private @interface CreateTransaction {

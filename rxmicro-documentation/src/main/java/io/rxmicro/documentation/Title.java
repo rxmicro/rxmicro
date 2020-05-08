@@ -32,8 +32,19 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * (<i>Allows overriding the name of the generated REST-based microservice documentation specified in the name directive to pom.xml</i>)
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
+ * @see Author
+ * @see BaseEndpoint
+ * @see Constants
+ * @see Description
+ * @see DocumentationDefinition
+ * @see DocumentationVersion
+ * @see IncludeDescription
+ * @see IncludeMode
+ * @see IntroductionDefinition
+ * @see License
+ * @see ResourceDefinition
+ * @see ResourceGroupDefinition
  */
 @Documented
 @Retention(SOURCE)

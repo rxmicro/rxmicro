@@ -28,7 +28,6 @@ import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentH
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 @Singleton

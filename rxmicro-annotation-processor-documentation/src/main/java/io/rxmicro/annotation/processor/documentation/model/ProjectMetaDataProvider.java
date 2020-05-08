@@ -25,7 +25,6 @@ import static io.rxmicro.annotation.processor.documentation.TestSystemProperties
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public interface ProjectMetaDataProvider {

@@ -21,7 +21,6 @@ import io.rxmicro.annotation.processor.data.sql.model.SQLTokenParserRule;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 @Singleton

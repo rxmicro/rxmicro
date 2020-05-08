@@ -16,6 +16,7 @@
 
 package io.rxmicro.test.mockito.httpclient;
 
+import io.rxmicro.common.InvalidStateException;
 import io.rxmicro.common.meta.BuilderMethod;
 import io.rxmicro.http.HttpHeaders;
 import io.rxmicro.http.QueryParams;
@@ -36,9 +37,14 @@ import static io.rxmicro.rest.Version.Strategy.URL_PATH;
 import static java.util.Map.entry;
 
 /**
+ * The HTTP request mock using <a href="https://site.mockito.org/">Mockito</a> testing framework
+ *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
+ * @see HttpMethod
+ * @see HttpHeaders
+ * @see QueryParams
+ * @see Version.Strategy
  */
 public final class HttpRequestMock extends AbstractHttpRequestMock {
 
@@ -52,8 +58,9 @@ public final class HttpRequestMock extends AbstractHttpRequestMock {
     }
 
     /**
+     * The builder for building a HTTP request mock
+     *
      * @author nedis
-     * @link https://rxmicro.io
      * @since 0.1
      */
     @SuppressWarnings("UnusedReturnValue")
@@ -79,6 +86,11 @@ public final class HttpRequestMock extends AbstractHttpRequestMock {
 
         private boolean any;
 
+        /**
+         * Configures the HTTP request mock that it will match to any HTTP request
+         *
+         * @return the reference to this {@link Builder} instance
+         */
         @BuilderMethod
         public Builder setAnyRequest() {
             this.method = null;
@@ -93,12 +105,24 @@ public final class HttpRequestMock extends AbstractHttpRequestMock {
             return this;
         }
 
+        /**
+         * Sets the {@link HttpMethod} for the HTTP request mock that it will match to an HTTP request with the specified {@link HttpMethod}
+         *
+         * @param method the specified {@link HttpMethod}
+         * @return the reference to this {@link Builder} instance
+         * @throws NullPointerException if the specified {@link HttpMethod} is {@code null}
+         */
         @BuilderMethod
         public Builder setMethod(final HttpMethod method) {
             this.method = require(method);
             return this;
         }
 
+        /**
+         * Configures the HTTP request mock that it will match to a HTTP request with any {@link HttpMethod}
+         *
+         * @return the reference to this {@link Builder} instance
+         */
         @BuilderMethod
         public Builder setAnyMethod() {
             this.method = null;
@@ -106,24 +130,54 @@ public final class HttpRequestMock extends AbstractHttpRequestMock {
             return this;
         }
 
+        /**
+         * Sets the version value for the HTTP request mock that it will match to an HTTP request with the specified version value
+         *
+         * @param versionValue the specified version value
+         * @return the reference to this {@link Builder} instance
+         * @throws NullPointerException if the specified version value is {@code null}
+         * @see Version
+         * @see Version.Strategy
+         */
         @BuilderMethod
         public Builder setVersionValue(final String versionValue) {
             this.versionValue = require(versionValue);
             return this;
         }
 
+        /**
+         * Sets the version {@link Version.Strategy} for the HTTP request mock that it will match to an HTTP request with
+         * the specified version {@link Version.Strategy}
+         *
+         * @param versionStrategy the specified version {@link Version.Strategy}
+         * @return the reference to this {@link Builder} instance
+         * @throws NullPointerException if the specified {@link Version.Strategy} is {@code null}
+         * @see Version
+         */
         @BuilderMethod
         public Builder setVersionStrategy(final Version.Strategy versionStrategy) {
             this.versionStrategy = require(versionStrategy);
             return this;
         }
 
+        /**
+         * Sets the URL path for the HTTP request mock that it will match to an HTTP request with the specified URL path
+         *
+         * @param path the specified URL path
+         * @return the reference to this {@link Builder} instance
+         * @throws NullPointerException if the specified URL path is {@code null}
+         */
         @BuilderMethod
         public Builder setPath(final String path) {
             this.path = normalizeUrlPath(path);
             return this;
         }
 
+        /**
+         * Configures the HTTP request mock that it will match to a HTTP request with any URL path
+         *
+         * @return the reference to this {@link Builder} instance
+         */
         @BuilderMethod
         public Builder setAnyPath() {
             this.path = null;
@@ -131,42 +185,86 @@ public final class HttpRequestMock extends AbstractHttpRequestMock {
             return this;
         }
 
+        /**
+         * Sets the {@link HttpHeaders} for the HTTP request mock that it will match to an HTTP request with
+         * the specified {@link HttpHeaders}
+         *
+         * @param headers the specified {@link HttpHeaders}
+         * @return the reference to this {@link Builder} instance
+         * @throws NullPointerException if the specified {@link HttpHeaders} is {@code null}
+         */
         @BuilderMethod
         public Builder setHeaders(final HttpHeaders headers) {
             this.headers = require(headers);
             return this;
         }
 
+        /**
+         * Configures the HTTP request mock that it will match to a HTTP request with any {@link HttpHeaders}
+         *
+         * @return the reference to this {@link Builder} instance
+         */
         @BuilderMethod
         public Builder setAnyHeaders() {
             this.headers = null;
             return this;
         }
 
+        /**
+         * Sets the {@link QueryParams} for the HTTP request mock that it will match to an HTTP request with
+         * the specified {@link QueryParams}
+         *
+         * @param queryParameters the specified {@link QueryParams}
+         * @return the reference to this {@link Builder} instance
+         * @throws NullPointerException if the specified {@link QueryParams} is {@code null}
+         */
         @BuilderMethod
         public Builder setQueryParameters(final QueryParams queryParameters) {
             this.queryParameters = require(queryParameters);
             return this;
         }
 
+        /**
+         * Configures the HTTP request mock that it will match to a HTTP request with any {@link QueryParams}
+         *
+         * @return the reference to this {@link Builder} instance
+         */
         @BuilderMethod
         public Builder setAnyQueryParameters() {
             this.queryParameters = null;
             return this;
         }
 
+        /**
+         * Sets the HTTP body for the HTTP request mock that it will match to an HTTP request with the specified HTTP body
+         *
+         * @param body the specified HTTP body
+         * @return the reference to this {@link Builder} instance
+         * @throws NullPointerException if the specified HTTP body is {@code null}
+         */
         @BuilderMethod
         public Builder setBody(final Object body) {
             this.body = require(body);
             return this;
         }
 
+        /**
+         * Configures the HTTP request mock that it will match to a HTTP request with any HTTP body
+         *
+         * @return the reference to this {@link Builder} instance
+         */
         @BuilderMethod
         public Builder setAnyBody() {
             this.body = null;
             return this;
         }
 
+        /**
+         * Builds the immutable HTTP request mock instance using the configured {@link Builder} settings
+         *
+         * @return the immutable HTTP request mock instance
+         * @throws InvalidStateException if the current {@link Builder} contains invalid settings
+         */
         public HttpRequestMock build() {
             validate();
             final String validPath = getValidPath();
@@ -176,19 +274,19 @@ public final class HttpRequestMock extends AbstractHttpRequestMock {
 
         private void validate() {
             if (method == null && !anyMethod) {
-                throw new IllegalStateException("HTTP method' is required");
+                throw new InvalidStateException("HTTP method' is required");
             }
             if (path == null && !anyPath) {
-                throw new IllegalStateException("'URL Path' is required!");
+                throw new InvalidStateException("'URL Path' is required!");
             }
             if (versionValue != null) {
                 if (versionStrategy == URL_PATH) {
                     if (path == null) {
-                        throw new IllegalStateException("For URL Path version strategy, 'URL Path' is required!");
+                        throw new InvalidStateException("For URL Path version strategy, 'URL Path' is required!");
                     }
                 } else {
                     if (headers == null) {
-                        throw new IllegalStateException("For HEADER version strategy, 'setAnyHeaders()' is unsupported!");
+                        throw new InvalidStateException("For HEADER version strategy, 'setAnyHeaders()' is unsupported!");
                     }
                 }
             }

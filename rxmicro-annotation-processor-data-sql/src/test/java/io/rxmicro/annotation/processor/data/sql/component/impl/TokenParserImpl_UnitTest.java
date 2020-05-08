@@ -40,7 +40,7 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
+ *
  */
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -61,7 +61,7 @@ final class TokenParserImpl_UnitTest {
 
     /**
      * @author nedis
-     * @link https://rxmicro.io
+     *
      */
     static final class SelectSQLQueriesProvider implements ArgumentsProvider {
 

@@ -27,9 +27,8 @@ import java.util.Set;
  * Validator for the {@link io.rxmicro.validation.constraint.Enumeration} constraint
  *
  * @author nedis
- * @link https://rxmicro.io
- * @see io.rxmicro.validation.constraint.Enumeration
  * @since 0.1
+ * @see io.rxmicro.validation.constraint.Enumeration
  */
 public class EnumerationStringConstraintValidator implements ConstraintValidator<String> {
 

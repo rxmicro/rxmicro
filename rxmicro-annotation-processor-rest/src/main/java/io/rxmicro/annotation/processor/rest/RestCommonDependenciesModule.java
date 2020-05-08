@@ -46,7 +46,6 @@ import io.rxmicro.annotation.processor.rest.component.impl.RestResponseModelBuil
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class RestCommonDependenciesModule extends AbstractModule {

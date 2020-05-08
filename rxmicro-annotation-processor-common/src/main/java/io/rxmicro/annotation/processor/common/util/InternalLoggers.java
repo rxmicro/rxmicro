@@ -20,7 +20,6 @@ import io.rxmicro.annotation.processor.common.component.impl.AbstractProcessorCo
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.4
  */
 public final class InternalLoggers {

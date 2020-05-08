@@ -28,7 +28,7 @@ Status of all supported features is available at the [Features Table](Features.m
 
 ## Documentation
 
-* [User Guide](https://rxmicro.io/doc/latest/user-guide/index.html)
+* [User Guide](https://docs.rxmicro.io/latest/user-guide/index.html)
 * [Javadoc](https://javadoc.io/doc/io.rxmicro)
 * [Examples](https://github.com/rxmicro/rxmicro-usage/tree/master/examples)
 * [Release Notes](https://github.com/rxmicro/rxmicro/blob/master/release/src/main/asciidoc/release-notes/index.md)

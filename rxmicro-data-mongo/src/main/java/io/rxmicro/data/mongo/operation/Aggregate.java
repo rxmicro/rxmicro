@@ -28,9 +28,15 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * <a href="https://docs.mongodb.com/manual/reference/method/db.collection.aggregate/">{@code db.collection.aggregate()}</a> operation.
  *
  * @author nedis
- * @link https://rxmicro.io
- * @link https://docs.mongodb.com/manual/reference/method/db.collection.aggregate/
  * @since 0.1
+ * @see io.rxmicro.data.mongo.MongoRepository
+ * @see CountDocuments
+ * @see Delete
+ * @see Distinct
+ * @see EstimatedDocumentCount
+ * @see Find
+ * @see Insert
+ * @see Update
  */
 @Documented
 @Retention(SOURCE)
@@ -46,7 +52,6 @@ public @interface Aggregate {
      * </a>
      *
      * @return the aggregate pipeline
-     * @link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline/
      */
     String[] pipeline();
 

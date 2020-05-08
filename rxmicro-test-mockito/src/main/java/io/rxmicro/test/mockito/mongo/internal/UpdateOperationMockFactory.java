@@ -33,7 +33,6 @@ import static org.mockito.Mockito.when;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class UpdateOperationMockFactory extends AbstractOperationMockFactory {

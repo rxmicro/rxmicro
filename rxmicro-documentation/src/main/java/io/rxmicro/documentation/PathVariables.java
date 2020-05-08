@@ -22,7 +22,6 @@ import java.util.List;
  * Predefined variables used during a generation of REST-based microservice documentation.
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class PathVariables {

@@ -20,7 +20,6 @@ import static io.rxmicro.documentation.PathVariables.PROJECT_DIR;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public enum DocumentationType {

@@ -16,6 +16,7 @@
 
 package io.rxmicro.http.client.jdk.internal;
 
+import io.rxmicro.common.InvalidStateException;
 import io.rxmicro.http.HttpHeaders;
 import io.rxmicro.http.HttpVersion;
 import io.rxmicro.http.client.ClientHttpResponse;
@@ -26,7 +27,6 @@ import java.util.function.Function;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 final class JdkClientHttpResponse implements ClientHttpResponse {
@@ -53,7 +53,7 @@ final class JdkClientHttpResponse implements ClientHttpResponse {
         } else if (response.version() == HttpClient.Version.HTTP_2) {
             return HttpVersion.HTTP_2;
         } else {
-            throw new IllegalStateException("Unsupported HTTP version: " + response.version());
+            throw new InvalidStateException("Unsupported HTTP version: ?", response.version());
         }
     }
 

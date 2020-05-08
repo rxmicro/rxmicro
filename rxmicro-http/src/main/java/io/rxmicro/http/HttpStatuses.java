@@ -22,10 +22,10 @@ import static java.util.Map.entry;
 
 /**
  * Wide used HTTP statuses and its short descriptions
+ * <p>
+ * Read more: <a href="https://en.wikipedia.org/wiki/List_of_HTTP_status_codes">https://en.wikipedia.org/wiki/List_of_HTTP_status_codes</a>
  *
  * @author nedis
- * @link https://rxmicro.io
- * @link https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
  * @since 0.1
  */
 public final class HttpStatuses {

@@ -29,8 +29,9 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * Denotes that an interface is a dynamic generated REST client.
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
+ * @see HttpClientConfig
+ * @see RestClientFactory
  */
 @Documented
 @Retention(SOURCE)
@@ -46,6 +47,7 @@ public @interface RestClient {
      * Using this parameter a developer can defined the custom config name space.
      *
      * @return custom config name space.
+     * @see io.rxmicro.config.Config#getDefaultNameSpace(Class)
      */
     String configNameSpace() default "";
 
@@ -53,6 +55,7 @@ public @interface RestClient {
      * Allows extending the standard {@link HttpClientConfig} class
      *
      * @return the custom class with additional properties
+     * @see HttpClientConfig
      */
     Class<? extends HttpClientConfig> configClass() default HttpClientConfig.class;
 }

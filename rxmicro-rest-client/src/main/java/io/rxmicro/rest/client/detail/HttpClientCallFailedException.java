@@ -20,10 +20,9 @@ import io.rxmicro.http.client.ClientHttpResponse;
 import io.rxmicro.rest.model.HttpCallFailedException;
 
 /**
- * Used by generated code that was created by RxMicro Annotation Processor
+ * Used by generated code that was created by {@code RxMicro Annotation Processor}
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 final class HttpClientCallFailedException extends HttpCallFailedException {

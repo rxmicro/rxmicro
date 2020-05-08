@@ -20,7 +20,6 @@ import io.rxmicro.annotation.processor.common.util.UsedByFreemarker;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class Section {

@@ -26,8 +26,8 @@ import static io.rxmicro.common.util.Requires.require;
  * The RxMicro framework uses {@link String#split(String)} to split values by regex!
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.3
+ * @see String#split(String)
  */
 @SuppressWarnings("UnusedReturnValue")
 public final class SecretsConfig extends Config {

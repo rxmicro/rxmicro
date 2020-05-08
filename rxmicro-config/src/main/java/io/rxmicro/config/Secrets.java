@@ -21,10 +21,9 @@ import io.rxmicro.config.internal.SecretsImpl;
 /**
  * Base interface that supports hiding a secret info.
  * <p>
- * This feature is useful for hiding a secret info in log messages.
+ * (<i>This feature is useful for hiding a secret info in log messages.</i>)
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.3
  */
 public interface Secrets {

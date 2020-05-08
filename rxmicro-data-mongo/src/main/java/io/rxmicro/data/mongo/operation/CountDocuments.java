@@ -29,9 +29,15 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * operation.
  *
  * @author nedis
- * @link https://rxmicro.io
- * @link https://docs.mongodb.com/manual/reference/method/db.collection.countDocuments/
  * @since 0.1
+ * @see io.rxmicro.data.mongo.MongoRepository
+ * @see Aggregate
+ * @see Delete
+ * @see Distinct
+ * @see EstimatedDocumentCount
+ * @see Find
+ * @see Insert
+ * @see Update
  */
 @Documented
 @Retention(SOURCE)
@@ -47,7 +53,6 @@ public @interface CountDocuments {
      * </a>
      *
      * @return the query selection criteria
-     * @link https://docs.mongodb.com/manual/reference/operator/
      */
     String query() default "";
 

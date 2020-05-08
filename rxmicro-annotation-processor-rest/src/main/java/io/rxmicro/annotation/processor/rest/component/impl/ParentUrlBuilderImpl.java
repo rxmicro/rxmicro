@@ -27,7 +27,6 @@ import javax.lang.model.element.TypeElement;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 @Singleton

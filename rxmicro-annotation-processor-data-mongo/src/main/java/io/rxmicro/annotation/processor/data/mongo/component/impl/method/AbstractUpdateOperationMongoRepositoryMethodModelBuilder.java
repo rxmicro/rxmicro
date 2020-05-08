@@ -36,7 +36,6 @@ import java.util.List;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.4
  */
 public abstract class AbstractUpdateOperationMongoRepositoryMethodModelBuilder extends AbstractMongoRepositoryMethodModelBuilder {

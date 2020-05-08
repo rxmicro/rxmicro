@@ -28,7 +28,6 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * Base url path for all http endpoints
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 @Documented
@@ -52,8 +51,9 @@ public @interface BaseUrlPath {
     Position position() default Position.AFTER_VERSION;
 
     /**
+     * Contains supported positions
+     *
      * @author nedis
-     * @link https://rxmicro.io
      * @since 0.1
      */
     enum Position {
@@ -73,7 +73,6 @@ public @interface BaseUrlPath {
      * Defines several {@link BaseUrlPath} annotations on the same element.
      *
      * @author nedis
-     * @link https://rxmicro.io
      * @since 0.1
      */
     @Documented

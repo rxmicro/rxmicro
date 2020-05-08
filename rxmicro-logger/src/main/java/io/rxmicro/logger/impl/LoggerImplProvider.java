@@ -22,8 +22,9 @@ import io.rxmicro.logger.Logger;
  * Basic interface for the all supported {@link Logger} implementations
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
+ * @see Logger
+ * @see io.rxmicro.logger.LoggerFactory
  */
 public interface LoggerImplProvider {
 

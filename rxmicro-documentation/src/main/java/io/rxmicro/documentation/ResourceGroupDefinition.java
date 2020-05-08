@@ -28,8 +28,19 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * A composite annotation that specifies the settings for generating the ResourceGroupDefinition section.
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
+ * @see Author
+ * @see BaseEndpoint
+ * @see Constants
+ * @see Description
+ * @see DocumentationDefinition
+ * @see DocumentationVersion
+ * @see IncludeDescription
+ * @see IncludeMode
+ * @see IntroductionDefinition
+ * @see License
+ * @see ResourceDefinition
+ * @see Title
  */
 @Documented
 @Retention(SOURCE)
@@ -64,7 +75,6 @@ public @interface ResourceGroupDefinition {
      * Supported section types
      *
      * @author nedis
-     * @link https://rxmicro.io
      * @since 0.1
      */
     enum Section {

@@ -24,8 +24,6 @@ import java.util.Map;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
- * @link https://netty.io/wiki/native-transports.html
  * @since 0.1
  */
 @SuppressWarnings("unchecked")

@@ -34,9 +34,11 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * The annotated element must be a valid whatsapp number.
  *
  * @author nedis
- * @link https://rxmicro.io
- * @see WhatsAppConstraintValidator
  * @since 0.1
+ * @see Phone
+ * @see Viber
+ * @see Telegram
+ * @see WhatsAppConstraintValidator
  */
 @Documented
 @Retention(SOURCE)

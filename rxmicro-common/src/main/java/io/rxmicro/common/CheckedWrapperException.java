@@ -22,8 +22,8 @@ import io.rxmicro.common.util.Formats;
  * Wrapper for checked exceptions
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
+ * @see io.rxmicro.common.util.Exceptions
  */
 public final class CheckedWrapperException extends RxMicroException {
 
@@ -33,9 +33,10 @@ public final class CheckedWrapperException extends RxMicroException {
      * <i>(FYI: This constructor uses {@link Formats#format(String, Object...)} method to format error message.)</i>
      *
      * @param cause the cause (which is saved for later retrieval by the {@link #getCause()} method).
-     * @param message error message template
-     * @param args error message template arguments
-     * @throws NullPointerException if {@code message} or {@code cause} is {@code null}
+     * @param message the error message template
+     * @param args the error message template arguments
+     * @throws NullPointerException if the error message template or cause is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     public CheckedWrapperException(final Throwable cause,
                                    final String message,
@@ -47,7 +48,7 @@ public final class CheckedWrapperException extends RxMicroException {
      * Creates a new {@link CheckedWrapperException} instance with cause only.
      *
      * @param cause the cause (which is saved for later retrieval by the {@link #getCause()} method).
-     * @throws NullPointerException if {@code cause} is {@code null}
+     * @throws NullPointerException if the cause is {@code null}
      */
     public CheckedWrapperException(final Throwable cause) {
         super(cause);

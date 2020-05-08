@@ -19,18 +19,29 @@ package io.rxmicro.test.mockito.r2dbc;
 import static io.rxmicro.common.util.Requires.require;
 
 /**
+ * Represents a {@code null} value in the column of database table
+ *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class Null {
 
     private final Class<?> type;
 
+    /**
+     * Creates a new instance of {@link Null} class with the specified class of the database table column
+     *
+     * @param type the specified class of the database table column
+     */
     public Null(final Class<?> type) {
         this.type = require(type);
     }
 
+    /**
+     * Returns the class of the database table column
+     *
+     * @return the class of the database table column
+     */
     public Class<?> getType() {
         return type;
     }

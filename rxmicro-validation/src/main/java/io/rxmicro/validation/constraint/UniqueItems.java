@@ -34,9 +34,11 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * The annotated element must contain unique items.
  *
  * @author nedis
- * @link https://rxmicro.io
- * @see UniqueItemsConstraintValidator
  * @since 0.1
+ * @see Size
+ * @see MinSize
+ * @see MaxSize
+ * @see UniqueItemsConstraintValidator
  */
 @Documented
 @Retention(SOURCE)

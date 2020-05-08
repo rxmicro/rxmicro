@@ -32,8 +32,9 @@ import static io.rxmicro.runtime.local.InstanceContainer.getSingleton;
  * This utility class allows using additional features that {@link ConnectionFactory} or {@link ConnectionPool} is provided.
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
+ * @see PostgreSQLConfig
+ * @see PostgreSQLRepository
  */
 public final class PostgreSQLClientFactory {
 

@@ -29,9 +29,15 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * See <a href="https://tools.ietf.org/html/rfc5789">https://tools.ietf.org/html/rfc5789</a>
  *
  * @author nedis
- * @link https://rxmicro.io
- * @link https://tools.ietf.org/html/rfc5789
  * @since 0.1
+ * @see DELETE
+ * @see GET
+ * @see HEAD
+ * @see OPTIONS
+ * @see POST
+ * @see PUT
+ * @see io.rxmicro.rest.model.HttpMethod
+ * @see HttpMethods
  */
 @Documented
 @Retention(SOURCE)
@@ -58,7 +64,6 @@ public @interface PATCH {
      * Defines several {@link PATCH} annotations on the same element.
      *
      * @author nedis
-     * @link https://rxmicro.io
      * @since 0.1
      */
     @Documented

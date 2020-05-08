@@ -57,7 +57,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
+ *
  */
 public abstract class AbstractAsciidoctorDocumentationAnnotationProcessorIntegrationTest
         extends AbstractRxMicroAnnotationProcessorIntegrationTest {

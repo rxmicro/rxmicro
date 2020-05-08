@@ -21,10 +21,9 @@ import java.util.Objects;
 import static io.rxmicro.common.util.Requires.require;
 
 /**
- * Used by generated code that was created by RxMicro Annotation Processor
+ * Used by generated code that was created by {@code RxMicro Annotation Processor}
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class HttpHealthCheckRegistration {

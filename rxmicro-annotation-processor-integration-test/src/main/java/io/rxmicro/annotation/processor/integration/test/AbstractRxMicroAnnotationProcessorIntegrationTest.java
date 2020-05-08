@@ -53,7 +53,6 @@ import static java.util.stream.Collectors.toSet;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public abstract class AbstractRxMicroAnnotationProcessorIntegrationTest extends AbstractAnnotationProcessorIntegrationTest {
@@ -175,7 +174,6 @@ public abstract class AbstractRxMicroAnnotationProcessorIntegrationTest extends 
 
     /**
      * @author nedis
-     * @link https://rxmicro.io
      * @since 0.1
      */
     protected static final class AllInputPackagesArgumentsProvider implements ArgumentsProvider {

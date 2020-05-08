@@ -34,11 +34,12 @@ import static io.rxmicro.config.Configs.getConfig;
 import static io.rxmicro.runtime.local.InstanceContainer.registerAutoRelease;
 
 /**
+ * Read more:
+ * https://github.com/r2dbc/r2dbc-postgresql
+ * https://github.com/r2dbc/r2dbc-pool
+ * https://www.postgresql.org/docs/current/runtime-config-client.html
+ *
  * @author nedis
- * @link https://rxmicro.io
- * @link https://github.com/r2dbc/r2dbc-postgresql
- * @link https://github.com/r2dbc/r2dbc-pool
- * @link https://www.postgresql.org/docs/current/runtime-config-client.html
  * @since 0.1
  */
 public final class PostgreSQLConnectionPoolBuilder {
@@ -101,7 +102,6 @@ public final class PostgreSQLConnectionPoolBuilder {
 
     /**
      * @author nedis
-     * @link https://rxmicro.io
      * @since 0.1
      */
     private static final class R2DBCPostgreSQLConnectionPool implements AutoRelease {

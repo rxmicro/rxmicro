@@ -20,7 +20,6 @@ package io.rxmicro.tool.common;
  * Test fixer class names
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class TestFixers {

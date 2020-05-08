@@ -30,12 +30,44 @@ import static io.rxmicro.test.json.internal.JsonConverter.convertIfNecessary;
 import static java.util.stream.Collectors.toList;
 
 /**
+ * The utility class that can be used for convenient creation of the expected JSON object.
+ * <p>
+ * This class arranges JSON properties and automatically converts all {@code ? extends }{@link Number} types into
+ * the {@link io.rxmicro.json.JsonNumber} type.
+ *
  * @author nedis
- * @link https://rxmicro.io
+ * @see io.rxmicro.json.JsonHelper
+ * @see io.rxmicro.json.JsonNumber
+ * @see io.rxmicro.json.JsonTypes
+ * @see JsonObjectBuilder
+ * @see io.rxmicro.json.JsonArrayBuilder
  * @since 0.1
  */
 public final class JsonFactory {
 
+    /**
+     * Returns the short-lived unmodified ordered {@link Map} that represents a JSON object with
+     * the specified error message according to standard error JSON model structure.
+     * <p>
+     * The RxMicro framework defines a standard JSON model which is returned in case of any error:
+     * <pre>
+     * {
+     *    "message": "Not Found"
+     * }
+     * </pre>
+     * <p>
+     * (Read more: {@link io.rxmicro.http.error.HttpErrorException})
+     * <p>
+     * <i>(FYI: This method uses {@link io.rxmicro.common.util.Formats#format(String, Object...)} method to format error message.)</i>
+     *
+     * @param message the error message template
+     * @param args the error message template arguments
+     * @return the short-lived unmodified ordered {@link Map} that represents a JSON object with
+     *          the specified error message according to standard error JSON model structure.
+     * @throws NullPointerException if the error message template is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     * @see io.rxmicro.http.error.HttpErrorException
+     */
     public static Map<String, Object> jsonErrorObject(final String message,
                                                       final Object... args) {
         return new JsonObjectBuilder()
@@ -43,14 +75,36 @@ public final class JsonFactory {
                 .build();
     }
 
+    /**
+     * Returns the short-lived unmodified ordered {@link Map} that represents the empty JSON object
+     *
+     * @return the short-lived unmodified ordered {@link Map} that represents the empty JSON object
+     */
     public static Map<String, Object> jsonObject() {
         return Map.of();
     }
 
+    /**
+     * Returns the short-lived unmodified ordered {@link Map} that represents the JSON object with one property
+     *
+     * @param name the property name
+     * @param value the property value
+     * @return the short-lived unmodified ordered {@link Map} containing the provided JSON properties.
+     */
     public static Map<String, Object> jsonObject(final String name, final Object value) {
         return jsonObjectInternal(name, value);
     }
 
+    /**
+     * Returns the short-lived unmodified ordered {@link Map} that represents the JSON object with two properties
+     *
+     * @param name1 the first property name
+     * @param value1 the first property value
+     * @param name2 the second property name
+     * @param value2 the second property value
+     * @return the short-lived unmodified ordered {@link Map} containing the provided JSON properties.
+     * @throws IllegalArgumentException if any property value contains invalid data
+     */
     public static Map<String, Object> jsonObject(final String name1, final Object value1,
                                                  final String name2, final Object value2) {
         return jsonObjectInternal(
@@ -58,6 +112,18 @@ public final class JsonFactory {
         );
     }
 
+    /**
+     * Returns the short-lived unmodified ordered {@link Map} that represents the JSON object with three properties
+     *
+     * @param name1 the first property name
+     * @param value1 the first property value
+     * @param name2 the second property name
+     * @param value2 the second property value
+     * @param name3 the third property name
+     * @param value3 the third property value
+     * @return the short-lived unmodified ordered {@link Map} containing the provided JSON properties.
+     * @throws IllegalArgumentException if any property value contains invalid data
+     */
     public static Map<String, Object> jsonObject(final String name1, final Object value1,
                                                  final String name2, final Object value2,
                                                  final String name3, final Object value3) {
@@ -66,6 +132,20 @@ public final class JsonFactory {
         );
     }
 
+    /**
+     * Returns the short-lived unmodified ordered {@link Map} that represents the JSON object with four properties
+     *
+     * @param name1 the first property name
+     * @param value1 the first property value
+     * @param name2 the second property name
+     * @param value2 the second property value
+     * @param name3 the third property name
+     * @param value3 the third property value
+     * @param name4 the fourth property name
+     * @param value4 the fourth property value
+     * @return the short-lived unmodified ordered {@link Map} containing the provided JSON properties.
+     * @throws IllegalArgumentException if any property value contains invalid data
+     */
     public static Map<String, Object> jsonObject(final String name1, final Object value1,
                                                  final String name2, final Object value2,
                                                  final String name3, final Object value3,
@@ -75,6 +155,22 @@ public final class JsonFactory {
         );
     }
 
+    /**
+     * Returns the short-lived unmodified ordered {@link Map} that represents the JSON object with five properties
+     *
+     * @param name1 the first property name
+     * @param value1 the first property value
+     * @param name2 the second property name
+     * @param value2 the second property value
+     * @param name3 the third property name
+     * @param value3 the third property value
+     * @param name4 the fourth property name
+     * @param value4 the fourth property value
+     * @param name5 the fifth property name
+     * @param value5 the fifth property value
+     * @return the short-lived unmodified ordered {@link Map} containing the provided JSON properties.
+     * @throws IllegalArgumentException if any property value contains invalid data
+     */
     public static Map<String, Object> jsonObject(final String name1, final Object value1,
                                                  final String name2, final Object value2,
                                                  final String name3, final Object value3,
@@ -85,6 +181,24 @@ public final class JsonFactory {
         );
     }
 
+    /**
+     * Returns the short-lived unmodified ordered {@link Map} that represents the JSON object with six properties
+     *
+     * @param name1 the first property name
+     * @param value1 the first property value
+     * @param name2 the second property name
+     * @param value2 the second property value
+     * @param name3 the third property name
+     * @param value3 the third property value
+     * @param name4 the fourth property name
+     * @param value4 the fourth property value
+     * @param name5 the fifth property name
+     * @param value5 the fifth property value
+     * @param name6 the sixth property name
+     * @param value6 the sixth property value
+     * @return the short-lived unmodified ordered {@link Map} containing the provided JSON properties.
+     * @throws IllegalArgumentException if any property value contains invalid data
+     */
     public static Map<String, Object> jsonObject(final String name1, final Object value1,
                                                  final String name2, final Object value2,
                                                  final String name3, final Object value3,
@@ -97,6 +211,26 @@ public final class JsonFactory {
         );
     }
 
+    /**
+     * Returns the short-lived unmodified ordered {@link Map} that represents the JSON object with seven properties
+     *
+     * @param name1 the first property name
+     * @param value1 the first property value
+     * @param name2 the second property name
+     * @param value2 the second property value
+     * @param name3 the third property name
+     * @param value3 the third property value
+     * @param name4 the fourth property name
+     * @param value4 the fourth property value
+     * @param name5 the fifth property name
+     * @param value5 the fifth property value
+     * @param name6 the sixth property name
+     * @param value6 the sixth property value
+     * @param name7 the seventh property name
+     * @param value7 the seventh property value
+     * @return the short-lived unmodified ordered {@link Map} containing the provided JSON properties.
+     * @throws IllegalArgumentException if any property value contains invalid data
+     */
     public static Map<String, Object> jsonObject(final String name1, final Object value1,
                                                  final String name2, final Object value2,
                                                  final String name3, final Object value3,
@@ -110,6 +244,28 @@ public final class JsonFactory {
         );
     }
 
+    /**
+     * Returns the short-lived unmodified ordered {@link Map} that represents the JSON object with eigth properties
+     *
+     * @param name1 the first property name
+     * @param value1 the first property value
+     * @param name2 the second property name
+     * @param value2 the second property value
+     * @param name3 the third property name
+     * @param value3 the third property value
+     * @param name4 the fourth property name
+     * @param value4 the fourth property value
+     * @param name5 the fifth property name
+     * @param value5 the fifth property value
+     * @param name6 the sixth property name
+     * @param value6 the sixth property value
+     * @param name7 the seventh property name
+     * @param value7 the seventh property value
+     * @param name8 the eighth property name
+     * @param value8 the eighth property value
+     * @return the short-lived unmodified ordered {@link Map} containing the provided JSON properties.
+     * @throws IllegalArgumentException if any property value contains invalid data
+     */
     public static Map<String, Object> jsonObject(final String name1, final Object value1,
                                                  final String name2, final Object value2,
                                                  final String name3, final Object value3,
@@ -124,6 +280,30 @@ public final class JsonFactory {
         );
     }
 
+    /**
+     * Returns the short-lived unmodified ordered {@link Map} that represents the JSON object with nine properties
+     *
+     * @param name1 the first property name
+     * @param value1 the first property value
+     * @param name2 the second property name
+     * @param value2 the second property value
+     * @param name3 the third property name
+     * @param value3 the third property value
+     * @param name4 the fourth property name
+     * @param value4 the fourth property value
+     * @param name5 the fifth property name
+     * @param value5 the fifth property value
+     * @param name6 the sixth property name
+     * @param value6 the sixth property value
+     * @param name7 the seventh property name
+     * @param value7 the seventh property value
+     * @param name8 the eighth property name
+     * @param value8 the eighth property value
+     * @param name9 the ninth property name
+     * @param value9 the ninth property value
+     * @return the short-lived unmodified ordered {@link Map} containing the provided JSON properties.
+     * @throws IllegalArgumentException if any property value contains invalid data
+     */
     public static Map<String, Object> jsonObject(final String name1, final Object value1,
                                                  final String name2, final Object value2,
                                                  final String name3, final Object value3,
@@ -139,6 +319,32 @@ public final class JsonFactory {
         );
     }
 
+    /**
+     * Returns the short-lived unmodified ordered {@link Map} that represents the JSON object with ten properties
+     *
+     * @param name1 the first property name
+     * @param value1 the first property value
+     * @param name2 the second property name
+     * @param value2 the second property value
+     * @param name3 the third property name
+     * @param value3 the third property value
+     * @param name4 the fourth property name
+     * @param value4 the fourth property value
+     * @param name5 the fifth property name
+     * @param value5 the fifth property value
+     * @param name6 the sixth property name
+     * @param value6 the sixth property value
+     * @param name7 the seventh property name
+     * @param value7 the seventh property value
+     * @param name8 the eighth property name
+     * @param value8 the eighth property value
+     * @param name9 the ninth property name
+     * @param value9 the ninth property value
+     * @param name10 the tenth property name
+     * @param value10 the tenth property value
+     * @return the short-lived unmodified ordered {@link Map} containing the provided JSON properties.
+     * @throws IllegalArgumentException if any property value contains invalid data
+     */
     public static Map<String, Object> jsonObject(final String name1, final Object value1,
                                                  final String name2, final Object value2,
                                                  final String name3, final Object value3,
@@ -155,6 +361,14 @@ public final class JsonFactory {
         );
     }
 
+    /**
+     * Returns the short-lived unmodified ordered {@link Map} that represents the JSON object
+     * with properties extracted from the given entries.
+     *
+     * @param entries the given entries
+     * @return the short-lived unmodified ordered {@link Map} containing the provided JSON properties.
+     * @throws IllegalArgumentException if any property value contains invalid data
+     */
     @SafeVarargs
     public static Map<String, Object> jsonObject(final Map.Entry<String, Object>... entries) {
         final JsonObjectBuilder jsonObjectBuilder = new JsonObjectBuilder();
@@ -164,21 +378,45 @@ public final class JsonFactory {
         return jsonObjectBuilder.build();
     }
 
+    /**
+     * Merges the specified json objects into single json object
+     *
+     * @param jsonObjects the {@link Map} array that represents the JSON objects to merge
+     * @return the short-lived unmodified ordered {@link Map} that represents the merged JSON object
+     * @throws IllegalArgumentException if any property value contains invalid data or detected a duplicate of property name
+     */
     @SafeVarargs
     public static Map<String, Object> jsonObject(final Map<String, Object>... jsonObjects) {
         final JsonObjectBuilder jsonObjectBuilder = new JsonObjectBuilder();
         for (final Map<String, Object> jsonObject : jsonObjects) {
             for (final Map.Entry<String, Object> entry : jsonObject.entrySet()) {
-                jsonObjectBuilder.put(entry.getKey(), convertIfNecessary(entry.getValue()));
+                final JsonObjectBuilder oldValue = jsonObjectBuilder.put(entry.getKey(), convertIfNecessary(entry.getValue()));
+                if (oldValue != null) {
+                    throw new IllegalArgumentException(
+                            format("Duplicate detected: name=?, value1=?, value2=?", entry.getKey(), entry.getValue(), oldValue)
+                    );
+                }
             }
         }
         return jsonObjectBuilder.build();
     }
 
+    /**
+     * Returns the short-lived unmodified {@link List} that represents the JSON array with the provided items
+     *
+     * @param objects JSON array items
+     * @return the short-lived unmodified {@link List} that represents the JSON array with the provided items
+     */
     public static List<Object> jsonArray(final Object... objects) {
         return jsonArray(Arrays.asList(objects));
     }
 
+    /**
+     * Returns the short-lived unmodified {@link List} that represents the JSON array with the provided items
+     *
+     * @param items JSON array items
+     * @return the short-lived unmodified {@link List} that represents the JSON array with the provided items
+     */
     public static List<Object> jsonArray(final List<Object> items) {
         return unmodifiableList(
                 items.stream()

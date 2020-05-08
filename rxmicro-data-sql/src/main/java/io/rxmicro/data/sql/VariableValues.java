@@ -32,8 +32,8 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 /**
  * Denotes a storage with the values of the predefined variables.
  * <p>
- * To determine the value of the predefined variable used in the query specified for the repository method, the RxMicro framework
- * uses the following algorithm:
+ * <h4>To determine the value of the predefined variable used in the query specified for the repository method, the RxMicro framework
+ * uses the following algorithm:</h4>
  * <ol>
  *     <li>
  *         If the repository method returns or accepts the entity model as a parameter, the entity model class is used to define
@@ -61,8 +61,11 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * </ol>
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
+ * @see Delete
+ * @see Insert
+ * @see Select
+ * @see Update
  */
 @Documented
 @Retention(SOURCE)

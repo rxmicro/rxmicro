@@ -33,7 +33,6 @@ import static io.rxmicro.http.HttpStandardHeaderNames.CONTENT_LENGTH;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class NettyHttpResponse implements HttpResponse {

@@ -25,7 +25,6 @@ import reactor.core.publisher.Mono;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class ReactorTransaction extends AbstractTransaction implements Transaction {

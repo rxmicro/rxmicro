@@ -22,18 +22,35 @@ import io.rxmicro.common.RxMicroException;
  * Signals that json syntax error detected
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
+ * @see JsonTypes
+ * @see JsonHelper
+ * @see JsonNumber
  */
 public final class JsonException extends RxMicroException {
 
     /**
-     * Creates a new {@link JsonException} instance with error message.
+     * Creates a new {@link JsonException} instance with the specified error message.
      *
-     * @param message error message
-     * @throws NullPointerException if {@code message} is {@code null}
+     * @param message the error message
+     * @throws NullPointerException if the error message is {@code null}
      */
     public JsonException(final String message) {
         super(message);
+    }
+
+    /**
+     * Creates a new {@link JsonException} instance with the specified error message template and arguments.
+     * <p>
+     * <i>(FYI: This constructor uses {@link io.rxmicro.common.util.Formats#format(String, Object...)} method to format error message.)</i>
+     *
+     * @param message the error message template
+     * @param args the error message template arguments
+     * @throws NullPointerException if the error message template is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    public JsonException(final String message,
+                         final Object... args) {
+        super(message, args);
     }
 }

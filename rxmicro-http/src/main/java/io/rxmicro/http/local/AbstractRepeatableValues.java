@@ -30,7 +30,6 @@ import static java.util.stream.Collectors.joining;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 @SuppressWarnings("unchecked")
@@ -193,7 +192,6 @@ public abstract class AbstractRepeatableValues<T extends RepeatableValues<T>> {
 
     /**
      * @author nedis
-     * @link https://rxmicro.io
      * @since 0.1
      */
     private static final class ListImpl extends ArrayList<String> {

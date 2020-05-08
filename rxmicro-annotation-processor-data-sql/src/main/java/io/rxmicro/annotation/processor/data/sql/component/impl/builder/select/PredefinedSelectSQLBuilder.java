@@ -55,8 +55,6 @@ import static java.util.stream.Collectors.toList;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
- * @link https://www.postgresql.org/docs/12/sql-select.html
  * @since 0.1
  */
 public class PredefinedSelectSQLBuilder<DMF extends SQLDataModelField, DMC extends SQLDataObjectModelClass<DMF>> extends AbstractSQLBuilder {

@@ -35,7 +35,6 @@ import static io.rxmicro.tool.common.Reflections.setFieldValue;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class TestedComponentResolver {

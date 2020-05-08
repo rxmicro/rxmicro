@@ -23,7 +23,6 @@ import io.rxmicro.annotation.processor.data.sql.model.SQLDataRepositoryMethod;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public interface SQLRepositoryMethodModelBuilder<DMF extends SQLDataModelField, DMC extends SQLDataObjectModelClass<DMF>>

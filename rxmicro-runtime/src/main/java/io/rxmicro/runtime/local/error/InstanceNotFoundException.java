@@ -20,7 +20,6 @@ import io.rxmicro.common.RxMicroException;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class InstanceNotFoundException extends RxMicroException {

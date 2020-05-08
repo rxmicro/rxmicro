@@ -21,38 +21,38 @@ import java.util.Locale;
 import static java.lang.System.getProperty;
 
 /**
- * TODO
+ * Environment utility class
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
+ * @see System#getProperty(String)
  */
 public final class Environments {
 
     private static final String UNKNOWN = "unknown";
 
     /**
-     * TODO
+     * Returns {@code true} if current OS is macOS
      *
-     * @return
+     * @return {@code true} if current OS is macOS
      */
     public static boolean isCurrentOsMac() {
         return getProperty("os.name", UNKNOWN).toLowerCase(Locale.ENGLISH).contains("mac");
     }
 
     /**
-     * TODO
+     * Returns {@code true} if current OS is Linux
      *
-     * @return
+     * @return {@code true} if current OS is Linux
      */
     public static boolean isCurrentOsLinux() {
         return getProperty("os.name", UNKNOWN).toLowerCase(Locale.ENGLISH).contains("linux");
     }
 
     /**
-     * TODO
+     * Returns {@code true} if current OS is Windows
      *
-     * @return
+     * @return {@code true} if current OS is Windows
      */
     public static boolean isCurrentOsWindows() {
         return getProperty("os.name", UNKNOWN).toLowerCase(Locale.ENGLISH).contains("windows");

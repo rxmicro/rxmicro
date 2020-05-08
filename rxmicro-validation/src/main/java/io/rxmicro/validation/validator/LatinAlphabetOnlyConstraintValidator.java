@@ -27,9 +27,8 @@ import java.util.stream.Collectors;
  * Validator for the {@link io.rxmicro.validation.constraint.LatinAlphabetOnly} constraint
  *
  * @author nedis
- * @link https://rxmicro.io
- * @see io.rxmicro.validation.constraint.LatinAlphabetOnly
  * @since 0.1
+ * @see io.rxmicro.validation.constraint.LatinAlphabetOnly
  */
 public final class LatinAlphabetOnlyConstraintValidator implements ConstraintValidator<String> {
 
@@ -63,7 +62,6 @@ public final class LatinAlphabetOnlyConstraintValidator implements ConstraintVal
 
     /**
      * @author nedis
-     * @link https://rxmicro.io
      * @since 0.1
      */
     private static final class LatinAlphabetHelper {

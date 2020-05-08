@@ -22,8 +22,12 @@ import static io.rxmicro.common.util.Requires.require;
  * Base savepoint class
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
+ * @see TransactionType
+ * @see io.rxmicro.data.sql.model.reactor.Transaction
+ * @see io.rxmicro.data.sql.model.rxjava3.Transaction
+ * @see io.rxmicro.data.sql.model.completablefuture.Transaction
+ * @see IsolationLevel
  */
 public final class SavePoint {
 

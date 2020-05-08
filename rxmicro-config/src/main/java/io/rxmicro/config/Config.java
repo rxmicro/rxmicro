@@ -25,8 +25,8 @@ import static java.util.stream.Collectors.joining;
  * The parent class for all config classes.
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
+ * @see ConfigSource
  */
 public abstract class Config {
 

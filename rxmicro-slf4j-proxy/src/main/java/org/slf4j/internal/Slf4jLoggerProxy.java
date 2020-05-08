@@ -30,10 +30,9 @@ import static io.rxmicro.common.util.Requires.require;
  * <a href="https://github.com/mongodb/mongo-java-driver/commit/6a163f715fe08ed8d39acac3d11c896ae547df73">
  *     https://github.com/mongodb/mongo-java-driver/commit/6a163f715fe08ed8d39acac3d11c896ae547df73
  * </a>
+ * <a href="http://www.slf4j.org">http://www.slf4j.org</a>
  *
  * @author nedis
- * @link https://rxmicro.io
- * @link http://www.slf4j.org
  * @since 0.3
  */
 public final class Slf4jLoggerProxy implements org.slf4j.Logger {

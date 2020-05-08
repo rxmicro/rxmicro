@@ -29,8 +29,11 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * Denotes a static query parameter that must be added to the request, created by REST client implementation.
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
+ * @see SetQueryParameter
+ * @see RepeatQueryParameter
+ * @see Parameter
+ * @see ParameterMappingStrategy
  */
 @Documented
 @Retention(SOURCE)
@@ -56,7 +59,6 @@ public @interface AddQueryParameter {
      * Defines several {@link AddQueryParameter} annotations on the same element.
      *
      * @author nedis
-     * @link https://rxmicro.io
      * @since 0.1
      */
     @Documented

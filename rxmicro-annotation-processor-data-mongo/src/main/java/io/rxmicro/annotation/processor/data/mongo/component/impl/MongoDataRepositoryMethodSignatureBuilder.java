@@ -29,7 +29,6 @@ import static io.rxmicro.data.mongo.local.MongoOperations.MONGO_OPERATION_ANNOTA
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 @Singleton

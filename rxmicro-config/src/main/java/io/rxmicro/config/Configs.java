@@ -45,8 +45,9 @@ import static java.util.stream.Collectors.toMap;
  * {@link Configs#getConfig(Class)} or {@link Configs#getConfig(String, Class)} methods
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
+ * @see Config
+ * @see ConfigSource
  */
 public final class Configs {
 
@@ -128,7 +129,6 @@ public final class Configs {
      * Allows configuring the {@link Configs} manager before usage
      *
      * @author nedis
-     * @link https://rxmicro.io
      * @since 0.1
      */
     @SuppressWarnings("UnusedReturnValue")

@@ -28,7 +28,6 @@ import static io.rxmicro.runtime.local.Instances.getImplementation;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class HttpClientBuilder {
@@ -44,7 +43,6 @@ public final class HttpClientBuilder {
 
     /**
      * @author nedis
-     * @link https://rxmicro.io
      * @since 0.3
      */
     private static final class DisabledSecretsImpl implements Secrets {

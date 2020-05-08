@@ -20,7 +20,6 @@ import io.rxmicro.rest.server.detail.model.HttpResponse;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public interface ErrorHttpResponseBuilder {

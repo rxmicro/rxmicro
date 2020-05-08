@@ -26,10 +26,9 @@ import static io.rxmicro.common.util.Requires.require;
 import static io.rxmicro.common.util.Strings.startsWith;
 
 /**
- * Used by generated code that was created by RxMicro Annotation Processor
+ * Used by generated code that was created by {@code RxMicro Annotation Processor}
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public class ByTypeAndNameInstanceQualifier<T> extends ByTypeInstanceQualifier<T> {

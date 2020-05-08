@@ -24,7 +24,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
+ *
  * @since 0.2
  */
 @Retention(RetentionPolicy.SOURCE)

@@ -29,7 +29,6 @@ import static javax.lang.model.element.Modifier.SYNCHRONIZED;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class MethodValidators {

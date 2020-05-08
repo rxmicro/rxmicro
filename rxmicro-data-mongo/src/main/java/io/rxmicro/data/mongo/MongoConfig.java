@@ -30,8 +30,10 @@ import static io.rxmicro.config.Networks.validatePort;
  * Allows configuring Monfo DB options.
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
+ * @see MongoRepository
+ * @see MongoClientFactory
+ * @see MongoCodecsConfigurator
  */
 @SuppressWarnings("UnusedReturnValue")
 public final class MongoConfig extends Config {

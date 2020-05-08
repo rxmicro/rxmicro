@@ -20,7 +20,6 @@ import io.rxmicro.annotation.processor.common.model.AnnotationProcessorType;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public interface AnnotationProcessingInformer {

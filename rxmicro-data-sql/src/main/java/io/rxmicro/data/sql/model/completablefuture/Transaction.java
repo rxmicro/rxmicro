@@ -26,8 +26,12 @@ import java.util.concurrent.CompletableFuture;
  * but in future this API can be extended by using other SPI
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
+ * @see io.rxmicro.data.sql.model.TransactionType
+ * @see io.rxmicro.data.sql.model.reactor.Transaction
+ * @see io.rxmicro.data.sql.model.rxjava3.Transaction
+ * @see SavePoint
+ * @see IsolationLevel
  */
 public interface Transaction {
 
@@ -51,6 +55,7 @@ public interface Transaction {
      * @param savePoint the save point to create
      * @return the {@link CompletableFuture} that indicates that the save point has been created
      * @throws UnsupportedOperationException if save points are not supported
+     * @throws IllegalArgumentException if the specified save point is invalid
      */
     CompletableFuture<Void> create(SavePoint savePoint);
 
@@ -59,6 +64,7 @@ public interface Transaction {
      *
      * @param savePoint the save point to release
      * @return the {@link CompletableFuture} that indicates that the save point has been released
+     * @throws IllegalArgumentException if the specified save point is invalid
      */
     CompletableFuture<Void> release(SavePoint savePoint);
 
@@ -68,6 +74,7 @@ public interface Transaction {
      * @param savePoint the save point to rollback to
      * @return the {@link CompletableFuture} that indicates that the save point has been rolled back to
      * @throws UnsupportedOperationException if save points are not supported
+     * @throws IllegalArgumentException if the specified save point is invalid
      */
     CompletableFuture<Void> rollback(SavePoint savePoint);
 

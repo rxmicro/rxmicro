@@ -36,7 +36,6 @@ import java.util.Set;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public abstract class AbstractDataModelFieldBuilder<DMF extends DataModelField, DMC extends DataObjectModelClass<DMF>>

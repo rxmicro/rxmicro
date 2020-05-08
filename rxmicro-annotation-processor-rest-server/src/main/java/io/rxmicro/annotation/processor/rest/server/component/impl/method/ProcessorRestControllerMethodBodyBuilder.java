@@ -22,7 +22,6 @@ import io.rxmicro.annotation.processor.rest.server.model.RestControllerMethodSig
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 @Singleton

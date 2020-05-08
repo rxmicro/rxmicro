@@ -29,9 +29,8 @@ import static java.util.stream.Collectors.toUnmodifiableSet;
  * Validator for the {@link io.rxmicro.validation.constraint.Enumeration} constraint
  *
  * @author nedis
- * @link https://rxmicro.io
- * @see io.rxmicro.validation.constraint.Enumeration
  * @since 0.1
+ * @see io.rxmicro.validation.constraint.Enumeration
  */
 public class EnumerationCharacterConstraintValidator implements ConstraintValidator<Character> {
 

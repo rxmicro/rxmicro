@@ -23,9 +23,8 @@ import io.rxmicro.validation.ConstraintValidator;
  * Validator for the {@link io.rxmicro.validation.constraint.Skype} constraint
  *
  * @author nedis
- * @link https://rxmicro.io
- * @see io.rxmicro.validation.constraint.Skype
  * @since 0.1
+ * @see io.rxmicro.validation.constraint.Skype
  */
 public class SkypeConstraintValidator implements ConstraintValidator<String> {
 
@@ -33,6 +32,6 @@ public class SkypeConstraintValidator implements ConstraintValidator<String> {
     public void validate(final String actual,
                          final HttpModelType httpModelType,
                          final String modelName) {
-        // TODO
+        // do nothing. It seems that skype name can contains any symbols
     }
 }

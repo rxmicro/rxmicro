@@ -35,7 +35,6 @@ import static java.nio.charset.StandardCharsets.UTF_8;
  * Utility class to get properties represented by a {@link Map} from external resource
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class PropertiesResources {

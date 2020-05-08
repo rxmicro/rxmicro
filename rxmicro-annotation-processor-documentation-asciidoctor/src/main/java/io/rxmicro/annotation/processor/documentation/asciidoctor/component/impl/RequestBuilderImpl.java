@@ -50,7 +50,6 @@ import static io.rxmicro.rest.model.HttpModelType.PATH;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 @Singleton

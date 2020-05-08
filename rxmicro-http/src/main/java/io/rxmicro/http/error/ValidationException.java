@@ -25,7 +25,6 @@ import static io.rxmicro.common.util.Strings.capitalize;
  * A class signaling that the client has sent a {@code Bad Request}.
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class ValidationException extends HttpErrorException {
@@ -41,7 +40,7 @@ public final class ValidationException extends HttpErrorException {
      * (<i>This behavior is achieved by using the {@link RuntimeException#RuntimeException(String, Throwable, boolean, boolean)}.</i>)
      *
      * @param message the error message
-     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws NullPointerException if the error message is {@code null}
      */
     public ValidationException(final String message) {
         super(STATUS_CODE, capitalize(message));
@@ -59,7 +58,8 @@ public final class ValidationException extends HttpErrorException {
      *
      * @param message the error message template
      * @param args the error message template argument
-     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws NullPointerException if the error message template is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     public ValidationException(final String message,
                                final Object... args) {

@@ -54,7 +54,6 @@ import static java.util.stream.Collectors.toList;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public abstract class AbstractDataRepositoryMethodModelBuilder<DMF extends DataModelField, DRM extends DataRepositoryMethod, DMC extends DataObjectModelClass<DMF>>

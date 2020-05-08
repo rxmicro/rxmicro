@@ -23,7 +23,6 @@ import io.rxmicro.json.JsonObjectBuilder;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public interface JsonAttributesReader {

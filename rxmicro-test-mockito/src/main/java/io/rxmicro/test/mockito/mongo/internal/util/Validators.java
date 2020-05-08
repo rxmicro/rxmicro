@@ -19,20 +19,17 @@ package io.rxmicro.test.mockito.mongo.internal.util;
 import org.bson.Document;
 
 import static io.rxmicro.common.util.Formats.format;
+import static io.rxmicro.common.util.Requires.require;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class Validators {
 
     public static Document validateBson(final Document document,
                                         final String paramName) {
-        if (document == null) {
-            throw new IllegalArgumentException(format("'?' must be not null!", paramName));
-        }
-        return document;
+        return require(document, "'?' must be not null!", paramName);
     }
 
     public static Document validateBson(final String value,
@@ -42,9 +39,7 @@ public final class Validators {
 
     public static String validateString(final String value,
                                         final String paramName) {
-        if (value == null) {
-            throw new IllegalArgumentException(format("'?' must be not null!", paramName));
-        }
+        require(value, "'?' must be not null!", paramName);
         if (value.isBlank()) {
             throw new IllegalArgumentException(format("'?' must be not blank!", paramName));
         }

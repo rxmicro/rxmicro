@@ -35,8 +35,12 @@ import static io.rxmicro.common.util.Requires.require;
  * Allows customizing netty REST server options.
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
+ * @see NettyTransport
+ * @see NettyChannelIdType
+ * @see ChannelOption
+ * @see HttpServerCodec
+ * @see HttpObjectAggregator
  */
 @SuppressWarnings("UnusedReturnValue")
 public final class NettyRestServerConfig extends Config {

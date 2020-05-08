@@ -28,9 +28,15 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * <a href="https://docs.mongodb.com/manual/reference/method/db.collection.insertOne/">{@code db.collection.insertOne()}</a> operation.
  *
  * @author nedis
- * @link https://rxmicro.io
- * @link https://docs.mongodb.com/manual/reference/method/db.collection.insertOne/
  * @since 0.1
+ * @see io.rxmicro.data.mongo.MongoRepository
+ * @see Aggregate
+ * @see CountDocuments
+ * @see Delete
+ * @see Distinct
+ * @see EstimatedDocumentCount
+ * @see Find
+ * @see Update
  */
 @Documented
 @Retention(SOURCE)

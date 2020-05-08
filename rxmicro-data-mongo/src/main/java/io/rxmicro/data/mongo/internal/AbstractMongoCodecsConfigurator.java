@@ -26,7 +26,6 @@ import java.util.function.Predicate;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.2
  */
 @SuppressWarnings("unchecked")

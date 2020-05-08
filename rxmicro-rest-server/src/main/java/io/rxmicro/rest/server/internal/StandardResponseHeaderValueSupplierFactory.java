@@ -27,7 +27,6 @@ import static java.time.format.DateTimeFormatter.RFC_1123_DATE_TIME;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class StandardResponseHeaderValueSupplierFactory {

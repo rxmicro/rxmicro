@@ -17,10 +17,9 @@
 import io.rxmicro.annotation.processor.documentation.component.IncludeReferenceSyntaxProvider;
 
 /**
- * The RxMicro Annotation Processor internal module
+ * The {@code RxMicro Annotation Processor} internal module
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 @SuppressWarnings("JavaRequiresAutoModule")

@@ -23,7 +23,6 @@ import io.rxmicro.annotation.processor.data.mongo.model.MongoRepositoryMethod;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public interface MongoRepositoryMethodModelBuilder extends

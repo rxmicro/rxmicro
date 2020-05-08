@@ -26,7 +26,6 @@ import static java.util.stream.Collectors.joining;
  * Declares predefined mapping strategies for different usage: ORM mapping, HTTP mapping, etc.
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public enum MappingStrategy {

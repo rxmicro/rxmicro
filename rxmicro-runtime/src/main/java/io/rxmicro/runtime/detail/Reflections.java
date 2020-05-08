@@ -16,6 +16,8 @@
 
 package io.rxmicro.runtime.detail;
 
+import io.rxmicro.common.InvalidStateException;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.HashMap;
@@ -30,10 +32,9 @@ import static java.lang.reflect.Modifier.isStatic;
 import static java.util.stream.Collectors.joining;
 
 /**
- * Used by generated code that was created by RxMicro Annotation Processor
+ * Used by generated code that was created by {@code RxMicro Annotation Processor}
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class Reflections {
@@ -91,8 +92,7 @@ public final class Reflections {
                         setAccessibleConsumer.accept(field);
                     }
                     if (map.put(field.getName(), field) != null) {
-                        throw new IllegalStateException(
-                                format("Class '?' has duplicate field with name: '?'", cl.getName(), field.getName()));
+                        throw new InvalidStateException("Class '?' has duplicate field with name: '?'", cl.getName(), field.getName());
                     }
                 }
             }

@@ -28,7 +28,6 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * Marks model field as not persist
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 @Documented

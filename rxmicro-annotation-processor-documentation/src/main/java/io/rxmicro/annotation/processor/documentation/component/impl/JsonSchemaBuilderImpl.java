@@ -46,7 +46,6 @@ import static io.rxmicro.common.RxMicroModule.RX_MICRO_VALIDATION_MODULE;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 @Singleton

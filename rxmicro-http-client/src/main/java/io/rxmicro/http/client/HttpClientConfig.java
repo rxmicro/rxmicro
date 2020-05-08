@@ -31,8 +31,8 @@ import static java.time.Duration.ofSeconds;
  * Allows configuring HTTP client options.
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
+ * @see Duration
  */
 @SuppressWarnings("UnusedReturnValue")
 public class HttpClientConfig extends HttpConfig {

@@ -38,7 +38,7 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
+ *
  * @since 0.1
  */
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
@@ -67,7 +67,7 @@ class ModelReader_UnitTest {
 
     /**
      * @author nedis
-     * @link https://rxmicro.io
+     *
      * @since 0.1
      */
     private static class QueryParamsProvider implements ArgumentsProvider {

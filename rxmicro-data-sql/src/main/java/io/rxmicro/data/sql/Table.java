@@ -29,8 +29,9 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * Denotes a table name for entity.
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
+ * @see Schema
+ * @see MappingStrategy
  */
 @Documented
 @Retention(SOURCE)

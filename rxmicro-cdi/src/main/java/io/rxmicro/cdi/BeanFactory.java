@@ -26,7 +26,6 @@ import static io.rxmicro.common.util.GeneratedClassRules.GENERATED_CLASS_NAME_PR
  * Utility class that must be used to get the instance of the requested bean
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public abstract class BeanFactory extends AbstractFactory {

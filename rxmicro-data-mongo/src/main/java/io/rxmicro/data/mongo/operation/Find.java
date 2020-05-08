@@ -28,9 +28,15 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * <a href="https://docs.mongodb.com/manual/reference/method/db.collection.find/">{@code db.collection.find()}</a> operation.
  *
  * @author nedis
- * @link https://rxmicro.io
- * @link https://docs.mongodb.com/manual/reference/method/db.collection.find/
  * @since 0.1
+ * @see io.rxmicro.data.mongo.MongoRepository
+ * @see Aggregate
+ * @see CountDocuments
+ * @see Delete
+ * @see Distinct
+ * @see EstimatedDocumentCount
+ * @see Insert
+ * @see Update
  */
 @Documented
 @Retention(SOURCE)
@@ -46,7 +52,6 @@ public @interface Find {
      * </a>
      *
      * @return the selection filter using query operators.
-     * @link https://docs.mongodb.com/manual/reference/operator/
      */
     String query() default "";
 
@@ -64,8 +69,6 @@ public @interface Find {
      * </a>
      *
      * @return the query projection
-     * @link https://docs.mongodb.com/manual/reference/method/db.collection.find/#projection
-     * @link https://docs.mongodb.com/manual/reference/method/db.collection.find/#projections
      */
     String projection() default "";
 
@@ -78,7 +81,6 @@ public @interface Find {
      * </a>
      *
      * @return the index to use for the find operation
-     * @link https://docs.mongodb.com/manual/reference/method/cursor.hint/#cursor.hint
      */
     String hint() default "";
 
@@ -91,7 +93,6 @@ public @interface Find {
      * </a>
      *
      * @return the sort expression
-     * @link https://docs.mongodb.com/manual/reference/method/db.collection.find/#order-documents-in-the-result-set
      */
     String sort() default "";
 
@@ -104,7 +105,6 @@ public @interface Find {
      * </a>
      *
      * @return the limit of the result set
-     * @link https://docs.mongodb.com/manual/reference/method/db.collection.find/#limit-the-number-of-documents-to-return
      */
     int limit() default -1;
 
@@ -117,7 +117,6 @@ public @interface Find {
      * </a>
      *
      * @return the start point of the result set
-     * @link https://docs.mongodb.com/manual/reference/method/db.collection.find/#set-the-starting-point-of-the-result-set
      */
     int skip() default -1;
 }

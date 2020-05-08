@@ -30,7 +30,6 @@ import static io.rxmicro.http.HttpStandardHeaderNames.REQUEST_ID;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class RestModelField extends ModelField {

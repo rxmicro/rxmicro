@@ -26,7 +26,6 @@ import static io.rxmicro.config.WaitFor.WAIT_FOR_COMMAND_LINE_ARG;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.3
  */
 public final class WaitForUtils {

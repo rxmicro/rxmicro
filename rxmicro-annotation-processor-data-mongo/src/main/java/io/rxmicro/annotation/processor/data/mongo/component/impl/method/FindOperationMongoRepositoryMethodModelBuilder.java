@@ -46,9 +46,6 @@ import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.ge
 
 /**
  * @author nedis
- * @link https://rxmicro.io
- * @link https://docs.mongodb.com/manual/reference/bson-types/
- * @link https://docs.mongodb.com/manual/reference/method/db.collection.find/
  * @since 0.1
  */
 @Singleton

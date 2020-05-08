@@ -17,6 +17,7 @@
 package io.rxmicro.data.sql.r2dbc.internal;
 
 import io.r2dbc.spi.Connection;
+import io.rxmicro.common.InvalidStateException;
 import io.rxmicro.data.sql.model.IsolationLevel;
 import io.rxmicro.data.sql.model.SavePoint;
 import org.junit.jupiter.api.BeforeEach;
@@ -38,7 +39,6 @@ import static org.mockito.Mockito.when;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
@@ -130,7 +130,7 @@ final class AbstractTransaction_UnitTest {
     }
 
     private void assertCurrentTransactionNotActive(final Executable executable) {
-        final IllegalStateException exception = assertThrows(IllegalStateException.class, executable);
+        final InvalidStateException exception = assertThrows(InvalidStateException.class, executable);
         assertEquals("Current transaction is not active", exception.getMessage());
     }
 }

@@ -20,6 +20,7 @@ import com.mongodb.BSONTimestampCodec;
 import com.mongodb.DBRef;
 import com.mongodb.DBRefCodec;
 import com.mongodb.DocumentToDBRefTransformer;
+import io.rxmicro.common.InvalidStateException;
 import io.rxmicro.common.meta.BuilderMethod;
 import io.rxmicro.data.mongo.internal.AbstractMongoCodecsConfigurator;
 import io.rxmicro.data.mongo.internal.codec.CustomBinaryCodec;
@@ -103,8 +104,8 @@ import static io.rxmicro.common.util.Requires.require;
  * Allows configuring the Mongo DB codecs
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.2
+ * @see MongoConfig
  */
 public final class MongoCodecsConfigurator extends AbstractMongoCodecsConfigurator<MongoCodecsConfigurator> {
 
@@ -122,7 +123,7 @@ public final class MongoCodecsConfigurator extends AbstractMongoCodecsConfigurat
             this.uuidRepresentation = defaultUuidRepresentation;
             return this;
         } else {
-            throw new IllegalStateException("`setDefaultUuidRepresentation` must be invoked before any configuration!");
+            throw new InvalidStateException("`setDefaultUuidRepresentation` must be invoked before any configuration!");
         }
     }
 
@@ -431,7 +432,6 @@ public final class MongoCodecsConfigurator extends AbstractMongoCodecsConfigurat
 
     /**
      * @author nedis
-     * @link https://rxmicro.io
      * @since 0.3
      */
     private static final class DocumentProxyCodec implements Codec<Document> {
@@ -463,7 +463,6 @@ public final class MongoCodecsConfigurator extends AbstractMongoCodecsConfigurat
 
     /**
      * @author nedis
-     * @link https://rxmicro.io
      * @since 0.3
      */
     @SuppressWarnings("unchecked")

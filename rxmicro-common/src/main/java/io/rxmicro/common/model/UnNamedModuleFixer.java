@@ -22,11 +22,26 @@ import java.util.function.BiConsumer;
 import static io.rxmicro.common.local.TestLoggers.logTestMessage;
 
 /**
- * TODO
+ * Java 9 has introduced the <a href="https://www.oracle.com/corporate/features/understanding-java-9-modules.html">JPMS</a>.
+ * <p>
+ * This system requires that a developer defines the {@code module-info.java} descriptor for each project.
+ * In this descriptor, the developer must describe all the dependencies of the current project.
+ * In the context of the unit module system, the tests required for each project should be configured as a separate module,
+ * since they depend on libraries that should not be available in the runtime.
+ * Usually such libraries are unit testing libraries (e.g. {@code JUnit 5}), mock creation libraries (e.g. {@code Mockito}), etc.
+ * <p>
+ * When trying to create a separate module-info.java descriptor available only for unit tests, many modern IDEs report an error.
+ * <p>
+ * Therefore, the simplest and most common solution to this problem is to organize unit tests in the form of automatic module.
+ * This solution allows correcting compilation errors, but when starting tests, there will be runtime errors.
+ * To fix runtime errors, when starting the Java virtual machine, the RxMicro framework provide {@link UnNamedModuleFixer} basic class.
+ * <p>
+ * <i>(This class can be used by internal RxMicro modules only!)</i>
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
+ * @see Module
+ * @see ClassLoader#getUnnamedModule()
  */
 public abstract class UnNamedModuleFixer {
 
@@ -37,6 +52,13 @@ public abstract class UnNamedModuleFixer {
      */
     public abstract void fix(Module unNamedModule);
 
+    /**
+     * Adds open instruction
+     *
+     * @param currentModule teh current module
+     * @param addOpenConsumer the open consumer
+     * @param packageNames the package names
+     */
     protected final void addOpens(final Module currentModule,
                                   final BiConsumer<Module, String> addOpenConsumer,
                                   final String... packageNames) {

@@ -28,10 +28,11 @@ import static java.lang.annotation.ElementType.PARAMETER;
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
- * Informs the RxMicro Annotation Processor, that a header model field with array type must be converted to the repeating HTTP header.
+ * Informs the {@code RxMicro Annotation Processor}, that a header model field with array type
+ * must be converted to the repeating HTTP header.
  * <p>
- * By default, the RxMicro framework converts header model value as string, separated by the | symbol
- * (See {@link io.rxmicro.http.HttpValues#STRING_ARRAY_DELIMITER}), for example:
+ * By default, the RxMicro framework converts header model value as string, separated by the
+ * {@value io.rxmicro.http.HttpValues#STRING_ARRAY_DELIMITER}) symbol. For example:
  * <p>
  * {@code HeaderName: value1|value2|value3.}
  * <p>
@@ -44,10 +45,13 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * Supported for REST client HTTP request and REST controller handler HTTP response models only!
  *
  * @author nedis
- * @link https://rxmicro.io
+ * @since 0.1
  * @see io.rxmicro.http.HttpHeaders
  * @see io.rxmicro.http.HttpValues
- * @since 0.1
+ * @see AddHeader
+ * @see SetHeader
+ * @see Header
+ * @see HeaderMappingStrategy
  */
 @Documented
 @Retention(SOURCE)

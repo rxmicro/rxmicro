@@ -28,7 +28,6 @@ import static io.rxmicro.http.HttpStatuses.getErrorMessage;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class HttpCallFailedHttpResponseBuilder {

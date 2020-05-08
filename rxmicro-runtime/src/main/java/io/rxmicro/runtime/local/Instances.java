@@ -30,7 +30,6 @@ import static java.util.stream.Collectors.joining;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class Instances {
@@ -117,7 +116,6 @@ public final class Instances {
 
     /**
      * @author nedis
-     * @link https://rxmicro.io
      * @since 0.1
      */
     public static final class ImplementationLoadFailedException extends RxMicroException {

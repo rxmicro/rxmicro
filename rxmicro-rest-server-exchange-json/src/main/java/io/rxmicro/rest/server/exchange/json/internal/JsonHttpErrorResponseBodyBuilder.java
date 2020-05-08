@@ -35,7 +35,6 @@ import static io.rxmicro.rest.server.exchange.json.local.Constants.MESSAGE;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class JsonHttpErrorResponseBodyBuilder implements HttpErrorResponseBodyBuilder {

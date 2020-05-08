@@ -24,7 +24,6 @@ import io.rxmicro.data.sql.PrimaryKey;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public abstract class AbstractSQLDataModelFieldBuilder<DMF extends SQLDataModelField, DMC extends SQLDataObjectModelClass<DMF>>

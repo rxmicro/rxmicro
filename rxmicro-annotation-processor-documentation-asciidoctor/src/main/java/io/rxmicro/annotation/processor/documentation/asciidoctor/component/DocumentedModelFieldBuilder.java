@@ -35,7 +35,6 @@ import static io.rxmicro.json.JsonTypes.STRING;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public interface DocumentedModelFieldBuilder {

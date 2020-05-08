@@ -28,7 +28,6 @@ import static io.rxmicro.data.Pageable.OFFSET_NAMES;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public class MongoVariable extends Variable {

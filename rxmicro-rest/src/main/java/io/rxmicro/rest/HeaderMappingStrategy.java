@@ -32,7 +32,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * By default, the {@link MappingStrategy#CAPITALIZE_WITH_HYPHEN} strategy is used.
  * Thus, by using this strategy, the {@code 'Header-Name'} name header corresponds to the {@code 'headerName'} field name.
  * <p>
- * The RxMicro framework uses the following algorithm to define the HTTP header name for the specified model field:
+ * <h4>The RxMicro framework uses the following algorithm to define the HTTP header name for the specified model field:</h4>
  * <ol>
  *     <li>
  *          If the field is annotated by the {@link Header} annotation with an explicit indication of the HTTP header name,
@@ -53,8 +53,12 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * </ol>
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
+ * @see AddHeader
+ * @see SetHeader
+ * @see Header
+ * @see RepeatHeader
+ * @see MappingStrategy
  */
 @Documented
 @Retention(SOURCE)

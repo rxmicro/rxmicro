@@ -19,6 +19,7 @@ package io.rxmicro.annotation.processor.documentation.asciidoctor.component.impl
 import io.rxmicro.annotation.processor.common.model.type.ModelClass;
 import io.rxmicro.annotation.processor.documentation.asciidoctor.component.impl.restrictions.ConstraintReader;
 import io.rxmicro.annotation.processor.rest.model.RestModelField;
+import io.rxmicro.common.ImpossibleException;
 import io.rxmicro.common.meta.ReadMore;
 import io.rxmicro.validation.constraint.Future;
 import io.rxmicro.validation.constraint.FutureOrPresent;
@@ -35,7 +36,6 @@ import static io.rxmicro.annotation.processor.common.util.Annotations.getReadMor
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class DateTimePrimitiveConstraintReader implements ConstraintReader {
@@ -89,8 +89,8 @@ public final class DateTimePrimitiveConstraintReader implements ConstraintReader
             restrictions.add("format: UTC");
             try {
                 readMores.add(getClass().getDeclaredField("instant").getAnnotation(ReadMore.class));
-            } catch (NoSuchFieldException e) {
-                throw new IllegalStateException(e);
+            } catch (final NoSuchFieldException e) {
+                throw new ImpossibleException(e, "Field `instant` must be declared!");
             }
         }
     }

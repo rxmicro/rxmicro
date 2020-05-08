@@ -40,7 +40,6 @@ import static java.lang.reflect.Proxy.newProxyInstance;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class TypeFixer {

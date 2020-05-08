@@ -17,6 +17,7 @@
 package io.rxmicro.data.sql.r2dbc.internal;
 
 import io.r2dbc.spi.Connection;
+import io.rxmicro.common.InvalidStateException;
 import io.rxmicro.data.sql.model.IsolationLevel;
 import io.rxmicro.data.sql.model.SavePoint;
 import org.reactivestreams.Publisher;
@@ -35,7 +36,6 @@ import static io.rxmicro.data.sql.model.IsolationLevel.SERIALIZABLE;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public abstract class AbstractTransaction {
@@ -88,7 +88,7 @@ public abstract class AbstractTransaction {
         if (savePoints.getClass() == List.of().getClass()) {
             savePoints = new ArrayList<>();
         } else if (savePoints.contains(savePoint)) {
-            throw new IllegalStateException("Save point already defined: " + savePoint);
+            throw new IllegalArgumentException("Save point already defined: " + savePoint);
         }
         savePoints.add(savePoint);
         return connection.createSavepoint(savePoint.getName());
@@ -97,7 +97,7 @@ public abstract class AbstractTransaction {
     protected Publisher<Void> baseRelease(final SavePoint savePoint) {
         checkActive();
         if (!savePoints.remove(savePoint)) {
-            throw new IllegalStateException("Save point not defined: " + savePoint);
+            throw new IllegalArgumentException("Save point not defined: " + savePoint);
         }
         return connection.releaseSavepoint(savePoint.getName());
     }
@@ -105,7 +105,7 @@ public abstract class AbstractTransaction {
     protected Publisher<Void> baseRollback(final SavePoint savePoint) {
         checkActive();
         if (!savePoints.contains(savePoint)) {
-            throw new IllegalStateException("Save point not defined: " + savePoint);
+            throw new IllegalArgumentException("Save point not defined: " + savePoint);
         } else {
             final ListIterator<SavePoint> listIterator = savePoints.listIterator(savePoints.size());
             while (listIterator.hasPrevious()) {
@@ -133,7 +133,7 @@ public abstract class AbstractTransaction {
 
     protected final void checkActive() {
         if (!active) {
-            throw new IllegalStateException("Current transaction is not active");
+            throw new InvalidStateException("Current transaction is not active");
         }
     }
 }

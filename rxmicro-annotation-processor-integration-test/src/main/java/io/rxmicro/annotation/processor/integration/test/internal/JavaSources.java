@@ -33,7 +33,6 @@ import static javax.tools.JavaFileObject.Kind.SOURCE;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 @SuppressWarnings("UnstableApiUsage")
@@ -52,7 +51,6 @@ public final class JavaSources {
 
     /**
      * @author nedis
-     * @link https://rxmicro.io
      * @since 0.1
      */
     private static final class ModuleInfoSimpleJavaFileObject extends SimpleJavaFileObject {

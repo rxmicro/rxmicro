@@ -25,7 +25,6 @@ import java.util.List;
  * Base validator class for list constraints
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public abstract class AbstractListConstraintValidator implements ConstraintValidator<List<?>> {

@@ -16,6 +16,7 @@
 
 package io.rxmicro.validation.constraint;
 
+import io.rxmicro.common.ImpossibleException;
 import io.rxmicro.common.meta.ReadMore;
 import io.rxmicro.validation.base.ConstraintRule;
 import io.rxmicro.validation.internal.SelfDocumented;
@@ -36,9 +37,8 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * The annotated element must be a valid IP address
  *
  * @author nedis
- * @link https://rxmicro.io
- * @see IPConstraintValidator
  * @since 0.1
+ * @see IPConstraintValidator
  */
 @Documented
 @Retention(SOURCE)
@@ -65,7 +65,7 @@ public @interface IP {
     /**
      * By default, support all versions, i.e. versions 4 and 6
      *
-     * @return the supported IP protocol @{code Version}s
+     * @return the supported IP protocol {@link Version}s
      */
     Version[] value() default {IP_V4, IP_V6};
 
@@ -73,7 +73,6 @@ public @interface IP {
      * IP versions
      *
      * @author nedis
-     * @link https://rxmicro.io
      * @since 0.1
      */
     enum Version {
@@ -116,8 +115,8 @@ public @interface IP {
         public ReadMore getReadMore() {
             try {
                 return getClass().getDeclaredField(name()).getAnnotation(ReadMore.class);
-            } catch (NoSuchFieldException e) {
-                throw new IllegalStateException(e);
+            } catch (final NoSuchFieldException e) {
+                throw new ImpossibleException(e, "ReadMore must be present");
             }
         }
     }

@@ -44,7 +44,6 @@ import static javax.lang.model.element.NestingKind.TOP_LEVEL;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class VirtualTypeElement implements TypeElement, VirtualElement {

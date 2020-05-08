@@ -30,7 +30,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
+ *
  * @since 0.1
  */
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
@@ -229,7 +229,7 @@ final class AbstractRepeatableValuesTest {
 
     /**
      * @author nedis
-     * @link https://rxmicro.io
+     *
      * @since 0.1
      */
     private static final class Headers extends AbstractRepeatableValues<Headers> implements RepeatableValues<Headers> {

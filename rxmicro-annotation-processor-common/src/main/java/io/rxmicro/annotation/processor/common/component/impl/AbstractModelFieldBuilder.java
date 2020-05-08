@@ -72,7 +72,6 @@ import static javax.lang.model.type.TypeKind.SHORT;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public abstract class AbstractModelFieldBuilder<MF extends ModelField, MC extends ObjectModelClass<MF>>
@@ -301,7 +300,6 @@ public abstract class AbstractModelFieldBuilder<MF extends ModelField, MC extend
 
     /**
      * @author nedis
-     * @link https://rxmicro.io
      * @since 0.1
      */
     public static final class ModelNames {

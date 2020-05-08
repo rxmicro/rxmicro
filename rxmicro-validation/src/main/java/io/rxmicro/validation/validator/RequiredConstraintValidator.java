@@ -24,10 +24,9 @@ import io.rxmicro.validation.ConstraintValidator;
  * Validator for the required constraint
  *
  * @author nedis
- * @link https://rxmicro.io
+ * @since 0.1
  * @see io.rxmicro.validation.constraint.Nullable
  * @see io.rxmicro.validation.constraint.NullableArrayItem
- * @since 0.1
  */
 public final class RequiredConstraintValidator<T> implements ConstraintValidator<T> {
 

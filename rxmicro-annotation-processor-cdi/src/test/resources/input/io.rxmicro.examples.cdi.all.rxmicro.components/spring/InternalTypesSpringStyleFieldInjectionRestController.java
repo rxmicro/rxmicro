@@ -34,10 +34,6 @@ import io.rxmicro.rest.server.HttpServerConfig;
 import io.rxmicro.rest.server.RestServerConfig;
 import io.rxmicro.rest.server.netty.NettyRestServerConfig;
 
-/**
- * @author nedis
- * @link https://rxmicro.io
- */
 @SuppressWarnings("EmptyMethod")
 public final class InternalTypesSpringStyleFieldInjectionRestController {
 

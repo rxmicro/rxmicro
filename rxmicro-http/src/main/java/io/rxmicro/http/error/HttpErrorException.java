@@ -58,7 +58,6 @@ import io.rxmicro.common.util.Formats;
  * (This behavior is achieved by using the {@link RuntimeException#RuntimeException(String, Throwable, boolean, boolean)}.)
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public class HttpErrorException extends RxMicroException {
@@ -75,7 +74,7 @@ public class HttpErrorException extends RxMicroException {
      *
      * @param statusCode the status code
      * @param message the error message
-     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws NullPointerException if the error message is {@code null}
      */
     public HttpErrorException(final int statusCode,
                               final String message) {
@@ -90,13 +89,14 @@ public class HttpErrorException extends RxMicroException {
      * as this information is redundant.
      * <p>
      * (<i>This behavior is achieved by using the {@link RuntimeException#RuntimeException(String, Throwable, boolean, boolean)}.</i>)
-     *
+     * <p>
      * <i>(FYI: This constructor uses {@link Formats#format(String, Object...)} method to format error message.)</i>
      *
      * @param statusCode the status code
      * @param message the error message template
      * @param args the error message template argument
-     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws NullPointerException if the error message template is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     public HttpErrorException(final int statusCode,
                               final String message,

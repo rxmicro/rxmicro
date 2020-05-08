@@ -28,7 +28,6 @@ import static java.util.stream.Collectors.toUnmodifiableSet;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.3
  */
 public final class DeniedPackageConstants {

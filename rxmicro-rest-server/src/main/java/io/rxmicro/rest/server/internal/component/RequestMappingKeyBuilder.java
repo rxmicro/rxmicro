@@ -21,7 +21,6 @@ import io.rxmicro.rest.server.detail.model.mapping.ExactUrlRequestMappingRule;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public interface RequestMappingKeyBuilder {

@@ -23,7 +23,6 @@ import static io.rxmicro.rest.method.HttpMethods.HTTP_METHOD_ANNOTATIONS;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public abstract class AbstractRestMethodSignatureBuilder extends AbstractMethodSignatureBuilder {

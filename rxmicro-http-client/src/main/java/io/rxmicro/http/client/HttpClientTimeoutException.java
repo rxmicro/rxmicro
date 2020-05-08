@@ -19,14 +19,12 @@ package io.rxmicro.http.client;
 import io.rxmicro.common.util.Formats;
 import io.rxmicro.http.error.HttpErrorException;
 
-import static io.rxmicro.common.util.Requires.require;
-
 /**
  * A class signaling that the HTTP client didn’t receive a response from the server in given time.
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
+ * @see HttpClient
  */
 public final class HttpClientTimeoutException extends HttpErrorException {
 
@@ -44,10 +42,11 @@ public final class HttpClientTimeoutException extends HttpErrorException {
      *
      * @param message the error message template
      * @param args the error message template argument
-     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws NullPointerException if the error message template is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     public HttpClientTimeoutException(final String message,
                                       final Object... args) {
-        super(STATUS_CODE, require(message), args);
+        super(STATUS_CODE, message, args);
     }
 }

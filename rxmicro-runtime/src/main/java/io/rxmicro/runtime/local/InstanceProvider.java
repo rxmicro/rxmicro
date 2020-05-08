@@ -18,7 +18,6 @@ package io.rxmicro.runtime.local;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public interface InstanceProvider<T> {

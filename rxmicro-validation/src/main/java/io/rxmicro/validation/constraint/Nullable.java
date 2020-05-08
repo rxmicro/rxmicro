@@ -31,8 +31,8 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * The annotated element may be optional, i.e. {@code null}.
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
+ * @see NullableArrayItem
  */
 @Documented
 @Retention(SOURCE)

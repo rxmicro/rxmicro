@@ -33,7 +33,7 @@ import static com.google.testing.compile.CompilationSubject.assertThat;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
+ *
  */
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)

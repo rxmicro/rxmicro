@@ -21,7 +21,6 @@ import io.rxmicro.logger.LoggerFactory;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class Safes {
@@ -44,7 +43,6 @@ public final class Safes {
 
     /**
      * @author nedis
-     * @link https://rxmicro.io
      * @since 0.1
      */
     public interface Consumer<T> {

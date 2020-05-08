@@ -30,8 +30,10 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * Denotes the model field value used as an example in the generated REST-based microservice documentation.
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
+ * @see Description
+ * @see IncludeDescription
+ * @see IncludeMode
  */
 @Documented
 @Retention(SOURCE)
@@ -50,7 +52,6 @@ public @interface Example {
      * Defines several {@link Example} annotations on the same element.
      *
      * @author nedis
-     * @link https://rxmicro.io
      * @since 0.1
      */
     @Documented

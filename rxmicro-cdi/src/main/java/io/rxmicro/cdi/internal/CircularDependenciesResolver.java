@@ -32,7 +32,6 @@ import static java.util.Map.entry;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class CircularDependenciesResolver {
@@ -70,7 +69,6 @@ public final class CircularDependenciesResolver {
 
     /**
      * @author nedis
-     * @link https://rxmicro.io
      * @since 0.1
      */
     private static final class CircularDependenciesDetectedException extends RxMicroException {

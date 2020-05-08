@@ -24,7 +24,6 @@ import io.rxmicro.http.client.HttpClientFactory;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class JdkHttpClientFactory implements HttpClientFactory {

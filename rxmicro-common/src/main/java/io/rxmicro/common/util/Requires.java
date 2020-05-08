@@ -19,20 +19,25 @@ package io.rxmicro.common.util;
 import static io.rxmicro.common.util.Formats.format;
 
 /**
- * TODO
+ * Custom require utils.
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class Requires {
 
     /**
+     * Checks that the specified object reference is not {@code null}
+     * <p>
+     * The main advantage of this method comparing with {@link java.util.Objects#requireNonNull(Object)} is the ability to replace
+     * {@code if} statement by the {@code assert} one.
+     * This replacement can increase the performance of the RxMicro framework.
      *
-     *
-     * @param instance
-     * @param <T>
-     * @return
+     * @param instance the specified object
+     * @param <T> the type of the reference
+     * @return {@code obj} if not {@code null}
+     * @throws NullPointerException if the specified object is {@code null}
+     * @see java.util.Objects#requireNonNull(Object)
      */
     public static <T> T require(final T instance) {
         //assert instance != null;
@@ -43,13 +48,20 @@ public final class Requires {
     }
 
     /**
+     * Checks that the specified object reference is not {@code null} and throws a exception with custom message if it is.
+     * <p>
+     * The main advantage of this method comparing with {@link java.util.Objects#requireNonNull(Object, String)} is the ability to replace
+     * {@code if} statement by the {@code assert} one.
+     * This replacement can increase the performance of the RxMicro framework.
      *
-     *
-     * @param instance
-     * @param message
-     * @param args
-     * @param <T>
-     * @return
+     * @param instance the specified object
+     * @param message the message template
+     * @param args the message template arguments
+     * @param <T> the type of the reference
+     * @return {@code obj} if not {@code null}
+     * @throws NullPointerException if the message template is {@code null} or the specified object is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     * @see java.util.Objects#requireNonNull(Object, String)
      */
     public static <T> T require(final T instance,
                                 final String message,

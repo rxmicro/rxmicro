@@ -23,7 +23,6 @@ import io.rxmicro.rest.model.HttpModelType;
  * Base validator class for maximum constraints
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public abstract class AbstractMaxConstraintValidator<T extends Comparable<T>> {

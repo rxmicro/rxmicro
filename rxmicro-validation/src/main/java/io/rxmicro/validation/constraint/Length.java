@@ -32,9 +32,10 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * The annotated element must have the expected string length.
  *
  * @author nedis
- * @link https://rxmicro.io
- * @see LengthConstraintValidator
  * @since 0.1
+ * @see MinLength
+ * @see MaxLength
+ * @see LengthConstraintValidator
  */
 @Documented
 @Retention(SOURCE)

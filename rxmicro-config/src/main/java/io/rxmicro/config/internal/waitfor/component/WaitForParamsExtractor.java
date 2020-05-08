@@ -30,7 +30,6 @@ import static io.rxmicro.config.WaitFor.WAIT_FOR_ENV_VAR_OF_JAVA_SYS_PROP_NAME;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.3
  */
 public final class WaitForParamsExtractor {

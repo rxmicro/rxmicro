@@ -18,8 +18,10 @@ import io.rxmicro.test.local.component.TestExtension;
 import io.rxmicro.test.mockito.junit.internal.MockitoTestExtension;
 
 /**
- * TODO
- * <p><br><p>
+ * The module designed for test writing using the <a href="https://junit.org/junit5/">JUnit 5</a> and
+ * <a href="https://site.mockito.org/">Mockito</a> framework.
+ * <p>
+ * <small>
  * This module follows the next package structure rules:
  * <ul>
  *     <li>
@@ -32,7 +34,7 @@ import io.rxmicro.test.mockito.junit.internal.MockitoTestExtension;
  *                 {@code local} - is shared sub package, which can be used by other {@code rxmicro} modules only.
  *             </li>
  *             <li>
- *                 {@code detail} - is sub package for generated code by RxMicro Annotation Processor use preferably.<br>
+ *                 {@code detail} - is sub package for generated code by {@code RxMicro Annotation Processor} use preferably.<br>
  *                 <i>Developer must not use classes from this sub package!</i><br>
  *                 <i>(Except documented abilities: HTTP internal types, partial implementations, etc.)</i>
  *             </li>
@@ -42,9 +44,9 @@ import io.rxmicro.test.mockito.junit.internal.MockitoTestExtension;
  *         </ul>
  *     </li>
  * </ul>
+ * </small>
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 @SuppressWarnings("JavaRequiresAutoModule")

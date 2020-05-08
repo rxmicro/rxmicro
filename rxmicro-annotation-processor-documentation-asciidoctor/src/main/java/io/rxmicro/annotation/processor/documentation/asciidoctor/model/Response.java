@@ -26,7 +26,6 @@ import static io.rxmicro.common.util.Requires.require;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class Response implements Comparable<Response> {
@@ -126,7 +125,6 @@ public final class Response implements Comparable<Response> {
 
     /**
      * @author nedis
-     * @link https://rxmicro.io
      * @since 0.1
      */
     @SuppressWarnings("UnusedReturnValue")

@@ -22,9 +22,8 @@ import io.netty.channel.ChannelId;
  * Allows configuring a netty channel id
  *
  * @author nedis
- * @link https://rxmicro.io
- * @see io.netty.channel.ChannelId
  * @since 0.3
+ * @see io.netty.channel.ChannelId
  */
 public enum NettyChannelIdType {
 

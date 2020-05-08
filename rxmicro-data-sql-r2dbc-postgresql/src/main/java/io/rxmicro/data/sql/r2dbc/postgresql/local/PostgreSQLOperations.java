@@ -23,7 +23,6 @@ import static io.rxmicro.data.sql.local.SQLOperations.SQL_OPERATION_ANNOTATIONS;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class PostgreSQLOperations {

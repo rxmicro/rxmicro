@@ -31,7 +31,7 @@ import static java.util.stream.Collectors.toList;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
+ *
  */
 public abstract class AbstractFailedRestServerAnnotationProcessorIntegrationTest
         extends AbstractRestServerAnnotationProcessorIntegrationTest {

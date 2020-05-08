@@ -26,9 +26,8 @@ import java.math.BigDecimal;
  * Validator for the {@link io.rxmicro.validation.constraint.Numeric} constraint
  *
  * @author nedis
- * @link https://rxmicro.io
- * @see io.rxmicro.validation.constraint.Numeric
  * @since 0.1
+ * @see io.rxmicro.validation.constraint.Numeric
  */
 public class NumericConstraintValidator implements ConstraintValidator<BigDecimal> {
 

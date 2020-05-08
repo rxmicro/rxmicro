@@ -32,7 +32,7 @@ import static java.util.stream.Collectors.joining;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
+ *
  */
 final class JsonData {
 

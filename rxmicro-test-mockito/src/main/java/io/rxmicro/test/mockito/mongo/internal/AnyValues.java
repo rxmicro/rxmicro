@@ -28,7 +28,6 @@ import java.util.function.BiFunction;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class AnyValues {
@@ -44,7 +43,6 @@ public final class AnyValues {
 
     /**
      * @author nedis
-     * @link https://rxmicro.io
      * @since 0.1
      */
     @SuppressWarnings("NullableProblems")
@@ -148,7 +146,6 @@ public final class AnyValues {
 
     /**
      * @author nedis
-     * @link https://rxmicro.io
      * @since 0.1
      */
     private static final class SubscriberImpl<T> implements Subscriber<T> {

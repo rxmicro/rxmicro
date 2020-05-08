@@ -22,7 +22,6 @@ import static io.rxmicro.common.util.Strings.escapeString;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 @SuppressWarnings("UnusedReturnValue")

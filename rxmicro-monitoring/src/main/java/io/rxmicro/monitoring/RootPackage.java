@@ -19,11 +19,9 @@ package io.rxmicro.monitoring;
 /**
  * This is special interface, which is used to define a root package for the current module.
  * <p>
- * This feature is a workaround and used by RxMicro Annotation Processor for projects which don't use JPMS.
+ * This feature is a workaround and used by {@code RxMicro Annotation Processor} for projects which don't use JPMS.
  *
  * @author nedis
- * @link https://rxmicro.io
- * @link https://www.oracle.com/corporate/features/understanding-java-9-modules.html
  * @since 0.2
  */
 @SuppressWarnings("unused")

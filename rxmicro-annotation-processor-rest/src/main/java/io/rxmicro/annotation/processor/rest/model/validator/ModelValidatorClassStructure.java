@@ -50,7 +50,6 @@ import static java.util.stream.Collectors.toList;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class ModelValidatorClassStructure extends ClassStructure {
@@ -144,7 +143,6 @@ public final class ModelValidatorClassStructure extends ClassStructure {
 
     /**
      * @author nedis
-     * @link https://rxmicro.io
      * @since 0.1
      */
     @SuppressWarnings("UnusedReturnValue")

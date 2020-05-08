@@ -28,8 +28,10 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * Denotes a sequence that must be used to get the next unique value for model field.
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
+ * @see Schema
+ * @see Table
+ * @see PrimaryKey
  */
 @Documented
 @Retention(SOURCE)

@@ -20,7 +20,6 @@ import java.time.Duration;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.3
  */
 public final class Params {

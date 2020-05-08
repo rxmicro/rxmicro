@@ -22,8 +22,8 @@ package io.rxmicro.rest.server;
  * {@code `static`} term means that a header value does not depend on any HTTP request parameter or any config setting.
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.3
+ * @see StandardStaticResponseHeader
  */
 public interface StaticResponseHeader {
 

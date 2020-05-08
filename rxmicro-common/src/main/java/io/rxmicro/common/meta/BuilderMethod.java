@@ -31,7 +31,6 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * See <a href="https://github.com/pmd/pmd/issues/2462">https://github.com/pmd/pmd/issues/2462</a>
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.4
  */
 @Documented

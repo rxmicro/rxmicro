@@ -25,8 +25,12 @@ import io.rxmicro.data.sql.model.SavePoint;
  * but in future this API can be extended by using other SPI
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
+ * @see io.rxmicro.data.sql.model.TransactionType
+ * @see io.rxmicro.data.sql.model.reactor.Transaction
+ * @see io.rxmicro.data.sql.model.completablefuture.Transaction
+ * @see SavePoint
+ * @see IsolationLevel
  */
 public interface Transaction {
 
@@ -50,6 +54,7 @@ public interface Transaction {
      * @param savePoint the save point to create
      * @return the {@link Completable} that indicates that the save point has been created
      * @throws UnsupportedOperationException if save points are not supported
+     * @throws IllegalArgumentException if the specified save point is invalid
      */
     Completable create(SavePoint savePoint);
 
@@ -58,6 +63,7 @@ public interface Transaction {
      *
      * @param savePoint the save point to release
      * @return the {@link Completable} that indicates that the save point has been released
+     * @throws IllegalArgumentException if the specified save point is invalid
      */
     Completable release(SavePoint savePoint);
 
@@ -67,6 +73,7 @@ public interface Transaction {
      * @param savePoint the save point to rollback to
      * @return the {@link Completable} that indicates that the save point has been rolled back to
      * @throws UnsupportedOperationException if save points are not supported
+     * @throws IllegalArgumentException if the specified save point is invalid
      */
     Completable rollback(SavePoint savePoint);
 

@@ -16,20 +16,14 @@
 
 package io.rxmicro.common.local;
 
-import io.rxmicro.common.util.Formats;
-
 import static io.rxmicro.common.util.Formats.format;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.4
  */
 public final class TestLoggers {
 
-    /**
-     * This method uses {@link Formats#format(String, Object...)} method to format log message
-     */
     public static void logTestMessage(final String message,
                                       final Object... args) {
         System.out.println(format(message, args));

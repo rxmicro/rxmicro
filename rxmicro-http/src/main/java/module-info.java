@@ -19,7 +19,8 @@ import io.rxmicro.http.local.test.HttpUnNamedModuleFixer;
 
 /**
  * The basic module to work with HTTP protocol.
- * <p><br><p>
+ * <p>
+ * <small>
  * This module follows the next package structure rules:
  * <ul>
  *     <li>
@@ -32,7 +33,7 @@ import io.rxmicro.http.local.test.HttpUnNamedModuleFixer;
  *                 {@code local} - is shared sub package, which can be used by other {@code rxmicro} modules only.
  *             </li>
  *             <li>
- *                 {@code detail} - is sub package for generated code by RxMicro Annotation Processor use preferably.<br>
+ *                 {@code detail} - is sub package for generated code by {@code RxMicro Annotation Processor} use preferably.<br>
  *                 <i>Developer must not use classes from this sub package!</i><br>
  *                 <i>(Except documented abilities: HTTP internal types, partial implementations, etc.)</i>
  *             </li>
@@ -42,9 +43,9 @@ import io.rxmicro.http.local.test.HttpUnNamedModuleFixer;
  *         </ul>
  *     </li>
  * </ul>
+ * </small>
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 module rxmicro.http {

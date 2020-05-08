@@ -25,8 +25,8 @@ import java.util.List;
  * Utility class for HTTP values
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
+ * @see QueryParams
  */
 public final class HttpValues {
 
@@ -34,15 +34,16 @@ public final class HttpValues {
      * Defines a delimiter that used for separation of the list values.
      * <p>
      * If the HTTP header (or HTT query parameter) of an HTTP request (or response) is a list of values,
-     * the list elements are transferred by default via the HTTP protocol as a string separated by the {@code |} symbol.
+     * the list elements are transferred by default via the HTTP protocol as a string separated by the
+     * {@value #STRING_ARRAY_DELIMITER} symbol.
      */
     public static final String STRING_ARRAY_DELIMITER = "|";
 
     /**
-     * Converts the array to the string separated by the {@code |} symbol
+     * Converts the array to the string separated by the {@value #STRING_ARRAY_DELIMITER} symbol
      *
      * @param array the array to convert
-     * @return the string separated by the {@code |} symbol
+     * @return the string separated by the {@value #STRING_ARRAY_DELIMITER} symbol
      */
     public static String arrayToString(final Object array) {
         final StringBuilder stringBuilder = new StringBuilder(50);
@@ -57,10 +58,10 @@ public final class HttpValues {
     }
 
     /**
-     * Converts the list to the string separated by the {@code |} symbol
+     * Converts the list to the string separated by the {@value #STRING_ARRAY_DELIMITER} symbol
      *
      * @param list the list to convert
-     * @return the string separated by the {@code |} symbol
+     * @return the string separated by the {@value #STRING_ARRAY_DELIMITER} symbol
      */
     public static String listToString(final List<?> list) {
         final StringBuilder stringBuilder = new StringBuilder(50);
@@ -74,10 +75,10 @@ public final class HttpValues {
     }
 
     /**
-     * Converts the collection to the string separated by the {@code |} symbol
+     * Converts the collection to the string separated by the {@value #STRING_ARRAY_DELIMITER} symbol
      *
      * @param collection the collection to convert
-     * @return the string separated by the {@code |} symbol
+     * @return the string separated by the {@value #STRING_ARRAY_DELIMITER} symbol
      */
     public static String collectionToString(final Collection<?> collection) {
         final StringBuilder stringBuilder = new StringBuilder(50);

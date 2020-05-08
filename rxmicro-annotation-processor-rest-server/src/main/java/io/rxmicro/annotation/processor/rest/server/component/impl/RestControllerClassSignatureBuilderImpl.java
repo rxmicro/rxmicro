@@ -47,7 +47,6 @@ import static javax.lang.model.element.ElementKind.INTERFACE;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 @Singleton

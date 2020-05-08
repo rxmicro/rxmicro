@@ -34,7 +34,6 @@ import static io.rxmicro.common.local.Examples.INSTANT_EXAMPLE;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 @Singleton

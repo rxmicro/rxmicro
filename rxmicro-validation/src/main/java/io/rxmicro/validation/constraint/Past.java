@@ -34,9 +34,12 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * The annotated element must be an instant in the past.
  *
  * @author nedis
- * @link https://rxmicro.io
- * @see PastInstantConstraintValidator
  * @since 0.1
+ * @see Future
+ * @see FutureOrPresent
+ * @see PastOrPresent
+ * @see TruncatedTime
+ * @see PastInstantConstraintValidator
  */
 @Documented
 @Retention(SOURCE)

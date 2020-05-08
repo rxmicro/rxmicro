@@ -26,7 +26,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * Denotes a method, that should be invoked automatically after all dependencies have been injected into the current component.
  * In its semantics, it completely corresponds to the {@code javax.annotation.PostConstruct} annotation.
  * <p>
- * The postConstruct method must meet the following requirements:
+ * <h4>The postConstruct method must meet the following requirements:</h4>
  * <ul>
  *     <li>This method should be a single method in the class.</li>
  *     <li>The method must not be {@code static}.</li>
@@ -38,26 +38,26 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * </ul>
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 @Documented
 @Retention(SOURCE)
 @Target(METHOD)
+@SuppressWarnings("JavaDoc")
 public @interface PostConstruct {
 
     /**
      * Default name of method, which the RxMicro framework interprets as method annotated by this annotation,
      * i.e.
      * <pre>
-     * void postConstruct() {
+     * void {@value #DEFAULT_POST_CONSTRUCT_METHOD_NAME}() {
      *
      * }
      * </pre>
      * is equivalent to
      *
      * <pre>
-     * {@code @PostConstruct}
+     * {@code @}{@link PostConstruct}
      * void ${any-method-name}() {
      *
      * }

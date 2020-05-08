@@ -36,10 +36,9 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * see {@link java.util.regex.Pattern}.
  *
  * @author nedis
- * @link https://rxmicro.io
- * @see PatternConstraintValidator
- * @see java.util.regex.Pattern
  * @since 0.1
+ * @see java.util.regex.Pattern
+ * @see PatternConstraintValidator
  */
 @Documented
 @Retention(SOURCE)

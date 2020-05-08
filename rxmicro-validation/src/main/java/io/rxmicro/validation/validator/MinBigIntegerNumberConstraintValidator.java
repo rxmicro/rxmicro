@@ -25,9 +25,8 @@ import java.math.BigInteger;
  * Validator for the {@link io.rxmicro.validation.constraint.MinNumber} constraint
  *
  * @author nedis
- * @link https://rxmicro.io
- * @see io.rxmicro.validation.constraint.MinNumber
  * @since 0.1
+ * @see io.rxmicro.validation.constraint.MinNumber
  */
 public class MinBigIntegerNumberConstraintValidator extends AbstractMinConstraintValidator<BigInteger>
         implements ConstraintValidator<BigInteger> {

@@ -31,7 +31,6 @@ import static io.rxmicro.common.util.Exceptions.getRealThrowable;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class ErrorHttpResponseBuilderImpl implements ErrorHttpResponseBuilder {

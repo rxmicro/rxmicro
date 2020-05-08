@@ -20,7 +20,6 @@ import io.rxmicro.annotation.processor.data.sql.model.SQLKeywords;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class PostgreSQLKeywords extends SQLKeywords {

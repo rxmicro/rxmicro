@@ -188,9 +188,14 @@
                         <version>${maven-javadoc-plugin.version}</version>
                         <configuration>
                             <nohelp>true</nohelp>
+                            <verbose>true</verbose>
                             <debug>true</debug>
                             <detectOfflineLinks>true</detectOfflineLinks>
                             <failOnError>true</failOnError>
+                            <show>protected</show>
+                            <locale>en</locale>
+                            <nosince>false</nosince>
+                            <!--includeDependencySources>true</includeDependencySources-->
                         </configuration>
                         <executions>
                             <execution>

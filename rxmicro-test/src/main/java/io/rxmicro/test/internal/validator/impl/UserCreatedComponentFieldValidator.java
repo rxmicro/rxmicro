@@ -31,7 +31,6 @@ import static io.rxmicro.tool.common.DeniedPackages.isDeniedPackage;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class UserCreatedComponentFieldValidator extends FieldValidator {

@@ -37,7 +37,6 @@ import static io.rxmicro.annotation.processor.common.util.Names.getSimpleName;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public abstract class AbstractSQLModificationOperationDataRepositoryMethodModelBuilder<A extends Annotation, DMF extends SQLDataModelField, DMC extends SQLDataObjectModelClass<DMF>>

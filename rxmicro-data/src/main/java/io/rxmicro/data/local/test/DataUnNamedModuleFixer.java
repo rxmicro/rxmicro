@@ -20,7 +20,6 @@ import io.rxmicro.common.model.UnNamedModuleFixer;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class DataUnNamedModuleFixer extends UnNamedModuleFixer {

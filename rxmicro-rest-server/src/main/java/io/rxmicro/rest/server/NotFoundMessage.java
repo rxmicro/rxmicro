@@ -29,7 +29,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * The RxMicro framework supports Not Found Logic for HTTP request handlers. <p>
  * To activate this feature it’s necessary to return a reactive type that supports optional result.
  * <p>
- * When handling requests, the RxMicro framework checks the handler result:
+ * <h4>When handling requests, the RxMicro framework checks the handler result:</h4>
  * <ul>
  *     <li>
  *          If the handler returns a response model, the RxMicro framework will convert it to an HTTP response with the 200 status and
@@ -45,8 +45,9 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * For more control over the HTTP response generated in case of an error, use exception instead of {@code Not Found} Logic feature!
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
+ * @see SetStatusCode
+ * @see io.rxmicro.http.error.HttpErrorException
  */
 @Documented
 @Retention(SOURCE)

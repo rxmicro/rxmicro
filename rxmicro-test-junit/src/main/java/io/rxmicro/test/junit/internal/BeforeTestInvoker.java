@@ -32,7 +32,6 @@ import static io.rxmicro.tool.common.Reflections.invokeMethod;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 final class BeforeTestInvoker {

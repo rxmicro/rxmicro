@@ -39,7 +39,6 @@ import static java.util.stream.Collectors.toSet;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public abstract class AbstractDataModuleClassStructuresBuilder<DMF extends DataModelField, DMC extends DataObjectModelClass<DMF>>

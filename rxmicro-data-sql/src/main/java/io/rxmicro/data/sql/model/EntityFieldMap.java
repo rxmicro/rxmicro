@@ -25,8 +25,8 @@ import java.util.Map;
  * This interface can be used instead of custom entity class.
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
+ * @see EntityFieldList
  */
 public interface EntityFieldMap extends Map<String, Object> {
 }

@@ -15,10 +15,9 @@
  */
 
 /**
- * The RxMicro Annotation Processor internal module
+ * The {@code RxMicro Annotation Processor} main module
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 module rxmicro.annotation.processor {

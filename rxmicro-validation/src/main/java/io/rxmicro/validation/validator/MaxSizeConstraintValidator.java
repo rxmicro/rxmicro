@@ -26,9 +26,8 @@ import java.util.List;
  * Validator for the {@link io.rxmicro.validation.constraint.MaxSize} constraint
  *
  * @author nedis
- * @link https://rxmicro.io
- * @see io.rxmicro.validation.constraint.MaxSize
  * @since 0.1
+ * @see io.rxmicro.validation.constraint.MaxSize
  */
 public class MaxSizeConstraintValidator extends AbstractMaxConstraintValidator<Integer>
         implements ConstraintValidator<List<?>> {

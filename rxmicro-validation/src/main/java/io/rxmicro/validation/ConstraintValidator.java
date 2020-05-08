@@ -25,8 +25,8 @@ import java.util.List;
  * Defines the logic to validate a given constraint for a given object type.
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
+ * @see DisableValidation
  */
 public interface ConstraintValidator<T> {
 

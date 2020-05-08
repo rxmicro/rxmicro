@@ -34,9 +34,11 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * equal to the specified minimum.
  *
  * @author nedis
- * @link https://rxmicro.io
- * @see MinSizeConstraintValidator
  * @since 0.1
+ * @see Size
+ * @see MaxSize
+ * @see UniqueItems
+ * @see MinSizeConstraintValidator
  */
 @Documented
 @Retention(SOURCE)

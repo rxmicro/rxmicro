@@ -19,6 +19,7 @@ package io.rxmicro.common.model;
 import io.rxmicro.common.InvalidStateException;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import static io.rxmicro.common.util.ExCollections.unmodifiableList;
@@ -27,8 +28,10 @@ import static io.rxmicro.common.util.ExCollections.unmodifiableList;
  * The builder that builds a short-lived unmodified {@link List} instance.
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
+ * @see List
+ * @see ArrayList
+ * @see io.rxmicro.common.util.ExCollections#unmodifiableList(Collection)
  */
 public class ListBuilder<E> {
 

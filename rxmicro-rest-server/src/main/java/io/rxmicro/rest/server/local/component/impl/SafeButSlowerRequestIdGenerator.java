@@ -28,7 +28,6 @@ import java.util.UUID;
  * As a unique value uses the {@link UUID#randomUUID()}.
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class SafeButSlowerRequestIdGenerator implements RequestIdGenerator {

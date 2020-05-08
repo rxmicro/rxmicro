@@ -25,8 +25,8 @@ import java.util.List;
  * This interface can be used instead of custom entity class.
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
+ * @see EntityFieldMap
  */
 public interface EntityFieldList extends List<Object> {
 }

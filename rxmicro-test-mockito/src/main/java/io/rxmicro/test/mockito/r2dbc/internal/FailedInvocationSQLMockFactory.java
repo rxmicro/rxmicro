@@ -17,9 +17,10 @@
 package io.rxmicro.test.mockito.r2dbc.internal;
 
 import io.r2dbc.pool.ConnectionPool;
-import io.rxmicro.test.mockito.InvalidPreparedMockException;
+import io.rxmicro.common.ImpossibleException;
+import io.rxmicro.test.local.InvalidTestConfigException;
 import io.rxmicro.test.mockito.r2dbc.ErrorDuringSQLInvocationType;
-import io.rxmicro.test.mockito.r2dbc.SQLParamsMock;
+import io.rxmicro.test.mockito.r2dbc.SQLQueryWithParamsMock;
 
 import java.util.function.BiFunction;
 
@@ -32,37 +33,36 @@ import static org.mockito.Mockito.when;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class FailedInvocationSQLMockFactory extends AbstractInvocationSQLMockFactory {
 
     @SuppressWarnings("unchecked")
     public void prepare(final ConnectionPool connectionPool,
-                        final SQLParamsMock sqlParamsMock,
+                        final SQLQueryWithParamsMock sqlQueryWithParamsMock,
                         final Throwable throwable,
                         final ErrorDuringSQLInvocationType errorDuringSQLInvocationType) {
         validate(connectionPool);
-        newConnectionMock(connectionPool, sqlParamsMock, throwable, errorDuringSQLInvocationType)
-                .flatMap(connection -> newStatementMock(connection, sqlParamsMock, throwable, errorDuringSQLInvocationType))
+        newConnectionMock(connectionPool, sqlQueryWithParamsMock, throwable, errorDuringSQLInvocationType)
+                .flatMap(connection -> newStatementMock(connection, sqlQueryWithParamsMock, throwable, errorDuringSQLInvocationType))
                 .flatMap(statement -> newResultMock(statement, throwable, errorDuringSQLInvocationType))
                 .ifPresent(result -> {
                     if (errorDuringSQLInvocationType == RETURN_RESULT_SET_FAILED) {
                         when(result.map(any(BiFunction.class, ANY_MAP_RESULT_FUNCTION))).thenThrow(throwable);
                         lenient().when(result.map(any(BiFunction.class, ANY_MAP_RESULT_FUNCTION))).thenAnswer(invocation -> {
-                            throw new InvalidPreparedMockException(
+                            throw new InvalidTestConfigException(
                                     "Expected '?' but actual is '?'", RETURN_RESULT_SET_FAILED, RETURN_ROWS_UPDATED_FAILED
                             );
                         });
                     } else if (errorDuringSQLInvocationType == RETURN_ROWS_UPDATED_FAILED) {
                         when(result.getRowsUpdated()).thenThrow(throwable);
                         lenient().when(result.map(any(BiFunction.class, ANY_MAP_RESULT_FUNCTION))).thenAnswer(invocation -> {
-                            throw new InvalidPreparedMockException(
+                            throw new InvalidTestConfigException(
                                     "Expected '?' but actual is '?'", RETURN_ROWS_UPDATED_FAILED, RETURN_RESULT_SET_FAILED
                             );
                         });
                     } else {
-                        throw new IllegalArgumentException("Unsupported failedType: " + errorDuringSQLInvocationType);
+                        throw new ImpossibleException("Unsupported failedType: " + errorDuringSQLInvocationType);
                     }
                 });
     }

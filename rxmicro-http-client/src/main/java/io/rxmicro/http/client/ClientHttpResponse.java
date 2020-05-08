@@ -27,8 +27,10 @@ import static java.nio.charset.StandardCharsets.UTF_8;
  * This class can be used for REST-based microservice testing
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
+ * @see HttpClient
+ * @see HttpClientFactory
+ * @see HttpClientContentConverter
  */
 public interface ClientHttpResponse {
 

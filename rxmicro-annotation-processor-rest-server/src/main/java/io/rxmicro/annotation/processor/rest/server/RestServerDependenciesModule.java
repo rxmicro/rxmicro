@@ -56,8 +56,6 @@ import static com.google.inject.multibindings.Multibinder.newSetBinder;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
- * @link https://github.com/google/guice/wiki/GettingStarted
  * @since 0.1
  */
 public final class RestServerDependenciesModule extends AbstractModule {

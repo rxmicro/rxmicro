@@ -20,7 +20,6 @@ import javax.lang.model.element.ModuleElement;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.2
  */
 public interface CurrentModuleDecorator {

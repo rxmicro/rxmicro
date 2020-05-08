@@ -38,7 +38,6 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class ClasspathResources {
@@ -81,7 +80,7 @@ public final class ClasspathResources {
             String line;
             while ((line = br.readLine()) != null) {
                 final String resource = normalize(folder + "/" + line);
-                //FIXME It is necessary to use more correct condition to define that current resource is directory
+                //If current resource is directory (i.e. resource with name without extension)
                 if (line.indexOf('.') == -1) {
                     readAll(resources, resource, resourcePredicate);
                 } else if (resourcePredicate.test(resource)) {

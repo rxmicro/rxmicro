@@ -24,10 +24,9 @@ import io.rxmicro.validation.base.AbstractMaxConstraintValidator;
  * constraints
  *
  * @author nedis
- * @link https://rxmicro.io
+ * @since 0.1
  * @see io.rxmicro.validation.constraint.MaxDouble
  * @see io.rxmicro.validation.constraint.MaxNumber
- * @since 0.1
  */
 public class MaxFloatConstraintValidator extends AbstractMaxConstraintValidator<Float>
         implements ConstraintValidator<Float> {

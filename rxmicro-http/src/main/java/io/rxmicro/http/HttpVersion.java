@@ -20,7 +20,6 @@ package io.rxmicro.http;
  * Represents the HTTP protocol version
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public enum HttpVersion {

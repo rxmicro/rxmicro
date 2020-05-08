@@ -20,8 +20,8 @@ import io.r2dbc.pool.ConnectionPool;
 import io.r2dbc.spi.Result;
 import io.r2dbc.spi.Row;
 import io.r2dbc.spi.RowMetadata;
-import io.rxmicro.test.mockito.InvalidPreparedMockException;
-import io.rxmicro.test.mockito.r2dbc.SQLParamsMock;
+import io.rxmicro.test.local.InvalidTestConfigException;
+import io.rxmicro.test.mockito.r2dbc.SQLQueryWithParamsMock;
 import org.mockito.stubbing.Answer;
 import org.mockito.stubbing.OngoingStubbing;
 import org.reactivestreams.Publisher;
@@ -44,28 +44,29 @@ import static org.mockito.Mockito.when;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 @SuppressWarnings("unchecked")
 public final class SuccessInvocationSQLMockFactory extends AbstractInvocationSQLMockFactory {
 
     public void prepare(final ConnectionPool connectionPool,
-                        final SQLParamsMock sqlParamsMock,
+                        final SQLQueryWithParamsMock sqlQueryWithParamsMock,
                         final int rowsUpdated) {
-        getResult(connectionPool, sqlParamsMock)
+        getResult(connectionPool, sqlQueryWithParamsMock)
                 .ifPresent(result -> {
                     when(result.getRowsUpdated()).thenReturn(Mono.just(rowsUpdated));
                     lenient().when(result.map(any(BiFunction.class, ANY_MAP_RESULT_FUNCTION))).thenAnswer(invocation -> {
-                        throw new InvalidPreparedMockException("Use prepareSQLMocks(ConnectionPool,SQLParamsMock,List<List<Object>>) method instead!");
+                        throw new InvalidTestConfigException(
+                                "Use prepareSQLOperationMocks(ConnectionPool,SQLParamsMock,List<List<Object>>) method instead!"
+                        );
                     });
                 });
     }
 
     public void prepare(final ConnectionPool connectionPool,
-                        final SQLParamsMock sqlParamsMock,
+                        final SQLQueryWithParamsMock sqlQueryWithParamsMock,
                         final List<List<Object>> resultSet) {
-        getResult(connectionPool, sqlParamsMock)
+        getResult(connectionPool, sqlQueryWithParamsMock)
                 .ifPresent(result -> {
                     final Row row = newRowMock(resultSet);
                     final RowMetadata rowMetadata = mock(RowMetadata.class);
@@ -82,16 +83,18 @@ public final class SuccessInvocationSQLMockFactory extends AbstractInvocationSQL
                         }
                     });
                     lenient().when(result.getRowsUpdated()).thenAnswer(invocation -> {
-                        throw new InvalidPreparedMockException("Use prepareSQLMocks(ConnectionPool,SQLParamsMock,int) method instead!");
+                        throw new InvalidTestConfigException(
+                                "Use prepareSQLOperationMocks(ConnectionPool,SQLParamsMock,int) method instead!"
+                        );
                     });
                 });
     }
 
     private Optional<Result> getResult(final ConnectionPool connectionPool,
-                                       final SQLParamsMock sqlParamsMock) {
+                                       final SQLQueryWithParamsMock sqlQueryWithParamsMock) {
         validate(connectionPool);
-        return newConnectionMock(connectionPool, sqlParamsMock, null, null)
-                .flatMap(connection -> newStatementMock(connection, sqlParamsMock, null, null))
+        return newConnectionMock(connectionPool, sqlQueryWithParamsMock, null, null)
+                .flatMap(connection -> newStatementMock(connection, sqlQueryWithParamsMock, null, null))
                 .flatMap(statement -> newResultMock(statement, null, null));
     }
 

@@ -26,8 +26,9 @@ import static io.rxmicro.common.util.GeneratedClassRules.GENERATED_CLASS_NAME_PR
  * Utility class that must be used to get an instance of the REST client
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
+ * @see RestClient
+ * @see io.rxmicro.http.client.HttpClientConfig
  */
 public abstract class RestClientFactory extends AbstractFactory {
 

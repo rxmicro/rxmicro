@@ -35,8 +35,9 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * Google Guice as CDI implementation in their previous projects.
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
+ * @see Qualifier
+ * @see Inject
  */
 @Documented
 @Retention(SOURCE)

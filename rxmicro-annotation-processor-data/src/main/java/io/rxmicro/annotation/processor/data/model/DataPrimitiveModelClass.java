@@ -23,7 +23,6 @@ import javax.lang.model.type.TypeMirror;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class DataPrimitiveModelClass extends PrimitiveModelClass {

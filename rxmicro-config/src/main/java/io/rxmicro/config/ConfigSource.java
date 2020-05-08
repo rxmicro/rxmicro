@@ -31,8 +31,10 @@ package io.rxmicro.config;
  * </ul>
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
+ * @see Config
+ * @see Configs#getConfig(String, Class)
+ * @see Configs#getConfig(Class)
  */
 public enum ConfigSource {
 

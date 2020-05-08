@@ -22,7 +22,6 @@ import java.util.Locale;
  * All supported HTTP model types
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public enum HttpModelType {

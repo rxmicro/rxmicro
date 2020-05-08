@@ -25,7 +25,7 @@ import static io.rxmicro.data.RepositoryFactory.REPOSITORY_FACTORY_IMPL_CLASS_NA
 
 /**
  * @author nedis
- * @link https://rxmicro.io
+ *
  */
 public abstract class AbstractMongoAnnotationProcessorIntegrationTest
         extends AbstractRxMicroAnnotationProcessorIntegrationTest {

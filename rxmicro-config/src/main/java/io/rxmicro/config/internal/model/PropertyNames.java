@@ -18,7 +18,6 @@ package io.rxmicro.config.internal.model;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.3
  */
 public final class PropertyNames {

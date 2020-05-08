@@ -29,8 +29,10 @@ import static java.util.Map.entry;
  * Represents a HTTP headers instance
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
+ * @see QueryParams
+ * @see HttpStandardHeaderNames
+ * @see HttpValues
  */
 public interface HttpHeaders {
 

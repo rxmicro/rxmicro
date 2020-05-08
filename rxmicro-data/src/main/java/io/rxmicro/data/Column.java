@@ -33,8 +33,8 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * it should be specified using this annotation!
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
+ * @see ColumnMappingStrategy
  */
 @Documented
 @Retention(SOURCE)

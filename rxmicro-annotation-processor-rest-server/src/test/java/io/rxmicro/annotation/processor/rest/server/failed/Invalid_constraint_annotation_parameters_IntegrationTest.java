@@ -33,7 +33,7 @@ import static io.rxmicro.common.util.Formats.format;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
+ *
  */
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)

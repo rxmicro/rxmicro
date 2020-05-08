@@ -33,9 +33,8 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * The annotated element must be false.
  *
  * @author nedis
- * @link https://rxmicro.io
- * @see AssertFalseConstraintValidator
  * @since 0.1
+ * @see AssertFalseConstraintValidator
  */
 @Documented
 @Retention(SOURCE)

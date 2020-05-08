@@ -32,7 +32,6 @@ import static io.rxmicro.annotation.processor.documentation.asciidoctor.componen
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 abstract class AbstractRestrictionReader {

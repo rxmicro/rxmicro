@@ -18,7 +18,6 @@ package io.rxmicro.annotation.processor.data.sql.model;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public class SQLKeywords {

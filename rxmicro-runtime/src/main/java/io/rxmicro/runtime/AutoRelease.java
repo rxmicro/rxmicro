@@ -20,7 +20,6 @@ package io.rxmicro.runtime;
  * Provides a base interface for any objects that use the external closable resources.
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public interface AutoRelease {

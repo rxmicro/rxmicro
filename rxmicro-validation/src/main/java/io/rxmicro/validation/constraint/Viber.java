@@ -34,9 +34,11 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * The annotated element must be a valid viber number.
  *
  * @author nedis
- * @link https://rxmicro.io
- * @see ViberConstraintValidator
  * @since 0.1
+ * @see Phone
+ * @see Telegram
+ * @see WhatsApp
+ * @see ViberConstraintValidator
  */
 @Documented
 @Retention(SOURCE)

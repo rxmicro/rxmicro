@@ -18,7 +18,6 @@ package io.rxmicro.config.internal.waitfor;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.3
  */
 public interface WaitForService {

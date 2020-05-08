@@ -34,9 +34,12 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * The annotated element must be an instant with truncated time value.
  *
  * @author nedis
- * @link https://rxmicro.io
- * @see TruncatedTimeInstantConstraintValidator
  * @since 0.1
+ * @see Future
+ * @see FutureOrPresent
+ * @see Past
+ * @see PastOrPresent
+ * @see TruncatedTimeInstantConstraintValidator
  */
 @Documented
 @Retention(SOURCE)
@@ -69,7 +72,6 @@ public @interface TruncatedTime {
 
     /**
      * @author nedis
-     * @link https://rxmicro.io
      * @since 0.1
      */
     enum Truncated {

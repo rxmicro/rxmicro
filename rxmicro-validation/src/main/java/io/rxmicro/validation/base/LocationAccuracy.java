@@ -18,11 +18,13 @@ package io.rxmicro.validation.base;
 
 /**
  * A Location accuracy enum
+ * <p>
+ * Read more: <a href="https://en.wikipedia.org/wiki/Decimal_degrees">https://en.wikipedia.org/wiki/Decimal_degrees</a>
  *
  * @author nedis
- * @link https://rxmicro.io
- * @link https://en.wikipedia.org/wiki/Decimal_degrees
  * @since 0.1
+ * @see io.rxmicro.validation.constraint.Lat
+ * @see io.rxmicro.validation.constraint.Lng
  */
 public enum LocationAccuracy {
 

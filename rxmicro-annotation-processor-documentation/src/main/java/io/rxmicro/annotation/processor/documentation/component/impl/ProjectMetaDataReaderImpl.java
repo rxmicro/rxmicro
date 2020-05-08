@@ -44,7 +44,6 @@ import static io.rxmicro.documentation.Constants.DEFAULT_LICENSE_URL;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 @Singleton

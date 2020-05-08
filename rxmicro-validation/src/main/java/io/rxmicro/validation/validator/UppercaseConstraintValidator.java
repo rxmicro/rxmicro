@@ -24,9 +24,8 @@ import io.rxmicro.validation.ConstraintValidator;
  * Validator for the {@link io.rxmicro.validation.constraint.Uppercase} constraint
  *
  * @author nedis
- * @link https://rxmicro.io
- * @see io.rxmicro.validation.constraint.Uppercase
  * @since 0.1
+ * @see io.rxmicro.validation.constraint.Uppercase
  */
 public class UppercaseConstraintValidator implements ConstraintValidator<String> {
 

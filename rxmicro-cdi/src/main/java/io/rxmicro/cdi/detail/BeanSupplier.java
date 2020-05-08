@@ -19,10 +19,9 @@ package io.rxmicro.cdi.detail;
 import java.util.function.Supplier;
 
 /**
- * Used by generated code that was created by RxMicro Annotation Processor
+ * Used by generated code that was created by {@code RxMicro Annotation Processor}
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public abstract class BeanSupplier<T> implements Supplier<T> {

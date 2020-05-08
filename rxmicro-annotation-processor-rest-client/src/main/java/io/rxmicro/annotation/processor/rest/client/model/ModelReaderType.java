@@ -18,7 +18,6 @@ package io.rxmicro.annotation.processor.rest.client.model;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public enum ModelReaderType {

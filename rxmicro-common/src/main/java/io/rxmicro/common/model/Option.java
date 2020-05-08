@@ -20,8 +20,8 @@ package io.rxmicro.common.model;
  * Three state logic class
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
+ * @see Boolean
  */
 public enum Option {
 

@@ -37,12 +37,13 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * whose value must be higher or equal to the specified minimum.
  *
  * @author nedis
- * @link https://rxmicro.io
+ * @since 0.1
+ * @see MinDouble
+ * @see MinNumber
  * @see MinByteConstraintValidator
  * @see MinShortConstraintValidator
  * @see MaxIntConstraintValidator
  * @see MinLongConstraintValidator
- * @since 0.1
  */
 @Documented
 @Retention(SOURCE)

@@ -29,9 +29,17 @@ import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
+ * Allows to configure the following component: {@link BlockingHttpClient}, in order to execute HTTP requests in tests.
+ * <p>
+ * <i>(This annotation applies only to the {@link BlockingHttpClient} type fields.)</i>
+ * <p>
+ * The RxMicro framework supports the {@link BlockingHttpClient} component only for REST-based microservice tests
+ * and REST-based microservice integration tests.
+ *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
+ * @see BlockingHttpClient
+ * @see io.rxmicro.rest.Version.Strategy
  */
 @Documented
 @Retention(RUNTIME)
@@ -39,53 +47,74 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 public @interface BlockingHttpClientSettings {
 
     /**
-     * @return  {@link Option#AUTO} is {@link Option#ENABLED} for integration tests and
-     *                      {@link Option#DISABLED} for REST-based micro service tests,
-     *          {@link Option#ENABLED} if http client must support redirects automatically
-     *          {@link Option#DISABLED} if http client must not support redirects automatically
-     */
-    Option followRedirects() default Option.AUTO;
-
-    /**
-     * Unit = SECONDS
-     * <p>
-     * 0 means infinite timeout
+     * Returns the HTTP protocol schema
      *
-     * @return timeout in SECONDS
-     */
-    int requestTimeout() default DEFAULT_HTTP_CLIENT_TIMEOUT_VALUE_IN_SECONDS;
-
-    /**
-     * @return HTTP protocol schema
+     * @return the HTTP protocol schema
+     * @see ProtocolSchema
      */
     ProtocolSchema schema() default ProtocolSchema.HTTP;
 
     /**
-     * @return HTTP server host
+     * Returns the HTTP server host
+     *
+     * @return the HTTP server host
      */
     String host() default "localhost";
 
     /**
-     * @return HTTP server port or -1, if port must detected automatically
+     * Retruns the HTTP server port or -1, if port must detected automatically
+     * <p>
+     * <i>(The {@link #port()} and {@link #randomPortProvider()} parameters are mutually exclusive.)</i>
+     *
+     * @return the HTTP server port or -1, if port must detected automatically
      */
     int port() default -1;
 
     /**
+     * Allows specifying the dynamic connection port.
+     * <p>
+     * <i>(The port will be read from the static final variable of the current class with the specified name.)</i>
+     * <p>
+     * <i>(The {@link #port()} and {@link #randomPortProvider()} parameters are mutually exclusive.)</i>
+     *
      * @return field name, which contains port value.
-     * The field must be a final, a static and a member of test class.
+     *          The field must be a final, a static and a member of test class.
      */
     String randomPortProvider() default "";
 
     /**
-     * @return Current API version or empty string if not defined
+     * Returns the current API version or empty string if not defined
+     *
+     * @return the current API version or empty string if not defined
      * @see io.rxmicro.rest.Version.Strategy
      */
     String versionValue() default "";
 
     /**
-     * @return Current API version strategy
-     * @see io.rxmicro.http.HttpHeaders
+     * Returns the current API version strategy
+     *
+     * @return the current API version strategy
      * @see io.rxmicro.rest.Version.Strategy
      */
     Version.Strategy versionStrategy() default Version.Strategy.URL_PATH;
+
+    /**
+     * Returns the request timeout in {@code SECONDS}
+     * <p>
+     * {@code 0} means infinite timeout.
+     *
+     * @return the request timeout in {@code SECONDS}
+     */
+    int requestTimeout() default DEFAULT_HTTP_CLIENT_TIMEOUT_VALUE_IN_SECONDS;
+
+    /**
+     * Returns follow redirect option for the {@link BlockingHttpClient}
+     *
+     * @return  {@link Option#AUTO} is {@link Option#ENABLED} for integration tests and
+     *                      {@link Option#DISABLED} for REST-based micro service tests,
+     *          {@link Option#ENABLED} if http client must support redirects automatically
+     *          {@link Option#DISABLED} if http client must not support redirects automatically
+     * @see Option
+     */
+    Option followRedirects() default Option.AUTO;
 }

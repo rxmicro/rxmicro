@@ -49,8 +49,7 @@ Download and import [rxmicro-copyright-profile.xml](../.coding/rxmicro-copyright
 ```
 /**
  * @author ${USER}
- * @link https://rxmicro.io
- * @since 0.2
+ * @since 0.5
  */
 ```
 
@@ -79,7 +78,7 @@ All modules follow the next package structure rules:
 - `io.rxmicro.${module-name}` is root module package, which can contain:
     - `internal` - is sub package with classes for current module use only.
     - `local` - is shared sub package, which can be used by other `rxmicro` modules only.
-    - `detail` - is sub package for generated code by RxMicro Annotation Processor use preferably. 
+    - `detail` - is sub package for generated code by `RxMicro Annotation Processor` use preferably. 
     Developer must not use classes from this sub package!
     *(Except documented abilities: HTTP internal types, partial implementations, etc.)*
     - any other sub packages and root package - are public API that available for usage..

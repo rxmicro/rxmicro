@@ -55,7 +55,6 @@ import static javax.lang.model.element.Modifier.VOLATILE;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class Elements {

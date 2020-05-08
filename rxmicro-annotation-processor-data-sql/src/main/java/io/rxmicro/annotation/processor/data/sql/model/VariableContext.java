@@ -16,11 +16,12 @@
 
 package io.rxmicro.annotation.processor.data.sql.model;
 
+import io.rxmicro.common.InvalidStateException;
+
 import static io.rxmicro.common.util.Requires.require;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public abstract class VariableContext {
@@ -33,7 +34,7 @@ public abstract class VariableContext {
 
     public void setCurrentTable(final TableContext tableContext) {
         if (this.currentTable != null) {
-            throw new IllegalStateException("currentTable  already set");
+            throw new InvalidStateException("currentTable  already set");
         }
         this.currentTable = tableContext;
     }

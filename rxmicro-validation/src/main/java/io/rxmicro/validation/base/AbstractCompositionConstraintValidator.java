@@ -25,7 +25,6 @@ import java.util.List;
  * Base composition constraint validator
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public abstract class AbstractCompositionConstraintValidator<T> implements ConstraintValidator<T> {

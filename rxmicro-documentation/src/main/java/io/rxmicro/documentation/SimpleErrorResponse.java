@@ -29,8 +29,8 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * Contains metadata about the unsuccessful HTTP response of REST-based microservice.
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
+ * @see ModelExceptionErrorResponse
  */
 @Documented
 @Retention(SOURCE)
@@ -70,7 +70,6 @@ public @interface SimpleErrorResponse {
      * Defines several {@link SimpleErrorResponse} annotations on the same element.
      *
      * @author nedis
-     * @link https://rxmicro.io
      * @since 0.1
      */
     @Documented

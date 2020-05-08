@@ -20,10 +20,9 @@ import io.rxmicro.data.local.EntityToDBConverter;
 import io.rxmicro.data.sql.detail.Converters;
 
 /**
- * Used by generated code that was created by RxMicro Annotation Processor
+ * Used by generated code that was created by {@code RxMicro Annotation Processor}
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public abstract class EntityToR2DBCSQLDBConverter<E, DB> implements EntityToDBConverter {

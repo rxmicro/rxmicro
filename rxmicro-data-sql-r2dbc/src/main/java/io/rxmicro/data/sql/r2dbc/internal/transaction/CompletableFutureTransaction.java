@@ -27,7 +27,6 @@ import java.util.concurrent.CompletableFuture;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class CompletableFutureTransaction extends AbstractTransaction implements Transaction {

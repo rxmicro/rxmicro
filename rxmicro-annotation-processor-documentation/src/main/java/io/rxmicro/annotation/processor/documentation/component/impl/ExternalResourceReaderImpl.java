@@ -34,7 +34,6 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 @Singleton

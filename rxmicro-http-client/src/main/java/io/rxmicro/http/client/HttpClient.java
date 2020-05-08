@@ -26,8 +26,8 @@ import java.util.concurrent.CompletableFuture;
  * A low-level reactive HTTP client
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
+ * @see HttpClientFactory
  */
 public interface HttpClient extends AutoRelease {
 

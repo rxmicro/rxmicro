@@ -41,7 +41,6 @@ import static io.rxmicro.annotation.processor.common.util.Annotations.getPresent
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public abstract class AbstractDataClassStructureBuilder<DMF extends DataModelField, DMC extends DataObjectModelClass<DMF>>

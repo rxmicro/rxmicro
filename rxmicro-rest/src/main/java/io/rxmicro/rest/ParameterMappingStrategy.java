@@ -32,7 +32,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * By default, the {@link MappingStrategy#LOWERCASE_WITH_UNDERSCORED} strategy is used.
  * Thus, by using this strategy, the {@code header_name} name header corresponds to the {@code headerName} field name.
  * <p>
- * The RxMicro framework uses the following algorithm to define the HTTP parameter name for the specified model field:
+ * <h4>The RxMicro framework uses the following algorithm to define the HTTP parameter name for the specified model field:</h4>
  * <ul>
  *     <li>
  *         If the field is annotated by the {@link Parameter} annotation with an explicit indication of the HTTP parameter name,
@@ -53,8 +53,12 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * </ul>
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
+ * @see AddQueryParameter
+ * @see SetQueryParameter
+ * @see RepeatQueryParameter
+ * @see Parameter
+ * @see MappingStrategy
  */
 @Documented
 @Retention(SOURCE)

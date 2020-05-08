@@ -31,16 +31,16 @@ import static io.rxmicro.config.internal.waitfor.WaitForServiceFactory.createWai
  * }
  * </pre>
  * <p>
- * -----------------------------------------------------------------------------------------------------------------------------------------
- * Command line arguments:
+ *
+ * <h4>Command line arguments:</h4>
  * <p>
  * <ul>
  *     <li>{@code java -p lib:. -m my.module/my_package.Launcher wait-for --type=tcp-socket --timeout=30 localhost:12017}</li>
  *     <li>{@code java -p lib:. -m my.module/my_package.Launcher wait-for localhost:12017 }</li>
  * </ul>
  * <p>
- * -----------------------------------------------------------------------------------------------------------------------------------------
- * Using java system properties:
+ *
+ * <h4>Using java system properties:</h4>
  * <p>
  * <ul>
  *     <li>{@code SYS_PROP="-DWAIT_FOR=--type=tcp-socket --timeout=30 localhost:12017"}</li>
@@ -50,8 +50,8 @@ import static io.rxmicro.config.internal.waitfor.WaitForServiceFactory.createWai
  *     <li>{@code java -p lib:. "$SYS_PROP" -m my.module/my_package.Launcher }</li>
  * </ul>
  * <p>
- * -----------------------------------------------------------------------------------------------------------------------------------------
- * Using environment variables:
+ *
+ * <h4>Using environment variables:</h4>
  * <p>
  * <ul>
  *     <li>{@code export WAIT_FOR="--type=tcp-socket --timeout=30 localhost:12017"}</li>
@@ -60,11 +60,10 @@ import static io.rxmicro.config.internal.waitfor.WaitForServiceFactory.createWai
  *     <li>{@code export WAIT_FOR=localhost:12017}</li>
  *     <li>{@code java -p lib:. -m my.module/my_package.Launcher}</li>
  * </ul>
- * -----------------------------------------------------------------------------------------------------------------------------------------
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.3
+ * @see java.net.Socket
  */
 public final class WaitFor {
 
@@ -134,6 +133,8 @@ public final class WaitFor {
 
     /**
      * Starts the suspending the current thread until configured service is up.
+     *
+     * @throws ConfigException if configured service is not up.
      */
     public void start() {
         if (waitForService != null) {

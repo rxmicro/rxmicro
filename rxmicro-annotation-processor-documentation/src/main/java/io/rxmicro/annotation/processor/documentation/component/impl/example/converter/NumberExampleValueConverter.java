@@ -33,7 +33,6 @@ import static io.rxmicro.annotation.processor.common.util.Numbers.removeUndersco
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 @Singleton
@@ -73,7 +72,6 @@ public final class NumberExampleValueConverter extends ExampleValueConverter {
 
     /**
      * @author nedis
-     * @link https://rxmicro.io
      * @since 0.1
      */
     private interface RangeValidator {

@@ -27,10 +27,10 @@ import static io.rxmicro.common.util.Strings.startsWith;
 /**
  * Utility class for converting Java types to JSON types and vice versa
  * <p>
- * Type conversion:
- * <p>
- * 1. From Java types to JSON types:
- * <p>
+ * <h4>Type conversion:</h4>
+ *
+ * <h4>1. From Java types to JSON types:</h4>
+ *
  * <table>
  *     <tr>
  *         <th>Java type</th>
@@ -65,9 +65,9 @@ import static io.rxmicro.common.util.Strings.startsWith;
  *         <td>{@code string}</td>
  *     </tr>
  * </table>
- * <br>
- * 2. From Json types to Java types:
- * <p>
+ *
+ * <h4>2. From Json types to Java types:</h4>
+ *
  * <table>
  *     <tr>
  *         <th>JSON type</th>
@@ -100,8 +100,10 @@ import static io.rxmicro.common.util.Strings.startsWith;
  * </table>
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
+ * @see JsonTypes
+ * @see JsonNumber
+ * @see JsonException
  */
 public final class JsonHelper {
 
@@ -196,6 +198,7 @@ public final class JsonHelper {
      * @return the java {@link Map}{@code <String,Object>} instance with data
      * @throws JsonException         if json syntax error found or if stack overflow
      * @throws NumberFormatException if json number has invalid format
+     * @see JsonTypes
      */
     public static Map<String, Object> readJsonObject(final String jsonObject,
                                                      final int recursionDepth) {
@@ -209,6 +212,7 @@ public final class JsonHelper {
      * @return the java {@link Map}{@code <String,Object>} instance with data
      * @throws JsonException         if json syntax error found or if stack overflow
      * @throws NumberFormatException if json number has invalid format
+     * @see JsonTypes
      */
     public static Map<String, Object> readJsonObject(final String jsonObject) {
         return readJsonObject(jsonObject, DEFAULT_RECURSION_DEPTH);
@@ -222,6 +226,7 @@ public final class JsonHelper {
      * @return the java {@link List}{@code <Object>} instance with data
      * @throws JsonException         if json syntax error found or if stack overflow
      * @throws NumberFormatException if json number has invalid format
+     * @see JsonTypes
      */
     public static List<Object> readJsonArray(final String jsonArray,
                                              final int recursionDepth) {
@@ -235,6 +240,7 @@ public final class JsonHelper {
      * @return the java {@link List}{@code <Object>} instance with data
      * @throws JsonException         if json syntax error found or if stack overflow
      * @throws NumberFormatException if json number has invalid format
+     * @see JsonTypes
      */
     public static List<Object> readJsonArray(final String jsonArray) {
         return readJsonArray(jsonArray, DEFAULT_RECURSION_DEPTH);
@@ -248,6 +254,8 @@ public final class JsonHelper {
      * @return the java instance with data. See type conversion for more information.
      * @throws JsonException         if json syntax error found or if stack overflow
      * @throws NumberFormatException if json number has invalid format
+     * @see JsonTypes
+     * @see JsonNumber
      */
     public static Object readJson(final String json,
                                   final int recursionDepth) {
@@ -271,6 +279,8 @@ public final class JsonHelper {
      * @return the java instance with data. See type conversion for more information.
      * @throws JsonException         if json syntax error found or if stack overflow
      * @throws NumberFormatException if json number has invalid format
+     * @see JsonTypes
+     * @see JsonNumber
      */
     public static Object readJson(final String json) {
         return readJson(json, DEFAULT_RECURSION_DEPTH);

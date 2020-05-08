@@ -22,8 +22,11 @@ import io.rxmicro.model.NotStandardSerializableEnum;
  * Mongo DB projection type
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
+ * @see io.rxmicro.data.SortOrder
+ * @see io.rxmicro.data.Pageable
+ * @see io.rxmicro.data.RepeatParameter
+ * @see IndexUsage
  */
 public enum ProjectionType implements NotStandardSerializableEnum {
 

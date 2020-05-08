@@ -21,7 +21,6 @@ import java.util.Optional;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public interface UserDefinedNameBuilder {

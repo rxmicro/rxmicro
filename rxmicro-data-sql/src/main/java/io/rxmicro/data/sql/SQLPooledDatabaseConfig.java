@@ -26,8 +26,8 @@ import static io.rxmicro.common.util.Requires.require;
  * Allows configuring SQL DB pool options.
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
+ * @see Duration
  */
 @SuppressWarnings("UnusedReturnValue")
 public class SQLPooledDatabaseConfig extends SQLDatabaseConfig {

@@ -33,9 +33,8 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * The annotated element must be a string with latin alphabet letters only.
  *
  * @author nedis
- * @link https://rxmicro.io
- * @see LatinAlphabetOnlyConstraintValidator
  * @since 0.1
+ * @see LatinAlphabetOnlyConstraintValidator
  */
 @Documented
 @Retention(SOURCE)

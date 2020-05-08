@@ -28,7 +28,6 @@ import static io.rxmicro.config.Networks.validatePort;
  * Allows configuring common HTTP options.
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 @SuppressWarnings("UnusedReturnValue")

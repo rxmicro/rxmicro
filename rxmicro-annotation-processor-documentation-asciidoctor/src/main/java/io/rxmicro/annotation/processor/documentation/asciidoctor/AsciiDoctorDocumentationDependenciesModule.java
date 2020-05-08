@@ -32,7 +32,6 @@ import io.rxmicro.annotation.processor.documentation.asciidoctor.component.impl.
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class AsciiDoctorDocumentationDependenciesModule extends AbstractModule {

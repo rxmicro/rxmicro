@@ -42,7 +42,10 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * equal to the specified maximum.
  *
  * @author nedis
- * @link https://rxmicro.io
+ * @since 0.1
+ * @see MaxInt
+ * @see MaxDouble
+ * @see Numeric
  * @see MaxBigDecimalNumberConstraintValidator
  * @see MaxBigIntegerNumberConstraintValidator
  * @see MaxByteConstraintValidator
@@ -51,7 +54,6 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * @see MaxLongConstraintValidator
  * @see MaxFloatConstraintValidator
  * @see MaxDoubleConstraintValidator
- * @since 0.1
  */
 @Documented
 @Retention(SOURCE)

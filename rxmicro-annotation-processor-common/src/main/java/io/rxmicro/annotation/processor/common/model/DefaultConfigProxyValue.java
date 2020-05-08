@@ -16,6 +16,8 @@
 
 package io.rxmicro.annotation.processor.common.model;
 
+import io.rxmicro.common.InvalidStateException;
+
 import javax.lang.model.element.TypeElement;
 
 import static io.rxmicro.common.util.Formats.format;
@@ -23,7 +25,6 @@ import static io.rxmicro.common.util.Requires.require;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.3
  */
 public final class DefaultConfigProxyValue {
@@ -41,7 +42,7 @@ public final class DefaultConfigProxyValue {
         } else if (value instanceof TypeElement) {
             return format("?.class", ((TypeElement) value).getQualifiedName());
         } else {
-            throw new IllegalStateException(format("Unsupported value type: ? (?)", value, value.getClass()));
+            throw new InvalidStateException("Unsupported value type: ? (?)", value, value.getClass());
         }
     }
 }

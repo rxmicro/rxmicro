@@ -24,9 +24,8 @@ package io.rxmicro.rest.server.netty;
  * </a>
  *
  * @author nedis
- * @link https://rxmicro.io
- * @link https://netty.io/wiki/native-transports.html
  * @since 0.1
+ * @see NettyRestServerConfig
  */
 public enum NettyTransport {
 
@@ -54,8 +53,6 @@ public enum NettyTransport {
      * </a>
      * <p>
      * If native implementation couldn't be used, switches to the cross platform java implementation: {@link #NETTY}
-     *
-     * @link https://netty.io/wiki/native-transports.html#using-the-linux-native-transport
      */
     EPOLL,
 
@@ -67,8 +64,6 @@ public enum NettyTransport {
      * </a>
      * <p>
      * If native implementation couldn't be used, switches to the cross platform java implementation: {@link #NETTY}
-     *
-     * @link https://netty.io/wiki/native-transports.html#using-the-macosbsd-native-transport
      */
     KQUEUE
 }

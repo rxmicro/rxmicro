@@ -22,7 +22,6 @@ import io.rxmicro.common.util.Formats;
  * A class that signals the need to perform Permanent Redirect ({@code 308}).
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class PermanentRedirectException extends RedirectException {
@@ -38,7 +37,7 @@ public final class PermanentRedirectException extends RedirectException {
      * (<i>This behavior is achieved by using the {@link RuntimeException#RuntimeException(String, Throwable, boolean, boolean)}.</i>)
      *
      * @param location the HTTP {@code Location} header value
-     * @throws NullPointerException if {@code location} is {@code null}
+     * @throws NullPointerException if the location is {@code null}
      */
     public PermanentRedirectException(final String location) {
         super(STATUS_CODE, location);
@@ -56,7 +55,8 @@ public final class PermanentRedirectException extends RedirectException {
      *
      * @param location the HTTP {@code Location} header value template
      * @param args the HTTP {@code Location} header value template arguments
-     * @throws NullPointerException if {@code location} is {@code null}
+     * @throws NullPointerException if the location is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     public PermanentRedirectException(final String location,
                                       final Object... args) {

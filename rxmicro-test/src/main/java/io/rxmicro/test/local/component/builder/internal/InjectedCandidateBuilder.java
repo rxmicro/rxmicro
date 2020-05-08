@@ -37,7 +37,6 @@ import static java.util.stream.Collectors.toMap;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class InjectedCandidateBuilder {

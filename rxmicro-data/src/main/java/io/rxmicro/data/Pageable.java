@@ -24,7 +24,6 @@ import java.util.Set;
  * This class can be passed to a dynamic data repository method.
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class Pageable {

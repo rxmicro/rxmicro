@@ -26,9 +26,32 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
+ * Informs the test framework about the need to create mocks and inject them into the test class fields,
+ * annotated by the @{@link org.mockito.Mock} annotation.
+ * <p>
+ * <i>(Using the @{@link InitMocks} annotation is preferable to the analogous
+ * {@code @}{@link ExtendWith}{@code ({@link MockitoExtension}.class)} construction!)</i>
+ *
+ * <h4>Usage example:</h4>
+ * <pre>
+ * {@code @InitMocks}
+ * final class Test {
+ *
+ *     {@code @Mock}
+ *     private Component component;
+ *
+ *     {@code @Test}
+ *     void Do_something() {
+ *         when(component.getValue()).thenReturn("test");
+ *         ...
+ *     }
+ * }
+ * </pre>
+ *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
+ * @see MockitoExtension
+ * @see org.mockito.Mock
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)

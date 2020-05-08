@@ -23,7 +23,6 @@ import io.rxmicro.rest.server.local.component.HttpErrorResponseBodyBuilder;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public abstract class BaseRestController {

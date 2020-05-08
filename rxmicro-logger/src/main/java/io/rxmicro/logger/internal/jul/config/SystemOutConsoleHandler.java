@@ -21,7 +21,6 @@ import java.util.logging.StreamHandler;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public class SystemOutConsoleHandler extends StreamHandler {

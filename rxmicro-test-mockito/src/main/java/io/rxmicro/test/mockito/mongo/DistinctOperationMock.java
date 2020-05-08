@@ -25,9 +25,13 @@ import static io.rxmicro.test.mockito.mongo.internal.util.Validators.validateBso
 import static io.rxmicro.test.mockito.mongo.internal.util.Validators.validateString;
 
 /**
+ * The Mongo {@link io.rxmicro.data.mongo.operation.Distinct} operation mock using
+ * <a href="https://site.mockito.org/">Mockito</a> testing framework
+ *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
+ * @see io.rxmicro.data.mongo.operation.Distinct
+ * @see io.rxmicro.data.mongo.MongoRepository
  */
 public final class DistinctOperationMock<T> extends AbstractDistinctOperationMock<T> {
 
@@ -39,8 +43,9 @@ public final class DistinctOperationMock<T> extends AbstractDistinctOperationMoc
     }
 
     /**
+     * The builder for building a Mongo {@link io.rxmicro.data.mongo.operation.Distinct} operation mock
+     *
      * @author nedis
-     * @link https://rxmicro.io
      * @since 0.1
      */
     @SuppressWarnings("UnusedReturnValue")
@@ -54,18 +59,40 @@ public final class DistinctOperationMock<T> extends AbstractDistinctOperationMoc
 
         private Document query;
 
+        /**
+         * Sets the result class for the Mongo {@link io.rxmicro.data.mongo.operation.Distinct} operation mock
+         *
+         * @param resultClass the result class
+         * @return the reference to this {@link Builder} instance
+         * @throws NullPointerException if the specified result class is {@code null}
+         */
         @BuilderMethod
         public Builder<T> setResultClass(final Class<T> resultClass) {
             this.resultClass = require(resultClass);
             return this;
         }
 
+        /**
+         * Sets the specified field for the Mongo {@link io.rxmicro.data.mongo.operation.Distinct} operation mock that it will match to
+         * a Mongo {@link io.rxmicro.data.mongo.operation.Distinct} operation with the specified field
+         *
+         * @param field the specified field
+         * @return the reference to this {@link Builder} instance
+         * @throws NullPointerException if the specified field is {@code null}
+         * @throws IllegalArgumentException if the specified field is blank
+         */
         @BuilderMethod
         public Builder<T> setField(final String field) {
             this.field = validateString(field, "field");
             return this;
         }
 
+        /**
+         * Configures the Mongo {@link io.rxmicro.data.mongo.operation.Distinct} operation mock that it will match to
+         * a Mongo {@link io.rxmicro.data.mongo.operation.Distinct} operation with any query
+         *
+         * @return the reference to this {@link Builder} instance
+         */
         @BuilderMethod
         public Builder<T> setAnyQuery() {
             this.anyQuery = true;
@@ -73,6 +100,14 @@ public final class DistinctOperationMock<T> extends AbstractDistinctOperationMoc
             return this;
         }
 
+        /**
+         * Sets the query for the Mongo {@link io.rxmicro.data.mongo.operation.Distinct} operation mock that it will match to
+         * a Mongo {@link io.rxmicro.data.mongo.operation.Distinct} operation with the specified query
+         *
+         * @param query the specified query
+         * @return the reference to this {@link Builder} instance
+         * @throws NullPointerException if the specified query is {@code null}
+         */
         @BuilderMethod
         public Builder<T> setQuery(final Document query) {
             this.query = validateBson(query, "query");
@@ -80,6 +115,16 @@ public final class DistinctOperationMock<T> extends AbstractDistinctOperationMoc
             return this;
         }
 
+        /**
+         * Sets the query for the Mongo {@link io.rxmicro.data.mongo.operation.Distinct} operation mock that it will match to
+         * a Mongo {@link io.rxmicro.data.mongo.operation.Distinct} operation with the specified query
+         *
+         * @param query the specified query
+         * @return the reference to this {@link Builder} instance
+         * @throws NullPointerException if the specified query is {@code null}
+         * @throws IllegalArgumentException if the specified query is blank
+         * @throws org.bson.json.JsonParseException if the specified query has invalid JSON structure
+         */
         @BuilderMethod
         public Builder<T> setQuery(final String query) {
             this.query = validateBson(query, "query");
@@ -87,6 +132,12 @@ public final class DistinctOperationMock<T> extends AbstractDistinctOperationMoc
             return this;
         }
 
+        /**
+         * Builds the immutable Mongo {@link io.rxmicro.data.mongo.operation.Distinct} operation mock
+         * instance using the configured {@link Builder} settings
+         *
+         * @return the immutable Mongo {@link io.rxmicro.data.mongo.operation.Distinct} operation mock instance
+         */
         public DistinctOperationMock<T> build() {
             return new DistinctOperationMock<>(resultClass, field, query, anyQuery);
         }

@@ -28,9 +28,15 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * <a href="https://docs.mongodb.com/manual/reference/method/db.collection.deleteMany/">{@code db.collection.deleteMany()}</a> operation.
  *
  * @author nedis
- * @link https://rxmicro.io
- * @link https://docs.mongodb.com/manual/reference/method/db.collection.deleteMany/
  * @since 0.1
+ * @see io.rxmicro.data.mongo.MongoRepository
+ * @see Aggregate
+ * @see CountDocuments
+ * @see Distinct
+ * @see EstimatedDocumentCount
+ * @see Find
+ * @see Insert
+ * @see Update
  */
 @Documented
 @Retention(SOURCE)
@@ -46,7 +52,6 @@ public @interface Delete {
      * </a>
      *
      * @return the deletion criteria using query operators.
-     * @link https://docs.mongodb.com/manual/reference/operator/
      */
     String filter() default "";
 }

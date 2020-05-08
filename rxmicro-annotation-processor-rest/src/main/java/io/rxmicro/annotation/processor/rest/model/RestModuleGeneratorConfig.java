@@ -22,7 +22,6 @@ import io.rxmicro.rest.model.ExchangeFormatModule;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public abstract class RestModuleGeneratorConfig extends ModuleGeneratorConfig {

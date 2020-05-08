@@ -23,10 +23,9 @@ import io.rxmicro.validation.base.AbstractMinConstraintValidator;
  * Validator for the {@link io.rxmicro.validation.constraint.MinInt} and the {@link io.rxmicro.validation.constraint.MinNumber} constraints
  *
  * @author nedis
- * @link https://rxmicro.io
+ * @since 0.1
  * @see io.rxmicro.validation.constraint.MinInt
  * @see io.rxmicro.validation.constraint.MinNumber
- * @since 0.1
  */
 public class MinIntConstraintValidator extends AbstractMinConstraintValidator<Integer>
         implements ConstraintValidator<Integer> {

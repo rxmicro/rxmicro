@@ -30,7 +30,6 @@ import static io.rxmicro.common.util.Formats.FORMAT_PLACEHOLDER_TOKEN;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public class OrderBySelectSQLOperatorReader implements SelectSQLOperatorReader {

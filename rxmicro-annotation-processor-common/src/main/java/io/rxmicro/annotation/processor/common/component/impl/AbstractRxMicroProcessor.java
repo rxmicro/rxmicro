@@ -46,7 +46,6 @@ import static javax.tools.Diagnostic.Kind.ERROR;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public abstract class AbstractRxMicroProcessor extends AbstractProcessor {

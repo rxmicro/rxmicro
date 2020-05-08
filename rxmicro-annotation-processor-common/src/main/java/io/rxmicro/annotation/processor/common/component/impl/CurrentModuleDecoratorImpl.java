@@ -42,7 +42,6 @@ import static javax.lang.model.element.ElementKind.ANNOTATION_TYPE;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.2
  */
 @Singleton

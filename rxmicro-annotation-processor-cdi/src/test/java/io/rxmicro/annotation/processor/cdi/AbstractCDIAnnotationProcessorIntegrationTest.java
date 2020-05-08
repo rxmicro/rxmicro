@@ -25,7 +25,7 @@ import static io.rxmicro.cdi.BeanFactory.BEAN_FACTORY_IMPL_CLASS_NAME;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
+ *
  */
 public abstract class AbstractCDIAnnotationProcessorIntegrationTest
         extends AbstractRxMicroAnnotationProcessorIntegrationTest {

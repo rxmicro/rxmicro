@@ -26,7 +26,6 @@ import java.util.function.Function;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public class ReadOnlyDocument extends Document {

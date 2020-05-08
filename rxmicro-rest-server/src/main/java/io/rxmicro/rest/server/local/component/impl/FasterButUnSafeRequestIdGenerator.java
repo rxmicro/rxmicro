@@ -34,7 +34,6 @@ import java.util.Random;
  * 62jQa6Ux1584949
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class FasterButUnSafeRequestIdGenerator implements RequestIdGenerator {

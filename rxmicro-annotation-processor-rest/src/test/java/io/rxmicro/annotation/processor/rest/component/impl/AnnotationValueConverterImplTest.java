@@ -60,7 +60,7 @@ import static org.mockito.Mockito.verifyNoInteractions;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
+ *
  * @since 0.2
  */
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
@@ -210,7 +210,7 @@ final class AnnotationValueConverterImplTest extends AbstractRxMicroAnnotationPr
 
     /**
      * @author nedis
-     * @link https://rxmicro.io
+     *
      * @since 0.2
      */
     static final class TestAnnotationProcessor extends AbstractProcessor {

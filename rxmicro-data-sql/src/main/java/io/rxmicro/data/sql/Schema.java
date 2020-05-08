@@ -27,8 +27,8 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * Denotes a schema of a database table.
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
+ * @see Table
  */
 @Documented
 @Retention(SOURCE)

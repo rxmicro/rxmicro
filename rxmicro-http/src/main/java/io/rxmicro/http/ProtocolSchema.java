@@ -22,7 +22,6 @@ import java.util.Locale;
  * Represents the supported protocols
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public enum ProtocolSchema {

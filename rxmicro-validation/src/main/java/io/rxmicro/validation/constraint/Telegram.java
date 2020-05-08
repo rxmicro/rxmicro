@@ -34,9 +34,11 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * The annotated element must be a valid telegram number.
  *
  * @author nedis
- * @link https://rxmicro.io
- * @see TelegramConstraintValidator
  * @since 0.1
+ * @see Phone
+ * @see Viber
+ * @see WhatsApp
+ * @see TelegramConstraintValidator
  */
 @Documented
 @Retention(SOURCE)

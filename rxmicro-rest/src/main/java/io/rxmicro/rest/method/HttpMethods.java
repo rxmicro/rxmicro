@@ -26,8 +26,15 @@ import static java.util.Arrays.asList;
  * Contains all supported HTTP methods
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
+ * @see DELETE
+ * @see GET
+ * @see HEAD
+ * @see OPTIONS
+ * @see PATCH
+ * @see POST
+ * @see PUT
+ * @see io.rxmicro.rest.model.HttpMethod
  */
 public final class HttpMethods {
 

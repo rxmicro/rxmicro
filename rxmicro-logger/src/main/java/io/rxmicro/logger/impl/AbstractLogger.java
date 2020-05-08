@@ -29,8 +29,8 @@ import static io.rxmicro.common.util.Requires.require;
  * Abstract logger implementation that delegates the log events to `log` methods
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
+ * @see io.rxmicro.logger.LoggerFactory
  */
 public abstract class AbstractLogger implements Logger {
 

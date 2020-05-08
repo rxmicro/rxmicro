@@ -35,7 +35,6 @@ import static io.rxmicro.data.sql.operation.Update.DEFAULT_UPDATE;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 @Singleton

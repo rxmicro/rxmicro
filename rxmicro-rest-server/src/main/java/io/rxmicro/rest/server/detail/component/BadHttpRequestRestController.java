@@ -28,10 +28,9 @@ import static io.rxmicro.common.util.Requires.require;
 import static java.util.concurrent.CompletableFuture.completedStage;
 
 /**
- * Used by generated code that was created by RxMicro Annotation Processor
+ * Used by generated code that was created by {@code RxMicro Annotation Processor}
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.3
  */
 public final class BadHttpRequestRestController extends AbstractRestController {

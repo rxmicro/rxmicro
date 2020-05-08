@@ -22,7 +22,6 @@ import static io.rxmicro.common.util.Requires.require;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class ModelClassSupplier<DMF extends SQLDataModelField, DMC extends SQLDataObjectModelClass<DMF>> {

@@ -21,10 +21,9 @@ import io.r2dbc.spi.Connection;
 import io.r2dbc.spi.Result;
 import io.r2dbc.spi.Statement;
 import io.rxmicro.test.local.InvalidTestConfigException;
-import io.rxmicro.test.mockito.InvalidPreparedMockException;
 import io.rxmicro.test.mockito.r2dbc.ErrorDuringSQLInvocationType;
 import io.rxmicro.test.mockito.r2dbc.Null;
-import io.rxmicro.test.mockito.r2dbc.SQLParamsMock;
+import io.rxmicro.test.mockito.r2dbc.SQLQueryWithParamsMock;
 import org.mockito.stubbing.Answer;
 import org.mockito.stubbing.OngoingStubbing;
 import org.reactivestreams.Publisher;
@@ -49,7 +48,6 @@ import static org.mockito.internal.util.MockUtil.isMock;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 abstract class AbstractInvocationSQLMockFactory {
@@ -61,18 +59,18 @@ abstract class AbstractInvocationSQLMockFactory {
     }
 
     final Optional<Connection> newConnectionMock(final ConnectionPool connectionPool,
-                                                 final SQLParamsMock sqlParamsMock,
+                                                 final SQLQueryWithParamsMock sqlQueryWithParamsMock,
                                                  final Throwable throwable,
                                                  final ErrorDuringSQLInvocationType errorDuringSQLInvocationType) {
         final Connection connection = mock(Connection.class);
-        if (!sqlParamsMock.isTransactional()) {
+        if (!sqlQueryWithParamsMock.isTransactional()) {
             if (errorDuringSQLInvocationType == CLOSE_CONNECTION_FAILED) {
                 when(connection.close()).thenThrow(throwable);
             } else {
                 when(connection.close()).thenReturn(Mono.empty());
             }
         } else if (errorDuringSQLInvocationType == CLOSE_CONNECTION_FAILED) {
-            throw new InvalidPreparedMockException(
+            throw new InvalidTestConfigException(
                     "Transactional connections do not close by repository method, " +
                             "thus '?' failed type can't be configured correctly", CLOSE_CONNECTION_FAILED);
         }
@@ -86,11 +84,11 @@ abstract class AbstractInvocationSQLMockFactory {
     }
 
     final Optional<Statement> newStatementMock(final Connection connection,
-                                               final SQLParamsMock sqlParamsMock,
+                                               final SQLQueryWithParamsMock sqlQueryWithParamsMock,
                                                final Throwable throwable,
                                                final ErrorDuringSQLInvocationType errorDuringSQLInvocationType) {
         final Statement statement = mock(Statement.class);
-        final Optional<String> sql = sqlParamsMock.getSql();
+        final Optional<String> sql = sqlQueryWithParamsMock.getSql();
         final OngoingStubbing<Statement> ongoingCreateStubbing;
         if (sql.isPresent()) {
             ongoingCreateStubbing = when(connection.createStatement(sql.get()));
@@ -104,14 +102,14 @@ abstract class AbstractInvocationSQLMockFactory {
             ongoingCreateStubbing.thenReturn(statement);
         }
 
-        return bindStatementParams(statement, sqlParamsMock, throwable, errorDuringSQLInvocationType);
+        return bindStatementParams(statement, sqlQueryWithParamsMock, throwable, errorDuringSQLInvocationType);
     }
 
     private Optional<Statement> bindStatementParams(final Statement statement,
-                                                    final SQLParamsMock sqlParamsMock,
+                                                    final SQLQueryWithParamsMock sqlQueryWithParamsMock,
                                                     final Throwable throwable,
                                                     final ErrorDuringSQLInvocationType errorDuringSQLInvocationType) {
-        if (sqlParamsMock.getBindParams().isEmpty()) {
+        if (sqlQueryWithParamsMock.getBindParams().isEmpty()) {
             if (errorDuringSQLInvocationType == BIND_STATEMENT_ARGUMENTS_FAILED) {
                 lenient().when(statement.bind(anyInt(), any(Object.class, ANY_BIND_VALUE))).thenThrow(throwable);
                 return Optional.empty();
@@ -119,8 +117,8 @@ abstract class AbstractInvocationSQLMockFactory {
                 lenient().when(statement.bind(anyInt(), any(Object.class, ANY_BIND_VALUE))).thenReturn(statement);
             }
         } else {
-            for (int i = 0; i < sqlParamsMock.getBindParams().size(); i++) {
-                final Object param = sqlParamsMock.getBindParams().get(i);
+            for (int i = 0; i < sqlQueryWithParamsMock.getBindParams().size(); i++) {
+                final Object param = sqlQueryWithParamsMock.getBindParams().get(i);
                 final OngoingStubbing<Statement> ongoingBindStubbing;
                 if (param instanceof Null) {
                     ongoingBindStubbing = when(statement.bindNull(i, ((Null) param).getType()));

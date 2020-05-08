@@ -23,7 +23,6 @@ import java.util.Optional;
  * Contains all RxMicro modules, that can be used to create microservices using the RxMicro framework.
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public enum RxMicroModule {
@@ -190,22 +189,23 @@ public enum RxMicroModule {
     //rxmicro-slf4j-proxy is a workaround module, so it was excluded from this list
 
     /**
-     * TODO
+     * The basic module designed for test writing using any modern testing framework.
      */
     RX_MICRO_TEST_MODULE("rxmicro.test"),
 
     /**
-     * TODO
+     * The module designed for test writing using the <a href="https://junit.org/junit5/">JUnit 5</a> framework.
      */
     RX_MICRO_TEST_JUNIT_MODULE("rxmicro.test.junit"),
 
     /**
-     * TODO
+     * The module designed for test writing using the <a href="https://site.mockito.org/">Mockito</a> framework.
      */
     RX_MICRO_TEST_MOCKITO_MODULE("rxmicro.test.mockito"),
 
     /**
-     * TODO
+     * The module designed for test writing using the <a href="https://junit.org/junit5/">JUnit 5</a> and
+     * <a href="https://site.mockito.org/">Mockito</a> framework.
      */
     RX_MICRO_TEST_MOCKITO_JUNIT_MODULE("rxmicro.test.mockito.junit"),
 

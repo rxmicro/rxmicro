@@ -34,7 +34,6 @@ import static io.rxmicro.json.JsonHelper.toJsonString;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 @Singleton

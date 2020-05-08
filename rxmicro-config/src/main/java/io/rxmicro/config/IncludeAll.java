@@ -26,13 +26,12 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
  * Activates all classes in package and all sub packages annotated by this annotation
- * for the RxMicro Annotation Processor. All other classes will be ignored.
+ * for the {@code RxMicro Annotation Processor}. All other classes will be ignored.
  * <p>
  * If this annotation applied to type (class, interface, enum, annotation),
- * that this type is available for the RxMicro Annotation Processor only.
+ * that this type is available for the {@code RxMicro Annotation Processor} only.
  *
  * @author nedis
- * @link https://rxmicro.io
  * @see ExcludeAll
  * @since 0.1
  */

@@ -27,9 +27,8 @@ import java.util.Collection;
  * Validator for the {@link io.rxmicro.validation.constraint.Pattern} constraint
  *
  * @author nedis
- * @link https://rxmicro.io
- * @see io.rxmicro.validation.constraint.Pattern
  * @since 0.1
+ * @see io.rxmicro.validation.constraint.Pattern
  */
 public class PatternConstraintValidator implements ConstraintValidator<String> {
 

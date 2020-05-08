@@ -31,7 +31,6 @@ import static io.rxmicro.runtime.local.InstanceContainer.registerAutoRelease;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class MongoClientBuilder {
@@ -57,7 +56,6 @@ public final class MongoClientBuilder {
 
     /**
      * @author nedis
-     * @link https://rxmicro.io
      * @since 0.1
      */
     private static final class MongoClientProxy implements AutoRelease {

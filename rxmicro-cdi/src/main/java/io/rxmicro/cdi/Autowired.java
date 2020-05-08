@@ -38,8 +38,8 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * Thus, <b>all CDI components are singletons!</b>
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
+ * @see Inject
  */
 @Documented
 @Retention(SOURCE)
@@ -53,7 +53,7 @@ public @interface Autowired {
      * When applied to a field, any default value already assigned to the field will remain for optional injection
      * (The RxMicro framework will not actively null out the field).
      *
-     * @return {code false} if current injection point is optional
+     * @return {@code false} if current injection point is optional
      */
     boolean required() default true;
 }

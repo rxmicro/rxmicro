@@ -22,8 +22,11 @@ import io.rxmicro.common.model.ListBuilder;
  * JSON array builder
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
+ * @see JsonTypes
+ * @see JsonHelper
+ * @see JsonNumber
+ * @see JsonException
  */
 public final class JsonArrayBuilder extends ListBuilder<Object> {
 

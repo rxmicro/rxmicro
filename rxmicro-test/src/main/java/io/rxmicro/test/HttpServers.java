@@ -21,12 +21,19 @@ import java.net.ServerSocket;
 import java.util.Random;
 
 /**
+ * HTTP server utility class
+ *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class HttpServers {
 
+    /**
+     * Returns the random free port on the current host
+     *
+     * @return the random free port on the current host
+     * @see ServerSocket
+     */
     public static int getRandomFreePort() {
         try (ServerSocket serverSocket = new ServerSocket(0)) {
             return serverSocket.getLocalPort();

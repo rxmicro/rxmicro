@@ -90,7 +90,6 @@ import static io.rxmicro.data.sql.SupportedVariables.VALUES;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class PostgreSQLDependenciesModule extends AbstractModule {

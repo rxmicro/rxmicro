@@ -20,8 +20,9 @@ package io.rxmicro.logger;
  * {@link Logger} constants
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
+ * @see LoggerFactory
+ * @see Logger
  */
 public final class Constants {
 

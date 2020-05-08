@@ -24,7 +24,6 @@ import io.rxmicro.validation.constraint.AssertTrue;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 @Singleton

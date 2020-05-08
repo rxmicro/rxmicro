@@ -46,7 +46,6 @@ import static javax.tools.StandardLocation.SOURCE_OUTPUT;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 @Singleton
@@ -62,7 +61,6 @@ public final class ProjectMetaDataProviderResolverImpl implements ProjectMetaDat
                 .orElseGet(() -> stub(ProjectMetaDataProvider.class, MethodHandles.lookup()));
     }
 
-    // TODO It is necessary to find other approach to detect current working directory
     private Optional<File> getPomXmlAbsolutePath() {
         try {
             final FileObject tempResource = getFiler()

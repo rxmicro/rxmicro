@@ -27,7 +27,6 @@ import static io.rxmicro.runtime.local.Instances.instantiate;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.3
  */
 public final class DefaultConfigValueStorage {
@@ -60,7 +59,6 @@ public final class DefaultConfigValueStorage {
 
     /**
      * @author nedis
-     * @link https://rxmicro.io
      * @since 0.3
      */
     public static final class Builder {

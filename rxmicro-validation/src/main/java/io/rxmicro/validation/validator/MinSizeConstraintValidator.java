@@ -26,9 +26,8 @@ import java.util.List;
  * Validator for the {@link io.rxmicro.validation.constraint.MinSize} constraint
  *
  * @author nedis
- * @link https://rxmicro.io
- * @see io.rxmicro.validation.constraint.MinSize
  * @since 0.1
+ * @see io.rxmicro.validation.constraint.MinSize
  */
 public class MinSizeConstraintValidator extends AbstractMinConstraintValidator<Integer>
         implements ConstraintValidator<List<?>> {

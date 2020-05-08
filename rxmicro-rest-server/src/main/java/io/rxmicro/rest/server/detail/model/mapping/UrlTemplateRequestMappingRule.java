@@ -29,10 +29,9 @@ import static io.rxmicro.http.HttpStandardHeaderNames.API_VERSION;
 import static io.rxmicro.rest.server.detail.model.PathMatcherResult.NO_MATCH;
 
 /**
- * Used by generated code that was created by RxMicro Annotation Processor
+ * Used by generated code that was created by {@code RxMicro Annotation Processor}
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class UrlTemplateRequestMappingRule extends AbstractRequestMappingRule {

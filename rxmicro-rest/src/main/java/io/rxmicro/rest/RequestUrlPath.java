@@ -33,8 +33,12 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * (<i>This feature is useful for request logging using path-variables.</i>)
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
+ * @see RemoteAddress
+ * @see RequestBody
+ * @see RequestId
+ * @see RequestMethod
+ * @see RequestUrlPath
  */
 @Documented
 @Retention(SOURCE)

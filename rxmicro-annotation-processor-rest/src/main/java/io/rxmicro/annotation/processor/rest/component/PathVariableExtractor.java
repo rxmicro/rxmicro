@@ -22,7 +22,6 @@ import javax.lang.model.element.Element;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public interface PathVariableExtractor {

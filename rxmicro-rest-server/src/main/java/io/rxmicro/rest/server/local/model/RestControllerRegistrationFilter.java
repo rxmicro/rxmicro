@@ -26,7 +26,6 @@ import static java.util.stream.Stream.concat;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public interface RestControllerRegistrationFilter extends Predicate<Class<?>> {

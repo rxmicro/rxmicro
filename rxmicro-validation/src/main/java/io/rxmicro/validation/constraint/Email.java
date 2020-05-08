@@ -36,9 +36,8 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * Valid email format: <code>${prefix}@${domain}</code>
  *
  * @author nedis
- * @link https://rxmicro.io
- * @see EmailConstraintValidator
  * @since 0.1
+ * @see EmailConstraintValidator
  */
 @Documented
 @Retention(SOURCE)

@@ -26,7 +26,6 @@ import static io.rxmicro.common.util.UrlPaths.normalizeUrlPath;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class ParentUrl {
@@ -83,7 +82,6 @@ public final class ParentUrl {
 
     /**
      * @author nedis
-     * @link https://rxmicro.io
      * @since 0.1
      */
     @SuppressWarnings("UnusedReturnValue")

@@ -30,7 +30,6 @@ import static java.util.stream.Collectors.toList;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class BeanFactoryInjector extends AbstractFactory {
@@ -62,7 +61,6 @@ public final class BeanFactoryInjector extends AbstractFactory {
 
     /**
      * @author nedis
-     * @link https://rxmicro.io
      * @since 0.1
      */
     private static final class AlternativeEntryPointBean {

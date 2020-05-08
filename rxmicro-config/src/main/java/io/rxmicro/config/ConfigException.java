@@ -23,7 +23,6 @@ import io.rxmicro.common.util.Formats;
  * Thrown to indicate that current configuration is not valid
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class ConfigException extends RxMicroException {
@@ -34,9 +33,10 @@ public final class ConfigException extends RxMicroException {
      * <i>(FYI: This constructor uses {@link Formats#format(String, Object...)} method to format error message.)</i>
      * <p>
      *
-     * @param message error message or error message template
-     * @param args message template arguments
-     * @throws NullPointerException if {@code message} is {@code null}
+     * @param message the error message template
+     * @param args the message template arguments
+     * @throws NullPointerException if the error message template is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     public ConfigException(final String message,
                            final Object... args) {

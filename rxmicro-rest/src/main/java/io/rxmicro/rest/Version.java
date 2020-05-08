@@ -28,7 +28,6 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * Denotes a version of the REST controller or REST client.
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 @Documented
@@ -54,7 +53,6 @@ public @interface Version {
      * REST version strategy
      *
      * @author nedis
-     * @link https://rxmicro.io
      * @since 0.1
      */
     enum Strategy {

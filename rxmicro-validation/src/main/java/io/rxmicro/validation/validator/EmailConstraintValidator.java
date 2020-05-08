@@ -32,9 +32,8 @@ import static java.util.stream.Collectors.toUnmodifiableSet;
  * Validator for the {@link io.rxmicro.validation.constraint.Email} constraint
  *
  * @author nedis
- * @link https://rxmicro.io
- * @see io.rxmicro.validation.constraint.Email
  * @since 0.1
+ * @see io.rxmicro.validation.constraint.Email
  */
 public final class EmailConstraintValidator implements ConstraintValidator<String> {
 

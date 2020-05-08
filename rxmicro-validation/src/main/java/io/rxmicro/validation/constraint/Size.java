@@ -33,9 +33,11 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * The annotated element must have the expected list size.
  *
  * @author nedis
- * @link https://rxmicro.io
- * @see SizeConstraintValidator
  * @since 0.1
+ * @see MinSize
+ * @see MaxSize
+ * @see UniqueItems
+ * @see SizeConstraintValidator
  */
 @Documented
 @Retention(SOURCE)

@@ -28,7 +28,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 /**
  * Maps HTTP parameter extracted from HTTP body or HTTP query string to annotated class field.
  * <p>
- * The RxMicro framework uses the following algorithm to define the HTTP parameter name for the specified model field:
+ * <h4>The RxMicro framework uses the following algorithm to define the HTTP parameter name for the specified model field:</h4>
  * <ul>
  *     <li>
  *         If the field is annotated by the {@link Parameter} annotation with an explicit indication of the HTTP parameter name,
@@ -48,7 +48,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  *     </li>
  * </ul>
  * <p>
- * The RxMicro framework supports the following Java types, which can be HTTP request model parameters:
+ * <h4>The RxMicro framework supports the following Java types, which can be HTTP request model parameters:</h4>
  * <ul>
  *     <li>? extends {@link Enum}&lt;?&gt</li>
  *     <li>{@link Boolean}</li>
@@ -73,8 +73,11 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * handle both GET (parameters are transferred in the start line) and POST (parameters are transferred in the HTTP body) request.
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
+ * @see AddQueryParameter
+ * @see SetQueryParameter
+ * @see RepeatQueryParameter
+ * @see ParameterMappingStrategy
  */
 @Documented
 @Retention(SOURCE)

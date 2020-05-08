@@ -30,7 +30,6 @@ import static io.rxmicro.common.util.ExCollections.unmodifiableMap;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class JsonReader {
@@ -78,7 +77,7 @@ public final class JsonReader {
             if (ch == '}') {
                 return unmodifiableMap(result);
             } else if (ch != '"') {
-                throw new JsonException("Expected '\"'. Index=" + iterator.getIndex());
+                throw new JsonException("Expected '\"'. Index=?", iterator.getIndex());
             }
             final String propertyName = readString(iterator, false);
             gotoStartValueToken(propertyName, iterator);
@@ -99,7 +98,7 @@ public final class JsonReader {
             if (ch == '}') {
                 return unmodifiableMap(result);
             } else if (ch != ',') {
-                throw new JsonException("Expected ','. Index=" + iterator.getIndex());
+                throw new JsonException("Expected ','. Index=?", iterator.getIndex());
             }
         }
     }
@@ -128,7 +127,7 @@ public final class JsonReader {
             if (ch == ']') {
                 return unmodifiableList(list);
             } else if (ch != ',') {
-                throw new JsonException("Expected ','. Index=" + iterator.getIndex());
+                throw new JsonException("Expected ','. Index=?", iterator.getIndex());
             }
         }
     }
@@ -183,13 +182,13 @@ public final class JsonReader {
                                             final StringIterator iterator) {
         char ch = getNextSignificantCharacter(iterator);
         if (ch != ':') {
-            throw new JsonException("Expected ':'. Index=" + iterator.getIndex());
+            throw new JsonException("Expected ':'. Index=?", iterator.getIndex());
         }
         ch = getNextSignificantCharacter(iterator);
         if (ch != 0) {
             iterator.previous();
         } else {
-            throw new JsonException("Expected value for property: " + name);
+            throw new JsonException("Expected value for property: ?", name);
         }
     }
 

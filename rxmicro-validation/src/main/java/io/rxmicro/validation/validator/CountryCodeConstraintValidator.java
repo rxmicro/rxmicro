@@ -33,9 +33,8 @@ import static java.util.Optional.ofNullable;
  * Validator for the {@link CountryCode} constraint
  *
  * @author nedis
- * @link https://rxmicro.io
- * @see CountryCode
  * @since 0.1
+ * @see CountryCode
  */
 public final class CountryCodeConstraintValidator implements ConstraintValidator<String> {
 
@@ -64,7 +63,6 @@ public final class CountryCodeConstraintValidator implements ConstraintValidator
 
     /**
      * @author nedis
-     * @link https://rxmicro.io
      * @since 0.1
      */
     private static final class Alpha2ConstraintValidator extends AbstractCompositionConstraintValidator<String> {
@@ -79,7 +77,6 @@ public final class CountryCodeConstraintValidator implements ConstraintValidator
 
     /**
      * @author nedis
-     * @link https://rxmicro.io
      * @since 0.1
      */
     private static final class Alpha3ConstraintValidator extends AbstractCompositionConstraintValidator<String> {
@@ -94,7 +91,6 @@ public final class CountryCodeConstraintValidator implements ConstraintValidator
 
     /**
      * @author nedis
-     * @link https://rxmicro.io
      * @since 0.1
      */
     private static final class NumericConstraintValidator extends AbstractCompositionConstraintValidator<String> {

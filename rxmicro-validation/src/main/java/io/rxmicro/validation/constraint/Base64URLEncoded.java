@@ -16,6 +16,7 @@
 
 package io.rxmicro.validation.constraint;
 
+import io.rxmicro.common.ImpossibleException;
 import io.rxmicro.common.meta.ReadMore;
 import io.rxmicro.validation.base.ConstraintRule;
 import io.rxmicro.validation.internal.SelfDocumented;
@@ -34,9 +35,11 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * The annotated element must be a valid Base64 string.
  *
  * @author nedis
- * @link https://rxmicro.io
- * @see Base64URLEncodedConstraintValidator
  * @since 0.1
+ * @see URLEncoded
+ * @see URI
+ * @see Base64URLEncodedConstraintValidator
+ * @see java.util.Base64
  */
 @Documented
 @Retention(SOURCE)
@@ -75,7 +78,6 @@ public @interface Base64URLEncoded {
      * Validation alphabet
      *
      * @author nedis
-     * @link https://rxmicro.io
      * @since 0.1
      */
     enum Alphabet {
@@ -99,8 +101,8 @@ public @interface Base64URLEncoded {
         public ReadMore getReadMore() {
             try {
                 return getClass().getDeclaredField(name()).getAnnotation(ReadMore.class);
-            } catch (NoSuchFieldException e) {
-                throw new IllegalStateException(e);
+            } catch (final NoSuchFieldException e) {
+                throw new ImpossibleException(e, "ReadMore must be present");
             }
         }
     }

@@ -28,7 +28,6 @@ import static java.util.Collections.unmodifiableSortedSet;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class SortedOperatorMapBuilder {

@@ -22,7 +22,6 @@ import java.util.Set;
  * Constraint utility class
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.4
  */
 public final class ConstraintUtils {

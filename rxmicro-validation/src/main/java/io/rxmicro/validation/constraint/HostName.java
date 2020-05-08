@@ -34,9 +34,9 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * The annotated element must be a valid hostname.
  *
  * @author nedis
- * @link https://rxmicro.io
- * @see HostNameConstraintValidator
  * @since 0.1
+ * @see DomainName
+ * @see HostNameConstraintValidator
  */
 @Documented
 @Retention(SOURCE)

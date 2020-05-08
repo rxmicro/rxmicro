@@ -27,7 +27,6 @@ import java.util.stream.Stream;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class BeforeIterationMethodArgumentsProvider

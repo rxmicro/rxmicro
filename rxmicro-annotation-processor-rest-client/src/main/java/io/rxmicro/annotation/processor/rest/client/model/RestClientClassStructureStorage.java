@@ -38,7 +38,6 @@ import static java.util.stream.Collectors.toMap;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class RestClientClassStructureStorage {
@@ -128,7 +127,6 @@ public final class RestClientClassStructureStorage {
 
     /**
      * @author nedis
-     * @link https://rxmicro.io
      * @since 0.1
      */
     @SuppressWarnings("UnusedReturnValue")

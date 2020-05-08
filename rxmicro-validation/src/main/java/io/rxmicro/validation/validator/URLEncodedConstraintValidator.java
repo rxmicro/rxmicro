@@ -24,9 +24,8 @@ import io.rxmicro.validation.ConstraintValidator;
  * Validator for the {@link io.rxmicro.validation.constraint.URLEncoded} constraint
  *
  * @author nedis
- * @link https://rxmicro.io
- * @see io.rxmicro.validation.constraint.URLEncoded
  * @since 0.1
+ * @see io.rxmicro.validation.constraint.URLEncoded
  */
 public class URLEncodedConstraintValidator implements ConstraintValidator<String> {
 

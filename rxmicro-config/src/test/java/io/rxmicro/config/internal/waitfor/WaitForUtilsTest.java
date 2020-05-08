@@ -27,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
+ *
  * @since 0.3
  */
 final class WaitForUtilsTest {

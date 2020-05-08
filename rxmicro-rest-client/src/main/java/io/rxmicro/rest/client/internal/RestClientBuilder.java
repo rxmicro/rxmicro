@@ -31,7 +31,6 @@ import static io.rxmicro.runtime.local.Instances.getImplementation;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class RestClientBuilder {

@@ -30,7 +30,6 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  */
 @Documented
 @Retention(SOURCE)

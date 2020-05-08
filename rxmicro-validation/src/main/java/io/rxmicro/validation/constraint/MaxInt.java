@@ -36,12 +36,13 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * whose value must be lower or equal to the specified maximum.
  *
  * @author nedis
- * @link https://rxmicro.io
+ * @since 0.1
+ * @see MaxDouble
+ * @see MaxNumber
  * @see MaxByteConstraintValidator
  * @see MaxShortConstraintValidator
  * @see MaxIntConstraintValidator
  * @see MaxLongConstraintValidator
- * @since 0.1
  */
 @Documented
 @Retention(SOURCE)

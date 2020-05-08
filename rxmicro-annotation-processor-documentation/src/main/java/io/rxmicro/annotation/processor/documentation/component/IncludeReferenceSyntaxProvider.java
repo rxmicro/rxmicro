@@ -18,7 +18,6 @@ package io.rxmicro.annotation.processor.documentation.component;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public interface IncludeReferenceSyntaxProvider {

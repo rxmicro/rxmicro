@@ -29,7 +29,6 @@ import java.util.Set;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public interface ResponsesBuilder {

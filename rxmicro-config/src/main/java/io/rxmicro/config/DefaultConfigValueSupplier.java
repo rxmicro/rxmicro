@@ -42,8 +42,11 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * If it is necessary to override a simple value, {@link DefaultConfigValue} annotation must be used instead.
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.3
+ * @see DefaultConfigValue
+ * @see Config
+ * @see Configs#getConfig(String, Class)
+ * @see Configs#getConfig(Class)
  */
 @Documented
 @Retention(SOURCE)
@@ -85,7 +88,6 @@ public @interface DefaultConfigValueSupplier {
      * Defines several {@link DefaultConfigValueSupplier} annotations on the same element.
      *
      * @author nedis
-     * @link https://rxmicro.io
      * @since 0.3
      */
     @Documented

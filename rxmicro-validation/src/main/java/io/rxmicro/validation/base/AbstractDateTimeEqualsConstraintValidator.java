@@ -20,7 +20,6 @@ package io.rxmicro.validation.base;
  * Base validator class for date and time constraints
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public class AbstractDateTimeEqualsConstraintValidator {

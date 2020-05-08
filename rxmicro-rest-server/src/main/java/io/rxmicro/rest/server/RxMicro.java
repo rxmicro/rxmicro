@@ -32,8 +32,8 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 
 /**
  * Utility class that helps to start a HTTP server with REST controllers.
- * <p><br><p>
- * To run netty successfully it is necessary to add the following arguments:
+ *
+ * <h4>To run netty successfully it is necessary to add the following arguments:</h4>
  * <ul>
  *     <li>{@code --add-opens=java.base/jdk.internal.misc=io.netty.common}</li>
  *     <li>{@code --add-opens=java.base/java.nio=io.netty.common}</li>
@@ -41,7 +41,6 @@ import static java.nio.charset.StandardCharsets.UTF_8;
  * </ul>
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class RxMicro {
@@ -281,7 +280,6 @@ public final class RxMicro {
      * For exit commands waiter
      *
      * @author nedis
-     * @link https://rxmicro.io
      * @since 0.1
      */
     private static final class ForExitCommandWaiter {

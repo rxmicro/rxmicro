@@ -16,10 +16,6 @@
 
 package io.rxmicro.examples.cdi.all.rxmicro.components.component;
 
-/**
- * @author nedis
- * @link https://rxmicro.io
- */
 @io.rxmicro.data.mongo.MongoRepository(collection = "test")
 public interface MongoRepository {
 }

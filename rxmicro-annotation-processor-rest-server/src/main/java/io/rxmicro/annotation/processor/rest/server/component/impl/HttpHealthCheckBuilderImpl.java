@@ -31,7 +31,6 @@ import static io.rxmicro.monitoring.healthcheck.EnableHttpHealthCheck.HTTP_HEALT
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 @Singleton

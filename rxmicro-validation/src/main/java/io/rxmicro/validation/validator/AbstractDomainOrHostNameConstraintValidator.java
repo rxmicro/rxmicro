@@ -32,7 +32,6 @@ import static java.util.stream.Collectors.toUnmodifiableSet;
  * constraints
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.4
  */
 public abstract class AbstractDomainOrHostNameConstraintValidator implements ConstraintValidator<String> {

@@ -26,7 +26,6 @@ import static io.rxmicro.logger.Constants.LOGGER_VARIABLE_PREFIX;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 final class ConfigCustomizer {

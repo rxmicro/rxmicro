@@ -29,10 +29,11 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * Denotes a repository method that must execute a {@code DELETE} SQL operation
  *
  * @author nedis
- * @link https://rxmicro.io
- * @link https://www.postgresql.org/docs/12/sql-delete.html
- * @see io.rxmicro.data.sql.SupportedVariables
  * @since 0.1
+ * @see io.rxmicro.data.sql.SupportedVariables
+ * @see Insert
+ * @see Select
+ * @see Update
  */
 @Documented
 @Retention(SOURCE)

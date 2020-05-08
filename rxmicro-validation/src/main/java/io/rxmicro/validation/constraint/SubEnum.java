@@ -33,9 +33,10 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * The annotated element must be an enumeration with predefined sub sequence.
  *
  * @author nedis
- * @link https://rxmicro.io
- * @see SubEnumConstraintValidator
  * @since 0.1
+ * @see Enumeration
+ * @see Enum
+ * @see SubEnumConstraintValidator
  */
 @Documented
 @Retention(SOURCE)

@@ -22,12 +22,15 @@ import io.rxmicro.validation.ConstraintValidator;
 
 /**
  * Validator for the {@link io.rxmicro.validation.constraint.Phone} constraint
+ * <p>
+ * Read more:
+ * <a href="https://en.wikipedia.org/wiki/National_conventions_for_writing_telephone_numbers">
+ *     https://en.wikipedia.org/wiki/National_conventions_for_writing_telephone_numbers
+ * </a>
  *
  * @author nedis
- * @link https://rxmicro.io
- * @link https://en.wikipedia.org/wiki/National_conventions_for_writing_telephone_numbers
- * @see io.rxmicro.validation.constraint.Phone
  * @since 0.1
+ * @see io.rxmicro.validation.constraint.Phone
  */
 public class PhoneConstraintValidator implements ConstraintValidator<String> {
 

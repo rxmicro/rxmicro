@@ -42,7 +42,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
+ *
  * @since 0.3
  */
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
@@ -129,7 +129,7 @@ public final class Configs_IntegrationTest {
 
     /**
      * @author nedis
-     * @link https://rxmicro.io
+     *
      * @since 0.3
      */
     @SuppressWarnings("unused")

@@ -31,7 +31,6 @@ import static io.rxmicro.annotation.processor.data.sql.util.SQLs.joinTokensToSQL
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 @Singleton

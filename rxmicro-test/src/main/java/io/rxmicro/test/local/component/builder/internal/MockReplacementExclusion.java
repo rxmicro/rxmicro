@@ -22,7 +22,6 @@ import static io.rxmicro.test.local.util.Mocks.isMock;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class MockReplacementExclusion implements ReplacementExclusion {

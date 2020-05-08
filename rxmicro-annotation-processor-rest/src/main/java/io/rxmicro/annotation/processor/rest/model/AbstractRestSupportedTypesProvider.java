@@ -29,7 +29,6 @@ import java.time.Instant;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public abstract class AbstractRestSupportedTypesProvider extends SupportedTypesProvider {

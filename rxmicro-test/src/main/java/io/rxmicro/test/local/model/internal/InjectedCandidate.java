@@ -23,7 +23,6 @@ import static io.rxmicro.test.local.util.FieldNames.getHumanReadableFieldName;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class InjectedCandidate {

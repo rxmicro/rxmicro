@@ -35,9 +35,6 @@ import java.util.Map;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
- * @link https://docs.mongodb.com/manual/reference/bson-types/
- * @link https://docs.mongodb.com/manual/reference/method/db.collection.estimatedDocumentCount/
  * @since 0.1
  */
 @Singleton

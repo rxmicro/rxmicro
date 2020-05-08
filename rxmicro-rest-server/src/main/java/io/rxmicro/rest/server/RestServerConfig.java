@@ -29,8 +29,8 @@ import static io.rxmicro.common.util.Requires.require;
  * Allows to configure a REST server options.
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
+ * @see RequestIdGeneratorType
  */
 @SuppressWarnings("UnusedReturnValue")
 public class RestServerConfig extends Config {

@@ -47,9 +47,6 @@ import static java.util.stream.Collectors.toList;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
- * @link https://docs.mongodb.com/manual/reference/bson-types/
- * @link https://docs.mongodb.com/manual/reference/method/db.collection.aggregate/
  * @since 0.1
  */
 @Singleton

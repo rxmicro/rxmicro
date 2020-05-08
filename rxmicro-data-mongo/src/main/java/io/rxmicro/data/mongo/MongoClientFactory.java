@@ -30,8 +30,9 @@ import static io.rxmicro.runtime.local.InstanceContainer.getSingleton;
  * This utility class allows using additional features that {@link MongoClient} is provided.
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
+ * @see MongoConfig
+ * @see MongoRepository
  */
 public final class MongoClientFactory {
 

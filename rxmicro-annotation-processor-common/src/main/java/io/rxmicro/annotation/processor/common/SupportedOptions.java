@@ -20,10 +20,9 @@ import io.rxmicro.annotation.processor.common.component.impl.AbstractProcessorCo
 import io.rxmicro.annotation.processor.common.model.DocumentationType;
 
 /**
- * Supported options by RxMicro Annotation Processor
+ * Supported options by {@code RxMicro Annotation Processor}
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class SupportedOptions {
@@ -39,7 +38,7 @@ public final class SupportedOptions {
     public static final int RX_MICRO_MAX_JSON_NESTED_DEPTH_OPTION_DEFAULT_VALUE = 20;
 
     /**
-     * RxMicro Annotation Processor logging level.
+     * {@code RxMicro Annotation Processor} logging level.
      *
      * OFF
      * INFO

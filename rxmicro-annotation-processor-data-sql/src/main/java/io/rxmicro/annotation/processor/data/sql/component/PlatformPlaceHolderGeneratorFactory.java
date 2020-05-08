@@ -20,7 +20,6 @@ import io.rxmicro.annotation.processor.data.sql.model.PlatformPlaceHolderGenerat
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public interface PlatformPlaceHolderGeneratorFactory {

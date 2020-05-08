@@ -22,7 +22,6 @@ import java.util.Collection;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public interface TypeDefinitions<T extends TypeDefinition> {

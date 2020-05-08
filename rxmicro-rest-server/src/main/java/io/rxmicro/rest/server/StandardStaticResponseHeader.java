@@ -27,7 +27,6 @@ import static io.rxmicro.rest.server.internal.StandardResponseHeaderValueSupplie
  * Standard static HTTP headers
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public enum StandardStaticResponseHeader implements StaticResponseHeader {

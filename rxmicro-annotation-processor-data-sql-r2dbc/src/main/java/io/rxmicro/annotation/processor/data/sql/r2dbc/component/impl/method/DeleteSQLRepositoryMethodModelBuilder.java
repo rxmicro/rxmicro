@@ -38,7 +38,6 @@ import static io.rxmicro.data.sql.operation.Delete.DEFAULT_DELETE;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 @Singleton

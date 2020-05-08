@@ -29,7 +29,6 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * Allows configuring the repository generation process.
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 @Documented

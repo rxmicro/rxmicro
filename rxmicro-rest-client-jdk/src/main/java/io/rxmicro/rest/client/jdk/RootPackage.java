@@ -22,8 +22,6 @@ package io.rxmicro.rest.client.jdk;
  * This feature is a workaround and used by the RxMicro Annotation Processor for projects which don't support the JPMS.
  *
  * @author nedis
- * @link https://rxmicro.io
- * @link https://www.oracle.com/corporate/features/understanding-java-9-modules.html
  * @since 0.2
  */
 @SuppressWarnings("unused")

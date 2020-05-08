@@ -55,7 +55,7 @@ import static org.mockito.Mockito.when;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
+ *
  * @since 0.1
  */
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
@@ -209,7 +209,7 @@ final class BaseRestControllerMethod_HttpCallFailedException_IntegrationTest ext
 
     /**
      * @author nedis
-     * @link https://rxmicro.io
+     *
      */
     private static class ThrowServerErrorHttpCallFailedExceptionWithBodyArgumentsProvider implements ArgumentsProvider {
 
@@ -240,7 +240,7 @@ final class BaseRestControllerMethod_HttpCallFailedException_IntegrationTest ext
 
     /**
      * @author nedis
-     * @link https://rxmicro.io
+     *
      */
     private static class ThrowServerErrorHttpCallFailedExceptionWithoutBodyArgumentsProvider implements ArgumentsProvider {
 
@@ -270,7 +270,7 @@ final class BaseRestControllerMethod_HttpCallFailedException_IntegrationTest ext
 
     /**
      * @author nedis
-     * @link https://rxmicro.io
+     *
      */
     private static class ThrowClientErrorHttpCallFailedExceptionWithBodyArgumentsProvider implements ArgumentsProvider {
 

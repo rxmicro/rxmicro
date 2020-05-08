@@ -30,9 +30,21 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * Read more: <a href="https://asciidoctor.org/docs/user-manual/#attributes">https://asciidoctor.org/docs/user-manual/#attributes</a>
  *
  * @author nedis
- * @link https://rxmicro.io
- * @link https://asciidoctor.org/docs/user-manual/#attributes
  * @since 0.1
+ * @see io.rxmicro.documentation.Author
+ * @see io.rxmicro.documentation.BaseEndpoint
+ * @see io.rxmicro.documentation.Description
+ * @see io.rxmicro.documentation.DocumentationDefinition
+ * @see io.rxmicro.documentation.DocumentationVersion
+ * @see io.rxmicro.documentation.Example
+ * @see io.rxmicro.documentation.IncludeDescription
+ * @see io.rxmicro.documentation.IncludeMode
+ * @see io.rxmicro.documentation.License
+ * @see io.rxmicro.documentation.ModelExceptionErrorResponse
+ * @see io.rxmicro.documentation.ResourceDefinition
+ * @see io.rxmicro.documentation.ResourceGroupDefinition
+ * @see io.rxmicro.documentation.SimpleErrorResponse
+ * @see io.rxmicro.documentation.Title
  */
 @Documented
 @Retention(SOURCE)

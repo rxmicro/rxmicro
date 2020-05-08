@@ -30,7 +30,6 @@ import java.util.UUID;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.2
  */
 public class CustomBinaryCodec extends BinaryCodec {
@@ -55,7 +54,6 @@ public class CustomBinaryCodec extends BinaryCodec {
 
     /**
      * @author nedis
-     * @link https://rxmicro.io
      * @since 0.2
      */
     public static final class UUIDBinary extends Binary {

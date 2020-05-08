@@ -34,12 +34,16 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
  * The annotated element must be a valid latitude coordinate.
+ * <p>
+ * Read more:
+ * <a href="https://en.wikipedia.org/wiki/Geographic_coordinate_system">
+ *     https://en.wikipedia.org/wiki/Geographic_coordinate_system
+ * </a>
  *
  * @author nedis
- * @link https://rxmicro.io
- * @link https://en.wikipedia.org/wiki/Geographic_coordinate_system
- * @see LatConstraintValidator
  * @since 0.1
+ * @see Lng
+ * @see LatConstraintValidator
  */
 @Documented
 @Retention(SOURCE)

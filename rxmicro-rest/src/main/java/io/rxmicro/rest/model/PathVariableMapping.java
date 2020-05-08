@@ -26,8 +26,8 @@ import static io.rxmicro.common.util.Formats.format;
  * Instance of this class contains path variable names and values for HTTP request handlers that supports path variables.
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
+ * @see io.rxmicro.rest.PathVariable
  */
 public final class PathVariableMapping {
 

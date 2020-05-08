@@ -29,61 +29,63 @@ import static java.lang.Character.toUpperCase;
 import static java.util.Collections.unmodifiableList;
 
 /**
- * TODO
+ * Extended {@link String} utils
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
+ * @see String
  */
 public final class Strings {
 
     private static final int HEX_CODE_LENGTH = 4;
 
     /**
-     * TODO
+     * Capitalizes the specified string
      *
-     * @param message
-     * @return
+     * @param string the specified string
+     * @return the capitalized string
      */
-    public static String capitalize(final String message) {
-        if (message.length() > 1) {
-            if (isUpperCase(message.charAt(0))) {
-                return message;
+    public static String capitalize(final String string) {
+        if (string.length() > 1) {
+            if (isUpperCase(string.charAt(0))) {
+                return string;
             } else {
-                return toUpperCase(message.charAt(0)) + message.substring(1);
+                return toUpperCase(string.charAt(0)) + string.substring(1);
             }
-        } else if (message.length() == 1) {
-            return message.toUpperCase(Locale.ENGLISH);
+        } else if (string.length() == 1) {
+            return string.toUpperCase(Locale.ENGLISH);
         } else {
-            return message;
+            return string;
         }
     }
 
     /**
-     * TODO
+     * Uncapitalizes the specified string
      *
-     * @param message
-     * @return
+     * @param string the specified string
+     * @return the uncapitalized string
      */
-    public static String unCapitalize(final String message) {
-        if (message.length() > 1) {
-            if (isLowerCase(message.charAt(0))) {
-                return message;
+    public static String unCapitalize(final String string) {
+        if (string.length() > 1) {
+            if (isLowerCase(string.charAt(0))) {
+                return string;
             } else {
-                return toLowerCase(message.charAt(0)) + message.substring(1);
+                return toLowerCase(string.charAt(0)) + string.substring(1);
             }
-        } else if (message.length() == 1) {
-            return message.toLowerCase(Locale.ENGLISH);
+        } else if (string.length() == 1) {
+            return string.toLowerCase(Locale.ENGLISH);
         } else {
-            return message;
+            return string;
         }
     }
 
     /**
-     * TODO
+     * Splits the specified variable name on words.
+     * <p>
+     * This method uses <a href="https://en.wikipedia.org/wiki/Camel_case"> Camel case notation</a> for defining the word delimiter.
      *
-     * @param variableName
-     * @return
+     * @param variableName the specified variable name
+     * @return the word list extracted from the specified variable name
      */
     public static List<String> splitByCamelCase(final String variableName) {
         final List<String> list = new ArrayList<>();
@@ -102,12 +104,6 @@ public final class Strings {
         return collectAbbreviation(list);
     }
 
-    /**
-     * TODO
-     *
-     * @param list
-     * @return
-     */
     private static List<String> collectAbbreviation(final List<String> list) {
         final List<String> result = new ArrayList<>();
         final Iterator<String> iterator = list.iterator();
@@ -132,11 +128,12 @@ public final class Strings {
     }
 
     /**
-     * TODO
+     * Splits the specified {@code source} by the provided {@code delimiter}
      *
-     * @param source
-     * @param delimiter
-     * @return
+     * @param source the specified string source
+     * @param delimiter the specified delimiter string
+     * @return the token list
+     * @see StringTokenizer
      */
     public static List<String> split(final String source,
                                      final String delimiter) {
@@ -153,10 +150,10 @@ public final class Strings {
     }
 
     /**
-     * TODO
+     * Replaces the unread characters by its readable codes
      *
-     * @param original
-     * @return
+     * @param original the original string
+     * @return the escaped string based on the original string
      */
     public static String escapeString(final String original) {
         final StringBuilder resultBuilder = new StringBuilder();
@@ -165,10 +162,11 @@ public final class Strings {
     }
 
     /**
-     * TODO
+     * Replaces the unread characters by its readable codes
      *
-     * @param resultBuilder
-     * @param original
+     * @param resultBuilder the result string builder
+     * @param original the original string
+     * @see StringBuilder
      */
     public static void escapeString(final StringBuilder resultBuilder,
                                     final String original) {
@@ -199,13 +197,15 @@ public final class Strings {
     }
 
     /**
-     * TODO
+     * More effective version of {@link String#startsWith(String)} method if the {@code prefix} is one character
      *
-     * @param string
-     * @param prefix
-     * @return
+     * @param string the tested string
+     * @param prefix the prefix
+     * @return {@code true} if the tested string is not empty and starts with the prefix character
+     * @see String#startsWith(String)
      */
-    public static boolean startsWith(final String string, final char prefix) {
+    public static boolean startsWith(final String string,
+                                     final char prefix) {
         return !string.isEmpty() && string.charAt(0) == prefix;
     }
 

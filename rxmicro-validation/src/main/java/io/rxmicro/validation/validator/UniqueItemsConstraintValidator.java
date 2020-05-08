@@ -28,9 +28,8 @@ import java.util.Set;
  * Validator for the {@link io.rxmicro.validation.constraint.UniqueItems} constraint
  *
  * @author nedis
- * @link https://rxmicro.io
- * @see io.rxmicro.validation.constraint.UniqueItems
  * @since 0.1
+ * @see io.rxmicro.validation.constraint.UniqueItems
  */
 public final class UniqueItemsConstraintValidator extends AbstractListConstraintValidator {
 

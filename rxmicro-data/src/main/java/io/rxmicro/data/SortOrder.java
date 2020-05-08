@@ -22,8 +22,9 @@ import io.rxmicro.model.NotStandardSerializableEnum;
  * Sort option for queries.
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
+ * @see Pageable
+ * @see RepeatParameter
  */
 public enum SortOrder implements NotStandardSerializableEnum {
 

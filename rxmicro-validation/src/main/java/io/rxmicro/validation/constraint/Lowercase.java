@@ -32,9 +32,9 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * The annotated element must a lowercase string.
  *
  * @author nedis
- * @link https://rxmicro.io
- * @see LowercaseConstraintValidator
  * @since 0.1
+ * @see Uppercase
+ * @see LowercaseConstraintValidator
  */
 @Documented
 @Retention(SOURCE)

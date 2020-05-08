@@ -27,7 +27,6 @@ import static io.rxmicro.http.HttpHeaders.EMPTY_HEADERS;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public abstract class AbstractHttpResponseMock {

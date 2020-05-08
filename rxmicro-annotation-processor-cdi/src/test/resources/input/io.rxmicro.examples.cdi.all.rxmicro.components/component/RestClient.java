@@ -16,10 +16,6 @@
 
 package io.rxmicro.examples.cdi.all.rxmicro.components.component;
 
-/**
- * @author nedis
- * @link https://rxmicro.io
- */
 @io.rxmicro.rest.client.RestClient
 public interface RestClient {
 }

@@ -30,7 +30,6 @@ import static io.rxmicro.annotation.processor.common.util.Annotations.getReadMor
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class BooleanPrimitiveConstraintReader implements ConstraintReader {

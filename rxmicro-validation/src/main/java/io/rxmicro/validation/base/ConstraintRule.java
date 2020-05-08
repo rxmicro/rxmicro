@@ -29,7 +29,6 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * Use this annotation to define custom validator
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 @Documented

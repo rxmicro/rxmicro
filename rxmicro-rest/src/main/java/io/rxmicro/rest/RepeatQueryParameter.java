@@ -28,11 +28,11 @@ import static java.lang.annotation.ElementType.PARAMETER;
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
- * Informs the RxMicro Annotation Processor,
+ * Informs the {@code RxMicro Annotation Processor},
  * that a query parameter model field with array type must be converted to the repeating query parameter.
  * <p>
- * By default, the RxMicro framework converts header model value as string, separated by the | symbol
- * (See {@link io.rxmicro.http.HttpValues#STRING_ARRAY_DELIMITER}), for example:
+ * By default, the RxMicro framework converts header model value as string, separated by the
+ * {@value io.rxmicro.http.HttpValues#STRING_ARRAY_DELIMITER} symbol. For example:
  * <p>
  * {@code ...&amp;queryParameterName=value1|value2|value3&amp;...}
  * <p>
@@ -43,9 +43,12 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * Supported for REST client HTTP request model only!
  *
  * @author nedis
- * @link https://rxmicro.io
- * @see io.rxmicro.http.HttpValues
  * @since 0.1
+ * @see io.rxmicro.http.HttpValues
+ * @see AddQueryParameter
+ * @see SetQueryParameter
+ * @see Parameter
+ * @see ParameterMappingStrategy
  */
 @Documented
 @Retention(SOURCE)

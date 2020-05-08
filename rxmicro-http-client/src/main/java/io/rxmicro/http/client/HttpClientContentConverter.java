@@ -22,7 +22,6 @@ import java.util.function.Function;
  * Basic interface for low-level converting of HTTP body for HTTP client
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public interface HttpClientContentConverter {

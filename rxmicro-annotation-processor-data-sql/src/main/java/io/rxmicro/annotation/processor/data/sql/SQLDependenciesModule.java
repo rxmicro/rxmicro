@@ -26,7 +26,6 @@ import io.rxmicro.annotation.processor.data.sql.component.impl.TransactionResolv
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class SQLDependenciesModule extends AbstractModule {

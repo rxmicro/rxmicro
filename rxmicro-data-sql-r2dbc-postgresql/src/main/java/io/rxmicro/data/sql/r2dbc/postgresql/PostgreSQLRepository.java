@@ -27,8 +27,11 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * Denotes that an interface is a dynamic generated PostgreSQL data repository.
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
+ * @see io.rxmicro.data.DataRepositoryGeneratorConfig
+ * @see io.rxmicro.data.RepositoryFactory
+ * @see PostgreSQLConfig
+ * @see PostgreSQLClientFactory
  */
 @Documented
 @Retention(SOURCE)

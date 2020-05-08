@@ -22,7 +22,6 @@ import io.rxmicro.annotation.processor.data.model.DataRepositoryMethodSignature;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public class SQLDataRepositoryMethod extends DataRepositoryMethod {

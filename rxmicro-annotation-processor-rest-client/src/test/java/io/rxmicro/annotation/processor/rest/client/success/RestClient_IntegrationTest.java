@@ -32,7 +32,7 @@ import static io.rxmicro.annotation.processor.integration.test.ExternalModule.EX
 
 /**
  * @author nedis
- * @link https://rxmicro.io
+ *
  */
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 final class RestClient_IntegrationTest extends AbstractRestClientAnnotationProcessorIntegrationTest {

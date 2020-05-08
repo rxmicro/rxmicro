@@ -20,8 +20,19 @@ package io.rxmicro.documentation;
  * Represents an include mode for external documentation resources
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
+ * @see Author
+ * @see BaseEndpoint
+ * @see Constants
+ * @see Description
+ * @see DocumentationDefinition
+ * @see DocumentationVersion
+ * @see IncludeDescription
+ * @see IntroductionDefinition
+ * @see License
+ * @see ResourceDefinition
+ * @see ResourceGroupDefinition
+ * @see Title
  */
 public enum IncludeMode {
 

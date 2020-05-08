@@ -30,7 +30,6 @@ import static java.util.concurrent.CompletableFuture.completedStage;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public abstract class BaseRestControllerMethod {

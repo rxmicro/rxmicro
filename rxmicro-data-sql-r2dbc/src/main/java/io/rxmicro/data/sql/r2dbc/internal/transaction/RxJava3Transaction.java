@@ -27,7 +27,6 @@ import static io.reactivex.rxjava3.core.Completable.fromPublisher;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class RxJava3Transaction extends AbstractTransaction implements Transaction {

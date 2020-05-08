@@ -42,7 +42,6 @@ import static io.rxmicro.documentation.DocumentationDefinition.GenerationOutput.
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 @Singleton

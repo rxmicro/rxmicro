@@ -33,8 +33,6 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * </a>
  *
  * @author nedis
- * @link https://rxmicro.io
- * @link https://docs.mongodb.com/manual/core/document/#field-names
  * @since 0.1
  */
 @Documented

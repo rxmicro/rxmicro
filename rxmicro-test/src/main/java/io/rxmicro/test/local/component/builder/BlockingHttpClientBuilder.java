@@ -22,7 +22,6 @@ import io.rxmicro.test.local.BlockingHttpClientImpl;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class BlockingHttpClientBuilder {

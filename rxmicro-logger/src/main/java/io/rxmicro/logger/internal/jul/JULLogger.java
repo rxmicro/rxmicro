@@ -22,9 +22,10 @@ import io.rxmicro.logger.impl.AbstractLogger;
 import static io.rxmicro.logger.internal.jul.LevelMappings.LEVEL_MAPPING;
 
 /**
+ * Read more:
+ * https://docs.oracle.com/en/java/javase/11/docs/api/java.logging/java/util/logging/package-summary.html
+ *
  * @author nedis
- * @link https://rxmicro.io
- * @link https://docs.oracle.com/en/java/javase/11/docs/api/java.logging/java/util/logging/package-summary.html
  * @since 0.1
  */
 final class JULLogger extends AbstractLogger {

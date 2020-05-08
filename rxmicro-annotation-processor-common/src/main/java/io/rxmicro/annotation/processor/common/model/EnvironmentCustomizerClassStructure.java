@@ -30,7 +30,6 @@ import static io.rxmicro.runtime.detail.Runtimes.ENTRY_POINT_PACKAGE;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class EnvironmentCustomizerClassStructure extends ClassStructure {

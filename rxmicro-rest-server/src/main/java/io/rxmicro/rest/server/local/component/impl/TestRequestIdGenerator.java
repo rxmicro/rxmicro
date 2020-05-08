@@ -25,7 +25,6 @@ import io.rxmicro.rest.server.local.component.RequestIdGenerator;
  * Returns predefined value: {@code TestRequestId}. See {@link TestRequestIdGenerator#TEST_REQUEST_ID}
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class TestRequestIdGenerator implements RequestIdGenerator {

@@ -34,11 +34,12 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * The annotated element must be a valid URL encoded value.
  *
  * @author nedis
- * @link https://rxmicro.io
+ * @since 0.1
+ * @see Base64URLEncoded
+ * @see URI
  * @see URLEncodedConstraintValidator
  * @see java.net.URLEncoder
  * @see java.net.URLDecoder
- * @since 0.1
  */
 @Documented
 @Retention(SOURCE)

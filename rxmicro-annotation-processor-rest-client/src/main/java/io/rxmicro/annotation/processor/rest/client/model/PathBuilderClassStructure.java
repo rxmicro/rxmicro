@@ -41,7 +41,6 @@ import static java.util.Map.entry;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class PathBuilderClassStructure extends ClassStructure {

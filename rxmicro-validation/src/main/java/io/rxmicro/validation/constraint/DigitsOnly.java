@@ -33,9 +33,8 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * The annotated element must be a string value with digit characters only.
  *
  * @author nedis
- * @link https://rxmicro.io
- * @see DigitsOnlyConstraintValidator
  * @since 0.1
+ * @see DigitsOnlyConstraintValidator
  */
 @Documented
 @Retention(SOURCE)

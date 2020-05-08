@@ -28,21 +28,21 @@ import static io.rxmicro.common.util.Requires.require;
 import static java.lang.System.lineSeparator;
 
 /**
- * TODO
+ * Format utility class
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
+@SuppressWarnings("JavaDoc")
 public final class Formats {
 
     /**
-     * TODO
+     * The universal format character placeholder: {@value #FORMAT_PLACEHOLDER_CHAR}
      */
     public static final char FORMAT_PLACEHOLDER_CHAR = '?';
 
     /**
-     * TODO
+     * The universal format string placeholder: {@value #FORMAT_PLACEHOLDER_CHAR}
      */
     public static final String FORMAT_PLACEHOLDER_TOKEN = String.valueOf(FORMAT_PLACEHOLDER_CHAR);
 
@@ -51,22 +51,33 @@ public final class Formats {
     private static final boolean IS_CURRENT_OS_WINDOWS = isCurrentOsWindows();
 
     /**
-     * Use '?' character as placeholder for argument.
+     * Formats the string template using specified arguments
      * <p>
-     * This method also replaces '\n' character by System.lineSeparator()
+     * Use {@value #FORMAT_PLACEHOLDER_CHAR} character as placeholder for argument.
+     * <p>
+     * <i>(This method also replaces '\n' character by {@link System#lineSeparator()}.)</i>
+     * <p>
+     * For example:
+     * <pre>
+     *     final Object[] args = {"Hello", "world!"};
+     *     System.out.println(Formats.format("? ?", "args));
+     * </pre>
+     * produces the following output:
+     * {@code Hello world!}
      *
-     * @param template string template
-     * @param args     arguments
-     * @return formatted string
-     * @throws NullPointerException if {@code template} is {@code null}
+     * @param messageTemplate   the message template
+     * @param args              the message template arguments
+     * @return the formatted string
+     * @throws NullPointerException if the string template is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    public static String format(final String template,
+    public static String format(final String messageTemplate,
                                 final Object... args) {
         if (args.length == 0) {
             if (IS_CURRENT_OS_WINDOWS) {
-                final StringBuilder sb = new StringBuilder(template.length());
-                for (int i = 0; i < template.length(); i++) {
-                    final char ch = template.charAt(i);
+                final StringBuilder sb = new StringBuilder(messageTemplate.length());
+                for (int i = 0; i < messageTemplate.length(); i++) {
+                    final char ch = messageTemplate.charAt(i);
                     if (ch == '\n') {
                         sb.append(LINE_SEPARATOR);
                     } else {
@@ -75,14 +86,14 @@ public final class Formats {
                 }
                 return sb.toString();
             } else {
-                return require(template);
+                return require(messageTemplate);
             }
         } else {
-            final StringBuilder sb = new StringBuilder(template.length() * 3 / 2);
+            final StringBuilder sb = new StringBuilder(messageTemplate.length() * 3 / 2);
             int index = 0;
             try {
-                for (int i = 0; i < template.length(); i++) {
-                    final char ch = template.charAt(i);
+                for (int i = 0; i < messageTemplate.length(); i++) {
+                    final char ch = messageTemplate.charAt(i);
                     if (ch == '\n') {
                         sb.append(LINE_SEPARATOR);
                     } else if (ch == FORMAT_PLACEHOLDER_CHAR) {
@@ -93,22 +104,22 @@ public final class Formats {
                 }
             } catch (final ArrayIndexOutOfBoundsException e) {
                 throw new IllegalArgumentException(
-                        "Redundant placeholder or missing argument: {{" + template + "}} with " + Arrays.toString(args));
+                        "Redundant placeholder or missing argument: {{" + messageTemplate + "}} with " + Arrays.toString(args));
             }
             if (index != args.length) {
                 throw new IllegalArgumentException(
-                        "Missing placeholder or redundant argument: {{" + template + "}} with " + Arrays.toString(args));
+                        "Missing placeholder or redundant argument: {{" + messageTemplate + "}} with " + Arrays.toString(args));
             }
             return sb.toString();
         }
     }
 
     /**
-     * TODO
+     * Formats the data size in bytes into the formatted human readable data size
      *
-     * @param size
-     * @param withOriginalValue
-     * @return
+     * @param size the data size in bytes
+     * @param withOriginalValue show or not original data size in bytes
+     * @return the formatted human readable data size
      */
     public static String formatSize(final long size,
                                     final boolean withOriginalValue) {
@@ -124,10 +135,10 @@ public final class Formats {
     }
 
     /**
-     * TODO
+     * Formats the data size in bytes into the formatted human readable data size and displays it with the original data size in bytes
      *
-     * @param size
-     * @return
+     * @param size the data size in bytes
+     * @return the formatted human readable data size
      */
     public static String formatSize(final long size) {
         return formatSize(size, true);
@@ -151,11 +162,12 @@ public final class Formats {
     }
 
     /**
-     * TODO
+     * Formats the specified {@link Duration} into the human readable format
      *
-     * @param duration
-     * @return
+     * @param duration the specified {@link Duration}
+     * @return the human readable format of the specified {@link Duration}
      * @since 0.3
+     * @see Duration
      */
     public static String format(final Duration duration) {
         if (duration.getSeconds() == 0) {

@@ -24,7 +24,6 @@ import java.util.Locale;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public abstract class ExampleValueConverter extends AbstractProcessorComponent {

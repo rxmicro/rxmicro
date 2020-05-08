@@ -18,7 +18,6 @@ package io.rxmicro.test.mockito.httpclient.internal;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class AnyValues {

@@ -33,9 +33,10 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * equal to the specified maximum.
  *
  * @author nedis
- * @link https://rxmicro.io
- * @see MaxLengthConstraintValidator
  * @since 0.1
+ * @see Length
+ * @see MinLength
+ * @see MaxLengthConstraintValidator
  */
 @Documented
 @Retention(SOURCE)

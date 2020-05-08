@@ -47,7 +47,6 @@ import static java.util.stream.Collectors.toList;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public abstract class AbstractModuleClassStructuresBuilder extends AbstractProcessorComponent {

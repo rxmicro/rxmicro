@@ -24,9 +24,8 @@ import io.rxmicro.validation.ConstraintValidator;
  * Validator for the {@link io.rxmicro.validation.constraint.Length} constraint
  *
  * @author nedis
- * @link https://rxmicro.io
- * @see io.rxmicro.validation.constraint.Length
  * @since 0.1
+ * @see io.rxmicro.validation.constraint.Length
  */
 public class LengthConstraintValidator implements ConstraintValidator<String> {
 

@@ -22,8 +22,11 @@ import io.rxmicro.model.NotStandardSerializableEnum;
  * Allows activating or disabling the index usage
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
+ * @see io.rxmicro.data.SortOrder
+ * @see io.rxmicro.data.Pageable
+ * @see io.rxmicro.data.RepeatParameter
+ * @see ProjectionType
  */
 public enum IndexUsage implements NotStandardSerializableEnum {
 

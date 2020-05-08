@@ -36,7 +36,6 @@ import static java.util.Map.entry;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.2
  */
 @SuppressWarnings("unchecked")
@@ -138,7 +137,6 @@ public class RxMicroMongoCodecRegistry implements CodecRegistry {
 
     /**
      * @author nedis
-     * @link https://rxmicro.io
      * @since 0.2
      */
     private final class NestedRxMicroMongoCodecRegistry implements CodecRegistry {

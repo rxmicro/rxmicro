@@ -55,7 +55,7 @@ import static org.mockito.Mockito.when;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
+ *
  * @since 0.1
  */
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
@@ -136,7 +136,7 @@ final class BaseRestControllerMethod_Throwable_IntegrationTest extends AbstractB
 
     /**
      * @author nedis
-     * @link https://rxmicro.io
+     *
      */
     @SuppressWarnings("CodeBlock2Expr")
     private static class ThrowAnyExceptionArgumentsProvider implements ArgumentsProvider {

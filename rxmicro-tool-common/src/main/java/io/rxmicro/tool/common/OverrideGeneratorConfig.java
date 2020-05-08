@@ -30,7 +30,6 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * Don't use this annotation for your project!
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 @Documented
@@ -47,7 +46,6 @@ public @interface OverrideGeneratorConfig {
 
     /**
      * @author nedis
-     * @link https://rxmicro.io
      * @since 0.1
      */
     @Documented

@@ -23,7 +23,6 @@ import java.lang.reflect.Field;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 abstract class AbstractAlternativeFieldValidator extends FieldValidator {

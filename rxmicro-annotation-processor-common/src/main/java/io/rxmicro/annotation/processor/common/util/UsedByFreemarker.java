@@ -28,7 +28,6 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * This annotation marks a method or field, which is used by Freemarker template(s)
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 @Documented

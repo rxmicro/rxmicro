@@ -22,8 +22,10 @@ import io.rxmicro.config.Secrets;
  * Utility class that must be used to get an instance of the low-level reactive HTTP client
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
+ * @see HttpClient
+ * @see HttpClientContentConverter
+ * @see Secrets
  */
 public interface HttpClientFactory {
 

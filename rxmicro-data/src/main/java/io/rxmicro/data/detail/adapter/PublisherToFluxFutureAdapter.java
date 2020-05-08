@@ -25,10 +25,9 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 /**
- * Used by generated code that was created by RxMicro Annotation Processor
+ * Used by generated code that was created by {@code RxMicro Annotation Processor}
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public class PublisherToFluxFutureAdapter<T> extends CompletableFuture<List<T>> {

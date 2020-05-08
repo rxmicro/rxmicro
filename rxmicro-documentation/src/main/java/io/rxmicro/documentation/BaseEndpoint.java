@@ -30,8 +30,19 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * (<i>Allows overriding the basic endpoint specified in the url directive to pom.xml</i>)
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
+ * @see Author
+ * @see Constants
+ * @see Description
+ * @see DocumentationDefinition
+ * @see DocumentationVersion
+ * @see IncludeDescription
+ * @see IncludeMode
+ * @see IntroductionDefinition
+ * @see License
+ * @see ResourceDefinition
+ * @see ResourceGroupDefinition
+ * @see Title
  */
 @Documented
 @Retention(SOURCE)

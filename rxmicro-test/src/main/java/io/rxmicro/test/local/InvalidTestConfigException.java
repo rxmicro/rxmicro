@@ -23,19 +23,29 @@ import io.rxmicro.common.util.Formats;
  * Signals that current test configuration contains error(s) that must be fixed before the launch of tests
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class InvalidTestConfigException extends RxMicroException {
 
     /**
      * Creates a {@link InvalidTestConfigException} instance
+     *
+     * @param message the error message
+     * @throws NullPointerException if the error message is {@code null}
+     */
+    public InvalidTestConfigException(final String message) {
+        super(message);
+    }
+
+    /**
+     * Creates a {@link InvalidTestConfigException} instance
      * <p>
      * <i>(FYI: This constructor uses {@link Formats#format(String, Object...)} method to format error message.)</i>
      *
-     * @param message error message template
-     * @param args error message template arguments
-     * @throws NullPointerException if {@code message} is {@code null}
+     * @param message the error message template
+     * @param args the error message template arguments
+     * @throws NullPointerException if the error message template is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     public InvalidTestConfigException(final String message,
                                       final Object... args) {

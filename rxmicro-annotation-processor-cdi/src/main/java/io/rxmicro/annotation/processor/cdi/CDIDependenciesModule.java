@@ -42,7 +42,6 @@ import io.rxmicro.annotation.processor.cdi.component.impl.UserDefinedNameBuilder
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class CDIDependenciesModule extends AbstractModule {

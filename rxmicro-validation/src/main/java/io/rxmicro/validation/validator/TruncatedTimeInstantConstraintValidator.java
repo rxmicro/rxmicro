@@ -28,9 +28,8 @@ import java.time.Instant;
  * Validator for the {@link io.rxmicro.validation.constraint.TruncatedTime} constraint
  *
  * @author nedis
- * @link https://rxmicro.io
- * @see io.rxmicro.validation.constraint.TruncatedTime
  * @since 0.1
+ * @see io.rxmicro.validation.constraint.TruncatedTime
  */
 public class TruncatedTimeInstantConstraintValidator extends AbstractDateTimeEqualsConstraintValidator
         implements ConstraintValidator<Instant> {

@@ -33,9 +33,8 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * The annotated element must be a valid skype number.
  *
  * @author nedis
- * @link https://rxmicro.io
- * @see SkypeConstraintValidator
  * @since 0.1
+ * @see SkypeConstraintValidator
  */
 @Documented
 @Retention(SOURCE)

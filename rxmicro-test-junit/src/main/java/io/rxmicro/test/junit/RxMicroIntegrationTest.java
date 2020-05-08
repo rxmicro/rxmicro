@@ -27,9 +27,30 @@ import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
+ * Declares the test class as a REST-based microservice integration test.
+ * <p>
+ * The REST-based microservice integration testing allows testing a complete system, which can consist of several REST-based microservices.
+ * <p>
+ * <h4>For easy writing of the REST-based microservices integration tests, the RxMicro framework provides:</h4>
+ * <ul>
+ *     <li>
+ *         The additional {@code @}{@link RxMicroIntegrationTest} annotation, that informs the RxMicro framework about the need
+ *         to create an HTTP client and inject it into the tested class.
+ *     </li>
+ *     <li>A special blocking HTTP client to execute HTTP requests during testing: {@link io.rxmicro.test.BlockingHttpClient}.</li>
+ *     <li>The {@link io.rxmicro.test.SystemOut} interface for easy console access.</li>
+ * </ul>
+ * <h5>The main differences between integration testing and REST-based microservice testing:</h5>
+ * <ul>
+ *     <li>for integration tests, the RxMicro framework does not run an HTTP server;</li>
+ *     <li>the developer has to start and stop the system consisting of REST-based microservices;</li>
+ *     <li>the RxMicro framework does not support alternatives and additional configuration for integration tests;</li>
+ * </ul>
+ *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
+ * @see RxMicroComponentTest
+ * @see RxMicroRestBasedMicroServiceTest
  */
 @Target(TYPE)
 @Retention(RUNTIME)

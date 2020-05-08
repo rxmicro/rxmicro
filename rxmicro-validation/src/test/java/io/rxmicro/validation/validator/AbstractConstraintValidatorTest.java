@@ -25,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
+ *
  * @since 0.1
  */
 abstract class AbstractConstraintValidatorTest<T> {

@@ -34,7 +34,6 @@ import java.util.logging.LogManager;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class JULLoggerImplProvider implements LoggerImplProvider {

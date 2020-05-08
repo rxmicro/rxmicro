@@ -19,21 +19,29 @@ package io.rxmicro.common.util;
 import static io.rxmicro.common.util.Requires.require;
 
 /**
- * TODO
+ * URL path utility class
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class UrlPaths {
 
-    private static final String IGNORED_CHARS = " \t\n\r";
+    /**
+     * Characters that must be removed from the URL path
+     */
+    public static final String TO_REMOVE_CHARACTERS = " \t\n\r";
 
     /**
-     * TODO
+     * Normalizes the URL path:
+     * <ul>
+     *     <li>Removes last character if it is {@code /}</li>
+     *     <li>Removes duplicates of path separator, (i.e. replaces {@code //} by {@code /})</li>
+     *     <li>Removes invalid characters: {@value #TO_REMOVE_CHARACTERS}</li>
+     * </ul>
      *
-     * @param path
-     * @return
+     * @param path the URL path to normalize
+     * @return the normalized URL path
+     * @throws NullPointerException if the URL path is {@code null}
      */
     public static String normalizeUrlPath(final String path) {
         require(path);
@@ -43,7 +51,7 @@ public final class UrlPaths {
         }
         for (int i = 0; i < path.length(); i++) {
             final char ch = path.charAt(i);
-            if (IGNORED_CHARS.indexOf(ch) == -1) {
+            if (TO_REMOVE_CHARACTERS.indexOf(ch) == -1) {
                 if (ch == '/') {
                     if (pathBuilder.length() == 0) {
                         pathBuilder.append('/');

@@ -29,7 +29,6 @@ import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.RE
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class ModelToJsonConverterClassStructure extends AbstractModelJsonConverterClassStructure {

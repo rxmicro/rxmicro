@@ -16,6 +16,7 @@
 
 package io.rxmicro.validation.constraint;
 
+import io.rxmicro.common.ImpossibleException;
 import io.rxmicro.common.meta.ReadMore;
 import io.rxmicro.validation.base.ConstraintRule;
 import io.rxmicro.validation.internal.SelfDocumented;
@@ -34,9 +35,8 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * The annotated element must be a valid country code.
  *
  * @author nedis
- * @link https://rxmicro.io
- * @see CountryCodeConstraintValidator
  * @since 0.1
+ * @see CountryCodeConstraintValidator
  */
 @Documented
 @Retention(SOURCE)
@@ -71,7 +71,6 @@ public @interface CountryCode {
      * The country code format
      *
      * @author nedis
-     * @link https://rxmicro.io
      * @since 0.1
      */
     enum Format {
@@ -120,8 +119,8 @@ public @interface CountryCode {
         public ReadMore getReadMore() {
             try {
                 return getClass().getDeclaredField(name()).getAnnotation(ReadMore.class);
-            } catch (NoSuchFieldException e) {
-                throw new IllegalStateException(e);
+            } catch (final NoSuchFieldException e) {
+                throw new ImpossibleException(e, "ReadMore must be present");
             }
         }
     }

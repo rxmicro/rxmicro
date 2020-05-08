@@ -16,7 +16,6 @@
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 package io.rxmicro.annotation.processor.data.sql.r2dbc.component;

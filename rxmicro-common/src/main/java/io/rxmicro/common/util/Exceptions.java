@@ -26,7 +26,6 @@ import java.util.concurrent.CompletionException;
  * Utils class to work with exceptions
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class Exceptions {
@@ -37,6 +36,9 @@ public final class Exceptions {
      *
      * @param throwable throwable that must be thrown
      * @return nothing
+     * @see Error
+     * @see RuntimeException
+     * @see CheckedWrapperException
      */
     public static <T> T reThrow(final Throwable throwable) {
         if (throwable instanceof RuntimeException) {
@@ -57,6 +59,8 @@ public final class Exceptions {
      * @param throwable tested throwable
      * @param exceptionType expected exception type
      * @return  {@code true} if {@code throwable} is instance of {@code exceptionType} type
+     * @see CompletionException
+     * @see CheckedWrapperException
      */
     public static boolean isInstanceOf(final Throwable throwable,
                                        final Class<? extends Throwable> exceptionType) {
@@ -109,6 +113,8 @@ public final class Exceptions {
      *
      * @param throwable tested throwable
      * @return real throwable
+     * @see CompletionException
+     * @see CheckedWrapperException
      */
     public static Throwable getRealThrowable(final Throwable throwable) {
         return getCause(throwable, CompletionException.class, CheckedWrapperException.class).orElse(throwable);

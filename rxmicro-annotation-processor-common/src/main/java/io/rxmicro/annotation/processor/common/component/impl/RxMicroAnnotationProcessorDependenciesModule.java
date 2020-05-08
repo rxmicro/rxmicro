@@ -25,7 +25,6 @@ import io.rxmicro.annotation.processor.common.component.UnnamedPackageValidator;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 public final class RxMicroAnnotationProcessorDependenciesModule extends AbstractModule {

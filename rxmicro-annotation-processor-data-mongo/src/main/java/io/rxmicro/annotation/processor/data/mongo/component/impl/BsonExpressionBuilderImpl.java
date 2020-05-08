@@ -56,7 +56,6 @@ import static org.bson.UuidRepresentation.JAVA_LEGACY;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
  */
 @Singleton

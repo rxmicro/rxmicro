@@ -26,9 +26,8 @@ import java.time.Instant;
  * Validator for the {@link io.rxmicro.validation.constraint.Past} constraint
  *
  * @author nedis
- * @link https://rxmicro.io
- * @see io.rxmicro.validation.constraint.Past
  * @since 0.1
+ * @see io.rxmicro.validation.constraint.Past
  */
 public class PastInstantConstraintValidator implements ConstraintValidator<Instant> {
 

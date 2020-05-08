@@ -31,8 +31,11 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * denotes a static HTTP header that must be set to the request, formed by the request handler from REST client.
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
+ * @see AddHeader
+ * @see Header
+ * @see HeaderMappingStrategy
+ * @see RepeatHeader
  */
 @Documented
 @Retention(SOURCE)
@@ -58,7 +61,6 @@ public @interface SetHeader {
      * Defines several {@link SetHeader} annotations on the same element.
      *
      * @author nedis
-     * @link https://rxmicro.io
      * @since 0.1
      */
     @Documented

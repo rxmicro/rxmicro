@@ -49,7 +49,7 @@ import static io.rxmicro.tool.common.TestFixers.REST_BASED_MICRO_SERVICE_TEST_FI
 
 /**
  * @author nedis
- * @link https://rxmicro.io
+ *
  * @since 0.1
  */
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)

@@ -25,9 +25,14 @@ import java.io.IOException;
 import static io.rxmicro.common.util.Requires.require;
 
 /**
+ * Creates a {@link Process} with redirection of {@code stdout} and {@code stderr} to the {@link System#out}.
+ * <p>
+ * This class can be useful for integration tests.
+ *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.3
+ * @see ProcessBuilder
+ * @see System#out
  */
 public final class TestedProcessBuilder {
 
@@ -35,28 +40,55 @@ public final class TestedProcessBuilder {
 
     private File workingDir;
 
-    private boolean withProcessOutputCatcher = true;
+    private boolean redirectStdOutAndStdErrToSysOut = true;
 
+    /**
+     * Sets the command with arguments to run
+     *
+     * @param commandWithArgs the command with arguments to run
+     * @return the reference to this {@link TestedProcessBuilder} instance
+     * @throws NullPointerException if any arguments is {@code null}
+     */
     @BuilderMethod
     public TestedProcessBuilder setCommandWithArgs(final String... commandWithArgs) {
         this.commandWithArgs = require(commandWithArgs);
         return this;
     }
 
+    /**
+     * Sets the process working directory
+     *
+     * @param workingDir the process working directory
+     * @return the reference to this {@link TestedProcessBuilder} instance
+     * @throws NullPointerException if the process working directory is {@code null}
+     */
     @BuilderMethod
     public TestedProcessBuilder setWorkingDir(final File workingDir) {
         this.workingDir = require(workingDir);
         return this;
     }
 
+    /**
+     * Sets the stream redirection
+     *
+     * @param redirectStdOutAndStdErrToSysOut redirect stream or not
+     * @return the reference to this {@link TestedProcessBuilder} instance
+     */
     @BuilderMethod
-    public TestedProcessBuilder setWithProcessOutputCatcher(final boolean withProcessOutputCatcher) {
-        this.withProcessOutputCatcher = withProcessOutputCatcher;
+    public TestedProcessBuilder setRedirectStdOutAndStdErrToSysOut(final boolean redirectStdOutAndStdErrToSysOut) {
+        this.redirectStdOutAndStdErrToSysOut = redirectStdOutAndStdErrToSysOut;
         return this;
     }
 
-    public Process build() throws IOException {
-        if (withProcessOutputCatcher) {
+    /**
+     * Starts the {@link Process} using provided arguments
+     *
+     * @return the reference to the started {@link Process}
+     * @throws IOException if any error occurs during starting the process
+     * @see ProcessBuilder
+     */
+    public Process start() throws IOException {
+        if (redirectStdOutAndStdErrToSysOut) {
             return new TestedProcessProxy(new ProcessBuilder(commandWithArgs)
                     .directory(workingDir)
                     .redirectErrorStream(true)

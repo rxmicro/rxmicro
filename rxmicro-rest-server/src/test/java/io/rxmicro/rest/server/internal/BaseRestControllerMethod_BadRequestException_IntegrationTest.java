@@ -55,7 +55,7 @@ import static org.mockito.Mockito.when;
 
 /**
  * @author nedis
- * @link https://rxmicro.io
+ *
  * @since 0.1
  */
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
@@ -111,7 +111,7 @@ final class BaseRestControllerMethod_BadRequestException_IntegrationTest extends
 
     /**
      * @author nedis
-     * @link https://rxmicro.io
+     *
      */
     private static class ThrowValidationExceptionArgumentsProvider implements ArgumentsProvider {
 

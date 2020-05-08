@@ -37,7 +37,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * If the RxMicro framework detects a method in the class, annotated by the {@link Factory} annotation, then this method is used instead
  * of the constructor when creating the instance of this class.
  * <p>
- * The factory method must meet the following requirements:
+ * <h4>The factory method must meet the following requirements:</h4>
  * <ul>
  *     <li>The method must be {@code static}.</li>
  *     <li>The method must be non-{@code native}.</li>
@@ -47,13 +47,13 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * </ul>
  * <p>
  * Besides factory method the RxMicro framework supports creation of factory classes, that can be used to create instances of other types.
- * By using factory classes, it is possible to get the following benefits:
+ * <h4>By using factory classes, it is possible to get the following benefits:</h4>
  * <ul>
  *     <li>Create dynamic classes. (For example, using the {@link java.lang.reflect.Proxy} class.)</li>
  *     <li>Implement a {@code prototype} scope.</li>
  * </ul>
  * <p>
- * To create a factory class, it is necessary:
+ * <h4>To create a factory class, it is necessary:</h4>
  * <ul>
  *     <li>Create a class implementing the {@link java.util.function.Supplier} interface.</li>
  *     <li>Annotate this class by the {@link Factory} annotation.</li>
@@ -61,8 +61,11 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * </ul>
  *
  * @author nedis
- * @link https://rxmicro.io
  * @since 0.1
+ * @see java.util.function.Supplier
+ * @see java.lang.reflect.Proxy
+ * @see Inject
+ * @see Autowired
  */
 @Documented
 @Retention(SOURCE)
