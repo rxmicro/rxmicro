@@ -3,9 +3,9 @@
 A framework to build reactive micro services using Java
 
 [![Java 11](https://img.shields.io/badge/JDK-11-brightgreen?logo=java)](https://openjdk.java.net/projects/jdk/11/)
-[![Apache Licence 2.0](https://img.shields.io/badge/licence-Apache%20License%202.0-red?logo=apache)](https://github.com/rxmicro/rxmicro/blob/master/LICENSE)
 [![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/rxmicro/rxmicro?color=blue&logo=webpack)](https://github.com/rxmicro/rxmicro/releases)
 [![Maven Central](https://img.shields.io/maven-central/v/io.rxmicro/rxmicro?color=green&logoColor=yellow&logo=apache-maven)](https://search.maven.org/search?q=io.rxmicro)
+[![javadoc](https://javadoc.io/badge2/io.rxmicro/rxmicro/javadoc.svg?logo=java)](https://javadoc.io/doc/io.rxmicro)
 
 [![codecov](https://codecov.io/gh/rxmicro/rxmicro/branch/master/graph/badge.svg)](https://codecov.io/gh/rxmicro/rxmicro)
 [![Code Quality: Java](https://img.shields.io/lgtm/grade/java/g/rxmicro/rxmicro.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/rxmicro/rxmicro/context:java)
@@ -29,6 +29,7 @@ Status of all supported features is available at the [Features Table](Features.m
 ## Documentation
 
 * [User Guide](https://rxmicro.io/doc/latest/user-guide/index.html)
+* [Javadoc](https://javadoc.io/doc/io.rxmicro)
 * [Examples](https://github.com/rxmicro/rxmicro-usage/tree/master/examples)
 * [Release Notes](https://github.com/rxmicro/rxmicro/blob/master/release/src/main/asciidoc/release-notes/index.md)
 
