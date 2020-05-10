@@ -18,13 +18,13 @@ package org.slf4j;
 
 /**
  * Unfortunately some db drivers removed support of JUL,
- * so the RxMicro framework requires a org.slf4j proxy to enable logging without slf4j-api
+ * so the RxMicro framework requires a org.slf4j proxy to enable logging without slf4j-api:
+ * <a href="http://www.slf4j.org">http://www.slf4j.org</a>
  * <p>
  * Read more:
  * <a href="https://github.com/mongodb/mongo-java-driver/commit/6a163f715fe08ed8d39acac3d11c896ae547df73">
  *     https://github.com/mongodb/mongo-java-driver/commit/6a163f715fe08ed8d39acac3d11c896ae547df73
  * </a>
- * <a href="http://www.slf4j.org">http://www.slf4j.org</a>
  *
  * @author nedis
  * @since 0.3

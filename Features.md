@@ -4,8 +4,8 @@
 
 Feature                                                 | Status
 --------------------------------------------------------| --------------------------------------------------------
-UserGuide                                               | In progress
-Javadoc                                                 | In progress
+UserGuide                                               | **Completed**
+Javadoc                                                 | **Completed**
 Unit tests                                              | In progress
 
 ## Reactive support

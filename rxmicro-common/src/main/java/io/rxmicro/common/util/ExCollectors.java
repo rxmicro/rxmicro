@@ -50,7 +50,6 @@ public final class ExCollectors {
      * @param <T> the type of the input elements
      * @param <K> the output type of the key mapping function
      * @param <U> the output type of the value mapping function
-     * @param <M> the type of the resulting {@code Map}
      * @param keyMapper a mapping function to produce keys
      * @param valueMapper a mapping function to produce values
      * @return the {@link Collector} which collects elements into a modifiable {@link LinkedHashMap}
@@ -68,7 +67,6 @@ public final class ExCollectors {
      * @param <T> the type of the input elements
      * @param <K> the output type of the key mapping function
      * @param <U> the output type of the value mapping function
-     * @param <M> the type of the resulting {@code Map}
      * @param keyMapper a mapping function to produce keys
      * @param valueMapper a mapping function to produce values
      * @return the {@link Collector} which collects elements into a unmodifiable ordered {@link Map}
@@ -89,7 +87,6 @@ public final class ExCollectors {
      * @param <T> the type of the input elements
      * @param <K> the output type of the key mapping function
      * @param <U> the output type of the value mapping function
-     * @param <M> the type of the resulting {@code Map}
      * @param keyMapper a mapping function to produce keys
      * @param valueMapper a mapping function to produce values
      * @return the {@link Collector} which collects elements into a modifiable {@link TreeMap}
