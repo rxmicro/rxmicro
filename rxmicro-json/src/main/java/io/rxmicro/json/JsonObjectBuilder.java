@@ -33,11 +33,29 @@ import java.util.List;
 public final class JsonObjectBuilder extends MapBuilder<String, Object> {
 
     /**
+     * Creates a {@link JsonObjectBuilder} instance
+     *
+     * @param withoutDuplicates {@code true} if {@link JsonObjectBuilder} must throw
+     *                          {@link IllegalArgumentException} if duplicate of map key detected
+     */
+    public JsonObjectBuilder(final boolean withoutDuplicates) {
+        super(withoutDuplicates);
+    }
+
+    /**
+     * Creates a {@link JsonObjectBuilder} instance without duplicate detection
+     */
+    public JsonObjectBuilder() {
+        super();
+    }
+
+    /**
      * Puts the specified name and value to the building JSON object if the specified value is not {@code null}
      *
      * @param name the specified name
      * @param value the specified value
      * @return the reference to this {@link JsonObjectBuilder} instance
+     * @throws IllegalArgumentException if {@code withoutDuplicates} is {@code true} and detected a duplicate of property name
      */
     @Override
     public JsonObjectBuilder put(final String name,
@@ -54,6 +72,7 @@ public final class JsonObjectBuilder extends MapBuilder<String, Object> {
      * @param name the specified name
      * @param value the specified value
      * @return the reference to this {@link JsonObjectBuilder} instance
+     * @throws IllegalArgumentException if {@code withoutDuplicates} is {@code true} and detected a duplicate of property name
      */
     public JsonObjectBuilder put(final String name,
                                  final List<?> value) {

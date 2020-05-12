@@ -387,15 +387,10 @@ public final class JsonFactory {
      */
     @SafeVarargs
     public static Map<String, Object> jsonObject(final Map<String, Object>... jsonObjects) {
-        final JsonObjectBuilder jsonObjectBuilder = new JsonObjectBuilder();
+        final JsonObjectBuilder jsonObjectBuilder = new JsonObjectBuilder(true);
         for (final Map<String, Object> jsonObject : jsonObjects) {
             for (final Map.Entry<String, Object> entry : jsonObject.entrySet()) {
-                final JsonObjectBuilder oldValue = jsonObjectBuilder.put(entry.getKey(), convertIfNecessary(entry.getValue()));
-                if (oldValue != null) {
-                    throw new IllegalArgumentException(
-                            format("Duplicate detected: name=?, value1=?, value2=?", entry.getKey(), entry.getValue(), oldValue)
-                    );
-                }
+                jsonObjectBuilder.put(entry.getKey(), convertIfNecessary(entry.getValue()));
             }
         }
         return jsonObjectBuilder.build();
