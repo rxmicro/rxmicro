@@ -1,6 +1,6 @@
-# RxMicro Project
+# The RxMicro Framework
 
-A framework to build reactive micro services using Java
+A modern, JVM-based, full stack framework designed to develop distributed reactive applications that use a microservice architecture.
 
 [![Java 11](https://img.shields.io/badge/JDK-11-brightgreen?logo=java)](https://openjdk.java.net/projects/jdk/11/)
 [![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/rxmicro/rxmicro?color=blue&logo=webpack)](https://github.com/rxmicro/rxmicro/releases)
@@ -28,6 +28,7 @@ Status of all supported features is available at the [Features Table](Features.m
 
 ## Documentation
 
+* [Site](https://rxmicro.io)
 * [User Guide](https://docs.rxmicro.io/latest/user-guide/index.html)
 * [Javadoc](https://javadoc.io/doc/io.rxmicro)
 * [Examples](https://github.com/rxmicro/rxmicro-usage/tree/master/examples)
@@ -59,19 +60,6 @@ See [CHECK_LISTS.md](.github/CHECK_LISTS.md).
 ## Publish to Maven Central
 
 https://central.sonatype.org/pages/apache-maven.html
-
-If your version is a release version (does not end in -SNAPSHOT) and with this setup in place, 
-you can run a deployment to OSSRH and an automated release to the Central Repository with the usual:
-
-`mvn -P release -DskipTests clean deploy`
-
-You can manually inspect the staging repository in the Nexus Repository Manager and trigger a release of the staging repository later with:
-
-`mvn -P release nexus-staging:release`
-
-If you find something went wrong you can drop the staging repository with:
-
-`mvn -P release nexus-staging:drop`
 
 https://oss.sonatype.org/#stagingRepositories
 
