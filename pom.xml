@@ -25,8 +25,7 @@
 
     <name>The RxMicro framework</name>
     <description>
-        A modern, JVM-based, full-stack framework designed to develop distributed reactive applications,
-        using a microservice architecture.
+        A modern, JVM-based, full-stack framework designed to develop distributed reactive applications, using a microservice architecture.
     </description>
     <url>https://rxmicro.io</url>
     <organization>
@@ -191,7 +190,7 @@
                             <verbose>true</verbose>
                             <debug>true</debug>
                             <detectOfflineLinks>true</detectOfflineLinks>
-                            <failOnError>true</failOnError>
+                            <failOnError>false</failOnError>
                             <show>protected</show>
                             <locale>en</locale>
                         </configuration>
@@ -274,7 +273,9 @@
                                 </goals>
                                 <configuration>
                                     <verbose>true</verbose>
-                                    <excludeFromFailureFile>${basedir}/../release/src/main/filters/exclude-pmd.properties</excludeFromFailureFile>
+                                    <excludeFromFailureFile>
+                                        ${basedir}/../release/src/main/filters/exclude-pmd.properties
+                                    </excludeFromFailureFile>
                                 </configuration>
                             </execution>
                             <execution>
@@ -284,13 +285,17 @@
                                 </goals>
                                 <configuration>
                                     <verbose>true</verbose>
-                                    <excludeFromFailureFile>${basedir}/../release/src/main/filters/exclude-cpd.properties</excludeFromFailureFile>
+                                    <excludeFromFailureFile>
+                                        ${basedir}/../release/src/main/filters/exclude-cpd.properties
+                                    </excludeFromFailureFile>
                                 </configuration>
                             </execution>
                         </executions>
                         <configuration>
                             <rulesets>
-                                <ruleset>${basedir}/../release/src/main/filters/pmd-ruleset.xml</ruleset>
+                                <ruleset>
+                                    ${basedir}/../release/src/main/filters/pmd-ruleset.xml
+                                </ruleset>
                             </rulesets>
                         </configuration>
                     </plugin>
@@ -303,7 +308,9 @@
                         <artifactId>maven-pmd-plugin</artifactId>
                         <configuration>
                             <rulesets>
-                                <ruleset>${basedir}/../release/src/main/filters/pmd-ruleset.xml</ruleset>
+                                <ruleset>
+                                    ${basedir}/../release/src/main/filters/pmd-ruleset.xml
+                                </ruleset>
                             </rulesets>
                         </configuration>
                         <reportSets>
@@ -314,7 +321,9 @@
                                 </reports>
                                 <configuration>
                                     <skipEmptyReport>true</skipEmptyReport>
-                                    <excludeFromFailureFile>${basedir}/../release/src/main/filters/exclude-pmd.properties</excludeFromFailureFile>
+                                    <excludeFromFailureFile>
+                                        ${basedir}/../release/src/main/filters/exclude-pmd.properties
+                                    </excludeFromFailureFile>
                                 </configuration>
                             </reportSet>
                             <reportSet>
@@ -324,7 +333,9 @@
                                 </reports>
                                 <configuration>
                                     <skipEmptyReport>true</skipEmptyReport>
-                                    <excludeFromFailureFile>${basedir}/../release/src/main/filters/exclude-cpd.properties</excludeFromFailureFile>
+                                    <excludeFromFailureFile>
+                                        ${basedir}/../release/src/main/filters/exclude-cpd.properties
+                                    </excludeFromFailureFile>
                                 </configuration>
                             </reportSet>
                         </reportSets>
@@ -350,7 +361,9 @@
                             </execution>
                         </executions>
                         <configuration>
-                            <excludeFilterFile>${basedir}/../release/src/main/filters/spotbugs-exclude.xml</excludeFilterFile>
+                            <excludeFilterFile>
+                                ${basedir}/../release/src/main/filters/spotbugs-exclude.xml
+                            </excludeFilterFile>
                             <skipEmptyReport>true</skipEmptyReport>
                             <debug>true</debug>
                         </configuration>
@@ -370,7 +383,9 @@
                         <groupId>com.github.spotbugs</groupId>
                         <artifactId>spotbugs-maven-plugin</artifactId>
                         <configuration>
-                            <excludeFilterFile>${basedir}/../release/src/main/filters/spotbugs-exclude.xml</excludeFilterFile>
+                            <excludeFilterFile>
+                                ${basedir}/../release/src/main/filters/spotbugs-exclude.xml
+                            </excludeFilterFile>
                             <skipEmptyReport>true</skipEmptyReport>
                         </configuration>
                     </plugin>

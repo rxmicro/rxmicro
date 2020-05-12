@@ -58,7 +58,7 @@
                                 </goals>
                                 <configuration>
                                     <classifier>javadoc</classifier>
-                                    <classesDirectory>${basedir}/javadoc</classesDirectory>
+                                    <classesDirectory>${basedir}/src/main/javadoc</classesDirectory>
                                 </configuration>
                             </execution>
                         </executions>

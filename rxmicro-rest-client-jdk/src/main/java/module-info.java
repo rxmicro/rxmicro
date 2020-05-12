@@ -20,7 +20,7 @@
  * <p>
  * This module requires {@code rxmicro.http.client.jdk} module.
  * <p>
- * <small>
+ *
  * This module follows the next package structure rules:
  * <ul>
  *     <li>
@@ -43,7 +43,7 @@
  *         </ul>
  *     </li>
  * </ul>
- * </small>
+ * 
  *
  * @author nedis
  * @since 0.1

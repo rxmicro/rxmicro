@@ -18,7 +18,7 @@
  * The module that is an implementation of the <a href="https://en.wikipedia.org/wiki/Dependency_injection">Dependency Injection</a>
  * design pattern, that is integrated to the RxMicro framework.
  * <p>
- * <small>
+ *
  * This module follows the next package structure rules:
  * <ul>
  *     <li>
@@ -41,7 +41,7 @@
  *         </ul>
  *     </li>
  * </ul>
- * </small>
+ * 
  *
  * @author nedis
  * @since 0.1

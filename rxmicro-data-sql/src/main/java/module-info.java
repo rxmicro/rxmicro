@@ -17,7 +17,7 @@
 /**
  * The basic module to work with dynamic repositories for interaction with relational SQL databases.
  * <p>
- * <small>
+ *
  * This module follows the next package structure rules:
  * <ul>
  *     <li>
@@ -40,7 +40,7 @@
  *         </ul>
  *     </li>
  * </ul>
- * </small>
+ * 
  *
  * @author nedis
  * @since 0.1

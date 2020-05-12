@@ -21,7 +21,7 @@ import io.rxmicro.test.mockito.junit.internal.MockitoTestExtension;
  * The module designed for test writing using the <a href="https://junit.org/junit5/">JUnit 5</a> and
  * <a href="https://site.mockito.org/">Mockito</a> framework.
  * <p>
- * <small>
+ *
  * This module follows the next package structure rules:
  * <ul>
  *     <li>
@@ -44,7 +44,7 @@ import io.rxmicro.test.mockito.junit.internal.MockitoTestExtension;
  *         </ul>
  *     </li>
  * </ul>
- * </small>
+ * 
  *
  * @author nedis
  * @since 0.1

@@ -20,7 +20,7 @@ import io.rxmicro.common.model.UnNamedModuleFixer;
 /**
  * The common module with base models and useful utils
  * <p>
- * <small>
+ *
  * This module follows the next package structure rules:
  * <ul>
  *     <li>
@@ -43,7 +43,7 @@ import io.rxmicro.common.model.UnNamedModuleFixer;
  *         </ul>
  *     </li>
  * </ul>
- * </small>
+ * 
  *
  * @author nedis
  * @since 0.1

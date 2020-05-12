@@ -35,6 +35,7 @@ public final class Exceptions {
      * instance with {@code throwable} as cause.
      *
      * @param throwable throwable that must be thrown
+     * @param <T> any type
      * @return nothing
      * @see Error
      * @see RuntimeException

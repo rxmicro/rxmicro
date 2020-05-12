@@ -29,7 +29,7 @@ import io.rxmicro.config.internal.test.ConfigUnNamedModuleFixer;
  *     <li>Configuration using annotations and Java classes</li>
  * </ul>
  * <p>
- * <small>
+ *
  * This module follows the next package structure rules:
  * <ul>
  *     <li>
@@ -52,7 +52,7 @@ import io.rxmicro.config.internal.test.ConfigUnNamedModuleFixer;
  *         </ul>
  *     </li>
  * </ul>
- * </small>
+ * 
  *
  * @author nedis
  * @since 0.1

@@ -20,7 +20,7 @@ import io.rxmicro.rest.client.exchange.json.internal.JsonHttpClientContentConver
 /**
  * The module for converting Java models to JSON format and vice versa for REST clients.
  * <p>
- * <small>
+ *
  * This module follows the next package structure rules:
  * <ul>
  *     <li>
@@ -43,7 +43,7 @@ import io.rxmicro.rest.client.exchange.json.internal.JsonHttpClientContentConver
  *         </ul>
  *     </li>
  * </ul>
- * </small>
+ * 
  *
  * @author nedis
  * @since 0.1

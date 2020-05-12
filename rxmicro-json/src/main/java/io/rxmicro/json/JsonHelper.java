@@ -26,7 +26,6 @@ import static io.rxmicro.common.util.Strings.startsWith;
 
 /**
  * Utility class for converting Java types to JSON types and vice versa
- * <p>
  * <h4>Type conversion:</h4>
  *
  * <h4>1. From Java types to JSON types:</h4>

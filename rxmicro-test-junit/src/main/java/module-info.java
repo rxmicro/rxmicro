@@ -20,7 +20,7 @@ import io.rxmicro.test.local.component.TestExtension;
 /**
  * The module designed for test writing using the <a href="https://junit.org/junit5/">JUnit 5</a> framework.
  * <p>
- * <small>
+ *
  * This module follows the next package structure rules:
  * <ul>
  *     <li>
@@ -43,7 +43,7 @@ import io.rxmicro.test.local.component.TestExtension;
  *         </ul>
  *     </li>
  * </ul>
- * </small>
+ * 
  *
  * @author nedis
  * @since 0.1

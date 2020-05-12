@@ -20,7 +20,7 @@
  * <p>
  * Read more: <a href="https://r2dbc.io/">https://r2dbc.io</a>
  * <p>
- * <small>
+ *
  * This module follows the next package structure rules:
  * <ul>
  *     <li>
@@ -43,7 +43,7 @@
  *         </ul>
  *     </li>
  * </ul>
- * </small>
+ * 
  *
  * @author nedis
  * @since 0.1

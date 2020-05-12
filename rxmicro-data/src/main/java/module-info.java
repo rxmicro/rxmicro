@@ -20,7 +20,7 @@ import io.rxmicro.data.local.test.DataUnNamedModuleFixer;
 /**
  * The basic module to work with dynamic repositories for interaction with popular databases.
  * <p>
- * <small>
+ *
  * This module follows the next package structure rules:
  * <ul>
  *     <li>
@@ -43,7 +43,7 @@ import io.rxmicro.data.local.test.DataUnNamedModuleFixer;
  *         </ul>
  *     </li>
  * </ul>
- * </small>
+ * 
  *
  * @author nedis
  * @since 0.1

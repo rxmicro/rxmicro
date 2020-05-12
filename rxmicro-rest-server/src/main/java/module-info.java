@@ -23,7 +23,7 @@ import io.rxmicro.rest.server.local.test.ServerUnNamedModuleFixer;
 /**
  * The basic HTTP server module used to create REST controllers and run REST-based microservices.
  * <p>
- * <small>
+ *
  * This module follows the next package structure rules:
  * <ul>
  *     <li>
@@ -46,7 +46,7 @@ import io.rxmicro.rest.server.local.test.ServerUnNamedModuleFixer;
  *         </ul>
  *     </li>
  * </ul>
- * </small>
+ * 
  *
  * @author nedis
  * @since 0.1

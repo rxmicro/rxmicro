@@ -17,7 +17,7 @@
 /**
  * The module for logging important events during the work of microservices that is integrated to the RxMicro framework.
  * <p>
- * <small>
+ *
  * This module follows the next package structure rules:
  * <ul>
  *     <li>
@@ -40,7 +40,7 @@
  *         </ul>
  *     </li>
  * </ul>
- * </small>
+ * 
  *
  * @author nedis
  * @since 0.1

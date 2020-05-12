@@ -23,7 +23,7 @@ import io.rxmicro.http.client.jdk.internal.JdkHttpClientFactory;
  * <p>
  * This module can be used for REST based microservice testing.
  * <p>
- * <small>
+ *
  * This module follows the next package structure rules:
  * <ul>
  *     <li>
@@ -46,7 +46,7 @@ import io.rxmicro.http.client.jdk.internal.JdkHttpClientFactory;
  *         </ul>
  *     </li>
  * </ul>
- * </small>
+ * 
  *
  * @author nedis
  * @since 0.1

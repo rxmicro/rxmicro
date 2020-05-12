@@ -20,7 +20,7 @@ import io.rxmicro.http.client.HttpClientFactory;
 /**
  * The basic module used to create and run REST clients.
  * <p>
- * <small>
+ *
  * This module follows the next package structure rules:
  * <ul>
  *     <li>
@@ -43,7 +43,7 @@ import io.rxmicro.http.client.HttpClientFactory;
  *         </ul>
  *     </li>
  * </ul>
- * </small>
+ * 
  *
  * @author nedis
  * @since 0.1

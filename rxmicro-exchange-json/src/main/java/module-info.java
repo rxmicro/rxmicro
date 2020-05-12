@@ -17,7 +17,7 @@
 /**
  * The module for converting a Java models to JSON format and vice versa.
  * <p>
- * <small>
+ *
  * This module follows the next package structure rules:
  * <ul>
  *     <li>
@@ -40,7 +40,7 @@
  *         </ul>
  *     </li>
  * </ul>
- * </small>
+ * 
  *
  * @author nedis
  * @since 0.1

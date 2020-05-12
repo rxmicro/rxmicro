@@ -20,7 +20,7 @@ import io.rxmicro.http.local.test.HttpUnNamedModuleFixer;
 /**
  * The basic module to work with HTTP protocol.
  * <p>
- * <small>
+ *
  * This module follows the next package structure rules:
  * <ul>
  *     <li>
@@ -43,7 +43,7 @@ import io.rxmicro.http.local.test.HttpUnNamedModuleFixer;
  *         </ul>
  *     </li>
  * </ul>
- * </small>
+ * 
  *
  * @author nedis
  * @since 0.1

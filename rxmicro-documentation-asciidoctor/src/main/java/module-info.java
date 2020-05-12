@@ -18,7 +18,7 @@
  * The module for creation a REST-based microservice documentation, based on widely used and multifunctional
  * <a href="http://asciidoc.org/">AsciiDoc</a> documenting format.
  * <p>
- * <small>
+ *
  * This module follows the next package structure rules:
  * <ul>
  *     <li>
@@ -41,7 +41,7 @@
  *         </ul>
  *     </li>
  * </ul>
- * </small>
+ * 
  *
  * @author nedis
  * @since 0.1
