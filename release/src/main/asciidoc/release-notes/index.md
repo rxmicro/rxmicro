@@ -53,3 +53,7 @@ This document contains the *change log* for all RxMicro releases since **0.2**.
 * Add PMD tool to rxmicro project
 * Add missing implementation to Slf4jLoggerProxy
 * Add missing javadoc to Public API
+
+## RxMicro v0.4.1
+
+* Fix JsonFactory issue
