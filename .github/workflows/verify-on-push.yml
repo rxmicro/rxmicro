@@ -12,11 +12,13 @@ on:
   push:
     branches: [ master ]
     paths:
-      - 'rxmicro-*/**'
+      - 'rxmicro-*/src/main/java/**'
+      - 'rxmicro-*/src/test/java/**'
   pull_request:
     types: [assigned, opened, edited, reopened]
     paths:
-      - 'rxmicro-*/**'
+      - 'rxmicro-*/src/main/java/**'
+      - 'rxmicro-*/src/test/java/**'
 
 jobs:
 
