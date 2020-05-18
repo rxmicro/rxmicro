@@ -44,7 +44,7 @@ import io.rxmicro.test.mockito.junit.internal.MockitoTestExtension;
  *         </ul>
  *     </li>
  * </ul>
- * 
+ *
  *
  * @author nedis
  * @since 0.1

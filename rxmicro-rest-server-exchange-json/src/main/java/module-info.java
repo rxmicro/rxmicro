@@ -43,7 +43,7 @@ import io.rxmicro.rest.server.local.component.HttpErrorResponseBodyBuilder;
  *         </ul>
  *     </li>
  * </ul>
- * 
+ *
  *
  * @author nedis
  * @since 0.1

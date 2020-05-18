@@ -52,7 +52,7 @@ import io.rxmicro.config.internal.test.ConfigUnNamedModuleFixer;
  *         </ul>
  *     </li>
  * </ul>
- * 
+ *
  *
  * @author nedis
  * @since 0.1

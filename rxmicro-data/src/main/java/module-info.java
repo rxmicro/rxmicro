@@ -43,7 +43,7 @@ import io.rxmicro.data.local.test.DataUnNamedModuleFixer;
  *         </ul>
  *     </li>
  * </ul>
- * 
+ *
  *
  * @author nedis
  * @since 0.1

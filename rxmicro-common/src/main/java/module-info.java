@@ -43,7 +43,7 @@ import io.rxmicro.common.model.UnNamedModuleFixer;
  *         </ul>
  *     </li>
  * </ul>
- * 
+ *
  *
  * @author nedis
  * @since 0.1

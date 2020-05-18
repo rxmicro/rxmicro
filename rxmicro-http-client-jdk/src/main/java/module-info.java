@@ -46,7 +46,7 @@ import io.rxmicro.http.client.jdk.internal.JdkHttpClientFactory;
  *         </ul>
  *     </li>
  * </ul>
- * 
+ *
  *
  * @author nedis
  * @since 0.1
