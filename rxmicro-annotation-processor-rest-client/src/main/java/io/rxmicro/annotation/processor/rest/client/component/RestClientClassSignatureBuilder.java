@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 https://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,9 +19,9 @@ package io.rxmicro.annotation.processor.rest.client.component;
 import io.rxmicro.annotation.processor.common.model.EnvironmentContext;
 import io.rxmicro.annotation.processor.rest.client.model.RestClientClassSignature;
 
+import java.util.Set;
 import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.element.TypeElement;
-import java.util.Set;
 
 /**
  * @author nedis

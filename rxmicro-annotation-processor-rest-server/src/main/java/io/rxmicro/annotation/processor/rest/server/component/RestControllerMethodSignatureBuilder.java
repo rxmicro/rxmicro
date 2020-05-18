@@ -19,9 +19,9 @@ package io.rxmicro.annotation.processor.rest.server.component;
 import io.rxmicro.annotation.processor.rest.model.ParentUrl;
 import io.rxmicro.annotation.processor.rest.server.model.RestControllerMethodSignature;
 
+import java.util.List;
 import javax.lang.model.element.ModuleElement;
 import javax.lang.model.element.TypeElement;
-import java.util.List;
 
 /**
  * @author nedis

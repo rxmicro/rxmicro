@@ -44,12 +44,8 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 @Retention(SOURCE)
 @Target({FIELD, METHOD, PARAMETER})
 @ConstraintRule(
-        supportedTypes = {
-                String.class
-        },
-        validatorClass = {
-                IPConstraintValidator.class
-        }
+        supportedTypes = String.class,
+        validatorClass = IPConstraintValidator.class
 )
 @SelfDocumented
 public @interface IP {
@@ -115,8 +111,8 @@ public @interface IP {
         public ReadMore getReadMore() {
             try {
                 return getClass().getDeclaredField(name()).getAnnotation(ReadMore.class);
-            } catch (final NoSuchFieldException e) {
-                throw new ImpossibleException(e, "ReadMore must be present");
+            } catch (final NoSuchFieldException ex) {
+                throw new ImpossibleException(ex, "ReadMore must be present");
             }
         }
     }

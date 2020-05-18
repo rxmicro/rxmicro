@@ -31,11 +31,11 @@ import io.rxmicro.documentation.BaseEndpoint;
 import io.rxmicro.documentation.DocumentationVersion;
 import io.rxmicro.documentation.License;
 
-import javax.lang.model.element.ModuleElement;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import javax.lang.model.element.ModuleElement;
 
 import static io.rxmicro.documentation.Constants.DEFAULT_AUTHOR;
 import static io.rxmicro.documentation.Constants.DEFAULT_EMAIL;

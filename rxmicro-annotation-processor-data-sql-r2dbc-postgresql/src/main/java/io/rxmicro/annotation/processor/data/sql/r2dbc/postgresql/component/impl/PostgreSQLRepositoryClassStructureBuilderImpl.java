@@ -43,15 +43,18 @@ import static io.rxmicro.annotation.processor.common.util.Names.getPackageName;
  * @since 0.1
  */
 @Singleton
-public final class PostgreSQLRepositoryClassStructureBuilderImpl extends AbstractDataClassStructureBuilder<SQLDataModelField, PostgreSQLDataObjectModelClass> {
+public final class PostgreSQLRepositoryClassStructureBuilderImpl
+        extends AbstractDataClassStructureBuilder<SQLDataModelField, PostgreSQLDataObjectModelClass> {
 
     @Inject
     private Set<SQLRepositoryMethodModelBuilder<SQLDataModelField, PostgreSQLDataObjectModelClass>> postgreSQLRepositoryMethodModelBuilders;
 
     @Override
-    public DataRepositoryClassStructure build(final EnvironmentContext environmentContext,
-                                              final DataRepositoryInterfaceSignature signature,
-                                              final DataGenerationContext<SQLDataModelField, PostgreSQLDataObjectModelClass> dataGenerationContext) {
+    public DataRepositoryClassStructure build(
+            final EnvironmentContext environmentContext,
+            final DataRepositoryInterfaceSignature signature,
+            final DataGenerationContext<SQLDataModelField, PostgreSQLDataObjectModelClass> dataGenerationContext) {
+
         final ClassHeader.Builder classHeaderBuilder = newClassHeaderBuilder(getPackageName(signature.getRepositoryInterface()));
         final PostgreSQLRepository postgreSQLRepository =
                 signature.getRepositoryInterface().getAnnotation(PostgreSQLRepository.class);

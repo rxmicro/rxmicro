@@ -19,11 +19,11 @@ package io.rxmicro.annotation.processor.common.component.impl;
 import io.rxmicro.annotation.processor.common.SupportedOptions;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
 
-import javax.lang.model.element.Element;
-import javax.tools.Diagnostic;
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.function.Supplier;
+import javax.lang.model.element.Element;
+import javax.tools.Diagnostic;
 
 import static io.rxmicro.annotation.processor.common.util.InternalLoggers.logMessage;
 import static io.rxmicro.annotation.processor.common.util.InternalLoggers.logThrowableStackTrace;
@@ -90,18 +90,18 @@ public abstract class AbstractProcessorComponent {
         }
     }
 
-    protected final void error(final String message,
-                               final Object... args) {
-        if (getLevel() != Level.OFF) {
-            getMessager().printMessage(Diagnostic.Kind.ERROR, format(message, args));
-        }
-    }
-
     protected final void warn(final Element element,
                               final String message,
                               final Object... args) {
         final String mes = (args.length == 0) ? message : format(message, args);
         getMessager().printMessage(Diagnostic.Kind.MANDATORY_WARNING, mes, element);
+    }
+
+    protected final void error(final String message,
+                               final Object... args) {
+        if (getLevel() != Level.OFF) {
+            getMessager().printMessage(Diagnostic.Kind.ERROR, format(message, args));
+        }
     }
 
     protected final void error(final InterruptProcessingException exception) {
@@ -147,8 +147,8 @@ public abstract class AbstractProcessorComponent {
         if (value != null) {
             try {
                 return Integer.parseInt(value);
-            } catch (final NumberFormatException e) {
-                // return defaultValue
+            } catch (final NumberFormatException ignore) {
+                // do nothing: return defaultValue
             }
         }
         return defaultValue;

@@ -19,9 +19,9 @@ package io.rxmicro.annotation.processor.data.component;
 import io.rxmicro.annotation.processor.common.model.EnvironmentContext;
 import io.rxmicro.annotation.processor.data.model.DataRepositoryInterfaceSignature;
 
+import java.util.Set;
 import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.element.TypeElement;
-import java.util.Set;
 
 /**
  * @author nedis

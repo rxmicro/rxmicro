@@ -21,13 +21,13 @@ import io.rxmicro.annotation.processor.documentation.component.TitleReader;
 import io.rxmicro.common.util.Strings;
 import io.rxmicro.documentation.Title;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.ModuleElement;
 import javax.lang.model.element.TypeElement;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
 
 import static io.rxmicro.common.util.Strings.splitByCamelCase;
 import static java.util.stream.Collectors.joining;

@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 https://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -41,8 +41,8 @@ public final class MethodBodyGeneratorImpl extends AbstractGenerator
         final StringWriter stringWriter = new StringWriter();
         try (Writer writer = stringWriter) {
             getTemplate(templateName).process(parameters, writer);
-        } catch (final TemplateException | IOException e) {
-            cantGenerateMethodBody(templateName, e);
+        } catch (final TemplateException | IOException ex) {
+            cantGenerateMethodBody(templateName, ex);
         }
         return stringWriter.toString().lines().collect(Collectors.toList());
     }

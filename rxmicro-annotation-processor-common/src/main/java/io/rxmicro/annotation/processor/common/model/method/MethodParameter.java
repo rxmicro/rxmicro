@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 https://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,13 +16,13 @@
 
 package io.rxmicro.annotation.processor.common.model.method;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.VariableElement;
 import javax.lang.model.type.DeclaredType;
 import javax.lang.model.type.TypeMirror;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 import static io.rxmicro.annotation.processor.common.util.Elements.isGenericType;
 import static io.rxmicro.annotation.processor.common.util.Names.getSimpleName;

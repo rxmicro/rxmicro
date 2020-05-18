@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 https://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -49,12 +49,12 @@ import io.rxmicro.annotation.processor.rest.server.model.RestServerModuleGenerat
 import io.rxmicro.rest.model.ExchangeFormat;
 import io.rxmicro.validation.DisableValidation;
 
-import javax.annotation.processing.RoundEnvironment;
-import javax.lang.model.element.TypeElement;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import javax.annotation.processing.RoundEnvironment;
+import javax.lang.model.element.TypeElement;
 
 import static io.rxmicro.annotation.processor.common.util.Injects.injectDependencies;
 import static io.rxmicro.common.util.Formats.format;
@@ -155,36 +155,27 @@ public final class RestServerModuleClassStructuresBuilder extends AbstractModule
                 final Set<ClassStructure> classStructures = new HashSet<>(restControllerClassStructureStorage.getAll());
                 final Set<RestControllerClassStructure> restControllerClassStructures =
                         restControllerClassStructureBuilder.build(
-                                environmentContext,
-                                restControllerClassStructureStorage,
-                                classSignatures
+                                environmentContext, restControllerClassStructureStorage, classSignatures
                         );
 
                 classStructures.addAll(restControllerClassStructures);
                 classStructures.add(new RestControllerAggregatorClassStructure(
                         environmentContext,
                         restControllerClassStructures,
-                        crossOriginResourceSharingResourceBuilder.build(
-                                restControllerClassStructures,
-                                restGenerationContext
-                        ),
-                        httpHealthCheckBuilder.build(
-                                environmentContext,
-                                restControllerClassStructures
-                        )));
+                        crossOriginResourceSharingResourceBuilder.build(restControllerClassStructures, restGenerationContext),
+                        httpHealthCheckBuilder.build(environmentContext, restControllerClassStructures))
+                );
                 if (!environmentContext.get(RestServerModuleGeneratorConfig.class).getDocumentationTypes().isEmpty()) {
                     restDocumentationGenerator.generate(
-                            environmentContext,
-                            restControllerClassStructureStorage,
-                            restControllerClassStructures
+                            environmentContext, restControllerClassStructureStorage, restControllerClassStructures
                     );
                 }
                 addAllVirtualRequestClassStructures(classStructures, classSignatures, restControllerClassStructureStorage);
                 return classStructures;
             }
             return Set.of();
-        } catch (final InterruptProcessingException e) {
-            error(e);
+        } catch (final InterruptProcessingException ex) {
+            error(ex);
             return Set.of();
         }
     }

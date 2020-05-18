@@ -35,10 +35,10 @@ import io.rxmicro.annotation.processor.data.sql.model.SQLMethodDescriptor;
 import io.rxmicro.data.sql.model.EntityFieldList;
 import io.rxmicro.data.sql.model.EntityFieldMap;
 
-import javax.lang.model.element.ExecutableElement;
 import java.lang.annotation.Annotation;
 import java.util.List;
 import java.util.Optional;
+import javax.lang.model.element.ExecutableElement;
 
 import static io.rxmicro.annotation.processor.common.util.Elements.asTypeElement;
 
@@ -117,9 +117,9 @@ public abstract class AbstractSQLDataRepositoryMethodModelBuilder<DMF extends SQ
         }
     }
 
-    protected final void validateThatEntityContainsPrimaryKeyIfCurrentParamIsEntity(final DataGenerationContext<DMF, DMC> dataGenerationContext,
-                                                                                    final ExecutableElement method,
-                                                                                    final List<Variable> params) {
+    protected final void validateThatEntityContainsPrimaryKeyIfParamIsEntity(final DataGenerationContext<DMF, DMC> dataGenerationContext,
+                                                                             final ExecutableElement method,
+                                                                             final List<Variable> params) {
         final boolean isEntityParam = isEntityParam(params, dataGenerationContext);
         if (isEntityParam) {
             final DMC modelClass = dataGenerationContext.getEntityParamMap().get(asTypeElement(params.get(0).getType()).orElseThrow());

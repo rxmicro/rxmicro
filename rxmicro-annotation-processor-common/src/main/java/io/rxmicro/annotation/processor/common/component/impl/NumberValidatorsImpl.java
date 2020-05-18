@@ -50,6 +50,44 @@ public final class NumberValidatorsImpl extends AbstractProcessorComponent imple
     }
 
     @Override
+    public boolean validateFloat(final ModelField modelField,
+                                 final String value,
+                                 final Class<? extends Annotation> annotationClass) {
+        final BigDecimal result = toBigDecimalOrNull(modelField, value, annotationClass);
+        if (result == null) {
+            return false;
+        } else if (result.compareTo(BigDecimal.valueOf(Float.MIN_VALUE)) < 0 ||
+                result.compareTo(BigDecimal.valueOf(Float.MAX_VALUE)) > 0) {
+            error(modelField.getElementAnnotatedBy(annotationClass),
+                    ERROR_MESSAGE_PREFIX +
+                            VALUE_OUT_OF_RANGE_EXPECTED_TEMPLATE,
+                    annotationClass.getSimpleName(), Float.MIN_VALUE, value, Float.MAX_VALUE);
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    @Override
+    public boolean validateDouble(final ModelField modelField,
+                                  final String value,
+                                  final Class<? extends Annotation> annotationClass) {
+        final BigDecimal result = toBigDecimalOrNull(modelField, value, annotationClass);
+        if (result == null) {
+            return false;
+        } else if (result.compareTo(BigDecimal.valueOf(Double.MIN_VALUE)) < 0 ||
+                result.compareTo(BigDecimal.valueOf(Double.MAX_VALUE)) > 0) {
+            error(modelField.getElementAnnotatedBy(annotationClass),
+                    ERROR_MESSAGE_PREFIX +
+                            VALUE_OUT_OF_RANGE_EXPECTED_TEMPLATE,
+                    annotationClass.getSimpleName(), Double.MIN_VALUE, value, Double.MAX_VALUE);
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    @Override
     public void validateByte(final ModelField modelField,
                              final long value,
                              final Class<? extends Annotation> annotationClass) {
@@ -59,44 +97,6 @@ public final class NumberValidatorsImpl extends AbstractProcessorComponent imple
                             VALUE_OUT_OF_RANGE_EXPECTED_TEMPLATE,
                     annotationClass.getSimpleName(), Byte.MIN_VALUE, value, Byte.MAX_VALUE);
         }
-    }
-
-    @Override
-    public void validateShort(final ModelField modelField,
-                              final long value,
-                              final Class<? extends Annotation> annotationClass) {
-        if (value < Short.MIN_VALUE || value > Short.MAX_VALUE) {
-            error(modelField.getElementAnnotatedBy(annotationClass),
-                    ERROR_MESSAGE_PREFIX +
-                            VALUE_OUT_OF_RANGE_EXPECTED_TEMPLATE,
-                    annotationClass.getSimpleName(), Short.MIN_VALUE, value, Short.MAX_VALUE);
-        }
-    }
-
-    @Override
-    public void validateInteger(final ModelField modelField,
-                                final long value,
-                                final Class<? extends Annotation> annotationClass) {
-        if (value < Integer.MIN_VALUE || value > Integer.MAX_VALUE) {
-            error(modelField.getElementAnnotatedBy(annotationClass),
-                    ERROR_MESSAGE_PREFIX +
-                            VALUE_OUT_OF_RANGE_EXPECTED_TEMPLATE,
-                    annotationClass.getSimpleName(), Integer.MIN_VALUE, value, Integer.MAX_VALUE);
-        }
-    }
-
-    @Override
-    public boolean validateBigInteger(final ModelField modelField,
-                                      final String value,
-                                      final Class<? extends Annotation> annotationClass) {
-        return toBigIntegerOrNull(modelField, value, annotationClass) != null;
-    }
-
-    @Override
-    public boolean validateBigDecimal(final ModelField modelField,
-                                      final String value,
-                                      final Class<? extends Annotation> annotationClass) {
-        return toBigDecimalOrNull(modelField, value, annotationClass) != null;
     }
 
     @Override
@@ -119,6 +119,18 @@ public final class NumberValidatorsImpl extends AbstractProcessorComponent imple
     }
 
     @Override
+    public void validateShort(final ModelField modelField,
+                              final long value,
+                              final Class<? extends Annotation> annotationClass) {
+        if (value < Short.MIN_VALUE || value > Short.MAX_VALUE) {
+            error(modelField.getElementAnnotatedBy(annotationClass),
+                    ERROR_MESSAGE_PREFIX +
+                            VALUE_OUT_OF_RANGE_EXPECTED_TEMPLATE,
+                    annotationClass.getSimpleName(), Short.MIN_VALUE, value, Short.MAX_VALUE);
+        }
+    }
+
+    @Override
     public boolean validateShort(final ModelField modelField,
                                  final String value,
                                  final Class<? extends Annotation> annotationClass) {
@@ -134,6 +146,18 @@ public final class NumberValidatorsImpl extends AbstractProcessorComponent imple
             return false;
         } else {
             return true;
+        }
+    }
+
+    @Override
+    public void validateInteger(final ModelField modelField,
+                                final long value,
+                                final Class<? extends Annotation> annotationClass) {
+        if (value < Integer.MIN_VALUE || value > Integer.MAX_VALUE) {
+            error(modelField.getElementAnnotatedBy(annotationClass),
+                    ERROR_MESSAGE_PREFIX +
+                            VALUE_OUT_OF_RANGE_EXPECTED_TEMPLATE,
+                    annotationClass.getSimpleName(), Integer.MIN_VALUE, value, Integer.MAX_VALUE);
         }
     }
 
@@ -176,41 +200,17 @@ public final class NumberValidatorsImpl extends AbstractProcessorComponent imple
     }
 
     @Override
-    public boolean validateFloat(final ModelField modelField,
-                                 final String value,
-                                 final Class<? extends Annotation> annotationClass) {
-        final BigDecimal result = toBigDecimalOrNull(modelField, value, annotationClass);
-        if (result == null) {
-            return false;
-        } else if (result.compareTo(BigDecimal.valueOf(Float.MIN_VALUE)) < 0 ||
-                result.compareTo(BigDecimal.valueOf(Float.MAX_VALUE)) > 0) {
-            error(modelField.getElementAnnotatedBy(annotationClass),
-                    ERROR_MESSAGE_PREFIX +
-                            VALUE_OUT_OF_RANGE_EXPECTED_TEMPLATE,
-                    annotationClass.getSimpleName(), Float.MIN_VALUE, value, Float.MAX_VALUE);
-            return false;
-        } else {
-            return true;
-        }
+    public boolean validateBigInteger(final ModelField modelField,
+                                      final String value,
+                                      final Class<? extends Annotation> annotationClass) {
+        return toBigIntegerOrNull(modelField, value, annotationClass) != null;
     }
 
     @Override
-    public boolean validateDouble(final ModelField modelField,
-                                  final String value,
-                                  final Class<? extends Annotation> annotationClass) {
-        final BigDecimal result = toBigDecimalOrNull(modelField, value, annotationClass);
-        if (result == null) {
-            return false;
-        } else if (result.compareTo(BigDecimal.valueOf(Double.MIN_VALUE)) < 0 ||
-                result.compareTo(BigDecimal.valueOf(Double.MAX_VALUE)) > 0) {
-            error(modelField.getElementAnnotatedBy(annotationClass),
-                    ERROR_MESSAGE_PREFIX +
-                            VALUE_OUT_OF_RANGE_EXPECTED_TEMPLATE,
-                    annotationClass.getSimpleName(), Double.MIN_VALUE, value, Double.MAX_VALUE);
-            return false;
-        } else {
-            return true;
-        }
+    public boolean validateBigDecimal(final ModelField modelField,
+                                      final String value,
+                                      final Class<? extends Annotation> annotationClass) {
+        return toBigDecimalOrNull(modelField, value, annotationClass) != null;
     }
 
     private BigInteger toBigIntegerOrNull(final ModelField modelField,
@@ -218,7 +218,7 @@ public final class NumberValidatorsImpl extends AbstractProcessorComponent imple
                                           final Class<? extends Annotation> annotationClass) {
         try {
             return new BigInteger(removeUnderscoresIfPresent(value));
-        } catch (final NumberFormatException e) {
+        } catch (final NumberFormatException ignore) {
             error(modelField.getElementAnnotatedBy(annotationClass), ERROR_MESSAGE_PREFIX +
                     "Expected an integer number", annotationClass.getSimpleName());
             return null;
@@ -230,7 +230,7 @@ public final class NumberValidatorsImpl extends AbstractProcessorComponent imple
                                           final Class<? extends Annotation> annotationClass) {
         try {
             return new BigDecimal(removeUnderscoresIfPresent(value));
-        } catch (final NumberFormatException e) {
+        } catch (final NumberFormatException ignore) {
             error(modelField.getElementAnnotatedBy(annotationClass), ERROR_MESSAGE_PREFIX +
                     "Expected a number", annotationClass.getSimpleName());
             return null;

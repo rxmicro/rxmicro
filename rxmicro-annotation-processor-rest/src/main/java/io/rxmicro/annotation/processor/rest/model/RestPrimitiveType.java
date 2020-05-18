@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 https://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,12 +21,15 @@ import io.rxmicro.annotation.processor.common.model.type.PrimitiveType;
 import io.rxmicro.annotation.processor.common.util.UsedByFreemarker;
 import io.rxmicro.json.JsonTypes;
 
-import javax.lang.model.type.TypeMirror;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.Instant;
+import java.util.Map;
+import java.util.Optional;
+import javax.lang.model.type.TypeMirror;
 
 import static io.rxmicro.common.util.Requires.require;
+import static java.util.Map.entry;
 
 /**
  * @author nedis
@@ -58,44 +61,33 @@ public enum RestPrimitiveType implements PrimitiveType {
 
     INSTANT("toInstant", JsonTypes.STRING);
 
+    private static final Map<String, RestPrimitiveType> MAPPING = Map.ofEntries(
+            entry(Instant.class.getName(), INSTANT),
+            entry(String.class.getName(), STRING),
+            entry(BigDecimal.class.getName(), DECIMAL),
+            entry(BigInteger.class.getName(), BIGINT),
+            entry(Boolean.class.getName(), BOOLEAN),
+            entry(Byte.class.getName(), BYTE),
+            entry(Short.class.getName(), SHORT),
+            entry(Integer.class.getName(), INT),
+            entry(Long.class.getName(), LONG),
+            entry(Character.class.getName(), CHAR),
+            entry(Float.class.getName(), FLOAT),
+            entry(Double.class.getName(), DOUBLE)
+    );
+
     private final String convertMethod;
 
     private final String jsonType;
 
-    public static RestPrimitiveType valueOf(final TypeMirror typeMirror) {
-        final String type = typeMirror.toString();
-        if (Instant.class.getName().equals(type)) {
-            return INSTANT;
-        } else if (String.class.getName().equals(type)) {
-            return STRING;
-        } else if (BigDecimal.class.getName().equals(type)) {
-            return DECIMAL;
-        } else if (BigInteger.class.getName().equals(type)) {
-            return BIGINT;
-        } else if (Boolean.class.getName().equals(type)) {
-            return BOOLEAN;
-        } else if (Byte.class.getName().equals(type)) {
-            return BYTE;
-        } else if (Short.class.getName().equals(type)) {
-            return SHORT;
-        } else if (Integer.class.getName().equals(type)) {
-            return INT;
-        } else if (Long.class.getName().equals(type)) {
-            return LONG;
-        } else if (Character.class.getName().equals(type)) {
-            return CHAR;
-        } else if (Float.class.getName().equals(type)) {
-            return FLOAT;
-        } else if (Double.class.getName().equals(type)) {
-            return DOUBLE;
-        } else {
-            throw new InternalErrorException("Json primitive allowed only: " + type);
-        }
-    }
-
     RestPrimitiveType(final String convertMethod, final String jsonType) {
         this.convertMethod = require(convertMethod);
         this.jsonType = jsonType;
+    }
+
+    public static RestPrimitiveType valueOf(final TypeMirror typeMirror) {
+        return Optional.ofNullable(MAPPING.get(typeMirror.toString()))
+                .orElseThrow(() -> new InternalErrorException("Json primitive allowed only: ?", typeMirror));
     }
 
     @UsedByFreemarker

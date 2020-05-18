@@ -16,7 +16,6 @@
 
 package io.rxmicro.annotation.processor.data.sql.component.impl.resolver;
 
-import io.rxmicro.annotation.processor.data.sql.model.SQLDataModelField;
 import io.rxmicro.annotation.processor.data.sql.model.SQLDataObjectModelClass;
 import io.rxmicro.annotation.processor.data.sql.model.SQLVariableValue;
 import io.rxmicro.annotation.processor.data.sql.model.VariableContext;
@@ -44,7 +43,7 @@ import static io.rxmicro.data.sql.SupportedVariables.VALUES;
  */
 final class SQLVariableValueCalculatorProvider {
 
-    final static Map<String, BiFunction<SQLDataObjectModelClass<? extends SQLDataModelField>, VariableContext, Object>> VARIABLE_RESOLVER_PROVIDER = Map.of(
+    static final Map<String, BiFunction<SQLDataObjectModelClass<?>, VariableContext, Object>> VARIABLE_RESOLVER_PROVIDER = Map.of(
             ALL_COLUMNS,
             (modelClass, context) -> nullIfEmpty(
                     createColumnList(
@@ -115,10 +114,12 @@ final class SQLVariableValueCalculatorProvider {
             (modelClass, context) -> context.getCurrentTable().getSchema()
                     .map(s -> s + "." + context.getCurrentTable().getTableSimpleName())
                     .orElse(context.getCurrentTable().getTableSimpleName())
-            //-------------------------------------------------------------------------------------------
     );
 
     private static SQLVariableValue nullIfEmpty(final SQLVariableValue sqlVariableValue) {
         return sqlVariableValue.getColumns().isEmpty() ? null : sqlVariableValue;
+    }
+
+    private SQLVariableValueCalculatorProvider() {
     }
 }

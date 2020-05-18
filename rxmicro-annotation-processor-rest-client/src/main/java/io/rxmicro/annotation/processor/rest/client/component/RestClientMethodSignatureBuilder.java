@@ -19,11 +19,11 @@ package io.rxmicro.annotation.processor.rest.client.component;
 import io.rxmicro.annotation.processor.rest.client.model.RestClientMethodSignature;
 import io.rxmicro.annotation.processor.rest.model.ParentUrl;
 
+import java.util.List;
+import java.util.Map;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.ModuleElement;
 import javax.lang.model.element.TypeElement;
-import java.util.List;
-import java.util.Map;
 
 /**
  * @author nedis

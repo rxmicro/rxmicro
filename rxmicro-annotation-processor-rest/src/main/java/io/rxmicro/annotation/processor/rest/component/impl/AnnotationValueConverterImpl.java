@@ -21,12 +21,15 @@ import io.rxmicro.annotation.processor.common.model.ClassHeader;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
 import io.rxmicro.annotation.processor.rest.component.AnnotationValueConverter;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.function.Function;
 import javax.lang.model.element.AnnotationValue;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.VariableElement;
 import javax.lang.model.type.DeclaredType;
-import java.util.ArrayList;
-import java.util.List;
 
 import static io.rxmicro.annotation.processor.common.util.Names.getSimpleName;
 import static io.rxmicro.common.util.Formats.format;
@@ -38,6 +41,14 @@ import static io.rxmicro.common.util.Strings.escapeString;
  */
 @Singleton
 public final class AnnotationValueConverterImpl implements AnnotationValueConverter {
+
+    private final Map<Class<?>, Function<Object, String>> primitiveToStringMap = Map.of(
+            Byte.class, v -> "(byte)" + v,
+            Short.class, v -> "(short)" + v,
+            Long.class, v -> v + "L",
+            Float.class, v -> "(float)" + v,
+            Character.class, v -> format("'?'", v)
+    );
 
     /*
      * https://docs.oracle.com/javase/specs/jls/se8/html/jls-9.html#jls-9.6.1
@@ -106,24 +117,9 @@ public final class AnnotationValueConverterImpl implements AnnotationValueConver
     }
 
     private String primitiveToString(final Object value) {
-        if (value instanceof Boolean) {
-            return value.toString();
-        } else if (value instanceof Byte) {
-            return "(byte)" + value;
-        } else if (value instanceof Short) {
-            return "(short)" + value;
-        } else if (value instanceof Integer) {
-            return value.toString();
-        } else if (value instanceof Long) {
-            return value + "L";
-        } else if (value instanceof Float) {
-            return "(float)" + value;
-        } else if (value instanceof Double) {
-            return value.toString();
-        } else {
-            // Character:
-            return format("'?'", value);
-        }
+        return Optional.ofNullable(primitiveToStringMap.get(value.getClass()))
+                .orElse(Object::toString)
+                .apply(value);
     }
 
     /*

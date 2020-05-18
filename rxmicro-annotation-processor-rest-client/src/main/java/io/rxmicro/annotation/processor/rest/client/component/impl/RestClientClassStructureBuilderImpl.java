@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 https://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,12 +35,12 @@ import io.rxmicro.annotation.processor.rest.model.StaticHeaders;
 import io.rxmicro.annotation.processor.rest.model.StaticQueryParameters;
 import io.rxmicro.rest.client.RestClient;
 
-import javax.lang.model.element.TypeElement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
+import javax.lang.model.element.TypeElement;
 
 import static io.rxmicro.annotation.processor.common.util.Annotations.getDefaultConfigValues;
 import static io.rxmicro.annotation.processor.common.util.Annotations.getRequiredAnnotationClassParameter;
@@ -94,15 +94,18 @@ public final class RestClientClassStructureBuilderImpl extends AbstractProcessor
                 staticHeaders, staticQueryParameters, signature, configClass, count
         );
         if (count.get() != methods.size()) {
-            throw new InterruptProcessingException(restClientInterface,
+            throw new InterruptProcessingException(
+                    restClientInterface,
                     "Rest client implementation couldn't be generated because some methods have errors. " +
-                            "Fix these errors and compile again.");
+                            "Fix these errors and compile again."
+            );
         }
         final String configNameSpace = restClientAnnotation.configNameSpace();
         final String restClientConfigNameSpace = configNameSpace.isBlank() ?
                 getDefaultNameSpace(getSimpleName(configClass)) :
                 configNameSpace;
-        final List<Map.Entry<String, DefaultConfigProxyValue>> defaultConfigValues = getDefaultConfigValues(restClientConfigNameSpace, restClientInterface);
+        final List<Map.Entry<String, DefaultConfigProxyValue>> defaultConfigValues =
+                getDefaultConfigValues(restClientConfigNameSpace, restClientInterface);
         validateDefaultConfigValues(restClientInterface, configClass, defaultConfigValues);
         return new RestClientClassStructure(
                 classHeaderBuilder,
@@ -149,7 +152,8 @@ public final class RestClientClassStructureBuilderImpl extends AbstractProcessor
 
         final ParentUrl parentUrl = signature.getParentUrl();
         if (parentUrl.isHeaderVersionStrategy()) {
-            final StaticHeaders staticHeaders = clientCommonOptionBuilder.getStaticHeaders(classHeaderBuilder, restClientInterface, configClass);
+            final StaticHeaders staticHeaders =
+                    clientCommonOptionBuilder.getStaticHeaders(classHeaderBuilder, restClientInterface, configClass);
             if (!staticHeaders.contains(parentUrl.getVersionHeaderName())) {
                 staticHeaders.set(parentUrl.getVersionHeaderName(), format("\"?\"", parentUrl.getVersionValue()));
             }
@@ -170,7 +174,6 @@ public final class RestClientClassStructureBuilderImpl extends AbstractProcessor
                                                 final AtomicInteger count) {
         final List<RestClientMethod> methods = new ArrayList<>();
         signature.getMethodSignatures().forEach(methodSignature -> {
-
             try {
                 count.incrementAndGet();
                 methods.add(restClientMethodBuilder.build(
@@ -181,8 +184,8 @@ public final class RestClientClassStructureBuilderImpl extends AbstractProcessor
                         staticQueryParameters,
                         methodSignature,
                         configClass));
-            } catch (final InterruptProcessingException e) {
-                error(e);
+            } catch (final InterruptProcessingException ex) {
+                error(ex);
             }
         });
         return methods;

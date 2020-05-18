@@ -45,9 +45,9 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 @Documented
 @Retention(SOURCE)
 @Target({FIELD, METHOD, PARAMETER})
-@SupportedTypes({
+@SupportedTypes(
         String.class
-})
+)
 @ReadMore(
         caption = "What is request id?",
         link = "https://docs.rxmicro.io/latest/user-guide/rest-controller.html#rest-controller-rqeuest-id-section"

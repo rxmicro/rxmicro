@@ -19,14 +19,14 @@ package io.rxmicro.annotation.processor.common.model;
 import io.rxmicro.annotation.processor.common.model.virtual.VirtualModuleElement;
 import io.rxmicro.common.RxMicroModule;
 
-import javax.lang.model.element.ModuleElement;
-import javax.lang.model.element.TypeElement;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.TreeSet;
+import javax.lang.model.element.ModuleElement;
+import javax.lang.model.element.TypeElement;
 
 import static io.rxmicro.common.util.Requires.require;
 import static java.lang.System.lineSeparator;

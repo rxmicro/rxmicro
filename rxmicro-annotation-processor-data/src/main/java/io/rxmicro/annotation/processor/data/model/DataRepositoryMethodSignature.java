@@ -22,11 +22,11 @@ import io.rxmicro.annotation.processor.common.model.definition.TypeDefinitions;
 import io.rxmicro.annotation.processor.common.model.method.MethodParameter;
 import io.rxmicro.annotation.processor.common.model.method.MethodResult;
 
-import javax.lang.model.element.ExecutableElement;
-import javax.lang.model.type.TypeMirror;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+import javax.lang.model.element.ExecutableElement;
+import javax.lang.model.type.TypeMirror;
 
 import static io.rxmicro.common.util.Requires.require;
 

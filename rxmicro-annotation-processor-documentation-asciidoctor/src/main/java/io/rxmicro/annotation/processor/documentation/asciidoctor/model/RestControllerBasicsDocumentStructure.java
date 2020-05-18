@@ -21,10 +21,10 @@ import io.rxmicro.annotation.processor.common.model.DocumentationType;
 import io.rxmicro.annotation.processor.documentation.model.ProjectMetaData;
 import io.rxmicro.documentation.DocumentationDefinition;
 
-import javax.lang.model.element.ModuleElement;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import javax.lang.model.element.ModuleElement;
 
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.Requires.require;

@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 https://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -53,11 +53,10 @@ public final class WithoutParametersRestClientMethodBodyBuilder
                             final StaticHeaders staticHeaders,
                             final StaticQueryParameters staticQueryParameters,
                             final RestClientMethodSignature methodSignature) {
-        classHeaderBuilder
-                .addImports(
-                        QueryBuilder.class,
-                        HeaderBuilder.class
-                );
+        classHeaderBuilder.addImports(
+                QueryBuilder.class,
+                HeaderBuilder.class
+        );
         final Map<String, Object> templateArguments = createTemplateArguments(staticHeaders, staticQueryParameters, methodSignature);
         templateArguments.put("HAS_MODEL_HEADERS", false);
         templateArguments.put("HAS_MODEL_QUERY_PARAMS", false);

@@ -38,7 +38,52 @@ import static io.rxmicro.annotation.processor.common.util.Annotations.getReadMor
  * @author nedis
  * @since 0.1
  */
-public final class DateTimePrimitiveConstraintReader implements ConstraintReader {
+public final class DateTimePrimitiveConstraintReader extends ConstraintReader {
+
+    private final List<AnnotationConstraintReader> annotationConstraintReaders = List.of(
+
+            (annotated, restrictions, readMores, descriptionBuilder) -> {
+                final Future future = annotated.getAnnotation(Future.class);
+                if (future != null && !future.off()) {
+                    restrictions.add("future: true");
+                    getReadMore(Future.class).ifPresent(readMores::add);
+                }
+            },
+
+            (annotated, restrictions, readMores, descriptionBuilder) -> {
+                final FutureOrPresent futureOrPresent = annotated.getAnnotation(FutureOrPresent.class);
+                if (futureOrPresent != null && !futureOrPresent.off()) {
+                    restrictions.add("future: true");
+                    restrictions.add("present: true");
+                    getReadMore(FutureOrPresent.class).ifPresent(readMores::add);
+                }
+            },
+
+            (annotated, restrictions, readMores, descriptionBuilder) -> {
+                final Past past = annotated.getAnnotation(Past.class);
+                if (past != null && !past.off()) {
+                    restrictions.add("past: true");
+                    getReadMore(Past.class).ifPresent(readMores::add);
+                }
+            },
+
+            (annotated, restrictions, readMores, descriptionBuilder) -> {
+                final PastOrPresent pastOrPresent = annotated.getAnnotation(PastOrPresent.class);
+                if (pastOrPresent != null && !pastOrPresent.off()) {
+                    restrictions.add("past: true");
+                    restrictions.add("present: true");
+                    getReadMore(PastOrPresent.class).ifPresent(readMores::add);
+                }
+            },
+
+            (annotated, restrictions, readMores, descriptionBuilder) -> {
+                final TruncatedTime truncatedTime = annotated.getAnnotation(TruncatedTime.class);
+                if (truncatedTime != null && !truncatedTime.off()) {
+                    restrictions.add("truncated: " + truncatedTime.value().name().toLowerCase(Locale.ENGLISH));
+                    getReadMore(TruncatedTime.class).ifPresent(readMores::add);
+                }
+            }
+    );
 
     @ReadMore(
             caption = "What is UTC?",
@@ -47,39 +92,13 @@ public final class DateTimePrimitiveConstraintReader implements ConstraintReader
     private Instant instant;
 
     @Override
-    public void readIfConstraintEnabled(final List<String> restrictions,
+    public void readIfConstraintEnabled(final Map.Entry<RestModelField, ModelClass> entry,
+                                        final List<String> restrictions,
                                         final List<ReadMore> readMores,
-                                        final Map.Entry<RestModelField, ModelClass> entry,
                                         final StringBuilder descriptionBuilder) {
         final RestModelField annotated = entry.getKey();
         addTypeFormat(restrictions, readMores, annotated);
-        final Future future = annotated.getAnnotation(Future.class);
-        if (future != null && !future.off()) {
-            restrictions.add("future: true");
-            getReadMore(Future.class).ifPresent(readMores::add);
-        }
-        final FutureOrPresent futureOrPresent = annotated.getAnnotation(FutureOrPresent.class);
-        if (futureOrPresent != null && !futureOrPresent.off()) {
-            restrictions.add("future: true");
-            restrictions.add("present: true");
-            getReadMore(FutureOrPresent.class).ifPresent(readMores::add);
-        }
-        final Past past = annotated.getAnnotation(Past.class);
-        if (past != null && !past.off()) {
-            restrictions.add("past: true");
-            getReadMore(Past.class).ifPresent(readMores::add);
-        }
-        final PastOrPresent pastOrPresent = annotated.getAnnotation(PastOrPresent.class);
-        if (pastOrPresent != null && !pastOrPresent.off()) {
-            restrictions.add("past: true");
-            restrictions.add("present: true");
-            getReadMore(PastOrPresent.class).ifPresent(readMores::add);
-        }
-        final TruncatedTime truncatedTime = annotated.getAnnotation(TruncatedTime.class);
-        if (truncatedTime != null && !truncatedTime.off()) {
-            restrictions.add("truncated: " + truncatedTime.value().name().toLowerCase(Locale.ENGLISH));
-            getReadMore(TruncatedTime.class).ifPresent(readMores::add);
-        }
+        readUsingAnnotationConstraintReader(annotationConstraintReaders, annotated, restrictions, readMores, descriptionBuilder);
     }
 
     private void addTypeFormat(final List<String> restrictions,
@@ -89,8 +108,8 @@ public final class DateTimePrimitiveConstraintReader implements ConstraintReader
             restrictions.add("format: UTC");
             try {
                 readMores.add(getClass().getDeclaredField("instant").getAnnotation(ReadMore.class));
-            } catch (final NoSuchFieldException e) {
-                throw new ImpossibleException(e, "Field `instant` must be declared!");
+            } catch (final NoSuchFieldException ex) {
+                throw new ImpossibleException(ex, "Field `instant` must be declared!");
             }
         }
     }

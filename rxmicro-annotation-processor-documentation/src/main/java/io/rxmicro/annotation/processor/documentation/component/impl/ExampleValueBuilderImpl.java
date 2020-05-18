@@ -25,13 +25,13 @@ import io.rxmicro.annotation.processor.documentation.component.impl.example.Type
 import io.rxmicro.annotation.processor.rest.model.RestModelField;
 import io.rxmicro.documentation.Example;
 
-import javax.lang.model.type.DeclaredType;
-import javax.lang.model.type.TypeMirror;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import javax.lang.model.type.DeclaredType;
+import javax.lang.model.type.TypeMirror;
 
 import static java.util.Collections.singletonList;
 import static java.util.stream.Collectors.toUnmodifiableList;

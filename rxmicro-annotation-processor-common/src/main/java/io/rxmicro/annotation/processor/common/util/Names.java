@@ -18,10 +18,10 @@ package io.rxmicro.annotation.processor.common.util;
 
 import io.rxmicro.annotation.processor.common.model.error.InternalErrorException;
 
+import java.util.List;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.DeclaredType;
 import javax.lang.model.type.TypeMirror;
-import java.util.List;
 
 import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getTypes;
 
@@ -31,11 +31,9 @@ import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentH
  */
 public final class Names {
 
-    private static final String PRIMITIVE_NOT_ALLOWED_HERE = "Primitive not allowed here";
-
     public static String getPackageName(final TypeMirror type) {
         if (type.getKind().isPrimitive()) {
-            throw new InternalErrorException(PRIMITIVE_NOT_ALLOWED_HERE);
+            throw new InternalErrorException("Primitive not allowed here");
         }
         return getPackageName(getTypeWithoutGeneric(type));
     }
@@ -54,32 +52,11 @@ public final class Names {
 
     public static String getSimpleName(final TypeMirror type) {
         if (type.getKind().isPrimitive()) {
-            throw new InternalErrorException(PRIMITIVE_NOT_ALLOWED_HERE);
+            throw new InternalErrorException("Primitive not allowed here");
         }
         final StringBuilder nameBuilder = new StringBuilder();
         populate(nameBuilder, type);
         return nameBuilder.toString();
-    }
-
-    private static void populate(final StringBuilder nameBuilder,
-                                 final TypeMirror type) {
-        nameBuilder.append(getSimpleName(getTypes().erasure(type).toString()));
-        if (type instanceof DeclaredType) {
-            final List<? extends TypeMirror> typeArguments = ((DeclaredType) type).getTypeArguments();
-            if (!typeArguments.isEmpty()) {
-                nameBuilder.append('<');
-            }
-            for (int i = 0; i < typeArguments.size(); i++) {
-                final TypeMirror typeArgument = typeArguments.get(i);
-                populate(nameBuilder, typeArgument);
-                if (i != typeArguments.size() - 1) {
-                    nameBuilder.append(", ");
-                }
-            }
-            if (!typeArguments.isEmpty()) {
-                nameBuilder.append('>');
-            }
-        }
     }
 
     public static String getSimpleName(final TypeElement typeElement) {
@@ -102,7 +79,7 @@ public final class Names {
 
     public static String getGenericType(final TypeMirror type) {
         if (type.getKind().isPrimitive()) {
-            throw new InternalErrorException(PRIMITIVE_NOT_ALLOWED_HERE);
+            throw new InternalErrorException("Primitive not allowed here");
         }
         final String string = type.toString();
         return string.substring(string.indexOf('<') + 1, string.lastIndexOf('>'));
@@ -110,7 +87,7 @@ public final class Names {
 
     public static String getTypeWithoutGeneric(final TypeMirror type) {
         if (type.getKind().isPrimitive()) {
-            throw new InternalErrorException(PRIMITIVE_NOT_ALLOWED_HERE);
+            throw new InternalErrorException("Primitive not allowed here");
         }
         final String string = type.toString();
         final int index = string.indexOf('<');
@@ -120,6 +97,27 @@ public final class Names {
     public static String getTypeWithoutGeneric(final String type) {
         final int index = type.indexOf('<');
         return index > 0 ? type.substring(0, index) : type;
+    }
+
+    private static void populate(final StringBuilder nameBuilder,
+                                 final TypeMirror type) {
+        nameBuilder.append(getSimpleName(getTypes().erasure(type).toString()));
+        if (type instanceof DeclaredType) {
+            final List<? extends TypeMirror> typeArguments = ((DeclaredType) type).getTypeArguments();
+            if (!typeArguments.isEmpty()) {
+                nameBuilder.append('<');
+            }
+            for (int i = 0; i < typeArguments.size(); i++) {
+                final TypeMirror typeArgument = typeArguments.get(i);
+                populate(nameBuilder, typeArgument);
+                if (i != typeArguments.size() - 1) {
+                    nameBuilder.append(", ");
+                }
+            }
+            if (!typeArguments.isEmpty()) {
+                nameBuilder.append('>');
+            }
+        }
     }
 
     private Names() {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 https://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,17 +26,17 @@ import io.rxmicro.annotation.processor.rest.model.RestModelField;
 import io.rxmicro.annotation.processor.rest.model.validator.ModelConstraintAnnotation;
 import io.rxmicro.validation.base.ConstraintRule;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
 import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.AnnotationValue;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.TypeMirror;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
 
 import static io.rxmicro.annotation.processor.common.util.Annotations.getAnnotationValue;
 import static io.rxmicro.annotation.processor.common.util.Elements.asTypeElement;
@@ -69,8 +69,8 @@ public final class ConstraintAnnotationExtractorImpl extends AbstractProcessorCo
                             validateConstraintAnnotation(annotationElement);
                             buildModelConstraintAnnotation(field, annotationMirror, customConstraint, modelFieldType)
                                     .ifPresent(result::add);
-                        } catch (final InterruptProcessingException e) {
-                            error(e);
+                        } catch (final InterruptProcessingException ex) {
+                            error(ex);
                         }
                     });
         }
@@ -115,11 +115,11 @@ public final class ConstraintAnnotationExtractorImpl extends AbstractProcessorCo
                                                  ? extends AnnotationValue> elementValues) {
         try {
             return (boolean) getAnnotationValue(elementValues, "off");
-        } catch (final InternalErrorException e) {
+        } catch (final InternalErrorException ignore) {
             throw new InterruptProcessingException(
                     annotationMirror.getAnnotationType().asElement(),
-                    "Add the required annotation parameter: \"boolean off() default false;\". "/* +
-                            "More info is here: https://rxmicro.io/docs#customValidation"*/);
+                    "Add the required annotation parameter: \"boolean off() default false;\"." +
+                            "More info is here: https://docs.rxmicro.io/latest/user-guide/validation.html#creating_custom_constraints");
         }
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 https://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,9 +19,9 @@ package io.rxmicro.annotation.processor.common.model;
 import io.rxmicro.config.detail.DefaultConfigValueBuilder;
 import io.rxmicro.runtime.detail.Runtimes;
 
-import javax.lang.model.element.ModuleElement;
 import java.util.List;
 import java.util.Map;
+import javax.lang.model.element.ModuleElement;
 
 import static io.rxmicro.annotation.processor.common.model.ClassHeader.newClassHeaderBuilder;
 import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.ENVIRONMENT_CUSTOMIZER_SIMPLE_CLASS_NAME;

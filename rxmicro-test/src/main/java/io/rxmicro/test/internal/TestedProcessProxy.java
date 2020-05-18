@@ -35,8 +35,8 @@ public final class TestedProcessProxy extends Process {
         this.outputCatcher = new Thread(() -> {
             try {
                 process.getInputStream().transferTo(System.out);
-            } catch (final IOException e) {
-                e.printStackTrace();
+            } catch (final IOException ex) {
+                ex.printStackTrace(System.out);
             }
         }, "Process output catcher");
         this.outputCatcher.start();

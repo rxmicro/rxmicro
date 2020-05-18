@@ -24,10 +24,10 @@ import io.rxmicro.annotation.processor.rest.model.RestRequestModel;
 import io.rxmicro.annotation.processor.rest.model.RestResponseModel;
 import io.rxmicro.rest.server.NotFoundMessage;
 
-import javax.lang.model.element.ExecutableElement;
-import javax.lang.model.element.TypeElement;
 import java.util.List;
 import java.util.Optional;
+import javax.lang.model.element.ExecutableElement;
+import javax.lang.model.element.TypeElement;
 
 import static io.rxmicro.common.util.Formats.format;
 import static java.util.stream.Collectors.joining;

@@ -34,7 +34,8 @@ import static io.rxmicro.annotation.processor.common.util.Elements.asTypeElement
  * @since 0.1
  */
 @Singleton
-public final class PostgreSQLDataModelFieldBuilderImpl extends AbstractSQLDataModelFieldBuilder<SQLDataModelField, PostgreSQLDataObjectModelClass> {
+public final class PostgreSQLDataModelFieldBuilderImpl
+        extends AbstractSQLDataModelFieldBuilder<SQLDataModelField, PostgreSQLDataObjectModelClass> {
 
     @Override
     protected PostgreSQLDataObjectModelClass createObjectModelClass(final ModuleElement currentModule,

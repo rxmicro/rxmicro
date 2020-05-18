@@ -32,21 +32,44 @@ import static io.rxmicro.common.util.Requires.require;
 @SuppressWarnings("UnusedReturnValue")
 public class SQLPooledDatabaseConfig extends SQLDatabaseConfig {
 
-    private int acquireRetry = 2;
+    /**
+     * Default acquire retry
+     */
+    public static final int DEFAULT_ACQUIRE_RETRY = 2;
 
-    private int initialSize = 3;
+    /**
+     * Default init pool size
+     */
+    public static final int DEFAULT_INIT_POOL_SIZE = 3;
 
-    private int maxSize = 5;
+    /**
+     * Default max pool size
+     */
+    public static final int DEFAULT_MAX_POOL_SIZE = 5;
+
+    /**
+     * Default max idle time in seconds
+     */
+    public static final int DEFAULT_MAX_IDLE_TIME_IN_SECONDS = 30 * 60;
+
+    private int acquireRetry = DEFAULT_ACQUIRE_RETRY;
+
+    private int initialSize = DEFAULT_INIT_POOL_SIZE;
+
+    private int maxSize = DEFAULT_MAX_POOL_SIZE;
 
     private String validationQuery = "SELECT 2+2";
 
-    private Duration maxIdleTime = Duration.ofMinutes(30);
+    private Duration maxIdleTime = Duration.ofSeconds(DEFAULT_MAX_IDLE_TIME_IN_SECONDS);
 
-    private Duration maxCreateConnectionTime = Duration.ZERO;  // ZERO indicates no-timeout
+    // ZERO indicates no-timeout
+    private Duration maxCreateConnectionTime = Duration.ZERO;
 
-    private Duration maxAcquireTime = Duration.ZERO;  // ZERO indicates no-timeout
+    // ZERO indicates no-timeout
+    private Duration maxAcquireTime = Duration.ZERO;
 
-    private Duration maxLifeTime = Duration.ZERO;  // ZERO indicates no-timeout
+    // ZERO indicates no-timeout
+    private Duration maxLifeTime = Duration.ZERO;
 
     /**
      * Returns the number of retries if the first connection acquire attempt fails.

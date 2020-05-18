@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 https://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,9 +24,9 @@ import io.rxmicro.rest.client.detail.ModelReader;
 import io.rxmicro.rest.client.detail.PathBuilder;
 import io.rxmicro.rest.client.detail.RequestModelExtractor;
 
+import java.util.Map;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.TypeMirror;
-import java.util.Map;
 
 import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.getModelTransformerSimpleClassName;
 
@@ -50,9 +50,9 @@ public final class RestClientObjectModelClass extends RestObjectModelClass {
         return new RestClientObjectModelClass(getModelTypeMirror(), getModelTypeElement(), pathVariables);
     }
 
-    @UsedByFreemarker({
-            "$$RestClientPathBuilderTemplate.javaftl",
-    })
+    @UsedByFreemarker(
+            "$$RestClientPathBuilderTemplate.javaftl"
+    )
     public String getPathBuilderImplSimpleClassName() {
         return getModelTransformerSimpleClassName(getModelTypeElement(), PathBuilder.class);
     }

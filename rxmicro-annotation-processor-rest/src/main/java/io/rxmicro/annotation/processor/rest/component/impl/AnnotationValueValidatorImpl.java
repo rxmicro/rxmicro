@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 https://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,8 +34,6 @@ import io.rxmicro.validation.constraint.MinNumber;
 import io.rxmicro.validation.constraint.Pattern;
 import io.rxmicro.validation.constraint.SubEnum;
 
-import javax.lang.model.type.DeclaredType;
-import javax.lang.model.type.TypeMirror;
 import java.lang.annotation.Annotation;
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -46,6 +44,8 @@ import java.util.Set;
 import java.util.regex.PatternSyntaxException;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import javax.lang.model.type.DeclaredType;
+import javax.lang.model.type.TypeMirror;
 
 /**
  * @author nedis
@@ -164,10 +164,11 @@ public final class AnnotationValueValidatorImpl extends AbstractProcessorCompone
                     pattern.regexp(),
                     Arrays.stream(pattern.flags()).map(Pattern.Flag::getValue).reduce((f1, f2) -> f1 | f2).orElse(0)
             );
-        } catch (final PatternSyntaxException e) {
-            error(restModelField.getElementAnnotatedBy(Pattern.class),
-                    ANNOTATION_ERROR_PREFFIX +
-                            "Invalid regular expression: ?", Pattern.class.getSimpleName(), e.getMessage());
+        } catch (final PatternSyntaxException ex) {
+            error(
+                    restModelField.getElementAnnotatedBy(Pattern.class),
+                    ANNOTATION_ERROR_PREFFIX + "Invalid regular expression: ?", Pattern.class.getSimpleName(), ex.getMessage()
+            );
         }
     }
 

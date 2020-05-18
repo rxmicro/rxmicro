@@ -44,12 +44,8 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 @Retention(SOURCE)
 @Target({FIELD, METHOD, PARAMETER})
 @ConstraintRule(
-        supportedTypes = {
-                List.class
-        },
-        validatorClass = {
-                MaxSizeConstraintValidator.class
-        }
+        supportedTypes = List.class,
+        validatorClass = MaxSizeConstraintValidator.class
 )
 public @interface MaxSize {
 

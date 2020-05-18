@@ -26,13 +26,13 @@ import io.rxmicro.annotation.processor.common.model.SourceCode;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
 import io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper;
 
+import java.util.Collection;
+import java.util.Set;
 import javax.annotation.processing.AbstractProcessor;
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.TypeElement;
-import java.util.Collection;
-import java.util.Set;
 
 import static io.rxmicro.annotation.processor.common.SupportedOptions.RX_MICRO_BUILD_UNNAMED_MODULE;
 import static io.rxmicro.annotation.processor.common.SupportedOptions.RX_MICRO_DOC_DESTINATION_DIR;
@@ -97,10 +97,10 @@ public abstract class AbstractRxMicroProcessor extends AbstractProcessor {
             try {
                 annotationProcessingInformer.annotationProcessingStarted(getAnnotationProcessorType());
                 return process(environmentContextBuilder, annotations, roundEnv);
-            } catch (final InterruptProcessingException e) {
-                getMessager().printMessage(ERROR, e.getMessage(), e.getElement());
+            } catch (final InterruptProcessingException ex) {
+                getMessager().printMessage(ERROR, ex.getMessage(), ex.getElement());
                 return false;
-            } catch (final RuntimeException | Error throwable) {
+            } catch (final Throwable throwable) {
                 getMessager().printMessage(ERROR, "RxMicroAnnotationProcessor internal error: " + throwable.getMessage());
                 logThrowableStackTrace(throwable);
                 return false;
@@ -108,11 +108,11 @@ public abstract class AbstractRxMicroProcessor extends AbstractProcessor {
         }
     }
 
-    protected abstract AnnotationProcessorType getAnnotationProcessorType();
+    protected abstract boolean process(EnvironmentContextBuilder environmentContextBuilder,
+                                       Set<? extends TypeElement> annotations,
+                                       RoundEnvironment roundEnv);
 
-    protected abstract boolean process(final EnvironmentContextBuilder environmentContextBuilder,
-                                       final Set<? extends TypeElement> annotations,
-                                       final RoundEnvironment roundEnv);
+    protected abstract AnnotationProcessorType getAnnotationProcessorType();
 
     protected final void generateClasses(final Collection<SourceCode> sourceCodes) {
         if (doesNotContainErrors()) {

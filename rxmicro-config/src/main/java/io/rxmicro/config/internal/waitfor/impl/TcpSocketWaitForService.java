@@ -37,6 +37,8 @@ public final class TcpSocketWaitForService implements WaitForService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TcpSocketWaitForService.class);
 
+    private static final int DEFAULT_SLEEP_DURATION_IN_MILLIS = 500;
+
     private final String host;
 
     private final int port;
@@ -63,7 +65,7 @@ public final class TcpSocketWaitForService implements WaitForService {
                     data[0],
                     validatePort(Integer.parseInt(data[1]))
             };
-        } catch (final NumberFormatException e) {
+        } catch (final NumberFormatException ignore) {
             throw new ConfigException("Invalid port value. Expected an integer value, but actual is '?'", data[1]);
         }
     }
@@ -80,18 +82,18 @@ public final class TcpSocketWaitForService implements WaitForService {
             try (Socket ignored = new Socket(host, port)) {
                 LOGGER.debug("tcp socket is available: ?", params.getDestination());
                 return;
-            } catch (final IOException e) {
+            } catch (final IOException ex) {
                 // do nothing
                 LOGGER.debug(
                         "tcp socket '?' in not available yet: ? (?)",
                         params.getDestination(),
-                        e.getMessage(),
-                        e.getClass().getSimpleName()
+                        ex.getMessage(),
+                        ex.getClass().getSimpleName()
                 );
             }
             try {
-                TimeUnit.MILLISECONDS.sleep(500);
-            } catch (InterruptedException e) {
+                TimeUnit.MILLISECONDS.sleep(DEFAULT_SLEEP_DURATION_IN_MILLIS);
+            } catch (final InterruptedException ignore) {
                 // do nothing
             }
         } while (System.nanoTime() - start < timeoutInNanos);

@@ -88,8 +88,8 @@ public final class NettyServerFactory implements ServerFactory {
                     restServerConfig
             ));
             return start(httpServerConfig, nettyRestServerConfig);
-        } catch (final ClassNotFoundException e) {
-            throw new ConfigException("Required class not found: " + e.getMessage());
+        } catch (final ClassNotFoundException ex) {
+            throw new ConfigException("Required class not found: " + ex.getMessage());
         }
     }
 
@@ -110,8 +110,8 @@ public final class NettyServerFactory implements ServerFactory {
         thread.start();
         try {
             latch.await();
-        } catch (final InterruptedException e) {
-            LOGGER.error(e, "Waiting for started failed");
+        } catch (final InterruptedException ex) {
+            LOGGER.error(ex, "Waiting for started failed");
         }
         return new ServerInstanceImpl(thread);
     }

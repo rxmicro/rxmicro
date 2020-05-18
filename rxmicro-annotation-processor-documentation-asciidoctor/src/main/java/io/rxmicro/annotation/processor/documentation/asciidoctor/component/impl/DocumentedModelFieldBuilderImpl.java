@@ -108,11 +108,9 @@ public final class DocumentedModelFieldBuilderImpl implements DocumentedModelFie
                         environmentContext, withStandardDescriptions, projectDirectory, entry, OBJECT, withReadMore
                 ));
                 extractModelRecursive(
-                        environmentContext,
-                        withStandardDescriptions,
-                        projectDirectory,
-                        format("\"?\"", entry.getKey().getModelName()), entryList, entry.getValue().asObject(),
-                        withReadMore
+                        environmentContext, withStandardDescriptions, projectDirectory,
+                        format("\"?\"", entry.getKey().getModelName()),
+                        entryList, entry.getValue().asObject(), withReadMore
                 );
             } else if (entry.getValue().isList()) {
                 final ListModelClass listModelClass = entry.getValue().asList();
@@ -121,11 +119,9 @@ public final class DocumentedModelFieldBuilderImpl implements DocumentedModelFie
                             environmentContext, withStandardDescriptions, projectDirectory, entry, ARRAY, withReadMore
                     ));
                     extractModelRecursive(
-                            environmentContext,
-                            withStandardDescriptions,
-                            projectDirectory,
-                            format("\"?\" Item", entry.getKey().getModelName()), entryList, listModelClass.getElementModelClass().asObject(),
-                            withReadMore
+                            environmentContext, withStandardDescriptions, projectDirectory,
+                            format("\"?\" Item", entry.getKey().getModelName()),
+                            entryList, listModelClass.getElementModelClass().asObject(), withReadMore
                     );
                 } else {
                     list.add(buildDocumentedModelField(

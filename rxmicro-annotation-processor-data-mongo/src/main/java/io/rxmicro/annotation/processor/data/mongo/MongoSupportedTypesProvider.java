@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 https://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -45,6 +45,7 @@ public final class MongoSupportedTypesProvider extends DataSupportedTypesProvide
     @Override
     protected TypeDefinitions<TypeDefinition> createPrimitives() {
         // https://docs.mongodb.com/manual/reference/bson-types/
+        // Add new supported primitive here:
         return new TypeDefinitionsImpl<>(
                 new ByNameTypeDefinition(ObjectId.class),
                 new EnumTypeDefinition(),
@@ -70,7 +71,6 @@ public final class MongoSupportedTypesProvider extends DataSupportedTypesProvide
                 new ByNameTypeDefinition(UUID.class),
                 new ByNameTypeDefinition(Code.class),
                 new ByNameTypeDefinition(Binary.class)
-                // Add new supported primitive here
         );
     }
 }

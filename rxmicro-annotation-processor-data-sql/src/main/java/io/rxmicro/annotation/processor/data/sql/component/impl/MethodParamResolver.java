@@ -26,12 +26,12 @@ import io.rxmicro.data.Pageable;
 import io.rxmicro.data.RepeatParameter;
 import io.rxmicro.data.sql.operation.CustomSelect;
 
-import javax.lang.model.element.VariableElement;
 import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import javax.lang.model.element.VariableElement;
 
 import static io.rxmicro.annotation.processor.common.util.Elements.asEnumElement;
 import static io.rxmicro.annotation.processor.common.util.Elements.isNotStandardEnum;

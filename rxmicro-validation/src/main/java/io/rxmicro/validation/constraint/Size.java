@@ -43,12 +43,8 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 @Retention(SOURCE)
 @Target({FIELD, METHOD, PARAMETER})
 @ConstraintRule(
-        supportedTypes = {
-                List.class
-        },
-        validatorClass = {
-                SizeConstraintValidator.class
-        }
+        supportedTypes = List.class,
+        validatorClass = SizeConstraintValidator.class
 )
 public @interface Size {
 

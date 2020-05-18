@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 https://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,10 +19,10 @@ package io.rxmicro.annotation.processor.common.model.definition.impl;
 import io.rxmicro.annotation.processor.common.model.definition.TypeDefinition;
 import io.rxmicro.annotation.processor.common.model.definition.TypeDefinitions;
 
-import javax.lang.model.element.Element;
-import javax.lang.model.type.TypeMirror;
 import java.util.Collection;
 import java.util.List;
+import javax.lang.model.element.Element;
+import javax.lang.model.type.TypeMirror;
 
 import static java.util.stream.Collectors.toUnmodifiableList;
 

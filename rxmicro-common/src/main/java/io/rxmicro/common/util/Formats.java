@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 https://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 import static io.rxmicro.common.util.Environments.isCurrentOsWindows;
 import static io.rxmicro.common.util.Requires.require;
@@ -50,6 +51,10 @@ public final class Formats {
 
     private static final boolean IS_CURRENT_OS_WINDOWS = isCurrentOsWindows();
 
+    private static final int BYTES_IN_1_KIB = 1024;
+
+    private static final int NANOS_IN_1_MILLIS = (int) TimeUnit.MILLISECONDS.toNanos(1);
+
     /**
      * Formats the string template using specified arguments
      * <p>
@@ -74,43 +79,28 @@ public final class Formats {
     public static String format(final String messageTemplate,
                                 final Object... args) {
         if (args.length == 0) {
-            if (IS_CURRENT_OS_WINDOWS) {
-                final StringBuilder sb = new StringBuilder(messageTemplate.length());
-                for (int i = 0; i < messageTemplate.length(); i++) {
-                    final char ch = messageTemplate.charAt(i);
-                    if (ch == '\n') {
-                        sb.append(LINE_SEPARATOR);
-                    } else {
-                        sb.append(ch);
-                    }
-                }
-                return sb.toString();
-            } else {
-                return require(messageTemplate);
-            }
+            return formatWithoutArguments(messageTemplate);
         } else {
-            final StringBuilder sb = new StringBuilder(messageTemplate.length() * 3 / 2);
-            int index = 0;
-            try {
-                for (int i = 0; i < messageTemplate.length(); i++) {
-                    final char ch = messageTemplate.charAt(i);
-                    if (ch == '\n') {
-                        sb.append(LINE_SEPARATOR);
-                    } else if (ch == FORMAT_PLACEHOLDER_CHAR) {
-                        sb.append(args[index++]);
-                    } else {
-                        sb.append(ch);
-                    }
-                }
-            } catch (final ArrayIndexOutOfBoundsException e) {
-                throw new IllegalArgumentException(
-                        "Redundant placeholder or missing argument: {{" + messageTemplate + "}} with " + Arrays.toString(args));
-            }
-            if (index != args.length) {
-                throw new IllegalArgumentException(
-                        "Missing placeholder or redundant argument: {{" + messageTemplate + "}} with " + Arrays.toString(args));
-            }
-            return sb.toString();
+            return formatWithArguments(messageTemplate, args);
+        }
+    }
+
+    /**
+     * Formats the specified {@link Duration} into the human readable format
+     *
+     * @param duration the specified {@link Duration}
+     * @return the human readable format of the specified {@link Duration}
+     * @since 0.3
+     * @see Duration
+     */
+    public static String format(final Duration duration) {
+        if (duration.getSeconds() == 0) {
+            return (((double) duration.getNano()) / NANOS_IN_1_MILLIS) + "ms";
+        } else {
+            return duration.toString()
+                    .substring(2)
+                    .replaceAll("(\\d[HMS])(?!$)", "$1 ")
+                    .toLowerCase(Locale.ENGLISH);
         }
     }
 
@@ -126,12 +116,12 @@ public final class Formats {
         final List<String> parts = new ArrayList<>();
         long current = size;
         while (current > 0) {
-            final long value = current % 1024;
+            final long value = current % BYTES_IN_1_KIB;
             parts.add(String.valueOf(value));
-            current = current / 1024;
+            current = current / BYTES_IN_1_KIB;
         }
-        return parts.get(parts.size() - 1) + " " + getUnits(parts) +
-                (withOriginalValue ? " (" + NumberFormat.getNumberInstance().format(size) + " bytes)" : "");
+        final String originalFragment = withOriginalValue ? " (" + NumberFormat.getNumberInstance().format(size) + " bytes)" : "";
+        return parts.get(parts.size() - 1) + " " + getUnits(parts) + originalFragment;
     }
 
     /**
@@ -144,39 +134,69 @@ public final class Formats {
         return formatSize(size, true);
     }
 
-    private static String getUnits(final List<String> parts) {
-        switch (parts.size()) {
-            case 1:
-                return "bytes";
-            case 2:
-                return "Kb";
-            case 3:
-                return "Mb";
-            case 4:
-                return "Gb";
-            case 5:
-                return "Tb";
-            default:
-                throw new IllegalArgumentException("Unsupported units");
+    private static String formatWithoutArguments(final String messageTemplate) {
+        if (IS_CURRENT_OS_WINDOWS) {
+            final StringBuilder sb = new StringBuilder(messageTemplate.length());
+            for (int i = 0; i < messageTemplate.length(); i++) {
+                final char ch = messageTemplate.charAt(i);
+                if (ch == '\n') {
+                    sb.append(LINE_SEPARATOR);
+                } else {
+                    sb.append(ch);
+                }
+            }
+            return sb.toString();
+        } else {
+            return require(messageTemplate);
         }
     }
 
-    /**
-     * Formats the specified {@link Duration} into the human readable format
-     *
-     * @param duration the specified {@link Duration}
-     * @return the human readable format of the specified {@link Duration}
-     * @since 0.3
-     * @see Duration
-     */
-    public static String format(final Duration duration) {
-        if (duration.getSeconds() == 0) {
-            return (((double) duration.getNano()) / 1_000_000) + "ms";
-        } else {
-            return duration.toString()
-                    .substring(2)
-                    .replaceAll("(\\d[HMS])(?!$)", "$1 ")
-                    .toLowerCase(Locale.ENGLISH);
+    private static String formatWithArguments(final String messageTemplate,
+                                              final Object[] args) {
+        final StringBuilder sb = new StringBuilder(messageTemplate.length() * 3 / 2);
+        int index = 0;
+        try {
+            for (int i = 0; i < messageTemplate.length(); i++) {
+                final char ch = messageTemplate.charAt(i);
+                if (ch == '\n') {
+                    sb.append(LINE_SEPARATOR);
+                } else if (ch == FORMAT_PLACEHOLDER_CHAR) {
+                    sb.append(args[index++]);
+                } else {
+                    sb.append(ch);
+                }
+            }
+        } catch (final ArrayIndexOutOfBoundsException ignore) {
+            throw new IllegalArgumentException(
+                    "Redundant placeholder or missing argument: {{" + messageTemplate + "}} with " + Arrays.toString(args));
+        }
+        if (index != args.length) {
+            throw new IllegalArgumentException(
+                    "Missing placeholder or redundant argument: {{" + messageTemplate + "}} with " + Arrays.toString(args));
+        }
+        return sb.toString();
+    }
+
+    private static String getUnits(final List<String> parts) {
+        switch (parts.size()) {
+            case 1: {
+                return "bytes";
+            }
+            case 2: {
+                return "Kb";
+            }
+            case 3: {
+                return "Mb";
+            }
+            case 4: {
+                return "Gb";
+            }
+            case 5: {
+                return "Tb";
+            }
+            default: {
+                throw new IllegalArgumentException("Unsupported units");
+            }
         }
     }
 

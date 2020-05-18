@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 https://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,8 +24,8 @@ import io.rxmicro.annotation.processor.rest.model.StaticQueryParameters;
 import io.rxmicro.rest.client.detail.HeaderBuilder;
 import io.rxmicro.rest.client.detail.QueryBuilder;
 
-import javax.lang.model.element.TypeElement;
 import java.util.Map;
+import javax.lang.model.element.TypeElement;
 
 /**
  * @author nedis

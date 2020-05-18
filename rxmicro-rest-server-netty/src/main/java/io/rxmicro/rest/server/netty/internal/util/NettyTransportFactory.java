@@ -66,13 +66,17 @@ public final class NettyTransportFactory {
         } else if (config.getTransport() == KQUEUE) {
             return instantiate(getKQueueEventLoopGroupClass());
         } else {
-            if (isCurrentOsLinux() && isEPollNativeAdded()) {
-                return instantiate(getEPollEventLoopGroupClass());
-            } else if (isCurrentOsMac() && isKQueueNativeAdded()) {
-                return instantiate(getKQueueEventLoopGroupClass());
-            } else {
-                return new NioEventLoopGroup();
-            }
+            return newAutoDetectedEventLoopGroup();
+        }
+    }
+
+    private static EventLoopGroup newAutoDetectedEventLoopGroup() throws ClassNotFoundException {
+        if (isCurrentOsLinux() && isEPollNativeAdded()) {
+            return instantiate(getEPollEventLoopGroupClass());
+        } else if (isCurrentOsMac() && isKQueueNativeAdded()) {
+            return instantiate(getKQueueEventLoopGroupClass());
+        } else {
+            return new NioEventLoopGroup();
         }
     }
 
@@ -85,13 +89,17 @@ public final class NettyTransportFactory {
         } else if (config.getTransport() == KQUEUE) {
             return getKQueueServerSocketChannelClass();
         } else {
-            if (isCurrentOsLinux() && isEPollNativeAdded()) {
-                return getEPollServerSocketChannelClass();
-            } else if (isCurrentOsMac() && isKQueueNativeAdded()) {
-                return getKQueueServerSocketChannelClass();
-            } else {
-                return NioServerSocketChannel.class;
-            }
+            return getAutoDetectedServerSocketChannelClass();
+        }
+    }
+
+    private static Class<? extends ServerSocketChannel> getAutoDetectedServerSocketChannelClass() throws ClassNotFoundException {
+        if (isCurrentOsLinux() && isEPollNativeAdded()) {
+            return getEPollServerSocketChannelClass();
+        } else if (isCurrentOsMac() && isKQueueNativeAdded()) {
+            return getKQueueServerSocketChannelClass();
+        } else {
+            return NioServerSocketChannel.class;
         }
     }
 

@@ -18,9 +18,9 @@ package io.rxmicro.annotation.processor.cdi.model.qualifier;
 
 import io.rxmicro.cdi.detail.ByTypeAndNameInstanceQualifier;
 
+import java.util.Set;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.TypeMirror;
-import java.util.Set;
 
 import static io.rxmicro.annotation.processor.common.util.Names.getSimpleName;
 import static io.rxmicro.common.util.Formats.format;

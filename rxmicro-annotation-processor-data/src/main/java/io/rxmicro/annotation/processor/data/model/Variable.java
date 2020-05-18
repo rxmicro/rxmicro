@@ -16,9 +16,9 @@
 
 package io.rxmicro.annotation.processor.data.model;
 
+import java.util.Objects;
 import javax.lang.model.element.VariableElement;
 import javax.lang.model.type.TypeMirror;
-import java.util.Objects;
 
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.Requires.require;

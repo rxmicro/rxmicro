@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 https://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -43,15 +43,15 @@ import io.rxmicro.rest.ResponseBody;
 import io.rxmicro.rest.ResponseStatusCode;
 import io.rxmicro.rest.model.HttpModelType;
 
-import javax.lang.model.element.TypeElement;
-import javax.lang.model.element.VariableElement;
-import javax.lang.model.type.TypeMirror;
 import java.lang.annotation.Annotation;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.Supplier;
+import javax.lang.model.element.TypeElement;
+import javax.lang.model.element.VariableElement;
+import javax.lang.model.type.TypeMirror;
 
 import static io.rxmicro.annotation.processor.common.model.ModelFieldType.REST_CLIENT_RESPONSE;
 import static io.rxmicro.annotation.processor.common.model.ModelFieldType.REST_SERVER_REQUEST;
@@ -81,11 +81,6 @@ public abstract class AbstractRestModelFieldBuilder
     }
 
     @Override
-    protected final PrimitiveModelClass createPrimitiveModelClass(final TypeMirror type) {
-        return new RestPrimitiveModelClass(type);
-    }
-
-    @Override
     protected final RestModelField build(final ModelFieldType modelFieldType,
                                          final VariableElement field,
                                          final TypeElement typeElement,
@@ -101,6 +96,11 @@ public abstract class AbstractRestModelFieldBuilder
         return buildInternal(modelFieldType, annotated).orElseGet(() ->
                 buildCustomParameter(modelFieldType, field, typeElement, modelNames, nestedLevel, fieldName, annotated)
         );
+    }
+
+    @Override
+    protected final PrimitiveModelClass createPrimitiveModelClass(final TypeMirror type) {
+        return new RestPrimitiveModelClass(type);
     }
 
     protected abstract Optional<RestModelField> buildInternal(ModelFieldType modelFieldType,
@@ -138,7 +138,7 @@ public abstract class AbstractRestModelFieldBuilder
 
     protected final void validateNoAnnotations(final AnnotatedModelElement annotated) {
         if (!annotated.getAllAnnotationMirrors(getElements()).isEmpty()) {
-            error(annotated.getElement(),
+            error(annotated.getField(),
                     "Annotations are not allowed for this element");
         }
     }
@@ -198,10 +198,8 @@ public abstract class AbstractRestModelFieldBuilder
         }
         try {
             validateHeaderName(modelName);
-        } catch (final IllegalArgumentException e) {
-            error(annotated.getElementAnnotatedBy(Header.class).orElse(field),
-                    e.getMessage()
-            );
+        } catch (final IllegalArgumentException ex) {
+            error(annotated.getElementAnnotatedBy(Header.class).orElse(field), ex.getMessage());
         }
         final boolean repeat = annotated.isAnnotationPresent(RepeatHeader.class);
         if (repeat) {
@@ -248,10 +246,8 @@ public abstract class AbstractRestModelFieldBuilder
         }
         try {
             validateParameterName(modelName);
-        } catch (final IllegalArgumentException e) {
-            error(annotated.getElementAnnotatedBy(Parameter.class).orElse(field),
-                    e.getMessage()
-            );
+        } catch (final IllegalArgumentException ex) {
+            error(annotated.getElementAnnotatedBy(Parameter.class).orElse(field), ex.getMessage());
         }
         final boolean repeat = annotated.isAnnotationPresent(RepeatQueryParameter.class);
         if (repeat) {

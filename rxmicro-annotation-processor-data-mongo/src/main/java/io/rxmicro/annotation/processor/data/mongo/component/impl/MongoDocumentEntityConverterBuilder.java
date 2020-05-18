@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 https://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -54,7 +54,9 @@ public final class MongoDocumentEntityConverterBuilder extends AbstractProcessor
     private SupportedTypesProvider supportedTypesProvider;
 
     @Override
-    public Set<? extends ClassStructure> build(final DataGenerationContext<MongoDataModelField, MongoDataObjectModelClass> dataGenerationContext) {
+    public Set<? extends ClassStructure> build(
+            final DataGenerationContext<MongoDataModelField, MongoDataObjectModelClass> dataGenerationContext) {
+
         final Set<ClassStructure> result = new HashSet<>();
         dataGenerationContext.getEntityParamMap().values().stream()
                 .flatMap(m -> Stream.concat(

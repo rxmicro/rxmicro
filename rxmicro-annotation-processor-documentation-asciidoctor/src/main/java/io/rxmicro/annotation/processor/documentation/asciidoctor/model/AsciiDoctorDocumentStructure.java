@@ -24,13 +24,13 @@ import io.rxmicro.documentation.DocumentationDefinition;
 import io.rxmicro.documentation.IntroductionDefinition;
 import io.rxmicro.documentation.asciidoctor.DocumentAttributes;
 
-import javax.lang.model.element.ModuleElement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
+import javax.lang.model.element.ModuleElement;
 
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.Requires.require;

@@ -28,11 +28,11 @@ import io.rxmicro.annotation.processor.data.model.DataPrimitiveModelClass;
 import io.rxmicro.data.Column;
 import io.rxmicro.data.ColumnMappingStrategy;
 
+import java.util.Optional;
+import java.util.Set;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
 import javax.lang.model.type.TypeMirror;
-import java.util.Optional;
-import java.util.Set;
 
 /**
  * @author nedis

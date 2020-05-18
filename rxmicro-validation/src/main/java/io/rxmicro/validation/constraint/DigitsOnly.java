@@ -40,12 +40,8 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 @Retention(SOURCE)
 @Target({FIELD, METHOD, PARAMETER})
 @ConstraintRule(
-        supportedTypes = {
-                String.class
-        },
-        validatorClass = {
-                DigitsOnlyConstraintValidator.class
-        }
+        supportedTypes = String.class,
+        validatorClass = DigitsOnlyConstraintValidator.class
 )
 @SelfDocumented
 public @interface DigitsOnly {

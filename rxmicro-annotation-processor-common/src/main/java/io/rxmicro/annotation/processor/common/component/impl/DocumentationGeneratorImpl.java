@@ -57,8 +57,8 @@ public final class DocumentationGeneratorImpl extends AbstractGenerator implemen
             }
             writeString(Paths.get(destinationFile), stringWriter.toString());
             info("Document generated successfully: ?", destinationFile);
-        } catch (final TemplateException | IOException e) {
-            cantGenerateDocument(documentStructure.getName(), e);
+        } catch (final TemplateException | IOException ex) {
+            cantGenerateDocument(documentStructure.getName(), ex);
         }
     }
 
@@ -68,8 +68,8 @@ public final class DocumentationGeneratorImpl extends AbstractGenerator implemen
         if (!Files.exists(path)) {
             try {
                 Files.createDirectories(path);
-            } catch (final IOException e) {
-                throw new IOException("Can't created directory: " + path, e);
+            } catch (final IOException ex) {
+                throw new IOException("Can't created directory: " + path, ex);
             }
         }
         if (dir.endsWith("/")) {

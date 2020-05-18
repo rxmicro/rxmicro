@@ -34,16 +34,17 @@ import io.rxmicro.documentation.ModelExceptionErrorResponse;
 import io.rxmicro.documentation.ResourceDefinition;
 import io.rxmicro.documentation.SimpleErrorResponse;
 
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
+import java.util.function.Predicate;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
 import javax.lang.model.type.TypeKind;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-import java.util.function.Predicate;
 
 import static io.rxmicro.annotation.processor.common.util.Annotations.getRequiredAnnotationClassParameter;
 import static io.rxmicro.annotation.processor.common.util.Elements.allConstructors;
@@ -81,8 +82,7 @@ public final class CustomErrorResponsesBuilderImpl implements CustomErrorRespons
         descriptionReader.readDescription(owner, projectMetaData.getProjectDirectory(), simpleErrorResponse)
                 .ifPresentOrElse(
                         responseBuilder::setDescription,
-                        () -> standardHttpErrorStorage.get(status)
-                                .ifPresent(e -> responseBuilder.setDescription(e.getDescription()))
+                        () -> standardHttpErrorStorage.get(status).ifPresent(e -> responseBuilder.setDescription(e.getDescription()))
                 );
         if (resourceDefinition.withExamples()) {
             setResponseExample(
@@ -90,22 +90,19 @@ public final class CustomErrorResponsesBuilderImpl implements CustomErrorRespons
                     Optional.of(simpleErrorResponse.exampleErrorMessage())
                             .filter(v -> !v.isEmpty())
                             .orElseGet(() ->
-                                    standardHttpErrorStorage.get(status).map(StandardHttpError::getExampleErrorMessage)
-                                            .orElse("")),
+                                    standardHttpErrorStorage.get(status).map(StandardHttpError::getExampleErrorMessage).orElse("")),
                     status,
                     responseBuilder
             );
         }
-        if (resourceDefinition.withHeadersDescriptionTable() &&
-                resourceDefinition.withRequestIdResponseHeader()) {
+        if (resourceDefinition.withHeadersDescriptionTable() && resourceDefinition.withRequestIdResponseHeader()) {
             responseBuilder.setHeaders(List.of(buildApiVersionHeaderDocumentedModelField(true)));
         }
         if (resourceDefinition.withBodyParametersDescriptionTable()) {
             final String messageDescription = Optional.of(simpleErrorResponse.exampleErrorMessage())
                     .filter(v -> !v.isEmpty())
                     .orElseGet(() ->
-                            standardHttpErrorStorage.get(status).map(StandardHttpError::getMessageDescription)
-                                    .orElse(""));
+                            standardHttpErrorStorage.get(status).map(StandardHttpError::getMessageDescription).orElse(""));
             if (!messageDescription.isEmpty()) {
                 final boolean showReadMoreLinks = standardHttpErrorStorage.get(status)
                         .map(StandardHttpError::isWithShowErrorCauseReadMoreLink)
@@ -129,33 +126,16 @@ public final class CustomErrorResponsesBuilderImpl implements CustomErrorRespons
         descriptionReader.readDescription(exceptionTypeElement, projectMetaData.getProjectDirectory())
                 .ifPresentOrElse(
                         responseBuilder::setDescription,
-                        () -> standardHttpErrorStorage.get(status)
-                                .ifPresent(e -> responseBuilder.setDescription(e.getDescription()))
+                        () -> standardHttpErrorStorage.get(status).ifPresent(e -> responseBuilder.setDescription(e.getDescription()))
                 );
         final List<ExecutableElement> constructors = allConstructors(exceptionTypeElement);
         if (constructors.size() != 1) {
-            throw new InterruptProcessingException(owner,
-                    "'?' model exception class must declare only one constructor",
-                    exceptionTypeElement.asType().toString());
+            throw new InterruptProcessingException(
+                    owner, "'?' model exception class must declare only one constructor", exceptionTypeElement.asType().toString()
+            );
         }
-        final String exampleErrorMessage;
-        final String messageDescription;
-        final Optional<VariableElement> messageParameterOptional = getMessageParameter(constructors.get(0));
-        if (messageParameterOptional.isPresent()) {
-            exampleErrorMessage = Optional.ofNullable(messageParameterOptional.get().getAnnotation(Example.class))
-                    .map(Example::value)
-                    .orElseGet(() -> standardHttpErrorStorage.get(status)
-                            .map(StandardHttpError::getExampleErrorMessage)
-                            .orElse(""));
-            messageDescription = Optional.ofNullable(messageParameterOptional.get().getAnnotation(Description.class))
-                    .map(Description::value)
-                    .orElseGet(() -> standardHttpErrorStorage.get(status)
-                            .map(StandardHttpError::getMessageDescription)
-                            .orElse(""));
-        } else {
-            exampleErrorMessage = "";
-            messageDescription = "";
-        }
+        final Map.Entry<String, String> entry = getExampleErrorMessageWithDescription(constructors, status);
+        final String exampleErrorMessage = entry.getKey();
         if (resourceDefinition.withExamples()) {
             setResponseExample(resourceDefinition, exampleErrorMessage, status, responseBuilder);
         }
@@ -163,14 +143,34 @@ public final class CustomErrorResponsesBuilderImpl implements CustomErrorRespons
                 resourceDefinition.withRequestIdResponseHeader()) {
             responseBuilder.setHeaders(List.of(buildApiVersionHeaderDocumentedModelField(true)));
         }
-        if (resourceDefinition.withBodyParametersDescriptionTable() &&
-                !exampleErrorMessage.isEmpty()) {
+        if (resourceDefinition.withBodyParametersDescriptionTable() && !exampleErrorMessage.isEmpty()) {
             final boolean showReadMoreLinks = standardHttpErrorStorage.get(status)
                     .map(StandardHttpError::isWithShowErrorCauseReadMoreLink)
                     .orElse(false);
+            final String messageDescription = entry.getValue();
             setBodyParameter(messageDescription, responseBuilder, showReadMoreLinks ? showErrorCauseReadMoreLinks : List.of());
         }
         return responseBuilder.build();
+    }
+
+    private Map.Entry<String, String> getExampleErrorMessageWithDescription(final List<ExecutableElement> constructors,
+                                                                            final int status) {
+        final Optional<VariableElement> messageParameterOptional = getMessageParameter(constructors.get(0));
+        if (messageParameterOptional.isPresent()) {
+            final String exampleErrorMessage = Optional.ofNullable(messageParameterOptional.get().getAnnotation(Example.class))
+                    .map(Example::value)
+                    .orElseGet(() -> standardHttpErrorStorage.get(status)
+                            .map(StandardHttpError::getExampleErrorMessage)
+                            .orElse(""));
+            final String messageDescription = Optional.ofNullable(messageParameterOptional.get().getAnnotation(Description.class))
+                    .map(Description::value)
+                    .orElseGet(() -> standardHttpErrorStorage.get(status)
+                            .map(StandardHttpError::getMessageDescription)
+                            .orElse(""));
+            return entry(exampleErrorMessage, messageDescription);
+        } else {
+            return entry("", "");
+        }
     }
 
     private Optional<VariableElement> getMessageParameter(final ExecutableElement executableElement) {

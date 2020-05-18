@@ -59,8 +59,8 @@ public final class PropertiesResources {
                     return Optional.of(loadProperties(in));
                 }
             }
-        } catch (final IOException e) {
-            throw new ResourceException(e, "Can't read from classpath resource: ?", classPathResource);
+        } catch (final IOException ex) {
+            throw new ResourceException(ex, "Can't read from classpath resource: ?", classPathResource);
         }
     }
 
@@ -78,10 +78,10 @@ public final class PropertiesResources {
     public static Optional<Map<String, String>> loadProperties(final Path filePath) {
         try {
             return Optional.of(loadProperties(Files.newInputStream(filePath)));
-        } catch (final NoSuchFileException e) {
+        } catch (final NoSuchFileException ignore) {
             return Optional.empty();
-        } catch (final IOException e) {
-            throw new ResourceException(e, "Can't read from file resource: ?", filePath.toAbsolutePath());
+        } catch (final IOException ex) {
+            throw new ResourceException(ex, "Can't read from file resource: ?", filePath.toAbsolutePath());
         }
     }
 

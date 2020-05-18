@@ -163,8 +163,11 @@ public final class PostgreSQLDependenciesModule extends AbstractModule {
     @SuppressWarnings("Convert2Diamond")
     private void bindMethodBodyBuilders() {
         final Multibinder<SQLRepositoryMethodModelBuilder<SQLDataModelField, PostgreSQLDataObjectModelClass>> sqlOperationBinder =
-                newSetBinder(binder(), new TypeLiteral<SQLRepositoryMethodModelBuilder<SQLDataModelField, PostgreSQLDataObjectModelClass>>() {
-                });
+                newSetBinder(
+                        binder(),
+                        new TypeLiteral<SQLRepositoryMethodModelBuilder<SQLDataModelField, PostgreSQLDataObjectModelClass>>() {
+                        }
+                );
         sqlOperationBinder.addBinding()
                 .to(new TypeLiteral<SelectSQLRepositoryMethodModelBuilder<SQLDataModelField, PostgreSQLDataObjectModelClass>>() {
                 });

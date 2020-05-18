@@ -22,7 +22,7 @@ package io.rxmicro.validation.base;
  * @author nedis
  * @since 0.1
  */
-public class AbstractDateTimeEqualsConstraintValidator {
+public abstract class AbstractDateTimeEqualsConstraintValidator {
 
     protected static final int TRUNCATED_MILLISECONDS = 1_000;
 

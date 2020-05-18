@@ -35,6 +35,8 @@ import static java.util.concurrent.CompletableFuture.completedStage;
  */
 public final class BadHttpRequestRestController extends AbstractRestController {
 
+    private static final int DEFAULT_BAD_REQUEST_STATUS_CODE = 400;
+
     private final RequestMappingRule requestMappingRule;
 
     private CompletionStage<HttpResponse> badHttpRequestStage;
@@ -62,7 +64,7 @@ public final class BadHttpRequestRestController extends AbstractRestController {
         badHttpRequestStage = completedStage(
                 httpErrorResponseBodyBuilder.build(
                         httpResponseBuilder.build(),
-                        400,
+                        DEFAULT_BAD_REQUEST_STATUS_CODE,
                         "Current message is not a HTTP request!"
                 )
         );

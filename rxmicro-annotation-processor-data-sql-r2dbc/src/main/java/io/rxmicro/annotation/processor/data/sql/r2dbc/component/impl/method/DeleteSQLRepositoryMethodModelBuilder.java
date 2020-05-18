@@ -28,11 +28,11 @@ import io.rxmicro.annotation.processor.data.sql.model.SQLStatement;
 import io.rxmicro.annotation.processor.data.sql.r2dbc.component.impl.AbstractSQLModificationOperationDataRepositoryMethodModelBuilder;
 import io.rxmicro.data.sql.operation.Delete;
 
-import javax.lang.model.element.ExecutableElement;
 import java.lang.annotation.Annotation;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import javax.lang.model.element.ExecutableElement;
 
 import static io.rxmicro.data.sql.operation.Delete.DEFAULT_DELETE;
 
@@ -63,7 +63,7 @@ public class DeleteSQLRepositoryMethodModelBuilder<DMF extends SQLDataModelField
                                   final ExecutableElement method,
                                   final List<Variable> params) {
         super.validateMethod(parsedSQL, methodResult, dataGenerationContext, method, params);
-        validateThatEntityContainsPrimaryKeyIfCurrentParamIsEntity(dataGenerationContext, method, params);
+        validateThatEntityContainsPrimaryKeyIfParamIsEntity(dataGenerationContext, method, params);
     }
 
     @Override

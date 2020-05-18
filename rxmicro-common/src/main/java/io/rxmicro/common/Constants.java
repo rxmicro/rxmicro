@@ -30,6 +30,16 @@ public final class Constants {
      */
     public static final String RX_MICRO_FRAMEWORK_NAME = "RxMicro";
 
+    /**
+     * Nanos in 1 millis
+     */
+    public static final int NANOS_IN_1_MILLIS = 1_000_000;
+
+    /**
+     * Nanos in 1 second
+     */
+    public static final int NANOS_IN_1_SECOND = 1_000_000_000;
+
     private Constants() {
     }
 

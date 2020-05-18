@@ -33,6 +33,7 @@ import io.rxmicro.rest.server.netty.NettyRestServerConfig;
 import java.time.Duration;
 import java.util.concurrent.CountDownLatch;
 
+import static io.rxmicro.common.Constants.NANOS_IN_1_MILLIS;
 import static io.rxmicro.common.local.StartTimeStampHelper.START_TIME_STAMP;
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.Requires.require;
@@ -89,7 +90,7 @@ final class NettyServer implements Runnable {
             logStartedMessage();
             latch.countDown();
             channelFuture.channel().closeFuture().sync();
-        } catch (final InterruptedException e) {
+        } catch (final InterruptedException ignore) {
             LOGGER.info("Retrieved shutdown request ...");
         } finally {
             final Future<?> workerGroupStopFuture = workerGroup.shutdownGracefully();
@@ -108,7 +109,7 @@ final class NettyServer implements Runnable {
                     httpServerConfig::getHost,
                     httpServerConfig::getPort,
                     () -> getCurrentNettyTransport(nettyRestServerConfig),
-                    () -> (System.nanoTime() - START_TIME_STAMP) / 1_000_000
+                    () -> (System.nanoTime() - START_TIME_STAMP) / NANOS_IN_1_MILLIS
             );
         } else {
             LOGGER.info(
@@ -128,7 +129,7 @@ final class NettyServer implements Runnable {
 
         private final NettyRestServerConfig nettyRestServerConfig;
 
-        public RxMicroChannelInitializer(final NettyRestServerConfig nettyRestServerConfig) {
+        private RxMicroChannelInitializer(final NettyRestServerConfig nettyRestServerConfig) {
             this.nettyRestServerConfig = require(nettyRestServerConfig);
         }
 

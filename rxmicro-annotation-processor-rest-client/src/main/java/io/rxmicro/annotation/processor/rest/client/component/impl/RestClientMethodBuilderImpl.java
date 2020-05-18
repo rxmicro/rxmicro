@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 https://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,9 +32,9 @@ import io.rxmicro.annotation.processor.rest.model.StaticHeaders;
 import io.rxmicro.annotation.processor.rest.model.StaticQueryParameters;
 import io.rxmicro.rest.client.detail.ErrorResponseCheckerHelper;
 
+import java.util.Set;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
-import java.util.Set;
 
 import static io.rxmicro.common.util.ExCollections.EMPTY_STRING_ARRAY;
 import static java.util.stream.Collectors.toSet;

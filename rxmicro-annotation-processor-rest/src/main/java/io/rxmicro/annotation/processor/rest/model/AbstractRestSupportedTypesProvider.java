@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 https://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,6 +35,7 @@ public abstract class AbstractRestSupportedTypesProvider extends SupportedTypesP
 
     @Override
     protected final TypeDefinitions<TypeDefinition> createPrimitives() {
+        // Add new supported primitive here:
         return new TypeDefinitionsImpl<>(
                 new EnumTypeDefinition(),
                 new ByNameTypeDefinition(Boolean.class),
@@ -49,7 +50,6 @@ public abstract class AbstractRestSupportedTypesProvider extends SupportedTypesP
                 new ByNameTypeDefinition(Character.class),
                 new ByNameTypeDefinition(String.class),
                 new ByNameTypeDefinition(Instant.class)
-                // Add new supported primitive here
         );
     }
 }

@@ -49,7 +49,7 @@ final class NettyTransports {
         try {
             getClass(E_POLL_EVENT_LOOP_GROUP_CLASS);
             return true;
-        } catch (final ClassNotFoundException e) {
+        } catch (final ClassNotFoundException ignore) {
             return false;
         }
     }
@@ -66,7 +66,7 @@ final class NettyTransports {
         try {
             getClass(K_QUEUE_EVENT_LOOP_GROUP_CLASS);
             return true;
-        } catch (final ClassNotFoundException e) {
+        } catch (final ClassNotFoundException ignore) {
             return false;
         }
     }

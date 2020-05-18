@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 https://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,13 +39,13 @@ import io.rxmicro.rest.ResponseBody;
 import io.rxmicro.rest.ResponseStatusCode;
 import io.rxmicro.rest.server.detail.model.HttpRequest;
 
-import javax.lang.model.element.ModuleElement;
-import javax.lang.model.element.TypeElement;
-import javax.lang.model.type.TypeMirror;
 import java.lang.annotation.Annotation;
 import java.net.SocketAddress;
 import java.util.Optional;
 import java.util.Set;
+import javax.lang.model.element.ModuleElement;
+import javax.lang.model.element.TypeElement;
+import javax.lang.model.type.TypeMirror;
 
 import static io.rxmicro.annotation.processor.common.model.ModelFieldType.REST_SERVER_REQUEST;
 import static io.rxmicro.annotation.processor.common.model.ModelFieldType.REST_SERVER_RESPONSE;
@@ -99,42 +99,52 @@ public final class RestServerModelFieldBuilderImpl extends AbstractRestModelFiel
             }
             return Optional.of(new RestModelField(annotated, InternalType.REMOTE_ADDRESS));
         } else {
-            final RequestUrlPath requestUrlPath = annotated.getAnnotation(RequestUrlPath.class);
-            if (requestUrlPath != null) {
-                validateInternalByAnnotation(modelFieldType, annotated, RequestUrlPath.class);
-                validateSupportedTypes(annotated.getElement(), requestUrlPath.annotationType());
-                return Optional.of(new RestModelField(annotated, InternalType.REQUEST_URL));
-            }
-            final RequestMethod requestMethod = annotated.getAnnotation(RequestMethod.class);
-            if (requestMethod != null) {
-                validateInternalByAnnotation(modelFieldType, annotated, RequestMethod.class);
-                validateSupportedTypes(annotated.getElement(), requestMethod.annotationType());
-                return Optional.of(new RestModelField(annotated, InternalType.REQUEST_METHOD));
-            }
-            final RemoteAddress remoteAddress = annotated.getAnnotation(RemoteAddress.class);
-            if (remoteAddress != null) {
-                validateInternalByAnnotation(modelFieldType, annotated, RemoteAddress.class);
-                validateSupportedTypes(annotated.getElement(), remoteAddress.annotationType());
-                return Optional.of(new RestModelField(annotated, InternalType.REMOTE_ADDRESS));
-            }
-            final RequestBody requestBody = annotated.getAnnotation(RequestBody.class);
-            if (requestBody != null) {
-                validateInternalByAnnotation(modelFieldType, annotated, RequestBody.class);
-                validateSupportedTypes(annotated.getElement(), requestBody.annotationType());
-                return Optional.of(new RestModelField(annotated, InternalType.REQUEST_BODY));
-            }
-            final ResponseStatusCode responseStatusCode = annotated.getAnnotation(ResponseStatusCode.class);
-            if (responseStatusCode != null) {
-                validateInternalByAnnotation(modelFieldType, annotated, ResponseStatusCode.class);
-                validateSupportedTypes(annotated.getElement(), responseStatusCode.annotationType());
-                return Optional.of(new RestModelField(annotated, InternalType.RESPONSE_STATUS));
-            }
-            final ResponseBody responseBody = annotated.getAnnotation(ResponseBody.class);
-            if (responseBody != null) {
-                validateInternalByAnnotation(modelFieldType, annotated, ResponseBody.class);
-                validateSupportedTypes(annotated.getElement(), responseBody.annotationType());
-                return Optional.of(new RestModelField(annotated, InternalType.RESPONSE_BODY));
-            }
+            return buildRequestInternal(modelFieldType, annotated).or(() -> buildResponseInternal(modelFieldType, annotated));
+        }
+    }
+
+    private Optional<RestModelField> buildRequestInternal(final ModelFieldType modelFieldType,
+                                                          final AnnotatedModelElement annotated) {
+        final RequestUrlPath requestUrlPath = annotated.getAnnotation(RequestUrlPath.class);
+        if (requestUrlPath != null) {
+            validateInternalByAnnotation(modelFieldType, annotated, RequestUrlPath.class);
+            validateSupportedTypes(annotated.getField(), requestUrlPath.annotationType());
+            return Optional.of(new RestModelField(annotated, InternalType.REQUEST_URL));
+        }
+        final RequestMethod requestMethod = annotated.getAnnotation(RequestMethod.class);
+        if (requestMethod != null) {
+            validateInternalByAnnotation(modelFieldType, annotated, RequestMethod.class);
+            validateSupportedTypes(annotated.getField(), requestMethod.annotationType());
+            return Optional.of(new RestModelField(annotated, InternalType.REQUEST_METHOD));
+        }
+        final RemoteAddress remoteAddress = annotated.getAnnotation(RemoteAddress.class);
+        if (remoteAddress != null) {
+            validateInternalByAnnotation(modelFieldType, annotated, RemoteAddress.class);
+            validateSupportedTypes(annotated.getField(), remoteAddress.annotationType());
+            return Optional.of(new RestModelField(annotated, InternalType.REMOTE_ADDRESS));
+        }
+        final RequestBody requestBody = annotated.getAnnotation(RequestBody.class);
+        if (requestBody != null) {
+            validateInternalByAnnotation(modelFieldType, annotated, RequestBody.class);
+            validateSupportedTypes(annotated.getField(), requestBody.annotationType());
+            return Optional.of(new RestModelField(annotated, InternalType.REQUEST_BODY));
+        }
+        return Optional.empty();
+    }
+
+    private Optional<RestModelField> buildResponseInternal(final ModelFieldType modelFieldType,
+                                                          final AnnotatedModelElement annotated) {
+        final ResponseStatusCode responseStatusCode = annotated.getAnnotation(ResponseStatusCode.class);
+        if (responseStatusCode != null) {
+            validateInternalByAnnotation(modelFieldType, annotated, ResponseStatusCode.class);
+            validateSupportedTypes(annotated.getField(), responseStatusCode.annotationType());
+            return Optional.of(new RestModelField(annotated, InternalType.RESPONSE_STATUS));
+        }
+        final ResponseBody responseBody = annotated.getAnnotation(ResponseBody.class);
+        if (responseBody != null) {
+            validateInternalByAnnotation(modelFieldType, annotated, ResponseBody.class);
+            validateSupportedTypes(annotated.getField(), responseBody.annotationType());
+            return Optional.of(new RestModelField(annotated, InternalType.RESPONSE_BODY));
         }
         return Optional.empty();
     }
@@ -193,14 +203,14 @@ public final class RestServerModelFieldBuilderImpl extends AbstractRestModelFiel
         validateNoAnnotations(annotated);
         if (!requestInternalTypes.contains(type) && modelFieldType == REST_SERVER_REQUEST) {
             throw new InterruptProcessingException(
-                    annotated.getElement(),
+                    annotated.getField(),
                     "'?' type is not supported for request",
                     annotated.getField().asType().toString()
             );
         }
         if (!responseInternalTypes.contains(type) && modelFieldType == REST_SERVER_RESPONSE) {
             throw new InterruptProcessingException(
-                    annotated.getElement(),
+                    annotated.getField(),
                     "'?' type is not supported for response",
                     annotated.getField().asType().toString()
             );
@@ -212,14 +222,14 @@ public final class RestServerModelFieldBuilderImpl extends AbstractRestModelFiel
                                               final Class<? extends Annotation> annotationClass) {
         if (!supportedRequestAnnotations().contains(annotationClass) && modelFieldType == REST_SERVER_REQUEST) {
             throw new InterruptProcessingException(
-                    annotated.getElement(),
+                    annotated.getField(),
                     "'?' annotation is not supported for request",
                     annotationClass.getName()
             );
         }
         if (!supportedResponseAnnotations().contains(annotationClass) && modelFieldType == REST_SERVER_RESPONSE) {
             throw new InterruptProcessingException(
-                    annotated.getElement(),
+                    annotated.getField(),
                     "'?' annotation is not supported for response",
                     annotationClass.getName()
             );

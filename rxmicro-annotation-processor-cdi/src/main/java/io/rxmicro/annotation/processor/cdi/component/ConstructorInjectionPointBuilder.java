@@ -18,8 +18,8 @@ package io.rxmicro.annotation.processor.cdi.component;
 
 import io.rxmicro.annotation.processor.cdi.model.InjectionPoint;
 
-import javax.lang.model.element.TypeElement;
 import java.util.List;
+import javax.lang.model.element.TypeElement;
 
 /**
  * @author nedis

@@ -32,10 +32,10 @@ import io.rxmicro.annotation.processor.rest.server.model.RestServerModuleGenerat
 import io.rxmicro.rest.server.detail.component.ModelReader;
 import io.rxmicro.validation.ConstraintValidator;
 
-import javax.lang.model.type.TypeMirror;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import javax.lang.model.type.TypeMirror;
 
 import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.getModelTransformerInstanceName;
 import static io.rxmicro.annotation.processor.common.util.Names.getSimpleName;
@@ -89,7 +89,7 @@ public abstract class AbstractParametrizedRestControllerMethodBodyBuilder implem
         );
     }
 
-    protected abstract void customizeClassHeaderBuilder(final ClassHeader.Builder classHeaderBuilder);
+    protected abstract void customizeClassHeaderBuilder(ClassHeader.Builder classHeaderBuilder);
 
     protected abstract String getTemplateName();
 }

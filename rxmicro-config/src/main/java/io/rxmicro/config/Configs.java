@@ -120,8 +120,9 @@ public final class Configs {
                     if (data.length != 2) {
                         throw new ConfigException("Invalid command line arguments. " +
                                 "Expected: 'name_space.propertyName=propertyValue', but actual is '?'", cmd);
+                    } else {
+                        return entry(data[0], data[1]);
                     }
-                    return entry(data[0], data[1]);
                 }).collect(toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 

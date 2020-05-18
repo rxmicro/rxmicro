@@ -16,13 +16,13 @@
 
 package io.rxmicro.annotation.processor.common.model;
 
-import javax.lang.model.type.DeclaredType;
 import java.lang.annotation.Annotation;
 import java.lang.annotation.Repeatable;
 import java.util.LinkedHashSet;
 import java.util.Optional;
 import java.util.Set;
 import java.util.TreeSet;
+import javax.lang.model.type.DeclaredType;
 
 import static io.rxmicro.annotation.processor.common.util.Annotations.getRequiredAnnotationClassParameter;
 import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getElements;
@@ -45,10 +45,10 @@ public final class SupportedAnnotations {
             supportedAnnotations.add(annotationClass.getName());
             supportedAnnotationsWithRepeatable.add(annotationClass.getName());
             Optional.ofNullable(getElements().getTypeElement(annotationClass.getName()))
-                    .flatMap(annotationElement ->
-                            Optional.ofNullable(annotationElement.getAnnotation(Repeatable.class)))
-                    .ifPresent(repeatable ->
-                            supportedAnnotationsWithRepeatable.add(getRequiredAnnotationClassParameter(repeatable::value).asType().toString()));
+                    .flatMap(annotationElement -> Optional.ofNullable(annotationElement.getAnnotation(Repeatable.class)))
+                    .ifPresent(repeatable -> supportedAnnotationsWithRepeatable.add(
+                            getRequiredAnnotationClassParameter(repeatable::value).asType().toString())
+                    );
         }
         this.supportedAnnotations = unmodifiableSet(supportedAnnotations);
     }

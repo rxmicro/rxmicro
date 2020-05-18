@@ -103,9 +103,9 @@ public abstract class FieldValidator {
     }
 
     @SafeVarargs
-    protected final void validateThatFieldIsAnnotatedOnlyBySupportedAnnotations(final Field field,
-                                                                                final Class<? extends Annotation>... supportedAnnotationClasses) {
-        final Set<Class<? extends Annotation>> supportedAnnotationSet = Set.of(supportedAnnotationClasses);
+    protected final void validateThatFieldIsAnnotatedOnlyBySupportedOnes(final Field field,
+                                                                         final Class<? extends Annotation>... supportedAnnotations) {
+        final Set<Class<? extends Annotation>> supportedAnnotationSet = Set.of(supportedAnnotations);
         for (final Annotation annotation : field.getAnnotations()) {
             final Class<? extends Annotation> annotationClass = annotation.annotationType();
             if (isDeniedPackage(annotationClass.getPackageName()) &&

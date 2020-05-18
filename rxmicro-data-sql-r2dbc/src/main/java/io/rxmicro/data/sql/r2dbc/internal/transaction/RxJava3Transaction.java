@@ -46,6 +46,11 @@ public final class RxJava3Transaction extends AbstractTransaction implements Tra
     }
 
     @Override
+    public Completable rollback(final SavePoint savePoint) {
+        return fromPublisher(baseRollback(savePoint));
+    }
+
+    @Override
     public Completable create(final SavePoint savePoint) {
         return fromPublisher(baseCreate(savePoint));
     }
@@ -53,11 +58,6 @@ public final class RxJava3Transaction extends AbstractTransaction implements Tra
     @Override
     public Completable release(final SavePoint savePoint) {
         return fromPublisher(baseRelease(savePoint));
-    }
-
-    @Override
-    public Completable rollback(final SavePoint savePoint) {
-        return fromPublisher(baseRollback(savePoint));
     }
 
     @Override

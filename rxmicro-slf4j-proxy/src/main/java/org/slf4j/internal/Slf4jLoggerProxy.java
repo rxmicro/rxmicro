@@ -37,6 +37,10 @@ import static io.rxmicro.common.util.Requires.require;
  */
 public final class Slf4jLoggerProxy implements org.slf4j.Logger {
 
+    private static final String SLF4J_PLACEHOLDER = "{}";
+
+    private static final String RX_MICRO_UNIVERSAL_PLACEHOLDER = "?";
+
     private final String name;
 
     private final Logger logger;
@@ -57,33 +61,33 @@ public final class Slf4jLoggerProxy implements org.slf4j.Logger {
     }
 
     @Override
+    public boolean isTraceEnabled(final Marker marker) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public void trace(final String msg) {
         logger.trace(msg);
     }
 
     @Override
     public void trace(final String format, final Object arg) {
-        logger.trace(format.replace("{}", "?"), arg);
+        logger.trace(format.replace(SLF4J_PLACEHOLDER, RX_MICRO_UNIVERSAL_PLACEHOLDER), arg);
     }
 
     @Override
     public void trace(final String format, final Object arg1, final Object arg2) {
-        logger.trace(format.replace("{}", "?"), arg1, arg2);
+        logger.trace(format.replace(SLF4J_PLACEHOLDER, RX_MICRO_UNIVERSAL_PLACEHOLDER), arg1, arg2);
     }
 
     @Override
     public void trace(final String format, final Object... arguments) {
-        logger.trace(format.replace("{}", "?"), arguments);
+        logger.trace(format.replace(SLF4J_PLACEHOLDER, RX_MICRO_UNIVERSAL_PLACEHOLDER), arguments);
     }
 
     @Override
     public void trace(final String msg, final Throwable throwable) {
         logger.trace(throwable, msg);
-    }
-
-    @Override
-    public boolean isTraceEnabled(final Marker marker) {
-        throw new UnsupportedOperationException();
     }
 
     @Override
@@ -117,33 +121,33 @@ public final class Slf4jLoggerProxy implements org.slf4j.Logger {
     }
 
     @Override
+    public boolean isDebugEnabled(final Marker marker) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public void debug(final String msg) {
         logger.debug(msg);
     }
 
     @Override
     public void debug(final String format, final Object arg) {
-        logger.debug(format.replace("{}", "?"), arg);
+        logger.debug(format.replace(SLF4J_PLACEHOLDER, RX_MICRO_UNIVERSAL_PLACEHOLDER), arg);
     }
 
     @Override
     public void debug(final String format, final Object arg1, final Object arg2) {
-        logger.debug(format.replace("{}", "?"), arg1, arg2);
+        logger.debug(format.replace(SLF4J_PLACEHOLDER, RX_MICRO_UNIVERSAL_PLACEHOLDER), arg1, arg2);
     }
 
     @Override
     public void debug(final String format, final Object... arguments) {
-        logger.debug(format.replace("{}", "?"), arguments);
+        logger.debug(format.replace(SLF4J_PLACEHOLDER, RX_MICRO_UNIVERSAL_PLACEHOLDER), arguments);
     }
 
     @Override
     public void debug(final String msg, final Throwable throwable) {
         logger.debug(throwable, msg);
-    }
-
-    @Override
-    public boolean isDebugEnabled(final Marker marker) {
-        throw new UnsupportedOperationException();
     }
 
     @Override
@@ -177,33 +181,33 @@ public final class Slf4jLoggerProxy implements org.slf4j.Logger {
     }
 
     @Override
+    public boolean isInfoEnabled(final Marker marker) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public void info(final String msg) {
         logger.info(msg);
     }
 
     @Override
     public void info(final String format, final Object arg) {
-        logger.info(format.replace("{}", "?"), arg);
+        logger.info(format.replace(SLF4J_PLACEHOLDER, RX_MICRO_UNIVERSAL_PLACEHOLDER), arg);
     }
 
     @Override
     public void info(final String format, final Object arg1, final Object arg2) {
-        logger.info(format.replace("{}", "?"), arg1, arg2);
+        logger.info(format.replace(SLF4J_PLACEHOLDER, RX_MICRO_UNIVERSAL_PLACEHOLDER), arg1, arg2);
     }
 
     @Override
     public void info(final String format, final Object... arguments) {
-        logger.info(format.replace("{}", "?"), arguments);
+        logger.info(format.replace(SLF4J_PLACEHOLDER, RX_MICRO_UNIVERSAL_PLACEHOLDER), arguments);
     }
 
     @Override
     public void info(final String msg, final Throwable throwable) {
         logger.info(throwable, msg);
-    }
-
-    @Override
-    public boolean isInfoEnabled(final Marker marker) {
-        throw new UnsupportedOperationException();
     }
 
     @Override
@@ -237,33 +241,33 @@ public final class Slf4jLoggerProxy implements org.slf4j.Logger {
     }
 
     @Override
+    public boolean isWarnEnabled(final Marker marker) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public void warn(final String msg) {
         logger.warn(msg);
     }
 
     @Override
     public void warn(final String format, final Object arg) {
-        logger.warn(format.replace("{}", "?"), arg);
+        logger.warn(format.replace(SLF4J_PLACEHOLDER, RX_MICRO_UNIVERSAL_PLACEHOLDER), arg);
     }
 
     @Override
     public void warn(final String format, final Object... arguments) {
-        logger.warn(format.replace("{}", "?"), arguments);
+        logger.warn(format.replace(SLF4J_PLACEHOLDER, RX_MICRO_UNIVERSAL_PLACEHOLDER), arguments);
     }
 
     @Override
     public void warn(final String format, final Object arg1, final Object arg2) {
-        logger.warn(format.replace("{}", "?"), arg1, arg2);
+        logger.warn(format.replace(SLF4J_PLACEHOLDER, RX_MICRO_UNIVERSAL_PLACEHOLDER), arg1, arg2);
     }
 
     @Override
     public void warn(final String msg, final Throwable throwable) {
         logger.warn(throwable, msg);
-    }
-
-    @Override
-    public boolean isWarnEnabled(final Marker marker) {
-        throw new UnsupportedOperationException();
     }
 
     @Override
@@ -297,33 +301,33 @@ public final class Slf4jLoggerProxy implements org.slf4j.Logger {
     }
 
     @Override
+    public boolean isErrorEnabled(final Marker marker) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public void error(final String msg) {
         logger.error(msg);
     }
 
     @Override
     public void error(final String format, final Object arg) {
-        logger.error(format.replace("{}", "?"), arg);
+        logger.error(format.replace(SLF4J_PLACEHOLDER, RX_MICRO_UNIVERSAL_PLACEHOLDER), arg);
     }
 
     @Override
     public void error(final String format, final Object arg1, final Object arg2) {
-        logger.error(format.replace("{}", "?"), arg1, arg2);
+        logger.error(format.replace(SLF4J_PLACEHOLDER, RX_MICRO_UNIVERSAL_PLACEHOLDER), arg1, arg2);
     }
 
     @Override
     public void error(final String format, final Object... arguments) {
-        logger.error(format.replace("{}", "?"), arguments);
+        logger.error(format.replace(SLF4J_PLACEHOLDER, RX_MICRO_UNIVERSAL_PLACEHOLDER), arguments);
     }
 
     @Override
     public void error(final String msg, final Throwable throwable) {
         logger.error(throwable, msg);
-    }
-
-    @Override
-    public boolean isErrorEnabled(final Marker marker) {
-        throw new UnsupportedOperationException();
     }
 
     @Override

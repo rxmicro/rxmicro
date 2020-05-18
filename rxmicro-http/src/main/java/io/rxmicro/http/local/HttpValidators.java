@@ -28,6 +28,12 @@ public final class HttpValidators {
 
     private static final String PROHIBITED_QUERY_PARAMETERS_CHARACTERS = "\t\n\f\r ?&=";
 
+    private static final int NULL = 0x00;
+
+    private static final int VERTICAL_TAB = 0x0b;
+
+    private static final int MAX_ASCII_CODE = 0x7F;
+
     /**
      * Validates HTTP header name
      *
@@ -62,15 +68,14 @@ public final class HttpValidators {
                                               final String name,
                                               final String prohibitedCharacters,
                                               final char value) {
-        // 0x00 is NULL, 0x0b is Vertical tab
-        if (value == 0x00 || value == 0x0b || prohibitedCharacters.indexOf(value) != -1) {
+        if (value == NULL || value == VERTICAL_TAB || prohibitedCharacters.indexOf(value) != -1) {
             throw new IllegalArgumentException(
                     format("A ? name ?cannot contain the following prohibited characters: ?",
                             type,
                             name.isEmpty() ? name : format("'?' ", name),
                             toString(prohibitedCharacters))
             );
-        } else if (value > 127) {
+        } else if (value > MAX_ASCII_CODE) {
             throw new IllegalArgumentException(
                     format("A ? name ?cannot contain non-ASCII character: '?'",
                             type,

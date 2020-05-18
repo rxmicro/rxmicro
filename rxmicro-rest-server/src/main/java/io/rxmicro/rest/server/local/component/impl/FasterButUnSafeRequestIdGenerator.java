@@ -24,6 +24,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.Base64;
 import java.util.Random;
 
+import static io.rxmicro.common.Constants.NANOS_IN_1_MILLIS;
+
 /**
  * Generates unique IDs only within the framework of starting one JVM.
  *
@@ -42,6 +44,8 @@ public final class FasterButUnSafeRequestIdGenerator implements RequestIdGenerat
 
     private static final int DELTA_SIZE = 200;
 
+    private static final int BYTE_ARRAY_BUFFER_SIZE = 8;
+
     private final String start;
 
     private final short[] deltas;
@@ -53,7 +57,7 @@ public final class FasterButUnSafeRequestIdGenerator implements RequestIdGenerat
     public FasterButUnSafeRequestIdGenerator() {
         final byte[] array = getNowAsByteArray();
         this.start = Base64.getUrlEncoder().withoutPadding().encodeToString(array).replace("-", "_") + "x";
-        this.generator = 1_000_000 + System.nanoTime() % 1_000_000;
+        this.generator = NANOS_IN_1_MILLIS + System.nanoTime() % NANOS_IN_1_MILLIS;
         this.deltas = getRandomDeltas();
     }
 
@@ -71,11 +75,11 @@ public final class FasterButUnSafeRequestIdGenerator implements RequestIdGenerat
     }
 
     private byte[] getNowAsByteArray() {
-        final byte[] array = ByteBuffer.wrap(new byte[8])
+        final byte[] array = ByteBuffer.wrap(new byte[BYTE_ARRAY_BUFFER_SIZE])
                 .putLong(Long.parseLong(LocalDateTime.now().format(DateTimeFormatter.ofPattern("ddMMhhmmssSSS"))))
                 .array();
         final int index = indexOfFirstNotNullItem(array);
-        final byte[] result = new byte[8 - index];
+        final byte[] result = new byte[BYTE_ARRAY_BUFFER_SIZE - index];
         System.arraycopy(array, index, result, 0, result.length);
         return result;
     }

@@ -28,18 +28,19 @@ import io.rxmicro.data.mongo.MongoRepository;
 import io.rxmicro.data.sql.r2dbc.postgresql.PostgreSQLRepository;
 import io.rxmicro.rest.client.RestClient;
 
+import java.lang.annotation.Annotation;
+import java.util.Collection;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
 import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
 import javax.lang.model.type.DeclaredType;
 import javax.lang.model.type.TypeMirror;
-import java.lang.annotation.Annotation;
-import java.util.Collection;
-import java.util.List;
-import java.util.Locale;
-import java.util.Optional;
-import java.util.Set;
 
 import static io.rxmicro.annotation.processor.cdi.component.impl.AbstractR2DBCConnectionProvider.R2DBCConnectionProvider.POSTGRE_SQL_CONNECTION_PROVIDER;
 import static io.rxmicro.annotation.processor.cdi.model.InjectionPointType.BEAN;
@@ -56,6 +57,7 @@ import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentH
 import static io.rxmicro.annotation.processor.common.util.validators.TypeValidators.validateGenericType;
 import static io.rxmicro.common.RxMicroModule.RX_MICRO_DATA_SQL_R2DBC_POSTGRESQL_MODULE;
 import static io.rxmicro.tool.common.DeniedPackages.isDeniedPackage;
+import static java.util.Map.entry;
 
 /**
  * @author nedis
@@ -73,6 +75,29 @@ public final class InjectionPointTypeBuilderImpl extends AbstractR2DBCConnection
             Set.class.getName(),
             Collection.class.getName(),
             Iterable.class.getName()
+    );
+
+    private final List<Map.Entry<InjectionPointTypePredicate, InjectionPointType>> standardInjectionPointTypes = List.of(
+            entry(
+                    (field, fieldType, modelName) ->
+                            REPOSITORY_ANNOTATIONS.stream().anyMatch(a -> fieldType.getAnnotation(a) != null),
+                    REPOSITORY
+            ),
+            entry(
+                    (field, fieldType, modelName) ->
+                            isConfig(field, fieldType),
+                    CONFIG
+            ),
+            entry(
+                    (field, fieldType, modelName) ->
+                            MongoClient.class.getName().equals(fieldType.getQualifiedName().toString()),
+                    MONGO_CLIENT
+            ),
+            entry(
+                    (field, fieldType, modelName) ->
+                            fieldType.getAnnotation(RestClient.class) != null,
+                    REST_CLIENT
+            )
     );
 
     @Override
@@ -124,19 +149,16 @@ public final class InjectionPointTypeBuilderImpl extends AbstractR2DBCConnection
     private Optional<InjectionPointType> getStandardInjectionPointType(final VariableElement field,
                                                                        final TypeElement fieldType,
                                                                        final String modelName) {
-        if (REPOSITORY_ANNOTATIONS.stream().anyMatch(a -> fieldType.getAnnotation(a) != null)) {
-            return Optional.of(REPOSITORY);
-        } else if (isConfig(field, fieldType)) {
-            return Optional.of(CONFIG);
-        } else if (MongoClient.class.getName().equals(fieldType.getQualifiedName().toString())) {
-            return Optional.of(MONGO_CLIENT);
-        } else if (ConnectionFactory.class.getName().equals(fieldType.getQualifiedName().toString())) {
+        if (ConnectionFactory.class.getName().equals(fieldType.getQualifiedName().toString())) {
             return Optional.of(getR2DBCConnectionProvider(field, modelName).getConnectionFactory());
         } else if (ConnectionPool.class.getName().equals(fieldType.getQualifiedName().toString())) {
             return Optional.of(getR2DBCConnectionProvider(field, modelName).getConnectionPool());
-        } else if (fieldType.getAnnotation(RestClient.class) != null) {
-            return Optional.of(REST_CLIENT);
         } else {
+            for (final Map.Entry<InjectionPointTypePredicate, InjectionPointType> type : standardInjectionPointTypes) {
+                if (type.getKey().test(field, fieldType, modelName)) {
+                    return Optional.of(type.getValue());
+                }
+            }
             return Optional.empty();
         }
     }
@@ -175,8 +197,20 @@ public final class InjectionPointTypeBuilderImpl extends AbstractR2DBCConnection
         } else {
             throw new InterruptProcessingException(
                     field,
-                    "The RxMicro framework does not know which sql r2dbc module must be used to inject this dependency. Specify which module must be used!"
+                    "The RxMicro framework does not know which sql r2dbc module must be used to inject this dependency. " +
+                            "Specify which module must be used!"
             );
         }
+    }
+
+    /**
+     * @author nedis
+     * @since 0.4
+     */
+    private interface InjectionPointTypePredicate {
+
+        boolean test(VariableElement field,
+                     TypeElement fieldType,
+                     String modelName);
     }
 }

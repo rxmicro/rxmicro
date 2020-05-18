@@ -20,8 +20,8 @@ import io.rxmicro.annotation.processor.documentation.model.ProjectMetaData;
 import io.rxmicro.documentation.IntroductionDefinition;
 import io.rxmicro.documentation.ResourceGroupDefinition;
 
-import javax.lang.model.element.Element;
 import java.util.List;
+import javax.lang.model.element.Element;
 
 /**
  * @author nedis

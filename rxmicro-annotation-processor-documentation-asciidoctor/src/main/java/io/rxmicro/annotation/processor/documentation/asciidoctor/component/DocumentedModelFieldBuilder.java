@@ -61,8 +61,14 @@ public interface DocumentedModelFieldBuilder {
                                                    final RestObjectModelClass restObjectModelClass,
                                                    final HttpModelType httpModelType,
                                                    final boolean withReadMore) {
-        final List<Map.Entry<String, List<DocumentedModelField>>> list =
-                buildComplex(environmentContext, withStandardDescriptions, projectDirectory, restObjectModelClass, httpModelType, withReadMore);
+        final List<Map.Entry<String, List<DocumentedModelField>>> list = buildComplex(
+                environmentContext,
+                withStandardDescriptions,
+                projectDirectory,
+                restObjectModelClass,
+                httpModelType,
+                withReadMore
+        );
         if (list.size() == 1) {
             return list.get(0).getValue();
         } else {

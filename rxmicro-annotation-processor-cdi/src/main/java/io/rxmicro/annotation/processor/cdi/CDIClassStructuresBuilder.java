@@ -28,10 +28,10 @@ import io.rxmicro.annotation.processor.common.model.CDIUsageCandidateClassStruct
 import io.rxmicro.annotation.processor.common.model.ClassStructure;
 import io.rxmicro.annotation.processor.common.model.EnvironmentContext;
 
-import javax.annotation.processing.RoundEnvironment;
-import javax.lang.model.element.TypeElement;
 import java.util.Set;
 import java.util.stream.Stream;
+import javax.annotation.processing.RoundEnvironment;
+import javax.lang.model.element.TypeElement;
 
 import static io.rxmicro.annotation.processor.common.util.Injects.injectDependencies;
 import static io.rxmicro.cdi.local.Annotations.INJECT_ANNOTATIONS;

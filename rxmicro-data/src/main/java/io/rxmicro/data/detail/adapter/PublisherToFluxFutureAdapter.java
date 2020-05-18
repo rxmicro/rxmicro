@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 https://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,26 +35,33 @@ public class PublisherToFluxFutureAdapter<T> extends CompletableFuture<List<T>> 
     private final List<T> list = new ArrayList<>();
 
     public PublisherToFluxFutureAdapter(final Publisher<T> publisher) {
-        publisher.subscribe(new Subscriber<>() {
-            @Override
-            public void onSubscribe(final Subscription subscription) {
-                subscription.request(Long.MAX_VALUE);
-            }
+        publisher.subscribe(new SubscriberAdapter());
+    }
 
-            @Override
-            public void onNext(final T item) {
-                list.add(item);
-            }
+    /**
+     * @author nedis
+     * @since 0.4
+     */
+    private final class SubscriberAdapter implements Subscriber<T> {
 
-            @Override
-            public void onError(final Throwable throwable) {
-                completeExceptionally(throwable);
-            }
+        @Override
+        public void onSubscribe(final Subscription subscription) {
+            subscription.request(Long.MAX_VALUE);
+        }
 
-            @Override
-            public void onComplete() {
-                complete(list);
-            }
-        });
+        @Override
+        public void onNext(final T item) {
+            list.add(item);
+        }
+
+        @Override
+        public void onError(final Throwable throwable) {
+            completeExceptionally(throwable);
+        }
+
+        @Override
+        public void onComplete() {
+            complete(list);
+        }
     }
 }

@@ -16,6 +16,9 @@
 
 package io.rxmicro.annotation.processor.common.model.virtual;
 
+import java.lang.annotation.Annotation;
+import java.util.List;
+import java.util.Set;
 import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
@@ -26,9 +29,6 @@ import javax.lang.model.element.NestingKind;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.TypeParameterElement;
 import javax.lang.model.type.TypeMirror;
-import java.lang.annotation.Annotation;
-import java.util.List;
-import java.util.Set;
 
 import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getElements;
 

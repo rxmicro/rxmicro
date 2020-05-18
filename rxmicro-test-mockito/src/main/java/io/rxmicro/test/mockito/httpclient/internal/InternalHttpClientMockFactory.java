@@ -40,7 +40,7 @@ import static org.mockito.internal.util.MockUtil.isMock;
  */
 public final class InternalHttpClientMockFactory {
 
-    private final static HttpClientMethodMocker HTTP_CLIENT_METHOD_MOCKER = new HttpClientMethodMocker();
+    private static final HttpClientMethodMocker HTTP_CLIENT_METHOD_MOCKER = new HttpClientMethodMocker();
 
     public HttpClient prepare(final HttpClientFactory httpClientFactory,
                               final HttpRequestMock httpRequestMock,

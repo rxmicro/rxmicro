@@ -90,7 +90,7 @@ public final class WaitForParamsBuilder {
         final String value = params.getOrDefault(WAIT_FOR_TIMEOUT, WAIT_FOR_TIMEOUT_DEFAULT_VALUE_IN_SECONDS);
         try {
             return Duration.ofSeconds(Long.parseLong(value));
-        } catch (final NumberFormatException e) {
+        } catch (final NumberFormatException ignore) {
             return Duration.parse(value);
         }
     }

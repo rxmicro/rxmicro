@@ -90,4 +90,7 @@ public final class DeniedPackageConstants {
                     JDK_PACKAGES.stream(),
                     EXTERNAL_LIBS_PACKAGES.stream()
             ).flatMap(identity()).collect(toUnmodifiableSet());
+
+    private DeniedPackageConstants() {
+    }
 }

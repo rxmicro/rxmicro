@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 https://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,9 +34,9 @@ import java.util.stream.Collectors;
 public abstract class AbstractRestControllerModelBuilder<T extends AbstractRestControllerModelClassStructure>
         extends AbstractProcessorComponent {
 
-    protected abstract T newInstance(final ReaderType readerType,
-                                     final RestObjectModelClass modelClass,
-                                     final ExchangeFormat exchangeFormat);
+    protected abstract T newInstance(ReaderType readerType,
+                                     RestObjectModelClass modelClass,
+                                     ExchangeFormat exchangeFormat);
 
     public final Set<T> build(final List<MappedRestObjectModelClass> mappedRestObjectModelClasses,
                               final ExchangeFormat exchangeFormat) {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 https://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,12 +27,12 @@ import io.rxmicro.common.util.Formats;
 import io.rxmicro.runtime.detail.Runtimes;
 import io.rxmicro.tool.common.Reflections;
 
-import javax.annotation.processing.RoundEnvironment;
-import javax.lang.model.element.TypeElement;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import javax.annotation.processing.RoundEnvironment;
+import javax.lang.model.element.TypeElement;
 
 import static io.rxmicro.annotation.processor.common.model.AnnotationProcessorType.TESTS_COMPILE;
 import static io.rxmicro.annotation.processor.common.model.ClassHeader.newClassHeaderBuilder;
@@ -79,7 +79,7 @@ public final class RxMicroTestsAnnotationProcessor extends BaseRxMicroAnnotation
                 new ComponentTestFixerClassStructure()
         );
 
-        public TestModuleClassStructuresBuilder() {
+        private TestModuleClassStructuresBuilder() {
             injectDependencies(this, new FormatSourceCodeDependenciesModule());
         }
 
@@ -109,102 +109,95 @@ public final class RxMicroTestsAnnotationProcessor extends BaseRxMicroAnnotation
 
     /**
      * @author nedis
-     * @since 0.1
+     * @since 0.4
      */
-    private static final class ComponentTestFixerClassStructure extends ClassStructure {
+    private abstract static class TestFixerClassStructure extends ClassStructure {
+
+        protected abstract String getSimpleClassName();
 
         @Override
-        public String getTargetFullClassName() {
-            return getEntryPointFullClassName(COMPONENT_TEST_FIXER);
+        public final String getTargetFullClassName() {
+            return getEntryPointFullClassName(getSimpleClassName());
+        }
+
+        @Override
+        public final Map<String, Object> getTemplateVariables() {
+            return Map.of(
+                    "PACKAGE_NAME", ENTRY_POINT_PACKAGE,
+                    "JAVA_CLASS_NAME", getSimpleClassName()
+            );
+        }
+
+        @Override
+        public final ClassHeader getClassHeader() {
+            final ClassHeader.Builder builder = newClassHeaderBuilder(ENTRY_POINT_PACKAGE);
+            customizeClassHeader(builder);
+            return builder
+                    .addStaticImport(Formats.class, "format")
+                    .addStaticImport(Runtimes.class, "getRuntimeModule")
+                    .build();
+        }
+
+        protected void customizeClassHeader(final ClassHeader.Builder builder) {
+            // Allows to configure ClassHeader
+        }
+    }
+
+    /**
+     * @author nedis
+     * @since 0.1
+     */
+    private static final class ComponentTestFixerClassStructure extends TestFixerClassStructure {
+
+        @Override
+        protected String getSimpleClassName() {
+            return COMPONENT_TEST_FIXER;
+        }
+
+        @Override
+        protected void customizeClassHeader(final ClassHeader.Builder builder) {
+            builder
+                    .addImports(Stream.class)
+                    .addStaticImport(Reflections.class, "getToolCommonModule");
         }
 
         @Override
         public String getTemplateName() {
             return "test/$$ComponentTestFixerTemplate.javaftl";
         }
-
-        @Override
-        public Map<String, Object> getTemplateVariables() {
-            return Map.of(
-                    "PACKAGE_NAME", ENTRY_POINT_PACKAGE,
-                    "JAVA_CLASS_NAME", COMPONENT_TEST_FIXER
-            );
-        }
-
-        @Override
-        public ClassHeader getClassHeader() {
-            return newClassHeaderBuilder(ENTRY_POINT_PACKAGE)
-                    .addImports(Stream.class)
-                    .addStaticImport(Formats.class, "format")
-                    .addStaticImport(Runtimes.class, "getRuntimeModule")
-                    .addStaticImport(Reflections.class, "getToolCommonModule")
-                    .build();
-        }
     }
 
     /**
      * @author nedis
      * @since 0.1
      */
-    private static final class RestBasedMicroServiceTestFixerClassStructure extends ClassStructure {
+    private static final class RestBasedMicroServiceTestFixerClassStructure extends TestFixerClassStructure {
 
         @Override
-        public String getTargetFullClassName() {
-            return getEntryPointFullClassName(REST_BASED_MICRO_SERVICE_TEST_FIXER);
+        protected String getSimpleClassName() {
+            return REST_BASED_MICRO_SERVICE_TEST_FIXER;
         }
 
         @Override
         public String getTemplateName() {
             return "test/$$RestBasedMicroServiceTestFixerTemplate.javaftl";
         }
-
-        @Override
-        public Map<String, Object> getTemplateVariables() {
-            return Map.of(
-                    "PACKAGE_NAME", ENTRY_POINT_PACKAGE,
-                    "JAVA_CLASS_NAME", REST_BASED_MICRO_SERVICE_TEST_FIXER
-            );
-        }
-
-        @Override
-        public ClassHeader getClassHeader() {
-            return newClassHeaderBuilder(ENTRY_POINT_PACKAGE)
-                    .addStaticImport(Formats.class, "format")
-                    .addStaticImport(Runtimes.class, "getRuntimeModule")
-                    .build();
-        }
     }
 
     /**
      * @author nedis
      * @since 0.1
      */
-    private static final class IntegrationTestFixerClassStructure extends ClassStructure {
+    private static final class IntegrationTestFixerClassStructure extends TestFixerClassStructure {
 
         @Override
-        public String getTargetFullClassName() {
-            return getEntryPointFullClassName(INTEGRATION_TEST_FIXER);
+        protected String getSimpleClassName() {
+            return INTEGRATION_TEST_FIXER;
         }
 
         @Override
         public String getTemplateName() {
             return "test/$$IntegrationTestFixerTemplate.javaftl";
-        }
-
-        @Override
-        public Map<String, Object> getTemplateVariables() {
-            return Map.of(
-                    "PACKAGE_NAME", ENTRY_POINT_PACKAGE,
-                    "JAVA_CLASS_NAME", INTEGRATION_TEST_FIXER
-            );
-        }
-
-        @Override
-        public ClassHeader getClassHeader() {
-            return newClassHeaderBuilder(ENTRY_POINT_PACKAGE)
-                    .addStaticImport(Formats.class, "format")
-                    .addStaticImport(Runtimes.class, "getRuntimeModule")
-                    .build();
         }
     }
 }

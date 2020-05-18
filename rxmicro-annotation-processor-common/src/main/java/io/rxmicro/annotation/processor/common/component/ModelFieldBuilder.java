@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 https://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,10 +20,10 @@ import io.rxmicro.annotation.processor.common.model.ModelField;
 import io.rxmicro.annotation.processor.common.model.ModelFieldType;
 import io.rxmicro.annotation.processor.common.model.type.ObjectModelClass;
 
-import javax.lang.model.element.ModuleElement;
-import javax.lang.model.element.TypeElement;
 import java.util.Map;
 import java.util.Set;
+import javax.lang.model.element.ModuleElement;
+import javax.lang.model.element.TypeElement;
 
 /**
  * @author nedis

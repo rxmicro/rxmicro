@@ -19,6 +19,10 @@ package io.rxmicro.annotation.processor.common.util.proxy;
 import io.rxmicro.annotation.processor.common.model.virtual.VirtualFieldElement;
 import io.rxmicro.annotation.processor.common.model.virtual.VirtualTypeElement;
 
+import java.io.Writer;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import javax.lang.model.AnnotatedConstruct;
 import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.AnnotationValue;
@@ -29,10 +33,6 @@ import javax.lang.model.element.Name;
 import javax.lang.model.element.PackageElement;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.Elements;
-import java.io.Writer;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 import static io.rxmicro.common.util.Requires.require;
 

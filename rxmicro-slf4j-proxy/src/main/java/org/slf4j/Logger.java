@@ -35,6 +35,8 @@ public interface Logger {
 
     boolean isTraceEnabled();
 
+    boolean isTraceEnabled(Marker marker);
+
     void trace(String msg);
 
     void trace(String format, Object arg);
@@ -44,8 +46,6 @@ public interface Logger {
     void trace(String format, Object... arguments);
 
     void trace(String msg, Throwable throwable);
-
-    boolean isTraceEnabled(Marker marker);
 
     void trace(Marker marker, String msg);
 
@@ -59,6 +59,8 @@ public interface Logger {
 
     boolean isDebugEnabled();
 
+    boolean isDebugEnabled(Marker marker);
+
     void debug(String msg);
 
     void debug(String format, Object arg);
@@ -68,8 +70,6 @@ public interface Logger {
     void debug(String format, Object... arguments);
 
     void debug(String msg, Throwable throwable);
-
-    boolean isDebugEnabled(Marker marker);
 
     void debug(Marker marker, String msg);
 
@@ -83,6 +83,8 @@ public interface Logger {
 
     boolean isInfoEnabled();
 
+    boolean isInfoEnabled(Marker marker);
+
     void info(String msg);
 
     void info(String format, Object arg);
@@ -92,8 +94,6 @@ public interface Logger {
     void info(String format, Object... arguments);
 
     void info(String msg, Throwable throwable);
-
-    boolean isInfoEnabled(Marker marker);
 
     void info(Marker marker, String msg);
 
@@ -107,6 +107,8 @@ public interface Logger {
 
     boolean isWarnEnabled();
 
+    boolean isWarnEnabled(Marker marker);
+
     void warn(String msg);
 
     void warn(String format, Object arg);
@@ -116,8 +118,6 @@ public interface Logger {
     void warn(String format, Object arg1, Object arg2);
 
     void warn(String msg, Throwable throwable);
-
-    boolean isWarnEnabled(Marker marker);
 
     void warn(Marker marker, String msg);
 
@@ -131,6 +131,8 @@ public interface Logger {
 
     boolean isErrorEnabled();
 
+    boolean isErrorEnabled(Marker marker);
+
     void error(String msg);
 
     void error(String format, Object arg);
@@ -140,8 +142,6 @@ public interface Logger {
     void error(String format, Object... arguments);
 
     void error(String msg, Throwable throwable);
-
-    boolean isErrorEnabled(Marker marker);
 
     void error(Marker marker, String msg);
 

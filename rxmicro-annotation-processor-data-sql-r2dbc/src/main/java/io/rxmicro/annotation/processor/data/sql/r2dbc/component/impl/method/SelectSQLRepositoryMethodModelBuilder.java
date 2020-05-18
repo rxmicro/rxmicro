@@ -35,12 +35,12 @@ import io.rxmicro.data.sql.model.EntityFieldMap;
 import io.rxmicro.data.sql.operation.Select;
 import io.rxmicro.data.sql.r2dbc.detail.EntityFromR2DBCSQLDBConverter;
 
-import javax.lang.model.element.ExecutableElement;
 import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
+import javax.lang.model.element.ExecutableElement;
 
 import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.getModelTransformerInstanceName;
 import static io.rxmicro.annotation.processor.common.util.Names.getSimpleName;
@@ -62,11 +62,10 @@ public class SelectSQLRepositoryMethodModelBuilder<DMF extends SQLDataModelField
         if (methodResult.isEnum()) {
             classHeaderBuilder.addStaticImport(Converters.class, "toEnum");
         }
-        classHeaderBuilder
-                .addImports(
-                        Flowable.class,
-                        ArrayList.class
-                );
+        classHeaderBuilder.addImports(
+                Flowable.class,
+                ArrayList.class
+        );
     }
 
     @Override

@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 https://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -52,13 +52,13 @@ import io.rxmicro.rest.client.RestClient;
 import io.rxmicro.rest.model.ExchangeFormat;
 import io.rxmicro.validation.DisableValidation;
 
-import javax.annotation.processing.RoundEnvironment;
-import javax.lang.model.element.TypeElement;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+import javax.annotation.processing.RoundEnvironment;
+import javax.lang.model.element.TypeElement;
 
 import static io.rxmicro.annotation.processor.common.util.Injects.injectDependencies;
 import static io.rxmicro.annotation.processor.common.util.Names.getPackageName;
@@ -161,8 +161,8 @@ public final class RestClientModuleClassStructuresBuilder extends AbstractModule
                 return classStructures;
             }
             return Set.of();
-        } catch (final InterruptProcessingException e) {
-            error(e);
+        } catch (final InterruptProcessingException ex) {
+            error(ex);
             return Set.of();
         }
     }
@@ -200,12 +200,8 @@ public final class RestClientModuleClassStructuresBuilder extends AbstractModule
         final List<MappedRestObjectModelClass> toHttpQueryModelClasses = new ArrayList<>();
         final List<MappedRestObjectModelClass> toHttpBodyModelClasses = new ArrayList<>();
         final List<MappedRestObjectModelClass> toHttpPathModelClasses = new ArrayList<>();
-        separateModelClasses(
-                context.getToHttpDataModelClasses(),
-                toHttpQueryModelClasses,
-                toHttpBodyModelClasses,
-                toHttpPathModelClasses
-        );
+        separateModelClasses(context.getToHttpDataModelClasses(), toHttpQueryModelClasses, toHttpBodyModelClasses, toHttpPathModelClasses);
+
         final RestClientClassStructureStorage.Builder builder = new RestClientClassStructureStorage.Builder()
                 .addModelReaders(
                         restClientModelReaderBuilder.build(
@@ -227,8 +223,12 @@ public final class RestClientModuleClassStructuresBuilder extends AbstractModule
                         restModelToJsonConverterBuilder.buildToJson(toHttpBodyModelClasses, clientExchangeFormat, true)
                 );
         addValidators(environmentContext, context, builder);
-        builder.addRestObjectModelClasses(context.getFromHttpDataModelClasses().stream().map(MappedRestObjectModelClass::getModelClass).collect(Collectors.toSet()));
-        builder.addRestObjectModelClasses(context.getToHttpDataModelClasses().stream().map(MappedRestObjectModelClass::getModelClass).collect(Collectors.toSet()));
+        builder.addRestObjectModelClasses(
+                context.getFromHttpDataModelClasses().stream().map(MappedRestObjectModelClass::getModelClass).collect(Collectors.toSet())
+        );
+        builder.addRestObjectModelClasses(
+                context.getToHttpDataModelClasses().stream().map(MappedRestObjectModelClass::getModelClass).collect(Collectors.toSet())
+        );
         return builder.build();
     }
 

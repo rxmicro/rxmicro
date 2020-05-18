@@ -25,13 +25,13 @@ import io.rxmicro.annotation.processor.cdi.model.QualifierRule;
 import io.rxmicro.annotation.processor.cdi.model.qualifier.ByTypeAndNameQualifierRule;
 import io.rxmicro.annotation.processor.cdi.model.qualifier.ByTypeQualifierRule;
 
-import javax.lang.model.element.ExecutableElement;
-import javax.lang.model.element.TypeElement;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
+import javax.lang.model.element.ExecutableElement;
+import javax.lang.model.element.TypeElement;
 
 import static io.rxmicro.annotation.processor.common.util.Elements.allSuperTypesAndInterfaces;
 import static io.rxmicro.annotation.processor.common.util.Elements.asTypeElement;

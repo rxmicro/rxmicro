@@ -49,8 +49,8 @@ public final class JULLoggerImplProvider implements LoggerImplProvider {
         final LogManager logManager = LogManager.getLogManager();
         try {
             logManager.readConfiguration(new ByteArrayInputStream(configBytes));
-        } catch (final IOException e) {
-            throw new ImpossibleException(e, "Configuration created automatically, so IO error is impossible!");
+        } catch (final IOException ex) {
+            throw new ImpossibleException(ex, "Configuration created automatically, so IO error is impossible!");
         }
         final Optional<String> customConfig = configCustomizer.customizeConfig(config);
         if (customConfig.isPresent()) {
@@ -79,8 +79,8 @@ public final class JULLoggerImplProvider implements LoggerImplProvider {
                 writer.write(entry.getValue());
                 writer.newLine();
             }
-        } catch (final IOException e) {
-            throw new ImpossibleException(e, "Writer uses byte array, so IO exception is impossible!");
+        } catch (final IOException ex) {
+            throw new ImpossibleException(ex, "Writer uses byte array, so IO exception is impossible!");
         }
         return byteArrayOutputStream.toByteArray();
     }

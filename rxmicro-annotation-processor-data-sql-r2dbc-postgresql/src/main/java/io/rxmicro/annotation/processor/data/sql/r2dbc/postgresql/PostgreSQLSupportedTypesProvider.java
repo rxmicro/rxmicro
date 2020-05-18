@@ -45,6 +45,7 @@ public final class PostgreSQLSupportedTypesProvider extends SQLSupportedTypesPro
     @Override
     protected TypeDefinitions<TypeDefinition> createPrimitives() {
         // https://github.com/r2dbc/r2dbc-postgresql#data-type-mapping
+        // Add new supported primitive here:
         return new TypeDefinitionsImpl<>(
                 new EnumTypeDefinition(),
                 new ByNameTypeDefinition(Boolean.class),
@@ -71,7 +72,6 @@ public final class PostgreSQLSupportedTypesProvider extends SQLSupportedTypesPro
 
                 new ByNameTypeDefinition(InetAddress.class),
                 new ByNameTypeDefinition(UUID.class)
-                // Add new supported primitive here
         );
     }
 }

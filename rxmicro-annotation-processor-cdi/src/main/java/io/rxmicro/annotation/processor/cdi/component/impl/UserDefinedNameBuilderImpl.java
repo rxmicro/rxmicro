@@ -20,12 +20,6 @@ import com.google.inject.Singleton;
 import io.rxmicro.annotation.processor.cdi.component.UserDefinedNameBuilder;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
 
-import javax.lang.model.element.AnnotationMirror;
-import javax.lang.model.element.AnnotationValue;
-import javax.lang.model.element.Element;
-import javax.lang.model.element.ExecutableElement;
-import javax.lang.model.element.TypeElement;
-import javax.lang.model.type.TypeMirror;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -33,6 +27,12 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.Supplier;
+import javax.lang.model.element.AnnotationMirror;
+import javax.lang.model.element.AnnotationValue;
+import javax.lang.model.element.Element;
+import javax.lang.model.element.ExecutableElement;
+import javax.lang.model.element.TypeElement;
+import javax.lang.model.type.TypeMirror;
 
 import static io.rxmicro.annotation.processor.common.util.Annotations.getAnnotationElement;
 import static io.rxmicro.annotation.processor.common.util.Annotations.getAnnotationValue;

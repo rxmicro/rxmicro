@@ -42,10 +42,10 @@ public final class GeneratedClasses {
                     currentClass = currentClass.getSuperclass();
                 }
             }
-        } catch (final ClassNotFoundException e) {
-            // return false. See below
+            return false;
+        } catch (final ClassNotFoundException ignore) {
+            return false;
         }
-        return false;
     }
 
     private GeneratedClasses() {

@@ -49,12 +49,8 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 @Retention(SOURCE)
 @Target({FIELD, METHOD, PARAMETER})
 @ConstraintRule(
-        supportedTypes = {
-                BigDecimal.class
-        },
-        validatorClass = {
-                LatConstraintValidator.class
-        }
+        supportedTypes = BigDecimal.class,
+        validatorClass = LatConstraintValidator.class
 )
 @SelfDocumented
 @ReadMore(

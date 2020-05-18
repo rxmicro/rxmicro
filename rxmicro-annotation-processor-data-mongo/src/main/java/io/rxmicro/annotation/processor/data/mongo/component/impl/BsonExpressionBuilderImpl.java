@@ -34,7 +34,6 @@ import org.bson.types.Binary;
 import org.bson.types.Decimal128;
 import org.bson.types.ObjectId;
 
-import javax.lang.model.element.ExecutableElement;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.ArrayList;
@@ -42,9 +41,11 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
+import javax.lang.model.element.ExecutableElement;
 
 import static io.rxmicro.annotation.processor.common.util.Elements.isNotStandardEnum;
 import static io.rxmicro.common.util.Formats.FORMAT_PLACEHOLDER_TOKEN;
@@ -100,12 +101,13 @@ public final class BsonExpressionBuilderImpl implements BsonExpressionBuilder {
         final BasicDBObject basicDBObject;
         try {
             basicDBObject = BasicDBObject.parse(entry.getKey());
-        } catch (final JsonParseException e) {
+        } catch (final JsonParseException ex) {
             throw new InterruptProcessingException(
                     repositoryMethod,
                     "Expression '?' is invalid: ?!",
                     expressionTemplate,
-                    e.getMessage());
+                    ex.getMessage()
+            );
         }
         final List<MongoVariable> arguments = methodParameterReader.getVars(repositoryMethod, entry.getValue());
         final List<String> lines = getLines(repositoryMethod, classHeaderBuilder, arguments, basicDBObject);
@@ -188,23 +190,13 @@ public final class BsonExpressionBuilderImpl implements BsonExpressionBuilder {
     private String getSimpleValue(final ExecutableElement repositoryMethod,
                                   final ClassHeader.Builder classHeaderBuilder,
                                   final Object value) {
-        if (value instanceof Long) {
-            return format("?L", value);
-        } else if (value instanceof Decimal128) {
-            classHeaderBuilder.addImports(BigDecimal.class);
-            return format("new BigDecimal(\"?\")", value);
-        } else if (value instanceof ObjectId) {
-            classHeaderBuilder.addImports(ObjectId.class);
-            return format("new ObjectId(\"?\")", value);
-        } else if (value instanceof UUID) {
-            classHeaderBuilder.addImports(UUID.class);
-            return format("UUID.fromString(\"?\")", value);
-        } else if (value instanceof Date) {
-            classHeaderBuilder.addImports(Instant.class);
-            return format("Instant.ofEpochMilli(?L)", ((Date) value).getTime());
+        final Optional<String> simpleValueByType = getSimpleValueByType(classHeaderBuilder, value);
+        if (simpleValueByType.isPresent()) {
+            return simpleValueByType.get();
         } else if (SUPPORTED_EXPRESSION_TYPES.contains(value.getClass())) {
             return value.toString();
         } else if (value instanceof Binary && ((Binary) value).getType() == UUID_LEGACY.getValue()) {
+            classHeaderBuilder.addImports(UUID.class);
             final UUID uuid = UuidHelper.decodeBinaryToUuid(((Binary) value).getData(), UUID_LEGACY.getValue(), JAVA_LEGACY);
             return format("UUID.fromString(\"?\")", uuid.toString());
         } else {
@@ -214,6 +206,27 @@ public final class BsonExpressionBuilderImpl implements BsonExpressionBuilder {
                     value.getClass(),
                     SUPPORTED_EXPRESSION_TYPES
             );
+        }
+    }
+
+    private Optional<String> getSimpleValueByType(final ClassHeader.Builder classHeaderBuilder,
+                                                  final Object value) {
+        if (value instanceof Long) {
+            return Optional.of(format("?L", value));
+        } else if (value instanceof Decimal128) {
+            classHeaderBuilder.addImports(BigDecimal.class);
+            return Optional.of(format("new BigDecimal(\"?\")", value));
+        } else if (value instanceof ObjectId) {
+            classHeaderBuilder.addImports(ObjectId.class);
+            return Optional.of(format("new ObjectId(\"?\")", value));
+        } else if (value instanceof UUID) {
+            classHeaderBuilder.addImports(UUID.class);
+            return Optional.of(format("UUID.fromString(\"?\")", value));
+        } else if (value instanceof Date) {
+            classHeaderBuilder.addImports(Instant.class);
+            return Optional.of(format("Instant.ofEpochMilli(?L)", ((Date) value).getTime()));
+        } else {
+            return Optional.empty();
         }
     }
 

@@ -37,9 +37,9 @@ import static io.rxmicro.annotation.processor.documentation.asciidoctor.componen
 abstract class AbstractRestrictionReader {
 
     void readRequired(final EnvironmentContext environmentContext,
+                      final Map.Entry<RestModelField, ModelClass> entry,
                       final List<String> restrictions,
-                      final List<ReadMore> readMores,
-                      final Map.Entry<RestModelField, ModelClass> entry) {
+                      final List<ReadMore> readMores) {
         final RestModelField field = entry.getKey();
         final Nullable nullable = field.getAnnotation(Nullable.class);
         if (environmentContext.isRxMicroModuleEnabled(RxMicroModule.RX_MICRO_VALIDATION_MODULE) &&

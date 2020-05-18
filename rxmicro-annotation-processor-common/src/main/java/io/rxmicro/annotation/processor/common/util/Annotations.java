@@ -23,13 +23,6 @@ import io.rxmicro.config.Config;
 import io.rxmicro.config.DefaultConfigValue;
 import io.rxmicro.config.DefaultConfigValueSupplier;
 
-import javax.lang.model.AnnotatedConstruct;
-import javax.lang.model.element.AnnotationMirror;
-import javax.lang.model.element.AnnotationValue;
-import javax.lang.model.element.Element;
-import javax.lang.model.element.ExecutableElement;
-import javax.lang.model.element.TypeElement;
-import javax.lang.model.type.MirroredTypeException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Proxy;
 import java.util.Arrays;
@@ -39,6 +32,13 @@ import java.util.Optional;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import javax.lang.model.AnnotatedConstruct;
+import javax.lang.model.element.AnnotationMirror;
+import javax.lang.model.element.AnnotationValue;
+import javax.lang.model.element.Element;
+import javax.lang.model.element.ExecutableElement;
+import javax.lang.model.element.TypeElement;
+import javax.lang.model.type.MirroredTypeException;
 
 import static io.rxmicro.annotation.processor.common.util.Elements.asTypeElement;
 import static io.rxmicro.annotation.processor.common.util.Errors.createInternalErrorSupplier;
@@ -105,19 +105,19 @@ public final class Annotations {
         TypeElement type;
         try {
             type = getElements().getTypeElement(classSupplier.get().getName());
-        } catch (final MirroredTypeException e) {
-            type = asTypeElement(e.getTypeMirror()).orElse(null);
+        } catch (final MirroredTypeException ex) {
+            type = asTypeElement(ex.getTypeMirror()).orElse(null);
         }
         return Optional.ofNullable(type)
                 .filter(t -> !excludeClass.getName().equals(t.getQualifiedName().toString()));
     }
 
-    public static TypeElement getRequiredAnnotationClassParameter(final Supplier<Class<?>> classSupplier) {
-        return getAnnotationClassParameter(classSupplier, Void.class).orElseThrow();
-    }
-
     public static Optional<TypeElement> getAnnotationClassParameter(final Supplier<Class<?>> classSupplier) {
         return getAnnotationClassParameter(classSupplier, Void.class);
+    }
+
+    public static TypeElement getRequiredAnnotationClassParameter(final Supplier<Class<?>> classSupplier) {
+        return getAnnotationClassParameter(classSupplier, Void.class).orElseThrow();
     }
 
     public static List<Map.Entry<String, DefaultConfigProxyValue>> getDefaultConfigValues(final String defaultConfigNameSpace,

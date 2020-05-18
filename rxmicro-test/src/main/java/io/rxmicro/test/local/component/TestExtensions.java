@@ -32,7 +32,7 @@ import static java.util.stream.Collectors.toSet;
  */
 public final class TestExtensions {
 
-    private final static Set<TestExtension> TEST_EXTENSIONS;
+    private static final Set<TestExtension> TEST_EXTENSIONS;
 
     static {
         final Set<TestExtension> testExtensions = new HashSet<>();

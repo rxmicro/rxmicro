@@ -26,10 +26,10 @@ import io.rxmicro.annotation.processor.data.sql.model.SQLDataObjectModelClass;
 import io.rxmicro.annotation.processor.data.sql.r2dbc.component.impl.AbstractSQLModificationOperationDataRepositoryMethodModelBuilder;
 import io.rxmicro.data.sql.operation.Update;
 
-import javax.lang.model.element.ExecutableElement;
 import java.lang.annotation.Annotation;
 import java.util.List;
 import java.util.Optional;
+import javax.lang.model.element.ExecutableElement;
 
 import static io.rxmicro.data.sql.operation.Update.DEFAULT_UPDATE;
 
@@ -60,7 +60,7 @@ public class UpdateSQLRepositoryMethodModelBuilder<DMF extends SQLDataModelField
                                   final ExecutableElement method,
                                   final List<Variable> params) {
         super.validateMethod(parsedSQL, methodResult, dataGenerationContext, method, params);
-        validateThatEntityContainsPrimaryKeyIfCurrentParamIsEntity(dataGenerationContext, method, params);
+        validateThatEntityContainsPrimaryKeyIfParamIsEntity(dataGenerationContext, method, params);
     }
 
     @Override

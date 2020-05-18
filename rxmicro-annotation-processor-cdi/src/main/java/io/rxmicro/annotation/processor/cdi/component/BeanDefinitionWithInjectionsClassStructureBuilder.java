@@ -19,9 +19,9 @@ package io.rxmicro.annotation.processor.cdi.component;
 import io.rxmicro.annotation.processor.cdi.model.BeanSupplierClassStructure;
 import io.rxmicro.annotation.processor.common.model.EnvironmentContext;
 
+import java.util.Set;
 import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.element.TypeElement;
-import java.util.Set;
 
 /**
  * @author nedis

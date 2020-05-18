@@ -16,11 +16,11 @@
 
 package io.rxmicro.annotation.processor.common.model.virtual;
 
-import javax.lang.model.element.Element;
-import javax.lang.model.element.ExecutableElement;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
+import javax.lang.model.element.Element;
+import javax.lang.model.element.ExecutableElement;
 
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.GeneratedClassRules.GENERATED_CLASS_NAME_PREFIX;

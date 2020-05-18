@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 https://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,13 +23,13 @@ import io.rxmicro.annotation.processor.common.model.AnnotationProcessorType;
 import io.rxmicro.annotation.processor.common.model.EnvironmentContext;
 import io.rxmicro.annotation.processor.common.model.SourceCode;
 
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.element.ModuleElement;
 import javax.lang.model.element.TypeElement;
 import javax.tools.Diagnostic;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
 
 import static io.rxmicro.annotation.processor.common.SupportedOptions.RX_MICRO_BUILD_UNNAMED_MODULE;
 import static io.rxmicro.annotation.processor.common.model.AnnotationProcessorType.PROJECT_COMPILE;
@@ -57,11 +57,6 @@ public class BaseRxMicroAnnotationProcessor extends AbstractRxMicroProcessor {
     }
 
     @Override
-    protected AnnotationProcessorType getAnnotationProcessorType() {
-        return PROJECT_COMPILE;
-    }
-
-    @Override
     public boolean process(final EnvironmentContextBuilder environmentContextBuilder,
                            final Set<? extends TypeElement> annotations,
                            final RoundEnvironment roundEnv) {
@@ -83,6 +78,11 @@ public class BaseRxMicroAnnotationProcessor extends AbstractRxMicroProcessor {
             displayModuleError();
             return false;
         }
+    }
+
+    @Override
+    protected AnnotationProcessorType getAnnotationProcessorType() {
+        return PROJECT_COMPILE;
     }
 
     private void displayModuleError() {

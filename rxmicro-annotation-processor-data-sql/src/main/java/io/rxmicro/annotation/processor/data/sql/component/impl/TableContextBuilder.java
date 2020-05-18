@@ -22,9 +22,9 @@ import io.rxmicro.annotation.processor.data.sql.model.TableContext;
 import io.rxmicro.data.sql.Schema;
 import io.rxmicro.data.sql.Table;
 
-import javax.lang.model.element.TypeElement;
 import java.util.List;
 import java.util.Optional;
+import javax.lang.model.element.TypeElement;
 
 import static io.rxmicro.annotation.processor.common.util.Annotations.defaultAnnotationInstance;
 import static io.rxmicro.common.util.Strings.splitByCamelCase;

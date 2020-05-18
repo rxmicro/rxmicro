@@ -40,12 +40,8 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 @Retention(SOURCE)
 @Target({FIELD, METHOD, PARAMETER})
 @ConstraintRule(
-        supportedTypes = {
-                Boolean.class
-        },
-        validatorClass = {
-                AssertTrueConstraintValidator.class
-        }
+        supportedTypes = Boolean.class,
+        validatorClass = AssertTrueConstraintValidator.class
 )
 @SelfDocumented
 public @interface AssertTrue {

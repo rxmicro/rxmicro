@@ -18,11 +18,11 @@ package io.rxmicro.annotation.processor.common.component.impl;
 
 import io.rxmicro.annotation.processor.common.model.SupportedAnnotations;
 
-import javax.lang.model.element.AnnotationMirror;
-import javax.lang.model.element.ExecutableElement;
 import java.lang.annotation.Annotation;
 import java.util.List;
 import java.util.Set;
+import javax.lang.model.element.AnnotationMirror;
+import javax.lang.model.element.ExecutableElement;
 
 import static io.rxmicro.annotation.processor.common.util.Elements.methodSignatureEquals;
 import static io.rxmicro.annotation.processor.common.util.validators.MethodValidators.validateNotAbstractMethod;

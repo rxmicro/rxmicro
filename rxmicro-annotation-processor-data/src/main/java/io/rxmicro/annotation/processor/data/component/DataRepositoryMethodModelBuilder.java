@@ -30,7 +30,8 @@ import java.lang.annotation.Annotation;
  * @author nedis
  * @since 0.1
  */
-public interface DataRepositoryMethodModelBuilder<DMF extends DataModelField, DRM extends DataRepositoryMethod, DMC extends DataObjectModelClass<DMF>> {
+public interface DataRepositoryMethodModelBuilder
+        <DMF extends DataModelField, DRM extends DataRepositoryMethod, DMC extends DataObjectModelClass<DMF>> {
 
     default boolean isSupported(final DataRepositoryMethodSignature dataRepositoryMethodSignature,
                                 final DataGenerationContext<DMF, DMC> dataGenerationContext) {

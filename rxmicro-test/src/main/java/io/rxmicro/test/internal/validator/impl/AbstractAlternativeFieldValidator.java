@@ -31,6 +31,6 @@ abstract class AbstractAlternativeFieldValidator extends FieldValidator {
     public void validate(final Field field) {
         validateThatFieldIsNotStatic(field);
         validateThatFieldAnnotatedByRequiredAnnotation(field, Alternative.class);
-        validateThatFieldIsAnnotatedOnlyBySupportedAnnotations(field, Alternative.class);
+        validateThatFieldIsAnnotatedOnlyBySupportedOnes(field, Alternative.class);
     }
 }

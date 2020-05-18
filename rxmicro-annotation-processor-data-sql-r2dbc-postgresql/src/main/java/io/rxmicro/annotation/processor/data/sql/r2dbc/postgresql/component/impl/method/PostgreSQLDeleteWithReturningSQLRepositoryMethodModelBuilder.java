@@ -30,10 +30,10 @@ import io.rxmicro.annotation.processor.data.sql.r2dbc.postgresql.model.PostgreSQ
 import io.rxmicro.annotation.processor.data.sql.r2dbc.postgresql.model.PostgreSQLKeywords;
 import io.rxmicro.data.sql.operation.Delete;
 
-import javax.lang.model.element.ExecutableElement;
 import java.lang.annotation.Annotation;
 import java.util.List;
 import java.util.Map;
+import javax.lang.model.element.ExecutableElement;
 
 import static io.rxmicro.annotation.processor.data.sql.model.SQLKeywords.INSERT;
 
@@ -43,7 +43,8 @@ import static io.rxmicro.annotation.processor.data.sql.model.SQLKeywords.INSERT;
  */
 @Singleton
 public final class PostgreSQLDeleteWithReturningSQLRepositoryMethodModelBuilder
-        extends AbstractSQLModificationOperationReturningResultDataRepositoryMethodModelBuilder<Delete, SQLDataModelField, PostgreSQLDataObjectModelClass> {
+        extends AbstractSQLModificationOperationReturningResultDataRepositoryMethodModelBuilder
+        <Delete, SQLDataModelField, PostgreSQLDataObjectModelClass> {
 
     @Override
     protected void validateMethod(final ParsedSQL<Delete> parsedSQL,
@@ -55,7 +56,7 @@ public final class PostgreSQLDeleteWithReturningSQLRepositoryMethodModelBuilder
             throw new InterruptProcessingException(method,
                     "Missing '?' keyword in the '?' statement", PostgreSQLKeywords.RETURNING, INSERT);
         }
-        validateThatEntityContainsPrimaryKeyIfCurrentParamIsEntity(dataGenerationContext, method, params);
+        validateThatEntityContainsPrimaryKeyIfParamIsEntity(dataGenerationContext, method, params);
     }
 
     @Override

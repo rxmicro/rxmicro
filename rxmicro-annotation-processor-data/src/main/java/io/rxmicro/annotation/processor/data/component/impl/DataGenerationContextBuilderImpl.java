@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 https://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,12 +27,12 @@ import io.rxmicro.annotation.processor.data.model.DataModelField;
 import io.rxmicro.annotation.processor.data.model.DataObjectModelClass;
 import io.rxmicro.annotation.processor.data.model.DataRepositoryInterfaceSignature;
 
-import javax.lang.model.element.ModuleElement;
-import javax.lang.model.element.TypeElement;
-import javax.lang.model.type.TypeMirror;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import javax.lang.model.element.ModuleElement;
+import javax.lang.model.element.TypeElement;
+import javax.lang.model.type.TypeMirror;
 
 import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getElements;
 import static java.util.stream.Collectors.toSet;

@@ -45,12 +45,8 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 @Retention(SOURCE)
 @Target({FIELD, METHOD, PARAMETER})
 @ConstraintRule(
-        supportedTypes = {
-                Instant.class
-        },
-        validatorClass = {
-                FutureInstantConstraintValidator.class
-        }
+        supportedTypes = Instant.class,
+        validatorClass = FutureInstantConstraintValidator.class
 )
 @SelfDocumented
 public @interface Future {

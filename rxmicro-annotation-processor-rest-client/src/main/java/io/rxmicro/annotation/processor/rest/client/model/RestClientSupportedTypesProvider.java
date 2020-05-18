@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 https://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -52,12 +52,13 @@ public final class RestClientSupportedTypesProvider extends AbstractRestSupporte
 
     @Override
     protected TypeDefinitions<TypeDefinition> createInternalTypes() {
+        // Add new supported internal types here:
         return new TypeDefinitionsImpl<>(
                 new ByNameTypeDefinition(HttpHeaders.class),
                 new ByNameTypeDefinition(HttpVersion.class),
+
                 new AnnotatedByTypeDefinition(ResponseStatusCode.class),
                 new AnnotatedByTypeDefinition(ResponseBody.class)
-                // Add new supported internal types here
         );
     }
 }

@@ -46,8 +46,8 @@ public final class SourceCodeGeneratorImpl extends AbstractGenerator implements 
         try {
             final Template template = getTemplate(classStructure.getTemplateName());
             template.process(variables, stringWriter);
-        } catch (final TemplateException | IOException e) {
-            cantGenerateClass(classStructure.getTargetFullClassName(), e);
+        } catch (final TemplateException | IOException ex) {
+            cantGenerateClass(classStructure.getTargetFullClassName(), ex);
         }
         return new SourceCode(
                 classStructure.getTargetFullClassName(),

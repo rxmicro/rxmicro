@@ -22,10 +22,6 @@ import io.rxmicro.annotation.processor.cdi.model.BeanSupplierClassStructure;
 import io.rxmicro.annotation.processor.cdi.model.InjectionPoint;
 import io.rxmicro.annotation.processor.common.model.EnvironmentContext;
 
-import javax.lang.model.element.ElementKind;
-import javax.lang.model.element.PackageElement;
-import javax.lang.model.element.TypeElement;
-import javax.lang.model.type.DeclaredType;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -33,6 +29,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import javax.lang.model.element.ElementKind;
+import javax.lang.model.element.PackageElement;
+import javax.lang.model.element.TypeElement;
+import javax.lang.model.type.DeclaredType;
 
 import static io.rxmicro.annotation.processor.cdi.model.InjectionPointType.BEAN;
 import static io.rxmicro.annotation.processor.cdi.model.InjectionPointType.MULTI_BINDER;

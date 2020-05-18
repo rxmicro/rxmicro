@@ -44,12 +44,8 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 @Retention(SOURCE)
 @Target({FIELD, METHOD, PARAMETER})
 @ConstraintRule(
-        supportedTypes = {
-                String.class
-        },
-        validatorClass = {
-                TelegramConstraintValidator.class
-        }
+        supportedTypes = String.class,
+        validatorClass = TelegramConstraintValidator.class
 )
 @SelfDocumented
 @ReadMore(

@@ -30,33 +30,33 @@ public interface NumberValidators {
                        double value,
                        Class<? extends Annotation> annotationClass);
 
+    boolean validateFloat(ModelField modelField,
+                          String value,
+                          Class<? extends Annotation> annotationClass);
+
+    boolean validateDouble(ModelField modelField,
+                           String value,
+                           Class<? extends Annotation> annotationClass);
+
     void validateByte(ModelField modelField,
                       long value,
                       Class<? extends Annotation> annotationClass);
-
-    void validateShort(ModelField modelField,
-                       long value,
-                       Class<? extends Annotation> annotationClass);
-
-    void validateInteger(ModelField modelField,
-                         long value,
-                         Class<? extends Annotation> annotationClass);
-
-    boolean validateBigInteger(ModelField modelField,
-                               String value,
-                               Class<? extends Annotation> annotationClass);
-
-    boolean validateBigDecimal(ModelField modelField,
-                               String value,
-                               Class<? extends Annotation> annotationClass);
 
     boolean validateByte(ModelField modelField,
                          String value,
                          Class<? extends Annotation> annotationClass);
 
+    void validateShort(ModelField modelField,
+                       long value,
+                       Class<? extends Annotation> annotationClass);
+
     boolean validateShort(ModelField modelField,
                           String value,
                           Class<? extends Annotation> annotationClass);
+
+    void validateInteger(ModelField modelField,
+                         long value,
+                         Class<? extends Annotation> annotationClass);
 
     boolean validateInteger(ModelField modelField,
                             String value,
@@ -66,11 +66,11 @@ public interface NumberValidators {
                          String value,
                          Class<? extends Annotation> annotationClass);
 
-    boolean validateFloat(ModelField modelField,
-                          String value,
-                          Class<? extends Annotation> annotationClass);
+    boolean validateBigInteger(ModelField modelField,
+                               String value,
+                               Class<? extends Annotation> annotationClass);
 
-    boolean validateDouble(ModelField modelField,
-                           String value,
-                           Class<? extends Annotation> annotationClass);
+    boolean validateBigDecimal(ModelField modelField,
+                               String value,
+                               Class<? extends Annotation> annotationClass);
 }

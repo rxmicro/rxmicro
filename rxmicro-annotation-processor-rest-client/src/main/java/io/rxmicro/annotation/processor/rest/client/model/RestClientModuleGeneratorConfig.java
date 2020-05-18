@@ -22,8 +22,8 @@ import io.rxmicro.annotation.processor.rest.model.RestModuleGeneratorConfig;
 import io.rxmicro.rest.client.RestClientGeneratorConfig;
 import io.rxmicro.rest.model.ClientExchangeFormatModule;
 
-import javax.lang.model.element.PackageElement;
 import java.util.Set;
+import javax.lang.model.element.PackageElement;
 
 import static io.rxmicro.common.RxMicroModule.RX_MICRO_VALIDATION_MODULE;
 import static java.util.stream.Collectors.toSet;

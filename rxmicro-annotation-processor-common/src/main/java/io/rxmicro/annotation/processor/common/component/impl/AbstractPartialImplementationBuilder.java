@@ -19,6 +19,12 @@ package io.rxmicro.annotation.processor.common.component.impl;
 import io.rxmicro.annotation.processor.common.model.error.InternalErrorException;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
 
+import java.lang.annotation.Annotation;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
@@ -27,12 +33,6 @@ import javax.lang.model.element.Modifier;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.DeclaredType;
 import javax.lang.model.type.TypeMirror;
-import java.lang.annotation.Annotation;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 import static io.rxmicro.annotation.processor.common.util.Annotations.getAnnotationValue;
 import static io.rxmicro.annotation.processor.common.util.Elements.asTypeElement;
@@ -68,7 +68,7 @@ public abstract class AbstractPartialImplementationBuilder extends AbstractProce
                                                        final Class<? extends Annotation> partialImplementationAnnotation) {
         validateThatAbstractClassImplementsInterface(interfaceType, abstractClassType);
         validateThatPartialImplementationClassIsAbstract(interfaceType, abstractClassType);
-        validateThatCorrectVersionOfPartialImplementationIsUsed(interfaceType, partialImplementationAnnotation);
+        validateThatCorrectVersionOfPartialImplementationUsed(interfaceType, partialImplementationAnnotation);
     }
 
     private void validateThatAbstractClassImplementsInterface(final TypeElement interfaceType,
@@ -104,8 +104,8 @@ public abstract class AbstractPartialImplementationBuilder extends AbstractProce
         }
     }
 
-    private void validateThatCorrectVersionOfPartialImplementationIsUsed(final TypeElement interfaceType,
-                                                                         final Class<? extends Annotation> partialImplementationAnnotation) {
+    private void validateThatCorrectVersionOfPartialImplementationUsed(final TypeElement interfaceType,
+                                                                       final Class<? extends Annotation> partialImplementationAnnotation) {
         for (final AnnotationMirror annotationMirror : interfaceType.getAnnotationMirrors()) {
             final DeclaredType annotationType = annotationMirror.getAnnotationType();
             if (!annotationType.toString().equals(partialImplementationAnnotation.getName()) &&

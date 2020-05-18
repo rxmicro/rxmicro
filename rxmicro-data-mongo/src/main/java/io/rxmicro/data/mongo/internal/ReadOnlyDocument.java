@@ -46,6 +46,11 @@ public class ReadOnlyDocument extends Document {
     }
 
     @Override
+    public boolean remove(final Object key, final Object value) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public void putAll(final Map<? extends String, ?> map) {
         throw new UnsupportedOperationException();
     }
@@ -80,11 +85,6 @@ public class ReadOnlyDocument extends Document {
 
     @Override
     public Object putIfAbsent(final String key, final Object value) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public boolean remove(final Object key, final Object value) {
         throw new UnsupportedOperationException();
     }
 

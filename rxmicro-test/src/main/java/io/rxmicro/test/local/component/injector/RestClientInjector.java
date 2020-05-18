@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 https://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -43,7 +43,10 @@ public final class RestClientInjector extends AbstractFactory {
             registerFactory(RestClientFactory.REST_CLIENT_FACTORY_IMPL_CLASS_NAME, this);
             for (final AlternativeEntryPoint alternativeEntryPoint : restClientComponents) {
                 alternativeEntryPoint.readValue(testInstances);
-                register(alternativeEntryPoint.getValue(), new ByTypeInstanceQualifier<>((Class<Object>) alternativeEntryPoint.getFieldType()));
+                register(
+                        alternativeEntryPoint.getValue(),
+                        new ByTypeInstanceQualifier<>((Class<Object>) alternativeEntryPoint.getFieldType())
+                );
             }
         }
     }

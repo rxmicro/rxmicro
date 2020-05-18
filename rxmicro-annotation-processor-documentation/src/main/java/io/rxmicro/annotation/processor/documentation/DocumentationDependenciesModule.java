@@ -115,8 +115,7 @@ public final class DocumentationDependenciesModule extends AbstractModule {
     }
 
     private void configureTypeExampleBuilder() {
-        final Multibinder<TypeExampleBuilder> typeExampleBuilderBinder =
-                newSetBinder(binder(), TypeExampleBuilder.class);
+        final Multibinder<TypeExampleBuilder> typeExampleBuilderBinder = newSetBinder(binder(), TypeExampleBuilder.class);
         typeExampleBuilderBinder.addBinding().to(EnumExampleBuilder.class);
         typeExampleBuilderBinder.addBinding().to(StringExampleBuilder.class);
         typeExampleBuilderBinder.addBinding().to(NumberExampleBuilder.class);
@@ -126,8 +125,7 @@ public final class DocumentationDependenciesModule extends AbstractModule {
     }
 
     private void configureExampleValueConverter() {
-        final Multibinder<ExampleValueConverter> exampleValueConverterBinder =
-                newSetBinder(binder(), ExampleValueConverter.class);
+        final Multibinder<ExampleValueConverter> exampleValueConverterBinder = newSetBinder(binder(), ExampleValueConverter.class);
         exampleValueConverterBinder.addBinding().to(EnumExampleValueConverter.class);
         exampleValueConverterBinder.addBinding().to(BooleanExampleValueConverter.class);
         exampleValueConverterBinder.addBinding().to(NumberExampleValueConverter.class);

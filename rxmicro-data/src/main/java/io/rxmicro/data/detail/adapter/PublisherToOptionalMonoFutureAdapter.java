@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 https://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,29 +36,36 @@ public class PublisherToOptionalMonoFutureAdapter<T> extends CompletableFuture<O
     private T value;
 
     public PublisherToOptionalMonoFutureAdapter(final Publisher<T> publisher) {
-        publisher.subscribe(new Subscriber<>() {
-            @Override
-            public void onSubscribe(final Subscription sub) {
-                subscription = sub;
-                sub.request(1);
-            }
+        publisher.subscribe(new SubscriberAdapter());
+    }
 
-            @Override
-            public void onNext(final T item) {
-                subscription.cancel();
-                value = item;
-                onComplete();
-            }
+    /**
+     * @author nedis
+     * @since 0.4
+     */
+    private final class SubscriberAdapter implements Subscriber<T> {
 
-            @Override
-            public void onError(final Throwable throwable) {
-                completeExceptionally(throwable);
-            }
+        @Override
+        public void onSubscribe(final Subscription sub) {
+            subscription = sub;
+            sub.request(1);
+        }
 
-            @Override
-            public void onComplete() {
-                complete(Optional.ofNullable(value));
-            }
-        });
+        @Override
+        public void onNext(final T item) {
+            subscription.cancel();
+            value = item;
+            onComplete();
+        }
+
+        @Override
+        public void onError(final Throwable throwable) {
+            completeExceptionally(throwable);
+        }
+
+        @Override
+        public void onComplete() {
+            complete(Optional.ofNullable(value));
+        }
     }
 }

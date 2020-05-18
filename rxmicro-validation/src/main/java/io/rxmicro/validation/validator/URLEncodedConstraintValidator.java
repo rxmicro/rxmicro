@@ -29,6 +29,8 @@ import io.rxmicro.validation.ConstraintValidator;
  */
 public class URLEncodedConstraintValidator implements ConstraintValidator<String> {
 
+    private static final int MAX_ASCII_CODE = 0x7F;
+
     @Override
     public void validate(final String actual,
                          final HttpModelType httpModelType,
@@ -44,8 +46,8 @@ public class URLEncodedConstraintValidator implements ConstraintValidator<String
 
     private boolean isNotAllASCII(final CharSequence input) {
         for (int i = 0; i < input.length(); i++) {
-            final int ch = input.charAt(i);
-            if (ch > 0x7F) {
+            final char ch = input.charAt(i);
+            if (ch > MAX_ASCII_CODE) {
                 return true;
             }
         }

@@ -18,8 +18,8 @@ package io.rxmicro.annotation.processor.documentation.component;
 
 import io.rxmicro.documentation.SimpleErrorResponse;
 
-import javax.lang.model.element.Element;
 import java.util.Optional;
+import javax.lang.model.element.Element;
 
 /**
  * @author nedis

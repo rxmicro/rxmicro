@@ -45,8 +45,12 @@ public final class DateTimeExampleValueConverter extends ExampleValueConverter {
             try {
                 Instant.parse(value);
                 return value;
-            } catch (final DateTimeParseException e) {
-                showInvalidExampleValueError(restModelField, format("ISO-8601 instant (Example: '?')", INSTANT_EXAMPLE), value);
+            } catch (final DateTimeParseException ignore) {
+                showInvalidExampleValueError(
+                        restModelField,
+                        format("ISO-8601 instant (Example: '?')", INSTANT_EXAMPLE),
+                        value
+                );
                 return ERROR_DETECTED;
             }
         }

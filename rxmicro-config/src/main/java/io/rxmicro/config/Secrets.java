@@ -43,8 +43,10 @@ public interface Secrets {
      */
     static String hideSecretInfo(final String value) {
         if (value != null) {
-            if (value.length() > 10) {
-                return "****" + value.substring(value.length() - 4);
+            final int minLengthForLongText = 10;
+            if (value.length() > minLengthForLongText) {
+                final int asteriskCount = 4;
+                return "****" + value.substring(value.length() - asteriskCount);
             } else {
                 return "********";
             }

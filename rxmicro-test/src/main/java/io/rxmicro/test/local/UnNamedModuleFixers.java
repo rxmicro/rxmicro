@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 https://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -54,9 +54,9 @@ public final class UnNamedModuleFixers {
         commonFix();
         try {
             instantiate(format("?.?", ENTRY_POINT_PACKAGE, testFixSimpleClassName));
-        } catch (final CheckedWrapperException e) {
-            if (!e.isCause(ClassNotFoundException.class)) {
-                LOGGER.error(e, "Can't instantiate a `?.?` class: ?", ENTRY_POINT_PACKAGE, testFixSimpleClassName, e.getMessage());
+        } catch (final CheckedWrapperException ex) {
+            if (!ex.isCause(ClassNotFoundException.class)) {
+                LOGGER.error(ex, "Can't instantiate a `?.?` class: ?", ENTRY_POINT_PACKAGE, testFixSimpleClassName, ex.getMessage());
             }
         }
     }

@@ -49,6 +49,16 @@ public interface Transaction {
     Mono<Void> rollback();
 
     /**
+     * Rolls back to the save point in the current transaction.
+     *
+     * @param savePoint the save point to rollback to
+     * @return the {@link Mono} that indicates that the save point has been rolled back to
+     * @throws UnsupportedOperationException if save points are not supported
+     * @throws IllegalArgumentException if the specified save point is invalid
+     */
+    Mono<Void> rollback(SavePoint savePoint);
+
+    /**
      * Creates the save point in the current transaction.
      *
      * @param savePoint the save point to create
@@ -66,16 +76,6 @@ public interface Transaction {
      * @throws IllegalArgumentException if the specified save point is invalid
      */
     Mono<Void> release(SavePoint savePoint);
-
-    /**
-     * Rolls back to the save point in the current transaction.
-     *
-     * @param savePoint the save point to rollback to
-     * @return the {@link Mono} that indicates that the save point has been rolled back to
-     * @throws UnsupportedOperationException if save points are not supported
-     * @throws IllegalArgumentException if the specified save point is invalid
-     */
-    Mono<Void> rollback(SavePoint savePoint);
 
     /**
      * Returns the {@link IsolationLevel} for this connection.

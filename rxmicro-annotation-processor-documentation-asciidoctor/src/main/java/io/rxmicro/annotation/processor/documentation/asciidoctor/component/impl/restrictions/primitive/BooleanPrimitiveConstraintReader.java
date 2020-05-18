@@ -32,25 +32,35 @@ import static io.rxmicro.annotation.processor.common.util.Annotations.getReadMor
  * @author nedis
  * @since 0.1
  */
-public final class BooleanPrimitiveConstraintReader implements ConstraintReader {
+public final class BooleanPrimitiveConstraintReader extends ConstraintReader {
+
+    private final List<AnnotationConstraintReader> annotationConstraintReaders = List.of(
+
+            (annotated, restrictions, readMores, descriptionBuilder) -> {
+                final AssertTrue assertTrue = annotated.getAnnotation(AssertTrue.class);
+                if (assertTrue != null && !assertTrue.off()) {
+                    restrictions.add("expected: true");
+                    descriptionBuilder.append("Must be `true`.");
+                    getReadMore(AssertTrue.class).ifPresent(readMores::add);
+                }
+            },
+
+            (annotated, restrictions, readMores, descriptionBuilder) -> {
+                final AssertFalse assertFalse = annotated.getAnnotation(AssertFalse.class);
+                if (assertFalse != null && !assertFalse.off()) {
+                    restrictions.add("expected: false");
+                    descriptionBuilder.append("Must be `false`.");
+                    getReadMore(AssertFalse.class).ifPresent(readMores::add);
+                }
+            }
+    );
 
     @Override
-    public void readIfConstraintEnabled(final List<String> restrictions,
+    public void readIfConstraintEnabled(final Map.Entry<RestModelField, ModelClass> entry,
+                                        final List<String> restrictions,
                                         final List<ReadMore> readMores,
-                                        final Map.Entry<RestModelField, ModelClass> entry,
                                         final StringBuilder descriptionBuilder) {
         final RestModelField annotated = entry.getKey();
-        final AssertTrue assertTrue = annotated.getAnnotation(AssertTrue.class);
-        if (assertTrue != null && !assertTrue.off()) {
-            restrictions.add("expected: true");
-            descriptionBuilder.append("Must be `true`.");
-            getReadMore(AssertTrue.class).ifPresent(readMores::add);
-        }
-        final AssertFalse assertFalse = annotated.getAnnotation(AssertFalse.class);
-        if (assertFalse != null && !assertFalse.off()) {
-            restrictions.add("expected: false");
-            descriptionBuilder.append("Must be `false`.");
-            getReadMore(AssertFalse.class).ifPresent(readMores::add);
-        }
+        readUsingAnnotationConstraintReader(annotationConstraintReaders, annotated, restrictions, readMores, descriptionBuilder);
     }
 }

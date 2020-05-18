@@ -20,6 +20,9 @@ import io.rxmicro.test.local.InvalidTestConfigException;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.util.Optional;
 
@@ -50,22 +53,39 @@ public final class Annotations {
 
     @SuppressWarnings("unchecked")
     public static <T extends Annotation> T defaultAnnotationInstance(final Class<T> annotationClass) {
-        final Object mock = new Object();
         return (T) Proxy.newProxyInstance(
                 annotationClass.getClassLoader(),
                 new Class<?>[]{annotationClass},
-                (proxy, method, args) -> {
-                    if ("toString".equals(method.getName()) && method.getParameterCount() == 0) {
-                        return format("? Proxy", annotationClass.getSimpleName());
-                    } else if (method.getDeclaringClass() == Object.class) {
-                        return method.invoke(mock, args);
-                    } else {
-                        return method.getDefaultValue();
-                    }
-                }
+                new AnnotationInvocationHandler<>(annotationClass)
         );
     }
 
     private Annotations() {
+    }
+
+    /**
+     * @author nedis
+     * @since 0.4
+     */
+    private static final class AnnotationInvocationHandler<T> implements InvocationHandler {
+
+        private final Class<T> annotationClass;
+
+        private AnnotationInvocationHandler(final Class<T> annotationClass) {
+            this.annotationClass = annotationClass;
+        }
+
+        @Override
+        public Object invoke(final Object proxy,
+                             final Method method,
+                             final Object[] args) throws InvocationTargetException, IllegalAccessException {
+            if ("toString".equals(method.getName()) && method.getParameterCount() == 0) {
+                return format("? Proxy", annotationClass.getSimpleName());
+            } else if (method.getDeclaringClass() == Object.class) {
+                return method.invoke(this, args);
+            } else {
+                return method.getDefaultValue();
+            }
+        }
     }
 }

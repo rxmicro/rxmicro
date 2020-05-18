@@ -20,9 +20,9 @@ import io.rxmicro.annotation.processor.common.model.method.MethodResult;
 import io.rxmicro.annotation.processor.data.model.Variable;
 import io.rxmicro.common.InvalidStateException;
 
-import javax.lang.model.element.ModuleElement;
 import java.util.List;
 import java.util.Optional;
+import javax.lang.model.element.ModuleElement;
 
 import static io.rxmicro.common.util.Requires.require;
 

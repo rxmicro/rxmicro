@@ -20,13 +20,6 @@ package io.rxmicro.annotation.processor.common.util;
 import io.rxmicro.model.NotStandardSerializableEnum;
 import io.rxmicro.model.Transient;
 
-import javax.lang.model.element.ElementKind;
-import javax.lang.model.element.ExecutableElement;
-import javax.lang.model.element.Modifier;
-import javax.lang.model.element.TypeElement;
-import javax.lang.model.element.VariableElement;
-import javax.lang.model.type.NoType;
-import javax.lang.model.type.TypeMirror;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashSet;
@@ -36,6 +29,13 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.function.Predicate;
+import javax.lang.model.element.ElementKind;
+import javax.lang.model.element.ExecutableElement;
+import javax.lang.model.element.Modifier;
+import javax.lang.model.element.TypeElement;
+import javax.lang.model.element.VariableElement;
+import javax.lang.model.type.NoType;
+import javax.lang.model.type.TypeMirror;
 
 import static io.rxmicro.annotation.processor.common.util.Names.getPackageName;
 import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getTypes;

@@ -26,8 +26,6 @@ import io.rxmicro.annotation.processor.data.sql.component.impl.builder.select.Se
 import io.rxmicro.annotation.processor.data.sql.model.PlatformPlaceHolderGenerator;
 import io.rxmicro.annotation.processor.data.sql.model.VariableValuesMap;
 
-import javax.lang.model.element.Element;
-import javax.lang.model.element.ExecutableElement;
 import java.lang.annotation.Annotation;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -36,6 +34,8 @@ import java.util.ListIterator;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Stream;
+import javax.lang.model.element.Element;
+import javax.lang.model.element.ExecutableElement;
 
 import static io.rxmicro.common.util.Formats.FORMAT_PLACEHOLDER_TOKEN;
 import static java.util.stream.Collectors.toSet;
@@ -135,8 +135,8 @@ public abstract class AbstractSQLBuilder extends AbstractProcessorComponent {
         }
     }
 
-    protected abstract boolean isAsteriskShouldBeIgnored(final int index,
-                                                         final List<String> sqlTokens);
+    protected abstract boolean isAsteriskShouldBeIgnored(int index,
+                                                         List<String> sqlTokens);
 
     protected final void validatePlaceholderCount(final ExecutableElement method,
                                                   final List<String> sqlTokens,

@@ -31,9 +31,9 @@ import java.util.Map;
 public final class ObjectRestrictionReader extends AbstractRestrictionReader {
 
     public void read(final EnvironmentContext environmentContext,
+                     final Map.Entry<RestModelField, ModelClass> entry,
                      final List<String> restrictions,
-                     final List<ReadMore> readMores,
-                     final Map.Entry<RestModelField, ModelClass> entry) {
-        readRequired(environmentContext, restrictions, readMores, entry);
+                     final List<ReadMore> readMores) {
+        readRequired(environmentContext, entry, restrictions, readMores);
     }
 }

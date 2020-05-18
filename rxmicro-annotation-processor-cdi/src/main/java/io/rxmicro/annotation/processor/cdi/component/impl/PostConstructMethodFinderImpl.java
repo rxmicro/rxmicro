@@ -22,11 +22,11 @@ import io.rxmicro.annotation.processor.cdi.model.PostConstructMethod;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
 import io.rxmicro.cdi.PostConstruct;
 
+import java.util.List;
+import java.util.Optional;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.TypeKind;
-import java.util.List;
-import java.util.Optional;
 
 import static io.rxmicro.annotation.processor.common.util.Elements.allMethods;
 import static io.rxmicro.annotation.processor.common.util.validators.MethodValidators.validateNotAbstractMethod;

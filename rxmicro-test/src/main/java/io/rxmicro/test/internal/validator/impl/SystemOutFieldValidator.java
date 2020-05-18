@@ -38,6 +38,6 @@ public final class SystemOutFieldValidator extends FieldValidator {
     public void validate(final Field field) {
         validateThatFieldIsNotStatic(field);
         validateThatFieldIsNotFinal(field);
-        validateThatFieldIsAnnotatedOnlyBySupportedAnnotations(field);
+        validateThatFieldIsAnnotatedOnlyBySupportedOnes(field);
     }
 }

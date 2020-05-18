@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 https://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -50,23 +50,32 @@ public final class ExCollections {
 
     @SuppressWarnings("rawtypes")
     private static final Set<Class<? extends Map>> UNMODIFIABLE_MAP_CLASSES = Set.of(
-            Collections.unmodifiableMap(Map.of()).getClass(),   // java.util.Collections.UnmodifiableMap
-            Map.of().getClass(),                    // java.util.ImmutableCollections.MapN
-            Map.of(1, 1).getClass()        // java.util.ImmutableCollections.Map1
+            // java.util.Collections.UnmodifiableMap
+            Collections.unmodifiableMap(Map.of()).getClass(),
+            // java.util.ImmutableCollections.MapN
+            Map.of().getClass(),
+            // java.util.ImmutableCollections.Map1
+            Map.of(1, 1).getClass()
     );
 
     @SuppressWarnings("rawtypes")
     private static final Set<Class<? extends Set>> UNMODIFIABLE_SET_CLASSES = Set.of(
-            Collections.unmodifiableSet(Set.of()).getClass(),   // java.util.Collections.UnmodifiableSet
-            Set.of().getClass(),                    // java.util.ImmutableCollections.SetN
-            Set.of(1).getClass()                    // java.util.ImmutableCollections.Set12
+            // java.util.Collections.UnmodifiableSet
+            Collections.unmodifiableSet(Set.of()).getClass(),
+            // java.util.ImmutableCollections.SetN
+            Set.of().getClass(),
+            // java.util.ImmutableCollections.Set12
+            Set.of(1).getClass()
     );
 
     @SuppressWarnings("rawtypes")
     private static final Set<Class<? extends List>> UNMODIFIABLE_LIST_CLASSES = Set.of(
-            Collections.unmodifiableList(List.of()).getClass(),   // java.util.Collections.UnmodifiableList
-            List.of().getClass(),                    // java.util.ImmutableCollections.ListN
-            List.of(1).getClass()                    // java.util.ImmutableCollections.List12
+            // java.util.Collections.UnmodifiableList
+            Collections.unmodifiableList(List.of()).getClass(),
+            // java.util.ImmutableCollections.ListN
+            List.of().getClass(),
+            // java.util.ImmutableCollections.List12
+            List.of(1).getClass()
     );
 
     /**

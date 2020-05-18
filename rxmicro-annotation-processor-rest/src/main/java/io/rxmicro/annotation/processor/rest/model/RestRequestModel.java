@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 https://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,8 +18,8 @@ package io.rxmicro.annotation.processor.rest.model;
 
 import io.rxmicro.annotation.processor.common.model.virtual.VirtualTypeElement;
 
-import javax.lang.model.element.TypeElement;
 import java.util.Optional;
+import javax.lang.model.element.TypeElement;
 
 import static io.rxmicro.annotation.processor.common.util.Errors.createInternalErrorSupplier;
 import static io.rxmicro.common.util.Formats.format;

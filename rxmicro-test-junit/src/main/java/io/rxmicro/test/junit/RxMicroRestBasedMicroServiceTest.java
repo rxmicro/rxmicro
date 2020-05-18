@@ -195,7 +195,8 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * <p>
  * <ul>
  *     <li>The {@code MOCKITO} prefix means that the action is activated by the {@code @InitMocks} annotation.</li>
- *     <li>The {@code RX-MICRO} prefix means that the action is activated by the {@code @}{@link RxMicroRestBasedMicroServiceTest} annotation.</li>
+ *     <li>The {@code RX-MICRO} prefix means that the action is activated by the
+ *              {@code @}{@link RxMicroRestBasedMicroServiceTest} annotation.</li>
  *     <li>The {@code USER-TEST} prefix means that at this stage a custom method from the {@code MicroServiceTest class} is invoked.</li>
  * </ul>
  *

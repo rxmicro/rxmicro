@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 https://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,10 +26,10 @@ import io.rxmicro.annotation.processor.data.mongo.model.MongoDataObjectModelClas
 import io.rxmicro.data.mongo.DocumentId;
 import org.bson.Document;
 
+import java.util.Optional;
 import javax.lang.model.element.ModuleElement;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.TypeMirror;
-import java.util.Optional;
 
 import static io.rxmicro.annotation.processor.common.util.Elements.asTypeElement;
 

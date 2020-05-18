@@ -37,17 +37,18 @@ import io.rxmicro.data.sql.model.EntityFieldMap;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import javax.lang.model.element.ExecutableElement;
 import java.lang.annotation.Annotation;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.lang.model.element.ExecutableElement;
 
 /**
  * @author nedis
  * @since 0.1
  */
-public abstract class AbstractSQLOperationDataRepositoryMethodModelBuilder<A extends Annotation, DMF extends SQLDataModelField, DMC extends SQLDataObjectModelClass<DMF>>
+public abstract class AbstractSQLOperationDataRepositoryMethodModelBuilder
+        <A extends Annotation, DMF extends SQLDataModelField, DMC extends SQLDataObjectModelClass<DMF>>
         extends AbstractSQLDataRepositoryMethodModelBuilder<DMF, DMC> {
 
     @Inject
@@ -89,29 +90,21 @@ public abstract class AbstractSQLOperationDataRepositoryMethodModelBuilder<A ext
         addEntityConverter(methodResult, sqlMethodDescriptor, dataGenerationContext, params, sqlStatement, templateArguments);
         getTransactionMethodParameter(method).ifPresent(t -> templateArguments.put("TRANSACTION", t));
 
-        return new SQLMethodBody(
-                methodBodyGenerator.generate(
-                        getTemplateName(),
-                        templateArguments)
-        );
+        return new SQLMethodBody(methodBodyGenerator.generate(getTemplateName(), templateArguments));
     }
 
     protected void customizeClassHeaderBuilder(final ClassHeader.Builder classHeaderBuilder,
                                                final MethodResult methodResult,
                                                final DataGenerationContext<DMF, DMC> dataGenerationContext,
                                                final ExecutableElement method) {
-        classHeaderBuilder
-                .addImports(
-                        Mono.class,
-                        Flux.class
-                );
+        classHeaderBuilder.addImports(Mono.class, Flux.class);
     }
 
-    protected abstract void validateMethod(final ParsedSQL<A> parsedSQL,
-                                           final MethodResult methodResult,
-                                           final DataGenerationContext<DMF, DMC> dataGenerationContext,
-                                           final ExecutableElement method,
-                                           final List<Variable> params);
+    protected abstract void validateMethod(ParsedSQL<A> parsedSQL,
+                                           MethodResult methodResult,
+                                           DataGenerationContext<DMF, DMC> dataGenerationContext,
+                                           ExecutableElement method,
+                                           List<Variable> params);
 
     protected abstract ParsedSQL<A> parseSQL(ExecutableElement method);
 

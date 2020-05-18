@@ -35,42 +35,60 @@ public final class JsonConverter {
     public static Object convertIfNecessary(final Object value) {
         if (value == null) {
             return null;
-        } else if (value instanceof Number) {
-            if (value instanceof JsonNumber) {
-                return value;
-            } else if (value instanceof BigDecimal) {
-                return new JsonNumber(((BigDecimal) value).toPlainString());
-            } else {
-                return new JsonNumber(value.toString());
-            }
-        } else if (value instanceof Boolean) {
-            return value;
         } else if (value instanceof Map) {
-            if (isUnmodifiableMap(value)) {
-                validateJsonObject((Map<?, ?>) value);
-                return value;
-            } else {
-                throw new IllegalArgumentException(
-                        "Map is not valid json object value! Use jsonObject() factory method instead!"
-                );
-            }
+            return getJsonObject(value);
         } else if (value instanceof Iterable) {
-            if (isUnmodifiableList(value)) {
-                validateJsonArray((List<?>) value);
-                return value;
-            } else {
-                throw new IllegalArgumentException(
-                        "Iterable is not valid json object value! Use jsonArray() factory method instead!"
-                );
-            }
+            return getJsonArray(value);
         } else if (value.getClass().isArray()) {
             throw new IllegalArgumentException(
                     "Java array is not valid json object value! Use jsonArray() factory method instead!"
             );
-        } else if (value instanceof Enum<?>) {
+        } else {
+            return getJsonPrimitive(value);
+        }
+    }
+
+    private static Object getJsonPrimitive(final Object value) {
+        if (value instanceof Enum<?>) {
             return ((Enum<?>) value).name();
+        } else if (value instanceof Boolean) {
+            return value;
+        } else if (value instanceof Number) {
+            return getJsonNumber(value);
         } else {
             return value.toString();
+        }
+    }
+
+    private static Object getJsonNumber(final Object value) {
+        if (value instanceof JsonNumber) {
+            return value;
+        } else if (value instanceof BigDecimal) {
+            return new JsonNumber(((BigDecimal) value).toPlainString());
+        } else {
+            return new JsonNumber(value.toString());
+        }
+    }
+
+    private static Object getJsonObject(final Object value) {
+        if (isUnmodifiableMap(value)) {
+            validateJsonObject((Map<?, ?>) value);
+            return value;
+        } else {
+            throw new IllegalArgumentException(
+                    "Map is not valid json object value! Use jsonObject() factory method instead!"
+            );
+        }
+    }
+
+    private static Object getJsonArray(final Object value) {
+        if (isUnmodifiableList(value)) {
+            validateJsonArray((List<?>) value);
+            return value;
+        } else {
+            throw new IllegalArgumentException(
+                    "Iterable is not valid json object value! Use jsonArray() factory method instead!"
+            );
         }
     }
 

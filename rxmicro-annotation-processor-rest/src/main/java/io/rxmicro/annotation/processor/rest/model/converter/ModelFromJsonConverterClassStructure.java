@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 https://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -51,12 +51,11 @@ public final class ModelFromJsonConverterClassStructure extends AbstractModelJso
 
     @Override
     protected void addRequiredImports(final ClassHeader.Builder classHeaderBuilder) {
-        classHeaderBuilder
-                .addImports(
-                        ModelFromJsonConverter.class,
-                        HttpModelType.class,
-                        List.class
-                );
+        classHeaderBuilder.addImports(
+                ModelFromJsonConverter.class,
+                HttpModelType.class,
+                List.class
+        );
         if (isRequiredReflectionSetter()) {
             classHeaderBuilder.addStaticImport(REFLECTIONS_FULL_CLASS_NAME, "setFieldValue");
         }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  ~ Copyright (c) 2020 https://rxmicro.io
+  ~ Copyright (c) 2020. https://rxmicro.io
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -150,6 +150,7 @@
         <!-- Code quality -->
         <spotbugs.version>4.0.2</spotbugs.version>
         <pmd.version>6.23.0</pmd.version>
+        <checkstyle.version>8.32</checkstyle.version>
         <!-- Maven core plugins -->
         <maven-clean-plugin.version>3.1.0</maven-clean-plugin.version>
         <maven-resources-plugin.version>3.1.0</maven-resources-plugin.version>
@@ -173,6 +174,7 @@
         <jacoco-maven-plugin.version>0.8.5</jacoco-maven-plugin.version>
         <spotbugs-maven-plugin.version>4.0.0</spotbugs-maven-plugin.version>
         <maven-pmd-plugin.version>3.13.0</maven-pmd-plugin.version>
+        <maven-checkstyle-plugin.version>3.1.1</maven-checkstyle-plugin.version>
     </properties>
 
     <profiles>
@@ -388,6 +390,79 @@
                             </excludeFilterFile>
                             <skipEmptyReport>true</skipEmptyReport>
                         </configuration>
+                    </plugin>
+                </plugins>
+            </reporting>
+        </profile>
+        <profile>
+            <!-- https://checkstyle.sourceforge.io/ -->
+            <!-- https://maven.apache.org/plugins/maven-checkstyle-plugin/index.html -->
+            <id>checkstyle</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-checkstyle-plugin</artifactId>
+                        <version>${maven-checkstyle-plugin.version}</version>
+                        <dependencies>
+                            <dependency>
+                                <groupId>com.puppycrawl.tools</groupId>
+                                <artifactId>checkstyle</artifactId>
+                                <version>${checkstyle.version}</version>
+                            </dependency>
+                        </dependencies>
+                        <executions>
+                            <execution>
+                                <id>common-rules</id>
+                                <phase>process-classes</phase>
+                                <goals>
+                                    <goal>check</goal>
+                                </goals>
+                                <configuration>
+                                    <configLocation>.coding/checkstyle/common-rules.xml</configLocation>
+                                    <suppressionsLocation>.coding/checkstyle/common-suppressions.xml</suppressionsLocation>
+                                    <suppressionsFileExpression>checkstyle.suppressions.file</suppressionsFileExpression>
+                                    <failOnViolation>false</failOnViolation>
+                                </configuration>
+                            </execution>
+                            <!--execution>
+                                <id>public-api-rules</id>
+                                <phase>process-classes</phase>
+                                <goals>
+                                    <goal>check</goal>
+                                </goals>
+                                <configuration>
+                                    <configLocation>.coding/checkstyle/public-api-rules.xml</configLocation>
+                                    <suppressionsLocation>.coding/checkstyle/public-api-suppressions.xml</suppressionsLocation>
+                                    <suppressionsFileExpression>checkstyle.suppressions.file</suppressionsFileExpression>
+                                    <failOnViolation>false</failOnViolation>
+                                    <excludes>**/io/rxmicro/annotation/processor/**, **/detail/**</excludes>
+                                </configuration>
+                            </execution-->
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+
+            <reporting>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-checkstyle-plugin</artifactId>
+                        <reportSets>
+                            <reportSet>
+                                <id>common-rules</id>
+                                <reports>
+                                    <report>checkstyle</report>
+                                    <report>checkstyle-aggregate</report>
+                                </reports>
+                                <configuration>
+                                    <configLocation>.coding/checkstyle/common-rules.xml</configLocation>
+                                    <suppressionsLocation>.coding/checkstyle/common-suppressions.xml</suppressionsLocation>
+                                    <suppressionsFileExpression>checkstyle.suppressions.file</suppressionsFileExpression>
+                                </configuration>
+                            </reportSet>
+                        </reportSets>
                     </plugin>
                 </plugins>
             </reporting>

@@ -27,10 +27,10 @@ import io.rxmicro.annotation.processor.data.sql.r2dbc.component.impl.AbstractSQL
 import io.rxmicro.annotation.processor.data.sql.r2dbc.postgresql.model.PostgreSQLDataObjectModelClass;
 import io.rxmicro.data.sql.operation.Update;
 
-import javax.lang.model.element.ExecutableElement;
 import java.lang.annotation.Annotation;
 import java.util.List;
 import java.util.Optional;
+import javax.lang.model.element.ExecutableElement;
 
 import static io.rxmicro.annotation.processor.data.sql.model.SQLKeywords.UPDATE;
 import static io.rxmicro.annotation.processor.data.sql.r2dbc.postgresql.model.PostgreSQLKeywords.RETURNING;
@@ -42,7 +42,8 @@ import static io.rxmicro.data.sql.operation.Update.DEFAULT_UPDATE;
  */
 @Singleton
 public final class PostgreSQLUpdateWithReturningSQLRepositoryMethodModelBuilder
-        extends AbstractSQLModificationOperationReturningResultDataRepositoryMethodModelBuilder<Update, SQLDataModelField, PostgreSQLDataObjectModelClass> {
+        extends AbstractSQLModificationOperationReturningResultDataRepositoryMethodModelBuilder
+        <Update, SQLDataModelField, PostgreSQLDataObjectModelClass> {
 
     @Override
     protected void validateMethod(final ParsedSQL<Update> parsedSQL,
@@ -52,7 +53,7 @@ public final class PostgreSQLUpdateWithReturningSQLRepositoryMethodModelBuilder
         if (parsedSQL.doesNotContain(RETURNING)) {
             throw new InterruptProcessingException(method, "Missing '?' keyword in the '?' statement", RETURNING, UPDATE);
         }
-        validateThatEntityContainsPrimaryKeyIfCurrentParamIsEntity(dataGenerationContext, method, params);
+        validateThatEntityContainsPrimaryKeyIfParamIsEntity(dataGenerationContext, method, params);
     }
 
     @Override

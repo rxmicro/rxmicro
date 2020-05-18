@@ -33,7 +33,8 @@ import static io.rxmicro.runtime.local.InstanceContainer.getSingleton;
  */
 public final class PostgreSQLRepositoryFactory {
 
-    private static final PostgreSQLConnectionPoolBuilder BUILDER = new PostgreSQLConnectionPoolBuilder();
+    private static final PostgreSQLConnectionPoolBuilder POSTGRE_SQL_CONNECTION_POOL_BUILDER =
+            new PostgreSQLConnectionPoolBuilder();
 
     static {
         // https://github.com/r2dbc/r2dbc-postgresql#logging
@@ -44,7 +45,7 @@ public final class PostgreSQLRepositoryFactory {
                                                    final Function<ConnectionPool, T> creator) {
         final ConnectionPool connectionPool = getSingleton(
                 new ByTypeInstanceQualifier<>(ConnectionPool.class),
-                new LazyInstanceProvider<>(ConnectionPool.class, () -> BUILDER.createConnectionPool(namespace)));
+                new LazyInstanceProvider<>(ConnectionPool.class, () -> POSTGRE_SQL_CONNECTION_POOL_BUILDER.build(namespace)));
         return creator.apply(connectionPool);
     }
 

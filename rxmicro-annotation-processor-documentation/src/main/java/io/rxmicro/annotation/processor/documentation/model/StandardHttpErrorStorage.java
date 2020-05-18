@@ -37,10 +37,12 @@ import static java.util.stream.Collectors.toMap;
  */
 public final class StandardHttpErrorStorage {
 
+    // Add std errors here:
     private final Map<Integer, StandardHttpError> storage = List.of(
             new StandardHttpError.Builder()
                     .setStatus(TemporaryRedirectException.STATUS_CODE)
-                    .setDescription("The request should be repeated with another URI, however, future requests should still use the original URI.")
+                    .setDescription(
+                            "The request should be repeated with another URI, however, future requests should still use the original URI.")
                     .setExampleErrorMessage("Temporary Redirect")
                     .build(),
             new StandardHttpError.Builder()
@@ -57,7 +59,8 @@ public final class StandardHttpErrorStorage {
             new StandardHttpError.Builder()
                     .setStatus(InternalHttpErrorException.STATUS_CODE)
                     .setDescription("If internal server error detected.")
-                    .setMessageDescription(format("`?` value (by default) or the detailed cause of the arisen internal server error.",
+                    .setMessageDescription(
+                            format("`?` value (by default) or the detailed cause of the arisen internal server error.",
                             getErrorMessage(InternalHttpErrorException.STATUS_CODE)))
                     .setExampleErrorMessage("Internal Error")
                     .setWithShowErrorCauseReadMoreLink()
@@ -65,12 +68,12 @@ public final class StandardHttpErrorStorage {
             new StandardHttpError.Builder()
                     .setStatus(HttpClientTimeoutException.STATUS_CODE)
                     .setDescription("If response is not received within a specified time period.")
-                    .setMessageDescription(format("`?` value (by default) or contains external rest micro service endpoint, which is not available now.",
+                    .setMessageDescription(
+                            format("`?` value (by default) or contains external rest micro service endpoint, which is not available now.",
                             getErrorMessage(HttpClientTimeoutException.STATUS_CODE)))
                     .setExampleErrorMessage("Request Timeout")
                     .setWithShowErrorCauseReadMoreLink()
                     .build()
-            // Add std errors here
     ).stream().collect(toMap(StandardHttpError::getStatus, identity()));
 
     public Optional<StandardHttpError> get(final int status) {

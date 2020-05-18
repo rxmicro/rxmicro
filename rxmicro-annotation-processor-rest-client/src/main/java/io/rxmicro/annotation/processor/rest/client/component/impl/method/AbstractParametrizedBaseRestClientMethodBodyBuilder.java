@@ -31,8 +31,8 @@ import io.rxmicro.annotation.processor.rest.model.StaticHeaders;
 import io.rxmicro.annotation.processor.rest.model.StaticQueryParameters;
 import io.rxmicro.rest.client.detail.RequestModelExtractor;
 
-import javax.lang.model.element.TypeElement;
 import java.util.Map;
+import javax.lang.model.element.TypeElement;
 
 import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.getModelTransformerInstanceName;
 
@@ -40,8 +40,7 @@ import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.ge
  * @author nedis
  * @since 0.4
  */
-public abstract class AbstractParametrizedBaseRestClientMethodBodyBuilder
-        extends BaseRestClientMethodBodyBuilder {
+public abstract class AbstractParametrizedBaseRestClientMethodBodyBuilder extends BaseRestClientMethodBodyBuilder {
 
     protected abstract String getTemplateName();
 
@@ -77,8 +76,8 @@ public abstract class AbstractParametrizedBaseRestClientMethodBodyBuilder
         return new RestClientMethodBody(methodBodyGenerator.generate(getTemplateName(), templateArguments));
     }
 
-    protected abstract void validate(final RestClientMethodSignature methodSignature,
-                                     final StaticQueryParameters staticQueryParameters);
+    protected abstract void validate(RestClientMethodSignature methodSignature,
+                                     StaticQueryParameters staticQueryParameters);
 
     protected abstract void customizeClassHeaderBuilder(ClassHeader.Builder classHeaderBuilder);
 

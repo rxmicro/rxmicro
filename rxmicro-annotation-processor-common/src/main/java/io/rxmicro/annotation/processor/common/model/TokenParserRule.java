@@ -55,11 +55,7 @@ public abstract class TokenParserRule {
                 multiLineCommentStartedTokens,
                 multiLineCommentFinishedTokens
         );
-        sortedOperatorMap = new SortedOperatorMapBuilder(significantTokenDelimiters)
-                .buildUnmodifiableMapWithSortedValues((o1, o2) -> {
-                    final int res = o2.length() - o1.length();
-                    return res == 0 ? o1.compareTo(o2) : res;
-                });
+        sortedOperatorMap = buildSortedOperatorMap(significantTokenDelimiters);
     }
 
     public boolean isIgnoredDelimiter(final char ch) {
@@ -116,4 +112,12 @@ public abstract class TokenParserRule {
     protected abstract Set<String> getOperatorTokenDelimiters();
 
     protected abstract Set<String> getNotOperatorTokenDelimiters();
+
+    private Map<String, SortedSet<String>> buildSortedOperatorMap(final Set<String> significantTokenDelimiters) {
+        return new SortedOperatorMapBuilder(significantTokenDelimiters)
+                .buildUnmodifiableMapWithSortedValues((o1, o2) -> {
+                    final int res = o2.length() - o1.length();
+                    return res == 0 ? o1.compareTo(o2) : res;
+                });
+    }
 }

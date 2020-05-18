@@ -36,6 +36,21 @@ import static io.rxmicro.validation.constraint.IP.Version.IP_V4;
  */
 public class IPConstraintValidator implements ConstraintValidator<String> {
 
+    private static final int EXPECTED_IP_4_TOKENS_COUNT = 4;
+
+    private static final int EXPECTED_IP_6_TOKENS_COUNT = 8;
+
+    private static final int MIN_IP_VALUE = 0;
+
+    private static final int MAX_IP_4_VALUE = 255;
+
+    private static final int MAX_IP_6_VALUE = 0xFFFF;
+
+    private static final String MAX_IP_6_VALUE_TO_STRING = Integer.toHexString(MAX_IP_6_VALUE);
+
+    private static final String INVALID_IP_ERROR_MESSAGE_TEMPLATE =
+            "Invalid ? \"?\": Expected a number between ? and ?, but actual is '?' (IP = '?')!";
+
     private final Set<IP.Version> versions;
 
     public IPConstraintValidator(final Collection<IP.Version> versions) {
@@ -71,24 +86,24 @@ public class IPConstraintValidator implements ConstraintValidator<String> {
                               final HttpModelType httpModelType,
                               final String fieldName) {
         final StringTokenizer tokenizer = new StringTokenizer(actual, ".");
-        if (tokenizer.countTokens() != 4) {
+        if (tokenizer.countTokens() != EXPECTED_IP_4_TOKENS_COUNT) {
             throw new ValidationException(
-                    "Invalid ? \"?\": Expected 4 numbers divided by '.', but actual is '?'!",
-                    httpModelType, fieldName, actual);
+                    "Invalid ? \"?\": Expected ? numbers divided by '.', but actual is '?'!",
+                    httpModelType, fieldName, EXPECTED_IP_4_TOKENS_COUNT, actual);
         }
         while (tokenizer.hasMoreTokens()) {
             final String value = tokenizer.nextToken();
             try {
                 final int ip4AddressPart = Integer.parseInt(value);
-                if (ip4AddressPart < 0 || ip4AddressPart > 255) {
+                if (ip4AddressPart < MIN_IP_VALUE || ip4AddressPart > MAX_IP_4_VALUE) {
                     throw new ValidationException(
-                            "Invalid ? \"?\": Expected a number between 0 and 255, but actual is '?' (IP = '?')!",
-                            httpModelType, fieldName, ip4AddressPart, actual);
+                            INVALID_IP_ERROR_MESSAGE_TEMPLATE,
+                            httpModelType, fieldName, MIN_IP_VALUE, MAX_IP_4_VALUE, ip4AddressPart, actual);
                 }
-            } catch (final NumberFormatException e) {
+            } catch (final NumberFormatException ignore) {
                 throw new ValidationException(
-                        "Invalid ? \"?\": Expected a number between 0 and 255, but actual is '?' (IP = '?')!",
-                        httpModelType, fieldName, value, actual);
+                        INVALID_IP_ERROR_MESSAGE_TEMPLATE,
+                        httpModelType, fieldName, MIN_IP_VALUE, MAX_IP_4_VALUE, value, actual);
             }
         }
     }
@@ -97,25 +112,25 @@ public class IPConstraintValidator implements ConstraintValidator<String> {
                               final HttpModelType httpModelType,
                               final String fieldName) {
         final StringTokenizer tokenizer = new StringTokenizer(actual, ":");
-        if (tokenizer.countTokens() != 8) {
+        if (tokenizer.countTokens() != EXPECTED_IP_6_TOKENS_COUNT) {
             throw new ValidationException(
-                    "Invalid ? \"?\": Expected 8 numbers divided by ':', but actual is '?'!",
-                    httpModelType, fieldName, actual);
+                    "Invalid ? \"?\": Expected ? numbers divided by ':', but actual is '?'!",
+                    httpModelType, fieldName, EXPECTED_IP_6_TOKENS_COUNT, actual);
         }
         while (tokenizer.hasMoreTokens()) {
             final String value = tokenizer.nextToken();
             if (!value.isEmpty()) {
                 try {
                     final int ip6AddressPart = Integer.decode("0x" + value);
-                    if (ip6AddressPart < 0 || ip6AddressPart > 0xFFFF) {
+                    if (ip6AddressPart < MIN_IP_VALUE || ip6AddressPart > MAX_IP_6_VALUE) {
                         throw new ValidationException(
-                                "Invalid ? \"?\": Expected a number between 0 and FFFF, but actual is '?' (IP = '?')!",
-                                httpModelType, fieldName, ip6AddressPart, actual);
+                                INVALID_IP_ERROR_MESSAGE_TEMPLATE,
+                                httpModelType, fieldName, MIN_IP_VALUE, MAX_IP_6_VALUE_TO_STRING, ip6AddressPart, actual);
                     }
-                } catch (final NumberFormatException e) {
+                } catch (final NumberFormatException ignore) {
                     throw new ValidationException(
-                            "Invalid ? \"?\": Expected a number between 0 and FFFF, but actual is '?' (IP = '?')!",
-                            httpModelType, fieldName, value, actual);
+                            INVALID_IP_ERROR_MESSAGE_TEMPLATE,
+                            httpModelType, fieldName, MIN_IP_VALUE, MAX_IP_6_VALUE_TO_STRING, value, actual);
                 }
             }
         }

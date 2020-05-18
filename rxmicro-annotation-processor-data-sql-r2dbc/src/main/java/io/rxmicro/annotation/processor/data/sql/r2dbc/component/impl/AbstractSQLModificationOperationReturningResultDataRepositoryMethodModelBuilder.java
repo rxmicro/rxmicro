@@ -34,13 +34,13 @@ import io.rxmicro.data.sql.r2dbc.detail.EntityToR2DBCSQLDBConverter;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import javax.lang.model.element.ExecutableElement;
 import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
+import javax.lang.model.element.ExecutableElement;
 
 import static io.rxmicro.annotation.processor.common.util.Errors.createInternalErrorSupplier;
 import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.getModelTransformerInstanceName;
@@ -50,7 +50,8 @@ import static io.rxmicro.annotation.processor.common.util.Names.getSimpleName;
  * @author nedis
  * @since 0.1
  */
-public abstract class AbstractSQLModificationOperationReturningResultDataRepositoryMethodModelBuilder<A extends Annotation, DMF extends SQLDataModelField, DMC extends SQLDataObjectModelClass<DMF>>
+public abstract class AbstractSQLModificationOperationReturningResultDataRepositoryMethodModelBuilder
+        <A extends Annotation, DMF extends SQLDataModelField, DMC extends SQLDataObjectModelClass<DMF>>
         extends AbstractSQLOperationDataRepositoryMethodModelBuilder<A, DMF, DMC> {
 
     @Override
@@ -65,13 +66,12 @@ public abstract class AbstractSQLModificationOperationReturningResultDataReposit
                                                final MethodResult methodResult,
                                                final DataGenerationContext<DMF, DMC> dataGenerationContext,
                                                final ExecutableElement method) {
-        classHeaderBuilder
-                .addImports(
-                        Mono.class,
-                        Flux.class,
-                        Flowable.class,
-                        ArrayList.class
-                );
+        classHeaderBuilder.addImports(
+                Mono.class,
+                Flux.class,
+                Flowable.class,
+                ArrayList.class
+        );
     }
 
     @Override

@@ -20,11 +20,11 @@ import io.rxmicro.annotation.processor.integration.test.ExternalModule;
 import io.rxmicro.annotation.processor.rest.server.AbstractRestServerAnnotationProcessorIntegrationTest;
 import io.rxmicro.common.RxMicroModule;
 
-import javax.tools.JavaFileObject;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Stream;
+import javax.tools.JavaFileObject;
 
 import static io.rxmicro.common.RxMicroModule.RX_MICRO_REST_SERVER_EXCHANGE_JSON_MODULE;
 import static java.util.stream.Collectors.toList;

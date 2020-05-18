@@ -20,7 +20,6 @@ import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Test;
 
-import javax.lang.model.element.Element;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Collection;
@@ -28,6 +27,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import javax.lang.model.element.Element;
 
 import static io.rxmicro.annotation.processor.common.util.Stubs.stub;
 import static java.lang.reflect.Proxy.isProxyClass;

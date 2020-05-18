@@ -103,11 +103,7 @@ public final class TestModelBuilder {
             } else if (field.getType() == testedComponentClass) {
                 builder.addTestedComponent(field);
             } else if (isConfig(field.getType())) {
-                if (Modifier.isStatic(field.getModifiers())) {
-                    builder.addStaticConfig(field);
-                } else {
-                    builder.addInstanceConfig(field);
-                }
+                addConfig(builder, field);
             } else if (isRepositoryField(field.getType())) {
                 builder.addRepository(field);
             } else if (isRestClientField(field.getType())) {
@@ -119,20 +115,32 @@ public final class TestModelBuilder {
             } else if (isHttpClientFactory(field.getType())) {
                 builder.addHttpClientFactory(field);
             } else if (field.isAnnotationPresent(Alternative.class)) {
-                if (isUserComponentField(field)) {
-                    builder.addUserCreatedComponent(field);
-                    if (rxMicroCdiAvailable) {
-                        builder.addBeanComponent(field);
-                    }
-                } else {
-                    throw new InvalidTestConfigException(
-                            "'@?' annotation couldn't be applied to type: '?'",
-                            Alternative.class.getName(),
-                            field.getType().getName()
-                    );
-                }
-
+                addAlternative(builder, field);
             }
+        }
+    }
+
+    private void addConfig(final TestModel.Builder builder, final Field field) {
+        if (Modifier.isStatic(field.getModifiers())) {
+            builder.addStaticConfig(field);
+        } else {
+            builder.addInstanceConfig(field);
+        }
+    }
+
+    private void addAlternative(final TestModel.Builder builder,
+                                final Field field) {
+        if (isUserComponentField(field)) {
+            builder.addUserCreatedComponent(field);
+            if (rxMicroCdiAvailable) {
+                builder.addBeanComponent(field);
+            }
+        } else {
+            throw new InvalidTestConfigException(
+                    "'@?' annotation couldn't be applied to type: '?'",
+                    Alternative.class.getName(),
+                    field.getType().getName()
+            );
         }
     }
 

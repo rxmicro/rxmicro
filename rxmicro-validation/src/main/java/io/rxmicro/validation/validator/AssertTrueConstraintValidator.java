@@ -33,7 +33,7 @@ public class AssertTrueConstraintValidator implements ConstraintValidator<Boolea
     public void validate(final Boolean actual,
                          final HttpModelType httpModelType,
                          final String modelName) {
-        if (actual != null && !(actual)) {
+        if (actual != null && !actual) {
             throw new ValidationException("Invalid ? \"?\": Expected 'true', but actual is 'false'!", httpModelType, modelName);
         }
     }

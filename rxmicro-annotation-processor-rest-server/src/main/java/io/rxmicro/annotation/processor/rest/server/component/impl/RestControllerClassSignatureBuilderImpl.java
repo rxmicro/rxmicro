@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 https://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,12 +28,12 @@ import io.rxmicro.annotation.processor.rest.server.model.RestControllerClassSign
 import io.rxmicro.cdi.Factory;
 import io.rxmicro.rest.client.RestClient;
 
+import java.util.HashSet;
+import java.util.Set;
 import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ModuleElement;
 import javax.lang.model.element.TypeElement;
-import java.util.HashSet;
-import java.util.Set;
 
 import static io.rxmicro.annotation.processor.common.util.Elements.allConstructors;
 import static io.rxmicro.annotation.processor.common.util.Elements.allMethods;
@@ -77,7 +77,8 @@ public final class RestControllerClassSignatureBuilderImpl implements RestContro
                 } else if (candidate.getKind() == INTERFACE) {
                     if (candidate.getAnnotation(RestClient.class) == null) {
                         throw new InterruptProcessingException(candidate,
-                                "Rest controller class must be a class! If this component is Rest client, that it must be annotated by '@?' annotation!",
+                                "Rest controller class must be a class! " +
+                                        "If this component is Rest client, that it must be annotated by '@?' annotation!",
                                 RestClient.class.getName());
                     }
                 } else {

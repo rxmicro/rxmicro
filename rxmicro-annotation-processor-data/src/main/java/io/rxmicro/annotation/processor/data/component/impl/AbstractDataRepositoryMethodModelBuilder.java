@@ -36,8 +36,6 @@ import io.rxmicro.annotation.processor.data.model.DataRepositoryMethodSignature;
 import io.rxmicro.data.DataRepositoryGeneratorConfig;
 import reactor.core.publisher.Mono;
 
-import javax.lang.model.element.ExecutableElement;
-import javax.lang.model.type.TypeMirror;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -47,6 +45,8 @@ import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 import java.util.stream.Stream;
+import javax.lang.model.element.ExecutableElement;
+import javax.lang.model.type.TypeMirror;
 
 import static io.rxmicro.common.util.ExCollections.EMPTY_STRING_ARRAY;
 import static java.util.stream.Collectors.joining;
@@ -56,7 +56,8 @@ import static java.util.stream.Collectors.toList;
  * @author nedis
  * @since 0.1
  */
-public abstract class AbstractDataRepositoryMethodModelBuilder<DMF extends DataModelField, DRM extends DataRepositoryMethod, DMC extends DataObjectModelClass<DMF>>
+public abstract class AbstractDataRepositoryMethodModelBuilder
+        <DMF extends DataModelField, DRM extends DataRepositoryMethod, DMC extends DataObjectModelClass<DMF>>
         extends AbstractProcessorComponent
         implements DataRepositoryMethodModelBuilder<DMF, DRM, DMC> {
 
@@ -75,7 +76,8 @@ public abstract class AbstractDataRepositoryMethodModelBuilder<DMF extends DataM
         final MethodResult methodResult = dataRepositoryMethodSignature.getMethodResult();
 
         classHeaderBuilder.addImports(methodResult.getRequiredImports().toArray(EMPTY_STRING_ARRAY));
-        dataRepositoryMethodSignature.getParams().forEach(p -> classHeaderBuilder.addImports(p.getRequiredImports().toArray(EMPTY_STRING_ARRAY)));
+        dataRepositoryMethodSignature.getParams()
+                .forEach(p -> classHeaderBuilder.addImports(p.getRequiredImports().toArray(EMPTY_STRING_ARRAY)));
         addCommonImports(classHeaderBuilder, methodResult);
 
         final MethodBody body =

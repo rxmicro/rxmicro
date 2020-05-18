@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 https://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -64,17 +64,10 @@ public final class PathMatcher {
                         }
                     } else {
                         final String lastVariable = url.substring(indexUrl);
-                        for (int i = 0; i < lastVariable.length(); i++) {
-                            if (lastVariable.charAt(i) == '/') {
-                                return NO_MATCH;
-                            }
-                        }
-                        variableValues.add(lastVariable);
-                        return new PathMatcherResult(variableValues);
+                        return checkLastVariable(lastVariable, variableValues);
                     }
                 } else {
-                    final char urlChar = url.charAt(indexUrl);
-                    if (urlChar != templateChar) {
+                    if (url.charAt(indexUrl) != templateChar) {
                         return NO_MATCH;
                     }
                 }
@@ -82,5 +75,16 @@ public final class PathMatcher {
             indexUrl++;
             indexTemplate++;
         }
+    }
+
+    private PathMatcherResult checkLastVariable(final String lastVariable,
+                                                final List<String> variableValues) {
+        for (int i = 0; i < lastVariable.length(); i++) {
+            if (lastVariable.charAt(i) == '/') {
+                return NO_MATCH;
+            }
+        }
+        variableValues.add(lastVariable);
+        return new PathMatcherResult(variableValues);
     }
 }

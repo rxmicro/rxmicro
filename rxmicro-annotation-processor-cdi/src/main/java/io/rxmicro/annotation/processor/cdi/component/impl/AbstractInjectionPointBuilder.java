@@ -29,11 +29,11 @@ import io.rxmicro.annotation.processor.common.model.SupportedAnnotations;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
 import io.rxmicro.cdi.Autowired;
 
+import java.lang.annotation.Annotation;
+import java.util.Optional;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
-import java.lang.annotation.Annotation;
-import java.util.Optional;
 
 import static io.rxmicro.annotation.processor.common.util.Errors.createInternalErrorSupplier;
 import static io.rxmicro.annotation.processor.common.util.Names.getPackageName;

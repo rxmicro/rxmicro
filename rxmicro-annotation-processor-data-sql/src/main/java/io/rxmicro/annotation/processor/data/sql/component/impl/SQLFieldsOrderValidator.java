@@ -21,11 +21,11 @@ import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingExc
 import io.rxmicro.annotation.processor.data.sql.model.SQLDataObjectModelClass;
 import io.rxmicro.annotation.processor.data.sql.model.SelectedColumn;
 
-import javax.lang.model.element.ExecutableElement;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import javax.lang.model.element.ExecutableElement;
 
 /**
  * @author nedis
@@ -54,19 +54,6 @@ public final class SQLFieldsOrderValidator {
         }
     }
 
-    public void validateStringColumns(final ExecutableElement method,
-                                      final SQLDataObjectModelClass<?> modelClass,
-                                      final List<String> defaultColumns,
-                                      final List<String> actualColumns) {
-        final Set<String> uniqueColumns = new HashSet<>();
-        for (final String column : actualColumns) {
-            if (!defaultColumns.contains(column)) {
-                throw unmappingColumnError(method, modelClass, column);
-            }
-            validateUniqueColumnName(method, uniqueColumns, column, column);
-        }
-    }
-
     public void validateSelectedColumn(final ExecutableElement method,
                                        final List<SelectedColumn> actualColumns) {
         final Set<String> uniqueColumns = new HashSet<>();
@@ -80,6 +67,19 @@ public final class SQLFieldsOrderValidator {
                 validateUniqueColumnName(method, uniqueColumns, actualCaption, column.toString());
             }
 
+        }
+    }
+
+    public void validateStringColumns(final ExecutableElement method,
+                                      final SQLDataObjectModelClass<?> modelClass,
+                                      final List<String> defaultColumns,
+                                      final List<String> actualColumns) {
+        final Set<String> uniqueColumns = new HashSet<>();
+        for (final String column : actualColumns) {
+            if (!defaultColumns.contains(column)) {
+                throw unmappingColumnError(method, modelClass, column);
+            }
+            validateUniqueColumnName(method, uniqueColumns, column, column);
         }
     }
 

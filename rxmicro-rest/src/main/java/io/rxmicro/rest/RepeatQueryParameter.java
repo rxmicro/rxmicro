@@ -53,9 +53,9 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 @Documented
 @Retention(SOURCE)
 @Target({FIELD, METHOD, PARAMETER})
-@SupportedTypes({
+@SupportedTypes(
         String.class
-})
+)
 public @interface RepeatQueryParameter {
 
 }

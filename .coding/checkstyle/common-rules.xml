@@ -1,0 +1,667 @@
+<?xml version="1.0"?>
+<!--
+  ~ Copyright (c) 2020. http://rxmicro.io
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+<!DOCTYPE module PUBLIC
+        "-//Checkstyle//DTD Checkstyle Configuration 1.3//EN"
+        "https://checkstyle.org/dtds/configuration_1_3.dtd">
+<!-- https://checkstyle.sourceforge.io/config.html#Checker -->
+<module name="Checker">
+    <property name="charset" value="UTF-8"/>
+    <property name="severity" value="error"/>
+    <property name="haltOnException" value="true"/>
+    <property name="fileExtensions" value="java, properties, xml, yml, json"/>
+    <property name="tabWidth" value="4"/>
+
+    <!-- https://checkstyle.org/config_filefilters.html -->
+    <module name="BeforeExecutionExclusionFileFilter">
+        <property name="fileNamePattern" value="module\-info\.java$"/>
+    </module>
+
+    <module name="FileLength">
+        <property name="id" value="JavaFileLength"/>
+        <property name="max" value="1500"/>
+        <property name="fileExtensions" value="java"/>
+    </module>
+    <module name="FileLength">
+        <property name="id" value="XmlFileLength"/>
+        <property name="max" value="1000"/>
+        <property name="fileExtensions" value="xml"/>
+    </module>
+    <module name="FileLength">
+        <property name="id" value="PropertiesFileLength"/>
+        <property name="max" value="100"/>
+        <property name="fileExtensions" value="properties"/>
+    </module>
+    <module name="FileTabCharacter">
+        <property name="eachLine" value="true"/>
+    </module>
+    <module name="LineLength">
+        <property name="max" value="140"/>
+    </module>
+    <module name="NewlineAtEndOfFile">
+        <property name="lineSeparator" value="lf"/>
+    </module>
+    <module name="OrderedProperties">
+        <property name="fileExtensions" value="properties"/>
+    </module>
+    <module name="UniqueProperties">
+        <property name="fileExtensions" value="properties"/>
+    </module>
+
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <!-- https://checkstyle.sourceforge.io/config_header.html -->
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <module name="Header">
+        <property name="id" value="ApacheLicenceJavaHeader"/>
+        <property name="headerFile" value=".coding/checkstyle/Header/apache-licence-java-header.txt"/>
+        <property name="fileExtensions" value="java"/>
+    </module>
+    <module name="Header">
+        <property name="id" value="ApacheLicenceXmlHeader"/>
+        <property name="headerFile" value=".coding/checkstyle/Header/apache-licence-xml-header.txt"/>
+        <property name="ignoreLines" value="1"/>
+        <property name="fileExtensions" value="xml"/>
+    </module>
+    <module name="Header">
+        <property name="id" value="ApacheLicencePropertiesOrYmlHeader"/>
+        <property name="headerFile" value=".coding/checkstyle/Header/apache-licence-properties-header.txt"/>
+        <property name="fileExtensions" value="properties, yaml, yml"/>
+    </module>
+    <!--module name="RegexpHeader"/ all required checks available at Header rule -->
+
+    <module name="TreeWalker">
+        <property name="fileExtensions" value="java"/>
+
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <!-- https://checkstyle.sourceforge.io/config_annotation.html -->
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <module name="AnnotationLocation"/>
+        <!--module name="AnnotationOnSameLine"/ - conflict with AnnotationLocation -->
+        <module name="AnnotationUseStyle"/>
+        <module name="MissingDeprecated"/>
+        <module name="MissingOverride"/>
+        <!--module name="PackageAnnotation"/ - not actual for JDK8+ -->
+        <!--module name="SuppressWarnings"/ - Maybe useful later -->
+        <!--module name="SuppressWarningsHolder"/ - Maybe useful later -->
+
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <!-- https://checkstyle.sourceforge.io/config_blocks.html -->
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <module name="AvoidNestedBlocks">
+            <property name="allowInSwitchCase" value="true"/>
+        </module>
+        <module name="EmptyBlock">
+            <property name="option" value="text"/>
+            <property name="tokens"
+                      value="LITERAL_WHILE, LITERAL_TRY, LITERAL_FINALLY, LITERAL_DO, LITERAL_IF, LITERAL_ELSE, LITERAL_FOR,
+                             INSTANCE_INIT, STATIC_INIT, LITERAL_SWITCH, LITERAL_SYNCHRONIZED, LITERAL_CASE, LITERAL_DEFAULT"/>
+        </module>
+        <module name="EmptyCatchBlock">
+            <property name="exceptionVariableName" value="ignore"/>
+            <property name="commentFormat" value="do nothing"/>
+        </module>
+        <module name="LeftCurly">
+            <property name="option" value="eol"/>
+            <property name="tokens"
+                      value="ANNOTATION_DEF, CLASS_DEF, CTOR_DEF, ENUM_CONSTANT_DEF, ENUM_DEF, INTERFACE_DEF, LAMBDA, LITERAL_CASE,
+                             LITERAL_CATCH, LITERAL_DEFAULT, LITERAL_DO, LITERAL_ELSE, LITERAL_FINALLY, LITERAL_FOR, LITERAL_IF,
+                             LITERAL_SWITCH, LITERAL_SYNCHRONIZED, LITERAL_TRY, LITERAL_WHILE, METHOD_DEF, OBJBLOCK, STATIC_INIT"/>
+            <property name="ignoreEnums" value="false"/>
+        </module>
+        <module name="NeedBraces">
+            <property name="tokens"
+                      value="LITERAL_DO, LITERAL_ELSE, LITERAL_FOR, LITERAL_IF, LITERAL_WHILE, LITERAL_CASE, LITERAL_DEFAULT"/>
+        </module>
+        <module name="RightCurly">
+            <property name="option" value="same"/>
+            <property name="tokens"
+                      value="LITERAL_TRY, LITERAL_CATCH, LITERAL_FINALLY, LITERAL_IF, LITERAL_ELSE, CLASS_DEF, METHOD_DEF, CTOR_DEF,
+                             LITERAL_FOR, LITERAL_WHILE, LITERAL_DO, STATIC_INIT, INSTANCE_INIT, ANNOTATION_DEF, ENUM_DEF"/>
+        </module>
+
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <!-- https://checkstyle.sourceforge.io/config_design.html -->
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <!-- DesignForExtension must be available for Public API only!
+             See: rxmicro-public-api-checkstyle.xml
+        <module name="DesignForExtension">
+            <property name="ignoredAnnotations" value="Override"/>
+        </module>
+        -->
+        <module name="FinalClass"/>
+        <module name="HideUtilityClassConstructor"/>
+        <module name="InnerTypeLast"/>
+        <module name="InterfaceIsType"/>
+        <module name="MutableException"/>
+        <module name="OneTopLevelClass"/>
+        <module name="ThrowsCount">
+            <property name="max" value="2"/>
+            <property name="ignorePrivateMethods" value="true"/>
+        </module>
+        <module name="VisibilityModifier">
+            <property name="packageAllowed" value="true"/>
+            <property name="protectedAllowed" value="true"/>
+        </module>
+
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <!-- https://checkstyle.sourceforge.io/config_coding.html -->
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <!--module name="ArrayTrailingComma"/ - trailing comma is redundant. See NoArrayTrailingComma -->
+        <module name="AvoidDoubleBraceInitialization"/>
+        <!--module name="AvoidInlineConditionals"/ ternary operator is useful for some cases -->
+        <module name="AvoidNoArgumentSuperConstructorCall"/>
+        <module name="CovariantEquals"/>
+        <module name="DeclarationOrder">
+            <property name="ignoreConstructors" value="true"/>
+        </module>
+        <module name="DefaultComesLast"/>
+        <module name="EmptyStatement"/>
+        <module name="EqualsAvoidNull"/>
+        <module name="EqualsHashCode"/>
+        <module name="ExplicitInitialization"/>
+        <module name="FallThrough"/>
+        <module name="FinalLocalVariable">
+            <property name="validateEnhancedForLoopVariable" value="true"/>
+            <property name="tokens" value="VARIABLE_DEF, PARAMETER_DEF"/>
+        </module>
+        <!--module name="HiddenField"/ Modern IDE highlights class members  -->
+        <module name="IllegalCatch"/>
+        <module name="IllegalInstantiation">
+            <property name="classes" value="java.lang.Boolean"/>
+        </module>
+        <module name="IllegalThrows"/>
+        <!-- https://checkstyle.sourceforge.io/apidocs/com/puppycrawl/tools/checkstyle/api/TokenTypes.html -->
+        <module name="IllegalToken">
+            <property name="tokens"
+                      value="EMPTY_STAT, LABELED_STAT, LITERAL_ASSERT, LITERAL_NATIVE"/>
+        </module>
+        <module name="IllegalTokenText">
+            <property name="id" value="IllegalNumbersUsingOctalNotation"/>
+            <property name="tokens" value="NUM_INT,NUM_LONG"/>
+            <property name="format" value="^0[^lx]"/>
+            <property name="ignoreCase" value="true"/>
+        </module>
+        <module name="IllegalType">
+            <property name="illegalClassNames"
+                      value="java.lang.StringBuffer,
+                             java.util.Vector, java.util.Hashtable,
+                             java.util.Enumeration,
+                             java.util.Date, java.util.Calendar, java.util.GregorianCalendar, java.util.JapaneseImperialCalendar"/>
+            <property name="tokens"
+                      value="ANNOTATION_FIELD_DEF, CLASS_DEF, INTERFACE_DEF, METHOD_CALL, METHOD_DEF, METHOD_REF,
+                             PARAMETER_DEF, VARIABLE_DEF"/>
+            <property name="memberModifiers" value="LITERAL_PUBLIC, LITERAL_PROTECTED, LITERAL_STATIC"/>
+        </module>
+        <module name="InnerAssignment"/>
+        <module name="MagicNumber">
+            <property name="ignoreNumbers" value="-1, 0, 1, 2, 3, 4, 5"/>
+            <property name="ignoreHashCodeMethod" value="true"/>
+            <property name="ignoreAnnotation" value="false"/>
+            <property name="ignoreFieldDeclaration" value="false"/>
+            <property name="ignoreAnnotationElementDefaults" value="true"/>
+            <property name="constantWaiverParentToken"
+                      value="TYPECAST, METHOD_CALL, EXPR, ARRAY_INIT, UNARY_MINUS, UNARY_PLUS, ELIST, STAR, ASSIGN, PLUS, MINUS, DIV,
+                             LITERAL_NEW"/>
+            <property name="tokens" value="NUM_DOUBLE, NUM_FLOAT, NUM_INT, NUM_LONG"/>
+        </module>
+        <!--module name="MissingCtor"/ some class can use default constructor -->
+        <module name="MissingSwitchDefault"/>
+        <module name="ModifiedControlVariable"/>
+        <module name="MultipleStringLiterals">
+            <property name="allowedDuplicates" value="4"/>
+            <property name="ignoreOccurrenceContext" value="ANNOTATION"/>
+        </module>
+        <module name="MultipleVariableDeclarations"/>
+        <module name="NestedForDepth">
+            <property name="max" value="2"/>
+        </module>
+        <module name="NestedIfDepth">
+            <property name="max" value="3"/>
+        </module>
+        <module name="NestedTryDepth">
+            <property name="max" value="2"/>
+        </module>
+        <module name="NoArrayTrailingComma"/>
+        <module name="NoClone"/>
+        <module name="NoEnumTrailingComma"/>
+        <module name="NoFinalizer"/>
+        <module name="OneStatementPerLine">
+            <property name="treatTryResourcesAsStatement" value="true"/>
+        </module>
+        <module name="OverloadMethodsDeclarationOrder"/>
+        <module name="PackageDeclaration"/>
+        <module name="ParameterAssignment"/>
+        <!--module name="RequireThis"/ - is redundant. All modern IDEs solve this problem.
+            See  https://checkstyle.sourceforge.io/config_coding.html#RequireThis -->
+        <module name="ReturnCount">
+            <property name="id" value="LambdaReturnCount"/>
+            <property name="max" value="3"/>
+            <property name="maxForVoid" value="1"/>
+            <property name="tokens" value="LAMBDA"/>
+        </module>
+        <module name="ReturnCount">
+            <property name="id" value="ConstructorReturnCount"/>
+            <property name="max" value="0"/>
+            <property name="maxForVoid" value="0"/>
+            <property name="tokens" value="CTOR_DEF"/>
+        </module>
+        <module name="ReturnCount">
+            <property name="id" value="MethodReturnCount"/>
+            <property name="max" value="6"/>
+            <property name="maxForVoid" value="6"/>
+            <property name="format" value="^equals$"/>
+            <property name="tokens" value="METHOD_DEF"/>
+        </module>
+        <module name="SimplifyBooleanExpression"/>
+        <module name="SimplifyBooleanReturn"/>
+        <module name="StringLiteralEquality"/>
+        <!--module name="SuperClone"/ This check is redundant because NoClone is enabled -->
+        <!--module name="SuperFinalize"/ This check is redundant because NoFinalizer is enabled -->
+        <module name="UnnecessaryParentheses">
+            <property name="tokens"
+                      value="EXPR, IDENT, NUM_DOUBLE, NUM_FLOAT, NUM_INT, NUM_LONG, STRING_LITERAL, LITERAL_NULL, LITERAL_FALSE,
+                             LITERAL_TRUE, ASSIGN, BAND_ASSIGN, BOR_ASSIGN, BSR_ASSIGN, BXOR_ASSIGN, DIV_ASSIGN, MINUS_ASSIGN, MOD_ASSIGN,
+                             PLUS_ASSIGN, SL_ASSIGN, SR_ASSIGN, STAR_ASSIGN, LAMBDA"/>
+        </module>
+        <module name="UnnecessarySemicolonAfterOuterTypeDeclaration"/>
+        <module name="UnnecessarySemicolonAfterTypeMemberDeclaration">
+            <property name="tokens"
+                      value="CLASS_DEF, INTERFACE_DEF, ENUM_DEF, ANNOTATION_DEF, VARIABLE_DEF, ANNOTATION_FIELD_DEF, STATIC_INIT,
+                             INSTANCE_INIT, CTOR_DEF, METHOD_DEF, ENUM_CONSTANT_DEF"/>
+        </module>
+        <module name="UnnecessarySemicolonInEnumeration"/>
+        <module name="UnnecessarySemicolonInTryWithResources"/>
+        <module name="VariableDeclarationUsageDistance">
+            <property name="allowedDistance" value="1"/>
+            <property name="validateBetweenScopes" value="true"/>
+            <property name="ignoreFinal" value="true"/>
+        </module>
+
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <!-- https://checkstyle.sourceforge.io/config_imports.html -->
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <module name="AvoidStarImport"/>
+        <!--module name="AvoidStaticImport"/ - static imports is useful feature -->
+        <module name="CustomImportOrder">
+            <property name="customImportOrderRules"
+                      value="THIRD_PARTY_PACKAGE###STANDARD_JAVA_PACKAGE###STATIC"/>
+            <property name="standardPackageRegExp" value="^(javax|java)\."/>
+            <property name="sortImportsInGroupAlphabetically" value="true"/>
+            <property name="separateLineBetweenGroups" value="true"/>
+        </module>
+        <module name="IllegalImport">
+            <property name="illegalPkgs" value="java.sql, sun, com.sun"/>
+        </module>
+        <!--module name="ImportControl"/ is very complex for current project -->
+        <!--module name="ImportOrder"/ CustomImportOrder overrides this rule -->
+        <module name="RedundantImport"/>
+        <module name="UnusedImports"/>
+
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <!-- https://checkstyle.sourceforge.io/config_javadoc.html -->
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <!-- Javadoc must be available for Public API only!
+             See: rxmicro-public-api-checkstyle.xml -->
+
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <!-- https://checkstyle.sourceforge.io/config_metrics.html -->
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <module name="BooleanExpressionComplexity">
+            <property name="max" value="4"/>
+            <property name="tokens" value="LAND, BAND, LOR, BOR, BXOR"/>
+        </module>
+        <!--module name="ClassDataAbstractionCoupling"/ is redundant -->
+        <module name="ClassFanOutComplexity">
+            <property name="max" value="35"/>
+            <property name="excludeClassesRegexps" value="^$"/>
+        </module>
+        <module name="CyclomaticComplexity">
+            <property name="max" value="20"/>
+            <property name="tokens"
+                      value="LITERAL_WHILE, LITERAL_DO, LITERAL_FOR, LITERAL_IF, LITERAL_SWITCH, LITERAL_CASE, LITERAL_CATCH, QUESTION,
+                             LAND, LOR"/>
+        </module>
+        <module name="JavaNCSS">
+            <property name="methodMaximum" value="50"/>
+            <property name="classMaximum" value="1500"/>
+            <property name="fileMaximum" value="2000"/>
+        </module>
+        <module name="NPathComplexity">
+            <property name="max" value="200"/>
+        </module>
+
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <!-- https://checkstyle.sourceforge.io/config_misc.html -->
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <module name="ArrayTypeStyle"/>
+        <module name="AvoidEscapedUnicodeCharacters">
+            <property name="allowEscapesForControlCharacters" value="true"/>
+            <property name="allowByTailComment" value="false"/>
+            <property name="allowIfAllCharactersEscaped" value="true"/>
+            <property name="allowNonPrintableEscapes" value="true"/>
+        </module>
+        <module name="CommentsIndentation">
+            <property name="tokens" value="SINGLE_LINE_COMMENT, BLOCK_COMMENT_BEGIN"/>
+        </module>
+        <!--module name="DescendantToken"/ requires a complex config: https://checkstyle.sourceforge.io/config_misc.html#DescendantToken -->
+        <module name="FinalParameters">
+            <property name="tokens" value="METHOD_DEF, CTOR_DEF, LITERAL_CATCH, FOR_EACH_CLAUSE"/>
+        </module>
+        <module name="Indentation">
+            <property name="basicOffset" value="4"/>
+            <property name="braceAdjustment" value="0"/>
+            <property name="caseIndent" value="4"/>
+            <property name="throwsIndent" value="4"/>
+            <property name="arrayInitIndent" value="8"/>
+            <property name="lineWrappingIndentation" value="8"/>
+            <property name="forceStrictCondition" value="false"/>
+        </module>
+        <module name="OuterTypeFilename"/>
+        <!--module name="TodoComment"/ to do comments are useful -->
+        <module name="TrailingComment"/>
+        <!--module name="Translation"/ a project specific setting -->
+        <module name="UncommentedMain">
+            <property name="excludedClasses" value="\.Launcher$"/>
+        </module>
+        <module name="UpperEll"/>
+
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <!-- https://checkstyle.sourceforge.io/config_modifier.html -->
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <!--module name="ClassMemberImpliedModifier"/ conflict with RedundantModifier -->
+        <!--module name="InterfaceMemberImpliedModifier"/ conflict with RedundantModifier -->
+        <module name="ModifierOrder"/>
+        <module name="RedundantModifier">
+            <property name="tokens"
+                      value="METHOD_DEF, VARIABLE_DEF, ANNOTATION_FIELD_DEF, INTERFACE_DEF, CTOR_DEF, CLASS_DEF, ENUM_DEF, RESOURCE"/>
+        </module>
+
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <!-- https://checkstyle.sourceforge.io/config_naming.html -->
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <module name="AbbreviationAsWordInName">
+            <property name="id" value="CommonAbbreviationAsWordInName"/>
+            <property name="allowedAbbreviationLength" value="2"/>
+            <property name="allowedAbbreviations"
+                      value="CDI, JSE, POM, JUL, URL, URI, REST, HTTP, UUID, ASCII, DBC, SQL, DBCSQL, CORS, DBCSQLDB"/>
+            <property name="ignoreFinal" value="true"/>
+            <property name="ignoreStatic" value="true"/>
+            <property name="ignoreStaticFinal" value="true"/>
+            <property name="ignoreOverriddenMethods" value="false"/>
+            <property name="tokens"
+                      value="CLASS_DEF, INTERFACE_DEF, ENUM_DEF, ANNOTATION_FIELD_DEF, PARAMETER_DEF, VARIABLE_DEF, METHOD_DEF"/>
+        </module>
+        <module name="AbbreviationAsWordInName">
+            <property name="id" value="AnnotationAbbreviationAsWordInName"/>
+            <property name="allowedAbbreviationLength" value="10"/>
+            <property name="tokens" value="ANNOTATION_DEF"/>
+        </module>
+        <module name="AbbreviationAsWordInName">
+            <property name="id" value="EnumConstantAbbreviationAsWordInName"/>
+            <property name="allowedAbbreviationLength" value="20"/>
+            <property name="tokens" value="ENUM_CONSTANT_DEF"/>
+        </module>
+        <module name="AbstractClassName">
+            <property name="format" value="^Abstract.+$"/>
+            <property name="ignoreModifier" value="false"/>
+            <property name="ignoreName" value="true"/>
+        </module>
+        <module name="CatchParameterName">
+            <property name="format" value="^(ignore|th|ex|[a-z][a-z][a-zA-Z]+)$"/>
+        </module>
+        <module name="ClassTypeParameterName">
+            <property name="format" value="^[A-Z]{1,4}$"/>
+        </module>
+        <module name="ConstantName">
+            <property name="format" value="^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$"/>
+            <property name="applyToPublic" value="true"/>
+            <property name="applyToProtected" value="true"/>
+            <property name="applyToPackage" value="true"/>
+            <property name="applyToPrivate" value="true"/>
+        </module>
+        <module name="InterfaceTypeParameterName">
+            <property name="format" value="^[A-Z]{1,4}$"/>
+        </module>
+        <module name="LambdaParameterName">
+            <property name="format" value="^[a-z][a-zA-Z0-9]*$"/>
+        </module>
+        <module name="LocalFinalVariableName">
+            <property name="format" value="^[a-z][a-zA-Z0-9]*$"/>
+            <property name="tokens" value="VARIABLE_DEF, PARAMETER_DEF, RESOURCE"/>
+        </module>
+        <module name="LocalVariableName">
+            <property name="format" value="^[a-z][a-zA-Z0-9]*$"/>
+            <property name="allowOneCharVarInForLoop" value="true"/>
+        </module>
+        <module name="MemberName">
+            <property name="format" value="^[a-z][a-zA-Z0-9]*$"/>
+            <property name="applyToPublic" value="true"/>
+            <property name="applyToProtected" value="true"/>
+            <property name="applyToPackage" value="true"/>
+            <property name="applyToPrivate" value="true"/>
+        </module>
+        <module name="MethodName">
+            <property name="format" value="^[a-z][a-zA-Z0-9]*$"/>
+            <property name="allowClassName" value="false"/>
+            <property name="applyToPublic" value="true"/>
+            <property name="applyToProtected" value="true"/>
+            <property name="applyToPackage" value="true"/>
+            <property name="applyToPrivate" value="true"/>
+        </module>
+        <module name="MethodTypeParameterName">
+            <property name="format" value="^[A-Z]{1,4}$"/>
+        </module>
+        <module name="PackageName">
+            <property name="format" value="^[a-z]+(\.[a-zA-Z_][a-zA-Z0-9_]*)*$"/>
+        </module>
+        <module name="ParameterName">
+            <property name="format" value="^[a-z][a-zA-Z0-9]*$"/>
+            <property name="ignoreOverridden" value="false"/>
+            <property name="accessModifiers" value="public, protected, package, private"/>
+        </module>
+        <module name="StaticVariableName">
+            <property name="format" value="^[a-z][a-zA-Z0-9]*$"/>
+            <property name="applyToPublic" value="true"/>
+            <property name="applyToProtected" value="true"/>
+            <property name="applyToPackage" value="true"/>
+            <property name="applyToPrivate" value="true"/>
+        </module>
+        <module name="TypeName">
+            <property name="format" value="^[A-Z][a-zA-Z0-9]*$"/>
+            <property name="applyToPublic" value="true"/>
+            <property name="applyToProtected" value="true"/>
+            <property name="applyToPackage" value="true"/>
+            <property name="applyToPrivate" value="true"/>
+            <property name="tokens" value="CLASS_DEF, INTERFACE_DEF, ENUM_DEF, ANNOTATION_DEF"/>
+        </module>
+
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <!-- https://checkstyle.sourceforge.io/config_regexp.html -->
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <!-- a project specific settings
+        <module name="Regexp"/>
+        <module name="RegexpMultiline"/>
+        <module name="RegexpOnFilename"/>
+        <module name="RegexpSingleline" />
+        <module name="RegexpSinglelineJava"/>
+        -->
+
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <!-- https://checkstyle.sourceforge.io/config_sizes.html -->
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <module name="AnonInnerLength">
+            <property name="max" value="20"/>
+        </module>
+        <!-- See MethodLength -->
+        <module name="ExecutableStatementCount">
+            <property name="id" value="ConstructorStatementCount"/>
+            <property name="max" value="20"/>
+            <property name="tokens" value="CTOR_DEF"/>
+        </module>
+        <module name="ExecutableStatementCount">
+            <property name="id" value="MethodStatementCount"/>
+            <property name="max" value="40"/>
+            <property name="tokens" value="METHOD_DEF"/>
+        </module>
+        <module name="ExecutableStatementCount">
+            <property name="id" value="InstanceInitStatementCount"/>
+            <property name="max" value="0"/>
+            <property name="tokens" value="INSTANCE_INIT"/>
+        </module>
+        <module name="ExecutableStatementCount">
+            <property name="id" value="StaticInitStatementCount"/>
+            <property name="max" value="60"/>
+            <property name="tokens" value="STATIC_INIT"/>
+        </module>
+        <module name="MethodCount">
+            <property name="id" value="TypeMethodCount"/>
+            <property name="maxTotal" value="100"/>
+            <property name="maxPrivate" value="50"/>
+            <property name="maxPackage" value="50"/>
+            <property name="maxProtected" value="50"/>
+            <property name="maxPublic" value="100"/>
+            <property name="tokens" value="CLASS_DEF, INTERFACE_DEF"/>
+        </module>
+        <module name="MethodCount">
+            <property name="id" value="EnumMethodCount"/>
+            <property name="maxTotal" value="20"/>
+            <property name="maxPrivate" value="10"/>
+            <property name="maxPackage" value="10"/>
+            <property name="maxProtected" value="0"/>
+            <property name="maxPublic" value="20"/>
+            <property name="tokens" value="ENUM_CONSTANT_DEF, ENUM_DEF"/>
+        </module>
+        <module name="MethodCount">
+            <property name="id" value="AnnotationMethodCount"/>
+            <property name="maxTotal" value="10"/>
+            <property name="maxPrivate" value="0"/>
+            <property name="maxPackage" value="0"/>
+            <property name="maxProtected" value="0"/>
+            <property name="maxPublic" value="10"/>
+            <property name="tokens" value="ANNOTATION_DEF"/>
+        </module>
+        <!-- See ExecutableStatementCount -->
+        <module name="MethodLength">
+            <property name="tokens" value="METHOD_DEF, CTOR_DEF"/>
+            <property name="max" value="40"/>
+            <property name="countEmpty" value="true"/>
+        </module>
+        <module name="OuterTypeNumber"/>
+        <module name="ParameterNumber">
+            <property name="id" value="MethodParameterNumber"/>
+            <property name="max" value="8"/>
+            <property name="tokens" value="METHOD_DEF"/>
+        </module>
+        <module name="ParameterNumber">
+            <!-- Builder pattern support -->
+            <property name="id" value="ConstructorParameterNumber"/>
+            <property name="max" value="30"/>
+            <property name="tokens" value="CTOR_DEF"/>
+        </module>
+
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <!-- https://checkstyle.sourceforge.io/config_whitespace.html -->
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <module name="EmptyForInitializerPad">
+            <property name="option" value="nospace"/>
+        </module>
+        <module name="EmptyForIteratorPad">
+            <property name="option" value="nospace"/>
+        </module>
+        <module name="EmptyLineSeparator">
+            <property name="allowNoEmptyLineBetweenFields" value="false"/>
+            <property name="allowMultipleEmptyLines" value="true"/>
+            <property name="allowMultipleEmptyLinesInsideClassMembers" value="true"/>
+            <property name="tokens"
+                      value="PACKAGE_DEF, IMPORT, STATIC_IMPORT, CLASS_DEF, INTERFACE_DEF, ENUM_DEF, STATIC_INIT, INSTANCE_INIT, METHOD_DEF,
+                             CTOR_DEF, VARIABLE_DEF"/>
+        </module>
+        <module name="GenericWhitespace"/>
+        <module name="MethodParamPad">
+            <property name="tokens" value="CTOR_DEF, LITERAL_NEW, METHOD_CALL, METHOD_DEF, SUPER_CTOR_CALL, ENUM_CONSTANT_DEF"/>
+            <property name="option" value="nospace"/>
+            <property name="allowLineBreaks" value="false"/>
+        </module>
+        <module name="NoLineWrap">
+            <property name="tokens" value="IMPORT, STATIC_IMPORT, PACKAGE_DEF"/>
+            <!-- CLASS_DEF, ENUM_DEF, INTERFACE_DEF, METHOD_DEF, CTOR_DEF -->
+        </module>
+        <module name="NoWhitespaceAfter">
+            <property name="tokens"
+                      value="ARRAY_INIT, AT, INC, DEC, UNARY_MINUS, UNARY_PLUS, BNOT, LNOT, DOT, ARRAY_DECLARATOR, INDEX_OP, METHOD_REF"/>
+            <!-- LITERAL_SYNCHRONIZED, TYPECAST -->
+            <property name="allowLineBreaks" value="true"/>
+        </module>
+        <module name="NoWhitespaceBefore">
+            <property name="tokens"
+                      value="COMMA, SEMI, POST_INC, POST_DEC, GENERIC_END, ELLIPSIS, LABELED_STAT, METHOD_REF"/>
+            <!-- GENERIC_START, DOT -->
+            <property name="allowLineBreaks" value="false"/>
+        </module>
+        <module name="OperatorWrap">
+            <property name="tokens"
+                      value="QUESTION, COLON, EQUAL, NOT_EQUAL, DIV, PLUS, MINUS, STAR, MOD, SR, BSR, GE, GT, SL, LE, LT, BXOR, BOR, LOR,
+                            BAND, LAND, LITERAL_INSTANCEOF, TYPE_EXTENSION_AND, ASSIGN, DIV_ASSIGN, PLUS_ASSIGN, MINUS_ASSIGN, STAR_ASSIGN,
+                            MOD_ASSIGN, SR_ASSIGN, BSR_ASSIGN, SL_ASSIGN, BXOR_ASSIGN, BOR_ASSIGN, BAND_ASSIGN, METHOD_REF"/>
+            <property name="option" value="eol"/>
+        </module>
+        <module name="ParenPad">
+            <property name="tokens"
+                      value="ANNOTATION, ANNOTATION_FIELD_DEF, CTOR_CALL, CTOR_DEF, DOT, ENUM_CONSTANT_DEF, EXPR, LITERAL_CATCH, LITERAL_DO,
+                             LITERAL_FOR, LITERAL_IF, LITERAL_NEW, LITERAL_SWITCH, LITERAL_SYNCHRONIZED, LITERAL_WHILE, METHOD_CALL,
+                             METHOD_DEF, QUESTION, RESOURCE_SPECIFICATION, SUPER_CTOR_CALL, LAMBDA"/>
+            <property name="option" value="nospace"/>
+        </module>
+        <module name="SeparatorWrap">
+            <property name="id" value="EndOfLineSeparatorWrap"/>
+            <property name="tokens"
+                      value="COMMA, SEMI, ELLIPSIS, ARRAY_DECLARATOR, RBRACK, METHOD_REF"/>
+            <property name="option" value="eol"/>
+        </module>
+        <module name="SeparatorWrap">
+            <property name="id" value="NewLineSeparatorWrap"/>
+            <property name="tokens"
+                      value="DOT, AT"/>
+            <property name="option" value="nl"/>
+        </module>
+        <module name="SingleSpaceSeparator">
+            <property name="validateComments" value="false"/>
+        </module>
+        <module name="TypecastParenPad">
+            <property name="option" value="nospace"/>
+        </module>
+        <module name="WhitespaceAfter">
+            <property name="tokens"
+                      value="COMMA, SEMI, TYPECAST, LITERAL_IF, LITERAL_ELSE, LITERAL_WHILE, LITERAL_DO, LITERAL_FOR, DO_WHILE"/>
+        </module>
+        <module name="WhitespaceAround">
+            <property name="tokens"
+                      value="ASSIGN, BAND, BAND_ASSIGN, BOR, BOR_ASSIGN, BSR, BSR_ASSIGN, BXOR, BXOR_ASSIGN, COLON, DIV,
+                             DIV_ASSIGN, DO_WHILE, EQUAL, GE, GT, LAMBDA, LAND, LCURLY, LE, LITERAL_CATCH, LITERAL_DO, LITERAL_ELSE,
+                             LITERAL_FINALLY, LITERAL_FOR, LITERAL_IF, LITERAL_RETURN, LITERAL_SWITCH, LITERAL_SYNCHRONIZED, LITERAL_TRY,
+                             LITERAL_WHILE, LOR, LT, MINUS, MINUS_ASSIGN, MOD, MOD_ASSIGN, NOT_EQUAL, PLUS, PLUS_ASSIGN, QUESTION, RCURLY,
+                             SL, SLIST, SL_ASSIGN, SR, SR_ASSIGN, STAR, STAR_ASSIGN, LITERAL_ASSERT, TYPE_EXTENSION_AND"/>
+            <!--WILDCARD_TYPE, ARRAY_INIT, GENERIC_START, GENERIC_END, ELLIPSIS-->
+            <property name="allowEmptyConstructors" value="false"/>
+            <property name="allowEmptyMethods" value="false"/>
+            <property name="allowEmptyTypes" value="false"/>
+            <property name="allowEmptyLoops" value="false"/>
+            <property name="allowEmptyLambdas" value="false"/>
+            <property name="allowEmptyCatches" value="false"/>
+            <property name="ignoreEnhancedForColon" value="true"/>
+        </module>
+    </module>
+</module>

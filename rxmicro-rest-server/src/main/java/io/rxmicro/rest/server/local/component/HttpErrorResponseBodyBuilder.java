@@ -29,8 +29,8 @@ public interface HttpErrorResponseBodyBuilder {
                        int status,
                        String message);
 
-    boolean isRxMicroError(HttpCallFailedException exception);
-
     HttpResponse build(HttpResponse emptyResponse,
                        HttpCallFailedException exception);
+
+    boolean isRxMicroError(HttpCallFailedException exception);
 }

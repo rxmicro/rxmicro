@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 https://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -184,8 +184,8 @@ public final class Strings {
                 resultBuilder.append("\\f");
             } else if (ch == '\r') {
                 resultBuilder.append("\\r");
-            } else if (ch < ' ' || (ch >= '\u0080' && ch < '\u00a0')
-                    || (ch >= '\u2000' && ch < '\u2100')) {
+            } else if (ch < ' ' || (ch >= '\u0080' && ch < '\u00a0') ||
+                    (ch >= '\u2000' && ch < '\u2100')) {
                 resultBuilder.append("\\u");
                 final String hexCode = Integer.toHexString(ch);
                 resultBuilder.append("0000", 0, HEX_CODE_LENGTH - hexCode.length());

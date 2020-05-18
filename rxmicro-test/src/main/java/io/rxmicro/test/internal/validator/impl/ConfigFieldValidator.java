@@ -30,6 +30,6 @@ public final class ConfigFieldValidator extends FieldValidator {
     @Override
     public void validate(final Field field) {
         validateThatFieldAnnotatedByRequiredAnnotation(field, WithConfig.class);
-        validateThatFieldIsAnnotatedOnlyBySupportedAnnotations(field, WithConfig.class);
+        validateThatFieldIsAnnotatedOnlyBySupportedOnes(field, WithConfig.class);
     }
 }

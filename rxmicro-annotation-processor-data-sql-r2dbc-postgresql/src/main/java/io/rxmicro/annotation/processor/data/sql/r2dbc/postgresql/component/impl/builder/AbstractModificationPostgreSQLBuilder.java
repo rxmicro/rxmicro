@@ -30,9 +30,9 @@ import io.rxmicro.annotation.processor.data.sql.r2dbc.postgresql.model.PostgreSQ
 import io.rxmicro.data.sql.model.EntityFieldList;
 import io.rxmicro.data.sql.model.EntityFieldMap;
 
-import javax.lang.model.element.ExecutableElement;
 import java.lang.annotation.Annotation;
 import java.util.List;
+import javax.lang.model.element.ExecutableElement;
 
 import static io.rxmicro.annotation.processor.data.sql.r2dbc.postgresql.model.PostgreSQLKeywords.RETURNING;
 import static java.util.stream.Collectors.toList;
@@ -79,7 +79,10 @@ public abstract class AbstractModificationPostgreSQLBuilder<A extends Annotation
                     sqlMethodDescriptor.getEntityResult().isEmpty() &&
                     !sqlMethodDescriptor.getResult().isResultType(EntityFieldList.class) &&
                     !sqlMethodDescriptor.getResult().isResultType(EntityFieldMap.class)) {
-                throw new InterruptProcessingException(method, "Missing entity parameter or entity result for setting the returning column values");
+                throw new InterruptProcessingException(
+                        method,
+                        "Missing entity parameter or entity result for setting the returning column values"
+                );
             }
             builder.setDefaultColumnOrder(false)
                     .setResultColumns(selectedColumns.stream().flatMap(c -> c.getCaption().stream()).collect(toList()));

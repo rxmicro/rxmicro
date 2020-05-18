@@ -26,10 +26,10 @@ import io.rxmicro.annotation.processor.cdi.model.qualifier.ByTypeAndNameQualifie
 import io.rxmicro.annotation.processor.cdi.model.qualifier.ByTypeQualifierRule;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
 
-import javax.lang.model.element.VariableElement;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import javax.lang.model.element.VariableElement;
 
 import static io.rxmicro.annotation.processor.common.util.Elements.asTypeElement;
 

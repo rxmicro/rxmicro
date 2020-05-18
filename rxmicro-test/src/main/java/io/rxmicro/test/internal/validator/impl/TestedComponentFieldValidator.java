@@ -45,6 +45,6 @@ public final class TestedComponentFieldValidator extends FieldValidator {
     protected void validate(final Field field) {
         validateThatFieldIsNotFinal(field);
         validateThatFieldIsNotStatic(field);
-        validateThatFieldIsAnnotatedOnlyBySupportedAnnotations(field);
+        validateThatFieldIsAnnotatedOnlyBySupportedOnes(field);
     }
 }

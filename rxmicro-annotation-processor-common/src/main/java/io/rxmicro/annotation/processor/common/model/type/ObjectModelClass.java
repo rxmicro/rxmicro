@@ -19,13 +19,13 @@ package io.rxmicro.annotation.processor.common.model.type;
 import io.rxmicro.annotation.processor.common.model.ModelField;
 import io.rxmicro.annotation.processor.common.util.UsedByFreemarker;
 
-import javax.lang.model.element.TypeElement;
-import javax.lang.model.type.TypeMirror;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
+import javax.lang.model.element.TypeElement;
+import javax.lang.model.type.TypeMirror;
 
 import static io.rxmicro.annotation.processor.common.model.ModelAccessorType.REFLECTION;
 import static io.rxmicro.annotation.processor.common.util.Names.getSimpleName;

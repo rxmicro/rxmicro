@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 https://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,8 +23,7 @@ import io.rxmicro.rest.server.internal.component.RequestMappingKeyBuilder;
 import static io.rxmicro.http.HttpStandardHeaderNames.API_VERSION;
 
 /**
- * Example:
- * GET /hello-world v1.0 true
+ * Example: {@code GET /hello-world v1.0 true}
  *
  * @author nedis
  * @since 0.1
@@ -33,9 +32,11 @@ public final class RequestMappingKeyBuilderImpl implements RequestMappingKeyBuil
 
     private static final String WITH_BODY = "<with-body>";
 
+    private static final int DEFAULT_REQUEST_MAPPING_KEY_BUILDER_CAPACITY = 50;
+
     @Override
     public String build(final HttpRequest request) {
-        final StringBuilder keyBuilder = new StringBuilder(50)
+        final StringBuilder keyBuilder = new StringBuilder(DEFAULT_REQUEST_MAPPING_KEY_BUILDER_CAPACITY)
                 .append(request.getMethod()).append(" '")
                 .append(request.getUri()).append("' ");
         final String versionHeader = request.getHeaders().getValue(API_VERSION);
@@ -50,7 +51,7 @@ public final class RequestMappingKeyBuilderImpl implements RequestMappingKeyBuil
 
     @Override
     public String build(final ExactUrlRequestMappingRule registration) {
-        final StringBuilder keyBuilder = new StringBuilder(50)
+        final StringBuilder keyBuilder = new StringBuilder(DEFAULT_REQUEST_MAPPING_KEY_BUILDER_CAPACITY)
                 .append(registration.getMethod()).append(" '")
                 .append(registration.getUri()).append("' ");
         registration.getVersionHeaderValue().ifPresent(versionHeader ->

@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 https://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,15 +24,15 @@ import io.rxmicro.common.RxMicroModule;
 import io.rxmicro.config.Configs;
 import io.rxmicro.runtime.detail.Runtimes;
 
-import javax.lang.model.element.ModuleElement;
-import javax.lang.model.element.ModuleElement.Directive;
-import javax.lang.model.element.ModuleElement.ExportsDirective;
-import javax.lang.model.element.ModuleElement.OpensDirective;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Predicate;
+import javax.lang.model.element.ModuleElement;
+import javax.lang.model.element.ModuleElement.Directive;
+import javax.lang.model.element.ModuleElement.ExportsDirective;
+import javax.lang.model.element.ModuleElement.OpensDirective;
 
 import static io.rxmicro.common.RxMicroModule.RX_MICRO_CONFIG_MODULE;
 import static io.rxmicro.common.RxMicroModule.RX_MICRO_RUNTIME_MODULE;

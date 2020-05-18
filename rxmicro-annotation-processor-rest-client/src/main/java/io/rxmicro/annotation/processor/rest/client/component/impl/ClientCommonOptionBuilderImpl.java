@@ -30,9 +30,9 @@ import io.rxmicro.rest.AddQueryParameter;
 import io.rxmicro.rest.SetHeader;
 import io.rxmicro.rest.SetQueryParameter;
 
+import java.util.Arrays;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
-import java.util.Arrays;
 
 import static io.rxmicro.common.util.Formats.format;
 

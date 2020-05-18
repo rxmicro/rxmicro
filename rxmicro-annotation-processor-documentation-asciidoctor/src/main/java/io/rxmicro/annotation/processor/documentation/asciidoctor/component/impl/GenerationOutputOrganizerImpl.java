@@ -30,10 +30,10 @@ import io.rxmicro.annotation.processor.documentation.model.ProjectMetaData;
 import io.rxmicro.documentation.DocumentationDefinition;
 import io.rxmicro.documentation.asciidoctor.DocumentAttributes;
 
-import javax.lang.model.element.ModuleElement;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import javax.lang.model.element.ModuleElement;
 
 import static io.rxmicro.annotation.processor.common.util.Annotations.getPresentOrDefaultAnnotation;
 import static io.rxmicro.documentation.DocumentationDefinition.GenerationOutput.BASICS_SECTION;
@@ -117,6 +117,8 @@ public final class GenerationOutputOrganizerImpl implements GenerationOutputOrga
                                                                            final DocumentationDefinition documentationDefinition,
                                                                            final ResourceGroup resourceGroup,
                                                                            final Resource resource) {
-        return new RestControllerResourceDocumentStructure(projectMetaData, documentationDefinition, currentModule, resourceGroup, resource);
+        return new RestControllerResourceDocumentStructure(
+                projectMetaData, documentationDefinition, currentModule, resourceGroup, resource
+        );
     }
 }

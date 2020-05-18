@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 https://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,12 +20,12 @@ import io.rxmicro.annotation.processor.common.util.proxy.ProxyElements;
 import io.rxmicro.annotation.processor.common.util.proxy.ProxyMessager;
 import io.rxmicro.annotation.processor.common.util.proxy.ProxyTypes;
 
+import java.util.Map;
 import javax.annotation.processing.Filer;
 import javax.annotation.processing.Messager;
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.util.Elements;
 import javax.lang.model.util.Types;
-import java.util.Map;
 
 import static io.rxmicro.common.util.ExCollections.unmodifiableOrderedMap;
 import static io.rxmicro.common.util.Requires.require;

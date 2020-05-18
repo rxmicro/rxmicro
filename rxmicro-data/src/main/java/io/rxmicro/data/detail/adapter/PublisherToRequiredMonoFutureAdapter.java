@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 https://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -37,33 +37,46 @@ public class PublisherToRequiredMonoFutureAdapter<T> extends CompletableFuture<T
 
     public PublisherToRequiredMonoFutureAdapter(final Publisher<T> publisher,
                                                 final Supplier<Throwable> supplier) {
-        publisher.subscribe(new Subscriber<>() {
-            @Override
-            public void onSubscribe(final Subscription sub) {
-                subscription = sub;
-                sub.request(1);
-            }
+        publisher.subscribe(new SubscriberAdapter(supplier));
+    }
 
-            @Override
-            public void onNext(final T item) {
-                subscription.cancel();
-                if (item == null) {
-                    completeExceptionally(supplier.get());
-                } else {
-                    value = item;
-                    onComplete();
-                }
-            }
+    /**
+     * @author nedis
+     * @since 0.4
+     */
+    private final class SubscriberAdapter implements Subscriber<T> {
 
-            @Override
-            public void onError(final Throwable throwable) {
-                completeExceptionally(throwable);
-            }
+        private final Supplier<Throwable> supplier;
 
-            @Override
-            public void onComplete() {
-                complete(value);
+        private SubscriberAdapter(final Supplier<Throwable> supplier) {
+            this.supplier = supplier;
+        }
+
+        @Override
+        public void onSubscribe(final Subscription sub) {
+            subscription = sub;
+            sub.request(1);
+        }
+
+        @Override
+        public void onNext(final T item) {
+            subscription.cancel();
+            if (item == null) {
+                completeExceptionally(supplier.get());
+            } else {
+                value = item;
+                onComplete();
             }
-        });
+        }
+
+        @Override
+        public void onError(final Throwable throwable) {
+            completeExceptionally(throwable);
+        }
+
+        @Override
+        public void onComplete() {
+            complete(value);
+        }
     }
 }

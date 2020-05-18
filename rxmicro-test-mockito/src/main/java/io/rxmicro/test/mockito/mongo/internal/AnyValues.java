@@ -49,7 +49,7 @@ public final class AnyValues {
     private static final class TempDocument extends Document {
         private final String name;
 
-        public TempDocument(final String name) {
+        private TempDocument(final String name) {
             this.name = name;
         }
 
@@ -65,6 +65,11 @@ public final class AnyValues {
 
         @Override
         public Object remove(final Object key) {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public boolean remove(final Object key, final Object value) {
             throw new UnsupportedOperationException();
         }
 
@@ -94,6 +99,26 @@ public final class AnyValues {
         }
 
         @Override
+        public void replaceAll(final BiFunction<? super String, ? super Object, ?> function) {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public Object putIfAbsent(final String key, final Object value) {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public boolean replace(final String key, final Object oldValue, final Object newValue) {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public Object replace(final String key, final Object value) {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
         public boolean equals(final Object other) {
             if (this == other) {
                 return true;
@@ -116,31 +141,6 @@ public final class AnyValues {
         @Override
         public String toString() {
             return name;
-        }
-
-        @Override
-        public void replaceAll(final BiFunction<? super String, ? super Object, ?> function) {
-            throw new UnsupportedOperationException();
-        }
-
-        @Override
-        public Object putIfAbsent(final String key, final Object value) {
-            throw new UnsupportedOperationException();
-        }
-
-        @Override
-        public boolean remove(final Object key, final Object value) {
-            throw new UnsupportedOperationException();
-        }
-
-        @Override
-        public boolean replace(final String key, final Object oldValue, final Object newValue) {
-            throw new UnsupportedOperationException();
-        }
-
-        @Override
-        public Object replace(final String key, final Object value) {
-            throw new UnsupportedOperationException();
         }
     }
 

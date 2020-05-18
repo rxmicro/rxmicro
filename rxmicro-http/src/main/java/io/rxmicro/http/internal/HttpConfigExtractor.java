@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 https://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,6 +28,8 @@ import java.util.Arrays;
  */
 public final class HttpConfigExtractor {
 
+    private static final String PROTOCOL_SEPARATOR = "://";
+
     public void extract(final String connectionString,
                         final HttpConfig config) {
         final StringBuilder connectionStringSource = new StringBuilder(connectionString);
@@ -39,15 +41,15 @@ public final class HttpConfigExtractor {
     }
 
     private ProtocolSchema getSchema(final StringBuilder connectionStringSource) {
-        final int index = connectionStringSource.indexOf("://");
+        final int index = connectionStringSource.indexOf(PROTOCOL_SEPARATOR);
         if (index == -1) {
             return ProtocolSchema.HTTP;
         } else {
             final String schema = connectionStringSource.substring(0, index);
-            connectionStringSource.delete(0, index + 3);
+            connectionStringSource.delete(0, index + PROTOCOL_SEPARATOR.length());
             try {
                 return ProtocolSchema.valueOf(schema);
-            } catch (final IllegalArgumentException e) {
+            } catch (final IllegalArgumentException ignore) {
                 throw new ConfigException("Only following schemas are supported: ?",
                         Arrays.toString(ProtocolSchema.values()));
             }
@@ -78,7 +80,7 @@ public final class HttpConfigExtractor {
         } else {
             try {
                 return Integer.parseInt(connectionStringSource.toString());
-            } catch (final NumberFormatException e) {
+            } catch (final NumberFormatException ignore) {
                 throw new ConfigException("Port must be a number: ?",
                         connectionStringSource.toString());
             }

@@ -32,11 +32,11 @@ import io.rxmicro.annotation.processor.data.sql.model.VariableValuesMap;
 import io.rxmicro.data.sql.operation.CustomSelect;
 import io.rxmicro.data.sql.operation.Select;
 
-import javax.lang.model.element.ExecutableElement;
-import javax.lang.model.element.VariableElement;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import javax.lang.model.element.ExecutableElement;
+import javax.lang.model.element.VariableElement;
 
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.data.sql.SupportedVariables.ALL_COLUMNS;

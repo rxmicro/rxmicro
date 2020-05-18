@@ -28,6 +28,10 @@ import java.util.Random;
  */
 public final class HttpServers {
 
+    private static final int MIN_RANDOM_PORT = 9000;
+
+    private static final int MAX_RANDOM_PORT = 59999;
+
     /**
      * Returns the random free port on the current host
      *
@@ -37,9 +41,8 @@ public final class HttpServers {
     public static int getRandomFreePort() {
         try (ServerSocket serverSocket = new ServerSocket(0)) {
             return serverSocket.getLocalPort();
-        } catch (final IOException e) {
-            // returns 9000 - 9999
-            return new Random().nextInt(1000) + 9000;
+        } catch (final IOException ignore) {
+            return new Random().nextInt(MAX_RANDOM_PORT - MIN_RANDOM_PORT + 1) + MIN_RANDOM_PORT;
         }
     }
 

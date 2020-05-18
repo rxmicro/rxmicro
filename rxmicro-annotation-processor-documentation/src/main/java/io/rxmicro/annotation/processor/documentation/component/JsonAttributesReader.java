@@ -16,7 +16,6 @@
 
 package io.rxmicro.annotation.processor.documentation.component;
 
-import io.rxmicro.annotation.processor.common.model.EnvironmentContext;
 import io.rxmicro.annotation.processor.common.model.ModelField;
 import io.rxmicro.annotation.processor.common.model.type.EnumModelClass;
 import io.rxmicro.json.JsonObjectBuilder;
@@ -27,24 +26,19 @@ import io.rxmicro.json.JsonObjectBuilder;
  */
 public interface JsonAttributesReader {
 
-    void readStringPrimitiveAttributes(EnvironmentContext environmentContext,
-                                       JsonObjectBuilder builder,
+    void readStringPrimitiveAttributes(JsonObjectBuilder builder,
                                        ModelField modelField);
 
-    void readDateTimePrimitiveAttributes(EnvironmentContext environmentContext,
-                                         JsonObjectBuilder builder,
+    void readDateTimePrimitiveAttributes(JsonObjectBuilder builder,
                                          ModelField modelField);
 
-    void readNumberPrimitiveAttributes(EnvironmentContext environmentContext,
-                                       JsonObjectBuilder builder,
+    void readNumberPrimitiveAttributes(JsonObjectBuilder builder,
                                        ModelField modelField);
 
-    void readEnumAttributes(EnvironmentContext environmentContext,
-                            JsonObjectBuilder builder,
+    void readEnumAttributes(JsonObjectBuilder builder,
                             ModelField modelField,
                             EnumModelClass enumModelClass);
 
-    void readArrayAttributes(EnvironmentContext environmentContext,
-                             JsonObjectBuilder builder,
+    void readArrayAttributes(JsonObjectBuilder builder,
                              ModelField modelField);
 }

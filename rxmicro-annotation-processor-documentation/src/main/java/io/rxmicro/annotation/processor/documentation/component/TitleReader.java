@@ -16,8 +16,8 @@
 
 package io.rxmicro.annotation.processor.documentation.component;
 
-import javax.lang.model.element.Element;
 import java.util.Optional;
+import javax.lang.model.element.Element;
 
 /**
  * @author nedis

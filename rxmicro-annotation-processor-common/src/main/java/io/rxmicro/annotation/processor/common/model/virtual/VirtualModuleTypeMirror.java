@@ -16,13 +16,13 @@
 
 package io.rxmicro.annotation.processor.common.model.virtual;
 
+import java.lang.annotation.Annotation;
+import java.util.List;
 import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.NoType;
 import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeVisitor;
-import java.lang.annotation.Annotation;
-import java.util.List;
 
 /**
  * @author nedis

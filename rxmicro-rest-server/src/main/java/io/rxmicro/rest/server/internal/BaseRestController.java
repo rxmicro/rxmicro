@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 https://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,6 +27,8 @@ import io.rxmicro.rest.server.local.component.HttpErrorResponseBodyBuilder;
  */
 public abstract class BaseRestController {
 
+    private static final int DEFAULT_NOT_FOUND_STATUS_CODE = 404;
+
     protected HttpResponseBuilder httpResponseBuilder;
 
     protected RestServerConfig restServerConfig;
@@ -39,7 +41,7 @@ public abstract class BaseRestController {
     }
 
     protected final HttpResponse notFound(final String message) {
-        return httpErrorResponseBodyBuilder.build(httpResponseBuilder.build(), 404, message);
+        return httpErrorResponseBodyBuilder.build(httpResponseBuilder.build(), DEFAULT_NOT_FOUND_STATUS_CODE, message);
     }
 
     public abstract Class<?> getRestControllerClass();

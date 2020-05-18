@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 https://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,12 +32,12 @@ import io.rxmicro.data.mongo.operation.Distinct;
 import org.bson.Document;
 import reactor.core.publisher.Flux;
 
-import javax.lang.model.element.ExecutableElement;
 import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.lang.model.element.ExecutableElement;
 
 /**
  * @author nedis
@@ -84,12 +84,11 @@ public final class DistinctOperationMongoRepositoryMethodModelBuilder extends Ab
     }
 
     private void addImports(final ClassHeader.Builder classHeaderBuilder) {
-        classHeaderBuilder
-                .addImports(
-                        Document.class,
-                        Flux.class,
-                        Flowable.class,
-                        ArrayList.class
-                );
+        classHeaderBuilder.addImports(
+                Document.class,
+                Flux.class,
+                Flowable.class,
+                ArrayList.class
+        );
     }
 }

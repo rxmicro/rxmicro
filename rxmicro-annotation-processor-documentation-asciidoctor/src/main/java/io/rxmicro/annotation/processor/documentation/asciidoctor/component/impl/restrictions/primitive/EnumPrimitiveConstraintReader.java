@@ -37,21 +37,29 @@ import static io.rxmicro.common.util.Formats.format;
  * @author nedis
  * @since 0.1
  */
-public final class EnumPrimitiveConstraintReader implements ConstraintReader {
+public final class EnumPrimitiveConstraintReader extends ConstraintReader {
 
     private static final String RESTRICTION_TEMPLATE = "enum: ?";
 
+    private final List<AnnotationConstraintReader> annotationConstraintReaders = List.of(
+
+            (annotated, restrictions, readMores, descriptionBuilder) -> {
+                final Enumeration enumeration = annotated.getAnnotation(Enumeration.class);
+                if (enumeration != null && !enumeration.off()) {
+                    restrictions.add(format(RESTRICTION_TEMPLATE, Arrays.toString(enumeration.value())));
+                    getReadMore(Enumeration.class).ifPresent(readMores::add);
+                }
+            }
+    );
+
     @Override
-    public void readIfConstraintEnabled(final List<String> restrictions,
+    public void readIfConstraintEnabled(final Map.Entry<RestModelField, ModelClass> entry,
+                                        final List<String> restrictions,
                                         final List<ReadMore> readMores,
-                                        final Map.Entry<RestModelField, ModelClass> entry,
                                         final StringBuilder descriptionBuilder) {
         final RestModelField annotated = entry.getKey();
-        final Enumeration enumeration = annotated.getAnnotation(Enumeration.class);
-        if (enumeration != null && !enumeration.off()) {
-            restrictions.add(format(RESTRICTION_TEMPLATE, Arrays.toString(enumeration.value())));
-            getReadMore(Enumeration.class).ifPresent(readMores::add);
-        }
+        readUsingAnnotationConstraintReader(annotationConstraintReaders, annotated, restrictions, readMores, descriptionBuilder);
+
         if (entry.getValue().isEnum()) {
             final Set<String> enumConstants = getAllowedEnumConstants(entry.getValue().asEnum().getTypeMirror());
             final SubEnum subEnum = annotated.getAnnotation(SubEnum.class);

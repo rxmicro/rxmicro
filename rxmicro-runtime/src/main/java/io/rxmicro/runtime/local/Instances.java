@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 https://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -43,8 +43,8 @@ public final class Instances {
                                     final Object... constructorArgs) {
         try {
             return (T) instantiate(Class.forName(targetClassName), constructorArgs);
-        } catch (final ClassNotFoundException e) {
-            throw new CheckedWrapperException(e, "Class ? not found", targetClassName);
+        } catch (final ClassNotFoundException ex) {
+            throw new CheckedWrapperException(ex, "Class ? not found", targetClassName);
         }
     }
 
@@ -54,8 +54,8 @@ public final class Instances {
                                     final Object... constructorArgs) {
         try {
             return (T) instantiate(Class.forName(targetClassName), argTypes, constructorArgs);
-        } catch (final ClassNotFoundException e) {
-            throw new CheckedWrapperException(e, "Class ? not found", targetClassName);
+        } catch (final ClassNotFoundException ex) {
+            throw new CheckedWrapperException(ex, "Class ? not found", targetClassName);
         }
     }
 
@@ -70,18 +70,18 @@ public final class Instances {
                                     final Object... constructorArgs) {
         try {
             return targetClass.getConstructor(argTypes).newInstance(constructorArgs);
-        } catch (final NoSuchMethodException e) {
-            throw new CheckedWrapperException(e, "Class ? must contain a required constructor: " +
+        } catch (final NoSuchMethodException ex) {
+            throw new CheckedWrapperException(ex, "Class ? must contain a required constructor: " +
                     "public <init>(?)", targetClass.getName(),
                     Arrays.stream(argTypes)
                             .map(cl -> cl.getName() + " arg" + cl.getSimpleName())
                             .collect(joining(",")));
-        } catch (final IllegalAccessException | InstantiationException e) {
-            throw new CheckedWrapperException(e, "Can't instantiate ? class: ?",
-                    targetClass.getName(), e.getMessage());
-        } catch (final InvocationTargetException e) {
-            throw new CheckedWrapperException(e.getTargetException(), "Can't instantiate ? class: ?",
-                    targetClass.getName(), e.getTargetException().getMessage());
+        } catch (final IllegalAccessException | InstantiationException ex) {
+            throw new CheckedWrapperException(ex, "Can't instantiate ? class: ?",
+                    targetClass.getName(), ex.getMessage());
+        } catch (final InvocationTargetException ex) {
+            throw new CheckedWrapperException(ex.getTargetException(), "Can't instantiate ? class: ?",
+                    targetClass.getName(), ex.getTargetException().getMessage());
         }
     }
 

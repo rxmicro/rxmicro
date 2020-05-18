@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 https://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -37,9 +37,9 @@ import io.rxmicro.rest.model.UrlSegments;
 import io.rxmicro.tool.common.OverrideGeneratorConfig;
 import io.rxmicro.validation.detail.ResponseValidators;
 
-import javax.lang.model.element.TypeElement;
 import java.util.HashMap;
 import java.util.Map;
+import javax.lang.model.element.TypeElement;
 
 import static io.rxmicro.annotation.processor.common.util.Annotations.getRequiredAnnotationClassParameter;
 import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.getModelTransformerInstanceName;
@@ -130,8 +130,10 @@ public abstract class BaseRestClientMethodBodyBuilder implements RestClientMetho
         templateArguments.put("GENERATE_RESPONSE_VALIDATORS", generateResponseValidators);
     }
 
-    protected final RestClientGeneratorConfig.RequestValidationMode getRequestValidationMode(final RestClientMethodSignature methodSignature,
-                                                                                             final EnvironmentContext environmentContext) {
+    protected final RestClientGeneratorConfig.RequestValidationMode getRequestValidationMode(
+            final RestClientMethodSignature methodSignature,
+            final EnvironmentContext environmentContext) {
+
         final OverrideGeneratorConfig[] overrideGeneratorConfigs =
                 methodSignature.getRestClientClassSignature().getRestClientInterface().getAnnotationsByType(OverrideGeneratorConfig.class);
         for (final OverrideGeneratorConfig overrideGeneratorConfig : overrideGeneratorConfigs) {

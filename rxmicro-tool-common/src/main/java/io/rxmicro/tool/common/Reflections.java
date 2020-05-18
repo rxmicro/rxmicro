@@ -43,6 +43,8 @@ import static java.util.stream.Collectors.toList;
  */
 public final class Reflections {
 
+    private static final String FIELD_NOT_DEFINED_ERROR_TEMPLATE = "Field '?.?' not defined";
+
     public static Module getToolCommonModule() {
         return Reflections.class.getModule();
     }
@@ -98,16 +100,6 @@ public final class Reflections {
         );
     }
 
-    private static boolean isValidInstance(final Field field,
-                                           final Object instance) {
-        if (instance == null) {
-            return isStatic(field.getModifiers());
-        } else {
-            return instance.getClass() == field.getDeclaringClass() ||
-                    allSuperClasses(instance.getClass()).contains(field.getDeclaringClass());
-        }
-    }
-
     public static Object getFieldValue(final Object instance,
                                        final Field field) {
         try {
@@ -116,8 +108,8 @@ public final class Reflections {
                 field.setAccessible(true);
             }
             return field.get(validInstance);
-        } catch (final IllegalAccessException e) {
-            throw new CheckedWrapperException(e);
+        } catch (final IllegalAccessException ex) {
+            throw new CheckedWrapperException(ex);
         }
     }
 
@@ -128,17 +120,8 @@ public final class Reflections {
             final Object validInstance = instance.getClass() == Class.class ? null : instance;
             final Field field = classInstance.getDeclaredField(fieldName);
             return getFieldValue(validInstance, field);
-        } catch (final NoSuchFieldException e) {
-            throw new CheckedWrapperException(e, "Field '?.?' not defined", instance.getClass().getName(), fieldName);
-        }
-    }
-
-    public static Field getDeclaredField(final Class<?> classInstance,
-                                         final String fieldName) {
-        try {
-            return classInstance.getDeclaredField(fieldName);
-        } catch (final NoSuchFieldException e) {
-            throw new CheckedWrapperException(e, "Field '?.?' not defined", classInstance.getName(), fieldName);
+        } catch (final NoSuchFieldException ex) {
+            throw new CheckedWrapperException(ex, FIELD_NOT_DEFINED_ERROR_TEMPLATE, instance.getClass().getName(), fieldName);
         }
     }
 
@@ -147,6 +130,25 @@ public final class Reflections {
         final Class<?> classInstance =
                 instance.getClass() == Class.class ? (Class<?>) instance : instance.getClass();
         return getFieldValue(instance, classInstance, fieldName);
+    }
+
+    private static boolean isValidInstance(final Field field,
+                                           final Object instance) {
+        if (instance == null) {
+            return isStatic(field.getModifiers());
+        } else {
+            return instance.getClass() == field.getDeclaringClass() ||
+                    allSuperClasses(instance.getClass()).contains(field.getDeclaringClass());
+        }
+    }
+
+    public static Field getDeclaredField(final Class<?> classInstance,
+                                         final String fieldName) {
+        try {
+            return classInstance.getDeclaredField(fieldName);
+        } catch (final NoSuchFieldException ex) {
+            throw new CheckedWrapperException(ex, FIELD_NOT_DEFINED_ERROR_TEMPLATE, classInstance.getName(), fieldName);
+        }
     }
 
     public static void setFieldValue(final Object instance,
@@ -158,8 +160,8 @@ public final class Reflections {
             final Object validInstance = instance.getClass() == Class.class ? null : instance;
             final Field field = classInstance.getDeclaredField(fieldName);
             setFieldValue(validInstance, field, value);
-        } catch (final NoSuchFieldException e) {
-            throw new CheckedWrapperException(e, "Field '?.?' not defined", instance.getClass().getName(), fieldName);
+        } catch (final NoSuchFieldException ex) {
+            throw new CheckedWrapperException(ex, FIELD_NOT_DEFINED_ERROR_TEMPLATE, instance.getClass().getName(), fieldName);
         }
     }
 
@@ -193,8 +195,8 @@ public final class Reflections {
             } else {
                 field.set(validInstance, value);
             }
-        } catch (final IllegalAccessException e) {
-            throw new CheckedWrapperException(e);
+        } catch (final IllegalAccessException ex) {
+            throw new CheckedWrapperException(ex);
         }
     }
 
@@ -210,7 +212,7 @@ public final class Reflections {
                     method.setAccessible(true);
                 }
                 return invokeMethod(instance, method, args);
-            } catch (final NoSuchMethodException e) {
+            } catch (final NoSuchMethodException ignore) {
                 // do nothing
             }
         }
@@ -225,10 +227,10 @@ public final class Reflections {
                                       final Object... args) {
         try {
             return method.invoke(instance, args);
-        } catch (IllegalAccessException e) {
-            throw new CheckedWrapperException(e);
-        } catch (InvocationTargetException e) {
-            throw new CheckedWrapperException(e.getTargetException());
+        } catch (final IllegalAccessException ex) {
+            throw new CheckedWrapperException(ex);
+        } catch (final InvocationTargetException ex) {
+            throw new CheckedWrapperException(ex.getTargetException());
         }
     }
 

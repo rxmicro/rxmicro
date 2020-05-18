@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 https://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -45,15 +45,25 @@ import static io.rxmicro.common.util.Requires.require;
 @SuppressWarnings("UnusedReturnValue")
 public final class NettyRestServerConfig extends Config {
 
+    /**
+     * Default backlog size
+     */
+    public static final int DEFAULT_BACKLOG_SIZE = 128;
+
+    /**
+     * Default aggregator content length in bytes
+     */
+    public static final int DEFAULT_AGGREGATOR_CONTENT_LENGTH_IN_BYTES = 64 * 1024;
+
     private final Map<ChannelOption<?>, Object> serverOptions = new LinkedHashMap<>(
-            Map.of(ChannelOption.SO_BACKLOG, 128)
+            Map.of(ChannelOption.SO_BACKLOG, DEFAULT_BACKLOG_SIZE)
     );
 
     private final Map<ChannelOption<?>, Object> clientOptions = new LinkedHashMap<>();
 
     private final List<Supplier<ChannelHandler>> handlerSuppliers = new ArrayList<>(List.of(
             HttpServerCodec::new,
-            () -> new HttpObjectAggregator(64 * 1024, true)
+            () -> new HttpObjectAggregator(DEFAULT_AGGREGATOR_CONTENT_LENGTH_IN_BYTES, true)
     ));
 
     private NettyTransport transport = NettyTransport.AUTO;

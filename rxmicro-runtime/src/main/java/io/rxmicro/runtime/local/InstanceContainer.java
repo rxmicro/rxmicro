@@ -48,7 +48,7 @@ public final class InstanceContainer {
 
     private static final Map<InstanceQualifier<?>, InstanceProvider<?>> COMPONENT_MAP = new ConcurrentHashMap<>();
 
-    private final static Set<AutoRelease> AUTO_RELEASES = new HashSet<>();
+    private static final Set<AutoRelease> AUTO_RELEASES = new HashSet<>();
 
     static {
         setRxMicroVersion();
@@ -65,7 +65,7 @@ public final class InstanceContainer {
     public static <T> InstanceProvider<T> registerSingleton(final InstanceProvider<T> componentInstanceProvider,
                                                             final InstanceQualifier<? super T>... instanceQualifiers) {
 
-        return registerSingleton(
+        return register(
                 componentInstanceProvider,
                 (instanceProvider, instanceQualifier) -> {
                     COMPONENT_MAP.put(instanceQualifier, new NotUniqueInstanceProvider<>(instanceQualifier.getType()));
@@ -80,7 +80,7 @@ public final class InstanceContainer {
     public static <T> void overrideSingleton(final InstanceProvider<T> componentInstanceProvider,
                                              final InstanceQualifier<? super T>... instanceQualifiers) {
 
-        registerSingleton(
+        register(
                 componentInstanceProvider,
                 (instanceProvider, instanceQualifier) -> COMPONENT_MAP.put(instanceQualifier, instanceProvider),
                 instanceQualifiers
@@ -88,9 +88,9 @@ public final class InstanceContainer {
     }
 
     @SafeVarargs
-    private static <T> InstanceProvider<T> registerSingleton(final InstanceProvider<T> componentInstanceProvider,
-                                                             final BiConsumer<InstanceProvider<T>, InstanceQualifier<? super T>> conflictResolver,
-                                                             final InstanceQualifier<? super T>... instanceQualifiers) {
+    private static <T> InstanceProvider<T> register(final InstanceProvider<T> componentInstanceProvider,
+                                                    final BiConsumer<InstanceProvider<T>, InstanceQualifier<? super T>> conflictResolver,
+                                                    final InstanceQualifier<? super T>... instanceQualifiers) {
 
         final InstanceProvider<T> instanceProvider;
         if (AutoRelease.class.isAssignableFrom(componentInstanceProvider.getType())) {

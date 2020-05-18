@@ -44,13 +44,13 @@ public final class PrimitiveRestrictionReader extends AbstractRestrictionReader 
     );
 
     public void readPrimitive(final EnvironmentContext environmentContext,
+                              final Map.Entry<RestModelField, ModelClass> entry,
                               final List<String> restrictions,
                               final List<ReadMore> readMores,
-                              final Map.Entry<RestModelField, ModelClass> entry,
                               final StringBuilder descriptionBuilder) {
-        readRequired(environmentContext, restrictions, readMores, entry);
+        readRequired(environmentContext, entry, restrictions, readMores);
         for (final ConstraintReader reader : readers) {
-            reader.readIfConstraintEnabled(restrictions, readMores, entry, descriptionBuilder);
+            reader.readIfConstraintEnabled(entry, restrictions, readMores, descriptionBuilder);
         }
     }
 }

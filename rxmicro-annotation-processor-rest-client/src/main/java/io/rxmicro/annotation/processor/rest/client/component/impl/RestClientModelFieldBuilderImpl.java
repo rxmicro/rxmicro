@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 https://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,12 +33,12 @@ import io.rxmicro.rest.RequestId;
 import io.rxmicro.rest.ResponseBody;
 import io.rxmicro.rest.ResponseStatusCode;
 
-import javax.lang.model.element.ModuleElement;
-import javax.lang.model.element.TypeElement;
-import javax.lang.model.type.TypeMirror;
 import java.lang.annotation.Annotation;
 import java.util.Optional;
 import java.util.Set;
+import javax.lang.model.element.ModuleElement;
+import javax.lang.model.element.TypeElement;
+import javax.lang.model.type.TypeMirror;
 
 import static io.rxmicro.annotation.processor.common.util.Elements.asTypeElement;
 import static io.rxmicro.annotation.processor.common.util.validators.AnnotationValidators.validateSupportedTypes;
@@ -76,13 +76,13 @@ public final class RestClientModelFieldBuilderImpl extends AbstractRestModelFiel
             final ResponseStatusCode responseStatusCode = annotated.getAnnotation(ResponseStatusCode.class);
             if (responseStatusCode != null) {
                 validateInternalByAnnotation(modelFieldType, annotated, ResponseStatusCode.class);
-                validateSupportedTypes(annotated.getElement(), responseStatusCode.annotationType());
+                validateSupportedTypes(annotated.getField(), responseStatusCode.annotationType());
                 return Optional.of(new RestModelField(annotated, InternalType.RESPONSE_STATUS));
             }
             final ResponseBody responseBody = annotated.getAnnotation(ResponseBody.class);
             if (responseBody != null) {
                 validateInternalByAnnotation(modelFieldType, annotated, ResponseBody.class);
-                validateSupportedTypes(annotated.getElement(), responseBody.annotationType());
+                validateSupportedTypes(annotated.getField(), responseBody.annotationType());
                 return Optional.of(new RestModelField(annotated, InternalType.RESPONSE_BODY));
             }
         }
@@ -114,7 +114,7 @@ public final class RestClientModelFieldBuilderImpl extends AbstractRestModelFiel
         validateNoAnnotations(annotated);
         if (modelFieldType != ModelFieldType.REST_CLIENT_RESPONSE) {
             throw new InterruptProcessingException(
-                    annotated.getElement(),
+                    annotated.getField(),
                     "'?' type can be used for response model only",
                     annotated.getField().asType().toString()
             );
@@ -126,7 +126,7 @@ public final class RestClientModelFieldBuilderImpl extends AbstractRestModelFiel
                                               final Class<? extends Annotation> annotationClass) {
         if (modelFieldType != ModelFieldType.REST_CLIENT_RESPONSE) {
             throw new InterruptProcessingException(
-                    annotated.getElement(),
+                    annotated.getField(),
                     "'?' annotation can be used for response model only",
                     annotationClass.getName()
             );

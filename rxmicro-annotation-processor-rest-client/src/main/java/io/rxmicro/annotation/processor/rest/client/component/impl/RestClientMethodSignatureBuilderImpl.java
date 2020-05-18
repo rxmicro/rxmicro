@@ -41,15 +41,15 @@ import io.rxmicro.rest.method.PATCH;
 import io.rxmicro.rest.method.POST;
 import io.rxmicro.rest.method.PUT;
 
+import java.lang.annotation.Annotation;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.ModuleElement;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.TypeMirror;
-import java.lang.annotation.Annotation;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 import static io.rxmicro.annotation.processor.common.util.Elements.allImplementableMethods;
 import static io.rxmicro.annotation.processor.common.util.Elements.methodSignatureEquals;
@@ -65,7 +65,8 @@ import static java.util.stream.Collectors.toList;
  * @since 0.1
  */
 @Singleton
-public final class RestClientMethodSignatureBuilderImpl extends AbstractRestMethodSignatureBuilder implements RestClientMethodSignatureBuilder {
+public final class RestClientMethodSignatureBuilderImpl
+        extends AbstractRestMethodSignatureBuilder implements RestClientMethodSignatureBuilder {
 
     @Inject
     private RestRequestModelBuilder restRequestModelBuilder;
@@ -86,7 +87,8 @@ public final class RestClientMethodSignatureBuilderImpl extends AbstractRestMeth
         return methods.stream()
                 .filter(e -> notContainIn(e, overriddenMethodCandidates.getValue()))
                 .map(method -> {
-                    final RestResponseModel responseModel = restResponseModelBuilder.build(restControllerModule, method, true);
+                    final RestResponseModel responseModel =
+                            restResponseModelBuilder.build(restControllerModule, method, true);
                     validateReturnType(method, responseModel);
                     return new RestClientMethodSignature(
                             method,

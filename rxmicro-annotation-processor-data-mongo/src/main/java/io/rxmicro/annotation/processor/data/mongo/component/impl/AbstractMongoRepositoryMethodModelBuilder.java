@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 https://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -37,12 +37,12 @@ import io.rxmicro.data.detail.adapter.PublisherToOptionalMonoFutureAdapter;
 import io.rxmicro.data.detail.adapter.PublisherToRequiredMonoFutureAdapter;
 import org.bson.conversions.Bson;
 
-import javax.lang.model.element.ExecutableElement;
 import java.lang.annotation.Annotation;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import javax.lang.model.element.ExecutableElement;
 
 import static java.util.stream.Collectors.joining;
 
@@ -58,25 +58,6 @@ public abstract class AbstractMongoRepositoryMethodModelBuilder
     protected final MongoRepositoryMethod build(final DataRepositoryMethodSignature dataRepositoryMethodSignature,
                                                 final MethodBody body) {
         return new MongoRepositoryMethod(dataRepositoryMethodSignature, body);
-    }
-
-    @Override
-    protected final MethodBody buildBody(final ClassHeader.Builder classHeaderBuilder,
-                                         final ExecutableElement repositoryMethod,
-                                         final MethodResult methodResult,
-                                         final DataRepositoryGeneratorConfig dataRepositoryGeneratorConfig,
-                                         final DataGenerationContext<MongoDataModelField, MongoDataObjectModelClass> dataGenerationContext) {
-        final MethodParameterReader methodParameterReader =
-                new MethodParameterReader(repositoryMethod.getParameters(), supportedTypesProvider);
-        final List<String> content = buildBody(
-                classHeaderBuilder,
-                repositoryMethod, methodResult,
-                methodParameterReader,
-                dataRepositoryGeneratorConfig,
-                dataGenerationContext
-        );
-        validateUnusedMethodParameters(repositoryMethod, methodParameterReader);
-        return new MongoMethodBody(content);
     }
 
     @Override
@@ -102,12 +83,31 @@ public abstract class AbstractMongoRepositoryMethodModelBuilder
         }
     }
 
-    protected abstract List<String> buildBody(final ClassHeader.Builder classHeaderBuilder,
-                                              final ExecutableElement method,
-                                              final MethodResult methodResult,
-                                              final MethodParameterReader methodParameterReader,
-                                              final DataRepositoryGeneratorConfig dataRepositoryGeneratorConfig,
-                                              final DataGenerationContext<MongoDataModelField, MongoDataObjectModelClass> dataGenerationContext);
+    @Override
+    protected final MethodBody buildBody(final ClassHeader.Builder classHeaderBuilder,
+                                         final ExecutableElement repositoryMethod,
+                                         final MethodResult methodResult,
+                                         final DataRepositoryGeneratorConfig dataRepositoryGeneratorConfig,
+                                         final DataGenerationContext<MongoDataModelField, MongoDataObjectModelClass> generationContext) {
+        final MethodParameterReader methodParameterReader =
+                new MethodParameterReader(repositoryMethod.getParameters(), supportedTypesProvider);
+        final List<String> content = buildBody(
+                classHeaderBuilder,
+                repositoryMethod, methodResult,
+                methodParameterReader,
+                dataRepositoryGeneratorConfig,
+                generationContext
+        );
+        validateUnusedMethodParameters(repositoryMethod, methodParameterReader);
+        return new MongoMethodBody(content);
+    }
+
+    protected abstract List<String> buildBody(ClassHeader.Builder classHeaderBuilder,
+                                              ExecutableElement method,
+                                              MethodResult methodResult,
+                                              MethodParameterReader methodParameterReader,
+                                              DataRepositoryGeneratorConfig dataRepositoryGeneratorConfig,
+                                              DataGenerationContext<MongoDataModelField, MongoDataObjectModelClass> dataGenerationContext);
 
     private void validateUnusedMethodParameters(final ExecutableElement repositoryMethod,
                                                 final MethodParameterReader methodParameterReader) {

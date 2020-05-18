@@ -20,10 +20,6 @@ import io.rxmicro.annotation.processor.common.model.SupportedAnnotations;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
 import io.rxmicro.common.meta.SupportedTypes;
 
-import javax.lang.model.element.AnnotationMirror;
-import javax.lang.model.element.Element;
-import javax.lang.model.element.TypeElement;
-import javax.lang.model.type.MirroredTypesException;
 import java.lang.annotation.Annotation;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -33,6 +29,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+import javax.lang.model.element.AnnotationMirror;
+import javax.lang.model.element.Element;
+import javax.lang.model.element.TypeElement;
+import javax.lang.model.type.MirroredTypesException;
 
 /**
  * @author nedis
@@ -108,8 +108,8 @@ public final class AnnotationValidators {
             types = Arrays.stream(annotationType.getAnnotation(SupportedTypes.class).value())
                     .map(AnnotationValidators::getClassName)
                     .collect(Collectors.toList());
-        } catch (final MirroredTypesException e) {
-            types = e.getTypeMirrors().stream()
+        } catch (final MirroredTypesException ex) {
+            types = ex.getTypeMirrors().stream()
                     .map(Object::toString)
                     .collect(Collectors.toList());
         }

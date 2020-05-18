@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 https://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -110,7 +110,7 @@ final class JdkHttpClient implements HttpClient {
         final HttpRequest request = newRequestBuilder(path, headers)
                 .method(method, BodyPublishers.noBody())
                 .build();
-        return sendAsync(request, null);
+        return send(request, null);
     }
 
     @Override
@@ -122,7 +122,7 @@ final class JdkHttpClient implements HttpClient {
         final HttpRequest request = newRequestBuilder(path, headers)
                 .method(method, BodyPublishers.ofByteArray(requestBody))
                 .build();
-        return sendAsync(request, requestBody);
+        return send(request, requestBody);
     }
 
     private HttpRequest.Builder newRequestBuilder(final String path,
@@ -160,8 +160,8 @@ final class JdkHttpClient implements HttpClient {
         }
     }
 
-    private CompletableFuture<ClientHttpResponse> sendAsync(final HttpRequest request,
-                                                            final byte[] requestBody) {
+    private CompletableFuture<ClientHttpResponse> send(final HttpRequest request,
+                                                       final byte[] requestBody) {
         CompletableFuture<HttpResponse<byte[]>> response = client.sendAsync(request, ofByteArray());
         if (logger.isTraceEnabled()) {
             response = trace(request, requestBody, response);

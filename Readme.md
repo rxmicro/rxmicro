@@ -53,9 +53,13 @@ See [CHECK_LISTS.md](.github/CHECK_LISTS.md).
 
 `mvn --fail-at-end -DskipTests -P pmd clean verify`
 
+* To run `checkstyle` tool it is necessary to activate `checkstyle` maven profile:
+
+`mvn --fail-at-end -DskipTests -P checkstyle clean verify`
+
 * To run all quality tools it is necessary to activate all maven profiles:
 
-`mvn --fail-at-end -DskipTests -P spotbugs,pmd clean verify`
+`mvn --fail-at-end -DskipTests -P spotbugs,pmd,checkstyle clean verify`
 
 ## Publish to Maven Central
 

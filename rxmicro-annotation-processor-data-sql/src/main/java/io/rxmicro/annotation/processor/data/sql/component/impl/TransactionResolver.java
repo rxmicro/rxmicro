@@ -21,11 +21,11 @@ import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingExc
 import io.rxmicro.annotation.processor.data.model.Variable;
 import io.rxmicro.data.sql.model.reactor.Transaction;
 
-import javax.lang.model.element.ExecutableElement;
-import javax.lang.model.element.VariableElement;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import javax.lang.model.element.ExecutableElement;
+import javax.lang.model.element.VariableElement;
 
 import static io.rxmicro.data.sql.model.TransactionType.SUPPORTED_TRANSACTION_TYPES;
 

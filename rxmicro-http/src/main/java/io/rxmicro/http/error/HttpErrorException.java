@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 https://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -61,6 +61,26 @@ import io.rxmicro.common.util.Formats;
  * @since 0.1
  */
 public class HttpErrorException extends RxMicroException {
+
+    private static final int MIN_SUPPORTED_INFORMATIONAL_CODE = 100;
+
+    private static final int MAX_SUPPORTED_INFORMATIONAL_CODE = 199;
+
+    private static final int MIN_SUPPORTED_SUCCESS_CODE = 200;
+
+    private static final int MAX_SUPPORTED_SUCCESS_CODE = 299;
+
+    private static final int MIN_SUPPORTED_REDIRECT_CODE = 300;
+
+    private static final int MAX_SUPPORTED_REDIRECT_CODE = 399;
+
+    private static final int MIN_SUPPORTED_CLIENT_ERROR_CODE = 400;
+
+    private static final int MAX_SUPPORTED_CLIENT_ERROR_CODE = 499;
+
+    private static final int MIN_SUPPORTED_SERVER_ERROR_CODE = 500;
+
+    private static final int MAX_SUPPORTED_SERVER_ERROR_CODE = 599;
 
     private final int statusCode;
 
@@ -125,22 +145,22 @@ public class HttpErrorException extends RxMicroException {
     }
 
     public final boolean isInformationalCode() {
-        return statusCode >= 100 && statusCode < 199;
+        return statusCode >= MIN_SUPPORTED_INFORMATIONAL_CODE && statusCode < MAX_SUPPORTED_INFORMATIONAL_CODE;
     }
 
     public final boolean isSuccessCode() {
-        return statusCode >= 200 && statusCode < 299;
+        return statusCode >= MIN_SUPPORTED_SUCCESS_CODE && statusCode < MAX_SUPPORTED_SUCCESS_CODE;
     }
 
     public final boolean isRedirectCode() {
-        return statusCode >= 300 && statusCode < 399;
+        return statusCode >= MIN_SUPPORTED_REDIRECT_CODE && statusCode < MAX_SUPPORTED_REDIRECT_CODE;
     }
 
     public final boolean isClientErrorCode() {
-        return statusCode >= 400 && statusCode < 499;
+        return statusCode >= MIN_SUPPORTED_CLIENT_ERROR_CODE && statusCode < MAX_SUPPORTED_CLIENT_ERROR_CODE;
     }
 
     public final boolean isServerErrorCode() {
-        return statusCode >= 500 && statusCode < 599;
+        return statusCode >= MIN_SUPPORTED_SERVER_ERROR_CODE && statusCode < MAX_SUPPORTED_SERVER_ERROR_CODE;
     }
 }

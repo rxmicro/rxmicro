@@ -36,9 +36,9 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 @Documented
 @Retention(SOURCE)
 @Target({FIELD, METHOD})
-@SupportedTypes({
+@SupportedTypes(
         Integer.class
-})
+)
 public @interface ResponseStatusCode {
 
 }

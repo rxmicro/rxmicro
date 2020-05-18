@@ -40,21 +40,22 @@ public final class JUnitTestExtension implements TestExtension {
         final ExtendWith[] extendWiths = testModel.getTestClass().getAnnotationsByType(ExtendWith.class);
         for (final ExtendWith extendWith : extendWiths) {
             for (final Class<? extends Extension> extension : extendWith.value()) {
+                final String messageTemplate = "Unsupported test extension: '?'. Use '@?' instead!";
                 if (extension == RxMicroComponentTestExtension.class) {
                     throw new InvalidTestConfigException(
-                            "Unsupported test extension: '?'. Use '@?' instead!",
+                            messageTemplate,
                             RxMicroComponentTestExtension.class.getName(),
                             RxMicroComponentTest.class.getName()
                     );
                 } else if (extension == RxMicroIntegrationTestExtension.class) {
                     throw new InvalidTestConfigException(
-                            "Unsupported test extension: '?'. Use '@?' instead!",
+                            messageTemplate,
                             RxMicroIntegrationTestExtension.class.getName(),
                             RxMicroIntegrationTest.class.getName()
                     );
                 } else if (extension == RxMicroRestBasedMicroServiceTestExtension.class) {
                     throw new InvalidTestConfigException(
-                            "Unsupported test extension: '?'. Use '@?' instead!",
+                            messageTemplate,
                             RxMicroRestBasedMicroServiceTestExtension.class.getName(),
                             RxMicroRestBasedMicroServiceTest.class.getName()
                     );

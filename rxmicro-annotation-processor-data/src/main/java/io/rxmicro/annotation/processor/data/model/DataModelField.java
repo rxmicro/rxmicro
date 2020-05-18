@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 https://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,14 +35,14 @@ public abstract class DataModelField extends ModelField {
     }
 
     @UsedByFreemarker
-    public String getColumnType() {
-        final String type = getFieldClass().toString();
+    public String getColumnItemType() {
+        final String type = getGenericType(getFieldClass());
         return getColumnType(type);
     }
 
     @UsedByFreemarker
-    public String getColumnItemType() {
-        final String type = getGenericType(getFieldClass());
+    public String getColumnType() {
+        final String type = getFieldClass().toString();
         return getColumnType(type);
     }
 

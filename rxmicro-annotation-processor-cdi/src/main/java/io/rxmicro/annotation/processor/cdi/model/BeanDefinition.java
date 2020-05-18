@@ -22,10 +22,10 @@ import io.rxmicro.cdi.detail.BeanSupplier;
 import io.rxmicro.cdi.detail.InternalBeanFactory;
 import io.rxmicro.common.meta.BuilderMethod;
 
-import javax.lang.model.element.ExecutableElement;
-import javax.lang.model.element.TypeElement;
 import java.util.List;
 import java.util.Optional;
+import javax.lang.model.element.ExecutableElement;
+import javax.lang.model.element.TypeElement;
 
 import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.getModelTransformerSimpleClassName;
 import static io.rxmicro.common.util.Requires.require;

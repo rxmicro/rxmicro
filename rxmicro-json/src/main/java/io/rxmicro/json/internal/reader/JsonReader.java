@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 https://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,12 +34,16 @@ import static io.rxmicro.common.util.ExCollections.unmodifiableMap;
  */
 public final class JsonReader {
 
+    private static final int HEX_RADIX = 16;
+
+    private static final int UNICODE_CHARACTER_LENGTH = 4;
+
     public static Map<String, Object> readJsonObject(final String jsonObject,
                                                      final int recursionDepth) {
         final StringIterator iterator = new StringIterator(jsonObject);
         final char ch = getNextSignificantCharacter(iterator);
         if (ch == '{') {
-            return readJsonObject(iterator, recursionDepth);
+            return readObject(iterator, recursionDepth);
         } else {
             throw new JsonException("Empty content");
         }
@@ -50,7 +54,7 @@ public final class JsonReader {
         final StringIterator iterator = new StringIterator(jsonObject);
         final char ch = getNextSignificantCharacter(iterator);
         if (ch == '[') {
-            return readJsonArray(iterator, recursionDepth);
+            return readArray(iterator, recursionDepth);
         } else {
             throw new JsonException("Empty content");
         }
@@ -66,8 +70,8 @@ public final class JsonReader {
         }
     }
 
-    private static Map<String, Object> readJsonObject(final StringIterator iterator,
-                                                      final int recursionDepth) {
+    private static Map<String, Object> readObject(final StringIterator iterator,
+                                                  final int recursionDepth) {
         if (recursionDepth <= 0) {
             throw new JsonException("Stack overflow");
         }
@@ -83,10 +87,10 @@ public final class JsonReader {
             gotoStartValueToken(propertyName, iterator);
             ch = getNextSignificantCharacter(iterator);
             if (ch == '{') {
-                final Map<String, Object> jsonObject = readJsonObject(iterator, recursionDepth - 1);
+                final Map<String, Object> jsonObject = readObject(iterator, recursionDepth - 1);
                 result.put(propertyName, jsonObject);
             } else if (ch == '[') {
-                final List<Object> jsonArray = readJsonArray(iterator, recursionDepth - 1);
+                final List<Object> jsonArray = readArray(iterator, recursionDepth - 1);
                 result.put(propertyName, jsonArray);
             } else {
                 iterator.previous();
@@ -103,8 +107,8 @@ public final class JsonReader {
         }
     }
 
-    private static List<Object> readJsonArray(final StringIterator iterator,
-                                              final int recursionDepth) {
+    private static List<Object> readArray(final StringIterator iterator,
+                                          final int recursionDepth) {
         if (recursionDepth <= 0) {
             throw new JsonException("Stack overflow");
         }
@@ -114,9 +118,9 @@ public final class JsonReader {
             if (ch == ']') {
                 return unmodifiableList(list);
             } else if (ch == '{') {
-                list.add(readJsonObject(iterator, recursionDepth - 1));
+                list.add(readObject(iterator, recursionDepth - 1));
             } else if (ch == '[') {
-                list.add(readJsonArray(iterator, recursionDepth - 1));
+                list.add(readArray(iterator, recursionDepth - 1));
             } else {
                 iterator.previous();
                 final String value = readPropertyValue(iterator);
@@ -153,8 +157,7 @@ public final class JsonReader {
             if (ch == '"') {
                 return readString(iterator, true);
             }
-            if (isDelimiter(ch) ||
-                    ch == ',' || ch == ':' || ch == '{' || ch == '}' || ch == '[' || ch == ']') {
+            if (isIgnoredDelimiter(ch) || ch == ',' || ch == ':' || isJsonObjectDelimiter(ch) || isJsonArrayDelimiter(ch)) {
                 iterator.previous();
                 break;
             } else {
@@ -164,14 +167,22 @@ public final class JsonReader {
         return sb.toString();
     }
 
-    private static boolean isDelimiter(final char ch) {
+    private static boolean isIgnoredDelimiter(final char ch) {
         return ch <= ' ' || ch == '\u00A0';
+    }
+
+    private static boolean isJsonObjectDelimiter(final char ch) {
+        return ch == '{' || ch == '}';
+    }
+
+    private static boolean isJsonArrayDelimiter(final char ch) {
+        return ch == '[' || ch == ']';
     }
 
     private static char getNextSignificantCharacter(final StringIterator iterator) {
         while (iterator.next()) {
             final char ch = iterator.getCurrent();
-            if (!isDelimiter(ch)) {
+            if (!isIgnoredDelimiter(ch)) {
                 return ch;
             }
         }
@@ -213,28 +224,35 @@ public final class JsonReader {
                 if (iterator.getPrevious() == '\\') {
                     sb.append('\\');
                 }
-            } else if (ch == 'b') {
-                escapeChar(iterator, sb, ch, '\b');
-            } else if (ch == 't') {
-                escapeChar(iterator, sb, ch, '\t');
-            } else if (ch == 'n') {
-                escapeChar(iterator, sb, ch, '\n');
-            } else if (ch == 'f') {
-                escapeChar(iterator, sb, ch, '\f');
-            } else if (ch == 'r') {
-                escapeChar(iterator, sb, ch, '\r');
-            } else if (ch == 'u') {
-                if (iterator.getPrevious() == '\\') {
-                    sb.append(readUnicodeCharacter(iterator));
-                } else {
-                    sb.append(ch);
-                }
-
             } else {
-                sb.append(ch);
+                appendCharacter(iterator, sb, ch);
             }
         }
         throw new JsonException("Expected '\"' at the end of string");
+    }
+
+    private static void appendCharacter(final StringIterator iterator,
+                                        final StringBuilder sb,
+                                        final char ch) {
+        if (ch == 'b') {
+            escapeChar(iterator, sb, ch, '\b');
+        } else if (ch == 't') {
+            escapeChar(iterator, sb, ch, '\t');
+        } else if (ch == 'n') {
+            escapeChar(iterator, sb, ch, '\n');
+        } else if (ch == 'f') {
+            escapeChar(iterator, sb, ch, '\f');
+        } else if (ch == 'r') {
+            escapeChar(iterator, sb, ch, '\r');
+        } else if (ch == 'u') {
+            if (iterator.getPrevious() == '\\') {
+                sb.append(readUnicodeCharacter(iterator));
+            } else {
+                sb.append(ch);
+            }
+        } else {
+            sb.append(ch);
+        }
     }
 
     private static void escapeChar(final StringIterator iterator,
@@ -252,12 +270,12 @@ public final class JsonReader {
         final StringBuilder sb = new StringBuilder();
         while (iterator.next()) {
             sb.append(iterator.getCurrent());
-            if (sb.length() == 4) {
+            if (sb.length() == UNICODE_CHARACTER_LENGTH) {
                 break;
             }
         }
-        if (sb.length() == 4) {
-            return (char) Integer.parseInt(sb.toString(), 16);
+        if (sb.length() == UNICODE_CHARACTER_LENGTH) {
+            return (char) Integer.parseInt(sb.toString(), HEX_RADIX);
         } else {
             throw new JsonException("Expected valid Unicode character at the end of string");
         }

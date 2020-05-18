@@ -68,7 +68,8 @@ public abstract class AbstractR2DBCRepository extends AbstractSQLRepository {
         return connections.beginRxJava3Transaction(connection);
     }
 
-    protected final Mono<io.rxmicro.data.sql.model.completablefuture.Transaction> beginCompletableFutureTransaction(final Connection connection) {
+    protected final Mono<io.rxmicro.data.sql.model.completablefuture.Transaction> beginCompletableFutureTransaction(
+            final Connection connection) {
         return connections.beginCompletableFutureTransaction(connection);
     }
 

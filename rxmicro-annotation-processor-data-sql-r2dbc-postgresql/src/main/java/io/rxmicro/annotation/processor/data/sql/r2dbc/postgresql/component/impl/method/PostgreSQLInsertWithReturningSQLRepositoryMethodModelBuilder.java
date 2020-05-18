@@ -27,10 +27,10 @@ import io.rxmicro.annotation.processor.data.sql.r2dbc.component.impl.AbstractSQL
 import io.rxmicro.annotation.processor.data.sql.r2dbc.postgresql.model.PostgreSQLDataObjectModelClass;
 import io.rxmicro.data.sql.operation.Insert;
 
-import javax.lang.model.element.ExecutableElement;
 import java.lang.annotation.Annotation;
 import java.util.List;
 import java.util.Optional;
+import javax.lang.model.element.ExecutableElement;
 
 import static io.rxmicro.annotation.processor.data.sql.model.SQLKeywords.INSERT;
 import static io.rxmicro.annotation.processor.data.sql.model.SQLKeywords.SELECT;
@@ -43,7 +43,8 @@ import static io.rxmicro.data.sql.operation.Insert.DEFAULT_INSERT_WITH_RETURNING
  */
 @Singleton
 public final class PostgreSQLInsertWithReturningSQLRepositoryMethodModelBuilder
-        extends AbstractSQLModificationOperationReturningResultDataRepositoryMethodModelBuilder<Insert, SQLDataModelField, PostgreSQLDataObjectModelClass> {
+        extends AbstractSQLModificationOperationReturningResultDataRepositoryMethodModelBuilder
+        <Insert, SQLDataModelField, PostgreSQLDataObjectModelClass> {
 
     @Override
     protected void validateMethod(final ParsedSQL<Insert> parsedSQL,

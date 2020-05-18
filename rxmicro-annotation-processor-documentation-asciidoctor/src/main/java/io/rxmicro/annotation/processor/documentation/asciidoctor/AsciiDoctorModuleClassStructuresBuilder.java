@@ -42,10 +42,10 @@ import io.rxmicro.documentation.DocumentationDefinition;
 import io.rxmicro.documentation.ResourceDefinition;
 import io.rxmicro.documentation.ResourceGroupDefinition;
 
-import javax.lang.model.element.ModuleElement;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import javax.lang.model.element.ModuleElement;
 
 import static io.rxmicro.annotation.processor.common.model.DocumentationType.ASCII_DOCTOR;
 import static io.rxmicro.annotation.processor.common.util.Annotations.getPresentOrDefaultAnnotation;

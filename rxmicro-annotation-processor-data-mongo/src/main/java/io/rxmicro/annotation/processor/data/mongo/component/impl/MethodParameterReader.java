@@ -23,8 +23,6 @@ import io.rxmicro.annotation.processor.data.mongo.model.MongoVariable;
 import io.rxmicro.data.Pageable;
 import io.rxmicro.data.RepeatParameter;
 
-import javax.lang.model.element.ExecutableElement;
-import javax.lang.model.element.VariableElement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
@@ -32,6 +30,8 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.stream.IntStream;
+import javax.lang.model.element.ExecutableElement;
+import javax.lang.model.element.VariableElement;
 
 import static io.rxmicro.common.util.Formats.format;
 import static java.util.stream.Collectors.toList;
@@ -108,9 +108,8 @@ public final class MethodParameterReader {
         } else {
             try {
                 return IntStream.range(0, count).mapToObj(value -> iterator.next()).collect(toList());
-            } catch (final NoSuchElementException e) {
-                throw new InterruptProcessingException(repositoryMethod,
-                        "Missing method parameter for parameter placeholder!");
+            } catch (final NoSuchElementException ignore) {
+                throw new InterruptProcessingException(repositoryMethod, "Missing method parameter for parameter placeholder!");
             }
         }
     }

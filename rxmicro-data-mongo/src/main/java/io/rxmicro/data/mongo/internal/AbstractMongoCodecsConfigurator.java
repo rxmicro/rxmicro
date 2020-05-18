@@ -41,6 +41,13 @@ public abstract class AbstractMongoCodecsConfigurator<T extends AbstractMongoCod
         return (T) this;
     }
 
+    protected final T addCodec(final Predicate<Class<?>> encodedClassPredicate,
+                               final Codec<?> codec) {
+        codecs.put(encodedClassPredicate, codec);
+        configured = true;
+        return (T) this;
+    }
+
     protected final T addCodecProvider(final Class<?> encodedClass,
                                        final Function<CodecRegistry, Codec<?>> codecProvider) {
         codecs.put(encodedClass, codecProvider);
@@ -51,13 +58,6 @@ public abstract class AbstractMongoCodecsConfigurator<T extends AbstractMongoCod
     protected final T addCodecProvider(final Predicate<Class<?>> encodedClassPredicate,
                                        final Function<CodecRegistry, Codec<?>> codecProvider) {
         codecs.put(encodedClassPredicate, codecProvider);
-        configured = true;
-        return (T) this;
-    }
-
-    protected final T addCodec(final Predicate<Class<?>> encodedClassPredicate,
-                               final Codec<?> codec) {
-        codecs.put(encodedClassPredicate, codec);
         configured = true;
         return (T) this;
     }

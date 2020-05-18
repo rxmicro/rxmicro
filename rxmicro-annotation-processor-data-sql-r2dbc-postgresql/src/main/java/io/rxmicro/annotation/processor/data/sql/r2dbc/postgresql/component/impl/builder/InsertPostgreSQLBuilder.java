@@ -22,9 +22,9 @@ import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingExc
 import io.rxmicro.annotation.processor.data.sql.model.inject.SupportedInsertVariables;
 import io.rxmicro.data.sql.operation.Insert;
 
-import javax.lang.model.element.ExecutableElement;
 import java.util.List;
 import java.util.Set;
+import javax.lang.model.element.ExecutableElement;
 
 import static io.rxmicro.annotation.processor.data.sql.model.SQLKeywords.INSERT;
 

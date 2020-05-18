@@ -19,6 +19,9 @@ package io.rxmicro.annotation.processor.common.model;
 import io.rxmicro.annotation.processor.common.util.Names;
 import io.rxmicro.annotation.processor.common.util.UsedByFreemarker;
 
+import java.lang.annotation.Annotation;
+import java.util.List;
+import java.util.Set;
 import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
@@ -26,9 +29,6 @@ import javax.lang.model.element.ElementVisitor;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.Name;
 import javax.lang.model.type.TypeMirror;
-import java.lang.annotation.Annotation;
-import java.util.List;
-import java.util.Set;
 
 import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getElements;
 import static io.rxmicro.common.util.Requires.require;

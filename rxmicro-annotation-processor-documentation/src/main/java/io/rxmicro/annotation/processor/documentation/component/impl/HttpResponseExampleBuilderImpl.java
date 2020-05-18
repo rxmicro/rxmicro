@@ -48,6 +48,14 @@ public final class HttpResponseExampleBuilderImpl implements HttpResponseExample
 
     private final Map<Integer, String> statusCodes;
 
+    private final Map<Integer, String> statusCodeGroups = Map.of(
+            1, "Information response",
+            2, "Successful response",
+            3, "Information response",
+            4, "Client error response",
+            5, "Server error response"
+    );
+
     @Inject
     private JsonStructureExampleBuilder jsonStructureExampleBuilder;
 
@@ -140,20 +148,9 @@ public final class HttpResponseExampleBuilderImpl implements HttpResponseExample
 
     private String getStatusMessage(final int statusCode) {
         return Optional.ofNullable(statusCodes.get(statusCode)).orElseGet(() -> {
-            final int group = statusCode % 100;
-            if (group == 1) {
-                return "Information response";
-            } else if (group == 2) {
-                return "Successful response";
-            } else if (group == 3) {
-                return "Redirection response";
-            } else if (group == 4) {
-                return "Client error response";
-            } else if (group == 5) {
-                return "Server error response";
-            } else {
-                return "";
-            }
+            final int httpStatusGroupStep = 100;
+            final int group = statusCode % httpStatusGroupStep;
+            return Optional.ofNullable(statusCodeGroups.get(group)).orElse("");
         });
     }
 

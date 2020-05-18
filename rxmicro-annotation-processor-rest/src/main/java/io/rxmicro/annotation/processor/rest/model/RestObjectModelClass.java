@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 https://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,13 +24,13 @@ import io.rxmicro.exchange.json.detail.ModelFromJsonConverter;
 import io.rxmicro.exchange.json.detail.ModelToJsonConverter;
 import io.rxmicro.validation.ConstraintValidator;
 
-import javax.lang.model.element.TypeElement;
-import javax.lang.model.type.TypeMirror;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import javax.lang.model.element.TypeElement;
+import javax.lang.model.type.TypeMirror;
 
 import static io.rxmicro.annotation.processor.common.model.ModelAccessorType.REFLECTION;
 import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.getModelTransformerInstanceName;
@@ -102,7 +102,9 @@ public abstract class RestObjectModelClass extends ObjectModelClass<RestModelFie
         );
     }
 
-    @UsedByFreemarker("$$RestJsonModelWriterTemplate.javaftl")
+    @UsedByFreemarker(
+            "$$RestJsonModelWriterTemplate.javaftl"
+    )
     public boolean isHeaderReadReflectionRequired() {
         return headers.keySet().stream().anyMatch(m ->
                 m.getModelReadAccessorType() == REFLECTION);
@@ -189,16 +191,16 @@ public abstract class RestObjectModelClass extends ObjectModelClass<RestModelFie
         return getModelTransformerSimpleClassName(getModelTypeElement(), ModelToJsonConverter.class);
     }
 
-    @UsedByFreemarker({
-            "$$RestModelValidatorTemplate.javaftl",
-    })
+    @UsedByFreemarker(
+            "$$RestModelValidatorTemplate.javaftl"
+    )
     public String getModelValidatorImplSimpleClassName() {
         return getModelTransformerSimpleClassName(getModelTypeElement(), ConstraintValidator.class);
     }
 
-    @UsedByFreemarker({
-            "$$RestModelValidatorTemplate.javaftl",
-    })
+    @UsedByFreemarker(
+            "$$RestModelValidatorTemplate.javaftl"
+    )
     public String getModelValidatorInstanceName() {
         return getModelTransformerInstanceName(getJavaSimpleClassName(), ConstraintValidator.class);
     }

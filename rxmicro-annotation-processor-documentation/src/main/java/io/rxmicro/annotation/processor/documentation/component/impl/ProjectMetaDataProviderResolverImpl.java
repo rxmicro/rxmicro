@@ -26,7 +26,6 @@ import org.apache.maven.model.Parent;
 import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
 import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
 
-import javax.tools.FileObject;
 import java.io.File;
 import java.io.IOException;
 import java.io.Reader;
@@ -36,6 +35,7 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import javax.tools.FileObject;
 
 import static io.rxmicro.annotation.processor.common.util.InternalLoggers.logThrowableStackTrace;
 import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getFiler;
@@ -70,7 +70,7 @@ public final class ProjectMetaDataProviderResolverImpl implements ProjectMetaDat
                 File directory;
                 try {
                     directory = new File(uri).getParentFile();
-                } catch (final IllegalArgumentException e) {
+                } catch (final IllegalArgumentException ignore) {
                     // uri is not a file
                     return Optional.empty();
                 }
@@ -84,8 +84,9 @@ public final class ProjectMetaDataProviderResolverImpl implements ProjectMetaDat
             } finally {
                 tempResource.delete();
             }
-        } catch (final IOException e) {
-            logThrowableStackTrace(new CheckedWrapperException(e, "Can't detect `pom.xml` location!"));
+        } catch (final IOException ex) {
+            // This case must be interpret as warning
+            logThrowableStackTrace(new CheckedWrapperException(ex, "Can't detect `pom.xml` location!"));
         }
         return Optional.empty();
     }
@@ -96,7 +97,7 @@ public final class ProjectMetaDataProviderResolverImpl implements ProjectMetaDat
             final List<Model> models = new ArrayList<>();
             File pomXml = pomXmlPath;
             while (true) {
-                Model model;
+                final Model model;
                 try (Reader fileReader = Files.newBufferedReader(pomXml.toPath(), UTF_8)) {
                     model = reader.read(fileReader);
                 }
@@ -112,9 +113,9 @@ public final class ProjectMetaDataProviderResolverImpl implements ProjectMetaDat
                 }
             }
             return Optional.of(new MavenPOMProjectMetaDataProvider(pomXmlPath.getParentFile().getAbsolutePath(), models));
-        } catch (final IOException | XmlPullParserException e) {
+        } catch (final IOException | XmlPullParserException ex) {
             // This case must be interpret as warning
-            logThrowableStackTrace(new CheckedWrapperException(e, "Can't read data from `pom.xml`!"));
+            logThrowableStackTrace(new CheckedWrapperException(ex, "Can't read data from `pom.xml`!"));
             return Optional.empty();
         }
     }

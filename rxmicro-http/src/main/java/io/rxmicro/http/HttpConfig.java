@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 https://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,12 +33,22 @@ import static io.rxmicro.config.Networks.validatePort;
 @SuppressWarnings("UnusedReturnValue")
 public abstract class HttpConfig extends Config {
 
+    /**
+     * Default HTTP port
+     */
+    public static final int DEFAULT_HTTP_PORT = 8080;
+
     private ProtocolSchema schema = ProtocolSchema.HTTP;
 
     private String host;
 
-    private int port = 8080;
+    private int port = DEFAULT_HTTP_PORT;
 
+    /**
+     * Returns the protocol schema
+     *
+     * @return the protocol schema
+     */
     public ProtocolSchema getSchema() {
         return schema;
     }

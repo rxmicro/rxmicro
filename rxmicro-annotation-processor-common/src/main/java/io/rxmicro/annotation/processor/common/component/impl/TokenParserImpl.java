@@ -82,19 +82,8 @@ public final class TokenParserImpl implements TokenParser {
                     tokens.add(operator);
                 }
             } else if (ch == '$') {
-                if (rule.supportVariables()) {
-                    if (iterator.next()) {
-                        if ('{' == iterator.getCurrent()) {
-                            addTokenIfPresent(tokens, tokenBuilder);
-                            tokens.add(readVariableToken(iterator));
-                        } else {
-                            tokenBuilder.append(ch);
-                        }
-                    } else {
-                        break;
-                    }
-                } else {
-                    tokenBuilder.append(ch);
+                if (resolveVariables(rule, tokens, iterator, tokenBuilder, ch)) {
+                    break;
                 }
             } else {
                 tokenBuilder.append(ch);
@@ -189,5 +178,27 @@ public final class TokenParserImpl implements TokenParser {
             tokens.add(tokenBuilder.toString());
             tokenBuilder.delete(0, tokenBuilder.length());
         }
+    }
+
+    private boolean resolveVariables(final TokenParserRule rule,
+                                     final List<String> tokens,
+                                     final StringIterator iterator,
+                                     final StringBuilder tokenBuilder,
+                                     final char ch) {
+        if (rule.supportVariables()) {
+            if (iterator.next()) {
+                if ('{' == iterator.getCurrent()) {
+                    addTokenIfPresent(tokens, tokenBuilder);
+                    tokens.add(readVariableToken(iterator));
+                } else {
+                    tokenBuilder.append(ch);
+                }
+            } else {
+                return true;
+            }
+        } else {
+            tokenBuilder.append(ch);
+        }
+        return false;
     }
 }

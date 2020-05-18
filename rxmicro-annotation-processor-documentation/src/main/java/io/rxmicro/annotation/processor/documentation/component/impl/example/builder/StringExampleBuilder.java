@@ -19,6 +19,7 @@ package io.rxmicro.annotation.processor.documentation.component.impl.example.bui
 import com.google.inject.Singleton;
 import io.rxmicro.annotation.processor.documentation.component.impl.example.TypeExampleBuilder;
 import io.rxmicro.annotation.processor.rest.model.RestModelField;
+import io.rxmicro.common.ImpossibleException;
 import io.rxmicro.rest.RequestId;
 import io.rxmicro.validation.constraint.Base64URLEncoded;
 import io.rxmicro.validation.constraint.CountryCode;
@@ -33,15 +34,16 @@ import io.rxmicro.validation.constraint.Phone;
 import io.rxmicro.validation.constraint.Skype;
 import io.rxmicro.validation.constraint.Telegram;
 import io.rxmicro.validation.constraint.URI;
-import io.rxmicro.validation.constraint.URLEncoded;
 import io.rxmicro.validation.constraint.Uppercase;
 import io.rxmicro.validation.constraint.Viber;
 import io.rxmicro.validation.constraint.WhatsApp;
 
-import javax.lang.model.type.TypeMirror;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
 import java.util.Set;
+import javax.lang.model.type.TypeMirror;
 
 import static io.rxmicro.http.HttpStandardHeaderNames.REQUEST_ID;
 import static io.rxmicro.rest.RequestId.REQUEST_ID_EXAMPLE;
@@ -53,6 +55,77 @@ import static io.rxmicro.rest.RequestId.REQUEST_ID_EXAMPLE;
 @Singleton
 public final class StringExampleBuilder implements TypeExampleBuilder {
 
+    private final List<StringValueExampleBuilder> stringValueExampleBuilders = List.of(
+
+            restModelField -> Optional.ofNullable(restModelField.getAnnotation(Base64URLEncoded.class))
+                    .filter(a -> !a.off())
+                    .map(a -> "SGVsbG8gd29ybGQh"),
+
+            restModelField -> Optional.ofNullable(restModelField.getAnnotation(CountryCode.class))
+                    .filter(a -> !a.off())
+                    .map(this::getCountryCodeExample),
+
+            restModelField -> Optional.ofNullable(restModelField.getAnnotation(DigitsOnly.class))
+                    .filter(a -> !a.off())
+                    .map(a -> "9876"),
+
+            restModelField -> Optional.ofNullable(restModelField.getAnnotation(Email.class))
+                    .filter(a -> !a.off())
+                    .map(a -> "welcome@rxmicro.io"),
+
+            restModelField -> Optional.ofNullable(restModelField.getAnnotation(HostName.class))
+                    .filter(a -> !a.off())
+                    .map(a -> "rxmicro.io"),
+
+            restModelField -> Optional.ofNullable(restModelField.getAnnotation(DomainName.class))
+                    .filter(a -> !a.off())
+                    .map(a -> "rxmicro.io"),
+
+            restModelField -> Optional.ofNullable(restModelField.getAnnotation(IP.class))
+                    .filter(a -> !a.off())
+                    .map(this::getIPExample),
+
+            restModelField -> Optional.ofNullable(restModelField.getAnnotation(LatinAlphabetOnly.class))
+                    .filter(a -> !a.off())
+                    .map(a -> "Latin alphabet only!"),
+
+            restModelField -> Optional.ofNullable(restModelField.getAnnotation(Phone.class))
+                    .filter(a -> !a.off())
+                    .map(a -> getPhoneExample(a.withoutPlus())),
+
+            restModelField -> Optional.ofNullable(restModelField.getAnnotation(Skype.class))
+                    .filter(a -> !a.off())
+                    .map(a -> "rxmicro.io"),
+
+            restModelField -> Optional.ofNullable(restModelField.getAnnotation(Telegram.class))
+                    .filter(a -> !a.off())
+                    .map(a -> getTelegramExample(a.withoutPlus())),
+
+            restModelField -> Optional.ofNullable(restModelField.getAnnotation(Uppercase.class))
+                    .filter(a -> !a.off())
+                    .map(a -> "UPPERCASE"),
+
+            restModelField -> Optional.ofNullable(restModelField.getAnnotation(URI.class))
+                    .filter(a -> !a.off())
+                    .map(a -> "https://rxmicro.io"),
+
+            restModelField -> Optional.ofNullable(restModelField.getAnnotation(URI.class))
+                    .filter(a -> !a.off())
+                    .map(a -> "Hello%20world%21"),
+
+            restModelField -> Optional.ofNullable(restModelField.getAnnotation(Viber.class))
+                    .filter(a -> !a.off())
+                    .map(a -> getViberExample(a.withoutPlus())),
+
+            restModelField -> Optional.ofNullable(restModelField.getAnnotation(WhatsApp.class))
+                    .filter(a -> !a.off())
+                    .map(a -> getWhatsappExample(a.withoutPlus())),
+
+            restModelField -> Optional.ofNullable(restModelField.getAnnotation(Pattern.class))
+                    .filter(a -> !a.off())
+                    .map(Pattern::regexp)
+    );
+
     @Override
     public boolean isSupported(final RestModelField restModelField,
                                final TypeMirror typeMirror) {
@@ -62,81 +135,15 @@ public final class StringExampleBuilder implements TypeExampleBuilder {
     @Override
     public String getExample(final RestModelField restModelField,
                              final TypeMirror typeMirror) {
-        final Base64URLEncoded base64URLEncoded = restModelField.getAnnotation(Base64URLEncoded.class);
-        if (base64URLEncoded != null && !base64URLEncoded.off()) {
-            return "SGVsbG8gd29ybGQh";
-        }
-        final CountryCode countryCode = restModelField.getAnnotation(CountryCode.class);
-        if (countryCode != null && !countryCode.off()) {
-            return getCountryCodeExample(countryCode);
-        }
-        final DigitsOnly digitsOnly = restModelField.getAnnotation(DigitsOnly.class);
-        if (digitsOnly != null && !digitsOnly.off()) {
-            return "9876";
-        }
-        final Email email = restModelField.getAnnotation(Email.class);
-        if (email != null && !email.off()) {
-            return "welcome@rxmicro.io";
-        }
-        final HostName hostName = restModelField.getAnnotation(HostName.class);
-        if (hostName != null && !hostName.off()) {
-            return "rxmicro.io";
-        }
-        final DomainName domainName = restModelField.getAnnotation(DomainName.class);
-        if (domainName != null && !domainName.off()) {
-            return "rxmicro.io";
-        }
-        final IP ip = restModelField.getAnnotation(IP.class);
-        if (ip != null && !ip.off()) {
-            return getIPExample(ip);
-        }
-        final LatinAlphabetOnly latinAlphabetOnly = restModelField.getAnnotation(LatinAlphabetOnly.class);
-        if (latinAlphabetOnly != null && !latinAlphabetOnly.off()) {
-            return "Latin alphabet only!";
-        }
-        final Phone phone = restModelField.getAnnotation(Phone.class);
-        if (phone != null && !phone.off()) {
-            return getPhoneExample(phone.withoutPlus());
-        }
-        final Skype skype = restModelField.getAnnotation(Skype.class);
-        if (skype != null && !skype.off()) {
-            return "rxmicro.io";
-        }
-        final Telegram telegram = restModelField.getAnnotation(Telegram.class);
-        if (telegram != null && !telegram.off()) {
-            return getTelegramExample(telegram.withoutPlus());
-        }
-        final Uppercase uppercase = restModelField.getAnnotation(Uppercase.class);
-        if (uppercase != null && !uppercase.off()) {
-            return "STRING";
-        }
-        final URI uri = restModelField.getAnnotation(URI.class);
-        if (uri != null && !uri.off()) {
-            return "https://rxmicro.io";
-        }
-        final URLEncoded urlEncoded = restModelField.getAnnotation(URLEncoded.class);
-        if (urlEncoded != null && !urlEncoded.off()) {
-            return "Hello%20world%21";
-        }
-        final Viber viber = restModelField.getAnnotation(Viber.class);
-        if (viber != null && !viber.off()) {
-            return getViberExample(viber.withoutPlus());
-        }
-        final WhatsApp whatsApp = restModelField.getAnnotation(WhatsApp.class);
-        if (whatsApp != null && !whatsApp.off()) {
-            return getWhatsappExample(whatsApp.withoutPlus());
-        }
-        final Pattern pattern = restModelField.getAnnotation(Pattern.class);
-        if (pattern != null && !pattern.off()) {
-            return pattern.regexp();
-        }
-        if (restModelField.getAnnotation(RequestId.class) != null) {
+        if (restModelField.getAnnotation(RequestId.class) != null ||
+                restModelField.isHttpHeader() && REQUEST_ID.equalsIgnoreCase(restModelField.getModelName())) {
             return REQUEST_ID_EXAMPLE;
+        } else {
+            return stringValueExampleBuilders.stream()
+                    .flatMap(builder -> builder.build(restModelField).stream())
+                    .findFirst()
+                    .orElse("string");
         }
-        if (restModelField.isHttpHeader() && REQUEST_ID.equalsIgnoreCase(restModelField.getModelName())) {
-            return REQUEST_ID_EXAMPLE;
-        }
-        return "string";
     }
 
     private String getPhoneExample(final boolean withoutPlus) {
@@ -188,8 +195,16 @@ public final class StringExampleBuilder implements TypeExampleBuilder {
         } else if (countryCode.format() == CountryCode.Format.ISO_3166_1_NUMERIC) {
             return "840";
         } else {
-            throw new UnsupportedOperationException(
-                    "Unsupported CountryCode format: " + countryCode.format());
+            throw new ImpossibleException("Unsupported CountryCode format: ?", countryCode.format());
         }
+    }
+
+    /**
+     * @author nedis
+     * @since 0.4
+     */
+    private interface StringValueExampleBuilder {
+
+        Optional<String> build(RestModelField restModelField);
     }
 }

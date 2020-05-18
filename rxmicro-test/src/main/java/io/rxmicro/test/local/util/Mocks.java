@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 https://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,14 +26,14 @@ import java.util.Set;
  */
 public final class Mocks {
 
+    // Add supported mock annotations here
     private static final Set<String> MOCK_ANNOTATIONS = Set.of(
             "org.mockito.Mock"
-            // Add supported mock annotations here
     );
 
+    // Add supported mock name fragments here
     private static final String[] MOCK_NAME_FRAGMENTS = {
-            "$MockitoMock$",
-            // Add supported mock annotations here
+            "$MockitoMock$"
     };
 
     public static boolean isMock(final AnnotatedElement annotatedElement) {

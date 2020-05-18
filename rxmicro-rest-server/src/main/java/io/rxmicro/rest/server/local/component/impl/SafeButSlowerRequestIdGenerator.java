@@ -32,12 +32,14 @@ import java.util.UUID;
  */
 public final class SafeButSlowerRequestIdGenerator implements RequestIdGenerator {
 
+    private static final int BYTE_ARRAY_BUFFER_SIZE = 16;
+
     private final Base64.Encoder encoder = Base64.getUrlEncoder().withoutPadding();
 
     @Override
     public String getNextId() {
         final UUID uuid = UUID.randomUUID();
-        final byte[] array = ByteBuffer.wrap(new byte[16])
+        final byte[] array = ByteBuffer.wrap(new byte[BYTE_ARRAY_BUFFER_SIZE])
                 .putLong(uuid.getMostSignificantBits())
                 .putLong(uuid.getLeastSignificantBits())
                 .array();

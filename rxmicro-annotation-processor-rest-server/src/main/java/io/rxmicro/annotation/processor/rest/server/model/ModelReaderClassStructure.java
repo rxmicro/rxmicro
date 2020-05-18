@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 https://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -62,17 +62,16 @@ public final class ModelReaderClassStructure extends AbstractRestControllerModel
 
     @Override
     protected void addRequiredImports(final ClassHeader.Builder classHeaderBuilder) {
-        classHeaderBuilder
-                .addImports(
-                        ModelReader.class,
-                        HttpRequest.class,
-                        PathVariableMapping.class,
-                        HttpHeaders.class,
-                        HttpModelType.class,
-                        QueryParams.class,
-                        ExchangeDataFormatConverter.class,
-                        JsonExchangeDataFormatConverter.class
-                );
+        classHeaderBuilder.addImports(
+                ModelReader.class,
+                HttpRequest.class,
+                PathVariableMapping.class,
+                HttpHeaders.class,
+                HttpModelType.class,
+                QueryParams.class,
+                ExchangeDataFormatConverter.class,
+                JsonExchangeDataFormatConverter.class
+        );
         if (isRequiredReflectionSetter()) {
             classHeaderBuilder.addStaticImport(REFLECTIONS_FULL_CLASS_NAME, "setFieldValue");
         }

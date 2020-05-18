@@ -81,7 +81,8 @@ public final class SourceCodeFormatterImpl implements SourceCodeFormatter {
         boolean multiLineCommentStarted = false;
         for (int i = 0; i < content.length(); i++) {
             final char ch = content.charAt(i);
-            if (ch != '\r') { // Ignore Windows lineSeparator if present
+            // Ignore Windows lineSeparator if present
+            if (ch != '\r') {
                 if (ch == '\n') {
                     final TokenParserResult tokenParserResult = tokenParser.parse(
                             stringBuilder.toString(),

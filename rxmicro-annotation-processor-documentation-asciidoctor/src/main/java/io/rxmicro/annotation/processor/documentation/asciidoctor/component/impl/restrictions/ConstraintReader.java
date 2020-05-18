@@ -27,10 +27,32 @@ import java.util.Map;
  * @author nedis
  * @since 0.1
  */
-public interface ConstraintReader {
+public abstract class ConstraintReader {
 
-    void readIfConstraintEnabled(List<String> restrictions,
-                                 List<ReadMore> readMores,
-                                 Map.Entry<RestModelField, ModelClass> entry,
-                                 StringBuilder descriptionBuilder);
+    public abstract void readIfConstraintEnabled(Map.Entry<RestModelField, ModelClass> entry,
+                                                 List<String> restrictions,
+                                                 List<ReadMore> readMores,
+                                                 StringBuilder descriptionBuilder);
+
+    protected final void readUsingAnnotationConstraintReader(final List<AnnotationConstraintReader> annotationConstraintReaders,
+                                                             final RestModelField annotated,
+                                                             final List<String> restrictions,
+                                                             final List<ReadMore> readMores,
+                                                             final StringBuilder descriptionBuilder) {
+        for (final AnnotationConstraintReader numberAnnotationConstraintReader : annotationConstraintReaders) {
+            numberAnnotationConstraintReader.readIfConstraintEnabled(annotated, restrictions, readMores, descriptionBuilder);
+        }
+    }
+
+    /**
+     * @author nedis
+     * @since 0.4
+     */
+    protected interface AnnotationConstraintReader {
+
+        void readIfConstraintEnabled(RestModelField annotated,
+                                     List<String> restrictions,
+                                     List<ReadMore> readMores,
+                                     StringBuilder descriptionBuilder);
+    }
 }

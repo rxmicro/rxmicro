@@ -22,6 +22,7 @@ import io.rxmicro.annotation.processor.common.model.AnnotationProcessorType;
 
 import java.math.BigDecimal;
 
+import static io.rxmicro.common.Constants.NANOS_IN_1_SECOND;
 import static java.math.RoundingMode.HALF_UP;
 
 /**
@@ -52,7 +53,7 @@ public final class AnnotationProcessingInformerImpl extends AbstractProcessorCom
     public void classesGenerationCompleted() {
         if (classesGenerationStartedTime > 0) {
             info("All java classes generated successful in ? seconds.",
-                    BigDecimal.valueOf(((double) (System.nanoTime() - classesGenerationStartedTime)) / 1_000_000_000)
+                    BigDecimal.valueOf(((double) (System.nanoTime() - classesGenerationStartedTime)) / NANOS_IN_1_SECOND)
                             .setScale(3, HALF_UP));
         } else {
             info("All java classes generated successful.");

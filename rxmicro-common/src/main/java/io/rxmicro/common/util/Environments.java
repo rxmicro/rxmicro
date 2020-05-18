@@ -29,6 +29,8 @@ import static java.lang.System.getProperty;
  */
 public final class Environments {
 
+    private static final String OS_NAME = "os.name";
+
     private static final String UNKNOWN = "unknown";
 
     /**
@@ -37,7 +39,7 @@ public final class Environments {
      * @return {@code true} if current OS is macOS
      */
     public static boolean isCurrentOsMac() {
-        return getProperty("os.name", UNKNOWN).toLowerCase(Locale.ENGLISH).contains("mac");
+        return getProperty(OS_NAME, UNKNOWN).toLowerCase(Locale.ENGLISH).contains("mac");
     }
 
     /**
@@ -46,7 +48,7 @@ public final class Environments {
      * @return {@code true} if current OS is Linux
      */
     public static boolean isCurrentOsLinux() {
-        return getProperty("os.name", UNKNOWN).toLowerCase(Locale.ENGLISH).contains("linux");
+        return getProperty(OS_NAME, UNKNOWN).toLowerCase(Locale.ENGLISH).contains("linux");
     }
 
     /**
@@ -55,7 +57,7 @@ public final class Environments {
      * @return {@code true} if current OS is Windows
      */
     public static boolean isCurrentOsWindows() {
-        return getProperty("os.name", UNKNOWN).toLowerCase(Locale.ENGLISH).contains("windows");
+        return getProperty(OS_NAME, UNKNOWN).toLowerCase(Locale.ENGLISH).contains("windows");
     }
 
     private Environments() {

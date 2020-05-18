@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<!--
+  ~ Copyright (c) 2020. http://rxmicro.io
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+<!DOCTYPE suppressions PUBLIC
+        "-//Checkstyle//DTD SuppressionFilter Configuration 1.0//EN"
+        "https://checkstyle.org/dtds/suppressions_1_0.dtd">
+<suppressions>
+    <!-- These classes contain utility methods -->
+    <suppress checks="ParameterNumber"
+              files="ExCollections.java|HttpHeaders.java|QueryParams.java|JsonFactory.java"/>
+
+    <!-- These classes are a top level ones, which must catch ALL possible types of exceptions and log it -->
+    <suppress checks="IllegalCatch"
+              files="LoggerFactory.java|BaseRestControllerMethod.java|NettyRequestHandler.java|InstanceContainer.java|Safes.java"/>
+    <suppress checks="IllegalCatch"
+              files="RxMicroAnnotationProcessor.java|AbstractRxMicroProcessor.java|Injects.java"/>
+
+    <!-- Safe.Consumer is basic interface for testing  -->
+    <suppress checks="IllegalThrows"
+              files="Safes.java"/>
+
+    <!-- java.util.Date support for compatibility only! -->
+    <suppress checks="IllegalType"
+              files="TypeFixer.java"/>
+
+    <!-- For improvement of readability -->
+    <suppress checks="MultipleStringLiterals"
+              files="ExternalModule.java"/>
+
+    <!-- This is lazy init exception -->
+    <suppress checks="MutableException"
+              files="HttpCallFailedException.java"/>
+
+    <!-- This is a logger -->
+    <suppress checks="MethodCount"
+              files="Logger.java|AbstractLogger.java"/>
+    <suppress checks="FileLength"
+              files="Logger.java"/>
+
+    <!-- This is a simple expression -->
+    <suppress checks="BooleanExpressionComplexity"
+              files="IntegrationTestValidator.java"/>
+
+    <!-- This is a class-configurator -->
+    <suppress checks="ClassFanOutComplexity"
+              files="MongoCodecsConfigurator.java"/>
+
+    <!-- It seems that these are checkstyle bugs  -->
+    <suppress checks="ReturnCount"
+              files="Configs.java"
+              lines="111-127"/>
+    <suppress checks="NewlineAtEndOfFile"
+              files="rxmicro-config[\\/]native-image.properties"/>
+    <suppress checks="Header"
+              files="rxmicro-config[\\/]native-image.properties"/>
+
+    <!-- This is an util class -->
+    <suppress checks="NPathComplexity"
+              files="TypeValidators.java"/>
+
+</suppressions>

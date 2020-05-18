@@ -65,17 +65,11 @@ public final class UserCreatedComponentFieldValidator extends FieldValidator {
                 }
             }
         }
-
-        validateThatFieldIsAnnotatedOnlyBySupportedAnnotations(
-                field,
-                Alternative.class, WithConfig.class, BlockingHttpClientSettings.class
-        );
-
+        validateThatFieldIsAnnotatedOnlyBySupportedOnes(field, Alternative.class, WithConfig.class, BlockingHttpClientSettings.class);
         if (isDeniedPackage(field.getType().getPackageName())) {
             throw new InvalidTestConfigException(
                     "? is an alternative with unsupported type: '?'. Remove this field!",
-                    fieldNamePrefix(field),
-                    field.getType()
+                    fieldNamePrefix(field), field.getType()
             );
         }
     }

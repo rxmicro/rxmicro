@@ -47,7 +47,7 @@ import static java.util.stream.Collectors.toSet;
  */
 public abstract class CommonTestValidator {
 
-    private final static Set<Class<? extends Annotation>> SUPPORTED_PER_CLASS_ANNOTATIONS = Set.of(
+    private static final Set<Class<? extends Annotation>> SUPPORTED_PER_CLASS_ANNOTATIONS = Set.of(
             SetConfigValue.class,
             SetConfigValue.List.class
     );
@@ -103,8 +103,8 @@ public abstract class CommonTestValidator {
         supportedPerClassAnnotations.addAll(supportedPerClassAnnotationsFromTestExtensions());
 
         Arrays.stream(testModel.getTestClass().getAnnotations())
-                .filter(a -> isRxMicroPackage(a.annotationType().getPackageName())
-                        && !supportedPerClassAnnotations.contains(a.annotationType()))
+                .filter(a -> isRxMicroPackage(a.annotationType().getPackageName()) &&
+                        !supportedPerClassAnnotations.contains(a.annotationType()))
                 .forEach(a -> {
                     throw new InvalidTestConfigException(
                             "Test class annotated by redundant annotation: '@?'. " +

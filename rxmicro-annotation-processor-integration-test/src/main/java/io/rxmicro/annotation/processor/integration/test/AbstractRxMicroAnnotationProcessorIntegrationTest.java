@@ -24,7 +24,6 @@ import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.ArgumentsProvider;
 
-import javax.tools.JavaFileObject;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -37,6 +36,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Stream;
+import javax.tools.JavaFileObject;
 
 import static com.google.testing.compile.CompilationSubject.assertThat;
 import static com.google.testing.compile.JavaFileObjects.forSourceLines;
@@ -75,8 +75,8 @@ public abstract class AbstractRxMicroAnnotationProcessorIntegrationTest extends 
                                           final String resource) {
         try {
             return new File(require(clazz.getClassLoader().getResource(resource)).toURI()).getAbsolutePath();
-        } catch (URISyntaxException e) {
-            throw new IllegalArgumentException("Classpath resource not found: " + e.getMessage(), e);
+        } catch (final URISyntaxException ex) {
+            throw new IllegalArgumentException("Classpath resource not found: " + ex.getMessage(), ex);
         }
     }
 

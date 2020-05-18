@@ -21,11 +21,11 @@ import io.rxmicro.annotation.processor.cdi.component.ConstructorInjectionPointBu
 import io.rxmicro.annotation.processor.cdi.model.InjectionPoint;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
 
+import java.util.List;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
-import java.util.List;
 
 import static io.rxmicro.annotation.processor.common.util.Elements.allConstructors;
 import static io.rxmicro.annotation.processor.common.util.Elements.allFields;
@@ -95,9 +95,7 @@ public final class ConstructorInjectionPointBuilderImpl extends AbstractInjectio
                     fields.get(0),
                     "Field injection is not supported if class already uses constructor injection. " +
                             "Remove injection annotations from field(s): ?",
-                    fields.stream()
-                            .map(e -> e.getSimpleName().toString())
-                            .collect(joining(", "))
+                    fields.stream().map(e -> e.getSimpleName().toString()).collect(joining(", "))
             );
         }
         if (!methods.isEmpty()) {
@@ -112,12 +110,14 @@ public final class ConstructorInjectionPointBuilderImpl extends AbstractInjectio
                             .collect(joining(", "))
             );
         }
-        final ExecutableElement constructor = constructors.get(0);
+        validateConstructor(constructors.get(0));
+    }
+
+    private void validateConstructor(final ExecutableElement constructor) {
         if (constructor.getParameters().isEmpty()) {
             throw new InterruptProcessingException(
                     constructor,
-                    "Constructor must declare at least one parameter. " +
-                            "Add missing parameter(s) or remove '@?' annotation",
+                    "Constructor must declare at least one parameter. Add missing parameter(s) or remove '@?' annotation",
                     constructor.getAnnotationMirrors().stream()
                             .filter(a -> INJECT_ANNOTATIONS.stream().anyMatch(cl -> a.getAnnotationType().toString().equals(cl.getName())))
                             .map(a -> a.getAnnotationType().toString())

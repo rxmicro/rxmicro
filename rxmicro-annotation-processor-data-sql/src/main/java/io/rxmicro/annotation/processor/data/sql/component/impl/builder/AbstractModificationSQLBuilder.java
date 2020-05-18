@@ -29,11 +29,11 @@ import io.rxmicro.annotation.processor.data.sql.model.VariableContext;
 import io.rxmicro.annotation.processor.data.sql.model.VariableValuesMap;
 import io.rxmicro.common.util.Formats;
 
-import javax.lang.model.element.ExecutableElement;
 import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import javax.lang.model.element.ExecutableElement;
 
 import static io.rxmicro.annotation.processor.data.sql.util.SQLs.joinTokensToSQL;
 import static io.rxmicro.common.util.Formats.format;
@@ -42,7 +42,8 @@ import static io.rxmicro.common.util.Formats.format;
  * @author nedis
  * @since 0.1
  */
-public abstract class AbstractModificationSQLBuilder<A extends Annotation, DMF extends SQLDataModelField, DMC extends SQLDataObjectModelClass<DMF>>
+public abstract class AbstractModificationSQLBuilder
+        <A extends Annotation, DMF extends SQLDataModelField, DMC extends SQLDataObjectModelClass<DMF>>
         extends AbstractSQLBuilder
         implements SQLBuilder<A, DMF, DMC> {
 
@@ -93,7 +94,8 @@ public abstract class AbstractModificationSQLBuilder<A extends Annotation, DMF e
 
     protected abstract Set<String> getSupportedVariables();
 
-    protected abstract void validateStatement(final ExecutableElement method, final List<String> sqlTokens);
+    protected abstract void validateStatement(ExecutableElement method,
+                                              List<String> sqlTokens);
 
 
     private SQLStatement buildParametrized(final ExecutableElement method,

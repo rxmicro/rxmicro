@@ -24,15 +24,15 @@ import io.rxmicro.annotation.processor.data.component.DataRepositoryInterfaceSig
 import io.rxmicro.annotation.processor.data.component.DataRepositoryMethodSignatureBuilder;
 import io.rxmicro.annotation.processor.data.model.DataRepositoryInterfaceSignature;
 
-import javax.annotation.processing.RoundEnvironment;
-import javax.lang.model.element.Element;
-import javax.lang.model.element.ExecutableElement;
-import javax.lang.model.element.TypeElement;
 import java.lang.annotation.Annotation;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import javax.annotation.processing.RoundEnvironment;
+import javax.lang.model.element.Element;
+import javax.lang.model.element.ExecutableElement;
+import javax.lang.model.element.TypeElement;
 
 /**
  * @author nedis
@@ -44,6 +44,8 @@ public abstract class AbstractDataRepositoryInterfaceSignatureBuilder
 
     @Inject
     private DataRepositoryMethodSignatureBuilder dataRepositoryMethodSignatureBuilder;
+
+    protected abstract Class<? extends Annotation> getRepositoryMarkerAnnotationClass();
 
     @Override
     public Set<DataRepositoryInterfaceSignature> build(final EnvironmentContext environmentContext,
@@ -57,8 +59,8 @@ public abstract class AbstractDataRepositoryInterfaceSignatureBuilder
                 if (environmentContext.isRxMicroClassShouldBeProcessed(repositoryInterface)) {
                     try {
                         result.add(build(environmentContext, repositoryInterface));
-                    } catch (final InterruptProcessingException e) {
-                        error(e);
+                    } catch (final InterruptProcessingException ex) {
+                        error(ex);
                     }
                 }
             }
@@ -66,11 +68,11 @@ public abstract class AbstractDataRepositoryInterfaceSignatureBuilder
         return result;
     }
 
-    protected abstract Class<? extends Annotation> getRepositoryMarkerAnnotationClass();
-
     private DataRepositoryInterfaceSignature build(final EnvironmentContext environmentContext,
                                                    final TypeElement restClientInterface) {
-        final Map.Entry<TypeElement, List<ExecutableElement>> overriddenMethodCandidates = getOverriddenMethodCandidates(restClientInterface);
+        final Map.Entry<TypeElement, List<ExecutableElement>> overriddenMethodCandidates =
+                getOverriddenMethodCandidates(restClientInterface);
+
         return new DataRepositoryInterfaceSignature(
                 restClientInterface,
                 overriddenMethodCandidates.getKey(),

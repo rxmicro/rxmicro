@@ -19,9 +19,9 @@ package io.rxmicro.annotation.processor.cdi.model;
 import io.rxmicro.annotation.processor.common.model.method.MethodName;
 import io.rxmicro.annotation.processor.common.util.UsedByFreemarker;
 
+import java.util.List;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.Modifier;
-import java.util.List;
 
 /**
  * @author nedis

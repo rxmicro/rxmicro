@@ -19,9 +19,9 @@ package io.rxmicro.annotation.processor.data.mongo.model;
 import io.rxmicro.annotation.processor.data.model.Variable;
 import io.rxmicro.data.Pageable;
 
+import java.util.Objects;
 import javax.lang.model.element.VariableElement;
 import javax.lang.model.type.TypeKind;
-import java.util.Objects;
 
 import static io.rxmicro.data.Pageable.LIMIT_NAMES;
 import static io.rxmicro.data.Pageable.OFFSET_NAMES;

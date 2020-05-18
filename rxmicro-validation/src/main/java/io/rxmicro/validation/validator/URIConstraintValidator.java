@@ -38,10 +38,10 @@ public class URIConstraintValidator implements ConstraintValidator<String> {
         if (actual != null) {
             try {
                 new java.net.URI(actual);
-            } catch (final URISyntaxException e) {
+            } catch (final URISyntaxException ex) {
                 throw new ValidationException(
                         "Invalid ? \"?\": Expected a valid URL, but actual is '?'. Error message is'?'!",
-                        httpModelType, modelName, actual, e.getMessage());
+                        httpModelType, modelName, actual, ex.getMessage());
             }
         }
     }

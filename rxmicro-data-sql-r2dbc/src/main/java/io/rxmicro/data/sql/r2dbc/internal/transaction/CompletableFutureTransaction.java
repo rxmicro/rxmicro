@@ -46,6 +46,11 @@ public final class CompletableFutureTransaction extends AbstractTransaction impl
     }
 
     @Override
+    public CompletableFuture<Void> rollback(final SavePoint savePoint) {
+        return Mono.from(baseRollback(savePoint)).toFuture();
+    }
+
+    @Override
     public CompletableFuture<Void> create(final SavePoint savePoint) {
         return Mono.from(baseCreate(savePoint)).toFuture();
     }
@@ -53,11 +58,6 @@ public final class CompletableFutureTransaction extends AbstractTransaction impl
     @Override
     public CompletableFuture<Void> release(final SavePoint savePoint) {
         return Mono.from(baseRelease(savePoint)).toFuture();
-    }
-
-    @Override
-    public CompletableFuture<Void> rollback(final SavePoint savePoint) {
-        return Mono.from(baseRollback(savePoint)).toFuture();
     }
 
     @Override

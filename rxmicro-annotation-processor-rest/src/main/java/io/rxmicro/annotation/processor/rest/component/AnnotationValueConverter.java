@@ -26,7 +26,7 @@ import javax.lang.model.element.Element;
  */
 public interface AnnotationValueConverter {
 
-    String convert(final Element owner,
-                   final ClassHeader.Builder classHeaderBuilder,
-                   final Object value);
+    String convert(Element owner,
+                   ClassHeader.Builder classHeaderBuilder,
+                   Object value);
 }

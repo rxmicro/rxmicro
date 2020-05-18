@@ -17,6 +17,8 @@
 package io.rxmicro.annotation.processor.common.util;
 
 import java.lang.invoke.MethodHandles;
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -72,37 +74,57 @@ public final class Stubs {
     @SuppressWarnings("unchecked")
     public static <T> T stub(final Class<T> interfaceClass,
                              final MethodHandles.Lookup lookup) {
-        final Object mock = new Object();
         return (T) Proxy.newProxyInstance(
                 interfaceClass.getClassLoader(),
                 new Class[]{interfaceClass},
-                (proxy, method, args) -> {
-                    if ("toString".equals(method.getName()) && method.getParameterCount() == 0) {
-                        return format("? Stub", interfaceClass.getSimpleName());
-                    } else if (method.getDeclaringClass() == Object.class) {
-                        return method.invoke(mock, args);
-                    } else if (method.isDefault()) {
-                        return lookup
-                                .findSpecial(
-                                        interfaceClass,
-                                        method.getName(),
-                                        methodType(method.getReturnType(), method.getParameterTypes()),
-                                        interfaceClass
-                                )
-                                .bindTo(proxy)
-                                .invokeWithArguments(args);
-                    } else {
-                        final Class<?> returnType = method.getReturnType();
-                        if (returnType.isEnum()) {
-                            final Object[] enumConstants = returnType.getEnumConstants();
-                            return enumConstants.length > 0 ? enumConstants[0] : null;
-                        } else {
-                            return DEFAULT_VALUES.get(returnType);
-                        }
-                    }
-                });
+                new StubsInvocationHandler<>(interfaceClass, lookup)
+        );
     }
 
     private Stubs() {
+    }
+
+    /**
+     * @author nedis
+     * @since 0.4
+     */
+    private static final class StubsInvocationHandler<T> implements InvocationHandler {
+
+        private final Class<T> interfaceClass;
+
+        private final MethodHandles.Lookup lookup;
+
+        private StubsInvocationHandler(final Class<T> interfaceClass,
+                                       final MethodHandles.Lookup lookup) {
+            this.interfaceClass = interfaceClass;
+            this.lookup = lookup;
+        }
+
+        @Override
+        public Object invoke(final Object proxy, final Method method, final Object[] args) throws Throwable {
+            if ("toString".equals(method.getName()) && method.getParameterCount() == 0) {
+                return format("? Stub", interfaceClass.getSimpleName());
+            } else if (method.getDeclaringClass() == Object.class) {
+                return method.invoke(this, args);
+            } else if (method.isDefault()) {
+                return lookup
+                        .findSpecial(
+                                interfaceClass,
+                                method.getName(),
+                                methodType(method.getReturnType(), method.getParameterTypes()),
+                                interfaceClass
+                        )
+                        .bindTo(proxy)
+                        .invokeWithArguments(args);
+            } else {
+                final Class<?> returnType = method.getReturnType();
+                if (returnType.isEnum()) {
+                    final Object[] enumConstants = returnType.getEnumConstants();
+                    return enumConstants.length > 0 ? enumConstants[0] : null;
+                } else {
+                    return DEFAULT_VALUES.get(returnType);
+                }
+            }
+        }
     }
 }

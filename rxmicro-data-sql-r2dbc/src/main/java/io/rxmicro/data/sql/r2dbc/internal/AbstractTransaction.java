@@ -83,6 +83,24 @@ public abstract class AbstractTransaction {
                 .then(Mono.from(connection.close()));
     }
 
+    protected Publisher<Void> baseRollback(final SavePoint savePoint) {
+        checkActive();
+        if (!savePoints.contains(savePoint)) {
+            throw new IllegalArgumentException("Save point not defined: " + savePoint);
+        } else {
+            final ListIterator<SavePoint> listIterator = savePoints.listIterator(savePoints.size());
+            while (listIterator.hasPrevious()) {
+                final SavePoint previous = listIterator.previous();
+                if (!savePoint.equals(previous)) {
+                    listIterator.remove();
+                } else {
+                    break;
+                }
+            }
+        }
+        return connection.rollbackTransaction();
+    }
+
     protected Publisher<Void> baseCreate(final SavePoint savePoint) {
         checkActive();
         if (savePoints.getClass() == List.of().getClass()) {
@@ -100,24 +118,6 @@ public abstract class AbstractTransaction {
             throw new IllegalArgumentException("Save point not defined: " + savePoint);
         }
         return connection.releaseSavepoint(savePoint.getName());
-    }
-
-    protected Publisher<Void> baseRollback(final SavePoint savePoint) {
-        checkActive();
-        if (!savePoints.contains(savePoint)) {
-            throw new IllegalArgumentException("Save point not defined: " + savePoint);
-        } else {
-            final ListIterator<SavePoint> listIterator = savePoints.listIterator(savePoints.size());
-            while (listIterator.hasPrevious()) {
-                final SavePoint previous = listIterator.previous();
-                if (!savePoint.equals(previous)) {
-                    listIterator.remove();
-                } else {
-                    break;
-                }
-            }
-        }
-        return connection.rollbackTransaction();
     }
 
     @SuppressWarnings("UnusedReturnValue")

@@ -44,7 +44,7 @@ public final class SourceCodeResource {
 
     private String buildFullClassName(final String outputFolder,
                                       final String resource) {
-        String temp;
+        final String temp;
         if (resource.endsWith(".java")) {
             if (resource.startsWith(outputFolder)) {
                 temp = resource.substring(outputFolder.length(), resource.length() - 5);

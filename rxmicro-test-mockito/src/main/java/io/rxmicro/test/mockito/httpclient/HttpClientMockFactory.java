@@ -69,13 +69,14 @@ public final class HttpClientMockFactory {
      */
     public static HttpClient prepareHttpClientMock(final HttpClientFactory httpClientFactory,
                                                    final HttpRequestMock httpRequestMock) {
-        return httpClientMock = MOCK_FACTORY.prepare(
+        httpClientMock = MOCK_FACTORY.prepare(
                 httpClientFactory,
                 httpRequestMock,
                 new HttpResponseMock.Builder()
                         .build(),
                 false
         );
+        return httpClientMock;
     }
 
     /**
@@ -96,13 +97,14 @@ public final class HttpClientMockFactory {
     public static HttpClient prepareHttpClientMock(final HttpClientFactory httpClientFactory,
                                                    final HttpRequestMock httpRequestMock,
                                                    final boolean logMockParams) {
-        return httpClientMock = MOCK_FACTORY.prepare(
+        httpClientMock = MOCK_FACTORY.prepare(
                 httpClientFactory,
                 httpRequestMock,
                 new HttpResponseMock.Builder()
                         .build(),
                 logMockParams
         );
+        return httpClientMock;
     }
 
     /**
@@ -123,7 +125,7 @@ public final class HttpClientMockFactory {
     public static HttpClient prepareHttpClientMock(final HttpClientFactory httpClientFactory,
                                                    final HttpRequestMock httpRequestMock,
                                                    final int statusCode) {
-        return httpClientMock = MOCK_FACTORY.prepare(
+        httpClientMock = MOCK_FACTORY.prepare(
                 httpClientFactory,
                 httpRequestMock,
                 new HttpResponseMock.Builder()
@@ -131,6 +133,7 @@ public final class HttpClientMockFactory {
                         .build(),
                 false
         );
+        return httpClientMock;
     }
 
     /**
@@ -153,7 +156,7 @@ public final class HttpClientMockFactory {
                                                    final HttpRequestMock httpRequestMock,
                                                    final int statusCode,
                                                    final boolean logMockParams) {
-        return httpClientMock = MOCK_FACTORY.prepare(
+        httpClientMock = MOCK_FACTORY.prepare(
                 httpClientFactory,
                 httpRequestMock,
                 new HttpResponseMock.Builder()
@@ -161,6 +164,7 @@ public final class HttpClientMockFactory {
                         .build(),
                 logMockParams
         );
+        return httpClientMock;
     }
 
     /**
@@ -181,7 +185,7 @@ public final class HttpClientMockFactory {
     public static HttpClient prepareHttpClientMock(final HttpClientFactory httpClientFactory,
                                                    final HttpRequestMock httpRequestMock,
                                                    final HttpHeaders responseHeaders) {
-        return httpClientMock = MOCK_FACTORY.prepare(
+        httpClientMock = MOCK_FACTORY.prepare(
                 httpClientFactory,
                 httpRequestMock,
                 new HttpResponseMock.Builder()
@@ -189,6 +193,7 @@ public final class HttpClientMockFactory {
                         .build(),
                 false
         );
+        return httpClientMock;
     }
 
     /**
@@ -211,7 +216,7 @@ public final class HttpClientMockFactory {
                                                    final HttpRequestMock httpRequestMock,
                                                    final HttpHeaders responseHeaders,
                                                    final boolean logMockParams) {
-        return httpClientMock = MOCK_FACTORY.prepare(
+        httpClientMock = MOCK_FACTORY.prepare(
                 httpClientFactory,
                 httpRequestMock,
                 new HttpResponseMock.Builder()
@@ -219,6 +224,7 @@ public final class HttpClientMockFactory {
                         .build(),
                 logMockParams
         );
+        return httpClientMock;
     }
 
     /**
@@ -239,7 +245,7 @@ public final class HttpClientMockFactory {
     public static HttpClient prepareHttpClientMock(final HttpClientFactory httpClientFactory,
                                                    final HttpRequestMock httpRequestMock,
                                                    final Object responseBody) {
-        return httpClientMock = MOCK_FACTORY.prepare(
+        httpClientMock = MOCK_FACTORY.prepare(
                 httpClientFactory,
                 httpRequestMock,
                 new HttpResponseMock.Builder()
@@ -247,6 +253,7 @@ public final class HttpClientMockFactory {
                         .build(),
                 false
         );
+        return httpClientMock;
     }
 
     /**
@@ -269,7 +276,7 @@ public final class HttpClientMockFactory {
                                                    final HttpRequestMock httpRequestMock,
                                                    final Object responseBody,
                                                    final boolean logMockParams) {
-        return httpClientMock = MOCK_FACTORY.prepare(
+        httpClientMock = MOCK_FACTORY.prepare(
                 httpClientFactory,
                 httpRequestMock,
                 new HttpResponseMock.Builder()
@@ -277,6 +284,7 @@ public final class HttpClientMockFactory {
                         .build(),
                 logMockParams
         );
+        return httpClientMock;
     }
 
     /**
@@ -297,12 +305,13 @@ public final class HttpClientMockFactory {
     public static HttpClient prepareHttpClientMock(final HttpClientFactory httpClientFactory,
                                                    final HttpRequestMock httpRequestMock,
                                                    final HttpResponseMock httpResponseMock) {
-        return httpClientMock = MOCK_FACTORY.prepare(
+        httpClientMock = MOCK_FACTORY.prepare(
                 httpClientFactory,
                 httpRequestMock,
                 httpResponseMock,
                 false
         );
+        return httpClientMock;
     }
 
     /**
@@ -325,12 +334,13 @@ public final class HttpClientMockFactory {
                                                    final HttpRequestMock httpRequestMock,
                                                    final HttpResponseMock httpResponseMock,
                                                    final boolean logMockParams) {
-        return httpClientMock = MOCK_FACTORY.prepare(
+        httpClientMock = MOCK_FACTORY.prepare(
                 httpClientFactory,
                 httpRequestMock,
                 httpResponseMock,
                 logMockParams
         );
+        return httpClientMock;
     }
 
     /**
@@ -351,12 +361,13 @@ public final class HttpClientMockFactory {
     public static HttpClient prepareHttpClientMock(final HttpClientFactory httpClientFactory,
                                                    final HttpRequestMock httpRequestMock,
                                                    final Throwable throwable) {
-        return httpClientMock = MOCK_FACTORY.prepare(
+        httpClientMock = MOCK_FACTORY.prepare(
                 httpClientFactory,
                 httpRequestMock,
                 throwable,
                 false
         );
+        return httpClientMock;
     }
 
     /**
@@ -379,12 +390,13 @@ public final class HttpClientMockFactory {
                                                    final HttpRequestMock httpRequestMock,
                                                    final Throwable throwable,
                                                    final boolean logMockParams) {
-        return httpClientMock = MOCK_FACTORY.prepare(
+        httpClientMock = MOCK_FACTORY.prepare(
                 httpClientFactory,
                 httpRequestMock,
                 throwable,
                 logMockParams
         );
+        return httpClientMock;
     }
 
     private HttpClientMockFactory() {

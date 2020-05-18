@@ -32,9 +32,6 @@ import io.rxmicro.annotation.processor.data.sql.model.VariableContext;
 import io.rxmicro.annotation.processor.data.sql.model.VariableValuesMap;
 import io.rxmicro.data.sql.VariableValues;
 
-import javax.lang.model.element.Element;
-import javax.lang.model.element.ExecutableElement;
-import javax.lang.model.element.TypeElement;
 import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -45,6 +42,9 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.function.BiFunction;
 import java.util.function.Supplier;
+import javax.lang.model.element.Element;
+import javax.lang.model.element.ExecutableElement;
+import javax.lang.model.element.TypeElement;
 
 import static io.rxmicro.annotation.processor.common.model.ModelFieldType.UNDEFINED;
 import static io.rxmicro.annotation.processor.common.util.Annotations.getAnnotationClassParameter;
@@ -55,7 +55,8 @@ import static io.rxmicro.common.util.Formats.format;
  * @author nedis
  * @since 0.1
  */
-public abstract class AbstractSQLVariableValueResolver<A extends Annotation, DMF extends SQLDataModelField, DMC extends SQLDataObjectModelClass<DMF>>
+public abstract class AbstractSQLVariableValueResolver
+        <A extends Annotation, DMF extends SQLDataModelField, DMC extends SQLDataObjectModelClass<DMF>>
         implements SQLVariableValueResolver<A, DMF, DMC> {
 
     private final Map<TypeElement, DMC> modelClassesCache = new HashMap<>();
@@ -129,7 +130,8 @@ public abstract class AbstractSQLVariableValueResolver<A extends Annotation, DMF
                                                                                final TypeElement typeElement) {
         return () -> {
             final DMC modelClass = modelClassesCache.computeIfAbsent(typeElement, t ->
-                    modelFieldModelFieldBuilder.build(UNDEFINED, sqlMethodDescriptor.getCurrentModule(), Set.of(t), false).get(t));
+                    modelFieldModelFieldBuilder.build(UNDEFINED, sqlMethodDescriptor.getCurrentModule(), Set.of(t), false)
+                            .get(t));
             return new ModelClassSupplier<>(
                     modelClass,
                     format("@?.entityClass() is redundant annotation parameter. " +

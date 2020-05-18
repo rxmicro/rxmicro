@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 https://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -50,9 +50,11 @@ public final class MongoRepositoryClassStructureBuilderImpl
     private Set<MongoRepositoryMethodModelBuilder> mongoRepositoryMethodModelBuilders;
 
     @Override
-    public DataRepositoryClassStructure build(final EnvironmentContext environmentContext,
-                                              final DataRepositoryInterfaceSignature signature,
-                                              final DataGenerationContext<MongoDataModelField, MongoDataObjectModelClass> dataGenerationContext) {
+    public DataRepositoryClassStructure build(
+            final EnvironmentContext environmentContext,
+            final DataRepositoryInterfaceSignature signature,
+            final DataGenerationContext<MongoDataModelField, MongoDataObjectModelClass> dataGenerationContext) {
+
         final ClassHeader.Builder classHeaderBuilder = newClassHeaderBuilder(getPackageName(signature.getRepositoryInterface()));
         final MongoRepository mongoRepository =
                 signature.getRepositoryInterface().getAnnotation(MongoRepository.class);

@@ -52,8 +52,8 @@ public final class MavenUtils {
                 }
                 return model.getProperties();
             }
-        } catch (final IOException | XmlPullParserException e) {
-            throw new ResourceException(e, "Can't read properties from `pom.xml`: ?", e.getMessage());
+        } catch (final IOException | XmlPullParserException ex) {
+            throw new ResourceException(ex, "Can't read properties from `pom.xml`: ?", ex.getMessage());
         }
     }
 

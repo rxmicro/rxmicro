@@ -25,13 +25,13 @@ import io.rxmicro.annotation.processor.common.model.definition.SupportedTypesPro
 import io.rxmicro.annotation.processor.data.component.DataRepositoryMethodSignatureBuilder;
 import io.rxmicro.annotation.processor.data.model.DataRepositoryMethodSignature;
 
-import javax.lang.model.element.AnnotationMirror;
-import javax.lang.model.element.ExecutableElement;
-import javax.lang.model.element.TypeElement;
 import java.lang.annotation.Annotation;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import javax.lang.model.element.AnnotationMirror;
+import javax.lang.model.element.ExecutableElement;
+import javax.lang.model.element.TypeElement;
 
 import static io.rxmicro.annotation.processor.common.util.Elements.allImplementableMethods;
 import static io.rxmicro.annotation.processor.common.util.Elements.methodSignatureEquals;
@@ -57,9 +57,11 @@ public abstract class AbstractDataRepositoryMethodSignatureBuilder
     private MethodParametersBuilder methodParametersBuilder;
 
     @Override
-    public final List<DataRepositoryMethodSignature> build(final EnvironmentContext environmentContext,
-                                                           final TypeElement restClientInterface,
-                                                           final Map.Entry<TypeElement, List<ExecutableElement>> overriddenMethodCandidates) {
+    public final List<DataRepositoryMethodSignature> build(
+            final EnvironmentContext environmentContext,
+            final TypeElement restClientInterface,
+            final Map.Entry<TypeElement, List<ExecutableElement>> overriddenMethodCandidates) {
+
         final List<ExecutableElement> methods = allImplementableMethods(restClientInterface);
         validateMethods(methods, overriddenMethodCandidates.getValue());
         return methods.stream()

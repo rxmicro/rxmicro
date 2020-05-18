@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 https://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,9 +22,9 @@ import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingExc
 import io.rxmicro.annotation.processor.rest.component.PathVariableExtractor;
 import io.rxmicro.rest.model.UrlSegments;
 
-import javax.lang.model.element.Element;
 import java.util.ArrayList;
 import java.util.List;
+import javax.lang.model.element.Element;
 
 /**
  * @author nedis

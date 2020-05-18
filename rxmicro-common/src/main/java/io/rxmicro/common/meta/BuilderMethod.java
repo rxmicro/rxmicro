@@ -35,7 +35,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  */
 @Documented
 @Retention(SOURCE)
-@Target({METHOD})
+@Target(METHOD)
 public @interface BuilderMethod {
 
 }

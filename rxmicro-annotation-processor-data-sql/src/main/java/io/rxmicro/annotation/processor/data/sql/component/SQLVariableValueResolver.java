@@ -23,8 +23,8 @@ import io.rxmicro.annotation.processor.data.sql.model.SQLMethodDescriptor;
 import io.rxmicro.annotation.processor.data.sql.model.VariableContext;
 import io.rxmicro.annotation.processor.data.sql.model.VariableValuesMap;
 
-import javax.lang.model.element.ExecutableElement;
 import java.lang.annotation.Annotation;
+import javax.lang.model.element.ExecutableElement;
 
 /**
  * @author nedis

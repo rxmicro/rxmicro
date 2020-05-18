@@ -42,7 +42,6 @@ public final class StandardHttpError {
                               final String exampleErrorMessage,
                               final String messageDescription,
                               final boolean withShowErrorCauseReadMoreLink) {
-        assert status >= 100 && status <= 599;
         this.status = status;
         this.description = require(description);
         this.exampleErrorMessage = exampleErrorMessage;

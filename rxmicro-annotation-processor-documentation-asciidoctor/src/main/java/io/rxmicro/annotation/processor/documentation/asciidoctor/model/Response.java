@@ -130,7 +130,9 @@ public final class Response implements Comparable<Response> {
     @SuppressWarnings("UnusedReturnValue")
     public static final class Builder {
 
-        private int code = 200;
+        private static final int DEFAULT_STATUS_CODE = 200;
+
+        private int code = DEFAULT_STATUS_CODE;
 
         private String description;
 

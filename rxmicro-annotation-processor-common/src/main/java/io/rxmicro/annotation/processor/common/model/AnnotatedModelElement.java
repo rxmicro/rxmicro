@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 https://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,12 +18,6 @@ package io.rxmicro.annotation.processor.common.model;
 
 import io.rxmicro.annotation.processor.common.model.error.InternalErrorException;
 
-import javax.lang.model.element.AnnotationMirror;
-import javax.lang.model.element.Element;
-import javax.lang.model.element.ExecutableElement;
-import javax.lang.model.element.Modifier;
-import javax.lang.model.element.VariableElement;
-import javax.lang.model.util.Elements;
 import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -34,6 +28,12 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
+import javax.lang.model.element.AnnotationMirror;
+import javax.lang.model.element.Element;
+import javax.lang.model.element.ExecutableElement;
+import javax.lang.model.element.Modifier;
+import javax.lang.model.element.VariableElement;
+import javax.lang.model.util.Elements;
 
 import static io.rxmicro.annotation.processor.common.model.ModelAccessorType.DIRECT;
 import static io.rxmicro.annotation.processor.common.model.ModelAccessorType.JAVA_BEAN;
@@ -86,16 +86,20 @@ public final class AnnotatedModelElement {
     String getGetter() {
         try {
             return getters.get(0).getSimpleName().toString();
-        } catch (final IndexOutOfBoundsException e) {
-            throw new InternalErrorException("Getter not defined: class=?, field=?",
-                    field.getEnclosingElement().asType(), field.getSimpleName());
+        } catch (final IndexOutOfBoundsException ignore) {
+            throw new InternalErrorException(
+                    "Getter not defined: class=?, field=?",
+                    field.getEnclosingElement().asType(), field.getSimpleName()
+            );
         }
     }
 
     String getSetter() {
         if (setter == null) {
-            throw new InternalErrorException("Setter not defined: class=?, field=?",
-                    field.getEnclosingElement().asType(), field.getSimpleName());
+            throw new InternalErrorException(
+                    "Setter not defined: class=?, field=?",
+                    field.getEnclosingElement().asType(), field.getSimpleName()
+            );
         }
         return setter.getSimpleName().toString();
     }
@@ -160,10 +164,6 @@ public final class AnnotatedModelElement {
                 Stream.of(field).map(e -> (Element) e))
                 .filter(e -> e.getAnnotation(annotationClass) != null)
                 .findFirst();
-    }
-
-    public Element getElement() {
-        return field;
     }
 
     Optional<Element> getElementAnnotatedBy(final AnnotationMirror annotationMirror) {

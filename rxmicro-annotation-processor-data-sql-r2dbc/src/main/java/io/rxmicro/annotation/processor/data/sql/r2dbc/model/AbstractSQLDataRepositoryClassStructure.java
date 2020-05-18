@@ -22,10 +22,10 @@ import io.rxmicro.annotation.processor.common.model.DefaultConfigProxyValue;
 import io.rxmicro.annotation.processor.data.model.DataRepositoryClassStructure;
 import io.rxmicro.annotation.processor.data.sql.model.SQLDataRepositoryMethod;
 
-import javax.lang.model.element.TypeElement;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.lang.model.element.TypeElement;
 
 import static io.rxmicro.annotation.processor.common.util.Names.getSimpleName;
 

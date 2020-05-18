@@ -44,6 +44,11 @@ public final class ReactorTransaction extends AbstractTransaction implements Tra
     }
 
     @Override
+    public Mono<Void> rollback(final SavePoint savePoint) {
+        return Mono.from(baseRollback(savePoint));
+    }
+
+    @Override
     public Mono<Void> create(final SavePoint savePoint) {
         return Mono.from(baseCreate(savePoint));
     }
@@ -51,11 +56,6 @@ public final class ReactorTransaction extends AbstractTransaction implements Tra
     @Override
     public Mono<Void> release(final SavePoint savePoint) {
         return Mono.from(baseRelease(savePoint));
-    }
-
-    @Override
-    public Mono<Void> rollback(final SavePoint savePoint) {
-        return Mono.from(baseRollback(savePoint));
     }
 
     @Override

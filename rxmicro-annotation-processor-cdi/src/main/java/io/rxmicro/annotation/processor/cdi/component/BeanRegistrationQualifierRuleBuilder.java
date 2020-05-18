@@ -18,9 +18,9 @@ package io.rxmicro.annotation.processor.cdi.component;
 
 import io.rxmicro.annotation.processor.cdi.model.QualifierRule;
 
+import java.util.List;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
-import java.util.List;
 
 /**
  * @author nedis

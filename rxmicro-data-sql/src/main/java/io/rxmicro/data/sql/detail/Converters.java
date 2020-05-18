@@ -36,9 +36,11 @@ public final class Converters {
         } else {
             try {
                 return Enum.valueOf(type, value.toString());
-            } catch (final IllegalArgumentException e) {
-                throw new InvalidValueTypeException("Invalid value for \"?\" field: Expected one of the following \"?\" but actual is \"?\"",
-                        fieldName, Arrays.toString(type.getEnumConstants()), value.toString());
+            } catch (final IllegalArgumentException ignore) {
+                throw new InvalidValueTypeException(
+                        "Invalid value for \"?\" field: Expected one of the following \"?\" but actual is \"?\"",
+                        fieldName, Arrays.toString(type.getEnumConstants()), value.toString()
+                );
             }
         }
     }
@@ -50,9 +52,11 @@ public final class Converters {
         } else {
             try {
                 return Enum.valueOf(type, value.toString());
-            } catch (final IllegalArgumentException e) {
-                throw new InvalidValueTypeException("Invalid enum value: Expected one of the following \"?\" but actual is \"?\"",
-                        Arrays.toString(type.getEnumConstants()), value.toString());
+            } catch (final IllegalArgumentException ignore) {
+                throw new InvalidValueTypeException(
+                        "Invalid enum value: Expected one of the following \"?\" but actual is \"?\"",
+                        Arrays.toString(type.getEnumConstants()), value.toString()
+                );
             }
         }
     }

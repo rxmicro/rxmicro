@@ -19,6 +19,7 @@ package io.rxmicro.annotation.processor.documentation.component.impl.example.bui
 import com.google.inject.Singleton;
 import io.rxmicro.annotation.processor.documentation.component.impl.example.TypeExampleBuilder;
 import io.rxmicro.annotation.processor.rest.model.RestModelField;
+import io.rxmicro.common.ImpossibleException;
 import io.rxmicro.json.JsonNumber;
 import io.rxmicro.validation.base.LocationAccuracy;
 import io.rxmicro.validation.constraint.Lat;
@@ -31,10 +32,13 @@ import io.rxmicro.validation.constraint.MinInt;
 import io.rxmicro.validation.constraint.MinNumber;
 import io.rxmicro.validation.constraint.Numeric;
 
-import javax.lang.model.type.TypeMirror;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.Set;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.function.Supplier;
+import javax.lang.model.type.TypeMirror;
 
 import static io.rxmicro.annotation.processor.common.util.Numbers.removeUnderscoresIfPresent;
 import static java.math.RoundingMode.HALF_UP;
@@ -46,85 +50,77 @@ import static java.math.RoundingMode.HALF_UP;
 @Singleton
 public final class NumberExampleBuilder implements TypeExampleBuilder {
 
-    private static final Set<String> NUMBERS = Set.of(
-            Byte.class.getName(),
-            Short.class.getName(),
-            Integer.class.getName(),
-            Long.class.getName(),
-            Float.class.getName(),
-            Double.class.getName(),
-            BigDecimal.class.getName(),
-            BigInteger.class.getName()
+    private final Map<String, Supplier<JsonNumber>> exampleByTypeMap = Map.of(
+            Byte.class.getName(), () -> new JsonNumber("10"),
+            Short.class.getName(), () -> new JsonNumber(removeUnderscoresIfPresent("10_000")),
+            Integer.class.getName(), () -> new JsonNumber(removeUnderscoresIfPresent("1_000_000_000")),
+            Long.class.getName(), () -> new JsonNumber(removeUnderscoresIfPresent("1_000_000_000_000")),
+            BigInteger.class.getName(), () -> new JsonNumber(removeUnderscoresIfPresent("1_000_000_000_000_000_000_000")),
+            Float.class.getName(), () -> new JsonNumber("3.14"),
+            Double.class.getName(), () -> new JsonNumber("3.1415926535"),
+            BigDecimal.class.getName(), () -> new JsonNumber("3.1415926535897932384626433832795028841971"),
+            JsonNumber.class.getName(), () -> new JsonNumber("3.1415926535897932384626433832795028841971")
+    );
+
+    private final List<JsonNumberExampleBuilder> jsonNumberExampleBuilders = List.of(
+
+            restModelField -> Optional.ofNullable(restModelField.getAnnotation(Lat.class))
+                    .filter(a -> !a.off())
+                    .map(lat -> withLocationAccuracy("34.063821", lat.value())),
+
+            restModelField -> Optional.ofNullable(restModelField.getAnnotation(Lng.class))
+                    .filter(a -> !a.off())
+                    .map(lng -> withLocationAccuracy("-118.296339", lng.value())),
+
+            restModelField -> Optional.ofNullable(restModelField.getAnnotation(MaxDouble.class))
+                    .filter(a -> !a.off())
+                    .map(maxDouble -> new JsonNumber(String.valueOf(maxDouble.value()))),
+
+            restModelField -> Optional.ofNullable(restModelField.getAnnotation(MaxInt.class))
+                    .filter(a -> !a.off())
+                    .map(maxInt -> new JsonNumber(String.valueOf(maxInt.value()))),
+
+            restModelField -> Optional.ofNullable(restModelField.getAnnotation(MaxNumber.class))
+                    .filter(a -> !a.off())
+                    .map(maxNumber -> new JsonNumber(removeUnderscoresIfPresent(maxNumber.value()))),
+
+            restModelField -> Optional.ofNullable(restModelField.getAnnotation(MinDouble.class))
+                    .filter(a -> !a.off())
+                    .map(minDouble -> new JsonNumber(String.valueOf(minDouble.value()))),
+
+            restModelField -> Optional.ofNullable(restModelField.getAnnotation(MinInt.class))
+                    .filter(a -> !a.off())
+                    .map(minInt -> new JsonNumber(String.valueOf(minInt.value()))),
+
+            restModelField -> Optional.ofNullable(restModelField.getAnnotation(MinNumber.class))
+                    .filter(a -> !a.off())
+                    .map(minNumber -> new JsonNumber(removeUnderscoresIfPresent(minNumber.value()))),
+
+            restModelField -> Optional.ofNullable(restModelField.getAnnotation(Numeric.class))
+                    .filter(a -> !a.off())
+                    .map(numeric -> {
+                        final BigDecimal bigDecimal = new BigDecimal("987654321.987654321");
+                        if (numeric.scale() > -1) {
+                            return new JsonNumber(bigDecimal.setScale(numeric.scale(), HALF_UP).toPlainString());
+                        } else {
+                            return new JsonNumber(bigDecimal.toPlainString());
+                        }
+                    })
     );
 
     @Override
     public boolean isSupported(final RestModelField restModelField,
                                final TypeMirror typeMirror) {
-        return NUMBERS.contains(typeMirror.toString());
+        return exampleByTypeMap.containsKey(typeMirror.toString());
     }
 
     @Override
     public JsonNumber getExample(final RestModelField restModelField,
                                  final TypeMirror typeMirror) {
-        final Lat lat = restModelField.getAnnotation(Lat.class);
-        if (lat != null && !lat.off()) {
-            return withLocationAccuracy("34.063821", lat.value());
-        }
-        final Lng lng = restModelField.getAnnotation(Lng.class);
-        if (lng != null && !lng.off()) {
-            return withLocationAccuracy("-118.296339", lng.value());
-        }
-        final MaxDouble maxDouble = restModelField.getAnnotation(MaxDouble.class);
-        if (maxDouble != null && !maxDouble.off()) {
-            return new JsonNumber(String.valueOf(maxDouble.value()));
-        }
-        final MaxInt maxInt = restModelField.getAnnotation(MaxInt.class);
-        if (maxInt != null && !maxInt.off()) {
-            return new JsonNumber(String.valueOf(maxInt.value()));
-        }
-        final MaxNumber maxNumber = restModelField.getAnnotation(MaxNumber.class);
-        if (maxNumber != null && !maxNumber.off()) {
-            return new JsonNumber(removeUnderscoresIfPresent(maxNumber.value()));
-        }
-        final MinDouble minDouble = restModelField.getAnnotation(MinDouble.class);
-        if (minDouble != null && !minDouble.off()) {
-            return new JsonNumber(String.valueOf(minDouble.value()));
-        }
-        final MinInt minInt = restModelField.getAnnotation(MinInt.class);
-        if (minInt != null && !minInt.off()) {
-            return new JsonNumber(String.valueOf(minInt.value()));
-        }
-        final MinNumber minNumber = restModelField.getAnnotation(MinNumber.class);
-        if (minNumber != null && !minNumber.off()) {
-            return new JsonNumber(removeUnderscoresIfPresent(minNumber.value()));
-        }
-        final Numeric numeric = restModelField.getAnnotation(Numeric.class);
-        if (numeric != null && !numeric.off()) {
-            final BigDecimal bigDecimal = new BigDecimal("987654321.987654321");
-            if (numeric.scale() > -1) {
-                return new JsonNumber(bigDecimal.setScale(numeric.scale(), HALF_UP).toPlainString());
-            } else {
-                return new JsonNumber(bigDecimal.toPlainString());
-            }
-        }
-        // By type
-        if (Byte.class.getName().equals(typeMirror.toString())) {
-            return new JsonNumber("10");
-        } else if (Short.class.getName().equals(typeMirror.toString())) {
-            return new JsonNumber(removeUnderscoresIfPresent("10_000"));
-        } else if (Integer.class.getName().equals(typeMirror.toString())) {
-            return new JsonNumber(removeUnderscoresIfPresent("1_000_000_000"));
-        } else if (Long.class.getName().equals(typeMirror.toString())) {
-            return new JsonNumber(removeUnderscoresIfPresent("1_000_000_000_000"));
-        } else if (BigInteger.class.getName().equals(typeMirror.toString())) {
-            return new JsonNumber(removeUnderscoresIfPresent("1_000_000_000_000_000_000_000"));
-        } else if (Float.class.getName().equals(typeMirror.toString())) {
-            return new JsonNumber("3.14");
-        } else if (Double.class.getName().equals(typeMirror.toString())) {
-            return new JsonNumber("3.1415926535");
-        } else /*BigDecimal*/ {
-            return new JsonNumber("3.1415926535897932384626433832795028841971");
-        }
+        return jsonNumberExampleBuilders.stream()
+                .flatMap(builder -> builder.build(restModelField).stream())
+                .findFirst()
+                .orElseGet(() -> getExampleByType(typeMirror));
     }
 
     private JsonNumber withLocationAccuracy(final String value,
@@ -134,5 +130,20 @@ public final class NumberExampleBuilder implements TypeExampleBuilder {
                         .setScale(locationAccuracy.getCoordinateScale(), HALF_UP)
                         .toPlainString()
         );
+    }
+
+    private JsonNumber getExampleByType(final TypeMirror typeMirror) {
+        return Optional.ofNullable(exampleByTypeMap.get(typeMirror.toString()))
+                .orElseThrow(() -> new ImpossibleException("Example by number type must be found!"))
+                .get();
+    }
+
+    /**
+     * @author nedis
+     * @since 0.4
+     */
+    private interface JsonNumberExampleBuilder {
+
+        Optional<JsonNumber> build(RestModelField restModelField);
     }
 }

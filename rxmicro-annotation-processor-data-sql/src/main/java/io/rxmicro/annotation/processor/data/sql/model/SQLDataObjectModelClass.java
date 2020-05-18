@@ -22,12 +22,12 @@ import io.rxmicro.data.sql.NotInsertable;
 import io.rxmicro.data.sql.NotUpdatable;
 import io.rxmicro.data.sql.PrimaryKey;
 
-import javax.lang.model.element.TypeElement;
-import javax.lang.model.type.TypeMirror;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
+import javax.lang.model.element.TypeElement;
+import javax.lang.model.type.TypeMirror;
 
 import static io.rxmicro.common.util.ExCollectors.toOrderedSet;
 

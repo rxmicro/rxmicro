@@ -47,14 +47,14 @@ import io.rxmicro.rest.method.PUT;
 import io.rxmicro.rest.server.NotFoundMessage;
 import io.rxmicro.rest.server.SetStatusCode;
 
-import javax.lang.model.element.AnnotationMirror;
-import javax.lang.model.element.ExecutableElement;
-import javax.lang.model.element.ModuleElement;
-import javax.lang.model.element.TypeElement;
 import java.lang.annotation.Annotation;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+import javax.lang.model.element.AnnotationMirror;
+import javax.lang.model.element.ExecutableElement;
+import javax.lang.model.element.ModuleElement;
+import javax.lang.model.element.TypeElement;
 
 import static io.rxmicro.annotation.processor.common.util.Elements.allMethods;
 import static io.rxmicro.annotation.processor.common.util.validators.AnnotationValidators.validateNoAnnotationPerElement;
@@ -68,7 +68,8 @@ import static java.util.Arrays.asList;
  * @since 0.1
  */
 @Singleton
-public final class RestControllerMethodSignatureBuilderImpl extends AbstractRestMethodSignatureBuilder implements RestControllerMethodSignatureBuilder {
+public final class RestControllerMethodSignatureBuilderImpl
+        extends AbstractRestMethodSignatureBuilder implements RestControllerMethodSignatureBuilder {
 
     @Inject
     private HttpMethodMappingBuilder httpMethodMappingBuilder;

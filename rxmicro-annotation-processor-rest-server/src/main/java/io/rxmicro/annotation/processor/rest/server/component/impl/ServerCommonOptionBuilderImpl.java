@@ -24,8 +24,8 @@ import io.rxmicro.annotation.processor.rest.server.component.ServerCommonOptionB
 import io.rxmicro.rest.AddHeader;
 import io.rxmicro.rest.SetHeader;
 
-import javax.lang.model.element.Element;
 import java.util.Arrays;
+import javax.lang.model.element.Element;
 
 import static io.rxmicro.common.util.UrlPaths.normalizeUrlPath;
 import static io.rxmicro.http.HttpStandardHeaderNames.LOCATION;

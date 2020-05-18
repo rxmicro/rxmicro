@@ -24,12 +24,12 @@ import io.rxmicro.annotation.processor.rest.model.RestModelField;
 import io.rxmicro.validation.constraint.Enumeration;
 import io.rxmicro.validation.constraint.SubEnum;
 
-import javax.lang.model.element.TypeElement;
-import javax.lang.model.type.TypeMirror;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
+import javax.lang.model.element.TypeElement;
+import javax.lang.model.type.TypeMirror;
 
 import static io.rxmicro.annotation.processor.common.util.Elements.asEnumElement;
 import static io.rxmicro.annotation.processor.common.util.Elements.getAllowedEnumConstants;

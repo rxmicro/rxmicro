@@ -27,10 +27,10 @@ import io.rxmicro.annotation.processor.data.sql.model.SQLMethodDescriptor;
 import io.rxmicro.annotation.processor.data.sql.model.SQLStatement;
 import io.rxmicro.data.sql.r2dbc.detail.EntityToR2DBCSQLDBConverter;
 
-import javax.lang.model.element.ExecutableElement;
 import java.lang.annotation.Annotation;
 import java.util.List;
 import java.util.Map;
+import javax.lang.model.element.ExecutableElement;
 
 import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.getModelTransformerInstanceName;
 import static io.rxmicro.annotation.processor.common.util.Names.getSimpleName;
@@ -39,7 +39,8 @@ import static io.rxmicro.annotation.processor.common.util.Names.getSimpleName;
  * @author nedis
  * @since 0.1
  */
-public abstract class AbstractSQLModificationOperationDataRepositoryMethodModelBuilder<A extends Annotation, DMF extends SQLDataModelField, DMC extends SQLDataObjectModelClass<DMF>>
+public abstract class AbstractSQLModificationOperationDataRepositoryMethodModelBuilder
+        <A extends Annotation, DMF extends SQLDataModelField, DMC extends SQLDataObjectModelClass<DMF>>
         extends AbstractSQLOperationDataRepositoryMethodModelBuilder<A, DMF, DMC> {
 
     @Override

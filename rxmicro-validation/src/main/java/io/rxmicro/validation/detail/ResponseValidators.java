@@ -34,8 +34,8 @@ public final class ResponseValidators {
                                             final T response) {
         try {
             validator.validate(response);
-        } catch (final ValidationException e) {
-            throw new UnexpectedResponseException("Response is invalid: ?", e.getMessage());
+        } catch (final ValidationException ex) {
+            throw new UnexpectedResponseException("Response is invalid: ?", ex.getMessage());
         }
     }
 
@@ -43,8 +43,8 @@ public final class ResponseValidators {
                                             final List<T> response) {
         try {
             validator.validateList(response);
-        } catch (final ValidationException e) {
-            throw new UnexpectedResponseException("Response is invalid: ?", e.getMessage());
+        } catch (final ValidationException ex) {
+            throw new UnexpectedResponseException("Response is invalid: ?", ex.getMessage());
         }
     }
 

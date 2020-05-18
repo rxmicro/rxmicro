@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 https://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,8 @@ import java.util.List;
 import java.util.Locale;
 
 import static io.rxmicro.common.util.Strings.capitalize;
+import static io.rxmicro.model.Constants.HYPHEN_DELIMITER;
+import static io.rxmicro.model.Constants.UNDERSCORED_DELIMITER;
 import static java.util.stream.Collectors.joining;
 
 /**
@@ -33,32 +35,32 @@ public enum MappingStrategy {
     /**
      * Example: {@code hello_world = helloWorld}
      */
-    LOWERCASE_WITH_UNDERSCORED("_"),
+    LOWERCASE_WITH_UNDERSCORED(UNDERSCORED_DELIMITER),
 
     /**
      * Example: {@code hello-world = helloWorld}
      */
-    LOWERCASE_WITH_HYPHEN("-"),
+    LOWERCASE_WITH_HYPHEN(HYPHEN_DELIMITER),
 
     /**
      * Example: {@code HELLO_WORLD = helloWorld}
      */
-    UPPERCASE_WITH_UNDERSCORED("_"),
+    UPPERCASE_WITH_UNDERSCORED(UNDERSCORED_DELIMITER),
 
     /**
      * Example: {@code HELLO-WORLD = helloWorld}
      */
-    UPPERCASE_WITH_HYPHEN("-"),
+    UPPERCASE_WITH_HYPHEN(HYPHEN_DELIMITER),
 
     /**
      * Example: {@code Hello_World = helloWorld}
      */
-    CAPITALIZE_WITH_UNDERSCORED("_"),
+    CAPITALIZE_WITH_UNDERSCORED(UNDERSCORED_DELIMITER),
 
     /**
      * Example: {@code Hello-World = helloWorld}
      */
-    CAPITALIZE_WITH_HYPHEN("-"),
+    CAPITALIZE_WITH_HYPHEN(HYPHEN_DELIMITER),
 
     /**
      * Example: {@code HelloWorld = helloWorld}

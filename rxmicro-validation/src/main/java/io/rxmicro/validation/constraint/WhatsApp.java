@@ -44,12 +44,8 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 @Retention(SOURCE)
 @Target({FIELD, METHOD, PARAMETER})
 @ConstraintRule(
-        supportedTypes = {
-                String.class
-        },
-        validatorClass = {
-                WhatsAppConstraintValidator.class
-        }
+        supportedTypes = String.class,
+        validatorClass = WhatsAppConstraintValidator.class
 )
 @SelfDocumented
 @ReadMore(

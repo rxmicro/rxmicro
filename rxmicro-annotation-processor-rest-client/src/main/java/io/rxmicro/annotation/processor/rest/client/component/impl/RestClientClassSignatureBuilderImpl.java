@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 https://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,16 +30,16 @@ import io.rxmicro.rest.client.PartialImplementation;
 import io.rxmicro.rest.client.RestClient;
 import io.rxmicro.rest.client.detail.AbstractRestClient;
 
-import javax.annotation.processing.RoundEnvironment;
-import javax.lang.model.element.Element;
-import javax.lang.model.element.ExecutableElement;
-import javax.lang.model.element.ModuleElement;
-import javax.lang.model.element.TypeElement;
 import java.lang.annotation.Annotation;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import javax.annotation.processing.RoundEnvironment;
+import javax.lang.model.element.Element;
+import javax.lang.model.element.ExecutableElement;
+import javax.lang.model.element.ModuleElement;
+import javax.lang.model.element.TypeElement;
 
 /**
  * @author nedis
@@ -67,8 +67,8 @@ public final class RestClientClassSignatureBuilderImpl extends AbstractPartialIm
                 if (environmentContext.isRxMicroClassShouldBeProcessed(restClientInterface)) {
                     try {
                         result.add(build(environmentContext, restClientInterface));
-                    } catch (final InterruptProcessingException e) {
-                        error(e);
+                    } catch (final InterruptProcessingException ex) {
+                        error(ex);
                     }
                 }
             }
@@ -80,12 +80,12 @@ public final class RestClientClassSignatureBuilderImpl extends AbstractPartialIm
                                            final TypeElement restClientInterface) {
         final ModuleElement restControllerModule = environmentContext.getCurrentModule();
         final ParentUrl parentUrl = parentUrlBuilder.build(restClientInterface);
-        final Map.Entry<TypeElement, List<ExecutableElement>> overriddenMethodCandidates = getOverriddenMethodCandidates(restClientInterface);
+        final Map.Entry<TypeElement, List<ExecutableElement>> methodCandidates = getOverriddenMethodCandidates(restClientInterface);
         return new RestClientClassSignature(
                 parentUrl,
                 restClientInterface,
-                overriddenMethodCandidates.getKey(),
-                restClientMethodSignatureBuilder.build(restControllerModule, restClientInterface, parentUrl, overriddenMethodCandidates)
+                methodCandidates.getKey(),
+                restClientMethodSignatureBuilder.build(restControllerModule, restClientInterface, parentUrl, methodCandidates)
         );
     }
 

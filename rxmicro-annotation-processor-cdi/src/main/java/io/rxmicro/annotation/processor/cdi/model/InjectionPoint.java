@@ -26,8 +26,8 @@ import io.rxmicro.data.mongo.MongoClientFactory;
 import io.rxmicro.data.sql.r2dbc.postgresql.PostgreSQLClientFactory;
 import io.rxmicro.rest.client.RestClientFactory;
 
-import javax.lang.model.element.ExecutableElement;
 import java.util.List;
+import javax.lang.model.element.ExecutableElement;
 
 import static io.rxmicro.annotation.processor.cdi.model.InjectionPointType.BEAN;
 import static io.rxmicro.annotation.processor.cdi.model.InjectionPointType.CONFIG;

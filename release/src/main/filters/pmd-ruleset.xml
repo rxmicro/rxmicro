@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  ~ Copyright (c) 2020. http://rxmicro.io
+  ~ Copyright (c) 2020. https://rxmicro.io
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -191,12 +191,12 @@
     <!--rule ref="category/java/design.xml/ExcessiveImports"/-->
     <rule ref="category/java/design.xml/ExcessiveMethodLength">
         <properties>
-            <property name="minimum" value="60"/>
+            <property name="minimum" value="40"/>
         </properties>
     </rule>
     <rule ref="category/java/design.xml/ExcessiveParameterList">
         <properties>
-            <property name="minimum" value="11"/>
+            <property name="minimum" value="8"/>
         </properties>
     </rule>
     <rule ref="category/java/design.xml/ExcessivePublicCount"/>

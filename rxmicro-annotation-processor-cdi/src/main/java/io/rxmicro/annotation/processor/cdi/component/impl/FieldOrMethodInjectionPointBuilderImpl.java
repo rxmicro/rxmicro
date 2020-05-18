@@ -21,12 +21,12 @@ import io.rxmicro.annotation.processor.cdi.component.FieldOrMethodInjectionPoint
 import io.rxmicro.annotation.processor.cdi.model.InjectionPoint;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
 
+import java.util.List;
+import java.util.stream.Stream;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
-import java.util.List;
-import java.util.stream.Stream;
 
 import static io.rxmicro.annotation.processor.common.util.Elements.allFields;
 import static io.rxmicro.annotation.processor.common.util.Elements.allMethods;
@@ -51,7 +51,10 @@ public final class FieldOrMethodInjectionPointBuilderImpl extends AbstractInject
         final List<ExecutableElement> methods = allMethods(beanTypeElement, f ->
                 INJECT_ANNOTATIONS.stream().anyMatch(a -> f.getAnnotation(a) != null) ||
                         f.getParameters().stream().flatMap(p -> p.getAnnotationMirrors().stream())
-                                .anyMatch(m -> INJECT_ANNOTATIONS.stream().anyMatch(a -> a.getName().equals(m.getAnnotationType().toString()))));
+                                .anyMatch(m -> INJECT_ANNOTATIONS.stream().anyMatch(a ->
+                                        a.getName().equals(m.getAnnotationType().toString()))
+                                )
+        );
         return Stream.concat(
                 fields.stream()
                         .map(p -> build(beanTypeElement, p)),
@@ -60,24 +63,6 @@ public final class FieldOrMethodInjectionPointBuilderImpl extends AbstractInject
                         .flatMap(m -> m.getParameters().stream())
                         .map(p -> build(beanTypeElement, p))
         ).collect(toList());
-    }
-
-    private void validateInjectionMethod(final ExecutableElement method) {
-        if (method.getParameters().size() == 0) {
-            throw new InterruptProcessingException(
-                    method,
-                    "Injection method must contain a parameter. This parameter is injectable component!"
-            );
-        }
-        if (method.getParameters().size() > 1) {
-            throw new InterruptProcessingException(
-                    method,
-                    "Injection method must contain only one parameter. This parameter is injectable component!"
-            );
-        }
-        validateNotPrivateMethod(method, "Injection method couldn't be a private. Use public or protected od <default> modifier instead!");
-        validateNotStaticMethod(method, "Injection method couldn't be a static. Remove the 'static' modifier!");
-        validateNotAbstractMethod(method, "Injection method couldn't be an abstract. Remove the 'abstract' modifier!");
     }
 
     @Override
@@ -101,5 +86,23 @@ public final class FieldOrMethodInjectionPointBuilderImpl extends AbstractInject
         } else {
             return super.isRequired(element);
         }
+    }
+
+    private void validateInjectionMethod(final ExecutableElement method) {
+        if (method.getParameters().size() == 0) {
+            throw new InterruptProcessingException(
+                    method,
+                    "Injection method must contain a parameter. This parameter is injectable component!"
+            );
+        }
+        if (method.getParameters().size() > 1) {
+            throw new InterruptProcessingException(
+                    method,
+                    "Injection method must contain only one parameter. This parameter is injectable component!"
+            );
+        }
+        validateNotPrivateMethod(method, "Injection method couldn't be a private. Use public or protected od <default> modifier instead!");
+        validateNotStaticMethod(method, "Injection method couldn't be a static. Remove the 'static' modifier!");
+        validateNotAbstractMethod(method, "Injection method couldn't be an abstract. Remove the 'abstract' modifier!");
     }
 }

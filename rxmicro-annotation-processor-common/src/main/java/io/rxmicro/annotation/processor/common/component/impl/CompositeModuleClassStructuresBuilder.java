@@ -22,13 +22,13 @@ import io.rxmicro.annotation.processor.common.model.EnvironmentContext;
 import io.rxmicro.annotation.processor.common.model.error.InternalErrorException;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
 
-import javax.annotation.processing.RoundEnvironment;
-import javax.lang.model.element.TypeElement;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import javax.annotation.processing.RoundEnvironment;
+import javax.lang.model.element.TypeElement;
 
 import static io.rxmicro.annotation.processor.common.util.Injects.injectDependencies;
 import static java.util.stream.Collectors.toSet;
@@ -93,14 +93,14 @@ public class CompositeModuleClassStructuresBuilder<T extends AbstractModuleClass
                     classStructures.addAll(
                             entry.getKey().buildClassStructures(environmentContext, entry.getValue(), roundEnv)
                     );
-                } catch (final InterruptProcessingException e) {
-                    error(e);
+                } catch (final InterruptProcessingException ex) {
+                    error(ex);
                 }
             }
             moduleClassStructuresBuilders.forEach(builder -> builder.afterAllClassStructuresBuilt(classStructures));
             return classStructures;
-        } catch (final InterruptProcessingException e) {
-            error(e);
+        } catch (final InterruptProcessingException ex) {
+            error(ex);
             return Set.of();
         }
     }

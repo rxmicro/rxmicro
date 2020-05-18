@@ -382,6 +382,18 @@ public final class MongoCodecsConfigurator extends AbstractMongoCodecsConfigurat
     }
 
     /**
+     * Sets or replaces the codec
+     *
+     * @param encodedClassPredicate the type class predicate that defines a rule to get a codec for requested class
+     * @param codec the codec to put
+     * @return the reference to this {@link MongoCodecsConfigurator} instance
+     */
+    public MongoCodecsConfigurator putCodec(final Predicate<Class<?>> encodedClassPredicate,
+                                            final Codec<?> codec) {
+        return addCodec(require(encodedClassPredicate), require(codec));
+    }
+
+    /**
      * Sets or replaces the codec provider
      *
      * @param encodedClass the type class
@@ -406,18 +418,6 @@ public final class MongoCodecsConfigurator extends AbstractMongoCodecsConfigurat
     }
 
     /**
-     * Sets or replaces the codec
-     *
-     * @param encodedClassPredicate the type class predicate that defines a rule to get a codec for requested class
-     * @param codec the codec to put
-     * @return the reference to this {@link MongoCodecsConfigurator} instance
-     */
-    public MongoCodecsConfigurator putCodec(final Predicate<Class<?>> encodedClassPredicate,
-                                            final Codec<?> codec) {
-        return addCodec(require(encodedClassPredicate), require(codec));
-    }
-
-    /**
      * Provides the default configuration if a custom configuration is not set
      *
      * @return the reference to this {@link MongoCodecsConfigurator} instance
@@ -438,7 +438,7 @@ public final class MongoCodecsConfigurator extends AbstractMongoCodecsConfigurat
 
         private final AtomicReference<Codec<Document>> codecSupplier;
 
-        public DocumentProxyCodec(final AtomicReference<Codec<Document>> codecSupplier) {
+        private DocumentProxyCodec(final AtomicReference<Codec<Document>> codecSupplier) {
             this.codecSupplier = codecSupplier;
         }
 
@@ -472,8 +472,8 @@ public final class MongoCodecsConfigurator extends AbstractMongoCodecsConfigurat
 
         private final Codec<Document> documentCodec;
 
-        public CodecRegistryProxy(final CodecRegistry codecRegistry,
-                                  final Codec<Document> documentCodec) {
+        private CodecRegistryProxy(final CodecRegistry codecRegistry,
+                                   final Codec<Document> documentCodec) {
             this.codecRegistry = codecRegistry;
             this.documentCodec = documentCodec;
         }

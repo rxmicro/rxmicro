@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 https://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,13 +32,13 @@ import io.rxmicro.annotation.processor.rest.model.RestModuleGeneratorConfig;
 import io.rxmicro.annotation.processor.rest.model.RestObjectModelClass;
 import io.rxmicro.rest.model.ExchangeFormatModule;
 
-import javax.lang.model.element.ModuleElement;
-import javax.lang.model.element.TypeElement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import javax.lang.model.element.ModuleElement;
+import javax.lang.model.element.TypeElement;
 
 import static io.rxmicro.annotation.processor.common.util.Elements.UNIQUE_TYPES_COMPARATOR;
 import static io.rxmicro.common.util.ExCollectors.toTreeSet;

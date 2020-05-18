@@ -25,9 +25,9 @@ import io.rxmicro.validation.constraint.Past;
 import io.rxmicro.validation.constraint.PastOrPresent;
 import io.rxmicro.validation.constraint.TruncatedTime;
 
-import javax.lang.model.type.TypeMirror;
 import java.time.Instant;
 import java.time.ZoneOffset;
+import javax.lang.model.type.TypeMirror;
 
 import static io.rxmicro.annotation.processor.common.util.DateTimes.SUPPORTED_DATE_TIME_CLASSES;
 import static io.rxmicro.common.local.Examples.INSTANT_EXAMPLE;
@@ -48,6 +48,8 @@ public final class DateTimeExampleBuilder implements TypeExampleBuilder {
     private static final int TRUNCATED_HOURS = 24 * TRUNCATED_MINUTES;
 
     private static final String NOT_IMPL_YET = "Not impl yet";
+
+    private static final int YEARS_TO_ADD_IN_FUTURE = 200;
 
     @Override
     public boolean isSupported(final RestModelField restModelField,
@@ -98,7 +100,7 @@ public final class DateTimeExampleBuilder implements TypeExampleBuilder {
         if (typeMirror.toString().equals(Instant.class.getName())) {
             return Instant.parse(INSTANT_EXAMPLE)
                     .atOffset(ZoneOffset.UTC)
-                    .plusYears(200)
+                    .plusYears(YEARS_TO_ADD_IN_FUTURE)
                     .toInstant()
                     .toString();
         }

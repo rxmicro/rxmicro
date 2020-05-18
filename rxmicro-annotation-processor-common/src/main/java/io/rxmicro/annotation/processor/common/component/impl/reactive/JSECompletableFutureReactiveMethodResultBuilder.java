@@ -22,10 +22,10 @@ import io.rxmicro.annotation.processor.common.model.definition.SupportedTypesPro
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
 import io.rxmicro.annotation.processor.common.model.method.MethodResult;
 
+import java.util.Optional;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.type.DeclaredType;
 import javax.lang.model.type.TypeMirror;
-import java.util.Optional;
 
 import static io.rxmicro.annotation.processor.common.model.method.MethodResult.createCompletableFutureResult;
 import static io.rxmicro.annotation.processor.common.util.Names.getSimpleName;

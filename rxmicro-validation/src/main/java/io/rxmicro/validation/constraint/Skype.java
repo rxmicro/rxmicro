@@ -40,12 +40,8 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 @Retention(SOURCE)
 @Target({FIELD, METHOD, PARAMETER})
 @ConstraintRule(
-        supportedTypes = {
-                String.class
-        },
-        validatorClass = {
-                SkypeConstraintValidator.class
-        }
+        supportedTypes = String.class,
+        validatorClass = SkypeConstraintValidator.class
 )
 @SelfDocumented
 public @interface Skype {

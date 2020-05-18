@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 https://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,14 +39,14 @@ import io.rxmicro.rest.model.UrlSegments;
 import io.rxmicro.rest.server.NotFoundMessage;
 import io.rxmicro.rest.server.SetStatusCode;
 
-import javax.lang.model.element.Element;
-import javax.lang.model.element.TypeElement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import javax.lang.model.element.Element;
+import javax.lang.model.element.TypeElement;
 
 import static io.rxmicro.annotation.processor.common.util.Names.getPackageName;
 import static io.rxmicro.annotation.processor.common.util.Reactives.isFuture;
@@ -87,8 +87,10 @@ public final class RestControllerClassStructureBuilderImpl implements RestContro
         final List<RestControllerMethodSignature> methods = signature.getMethodSignatures();
         final Set<String> overloadedMethodNames = getOverloadedMethodNames(methods);
         final ClassHeader.Builder classHeaderBuilder = ClassHeader.newClassHeaderBuilder(getPackageName(ownerClass));
-        final StaticHeaders staticHeaders = serverCommonOptionBuilder.getStaticHeaders(signature.getTypeElement(), signature.getParentUrl());
-        final RestServerModuleGeneratorConfig restServerModuleGeneratorConfig = environmentContext.get(RestServerModuleGeneratorConfig.class);
+        final StaticHeaders staticHeaders =
+                serverCommonOptionBuilder.getStaticHeaders(signature.getTypeElement(), signature.getParentUrl());
+        final RestServerModuleGeneratorConfig restServerModuleGeneratorConfig =
+                environmentContext.get(RestServerModuleGeneratorConfig.class);
         return new RestControllerClassStructure(
                 restServerModuleGeneratorConfig,
                 signature.getParentUrl(),
@@ -138,7 +140,9 @@ public final class RestControllerClassStructureBuilderImpl implements RestContro
                 .map(SetStatusCode::value)
                 .orElse(200);
         final StaticHeaders staticHeaders = new StaticHeaders(staticHeadersPerType);
-        staticHeaders.setOrAddAll(serverCommonOptionBuilder.getStaticHeaders(methodSignature.getExecutableElement(), methodSignature.getParentUrl()));
+        staticHeaders.setOrAddAll(
+                serverCommonOptionBuilder.getStaticHeaders(methodSignature.getExecutableElement(), methodSignature.getParentUrl())
+        );
         final MethodBody methodBody = buildMethodBody(
                 restServerModuleGeneratorConfig,
                 classHeaderBuilder,

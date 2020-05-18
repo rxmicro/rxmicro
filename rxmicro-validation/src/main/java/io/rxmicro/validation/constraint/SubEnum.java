@@ -42,12 +42,8 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 @Retention(SOURCE)
 @Target({FIELD, METHOD, PARAMETER})
 @ConstraintRule(
-        supportedTypes = {
-                Enum.class
-        },
-        validatorClass = {
-                SubEnumConstraintValidator.class
-        }
+        supportedTypes = Enum.class,
+        validatorClass = SubEnumConstraintValidator.class
 )
 @SelfDocumented
 public @interface SubEnum {

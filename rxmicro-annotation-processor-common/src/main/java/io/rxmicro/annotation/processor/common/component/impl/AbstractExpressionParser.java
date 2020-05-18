@@ -18,8 +18,8 @@ package io.rxmicro.annotation.processor.common.component.impl;
 
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
 
-import javax.lang.model.element.Element;
 import java.util.List;
+import javax.lang.model.element.Element;
 
 import static io.rxmicro.common.util.Formats.format;
 

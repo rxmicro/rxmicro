@@ -37,13 +37,18 @@ import static io.rxmicro.common.util.Formats.format;
 @SuppressWarnings("UnusedReturnValue")
 public final class PostgreSQLConfig extends SQLPooledDatabaseConfig {
 
+    /**
+     * Default PostgreSQL port
+     */
+    public static final int DEFAULT_POSTGRESQL_PORT = 5432;
+
     private Function<Connection, Connection> connectionDecorator;
 
     /**
      * Creates a Postgre SQL config instance with default settings
      */
     public PostgreSQLConfig() {
-        setPort(5432);
+        setPort(DEFAULT_POSTGRESQL_PORT);
         setUser("rxmicro");
     }
 

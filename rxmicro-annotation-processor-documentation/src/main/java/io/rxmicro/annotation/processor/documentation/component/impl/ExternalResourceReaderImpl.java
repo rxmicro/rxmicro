@@ -22,13 +22,13 @@ import io.rxmicro.annotation.processor.documentation.component.ExternalResourceR
 import io.rxmicro.common.CheckedWrapperException;
 import io.rxmicro.common.InvalidStateException;
 
-import javax.lang.model.element.Element;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Scanner;
+import javax.lang.model.element.Element;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
@@ -55,8 +55,8 @@ public final class ExternalResourceReaderImpl implements ExternalResourceReader 
     private String readFromFile(final Path filePath) {
         try {
             return Files.readString(filePath, UTF_8);
-        } catch (final IOException e) {
-            throw new CheckedWrapperException(e, "Can't read data from file: ?", filePath.toAbsolutePath());
+        } catch (final IOException ex) {
+            throw new CheckedWrapperException(ex, "Can't read data from file: ?", filePath.toAbsolutePath());
         }
     }
 
@@ -67,8 +67,8 @@ public final class ExternalResourceReaderImpl implements ExternalResourceReader 
                 return scanner.next();
             }
             throw new InvalidStateException("Can't read data from http resource: ?: Empty content", resourcePath);
-        } catch (final IOException e) {
-            throw new CheckedWrapperException(e, "Can't read data from http resource: ?", resourcePath);
+        } catch (final IOException ex) {
+            throw new CheckedWrapperException(ex, "Can't read data from http resource: ?", resourcePath);
         }
     }
 }

@@ -53,7 +53,9 @@ public final class ErrorHttpResponseBuilderImpl implements ErrorHttpResponseBuil
         this.httpCallFailedHttpResponseBuilder =
                 new HttpCallFailedHttpResponseBuilder(httpResponseBuilder, httpErrorResponseBodyBuilder, hideInternalErrorMessage);
         this.anyHttpErrorHttpResponseBuilder =
-                new AnyHttpErrorHttpResponseBuilder(httpResponseBuilder, httpErrorResponseBodyBuilder, hideInternalErrorMessage, logNotServerErrors);
+                new AnyHttpErrorHttpResponseBuilder(
+                        httpResponseBuilder, httpErrorResponseBodyBuilder, hideInternalErrorMessage, logNotServerErrors
+                );
         this.throwableHttpResponseBuilder =
                 new ThrowableHttpResponseBuilder(httpResponseBuilder, httpErrorResponseBodyBuilder, hideInternalErrorMessage);
     }

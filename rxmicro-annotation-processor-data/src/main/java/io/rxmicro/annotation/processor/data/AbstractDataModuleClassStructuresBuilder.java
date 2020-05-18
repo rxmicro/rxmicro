@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 https://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,10 +30,10 @@ import io.rxmicro.annotation.processor.data.model.DataModelField;
 import io.rxmicro.annotation.processor.data.model.DataObjectModelClass;
 import io.rxmicro.annotation.processor.data.model.DataRepositoryInterfaceSignature;
 
-import javax.annotation.processing.RoundEnvironment;
-import javax.lang.model.element.TypeElement;
 import java.util.ArrayList;
 import java.util.Set;
+import javax.annotation.processing.RoundEnvironment;
+import javax.lang.model.element.TypeElement;
 
 import static java.util.stream.Collectors.toSet;
 
@@ -72,8 +72,8 @@ public abstract class AbstractDataModuleClassStructuresBuilder<DMF extends DataM
                     .collect(toSet());
             result.addAll(entityConverterBuilder.build(dataGenerationContext));
             return result;
-        } catch (final InterruptProcessingException e) {
-            error(e);
+        } catch (final InterruptProcessingException ex) {
+            error(ex);
             return Set.of();
         }
     }

@@ -50,6 +50,18 @@ public final class JsonHttpErrorResponseBodyBuilder implements HttpErrorResponse
     }
 
     @Override
+    public HttpResponse build(final HttpResponse emptyResponse,
+                              final HttpCallFailedException exception) {
+        emptyResponse.setStatus(exception.getStatusCode());
+        emptyResponse.setVersion(exception.getVersion());
+        emptyResponse.setOrAddHeaders(exception.getHeaders());
+        if (exception.isBodyPresent()) {
+            emptyResponse.setContent(exception.getBody());
+        }
+        return emptyResponse;
+    }
+
+    @Override
     public boolean isRxMicroError(final HttpCallFailedException exception) {
         final String server = exception.getHeaders().getValue(SERVER);
         if (server != null && server.startsWith(RX_MICRO_FRAMEWORK_NAME)) {
@@ -67,18 +79,6 @@ public final class JsonHttpErrorResponseBodyBuilder implements HttpErrorResponse
             }
         }
         return false;
-    }
-
-    @Override
-    public HttpResponse build(final HttpResponse emptyResponse,
-                              final HttpCallFailedException exception) {
-        emptyResponse.setStatus(exception.getStatusCode());
-        emptyResponse.setVersion(exception.getVersion());
-        emptyResponse.setOrAddHeaders(exception.getHeaders());
-        if (exception.isBodyPresent()) {
-            emptyResponse.setContent(exception.getBody());
-        }
-        return emptyResponse;
     }
 
     private String createErrorJson(final String message) {

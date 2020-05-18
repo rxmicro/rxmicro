@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 https://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -48,9 +48,9 @@ public abstract class ModelFromJsonConverter<T> {
     public final List<T> fromJsonArray(final Object body) {
         try {
             return fromJsonArray(asJsonArray(body));
-        } catch (final JsonException e) {
+        } catch (final JsonException ignore) {
             throw new ValidationException("Invalid http body: Expected a json array!");
-        } catch (final ClassCastException e) {
+        } catch (final ClassCastException ignore) {
             throw new ValidationException("Invalid http body: Expected a json array of json objects!");
         }
     }
@@ -59,7 +59,7 @@ public abstract class ModelFromJsonConverter<T> {
                                        final String modelName) {
         try {
             return fromJsonArray(list);
-        } catch (final ClassCastException e) {
+        } catch (final ClassCastException ignore) {
             throw new ValidationException("Invalid ? \"?\": Expected an object array!", PARAMETER, modelName);
         }
     }
@@ -82,7 +82,7 @@ public abstract class ModelFromJsonConverter<T> {
     public final T fromJsonObject(final Object body) {
         try {
             return fromJsonObject(asJsonObject(body));
-        } catch (final JsonException e) {
+        } catch (final JsonException ignore) {
             throw new ValidationException("Invalid http body: Expected a json object!");
         }
     }
@@ -114,7 +114,7 @@ public abstract class ModelFromJsonConverter<T> {
         } else if (value instanceof String) {
             try {
                 return Enum.valueOf(enumClass, (String) value);
-            } catch (final IllegalArgumentException e) {
+            } catch (final IllegalArgumentException ignore) {
                 throw new ValidationException(
                         "Invalid ? \"?\": Expected a value from the set ?, but actual is ?!",
                         PARAMETER, modelName, Arrays.toString(enumClass.getEnumConstants()), getJsonActual(value)
@@ -141,8 +141,8 @@ public abstract class ModelFromJsonConverter<T> {
                         result.add(toEnum(enumClass, value, modelName));
                     }
                     return unmodifiableList(result);
-                } catch (final ClassCastException e) {
-                    //goto ValidationException
+                } catch (final ClassCastException ignore) {
+                    //goto throw new ValidationException
                 }
             }
             throw new ValidationException(
@@ -182,8 +182,8 @@ public abstract class ModelFromJsonConverter<T> {
                         }
                     }
                     return unmodifiableList(result);
-                } catch (final ClassCastException e) {
-                    //goto ValidationException
+                } catch (final ClassCastException ignore) {
+                    //goto throw new ValidationException
                 }
             }
             throw new ValidationException(
@@ -205,8 +205,8 @@ public abstract class ModelFromJsonConverter<T> {
             if (value instanceof Number) {
                 try {
                     return ((Number) value).byteValue();
-                } catch (final NumberFormatException e) {
-                    //goto throw ValidationException:
+                } catch (final NumberFormatException ignore) {
+                    //goto throw new ValidationException
                 }
             }
             throw new ValidationException(
@@ -228,8 +228,8 @@ public abstract class ModelFromJsonConverter<T> {
                         result.add(toByte(value, modelName));
                     }
                     return unmodifiableList(result);
-                } catch (final ClassCastException e) {
-                    //goto ValidationException
+                } catch (final ClassCastException ignore) {
+                    //goto throw new ValidationException
                 }
             }
             throw new ValidationException(
@@ -251,8 +251,8 @@ public abstract class ModelFromJsonConverter<T> {
             if (value instanceof Number) {
                 try {
                     return ((Number) value).shortValue();
-                } catch (final NumberFormatException e) {
-                    //goto throw ValidationException:
+                } catch (final NumberFormatException ignore) {
+                    //goto throw new ValidationException
                 }
             }
             throw new ValidationException(
@@ -274,8 +274,8 @@ public abstract class ModelFromJsonConverter<T> {
                         result.add(toShort(value, modelName));
                     }
                     return unmodifiableList(result);
-                } catch (final ClassCastException e) {
-                    //goto ValidationException
+                } catch (final ClassCastException ignore) {
+                    //goto throw new ValidationException
                 }
             }
             throw new ValidationException(
@@ -297,8 +297,8 @@ public abstract class ModelFromJsonConverter<T> {
             if (value instanceof Number) {
                 try {
                     return ((Number) value).intValue();
-                } catch (final NumberFormatException e) {
-                    //goto throw ValidationException:
+                } catch (final NumberFormatException ignore) {
+                    //goto throw new ValidationException
                 }
             }
             throw new ValidationException(
@@ -320,8 +320,8 @@ public abstract class ModelFromJsonConverter<T> {
                         result.add(toInteger(value, modelName));
                     }
                     return unmodifiableList(result);
-                } catch (final ClassCastException e) {
-                    //goto ValidationException
+                } catch (final ClassCastException ignore) {
+                    //goto throw new ValidationException
                 }
             }
             throw new ValidationException(
@@ -343,8 +343,8 @@ public abstract class ModelFromJsonConverter<T> {
             if (value instanceof Number) {
                 try {
                     return ((Number) value).longValue();
-                } catch (final NumberFormatException e) {
-                    //goto throw ValidationException:
+                } catch (final NumberFormatException ignore) {
+                    //goto throw new ValidationException
                 }
             }
             throw new ValidationException(
@@ -366,8 +366,8 @@ public abstract class ModelFromJsonConverter<T> {
                         result.add(toLong(value, modelName));
                     }
                     return unmodifiableList(result);
-                } catch (final ClassCastException e) {
-                    //goto ValidationException
+                } catch (final ClassCastException ignore) {
+                    //goto throw new ValidationException
                 }
             }
             throw new ValidationException(
@@ -391,8 +391,8 @@ public abstract class ModelFromJsonConverter<T> {
                 if (string.length() == 1) {
                     return string.charAt(0);
                 }
-            } catch (final ClassCastException e) {
-                //goto ValidationException
+            } catch (final ClassCastException ignore) {
+                //goto throw new ValidationException
             }
             throw new ValidationException(
                     "Invalid ? \"?\": Expected a character, but actual is ?!",
@@ -413,8 +413,8 @@ public abstract class ModelFromJsonConverter<T> {
                         result.add(toCharacter(value, modelName));
                     }
                     return unmodifiableList(result);
-                } catch (final ClassCastException e) {
-                    //goto ValidationException
+                } catch (final ClassCastException ignore) {
+                    //goto throw new ValidationException
                 }
             }
             throw new ValidationException(
@@ -436,8 +436,8 @@ public abstract class ModelFromJsonConverter<T> {
             if (value instanceof Number) {
                 try {
                     return ((Number) value).floatValue();
-                } catch (final NumberFormatException e) {
-                    //goto throw ValidationException:
+                } catch (final NumberFormatException ignore) {
+                    //goto throw new ValidationException
                 }
             }
             throw new ValidationException(
@@ -459,8 +459,8 @@ public abstract class ModelFromJsonConverter<T> {
                         result.add(toFloat(value, modelName));
                     }
                     return unmodifiableList(result);
-                } catch (final ClassCastException e) {
-                    //goto ValidationException
+                } catch (final ClassCastException ignore) {
+                    //goto throw new ValidationException
                 }
             }
             throw new ValidationException(
@@ -482,8 +482,8 @@ public abstract class ModelFromJsonConverter<T> {
             if (value instanceof Number) {
                 try {
                     return ((Number) value).doubleValue();
-                } catch (final NumberFormatException e) {
-                    //goto throw ValidationException:
+                } catch (final NumberFormatException ignore) {
+                    //goto throw new ValidationException
                 }
             }
             throw new ValidationException(
@@ -505,8 +505,8 @@ public abstract class ModelFromJsonConverter<T> {
                         result.add(toDouble(value, modelName));
                     }
                     return unmodifiableList(result);
-                } catch (final ClassCastException e) {
-                    //goto ValidationException
+                } catch (final ClassCastException ignore) {
+                    //goto throw new ValidationException
                 }
             }
             throw new ValidationException(
@@ -546,8 +546,8 @@ public abstract class ModelFromJsonConverter<T> {
                         result.add(toBigDecimal(value, modelName));
                     }
                     return unmodifiableList(result);
-                } catch (final ClassCastException e) {
-                    //goto ValidationException
+                } catch (final ClassCastException ignore) {
+                    //goto throw new ValidationException
                 }
             }
             throw new ValidationException(
@@ -569,8 +569,8 @@ public abstract class ModelFromJsonConverter<T> {
             if (value instanceof Number) {
                 try {
                     return new BigInteger(value.toString());
-                } catch (final NumberFormatException e) {
-                    //goto throw ValidationException:
+                } catch (final NumberFormatException ignore) {
+                    //goto throw new ValidationException
                 }
             }
             throw new ValidationException(
@@ -592,8 +592,8 @@ public abstract class ModelFromJsonConverter<T> {
                         result.add(toBigInteger(value, modelName));
                     }
                     return unmodifiableList(result);
-                } catch (final ClassCastException e) {
-                    //goto ValidationException
+                } catch (final ClassCastException ignore) {
+                    //goto throw new ValidationException
                 }
             }
             throw new ValidationException(
@@ -614,7 +614,7 @@ public abstract class ModelFromJsonConverter<T> {
         } else {
             try {
                 return Instant.parse(value.toString());
-            } catch (final DateTimeParseException e) {
+            } catch (final DateTimeParseException ignore) {
                 throw new ValidationException(
                         "Invalid ? \"?\": Expected an ISO-8601 instant " +
                                 "(Example: '?'), but actual is ?!",
@@ -635,8 +635,8 @@ public abstract class ModelFromJsonConverter<T> {
                         result.add(toInstant(number, modelName));
                     }
                     return unmodifiableList(result);
-                } catch (final ClassCastException e) {
-                    //goto ValidationException
+                } catch (final ClassCastException ignore) {
+                    //goto throw new ValidationException
                 }
             }
             throw new ValidationException(
@@ -677,8 +677,8 @@ public abstract class ModelFromJsonConverter<T> {
                         }
                     }
                     return unmodifiableList(result);
-                } catch (final ClassCastException e) {
-                    //goto ValidationException
+                } catch (final ClassCastException ignore) {
+                    //goto throw new ValidationException
                 }
             }
             throw new ValidationException(

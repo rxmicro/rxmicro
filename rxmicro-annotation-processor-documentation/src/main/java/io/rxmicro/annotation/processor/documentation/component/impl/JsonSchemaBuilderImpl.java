@@ -185,7 +185,7 @@ public final class JsonSchemaBuilderImpl implements JsonSchemaBuilder {
         final JsonObjectBuilder builder = new JsonObjectBuilder();
         builder.put(TYPE, "array");
         readDescription(builder, projectDirectory, modelField, restObjectModelClass);
-        jsonAttributesReader.readArrayAttributes(environmentContext, builder, modelField);
+        jsonAttributesReader.readArrayAttributes(builder, modelField);
         builder.put(ITEMS, itemSupplier.get());
         return builder.build();
     }
@@ -197,11 +197,11 @@ public final class JsonSchemaBuilderImpl implements JsonSchemaBuilder {
         final String jsonType = primitiveModelClass.getPrimitiveType().toJsonType();
         builder.put(TYPE, jsonType);
         if (SUPPORTED_DATE_TIME_CLASSES.contains(primitiveModelClass.getTypeMirror().toString())) {
-            jsonAttributesReader.readDateTimePrimitiveAttributes(environmentContext, builder, restModelField);
+            jsonAttributesReader.readDateTimePrimitiveAttributes(builder, restModelField);
         } else if (JsonTypes.STRING.equals(jsonType)) {
-            jsonAttributesReader.readStringPrimitiveAttributes(environmentContext, builder, restModelField);
+            jsonAttributesReader.readStringPrimitiveAttributes(builder, restModelField);
         } else if (JsonTypes.NUMBER.equals(jsonType)) {
-            jsonAttributesReader.readNumberPrimitiveAttributes(environmentContext, builder, restModelField);
+            jsonAttributesReader.readNumberPrimitiveAttributes(builder, restModelField);
         }
         builder.put(EXAMPLES, exampleValueBuilder.getExamples(restModelField));
         return builder.build();
@@ -212,7 +212,7 @@ public final class JsonSchemaBuilderImpl implements JsonSchemaBuilder {
                                                   final EnumModelClass enumModelClass) {
         final JsonObjectBuilder builder = new JsonObjectBuilder();
         builder.put(TYPE, enumModelClass.getPrimitiveType().toJsonType());
-        jsonAttributesReader.readEnumAttributes(environmentContext, builder, restModelField, enumModelClass);
+        jsonAttributesReader.readEnumAttributes(builder, restModelField, enumModelClass);
         builder.put(EXAMPLES, exampleValueBuilder.getExamples(restModelField));
         return builder.build();
     }

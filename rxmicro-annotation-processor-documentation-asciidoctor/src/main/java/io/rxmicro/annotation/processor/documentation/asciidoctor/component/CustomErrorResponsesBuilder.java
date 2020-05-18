@@ -23,8 +23,8 @@ import io.rxmicro.documentation.ModelExceptionErrorResponse;
 import io.rxmicro.documentation.ResourceDefinition;
 import io.rxmicro.documentation.SimpleErrorResponse;
 
-import javax.lang.model.element.Element;
 import java.util.List;
+import javax.lang.model.element.Element;
 
 /**
  * @author nedis

@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 https://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,8 +16,8 @@
 
 package io.rxmicro.annotation.processor.common.model;
 
-import javax.lang.model.element.VariableElement;
 import java.util.List;
+import javax.lang.model.element.VariableElement;
 
 /**
  * @author nedis

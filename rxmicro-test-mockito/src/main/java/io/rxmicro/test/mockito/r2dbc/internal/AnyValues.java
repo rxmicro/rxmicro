@@ -41,7 +41,7 @@ public final class AnyValues {
 
         private final String string;
 
-        public BiFunctionImpl(final String string) {
+        private BiFunctionImpl(final String string) {
             this.string = string;
         }
 

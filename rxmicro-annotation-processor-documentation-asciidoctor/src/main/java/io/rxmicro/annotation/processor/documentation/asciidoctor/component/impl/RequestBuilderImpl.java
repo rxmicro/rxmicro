@@ -72,87 +72,89 @@ public final class RequestBuilderImpl implements RequestBuilder {
                                 final HttpMethodMapping httpMethodMapping,
                                 final RestControllerMethod method,
                                 final RestControllerClassStructureStorage restControllerClassStructureStorage) {
-        final String example = resourceDefinition.withExamples() ?
-                httpRequestExampleBuilder.build(
-                        projectMetaData,
-                        classStructure.getParentUrl(),
-                        httpMethodMapping,
-                        restControllerClassStructureStorage,
-                        method
-                ) :
-                null;
+        final Request.Builder builder = new Request.Builder();
+        if (resourceDefinition.withExamples()) {
+            builder.setExample(
+                    httpRequestExampleBuilder.build(
+                            projectMetaData, classStructure.getParentUrl(), httpMethodMapping, restControllerClassStructureStorage, method
+                    )
+            );
+        }
         final Optional<RestObjectModelClass> requestModelClass = getRequestModelClass(method, restControllerClassStructureStorage);
         return requestModelClass
-                .map(cl -> createRequest(
-                        environmentContext,
-                        projectMetaData,
-                        resourceDefinition,
-                        classStructure,
-                        httpMethodMapping,
-                        example,
-                        cl))
-                .orElseGet(() -> new Request(
-                        example,
-                        classStructure.getParentUrl().isHeaderVersionStrategy() ?
-                                List.of(getApiVersionDocumentedModelField(classStructure.getParentUrl())) :
-                                List.of()
-                ));
+                .map(cl -> {
+                    setHeadersAndPathVariables(environmentContext, projectMetaData, resourceDefinition, classStructure, cl, builder);
+                    setParameters(environmentContext, projectMetaData, resourceDefinition, httpMethodMapping, cl, builder);
+                    return builder.build();
+                })
+                .orElseGet(() -> builder
+                        .setHeaders(
+                                classStructure.getParentUrl().isHeaderVersionStrategy() ?
+                                        List.of(getApiVersionDocumentedModelField(classStructure.getParentUrl())) :
+                                        List.of())
+                        .build()
+                );
     }
 
-    private Request createRequest(final EnvironmentContext environmentContext,
-                                  final ProjectMetaData projectMetaData,
-                                  final ResourceDefinition resourceDefinition,
-                                  final RestControllerClassStructure classStructure,
-                                  final HttpMethodMapping httpMethodMapping,
-                                  final String example,
-                                  final RestObjectModelClass restObjectModelClass) {
+    private void setHeadersAndPathVariables(final EnvironmentContext environmentContext,
+                                            final ProjectMetaData projectMetaData,
+                                            final ResourceDefinition resourceDefinition,
+                                            final RestControllerClassStructure classStructure,
+                                            final RestObjectModelClass restObjectModelClass,
+                                            final Request.Builder builder) {
         final boolean withReadMore = resourceDefinition.withReadMore();
-        final List<DocumentedModelField> pathVariables = resourceDefinition.withPathVariablesDescriptionTable() ?
-                documentedModelFieldBuilder.buildSimple(
-                        environmentContext,
-                        resourceDefinition.withStandardDescriptions(),
-                        projectMetaData.getProjectDirectory(),
-                        restObjectModelClass, PATH, withReadMore
-                ) :
-                List.of();
-        final List<DocumentedModelField> headers = getHeaders(
+        builder.setHeaders(getHeaders(
                 environmentContext, resourceDefinition, projectMetaData, classStructure, restObjectModelClass, withReadMore
-        );
-        final String schema = resourceDefinition.withJsonSchema() && httpMethodMapping.isHttpBody() ?
-                toJsonString(jsonSchemaBuilder.getJsonObjectSchema(
-                        environmentContext, projectMetaData.getProjectDirectory(), restObjectModelClass), true
-                ) :
-                null;
+        ));
+        if (resourceDefinition.withPathVariablesDescriptionTable()) {
+            builder.setPathVariables(
+                    documentedModelFieldBuilder.buildSimple(
+                            environmentContext,
+                            resourceDefinition.withStandardDescriptions(),
+                            projectMetaData.getProjectDirectory(),
+                            restObjectModelClass, PATH, withReadMore
+                    )
+            );
+        }
+    }
+
+    private void setParameters(final EnvironmentContext environmentContext,
+                               final ProjectMetaData projectMetaData,
+                               final ResourceDefinition resourceDefinition,
+                               final HttpMethodMapping httpMethodMapping,
+                               final RestObjectModelClass restObjectModelClass,
+                               final Request.Builder builder) {
+        final boolean withReadMore = resourceDefinition.withReadMore();
         if (!httpMethodMapping.isHttpBody()) {
-            return new Request(
-                    example,
-                    pathVariables,
-                    headers,
-                    resourceDefinition.withQueryParametersDescriptionTable() ?
-                            documentedModelFieldBuilder.buildSimple(
-                                    environmentContext,
-                                    resourceDefinition.withStandardDescriptions(),
-                                    projectMetaData.getProjectDirectory(),
-                                    restObjectModelClass, PARAMETER, withReadMore
-                            ) :
-                            List.of(),
-                    List.of(),
-                    null);
+            if (resourceDefinition.withQueryParametersDescriptionTable()) {
+                builder.setQueryParameters(
+                        documentedModelFieldBuilder.buildSimple(
+                                environmentContext,
+                                resourceDefinition.withStandardDescriptions(),
+                                projectMetaData.getProjectDirectory(),
+                                restObjectModelClass, PARAMETER, withReadMore
+                        )
+                );
+            }
+
         } else {
-            return new Request(
-                    example,
-                    pathVariables,
-                    headers,
-                    List.of(),
-                    resourceDefinition.withBodyParametersDescriptionTable() ?
-                            documentedModelFieldBuilder.buildComplex(
-                                    environmentContext,
-                                    resourceDefinition.withStandardDescriptions(),
-                                    projectMetaData.getProjectDirectory(),
-                                    restObjectModelClass, PARAMETER, withReadMore
-                            ) :
-                            List.of(),
-                    schema);
+            if (resourceDefinition.withBodyParametersDescriptionTable()) {
+                builder.setBodyParameters(
+                        documentedModelFieldBuilder.buildComplex(
+                                environmentContext,
+                                resourceDefinition.withStandardDescriptions(),
+                                projectMetaData.getProjectDirectory(),
+                                restObjectModelClass, PARAMETER, withReadMore
+                        )
+                );
+            }
+            if (resourceDefinition.withJsonSchema()) {
+                builder.setSchema(
+                        toJsonString(jsonSchemaBuilder.getJsonObjectSchema(
+                                environmentContext, projectMetaData.getProjectDirectory(), restObjectModelClass), true
+                        )
+                );
+            }
         }
     }
 

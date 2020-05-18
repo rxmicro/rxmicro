@@ -29,10 +29,10 @@ import io.rxmicro.documentation.IncludeMode;
 import io.rxmicro.documentation.IntroductionDefinition;
 import io.rxmicro.documentation.ResourceGroupDefinition;
 
-import javax.lang.model.element.Element;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import javax.lang.model.element.Element;
 
 /**
  * @author nedis
@@ -89,17 +89,6 @@ public final class CustomSectionsReaderImpl implements CustomSectionsReader {
         );
     }
 
-    private void validateParameters(final Element owner,
-                                    final int customSectionLength,
-                                    final int customSectionsCount) {
-        if (customSectionLength < customSectionsCount) {
-            throw new InterruptProcessingException(owner, "Missing custom section resource");
-        }
-        if (customSectionLength > customSectionsCount) {
-            throw new InterruptProcessingException(owner, "Redundant custom section resource");
-        }
-    }
-
     private List<String> read(final Element owner,
                               final String[] customSection,
                               final IncludeMode includeMode,
@@ -121,6 +110,17 @@ public final class CustomSectionsReaderImpl implements CustomSectionsReader {
                     .collect(Collectors.toList());
         } else {
             throw new InternalErrorException("Include mode not supported: ?", includeMode);
+        }
+    }
+
+    private void validateParameters(final Element owner,
+                                    final int customSectionLength,
+                                    final int customSectionsCount) {
+        if (customSectionLength < customSectionsCount) {
+            throw new InterruptProcessingException(owner, "Missing custom section resource");
+        }
+        if (customSectionLength > customSectionsCount) {
+            throw new InterruptProcessingException(owner, "Redundant custom section resource");
         }
     }
 }

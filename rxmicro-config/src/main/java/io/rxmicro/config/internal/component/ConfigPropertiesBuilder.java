@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 https://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,6 +30,8 @@ import static java.util.stream.Collectors.toList;
  */
 public final class ConfigPropertiesBuilder {
 
+    private static final int GETTER_PREFIX_LENGTH = "get".length();
+
     public ConfigProperties build(final String namespace,
                                   final Config config) {
         return new ConfigProperties(
@@ -44,6 +46,6 @@ public final class ConfigPropertiesBuilder {
     }
 
     private String getPropertyName(final String methodName) {
-        return unCapitalize(methodName.substring(3));
+        return unCapitalize(methodName.substring(GETTER_PREFIX_LENGTH));
     }
 }

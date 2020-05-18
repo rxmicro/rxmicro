@@ -32,13 +32,6 @@ import io.rxmicro.annotation.processor.common.model.type.ObjectModelClass;
 import io.rxmicro.annotation.processor.common.model.type.PrimitiveModelClass;
 import io.rxmicro.model.MappingStrategy;
 
-import javax.lang.model.element.Element;
-import javax.lang.model.element.ModuleElement;
-import javax.lang.model.element.TypeElement;
-import javax.lang.model.element.VariableElement;
-import javax.lang.model.type.DeclaredType;
-import javax.lang.model.type.TypeKind;
-import javax.lang.model.type.TypeMirror;
 import java.lang.annotation.Annotation;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -47,6 +40,13 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.function.Supplier;
+import javax.lang.model.element.Element;
+import javax.lang.model.element.ModuleElement;
+import javax.lang.model.element.TypeElement;
+import javax.lang.model.element.VariableElement;
+import javax.lang.model.type.DeclaredType;
+import javax.lang.model.type.TypeKind;
+import javax.lang.model.type.TypeMirror;
 
 import static io.rxmicro.annotation.processor.common.SupportedOptions.RX_MICRO_MAX_JSON_NESTED_DEPTH;
 import static io.rxmicro.annotation.processor.common.SupportedOptions.RX_MICRO_MAX_JSON_NESTED_DEPTH_OPTION_DEFAULT_VALUE;
@@ -117,6 +117,22 @@ public abstract class AbstractModelFieldBuilder<MF extends ModelField, MC extend
         return unmodifiableMap(result);
     }
 
+    protected final AnnotatedModelElement build(final TypeElement typeElement,
+                                                final VariableElement variableElement) {
+        return new AnnotatedModelElement(
+                getPackageName(typeElement),
+                variableElement,
+                findGetters(typeElement, variableElement),
+                findSetters(typeElement, variableElement).stream().findFirst().orElse(null));
+    }
+
+    protected abstract MF build(ModelFieldType modelFieldType,
+                                VariableElement field,
+                                TypeElement typeElement,
+                                ModelNames modelNames,
+                                Set<String> fieldNames,
+                                int nestedLevel);
+
     protected void validateModelClass(final TypeElement typeElement) {
         // Sub classes can add additional validators for this type element
     }
@@ -143,13 +159,6 @@ public abstract class AbstractModelFieldBuilder<MF extends ModelField, MC extend
                         el -> extract(currentModule, modelFieldType, el, el.asType(), nestedLevel, requireDefConstructor)
                 ));
     }
-
-    protected abstract MF build(ModelFieldType modelFieldType,
-                                VariableElement field,
-                                TypeElement typeElement,
-                                ModelNames modelNames,
-                                Set<String> fieldNames,
-                                int nestedLevel);
 
     protected final boolean isModelPrimitive(final TypeMirror typeMirror) {
         return getSupportedTypesProvider().getPrimitives().contains(typeMirror);
@@ -178,15 +187,6 @@ public abstract class AbstractModelFieldBuilder<MF extends ModelField, MC extend
                     typeElement.getQualifiedName(), modelField.getFieldName());
         }
         return modelField;
-    }
-
-    protected final AnnotatedModelElement build(final TypeElement typeElement,
-                                                final VariableElement variableElement) {
-        return new AnnotatedModelElement(
-                getPackageName(typeElement),
-                variableElement,
-                findGetters(typeElement, variableElement),
-                findSetters(typeElement, variableElement).stream().findFirst().orElse(null));
     }
 
     protected final String getModelName(final String value,

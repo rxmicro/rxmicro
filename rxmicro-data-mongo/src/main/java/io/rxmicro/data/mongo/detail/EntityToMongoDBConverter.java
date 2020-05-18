@@ -34,16 +34,6 @@ public abstract class EntityToMongoDBConverter<E, DB> extends AbstractEntityMong
     public abstract DB toDB(E entity,
                             boolean withId);
 
-    public Object getId(final E entity) {
-        throw new UnsupportedOperationException("Entity does not contain document id: " + entity);
-    }
-
-    @SuppressWarnings({"EmptyMethod", "unused"})
-    public void setId(final DB dbInstance,
-                      final E entity) {
-        // do nothing
-    }
-
     public final List<DB> toDB(final List<E> list) {
         if (list == null || list.isEmpty()) {
             return null;
@@ -54,6 +44,16 @@ public abstract class EntityToMongoDBConverter<E, DB> extends AbstractEntityMong
             }
             return result;
         }
+    }
+
+    public Object getId(final E entity) {
+        throw new UnsupportedOperationException("Entity does not contain document id: " + entity);
+    }
+
+    @SuppressWarnings({"EmptyMethod", "unused"})
+    public void setId(final DB dbInstance,
+                      final E entity) {
+        // do nothing
     }
 
     protected final <T> DB convertIfNotNull(final EntityToMongoDBConverter<T, DB> converter,

@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 https://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,9 +20,9 @@ import com.google.inject.Singleton;
 import io.rxmicro.annotation.processor.common.component.ClassWriter;
 import io.rxmicro.annotation.processor.common.model.SourceCode;
 
-import javax.annotation.processing.FilerException;
 import java.io.IOException;
 import java.io.Writer;
+import javax.annotation.processing.FilerException;
 
 import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getFiler;
 
@@ -38,13 +38,13 @@ public final class ClassWriterImpl extends AbstractProcessorComponent implements
         try (Writer writer = getFiler().createSourceFile(sourceCode.getName()).openWriter()) {
             writer.write(sourceCode.getContent());
             debug("Class generated successfully: ?", sourceCode::getName);
-        } catch (final FilerException e) {
+        } catch (final FilerException ex) {
             //If java source file already created skip error
-            if (!e.getMessage().startsWith("Attempt to recreate a file for type ")) {
-                cantGenerateClass(sourceCode.getName(), e);
+            if (!ex.getMessage().startsWith("Attempt to recreate a file for type ")) {
+                cantGenerateClass(sourceCode.getName(), ex);
             }
-        } catch (final IOException e) {
-            cantGenerateClass(sourceCode.getName(), e);
+        } catch (final IOException ex) {
+            cantGenerateClass(sourceCode.getName(), ex);
         }
     }
 }

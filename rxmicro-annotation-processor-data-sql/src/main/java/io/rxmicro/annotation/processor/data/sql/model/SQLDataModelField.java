@@ -66,14 +66,14 @@ public class SQLDataModelField extends DataModelField {
                         final String sequenceName = getSequenceName(variableContext, sequenceGenerator);
                         try {
                             insertValue = variableContext.getNextSequenceValue(sequenceName);
-                        } catch (final UnsupportedOperationException e) {
+                        } catch (final UnsupportedOperationException ignore) {
                             throw new InterruptProcessingException(
                                     getElementAnnotatedBy(SequenceGenerator.class),
                                     "Current database does not support sequences"
                             );
                         }
                     } else {
-                        insertValue = null;//variableContext.getDefaultValueForColumn(getModelName());
+                        insertValue = null;
                     }
                 } else {
                     insertValue = "?";

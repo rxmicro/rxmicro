@@ -53,6 +53,8 @@ public final class HttpResponseMock extends AbstractHttpResponseMock {
     @SuppressWarnings("UnusedReturnValue")
     public static final class Builder {
 
+        private static final int DEFAULT_STATUS_CODE = 200;
+
         private int status;
 
         private HttpVersion version;
@@ -145,7 +147,7 @@ public final class HttpResponseMock extends AbstractHttpResponseMock {
          */
         public HttpResponseMock build() {
             return new HttpResponseMock(
-                    status == 0 ? 200 : status,
+                    status == 0 ? DEFAULT_STATUS_CODE : status,
                     Optional.ofNullable(version).orElse(HTTP_1_1),
                     Optional.ofNullable(headers).orElse(EMPTY_HEADERS),
                     body,

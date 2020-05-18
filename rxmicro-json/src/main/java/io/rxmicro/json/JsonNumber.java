@@ -19,7 +19,7 @@ package io.rxmicro.json;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
-import static io.rxmicro.common.util.Strings.startsWith;
+import static io.rxmicro.json.internal.validator.Validators.validateNumber;
 
 /**
  * Java class which store json number value.
@@ -34,17 +34,35 @@ import static io.rxmicro.common.util.Strings.startsWith;
  */
 public final class JsonNumber extends Number {
 
-    private static final String NAN = "NaN";
+    /**
+     * A constant holding a Not-a-Number (NaN) value
+     */
+    public static final String NAN = "NaN";
 
-    private static final String POSITIVE_NAN = "+NaN";
+    /**
+     * A constant holding a Not-a-Number (NaN) positive value
+     */
+    public static final String POSITIVE_NAN = "+NaN";
 
-    private static final String NEGATIVE_NAN = "-NaN";
+    /**
+     * A constant holding a Not-a-Number (NaN) negative value
+     */
+    public static final String NEGATIVE_NAN = "-NaN";
 
-    private static final String INFINITY = "Infinity";
+    /**
+     * A constant holding the infinity
+     */
+    public static final String INFINITY = "Infinity";
 
-    private static final String POSITIVE_INFINITY = "+Infinity";
+    /**
+     * A constant holding the positive infinity
+     */
+    public static final String POSITIVE_INFINITY = "+Infinity";
 
-    private static final String NEGATIVE_INFINITY = "-Infinity";
+    /**
+     * A constant holding the negative infinity
+     */
+    public static final String NEGATIVE_INFINITY = "-Infinity";
 
     private final String number;
 
@@ -55,88 +73,8 @@ public final class JsonNumber extends Number {
      * @throws NumberFormatException if the specified string is not the string representation of a number
      */
     public JsonNumber(final String number) {
-        this.number = validate(number);
-    }
-
-    private String validate(final String number) {
-        if (isNan(number)) {
-            return NAN;
-        } else if (isPositiveInfinite(number)) {
-            return POSITIVE_INFINITY;
-        } else if (isNegativeInfinite(number)) {
-            return NEGATIVE_INFINITY;
-        } else if (number.isEmpty() ||
-                "+".equals(number) || "-".equals(number) ||
-                startsWith(number, 'e') || startsWith(number, 'E')) {
-            throw new NumberFormatException("Not a number: " + number);
-        } else {
-            validateNumber(number);
-        }
-        return number;
-    }
-
-    private void validateNumber(final String number) {
-        boolean foundPoint = false;
-        boolean foundE = false;
-        int index = startsWith(number, '+') || startsWith(number, '-') ? 1 : 0;
-        while (index < number.length()) {
-            final char ch = number.charAt(index);
-            if (ch == '.') {
-                if (foundPoint) {
-                    if (foundE) {
-                        throw new NumberFormatException(
-                                "Exponent value must be an integer for scientific notation of the number: " + number);
-                    } else {
-                        throw new NumberFormatException(
-                                "Multiple points: " + number);
-                    }
-                }
-                foundPoint = true;
-            } else if (ch == 'e' || ch == 'E') {
-                if (foundE) {
-                    throw new NumberFormatException(
-                            "Multiple E delimiters: " + number);
-                }
-                foundE = true;
-                // For verification of exponent value, i.e.
-                // if scientific notation detected then point not allowed more
-                foundPoint = true;
-                if (index == number.length() - 1) {
-                    throw new NumberFormatException(
-                            "Missing exponent value for scientific notation of number: " + number);
-                } else if (number.charAt(index + 1) == '-' || number.charAt(index + 1) == '+') {
-                    index++;
-                }
-            } else if (ch < '0' || ch > '9') {
-                throw new NumberFormatException(
-                        "Not a number: " + number);
-            }
-            index++;
-        }
-    }
-
-    private boolean isNan(final String number) {
-        if (number.length() >= 2) {
-            return number.charAt(0) == NAN.charAt(0) && NAN.equals(number) ||
-                    number.charAt(0) == '+' && number.charAt(1) == POSITIVE_NAN.charAt(1) && POSITIVE_NAN.equals(number) ||
-                    number.charAt(0) == '-' && number.charAt(1) == POSITIVE_NAN.charAt(1) && NEGATIVE_NAN.equals(number);
-        }
-        return false;
-    }
-
-    private boolean isPositiveInfinite(final String number) {
-        if (number.length() >= 2) {
-            return number.charAt(0) == INFINITY.charAt(0) && INFINITY.equals(number) ||
-                    number.charAt(0) == '+' && number.charAt(1) == POSITIVE_INFINITY.charAt(1) && POSITIVE_INFINITY.equals(number);
-        }
-        return false;
-    }
-
-    private boolean isNegativeInfinite(final String number) {
-        if (number.length() >= 2) {
-            return number.charAt(0) == '-' && number.charAt(1) == NEGATIVE_INFINITY.charAt(1) && NEGATIVE_INFINITY.equals(number);
-        }
-        return false;
+        validateNumber(number);
+        this.number = number;
     }
 
     @Override

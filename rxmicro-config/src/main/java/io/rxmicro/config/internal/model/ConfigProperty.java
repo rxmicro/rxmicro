@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 https://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -87,10 +87,10 @@ public final class ConfigProperty implements Comparable<ConfigProperty> {
                 } else {
                     propertySetter.invoke(configInstance, ((Supplier<?>) propertyValue).get());
                 }
-            } catch (final IllegalAccessException e) {
-                throw new CheckedWrapperException(e, "Can't set property: ?", propertyName);
-            } catch (final InvocationTargetException e) {
-                throw new CheckedWrapperException(e.getTargetException(), "Can't set property: ?", propertyName);
+            } catch (final IllegalAccessException ex) {
+                throw new CheckedWrapperException(ex, "Can't set property: ?", propertyName);
+            } catch (final InvocationTargetException ex) {
+                throw new CheckedWrapperException(ex.getTargetException(), "Can't set property: ?", propertyName);
             }
         }
     }

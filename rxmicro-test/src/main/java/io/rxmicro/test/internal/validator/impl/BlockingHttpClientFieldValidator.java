@@ -39,6 +39,6 @@ public final class BlockingHttpClientFieldValidator extends FieldValidator {
     public void validate(final Field field) {
         validateThatFieldIsNotStatic(field);
         validateThatFieldIsNotFinal(field);
-        validateThatFieldIsAnnotatedOnlyBySupportedAnnotations(field, BlockingHttpClientSettings.class);
+        validateThatFieldIsAnnotatedOnlyBySupportedOnes(field, BlockingHttpClientSettings.class);
     }
 }

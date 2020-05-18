@@ -23,9 +23,9 @@ import io.rxmicro.data.local.EntityToDBConverter;
 import io.rxmicro.data.mongo.detail.EntityFromMongoDBConverter;
 import io.rxmicro.data.mongo.detail.EntityToMongoDBConverter;
 
+import java.util.Map;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.TypeMirror;
-import java.util.Map;
 
 /**
  * @author nedis

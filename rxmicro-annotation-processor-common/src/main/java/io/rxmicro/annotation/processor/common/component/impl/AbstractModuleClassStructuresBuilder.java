@@ -26,10 +26,6 @@ import io.rxmicro.annotation.processor.common.model.ReflectionsClassStructure;
 import io.rxmicro.annotation.processor.common.model.SourceCode;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
 
-import javax.annotation.processing.RoundEnvironment;
-import javax.lang.model.element.Element;
-import javax.lang.model.element.PackageElement;
-import javax.lang.model.element.TypeElement;
 import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -39,6 +35,10 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Stream;
+import javax.annotation.processing.RoundEnvironment;
+import javax.lang.model.element.Element;
+import javax.lang.model.element.PackageElement;
+import javax.lang.model.element.TypeElement;
 
 import static io.rxmicro.annotation.processor.common.SupportedOptions.RX_MICRO_BUILD_UNNAMED_MODULE;
 import static io.rxmicro.annotation.processor.common.SupportedOptions.RX_MICRO_BUILD_UNNAMED_MODULE_DEFAULT_VALUE;
@@ -56,9 +56,9 @@ public abstract class AbstractModuleClassStructuresBuilder extends AbstractProce
 
     public abstract Set<String> getSupportedAnnotationTypes();
 
-    protected abstract Set<? extends ClassStructure> buildClassStructures(final EnvironmentContext environmentContext,
-                                                                          final Set<? extends TypeElement> annotations,
-                                                                          final RoundEnvironment roundEnv);
+    protected abstract Set<? extends ClassStructure> buildClassStructures(EnvironmentContext environmentContext,
+                                                                          Set<? extends TypeElement> annotations,
+                                                                          RoundEnvironment roundEnv);
 
     protected boolean isEnvironmentCustomizerMustBeGenerated() {
         return true;

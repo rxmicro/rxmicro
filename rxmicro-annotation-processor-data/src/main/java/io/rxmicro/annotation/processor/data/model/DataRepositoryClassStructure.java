@@ -25,11 +25,11 @@ import io.rxmicro.annotation.processor.common.util.UsedByFreemarker;
 import io.rxmicro.data.local.EntityFromDBConverter;
 import io.rxmicro.data.local.EntityToDBConverter;
 
-import javax.lang.model.element.TypeElement;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Stream;
+import javax.lang.model.element.TypeElement;
 
 import static io.rxmicro.annotation.processor.common.util.Names.getSimpleName;
 import static io.rxmicro.common.util.ExCollectors.toTreeSet;

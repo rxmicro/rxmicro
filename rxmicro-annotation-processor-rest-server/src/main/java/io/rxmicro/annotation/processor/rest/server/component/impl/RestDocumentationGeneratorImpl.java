@@ -55,7 +55,8 @@ public final class RestDocumentationGeneratorImpl extends AbstractProcessorCompo
         final List<AbstractDocumentationModuleClassStructuresBuilder> documentationBuilders =
                 getImplementations(AbstractDocumentationModuleClassStructuresBuilder.class, service ->
                         ServiceLoader.load(service, RestDocumentationGeneratorImpl.class.getClassLoader()));
-        final Set<DocumentationType> toProcess = new HashSet<>(environmentContext.get(RestServerModuleGeneratorConfig.class).getDocumentationTypes());
+        final Set<DocumentationType> toProcess =
+                new HashSet<>(environmentContext.get(RestServerModuleGeneratorConfig.class).getDocumentationTypes());
         final Set<DocumentStructure> result = new HashSet<>();
         for (final AbstractDocumentationModuleClassStructuresBuilder documentationBuilder : documentationBuilders) {
             if (toProcess.remove(documentationBuilder.getDocumentationType())) {

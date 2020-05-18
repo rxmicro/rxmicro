@@ -37,9 +37,9 @@ public final class FinalFieldUpdater {
         try {
             removeFinalModifier(field);
             field.set(instance, value);
-        } catch (final IllegalAccessException e) {
-            throw new CheckedWrapperException(e);
-        } catch (final NoSuchFieldException e) {
+        } catch (final IllegalAccessException ex) {
+            throw new CheckedWrapperException(ex);
+        } catch (final NoSuchFieldException ignore) {
             // Read more: https://bugs.openjdk.java.net/browse/JDK-8217225
             throw new IllegalArgumentException(format(
                     "Can't update final field: ?. Read more: https://bugs.openjdk.java.net/browse/JDK-8217225",
@@ -58,7 +58,7 @@ public final class FinalFieldUpdater {
     private static Field getFieldModifiers() throws NoSuchFieldException, IllegalAccessException {
         try {
             return Field.class.getDeclaredField("modifiers");
-        } catch (final NoSuchFieldException e) {
+        } catch (final NoSuchFieldException ex) {
             try {
                 final Method getDeclaredFields0 = Class.class.getDeclaredMethod("getDeclaredFields0", boolean.class);
                 getDeclaredFields0.setAccessible(true);
@@ -69,10 +69,10 @@ public final class FinalFieldUpdater {
                         return field;
                     }
                 }
-                throw e;
-            } catch (final NoSuchMethodException | InvocationTargetException ex) {
-                e.addSuppressed(ex);
-                throw e;
+                throw ex;
+            } catch (final NoSuchMethodException | InvocationTargetException suppressedEx) {
+                ex.addSuppressed(suppressedEx);
+                throw ex;
             }
         }
     }

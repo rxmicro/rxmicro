@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 https://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -63,7 +63,7 @@ public interface HttpResponse {
         }
     }
 
-    void setOrAddHeaders(final HttpHeaders headers);
+    void setOrAddHeaders(HttpHeaders headers);
 
     void setHeader(String name,
                    String value);

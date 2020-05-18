@@ -24,9 +24,9 @@ import io.rxmicro.data.local.EntityToDBConverter;
 import io.rxmicro.data.sql.r2dbc.detail.EntityFromR2DBCSQLDBConverter;
 import io.rxmicro.data.sql.r2dbc.detail.EntityToR2DBCSQLDBConverter;
 
+import java.util.Map;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.TypeMirror;
-import java.util.Map;
 
 /**
  * @author nedis

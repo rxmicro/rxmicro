@@ -102,6 +102,10 @@ public final class HttpStatuses {
             entry(511, "Network Authentication Required")
     );
 
+    private static final int MIN_SUPPORTED_HTTP_STATUS = 100;
+
+    private static final int MAX_SUPPORTED_HTTP_STATUS = 599;
+
     /**
      * Returns the short description for the specified status code
      *
@@ -111,7 +115,7 @@ public final class HttpStatuses {
      * @throws IllegalArgumentException if the specified status code is not in range [100-599]
      */
     public static String getErrorMessage(final int status) {
-        if (status < 100 || status > 599) {
+        if (status < MIN_SUPPORTED_HTTP_STATUS || status > MAX_SUPPORTED_HTTP_STATUS) {
             throw new IllegalArgumentException("Invalid status code: " + status);
         } else {
             return STATUES.getOrDefault(status, "Unofficial code: " + status);

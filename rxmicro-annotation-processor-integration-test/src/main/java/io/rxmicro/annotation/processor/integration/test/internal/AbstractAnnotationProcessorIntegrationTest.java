@@ -22,9 +22,6 @@ import io.rxmicro.annotation.processor.common.component.impl.AbstractProcessorCo
 import io.rxmicro.common.CheckedWrapperException;
 import org.opentest4j.AssertionFailedError;
 
-import javax.annotation.processing.Processor;
-import javax.tools.FileObject;
-import javax.tools.JavaFileObject;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Field;
@@ -36,6 +33,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import javax.annotation.processing.Processor;
+import javax.tools.FileObject;
+import javax.tools.JavaFileObject;
 
 import static com.google.testing.compile.CompilationSubject.assertThat;
 import static com.google.testing.compile.Compiler.javac;
@@ -159,11 +159,12 @@ public abstract class AbstractAnnotationProcessorIntegrationTest {
             } else {
                 javaFileObjectSubject.hasSourceEquivalentTo(expectedJavaFileObject);
             }
-        } catch (final AssertionError e) {
+        } catch (final AssertionError error) {
             throw new AssertionFailedError(
-                    e.getMessage(),
+                    error.getMessage(),
                     expectedJavaFileObject.getCharContent(false),
-                    getActual(javaFileObjectSubject).getCharContent(false));
+                    getActual(javaFileObjectSubject).getCharContent(false)
+            );
         }
     }
 
@@ -176,9 +177,8 @@ public abstract class AbstractAnnotationProcessorIntegrationTest {
                 }
             }
             return (JavaFileObject) javaFileObjectSubjectActualField.get(javaFileObjectSubject);
-        } catch (final NoSuchFieldException | IllegalAccessException e) {
-            throw new CheckedWrapperException(e);
+        } catch (final NoSuchFieldException | IllegalAccessException ex) {
+            throw new CheckedWrapperException(ex);
         }
     }
-
 }

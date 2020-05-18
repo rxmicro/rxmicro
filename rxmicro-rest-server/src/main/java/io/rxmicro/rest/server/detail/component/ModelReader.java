@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 https://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -71,8 +71,8 @@ public abstract class ModelReader<T> extends FromStringValueConverter {
                 add(queryParams, name, value, decode);
             }
             return queryParams;
-        } catch (final IllegalArgumentException e) {
-            throw new ValidationException("Query string is invalid: ?", e.getMessage());
+        } catch (final IllegalArgumentException ex) {
+            throw new ValidationException("Query string is invalid: ?", ex.getMessage());
         }
     }
 
@@ -85,7 +85,7 @@ public abstract class ModelReader<T> extends FromStringValueConverter {
                 String decodedValue;
                 try {
                     decodedValue = decode(value, StandardCharsets.UTF_8);
-                } catch (final IllegalArgumentException e) {
+                } catch (final IllegalArgumentException ignore) {
                     decodedValue = value;
                 }
                 queryParams.setOrAdd(name, decodedValue);

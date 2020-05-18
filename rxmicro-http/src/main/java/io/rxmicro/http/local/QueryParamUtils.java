@@ -28,13 +28,15 @@ import static java.nio.charset.StandardCharsets.UTF_8;
  */
 public final class QueryParamUtils {
 
+    private static final int DEFAULT_PATH_BUILDER_CAPACITY = 50;
+
     public static String joinPath(final String path,
                                   final Collection<Map.Entry<String, String>> parameters) {
         if (parameters == null || parameters.isEmpty()) {
             return path;
         } else {
             char delimiter = path.contains("?") ? '&' : '?';
-            final StringBuilder stringBuilder = new StringBuilder(50)
+            final StringBuilder stringBuilder = new StringBuilder(DEFAULT_PATH_BUILDER_CAPACITY)
                     .append(path);
             for (final Map.Entry<String, String> entry : parameters) {
                 stringBuilder.append(delimiter)

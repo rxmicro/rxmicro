@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 https://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,10 +22,10 @@ import io.rxmicro.annotation.processor.rest.model.RestMethodSignature;
 import io.rxmicro.annotation.processor.rest.model.RestRequestModel;
 import io.rxmicro.annotation.processor.rest.model.RestResponseModel;
 
-import javax.lang.model.element.ExecutableElement;
-import javax.lang.model.element.TypeElement;
 import java.util.List;
 import java.util.Optional;
+import javax.lang.model.element.ExecutableElement;
+import javax.lang.model.element.TypeElement;
 
 import static io.rxmicro.common.util.Formats.format;
 import static java.util.stream.Collectors.joining;

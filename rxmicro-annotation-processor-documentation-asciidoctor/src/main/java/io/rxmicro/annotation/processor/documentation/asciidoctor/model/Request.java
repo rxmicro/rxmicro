@@ -41,23 +41,18 @@ public final class Request {
 
     private final String schema;
 
-    public Request(final String example,
-                   final List<DocumentedModelField> pathVariables,
-                   final List<DocumentedModelField> headers,
-                   final List<DocumentedModelField> queryParameters,
-                   final List<Map.Entry<String, List<DocumentedModelField>>> bodyParameters,
-                   final String schema) {
+    private Request(final String example,
+                    final List<DocumentedModelField> pathVariables,
+                    final List<DocumentedModelField> headers,
+                    final List<DocumentedModelField> queryParameters,
+                    final List<Map.Entry<String, List<DocumentedModelField>>> bodyParameters,
+                    final String schema) {
         this.example = example;
         this.pathVariables = require(pathVariables);
         this.headers = require(headers);
         this.queryParameters = require(queryParameters);
         this.bodyParameters = require(bodyParameters);
         this.schema = schema;
-    }
-
-    public Request(final String example,
-                   final List<DocumentedModelField> headers) {
-        this(example, List.of(), headers, List.of(), List.of(), null);
     }
 
     @UsedByFreemarker("resource-macro.adocftl")
@@ -98,5 +93,59 @@ public final class Request {
     @UsedByFreemarker("resource-macro.adocftl")
     public String getSchema() {
         return schema;
+    }
+
+    /**
+     * @author nedis
+     * @since 0.4
+     */
+    @SuppressWarnings("UnusedReturnValue")
+    public static final class Builder {
+
+        private String example;
+
+        private List<DocumentedModelField> pathVariables = List.of();
+
+        private List<DocumentedModelField> headers;
+
+        private List<DocumentedModelField> queryParameters = List.of();
+
+        private List<Map.Entry<String, List<DocumentedModelField>>> bodyParameters = List.of();
+
+        private String schema;
+
+        public Builder setExample(final String example) {
+            this.example = example;
+            return this;
+        }
+
+        public Builder setPathVariables(final List<DocumentedModelField> pathVariables) {
+            this.pathVariables = pathVariables;
+            return this;
+        }
+
+        public Builder setHeaders(final List<DocumentedModelField> headers) {
+            this.headers = headers;
+            return this;
+        }
+
+        public Builder setQueryParameters(final List<DocumentedModelField> queryParameters) {
+            this.queryParameters = queryParameters;
+            return this;
+        }
+
+        public Builder setBodyParameters(final List<Map.Entry<String, List<DocumentedModelField>>> bodyParameters) {
+            this.bodyParameters = bodyParameters;
+            return this;
+        }
+
+        public Builder setSchema(final String schema) {
+            this.schema = schema;
+            return this;
+        }
+
+        public Request build() {
+            return new Request(example, pathVariables, headers, queryParameters, bodyParameters, schema);
+        }
     }
 }

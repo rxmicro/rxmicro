@@ -59,8 +59,8 @@ public final class ClasspathResources {
                     resources.add(line);
                 }
             }
-        } catch (final IOException e) {
-            throw new ResourceException(e, "Can't load resources from folder: ?", folder);
+        } catch (final IOException ex) {
+            throw new ResourceException(ex, "Can't load resources from folder: ?", folder);
         }
         return Collections.unmodifiableSet(resources);
     }
@@ -68,8 +68,8 @@ public final class ClasspathResources {
     public static String getResourceContent(final String resource) {
         try (InputStream in = getResource(resource).openStream()) {
             return new Scanner(in, UTF_8).useDelimiter("\\A").next();
-        } catch (IOException e) {
-            throw new ResourceException(e, "Can't read resource: ?", resource);
+        } catch (final IOException ex) {
+            throw new ResourceException(ex, "Can't read resource: ?", resource);
         }
     }
 
@@ -87,8 +87,8 @@ public final class ClasspathResources {
                     resources.add(resource);
                 }
             }
-        } catch (IOException e) {
-            throw new ResourceException(e, "Can't read resources from folder: ?", folder);
+        } catch (final IOException ex) {
+            throw new ResourceException(ex, "Can't read resources from folder: ?", folder);
         }
     }
 

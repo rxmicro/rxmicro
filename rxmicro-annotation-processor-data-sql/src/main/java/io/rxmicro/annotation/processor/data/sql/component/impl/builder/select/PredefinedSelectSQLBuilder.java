@@ -38,11 +38,11 @@ import io.rxmicro.annotation.processor.data.sql.model.inject.SupportedSelectVari
 import io.rxmicro.common.util.Formats;
 import io.rxmicro.data.sql.operation.Select;
 
-import javax.lang.model.element.ExecutableElement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import javax.lang.model.element.ExecutableElement;
 
 import static io.rxmicro.annotation.processor.data.sql.model.SQLKeywords.ALL;
 import static io.rxmicro.annotation.processor.data.sql.model.SQLKeywords.DISTINCT;
@@ -57,7 +57,8 @@ import static java.util.stream.Collectors.toList;
  * @author nedis
  * @since 0.1
  */
-public class PredefinedSelectSQLBuilder<DMF extends SQLDataModelField, DMC extends SQLDataObjectModelClass<DMF>> extends AbstractSQLBuilder {
+public class PredefinedSelectSQLBuilder<DMF extends SQLDataModelField, DMC extends SQLDataObjectModelClass<DMF>>
+        extends AbstractSQLBuilder {
 
     @Inject
     private SQLVariableValueResolver<Select, DMF, DMC> selectSQLVariableValueResolver;
@@ -89,7 +90,8 @@ public class PredefinedSelectSQLBuilder<DMF extends SQLDataModelField, DMC exten
         final List<String> sqlTokens = new ArrayList<>(parsedSQL.getSqlTokens());
         final String originalSQL = joinTokensToSQL(sqlTokens);
         validateSelectStatement(method, sqlTokens);
-        final boolean shouldExpandAsterisk = parsedSQL.getAnnotation().expandAsterisk() && sqlMethodDescriptor.getEntityResult().isPresent();
+        final boolean shouldExpandAsterisk = parsedSQL.getAnnotation().expandAsterisk() &&
+                sqlMethodDescriptor.getEntityResult().isPresent();
         final Set<String> vars = extractVariables(
                 method,
                 sqlTokens,

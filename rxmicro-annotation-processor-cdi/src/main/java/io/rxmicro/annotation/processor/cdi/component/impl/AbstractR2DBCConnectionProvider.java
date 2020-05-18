@@ -23,10 +23,10 @@ import io.rxmicro.common.RxMicroModule;
 import io.rxmicro.data.sql.SQLPooledDatabaseConfig;
 import io.rxmicro.data.sql.r2dbc.postgresql.PostgreSQLConfig;
 
-import javax.lang.model.element.Element;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
+import javax.lang.model.element.Element;
 
 import static io.rxmicro.annotation.processor.cdi.component.impl.AbstractR2DBCConnectionProvider.R2DBCConnectionProvider.POSTGRE_SQL_CONNECTION_PROVIDER;
 import static io.rxmicro.annotation.processor.cdi.model.InjectionPointType.POSTGRE_SQL_CONNECTION_FACTORY;

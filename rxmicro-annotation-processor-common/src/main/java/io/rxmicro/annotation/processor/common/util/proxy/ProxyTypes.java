@@ -20,6 +20,7 @@ import io.rxmicro.annotation.processor.common.model.virtual.ClassWrapperTypeElem
 import io.rxmicro.annotation.processor.common.model.virtual.ClassWrapperTypeMirror;
 import io.rxmicro.annotation.processor.common.model.virtual.VirtualTypeMirror;
 
+import java.util.List;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.ArrayType;
@@ -32,7 +33,6 @@ import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeMirror;
 import javax.lang.model.type.WildcardType;
 import javax.lang.model.util.Types;
-import java.util.List;
 
 import static io.rxmicro.common.util.Requires.require;
 

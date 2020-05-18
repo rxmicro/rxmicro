@@ -66,8 +66,8 @@ public abstract class AbstractDataClassStructureBuilder<DMF extends DataModelFie
                         methodSignature, classHeaderBuilder, dataRepositoryGeneratorConfig,
                         dataGenerationContext
                 ));
-            } catch (final InterruptProcessingException e) {
-                error(e);
+            } catch (final InterruptProcessingException ex) {
+                error(ex);
             }
         });
         if (count.get() != methods.size()) {

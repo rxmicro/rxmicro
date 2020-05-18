@@ -18,8 +18,8 @@ package io.rxmicro.annotation.processor.cdi.component;
 
 import io.rxmicro.annotation.processor.cdi.model.FactoryMethod;
 
-import javax.lang.model.element.TypeElement;
 import java.util.Optional;
+import javax.lang.model.element.TypeElement;
 
 /**
  * @author nedis

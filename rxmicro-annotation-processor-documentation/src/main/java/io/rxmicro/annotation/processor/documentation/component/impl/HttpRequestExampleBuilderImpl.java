@@ -31,10 +31,10 @@ import io.rxmicro.annotation.processor.rest.server.model.RestControllerClassStru
 import io.rxmicro.annotation.processor.rest.server.model.RestControllerMethod;
 import io.rxmicro.rest.model.HttpMethod;
 
-import javax.lang.model.element.TypeElement;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import javax.lang.model.element.TypeElement;
 
 import static io.rxmicro.annotation.processor.common.util.Errors.createInternalErrorSupplier;
 import static io.rxmicro.annotation.processor.documentation.model.Constants.HTTP_VERSION;
@@ -78,7 +78,9 @@ public final class HttpRequestExampleBuilderImpl implements HttpRequestExampleBu
         }
         stringBuilder.append(format("Accept: application/json?", lineSeparator()));
         if (parentUrl.isHeaderVersionStrategy()) {
-            stringBuilder.append(format("?: ??", parentUrl.getVersionHeaderName(), parentUrl.getVersionValue(), lineSeparator()));
+            stringBuilder.append(
+                    format("?: ??", parentUrl.getVersionHeaderName(), parentUrl.getVersionValue(), lineSeparator())
+            );
         }
         final String body = getRequestHttpBodyOrNull(httpMethodMapping, method, restControllerClassStructureStorage);
         if (body != null) {
@@ -101,11 +103,13 @@ public final class HttpRequestExampleBuilderImpl implements HttpRequestExampleBu
     }
 
     private String getHost(final String baseEndpoint) {
-        if (baseEndpoint.startsWith("http://")) {
-            return baseEndpoint.substring(7);
+        final String httpPrefix = "http://";
+        if (baseEndpoint.startsWith(httpPrefix)) {
+            return baseEndpoint.substring(httpPrefix.length());
         }
-        if (baseEndpoint.startsWith("https://")) {
-            return baseEndpoint.substring(8);
+        final String httpsPrefix = "https://";
+        if (baseEndpoint.startsWith(httpsPrefix)) {
+            return baseEndpoint.substring(httpsPrefix.length());
         }
         return baseEndpoint;
     }
@@ -118,7 +122,10 @@ public final class HttpRequestExampleBuilderImpl implements HttpRequestExampleBu
             final ModelReaderClassStructure modelReaderClassStructure =
                     restControllerClassStructureStorage.getModelReaderClassStructure(
                             requestModel.get().asType().toString())
-                            .orElseThrow(createInternalErrorSupplier("ModelReaderClassStructure not found for type: ?", requestModel.get().asType()));
+                            .orElseThrow(createInternalErrorSupplier(
+                                    "ModelReaderClassStructure not found for type: ?",
+                                    requestModel.get().asType())
+                            );
             final StringBuilder queryBuilder = new StringBuilder();
             for (final Map.Entry<RestModelField, ModelClass> entry : modelReaderClassStructure.getModelClass().getParamEntries()) {
                 if (queryBuilder.length() > 0) {

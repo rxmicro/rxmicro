@@ -20,14 +20,14 @@ import com.google.common.io.ByteSource;
 import com.google.common.io.Resources;
 import com.google.testing.compile.JavaFileObjects;
 
-import javax.tools.JavaFileObject;
-import javax.tools.SimpleJavaFileObject;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
 import java.net.URI;
 import java.net.URL;
 import java.nio.charset.Charset;
+import javax.tools.JavaFileObject;
+import javax.tools.SimpleJavaFileObject;
 
 import static javax.tools.JavaFileObject.Kind.SOURCE;
 

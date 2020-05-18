@@ -30,13 +30,17 @@ import static io.rxmicro.common.util.Exceptions.reThrow;
  */
 public final class ErrorResponseCheckerHelper {
 
+    private static final int MIN_SUPPORTED_SUCCESS_CODE = 200;
+
+    private static final int MAX_SUPPORTED_SUCCESS_CODE = 299;
+
     private static final BiFunction<ClientHttpResponse, Throwable, ClientHttpResponse> BI_FUNCTION =
             (clientHttpResponse, throwable) -> {
                 if (throwable != null) {
                     return reThrow(throwable);
                 }
                 final int status = clientHttpResponse.getStatusCode();
-                if (status >= 200 && status < 300) {
+                if (status >= MIN_SUPPORTED_SUCCESS_CODE && status <= MAX_SUPPORTED_SUCCESS_CODE) {
                     return clientHttpResponse;
                 } else {
                     throw new HttpClientCallFailedException(clientHttpResponse);

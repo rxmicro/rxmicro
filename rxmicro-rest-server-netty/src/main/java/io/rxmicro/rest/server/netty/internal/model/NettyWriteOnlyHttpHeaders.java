@@ -35,58 +35,65 @@ public final class NettyWriteOnlyHttpHeaders extends AbstractRepeatableValues<Re
         implements RepeatableHttpHeaders {
 
     HttpHeaders toHttpHeaders() {
-        return new AbstractReadableHttpHeaders() {
-            @Override
-            public String get(final String name) {
-                return NettyWriteOnlyHttpHeaders.this.getValue(name);
-            }
+        return new NettyReadableHttpHeaders();
+    }
 
-            @Override
-            public List<String> getAll(final String name) {
-                return NettyWriteOnlyHttpHeaders.this.getValues(name);
-            }
+    /**
+     * @author nedis
+     * @since 0.4
+     */
+    private class NettyReadableHttpHeaders extends AbstractReadableHttpHeaders {
 
-            @Override
-            public List<Map.Entry<String, String>> entries() {
-                return NettyWriteOnlyHttpHeaders.this.getEntries();
-            }
+        @Override
+        public String get(final String name) {
+            return NettyWriteOnlyHttpHeaders.this.getValue(name);
+        }
 
-            @Override
-            public boolean contains(final String name) {
-                return NettyWriteOnlyHttpHeaders.this.contains(name);
-            }
+        @Override
+        public List<String> getAll(final String name) {
+            return NettyWriteOnlyHttpHeaders.this.getValues(name);
+        }
 
-            @Override
-            public Iterator<Map.Entry<String, String>> iterator() {
-                return NettyWriteOnlyHttpHeaders.this.getEntries().iterator();
-            }
+        @Override
+        public List<Map.Entry<String, String>> entries() {
+            return NettyWriteOnlyHttpHeaders.this.getEntries();
+        }
 
-            @Override
-            public Iterator<Map.Entry<CharSequence, CharSequence>> iteratorCharSequence() {
-                final Iterator<Map.Entry<String, String>> iterator = iterator();
-                return new Iterator<>() {
-                    @Override
-                    public boolean hasNext() {
-                        return iterator.hasNext();
-                    }
+        @Override
+        public boolean contains(final String name) {
+            return NettyWriteOnlyHttpHeaders.this.contains(name);
+        }
 
-                    @Override
-                    public Map.Entry<CharSequence, CharSequence> next() {
-                        final Map.Entry<String, String> next = iterator.next();
-                        return entry(next.getKey(), next.getValue());
-                    }
-                };
-            }
+        @Override
+        public Iterator<Map.Entry<String, String>> iterator() {
+            return NettyWriteOnlyHttpHeaders.this.getEntries().iterator();
+        }
 
-            @Override
-            public int size() {
-                return NettyWriteOnlyHttpHeaders.this.size();
-            }
+        @Override
+        public Iterator<Map.Entry<CharSequence, CharSequence>> iteratorCharSequence() {
+            final Iterator<Map.Entry<String, String>> iterator = iterator();
+            return new Iterator<>() {
+                @Override
+                public boolean hasNext() {
+                    return iterator.hasNext();
+                }
 
-            @Override
-            public Set<String> names() {
-                return NettyWriteOnlyHttpHeaders.this.names();
-            }
-        };
+                @Override
+                public Map.Entry<CharSequence, CharSequence> next() {
+                    final Map.Entry<String, String> next = iterator.next();
+                    return entry(next.getKey(), next.getValue());
+                }
+            };
+        }
+
+        @Override
+        public int size() {
+            return NettyWriteOnlyHttpHeaders.this.size();
+        }
+
+        @Override
+        public Set<String> names() {
+            return NettyWriteOnlyHttpHeaders.this.names();
+        }
     }
 }

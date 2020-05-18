@@ -315,10 +315,10 @@ public abstract class AbstractEntityMongoDBConverter {
         if (value instanceof CustomBinaryCodec.UUIDBinary) {
             try {
                 return ((CustomBinaryCodec.UUIDBinary) value).toUUID();
-            } catch (final BSONException e) {
+            } catch (final BSONException ex) {
                 throw new InvalidValueTypeException(
                         "Invalid value for \"?\" field: ? (Error code: ?)",
-                        fieldName, e, e.getMessage(), e.getErrorCode()
+                        fieldName, ex, ex.getMessage(), ex.getErrorCode()
                 );
             }
         } else {
@@ -417,7 +417,7 @@ public abstract class AbstractEntityMongoDBConverter {
         } else {
             try {
                 return Enum.valueOf(type, value.toString());
-            } catch (final IllegalArgumentException e) {
+            } catch (final IllegalArgumentException ignore) {
                 throw new InvalidValueTypeException(
                         "Invalid value for \"?\" field: Expected one of the following '?' but actual is '?'!",
                         fieldName, Arrays.toString(type.getEnumConstants()), value.toString()

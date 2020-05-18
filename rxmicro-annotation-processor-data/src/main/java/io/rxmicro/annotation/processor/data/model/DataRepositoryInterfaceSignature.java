@@ -18,8 +18,8 @@ package io.rxmicro.annotation.processor.data.model;
 
 import io.rxmicro.annotation.processor.common.model.TypeSignature;
 
-import javax.lang.model.element.TypeElement;
 import java.util.List;
+import javax.lang.model.element.TypeElement;
 
 import static io.rxmicro.common.util.Requires.require;
 

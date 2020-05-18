@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 https://rxmicro.io
+ * Copyright (c) 2020. https://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,10 +30,10 @@ import io.rxmicro.data.DataRepositoryGeneratorConfig;
 import io.rxmicro.data.mongo.detail.MongoQueries;
 import io.rxmicro.data.mongo.operation.Update;
 
-import javax.lang.model.element.ExecutableElement;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.lang.model.element.ExecutableElement;
 
 /**
  * @author nedis

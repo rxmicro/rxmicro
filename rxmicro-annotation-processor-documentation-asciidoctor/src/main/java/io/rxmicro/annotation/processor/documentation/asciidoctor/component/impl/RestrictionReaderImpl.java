@@ -53,15 +53,15 @@ public final class RestrictionReaderImpl implements RestrictionReader {
         final List<ReadMore> readMores = new ArrayList<>();
         final StringBuilder descriptionBuilder = new StringBuilder();
         if (entry.getValue().isObject()) {
-            objectRestrictionReader.read(environmentContext, restrictions, readMores, entry);
+            objectRestrictionReader.read(environmentContext, entry, restrictions, readMores);
         } else if (entry.getValue().isList()) {
             final ListModelClass listModelClass = entry.getValue().asList();
             if (listModelClass.isObjectList()) {
-                objectRestrictionReader.read(environmentContext, restrictions, readMores, entry);
-                arrayRestrictionReader.read(restrictions, readMores, entry);
+                objectRestrictionReader.read(environmentContext, entry, restrictions, readMores);
+                arrayRestrictionReader.read(entry, restrictions, readMores);
             } else if (listModelClass.isPrimitiveList() || listModelClass.isEnumList()) {
-                primitiveRestrictionReader.readPrimitive(environmentContext, restrictions, readMores, entry, descriptionBuilder);
-                arrayRestrictionReader.read(restrictions, readMores, entry);
+                primitiveRestrictionReader.readPrimitive(environmentContext, entry, restrictions, readMores, descriptionBuilder);
+                arrayRestrictionReader.read(entry, restrictions, readMores);
             } else {
                 throw new InternalErrorException(
                         "?: Unsupported array model type: ?",
@@ -69,7 +69,7 @@ public final class RestrictionReaderImpl implements RestrictionReader {
                         listModelClass.getElementModelClass().getClass());
             }
         } else if (entry.getValue().isPrimitive() || entry.getValue().isEnum()) {
-            primitiveRestrictionReader.readPrimitive(environmentContext, restrictions, readMores, entry, descriptionBuilder);
+            primitiveRestrictionReader.readPrimitive(environmentContext, entry, restrictions, readMores, descriptionBuilder);
         } else {
             throw new InternalErrorException(
                     "?: Unsupported model type: ?",

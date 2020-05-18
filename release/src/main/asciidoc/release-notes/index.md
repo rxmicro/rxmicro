@@ -2,6 +2,10 @@
 
 This document contains the *change log* for all RxMicro releases since **0.2**.
 
+## RxMicro v0.4.2
+
+* Add checkstyle tool to rxmicro project
+
 ## RxMicro v0.4.1
 
 * Fix JsonFactory issue

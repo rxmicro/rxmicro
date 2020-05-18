@@ -35,16 +35,26 @@ import static io.rxmicro.common.util.Requires.require;
 @SuppressWarnings("UnusedReturnValue")
 public class RestServerConfig extends Config {
 
-    private int handlerNotFoundErrorStatusCode = 400;
+    /**
+     * Default "Handler not found" error status code
+     */
+    public static final int DEFAULT_HANDLER_NOT_FOUND_ERROR_STATUS_CODE = 400;
+
+    /**
+     * Default "CORS not allowed" error status code
+     * @see <a href="https://fetch.spec.whatwg.org/#cors-protocol">https://fetch.spec.whatwg.org/#cors-protocol</a>
+     */
+    public static final int DEFAULT_CORS_NOT_ALLOWED_ERROR_STATUS_CODE = 200;
+
+    private int handlerNotFoundErrorStatusCode = DEFAULT_HANDLER_NOT_FOUND_ERROR_STATUS_CODE;
 
     private String handlerNotFoundErrorMessage = "Handler not found";
 
-    // https://fetch.spec.whatwg.org/#cors-protocol
-    private int corsNotAllowedErrorStatusCode = 200;
+    private int corsNotAllowedErrorStatusCode = DEFAULT_CORS_NOT_ALLOWED_ERROR_STATUS_CODE;
 
     private String corsNotAllowedErrorMessage = "CORS not allowed";
 
-    private boolean humanReadableOutput = false;
+    private boolean humanReadableOutput;
 
     private boolean hideInternalErrorMessage = true;
 
@@ -63,7 +73,7 @@ public class RestServerConfig extends Config {
 
     private boolean disableLoggerMessagesForHttpHealthChecks = true;
 
-    private boolean showRuntimeEnv = false;
+    private boolean showRuntimeEnv;
 
     /**
      * Configures REST server for development environment
