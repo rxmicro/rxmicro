@@ -191,7 +191,7 @@ a|
 
 * [small]#`format: countryCode`#
 
-* [small]#`ISO 3166-1: ALPHA_2`#
+* [small]#`ISO 3166-1: alpha-2`#
 
 * [small]#`format: digitsOnly`#
 

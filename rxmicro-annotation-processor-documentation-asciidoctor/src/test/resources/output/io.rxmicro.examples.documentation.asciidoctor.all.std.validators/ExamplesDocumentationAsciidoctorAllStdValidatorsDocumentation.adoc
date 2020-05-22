@@ -31,7 +31,7 @@ This document describes *the Examples Documentation Asciidoctor All Std Validato
 POST / HTTP/1.1
 Accept: application/json
 Content-Type: application/json
-Content-Length: 4457
+Content-Length: 4450
 Request-Id: 62jJeu8x1310662
 
 {
@@ -108,7 +108,7 @@ Request-Id: 62jJeu8x1310662
   "aString": "string",
   "exampleString": "hello",
   "lowercaseString": "string",
-  "uppercaseString": "STRING",
+  "uppercaseString": "UPPERCASE",
   "length2String": "string",
   "minLength2String": "string",
   "maxLength2String": "string",
@@ -118,7 +118,7 @@ Request-Id: 62jJeu8x1310662
   "enumerationString": "new",
   "patternString": "hello",
   "uriString": "https://rxmicro.io",
-  "urlEncodedString": "Hello%20world%21",
+  "urlEncodedString": "string",
   "viberString": "12257111123",
   "viberWithPlusString": "+12257111123",
   "whatsAppString": "12257117934",
@@ -1126,7 +1126,7 @@ a|
 
 * [small]#`format: countryCode`#
 
-* [small]#`ISO 3166-1: ALPHA_2`#
+* [small]#`ISO 3166-1: alpha-2`#
 a|Two-letter country code according to ISO 3166-1 alpha2 standard.
 
 .Read more:
@@ -1138,7 +1138,7 @@ a|
 
 * [small]#`format: countryCode`#
 
-* [small]#`ISO 3166-1: ALPHA_3`#
+* [small]#`ISO 3166-1: alpha-3`#
 a|Three-letter country code according to ISO 3166-1 alpha3 standard.
 
 .Read more:
@@ -1150,7 +1150,7 @@ a|
 
 * [small]#`format: countryCode`#
 
-* [small]#`ISO 3166-1: NUMERIC`#
+* [small]#`ISO 3166-1: numeric`#
 a|Three-digit country code according to ISO 3166-1 numeric standard.
 
 .Read more:
@@ -2191,7 +2191,7 @@ a|
     "uppercaseString": {
       "type": "string",
       "examples": [
-        "STRING"
+        "UPPERCASE"
       ]
     },
     "length2String": {
@@ -2265,7 +2265,7 @@ a|
       "type": "string",
       "format": "url-encoded",
       "examples": [
-        "Hello%20world%21"
+        "string"
       ]
     },
     "viberString": {

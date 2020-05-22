@@ -598,7 +598,7 @@ a|
 
 * [small]#`format: countryCode`#
 
-* [small]#`ISO 3166-1: ALPHA_2`#
+* [small]#`ISO 3166-1: alpha-2`#
 
 * [small]#`format: digitsOnly`#
 
@@ -1131,7 +1131,7 @@ a|
 
 * [small]#`format: countryCode`#
 
-* [small]#`ISO 3166-1: ALPHA_2`#
+* [small]#`ISO 3166-1: alpha-2`#
 a|Two-letter country code according to ISO 3166-1 alpha2 standard.
 
 .Read more:
@@ -1757,7 +1757,7 @@ a|
 
 * [small]#`format: countryCode`#
 
-* [small]#`ISO 3166-1: ALPHA_2`#
+* [small]#`ISO 3166-1: alpha-2`#
 a|Two-letter country code according to ISO 3166-1 alpha2 standard.
 
 .Read more:
