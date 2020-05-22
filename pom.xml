@@ -276,7 +276,7 @@
                                 <configuration>
                                     <verbose>true</verbose>
                                     <excludeFromFailureFile>
-                                        ${basedir}/../release/src/main/filters/exclude-pmd.properties
+                                        ${basedir}/../.coding/pmd/exclude-pmd.properties
                                     </excludeFromFailureFile>
                                 </configuration>
                             </execution>
@@ -288,7 +288,7 @@
                                 <configuration>
                                     <verbose>true</verbose>
                                     <excludeFromFailureFile>
-                                        ${basedir}/../release/src/main/filters/exclude-cpd.properties
+                                        ${basedir}/../.coding/pmd/exclude-cpd.properties
                                     </excludeFromFailureFile>
                                 </configuration>
                             </execution>
@@ -296,7 +296,7 @@
                         <configuration>
                             <rulesets>
                                 <ruleset>
-                                    ${basedir}/../release/src/main/filters/pmd-ruleset.xml
+                                    ${basedir}/../.coding/pmd/ruleset.xml
                                 </ruleset>
                             </rulesets>
                         </configuration>
@@ -311,7 +311,7 @@
                         <configuration>
                             <rulesets>
                                 <ruleset>
-                                    ${basedir}/../release/src/main/filters/pmd-ruleset.xml
+                                    ${basedir}/../.coding/pmd/ruleset.xml
                                 </ruleset>
                             </rulesets>
                         </configuration>
@@ -324,7 +324,7 @@
                                 <configuration>
                                     <skipEmptyReport>true</skipEmptyReport>
                                     <excludeFromFailureFile>
-                                        ${basedir}/../release/src/main/filters/exclude-pmd.properties
+                                        ${basedir}/../.coding/pmd/exclude-pmd.properties
                                     </excludeFromFailureFile>
                                 </configuration>
                             </reportSet>
@@ -336,7 +336,7 @@
                                 <configuration>
                                     <skipEmptyReport>true</skipEmptyReport>
                                     <excludeFromFailureFile>
-                                        ${basedir}/../release/src/main/filters/exclude-cpd.properties
+                                        ${basedir}/../.coding/pmd/exclude-cpd.properties
                                     </excludeFromFailureFile>
                                 </configuration>
                             </reportSet>
@@ -364,7 +364,7 @@
                         </executions>
                         <configuration>
                             <excludeFilterFile>
-                                ${basedir}/../release/src/main/filters/spotbugs-exclude.xml
+                                ${basedir}/../.coding/spotbugs/exclude.xml
                             </excludeFilterFile>
                             <skipEmptyReport>true</skipEmptyReport>
                             <debug>true</debug>
@@ -386,7 +386,7 @@
                         <artifactId>spotbugs-maven-plugin</artifactId>
                         <configuration>
                             <excludeFilterFile>
-                                ${basedir}/../release/src/main/filters/spotbugs-exclude.xml
+                                ${basedir}/../.coding/spotbugs/exclude.xml
                             </excludeFilterFile>
                             <skipEmptyReport>true</skipEmptyReport>
                         </configuration>
