@@ -146,20 +146,20 @@ public final class JsonSchemaBuilderImpl implements JsonSchemaBuilder {
             if (listModelClass.isObjectList()) {
                 final RestObjectModelClass restObjectModelClass = listModelClass.getElementModelClass().asObject();
                 return getJsonArraySchema(
-                        entry.getKey(), projectDirectory, environmentContext, restObjectModelClass,
+                        entry.getKey(), projectDirectory, restObjectModelClass,
                         () -> getJsonObjectSchema(entry.getKey(), projectDirectory, environmentContext, restObjectModelClass)
                 );
             } else if (listModelClass.isEnumList()) {
                 final EnumModelClass enumModelClass = listModelClass.getElementModelClass().asEnum();
                 return getJsonArraySchema(
-                        entry.getKey(), projectDirectory, environmentContext, null,
-                        () -> getJsonEnumSchema(entry.getKey(), environmentContext, enumModelClass)
+                        entry.getKey(), projectDirectory, null,
+                        () -> getJsonEnumSchema(entry.getKey(), enumModelClass)
                 );
             } else if (listModelClass.isPrimitiveList()) {
                 final PrimitiveModelClass primitiveModelClass = listModelClass.getElementModelClass().asPrimitive();
                 return getJsonArraySchema(
-                        entry.getKey(), projectDirectory, environmentContext, null,
-                        () -> getJsonPrimitiveSchema(entry.getKey(), environmentContext, primitiveModelClass)
+                        entry.getKey(), projectDirectory, null,
+                        () -> getJsonPrimitiveSchema(entry.getKey(), primitiveModelClass)
                 );
             } else {
                 throw new InternalErrorException(
@@ -168,9 +168,9 @@ public final class JsonSchemaBuilderImpl implements JsonSchemaBuilder {
                 );
             }
         } else if (modelClass.isPrimitive()) {
-            return getJsonPrimitiveSchema(entry.getKey(), environmentContext, modelClass.asPrimitive());
+            return getJsonPrimitiveSchema(entry.getKey(), modelClass.asPrimitive());
         } else if (modelClass.isEnum()) {
-            return getJsonEnumSchema(entry.getKey(), environmentContext, modelClass.asEnum());
+            return getJsonEnumSchema(entry.getKey(), modelClass.asEnum());
         } else {
             throw new InternalErrorException(
                     "Unsupported model class type: " + modelClass.getClass());
@@ -179,7 +179,6 @@ public final class JsonSchemaBuilderImpl implements JsonSchemaBuilder {
 
     private Map<String, Object> getJsonArraySchema(final RestModelField modelField,
                                                    final String projectDirectory,
-                                                   final EnvironmentContext environmentContext,
                                                    final RestObjectModelClass restObjectModelClass,
                                                    final Supplier<Map<String, Object>> itemSupplier) {
         final JsonObjectBuilder builder = new JsonObjectBuilder();
@@ -191,7 +190,6 @@ public final class JsonSchemaBuilderImpl implements JsonSchemaBuilder {
     }
 
     private Map<String, Object> getJsonPrimitiveSchema(final RestModelField restModelField,
-                                                       final EnvironmentContext environmentContext,
                                                        final PrimitiveModelClass primitiveModelClass) {
         final JsonObjectBuilder builder = new JsonObjectBuilder();
         final String jsonType = primitiveModelClass.getPrimitiveType().toJsonType();
@@ -208,7 +206,6 @@ public final class JsonSchemaBuilderImpl implements JsonSchemaBuilder {
     }
 
     private Map<String, Object> getJsonEnumSchema(final RestModelField restModelField,
-                                                  final EnvironmentContext environmentContext,
                                                   final EnumModelClass enumModelClass) {
         final JsonObjectBuilder builder = new JsonObjectBuilder();
         builder.put(TYPE, enumModelClass.getPrimitiveType().toJsonType());

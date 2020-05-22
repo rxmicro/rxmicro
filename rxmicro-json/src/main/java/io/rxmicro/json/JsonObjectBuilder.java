@@ -46,6 +46,7 @@ public final class JsonObjectBuilder extends MapBuilder<String, Object> {
      * Creates a {@link JsonObjectBuilder} instance without duplicate detection
      */
     public JsonObjectBuilder() {
+        super(false);
     }
 
     /**

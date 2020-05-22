@@ -152,7 +152,7 @@ public final class Formats {
     }
 
     private static String formatWithArguments(final String messageTemplate,
-                                              final Object[] args) {
+                                              final Object... args) {
         final StringBuilder sb = new StringBuilder(messageTemplate.length() * 3 / 2);
         int index = 0;
         try {

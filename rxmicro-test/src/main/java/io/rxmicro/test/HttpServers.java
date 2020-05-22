@@ -28,9 +28,9 @@ import java.util.Random;
  */
 public final class HttpServers {
 
-    private static final int MIN_RANDOM_PORT = 9000;
+    private static final int MIN_RANDOM_PORT = 9_000;
 
-    private static final int MAX_RANDOM_PORT = 59999;
+    private static final int MAX_RANDOM_PORT = 59_999;
 
     /**
      * Returns the random free port on the current host

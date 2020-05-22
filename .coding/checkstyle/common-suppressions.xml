@@ -62,13 +62,8 @@
     <suppress checks="ReturnCount"
               files="Configs.java"
               lines="111-127"/>
-    <suppress checks="NewlineAtEndOfFile"
-              files="rxmicro-config[\\/]native-image.properties"/>
-    <suppress checks="Header"
-              files="rxmicro-config[\\/]native-image.properties"/>
 
     <!-- This is an util class -->
     <suppress checks="NPathComplexity"
               files="TypeValidators.java"/>
-
 </suppressions>

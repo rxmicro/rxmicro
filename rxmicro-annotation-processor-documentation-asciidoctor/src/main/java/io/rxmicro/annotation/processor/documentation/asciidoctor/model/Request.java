@@ -17,6 +17,7 @@
 package io.rxmicro.annotation.processor.documentation.asciidoctor.model;
 
 import io.rxmicro.annotation.processor.common.util.UsedByFreemarker;
+import io.rxmicro.common.meta.BuilderMethod;
 
 import java.util.List;
 import java.util.Map;
@@ -114,31 +115,37 @@ public final class Request {
 
         private String schema;
 
+        @BuilderMethod
         public Builder setExample(final String example) {
             this.example = example;
             return this;
         }
 
+        @BuilderMethod
         public Builder setPathVariables(final List<DocumentedModelField> pathVariables) {
             this.pathVariables = pathVariables;
             return this;
         }
 
+        @BuilderMethod
         public Builder setHeaders(final List<DocumentedModelField> headers) {
             this.headers = headers;
             return this;
         }
 
+        @BuilderMethod
         public Builder setQueryParameters(final List<DocumentedModelField> queryParameters) {
             this.queryParameters = queryParameters;
             return this;
         }
 
+        @BuilderMethod
         public Builder setBodyParameters(final List<Map.Entry<String, List<DocumentedModelField>>> bodyParameters) {
             this.bodyParameters = bodyParameters;
             return this;
         }
 
+        @BuilderMethod
         public Builder setSchema(final String schema) {
             this.schema = schema;
             return this;

@@ -198,20 +198,7 @@ public final class Elements {
                                                               final boolean getter) {
         final String fieldType = variableElement.asType().toString();
         final String fieldName = variableElement.getSimpleName().toString();
-        final Set<String> methodNames;
-        if (getter) {
-            methodNames = Set.copyOf(List.of(
-                    "get" + capitalize(fieldName),
-                    "get" + fieldName,
-                    "is" + capitalize(fieldName),
-                    "is" + fieldName
-            ));
-        } else {
-            methodNames = Set.copyOf(List.of(
-                    "set" + capitalize(fieldName),
-                    "set" + fieldName
-            ));
-        }
+        final Set<String> methodNames = getSettersOrGettersMethodNames(getter, fieldName);
         final List<ExecutableElement> methods = new ArrayList<>();
         TypeElement currentTypeElement = typeElement;
         while (true) {
@@ -234,6 +221,23 @@ public final class Elements {
             }
         }
         return methods;
+    }
+
+    private static Set<String> getSettersOrGettersMethodNames(final boolean getter,
+                                                              final String fieldName) {
+        if (getter) {
+            return Set.copyOf(List.of(
+                    "get" + capitalize(fieldName),
+                    "get" + fieldName,
+                    "is" + capitalize(fieldName),
+                    "is" + fieldName
+            ));
+        } else {
+            return Set.copyOf(List.of(
+                    "set" + capitalize(fieldName),
+                    "set" + fieldName
+            ));
+        }
     }
 
     public static boolean methodSignatureEquals(final ExecutableElement method1,

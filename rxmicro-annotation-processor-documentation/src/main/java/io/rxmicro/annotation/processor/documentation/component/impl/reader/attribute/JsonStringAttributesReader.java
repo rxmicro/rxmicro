@@ -169,7 +169,7 @@ public final class JsonStringAttributesReader {
             },
 
             (modelField, builder) -> {
-                final io.rxmicro.validation.constraint.URI uri = modelField.getAnnotation(URI.class);
+                final URI uri = modelField.getAnnotation(URI.class);
                 if (uri != null) {
                     builder.put(FORMAT, URI);
                 }
