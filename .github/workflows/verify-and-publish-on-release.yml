@@ -116,6 +116,33 @@ jobs:
         run: mvn --fail-at-end -DskipTests -P pmd verify
 
   #
+  # ------------- Verify Code Quality via Checkstyle Tool -------------
+  # --------------- https://checkstyle.sourceforge.io/ ----------------
+  #
+
+  verify-via-checkstyle:
+    name: Verify via Checkstyle Tool
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout rxmicro repo
+        uses: actions/checkout@v2
+
+      - name: Setup m2 local repo
+        uses: actions/cache@v1
+        with:
+          path: ~/.m2/repository
+          key: rxmicro-maven-${{ runner.os }}-cache
+
+      - name: Setup JDK 11
+        uses: actions/setup-java@v1
+        with:
+          java-version: '11'
+
+      - name: Verify
+        run: mvn --fail-at-end -DskipTests -P checkstyle verify
+
+  #
   # ----------------- Verify RxMicro Javadocs  -----------------
   #
 
@@ -140,6 +167,7 @@ jobs:
 
       - name: Verify
         run: mvn --fail-at-end -DskipTests -P release package
+
   #
   # ------------- Run Unit tests on Windows and MacOS with all supported JDK versions -------------
   #
@@ -147,7 +175,7 @@ jobs:
   test-on-windows-and-macos:
     name: Test on JDK-${{ matrix.jdk }}/${{ matrix.os }}
     runs-on: ${{ matrix.os }}
-    needs: [test-on-linux, verify-via-spotbugs, verify-via-pmd, verify-javadoc]
+    needs: [test-on-linux, verify-via-spotbugs, verify-via-pmd, verify-via-checkstyle, verify-javadoc]
     strategy:
       matrix:
         jdk: ['11', '12', '13', '14']

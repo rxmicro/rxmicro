@@ -147,10 +147,12 @@
         <external.lib.junit-platform-commons.version>1.6.2</external.lib.junit-platform-commons.version>
         <external.lib.apiguardian-api.version>1.1.0</external.lib.apiguardian-api.version>
         <external.lib.opentest4j.version>1.2.0</external.lib.opentest4j.version>
+
         <!-- Code quality -->
         <spotbugs.version>4.0.2</spotbugs.version>
         <pmd.version>6.23.0</pmd.version>
         <checkstyle.version>8.32</checkstyle.version>
+
         <!-- Maven core plugins -->
         <maven-clean-plugin.version>3.1.0</maven-clean-plugin.version>
         <maven-resources-plugin.version>3.1.0</maven-resources-plugin.version>
@@ -161,7 +163,6 @@
         <maven-deploy-plugin.version>2.8.2</maven-deploy-plugin.version>
         <maven-site-plugin.version>3.8.2</maven-site-plugin.version>
         <maven-project-info-reports-plugin.version>3.0.0</maven-project-info-reports-plugin.version>
-
         <!-- Maven tools plugins -->
         <maven-enforcer-plugin.version>3.0.0-M3</maven-enforcer-plugin.version>
         <versions-maven-plugin.version>2.7</versions-maven-plugin.version>
@@ -170,11 +171,16 @@
         <maven-javadoc-plugin.version>3.1.1</maven-javadoc-plugin.version>
         <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
         <nexus-staging-maven-plugin.version>1.6.8</nexus-staging-maven-plugin.version>
+
         <!-- Code quality plugins -->
         <jacoco-maven-plugin.version>0.8.5</jacoco-maven-plugin.version>
         <spotbugs-maven-plugin.version>4.0.0</spotbugs-maven-plugin.version>
         <maven-pmd-plugin.version>3.13.0</maven-pmd-plugin.version>
         <maven-checkstyle-plugin.version>3.1.1</maven-checkstyle-plugin.version>
+        <!-- Code quality plugin configuration properties -->
+        <spotbugs-maven-plugin.failOnError>true</spotbugs-maven-plugin.failOnError>
+        <maven-pmd-plugin.failOnViolation>true</maven-pmd-plugin.failOnViolation>
+        <maven-checkstyle-plugin.failOnViolation>true</maven-checkstyle-plugin.failOnViolation>
     </properties>
 
     <profiles>
@@ -243,6 +249,7 @@
         </profile>
         <profile>
             <!-- https://pmd.github.io/latest/pmd_rules_java.html -->
+            <!-- https://maven.apache.org/plugins/maven-pmd-plugin/usage.html -->
             <id>pmd</id>
             <build>
                 <plugins>
@@ -278,6 +285,7 @@
                                     <excludeFromFailureFile>
                                         ${basedir}/../.coding/pmd/exclude-pmd.properties
                                     </excludeFromFailureFile>
+                                    <failOnViolation>${maven-pmd-plugin.failOnViolation}</failOnViolation>
                                 </configuration>
                             </execution>
                             <execution>
@@ -290,6 +298,7 @@
                                     <excludeFromFailureFile>
                                         ${basedir}/../.coding/pmd/exclude-cpd.properties
                                     </excludeFromFailureFile>
+                                    <failOnViolation>${maven-pmd-plugin.failOnViolation}</failOnViolation>
                                 </configuration>
                             </execution>
                         </executions>
@@ -326,6 +335,7 @@
                                     <excludeFromFailureFile>
                                         ${basedir}/../.coding/pmd/exclude-pmd.properties
                                     </excludeFromFailureFile>
+                                    <failOnViolation>${maven-pmd-plugin.failOnViolation}</failOnViolation>
                                 </configuration>
                             </reportSet>
                             <reportSet>
@@ -338,6 +348,7 @@
                                     <excludeFromFailureFile>
                                         ${basedir}/../.coding/pmd/exclude-cpd.properties
                                     </excludeFromFailureFile>
+                                    <failOnViolation>${maven-pmd-plugin.failOnViolation}</failOnViolation>
                                 </configuration>
                             </reportSet>
                         </reportSets>
@@ -347,6 +358,7 @@
         </profile>
         <profile>
             <!-- https://spotbugs.github.io/ -->
+            <!-- https://spotbugs.github.io/spotbugs-maven-plugin/ -->
             <id>spotbugs</id>
             <build>
                 <plugins>
@@ -368,6 +380,7 @@
                             </excludeFilterFile>
                             <skipEmptyReport>true</skipEmptyReport>
                             <debug>true</debug>
+                            <failOnError>${spotbugs-maven-plugin.failOnError}</failOnError>
                         </configuration>
                         <dependencies>
                             <dependency>
@@ -389,6 +402,7 @@
                                 ${basedir}/../.coding/spotbugs/exclude.xml
                             </excludeFilterFile>
                             <skipEmptyReport>true</skipEmptyReport>
+                            <failOnError>${spotbugs-maven-plugin.failOnError}</failOnError>
                         </configuration>
                     </plugin>
                 </plugins>
@@ -422,7 +436,7 @@
                                     <configLocation>.coding/checkstyle/common-rules.xml</configLocation>
                                     <suppressionsLocation>.coding/checkstyle/common-suppressions.xml</suppressionsLocation>
                                     <suppressionsFileExpression>checkstyle.suppressions.file</suppressionsFileExpression>
-                                    <failOnViolation>false</failOnViolation>
+                                    <failOnViolation>${maven-checkstyle-plugin.failOnViolation}</failOnViolation>
                                 </configuration>
                             </execution>
                             <!--execution>
@@ -435,7 +449,7 @@
                                     <configLocation>.coding/checkstyle/public-api-rules.xml</configLocation>
                                     <suppressionsLocation>.coding/checkstyle/public-api-suppressions.xml</suppressionsLocation>
                                     <suppressionsFileExpression>checkstyle.suppressions.file</suppressionsFileExpression>
-                                    <failOnViolation>false</failOnViolation>
+                                    <failOnViolation>${maven-checkstyle-plugin.failOnViolation}</failOnViolation>
                                     <excludes>**/io/rxmicro/annotation/processor/**, **/detail/**</excludes>
                                 </configuration>
                             </execution-->
@@ -460,6 +474,7 @@
                                     <configLocation>.coding/checkstyle/common-rules.xml</configLocation>
                                     <suppressionsLocation>.coding/checkstyle/common-suppressions.xml</suppressionsLocation>
                                     <suppressionsFileExpression>checkstyle.suppressions.file</suppressionsFileExpression>
+                                    <failOnViolation>${maven-checkstyle-plugin.failOnViolation}</failOnViolation>
                                 </configuration>
                             </reportSet>
                         </reportSets>
@@ -667,5 +682,4 @@
             <url>https://oss.sonatype.org/content/repositories/snapshots</url>
         </snapshotRepository>
     </distributionManagement>
-
 </project>
