@@ -29,7 +29,7 @@ import static java.util.stream.Collectors.toUnmodifiableSet;
 
 /**
  * Base validator for the {@link io.rxmicro.validation.constraint.DomainName} and the {@link io.rxmicro.validation.constraint.HostName}
- * constraints
+ * constraints.
  *
  * @author nedis
  * @since 0.4
@@ -45,12 +45,27 @@ public abstract class AbstractDomainOrHostNameConstraintValidator implements Con
 
     private final boolean errorWithDetails;
 
+    /**
+     * Creates the default instance of {@link AbstractDomainOrHostNameConstraintValidator} type.
+     *
+     * @param errorWithDetails validation error with detail message or not
+     */
     protected AbstractDomainOrHostNameConstraintValidator(final boolean errorWithDetails) {
         this.errorWithDetails = errorWithDetails;
     }
 
+    /**
+     * Returns the rule.
+     *
+     * @return the rule
+     */
     protected abstract String getRule();
 
+    /**
+     * Returns the name.
+     *
+     * @return the name
+     */
     protected abstract String getName();
 
     @Override

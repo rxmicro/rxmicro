@@ -17,10 +17,11 @@
 /**
  * The basic module to work with dynamic repositories for interaction with relational SQL databases using
  * the Reactive Relational Database Connectivity (R2DBC).
- * <p>
- * Read more: <a href="https://r2dbc.io/">https://r2dbc.io</a>
- * <p>
  *
+ * <p>
+ * Read more: <a href="https://r2dbc.io/">https://r2dbc.io</a>.
+ *
+ * <p>
  * This module follows the next package structure rules:
  * <ul>
  *     <li>
@@ -43,7 +44,6 @@
  *         </ul>
  *     </li>
  * </ul>
- *
  *
  * @author nedis
  * @since 0.1

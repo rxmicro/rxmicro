@@ -17,14 +17,20 @@
 package io.rxmicro.validation.validator;
 
 /**
- * Validator for the {@link io.rxmicro.validation.constraint.Telegram} constraint
+ * Validator for the {@link io.rxmicro.validation.constraint.Telegram} constraint.
  *
  * @author nedis
- * @since 0.1
  * @see io.rxmicro.validation.constraint.Telegram
+ * @since 0.1
  */
 public class TelegramConstraintValidator extends PhoneConstraintValidator {
 
+    /**
+     * Creates the default instance of {@link TelegramConstraintValidator} with the specified parameters.
+     *
+     * @param withoutPlus value must be without plus or not
+     * @param allowsSpaces allows whitespaces or not
+     */
     public TelegramConstraintValidator(final boolean withoutPlus,
                                        final boolean allowsSpaces) {
         super(withoutPlus, allowsSpaces);

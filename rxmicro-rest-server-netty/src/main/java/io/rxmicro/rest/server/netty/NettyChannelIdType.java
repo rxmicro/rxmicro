@@ -19,11 +19,11 @@ package io.rxmicro.rest.server.netty;
 import io.netty.channel.ChannelId;
 
 /**
- * Allows configuring a netty channel id
+ * Allows configuring a netty channel id.
  *
  * @author nedis
- * @since 0.3
  * @see io.netty.channel.ChannelId
+ * @since 0.3
  */
 public enum NettyChannelIdType {
 
@@ -38,8 +38,10 @@ public enum NettyChannelIdType {
     LONG;
 
     /**
+     * Returns the unique string representation of channel id.
+     *
      * @param channelId channel id
-     * @return unique string representation of channel id
+     * @return the unique string representation of channel id
      */
     public String getId(final ChannelId channelId) {
         if (this == LONG) {

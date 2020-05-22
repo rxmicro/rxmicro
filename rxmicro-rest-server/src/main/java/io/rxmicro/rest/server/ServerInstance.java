@@ -17,21 +17,21 @@
 package io.rxmicro.rest.server;
 
 /**
- * Represents a HTTP server with common manage functions
+ * Represents a HTTP server with common manage functions.
  *
  * @author nedis
- * @since 0.1
  * @see RxMicro
+ * @since 0.1
  */
 public interface ServerInstance {
 
     /**
-     * Sends an async shutdown request
+     * Sends an async shutdown request.
      */
     void shutdown();
 
     /**
-     * Sends an async shutdown request and waits for HTTP server stopped
+     * Sends an async shutdown request and waits for HTTP server stopped.
      *
      * @throws InterruptedException if waits for HTTP server stopped is interrupted
      */

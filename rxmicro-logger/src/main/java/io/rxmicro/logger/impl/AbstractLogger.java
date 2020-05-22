@@ -26,18 +26,37 @@ import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.Requires.require;
 
 /**
- * Abstract logger implementation that delegates the log events to `log` methods
+ * Abstract logger implementation that delegates the log events to `log` methods.
  *
  * @author nedis
- * @since 0.1
  * @see io.rxmicro.logger.LoggerFactory
+ * @since 0.1
  */
 public abstract class AbstractLogger implements Logger {
 
+    /**
+     * Returns {@code true} if the specified level is enabled.
+     *
+     * @param level the specified level.
+     * @return {@code true} if the specified level is enabled.
+     */
     protected abstract boolean isLevelEnabled(Level level);
 
+    /**
+     * Logs the specified message with the specified level.
+     *
+     * @param level the specified level.
+     * @param message the specified message.
+     */
     protected abstract void log(Level level, String message);
 
+    /**
+     * Logs the specified message with the specified level and prints stacktrace for the specified throwable.
+     *
+     * @param level the specified level.
+     * @param message the specified message.
+     * @param throwable the specified throwable.
+     */
     protected abstract void log(Level level, String message, Throwable throwable);
 
     @Override

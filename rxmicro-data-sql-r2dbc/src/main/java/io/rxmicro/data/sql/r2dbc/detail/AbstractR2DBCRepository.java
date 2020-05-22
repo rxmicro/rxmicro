@@ -31,9 +31,10 @@ import reactor.core.publisher.Mono;
 import java.util.function.BiFunction;
 
 /**
- * Used by generated code that was created by {@code RxMicro Annotation Processor}
+ * Used by generated code that created by the {@code RxMicro Annotation Processor}.
  *
  * @author nedis
+ * @hidden
  * @since 0.1
  */
 public abstract class AbstractR2DBCRepository extends AbstractSQLRepository {
@@ -42,8 +43,8 @@ public abstract class AbstractR2DBCRepository extends AbstractSQLRepository {
 
     private final Statements statements;
 
-    protected AbstractR2DBCRepository(final Class<?> repositoryClass) {
-        super(repositoryClass);
+    protected AbstractR2DBCRepository(final Class<?> repositoryInterface) {
+        super(repositoryInterface);
         connections = new Connections(logger);
         statements = new Statements(logger);
     }

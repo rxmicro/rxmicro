@@ -29,7 +29,7 @@ import static io.rxmicro.http.HttpHeaders.EMPTY_HEADERS;
 import static io.rxmicro.http.HttpVersion.HTTP_1_1;
 
 /**
- * The HTTP response mock using <a href="https://site.mockito.org/">Mockito</a> testing framework
+ * The HTTP response mock using <a href="https://site.mockito.org/">Mockito</a> testing framework.
  *
  * @author nedis
  * @since 0.1
@@ -45,7 +45,7 @@ public final class HttpResponseMock extends AbstractHttpResponseMock {
     }
 
     /**
-     * The builder for building a HTTP response mock
+     * The builder for building a HTTP response mock.
      *
      * @author nedis
      * @since 0.1
@@ -66,7 +66,7 @@ public final class HttpResponseMock extends AbstractHttpResponseMock {
         private boolean returnRequestBody;
 
         /**
-         * Sets the status code for the HTTP response mock that it will match to an HTTP response with the specified status code
+         * Sets the status code for the HTTP response mock that it will match to an HTTP response with the specified status code.
          *
          * @param status the specified status code
          * @return the reference to this {@link Builder} instance
@@ -79,7 +79,7 @@ public final class HttpResponseMock extends AbstractHttpResponseMock {
 
         /**
          * Sets the {@link HttpVersion} for the HTTP response mock that it will match to an HTTP response with
-         * the specified {@link HttpVersion}
+         * the specified {@link HttpVersion}.
          *
          * @param version the specified {@link HttpVersion}
          * @return the reference to this {@link Builder} instance
@@ -93,7 +93,7 @@ public final class HttpResponseMock extends AbstractHttpResponseMock {
 
         /**
          * Sets the {@link HttpHeaders} for the HTTP response mock that it will match to an HTTP response with
-         * the specified {@link HttpHeaders}
+         * the specified {@link HttpHeaders}.
          *
          * @param headers the specified {@link HttpHeaders}
          * @return the reference to this {@link Builder} instance
@@ -106,7 +106,7 @@ public final class HttpResponseMock extends AbstractHttpResponseMock {
         }
 
         /**
-         * Sets the HTTP body for the HTTP response mock that it will match to an HTTP response with the specified HTTP body
+         * Sets the HTTP body for the HTTP response mock that it will match to an HTTP response with the specified HTTP body.
          *
          * @param body the specified HTTP body
          * @return the reference to this {@link Builder} instance
@@ -126,7 +126,7 @@ public final class HttpResponseMock extends AbstractHttpResponseMock {
         }
 
         /**
-         * Configures the HTTP response mock with the HTTP body which must be extracted from HTTP request
+         * Configures the HTTP response mock with the HTTP body which must be extracted from HTTP request.
          *
          * @return the reference to this {@link Builder} instance
          * @throws InvalidStateException if HTTP body is set previously
@@ -141,7 +141,7 @@ public final class HttpResponseMock extends AbstractHttpResponseMock {
         }
 
         /**
-         * Builds the immutable HTTP response mock instance using the configured {@link Builder} settings
+         * Builds the immutable HTTP response mock instance using the configured {@link Builder} settings.
          *
          * @return the immutable HTTP response mock instance
          */

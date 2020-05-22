@@ -28,10 +28,13 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
  * Declares the test class as a component unit test.
+ *
  * <p>
- * <h4>For efficient writing of component tests, it is necessary to know the execution order of user and RxMicro code.</h4>
+ * <strong>For efficient writing of component tests, it is necessary to know the execution order of user and RxMicro code.</strong>
+ *
  * <p>
  * When testing a component, using the following test:
+ *
  * <p>
  * <pre>
  * {@code @io.rxmicro.test.mockito.junit.InitMocks}
@@ -82,8 +85,10 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  *     }
  * }
  * </pre>
+ *
  * <p>
  * the execution order will be as follows:
+ *
  * <p>
  * <pre>
  * RX-MICRO: Test class validated.
@@ -119,8 +124,10 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  *
  * USER-TEST: '@org.junit.jupiter.api.AfterAll' invoked.
  * </pre>
+ *
  * <p>
  * In the above execution order of user and RxMicro code the following clarifications are implied:
+ *
  * <p>
  * <ul>
  *     <li>The {@code MOCKITO} prefix means that the action is activated by the {@code @InitMocks} annotation.</li>
@@ -129,9 +136,9 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * </ul>
  *
  * @author nedis
- * @since 0.1
  * @see RxMicroRestBasedMicroServiceTest
  * @see RxMicroIntegrationTest
+ * @since 0.1
  */
 @Target(TYPE)
 @Retention(RUNTIME)
@@ -140,7 +147,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 public @interface RxMicroComponentTest {
 
     /**
-     * Returns the component class, which must be tested
+     * Returns the component class, which must be tested.
      *
      * @return the component class, which must be tested
      */

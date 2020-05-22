@@ -19,24 +19,24 @@ package io.rxmicro.data.mongo;
 import io.rxmicro.model.NotStandardSerializableEnum;
 
 /**
- * Allows activating or disabling the index usage
+ * Allows activating or disabling the index usage.
  *
  * @author nedis
- * @since 0.1
  * @see io.rxmicro.data.SortOrder
  * @see io.rxmicro.data.Pageable
  * @see io.rxmicro.data.RepeatParameter
  * @see ProjectionType
+ * @since 0.1
  */
 public enum IndexUsage implements NotStandardSerializableEnum {
 
     /**
-     * Includes index usage
+     * Includes index usage.
      */
     INCLUDE,
 
     /**
-     * Excludes index usage
+     * Excludes index usage.
      */
     EXCLUDE;
 

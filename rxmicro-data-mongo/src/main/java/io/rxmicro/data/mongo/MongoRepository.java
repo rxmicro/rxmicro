@@ -27,11 +27,11 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * Denotes that an interface is a dynamic generated Mongo data repository.
  *
  * @author nedis
- * @since 0.1
  * @see io.rxmicro.data.DataRepositoryGeneratorConfig
  * @see io.rxmicro.data.RepositoryFactory
  * @see MongoConfig
  * @see MongoClientFactory
+ * @since 0.1
  */
 @Documented
 @Retention(SOURCE)
@@ -39,14 +39,14 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 public @interface MongoRepository {
 
     /**
-     * Returns the collection name
+     * Returns the collection name.
      *
      * @return the collection name
      */
     String collection();
 
     /**
-     * Returns the config namespace for the current repository
+     * Returns the config namespace for the current repository.
      *
      * @return the config namespace for the current repository
      */

@@ -19,7 +19,7 @@ package io.rxmicro.validation.base;
 import java.util.Set;
 
 /**
- * Constraint utility class
+ * Constraint utility class.
  *
  * @author nedis
  * @since 0.4
@@ -27,7 +27,7 @@ import java.util.Set;
 public final class ConstraintUtils {
 
     /**
-     * Returns the unmodifiable set of latin letters [a-z] and [A-Z] and digits [0-9]
+     * Returns the unmodifiable set of latin letters [a-z] and [A-Z] and digits [0-9].
      *
      * @return the unmodifiable set of latin letters [a-z] and [A-Z] and digits [0-9]
      */

@@ -16,8 +16,8 @@
 
 /**
  * The module to work with file system using sync and async modes.
- * <p>
  *
+ * <p>
  * This module follows the next package structure rules:
  * <ul>
  *     <li>
@@ -40,7 +40,6 @@
  *         </ul>
  *     </li>
  * </ul>
- *
  *
  * @author nedis
  * @since 0.1

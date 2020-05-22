@@ -26,19 +26,22 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
  * Denotes a factory method or a factory, that creates instances of the specified class.
+ *
  * <p>
  * When using the dependency injection mechanisms, the RxMicro framework creates instances of the specified classes and injects links
  * to them to injection points. For successful implementation of this behavior, each class, the instance of which should be injected,
  * must contain an accessible constructor without parameters or a constructor annotated by the
  * {@link Inject} or {@link Autowired} annotation.
+ *
  * <p>
  * In other words, the RxMicro framework determines the instance of which class should be created and creates this instance
  * automatically at the start of the CDI container. If it is necessary to get more control over creation of the implementation
  * instance, it is necessary to use the Factory Method template.
  * If the RxMicro framework detects a method in the class, annotated by the {@link Factory} annotation, then this method is used instead
  * of the constructor when creating the instance of this class.
+ *
  * <p>
- * <h4>The factory method must meet the following requirements:</h4>
+ * <strong>The factory method must meet the following requirements:</strong>
  * <ul>
  *     <li>The method must be {@code static}.</li>
  *     <li>The method must be non-{@code native}.</li>
@@ -46,15 +49,19 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  *     <li>The method must return the class instance in which it is declared.</li>
  *     <li>The method must not contain parameters.</li>
  * </ul>
+ *
  * <p>
  * Besides factory method the RxMicro framework supports creation of factory classes, that can be used to create instances of other types.
- * <h4>By using factory classes, it is possible to get the following benefits:</h4>
+ *
+ * <p>
+ * <strong>By using factory classes, it is possible to get the following benefits:</strong>
  * <ul>
  *     <li>Create dynamic classes. (For example, using the {@link java.lang.reflect.Proxy} class.)</li>
  *     <li>Implement a {@code prototype} scope.</li>
  * </ul>
+ *
  * <p>
- * <h4>To create a factory class, it is necessary:</h4>
+ * <strong>To create a factory class, it is necessary:</strong>
  * <ul>
  *     <li>Create a class implementing the {@link java.util.function.Supplier} interface.</li>
  *     <li>Annotate this class by the {@link Factory} annotation.</li>
@@ -62,11 +69,11 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * </ul>
  *
  * @author nedis
- * @since 0.1
  * @see java.util.function.Supplier
  * @see java.lang.reflect.Proxy
  * @see Inject
  * @see Autowired
+ * @since 0.1
  */
 @Documented
 @Retention(SOURCE)

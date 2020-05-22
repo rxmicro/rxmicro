@@ -23,11 +23,11 @@ import io.rxmicro.validation.ConstraintValidator;
 import java.net.URISyntaxException;
 
 /**
- * Validator for the {@link io.rxmicro.validation.constraint.URI} constraint
+ * Validator for the {@link io.rxmicro.validation.constraint.URI} constraint.
  *
  * @author nedis
- * @since 0.1
  * @see io.rxmicro.validation.constraint.URI
+ * @since 0.1
  */
 public class URIConstraintValidator implements ConstraintValidator<String> {
 

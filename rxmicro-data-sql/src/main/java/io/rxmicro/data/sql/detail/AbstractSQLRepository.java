@@ -21,16 +21,17 @@ import io.rxmicro.logger.Logger;
 import io.rxmicro.logger.LoggerFactory;
 
 /**
- * Used by generated code that was created by {@code RxMicro Annotation Processor}
+ * Used by generated code that created by the {@code RxMicro Annotation Processor}.
  *
  * @author nedis
+ * @hidden
  * @since 0.1
  */
 public abstract class AbstractSQLRepository extends AbstractDataRepository {
 
     protected final Logger logger;
 
-    protected AbstractSQLRepository(final Class<?> repositoryClass) {
-        this.logger = LoggerFactory.getLogger(repositoryClass);
+    protected AbstractSQLRepository(final Class<?> repositoryInterface) {
+        this.logger = LoggerFactory.getLogger(repositoryInterface);
     }
 }

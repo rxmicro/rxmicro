@@ -24,6 +24,7 @@ import static io.rxmicro.common.util.Strings.startsWith;
 /**
  * A base class to inform the client about the need to perform redirect.
  *
+ * <p>
  * Instead of using a base class, it is recommended to use one of the following child ones:
  * <ul>
  *     <li>{@link TemporaryRedirectException}</li>
@@ -40,12 +41,15 @@ public abstract class RedirectException extends HttpErrorException {
     private final boolean absolute;
 
     /**
-     * Creates a {@link RedirectException} instance with the specified status and expected redirect location
+     * Creates a {@link RedirectException} instance with the specified status and expected redirect location.
+     *
      * <p>
      * For all child classes which extend the HttpErrorException class, when creating an exception instance the stack trace is not filled,
      * as this information is redundant.
+     *
      * <p>
      * (<i>This behavior is achieved by using the {@link RuntimeException#RuntimeException(String, Throwable, boolean, boolean)}.</i>)
+     *
      * <p>
      * This constructor uses {@link Formats#format(String, Object...)} method to format `Location` header
      *
@@ -68,12 +72,15 @@ public abstract class RedirectException extends HttpErrorException {
     }
 
     /**
-     * Creates a {@link RedirectException} instance with the specified status and expected redirect location
+     * Creates a {@link RedirectException} instance with the specified status and expected redirect location.
+     *
      * <p>
      * For all child classes which extend the HttpErrorException class, when creating an exception instance the stack trace is not filled,
      * as this information is redundant.
+     *
      * <p>
      * (<i>This behavior is achieved by using the {@link RuntimeException#RuntimeException(String, Throwable, boolean, boolean)}.</i>)
+     *
      * <p>
      * This constructor uses {@link Formats#format(String, Object...)} method to format `Location` header
      *
@@ -99,7 +106,7 @@ public abstract class RedirectException extends HttpErrorException {
     }
 
     /**
-     * Returns the new redirect location
+     * Returns the new redirect location.
      *
      * @return the new redirect location
      */

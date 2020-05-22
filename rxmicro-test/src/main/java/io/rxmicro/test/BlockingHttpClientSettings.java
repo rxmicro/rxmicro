@@ -30,24 +30,27 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
  * Allows to configure the following component: {@link BlockingHttpClient}, in order to execute HTTP requests in tests.
+ *
  * <p>
  * <i>(This annotation applies only to the {@link BlockingHttpClient} type fields.)</i>
+ *
  * <p>
  * The RxMicro framework supports the {@link BlockingHttpClient} component only for REST-based microservice tests
  * and REST-based microservice integration tests.
  *
  * @author nedis
- * @since 0.1
  * @see BlockingHttpClient
  * @see io.rxmicro.rest.Version.Strategy
+ * @since 0.1
  */
+@SuppressWarnings("JavaDoc")
 @Documented
 @Retention(RUNTIME)
 @Target(FIELD)
 public @interface BlockingHttpClientSettings {
 
     /**
-     * Returns the HTTP protocol schema
+     * Returns the HTTP protocol schema.
      *
      * @return the HTTP protocol schema
      * @see ProtocolSchema
@@ -55,14 +58,15 @@ public @interface BlockingHttpClientSettings {
     ProtocolSchema schema() default ProtocolSchema.HTTP;
 
     /**
-     * Returns the HTTP server host
+     * Returns the HTTP server host.
      *
      * @return the HTTP server host
      */
     String host() default "localhost";
 
     /**
-     * Retruns the HTTP server port or -1, if port must detected automatically
+     * Returns the HTTP server port or -1, if port must detected automatically.
+     *
      * <p>
      * <i>(The {@link #port()} and {@link #randomPortProvider()} parameters are mutually exclusive.)</i>
      *
@@ -72,8 +76,10 @@ public @interface BlockingHttpClientSettings {
 
     /**
      * Allows specifying the dynamic connection port.
+     *
      * <p>
      * <i>(The port will be read from the static final variable of the current class with the specified name.)</i>
+     *
      * <p>
      * <i>(The {@link #port()} and {@link #randomPortProvider()} parameters are mutually exclusive.)</i>
      *
@@ -83,7 +89,7 @@ public @interface BlockingHttpClientSettings {
     String randomPortProvider() default "";
 
     /**
-     * Returns the current API version or empty string if not defined
+     * Returns the current API version or empty string if not defined.
      *
      * @return the current API version or empty string if not defined
      * @see io.rxmicro.rest.Version.Strategy
@@ -91,7 +97,7 @@ public @interface BlockingHttpClientSettings {
     String versionValue() default "";
 
     /**
-     * Returns the current API version strategy
+     * Returns the current API version strategy.
      *
      * @return the current API version strategy
      * @see io.rxmicro.rest.Version.Strategy
@@ -99,7 +105,8 @@ public @interface BlockingHttpClientSettings {
     Version.Strategy versionStrategy() default Version.Strategy.URL_PATH;
 
     /**
-     * Returns the request timeout in {@code SECONDS}
+     * Returns the request timeout in {@code SECONDS}.
+     *
      * <p>
      * {@code 0} means infinite timeout.
      *
@@ -108,7 +115,7 @@ public @interface BlockingHttpClientSettings {
     int requestTimeout() default DEFAULT_HTTP_CLIENT_TIMEOUT_VALUE_IN_SECONDS;
 
     /**
-     * Returns follow redirect option for the {@link BlockingHttpClient}
+     * Returns follow redirect option for the {@link BlockingHttpClient}.
      *
      * @return  {@link Option#AUTO} is {@link Option#ENABLED} for integration tests and
      *                      {@link Option#DISABLED} for REST-based micro service tests,

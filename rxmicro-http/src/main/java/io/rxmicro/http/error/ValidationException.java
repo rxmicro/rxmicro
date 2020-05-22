@@ -29,13 +29,18 @@ import static io.rxmicro.common.util.Strings.capitalize;
  */
 public final class ValidationException extends HttpErrorException {
 
+    /**
+     * Status code for the all instances of the current exception type.
+     */
     public static final int STATUS_CODE = 400;
 
     /**
      * Creates a {@code Bad Request} HTTP error with error message.
+     *
      * <p>
      * For all child classes which extend the HttpErrorException class, when creating an exception instance the stack trace is not filled,
      * as this information is redundant.
+     *
      * <p>
      * (<i>This behavior is achieved by using the {@link RuntimeException#RuntimeException(String, Throwable, boolean, boolean)}.</i>)
      *
@@ -48,11 +53,14 @@ public final class ValidationException extends HttpErrorException {
 
     /**
      * Creates a {@code Bad Request} HTTP error with error message.
+     *
      * <p>
      * For all child classes which extend the HttpErrorException class, when creating an exception instance the stack trace is not filled,
      * as this information is redundant.
+     *
      * <p>
      * (<i>This behavior is achieved by using the {@link RuntimeException#RuntimeException(String, Throwable, boolean, boolean)}.</i>)
+     *
      * <p>
      * <i>(FYI: This constructor uses {@link Formats#format(String, Object...)} method to format error message.)</i>
      *

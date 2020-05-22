@@ -52,9 +52,10 @@ import static java.util.function.Function.identity;
 import static java.util.stream.Collectors.toUnmodifiableMap;
 
 /**
- * Used by generated code that was created by {@code RxMicro Annotation Processor}
+ * Used by generated code that created by the {@code RxMicro Annotation Processor}.
  *
  * @author nedis
+ * @hidden
  * @since 0.1
  */
 public final class CrossOriginResourceSharingPreflightRestController extends AbstractRestController {

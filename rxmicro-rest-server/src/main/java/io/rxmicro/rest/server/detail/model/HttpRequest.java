@@ -22,34 +22,92 @@ import io.rxmicro.http.HttpVersion;
 import java.net.SocketAddress;
 
 /**
- * Represents a HTTP request model.
+ * Used by generated code that created by the {@code RxMicro Annotation Processor}.
+ *
  * <p>
- * Used by generated code that was created by {@code RxMicro Annotation Processor}.
+ * Represents a low level model for HTTP request and can be used to work with internal data.
+ *
+ * <p>
+ * Read more:
+ * <a href="https://docs.rxmicro.io/latest/user-guide/rest-controller.html#rest-controller-internals-basic-section">
+ *     https://docs.rxmicro.io/latest/user-guide/rest-controller.html#rest-controller-internals-basic-section
+ * </a>
  *
  * @author nedis
  * @since 0.1
  */
 public interface HttpRequest {
 
+    /**
+     * Returns the remote address for the connected HTTP client.
+     *
+     * @return the remote address for the connected HTTP client
+     */
     SocketAddress getRemoteAddress();
 
+    /**
+     * Returns the <code>{@value io.rxmicro.http.HttpStandardHeaderNames#REQUEST_ID}</code> HTTP header.
+     *
+     * @return the <code>{@value io.rxmicro.http.HttpStandardHeaderNames#REQUEST_ID}</code> HTTP header
+     * @see io.rxmicro.http.HttpStandardHeaderNames#REQUEST_ID
+     */
     String getRequestId();
 
+    /**
+     * Returns the HTTP method.
+     *
+     * @return the HTTP method
+     */
     String getMethod();
 
+    /**
+     * Returns the request URI
+     *
+     * @return the request URI
+     */
     String getUri();
 
+    /**
+     * Returns {@code true} if the current HTTP request contains a query string
+     *
+     * @return {@code true} if the current HTTP request contains a query string
+     */
     default boolean isQueryStringPresent() {
         return getQueryString().isEmpty();
     }
 
+    /**
+     * Returns the query string for the current HTTP request.
+     *
+     * @return the query string for the current HTTP request or empty string if the query string not found
+     */
     String getQueryString();
 
+    /**
+     * Returns the {@link HttpVersion} for the current HTTP request.
+     *
+     * @return the {@link HttpVersion} for the current HTTP request
+     */
     HttpVersion getVersion();
 
+    /**
+     * Returns the {@link HttpHeaders} for the current HTTP request.
+     *
+     * @return the {@link HttpHeaders} for the current HTTP request
+     */
     HttpHeaders getHeaders();
 
+    /**
+     * Returns {@code true} if the current HTTP request contains a HTTP body.
+     *
+     * @return {@code true} if the current HTTP request contains a HTTP body
+     */
     boolean isContentPresent();
 
+    /**
+     * Returns the HTTP body as byte array for the current HTTP request.
+     *
+     * @return the HTTP body as byte array for the current HTTP request
+     */
     byte[] getContent();
 }

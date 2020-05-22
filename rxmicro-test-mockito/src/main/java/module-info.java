@@ -18,8 +18,8 @@ import io.rxmicro.http.client.HttpClientContentConverter;
 
 /**
  * The module designed for test writing using the <a href="https://site.mockito.org/">Mockito</a> framework.
- * <p>
  *
+ * <p>
  * This module follows the next package structure rules:
  * <ul>
  *     <li>
@@ -42,7 +42,6 @@ import io.rxmicro.http.client.HttpClientContentConverter;
  *         </ul>
  *     </li>
  * </ul>
- *
  *
  * @author nedis
  * @since 0.1

@@ -22,6 +22,7 @@ import static io.rxmicro.config.internal.waitfor.WaitForServiceFactory.createWai
 
 /**
  * Allows suspending current thread until configured service is up.
+ *
  * <p>
  * Example of usage:
  * <pre>
@@ -30,17 +31,19 @@ import static io.rxmicro.config.internal.waitfor.WaitForServiceFactory.createWai
  *      startRestServer(MicroService.class);
  * }
  * </pre>
- * <p>
  *
- * <h4>Command line arguments:</h4>
+ * <p>
+ * <strong>Command line arguments:</strong>
+ *
  * <p>
  * <ul>
  *     <li>{@code java -p lib:. -m my.module/my_package.Launcher wait-for --type=tcp-socket --timeout=30 localhost:12017}</li>
  *     <li>{@code java -p lib:. -m my.module/my_package.Launcher wait-for localhost:12017 }</li>
  * </ul>
- * <p>
  *
- * <h4>Using java system properties:</h4>
+ * <p>
+ * <strong>Using java system properties:</strong>
+ *
  * <p>
  * <ul>
  *     <li>{@code SYS_PROP="-DWAIT_FOR=--type=tcp-socket --timeout=30 localhost:12017"}</li>
@@ -49,9 +52,10 @@ import static io.rxmicro.config.internal.waitfor.WaitForServiceFactory.createWai
  *     <li>{@code SYS_PROP="-DWAIT_FOR=localhost:12017" }</li>
  *     <li>{@code java -p lib:. "$SYS_PROP" -m my.module/my_package.Launcher }</li>
  * </ul>
- * <p>
  *
- * <h4>Using environment variables:</h4>
+ * <p>
+ * <strong>Using environment variables:</strong>
+ *
  * <p>
  * <ul>
  *     <li>{@code export WAIT_FOR="--type=tcp-socket --timeout=30 localhost:12017"}</li>
@@ -62,8 +66,8 @@ import static io.rxmicro.config.internal.waitfor.WaitForServiceFactory.createWai
  * </ul>
  *
  * @author nedis
- * @since 0.3
  * @see java.net.Socket
+ * @since 0.3
  */
 public final class WaitFor {
 
@@ -78,32 +82,35 @@ public final class WaitFor {
     public static final String WAIT_FOR_COMMAND_LINE_ARG = "wait-for";
 
     /**
-     * Wait for type parameter
+     * Wait for type parameter.
      */
     public static final String WAIT_FOR_TYPE_PARAM_NAME = "type";
 
     /**
-     * Default wait for type: {@code tcp-socket}
+     * Default wait for type: {@code tcp-socket}.
      */
     public static final String WAIT_FOR_TCP_SOCKET_TYPE_NAME = "tcp-socket";
 
     /**
      * Wait for timeout.
+     *
      * <p>
      * Integer value means timeout in seconds, i.e. {@code `--timeout=5`} equals to {@code `--timeout=5 seconds`}
+     *
      * <p>
      * Other units can be used as string using Duration format:
      * <ul>
      *     <li>{@code `--timeout=PT15M`} equals to {@code `--timeout=15 minutes`}</li>
      *     <li>{@code `--timeout=P2D`} equals to {@code `--timeout=2 days`}</li>
      * </ul>
+     *
      * <p>
      * See for detail: {@link java.time.Duration#parse(CharSequence)}
      */
     public static final String WAIT_FOR_TIMEOUT = "timeout";
 
     /**
-     * Default timeout value
+     * Default timeout value.
      */
     public static final String WAIT_FOR_TIMEOUT_DEFAULT_VALUE_IN_SECONDS = "10";
 

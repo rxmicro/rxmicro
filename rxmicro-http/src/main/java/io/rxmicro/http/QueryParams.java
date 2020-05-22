@@ -27,22 +27,22 @@ import java.util.Map;
 import static java.util.Map.entry;
 
 /**
- * Represents a HTTP query parameters instance
+ * Represents a HTTP query parameters instance.
  *
  * @author nedis
- * @since 0.1
  * @see HttpHeaders
  * @see HttpValues
+ * @since 0.1
  */
 public interface QueryParams {
 
     /**
-     * Empty HTTP query parameters instance
+     * Empty HTTP query parameters instance.
      */
     QueryParams EMPTY_QUERY_PARAMS = new EmptyQueryParams();
 
     /**
-     * Returns the empty HTTP query parameters instance
+     * Returns the empty HTTP query parameters instance.
      *
      * @return the empty HTTP query parameters instance
      */
@@ -318,7 +318,7 @@ public interface QueryParams {
     }
 
     /**
-     * Joins the URL path and HTTP query parameters
+     * Joins the URL path and HTTP query parameters.
      *
      * @param path the URL path
      * @param parameters the query parameters
@@ -347,7 +347,7 @@ public interface QueryParams {
     List<String> getValues(String name);
 
     /**
-     * Returns the entries of HTTP query parameter names and values
+     * Returns the entries of HTTP query parameter names and values.
      *
      * @return the entries of HTTP query parameter names and values
      */

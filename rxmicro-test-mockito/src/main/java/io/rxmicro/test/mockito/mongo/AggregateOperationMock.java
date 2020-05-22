@@ -28,23 +28,23 @@ import static io.rxmicro.test.mockito.mongo.internal.util.Validators.validateBso
 
 /**
  * The Mongo {@link io.rxmicro.data.mongo.operation.Aggregate} operation mock using
- * <a href="https://site.mockito.org/">Mockito</a> testing framework
+ * <a href="https://site.mockito.org/">Mockito</a> testing framework.
  *
  * @author nedis
- * @since 0.1
  * @see io.rxmicro.data.mongo.operation.Aggregate
  * @see io.rxmicro.data.mongo.MongoRepository
+ * @since 0.1
  */
 public final class AggregateOperationMock extends AbstractAggregateOperationMock {
 
-    public AggregateOperationMock(final List<Document> pipeline,
-                                  final Document hint,
-                                  final boolean allowDiskUse) {
+    private AggregateOperationMock(final List<Document> pipeline,
+                                   final Document hint,
+                                   final boolean allowDiskUse) {
         super(pipeline, hint, allowDiskUse);
     }
 
     /**
-     * The builder for building a Mongo {@link io.rxmicro.data.mongo.operation.Aggregate} operation mock
+     * The builder for building a Mongo {@link io.rxmicro.data.mongo.operation.Aggregate} operation mock.
      *
      * @author nedis
      * @since 0.1
@@ -62,7 +62,7 @@ public final class AggregateOperationMock extends AbstractAggregateOperationMock
 
         /**
          * Configures the Mongo {@link io.rxmicro.data.mongo.operation.Aggregate} operation mock that it will match to
-         * a Mongo {@link io.rxmicro.data.mongo.operation.Aggregate} operation with any pipelines
+         * a Mongo {@link io.rxmicro.data.mongo.operation.Aggregate} operation with any pipelines.
          *
          * @return the reference to this {@link Builder} instance
          */
@@ -75,6 +75,7 @@ public final class AggregateOperationMock extends AbstractAggregateOperationMock
 
         /**
          * Adds the specified {@link Document} to the pipeline list.
+         *
          * <p>
          * The Mongo {@link io.rxmicro.data.mongo.operation.Aggregate} operation mock that it will match to
          * a Mongo {@link io.rxmicro.data.mongo.operation.Aggregate} operation with all pipelines added using this method.
@@ -92,6 +93,7 @@ public final class AggregateOperationMock extends AbstractAggregateOperationMock
 
         /**
          * Adds the specified pipeline to the pipeline list.
+         *
          * <p>
          * The Mongo {@link io.rxmicro.data.mongo.operation.Aggregate} operation mock that it will match to
          * a Mongo {@link io.rxmicro.data.mongo.operation.Aggregate} operation with all pipelines added using this method.
@@ -111,7 +113,7 @@ public final class AggregateOperationMock extends AbstractAggregateOperationMock
 
         /**
          * Sets the hint for the Mongo {@link io.rxmicro.data.mongo.operation.Aggregate} operation mock that it will match to
-         * a Mongo {@link io.rxmicro.data.mongo.operation.Aggregate} operation with the specified hint value
+         * a Mongo {@link io.rxmicro.data.mongo.operation.Aggregate} operation with the specified hint value.
          *
          * @param hint the specified hint value
          * @return the reference to this {@link Builder} instance
@@ -125,7 +127,7 @@ public final class AggregateOperationMock extends AbstractAggregateOperationMock
 
         /**
          * Sets the hint for the Mongo {@link io.rxmicro.data.mongo.operation.Aggregate} operation mock that it will match to
-         * a Mongo {@link io.rxmicro.data.mongo.operation.Aggregate} operation with the specified hint value
+         * a Mongo {@link io.rxmicro.data.mongo.operation.Aggregate} operation with the specified hint value.
          *
          * @param hint the specified hint value
          * @return the reference to this {@link Builder} instance
@@ -142,7 +144,7 @@ public final class AggregateOperationMock extends AbstractAggregateOperationMock
         /**
          * Sets the {@code allowDiskUse} option for the Mongo {@link io.rxmicro.data.mongo.operation.Aggregate} operation mock
          * that it will match to a Mongo {@link io.rxmicro.data.mongo.operation.Aggregate} operation with
-         * the specified {@code allowDiskUse} option
+         * the specified {@code allowDiskUse} option.
          *
          * @param allowDiskUse the specified option
          * @return the reference to this {@link Builder} instance
@@ -155,7 +157,7 @@ public final class AggregateOperationMock extends AbstractAggregateOperationMock
 
         /**
          * Builds the immutable Mongo {@link io.rxmicro.data.mongo.operation.Aggregate} operation mock
-         * instance using the configured {@link Builder} settings
+         * instance using the configured {@link Builder} settings.
          *
          * @return the immutable Mongo {@link io.rxmicro.data.mongo.operation.Aggregate} operation mock instance
          * @throws InvalidStateException if the current {@link Builder} contains invalid settings

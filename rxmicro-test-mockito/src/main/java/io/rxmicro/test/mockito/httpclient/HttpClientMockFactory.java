@@ -29,8 +29,9 @@ import java.util.Optional;
 
 /**
  * Helper class with useful static methods that help to configure a {@link HttpClient} mock.
+ *
  * <p>
- * This class must be used for testing purposes
+ * This class must be used for testing purposes.
  *
  * @author nedis
  * @since 0.1
@@ -42,7 +43,7 @@ public final class HttpClientMockFactory {
     private static HttpClient httpClientMock;
 
     /**
-     * Returns the last prepared mock of the {@link HttpClient}
+     * Returns the last prepared mock of the {@link HttpClient}.
      *
      * @return the last prepared mock of the {@link HttpClient}
      * @throws InvalidTestConfigException if the last prepared mock not defined
@@ -55,10 +56,13 @@ public final class HttpClientMockFactory {
 
     /**
      * Prepares a new instance of the {@link HttpClient} mock.
+     *
+     * <p>
      * This mock will be returned by the specified {@link HttpClientFactory} if the RxMicro framework will invoke
      * the {@link HttpClientFactory#create(Class, HttpClientConfig, Secrets, HttpClientContentConverter)} method.
      * The empty HTTP response with {@code 200} status code and without additional HTTP headers will be returned
      * if the RxMicro framework will pass the specified {@link HttpRequestMock} to this mock.
+     *
      * <p>
      * (<i>This method requires that {@link HttpClientFactory} will be a mock!</i>)
      *
@@ -81,10 +85,13 @@ public final class HttpClientMockFactory {
 
     /**
      * Prepares a new instance of the {@link HttpClient} mock.
+     *
+     * <p>
      * This mock will be returned by the specified {@link HttpClientFactory} if the RxMicro framework will invoke
      * the {@link HttpClientFactory#create(Class, HttpClientConfig, Secrets, HttpClientContentConverter)} method.
      * The empty HTTP response with {@code 200} status code and without additional HTTP headers will be returned
      * if the RxMicro framework will pass the specified {@link HttpRequestMock} to this mock.
+     *
      * <p>
      * (<i>This method requires that {@link HttpClientFactory} will be a mock!</i>)
      *
@@ -109,10 +116,13 @@ public final class HttpClientMockFactory {
 
     /**
      * Prepares a new instance of the {@link HttpClient} mock.
+     *
+     * <p>
      * This mock will be returned by the specified {@link HttpClientFactory} if the RxMicro framework will invoke
      * the {@link HttpClientFactory#create(Class, HttpClientConfig, Secrets, HttpClientContentConverter)} method.
      * The empty HTTP response with the specified status code and without additional HTTP headers will be returned
      * if the RxMicro framework will pass the specified {@link HttpRequestMock} to this mock.
+     *
      * <p>
      * (<i>This method requires that {@link HttpClientFactory} will be a mock!</i>)
      *
@@ -138,10 +148,13 @@ public final class HttpClientMockFactory {
 
     /**
      * Prepares a new instance of the {@link HttpClient} mock.
+     *
+     * <p>
      * This mock will be returned by the specified {@link HttpClientFactory} if the RxMicro framework will invoke
      * the {@link HttpClientFactory#create(Class, HttpClientConfig, Secrets, HttpClientContentConverter)} method.
      * The empty HTTP response with the specified status code and without additional HTTP headers will be returned
      * if the RxMicro framework will pass the specified {@link HttpRequestMock} to this mock.
+     *
      * <p>
      * (<i>This method requires that {@link HttpClientFactory} will be a mock!</i>)
      *
@@ -169,10 +182,13 @@ public final class HttpClientMockFactory {
 
     /**
      * Prepares a new instance of the {@link HttpClient} mock.
+     *
+     * <p>
      * This mock will be returned by the specified {@link HttpClientFactory} if the RxMicro framework will invoke
      * the {@link HttpClientFactory#create(Class, HttpClientConfig, Secrets, HttpClientContentConverter)} method.
      * The empty HTTP response with with {@code 200} status code and specified HTTP headers will be returned
      * if the RxMicro framework will pass the specified {@link HttpRequestMock} to this mock.
+     *
      * <p>
      * (<i>This method requires that {@link HttpClientFactory} will be a mock!</i>)
      *
@@ -198,10 +214,13 @@ public final class HttpClientMockFactory {
 
     /**
      * Prepares a new instance of the {@link HttpClient} mock.
+     *
+     * <p>
      * This mock will be returned by the specified {@link HttpClientFactory} if the RxMicro framework will invoke
      * the {@link HttpClientFactory#create(Class, HttpClientConfig, Secrets, HttpClientContentConverter)} method.
      * The empty HTTP response with with {@code 200} status code and specified HTTP headers will be returned
      * if the RxMicro framework will pass the specified {@link HttpRequestMock} to this mock.
+     *
      * <p>
      * (<i>This method requires that {@link HttpClientFactory} will be a mock!</i>)
      *
@@ -229,10 +248,13 @@ public final class HttpClientMockFactory {
 
     /**
      * Prepares a new instance of the {@link HttpClient} mock.
+     *
+     * <p>
      * This mock will be returned by the specified {@link HttpClientFactory} if the RxMicro framework will invoke
      * the {@link HttpClientFactory#create(Class, HttpClientConfig, Secrets, HttpClientContentConverter)} method.
      * The HTTP response with with {@code 200} status code, without additional HTTP headers and specified HTTP body will be returned
      * if the RxMicro framework will pass the specified {@link HttpRequestMock} to this mock.
+     *
      * <p>
      * (<i>This method requires that {@link HttpClientFactory} will be a mock!</i>)
      *
@@ -258,10 +280,13 @@ public final class HttpClientMockFactory {
 
     /**
      * Prepares a new instance of the {@link HttpClient} mock.
+     *
+     * <p>
      * This mock will be returned by the specified {@link HttpClientFactory} if the RxMicro framework will invoke
      * the {@link HttpClientFactory#create(Class, HttpClientConfig, Secrets, HttpClientContentConverter)} method.
      * The HTTP response with with {@code 200} status code, without additional HTTP headers and specified HTTP body will be returned
      * if the RxMicro framework will pass the specified {@link HttpRequestMock} to this mock.
+     *
      * <p>
      * (<i>This method requires that {@link HttpClientFactory} will be a mock!</i>)
      *
@@ -289,10 +314,13 @@ public final class HttpClientMockFactory {
 
     /**
      * Prepares a new instance of the {@link HttpClient} mock.
+     *
+     * <p>
      * This mock will be returned by the specified {@link HttpClientFactory} if the RxMicro framework will invoke
      * the {@link HttpClientFactory#create(Class, HttpClientConfig, Secrets, HttpClientContentConverter)} method.
      * The specified HTTP response mock will be returned
      * if the RxMicro framework will pass the specified {@link HttpRequestMock} to this mock.
+     *
      * <p>
      * (<i>This method requires that {@link HttpClientFactory} will be a mock!</i>)
      *
@@ -316,10 +344,13 @@ public final class HttpClientMockFactory {
 
     /**
      * Prepares a new instance of the {@link HttpClient} mock.
+     *
+     * <p>
      * This mock will be returned by the specified {@link HttpClientFactory} if the RxMicro framework will invoke
      * the {@link HttpClientFactory#create(Class, HttpClientConfig, Secrets, HttpClientContentConverter)} method.
      * The specified HTTP response mock will be returned
      * if the RxMicro framework will pass the specified {@link HttpRequestMock} to this mock.
+     *
      * <p>
      * (<i>This method requires that {@link HttpClientFactory} will be a mock!</i>)
      *
@@ -345,10 +376,13 @@ public final class HttpClientMockFactory {
 
     /**
      * Prepares a new instance of the {@link HttpClient} mock.
+     *
+     * <p>
      * This mock will be returned by the specified {@link HttpClientFactory} if the RxMicro framework will invoke
      * the {@link HttpClientFactory#create(Class, HttpClientConfig, Secrets, HttpClientContentConverter)} method.
      * The error signal with the specified {@link Throwable} will be returned
      * if the RxMicro framework will pass the specified {@link HttpRequestMock} to this mock.
+     *
      * <p>
      * (<i>This method requires that {@link HttpClientFactory} will be a mock!</i>)
      *
@@ -372,10 +406,13 @@ public final class HttpClientMockFactory {
 
     /**
      * Prepares a new instance of the {@link HttpClient} mock.
+     *
+     * <p>
      * This mock will be returned by the specified {@link HttpClientFactory} if the RxMicro framework will invoke
      * the {@link HttpClientFactory#create(Class, HttpClientConfig, Secrets, HttpClientContentConverter)} method.
      * The error signal with the specified {@link Throwable} will be returned
      * if the RxMicro framework will pass the specified {@link HttpRequestMock} to this mock.
+     *
      * <p>
      * (<i>This method requires that {@link HttpClientFactory} will be a mock!</i>)
      *

@@ -23,18 +23,23 @@ import io.rxmicro.validation.base.AbstractListConstraintValidator;
 import java.util.List;
 
 /**
- * Validator for the {@link io.rxmicro.validation.constraint.Size} constraint
+ * Validator for the {@link io.rxmicro.validation.constraint.Size} constraint.
  *
  * @author nedis
- * @since 0.1
  * @see io.rxmicro.validation.constraint.Size
+ * @since 0.1
  */
 public class SizeConstraintValidator extends AbstractListConstraintValidator {
 
-    private final int expectedLength;
+    private final int expectedSize;
 
-    public SizeConstraintValidator(final int expectedLength) {
-        this.expectedLength = expectedLength;
+    /**
+     * Creates the default instance of {@link SizeConstraintValidator} with the specified collection size.
+     *
+     * @param expectedSize the specified collection size
+     */
+    public SizeConstraintValidator(final int expectedSize) {
+        this.expectedSize = expectedSize;
     }
 
     @Override
@@ -43,10 +48,10 @@ public class SizeConstraintValidator extends AbstractListConstraintValidator {
                          final String modelName) {
         if (value != null) {
             final int actual = value.size();
-            if (actual != expectedLength) {
+            if (actual != expectedSize) {
                 throw new ValidationException(
                         "Invalid ? \"?\": Expected size = ?, but actual is ?!",
-                        httpModelType, modelName, expectedLength, actual);
+                        httpModelType, modelName, expectedSize, actual);
             }
         }
     }

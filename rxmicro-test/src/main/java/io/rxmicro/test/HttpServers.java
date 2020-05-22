@@ -21,7 +21,7 @@ import java.net.ServerSocket;
 import java.util.Random;
 
 /**
- * HTTP server utility class
+ * HTTP server utility class.
  *
  * @author nedis
  * @since 0.1
@@ -33,7 +33,7 @@ public final class HttpServers {
     private static final int MAX_RANDOM_PORT = 59_999;
 
     /**
-     * Returns the random free port on the current host
+     * Returns the random free port on the current host.
      *
      * @return the random free port on the current host
      * @see ServerSocket

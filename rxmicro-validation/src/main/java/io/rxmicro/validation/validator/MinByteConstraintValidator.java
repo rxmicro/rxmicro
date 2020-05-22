@@ -20,21 +20,33 @@ import io.rxmicro.validation.ConstraintValidator;
 import io.rxmicro.validation.base.AbstractMinConstraintValidator;
 
 /**
- * Validator for the {@link io.rxmicro.validation.constraint.MinInt} and the {@link io.rxmicro.validation.constraint.MinNumber} constraints
+ * Validator for the {@link io.rxmicro.validation.constraint.MinInt} and the {@link io.rxmicro.validation.constraint.MinNumber} constraints.
  *
  * @author nedis
- * @since 0.1
  * @see io.rxmicro.validation.constraint.MinInt
  * @see io.rxmicro.validation.constraint.MinNumber
+ * @since 0.1
  */
 public class MinByteConstraintValidator extends AbstractMinConstraintValidator<Byte>
         implements ConstraintValidator<Byte> {
 
+    /**
+     * Creates the default instance of {@link MinByteConstraintValidator} with the specified parameters.
+     *
+     * @param minValue the supported min value.
+     * @param inclusive whether the specified minimum is inclusive or exclusive.
+     */
     public MinByteConstraintValidator(final long minValue,
                                       final boolean inclusive) {
         super((byte) minValue, inclusive);
     }
 
+    /**
+     * Creates the default instance of {@link MinByteConstraintValidator} with the specified parameters.
+     *
+     * @param minValue the supported min value.
+     * @param inclusive whether the specified minimum is inclusive or exclusive.
+     */
     public MinByteConstraintValidator(final String minValue,
                                       final boolean inclusive) {
         super(Byte.parseByte(minValue), inclusive);

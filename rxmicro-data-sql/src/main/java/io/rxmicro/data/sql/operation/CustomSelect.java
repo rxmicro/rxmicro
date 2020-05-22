@@ -27,9 +27,9 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * Denotes a string parameter of repository method, the value of that must be used as custom {@code SELECT} SQL query.
  *
  * @author nedis
- * @since 0.1
  * @see io.rxmicro.data.sql.SupportedVariables
  * @see Select
+ * @since 0.1
  */
 @Documented
 @Retention(SOURCE)
@@ -38,6 +38,7 @@ public @interface CustomSelect {
 
     /**
      * Returns the support of the universal placeholder.
+     *
      * <p>
      * Read more about db specific placeholders:
      * <a href="https://r2dbc.io/spec/0.8.0.RELEASE/spec/html/#statements.parameterized">

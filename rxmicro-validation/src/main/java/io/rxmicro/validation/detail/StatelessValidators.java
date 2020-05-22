@@ -24,9 +24,10 @@ import java.util.Map;
 import static io.rxmicro.runtime.local.Instances.instantiate;
 
 /**
- * Used by generated code that was created by {@code RxMicro Annotation Processor}
+ * Used by generated code that created by the {@code RxMicro Annotation Processor}.
  *
  * @author nedis
+ * @hidden
  * @since 0.1
  */
 public final class StatelessValidators {

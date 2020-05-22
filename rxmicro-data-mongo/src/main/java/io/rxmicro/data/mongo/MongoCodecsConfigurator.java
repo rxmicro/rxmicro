@@ -101,21 +101,22 @@ import java.util.function.Predicate;
 import static io.rxmicro.common.util.Requires.require;
 
 /**
- * Allows configuring the Mongo DB codecs
+ * Allows configuring the Mongo DB codecs.
  *
  * @author nedis
- * @since 0.2
  * @see MongoConfig
+ * @since 0.2
  */
 public final class MongoCodecsConfigurator extends AbstractMongoCodecsConfigurator<MongoCodecsConfigurator> {
 
     private UuidRepresentation uuidRepresentation = UuidRepresentation.JAVA_LEGACY;
 
     /**
-     * Sets the default {@link UuidRepresentation}
+     * Sets the default {@link UuidRepresentation}.
      *
      * @param defaultUuidRepresentation the default {@link UuidRepresentation}
      * @return the reference to this {@link MongoCodecsConfigurator} instance
+     * @throws InvalidStateException if this method invoked after configuration of Mongo codecs
      */
     @BuilderMethod
     public MongoCodecsConfigurator setDefaultUuidRepresentation(final UuidRepresentation defaultUuidRepresentation) {
@@ -128,7 +129,7 @@ public final class MongoCodecsConfigurator extends AbstractMongoCodecsConfigurat
     }
 
     /**
-     * Removes all configured Mongo codecs
+     * Removes all configured Mongo codecs.
      *
      * @return the reference to this {@link MongoCodecsConfigurator} instance
      */
@@ -138,7 +139,7 @@ public final class MongoCodecsConfigurator extends AbstractMongoCodecsConfigurat
     }
 
     /**
-     * Adds the common codecs that supports the following java types:
+     * Adds the common codecs that supports the following java types.
      * <ul>
      *     <li>{@link Boolean}</li>
      *     <li>{@link Byte}</li>
@@ -179,7 +180,7 @@ public final class MongoCodecsConfigurator extends AbstractMongoCodecsConfigurat
     }
 
     /**
-     * Adds the date and time codecs that supports the following java types:
+     * Adds the date and time codecs that supports the following java types.
      * <ul>
      *     <li>{@link java.time.Instant}</li>
      *     <li>{@link java.time.LocalDate}</li>
@@ -205,7 +206,7 @@ public final class MongoCodecsConfigurator extends AbstractMongoCodecsConfigurat
     }
 
     /**
-     * Adds the extend java codecs that supports the following java types:
+     * Adds the extend java codecs that supports the following java types.
      * <ul>
      *     <li>{@link java.util.UUID}</li>
      *     <li>{@link java.util.regex.Pattern}</li>
@@ -227,7 +228,7 @@ public final class MongoCodecsConfigurator extends AbstractMongoCodecsConfigurat
     }
 
     /**
-     * Adds the extend mongo codecs that supports the following java types:
+     * Adds the extend mongo codecs that supports the following java types.
      * <ul>
      *     <li>{@link org.bson.types.Symbol}</li>
      *     <li>{@link org.bson.types.BSONTimestamp}</li>
@@ -250,7 +251,7 @@ public final class MongoCodecsConfigurator extends AbstractMongoCodecsConfigurat
     }
 
     /**
-     * Adds the BSON values codecs that supports the following java types:
+     * Adds the BSON values codecs that supports the following java types.
      * <ul>
      *     <li>{@link org.bson.BsonNull}</li>
      *     <li>{@link org.bson.BsonBinary}</li>
@@ -312,7 +313,7 @@ public final class MongoCodecsConfigurator extends AbstractMongoCodecsConfigurat
     }
 
     /**
-     * Adds the {@link DBRef} codec that supports the following java type:
+     * Adds the {@link DBRef} codec that supports the following java type.
      * <ul>
      *     <li>{@link DBRef}</li>
      * </ul>
@@ -325,7 +326,7 @@ public final class MongoCodecsConfigurator extends AbstractMongoCodecsConfigurat
     }
 
     /**
-     * Adds the {@link Document} codec that supports the following java type:
+     * Adds the {@link Document} codec that supports the following java type.
      * <ul>
      *     <li>{@link Document}</li>
      * </ul>
@@ -346,7 +347,7 @@ public final class MongoCodecsConfigurator extends AbstractMongoCodecsConfigurat
     }
 
     /**
-     * Provides the combination of default used codecs
+     * Provides the combination of default used codecs.
      *
      * @return the reference to this {@link MongoCodecsConfigurator} instance
      */
@@ -357,7 +358,7 @@ public final class MongoCodecsConfigurator extends AbstractMongoCodecsConfigurat
     }
 
     /**
-     * Allows enabling all supported codecs
+     * Allows enabling all supported codecs.
      *
      * @return the reference to this {@link MongoCodecsConfigurator} instance
      */
@@ -372,7 +373,7 @@ public final class MongoCodecsConfigurator extends AbstractMongoCodecsConfigurat
     }
 
     /**
-     * Sets or replaces the codec
+     * Sets or replaces the codec.
      *
      * @param codec the codec to put
      * @return the reference to this {@link MongoCodecsConfigurator} instance
@@ -382,7 +383,7 @@ public final class MongoCodecsConfigurator extends AbstractMongoCodecsConfigurat
     }
 
     /**
-     * Sets or replaces the codec
+     * Sets or replaces the codec.
      *
      * @param encodedClassPredicate the type class predicate that defines a rule to get a codec for requested class
      * @param codec the codec to put
@@ -394,7 +395,7 @@ public final class MongoCodecsConfigurator extends AbstractMongoCodecsConfigurat
     }
 
     /**
-     * Sets or replaces the codec provider
+     * Sets or replaces the codec provider.
      *
      * @param encodedClass the type class
      * @param codecProvider the codec provider
@@ -406,7 +407,7 @@ public final class MongoCodecsConfigurator extends AbstractMongoCodecsConfigurat
     }
 
     /**
-     * Sets or replaces the codec provider
+     * Sets or replaces the codec provider.
      *
      * @param encodedClassPredicate the type class predicate that defines a rule to get a codec for requested class
      * @param codecProvider the codec provider
@@ -418,7 +419,7 @@ public final class MongoCodecsConfigurator extends AbstractMongoCodecsConfigurat
     }
 
     /**
-     * Provides the default configuration if a custom configuration is not set
+     * Provides the default configuration if a custom configuration is not set.
      *
      * @return the reference to this {@link MongoCodecsConfigurator} instance
      */
@@ -431,6 +432,8 @@ public final class MongoCodecsConfigurator extends AbstractMongoCodecsConfigurat
     }
 
     /**
+     * Document proxy codec.
+     *
      * @author nedis
      * @since 0.3
      */
@@ -462,6 +465,8 @@ public final class MongoCodecsConfigurator extends AbstractMongoCodecsConfigurat
     }
 
     /**
+     * CodecRegistry proxy.
+     *
      * @author nedis
      * @since 0.3
      */

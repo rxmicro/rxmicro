@@ -17,7 +17,7 @@
 package io.rxmicro.rest.model;
 
 /**
- * Supported generate options
+ * Supported generate options.
  *
  * @author nedis
  * @since 0.1
@@ -25,12 +25,12 @@ package io.rxmicro.rest.model;
 public enum GenerateOption {
 
     /**
-     * Auto detect option that means that activation depends on project settings
+     * Auto detect option that means that activation depends on project settings.
      */
     AUTO_DETECT,
 
     /**
-     * Disable option
+     * Disable option.
      */
     DISABLED
 }

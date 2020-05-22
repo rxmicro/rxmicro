@@ -31,6 +31,7 @@ import static java.util.stream.Collectors.toList;
 
 /**
  * The utility class that can be used for convenient creation of the expected JSON object.
+ *
  * <p>
  * This class arranges JSON properties and automatically converts all {@code ? extends }{@link Number} types into
  * the {@link io.rxmicro.json.JsonNumber} type.
@@ -48,6 +49,7 @@ public final class JsonFactory {
     /**
      * Returns the short-lived unmodified ordered {@link Map} that represents a JSON object with
      * the specified error message according to standard error JSON model structure.
+     *
      * <p>
      * The RxMicro framework defines a standard JSON model which is returned in case of any error:
      * <pre>
@@ -55,8 +57,10 @@ public final class JsonFactory {
      *    "message": "Not Found"
      * }
      * </pre>
+     *
      * <p>
      * (Read more: {@link io.rxmicro.http.error.HttpErrorException})
+     *
      * <p>
      * <i>(FYI: This method uses {@link io.rxmicro.common.util.Formats#format(String, Object...)} method to format error message.)</i>
      *
@@ -64,9 +68,9 @@ public final class JsonFactory {
      * @param args the error message template arguments
      * @return the short-lived unmodified ordered {@link Map} that represents a JSON object with
      *          the specified error message according to standard error JSON model structure.
+     * @see io.rxmicro.http.error.HttpErrorException
      * @throws NullPointerException if the error message template is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
-     * @see io.rxmicro.http.error.HttpErrorException
      */
     public static Map<String, Object> jsonErrorObject(final String message,
                                                       final Object... args) {
@@ -76,7 +80,7 @@ public final class JsonFactory {
     }
 
     /**
-     * Returns the short-lived unmodified ordered {@link Map} that represents the empty JSON object
+     * Returns the short-lived unmodified ordered {@link Map} that represents the empty JSON object.
      *
      * @return the short-lived unmodified ordered {@link Map} that represents the empty JSON object
      */
@@ -85,7 +89,7 @@ public final class JsonFactory {
     }
 
     /**
-     * Returns the short-lived unmodified ordered {@link Map} that represents the JSON object with one property
+     * Returns the short-lived unmodified ordered {@link Map} that represents the JSON object with one property.
      *
      * @param name the property name
      * @param value the property value
@@ -96,7 +100,7 @@ public final class JsonFactory {
     }
 
     /**
-     * Returns the short-lived unmodified ordered {@link Map} that represents the JSON object with two properties
+     * Returns the short-lived unmodified ordered {@link Map} that represents the JSON object with two properties.
      *
      * @param name1 the first property name
      * @param value1 the first property value
@@ -113,7 +117,7 @@ public final class JsonFactory {
     }
 
     /**
-     * Returns the short-lived unmodified ordered {@link Map} that represents the JSON object with three properties
+     * Returns the short-lived unmodified ordered {@link Map} that represents the JSON object with three properties.
      *
      * @param name1 the first property name
      * @param value1 the first property value
@@ -133,7 +137,7 @@ public final class JsonFactory {
     }
 
     /**
-     * Returns the short-lived unmodified ordered {@link Map} that represents the JSON object with four properties
+     * Returns the short-lived unmodified ordered {@link Map} that represents the JSON object with four properties.
      *
      * @param name1 the first property name
      * @param value1 the first property value
@@ -156,7 +160,7 @@ public final class JsonFactory {
     }
 
     /**
-     * Returns the short-lived unmodified ordered {@link Map} that represents the JSON object with five properties
+     * Returns the short-lived unmodified ordered {@link Map} that represents the JSON object with five properties.
      *
      * @param name1 the first property name
      * @param value1 the first property value
@@ -182,7 +186,7 @@ public final class JsonFactory {
     }
 
     /**
-     * Returns the short-lived unmodified ordered {@link Map} that represents the JSON object with six properties
+     * Returns the short-lived unmodified ordered {@link Map} that represents the JSON object with six properties.
      *
      * @param name1 the first property name
      * @param value1 the first property value
@@ -212,7 +216,7 @@ public final class JsonFactory {
     }
 
     /**
-     * Returns the short-lived unmodified ordered {@link Map} that represents the JSON object with seven properties
+     * Returns the short-lived unmodified ordered {@link Map} that represents the JSON object with seven properties.
      *
      * @param name1 the first property name
      * @param value1 the first property value
@@ -245,7 +249,7 @@ public final class JsonFactory {
     }
 
     /**
-     * Returns the short-lived unmodified ordered {@link Map} that represents the JSON object with eigth properties
+     * Returns the short-lived unmodified ordered {@link Map} that represents the JSON object with eight properties.
      *
      * @param name1 the first property name
      * @param value1 the first property value
@@ -281,7 +285,7 @@ public final class JsonFactory {
     }
 
     /**
-     * Returns the short-lived unmodified ordered {@link Map} that represents the JSON object with nine properties
+     * Returns the short-lived unmodified ordered {@link Map} that represents the JSON object with nine properties.
      *
      * @param name1 the first property name
      * @param value1 the first property value
@@ -320,7 +324,7 @@ public final class JsonFactory {
     }
 
     /**
-     * Returns the short-lived unmodified ordered {@link Map} that represents the JSON object with ten properties
+     * Returns the short-lived unmodified ordered {@link Map} that represents the JSON object with ten properties.
      *
      * @param name1 the first property name
      * @param value1 the first property value
@@ -379,7 +383,7 @@ public final class JsonFactory {
     }
 
     /**
-     * Merges the specified json objects into single json object
+     * Merges the specified json objects into single json object.
      *
      * @param jsonObjects the {@link Map} array that represents the JSON objects to merge
      * @return the short-lived unmodified ordered {@link Map} that represents the merged JSON object
@@ -397,7 +401,7 @@ public final class JsonFactory {
     }
 
     /**
-     * Returns the short-lived unmodified {@link List} that represents the JSON array with the provided items
+     * Returns the short-lived unmodified {@link List} that represents the JSON array with the provided items.
      *
      * @param objects JSON array items
      * @return the short-lived unmodified {@link List} that represents the JSON array with the provided items
@@ -407,7 +411,7 @@ public final class JsonFactory {
     }
 
     /**
-     * Returns the short-lived unmodified {@link List} that represents the JSON array with the provided items
+     * Returns the short-lived unmodified {@link List} that represents the JSON array with the provided items.
      *
      * @param items JSON array items
      * @return the short-lived unmodified {@link List} that represents the JSON array with the provided items

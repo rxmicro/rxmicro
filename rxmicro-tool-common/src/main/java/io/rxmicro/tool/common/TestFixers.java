@@ -17,7 +17,7 @@
 package io.rxmicro.tool.common;
 
 /**
- * Test fixer class names
+ * Test fixer class names.
  *
  * @author nedis
  * @since 0.1
@@ -25,17 +25,17 @@ package io.rxmicro.tool.common;
 public final class TestFixers {
 
     /**
-     * Fixer class name for component tests
+     * Fixer class name for component tests.
      */
     public static final String COMPONENT_TEST_FIXER = "$$ComponentTestFixer";
 
     /**
-     * Fixer class name for REST-based microservice tests
+     * Fixer class name for REST-based microservice tests.
      */
     public static final String REST_BASED_MICRO_SERVICE_TEST_FIXER = "$$RestBasedMicroServiceTestFixer";
 
     /**
-     * Fixer class name for integration tests
+     * Fixer class name for integration tests.
      */
     public static final String INTEGRATION_TEST_FIXER = "$$IntegrationTestFixer";
 

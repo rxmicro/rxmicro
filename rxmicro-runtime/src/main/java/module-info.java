@@ -19,8 +19,8 @@ import io.rxmicro.runtime.local.test.RuntimeUnNamedModuleFixer;
 
 /**
  * The module that defines common runtime components.
- * <p>
  *
+ * <p>
  * This module follows the next package structure rules:
  * <ul>
  *     <li>
@@ -43,7 +43,6 @@ import io.rxmicro.runtime.local.test.RuntimeUnNamedModuleFixer;
  *         </ul>
  *     </li>
  * </ul>
- *
  *
  * @author nedis
  * @since 0.1

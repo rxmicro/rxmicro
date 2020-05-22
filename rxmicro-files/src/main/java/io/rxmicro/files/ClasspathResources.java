@@ -26,7 +26,7 @@ import java.util.List;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 /**
- * Utility class to get data from classpath resources
+ * Utility class to get data from classpath resources.
  *
  * @author nedis
  * @since 0.1

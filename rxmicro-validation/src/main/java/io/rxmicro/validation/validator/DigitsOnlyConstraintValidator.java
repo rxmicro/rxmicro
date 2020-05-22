@@ -21,11 +21,11 @@ import io.rxmicro.rest.model.HttpModelType;
 import io.rxmicro.validation.ConstraintValidator;
 
 /**
- * Validator for the {@link io.rxmicro.validation.constraint.DigitsOnly} constraint
+ * Validator for the {@link io.rxmicro.validation.constraint.DigitsOnly} constraint.
  *
  * @author nedis
- * @since 0.1
  * @see io.rxmicro.validation.constraint.DigitsOnly
+ * @since 0.1
  */
 public class DigitsOnlyConstraintValidator implements ConstraintValidator<String> {
 

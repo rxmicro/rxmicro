@@ -25,12 +25,12 @@ import static io.rxmicro.test.mockito.mongo.internal.util.Validators.validateBso
 
 /**
  * The Mongo {@link io.rxmicro.data.mongo.operation.Insert} operation mock using
- * <a href="https://site.mockito.org/">Mockito</a> testing framework
+ * <a href="https://site.mockito.org/">Mockito</a> testing framework.
  *
  * @author nedis
- * @since 0.1
  * @see io.rxmicro.data.mongo.operation.Insert
  * @see io.rxmicro.data.mongo.MongoRepository
+ * @since 0.1
  */
 public final class InsertOperationMock extends AbstractInsertOperationMock {
 
@@ -39,7 +39,7 @@ public final class InsertOperationMock extends AbstractInsertOperationMock {
     }
 
     /**
-     * The builder for building a Mongo {@link io.rxmicro.data.mongo.operation.Insert} operation mock
+     * The builder for building a Mongo {@link io.rxmicro.data.mongo.operation.Insert} operation mock.
      *
      * @author nedis
      * @since 0.1
@@ -53,7 +53,7 @@ public final class InsertOperationMock extends AbstractInsertOperationMock {
 
         /**
          * Configures the Mongo {@link io.rxmicro.data.mongo.operation.Insert} operation mock that it will match to
-         * a Mongo {@link io.rxmicro.data.mongo.operation.Insert} operation with any inserting document
+         * a Mongo {@link io.rxmicro.data.mongo.operation.Insert} operation with any inserting document.
          *
          * @return the reference to this {@link Builder} instance
          */
@@ -66,7 +66,7 @@ public final class InsertOperationMock extends AbstractInsertOperationMock {
 
         /**
          * Sets the document for the Mongo {@link io.rxmicro.data.mongo.operation.Insert} operation mock that it will match to
-         * a Mongo {@link io.rxmicro.data.mongo.operation.Insert} operation with the specified inserting document
+         * a Mongo {@link io.rxmicro.data.mongo.operation.Insert} operation with the specified inserting document.
          *
          * @param document the specified document
          * @return the reference to this {@link Builder} instance
@@ -81,7 +81,7 @@ public final class InsertOperationMock extends AbstractInsertOperationMock {
 
         /**
          * Builds the immutable Mongo {@link io.rxmicro.data.mongo.operation.Insert} operation mock
-         * instance using the configured {@link Builder} settings
+         * instance using the configured {@link Builder} settings.
          *
          * @return the immutable Mongo {@link io.rxmicro.data.mongo.operation.Insert} operation mock instance
          * @throws InvalidStateException if the current {@link Builder} contains invalid settings

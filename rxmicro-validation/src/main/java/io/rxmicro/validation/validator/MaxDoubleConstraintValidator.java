@@ -21,20 +21,31 @@ import io.rxmicro.validation.base.AbstractMaxConstraintValidator;
 
 /**
  * Validator for the {@link io.rxmicro.validation.constraint.MaxDouble} and the {@link io.rxmicro.validation.constraint.MaxNumber}
- * constraints
+ * constraints.
  *
  * @author nedis
- * @since 0.1
  * @see io.rxmicro.validation.constraint.MaxDouble
  * @see io.rxmicro.validation.constraint.MaxNumber
+ * @since 0.1
  */
 public class MaxDoubleConstraintValidator extends AbstractMaxConstraintValidator<Double>
         implements ConstraintValidator<Double> {
 
+    /**
+     * Creates the default instance of {@link MaxDoubleConstraintValidator} with the specified parameters.
+     *
+     * @param maxValue the supported max value.
+     */
     public MaxDoubleConstraintValidator(final double maxValue) {
         super(maxValue, false);
     }
 
+    /**
+     * Creates the default instance of {@link MaxDoubleConstraintValidator} with the specified parameters.
+     *
+     * @param maxValue the supported max value.
+     * @param inclusive whether the specified minimum is inclusive or exclusive.
+     */
     public MaxDoubleConstraintValidator(final String maxValue,
                                         final boolean inclusive) {
         super(Double.parseDouble(maxValue), inclusive);

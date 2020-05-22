@@ -29,19 +29,20 @@ import static io.rxmicro.common.util.Requires.require;
  * Allows to configure a REST server options.
  *
  * @author nedis
- * @since 0.1
  * @see RequestIdGeneratorType
+ * @since 0.1
  */
 @SuppressWarnings("UnusedReturnValue")
 public class RestServerConfig extends Config {
 
     /**
-     * Default "Handler not found" error status code
+     * Default "Handler not found" error status code.
      */
     public static final int DEFAULT_HANDLER_NOT_FOUND_ERROR_STATUS_CODE = 400;
 
     /**
-     * Default "CORS not allowed" error status code
+     * Default "CORS not allowed" error status code.
+     *
      * @see <a href="https://fetch.spec.whatwg.org/#cors-protocol">https://fetch.spec.whatwg.org/#cors-protocol</a>
      */
     public static final int DEFAULT_CORS_NOT_ALLOWED_ERROR_STATUS_CODE = 200;
@@ -76,7 +77,7 @@ public class RestServerConfig extends Config {
     private boolean showRuntimeEnv;
 
     /**
-     * Configures REST server for development environment
+     * Configures REST server for development environment.
      *
      * @return the reference to this  {@link RestServerConfig} instance
      */
@@ -88,7 +89,7 @@ public class RestServerConfig extends Config {
     }
 
     /**
-     * Returns the error status code if the RxMicro framework can't find handler for current HTTP request
+     * Returns the error status code if the RxMicro framework can't find handler for current HTTP request.
      *
      * @return the error status code if the RxMicro framework can't find handler for current HTTP request
      */
@@ -97,7 +98,7 @@ public class RestServerConfig extends Config {
     }
 
     /**
-     * Sets the error status code if the RxMicro framework can't find handler for current HTTP request
+     * Sets the error status code if the RxMicro framework can't find handler for current HTTP request.
      *
      * @param handlerNotFoundErrorStatusCode the custom error status code
      * @return the reference to this  {@link RestServerConfig} instance
@@ -109,7 +110,7 @@ public class RestServerConfig extends Config {
     }
 
     /**
-     * Returns the error message if the RxMicro framework can't find handler for current HTTP request
+     * Returns the error message if the RxMicro framework can't find handler for current HTTP request.
      *
      * @return the error message if the RxMicro framework can't find handler for current HTTP request
      */
@@ -118,7 +119,7 @@ public class RestServerConfig extends Config {
     }
 
     /**
-     * Sets the error message if the RxMicro framework can't find handler for current HTTP request
+     * Sets the error message if the RxMicro framework can't find handler for current HTTP request.
      *
      * @param handlerNotFoundErrorMessage the custom error message
      * @return the reference to this  {@link RestServerConfig} instance
@@ -130,7 +131,7 @@ public class RestServerConfig extends Config {
     }
 
     /**
-     * Returns the error status code if the RxMicro framework does not support CORS feature for the current HTTP request
+     * Returns the error status code if the RxMicro framework does not support CORS feature for the current HTTP request.
      *
      * @return the error status code if the RxMicro framework does not support CORS feature for the current HTTP request
      */
@@ -139,7 +140,7 @@ public class RestServerConfig extends Config {
     }
 
     /**
-     * Sets the error status code if the RxMicro framework does not support CORS feature for the current HTTP request
+     * Sets the error status code if the RxMicro framework does not support CORS feature for the current HTTP request.
      *
      * @param corsNotAllowedErrorStatusCode the custom error status code
      * @return the reference to this  {@link RestServerConfig} instance
@@ -151,7 +152,7 @@ public class RestServerConfig extends Config {
     }
 
     /**
-     * Returns the error message if the RxMicro framework does not support CORS feature for the current HTTP request
+     * Returns the error message if the RxMicro framework does not support CORS feature for the current HTTP request.
      *
      * @return the error message if the RxMicro framework does not support CORS feature for the current HTTP request
      */
@@ -160,7 +161,7 @@ public class RestServerConfig extends Config {
     }
 
     /**
-     * Sets the error message if the RxMicro framework does not support CORS feature for the current HTTP request
+     * Sets the error message if the RxMicro framework does not support CORS feature for the current HTTP request.
      *
      * @param corsNotAllowedErrorMessage the custom error message
      * @return the reference to this  {@link RestServerConfig} instance
@@ -172,7 +173,7 @@ public class RestServerConfig extends Config {
     }
 
     /**
-     * Returns {@code true} if the RxMicro framework returns HTTP response body in human readable format
+     * Returns {@code true} if the RxMicro framework returns HTTP response body in human readable format.
      *
      * @return {@code true} if the RxMicro framework returns HTTP response body in human readable format
      */
@@ -181,7 +182,9 @@ public class RestServerConfig extends Config {
     }
 
     /**
-     * Activates or disables the human readable of response. <p>
+     * Activates or disables the human readable of response.
+     *
+     * <p>
      * <i>It is recommended to activate this option on development environment only!</i>
      *
      * @param humanReadableOutput human readable or not
@@ -194,7 +197,7 @@ public class RestServerConfig extends Config {
     }
 
     /**
-     * Returns {@code true} if the RxMicro framework hides a cause of internal error from client
+     * Returns {@code true} if the RxMicro framework hides a cause of internal error from client.
      *
      * @return {@code true} if the RxMicro framework hides a cause of internal error from client
      */
@@ -203,7 +206,9 @@ public class RestServerConfig extends Config {
     }
 
     /**
-     * Activates or disables the displaying of cause of internal error if it occur.<p>
+     * Activates or disables the displaying of cause of internal error if it occur.
+     *
+     * <p>
      * <i>It is recommended to activate this option on production environment only!</i>
      *
      * @param hideInternalErrorMessage hide internal error cause or not
@@ -216,7 +221,7 @@ public class RestServerConfig extends Config {
     }
 
     /**
-     * Returns {@code true} if the RxMicro framework must log all not server errors (i.e. status codes from 300 to 499)
+     * Returns {@code true} if the RxMicro framework must log all not server errors (i.e. status codes from 300 to 499).
      *
      * @return {@code true} if the RxMicro framework must log all not server errors (i.e. status codes from 300 to 499)
      */
@@ -225,7 +230,7 @@ public class RestServerConfig extends Config {
     }
 
     /**
-     * Activates or disables the logging of not server errors
+     * Activates or disables the logging of not server errors.
      *
      * @param logNotServerErrors log not server errors or not
      * @return the reference to this  {@link RestServerConfig} instance
@@ -237,7 +242,7 @@ public class RestServerConfig extends Config {
     }
 
     /**
-     * Returns all defined static HTTP response headers for all HTTP request handlers
+     * Returns all defined static HTTP response headers for all HTTP request handlers.
      *
      * @return all defined static HTTP response headers for all HTTP request handlers
      */
@@ -246,7 +251,7 @@ public class RestServerConfig extends Config {
     }
 
     /**
-     * Allows customizing static HTTP response headers for all HTTP request handlers
+     * Allows customizing static HTTP response headers for all HTTP request handlers.
      *
      * @param staticResponseHeaders static response header set
      * @return the reference to this  {@link RestServerConfig} instance
@@ -258,7 +263,7 @@ public class RestServerConfig extends Config {
     }
 
     /**
-     * Allows customizing static HTTP response headers for all HTTP request handlers
+     * Allows customizing static HTTP response headers for all HTTP request handlers.
      *
      * @param staticResponseHeader a new static response header
      * @return the reference to this  {@link RestServerConfig} instance
@@ -270,7 +275,7 @@ public class RestServerConfig extends Config {
     }
 
     /**
-     * Returns used {@link RequestIdGeneratorType}
+     * Returns used {@link RequestIdGeneratorType}.
      *
      * @return used {@link RequestIdGeneratorType}
      */
@@ -279,7 +284,7 @@ public class RestServerConfig extends Config {
     }
 
     /**
-     * Allows changing a {@link RequestIdGeneratorType}
+     * Allows changing a {@link RequestIdGeneratorType}.
      *
      * @param generatorType generator type
      * @return the reference to this  {@link RestServerConfig} instance
@@ -291,7 +296,7 @@ public class RestServerConfig extends Config {
     }
 
     /**
-     * Returns {@code true} if the RxMicro framework must returns generated request id for each HTTP request
+     * Returns {@code true} if the RxMicro framework must returns generated request id for each HTTP request.
      *
      * @return {@code true} if the RxMicro framework must returns generated request id for each HTTP request
      */
@@ -300,7 +305,7 @@ public class RestServerConfig extends Config {
     }
 
     /**
-     * Activates or disables the returning of generated request id for each HTTP request
+     * Activates or disables the returning of generated request id for each HTTP request.
      *
      * @param returnGeneratedRequestId return generated Request-Id o not
      * @return the reference to this  {@link RestServerConfig} instance
@@ -312,7 +317,7 @@ public class RestServerConfig extends Config {
     }
 
     /**
-     * Returns {@code true} if the RxMicro framework must disable logger for http health checks
+     * Returns {@code true} if the RxMicro framework must disable logger for http health checks.
      *
      * @return {@code true} if the RxMicro framework must disable logger for http health checks
      */
@@ -321,7 +326,7 @@ public class RestServerConfig extends Config {
     }
 
     /**
-     * Activates or disables logger messages for http health checks
+     * Activates or disables logger messages for http health checks.
      *
      * @param disableLoggerMessagesForHttpHealthChecks disable logger messages for http health checks or not
      * @return the reference to this  {@link RestServerConfig} instance

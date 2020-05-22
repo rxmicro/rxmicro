@@ -19,18 +19,18 @@ package io.rxmicro.http.client;
 import io.rxmicro.config.Secrets;
 
 /**
- * Utility class that must be used to get an instance of the low-level reactive HTTP client
+ * Utility class that must be used to get an instance of the low-level reactive HTTP client.
  *
  * @author nedis
- * @since 0.1
  * @see HttpClient
  * @see HttpClientContentConverter
  * @see Secrets
+ * @since 0.1
  */
 public interface HttpClientFactory {
 
     /**
-     * Creates a new instance of low-level reactive {@link HttpClient}
+     * Creates a new instance of low-level reactive {@link HttpClient}.
      *
      * @param loggerClass the logger class
      * @param httpClientConfig the HTTP client config. See {@link HttpClientConfig}

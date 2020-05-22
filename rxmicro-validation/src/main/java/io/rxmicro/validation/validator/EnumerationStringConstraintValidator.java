@@ -24,16 +24,21 @@ import java.util.Collection;
 import java.util.Set;
 
 /**
- * Validator for the {@link io.rxmicro.validation.constraint.Enumeration} constraint
+ * Validator for the {@link io.rxmicro.validation.constraint.Enumeration} constraint.
  *
  * @author nedis
- * @since 0.1
  * @see io.rxmicro.validation.constraint.Enumeration
+ * @since 0.1
  */
 public class EnumerationStringConstraintValidator implements ConstraintValidator<String> {
 
     private final Set<String> allowed;
 
+    /**
+     * Creates the default instance of {@link EnumerationCharacterConstraintValidator} with the the allowed enum strings.
+     *
+     * @param allowed the allowed enum strings
+     */
     public EnumerationStringConstraintValidator(final Collection<String> allowed) {
         this.allowed = Set.copyOf(allowed);
     }

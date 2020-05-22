@@ -23,24 +23,25 @@ import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.GeneratedClassRules.GENERATED_CLASS_NAME_PREFIX;
 
 /**
- * Utility class that must be used to get an instance of the REST client
+ * Utility class that must be used to get an instance of the REST client.
  *
  * @author nedis
- * @since 0.1
  * @see RestClient
  * @see io.rxmicro.http.client.HttpClientConfig
+ * @since 0.1
  */
 public abstract class RestClientFactory extends AbstractFactory {
 
     /**
-     * Default name of the REST client factory implementation class
+     * Default name of the REST client factory implementation class.
      */
     public static final String REST_CLIENT_FACTORY_IMPL_CLASS_NAME =
             format("??Impl", GENERATED_CLASS_NAME_PREFIX, RestClientFactory.class.getSimpleName());
 
     /**
-     * Returns an instance of the REST client
+     * Returns an instance of the REST client.
      *
+     * @param <T> the REST client type
      * @param restClientInterface the REST client interface
      * @return the instance of the REST client
      */

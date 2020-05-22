@@ -28,7 +28,6 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * <a href="https://docs.mongodb.com/manual/reference/method/db.collection.updateMany/">{@code db.collection.updateOne()}</a> operation.
  *
  * @author nedis
- * @since 0.1
  * @see io.rxmicro.data.mongo.MongoRepository
  * @see Aggregate
  * @see CountDocuments
@@ -37,6 +36,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * @see EstimatedDocumentCount
  * @see Find
  * @see Insert
+ * @since 0.1
  */
 @Documented
 @Retention(SOURCE)
@@ -45,6 +45,7 @@ public @interface Update {
 
     /**
      * Returns the modifications to apply.
+     *
      * <p>
      * Read more:
      * <a href="https://docs.mongodb.com/manual/reference/operator/update/">
@@ -57,6 +58,7 @@ public @interface Update {
 
     /**
      * Returns the selection criteria for the update.
+     *
      * <p>
      * Read more:
      * <a href="https://docs.mongodb.com/manual/reference/operator/">

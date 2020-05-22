@@ -34,11 +34,11 @@ import static java.lang.annotation.ElementType.PARAMETER;
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
- * The annotated element must be a valid IP address
+ * The annotated element must be a valid IP address.
  *
  * @author nedis
- * @since 0.1
  * @see IPConstraintValidator
+ * @since 0.1
  */
 @Documented
 @Retention(SOURCE)
@@ -51,22 +51,24 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 public @interface IP {
 
     /**
-     * Allows disabling the validation rule if this rule is inherited from super class. <p>
-     * By default, disable is off
+     * Allows disabling the validation rule if this rule is inherited from super class.
      *
-     * @return  {@code true} if the validation must be disabled,
+     * <p>
+     * By default, disable is off.
+     *
+     * @return {@code true} if the validation must be disabled.
      */
     boolean off() default false;
 
     /**
-     * By default, support all versions, i.e. versions 4 and 6
+     * By default, support all versions, i.e. versions 4 and 6.
      *
      * @return the supported IP protocol {@link Version}s
      */
     Version[] value() default {IP_V4, IP_V6};
 
     /**
-     * IP versions
+     * IP versions.
      *
      * @author nedis
      * @since 0.1
@@ -74,7 +76,7 @@ public @interface IP {
     enum Version {
 
         /**
-         * IP version 4
+         * IP version 4.
          */
         @ReadMore(
                 caption = "What is IP version 4?",
@@ -83,7 +85,7 @@ public @interface IP {
         IP_V4("ipv4", 4),
 
         /**
-         * IP version 6
+         * IP version 6.
          */
         @ReadMore(
                 caption = "What is IP version 6?",

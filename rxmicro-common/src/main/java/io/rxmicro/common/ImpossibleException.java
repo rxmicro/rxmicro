@@ -20,6 +20,7 @@ import io.rxmicro.common.util.Formats;
 
 /**
  * Indicates that an exception cannot be thrown.
+ *
  * <p>
  * For example:
  * <pre>
@@ -38,6 +39,7 @@ public final class ImpossibleException extends RxMicroException {
 
     /**
      * Creates a new {@link ImpossibleException} instance with error message.
+     *
      * <p>
      * <i>(FYI: This constructor uses {@link Formats#format(String, Object...)} method to format error message.)</i>
      *
@@ -53,6 +55,7 @@ public final class ImpossibleException extends RxMicroException {
 
     /**
      * Creates a new {@link ImpossibleException} instance with error message and cause.
+     *
      * <p>
      * <i>(FYI: This constructor uses {@link Formats#format(String, Object...)} method to format error message.)</i>
      *

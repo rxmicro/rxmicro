@@ -32,14 +32,15 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
  * Denotes the description of the generated REST-based microservice documentation.
+ *
  * <p>
  * (<i>Allows overriding the description specified in the description directive to pom.xml</i>)
+ *
  * <p>
  * In addition to the description of all REST-based microservice documentation, this annotation also allows to developer to specify
  * a description of separate elements: sections, model fields, etc.
  *
  * @author nedis
- * @since 0.1
  * @see Author
  * @see BaseEndpoint
  * @see Constants
@@ -54,6 +55,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * @see ResourceDefinition
  * @see ResourceGroupDefinition
  * @see Title
+ * @since 0.1
  */
 @Documented
 @Retention(SOURCE)
@@ -61,7 +63,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 public @interface Description {
 
     /**
-     * Returns the description
+     * Returns the description.
      *
      * @return the description
      */

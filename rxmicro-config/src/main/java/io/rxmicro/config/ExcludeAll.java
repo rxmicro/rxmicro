@@ -27,6 +27,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 /**
  * Allows ignoring a generation of code by the {@code RxMicro Annotation Processor}
  * for all classes in package and all sub packages annotated by this annotation.
+ *
  * <p>
  * If this annotation applied to type (class, interface, enum, annotation),
  * that this type is ignored by the {@code RxMicro Annotation Processor} only.

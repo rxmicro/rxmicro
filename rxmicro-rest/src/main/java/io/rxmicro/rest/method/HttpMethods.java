@@ -23,10 +23,9 @@ import static io.rxmicro.common.util.ExCollections.unmodifiableOrderedSet;
 import static java.util.Arrays.asList;
 
 /**
- * Contains all supported HTTP methods
+ * Contains all supported HTTP methods.
  *
  * @author nedis
- * @since 0.1
  * @see DELETE
  * @see GET
  * @see HEAD
@@ -35,11 +34,12 @@ import static java.util.Arrays.asList;
  * @see POST
  * @see PUT
  * @see io.rxmicro.rest.model.HttpMethod
+ * @since 0.1
  */
 public final class HttpMethods {
 
     /**
-     * All supported HTTP methods
+     * All supported HTTP methods.
      */
     public static final Set<Class<? extends Annotation>> HTTP_METHOD_ANNOTATIONS = unmodifiableOrderedSet(asList(
             GET.class,

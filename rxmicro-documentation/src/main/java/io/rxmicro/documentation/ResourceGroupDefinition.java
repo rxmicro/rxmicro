@@ -28,7 +28,6 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * A composite annotation that specifies the settings for generating the ResourceGroupDefinition section.
  *
  * @author nedis
- * @since 0.1
  * @see Author
  * @see BaseEndpoint
  * @see Constants
@@ -41,6 +40,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * @see License
  * @see ResourceDefinition
  * @see Title
+ * @since 0.1
  */
 @Documented
 @Retention(SOURCE)
@@ -48,7 +48,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 public @interface ResourceGroupDefinition {
 
     /**
-     * Returns the custom sections
+     * Returns the custom sections.
      *
      * @return the custom sections
      */
@@ -62,7 +62,7 @@ public @interface ResourceGroupDefinition {
     IncludeMode includeMode() default IncludeMode.INCLUDE_REFERENCE;
 
     /**
-     * Returns the current section order
+     * Returns the current section order.
      *
      * @return the current section order
      */
@@ -72,7 +72,7 @@ public @interface ResourceGroupDefinition {
     };
 
     /**
-     * Supported section types
+     * Supported section types.
      *
      * @author nedis
      * @since 0.1
@@ -80,18 +80,19 @@ public @interface ResourceGroupDefinition {
     enum Section {
 
         /**
-         * Versioning standard section
+         * Versioning standard section.
          */
         VERSIONING,
 
         /**
-         * CORS standard section
+         * CORS standard section.
          */
         CORS,
 
         /**
          * Custom section.
          *
+         * <p>
          * If CUSTOM_SECTION is added to {@link ResourceGroupDefinition#sectionOrder()} it is necessary to
          * add path to custom section to {@link ResourceGroupDefinition#customSection()}.
          * Otherwise the RxMicro framework throws error during generation of REST-based microservice documentation.

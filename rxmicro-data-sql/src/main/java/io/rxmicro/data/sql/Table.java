@@ -29,9 +29,9 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * Denotes a table name for entity.
  *
  * @author nedis
- * @since 0.1
  * @see Schema
  * @see MappingStrategy
+ * @since 0.1
  */
 @Documented
 @Retention(SOURCE)
@@ -39,21 +39,21 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 public @interface Table {
 
     /**
-     * Returns the table name
+     * Returns the table name.
      *
      * @return the table name
      */
     String name() default "";
 
     /**
-     * Returns the mapping strategy which is used to generate table name using the simple class name automatically
+     * Returns the mapping strategy which is used to generate table name using the simple class name automatically.
      *
      * @return the mapping strategy which is used to generate table name using the simple class name automatically
      */
     MappingStrategy mappingStrategy() default MappingStrategy.LOWERCASE_WITH_UNDERSCORED;
 
     /**
-     * Returns the schema name
+     * Returns the schema name.
      *
      * @return the schema name
      */

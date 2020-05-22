@@ -35,7 +35,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 public @interface SupportedTypes {
 
     /**
-     * Returns the array of supported types
+     * Returns the array of supported types.
      *
      * @return the array of supported types
      */

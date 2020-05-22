@@ -17,17 +17,17 @@
 package io.rxmicro.common.model;
 
 /**
- * The implementation of the {@code iterator} design pattern for {@link String} type
+ * The implementation of the {@code iterator} design pattern for {@link String} type.
  *
  * @author nedis
- * @since 0.1
  * @see java.util.Iterator
  * @see String
+ * @since 0.1
  */
 public final class StringIterator {
 
     /**
-     * Char constant that informs that end of char stream is reached
+     * Char constant that informs that end of char stream is reached.
      */
     public static final char NO_MORE_CHARACTERS_PRESENT = 0;
 
@@ -38,7 +38,7 @@ public final class StringIterator {
     private int index;
 
     /**
-     * Creates a new {@link StringIterator} instance for the specified string
+     * Creates a new {@link StringIterator} instance for the specified string.
      *
      * @param string the specified string
      * @throws NullPointerException if the specified string is {@code null}
@@ -94,7 +94,7 @@ public final class StringIterator {
     }
 
     /**
-     * Returns the index of the current iteration state
+     * Returns the index of the current iteration state.
      *
      * @return the index of the current iteration state
      */

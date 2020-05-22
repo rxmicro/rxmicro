@@ -26,7 +26,7 @@ import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
- * Use this annotation to define custom validator
+ * Use this annotation to define custom validator.
  *
  * @author nedis
  * @since 0.1
@@ -37,7 +37,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 public @interface ConstraintRule {
 
     /**
-     * Returns all supported types, which can be validated by constraint annotation
+     * Returns all supported types, which can be validated by constraint annotation.
      *
      * @return all supported types, which can be validated by constraint annotation
      */
@@ -45,7 +45,7 @@ public @interface ConstraintRule {
 
     /**
      * Returns {@link ConstraintValidator} class per each supported type, i.e.
-     * {@code supportedTypes.length} must be equal to {@code validatorClass.length}, otherwise compile error will be thrown
+     * {@code supportedTypes.length} must be equal to {@code validatorClass.length}, otherwise compile error will be thrown.
      *
      * @return {@link ConstraintValidator} class per each supported type
      */

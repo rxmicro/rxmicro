@@ -30,22 +30,22 @@ import static io.rxmicro.common.util.Formats.format;
  * Allows configuring Postgre SQL DB pool options.
  *
  * @author nedis
- * @since 0.1
  * @see PostgreSQLRepository
  * @see PostgreSQLClientFactory
+ * @since 0.1
  */
 @SuppressWarnings("UnusedReturnValue")
 public final class PostgreSQLConfig extends SQLPooledDatabaseConfig {
 
     /**
-     * Default PostgreSQL port
+     * Default PostgreSQL port.
      */
     public static final int DEFAULT_POSTGRESQL_PORT = 5432;
 
     private Function<Connection, Connection> connectionDecorator;
 
     /**
-     * Creates a Postgre SQL config instance with default settings
+     * Creates a Postgre SQL config instance with default settings.
      */
     public PostgreSQLConfig() {
         setPort(DEFAULT_POSTGRESQL_PORT);
@@ -54,6 +54,7 @@ public final class PostgreSQLConfig extends SQLPooledDatabaseConfig {
 
     /**
      * Returns the {@link Optional} connection decorator function.
+     *
      * <p>
      * <i>This features is useful for testing purposes</i>.
      *
@@ -65,6 +66,7 @@ public final class PostgreSQLConfig extends SQLPooledDatabaseConfig {
 
     /**
      * Sets the connection decorator function.
+     *
      * <p>
      * <i>This features is useful for testing purposes</i>.
      *

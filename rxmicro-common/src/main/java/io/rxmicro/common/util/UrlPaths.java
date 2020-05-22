@@ -19,7 +19,7 @@ package io.rxmicro.common.util;
 import static io.rxmicro.common.util.Requires.require;
 
 /**
- * URL path utility class
+ * URL path utility class.
  *
  * @author nedis
  * @since 0.1
@@ -27,12 +27,12 @@ import static io.rxmicro.common.util.Requires.require;
 public final class UrlPaths {
 
     /**
-     * Characters that must be removed from the URL path
+     * Characters that must be removed from the URL path.
      */
     public static final String TO_REMOVE_CHARACTERS = " \t\n\r";
 
     /**
-     * Normalizes the URL path:
+     * Normalizes the URL path.
      * <ul>
      *     <li>Removes last character if it is {@code /}</li>
      *     <li>Removes duplicates of path separator, (i.e. replaces {@code //} by {@code /})</li>

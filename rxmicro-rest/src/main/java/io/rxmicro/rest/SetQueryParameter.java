@@ -29,11 +29,11 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * Denotes a static query parameter that must be set to the request, created by REST client implementation.
  *
  * @author nedis
- * @since 0.1
  * @see AddQueryParameter
  * @see RepeatQueryParameter
  * @see Parameter
  * @see ParameterMappingStrategy
+ * @since 0.1
  */
 @Documented
 @Retention(SOURCE)
@@ -42,14 +42,14 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 public @interface SetQueryParameter {
 
     /**
-     * Returns the static query parameter name
+     * Returns the static query parameter name.
      *
      * @return the static query parameter name
      */
     String name();
 
     /**
-     * Returns the static query parameter value
+     * Returns the static query parameter value.
      *
      * @return the static query parameter value
      */

@@ -17,19 +17,27 @@
 package io.rxmicro.validation.validator;
 
 /**
- * Validator for the {@link io.rxmicro.validation.constraint.DomainName} constraint
+ * Validator for the {@link io.rxmicro.validation.constraint.DomainName} constraint.
  *
  * @author nedis
- * @since 0.4
  * @see io.rxmicro.validation.constraint.DomainName
+ * @since 0.1
  */
 public final class DomainNameConstraintValidator extends AbstractDomainOrHostNameConstraintValidator {
 
+    /**
+     * Domain rule message.
+     */
     public static final String DOMAIN_RULE =
             "Domain name must contains letters [a-z] or [A-Z], digits [0-9], underscores, periods, and dashes only!";
 
     private static final String NAME = "domain name";
 
+    /**
+     * Creates the default instance of {@link DomainNameConstraintValidator} type.
+     *
+     * @param errorWithDetails validation error with detail message or not
+     */
     public DomainNameConstraintValidator(final boolean errorWithDetails) {
         super(errorWithDetails);
     }

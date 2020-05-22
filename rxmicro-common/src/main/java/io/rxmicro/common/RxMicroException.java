@@ -23,12 +23,13 @@ import static io.rxmicro.common.util.Requires.require;
 
 /**
  * Basic exception class for all RxMicro modules.
+ *
  * <p>
  * This class adds the string formatting support using the {@link Formats#format(String, Object...)} method.
  *
  * @author nedis
- * @since 0.1
  * @see Formats#format(String, Object...)
+ * @since 0.1
  */
 public class RxMicroException extends RuntimeException {
 
@@ -44,6 +45,7 @@ public class RxMicroException extends RuntimeException {
 
     /**
      * Creates a new {@link RxMicroException} instance with error message.
+     *
      * <p>
      * <i>(FYI: This constructor uses {@link Formats#format(String, Object...)} method to format error message.)</i>
      *
@@ -71,6 +73,7 @@ public class RxMicroException extends RuntimeException {
 
     /**
      * Creates a new {@link RxMicroException} instance with error message and cause.
+     *
      * <p>
      * <i>(FYI: This constructor uses {@link Formats#format(String, Object...)} method to format error message.)</i>
      *
@@ -99,6 +102,7 @@ public class RxMicroException extends RuntimeException {
     /**
      * Creates a {@link RxMicroException} instance with the specified suppression enabled or disabled
      * and writable stack trace enabled or disabled.
+     *
      * <p>
      * <i>This constructor must be used from child classes only!</i>
      *
@@ -113,6 +117,7 @@ public class RxMicroException extends RuntimeException {
     /**
      * Creates a {@link RxMicroException} instance with the specified error message, suppression enabled or disabled
      * and writable stack trace enabled or disabled.
+     *
      * <p>
      * <i>This constructor must be used from child classes only!</i>
      *
@@ -130,8 +135,10 @@ public class RxMicroException extends RuntimeException {
     /**
      * Creates a {@link RxMicroException} instance with the specified error message, suppression enabled or disabled
      * and writable stack trace enabled or disabled.
+     *
      * <p>
      * <i>(FYI: This constructor uses {@link Formats#format(String, Object...)} method to format error message.)</i>
+     *
      * <p>
      * <i>This constructor must be used from child classes only!</i>
      *
@@ -152,8 +159,10 @@ public class RxMicroException extends RuntimeException {
     /**
      * Creates a {@link RxMicroException} instance with the specified error message, cause, suppression enabled or disabled
      * and writable stack trace enabled or disabled.
+     *
      * <p>
      * <i>(FYI: This constructor uses {@link Formats#format(String, Object...)} method to format error message.)</i>
+     *
      * <p>
      * <i>This constructor must be used from child classes only!</i>
      *
@@ -174,8 +183,10 @@ public class RxMicroException extends RuntimeException {
     /**
      * Creates a {@link RxMicroException} instance with the specified error message, cause, suppression enabled or disabled
      * and writable stack trace enabled or disabled.
+     *
      * <p>
      * <i>(FYI: This constructor uses {@link Formats#format(String, Object...)} method to format error message.)</i>
+     *
      * <p>
      * <i>This constructor must be used from child classes only!</i>
      *

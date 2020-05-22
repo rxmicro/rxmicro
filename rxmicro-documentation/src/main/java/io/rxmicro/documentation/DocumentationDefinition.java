@@ -29,7 +29,6 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * A composite annotation that specifies the settings for generating a whole document.
  *
  * @author nedis
- * @since 0.1
  * @see Author
  * @see BaseEndpoint
  * @see Constants
@@ -42,6 +41,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * @see ResourceDefinition
  * @see ResourceGroupDefinition
  * @see Title
+ * @since 0.1
  */
 @Documented
 @Retention(SOURCE)
@@ -56,21 +56,21 @@ public @interface DocumentationDefinition {
     GenerationOutput[] output() default {SINGLE_DOCUMENT};
 
     /**
-     * Returns the custom destination directory
+     * Returns the custom destination directory.
      *
      * @return the custom destination directory
      */
     String destinationDirectory() default "";
 
     /**
-     * Returns {@code true} if the RxMicro framework must generate tips for REST-based microservice documentation
+     * Returns {@code true} if the RxMicro framework must generate tips for REST-based microservice documentation.
      *
      * @return {@code true} if the RxMicro framework must generate tips for REST-based microservice documentation
      */
     boolean withTips() default true;
 
     /**
-     * Returns {@code true} if the RxMicro framework must generate date of generating of REST-based microservice documentation
+     * Returns {@code true} if the RxMicro framework must generate date of generating of REST-based microservice documentation.
      *
      * @return {@code true} if the RxMicro framework must generate date of generating of REST-based microservice documentation
      */
@@ -98,7 +98,7 @@ public @interface DocumentationDefinition {
     ResourceDefinition resource() default @ResourceDefinition;
 
     /**
-     * Supported generation output
+     * Supported generation output.
      *
      * @author nedis
      * @since 0.1
@@ -106,17 +106,17 @@ public @interface DocumentationDefinition {
     enum GenerationOutput {
 
         /**
-         * Whole document
+         * Whole document.
          */
         SINGLE_DOCUMENT,
 
         /**
-         * Only basic section
+         * Only basic section.
          */
         BASICS_SECTION,
 
         /**
-         * Only resources section
+         * Only resources section.
          */
         RESOURCES_SECTION
     }

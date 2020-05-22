@@ -30,11 +30,11 @@ import static io.rxmicro.validation.detail.StatelessValidators.getStatelessValid
 import static java.util.Optional.ofNullable;
 
 /**
- * Validator for the {@link CountryCode} constraint
+ * Validator for the {@link CountryCode} constraint.
  *
  * @author nedis
- * @since 0.1
  * @see CountryCode
+ * @since 0.1
  */
 public final class CountryCodeConstraintValidator implements ConstraintValidator<String> {
 
@@ -46,6 +46,12 @@ public final class CountryCodeConstraintValidator implements ConstraintValidator
 
     private final ConstraintValidator<String> constraintValidator;
 
+    /**
+     * Creates the default instance of {@link CountryCodeConstraintValidator} with the specified country code format.
+     *
+     * @param format the specified country code format
+     * @throws ImpossibleException if country code format is unsupported
+     */
     public CountryCodeConstraintValidator(final CountryCode.Format format) {
         this.constraintValidator = ofNullable(CLASS_MAP.get(format))
                 .map(StatelessValidators::getStatelessValidator)
@@ -62,6 +68,8 @@ public final class CountryCodeConstraintValidator implements ConstraintValidator
     }
 
     /**
+     * Validator for the {@link CountryCode.Format#ISO_3166_1_ALPHA_2} constraint.
+     *
      * @author nedis
      * @since 0.1
      */
@@ -76,6 +84,8 @@ public final class CountryCodeConstraintValidator implements ConstraintValidator
     }
 
     /**
+     * Validator for the {@link CountryCode.Format#ISO_3166_1_ALPHA_3} constraint.
+     *
      * @author nedis
      * @since 0.1
      */
@@ -90,6 +100,8 @@ public final class CountryCodeConstraintValidator implements ConstraintValidator
     }
 
     /**
+     * Validator for the {@link CountryCode.Format#ISO_3166_1_NUMERIC} constraint.
+     *
      * @author nedis
      * @since 0.1
      */

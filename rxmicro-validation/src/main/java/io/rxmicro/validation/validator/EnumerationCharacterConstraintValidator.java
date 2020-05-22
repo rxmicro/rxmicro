@@ -26,16 +26,21 @@ import java.util.Set;
 import static java.util.stream.Collectors.toUnmodifiableSet;
 
 /**
- * Validator for the {@link io.rxmicro.validation.constraint.Enumeration} constraint
+ * Validator for the {@link io.rxmicro.validation.constraint.Enumeration} constraint.
  *
  * @author nedis
- * @since 0.1
  * @see io.rxmicro.validation.constraint.Enumeration
+ * @since 0.1
  */
 public class EnumerationCharacterConstraintValidator implements ConstraintValidator<Character> {
 
     private final Set<Character> allowed;
 
+    /**
+     * Creates the default instance of {@link EnumerationCharacterConstraintValidator} with the the allowed enum characters.
+     *
+     * @param allowed the allowed enum characters
+     */
     public EnumerationCharacterConstraintValidator(final Collection<String> allowed) {
         this.allowed = allowed.stream().map(s -> s.charAt(0)).collect(toUnmodifiableSet());
     }

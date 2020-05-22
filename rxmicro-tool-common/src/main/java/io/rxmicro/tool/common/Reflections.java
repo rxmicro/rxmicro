@@ -32,23 +32,38 @@ import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.tool.common.internal.FinalFieldUpdater.setFinalFieldValue;
 import static java.lang.reflect.Modifier.isFinal;
 import static java.lang.reflect.Modifier.isStatic;
+import static java.util.Collections.unmodifiableList;
 import static java.util.Collections.unmodifiableSet;
 import static java.util.stream.Collectors.toList;
 
 /**
- * Reflection utils
+ * Reflection utils.
  *
  * @author nedis
  * @since 0.1
  */
 public final class Reflections {
 
-    private static final String FIELD_NOT_DEFINED_ERROR_TEMPLATE = "Field '?.?' not defined";
-
+    /**
+     * Returns the {@link Module} for the {@code rxmicro.tool.common} module.
+     *
+     * @return the {@link Module} for the {@code rxmicro.tool.common} module
+     */
     public static Module getToolCommonModule() {
         return Reflections.class.getModule();
     }
 
+    /**
+     * Returns the all declared fields from the specified class instance and all it parents (except {@link Object})
+     * that filtered by {@code predicate}.
+     *
+     * @param classInstance the specified class instance
+     * @param predicate     the field selection predicate
+     * @return the all declared fields as unmodified list
+     * @see Class#getDeclaredFields()
+     * @see Class#getSuperclass()
+     * @throws NullPointerException if any parameter is null
+     */
     public static List<Field> allFields(final Class<?> classInstance,
                                         final Predicate<Field> predicate) {
         final List<Field> fields = new ArrayList<>();
@@ -59,9 +74,20 @@ public final class Reflections {
                     .collect(toList()));
             current = current.getSuperclass();
         }
-        return fields;
+        return unmodifiableList(fields);
     }
 
+    /**
+     * Returns the all declared methods from the specified class instance and all it parents (except {@link Object})
+     * that filtered by {@code predicate}.
+     *
+     * @param classInstance the specified class instance
+     * @param predicate     the method selection predicate
+     * @return the all declared methods as unmodified list
+     * @see Class#getDeclaredMethods()
+     * @see Class#getSuperclass()
+     * @throws NullPointerException if any parameter is null
+     */
     public static List<Method> allMethods(final Class<?> classInstance,
                                           final Predicate<Method> predicate) {
         final List<Method> methods = new ArrayList<>();
@@ -72,9 +98,16 @@ public final class Reflections {
                     .collect(toList()));
             current = current.getSuperclass();
         }
-        return methods;
+        return unmodifiableList(methods);
     }
 
+    /**
+     * Returns the unmodifiable {@link Set} of all parents for the specified class.
+     *
+     * @param clazz the specified class
+     * @return the unmodifiable {@link Set} of all parents for the specified class
+     * @throws NullPointerException if any parameter is null
+     */
     public static Set<Class<?>> allSuperClasses(final Class<?> clazz) {
         final Set<Class<?>> set = new LinkedHashSet<>();
         Class<?> currentClass = clazz.getSuperclass();
@@ -85,6 +118,39 @@ public final class Reflections {
         return unmodifiableSet(set);
     }
 
+    /**
+     * Returns the field value.
+     *
+     * @param instances all possible instances
+     * @param field the specified field instance
+     * @return the field value
+     * @see Field#canAccess(Object)
+     * @see Field#setAccessible(boolean)
+     * @see Field#get(Object)
+     * @throws CheckedWrapperException      if this {@code Field} object is enforcing Java language access control and the underlying
+     *                                      field is inaccessible.
+     * @throws SecurityException            if the request is denied by the security manager
+     * @throws IllegalArgumentException
+     * <ul>
+     *      <li>
+     *          if this reflected object is a static member or constructor and the given {@code obj} is non-{@code null}, or
+     *      </li>
+     *      <li>
+     *          if this reflected object is an instance method or field and the given {@code obj} is {@code null} or
+     *          of type that is not a subclass of the {@link java.lang.reflect.Member#getDeclaringClass() declaring class} of the member, or
+     *      </li>
+     *      <li>
+     *          if the specified object is not an instance of the class or interface declaring the underlying
+     *          field (or a subclass or implementor thereof), or
+     *      </li>
+     *      <li>
+     *          if the specified instances are invalid
+     *      </li>
+     * </ul>
+     * @throws NullPointerException         if any parameter is null
+     * @throws ExceptionInInitializerError  if the initialization provoked by this method fails.
+     * @throws java.lang.reflect.InaccessibleObjectException if access cannot be enabled
+     */
     public static Object getFieldValue(final List<Object> instances,
                                        final Field field) {
         for (final Object instance : instances) {
@@ -100,6 +166,36 @@ public final class Reflections {
         );
     }
 
+    /**
+     * Returns the field value.
+     *
+     * @param instance the specified instance
+     * @param field the specified field instance
+     * @return the field value
+     * @see Field#canAccess(Object)
+     * @see Field#setAccessible(boolean)
+     * @see Field#get(Object)
+     * @throws CheckedWrapperException      if this {@code Field} object is enforcing Java language access control and the underlying
+     *                                      field is inaccessible.
+     * @throws SecurityException            if the request is denied by the security manager
+     * @throws IllegalArgumentException
+     * <ul>
+     *      <li>
+     *          if this reflected object is a static member or constructor and the given {@code obj} is non-{@code null}, or
+     *      </li>
+     *      <li>
+     *          if this reflected object is an instance method or field and the given {@code obj} is {@code null} or
+     *          of type that is not a subclass of the {@link java.lang.reflect.Member#getDeclaringClass() declaring class} of the member, or
+     *      </li>
+     *      <li>
+     *          if the specified object is not an instance of the class or interface declaring the underlying
+     *          field (or a subclass or implementor thereof).
+     *      </li>
+     * </ul>
+     * @throws NullPointerException         if any parameter is null
+     * @throws ExceptionInInitializerError  if the initialization provoked by this method fails.
+     * @throws java.lang.reflect.InaccessibleObjectException if access cannot be enabled
+     */
     public static Object getFieldValue(final Object instance,
                                        final Field field) {
         try {
@@ -113,6 +209,45 @@ public final class Reflections {
         }
     }
 
+    /**
+     * Returns the field value.
+     *
+     * @param instance the specified instance
+     * @param classInstance the class instance
+     * @param fieldName the field name
+     * @return the field value.
+     * @see Class#getDeclaredField(String)
+     * @see Field#canAccess(Object)
+     * @see Field#setAccessible(boolean)
+     * @see Field#get(Object)
+     * @throws CheckedWrapperException
+     * <ul>
+     *     <li>
+     *         if this {@code Field} object is enforcing Java language access control and the underlying field is inaccessible, or
+     *     </li>
+     *     <li>
+     *         if a field with the specified name is not found.
+     *     </li>
+     * </ul>
+     * @throws SecurityException            if the request is denied by the security manager
+     * @throws IllegalArgumentException
+     * <ul>
+     *      <li>
+     *          if this reflected object is a static member or constructor and the given {@code obj} is non-{@code null}, or
+     *      </li>
+     *      <li>
+     *          if this reflected object is an instance method or field and the given {@code obj} is {@code null} or
+     *          of type that is not a subclass of the {@link java.lang.reflect.Member#getDeclaringClass() declaring class} of the member, or
+     *      </li>
+     *      <li>
+     *          if the specified object is not an instance of the class or interface declaring the underlying
+     *          field (or a subclass or implementor thereof).
+     *      </li>
+     * </ul>
+     * @throws NullPointerException         if any parameter is null
+     * @throws ExceptionInInitializerError  if the initialization provoked by this method fails.
+     * @throws java.lang.reflect.InaccessibleObjectException if access cannot be enabled
+     */
     public static Object getFieldValue(final Object instance,
                                        final Class<?> classInstance,
                                        final String fieldName) {
@@ -121,10 +256,48 @@ public final class Reflections {
             final Field field = classInstance.getDeclaredField(fieldName);
             return getFieldValue(validInstance, field);
         } catch (final NoSuchFieldException ex) {
-            throw new CheckedWrapperException(ex, FIELD_NOT_DEFINED_ERROR_TEMPLATE, instance.getClass().getName(), fieldName);
+            throw new CheckedWrapperException(ex, "Field '?.?' not defined", instance.getClass().getName(), fieldName);
         }
     }
 
+    /**
+     * Returns the field value.
+     *
+     * @param instance the specified instance
+     * @param fieldName the field name
+     * @return the field value.
+     * @see Class#getDeclaredField(String)
+     * @see Field#canAccess(Object)
+     * @see Field#setAccessible(boolean)
+     * @see Field#get(Object)
+     * @throws CheckedWrapperException
+     * <ul>
+     *     <li>
+     *         if this {@code Field} object is enforcing Java language access control and the underlying field is inaccessible, or
+     *     </li>
+     *     <li>
+     *         if a field with the specified name is not found.
+     *     </li>
+     * </ul>
+     * @throws SecurityException            if the request is denied by the security manager
+     * @throws IllegalArgumentException
+     * <ul>
+     *      <li>
+     *          if this reflected object is a static member or constructor and the given {@code obj} is non-{@code null}, or
+     *      </li>
+     *      <li>
+     *          if this reflected object is an instance method or field and the given {@code obj} is {@code null} or
+     *          of type that is not a subclass of the {@link java.lang.reflect.Member#getDeclaringClass() declaring class} of the member, or
+     *      </li>
+     *      <li>
+     *          if the specified object is not an instance of the class or interface declaring the underlying
+     *          field (or a subclass or implementor thereof).
+     *      </li>
+     * </ul>
+     * @throws NullPointerException         if any parameter is null
+     * @throws ExceptionInInitializerError  if the initialization provoked by this method fails.
+     * @throws java.lang.reflect.InaccessibleObjectException if access cannot be enabled
+     */
     public static Object getFieldValue(final Object instance,
                                        final String fieldName) {
         final Class<?> classInstance =
@@ -132,25 +305,76 @@ public final class Reflections {
         return getFieldValue(instance, classInstance, fieldName);
     }
 
-    private static boolean isValidInstance(final Field field,
-                                           final Object instance) {
-        if (instance == null) {
-            return isStatic(field.getModifiers());
-        } else {
-            return instance.getClass() == field.getDeclaringClass() ||
-                    allSuperClasses(instance.getClass()).contains(field.getDeclaringClass());
-        }
-    }
-
+    /**
+     * Returns the declared field instance.
+     *
+     * @param classInstance the specified class instance
+     * @param fieldName the specified field name
+     * @return the declared field instance
+     * @see Class#getDeclaredField(String)
+     * @throws CheckedWrapperException     if a field with the specified name is not found.
+     * @throws NullPointerException        if any parameter is null
+     * @throws SecurityException           If a security manager, <i>s</i>, is present and any of the following conditions is met:
+     * <ul>
+     *      <li>
+     *          the caller's class loader is not the same as the
+     *          class loader of this class and invocation of
+     *          {@link SecurityManager#checkPermission
+     *          s.checkPermission} method with
+     *          {@code RuntimePermission("accessDeclaredMembers")}
+     *          denies access to the declared field
+     *      </li>
+     *      <li>
+     *          the caller's class loader is not the same as or an
+     *          ancestor of the class loader for the current class and
+     *          invocation of {@link SecurityManager#checkPackageAccess
+     *          s.checkPackageAccess()} denies access to the package
+     *          of this class
+     *      </li>
+     * </ul>
+     */
     public static Field getDeclaredField(final Class<?> classInstance,
                                          final String fieldName) {
         try {
             return classInstance.getDeclaredField(fieldName);
         } catch (final NoSuchFieldException ex) {
-            throw new CheckedWrapperException(ex, FIELD_NOT_DEFINED_ERROR_TEMPLATE, classInstance.getName(), fieldName);
+            throw new CheckedWrapperException(ex, "Field '?.?' not defined", classInstance.getName(), fieldName);
         }
     }
 
+    /**
+     * Sets the field value.
+     *
+     * @param instance the specified instances
+     * @param fieldName the specified field name
+     * @param value the new value to set
+     * @see Class#getDeclaredField(String)
+     * @see Field#canAccess(Object)
+     * @see Field#setAccessible(boolean)
+     * @see Field#set(Object, Object)
+     * @throws IllegalArgumentException
+     * <ul>
+     *      <li>
+     *          if this reflected object is a static member or constructor and the given {@code obj} is non-{@code null}, or
+     *      </li>
+     *      <li>
+     *          if this reflected object is an instance method or field and the given {@code obj} is {@code null} or of type
+     *          that is not a subclass of the {@link java.lang.reflect.Member#getDeclaringClass() declaring class} of the member, or
+     *      </li>
+     *      <li>
+     *          if current field is final
+     *      </li>
+     *      <li>
+     *          if the specified instances are invalid
+     *      </li>
+     * </ul>
+     * @throws SecurityException            if the request is denied by the security manager
+     * @throws ExceptionInInitializerError  if the initialization provoked by this method fails.
+     * @throws NullPointerException         if any parameter is null
+     * @throws CheckedWrapperException      if this {@code Field} object is enforcing Java language access control and the underlying
+     *                                      field is either inaccessible or final.
+     * @throws java.lang.reflect.InaccessibleObjectException if access cannot be enabled
+     */
     public static void setFieldValue(final Object instance,
                                      final String fieldName,
                                      final Object value) {
@@ -161,10 +385,42 @@ public final class Reflections {
             final Field field = classInstance.getDeclaredField(fieldName);
             setFieldValue(validInstance, field, value);
         } catch (final NoSuchFieldException ex) {
-            throw new CheckedWrapperException(ex, FIELD_NOT_DEFINED_ERROR_TEMPLATE, instance.getClass().getName(), fieldName);
+            throw new CheckedWrapperException(ex, "Field '?.?' not defined", instance.getClass().getName(), fieldName);
         }
     }
 
+    /**
+     * Sets the field value.
+     *
+     * @param instances the specified instances
+     * @param field the specified field instance
+     * @param value the new value to set
+     * @see Field#canAccess(Object)
+     * @see Field#setAccessible(boolean)
+     * @see Field#set(Object, Object)
+     * @throws IllegalArgumentException
+     * <ul>
+     *      <li>
+     *          if this reflected object is a static member or constructor and the given {@code obj} is non-{@code null}, or
+     *      </li>
+     *      <li>
+     *          if this reflected object is an instance method or field and the given {@code obj} is {@code null} or of type
+     *          that is not a subclass of the {@link java.lang.reflect.Member#getDeclaringClass() declaring class} of the member, or
+     *      </li>
+     *      <li>
+     *          if current field is final
+     *      </li>
+     *      <li>
+     *          if the specified instances are invalid
+     *      </li>
+     * </ul>
+     * @throws SecurityException            if the request is denied by the security manager
+     * @throws ExceptionInInitializerError  if the initialization provoked by this method fails.
+     * @throws NullPointerException         if any parameter is null
+     * @throws CheckedWrapperException      if this {@code Field} object is enforcing Java language access control and the underlying
+     *                                      field is either inaccessible or final.
+     * @throws java.lang.reflect.InaccessibleObjectException if access cannot be enabled
+     */
     public static void setFieldValue(final List<Object> instances,
                                      final Field field,
                                      final Object value) {
@@ -182,6 +438,35 @@ public final class Reflections {
         );
     }
 
+    /**
+     * Sets the field value.
+     *
+     * @param instance the specified instance
+     * @param field the specified field instance
+     * @param value the new value to set
+     * @see Field#canAccess(Object)
+     * @see Field#setAccessible(boolean)
+     * @see Field#set(Object, Object)
+     * @throws IllegalArgumentException
+     * <ul>
+     *      <li>
+     *          if this reflected object is a static member or constructor and the given {@code obj} is non-{@code null}, or
+     *      </li>
+     *      <li>
+     *          if this reflected object is an instance method or field and the given {@code obj} is {@code null} or of type
+     *          that is not a subclass of the {@link java.lang.reflect.Member#getDeclaringClass() declaring class} of the member, or
+     *      </li>
+     *      <li>
+     *          if current field is final
+     *      </li>
+     * </ul>
+     * @throws SecurityException            if the request is denied by the security manager
+     * @throws ExceptionInInitializerError  if the initialization provoked by this method fails.
+     * @throws NullPointerException         if any parameter is null
+     * @throws CheckedWrapperException      if this {@code Field} object is enforcing Java language access control and the underlying
+     *                                      field is either inaccessible or final.
+     * @throws java.lang.reflect.InaccessibleObjectException if access cannot be enabled
+     */
     public static void setFieldValue(final Object instance,
                                      final Field field,
                                      final Object value) {
@@ -200,6 +485,47 @@ public final class Reflections {
         }
     }
 
+    /**
+     * Invokes the method by name.
+     *
+     * @param instances  the specified instances
+     * @param methodName the specified method name
+     * @param args       the arguments for the method
+     * @return the method result
+     * @see Method#canAccess(Object)
+     * @see Method#setAccessible(boolean)
+     * @see Method#invoke(Object, Object...)
+     * @throws CheckedWrapperException
+     * <ul>
+     *     <li>
+     *         if this {@code Method} object is enforcing Java language access control and the underlying method is inaccessible, or
+     *     </li>
+     *     <li>
+     *         if the underlying method throws an exception.
+     *     </li>
+     * </ul>
+     * @throws SecurityException            if the request is denied by the security manager
+     * @throws IllegalArgumentException
+     * <ul>
+     *      <li>
+     *          if this reflected object is a static member or constructor and the given {@code obj} is non-{@code null}, or
+     *      </li>
+     *      <li>
+     *          if this reflected object is an instance method or field and the given {@code obj} is {@code null} or
+     *          of type that is not a subclass of the {@link java.lang.reflect.Member#getDeclaringClass() declaring class} of the member, or
+     *      </li>
+     *      <li>
+     *          if the specified object is not an instance of the class or interface declaring the underlying
+     *          field (or a subclass or implementor thereof), or
+     *      </li>
+     *      <li>
+     *          if the specified instances are invalid
+     *      </li>
+     * </ul>
+     * @throws NullPointerException         if any parameter is null
+     * @throws ExceptionInInitializerError  if the initialization provoked by this method fails.
+     * @throws java.lang.reflect.InaccessibleObjectException if access cannot be enabled
+     */
     @SuppressWarnings("UnusedReturnValue")
     public static Object invokeMethod(final List<Object> instances,
                                       final String methodName,
@@ -216,12 +542,48 @@ public final class Reflections {
                 // do nothing
             }
         }
-        throw new CheckedWrapperException(
-                new NoSuchMethodException(), "At least one class must contain the method 'void ?()': classes=?",
+        throw new IllegalArgumentException(format(
+                "At least one class must contain the method 'void ?()': classes=?",
                 methodName, instances.stream().map(Object::getClass).collect(toList())
-        );
+        ));
     }
 
+    /**
+     * Invokes the method by name.
+     *
+     * @param instance the specified instance
+     * @param method   the specified method name
+     * @param args     the arguments for the method
+     * @return the method result
+     * @see Method#invoke(Object, Object...)
+     * @throws CheckedWrapperException
+     * <ul>
+     *     <li>
+     *         if this {@code Method} object is enforcing Java language access control and the underlying method is inaccessible, or
+     *     </li>
+     *     <li>
+     *         if the underlying method throws an exception.
+     *     </li>
+     * </ul>
+     * @throws SecurityException            if the request is denied by the security manager
+     * @throws IllegalArgumentException
+     * <ul>
+     *      <li>
+     *          if this reflected object is a static member or constructor and the given {@code obj} is non-{@code null}, or
+     *      </li>
+     *      <li>
+     *          if this reflected object is an instance method or field and the given {@code obj} is {@code null} or
+     *          of type that is not a subclass of the {@link java.lang.reflect.Member#getDeclaringClass() declaring class} of the member, or
+     *      </li>
+     *      <li>
+     *          if the specified object is not an instance of the class or interface declaring the underlying
+     *          field (or a subclass or implementor thereof), or
+     *      </li>
+     * </ul>
+     * @throws NullPointerException         if any parameter is null
+     * @throws ExceptionInInitializerError  if the initialization provoked by this method fails.
+     * @throws java.lang.reflect.InaccessibleObjectException if access cannot be enabled
+     */
     public static Object invokeMethod(final Object instance,
                                       final Method method,
                                       final Object... args) {
@@ -231,6 +593,16 @@ public final class Reflections {
             throw new CheckedWrapperException(ex);
         } catch (final InvocationTargetException ex) {
             throw new CheckedWrapperException(ex.getTargetException());
+        }
+    }
+
+    private static boolean isValidInstance(final Field field,
+                                           final Object instance) {
+        if (instance == null) {
+            return isStatic(field.getModifiers());
+        } else {
+            return instance.getClass() == field.getDeclaringClass() ||
+                    allSuperClasses(instance.getClass()).contains(field.getDeclaringClass());
         }
     }
 

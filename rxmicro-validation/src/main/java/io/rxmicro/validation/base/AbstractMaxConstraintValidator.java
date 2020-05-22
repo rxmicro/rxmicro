@@ -20,9 +20,10 @@ import io.rxmicro.http.error.ValidationException;
 import io.rxmicro.rest.model.HttpModelType;
 
 /**
- * Base validator class for maximum constraints
+ * Base validator class for maximum constraints.
  *
  * @author nedis
+ * @param <T> the type to validate
  * @since 0.1
  */
 public abstract class AbstractMaxConstraintValidator<T extends Comparable<T>> {
@@ -32,7 +33,7 @@ public abstract class AbstractMaxConstraintValidator<T extends Comparable<T>> {
     private final boolean inclusive;
 
     /**
-     * Creates an instance of the base validator class for maximum constraint
+     * Creates an instance of the base validator class for maximum constraint.
      *
      * @param maxValue the maximum supported value
      * @param inclusive specifies whether the specified min is inclusive or not.
@@ -44,7 +45,9 @@ public abstract class AbstractMaxConstraintValidator<T extends Comparable<T>> {
     }
 
     /**
-     * Validates the single actual.<p>
+     * Validates the single actual.
+     *
+     * <p>
      * The state of the {@code actual} must not be altered.
      *
      * @param actual        the actual value to validate
@@ -61,7 +64,9 @@ public abstract class AbstractMaxConstraintValidator<T extends Comparable<T>> {
     }
 
     /**
-     * Validates the single actual.<p>
+     * Validates the single actual.
+     *
+     * <p>
      * The state of the {@code actual} must not be altered.
      *
      * @param actual                        the actual value to validate

@@ -26,14 +26,14 @@ import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
- * Denotes a repository method that must execute a {@code INSERT} SQL operation
+ * Denotes a repository method that must execute a {@code INSERT} SQL operation.
  *
  * @author nedis
- * @since 0.1
  * @see io.rxmicro.data.sql.SupportedVariables
  * @see Delete
  * @see Select
  * @see Update
+ * @since 0.1
  */
 @Documented
 @Retention(SOURCE)
@@ -60,8 +60,10 @@ public @interface Insert {
 
     /**
      * Customize {@code INSERT} query.
+     *
      * <p>
      * By default, Rx Micro generate the default sql.
+     *
      * <p>
      * See {@link #DEFAULT_INSERT} or {@link #DEFAULT_INSERT_WITH_RETURNING_ID} for details.
      *
@@ -72,6 +74,7 @@ public @interface Insert {
     /**
      * entityClass is used to resolve
      * <code>${table}</code>, <code>${updated-columns}</code> or <code>${by-id-filter}</code> variable values.
+     *
      * <p>
      * To determine the value of the predefined variable used in the query specified for the repository method, the RxMicro framework
      * uses the following algorithm:

@@ -24,11 +24,11 @@ import io.rxmicro.validation.constraint.Pattern;
 import java.util.Collection;
 
 /**
- * Validator for the {@link io.rxmicro.validation.constraint.Pattern} constraint
+ * Validator for the {@link io.rxmicro.validation.constraint.Pattern} constraint.
  *
  * @author nedis
- * @since 0.1
  * @see io.rxmicro.validation.constraint.Pattern
+ * @since 0.1
  */
 public class PatternConstraintValidator implements ConstraintValidator<String> {
 
@@ -36,6 +36,19 @@ public class PatternConstraintValidator implements ConstraintValidator<String> {
 
     private final String regexp;
 
+    /**
+     * Creates the default instance of {@link PatternConstraintValidator} with the specified parameters.
+     *
+     * @param regex the specified regular expression
+     * @param flags the match flags
+     * @see java.util.regex.Pattern#UNIX_LINES
+     * @see java.util.regex.Pattern#CASE_INSENSITIVE
+     * @see java.util.regex.Pattern#COMMENTS
+     * @see java.util.regex.Pattern#MULTILINE
+     * @see java.util.regex.Pattern#DOTALL
+     * @see java.util.regex.Pattern#UNICODE_CASE
+     * @see java.util.regex.Pattern#CANON_EQ
+     */
     @SuppressWarnings("MagicConstant")
     public PatternConstraintValidator(final String regex,
                                       final Collection<Pattern.Flag> flags) {

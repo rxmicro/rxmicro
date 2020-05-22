@@ -27,7 +27,6 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * A composite annotation that specifies the settings for generating the Introduction section.
  *
  * @author nedis
- * @since 0.1
  * @see Author
  * @see BaseEndpoint
  * @see Constants
@@ -40,6 +39,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * @see ResourceDefinition
  * @see ResourceGroupDefinition
  * @see Title
+ * @since 0.1
  */
 @Documented
 @Retention(SOURCE)
@@ -47,7 +47,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 public @interface IntroductionDefinition {
 
     /**
-     * Returns the custom sections
+     * Returns the custom sections.
      *
      * @return the custom sections
      */
@@ -61,7 +61,7 @@ public @interface IntroductionDefinition {
     IncludeMode includeMode() default IncludeMode.INCLUDE_REFERENCE;
 
     /**
-     * Returns the current section order
+     * Returns the current section order.
      *
      * @return the current section order
      */
@@ -76,7 +76,7 @@ public @interface IntroductionDefinition {
     };
 
     /**
-     * Supported section types
+     * Supported section types.
      *
      * @author nedis
      * @since 0.1
@@ -84,43 +84,44 @@ public @interface IntroductionDefinition {
     enum Section {
 
         /**
-         * Common concept standard section
+         * Common concept standard section.
          */
         COMMON_CONCEPT,
 
         /**
-         * base endpoint standard section
+         * base endpoint standard section.
          */
         BASE_ENDPOINT,
 
         /**
-         * HTTP verbs standard section
+         * HTTP verbs standard section.
          */
         HTTP_VERBS,
 
         /**
-         * Error model standard section
+         * Error model standard section.
          */
         ERROR_MODEL,
 
         /**
-         * `Handler not found` standard section
+         * `Handler not found` standard section.
          */
         HANDLER_NOT_FOUND,
 
         /**
-         * Licences standard section
+         * Licences standard section.
          */
         LICENSES,
 
         /**
-         * Specification standard section
+         * Specification standard section.
          */
         SPECIFICATION,
 
         /**
          * Custom section.
          *
+         * <p>
          * If CUSTOM_SECTION is added to {@link IntroductionDefinition#sectionOrder()} it is necessary to
          * add path to custom section to {@link IntroductionDefinition#customSection()}.
          * Otherwise the RxMicro framework throws error during generation of REST-based microservice documentation.

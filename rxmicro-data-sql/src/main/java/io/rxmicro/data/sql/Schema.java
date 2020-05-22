@@ -27,8 +27,8 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * Denotes a schema of a database table.
  *
  * @author nedis
- * @since 0.1
  * @see Table
+ * @since 0.1
  */
 @Documented
 @Retention(SOURCE)
@@ -36,7 +36,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 public @interface Schema {
 
     /**
-     * Returns the db schema name
+     * Returns the db schema name.
      *
      * @return the db schema name
      */

@@ -18,6 +18,7 @@ package io.rxmicro.rest.server.exchange.json;
 
 /**
  * This is special interface, which is used to define a root package for the current module.
+ *
  * <p>
  * This feature is a workaround and used by {@code RxMicro Annotation Processor} for projects which don't use
  * <a href="https://www.oracle.com/corporate/features/understanding-java-9-modules.html">JPMS</a>.

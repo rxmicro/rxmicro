@@ -26,8 +26,9 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 /**
  * Denotes a method, that should be invoked automatically after all dependencies have been injected into the current component.
  * In its semantics, it completely corresponds to the {@code javax.annotation.PostConstruct} annotation.
+ *
  * <p>
- * <h4>The postConstruct method must meet the following requirements:</h4>
+ * <strong>The postConstruct method must meet the following requirements:</strong>
  * <ul>
  *     <li>This method should be a single method in the class.</li>
  *     <li>The method must not be {@code static}.</li>

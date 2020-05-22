@@ -26,21 +26,21 @@ import static io.rxmicro.rest.model.ExchangeFormat.JSON_EXCHANGE_FORMAT;
 import static java.util.stream.Collectors.toSet;
 
 /**
- * Supported exchange formats
+ * Supported exchange formats.
  *
  * @author nedis
- * @since 0.1
  * @see ServerExchangeFormatModule
+ * @since 0.1
  */
 public enum ClientExchangeFormatModule implements ExchangeFormatModule {
 
     /**
-     * Exchange format must be resolved automatically
+     * Exchange format must be resolved automatically.
      */
     AUTO_DETECT(null, null),
 
     /**
-     * JSON exchange format
+     * JSON exchange format.
      */
     JSON(RX_MICRO_REST_CLIENT_EXCHANGE_JSON_MODULE, JSON_EXCHANGE_FORMAT);
 

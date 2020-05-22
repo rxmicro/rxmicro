@@ -26,9 +26,10 @@ import static java.lang.annotation.ElementType.PARAMETER;
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
- * Maps HTTP header to annotated class field
+ * Maps HTTP header to annotated class field.
+ *
  * <p>
- * <h4>The RxMicro framework uses the following algorithm to define the HTTP header name for the specified model field:</h4>
+ * <strong>The RxMicro framework uses the following algorithm to define the HTTP header name for the specified model field:</strong>
  * <ol>
  *     <li>
  *          If the field is annotated by the {@link Header} annotation with an explicit indication of the HTTP header name,
@@ -47,8 +48,9 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  *          If the {@link HeaderMappingStrategy} annotation is missing, the model class field name is used as the HTTP header name.
  *     </li>
  * </ol>
+ *
  * <p>
- * <h4>The RxMicro framework supports the following Java types, which can be HTTP request model headers:</h4>
+ * <strong>The RxMicro framework supports the following Java types, which can be HTTP request model headers:</strong>
  * <ul>
  *     <li>? extends {@link Enum}&lt;?&gt</li>
  *     <li>{@link Boolean}</li>
@@ -67,11 +69,11 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * </ul>
  *
  * @author nedis
- * @since 0.1
  * @see AddHeader
  * @see SetHeader
  * @see HeaderMappingStrategy
  * @see RepeatHeader
+ * @since 0.1
  */
 @Documented
 @Retention(SOURCE)
@@ -79,7 +81,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 public @interface Header {
 
     /**
-     * Returns the HTTP header name
+     * Returns the HTTP header name.
      *
      * @return the HTTP header name
      */

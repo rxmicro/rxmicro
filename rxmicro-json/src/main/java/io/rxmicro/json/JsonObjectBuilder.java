@@ -21,19 +21,19 @@ import io.rxmicro.common.model.MapBuilder;
 import java.util.List;
 
 /**
- * JSON object builder
+ * JSON object builder.
  *
  * @author nedis
- * @since 0.1
  * @see JsonTypes
  * @see JsonHelper
  * @see JsonNumber
  * @see JsonException
+ * @since 0.1
  */
 public final class JsonObjectBuilder extends MapBuilder<String, Object> {
 
     /**
-     * Creates a {@link JsonObjectBuilder} instance
+     * Creates a {@link JsonObjectBuilder} instance.
      *
      * @param withoutDuplicates {@code true} if {@link JsonObjectBuilder} must throw
      *                          {@link IllegalArgumentException} if duplicate of map key detected
@@ -43,14 +43,14 @@ public final class JsonObjectBuilder extends MapBuilder<String, Object> {
     }
 
     /**
-     * Creates a {@link JsonObjectBuilder} instance without duplicate detection
+     * Creates a {@link JsonObjectBuilder} instance without duplicate detection.
      */
     public JsonObjectBuilder() {
         super(false);
     }
 
     /**
-     * Puts the specified name and value to the building JSON object if the specified value is not {@code null}
+     * Puts the specified name and value to the building JSON object if the specified value is not {@code null}.
      *
      * @param name the specified name
      * @param value the specified value
@@ -67,7 +67,7 @@ public final class JsonObjectBuilder extends MapBuilder<String, Object> {
     }
 
     /**
-     * Puts the specified name and value to the building JSON object  if the specified value is not {@code null} or not empty
+     * Puts the specified name and value to the building JSON object  if the specified value is not {@code null} or not empty.
      *
      * @param name the specified name
      * @param value the specified value

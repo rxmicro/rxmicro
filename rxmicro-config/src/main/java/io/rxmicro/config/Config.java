@@ -25,26 +25,28 @@ import static java.util.stream.Collectors.joining;
  * The parent class for all config classes.
  *
  * @author nedis
- * @since 0.1
  * @see ConfigSource
+ * @since 0.1
  */
 public abstract class Config {
 
     /**
      * Default name for config file or class path resource without extension.
      *
+     * <p>
      * This name used by {@link ConfigSource#RXMICRO_CLASS_PATH_RESOURCE} or
      *                   {@link ConfigSource#RXMICRO_FILE_AT_THE_HOME_DIR} or
      *                   {@link ConfigSource#RXMICRO_FILE_AT_THE_RXMICRO_CONFIG_DIR} or
-     *                   {@link ConfigSource#RXMICRO_FILE_AT_THE_CURRENT_DIR}
+     *                   {@link ConfigSource#RXMICRO_FILE_AT_THE_CURRENT_DIR}.
      */
     public static final String RX_MICRO_CONFIG_FILE_NAME = "rxmicro";
 
     /**
      * Default name for config directory.
      *
+     * <p>
      * This name used by {@link ConfigSource#SEPARATE_FILE_AT_THE_RXMICRO_CONFIG_DIR} or
-     *                   {@link ConfigSource#RXMICRO_FILE_AT_THE_RXMICRO_CONFIG_DIR}
+     *                   {@link ConfigSource#RXMICRO_FILE_AT_THE_RXMICRO_CONFIG_DIR}.
      */
     public static final String RX_MICRO_CONFIG_DIRECTORY_NAME = ".rxmicro";
 
@@ -73,7 +75,7 @@ public abstract class Config {
     }
 
     /**
-     * Returns the default namespace for config instance
+     * Returns the default namespace for config instance.
      *
      * @return the default namespace for config instance
      */

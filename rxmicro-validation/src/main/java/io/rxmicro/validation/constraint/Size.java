@@ -33,11 +33,11 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * The annotated element must have the expected list size.
  *
  * @author nedis
- * @since 0.1
  * @see MinSize
  * @see MaxSize
  * @see UniqueItems
  * @see SizeConstraintValidator
+ * @since 0.1
  */
 @Documented
 @Retention(SOURCE)
@@ -49,15 +49,17 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 public @interface Size {
 
     /**
-     * Allows disabling the validation rule if this rule is inherited from super class. <p>
-     * By default, disable is off
+     * Allows disabling the validation rule if this rule is inherited from super class.
      *
-     * @return  {@code true} if the validation must be disabled,
+     * <p>
+     * By default, disable is off.
+     *
+     * @return  {@code true} if the validation must be disabled.
      */
     boolean off() default false;
 
     /**
-     * Returns the expected list size
+     * Returns the expected list size.
      *
      * @return the expected list size
      */

@@ -21,16 +21,21 @@ import io.rxmicro.rest.model.HttpModelType;
 import io.rxmicro.validation.ConstraintValidator;
 
 /**
- * Validator for the {@link io.rxmicro.validation.constraint.Length} constraint
+ * Validator for the {@link io.rxmicro.validation.constraint.Length} constraint.
  *
  * @author nedis
- * @since 0.1
  * @see io.rxmicro.validation.constraint.Length
+ * @since 0.1
  */
 public class LengthConstraintValidator implements ConstraintValidator<String> {
 
     private final int expectedLength;
 
+    /**
+     * Creates the default instance of {@link LengthConstraintValidator} with the specified string length.
+     *
+     * @param expectedLength the specified string length
+     */
     public LengthConstraintValidator(final int expectedLength) {
         this.expectedLength = expectedLength;
     }

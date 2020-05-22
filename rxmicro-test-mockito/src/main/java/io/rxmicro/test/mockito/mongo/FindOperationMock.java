@@ -24,12 +24,12 @@ import static io.rxmicro.test.mockito.mongo.internal.util.Validators.validateBso
 
 /**
  * The Mongo {@link io.rxmicro.data.mongo.operation.Find} operation mock using
- * <a href="https://site.mockito.org/">Mockito</a> testing framework
+ * <a href="https://site.mockito.org/">Mockito</a> testing framework.
  *
  * @author nedis
- * @since 0.1
  * @see io.rxmicro.data.mongo.operation.Find
  * @see io.rxmicro.data.mongo.MongoRepository
+ * @since 0.1
  */
 public final class FindOperationMock extends AbstractFindOperationMock {
 
@@ -44,7 +44,7 @@ public final class FindOperationMock extends AbstractFindOperationMock {
     }
 
     /**
-     * The builder for building a Mongo {@link io.rxmicro.data.mongo.operation.Find} operation mock
+     * The builder for building a Mongo {@link io.rxmicro.data.mongo.operation.Find} operation mock.
      *
      * @author nedis
      * @since 0.1
@@ -68,7 +68,7 @@ public final class FindOperationMock extends AbstractFindOperationMock {
 
         /**
          * Configures the Mongo {@link io.rxmicro.data.mongo.operation.Find} operation mock that it will match to
-         * a Mongo {@link io.rxmicro.data.mongo.operation.Find} operation with any query
+         * a Mongo {@link io.rxmicro.data.mongo.operation.Find} operation with any query.
          *
          * @return the reference to this {@link Builder} instance
          */
@@ -81,7 +81,7 @@ public final class FindOperationMock extends AbstractFindOperationMock {
 
         /**
          * Sets the query for the Mongo {@link io.rxmicro.data.mongo.operation.Find} operation mock that it will match to
-         * a Mongo {@link io.rxmicro.data.mongo.operation.Find} operation with the specified query
+         * a Mongo {@link io.rxmicro.data.mongo.operation.Find} operation with the specified query.
          *
          * @param query the specified query
          * @return the reference to this {@link Builder} instance
@@ -96,7 +96,7 @@ public final class FindOperationMock extends AbstractFindOperationMock {
 
         /**
          * Sets the query for the Mongo {@link io.rxmicro.data.mongo.operation.Find} operation mock that it will match to
-         * a Mongo {@link io.rxmicro.data.mongo.operation.Find} operation with the specified query
+         * a Mongo {@link io.rxmicro.data.mongo.operation.Find} operation with the specified query.
          *
          * @param query the specified query
          * @return the reference to this {@link Builder} instance
@@ -113,7 +113,7 @@ public final class FindOperationMock extends AbstractFindOperationMock {
 
         /**
          * Sets the projection for the Mongo {@link io.rxmicro.data.mongo.operation.Find} operation mock that it will match to
-         * a Mongo {@link io.rxmicro.data.mongo.operation.Find} operation with the specified projection
+         * a Mongo {@link io.rxmicro.data.mongo.operation.Find} operation with the specified projection.
          *
          * @param projection the specified projection
          * @return the reference to this {@link Builder} instance
@@ -127,7 +127,7 @@ public final class FindOperationMock extends AbstractFindOperationMock {
 
         /**
          * Sets the projection for the Mongo {@link io.rxmicro.data.mongo.operation.Find} operation mock that it will match to
-         * a Mongo {@link io.rxmicro.data.mongo.operation.Find} operation with the specified projection
+         * a Mongo {@link io.rxmicro.data.mongo.operation.Find} operation with the specified projection.
          *
          * @param projection the specified projection
          * @return the reference to this {@link Builder} instance
@@ -143,7 +143,7 @@ public final class FindOperationMock extends AbstractFindOperationMock {
 
         /**
          * Sets the hint for the Mongo {@link io.rxmicro.data.mongo.operation.Find} operation mock that it will match to
-         * a Mongo {@link io.rxmicro.data.mongo.operation.Find} operation with the specified hint value
+         * a Mongo {@link io.rxmicro.data.mongo.operation.Find} operation with the specified hint value.
          *
          * @param hint the specified hint value
          * @return the reference to this {@link Builder} instance
@@ -157,7 +157,7 @@ public final class FindOperationMock extends AbstractFindOperationMock {
 
         /**
          * Sets the hint for the Mongo {@link io.rxmicro.data.mongo.operation.Find} operation mock that it will match to
-         * a Mongo {@link io.rxmicro.data.mongo.operation.Find} operation with the specified hint value
+         * a Mongo {@link io.rxmicro.data.mongo.operation.Find} operation with the specified hint value.
          *
          * @param hint the specified hint value
          * @return the reference to this {@link Builder} instance
@@ -173,7 +173,7 @@ public final class FindOperationMock extends AbstractFindOperationMock {
 
         /**
          * Sets the sort expression for the Mongo {@link io.rxmicro.data.mongo.operation.Find} operation mock that it will match to
-         * a Mongo {@link io.rxmicro.data.mongo.operation.Find} operation with the specified sort expression
+         * a Mongo {@link io.rxmicro.data.mongo.operation.Find} operation with the specified sort expression.
          *
          * @param sort the specified sort expression
          * @return the reference to this {@link Builder} instance
@@ -187,7 +187,7 @@ public final class FindOperationMock extends AbstractFindOperationMock {
 
         /**
          * Sets the sort expression for the Mongo {@link io.rxmicro.data.mongo.operation.Find} operation mock that it will match to
-         * a Mongo {@link io.rxmicro.data.mongo.operation.Find} operation with the specified sort expression
+         * a Mongo {@link io.rxmicro.data.mongo.operation.Find} operation with the specified sort expression.
          *
          * @param sort the specified sort expression
          * @return the reference to this {@link Builder} instance
@@ -203,7 +203,7 @@ public final class FindOperationMock extends AbstractFindOperationMock {
 
         /**
          * Sets the limit for the Mongo {@link io.rxmicro.data.mongo.operation.Find} operation mock that it will match to
-         * a Mongo {@link io.rxmicro.data.mongo.operation.Find} operation with the specified limit value
+         * a Mongo {@link io.rxmicro.data.mongo.operation.Find} operation with the specified limit value.
          *
          * @param limit the specified limit value
          * @return the reference to this {@link Builder} instance
@@ -220,7 +220,7 @@ public final class FindOperationMock extends AbstractFindOperationMock {
 
         /**
          * Sets the skip for the Mongo {@link io.rxmicro.data.mongo.operation.Find} operation mock that it will match to
-         * a Mongo {@link io.rxmicro.data.mongo.operation.Find} operation with the specified skip value
+         * a Mongo {@link io.rxmicro.data.mongo.operation.Find} operation with the specified skip value.
          *
          * @param skip the specified limit value
          * @return the reference to this {@link Builder} instance
@@ -237,7 +237,7 @@ public final class FindOperationMock extends AbstractFindOperationMock {
 
         /**
          * Builds the immutable Mongo {@link io.rxmicro.data.mongo.operation.Find} operation mock
-         * instance using the configured {@link Builder} settings
+         * instance using the configured {@link Builder} settings.
          *
          * @return the immutable Mongo {@link io.rxmicro.data.mongo.operation.Find} operation mock instance
          */

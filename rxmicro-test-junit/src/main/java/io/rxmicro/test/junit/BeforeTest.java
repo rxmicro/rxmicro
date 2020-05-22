@@ -25,14 +25,15 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
  * Used to specify the method from the current test class to be invoked by the RxMicro framework before running the test method.
+ *
  * <p>
  * (<i>The RxMicro framework supports the {@code @}{@link BeforeTest} annotation only for
  * REST-based microservice tests and component unit tests.</i>)
  *
  * @author nedis
- * @since 0.1
  * @see BeforeIterationMethodSource
  * @see org.junit.jupiter.api.BeforeEach
+ * @since 0.1
  */
 @Documented
 @Retention(RUNTIME)

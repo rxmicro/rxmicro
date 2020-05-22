@@ -29,9 +29,10 @@ import static io.rxmicro.http.local.HttpValidators.validateQueryParameterNameCha
 import static java.net.URLDecoder.decode;
 
 /**
- * Used by generated code that was created by {@code RxMicro Annotation Processor}
+ * Used by generated code that created by the {@code RxMicro Annotation Processor}.
  *
  * @author nedis
+ * @hidden
  * @since 0.1
  */
 public abstract class ModelReader<T> extends FromStringValueConverter {

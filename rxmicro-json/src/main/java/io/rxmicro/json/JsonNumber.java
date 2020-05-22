@@ -23,51 +23,52 @@ import static io.rxmicro.json.internal.validator.Validators.validateNumber;
 
 /**
  * Java class which store json number value.
+ *
  * <p>
- * Json number is stored as Java string and parsed by demand
+ * Json number is stored as Java string and parsed by demand.
  *
  * @author nedis
- * @since 0.1
  * @see JsonTypes
  * @see JsonHelper
  * @see JsonException
+ * @since 0.1
  */
 public final class JsonNumber extends Number {
 
     /**
-     * A constant holding a Not-a-Number (NaN) value
+     * A constant holding a Not-a-Number (NaN) value.
      */
     public static final String NAN = "NaN";
 
     /**
-     * A constant holding a Not-a-Number (NaN) positive value
+     * A constant holding a Not-a-Number (NaN) positive value.
      */
     public static final String POSITIVE_NAN = "+NaN";
 
     /**
-     * A constant holding a Not-a-Number (NaN) negative value
+     * A constant holding a Not-a-Number (NaN) negative value.
      */
     public static final String NEGATIVE_NAN = "-NaN";
 
     /**
-     * A constant holding the infinity
+     * A constant holding the infinity.
      */
     public static final String INFINITY = "Infinity";
 
     /**
-     * A constant holding the positive infinity
+     * A constant holding the positive infinity.
      */
     public static final String POSITIVE_INFINITY = "+Infinity";
 
     /**
-     * A constant holding the negative infinity
+     * A constant holding the negative infinity.
      */
     public static final String NEGATIVE_INFINITY = "-Infinity";
 
     private final String number;
 
     /**
-     * Creates a new instance of {@link JsonNumber} type from the string representation of a number
+     * Creates a new instance of {@link JsonNumber} type from the string representation of a number.
      *
      * @param number the string representation of a number
      * @throws NumberFormatException if the specified string is not the string representation of a number
@@ -128,7 +129,7 @@ public final class JsonNumber extends Number {
     }
 
     /**
-     * Returns {@code true} if current number is {@code NaN}
+     * Returns {@code true} if current number is {@code NaN}.
      *
      * @return {@code true} if current number is {@code NaN}
      */
@@ -137,7 +138,7 @@ public final class JsonNumber extends Number {
     }
 
     /**
-     * Returns {@code true} if current number is {@code infinite}
+     * Returns {@code true} if current number is {@code infinite}.
      *
      * @return {@code true} if current number is {@code infinite}
      */
@@ -146,7 +147,7 @@ public final class JsonNumber extends Number {
     }
 
     /**
-     * Returns {@code true} if current number is {@code positive infinite}
+     * Returns {@code true} if current number is {@code positive infinite}.
      *
      * @return {@code true} if current number is {@code positive infinite}
      */
@@ -155,7 +156,7 @@ public final class JsonNumber extends Number {
     }
 
     /**
-     * Returns {@code true} if current number is {@code negative infinite}
+     * Returns {@code true} if current number is {@code negative infinite}.
      *
      * @return {@code true} if current number is {@code negative infinite}
      */

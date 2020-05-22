@@ -17,7 +17,7 @@
 package io.rxmicro.common;
 
 /**
- * The common constants for the RxMicro framework
+ * The common constants for the RxMicro framework.
  *
  * @author nedis
  * @since 0.1
@@ -26,17 +26,17 @@ package io.rxmicro.common;
 public final class Constants {
 
     /**
-     * The RxMicro framework name: {@value #RX_MICRO_FRAMEWORK_NAME}
+     * The RxMicro framework name: {@value #RX_MICRO_FRAMEWORK_NAME}.
      */
     public static final String RX_MICRO_FRAMEWORK_NAME = "RxMicro";
 
     /**
-     * Nanos in 1 millis
+     * Nanos in 1 millis.
      */
     public static final int NANOS_IN_1_MILLIS = 1_000_000;
 
     /**
-     * Nanos in 1 second
+     * Nanos in 1 second.
      */
     public static final int NANOS_IN_1_SECOND = 1_000_000_000;
 
@@ -45,13 +45,16 @@ public final class Constants {
 
     /**
      * This class describes the constants for virtual descriptor.
+     *
      * <p>
      * The RxMicro framework supports the {@code unnamed module} mode for interaction
      * with external frameworks and libs that don't support {@code JPMS}.
+     *
      * <p>
      * But some RxMicro modules require the common configuration with RxMicro Annotations,
      * which annotate the {@code module-info.java} module descriptor.
      * But for the {@code unnamed module}, the {@code module-info.java} module descriptor does not exist!
+     *
      * <p>
      * In such cases a virtual descriptor must be used.
      *
@@ -61,17 +64,17 @@ public final class Constants {
     public static final class VirtualModuleInfoConstants {
 
         /**
-         * The virtual descriptor annotation name: {@value #RX_MICRO_VIRTUAL_MODULE_INFO_ANNOTATION_NAME}
+         * The virtual descriptor annotation name: {@value #RX_MICRO_VIRTUAL_MODULE_INFO_ANNOTATION_NAME}.
          */
         public static final String RX_MICRO_VIRTUAL_MODULE_INFO_ANNOTATION_NAME = "ModuleInfo";
 
         /**
-         * The static final field that describes the module name for the virtual descriptor: {@value #RX_MICRO_FRAMEWORK_NAME}
+         * The static final field that describes the module name for the virtual descriptor: {@value #RX_MICRO_FRAMEWORK_NAME}.
          */
         public static final String RX_MICRO_VIRTUAL_MODULE_INFO_NAME = "NAME";
 
         /**
-         * The default module name for the virtual descriptor: {@value #RX_MICRO_VIRTUAL_MODULE_INFO_DEFAULT_NAME}
+         * The default module name for the virtual descriptor: {@value #RX_MICRO_VIRTUAL_MODULE_INFO_DEFAULT_NAME}.
          */
         public static final String RX_MICRO_VIRTUAL_MODULE_INFO_DEFAULT_NAME = "virtual.module";
 

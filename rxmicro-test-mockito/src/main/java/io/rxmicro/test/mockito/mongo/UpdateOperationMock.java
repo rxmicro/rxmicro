@@ -25,12 +25,12 @@ import static io.rxmicro.test.mockito.mongo.internal.util.Validators.validateBso
 
 /**
  * The Mongo {@link io.rxmicro.data.mongo.operation.Update} operation mock using
- * <a href="https://site.mockito.org/">Mockito</a> testing framework
+ * <a href="https://site.mockito.org/">Mockito</a> testing framework.
  *
  * @author nedis
- * @since 0.1
  * @see io.rxmicro.data.mongo.operation.Update
  * @see io.rxmicro.data.mongo.MongoRepository
+ * @since 0.1
  */
 public final class UpdateOperationMock extends AbstractUpdateOperationMock {
 
@@ -43,7 +43,7 @@ public final class UpdateOperationMock extends AbstractUpdateOperationMock {
     }
 
     /**
-     * The builder for building a Mongo {@link io.rxmicro.data.mongo.operation.Update} operation mock
+     * The builder for building a Mongo {@link io.rxmicro.data.mongo.operation.Update} operation mock.
      *
      * @author nedis
      * @since 0.1
@@ -63,7 +63,7 @@ public final class UpdateOperationMock extends AbstractUpdateOperationMock {
 
         /**
          * Configures the Mongo {@link io.rxmicro.data.mongo.operation.Update} operation mock that it will match to
-         * a Mongo {@link io.rxmicro.data.mongo.operation.Update} operation with any update expression
+         * a Mongo {@link io.rxmicro.data.mongo.operation.Update} operation with any update expression.
          *
          * @return the reference to this {@link Builder} instance
          */
@@ -76,7 +76,7 @@ public final class UpdateOperationMock extends AbstractUpdateOperationMock {
 
         /**
          * Sets the update document for the Mongo {@link io.rxmicro.data.mongo.operation.Find} operation mock that it will match to
-         * a Mongo {@link io.rxmicro.data.mongo.operation.Find} operation with the specified update document
+         * a Mongo {@link io.rxmicro.data.mongo.operation.Find} operation with the specified update document.
          *
          * @param update the specified update document
          * @return the reference to this {@link Builder} instance
@@ -91,7 +91,7 @@ public final class UpdateOperationMock extends AbstractUpdateOperationMock {
 
         /**
          * Sets the update expression for the Mongo {@link io.rxmicro.data.mongo.operation.Find} operation mock that it will match to
-         * a Mongo {@link io.rxmicro.data.mongo.operation.Find} operation with the specified update expression
+         * a Mongo {@link io.rxmicro.data.mongo.operation.Find} operation with the specified update expression.
          *
          * @param update the specified update document
          * @return the reference to this {@link Builder} instance
@@ -108,7 +108,7 @@ public final class UpdateOperationMock extends AbstractUpdateOperationMock {
 
         /**
          * Configures the Mongo {@link io.rxmicro.data.mongo.operation.Update} operation mock that it will match to
-         * a Mongo {@link io.rxmicro.data.mongo.operation.Update} operation with any filter
+         * a Mongo {@link io.rxmicro.data.mongo.operation.Update} operation with any filter.
          *
          * @return the reference to this {@link Builder} instance
          */
@@ -121,7 +121,7 @@ public final class UpdateOperationMock extends AbstractUpdateOperationMock {
 
         /**
          * Sets the query for the Mongo {@link io.rxmicro.data.mongo.operation.Update} operation mock that it will match to
-         * a Mongo {@link io.rxmicro.data.mongo.operation.Update} operation with the specified filter
+         * a Mongo {@link io.rxmicro.data.mongo.operation.Update} operation with the specified filter.
          *
          * @param filter the specified filter
          * @return the reference to this {@link Builder} instance
@@ -136,7 +136,7 @@ public final class UpdateOperationMock extends AbstractUpdateOperationMock {
 
         /**
          * Sets the query for the Mongo {@link io.rxmicro.data.mongo.operation.Update} operation mock that it will match to
-         * a Mongo {@link io.rxmicro.data.mongo.operation.Update} operation with the specified filter
+         * a Mongo {@link io.rxmicro.data.mongo.operation.Update} operation with the specified filter.
          *
          * @param filter the specified filter
          * @return the reference to this {@link Builder} instance
@@ -154,7 +154,7 @@ public final class UpdateOperationMock extends AbstractUpdateOperationMock {
         /**
          * Sets the {@code upsert} option for the Mongo {@link io.rxmicro.data.mongo.operation.Update} operation mock
          * that it will match to a Mongo {@link io.rxmicro.data.mongo.operation.Update} operation with
-         * the specified {@code upsert} option
+         * the specified {@code upsert} option.
          *
          * @param upsert the specified option
          * @return the reference to this {@link Builder} instance
@@ -167,7 +167,7 @@ public final class UpdateOperationMock extends AbstractUpdateOperationMock {
 
         /**
          * Builds the immutable Mongo {@link io.rxmicro.data.mongo.operation.Update} operation mock
-         * instance using the configured {@link Builder} settings
+         * instance using the configured {@link Builder} settings.
          *
          * @return the immutable Mongo {@link io.rxmicro.data.mongo.operation.Update} operation mock instance
          * @throws InvalidStateException if the current {@link Builder} contains invalid settings

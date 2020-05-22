@@ -17,7 +17,7 @@
 package io.rxmicro.rest.model;
 
 /**
- * Supported exchange formats
+ * Supported exchange formats.
  *
  * @author nedis
  * @since 0.1
@@ -25,7 +25,7 @@ package io.rxmicro.rest.model;
 public enum ExchangeFormat {
 
     /**
-     * JSON exchange format
+     * JSON exchange format.
      */
     JSON_EXCHANGE_FORMAT
 }

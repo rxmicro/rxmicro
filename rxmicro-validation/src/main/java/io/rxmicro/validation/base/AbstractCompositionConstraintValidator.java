@@ -22,9 +22,10 @@ import io.rxmicro.validation.ConstraintValidator;
 import java.util.List;
 
 /**
- * Base composition constraint validator
+ * Base composition constraint validator.
  *
  * @author nedis
+ * @param <T> the type to validate
  * @since 0.1
  */
 public abstract class AbstractCompositionConstraintValidator<T> implements ConstraintValidator<T> {
@@ -32,7 +33,7 @@ public abstract class AbstractCompositionConstraintValidator<T> implements Const
     private final List<ConstraintValidator<T>> validators;
 
     /**
-     * Creates the base composition constraint validator with the specified validators
+     * Creates the base composition constraint validator with the specified validators.
      *
      * @param validators the specified validators
      */

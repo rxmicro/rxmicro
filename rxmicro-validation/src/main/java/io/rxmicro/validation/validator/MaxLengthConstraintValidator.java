@@ -21,15 +21,21 @@ import io.rxmicro.validation.ConstraintValidator;
 import io.rxmicro.validation.base.AbstractMaxConstraintValidator;
 
 /**
- * Validator for the {@link io.rxmicro.validation.constraint.MaxLength} constraint
+ * Validator for the {@link io.rxmicro.validation.constraint.MaxLength} constraint.
  *
  * @author nedis
- * @since 0.1
  * @see io.rxmicro.validation.constraint.MaxLength
+ * @since 0.1
  */
 public class MaxLengthConstraintValidator extends AbstractMaxConstraintValidator<Integer>
         implements ConstraintValidator<String> {
 
+    /**
+     * Creates the default instance of {@link MaxLengthConstraintValidator} with the specified parameters.
+     *
+     * @param maxValue the supported max value.
+     * @param inclusive whether the specified minimum is inclusive or exclusive.
+     */
     public MaxLengthConstraintValidator(final int maxValue,
                                         final boolean inclusive) {
         super(maxValue, inclusive);

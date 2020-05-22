@@ -22,8 +22,8 @@ import io.rxmicro.rest.server.netty.internal.component.NettyServerFactory;
 
 /**
  * The module that defines HTTP server implementation based on <a href="https://netty.io/">Netty</a>.
- * <p>
  *
+ * <p>
  * This module follows the next package structure rules:
  * <ul>
  *     <li>
@@ -46,7 +46,6 @@ import io.rxmicro.rest.server.netty.internal.component.NettyServerFactory;
  *         </ul>
  *     </li>
  * </ul>
- *
  *
  * @author nedis
  * @since 0.1

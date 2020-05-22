@@ -40,14 +40,15 @@ import static java.util.stream.Collectors.toMap;
 
 /**
  * Allows working with all supported configs.
+ *
  * <p>
  * To get an instance of the requested config it is necessary to use
- * {@link Configs#getConfig(Class)} or {@link Configs#getConfig(String, Class)} methods
+ * {@link Configs#getConfig(Class)} or {@link Configs#getConfig(String, Class)} methods.
  *
  * @author nedis
- * @since 0.1
  * @see Config
  * @see ConfigSource
+ * @since 0.1
  */
 public final class Configs {
 
@@ -68,12 +69,13 @@ public final class Configs {
     private final Map<String, String> commandLineArgs;
 
     /**
-     * Returns the requested config instance that corresponds to the provided {@code namespace} and {@code configClass}
+     * Returns the requested config instance that corresponds to the provided {@code namespace} and {@code configClass}.
      *
      * @param namespace the requested namespace
      * @param configClass the requested config class
      * @param <T> config type
      * @return the config instance
+     * @throws ConfigException if Configs are not built
      */
     @SuppressWarnings("unchecked")
     public static <T extends Config> T getConfig(final String namespace,
@@ -88,6 +90,7 @@ public final class Configs {
 
     /**
      * Returns the requested config instance that corresponds to the provided {@code configClass} and the default namespace.
+     *
      * <p>
      * The RxMicro framework uses the {@link Config#getDefaultNameSpace(Class)} method to define the default namespace.
      *
@@ -100,7 +103,7 @@ public final class Configs {
     }
 
     /**
-     * Returns the {@link Module} instance for the current class
+     * Returns the {@link Module} instance for the current class.
      *
      * @return the {@link Module} instance for the current class
      */
@@ -127,7 +130,7 @@ public final class Configs {
     }
 
     /**
-     * Allows configuring the {@link Configs} manager before usage
+     * Allows configuring the {@link Configs} manager before usage.
      *
      * @author nedis
      * @since 0.1
@@ -141,6 +144,9 @@ public final class Configs {
 
         private final Set<ConfigSource> configSources = new LinkedHashSet<>(DEFAULT_CONFIG_LOAD_SOURCE_ORDER);
 
+        /**
+         * Creates default {@link Builder} instance.
+         */
         public Builder() {
             storage = new HashMap<>();
         }
@@ -165,6 +171,7 @@ public final class Configs {
 
         /**
          * Allows adding configurations using java classes with default namespace.
+         *
          * <p>
          * The RxMicro framework uses {@link Config#getDefaultNameSpace(Class)} method to define a default namespace.
          *
@@ -190,7 +197,7 @@ public final class Configs {
         }
 
         /**
-         * Allows changing the order of the configuration reading
+         * Allows changing the order of the configuration reading.
          *
          * @param sources the custom order of the configuration reading
          * @return the reference to this {@link Builder} instance
@@ -203,6 +210,7 @@ public final class Configs {
 
         /**
          * Disables all configuration sources.
+         *
          * <p>
          * <i>This method can be useful for tests.</i>
          *
@@ -215,6 +223,7 @@ public final class Configs {
 
         /**
          * Enables all supported config sources according to natural order.
+         *
          * <p>
          * Natural order is defined by {@link ConfigSource} enum.
          *
@@ -227,9 +236,9 @@ public final class Configs {
 
         /**
          * Enables config sources according to recommended order for docker or kubernetes environments.
+         *
          * <p>
          * Recommended order for docker or kubernetes environments:
-         * <p>
          * <ol>
          *     <li>Hardcoded config using annotations.</li>
          *     <li>Config from env variables.</li>
@@ -249,8 +258,10 @@ public final class Configs {
 
         /**
          * Enables the config reading from command line arguments.
+         *
          * <p>
          * This type of configuration has the highest priority and overrides all other types.
+         *
          * <p>
          * (Except of configuration using Java classes.)
          *
@@ -266,10 +277,13 @@ public final class Configs {
 
         /**
          * Creates a new immutable instance of the {@link Configs} manager.
+         *
          * <p>
          * Each subsequent invocation of this method overrides all configuration manager settings.
+         *
          * <p>
-         * <b>(In any microservice project there is only one configuration manager object!)</b>
+         * <strong>(In any microservice project there is only one configuration manager object!)</strong>
+         *
          * <p>
          * It means that if the developer creates several {@link Builder} instances,
          * it will be the last invocation of the build method that matters, the others will be ignored.

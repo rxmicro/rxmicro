@@ -17,7 +17,7 @@
 package io.rxmicro.http;
 
 /**
- * Represents the HTTP protocol version
+ * Represents the HTTP protocol version.
  *
  * @author nedis
  * @since 0.1
@@ -25,17 +25,17 @@ package io.rxmicro.http;
 public enum HttpVersion {
 
     /**
-     * HTTP/1.0
+     * HTTP/1.0.
      */
     HTTP_1_0("HTTP/1.0"),
 
     /**
-     * HTTP/1.1
+     * HTTP/1.1.
      */
     HTTP_1_1("HTTP/1.1"),
 
     /**
-     * HTTP/2
+     * HTTP/2.
      */
     HTTP_2("HTTP/2");
 
@@ -46,7 +46,7 @@ public enum HttpVersion {
     }
 
     /**
-     * Returns the HTTP protocol version name
+     * Returns the HTTP protocol version name.
      *
      * @return the HTTP protocol version name
      */

@@ -29,9 +29,10 @@ public abstract class DataException extends RxMicroException {
 
     /**
      * Creates a data error with error message.
+     *
      * <p>
      * <i>(FYI: This constructor uses {@link Formats#format(String, Object...)} method to format error message.)</i>
-     * <p>
+     *
      * @param message the error message template
      * @param args the error message template arguments
      * @throws NullPointerException if the error message template is {@code null}
@@ -44,6 +45,7 @@ public abstract class DataException extends RxMicroException {
 
     /**
      * Creates a data error with error message.
+     *
      * <p>
      * <i>(FYI: This constructor uses {@link Formats#format(String, Object...)} method to format error message.)</i>
      *

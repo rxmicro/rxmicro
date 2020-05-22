@@ -19,16 +19,17 @@ package io.rxmicro.common;
 import io.rxmicro.common.util.Formats;
 
 /**
- * Wrapper for checked exceptions
+ * Wrapper for checked exceptions.
  *
  * @author nedis
- * @since 0.1
  * @see io.rxmicro.common.util.Exceptions
+ * @since 0.1
  */
 public final class CheckedWrapperException extends RxMicroException {
 
     /**
      * Creates a new {@link CheckedWrapperException} instance with error message and cause.
+     *
      * <p>
      * <i>(FYI: This constructor uses {@link Formats#format(String, Object...)} method to format error message.)</i>
      *
@@ -55,7 +56,7 @@ public final class CheckedWrapperException extends RxMicroException {
     }
 
     /**
-     * Returns {@code true} if current instance contains a cause one of the specified throwable class
+     * Returns {@code true} if current instance contains a cause one of the specified throwable class.
      *
      * @param throwableClass the specified throwable class
      * @return {@code true} if current instance contains a cause one of the specified throwable class

@@ -20,44 +20,44 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Utility class for all supported JSON types
+ * Utility class for all supported JSON types.
  *
  * @author nedis
- * @since 0.1
  * @see JsonHelper
  * @see JsonNumber
  * @see JsonException
+ * @since 0.1
  */
 @SuppressWarnings({"unchecked", "JavaDoc"})
 public final class JsonTypes {
 
     /**
-     * The {@value #STRING} JSON type
+     * The {@value #STRING} JSON type.
      */
     public static final String STRING = "string";
 
     /**
-     * The {@value #NUMBER} JSON type
+     * The {@value #NUMBER} JSON type.
      */
     public static final String NUMBER = "number";
 
     /**
-     * The {@value #BOOLEAN} JSON type
+     * The {@value #BOOLEAN} JSON type.
      */
     public static final String BOOLEAN = "boolean";
 
     /**
-     * The {@value #OBJECT} JSON type
+     * The {@value #OBJECT} JSON type.
      */
     public static final String OBJECT = "object";
 
     /**
-     * The {@value #ARRAY} JSON type
+     * The {@value #ARRAY} JSON type.
      */
     public static final String ARRAY = "array";
 
     /**
-     * Returns {@code true} if the given object is a JSON {@code object}
+     * Returns {@code true} if the given object is a JSON {@code object}.
      *
      * @param object the tested object
      * @return {@code true} if the given object is a JSON {@code object}
@@ -67,7 +67,7 @@ public final class JsonTypes {
     }
 
     /**
-     * Casts the specified object to the {@link Map}{@code <String,Object>}
+     * Casts the specified object to the {@link Map}{@code <String,Object>}.
      *
      * @param object the specified object
      * @return the {@link Map}{@code <String,Object>} casted instance
@@ -82,7 +82,7 @@ public final class JsonTypes {
     }
 
     /**
-     * Returns {@code true} if the given object is a JSON {@code array}
+     * Returns {@code true} if the given object is a JSON {@code array}.
      *
      * @param object the tested object
      * @return {@code true} if the given object is a JSON {@code array}
@@ -92,7 +92,7 @@ public final class JsonTypes {
     }
 
     /**
-     * Casts the specified object to the {@link List}{@code <Object>}
+     * Casts the specified object to the {@link List}{@code <Object>}.
      *
      * @param object the specified object
      * @return the {@link List}{@code <Object>} casted instance
@@ -107,7 +107,7 @@ public final class JsonTypes {
     }
 
     /**
-     * Returns {@code true} if the given object is a JSON {@code string}
+     * Returns {@code true} if the given object is a JSON {@code string}.
      *
      * @param object the tested object
      * @return {@code true} if the given object is a JSON {@code string}
@@ -117,7 +117,7 @@ public final class JsonTypes {
     }
 
     /**
-     * Casts the specified object to the {@link String}
+     * Casts the specified object to the {@link String}.
      *
      * @param object the specified object
      * @return the {@link String} casted instance
@@ -132,7 +132,7 @@ public final class JsonTypes {
     }
 
     /**
-     * Returns {@code true} if the given object is a JSON {@code number}
+     * Returns {@code true} if the given object is a JSON {@code number}.
      *
      * @param object the tested object
      * @return {@code true} if the given object is a JSON {@code number}
@@ -142,7 +142,7 @@ public final class JsonTypes {
     }
 
     /**
-     * Casts the specified object to the {@link JsonNumber}
+     * Casts the specified object to the {@link JsonNumber}.
      *
      * @param object the specified object
      * @return the {@link JsonNumber} casted instance
@@ -157,7 +157,7 @@ public final class JsonTypes {
     }
 
     /**
-     * Returns {@code true} if the given object is a JSON {@code boolean}
+     * Returns {@code true} if the given object is a JSON {@code boolean}.
      *
      * @param object the tested object
      * @return {@code true} if the given object is a JSON {@code boolean}
@@ -167,7 +167,7 @@ public final class JsonTypes {
     }
 
     /**
-     * Casts the specified object to the {@link Boolean}
+     * Casts the specified object to the {@link Boolean}.
      *
      * @param object the specified object
      * @return the {@link Boolean} casted instance

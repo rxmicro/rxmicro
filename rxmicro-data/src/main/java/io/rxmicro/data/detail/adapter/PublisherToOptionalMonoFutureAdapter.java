@@ -24,9 +24,10 @@ import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 /**
- * Used by generated code that was created by {@code RxMicro Annotation Processor}
+ * Used by generated code that created by the {@code RxMicro Annotation Processor}.
  *
  * @author nedis
+ * @hidden
  * @since 0.1
  */
 public class PublisherToOptionalMonoFutureAdapter<T> extends CompletableFuture<Optional<T>> {

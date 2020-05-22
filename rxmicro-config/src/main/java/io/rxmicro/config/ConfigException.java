@@ -20,7 +20,7 @@ import io.rxmicro.common.RxMicroException;
 import io.rxmicro.common.util.Formats;
 
 /**
- * Thrown to indicate that current configuration is not valid
+ * Thrown to indicate that current configuration is not valid.
  *
  * @author nedis
  * @since 0.1
@@ -28,10 +28,10 @@ import io.rxmicro.common.util.Formats;
 public final class ConfigException extends RxMicroException {
 
     /**
-     * Default constructor to build {@link ConfigException} instance
+     * Default constructor to build {@link ConfigException} instance.
+     *
      * <p>
      * <i>(FYI: This constructor uses {@link Formats#format(String, Object...)} method to format error message.)</i>
-     * <p>
      *
      * @param message the error message template
      * @param args the message template arguments

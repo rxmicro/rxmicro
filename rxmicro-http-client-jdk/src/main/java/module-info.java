@@ -19,11 +19,12 @@ import io.rxmicro.http.client.jdk.internal.JdkHttpClientFactory;
 
 /**
  * The module that is a low-level HTTP client implementation module based on
- * <a href="https://openjdk.java.net/groups/net/httpclient/intro.html">Java HTTP Client</a>;
+ * <a href="https://openjdk.java.net/groups/net/httpclient/intro.html">Java HTTP Client</a>.
+ *
  * <p>
  * This module can be used for REST based microservice testing.
- * <p>
  *
+ * <p>
  * This module follows the next package structure rules:
  * <ul>
  *     <li>
@@ -46,7 +47,6 @@ import io.rxmicro.http.client.jdk.internal.JdkHttpClientFactory;
  *         </ul>
  *     </li>
  * </ul>
- *
  *
  * @author nedis
  * @since 0.1

@@ -32,9 +32,9 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * The annotated element must a lowercase string.
  *
  * @author nedis
- * @since 0.1
  * @see Uppercase
  * @see LowercaseConstraintValidator
+ * @since 0.1
  */
 @Documented
 @Retention(SOURCE)
@@ -46,10 +46,12 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 public @interface Lowercase {
 
     /**
-     * Allows disabling the validation rule if this rule is inherited from super class. <p>
-     * By default, disable is off
+     * Allows disabling the validation rule if this rule is inherited from super class.
      *
-     * @return  {@code true} if the validation must be disabled,
+     * <p>
+     * By default, disable is off.
+     *
+     * @return {@code true} if the validation must be disabled.
      */
     boolean off() default false;
 }

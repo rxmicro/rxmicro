@@ -32,7 +32,7 @@ import static io.rxmicro.common.util.Strings.startsWith;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 /**
- * Utility class to get properties represented by a {@link Map} from external resource
+ * Utility class to get properties represented by a {@link Map} from external resource.
  *
  * @author nedis
  * @since 0.1
@@ -41,6 +41,7 @@ public final class PropertiesResources {
 
     /**
      * Returns the {@link Optional} of the {@link Map} that contains properties from the specified classpath resource.
+     *
      * <p>
      * This method returns {@link Map} instead of {@link java.util.Properties} because
      * all methods from {@link java.util.Properties} class are {@code synchronized} that is not effective during reactive approach usage
@@ -66,6 +67,7 @@ public final class PropertiesResources {
 
     /**
      * Returns the {@link Optional} of the {@link Map} that contains properties from the specified file resource.
+     *
      * <p>
      * This method returns {@link Map} instead of {@link java.util.Properties} because
      * all methods from {@link java.util.Properties} class are {@code synchronized} that is not effective during reactive approach usage

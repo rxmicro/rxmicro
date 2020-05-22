@@ -20,7 +20,7 @@ import io.rxmicro.annotation.processor.common.component.impl.AbstractProcessorCo
 import io.rxmicro.annotation.processor.common.model.DocumentationType;
 
 /**
- * Supported options by {@code RxMicro Annotation Processor}
+ * Supported options by {@code RxMicro Annotation Processor}.
  *
  * @author nedis
  * @since 0.1

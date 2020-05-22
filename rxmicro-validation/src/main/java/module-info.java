@@ -16,8 +16,8 @@
 
 /**
  * The basic module that contains all supported constraints and validators.
- * <p>
  *
+ * <p>
  * This module follows the next package structure rules:
  * <ul>
  *     <li>
@@ -40,7 +40,6 @@
  *         </ul>
  *     </li>
  * </ul>
- *
  *
  * @author nedis
  * @since 0.1

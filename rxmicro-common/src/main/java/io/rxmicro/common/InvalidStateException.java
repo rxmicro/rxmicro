@@ -38,6 +38,7 @@ public final class InvalidStateException extends RxMicroException {
 
     /**
      * Creates a new {@link InvalidStateException} instance with error message.
+     *
      * <p>
      * <i>(FYI: This constructor uses {@link Formats#format(String, Object...)} method to format error message.)</i>
      *

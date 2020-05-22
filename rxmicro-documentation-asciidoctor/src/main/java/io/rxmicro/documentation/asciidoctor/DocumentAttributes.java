@@ -26,11 +26,11 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
  * Allows specifying AsciiDoc attributes for the generated REST-based microservice documentation.
+ *
  * <p>
  * Read more: <a href="https://asciidoctor.org/docs/user-manual/#attributes">https://asciidoctor.org/docs/user-manual/#attributes</a>
  *
  * @author nedis
- * @since 0.1
  * @see io.rxmicro.documentation.Author
  * @see io.rxmicro.documentation.BaseEndpoint
  * @see io.rxmicro.documentation.Description
@@ -45,6 +45,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * @see io.rxmicro.documentation.ResourceGroupDefinition
  * @see io.rxmicro.documentation.SimpleErrorResponse
  * @see io.rxmicro.documentation.Title
+ * @since 0.1
  */
 @Documented
 @Retention(SOURCE)
@@ -53,6 +54,7 @@ public @interface DocumentAttributes {
 
     /**
      * Returns the document attributes, using key-value format.
+     *
      * <p>
      * Read more: <a href="https://asciidoctor.org/docs/user-manual/#attributes">https://asciidoctor.org/docs/user-manual/#attributes</a>
      *

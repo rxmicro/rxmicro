@@ -22,7 +22,7 @@ import io.rxmicro.validation.ConstraintValidator;
 import java.util.List;
 
 /**
- * Base validator class for list constraints
+ * Base validator class for list constraints.
  *
  * @author nedis
  * @since 0.1

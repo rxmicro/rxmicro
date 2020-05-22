@@ -29,18 +29,18 @@ import static java.lang.Character.toUpperCase;
 import static java.util.Collections.unmodifiableList;
 
 /**
- * Extended {@link String} utils
+ * Extended {@link String} utils.
  *
  * @author nedis
- * @since 0.1
  * @see String
+ * @since 0.1
  */
 public final class Strings {
 
     private static final int HEX_CODE_LENGTH = 4;
 
     /**
-     * Capitalizes the specified string
+     * Capitalizes the specified string.
      *
      * @param string the specified string
      * @return the capitalized string
@@ -60,7 +60,7 @@ public final class Strings {
     }
 
     /**
-     * Uncapitalizes the specified string
+     * Uncapitalizes the specified string.
      *
      * @param string the specified string
      * @return the uncapitalized string
@@ -81,6 +81,7 @@ public final class Strings {
 
     /**
      * Splits the specified variable name on words.
+     *
      * <p>
      * This method uses <a href="https://en.wikipedia.org/wiki/Camel_case"> Camel case notation</a> for defining the word delimiter.
      *
@@ -128,7 +129,7 @@ public final class Strings {
     }
 
     /**
-     * Splits the specified {@code source} by the provided {@code delimiter}
+     * Splits the specified {@code source} by the provided {@code delimiter}.
      *
      * @param source the specified string source
      * @param delimiter the specified delimiter string
@@ -150,7 +151,7 @@ public final class Strings {
     }
 
     /**
-     * Replaces the unread characters by its readable codes
+     * Replaces the unread characters by its readable codes.
      *
      * @param original the original string
      * @return the escaped string based on the original string
@@ -162,7 +163,7 @@ public final class Strings {
     }
 
     /**
-     * Replaces the unread characters by its readable codes
+     * Replaces the unread characters by its readable codes.
      *
      * @param resultBuilder the result string builder
      * @param original the original string
@@ -197,7 +198,7 @@ public final class Strings {
     }
 
     /**
-     * More effective version of {@link String#startsWith(String)} method if the {@code prefix} is one character
+     * More effective version of {@link String#startsWith(String)} method if the {@code prefix} is one character.
      *
      * @param string the tested string
      * @param prefix the prefix

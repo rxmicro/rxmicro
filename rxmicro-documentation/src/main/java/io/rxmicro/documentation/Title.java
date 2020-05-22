@@ -28,11 +28,11 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
  * Denotes the name of the generated REST-based microservice documentation.
+ *
  * <p>
  * (<i>Allows overriding the name of the generated REST-based microservice documentation specified in the name directive to pom.xml</i>)
  *
  * @author nedis
- * @since 0.1
  * @see Author
  * @see BaseEndpoint
  * @see Constants
@@ -45,6 +45,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * @see License
  * @see ResourceDefinition
  * @see ResourceGroupDefinition
+ * @since 0.1
  */
 @Documented
 @Retention(SOURCE)
@@ -52,7 +53,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 public @interface Title {
 
     /**
-     * Returns the title
+     * Returns the title.
      *
      * @return the title
      */

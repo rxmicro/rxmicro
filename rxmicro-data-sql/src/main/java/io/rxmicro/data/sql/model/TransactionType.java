@@ -21,15 +21,15 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
- * Supported reactive libraries for database transactions
+ * Supported reactive libraries for database transactions.
  *
  * @author nedis
- * @since 0.1
  * @see io.rxmicro.data.sql.model.reactor.Transaction
  * @see io.rxmicro.data.sql.model.rxjava3.Transaction
  * @see io.rxmicro.data.sql.model.completablefuture.Transaction
  * @see SavePoint
  * @see IsolationLevel
+ * @since 0.1
  */
 public enum TransactionType {
 
@@ -53,7 +53,7 @@ public enum TransactionType {
     COMPLETABLE_FUTURE(io.rxmicro.data.sql.model.completablefuture.Transaction.class);
 
     /**
-     * All supported reactive libraries
+     * All supported reactive libraries.
      */
     public static final Set<String> SUPPORTED_TRANSACTION_TYPES = Arrays.stream(TransactionType.values())
             .map(e -> e.transactionClass.getName())

@@ -17,7 +17,7 @@
 package io.rxmicro.test.mockito.r2dbc;
 
 /**
- * Represents the constants that can be used to emulate an error during invocation of an SQL query
+ * Represents the constants that can be used to emulate an error during invocation of an SQL query.
  *
  * @author nedis
  * @since 0.1
@@ -25,37 +25,37 @@ package io.rxmicro.test.mockito.r2dbc;
 public enum ErrorDuringSQLInvocationType {
 
     /**
-     * Emulates an error that occurs during the stage of creation the connection to db
+     * Emulates an error that occurs during the stage of creation the connection to db.
      */
     CREATE_CONNECTION_FAILED,
 
     /**
-     * Emulates an error that occurs during the stage of creation the statement for SQL query
+     * Emulates an error that occurs during the stage of creation the statement for SQL query.
      */
     CREATE_STATEMENT_FAILED,
 
     /**
-     * Emulates an error that occurs during the stage of binding the SQL query parameters
+     * Emulates an error that occurs during the stage of binding the SQL query parameters.
      */
     BIND_STATEMENT_ARGUMENTS_FAILED,
 
     /**
-     * Emulates an error that occurs during the stage of execution the statement for SQL query
+     * Emulates an error that occurs during the stage of execution the statement for SQL query.
      */
     EXECUTE_STATEMENT_FAILED,
 
     /**
-     * Emulates an error that occurs during the stage of returning the result set for SQL query
+     * Emulates an error that occurs during the stage of returning the result set for SQL query.
      */
     RETURN_RESULT_SET_FAILED,
 
     /**
-     * Emulates an error that occurs during the stage of updating the table rows for SQL query
+     * Emulates an error that occurs during the stage of updating the table rows for SQL query.
      */
     RETURN_ROWS_UPDATED_FAILED,
 
     /**
-     * Emulates an error that occurs during the stage of closing the connection to db
+     * Emulates an error that occurs during the stage of closing the connection to db.
      */
     CLOSE_CONNECTION_FAILED
 }

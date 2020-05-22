@@ -29,11 +29,11 @@ import java.util.stream.Stream;
 import static io.rxmicro.validation.base.ConstraintUtils.getLatinLettersAndDigits;
 
 /**
- * Validator for the {@link io.rxmicro.validation.constraint.Base64URLEncoded} constraint
+ * Validator for the {@link io.rxmicro.validation.constraint.Base64URLEncoded} constraint.
  *
  * @author nedis
- * @since 0.1
  * @see io.rxmicro.validation.constraint.Base64URLEncoded
+ * @since 0.1
  */
 public class Base64URLEncodedConstraintValidator implements ConstraintValidator<String> {
 
@@ -61,6 +61,11 @@ public class Base64URLEncodedConstraintValidator implements ConstraintValidator<
 
     private final Base64URLEncoded.Alphabet alphabet;
 
+    /**
+     * Creates the default instance of {@link Base64URLEncodedConstraintValidator} with the specified alphabet.
+     *
+     * @param alphabet the specified alphabet
+     */
     public Base64URLEncodedConstraintValidator(final Base64URLEncoded.Alphabet alphabet) {
         this.alphabet = alphabet;
     }

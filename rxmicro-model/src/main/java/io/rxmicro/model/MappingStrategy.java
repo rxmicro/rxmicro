@@ -33,37 +33,37 @@ import static java.util.stream.Collectors.joining;
 public enum MappingStrategy {
 
     /**
-     * Example: {@code hello_world = helloWorld}
+     * Example: {@code hello_world = helloWorld}.
      */
     LOWERCASE_WITH_UNDERSCORED(UNDERSCORED_DELIMITER),
 
     /**
-     * Example: {@code hello-world = helloWorld}
+     * Example: {@code hello-world = helloWorld}.
      */
     LOWERCASE_WITH_HYPHEN(HYPHEN_DELIMITER),
 
     /**
-     * Example: {@code HELLO_WORLD = helloWorld}
+     * Example: {@code HELLO_WORLD = helloWorld}.
      */
     UPPERCASE_WITH_UNDERSCORED(UNDERSCORED_DELIMITER),
 
     /**
-     * Example: {@code HELLO-WORLD = helloWorld}
+     * Example: {@code HELLO-WORLD = helloWorld}.
      */
     UPPERCASE_WITH_HYPHEN(HYPHEN_DELIMITER),
 
     /**
-     * Example: {@code Hello_World = helloWorld}
+     * Example: {@code Hello_World = helloWorld}.
      */
     CAPITALIZE_WITH_UNDERSCORED(UNDERSCORED_DELIMITER),
 
     /**
-     * Example: {@code Hello-World = helloWorld}
+     * Example: {@code Hello-World = helloWorld}.
      */
     CAPITALIZE_WITH_HYPHEN(HYPHEN_DELIMITER),
 
     /**
-     * Example: {@code HelloWorld = helloWorld}
+     * Example: {@code HelloWorld = helloWorld}.
      */
     CAPITALIZE_CAMEL_CASE("");
 

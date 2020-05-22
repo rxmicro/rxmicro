@@ -17,19 +17,25 @@
 package io.rxmicro.config;
 
 /**
- * Network utils
+ * Network utils.
  *
  * @author nedis
  * @since 0.1
  */
 public final class Networks {
 
+    /**
+     * Min possible port value.
+     */
     public static final int MIN_PORT = 0;
 
+    /**
+     * Max possible port value.
+     */
     public static final int MAX_PORT = 65_535;
 
     /**
-     * Validates that provided integer value is valid port number
+     * Validates that provided integer value is valid port number.
      *
      * @param port the port value to verify
      * @return the provided port value

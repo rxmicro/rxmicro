@@ -30,12 +30,13 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
  * Enables a <code>`${schema}://${host}:${port}/http-health-check`</code> endpoint.
+ *
  * <p>
  * This endpoint can be used that the RxMicro HTTP server is up.
  *
  * @author nedis
- * @since 0.1
  * @see HttpMethod
+ * @since 0.1
  */
 @Documented
 @Retention(SOURCE)
@@ -43,12 +44,12 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 public @interface EnableHttpHealthCheck {
 
     /**
-     * The predefined URL path
+     * The predefined URL path.
      */
     String HTTP_HEALTH_CHECK_ENDPOINT = PredefinedUrls.HTTP_HEALTH_CHECK_ENDPOINT;
 
     /**
-     * Returns the HTTP method that must be used to send a verification HTTP request
+     * Returns the HTTP method that must be used to send a verification HTTP request.
      *
      * @return the HTTP method that must be used to send a verification HTTP request
      */

@@ -26,15 +26,15 @@ import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
- * Denotes a repository method that must execute a {@code SELECT} SQL operation
+ * Denotes a repository method that must execute a {@code SELECT} SQL operation.
  *
  * @author nedis
- * @since 0.1
  * @see io.rxmicro.data.sql.SupportedVariables
  * @see CustomSelect
  * @see Delete
  * @see Insert
  * @see Update
+ * @since 0.1
  */
 @Documented
 @Retention(SOURCE)
@@ -52,6 +52,7 @@ public @interface Select {
     /**
      * entityClass is used to resolve
      * <code>${table}</code>, <code>${updated-columns}</code> or <code>${by-id-filter}</code> variable values.
+     *
      * <p>
      * To determine the value of the predefined variable used in the query specified for the repository method, the RxMicro framework
      * uses the following algorithm:
@@ -88,11 +89,12 @@ public @interface Select {
 
     /**
      * It is not recommend to set this parameter to {@code false}.
+     *
      * <p>
      * If this parameter set to {@code false}, the RxMicro framework will not validate fields order during {@code SELECT} query.
      *
      * @return {@code true} if sql query <code>'SELECT * FROM table1'</code> must be converted
-     * to <code>'SELECT ${fields} FROM table1'</code> automatically
+     *         to <code>'SELECT ${fields} FROM table1'</code> automatically
      */
     boolean expandAsterisk() default true;
 }

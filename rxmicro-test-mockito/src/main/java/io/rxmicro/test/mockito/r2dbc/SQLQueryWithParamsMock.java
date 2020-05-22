@@ -26,10 +26,9 @@ import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.Requires.require;
 
 /**
- * The SQL query with parameters mock using <a href="https://site.mockito.org/">Mockito</a> testing framework
+ * The SQL query with parameters mock using <a href="https://site.mockito.org/">Mockito</a> testing framework.
  *
  * @author nedis
- * @since 0.1
  * @see io.rxmicro.data.sql.operation.Select
  * @see io.rxmicro.data.sql.operation.Insert
  * @see io.rxmicro.data.sql.operation.Update
@@ -38,6 +37,7 @@ import static io.rxmicro.common.util.Requires.require;
  * @see io.rxmicro.data.sql.model.rxjava3.Transaction
  * @see io.rxmicro.data.sql.model.completablefuture.Transaction
  * @see io.rxmicro.data.sql.r2dbc.postgresql.PostgreSQLRepository
+ * @since 0.1
  */
 public final class SQLQueryWithParamsMock extends AbstractSQLParamsMock {
 
@@ -48,7 +48,7 @@ public final class SQLQueryWithParamsMock extends AbstractSQLParamsMock {
     }
 
     /**
-     * The builder for building an SQL query with parameters mock
+     * The builder for building an SQL query with parameters mock.
      *
      * @author nedis
      * @since 0.1
@@ -65,7 +65,7 @@ public final class SQLQueryWithParamsMock extends AbstractSQLParamsMock {
         private List<Object> bindParams = List.of();
 
         /**
-         * Marks the SQL query with parameters mock as transactional
+         * Marks the SQL query with parameters mock as transactional.
          *
          * @param transactional the transactional flag
          * @return the reference to this {@link Builder} instance
@@ -77,7 +77,7 @@ public final class SQLQueryWithParamsMock extends AbstractSQLParamsMock {
         }
 
         /**
-         * Configures the SQL query with parameters mock that it will match to any SQL query
+         * Configures the SQL query with parameters mock that it will match to any SQL query.
          *
          * @return the reference to this {@link Builder} instance
          */
@@ -90,7 +90,7 @@ public final class SQLQueryWithParamsMock extends AbstractSQLParamsMock {
         }
 
         /**
-         * Sets the SQL query for the the SQL query with parameters mock that it will match to an SQL query with the specified SQL query
+         * Sets the SQL query for the the SQL query with parameters mock that it will match to an SQL query with the specified SQL query.
          *
          * @param sql the specified SQL query
          * @return the reference to this {@link Builder} instance
@@ -105,7 +105,7 @@ public final class SQLQueryWithParamsMock extends AbstractSQLParamsMock {
 
         /**
          * Sets the SQL bind parameters for the the SQL query with parameters mock that it will match to an SQL query with
-         * the specified SQL bind parameters
+         * the specified SQL bind parameters.
          *
          * @param bindParams the specified SQL bind parameters
          * @return the reference to this {@link Builder} instance
@@ -126,7 +126,7 @@ public final class SQLQueryWithParamsMock extends AbstractSQLParamsMock {
         }
 
         /**
-         * Builds the immutable SQL query with parameters mock instance using the configured {@link Builder} settings
+         * Builds the immutable SQL query with parameters mock instance using the configured {@link Builder} settings.
          *
          * @return the immutable SQL query with parameters mock instance using the configured {@link Builder} settings
          * @throws InvalidStateException if the current {@link Builder} contains invalid settings

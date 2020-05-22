@@ -31,11 +31,11 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * Declares the Java model field as a field, in which the RxMicro framework adds a body of the received request.
  *
  * @author nedis
- * @since 0.1
  * @see RemoteAddress
  * @see RequestId
  * @see RequestMethod
  * @see RequestUrlPath
+ * @since 0.1
  */
 @Documented
 @Retention(SOURCE)

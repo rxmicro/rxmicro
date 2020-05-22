@@ -27,14 +27,16 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
  * Sets the strategy of column name formation in the DB table (document), based on the analysis of the Java model class field names.
+ *
  * <p>
  * If this annotation annotates the Java model class, then the set strategy will be used for all fields in this class.
+ *
  * <p>
  * For example, if You set the default {@link MappingStrategy#LOWERCASE_WITH_UNDERSCORED} strategy, then the {@code parentId}
  * field in the Java class will correspond to the {@code parent_id} column in the DB table (or document).)
- * <p>
  *
- * <h4>The RxMicro framework uses the following algorithm to define the column name for the specified model field:</h4>
+ * <p>
+ * <strong>The RxMicro framework uses the following algorithm to define the column name for the specified model field:</strong>
  * <ol>
  *     <li>
  *          If the field is annotated by the {@link Column} annotation with an explicit indication of the column name,
@@ -55,9 +57,9 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * </ol>
  *
  * @author nedis
- * @since 0.1
  * @see Column
  * @see MappingStrategy
+ * @since 0.1
  */
 @Documented
 @Retention(SOURCE)

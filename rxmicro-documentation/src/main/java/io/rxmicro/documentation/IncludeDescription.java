@@ -32,12 +32,12 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
  * Denotes the AsciiDoc fragment to be imported into the generated REST-based microservice documentation.
+ *
  * <p>
  * In addition to the description of all REST-based microservice documentation, this annotation also allows to developer
  * to specify the AsciiDoc fragment for separate elements: sections, model fields, etc.
  *
  * @author nedis
- * @since 0.1
  * @see Author
  * @see BaseEndpoint
  * @see Constants
@@ -50,6 +50,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * @see ResourceDefinition
  * @see ResourceGroupDefinition
  * @see Title
+ * @since 0.1
  */
 @Documented
 @Retention(SOURCE)
@@ -57,7 +58,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 public @interface IncludeDescription {
 
     /**
-     * Returns the resource name
+     * Returns the resource name.
      *
      * @return the resource name
      */

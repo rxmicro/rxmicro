@@ -28,10 +28,12 @@ import static io.rxmicro.common.util.Formats.format;
  * The builder that builds a short-lived unmodified ordered {@link Map} instance.
  *
  * @author nedis
- * @since 0.1
+ * @param <K> the type of keys maintained by this map
+ * @param <V> the type of mapped values
  * @see Map
  * @see LinkedHashMap
  * @see io.rxmicro.common.util.ExCollections#unmodifiableOrderedMap(Map)
+ * @since 0.1
  */
 public class MapBuilder<K, V> {
 
@@ -42,7 +44,7 @@ public class MapBuilder<K, V> {
     private boolean built;
 
     /**
-     * Creates a {@link MapBuilder} instance
+     * Creates a {@link MapBuilder} instance.
      *
      * @param withoutDuplicates {@code true} if {@link MapBuilder} must throw
      *                          {@link IllegalArgumentException} if duplicate of map key detected
@@ -52,14 +54,14 @@ public class MapBuilder<K, V> {
     }
 
     /**
-     * Creates a {@link MapBuilder} instance without duplicate detection
+     * Creates a {@link MapBuilder} instance without duplicate detection.
      */
     public MapBuilder() {
         this(false);
     }
 
     /**
-     * Puts the specified name and value to the end of the building ordered {@link Map} instance
+     * Puts the specified name and value to the end of the building ordered {@link Map} instance.
      *
      * @param name the specified name
      * @param value the specified value
@@ -82,7 +84,7 @@ public class MapBuilder<K, V> {
     }
 
     /**
-     * Builds the short-lived unmodified ordered {@link Map} instance
+     * Builds the short-lived unmodified ordered {@link Map} instance.
      *
      * @return the short-lived unmodified ordered {@link Map} instance
      */

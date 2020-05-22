@@ -17,7 +17,7 @@
 package io.rxmicro.model;
 
 /**
- * The common constants for the model sub module
+ * The common constants for the model sub module.
  *
  * @author nedis
  * @since 0.4
@@ -25,12 +25,12 @@ package io.rxmicro.model;
 public final class Constants {
 
     /**
-     * Underscored delimiter
+     * Underscored delimiter.
      */
     public static final String UNDERSCORED_DELIMITER = "_";
 
     /**
-     * Hyphen delimiter
+     * Hyphen delimiter.
      */
     public static final String HYPHEN_DELIMITER = "-";
 

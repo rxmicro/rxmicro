@@ -32,8 +32,8 @@ import static io.rxmicro.config.Networks.validatePort;
  * Allows configuring SQL DB options.
  *
  * @author nedis
- * @since 0.1
  * @see Duration
+ * @since 0.1
  */
 @SuppressWarnings("UnusedReturnValue")
 public class SQLDatabaseConfig extends Config {
@@ -53,7 +53,7 @@ public class SQLDatabaseConfig extends Config {
     private Duration connectTimeout;
 
     /**
-     * Returns the server host name
+     * Returns the server host name.
      *
      * @return the server host name
      */
@@ -62,7 +62,7 @@ public class SQLDatabaseConfig extends Config {
     }
 
     /**
-     * Sets the server host name
+     * Sets the server host name.
      *
      * @param host the server host name
      * @return the reference to this {@link SQLDatabaseConfig} instance
@@ -74,7 +74,7 @@ public class SQLDatabaseConfig extends Config {
     }
 
     /**
-     * Returns the server port
+     * Returns the server port.
      *
      * @return the server port
      */
@@ -83,7 +83,7 @@ public class SQLDatabaseConfig extends Config {
     }
 
     /**
-     * Sets the server port
+     * Sets the server port.
      *
      * @param port the server port
      * @return the reference to this {@link SQLDatabaseConfig} instance
@@ -95,7 +95,7 @@ public class SQLDatabaseConfig extends Config {
     }
 
     /**
-     * Returns the database username
+     * Returns the database username.
      *
      * @return the database username
      */
@@ -104,7 +104,7 @@ public class SQLDatabaseConfig extends Config {
     }
 
     /**
-     * Sets the database username
+     * Sets the database username.
      *
      * @param user the database username
      * @return the reference to this {@link SQLDatabaseConfig} instance
@@ -116,7 +116,7 @@ public class SQLDatabaseConfig extends Config {
     }
 
     /**
-     * Returns the database password
+     * Returns the database password.
      *
      * @return the database password
      */
@@ -125,7 +125,7 @@ public class SQLDatabaseConfig extends Config {
     }
 
     /**
-     * Sets the database password
+     * Sets the database password.
      *
      * @param password the database password
      * @return the reference to this {@link SQLDatabaseConfig} instance
@@ -137,7 +137,7 @@ public class SQLDatabaseConfig extends Config {
     }
 
     /**
-     * Returns the database name
+     * Returns the database name.
      *
      * @return the database name
      */
@@ -146,7 +146,7 @@ public class SQLDatabaseConfig extends Config {
     }
 
     /**
-     * Sets the database name
+     * Sets the database name.
      *
      * @param database the database name
      * @return the reference to this {@link SQLDatabaseConfig} instance
@@ -158,7 +158,7 @@ public class SQLDatabaseConfig extends Config {
     }
 
     /**
-     * Adds the new db specific option
+     * Adds the new db specific option.
      *
      * @param name the option name
      * @param value the option value
@@ -172,7 +172,7 @@ public class SQLDatabaseConfig extends Config {
     }
 
     /**
-     * Returns the db specific options
+     * Returns the db specific options.
      *
      * @return the db specific options
      */
@@ -181,7 +181,7 @@ public class SQLDatabaseConfig extends Config {
     }
 
     /**
-     * Returns the connection timeout
+     * Returns the connection timeout.
      *
      * @return the connection timeout
      */
@@ -190,7 +190,7 @@ public class SQLDatabaseConfig extends Config {
     }
 
     /**
-     * Sets the connection timeout
+     * Sets the connection timeout.
      *
      * @param connectTimeout the connection timeout
      * @return the reference to this {@link SQLDatabaseConfig} instance
@@ -202,7 +202,7 @@ public class SQLDatabaseConfig extends Config {
     }
 
     /**
-     * Returns the connection string built from schema, host, port and database parameters
+     * Returns the connection string built from schema, host, port and database parameters.
      *
      * @return the connection string built from schema, host, port and database parameters
      */

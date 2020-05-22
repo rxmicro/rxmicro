@@ -19,13 +19,13 @@ package io.rxmicro.json;
 import io.rxmicro.common.RxMicroException;
 
 /**
- * Signals that json syntax error detected
+ * Signals that json syntax error detected.
  *
  * @author nedis
- * @since 0.1
  * @see JsonTypes
  * @see JsonHelper
  * @see JsonNumber
+ * @since 0.1
  */
 public final class JsonException extends RxMicroException {
 
@@ -41,6 +41,7 @@ public final class JsonException extends RxMicroException {
 
     /**
      * Creates a new {@link JsonException} instance with the specified error message template and arguments.
+     *
      * <p>
      * <i>(FYI: This constructor uses {@link io.rxmicro.common.util.Formats#format(String, Object...)} method to format error message.)</i>
      *

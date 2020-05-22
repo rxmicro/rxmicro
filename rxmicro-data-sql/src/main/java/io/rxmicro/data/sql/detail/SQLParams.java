@@ -22,9 +22,10 @@ import static io.rxmicro.common.util.Formats.format;
 import static java.util.stream.Collectors.joining;
 
 /**
- * Used by generated code that was created by {@code RxMicro Annotation Processor}
+ * Used by generated code that created by the {@code RxMicro Annotation Processor}.
  *
  * @author nedis
+ * @hidden
  * @since 0.1
  */
 public final class SQLParams {

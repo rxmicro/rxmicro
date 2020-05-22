@@ -15,7 +15,7 @@
  */
 
 /**
- * The {@code RxMicro Annotation Processor} internal module
+ * The {@code RxMicro Annotation Processor} internal module.
  *
  * @author nedis
  * @since 0.1

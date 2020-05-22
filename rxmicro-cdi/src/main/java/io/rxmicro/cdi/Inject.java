@@ -28,19 +28,24 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
  * Indicates the need to inject the component implementation into the annotated class field or method parameter.
+ *
  * <p>
  * Is a synonym of the {@link Autowired} annotation, and is recommended for developers who have used
  * JEE or Google Guice as CDI implementation in their previous projects.
+ *
  * <p>
  * The RxMicro framework focuses on creating microservice projects.
  * One of the key features of microservices is their simplicity.
  * That’s why singleton scope was chosen as the main and only one.
+ *
  * <p>
- * Thus, <b>all CDI components are singletons!</b>
+ * Thus, <strong>all CDI components are singletons!</strong>
+ *
  * <p>
  * By default, all injection points are required. Thus, if during the process of dependencies injection,
  * the RxMicro framework does not find a suitable instance, an error will occur.
  * If the current project allows the situation when a suitable instance may be missing, then the optional injection mode should be used.
+ *
  * <p>
  * If the optional injection mode is enabled, the RxMicro framework uses the following injection algorithm:
  * <ol>
@@ -54,8 +59,8 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * </ol>
  *
  * @author nedis
- * @since 0.1
  * @see Autowired
+ * @since 0.1
  */
 @Documented
 @Retention(SOURCE)
@@ -65,6 +70,7 @@ public @interface Inject {
     /**
      * If true, and the appropriate binding is not found, the RxMicro framework will skip injection of this
      * method or field rather than produce an error.
+     *
      * <p>
      * When applied to a field, any default value already assigned to the field will remain for optional injection
      * (The RxMicro framework will not actively null out the field).

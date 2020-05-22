@@ -34,7 +34,7 @@ import static io.rxmicro.config.Networks.validatePort;
 public abstract class HttpConfig extends Config {
 
     /**
-     * Default HTTP port
+     * Default HTTP port.
      */
     public static final int DEFAULT_HTTP_PORT = 8080;
 
@@ -45,7 +45,7 @@ public abstract class HttpConfig extends Config {
     private int port = DEFAULT_HTTP_PORT;
 
     /**
-     * Returns the protocol schema
+     * Returns the protocol schema.
      *
      * @return the protocol schema
      */
@@ -54,7 +54,7 @@ public abstract class HttpConfig extends Config {
     }
 
     /**
-     * Sets the protocol schema
+     * Sets the protocol schema.
      *
      * @param schema the protocol schema
      * @return the reference to this {@link HttpConfig} instance
@@ -66,7 +66,7 @@ public abstract class HttpConfig extends Config {
     }
 
     /**
-     * Returns the host name
+     * Returns the host name.
      *
      * @return the host name
      */
@@ -75,7 +75,7 @@ public abstract class HttpConfig extends Config {
     }
 
     /**
-     * Sets the host name
+     * Sets the host name.
      *
      * @param host the host name
      * @return the reference to this {@link HttpConfig} instance
@@ -87,7 +87,7 @@ public abstract class HttpConfig extends Config {
     }
 
     /**
-     * Returns the server port
+     * Returns the server port.
      *
      * @return the server port
      */
@@ -96,7 +96,7 @@ public abstract class HttpConfig extends Config {
     }
 
     /**
-     * Sets the port
+     * Sets the port.
      *
      * @param port the server port
      * @return the reference to this {@link HttpConfig} instance
@@ -108,7 +108,7 @@ public abstract class HttpConfig extends Config {
     }
 
     /**
-     * Returns the connection string built from schema, host and port parameters
+     * Returns the connection string built from schema, host and port parameters.
      *
      * @return the connection string
      */
@@ -121,7 +121,8 @@ public abstract class HttpConfig extends Config {
     }
 
     /**
-     * Sets protocol schema, host and port
+     * Sets protocol schema, host and port.
+     *
      * <p>
      * Example of valid connectionString:
      * <ul>

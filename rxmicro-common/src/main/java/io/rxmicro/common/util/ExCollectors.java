@@ -36,16 +36,16 @@ import static java.util.stream.Collectors.toCollection;
 import static java.util.stream.Collectors.toMap;
 
 /**
- * Extended {@link java.util.stream.Collectors} utils
+ * Extended {@link java.util.stream.Collectors} utils.
  *
  * @author nedis
- * @since 0.1
  * @see java.util.stream.Collectors
+ * @since 0.1
  */
 public final class ExCollectors {
 
     /**
-     * Returns the {@link Collector} which collects elements into a modifiable {@link LinkedHashMap}
+     * Returns the {@link Collector} which collects elements into a modifiable {@link LinkedHashMap}.
      *
      * @param <T> the type of the input elements
      * @param <K> the output type of the key mapping function
@@ -62,7 +62,7 @@ public final class ExCollectors {
     }
 
     /**
-     * Returns the {@link Collector} which collects elements into a unmodifiable ordered {@link Map}
+     * Returns the {@link Collector} which collects elements into a unmodifiable ordered {@link Map}.
      *
      * @param <T> the type of the input elements
      * @param <K> the output type of the key mapping function
@@ -82,7 +82,7 @@ public final class ExCollectors {
     }
 
     /**
-     * Returns the {@link Collector} which collects elements into a modifiable {@link TreeMap}
+     * Returns the {@link Collector} which collects elements into a modifiable {@link TreeMap}.
      *
      * @param <T> the type of the input elements
      * @param <K> the output type of the key mapping function
@@ -99,7 +99,7 @@ public final class ExCollectors {
     }
 
     /**
-     * Returns the {@link Collector} that accumulates the input elements into {@link LinkedHashSet}
+     * Returns the {@link Collector} that accumulates the input elements into {@link LinkedHashSet}.
      *
      * @param <T> the type of the input elements
      * @return the {@link Collector} that accumulates the input elements into {@link LinkedHashSet}
@@ -112,7 +112,7 @@ public final class ExCollectors {
     }
 
     /**
-     * Returns the {@link Collector} that accumulates the input elements into {@link TreeSet}
+     * Returns the {@link Collector} that accumulates the input elements into {@link TreeSet}.
      *
      * @param <T> the type of the input elements
      * @return the {@link Collector} that accumulates the input elements into {@link TreeSet}
@@ -125,7 +125,7 @@ public final class ExCollectors {
     }
 
     /**
-     * Returns the {@link Collector} that accumulates the input elements into {@link TreeSet} with the specified comparator
+     * Returns the {@link Collector} that accumulates the input elements into {@link TreeSet} with the specified comparator.
      *
      * @param comparator the specified comparator
      * @param <T> the type of the input elements
@@ -139,7 +139,7 @@ public final class ExCollectors {
     }
 
     /**
-     * Returns the {@link Collector} that accumulates the input elements into the unmodifiable {@link TreeSet}
+     * Returns the {@link Collector} that accumulates the input elements into the unmodifiable {@link TreeSet}.
      *
      * @param <T> the type of the input elements
      * @return the {@link Collector} that accumulates the input elements into the unmodifiable {@link TreeSet}
@@ -155,7 +155,7 @@ public final class ExCollectors {
     }
 
     /**
-     * Returns the {@link Collector} that accumulates the input elements into the unmodifiable {@link LinkedHashSet}
+     * Returns the {@link Collector} that accumulates the input elements into the unmodifiable {@link LinkedHashSet}.
      *
      * @param <T> the type of the input elements
      * @return the {@link Collector} that accumulates the input elements into the unmodifiable {@link LinkedHashSet}

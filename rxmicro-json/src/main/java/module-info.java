@@ -16,8 +16,8 @@
 
 /**
  * The module for low-level and efficient work with <a href="https://json.org/">JSON</a> format.
- * <p>
  *
+ * <p>
  * This module follows the next package structure rules:
  * <ul>
  *     <li>
@@ -40,7 +40,6 @@
  *         </ul>
  *     </li>
  * </ul>
- *
  *
  * @author nedis
  * @since 0.1

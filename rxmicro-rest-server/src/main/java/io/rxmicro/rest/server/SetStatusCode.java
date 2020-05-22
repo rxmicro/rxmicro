@@ -27,9 +27,9 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * Declares a status code, which should be sent to the client in case of successful execution of the HTTP request handler.
  *
  * @author nedis
- * @since 0.1
  * @see io.rxmicro.rest.ResponseStatusCode
  * @see NotFoundMessage
+ * @since 0.1
  */
 @Documented
 @Retention(SOURCE)
@@ -37,7 +37,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 public @interface SetStatusCode {
 
     /**
-     * Returns the HTTP response status code
+     * Returns the HTTP response status code.
      *
      * @return the HTTP response status code
      */

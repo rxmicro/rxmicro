@@ -61,7 +61,7 @@ public final class StandardHttpErrorStorage {
                     .setDescription("If internal server error detected.")
                     .setMessageDescription(
                             format("`?` value (by default) or the detailed cause of the arisen internal server error.",
-                            getErrorMessage(InternalHttpErrorException.STATUS_CODE)))
+                                    getErrorMessage(InternalHttpErrorException.STATUS_CODE)))
                     .setExampleErrorMessage("Internal Error")
                     .setWithShowErrorCauseReadMoreLink()
                     .build(),
@@ -70,7 +70,7 @@ public final class StandardHttpErrorStorage {
                     .setDescription("If response is not received within a specified time period.")
                     .setMessageDescription(
                             format("`?` value (by default) or contains external rest micro service endpoint, which is not available now.",
-                            getErrorMessage(HttpClientTimeoutException.STATUS_CODE)))
+                                    getErrorMessage(HttpClientTimeoutException.STATUS_CODE)))
                     .setExampleErrorMessage("Request Timeout")
                     .setWithShowErrorCauseReadMoreLink()
                     .build()

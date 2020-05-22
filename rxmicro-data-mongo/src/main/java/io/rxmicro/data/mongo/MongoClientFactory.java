@@ -26,20 +26,21 @@ import static io.rxmicro.runtime.local.InstanceContainer.getSingleton;
 
 /**
  * Utility class that must be used to get an instance of the {@link MongoClient} integrated to the RxMicro framework.
+ *
  * <p>
  * This utility class allows using additional features that {@link MongoClient} is provided.
  *
  * @author nedis
- * @since 0.1
  * @see MongoConfig
  * @see MongoRepository
+ * @since 0.1
  */
 public final class MongoClientFactory {
 
     private static final MongoClientBuilder BUILDER = new MongoClientBuilder();
 
     /**
-     * Returns the instance of the {@link MongoClient} that is bound to config with the requested namespace
+     * Returns the instance of the {@link MongoClient} that is bound to config with the requested namespace.
      *
      * @param namespace the requested namespace
      * @return the instance of the {@link MongoClient}
@@ -52,7 +53,7 @@ public final class MongoClientFactory {
     }
 
     /**
-     * Returns the instance of the {@link MongoClient} that is bound to config with the default namespace
+     * Returns the instance of the {@link MongoClient} that is bound to config with the default namespace.
      *
      * @return the instance of the {@link MongoClient}
      */

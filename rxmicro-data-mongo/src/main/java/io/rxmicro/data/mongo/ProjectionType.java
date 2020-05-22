@@ -19,24 +19,24 @@ package io.rxmicro.data.mongo;
 import io.rxmicro.model.NotStandardSerializableEnum;
 
 /**
- * Mongo DB projection type
+ * Mongo DB projection type.
  *
  * @author nedis
- * @since 0.1
  * @see io.rxmicro.data.SortOrder
  * @see io.rxmicro.data.Pageable
  * @see io.rxmicro.data.RepeatParameter
  * @see IndexUsage
+ * @since 0.1
  */
 public enum ProjectionType implements NotStandardSerializableEnum {
 
     /**
-     * Includes a projection for Mongo DB query
+     * Includes a projection for Mongo DB query.
      */
     INCLUDE,
 
     /**
-     * Excludes a projection for Mongo DB query
+     * Excludes a projection for Mongo DB query.
      */
     EXCLUDE;
 

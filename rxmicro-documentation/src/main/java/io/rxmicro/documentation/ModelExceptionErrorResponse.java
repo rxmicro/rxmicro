@@ -32,12 +32,12 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * HTTP response description of REST-based microservice.
  *
  * @author nedis
- * @since 0.1
  * @see Description
  * @see Example
  * @see IncludeDescription
  * @see IncludeMode
  * @see SimpleErrorResponse
+ * @since 0.1
  */
 @Documented
 @Retention(SOURCE)
@@ -46,7 +46,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 public @interface ModelExceptionErrorResponse {
 
     /**
-     * Returns the HTTP error exception class
+     * Returns the HTTP error exception class.
      *
      * @return the HTTP error exception class
      */

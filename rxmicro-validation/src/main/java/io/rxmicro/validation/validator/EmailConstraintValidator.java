@@ -29,17 +29,23 @@ import static io.rxmicro.validation.validator.DomainNameConstraintValidator.DOMA
 import static java.util.stream.Collectors.toUnmodifiableSet;
 
 /**
- * Validator for the {@link io.rxmicro.validation.constraint.Email} constraint
+ * Validator for the {@link io.rxmicro.validation.constraint.Email} constraint.
  *
  * @author nedis
- * @since 0.1
  * @see io.rxmicro.validation.constraint.Email
+ * @since 0.1
  */
 public final class EmailConstraintValidator implements ConstraintValidator<String> {
 
+    /**
+     * Email prefix rule message.
+     */
     public static final String EMAIL_PREFIX_RULE =
             "Prefix must contains letters [a-z] or [A-Z], digits [0-9], underscores, periods, dashes, apostrophe and plus only!";
 
+    /**
+     * Email domain rule message.
+     */
     public static final String EMAIL_DOMAIN_RULE = DOMAIN_RULE;
 
     private static final Set<Character> ALLOWED_PREFIX_CHARACTERS =
@@ -57,6 +63,11 @@ public final class EmailConstraintValidator implements ConstraintValidator<Strin
 
     private final DomainNameConstraintValidator domainNameConstraintValidator;
 
+    /**
+     * Creates the default instance of {@link EmailConstraintValidator} type.
+     *
+     * @param errorWithDetails validation error with detail message or not
+     */
     public EmailConstraintValidator(final boolean errorWithDetails) {
         this.errorWithDetails = errorWithDetails;
         this.domainNameConstraintValidator = new DomainNameConstraintValidator(errorWithDetails);

@@ -24,16 +24,24 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
- * Validator for the {@link io.rxmicro.validation.constraint.LatinAlphabetOnly} constraint
+ * Validator for the {@link io.rxmicro.validation.constraint.LatinAlphabetOnly} constraint.
  *
  * @author nedis
- * @since 0.1
  * @see io.rxmicro.validation.constraint.LatinAlphabetOnly
+ * @since 0.1
  */
 public final class LatinAlphabetOnlyConstraintValidator implements ConstraintValidator<String> {
 
     private final Set<Character> alphabet;
 
+    /**
+     * Creates the default instance of {@link LatinAlphabetOnlyConstraintValidator} with the specified parameters.
+     *
+     * @param allowsUppercase allows uppercase letters
+     * @param allowsLowercase allows lowercase letters
+     * @param allowsDigits allows digits
+     * @param punctuations the string that contains supported punctuation characters
+     */
     public LatinAlphabetOnlyConstraintValidator(final boolean allowsUppercase,
                                                 final boolean allowsLowercase,
                                                 final boolean allowsDigits,
@@ -61,6 +69,8 @@ public final class LatinAlphabetOnlyConstraintValidator implements ConstraintVal
     }
 
     /**
+     * Latin alphabet helper.
+     *
      * @author nedis
      * @since 0.1
      */

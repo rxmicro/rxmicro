@@ -21,15 +21,21 @@ import io.rxmicro.validation.ConstraintValidator;
 import io.rxmicro.validation.base.AbstractMinConstraintValidator;
 
 /**
- * Validator for the {@link io.rxmicro.validation.constraint.MinLength} constraint
+ * Validator for the {@link io.rxmicro.validation.constraint.MinLength} constraint.
  *
  * @author nedis
- * @since 0.1
  * @see io.rxmicro.validation.constraint.MinLength
+ * @since 0.1
  */
 public class MinLengthConstraintValidator extends AbstractMinConstraintValidator<Integer>
         implements ConstraintValidator<String> {
 
+    /**
+     * Creates the default instance of {@link MinLengthConstraintValidator} with the specified parameters.
+     *
+     * @param minValue the supported min value.
+     * @param inclusive whether the specified minimum is inclusive or exclusive.
+     */
     public MinLengthConstraintValidator(final int minValue,
                                         final boolean inclusive) {
         super(minValue, inclusive);

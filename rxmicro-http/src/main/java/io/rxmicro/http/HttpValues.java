@@ -22,16 +22,18 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- * Utility class for HTTP values
+ * Utility class for HTTP values.
  *
  * @author nedis
- * @since 0.1
  * @see QueryParams
+ * @since 0.1
  */
+@SuppressWarnings("JavaDoc")
 public final class HttpValues {
 
     /**
      * Defines a delimiter that used for separation of the list values.
+     *
      * <p>
      * If the HTTP header (or HTT query parameter) of an HTTP request (or response) is a list of values,
      * the list elements are transferred by default via the HTTP protocol as a string separated by the
@@ -40,7 +42,7 @@ public final class HttpValues {
     public static final String STRING_ARRAY_DELIMITER = "|";
 
     /**
-     * Converts the array to the string separated by the {@value #STRING_ARRAY_DELIMITER} symbol
+     * Converts the array to the string separated by the {@value #STRING_ARRAY_DELIMITER} symbol.
      *
      * @param array the array to convert
      * @return the string separated by the {@value #STRING_ARRAY_DELIMITER} symbol
@@ -58,7 +60,7 @@ public final class HttpValues {
     }
 
     /**
-     * Converts the list to the string separated by the {@value #STRING_ARRAY_DELIMITER} symbol
+     * Converts the list to the string separated by the {@value #STRING_ARRAY_DELIMITER} symbol.
      *
      * @param list the list to convert
      * @return the string separated by the {@value #STRING_ARRAY_DELIMITER} symbol
@@ -75,7 +77,7 @@ public final class HttpValues {
     }
 
     /**
-     * Converts the collection to the string separated by the {@value #STRING_ARRAY_DELIMITER} symbol
+     * Converts the collection to the string separated by the {@value #STRING_ARRAY_DELIMITER} symbol.
      *
      * @param collection the collection to convert
      * @return the string separated by the {@value #STRING_ARRAY_DELIMITER} symbol
@@ -92,7 +94,7 @@ public final class HttpValues {
     }
 
     /**
-     * Converts the object value to the string representation
+     * Converts the object value to the string representation.
      *
      * @param value the object value
      * @return the string representation of the specified object value.

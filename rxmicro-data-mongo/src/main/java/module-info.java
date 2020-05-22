@@ -16,8 +16,8 @@
 
 /**
  * The module to work with dynamic repositories for interaction with <a href="https://www.mongodb.com/">Mongo DB</a>.
- * <p>
  *
+ * <p>
  * This module follows the next package structure rules:
  * <ul>
  *     <li>
@@ -40,7 +40,6 @@
  *         </ul>
  *     </li>
  * </ul>
- *
  *
  * @author nedis
  * @since 0.1

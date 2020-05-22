@@ -23,15 +23,21 @@ import io.rxmicro.validation.base.AbstractMinConstraintValidator;
 import java.util.List;
 
 /**
- * Validator for the {@link io.rxmicro.validation.constraint.MinSize} constraint
+ * Validator for the {@link io.rxmicro.validation.constraint.MinSize} constraint.
  *
  * @author nedis
- * @since 0.1
  * @see io.rxmicro.validation.constraint.MinSize
+ * @since 0.1
  */
 public class MinSizeConstraintValidator extends AbstractMinConstraintValidator<Integer>
         implements ConstraintValidator<List<?>> {
 
+    /**
+     * Creates the default instance of {@link MinSizeConstraintValidator} with the specified parameters.
+     *
+     * @param minValue the supported min value.
+     * @param inclusive whether the specified minimum is inclusive or exclusive.
+     */
     public MinSizeConstraintValidator(final int minValue,
                                       final boolean inclusive) {
         super(minValue, inclusive);

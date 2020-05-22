@@ -26,10 +26,11 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
  * Annotation that can be applied to method to signify the method receives a PATCH request.
+ *
+ * <p>
  * See <a href="https://tools.ietf.org/html/rfc5789">https://tools.ietf.org/html/rfc5789</a>
  *
  * @author nedis
- * @since 0.1
  * @see DELETE
  * @see GET
  * @see HEAD
@@ -38,6 +39,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * @see PUT
  * @see io.rxmicro.rest.model.HttpMethod
  * @see HttpMethods
+ * @since 0.1
  */
 @Documented
 @Retention(SOURCE)
@@ -46,7 +48,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 public @interface PATCH {
 
     /**
-     * Returns the URI of the route
+     * Returns the URI of the route.
      *
      * @return the URI of the route
      */

@@ -26,29 +26,29 @@ import static io.rxmicro.common.util.Requires.require;
  * Allows configuring SQL DB pool options.
  *
  * @author nedis
- * @since 0.1
  * @see Duration
+ * @since 0.1
  */
 @SuppressWarnings("UnusedReturnValue")
 public class SQLPooledDatabaseConfig extends SQLDatabaseConfig {
 
     /**
-     * Default acquire retry
+     * Default acquire retry.
      */
     public static final int DEFAULT_ACQUIRE_RETRY = 2;
 
     /**
-     * Default init pool size
+     * Default init pool size.
      */
     public static final int DEFAULT_INIT_POOL_SIZE = 3;
 
     /**
-     * Default max pool size
+     * Default max pool size.
      */
     public static final int DEFAULT_MAX_POOL_SIZE = 5;
 
     /**
-     * Default max idle time in seconds
+     * Default max idle time in seconds.
      */
     public static final int DEFAULT_MAX_IDLE_TIME_IN_SECONDS = 30 * 60;
 
@@ -73,8 +73,9 @@ public class SQLPooledDatabaseConfig extends SQLDatabaseConfig {
 
     /**
      * Returns the number of retries if the first connection acquire attempt fails.
+     *
      * <p>
-     * Defaults to {@code 2}
+     * Defaults to {@value #DEFAULT_ACQUIRE_RETRY}
      *
      * @return the number of retries if the first connection acquire attempt fails.
      */
@@ -84,8 +85,9 @@ public class SQLPooledDatabaseConfig extends SQLDatabaseConfig {
 
     /**
      * Sets the number of retries if the first connection acquire attempt fails.
+     *
      * <p>
-     * Defaults to {@code 2}
+     * Defaults to {@value #DEFAULT_ACQUIRE_RETRY}
      *
      * @param acquireRetry the number of retries if the first connection acquire attempt fails.
      * @return the reference to this {@link SQLPooledDatabaseConfig} instance
@@ -97,9 +99,10 @@ public class SQLPooledDatabaseConfig extends SQLDatabaseConfig {
     }
 
     /**
-     * Returns the initial pool size
+     * Returns the initial pool size.
+     *
      * <p>
-     * Defaults to {@code 3}
+     * Defaults to {@value #DEFAULT_INIT_POOL_SIZE}
      *
      * @return the initial pool size
      */
@@ -108,9 +111,10 @@ public class SQLPooledDatabaseConfig extends SQLDatabaseConfig {
     }
 
     /**
-     * Sets the initial pool size
+     * Sets the initial pool size.
+     *
      * <p>
-     * Defaults to {@code 3}
+     * Defaults to {@value #DEFAULT_INIT_POOL_SIZE}
      *
      * @param initialSize the initial pool size
      * @return the reference to this {@link SQLPooledDatabaseConfig} instance
@@ -125,9 +129,10 @@ public class SQLPooledDatabaseConfig extends SQLDatabaseConfig {
     }
 
     /**
-     * Returns the maximum pool size
+     * Returns the maximum pool size.
+     *
      * <p>
-     * Defaults to {@code 5}
+     * Defaults to {@value #DEFAULT_MAX_POOL_SIZE}
      *
      * @return the maximum pool size
      */
@@ -136,9 +141,10 @@ public class SQLPooledDatabaseConfig extends SQLDatabaseConfig {
     }
 
     /**
-     * Sets the maximum pool size
+     * Sets the maximum pool size.
+     *
      * <p>
-     * Defaults to {@code 5}
+     * Defaults to {@value #DEFAULT_MAX_POOL_SIZE}
      *
      * @param maxSize the maximum pool size
      * @return the reference to this {@link SQLPooledDatabaseConfig} instance

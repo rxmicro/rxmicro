@@ -29,7 +29,7 @@ import static io.rxmicro.common.util.Requires.require;
 import static java.lang.System.lineSeparator;
 
 /**
- * Format utility class
+ * Format utility class.
  *
  * @author nedis
  * @since 0.1
@@ -38,12 +38,12 @@ import static java.lang.System.lineSeparator;
 public final class Formats {
 
     /**
-     * The universal format character placeholder: {@value #FORMAT_PLACEHOLDER_CHAR}
+     * The universal format character placeholder: {@value #FORMAT_PLACEHOLDER_CHAR}.
      */
     public static final char FORMAT_PLACEHOLDER_CHAR = '?';
 
     /**
-     * The universal format string placeholder: {@value #FORMAT_PLACEHOLDER_CHAR}
+     * The universal format string placeholder: {@value #FORMAT_PLACEHOLDER_CHAR}.
      */
     public static final String FORMAT_PLACEHOLDER_TOKEN = String.valueOf(FORMAT_PLACEHOLDER_CHAR);
 
@@ -56,11 +56,14 @@ public final class Formats {
     private static final int NANOS_IN_1_MILLIS = (int) TimeUnit.MILLISECONDS.toNanos(1);
 
     /**
-     * Formats the string template using specified arguments
+     * Formats the string template using specified arguments.
+     *
      * <p>
      * Use {@value #FORMAT_PLACEHOLDER_CHAR} character as placeholder for argument.
+     *
      * <p>
      * <i>(This method also replaces '\n' character by {@link System#lineSeparator()}.)</i>
+     *
      * <p>
      * For example:
      * <pre>
@@ -86,12 +89,12 @@ public final class Formats {
     }
 
     /**
-     * Formats the specified {@link Duration} into the human readable format
+     * Formats the specified {@link Duration} into the human readable format.
      *
      * @param duration the specified {@link Duration}
      * @return the human readable format of the specified {@link Duration}
-     * @since 0.3
      * @see Duration
+     * @since 0.3
      */
     public static String format(final Duration duration) {
         if (duration.getSeconds() == 0) {
@@ -105,7 +108,7 @@ public final class Formats {
     }
 
     /**
-     * Formats the data size in bytes into the formatted human readable data size
+     * Formats the data size in bytes into the formatted human readable data size.
      *
      * @param size the data size in bytes
      * @param withOriginalValue show or not original data size in bytes
@@ -125,7 +128,7 @@ public final class Formats {
     }
 
     /**
-     * Formats the data size in bytes into the formatted human readable data size and displays it with the original data size in bytes
+     * Formats the data size in bytes into the formatted human readable data size and displays it with the original data size in bytes.
      *
      * @param size the data size in bytes
      * @return the formatted human readable data size

@@ -28,14 +28,15 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 /**
  * Used to specify the methods from the current test class to be invoked by the RxMicro framework
  * before performing each iteration of the parameterized test.
+ *
  * <p>
  * (<i>The RxMicro framework supports the {@code @}{@link BeforeIterationMethodSource} annotation only for
  * REST-based microservice tests and component unit tests.</i>)
  *
  * @author nedis
- * @since 0.1
  * @see BeforeTest
  * @see org.junit.jupiter.api.BeforeEach
+ * @since 0.1
  */
 @Target(METHOD)
 @Retention(RUNTIME)
@@ -48,7 +49,6 @@ public @interface BeforeIterationMethodSource {
      *
      * @return the methods from the current test class to be invoked by the RxMicro framework before performing each
      *          iteration of the parameterized test.
-     * @throws io.rxmicro.test.local.InvalidTestConfigException if empty array
      */
     String[] methods();
 }

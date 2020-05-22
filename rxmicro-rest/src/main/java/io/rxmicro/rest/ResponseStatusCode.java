@@ -30,8 +30,8 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * Indicates to the RxMicro framework that the value of the Java model field should be used as a status code to be sent to the client.
  *
  * @author nedis
- * @since 0.1
  * @see ResponseBody
+ * @since 0.1
  */
 @Documented
 @Retention(SOURCE)

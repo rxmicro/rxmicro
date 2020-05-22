@@ -30,7 +30,6 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * </a> operation.
  *
  * @author nedis
- * @since 0.1
  * @see io.rxmicro.data.mongo.MongoRepository
  * @see Aggregate
  * @see CountDocuments
@@ -39,6 +38,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * @see Find
  * @see Insert
  * @see Update
+ * @since 0.1
  */
 @Documented
 @Retention(SOURCE)

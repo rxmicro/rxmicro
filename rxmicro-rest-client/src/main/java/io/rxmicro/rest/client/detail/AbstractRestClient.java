@@ -22,15 +22,35 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Used by generated code that was created by {@code RxMicro Annotation Processor}
+ * Used by generated code that created by the {@code RxMicro Annotation Processor}.
+ *
+ * <p>
+ * Represents a base class for the REST client implementations.
+ *
+ * <p>
+ * Read more:
+ * <a href="https://docs.rxmicro.io/latest/user-guide/rest-client.html#rest-client-partial-implementation-section">
+ *     https://docs.rxmicro.io/latest/user-guide/rest-client.html#rest-client-partial-implementation-section
+ * </a>
  *
  * @author nedis
+ * @see io.rxmicro.rest.client.PartialImplementation
  * @since 0.1
  */
 public abstract class AbstractRestClient {
 
+    /**
+     * Empty HTTP headers.
+     */
     protected static final List<Map.Entry<String, String>> EMPTY_HEADERS = List.of();
 
+    /**
+     * Joins the path.
+     *
+     * @param path          the path
+     * @param parameters    the path parameters
+     * @return the joined path
+     */
     protected final String joinPath(final String path,
                                     final List<Map.Entry<String, String>> parameters) {
         return QueryParamUtils.joinPath(path, parameters);

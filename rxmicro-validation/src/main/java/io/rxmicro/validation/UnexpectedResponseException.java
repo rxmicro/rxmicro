@@ -27,18 +27,24 @@ import io.rxmicro.http.error.HttpErrorException;
  */
 public final class UnexpectedResponseException extends HttpErrorException {
 
-    private static final int STATUS_CODE = 500;
+    /**
+     * Status code for the all instances of the current exception type.
+     */
+    public static final int STATUS_CODE = 500;
 
     /**
      * Creates a HTTP error with error message.
+     *
      * <p>
      * For all child classes which extend the HttpErrorException class, when creating an exception instance the stack trace is not filled,
      * as this information is redundant.
+     *
      * <p>
      * (<i>This behavior is achieved by using the {@link RuntimeException#RuntimeException(String, Throwable, boolean, boolean)}.</i>)
+     *
      * <p>
      * <i>(FYI: This constructor uses {@link Formats#format(String, Object...)} method to format error message.)</i>
-     * <p>
+     *
      * @param message the error message template
      * @param args the error message template argument
      * @throws NullPointerException if the error message template is {@code null}

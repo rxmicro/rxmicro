@@ -17,7 +17,7 @@
 package io.rxmicro.documentation.asciidoctor;
 
 /**
- * Predefined constants
+ * Predefined constants.
  *
  * @author nedis
  * @since 0.2
@@ -25,7 +25,7 @@ package io.rxmicro.documentation.asciidoctor;
 public final class Constants {
 
     /**
-     * Required static field for user defined exception
+     * Required static field for user defined exception.
      */
     public static final String STATUS_CODE_STATIC_FIELD_NAME = "STATUS_CODE";
 

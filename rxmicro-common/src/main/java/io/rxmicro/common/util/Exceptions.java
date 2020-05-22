@@ -23,7 +23,7 @@ import java.util.Optional;
 import java.util.concurrent.CompletionException;
 
 /**
- * Utils class to work with exceptions
+ * Utils class to work with exceptions.
  *
  * @author nedis
  * @since 0.1
@@ -40,6 +40,7 @@ public final class Exceptions {
      * @see Error
      * @see RuntimeException
      * @see CheckedWrapperException
+     * @throws CheckedWrapperException if {@code throwable} is checked exception otherwise throws {@code throwable}
      */
     public static <T> T reThrow(final Throwable throwable) {
         if (throwable instanceof RuntimeException) {
@@ -53,6 +54,7 @@ public final class Exceptions {
 
     /**
      * Verifies if {@code throwable} is instance of {@code exceptionType} type.
+     *
      * <p>
      * In comparison with the {@code instanceof} operator this method extract real throwable from
      * {@link CompletionException} and {@link CheckedWrapperException} ones.
@@ -85,6 +87,7 @@ public final class Exceptions {
 
     /**
      * Returns the {@link Optional} containing the cause of {@code throwable}.
+     *
      * <p>
      * If the cause is one of provided {@code containerExceptionClasses} this methods inspects the cause deeper.
      *

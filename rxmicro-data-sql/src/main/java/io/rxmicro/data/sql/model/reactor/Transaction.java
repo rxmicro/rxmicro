@@ -22,15 +22,15 @@ import reactor.core.publisher.Mono;
 
 /**
  * Current implementation delegates all method calls to {@code io.r2dbc.spi.Connection},
- * but in future this API can be extended by using other SPI
+ * but in future this API can be extended by using other SPI.
  *
  * @author nedis
- * @since 0.1
  * @see io.rxmicro.data.sql.model.TransactionType
  * @see io.rxmicro.data.sql.model.rxjava3.Transaction
  * @see io.rxmicro.data.sql.model.completablefuture.Transaction
  * @see SavePoint
  * @see IsolationLevel
+ * @since 0.1
  */
 public interface Transaction {
 
@@ -69,7 +69,8 @@ public interface Transaction {
     Mono<Void> create(SavePoint savePoint);
 
     /**
-     * Releases the save point in the current transaction.  Calling this for drivers not supporting save point release results in a no-op.
+     * Releases the save point in the current transaction.
+     * Calling this for drivers not supporting save point release results in a no-op.
      *
      * @param savePoint the save point to release
      * @return the {@link Mono} that indicates that the save point has been released
@@ -79,7 +80,9 @@ public interface Transaction {
 
     /**
      * Returns the {@link IsolationLevel} for this connection.
-     * <p>Isolation level is typically one of the following constants:
+     *
+     * <p>
+     * Isolation level is typically one of the following constants:
      *
      * <ul>
      * <li>{@link IsolationLevel#READ_UNCOMMITTED}</li>
@@ -87,7 +90,6 @@ public interface Transaction {
      * <li>{@link IsolationLevel#REPEATABLE_READ}</li>
      * <li>{@link IsolationLevel#SERIALIZABLE}</li>
      * </ul>
-     * <p>
      *
      * @return the {@link IsolationLevel} for this connection.
      */
@@ -95,7 +97,9 @@ public interface Transaction {
 
     /**
      * Configures the isolation level for the current transaction.
-     * <p>Isolation level is typically one of the following constants:
+     *
+     * <p>
+     * Isolation level is typically one of the following constants:
      *
      * <ul>
      * <li>{@link IsolationLevel#READ_UNCOMMITTED}</li>
@@ -103,7 +107,6 @@ public interface Transaction {
      * <li>{@link IsolationLevel#REPEATABLE_READ}</li>
      * <li>{@link IsolationLevel#SERIALIZABLE}</li>
      * </ul>
-     * <p>
      *
      * @param isolationLevel the isolation level for this transaction
      * @return the {@link Mono} that indicates that the transaction level has been configured

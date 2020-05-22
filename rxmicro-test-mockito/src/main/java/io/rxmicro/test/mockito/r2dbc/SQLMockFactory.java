@@ -28,11 +28,11 @@ import static java.util.Collections.singletonList;
 
 /**
  * Helper class with useful static methods that help to configure a SQL mocks.
+ *
  * <p>
- * This class must be used for testing purposes
+ * This class must be used for testing purposes.
  *
  * @author nedis
- * @since 0.1
  * @see io.rxmicro.data.sql.operation.Select
  * @see io.rxmicro.data.sql.operation.Insert
  * @see io.rxmicro.data.sql.operation.Update
@@ -41,6 +41,7 @@ import static java.util.Collections.singletonList;
  * @see io.rxmicro.data.sql.model.rxjava3.Transaction
  * @see io.rxmicro.data.sql.model.completablefuture.Transaction
  * @see io.rxmicro.data.sql.r2dbc.postgresql.PostgreSQLRepository
+ * @since 0.1
  */
 public final class SQLMockFactory {
 
@@ -54,6 +55,7 @@ public final class SQLMockFactory {
      * Configures the specified {@link ConnectionPool} mock.
      * The specified result rows will be returned
      * if the RxMicro framework will execute the specified {@link SQLQueryWithParamsMock}.
+     *
      * <p>
      * (<i>This method requires that {@link ConnectionPool} will be a mock!</i>)
      *
@@ -72,6 +74,7 @@ public final class SQLMockFactory {
      * Configures the specified {@link ConnectionPool} mock.
      * The specified result rows will be returned
      * if the RxMicro framework will execute the specified {@link SQLQueryWithParamsMock}.
+     *
      * <p>
      * (<i>This method requires that {@link ConnectionPool} will be a mock!</i>)
      *
@@ -91,6 +94,7 @@ public final class SQLMockFactory {
      * Configures the specified {@link ConnectionPool} mock.
      * The specified single row will be returned
      * if the RxMicro framework will execute the specified {@link SQLQueryWithParamsMock}.
+     *
      * <p>
      * (<i>This method requires that {@link ConnectionPool} will be a mock!</i>)
      *
@@ -109,6 +113,7 @@ public final class SQLMockFactory {
      * Configures the specified {@link ConnectionPool} mock.
      * The specified updated row count will be returned
      * if the RxMicro framework will execute the specified {@link SQLQueryWithParamsMock}.
+     *
      * <p>
      * (<i>This method requires that {@link ConnectionPool} will be a mock!</i>)
      *
@@ -127,6 +132,7 @@ public final class SQLMockFactory {
      * Configures the specified {@link ConnectionPool} mock.
      * The error signal with the specified {@link Throwable} during returning the result set for SQL query will be returned
      * if the RxMicro framework will execute the specified {@link SQLQueryWithParamsMock}.
+     *
      * <p>
      * (<i>This method requires that {@link ConnectionPool} will be a mock!</i>)
      *
@@ -145,6 +151,7 @@ public final class SQLMockFactory {
      * Configures the specified {@link ConnectionPool} mock.
      * The error signal with the specified {@link Throwable} during the specified {@link ErrorDuringSQLInvocationType} will be returned
      * if the RxMicro framework will execute the specified {@link SQLQueryWithParamsMock}.
+     *
      * <p>
      * (<i>This method requires that {@link ConnectionPool} will be a mock!</i>)
      *

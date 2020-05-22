@@ -24,7 +24,7 @@ import static io.rxmicro.rest.server.internal.StandardResponseHeaderValueSupplie
 import static io.rxmicro.rest.server.internal.StandardResponseHeaderValueSupplierFactory.serverResponseHeaderValueSupplier;
 
 /**
- * Standard static HTTP headers
+ * Standard static HTTP headers.
  *
  * @author nedis
  * @since 0.1
@@ -32,12 +32,12 @@ import static io.rxmicro.rest.server.internal.StandardResponseHeaderValueSupplie
 public enum StandardStaticResponseHeader implements StaticResponseHeader {
 
     /**
-     * {@code `Server`} header that returns a server name
+     * {@code `Server`} header that returns a server name.
      */
     SERVER(HttpStandardHeaderNames.SERVER, serverResponseHeaderValueSupplier()),
 
     /**
-     * {@code `Date`} header that returns a date with time of a HTTP response generation
+     * {@code `Date`} header that returns a date with time of a HTTP response generation.
      */
     DATE(HttpStandardHeaderNames.DATE, dateResponseHeaderValueSupplier());
 

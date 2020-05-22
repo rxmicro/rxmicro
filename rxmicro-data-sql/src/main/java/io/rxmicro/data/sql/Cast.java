@@ -25,6 +25,8 @@ import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
+ * Allows to cast the select expression.
+ *
  * @author nedis
  * @since 0.1
  */
@@ -33,5 +35,10 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 @Target({FIELD, METHOD})
 public @interface Cast {
 
+    /**
+     * Returns the expression.
+     *
+     * @return the expression
+     */
     String value();
 }

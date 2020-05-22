@@ -36,6 +36,7 @@ import static io.rxmicro.test.mockito.mongo.internal.util.TypeFixer.fixDocumentT
 
 /**
  * Helper class with useful static methods that help to configure a Mongo operation mocks.
+ *
  * <p>
  * This class must be used for testing purposes
  *
@@ -80,6 +81,7 @@ public final class MongoMockFactory {
      * Configures the specified {@link MongoDatabase} mock with predefined collection name.
      * The specified {@link Document}s will be returned
      * if the RxMicro framework will execute the specified {@link FindOperationMock}.
+     *
      * <p>
      * (<i>This method requires that {@link MongoDatabase} will be a mock!</i>)
      *
@@ -107,6 +109,7 @@ public final class MongoMockFactory {
      * Configures the specified {@link MongoDatabase} mock with predefined collection name.
      * The error signal with the specified {@link Throwable} will be returned
      * if the RxMicro framework will execute the specified {@link FindOperationMock}.
+     *
      * <p>
      * (<i>This method requires that {@link MongoDatabase} will be a mock!</i>)
      *
@@ -132,6 +135,7 @@ public final class MongoMockFactory {
      * Configures the specified {@link MongoDatabase} mock with predefined collection name.
      * The specified document count will be returned
      * if the RxMicro framework will execute the specified {@link CountDocumentsOperationMock}.
+     *
      * <p>
      * (<i>This method requires that {@link MongoDatabase} will be a mock!</i>)
      *
@@ -157,6 +161,7 @@ public final class MongoMockFactory {
      * Configures the specified {@link MongoDatabase} mock with predefined collection name.
      * The error signal with the specified {@link Throwable}will be returned
      * if the RxMicro framework will execute the specified {@link CountDocumentsOperationMock}.
+     *
      * <p>
      * (<i>This method requires that {@link MongoDatabase} will be a mock!</i>)
      *
@@ -182,6 +187,7 @@ public final class MongoMockFactory {
      * Configures the specified {@link MongoDatabase} mock with predefined collection name.
      * The specified document count will be returned
      * if the RxMicro framework will execute the specified {@link EstimatedDocumentCountMock}.
+     *
      * <p>
      * (<i>This method requires that {@link MongoDatabase} will be a mock!</i>)
      *
@@ -207,6 +213,7 @@ public final class MongoMockFactory {
      * Configures the specified {@link MongoDatabase} mock with predefined collection name.
      * The error signal with the specified {@link Throwable} will be returned
      * if the RxMicro framework will execute the specified {@link EstimatedDocumentCountMock}.
+     *
      * <p>
      * (<i>This method requires that {@link MongoDatabase} will be a mock!</i>)
      *
@@ -232,9 +239,11 @@ public final class MongoMockFactory {
      * Configures the specified {@link MongoDatabase} mock with predefined collection name.
      * The specified items will be returned
      * if the RxMicro framework will execute the specified {@link DistinctOperationMock}.
+     *
      * <p>
      * (<i>This method requires that {@link MongoDatabase} will be a mock!</i>)
      *
+     * @param <T> the item type
      * @param mongoDatabase the specified Mongo database
      * @param collectionName the specified collection name
      * @param operationMock the specified Mongo operation mock
@@ -259,9 +268,11 @@ public final class MongoMockFactory {
      * Configures the specified {@link MongoDatabase} mock with predefined collection name.
      * The error signal with the specified {@link Throwable} will be returned
      * if the RxMicro framework will execute the specified {@link DistinctOperationMock}.
+     *
      * <p>
      * (<i>This method requires that {@link MongoDatabase} will be a mock!</i>)
      *
+     * @param <T> the result type
      * @param mongoDatabase the specified Mongo database
      * @param collectionName the specified collection name
      * @param operationMock the specified Mongo operation mock
@@ -285,6 +296,7 @@ public final class MongoMockFactory {
      * Configures the specified {@link MongoDatabase} mock with predefined collection name.
      * The specified {@link Document}s will be returned
      * if the RxMicro framework will execute the specified {@link AggregateOperationMock}.
+     *
      * <p>
      * (<i>This method requires that {@link MongoDatabase} will be a mock!</i>)
      *
@@ -312,6 +324,7 @@ public final class MongoMockFactory {
      * Configures the specified {@link MongoDatabase} mock with predefined collection name.
      * The error signal with the specified {@link Throwable} will be returned
      * if the RxMicro framework will execute the specified {@link AggregateOperationMock}.
+     *
      * <p>
      * (<i>This method requires that {@link MongoDatabase} will be a mock!</i>)
      *
@@ -337,6 +350,7 @@ public final class MongoMockFactory {
      * Configures the specified {@link MongoDatabase} mock with predefined collection name.
      * The empty success signal will be returned
      * if the RxMicro framework will execute the specified {@link InsertOperationMock}.
+     *
      * <p>
      * (<i>This method requires that {@link MongoDatabase} will be a mock!</i>)
      *
@@ -361,6 +375,7 @@ public final class MongoMockFactory {
      * Configures the specified {@link MongoDatabase} mock with predefined collection name.
      * The the specified insert id will be returned
      * if the RxMicro framework will execute the specified {@link InsertOperationMock}.
+     *
      * <p>
      * (<i>This method requires that {@link MongoDatabase} will be a mock!</i>)
      *
@@ -387,6 +402,7 @@ public final class MongoMockFactory {
      * Configures the specified {@link MongoDatabase} mock with predefined collection name.
      * The the specified {@link InsertOneResult} will be returned
      * if the RxMicro framework will execute the specified {@link InsertOperationMock}.
+     *
      * <p>
      * (<i>This method requires that {@link MongoDatabase} will be a mock!</i>)
      *
@@ -413,6 +429,7 @@ public final class MongoMockFactory {
      * Configures the specified {@link MongoDatabase} mock with predefined collection name.
      * The error signal with the specified {@link Throwable} will be returned
      * if the RxMicro framework will execute the specified {@link InsertOperationMock}.
+     *
      * <p>
      * (<i>This method requires that {@link MongoDatabase} will be a mock!</i>)
      *
@@ -439,6 +456,7 @@ public final class MongoMockFactory {
      * Configures the specified {@link MongoDatabase} mock with predefined collection name.
      * The the specified {@link DeleteResult} will be returned
      * if the RxMicro framework will execute the specified {@link DeleteOperationMock}.
+     *
      * <p>
      * (<i>This method requires that {@link MongoDatabase} will be a mock!</i>)
      *
@@ -465,6 +483,7 @@ public final class MongoMockFactory {
      * Configures the specified {@link MongoDatabase} mock with predefined collection name.
      * The the specified delete count will be returned
      * if the RxMicro framework will execute the specified {@link DeleteOperationMock}.
+     *
      * <p>
      * (<i>This method requires that {@link MongoDatabase} will be a mock!</i>)
      *
@@ -491,6 +510,7 @@ public final class MongoMockFactory {
      * Configures the specified {@link MongoDatabase} mock with predefined collection name.
      * The error signal with the specified {@link Throwable} will be returned
      * if the RxMicro framework will execute the specified {@link DeleteOperationMock}.
+     *
      * <p>
      * (<i>This method requires that {@link MongoDatabase} will be a mock!</i>)
      *
@@ -517,6 +537,7 @@ public final class MongoMockFactory {
      * Configures the specified {@link MongoDatabase} mock with predefined collection name.
      * The the specified {@link UpdateResult} will be returned
      * if the RxMicro framework will execute the specified {@link UpdateOperationMock}.
+     *
      * <p>
      * (<i>This method requires that {@link MongoDatabase} will be a mock!</i>)
      *
@@ -543,6 +564,7 @@ public final class MongoMockFactory {
      * Configures the specified {@link MongoDatabase} mock with predefined collection name.
      * The the specified matched count and modified count will be returned
      * if the RxMicro framework will execute the specified {@link UpdateOperationMock}.
+     *
      * <p>
      * (<i>This method requires that {@link MongoDatabase} will be a mock!</i>)
      *
@@ -571,6 +593,7 @@ public final class MongoMockFactory {
      * Configures the specified {@link MongoDatabase} mock with predefined collection name.
      * The the specified modified count will be returned
      * if the RxMicro framework will execute the specified {@link UpdateOperationMock}.
+     *
      * <p>
      * (<i>This method requires that {@link MongoDatabase} will be a mock!</i>)
      *
@@ -591,6 +614,7 @@ public final class MongoMockFactory {
      * Configures the specified {@link MongoDatabase} mock with predefined collection name.
      * The error signal with the specified {@link Throwable} will be returned
      * if the RxMicro framework will execute the specified {@link UpdateOperationMock}.
+     *
      * <p>
      * (<i>This method requires that {@link MongoDatabase} will be a mock!</i>)
      *

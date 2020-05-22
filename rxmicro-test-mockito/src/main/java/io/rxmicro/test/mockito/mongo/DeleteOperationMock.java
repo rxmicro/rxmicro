@@ -25,12 +25,12 @@ import static io.rxmicro.test.mockito.mongo.internal.util.Validators.validateBso
 
 /**
  * The Mongo {@link io.rxmicro.data.mongo.operation.Delete} operation mock using
- * <a href="https://site.mockito.org/">Mockito</a> testing framework
+ * <a href="https://site.mockito.org/">Mockito</a> testing framework.
  *
  * @author nedis
- * @since 0.1
  * @see io.rxmicro.data.mongo.operation.Delete
  * @see io.rxmicro.data.mongo.MongoRepository
+ * @since 0.1
  */
 public final class DeleteOperationMock extends AbstractDeleteOperationMock {
 
@@ -39,7 +39,7 @@ public final class DeleteOperationMock extends AbstractDeleteOperationMock {
     }
 
     /**
-     * The builder for building a Mongo {@link io.rxmicro.data.mongo.operation.Delete} operation mock
+     * The builder for building a Mongo {@link io.rxmicro.data.mongo.operation.Delete} operation mock.
      *
      * @author nedis
      * @since 0.1
@@ -53,7 +53,7 @@ public final class DeleteOperationMock extends AbstractDeleteOperationMock {
 
         /**
          * Configures the Mongo {@link io.rxmicro.data.mongo.operation.Delete} operation mock that it will match to
-         * a Mongo {@link io.rxmicro.data.mongo.operation.Delete} operation with any filter
+         * a Mongo {@link io.rxmicro.data.mongo.operation.Delete} operation with any filter.
          *
          * @return the reference to this {@link Builder} instance
          */
@@ -66,7 +66,7 @@ public final class DeleteOperationMock extends AbstractDeleteOperationMock {
 
         /**
          * Sets the query for the Mongo {@link io.rxmicro.data.mongo.operation.Delete} operation mock that it will match to
-         * a Mongo {@link io.rxmicro.data.mongo.operation.Delete} operation with the specified filter
+         * a Mongo {@link io.rxmicro.data.mongo.operation.Delete} operation with the specified filter.
          *
          * @param filter the specified filter
          * @return the reference to this {@link Builder} instance
@@ -81,7 +81,7 @@ public final class DeleteOperationMock extends AbstractDeleteOperationMock {
 
         /**
          * Sets the query for the Mongo {@link io.rxmicro.data.mongo.operation.Delete} operation mock that it will match to
-         * a Mongo {@link io.rxmicro.data.mongo.operation.Delete} operation with the specified filter
+         * a Mongo {@link io.rxmicro.data.mongo.operation.Delete} operation with the specified filter.
          *
          * @param filter the specified filter
          * @return the reference to this {@link Builder} instance
@@ -98,7 +98,7 @@ public final class DeleteOperationMock extends AbstractDeleteOperationMock {
 
         /**
          * Builds the immutable Mongo {@link io.rxmicro.data.mongo.operation.Delete} operation mock
-         * instance using the configured {@link Builder} settings
+         * instance using the configured {@link Builder} settings.
          *
          * @return the immutable Mongo {@link io.rxmicro.data.mongo.operation.Delete} operation mock instance
          * @throws InvalidStateException if the current {@link Builder} contains invalid settings

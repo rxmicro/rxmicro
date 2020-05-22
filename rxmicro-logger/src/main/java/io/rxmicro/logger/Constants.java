@@ -17,18 +17,18 @@
 package io.rxmicro.logger;
 
 /**
- * {@link Logger} constants
+ * {@link Logger} constants.
  *
  * @author nedis
- * @since 0.1
  * @see LoggerFactory
  * @see Logger
+ * @since 0.1
  */
 public final class Constants {
 
     /**
      * The prefix for environment variable or java system properties that
-     * must be interpret by the RxMicro framework as configuration for logger module
+     * must be interpret by the RxMicro framework as configuration for logger module.
      */
     public static final String LOGGER_VARIABLE_PREFIX = "logger";
 

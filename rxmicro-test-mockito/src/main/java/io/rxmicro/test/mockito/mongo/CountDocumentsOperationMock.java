@@ -24,12 +24,12 @@ import static io.rxmicro.test.mockito.mongo.internal.util.Validators.validateBso
 
 /**
  * The Mongo {@link io.rxmicro.data.mongo.operation.CountDocuments} operation mock using
- * <a href="https://site.mockito.org/">Mockito</a> testing framework
+ * <a href="https://site.mockito.org/">Mockito</a> testing framework.
  *
  * @author nedis
- * @since 0.1
  * @see io.rxmicro.data.mongo.operation.CountDocuments
  * @see io.rxmicro.data.mongo.MongoRepository
+ * @since 0.1
  */
 public final class CountDocumentsOperationMock extends AbstractCountDocumentsOperationMock {
 
@@ -42,7 +42,7 @@ public final class CountDocumentsOperationMock extends AbstractCountDocumentsOpe
     }
 
     /**
-     * The builder for building a Mongo {@link io.rxmicro.data.mongo.operation.CountDocuments} operation mock
+     * The builder for building a Mongo {@link io.rxmicro.data.mongo.operation.CountDocuments} operation mock.
      *
      * @author nedis
      * @since 0.1
@@ -62,7 +62,7 @@ public final class CountDocumentsOperationMock extends AbstractCountDocumentsOpe
 
         /**
          * Configures the Mongo {@link io.rxmicro.data.mongo.operation.CountDocuments} operation mock that it will match to
-         * a Mongo {@link io.rxmicro.data.mongo.operation.CountDocuments} operation with any query
+         * a Mongo {@link io.rxmicro.data.mongo.operation.CountDocuments} operation with any query.
          *
          * @return the reference to this {@link Builder} instance
          */
@@ -75,7 +75,7 @@ public final class CountDocumentsOperationMock extends AbstractCountDocumentsOpe
 
         /**
          * Sets the query for the Mongo {@link io.rxmicro.data.mongo.operation.CountDocuments} operation mock that it will match to
-         * a Mongo {@link io.rxmicro.data.mongo.operation.CountDocuments} operation with the specified query
+         * a Mongo {@link io.rxmicro.data.mongo.operation.CountDocuments} operation with the specified query.
          *
          * @param query the specified query
          * @return the reference to this {@link Builder} instance
@@ -90,7 +90,7 @@ public final class CountDocumentsOperationMock extends AbstractCountDocumentsOpe
 
         /**
          * Sets the query for the Mongo {@link io.rxmicro.data.mongo.operation.CountDocuments} operation mock that it will match to
-         * a Mongo {@link io.rxmicro.data.mongo.operation.CountDocuments} operation with the specified query
+         * a Mongo {@link io.rxmicro.data.mongo.operation.CountDocuments} operation with the specified query.
          *
          * @param query the specified query
          * @return the reference to this {@link Builder} instance
@@ -107,7 +107,7 @@ public final class CountDocumentsOperationMock extends AbstractCountDocumentsOpe
 
         /**
          * Sets the hint for the Mongo {@link io.rxmicro.data.mongo.operation.CountDocuments} operation mock that it will match to
-         * a Mongo {@link io.rxmicro.data.mongo.operation.CountDocuments} operation with the specified hint value
+         * a Mongo {@link io.rxmicro.data.mongo.operation.CountDocuments} operation with the specified hint value.
          *
          * @param hint the specified hint value
          * @return the reference to this {@link Builder} instance
@@ -121,7 +121,7 @@ public final class CountDocumentsOperationMock extends AbstractCountDocumentsOpe
 
         /**
          * Sets the hint for the Mongo {@link io.rxmicro.data.mongo.operation.CountDocuments} operation mock that it will match to
-         * a Mongo {@link io.rxmicro.data.mongo.operation.CountDocuments} operation with the specified hint value
+         * a Mongo {@link io.rxmicro.data.mongo.operation.CountDocuments} operation with the specified hint value.
          *
          * @param hint the specified hint value
          * @return the reference to this {@link Builder} instance
@@ -137,7 +137,7 @@ public final class CountDocumentsOperationMock extends AbstractCountDocumentsOpe
 
         /**
          * Sets the limit for the Mongo {@link io.rxmicro.data.mongo.operation.CountDocuments} operation mock that it will match to
-         * a Mongo {@link io.rxmicro.data.mongo.operation.CountDocuments} operation with the specified limit value
+         * a Mongo {@link io.rxmicro.data.mongo.operation.CountDocuments} operation with the specified limit value.
          *
          * @param limit the specified limit value
          * @return the reference to this {@link Builder} instance
@@ -154,7 +154,7 @@ public final class CountDocumentsOperationMock extends AbstractCountDocumentsOpe
 
         /**
          * Sets the skip for the Mongo {@link io.rxmicro.data.mongo.operation.CountDocuments} operation mock that it will match to
-         * a Mongo {@link io.rxmicro.data.mongo.operation.CountDocuments} operation with the specified skip value
+         * a Mongo {@link io.rxmicro.data.mongo.operation.CountDocuments} operation with the specified skip value.
          *
          * @param skip the specified limit value
          * @return the reference to this {@link Builder} instance
@@ -171,7 +171,7 @@ public final class CountDocumentsOperationMock extends AbstractCountDocumentsOpe
 
         /**
          * Builds the immutable Mongo {@link io.rxmicro.data.mongo.operation.CountDocuments} operation mock
-         * instance using the configured {@link Builder} settings
+         * instance using the configured {@link Builder} settings.
          *
          * @return the immutable Mongo {@link io.rxmicro.data.mongo.operation.CountDocuments} operation mock instance
          */

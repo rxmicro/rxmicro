@@ -25,53 +25,53 @@ import static io.rxmicro.http.HttpHeaders.EMPTY_HEADERS;
 import static io.rxmicro.http.QueryParams.joinPath;
 
 /**
- * The special <b>blocking</b> HTTP client to execute HTTP requests during testing
+ * The special <strong>blocking</strong> HTTP client to execute HTTP requests during testing.
  *
  * @author nedis
- * @since 0.1
  * @see BlockingHttpClientSettings
+ * @since 0.1
  */
 public interface BlockingHttpClient extends AutoRelease {
 
     /**
-     * HTTP GET method
+     * HTTP GET method.
      */
     String GET = "GET";
 
     /**
-     * HTTP HEAD method
+     * HTTP HEAD method.
      */
     String HEAD = "HEAD";
 
     /**
-     * HTTP DELETE method
+     * HTTP DELETE method.
      */
     String DELETE = "DELETE";
 
     /**
-     * HTTP OPTIONS method
+     * HTTP OPTIONS method.
      */
     String OPTIONS = "OPTIONS";
 
     /**
-     * HTTP POST method
+     * HTTP POST method.
      */
     String POST = "POST";
 
     /**
-     * HTTP PUT method
+     * HTTP PUT method.
      */
     String PUT = "PUT";
 
     /**
-     * HTTP PATCH method
+     * HTTP PATCH method.
      */
     String PATCH = "PATCH";
 
     // ------------------------------------------------- GET METHOD ----------------------------------------------------
 
     /**
-     * Invokes the {@code GET} HTTP blocking request
+     * Invokes the {@code GET} HTTP blocking request.
      *
      * @param path the relative URL path
      * @param headers the custom HTTP request headers
@@ -86,7 +86,7 @@ public interface BlockingHttpClient extends AutoRelease {
     }
 
     /**
-     * Invokes the {@code GET} HTTP blocking request
+     * Invokes the {@code GET} HTTP blocking request.
      *
      * @param path the relative URL path
      * @return the received {@link ClientHttpResponse} from the HTTP server
@@ -99,7 +99,7 @@ public interface BlockingHttpClient extends AutoRelease {
     }
 
     /**
-     * Invokes the {@code GET} HTTP blocking request
+     * Invokes the {@code GET} HTTP blocking request.
      *
      * @param path the relative URL path
      * @param headers the custom HTTP request headers
@@ -116,7 +116,7 @@ public interface BlockingHttpClient extends AutoRelease {
     }
 
     /**
-     * Invokes the {@code GET} HTTP blocking request
+     * Invokes the {@code GET} HTTP blocking request.
      *
      * @param path the relative URL path
      * @param parameters the custom HTTP query parameters
@@ -133,7 +133,7 @@ public interface BlockingHttpClient extends AutoRelease {
     // ------------------------------------------------ HEAD METHOD ----------------------------------------------------
 
     /**
-     * Invokes the {@code HEAD} HTTP blocking request
+     * Invokes the {@code HEAD} HTTP blocking request.
      *
      * @param path the relative URL path
      * @param headers the custom HTTP request headers
@@ -148,7 +148,7 @@ public interface BlockingHttpClient extends AutoRelease {
     }
 
     /**
-     * Invokes the {@code HEAD} HTTP blocking request
+     * Invokes the {@code HEAD} HTTP blocking request.
      *
      * @param path the relative URL path
      * @return the received {@link ClientHttpResponse} from the HTTP server
@@ -161,7 +161,7 @@ public interface BlockingHttpClient extends AutoRelease {
     }
 
     /**
-     * Invokes the {@code HEAD} HTTP blocking request
+     * Invokes the {@code HEAD} HTTP blocking request.
      *
      * @param path the relative URL path
      * @param headers the custom HTTP request headers
@@ -178,7 +178,7 @@ public interface BlockingHttpClient extends AutoRelease {
     }
 
     /**
-     * Invokes the {@code HEAD} HTTP blocking request
+     * Invokes the {@code HEAD} HTTP blocking request.
      *
      * @param path the relative URL path
      * @param parameters the custom HTTP query parameters
@@ -195,7 +195,7 @@ public interface BlockingHttpClient extends AutoRelease {
     // ----------------------------------------------- DELETE METHOD ---------------------------------------------------
 
     /**
-     * Invokes the {@code DELETE} HTTP blocking request
+     * Invokes the {@code DELETE} HTTP blocking request.
      *
      * @param path the relative URL path
      * @param headers the custom HTTP request headers
@@ -210,7 +210,7 @@ public interface BlockingHttpClient extends AutoRelease {
     }
 
     /**
-     * Invokes the {@code DELETE} HTTP blocking request
+     * Invokes the {@code DELETE} HTTP blocking request.
      *
      * @param path the relative URL path
      * @return the received {@link ClientHttpResponse} from the HTTP server
@@ -223,7 +223,7 @@ public interface BlockingHttpClient extends AutoRelease {
     }
 
     /**
-     * Invokes the {@code DELETE} HTTP blocking request
+     * Invokes the {@code DELETE} HTTP blocking request.
      *
      * @param path the relative URL path
      * @param headers the custom HTTP request headers
@@ -240,7 +240,7 @@ public interface BlockingHttpClient extends AutoRelease {
     }
 
     /**
-     * Invokes the {@code DELETE} HTTP blocking request
+     * Invokes the {@code DELETE} HTTP blocking request.
      *
      * @param path the relative URL path
      * @param parameters the custom HTTP query parameters
@@ -257,7 +257,7 @@ public interface BlockingHttpClient extends AutoRelease {
     // ---------------------------------------------- OPTIONS METHOD ---------------------------------------------------
 
     /**
-     * Invokes the {@code OPTIONS} HTTP blocking request
+     * Invokes the {@code OPTIONS} HTTP blocking request.
      *
      * @param path the relative URL path
      * @param headers the custom HTTP request headers
@@ -272,7 +272,7 @@ public interface BlockingHttpClient extends AutoRelease {
     }
 
     /**
-     * Invokes the {@code OPTIONS} HTTP blocking request
+     * Invokes the {@code OPTIONS} HTTP blocking request.
      *
      * @param path the relative URL path
      * @return the received {@link ClientHttpResponse} from the HTTP server
@@ -285,7 +285,7 @@ public interface BlockingHttpClient extends AutoRelease {
     }
 
     /**
-     * Invokes the {@code OPTIONS} HTTP blocking request
+     * Invokes the {@code OPTIONS} HTTP blocking request.
      *
      * @param path the relative URL path
      * @param headers the custom HTTP request headers
@@ -302,7 +302,7 @@ public interface BlockingHttpClient extends AutoRelease {
     }
 
     /**
-     * Invokes the {@code OPTIONS} HTTP blocking request
+     * Invokes the {@code OPTIONS} HTTP blocking request.
      *
      * @param path the relative URL path
      * @param parameters the custom HTTP query parameters
@@ -319,7 +319,7 @@ public interface BlockingHttpClient extends AutoRelease {
     // ------------------------------------------------ POST METHOD ----------------------------------------------------
 
     /**
-     * Invokes the {@code POST} HTTP blocking request
+     * Invokes the {@code POST} HTTP blocking request.
      *
      * @param path the relative URL path
      * @param headers the custom HTTP request headers
@@ -334,7 +334,7 @@ public interface BlockingHttpClient extends AutoRelease {
     }
 
     /**
-     * Invokes the {@code POST} HTTP blocking request
+     * Invokes the {@code POST} HTTP blocking request.
      *
      * @param path the relative URL path
      * @return the received {@link ClientHttpResponse} from the HTTP server
@@ -347,7 +347,7 @@ public interface BlockingHttpClient extends AutoRelease {
     }
 
     /**
-     * Invokes the {@code POST} HTTP blocking request
+     * Invokes the {@code POST} HTTP blocking request.
      *
      * @param path the relative URL path
      * @param headers the custom HTTP request headers
@@ -364,7 +364,7 @@ public interface BlockingHttpClient extends AutoRelease {
     }
 
     /**
-     * Invokes the {@code POST} HTTP blocking request
+     * Invokes the {@code POST} HTTP blocking request.
      *
      * @param path the relative URL path
      * @param parameters the custom HTTP query parameters
@@ -379,7 +379,7 @@ public interface BlockingHttpClient extends AutoRelease {
     }
 
     /**
-     * Invokes the {@code POST} HTTP blocking request
+     * Invokes the {@code POST} HTTP blocking request.
      *
      * @param path the relative URL path
      * @param headers the custom HTTP request headers
@@ -396,7 +396,7 @@ public interface BlockingHttpClient extends AutoRelease {
     }
 
     /**
-     * Invokes the {@code POST} HTTP blocking request
+     * Invokes the {@code POST} HTTP blocking request.
      *
      * @param path the relative URL path
      * @param body the HTTP request body
@@ -413,7 +413,7 @@ public interface BlockingHttpClient extends AutoRelease {
     // ------------------------------------------------- PUT METHOD ----------------------------------------------------
 
     /**
-     * Invokes the {@code PUT} HTTP blocking request
+     * Invokes the {@code PUT} HTTP blocking request.
      *
      * @param path the relative URL path
      * @param headers the custom HTTP request headers
@@ -428,7 +428,7 @@ public interface BlockingHttpClient extends AutoRelease {
     }
 
     /**
-     * Invokes the {@code PUT} HTTP blocking request
+     * Invokes the {@code PUT} HTTP blocking request.
      *
      * @param path the relative URL path
      * @return the received {@link ClientHttpResponse} from the HTTP server
@@ -441,7 +441,7 @@ public interface BlockingHttpClient extends AutoRelease {
     }
 
     /**
-     * Invokes the {@code PUT} HTTP blocking request
+     * Invokes the {@code PUT} HTTP blocking request.
      *
      * @param path the relative URL path
      * @param headers the custom HTTP request headers
@@ -458,7 +458,7 @@ public interface BlockingHttpClient extends AutoRelease {
     }
 
     /**
-     * Invokes the {@code PUT} HTTP blocking request
+     * Invokes the {@code PUT} HTTP blocking request.
      *
      * @param path the relative URL path
      * @param parameters the custom HTTP query parameters
@@ -473,7 +473,7 @@ public interface BlockingHttpClient extends AutoRelease {
     }
 
     /**
-     * Invokes the {@code PUT} HTTP blocking request
+     * Invokes the {@code PUT} HTTP blocking request.
      *
      * @param path the relative URL path
      * @param headers the custom HTTP request headers
@@ -490,7 +490,7 @@ public interface BlockingHttpClient extends AutoRelease {
     }
 
     /**
-     * Invokes the {@code PUT} HTTP blocking request
+     * Invokes the {@code PUT} HTTP blocking request.
      *
      * @param path the relative URL path
      * @param body the HTTP request body
@@ -507,7 +507,7 @@ public interface BlockingHttpClient extends AutoRelease {
     // ------------------------------------------------ PATCH METHOD ---------------------------------------------------
 
     /**
-     * Invokes the {@code PATCH} HTTP blocking request
+     * Invokes the {@code PATCH} HTTP blocking request.
      *
      * @param path the relative URL path
      * @param headers the custom HTTP request headers
@@ -522,7 +522,7 @@ public interface BlockingHttpClient extends AutoRelease {
     }
 
     /**
-     * Invokes the {@code PATCH} HTTP blocking request
+     * Invokes the {@code PATCH} HTTP blocking request.
      *
      * @param path the relative URL path
      * @return the received {@link ClientHttpResponse} from the HTTP server
@@ -535,7 +535,7 @@ public interface BlockingHttpClient extends AutoRelease {
     }
 
     /**
-     * Invokes the {@code PATCH} HTTP blocking request
+     * Invokes the {@code PATCH} HTTP blocking request.
      *
      * @param path the relative URL path
      * @param headers the custom HTTP request headers
@@ -552,7 +552,7 @@ public interface BlockingHttpClient extends AutoRelease {
     }
 
     /**
-     * Invokes the {@code PATCH} HTTP blocking request
+     * Invokes the {@code PATCH} HTTP blocking request.
      *
      * @param path the relative URL path
      * @param parameters the custom HTTP query parameters
@@ -567,7 +567,7 @@ public interface BlockingHttpClient extends AutoRelease {
     }
 
     /**
-     * Invokes the {@code PATCH} HTTP blocking request
+     * Invokes the {@code PATCH} HTTP blocking request.
      *
      * @param path the relative URL path
      * @param headers the custom HTTP request headers
@@ -584,7 +584,7 @@ public interface BlockingHttpClient extends AutoRelease {
     }
 
     /**
-     * Invokes the {@code PATCH} HTTP blocking request
+     * Invokes the {@code PATCH} HTTP blocking request.
      *
      * @param path the relative URL path
      * @param body the HTTP request body
@@ -601,7 +601,7 @@ public interface BlockingHttpClient extends AutoRelease {
     // ------------------------------------------------ ANY METHODS ----------------------------------------------------
 
     /**
-     * Invokes the HTTP blocking request with the custom HTTP method
+     * Invokes the HTTP blocking request with the custom HTTP method.
      *
      * @param method the custom HTTP method
      * @param path the relative URL path
@@ -616,7 +616,7 @@ public interface BlockingHttpClient extends AutoRelease {
                             HttpHeaders headers);
 
     /**
-     * Invokes the HTTP blocking request with the custom HTTP method
+     * Invokes the HTTP blocking request with the custom HTTP method.
      *
      * @param method the custom HTTP method
      * @param path the relative URL path
@@ -631,7 +631,7 @@ public interface BlockingHttpClient extends AutoRelease {
     }
 
     /**
-     * Invokes the HTTP blocking request with the custom HTTP method
+     * Invokes the HTTP blocking request with the custom HTTP method.
      *
      * @param method the custom HTTP method
      * @param path the relative URL path
@@ -648,7 +648,7 @@ public interface BlockingHttpClient extends AutoRelease {
                             Object body);
 
     /**
-     * Invokes the HTTP blocking request with the custom HTTP method
+     * Invokes the HTTP blocking request with the custom HTTP method.
      *
      * @param method the custom HTTP method
      * @param path the relative URL path

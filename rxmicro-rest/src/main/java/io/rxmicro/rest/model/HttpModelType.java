@@ -19,7 +19,7 @@ package io.rxmicro.rest.model;
 import java.util.Locale;
 
 /**
- * All supported HTTP model types
+ * All supported HTTP model types.
  *
  * @author nedis
  * @since 0.1
@@ -27,17 +27,17 @@ import java.util.Locale;
 public enum HttpModelType {
 
     /**
-     * HTTP body or query parameter
+     * HTTP body or query parameter.
      */
     PARAMETER,
 
     /**
-     * HTTP header
+     * HTTP header.
      */
     HEADER,
 
     /**
-     * Path variable
+     * Path variable.
      */
     PATH,
 

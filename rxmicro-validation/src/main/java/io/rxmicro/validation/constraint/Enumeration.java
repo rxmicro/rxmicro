@@ -32,8 +32,10 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
  * The annotated element must be an element of the predefined enumeration.
+ *
  * <p>
  * This validation rule is useful when java enum type is not applicable.
+ *
  * <p>
  * For example if enum value equals to java keyword.
  * The following enum couldn't be compiled, because {@code 'new'} is java keyword
@@ -43,15 +45,16 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  *      old
  * }
  * </pre>
+ *
  * <p>
  * To solve this issue use @{@link Enumeration} annotation, otherwise use Java enum.
  *
  * @author nedis
- * @since 0.1
  * @see Enum
  * @see SubEnum
  * @see EnumerationStringConstraintValidator
  * @see EnumerationCharacterConstraintValidator
+ * @since 0.1
  */
 @Documented
 @Retention(SOURCE)
@@ -70,15 +73,17 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 public @interface Enumeration {
 
     /**
-     * Allows disabling the validation rule if this rule is inherited from super class. <p>
-     * By default, disable is off
+     * Allows disabling the validation rule if this rule is inherited from super class.
      *
-     * @return  {@code true} if the validation must be disabled,
+     * <p>
+     * By default, disable is off.
+     *
+     * @return {@code true} if the validation must be disabled.
      */
     boolean off() default false;
 
     /**
-     * Returns the enum string values
+     * Returns the enum string values.
      *
      * @return the enum string values
      */

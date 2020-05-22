@@ -37,7 +37,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 public @interface DataRepositoryGeneratorConfig {
 
     /**
-     * Returns {@code true} if the RxMicro framework must add original query to generated code as string comment
+     * Returns {@code true} if the RxMicro framework must add original query to generated code as string comment.
      *
      * @return {@code true} if the RxMicro framework must add original query to generated code as string comment
      */

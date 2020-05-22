@@ -17,7 +17,7 @@
 package io.rxmicro.exchange.json;
 
 /**
- * Defines the JSON constants
+ * Defines the JSON constants.
  *
  * @author nedis
  * @since 0.1
@@ -25,7 +25,7 @@ package io.rxmicro.exchange.json;
 public final class Constants {
 
     /**
-     * Mime content type for JSON format
+     * Mime content type for JSON format.
      */
     public static final String CONTENT_TYPE_APPLICATION_JSON = "application/json";
 

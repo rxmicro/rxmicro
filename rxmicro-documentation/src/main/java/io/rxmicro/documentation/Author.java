@@ -29,11 +29,11 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
  * Denotes the author of the generated REST-based microservice documentation.
+ *
  * <p>
  * (<i>Allows overriding the author specified in the developer directive to pom.xml</i>)
  *
  * @author nedis
- * @since 0.1
  * @see BaseEndpoint
  * @see Constants
  * @see Description
@@ -46,6 +46,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * @see ResourceDefinition
  * @see ResourceGroupDefinition
  * @see Title
+ * @since 0.1
  */
 @Documented
 @Retention(SOURCE)
@@ -54,14 +55,14 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 public @interface Author {
 
     /**
-     * Returns the author name
+     * Returns the author name.
      *
      * @return the author name
      */
     String name() default DEFAULT_AUTHOR;
 
     /**
-     * Returns the author email
+     * Returns the author email.
      *
      * @return the author email
      */

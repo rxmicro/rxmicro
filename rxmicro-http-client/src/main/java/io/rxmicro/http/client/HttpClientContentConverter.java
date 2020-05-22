@@ -19,7 +19,7 @@ package io.rxmicro.http.client;
 import java.util.function.Function;
 
 /**
- * Basic interface for low-level converting of HTTP body for HTTP client
+ * Basic interface for low-level converting of HTTP body for HTTP client.
  *
  * @author nedis
  * @since 0.1
@@ -27,21 +27,21 @@ import java.util.function.Function;
 public interface HttpClientContentConverter {
 
     /**
-     * Returns the request content (body) converter
+     * Returns the request content (body) converter.
      *
      * @return the request content (body) converter
      */
     Function<Object, byte[]> getRequestContentConverter();
 
     /**
-     * Returns the response content (body) converter
+     * Returns the response content (body) converter.
      *
      * @return the response content (body) converter
      */
     Function<byte[], Object> getResponseContentConverter();
 
     /**
-     * Returns the supported content type
+     * Returns the supported content type.
      *
      * @return the supported content type
      */

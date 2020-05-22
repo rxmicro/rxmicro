@@ -26,12 +26,14 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
  * Annotation that can be applied to method to signify the method receives a OPTIONS request.
- * See <a href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html#sec9.2">
+ *
+ * <p>
+ * See
+ * <a href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html#sec9.2">
  *     https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html#sec9.2
  * </a>
  *
  * @author nedis
- * @since 0.1
  * @see DELETE
  * @see GET
  * @see HEAD
@@ -40,6 +42,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * @see PUT
  * @see io.rxmicro.rest.model.HttpMethod
  * @see HttpMethods
+ * @since 0.1
  */
 @Documented
 @Retention(SOURCE)
@@ -48,7 +51,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 public @interface OPTIONS {
 
     /**
-     * Returns the URI of the route
+     * Returns the URI of the route.
      *
      * @return the URI of the route
      */

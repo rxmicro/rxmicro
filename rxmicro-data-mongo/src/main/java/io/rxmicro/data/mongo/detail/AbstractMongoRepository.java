@@ -23,20 +23,42 @@ import io.rxmicro.logger.LoggerFactory;
 import org.bson.Document;
 
 /**
- * Used by generated code that was created by {@code RxMicro Annotation Processor}
+ * Used by generated code that created by the {@code RxMicro Annotation Processor}.
+ *
+ * <p>
+ * Represents a base class for the Mongo data repository implementations.
+ *
+ * <p>
+ * Read more:
+ * <a href="https://docs.rxmicro.io/latest/user-guide/data-mongo.html#data-mongo-partial-implementation-section">
+ *     https://docs.rxmicro.io/latest/user-guide/data-mongo.html#data-mongo-partial-implementation-section
+ * </a>
  *
  * @author nedis
+ * @see io.rxmicro.data.mongo.PartialImplementation
  * @since 0.1
  */
 public abstract class AbstractMongoRepository extends AbstractDataRepository {
 
+    /**
+     * The logger.
+     */
     protected final Logger logger;
 
+    /**
+     * The Mongo collection.
+     */
     protected final MongoCollection<Document> collection;
 
-    protected AbstractMongoRepository(final Class<?> repositoryClass,
+    /**
+     * Creates an instance of {@link AbstractMongoRepository} type.
+     *
+     * @param repositoryInterface   the specified repository interface
+     * @param collection            the collection name
+     */
+    protected AbstractMongoRepository(final Class<?> repositoryInterface,
                                       final MongoCollection<Document> collection) {
-        this.logger = LoggerFactory.getLogger(repositoryClass);
+        this.logger = LoggerFactory.getLogger(repositoryInterface);
         this.collection = collection;
     }
 }

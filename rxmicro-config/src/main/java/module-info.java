@@ -19,6 +19,7 @@ import io.rxmicro.config.internal.test.ConfigUnNamedModuleFixer;
 
 /**
  * The module for flexible configuration of microservice projects to any environment.
+ *
  * <p>
  * This module provides the following features:
  * <ul>
@@ -28,8 +29,8 @@ import io.rxmicro.config.internal.test.ConfigUnNamedModuleFixer;
  *     <li>Changing the order in which the configuration sources are read</li>
  *     <li>Configuration using annotations and Java classes</li>
  * </ul>
- * <p>
  *
+ * <p>
  * This module follows the next package structure rules:
  * <ul>
  *     <li>
@@ -52,7 +53,6 @@ import io.rxmicro.config.internal.test.ConfigUnNamedModuleFixer;
  *         </ul>
  *     </li>
  * </ul>
- *
  *
  * @author nedis
  * @since 0.1

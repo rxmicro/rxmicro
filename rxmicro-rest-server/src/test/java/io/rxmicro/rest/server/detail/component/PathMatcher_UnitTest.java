@@ -60,7 +60,7 @@ class PathMatcher_UnitTest {
             "/?,                    var1,               /программирование,                          программирование",
             "/?,                    var1,               /我喜歡編程,                                 我喜歡編程",
             "/?/?,                  var1;var2,          /group/path,                                group;path",
-            "/?/?,                  var1;var2,          /group12/path45678,                         group12;path45678",
+            "/?/?,                  var1;var2,          /group12/patstrong5678,                         group12;patstrong5678",
             "/?/?,                  var1;var2,          /group/23,                                  group;23",
             "/?/?,                  var1;var2,          /76/23456,                                  76;23456",
             "/group/?,              var1,               /group/path,                                path",

@@ -31,9 +31,10 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
  * Denotes a storage with the values of the predefined variables.
+ *
  * <p>
- * <h4>To determine the value of the predefined variable used in the query specified for the repository method, the RxMicro framework
- * uses the following algorithm:</h4>
+ * <strong>To determine the value of the predefined variable used in the query specified for the repository method, the RxMicro framework
+ * uses the following algorithm:</strong>
  * <ol>
  *     <li>
  *         If the repository method returns or accepts the entity model as a parameter, the entity model class is used to define
@@ -61,11 +62,11 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * </ol>
  *
  * @author nedis
- * @since 0.1
  * @see Delete
  * @see Insert
  * @see Select
  * @see Update
+ * @since 0.1
  */
 @Documented
 @Retention(SOURCE)
@@ -73,9 +74,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 public @interface VariableValues {
 
     /**
-     * Must be even item counts:
-     * <p>
-     * {@code name1, value1, name2, value2, ...}
+     * Must be even item counts.
      *
      * @return pairs of 'name, value', which is used to resolve variables in the all SQL queries per interface
      */

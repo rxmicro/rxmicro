@@ -23,11 +23,11 @@ import io.rxmicro.validation.ConstraintValidator;
 import java.time.Instant;
 
 /**
- * Validator for the {@link io.rxmicro.validation.constraint.Future} constraint
+ * Validator for the {@link io.rxmicro.validation.constraint.Future} constraint.
  *
  * @author nedis
- * @since 0.1
  * @see io.rxmicro.validation.constraint.Future
+ * @since 0.1
  */
 public class FutureInstantConstraintValidator implements ConstraintValidator<Instant> {
 

@@ -36,8 +36,8 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * The annotated element must be a valid country code.
  *
  * @author nedis
- * @since 0.1
  * @see CountryCodeConstraintValidator
+ * @since 0.1
  */
 @Documented
 @Retention(SOURCE)
@@ -50,22 +50,24 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 public @interface CountryCode {
 
     /**
-     * Allows disabling the validation rule if this rule is inherited from super class. <p>
-     * By default, disable is off
+     * Allows disabling the validation rule if this rule is inherited from super class.
      *
-     * @return  {@code true} if the validation must be disabled,
+     * <p>
+     * By default, disable is off.
+     *
+     * @return {@code true} if the validation must be disabled.
      */
     boolean off() default false;
 
     /**
-     * Return the country code {@link Format}
+     * Return the country code {@link Format}.
      *
      * @return the country code {@link Format}
      */
     Format format() default Format.ISO_3166_1_ALPHA_2;
 
     /**
-     * The country code format
+     * The country code format.
      *
      * @author nedis
      * @since 0.1
@@ -73,7 +75,7 @@ public @interface CountryCode {
     enum Format {
 
         /**
-         * ISO 3166-1 alpha2 format
+         * ISO 3166-1 alpha2 format.
          */
         @ReadMore(
                 caption = "What is ISO 3166-1 alpha2?",
@@ -82,7 +84,7 @@ public @interface CountryCode {
         ISO_3166_1_ALPHA_2("Two-letter country code according to ISO 3166-1 alpha2 standard."),
 
         /**
-         * ISO 3166-1 alpha3 format
+         * ISO 3166-1 alpha3 format.
          */
         @ReadMore(
                 caption = "What is ISO 3166-1 alpha3?",
@@ -91,7 +93,7 @@ public @interface CountryCode {
         ISO_3166_1_ALPHA_3("Three-letter country code according to ISO 3166-1 alpha3 standard."),
 
         /**
-         * ISO 3166-1 numeric format
+         * ISO 3166-1 numeric format.
          */
         @ReadMore(
                 caption = "What is ISO 3166-1 numeric?",

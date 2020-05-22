@@ -29,6 +29,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
  * Allows configuring the process of code generation by the {@code RxMicro Annotation Processor} for REST controllers.
+ *
  * <p>
  * To configure the process of code generation by the RxMicro Annotation Processor
  * developer must annotated a module descriptor {@code module-info.java} by this annotation.

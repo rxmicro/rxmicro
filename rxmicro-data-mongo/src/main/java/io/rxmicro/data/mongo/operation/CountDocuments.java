@@ -29,7 +29,6 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * operation.
  *
  * @author nedis
- * @since 0.1
  * @see io.rxmicro.data.mongo.MongoRepository
  * @see Aggregate
  * @see Delete
@@ -38,6 +37,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * @see Find
  * @see Insert
  * @see Update
+ * @since 0.1
  */
 @Documented
 @Retention(SOURCE)
@@ -45,7 +45,8 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 public @interface CountDocuments {
 
     /**
-     * Returns the query selection criteria
+     * Returns the query selection criteria.
+     *
      * <p>
      * Read more:
      * <a href="https://docs.mongodb.com/manual/reference/operator/">

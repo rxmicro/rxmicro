@@ -439,7 +439,7 @@
                                     <failOnViolation>${maven-checkstyle-plugin.failOnViolation}</failOnViolation>
                                 </configuration>
                             </execution>
-                            <!--execution>
+                            <execution>
                                 <id>public-api-rules</id>
                                 <phase>process-classes</phase>
                                 <goals>
@@ -450,9 +450,9 @@
                                     <suppressionsLocation>.coding/checkstyle/public-api-suppressions.xml</suppressionsLocation>
                                     <suppressionsFileExpression>checkstyle.suppressions.file</suppressionsFileExpression>
                                     <failOnViolation>${maven-checkstyle-plugin.failOnViolation}</failOnViolation>
-                                    <excludes>**/io/rxmicro/annotation/processor/**, **/detail/**</excludes>
+                                    <excludes>io/rxmicro/annotation/processor/**, **/detail/**, **/local/**, **/internal/**</excludes>
                                 </configuration>
-                            </execution-->
+                            </execution>
                         </executions>
                     </plugin>
                 </plugins>
@@ -475,6 +475,20 @@
                                     <suppressionsLocation>.coding/checkstyle/common-suppressions.xml</suppressionsLocation>
                                     <suppressionsFileExpression>checkstyle.suppressions.file</suppressionsFileExpression>
                                     <failOnViolation>${maven-checkstyle-plugin.failOnViolation}</failOnViolation>
+                                </configuration>
+                            </reportSet>
+                            <reportSet>
+                                <id>public-api-rules</id>
+                                <reports>
+                                    <report>checkstyle</report>
+                                    <report>checkstyle-aggregate</report>
+                                </reports>
+                                <configuration>
+                                    <configLocation>.coding/checkstyle/public-api-rules.xml</configLocation>
+                                    <suppressionsLocation>.coding/checkstyle/public-api-suppressions.xml</suppressionsLocation>
+                                    <suppressionsFileExpression>checkstyle.suppressions.file</suppressionsFileExpression>
+                                    <failOnViolation>${maven-checkstyle-plugin.failOnViolation}</failOnViolation>
+                                    <excludes>io/rxmicro/annotation/processor/**, **/detail/**, **/local/**, **/internal/**</excludes>
                                 </configuration>
                             </reportSet>
                         </reportSets>

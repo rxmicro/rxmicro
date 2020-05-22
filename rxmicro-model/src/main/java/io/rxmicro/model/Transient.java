@@ -25,7 +25,7 @@ import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
- * Marks model field as not persist
+ * Marks model field as not persist.
  *
  * @author nedis
  * @since 0.1

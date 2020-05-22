@@ -29,6 +29,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
  * Allows configuring the process of code generation by the {@code RxMicro Annotation Processor} for REST clients.
+ *
  * <p>
  * To configure the process of code generation by the {@code RxMicro Annotation Processor}
  * developer must annotated a module descriptor {@code module-info.java} by this annotation.
@@ -75,14 +76,14 @@ public @interface RestClientGeneratorConfig {
     GenerateOption generateResponseValidators() default GenerateOption.AUTO_DETECT;
 
     /**
-     * Allows enabling/disabling the generation required module directives
+     * Allows enabling/disabling the generation required module directives.
      *
      * @return {@code true} if required module directives must be generated
      */
     boolean generateRequiredModuleDirectives() default true;
 
     /**
-     * Provides supported request validation modes for REST clients
+     * Provides supported request validation modes for REST clients.
      *
      * @author nedis
      * @since 0.1
@@ -90,12 +91,12 @@ public @interface RestClientGeneratorConfig {
     enum RequestValidationMode {
 
         /**
-         * it is necessary to catch the exception
+         * it is necessary to catch the exception.
          */
         THROW_EXCEPTION,
 
         /**
-         * error handling should be performed in reactive style
+         * error handling should be performed in reactive style.
          */
         RETURN_ERROR_SIGNAL
     }

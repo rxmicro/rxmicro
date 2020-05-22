@@ -16,11 +16,12 @@
 
 /**
  * The module that is a REST client implementation module based on
- * <a href="https://openjdk.java.net/groups/net/httpclient/intro.html">Java HTTP Client</a>;
+ * <a href="https://openjdk.java.net/groups/net/httpclient/intro.html">Java HTTP Client</a>.
+ *
  * <p>
  * This module requires {@code rxmicro.http.client.jdk} module.
- * <p>
  *
+ * <p>
  * This module follows the next package structure rules:
  * <ul>
  *     <li>
@@ -43,7 +44,6 @@
  *         </ul>
  *     </li>
  * </ul>
- *
  *
  * @author nedis
  * @since 0.1

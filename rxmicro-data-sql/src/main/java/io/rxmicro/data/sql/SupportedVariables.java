@@ -23,9 +23,10 @@ import io.rxmicro.data.sql.operation.Update;
 
 /**
  * Supported variables that can be used in the SQL queries.
+ *
  * <p>
- * <h4>To determine the value of the predefined variable used in the query specified for the repository method, the RxMicro framework
- * uses the following algorithm:</h4>
+ * <strong>To determine the value of the predefined variable used in the query specified for the repository method, the RxMicro framework
+ * uses the following algorithm:</strong>
  * <ol>
  *     <li>
  *         If the repository method returns or accepts the entity model as a parameter, the entity model class is used to define
@@ -70,42 +71,50 @@ public final class SupportedVariables {
     public static final String TABLE = "${table}";
 
     /**
-     * All table columns defined at java class, separated by comma {@code ,}
+     * All table columns defined at java class, separated by comma {@code ,}.
+     *
      * <p>
      * For example: <code>${all-columns} = id, login, name, password</code>
      */
     public static final String ALL_COLUMNS = "${all-columns}";
 
     /**
-     * Table columns defined at java class and available to insert to database table, separated by comma {@code ,}
+     * Table columns defined at java class and available to insert to database table, separated by comma {@code ,}.
+     *
      * <p>
      * <code>${inserted-columns} =
      * ${all-columns} minus {Columns annotated by @{@link NotInsertable}} minus {auto generated primary keys}</code>
+     *
      * <p>
      * For example: <code>${inserted-columns} = login, name, password</code>
      */
     public static final String INSERTED_COLUMNS = "${inserted-columns}";
 
     /**
-     * Table column set expressions defined at java class and available to update to database table, separated by comma {@code ,}
+     * Table column set expressions defined at java class and available to update to database table, separated by comma {@code ,}.
+     *
      * <p>
      * <code>${updated-columns} = ${all-columns} minus {Columns annotated by @{@link NotUpdatable}} minus {primary keys}</code>
+     *
      * <p>
      * For example: <code>${updated-columns} = login = ?, name = ?, password = ?</code>
      */
     public static final String UPDATED_COLUMNS = "${updated-columns}";
 
     /**
-     * Insertable values, separated by comma {@code ,}
+     * Insertable values, separated by comma {@code ,}.
+     *
      * <p>
      * For example: <code>${values} = ?, ?, ?</code>
      */
     public static final String VALUES = "${values}";
 
     /**
-     * Primary keys defined at java class, separated by comma {@code ,}
+     * Primary keys defined at java class, separated by comma {@code ,}.
+     *
      * <p>
      * <code>${id-columns} = {primary keys}</code>
+     *
      * <p>
      * For example: <code>${id-columns} = id1, id2</code> if primary key is complex
      * For example: <code>${id-columns} = id</code> if primary key is simple
@@ -113,9 +122,12 @@ public final class SupportedVariables {
     public static final String ID_COLUMNS = "${id-columns}";
 
     /**
-     * By primary key filters, separated by comma {@code ,}
+     * By primary key filters, separated by comma {@code ,}.
+     *
      * <p>
      * For example: <code>${by-id-filter} = id1 = ? AND id2 = ?</code> if primary key is complex
+     *
+     * <p>
      * For example: <code>${by-id-filter} = id = ?</code> if primary key is simple
      */
     public static final String BY_ID_FILTER = "${by-id-filter}";

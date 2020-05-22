@@ -17,10 +17,9 @@
 package io.rxmicro.documentation;
 
 /**
- * Represents an include mode for external documentation resources
+ * Represents an include mode for external documentation resources.
  *
  * @author nedis
- * @since 0.1
  * @see Author
  * @see BaseEndpoint
  * @see Constants
@@ -33,16 +32,17 @@ package io.rxmicro.documentation;
  * @see ResourceDefinition
  * @see ResourceGroupDefinition
  * @see Title
+ * @since 0.1
  */
 public enum IncludeMode {
 
     /**
-     * Includes only reference of external document
+     * Includes only reference of external document.
      */
     INCLUDE_REFERENCE,
 
     /**
-     * Copies the content of included external document
+     * Copies the content of included external document.
      */
     INLINE_CONTENT
 }

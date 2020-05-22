@@ -28,11 +28,13 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
  * Declares a strategy of parameter name formation based on Java model field name analysis.
+ *
  * <p>
  * By default, the {@link MappingStrategy#LOWERCASE_WITH_UNDERSCORED} strategy is used.
  * Thus, by using this strategy, the {@code header_name} name header corresponds to the {@code headerName} field name.
+ *
  * <p>
- * <h4>The RxMicro framework uses the following algorithm to define the HTTP parameter name for the specified model field:</h4>
+ * <strong>The RxMicro framework uses the following algorithm to define the HTTP parameter name for the specified model field:</strong>
  * <ul>
  *     <li>
  *         If the field is annotated by the {@link Parameter} annotation with an explicit indication of the HTTP parameter name,
@@ -53,12 +55,12 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * </ul>
  *
  * @author nedis
- * @since 0.1
  * @see AddQueryParameter
  * @see SetQueryParameter
  * @see RepeatQueryParameter
  * @see Parameter
  * @see MappingStrategy
+ * @since 0.1
  */
 @Documented
 @Retention(SOURCE)
@@ -67,6 +69,7 @@ public @interface ParameterMappingStrategy {
 
     /**
      * By default, the {@link MappingStrategy#LOWERCASE_WITH_UNDERSCORED} strategy is used.
+     *
      * <p>
      * Thus, by using this strategy, the {@code header_name} name header corresponds to the {@code headerName} field name.
      *

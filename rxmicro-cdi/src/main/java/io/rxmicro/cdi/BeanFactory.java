@@ -23,7 +23,7 @@ import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.GeneratedClassRules.GENERATED_CLASS_NAME_PREFIX;
 
 /**
- * Utility class that must be used to get the instance of the requested bean
+ * Utility class that must be used to get the instance of the requested bean.
  *
  * @author nedis
  * @since 0.1
@@ -31,14 +31,15 @@ import static io.rxmicro.common.util.GeneratedClassRules.GENERATED_CLASS_NAME_PR
 public abstract class BeanFactory extends AbstractFactory {
 
     /**
-     * Default name of the bean factory implementation class
+     * Default name of the bean factory implementation class.
      */
     public static final String BEAN_FACTORY_IMPL_CLASS_NAME =
             format("??Impl", GENERATED_CLASS_NAME_PREFIX, BeanFactory.class.getSimpleName());
 
     /**
-     * Returns the instance of the requested bean
+     * Returns the instance of the requested bean.
      *
+     * @param <T> the bean type
      * @param beanClass the bean interface or class
      * @return the instance of the requested bean
      */

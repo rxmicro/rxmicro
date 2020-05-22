@@ -19,7 +19,7 @@ package io.rxmicro.tool.common;
 import static io.rxmicro.tool.common.internal.DeniedPackageConstants.DENIED_PACKAGES;
 
 /**
- * Utility class that verifies that the tested package name is denied or not
+ * Utility class that verifies that the tested package name is denied or not.
  *
  * @author nedis
  * @since 0.1
@@ -27,7 +27,7 @@ import static io.rxmicro.tool.common.internal.DeniedPackageConstants.DENIED_PACK
 public final class DeniedPackages {
 
     /**
-     * Returns {@code true} if the tested package name is denied
+     * Returns {@code true} if the tested package name is denied.
      *
      * @param packageName the tested package name
      * @return {@code true} if the tested package name is denied

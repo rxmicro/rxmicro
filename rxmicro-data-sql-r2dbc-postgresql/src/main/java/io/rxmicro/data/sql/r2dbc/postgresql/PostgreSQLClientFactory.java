@@ -28,13 +28,14 @@ import static io.rxmicro.runtime.local.InstanceContainer.getSingleton;
 /**
  * Utility class that must be used to get an instance of the {@link ConnectionFactory} or {@link ConnectionPool}
  * integrated to the RxMicro framework.
+ *
  * <p>
  * This utility class allows using additional features that {@link ConnectionFactory} or {@link ConnectionPool} is provided.
  *
  * @author nedis
- * @since 0.1
  * @see PostgreSQLConfig
  * @see PostgreSQLRepository
+ * @since 0.1
  */
 public final class PostgreSQLClientFactory {
 
@@ -42,7 +43,7 @@ public final class PostgreSQLClientFactory {
             new PostgreSQLConnectionPoolBuilder();
 
     /**
-     * Returns the instance of the {@link ConnectionFactory} that is bound to config with the default namespace
+     * Returns the instance of the {@link ConnectionFactory} that is bound to config with the default namespace.
      *
      * @return the instance of the {@link ConnectionFactory}
      */
@@ -51,7 +52,7 @@ public final class PostgreSQLClientFactory {
     }
 
     /**
-     * Returns the instance of the {@link ConnectionFactory} that is bound to config with the requested namespace
+     * Returns the instance of the {@link ConnectionFactory} that is bound to config with the requested namespace.
      *
      * @param namespace the requested namespace
      * @return the instance of the {@link ConnectionFactory}
@@ -61,7 +62,7 @@ public final class PostgreSQLClientFactory {
     }
 
     /**
-     * Returns the instance of the {@link ConnectionPool} that is bound to config with the default namespace
+     * Returns the instance of the {@link ConnectionPool} that is bound to config with the default namespace.
      *
      * @return the instance of the {@link ConnectionPool}
      */
@@ -70,7 +71,7 @@ public final class PostgreSQLClientFactory {
     }
 
     /**
-     * Returns the instance of the {@link ConnectionPool} that is bound to config with the requested namespace
+     * Returns the instance of the {@link ConnectionPool} that is bound to config with the requested namespace.
      *
      * @param namespace the requested namespace
      * @return the instance of the {@link ConnectionPool}

@@ -29,9 +29,10 @@ import java.util.Set;
 import static io.rxmicro.runtime.local.InstanceContainer.getSingletonsByType;
 
 /**
- * Used by generated code that was created by {@code RxMicro Annotation Processor}
+ * Used by generated code that created by the {@code RxMicro Annotation Processor}.
  *
  * @author nedis
+ * @hidden
  * @since 0.1
  */
 public abstract class InternalBeanFactory extends BeanFactory {

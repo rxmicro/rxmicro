@@ -25,7 +25,7 @@ import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
- * Base url path for all http endpoints
+ * Base url path for all http endpoints.
  *
  * @author nedis
  * @since 0.1
@@ -37,21 +37,21 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 public @interface BaseUrlPath {
 
     /**
-     * Returns the base url
+     * Returns the base url.
      *
      * @return the base url
      */
     String value();
 
     /**
-     * Returns the position of the base url according to {@link Version} if {@link Version.Strategy#URL_PATH} is used
+     * Returns the position of the base url according to {@link Version} if {@link Version.Strategy#URL_PATH} is used.
      *
      * @return the position of the base url according to {@link Version} if {@link Version.Strategy#URL_PATH} is used
      */
     Position position() default Position.AFTER_VERSION;
 
     /**
-     * Contains supported positions
+     * Contains supported positions.
      *
      * @author nedis
      * @since 0.1
@@ -59,12 +59,12 @@ public @interface BaseUrlPath {
     enum Position {
 
         /**
-         * Base url must be generated before {@link Version} if {@link Version.Strategy#URL_PATH} is used
+         * Base url must be generated before {@link Version} if {@link Version.Strategy#URL_PATH} is used.
          */
         BEFORE_VERSION,
 
         /**
-         * Base url must be generated after {@link Version} if {@link Version.Strategy#URL_PATH} is used
+         * Base url must be generated after {@link Version} if {@link Version.Strategy#URL_PATH} is used.
          */
         AFTER_VERSION
     }

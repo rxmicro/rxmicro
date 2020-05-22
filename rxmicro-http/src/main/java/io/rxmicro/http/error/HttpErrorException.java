@@ -21,12 +21,14 @@ import io.rxmicro.common.util.Formats;
 
 /**
  * Base exception for all not success HTTP response statuses.
+ *
  * <p>
  * Each reactive type of returned request handler result supports two states:
  * <ul>
  *     <li>Successful completion signal.</li>
  *     <li>Completion signal with an error.</li>
  * </ul>
+ *
  * <p>
  * The feature of a successful completion signal consists in its uniqueness, i.e. if such a signal has occurred, it ensures successful
  * completion of the business task. The feature of a completion signal with an error is that different types of errors may occur
@@ -36,12 +38,15 @@ import io.rxmicro.common.util.Formats;
  *     <li>data source connection error;</li>
  *     <li>computational algorithm error, etc.</li>
  * </ul>
+ *
  * <p>
  * It means that each request handler can return only one successful result and several results with errors.
+ *
  * <p>
  * So the RxMicro framework introduces the error concept. An error means any unsuccessful result.
  * For simplified error handling, the RxMicro framework recommends using HTTP status codes for each error category!
  * In case the HTTP code status is not sufficient, the RxMicro framework recommends using an additional text description.
+ *
  * <p>
  * For this purpose, the RxMicro framework defines a standard JSON model which is returned in case of any error:
  * <pre>
@@ -49,9 +54,11 @@ import io.rxmicro.common.util.Formats;
  *    "message": "Not Found"
  * }
  * </pre>
+ *
  * <p>
  * Thus, in case of an error, the client determines the error category basing on HTTP status code analysis. For more information,
  * the client should analyze a text message.
+ *
  * <p>
  * For all child classes which extend the HttpErrorException class, when creating an exception instance the stack trace is not filled,
  * as this information is redundant.
@@ -86,9 +93,11 @@ public class HttpErrorException extends RxMicroException {
 
     /**
      * Creates a HTTP error with status code and error message.
+     *
      * <p>
      * For all child classes which extend the HttpErrorException class, when creating an exception instance the stack trace is not filled,
      * as this information is redundant.
+     *
      * <p>
      * (<i>This behavior is achieved by using the {@link RuntimeException#RuntimeException(String, Throwable, boolean, boolean)}.</i>)
      *
@@ -104,11 +113,14 @@ public class HttpErrorException extends RxMicroException {
 
     /**
      * Creates a HTTP error with status code and error message.
+     *
      * <p>
      * For all child classes which extend the HttpErrorException class, when creating an exception instance the stack trace is not filled,
      * as this information is redundant.
+     *
      * <p>
      * (<i>This behavior is achieved by using the {@link RuntimeException#RuntimeException(String, Throwable, boolean, boolean)}.</i>)
+     *
      * <p>
      * <i>(FYI: This constructor uses {@link Formats#format(String, Object...)} method to format error message.)</i>
      *
@@ -127,9 +139,11 @@ public class HttpErrorException extends RxMicroException {
 
     /**
      * Creates a HTTP error with status code only.
+     *
      * <p>
      * For all child classes which extend the HttpErrorException class, when creating an exception instance the stack trace is not filled,
      * as this information is redundant.
+     *
      * <p>
      * (<i>This behavior is achieved by using the {@link RuntimeException#RuntimeException(String, Throwable, boolean, boolean)}.</i>)
      *
@@ -140,26 +154,56 @@ public class HttpErrorException extends RxMicroException {
         this.statusCode = statusCode;
     }
 
+    /**
+     * Returns the HTTP status code for current instance of exception.
+     *
+     * @return the HTTP status code for current instance of exception
+     */
     public final int getStatusCode() {
         return statusCode;
     }
 
+    /**
+     * Returns {@code true} if the current instance of exception has a informational status code.
+     *
+     * @return {@code true} if the current instance of exception has a informational status code
+     */
     public final boolean isInformationalCode() {
         return statusCode >= MIN_SUPPORTED_INFORMATIONAL_CODE && statusCode < MAX_SUPPORTED_INFORMATIONAL_CODE;
     }
 
+    /**
+     * Returns {@code true} if the current instance of exception has a success status code.
+     *
+     * @return {@code true} if the current instance of exception has a success status code
+     */
     public final boolean isSuccessCode() {
         return statusCode >= MIN_SUPPORTED_SUCCESS_CODE && statusCode < MAX_SUPPORTED_SUCCESS_CODE;
     }
 
+    /**
+     * Returns {@code true} if the current instance of exception has a redirect status code.
+     *
+     * @return {@code true} if the current instance of exception has a redirect status code
+     */
     public final boolean isRedirectCode() {
         return statusCode >= MIN_SUPPORTED_REDIRECT_CODE && statusCode < MAX_SUPPORTED_REDIRECT_CODE;
     }
 
+    /**
+     * Returns {@code true} if the current instance of exception has a client error status code.
+     *
+     * @return {@code true} if the current instance of exception has a client error status code
+     */
     public final boolean isClientErrorCode() {
         return statusCode >= MIN_SUPPORTED_CLIENT_ERROR_CODE && statusCode < MAX_SUPPORTED_CLIENT_ERROR_CODE;
     }
 
+    /**
+     * Returns {@code true} if the current instance of exception has a server error status code.
+     *
+     * @return {@code true} if the current instance of exception has a server error status code
+     */
     public final boolean isServerErrorCode() {
         return statusCode >= MIN_SUPPORTED_SERVER_ERROR_CODE && statusCode < MAX_SUPPORTED_SERVER_ERROR_CODE;
     }

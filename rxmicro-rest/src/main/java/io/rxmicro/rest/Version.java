@@ -36,21 +36,21 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 public @interface Version {
 
     /**
-     * Returns the REST API version value
+     * Returns the REST API version value.
      *
      * @return the REST API version value
      */
     String value();
 
     /**
-     * Returns the version {@link Strategy}
+     * Returns the version {@link Strategy}.
      *
      * @return the version {@link Strategy}
      */
     Strategy strategy() default Strategy.URL_PATH;
 
     /**
-     * REST version strategy
+     * REST version strategy.
      *
      * @author nedis
      * @since 0.1
@@ -59,6 +59,7 @@ public @interface Version {
 
         /**
          * Overrides an url.
+         *
          * <p>
          * For example:
          * <ul>
@@ -70,6 +71,7 @@ public @interface Version {
 
         /**
          * Adds HTTP header, which defines REST API version.
+         *
          * <p>
          * <ul>
          *     <li>
@@ -82,6 +84,7 @@ public @interface Version {
          * </ul>
          *
          * @see io.rxmicro.http.HttpHeaders
+         * @see io.rxmicro.http.HttpStandardHeaderNames
          */
         HEADER(API_VERSION);
 

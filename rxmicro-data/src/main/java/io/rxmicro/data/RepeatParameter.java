@@ -28,9 +28,9 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * that are used in the query to db.
  *
  * @author nedis
- * @since 0.1
  * @see SortOrder
  * @see Pageable
+ * @since 0.1
  */
 @Documented
 @Retention(SOURCE)
@@ -38,7 +38,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 public @interface RepeatParameter {
 
     /**
-     * Returns the repeat count
+     * Returns the repeat count.
      *
      * @return the repeat count
      */

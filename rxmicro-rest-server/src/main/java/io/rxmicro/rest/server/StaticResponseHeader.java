@@ -18,24 +18,25 @@ package io.rxmicro.rest.server;
 
 /**
  * Defines the static HTTP response headers that must be returned by HTTP server for all HTTP responses.
+ *
  * <p>
  * {@code `static`} term means that a header value does not depend on any HTTP request parameter or any config setting.
  *
  * @author nedis
- * @since 0.3
  * @see StandardStaticResponseHeader
+ * @since 0.3
  */
 public interface StaticResponseHeader {
 
     /**
-     * Returns the static HTTP header name
+     * Returns the static HTTP header name.
      *
      * @return the static HTTP header name
      */
     String getName();
 
     /**
-     * Returns the static HTTP header value
+     * Returns the static HTTP header value.
      *
      * @return the static HTTP header value
      */

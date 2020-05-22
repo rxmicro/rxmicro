@@ -26,11 +26,11 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
  * Denotes the version of REST-based microservice in the generated REST-based microservice documentation.
+ *
  * <p>
  * (<i>Allows overriding the version of REST-based microservice specified in the version directive to pom.xml</i>)
  *
  * @author nedis
- * @since 0.1
  * @see Author
  * @see BaseEndpoint
  * @see Constants
@@ -43,6 +43,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * @see ResourceDefinition
  * @see ResourceGroupDefinition
  * @see Title
+ * @since 0.1
  */
 @Documented
 @Retention(SOURCE)
@@ -50,7 +51,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 public @interface DocumentationVersion {
 
     /**
-     * Returns the version of REST-based microservice
+     * Returns the version of REST-based microservice.
      *
      * @return the version of REST-based microservice
      */

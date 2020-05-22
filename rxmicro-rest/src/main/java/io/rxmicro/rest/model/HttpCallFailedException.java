@@ -27,8 +27,9 @@ import static java.util.stream.Collectors.joining;
 
 /**
  * Represents the invalid http call to the external REST endpoint.
+ *
  * <p>
- * An instance of this class contains the received HTTP response to get additional info about error
+ * An instance of this class contains the received HTTP response to get additional info about error.
  *
  * @author nedis
  * @since 0.1
@@ -44,10 +45,12 @@ public abstract class HttpCallFailedException extends HttpErrorException {
     private String bodyAsString;
 
     /**
-     * Creates a {@link HttpCallFailedException} instance with received failed HTTP response
+     * Creates a {@link HttpCallFailedException} instance with received failed HTTP response.
+     *
      * <p>
      * For all child classes which extend the HttpErrorException class, when creating an exception instance the stack trace is not filled,
      * as this information is redundant.
+     *
      * <p>
      * (<i>This behavior is achieved by using the {@link RuntimeException#RuntimeException(String, Throwable, boolean, boolean)}.</i>)
      *
@@ -70,7 +73,7 @@ public abstract class HttpCallFailedException extends HttpErrorException {
     }
 
     /**
-     * Returns the received HTTP protocol version
+     * Returns the received HTTP protocol version.
      *
      * @return the received HTTP protocol version
      */
@@ -79,7 +82,7 @@ public abstract class HttpCallFailedException extends HttpErrorException {
     }
 
     /**
-     * Returns the received HTTP headers
+     * Returns the received HTTP headers.
      *
      * @return the received HTTP headers
      */
@@ -88,7 +91,7 @@ public abstract class HttpCallFailedException extends HttpErrorException {
     }
 
     /**
-     * Returns the received HTTP body as byte array
+     * Returns the received HTTP body as byte array.
      *
      * @return the received HTTP body as byte array
      */
@@ -100,7 +103,7 @@ public abstract class HttpCallFailedException extends HttpErrorException {
     }
 
     /**
-     * Returns the received HTTP body as {@link String}
+     * Returns the received HTTP body as {@link String}.
      *
      * @return the received HTTP body as {@link String}
      */
@@ -112,7 +115,7 @@ public abstract class HttpCallFailedException extends HttpErrorException {
     }
 
     /**
-     * Returns {@code true} if HTTP body is present
+     * Returns {@code true} if HTTP body is present.
      *
      * @return {@code true} if HTTP body is present
      */

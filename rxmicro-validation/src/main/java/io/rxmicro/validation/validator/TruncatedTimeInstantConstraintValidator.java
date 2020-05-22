@@ -31,11 +31,11 @@ import static io.rxmicro.validation.constraint.TruncatedTime.Truncated.MINUTES;
 import static io.rxmicro.validation.constraint.TruncatedTime.Truncated.SECONDS;
 
 /**
- * Validator for the {@link io.rxmicro.validation.constraint.TruncatedTime} constraint
+ * Validator for the {@link io.rxmicro.validation.constraint.TruncatedTime} constraint.
  *
  * @author nedis
- * @since 0.1
  * @see io.rxmicro.validation.constraint.TruncatedTime
+ * @since 0.1
  */
 public class TruncatedTimeInstantConstraintValidator extends AbstractDateTimeEqualsConstraintValidator
         implements ConstraintValidator<Instant> {
@@ -45,6 +45,11 @@ public class TruncatedTimeInstantConstraintValidator extends AbstractDateTimeEqu
 
     private final TruncatedTime.Truncated truncated;
 
+    /**
+     * Creates the default instance of {@link TruncatedTimeInstantConstraintValidator} with the specified truncated mode.
+     *
+     * @param truncated the specified truncated mode
+     */
     public TruncatedTimeInstantConstraintValidator(final TruncatedTime.Truncated truncated) {
         this.truncated = truncated;
     }

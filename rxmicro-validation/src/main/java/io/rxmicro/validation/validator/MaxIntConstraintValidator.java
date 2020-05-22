@@ -20,21 +20,33 @@ import io.rxmicro.validation.ConstraintValidator;
 import io.rxmicro.validation.base.AbstractMaxConstraintValidator;
 
 /**
- * Validator for the {@link io.rxmicro.validation.constraint.MaxInt} and the {@link io.rxmicro.validation.constraint.MaxNumber} constraints
+ * Validator for the {@link io.rxmicro.validation.constraint.MaxInt} and the {@link io.rxmicro.validation.constraint.MaxNumber} constraints.
  *
  * @author nedis
- * @since 0.1
  * @see io.rxmicro.validation.constraint.MaxInt
  * @see io.rxmicro.validation.constraint.MaxNumber
+ * @since 0.1
  */
 public class MaxIntConstraintValidator extends AbstractMaxConstraintValidator<Integer>
         implements ConstraintValidator<Integer> {
 
+    /**
+     * Creates the default instance of {@link MaxIntConstraintValidator} with the specified parameters.
+     *
+     * @param maxValue the supported max value.
+     * @param inclusive whether the specified minimum is inclusive or exclusive.
+     */
     public MaxIntConstraintValidator(final long maxValue,
                                      final boolean inclusive) {
         super((int) maxValue, inclusive);
     }
 
+    /**
+     * Creates the default instance of {@link MaxIntConstraintValidator} with the specified parameters.
+     *
+     * @param maxValue the supported max value.
+     * @param inclusive whether the specified minimum is inclusive or exclusive.
+     */
     public MaxIntConstraintValidator(final String maxValue,
                                      final boolean inclusive) {
         super(Integer.parseInt(maxValue), inclusive);

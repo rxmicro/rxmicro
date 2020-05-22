@@ -22,12 +22,13 @@ import static io.rxmicro.common.util.Requires.require;
 
 /**
  * Allows configuring the {@link Secrets} instance.
+ *
  * <p>
  * The RxMicro framework uses {@link String#split(String)} to split values by regex!
  *
  * @author nedis
- * @since 0.3
  * @see String#split(String)
+ * @since 0.3
  */
 @SuppressWarnings("UnusedReturnValue")
 public final class SecretsConfig extends Config {
@@ -36,15 +37,20 @@ public final class SecretsConfig extends Config {
 
     private String values;
 
+    /**
+     * Returns the regex for values delimiter that used at {@link String#split(String)} method.
+     *
+     * @return the regex for values delimiter that used at {@link String#split(String)} method
+     */
     public String getRegex() {
         return regex;
     }
 
     /**
-     * Sets a regex that used at {@link String#split(String)} method
+     * Sets the regex for values delimiter that used at {@link String#split(String)} method.
      *
-     * @param regex regex that used at {@link String#split(String)} method
-     * @return the reference to this {@link SecretsConfig} instance
+     * @param regex the regex for values delimiter that used at {@link String#split(String)} method.
+     * @return the reference to this {@link SecretsConfig} instance.
      */
     @BuilderMethod
     public SecretsConfig setRegex(final String regex) {
@@ -52,15 +58,20 @@ public final class SecretsConfig extends Config {
         return this;
     }
 
+    /**
+     * Returns the secret values.
+     *
+     * @return the secret values.
+     */
     public String getValues() {
         return values;
     }
 
     /**
-     * Sets a secret values that used as string source
+     * Sets the secret values values that used as string source.
      *
-     * @param values values
-     * @return the reference to this {@link SecretsConfig} instance
+     * @param values the secret values.
+     * @return the reference to this {@link SecretsConfig} instance.
      */
     @BuilderMethod
     public SecretsConfig setValues(final String values) {
@@ -68,6 +79,11 @@ public final class SecretsConfig extends Config {
         return this;
     }
 
+    /**
+     * Returns {@code true} if secret values found.
+     *
+     * @return {@code true} if secret values found.
+     */
     public boolean hasValues() {
         return values != null && !values.isBlank();
     }

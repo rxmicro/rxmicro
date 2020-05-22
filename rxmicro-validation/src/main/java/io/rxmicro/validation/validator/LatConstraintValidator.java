@@ -23,14 +23,19 @@ import java.math.BigDecimal;
 import java.util.List;
 
 /**
- * Validator for the {@link io.rxmicro.validation.constraint.Lat} constraint
+ * Validator for the {@link io.rxmicro.validation.constraint.Lat} constraint.
  *
  * @author nedis
- * @since 0.1
  * @see io.rxmicro.validation.constraint.Lat
+ * @since 0.1
  */
 public final class LatConstraintValidator extends AbstractCompositionConstraintValidator<BigDecimal> {
 
+    /**
+     * Creates the default instance of {@link LatConstraintValidator} with the specified location accuracy.
+     *
+     * @param locationAccuracy the specified location accuracy
+     */
     public LatConstraintValidator(final LocationAccuracy locationAccuracy) {
         super(List.of(
                 new MinBigDecimalNumberConstraintValidator("-90", true),

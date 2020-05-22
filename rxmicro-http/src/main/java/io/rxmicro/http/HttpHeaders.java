@@ -26,23 +26,23 @@ import java.util.Map;
 import static java.util.Map.entry;
 
 /**
- * Represents a HTTP headers instance
+ * Represents a HTTP headers instance.
  *
  * @author nedis
- * @since 0.1
  * @see QueryParams
  * @see HttpStandardHeaderNames
  * @see HttpValues
+ * @since 0.1
  */
 public interface HttpHeaders {
 
     /**
-     * Empty HTTP headers instance
+     * Empty HTTP headers instance.
      */
     HttpHeaders EMPTY_HEADERS = new HttpHeadersImpl(List.of());
 
     /**
-     * Returns the empty HTTP headers instance
+     * Returns the empty HTTP headers instance.
      *
      * @return the empty HTTP headers instance
      */
@@ -344,7 +344,7 @@ public interface HttpHeaders {
     List<String> getValues(String name);
 
     /**
-     * Returns {@code true} if HTTP header is defined, {@code false} otherwise
+     * Returns {@code true} if HTTP header is defined, {@code false} otherwise.
      *
      * @param name the HTTP header name
      * @return {@code true} if HTTP header is defined
@@ -352,21 +352,21 @@ public interface HttpHeaders {
     boolean contains(String name);
 
     /**
-     * Returns the entries of HTTP header names and values
+     * Returns the entries of HTTP header names and values.
      *
      * @return the entries of HTTP header names and values
      */
     List<Map.Entry<String, String>> getEntries();
 
     /**
-     * Returns the count of HTTP headers
+     * Returns the count of HTTP headers.
      *
      * @return the count of HTTP headers
      */
     int size();
 
     /**
-     * Returns {@code true} if HTTP headers contains any HTTP headers, {@code false} otherwise
+     * Returns {@code true} if HTTP headers contains any HTTP headers, {@code false} otherwise.
      *
      * @return {@code true} if HTTP headers contains any HTTP headers,
      */

@@ -21,7 +21,8 @@ import java.util.Map;
 import static java.util.Map.entry;
 
 /**
- * Wide used HTTP statuses and its short descriptions
+ * Wide used HTTP statuses and its short descriptions.
+ *
  * <p>
  * Read more: <a href="https://en.wikipedia.org/wiki/List_of_HTTP_status_codes">https://en.wikipedia.org/wiki/List_of_HTTP_status_codes</a>
  *
@@ -107,7 +108,7 @@ public final class HttpStatuses {
     private static final int MAX_SUPPORTED_HTTP_STATUS = 599;
 
     /**
-     * Returns the short description for the specified status code
+     * Returns the short description for the specified status code.
      *
      * @param status the specified status code
      * @return the short description for the specified status code or

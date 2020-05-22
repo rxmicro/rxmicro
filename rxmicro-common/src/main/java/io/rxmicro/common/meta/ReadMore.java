@@ -26,6 +26,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
  * Provides read more link with caption.
+ *
  * <p>
  * This info is used for project documentation module!
  *
@@ -38,14 +39,14 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 public @interface ReadMore {
 
     /**
-     * Returns the caption
+     * Returns the caption.
      *
      * @return the caption
      */
     String caption();
 
     /**
-     * Provides the link to get additional info
+     * Provides the link to get additional info.
      *
      * @return the link to get additional info
      */

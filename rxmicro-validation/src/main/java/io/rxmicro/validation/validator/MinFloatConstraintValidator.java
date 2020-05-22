@@ -21,20 +21,31 @@ import io.rxmicro.validation.base.AbstractMinConstraintValidator;
 
 /**
  * Validator for the {@link io.rxmicro.validation.constraint.MinDouble} and the {@link io.rxmicro.validation.constraint.MinNumber}
- * constraints
+ * constraints.
  *
  * @author nedis
- * @since 0.1
  * @see io.rxmicro.validation.constraint.MinDouble
  * @see io.rxmicro.validation.constraint.MinNumber
+ * @since 0.1
  */
 public class MinFloatConstraintValidator extends AbstractMinConstraintValidator<Float>
         implements ConstraintValidator<Float> {
 
+    /**
+     * Creates the default instance of {@link MinFloatConstraintValidator} with the specified parameters.
+     *
+     * @param minValue the supported min value.
+     */
     public MinFloatConstraintValidator(final double minValue) {
         super((float) minValue, false);
     }
 
+    /**
+     * Creates the default instance of {@link MinFloatConstraintValidator} with the specified parameters.
+     *
+     * @param minValue the supported min value.
+     * @param inclusive whether the specified minimum is inclusive or exclusive.
+     */
     public MinFloatConstraintValidator(final String minValue,
                                        final boolean inclusive) {
         super(Float.parseFloat(minValue), inclusive);

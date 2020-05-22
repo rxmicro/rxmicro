@@ -21,7 +21,7 @@ import io.rxmicro.common.RxMicroModule;
 import java.util.Collection;
 
 /**
- * Base interface for supported exchange format modules
+ * Base interface for supported exchange format modules.
  *
  * @author nedis
  * @since 0.1
@@ -29,21 +29,21 @@ import java.util.Collection;
 public interface ExchangeFormatModule {
 
     /**
-     * Returns the current {@link ExchangeFormat}
+     * Returns the current {@link ExchangeFormat}.
      *
      * @return the current {@link ExchangeFormat}
      */
     ExchangeFormat getExchangeFormat();
 
     /**
-     * Returns the {@link RxMicroModule} that supports current exchange format
+     * Returns the {@link RxMicroModule} that supports current exchange format.
      *
      * @return the {@link RxMicroModule} that supports current exchange format
      */
     RxMicroModule getRxMicroModule();
 
     /**
-     * Returns all supported exchange formats
+     * Returns all supported exchange formats.
      *
      * @return all supported exchange formats
      */

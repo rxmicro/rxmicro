@@ -28,11 +28,13 @@ import java.lang.annotation.Target;
 /**
  * Informs the test framework about the need to create mocks and inject them into the test class fields,
  * annotated by the @{@link org.mockito.Mock} annotation.
+ *
  * <p>
  * <i>(Using the @{@link InitMocks} annotation is preferable to the analogous
  * {@code @}{@link ExtendWith}{@code ({@link MockitoExtension}.class)} construction!)</i>
  *
- * <h4>Usage example:</h4>
+ * <p>
+ * <strong>Usage example:</strong>
  * <pre>
  * {@code @InitMocks}
  * final class Test {
@@ -49,9 +51,9 @@ import java.lang.annotation.Target;
  * </pre>
  *
  * @author nedis
- * @since 0.1
  * @see MockitoExtension
  * @see org.mockito.Mock
+ * @since 0.1
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)

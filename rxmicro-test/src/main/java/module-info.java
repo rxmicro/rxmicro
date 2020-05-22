@@ -19,8 +19,8 @@ import io.rxmicro.test.local.component.TestExtension;
 
 /**
  * The basic module designed for test writing using any modern testing framework.
- * <p>
  *
+ * <p>
  * This module follows the next package structure rules:
  * <ul>
  *     <li>
@@ -43,7 +43,6 @@ import io.rxmicro.test.local.component.TestExtension;
  *         </ul>
  *     </li>
  * </ul>
- *
  *
  * @author nedis
  * @since 0.1

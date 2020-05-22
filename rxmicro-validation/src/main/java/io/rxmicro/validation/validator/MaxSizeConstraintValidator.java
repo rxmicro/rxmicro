@@ -23,15 +23,21 @@ import io.rxmicro.validation.base.AbstractMaxConstraintValidator;
 import java.util.List;
 
 /**
- * Validator for the {@link io.rxmicro.validation.constraint.MaxSize} constraint
+ * Validator for the {@link io.rxmicro.validation.constraint.MaxSize} constraint.
  *
  * @author nedis
- * @since 0.1
  * @see io.rxmicro.validation.constraint.MaxSize
+ * @since 0.1
  */
 public class MaxSizeConstraintValidator extends AbstractMaxConstraintValidator<Integer>
         implements ConstraintValidator<List<?>> {
 
+    /**
+     * Creates the default instance of {@link MaxSizeConstraintValidator} with the specified parameters.
+     *
+     * @param maxValue the supported max value.
+     * @param inclusive whether the specified minimum is inclusive or exclusive.
+     */
     public MaxSizeConstraintValidator(final int maxValue,
                                       final boolean inclusive) {
         super(maxValue, inclusive);

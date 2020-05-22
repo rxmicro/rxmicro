@@ -21,17 +21,37 @@ import io.rxmicro.data.sql.r2dbc.detail.AbstractR2DBCRepository;
 import static io.rxmicro.common.util.Formats.FORMAT_PLACEHOLDER_CHAR;
 
 /**
- * Used by generated code that was created by {@code RxMicro Annotation Processor}
+ * Used by generated code that created by the {@code RxMicro Annotation Processor}.
+ *
+ * <p>
+ * Represents a base class for the PostgreSQL data repository implementations.
+ *
+ * <p>
+ * Read more:
+ * <a href="https://docs.rxmicro.io/latest/user-guide/data-postgresql.html#data-postgresql-section">
+ *     https://docs.rxmicro.io/latest/user-guide/data-postgresql.html#data-postgresql-section
+ * </a>
  *
  * @author nedis
  * @since 0.1
  */
 public abstract class AbstractPostgreSQLRepository extends AbstractR2DBCRepository {
 
-    protected AbstractPostgreSQLRepository(final Class<?> repositoryClass) {
-        super(repositoryClass);
+    /**
+     * Creates an instance of {@link AbstractPostgreSQLRepository} type.
+     *
+     * @param repositoryInterface the specified repository interface
+     */
+    protected AbstractPostgreSQLRepository(final Class<?> repositoryInterface) {
+        super(repositoryInterface);
     }
 
+    /**
+     * Replaces the universal placeholders.
+     *
+     * @param customSQL the custom SQL statement
+     * @return the custom SQL statement with replaced universal placeholders
+     */
     protected final String replaceUniversalPlaceholder(final String customSQL) {
         if (customSQL.indexOf(FORMAT_PLACEHOLDER_CHAR) == -1) {
             return customSQL;

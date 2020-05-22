@@ -19,9 +19,10 @@ package io.rxmicro.rest.server.detail.model.mapping;
 import static io.rxmicro.common.util.Requires.require;
 
 /**
- * Used by generated code that was created by {@code RxMicro Annotation Processor}
+ * Used by generated code that created by the {@code RxMicro Annotation Processor}.
  *
  * @author nedis
+ * @hidden
  * @since 0.1
  */
 public final class ExactUrlRequestMappingRule extends AbstractRequestMappingRule {

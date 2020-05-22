@@ -23,11 +23,11 @@ import io.rxmicro.validation.ConstraintValidator;
 import java.math.BigDecimal;
 
 /**
- * Validator for the {@link io.rxmicro.validation.constraint.Numeric} constraint
+ * Validator for the {@link io.rxmicro.validation.constraint.Numeric} constraint.
  *
  * @author nedis
- * @since 0.1
  * @see io.rxmicro.validation.constraint.Numeric
+ * @since 0.1
  */
 public class NumericConstraintValidator implements ConstraintValidator<BigDecimal> {
 
@@ -35,6 +35,12 @@ public class NumericConstraintValidator implements ConstraintValidator<BigDecima
 
     private final int expectedScale;
 
+    /**
+     * Creates the default instance of {@link NumericConstraintValidator} with the specified precision and scale.
+     *
+     * @param expectedPrecision the specified precision
+     * @param expectedScale the specified scale
+     */
     public NumericConstraintValidator(final int expectedPrecision,
                                       final int expectedScale) {
         this.expectedPrecision = expectedPrecision;

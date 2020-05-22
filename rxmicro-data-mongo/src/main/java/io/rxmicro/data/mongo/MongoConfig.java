@@ -30,18 +30,27 @@ import static io.rxmicro.config.Networks.validatePort;
  * Allows configuring Monfo DB options.
  *
  * @author nedis
- * @since 0.1
  * @see MongoRepository
  * @see MongoClientFactory
  * @see MongoCodecsConfigurator
+ * @since 0.1
  */
 @SuppressWarnings("UnusedReturnValue")
 public final class MongoConfig extends Config {
 
+    /**
+     * Default Mongo host.
+     */
     public static final String DEFAULT_HOST = "localhost";
 
+    /**
+     * Default Mongo port.
+     */
     public static final int DEFAULT_PORT = 27_017;
 
+    /**
+     * Default Mongo database name.
+     */
     public static final String DEFAULT_DB = "db";
 
     private final MongoClientSettings.Builder builder = MongoClientSettings.builder()
@@ -56,7 +65,7 @@ public final class MongoConfig extends Config {
     private String database = DEFAULT_DB;
 
     /**
-     * Sets the server host name
+     * Sets the server host name.
      *
      * @param host the server host name
      * @return the reference to this {@link MongoConfig} instance
@@ -69,7 +78,7 @@ public final class MongoConfig extends Config {
     }
 
     /**
-     * Sets the server port
+     * Sets the server port.
      *
      * @param port the server port
      * @return the reference to this {@link MongoConfig} instance
@@ -82,7 +91,7 @@ public final class MongoConfig extends Config {
     }
 
     /**
-     * Returns the database name
+     * Returns the database name.
      *
      * @return the database name
      */
@@ -91,7 +100,7 @@ public final class MongoConfig extends Config {
     }
 
     /**
-     * Sets the database name
+     * Sets the database name.
      *
      * @param database the database name
      * @return the reference to this {@link MongoConfig} instance
@@ -103,7 +112,7 @@ public final class MongoConfig extends Config {
     }
 
     /**
-     * Sets the custom mongo codecs configurator
+     * Sets the custom mongo codecs configurator.
      *
      * @param mongoCodecsConfigurator the custom mongo codecs configurator
      * @return the reference to this {@link MongoConfig} instance
@@ -115,7 +124,7 @@ public final class MongoConfig extends Config {
     }
 
     /**
-     * Returns the connection string built from schema, host and port parameters
+     * Returns the connection string built from schema, host and port parameters.
      *
      * @return the connection string built from schema, host and port parameters
      */
@@ -134,7 +143,7 @@ public final class MongoConfig extends Config {
     }
 
     /**
-     * Builds the {@link MongoClientSettings} instance
+     * Builds the {@link MongoClientSettings} instance.
      *
      * @return the {@link MongoClientSettings} instance
      */

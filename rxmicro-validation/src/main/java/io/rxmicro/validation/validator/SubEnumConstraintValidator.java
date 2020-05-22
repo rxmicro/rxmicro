@@ -25,16 +25,24 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * Validator for the {@link io.rxmicro.validation.constraint.SubEnum} constraint
+ * Validator for the {@link io.rxmicro.validation.constraint.SubEnum} constraint.
  *
  * @author nedis
- * @since 0.1
+ * @param <T> the type to validate
  * @see io.rxmicro.validation.constraint.SubEnum
+ * @since 0.1
  */
 public class SubEnumConstraintValidator<T extends Enum<T>> implements ConstraintValidator<T> {
 
     private final Set<String> allowed;
 
+    /**
+     * Creates the default instance of {@link SubEnumConstraintValidator} with the specified parameters.
+     *
+     * @param enumClass enum class
+     * @param include include enum constants
+     * @param exclude exclude enum constants
+     */
     public SubEnumConstraintValidator(final Class<T> enumClass,
                                       final List<String> include,
                                       final List<String> exclude) {

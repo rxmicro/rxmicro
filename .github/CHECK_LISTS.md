@@ -23,7 +23,7 @@
       
 - [ ] Source code does not contain violations:
 
-      `mvn --fail-at-end -DskipTests -P spotbugs,pmd clean verify`   
+      `mvn --fail-at-end -DskipTests -P spotbugs,pmd,checkstyle clean verify`   
            
 - [ ] **All branches merged to master!**
 - [ ] Add release notes to `release-notes/index.md`

@@ -20,11 +20,11 @@ import io.rxmicro.rest.model.HttpModelType;
 import io.rxmicro.validation.ConstraintValidator;
 
 /**
- * Validator for the {@link io.rxmicro.validation.constraint.Skype} constraint
+ * Validator for the {@link io.rxmicro.validation.constraint.Skype} constraint.
  *
  * @author nedis
- * @since 0.1
  * @see io.rxmicro.validation.constraint.Skype
+ * @since 0.1
  */
 public class SkypeConstraintValidator implements ConstraintValidator<String> {
 

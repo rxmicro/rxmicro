@@ -17,47 +17,47 @@
 package io.rxmicro.logger;
 
 /**
- * Supported {@link Logger} levels
+ * Supported {@link Logger} levels.
  *
  * @author nedis
- * @since 0.1
  * @see LoggerFactory
  * @see Logger
+ * @since 0.1
  */
 public enum Level {
 
     /**
-     * Logger is disabled
+     * Logger is disabled.
      */
     OFF,
 
     /**
-     * Error level
+     * Error level.
      */
     ERROR,
 
     /**
-     * Warning level
+     * Warning level.
      */
     WARN,
 
     /**
-     * Info level
+     * Info level.
      */
     INFO,
 
     /**
-     * Debug level
+     * Debug level.
      */
     DEBUG,
 
     /**
-     * Trace level
+     * Trace level.
      */
     TRACE,
 
     /**
-     * All levels are enabled
+     * All levels are enabled.
      */
     ALL
 }

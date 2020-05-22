@@ -22,22 +22,24 @@ import java.util.function.Supplier;
 
 /**
  * The {@link Logger} interface is an abstraction over the real logger.
+ *
  * <p>
  * Logger is an integral component of any software system.
+ *
  * <p>
  * The RxMicro framework provides the {@code rxmicro.logger } module for logging important events during the work of microservices.
  *
  * @author nedis
- * @since 0.1
  * @see Formats
  * @see LoggerFactory
  * @see Level
  * @see io.rxmicro.logger.impl.LoggerImplProviderFactory
+ * @since 0.1
  */
 public interface Logger {
 
     /**
-     * Is the logger instance enabled for the {@code TRACE} level?
+     * Returns {@code true} if the logger instance enabled for the {@code TRACE} level.
      *
      * @return {@code true} if this Logger is enabled for the {@code TRACE} level
      */
@@ -52,6 +54,7 @@ public interface Logger {
 
     /**
      * Log the message at the {@code TRACE} level according to the specified format and argument.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -67,6 +70,7 @@ public interface Logger {
 
     /**
      * Log the message at the {@code TRACE} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -84,6 +88,7 @@ public interface Logger {
 
     /**
      * Log the message at the {@code TRACE} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -103,6 +108,7 @@ public interface Logger {
 
     /**
      * Log the message at the {@code TRACE} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -124,6 +130,7 @@ public interface Logger {
 
     /**
      * Log the message at the {@code TRACE} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -147,6 +154,7 @@ public interface Logger {
 
     /**
      * Log the message at the {@code TRACE} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -159,6 +167,7 @@ public interface Logger {
 
     /**
      * Log the message at the {@code TRACE} level according to the specified format and argument.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -174,6 +183,7 @@ public interface Logger {
 
     /**
      * Log the message at the {@code TRACE} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -191,6 +201,7 @@ public interface Logger {
 
     /**
      * Log the message at the {@code TRACE} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -210,6 +221,7 @@ public interface Logger {
 
     /**
      * Log the message at the {@code TRACE} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -231,6 +243,7 @@ public interface Logger {
 
     /**
      * Log the message at the {@code TRACE} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -254,6 +267,7 @@ public interface Logger {
 
     /**
      * Log the message at the {@code TRACE} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -266,6 +280,7 @@ public interface Logger {
 
     /**
      * Log the message with the throwable at the {@code TRACE} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -283,6 +298,7 @@ public interface Logger {
 
     /**
      * Log the message with the throwable at the {@code TRACE} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -302,6 +318,7 @@ public interface Logger {
 
     /**
      * Log the message with the throwable at the {@code TRACE} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -323,6 +340,7 @@ public interface Logger {
 
     /**
      * Log the message with the throwable at the {@code TRACE} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -346,6 +364,7 @@ public interface Logger {
 
     /**
      * Log the message with the throwable at the {@code TRACE} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -371,6 +390,7 @@ public interface Logger {
 
     /**
      * Log the message with the throwable at the {@code TRACE} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -384,6 +404,7 @@ public interface Logger {
 
     /**
      * Log the message with the throwable at the {@code TRACE} level according to the specified format and argument.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -401,6 +422,7 @@ public interface Logger {
 
     /**
      * Log the message with the throwable at the {@code TRACE} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -420,6 +442,7 @@ public interface Logger {
 
     /**
      * Log the message with the throwable at the {@code TRACE} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -441,6 +464,7 @@ public interface Logger {
 
     /**
      * Log the message with the throwable at the {@code TRACE} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -464,6 +488,7 @@ public interface Logger {
 
     /**
      * Log the message with the throwable at the {@code TRACE} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -489,6 +514,7 @@ public interface Logger {
 
     /**
      * Log the message with the throwable at the {@code TRACE} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -503,7 +529,7 @@ public interface Logger {
     // -------------------------------------------------------------------------------------------------------------------------------------
 
     /**
-     * Is the logger instance enabled for the {@code DEBUG} level?
+     * Returns {@code true} if the logger instance enabled for the {@code DEBUG} level.
      *
      * @return {@code true} if this Logger is enabled for the {@code DEBUG} level
      */
@@ -518,6 +544,7 @@ public interface Logger {
 
     /**
      * Log the message at the {@code DEBUG} level according to the specified format and argument.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -533,6 +560,7 @@ public interface Logger {
 
     /**
      * Log the message at the {@code DEBUG} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -550,6 +578,7 @@ public interface Logger {
 
     /**
      * Log the message at the {@code DEBUG} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -569,6 +598,7 @@ public interface Logger {
 
     /**
      * Log the message at the {@code DEBUG} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -590,6 +620,7 @@ public interface Logger {
 
     /**
      * Log the message at the {@code DEBUG} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -613,6 +644,7 @@ public interface Logger {
 
     /**
      * Log the message at the {@code DEBUG} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -625,6 +657,7 @@ public interface Logger {
 
     /**
      * Log the message at the {@code DEBUG} level according to the specified format and argument.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -640,6 +673,7 @@ public interface Logger {
 
     /**
      * Log the message at the {@code DEBUG} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -657,6 +691,7 @@ public interface Logger {
 
     /**
      * Log the message at the {@code DEBUG} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -676,6 +711,7 @@ public interface Logger {
 
     /**
      * Log the message at the {@code DEBUG} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -697,6 +733,7 @@ public interface Logger {
 
     /**
      * Log the message at the {@code DEBUG} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -720,6 +757,7 @@ public interface Logger {
 
     /**
      * Log the message at the {@code DEBUG} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -732,6 +770,7 @@ public interface Logger {
 
     /**
      * Log the message with the throwable at the {@code DEBUG} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -749,6 +788,7 @@ public interface Logger {
 
     /**
      * Log the message with the throwable at the {@code DEBUG} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -768,6 +808,7 @@ public interface Logger {
 
     /**
      * Log the message with the throwable at the {@code DEBUG} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -789,6 +830,7 @@ public interface Logger {
 
     /**
      * Log the message with the throwable at the {@code DEBUG} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -812,6 +854,7 @@ public interface Logger {
 
     /**
      * Log the message with the throwable at the {@code DEBUG} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -837,6 +880,7 @@ public interface Logger {
 
     /**
      * Log the message with the throwable at the {@code DEBUG} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -850,6 +894,7 @@ public interface Logger {
 
     /**
      * Log the message with the throwable at the {@code DEBUG} level according to the specified format and argument.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -867,6 +912,7 @@ public interface Logger {
 
     /**
      * Log the message with the throwable at the {@code DEBUG} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -886,6 +932,7 @@ public interface Logger {
 
     /**
      * Log the message with the throwable at the {@code DEBUG} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -907,6 +954,7 @@ public interface Logger {
 
     /**
      * Log the message with the throwable at the {@code DEBUG} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -930,6 +978,7 @@ public interface Logger {
 
     /**
      * Log the message with the throwable at the {@code DEBUG} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -955,6 +1004,7 @@ public interface Logger {
 
     /**
      * Log the message with the throwable at the {@code DEBUG} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -969,7 +1019,7 @@ public interface Logger {
     // -------------------------------------------------------------------------------------------------------------------------------------
 
     /**
-     * Is the logger instance enabled for the {@code INFO} level?
+     * Returns {@code true} if the logger instance enabled for the {@code INFO} level.
      *
      * @return {@code true} if this Logger is enabled for the {@code INFO} level
      */
@@ -984,6 +1034,7 @@ public interface Logger {
 
     /**
      * Log the message at the {@code INFO} level according to the specified format and argument.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -999,6 +1050,7 @@ public interface Logger {
 
     /**
      * Log the message at the {@code INFO} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -1016,6 +1068,7 @@ public interface Logger {
 
     /**
      * Log the message at the {@code INFO} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -1035,6 +1088,7 @@ public interface Logger {
 
     /**
      * Log the message at the {@code INFO} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -1056,6 +1110,7 @@ public interface Logger {
 
     /**
      * Log the message at the {@code INFO} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -1079,6 +1134,7 @@ public interface Logger {
 
     /**
      * Log the message at the {@code INFO} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -1091,6 +1147,7 @@ public interface Logger {
 
     /**
      * Log the message at the {@code INFO} level according to the specified format and argument.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -1106,6 +1163,7 @@ public interface Logger {
 
     /**
      * Log the message at the {@code INFO} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -1123,6 +1181,7 @@ public interface Logger {
 
     /**
      * Log the message at the {@code INFO} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -1142,6 +1201,7 @@ public interface Logger {
 
     /**
      * Log the message at the {@code INFO} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -1163,6 +1223,7 @@ public interface Logger {
 
     /**
      * Log the message at the {@code INFO} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -1186,6 +1247,7 @@ public interface Logger {
 
     /**
      * Log the message at the {@code INFO} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -1198,6 +1260,7 @@ public interface Logger {
 
     /**
      * Log the message with the throwable at the {@code INFO} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -1215,6 +1278,7 @@ public interface Logger {
 
     /**
      * Log the message with the throwable at the {@code INFO} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -1234,6 +1298,7 @@ public interface Logger {
 
     /**
      * Log the message with the throwable at the {@code INFO} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -1255,6 +1320,7 @@ public interface Logger {
 
     /**
      * Log the message with the throwable at the {@code INFO} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -1278,6 +1344,7 @@ public interface Logger {
 
     /**
      * Log the message with the throwable at the {@code INFO} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -1303,6 +1370,7 @@ public interface Logger {
 
     /**
      * Log the message with the throwable at the {@code INFO} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -1316,6 +1384,7 @@ public interface Logger {
 
     /**
      * Log the message with the throwable at the {@code INFO} level according to the specified format and argument.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -1333,6 +1402,7 @@ public interface Logger {
 
     /**
      * Log the message with the throwable at the {@code INFO} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -1352,6 +1422,7 @@ public interface Logger {
 
     /**
      * Log the message with the throwable at the {@code INFO} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -1373,6 +1444,7 @@ public interface Logger {
 
     /**
      * Log the message with the throwable at the {@code INFO} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -1396,6 +1468,7 @@ public interface Logger {
 
     /**
      * Log the message with the throwable at the {@code INFO} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -1421,6 +1494,7 @@ public interface Logger {
 
     /**
      * Log the message with the throwable at the {@code INFO} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -1435,7 +1509,7 @@ public interface Logger {
     // -------------------------------------------------------------------------------------------------------------------------------------
 
     /**
-     * Is the logger instance enabled for the {@code WARN} level?
+     * Returns {@code true} if the logger instance enabled for the {@code WARN} level.
      *
      * @return {@code true} if this Logger is enabled for the {@code WARN} level
      */
@@ -1450,6 +1524,7 @@ public interface Logger {
 
     /**
      * Log the message at the {@code WARN} level according to the specified format and argument.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -1465,6 +1540,7 @@ public interface Logger {
 
     /**
      * Log the message at the {@code WARN} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -1482,6 +1558,7 @@ public interface Logger {
 
     /**
      * Log the message at the {@code WARN} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -1501,6 +1578,7 @@ public interface Logger {
 
     /**
      * Log the message at the {@code WARN} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -1522,6 +1600,7 @@ public interface Logger {
 
     /**
      * Log the message at the {@code WARN} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -1545,6 +1624,7 @@ public interface Logger {
 
     /**
      * Log the message at the {@code WARN} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -1557,6 +1637,7 @@ public interface Logger {
 
     /**
      * Log the message at the {@code WARN} level according to the specified format and argument.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -1572,6 +1653,7 @@ public interface Logger {
 
     /**
      * Log the message at the {@code WARN} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -1589,6 +1671,7 @@ public interface Logger {
 
     /**
      * Log the message at the {@code WARN} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -1608,6 +1691,7 @@ public interface Logger {
 
     /**
      * Log the message at the {@code WARN} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -1629,6 +1713,7 @@ public interface Logger {
 
     /**
      * Log the message at the {@code WARN} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -1652,6 +1737,7 @@ public interface Logger {
 
     /**
      * Log the message at the {@code WARN} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -1664,6 +1750,7 @@ public interface Logger {
 
     /**
      * Log the message with the throwable at the {@code WARN} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -1681,6 +1768,7 @@ public interface Logger {
 
     /**
      * Log the message with the throwable at the {@code WARN} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -1700,6 +1788,7 @@ public interface Logger {
 
     /**
      * Log the message with the throwable at the {@code WARN} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -1721,6 +1810,7 @@ public interface Logger {
 
     /**
      * Log the message with the throwable at the {@code WARN} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -1744,6 +1834,7 @@ public interface Logger {
 
     /**
      * Log the message with the throwable at the {@code WARN} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -1769,6 +1860,7 @@ public interface Logger {
 
     /**
      * Log the message with the throwable at the {@code WARN} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -1782,6 +1874,7 @@ public interface Logger {
 
     /**
      * Log the message with the throwable at the {@code WARN} level according to the specified format and argument.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -1799,6 +1892,7 @@ public interface Logger {
 
     /**
      * Log the message with the throwable at the {@code WARN} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -1818,6 +1912,7 @@ public interface Logger {
 
     /**
      * Log the message with the throwable at the {@code WARN} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -1839,6 +1934,7 @@ public interface Logger {
 
     /**
      * Log the message with the throwable at the {@code WARN} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -1862,6 +1958,7 @@ public interface Logger {
 
     /**
      * Log the message with the throwable at the {@code WARN} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -1887,6 +1984,7 @@ public interface Logger {
 
     /**
      * Log the message with the throwable at the {@code WARN} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -1901,7 +1999,7 @@ public interface Logger {
     // -------------------------------------------------------------------------------------------------------------------------------------
 
     /**
-     * Is the logger instance enabled for the {@code ERROR} level?
+     * Returns {@code true} if the logger instance enabled for the {@code ERROR} level.
      *
      * @return {@code true} if this Logger is enabled for the {@code ERROR} level
      */
@@ -1916,6 +2014,7 @@ public interface Logger {
 
     /**
      * Log the message at the {@code ERROR} level according to the specified format and argument.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -1931,6 +2030,7 @@ public interface Logger {
 
     /**
      * Log the message at the {@code ERROR} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -1948,6 +2048,7 @@ public interface Logger {
 
     /**
      * Log the message at the {@code ERROR} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -1967,6 +2068,7 @@ public interface Logger {
 
     /**
      * Log the message at the {@code ERROR} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -1988,6 +2090,7 @@ public interface Logger {
 
     /**
      * Log the message at the {@code ERROR} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -2011,6 +2114,7 @@ public interface Logger {
 
     /**
      * Log the message at the {@code ERROR} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -2023,6 +2127,7 @@ public interface Logger {
 
     /**
      * Log the message at the {@code ERROR} level according to the specified format and argument.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -2038,6 +2143,7 @@ public interface Logger {
 
     /**
      * Log the message at the {@code ERROR} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -2055,6 +2161,7 @@ public interface Logger {
 
     /**
      * Log the message at the {@code ERROR} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -2074,6 +2181,7 @@ public interface Logger {
 
     /**
      * Log the message at the {@code ERROR} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -2095,6 +2203,7 @@ public interface Logger {
 
     /**
      * Log the message at the {@code ERROR} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -2118,6 +2227,7 @@ public interface Logger {
 
     /**
      * Log the message at the {@code ERROR} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -2130,6 +2240,7 @@ public interface Logger {
 
     /**
      * Log the message with the throwable at the {@code ERROR} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -2147,6 +2258,7 @@ public interface Logger {
 
     /**
      * Log the message with the throwable at the {@code ERROR} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -2166,6 +2278,7 @@ public interface Logger {
 
     /**
      * Log the message with the throwable at the {@code ERROR} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -2187,6 +2300,7 @@ public interface Logger {
 
     /**
      * Log the message with the throwable at the {@code ERROR} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -2210,6 +2324,7 @@ public interface Logger {
 
     /**
      * Log the message with the throwable at the {@code ERROR} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -2235,6 +2350,7 @@ public interface Logger {
 
     /**
      * Log the message with the throwable at the {@code ERROR} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -2248,6 +2364,7 @@ public interface Logger {
 
     /**
      * Log the message with the throwable at the {@code ERROR} level according to the specified format and argument.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -2265,6 +2382,7 @@ public interface Logger {
 
     /**
      * Log the message with the throwable at the {@code ERROR} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -2284,6 +2402,7 @@ public interface Logger {
 
     /**
      * Log the message with the throwable at the {@code ERROR} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -2305,6 +2424,7 @@ public interface Logger {
 
     /**
      * Log the message with the throwable at the {@code ERROR} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -2328,6 +2448,7 @@ public interface Logger {
 
     /**
      * Log the message with the throwable at the {@code ERROR} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *
@@ -2353,6 +2474,7 @@ public interface Logger {
 
     /**
      * Log the message with the throwable at the {@code ERROR} level according to the specified format and arguments.
+     *
      * <p>
      * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
      *

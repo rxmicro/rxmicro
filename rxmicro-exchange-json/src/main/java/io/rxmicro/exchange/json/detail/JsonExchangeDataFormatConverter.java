@@ -24,9 +24,10 @@ import static io.rxmicro.json.JsonHelper.toJsonString;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 /**
- * Used by generated code that was created by {@code RxMicro Annotation Processor}
+ * Used by generated code that created by the {@code RxMicro Annotation Processor}.
  *
  * @author nedis
+ * @hidden
  * @since 0.1
  */
 public final class JsonExchangeDataFormatConverter implements ExchangeDataFormatConverter<Object> {

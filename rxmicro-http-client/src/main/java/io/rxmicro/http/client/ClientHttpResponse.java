@@ -23,40 +23,41 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 
 /**
  * Low-level interface that contains the received HTTP response data from HTTP server.
+ *
  * <p>
- * This class can be used for REST-based microservice testing
+ * This class can be used for REST-based microservice testing.
  *
  * @author nedis
- * @since 0.1
  * @see HttpClient
  * @see HttpClientFactory
  * @see HttpClientContentConverter
+ * @since 0.1
  */
 public interface ClientHttpResponse {
 
     /**
-     * Returns the received status code
+     * Returns the received status code.
      *
      * @return the received status code
      */
     int getStatusCode();
 
     /**
-     * Returns the {@link HttpVersion} of the received HTTP response
+     * Returns the {@link HttpVersion} of the received HTTP response.
      *
      * @return the {@link HttpVersion} of the received HTTP response
      */
     HttpVersion getVersion();
 
     /**
-     * Returns the {@link HttpHeaders} of the received HTTP response
+     * Returns the {@link HttpHeaders} of the received HTTP response.
      *
      * @return the {@link HttpHeaders} of the received HTTP response
      */
     HttpHeaders getHeaders();
 
     /**
-     * Returns {@code true} if the received HTTP response does not contain HTTP body
+     * Returns {@code true} if the received HTTP response does not contain HTTP body.
      *
      * @return {@code true} if the received HTTP response does not contain HTTP body
      */
@@ -64,6 +65,7 @@ public interface ClientHttpResponse {
 
     /**
      * Returns low-level object that represents received HTTP body.
+     *
      * <p>
      * Type of returned value is depended on message exchange format used for HTTP client.
      *
@@ -74,6 +76,7 @@ public interface ClientHttpResponse {
 
     /**
      * Returns byte array of the received HTTP body.
+     *
      * <p>
      * If body is not present, this method returns empty array.
      *
@@ -82,7 +85,7 @@ public interface ClientHttpResponse {
     byte[] getBodyAsBytes();
 
     /**
-     * Returns the received HTTP body as UTF8 string
+     * Returns the received HTTP body as UTF8 string.
      *
      * @return the received HTTP body as UTF8 string or empty string if body is not present
      */

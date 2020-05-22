@@ -23,11 +23,11 @@ import io.rxmicro.validation.ConstraintValidator;
 import java.util.List;
 
 /**
- * Validator for the required list constraint
+ * Validator for the required list constraint.
  *
  * @author nedis
- * @since 0.1
  * @see io.rxmicro.validation.constraint.Nullable
+ * @since 0.1
  */
 public final class RequiredListConstraintValidator implements ConstraintValidator<List<?>> {
 

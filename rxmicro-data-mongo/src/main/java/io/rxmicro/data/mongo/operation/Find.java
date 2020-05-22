@@ -28,7 +28,6 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * <a href="https://docs.mongodb.com/manual/reference/method/db.collection.find/">{@code db.collection.find()}</a> operation.
  *
  * @author nedis
- * @since 0.1
  * @see io.rxmicro.data.mongo.MongoRepository
  * @see Aggregate
  * @see CountDocuments
@@ -37,6 +36,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * @see EstimatedDocumentCount
  * @see Insert
  * @see Update
+ * @since 0.1
  */
 @Documented
 @Retention(SOURCE)
@@ -45,6 +45,7 @@ public @interface Find {
 
     /**
      * Returns the selection filter using query operators.
+     *
      * <p>
      * Read more:
      * <a href="https://docs.mongodb.com/manual/reference/operator/">
@@ -56,13 +57,16 @@ public @interface Find {
     String query() default "";
 
     /**
-     * Returns the query projection
+     * Returns the query projection.
+     *
      * <p>
      * Read more:
+     *
      * <p>
      * <a href="https://docs.mongodb.com/manual/reference/method/db.collection.find/#projection">
      *     https://docs.mongodb.com/manual/reference/method/db.collection.find/#projection
      * </a>
+     *
      * <p>
      * <a href="https://docs.mongodb.com/manual/reference/method/db.collection.find/#projections">
      *     https://docs.mongodb.com/manual/reference/method/db.collection.find/#projections
@@ -73,7 +77,8 @@ public @interface Find {
     String projection() default "";
 
     /**
-     * Returns the index to use for the find operation
+     * Returns the index to use for the find operation.
+     *
      * <p>
      * Read more:
      * <a href="https://docs.mongodb.com/manual/reference/method/cursor.hint/#cursor.hint">
@@ -85,7 +90,8 @@ public @interface Find {
     String hint() default "";
 
     /**
-     * Returns the sort expression
+     * Returns the sort expression.
+     *
      * <p>
      * Read more:
      * <a href="https://docs.mongodb.com/manual/reference/method/db.collection.find/#order-documents-in-the-result-set">
@@ -97,7 +103,8 @@ public @interface Find {
     String sort() default "";
 
     /**
-     * Returns the limit of the result set
+     * Returns the limit of the result set.
+     *
      * <p>
      * Read more:
      * <a href="https://docs.mongodb.com/manual/reference/method/db.collection.find/#limit-the-number-of-documents-to-return">
@@ -109,7 +116,8 @@ public @interface Find {
     int limit() default -1;
 
     /**
-     * Returns the start point of the result set
+     * Returns the start point of the result set.
+     *
      * <p>
      * Read more:
      * <a href="https://docs.mongodb.com/manual/reference/method/db.collection.find/#set-the-starting-point-of-the-result-set">

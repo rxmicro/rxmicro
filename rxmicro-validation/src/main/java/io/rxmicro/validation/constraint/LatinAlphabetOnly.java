@@ -33,8 +33,8 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * The annotated element must be a string with latin alphabet letters only.
  *
  * @author nedis
- * @since 0.1
  * @see LatinAlphabetOnlyConstraintValidator
+ * @since 0.1
  */
 @Documented
 @Retention(SOURCE)
@@ -47,38 +47,40 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 public @interface LatinAlphabetOnly {
 
     /**
-     * Allows disabling the validation rule if this rule is inherited from super class. <p>
-     * By default, disable is off
+     * Allows disabling the validation rule if this rule is inherited from super class.
      *
-     * @return  {@code true} if the validation must be disabled,
+     * <p>
+     * By default, disable is off.
+     *
+     * @return  {@code true} if the validation must be disabled.
      */
     boolean off() default false;
 
     /**
-     * Returns {@code true} if the annotated element can contain uppercase letters
+     * Returns {@code true} if the annotated element can contain uppercase letters.
      *
      * @return {@code true} if the annotated element can contain uppercase letters
      */
     boolean allowsUppercase() default true;
 
     /**
-     * Returns {@code true} if the annotated element can contain lowercase letters
+     * Returns {@code true} if the annotated element can contain lowercase letters.
      *
      * @return {@code true} if the annotated element can contain lowercase letters
      */
     boolean allowsLowercase() default true;
 
     /**
-     * Returns {@code true} if the annotated element can contain digits
+     * Returns {@code true} if the annotated element can contain digits.
      *
      * @return {@code true} if the annotated element can contain digits
      */
     boolean allowsDigits() default true;
 
     /**
-     * Returns all supported punctuations
+     * Returns all supported punctuation characters.
      *
-     * @return all supported punctuations
+     * @return all supported punctuation characters
      */
     String punctuations() default "~!@#$%^&*()_+=-[]{},.;:<>?/\\\"' \t|\r\n";
 }

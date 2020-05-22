@@ -31,12 +31,15 @@ import static java.time.Duration.ofSeconds;
  * Allows configuring HTTP client options.
  *
  * @author nedis
- * @since 0.1
  * @see Duration
+ * @since 0.1
  */
 @SuppressWarnings("UnusedReturnValue")
 public class HttpClientConfig extends HttpConfig {
 
+    /**
+     * Default HTTp client timeout in seconds.
+     */
     public static final int DEFAULT_HTTP_CLIENT_TIMEOUT_VALUE_IN_SECONDS = 7;
 
     private String accessKey;
@@ -46,14 +49,14 @@ public class HttpClientConfig extends HttpConfig {
     private Duration requestTimeout = ofSeconds(DEFAULT_HTTP_CLIENT_TIMEOUT_VALUE_IN_SECONDS);
 
     /**
-     * Creates a HTTP client config instance with default settings
+     * Creates a HTTP client config instance with default settings.
      */
     public HttpClientConfig() {
         setHost("localhost");
     }
 
     /**
-     * Returns the set access key or {@code null} if access key is not configured
+     * Returns the set access key or {@code null} if access key is not configured.
      *
      * @return the set access key or {@code null} if access key is not configured
      */
@@ -62,7 +65,7 @@ public class HttpClientConfig extends HttpConfig {
     }
 
     /**
-     * Sets the access key that can be used for authentication on the server side
+     * Sets the access key that can be used for authentication on the server side.
      *
      * @param accessKey the access key
      * @return the reference to this {@link HttpClientConfig} instance
@@ -74,7 +77,7 @@ public class HttpClientConfig extends HttpConfig {
     }
 
     /**
-     * Returns {@code true} if current HTTP client must follow redirects
+     * Returns {@code true} if current HTTP client must follow redirects.
      *
      * @return {@code true} if current HTTP client must follow redirects
      */
@@ -83,7 +86,7 @@ public class HttpClientConfig extends HttpConfig {
     }
 
     /**
-     * Sets that current HTTP client must follow redirects or not
+     * Sets that current HTTP client must follow redirects or not.
      *
      * @param followRedirects follow redirects or not
      * @return the reference to this {@link HttpClientConfig} instance
@@ -95,7 +98,7 @@ public class HttpClientConfig extends HttpConfig {
     }
 
     /**
-     * Returns the request timeout
+     * Returns the request timeout.
      *
      * @return the request timeout
      */
@@ -105,6 +108,7 @@ public class HttpClientConfig extends HttpConfig {
 
     /**
      * Sets the request timeout.
+     *
      * <p>
      * {@link Duration#ZERO} means the infinite timeout
      *
@@ -143,6 +147,5 @@ public class HttpClientConfig extends HttpConfig {
                 ", accessKey=" + hideSecretInfo(getAccessKey()) +
                 ", followRedirects=" + followRedirects + '}' +
                 ", requestTimeout=" + format(requestTimeout) + '}';
-
     }
 }

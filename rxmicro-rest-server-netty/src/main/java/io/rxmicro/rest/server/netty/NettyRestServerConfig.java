@@ -35,23 +35,23 @@ import static io.rxmicro.common.util.Requires.require;
  * Allows customizing netty REST server options.
  *
  * @author nedis
- * @since 0.1
  * @see NettyTransport
  * @see NettyChannelIdType
  * @see ChannelOption
  * @see HttpServerCodec
  * @see HttpObjectAggregator
+ * @since 0.1
  */
 @SuppressWarnings("UnusedReturnValue")
 public final class NettyRestServerConfig extends Config {
 
     /**
-     * Default backlog size
+     * Default backlog size.
      */
     public static final int DEFAULT_BACKLOG_SIZE = 128;
 
     /**
-     * Default aggregator content length in bytes
+     * Default aggregator content length in bytes.
      */
     public static final int DEFAULT_AGGREGATOR_CONTENT_LENGTH_IN_BYTES = 64 * 1024;
 
@@ -71,7 +71,7 @@ public final class NettyRestServerConfig extends Config {
     private NettyChannelIdType channelIdType = NettyChannelIdType.SHORT;
 
     /**
-     * Adds server channel option
+     * Adds server channel option.
      *
      * @param option option name
      * @param value  option value
@@ -86,7 +86,7 @@ public final class NettyRestServerConfig extends Config {
     }
 
     /**
-     * Adds client channel option
+     * Adds client channel option.
      *
      * @param option option name
      * @param value  option value
@@ -101,7 +101,7 @@ public final class NettyRestServerConfig extends Config {
     }
 
     /**
-     * Adds channel handler supplier to the last position of channel handlers
+     * Adds channel handler supplier to the last position of channel handlers.
      *
      * @param channelHandlerSupplier channel handler supplier
      * @return the reference to this {@link NettyRestServerConfig} instance
@@ -113,7 +113,7 @@ public final class NettyRestServerConfig extends Config {
     }
 
     /**
-     * Resets channel handlers, i.e. removes all configured channel handlers
+     * Resets channel handlers, i.e. removes all configured channel handlers.
      *
      * @return the reference to this {@link NettyRestServerConfig} instance
      */
@@ -124,7 +124,7 @@ public final class NettyRestServerConfig extends Config {
     }
 
     /**
-     * Returns configured server options
+     * Returns configured server options.
      *
      * @return configured server options
      */
@@ -133,7 +133,7 @@ public final class NettyRestServerConfig extends Config {
     }
 
     /**
-     * Returns configured client options
+     * Returns configured client options.
      *
      * @return configured client options
      */
@@ -142,7 +142,7 @@ public final class NettyRestServerConfig extends Config {
     }
 
     /**
-     * Returns configured {@link ChannelHandler} suppliers
+     * Returns configured {@link ChannelHandler} suppliers.
      *
      * @return configured {@link ChannelHandler} suppliers
      */
@@ -151,7 +151,7 @@ public final class NettyRestServerConfig extends Config {
     }
 
     /**
-     * Returns current {@link NettyTransport}
+     * Returns current {@link NettyTransport}.
      *
      * @return current {@link NettyTransport}
      */
@@ -173,17 +173,17 @@ public final class NettyRestServerConfig extends Config {
     }
 
     /**
-     * Returns the channel id type
+     * Returns the channel id type.
      *
-     * @since 0.3
      * @return the channel id type
+     * @since 0.3
      */
     public NettyChannelIdType getChannelIdType() {
         return channelIdType;
     }
 
     /**
-     * Sets channelIdType
+     * Sets channelIdType.
      *
      * @since 0.3
      * @param channelIdType {@link NettyChannelIdType} which must be used

@@ -27,27 +27,27 @@ import java.util.List;
 public final class PathVariables {
 
     /**
-     * Current user directory
+     * Current user directory.
      */
     public static final String USER_DIR = "$USER_DIR";
 
     /**
-     * Project home directory
+     * Project home directory.
      */
     public static final String PROJECT_DIR = "$PROJECT_DIR";
 
     /**
-     * Temp directory provided by OS
+     * Temp directory provided by OS.
      */
     public static final String TEMP_DIR = "$TEMP_DIR";
 
     /**
-     * User home directory
+     * User home directory.
      */
     public static final String USER_HOME = "$USER_HOME";
 
     /**
-     * All supported variables
+     * All supported variables.
      */
     public static final List<String> SUPPORTED_VARIABLES = List.of(
             USER_DIR,

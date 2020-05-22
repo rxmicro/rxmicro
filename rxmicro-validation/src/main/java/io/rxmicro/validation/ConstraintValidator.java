@@ -25,13 +25,16 @@ import java.util.List;
  * Defines the logic to validate a given constraint for a given object type.
  *
  * @author nedis
- * @since 0.1
+ * @param <T> the type to validate
  * @see DisableValidation
+ * @since 0.1
  */
 public interface ConstraintValidator<T> {
 
     /**
-     * Validates the single actual.<p>
+     * Validates the single actual.
+     *
+     * <p>
      * The state of the {@code actual} must not be altered.
      *
      * @param actual        the actual value to validate
@@ -44,7 +47,9 @@ public interface ConstraintValidator<T> {
                   String modelName);
 
     /**
-     * Validates the root model.<p>
+     * Validates the root model.
+     *
+     * <p>
      * The state of the {@code model} must not be altered.
      *
      * @param model the root model to validate
@@ -55,7 +60,9 @@ public interface ConstraintValidator<T> {
     }
 
     /**
-     * Validates the value list.<p>
+     * Validates the value list.
+     *
+     * <p>
      * The state of the {@code list} must not be altered.
      *
      * @param list          the list to validate
@@ -74,7 +81,9 @@ public interface ConstraintValidator<T> {
     }
 
     /**
-     * Validates the root model list.<p>
+     * Validates the root model list.
+     *
+     * <p>
      * The state of the {@code value} must not be altered.
      *
      * @param models the model list to validate

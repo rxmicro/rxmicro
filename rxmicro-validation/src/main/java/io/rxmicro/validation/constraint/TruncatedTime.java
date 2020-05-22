@@ -34,12 +34,12 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * The annotated element must be an instant with truncated time value.
  *
  * @author nedis
- * @since 0.1
  * @see Future
  * @see FutureOrPresent
  * @see Past
  * @see PastOrPresent
  * @see TruncatedTimeInstantConstraintValidator
+ * @since 0.1
  */
 @Documented
 @Retention(SOURCE)
@@ -52,43 +52,47 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 public @interface TruncatedTime {
 
     /**
-     * Allows disabling the validation rule if this rule is inherited from super class. <p>
-     * By default, disable is off
+     * Allows disabling the validation rule if this rule is inherited from super class.
      *
-     * @return  {@code true} if the validation must be disabled,
+     * <p>
+     * By default, disable is off.
+     *
+     * @return  {@code true} if the validation must be disabled.
      */
     boolean off() default false;
 
     /**
-     * Returns the {@link Truncated} mode
+     * Returns the {@link Truncated} mode.
      *
      * @return the {@link Truncated} mode
      */
     Truncated value() default Truncated.MILLIS;
 
     /**
+     * Supported {@link Truncated} mode.
+     *
      * @author nedis
      * @since 0.1
      */
     enum Truncated {
 
         /**
-         * Must be an instant without milli seconds
+         * Must be an instant without milli seconds.
          */
         MILLIS,
 
         /**
-         * Must be an instant without milli seconds and seconds
+         * Must be an instant without milli seconds and seconds.
          */
         SECONDS,
 
         /**
-         * Must be an instant without milli seconds, seconds and minutes
+         * Must be an instant without milli seconds, seconds and minutes.
          */
         MINUTES,
 
         /**
-         * Must be an instant without time, i.e. time must be 00:00:00.000
+         * Must be an instant without time, i.e. time must be 00:00:00.000.
          */
         HOURS
     }

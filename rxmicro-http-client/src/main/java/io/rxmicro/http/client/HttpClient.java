@@ -23,16 +23,16 @@ import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 /**
- * A low-level reactive HTTP client
+ * A low-level reactive HTTP client.
  *
  * @author nedis
- * @since 0.1
  * @see HttpClientFactory
+ * @since 0.1
  */
 public interface HttpClient extends AutoRelease {
 
     /**
-     * Sends the HTTP request
+     * Sends the HTTP request.
      *
      * @param method the HTTP method
      * @param path the HTTP path
@@ -44,7 +44,7 @@ public interface HttpClient extends AutoRelease {
                                                     List<Map.Entry<String, String>> headers);
 
     /**
-     * Sends the HTTP request
+     * Sends the HTTP request.
      *
      * @param method the HTTP method
      * @param path the HTTP path

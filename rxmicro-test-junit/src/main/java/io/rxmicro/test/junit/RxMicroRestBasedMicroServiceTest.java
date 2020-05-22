@@ -28,14 +28,15 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
  * Declares the test class as a REST-based microservice test.
+ *
  * <p>
  * The REST-based microservice test is a standard Unit test that tests only the source code of a microservice.
  * If the current microservice depends on external services (e.g. database, other REST-based microservices, etc.),
  * then it is allowed to use mocks for these external services during its testing.
  * If several REST-based microservices need to be tested, it is recommended to use the {@link RxMicroIntegrationTest} annotation instead.
- * <p>
  *
- * <h4>For easy writing of microservice tests, the RxMicro framework provides:</h4>
+ * <p>
+ * <strong>For easy writing of microservice tests, the RxMicro framework provides:</strong>
  * <ul>
  *     <li>
  *          The additional {@code @}{@link RxMicroRestBasedMicroServiceTest} annotation, that informs the RxMicro framework
@@ -49,7 +50,8 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  *     </li>
  * </ul>
  *
- * <h4>For each microservice test, the RxMicro framework performs the following actions:</h4>
+ * <p>
+ * <strong>For each microservice test, the RxMicro framework performs the following actions:</strong>
  * <ul>
  *     <li>
  *         Before starting all the test methods in the class:
@@ -93,8 +95,13 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  *     </li>
  * </ul>
  *
- * <h4>For efficient writing of Rest-based microservice tests, it is necessary to know the execution order of user and RxMicro code.</h4>
+ * <p>
+ * <strong>For efficient writing of Rest-based microservice tests,
+ * it is necessary to know the execution order of user and RxMicro code.</strong>
+ *
+ * <p>
  * When testing a Rest-based microservice, using the following test:
+ *
  * <p>
  * <pre>
  * {@code @io.rxmicro.test.mockito.junit.InitMocks}
@@ -145,8 +152,8 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  *     }
  * }
  * </pre>
- *
  * the execution order will be as follows:
+ *
  * <p>
  * <pre>
  * RX-MICRO: Test class validated.
@@ -190,8 +197,8 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * RX-MICRO: Blocking HTTP client released.
  * RX-MICRO: HTTP server stopped.
  * </pre>
- *
  * In the above execution order of user and RxMicro code the following clarifications are implied:
+ *
  * <p>
  * <ul>
  *     <li>The {@code MOCKITO} prefix means that the action is activated by the {@code @InitMocks} annotation.</li>
@@ -201,9 +208,9 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * </ul>
  *
  * @author nedis
- * @since 0.1
  * @see RxMicroComponentTest
  * @see RxMicroIntegrationTest
+ * @since 0.1
  */
 @Target(TYPE)
 @Retention(RUNTIME)
@@ -215,7 +222,6 @@ public @interface RxMicroRestBasedMicroServiceTest {
      * Returns the REST controller classes of REST-based micro services, that must be tested.
      *
      * @return the REST controller classes of REST-based micro services, that must be tested
-     * @throws io.rxmicro.test.local.InvalidTestConfigException if empty array
      */
     Class<?>[] value();
 }

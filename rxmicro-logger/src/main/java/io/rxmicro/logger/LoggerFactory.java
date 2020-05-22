@@ -25,11 +25,11 @@ import static io.rxmicro.logger.impl.LoggerImplProviderFactory.getLoggerImplFact
  * Factory that must be used to get a {@link Logger} instance.
  *
  * @author nedis
- * @since 0.1
  * @see Logger
  * @see Level
  * @see LoggerImplProvider
  * @see io.rxmicro.logger.impl.LoggerImplProviderFactory
+ * @since 0.1
  */
 public final class LoggerFactory {
 
@@ -47,7 +47,7 @@ public final class LoggerFactory {
     }
 
     /**
-     * Returns the {@link Logger} instance by name
+     * Returns the {@link Logger} instance by class name.
      *
      * @param className the class name
      * @return the {@link Logger} instance
@@ -57,7 +57,7 @@ public final class LoggerFactory {
     }
 
     /**
-     * Returns the {@link Logger} instance by name
+     * Returns the {@link Logger} instance by name.
      *
      * @param name the name
      * @return the {@link Logger} instance

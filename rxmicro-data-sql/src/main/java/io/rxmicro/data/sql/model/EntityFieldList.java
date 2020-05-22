@@ -21,12 +21,13 @@ import java.util.List;
 /**
  * The base interface of virtual model that represents a database result set row as a {@link List},
  * which contains a list of column values according to selected order.
+ *
  * <p>
  * This interface can be used instead of custom entity class.
  *
  * @author nedis
- * @since 0.1
  * @see EntityFieldMap
+ * @since 0.1
  */
 public interface EntityFieldList extends List<Object> {
 }

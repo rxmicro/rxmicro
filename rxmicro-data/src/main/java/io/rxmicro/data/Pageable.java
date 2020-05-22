@@ -20,6 +20,7 @@ import java.util.Set;
 
 /**
  * Basic class for pagination information.
+ *
  * <p>
  * This class can be passed to a dynamic data repository method.
  *
@@ -30,13 +31,13 @@ public final class Pageable {
 
     /**
      * Set of predefined dynamic data repository method parameter names that must be interpret by
-     * the RxMicro Annotation Processor as {@code offset} or {@code skip} parameter
+     * the RxMicro Annotation Processor as {@code offset} or {@code skip} parameter.
      */
     public static final Set<String> OFFSET_NAMES = Set.of("offset", "skip", "omit", "ignore");
 
     /**
      * Set of predefined dynamic data repository method parameter names that must be interpret by
-     * the RxMicro Annotation Processor as {@code limit} parameter
+     * the RxMicro Annotation Processor as {@code limit} parameter.
      */
     public static final Set<String> LIMIT_NAMES = Set.of("limit", "count", "rows", "returns");
 
@@ -45,7 +46,7 @@ public final class Pageable {
     private final int limit;
 
     /**
-     * Creates a {@link Pageable} instance
+     * Creates a {@link Pageable} instance with specified offset and limit.
      *
      * @param offset the number of items to be skipped during execution of query.
      * @param limit the number of items to be returned.
@@ -56,12 +57,18 @@ public final class Pageable {
         this.limit = limit;
     }
 
+    /**
+     * Creates a {@link Pageable} instance with {@code 0} offset and specified limit.
+     *
+     * @param limit the number of items to be returned.
+     */
     public Pageable(final int limit) {
         this(0, limit);
     }
 
     /**
      * Returns the number of items to be skipped during execution of query.
+     *
      * <p>
      * <i>Alias for {@link #getSkip()} method.</i>
      *
@@ -73,6 +80,7 @@ public final class Pageable {
 
     /**
      * Returns the number of items to be skipped during execution of query.
+     *
      * <p>
      * <i>Alias for {@link #getOffset()} method.</i>
      *

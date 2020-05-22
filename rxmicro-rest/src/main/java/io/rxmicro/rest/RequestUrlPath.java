@@ -29,16 +29,17 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
  * Declares the Java model field as a field, in which the RxMicro framework must inject URL path of the received request.
+ *
  * <p>
  * (<i>This feature is useful for request logging using path-variables.</i>)
  *
  * @author nedis
- * @since 0.1
  * @see RemoteAddress
  * @see RequestBody
  * @see RequestId
  * @see RequestMethod
  * @see RequestUrlPath
+ * @since 0.1
  */
 @Documented
 @Retention(SOURCE)

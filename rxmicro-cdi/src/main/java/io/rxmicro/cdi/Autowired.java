@@ -28,19 +28,22 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
  * Indicates the need to inject the component implementation into the annotated class field or method parameter.
+ *
  * <p>
  * Is a synonym of the {@link Inject} annotation, and is recommended for developers who have used Spring DI as
  * CDI implementation in their previous projects.
+ *
  * <p>
  * The RxMicro framework focuses on creating microservice projects.
  * One of the key features of microservices is their simplicity.
  * That’s why singleton scope was chosen as the main and only one.
+ *
  * <p>
- * Thus, <b>all CDI components are singletons!</b>
+ * Thus, <strong>all CDI components are singletons!</strong>
  *
  * @author nedis
- * @since 0.1
  * @see Inject
+ * @since 0.1
  */
 @Documented
 @Retention(SOURCE)
@@ -50,6 +53,7 @@ public @interface Autowired {
     /**
      * If false, and the appropriate binding is not found, the RxMicro framework will skip injection of this
      * method or field rather than produce an error.
+     *
      * <p>
      * When applied to a field, any default value already assigned to the field will remain for optional injection
      * (The RxMicro framework will not actively null out the field).

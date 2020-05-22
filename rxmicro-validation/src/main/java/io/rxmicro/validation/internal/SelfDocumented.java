@@ -24,9 +24,10 @@ import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
- * For internal use only
+ * For internal use only.
  *
  * @author nedis
+ * @hidden
  * @since 0.1
  */
 @Documented

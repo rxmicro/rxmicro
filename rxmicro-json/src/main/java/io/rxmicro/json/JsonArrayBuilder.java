@@ -19,19 +19,19 @@ package io.rxmicro.json;
 import io.rxmicro.common.model.ListBuilder;
 
 /**
- * JSON array builder
+ * JSON array builder.
  *
  * @author nedis
- * @since 0.1
  * @see JsonTypes
  * @see JsonHelper
  * @see JsonNumber
  * @see JsonException
+ * @since 0.1
  */
 public final class JsonArrayBuilder extends ListBuilder<Object> {
 
     /**
-     * Adds the specified item to the building JSON array
+     * Adds the specified item to the building JSON array.
      *
      * @param item the specified item
      * @return the reference to this {@link JsonArrayBuilder} instance

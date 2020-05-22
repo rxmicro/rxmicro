@@ -34,11 +34,11 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * The annotated element must be a valid viber number.
  *
  * @author nedis
- * @since 0.1
  * @see Phone
  * @see Telegram
  * @see WhatsApp
  * @see ViberConstraintValidator
+ * @since 0.1
  */
 @Documented
 @Retention(SOURCE)
@@ -55,22 +55,24 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 public @interface Viber {
 
     /**
-     * Allows disabling the validation rule if this rule is inherited from super class. <p>
-     * By default, disable is off
+     * Allows disabling the validation rule if this rule is inherited from super class.
      *
-     * @return  {@code true} if the validation must be disabled,
+     * <p>
+     * By default, disable is off.
+     *
+     * @return  {@code true} if the validation must be disabled.
      */
     boolean off() default false;
 
     /**
-     * Returns {@code true} if phone number must not start with plus character
+     * Returns {@code true} if phone number must not start with plus character.
      *
      * @return {@code true} if phone number must not start with plus character
      */
     boolean withoutPlus() default true;
 
     /**
-     * Returns {@code true} if phone number can contain space characters
+     * Returns {@code true} if phone number can contain space characters.
      *
      * @return {@code true} if phone number can contain space characters
      */

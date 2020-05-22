@@ -22,21 +22,23 @@ import java.util.UUID;
  * Defines supported HTTP request id generator types.
  *
  * @author nedis
- * @since 0.1
  * @see RestServerConfig
+ * @since 0.1
  */
 public enum RequestIdGeneratorType {
 
     /**
      * Generates unique IDs only within the framework of starting one JVM.
+     *
      * <p>
      * Uses a random increment counter.
-     * (<i><b>Used by default</b></i>).
+     * (<i><strong>Used by default</strong></i>).
      */
     FASTER_BUT_UNSAFE,
 
     /**
      * Generates unique IDs independently of starting the JVM.
+     *
      * <p>
      * As a unique value uses the {@link UUID#randomUUID()}.
      */
@@ -44,8 +46,9 @@ public enum RequestIdGeneratorType {
 
     /**
      * Recommended for test environment only.
+     *
      * <p>
-     * <i><b>By default, it is automatically activated for test environment.</b></i>
+     * <i><strong>By default, it is automatically activated for test environment.</strong></i>
      */
     FOR_TESTS_ONLY
 }

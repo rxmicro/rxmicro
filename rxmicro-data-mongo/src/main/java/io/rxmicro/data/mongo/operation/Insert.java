@@ -28,7 +28,6 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * <a href="https://docs.mongodb.com/manual/reference/method/db.collection.insertOne/">{@code db.collection.insertOne()}</a> operation.
  *
  * @author nedis
- * @since 0.1
  * @see io.rxmicro.data.mongo.MongoRepository
  * @see Aggregate
  * @see CountDocuments
@@ -37,6 +36,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * @see EstimatedDocumentCount
  * @see Find
  * @see Update
+ * @since 0.1
  */
 @Documented
 @Retention(SOURCE)

@@ -37,14 +37,14 @@ import static io.rxmicro.rest.Version.Strategy.URL_PATH;
 import static java.util.Map.entry;
 
 /**
- * The HTTP request mock using <a href="https://site.mockito.org/">Mockito</a> testing framework
+ * The HTTP request mock using <a href="https://site.mockito.org/">Mockito</a> testing framework.
  *
  * @author nedis
- * @since 0.1
  * @see HttpMethod
  * @see HttpHeaders
  * @see QueryParams
  * @see Version.Strategy
+ * @since 0.1
  */
 public final class HttpRequestMock extends AbstractHttpRequestMock {
 
@@ -58,7 +58,7 @@ public final class HttpRequestMock extends AbstractHttpRequestMock {
     }
 
     /**
-     * The builder for building a HTTP request mock
+     * The builder for building a HTTP request mock.
      *
      * @author nedis
      * @since 0.1
@@ -87,7 +87,7 @@ public final class HttpRequestMock extends AbstractHttpRequestMock {
         private boolean any;
 
         /**
-         * Configures the HTTP request mock that it will match to any HTTP request
+         * Configures the HTTP request mock that it will match to any HTTP request.
          *
          * @return the reference to this {@link Builder} instance
          */
@@ -106,7 +106,8 @@ public final class HttpRequestMock extends AbstractHttpRequestMock {
         }
 
         /**
-         * Sets the {@link HttpMethod} for the HTTP request mock that it will match to an HTTP request with the specified {@link HttpMethod}
+         * Sets the {@link HttpMethod} for the HTTP request mock that it will match to an HTTP request with
+         * the specified {@link HttpMethod}.
          *
          * @param method the specified {@link HttpMethod}
          * @return the reference to this {@link Builder} instance
@@ -119,7 +120,7 @@ public final class HttpRequestMock extends AbstractHttpRequestMock {
         }
 
         /**
-         * Configures the HTTP request mock that it will match to a HTTP request with any {@link HttpMethod}
+         * Configures the HTTP request mock that it will match to a HTTP request with any {@link HttpMethod}.
          *
          * @return the reference to this {@link Builder} instance
          */
@@ -131,13 +132,13 @@ public final class HttpRequestMock extends AbstractHttpRequestMock {
         }
 
         /**
-         * Sets the version value for the HTTP request mock that it will match to an HTTP request with the specified version value
+         * Sets the version value for the HTTP request mock that it will match to an HTTP request with the specified version value.
          *
          * @param versionValue the specified version value
          * @return the reference to this {@link Builder} instance
-         * @throws NullPointerException if the specified version value is {@code null}
          * @see Version
          * @see Version.Strategy
+         * @throws NullPointerException if the specified version value is {@code null}
          */
         @BuilderMethod
         public Builder setVersionValue(final String versionValue) {
@@ -147,12 +148,12 @@ public final class HttpRequestMock extends AbstractHttpRequestMock {
 
         /**
          * Sets the version {@link Version.Strategy} for the HTTP request mock that it will match to an HTTP request with
-         * the specified version {@link Version.Strategy}
+         * the specified version {@link Version.Strategy}.
          *
          * @param versionStrategy the specified version {@link Version.Strategy}
          * @return the reference to this {@link Builder} instance
-         * @throws NullPointerException if the specified {@link Version.Strategy} is {@code null}
          * @see Version
+         * @throws NullPointerException if the specified {@link Version.Strategy} is {@code null}
          */
         @BuilderMethod
         public Builder setVersionStrategy(final Version.Strategy versionStrategy) {
@@ -161,7 +162,7 @@ public final class HttpRequestMock extends AbstractHttpRequestMock {
         }
 
         /**
-         * Sets the URL path for the HTTP request mock that it will match to an HTTP request with the specified URL path
+         * Sets the URL path for the HTTP request mock that it will match to an HTTP request with the specified URL path.
          *
          * @param path the specified URL path
          * @return the reference to this {@link Builder} instance
@@ -174,7 +175,7 @@ public final class HttpRequestMock extends AbstractHttpRequestMock {
         }
 
         /**
-         * Configures the HTTP request mock that it will match to a HTTP request with any URL path
+         * Configures the HTTP request mock that it will match to a HTTP request with any URL path.
          *
          * @return the reference to this {@link Builder} instance
          */
@@ -187,7 +188,7 @@ public final class HttpRequestMock extends AbstractHttpRequestMock {
 
         /**
          * Sets the {@link HttpHeaders} for the HTTP request mock that it will match to an HTTP request with
-         * the specified {@link HttpHeaders}
+         * the specified {@link HttpHeaders}.
          *
          * @param headers the specified {@link HttpHeaders}
          * @return the reference to this {@link Builder} instance
@@ -200,7 +201,7 @@ public final class HttpRequestMock extends AbstractHttpRequestMock {
         }
 
         /**
-         * Configures the HTTP request mock that it will match to a HTTP request with any {@link HttpHeaders}
+         * Configures the HTTP request mock that it will match to a HTTP request with any {@link HttpHeaders}.
          *
          * @return the reference to this {@link Builder} instance
          */
@@ -212,7 +213,7 @@ public final class HttpRequestMock extends AbstractHttpRequestMock {
 
         /**
          * Sets the {@link QueryParams} for the HTTP request mock that it will match to an HTTP request with
-         * the specified {@link QueryParams}
+         * the specified {@link QueryParams}.
          *
          * @param queryParameters the specified {@link QueryParams}
          * @return the reference to this {@link Builder} instance
@@ -225,7 +226,7 @@ public final class HttpRequestMock extends AbstractHttpRequestMock {
         }
 
         /**
-         * Configures the HTTP request mock that it will match to a HTTP request with any {@link QueryParams}
+         * Configures the HTTP request mock that it will match to a HTTP request with any {@link QueryParams}.
          *
          * @return the reference to this {@link Builder} instance
          */
@@ -236,7 +237,7 @@ public final class HttpRequestMock extends AbstractHttpRequestMock {
         }
 
         /**
-         * Sets the HTTP body for the HTTP request mock that it will match to an HTTP request with the specified HTTP body
+         * Sets the HTTP body for the HTTP request mock that it will match to an HTTP request with the specified HTTP body.
          *
          * @param body the specified HTTP body
          * @return the reference to this {@link Builder} instance
@@ -249,7 +250,7 @@ public final class HttpRequestMock extends AbstractHttpRequestMock {
         }
 
         /**
-         * Configures the HTTP request mock that it will match to a HTTP request with any HTTP body
+         * Configures the HTTP request mock that it will match to a HTTP request with any HTTP body.
          *
          * @return the reference to this {@link Builder} instance
          */
@@ -260,7 +261,7 @@ public final class HttpRequestMock extends AbstractHttpRequestMock {
         }
 
         /**
-         * Builds the immutable HTTP request mock instance using the configured {@link Builder} settings
+         * Builds the immutable HTTP request mock instance using the configured {@link Builder} settings.
          *
          * @return the immutable HTTP request mock instance
          * @throws InvalidStateException if the current {@link Builder} contains invalid settings

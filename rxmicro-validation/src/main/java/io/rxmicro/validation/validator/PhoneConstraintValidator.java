@@ -21,7 +21,8 @@ import io.rxmicro.rest.model.HttpModelType;
 import io.rxmicro.validation.ConstraintValidator;
 
 /**
- * Validator for the {@link io.rxmicro.validation.constraint.Phone} constraint
+ * Validator for the {@link io.rxmicro.validation.constraint.Phone} constraint.
+ *
  * <p>
  * Read more:
  * <a href="https://en.wikipedia.org/wiki/National_conventions_for_writing_telephone_numbers">
@@ -29,8 +30,8 @@ import io.rxmicro.validation.ConstraintValidator;
  * </a>
  *
  * @author nedis
- * @since 0.1
  * @see io.rxmicro.validation.constraint.Phone
+ * @since 0.1
  */
 public class PhoneConstraintValidator implements ConstraintValidator<String> {
 
@@ -38,6 +39,12 @@ public class PhoneConstraintValidator implements ConstraintValidator<String> {
 
     private final boolean allowsSpaces;
 
+    /**
+     * Creates the default instance of {@link PhoneConstraintValidator} with the specified parameters.
+     *
+     * @param withoutPlus value must be without plus or not
+     * @param allowsSpaces allows whitespaces or not
+     */
     public PhoneConstraintValidator(final boolean withoutPlus,
                                     final boolean allowsSpaces) {
         this.withoutPlus = withoutPlus;

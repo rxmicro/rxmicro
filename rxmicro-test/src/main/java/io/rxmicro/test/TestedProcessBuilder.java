@@ -26,13 +26,14 @@ import static io.rxmicro.common.util.Requires.require;
 
 /**
  * Creates a {@link Process} with redirection of {@code stdout} and {@code stderr} to the {@link System#out}.
+ *
  * <p>
  * This class can be useful for integration tests.
  *
  * @author nedis
- * @since 0.3
  * @see ProcessBuilder
  * @see System#out
+ * @since 0.3
  */
 public final class TestedProcessBuilder {
 
@@ -43,7 +44,7 @@ public final class TestedProcessBuilder {
     private boolean redirectStdOutAndStdErrToSysOut = true;
 
     /**
-     * Sets the command with arguments to run
+     * Sets the command with arguments to run.
      *
      * @param commandWithArgs the command with arguments to run
      * @return the reference to this {@link TestedProcessBuilder} instance
@@ -56,7 +57,7 @@ public final class TestedProcessBuilder {
     }
 
     /**
-     * Sets the process working directory
+     * Sets the process working directory.
      *
      * @param workingDir the process working directory
      * @return the reference to this {@link TestedProcessBuilder} instance
@@ -69,7 +70,7 @@ public final class TestedProcessBuilder {
     }
 
     /**
-     * Sets the stream redirection
+     * Sets the stream redirection.
      *
      * @param redirectStdOutAndStdErrToSysOut redirect stream or not
      * @return the reference to this {@link TestedProcessBuilder} instance
@@ -81,11 +82,11 @@ public final class TestedProcessBuilder {
     }
 
     /**
-     * Starts the {@link Process} using provided arguments
+     * Starts the {@link Process} using provided arguments.
      *
      * @return the reference to the started {@link Process}
-     * @throws IOException if any error occurs during starting the process
      * @see ProcessBuilder
+     * @throws IOException if any error occurs during starting the process
      */
     public Process start() throws IOException {
         if (redirectStdOutAndStdErrToSysOut) {

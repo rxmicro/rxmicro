@@ -28,7 +28,6 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * <a href="https://docs.mongodb.com/manual/reference/method/db.collection.distinct/">{@code db.collection.distinct()}</a> operation.
  *
  * @author nedis
- * @since 0.1
  * @see io.rxmicro.data.mongo.MongoRepository
  * @see Aggregate
  * @see CountDocuments
@@ -37,6 +36,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * @see Find
  * @see Insert
  * @see Update
+ * @since 0.1
  */
 @Documented
 @Retention(SOURCE)
@@ -52,6 +52,7 @@ public @interface Distinct {
 
     /**
      * Returns the query that specifies the documents from which to retrieve the distinct values.
+     *
      * <p>
      * Read more:
      * <a href="https://docs.mongodb.com/manual/reference/operator/">

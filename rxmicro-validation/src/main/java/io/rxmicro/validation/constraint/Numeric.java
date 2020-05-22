@@ -33,10 +33,10 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * The annotated element must be a decimal within accepted range (scale and precision).
  *
  * @author nedis
- * @since 0.1
  * @see MinNumber
  * @see MaxNumber
  * @see NumericConstraintValidator
+ * @since 0.1
  */
 @Documented
 @Retention(SOURCE)
@@ -48,15 +48,17 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 public @interface Numeric {
 
     /**
-     * Allows disabling the validation rule if this rule is inherited from super class. <p>
-     * By default, disable is off
+     * Allows disabling the validation rule if this rule is inherited from super class.
      *
-     * @return  {@code true} if the validation must be disabled,
+     * <p>
+     * By default, disable is off.
+     *
+     * @return  {@code true} if the validation must be disabled.
      */
     boolean off() default false;
 
     /**
-     * Returns the expected precision
+     * Returns the expected precision.
      *
      * @return the expected precision of fractional digits accepted for this number or
      *         {@code -1} if validation of precision must be ignored
@@ -64,7 +66,7 @@ public @interface Numeric {
     int precision() default -1;
 
     /**
-     * Returns the expected scale
+     * Returns the expected scale.
      *
      * @return the expected scale of fractional digits accepted for this number or
      *          {@code -1} if validation of scale must be ignored

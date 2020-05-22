@@ -28,7 +28,8 @@ import io.rxmicro.common.util.Formats;
 public final class ResourceException extends RxMicroException {
 
     /**
-     * Creates a {@link ResourceException} instance
+     * Creates a {@link ResourceException} instance.
+     *
      * <p>
      * <i>(FYI: This constructor uses {@link Formats#format(String, Object...)} method to format error message.)</i>
      *
@@ -43,7 +44,8 @@ public final class ResourceException extends RxMicroException {
     }
 
     /**
-     * Creates a {@link ResourceException} instance
+     * Creates a {@link ResourceException} instance.
+     *
      * <p>
      * <i>(FYI: This constructor uses {@link Formats#format(String, Object...)} method to format error message.)</i>
      *

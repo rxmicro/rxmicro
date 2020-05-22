@@ -28,11 +28,11 @@ import java.util.StringTokenizer;
 import static io.rxmicro.validation.constraint.IP.Version.IP_V4;
 
 /**
- * Validator for the {@link io.rxmicro.validation.constraint.IP} constraint
+ * Validator for the {@link io.rxmicro.validation.constraint.IP} constraint.
  *
  * @author nedis
- * @since 0.1
  * @see io.rxmicro.validation.constraint.IP
+ * @since 0.1
  */
 public class IPConstraintValidator implements ConstraintValidator<String> {
 
@@ -53,6 +53,11 @@ public class IPConstraintValidator implements ConstraintValidator<String> {
 
     private final Set<IP.Version> versions;
 
+    /**
+     * Creates the default instance of {@link IPConstraintValidator} with the supported IP versions.
+     *
+     * @param versions the supported IP versions
+     */
     public IPConstraintValidator(final Collection<IP.Version> versions) {
         this.versions = Set.copyOf(versions);
     }

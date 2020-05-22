@@ -34,12 +34,13 @@ public enum RxMicroModule {
     RX_MICRO_CDI_MODULE("rxmicro.cdi"),
 
     /**
-     * The common module with base models and useful utils
+     * The common module with base models and useful utils.
      */
     RX_MICRO_COMMON_MODULE("rxmicro.common"),
 
     /**
      * The module for flexible configuration of microservice projects to any environment.
+     *
      * <p>
      * This module provides the following features:
      * <ul>
@@ -70,6 +71,7 @@ public enum RxMicroModule {
     /**
      * The basic module to work with dynamic repositories for interaction with relational SQL databases using
      * the Reactive Relational Database Connectivity (R2DBC).
+     *
      * <p>
      * Read more: <a href="https://r2dbc.io/">https://r2dbc.io</a>
      */
@@ -78,6 +80,7 @@ public enum RxMicroModule {
     /**
      * The module to work with dynamic repositories for interaction with <a href="https://www.postgresql.org/">PostgreSQL DB</a> using
      * the Reactive Relational Database Connectivity (R2DBC).
+     *
      * <p>
      * Read more: <a href="https://github.com/r2dbc/r2dbc-postgresql">https://github.com/r2dbc/r2dbc-postgresql</a>
      */
@@ -116,7 +119,8 @@ public enum RxMicroModule {
 
     /**
      * The module that is a low-level HTTP client implementation module based on
-     * <a href="https://openjdk.java.net/groups/net/httpclient/intro.html">Java HTTP Client</a>;
+     * <a href="https://openjdk.java.net/groups/net/httpclient/intro.html">Java HTTP Client</a>.
+     *
      * <p>
      * This module can be used for REST based microservice testing.
      */
@@ -160,7 +164,8 @@ public enum RxMicroModule {
 
     /**
      * The module that is a REST client implementation module based on
-     * <a href="https://openjdk.java.net/groups/net/httpclient/intro.html">Java HTTP Client</a>;
+     * <a href="https://openjdk.java.net/groups/net/httpclient/intro.html">Java HTTP Client</a>.
+     *
      * <p>
      * This module requires {@code rxmicro.http.client.jdk} module.
      */
@@ -210,7 +215,7 @@ public enum RxMicroModule {
     RX_MICRO_TEST_MOCKITO_JUNIT_MODULE("rxmicro.test.mockito.junit"),
 
     /**
-     * The basic module that provides common tools for other modules
+     * The basic module that provides common tools for other modules.
      */
     RX_MICRO_TOOL_COMMON_MODULE("rxmicro.tool.common"),
 
@@ -267,7 +272,7 @@ public enum RxMicroModule {
     }
 
     /**
-     * Returns the RxMicro module name
+     * Returns the RxMicro module name.
      *
      * @return the RxMicro module name
      */
@@ -276,7 +281,7 @@ public enum RxMicroModule {
     }
 
     /**
-     * Returns the root package of the current RxMicro module name
+     * Returns the root package of the current RxMicro module name.
      *
      * @return the root package of the current RxMicro module name
      */

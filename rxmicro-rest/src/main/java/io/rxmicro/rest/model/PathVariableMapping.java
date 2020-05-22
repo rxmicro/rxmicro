@@ -22,15 +22,19 @@ import static io.rxmicro.common.util.Formats.format;
 
 /**
  * Path variable mapping storage.
+ *
  * <p>
  * Instance of this class contains path variable names and values for HTTP request handlers that supports path variables.
  *
  * @author nedis
- * @since 0.1
  * @see io.rxmicro.rest.PathVariable
+ * @since 0.1
  */
 public final class PathVariableMapping {
 
+    /**
+     * Singleton instance that represents the {@link PathVariableMapping} without any path variables.
+     */
     public static final PathVariableMapping NO_PATH_VARIABLES =
             new PathVariableMapping(List.of(), List.of());
 
@@ -39,7 +43,7 @@ public final class PathVariableMapping {
     private final List<String> pathVariableValues;
 
     /**
-     * Creates a new instance of {@link PathVariableMapping} class
+     * Creates a new instance of {@link PathVariableMapping} class.
      *
      * @param pathVariableNames the specified path variable name list
      * @param pathVariableValues the specified path variable value list
@@ -51,7 +55,7 @@ public final class PathVariableMapping {
     }
 
     /**
-     * Returns value for predefined path variable
+     * Returns value for predefined path variable.
      *
      * @param variableName path variable name
      * @return path variable value

@@ -33,10 +33,10 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * The annotated element must be an enumeration with predefined sub sequence.
  *
  * @author nedis
- * @since 0.1
  * @see Enumeration
  * @see Enum
  * @see SubEnumConstraintValidator
+ * @since 0.1
  */
 @Documented
 @Retention(SOURCE)
@@ -49,25 +49,31 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 public @interface SubEnum {
 
     /**
-     * Allows disabling the validation rule if this rule is inherited from super class. <p>
-     * By default, disable is off
+     * Allows disabling the validation rule if this rule is inherited from super class.
      *
-     * @return  {@code true} if the validation must be disabled,
+     * <p>
+     * By default, disable is off.
+     *
+     * @return  {@code true} if the validation must be disabled.
      */
     boolean off() default false;
 
     /**
      * Only include values allowed.
-     * 'include' has more priority, so if 'include' and 'exclude' are defined, 'exclude' will be ignored
+     *
+     * <p>
+     * 'include' has more priority, so if 'include' and 'exclude' are defined, 'exclude' will be ignored.
      *
      * @return the include enum names
+     * @see #exclude()
      */
     String[] include() default {};
 
     /**
-     * Only not exclude values allowed
+     * Only not exclude values allowed.
      *
      * @return the exclude enum names
+     * @see #include()
      */
     String[] exclude() default {};
 }

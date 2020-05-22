@@ -26,7 +26,9 @@ import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
- * For internal use only! <p>
+ * For internal use only.
+ *
+ * <p>
  * Don't use this annotation for your project!
  *
  * @author nedis
@@ -38,13 +40,30 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 @Repeatable(OverrideGeneratorConfig.List.class)
 public @interface OverrideGeneratorConfig {
 
+    /**
+     * For internal use only.
+     *
+     * @return the annotation config class
+     */
     Class<? extends Annotation> annotationConfigClass();
 
+    /**
+     * For internal use only.
+     *
+     * @return the parameter name
+     */
     String parameterName();
 
+    /**
+     * For internal use only.
+     *
+     * @return the overridden value
+     */
     String overriddenValue();
 
     /**
+     * Defines several {@link OverrideGeneratorConfig} annotations on the same element.
+     *
      * @author nedis
      * @since 0.1
      */
@@ -53,6 +72,11 @@ public @interface OverrideGeneratorConfig {
     @Target(TYPE)
     @interface List {
 
+        /**
+         * Returns the several {@link OverrideGeneratorConfig} annotations on the same element.
+         *
+         * @return the several {@link OverrideGeneratorConfig} annotations on the same element.
+         */
         OverrideGeneratorConfig[] value();
     }
 }

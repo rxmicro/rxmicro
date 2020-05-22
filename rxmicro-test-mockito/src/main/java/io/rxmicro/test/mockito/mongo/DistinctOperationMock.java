@@ -26,26 +26,28 @@ import static io.rxmicro.test.mockito.mongo.internal.util.Validators.validateStr
 
 /**
  * The Mongo {@link io.rxmicro.data.mongo.operation.Distinct} operation mock using
- * <a href="https://site.mockito.org/">Mockito</a> testing framework
+ * <a href="https://site.mockito.org/">Mockito</a> testing framework.
  *
  * @author nedis
- * @since 0.1
+ * @param <T> the type of result for this {@link io.rxmicro.data.mongo.operation.Distinct} operation
  * @see io.rxmicro.data.mongo.operation.Distinct
  * @see io.rxmicro.data.mongo.MongoRepository
+ * @since 0.1
  */
 public final class DistinctOperationMock<T> extends AbstractDistinctOperationMock<T> {
 
-    public DistinctOperationMock(final Class<T> resultClass,
-                                 final String field,
-                                 final Document query,
-                                 final boolean anyQuery) {
+    private DistinctOperationMock(final Class<T> resultClass,
+                                  final String field,
+                                  final Document query,
+                                  final boolean anyQuery) {
         super(resultClass, field, query, anyQuery);
     }
 
     /**
-     * The builder for building a Mongo {@link io.rxmicro.data.mongo.operation.Distinct} operation mock
+     * The builder for building a Mongo {@link io.rxmicro.data.mongo.operation.Distinct} operation mock.
      *
      * @author nedis
+     * @param <T> the type of result for this {@link io.rxmicro.data.mongo.operation.Distinct} operation
      * @since 0.1
      */
     @SuppressWarnings("UnusedReturnValue")
@@ -60,7 +62,7 @@ public final class DistinctOperationMock<T> extends AbstractDistinctOperationMoc
         private Document query;
 
         /**
-         * Sets the result class for the Mongo {@link io.rxmicro.data.mongo.operation.Distinct} operation mock
+         * Sets the result class for the Mongo {@link io.rxmicro.data.mongo.operation.Distinct} operation mock.
          *
          * @param resultClass the result class
          * @return the reference to this {@link Builder} instance
@@ -74,7 +76,7 @@ public final class DistinctOperationMock<T> extends AbstractDistinctOperationMoc
 
         /**
          * Sets the specified field for the Mongo {@link io.rxmicro.data.mongo.operation.Distinct} operation mock that it will match to
-         * a Mongo {@link io.rxmicro.data.mongo.operation.Distinct} operation with the specified field
+         * a Mongo {@link io.rxmicro.data.mongo.operation.Distinct} operation with the specified field.
          *
          * @param field the specified field
          * @return the reference to this {@link Builder} instance
@@ -89,7 +91,7 @@ public final class DistinctOperationMock<T> extends AbstractDistinctOperationMoc
 
         /**
          * Configures the Mongo {@link io.rxmicro.data.mongo.operation.Distinct} operation mock that it will match to
-         * a Mongo {@link io.rxmicro.data.mongo.operation.Distinct} operation with any query
+         * a Mongo {@link io.rxmicro.data.mongo.operation.Distinct} operation with any query.
          *
          * @return the reference to this {@link Builder} instance
          */
@@ -102,7 +104,7 @@ public final class DistinctOperationMock<T> extends AbstractDistinctOperationMoc
 
         /**
          * Sets the query for the Mongo {@link io.rxmicro.data.mongo.operation.Distinct} operation mock that it will match to
-         * a Mongo {@link io.rxmicro.data.mongo.operation.Distinct} operation with the specified query
+         * a Mongo {@link io.rxmicro.data.mongo.operation.Distinct} operation with the specified query.
          *
          * @param query the specified query
          * @return the reference to this {@link Builder} instance
@@ -117,7 +119,7 @@ public final class DistinctOperationMock<T> extends AbstractDistinctOperationMoc
 
         /**
          * Sets the query for the Mongo {@link io.rxmicro.data.mongo.operation.Distinct} operation mock that it will match to
-         * a Mongo {@link io.rxmicro.data.mongo.operation.Distinct} operation with the specified query
+         * a Mongo {@link io.rxmicro.data.mongo.operation.Distinct} operation with the specified query.
          *
          * @param query the specified query
          * @return the reference to this {@link Builder} instance
@@ -134,7 +136,7 @@ public final class DistinctOperationMock<T> extends AbstractDistinctOperationMoc
 
         /**
          * Builds the immutable Mongo {@link io.rxmicro.data.mongo.operation.Distinct} operation mock
-         * instance using the configured {@link Builder} settings
+         * instance using the configured {@link Builder} settings.
          *
          * @return the immutable Mongo {@link io.rxmicro.data.mongo.operation.Distinct} operation mock instance
          */

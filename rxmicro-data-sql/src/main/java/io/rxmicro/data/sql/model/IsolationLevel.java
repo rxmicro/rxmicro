@@ -20,12 +20,12 @@ package io.rxmicro.data.sql.model;
  * Represents a transaction isolation level constant.
  *
  * @author nedis
- * @since 0.1
  * @see TransactionType
  * @see io.rxmicro.data.sql.model.reactor.Transaction
  * @see io.rxmicro.data.sql.model.rxjava3.Transaction
  * @see io.rxmicro.data.sql.model.completablefuture.Transaction
  * @see SavePoint
+ * @since 0.1
  */
 public enum IsolationLevel {
 

@@ -27,7 +27,8 @@ import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
- * This annotation provides an opportunity to disable the generation of validators for the selected group of classes in the project:
+ * This annotation provides an opportunity to disable the generation of validators for the selected group of classes in the project.
+ *
  * <p>
  * <ul>
  *     <li>

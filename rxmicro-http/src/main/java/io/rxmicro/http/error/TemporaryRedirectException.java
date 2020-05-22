@@ -26,13 +26,18 @@ import io.rxmicro.common.util.Formats;
  */
 public final class TemporaryRedirectException extends RedirectException {
 
+    /**
+     * Status code for the all instances of the current exception type.
+     */
     public static final int STATUS_CODE = 307;
 
     /**
      * Creates a Temporary Redirect instance with new URL path.
+     *
      * <p>
      * For all child classes which extend the HttpErrorException class, when creating an exception instance the stack trace is not filled,
      * as this information is redundant.
+     *
      * <p>
      * (<i>This behavior is achieved by using the {@link RuntimeException#RuntimeException(String, Throwable, boolean, boolean)}.</i>)
      *
@@ -45,11 +50,14 @@ public final class TemporaryRedirectException extends RedirectException {
 
     /**
      * Creates a Temporary Redirect instance with new URL path.
+     *
      * <p>
      * For all child classes which extend the HttpErrorException class, when creating an exception instance the stack trace is not filled,
      * as this information is redundant.
+     *
      * <p>
      * (<i>This behavior is achieved by using the {@link RuntimeException#RuntimeException(String, Throwable, boolean, boolean)}.</i>)
+     *
      * <p>
      * This constructor uses {@link Formats#format(String, Object...)} method to format `Location` header
      *

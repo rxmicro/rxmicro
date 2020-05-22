@@ -133,7 +133,7 @@ public final class RestServerModelFieldBuilderImpl extends AbstractRestModelFiel
     }
 
     private Optional<RestModelField> buildResponseInternal(final ModelFieldType modelFieldType,
-                                                          final AnnotatedModelElement annotated) {
+                                                           final AnnotatedModelElement annotated) {
         final ResponseStatusCode responseStatusCode = annotated.getAnnotation(ResponseStatusCode.class);
         if (responseStatusCode != null) {
             validateInternalByAnnotation(modelFieldType, annotated, ResponseStatusCode.class);

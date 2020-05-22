@@ -26,11 +26,11 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
  * Denotes the basic endpoint in the generated REST-based microservice documentation.
+ *
  * <p>
  * (<i>Allows overriding the basic endpoint specified in the url directive to pom.xml</i>)
  *
  * @author nedis
- * @since 0.1
  * @see Author
  * @see Constants
  * @see Description
@@ -43,6 +43,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * @see ResourceDefinition
  * @see ResourceGroupDefinition
  * @see Title
+ * @since 0.1
  */
 @Documented
 @Retention(SOURCE)
@@ -50,7 +51,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 public @interface BaseEndpoint {
 
     /**
-     * Returns the basic endpoint
+     * Returns the basic endpoint.
      *
      * @return the basic endpoint
      */

@@ -36,9 +36,9 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * see {@link java.util.regex.Pattern}.
  *
  * @author nedis
- * @since 0.1
  * @see java.util.regex.Pattern
  * @see PatternConstraintValidator
+ * @since 0.1
  */
 @Documented
 @Retention(SOURCE)
@@ -55,22 +55,24 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 public @interface Pattern {
 
     /**
-     * Allows disabling the validation rule if this rule is inherited from super class. <p>
-     * By default, disable is off
+     * Allows disabling the validation rule if this rule is inherited from super class.
      *
-     * @return  {@code true} if the validation must be disabled,
+     * <p>
+     * By default, disable is off.
+     *
+     * @return {@code true} if the validation must be disabled.
      */
     boolean off() default false;
 
     /**
-     * Returns the regular expression to match
+     * Returns the regular expression to match.
      *
      * @return the regular expression to match
      */
     String regexp();
 
     /**
-     * Returns the array of {@code Flag}s considered when resolving the regular expression
+     * Returns the array of {@code Flag}s considered when resolving the regular expression.
      *
      * @return the array of {@code Flag}s considered when resolving the regular expression
      */
@@ -137,7 +139,7 @@ public @interface Pattern {
         }
 
         /**
-         * Returns the flag value as defined in {@link java.util.regex.Pattern}
+         * Returns the flag value as defined in {@link java.util.regex.Pattern}.
          *
          * @return the flag value as defined in {@link java.util.regex.Pattern}
          */

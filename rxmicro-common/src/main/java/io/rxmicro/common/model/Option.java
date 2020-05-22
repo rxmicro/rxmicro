@@ -17,31 +17,31 @@
 package io.rxmicro.common.model;
 
 /**
- * Three state logic class
+ * Three state logic class.
  *
  * @author nedis
- * @since 0.1
  * @see Boolean
+ * @since 0.1
  */
 public enum Option {
 
     /**
-     * Option is enabled
+     * Option is enabled.
      */
     ENABLED,
 
     /**
-     * Option is disabled
+     * Option is disabled.
      */
     DISABLED,
 
     /**
-     * Option state must be defined using external functions
+     * Option state must be defined using external functions.
      */
     AUTO;
 
     /**
-     * Converts the {@link Option} to the {@code boolean} type
+     * Converts the {@link Option} to the {@code boolean} type.
      *
      * @param autoValue the external value for {@link #AUTO} state of the current {@link Option}
      * @return the {@code boolean} representation of the current {@link Option}

@@ -21,11 +21,11 @@ import java.util.Locale;
 import static java.lang.System.getProperty;
 
 /**
- * Environment utility class
+ * Environment utility class.
  *
  * @author nedis
- * @since 0.1
  * @see System#getProperty(String)
+ * @since 0.1
  */
 public final class Environments {
 
@@ -34,27 +34,27 @@ public final class Environments {
     private static final String UNKNOWN = "unknown";
 
     /**
-     * Returns {@code true} if current OS is macOS
+     * Returns {@code true} if current OS is macOS.
      *
-     * @return {@code true} if current OS is macOS
+     * @return {@code true} if current OS is macOS.
      */
     public static boolean isCurrentOsMac() {
         return getProperty(OS_NAME, UNKNOWN).toLowerCase(Locale.ENGLISH).contains("mac");
     }
 
     /**
-     * Returns {@code true} if current OS is Linux
+     * Returns {@code true} if current OS is Linux.
      *
-     * @return {@code true} if current OS is Linux
+     * @return {@code true} if current OS is Linux.
      */
     public static boolean isCurrentOsLinux() {
         return getProperty(OS_NAME, UNKNOWN).toLowerCase(Locale.ENGLISH).contains("linux");
     }
 
     /**
-     * Returns {@code true} if current OS is Windows
+     * Returns {@code true} if current OS is Windows.
      *
-     * @return {@code true} if current OS is Windows
+     * @return {@code true} if current OS is Windows.
      */
     public static boolean isCurrentOsWindows() {
         return getProperty(OS_NAME, UNKNOWN).toLowerCase(Locale.ENGLISH).contains("windows");

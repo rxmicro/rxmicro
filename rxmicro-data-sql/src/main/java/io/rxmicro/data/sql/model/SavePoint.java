@@ -19,22 +19,22 @@ package io.rxmicro.data.sql.model;
 import static io.rxmicro.common.util.Requires.require;
 
 /**
- * Base savepoint class
+ * Base savepoint class.
  *
  * @author nedis
- * @since 0.1
  * @see TransactionType
  * @see io.rxmicro.data.sql.model.reactor.Transaction
  * @see io.rxmicro.data.sql.model.rxjava3.Transaction
  * @see io.rxmicro.data.sql.model.completablefuture.Transaction
  * @see IsolationLevel
+ * @since 0.1
  */
 public final class SavePoint {
 
     private final String name;
 
     /**
-     * Creates a new instance of savepoint with the given savepoint name
+     * Creates a new instance of savepoint with the given savepoint name.
      *
      * @param name the save point name
      */
@@ -43,7 +43,7 @@ public final class SavePoint {
     }
 
     /**
-     * Returns the savepoint name
+     * Returns the savepoint name.
      *
      * @return the savepoint name
      */

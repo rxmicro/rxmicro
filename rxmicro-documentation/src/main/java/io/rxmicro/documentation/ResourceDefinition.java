@@ -29,7 +29,6 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * A composite annotation that specifies the settings for generating the ResourceDefinition section.
  *
  * @author nedis
- * @since 0.1
  * @see Author
  * @see BaseEndpoint
  * @see Constants
@@ -42,6 +41,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * @see License
  * @see ResourceGroupDefinition
  * @see Title
+ * @since 0.1
  */
 @Documented
 @Retention(SOURCE)
@@ -49,77 +49,77 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 public @interface ResourceDefinition {
 
     /**
-     * Returns {@code true} if the RxMicro framework must generates examples of HTTP requests and responses
+     * Returns {@code true} if the RxMicro framework must generates examples of HTTP requests and responses.
      *
      * @return {@code true} if the RxMicro framework must generates examples of HTTP requests and responses
      */
     boolean withExamples() default true;
 
     /**
-     * Returns {@code true} if the RxMicro framework must generates a description table for path variables
+     * Returns {@code true} if the RxMicro framework must generates a description table for path variables.
      *
      * @return {@code true} if the RxMicro framework must generates a description table for path variables
      */
     boolean withPathVariablesDescriptionTable() default true;
 
     /**
-     * Returns {@code true} if the RxMicro framework must generates a description table for HTTP headers
+     * Returns {@code true} if the RxMicro framework must generates a description table for HTTP headers.
      *
      * @return {@code true} if the RxMicro framework must generates a description table for HTTP headers
      */
     boolean withHeadersDescriptionTable() default true;
 
     /**
-     * Returns {@code true} if the RxMicro framework must generates a description table for HTTP query parameters
+     * Returns {@code true} if the RxMicro framework must generates a description table for HTTP query parameters.
      *
      * @return {@code true} if the RxMicro framework must generates a description table for HTTP query parameters
      */
     boolean withQueryParametersDescriptionTable() default true;
 
     /**
-     * Returns {@code true} if the RxMicro framework must generates a description table for HTTP body parameters
+     * Returns {@code true} if the RxMicro framework must generates a description table for HTTP body parameters.
      *
      * @return {@code true} if the RxMicro framework must generates a description table for HTTP body parameters
      */
     boolean withBodyParametersDescriptionTable() default true;
 
     /**
-     * Returns {@code true} if the RxMicro framework must generates a JSON schema for HTTP requests and responses
+     * Returns {@code true} if the RxMicro framework must generates a JSON schema for HTTP requests and responses.
      *
      * @return {@code true} if the RxMicro framework must generates a JSON schema for HTTP requests and responses
      */
     boolean withJsonSchema() default true;
 
     /**
-     * Returns {@code true} if the RxMicro framework must generates a standard description for HTTP headers, parameters and path variables
+     * Returns {@code true} if the RxMicro framework must generates a standard description for HTTP headers, parameters and path variables.
      *
      * @return {@code true} if the RxMicro framework must generates a standard description for HTTP headers, parameters and path variables
      */
     boolean withStandardDescriptions() default true;
 
     /**
-     * Returns {@code true} if the RxMicro framework must generates read more links to external resources
+     * Returns {@code true} if the RxMicro framework must generates read more links to external resources.
      *
      * @return {@code true} if the RxMicro framework must generates read more links to external resources
      */
     boolean withReadMore() default true;
 
     /**
-     * Returns {@code true} if the RxMicro framework must generates a documentation for validation response
+     * Returns {@code true} if the RxMicro framework must generates a documentation for validation response.
      *
      * @return {@code true} if the RxMicro framework must generates a documentation for validation response
      */
     boolean withValidationResponse() default true;
 
     /**
-     * Returns {@code true} if the RxMicro framework must generates a documentation for internal error response
+     * Returns {@code true} if the RxMicro framework must generates a documentation for internal error response.
      *
      * @return {@code true} if the RxMicro framework must generates a documentation for internal error response
      */
     boolean withInternalErrorResponse() default true;
 
     /**
-     * Returns {@code true} if the RxMicro framework must generates standard {@code Request-Id} HTTP header
+     * Returns {@code true} if the RxMicro framework must generates standard {@code Request-Id} HTTP header.
      *
      * @return {@code true} if the RxMicro framework must generates standard {@code Request-Id} HTTP header
      */

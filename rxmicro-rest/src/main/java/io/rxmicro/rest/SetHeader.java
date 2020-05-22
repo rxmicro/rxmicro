@@ -31,11 +31,11 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * denotes a static HTTP header that must be set to the request, formed by the request handler from REST client.
  *
  * @author nedis
- * @since 0.1
  * @see AddHeader
  * @see Header
  * @see HeaderMappingStrategy
  * @see RepeatHeader
+ * @since 0.1
  */
 @Documented
 @Retention(SOURCE)
@@ -44,14 +44,14 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 public @interface SetHeader {
 
     /**
-     * Returns the static header name
+     * Returns the static header name.
      *
      * @return the static header name
      */
     String name();
 
     /**
-     * Returns the static header value
+     * Returns the static header value.
      *
      * @return the static header value
      */

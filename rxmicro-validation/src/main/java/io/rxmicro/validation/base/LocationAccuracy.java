@@ -17,54 +17,55 @@
 package io.rxmicro.validation.base;
 
 /**
- * A Location accuracy enum
+ * A Location accuracy enum.
+ *
  * <p>
  * Read more: <a href="https://en.wikipedia.org/wiki/Decimal_degrees">https://en.wikipedia.org/wiki/Decimal_degrees</a>
  *
  * @author nedis
- * @since 0.1
  * @see io.rxmicro.validation.constraint.Lat
  * @see io.rxmicro.validation.constraint.Lng
+ * @since 0.1
  */
 public enum LocationAccuracy {
 
     /**
-     * 111.32 kilometers
+     * 111.32 kilometers.
      */
     ACCURACY_111_KILOMETERS(0),
 
     /**
-     * 11.132 kilometers
+     * 11.132 kilometers.
      */
     ACCURACY_11_KILOMETERS(1),
 
     /**
-     * 1.1132 kilometers
+     * 1.1132 kilometers.
      */
     ACCURACY_1_KILOMETER(2),
 
     /**
-     * 111.32 meters
+     * 111.32 meters.
      */
     ACCURACY_111_METERS(3),
 
     /**
-     * 11.132 meters
+     * 11.132 meters.
      */
     ACCURACY_11_METERS(4),
 
     /**
-     * 1.1132 meters
+     * 1.1132 meters.
      */
     ACCURACY_1_METER(5),
 
     /**
-     * 11.132 centimeters
+     * 11.132 centimeters.
      */
     ACCURACY_11_CENTIMETERS(6),
 
     /**
-     * 1.1132 centimeters
+     * 1.1132 centimeters.
      */
     ACCURACY_1_CENTIMETER(7);
 
@@ -74,6 +75,11 @@ public enum LocationAccuracy {
         this.coordinateScale = coordinateScale;
     }
 
+    /**
+     * Returns the coordinate scale.
+     *
+     * @return the coordinate scale
+     */
     public int getCoordinateScale() {
         return coordinateScale;
     }

@@ -19,8 +19,8 @@ import io.rxmicro.rest.server.local.component.HttpErrorResponseBodyBuilder;
 
 /**
  * The module for converting Java models to JSON format and vice versa for REST controllers.
- * <p>
  *
+ * <p>
  * This module follows the next package structure rules:
  * <ul>
  *     <li>
@@ -43,7 +43,6 @@ import io.rxmicro.rest.server.local.component.HttpErrorResponseBodyBuilder;
  *         </ul>
  *     </li>
  * </ul>
- *
  *
  * @author nedis
  * @since 0.1

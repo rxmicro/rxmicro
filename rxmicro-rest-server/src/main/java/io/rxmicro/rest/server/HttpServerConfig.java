@@ -32,14 +32,14 @@ public class HttpServerConfig extends HttpConfig {
     private boolean startTimeTrackerEnabled = true;
 
     /**
-     * Creates a HTTP server config instance with default settings
+     * Creates a HTTP server config instance with default settings.
      */
     public HttpServerConfig() {
         setHost("0.0.0.0");
     }
 
     /**
-     * Returns {@code true} if start time tracking is enabled
+     * Returns {@code true} if start time tracking is enabled.
      *
      * @return {@code true} if start time tracking is enabled
      */
@@ -48,7 +48,8 @@ public class HttpServerConfig extends HttpConfig {
     }
 
     /**
-     * Allows enabling/disabling a start time tracking
+     * Allows enabling/disabling a start time tracking.
+     *
      * <p>
      * If enable, the RxMicro framework displays a time which HTTP server spent during start.
      *

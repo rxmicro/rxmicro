@@ -20,6 +20,7 @@ import io.rxmicro.config.internal.SecretsImpl;
 
 /**
  * Base interface that supports hiding a secret info.
+ *
  * <p>
  * (<i>This feature is useful for hiding a secret info in log messages.</i>)
  *
@@ -29,6 +30,8 @@ import io.rxmicro.config.internal.SecretsImpl;
 public interface Secrets {
 
     /**
+     * Returns the default implementation of {@link Secrets} instance.
+     *
      * @return Default implementation
      */
     static Secrets getDefaultInstance() {
@@ -36,7 +39,7 @@ public interface Secrets {
     }
 
     /**
-     * Define an algorithm to hide secure info
+     * Define an algorithm to hide secure info.
      *
      * @param value string value
      * @return secret value or {@code null} if argument is {@code null}
@@ -56,16 +59,15 @@ public interface Secrets {
     }
 
     /**
-     * Returns `****` placeholder if value is secret
+     * Returns `****` placeholder if value is secret.
      *
      * @param value secret candidate
-     * @return `****` placeholder if value is secret,
-     * otherwise value
+     * @return `****` placeholder if value is secret, otherwise value
      */
     String hideIfSecret(String value);
 
     /**
-     * Replace all substrings if there are secrets
+     * Replace all substrings if there are secrets.
      *
      * @param message string that can contain secret substrings
      * @return processed string

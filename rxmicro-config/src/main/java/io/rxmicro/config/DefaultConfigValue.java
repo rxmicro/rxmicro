@@ -28,15 +28,18 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
  * Allows overriding a default value for config property.
+ *
  * <p>
  * Configuration using java classes similar to configuration using java annotations.
  * The main difference between configuring with annotations and configuring with Java classes is support of the settings inheritance and
  * overriding. In other words, when using configuration via annotations, the RxMicro can also read other configuration sources.
  * When using configuration via Java classes, other configuration sources are always ignored.
+ *
  * <p>
  * Please, pay attention when overriding the default value with the annotations!
  * If You make a mistake when specifying a setting name (this refers to the namespace and field name),
  * no error will occur upon starting! The overridden value will be simply ignored!
+ *
  * <p>
  * This annotation can be applied to override primitive values only:
  * <ul>
@@ -47,15 +50,16 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  *     <li>times</li>
  *     <li>enums</li>
  * </ul>
+ *
  * <p>
  * If it is necessary to override a complex value, {@link DefaultConfigValueSupplier} annotation must be used instead.
  *
  * @author nedis
- * @since 0.1
  * @see DefaultConfigValueSupplier
  * @see Config
  * @see Configs#getConfig(String, Class)
  * @see Configs#getConfig(Class)
+ * @since 0.1
  */
 @Documented
 @Retention(SOURCE)
@@ -65,10 +69,13 @@ public @interface DefaultConfigValue {
 
     /**
      * When overriding the configuration value, it is necessary to specify the configuration class.
+     *
      * <p>
      * If the configuration class is specified, the namespace may not be specified.
+     *
      * <p>
      * See {@link DefaultConfigValue#name()}.
+     *
      * <p>
      * (It means the field of the specified configuration class.)
      *
@@ -78,6 +85,7 @@ public @interface DefaultConfigValue {
 
     /**
      * If no configuration class is specified, the name must contain a namespace.
+     *
      * <p>
      * (The namespace allows You to clearly define to which configuration class the specified setting belongs.)
      *
@@ -87,7 +95,7 @@ public @interface DefaultConfigValue {
     String name();
 
     /**
-     * Returns the overridden property value
+     * Returns the overridden property value.
      *
      * @return the overridden property value
      */

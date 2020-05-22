@@ -22,15 +22,21 @@ import io.rxmicro.validation.base.AbstractMaxConstraintValidator;
 import java.math.BigInteger;
 
 /**
- * Validator for the {@link io.rxmicro.validation.constraint.MaxNumber} constraint
+ * Validator for the {@link io.rxmicro.validation.constraint.MaxNumber} constraint.
  *
  * @author nedis
- * @since 0.1
  * @see io.rxmicro.validation.constraint.MaxNumber
+ * @since 0.1
  */
 public class MaxBigIntegerNumberConstraintValidator extends AbstractMaxConstraintValidator<BigInteger>
         implements ConstraintValidator<BigInteger> {
 
+    /**
+     * Creates the default instance of {@link MaxBigIntegerNumberConstraintValidator} with the specified parameters.
+     *
+     * @param maxValue the supported max value.
+     * @param inclusive whether the specified minimum is inclusive or exclusive.
+     */
     public MaxBigIntegerNumberConstraintValidator(final String maxValue,
                                                   final boolean inclusive) {
         super(new BigInteger(maxValue), inclusive);

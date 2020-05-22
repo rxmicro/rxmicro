@@ -30,10 +30,10 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * Denotes the model field value used as an example in the generated REST-based microservice documentation.
  *
  * @author nedis
- * @since 0.1
  * @see Description
  * @see IncludeDescription
  * @see IncludeMode
+ * @since 0.1
  */
 @Documented
 @Retention(SOURCE)
@@ -42,7 +42,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 public @interface Example {
 
     /**
-     * Returns the example value
+     * Returns the example value.
      *
      * @return the example value
      */

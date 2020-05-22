@@ -25,9 +25,10 @@ import java.util.List;
 import static java.util.Collections.unmodifiableList;
 
 /**
- * Used by generated code that was created by {@code RxMicro Annotation Processor}
+ * Used by generated code that created by the {@code RxMicro Annotation Processor}.
  *
  * @author nedis
+ * @hidden
  * @since 0.1
  */
 @SuppressWarnings("ForLoopReplaceableByForEach")

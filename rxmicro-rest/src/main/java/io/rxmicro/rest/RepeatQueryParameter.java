@@ -30,25 +30,30 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 /**
  * Informs the {@code RxMicro Annotation Processor},
  * that a query parameter model field with array type must be converted to the repeating query parameter.
+ *
  * <p>
  * By default, the RxMicro framework converts header model value as string, separated by the
  * {@value io.rxmicro.http.HttpValues#STRING_ARRAY_DELIMITER} symbol. For example:
+ *
  * <p>
  * {@code ...&amp;queryParameterName=value1|value2|value3&amp;...}
+ *
  * <p>
  * If this annotation is present, result will be:
+ *
  * <p>
  * {@code ...&amp;queryParameterName=value1&amp;queryParameterName=value2&amp;queryParameterName=value3&amp;...}
+ *
  * <p>
  * Supported for REST client HTTP request model only!
  *
  * @author nedis
- * @since 0.1
  * @see io.rxmicro.http.HttpValues
  * @see AddQueryParameter
  * @see SetQueryParameter
  * @see Parameter
  * @see ParameterMappingStrategy
+ * @since 0.1
  */
 @Documented
 @Retention(SOURCE)

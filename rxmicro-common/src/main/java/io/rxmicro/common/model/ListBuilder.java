@@ -28,10 +28,11 @@ import static io.rxmicro.common.util.ExCollections.unmodifiableList;
  * The builder that builds a short-lived unmodified {@link List} instance.
  *
  * @author nedis
- * @since 0.1
+ * @param <E> the type of elements in this list
  * @see List
  * @see ArrayList
  * @see io.rxmicro.common.util.ExCollections#unmodifiableList(Collection)
+ * @since 0.1
  */
 public class ListBuilder<E> {
 
@@ -40,7 +41,7 @@ public class ListBuilder<E> {
     private boolean built;
 
     /**
-     * Adds the specified value to the building {@link List} instance
+     * Adds the specified value to the building {@link List} instance.
      *
      * @param value the specified value
      * @return the reference to this {@link ListBuilder} instance
@@ -55,7 +56,7 @@ public class ListBuilder<E> {
     }
 
     /**
-     * Builds the short-lived unmodified {@link List} instance
+     * Builds the short-lived unmodified {@link List} instance.
      *
      * @return the short-lived unmodified {@link List} instance
      */

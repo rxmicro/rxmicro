@@ -23,7 +23,7 @@ import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.Requires.require;
 
 /**
- * Instance of this class represents a URL path with path variables
+ * Instance of this class represents a URL path with path variables.
  *
  * @author nedis
  * @since 0.1
@@ -34,6 +34,12 @@ public final class UrlSegments {
 
     private final List<String> variables;
 
+    /**
+     * Creates a new instance of {@link UrlSegments} with the URL template and path variables.
+     *
+     * @param urlTemplate the URL template
+     * @param variables the list of path variables
+     */
     public UrlSegments(final String urlTemplate,
                        final List<String> variables) {
         this.urlTemplate = require(urlTemplate);
@@ -41,7 +47,7 @@ public final class UrlSegments {
     }
 
     /**
-     * Returns the url template with path variables
+     * Returns the url template with path variables.
      *
      * @return the url template with path variables
      */
@@ -50,7 +56,7 @@ public final class UrlSegments {
     }
 
     /**
-     * Returns all predefined path variables for current URL path
+     * Returns all predefined path variables for current URL path.
      *
      * @return all predefined path variables for current URL path
      */
@@ -59,7 +65,7 @@ public final class UrlSegments {
     }
 
     /**
-     * Returns the original URL path with all path variables
+     * Returns the original URL path with all path variables.
      *
      * @return the original URL path with all path variables
      */

@@ -25,23 +25,23 @@ import static java.lang.System.lineSeparator;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 /**
- * The additional interface for easy console access during testing
+ * The additional interface for easy console access during testing.
  *
  * @author nedis
- * @since 0.1
  * @see System#out
+ * @since 0.1
  */
 public interface SystemOut {
 
     /**
-     * Returns the array of bytes sent to {@link System#out} during testing
+     * Returns the array of bytes sent to {@link System#out} during testing.
      *
      * @return the array of bytes sent to {@link System#out} during testing
      */
     byte[] asBytes();
 
     /**
-     * Converts the array of bytes sent to {@link System#out} during testing to the {@code UTF-8} trimmed {@link String}
+     * Converts the array of bytes sent to {@link System#out} during testing to the {@code UTF-8} trimmed {@link String}.
      *
      * @return the {@code UTF-8} trimmed {@link String}
      */
@@ -50,7 +50,7 @@ public interface SystemOut {
     }
 
     /**
-     * Converts the array of bytes sent to {@link System#out} during testing to the {@code UTF-8} {@link String}
+     * Converts the array of bytes sent to {@link System#out} during testing to the {@code UTF-8} {@link String}.
      *
      * @param trim should the returns string be trimmed
      * @return the {@code UTF-8} {@link String}
@@ -60,7 +60,7 @@ public interface SystemOut {
     }
 
     /**
-     * Converts the array of bytes sent to {@link System#out} during testing to the trimmed {@link String} in the specified charset
+     * Converts the array of bytes sent to {@link System#out} during testing to the trimmed {@link String} in the specified charset.
      *
      * @param charset the specified charset
      * @return the trimmed {@link String} in the specified charset
@@ -71,7 +71,7 @@ public interface SystemOut {
     }
 
     /**
-     * Converts the array of bytes sent to {@link System#out} during testing to the {@link String} in the specified charset
+     * Converts the array of bytes sent to {@link System#out} during testing to the {@link String} in the specified charset.
      *
      * @param charset the specified charset
      * @param trim should the returns string be trimmed
@@ -86,7 +86,7 @@ public interface SystemOut {
 
     /**
      * Converts the array of bytes sent to {@link System#out} during testing to the {@link List} of
-     *          the {@code UTF-8} trimmed {@link String}s
+     *          the {@code UTF-8} trimmed {@link String}s.
      *
      * @return the {@link List} of the {@code UTF-8} trimmed {@link String}s
      */
@@ -95,7 +95,7 @@ public interface SystemOut {
     }
 
     /**
-     * Converts the array of bytes sent to {@link System#out} during testing to the {@link List} of the {@code UTF-8} {@link String}s
+     * Converts the array of bytes sent to {@link System#out} during testing to the {@link List} of the {@code UTF-8} {@link String}s.
      *
      * @param trim should the each string in the returned {@link List} be trimmed
      * @return the {@link List} of the {@code UTF-8} {@link String}s
@@ -106,7 +106,7 @@ public interface SystemOut {
 
     /**
      * Converts the array of bytes sent to {@link System#out} during testing to the {@link List} of the trimmed {@link String}s
-     * in the specified charset
+     * in the specified charset.
      *
      * @param charset the specified charset
      * @return the {@link List} of the {@link String}s in the specified charset
@@ -118,7 +118,7 @@ public interface SystemOut {
 
     /**
      * Converts the array of bytes sent to {@link System#out} during testing to the {@link List} of the
-     * {@link String}s in the specified charset
+     * {@link String}s in the specified charset.
      *
      * @param charset the specified charset
      * @param trim should the each string in the returned {@link List} be trimmed
@@ -131,7 +131,7 @@ public interface SystemOut {
     }
 
     /**
-     * Returns {@code true} if the array of bytes sent to {@link System#out} during testing is empty
+     * Returns {@code true} if the array of bytes sent to {@link System#out} during testing is empty.
      *
      * @return {@code true} if the array of bytes sent to {@link System#out} during testing is empty
      */

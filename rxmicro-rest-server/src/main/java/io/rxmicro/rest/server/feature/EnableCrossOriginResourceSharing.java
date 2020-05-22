@@ -25,6 +25,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
  * Activates the Cross Origin Resource Sharing for all request handlers in the REST controller.
+ *
  * <p>
  * When activating this feature, the RxMicro framework automatically adds a standard handler that handles preflighted requests.
  *
@@ -37,6 +38,9 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 public @interface EnableCrossOriginResourceSharing {
 
     /**
+     * Defines allows origins.
+     *
+     * <p>
      * <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin">
      *     https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin
      * </a>
@@ -47,6 +51,9 @@ public @interface EnableCrossOriginResourceSharing {
     String[] allowOrigins() default {"*"};
 
     /**
+     * Allows or denies the credentials.
+     *
+     * <p>
      * <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Credentials#Directives">
      *     https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Credentials#Directives
      * </a>
@@ -56,9 +63,13 @@ public @interface EnableCrossOriginResourceSharing {
     boolean accessControlAllowCredentials() default false;
 
     /**
+     * Defines access control max age.
+     *
+     * <p>
      * <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Max-Age#Directives">
      *     https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Max-Age#Directives
      * </a>
+     *
      * <p>
      * Default value is {@code 86400} sec =  {@code 24} hours
      *
