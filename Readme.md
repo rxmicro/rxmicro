@@ -45,37 +45,61 @@ See [CHECK_LISTS.md](.github/CHECK_LISTS.md).
 
 ## Code Quality
 
-* To run `spotbugs` tool it is necessary to activate `spotbugs` maven profile:
+### Spotbugs (https://spotbugs.github.io/)
+
+*(Standard spotbugs profile with [excludes](.coding/spotbugs/exclude.xml))*
+
+Verify via `spotbugs`:
 
 ```
 mvn --fail-at-end -DskipTests -P spotbugs clean verify
 ```
 
 ```
-mvn --fail-at-end -DskipTests -P spotbugs -Dspotbugs-maven-plugin.failOnError=false clean verify site site:stage
+mvn --fail-at-end -DskipTests -P spotbugs \ 
+        -Dspotbugs-maven-plugin.failOnError=false \
+                clean verify site site:stage
 ```
 
-* To run `pmd` tool it is necessary to activate `pmd` maven profile:
+### PMD (https://pmd.github.io/)
+
+*([Custom pmd](.coding/pmd/ruleset.xml) profile with 
+[exclude-pmd](.coding/pmd/exclude-pmd.properties) and [exclude-cpd](.coding/pmd/exclude-cpd.properties))*
+
+Verify via `pmd`:
 
 ```
 mvn --fail-at-end -DskipTests -P pmd clean verify
 ```
 
 ```
-mvn --fail-at-end -DskipTests -P pmd -Dmaven-pmd-plugin.failOnViolation=false clean verify site site:stage
+mvn --fail-at-end -DskipTests -P pmd \
+        -Dmaven-pmd-plugin.failOnViolation=false \
+                clean verify site site:stage
 ```
 
-* To run `checkstyle` tool it is necessary to activate `checkstyle` maven profile:
+### Checkstyle (https://checkstyle.sourceforge.io/)
+
+* *([Custom common checkstyle](.coding/checkstyle/common-rules.xml) profile with 
+[common-suppressions](.coding/checkstyle/common-suppressions.xml) for all classes)*
+* *([Custom public checkstyle](.coding/checkstyle/public-api-rules.xml) profile with 
+[public-api-suppressions](.coding/checkstyle/public-api-suppressions.xml) for public classes)*
+
+Verify via `checkstyle`:
 
 ```
 mvn --fail-at-end -DskipTests -P checkstyle clean verify
 ```
 
 ```
-mvn --fail-at-end -DskipTests -P checkstyle -Dmaven-checkstyle-plugin.failOnViolation=false clean verify site site:stage
+mvn --fail-at-end -DskipTests -P checkstyle \
+        -Dmaven-checkstyle-plugin.failOnViolation=false \
+                clean verify site site:stage
 ```
 
-* To run all quality tools it is necessary to activate all quality tool maven profiles:
+### All tools
+
+Verify via `spotbugs`, `pmd`, `checkstyle`:
 
 ```
 mvn --fail-at-end -DskipTests -P spotbugs,pmd,checkstyle clean verify
