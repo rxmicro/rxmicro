@@ -110,6 +110,7 @@
         </module>
         <module name="SingleLineJavadoc"/>
         <module name="SummaryJavadocCheck"/>
-        <!--module name="WriteTag"/ is redundant -->
+        <!-- The RxMicro framework does not use custom javadoc tags: -->
+        <!--module name="WriteTag"/-->
     </module>
 </module>
