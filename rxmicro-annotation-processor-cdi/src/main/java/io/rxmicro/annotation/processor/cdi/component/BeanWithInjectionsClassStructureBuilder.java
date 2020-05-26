@@ -27,7 +27,7 @@ import javax.lang.model.element.TypeElement;
  * @author nedis
  * @since 0.1
  */
-public interface BeanDefinitionWithInjectionsClassStructureBuilder {
+public interface BeanWithInjectionsClassStructureBuilder {
 
     Set<BeanSupplierClassStructure> build(EnvironmentContext environmentContext,
                                           Set<? extends TypeElement> annotations,

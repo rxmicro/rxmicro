@@ -28,8 +28,8 @@ import java.util.List;
 import java.util.Map;
 
 import static io.rxmicro.annotation.processor.common.util.Annotations.getReadMore;
-import static io.rxmicro.annotation.processor.documentation.asciidoctor.component.RestrictionReader.OPTIONAL_RESTRICTION;
-import static io.rxmicro.annotation.processor.documentation.asciidoctor.component.RestrictionReader.REQUIRED_RESTRICTION;
+import static io.rxmicro.annotation.processor.documentation.asciidoctor.component.CharacteristicsReader.OPTIONAL_RESTRICTION;
+import static io.rxmicro.annotation.processor.documentation.asciidoctor.component.CharacteristicsReader.REQUIRED_RESTRICTION;
 import static io.rxmicro.http.HttpStandardHeaderNames.REQUEST_ID;
 import static io.rxmicro.json.JsonTypes.STRING;
 

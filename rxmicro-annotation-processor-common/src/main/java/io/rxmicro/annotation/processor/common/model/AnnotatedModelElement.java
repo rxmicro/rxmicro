@@ -17,6 +17,7 @@
 package io.rxmicro.annotation.processor.common.model;
 
 import io.rxmicro.annotation.processor.common.model.error.InternalErrorException;
+import io.rxmicro.model.MappingStrategy;
 
 import java.lang.annotation.Annotation;
 import java.util.ArrayList;
@@ -40,6 +41,7 @@ import static io.rxmicro.annotation.processor.common.model.ModelAccessorType.JAV
 import static io.rxmicro.annotation.processor.common.model.ModelAccessorType.REFLECTION;
 import static io.rxmicro.annotation.processor.common.util.Names.getPackageName;
 import static io.rxmicro.common.util.Requires.require;
+import static io.rxmicro.common.util.Strings.splitByCamelCase;
 import static javax.lang.model.element.Modifier.PRIVATE;
 
 /**
@@ -187,5 +189,17 @@ public final class AnnotatedModelElement {
 
     public boolean isFinal() {
         return field.getModifiers().contains(Modifier.FINAL);
+    }
+
+    public String getModelName(final String customModelName,
+                               final Annotation mappingStrategyAnnotation,
+                               final Supplier<MappingStrategy> mappingStrategySupplier) {
+        if (!customModelName.isEmpty()) {
+            return customModelName;
+        } else if (mappingStrategyAnnotation != null) {
+            return mappingStrategySupplier.get().getModelName(splitByCamelCase(field.getSimpleName().toString()));
+        } else {
+            return field.getSimpleName().toString();
+        }
     }
 }

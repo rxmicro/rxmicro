@@ -17,21 +17,27 @@
 package io.rxmicro.annotation.processor.common.model;
 
 import io.rxmicro.annotation.processor.common.util.SortedOperatorMapBuilder;
+import io.rxmicro.common.meta.BuilderMethod;
 
 import java.util.Map;
 import java.util.Set;
 import java.util.SortedSet;
 
 import static io.rxmicro.common.util.ExCollections.join;
+import static io.rxmicro.common.util.Requires.require;
 import static java.util.stream.Collectors.toSet;
 
 /**
  * @author nedis
  * @since 0.1
  */
-public abstract class TokenParserRule {
+public final class TokenParserRule {
 
-    private final Map<String, SortedSet<String>> sortedOperatorMap;
+    private final boolean variablesSupported;
+
+    private final Set<Character> ignoredDelimiter;
+
+    private final Set<Character> stringDelimiter;
 
     private final Set<String> lineCommentStartedTokens;
 
@@ -41,37 +47,42 @@ public abstract class TokenParserRule {
 
     private final Set<Character> multiLineCommentFinishedTokenFirstChars;
 
-    public TokenParserRule() {
-        lineCommentStartedTokens = getLineCommentStartedTokens();
-        multiLineCommentStartedTokens = getMultiLineCommentStartedTokens();
-        multiLineCommentFinishedTokens = getMultiLineCommentFinishedTokens();
-        multiLineCommentFinishedTokenFirstChars = multiLineCommentFinishedTokens.stream()
+    private final Map<String, SortedSet<String>> sortedOperatorMap;
+
+    private TokenParserRule(final boolean variablesSupported,
+                            final Set<Character> ignoredDelimiter,
+                            final Set<Character> stringDelimiter,
+                            final Set<String> lineCommentStartedTokens,
+                            final Set<String> multiLineCommentStartedTokens,
+                            final Set<String> multiLineCommentFinishedTokens,
+                            final Map<String, SortedSet<String>> sortedOperatorMap) {
+        this.variablesSupported = variablesSupported;
+        this.ignoredDelimiter = require(ignoredDelimiter);
+        this.stringDelimiter = require(stringDelimiter);
+        this.lineCommentStartedTokens = require(lineCommentStartedTokens);
+        this.multiLineCommentStartedTokens = require(multiLineCommentStartedTokens);
+        this.multiLineCommentFinishedTokens = require(multiLineCommentFinishedTokens);
+        this.multiLineCommentFinishedTokenFirstChars = multiLineCommentFinishedTokens.stream()
                 .map(s -> s.charAt(0))
                 .collect(toSet());
-        final Set<String> significantTokenDelimiters = join(
-                getOperatorTokenDelimiters(),
-                getNotOperatorTokenDelimiters(),
-                lineCommentStartedTokens,
-                multiLineCommentStartedTokens,
-                multiLineCommentFinishedTokens
-        );
-        sortedOperatorMap = buildSortedOperatorMap(significantTokenDelimiters);
+        this.sortedOperatorMap = require(sortedOperatorMap);
     }
 
     public boolean isIgnoredDelimiter(final char ch) {
-        return Set.of(' ', '\u00A0', '\n', '\t', '\r').contains(ch);
+        return ignoredDelimiter.contains(ch);
     }
 
     public boolean isStringDelimiter(final char ch) {
-        return Set.of('\'', '"').contains(ch);
+        return stringDelimiter.contains(ch);
     }
 
     public Map<String, SortedSet<String>> getSortedOperatorMap() {
         return sortedOperatorMap;
     }
 
-    @SuppressWarnings("SameReturnValue")
-    public abstract boolean supportVariables();
+    public boolean areVariablesSupported() {
+        return variablesSupported;
+    }
 
     public boolean isLineBlank(final String line) {
         return line.isEmpty() || line.chars().allMatch(ch -> isIgnoredDelimiter((char) ch));
@@ -97,27 +108,101 @@ public abstract class TokenParserRule {
         return multiLineCommentFinishedTokens.contains(token);
     }
 
-    protected Set<String> getLineCommentStartedTokens() {
-        return Set.of();
-    }
+    /**
+     * @author nedis
+     * @since 0.5
+     */
+    public static final class Builder {
 
-    protected Set<String> getMultiLineCommentStartedTokens() {
-        return Set.of();
-    }
+        private boolean variablesSupported;
 
-    protected Set<String> getMultiLineCommentFinishedTokens() {
-        return Set.of();
-    }
+        private Set<Character> ignoredDelimiter = Set.of(' ', '\u00A0', '\n', '\t', '\r');
 
-    protected abstract Set<String> getOperatorTokenDelimiters();
+        private Set<Character> stringDelimiter = Set.of('\'', '"');
 
-    protected abstract Set<String> getNotOperatorTokenDelimiters();
+        private Set<String> lineCommentStartedTokens = Set.of();
 
-    private Map<String, SortedSet<String>> buildSortedOperatorMap(final Set<String> significantTokenDelimiters) {
-        return new SortedOperatorMapBuilder(significantTokenDelimiters)
-                .buildUnmodifiableMapWithSortedValues((o1, o2) -> {
-                    final int res = o2.length() - o1.length();
-                    return res == 0 ? o1.compareTo(o2) : res;
-                });
+        private Set<String> multiLineCommentStartedTokens = Set.of();
+
+        private Set<String> multiLineCommentFinishedTokens = Set.of();
+
+        private Set<String> operatorTokenDelimiters = Set.of();
+
+        private Set<String> notOperatorTokenDelimiters = Set.of();
+
+        @BuilderMethod
+        public Builder setVariablesSupported(final boolean variablesSupported) {
+            this.variablesSupported = variablesSupported;
+            return this;
+        }
+
+        @BuilderMethod
+        public Builder setIgnoredDelimiter(final Set<Character> ignoredDelimiter) {
+            this.ignoredDelimiter = require(ignoredDelimiter);
+            return this;
+        }
+
+        @BuilderMethod
+        public Builder setStringDelimiter(final Set<Character> stringDelimiter) {
+            this.stringDelimiter = require(stringDelimiter);
+            return this;
+        }
+
+        @BuilderMethod
+        public Builder setLineCommentStartedTokens(final Set<String> lineCommentStartedTokens) {
+            this.lineCommentStartedTokens = require(lineCommentStartedTokens);
+            return this;
+        }
+
+        @BuilderMethod
+        public Builder setMultiLineCommentStartedTokens(final Set<String> multiLineCommentStartedTokens) {
+            this.multiLineCommentStartedTokens = require(multiLineCommentStartedTokens);
+            return this;
+        }
+
+        @BuilderMethod
+        public Builder setMultiLineCommentFinishedTokens(final Set<String> multiLineCommentFinishedTokens) {
+            this.multiLineCommentFinishedTokens = require(multiLineCommentFinishedTokens);
+            return this;
+        }
+
+        @BuilderMethod
+        public Builder setOperatorTokenDelimiters(final Set<String> operatorTokenDelimiters) {
+            this.operatorTokenDelimiters = require(operatorTokenDelimiters);
+            return this;
+        }
+
+        @BuilderMethod
+        public Builder setNotOperatorTokenDelimiters(final Set<String> notOperatorTokenDelimiters) {
+            this.notOperatorTokenDelimiters = require(notOperatorTokenDelimiters);
+            return this;
+        }
+
+        public TokenParserRule build() {
+            final Set<String> significantTokenDelimiters = join(
+                    operatorTokenDelimiters,
+                    notOperatorTokenDelimiters,
+                    lineCommentStartedTokens,
+                    multiLineCommentStartedTokens,
+                    multiLineCommentFinishedTokens
+            );
+            return new TokenParserRule(
+                    variablesSupported,
+                    ignoredDelimiter,
+                    stringDelimiter,
+                    lineCommentStartedTokens,
+                    multiLineCommentStartedTokens,
+                    multiLineCommentFinishedTokens,
+                    buildSortedOperatorMap(significantTokenDelimiters)
+            );
+        }
+
+        private Map<String, SortedSet<String>> buildSortedOperatorMap(final Set<String> significantTokenDelimiters) {
+            return new SortedOperatorMapBuilder(significantTokenDelimiters)
+                    .buildUnmodifiableMapWithSortedValues((o1, o2) -> {
+                        final int res = o2.length() - o1.length();
+                        return res == 0 ? o1.compareTo(o2) : res;
+                    });
+        }
     }
 }

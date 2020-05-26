@@ -14,22 +14,22 @@
  * limitations under the License.
  */
 
-package io.rxmicro.annotation.processor.common.model;
+package io.rxmicro.annotation.processor.data.sql.r2dbc.postgresql.component.impl;
 
-import com.google.inject.BindingAnnotation;
-
-import java.lang.annotation.Retention;
-import java.lang.annotation.Target;
-
-import static java.lang.annotation.ElementType.FIELD;
-import static java.lang.annotation.RetentionPolicy.RUNTIME;
+import io.rxmicro.annotation.processor.common.component.TokenParserRuleProvider;
+import io.rxmicro.annotation.processor.common.model.TokenParserRule;
+import io.rxmicro.annotation.processor.data.sql.component.impl.SQLTokenParserRuleProvider;
 
 /**
  * @author nedis
  * @since 0.5
  */
-@BindingAnnotation
-@Retention(RUNTIME)
-@Target(FIELD)
-public @interface JavaTokenParserRule {
+public final class PostgreSQLTokenParserRuleProvider implements TokenParserRuleProvider {
+
+    private final SQLTokenParserRuleProvider sqlTokenParserRuleProvider = new SQLTokenParserRuleProvider();
+
+    @Override
+    public TokenParserRule get() {
+        return sqlTokenParserRuleProvider.get();
+    }
 }

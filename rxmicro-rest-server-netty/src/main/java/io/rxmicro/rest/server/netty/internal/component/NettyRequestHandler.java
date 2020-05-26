@@ -129,7 +129,8 @@ final class NettyRequestHandler extends SimpleChannelInboundHandler<FullHttpRequ
 
     private void traceRequest(final NettyHttpRequest request,
                               final ChannelHandlerContext ctx) {
-        LOGGER.trace("HTTP request:  (Id=?, Channel=?, IP=?):\n? ?\n?\n\n?",
+        LOGGER.trace(
+                "HTTP request:  (Id=?, Channel=?, IP=?):\n? ?\n?\n\n?",
                 request.getRequestId(),
                 nettyRestServerConfig.getChannelIdType().getId(ctx.channel().id()),
                 ctx.channel().remoteAddress(),
@@ -153,7 +154,8 @@ final class NettyRequestHandler extends SimpleChannelInboundHandler<FullHttpRequ
 
     private void debugRequest(final NettyHttpRequest request,
                               final ChannelHandlerContext ctx) {
-        LOGGER.debug("HTTP request:  Id=?, Channel=?, IP=?, Request=?",
+        LOGGER.debug(
+                "HTTP request:  Id=?, Channel=?, IP=?, Request=?",
                 request.getRequestId(),
                 nettyRestServerConfig.getChannelIdType().getId(ctx.channel().id()),
                 ctx.channel().remoteAddress(),
@@ -223,7 +225,8 @@ final class NettyRequestHandler extends SimpleChannelInboundHandler<FullHttpRequ
                                final long startTime,
                                final NettyHttpResponse httpResponse,
                                final ChannelHandlerContext ctx) {
-        LOGGER.trace("HTTP response: (Id=?, Channel=?, Duration=?):\n? ?\n?\n\n?",
+        LOGGER.trace(
+                "HTTP response: (Id=?, Channel=?, Duration=?):\n? ?\n?\n\n?",
                 requestId,
                 nettyRestServerConfig.getChannelIdType().getId(ctx.channel().id()),
                 startTime == 0L ? "undefined" : format(Duration.ofNanos(System.nanoTime() - startTime)),
@@ -242,7 +245,8 @@ final class NettyRequestHandler extends SimpleChannelInboundHandler<FullHttpRequ
                                final long startTime,
                                final NettyHttpResponse httpResponse,
                                final ChannelHandlerContext ctx) {
-        LOGGER.debug("HTTP response: Id=?, Channel=?, Content=? bytes, Duration=?",
+        LOGGER.debug(
+                "HTTP response: Id=?, Channel=?, Content=? bytes, Duration=?",
                 requestId,
                 nettyRestServerConfig.getChannelIdType().getId(ctx.channel().id()),
                 httpResponse.getContentLength(),

@@ -14,15 +14,26 @@
  * limitations under the License.
  */
 
-package io.rxmicro.annotation.processor.data.sql.r2dbc.postgresql.component.impl;
-
-import com.google.inject.Singleton;
-import io.rxmicro.annotation.processor.data.sql.model.SQLTokenParserRule;
+package io.rxmicro.json.internal.reader;
 
 /**
  * @author nedis
- * @since 0.1
+ * @since 0.5
  */
-@Singleton
-public final class PostgreSQLTokenParserRule extends SQLTokenParserRule {
+public final class JsonDelimiters {
+
+    static boolean isIgnoredDelimiter(final char ch) {
+        return ch <= ' ' || ch == '\u00A0';
+    }
+
+    static boolean isJsonObjectDelimiter(final char ch) {
+        return ch == '{' || ch == '}';
+    }
+
+    static boolean isJsonArrayDelimiter(final char ch) {
+        return ch == '[' || ch == ']';
+    }
+
+    private JsonDelimiters() {
+    }
 }

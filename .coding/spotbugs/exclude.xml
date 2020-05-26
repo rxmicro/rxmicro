@@ -49,11 +49,13 @@
     <!--This class does not use reflection, it uses annotation processing API.
         It seems that it is issue in spotbugs tool.-->
     <Match>
-        <Class name="io.rxmicro.annotation.processor.rest.component.AbstractRestModelFieldBuilder"/>
-        <Or>
-            <Method name="buildHeader" />
-            <Method name="buildParameter" />
-        </Or>
+        <Class name="io.rxmicro.annotation.processor.rest.component.impl.builder.HeaderRestModelFieldBuilder"/>
+        <Method name="build" />
+        <Bug pattern="DMI_ANNOTATION_IS_NOT_VISIBLE_TO_REFLECTION"/>
+    </Match>
+    <Match>
+        <Class name="io.rxmicro.annotation.processor.rest.component.impl.builder.ParameterRestModelFieldBuilder"/>
+        <Method name="build" />
         <Bug pattern="DMI_ANNOTATION_IS_NOT_VISIBLE_TO_REFLECTION"/>
     </Match>
 

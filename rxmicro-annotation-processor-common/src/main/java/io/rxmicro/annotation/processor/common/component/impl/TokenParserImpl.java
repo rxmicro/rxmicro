@@ -185,7 +185,7 @@ public final class TokenParserImpl implements TokenParser {
                                      final StringIterator iterator,
                                      final StringBuilder tokenBuilder,
                                      final char ch) {
-        if (rule.supportVariables()) {
+        if (rule.areVariablesSupported()) {
             if (iterator.next()) {
                 if ('{' == iterator.getCurrent()) {
                     addTokenIfPresent(tokens, tokenBuilder);

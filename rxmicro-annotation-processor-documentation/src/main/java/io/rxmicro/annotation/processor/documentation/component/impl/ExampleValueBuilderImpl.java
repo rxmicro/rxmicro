@@ -71,7 +71,7 @@ public final class ExampleValueBuilderImpl implements ExampleValueBuilder {
                     .collect(toUnmodifiableList());
         } else {
             final TypeMirror fieldClass;
-            if (supportedTypesProvider.getPrimitiveContainers().contains(restModelField.getFieldClass())) {
+            if (supportedTypesProvider.isModelPrimitiveList(restModelField.getFieldClass())) {
                 fieldClass = ((DeclaredType) restModelField.getFieldClass()).getTypeArguments().get(0);
             } else {
                 fieldClass = restModelField.getFieldClass();

@@ -26,6 +26,9 @@ import java.util.function.Supplier;
  */
 public final class Errors {
 
+    public static final Supplier<? extends InternalErrorException> IMPOSSIBLE_ERROR_ANNOTATION_NOT_FOUND_SUPPLIER =
+            createInternalErrorSupplier("Impossible ERROR: Annotation not found");
+
     public static Supplier<? extends InternalErrorException> createInternalErrorSupplier(final String message,
                                                                                          final Object... args) {
         return () -> {

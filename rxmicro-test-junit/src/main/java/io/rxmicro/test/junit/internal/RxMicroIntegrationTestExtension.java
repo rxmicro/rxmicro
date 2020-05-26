@@ -19,7 +19,6 @@ package io.rxmicro.test.junit.internal;
 import io.rxmicro.test.BlockingHttpClient;
 import io.rxmicro.test.junit.RxMicroIntegrationTest;
 import io.rxmicro.test.local.BlockingHttpClientConfig;
-import io.rxmicro.test.local.component.builder.BlockingHttpClientBuilder;
 import io.rxmicro.test.local.component.builder.TestModelBuilder;
 import io.rxmicro.test.local.component.injector.BlockingHttpClientInjector;
 import io.rxmicro.test.local.component.injector.InjectorFactory;
@@ -52,14 +51,6 @@ public final class RxMicroIntegrationTestExtension
         integrationTestsFix();
     }
 
-    private final TestModelBuilder testModelBuilder = new TestModelBuilder(false);
-
-    private final IntegrationTestValidator integrationTestValidator = new IntegrationTestValidator(SUPPORTED_TEST_ANNOTATIONS);
-
-    private final BeforeTestInvoker beforeTestInvoker = getBeforeTestInvoker();
-
-    private final BlockingHttpClientBuilder blockingHttpClientBuilder = getBlockingHttpClientBuilder();
-
     private BlockingHttpClient blockingHttpClient;
 
     private BlockingHttpClientInjector blockingHttpClientInjector;
@@ -70,7 +61,9 @@ public final class RxMicroIntegrationTestExtension
     public void beforeAll(final ExtensionContext context) {
         final Class<?> testClass = getOwnerTestClass(context);
         getRequiredAnnotation(testClass, RxMicroIntegrationTest.class);
-        final TestModel testModel = testModelBuilder.build(testClass);
+        final TestModel testModel = new TestModelBuilder(false).build(testClass);
+        final IntegrationTestValidator integrationTestValidator = new IntegrationTestValidator(SUPPORTED_TEST_ANNOTATIONS);
+
         integrationTestValidator.validate(testModel);
         final InjectorFactory injectorFactory = new InjectorFactory(testModel);
         blockingHttpClientInjector = injectorFactory.createBlockingHttpClientInjector();
@@ -79,13 +72,13 @@ public final class RxMicroIntegrationTestExtension
             final BlockingHttpClientConfig config =
                     blockingHttpClientInjector.getConfig(testClass, true, 8080);
             integrationTestValidator.validate(config);
-            blockingHttpClient = blockingHttpClientBuilder.build(testClass, config);
+            blockingHttpClient = getBlockingHttpClientBuilder().build(testClass, config);
         }
     }
 
     @Override
     public void beforeEach(final ExtensionContext context) {
-        beforeTestInvoker.throwErrorIfFound(context);
+        getBeforeTestInvoker().throwErrorIfFound(context);
         final List<Object> testInstances = getTestInstances(context);
         blockingHttpClientInjector.injectIfFound(testInstances, blockingHttpClient);
         systemOutInjector.injectIfFound(testInstances);

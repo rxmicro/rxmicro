@@ -27,7 +27,7 @@ import java.util.Set;
  * @author nedis
  * @since 0.1
  */
-public interface BeanDefinitionWithoutInjectionsClassStructureBuilder {
+public interface BeanWithoutInjectionsClassStructureBuilder {
 
     Set<BeanSupplierClassStructure> build(EnvironmentContext environmentContext,
                                           List<InjectionPoint> injectionPoints,

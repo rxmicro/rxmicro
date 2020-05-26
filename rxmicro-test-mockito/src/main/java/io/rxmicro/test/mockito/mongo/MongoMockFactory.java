@@ -45,16 +45,16 @@ import static io.rxmicro.test.mockito.mongo.internal.util.TypeFixer.fixDocumentT
  */
 public final class MongoMockFactory {
 
-    private static final FindOperationMockFactory MONGO_FIND_OPERATION_MOCK_FACTORY =
+    private static final FindOperationMockFactory FIND_OPERATION_MOCK_FACTORY =
             new FindOperationMockFactory();
 
-    private static final CountDocumentsOperationMockFactory MONGO_COUNT_DOCUMENTS_OPERATION_MOCK_FACTORY =
+    private static final CountDocumentsOperationMockFactory COUNT_DOCUMENTS_OPERATION_MOCK_FACTORY =
             new CountDocumentsOperationMockFactory();
 
-    private static final EstimatedDocumentCountOperationMockFactory MONGO_ESTIMATED_DOCUMENT_COUNT_OPERATION_MOCK_FACTORY =
+    private static final EstimatedDocumentCountOperationMockFactory ESTIMATED_DOCUMENT_COUNT_OPERATION_MOCK_FACTORY =
             new EstimatedDocumentCountOperationMockFactory();
 
-    private static final DistinctOperationMockFactory MONGO_DISTINCT_OPERATION_MOCK_FACTORY =
+    private static final DistinctOperationMockFactory DISTINCT_OPERATION_MOCK_FACTORY =
             new DistinctOperationMockFactory();
 
     private static final AggregateOperationMockFactory AGGREGATE_OPERATION_MOCK_FACTORY =
@@ -69,7 +69,7 @@ public final class MongoMockFactory {
     private static final UpdateOperationMockFactory UPDATE_OPERATION_MOCK_FACTORY =
             new UpdateOperationMockFactory();
 
-    private static final String MONGO_DATABASE_COULD_NOT_BE_A_NULL_MESSAGE = "'mongoDatabase' could not be a null!";
+    private static final String DATABASE_COULD_NOT_BE_A_NULL_MESSAGE = "'mongoDatabase' could not be a null!";
 
     private static final String COLLECTION_NAME_COULD_NOT_BE_A_NULL_MESSAGE = "'collectionName' could not be a null!";
 
@@ -96,8 +96,8 @@ public final class MongoMockFactory {
                                                   final FindOperationMock operationMock,
                                                   final Document... documents) {
         fixDocumentTypes(documents);
-        MONGO_FIND_OPERATION_MOCK_FACTORY.prepare(
-                require(mongoDatabase, MONGO_DATABASE_COULD_NOT_BE_A_NULL_MESSAGE),
+        FIND_OPERATION_MOCK_FACTORY.prepare(
+                require(mongoDatabase, DATABASE_COULD_NOT_BE_A_NULL_MESSAGE),
                 require(collectionName, COLLECTION_NAME_COULD_NOT_BE_A_NULL_MESSAGE),
                 require(operationMock, OPERATION_MOCK_COULD_NOT_BE_A_NULL_MESSAGE),
                 null,
@@ -123,8 +123,8 @@ public final class MongoMockFactory {
                                                   final String collectionName,
                                                   final FindOperationMock operationMock,
                                                   final Throwable throwable) {
-        MONGO_FIND_OPERATION_MOCK_FACTORY.prepare(
-                require(mongoDatabase, MONGO_DATABASE_COULD_NOT_BE_A_NULL_MESSAGE),
+        FIND_OPERATION_MOCK_FACTORY.prepare(
+                require(mongoDatabase, DATABASE_COULD_NOT_BE_A_NULL_MESSAGE),
                 require(collectionName, COLLECTION_NAME_COULD_NOT_BE_A_NULL_MESSAGE),
                 require(operationMock, OPERATION_MOCK_COULD_NOT_BE_A_NULL_MESSAGE),
                 require(throwable, THROWABLE_COULD_NOT_BE_A_NULL_MESSAGE)
@@ -149,8 +149,8 @@ public final class MongoMockFactory {
                                                   final String collectionName,
                                                   final CountDocumentsOperationMock operationMock,
                                                   final long count) {
-        MONGO_COUNT_DOCUMENTS_OPERATION_MOCK_FACTORY.prepare(
-                require(mongoDatabase, MONGO_DATABASE_COULD_NOT_BE_A_NULL_MESSAGE),
+        COUNT_DOCUMENTS_OPERATION_MOCK_FACTORY.prepare(
+                require(mongoDatabase, DATABASE_COULD_NOT_BE_A_NULL_MESSAGE),
                 require(collectionName, COLLECTION_NAME_COULD_NOT_BE_A_NULL_MESSAGE),
                 require(operationMock, OPERATION_MOCK_COULD_NOT_BE_A_NULL_MESSAGE),
                 null, count
@@ -175,8 +175,8 @@ public final class MongoMockFactory {
                                                   final String collectionName,
                                                   final CountDocumentsOperationMock operationMock,
                                                   final Throwable throwable) {
-        MONGO_COUNT_DOCUMENTS_OPERATION_MOCK_FACTORY.prepare(
-                require(mongoDatabase, MONGO_DATABASE_COULD_NOT_BE_A_NULL_MESSAGE),
+        COUNT_DOCUMENTS_OPERATION_MOCK_FACTORY.prepare(
+                require(mongoDatabase, DATABASE_COULD_NOT_BE_A_NULL_MESSAGE),
                 require(collectionName, COLLECTION_NAME_COULD_NOT_BE_A_NULL_MESSAGE),
                 require(operationMock, OPERATION_MOCK_COULD_NOT_BE_A_NULL_MESSAGE),
                 require(throwable, THROWABLE_COULD_NOT_BE_A_NULL_MESSAGE), null
@@ -201,8 +201,8 @@ public final class MongoMockFactory {
                                                   final String collectionName,
                                                   final EstimatedDocumentCountMock operationMock,
                                                   final long count) {
-        MONGO_ESTIMATED_DOCUMENT_COUNT_OPERATION_MOCK_FACTORY.prepare(
-                require(mongoDatabase, MONGO_DATABASE_COULD_NOT_BE_A_NULL_MESSAGE),
+        ESTIMATED_DOCUMENT_COUNT_OPERATION_MOCK_FACTORY.prepare(
+                require(mongoDatabase, DATABASE_COULD_NOT_BE_A_NULL_MESSAGE),
                 require(collectionName, COLLECTION_NAME_COULD_NOT_BE_A_NULL_MESSAGE),
                 require(operationMock, OPERATION_MOCK_COULD_NOT_BE_A_NULL_MESSAGE),
                 null, count
@@ -227,8 +227,8 @@ public final class MongoMockFactory {
                                                   final String collectionName,
                                                   final EstimatedDocumentCountMock operationMock,
                                                   final Throwable throwable) {
-        MONGO_ESTIMATED_DOCUMENT_COUNT_OPERATION_MOCK_FACTORY.prepare(
-                require(mongoDatabase, MONGO_DATABASE_COULD_NOT_BE_A_NULL_MESSAGE),
+        ESTIMATED_DOCUMENT_COUNT_OPERATION_MOCK_FACTORY.prepare(
+                require(mongoDatabase, DATABASE_COULD_NOT_BE_A_NULL_MESSAGE),
                 require(collectionName, COLLECTION_NAME_COULD_NOT_BE_A_NULL_MESSAGE),
                 require(operationMock, OPERATION_MOCK_COULD_NOT_BE_A_NULL_MESSAGE),
                 require(throwable, THROWABLE_COULD_NOT_BE_A_NULL_MESSAGE), null
@@ -255,8 +255,8 @@ public final class MongoMockFactory {
                                                       final String collectionName,
                                                       final DistinctOperationMock<T> operationMock,
                                                       final T... items) {
-        MONGO_DISTINCT_OPERATION_MOCK_FACTORY.prepare(
-                require(mongoDatabase, MONGO_DATABASE_COULD_NOT_BE_A_NULL_MESSAGE),
+        DISTINCT_OPERATION_MOCK_FACTORY.prepare(
+                require(mongoDatabase, DATABASE_COULD_NOT_BE_A_NULL_MESSAGE),
                 require(collectionName, COLLECTION_NAME_COULD_NOT_BE_A_NULL_MESSAGE),
                 require(operationMock, OPERATION_MOCK_COULD_NOT_BE_A_NULL_MESSAGE),
                 null,
@@ -284,8 +284,8 @@ public final class MongoMockFactory {
                                                       final String collectionName,
                                                       final DistinctOperationMock<T> operationMock,
                                                       final Throwable throwable) {
-        MONGO_DISTINCT_OPERATION_MOCK_FACTORY.prepare(
-                require(mongoDatabase, MONGO_DATABASE_COULD_NOT_BE_A_NULL_MESSAGE),
+        DISTINCT_OPERATION_MOCK_FACTORY.prepare(
+                require(mongoDatabase, DATABASE_COULD_NOT_BE_A_NULL_MESSAGE),
                 require(collectionName, COLLECTION_NAME_COULD_NOT_BE_A_NULL_MESSAGE),
                 require(operationMock, OPERATION_MOCK_COULD_NOT_BE_A_NULL_MESSAGE),
                 require(throwable, THROWABLE_COULD_NOT_BE_A_NULL_MESSAGE)
@@ -312,7 +312,7 @@ public final class MongoMockFactory {
                                                   final Document... documents) {
         fixDocumentTypes(documents);
         AGGREGATE_OPERATION_MOCK_FACTORY.prepare(
-                require(mongoDatabase, MONGO_DATABASE_COULD_NOT_BE_A_NULL_MESSAGE),
+                require(mongoDatabase, DATABASE_COULD_NOT_BE_A_NULL_MESSAGE),
                 require(collectionName, COLLECTION_NAME_COULD_NOT_BE_A_NULL_MESSAGE),
                 require(operationMock, OPERATION_MOCK_COULD_NOT_BE_A_NULL_MESSAGE),
                 null,
@@ -339,7 +339,7 @@ public final class MongoMockFactory {
                                                   final AggregateOperationMock operationMock,
                                                   final Throwable throwable) {
         AGGREGATE_OPERATION_MOCK_FACTORY.prepare(
-                require(mongoDatabase, MONGO_DATABASE_COULD_NOT_BE_A_NULL_MESSAGE),
+                require(mongoDatabase, DATABASE_COULD_NOT_BE_A_NULL_MESSAGE),
                 require(collectionName, COLLECTION_NAME_COULD_NOT_BE_A_NULL_MESSAGE),
                 require(operationMock, OPERATION_MOCK_COULD_NOT_BE_A_NULL_MESSAGE),
                 require(throwable, THROWABLE_COULD_NOT_BE_A_NULL_MESSAGE)
@@ -363,7 +363,7 @@ public final class MongoMockFactory {
                                                   final String collectionName,
                                                   final InsertOperationMock operationMock) {
         INSERT_OPERATION_MOCK_FACTORY.prepare(
-                require(mongoDatabase, MONGO_DATABASE_COULD_NOT_BE_A_NULL_MESSAGE),
+                require(mongoDatabase, DATABASE_COULD_NOT_BE_A_NULL_MESSAGE),
                 require(collectionName, COLLECTION_NAME_COULD_NOT_BE_A_NULL_MESSAGE),
                 require(operationMock, OPERATION_MOCK_COULD_NOT_BE_A_NULL_MESSAGE),
                 null,
@@ -390,7 +390,7 @@ public final class MongoMockFactory {
                                                   final InsertOperationMock operationMock,
                                                   final BsonValue insertId) {
         INSERT_OPERATION_MOCK_FACTORY.prepare(
-                require(mongoDatabase, MONGO_DATABASE_COULD_NOT_BE_A_NULL_MESSAGE),
+                require(mongoDatabase, DATABASE_COULD_NOT_BE_A_NULL_MESSAGE),
                 require(collectionName, COLLECTION_NAME_COULD_NOT_BE_A_NULL_MESSAGE),
                 require(operationMock, OPERATION_MOCK_COULD_NOT_BE_A_NULL_MESSAGE),
                 null,
@@ -417,7 +417,7 @@ public final class MongoMockFactory {
                                                   final InsertOperationMock operationMock,
                                                   final InsertOneResult insertOneResult) {
         INSERT_OPERATION_MOCK_FACTORY.prepare(
-                require(mongoDatabase, MONGO_DATABASE_COULD_NOT_BE_A_NULL_MESSAGE),
+                require(mongoDatabase, DATABASE_COULD_NOT_BE_A_NULL_MESSAGE),
                 require(collectionName, COLLECTION_NAME_COULD_NOT_BE_A_NULL_MESSAGE),
                 require(operationMock, OPERATION_MOCK_COULD_NOT_BE_A_NULL_MESSAGE),
                 null,
@@ -444,7 +444,7 @@ public final class MongoMockFactory {
                                                   final InsertOperationMock operationMock,
                                                   final Throwable throwable) {
         INSERT_OPERATION_MOCK_FACTORY.prepare(
-                require(mongoDatabase, MONGO_DATABASE_COULD_NOT_BE_A_NULL_MESSAGE),
+                require(mongoDatabase, DATABASE_COULD_NOT_BE_A_NULL_MESSAGE),
                 require(collectionName, COLLECTION_NAME_COULD_NOT_BE_A_NULL_MESSAGE),
                 require(operationMock, OPERATION_MOCK_COULD_NOT_BE_A_NULL_MESSAGE),
                 require(throwable, THROWABLE_COULD_NOT_BE_A_NULL_MESSAGE),
@@ -471,7 +471,7 @@ public final class MongoMockFactory {
                                                   final DeleteOperationMock operationMock,
                                                   final DeleteResult deleteResult) {
         DELETE_OPERATION_MOCK_FACTORY.prepare(
-                require(mongoDatabase, MONGO_DATABASE_COULD_NOT_BE_A_NULL_MESSAGE),
+                require(mongoDatabase, DATABASE_COULD_NOT_BE_A_NULL_MESSAGE),
                 require(collectionName, COLLECTION_NAME_COULD_NOT_BE_A_NULL_MESSAGE),
                 require(operationMock, OPERATION_MOCK_COULD_NOT_BE_A_NULL_MESSAGE),
                 null,
@@ -498,7 +498,7 @@ public final class MongoMockFactory {
                                                   final DeleteOperationMock operationMock,
                                                   final long deletedCount) {
         DELETE_OPERATION_MOCK_FACTORY.prepare(
-                require(mongoDatabase, MONGO_DATABASE_COULD_NOT_BE_A_NULL_MESSAGE),
+                require(mongoDatabase, DATABASE_COULD_NOT_BE_A_NULL_MESSAGE),
                 require(collectionName, COLLECTION_NAME_COULD_NOT_BE_A_NULL_MESSAGE),
                 require(operationMock, OPERATION_MOCK_COULD_NOT_BE_A_NULL_MESSAGE),
                 null,
@@ -525,7 +525,7 @@ public final class MongoMockFactory {
                                                   final DeleteOperationMock operationMock,
                                                   final Throwable throwable) {
         DELETE_OPERATION_MOCK_FACTORY.prepare(
-                require(mongoDatabase, MONGO_DATABASE_COULD_NOT_BE_A_NULL_MESSAGE),
+                require(mongoDatabase, DATABASE_COULD_NOT_BE_A_NULL_MESSAGE),
                 require(collectionName, COLLECTION_NAME_COULD_NOT_BE_A_NULL_MESSAGE),
                 require(operationMock, OPERATION_MOCK_COULD_NOT_BE_A_NULL_MESSAGE),
                 require(throwable, THROWABLE_COULD_NOT_BE_A_NULL_MESSAGE),
@@ -552,7 +552,7 @@ public final class MongoMockFactory {
                                                   final UpdateOperationMock operationMock,
                                                   final UpdateResult updateResult) {
         UPDATE_OPERATION_MOCK_FACTORY.prepare(
-                require(mongoDatabase, MONGO_DATABASE_COULD_NOT_BE_A_NULL_MESSAGE),
+                require(mongoDatabase, DATABASE_COULD_NOT_BE_A_NULL_MESSAGE),
                 require(collectionName, COLLECTION_NAME_COULD_NOT_BE_A_NULL_MESSAGE),
                 require(operationMock, OPERATION_MOCK_COULD_NOT_BE_A_NULL_MESSAGE),
                 null,
@@ -581,7 +581,7 @@ public final class MongoMockFactory {
                                                   final long matchedCount,
                                                   final long modifiedCount) {
         UPDATE_OPERATION_MOCK_FACTORY.prepare(
-                require(mongoDatabase, MONGO_DATABASE_COULD_NOT_BE_A_NULL_MESSAGE),
+                require(mongoDatabase, DATABASE_COULD_NOT_BE_A_NULL_MESSAGE),
                 require(collectionName, COLLECTION_NAME_COULD_NOT_BE_A_NULL_MESSAGE),
                 require(operationMock, OPERATION_MOCK_COULD_NOT_BE_A_NULL_MESSAGE),
                 null,
@@ -629,7 +629,7 @@ public final class MongoMockFactory {
                                                   final UpdateOperationMock operationMock,
                                                   final Throwable throwable) {
         UPDATE_OPERATION_MOCK_FACTORY.prepare(
-                require(mongoDatabase, MONGO_DATABASE_COULD_NOT_BE_A_NULL_MESSAGE),
+                require(mongoDatabase, DATABASE_COULD_NOT_BE_A_NULL_MESSAGE),
                 require(collectionName, COLLECTION_NAME_COULD_NOT_BE_A_NULL_MESSAGE),
                 require(operationMock, OPERATION_MOCK_COULD_NOT_BE_A_NULL_MESSAGE),
                 require(throwable, THROWABLE_COULD_NOT_BE_A_NULL_MESSAGE),

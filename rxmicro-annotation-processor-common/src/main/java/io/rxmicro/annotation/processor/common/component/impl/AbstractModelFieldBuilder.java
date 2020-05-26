@@ -49,7 +49,7 @@ import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeMirror;
 
 import static io.rxmicro.annotation.processor.common.SupportedOptions.RX_MICRO_MAX_JSON_NESTED_DEPTH;
-import static io.rxmicro.annotation.processor.common.SupportedOptions.RX_MICRO_MAX_JSON_NESTED_DEPTH_OPTION_DEFAULT_VALUE;
+import static io.rxmicro.annotation.processor.common.SupportedOptions.RX_MICRO_MAX_JSON_NESTED_DEPTH_DEFAULT_VALUE;
 import static io.rxmicro.annotation.processor.common.util.Elements.allModelFields;
 import static io.rxmicro.annotation.processor.common.util.Elements.asEnumElement;
 import static io.rxmicro.annotation.processor.common.util.Elements.findGetters;
@@ -160,20 +160,8 @@ public abstract class AbstractModelFieldBuilder<MF extends ModelField, MC extend
                 ));
     }
 
-    protected final boolean isModelPrimitive(final TypeMirror typeMirror) {
-        return getSupportedTypesProvider().getPrimitives().contains(typeMirror);
-    }
-
-    protected final boolean isModelInternalType(final Element owner) {
-        return getSupportedTypesProvider().getInternalTypes().contains(owner);
-    }
-
-    protected final boolean isModelPrimitiveList(final TypeMirror typeMirror) {
-        return getSupportedTypesProvider().getPrimitiveContainers().contains(typeMirror);
-    }
-
-    protected final <M extends ModelField> M validate(final M modelField,
-                                                      final TypeElement typeElement) {
+    protected final <M extends ModelField> M validateAndReturn(final M modelField,
+                                                               final TypeElement typeElement) {
         if (modelField.getModelReadAccessorType() == ModelAccessorType.REFLECTION) {
             warn(modelField.getFieldElement(),
                     "PERFORMANCE WARNING: To read a value from ?.? rxmicro will use the reflection. " +
@@ -234,9 +222,9 @@ public abstract class AbstractModelFieldBuilder<MF extends ModelField, MC extend
                                            final TypeMirror type,
                                            final int nestedLevel,
                                            final boolean requireDefConstructor) {
-        if (isModelInternalType(owner)) {
+        if (getSupportedTypesProvider().isModelInternalType(owner)) {
             return InternalModelClass.create();
-        } else if (isModelPrimitive(type)) {
+        } else if (getSupportedTypesProvider().isModelPrimitive(type)) {
             return asEnumElement(type)
                     .map(e -> (ModelClass) new EnumModelClass(type))
                     .orElseGet(() -> createPrimitiveModelClass(type));
@@ -273,7 +261,7 @@ public abstract class AbstractModelFieldBuilder<MF extends ModelField, MC extend
                                            final int nestedLevel,
                                            final boolean requireDefConstructor) {
         final TypeMirror itemType = type.getTypeArguments().get(0);
-        if (isModelPrimitive(itemType)) {
+        if (getSupportedTypesProvider().isModelPrimitive(itemType)) {
             return asEnumElement(itemType)
                     .map(e -> new ListModelClass(new EnumModelClass(itemType)))
                     .orElseGet(() -> new ListModelClass(createPrimitiveModelClass(itemType)));
@@ -292,7 +280,7 @@ public abstract class AbstractModelFieldBuilder<MF extends ModelField, MC extend
         if (maxNestedLevel == -1) {
             maxNestedLevel = getIntOption(
                     RX_MICRO_MAX_JSON_NESTED_DEPTH,
-                    RX_MICRO_MAX_JSON_NESTED_DEPTH_OPTION_DEFAULT_VALUE
+                    RX_MICRO_MAX_JSON_NESTED_DEPTH_DEFAULT_VALUE
             );
         }
         return maxNestedLevel;

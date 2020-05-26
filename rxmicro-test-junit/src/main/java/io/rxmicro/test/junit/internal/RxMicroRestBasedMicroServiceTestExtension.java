@@ -27,8 +27,6 @@ import io.rxmicro.test.local.BlockingHttpClientConfig;
 import io.rxmicro.test.local.InvalidTestConfigException;
 import io.rxmicro.test.local.component.ConfigResolver;
 import io.rxmicro.test.local.component.RestControllerInstanceResolver;
-import io.rxmicro.test.local.component.builder.BlockingHttpClientBuilder;
-import io.rxmicro.test.local.component.builder.ServerPortHelper;
 import io.rxmicro.test.local.component.builder.TestModelBuilder;
 import io.rxmicro.test.local.component.injector.BeanFactoryInjector;
 import io.rxmicro.test.local.component.injector.BlockingHttpClientInjector;
@@ -67,10 +65,6 @@ import static io.rxmicro.test.local.UnNamedModuleFixers.restBasedMicroServiceTes
 import static io.rxmicro.test.local.util.Annotations.getRequiredAnnotation;
 import static io.rxmicro.test.local.util.Modules.isRequiredModule;
 import static io.rxmicro.test.local.util.Safes.safeInvoke;
-import static java.lang.Boolean.parseBoolean;
-import static java.lang.System.getProperty;
-import static java.lang.System.getenv;
-import static java.util.Optional.ofNullable;
 
 /**
  * @author nedis
@@ -79,29 +73,12 @@ import static java.util.Optional.ofNullable;
 public final class RxMicroRestBasedMicroServiceTestExtension
         implements BeforeAllCallback, BeforeEachCallback, BeforeTestExecutionCallback, AfterEachCallback, AfterAllCallback {
 
-    private static final String DO_NOT_WAIT_FOR_RX_MICRO_TEST_REST_SERVER_STOPPED_ENV_VAR_NAME =
-            "DO_NOT_WAIT_FOR_RX_MICRO_TEST_REST_SERVER_STOPPED";
-
-    private static final boolean DO_NOT_WAIT_FOR_RX_MICRO_TEST_REST_SERVER_STOPPED;
-
     static {
         restBasedMicroServiceTestsFix();
-        DO_NOT_WAIT_FOR_RX_MICRO_TEST_REST_SERVER_STOPPED = parseBoolean(
-                ofNullable(getenv(DO_NOT_WAIT_FOR_RX_MICRO_TEST_REST_SERVER_STOPPED_ENV_VAR_NAME))
-                        .orElseGet(() -> getProperty(DO_NOT_WAIT_FOR_RX_MICRO_TEST_REST_SERVER_STOPPED_ENV_VAR_NAME))
-        );
     }
 
     private final RestBasedMicroServiceTestValidator restBasedMicroServiceTestValidator =
             new RestBasedMicroServiceTestValidator(SUPPORTED_TEST_ANNOTATIONS);
-
-    private final ServerPortHelper serverPortHelper = getServerPortHelper();
-
-    private final BlockingHttpClientBuilder blockingHttpClientBuilder = getBlockingHttpClientBuilder();
-
-    private final ConfigResolver configResolver = getConfigResolver();
-
-    private final BeforeTestInvoker beforeTestInvoker = getBeforeTestInvoker();
 
     private RestControllerInstanceResolver restControllerInstanceResolver;
 
@@ -123,11 +100,15 @@ public final class RxMicroRestBasedMicroServiceTestExtension
 
     private ServerContainer serverContainer;
 
+    private boolean waitForTestHttpServerStopped;
+
     @Override
     public void beforeAll(final ExtensionContext context) {
         final Class<?> testClass = getOwnerTestClass(context);
-        final Class<?>[] restControllerClasses =
-                getRequiredAnnotation(testClass, RxMicroRestBasedMicroServiceTest.class).value();
+        final RxMicroRestBasedMicroServiceTest annotation = getRequiredAnnotation(testClass, RxMicroRestBasedMicroServiceTest.class);
+        waitForTestHttpServerStopped = annotation.waitForTestHttpServerStopped();
+        final Class<?>[] restControllerClasses = annotation.value();
+
         validateNotEmptyArray(restControllerClasses);
         final TestModelBuilder testModelBuilder = new TestModelBuilder(
                 isRequiredModule(restControllerClasses[0].getModule(), BeanFactory.class.getModule())
@@ -135,6 +116,7 @@ public final class RxMicroRestBasedMicroServiceTestExtension
         final TestModel testModel = testModelBuilder.build(testClass);
         restBasedMicroServiceTestValidator.validate(testModel, restControllerClasses);
         final int randomFreePort = getRandomFreePort();
+        final ConfigResolver configResolver = getConfigResolver();
         configResolver.setDefaultConfigValues(testClass);
         final Map<String, Config> configs = configResolver.getStaticConfigMap(
                 testModel,
@@ -166,11 +148,10 @@ public final class RxMicroRestBasedMicroServiceTestExtension
         blockingHttpClientInjector = injectorFactory.createBlockingHttpClientInjector();
         systemOutInjector = injectorFactory.createSystemOutInjector();
         if (blockingHttpClientInjector.hasField()) {
-            final int serverPort = serverPortHelper.getServerPort(configs.values());
-            final BlockingHttpClientConfig config =
-                    blockingHttpClientInjector.getConfig(testClass, false, serverPort);
+            final int serverPort = getServerPortHelper().getServerPort(configs.values());
+            final BlockingHttpClientConfig config = blockingHttpClientInjector.getConfig(testClass, false, serverPort);
             restBasedMicroServiceTestValidator.validate(config);
-            blockingHttpClient = blockingHttpClientBuilder.build(testClass, config);
+            blockingHttpClient = getBlockingHttpClientBuilder().build(testClass, config);
         }
         runtimeContextComponentInjector = injectorFactory.createRuntimeContextComponentInjector();
         userCreatedComponentInjector = injectorFactory.createUserCreatedComponentInjector();
@@ -195,7 +176,7 @@ public final class RxMicroRestBasedMicroServiceTestExtension
     @Override
     public void beforeTestExecution(final ExtensionContext context) {
         final List<Object> testInstances = getTestInstances(context);
-        beforeTestInvoker.invokeIfFound(context, testInstances);
+        getBeforeTestInvoker().invokeIfFound(context, testInstances);
 
         serverContainer.register(restControllerInstanceResolver.getRestControllerClasses());
         userCreatedComponentInjector.injectIfFound(
@@ -216,10 +197,10 @@ public final class RxMicroRestBasedMicroServiceTestExtension
     @Override
     public void afterAll(final ExtensionContext context) {
         safeInvoke(blockingHttpClient, BlockingHttpClient::release);
-        if (DO_NOT_WAIT_FOR_RX_MICRO_TEST_REST_SERVER_STOPPED) {
-            safeInvoke(serverContainer, container -> container.getServerInstance().shutdown());
-        } else {
+        if (waitForTestHttpServerStopped) {
             safeInvoke(serverContainer, container -> container.getServerInstance().shutdownAndWait());
+        } else {
+            safeInvoke(serverContainer, container -> container.getServerInstance().shutdown());
         }
     }
 }

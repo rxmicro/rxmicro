@@ -14,22 +14,15 @@
  * limitations under the License.
  */
 
-package io.rxmicro.annotation.processor.common.model;
+package io.rxmicro.annotation.processor.common.component;
 
-import com.google.inject.BindingAnnotation;
-
-import java.lang.annotation.Retention;
-import java.lang.annotation.Target;
-
-import static java.lang.annotation.ElementType.FIELD;
-import static java.lang.annotation.RetentionPolicy.RUNTIME;
+import io.rxmicro.annotation.processor.common.model.TokenParserRule;
 
 /**
  * @author nedis
  * @since 0.5
  */
-@BindingAnnotation
-@Retention(RUNTIME)
-@Target(FIELD)
-public @interface JavaTokenParserRule {
+public interface TokenParserRuleProvider {
+
+    TokenParserRule get();
 }

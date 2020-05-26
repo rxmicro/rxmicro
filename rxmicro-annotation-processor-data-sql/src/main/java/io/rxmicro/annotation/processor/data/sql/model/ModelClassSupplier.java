@@ -30,7 +30,8 @@ public final class ModelClassSupplier<DMF extends SQLDataModelField, DMC extends
 
     private final String unUsedError;
 
-    public ModelClassSupplier(final DMC modelClass, final String unUsedError) {
+    public ModelClassSupplier(final DMC modelClass,
+                              final String unUsedError) {
         this.modelClass = require(modelClass);
         this.unUsedError = require(unUsedError);
     }

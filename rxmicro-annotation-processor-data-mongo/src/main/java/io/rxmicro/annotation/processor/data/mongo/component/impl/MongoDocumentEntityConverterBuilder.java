@@ -88,7 +88,7 @@ public final class MongoDocumentEntityConverterBuilder extends AbstractProcessor
     }
 
     private void validateIdFieldType(final DataModelField id) {
-        if (!supportedTypesProvider.getPrimitives().contains(id.getFieldClass())) {
+        if (!supportedTypesProvider.isModelPrimitive(id.getFieldClass())) {
             throw new InterruptProcessingException(id.getFieldElement(), "Document id must be a primitive type");
         }
     }

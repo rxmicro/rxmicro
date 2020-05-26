@@ -44,7 +44,7 @@ import java.util.function.Function;
  */
 public final class Converters {
 
-    private static final Map<Class<?>, Function<String, Object>> CONVERTERS;
+    private static final Map<Class<?>, Function<String, Object>> CONVERTERS_MAP;
 
     static {
         final Map<Class<?>, Function<String, Object>> map = new HashMap<>();
@@ -87,7 +87,8 @@ public final class Converters {
         map.put(ZoneOffset.class, ZoneOffset::of);
         map.put(ZoneId.class, ZoneId::of);
         map.put(Period.class, Period::parse);
-        CONVERTERS = Map.copyOf(map);
+        // Init CONVERTERS_MAP
+        CONVERTERS_MAP = Map.copyOf(map);
     }
 
     @SuppressWarnings({"unchecked", "rawtypes"})
@@ -98,7 +99,7 @@ public final class Converters {
         } else if (type.isEnum()) {
             return Enum.valueOf((Class<? extends Enum>) type, value);
         } else {
-            final Function<String, Object> converter = CONVERTERS.get(type);
+            final Function<String, Object> converter = CONVERTERS_MAP.get(type);
             if (converter != null) {
                 return converter.apply(value);
             } else {

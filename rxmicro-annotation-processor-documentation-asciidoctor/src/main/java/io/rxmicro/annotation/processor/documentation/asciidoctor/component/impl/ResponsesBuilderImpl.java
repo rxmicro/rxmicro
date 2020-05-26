@@ -53,8 +53,8 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static io.rxmicro.annotation.processor.common.util.Errors.createInternalErrorSupplier;
+import static io.rxmicro.annotation.processor.documentation.asciidoctor.component.CharacteristicsReader.REQUIRED_RESTRICTION;
 import static io.rxmicro.annotation.processor.documentation.asciidoctor.component.DocumentedModelFieldBuilder.buildApiVersionHeaderDocumentedModelField;
-import static io.rxmicro.annotation.processor.documentation.asciidoctor.component.RestrictionReader.REQUIRED_RESTRICTION;
 import static io.rxmicro.common.RxMicroModule.RX_MICRO_VALIDATION_MODULE;
 import static io.rxmicro.json.JsonHelper.toJsonString;
 import static io.rxmicro.rest.model.HttpModelType.HEADER;

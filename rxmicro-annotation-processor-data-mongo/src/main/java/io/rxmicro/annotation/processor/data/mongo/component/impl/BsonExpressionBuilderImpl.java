@@ -22,6 +22,7 @@ import com.mongodb.BasicDBObject;
 import io.rxmicro.annotation.processor.common.component.TokenParser;
 import io.rxmicro.annotation.processor.common.model.ClassHeader;
 import io.rxmicro.annotation.processor.common.model.TokenParserResult;
+import io.rxmicro.annotation.processor.common.model.TokenParserRule;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
 import io.rxmicro.annotation.processor.data.model.Variable;
 import io.rxmicro.annotation.processor.data.mongo.component.BsonExpressionBuilder;
@@ -90,7 +91,8 @@ public final class BsonExpressionBuilderImpl implements BsonExpressionBuilder {
     private TokenParser tokenParser;
 
     @Inject
-    private BsonTokenParserRule bsonTokenParserRule;
+    @BsonTokenParserRule
+    private TokenParserRule bsonTokenParserRule;
 
     @Override
     public BsonExpression build(final ExecutableElement repositoryMethod,

@@ -32,7 +32,7 @@ import static java.util.stream.Collectors.joining;
  */
 final class UrlPath {
 
-    private final String urlPath;
+    private final String path;
 
     private final List<Map.Entry<String, String>> queryParams;
 
@@ -55,9 +55,9 @@ final class UrlPath {
         }
     }
 
-    private UrlPath(final String urlPath,
+    private UrlPath(final String path,
                     final List<Map.Entry<String, String>> queryParams) {
-        this.urlPath = require(urlPath);
+        this.path = require(path);
         this.queryParams = require(queryParams);
     }
 
@@ -65,8 +65,8 @@ final class UrlPath {
         return !queryParams.isEmpty();
     }
 
-    public String getUrlPath() {
-        return urlPath;
+    public String getPath() {
+        return path;
     }
 
     public List<Map.Entry<String, String>> getQueryParams() {
@@ -76,11 +76,11 @@ final class UrlPath {
     @Override
     public String toString() {
         if (isQueryParamsPresent()) {
-            return urlPath + "?" + queryParams.stream()
+            return path + "?" + queryParams.stream()
                     .map(e -> format("?=?", e.getKey(), e.getValue()))
                     .collect(joining("&"));
         } else {
-            return urlPath;
+            return path;
         }
     }
 }

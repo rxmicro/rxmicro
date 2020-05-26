@@ -17,7 +17,7 @@
 package io.rxmicro.annotation.processor.cdi.component.impl;
 
 import com.google.inject.Singleton;
-import io.rxmicro.annotation.processor.cdi.component.BeanDefinitionWithoutInjectionsClassStructureBuilder;
+import io.rxmicro.annotation.processor.cdi.component.BeanWithoutInjectionsClassStructureBuilder;
 import io.rxmicro.annotation.processor.cdi.model.BeanSupplierClassStructure;
 import io.rxmicro.annotation.processor.cdi.model.InjectionPoint;
 import io.rxmicro.annotation.processor.common.model.EnvironmentContext;
@@ -47,9 +47,9 @@ import static java.util.stream.Collectors.toSet;
  * @since 0.1
  */
 @Singleton
-public final class BeanDefinitionWithoutInjectionsClassStructureBuilderImpl
+public final class BeanWithoutInjectionsClassStructureBuilderImpl
         extends AbstractBeanDefinitionClassStructureBuilder
-        implements BeanDefinitionWithoutInjectionsClassStructureBuilder {
+        implements BeanWithoutInjectionsClassStructureBuilder {
 
     @Override
     public Set<BeanSupplierClassStructure> build(final EnvironmentContext environmentContext,

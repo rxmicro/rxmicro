@@ -92,8 +92,7 @@ public final class ResourceGroup {
                 }
 
             } else if (section == ResourceGroupDefinition.Section.CORS) {
-                if (restControllerClassStructure.getOwnerClass()
-                        .getAnnotation(EnableCrossOriginResourceSharing.class) != null) {
+                if (restControllerClassStructure.getOwnerClass().getAnnotation(EnableCrossOriginResourceSharing.class) != null) {
                     sections.add(new Section(SectionType.INVOKE_MACROS, "cors"));
                 }
             } else {

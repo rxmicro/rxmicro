@@ -224,4 +224,17 @@ public @interface RxMicroRestBasedMicroServiceTest {
      * @return the REST controller classes of REST-based micro services, that must be tested
      */
     Class<?>[] value();
+
+    /**
+     * Returns  {@code true} if the RxMicro framework must use {@link io.rxmicro.rest.server.ServerInstance#shutdownAndWait()} method
+     *                      to stop test HTTP server or
+     *          {@code false} if the RxMicro framework must use {@link io.rxmicro.rest.server.ServerInstance#shutdown()} method instead.
+     *
+     * @return  {@code true} if the RxMicro framework must use {@link io.rxmicro.rest.server.ServerInstance#shutdownAndWait()} method
+     *                       to stop test HTTP server or
+     *          {@code false} if the RxMicro framework must use {@link io.rxmicro.rest.server.ServerInstance#shutdown()} method instead.
+     * @see io.rxmicro.rest.server.ServerInstance#shutdown()
+     * @see io.rxmicro.rest.server.ServerInstance#shutdownAndWait()
+     */
+    boolean waitForTestHttpServerStopped() default false;
 }

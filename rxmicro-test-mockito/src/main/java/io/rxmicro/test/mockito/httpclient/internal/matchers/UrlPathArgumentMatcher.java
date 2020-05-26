@@ -41,10 +41,10 @@ public final class UrlPathArgumentMatcher implements ArgumentMatcher<String> {
     public boolean matches(final String actualString) {
         if (expected.isQueryParamsPresent()) {
             final UrlPath actual = UrlPath.build(actualString);
-            return expected.getUrlPath().equals(actual.getUrlPath()) &&
+            return expected.getPath().equals(actual.getPath()) &&
                     listMapEntriesEquals.matches(actual.getQueryParams());
         } else {
-            return expected.getUrlPath().equals(actualString);
+            return expected.getPath().equals(actualString);
         }
     }
 

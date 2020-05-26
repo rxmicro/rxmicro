@@ -27,7 +27,7 @@ import static io.rxmicro.common.util.Requires.require;
  * @author nedis
  * @since 0.1
  */
-public final class Restrictions {
+public final class Characteristics {
 
     private final List<String> restrictions;
 
@@ -35,9 +35,9 @@ public final class Restrictions {
 
     private final String standardDescription;
 
-    public Restrictions(final List<String> restrictions,
-                        final List<ReadMore> readMores,
-                        final String standardDescription) {
+    public Characteristics(final List<String> restrictions,
+                           final List<ReadMore> readMores,
+                           final String standardDescription) {
         this.restrictions = require(restrictions);
         this.readMores = require(readMores);
         this.standardDescription = standardDescription;

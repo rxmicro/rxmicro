@@ -32,6 +32,7 @@ import io.rxmicro.annotation.processor.data.sql.model.SQLDataModelField;
 import io.rxmicro.annotation.processor.data.sql.model.SQLDataObjectModelClass;
 import io.rxmicro.annotation.processor.data.sql.model.SQLDataRepositoryMethod;
 import io.rxmicro.annotation.processor.data.sql.model.SQLMethodDescriptor;
+import io.rxmicro.annotation.processor.data.sql.model.SQLTokenParserRule;
 import io.rxmicro.data.sql.model.EntityFieldList;
 import io.rxmicro.data.sql.model.EntityFieldMap;
 
@@ -57,6 +58,7 @@ public abstract class AbstractSQLDataRepositoryMethodModelBuilder<DMF extends SQ
     private TokenParser tokenParser;
 
     @Inject
+    @SQLTokenParserRule
     private TokenParserRule tokenParserRule;
 
     @Override

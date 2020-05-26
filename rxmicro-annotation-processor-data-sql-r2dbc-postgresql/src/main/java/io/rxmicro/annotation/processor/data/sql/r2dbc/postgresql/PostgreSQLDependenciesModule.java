@@ -43,6 +43,7 @@ import io.rxmicro.annotation.processor.data.sql.component.impl.resolver.InsertSQ
 import io.rxmicro.annotation.processor.data.sql.component.impl.resolver.SelectSQLVariableValueResolver;
 import io.rxmicro.annotation.processor.data.sql.component.impl.resolver.UpdateSQLVariableValueResolver;
 import io.rxmicro.annotation.processor.data.sql.model.SQLDataModelField;
+import io.rxmicro.annotation.processor.data.sql.model.SQLTokenParserRule;
 import io.rxmicro.annotation.processor.data.sql.model.VariableContext;
 import io.rxmicro.annotation.processor.data.sql.model.inject.SupportedDeleteVariables;
 import io.rxmicro.annotation.processor.data.sql.model.inject.SupportedInsertVariables;
@@ -58,7 +59,7 @@ import io.rxmicro.annotation.processor.data.sql.r2dbc.postgresql.component.impl.
 import io.rxmicro.annotation.processor.data.sql.r2dbc.postgresql.component.impl.PostgreSQLDataModelFieldBuilderImpl;
 import io.rxmicro.annotation.processor.data.sql.r2dbc.postgresql.component.impl.PostgreSQLDataRepositoryMethodSignatureBuilder;
 import io.rxmicro.annotation.processor.data.sql.r2dbc.postgresql.component.impl.PostgreSQLRepositoryClassStructureBuilderImpl;
-import io.rxmicro.annotation.processor.data.sql.r2dbc.postgresql.component.impl.PostgreSQLTokenParserRule;
+import io.rxmicro.annotation.processor.data.sql.r2dbc.postgresql.component.impl.PostgreSQLTokenParserRuleProvider;
 import io.rxmicro.annotation.processor.data.sql.r2dbc.postgresql.component.impl.PostgreSQLVariableContext;
 import io.rxmicro.annotation.processor.data.sql.r2dbc.postgresql.component.impl.builder.DeletePostgreSQLBuilder;
 import io.rxmicro.annotation.processor.data.sql.r2dbc.postgresql.component.impl.builder.InsertPostgreSQLBuilder;
@@ -106,6 +107,8 @@ public final class PostgreSQLDependenciesModule extends AbstractModule {
     private static final Set<String> SUPPORTED_UPDATE_VARIABLES =
             unmodifiableOrderedSet(TABLE, UPDATED_COLUMNS, BY_ID_FILTER, "*", ALL_COLUMNS);
 
+    private final PostgreSQLTokenParserRuleProvider postgreSQLTokenParserRuleProvider = new PostgreSQLTokenParserRuleProvider();
+
     @Override
     protected void configure() {
         bind(PlatformPlaceHolderGeneratorFactory.class)
@@ -113,7 +116,8 @@ public final class PostgreSQLDependenciesModule extends AbstractModule {
         bind(SupportedTypesProvider.class)
                 .to(PostgreSQLSupportedTypesProvider.class);
         bind(TokenParserRule.class)
-                .to(PostgreSQLTokenParserRule.class);
+                .annotatedWith(SQLTokenParserRule.class)
+                .toProvider(postgreSQLTokenParserRuleProvider::get);
         bind(VariableContext.class)
                 .to(PostgreSQLVariableContext.class);
         bind(DataRepositoryMethodSignatureBuilder.class)

@@ -23,6 +23,7 @@ import io.rxmicro.annotation.processor.common.component.TokenParser;
 import io.rxmicro.annotation.processor.common.model.ClassHeader;
 import io.rxmicro.annotation.processor.common.model.JavaTokenParserRule;
 import io.rxmicro.annotation.processor.common.model.TokenParserResult;
+import io.rxmicro.annotation.processor.common.model.TokenParserRule;
 
 import java.util.HashSet;
 import java.util.Iterator;
@@ -42,7 +43,8 @@ public final class SourceCodeFormatterImpl implements SourceCodeFormatter {
     private TokenParser tokenParser;
 
     @Inject
-    private JavaTokenParserRule javaTokenParserRule;
+    @JavaTokenParserRule
+    private TokenParserRule javaTokenParserRule;
 
     @Override
     public String format(final ClassHeader classHeader,

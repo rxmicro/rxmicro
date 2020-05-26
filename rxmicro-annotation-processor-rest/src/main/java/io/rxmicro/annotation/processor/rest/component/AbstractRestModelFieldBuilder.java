@@ -22,58 +22,53 @@ import io.rxmicro.annotation.processor.common.model.AnnotatedModelElement;
 import io.rxmicro.annotation.processor.common.model.ModelFieldType;
 import io.rxmicro.annotation.processor.common.model.definition.SupportedTypesProvider;
 import io.rxmicro.annotation.processor.common.model.error.InternalErrorException;
-import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
 import io.rxmicro.annotation.processor.common.model.type.PrimitiveModelClass;
 import io.rxmicro.annotation.processor.rest.model.RestModelField;
 import io.rxmicro.annotation.processor.rest.model.RestObjectModelClass;
 import io.rxmicro.annotation.processor.rest.model.RestPrimitiveModelClass;
 import io.rxmicro.rest.Header;
-import io.rxmicro.rest.HeaderMappingStrategy;
 import io.rxmicro.rest.Parameter;
-import io.rxmicro.rest.ParameterMappingStrategy;
 import io.rxmicro.rest.PathVariable;
 import io.rxmicro.rest.RemoteAddress;
-import io.rxmicro.rest.RepeatHeader;
-import io.rxmicro.rest.RepeatQueryParameter;
 import io.rxmicro.rest.RequestBody;
 import io.rxmicro.rest.RequestId;
 import io.rxmicro.rest.RequestMethod;
 import io.rxmicro.rest.RequestUrlPath;
 import io.rxmicro.rest.ResponseBody;
 import io.rxmicro.rest.ResponseStatusCode;
-import io.rxmicro.rest.model.HttpModelType;
 
 import java.lang.annotation.Annotation;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
-import java.util.function.Supplier;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
 import javax.lang.model.type.TypeMirror;
 
-import static io.rxmicro.annotation.processor.common.model.ModelFieldType.REST_CLIENT_RESPONSE;
-import static io.rxmicro.annotation.processor.common.model.ModelFieldType.REST_SERVER_REQUEST;
-import static io.rxmicro.annotation.processor.common.util.Errors.createInternalErrorSupplier;
-import static io.rxmicro.annotation.processor.common.util.Names.getSimpleName;
+import static io.rxmicro.annotation.processor.common.util.Errors.IMPOSSIBLE_ERROR_ANNOTATION_NOT_FOUND_SUPPLIER;
 import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getElements;
-import static io.rxmicro.http.HttpStandardHeaderNames.REQUEST_ID;
-import static io.rxmicro.http.local.HttpValidators.validateHeaderName;
-import static io.rxmicro.http.local.HttpValidators.validateParameterName;
 
 /**
  * @author nedis
  * @since 0.1
  */
-public abstract class AbstractRestModelFieldBuilder
-        extends AbstractModelFieldBuilder<RestModelField, RestObjectModelClass> {
-
-    private static final Supplier<? extends InternalErrorException> ERROR_SUPPLIER =
-            createInternalErrorSupplier("Impossible ERROR: Annotation not found");
+public abstract class AbstractRestModelFieldBuilder extends AbstractModelFieldBuilder<RestModelField, RestObjectModelClass> {
 
     @Inject
     private SupportedTypesProvider supportedTypesProvider;
+
+    @Inject
+    private RestModelFieldBuilder<Header> headerRestModelFieldBuilder;
+
+    @Inject
+    private RestModelFieldBuilder<PathVariable> pathVariableRestModelFieldBuilder;
+
+    @Inject
+    private RestModelFieldBuilder<RequestId> requestIdRestModelFieldBuilder;
+
+    @Inject
+    private RestModelFieldBuilder<Parameter> parameterRestModelFieldBuilder;
 
     @Override
     protected final SupportedTypesProvider getSupportedTypesProvider() {
@@ -89,12 +84,12 @@ public abstract class AbstractRestModelFieldBuilder
                                          final int nestedLevel) {
         final String fieldName = field.getSimpleName().toString();
         if (!fieldNames.add(fieldName)) {
-            error(field, "Detected duplicate of class field name: " + fieldName);
+            error(field, "Detected duplicate of class field name: ?", fieldName);
         }
         final AnnotatedModelElement annotated = build(typeElement, field);
         validateAnnotated(modelFieldType, annotated);
         return buildInternal(modelFieldType, annotated).orElseGet(() ->
-                buildCustomParameter(modelFieldType, field, typeElement, modelNames, nestedLevel, fieldName, annotated)
+                buildCustomParameter(modelFieldType, typeElement, modelNames, nestedLevel, annotated)
         );
     }
 
@@ -107,33 +102,36 @@ public abstract class AbstractRestModelFieldBuilder
                                                               AnnotatedModelElement annotated);
 
     private RestModelField buildCustomParameter(final ModelFieldType modelFieldType,
-                                                final VariableElement field,
                                                 final TypeElement typeElement,
                                                 final ModelNames modelNames,
                                                 final int nestedLevel,
-                                                final String fieldName,
                                                 final AnnotatedModelElement annotated) {
         final PathVariable pathVariable = annotated.getAnnotation(PathVariable.class);
         if (pathVariable != null) {
-            return validate(buildPathVariable(
-                    field, modelNames.modelNames("path"), nestedLevel, annotated, fieldName, pathVariable
-            ), typeElement);
+            final RestModelField restModelField = pathVariableRestModelFieldBuilder.build(
+                    modelFieldType, typeElement, annotated, pathVariable, modelNames.modelNames("path"), nestedLevel
+            );
+            return validateAndReturn(restModelField, typeElement);
         }
         final Header header = annotated.getAnnotation(Header.class);
         if (header != null) {
-            return validate(buildHeader(
-                    modelFieldType, field, typeElement, modelNames.modelNames("headers"), nestedLevel, fieldName, annotated, header
-            ), typeElement);
+            final RestModelField restModelField = headerRestModelFieldBuilder.build(
+                    modelFieldType, typeElement, annotated, header, modelNames.modelNames("headers"), nestedLevel
+            );
+            return validateAndReturn(restModelField, typeElement);
         }
         final RequestId requestId = annotated.getAnnotation(RequestId.class);
         if (requestId != null) {
-            return validate(buildRequestIdHeader(
-                    field, modelNames.modelNames("headers"), nestedLevel, annotated
-            ), typeElement);
+            final RestModelField restModelField = requestIdRestModelFieldBuilder.build(
+                    modelFieldType, typeElement, annotated, requestId, modelNames.modelNames("headers"), nestedLevel
+            );
+            return validateAndReturn(restModelField, typeElement);
         }
-        return validate(buildParameter(
-                modelFieldType, field, typeElement, modelNames.modelNames("params"), fieldName, annotated
-        ), typeElement);
+        final Parameter parameter = annotated.getAnnotation(Parameter.class);
+        final RestModelField restModelField = parameterRestModelFieldBuilder.build(
+                modelFieldType, typeElement, annotated, parameter, modelNames.modelNames("params"), nestedLevel
+        );
+        return validateAndReturn(restModelField, typeElement);
     }
 
     protected final void validateNoAnnotations(final AnnotatedModelElement annotated) {
@@ -141,119 +139,6 @@ public abstract class AbstractRestModelFieldBuilder
             error(annotated.getField(),
                     "Annotations are not allowed for this element");
         }
-    }
-
-    private RestModelField buildPathVariable(final VariableElement field,
-                                             final Set<String> modelNames,
-                                             final int nestedLevel,
-                                             final AnnotatedModelElement annotated,
-                                             final String fieldName,
-                                             final PathVariable pathVariable) {
-        if (nestedLevel > 1) {
-            error(annotated.getElementAnnotatedBy(PathVariable.class).orElse(field),
-                    "Annotation @? not allowed here. Path variable can be defined in root class only",
-                    PathVariable.class.getSimpleName());
-        }
-        final String modelName = !pathVariable.value().isEmpty() ? pathVariable.value() : fieldName;
-        if (!modelNames.add(modelName)) {
-            error(annotated.getElementAnnotatedBy(PathVariable.class).orElse(field),
-                    "Detected duplicate of path variable name: " + modelName);
-        }
-        if (!getSupportedTypesProvider().getPrimitives().contains(field.asType())) {
-            error(annotated.getElementAnnotatedBy(PathVariable.class).orElse(field),
-                    "Invalid path variable type. Allowed types are: ?",
-                    getSupportedTypesProvider().getPrimitives());
-        }
-        return new RestModelField(annotated, HttpModelType.PATH, modelName);
-    }
-
-    @SuppressWarnings("Convert2MethodRef")
-    private RestModelField buildHeader(final ModelFieldType modelFieldType,
-                                       final VariableElement field,
-                                       final TypeElement typeElement,
-                                       final Set<String> modelNames,
-                                       final int nestedLevel,
-                                       final String fieldName,
-                                       final AnnotatedModelElement annotated,
-                                       final Header header) {
-        if (nestedLevel > 1) {
-            error(annotated.getElementAnnotatedBy(Header.class).orElse(field),
-                    "Annotation @? not allowed here. Header can be defined in root class only",
-                    Header.class.getSimpleName());
-        }
-        final TypeMirror fieldType = field.asType();
-        if (!isModelPrimitive(fieldType) && !isModelPrimitiveList(fieldType)) {
-            error(annotated.getElementAnnotatedBy(Header.class).orElse(field),
-                    "Invalid header type. Allowed types are: ?",
-                    getSupportedTypesProvider().getPrimitives());
-        }
-        final HeaderMappingStrategy strategy = typeElement.getAnnotation(HeaderMappingStrategy.class);
-        final String modelName = getModelName(header.value(), strategy, fieldName, () -> strategy.value());
-        if (!modelNames.add(modelName)) {
-            error(annotated.getElementAnnotatedBy(Header.class).orElse(field),
-                    "Detected duplicate of HTTP header name: ?. " +
-                            "For multi value header use List<?> type and '@?' annotation",
-                    modelName, getSimpleName(field.asType()), RepeatHeader.class
-            );
-        }
-        try {
-            validateHeaderName(modelName);
-        } catch (final IllegalArgumentException ex) {
-            error(annotated.getElementAnnotatedBy(Header.class).orElse(field), ex.getMessage());
-        }
-        final boolean repeat = annotated.isAnnotationPresent(RepeatHeader.class);
-        if (repeat) {
-            validateRepeatHeader(modelFieldType, annotated);
-        }
-        return new RestModelField(annotated, HttpModelType.HEADER, modelName, repeat);
-    }
-
-    private RestModelField buildRequestIdHeader(final VariableElement field,
-                                                final Set<String> modelNames,
-                                                final int nestedLevel,
-                                                final AnnotatedModelElement annotated) {
-        if (nestedLevel > 1) {
-            error(annotated.getElementAnnotatedBy(RequestId.class).orElse(field),
-                    "Annotation @? not allowed here. RequestId can be defined in root class only",
-                    RequestId.class.getSimpleName());
-        }
-        final TypeMirror fieldType = field.asType();
-        if (!String.class.getName().equals(fieldType.toString())) {
-            error(annotated.getElementAnnotatedBy(RequestId.class).orElse(field),
-                    "Invalid request id type. Allowed type is: String");
-        }
-        final String modelName = REQUEST_ID;
-        if (!modelNames.add(modelName)) {
-            error(annotated.getElementAnnotatedBy(RequestId.class).orElse(field),
-                    "Detected duplicate of HTTP header name: " + modelName);
-        }
-        return new RestModelField(annotated, HttpModelType.HEADER, modelName);
-    }
-
-    @SuppressWarnings("Convert2MethodRef")
-    private RestModelField buildParameter(final ModelFieldType modelFieldType,
-                                          final VariableElement field,
-                                          final TypeElement typeElement,
-                                          final Set<String> modelNames,
-                                          final String fieldName,
-                                          final AnnotatedModelElement annotated) {
-        final Parameter parameter = annotated.getAnnotation(Parameter.class);
-        final ParameterMappingStrategy strategy = typeElement.getAnnotation(ParameterMappingStrategy.class);
-        final String modelName = getModelName(parameter != null ? parameter.value() : "", strategy, fieldName, () -> strategy.value());
-        if (!modelNames.add(modelName)) {
-            error(annotated.getElementAnnotatedBy(Parameter.class).orElse(field),
-                    "Detected duplicate of HTTP parameter name: " + modelName);
-        }
-        try {
-            validateParameterName(modelName);
-        } catch (final IllegalArgumentException ex) {
-            error(annotated.getElementAnnotatedBy(Parameter.class).orElse(field), ex.getMessage());
-        }
-        final boolean repeat = annotated.isAnnotationPresent(RepeatQueryParameter.class);
-        if (repeat) {
-            validateRepeatQueryParameter(modelFieldType, annotated);
-        }
-        return new RestModelField(annotated, HttpModelType.PARAMETER, modelName, repeat);
     }
 
     protected abstract Set<Class<? extends Annotation>> supportedRequestAnnotations();
@@ -284,10 +169,12 @@ public abstract class AbstractRestModelFieldBuilder
             final Class<? extends Annotation> annotationClass = annotationClasses.stream()
                     .filter(a -> annotated.getAnnotation(a) != null)
                     .findFirst()
-                    .orElseThrow(ERROR_SUPPLIER);
-            error(annotated.getElementAnnotatedBy(annotationClass).orElseThrow(ERROR_SUPPLIER),
+                    .orElseThrow(IMPOSSIBLE_ERROR_ANNOTATION_NOT_FOUND_SUPPLIER);
+            error(
+                    annotated.getElementAnnotatedBy(annotationClass).orElseThrow(IMPOSSIBLE_ERROR_ANNOTATION_NOT_FOUND_SUPPLIER),
                     "Use only one annotation per element from the following list: ?",
-                    annotationClasses);
+                    annotationClasses
+            );
         }
     }
 
@@ -298,7 +185,8 @@ public abstract class AbstractRestModelFieldBuilder
         for (final Class<? extends Annotation> annotationClass : annotationClasses) {
             final Annotation annotation = annotated.getAnnotation(annotationClass);
             if (annotation != null && !supportedAnnotationClasses.contains(annotation.annotationType())) {
-                error(annotated.getElementAnnotatedBy(annotationClass).orElseThrow(ERROR_SUPPLIER),
+                error(
+                        annotated.getElementAnnotatedBy(annotationClass).orElseThrow(IMPOSSIBLE_ERROR_ANNOTATION_NOT_FOUND_SUPPLIER),
                         "REST annotation '@?' is not allowed here. " +
                                 "All supported REST annotations are: ?. " +
                                 "Remove the unsupported annotation!",
@@ -306,49 +194,6 @@ public abstract class AbstractRestModelFieldBuilder
                         supportedAnnotationClasses
                 );
             }
-        }
-    }
-
-    private void validateRepeatQueryParameter(final ModelFieldType modelFieldType,
-                                              final AnnotatedModelElement annotated) {
-        if (modelFieldType == REST_CLIENT_RESPONSE) {
-            throw new InterruptProcessingException(
-                    annotated.getElementAnnotatedBy(RepeatQueryParameter.class).orElseThrow(ERROR_SUPPLIER),
-                    "'@?' annotation can be applied for client HTTP request model only! Remove the redundant annotation!",
-                    RepeatQueryParameter.class
-            );
-        }
-        if (!getSupportedTypesProvider().getPrimitiveContainers().contains(annotated.getField().asType())) {
-            throw new InterruptProcessingException(
-                    annotated.getElementAnnotatedBy(RepeatQueryParameter.class).orElseThrow(ERROR_SUPPLIER),
-                    "'@?' annotation can be applied for array type only! Remove the redundant annotation!",
-                    RepeatQueryParameter.class
-            );
-        }
-    }
-
-    private void validateRepeatHeader(final ModelFieldType modelFieldType,
-                                      final AnnotatedModelElement annotated) {
-        if (modelFieldType == REST_SERVER_REQUEST) {
-            throw new InterruptProcessingException(
-                    annotated.getElementAnnotatedBy(RepeatHeader.class).orElseThrow(ERROR_SUPPLIER),
-                    "'@?' annotation can be applied for server HTTP response model only! Remove the redundant annotation!",
-                    RepeatHeader.class
-            );
-        }
-        if (modelFieldType == REST_CLIENT_RESPONSE) {
-            throw new InterruptProcessingException(
-                    annotated.getElementAnnotatedBy(RepeatHeader.class).orElseThrow(ERROR_SUPPLIER),
-                    "'@?' annotation can be applied for client HTTP request model only! Remove the redundant annotation!",
-                    RepeatHeader.class
-            );
-        }
-        if (!getSupportedTypesProvider().getPrimitiveContainers().contains(annotated.getField().asType())) {
-            throw new InterruptProcessingException(
-                    annotated.getElementAnnotatedBy(RepeatHeader.class).orElseThrow(ERROR_SUPPLIER),
-                    "'@?' annotation can be applied for array type only! Remove the redundant annotation!",
-                    RepeatHeader.class
-            );
         }
     }
 

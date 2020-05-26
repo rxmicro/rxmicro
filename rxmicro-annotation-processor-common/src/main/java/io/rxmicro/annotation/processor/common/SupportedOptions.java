@@ -35,7 +35,7 @@ public final class SupportedOptions {
     /**
      * Default stack size.
      */
-    public static final int RX_MICRO_MAX_JSON_NESTED_DEPTH_OPTION_DEFAULT_VALUE = 20;
+    public static final int RX_MICRO_MAX_JSON_NESTED_DEPTH_DEFAULT_VALUE = 20;
 
     /**
      * {@code RxMicro Annotation Processor} logging level.

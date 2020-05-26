@@ -189,7 +189,8 @@ final class JdkHttpClient implements HttpClient {
                                                           final CompletableFuture<HttpResponse<byte[]>> response) {
         final String requestId = request.headers().firstValue(REQUEST_ID).orElse(null);
         final long startTime = System.nanoTime();
-        logger.trace("HTTP request sent?:\n? ?\n?\n\n?",
+        logger.trace(
+                "HTTP request sent?:\n? ?\n?\n\n?",
                 requestId != null ? format(" (Id=?)", requestId) : "",
                 format("? ?", request.method(), secrets.hideAllSecretsIn(request.uri().toString())),
                 request.version().map(Enum::toString).orElse(""),
@@ -203,7 +204,8 @@ final class JdkHttpClient implements HttpClient {
         );
         return response.whenComplete((resp, th) -> {
             if (resp != null) {
-                logger.trace("HTTP response received (?Duration=?):\n? ?\n?\n\n?",
+                logger.trace(
+                        "HTTP response received (?Duration=?):\n? ?\n?\n\n?",
                         requestId != null ? format("Id=?, ", requestId) : "",
                         format(Duration.ofNanos(System.nanoTime() - startTime)),
                         resp.version(),

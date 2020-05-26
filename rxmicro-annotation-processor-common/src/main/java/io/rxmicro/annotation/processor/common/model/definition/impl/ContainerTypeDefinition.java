@@ -32,27 +32,28 @@ import static io.rxmicro.common.util.Requires.require;
  */
 public final class ContainerTypeDefinition implements TypeDefinition {
 
-    private final TypeDefinition containerTypeDefinition;
+    private final TypeDefinition ownerTypeDefinition;
 
     private final TypeDefinition itemTypeDefinition;
 
-    public ContainerTypeDefinition(final TypeDefinition containerTypeDefinition,
+    public ContainerTypeDefinition(final TypeDefinition ownerTypeDefinition,
                                    final TypeDefinition itemTypeDefinition) {
-        this.containerTypeDefinition = require(containerTypeDefinition);
-        this.itemTypeDefinition = itemTypeDefinition;
+        this.ownerTypeDefinition = require(ownerTypeDefinition);
+        this.itemTypeDefinition = require(itemTypeDefinition);
     }
 
     public ContainerTypeDefinition(final Class<?> containerClass) {
-        this(new ByNameTypeDefinition(containerClass), null);
+        this.ownerTypeDefinition = new ByNameTypeDefinition(containerClass);
+        this.itemTypeDefinition = null;
     }
 
-    public TypeDefinition getContainerTypeDefinition() {
-        return containerTypeDefinition;
+    public TypeDefinition getOwnerTypeDefinition() {
+        return ownerTypeDefinition;
     }
 
     @Override
     public boolean isEqual(final TypeMirror typeMirror) {
-        final boolean result = containerTypeDefinition.isEqual(typeMirror);
+        final boolean result = ownerTypeDefinition.isEqual(typeMirror);
         if (!result) {
             return false;
         }
@@ -69,7 +70,7 @@ public final class ContainerTypeDefinition implements TypeDefinition {
 
     @Override
     public boolean isEqual(final Element element) {
-        final boolean result = containerTypeDefinition.isEqual(element);
+        final boolean result = ownerTypeDefinition.isEqual(element);
         if (!result) {
             return false;
         }
@@ -79,9 +80,9 @@ public final class ContainerTypeDefinition implements TypeDefinition {
     @Override
     public String toString() {
         if (itemTypeDefinition == null) {
-            return containerTypeDefinition.toString();
+            return ownerTypeDefinition.toString();
         } else {
-            return format("?<?>", containerTypeDefinition, itemTypeDefinition);
+            return format("?<?>", ownerTypeDefinition, itemTypeDefinition);
         }
     }
 }

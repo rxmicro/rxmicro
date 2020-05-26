@@ -60,7 +60,7 @@ public final class AnnotationValidators {
             throw new InterruptProcessingException(
                     element,
                     "Expected only one annotation per method. This annotation must be one from the following list: {?}",
-                    String.join(", ", supportedAnnotations.getSupportedAnnotations()));
+                    String.join(", ", supportedAnnotations.getNames()));
         }
     }
 
@@ -77,7 +77,7 @@ public final class AnnotationValidators {
                                 "Remove redundant annotation!",
                         annotation.getAnnotationType(),
                         ownerName,
-                        String.join(", ", supportedAnnotations.getSupportedAnnotations()));
+                        String.join(", ", supportedAnnotations.getNames()));
             }
         }
     }

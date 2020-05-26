@@ -19,7 +19,6 @@ package io.rxmicro.annotation.processor.data.sql.component.impl;
 import io.rxmicro.annotation.processor.common.component.TokenParser;
 import io.rxmicro.annotation.processor.common.component.impl.TokenParserImpl;
 import io.rxmicro.annotation.processor.common.model.TokenParserRule;
-import io.rxmicro.annotation.processor.data.sql.model.SQLTokenParserRule;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.MethodOrderer;
@@ -48,7 +47,7 @@ final class TokenParserImpl_UnitTest {
 
     private final TokenParser tokenParser = new TokenParserImpl();
 
-    private final TokenParserRule rule = new SQLTokenParserRule();
+    private final TokenParserRule rule = new SQLTokenParserRuleProvider().get();
 
     @ParameterizedTest(name = "[{index}] -> {0}")
     @ArgumentsSource(SelectSQLQueriesProvider.class)

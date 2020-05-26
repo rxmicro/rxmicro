@@ -83,9 +83,11 @@ public abstract class AbstractRxMicroProcessor extends AbstractProcessor {
     }
 
     @Override
-    public final synchronized void init(final ProcessingEnvironment processingEnv) {
-        super.init(processingEnv);
-        ProcessingEnvironmentHelper.init(processingEnv);
+    public final void init(final ProcessingEnvironment processingEnv) {
+        synchronized (this) {
+            super.init(processingEnv);
+            ProcessingEnvironmentHelper.init(processingEnv);
+        }
     }
 
     @Override

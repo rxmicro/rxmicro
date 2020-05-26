@@ -52,35 +52,41 @@ public final class Validators {
             final char ch = number.charAt(index);
             if (ch == '.') {
                 if (foundPoint) {
-                    if (foundE) {
-                        throw new NumberFormatException(
-                                "Exponent value must be an integer for scientific notation of the number: " + number);
-                    } else {
-                        throw new NumberFormatException(
-                                "Multiple points: " + number);
-                    }
+                    throwNumberFormatException(number, foundE);
                 }
                 foundPoint = true;
             } else if (ch == 'e' || ch == 'E') {
                 if (foundE) {
-                    throw new NumberFormatException(
-                            "Multiple E delimiters: " + number);
+                    throw new NumberFormatException("Multiple E delimiters: " + number);
                 }
                 foundE = true;
-                // For verification of exponent value, i.e.
-                // if scientific notation detected then point not allowed more
+                // For verification of exponent value, i.e. if scientific notation detected then point not allowed more
                 foundPoint = true;
                 if (index == number.length() - 1) {
-                    throw new NumberFormatException(
-                            "Missing exponent value for scientific notation of number: " + number);
+                    throw new NumberFormatException("Missing exponent value for scientific notation of number: " + number);
                 } else if (number.charAt(index + 1) == '-' || number.charAt(index + 1) == '+') {
                     index++;
                 }
-            } else if (ch < '0' || ch > '9') {
-                throw new NumberFormatException(
-                        "Not a number: " + number);
+            } else {
+                validateThatCharIsDigit(number, ch);
             }
             index++;
+        }
+    }
+
+    private static void throwNumberFormatException(final String number,
+                                                   final boolean foundE) {
+        if (foundE) {
+            throw new NumberFormatException("Exponent value must be an integer for scientific notation of the number: " + number);
+        } else {
+            throw new NumberFormatException("Multiple points: " + number);
+        }
+    }
+
+    private static void validateThatCharIsDigit(final String number,
+                                                final char ch) {
+        if (ch < '0' || ch > '9') {
+            throw new NumberFormatException("Not a number: " + number);
         }
     }
 

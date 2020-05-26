@@ -17,8 +17,8 @@
 package io.rxmicro.annotation.processor.cdi;
 
 import com.google.inject.Inject;
-import io.rxmicro.annotation.processor.cdi.component.BeanDefinitionWithInjectionsClassStructureBuilder;
-import io.rxmicro.annotation.processor.cdi.component.BeanDefinitionWithoutInjectionsClassStructureBuilder;
+import io.rxmicro.annotation.processor.cdi.component.BeanWithInjectionsClassStructureBuilder;
+import io.rxmicro.annotation.processor.cdi.component.BeanWithoutInjectionsClassStructureBuilder;
 import io.rxmicro.annotation.processor.cdi.model.BeanFactoryImplClassStructure;
 import io.rxmicro.annotation.processor.cdi.model.BeanSupplierClassStructure;
 import io.rxmicro.annotation.processor.common.CommonDependenciesModule;
@@ -47,10 +47,10 @@ public final class CDIClassStructuresBuilder extends AbstractModuleClassStructur
     private Set<String> beanDefinitionTypes = Set.of();
 
     @Inject
-    private BeanDefinitionWithInjectionsClassStructureBuilder beanDefinitionWithInjectionsClassStructureBuilder;
+    private BeanWithInjectionsClassStructureBuilder beanWithInjectionsClassStructureBuilder;
 
     @Inject
-    private BeanDefinitionWithoutInjectionsClassStructureBuilder beanDefinitionWithoutInjectionsClassStructureBuilder;
+    private BeanWithoutInjectionsClassStructureBuilder beanWithoutInjectionsClassStructureBuilder;
 
     public static CDIClassStructuresBuilder create() {
         final CDIClassStructuresBuilder builder = new CDIClassStructuresBuilder();
@@ -76,9 +76,9 @@ public final class CDIClassStructuresBuilder extends AbstractModuleClassStructur
                                                               final Set<? extends TypeElement> annotations,
                                                               final RoundEnvironment roundEnv) {
         final Set<BeanSupplierClassStructure> beanSupplierClassStructures =
-                beanDefinitionWithInjectionsClassStructureBuilder.build(environmentContext, annotations, roundEnv);
+                beanWithInjectionsClassStructureBuilder.build(environmentContext, annotations, roundEnv);
         beanSupplierClassStructures.addAll(
-                beanDefinitionWithoutInjectionsClassStructureBuilder.build(
+                beanWithoutInjectionsClassStructureBuilder.build(
                         environmentContext,
                         beanSupplierClassStructures.stream()
                                 .flatMap(s -> s.getBeanDefinition().getInjectionPoints().stream())

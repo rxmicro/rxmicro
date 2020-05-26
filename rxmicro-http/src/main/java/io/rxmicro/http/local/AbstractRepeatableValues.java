@@ -42,39 +42,39 @@ public abstract class AbstractRepeatableValues<T extends RepeatableValues<T>> {
     }
 
     protected AbstractRepeatableValues(final T other) {
-        valuesMap = new LinkedHashMap<>();
+        this();
         setOrAddAll(other);
     }
 
-    public boolean contains(final String name) {
+    public final boolean contains(final String name) {
         return valuesMap.containsKey(name);
     }
 
-    public boolean isEmpty() {
+    public final boolean isEmpty() {
         return valuesMap.isEmpty();
     }
 
-    public boolean isNotEmpty() {
+    public final boolean isNotEmpty() {
         return !valuesMap.isEmpty();
     }
 
-    public int size() {
+    public final int size() {
         return valuesMap.size();
     }
 
-    public Set<String> names() {
+    public final Set<String> names() {
         return valuesMap.keySet();
     }
 
-    public boolean remove(final String name) {
+    public final boolean remove(final String name) {
         return valuesMap.remove(name) != null;
     }
 
-    public void clear() {
+    public final void clear() {
         valuesMap.clear();
     }
 
-    public String getValue(final String name) {
+    public final String getValue(final String name) {
         final Object value = valuesMap.get(name);
         if (value == null) {
             return null;
@@ -85,7 +85,7 @@ public abstract class AbstractRepeatableValues<T extends RepeatableValues<T>> {
         }
     }
 
-    public List<String> getValues(final String name) {
+    public final List<String> getValues(final String name) {
         final Object value = valuesMap.get(name);
         if (value == null) {
             return List.of();
@@ -96,8 +96,8 @@ public abstract class AbstractRepeatableValues<T extends RepeatableValues<T>> {
         }
     }
 
-    public void add(final String name,
-                    final String value) {
+    public final void add(final String name,
+                          final String value) {
         final List<String> values = new ListImpl(value);
         final Object oldValue = valuesMap.put(name, values);
         if (oldValue != null) {
@@ -110,13 +110,13 @@ public abstract class AbstractRepeatableValues<T extends RepeatableValues<T>> {
         }
     }
 
-    public void set(final String name,
-                    final String value) {
+    public final void set(final String name,
+                          final String value) {
         valuesMap.put(name, value);
     }
 
-    public void setOrAdd(final String name,
-                         final String value) {
+    public final void setOrAdd(final String name,
+                               final String value) {
         final Object oldValue = valuesMap.put(name, value);
         if (oldValue != null) {
             if (isSetValue(oldValue)) {
@@ -128,7 +128,7 @@ public abstract class AbstractRepeatableValues<T extends RepeatableValues<T>> {
         }
     }
 
-    public void setOrAddAll(final T other) {
+    public final void setOrAddAll(final T other) {
         for (final Map.Entry<String, Object> entry : other.getValuesMap().entrySet()) {
             if (!isSetValue(entry.getValue()) && !isAddedValue(entry.getValue())) {
                 throw new IllegalArgumentException("Unsupported type: " + entry.getValue().getClass());
@@ -157,7 +157,7 @@ public abstract class AbstractRepeatableValues<T extends RepeatableValues<T>> {
         }
     }
 
-    public List<Map.Entry<String, String>> getEntries() {
+    public final List<Map.Entry<String, String>> getEntries() {
         final List<Map.Entry<String, String>> result = new ArrayList<>(valuesMap.size());
         for (final Map.Entry<String, Object> entry : valuesMap.entrySet()) {
             if (isAddedValue(entry.getValue())) {
@@ -171,15 +171,15 @@ public abstract class AbstractRepeatableValues<T extends RepeatableValues<T>> {
         return unmodifiableList(result);
     }
 
-    public Map<String, Object> getValuesMap() {
+    public final Map<String, Object> getValuesMap() {
         return valuesMap;
     }
 
-    public boolean isAddedValue(final Object value) {
+    public final boolean isAddedValue(final Object value) {
         return value instanceof List;
     }
 
-    public boolean isSetValue(final Object value) {
+    public final boolean isSetValue(final Object value) {
         return value instanceof String;
     }
 
@@ -201,7 +201,8 @@ public abstract class AbstractRepeatableValues<T extends RepeatableValues<T>> {
             add(value);
         }
 
-        private ListImpl(final String value1, final String value2) {
+        private ListImpl(final String value1,
+                         final String value2) {
             super(2);
             add(value1);
             add(value2);

@@ -144,23 +144,46 @@ public final class TypeValidators {
                         "?Model class couldn't be a library class: ?. Create a custom class at the current module", validPrefix, type);
             }
             final TypeElement typeElement = (TypeElement) element;
-            if (typeElement.getNestingKind().isNested()) {
-                throw new InterruptProcessingException(owner, "?Model class couldn't be a nested class: ?", validPrefix, type);
-            }
-            if (typeElement.getKind().isInterface()) {
-                throw new InterruptProcessingException(owner, "?Model class couldn't be an interface: ?", validPrefix, type);
-            }
-            if (typeElement.getKind() == ENUM) {
-                throw new InterruptProcessingException(owner, "?Model class couldn't be an enum: ?", validPrefix, type);
-            }
-            if (!typeElement.getTypeParameters().isEmpty()) {
-                throw new InterruptProcessingException(owner, "?Model class couldn't be a parametrized class: ?", validPrefix, type);
-            }
-            if (requireDefConstructor) {
-                validateAccessibleDefaultConstructor(typeElement);
-            }
+            validateTypeElement(owner, requireDefConstructor, validPrefix, typeElement);
             validateModuleDeclaration(ownerModule, owner, validPrefix, typeElement);
             return typeElement;
+        }
+    }
+
+    private static void validateTypeElement(final Element owner,
+                                            final boolean requireDefConstructor,
+                                            final String validPrefix,
+                                            final TypeElement typeElement) {
+        if (typeElement.getNestingKind().isNested()) {
+            throw new InterruptProcessingException(
+                    owner,
+                    "?Model class couldn't be a nested class: ?",
+                    validPrefix, typeElement.getQualifiedName()
+            );
+        }
+        if (typeElement.getKind().isInterface()) {
+            throw new InterruptProcessingException(
+                    owner,
+                    "?Model class couldn't be an interface: ?",
+                    validPrefix, typeElement.getQualifiedName()
+            );
+        }
+        if (typeElement.getKind() == ENUM) {
+            throw new InterruptProcessingException(
+                    owner,
+                    "?Model class couldn't be an enum: ?",
+                    validPrefix, typeElement.getQualifiedName()
+            );
+        }
+        if (!typeElement.getTypeParameters().isEmpty()) {
+            throw new InterruptProcessingException(
+                    owner,
+                    "?Model class couldn't be a parametrized class: ?",
+                    validPrefix, typeElement.getQualifiedName()
+            );
+        }
+        if (requireDefConstructor) {
+            validateAccessibleDefaultConstructor(typeElement);
         }
     }
 

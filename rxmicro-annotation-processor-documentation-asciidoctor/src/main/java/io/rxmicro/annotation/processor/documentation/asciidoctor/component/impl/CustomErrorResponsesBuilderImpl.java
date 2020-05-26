@@ -49,8 +49,8 @@ import javax.lang.model.type.TypeKind;
 import static io.rxmicro.annotation.processor.common.util.Annotations.getRequiredAnnotationClassParameter;
 import static io.rxmicro.annotation.processor.common.util.Elements.allConstructors;
 import static io.rxmicro.annotation.processor.common.util.Elements.allFields;
+import static io.rxmicro.annotation.processor.documentation.asciidoctor.component.CharacteristicsReader.REQUIRED_RESTRICTION;
 import static io.rxmicro.annotation.processor.documentation.asciidoctor.component.DocumentedModelFieldBuilder.buildApiVersionHeaderDocumentedModelField;
-import static io.rxmicro.annotation.processor.documentation.asciidoctor.component.RestrictionReader.REQUIRED_RESTRICTION;
 import static io.rxmicro.documentation.asciidoctor.Constants.STATUS_CODE_STATIC_FIELD_NAME;
 import static java.util.Map.entry;
 

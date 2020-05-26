@@ -40,7 +40,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-import static io.rxmicro.annotation.processor.documentation.asciidoctor.component.RestrictionReader.REQUIRED_RESTRICTION;
+import static io.rxmicro.annotation.processor.documentation.asciidoctor.component.CharacteristicsReader.REQUIRED_RESTRICTION;
 import static io.rxmicro.common.util.ExCollectors.toOrderedSet;
 import static io.rxmicro.json.JsonHelper.toJsonString;
 import static io.rxmicro.json.JsonTypes.STRING;

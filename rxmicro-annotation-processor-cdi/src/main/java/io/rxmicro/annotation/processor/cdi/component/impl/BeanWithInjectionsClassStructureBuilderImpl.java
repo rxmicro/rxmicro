@@ -17,7 +17,7 @@
 package io.rxmicro.annotation.processor.cdi.component.impl;
 
 import com.google.inject.Singleton;
-import io.rxmicro.annotation.processor.cdi.component.BeanDefinitionWithInjectionsClassStructureBuilder;
+import io.rxmicro.annotation.processor.cdi.component.BeanWithInjectionsClassStructureBuilder;
 import io.rxmicro.annotation.processor.cdi.model.BeanSupplierClassStructure;
 import io.rxmicro.annotation.processor.common.model.EnvironmentContext;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
@@ -33,9 +33,9 @@ import javax.lang.model.element.TypeElement;
  * @since 0.1
  */
 @Singleton
-public final class BeanDefinitionWithInjectionsClassStructureBuilderImpl
+public final class BeanWithInjectionsClassStructureBuilderImpl
         extends AbstractBeanDefinitionClassStructureBuilder
-        implements BeanDefinitionWithInjectionsClassStructureBuilder {
+        implements BeanWithInjectionsClassStructureBuilder {
 
     @Override
     public Set<BeanSupplierClassStructure> build(final EnvironmentContext environmentContext,

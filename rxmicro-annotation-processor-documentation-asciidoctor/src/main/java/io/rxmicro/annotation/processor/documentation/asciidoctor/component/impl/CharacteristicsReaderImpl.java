@@ -21,11 +21,11 @@ import io.rxmicro.annotation.processor.common.model.EnvironmentContext;
 import io.rxmicro.annotation.processor.common.model.error.InternalErrorException;
 import io.rxmicro.annotation.processor.common.model.type.ListModelClass;
 import io.rxmicro.annotation.processor.common.model.type.ModelClass;
-import io.rxmicro.annotation.processor.documentation.asciidoctor.component.RestrictionReader;
+import io.rxmicro.annotation.processor.documentation.asciidoctor.component.CharacteristicsReader;
 import io.rxmicro.annotation.processor.documentation.asciidoctor.component.impl.restrictions.ArrayRestrictionReader;
 import io.rxmicro.annotation.processor.documentation.asciidoctor.component.impl.restrictions.ObjectRestrictionReader;
 import io.rxmicro.annotation.processor.documentation.asciidoctor.component.impl.restrictions.PrimitiveRestrictionReader;
-import io.rxmicro.annotation.processor.documentation.asciidoctor.model.Restrictions;
+import io.rxmicro.annotation.processor.documentation.asciidoctor.model.Characteristics;
 import io.rxmicro.annotation.processor.rest.model.RestModelField;
 import io.rxmicro.common.meta.ReadMore;
 
@@ -38,7 +38,7 @@ import java.util.Map;
  * @since 0.1
  */
 @Singleton
-public final class RestrictionReaderImpl implements RestrictionReader {
+public final class CharacteristicsReaderImpl implements CharacteristicsReader {
 
     private final PrimitiveRestrictionReader primitiveRestrictionReader = new PrimitiveRestrictionReader();
 
@@ -47,8 +47,8 @@ public final class RestrictionReaderImpl implements RestrictionReader {
     private final ArrayRestrictionReader arrayRestrictionReader = new ArrayRestrictionReader();
 
     @Override
-    public Restrictions read(final EnvironmentContext environmentContext,
-                             final Map.Entry<RestModelField, ModelClass> entry) {
+    public Characteristics read(final EnvironmentContext environmentContext,
+                                final Map.Entry<RestModelField, ModelClass> entry) {
         final List<String> restrictions = new ArrayList<>();
         final List<ReadMore> readMores = new ArrayList<>();
         final StringBuilder descriptionBuilder = new StringBuilder();
@@ -76,7 +76,7 @@ public final class RestrictionReaderImpl implements RestrictionReader {
                     getClass().getSimpleName(),
                     entry.getValue());
         }
-        return new Restrictions(
+        return new Characteristics(
                 restrictions,
                 readMores,
                 descriptionBuilder.length() == 0 ? null : descriptionBuilder.toString()

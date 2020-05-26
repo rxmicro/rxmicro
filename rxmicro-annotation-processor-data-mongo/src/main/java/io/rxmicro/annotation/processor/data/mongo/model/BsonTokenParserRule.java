@@ -16,36 +16,21 @@
 
 package io.rxmicro.annotation.processor.data.mongo.model;
 
-import com.google.inject.Singleton;
-import io.rxmicro.annotation.processor.common.model.TokenParserRule;
+import com.google.inject.BindingAnnotation;
 
-import java.util.Set;
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
+
+import static java.lang.annotation.ElementType.FIELD;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
  * @author nedis
  * @since 0.1
  */
-@Singleton
-public final class BsonTokenParserRule extends TokenParserRule {
+@BindingAnnotation
+@Retention(RUNTIME)
+@Target(FIELD)
+public @interface BsonTokenParserRule {
 
-    @Override
-    public boolean supportVariables() {
-        return false;
-    }
-
-    @Override
-    protected Set<String> getOperatorTokenDelimiters() {
-        return Set.of();
-    }
-
-    @Override
-    protected Set<String> getNotOperatorTokenDelimiters() {
-        return Set.of(
-                "(", ")",
-                "{", "}",
-                "[", "]",
-                ":",
-                ","
-        );
-    }
 }

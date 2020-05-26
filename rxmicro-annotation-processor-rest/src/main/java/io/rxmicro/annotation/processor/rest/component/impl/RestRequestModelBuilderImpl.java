@@ -74,7 +74,10 @@ public final class RestRequestModelBuilderImpl implements RestRequestModelBuilde
                         }
                     }
                 }
-                return new RestRequestModel(new VirtualTypeElement(VIRTUAL_REQUEST_SIMPLE_CLASS_NAME_TEMPLATE, method), "virtualRequest");
+                return new RestRequestModel(
+                        new VirtualTypeElement(VIRTUAL_REQUEST_SIMPLE_CLASS_NAME_TEMPLATE, method),
+                        "virtualRequest"
+                );
             }
         }
     }

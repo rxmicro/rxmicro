@@ -43,78 +43,79 @@ import static io.rxmicro.data.sql.SupportedVariables.VALUES;
  */
 final class SQLVariableValueCalculatorProvider {
 
-    static final Map<String, BiFunction<SQLDataObjectModelClass<?>, VariableContext, Object>> VARIABLE_RESOLVER_PROVIDER = Map.of(
-            ALL_COLUMNS,
-            (modelClass, context) -> nullIfEmpty(
-                    createColumnList(
-                            modelClass.getParamEntries().stream()
-                                    .map(e -> e.getKey().getSelectedColumnNameOrCastExpression())
-                                    .collect(Collectors.toList())
-                    )
-            ),
-            //-------------------------------------------------------------------------------------------
-            "*",
-            (modelClass, context) -> nullIfEmpty(
-                    createColumnList(
-                            modelClass.getParamEntries().stream()
-                                    .map(e -> e.getKey().getSelectedColumnNameOrCastExpression())
-                                    .collect(Collectors.toList())
-                    )
-            ),
-            //-------------------------------------------------------------------------------------------
-            ID_COLUMNS,
-            (modelClass, context) -> nullIfEmpty(
-                    createColumnList(
-                            modelClass.getParamEntries().stream()
-                                    .filter(e -> e.getKey().getAnnotation(PrimaryKey.class) != null)
-                                    .map(e -> e.getKey().getModelName())
-                                    .collect(Collectors.toList())
-                    )
-            ),
-            //-------------------------------------------------------------------------------------------
-            BY_ID_FILTER,
-            (modelClass, context) -> nullIfEmpty(
-                    createByIdFilter(
-                            modelClass.getParamEntries().stream()
-                                    .filter(e -> e.getKey().getAnnotation(PrimaryKey.class) != null)
-                                    .map(e -> e.getKey().getModelName())
-                                    .collect(Collectors.toList())
-                    )
-            ),
-            //-------------------------------------------------------------------------------------------
-            INSERTED_COLUMNS,
-            (modelClass, context) -> nullIfEmpty(
-                    createColumnList(
-                            modelClass.getInsertableParams().stream()
-                                    .filter(e -> e.getKey().getInsertValue(context).isPresent())
-                                    .map(e -> e.getKey().getModelName())
-                                    .collect(Collectors.toList())
-                    )
-            ),
-            //-------------------------------------------------------------------------------------------
-            VALUES,
-            (modelClass, context) -> nullIfEmpty(
-                    createValues(
-                            modelClass.getInsertableParams().stream()
-                                    .flatMap(e -> e.getKey().getInsertValue(context).stream())
-                                    .collect(Collectors.toList())
-                    )
-            ),
-            //-------------------------------------------------------------------------------------------
-            UPDATED_COLUMNS,
-            (modelClass, context) -> nullIfEmpty(
-                    createSetColumnList(
-                            modelClass.getUpdatableParams().stream()
-                                    .map(e -> e.getKey().getModelName())
-                                    .collect(Collectors.toList())
-                    )
-            ),
-            //-------------------------------------------------------------------------------------------
-            TABLE,
-            (modelClass, context) -> context.getCurrentTable().getSchema()
-                    .map(s -> s + "." + context.getCurrentTable().getTableSimpleName())
-                    .orElse(context.getCurrentTable().getTableSimpleName())
-    );
+    static final Map<String, BiFunction<SQLDataObjectModelClass<?>, VariableContext, Object>> VARIABLE_RESOLVER_PROVIDER =
+            Map.of(
+                    ALL_COLUMNS,
+                    (modelClass, context) -> nullIfEmpty(
+                            createColumnList(
+                                    modelClass.getParamEntries().stream()
+                                            .map(e -> e.getKey().getSelectedColumnNameOrCastExpression())
+                                            .collect(Collectors.toList())
+                            )
+                    ),
+                    //-------------------------------------------------------------------------------------------
+                    "*",
+                    (modelClass, context) -> nullIfEmpty(
+                            createColumnList(
+                                    modelClass.getParamEntries().stream()
+                                            .map(e -> e.getKey().getSelectedColumnNameOrCastExpression())
+                                            .collect(Collectors.toList())
+                            )
+                    ),
+                    //-------------------------------------------------------------------------------------------
+                    ID_COLUMNS,
+                    (modelClass, context) -> nullIfEmpty(
+                            createColumnList(
+                                    modelClass.getParamEntries().stream()
+                                            .filter(e -> e.getKey().getAnnotation(PrimaryKey.class) != null)
+                                            .map(e -> e.getKey().getModelName())
+                                            .collect(Collectors.toList())
+                            )
+                    ),
+                    //-------------------------------------------------------------------------------------------
+                    BY_ID_FILTER,
+                    (modelClass, context) -> nullIfEmpty(
+                            createByIdFilter(
+                                    modelClass.getParamEntries().stream()
+                                            .filter(e -> e.getKey().getAnnotation(PrimaryKey.class) != null)
+                                            .map(e -> e.getKey().getModelName())
+                                            .collect(Collectors.toList())
+                            )
+                    ),
+                    //-------------------------------------------------------------------------------------------
+                    INSERTED_COLUMNS,
+                    (modelClass, context) -> nullIfEmpty(
+                            createColumnList(
+                                    modelClass.getInsertableParams().stream()
+                                            .filter(e -> e.getKey().getInsertValue(context).isPresent())
+                                            .map(e -> e.getKey().getModelName())
+                                            .collect(Collectors.toList())
+                            )
+                    ),
+                    //-------------------------------------------------------------------------------------------
+                    VALUES,
+                    (modelClass, context) -> nullIfEmpty(
+                            createValues(
+                                    modelClass.getInsertableParams().stream()
+                                            .flatMap(e -> e.getKey().getInsertValue(context).stream())
+                                            .collect(Collectors.toList())
+                            )
+                    ),
+                    //-------------------------------------------------------------------------------------------
+                    UPDATED_COLUMNS,
+                    (modelClass, context) -> nullIfEmpty(
+                            createSetColumnList(
+                                    modelClass.getUpdatableParams().stream()
+                                            .map(e -> e.getKey().getModelName())
+                                            .collect(Collectors.toList())
+                            )
+                    ),
+                    //-------------------------------------------------------------------------------------------
+                    TABLE,
+                    (modelClass, context) -> context.getCurrentTable().getSchema()
+                            .map(s -> s + "." + context.getCurrentTable().getTableSimpleName())
+                            .orElse(context.getCurrentTable().getTableSimpleName())
+            );
 
     private static SQLVariableValue nullIfEmpty(final SQLVariableValue sqlVariableValue) {
         return sqlVariableValue.getColumns().isEmpty() ? null : sqlVariableValue;

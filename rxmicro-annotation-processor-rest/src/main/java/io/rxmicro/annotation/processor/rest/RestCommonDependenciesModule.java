@@ -17,6 +17,7 @@
 package io.rxmicro.annotation.processor.rest;
 
 import com.google.inject.AbstractModule;
+import com.google.inject.TypeLiteral;
 import io.rxmicro.annotation.processor.rest.component.AnnotationValueConverter;
 import io.rxmicro.annotation.processor.rest.component.AnnotationValueValidator;
 import io.rxmicro.annotation.processor.rest.component.ConstraintAnnotationExtractor;
@@ -25,6 +26,7 @@ import io.rxmicro.annotation.processor.rest.component.ParentUrlBuilder;
 import io.rxmicro.annotation.processor.rest.component.PathVariableExtractor;
 import io.rxmicro.annotation.processor.rest.component.PathVariableValidator;
 import io.rxmicro.annotation.processor.rest.component.RestGenerationContextBuilder;
+import io.rxmicro.annotation.processor.rest.component.RestModelFieldBuilder;
 import io.rxmicro.annotation.processor.rest.component.RestModelFromJsonConverterBuilder;
 import io.rxmicro.annotation.processor.rest.component.RestModelToJsonConverterBuilder;
 import io.rxmicro.annotation.processor.rest.component.RestModelValidatorBuilder;
@@ -43,6 +45,14 @@ import io.rxmicro.annotation.processor.rest.component.impl.RestModelToJsonConver
 import io.rxmicro.annotation.processor.rest.component.impl.RestModelValidatorBuilderImpl;
 import io.rxmicro.annotation.processor.rest.component.impl.RestRequestModelBuilderImpl;
 import io.rxmicro.annotation.processor.rest.component.impl.RestResponseModelBuilderImpl;
+import io.rxmicro.annotation.processor.rest.component.impl.builder.HeaderRestModelFieldBuilder;
+import io.rxmicro.annotation.processor.rest.component.impl.builder.ParameterRestModelFieldBuilder;
+import io.rxmicro.annotation.processor.rest.component.impl.builder.PathVariableRestModelFieldBuilder;
+import io.rxmicro.annotation.processor.rest.component.impl.builder.RequestIdRestModelFieldBuilder;
+import io.rxmicro.rest.Header;
+import io.rxmicro.rest.Parameter;
+import io.rxmicro.rest.PathVariable;
+import io.rxmicro.rest.RequestId;
 
 /**
  * @author nedis
@@ -78,5 +88,22 @@ public final class RestCommonDependenciesModule extends AbstractModule {
                 .to(RestResponseModelBuilderImpl.class);
         bind(AnnotationValueConverter.class)
                 .to(AnnotationValueConverterImpl.class);
+
+        configureBuilders();
+    }
+
+    private void configureBuilders() {
+        bind(new TypeLiteral<RestModelFieldBuilder<Header>>() {
+        })
+                .to(HeaderRestModelFieldBuilder.class);
+        bind(new TypeLiteral<RestModelFieldBuilder<Parameter>>() {
+        })
+                .to(ParameterRestModelFieldBuilder.class);
+        bind(new TypeLiteral<RestModelFieldBuilder<PathVariable>>() {
+        })
+                .to(PathVariableRestModelFieldBuilder.class);
+        bind(new TypeLiteral<RestModelFieldBuilder<RequestId>>() {
+        })
+                .to(RequestIdRestModelFieldBuilder.class);
     }
 }

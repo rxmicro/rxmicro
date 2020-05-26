@@ -17,10 +17,10 @@
 package io.rxmicro.annotation.processor.cdi;
 
 import com.google.inject.AbstractModule;
-import io.rxmicro.annotation.processor.cdi.component.BeanDefinitionWithInjectionsClassStructureBuilder;
-import io.rxmicro.annotation.processor.cdi.component.BeanDefinitionWithoutInjectionsClassStructureBuilder;
 import io.rxmicro.annotation.processor.cdi.component.BeanInjectionPointQualifierRuleBuilder;
 import io.rxmicro.annotation.processor.cdi.component.BeanRegistrationQualifierRuleBuilder;
+import io.rxmicro.annotation.processor.cdi.component.BeanWithInjectionsClassStructureBuilder;
+import io.rxmicro.annotation.processor.cdi.component.BeanWithoutInjectionsClassStructureBuilder;
 import io.rxmicro.annotation.processor.cdi.component.ConstructorInjectionPointBuilder;
 import io.rxmicro.annotation.processor.cdi.component.DefaultNameBuilder;
 import io.rxmicro.annotation.processor.cdi.component.FactoryMethodFinder;
@@ -28,10 +28,10 @@ import io.rxmicro.annotation.processor.cdi.component.FieldOrMethodInjectionPoint
 import io.rxmicro.annotation.processor.cdi.component.InjectionPointTypeBuilder;
 import io.rxmicro.annotation.processor.cdi.component.PostConstructMethodFinder;
 import io.rxmicro.annotation.processor.cdi.component.UserDefinedNameBuilder;
-import io.rxmicro.annotation.processor.cdi.component.impl.BeanDefinitionWithInjectionsClassStructureBuilderImpl;
-import io.rxmicro.annotation.processor.cdi.component.impl.BeanDefinitionWithoutInjectionsClassStructureBuilderImpl;
 import io.rxmicro.annotation.processor.cdi.component.impl.BeanInjectionPointQualifierRuleBuilderImpl;
 import io.rxmicro.annotation.processor.cdi.component.impl.BeanRegistrationQualifierRuleBuilderImpl;
+import io.rxmicro.annotation.processor.cdi.component.impl.BeanWithInjectionsClassStructureBuilderImpl;
+import io.rxmicro.annotation.processor.cdi.component.impl.BeanWithoutInjectionsClassStructureBuilderImpl;
 import io.rxmicro.annotation.processor.cdi.component.impl.ConstructorInjectionPointBuilderImpl;
 import io.rxmicro.annotation.processor.cdi.component.impl.DefaultNameBuilderImpl;
 import io.rxmicro.annotation.processor.cdi.component.impl.FactoryMethodFinderImpl;
@@ -48,8 +48,8 @@ public final class CDIDependenciesModule extends AbstractModule {
 
     @Override
     protected void configure() {
-        bind(BeanDefinitionWithInjectionsClassStructureBuilder.class)
-                .to(BeanDefinitionWithInjectionsClassStructureBuilderImpl.class);
+        bind(BeanWithInjectionsClassStructureBuilder.class)
+                .to(BeanWithInjectionsClassStructureBuilderImpl.class);
         bind(ConstructorInjectionPointBuilder.class)
                 .to(ConstructorInjectionPointBuilderImpl.class);
         bind(FieldOrMethodInjectionPointBuilder.class)
@@ -58,8 +58,8 @@ public final class CDIDependenciesModule extends AbstractModule {
                 .to(InjectionPointTypeBuilderImpl.class);
         bind(PostConstructMethodFinder.class)
                 .to(PostConstructMethodFinderImpl.class);
-        bind(BeanDefinitionWithoutInjectionsClassStructureBuilder.class)
-                .to(BeanDefinitionWithoutInjectionsClassStructureBuilderImpl.class);
+        bind(BeanWithoutInjectionsClassStructureBuilder.class)
+                .to(BeanWithoutInjectionsClassStructureBuilderImpl.class);
         bind(FactoryMethodFinder.class)
                 .to(FactoryMethodFinderImpl.class);
         bind(UserDefinedNameBuilder.class)

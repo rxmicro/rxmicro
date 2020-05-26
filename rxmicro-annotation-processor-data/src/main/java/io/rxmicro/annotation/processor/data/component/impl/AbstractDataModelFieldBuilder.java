@@ -63,7 +63,7 @@ public abstract class AbstractDataModelFieldBuilder<DMF extends DataModelField, 
                         final int nestedLevel) {
         final String fieldName = field.getSimpleName().toString();
         if (!fieldNames.add(fieldName)) {
-            error(field, "Detected duplicate of class field name: " + fieldName);
+            error(field, "Detected duplicate of class field name: ?", fieldName);
         }
         final String modelName;
         final AnnotatedModelElement annotated = build(typeElement, field);
@@ -77,10 +77,9 @@ public abstract class AbstractDataModelFieldBuilder<DMF extends DataModelField, 
             modelName = getColumnName(typeElement, fieldName, annotated);
         }
         if (!modelNames.modelNames("columns").add(modelName)) {
-            error(annotated.getElementAnnotatedBy(Column.class).orElse(field),
-                    "Detected duplicate of column name: " + modelName);
+            error(annotated.getElementAnnotatedBy(Column.class).orElse(field), "Detected duplicate of column name: ?", modelName);
         }
-        return validate(build(annotated, modelName, id), typeElement);
+        return validateAndReturn(build(annotated, modelName, id), typeElement);
     }
 
     protected abstract DMF build(AnnotatedModelElement annotated, String modelName, boolean isId);

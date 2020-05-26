@@ -43,6 +43,7 @@ import java.util.List;
 import static io.rxmicro.config.local.DefaultConfigValueBuilderReSetter.resetDefaultConfigValueStorage;
 import static io.rxmicro.runtime.local.AbstractFactory.clearFactories;
 import static io.rxmicro.runtime.local.InstanceContainer.clearContainer;
+import static io.rxmicro.test.junit.internal.StatelessComponentFactory.getBeforeTestInvoker;
 import static io.rxmicro.test.junit.internal.StatelessComponentFactory.getConfigResolver;
 import static io.rxmicro.test.junit.internal.TestObjects.SUPPORTED_TEST_ANNOTATIONS;
 import static io.rxmicro.test.junit.internal.TestObjects.getTestInstances;
@@ -60,11 +61,6 @@ public final class RxMicroComponentTestExtension
     static {
         componentTestsFix();
     }
-
-    private final ComponentTestValidator componentTestValidator = new ComponentTestValidator(SUPPORTED_TEST_ANNOTATIONS);
-
-    private final BeforeTestInvoker beforeTestInvoker =
-            new BeforeTestInvoker();
 
     private final ConfigResolver configResolver = getConfigResolver();
 
@@ -93,7 +89,8 @@ public final class RxMicroComponentTestExtension
                 isRequiredModule(componentClass.getModule(), BeanFactory.class.getModule())
         );
         testModel = testModelBuilder.build(testClass);
-        componentTestValidator.validate(testModel);
+        new ComponentTestValidator(SUPPORTED_TEST_ANNOTATIONS).validate(testModel);
+
         configResolver.setDefaultConfigValues(testClass);
         if (testModel.isStaticConfigsPresent()) {
             new Configs.Builder()
@@ -125,7 +122,7 @@ public final class RxMicroComponentTestExtension
     @Override
     public void beforeTestExecution(final ExtensionContext context) {
         final List<Object> testInstances = getTestInstances(context);
-        beforeTestInvoker.invokeIfFound(context, testInstances);
+        getBeforeTestInvoker().invokeIfFound(context, testInstances);
         if (testModel.isInstanceConfigsPresent()) {
             new Configs.Builder()
                     .withConfigs(configResolver.getInstanceConfigMap(testModel, testInstances))

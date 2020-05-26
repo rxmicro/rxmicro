@@ -142,9 +142,7 @@ public final class RxMicroTestsAnnotationProcessor extends BaseRxMicroAnnotation
                     .build();
         }
 
-        protected void customizeClassHeader(final ClassHeader.Builder builder) {
-            // Allows to configure ClassHeader
-        }
+        protected abstract void customizeClassHeader(ClassHeader.Builder builder);
     }
 
     /**
@@ -183,6 +181,11 @@ public final class RxMicroTestsAnnotationProcessor extends BaseRxMicroAnnotation
         }
 
         @Override
+        protected void customizeClassHeader(final ClassHeader.Builder builder) {
+            // do nothing
+        }
+
+        @Override
         public String getTemplateName() {
             return "test/$$RestBasedMicroServiceTestFixerTemplate.javaftl";
         }
@@ -197,6 +200,11 @@ public final class RxMicroTestsAnnotationProcessor extends BaseRxMicroAnnotation
         @Override
         protected String getSimpleClassName() {
             return INTEGRATION_TEST_FIXER;
+        }
+
+        @Override
+        protected void customizeClassHeader(final ClassHeader.Builder builder) {
+            // do nothing
         }
 
         @Override

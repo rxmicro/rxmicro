@@ -14,25 +14,26 @@
  * limitations under the License.
  */
 
-package io.rxmicro.annotation.processor.documentation.asciidoctor.component;
+package io.rxmicro.annotation.processor.rest.component;
 
-import io.rxmicro.annotation.processor.common.model.EnvironmentContext;
-import io.rxmicro.annotation.processor.common.model.type.ModelClass;
-import io.rxmicro.annotation.processor.documentation.asciidoctor.model.Restrictions;
+import io.rxmicro.annotation.processor.common.model.AnnotatedModelElement;
+import io.rxmicro.annotation.processor.common.model.ModelFieldType;
 import io.rxmicro.annotation.processor.rest.model.RestModelField;
 
-import java.util.Map;
+import java.lang.annotation.Annotation;
+import java.util.Set;
+import javax.lang.model.element.TypeElement;
 
 /**
  * @author nedis
- * @since 0.1
+ * @since 0.5
  */
-public interface RestrictionReader {
+public interface RestModelFieldBuilder<A extends Annotation> {
 
-    String REQUIRED_RESTRICTION = "required: true";
-
-    String OPTIONAL_RESTRICTION = "optional: true";
-
-    Restrictions read(EnvironmentContext environmentContext,
-                      Map.Entry<RestModelField, ModelClass> entry);
+    RestModelField build(ModelFieldType modelFieldType,
+                         TypeElement typeElement,
+                         AnnotatedModelElement annotated,
+                         A annotation,
+                         Set<String> modelNames,
+                         int nestedLevel);
 }

@@ -22,10 +22,10 @@ import io.rxmicro.annotation.processor.common.model.EnvironmentContext;
 import io.rxmicro.annotation.processor.common.model.error.InternalErrorException;
 import io.rxmicro.annotation.processor.common.model.type.ListModelClass;
 import io.rxmicro.annotation.processor.common.model.type.ModelClass;
+import io.rxmicro.annotation.processor.documentation.asciidoctor.component.CharacteristicsReader;
 import io.rxmicro.annotation.processor.documentation.asciidoctor.component.DocumentedModelFieldBuilder;
-import io.rxmicro.annotation.processor.documentation.asciidoctor.component.RestrictionReader;
+import io.rxmicro.annotation.processor.documentation.asciidoctor.model.Characteristics;
 import io.rxmicro.annotation.processor.documentation.asciidoctor.model.DocumentedModelField;
-import io.rxmicro.annotation.processor.documentation.asciidoctor.model.Restrictions;
 import io.rxmicro.annotation.processor.documentation.component.DescriptionReader;
 import io.rxmicro.annotation.processor.documentation.model.ReadMoreModel;
 import io.rxmicro.annotation.processor.rest.model.RestModelField;
@@ -55,7 +55,7 @@ public final class DocumentedModelFieldBuilderImpl implements DocumentedModelFie
     private DescriptionReader descriptionReader;
 
     @Inject
-    private RestrictionReader restrictionReader;
+    private CharacteristicsReader characteristicsReader;
 
     @Override
     public List<Map.Entry<String, List<DocumentedModelField>>> buildComplex(final EnvironmentContext environmentContext,
@@ -144,24 +144,24 @@ public final class DocumentedModelFieldBuilderImpl implements DocumentedModelFie
                                                            final Map.Entry<RestModelField, ModelClass> entry,
                                                            final String jsonType,
                                                            final boolean withReadMore) {
-        final RestModelField field = entry.getKey();
         if (entry.getKey().isHttpHeader() && REQUEST_ID.equalsIgnoreCase(entry.getKey().getModelName())) {
             return buildApiVersionHeaderDocumentedModelField(false);
         } else {
-            final Restrictions restrictions = restrictionReader.read(environmentContext, entry);
+            final Characteristics characteristics = characteristicsReader.read(environmentContext, entry);
+            final RestModelField field = entry.getKey();
             return new DocumentedModelField(
                     field.getModelName(),
                     jsonType != null ?
                             jsonType :
                             getJsonType(entry.getValue()),
-                    restrictions.getRestrictions(),
+                    characteristics.getRestrictions(),
                     descriptionReader.readDescription(field.getFieldElement(), projectDirectory).orElseGet(() ->
                             withStandardDescriptions ?
-                                    restrictions.getStandardDescription().orElse(null) :
+                                    characteristics.getStandardDescription().orElse(null) :
                                     null
                     ),
                     withReadMore ?
-                            restrictions.getReadMores().stream().map(ReadMoreModel::new).collect(toList()) :
+                            characteristics.getReadMores().stream().map(ReadMoreModel::new).collect(toList()) :
                             List.of()
             );
         }

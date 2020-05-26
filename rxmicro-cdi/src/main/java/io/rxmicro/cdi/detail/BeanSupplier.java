@@ -26,4 +26,7 @@ import java.util.function.Supplier;
  * @since 0.1
  */
 public abstract class BeanSupplier<T> implements Supplier<T> {
+
+    @Override
+    public abstract T get();
 }

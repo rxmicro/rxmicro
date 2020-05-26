@@ -27,6 +27,8 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
+import javax.lang.model.element.Element;
+import javax.lang.model.type.TypeMirror;
 
 import static java.util.stream.Collectors.toMap;
 
@@ -118,14 +120,26 @@ public abstract class SupportedTypesProvider {
         return internalTypes;
     }
 
+    public final boolean isModelPrimitive(final TypeMirror typeMirror) {
+        return getPrimitives().contains(typeMirror);
+    }
+
+    public final boolean isModelInternalType(final Element owner) {
+        return getInternalTypes().contains(owner);
+    }
+
+    public final boolean isModelPrimitiveList(final TypeMirror typeMirror) {
+        return getPrimitiveContainers().contains(typeMirror);
+    }
+
     protected abstract TypeDefinitions<TypeDefinition> createPrimitives();
 
     protected TypeDefinitions<ContainerTypeDefinition> createPrimitiveCollectionContainers() {
         final List<ContainerTypeDefinition> definitions = new ArrayList<>();
         for (final ContainerTypeDefinition typeDefinition : getCollectionContainers().getTypeDefinitions()) {
-            final TypeDefinition container = typeDefinition.getContainerTypeDefinition();
+            final TypeDefinition owner = typeDefinition.getOwnerTypeDefinition();
             for (final TypeDefinition primitiveDefinition : getPrimitives().getTypeDefinitions()) {
-                definitions.add(new ContainerTypeDefinition(container, primitiveDefinition));
+                definitions.add(new ContainerTypeDefinition(owner, primitiveDefinition));
             }
         }
         return new TypeDefinitionsImpl<>(definitions.toArray(new ContainerTypeDefinition[0]));

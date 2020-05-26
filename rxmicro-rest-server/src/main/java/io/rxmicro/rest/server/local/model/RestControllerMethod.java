@@ -34,18 +34,18 @@ import static io.rxmicro.common.util.Requires.require;
  */
 public final class RestControllerMethod extends BaseRestControllerMethod {
 
-    private final String restControllerMethod;
+    private final String methodName;
 
     private final BiFunction<PathVariableMapping, HttpRequest, CompletionStage<HttpResponse>> function;
 
     public RestControllerMethod(
             final String parentUrl,
             final AbstractRestController restController,
-            final String restControllerMethod,
+            final String methodName,
             final BiFunction<PathVariableMapping, HttpRequest, CompletionStage<HttpResponse>> function,
             final boolean corsRequestPossible) {
         super(parentUrl, restController, corsRequestPossible);
-        this.restControllerMethod = require(restControllerMethod);
+        this.methodName = require(methodName);
         this.function = require(function);
     }
 
@@ -62,6 +62,6 @@ public final class RestControllerMethod extends BaseRestControllerMethod {
 
     @Override
     public String toString() {
-        return format("?.?", getRestController().getRestControllerClass().getName(), restControllerMethod);
+        return format("?.?", getRestController().getRestControllerClass().getName(), methodName);
     }
 }

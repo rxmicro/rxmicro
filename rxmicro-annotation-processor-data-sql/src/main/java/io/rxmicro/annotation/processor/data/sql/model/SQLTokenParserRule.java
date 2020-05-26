@@ -16,38 +16,20 @@
 
 package io.rxmicro.annotation.processor.data.sql.model;
 
-import io.rxmicro.annotation.processor.common.model.TokenParserRule;
+import com.google.inject.BindingAnnotation;
 
-import java.util.Set;
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
+
+import static java.lang.annotation.ElementType.FIELD;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
  * @author nedis
- * @since 0.1
+ * @since 0.5
  */
-public class SQLTokenParserRule extends TokenParserRule {
-
-    @Override
-    public boolean supportVariables() {
-        return true;
-    }
-
-    @Override
-    protected Set<String> getOperatorTokenDelimiters() {
-        return Set.of(
-                "+", "-", "^", "*", "/", "%",
-                "<", ">", "=", "<>", "!=", "!>", "!<", ">=", "<=",
-                "|"
-        );
-    }
-
-    @Override
-    protected Set<String> getNotOperatorTokenDelimiters() {
-        return Set.of(
-                "(", ")",
-                "{", "}",
-                "[", "]",
-                ",",
-                "."
-        );
-    }
+@BindingAnnotation
+@Retention(RUNTIME)
+@Target(FIELD)
+public @interface SQLTokenParserRule {
 }

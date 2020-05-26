@@ -42,10 +42,11 @@ public final class NumberValidatorsImpl extends AbstractProcessorComponent imple
                               final double value,
                               final Class<? extends Annotation> annotationClass) {
         if (value < Float.MIN_VALUE || value > Float.MAX_VALUE) {
-            error(modelField.getElementAnnotatedBy(annotationClass),
-                    ERROR_MESSAGE_PREFIX +
-                            VALUE_OUT_OF_RANGE_EXPECTED_TEMPLATE,
-                    annotationClass.getSimpleName(), Float.MIN_VALUE, value, Float.MAX_VALUE);
+            error(
+                    modelField.getElementAnnotatedBy(annotationClass),
+                    ERROR_MESSAGE_PREFIX + VALUE_OUT_OF_RANGE_EXPECTED_TEMPLATE,
+                    annotationClass.getSimpleName(), Float.MIN_VALUE, value, Float.MAX_VALUE
+            );
         }
     }
 
@@ -58,10 +59,11 @@ public final class NumberValidatorsImpl extends AbstractProcessorComponent imple
             return false;
         } else if (result.compareTo(BigDecimal.valueOf(Float.MIN_VALUE)) < 0 ||
                 result.compareTo(BigDecimal.valueOf(Float.MAX_VALUE)) > 0) {
-            error(modelField.getElementAnnotatedBy(annotationClass),
-                    ERROR_MESSAGE_PREFIX +
-                            VALUE_OUT_OF_RANGE_EXPECTED_TEMPLATE,
-                    annotationClass.getSimpleName(), Float.MIN_VALUE, value, Float.MAX_VALUE);
+            error(
+                    modelField.getElementAnnotatedBy(annotationClass),
+                    ERROR_MESSAGE_PREFIX + VALUE_OUT_OF_RANGE_EXPECTED_TEMPLATE,
+                    annotationClass.getSimpleName(), Float.MIN_VALUE, value, Float.MAX_VALUE
+            );
             return false;
         } else {
             return true;
@@ -77,10 +79,11 @@ public final class NumberValidatorsImpl extends AbstractProcessorComponent imple
             return false;
         } else if (result.compareTo(BigDecimal.valueOf(Double.MIN_VALUE)) < 0 ||
                 result.compareTo(BigDecimal.valueOf(Double.MAX_VALUE)) > 0) {
-            error(modelField.getElementAnnotatedBy(annotationClass),
-                    ERROR_MESSAGE_PREFIX +
-                            VALUE_OUT_OF_RANGE_EXPECTED_TEMPLATE,
-                    annotationClass.getSimpleName(), Double.MIN_VALUE, value, Double.MAX_VALUE);
+            error(
+                    modelField.getElementAnnotatedBy(annotationClass),
+                    ERROR_MESSAGE_PREFIX + VALUE_OUT_OF_RANGE_EXPECTED_TEMPLATE,
+                    annotationClass.getSimpleName(), Double.MIN_VALUE, value, Double.MAX_VALUE
+            );
             return false;
         } else {
             return true;
@@ -92,10 +95,11 @@ public final class NumberValidatorsImpl extends AbstractProcessorComponent imple
                              final long value,
                              final Class<? extends Annotation> annotationClass) {
         if (value < Byte.MIN_VALUE || value > Byte.MAX_VALUE) {
-            error(modelField.getElementAnnotatedBy(annotationClass),
-                    ERROR_MESSAGE_PREFIX +
-                            VALUE_OUT_OF_RANGE_EXPECTED_TEMPLATE,
-                    annotationClass.getSimpleName(), Byte.MIN_VALUE, value, Byte.MAX_VALUE);
+            error(
+                    modelField.getElementAnnotatedBy(annotationClass),
+                    ERROR_MESSAGE_PREFIX + VALUE_OUT_OF_RANGE_EXPECTED_TEMPLATE,
+                    annotationClass.getSimpleName(), Byte.MIN_VALUE, value, Byte.MAX_VALUE
+            );
         }
     }
 
@@ -108,10 +112,11 @@ public final class NumberValidatorsImpl extends AbstractProcessorComponent imple
             return false;
         } else if (result.compareTo(BigInteger.valueOf(Byte.MIN_VALUE)) < 0 ||
                 result.compareTo(BigInteger.valueOf(Byte.MAX_VALUE)) > 0) {
-            error(modelField.getElementAnnotatedBy(annotationClass),
-                    ERROR_MESSAGE_PREFIX +
-                            VALUE_OUT_OF_RANGE_EXPECTED_TEMPLATE,
-                    annotationClass.getSimpleName(), Byte.MIN_VALUE, value, Byte.MAX_VALUE);
+            error(
+                    modelField.getElementAnnotatedBy(annotationClass),
+                    ERROR_MESSAGE_PREFIX + VALUE_OUT_OF_RANGE_EXPECTED_TEMPLATE,
+                    annotationClass.getSimpleName(), Byte.MIN_VALUE, value, Byte.MAX_VALUE
+            );
             return false;
         } else {
             return true;
@@ -123,10 +128,11 @@ public final class NumberValidatorsImpl extends AbstractProcessorComponent imple
                               final long value,
                               final Class<? extends Annotation> annotationClass) {
         if (value < Short.MIN_VALUE || value > Short.MAX_VALUE) {
-            error(modelField.getElementAnnotatedBy(annotationClass),
-                    ERROR_MESSAGE_PREFIX +
-                            VALUE_OUT_OF_RANGE_EXPECTED_TEMPLATE,
-                    annotationClass.getSimpleName(), Short.MIN_VALUE, value, Short.MAX_VALUE);
+            error(
+                    modelField.getElementAnnotatedBy(annotationClass),
+                    ERROR_MESSAGE_PREFIX + VALUE_OUT_OF_RANGE_EXPECTED_TEMPLATE,
+                    annotationClass.getSimpleName(), Short.MIN_VALUE, value, Short.MAX_VALUE
+            );
         }
     }
 
@@ -139,10 +145,11 @@ public final class NumberValidatorsImpl extends AbstractProcessorComponent imple
             return false;
         } else if (result.compareTo(BigInteger.valueOf(Short.MIN_VALUE)) < 0 ||
                 result.compareTo(BigInteger.valueOf(Short.MAX_VALUE)) > 0) {
-            error(modelField.getElementAnnotatedBy(annotationClass),
-                    ERROR_MESSAGE_PREFIX +
-                            VALUE_OUT_OF_RANGE_EXPECTED_TEMPLATE,
-                    annotationClass.getSimpleName(), Short.MIN_VALUE, value, Short.MAX_VALUE);
+            error(
+                    modelField.getElementAnnotatedBy(annotationClass),
+                    ERROR_MESSAGE_PREFIX + VALUE_OUT_OF_RANGE_EXPECTED_TEMPLATE,
+                    annotationClass.getSimpleName(), Short.MIN_VALUE, value, Short.MAX_VALUE
+            );
             return false;
         } else {
             return true;
@@ -154,10 +161,11 @@ public final class NumberValidatorsImpl extends AbstractProcessorComponent imple
                                 final long value,
                                 final Class<? extends Annotation> annotationClass) {
         if (value < Integer.MIN_VALUE || value > Integer.MAX_VALUE) {
-            error(modelField.getElementAnnotatedBy(annotationClass),
-                    ERROR_MESSAGE_PREFIX +
-                            VALUE_OUT_OF_RANGE_EXPECTED_TEMPLATE,
-                    annotationClass.getSimpleName(), Integer.MIN_VALUE, value, Integer.MAX_VALUE);
+            error(
+                    modelField.getElementAnnotatedBy(annotationClass),
+                    ERROR_MESSAGE_PREFIX + VALUE_OUT_OF_RANGE_EXPECTED_TEMPLATE,
+                    annotationClass.getSimpleName(), Integer.MIN_VALUE, value, Integer.MAX_VALUE
+            );
         }
     }
 
@@ -170,10 +178,11 @@ public final class NumberValidatorsImpl extends AbstractProcessorComponent imple
             return false;
         } else if (result.compareTo(BigInteger.valueOf(Integer.MIN_VALUE)) < 0 ||
                 result.compareTo(BigInteger.valueOf(Integer.MAX_VALUE)) > 0) {
-            error(modelField.getElementAnnotatedBy(annotationClass),
-                    ERROR_MESSAGE_PREFIX +
-                            VALUE_OUT_OF_RANGE_EXPECTED_TEMPLATE,
-                    annotationClass.getSimpleName(), Integer.MIN_VALUE, value, Integer.MAX_VALUE);
+            error(
+                    modelField.getElementAnnotatedBy(annotationClass),
+                    ERROR_MESSAGE_PREFIX + VALUE_OUT_OF_RANGE_EXPECTED_TEMPLATE,
+                    annotationClass.getSimpleName(), Integer.MIN_VALUE, value, Integer.MAX_VALUE
+            );
             return false;
         } else {
             return true;
@@ -189,10 +198,11 @@ public final class NumberValidatorsImpl extends AbstractProcessorComponent imple
             return false;
         } else if (result.compareTo(BigInteger.valueOf(Long.MIN_VALUE)) < 0 ||
                 result.compareTo(BigInteger.valueOf(Long.MAX_VALUE)) > 0) {
-            error(modelField.getElementAnnotatedBy(annotationClass),
-                    ERROR_MESSAGE_PREFIX +
-                            VALUE_OUT_OF_RANGE_EXPECTED_TEMPLATE,
-                    annotationClass.getSimpleName(), Long.MIN_VALUE, value, Long.MAX_VALUE);
+            error(
+                    modelField.getElementAnnotatedBy(annotationClass),
+                    ERROR_MESSAGE_PREFIX + VALUE_OUT_OF_RANGE_EXPECTED_TEMPLATE,
+                    annotationClass.getSimpleName(), Long.MIN_VALUE, value, Long.MAX_VALUE
+            );
             return false;
         } else {
             return true;
@@ -219,8 +229,11 @@ public final class NumberValidatorsImpl extends AbstractProcessorComponent imple
         try {
             return new BigInteger(removeUnderscoresIfPresent(value));
         } catch (final NumberFormatException ignore) {
-            error(modelField.getElementAnnotatedBy(annotationClass), ERROR_MESSAGE_PREFIX +
-                    "Expected an integer number", annotationClass.getSimpleName());
+            error(
+                    modelField.getElementAnnotatedBy(annotationClass),
+                    ERROR_MESSAGE_PREFIX + "Expected an integer number",
+                    annotationClass.getSimpleName()
+            );
             return null;
         }
     }
@@ -231,8 +244,11 @@ public final class NumberValidatorsImpl extends AbstractProcessorComponent imple
         try {
             return new BigDecimal(removeUnderscoresIfPresent(value));
         } catch (final NumberFormatException ignore) {
-            error(modelField.getElementAnnotatedBy(annotationClass), ERROR_MESSAGE_PREFIX +
-                    "Expected a number", annotationClass.getSimpleName());
+            error(
+                    modelField.getElementAnnotatedBy(annotationClass),
+                    ERROR_MESSAGE_PREFIX + "Expected a number",
+                    annotationClass.getSimpleName()
+            );
             return null;
         }
     }

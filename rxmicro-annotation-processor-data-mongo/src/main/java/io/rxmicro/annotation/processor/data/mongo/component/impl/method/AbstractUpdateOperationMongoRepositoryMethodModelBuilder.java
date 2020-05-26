@@ -75,5 +75,4 @@ public abstract class AbstractUpdateOperationMongoRepositoryMethodModelBuilder e
                                           DataRepositoryGeneratorConfig dataRepositoryGeneratorConfig,
                                           DataGenerationContext<MongoDataModelField, MongoDataObjectModelClass> dataGenerationContext);
 
-
 }

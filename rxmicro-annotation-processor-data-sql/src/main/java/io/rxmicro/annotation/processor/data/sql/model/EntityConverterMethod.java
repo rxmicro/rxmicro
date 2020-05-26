@@ -31,7 +31,8 @@ public abstract class EntityConverterMethod implements Comparable<EntityConverte
 
     private final List<String> selectedColumns;
 
-    EntityConverterMethod(final String name, final List<String> selectedColumns) {
+    EntityConverterMethod(final String name,
+                          final List<String> selectedColumns) {
         this.name = require(name);
         this.selectedColumns = require(selectedColumns);
     }

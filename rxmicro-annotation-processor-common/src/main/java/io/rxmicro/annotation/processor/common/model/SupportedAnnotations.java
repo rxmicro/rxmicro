@@ -34,30 +34,30 @@ import static java.util.Collections.unmodifiableSet;
  */
 public final class SupportedAnnotations {
 
-    private final Set<String> supportedAnnotations;
+    private final Set<String> names;
 
-    private final Set<String> supportedAnnotationsWithRepeatable;
+    private final Set<String> namesWithRepeatable;
 
     public SupportedAnnotations(final Set<Class<? extends Annotation>> supportedAnnotationClasses) {
         final Set<String> supportedAnnotations = new TreeSet<>();
-        supportedAnnotationsWithRepeatable = new LinkedHashSet<>();
+        namesWithRepeatable = new LinkedHashSet<>();
         for (final Class<? extends Annotation> annotationClass : supportedAnnotationClasses) {
             supportedAnnotations.add(annotationClass.getName());
-            supportedAnnotationsWithRepeatable.add(annotationClass.getName());
+            namesWithRepeatable.add(annotationClass.getName());
             Optional.ofNullable(getElements().getTypeElement(annotationClass.getName()))
                     .flatMap(annotationElement -> Optional.ofNullable(annotationElement.getAnnotation(Repeatable.class)))
-                    .ifPresent(repeatable -> supportedAnnotationsWithRepeatable.add(
+                    .ifPresent(repeatable -> namesWithRepeatable.add(
                             getRequiredAnnotationClassParameter(repeatable::value).asType().toString())
                     );
         }
-        this.supportedAnnotations = unmodifiableSet(supportedAnnotations);
+        this.names = unmodifiableSet(supportedAnnotations);
     }
 
-    public Set<String> getSupportedAnnotations() {
-        return supportedAnnotations;
+    public Set<String> getNames() {
+        return names;
     }
 
     public boolean isAnnotationSupported(final DeclaredType annotationType) {
-        return supportedAnnotationsWithRepeatable.contains(annotationType.toString());
+        return namesWithRepeatable.contains(annotationType.toString());
     }
 }

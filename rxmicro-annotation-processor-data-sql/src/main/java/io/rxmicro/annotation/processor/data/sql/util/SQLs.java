@@ -26,7 +26,7 @@ import java.util.Set;
  */
 public final class SQLs {
 
-    private static final Set<String> ADD_SPACE_AFTER_TOKENS_BEFORE_PARENTHESES = Set.of("IN", "WHERE", ",");
+    private static final Set<String> ADD_SPACE_AFTER_TOKENS = Set.of("IN", "WHERE", ",");
 
     public static String joinTokensToSQL(final List<String> sqlTokens) {
         final StringBuilder sql = new StringBuilder();
@@ -37,7 +37,7 @@ public final class SQLs {
             } else if (".".equals(token) || ",".equals(token) || ")".equals(token) || "]".equals(token) || "}".equals(token)) {
                 sql.append(token);
             } else if ("(".equals(token)) {
-                if (ADD_SPACE_AFTER_TOKENS_BEFORE_PARENTHESES.contains(prevToken)) {
+                if (ADD_SPACE_AFTER_TOKENS.contains(prevToken)) {
                     sql.append(' ');
                 }
                 sql.append(escape(token));

@@ -20,6 +20,7 @@ import com.google.inject.AbstractModule;
 import com.google.inject.TypeLiteral;
 import com.google.inject.multibindings.Multibinder;
 import io.rxmicro.annotation.processor.common.component.ModelFieldBuilder;
+import io.rxmicro.annotation.processor.common.model.TokenParserRule;
 import io.rxmicro.annotation.processor.common.model.definition.SupportedTypesProvider;
 import io.rxmicro.annotation.processor.data.component.DataClassStructureBuilder;
 import io.rxmicro.annotation.processor.data.component.DataGenerationContextBuilder;
@@ -30,6 +31,7 @@ import io.rxmicro.annotation.processor.data.component.impl.DataGenerationContext
 import io.rxmicro.annotation.processor.data.mongo.component.BsonExpressionBuilder;
 import io.rxmicro.annotation.processor.data.mongo.component.MongoRepositoryMethodModelBuilder;
 import io.rxmicro.annotation.processor.data.mongo.component.impl.BsonExpressionBuilderImpl;
+import io.rxmicro.annotation.processor.data.mongo.component.impl.BsonTokenParserRuleProvider;
 import io.rxmicro.annotation.processor.data.mongo.component.impl.MongoDataModelFieldBuilderImpl;
 import io.rxmicro.annotation.processor.data.mongo.component.impl.MongoDataRepositoryInterfaceSignatureBuilder;
 import io.rxmicro.annotation.processor.data.mongo.component.impl.MongoDataRepositoryMethodSignatureBuilder;
@@ -46,6 +48,7 @@ import io.rxmicro.annotation.processor.data.mongo.component.impl.method.InsertOp
 import io.rxmicro.annotation.processor.data.mongo.component.impl.method.UpdateDocumentOperationMongoRepositoryMethodModelBuilder;
 import io.rxmicro.annotation.processor.data.mongo.component.impl.method.UpdateEntityOperationMongoRepositoryMethodModelBuilder;
 import io.rxmicro.annotation.processor.data.mongo.component.impl.method.UpdateExpressionOperationMongoRepositoryMethodModelBuilder;
+import io.rxmicro.annotation.processor.data.mongo.model.BsonTokenParserRule;
 import io.rxmicro.annotation.processor.data.mongo.model.MongoDataModelField;
 import io.rxmicro.annotation.processor.data.mongo.model.MongoDataObjectModelClass;
 
@@ -57,6 +60,8 @@ import static com.google.inject.multibindings.Multibinder.newSetBinder;
  */
 public final class MongoDependenciesModule extends AbstractModule {
 
+    private final BsonTokenParserRuleProvider bsonTokenParserRuleProvider = new BsonTokenParserRuleProvider();
+
     @Override
     protected void configure() {
         bind(SupportedTypesProvider.class)
@@ -67,6 +72,9 @@ public final class MongoDependenciesModule extends AbstractModule {
                 .to(MongoDataRepositoryInterfaceSignatureBuilder.class);
         bind(BsonExpressionBuilder.class)
                 .to(BsonExpressionBuilderImpl.class);
+        bind(TokenParserRule.class)
+                .annotatedWith(BsonTokenParserRule.class)
+                .toProvider(bsonTokenParserRuleProvider::get);
 
         bindParametrizedClasses();
         bindMethodBodyBuilders();
