@@ -81,4 +81,5 @@ All modules follow the next package structure rules:
     - `detail` - is sub package for generated code by `RxMicro Annotation Processor` use preferably. 
     Developer must not use classes from this sub package!
     *(Except documented abilities: HTTP internal types, partial implementations, etc.)*
-    - any other sub packages and root package - are public API that available for usage..
+    - any other sub packages and root package - are public API that available for usage.
+    
