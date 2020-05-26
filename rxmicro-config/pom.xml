@@ -20,7 +20,7 @@
     <parent>
         <artifactId>rxmicro</artifactId>
         <groupId>io.rxmicro</groupId>
-        <version>0.4.2</version>
+        <version>0.5-SHAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>rxmicro-config</artifactId>
@@ -45,17 +45,17 @@
         <dependency>
             <groupId>io.rxmicro</groupId>
             <artifactId>rxmicro-runtime</artifactId>
-            <version>0.4.2</version>
+            <version>0.5-SHAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>io.rxmicro</groupId>
             <artifactId>rxmicro-files</artifactId>
-            <version>0.4.2</version>
+            <version>0.5-SHAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>io.rxmicro</groupId>
             <artifactId>rxmicro-tool-common</artifactId>
-            <version>0.4.2</version>
+            <version>0.5-SHAPSHOT</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

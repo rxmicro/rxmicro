@@ -20,7 +20,7 @@
     <parent>
         <artifactId>rxmicro</artifactId>
         <groupId>io.rxmicro</groupId>
-        <version>0.4.2</version>
+        <version>0.5-SHAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>rxmicro-annotation-processor-documentation-asciidoctor</artifactId>
@@ -85,22 +85,22 @@
         <dependency>
             <groupId>io.rxmicro</groupId>
             <artifactId>rxmicro-documentation-asciidoctor</artifactId>
-            <version>0.4.2</version>
+            <version>0.5-SHAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>io.rxmicro</groupId>
             <artifactId>rxmicro-annotation-processor-documentation</artifactId>
-            <version>0.4.2</version>
+            <version>0.5-SHAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>io.rxmicro</groupId>
             <artifactId>rxmicro-annotation-processor-rest-server</artifactId>
-            <version>0.4.2</version>
+            <version>0.5-SHAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>io.rxmicro</groupId>
             <artifactId>rxmicro-annotation-processor-integration-test</artifactId>
-            <version>0.4.2</version>
+            <version>0.5-SHAPSHOT</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
