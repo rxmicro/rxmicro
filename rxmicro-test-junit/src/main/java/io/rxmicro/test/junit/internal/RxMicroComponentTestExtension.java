@@ -43,6 +43,7 @@ import java.util.List;
 import static io.rxmicro.config.local.DefaultConfigValueBuilderReSetter.resetDefaultConfigValueStorage;
 import static io.rxmicro.runtime.local.AbstractFactory.clearFactories;
 import static io.rxmicro.runtime.local.InstanceContainer.clearContainer;
+import static io.rxmicro.test.junit.internal.StatelessComponentFactory.getConfigResolver;
 import static io.rxmicro.test.junit.internal.TestObjects.SUPPORTED_TEST_ANNOTATIONS;
 import static io.rxmicro.test.junit.internal.TestObjects.getTestInstances;
 import static io.rxmicro.test.local.UnNamedModuleFixers.componentTestsFix;
@@ -60,14 +61,12 @@ public final class RxMicroComponentTestExtension
         componentTestsFix();
     }
 
-    private final ComponentTestValidator componentTestValidator =
-            new ComponentTestValidator(SUPPORTED_TEST_ANNOTATIONS);
+    private final ComponentTestValidator componentTestValidator = new ComponentTestValidator(SUPPORTED_TEST_ANNOTATIONS);
 
     private final BeforeTestInvoker beforeTestInvoker =
             new BeforeTestInvoker();
 
-    private final ConfigResolver configResolver =
-            new ConfigResolver();
+    private final ConfigResolver configResolver = getConfigResolver();
 
     private TestModel testModel;
 

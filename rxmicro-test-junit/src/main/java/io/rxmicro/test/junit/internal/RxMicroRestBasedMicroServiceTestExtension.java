@@ -56,6 +56,10 @@ import static io.rxmicro.rest.server.local.component.RestServerLauncher.launchWi
 import static io.rxmicro.runtime.local.AbstractFactory.clearFactories;
 import static io.rxmicro.runtime.local.InstanceContainer.clearContainer;
 import static io.rxmicro.test.HttpServers.getRandomFreePort;
+import static io.rxmicro.test.junit.internal.StatelessComponentFactory.getBeforeTestInvoker;
+import static io.rxmicro.test.junit.internal.StatelessComponentFactory.getBlockingHttpClientBuilder;
+import static io.rxmicro.test.junit.internal.StatelessComponentFactory.getConfigResolver;
+import static io.rxmicro.test.junit.internal.StatelessComponentFactory.getServerPortHelper;
 import static io.rxmicro.test.junit.internal.TestObjects.SUPPORTED_TEST_ANNOTATIONS;
 import static io.rxmicro.test.junit.internal.TestObjects.getOwnerTestClass;
 import static io.rxmicro.test.junit.internal.TestObjects.getTestInstances;
@@ -91,17 +95,13 @@ public final class RxMicroRestBasedMicroServiceTestExtension
     private final RestBasedMicroServiceTestValidator restBasedMicroServiceTestValidator =
             new RestBasedMicroServiceTestValidator(SUPPORTED_TEST_ANNOTATIONS);
 
-    private final ServerPortHelper serverPortHelper =
-            new ServerPortHelper();
+    private final ServerPortHelper serverPortHelper = getServerPortHelper();
 
-    private final BlockingHttpClientBuilder blockingHttpClientBuilder =
-            new BlockingHttpClientBuilder();
+    private final BlockingHttpClientBuilder blockingHttpClientBuilder = getBlockingHttpClientBuilder();
 
-    private final BeforeTestInvoker beforeTestInvoker =
-            new BeforeTestInvoker();
+    private final ConfigResolver configResolver = getConfigResolver();
 
-    private final ConfigResolver configResolver =
-            new ConfigResolver();
+    private final BeforeTestInvoker beforeTestInvoker = getBeforeTestInvoker();
 
     private RestControllerInstanceResolver restControllerInstanceResolver;
 

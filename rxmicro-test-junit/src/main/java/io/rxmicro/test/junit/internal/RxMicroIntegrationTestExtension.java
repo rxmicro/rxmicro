@@ -33,6 +33,8 @@ import org.junit.jupiter.api.extension.ExtensionContext;
 
 import java.util.List;
 
+import static io.rxmicro.test.junit.internal.StatelessComponentFactory.getBeforeTestInvoker;
+import static io.rxmicro.test.junit.internal.StatelessComponentFactory.getBlockingHttpClientBuilder;
 import static io.rxmicro.test.junit.internal.TestObjects.SUPPORTED_TEST_ANNOTATIONS;
 import static io.rxmicro.test.junit.internal.TestObjects.getOwnerTestClass;
 import static io.rxmicro.test.junit.internal.TestObjects.getTestInstances;
@@ -50,17 +52,13 @@ public final class RxMicroIntegrationTestExtension
         integrationTestsFix();
     }
 
-    private final TestModelBuilder testModelBuilder =
-            new TestModelBuilder(false);
+    private final TestModelBuilder testModelBuilder = new TestModelBuilder(false);
 
-    private final IntegrationTestValidator integrationTestValidator =
-            new IntegrationTestValidator(SUPPORTED_TEST_ANNOTATIONS);
+    private final IntegrationTestValidator integrationTestValidator = new IntegrationTestValidator(SUPPORTED_TEST_ANNOTATIONS);
 
-    private final BeforeTestInvoker beforeTestInvoker =
-            new BeforeTestInvoker();
+    private final BeforeTestInvoker beforeTestInvoker = getBeforeTestInvoker();
 
-    private final BlockingHttpClientBuilder blockingHttpClientBuilder =
-            new BlockingHttpClientBuilder();
+    private final BlockingHttpClientBuilder blockingHttpClientBuilder = getBlockingHttpClientBuilder();
 
     private BlockingHttpClient blockingHttpClient;
 

@@ -2,6 +2,11 @@
 
 This document contains the *change log* for all RxMicro releases since **0.2**.
 
+## RxMicro v0.5
+
+* Update spotbugs, PMD and checkstyle rules
+* Rename `io.rxmicro.test.junit.BeforeTest` -> `io.rxmicro.test.junit.BeforeThisTest`
+
 ## RxMicro v0.4.2
 
 * Add checkstyle tool to rxmicro project
