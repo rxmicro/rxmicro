@@ -18,7 +18,7 @@ package io.rxmicro.test.junit.internal;
 
 import io.rxmicro.common.CheckedWrapperException;
 import io.rxmicro.test.junit.BeforeIterationMethodSource;
-import io.rxmicro.test.junit.BeforeTest;
+import io.rxmicro.test.junit.BeforeThisTest;
 import io.rxmicro.test.local.InvalidTestConfigException;
 import org.junit.jupiter.api.extension.ExtensionContext;
 
@@ -49,12 +49,12 @@ final class BeforeTestInvoker {
                     method.getDeclaringClass().getSimpleName(),
                     method.getName());
         }
-        final BeforeTest beforeTest = method.getAnnotation(BeforeTest.class);
-        if (beforeTest != null) {
+        final BeforeThisTest beforeThisTest = method.getAnnotation(BeforeThisTest.class);
+        if (beforeThisTest != null) {
             throw new InvalidTestConfigException(
                     "'@?' annotation is redundant for '?.?()' test method. " +
                             "Remove redundant annotation!",
-                    BeforeTest.class.getSimpleName(),
+                    BeforeThisTest.class.getSimpleName(),
                     method.getDeclaringClass().getSimpleName(),
                     method.getName());
         }
@@ -71,17 +71,17 @@ final class BeforeTestInvoker {
             validateRedundantAnnotation(method);
             invokeBeforeMethod(testInstances, beforeIterationMethodSource.methods()[index]);
         } else {
-            final BeforeTest beforeTest = method.getAnnotation(BeforeTest.class);
-            if (beforeTest != null) {
-                invokeBeforeMethod(testInstances, beforeTest.method());
+            final BeforeThisTest beforeThisTest = method.getAnnotation(BeforeThisTest.class);
+            if (beforeThisTest != null) {
+                invokeBeforeMethod(testInstances, beforeThisTest.method());
             }
         }
     }
 
     private void validateRedundantAnnotation(final Method method) {
-        if (method.isAnnotationPresent(BeforeTest.class)) {
+        if (method.isAnnotationPresent(BeforeThisTest.class)) {
             throw new InvalidTestConfigException("Redundant annotation: '@?'. Remove it",
-                    BeforeTest.class.getName());
+                    BeforeThisTest.class.getName());
         }
     }
 

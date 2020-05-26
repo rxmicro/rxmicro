@@ -34,7 +34,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * REST-based microservice tests and component unit tests.</i>)
  *
  * @author nedis
- * @see BeforeTest
+ * @see BeforeThisTest
  * @see org.junit.jupiter.api.BeforeEach
  * @since 0.1
  */

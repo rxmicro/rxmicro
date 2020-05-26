@@ -68,7 +68,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  *         Before starting each test method:
  *         <ul>
  *             <li>
- *                 if necessary, invokes the methods defined using the {@code @}{@link BeforeTest} or
+ *                 if necessary, invokes the methods defined using the {@code @}{@link BeforeThisTest} or
  *                 {@code @}{@link BeforeIterationMethodSource} annotations;
  *             </li>
  *             <li>if necessary, registers the RxMicro component alternatives in the RxMicro container;</li>
