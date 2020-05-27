@@ -53,6 +53,8 @@ module rxmicro.annotation.processor.rest {
             com.google.guice;
     opens io.rxmicro.annotation.processor.rest.component.impl to
             com.google.guice;
+    opens io.rxmicro.annotation.processor.rest.component.impl.builder to
+            com.google.guice;
 
     opens ftl.rest;
 }
