@@ -6,6 +6,18 @@ This document contains the *change log* for all RxMicro releases since **0.2**.
 
 * Update spotbugs, PMD and checkstyle rules
 * Rename `io.rxmicro.test.junit.BeforeTest` -> `io.rxmicro.test.junit.BeforeThisTest`
+* Dependency updates:
+  * netty: 4.1.49.Final -> 4.1.50.Final
+  * rxjava3: 3.0.2 -> 3.0.4
+  * projectreactor: 3.3.4.RELEASE -> 3.3.5.RELEASE
+  * mongodb-driver-reactivestreams: 4.0.2 -> 4.0.3
+  * mongodb-driver-core: 4.0.2 -> 4.0.3
+  * bson: 4.0.2 -> 4.0.3
+  * r2dbc-postgresql: 0.8.1.RELEASE -> 0.8.2.RELEASE
+  * r2dbc-pool: 0.8.1.RELEASE -> 0.8.2.RELEASE
+  
+  * spotbugs: 4.0.2 -> 4.0.3
+  * pmd: 6.23.0 -> 6.24.0
 
 ## RxMicro v0.4.2
 
@@ -39,7 +51,7 @@ This document contains the *change log* for all RxMicro releases since **0.2**.
   * guava: 28.2-jre -> 29.0-jre  
   * junit: 5.6.1 -> 5.6.2
   * netty: 4.1.48.Final -> 4.1.49.Final
-  * rxjava: 3.0.0 -> 3.0.2
+  * rxjava3: 3.0.0 -> 3.0.2
   * mongodb-driver-reactivestreams: 4.0.1 -> 4.0.2
   * mongodb-driver-core: 4.0.1-> 4.0.2
   * bson: 4.0.1 -> 4.0.2
@@ -61,7 +73,7 @@ This document contains the *change log* for all RxMicro releases since **0.2**.
   * junit: 5.6.0 -> 5.6.1
   * mockito: 3.2.4 -> 3.3.3
   * netty: 4.1.44.Final -> 4.1.48.Final
-  * rxjava: 3.0.0 -> 3.0.1
+  * rxjava3: 3.0.0 -> 3.0.1
   * projectreactor: 3.3.2.RELEASE -> 3.3.4.RELEASE
   * mongodb-driver-reactivestreams: 1.13.0 -> 4.0.1
   * mongodb-driver-core: 3.12.1 -> 4.0.1
