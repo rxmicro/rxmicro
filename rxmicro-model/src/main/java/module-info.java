@@ -15,7 +15,7 @@
  */
 
 /**
- * The basic module that provides modelling utils.
+ * The basic module that provides the basic modelling classes and annotations.
  *
  * <p>
  * This module follows the next package structure rules:

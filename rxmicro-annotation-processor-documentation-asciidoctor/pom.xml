@@ -25,6 +25,10 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>rxmicro-annotation-processor-documentation-asciidoctor</artifactId>
 
+    <description>
+        The RxMicro Annotation Processor internal module that generates project documentation in the AsciiDoc format.
+    </description>
+
     <profiles>
         <profile>
             <id>release</id>

@@ -25,6 +25,10 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>rxmicro-annotation-processor-common</artifactId>
 
+    <description>
+        The RxMicro Annotation Processor internal module that contains common components for other generators.
+    </description>
+
     <profiles>
         <profile>
             <id>release</id>

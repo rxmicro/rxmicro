@@ -25,6 +25,10 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>rxmicro-rest</artifactId>
 
+    <description>
+        The basic module that defines basic RxMicro annotations, required when using the REST architecture of building program systems.
+    </description>
+
     <build>
         <plugins>
             <plugin>

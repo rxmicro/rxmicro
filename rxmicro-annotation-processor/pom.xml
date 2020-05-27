@@ -25,6 +25,10 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>rxmicro-annotation-processor</artifactId>
 
+    <description>
+        The RxMicro Annotation Processor main module that contains the annotation processor classes.
+    </description>
+
     <build>
         <plugins>
             <plugin>

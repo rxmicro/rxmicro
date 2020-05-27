@@ -25,6 +25,10 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>rxmicro-netty-native-all</artifactId>
 
+    <description>
+        The Netty native transports for OSX and Linux platforms.
+    </description>
+
     <profiles>
         <profile>
             <id>release</id>

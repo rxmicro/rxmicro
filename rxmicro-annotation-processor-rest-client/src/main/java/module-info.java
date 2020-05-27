@@ -15,7 +15,7 @@
  */
 
 /**
- * The {@code RxMicro Annotation Processor} internal module.
+ * The {@code RxMicro Annotation Processor} internal module that generates REST client components.
  *
  * @author nedis
  * @since 0.1

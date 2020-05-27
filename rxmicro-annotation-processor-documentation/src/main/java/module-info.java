@@ -17,7 +17,7 @@
 import io.rxmicro.annotation.processor.documentation.component.IncludeReferenceSyntaxProvider;
 
 /**
- * The {@code RxMicro Annotation Processor} internal module.
+ * The {@code RxMicro Annotation Processor} internal module that generates common documentation components.
  *
  * @author nedis
  * @since 0.1

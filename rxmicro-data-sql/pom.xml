@@ -25,6 +25,10 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>rxmicro-data-sql</artifactId>
 
+    <description>
+        The basic module to work with dynamic repositories for interaction with relational SQL databases.
+    </description>
+
     <build>
         <plugins>
             <plugin>

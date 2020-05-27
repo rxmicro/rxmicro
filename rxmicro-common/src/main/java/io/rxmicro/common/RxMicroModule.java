@@ -137,7 +137,7 @@ public enum RxMicroModule {
     RX_MICRO_LOGGER_MODULE("rxmicro.logger"),
 
     /**
-     * The basic module that provides modelling utils.
+     * The basic module that provides the basic modelling classes and annotations.
      */
     RX_MICRO_MODEL_MODULE("rxmicro.model"),
 

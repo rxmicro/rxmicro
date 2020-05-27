@@ -25,6 +25,10 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>rxmicro-rest-server-netty</artifactId>
 
+    <description>
+        The module that defines HTTP server implementation based on Netty.
+    </description>
+
     <build>
         <plugins>
             <plugin>

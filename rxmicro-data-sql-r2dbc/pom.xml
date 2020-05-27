@@ -25,6 +25,11 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>rxmicro-data-sql-r2dbc</artifactId>
 
+    <description>
+        The basic module to work with dynamic repositories for interaction with relational SQL databases using
+        the Reactive Relational Database Connectivity (R2DBC).
+    </description>
+
     <build>
         <plugins>
             <plugin>

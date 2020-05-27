@@ -24,6 +24,11 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>rxmicro-tool-common</artifactId>
+
+    <description>
+        The basic module that provides common tools for other modules.
+    </description>
+
     <build>
         <plugins>
             <plugin>

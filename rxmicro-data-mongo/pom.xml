@@ -25,6 +25,10 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>rxmicro-data-mongo</artifactId>
 
+    <description>
+        The module to work with dynamic repositories for interaction with Mongo DB.
+    </description>
+
     <build>
         <plugins>
             <plugin>

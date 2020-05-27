@@ -25,6 +25,10 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>rxmicro-model</artifactId>
 
+    <description>
+        The basic module that provides the basic modelling classes and annotations.
+    </description>
+
     <build>
         <plugins>
             <plugin>

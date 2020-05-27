@@ -25,6 +25,10 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>rxmicro-rest-server</artifactId>
 
+    <description>
+        The basic HTTP server module used to create REST controllers and run REST-based microservices.
+    </description>
+
     <build>
         <plugins>
             <plugin>

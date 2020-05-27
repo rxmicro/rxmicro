@@ -25,6 +25,10 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>rxmicro-config</artifactId>
 
+    <description>
+        The module for flexible configuration of microservice projects to any environment.
+    </description>
+
     <build>
         <plugins>
             <plugin>

@@ -15,7 +15,7 @@
  */
 
 /**
- * The {@code RxMicro Annotation Processor} internal module.
+ * The {@code RxMicro Annotation Processor} internal module that generates PostgreSQL R2DBC repositories.
  *
  * @author nedis
  * @since 0.1

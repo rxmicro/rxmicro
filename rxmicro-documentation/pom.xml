@@ -25,6 +25,10 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>rxmicro-documentation</artifactId>
 
+    <description>
+        The basic module for creation a REST-based microservice documentation.
+    </description>
+
     <build>
         <plugins>
             <plugin>

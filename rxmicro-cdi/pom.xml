@@ -25,6 +25,10 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>rxmicro-cdi</artifactId>
 
+    <description>
+        The module that is an implementation of the Dependency Injection design pattern, that is integrated to the RxMicro framework.
+    </description>
+
     <build>
         <plugins>
             <plugin>

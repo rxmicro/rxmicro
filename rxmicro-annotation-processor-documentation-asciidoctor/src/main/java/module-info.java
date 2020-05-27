@@ -20,7 +20,7 @@ import io.rxmicro.annotation.processor.documentation.component.IncludeReferenceS
 import io.rxmicro.annotation.processor.rest.server.component.AbstractDocumentationModuleClassStructuresBuilder;
 
 /**
- * The {@code RxMicro Annotation Processor} internal module.
+ * The {@code RxMicro Annotation Processor} internal module that generates project documentation in the AsciiDoc format.
  *
  * @author nedis
  * @since 0.1

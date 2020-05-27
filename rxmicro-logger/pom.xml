@@ -25,6 +25,10 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>rxmicro-logger</artifactId>
 
+    <description>
+        The module for logging important events during the work of microservices that is integrated to the RxMicro framework.
+    </description>
+
     <build>
         <plugins>
             <plugin>

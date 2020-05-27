@@ -25,6 +25,10 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>rxmicro-annotation-processor-data-aggregator</artifactId>
 
+    <description>
+        The RxMicro Annotation Processor internal module that generates RepositoryFactoryImpl.
+    </description>
+
     <profiles>
         <profile>
             <id>release</id>

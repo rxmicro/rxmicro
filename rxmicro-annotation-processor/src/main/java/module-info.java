@@ -15,7 +15,7 @@
  */
 
 /**
- * The {@code RxMicro Annotation Processor} main module.
+ * The {@code RxMicro Annotation Processor} main module that contains the annotation processor classes.
  *
  * @author nedis
  * @since 0.1

@@ -25,6 +25,10 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>rxmicro-test</artifactId>
 
+    <description>
+        The basic module designed for test writing using any modern testing framework.
+    </description>
+
     <build>
         <plugins>
             <plugin>

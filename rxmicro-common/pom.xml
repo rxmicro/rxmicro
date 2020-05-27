@@ -25,6 +25,10 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>rxmicro-common</artifactId>
 
+    <description>
+        The common module with base models and useful utils.
+    </description>
+
     <build>
         <plugins>
             <plugin>

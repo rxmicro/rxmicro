@@ -25,6 +25,10 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>rxmicro-annotation-processor-data-sql</artifactId>
 
+    <description>
+        The RxMicro Annotation Processor internal module that generates common SQL components.
+    </description>
+
     <profiles>
         <profile>
             <id>release</id>

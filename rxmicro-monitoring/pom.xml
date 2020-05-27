@@ -25,6 +25,10 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>rxmicro-monitoring</artifactId>
 
+    <description>
+        The module for monitoring of microservices work.
+    </description>
+
     <dependencies>
         <dependency>
             <groupId>io.rxmicro</groupId>
@@ -32,5 +36,4 @@
             <version>0.5-SNAPSHOT</version>
         </dependency>
     </dependencies>
-
 </project>

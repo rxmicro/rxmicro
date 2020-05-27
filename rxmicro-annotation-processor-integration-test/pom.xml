@@ -25,6 +25,10 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>rxmicro-annotation-processor-integration-test</artifactId>
 
+    <description>
+        The internal module for integration tests for the RxMicro framework.
+    </description>
+
     <profiles>
         <profile>
             <id>release</id>

@@ -25,6 +25,10 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>rxmicro-annotation-processor-data-sql-r2dbc</artifactId>
 
+    <description>
+        The RxMicro Annotation Processor internal module that generates common R2DBC components.
+    </description>
+
     <profiles>
         <profile>
             <id>release</id>

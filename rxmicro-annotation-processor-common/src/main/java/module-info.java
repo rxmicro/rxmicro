@@ -15,7 +15,7 @@
  */
 
 /**
- * The {@code RxMicro Annotation Processor} internal module.
+ * The {@code RxMicro Annotation Processor} internal module that contains common components for other generators.
  *
  * @author nedis
  * @since 0.1

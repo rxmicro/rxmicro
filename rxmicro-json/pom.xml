@@ -25,6 +25,10 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>rxmicro-json</artifactId>
 
+    <description>
+        The module for low-level and efficient work with JSON format.
+    </description>
+
     <build>
         <plugins>
             <plugin>
