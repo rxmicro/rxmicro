@@ -14,7 +14,6 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   -->
-
 <!-- https://spotbugs.readthedocs.io/en/stable/filter.html -->
 <FindBugsFilter
         xmlns="https://github.com/spotbugs/filter/3.0.0"
