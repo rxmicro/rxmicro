@@ -16,6 +16,7 @@
 
 package io.rxmicro.rest.server.local.component;
 
+import io.rxmicro.http.error.HttpErrorException;
 import io.rxmicro.rest.model.HttpCallFailedException;
 import io.rxmicro.rest.server.detail.model.HttpResponse;
 
@@ -28,6 +29,9 @@ public interface HttpErrorResponseBodyBuilder {
     HttpResponse build(HttpResponse emptyResponse,
                        int status,
                        String message);
+
+    HttpResponse build(HttpResponse emptyResponse,
+                       HttpErrorException httpErrorException);
 
     HttpResponse build(HttpResponse emptyResponse,
                        HttpCallFailedException exception);

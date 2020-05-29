@@ -16,6 +16,7 @@
 
 package io.rxmicro.rest.server.exchange.json.internal;
 
+import io.rxmicro.http.error.HttpErrorException;
 import io.rxmicro.json.JsonException;
 import io.rxmicro.json.JsonHelper;
 import io.rxmicro.rest.model.HttpCallFailedException;
@@ -23,6 +24,7 @@ import io.rxmicro.rest.server.detail.model.HttpResponse;
 import io.rxmicro.rest.server.local.component.HttpErrorResponseBodyBuilder;
 
 import java.util.Map;
+import java.util.Optional;
 
 import static io.rxmicro.common.Constants.RX_MICRO_FRAMEWORK_NAME;
 import static io.rxmicro.exchange.json.Constants.CONTENT_TYPE_APPLICATION_JSON;
@@ -46,6 +48,18 @@ public final class JsonHttpErrorResponseBodyBuilder implements HttpErrorResponse
         emptyResponse.setStatus(status);
         emptyResponse.setHeader(CONTENT_TYPE, CONTENT_TYPE_APPLICATION_JSON);
         emptyResponse.setContent(createErrorJson(String.valueOf(message)));
+        return emptyResponse;
+    }
+
+    @Override
+    public HttpResponse build(final HttpResponse emptyResponse,
+                              final HttpErrorException httpErrorException) {
+        emptyResponse.setStatus(httpErrorException.getStatusCode());
+        final Optional<Map<String, Object>> responseData = httpErrorException.getResponseData();
+        if(responseData.isPresent()){
+            emptyResponse.setHeader(CONTENT_TYPE, CONTENT_TYPE_APPLICATION_JSON);
+            emptyResponse.setContent(toJsonString(responseData.get()));
+        }
         return emptyResponse;
     }
 

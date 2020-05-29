@@ -2,6 +2,10 @@
 
 This document contains the *change log* for all RxMicro releases since **0.2**.
 
+## RxMicro v0.6
+
+* Add an ability to customize the standard error response
+
 ## RxMicro v0.5
 
 * Update spotbugs, PMD and checkstyle rules

@@ -19,6 +19,9 @@ package io.rxmicro.http.error;
 import io.rxmicro.common.RxMicroException;
 import io.rxmicro.common.util.Formats;
 
+import java.util.Map;
+import java.util.Optional;
+
 /**
  * Base exception for all not success HTTP response statuses.
  *
@@ -67,7 +70,7 @@ import io.rxmicro.common.util.Formats;
  * @author nedis
  * @since 0.1
  */
-public class HttpErrorException extends RxMicroException {
+public abstract class HttpErrorException extends RxMicroException {
 
     private static final int MIN_SUPPORTED_INFORMATIONAL_CODE = 100;
 
@@ -105,8 +108,8 @@ public class HttpErrorException extends RxMicroException {
      * @param message the error message
      * @throws NullPointerException if the error message is {@code null}
      */
-    public HttpErrorException(final int statusCode,
-                              final String message) {
+    protected HttpErrorException(final int statusCode,
+                                 final String message) {
         super(false, false, message);
         this.statusCode = statusCode;
     }
@@ -130,9 +133,9 @@ public class HttpErrorException extends RxMicroException {
      * @throws NullPointerException if the error message template is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    public HttpErrorException(final int statusCode,
-                              final String message,
-                              final Object... args) {
+    protected HttpErrorException(final int statusCode,
+                                 final String message,
+                                 final Object... args) {
         super(false, false, message, args);
         this.statusCode = statusCode;
     }
@@ -149,7 +152,7 @@ public class HttpErrorException extends RxMicroException {
      *
      * @param statusCode the status code
      */
-    public HttpErrorException(final int statusCode) {
+    protected HttpErrorException(final int statusCode) {
         super(false, false);
         this.statusCode = statusCode;
     }
@@ -206,5 +209,21 @@ public class HttpErrorException extends RxMicroException {
      */
     public final boolean isServerErrorCode() {
         return statusCode >= MIN_SUPPORTED_SERVER_ERROR_CODE && statusCode < MAX_SUPPORTED_SERVER_ERROR_CODE;
+    }
+
+    /**
+     * Returns the {@link Optional} of the response data.
+     *
+     * <p>
+     * If exception message set, this method returns {@code Map.of("message", message)}, otherwise returns {@link Optional#empty()}.
+     *
+     * <p>
+     * Sub classes can provide custom response.
+     *
+     * @return the {@link Optional} of the response data
+     * @since 0.6
+     */
+    public Optional<Map<String, Object>> getResponseData() {
+        return Optional.ofNullable(getMessage()).map(message -> Map.of("message", message));
     }
 }

@@ -59,23 +59,13 @@ public final class AnyHttpErrorHttpResponseBuilder {
             if (hideInternalErrorMessage) {
                 return httpErrorResponseBodyBuilder.build(response, ex.getStatusCode(), getErrorMessage(ex.getStatusCode()));
             } else {
-                return buildHttpResponse(response, ex);
+                return httpErrorResponseBodyBuilder.build(response, ex);
             }
         } else {
             if (logNotServerErrors) {
                 LOGGER.error("HTTP error: status=?, message=?, class=?", ex.getStatusCode(), ex.getMessage(), ex.getClass().getName());
             }
-            return buildHttpResponse(response, ex);
-        }
-    }
-
-    private HttpResponse buildHttpResponse(final HttpResponse response,
-                                           final HttpErrorException ex) {
-        if (ex.getMessage() == null) {
-            response.setStatus(ex.getStatusCode());
-            return response;
-        } else {
-            return httpErrorResponseBodyBuilder.build(response, ex.getStatusCode(), ex.getMessage());
+            return httpErrorResponseBodyBuilder.build(response, ex);
         }
     }
 }
