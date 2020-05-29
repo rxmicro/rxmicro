@@ -92,7 +92,6 @@ final class BaseRestControllerMethod_Throwable_IntegrationTest extends AbstractB
             final String expectedMessage,
             final Throwable throwable) {
         when(request.getHeaders()).thenReturn(httpHeaders);
-        when(httpResponseBuilder.build()).thenReturn(httpResponse);
         when(httpErrorResponseBodyBuilder.build(any(), anyInt(), anyString())).thenReturn(httpResponse);
         when(restServerConfig.isHideInternalErrorMessage()).thenReturn(hideInternalErrorMessage);
 
@@ -100,11 +99,10 @@ final class BaseRestControllerMethod_Throwable_IntegrationTest extends AbstractB
                 "",
                 false,
                 func);
-        //setFieldValue(ThrowableHttpResponseBuilder.class, "LOGGER", logger);
         final HttpResponse actualResponse = method.call(pathVariableMapping, request).toCompletableFuture().join();
 
         assertSame(httpResponse, actualResponse);
-        verify(httpErrorResponseBodyBuilder).build(httpResponse, InternalHttpErrorException.STATUS_CODE, expectedMessage);
+        verify(httpErrorResponseBodyBuilder).build(httpResponseBuilder, InternalHttpErrorException.STATUS_CODE, expectedMessage);
         verify(httpResponse, never()).setHeader(eq(ACCESS_CONTROL_ALLOW_ORIGIN), anyString());
         verify(logger).error(throwable, "Internal server error: ?", throwable.getMessage());
     }
@@ -112,13 +110,13 @@ final class BaseRestControllerMethod_Throwable_IntegrationTest extends AbstractB
     @ParameterizedTest
     @ArgumentsSource(ThrowAnyExceptionArgumentsProvider.class)
     @Order(2)
+    @SuppressWarnings("unused")
     void Should_return_InternalServerError_response_without_body(
             final BiFunction<PathVariableMapping, HttpRequest, CompletionStage<HttpResponse>> func,
             final boolean hideInternalErrorMessage,
             final String expectedMessage,
             final Throwable throwable) {
         when(request.getHeaders()).thenReturn(httpHeaders);
-        when(httpResponseBuilder.build()).thenReturn(httpResponse);
         when(httpErrorResponseBodyBuilder.build(any(), anyInt(), anyString())).thenReturn(httpResponse);
         when(restServerConfig.isHideInternalErrorMessage()).thenReturn(hideInternalErrorMessage);
 
@@ -126,7 +124,6 @@ final class BaseRestControllerMethod_Throwable_IntegrationTest extends AbstractB
                 "",
                 false,
                 func);
-        //setFieldValue(ThrowableHttpResponseBuilder.class, "LOGGER", logger);
         final HttpResponse actualResponse = method.call(pathVariableMapping, request).toCompletableFuture().join();
 
         assertSame(httpResponse, actualResponse);

@@ -90,8 +90,7 @@ final class BaseRestControllerMethod_HttpCallFailedException_IntegrationTest ext
             final BiFunction<PathVariableMapping, HttpRequest, CompletionStage<HttpResponse>> func,
             final HttpCallFailedException httpCallFailedException) {
         when(request.getHeaders()).thenReturn(httpHeaders);
-        when(httpResponseBuilder.build(false)).thenReturn(httpResponse);
-        when(httpErrorResponseBodyBuilder.build(httpResponse, httpCallFailedException)).thenReturn(httpResponse);
+        when(httpErrorResponseBodyBuilder.build(httpResponseBuilder, httpCallFailedException)).thenReturn(httpResponse);
         when(httpErrorResponseBodyBuilder.isRxMicroError(httpCallFailedException)).thenReturn(true);
 
         final BaseRestControllerMethod method = build(
@@ -115,8 +114,7 @@ final class BaseRestControllerMethod_HttpCallFailedException_IntegrationTest ext
             final BiFunction<PathVariableMapping, HttpRequest, CompletionStage<HttpResponse>> func,
             final HttpCallFailedException httpCallFailedException) {
         when(request.getHeaders()).thenReturn(httpHeaders);
-        when(httpResponseBuilder.build(false)).thenReturn(httpResponse);
-        when(httpErrorResponseBodyBuilder.build(httpResponse, httpCallFailedException)).thenReturn(httpResponse);
+        when(httpErrorResponseBodyBuilder.build(httpResponseBuilder, httpCallFailedException)).thenReturn(httpResponse);
         when(httpErrorResponseBodyBuilder.isRxMicroError(httpCallFailedException)).thenReturn(true);
 
         final BaseRestControllerMethod method = build(
@@ -139,8 +137,7 @@ final class BaseRestControllerMethod_HttpCallFailedException_IntegrationTest ext
     void Should_return_Internal_Server_error(
             final BiFunction<PathVariableMapping, HttpRequest, CompletionStage<HttpResponse>> func) {
         when(request.getHeaders()).thenReturn(httpHeaders);
-        when(httpResponseBuilder.build()).thenReturn(httpResponse);
-        when(httpErrorResponseBodyBuilder.build(httpResponse, 500, "Internal Server Error")).thenReturn(httpResponse);
+        when(httpErrorResponseBodyBuilder.build(httpResponseBuilder, 500, "Internal Server Error")).thenReturn(httpResponse);
         when(restServerConfig.isHideInternalErrorMessage()).thenReturn(true);
 
         final BaseRestControllerMethod method = build(
@@ -163,9 +160,8 @@ final class BaseRestControllerMethod_HttpCallFailedException_IntegrationTest ext
     void Should_return_Server_Error_message_for_not_RxMicro_errors(
             final BiFunction<PathVariableMapping, HttpRequest, CompletionStage<HttpResponse>> func) {
         when(request.getHeaders()).thenReturn(httpHeaders);
-        when(httpResponseBuilder.build()).thenReturn(httpResponse);
         when(httpErrorResponseBodyBuilder.build(
-                httpResponse,
+                httpResponseBuilder,
                 500,
                 format("500 HTTP/1.1\nHeader1: value1\n\n<body>"))
         ).thenReturn(httpResponse);
@@ -190,9 +186,8 @@ final class BaseRestControllerMethod_HttpCallFailedException_IntegrationTest ext
     void Should_return_Client_Error_message_for_not_RxMicro_errors(
             final BiFunction<PathVariableMapping, HttpRequest, CompletionStage<HttpResponse>> func) {
         when(request.getHeaders()).thenReturn(httpHeaders);
-        when(httpResponseBuilder.build()).thenReturn(httpResponse);
         when(httpErrorResponseBodyBuilder.build(
-                httpResponse,
+                httpResponseBuilder,
                 400,
                 format("400 HTTP/1.1\nHeader1: value1\n\n<body>"))
         ).thenReturn(httpResponse);

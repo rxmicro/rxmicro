@@ -276,9 +276,10 @@ final class NettyRequestHandler extends SimpleChannelInboundHandler<FullHttpRequ
                 ctx.channel().remoteAddress()
         );
         final NettyHttpResponse errorResponse = (NettyHttpResponse) responseContentBuilder.build(
-                responseBuilder.build(),
+                responseBuilder,
                 HttpResponseStatus.INTERNAL_SERVER_ERROR.code(),
-                "Internal error");
+                "Internal error"
+        );
         writeAndFlush(ctx, requestId, "", startTime, keepAlive, errorResponse);
         return null;
     }

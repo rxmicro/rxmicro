@@ -52,17 +52,16 @@ public final class ThrowableHttpResponseBuilder {
 
     public HttpResponse build(final Throwable throwable) {
         LOGGER.error(throwable, "Internal server error: ?", throwable.getMessage());
-        final HttpResponse response = httpResponseBuilder.build();
         if (hideInternalErrorMessage) {
             return httpErrorResponseBodyBuilder.build(
-                    response,
+                    httpResponseBuilder,
                     INTERNAL_ERROR_STATUS_CODE,
                     getErrorMessage(INTERNAL_ERROR_STATUS_CODE)
             );
         } else {
             final String message = throwable.getMessage();
             return httpErrorResponseBodyBuilder.build(
-                    response,
+                    httpResponseBuilder,
                     INTERNAL_ERROR_STATUS_CODE,
                     message != null ? message : throwable.getClass().getSimpleName()
             );

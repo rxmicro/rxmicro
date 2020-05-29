@@ -53,17 +53,15 @@ public final class HttpCallFailedHttpResponseBuilder {
             LOGGER.error("Http call failed: ?", exception.getMessage());
         }
         if (httpErrorResponseBodyBuilder.isRxMicroError(exception)) {
-            final HttpResponse response = httpResponseBuilder.build(false);
-            return httpErrorResponseBodyBuilder.build(response, exception);
+            return httpErrorResponseBodyBuilder.build(httpResponseBuilder, exception);
         } else {
-            final HttpResponse response = httpResponseBuilder.build();
             final String message;
             if (hideInternalErrorMessage && exception.isServerErrorCode()) {
                 message = getErrorMessage(exception.getStatusCode());
             } else {
                 message = exception.getMessage();
             }
-            return httpErrorResponseBodyBuilder.build(response, exception.getStatusCode(), message);
+            return httpErrorResponseBodyBuilder.build(httpResponseBuilder, exception.getStatusCode(), message);
         }
     }
 }

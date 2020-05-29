@@ -17,6 +17,7 @@
 package io.rxmicro.rest.server.internal;
 
 import io.rxmicro.http.HttpHeaders;
+import io.rxmicro.http.error.HttpErrorException;
 import io.rxmicro.http.error.InternalHttpErrorException;
 import io.rxmicro.logger.Logger;
 import io.rxmicro.rest.model.PathVariableMapping;
@@ -63,6 +64,8 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 final class BaseRestControllerMethod_ServerHttpErrorException_IntegrationTest extends AbstractBaseRestControllerMethodTest {
 
+    private static final InternalHttpErrorException INTERNAL_HTTP_ERROR_EXCEPTION = new InternalHttpErrorException("Not implemented yet");
+
     @Mock
     private PathVariableMapping pathVariableMapping;
 
@@ -86,15 +89,11 @@ final class BaseRestControllerMethod_ServerHttpErrorException_IntegrationTest ex
     @ParameterizedTest
     @ArgumentsSource(ThrowServerHttpErrorExceptionArgumentsProvider.class)
     @Order(1)
-    void Should_return_InternalServerError_response(
-            final BiFunction<PathVariableMapping, HttpRequest, CompletionStage<HttpResponse>> func,
-            final boolean hideInternalErrorMessage,
-            final String expectedResponseMessage,
-            final String expectedLoggerMessage) {
+    void Should_return_InternalServerError_response_with_hidden_cause(
+            final BiFunction<PathVariableMapping, HttpRequest, CompletionStage<HttpResponse>> func) {
         when(request.getHeaders()).thenReturn(httpHeaders);
-        when(httpResponseBuilder.build()).thenReturn(httpResponse);
         when(httpErrorResponseBodyBuilder.build(any(), anyInt(), anyString())).thenReturn(httpResponse);
-        when(restServerConfig.isHideInternalErrorMessage()).thenReturn(hideInternalErrorMessage);
+        when(restServerConfig.isHideInternalErrorMessage()).thenReturn(true);
 
         final BaseRestControllerMethod method = build(
                 "",
@@ -103,9 +102,30 @@ final class BaseRestControllerMethod_ServerHttpErrorException_IntegrationTest ex
         final HttpResponse actualResponse = method.call(pathVariableMapping, request).toCompletableFuture().join();
 
         assertSame(httpResponse, actualResponse);
-        verify(httpErrorResponseBodyBuilder).build(httpResponse, InternalHttpErrorException.STATUS_CODE, expectedResponseMessage);
+        verify(httpErrorResponseBodyBuilder).build(httpResponseBuilder, InternalHttpErrorException.STATUS_CODE, "Internal Server Error");
         verify(httpResponse, never()).setHeader(eq(ACCESS_CONTROL_ALLOW_ORIGIN), anyString());
-        verify(logger).error("HTTP server error: ?", expectedLoggerMessage);
+        verify(logger).error("HTTP server error: ?", INTERNAL_HTTP_ERROR_EXCEPTION.getMessage());
+    }
+
+    @ParameterizedTest
+    @ArgumentsSource(ThrowServerHttpErrorExceptionArgumentsProvider.class)
+    @Order(2)
+    void Should_return_InternalServerError_response_with_detailed_cause(
+            final BiFunction<PathVariableMapping, HttpRequest, CompletionStage<HttpResponse>> func) {
+        when(request.getHeaders()).thenReturn(httpHeaders);
+        when(httpErrorResponseBodyBuilder.build(any(), any(HttpErrorException.class))).thenReturn(httpResponse);
+        when(restServerConfig.isHideInternalErrorMessage()).thenReturn(false);
+
+        final BaseRestControllerMethod method = build(
+                "",
+                false,
+                func);
+        final HttpResponse actualResponse = method.call(pathVariableMapping, request).toCompletableFuture().join();
+
+        assertSame(httpResponse, actualResponse);
+        verify(httpErrorResponseBodyBuilder).build(httpResponseBuilder, INTERNAL_HTTP_ERROR_EXCEPTION);
+        verify(httpResponse, never()).setHeader(eq(ACCESS_CONTROL_ALLOW_ORIGIN), anyString());
+        verify(logger).error("HTTP server error: ?", INTERNAL_HTTP_ERROR_EXCEPTION.getMessage());
     }
 
     /**
@@ -115,42 +135,18 @@ final class BaseRestControllerMethod_ServerHttpErrorException_IntegrationTest ex
     @SuppressWarnings("CodeBlock2Expr")
     private static class ThrowServerHttpErrorExceptionArgumentsProvider implements ArgumentsProvider {
 
-        private static final InternalHttpErrorException INTERNAL_HTTP_ERROR_EXCEPTION = new InternalHttpErrorException("Not implemented yet");
-
         @Override
         public Stream<? extends Arguments> provideArguments(final ExtensionContext extensionContext) {
             return Stream.of(
                     arguments(
                             (BiFunction<PathVariableMapping, HttpRequest, CompletionStage<HttpResponse>>) (pathVariableMapping, httpRequest) -> {
                                 throw INTERNAL_HTTP_ERROR_EXCEPTION;
-                            },
-                            false,
-                            "Not implemented yet",
-                            "Not implemented yet"
+                            }
                     ),
                     arguments(
                             (BiFunction<PathVariableMapping, HttpRequest, CompletionStage<HttpResponse>>) (pathVariableMapping, httpRequest) -> {
                                 return failedStage(INTERNAL_HTTP_ERROR_EXCEPTION);
-                            },
-                            false,
-                            "Not implemented yet",
-                            "Not implemented yet"
-                    ),
-                    arguments(
-                            (BiFunction<PathVariableMapping, HttpRequest, CompletionStage<HttpResponse>>) (pathVariableMapping, httpRequest) -> {
-                                throw INTERNAL_HTTP_ERROR_EXCEPTION;
-                            },
-                            true,
-                            "Internal Server Error",
-                            "Not implemented yet"
-                    ),
-                    arguments(
-                            (BiFunction<PathVariableMapping, HttpRequest, CompletionStage<HttpResponse>>) (pathVariableMapping, httpRequest) -> {
-                                return failedStage(INTERNAL_HTTP_ERROR_EXCEPTION);
-                            },
-                            true,
-                            "Internal Server Error",
-                            "Not implemented yet"
+                            }
                     )
             );
         }

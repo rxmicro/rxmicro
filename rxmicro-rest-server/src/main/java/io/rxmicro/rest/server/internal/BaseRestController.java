@@ -41,7 +41,7 @@ public abstract class BaseRestController {
     }
 
     protected final HttpResponse notFound(final String message) {
-        return httpErrorResponseBodyBuilder.build(httpResponseBuilder.build(), DEFAULT_NOT_FOUND_STATUS_CODE, message);
+        return httpErrorResponseBodyBuilder.build(httpResponseBuilder, DEFAULT_NOT_FOUND_STATUS_CODE, message);
     }
 
     public abstract Class<?> getRestControllerClass();

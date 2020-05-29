@@ -80,14 +80,14 @@ public final class Router implements DynamicRestControllerRegistrar, RequestHand
         this.requestMappingKeyBuilder = componentResolver.getRequestMappingKeyBuilder();
         this.handlerNotFoundStage = completedStage(
                 componentResolver.getHttpErrorResponseBodyBuilder().build(
-                        componentResolver.getHttpResponseBuilder().build(),
+                        componentResolver.getHttpResponseBuilder(),
                         componentResolver.getRestServerConfig().getHandlerNotFoundErrorStatusCode(),
                         componentResolver.getRestServerConfig().getHandlerNotFoundErrorMessage()
                 )
         );
         this.corsNotAllowedStage = completedStage(
                 componentResolver.getHttpErrorResponseBodyBuilder().build(
-                        componentResolver.getHttpResponseBuilder().build(),
+                        componentResolver.getHttpResponseBuilder(),
                         componentResolver.getRestServerConfig().getCorsNotAllowedErrorStatusCode(),
                         componentResolver.getRestServerConfig().getCorsNotAllowedErrorMessage()
                 )
@@ -98,12 +98,10 @@ public final class Router implements DynamicRestControllerRegistrar, RequestHand
     public void register(final AbstractRestController restController,
                          final Registration... registrations) {
         if (registrations.length == 0) {
-            throw new ConfigException("'?' does not have request mapping",
-                    restController.getRestControllerClass());
+            throw new ConfigException("'?' does not have request mapping", restController.getRestControllerClass());
         }
         if (registeredRestControllers.contains(restController)) {
-            throw new ConfigException("'?' already registered",
-                    restController.getRestControllerClass());
+            throw new ConfigException("'?' already registered", restController.getRestControllerClass());
         }
         injectDependencies(restController);
         registeredRestControllers.add(restController);
@@ -132,13 +130,10 @@ public final class Router implements DynamicRestControllerRegistrar, RequestHand
                     throw new ConfigException("Request mapping '?' not unique", requestMapping);
                 }
                 if (requestMapping.isExactUrlRequestMappingRule()) {
-                    final String requestMappingKey = requestMappingKeyBuilder.build(
-                            (ExactUrlRequestMappingRule) requestMapping
-                    );
+                    final String requestMappingKey = requestMappingKeyBuilder.build((ExactUrlRequestMappingRule) requestMapping);
                     exactUrlRestControllerMap.put(requestMappingKey, method);
                 } else {
-                    urlTemplateRestControllers.add(
-                            entry((UrlTemplateRequestMappingRule) requestMapping, method));
+                    urlTemplateRestControllers.add(entry((UrlTemplateRequestMappingRule) requestMapping, method));
                 }
                 LOGGER.debug("Mapped ? onto ?", () -> requestMapping, method::toString);
             });

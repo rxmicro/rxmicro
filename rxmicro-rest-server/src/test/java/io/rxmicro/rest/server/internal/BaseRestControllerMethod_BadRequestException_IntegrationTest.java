@@ -17,6 +17,7 @@
 package io.rxmicro.rest.server.internal;
 
 import io.rxmicro.http.HttpHeaders;
+import io.rxmicro.http.error.HttpErrorException;
 import io.rxmicro.http.error.ValidationException;
 import io.rxmicro.logger.Logger;
 import io.rxmicro.rest.model.PathVariableMapping;
@@ -46,7 +47,6 @@ import static java.util.concurrent.CompletableFuture.failedStage;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.never;
@@ -86,12 +86,9 @@ final class BaseRestControllerMethod_BadRequestException_IntegrationTest extends
     @ParameterizedTest
     @ArgumentsSource(ThrowValidationExceptionArgumentsProvider.class)
     @Order(1)
-    void Should_return_BadRequestError_response(
-            final BiFunction<PathVariableMapping, HttpRequest, CompletionStage<HttpResponse>> func,
-            final String expectedResponseMessage) {
+    void Should_return_BadRequestError_response(final BiFunction<PathVariableMapping, HttpRequest, CompletionStage<HttpResponse>> func) {
         when(request.getHeaders()).thenReturn(httpHeaders);
-        when(httpResponseBuilder.build()).thenReturn(httpResponse);
-        when(httpErrorResponseBodyBuilder.build(any(), anyInt(), anyString())).thenReturn(httpResponse);
+        when(httpErrorResponseBodyBuilder.build(any(), any(HttpErrorException.class))).thenReturn(httpResponse);
         when(restServerConfig.isLogNotServerErrors()).thenReturn(true);
 
         final BaseRestControllerMethod method = build(
@@ -101,7 +98,7 @@ final class BaseRestControllerMethod_BadRequestException_IntegrationTest extends
         final HttpResponse actualResponse = method.call(pathVariableMapping, request).toCompletableFuture().join();
 
         assertSame(httpResponse, actualResponse);
-        verify(httpErrorResponseBodyBuilder).build(httpResponse, ValidationException.STATUS_CODE, expectedResponseMessage);
+        verify(httpErrorResponseBodyBuilder).build(httpResponseBuilder, ThrowValidationExceptionArgumentsProvider.VALIDATION_EXCEPTION);
         verify(httpResponse, never()).setHeader(eq(ACCESS_CONTROL_ALLOW_ORIGIN), anyString());
         verify(logger).error(
                 "HTTP error: status=?, message=?, class=?",
@@ -124,14 +121,12 @@ final class BaseRestControllerMethod_BadRequestException_IntegrationTest extends
                     arguments(
                             (BiFunction<PathVariableMapping, HttpRequest, CompletionStage<HttpResponse>>) (pathVariableMapping, httpRequest) -> {
                                 throw VALIDATION_EXCEPTION;
-                            },
-                            "'name' is required"
+                            }
                     ),
                     arguments(
                             (BiFunction<PathVariableMapping, HttpRequest, CompletionStage<HttpResponse>>) (pathVariableMapping, httpRequest) -> {
                                 return failedStage(VALIDATION_EXCEPTION);
-                            },
-                            "'name' is required"
+                            }
                     )
             );
         }

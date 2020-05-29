@@ -53,19 +53,18 @@ public final class AnyHttpErrorHttpResponseBuilder {
     }
 
     public HttpResponse build(final HttpErrorException ex) {
-        final HttpResponse response = httpResponseBuilder.build();
         if (ex.isServerErrorCode()) {
             LOGGER.error("HTTP server error: ?", ex.getMessage());
             if (hideInternalErrorMessage) {
-                return httpErrorResponseBodyBuilder.build(response, ex.getStatusCode(), getErrorMessage(ex.getStatusCode()));
+                return httpErrorResponseBodyBuilder.build(httpResponseBuilder, ex.getStatusCode(), getErrorMessage(ex.getStatusCode()));
             } else {
-                return httpErrorResponseBodyBuilder.build(response, ex);
+                return httpErrorResponseBodyBuilder.build(httpResponseBuilder, ex);
             }
         } else {
             if (logNotServerErrors) {
                 LOGGER.error("HTTP error: status=?, message=?, class=?", ex.getStatusCode(), ex.getMessage(), ex.getClass().getName());
             }
-            return httpErrorResponseBodyBuilder.build(response, ex);
+            return httpErrorResponseBodyBuilder.build(httpResponseBuilder, ex);
         }
     }
 }

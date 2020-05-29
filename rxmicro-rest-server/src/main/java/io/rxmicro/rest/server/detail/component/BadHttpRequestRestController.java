@@ -64,7 +64,7 @@ public final class BadHttpRequestRestController extends AbstractRestController {
     protected void postConstruct() {
         badHttpRequestStage = completedStage(
                 httpErrorResponseBodyBuilder.build(
-                        httpResponseBuilder.build(),
+                        httpResponseBuilder,
                         DEFAULT_BAD_REQUEST_STATUS_CODE,
                         "Current message is not a HTTP request!"
                 )

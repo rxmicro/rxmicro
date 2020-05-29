@@ -20,6 +20,7 @@ import io.rxmicro.http.error.HttpErrorException;
 import io.rxmicro.json.JsonException;
 import io.rxmicro.json.JsonHelper;
 import io.rxmicro.rest.model.HttpCallFailedException;
+import io.rxmicro.rest.server.detail.component.HttpResponseBuilder;
 import io.rxmicro.rest.server.detail.model.HttpResponse;
 import io.rxmicro.rest.server.local.component.HttpErrorResponseBodyBuilder;
 
@@ -42,37 +43,40 @@ import static io.rxmicro.rest.server.exchange.json.local.Constants.MESSAGE;
 public final class JsonHttpErrorResponseBodyBuilder implements HttpErrorResponseBodyBuilder {
 
     @Override
-    public HttpResponse build(final HttpResponse emptyResponse,
+    public HttpResponse build(final HttpResponseBuilder httpResponseBuilder,
                               final int status,
                               final String message) {
-        emptyResponse.setStatus(status);
-        emptyResponse.setHeader(CONTENT_TYPE, CONTENT_TYPE_APPLICATION_JSON);
-        emptyResponse.setContent(createErrorJson(String.valueOf(message)));
-        return emptyResponse;
+        final HttpResponse response = httpResponseBuilder.build();
+        response.setStatus(status);
+        response.setHeader(CONTENT_TYPE, CONTENT_TYPE_APPLICATION_JSON);
+        response.setContent(createErrorJson(String.valueOf(message)));
+        return response;
     }
 
     @Override
-    public HttpResponse build(final HttpResponse emptyResponse,
-                              final HttpErrorException httpErrorException) {
-        emptyResponse.setStatus(httpErrorException.getStatusCode());
-        final Optional<Map<String, Object>> responseData = httpErrorException.getResponseData();
-        if(responseData.isPresent()){
-            emptyResponse.setHeader(CONTENT_TYPE, CONTENT_TYPE_APPLICATION_JSON);
-            emptyResponse.setContent(toJsonString(responseData.get()));
+    public HttpResponse build(final HttpResponseBuilder httpResponseBuilder,
+                              final HttpErrorException exception) {
+        final HttpResponse response = httpResponseBuilder.build();
+        response.setStatus(exception.getStatusCode());
+        final Optional<Map<String, Object>> responseData = exception.getResponseData();
+        if (responseData.isPresent()) {
+            response.setHeader(CONTENT_TYPE, CONTENT_TYPE_APPLICATION_JSON);
+            response.setContent(toJsonString(responseData.get()));
         }
-        return emptyResponse;
+        return response;
     }
 
     @Override
-    public HttpResponse build(final HttpResponse emptyResponse,
+    public HttpResponse build(final HttpResponseBuilder httpResponseBuilder,
                               final HttpCallFailedException exception) {
-        emptyResponse.setStatus(exception.getStatusCode());
-        emptyResponse.setVersion(exception.getVersion());
-        emptyResponse.setOrAddHeaders(exception.getHeaders());
+        final HttpResponse response = httpResponseBuilder.build(false);
+        response.setStatus(exception.getStatusCode());
+        response.setVersion(exception.getVersion());
+        response.setOrAddHeaders(exception.getHeaders());
         if (exception.isBodyPresent()) {
-            emptyResponse.setContent(exception.getBody());
+            response.setContent(exception.getBody());
         }
-        return emptyResponse;
+        return response;
     }
 
     @Override
