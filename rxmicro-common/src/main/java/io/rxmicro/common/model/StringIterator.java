@@ -101,4 +101,14 @@ public final class StringIterator {
     public int getIndex() {
         return index;
     }
+
+    /**
+     * Returns the source string.
+     *
+     * @return the source string
+     * @since 0.6
+     */
+    public String getSource() {
+        return string;
+    }
 }

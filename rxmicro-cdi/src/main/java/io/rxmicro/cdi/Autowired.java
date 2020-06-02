@@ -51,12 +51,14 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 public @interface Autowired {
 
     /**
-     * If false, and the appropriate binding is not found, the RxMicro framework will skip injection of this
+     * If {@code false}, and the appropriate binding is not found, the RxMicro framework will skip injection of this
      * method or field rather than produce an error.
      *
      * <p>
-     * When applied to a field, any default value already assigned to the field will remain for optional injection
-     * (The RxMicro framework will not actively null out the field).
+     * When applied to a field, any default value already assigned to the field will remain for optional injection.
+     *
+     * <p>
+     * <i>(The RxMicro framework will not actively null out the field).</i>
      *
      * @return {@code false} if current injection point is optional
      */

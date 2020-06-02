@@ -5,6 +5,7 @@ This document contains the *change log* for all RxMicro releases since **0.2**.
 ## RxMicro v0.6
 
 * Add an ability to customize the standard error response
+* Add @Resource cdi annotation to inject resources  
 
 ## RxMicro v0.5
 

@@ -47,8 +47,11 @@
  */
 module rxmicro.cdi {
     requires transitive rxmicro.config;
+    requires rxmicro.files;
+    requires rxmicro.json;
 
     exports io.rxmicro.cdi;
+    exports io.rxmicro.cdi.resource;
     exports io.rxmicro.cdi.detail;
 
     exports io.rxmicro.cdi.local to

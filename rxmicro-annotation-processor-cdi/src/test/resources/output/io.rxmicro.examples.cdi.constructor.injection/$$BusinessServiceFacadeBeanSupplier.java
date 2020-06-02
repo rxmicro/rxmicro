@@ -30,6 +30,5 @@ public final class $$BusinessServiceFacadeBeanSupplier extends BeanSupplier<Busi
         private BusinessServiceFacade build() {
             return new BusinessServiceFacade(businessService);
         }
-
     }
 }

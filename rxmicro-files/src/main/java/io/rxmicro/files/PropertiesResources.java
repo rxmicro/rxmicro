@@ -108,7 +108,7 @@ public final class PropertiesResources {
             throw new ResourceException("Can't load property from resource, " +
                     "because it is not a properties resource: ?", line);
         }
-        map.put(data[0], data[1]);
+        map.put(data[0].trim(), data[1].trim());
     }
 
     private PropertiesResources() {

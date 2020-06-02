@@ -20,6 +20,7 @@ import io.rxmicro.cdi.Autowired;
 import io.rxmicro.cdi.Inject;
 import io.rxmicro.cdi.Named;
 import io.rxmicro.cdi.Qualifier;
+import io.rxmicro.cdi.Resource;
 
 import java.lang.annotation.Annotation;
 import java.util.Set;
@@ -31,7 +32,7 @@ import java.util.Set;
 public final class Annotations {
 
     public static final Set<Class<? extends Annotation>> INJECT_ANNOTATIONS =
-            Set.of(Inject.class, Autowired.class);
+            Set.of(Inject.class, Autowired.class, Resource.class);
 
     public static final Set<Class<? extends Annotation>> QUALIFIER_ANNOTATIONS =
             Set.of(Named.class, Qualifier.class);

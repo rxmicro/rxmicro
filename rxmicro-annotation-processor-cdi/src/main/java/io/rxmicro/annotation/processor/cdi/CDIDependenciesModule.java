@@ -17,15 +17,18 @@
 package io.rxmicro.annotation.processor.cdi;
 
 import com.google.inject.AbstractModule;
+import com.google.inject.multibindings.Multibinder;
 import io.rxmicro.annotation.processor.cdi.component.BeanInjectionPointQualifierRuleBuilder;
 import io.rxmicro.annotation.processor.cdi.component.BeanRegistrationQualifierRuleBuilder;
 import io.rxmicro.annotation.processor.cdi.component.BeanWithInjectionsClassStructureBuilder;
 import io.rxmicro.annotation.processor.cdi.component.BeanWithoutInjectionsClassStructureBuilder;
 import io.rxmicro.annotation.processor.cdi.component.ConstructorInjectionPointBuilder;
+import io.rxmicro.annotation.processor.cdi.component.ConverterClassResolver;
 import io.rxmicro.annotation.processor.cdi.component.DefaultNameBuilder;
 import io.rxmicro.annotation.processor.cdi.component.FactoryMethodFinder;
 import io.rxmicro.annotation.processor.cdi.component.FieldOrMethodInjectionPointBuilder;
 import io.rxmicro.annotation.processor.cdi.component.InjectionPointTypeBuilder;
+import io.rxmicro.annotation.processor.cdi.component.InjectionResourceBuilder;
 import io.rxmicro.annotation.processor.cdi.component.PostConstructMethodFinder;
 import io.rxmicro.annotation.processor.cdi.component.UserDefinedNameBuilder;
 import io.rxmicro.annotation.processor.cdi.component.impl.BeanInjectionPointQualifierRuleBuilderImpl;
@@ -37,8 +40,13 @@ import io.rxmicro.annotation.processor.cdi.component.impl.DefaultNameBuilderImpl
 import io.rxmicro.annotation.processor.cdi.component.impl.FactoryMethodFinderImpl;
 import io.rxmicro.annotation.processor.cdi.component.impl.FieldOrMethodInjectionPointBuilderImpl;
 import io.rxmicro.annotation.processor.cdi.component.impl.InjectionPointTypeBuilderImpl;
+import io.rxmicro.annotation.processor.cdi.component.impl.InjectionResourceBuilderImpl;
 import io.rxmicro.annotation.processor.cdi.component.impl.PostConstructMethodFinderImpl;
 import io.rxmicro.annotation.processor.cdi.component.impl.UserDefinedNameBuilderImpl;
+import io.rxmicro.annotation.processor.cdi.component.impl.resolver.JsonResourceConverterClassResolver;
+import io.rxmicro.annotation.processor.cdi.component.impl.resolver.PropertiesResourceConverterClassResolver;
+
+import static com.google.inject.multibindings.Multibinder.newSetBinder;
 
 /**
  * @author nedis
@@ -70,5 +78,17 @@ public final class CDIDependenciesModule extends AbstractModule {
                 .to(BeanRegistrationQualifierRuleBuilderImpl.class);
         bind(BeanInjectionPointQualifierRuleBuilder.class)
                 .to(BeanInjectionPointQualifierRuleBuilderImpl.class);
+
+        bindResourceComponents();
+    }
+
+    private void bindResourceComponents() {
+        bind(InjectionResourceBuilder.class)
+                .to(InjectionResourceBuilderImpl.class);
+
+        final Multibinder<ConverterClassResolver> converterClassResolverBinder =
+                newSetBinder(binder(), ConverterClassResolver.class);
+        converterClassResolverBinder.addBinding().to(JsonResourceConverterClassResolver.class);
+        converterClassResolverBinder.addBinding().to(PropertiesResourceConverterClassResolver.class);
     }
 }

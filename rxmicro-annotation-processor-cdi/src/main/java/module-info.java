@@ -41,6 +41,8 @@ module rxmicro.annotation.processor.cdi {
             com.google.guice;
     opens io.rxmicro.annotation.processor.cdi.component.impl to
             com.google.guice;
+    opens io.rxmicro.annotation.processor.cdi.component.impl.resolver to
+            com.google.guice;
 
     opens ftl.cdi;
 }

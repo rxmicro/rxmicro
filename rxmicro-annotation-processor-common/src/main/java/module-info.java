@@ -108,7 +108,7 @@ module rxmicro.annotation.processor.common {
             freemarker,
             rxmicro.annotation.processor.rest,
             rxmicro.annotation.processor.rest.client,
-            rxmicro.annotation.processor.rest.server;
+            rxmicro.annotation.processor.rest.server, rxmicro.annotation.processor.cdi;
     exports io.rxmicro.annotation.processor.common.model.method to
             freemarker,
             rxmicro.annotation.processor.data,

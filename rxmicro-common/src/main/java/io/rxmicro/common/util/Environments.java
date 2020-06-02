@@ -16,8 +16,12 @@
 
 package io.rxmicro.common.util;
 
-import java.util.Locale;
+import io.rxmicro.common.model.StringIterator;
 
+import java.util.Locale;
+import java.util.Map;
+
+import static io.rxmicro.common.util.Formats.format;
 import static java.lang.System.getProperty;
 
 /**
@@ -58,6 +62,99 @@ public final class Environments {
      */
     public static boolean isCurrentOsWindows() {
         return getProperty(OS_NAME, UNKNOWN).toLowerCase(Locale.ENGLISH).contains("windows");
+    }
+
+    /**
+     * Finds variables in the specified expression and replaces found variables by the configured environment variables.
+     *
+     * <p>
+     * Supported variable format: <code>${VAR1}</code>
+     *
+     * @param expression the specified expression that can contains variables
+     * @return the resolved expression without variables
+     * @see System#getenv()
+     * @since 0.6
+     * @throws IllegalArgumentException if the specified expression contains undefined variable or has invalid syntax
+     */
+    public static String resolveEnvironmentVariables(final String expression) {
+        return resolveVariables(expression, System.getenv());
+    }
+
+    /**
+     * Finds variables in the specified expression and replaces found variables by the provided values.
+     *
+     * <p>
+     * Supported variable format: <code>${VAR1}</code>
+     *
+     * @param expression the specified expression that can contains variables
+     * @param variableValues the variable map that contains the pairs of names nad values
+     * @return the resolved expression without variables
+     * @since 0.6
+     * @throws IllegalArgumentException if the specified expression contains undefined variable or has invalid syntax
+     */
+    public static String resolveVariables(final String expression,
+                                          final Map<String, String> variableValues) {
+        final StringBuilder stringBuilder = new StringBuilder(expression.length());
+        final StringIterator iterator = new StringIterator(expression);
+        resolve(variableValues, stringBuilder, iterator);
+        return stringBuilder.toString();
+    }
+
+    private static void resolve(final Map<String, String> variableValues,
+                                final StringBuilder stringBuilder,
+                                final StringIterator iterator) {
+        while (iterator.next()) {
+            final char ch = iterator.getCurrent();
+            if ('$' == ch) {
+                final String variableName = readVariableName(iterator);
+                final String value = variableValues.get(variableName);
+                if (value == null) {
+                    throw new IllegalArgumentException(format(
+                            "Invalid expression: '?'. Variable '?' not defined!",
+                            iterator.getSource(), variableName
+                    ));
+                } else {
+                    stringBuilder.append(value);
+                }
+            } else if ('{' == ch || '}' == ch) {
+                throw new IllegalArgumentException(format(
+                        "Invalid expression: '?'. Missing '$' at ? position",
+                        iterator.getSource(), iterator.getIndex()
+                ));
+            } else {
+                stringBuilder.append(ch);
+            }
+        }
+    }
+
+    private static String readVariableName(final StringIterator iterator) {
+        if (iterator.next()) {
+            final char ch = iterator.getCurrent();
+            if ('{' == ch) {
+                final int start = iterator.getIndex() + 1;
+                while (iterator.next()) {
+                    if ('}' == iterator.getCurrent()) {
+                        final int end = iterator.getIndex();
+                        if (end > start) {
+                            return iterator.getSource().substring(start, end);
+                        } else {
+                            throw new IllegalArgumentException(format(
+                                    "Invalid expression: '?'. Missing variable name at ? position!",
+                                    iterator.getSource(), end
+                            ));
+                        }
+                    }
+                }
+                throw new IllegalArgumentException(format(
+                        "Invalid expression: '?'. Missing '}'",
+                        iterator.getSource()
+                ));
+            }
+        }
+        throw new IllegalArgumentException(format(
+                "Invalid expression: '?'. Expected '{' after '$' at ? position!",
+                iterator.getSource(), iterator.getIndex()
+        ));
     }
 
     private Environments() {

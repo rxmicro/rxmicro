@@ -54,6 +54,15 @@ import static java.util.Map.entry;
  */
 public final class Annotations {
 
+    public static <T extends Annotation> T getRequiredAnnotation(final AnnotatedConstruct annotated,
+                                                                 final Class<T> annotationClass) {
+        return Optional.ofNullable(annotated.getAnnotation(annotationClass))
+                .orElseThrow(createInternalErrorSupplier(
+                        "'?' annotated element is not annotated by the required '@?' annotation!",
+                        annotated, annotationClass.getName())
+                );
+    }
+
     public static <T extends Annotation> T getPresentOrDefaultAnnotation(final AnnotatedConstruct annotated,
                                                                          final Class<T> annotationClass) {
         return Optional.ofNullable(annotated.getAnnotation(annotationClass))

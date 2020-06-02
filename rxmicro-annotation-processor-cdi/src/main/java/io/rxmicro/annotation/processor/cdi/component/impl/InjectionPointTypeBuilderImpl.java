@@ -23,6 +23,7 @@ import io.r2dbc.spi.ConnectionFactory;
 import io.rxmicro.annotation.processor.cdi.component.InjectionPointTypeBuilder;
 import io.rxmicro.annotation.processor.cdi.model.InjectionPointType;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
+import io.rxmicro.cdi.Resource;
 import io.rxmicro.config.Config;
 import io.rxmicro.data.mongo.MongoRepository;
 import io.rxmicro.data.sql.r2dbc.postgresql.PostgreSQLRepository;
@@ -48,6 +49,7 @@ import static io.rxmicro.annotation.processor.cdi.model.InjectionPointType.CONFI
 import static io.rxmicro.annotation.processor.cdi.model.InjectionPointType.MONGO_CLIENT;
 import static io.rxmicro.annotation.processor.cdi.model.InjectionPointType.MULTI_BINDER;
 import static io.rxmicro.annotation.processor.cdi.model.InjectionPointType.REPOSITORY;
+import static io.rxmicro.annotation.processor.cdi.model.InjectionPointType.RESOURCE;
 import static io.rxmicro.annotation.processor.cdi.model.InjectionPointType.REST_CLIENT;
 import static io.rxmicro.annotation.processor.common.util.Elements.asTypeElement;
 import static io.rxmicro.annotation.processor.common.util.Elements.findSuperType;
@@ -97,6 +99,12 @@ public final class InjectionPointTypeBuilderImpl extends AbstractR2DBCConnection
                     (field, fieldType, modelName) ->
                             fieldType.getAnnotation(RestClient.class) != null,
                     REST_CLIENT
+            ),
+            entry(
+                    (field, fieldType, modelName) ->
+                            field.getAnnotation(Resource.class) != null ||
+                                    field.getEnclosingElement().getAnnotation(Resource.class) != null,
+                    RESOURCE
             )
     );
 

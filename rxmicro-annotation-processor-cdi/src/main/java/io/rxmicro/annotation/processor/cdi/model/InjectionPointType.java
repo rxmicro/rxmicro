@@ -46,5 +46,8 @@ public enum InjectionPointType {
     BEAN,
 
     @UsedByFreemarker("$$BeanSupplierTemplate.javaftl")
-    MULTI_BINDER
+    MULTI_BINDER,
+
+    @UsedByFreemarker("$$BeanSupplierTemplate.javaftl")
+    RESOURCE
 }

@@ -45,10 +45,17 @@ public final class ConstructorInjectionPointBuilderImpl extends AbstractInjectio
 
     @Override
     public boolean isConstructorInjection(final TypeElement beanTypeElement) {
-        return allConstructors(
-                beanTypeElement,
-                f -> INJECT_ANNOTATIONS.stream().anyMatch(a -> f.getAnnotation(a) != null)
-        ).size() > 0;
+        for (final ExecutableElement constructor : allConstructors(beanTypeElement)) {
+            if (INJECT_ANNOTATIONS.stream().anyMatch(a -> constructor.getAnnotation(a) != null)) {
+                return true;
+            }
+            for (final VariableElement parameter : constructor.getParameters()) {
+                if (INJECT_ANNOTATIONS.stream().anyMatch(a -> parameter.getAnnotation(a) != null)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     @Override
@@ -125,5 +132,16 @@ public final class ConstructorInjectionPointBuilderImpl extends AbstractInjectio
             );
         }
         validateAccessibleConstructor(constructor);
+        if (INJECT_ANNOTATIONS.stream().noneMatch(a -> constructor.getAnnotation(a) != null)) {
+            for (final VariableElement parameter : constructor.getParameters()) {
+                if (INJECT_ANNOTATIONS.stream().noneMatch(a -> parameter.getAnnotation(a) != null)) {
+                    throw new InterruptProcessingException(
+                            parameter,
+                            "Missing inject annotation per constructor parameter: '?'",
+                            parameter
+                    );
+                }
+            }
+        }
     }
 }

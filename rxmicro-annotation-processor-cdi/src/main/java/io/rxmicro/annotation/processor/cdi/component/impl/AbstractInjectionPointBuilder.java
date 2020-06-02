@@ -20,6 +20,7 @@ import com.google.inject.Inject;
 import io.rxmicro.annotation.processor.cdi.component.BeanInjectionPointQualifierRuleBuilder;
 import io.rxmicro.annotation.processor.cdi.component.DefaultNameBuilder;
 import io.rxmicro.annotation.processor.cdi.component.InjectionPointTypeBuilder;
+import io.rxmicro.annotation.processor.cdi.component.InjectionResourceBuilder;
 import io.rxmicro.annotation.processor.cdi.component.UserDefinedNameBuilder;
 import io.rxmicro.annotation.processor.cdi.model.InjectionModelField;
 import io.rxmicro.annotation.processor.cdi.model.InjectionPoint;
@@ -28,6 +29,7 @@ import io.rxmicro.annotation.processor.common.model.AnnotatedModelElement;
 import io.rxmicro.annotation.processor.common.model.SupportedAnnotations;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
 import io.rxmicro.cdi.Autowired;
+import io.rxmicro.cdi.Resource;
 
 import java.lang.annotation.Annotation;
 import java.util.Optional;
@@ -58,6 +60,9 @@ public abstract class AbstractInjectionPointBuilder {
     @Inject
     private BeanInjectionPointQualifierRuleBuilder beanInjectionPointQualifierRuleBuilder;
 
+    @Inject
+    private InjectionResourceBuilder injectionResourceBuilder;
+
     final InjectionPoint build(final TypeElement beanTypeElement,
                                final VariableElement field) {
         validateOnlyOneAnnotationPerElement(field, field.getAnnotationMirrors(), new SupportedAnnotations(INJECT_ANNOTATIONS));
@@ -70,10 +75,10 @@ public abstract class AbstractInjectionPointBuilder {
                 .setRequired(required);
         if (type == InjectionPointType.BEAN) {
             injectionPointBuilder.setQualifierRules(beanInjectionPointQualifierRuleBuilder.build(field));
-        } else {
-            if (!required) {
-                throw new InterruptProcessingException(field, "Optional injection not supported. Remove annotation parameter!");
-            }
+        } else if (type == InjectionPointType.RESOURCE) {
+            injectionPointBuilder.setInjectionResource(injectionResourceBuilder.build(field));
+        } else if (!required) {
+            throw new InterruptProcessingException(field, "Optional injection not supported. Remove annotation parameter!");
         }
         return build(field, injectionPointBuilder);
     }
@@ -86,7 +91,15 @@ public abstract class AbstractInjectionPointBuilder {
                 .map(i -> !i.optional())
                 .orElseGet(() -> Optional.ofNullable(element.getAnnotation(Autowired.class))
                         .map(Autowired::required)
-                        .orElseThrow(createInternalErrorSupplier("@Inject or @Autowired annotation must be present!"))
+                        .orElseGet(() -> Optional.ofNullable(element.getAnnotation(Resource.class))
+                                .map(i -> !i.optional())
+                                .orElseThrow(createInternalErrorSupplier(
+                                        "@? or @? or @? annotation must be present!",
+                                        io.rxmicro.cdi.Inject.class.getSimpleName(),
+                                        Autowired.class.getSimpleName(),
+                                        Resource.class.getSimpleName()
+                                )))
+
                 );
     }
 
@@ -94,6 +107,7 @@ public abstract class AbstractInjectionPointBuilder {
         return Optional.ofNullable(element.getAnnotation(io.rxmicro.cdi.Inject.class))
                 .map(i -> (Annotation) i)
                 .or(() -> Optional.ofNullable(element.getAnnotation(Autowired.class)))
+                .or(() -> Optional.ofNullable(element.getAnnotation(Resource.class)))
                 .isPresent();
     }
 

@@ -93,6 +93,5 @@ public final class $$InternalTypesSpringStyleConstructorInjectionRestControllerB
         private InternalTypesSpringStyleConstructorInjectionRestController build() {
             return new InternalTypesSpringStyleConstructorInjectionRestController(mongoRepository, mongoConfig, customMongoConfig, mongoClient, customMongoClient, postgreSQLRepository, postgreSQLConfig, customPostgreSQLConfig, connectionFactory, connectionPool, customConnectionFactory, customConnectionPool, restClient, httpClientConfig, customHttpClientConfig, httpServerConfig, restServerConfig, nettyRestServerConfig);
         }
-
     }
 }

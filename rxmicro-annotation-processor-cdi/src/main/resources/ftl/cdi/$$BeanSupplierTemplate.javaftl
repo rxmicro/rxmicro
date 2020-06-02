@@ -61,7 +61,6 @@ public final class ${JAVA_MODEL_CLASS.beanSupplierImplSimpleClassName} extends B
         private ${JAVA_MODEL_CLASS.javaSimpleClassName} build() {
             return new ${JAVA_MODEL_CLASS.javaSimpleClassName}(<#list JAVA_MODEL_CLASS.injectionPoints as p>${p.modelField.fieldName}<#if p?has_next>, </#if></#list>);
         }
-
     }
     </#if>
 }
@@ -112,6 +111,8 @@ public final class ${JAVA_MODEL_CLASS.beanSupplierImplSimpleClassName} extends B
         <@injectBean injectionPoint=injectionPoint/>
     <#elseif injectionPoint.type.name() == 'MULTI_BINDER'>
         <@injectMultiBinder injectionPoint=injectionPoint/>
+    <#elseif injectionPoint.type.name() == 'RESOURCE'>
+        <@injectResource injectionPoint=injectionPoint/>
     </#if>
 </#macro>
 <#-- -------------------------------------------------------------------------------------------------------- -->
@@ -252,6 +253,31 @@ public final class ${JAVA_MODEL_CLASS.beanSupplierImplSimpleClassName} extends B
                 "${injectionPoint.modelField.fieldName}",
                 ${injectionPoint.modelField.genericListItemSimpleClassName}.class
         );
+    </#if>
+</#macro>
+<#-- -------------------------------------------------------------------------------------------------------- -->
+<#macro injectResource injectionPoint>
+    <#if injectionPoint.injectionMethodPresent>
+      <#if injectionPoint.required>
+        ${INSTANCE_NAME}.${injectionPoint.injectionMethodSimpleName}(loadResource("${injectionPoint.injectionResource.resourcePath}", ${injectionPoint.injectionResource.converterSimpleClass}.class));
+      <#else>
+        loadOptionalResource("${injectionPoint.injectionResource.resourcePath}", ${injectionPoint.injectionResource.converterSimpleClass}.class)
+                .ifPresent(${INSTANCE_NAME}::${injectionPoint.injectionMethodSimpleName});
+      </#if>
+    <#elseif injectionPoint.modelField.modelWriteAccessorType.name() == "REFLECTION">
+      <#if injectionPoint.required>
+        setFieldValue(${INSTANCE_NAME}, "${injectionPoint.modelField.fieldName}", loadResource("${injectionPoint.injectionResource.resourcePath}", ${injectionPoint.injectionResource.converterSimpleClass}.class));
+      <#else>
+        loadOptionalResource("${injectionPoint.injectionResource.resourcePath}", ${injectionPoint.injectionResource.converterSimpleClass}.class)
+                .ifPresent(r -> setFieldValue(${INSTANCE_NAME}, "${injectionPoint.modelField.fieldName}", r));
+      </#if>
+    <#elseif injectionPoint.modelField.modelWriteAccessorType.name() == "DIRECT">
+      <#if injectionPoint.required>
+        ${INSTANCE_NAME}.${injectionPoint.modelField.fieldName} = loadResource("${injectionPoint.injectionResource.resourcePath}", ${injectionPoint.injectionResource.converterSimpleClass}.class);
+      <#else>
+        loadOptionalResource("${injectionPoint.injectionResource.resourcePath}", ${injectionPoint.injectionResource.converterSimpleClass}.class)
+                .ifPresent(r -> ${INSTANCE_NAME}.${injectionPoint.modelField.fieldName} = r);
+      </#if>
     </#if>
 </#macro>
 <#-- -------------------------------------------------------------------------------------------------------- -->

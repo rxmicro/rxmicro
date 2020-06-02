@@ -114,6 +114,5 @@ public final class $$BusinessServiceConstructorInjectionFacadeBeanSupplier exten
         private BusinessServiceConstructorInjectionFacade build() {
             return new BusinessServiceConstructorInjectionFacade(businessService1, businessService2, businessService3, businessService4, businessService5, businessService6, businessService7, businessService8, businessService9, businessService10, businessServices);
         }
-
     }
 }

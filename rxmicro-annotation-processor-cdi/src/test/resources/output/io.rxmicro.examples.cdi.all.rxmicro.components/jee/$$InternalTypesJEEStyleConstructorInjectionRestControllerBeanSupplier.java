@@ -93,6 +93,5 @@ public final class $$InternalTypesJEEStyleConstructorInjectionRestControllerBean
         private InternalTypesJEEStyleConstructorInjectionRestController build() {
             return new InternalTypesJEEStyleConstructorInjectionRestController(mongoRepository, mongoConfig, customMongoConfig, mongoClient, customMongoClient, postgreSQLRepository, postgreSQLConfig, customPostgreSQLConfig, connectionFactory, connectionPool, customConnectionFactory, customConnectionPool, restClient, httpClientConfig, customHttpClientConfig, httpServerConfig, restServerConfig, nettyRestServerConfig);
         }
-
     }
 }

@@ -19,6 +19,7 @@ package io.rxmicro.annotation.processor.cdi.model;
 import io.rxmicro.annotation.processor.common.model.ClassHeader;
 import io.rxmicro.annotation.processor.common.util.UsedByFreemarker;
 import io.rxmicro.cdi.detail.InternalBeanFactory;
+import io.rxmicro.cdi.detail.ResourceLoaderFactory;
 import io.rxmicro.common.meta.BuilderMethod;
 import io.rxmicro.config.Configs;
 import io.rxmicro.data.RepositoryFactory;
@@ -36,6 +37,7 @@ import static io.rxmicro.annotation.processor.cdi.model.InjectionPointType.MULTI
 import static io.rxmicro.annotation.processor.cdi.model.InjectionPointType.POSTGRE_SQL_CONNECTION_FACTORY;
 import static io.rxmicro.annotation.processor.cdi.model.InjectionPointType.POSTGRE_SQL_CONNECTION_POOL;
 import static io.rxmicro.annotation.processor.cdi.model.InjectionPointType.REPOSITORY;
+import static io.rxmicro.annotation.processor.cdi.model.InjectionPointType.RESOURCE;
 import static io.rxmicro.annotation.processor.cdi.model.InjectionPointType.REST_CLIENT;
 import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getTypes;
 import static io.rxmicro.common.util.Requires.require;
@@ -58,18 +60,22 @@ public final class InjectionPoint {
 
     private final List<QualifierRule> qualifierRules;
 
+    private final InjectionResource injectionResource;
+
     private InjectionPoint(final boolean constructorInjection,
                            final ExecutableElement injectionMethod,
                            final InjectionPointType type,
                            final boolean required,
                            final InjectionModelField modelField,
-                           final List<QualifierRule> qualifierRules) {
+                           final List<QualifierRule> qualifierRules,
+                           final InjectionResource injectionResource) {
         this.constructorInjection = constructorInjection;
         this.injectionMethod = injectionMethod;
         this.type = require(type);
         this.required = required;
         this.modelField = require(modelField);
         this.qualifierRules = require(qualifierRules);
+        this.injectionResource = injectionResource;
     }
 
     @UsedByFreemarker("$$BeanSupplierTemplate.javaftl")
@@ -103,6 +109,11 @@ public final class InjectionPoint {
         return qualifierRules;
     }
 
+    @UsedByFreemarker("$$BeanSupplierTemplate.javaftl")
+    public InjectionResource getInjectionResource() {
+        return injectionResource;
+    }
+
     public void populateClassHeaderBuilder(final ClassHeader.Builder classHeaderBuilder) {
         if (constructorInjection) {
             classHeaderBuilder.addImports(getTypes().erasure(modelField.getFieldClass()));
@@ -128,15 +139,30 @@ public final class InjectionPoint {
             classHeaderBuilder.addStaticImport(RestClientFactory.class, "getRestClient");
             classHeaderBuilder.addImports(getTypes().erasure(modelField.getFieldClass()));
         } else if (type == BEAN) {
-            if (required) {
-                classHeaderBuilder.addStaticImport(InternalBeanFactory.class, "getRequiredBean");
-            } else {
-                classHeaderBuilder.addStaticImport(InternalBeanFactory.class, "getOptionalBean");
-            }
-            classHeaderBuilder.addImports(getTypes().erasure(modelField.getFieldClass()));
+            populateBeanClassHeaderBuilder(classHeaderBuilder);
         } else if (type == MULTI_BINDER) {
             classHeaderBuilder.addStaticImport(InternalBeanFactory.class, "getBeansByType");
+        } else if (type == RESOURCE) {
+            populateResourceClassHeaderBuilder(classHeaderBuilder);
         }
+    }
+
+    private void populateBeanClassHeaderBuilder(final ClassHeader.Builder classHeaderBuilder) {
+        if (required) {
+            classHeaderBuilder.addStaticImport(InternalBeanFactory.class, "getRequiredBean");
+        } else {
+            classHeaderBuilder.addStaticImport(InternalBeanFactory.class, "getOptionalBean");
+        }
+        classHeaderBuilder.addImports(getTypes().erasure(modelField.getFieldClass()));
+    }
+
+    private void populateResourceClassHeaderBuilder(final ClassHeader.Builder classHeaderBuilder) {
+        if (required) {
+            classHeaderBuilder.addStaticImport(ResourceLoaderFactory.class, "loadResource");
+        } else {
+            classHeaderBuilder.addStaticImport(ResourceLoaderFactory.class, "loadOptionalResource");
+        }
+        classHeaderBuilder.addImports(injectionResource.getConverterFullClass());
     }
 
     /**
@@ -157,6 +183,8 @@ public final class InjectionPoint {
         private InjectionModelField modelField;
 
         private List<QualifierRule> qualifierRules = List.of();
+
+        private InjectionResource injectionResource;
 
         @BuilderMethod
         public Builder setConstructorInjection(final boolean constructorInjection) {
@@ -194,8 +222,14 @@ public final class InjectionPoint {
             return this;
         }
 
+        @BuilderMethod
+        public Builder setInjectionResource(final InjectionResource injectionResource) {
+            this.injectionResource = require(injectionResource);
+            return this;
+        }
+
         public InjectionPoint build() {
-            return new InjectionPoint(constructorInjection, injectionMethod, type, required, modelField, qualifierRules);
+            return new InjectionPoint(constructorInjection, injectionMethod, type, required, modelField, qualifierRules, injectionResource);
         }
     }
 }
