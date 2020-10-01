@@ -6,7 +6,20 @@ This document contains the *change log* for all RxMicro releases since **0.2**.
 
 * Add an ability to customize the standard error response
 * Add @Resource cdi annotation to inject resources  
-
+* Dependency updates:
+  * junit: 5.6.2 -> 5.7.0
+  * mockito: 3.3.3 -> 3.5.13
+  * netty: 4.1.50.Final -> 4.1.52.Final
+  * rxjava: 3.0.4 -> 3.0.6
+  * projectreactor: 3.3.5.RELEASE -> 3.3.10.RELEASE
+  * mongodb-driver-reactivestreams: 4.0.3 -> 4.1.0
+  * mongodb-driver-core: 4.0.3 -> 4.1.0
+  * bson: 4.0.3 -> 4.1.0
+  * r2dbc-spi: 0.8.1.RELEASE -> 0.8.2.RELEASE
+  * r2dbc-postgresql: 0.8.2.RELEASE -> 0.8.5.RELEASE
+  * r2dbc-pool: 0.8.2.RELEASE -> 0.8.4.RELEASE
+  * junit-platform-commons: 1.6.2 -> 1.7.0
+  
 ## RxMicro v0.5
 
 * Update spotbugs, PMD and checkstyle rules

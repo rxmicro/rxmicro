@@ -58,7 +58,19 @@ public final class MavenUtils {
     }
 
     public static String getMavenProperty(final String name) {
-        return require(PROPERTIES_FROM_MAVEN_POM.getProperty(name), "Property '" + name + "' not defined");
+        final String value = require(PROPERTIES_FROM_MAVEN_POM.getProperty(name), "Property '" + name + "' not defined");
+        return isVariable(value) ? getMavenProperty(getVariableName(value)) : value;
+    }
+
+    private static boolean isVariable(final String name) {
+        return name.length() > 3 &&
+                name.charAt(0) == '$' &&
+                name.charAt(1) == '{' &&
+                name.charAt(name.length() - 1) == '}';
+    }
+
+    private static String getVariableName(final String variableExpression) {
+        return variableExpression.substring(2, variableExpression.length() - 1);
     }
 
     private MavenUtils() {
