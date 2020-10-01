@@ -16,7 +16,15 @@ A modern, JVM-based, full stack framework designed to develop distributed reacti
 
 ## Requirements
 
-[![Java 11](https://img.shields.io/badge/JDK-11-brightgreen?logo=java)](https://openjdk.java.net/projects/jdk/11/)
+[![JDK 11](https://img.shields.io/badge/JDK-11-brightgreen?logo=java)](https://openjdk.java.net/projects/jdk/11/) or higher
+
+## Verified On
+
+[![JDK 11](https://img.shields.io/badge/JDK-11-brightgreen?logo=java)](https://openjdk.java.net/projects/jdk/11/) 
+[![JDK 12](https://img.shields.io/badge/JDK-12-red?logo=java)](https://openjdk.java.net/projects/jdk/12/) 
+[![JDK 13](https://img.shields.io/badge/JDK-13-red?logo=java)](https://openjdk.java.net/projects/jdk/13/) 
+[![JDK 14](https://img.shields.io/badge/JDK-14-red?logo=java)](https://openjdk.java.net/projects/jdk/14/) 
+[![JDK 15](https://img.shields.io/badge/JDK-15-blue?logo=java)](https://openjdk.java.net/projects/jdk/15/) 
 
 ## Supported Features
 

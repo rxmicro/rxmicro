@@ -30,11 +30,13 @@ on:
     paths:
       - 'rxmicro-*/src/main/java/**'
       - 'rxmicro-*/src/test/java/**'
+      - '.github/workflows/verify-on-push.yml'
   pull_request:
     types: [assigned, opened, edited, reopened]
     paths:
       - 'rxmicro-*/src/main/java/**'
       - 'rxmicro-*/src/test/java/**'
+      - '.github/workflows/verify-on-push.yml'
 
 jobs:
 
@@ -48,7 +50,7 @@ jobs:
     strategy:
       matrix:
         # JDK LTS and latest JDK
-        jdk: ['11', '14']
+        jdk: ['11', '15']
         os: [ubuntu-latest]
       fail-fast: false
 

@@ -19,6 +19,7 @@ This document contains the *change log* for all RxMicro releases since **0.2**.
   * r2dbc-postgresql: 0.8.2.RELEASE -> 0.8.5.RELEASE
   * r2dbc-pool: 0.8.2.RELEASE -> 0.8.4.RELEASE
   * junit-platform-commons: 1.6.2 -> 1.7.0
+* Add support for JDK 15
   
 ## RxMicro v0.5
 
