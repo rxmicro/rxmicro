@@ -20,7 +20,7 @@
     <parent>
         <artifactId>rxmicro</artifactId>
         <groupId>io.rxmicro</groupId>
-        <version>0.6-SNAPSHOT</version>
+        <version>0.6</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>rxmicro-documentation-asciidoctor</artifactId>
@@ -47,7 +47,7 @@
         <dependency>
             <groupId>io.rxmicro</groupId>
             <artifactId>rxmicro-documentation</artifactId>
-            <version>0.6-SNAPSHOT</version>
+            <version>0.6</version>
         </dependency>
     </dependencies>
 </project>

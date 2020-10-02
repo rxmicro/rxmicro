@@ -21,7 +21,7 @@
     <groupId>io.rxmicro</groupId>
     <artifactId>rxmicro</artifactId>
     <packaging>pom</packaging>
-    <version>0.6-SNAPSHOT</version>
+    <version>0.6</version>
 
     <name>The RxMicro framework</name>
     <description>
