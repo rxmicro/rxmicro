@@ -33,6 +33,8 @@ import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import javax.lang.model.element.ExecutableElement;
 
 import static io.rxmicro.annotation.processor.data.sql.util.SQLs.joinTokensToSQL;
@@ -52,6 +54,8 @@ public abstract class AbstractModificationSQLBuilder
 
     @Inject
     private VariableContext variableContext;
+
+    private Set<String> supportedVariables;
 
     @Override
     public final SQLStatement build(final ClassHeader.Builder classHeaderBuilder,
@@ -92,7 +96,19 @@ public abstract class AbstractModificationSQLBuilder
                                              List<String> sqlTokens,
                                              SQLMethodDescriptor<DMF, DMC> sqlMethodDescriptor);
 
-    protected abstract Set<String> getSupportedVariables();
+    public final Set<String> getSupportedVariables() {
+        if(supportedVariables == null) {
+            supportedVariables = Stream.concat(
+                    getSupportedParamsVariables().stream(),
+                    getSupportedResultsVariables().stream()
+            ).collect(Collectors.toSet());
+        }
+        return supportedVariables;
+    }
+
+    protected abstract Set<String> getSupportedParamsVariables();
+
+    protected abstract Set<String> getSupportedResultsVariables();
 
     protected abstract void validateStatement(ExecutableElement method,
                                               List<String> sqlTokens);

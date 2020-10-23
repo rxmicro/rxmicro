@@ -83,9 +83,7 @@ public final class DataRepositoryMethodSignature {
         final TypeDefinitions<TypeDefinition> primitives = supportedTypesProvider.getResultReturnPrimitiveTypes();
         if (methodResult.isVoid() ||
                 primitives.contains(methodResult.getResultType()) ||
-                operationReturnVoid ||
-                // If entity is parameter, a fromDB converter is not necessary for it.
-                getParamEntityClasses().contains(methodResult.getResultType())) {
+                operationReturnVoid) {
             return Set.of();
         } else {
             return Set.of(methodResult.getResultType());

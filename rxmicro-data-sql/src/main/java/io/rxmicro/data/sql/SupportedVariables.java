@@ -144,6 +144,17 @@ public final class SupportedVariables {
      */
     public static final String ON_CONFLICT_UPDATE_NOT_ID_COLUMNS = "${on-conflict-update-not-id-columns}";
 
+    /**
+     * Returning columns from {@link Insert}, {@link Update} or {@link Delete} SQL expressions.
+     *
+     * <p>
+     * This variable is supported by the RxMicro framework only if SQL db server supported <code>RETURNING</code> clause
+     *
+     * <p>
+     * For example: <code>RETURNING ${returning-columns} -> RETURNING id, login, name, password</code>
+     */
+    public static final String RETURNING_COLUMNS = "${returning-columns}";
+
     private SupportedVariables() {
     }
 }

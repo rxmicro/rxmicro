@@ -19,7 +19,8 @@ package io.rxmicro.annotation.processor.data.sql.r2dbc.postgresql.component.impl
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
-import io.rxmicro.annotation.processor.data.sql.model.inject.SupportedDeleteVariables;
+import io.rxmicro.annotation.processor.data.sql.model.inject.SupportedDeleteParamsVariables;
+import io.rxmicro.annotation.processor.data.sql.model.inject.SupportedDeleteResultsVariables;
 import io.rxmicro.data.sql.operation.Delete;
 
 import java.util.List;
@@ -36,12 +37,21 @@ import static io.rxmicro.annotation.processor.data.sql.model.SQLKeywords.DELETE;
 public final class DeletePostgreSQLBuilder extends AbstractModificationPostgreSQLBuilder<Delete> {
 
     @Inject
-    @SupportedDeleteVariables
-    private Set<String> supportedVariables;
+    @SupportedDeleteParamsVariables
+    private Set<String> supportedParamsVariables;
+
+    @Inject
+    @SupportedDeleteResultsVariables
+    private Set<String> supportedResultsVariables;
 
     @Override
-    protected Set<String> getSupportedVariables() {
-        return supportedVariables;
+    protected Set<String> getSupportedParamsVariables() {
+        return supportedParamsVariables;
+    }
+
+    @Override
+    protected Set<String> getSupportedResultsVariables() {
+        return supportedResultsVariables;
     }
 
     @Override

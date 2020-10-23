@@ -152,11 +152,5 @@ public abstract class AbstractSQLDataRepositoryMethodModelBuilder<DMF extends SQ
         if (sqlMethodDescriptor.getEntityParam().isPresent() && sqlMethodDescriptor.getParams().size() > 1) {
             throw new InterruptProcessingException(method, "Repository method couldn't contain any parameters with entity parameter");
         }
-        if (sqlMethodDescriptor.getEntityParam().isPresent() &&
-                sqlMethodDescriptor.getEntityResult().isPresent() &&
-                !sqlMethodDescriptor.getEntityParam().get().getJavaFullClassName().equals(
-                        sqlMethodDescriptor.getEntityResult().get().getJavaFullClassName())) {
-            throw new InterruptProcessingException(method, "An entity parameter class must be equals to the entity result class");
-        }
     }
 }

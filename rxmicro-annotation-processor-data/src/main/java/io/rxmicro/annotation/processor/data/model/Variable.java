@@ -73,6 +73,10 @@ public class Variable {
         return type.getName().equals(this.type.toString());
     }
 
+    public boolean is(final String fullClassName) {
+        return fullClassName.equals(this.type.toString());
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(type.toString(), name);

@@ -21,7 +21,7 @@ import com.google.inject.Singleton;
 import io.rxmicro.annotation.processor.data.sql.model.ParsedSQL;
 import io.rxmicro.annotation.processor.data.sql.model.SQLDataModelField;
 import io.rxmicro.annotation.processor.data.sql.model.SQLDataObjectModelClass;
-import io.rxmicro.annotation.processor.data.sql.model.inject.SupportedSelectVariables;
+import io.rxmicro.annotation.processor.data.sql.model.inject.SupportedSelectResultsVariables;
 import io.rxmicro.data.sql.operation.Select;
 
 import java.util.Set;
@@ -35,12 +35,17 @@ public class SelectSQLVariableValueResolver<DMF extends SQLDataModelField, DMC e
         extends AbstractSQLVariableValueResolver<Select, DMF, DMC> {
 
     @Inject
-    @SupportedSelectVariables
-    private Set<String> supportedVariables;
+    @SupportedSelectResultsVariables
+    private Set<String> supportedResultsVariables;
 
     @Override
-    protected Set<String> getSupportedVariables() {
-        return supportedVariables;
+    protected Set<String> getSupportedParamsVariables() {
+        return Set.of();
+    }
+
+    @Override
+    protected Set<String> getSupportedResultsVariables() {
+        return supportedResultsVariables;
     }
 
     @Override

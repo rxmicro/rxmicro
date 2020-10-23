@@ -39,7 +39,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Optional;
 import javax.lang.model.element.ExecutableElement;
 
 import static io.rxmicro.annotation.processor.common.util.Errors.createInternalErrorSupplier;
@@ -84,53 +83,36 @@ public abstract class AbstractSQLModificationOperationReturningResultDataReposit
         final boolean isEntityParam = isEntityParam(params, dataGenerationContext);
         final boolean isEntityFieldMap = sqlMethodDescriptor.getResult().isResultType(EntityFieldMap.class);
         final boolean isEntityFieldList = sqlMethodDescriptor.getResult().isResultType(EntityFieldList.class);
-        templateArguments.put("IS_ENTITY_PARAM", isEntityParam);
         templateArguments.put("RETURN_ENTITY_FIELD_MAP", isEntityFieldMap);
         templateArguments.put("RETURN_ENTITY_FIELD_LIST", isEntityFieldList);
 
-        final DMC modelClass = getResultModelClassOrNull(sqlMethodDescriptor, isEntityParam, isEntityFieldMap, isEntityFieldList);
-
         if (isEntityParam) {
             templateArguments.put("ENTITY", params.get(0).getGetter());
-            templateArguments.put("ENTITY_CONVERTER", getModelTransformerInstanceName(
+            templateArguments.put("ENTITY_TO_DB_CONVERTER", getModelTransformerInstanceName(
                     params.get(0).getType(),
                     EntityToR2DBCSQLDBConverter.class)
             );
-        } else if (modelClass != null) {
+        }
+        if (!isEntityFieldList && !isEntityFieldMap) {
+            final DMC modelClass = sqlMethodDescriptor.getEntityResult().orElseThrow(
+                    createInternalErrorSupplier(
+                            "Method return result not found for '?' operation",
+                            operationType().getSimpleName().toUpperCase(Locale.ENGLISH)
+                    )
+            );
             final String entityClass = getSimpleName(modelClass.getJavaFullClassName());
             templateArguments.put("ENTITY_CLASS", entityClass);
-            templateArguments.put("ENTITY_CONVERTER", getModelTransformerInstanceName(
+            templateArguments.put("ENTITY_FROM_DB_CONVERTER", getModelTransformerInstanceName(
                     entityClass,
                     EntityFromR2DBCSQLDBConverter.class)
             );
-        }
-        // repository method can read entity parameter and return field list or map
-        if (modelClass != null) {
+            templateArguments.put(
+                    "ENTITY_RESULT_DIFFERS_FROM_ENTITY_PARAM",
+                    !isEntityParam || !params.get(0).is(modelClass.getJavaFullClassName())
+            );
             final EntitySetFieldsConverterMethod converterMethod = new EntitySetFieldsConverterMethod(sqlStatement);
             modelClass.addEntitySetFieldsConverterMethod(converterMethod);
             templateArguments.put("ENTITY_CONVERTER_METHOD", converterMethod.getName());
-        }
-    }
-
-    private DMC getResultModelClassOrNull(final SQLMethodDescriptor<DMF, DMC> sqlMethodDescriptor,
-                                          final boolean isEntityParam,
-                                          final boolean isEntityFieldMap,
-                                          final boolean isEntityFieldList) {
-        if (!isEntityFieldList && !isEntityFieldMap) {
-            final Optional<DMC> modelClassOptional;
-            final String errorMessageTemplate;
-            if (isEntityParam) {
-                modelClassOptional = sqlMethodDescriptor.getEntityParam().or(sqlMethodDescriptor::getEntityResult);
-                errorMessageTemplate = "Method entity param or return result not found for '?' operation";
-            } else {
-                modelClassOptional = sqlMethodDescriptor.getEntityResult();
-                errorMessageTemplate = "Method return result not found for '?' operation";
-            }
-            return modelClassOptional.orElseThrow(
-                    createInternalErrorSupplier(errorMessageTemplate, operationType().getSimpleName().toUpperCase(Locale.ENGLISH))
-            );
-        } else {
-            return null;
         }
     }
 }

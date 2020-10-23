@@ -34,7 +34,7 @@ import io.rxmicro.annotation.processor.data.sql.model.SelectedColumn;
 import io.rxmicro.annotation.processor.data.sql.model.SelectedColumnFilter;
 import io.rxmicro.annotation.processor.data.sql.model.VariableContext;
 import io.rxmicro.annotation.processor.data.sql.model.VariableValuesMap;
-import io.rxmicro.annotation.processor.data.sql.model.inject.SupportedSelectVariables;
+import io.rxmicro.annotation.processor.data.sql.model.inject.SupportedSelectResultsVariables;
 import io.rxmicro.common.util.Formats;
 import io.rxmicro.data.sql.operation.Select;
 
@@ -73,7 +73,7 @@ public class PredefinedSelectSQLBuilder<DMF extends SQLDataModelField, DMC exten
     private VariableContext variableContext;
 
     @Inject
-    @SupportedSelectVariables
+    @SupportedSelectResultsVariables
     private Set<String> supportedVariables;
 
 

@@ -35,6 +35,7 @@ import static io.rxmicro.data.sql.SupportedVariables.BY_ID_FILTER;
 import static io.rxmicro.data.sql.SupportedVariables.ID_COLUMNS;
 import static io.rxmicro.data.sql.SupportedVariables.INSERTED_COLUMNS;
 import static io.rxmicro.data.sql.SupportedVariables.ON_CONFLICT_UPDATE_NOT_ID_COLUMNS;
+import static io.rxmicro.data.sql.SupportedVariables.RETURNING_COLUMNS;
 import static io.rxmicro.data.sql.SupportedVariables.TABLE;
 import static io.rxmicro.data.sql.SupportedVariables.UPDATED_COLUMNS;
 import static io.rxmicro.data.sql.SupportedVariables.VALUES;
@@ -45,25 +46,22 @@ import static io.rxmicro.data.sql.SupportedVariables.VALUES;
  */
 final class SQLVariableValueCalculatorProvider {
 
+    private static final BiFunction<SQLDataObjectModelClass<?>, VariableContext, Object> COLUMN_LIST_FUNCTION =
+            (modelClass, context) -> nullIfEmpty(
+                    createColumnList(
+                            modelClass.getParamEntries().stream()
+                                    .map(e -> e.getKey().getSelectedColumnNameOrCastExpression())
+                                    .collect(Collectors.toList())
+                    )
+            );
+
     static final Map<String, BiFunction<SQLDataObjectModelClass<?>, VariableContext, Object>> VARIABLE_RESOLVER_PROVIDER =
             Map.of(
                     ALL_COLUMNS,
-                    (modelClass, context) -> nullIfEmpty(
-                            createColumnList(
-                                    modelClass.getParamEntries().stream()
-                                            .map(e -> e.getKey().getSelectedColumnNameOrCastExpression())
-                                            .collect(Collectors.toList())
-                            )
-                    ),
+                    COLUMN_LIST_FUNCTION,
                     //-------------------------------------------------------------------------------------------
                     "*",
-                    (modelClass, context) -> nullIfEmpty(
-                            createColumnList(
-                                    modelClass.getParamEntries().stream()
-                                            .map(e -> e.getKey().getSelectedColumnNameOrCastExpression())
-                                            .collect(Collectors.toList())
-                            )
-                    ),
+                    COLUMN_LIST_FUNCTION,
                     //-------------------------------------------------------------------------------------------
                     ID_COLUMNS,
                     (modelClass, context) -> nullIfEmpty(
@@ -127,7 +125,10 @@ final class SQLVariableValueCalculatorProvider {
                                             .collect(Collectors.toList()),
                                     context.getPseudoTableNameToReadOriginalValuesForModification()
                             )
-                    )
+                    ),
+                    //-------------------------------------------------------------------------------------------
+                    RETURNING_COLUMNS,
+                    COLUMN_LIST_FUNCTION
             );
 
     private static SQLVariableValue nullIfEmpty(final SQLVariableValue sqlVariableValue) {

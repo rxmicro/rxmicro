@@ -12,20 +12,16 @@
 <#-- -------------------------------------------------------------------------------------------------------- -->
 <#-- -------------------------------------------------------------------------------------------------------- -->
 <#-- -------------------------------------------------------------------------------------------------------- -->
-<#if IS_ENTITY_PARAM>
+<#if ENTITY??>
 <#if IS_PRIMARY_KEY_SIMPLE>
-final Object primaryKey = ${ENTITY_CONVERTER}.getPrimaryKey(${ENTITY});
+final Object primaryKey = ${ENTITY_TO_DB_CONVERTER}.getPrimaryKey(${ENTITY});
 <#assign SQL_PARAMS>, primaryKey</#assign>
 <#else>
-final Object[] primaryKeys = ${ENTITY_CONVERTER}.getPrimaryKeys(${ENTITY});
+final Object[] primaryKeys = ${ENTITY_TO_DB_CONVERTER}.getPrimaryKeys(${ENTITY});
 <#assign SQL_PARAMS>, primaryKeys</#assign>
 </#if>
 <#else>
 <#assign SQL_PARAMS>${getBindArgs(SQL.bindParams)}</#assign>
-<#if !RETURN_ENTITY_FIELD_MAP && !RETURN_ENTITY_FIELD_LIST>
-final ${ENTITY_CLASS} entity = new ${ENTITY_CLASS}();
-<#assign ENTITY>entity</#assign>
-</#if>
 </#if>
 <#-- -------------------------------------------------------------------------------------------------------- -->
 <#-- -------------------------------------------------------------------------------------------------------- -->
@@ -34,8 +30,14 @@ final ${ENTITY_CLASS} entity = new ${ENTITY_CLASS}();
     <#assign RESULT_CONVERTER>toEntityFieldMap()</#assign>
 <#elseif RETURN_ENTITY_FIELD_LIST>
     <#assign RESULT_CONVERTER>toEntityFieldList()</#assign>
-<#elseif ENTITY_CONVERTER??>
-    <#assign RESULT_CONVERTER>(row, meta) -> ${ENTITY_CONVERTER}.${ENTITY_CONVERTER_METHOD}(${ENTITY}, row, meta)</#assign>
+<#elseif ENTITY_FROM_DB_CONVERTER??>
+    <#-- ---------------------------------------------------------------------------------------------------- -->
+    <#if ENTITY_RESULT_DIFFERS_FROM_ENTITY_PARAM>
+final ${ENTITY_CLASS} entity = new ${ENTITY_CLASS}();
+    <#assign ENTITY>entity</#assign>
+    </#if>
+    <#-- ---------------------------------------------------------------------------------------------------- -->
+    <#assign RESULT_CONVERTER>(row, meta) -> ${ENTITY_FROM_DB_CONVERTER}.${ENTITY_CONVERTER_METHOD}(${ENTITY}, row, meta)</#assign>
 </#if>
 <#-- -------------------------------------------------------------------------------------------------------- -->
 <#-- -------------------------------------------------------------------------------------------------------- -->

@@ -2,6 +2,11 @@
 
 This document contains the *change log* for all RxMicro releases since **0.2**.
 
+## RxMicro v0.7
+
+* Add support for `${on-conflict-update-not-id-columns}` SQL variable
+* Add support for `${returning-columns}` SQL variable
+
 ## RxMicro v0.6
 
 * Add an ability to customize the standard error response

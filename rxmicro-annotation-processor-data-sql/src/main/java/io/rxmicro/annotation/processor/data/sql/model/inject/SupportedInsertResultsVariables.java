@@ -32,5 +32,5 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @BindingAnnotation
 @Retention(RUNTIME)
 @Target({FIELD, METHOD})
-public @interface SupportedInsertVariables {
+public @interface SupportedInsertResultsVariables {
 }

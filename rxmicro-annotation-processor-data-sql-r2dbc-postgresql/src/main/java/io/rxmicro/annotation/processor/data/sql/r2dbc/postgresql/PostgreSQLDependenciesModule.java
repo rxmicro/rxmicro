@@ -45,10 +45,13 @@ import io.rxmicro.annotation.processor.data.sql.component.impl.resolver.UpdateSQ
 import io.rxmicro.annotation.processor.data.sql.model.SQLDataModelField;
 import io.rxmicro.annotation.processor.data.sql.model.SQLTokenParserRule;
 import io.rxmicro.annotation.processor.data.sql.model.VariableContext;
-import io.rxmicro.annotation.processor.data.sql.model.inject.SupportedDeleteVariables;
-import io.rxmicro.annotation.processor.data.sql.model.inject.SupportedInsertVariables;
-import io.rxmicro.annotation.processor.data.sql.model.inject.SupportedSelectVariables;
-import io.rxmicro.annotation.processor.data.sql.model.inject.SupportedUpdateVariables;
+import io.rxmicro.annotation.processor.data.sql.model.inject.SupportedDeleteParamsVariables;
+import io.rxmicro.annotation.processor.data.sql.model.inject.SupportedDeleteResultsVariables;
+import io.rxmicro.annotation.processor.data.sql.model.inject.SupportedInsertParamsVariables;
+import io.rxmicro.annotation.processor.data.sql.model.inject.SupportedInsertResultsVariables;
+import io.rxmicro.annotation.processor.data.sql.model.inject.SupportedSelectResultsVariables;
+import io.rxmicro.annotation.processor.data.sql.model.inject.SupportedUpdateParamsVariables;
+import io.rxmicro.annotation.processor.data.sql.model.inject.SupportedUpdateResultsVariables;
 import io.rxmicro.annotation.processor.data.sql.r2dbc.component.impl.SQLEntityConverterBuilder;
 import io.rxmicro.annotation.processor.data.sql.r2dbc.component.impl.method.CreateTransactionSQLRepositoryMethodModelBuilder;
 import io.rxmicro.annotation.processor.data.sql.r2dbc.component.impl.method.DeleteSQLRepositoryMethodModelBuilder;
@@ -86,6 +89,7 @@ import static io.rxmicro.data.sql.SupportedVariables.BY_ID_FILTER;
 import static io.rxmicro.data.sql.SupportedVariables.ID_COLUMNS;
 import static io.rxmicro.data.sql.SupportedVariables.INSERTED_COLUMNS;
 import static io.rxmicro.data.sql.SupportedVariables.ON_CONFLICT_UPDATE_NOT_ID_COLUMNS;
+import static io.rxmicro.data.sql.SupportedVariables.RETURNING_COLUMNS;
 import static io.rxmicro.data.sql.SupportedVariables.TABLE;
 import static io.rxmicro.data.sql.SupportedVariables.UPDATED_COLUMNS;
 import static io.rxmicro.data.sql.SupportedVariables.VALUES;
@@ -96,20 +100,40 @@ import static io.rxmicro.data.sql.SupportedVariables.VALUES;
  */
 public final class PostgreSQLDependenciesModule extends AbstractModule {
 
-    private static final Set<String> SUPPORTED_SELECT_VARIABLES =
-            unmodifiableOrderedSet("*", ALL_COLUMNS, TABLE, BY_ID_FILTER);
+    private static final Set<String> SUPPORTED_SELECT_RESULTS_VARIABLES =
+            unmodifiableOrderedSet(
+                    "*", ALL_COLUMNS, TABLE, BY_ID_FILTER
+            );
 
-    private static final Set<String> SUPPORTED_INSERT_VARIABLES =
+    private static final Set<String> SUPPORTED_INSERT_PARAMS_VARIABLES =
             unmodifiableOrderedSet(
                     TABLE, INSERTED_COLUMNS, VALUES, ID_COLUMNS,
                     ON_CONFLICT_UPDATE_NOT_ID_COLUMNS, "*", ALL_COLUMNS
             );
 
-    private static final Set<String> SUPPORTED_DELETE_VARIABLES =
-            unmodifiableOrderedSet(TABLE, BY_ID_FILTER, "*", ALL_COLUMNS);
+    private static final Set<String> SUPPORTED_INSERT_RESULTS_VARIABLES =
+            unmodifiableOrderedSet(
+                    TABLE, "*", ALL_COLUMNS, RETURNING_COLUMNS
+            );
 
-    private static final Set<String> SUPPORTED_UPDATE_VARIABLES =
-            unmodifiableOrderedSet(TABLE, UPDATED_COLUMNS, BY_ID_FILTER, "*", ALL_COLUMNS);
+    private static final Set<String> SUPPORTED_UPDATE_PARAMS_VARIABLES =
+            unmodifiableOrderedSet(
+                    TABLE, UPDATED_COLUMNS, BY_ID_FILTER, "*", ALL_COLUMNS
+            );
+
+    private static final Set<String> SUPPORTED_UPDATE_RESULTS_VARIABLES =
+            unmodifiableOrderedSet(
+                    TABLE, BY_ID_FILTER, "*", ALL_COLUMNS, RETURNING_COLUMNS
+            );
+    private static final Set<String> SUPPORTED_DELETE_PARAMS_VARIABLES =
+            unmodifiableOrderedSet(
+                    TABLE, BY_ID_FILTER, "*", ALL_COLUMNS
+            );
+
+    private static final Set<String> SUPPORTED_DELETE_RESULTS_VARIABLES =
+            unmodifiableOrderedSet(
+                    TABLE, BY_ID_FILTER, "*", ALL_COLUMNS, RETURNING_COLUMNS
+            );
 
     private final PostgreSQLTokenParserRuleProvider postgreSQLTokenParserRuleProvider = new PostgreSQLTokenParserRuleProvider();
 
@@ -154,17 +178,26 @@ public final class PostgreSQLDependenciesModule extends AbstractModule {
         final TypeLiteral<Set<String>> supportedVariableTypeLiteral = new TypeLiteral<>() {
         };
         bind(supportedVariableTypeLiteral)
-                .annotatedWith(SupportedSelectVariables.class)
-                .toInstance(SUPPORTED_SELECT_VARIABLES);
+                .annotatedWith(SupportedSelectResultsVariables.class)
+                .toInstance(SUPPORTED_SELECT_RESULTS_VARIABLES);
         bind(supportedVariableTypeLiteral)
-                .annotatedWith(SupportedInsertVariables.class)
-                .toInstance(SUPPORTED_INSERT_VARIABLES);
+                .annotatedWith(SupportedInsertParamsVariables.class)
+                .toInstance(SUPPORTED_INSERT_PARAMS_VARIABLES);
         bind(supportedVariableTypeLiteral)
-                .annotatedWith(SupportedDeleteVariables.class)
-                .toInstance(SUPPORTED_DELETE_VARIABLES);
+                .annotatedWith(SupportedInsertResultsVariables.class)
+                .toInstance(SUPPORTED_INSERT_RESULTS_VARIABLES);
         bind(supportedVariableTypeLiteral)
-                .annotatedWith(SupportedUpdateVariables.class)
-                .toInstance(SUPPORTED_UPDATE_VARIABLES);
+                .annotatedWith(SupportedUpdateParamsVariables.class)
+                .toInstance(SUPPORTED_UPDATE_PARAMS_VARIABLES);
+        bind(supportedVariableTypeLiteral)
+                .annotatedWith(SupportedUpdateResultsVariables.class)
+                .toInstance(SUPPORTED_UPDATE_RESULTS_VARIABLES);
+        bind(supportedVariableTypeLiteral)
+                .annotatedWith(SupportedDeleteParamsVariables.class)
+                .toInstance(SUPPORTED_DELETE_PARAMS_VARIABLES);
+        bind(supportedVariableTypeLiteral)
+                .annotatedWith(SupportedDeleteResultsVariables.class)
+                .toInstance(SUPPORTED_DELETE_RESULTS_VARIABLES);
     }
 
     // SuppressWarnings(Convert2Diamond) fixes the bug: https://bugs.openjdk.java.net/browse/JDK-8203913

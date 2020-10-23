@@ -19,7 +19,8 @@ package io.rxmicro.annotation.processor.data.sql.r2dbc.postgresql.component.impl
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
-import io.rxmicro.annotation.processor.data.sql.model.inject.SupportedInsertVariables;
+import io.rxmicro.annotation.processor.data.sql.model.inject.SupportedInsertParamsVariables;
+import io.rxmicro.annotation.processor.data.sql.model.inject.SupportedInsertResultsVariables;
 import io.rxmicro.data.sql.operation.Insert;
 
 import java.util.List;
@@ -36,12 +37,21 @@ import static io.rxmicro.annotation.processor.data.sql.model.SQLKeywords.INSERT;
 public final class InsertPostgreSQLBuilder extends AbstractModificationPostgreSQLBuilder<Insert> {
 
     @Inject
-    @SupportedInsertVariables
-    private Set<String> supportedVariables;
+    @SupportedInsertParamsVariables
+    private Set<String> supportedParamsVariables;
+
+    @Inject
+    @SupportedInsertResultsVariables
+    private Set<String> supportedResultsVariables;
 
     @Override
-    protected Set<String> getSupportedVariables() {
-        return supportedVariables;
+    protected Set<String> getSupportedParamsVariables() {
+        return supportedParamsVariables;
+    }
+
+    @Override
+    protected Set<String> getSupportedResultsVariables() {
+        return supportedResultsVariables;
     }
 
     @Override

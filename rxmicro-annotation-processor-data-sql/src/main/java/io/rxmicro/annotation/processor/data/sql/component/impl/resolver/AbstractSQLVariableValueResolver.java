@@ -22,7 +22,6 @@ import io.rxmicro.annotation.processor.common.model.error.InternalErrorException
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
 import io.rxmicro.annotation.processor.data.sql.component.SQLVariableValueResolver;
 import io.rxmicro.annotation.processor.data.sql.component.impl.TableContextBuilder;
-import io.rxmicro.annotation.processor.data.sql.model.ModelClassSupplier;
 import io.rxmicro.annotation.processor.data.sql.model.ParsedSQL;
 import io.rxmicro.annotation.processor.data.sql.model.SQLDataModelField;
 import io.rxmicro.annotation.processor.data.sql.model.SQLDataObjectModelClass;
@@ -33,15 +32,11 @@ import io.rxmicro.annotation.processor.data.sql.model.VariableValuesMap;
 import io.rxmicro.data.sql.VariableValues;
 
 import java.lang.annotation.Annotation;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.BiFunction;
-import java.util.function.Supplier;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
@@ -49,7 +44,6 @@ import javax.lang.model.element.TypeElement;
 import static io.rxmicro.annotation.processor.common.model.ModelFieldType.UNDEFINED;
 import static io.rxmicro.annotation.processor.common.util.Annotations.getAnnotationClassParameter;
 import static io.rxmicro.annotation.processor.data.sql.component.impl.resolver.SQLVariableValueCalculatorProvider.VARIABLE_RESOLVER_PROVIDER;
-import static io.rxmicro.common.util.Formats.format;
 
 /**
  * @author nedis
@@ -72,75 +66,74 @@ public abstract class AbstractSQLVariableValueResolver
                                                          final ParsedSQL<A> parsedSQL,
                                                          final ExecutableElement method,
                                                          final SQLMethodDescriptor<DMF, DMC> sqlMethodDescriptor) {
-        final List<Supplier<ModelClassSupplier<DMF, DMC>>> modelClassSuppliers = getModelClassSuppliers(parsedSQL, sqlMethodDescriptor);
         final VariableValuesMap globalVariableValuesMap = new VariableValuesMap();
         final VariableValuesMap localVariableValuesMap = new VariableValuesMap();
         final VariableValuesMap entityVariableValuesMap = new VariableValuesMap();
         Optional.ofNullable(method.getEnclosingElement().getAnnotation(VariableValues.class)).map(VariableValues::value)
                 .ifPresent(v -> setVariables(method.getEnclosingElement(), globalVariableValuesMap, v));
-        final Iterator<Supplier<ModelClassSupplier<DMF, DMC>>> iterator = modelClassSuppliers.iterator();
-        if (iterator.hasNext()) {
-            final Supplier<ModelClassSupplier<DMF, DMC>> modelClassSupplier = iterator.next();
-            final DMC modelClass = modelClassSupplier.get().getModelClass();
-            final TableContext tableContext = tableContextBuilder.createTableContext(modelClass.getModelTypeElement());
-            variableContext.setCurrentTable(tableContext);
-            putVariableValues(variableContext, entityVariableValuesMap, getSupportedVariables(), modelClass);
+        boolean found = false;
+        if (isSupportEntityResult() && sqlMethodDescriptor.getEntityResult().isPresent()) {
+            final DMC modelClass = sqlMethodDescriptor.getEntityResult().get();
+            putVariableValues(variableContext, modelClass, entityVariableValuesMap, getSupportedResultsVariables());
+            found = true;
         }
+        if (isSupportEntityParam() && sqlMethodDescriptor.getEntityParam().isPresent()) {
+            final DMC modelClass = sqlMethodDescriptor.getEntityParam().get();
+            putVariableValues(variableContext, modelClass, entityVariableValuesMap, getSupportedParamsVariables());
+            found = true;
+        }
+        putVariableValuesIfAnnotationClassPresent(variableContext, parsedSQL, method, sqlMethodDescriptor, entityVariableValuesMap, found);
         Optional.ofNullable(method.getAnnotation(VariableValues.class)).map(VariableValues::value)
                 .ifPresent(v -> setVariables(method, localVariableValuesMap, v));
-        throwErrorIfFound(method, iterator);
-        variableContext.releaseCurrentTable();
         return mergeVariableValuesMaps(method, globalVariableValuesMap, localVariableValuesMap, entityVariableValuesMap);
     }
 
-    private void throwErrorIfFound(final ExecutableElement method,
-                                   final Iterator<Supplier<ModelClassSupplier<DMF, DMC>>> iterator) {
-        while (iterator.hasNext()) {
-            final Supplier<ModelClassSupplier<DMF, DMC>> modelClassSupplier = iterator.next();
-            modelClassSupplier.get().getUnUsedError().ifPresent(error -> {
-                throw new InterruptProcessingException(method, error);
-            });
-        }
-    }
-
-    protected abstract Set<String> getSupportedVariables();
-
-    private List<Supplier<ModelClassSupplier<DMF, DMC>>> getModelClassSuppliers(final ParsedSQL<A> parsedSQL,
-                                                                                final SQLMethodDescriptor<DMF, DMC> sqlMethodDescriptor) {
-        final List<Supplier<ModelClassSupplier<DMF, DMC>>> list = new ArrayList<>();
-        if (isSupportEntityParam() && sqlMethodDescriptor.getEntityParam().isPresent()) {
-            final DMC modelClass = sqlMethodDescriptor.getEntityParam().get();
-            modelClassesCache.put(modelClass.getModelTypeElement(), modelClass);
-            list.add(() -> new ModelClassSupplier<>(modelClass));
-        }
-        if (isSupportEntityResult() && sqlMethodDescriptor.getEntityResult().isPresent()) {
-            final DMC modelClass = sqlMethodDescriptor.getEntityResult().get();
-            modelClassesCache.put(modelClass.getModelTypeElement(), modelClass);
-            list.add(() -> new ModelClassSupplier<>(modelClass));
-        }
+    private void putVariableValuesIfAnnotationClassPresent(final VariableContext variableContext,
+                                                           final ParsedSQL<A> parsedSQL,
+                                                           final ExecutableElement method,
+                                                           final SQLMethodDescriptor<DMF, DMC> sqlMethodDescriptor,
+                                                           final VariableValuesMap entityVariableValuesMap,
+                                                           final boolean foundEntity) {
         final Optional<TypeElement> entityTypeElement = getAnnotationClassParameter(() -> getEntityClass(parsedSQL));
-        entityTypeElement.ifPresent(typeElement ->
-                list.add(getCachedModelClassSupplier(parsedSQL, sqlMethodDescriptor, typeElement))
-        );
-        return list;
+        if (entityTypeElement.isPresent()) {
+            if (foundEntity) {
+                throw new InterruptProcessingException(
+                        method,
+                        "@?.entityClass() is redundant annotation parameter. " +
+                                "Current entity detected using method parameters or method result. " +
+                                "Remove this parameter!",
+                        parsedSQL.getAnnotation().annotationType().getSimpleName()
+                );
+            } else {
+                final DMC modelClass = modelClassesCache.computeIfAbsent(entityTypeElement.get(), t ->
+                        modelFieldModelFieldBuilder.build(UNDEFINED, sqlMethodDescriptor.getCurrentModule(), Set.of(t), false)
+                                .get(t));
+                putVariableValues(variableContext, modelClass, entityVariableValuesMap, getSupportedParamsVariables());
+                putVariableValues(variableContext, modelClass, entityVariableValuesMap, getSupportedResultsVariables());
+            }
+        }
     }
 
-    private Supplier<ModelClassSupplier<DMF, DMC>> getCachedModelClassSupplier(final ParsedSQL<A> parsedSQL,
-                                                                               final SQLMethodDescriptor<DMF, DMC> sqlMethodDescriptor,
-                                                                               final TypeElement typeElement) {
-        return () -> {
-            final DMC modelClass = modelClassesCache.computeIfAbsent(typeElement, t ->
-                    modelFieldModelFieldBuilder.build(UNDEFINED, sqlMethodDescriptor.getCurrentModule(), Set.of(t), false)
-                            .get(t));
-            return new ModelClassSupplier<>(
-                    modelClass,
-                    format("@?.entityClass() is redundant annotation parameter. " +
-                                    "Current entity detected using method parameters or method result. " +
-                                    "Remove this parameter!",
-                            parsedSQL.getAnnotation().annotationType().getSimpleName())
-            );
-        };
+    private void putVariableValues(final VariableContext variableContext,
+                                   final DMC modelClass,
+                                   final VariableValuesMap entityVariableValuesMap,
+                                   final Set<String> supportedVariables) {
+        final TableContext tableContext = tableContextBuilder.createTableContext(modelClass.getModelTypeElement());
+        variableContext.setCurrentTable(tableContext);
+        for (final String variableName : supportedVariables) {
+            final BiFunction<SQLDataObjectModelClass<? extends SQLDataModelField>, VariableContext, Object> provider =
+                    VARIABLE_RESOLVER_PROVIDER.get(variableName);
+            if (provider == null) {
+                throw new InternalErrorException("Variable provider not found for variable: '?'", variableName);
+            }
+            entityVariableValuesMap.put(variableName, provider.apply(modelClass, variableContext));
+        }
+        variableContext.releaseCurrentTable();
     }
+
+    protected abstract Set<String> getSupportedParamsVariables();
+
+    protected abstract Set<String> getSupportedResultsVariables();
 
     protected boolean isSupportEntityParam() {
         return true;
@@ -175,20 +168,6 @@ public abstract class AbstractSQLVariableValueResolver
             } else {
                 variableValuesMap.put(variableName, variableValue);
             }
-        }
-    }
-
-    private void putVariableValues(final VariableContext variableContext,
-                                   final VariableValuesMap variableValuesMap,
-                                   final Set<String> variableNames,
-                                   final DMC modelClass) {
-        for (final String variableName : variableNames) {
-            final BiFunction<SQLDataObjectModelClass<? extends SQLDataModelField>, VariableContext, Object> provider =
-                    VARIABLE_RESOLVER_PROVIDER.get(variableName);
-            if (provider == null) {
-                throw new InternalErrorException("Variable provider not found for variable: '?'", variableName);
-            }
-            variableValuesMap.put(variableName, provider.apply(modelClass, variableContext));
         }
     }
 
