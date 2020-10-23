@@ -28,11 +28,13 @@ import java.util.stream.Collectors;
 import static io.rxmicro.annotation.processor.data.sql.model.SQLVariableValue.createByIdFilter;
 import static io.rxmicro.annotation.processor.data.sql.model.SQLVariableValue.createColumnList;
 import static io.rxmicro.annotation.processor.data.sql.model.SQLVariableValue.createSetColumnList;
+import static io.rxmicro.annotation.processor.data.sql.model.SQLVariableValue.createSetColumnListUsingPseudoTable;
 import static io.rxmicro.annotation.processor.data.sql.model.SQLVariableValue.createValues;
 import static io.rxmicro.data.sql.SupportedVariables.ALL_COLUMNS;
 import static io.rxmicro.data.sql.SupportedVariables.BY_ID_FILTER;
 import static io.rxmicro.data.sql.SupportedVariables.ID_COLUMNS;
 import static io.rxmicro.data.sql.SupportedVariables.INSERTED_COLUMNS;
+import static io.rxmicro.data.sql.SupportedVariables.ON_CONFLICT_UPDATE_NOT_ID_COLUMNS;
 import static io.rxmicro.data.sql.SupportedVariables.TABLE;
 import static io.rxmicro.data.sql.SupportedVariables.UPDATED_COLUMNS;
 import static io.rxmicro.data.sql.SupportedVariables.VALUES;
@@ -115,6 +117,17 @@ final class SQLVariableValueCalculatorProvider {
                     (modelClass, context) -> context.getCurrentTable().getSchema()
                             .map(s -> s + "." + context.getCurrentTable().getTableSimpleName())
                             .orElse(context.getCurrentTable().getTableSimpleName())
+                    ,
+                    //-------------------------------------------------------------------------------------------
+                    ON_CONFLICT_UPDATE_NOT_ID_COLUMNS,
+                    (modelClass, context) -> nullIfEmpty(
+                            createSetColumnListUsingPseudoTable(
+                                    modelClass.getUpdatableParams().stream()
+                                            .map(e -> e.getKey().getModelName())
+                                            .collect(Collectors.toList()),
+                                    context.getPseudoTableNameToReadOriginalValuesForModification()
+                            )
+                    )
             );
 
     private static SQLVariableValue nullIfEmpty(final SQLVariableValue sqlVariableValue) {

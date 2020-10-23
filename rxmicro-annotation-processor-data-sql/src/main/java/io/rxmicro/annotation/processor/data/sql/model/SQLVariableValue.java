@@ -48,6 +48,11 @@ public final class SQLVariableValue {
         return new SQLVariableValue(columns, List.of(VALUE_VAR, "=", "?"), ",");
     }
 
+    public static SQLVariableValue createSetColumnListUsingPseudoTable(final List<String> columns,
+                                                                       final String pseudoTableName) {
+        return new SQLVariableValue(columns, List.of(VALUE_VAR, "=", pseudoTableName + "." + VALUE_VAR), ",");
+    }
+
     public static SQLVariableValue createByIdFilter(final List<String> columns) {
         return new SQLVariableValue(columns, List.of(VALUE_VAR, "=", "?"), "AND");
     }
@@ -68,9 +73,19 @@ public final class SQLVariableValue {
         return columns.stream()
                 .flatMap(column -> Stream.concat(
                         Stream.of(delimiter),
-                        itemTemplate.stream().map(v -> VALUE_VAR.equals(v) ? column : v))
+                        itemTemplate.stream().map(v -> convertItem(column, v)))
                 )
                 .skip(1)
                 .collect(Collectors.toList());
+    }
+
+    private String convertItem(final String column, final String value) {
+        if (VALUE_VAR.equals(value)) {
+            return column;
+        } else if (value.contains(VALUE_VAR)) {
+            return value.replace(VALUE_VAR, column);
+        } else {
+            return value;
+        }
     }
 }

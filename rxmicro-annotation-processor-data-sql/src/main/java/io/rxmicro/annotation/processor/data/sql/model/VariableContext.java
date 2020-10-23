@@ -49,4 +49,10 @@ public abstract class VariableContext {
      * @throws UnsupportedOperationException if variable context does not support sequences
      */
     public abstract String getNextSequenceValue(String sequenceName);
+
+    /**
+     * @return the pseudo table name to read original values for modification
+     * @throws UnsupportedOperationException if variable context does not support pseudo table name to read original values for modification
+     */
+    public abstract String getPseudoTableNameToReadOriginalValuesForModification();
 }

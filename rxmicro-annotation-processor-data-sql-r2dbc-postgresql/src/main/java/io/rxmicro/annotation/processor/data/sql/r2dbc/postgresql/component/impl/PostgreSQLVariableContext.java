@@ -32,4 +32,9 @@ public final class PostgreSQLVariableContext extends VariableContext {
     public String getNextSequenceValue(final String sequenceName) {
         return format("nextval('?')", sequenceName);
     }
+
+    @Override
+    public String getPseudoTableNameToReadOriginalValuesForModification() {
+        return "EXCLUDED";
+    }
 }

@@ -74,7 +74,7 @@ public final class SupportedVariables {
      * All table columns defined at java class, separated by comma {@code ,}.
      *
      * <p>
-     * For example: <code>${all-columns} = id, login, name, password</code>
+     * For example: <code>${all-columns} -> id, login, name, password</code>
      */
     public static final String ALL_COLUMNS = "${all-columns}";
 
@@ -86,7 +86,7 @@ public final class SupportedVariables {
      * ${all-columns} minus {Columns annotated by @{@link NotInsertable}} minus {auto generated primary keys}</code>
      *
      * <p>
-     * For example: <code>${inserted-columns} = login, name, password</code>
+     * For example: <code>${inserted-columns} -> login, name, password</code>
      */
     public static final String INSERTED_COLUMNS = "${inserted-columns}";
 
@@ -97,7 +97,7 @@ public final class SupportedVariables {
      * <code>${updated-columns} = ${all-columns} minus {Columns annotated by @{@link NotUpdatable}} minus {primary keys}</code>
      *
      * <p>
-     * For example: <code>${updated-columns} = login = ?, name = ?, password = ?</code>
+     * For example: <code>${updated-columns} -> login = ?, name = ?, password = ?</code>
      */
     public static final String UPDATED_COLUMNS = "${updated-columns}";
 
@@ -105,7 +105,7 @@ public final class SupportedVariables {
      * Insertable values, separated by comma {@code ,}.
      *
      * <p>
-     * For example: <code>${values} = ?, ?, ?</code>
+     * For example: <code>${values} -> ?, ?, ?</code>
      */
     public static final String VALUES = "${values}";
 
@@ -116,8 +116,8 @@ public final class SupportedVariables {
      * <code>${id-columns} = {primary keys}</code>
      *
      * <p>
-     * For example: <code>${id-columns} = id1, id2</code> if primary key is complex
-     * For example: <code>${id-columns} = id</code> if primary key is simple
+     * For example: <code>${id-columns} -> id1, id2</code> if primary key is complex
+     * For example: <code>${id-columns} -> id</code> if primary key is simple
      */
     public static final String ID_COLUMNS = "${id-columns}";
 
@@ -125,12 +125,24 @@ public final class SupportedVariables {
      * By primary key filters, separated by comma {@code ,}.
      *
      * <p>
-     * For example: <code>${by-id-filter} = id1 = ? AND id2 = ?</code> if primary key is complex
+     * For example: <code>${by-id-filter} -> id1 = ? AND id2 = ?</code> if primary key is complex
      *
      * <p>
-     * For example: <code>${by-id-filter} = id = ?</code> if primary key is simple
+     * For example: <code>${by-id-filter} -> id = ?</code> if primary key is simple
      */
     public static final String BY_ID_FILTER = "${by-id-filter}";
+
+    /**
+     * Updated expressions for conflict state.
+     *
+     * <p>
+     * This variable is supported by the RxMicro framework only if SQL db server supported <code>ON CONFLICT</code> clause
+     *
+     * <p>
+     * For example (for PostgreSQL):
+     * <code>${on-conflict-update-not-id-columns} -> login = EXCLUDED.login, name = EXCLUDED.name, password = EXCLUDED.password</code>
+     */
+    public static final String ON_CONFLICT_UPDATE_NOT_ID_COLUMNS = "${on-conflict-update-not-id-columns}";
 
     private SupportedVariables() {
     }
