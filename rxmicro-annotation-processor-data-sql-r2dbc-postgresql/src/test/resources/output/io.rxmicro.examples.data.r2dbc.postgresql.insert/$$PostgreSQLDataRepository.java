@@ -5,7 +5,9 @@ import io.rxmicro.data.sql.model.EntityFieldMap;
 import io.rxmicro.data.sql.r2dbc.postgresql.detail.AbstractPostgreSQLRepository;
 import io.rxmicro.examples.data.r2dbc.postgresql.insert.model.$$AccountEntityFromR2DBCSQLDBConverter;
 import io.rxmicro.examples.data.r2dbc.postgresql.insert.model.$$AccountEntityToR2DBCSQLDBConverter;
+import io.rxmicro.examples.data.r2dbc.postgresql.insert.model.$$AccountResultEntityFromR2DBCSQLDBConverter;
 import io.rxmicro.examples.data.r2dbc.postgresql.insert.model.Account;
+import io.rxmicro.examples.data.r2dbc.postgresql.insert.model.AccountResult;
 import io.rxmicro.examples.data.r2dbc.postgresql.insert.model.Role;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -24,6 +26,9 @@ public final class $$PostgreSQLDataRepository extends AbstractPostgreSQLReposito
 
     private final $$AccountEntityToR2DBCSQLDBConverter accountEntityToR2DBCSQLDBConverter =
             new $$AccountEntityToR2DBCSQLDBConverter();
+
+    private final $$AccountResultEntityFromR2DBCSQLDBConverter accountResultEntityFromR2DBCSQLDBConverter =
+            new $$AccountResultEntityFromR2DBCSQLDBConverter();
 
     private final ConnectionPool pool;
 
@@ -52,7 +57,25 @@ public final class $$PostgreSQLDataRepository extends AbstractPostgreSQLReposito
     }
 
     @Override
-    public CompletableFuture<Integer> insert2(final String email, final String firstName, final String lastName, final BigDecimal balance, final Role role) {
+    public CompletableFuture<Account> insert2(final Account account) {
+        // Original SQL statement:  'INSERT INTO ${table}(${inserted-columns}) VALUES(${values}) RETURNING ${id-columns}'
+        final String generatedSQL = "INSERT INTO account(id, email, first_name, last_name, role) VALUES(nextval('account_seq'), $1, $2, $3, $4) RETURNING id";
+        final Object[] insertParams = accountEntityToR2DBCSQLDBConverter.getInsertParams(account);
+        return pool.create()
+                .flatMap(c -> executeStatement(c, generatedSQL, insertParams)
+                        .flatMap(r -> Mono.from(r.map((row, meta) -> accountEntityFromR2DBCSQLDBConverter.setId(account, row, meta))))
+                        .switchIfEmpty(close(c)
+                                .then(Mono.empty()))
+                        .delayUntil(s -> close(c))
+                        .onErrorResume(e -> close(c)
+                                .then(Mono.error(e)))
+                )
+                .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletableFuture.class, Account.class))))
+                .toFuture();
+    }
+
+    @Override
+    public CompletableFuture<Integer> insert3(final String email, final String firstName, final String lastName, final BigDecimal balance, final Role role) {
         // Original SQL statement:  'INSERT INTO ${table} VALUES(nextval('account_seq'), ?, ?, ?, ?, ?)'
         final String generatedSQL = "INSERT INTO account VALUES(nextval('account_seq'), $1, $2, $3, $4, $5)";
         return pool.create()
@@ -69,7 +92,7 @@ public final class $$PostgreSQLDataRepository extends AbstractPostgreSQLReposito
     }
 
     @Override
-    public CompletableFuture<Account> insert3(final String email, final String firstName, final String lastName, final BigDecimal balance, final Role role) {
+    public CompletableFuture<Account> insert4(final String email, final String firstName, final String lastName, final BigDecimal balance, final Role role) {
         // Original SQL statement:  'INSERT INTO ${table} VALUES(nextval('account_seq'), ?, ?, ?, ?, ?) RETURNING *'
         final String generatedSQL = "INSERT INTO account VALUES(nextval('account_seq'), $1, $2, $3, $4, $5) RETURNING id, email, first_name, last_name, balance, role";
         final Account entity = new Account();
@@ -87,7 +110,7 @@ public final class $$PostgreSQLDataRepository extends AbstractPostgreSQLReposito
     }
 
     @Override
-    public CompletableFuture<Integer> insert4(final String email, final String firstName, final String lastName, final BigDecimal balance, final Role role) {
+    public CompletableFuture<Integer> insert5(final String email, final String firstName, final String lastName, final BigDecimal balance, final Role role) {
         // Original SQL statement:  'INSERT INTO ${table} VALUES(nextval('account_seq'), ?, ?, ?, ?, ?)'
         final String generatedSQL = "INSERT INTO account VALUES(nextval('account_seq'), $1, $2, $3, $4, $5)";
         return pool.create()
@@ -104,7 +127,7 @@ public final class $$PostgreSQLDataRepository extends AbstractPostgreSQLReposito
     }
 
     @Override
-    public CompletableFuture<EntityFieldMap> insert5(final String email, final String firstName, final String lastName, final BigDecimal balance, final Role role) {
+    public CompletableFuture<EntityFieldMap> insert6(final String email, final String firstName, final String lastName, final BigDecimal balance, final Role role) {
         // Original SQL statement:  'INSERT INTO ${table} VALUES(nextval('account_seq'), ?, ?, ?, ?, ?) RETURNING *'
         final String generatedSQL = "INSERT INTO account VALUES(nextval('account_seq'), $1, $2, $3, $4, $5) RETURNING id, email, first_name, last_name, balance, role";
         return pool.create()
@@ -121,7 +144,64 @@ public final class $$PostgreSQLDataRepository extends AbstractPostgreSQLReposito
     }
 
     @Override
-    public CompletableFuture<List<Account>> insertMany() {
+    public CompletableFuture<AccountResult> insert7(final Account account) {
+        // Original SQL statement:  'INSERT INTO ${table}(${inserted-columns}) VALUES(${values}) RETURNING ${returning-columns}'
+        final String generatedSQL = "INSERT INTO account(id, email, first_name, last_name, role) VALUES(nextval('account_seq'), $1, $2, $3, $4) RETURNING first_name, last_name";
+        final Object[] insertParams = accountEntityToR2DBCSQLDBConverter.getInsertParams(account);
+        final AccountResult entity = new AccountResult();
+        return pool.create()
+                .flatMap(c -> executeStatement(c, generatedSQL, insertParams)
+                        .flatMap(r -> Mono.from(r.map((row, meta) -> accountResultEntityFromR2DBCSQLDBConverter.setFirst_nameLast_name(entity, row, meta))))
+                        .switchIfEmpty(close(c)
+                                .then(Mono.empty()))
+                        .delayUntil(s -> close(c))
+                        .onErrorResume(e -> close(c)
+                                .then(Mono.error(e)))
+                )
+                .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletableFuture.class, AccountResult.class))))
+                .toFuture();
+    }
+
+    @Override
+    public CompletableFuture<AccountResult> insert8(final Account account) {
+        // Original SQL statement:  'INSERT INTO ${table}(${inserted-columns}) VALUES(${values}) ON CONFLICT(${id-columns}) DO UPDATE SET ${on-conflict-update-not-id-columns} RETURNING ${returning-columns}'
+        final String generatedSQL = "INSERT INTO account(id, email, first_name, last_name, role) VALUES(nextval('account_seq'), $1, $2, $3, $4) ON CONFLICT(id) DO UPDATE SET email = EXCLUDED.email, first_name = EXCLUDED.first_name, last_name = EXCLUDED.last_name, balance = EXCLUDED.balance, role = EXCLUDED.role RETURNING first_name, last_name";
+        final Object[] insertParams = accountEntityToR2DBCSQLDBConverter.getInsertParams(account);
+        final AccountResult entity = new AccountResult();
+        return pool.create()
+                .flatMap(c -> executeStatement(c, generatedSQL, insertParams)
+                        .flatMap(r -> Mono.from(r.map((row, meta) -> accountResultEntityFromR2DBCSQLDBConverter.setFirst_nameLast_name(entity, row, meta))))
+                        .switchIfEmpty(close(c)
+                                .then(Mono.empty()))
+                        .delayUntil(s -> close(c))
+                        .onErrorResume(e -> close(c)
+                                .then(Mono.error(e)))
+                )
+                .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletableFuture.class, AccountResult.class))))
+                .toFuture();
+    }
+
+    @Override
+    public CompletableFuture<Void> insert9(final Account account) {
+        // Original SQL statement:  'INSERT INTO ${table}(${inserted-columns}) VALUES(${values}) ON CONFLICT(${id-columns}) DO UPDATE SET ${on-conflict-update-not-id-columns}'
+        final String generatedSQL = "INSERT INTO account(id, email, first_name, last_name, role) VALUES(nextval('account_seq'), $1, $2, $3, $4) ON CONFLICT(id) DO UPDATE SET email = EXCLUDED.email, first_name = EXCLUDED.first_name, last_name = EXCLUDED.last_name, balance = EXCLUDED.balance, role = EXCLUDED.role";
+        final Object[] insertParams = accountEntityToR2DBCSQLDBConverter.getInsertParams(account);
+        return pool.create()
+                .flatMap(c -> executeStatement(c, generatedSQL, insertParams)
+                        .flatMap(r -> Mono.from(r.getRowsUpdated()))
+                        
+                        .delayUntil(s -> close(c))
+                        .onErrorResume(e -> close(c)
+                                .then(Mono.error(e)))
+                        
+                )
+                .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletableFuture.class, Void.class))))
+                .toFuture()
+                .thenApply(r -> null);
+    }
+
+    @Override
+    public CompletableFuture<List<Account>> insertMany1() {
         // Original SQL statement:  'INSERT INTO ${table} SELECT * FROM dump RETURNING *'
         final String generatedSQL = "INSERT INTO account SELECT * FROM dump RETURNING id, email, first_name, last_name, balance, role";
         final Account entity = new Account();

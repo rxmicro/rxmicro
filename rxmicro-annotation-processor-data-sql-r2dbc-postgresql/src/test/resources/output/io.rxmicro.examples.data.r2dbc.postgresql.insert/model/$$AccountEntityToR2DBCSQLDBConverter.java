@@ -16,4 +16,16 @@ public final class $$AccountEntityToR2DBCSQLDBConverter extends EntityToR2DBCSQL
                 entity.role.name()
         };
     }
+
+    public Object[] getUpdateParams(final Account entity) {
+        return new Object[]{
+                entity.email,
+                entity.firstName,
+                entity.lastName,
+                entity.balance,
+                entity.role.name(),
+                // primary key(s):
+                entity.id
+        };
+    }
 }

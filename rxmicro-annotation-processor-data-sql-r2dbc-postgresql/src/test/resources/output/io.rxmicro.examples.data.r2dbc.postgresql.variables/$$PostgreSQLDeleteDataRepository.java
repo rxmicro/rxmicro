@@ -54,7 +54,7 @@ public final class $$PostgreSQLDeleteDataRepository extends AbstractPostgreSQLRe
         final Object primaryKey = entityEntityToR2DBCSQLDBConverter.getPrimaryKey(entity);
         return pool.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, primaryKey)
-                        .flatMap(r -> Mono.from(r.map((row, meta) -> entityEntityToR2DBCSQLDBConverter.setIdValue(entity, row, meta))))
+                        .flatMap(r -> Mono.from(r.map((row, meta) -> entityEntityFromR2DBCSQLDBConverter.setIdValue(entity, row, meta))))
                         .switchIfEmpty(close(c)
                                 .then(Mono.empty()))
                         .delayUntil(s -> close(c))

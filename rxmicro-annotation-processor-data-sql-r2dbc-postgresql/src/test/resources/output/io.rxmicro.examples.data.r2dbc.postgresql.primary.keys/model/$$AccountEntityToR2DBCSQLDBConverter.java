@@ -1,7 +1,6 @@
 package io.rxmicro.examples.data.r2dbc.postgresql.primary.keys.model;
 
 import io.r2dbc.spi.Row;
-import io.r2dbc.spi.RowMetadata;
 import io.rxmicro.data.sql.r2dbc.detail.EntityToR2DBCSQLDBConverter;
 
 /**
@@ -32,12 +31,5 @@ public final class $$AccountEntityToR2DBCSQLDBConverter extends EntityToR2DBCSQL
 
     public Object getPrimaryKey(final Account entity) {
         return entity.id;
-    }
-
-    public Account setId(final Account model,
-                         final Row dbRow,
-                         final RowMetadata metadata) {
-        model.id = dbRow.get(0, Long.class);
-        return model;
     }
 }

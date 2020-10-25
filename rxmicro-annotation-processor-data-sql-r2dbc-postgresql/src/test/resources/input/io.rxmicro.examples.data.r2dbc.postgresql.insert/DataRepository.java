@@ -21,6 +21,7 @@ import io.rxmicro.data.sql.model.EntityFieldMap;
 import io.rxmicro.data.sql.operation.Insert;
 import io.rxmicro.data.sql.r2dbc.postgresql.PostgreSQLRepository;
 import io.rxmicro.examples.data.r2dbc.postgresql.insert.model.Account;
+import io.rxmicro.examples.data.r2dbc.postgresql.insert.model.AccountResult;
 import io.rxmicro.examples.data.r2dbc.postgresql.insert.model.Role;
 
 import java.math.BigDecimal;
@@ -34,17 +35,20 @@ public interface DataRepository {
     @Insert
     CompletableFuture<Boolean> insert1(Account account);
 
+    @Insert
+    CompletableFuture<Account> insert2(Account account);
+
     @Insert("INSERT INTO ${table} VALUES(nextval('account_seq'),?,?,?,?,?)")
     // <1>
     @VariableValues({
             "${table}", "account"
     })
-    CompletableFuture<Integer> insert2(
+    CompletableFuture<Integer> insert3(
             String email, String firstName, String lastName, BigDecimal balance, Role role
     );
 
     @Insert("INSERT INTO ${table} VALUES(nextval('account_seq'),?,?,?,?,?) RETURNING *")
-    CompletableFuture<Account> insert3(
+    CompletableFuture<Account> insert4(
             String email, String firstName, String lastName, BigDecimal balance, Role role
     );
 
@@ -52,7 +56,7 @@ public interface DataRepository {
             value = "INSERT INTO ${table} VALUES(nextval('account_seq'),?,?,?,?,?)",
             entityClass = Account.class
     )
-    CompletableFuture<Integer> insert4(
+    CompletableFuture<Integer> insert5(
             String email, String firstName, String lastName, BigDecimal balance, Role role
     );
 
@@ -60,11 +64,24 @@ public interface DataRepository {
             value = "INSERT INTO ${table} VALUES(nextval('account_seq'),?,?,?,?,?) RETURNING *",
             entityClass = Account.class
     )
-    CompletableFuture<EntityFieldMap> insert5(
+    CompletableFuture<EntityFieldMap> insert6(
             String email, String firstName, String lastName, BigDecimal balance, Role role
     );
 
+    @Insert("INSERT INTO ${table}(${inserted-columns}) VALUES(${values}) " +
+            "RETURNING ${returning-columns}")
+    CompletableFuture<AccountResult> insert7(Account account);
+
+    @Insert("INSERT INTO ${table}(${inserted-columns}) VALUES(${values}) " +
+            "ON CONFLICT (${id-columns}) DO UPDATE SET ${on-conflict-update-not-id-columns}" +
+            "RETURNING ${returning-columns}")
+    CompletableFuture<AccountResult> insert8(Account account);
+
+    @Insert("INSERT INTO ${table}(${inserted-columns}) VALUES(${values}) " +
+            "ON CONFLICT (${id-columns}) DO UPDATE SET ${on-conflict-update-not-id-columns}")
+    CompletableFuture<Void> insert9(Account account);
+
     @Insert("INSERT INTO ${table} SELECT * FROM dump RETURNING *")
-    CompletableFuture<List<Account>> insertMany();
+    CompletableFuture<List<Account>> insertMany1();
 }
 // end::content[]

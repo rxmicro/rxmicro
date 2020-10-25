@@ -11,6 +11,13 @@ import java.math.BigDecimal;
  */
 public final class $$AccountEntityFromR2DBCSQLDBConverter extends EntityFromR2DBCSQLDBConverter<Row, RowMetadata, Account> {
 
+    public Account setId(final Account model,
+                         final Row dbRow,
+                         final RowMetadata metadata) {
+        model.id = dbRow.get(0, Long.class);
+        return model;
+    }
+
     public Account setIdEmailFirst_nameLast_nameBalanceRole(final Account model,
                                                             final Row dbRow,
                                                             final RowMetadata metadata) {

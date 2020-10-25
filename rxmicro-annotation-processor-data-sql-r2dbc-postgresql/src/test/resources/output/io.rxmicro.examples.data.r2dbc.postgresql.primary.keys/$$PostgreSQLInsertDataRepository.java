@@ -2,8 +2,10 @@ package io.rxmicro.examples.data.r2dbc.postgresql.primary.keys;
 
 import io.r2dbc.pool.ConnectionPool;
 import io.rxmicro.data.sql.r2dbc.postgresql.detail.AbstractPostgreSQLRepository;
+import io.rxmicro.examples.data.r2dbc.postgresql.primary.keys.model.$$AccountEntityFromR2DBCSQLDBConverter;
 import io.rxmicro.examples.data.r2dbc.postgresql.primary.keys.model.$$AccountEntityToR2DBCSQLDBConverter;
 import io.rxmicro.examples.data.r2dbc.postgresql.primary.keys.model.$$CompositePrimaryKeyEntityToR2DBCSQLDBConverter;
+import io.rxmicro.examples.data.r2dbc.postgresql.primary.keys.model.$$OrderEntityFromR2DBCSQLDBConverter;
 import io.rxmicro.examples.data.r2dbc.postgresql.primary.keys.model.$$OrderEntityToR2DBCSQLDBConverter;
 import io.rxmicro.examples.data.r2dbc.postgresql.primary.keys.model.$$ProductEntityToR2DBCSQLDBConverter;
 import io.rxmicro.examples.data.r2dbc.postgresql.primary.keys.model.Account;
@@ -19,11 +21,17 @@ import java.util.concurrent.CompletableFuture;
  */
 public final class $$PostgreSQLInsertDataRepository extends AbstractPostgreSQLRepository implements InsertDataRepository {
 
+    private final $$AccountEntityFromR2DBCSQLDBConverter accountEntityFromR2DBCSQLDBConverter =
+            new $$AccountEntityFromR2DBCSQLDBConverter();
+
     private final $$AccountEntityToR2DBCSQLDBConverter accountEntityToR2DBCSQLDBConverter =
             new $$AccountEntityToR2DBCSQLDBConverter();
 
     private final $$CompositePrimaryKeyEntityToR2DBCSQLDBConverter compositePrimaryKeyEntityToR2DBCSQLDBConverter =
             new $$CompositePrimaryKeyEntityToR2DBCSQLDBConverter();
+
+    private final $$OrderEntityFromR2DBCSQLDBConverter orderEntityFromR2DBCSQLDBConverter =
+            new $$OrderEntityFromR2DBCSQLDBConverter();
 
     private final $$OrderEntityToR2DBCSQLDBConverter orderEntityToR2DBCSQLDBConverter =
             new $$OrderEntityToR2DBCSQLDBConverter();
@@ -45,7 +53,7 @@ public final class $$PostgreSQLInsertDataRepository extends AbstractPostgreSQLRe
         final Object[] insertParams = accountEntityToR2DBCSQLDBConverter.getInsertParams(account);
         return pool.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, insertParams)
-                        .flatMap(r -> Mono.from(r.map((row, meta) -> accountEntityToR2DBCSQLDBConverter.setId(account, row, meta))))
+                        .flatMap(r -> Mono.from(r.map((row, meta) -> accountEntityFromR2DBCSQLDBConverter.setId(account, row, meta))))
                         .switchIfEmpty(close(c)
                                 .then(Mono.empty()))
                         .delayUntil(s -> close(c))
@@ -63,7 +71,7 @@ public final class $$PostgreSQLInsertDataRepository extends AbstractPostgreSQLRe
         final Object[] insertParams = orderEntityToR2DBCSQLDBConverter.getInsertParams(order);
         return pool.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, insertParams)
-                        .flatMap(r -> Mono.from(r.map((row, meta) -> orderEntityToR2DBCSQLDBConverter.setId(order, row, meta))))
+                        .flatMap(r -> Mono.from(r.map((row, meta) -> orderEntityFromR2DBCSQLDBConverter.setId(order, row, meta))))
                         .switchIfEmpty(close(c)
                                 .then(Mono.empty()))
                         .delayUntil(s -> close(c))

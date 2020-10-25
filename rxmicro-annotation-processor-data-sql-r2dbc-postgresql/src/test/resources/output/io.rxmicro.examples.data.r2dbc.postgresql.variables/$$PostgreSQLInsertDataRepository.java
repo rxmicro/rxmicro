@@ -54,7 +54,7 @@ public final class $$PostgreSQLInsertDataRepository extends AbstractPostgreSQLRe
         final Object[] insertParams = entityEntityToR2DBCSQLDBConverter.getInsertParams(entity);
         return pool.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, insertParams)
-                        .flatMap(r -> Mono.from(r.map((row, meta) -> entityEntityToR2DBCSQLDBConverter.setIdValue(entity, row, meta))))
+                        .flatMap(r -> Mono.from(r.map((row, meta) -> entityEntityFromR2DBCSQLDBConverter.setIdValue(entity, row, meta))))
                         .switchIfEmpty(close(c)
                                 .then(Mono.empty()))
                         .delayUntil(s -> close(c))
@@ -67,7 +67,7 @@ public final class $$PostgreSQLInsertDataRepository extends AbstractPostgreSQLRe
 
     @Override
     public CompletableFuture<Entity> insertIntoEntityTable3(final String value) {
-        // Original SQL statement:  'INSERT INTO ${table} VALUES(${values}) RETURNING *'
+        // Original SQL statement:  'INSERT INTO ${table} VALUES(?) RETURNING *'
         final String generatedSQL = "INSERT INTO entity_table VALUES($1) RETURNING id, value";
         final Entity entity = new Entity();
         return pool.create()
@@ -85,7 +85,7 @@ public final class $$PostgreSQLInsertDataRepository extends AbstractPostgreSQLRe
 
     @Override
     public CompletableFuture<EntityFieldMap> insertIntoEntityTable4(final String value) {
-        // Original SQL statement:  'INSERT INTO ${table} VALUES(${values}) RETURNING *'
+        // Original SQL statement:  'INSERT INTO ${table} VALUES(?) RETURNING *'
         final String generatedSQL = "INSERT INTO entity_table VALUES($1) RETURNING id, value";
         return pool.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, value)

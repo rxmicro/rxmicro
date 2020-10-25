@@ -43,10 +43,10 @@ public interface InsertDataRepository {
     @Insert("INSERT INTO ${table}(${inserted-columns}) VALUES(${values}) RETURNING *")
     CompletableFuture<Entity> insertIntoEntityTable2(Entity entity);
 
-    @Insert("INSERT INTO ${table} VALUES(${values}) RETURNING *")
+    @Insert("INSERT INTO ${table} VALUES(?) RETURNING *")
     CompletableFuture<Entity> insertIntoEntityTable3(String value);
 
-    @Insert(value = "INSERT INTO ${table} VALUES(${values}) RETURNING *", entityClass = Entity.class)
+    @Insert(value = "INSERT INTO ${table} VALUES(?) RETURNING *", entityClass = Entity.class)
     CompletableFuture<EntityFieldMap> insertIntoEntityTable4(String value);
 
     @Insert("INSERT INTO ${table} VALUES(?) RETURNING value")

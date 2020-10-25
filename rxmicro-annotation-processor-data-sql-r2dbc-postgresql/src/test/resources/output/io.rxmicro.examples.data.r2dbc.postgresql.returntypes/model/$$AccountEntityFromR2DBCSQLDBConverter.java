@@ -17,6 +17,13 @@ public final class $$AccountEntityFromR2DBCSQLDBConverter extends EntityFromR2DB
         return model;
     }
 
+    public Account setId(final Account model,
+                         final Row dbRow,
+                         final RowMetadata metadata) {
+        model.id = dbRow.get(0, Long.class);
+        return model;
+    }
+
     public Account setIdFirst_nameLast_name(final Account model,
                                             final Row dbRow,
                                             final RowMetadata metadata) {

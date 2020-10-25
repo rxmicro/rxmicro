@@ -54,7 +54,7 @@ public final class $$PostgreSQLUpdateDataRepository extends AbstractPostgreSQLRe
         final Object[] updateParams = entityEntityToR2DBCSQLDBConverter.getUpdateParams(entity);
         return pool.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, updateParams)
-                        .flatMap(r -> Mono.from(r.map((row, meta) -> entityEntityToR2DBCSQLDBConverter.setIdValue(entity, row, meta))))
+                        .flatMap(r -> Mono.from(r.map((row, meta) -> entityEntityFromR2DBCSQLDBConverter.setIdValue(entity, row, meta))))
                         .switchIfEmpty(close(c)
                                 .then(Mono.empty()))
                         .delayUntil(s -> close(c))

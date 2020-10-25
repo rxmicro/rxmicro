@@ -1,7 +1,6 @@
 package io.rxmicro.examples.data.r2dbc.postgresql.transactional.model;
 
 import io.r2dbc.spi.Row;
-import io.r2dbc.spi.RowMetadata;
 import io.rxmicro.data.sql.r2dbc.detail.EntityToR2DBCSQLDBConverter;
 
 /**
@@ -30,12 +29,5 @@ public final class $$OrderEntityToR2DBCSQLDBConverter extends EntityToR2DBCSQLDB
 
     public Object getPrimaryKey(final Order entity) {
         return entity.id;
-    }
-
-    public Order setId(final Order model,
-                       final Row dbRow,
-                       final RowMetadata metadata) {
-        model.id = dbRow.get(0, Long.class);
-        return model;
     }
 }

@@ -4,6 +4,7 @@ import io.r2dbc.pool.ConnectionPool;
 import io.rxmicro.data.sql.model.reactor.Transaction;
 import io.rxmicro.data.sql.r2dbc.postgresql.detail.AbstractPostgreSQLRepository;
 import io.rxmicro.examples.data.r2dbc.postgresql.transactional.model.$$AccountEntityFromR2DBCSQLDBConverter;
+import io.rxmicro.examples.data.r2dbc.postgresql.transactional.model.$$OrderEntityFromR2DBCSQLDBConverter;
 import io.rxmicro.examples.data.r2dbc.postgresql.transactional.model.$$OrderEntityToR2DBCSQLDBConverter;
 import io.rxmicro.examples.data.r2dbc.postgresql.transactional.model.$$ProductEntityFromR2DBCSQLDBConverter;
 import io.rxmicro.examples.data.r2dbc.postgresql.transactional.model.Account;
@@ -18,6 +19,9 @@ public final class $$PostgreSQLTransactionUsageRepository extends AbstractPostgr
 
     private final $$AccountEntityFromR2DBCSQLDBConverter accountEntityFromR2DBCSQLDBConverter =
             new $$AccountEntityFromR2DBCSQLDBConverter();
+
+    private final $$OrderEntityFromR2DBCSQLDBConverter orderEntityFromR2DBCSQLDBConverter =
+            new $$OrderEntityFromR2DBCSQLDBConverter();
 
     private final $$OrderEntityToR2DBCSQLDBConverter orderEntityToR2DBCSQLDBConverter =
             new $$OrderEntityToR2DBCSQLDBConverter();
@@ -65,7 +69,7 @@ public final class $$PostgreSQLTransactionUsageRepository extends AbstractPostgr
         final Object[] insertParams = orderEntityToR2DBCSQLDBConverter.getInsertParams(order);
         return extractConnectionFrom(transaction)
                 .flatMap(c -> executeStatement(c, generatedSQL, insertParams)
-                        .flatMap(r -> Mono.from(r.map((row, meta) -> orderEntityToR2DBCSQLDBConverter.setId(order, row, meta))))
+                        .flatMap(r -> Mono.from(r.map((row, meta) -> orderEntityFromR2DBCSQLDBConverter.setId(order, row, meta))))
                 );
     }
 
