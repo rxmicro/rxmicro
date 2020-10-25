@@ -27,7 +27,7 @@ import io.rxmicro.rest.server.ServerInstance;
 import io.rxmicro.rest.server.detail.component.HttpResponseBuilder;
 import io.rxmicro.rest.server.local.component.HttpErrorResponseBodyBuilder;
 import io.rxmicro.rest.server.local.component.RequestHandler;
-import io.rxmicro.rest.server.local.component.RequestIdGenerator;
+import io.rxmicro.rest.server.feature.RequestIdGenerator;
 import io.rxmicro.rest.server.local.component.ServerFactory;
 import io.rxmicro.rest.server.local.component.impl.FasterButUnSafeRequestIdGenerator;
 import io.rxmicro.rest.server.local.component.impl.SafeButSlowerRequestIdGenerator;
@@ -42,9 +42,6 @@ import static io.rxmicro.common.Constants.RX_MICRO_FRAMEWORK_NAME;
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.Requires.require;
 import static io.rxmicro.config.Configs.getConfig;
-import static io.rxmicro.rest.server.RequestIdGeneratorType.FASTER_BUT_UNSAFE;
-import static io.rxmicro.rest.server.RequestIdGeneratorType.FOR_TESTS_ONLY;
-import static io.rxmicro.rest.server.RequestIdGeneratorType.SAFE_BUT_SLOWER;
 import static io.rxmicro.rest.server.netty.internal.util.NettyTransportFactory.getServerSocketChannelClass;
 import static io.rxmicro.rest.server.netty.internal.util.NettyTransportFactory.newEventLoopGroup;
 import static io.rxmicro.runtime.local.Instances.getImplementation;
@@ -56,12 +53,6 @@ import static io.rxmicro.runtime.local.Instances.getImplementation;
 public final class NettyServerFactory implements ServerFactory {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(NettyServerFactory.class);
-
-    private final Map<RequestIdGeneratorType, RequestIdGenerator> requestIdGeneratorMap = Map.of(
-            SAFE_BUT_SLOWER, new SafeButSlowerRequestIdGenerator(),
-            FASTER_BUT_UNSAFE, new FasterButUnSafeRequestIdGenerator(),
-            FOR_TESTS_ONLY, new TestRequestIdGenerator()
-    );
 
     private final HttpResponseBuilder responseBuilder =
             new NettyHttpResponseBuilder();
@@ -77,7 +68,7 @@ public final class NettyServerFactory implements ServerFactory {
                 throw new ConfigException("Only http schema supported now");
             }
             final RestServerConfig restServerConfig = getConfig(RestServerConfig.class);
-            final RequestIdGenerator requestIdGenerator = requestIdGeneratorMap.get(restServerConfig.getGeneratorType());
+            final RequestIdGenerator requestIdGenerator = restServerConfig.getGeneratorType().getRequestIdGenerator();
             final NettyRestServerConfig nettyRestServerConfig = getConfig(NettyRestServerConfig.class);
             nettyRestServerConfig.addLast(() -> new NettyRequestHandler(
                     nettyRestServerConfig,

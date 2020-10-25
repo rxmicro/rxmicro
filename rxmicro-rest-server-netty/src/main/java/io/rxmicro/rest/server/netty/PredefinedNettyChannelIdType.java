@@ -14,25 +14,34 @@
  * limitations under the License.
  */
 
-package io.rxmicro.rest.server.local.component.impl;
+package io.rxmicro.rest.server.netty;
 
-import io.rxmicro.rest.server.feature.RequestIdGenerator;
+import io.netty.channel.ChannelId;
 
 /**
- * Request id generator used for test environment only.
- *
- * By default, it is automatically activated for test environment.
- * Returns predefined value: {@code TestRequestId}. See {@link TestRequestIdGenerator#TEST_REQUEST_ID}
+ * Predefined netty channel id
  *
  * @author nedis
- * @since 0.1
+ * @since 0.7
  */
-public final class TestRequestIdGenerator implements RequestIdGenerator {
+public enum PredefinedNettyChannelIdType implements NettyChannelIdType{
 
-    private static final String TEST_REQUEST_ID = "TestRequestId";
+    /**
+     * Returns the short but globally non-unique string representation of the {@link io.netty.channel.ChannelId}.
+     */
+    SHORT,
+
+    /**
+     * Returns the long yet globally unique string representation of the {@link io.netty.channel.ChannelId}.
+     */
+    LONG;
 
     @Override
-    public String getNextId() {
-        return TEST_REQUEST_ID;
+    public String getId(final ChannelId channelId) {
+        if (this == LONG) {
+            return channelId.asLongText();
+        } else {
+            return channelId.asShortText();
+        }
     }
 }

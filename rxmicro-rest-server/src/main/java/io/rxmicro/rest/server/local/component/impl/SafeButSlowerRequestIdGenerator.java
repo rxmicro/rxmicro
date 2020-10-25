@@ -16,7 +16,7 @@
 
 package io.rxmicro.rest.server.local.component.impl;
 
-import io.rxmicro.rest.server.local.component.RequestIdGenerator;
+import io.rxmicro.rest.server.feature.RequestIdGenerator;
 
 import java.nio.ByteBuffer;
 import java.util.Base64;

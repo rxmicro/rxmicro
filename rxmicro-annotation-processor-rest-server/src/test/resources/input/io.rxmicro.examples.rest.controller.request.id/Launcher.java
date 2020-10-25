@@ -19,7 +19,7 @@ package io.rxmicro.examples.rest.controller.request.id;
 import io.rxmicro.config.Configs;
 import io.rxmicro.rest.server.RestServerConfig;
 
-import static io.rxmicro.rest.server.RequestIdGeneratorType.SAFE_BUT_SLOWER;
+import static io.rxmicro.rest.server.PredefinedRequestIdGeneratorType.SAFE_BUT_SLOWER;
 import static io.rxmicro.rest.server.RxMicro.startRestServer;
 
 public final class Launcher {

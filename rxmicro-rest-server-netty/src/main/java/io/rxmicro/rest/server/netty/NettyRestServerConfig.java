@@ -68,7 +68,7 @@ public final class NettyRestServerConfig extends Config {
 
     private NettyTransport transport = NettyTransport.AUTO;
 
-    private NettyChannelIdType channelIdType = NettyChannelIdType.SHORT;
+    private NettyChannelIdType channelIdType = PredefinedNettyChannelIdType.SHORT;
 
     /**
      * Adds server channel option.
@@ -187,7 +187,7 @@ public final class NettyRestServerConfig extends Config {
      *
      * @since 0.3
      * @param channelIdType {@link NettyChannelIdType} which must be used
-     * @return the reference to this {@link NettyRestServerConfig} instanc
+     * @return the reference to this {@link NettyRestServerConfig} instance
      */
     @BuilderMethod
     public NettyRestServerConfig setChannelIdType(final NettyChannelIdType channelIdType) {

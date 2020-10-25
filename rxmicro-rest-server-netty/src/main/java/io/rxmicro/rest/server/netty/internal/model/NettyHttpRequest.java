@@ -22,7 +22,7 @@ import io.rxmicro.common.InvalidStateException;
 import io.rxmicro.http.HttpHeaders;
 import io.rxmicro.http.HttpVersion;
 import io.rxmicro.rest.server.detail.model.HttpRequest;
-import io.rxmicro.rest.server.local.component.RequestIdGenerator;
+import io.rxmicro.rest.server.feature.RequestIdGenerator;
 
 import java.net.SocketAddress;
 

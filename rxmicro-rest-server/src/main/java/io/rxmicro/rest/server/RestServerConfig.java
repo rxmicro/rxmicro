@@ -63,12 +63,12 @@ public class RestServerConfig extends Config {
 
     private Set<StaticResponseHeader> staticResponseHeaders = new LinkedHashSet<>(
             List.of(
-                    StandardStaticResponseHeader.SERVER,
-                    StandardStaticResponseHeader.DATE
+                    PredefinedStaticResponseHeader.SERVER,
+                    PredefinedStaticResponseHeader.DATE
             )
     );
 
-    private RequestIdGeneratorType generatorType = RequestIdGeneratorType.FASTER_BUT_UNSAFE;
+    private RequestIdGeneratorType generatorType = PredefinedRequestIdGeneratorType.FASTER_BUT_UNSAFE;
 
     private boolean returnGeneratedRequestId = true;
 

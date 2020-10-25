@@ -23,19 +23,10 @@ import io.netty.channel.ChannelId;
  *
  * @author nedis
  * @see io.netty.channel.ChannelId
+ * @see PredefinedNettyChannelIdType
  * @since 0.3
  */
-public enum NettyChannelIdType {
-
-    /**
-     * Returns the short but globally non-unique string representation of the {@link io.netty.channel.ChannelId}.
-     */
-    SHORT,
-
-    /**
-     * Returns the long yet globally unique string representation of the {@link io.netty.channel.ChannelId}.
-     */
-    LONG;
+public interface NettyChannelIdType {
 
     /**
      * Returns the unique string representation of channel id.
@@ -43,11 +34,5 @@ public enum NettyChannelIdType {
      * @param channelId channel id
      * @return the unique string representation of channel id
      */
-    public String getId(final ChannelId channelId) {
-        if (this == LONG) {
-            return channelId.asLongText();
-        } else {
-            return channelId.asShortText();
-        }
-    }
+    String getId(ChannelId channelId);
 }

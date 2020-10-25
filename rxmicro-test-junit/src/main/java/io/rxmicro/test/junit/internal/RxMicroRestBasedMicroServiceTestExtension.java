@@ -49,7 +49,7 @@ import java.util.List;
 import java.util.Map;
 
 import static io.rxmicro.config.local.DefaultConfigValueBuilderReSetter.resetDefaultConfigValueStorage;
-import static io.rxmicro.rest.server.RequestIdGeneratorType.FOR_TESTS_ONLY;
+import static io.rxmicro.rest.server.PredefinedRequestIdGeneratorType.FOR_TESTS_ONLY;
 import static io.rxmicro.rest.server.local.component.RestServerLauncher.launchWithoutRestControllers;
 import static io.rxmicro.runtime.local.AbstractFactory.clearFactories;
 import static io.rxmicro.runtime.local.InstanceContainer.clearContainer;

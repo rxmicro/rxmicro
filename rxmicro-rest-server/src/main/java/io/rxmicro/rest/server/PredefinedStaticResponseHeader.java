@@ -29,7 +29,7 @@ import static io.rxmicro.rest.server.internal.StandardResponseHeaderValueSupplie
  * @author nedis
  * @since 0.1
  */
-public enum StandardStaticResponseHeader implements StaticResponseHeader {
+public enum PredefinedStaticResponseHeader implements StaticResponseHeader {
 
     /**
      * {@code `Server`} header that returns a server name.
@@ -45,8 +45,8 @@ public enum StandardStaticResponseHeader implements StaticResponseHeader {
 
     private final Supplier<String> headerValueSupplier;
 
-    StandardStaticResponseHeader(final String headerName,
-                                 final Supplier<String> headerValueSupplier) {
+    PredefinedStaticResponseHeader(final String headerName,
+                                   final Supplier<String> headerValueSupplier) {
         this.headerName = headerName;
         this.headerValueSupplier = headerValueSupplier;
     }
