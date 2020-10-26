@@ -64,6 +64,9 @@ public final class RestModelValidatorBuilderImpl extends AbstractProcessorCompon
     @Inject
     private AnnotationValueConverter annotationValueConverter;
 
+    @Inject
+    private RestModelRequiredValidatorBuilder restModelRequiredValidatorBuilder;
+
     @Override
     public Set<ModelValidatorClassStructure> build(final List<RestObjectModelClass> objectModelClasses) {
         final Set<ModelValidatorClassStructure> result = new HashSet<>();
@@ -106,7 +109,7 @@ public final class RestModelValidatorBuilderImpl extends AbstractProcessorCompon
     private void extractFieldValidators(final ModelValidatorClassStructure.Builder builder,
                                         final RestModelField restModelField,
                                         final ModelClass modelFieldType) {
-        addRequiredValidator(builder, restModelField, modelFieldType);
+        restModelRequiredValidatorBuilder.addRequiredValidator(builder, restModelField, modelFieldType);
         constraintAnnotationExtractor.extract(restModelField, modelFieldType).forEach(m -> {
             annotationValueValidator.validate(m, restModelField);
             final String constraintConstructorArg = m.getElementValues().entrySet().stream()
@@ -139,26 +142,6 @@ public final class RestModelValidatorBuilderImpl extends AbstractProcessorCompon
             return removeUnderscoresIfPresent(result);
         } else {
             return result;
-        }
-    }
-
-    private void addRequiredValidator(final ModelValidatorClassStructure.Builder builder,
-                                      final RestModelField restModelField,
-                                      final ModelClass modelFieldType) {
-        final Nullable nullable = restModelField.getAnnotation(Nullable.class);
-        if (nullable == null || nullable.off()) {
-            if (modelFieldType.isList()) {
-                builder.add(restModelField, Nullable.class.getSimpleName(),
-                        RequiredListConstraintValidator.class.getName(), null, false);
-                final NullableArrayItem nullableArrayItem = restModelField.getAnnotation(NullableArrayItem.class);
-                if (nullableArrayItem == null || nullableArrayItem.off()) {
-                    builder.add(restModelField, NullableArrayItem.class.getSimpleName(),
-                            RequiredConstraintValidator.class.getName(), null, true);
-                }
-            } else {
-                builder.add(restModelField, Nullable.class.getSimpleName(),
-                        RequiredConstraintValidator.class.getName(), null, false);
-            }
         }
     }
 
