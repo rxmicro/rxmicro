@@ -28,7 +28,7 @@ public final class DomainNameConstraintValidator extends AbstractDomainOrHostNam
     /**
      * Domain rule message.
      */
-    public static final String DOMAIN_RULE =
+    public static final String DOMAIN_NAME_RULE =
             "Domain name must contains letters [a-z] or [A-Z], digits [0-9], underscores, periods, and dashes only!";
 
     private static final String NAME = "domain name";
@@ -44,7 +44,7 @@ public final class DomainNameConstraintValidator extends AbstractDomainOrHostNam
 
     @Override
     protected String getRule() {
-        return DOMAIN_RULE;
+        return DOMAIN_NAME_RULE;
     }
 
     @Override

@@ -20,20 +20,7 @@ public final class $$StringModelWithRequiredAndNotEmptyValidatorsOnlyModelReader
         model.string = toString(params.getValue("string"), HttpModelType.PARAMETER, "string");
         model.minLength = toString(params.getValue("minLength"), HttpModelType.PARAMETER, "minLength");
         model.length = toString(params.getValue("length"), HttpModelType.PARAMETER, "length");
-        model.whatsApp = toString(params.getValue("whatsApp"), HttpModelType.PARAMETER, "whatsApp");
-        model.viber = toString(params.getValue("viber"), HttpModelType.PARAMETER, "viber");
-        model.telegram = toString(params.getValue("telegram"), HttpModelType.PARAMETER, "telegram");
-        model.phone = toString(params.getValue("phone"), HttpModelType.PARAMETER, "phone");
-        model.latinAlphabetOnly = toString(params.getValue("latinAlphabetOnly"), HttpModelType.PARAMETER, "latinAlphabetOnly");
-        model.uri = toString(params.getValue("uri"), HttpModelType.PARAMETER, "uri");
-        model.ip = toString(params.getValue("ip"), HttpModelType.PARAMETER, "ip");
-        model.hostName = toString(params.getValue("hostName"), HttpModelType.PARAMETER, "hostName");
-        model.domainName = toString(params.getValue("domainName"), HttpModelType.PARAMETER, "domainName");
         model.enumeration = toString(params.getValue("enumeration"), HttpModelType.PARAMETER, "enumeration");
-        model.email = toString(params.getValue("email"), HttpModelType.PARAMETER, "email");
-        model.digitsOnly = toString(params.getValue("digitsOnly"), HttpModelType.PARAMETER, "digitsOnly");
-        model.countryCode = toString(params.getValue("countryCode"), HttpModelType.PARAMETER, "countryCode");
-        model.base64URLEncoded = toString(params.getValue("base64URLEncoded"), HttpModelType.PARAMETER, "base64URLEncoded");
         return model;
     }
 }

@@ -26,6 +26,7 @@ import java.util.Set;
 import java.util.StringTokenizer;
 
 import static io.rxmicro.validation.constraint.IP.Version.IP_V4;
+import static java.lang.Integer.toHexString;
 
 /**
  * Validator for the {@link io.rxmicro.validation.constraint.IP} constraint.
@@ -38,15 +39,13 @@ public class IPConstraintValidator implements ConstraintValidator<String> {
 
     private static final int EXPECTED_IP_4_TOKENS_COUNT = 4;
 
-    private static final int EXPECTED_IP_6_TOKENS_COUNT = 8;
-
     private static final int MIN_IP_VALUE = 0;
 
     private static final int MAX_IP_4_VALUE = 255;
 
     private static final int MAX_IP_6_VALUE = 0xFFFF;
 
-    private static final String MAX_IP_6_VALUE_TO_STRING = Integer.toHexString(MAX_IP_6_VALUE);
+    private static final String MAX_IP_6_VALUE_TO_STRING = toHexString(MAX_IP_6_VALUE);
 
     private static final String INVALID_IP_ERROR_MESSAGE_TEMPLATE =
             "Invalid ? \"?\": Expected a number between ? and ?, but actual is '?' (IP = '?')!";
@@ -66,7 +65,7 @@ public class IPConstraintValidator implements ConstraintValidator<String> {
     public void validate(final String actual,
                          final HttpModelType httpModelType,
                          final String modelName) {
-        if (actual != null) {
+        if (actual != null && actual.length() > 0) {
             if (versions.size() == 1) {
                 if (versions.contains(IP_V4)) {
                     validateIPv4(actual, httpModelType, modelName);
@@ -81,7 +80,8 @@ public class IPConstraintValidator implements ConstraintValidator<String> {
                 } else {
                     throw new ValidationException(
                             "Invalid ? \"?\": Expected IPv4 or IPv6, but actual is '?'!",
-                            httpModelType, modelName, actual);
+                            httpModelType, modelName, actual
+                    );
                 }
             }
         }
@@ -117,11 +117,6 @@ public class IPConstraintValidator implements ConstraintValidator<String> {
                               final HttpModelType httpModelType,
                               final String fieldName) {
         final StringTokenizer tokenizer = new StringTokenizer(actual, ":");
-        if (tokenizer.countTokens() != EXPECTED_IP_6_TOKENS_COUNT) {
-            throw new ValidationException(
-                    "Invalid ? \"?\": Expected ? numbers divided by ':', but actual is '?'!",
-                    httpModelType, fieldName, EXPECTED_IP_6_TOKENS_COUNT, actual);
-        }
         while (tokenizer.hasMoreTokens()) {
             final String value = tokenizer.nextToken();
             if (!value.isEmpty()) {
@@ -130,7 +125,7 @@ public class IPConstraintValidator implements ConstraintValidator<String> {
                     if (ip6AddressPart < MIN_IP_VALUE || ip6AddressPart > MAX_IP_6_VALUE) {
                         throw new ValidationException(
                                 INVALID_IP_ERROR_MESSAGE_TEMPLATE,
-                                httpModelType, fieldName, MIN_IP_VALUE, MAX_IP_6_VALUE_TO_STRING, ip6AddressPart, actual);
+                                httpModelType, fieldName, MIN_IP_VALUE, MAX_IP_6_VALUE_TO_STRING, toHexString(ip6AddressPart), actual);
                     }
                 } catch (final NumberFormatException ignore) {
                     throw new ValidationException(

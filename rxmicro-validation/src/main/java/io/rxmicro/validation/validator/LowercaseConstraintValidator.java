@@ -39,7 +39,8 @@ public class LowercaseConstraintValidator implements ConstraintValidator<String>
                 if (Character.isLetter(ch) && !Character.isLowerCase(ch)) {
                     throw new ValidationException(
                             "Invalid ? \"?\": Expected a lowercase string, but actual is '?'!",
-                            httpModelType, modelName, actual);
+                            httpModelType, modelName, actual
+                    );
                 }
             }
         }

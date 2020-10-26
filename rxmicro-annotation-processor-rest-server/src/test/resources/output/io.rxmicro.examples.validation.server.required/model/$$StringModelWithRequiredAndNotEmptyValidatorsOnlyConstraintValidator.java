@@ -25,32 +25,6 @@ public final class $$StringModelWithRequiredAndNotEmptyValidatorsOnlyConstraintV
 
         requiredAndNotEmptyStringConstraintValidator.validate(model.length, HttpModelType.PARAMETER, "length");
 
-        requiredAndNotEmptyStringConstraintValidator.validate(model.whatsApp, HttpModelType.PARAMETER, "whatsApp");
-
-        requiredAndNotEmptyStringConstraintValidator.validate(model.viber, HttpModelType.PARAMETER, "viber");
-
-        requiredAndNotEmptyStringConstraintValidator.validate(model.telegram, HttpModelType.PARAMETER, "telegram");
-
-        requiredAndNotEmptyStringConstraintValidator.validate(model.phone, HttpModelType.PARAMETER, "phone");
-
-        requiredAndNotEmptyStringConstraintValidator.validate(model.latinAlphabetOnly, HttpModelType.PARAMETER, "latinAlphabetOnly");
-
-        requiredAndNotEmptyStringConstraintValidator.validate(model.uri, HttpModelType.PARAMETER, "uri");
-
-        requiredAndNotEmptyStringConstraintValidator.validate(model.ip, HttpModelType.PARAMETER, "ip");
-
-        requiredAndNotEmptyStringConstraintValidator.validate(model.hostName, HttpModelType.PARAMETER, "hostName");
-
-        requiredAndNotEmptyStringConstraintValidator.validate(model.domainName, HttpModelType.PARAMETER, "domainName");
-
         requiredAndNotEmptyStringConstraintValidator.validate(model.enumeration, HttpModelType.PARAMETER, "enumeration");
-
-        requiredAndNotEmptyStringConstraintValidator.validate(model.email, HttpModelType.PARAMETER, "email");
-
-        requiredAndNotEmptyStringConstraintValidator.validate(model.digitsOnly, HttpModelType.PARAMETER, "digitsOnly");
-
-        requiredAndNotEmptyStringConstraintValidator.validate(model.countryCode, HttpModelType.PARAMETER, "countryCode");
-
-        requiredAndNotEmptyStringConstraintValidator.validate(model.base64URLEncoded, HttpModelType.PARAMETER, "base64URLEncoded");
     }
 }

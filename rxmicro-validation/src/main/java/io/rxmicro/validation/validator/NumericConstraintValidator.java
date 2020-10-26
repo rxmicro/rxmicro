@@ -55,12 +55,14 @@ public class NumericConstraintValidator implements ConstraintValidator<BigDecima
             if (expectedScale != -1 && expectedScale != actual.scale()) {
                 throw new ValidationException(
                         "Invalid ? \"?\": Expected scale = ?, but actual is ?!",
-                        httpModelType, modelName, expectedScale, actual.scale());
+                        httpModelType, modelName, expectedScale, actual.scale()
+                );
             }
             if (expectedPrecision != -1 && expectedPrecision != actual.precision()) {
                 throw new ValidationException(
                         "Invalid ? \"?\": Expected precision = ?, but actual is ?!",
-                        httpModelType, modelName, expectedScale, actual.scale());
+                        httpModelType, modelName, expectedPrecision, actual.precision()
+                );
             }
         }
     }

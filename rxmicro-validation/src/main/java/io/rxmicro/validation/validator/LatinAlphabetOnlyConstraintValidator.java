@@ -60,12 +60,30 @@ public final class LatinAlphabetOnlyConstraintValidator implements ConstraintVal
                 final char ch = actual.charAt(i);
                 if (!alphabet.contains(ch)) {
                     throw new ValidationException("Invalid ? \"?\": " +
-                            "Expected a string which contains the following characters only [?], " +
-                            "but actual value contains invalid character: '?'!",
-                            httpModelType, modelName, alphabet, ch);
+                            "Expected a string which contains the following characters only [[?]], " +
+                            "but actual value contains invalid character: '?' (0x?)!",
+                            httpModelType, modelName, alphabetToString(), ch, Integer.toHexString(ch));
                 }
             }
         }
+    }
+
+    private String alphabetToString() {
+        final StringBuilder sb = new StringBuilder();
+        for (final Character character : alphabet) {
+            if (character == '\n') {
+                sb.append("\\n");
+            } else if (character == '\t') {
+                sb.append("\\t");
+            } else if (character == '\r') {
+                sb.append("\\r");
+            } else if (character == '\b') {
+                sb.append("\\b");
+            } else {
+                sb.append(character);
+            }
+        }
+        return sb.toString();
     }
 
     /**
@@ -97,6 +115,9 @@ public final class LatinAlphabetOnlyConstraintValidator implements ConstraintVal
                 }
             }
             return builder.toString().chars().mapToObj(ch -> (char) ch).collect(Collectors.toSet());
+        }
+
+        private LatinAlphabetHelper() {
         }
     }
 }

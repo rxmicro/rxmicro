@@ -55,11 +55,7 @@ public class PhoneConstraintValidator implements ConstraintValidator<String> {
     public void validate(final String actual,
                          final HttpModelType httpModelType,
                          final String modelName) {
-        if (actual != null) {
-            if (actual.length() == 0) {
-                throw new ValidationException("Invalid ? \"?\": Empty string not allowed!",
-                        httpModelType, modelName);
-            }
+        if (actual != null && actual.length() > 0) {
             final String validValue = allowsSpaces ? actual.trim() : actual;
             validatePlusChar(validValue, httpModelType, modelName, withoutPlus);
             validateDigitsOnly(validValue, httpModelType, modelName);
@@ -73,12 +69,14 @@ public class PhoneConstraintValidator implements ConstraintValidator<String> {
         if (withoutPlus) {
             if (phone.charAt(0) == '+') {
                 throw new ValidationException("Invalid ? \"?\": Expected a digit as a first character, but actual is '+'!",
-                        httpModelType, fieldName);
+                        httpModelType, fieldName
+                );
             }
         } else {
             if (phone.charAt(0) != '+') {
                 throw new ValidationException("Invalid ? \"?\": Expected a plus as a first character, but actual is '?'!",
-                        httpModelType, fieldName, phone.charAt(0));
+                        httpModelType, fieldName, phone.charAt(0)
+                );
             }
         }
     }
@@ -86,15 +84,16 @@ public class PhoneConstraintValidator implements ConstraintValidator<String> {
     private void validateDigitsOnly(final CharSequence phone,
                                     final HttpModelType httpModelType,
                                     final String fieldName) {
-        for (int i = 0; i < phone.length(); i++) {
+        for (int i = withoutPlus ? 0 : 1; i < phone.length(); i++) {
             final char ch = phone.charAt(i);
             if (!Character.isDigit(ch)) {
                 if (allowsSpaces && Character.isWhitespace(ch)) {
                     continue;
                 }
                 throw new ValidationException("Invalid ? \"?\": " +
-                        "Expected digits only, but actual is '?' and contains invalid character: '?'!",
-                        httpModelType, fieldName, phone, ch);
+                        "Expected digits only, but actual is '?' and contains invalid character: '?' (0x?)!",
+                        httpModelType, fieldName, phone, ch, Integer.toHexString(ch)
+                );
             }
         }
     }

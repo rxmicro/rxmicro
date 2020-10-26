@@ -17,9 +17,11 @@
 package io.rxmicro.validation.validator;
 
 import io.rxmicro.http.error.ValidationException;
+import io.rxmicro.validation.ConstraintValidator;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -27,7 +29,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import static io.rxmicro.rest.model.HttpModelType.PARAMETER;
-import static io.rxmicro.validation.validator.DomainNameConstraintValidator.DOMAIN_RULE;
+import static io.rxmicro.validation.validator.DomainNameConstraintValidator.DOMAIN_NAME_RULE;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -39,9 +41,18 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  */
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-final class DomainNameConstraintValidatorTest {
+final class DomainNameConstraintValidatorTest extends AbstractConstraintValidatorTest<String> {
 
-    private final DomainNameConstraintValidator validator = new DomainNameConstraintValidator(true);
+    @Override
+    ConstraintValidator<String> instantiate() {
+        return new DomainNameConstraintValidator(true);
+    }
+
+    @Test
+    @Order(10)
+    void Should_ignore_validation_for_empty_string() {
+        assertDoesNotThrow(() -> validator.validate("", type, fieldName));
+    }
 
     @ParameterizedTest
     @ValueSource(strings = {
@@ -49,7 +60,8 @@ final class DomainNameConstraintValidatorTest {
             "example.me.org",
             "sub.example.me.org"
     })
-    void Should_resolve_domains_as_valid_ones(final String domain) {
+    @Order(11)
+    void Should_process_parameter_as_a_valid_one(final String domain) {
         assertDoesNotThrow(() -> validator.validate(domain, PARAMETER, "domain"));
     }
 
@@ -69,10 +81,11 @@ final class DomainNameConstraintValidatorTest {
             "example.com-             ;Domain name can't end with '-'!",
             "_example.com             ;Domain name can't start with '_'!",
             "example.com_             ;Domain name can't end with '_'!",
-            "sub#example.com          ;Unsupported domain name character: '#'. " + DOMAIN_RULE
+            "sub#example.com          ;Unsupported domain name character: '#'. " + DOMAIN_NAME_RULE
     })
-    void Should_resolve_domains_as_invalid_ones(final String domain,
-                                                final String details) {
+    @Order(12)
+    void Should_throw_ValidationException(final String domain,
+                                          final String details) {
         final ValidationException exception =
                 assertThrows(ValidationException.class, () -> validator.validate(domain, PARAMETER, "domain"));
         assertEquals(
@@ -82,7 +95,8 @@ final class DomainNameConstraintValidatorTest {
     }
 
     @Test
-    void Should_hide_error_details() {
+    @Order(13)
+    void Should_throw_ValidationException_with_hiding_details() {
         final DomainNameConstraintValidator validator = new DomainNameConstraintValidator(false);
         final ValidationException exception =
                 assertThrows(ValidationException.class, () -> validator.validate("com", PARAMETER, "domain"));

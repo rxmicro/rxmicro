@@ -51,6 +51,7 @@ import io.rxmicro.validation.validator.PastInstantConstraintValidator;
 import io.rxmicro.validation.validator.PastOrPresentInstantConstraintValidator;
 import io.rxmicro.validation.validator.PatternConstraintValidator;
 import io.rxmicro.validation.validator.PhoneConstraintValidator;
+import io.rxmicro.validation.validator.RequiredAndNotEmptyStringConstraintValidator;
 import io.rxmicro.validation.validator.RequiredConstraintValidator;
 import io.rxmicro.validation.validator.RequiredListConstraintValidator;
 import io.rxmicro.validation.validator.SizeConstraintValidator;
@@ -118,6 +119,9 @@ public final class $$VirtualRequestConstraintValidator implements ConstraintVali
 
     private final UniqueItemsConstraintValidator uniqueItemsConstraintValidator =
             getStatelessValidator(UniqueItemsConstraintValidator.class);
+
+    private final RequiredAndNotEmptyStringConstraintValidator requiredAndNotEmptyStringConstraintValidator =
+            getStatelessValidator(RequiredAndNotEmptyStringConstraintValidator.class);
 
     private final MaxByteConstraintValidator byteParameterMaxIntMaxByteConstraintValidator =
             new MaxByteConstraintValidator(10L, true);
@@ -234,7 +238,7 @@ public final class $$VirtualRequestConstraintValidator implements ConstraintVali
             new IPConstraintValidator(List.of(Version.IP_V4, Version.IP_V6));
 
     private final LatinAlphabetOnlyConstraintValidator stringParameterLatinAlphabetOnlyLatinAlphabetOnlyConstraintValidator =
-            new LatinAlphabetOnlyConstraintValidator(true, true, true, "~!@#$%^&*()_+=-[]{},.;:<>?/\\\"' \t|\r\n");
+            new LatinAlphabetOnlyConstraintValidator(true, true, true, "~!@#$%^&*()_+=-[]{},.;:<>?/\\\"' \t|\r\n\b");
 
     private final LengthConstraintValidator stringParameterLengthLengthConstraintValidator =
             new LengthConstraintValidator(2);
@@ -435,7 +439,7 @@ public final class $$VirtualRequestConstraintValidator implements ConstraintVali
             new IPConstraintValidator(List.of(Version.IP_V4, Version.IP_V6));
 
     private final LatinAlphabetOnlyConstraintValidator stringsLatinAlphabetOnlyLatinAlphabetOnlyConstraintValidator =
-            new LatinAlphabetOnlyConstraintValidator(true, true, true, "~!@#$%^&*()_+=-[]{},.;:<>?/\\\"' \t|\r\n");
+            new LatinAlphabetOnlyConstraintValidator(true, true, true, "~!@#$%^&*()_+=-[]{},.;:<>?/\\\"' \t|\r\n\b");
 
     private final LengthConstraintValidator stringsLengthLengthConstraintValidator =
             new LengthConstraintValidator(2);
@@ -799,28 +803,28 @@ public final class $$VirtualRequestConstraintValidator implements ConstraintVali
         colorsSubEnumSubEnumConstraintValidator.validateList(model.colors, HttpModelType.PARAMETER, "colors");
         uniqueItemsConstraintValidator.validate(model.colors, HttpModelType.PARAMETER, "colors");
 
-        requiredConstraintValidator.validate(model.countryCodeAlpha2, HttpModelType.PARAMETER, "countryCodeAlpha2");
+        requiredAndNotEmptyStringConstraintValidator.validate(model.countryCodeAlpha2, HttpModelType.PARAMETER, "countryCodeAlpha2");
         countryCodeAlpha2CountryCodeCountryCodeConstraintValidator.validate(model.countryCodeAlpha2, HttpModelType.PARAMETER, "countryCodeAlpha2");
 
-        requiredConstraintValidator.validate(model.countryCodeAlpha3, HttpModelType.PARAMETER, "countryCodeAlpha3");
+        requiredAndNotEmptyStringConstraintValidator.validate(model.countryCodeAlpha3, HttpModelType.PARAMETER, "countryCodeAlpha3");
         countryCodeAlpha3CountryCodeCountryCodeConstraintValidator.validate(model.countryCodeAlpha3, HttpModelType.PARAMETER, "countryCodeAlpha3");
 
-        requiredConstraintValidator.validate(model.countryCodeNumeric, HttpModelType.PARAMETER, "countryCodeNumeric");
+        requiredAndNotEmptyStringConstraintValidator.validate(model.countryCodeNumeric, HttpModelType.PARAMETER, "countryCodeNumeric");
         countryCodeNumericCountryCodeCountryCodeConstraintValidator.validate(model.countryCodeNumeric, HttpModelType.PARAMETER, "countryCodeNumeric");
 
-        requiredConstraintValidator.validate(model.base64URLEncodedBase, HttpModelType.PARAMETER, "base64URLEncodedBase");
+        requiredAndNotEmptyStringConstraintValidator.validate(model.base64URLEncodedBase, HttpModelType.PARAMETER, "base64URLEncodedBase");
         base64URLEncodedBaseBase64URLEncodedBase64URLEncodedConstraintValidator.validate(model.base64URLEncodedBase, HttpModelType.PARAMETER, "base64URLEncodedBase");
 
-        requiredConstraintValidator.validate(model.base64URLEncodedUrl, HttpModelType.PARAMETER, "base64URLEncodedUrl");
+        requiredAndNotEmptyStringConstraintValidator.validate(model.base64URLEncodedUrl, HttpModelType.PARAMETER, "base64URLEncodedUrl");
         base64URLEncodedUrlBase64URLEncodedBase64URLEncodedConstraintValidator.validate(model.base64URLEncodedUrl, HttpModelType.PARAMETER, "base64URLEncodedUrl");
 
-        requiredConstraintValidator.validate(model.ip, HttpModelType.PARAMETER, "ip");
+        requiredAndNotEmptyStringConstraintValidator.validate(model.ip, HttpModelType.PARAMETER, "ip");
         ipIPIPConstraintValidator.validate(model.ip, HttpModelType.PARAMETER, "ip");
 
-        requiredConstraintValidator.validate(model.ip4, HttpModelType.PARAMETER, "ip4");
+        requiredAndNotEmptyStringConstraintValidator.validate(model.ip4, HttpModelType.PARAMETER, "ip4");
         ip4IPIPConstraintValidator.validate(model.ip4, HttpModelType.PARAMETER, "ip4");
 
-        requiredConstraintValidator.validate(model.ip6, HttpModelType.PARAMETER, "ip6");
+        requiredAndNotEmptyStringConstraintValidator.validate(model.ip6, HttpModelType.PARAMETER, "ip6");
         ip6IPIPConstraintValidator.validate(model.ip6, HttpModelType.PARAMETER, "ip6");
 
         requiredConstraintValidator.validate(model.lat111km, HttpModelType.PARAMETER, "lat111km");

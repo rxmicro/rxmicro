@@ -37,30 +37,29 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * @author nedis
- *
  * @since 0.1
  */
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-class MaxBigDecimalNumberConstraintValidator_UnitTest extends AbstractConstraintValidatorTest<BigDecimal> {
+final class MinBigDecimalNumberConstraintValidatorTest extends AbstractConstraintValidatorTest<BigDecimal> {
 
     @Override
     ConstraintValidator<BigDecimal> instantiate() {
-        return new MaxBigDecimalNumberConstraintValidator("10", true);
+        return new MinBigDecimalNumberConstraintValidator("10", true);
     }
 
     @ParameterizedTest
     @Order(11)
     @CsvSource({
-            "5.1,    10,    true",
-            "10,     10,    true",
-            "10.00,  10,    true",
-            "5.1,    10,    false"
+            "15.1,    10,    true",
+            "10,      10,    true",
+            "10.00,   10,    true",
+            "15.1,    10,    false"
     })
-    void Should_not_throw_ValidationException(final String actual,
-                                              final String maxValue,
-                                              final boolean inclusive) {
-        assertDoesNotThrow(() -> new MaxBigDecimalNumberConstraintValidator(maxValue, inclusive)
+    void Should_process_parameter_as_a_valid_one(final String actual,
+                                                 final String maxValue,
+                                                 final boolean inclusive) {
+        assertDoesNotThrow(() -> new MinBigDecimalNumberConstraintValidator(maxValue, inclusive)
                 .validate(new BigDecimal(actual), type, fieldName));
     }
 
@@ -74,24 +73,23 @@ class MaxBigDecimalNumberConstraintValidator_UnitTest extends AbstractConstraint
     })
     void Should_throw_ValidationException_when_numbers_equal_and_inclusive_is_false(final String actual) {
         final ValidationException exception = assertThrows(ValidationException.class, () ->
-                new MaxBigDecimalNumberConstraintValidator("10", false)
+                new MinBigDecimalNumberConstraintValidator("10", false)
                         .validate(new BigDecimal(actual), type, fieldName)
         );
         assertEquals(
-                format("Invalid parameter \"fieldName\": Expected that 'value' < 10, where 'value' is '?'!", actual),
-                exception.getMessage()
-        );
+                format("Invalid parameter \"fieldName\": Expected that 'value' > 10, where 'value' is '?'!", actual),
+                exception.getMessage());
     }
 
     @Test
     @Order(13)
     void Should_throw_ValidationException_when_numbers_not_equal_inclusive_is_true() {
         final ValidationException exception = assertThrows(ValidationException.class, () ->
-                new MaxBigDecimalNumberConstraintValidator("10", true)
-                        .validate(new BigDecimal("20"), type, fieldName)
+                new MinBigDecimalNumberConstraintValidator("10", true)
+                        .validate(new BigDecimal("5"), type, fieldName)
         );
         assertEquals(
-                "Invalid parameter \"fieldName\": Expected that 'value' <= 10, where 'value' is '20'!",
+                "Invalid parameter \"fieldName\": Expected that 'value' >= 10, where 'value' is '5'!",
                 exception.getMessage()
         );
     }
@@ -100,11 +98,11 @@ class MaxBigDecimalNumberConstraintValidator_UnitTest extends AbstractConstraint
     @Order(14)
     void Should_throw_ValidationException_when_numbers_not_equal_inclusive_is_false() {
         final ValidationException exception = assertThrows(ValidationException.class, () ->
-                new MaxBigDecimalNumberConstraintValidator("10", false)
-                        .validate(new BigDecimal("20"), type, fieldName)
+                new MinBigDecimalNumberConstraintValidator("10", false)
+                        .validate(new BigDecimal("5"), type, fieldName)
         );
         assertEquals(
-                "Invalid parameter \"fieldName\": Expected that 'value' < 10, where 'value' is '20'!",
+                "Invalid parameter \"fieldName\": Expected that 'value' > 10, where 'value' is '5'!",
                 exception.getMessage()
         );
     }

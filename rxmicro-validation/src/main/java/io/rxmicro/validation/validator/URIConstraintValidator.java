@@ -39,9 +39,14 @@ public class URIConstraintValidator implements ConstraintValidator<String> {
             try {
                 new java.net.URI(actual);
             } catch (final URISyntaxException ex) {
-                throw new ValidationException(
-                        "Invalid ? \"?\": Expected a valid URL, but actual is '?'. Error message is'?'!",
-                        httpModelType, modelName, actual, ex.getMessage());
+                // The RxMicro team supposes that business logic code does not use not recommended @AllowEmptyString annotation,
+                // so empty string for URI value is unlikely
+                if (actual.length() > 0) {
+                    throw new ValidationException(
+                            "Invalid ? \"?\": Expected a valid URL, but actual is '?'. Error message is '?'!",
+                            httpModelType, modelName, actual, ex.getMessage()
+                    );
+                }
             }
         }
     }

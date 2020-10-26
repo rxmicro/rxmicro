@@ -49,7 +49,8 @@ public class LengthConstraintValidator implements ConstraintValidator<String> {
             if (expectedLength != actual) {
                 throw new ValidationException(
                         "Invalid ? \"?\": Expected ? characters, but actual is ?!",
-                        httpModelType, modelName, expectedLength, actual);
+                        httpModelType, modelName, expectedLength, actual
+                );
             }
         }
     }

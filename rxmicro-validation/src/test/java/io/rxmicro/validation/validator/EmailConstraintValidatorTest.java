@@ -17,9 +17,11 @@
 package io.rxmicro.validation.validator;
 
 import io.rxmicro.http.error.ValidationException;
+import io.rxmicro.validation.ConstraintValidator;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -40,9 +42,18 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  */
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-final class EmailConstraintValidatorTest {
+final class EmailConstraintValidatorTest extends AbstractConstraintValidatorTest<String> {
 
-    private final EmailConstraintValidator validator = new EmailConstraintValidator(true);
+    @Override
+    ConstraintValidator<String> instantiate() {
+        return new EmailConstraintValidator(true);
+    }
+
+    @Test
+    @Order(10)
+    void Should_ignore_validation_for_empty_string() {
+        assertDoesNotThrow(() -> validator.validate("", type, fieldName));
+    }
 
     @ParameterizedTest
     @ValueSource(strings = {
@@ -53,7 +64,8 @@ final class EmailConstraintValidatorTest {
             "alice+one@example.com",
             "alice+two@example.com"
     })
-    void Should_resolve_emails_as_valid_ones(final String email) {
+    @Order(11)
+    void Should_process_parameter_as_a_valid_one(final String email) {
         assertDoesNotThrow(() -> validator.validate(email, PARAMETER, "email"));
     }
 
@@ -123,8 +135,9 @@ final class EmailConstraintValidatorTest {
             "alice@example.com-             ;Domain name can't end with '-'!",
             "alice@sub?example.com          ;Unsupported domain name character: '?'. " + EMAIL_DOMAIN_RULE
     })
-    void Should_resolve_emails_as_invalid_ones(final String email,
-                                               final String details) {
+    @Order(12)
+    void Should_throw_ValidationException(final String email,
+                                          final String details) {
         final ValidationException exception =
                 assertThrows(ValidationException.class, () -> validator.validate(email, PARAMETER, "email"));
         assertEquals(
@@ -134,12 +147,24 @@ final class EmailConstraintValidatorTest {
     }
 
     @Test
-    void Should_hide_error_details() {
+    @Order(13)
+    void Should_throw_ValidationException_with_hiding_details() {
         final EmailConstraintValidator validator = new EmailConstraintValidator(false);
         final ValidationException exception =
                 assertThrows(ValidationException.class, () -> validator.validate("com", PARAMETER, "email"));
         assertEquals(
                 "Invalid parameter \"email\": Expected a valid email format!",
+                exception.getMessage()
+        );
+    }
+
+    @Test
+    @Order(14)
+    void Should_throw_ValidationException_if_email_starts_with_space() {
+        final ValidationException exception =
+                assertThrows(ValidationException.class, () -> validator.validate("'@gmail.com", PARAMETER, "email"));
+        assertEquals(
+                "Invalid parameter \"email\": Prefix can't start with '''!",
                 exception.getMessage()
         );
     }

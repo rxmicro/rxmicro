@@ -48,8 +48,9 @@ public class MinLengthConstraintValidator extends AbstractMinConstraintValidator
         if (value != null) {
             final int actual = value.length();
             validate(actual, httpModelType, modelName,
-                    "Invalid ? \"?\": Expected that 'string length' > ?, where 'string length' is '?'!",
-                    "Invalid ? \"?\": Expected that 'string length' >= ?, where 'string length' is '?'!");
+                    "Invalid ? \"?\": Expected that 'string length' >= ?, where 'string length' is '?'!",
+                    "Invalid ? \"?\": Expected that 'string length' > ?, where 'string length' is '?'!"
+            );
         }
     }
 }

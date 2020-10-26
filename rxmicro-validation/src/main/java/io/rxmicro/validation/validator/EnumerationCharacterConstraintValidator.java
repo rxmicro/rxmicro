@@ -23,7 +23,7 @@ import io.rxmicro.validation.ConstraintValidator;
 import java.util.Collection;
 import java.util.Set;
 
-import static java.util.stream.Collectors.toUnmodifiableSet;
+import static io.rxmicro.common.util.ExCollectors.toOrderedSet;
 
 /**
  * Validator for the {@link io.rxmicro.validation.constraint.Enumeration} constraint.
@@ -42,7 +42,7 @@ public class EnumerationCharacterConstraintValidator implements ConstraintValida
      * @param allowed the allowed enum characters
      */
     public EnumerationCharacterConstraintValidator(final Collection<String> allowed) {
-        this.allowed = allowed.stream().map(s -> s.charAt(0)).collect(toUnmodifiableSet());
+        this.allowed = allowed.stream().map(s -> s.charAt(0)).collect(toOrderedSet());
     }
 
     @Override
@@ -51,8 +51,8 @@ public class EnumerationCharacterConstraintValidator implements ConstraintValida
                          final String modelName) {
         if (actual != null && !allowed.contains(actual)) {
             throw new ValidationException(
-                    "Invalid ? \"?\": Expected a value from the set ?, but actual is '?'!",
-                    httpModelType, modelName, allowed, actual
+                    "Invalid ? \"?\": Expected a value from the set ?, but actual is '?' (0x?)!",
+                    httpModelType, modelName, allowed, actual, Integer.toHexString(actual)
             );
         }
     }

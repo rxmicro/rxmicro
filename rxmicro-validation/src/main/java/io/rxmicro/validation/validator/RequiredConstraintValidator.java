@@ -29,7 +29,7 @@ import io.rxmicro.validation.ConstraintValidator;
  * @see io.rxmicro.validation.constraint.NullableArrayItem
  * @since 0.1
  */
-public final class RequiredConstraintValidator<T> implements ConstraintValidator<T> {
+public class RequiredConstraintValidator<T> implements ConstraintValidator<T> {
 
     @Override
     public void validate(final T actual,

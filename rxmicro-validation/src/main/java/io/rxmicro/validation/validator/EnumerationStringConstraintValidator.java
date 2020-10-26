@@ -23,6 +23,8 @@ import io.rxmicro.validation.ConstraintValidator;
 import java.util.Collection;
 import java.util.Set;
 
+import static io.rxmicro.common.util.ExCollections.unmodifiableOrderedSet;
+
 /**
  * Validator for the {@link io.rxmicro.validation.constraint.Enumeration} constraint.
  *
@@ -40,7 +42,7 @@ public class EnumerationStringConstraintValidator implements ConstraintValidator
      * @param allowed the allowed enum strings
      */
     public EnumerationStringConstraintValidator(final Collection<String> allowed) {
-        this.allowed = Set.copyOf(allowed);
+        this.allowed = unmodifiableOrderedSet(allowed);
     }
 
     @Override

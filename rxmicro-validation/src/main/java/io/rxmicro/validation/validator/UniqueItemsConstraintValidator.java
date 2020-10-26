@@ -31,7 +31,7 @@ import java.util.Set;
  * @see io.rxmicro.validation.constraint.UniqueItems
  * @since 0.1
  */
-public final class UniqueItemsConstraintValidator extends AbstractListConstraintValidator {
+public class UniqueItemsConstraintValidator extends AbstractListConstraintValidator {
 
     @Override
     public void validate(final List<?> actual,
@@ -42,7 +42,8 @@ public final class UniqueItemsConstraintValidator extends AbstractListConstraint
             if (set.size() != actual.size()) {
                 throw new ValidationException(
                         "Invalid ? \"?\": Expected unique items, but actual is '?'!",
-                        httpModelType, modelName, actual);
+                        httpModelType, modelName, actual
+                );
             }
         }
     }

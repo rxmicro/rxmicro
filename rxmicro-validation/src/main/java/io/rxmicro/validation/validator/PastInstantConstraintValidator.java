@@ -40,7 +40,8 @@ public class PastInstantConstraintValidator implements ConstraintValidator<Insta
             if (actual.compareTo(now) >= 0) {
                 throw new ValidationException(
                         "Invalid ? \"?\": Expected a past instant, but actual is '?' (now is '?')!",
-                        httpModelType, modelName, actual, now);
+                        httpModelType, modelName, actual, now
+                );
             }
         }
     }

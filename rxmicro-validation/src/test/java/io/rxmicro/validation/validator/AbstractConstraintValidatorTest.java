@@ -34,13 +34,13 @@ abstract class AbstractConstraintValidatorTest<T> {
 
     final String fieldName = "fieldName";
 
-    private final ConstraintValidator<T> validator = instantiate();
+    final ConstraintValidator<T> validator = instantiate();
 
     abstract ConstraintValidator<T> instantiate();
 
     @Test
     @Order(1)
-    void Should_avoid_null_value() {
+    void Should_process_null_value_as_valid_argument() {
         assertDoesNotThrow(() -> validator.validate(null, type, fieldName));
     }
 }

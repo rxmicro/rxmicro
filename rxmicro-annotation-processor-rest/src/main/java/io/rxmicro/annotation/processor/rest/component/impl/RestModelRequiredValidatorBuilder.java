@@ -109,36 +109,10 @@ public final class RestModelRequiredValidatorBuilder {
         final AllowEmptyString allowEmptyString = restModelField.getAnnotation(AllowEmptyString.class);
         final MinLength minLength = restModelField.getAnnotation(MinLength.class);
         final Length length = restModelField.getAnnotation(Length.class);
-        final WhatsApp whatsApp = restModelField.getAnnotation(WhatsApp.class);
-        final Viber viber = restModelField.getAnnotation(Viber.class);
-        final Telegram telegram = restModelField.getAnnotation(Telegram.class);
-        final Phone phone = restModelField.getAnnotation(Phone.class);
-        final LatinAlphabetOnly latinAlphabetOnly = restModelField.getAnnotation(LatinAlphabetOnly.class);
-        final URI uri = restModelField.getAnnotation(URI.class);
-        final IP ip = restModelField.getAnnotation(IP.class);
-        final HostName hostName = restModelField.getAnnotation(HostName.class);
-        final DomainName domainName = restModelField.getAnnotation(DomainName.class);
         final Enumeration enumeration = restModelField.getAnnotation(Enumeration.class);
-        final Email email = restModelField.getAnnotation(Email.class);
-        final DigitsOnly digitsOnly = restModelField.getAnnotation(DigitsOnly.class);
-        final CountryCode countryCode = restModelField.getAnnotation(CountryCode.class);
-        final Base64URLEncoded base64URLEncoded = restModelField.getAnnotation(Base64URLEncoded.class);
         return (allowEmptyString == null || allowEmptyString.off()) &&
                 (minLength == null || minLength.off()) &&
                 (length == null || length.off()) &&
-                (whatsApp == null || whatsApp.off()) &&
-                (viber == null || viber.off()) &&
-                (telegram == null || telegram.off()) &&
-                (phone == null || phone.off()) &&
-                (latinAlphabetOnly == null || latinAlphabetOnly.off()) &&
-                (uri == null || uri.off()) &&
-                (ip == null || ip.off()) &&
-                (hostName == null || hostName.off()) &&
-                (domainName == null || domainName.off()) &&
-                (enumeration == null || enumeration.off()) &&
-                (email == null || email.off()) &&
-                (digitsOnly == null || digitsOnly.off()) &&
-                (countryCode == null || countryCode.off()) &&
-                (base64URLEncoded == null || base64URLEncoded.off());
+                (enumeration == null || enumeration.off());
     }
 }

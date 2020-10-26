@@ -39,8 +39,7 @@ public class FutureOrPresentInstantConstraintValidator extends AbstractDateTimeE
                          final String modelName) {
         if (actual != null) {
             final Instant expected = Instant.now();
-            if (isNotEqualsAfterTruncation(expected.toEpochMilli(), actual.toEpochMilli()) &&
-                    actual.compareTo(expected) <= 0) {
+            if (isNotEqualsAfterTruncation(expected.toEpochMilli(), actual.toEpochMilli()) && actual.compareTo(expected) <= 0) {
                 throw new ValidationException(
                         "Invalid ? \"?\": Expected a future or present instant, but actual is '?' (now is '?')!",
                         httpModelType, modelName, actual, expected

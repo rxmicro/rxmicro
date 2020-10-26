@@ -59,8 +59,8 @@ public abstract class AbstractMinConstraintValidator<T extends Comparable<T>> {
                                final HttpModelType httpModelType,
                                final String modelName) {
         validate(actual, httpModelType, modelName,
-                "Invalid ? \"?\": Expected that 'value' > ?, where 'value' is '?'!",
-                "Invalid ? \"?\": Expected that 'value' >= ?, where 'value' is '?'!");
+                "Invalid ? \"?\": Expected that 'value' >= ?, where 'value' is '?'!",
+                "Invalid ? \"?\": Expected that 'value' > ?, where 'value' is '?'!");
     }
 
     /**

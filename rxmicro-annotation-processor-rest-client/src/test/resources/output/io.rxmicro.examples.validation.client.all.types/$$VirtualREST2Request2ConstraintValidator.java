@@ -4,7 +4,7 @@ import io.rxmicro.http.error.ValidationException;
 import io.rxmicro.rest.model.HttpModelType;
 import io.rxmicro.validation.ConstraintValidator;
 import io.rxmicro.validation.validator.EmailConstraintValidator;
-import io.rxmicro.validation.validator.RequiredConstraintValidator;
+import io.rxmicro.validation.validator.RequiredAndNotEmptyStringConstraintValidator;
 
 import static io.rxmicro.validation.detail.StatelessValidators.getStatelessValidator;
 
@@ -13,8 +13,8 @@ import static io.rxmicro.validation.detail.StatelessValidators.getStatelessValid
  */
 public final class $$VirtualREST2Request2ConstraintValidator implements ConstraintValidator<$$VirtualREST2Request2> {
 
-    private final RequiredConstraintValidator requiredConstraintValidator =
-            getStatelessValidator(RequiredConstraintValidator.class);
+    private final RequiredAndNotEmptyStringConstraintValidator requiredAndNotEmptyStringConstraintValidator =
+            getStatelessValidator(RequiredAndNotEmptyStringConstraintValidator.class);
 
     private final EmailConstraintValidator emailEmailEmailConstraintValidator =
             new EmailConstraintValidator(false);
@@ -23,7 +23,7 @@ public final class $$VirtualREST2Request2ConstraintValidator implements Constrai
     public void validate(final $$VirtualREST2Request2 model,
                          final HttpModelType httpModelType,
                          final String name) throws ValidationException {
-        requiredConstraintValidator.validate(model.email, HttpModelType.PARAMETER, "email");
+        requiredAndNotEmptyStringConstraintValidator.validate(model.email, HttpModelType.PARAMETER, "email");
         emailEmailEmailConstraintValidator.validate(model.email, HttpModelType.PARAMETER, "email");
     }
 }

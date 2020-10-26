@@ -25,7 +25,7 @@ import java.util.stream.Stream;
 
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.validation.base.ConstraintUtils.getLatinLettersAndDigits;
-import static io.rxmicro.validation.validator.DomainNameConstraintValidator.DOMAIN_RULE;
+import static io.rxmicro.validation.validator.DomainNameConstraintValidator.DOMAIN_NAME_RULE;
 import static java.util.stream.Collectors.toUnmodifiableSet;
 
 /**
@@ -46,7 +46,7 @@ public final class EmailConstraintValidator implements ConstraintValidator<Strin
     /**
      * Email domain rule message.
      */
-    public static final String EMAIL_DOMAIN_RULE = DOMAIN_RULE;
+    public static final String EMAIL_DOMAIN_RULE = DOMAIN_NAME_RULE;
 
     private static final Set<Character> ALLOWED_PREFIX_CHARACTERS =
             Stream.concat(
@@ -78,15 +78,19 @@ public final class EmailConstraintValidator implements ConstraintValidator<Strin
                          final HttpModelType httpModelType,
                          final String modelName) {
         if (actual != null) {
-            validateActual(actual, httpModelType, modelName);
+            final int lastIndex = actual.length() - 1;
+            if (lastIndex >= 0) {
+                // If actual is not empty string
+                validateActual(actual, httpModelType, modelName, lastIndex);
+            }
         }
     }
 
     private void validateActual(final String actual,
                                 final HttpModelType httpModelType,
-                                final String modelName) {
+                                final String modelName,
+                                final int lastIndex) {
         boolean atSignDelimiterFound = false;
-        final int lastIndex = actual.length() - 1;
         for (int i = 0; i <= lastIndex; i++) {
             final char ch = actual.charAt(i);
             if (ch == '@') {

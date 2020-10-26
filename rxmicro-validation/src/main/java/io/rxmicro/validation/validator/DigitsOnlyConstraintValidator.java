@@ -39,8 +39,8 @@ public class DigitsOnlyConstraintValidator implements ConstraintValidator<String
                 if (ch < '0' || ch > '9') {
                     throw new ValidationException("Invalid ? \"?\": " +
                             "Expected a string with digits only, " +
-                            "but actual value contains invalid character: '?'!",
-                            httpModelType, modelName, ch);
+                            "but actual value contains invalid character: '?' (0x?)!",
+                            httpModelType, modelName, ch, Integer.toHexString(ch));
                 }
             }
         }

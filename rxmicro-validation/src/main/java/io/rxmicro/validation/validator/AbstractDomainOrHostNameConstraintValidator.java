@@ -16,15 +16,19 @@
 
 package io.rxmicro.validation.validator;
 
+import io.rxmicro.common.util.Strings;
 import io.rxmicro.http.error.ValidationException;
 import io.rxmicro.rest.model.HttpModelType;
 import io.rxmicro.validation.ConstraintValidator;
 
+import java.util.Locale;
 import java.util.Set;
 import java.util.stream.Stream;
 
 import static io.rxmicro.common.util.Formats.format;
+import static io.rxmicro.common.util.Strings.capitalize;
 import static io.rxmicro.validation.base.ConstraintUtils.getLatinLettersAndDigits;
+import static java.util.Locale.ENGLISH;
 import static java.util.stream.Collectors.toUnmodifiableSet;
 
 /**
@@ -73,19 +77,23 @@ public abstract class AbstractDomainOrHostNameConstraintValidator implements Con
                                final HttpModelType httpModelType,
                                final String modelName) {
         if (actual != null) {
-            validateActual(actual, httpModelType, modelName);
+            final int lastIndex = actual.length() - 1;
+            if (lastIndex >= 0) {
+                // If actual is not empty string
+                validateActual(actual, httpModelType, modelName, lastIndex);
+            }
         }
     }
 
     private void validateActual(final String actual,
                                 final HttpModelType httpModelType,
-                                final String modelName) {
+                                final String modelName,
+                                final int lastIndex) {
         int lastPeriodIndex = -1;
-        final int lastIndex = actual.length() - 1;
         for (int i = 0; i <= lastIndex; i++) {
             final char ch = actual.charAt(i);
             if (!ALLOWED_CHARACTERS.contains(ch)) {
-                final String details = format("Unsupported domain name character: '?'. ?", ch, getRule());
+                final String details = format("Unsupported ? character: '?'. ?", getName(), ch, getRule());
                 throwException(httpModelType, modelName, details);
             } else if (ch == '.') {
                 lastPeriodIndex = i;
@@ -95,9 +103,11 @@ public abstract class AbstractDomainOrHostNameConstraintValidator implements Con
             }
         }
         if (lastPeriodIndex == -1) {
-            throwException(httpModelType, modelName, "Domain name must contain at least two levels!");
+            final String message = format("? must contain at least two levels!", getName());
+            throwException(httpModelType, modelName, message);
         } else if (lastIndex - lastPeriodIndex < 2) {
-            throwException(httpModelType, modelName, "The last portion of the domain name must be at least two characters!");
+            final String message = format("The last portion of the ? must be at least two characters!", getName());
+            throwException(httpModelType, modelName, message);
         }
     }
 
@@ -108,13 +118,13 @@ public abstract class AbstractDomainOrHostNameConstraintValidator implements Con
                                              final int index,
                                              final char ch) {
         if (index == 0) {
-            throwException(httpModelType, modelName, format("Domain name can't start with '?'!", ch));
+            throwException(httpModelType, modelName, format("? can't start with '?'!", getName(), ch));
         } else if (index == lastIndex) {
-            throwException(httpModelType, modelName, format("Domain name can't end with '?'!", ch));
+            throwException(httpModelType, modelName, format("? can't end with '?'!", getName(), ch));
         } else {
             final char prev = actual.charAt(index - 1);
             if (prev == '.' || prev == '_' || prev == '-') {
-                throwException(httpModelType, modelName, format("Domain name contains redundant character: '?'!", ch));
+                throwException(httpModelType, modelName, format("? contains redundant character: '?'!", getName(), ch));
             }
         }
     }
@@ -124,7 +134,7 @@ public abstract class AbstractDomainOrHostNameConstraintValidator implements Con
                                 final String details) {
         final String errorMessage;
         if (errorWithDetails) {
-            errorMessage = format("Invalid ? \"?\": ?", httpModelType, modelName, details);
+            errorMessage = format("Invalid ? \"?\": ?", httpModelType, modelName, capitalize(details));
         } else {
             errorMessage = format("Invalid ? \"?\": Expected a valid ?!", httpModelType, modelName, getName());
         }

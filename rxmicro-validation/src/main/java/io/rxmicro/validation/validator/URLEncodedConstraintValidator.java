@@ -35,22 +35,18 @@ public class URLEncodedConstraintValidator implements ConstraintValidator<String
     public void validate(final String actual,
                          final HttpModelType httpModelType,
                          final String modelName) {
-        if (actual != null && isNotAllASCII(actual)) {
-            throw new ValidationException(
-                    "Invalid ? \"?\": Expected a URL encoded string, " +
-                            "where all characters are between 0x00 and 0x7F (ASCII), but actual is '?'!",
-                    httpModelType, modelName, actual
-            );
-        }
-    }
-
-    private boolean isNotAllASCII(final CharSequence input) {
-        for (int i = 0; i < input.length(); i++) {
-            final char ch = input.charAt(i);
-            if (ch > MAX_ASCII_CODE) {
-                return true;
+        if (actual != null) {
+            for (int i = 0; i < actual.length(); i++) {
+                final char ch = actual.charAt(i);
+                if (ch > MAX_ASCII_CODE) {
+                    throw new ValidationException(
+                            "Invalid ? \"?\": Expected a URL encoded string, " +
+                                    "where all characters are between 0x00 and 0x7F (ASCII), but actual is '?'. " +
+                                    "Invalid character is '?' (0x?)!",
+                            httpModelType, modelName, actual, ch, Integer.toHexString(ch)
+                    );
+                }
             }
         }
-        return false;
     }
 }

@@ -49,7 +49,8 @@ public class MaxLengthConstraintValidator extends AbstractMaxConstraintValidator
             final int actual = value.length();
             validate(actual, httpModelType, modelName,
                     "Invalid ? \"?\": Expected that 'string length' <= ?, where 'string length' is '?'!",
-                    "Invalid ? \"?\": Expected that 'string length' < ?, where 'string length' is '?'!");
+                    "Invalid ? \"?\": Expected that 'string length' < ?, where 'string length' is '?'!"
+            );
         }
     }
 }

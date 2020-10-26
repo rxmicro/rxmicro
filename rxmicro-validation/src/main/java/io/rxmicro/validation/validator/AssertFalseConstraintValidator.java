@@ -34,7 +34,7 @@ public class AssertFalseConstraintValidator implements ConstraintValidator<Boole
                          final HttpModelType httpModelType,
                          final String modelName) {
         if (actual != null && actual) {
-            throw new ValidationException("Invalid ? \"?\": Expected 'false' but actual is 'true'!", httpModelType, modelName);
+            throw new ValidationException("Invalid ? \"?\": Expected 'false', but actual is 'true'!", httpModelType, modelName);
         }
     }
 }

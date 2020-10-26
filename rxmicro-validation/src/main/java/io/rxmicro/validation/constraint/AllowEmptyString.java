@@ -31,7 +31,11 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 /**
  * The annotated element may be optional, i.e. {@code empty string} BUT must be not {@code null}!
  *
+ * <p>
  * For {@code null} values use {@link Nullable} or {@link NullableArrayItem} constraint.
+ *
+ * <p>
+ * The RxMicro team does not recommend to use empty string as valid business object value, use {@code null} instead!
  *
  * @author nedis
  * @see RequiredAndNotEmptyStringConstraintValidator

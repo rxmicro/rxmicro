@@ -82,5 +82,5 @@ public @interface LatinAlphabetOnly {
      *
      * @return all supported punctuation characters
      */
-    String punctuations() default "~!@#$%^&*()_+=-[]{},.;:<>?/\\\"' \t|\r\n";
+    String punctuations() default "~!@#$%^&*()_+=-[]{},.;:<>?/\\\"' \t|\r\n\b";
 }

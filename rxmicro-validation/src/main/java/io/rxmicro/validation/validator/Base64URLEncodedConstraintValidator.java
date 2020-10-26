@@ -85,15 +85,16 @@ public class Base64URLEncodedConstraintValidator implements ConstraintValidator<
 
     private void validate(final CharSequence value,
                           final HttpModelType httpModelType,
-                          final String fieldName,
+                          final String modelName,
                           final Set<Character> alphabet) {
         for (int i = 0; i < value.length(); i++) {
             final char ch = value.charAt(i);
             if (!alphabet.contains(ch)) {
                 throw new ValidationException("Invalid ? \"?\": Expected a valid Base64 string, i.e. " +
                         "string which contains the following characters only [?], " +
-                        "but actual value contains invalid character: '?'!",
-                        httpModelType, fieldName, new TreeSet<>(alphabet), ch);
+                        "but actual value contains invalid character: '?' (0x?)!",
+                        httpModelType, modelName, new TreeSet<>(alphabet), ch, Integer.toHexString(ch)
+                );
             }
         }
     }

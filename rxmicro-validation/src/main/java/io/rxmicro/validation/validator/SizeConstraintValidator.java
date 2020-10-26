@@ -51,7 +51,8 @@ public class SizeConstraintValidator extends AbstractListConstraintValidator {
             if (actual != expectedSize) {
                 throw new ValidationException(
                         "Invalid ? \"?\": Expected size = ?, but actual is ?!",
-                        httpModelType, modelName, expectedSize, actual);
+                        httpModelType, modelName, expectedSize, actual
+                );
             }
         }
     }

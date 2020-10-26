@@ -29,7 +29,7 @@ import java.util.List;
  * @see io.rxmicro.validation.constraint.Nullable
  * @since 0.1
  */
-public final class RequiredListConstraintValidator implements ConstraintValidator<List<?>> {
+public class RequiredListConstraintValidator implements ConstraintValidator<List<?>> {
 
     @Override
     public void validate(final List<?> actual,

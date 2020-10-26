@@ -28,10 +28,10 @@ public final class HostNameConstraintValidator extends AbstractDomainOrHostNameC
     /**
      * Host name rule message.
      */
-    public static final String HOSTNAME_RULE =
+    public static final String HOST_NAME_RULE =
             "Hostname must contains letters [a-z] or [A-Z], digits [0-9], underscores, periods, and dashes only!";
 
-    private static final String NAME = "hostname";
+    private static final String NAME = "host name";
 
     /**
      * Creates the default instance of {@link HostNameConstraintValidator} type.
@@ -44,7 +44,7 @@ public final class HostNameConstraintValidator extends AbstractDomainOrHostNameC
 
     @Override
     protected String getRule() {
-        return HOSTNAME_RULE;
+        return HOST_NAME_RULE;
     }
 
     @Override

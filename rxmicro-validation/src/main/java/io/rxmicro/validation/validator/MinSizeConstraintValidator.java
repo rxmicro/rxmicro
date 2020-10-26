@@ -50,8 +50,9 @@ public class MinSizeConstraintValidator extends AbstractMinConstraintValidator<I
         if (value != null) {
             final int actual = value.size();
             validate(actual, httpModelType, modelName,
-                    "Invalid ? \"?\": Expected that 'list size' > ?, where 'list size' is '?'!",
-                    "Invalid ? \"?\": Expected that 'list size' >= ?, where 'list size' is '?'!");
+                    "Invalid ? \"?\": Expected that 'list size' >= ?, where 'list size' is '?'!",
+                    "Invalid ? \"?\": Expected that 'list size' > ?, where 'list size' is '?'!"
+            );
         }
     }
 

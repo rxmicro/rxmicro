@@ -39,7 +39,8 @@ public class UppercaseConstraintValidator implements ConstraintValidator<String>
                 if (Character.isLetter(ch) && !Character.isUpperCase(ch)) {
                     throw new ValidationException(
                             "Invalid ? \"?\": Expected an uppercase string, but actual is '?'!",
-                            httpModelType, modelName, actual);
+                            httpModelType, modelName, actual
+                    );
                 }
             }
         }
