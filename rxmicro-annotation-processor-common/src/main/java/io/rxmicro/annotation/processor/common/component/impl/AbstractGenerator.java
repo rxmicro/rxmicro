@@ -21,9 +21,13 @@ import freemarker.cache.TemplateLookupResult;
 import freemarker.cache.TemplateLookupStrategy;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
+import freemarker.template.TemplateException;
 import freemarker.template.TemplateExceptionHandler;
+import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author nedis
@@ -50,5 +54,36 @@ public abstract class AbstractGenerator extends AbstractProcessorComponent {
             cfg.setFallbackOnNullLoopVariable(false);
         }
         return cfg.getTemplate(name);
+    }
+
+    protected final void catchThrowable(final Throwable throwable,
+                                        final Runnable cantGenerateMessageConsumer) {
+        if (throwable instanceof TemplateException) {
+            final TemplateException ex = (TemplateException) throwable;
+            final InterruptProcessingException interruptProcessingExceptionCause = getNullableInterruptProcessingExceptionCause(ex);
+            if (interruptProcessingExceptionCause != null) {
+                throw interruptProcessingExceptionCause;
+            } else {
+                cantGenerateMessageConsumer.run();
+            }
+        } else {
+            cantGenerateMessageConsumer.run();
+        }
+    }
+
+    private InterruptProcessingException getNullableInterruptProcessingExceptionCause(final TemplateException exception) {
+        final List<Throwable> throwableList = new ArrayList<>(2);
+        Throwable cause = exception;
+        while (true) {
+            cause = cause.getCause();
+            if (cause == null || cause == exception || throwableList.contains(cause)) {
+                break;
+            } else if (cause instanceof InterruptProcessingException) {
+                return (InterruptProcessingException) cause;
+            } else {
+                throwableList.add(cause);
+            }
+        }
+        return null;
     }
 }

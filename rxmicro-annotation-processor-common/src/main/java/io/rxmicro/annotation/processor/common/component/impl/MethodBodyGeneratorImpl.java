@@ -19,12 +19,14 @@ package io.rxmicro.annotation.processor.common.component.impl;
 import com.google.inject.Singleton;
 import freemarker.template.TemplateException;
 import io.rxmicro.annotation.processor.common.component.MethodBodyGenerator;
+import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
 
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -41,8 +43,8 @@ public final class MethodBodyGeneratorImpl extends AbstractGenerator
         final StringWriter stringWriter = new StringWriter();
         try (Writer writer = stringWriter) {
             getTemplate(templateName).process(parameters, writer);
-        } catch (final TemplateException | IOException ex) {
-            cantGenerateMethodBody(templateName, ex);
+        } catch (final Throwable throwable) {
+            catchThrowable(throwable, () -> cantGenerateMethodBody(templateName, throwable));
         }
         return stringWriter.toString().lines().collect(Collectors.toList());
     }
