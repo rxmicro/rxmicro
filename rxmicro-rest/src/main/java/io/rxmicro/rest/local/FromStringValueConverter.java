@@ -113,7 +113,8 @@ public abstract class FromStringValueConverter {
             } else {
                 throw new ValidationException(
                         "Invalid ? \"?\": Expected a boolean value, but actual is '?'!",
-                        httpModelType, modelName, value);
+                        httpModelType, modelName, value
+                );
             }
         }
     }
@@ -226,7 +227,7 @@ public abstract class FromStringValueConverter {
             } catch (final NumberFormatException ignore) {
                 throw new ValidationException(
                         "Invalid ? \"?\": Expected an integer value, but actual is '?'!",
-                        httpModelType, modelName
+                        httpModelType, modelName, value
                 );
             }
         }
