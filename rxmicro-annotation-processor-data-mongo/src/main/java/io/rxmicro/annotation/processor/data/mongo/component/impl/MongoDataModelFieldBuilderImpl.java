@@ -65,7 +65,11 @@ public final class MongoDataModelFieldBuilderImpl extends AbstractDataModelField
     }
 
     @Override
-    protected MongoDataModelField build(final AnnotatedModelElement annotated, final String modelName, final boolean isId) {
+    protected MongoDataModelField build(final AnnotatedModelElement annotated,
+                                        final String modelName,
+                                        final int length,
+                                        final boolean nullable,
+                                        final boolean isId) {
         return new MongoDataModelField(annotated, modelName, isId);
     }
 

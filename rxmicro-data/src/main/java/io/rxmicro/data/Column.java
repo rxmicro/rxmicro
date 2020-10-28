@@ -44,9 +44,46 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 public @interface Column {
 
     /**
+     * This value means that the column length is not specified.
+     *
+     * <p>
+     * This value should be used for column type that does not require any data length restrictions.
+     */
+    int NOT_SPECIFIED_LENGTH = -1;
+
+    /**
+     * This value means that the column length can be any value.
+     *
+     * <p>
+     * This restriction correspond unlimited {@code VARCHAR} or {@code TEXT} SQL data.
+     */
+    int UNLIMITED_LENGTH = 0;
+
+    /**
      * By default, the RxMicro framework uses the Java model class field name as the column name in the DB table (document).
      *
      * @return the column name
      */
-    String value();
+    String value() default "";
+
+    /**
+     * (Optional) The column length.
+     *
+     * <p>
+     * By default the column length is {@link Column#NOT_SPECIFIED_LENGTH}.
+     * (This value means that the column length is not specified.)
+     *
+     * <p>
+     * For infinite value use {@link Column#UNLIMITED_LENGTH} constant.
+     *
+     * @return the column length
+     */
+    int length() default NOT_SPECIFIED_LENGTH;
+
+    /**
+     * (Optional) Whether the database column is nullable.
+     *
+     * @return {@code true} if column is nullable.
+     */
+    boolean nullable() default false;
 }

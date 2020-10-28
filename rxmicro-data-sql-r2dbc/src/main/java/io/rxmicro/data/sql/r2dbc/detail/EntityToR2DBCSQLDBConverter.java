@@ -33,4 +33,14 @@ public abstract class EntityToR2DBCSQLDBConverter<E, DB> implements EntityToDBCo
                                                  final String fieldName) {
         return Converters.toEnum(type, value, fieldName);
     }
+
+    protected final String trimNotNull(final String value,
+                                       final int length) {
+        return value.length() > length ? value.substring(0, length) : value;
+    }
+
+    protected final String trimNullable(final String value,
+                                        final int length) {
+        return value != null && value.length() > length ? value.substring(0, length) : value;
+    }
 }

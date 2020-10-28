@@ -20,6 +20,7 @@ import io.rxmicro.annotation.processor.common.model.AnnotatedModelElement;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
 import io.rxmicro.annotation.processor.common.util.UsedByFreemarker;
 import io.rxmicro.annotation.processor.data.model.DataModelField;
+import io.rxmicro.data.Column;
 import io.rxmicro.data.sql.Cast;
 import io.rxmicro.data.sql.NotInsertable;
 import io.rxmicro.data.sql.PrimaryKey;
@@ -39,9 +40,19 @@ public class SQLDataModelField extends DataModelField {
 
     private boolean initInsertValue;
 
+    private final int length;
+
+    private final boolean nullable;
+
+    private Boolean lengthPresent;
+
     public SQLDataModelField(final AnnotatedModelElement annotatedModelElement,
-                             final String modelName) {
+                             final String modelName,
+                             final int length,
+                             final boolean nullable) {
         super(annotatedModelElement, modelName);
+        this.length = length;
+        this.nullable = nullable;
         initInsertValue = false;
     }
 
@@ -122,5 +133,43 @@ public class SQLDataModelField extends DataModelField {
     @UsedByFreemarker("$$SQLEntityToSQLDBConverterTemplate.javaftl")
     public boolean isInsertValuePlaceholder() {
         return "?".equals(insertValue);
+    }
+
+    @UsedByFreemarker("$$SQLEntityToSQLDBConverterTemplate.javaftl")
+    public boolean isLengthPresent() {
+        if(lengthPresent == null) {
+            if (String.class.getName().equals(getFieldClass().toString())) {
+                if (length == Column.NOT_SPECIFIED_LENGTH) {
+                    throw new InterruptProcessingException(
+                            getFieldElement(),
+                            "Missing a required column length value for '?' column type. " +
+                                    "If it is necessary to set unlimited value use '?.UNLIMITED_LENGTH' constant!",
+                            String.class.getName(), Column.class.getName()
+                    );
+                }
+                lengthPresent = length > Column.UNLIMITED_LENGTH;
+            } else {
+                if (length != Column.NOT_SPECIFIED_LENGTH) {
+                    throw new InterruptProcessingException(
+                            getFieldElement(),
+                            "Column length supported for '?' column type only. " +
+                                    "Remove redundant column declaration!",
+                            String.class.getName()
+                    );
+                }
+                lengthPresent = false;
+            }
+        }
+        return lengthPresent;
+    }
+
+    @UsedByFreemarker("$$SQLEntityToSQLDBConverterTemplate.javaftl")
+    public int getLength() {
+        return length;
+    }
+
+    @UsedByFreemarker("$$SQLEntityToSQLDBConverterTemplate.javaftl")
+    public String getTrimMethodName() {
+        return nullable ? "trimNullable" : "trimNotNull";
     }
 }

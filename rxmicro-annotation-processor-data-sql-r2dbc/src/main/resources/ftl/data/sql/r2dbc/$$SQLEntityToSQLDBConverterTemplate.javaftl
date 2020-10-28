@@ -61,19 +61,19 @@ public final class ${JAVA_MODEL_CLASS.entityToDBConverterImplSimpleClassName} ex
 <#assign param = entry.key>
     <#if entry.value.primitive>
         <#if param.modelWriteAccessorType.name() == "REFLECTION">
-                getFieldValue(entity, "${param.fieldName}")<#if addComma>,</#if>
+                <#if param.lengthPresent>${param.trimMethodName}(</#if>getFieldValue(entity, "${param.fieldName}")<#if param.lengthPresent>, ${param.length})</#if><#if addComma>,</#if>
         <#elseif param.modelWriteAccessorType.name() == "DIRECT">
-                entity.${param.fieldName}<#if addComma>,</#if>
+                <#if param.lengthPresent>${param.trimMethodName}(</#if>entity.${param.fieldName}<#if param.lengthPresent>, ${param.length})</#if><#if addComma>,</#if>
         <#elseif param.modelWriteAccessorType.name() == "JAVA_BEAN">
-                entity.${param.getter}()<#if addComma>,</#if>
+                <#if param.lengthPresent>${param.trimMethodName}(</#if>entity.${param.getter}()<#if param.lengthPresent>, ${param.length})</#if><#if addComma>,</#if>
         </#if>
     <#elseif entry.value.enum>
         <#if param.modelWriteAccessorType.name() == "REFLECTION">
-                ((Enum<?>) getFieldValue(entity, "${param.fieldName}")).name()<#if addComma>,</#if>
+                <#if param.lengthPresent>${param.trimMethodName}(</#if>((Enum<?>) getFieldValue(entity, "${param.fieldName}")).name()<#if param.lengthPresent>, ${param.length})</#if><#if addComma>,</#if>
         <#elseif param.modelWriteAccessorType.name() == "DIRECT">
-                entity.${param.fieldName}.name()<#if addComma>,</#if>
+                <#if param.lengthPresent>${param.trimMethodName}(</#if>entity.${param.fieldName}.name()<#if param.lengthPresent>, ${param.length})</#if><#if addComma>,</#if>
         <#elseif param.modelWriteAccessorType.name() == "JAVA_BEAN">
-                entity.${param.getter}().name()<#if addComma>,</#if>
+                <#if param.lengthPresent>${param.trimMethodName}(</#if>entity.${param.getter}().name()<#if param.lengthPresent>, ${param.length})</#if><#if addComma>,</#if>
         </#if>
     </#if>
 </#macro>

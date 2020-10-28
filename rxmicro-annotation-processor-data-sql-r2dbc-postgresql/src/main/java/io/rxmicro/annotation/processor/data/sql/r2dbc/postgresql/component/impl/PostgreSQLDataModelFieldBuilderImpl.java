@@ -52,7 +52,11 @@ public final class PostgreSQLDataModelFieldBuilderImpl
     }
 
     @Override
-    protected SQLDataModelField build(final AnnotatedModelElement annotated, final String modelName, final boolean isId) {
-        return new SQLDataModelField(annotated, modelName);
+    protected SQLDataModelField build(final AnnotatedModelElement annotated,
+                                      final String modelName,
+                                      final int length,
+                                      final boolean nullable,
+                                      final boolean isId) {
+        return new SQLDataModelField(annotated, modelName, length, nullable);
     }
 }

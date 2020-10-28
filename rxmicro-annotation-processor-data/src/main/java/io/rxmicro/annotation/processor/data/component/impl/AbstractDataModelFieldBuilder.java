@@ -79,10 +79,17 @@ public abstract class AbstractDataModelFieldBuilder<DMF extends DataModelField, 
         if (!modelNames.modelNames("columns").add(modelName)) {
             error(annotated.getElementAnnotatedBy(Column.class).orElse(field), "Detected duplicate of column name: ?", modelName);
         }
-        return validateAndReturn(build(annotated, modelName, id), typeElement);
+        final Column column = annotated.getAnnotation(Column.class);
+        final int length = column != null ? column.length() : Column.NOT_SPECIFIED_LENGTH;
+        final boolean nullable = column != null && column.nullable();
+        return validateAndReturn(build(annotated, modelName, length, nullable, id), typeElement);
     }
 
-    protected abstract DMF build(AnnotatedModelElement annotated, String modelName, boolean isId);
+    protected abstract DMF build(AnnotatedModelElement annotated,
+                                 String modelName,
+                                 int length,
+                                 boolean nullable,
+                                 boolean isId);
 
     @SuppressWarnings("Convert2MethodRef")
     private String getColumnName(final TypeElement typeElement,
