@@ -392,48 +392,55 @@ final class FromStringValueConverterTest {
 
     @ParameterizedTest
     @CsvSource(delimiter = ';', value = {
-            ";          ",
-            "R;         R"
+            ";                      ",
+            "9999999999999999999;   9999999999999999999",
     })
-    void toCharacter_should_convert_value_successfully(final String value,
-                                                       final Character expected) {
-        final Character actual =
-                assertDoesNotThrow(() -> converter.toCharacter(value, PARAMETER, "value"));
+    void toBigInteger_should_convert_value_successfully(final String value,
+                                                        final BigInteger expected) {
+        final BigInteger actual =
+                assertDoesNotThrow(() -> converter.toBigInteger(value, PARAMETER, "value"));
         assertEquals(expected, actual);
     }
 
     @ParameterizedTest
     @CsvSource(delimiter = ';', value = {
-            "empty;     Expected a character, but actual is ''!",
-            "RG;        Expected a character, but actual is 'RG'!"
+            "empty;         Expected an integer value, but actual is ''!",
+            "3.14159265;    Expected an integer value, but actual is '3.14159265'!",
+            "not_digits;    Expected an integer value, but actual is 'not_digits'!",
+            "NaN;           Expected an integer value, but actual is 'NaN'!",
+            "+NaN;          Expected an integer value, but actual is '+NaN'!",
+            "-NaN;          Expected an integer value, but actual is '-NaN'!",
+            "Infinity;      Expected an integer value, but actual is 'Infinity'!",
+            "+Infinity;     Expected an integer value, but actual is '+Infinity'!",
+            "-Infinity;     Expected an integer value, but actual is '-Infinity'!"
     })
-    void toCharacter_should_throw_ValidationException(final String value,
-                                                      final String expectedError) {
+    void toBigInteger_should_throw_ValidationException(final String value,
+                                                       final String expectedError) {
         final String valueParam = "empty".equals(value) ? "" : value;
         final ValidationException exception =
-                assertThrows(ValidationException.class, () -> converter.toCharacter(valueParam, PARAMETER, "value"));
+                assertThrows(ValidationException.class, () -> converter.toBigInteger(valueParam, PARAMETER, "value"));
         assertEquals("Invalid parameter \"value\": " + expectedError, exception.getMessage());
     }
 
     @ParameterizedTest
     @CsvSource(delimiter = ';', value = {
-            ";          ",
-            "R;         R",
-            "R,G;       R,G",
-            "R|G;       R,G",
-            "R|G,B;     R,G,B"
+            ";                                                              ",
+            "999999999999999999999;                                         999999999999999999999",
+            "99999999999999999999,9999999999999999999;                      99999999999999999999,9999999999999999999",
+            "9999999999999999999|99999999999999999999;                      9999999999999999999,99999999999999999999",
+            "9999999999999999999|9999999999999999999,9999999999999999999;   9999999999999999999,9999999999999999999,9999999999999999999"
     })
-    void toCharacterArray_should_convert_value_successfully(final String list,
-                                                            final String expected) {
+    void toBigIntegerArray_should_convert_value_successfully(final String list,
+                                                             final String expected) {
         final List<String> headers = list == null ?
                 null :
                 List.of(list.split(","));
-        final List<Character> expectedList = expected == null ?
+        final List<BigInteger> expectedList = expected == null ?
                 List.of() :
-                Arrays.stream(expected.split(",")).map(s -> s.charAt(0)).collect(Collectors.toList());
+                Arrays.stream(expected.split(",")).map(BigInteger::new).collect(Collectors.toList());
 
-        final List<Character> actualList =
-                assertDoesNotThrow(() -> converter.toCharacterArray(headers, PARAMETER, "value"));
+        final List<BigInteger> actualList =
+                assertDoesNotThrow(() -> converter.toBigIntegerArray(headers, PARAMETER, "value"));
         assertEquals(expectedList, actualList);
     }
 
@@ -606,62 +613,6 @@ final class FromStringValueConverterTest {
     @ParameterizedTest
     @CsvSource(delimiter = ';', value = {
             ";                      ",
-            "9999999999999999999;   9999999999999999999",
-    })
-    void toBigInteger_should_convert_value_successfully(final String value,
-                                                        final BigInteger expected) {
-        final BigInteger actual =
-                assertDoesNotThrow(() -> converter.toBigInteger(value, PARAMETER, "value"));
-        assertEquals(expected, actual);
-    }
-
-    @ParameterizedTest
-    @CsvSource(delimiter = ';', value = {
-            "empty;         Expected an integer value, but actual is ''!",
-            "3.14159265;    Expected an integer value, but actual is '3.14159265'!",
-            "not_digits;    Expected an integer value, but actual is 'not_digits'!",
-            "NaN;           Expected an integer value, but actual is 'NaN'!",
-            "+NaN;          Expected an integer value, but actual is '+NaN'!",
-            "-NaN;          Expected an integer value, but actual is '-NaN'!",
-            "Infinity;      Expected an integer value, but actual is 'Infinity'!",
-            "+Infinity;     Expected an integer value, but actual is '+Infinity'!",
-            "-Infinity;     Expected an integer value, but actual is '-Infinity'!"
-    })
-    void toBigInteger_should_throw_ValidationException(final String value,
-                                                       final String expectedError) {
-        final String valueParam = "empty".equals(value) ? "" : value;
-        final ValidationException exception =
-                assertThrows(ValidationException.class, () -> converter.toBigInteger(valueParam, PARAMETER, "value"));
-        assertEquals("Invalid parameter \"value\": " + expectedError, exception.getMessage());
-    }
-
-    @ParameterizedTest
-    @CsvSource(delimiter = ';', value = {
-            ";                                                              ",
-            "999999999999999999999;                                         999999999999999999999",
-            "99999999999999999999,9999999999999999999;                      99999999999999999999,9999999999999999999",
-            "9999999999999999999|99999999999999999999;                      9999999999999999999,99999999999999999999",
-            "9999999999999999999|9999999999999999999,9999999999999999999;   9999999999999999999,9999999999999999999,9999999999999999999"
-    })
-    void toBigIntegerArray_should_convert_value_successfully(final String list,
-                                                             final String expected) {
-        final List<String> headers = list == null ?
-                null :
-                List.of(list.split(","));
-        final List<BigInteger> expectedList = expected == null ?
-                List.of() :
-                Arrays.stream(expected.split(",")).map(BigInteger::new).collect(Collectors.toList());
-
-        final List<BigInteger> actualList =
-                assertDoesNotThrow(() -> converter.toBigIntegerArray(headers, PARAMETER, "value"));
-        assertEquals(expectedList, actualList);
-    }
-
-    // -------------------------------------------------------------------------------------------------------------------------------------
-
-    @ParameterizedTest
-    @CsvSource(delimiter = ';', value = {
-            ";                      ",
             "2020-01-15T10:25:45Z;  2020-01-15T10:25:45Z"
     })
     void toInstant_should_convert_value_successfully(final String value,
@@ -673,8 +624,8 @@ final class FromStringValueConverterTest {
 
     @ParameterizedTest
     @CsvSource(delimiter = ';', value = {
-            "empty;                 Expected an ISO-8601 (Example: '1987-04-10T23:40:15.789Z'), but actual is ''!",
-            "2020-13-15T10:25:45Z;  Expected an ISO-8601 (Example: '1987-04-10T23:40:15.789Z'), but actual is '2020-13-15T10:25:45Z'!",
+            "empty;                 Expected an ISO-8601 instant (Example: '1987-04-10T23:40:15.789Z'), but actual is ''!",
+            "2020-13-15T10:25:45Z;  Expected an ISO-8601 instant (Example: '1987-04-10T23:40:15.789Z'), but actual is '2020-13-15T10:25:45Z'!",
     })
     void toInstant_should_throw_ValidationException(final String value,
                                                     final String expectedError) {
@@ -703,6 +654,55 @@ final class FromStringValueConverterTest {
 
         final List<Instant> actualList =
                 assertDoesNotThrow(() -> converter.toInstantArray(headers, PARAMETER, "value"));
+        assertEquals(expectedList, actualList);
+    }
+
+    // -------------------------------------------------------------------------------------------------------------------------------------
+
+    @ParameterizedTest
+    @CsvSource(delimiter = ';', value = {
+            ";          ",
+            "R;         R"
+    })
+    void toCharacter_should_convert_value_successfully(final String value,
+                                                       final Character expected) {
+        final Character actual =
+                assertDoesNotThrow(() -> converter.toCharacter(value, PARAMETER, "value"));
+        assertEquals(expected, actual);
+    }
+
+    @ParameterizedTest
+    @CsvSource(delimiter = ';', value = {
+            "empty;     Expected a character, but actual is ''!",
+            "RG;        Expected a character, but actual is 'RG'!"
+    })
+    void toCharacter_should_throw_ValidationException(final String value,
+                                                      final String expectedError) {
+        final String valueParam = "empty".equals(value) ? "" : value;
+        final ValidationException exception =
+                assertThrows(ValidationException.class, () -> converter.toCharacter(valueParam, PARAMETER, "value"));
+        assertEquals("Invalid parameter \"value\": " + expectedError, exception.getMessage());
+    }
+
+    @ParameterizedTest
+    @CsvSource(delimiter = ';', value = {
+            ";          ",
+            "R;         R",
+            "R,G;       R,G",
+            "R|G;       R,G",
+            "R|G,B;     R,G,B"
+    })
+    void toCharacterArray_should_convert_value_successfully(final String list,
+                                                            final String expected) {
+        final List<String> headers = list == null ?
+                null :
+                List.of(list.split(","));
+        final List<Character> expectedList = expected == null ?
+                List.of() :
+                Arrays.stream(expected.split(",")).map(s -> s.charAt(0)).collect(Collectors.toList());
+
+        final List<Character> actualList =
+                assertDoesNotThrow(() -> converter.toCharacterArray(headers, PARAMETER, "value"));
         assertEquals(expectedList, actualList);
     }
 
