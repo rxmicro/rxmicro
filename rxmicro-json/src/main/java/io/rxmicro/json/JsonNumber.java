@@ -33,7 +33,7 @@ import static io.rxmicro.json.internal.validator.Validators.validateNumber;
  * @see JsonException
  * @since 0.1
  */
-public final class JsonNumber extends Number {
+public final class JsonNumber {
 
     /**
      * A constant holding a Not-a-Number (NaN) value.
@@ -78,33 +78,69 @@ public final class JsonNumber extends Number {
         this.number = number;
     }
 
-    @Override
-    public int intValue() {
+    /**
+     * Returns the value of the specified number as an {@code int}.
+     *
+     * @return  the numeric value represented by this object after conversion
+     *          to type {@code int}.
+     * @throws NumberFormatException If the string does not contain a parsable {@code int}..
+     */
+    public int intValueExact() {
         return Integer.parseInt(number);
     }
 
-    @Override
-    public long longValue() {
+    /**
+     * Returns the value of the specified number as a {@code long}.
+     *
+     * @return  the numeric value represented by this object after conversion
+     *          to type {@code long}.
+     * @throws NumberFormatException If the string does not contain a parsable {@code long}.
+     */
+    public long longValueExact() {
         return Long.parseLong(number);
     }
 
-    @Override
-    public float floatValue() {
+    /**
+     * Returns the value of the specified number as a {@code float}.
+     *
+     * @return  the numeric value represented by this object after conversion
+     *          to type {@code float}.
+     * @throws NumberFormatException If the string does not contain a parsable {@code float}.
+     */
+    public float floatValueExact() {
         return Float.parseFloat(number);
     }
 
-    @Override
-    public double doubleValue() {
+    /**
+     * Returns the value of the specified number as a {@code double}.
+     *
+     * @return  the numeric value represented by this object after conversion
+     *          to type {@code double}.
+     * @throws NumberFormatException If the string does not contain a parsable {@code double}.
+     */
+    public double doubleValueExact() {
         return Double.parseDouble(number);
     }
 
-    @Override
-    public byte byteValue() {
+    /**
+     * Returns the value of the specified number as a {@code byte}.
+     *
+     * @return  the numeric value represented by this object after conversion
+     *          to type {@code byte}.
+     * @throws NumberFormatException If the string does not contain a parsable {@code byte}.
+     */
+    public byte byteValueExact() {
         return Byte.parseByte(number);
     }
 
-    @Override
-    public short shortValue() {
+    /**
+     * Returns the value of the specified number as a {@code short}.
+     *
+     * @return  the numeric value represented by this object after conversion
+     *          to type {@code short}.
+     * @throws NumberFormatException If the string does not contain a parsable {@code short}.
+     */
+    public short shortValueExact() {
         return Short.parseShort(number);
     }
 
@@ -114,7 +150,7 @@ public final class JsonNumber extends Number {
      * @return the value of the specified number as an {@link BigInteger}.
      * @throws NumberFormatException If the string does not contain a parsable {@link BigInteger}.
      */
-    public BigInteger bigIntegerValue() {
+    public BigInteger bigIntegerValueExact() {
         return new BigInteger(number);
     }
 
@@ -122,9 +158,8 @@ public final class JsonNumber extends Number {
      * Returns the value of the specified number as an {@link BigDecimal}.
      *
      * @return the value of the specified number as an {@link BigDecimal}.
-     * @throws NumberFormatException If the string does not contain a parsable {@link BigInteger}.
      */
-    public BigDecimal bigDecimalValue() {
+    public BigDecimal bigDecimalValueExact() {
         return new BigDecimal(number);
     }
 
