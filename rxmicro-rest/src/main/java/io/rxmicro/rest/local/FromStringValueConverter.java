@@ -37,7 +37,7 @@ import static java.util.Collections.unmodifiableList;
  * @since 0.1
  */
 @SuppressWarnings({"ForLoopReplaceableByForEach", "rawtypes", "unchecked"})
-public abstract class FromStringValueConverter {
+public abstract class FromStringValueConverter extends AbstractValidatedConverter {
 
     private static final int DEFAULT_SIZE = 5;
 
@@ -273,33 +273,34 @@ public abstract class FromStringValueConverter {
 
     // -------------------------------------------------------------------------------------------------------------------------------------
 
-    protected final Character toCharacter(final String value,
-                                          final HttpModelType httpModelType,
-                                          final String modelName) {
+    protected final BigInteger toBigInteger(final String value,
+                                            final HttpModelType httpModelType,
+                                            final String modelName) {
         if (value == null) {
             return null;
         } else {
-            if (value.length() != 1) {
+            try {
+                return new BigInteger(value);
+            } catch (final NumberFormatException ignore) {
                 throw new ValidationException(
-                        "Invalid ? \"?\": Expected a character, but actual is '?'!",
+                        "Invalid ? \"?\": Expected an integer value, but actual is '?'!",
                         httpModelType, modelName, value
                 );
             }
-            return value.charAt(0);
         }
     }
 
-    protected final List<Character> toCharacterArray(final List<String> list,
-                                                     final HttpModelType httpModelType,
-                                                     final String modelName) {
+    protected final List<BigInteger> toBigIntegerArray(final List<String> list,
+                                                       final HttpModelType httpModelType,
+                                                       final String modelName) {
         if (list != null) {
             final int size = list.size();
-            final List<Character> result = new ArrayList<>(size == 1 ? DEFAULT_SIZE : size);
+            final List<BigInteger> result = new ArrayList<>(size == 1 ? DEFAULT_SIZE : size);
             for (int i = 0; i < size; i++) {
                 final String value = list.get(i);
                 final List<String> array = split(value, getStringArrayDelimiter());
                 for (int j = 0; j < array.size(); j++) {
-                    result.add(toCharacter(array.get(j), httpModelType, modelName));
+                    result.add(toBigInteger(array.get(j), httpModelType, modelName));
                 }
             }
             return unmodifiableList(result);
@@ -317,25 +318,7 @@ public abstract class FromStringValueConverter {
             return null;
         } else {
             try {
-                final float result = Float.parseFloat(value);
-                if (result == Float.POSITIVE_INFINITY) {
-                    throw new ValidationException(
-                            "Invalid ? \"?\": Expected a decimal value that <= '?', but actual is '?'!",
-                            httpModelType, modelName, Float.MAX_VALUE, value
-                    );
-                } else if (result == Float.NEGATIVE_INFINITY) {
-                    throw new ValidationException(
-                            "Invalid ? \"?\": Expected a decimal value that >= '-?', but actual is '?'!",
-                            httpModelType, modelName, Float.MAX_VALUE, value
-                    );
-                } else if (Float.isNaN(result)) {
-                    throw new ValidationException(
-                            "Invalid ? \"?\": Expected a decimal value, but actual is 'NaN'!",
-                            httpModelType, modelName
-                    );
-                } else {
-                    return result;
-                }
+                return floatIfValid(value, Float.parseFloat(value), httpModelType, modelName);
             } catch (final NumberFormatException ignore) {
                 throw new ValidationException(
                         "Invalid ? \"?\": Expected a decimal value, but actual is '?'!",
@@ -373,25 +356,7 @@ public abstract class FromStringValueConverter {
             return null;
         } else {
             try {
-                final double result = Double.parseDouble(value);
-                if (result == Double.POSITIVE_INFINITY) {
-                    throw new ValidationException(
-                            "Invalid ? \"?\": Expected a decimal value that <= '?', but actual is '?'!",
-                            httpModelType, modelName, Double.MAX_VALUE, value
-                    );
-                } else if (result == Double.NEGATIVE_INFINITY) {
-                    throw new ValidationException(
-                            "Invalid ? \"?\": Expected a decimal value that >= '-?', but actual is '?'!",
-                            httpModelType, modelName, Double.MAX_VALUE, value
-                    );
-                } else if (Double.isNaN(result)) {
-                    throw new ValidationException(
-                            "Invalid ? \"?\": Expected a decimal value, but actual is 'NaN'!",
-                            httpModelType, modelName
-                    );
-                } else {
-                    return result;
-                }
+                return doubleIfValid(value, Double.parseDouble(value), httpModelType, modelName);
             } catch (final NumberFormatException ignore) {
                 throw new ValidationException(
                         "Invalid ? \"?\": Expected a decimal value, but actual is '?'!",
@@ -460,44 +425,6 @@ public abstract class FromStringValueConverter {
 
     // -------------------------------------------------------------------------------------------------------------------------------------
 
-    protected final BigInteger toBigInteger(final String value,
-                                            final HttpModelType httpModelType,
-                                            final String modelName) {
-        if (value == null) {
-            return null;
-        } else {
-            try {
-                return new BigInteger(value);
-            } catch (final NumberFormatException ignore) {
-                throw new ValidationException(
-                        "Invalid ? \"?\": Expected an integer value, but actual is '?'!",
-                        httpModelType, modelName, value
-                );
-            }
-        }
-    }
-
-    protected final List<BigInteger> toBigIntegerArray(final List<String> list,
-                                                       final HttpModelType httpModelType,
-                                                       final String modelName) {
-        if (list != null) {
-            final int size = list.size();
-            final List<BigInteger> result = new ArrayList<>(size == 1 ? DEFAULT_SIZE : size);
-            for (int i = 0; i < size; i++) {
-                final String value = list.get(i);
-                final List<String> array = split(value, getStringArrayDelimiter());
-                for (int j = 0; j < array.size(); j++) {
-                    result.add(toBigInteger(array.get(j), httpModelType, modelName));
-                }
-            }
-            return unmodifiableList(result);
-        } else {
-            return EMPTY_LIST;
-        }
-    }
-
-    // -------------------------------------------------------------------------------------------------------------------------------------
-
     protected final Instant toInstant(final String value,
                                       final HttpModelType httpModelType,
                                       final String modelName) {
@@ -508,7 +435,7 @@ public abstract class FromStringValueConverter {
                 return Instant.parse(value);
             } catch (final DateTimeParseException ignore) {
                 throw new ValidationException(
-                        "Invalid ? \"?\": Expected an ISO-8601 " +
+                        "Invalid ? \"?\": Expected an ISO-8601 instant " +
                                 "(Example: '?'), but actual is '?'!",
                         httpModelType, modelName, INSTANT_EXAMPLE, value);
             }
@@ -526,6 +453,43 @@ public abstract class FromStringValueConverter {
                 final List<String> array = split(value, getStringArrayDelimiter());
                 for (int j = 0; j < array.size(); j++) {
                     result.add(toInstant(array.get(j), httpModelType, modelName));
+                }
+            }
+            return unmodifiableList(result);
+        } else {
+            return EMPTY_LIST;
+        }
+    }
+
+    // -------------------------------------------------------------------------------------------------------------------------------------
+
+    protected final Character toCharacter(final String value,
+                                          final HttpModelType httpModelType,
+                                          final String modelName) {
+        if (value == null) {
+            return null;
+        } else {
+            if (value.length() != 1) {
+                throw new ValidationException(
+                        "Invalid ? \"?\": Expected a character, but actual is '?'!",
+                        httpModelType, modelName, value
+                );
+            }
+            return value.charAt(0);
+        }
+    }
+
+    protected final List<Character> toCharacterArray(final List<String> list,
+                                                     final HttpModelType httpModelType,
+                                                     final String modelName) {
+        if (list != null) {
+            final int size = list.size();
+            final List<Character> result = new ArrayList<>(size == 1 ? DEFAULT_SIZE : size);
+            for (int i = 0; i < size; i++) {
+                final String value = list.get(i);
+                final List<String> array = split(value, getStringArrayDelimiter());
+                for (int j = 0; j < array.size(); j++) {
+                    result.add(toCharacter(array.get(j), httpModelType, modelName));
                 }
             }
             return unmodifiableList(result);
@@ -566,61 +530,5 @@ public abstract class FromStringValueConverter {
 
     protected final void throwNotImplYet(final String message) {
         throw new UnsupportedOperationException(message);
-    }
-
-    // -------------------------------------------------------------------------------------------------------------------------------------
-
-    private ValidationException createValidationExceptionForIntegerValue(final String value,
-                                                                         final HttpModelType httpModelType,
-                                                                         final String modelName,
-                                                                         final Object minValue,
-                                                                         final Object maxValue) {
-        if (value.isEmpty()) {
-            throw new ValidationException(
-                    "Invalid ? \"?\": Expected an integer value, but actual is '?'!",
-                    httpModelType, modelName, value
-            );
-        } else {
-            final boolean isNegative = value.charAt(0) == '-';
-            for (int i = isNegative || value.charAt(0) == '+' ? 1 : 0; i < value.length(); i++) {
-                if (!Character.isDigit(value.charAt(i))) {
-                    throwValidationExceptionIfValueContainsNotDigitsOnly(value, httpModelType, modelName, minValue, maxValue);
-                }
-            }
-            final String sign = isNegative ? ">=" : "<=";
-            final Object criticalValue = isNegative ? minValue : maxValue;
-            throw new ValidationException(
-                    "Invalid ? \"?\": Expected an integer value that ? '?', but actual is '?'!",
-                    httpModelType, modelName, sign, criticalValue, value
-            );
-        }
-    }
-
-    private void throwValidationExceptionIfValueContainsNotDigitsOnly(final String value,
-                                                                      final HttpModelType httpModelType,
-                                                                      final String modelName,
-                                                                      final Object minValue,
-                                                                      final Object maxValue) {
-        if ("NaN".equals(value) || "+NaN".equals(value) || "-NaN".equals(value)) {
-            throw new ValidationException(
-                    "Invalid ? \"?\": Expected an integer value, but actual is 'NaN'!",
-                    httpModelType, modelName
-            );
-        } else if ("Infinity".equals(value) || "+Infinity".equals(value)) {
-            throw new ValidationException(
-                    "Invalid ? \"?\": Expected an integer value that <= '?', but actual is '?'!",
-                    httpModelType, modelName, maxValue, value
-            );
-        } else if ("-Infinity".equals(value)) {
-            throw new ValidationException(
-                    "Invalid ? \"?\": Expected an integer value that >= '?', but actual is '?'!",
-                    httpModelType, modelName, minValue, value
-            );
-        } else {
-            throw new ValidationException(
-                    "Invalid ? \"?\": Expected an integer value, but actual is '?'!",
-                    httpModelType, modelName, value
-            );
-        }
     }
 }

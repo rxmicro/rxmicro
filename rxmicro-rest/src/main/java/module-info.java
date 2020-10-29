@@ -57,5 +57,6 @@ module rxmicro.rest {
 
     exports io.rxmicro.rest.local to
             rxmicro.rest.server,
-            rxmicro.rest.client;
+            rxmicro.rest.client,
+            rxmicro.exchange.json;
 }
