@@ -36,6 +36,7 @@
                 <configuration>
                     <argLine>
                         @{argLine}
+                        --add-opens rxmicro.exchange.json/io.rxmicro.exchange.json.detail=ALL-UNNAMED
                     </argLine>
                 </configuration>
             </plugin>
