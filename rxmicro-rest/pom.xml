@@ -36,6 +36,7 @@
                 <configuration>
                     <argLine>
                         @{argLine}
+                        --add-opens rxmicro.rest/io.rxmicro.rest.local=ALL-UNNAMED
                     </argLine>
                 </configuration>
             </plugin>

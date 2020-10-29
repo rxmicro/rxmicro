@@ -51,7 +51,7 @@ public abstract class FromStringValueConverter {
         return STRING_ARRAY_DELIMITER;
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // -------------------------------------------------------------------------------------------------------------------------------------
 
     protected final <E extends Enum<E>> E toEnum(final Class<E> enumClass,
                                                  final String value,
@@ -76,29 +76,22 @@ public abstract class FromStringValueConverter {
                                                             final HttpModelType httpModelType,
                                                             final String modelName) {
         if (list != null) {
-            try {
-                final int size = list.size();
-                final List<E> result = new ArrayList<>(size == 1 ? DEFAULT_SIZE : size);
-                for (int i = 0; i < size; i++) {
-                    final String value = list.get(i);
-                    final List<String> strings = split(value, getStringArrayDelimiter());
-                    for (int j = 0; j < strings.size(); j++) {
-                        result.add(toEnum(enumClass, strings.get(j), httpModelType, modelName));
-                    }
+            final int size = list.size();
+            final List<E> result = new ArrayList<>(size == 1 ? DEFAULT_SIZE : size);
+            for (int i = 0; i < size; i++) {
+                final String value = list.get(i);
+                final List<String> strings = split(value, getStringArrayDelimiter());
+                for (int j = 0; j < strings.size(); j++) {
+                    result.add(toEnum(enumClass, strings.get(j), httpModelType, modelName));
                 }
-                return unmodifiableList(result);
-            } catch (final ClassCastException ignore) {
-                throw new ValidationException(
-                        "Invalid ? \"?\": Expected a string array, but actual is ?!",
-                        httpModelType, modelName, list
-                );
             }
+            return unmodifiableList(result);
         } else {
             return EMPTY_LIST;
         }
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // -------------------------------------------------------------------------------------------------------------------------------------
 
     protected final Boolean toBoolean(final String value,
                                       final HttpModelType httpModelType,
@@ -106,13 +99,13 @@ public abstract class FromStringValueConverter {
         if (value == null) {
             return null;
         } else {
-            if (Boolean.TRUE.toString().equalsIgnoreCase(value)) {
+            if (Boolean.TRUE.toString().equals(value)) {
                 return Boolean.TRUE;
-            } else if (Boolean.FALSE.toString().equalsIgnoreCase(value)) {
+            } else if (Boolean.FALSE.toString().equals(value)) {
                 return Boolean.FALSE;
             } else {
                 throw new ValidationException(
-                        "Invalid ? \"?\": Expected a boolean value, but actual is '?'!",
+                        "Invalid ? \"?\": Expected a boolean value ('true' or 'false'), but actual is '?'!",
                         httpModelType, modelName, value
                 );
             }
@@ -138,7 +131,7 @@ public abstract class FromStringValueConverter {
         }
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // -------------------------------------------------------------------------------------------------------------------------------------
 
     protected final Byte toByte(final String value,
                                 final HttpModelType httpModelType,
@@ -149,10 +142,7 @@ public abstract class FromStringValueConverter {
             try {
                 return Byte.parseByte(value);
             } catch (final NumberFormatException ignore) {
-                throw new ValidationException(
-                        "Invalid ? \"?\": Expected a byte value, but actual is '?'!",
-                        httpModelType, modelName, value
-                );
+                throw createValidationExceptionForIntegerValue(value, httpModelType, modelName, Byte.MIN_VALUE, Byte.MAX_VALUE);
             }
         }
     }
@@ -176,7 +166,7 @@ public abstract class FromStringValueConverter {
         }
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // -------------------------------------------------------------------------------------------------------------------------------------
 
     protected final Short toShort(final String value,
                                   final HttpModelType httpModelType,
@@ -187,10 +177,7 @@ public abstract class FromStringValueConverter {
             try {
                 return Short.parseShort(value);
             } catch (final NumberFormatException ignore) {
-                throw new ValidationException(
-                        "Invalid ? \"?\": Expected a short value, but actual is '?'!",
-                        httpModelType, modelName, value
-                );
+                throw createValidationExceptionForIntegerValue(value, httpModelType, modelName, Short.MIN_VALUE, Short.MAX_VALUE);
             }
         }
     }
@@ -214,7 +201,7 @@ public abstract class FromStringValueConverter {
         }
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // -------------------------------------------------------------------------------------------------------------------------------------
 
     protected final Integer toInteger(final String value,
                                       final HttpModelType httpModelType,
@@ -225,10 +212,7 @@ public abstract class FromStringValueConverter {
             try {
                 return Integer.parseInt(value);
             } catch (final NumberFormatException ignore) {
-                throw new ValidationException(
-                        "Invalid ? \"?\": Expected an integer value, but actual is '?'!",
-                        httpModelType, modelName, value
-                );
+                throw createValidationExceptionForIntegerValue(value, httpModelType, modelName, Integer.MIN_VALUE, Integer.MAX_VALUE);
             }
         }
     }
@@ -252,7 +236,7 @@ public abstract class FromStringValueConverter {
         }
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // -------------------------------------------------------------------------------------------------------------------------------------
 
     protected final Long toLong(final String value,
                                 final HttpModelType httpModelType,
@@ -263,10 +247,7 @@ public abstract class FromStringValueConverter {
             try {
                 return Long.parseLong(value);
             } catch (final NumberFormatException ignore) {
-                throw new ValidationException(
-                        "Invalid ? \"?\": Expected a long value, but actual is '?'!",
-                        httpModelType, modelName, value
-                );
+                throw createValidationExceptionForIntegerValue(value, httpModelType, modelName, Long.MIN_VALUE, Long.MAX_VALUE);
             }
         }
     }
@@ -290,7 +271,7 @@ public abstract class FromStringValueConverter {
         }
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // -------------------------------------------------------------------------------------------------------------------------------------
 
     protected final Character toCharacter(final String value,
                                           final HttpModelType httpModelType,
@@ -327,7 +308,7 @@ public abstract class FromStringValueConverter {
         }
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // -------------------------------------------------------------------------------------------------------------------------------------
 
     protected final Float toFloat(final String value,
                                   final HttpModelType httpModelType,
@@ -336,10 +317,28 @@ public abstract class FromStringValueConverter {
             return null;
         } else {
             try {
-                return Float.parseFloat(value);
+                final float result = Float.parseFloat(value);
+                if (result == Float.POSITIVE_INFINITY) {
+                    throw new ValidationException(
+                            "Invalid ? \"?\": Expected a decimal value that <= '?', but actual is '?'!",
+                            httpModelType, modelName, Float.MAX_VALUE, value
+                    );
+                } else if (result == Float.NEGATIVE_INFINITY) {
+                    throw new ValidationException(
+                            "Invalid ? \"?\": Expected a decimal value that >= '-?', but actual is '?'!",
+                            httpModelType, modelName, Float.MAX_VALUE, value
+                    );
+                } else if (Float.isNaN(result)) {
+                    throw new ValidationException(
+                            "Invalid ? \"?\": Expected a decimal value, but actual is 'NaN'!",
+                            httpModelType, modelName
+                    );
+                } else {
+                    return result;
+                }
             } catch (final NumberFormatException ignore) {
                 throw new ValidationException(
-                        "Invalid ? \"?\": Expected a float value, but actual is '?'!",
+                        "Invalid ? \"?\": Expected a decimal value, but actual is '?'!",
                         httpModelType, modelName, value
                 );
             }
@@ -365,7 +364,7 @@ public abstract class FromStringValueConverter {
         }
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // -------------------------------------------------------------------------------------------------------------------------------------
 
     protected final Double toDouble(final String value,
                                     final HttpModelType httpModelType,
@@ -374,10 +373,28 @@ public abstract class FromStringValueConverter {
             return null;
         } else {
             try {
-                return Double.parseDouble(value);
+                final double result = Double.parseDouble(value);
+                if (result == Double.POSITIVE_INFINITY) {
+                    throw new ValidationException(
+                            "Invalid ? \"?\": Expected a decimal value that <= '?', but actual is '?'!",
+                            httpModelType, modelName, Double.MAX_VALUE, value
+                    );
+                } else if (result == Double.NEGATIVE_INFINITY) {
+                    throw new ValidationException(
+                            "Invalid ? \"?\": Expected a decimal value that >= '-?', but actual is '?'!",
+                            httpModelType, modelName, Double.MAX_VALUE, value
+                    );
+                } else if (Double.isNaN(result)) {
+                    throw new ValidationException(
+                            "Invalid ? \"?\": Expected a decimal value, but actual is 'NaN'!",
+                            httpModelType, modelName
+                    );
+                } else {
+                    return result;
+                }
             } catch (final NumberFormatException ignore) {
                 throw new ValidationException(
-                        "Invalid ? \"?\": Expected a double value, but actual is '?'!",
+                        "Invalid ? \"?\": Expected a decimal value, but actual is '?'!",
                         httpModelType, modelName, value
                 );
             }
@@ -403,7 +420,7 @@ public abstract class FromStringValueConverter {
         }
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // -------------------------------------------------------------------------------------------------------------------------------------
 
     protected final BigDecimal toBigDecimal(final String value,
                                             final HttpModelType httpModelType,
@@ -415,7 +432,7 @@ public abstract class FromStringValueConverter {
                 return new BigDecimal(value);
             } catch (final NumberFormatException ignore) {
                 throw new ValidationException(
-                        "Invalid ? \"?\": Expected a big decimal value, but actual is '?'!",
+                        "Invalid ? \"?\": Expected a decimal value, but actual is '?'!",
                         httpModelType, modelName, value
                 );
             }
@@ -441,7 +458,7 @@ public abstract class FromStringValueConverter {
         }
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // -------------------------------------------------------------------------------------------------------------------------------------
 
     protected final BigInteger toBigInteger(final String value,
                                             final HttpModelType httpModelType,
@@ -453,7 +470,7 @@ public abstract class FromStringValueConverter {
                 return new BigInteger(value);
             } catch (final NumberFormatException ignore) {
                 throw new ValidationException(
-                        "Invalid ? \"?\": Expected a big integer value, but actual is '?'!",
+                        "Invalid ? \"?\": Expected an integer value, but actual is '?'!",
                         httpModelType, modelName, value
                 );
             }
@@ -479,7 +496,7 @@ public abstract class FromStringValueConverter {
         }
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // -------------------------------------------------------------------------------------------------------------------------------------
 
     protected final Instant toInstant(final String value,
                                       final HttpModelType httpModelType,
@@ -491,7 +508,7 @@ public abstract class FromStringValueConverter {
                 return Instant.parse(value);
             } catch (final DateTimeParseException ignore) {
                 throw new ValidationException(
-                        "Invalid ? \"?\": Expected an ISO-8601" +
+                        "Invalid ? \"?\": Expected an ISO-8601 " +
                                 "(Example: '?'), but actual is '?'!",
                         httpModelType, modelName, INSTANT_EXAMPLE, value);
             }
@@ -517,7 +534,7 @@ public abstract class FromStringValueConverter {
         }
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // -------------------------------------------------------------------------------------------------------------------------------------
 
     @SuppressWarnings("unused")
     protected final String toString(final String value,
@@ -545,9 +562,65 @@ public abstract class FromStringValueConverter {
         }
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // -------------------------------------------------------------------------------------------------------------------------------------
 
     protected final void throwNotImplYet(final String message) {
         throw new UnsupportedOperationException(message);
+    }
+
+    // -------------------------------------------------------------------------------------------------------------------------------------
+
+    private ValidationException createValidationExceptionForIntegerValue(final String value,
+                                                                         final HttpModelType httpModelType,
+                                                                         final String modelName,
+                                                                         final Object minValue,
+                                                                         final Object maxValue) {
+        if (value.isEmpty()) {
+            throw new ValidationException(
+                    "Invalid ? \"?\": Expected an integer value, but actual is '?'!",
+                    httpModelType, modelName, value
+            );
+        } else {
+            final boolean isNegative = value.charAt(0) == '-';
+            for (int i = isNegative || value.charAt(0) == '+' ? 1 : 0; i < value.length(); i++) {
+                if (!Character.isDigit(value.charAt(i))) {
+                    throwValidationExceptionIfValueContainsNotDigitsOnly(value, httpModelType, modelName, minValue, maxValue);
+                }
+            }
+            final String sign = isNegative ? ">=" : "<=";
+            final Object criticalValue = isNegative ? minValue : maxValue;
+            throw new ValidationException(
+                    "Invalid ? \"?\": Expected an integer value that ? '?', but actual is '?'!",
+                    httpModelType, modelName, sign, criticalValue, value
+            );
+        }
+    }
+
+    private void throwValidationExceptionIfValueContainsNotDigitsOnly(final String value,
+                                                                      final HttpModelType httpModelType,
+                                                                      final String modelName,
+                                                                      final Object minValue,
+                                                                      final Object maxValue) {
+        if ("NaN".equals(value) || "+NaN".equals(value) || "-NaN".equals(value)) {
+            throw new ValidationException(
+                    "Invalid ? \"?\": Expected an integer value, but actual is 'NaN'!",
+                    httpModelType, modelName
+            );
+        } else if ("Infinity".equals(value) || "+Infinity".equals(value)) {
+            throw new ValidationException(
+                    "Invalid ? \"?\": Expected an integer value that <= '?', but actual is '?'!",
+                    httpModelType, modelName, maxValue, value
+            );
+        } else if ("-Infinity".equals(value)) {
+            throw new ValidationException(
+                    "Invalid ? \"?\": Expected an integer value that >= '?', but actual is '?'!",
+                    httpModelType, modelName, minValue, value
+            );
+        } else {
+            throw new ValidationException(
+                    "Invalid ? \"?\": Expected an integer value, but actual is '?'!",
+                    httpModelType, modelName, value
+            );
+        }
     }
 }
