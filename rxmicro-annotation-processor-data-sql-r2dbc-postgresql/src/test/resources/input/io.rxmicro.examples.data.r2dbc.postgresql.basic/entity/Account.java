@@ -16,6 +16,7 @@
 
 package io.rxmicro.examples.data.r2dbc.postgresql.basic.entity;
 
+import io.rxmicro.data.Column;
 import io.rxmicro.data.ColumnMappingStrategy;
 import io.rxmicro.data.sql.Table;
 
@@ -25,8 +26,10 @@ import io.rxmicro.data.sql.Table;
 @ColumnMappingStrategy
 public final class Account {
 
+    @Column(length = Column.UNLIMITED_LENGTH)
     String firstName;
 
+    @Column(length = Column.UNLIMITED_LENGTH)
     String lastName;
 
     public String getFirstName() {

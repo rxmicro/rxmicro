@@ -16,6 +16,7 @@
 
 package io.rxmicro.examples.data.r2dbc.postgresql.select.projection.model;
 
+import io.rxmicro.data.Column;
 import io.rxmicro.data.ColumnMappingStrategy;
 import io.rxmicro.data.sql.Cast;
 import io.rxmicro.data.sql.Table;
@@ -29,10 +30,13 @@ public final class Account {
 
     Long id;
 
+    @Column(length = Column.UNLIMITED_LENGTH)
     String email;
 
+    @Column(length = Column.UNLIMITED_LENGTH)
     String firstName;
 
+    @Column(length = Column.UNLIMITED_LENGTH)
     String lastName;
 
     BigDecimal balance;

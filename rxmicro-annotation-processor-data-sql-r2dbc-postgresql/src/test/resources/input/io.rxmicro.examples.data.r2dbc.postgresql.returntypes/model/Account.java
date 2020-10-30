@@ -16,6 +16,7 @@
 
 package io.rxmicro.examples.data.r2dbc.postgresql.returntypes.model;
 
+import io.rxmicro.data.Column;
 import io.rxmicro.data.ColumnMappingStrategy;
 import io.rxmicro.data.sql.PrimaryKey;
 import io.rxmicro.data.sql.Table;
@@ -27,7 +28,9 @@ public final class Account {
     @PrimaryKey
     Long id;
 
+    @Column(length = Column.UNLIMITED_LENGTH)
     String firstName;
 
+    @Column(length = Column.UNLIMITED_LENGTH)
     String lastName;
 }

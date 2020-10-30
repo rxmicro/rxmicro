@@ -16,6 +16,7 @@
 
 package io.rxmicro.examples.data.r2dbc.postgresql.update.model;
 
+import io.rxmicro.data.Column;
 import io.rxmicro.data.ColumnMappingStrategy;
 import io.rxmicro.data.sql.NotUpdatable;
 import io.rxmicro.data.sql.PrimaryKey;
@@ -32,11 +33,14 @@ public final class Account {
     @SequenceGenerator
     Long id;
 
+    @Column(length = Column.UNLIMITED_LENGTH)
     @NotUpdatable
     String email;
 
+    @Column(length = Column.UNLIMITED_LENGTH)
     String firstName;
 
+    @Column(length = Column.UNLIMITED_LENGTH)
     String lastName;
 
     BigDecimal balance;

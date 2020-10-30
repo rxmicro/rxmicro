@@ -16,6 +16,7 @@
 
 package io.rxmicro.examples.data.r2dbc.postgresql.model.fields.reflection.model;
 
+import io.rxmicro.data.Column;
 import io.rxmicro.data.sql.PrimaryKey;
 import io.rxmicro.data.sql.Table;
 import io.rxmicro.examples.data.r2dbc.postgresql.model.fields.Status;
@@ -59,6 +60,7 @@ public final class Entity {
 
     private Character character;
 
+    @Column(length = Column.UNLIMITED_LENGTH)
     private String string;
 
     private Instant instant;
