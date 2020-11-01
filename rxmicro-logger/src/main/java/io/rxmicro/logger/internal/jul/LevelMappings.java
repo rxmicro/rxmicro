@@ -18,8 +18,11 @@ package io.rxmicro.logger.internal.jul;
 
 import io.rxmicro.logger.Level;
 
+import java.util.Arrays;
+import java.util.Locale;
 import java.util.Map;
 
+import static java.util.Locale.ENGLISH;
 import static java.util.Map.entry;
 import static java.util.stream.Collectors.toUnmodifiableMap;
 
@@ -29,22 +32,27 @@ import static java.util.stream.Collectors.toUnmodifiableMap;
  */
 final class LevelMappings {
 
-    static final Map<Level, java.util.logging.Level> LEVEL_MAPPING = Map.of(
-            Level.OFF, java.util.logging.Level.OFF,
-            Level.ERROR, java.util.logging.Level.SEVERE,
-            Level.WARN, java.util.logging.Level.CONFIG,
-            Level.INFO, java.util.logging.Level.INFO,
-            Level.DEBUG, java.util.logging.Level.FINE,
-            Level.TRACE, java.util.logging.Level.FINEST,
-            Level.ALL, java.util.logging.Level.ALL
-    );
+    private static final java.util.logging.Level[] JUL_LEVELS = {
+            /* Level.OFF   -> */ java.util.logging.Level.OFF,
+            /* Level.ERROR -> */ java.util.logging.Level.SEVERE,
+            /* Level.WARN  -> */ java.util.logging.Level.WARNING,
+            /* Level.INFO  -> */ java.util.logging.Level.INFO,
+            /* Level.DEBUG -> */ java.util.logging.Level.FINE,
+            /* Level.TRACE -> */ java.util.logging.Level.FINEST,
+            /* Level.ALL   -> */ java.util.logging.Level.ALL
+    };
 
-    private static final Map<String, String> LEVEL_NAME_MAPPING = LEVEL_MAPPING.entrySet().stream()
-            .map(e -> entry(e.getKey().name(), e.getValue().getName()))
-            .collect(toUnmodifiableMap(Map.Entry::getKey, Map.Entry::getValue));
+    private static final Map<String, String> LEVEL_NAME_MAPPING =
+            Arrays.stream(Level.values())
+                    .map(level -> entry(level.name(), getJulLevel(level).getName()))
+                    .collect(toUnmodifiableMap(Map.Entry::getKey, Map.Entry::getValue));
 
     public static String fixLevelValue(final String value) {
-        return LEVEL_NAME_MAPPING.getOrDefault(value, value);
+        return LEVEL_NAME_MAPPING.getOrDefault(value.toUpperCase(ENGLISH), value);
+    }
+
+    public static java.util.logging.Level getJulLevel(final Level level) {
+        return JUL_LEVELS[level.ordinal()];
     }
 
     private LevelMappings() {

@@ -19,7 +19,7 @@ package io.rxmicro.logger.internal.jul;
 import io.rxmicro.logger.Level;
 import io.rxmicro.logger.impl.AbstractLogger;
 
-import static io.rxmicro.logger.internal.jul.LevelMappings.LEVEL_MAPPING;
+import static io.rxmicro.logger.internal.jul.LevelMappings.getJulLevel;
 
 /**
  * Read more:
@@ -38,19 +38,19 @@ final class JULLogger extends AbstractLogger {
 
     @Override
     protected boolean isLevelEnabled(final Level level) {
-        return logger.isLoggable(LEVEL_MAPPING.get(level));
+        return logger.isLoggable(getJulLevel(level));
     }
 
     @Override
     protected void log(final Level level,
                        final String message) {
-        logger.log(LEVEL_MAPPING.get(level), message);
+        logger.log(getJulLevel(level), message);
     }
 
     @Override
     protected void log(final Level level,
                        final String message,
                        final Throwable throwable) {
-        logger.log(LEVEL_MAPPING.get(level), message, throwable);
+        logger.log(getJulLevel(level), message, throwable);
     }
 }

@@ -19,18 +19,25 @@ package io.rxmicro.logger.internal.jul;
 import io.rxmicro.common.ImpossibleException;
 import io.rxmicro.logger.Logger;
 import io.rxmicro.logger.impl.LoggerImplProvider;
-import io.rxmicro.logger.internal.jul.config.SystemOutConsoleHandler;
+import io.rxmicro.logger.internal.jul.config.LoggerConfigBuilder;
 
 import java.io.BufferedWriter;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
-import java.util.LinkedHashMap;
+import java.io.UnsupportedEncodingException;
 import java.util.Map;
-import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.LogManager;
+import java.util.stream.Stream;
+
+import static io.rxmicro.common.util.Formats.format;
+import static io.rxmicro.logger.Constants.HIDE_LOGGER_CONFIGURATION;
+import static io.rxmicro.logger.internal.jul.LevelMappings.fixLevelValue;
+import static java.lang.System.lineSeparator;
+import static java.util.function.Function.identity;
+import static java.util.stream.Collectors.joining;
 
 /**
  * @author nedis
@@ -38,27 +45,27 @@ import java.util.logging.LogManager;
  */
 public final class JULLoggerImplProvider implements LoggerImplProvider {
 
-    private static final String DEFAULT_LOGGER_ROOT_LEVEL = "INFO";
-
-    private final ConfigCustomizer configCustomizer = new ConfigCustomizer();
+    private final LoggerConfigBuilder loggerConfigBuilder = new LoggerConfigBuilder();
 
     @Override
     public void setup() {
-        final Map<String, String> config = getDefaultConfiguration();
-        final byte[] configBytes = toConfigBytes(config);
-        final LogManager logManager = LogManager.getLogManager();
+        final Map<String, String> config = loggerConfigBuilder.build();
         try {
-            logManager.readConfiguration(new ByteArrayInputStream(configBytes));
+            final byte[] configBytes = toConfigBytes(config);
+            LogManager.getLogManager()
+                    .readConfiguration(new ByteArrayInputStream(configBytes));
         } catch (final IOException ex) {
             throw new ImpossibleException(ex, "Configuration created automatically, so IO error is impossible!");
         }
-        final Optional<String> customConfig = configCustomizer.customizeConfig(config);
-        if (customConfig.isPresent()) {
-            java.util.logging.Logger.getGlobal().log(Level.INFO,
-                    "Using java.util.logging with custom config: " + customConfig.get());
-        } else {
-            java.util.logging.Logger.getGlobal().log(Level.INFO,
-                    "Using java.util.logging with default config");
+        if (!Boolean.parseBoolean(config.get(HIDE_LOGGER_CONFIGURATION))) {
+            java.util.logging.Logger.getGlobal().log(
+                    Level.INFO,
+                    Stream.of(
+                            Stream.of("Using java.util.logging with the following config:", ""),
+                            config.entrySet().stream().map(e -> format("\t?=?", e.getKey(), e.getValue())),
+                            Stream.of("")
+                    ).flatMap(identity()).collect(joining(lineSeparator()))
+            );
         }
     }
 
@@ -69,28 +76,17 @@ public final class JULLoggerImplProvider implements LoggerImplProvider {
 
     // Simplest version without Unicode and special characters support
     // @see java.util.Properties.store
-    private byte[] toConfigBytes(final Map<String, String> config) {
+    private byte[] toConfigBytes(final Map<String, String> config) throws IOException {
         final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         try (BufferedWriter writer =
                      new BufferedWriter(new OutputStreamWriter(byteArrayOutputStream, "8859_1"))) {
             for (final Map.Entry<String, String> entry : config.entrySet()) {
                 writer.write(entry.getKey());
                 writer.write('=');
-                writer.write(entry.getValue());
+                writer.write(fixLevelValue(entry.getValue()));
                 writer.newLine();
             }
-        } catch (final IOException ex) {
-            throw new ImpossibleException(ex, "Writer uses byte array, so IO exception is impossible!");
         }
         return byteArrayOutputStream.toByteArray();
-    }
-
-    private Map<String, String> getDefaultConfiguration() {
-        final String handler = SystemOutConsoleHandler.class.getName();
-        final Map<String, String> properties = new LinkedHashMap<>();
-        properties.put("handlers", handler);
-        properties.put(".level", DEFAULT_LOGGER_ROOT_LEVEL);
-        properties.put(handler + ".level", "ALL");
-        return properties;
     }
 }

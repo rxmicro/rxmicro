@@ -28,36 +28,50 @@ public enum Level {
 
     /**
      * Logger is disabled.
+     *
+     * @see java.util.logging.Level#OFF
      */
     OFF,
 
     /**
      * Error level.
+     *
+     * @see java.util.logging.Level#SEVERE
      */
     ERROR,
 
     /**
      * Warning level.
+     *
+     * @see java.util.logging.Level#WARNING
      */
     WARN,
 
     /**
      * Info level.
+     *
+     * @see java.util.logging.Level#INFO
      */
     INFO,
 
     /**
      * Debug level.
+     *
+     * @see java.util.logging.Level#FINE
      */
     DEBUG,
 
     /**
      * Trace level.
+     *
+     * @see java.util.logging.Level#FINEST
      */
     TRACE,
 
     /**
      * All levels are enabled.
+     *
+     * @see java.util.logging.Level#ALL
      */
     ALL
 }

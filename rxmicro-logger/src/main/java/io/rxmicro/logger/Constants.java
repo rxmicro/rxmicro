@@ -29,8 +29,21 @@ public final class Constants {
     /**
      * The prefix for environment variable or java system properties that
      * must be interpret by the RxMicro framework as configuration for logger module.
+     *
+     * <p>
+     * For example:
+     * {@code export logger.io.rxmicro.rest.server.level=TRACE}
+     * equals to
+     * {@code classpath:/jul.properties} resource with the following content:
+     * <br>
+     * {@code io.rxmicro.rest.server.level=TRACE}
      */
-    public static final String LOGGER_VARIABLE_PREFIX = "logger";
+    public static final String LOGGER_VARIABLE_PREFIX = "logger.";
+
+    /**
+     * Predefined logger setting that hides the displaying the RxMicro logger configuration during start up.
+     */
+    public static final String HIDE_LOGGER_CONFIGURATION = "rxmicro.logger.configuration.hide";
 
     private Constants() {
     }

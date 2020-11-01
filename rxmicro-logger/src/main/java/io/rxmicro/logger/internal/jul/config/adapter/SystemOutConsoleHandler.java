@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package io.rxmicro.logger.internal.jul.config;
+package io.rxmicro.logger.internal.jul.config.adapter;
 
 import java.util.logging.LogRecord;
 import java.util.logging.StreamHandler;
