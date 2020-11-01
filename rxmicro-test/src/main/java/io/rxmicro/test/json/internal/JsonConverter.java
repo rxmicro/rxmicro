@@ -53,6 +53,8 @@ public final class JsonConverter {
             return ((Enum<?>) value).name();
         } else if (value instanceof Boolean) {
             return value;
+        } else if (value instanceof JsonNumber) {
+            return value;
         } else if (value instanceof Number) {
             return getJsonNumber(value);
         } else {
@@ -61,9 +63,7 @@ public final class JsonConverter {
     }
 
     private static Object getJsonNumber(final Object value) {
-        if (value instanceof JsonNumber) {
-            return value;
-        } else if (value instanceof BigDecimal) {
+        if (value instanceof BigDecimal) {
             return new JsonNumber(((BigDecimal) value).toPlainString());
         } else {
             return new JsonNumber(value.toString());
