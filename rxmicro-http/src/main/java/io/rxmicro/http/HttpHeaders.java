@@ -327,6 +327,16 @@ public interface HttpHeaders {
     }
 
     /**
+     * Returns HTTP headers instance containing header names and values extracted from the given map.
+     *
+     * @param map the map containing the header names and values from which the HTTP headers is populated
+     * @return the {@link HttpHeaders} containing the provided headers.
+     */
+    static HttpHeaders of(final Map<String, Object> map) {
+        return of(map.entrySet());
+    }
+
+    /**
      * Returns the HTTP header value of the given named header.
      * If current header is multi-valued one that the first value is returned.
      *
