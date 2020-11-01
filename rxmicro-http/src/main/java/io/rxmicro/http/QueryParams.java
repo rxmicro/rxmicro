@@ -17,9 +17,11 @@
 package io.rxmicro.http;
 
 import io.rxmicro.http.internal.EmptyQueryParams;
+import io.rxmicro.http.internal.HttpHeadersImpl;
 import io.rxmicro.http.internal.QueryParamsImpl;
 import io.rxmicro.http.local.QueryParamUtils;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -313,8 +315,28 @@ public interface QueryParams {
      */
     @SafeVarargs
     static QueryParams of(final Map.Entry<String, Object>... entries) {
-        return new QueryParamsImpl(entries);
+        return of(Arrays.asList(entries));
+    }
 
+    /**
+     * Returns HTTP query parameters instance containing query parameter names and values extracted from the given entries.
+     *
+     * @param entries the collection of {@link Map.Entry}s containing the query parameter names and values from which
+     * the query parameters is populated
+     * @return the {@link QueryParams} containing the provided query parameters.
+     */
+    static QueryParams of(final Collection<Map.Entry<String, Object>> entries) {
+        return new QueryParamsImpl(entries);
+    }
+
+    /**
+     * Returns HTTP query parameters instance containing query parameter names and values extracted from the given entries.
+     *
+     * @param map the map containing the query parameter names and values from which the query parameters is populated
+     * @return the {@link QueryParams} containing the provided query parameters.
+     */
+    static QueryParams of(final Map<String, Object> map) {
+        return of(map.entrySet());
     }
 
     /**

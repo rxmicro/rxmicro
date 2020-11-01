@@ -20,6 +20,7 @@ import io.rxmicro.http.QueryParams;
 import io.rxmicro.http.local.AbstractRepeatableValues;
 import io.rxmicro.http.local.RepeatableValues;
 
+import java.util.Collection;
 import java.util.Map;
 
 import static io.rxmicro.common.util.Formats.format;
@@ -34,8 +35,7 @@ import static java.util.stream.Collectors.joining;
 public final class QueryParamsImpl extends AbstractRepeatableValues<QueryParamsImpl>
         implements QueryParams, RepeatableValues<QueryParamsImpl> {
 
-    @SafeVarargs
-    public QueryParamsImpl(final Map.Entry<String, Object>... entries) {
+    public QueryParamsImpl(final Collection<Map.Entry<String, Object>> entries) {
         for (final Map.Entry<String, Object> entry : entries) {
             setOrAdd(validateParameterName(entry.getKey()), objectToString(entry.getValue()));
         }
