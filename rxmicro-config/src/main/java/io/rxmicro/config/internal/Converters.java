@@ -16,6 +16,7 @@
 
 package io.rxmicro.config.internal;
 
+import io.rxmicro.common.util.ExCollections;
 import io.rxmicro.config.ConfigException;
 
 import java.math.BigDecimal;
@@ -34,9 +35,19 @@ import java.time.YearMonth;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 import java.util.function.Function;
+import java.util.stream.Collectors;
+
+import static io.rxmicro.common.util.ExCollections.unmodifiableOrderedSet;
+import static java.util.Map.entry;
+import static java.util.stream.Collectors.toUnmodifiableMap;
 
 /**
  * @author nedis
@@ -87,6 +98,14 @@ public final class Converters {
         map.put(ZoneOffset.class, ZoneOffset::of);
         map.put(ZoneId.class, ZoneId::of);
         map.put(Period.class, Period::parse);
+        // Collections
+        map.put(List.class, s -> List.of(s.split(",")));
+        map.put(Set.class, s -> Set.of(s.split(",")));
+        map.put(SortedSet.class, s -> unmodifiableOrderedSet(new TreeSet<>(Arrays.asList(s.split(",")))));
+        map.put(Map.class, s -> Arrays.stream(s.split(","))
+                .map(pair -> pair.split("="))
+                .map(d -> entry(d[0], d[1]))
+                .collect(toUnmodifiableMap(Map.Entry::getKey, Map.Entry::getValue)));
         // Init CONVERTERS_MAP
         CONVERTERS_MAP = Map.copyOf(map);
     }
