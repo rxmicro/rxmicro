@@ -23,6 +23,8 @@ import io.rxmicro.rest.server.detail.component.HttpResponseBuilder;
 import io.rxmicro.rest.server.detail.model.HttpResponse;
 import io.rxmicro.rest.server.local.component.HttpErrorResponseBodyBuilder;
 
+import java.util.Objects;
+
 import static io.rxmicro.common.util.Requires.require;
 import static io.rxmicro.http.HttpStatuses.getErrorMessage;
 
@@ -62,7 +64,12 @@ public final class AnyHttpErrorHttpResponseBuilder {
             }
         } else {
             if (logNotServerErrors) {
-                LOGGER.error("HTTP error: status=?, message=?, class=?", ex.getStatusCode(), ex.getMessage(), ex.getClass().getName());
+                LOGGER.error(
+                        "HTTP error: status=?, content=?, class=?",
+                        ex.getStatusCode(),
+                        ex.getResponseData().map(Objects::toString).orElse("null"),
+                        ex.getClass().getName()
+                );
             }
             return httpErrorResponseBodyBuilder.build(httpResponseBuilder, ex);
         }
