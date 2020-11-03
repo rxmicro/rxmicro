@@ -23,6 +23,8 @@ import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeMirror;
 import javax.lang.model.type.TypeVisitor;
 
+import static javax.lang.model.type.TypeKind.DECLARED;
+
 /**
  * @author nedis
  * @since 0.1
@@ -41,7 +43,7 @@ public final class ClassWrapperTypeMirror implements TypeMirror {
 
     @Override
     public TypeKind getKind() {
-        throw new UnsupportedOperationException();
+        return DECLARED;
     }
 
     @Override
@@ -56,12 +58,12 @@ public final class ClassWrapperTypeMirror implements TypeMirror {
 
     @Override
     public <A extends Annotation> A getAnnotation(final Class<A> annotationType) {
-        throw new UnsupportedOperationException();
+        return typeClass.getAnnotation(annotationType);
     }
 
     @Override
     public <A extends Annotation> A[] getAnnotationsByType(final Class<A> annotationType) {
-        throw new UnsupportedOperationException();
+        return typeClass.getAnnotationsByType(annotationType);
     }
 
     @Override

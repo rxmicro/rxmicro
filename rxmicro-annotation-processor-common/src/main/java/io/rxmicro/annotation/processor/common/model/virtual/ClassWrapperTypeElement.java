@@ -17,6 +17,8 @@
 package io.rxmicro.annotation.processor.common.model.virtual;
 
 import java.lang.annotation.Annotation;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import javax.lang.model.element.AnnotationMirror;
@@ -31,6 +33,8 @@ import javax.lang.model.element.TypeParameterElement;
 import javax.lang.model.type.TypeMirror;
 
 import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getElements;
+import static java.util.Collections.unmodifiableSet;
+import static java.util.stream.Collectors.toUnmodifiableList;
 
 /**
  * @author nedis
@@ -51,7 +55,13 @@ public final class ClassWrapperTypeElement implements TypeElement {
 
     @Override
     public NestingKind getNestingKind() {
-        throw new UnsupportedOperationException();
+        if (typeClass.isLocalClass()) {
+            return NestingKind.LOCAL;
+        } else if (typeClass.isMemberClass()) {
+            return NestingKind.MEMBER;
+        } else {
+            return NestingKind.TOP_LEVEL;
+        }
     }
 
     @Override
@@ -66,12 +76,17 @@ public final class ClassWrapperTypeElement implements TypeElement {
 
     @Override
     public TypeMirror getSuperclass() {
-        throw new UnsupportedOperationException();
+        final Class<?> superclass = typeClass.getSuperclass();
+        if (superclass == null) {
+            return null;
+        } else {
+            return new ClassWrapperTypeMirror(superclass);
+        }
     }
 
     @Override
     public List<? extends TypeMirror> getInterfaces() {
-        throw new UnsupportedOperationException();
+        return Arrays.stream(typeClass.getInterfaces()).map(ClassWrapperTypeMirror::new).collect(toUnmodifiableList());
     }
 
     @Override
@@ -86,7 +101,7 @@ public final class ClassWrapperTypeElement implements TypeElement {
 
     @Override
     public <A extends Annotation> A[] getAnnotationsByType(final Class<A> annotationType) {
-        throw new UnsupportedOperationException();
+        return typeClass.getAnnotationsByType(annotationType);
     }
 
     @Override
@@ -96,12 +111,40 @@ public final class ClassWrapperTypeElement implements TypeElement {
 
     @Override
     public ElementKind getKind() {
-        throw new UnsupportedOperationException();
+        if (typeClass.isEnum()) {
+            return ElementKind.ENUM;
+        } else if (typeClass.isAnnotation()) {
+            return ElementKind.ANNOTATION_TYPE;
+        } else if (typeClass.isInterface()) {
+            return ElementKind.INTERFACE;
+        } else {
+            return ElementKind.CLASS;
+        }
     }
 
     @Override
     public Set<Modifier> getModifiers() {
-        throw new UnsupportedOperationException();
+        final Set<Modifier> result = new HashSet<>();
+        final int modifiers = typeClass.getModifiers();
+        if (java.lang.reflect.Modifier.isAbstract(modifiers)) {
+            result.add(Modifier.ABSTRACT);
+        }
+        if (java.lang.reflect.Modifier.isFinal(modifiers)) {
+            result.add(Modifier.FINAL);
+        }
+        if (java.lang.reflect.Modifier.isPublic(modifiers)) {
+            result.add(Modifier.PUBLIC);
+        }
+        if (java.lang.reflect.Modifier.isProtected(modifiers)) {
+            result.add(Modifier.PROTECTED);
+        }
+        if (java.lang.reflect.Modifier.isPrivate(modifiers)) {
+            result.add(Modifier.PRIVATE);
+        }
+        if (java.lang.reflect.Modifier.isStatic(modifiers)) {
+            result.add(Modifier.STATIC);
+        }
+        return unmodifiableSet(result);
     }
 
     @Override
@@ -111,7 +154,7 @@ public final class ClassWrapperTypeElement implements TypeElement {
 
     @Override
     public <A extends Annotation> A getAnnotation(final Class<A> annotationType) {
-        throw new UnsupportedOperationException();
+        return typeClass.getAnnotation(annotationType);
     }
 
     @Override
