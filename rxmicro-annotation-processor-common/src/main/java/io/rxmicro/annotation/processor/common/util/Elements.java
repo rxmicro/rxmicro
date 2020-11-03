@@ -17,6 +17,7 @@
 package io.rxmicro.annotation.processor.common.util;
 
 
+import io.rxmicro.annotation.processor.common.model.virtual.VirtualTypeMirror;
 import io.rxmicro.model.NotStandardSerializableEnum;
 import io.rxmicro.model.Transient;
 
@@ -46,6 +47,7 @@ import static java.util.stream.Collectors.toList;
 import static javax.lang.model.element.ElementKind.CONSTRUCTOR;
 import static javax.lang.model.element.ElementKind.ENUM;
 import static javax.lang.model.element.ElementKind.ENUM_CONSTANT;
+import static javax.lang.model.element.ElementKind.METHOD;
 import static javax.lang.model.element.Modifier.DEFAULT;
 import static javax.lang.model.element.Modifier.PRIVATE;
 import static javax.lang.model.element.Modifier.PUBLIC;
@@ -95,13 +97,26 @@ public final class Elements {
     }
 
     public static List<VariableElement> allModelFields(final TypeElement typeElement) {
+        return allModelFields(typeElement, true);
+    }
+
+    public static List<VariableElement> allModelFields(final TypeElement typeElement,
+                                                       final boolean withFieldsFromParentClasses) {
         final Set<Modifier> excludeModifiers = Set.of(STATIC, TRANSIENT, VOLATILE);
-        return allFields(typeElement, el ->
-                el.getModifiers().stream().noneMatch(excludeModifiers::contains) &&
-                        el.getAnnotation(Transient.class) == null);
+        return allFields(
+                typeElement,
+                withFieldsFromParentClasses,
+                el -> el.getModifiers().stream().noneMatch(excludeModifiers::contains) && el.getAnnotation(Transient.class) == null
+        );
     }
 
     public static List<VariableElement> allFields(final TypeElement typeElement,
+                                                  final Predicate<VariableElement> filter) {
+        return allFields(typeElement, true, filter);
+    }
+
+    public static List<VariableElement> allFields(final TypeElement typeElement,
+                                                  final boolean withFieldsFromParentClasses,
                                                   final Predicate<VariableElement> filter) {
         final List<VariableElement> fields = new ArrayList<>();
         TypeElement currentTypeElement = typeElement;
@@ -112,7 +127,7 @@ public final class Elements {
                     .filter(filter)
                     .collect(toList()));
             final TypeMirror superClass = currentTypeElement.getSuperclass();
-            if (superClassIsObject(superClass)) {
+            if (superClassIsObject(superClass) || !withFieldsFromParentClasses) {
                 break;
             } else {
                 currentTypeElement = asTypeElement(superClass).orElseThrow();
@@ -129,6 +144,19 @@ public final class Elements {
                                                           final Predicate<ExecutableElement> filter) {
         return typeElement.getEnclosedElements().stream()
                 .filter(el -> el.getKind() == CONSTRUCTOR)
+                .map(el -> (ExecutableElement) el)
+                .filter(filter)
+                .collect(toList());
+    }
+
+    public static List<ExecutableElement> allMethodsFromType(final TypeElement typeElement) {
+        return allMethodsFromType(typeElement, e -> true);
+    }
+
+    public static List<ExecutableElement> allMethodsFromType(final TypeElement typeElement,
+                                                             final Predicate<ExecutableElement> filter) {
+        return typeElement.getEnclosedElements().stream()
+                .filter(el -> el.getKind() == METHOD)
                 .map(el -> (ExecutableElement) el)
                 .filter(filter)
                 .collect(toList());
@@ -173,9 +201,13 @@ public final class Elements {
     }
 
     public static Optional<TypeElement> asTypeElement(final TypeMirror typeMirror) {
-        return Optional.ofNullable(getTypes().asElement(typeMirror))
-                .filter(e -> e instanceof TypeElement)
-                .map(e -> (TypeElement) e);
+        if (typeMirror instanceof VirtualTypeMirror) {
+            return Optional.of(((VirtualTypeMirror) typeMirror).getVirtualTypeElement());
+        } else{
+            return Optional.ofNullable(getTypes().asElement(typeMirror))
+                    .filter(e -> e instanceof TypeElement)
+                    .map(e -> (TypeElement) e);
+        }
     }
 
     public static Optional<TypeElement> asEnumElement(final TypeMirror typeMirror) {

@@ -18,6 +18,7 @@ package io.rxmicro.annotation.processor.rest.component.impl;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import io.rxmicro.annotation.processor.common.model.ModelFieldBuilderOptions;
 import io.rxmicro.annotation.processor.common.model.definition.SupportedTypesProvider;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
 import io.rxmicro.annotation.processor.common.model.virtual.VirtualTypeElement;
@@ -28,8 +29,9 @@ import java.util.List;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.ModuleElement;
 import javax.lang.model.element.VariableElement;
+import javax.lang.model.type.TypeMirror;
 
-import static io.rxmicro.annotation.processor.common.util.validators.TypeValidators.validateAndGetModelType;
+import static io.rxmicro.annotation.processor.common.util.ModelTypeElements.asValidatedModelTypeElement;
 
 /**
  * @author nedis
@@ -52,15 +54,14 @@ public final class RestRequestModelBuilderImpl implements RestRequestModelBuilde
             return RestRequestModel.VOID;
         } else {
             final VariableElement parameter = parameters.get(0);
+            final TypeMirror type = parameter.asType();
             if (parameters.size() == 1 &&
-                    !supportedTypesProvider.getNotEntityMethodParameters().contains(parameter.asType()) &&
-                    !parameter.asType().getKind().isPrimitive()) {
+                    !supportedTypesProvider.getNotEntityMethodParameters().contains(type) &&
+                    !type.getKind().isPrimitive()) {
+                final ModelFieldBuilderOptions options = new ModelFieldBuilderOptions()
+                        .setRequireDefConstructor(isRequestObjectBuiltByFramework);
                 return new RestRequestModel(
-                        validateAndGetModelType(
-                                restControllerModule, method, parameter.asType(),
-                                "Invalid business method parameter",
-                                isRequestObjectBuiltByFramework
-                        ),
+                        asValidatedModelTypeElement(restControllerModule, method, type, "Invalid business method parameter", options),
                         parameter.getSimpleName().toString()
                 );
             } else {

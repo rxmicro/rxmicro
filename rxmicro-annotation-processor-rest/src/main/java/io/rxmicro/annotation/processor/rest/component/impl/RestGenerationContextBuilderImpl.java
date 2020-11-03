@@ -21,6 +21,7 @@ import com.google.inject.Singleton;
 import io.rxmicro.annotation.processor.common.component.ModelFieldBuilder;
 import io.rxmicro.annotation.processor.common.component.impl.AbstractProcessorComponent;
 import io.rxmicro.annotation.processor.common.model.EnvironmentContext;
+import io.rxmicro.annotation.processor.common.model.ModelFieldBuilderOptions;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
 import io.rxmicro.annotation.processor.rest.component.RestGenerationContextBuilder;
 import io.rxmicro.annotation.processor.rest.model.HttpMethodMapping;
@@ -79,7 +80,8 @@ public final class RestGenerationContextBuilderImpl extends AbstractProcessorCom
                 restClassStructures.stream()
                         .flatMap(m -> m.getFromHttpDataModelTypes().stream())
                         .collect(toTreeSet(UNIQUE_TYPES_COMPARATOR)),
-                true);
+                new ModelFieldBuilderOptions()
+                        .setRequireDefConstructor(true));
         final List<MappedRestObjectModelClass> fromHttpDataModelClasses = group(fromHttpDataMap, restClassStructures.stream()
                 .flatMap(cl -> cl.getMethodSignatures().stream()
                         .flatMap(m -> m.getFromHttpDataType()
@@ -99,7 +101,7 @@ public final class RestGenerationContextBuilderImpl extends AbstractProcessorCom
                 restClassStructures.stream()
                         .flatMap(m -> m.getToHttpDataModelTypes().stream())
                         .collect(toTreeSet(UNIQUE_TYPES_COMPARATOR)),
-                false);
+                new ModelFieldBuilderOptions());
         final List<MappedRestObjectModelClass> toHttpDataModelClasses = group(toHttpDataMap, restClassStructures.stream()
                 .flatMap(cl -> cl.getMethodSignatures().stream()
                         .flatMap(m -> m.getToHttpDataType()

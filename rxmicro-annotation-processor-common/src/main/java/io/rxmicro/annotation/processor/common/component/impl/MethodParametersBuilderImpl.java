@@ -25,10 +25,12 @@ import io.rxmicro.annotation.processor.common.model.method.MethodParameter;
 
 import java.util.List;
 import javax.lang.model.element.ExecutableElement;
+import javax.lang.model.element.ModuleElement;
 import javax.lang.model.element.VariableElement;
 import javax.lang.model.type.TypeMirror;
 
-import static io.rxmicro.annotation.processor.common.util.validators.TypeValidators.validateAndGetModelType;
+import static io.rxmicro.annotation.processor.common.model.ModelFieldBuilderOptions.DEFAULT_OPTIONS;
+import static io.rxmicro.annotation.processor.common.util.ModelTypeElements.asValidatedModelTypeElement;
 import static io.rxmicro.annotation.processor.common.util.validators.TypeValidators.validateGenericType;
 import static io.rxmicro.common.util.Formats.format;
 import static java.util.stream.Collectors.toList;
@@ -63,11 +65,8 @@ public final class MethodParametersBuilderImpl implements MethodParametersBuilde
             validateGenericType(repositoryMethod, type, format("Method parameter type '?' not supported", type));
         } else {
             try {
-                validateAndGetModelType(environmentContext.getCurrentModule(),
-                        repositoryMethod,
-                        type,
-                        "Invalid method parameter",
-                        false);
+                final ModuleElement currentModule = environmentContext.getCurrentModule();
+                asValidatedModelTypeElement(currentModule, repositoryMethod, type, "Invalid method parameter", DEFAULT_OPTIONS);
             } catch (final InterruptProcessingException ex) {
                 throw new InterruptProcessingException(repositoryMethod,
                         "Method parameter type '?' not supported: ?." +

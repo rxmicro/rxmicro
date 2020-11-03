@@ -33,7 +33,9 @@ import io.rxmicro.annotation.processor.documentation.component.IncludeReferenceS
 import io.rxmicro.annotation.processor.documentation.component.ProjectMetaDataReader;
 import io.rxmicro.annotation.processor.documentation.component.TitleReader;
 import io.rxmicro.annotation.processor.documentation.model.ProjectMetaData;
+import io.rxmicro.annotation.processor.rest.RestCommonDependenciesModule;
 import io.rxmicro.annotation.processor.rest.model.HttpMethodMapping;
+import io.rxmicro.annotation.processor.rest.server.RestServerDependenciesModule;
 import io.rxmicro.annotation.processor.rest.server.component.AbstractDocumentationModuleClassStructuresBuilder;
 import io.rxmicro.annotation.processor.rest.server.model.RestControllerClassStructure;
 import io.rxmicro.annotation.processor.rest.server.model.RestControllerClassStructureStorage;
@@ -88,7 +90,9 @@ public final class AsciiDoctorModuleClassStructuresBuilder extends AbstractDocum
                 this,
                 new CommonDependenciesModule(),
                 new DocumentationDependenciesModule(),
-                new AsciiDoctorDocumentationDependenciesModule()
+                new AsciiDoctorDocumentationDependenciesModule(),
+                new RestCommonDependenciesModule(),
+                new RestServerDependenciesModule()
         );
     }
 

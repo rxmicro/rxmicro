@@ -21,6 +21,7 @@ import com.google.inject.Singleton;
 import io.rxmicro.annotation.processor.common.component.ModelFieldBuilder;
 import io.rxmicro.annotation.processor.common.component.impl.AbstractProcessorComponent;
 import io.rxmicro.annotation.processor.common.model.ModelFieldType;
+import io.rxmicro.annotation.processor.common.model.ModelFieldBuilderOptions;
 import io.rxmicro.annotation.processor.data.component.DataGenerationContextBuilder;
 import io.rxmicro.annotation.processor.data.model.DataGenerationContext;
 import io.rxmicro.annotation.processor.data.model.DataModelField;
@@ -63,7 +64,7 @@ public final class DataGenerationContextBuilderImpl<DMF extends DataModelField, 
                         .map(getElements()::getTypeElement)
                         .filter(Objects::nonNull)
                         .collect(toSet()),
-                false);
+                new ModelFieldBuilderOptions());
         final Map<TypeElement, DMC> returnEntityMap = modelFieldModelFieldBuilder.build(
                 ModelFieldType.DATA_METHOD_RESULT,
                 currentModule,
@@ -75,7 +76,8 @@ public final class DataGenerationContextBuilderImpl<DMF extends DataModelField, 
                         .map(getElements()::getTypeElement)
                         .filter(Objects::nonNull)
                         .collect(toSet()),
-                true);
+                new ModelFieldBuilderOptions()
+                        .setRequireDefConstructor(true));
         return new DataGenerationContext<>(currentModule, paramEntityMap, returnEntityMap);
     }
 }

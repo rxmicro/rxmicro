@@ -19,9 +19,10 @@ package io.rxmicro.annotation.processor.documentation.asciidoctor.component.impl
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import io.rxmicro.annotation.processor.common.model.EnvironmentContext;
-import io.rxmicro.annotation.processor.documentation.asciidoctor.component.CustomErrorResponsesBuilder;
 import io.rxmicro.annotation.processor.documentation.asciidoctor.component.DocumentedModelFieldBuilder;
+import io.rxmicro.annotation.processor.documentation.asciidoctor.component.ModelExceptionErrorResponseBuilder;
 import io.rxmicro.annotation.processor.documentation.asciidoctor.component.ResponsesBuilder;
+import io.rxmicro.annotation.processor.documentation.asciidoctor.component.SimpleErrorResponseBuilder;
 import io.rxmicro.annotation.processor.documentation.asciidoctor.model.DocumentedModelField;
 import io.rxmicro.annotation.processor.documentation.asciidoctor.model.Response;
 import io.rxmicro.annotation.processor.documentation.component.DescriptionReader;
@@ -81,7 +82,10 @@ public final class ResponsesBuilderImpl implements ResponsesBuilder {
     private DescriptionReader descriptionReader;
 
     @Inject
-    private CustomErrorResponsesBuilder customErrorResponsesBuilder;
+    private SimpleErrorResponseBuilder simpleErrorResponseBuilder;
+
+    @Inject
+    private ModelExceptionErrorResponseBuilder modelExceptionErrorResponseBuilder;
 
     @Inject
     private StandardHttpErrorStorage standardHttpErrorStorage;
@@ -140,19 +144,19 @@ public final class ResponsesBuilderImpl implements ResponsesBuilder {
                 getShowErrorCauseReadMoreLinks(documentationDefinition, resourceDefinition);
         final Set<Response> responses = new TreeSet<>();
         Arrays.stream(method.getMethod().getAnnotationsByType(ModelExceptionErrorResponse.class))
-                .forEach(e -> responses.add(customErrorResponsesBuilder.buildResponse(
-                        method.getMethod(), projectMetaData, resourceDefinition, e, showErrorCauseReadMoreLinks
+                .forEach(e -> responses.add(modelExceptionErrorResponseBuilder.buildResponse(
+                        environmentContext, method.getMethod(), projectMetaData, resourceDefinition, e, showErrorCauseReadMoreLinks
                 )));
         Arrays.stream(method.getMethod().getAnnotationsByType(SimpleErrorResponse.class))
-                .forEach(e -> responses.add(customErrorResponsesBuilder.buildResponse(
+                .forEach(e -> responses.add(simpleErrorResponseBuilder.buildResponse(
                         method.getMethod(), projectMetaData, resourceDefinition, e, showErrorCauseReadMoreLinks
                 )));
         Arrays.stream(classStructure.getOwnerClass().getAnnotationsByType(ModelExceptionErrorResponse.class))
-                .forEach(e -> responses.add(customErrorResponsesBuilder.buildResponse(
-                        classStructure.getOwnerClass(), projectMetaData, resourceDefinition, e, showErrorCauseReadMoreLinks
+                .forEach(e -> responses.add(modelExceptionErrorResponseBuilder.buildResponse(
+                        environmentContext, classStructure.getOwnerClass(), projectMetaData, resourceDefinition, e, showErrorCauseReadMoreLinks
                 )));
         Arrays.stream(classStructure.getOwnerClass().getAnnotationsByType(SimpleErrorResponse.class))
-                .forEach(e -> responses.add(customErrorResponsesBuilder.buildResponse(
+                .forEach(e -> responses.add(simpleErrorResponseBuilder.buildResponse(
                         classStructure.getOwnerClass(), projectMetaData, resourceDefinition, e, showErrorCauseReadMoreLinks
                 )));
         if (environmentContext.isRxMicroModuleEnabled(RX_MICRO_VALIDATION_MODULE) &&

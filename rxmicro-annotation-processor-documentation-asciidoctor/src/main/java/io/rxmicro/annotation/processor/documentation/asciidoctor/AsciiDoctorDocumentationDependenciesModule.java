@@ -18,17 +18,19 @@ package io.rxmicro.annotation.processor.documentation.asciidoctor;
 
 import com.google.inject.AbstractModule;
 import io.rxmicro.annotation.processor.documentation.asciidoctor.component.CharacteristicsReader;
-import io.rxmicro.annotation.processor.documentation.asciidoctor.component.CustomErrorResponsesBuilder;
 import io.rxmicro.annotation.processor.documentation.asciidoctor.component.DocumentedModelFieldBuilder;
 import io.rxmicro.annotation.processor.documentation.asciidoctor.component.GenerationOutputOrganizer;
+import io.rxmicro.annotation.processor.documentation.asciidoctor.component.ModelExceptionErrorResponseBuilder;
 import io.rxmicro.annotation.processor.documentation.asciidoctor.component.RequestBuilder;
 import io.rxmicro.annotation.processor.documentation.asciidoctor.component.ResponsesBuilder;
+import io.rxmicro.annotation.processor.documentation.asciidoctor.component.SimpleErrorResponseBuilder;
 import io.rxmicro.annotation.processor.documentation.asciidoctor.component.impl.CharacteristicsReaderImpl;
-import io.rxmicro.annotation.processor.documentation.asciidoctor.component.impl.CustomErrorResponsesBuilderImpl;
 import io.rxmicro.annotation.processor.documentation.asciidoctor.component.impl.DocumentedModelFieldBuilderImpl;
 import io.rxmicro.annotation.processor.documentation.asciidoctor.component.impl.GenerationOutputOrganizerImpl;
+import io.rxmicro.annotation.processor.documentation.asciidoctor.component.impl.ModelExceptionErrorResponseBuilderImpl;
 import io.rxmicro.annotation.processor.documentation.asciidoctor.component.impl.RequestBuilderImpl;
 import io.rxmicro.annotation.processor.documentation.asciidoctor.component.impl.ResponsesBuilderImpl;
+import io.rxmicro.annotation.processor.documentation.asciidoctor.component.impl.SimpleErrorResponseBuilderImpl;
 
 /**
  * @author nedis
@@ -46,8 +48,10 @@ public final class AsciiDoctorDocumentationDependenciesModule extends AbstractMo
                 .to(RequestBuilderImpl.class);
         bind(ResponsesBuilder.class)
                 .to(ResponsesBuilderImpl.class);
-        bind(CustomErrorResponsesBuilder.class)
-                .to(CustomErrorResponsesBuilderImpl.class);
+        bind(SimpleErrorResponseBuilder.class)
+                .to(SimpleErrorResponseBuilderImpl.class);
+        bind(ModelExceptionErrorResponseBuilder.class)
+                .to(ModelExceptionErrorResponseBuilderImpl.class);
         bind(GenerationOutputOrganizer.class)
                 .to(GenerationOutputOrganizerImpl.class);
     }

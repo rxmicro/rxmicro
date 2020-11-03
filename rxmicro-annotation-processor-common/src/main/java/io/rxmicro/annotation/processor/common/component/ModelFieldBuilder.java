@@ -17,6 +17,7 @@
 package io.rxmicro.annotation.processor.common.component;
 
 import io.rxmicro.annotation.processor.common.model.ModelField;
+import io.rxmicro.annotation.processor.common.model.ModelFieldBuilderOptions;
 import io.rxmicro.annotation.processor.common.model.ModelFieldType;
 import io.rxmicro.annotation.processor.common.model.type.ObjectModelClass;
 
@@ -34,5 +35,5 @@ public interface ModelFieldBuilder<MF extends ModelField, MC extends ObjectModel
     Map<TypeElement, MC> build(ModelFieldType modelFieldType,
                                ModuleElement currentModule,
                                Set<TypeElement> modelClasses,
-                               boolean requireDefConstructor);
+                               ModelFieldBuilderOptions options);
 }

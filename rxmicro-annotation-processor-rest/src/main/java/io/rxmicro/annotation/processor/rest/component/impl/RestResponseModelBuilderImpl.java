@@ -30,7 +30,8 @@ import javax.lang.model.element.ModuleElement;
 import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeMirror;
 
-import static io.rxmicro.annotation.processor.common.util.validators.TypeValidators.validateAndGetModelType;
+import static io.rxmicro.annotation.processor.common.model.ModelFieldBuilderOptions.DEFAULT_OPTIONS;
+import static io.rxmicro.annotation.processor.common.util.ModelTypeElements.asValidatedModelTypeElement;
 
 /**
  * @author nedis
@@ -59,11 +60,8 @@ public final class RestResponseModelBuilderImpl implements RestResponseModelBuil
             } else if (methodResult.isVoid()) {
                 return new RestResponseModel(methodResult);
             } else {
-                validateAndGetModelType(
-                        restControllerModule, method, methodResult.getResultType(),
-                        "Invalid business method result",
-                        requireDefConstructor
-                );
+                final TypeMirror resultType = methodResult.getResultType();
+                asValidatedModelTypeElement(restControllerModule, method, resultType, "Invalid business method result", DEFAULT_OPTIONS);
                 return new RestResponseModel(methodResult);
             }
         }

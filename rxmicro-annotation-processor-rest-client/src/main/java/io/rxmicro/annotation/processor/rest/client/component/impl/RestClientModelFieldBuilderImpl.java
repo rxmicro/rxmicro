@@ -19,6 +19,7 @@ package io.rxmicro.annotation.processor.rest.client.component.impl;
 import com.google.inject.Singleton;
 import io.rxmicro.annotation.processor.common.model.AnnotatedModelElement;
 import io.rxmicro.annotation.processor.common.model.ModelFieldType;
+import io.rxmicro.annotation.processor.common.model.ModelFieldBuilderOptions;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
 import io.rxmicro.annotation.processor.rest.client.model.RestClientObjectModelClass;
 import io.rxmicro.annotation.processor.rest.component.AbstractRestModelFieldBuilder;
@@ -56,11 +57,11 @@ public final class RestClientModelFieldBuilderImpl extends AbstractRestModelFiel
                                                                 final TypeMirror type,
                                                                 final TypeElement typeElement,
                                                                 final int nestedLevel,
-                                                                final boolean requireDefConstructor) {
+                                                                final ModelFieldBuilderOptions options) {
         return new RestClientObjectModelClass(
                 type,
                 typeElement,
-                getFieldMap(currentModule, modelFieldType, asTypeElement(type).orElseThrow(), nestedLevel, requireDefConstructor));
+                getFieldMap(currentModule, modelFieldType, asTypeElement(type).orElseThrow(), nestedLevel, options));
     }
 
     @Override

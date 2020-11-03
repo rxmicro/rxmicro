@@ -16,6 +16,7 @@
 
 package io.rxmicro.annotation.processor.documentation.component;
 
+import io.rxmicro.annotation.processor.rest.model.RestObjectModelClass;
 import io.rxmicro.annotation.processor.rest.server.model.RestControllerClassStructureStorage;
 import io.rxmicro.annotation.processor.rest.server.model.RestControllerMethod;
 import io.rxmicro.documentation.ResourceDefinition;
@@ -31,6 +32,10 @@ public interface HttpResponseExampleBuilder {
     String build(ResourceDefinition resourceDefinition,
                  RestControllerClassStructureStorage restControllerClassStructureStorage,
                  RestControllerMethod method);
+
+    String build(ResourceDefinition resourceDefinition,
+                 int statusCode,
+                 RestObjectModelClass restObjectModelClass);
 
     String buildErrorExample(ResourceDefinition resourceDefinition,
                              int statusCode,

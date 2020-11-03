@@ -21,6 +21,7 @@ import io.rxmicro.annotation.processor.common.component.ModelFieldBuilder;
 import io.rxmicro.annotation.processor.common.model.AnnotatedModelElement;
 import io.rxmicro.annotation.processor.common.model.ModelAccessorType;
 import io.rxmicro.annotation.processor.common.model.ModelField;
+import io.rxmicro.annotation.processor.common.model.ModelFieldBuilderOptions;
 import io.rxmicro.annotation.processor.common.model.ModelFieldType;
 import io.rxmicro.annotation.processor.common.model.definition.SupportedTypesProvider;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
@@ -54,8 +55,8 @@ import static io.rxmicro.annotation.processor.common.util.Elements.allModelField
 import static io.rxmicro.annotation.processor.common.util.Elements.asEnumElement;
 import static io.rxmicro.annotation.processor.common.util.Elements.findGetters;
 import static io.rxmicro.annotation.processor.common.util.Elements.findSetters;
+import static io.rxmicro.annotation.processor.common.util.ModelTypeElements.asValidatedModelTypeElement;
 import static io.rxmicro.annotation.processor.common.util.Names.getPackageName;
-import static io.rxmicro.annotation.processor.common.util.validators.TypeValidators.validateAndGetModelType;
 import static io.rxmicro.annotation.processor.common.util.validators.TypeValidators.validateGenericType;
 import static io.rxmicro.common.util.ExCollectors.toOrderedMap;
 import static io.rxmicro.common.util.Formats.format;
@@ -97,12 +98,12 @@ public abstract class AbstractModelFieldBuilder<MF extends ModelField, MC extend
     public final Map<TypeElement, MC> build(final ModelFieldType modelFieldType,
                                             final ModuleElement currentModule,
                                             final Set<TypeElement> modelClasses,
-                                            final boolean requireDefConstructor) {
+                                            final ModelFieldBuilderOptions options) {
         final Map<TypeElement, MC> result = new LinkedHashMap<>();
         for (final TypeElement typeElement : modelClasses) {
             validateModelClass(typeElement);
             final ModelClass modelClass = extract(
-                    currentModule, modelFieldType, typeElement, typeElement.asType(), 0, requireDefConstructor
+                    currentModule, modelFieldType, typeElement, typeElement.asType(), 0, options
             );
             if (modelClass.isObject()) {
                 final MC objectModelClass = (MC) modelClass;
@@ -144,19 +145,19 @@ public abstract class AbstractModelFieldBuilder<MF extends ModelField, MC extend
                                                  TypeMirror type,
                                                  TypeElement typeElement,
                                                  int nestedLevel,
-                                                 boolean requireDefConstructor);
+                                                 ModelFieldBuilderOptions options);
 
     protected Map<MF, ModelClass> getFieldMap(final ModuleElement currentModule,
                                               final ModelFieldType modelFieldType,
                                               final TypeElement typeElement,
                                               final int nestedLevel,
-                                              final boolean requireDefConstructor) {
+                                              final ModelFieldBuilderOptions options) {
         final ModelNames modelNames = new ModelNames();
         final Set<String> fieldNames = new HashSet<>();
-        return allModelFields(typeElement).stream()
+        return allModelFields(typeElement, options.isWithFieldsFromParentClasses()).stream()
                 .collect(toOrderedMap(
                         el -> build(modelFieldType, el, typeElement, modelNames, fieldNames, nestedLevel),
-                        el -> extract(currentModule, modelFieldType, el, el.asType(), nestedLevel, requireDefConstructor)
+                        el -> extract(currentModule, modelFieldType, el, el.asType(), nestedLevel, options)
                 ));
     }
 
@@ -200,7 +201,7 @@ public abstract class AbstractModelFieldBuilder<MF extends ModelField, MC extend
                                final Element owner,
                                final TypeMirror type,
                                final int nestedLevel,
-                               final boolean requireDefConstructor) {
+                               final ModelFieldBuilderOptions options) {
         if (nestedLevel > getMaxNestedLevel()) {
             throw new InterruptProcessingException(owner, "Cycle dependencies detected");
         }
@@ -213,7 +214,7 @@ public abstract class AbstractModelFieldBuilder<MF extends ModelField, MC extend
         if (type.getKind().isPrimitive()) {
             throw new InterruptProcessingException(owner, "Primitive type for model field not allowed");
         }
-        return extractModelClasses(currentModule, modelFieldType, owner, type, nestedLevel, requireDefConstructor);
+        return extractModelClasses(currentModule, modelFieldType, owner, type, nestedLevel, options);
     }
 
     private ModelClass extractModelClasses(final ModuleElement currentModule,
@@ -221,7 +222,7 @@ public abstract class AbstractModelFieldBuilder<MF extends ModelField, MC extend
                                            final Element owner,
                                            final TypeMirror type,
                                            final int nestedLevel,
-                                           final boolean requireDefConstructor) {
+                                           final ModelFieldBuilderOptions options) {
         if (getSupportedTypesProvider().isModelInternalType(owner)) {
             return InternalModelClass.create();
         } else if (getSupportedTypesProvider().isModelPrimitive(type)) {
@@ -230,27 +231,13 @@ public abstract class AbstractModelFieldBuilder<MF extends ModelField, MC extend
                     .orElseGet(() -> createPrimitiveModelClass(type));
         } else if (getSupportedTypesProvider().getCollectionContainers().contains(type)) {
             validateGenericType(owner, type, "Invalid container");
-            return buildListModelClass(
-                    currentModule, modelFieldType, owner, (DeclaredType) type, nestedLevel + 1, requireDefConstructor
-            );
+            return buildListModelClass(currentModule, modelFieldType, owner, (DeclaredType) type, nestedLevel + 1, options);
         } else {
             getSupportedTypesProvider().getReplacePrimitiveSuggestions(type.toString()).ifPresent(replace -> {
-                throw new InterruptProcessingException(
-                        owner,
-                        "Use '?' type instead of '?' one!",
-                        replace.getName(),
-                        type.toString()
-                );
+                throw new InterruptProcessingException(owner, "Use '?' type instead of '?' one!", replace.getName(), type.toString());
             });
-            final TypeElement typeElement =
-                    validateAndGetModelType(currentModule, owner, type, "Invalid model class", requireDefConstructor);
-            return createObjectModelClass(
-                    currentModule,
-                    modelFieldType,
-                    type,
-                    typeElement,
-                    nestedLevel + 1,
-                    requireDefConstructor);
+            final TypeElement typeElement = asValidatedModelTypeElement(currentModule, owner, type, "Invalid model class", options);
+            return createObjectModelClass(currentModule, modelFieldType, type, typeElement, nestedLevel + 1, options);
         }
     }
 
@@ -259,7 +246,7 @@ public abstract class AbstractModelFieldBuilder<MF extends ModelField, MC extend
                                            final Element owner,
                                            final DeclaredType type,
                                            final int nestedLevel,
-                                           final boolean requireDefConstructor) {
+                                           final ModelFieldBuilderOptions options) {
         final TypeMirror itemType = type.getTypeArguments().get(0);
         if (getSupportedTypesProvider().isModelPrimitive(itemType)) {
             return asEnumElement(itemType)
@@ -267,7 +254,7 @@ public abstract class AbstractModelFieldBuilder<MF extends ModelField, MC extend
                     .orElseGet(() -> new ListModelClass(createPrimitiveModelClass(itemType)));
         } else {
             final ModelClass elementModelClass = extract(
-                    currentModule, modelFieldType, owner, itemType, nestedLevel + 1, requireDefConstructor
+                    currentModule, modelFieldType, owner, itemType, nestedLevel + 1, options
             );
             if (elementModelClass.isList()) {
                 throw new InterruptProcessingException(owner, "Multi array does not supported yet");
@@ -292,8 +279,7 @@ public abstract class AbstractModelFieldBuilder<MF extends ModelField, MC extend
      */
     public static final class ModelNames {
 
-        private static final Function<String, Set<String>> NEW_SET_CREATOR =
-                n -> new HashSet<>();
+        private static final Function<String, Set<String>> NEW_SET_CREATOR = n -> new HashSet<>();
 
         private final Map<String, Set<String>> models = new HashMap<>();
 

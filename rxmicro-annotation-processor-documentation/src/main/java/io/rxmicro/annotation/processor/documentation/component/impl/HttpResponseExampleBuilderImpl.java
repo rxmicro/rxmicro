@@ -21,12 +21,12 @@ import com.google.inject.Singleton;
 import io.rxmicro.annotation.processor.documentation.component.ExampleValueBuilder;
 import io.rxmicro.annotation.processor.documentation.component.HttpResponseExampleBuilder;
 import io.rxmicro.annotation.processor.documentation.component.JsonStructureExampleBuilder;
+import io.rxmicro.annotation.processor.rest.model.RestObjectModelClass;
 import io.rxmicro.annotation.processor.rest.server.model.RestControllerClassStructureStorage;
 import io.rxmicro.annotation.processor.rest.server.model.RestControllerMethod;
 import io.rxmicro.documentation.ResourceDefinition;
 import io.rxmicro.json.JsonHelper;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -37,6 +37,8 @@ import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.files.PropertiesResources.loadProperties;
 import static io.rxmicro.rest.RequestId.REQUEST_ID_EXAMPLE;
 import static java.lang.System.lineSeparator;
+import static java.util.Map.entry;
+import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toMap;
 
 /**
@@ -72,59 +74,78 @@ public final class HttpResponseExampleBuilderImpl implements HttpResponseExample
     public String build(final ResourceDefinition resourceDefinition,
                         final RestControllerClassStructureStorage restControllerClassStructureStorage,
                         final RestControllerMethod method) {
-        final StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(format("? ? ??",
-                HTTP_VERSION,
-                method.getSuccessStatusCode(),
-                getStatusMessage(method.getSuccessStatusCode()),
-                lineSeparator()));
+        final List<Map.Entry<String, Object>> customHeaders =
+                method.getToHttpDataType()
+                        .stream()
+                        .flatMap(t -> restControllerClassStructureStorage.getModelWriterClassStructure(t.asType().toString())
+                                .stream().flatMap(cl -> cl.getModelClass().getHeaderEntries().stream())
+                                .map(e -> entry(e.getKey().getModelName(), exampleValueBuilder.getExample(e.getKey())))).collect(toList());
         final Optional<String> body = getJsonBodyExample(restControllerClassStructureStorage, method);
-        if (body.isPresent()) {
-            stringBuilder.append(format("Content-Type: application/json?", lineSeparator()));
-            stringBuilder.append(format("Content-Length: ??", getContentLength(body.get()), lineSeparator()));
-        } else {
-            stringBuilder.append(format("Content-Length: 0?", lineSeparator()));
-        }
-        if (resourceDefinition.withRequestIdResponseHeader()) {
-            stringBuilder.append(format("Request-Id: ??", REQUEST_ID_EXAMPLE, lineSeparator()));
-        }
-        addCustomHeaders(stringBuilder, method, restControllerClassStructureStorage);
-        if (body.isPresent()) {
-            stringBuilder.append(lineSeparator());
-            stringBuilder.append(body.get());
-        }
-        return stringBuilder.toString();
+        return build(
+                resourceDefinition,
+                method.getSuccessStatusCode(),
+                customHeaders,
+                body.orElse(null)
+        );
+    }
+
+    @Override
+    public String build(final ResourceDefinition resourceDefinition,
+                        final int statusCode,
+                        final RestObjectModelClass restObjectModelClass) {
+        return build(
+                resourceDefinition,
+                statusCode,
+                List.of(),
+                jsonStructureExampleBuilder.build(restObjectModelClass)
+        );
     }
 
     @Override
     public String buildErrorExample(final ResourceDefinition resourceDefinition,
                                     final int statusCode,
                                     final String message) {
-        final StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(format("? ? ??", HTTP_VERSION, statusCode, getStatusMessage(statusCode), lineSeparator()));
         final String body = JsonHelper.toJsonString(Map.of("message", message), true);
-        stringBuilder
-                .append(format("Content-Type: application/json?", lineSeparator()))
-                .append(format("Content-Length: ??", getContentLength(body), lineSeparator()));
-        if (resourceDefinition.withRequestIdResponseHeader()) {
-            stringBuilder.append(format("Request-Id: ??", REQUEST_ID_EXAMPLE, lineSeparator()));
-        }
-        stringBuilder
-                .append(lineSeparator())
-                .append(body);
-        return stringBuilder.toString();
+        return build(
+                resourceDefinition,
+                statusCode,
+                List.of(),
+                body
+        );
     }
 
     @Override
     public String buildErrorExample(final ResourceDefinition resourceDefinition,
                                     final int statusCode) {
-        final List<String> lines = new ArrayList<>(3);
-        lines.add(format("? ? ?", HTTP_VERSION, statusCode, getStatusMessage(statusCode)));
-        lines.add("Content-Length: 0");
-        if (resourceDefinition.withRequestIdResponseHeader()) {
-            lines.add(format("Request-Id: ?", REQUEST_ID_EXAMPLE));
+        return build(
+                resourceDefinition,
+                statusCode,
+                List.of(),
+                null
+        );
+    }
+
+    private String build(final ResourceDefinition resourceDefinition,
+                         final int statusCode,
+                         final List<Map.Entry<String, Object>> customHeaders,
+                         final String body) {
+        final StringBuilder httpMessageBuilder = new StringBuilder();
+        httpMessageBuilder.append(format("? ? ??", HTTP_VERSION, statusCode, getStatusMessage(statusCode), lineSeparator()));
+        if (body != null) {
+            httpMessageBuilder.append("Content-Type: application/json").append(lineSeparator());
+            httpMessageBuilder.append(format("Content-Length: ?", getContentLength(body))).append(lineSeparator());
+        } else {
+            httpMessageBuilder.append("Content-Length: 0").append(lineSeparator());
         }
-        return String.join(lineSeparator(), lines);
+        if (resourceDefinition.withRequestIdResponseHeader()) {
+            httpMessageBuilder.append(format("Request-Id: ?", REQUEST_ID_EXAMPLE)).append(lineSeparator());
+        }
+        customHeaders.forEach(e -> httpMessageBuilder.append(format("?: ?", e.getKey(), e.getValue())).append(lineSeparator()));
+        if (body != null) {
+            httpMessageBuilder.append(lineSeparator());
+            httpMessageBuilder.append(body);
+        }
+        return httpMessageBuilder.toString();
     }
 
     @Override
@@ -152,18 +173,5 @@ public final class HttpResponseExampleBuilderImpl implements HttpResponseExample
             final int group = statusCode % httpStatusGroupStep;
             return Optional.ofNullable(statusCodeGroups.get(group)).orElse("");
         });
-    }
-
-    private void addCustomHeaders(final StringBuilder stringBuilder,
-                                  final RestControllerMethod method,
-                                  final RestControllerClassStructureStorage restControllerClassStructureStorage) {
-        method.getToHttpDataType().flatMap(t ->
-                restControllerClassStructureStorage.getModelWriterClassStructure(t.asType().toString())).ifPresent(cl ->
-                cl.getModelClass().getHeaderEntries().forEach(e ->
-                        stringBuilder.append(
-                                format("?: ??",
-                                        e.getKey().getModelName(),
-                                        exampleValueBuilder.getExample(e.getKey()),
-                                        lineSeparator()))));
     }
 }

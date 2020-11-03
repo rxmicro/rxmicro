@@ -19,7 +19,6 @@ package io.rxmicro.annotation.processor.documentation.asciidoctor.component;
 import io.rxmicro.annotation.processor.documentation.asciidoctor.model.Response;
 import io.rxmicro.annotation.processor.documentation.model.ProjectMetaData;
 import io.rxmicro.annotation.processor.documentation.model.ReadMoreModel;
-import io.rxmicro.documentation.ModelExceptionErrorResponse;
 import io.rxmicro.documentation.ResourceDefinition;
 import io.rxmicro.documentation.SimpleErrorResponse;
 
@@ -28,19 +27,13 @@ import javax.lang.model.element.Element;
 
 /**
  * @author nedis
- * @since 0.1
+ * @since 0.7
  */
-public interface CustomErrorResponsesBuilder {
+public interface SimpleErrorResponseBuilder {
 
     Response buildResponse(Element owner,
                            ProjectMetaData projectMetaData,
                            ResourceDefinition resourceDefinition,
                            SimpleErrorResponse simpleErrorResponse,
-                           List<ReadMoreModel> showErrorCauseReadMoreLinks);
-
-    Response buildResponse(Element owner,
-                           ProjectMetaData projectMetaData,
-                           ResourceDefinition resourceDefinition,
-                           ModelExceptionErrorResponse modelExceptionErrorResponse,
                            List<ReadMoreModel> showErrorCauseReadMoreLinks);
 }

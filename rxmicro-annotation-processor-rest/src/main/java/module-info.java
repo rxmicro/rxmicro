@@ -27,7 +27,7 @@ module rxmicro.annotation.processor.rest {
 
     exports io.rxmicro.annotation.processor.rest to
             rxmicro.annotation.processor.rest.server,
-            rxmicro.annotation.processor.rest.client;
+            rxmicro.annotation.processor.rest.client, rxmicro.annotation.processor.documentation.asciidoctor;
     exports io.rxmicro.annotation.processor.rest.model to
             freemarker,
             rxmicro.annotation.processor.rest.server,
@@ -44,7 +44,7 @@ module rxmicro.annotation.processor.rest {
             rxmicro.annotation.processor.rest.client;
     exports io.rxmicro.annotation.processor.rest.component to
             rxmicro.annotation.processor.rest.server,
-            rxmicro.annotation.processor.rest.client, rxmicro.annotation.processor.documentation;
+            rxmicro.annotation.processor.rest.client, rxmicro.annotation.processor.documentation, rxmicro.annotation.processor.documentation.asciidoctor;
     exports io.rxmicro.annotation.processor.rest.component.impl to
             rxmicro.annotation.processor.rest.server,
             rxmicro.annotation.processor.rest.client;

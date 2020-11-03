@@ -171,7 +171,7 @@ module rxmicro.annotation.processor.common {
             rxmicro.annotation.processor.documentation,
             rxmicro.annotation.processor.data.sql,
             rxmicro.annotation.processor.data.sql.r2dbc,
-            rxmicro.annotation.processor.data.sql.r2dbc.postgresql;
+            rxmicro.annotation.processor.data.sql.r2dbc.postgresql, rxmicro.annotation.processor.documentation.asciidoctor;
     exports io.rxmicro.annotation.processor.common.component.impl to
             rxmicro.annotation.processor,
             rxmicro.annotation.processor.data,
