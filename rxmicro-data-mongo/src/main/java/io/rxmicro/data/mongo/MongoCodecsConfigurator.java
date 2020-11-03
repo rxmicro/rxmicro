@@ -111,6 +111,8 @@ public final class MongoCodecsConfigurator extends AbstractMongoCodecsConfigurat
 
     private UuidRepresentation uuidRepresentation = UuidRepresentation.JAVA_LEGACY;
 
+    private boolean uuidInitialized;
+
     /**
      * Sets the default {@link UuidRepresentation}.
      *
@@ -120,7 +122,7 @@ public final class MongoCodecsConfigurator extends AbstractMongoCodecsConfigurat
      */
     @BuilderMethod
     public MongoCodecsConfigurator setDefaultUuidRepresentation(final UuidRepresentation defaultUuidRepresentation) {
-        if (isNotConfigured()) {
+        if (!uuidInitialized) {
             this.uuidRepresentation = defaultUuidRepresentation;
             return this;
         } else {
@@ -135,6 +137,7 @@ public final class MongoCodecsConfigurator extends AbstractMongoCodecsConfigurat
      */
     public MongoCodecsConfigurator withoutAnyCodecs() {
         clear();
+        uuidInitialized = false;
         return this;
     }
 
@@ -176,6 +179,7 @@ public final class MongoCodecsConfigurator extends AbstractMongoCodecsConfigurat
         addCodec(new ObjectIdCodec());
         addCodec(new CustomBinaryCodec(uuidRepresentation));
         addCodec(new Decimal128Codec());
+        uuidInitialized = true;
         return this;
     }
 
@@ -224,6 +228,7 @@ public final class MongoCodecsConfigurator extends AbstractMongoCodecsConfigurat
 
         addCodec(new BsonRegularExpressionCodec());
         addCodec(new CustomBinaryCodec(uuidRepresentation));
+        uuidInitialized = true;
         return this;
     }
 
@@ -416,19 +421,6 @@ public final class MongoCodecsConfigurator extends AbstractMongoCodecsConfigurat
     public MongoCodecsConfigurator putCodecProvider(final Predicate<Class<?>> encodedClassPredicate,
                                                     final Function<CodecRegistry, Codec<?>> codecProvider) {
         return addCodecProvider(require(encodedClassPredicate), require(codecProvider));
-    }
-
-    /**
-     * Provides the default configuration if a custom configuration is not set.
-     *
-     * @return the reference to this {@link MongoCodecsConfigurator} instance
-     */
-    MongoCodecsConfigurator withDefaultConfigurationIfNotConfigured() {
-        if (isNotConfigured()) {
-            return withDefaultConfiguration();
-        } else {
-            return this;
-        }
     }
 
     /**

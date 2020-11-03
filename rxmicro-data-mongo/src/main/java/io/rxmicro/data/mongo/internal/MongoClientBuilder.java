@@ -16,8 +16,10 @@
 
 package io.rxmicro.data.mongo.internal;
 
+import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
 import com.mongodb.reactivestreams.client.MongoClient;
+import io.rxmicro.data.mongo.MongoCodecsConfigurator;
 import io.rxmicro.data.mongo.MongoConfig;
 import io.rxmicro.logger.Logger;
 import io.rxmicro.logger.LoggerFactory;
@@ -39,6 +41,37 @@ public final class MongoClientBuilder {
             format("?.MongoClient", MongoClientBuilder.class.getPackageName())
     );
 
+    private static final MongoClientBuilder INSTANCE = new MongoClientBuilder();
+
+    public static MongoClientBuilder getInstance() {
+        return INSTANCE;
+    }
+
+    private MongoClientBuilder(){
+    }
+
+    private final MongoCodecsConfigurator mongoCodecsConfigurator = new MongoCodecsConfigurator();
+
+    private final MongoClientSettings.Builder mongoClientSettingsBuilder = MongoClientSettings.builder();
+
+    private boolean built;
+
+    public MongoCodecsConfigurator getMongoCodecsConfigurator() {
+        if (built) {
+            throw new IllegalStateException("Mongo client already built! " +
+                    "Any customizations must be done before building of the mongo client!");
+        }
+        return mongoCodecsConfigurator;
+    }
+
+    public MongoClientSettings.Builder getMongoClientSettingsBuilder() {
+        if (built) {
+            throw new IllegalStateException("Mongo client already built! " +
+                    "Any customizations must be done before building of the mongo client!");
+        }
+        return mongoClientSettingsBuilder;
+    }
+
     public MongoClient getMongoClient(final String namespace) {
         final MongoConfig mongoConfig = getConfig(namespace, MongoConfig.class);
         return getMongoClient(mongoConfig);
@@ -46,11 +79,20 @@ public final class MongoClientBuilder {
 
     private MongoClient getMongoClient(final MongoConfig mongoConfig) {
         final String connectionString = mongoConfig.getConnectionString();
-        final MongoClientSettings settings = mongoConfig.buildMongoClientSettings();
+        final MongoClientSettings settings = getMongoClientSettingsBuilder()
+                .applyConnectionString(new ConnectionString(connectionString))
+                .codecRegistry(
+                        new RxMicroMongoCodecRegistry(
+                                ((AbstractMongoCodecsConfigurator<MongoCodecsConfigurator>)getMongoCodecsConfigurator())
+                                        .withDefaultConfigurationIfNotConfigured()
+                        )
+                )
+                .build();
         final MongoClient mongoClient = create(settings);
         LOGGER.info("Mongo client created: connectionString='?', database='?'",
                 connectionString, mongoConfig.getDatabase());
         registerAutoRelease(new MongoClientProxy(connectionString, mongoClient));
+        built = true;
         return mongoClient;
     }
 

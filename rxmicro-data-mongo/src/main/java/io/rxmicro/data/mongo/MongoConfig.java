@@ -16,18 +16,20 @@
 
 package io.rxmicro.data.mongo;
 
-import com.mongodb.ConnectionString;
-import com.mongodb.MongoClientSettings;
 import io.rxmicro.common.meta.BuilderMethod;
 import io.rxmicro.config.Config;
-import io.rxmicro.data.mongo.internal.RxMicroMongoCodecRegistry;
 
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.Requires.require;
 import static io.rxmicro.config.Networks.validatePort;
 
 /**
- * Allows configuring Monfo DB options.
+ * Allows configuring the environment specific configs for Mongo database.
+ *
+ * <ul>
+ *     <li>{@link MongoConfig} must be used for environment specific configs.</li>
+ *     <li>{@link MongoConfigCustomizer} must be used for application specific configs.</li>
+ * </ul>
  *
  * @author nedis
  * @see MongoRepository
@@ -53,11 +55,6 @@ public final class MongoConfig extends Config {
      */
     public static final String DEFAULT_DB = "db";
 
-    private final MongoClientSettings.Builder builder = MongoClientSettings.builder()
-            .applyConnectionString(new ConnectionString(format("mongodb://?:?", DEFAULT_HOST, DEFAULT_PORT)));
-
-    private MongoCodecsConfigurator mongoCodecsConfigurator = new MongoCodecsConfigurator();
-
     private String host = DEFAULT_HOST;
 
     private int port = DEFAULT_PORT;
@@ -73,7 +70,6 @@ public final class MongoConfig extends Config {
     @BuilderMethod
     public MongoConfig setHost(final String host) {
         this.host = require(host);
-        builder.applyConnectionString(new ConnectionString(getConnectionString()));
         return this;
     }
 
@@ -86,7 +82,6 @@ public final class MongoConfig extends Config {
     @BuilderMethod
     public MongoConfig setPort(final int port) {
         this.port = validatePort(port);
-        builder.applyConnectionString(new ConnectionString(getConnectionString()));
         return this;
     }
 
@@ -112,49 +107,12 @@ public final class MongoConfig extends Config {
     }
 
     /**
-     * Sets the custom mongo codecs configurator.
-     *
-     * @param mongoCodecsConfigurator the custom mongo codecs configurator
-     * @return the reference to this {@link MongoConfig} instance
-     */
-    @BuilderMethod
-    public MongoConfig setMongoCodecsConfigurator(final MongoCodecsConfigurator mongoCodecsConfigurator) {
-        this.mongoCodecsConfigurator = require(mongoCodecsConfigurator);
-        return this;
-    }
-
-    /**
      * Returns the connection string built from schema, host and port parameters.
      *
      * @return the connection string built from schema, host and port parameters
      */
     public String getConnectionString() {
         return format("mongodb://?:?", host, port);
-    }
-
-    /**
-     * Returns {@link MongoClientSettings.Builder} instance that allows configuring the
-     * {@link com.mongodb.reactivestreams.client.MongoClient} using low-level reactive Mongo DB java driver API.
-     *
-     * @return Returns {@link MongoClientSettings.Builder} instance
-     */
-    public MongoClientSettings.Builder getMongoClientSettingsBuilder() {
-        return builder;
-    }
-
-    /**
-     * Builds the {@link MongoClientSettings} instance.
-     *
-     * @return the {@link MongoClientSettings} instance
-     */
-    public MongoClientSettings buildMongoClientSettings() {
-        return builder
-                .codecRegistry(
-                        new RxMicroMongoCodecRegistry(
-                                mongoCodecsConfigurator.withDefaultConfigurationIfNotConfigured()
-                        )
-                )
-                .build();
     }
 
     @Override

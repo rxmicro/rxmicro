@@ -23,7 +23,12 @@ import io.rxmicro.data.sql.r2dbc.postgresql.internal.PostgreSQLConnectionPoolBui
 import java.util.function.Function;
 
 /**
- * Allows configuring the Postgre SQL R2DBC driver
+ * Allows configuring the application specific configs for PostgreSQL database driver (R2DBC driver).
+ *
+ * <ul>
+ *     <li>{@link PostgreSQLConfig} must be used for environment specific configs.</li>
+ *     <li>{@link PostgreSQLConfigCustomizer} must be used for application specific configs.</li>
+ * </ul>
  *
  * @author nedis
  * @see PostgreSQLConfig

@@ -37,8 +37,6 @@ import static io.rxmicro.runtime.local.InstanceContainer.getSingleton;
  */
 public final class MongoClientFactory {
 
-    private static final MongoClientBuilder BUILDER = new MongoClientBuilder();
-
     /**
      * Returns the instance of the {@link MongoClient} that is bound to config with the requested namespace.
      *
@@ -48,7 +46,7 @@ public final class MongoClientFactory {
     public static MongoClient getMongoClient(final String namespace) {
         return getSingleton(
                 new ByTypeInstanceQualifier<>(MongoClient.class),
-                new LazyInstanceProvider<>(MongoClient.class, () -> BUILDER.getMongoClient(namespace))
+                new LazyInstanceProvider<>(MongoClient.class, () -> MongoClientBuilder.getInstance().getMongoClient(namespace))
         );
     }
 

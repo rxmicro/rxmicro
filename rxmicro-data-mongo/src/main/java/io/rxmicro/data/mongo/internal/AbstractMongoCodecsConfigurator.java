@@ -16,6 +16,7 @@
 
 package io.rxmicro.data.mongo.internal;
 
+import io.rxmicro.data.mongo.MongoCodecsConfigurator;
 import org.bson.codecs.Codec;
 import org.bson.codecs.configuration.CodecRegistry;
 
@@ -74,4 +75,14 @@ public abstract class AbstractMongoCodecsConfigurator<T extends AbstractMongoCod
     protected Map<Object, Object> getCodecs() {
         return codecs;
     }
+
+    T withDefaultConfigurationIfNotConfigured() {
+        if (isNotConfigured()) {
+            return withDefaultConfiguration();
+        } else {
+            return (T)this;
+        }
+    }
+
+    public abstract T withDefaultConfiguration();
 }

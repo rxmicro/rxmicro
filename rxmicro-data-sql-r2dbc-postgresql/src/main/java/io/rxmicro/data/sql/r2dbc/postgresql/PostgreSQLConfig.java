@@ -23,11 +23,12 @@ import java.time.Duration;
 import static io.rxmicro.common.util.Formats.format;
 
 /**
- * Allows configuring the Postgre SQL DB pool.
+ * Allows configuring the environment specific configs for PostgreSQL database.
  *
- * <p>
- * Use {@link PostgreSQLConfigCustomizer} class to define configurations that are independent of the application environment.
- * For example, custom codecs, connection decorator, etc.
+ * <ul>
+ *     <li>{@link PostgreSQLConfig} must be used for environment specific configs.</li>
+ *     <li>{@link PostgreSQLConfigCustomizer} must be used for application specific configs.</li>
+ * </ul>
  *
  * @author nedis
  * @see PostgreSQLRepository
