@@ -51,8 +51,8 @@ public abstract class AbstractModificationPostgreSQLBuilder<A extends Annotation
     private SQLFieldsOrderValidator sqlFieldsOrderValidator;
 
     @Override
-    protected final boolean isAsteriskShouldBeIgnored(final int index,
-                                                      final List<String> sqlTokens) {
+    protected final boolean shouldAsteriskBeIgnored(final int index,
+                                                    final List<String> sqlTokens) {
         // index == 0 - allows to avoid IndexOutOfBoundException:
         return index == 0 || !RETURNING.equalsIgnoreCase(sqlTokens.get(index - 1));
     }

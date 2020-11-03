@@ -100,7 +100,7 @@ public abstract class AbstractSQLBuilder extends AbstractProcessorComponent {
             int index = 0;
             while (index < sqlTokens.size()) {
                 final String token = sqlTokens.get(index);
-                if ("*".equals(token) && isAsteriskShouldBeIgnored(index, sqlTokens)) {
+                if ("*".equals(token) && shouldAsteriskBeIgnored(index, sqlTokens)) {
                     index++;
                     continue;
                 }
@@ -135,8 +135,8 @@ public abstract class AbstractSQLBuilder extends AbstractProcessorComponent {
         }
     }
 
-    protected abstract boolean isAsteriskShouldBeIgnored(int index,
-                                                         List<String> sqlTokens);
+    protected abstract boolean shouldAsteriskBeIgnored(int index,
+                                                       List<String> sqlTokens);
 
     protected final void validatePlaceholderCount(final ExecutableElement method,
                                                   final List<String> sqlTokens,

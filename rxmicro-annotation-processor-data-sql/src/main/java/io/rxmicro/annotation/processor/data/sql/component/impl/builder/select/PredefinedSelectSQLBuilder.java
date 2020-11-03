@@ -78,8 +78,8 @@ public class PredefinedSelectSQLBuilder<DMF extends SQLDataModelField, DMC exten
 
 
     @Override
-    protected boolean isAsteriskShouldBeIgnored(final int index,
-                                                final List<String> sqlTokens) {
+    protected boolean shouldAsteriskBeIgnored(final int index,
+                                              final List<String> sqlTokens) {
         return index != 1;
     }
 
