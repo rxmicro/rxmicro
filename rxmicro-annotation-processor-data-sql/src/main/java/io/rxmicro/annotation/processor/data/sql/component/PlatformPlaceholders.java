@@ -14,13 +14,15 @@
  * limitations under the License.
  */
 
-package io.rxmicro.annotation.processor.data.sql.model;
+package io.rxmicro.annotation.processor.data.sql.component;
+
+import io.rxmicro.annotation.processor.data.sql.model.PlatformPlaceholderGenerator;
 
 /**
  * @author nedis
  * @since 0.1
  */
-public interface PlatformPlaceHolderGenerator {
+public interface PlatformPlaceholders {
 
-    String getNextPlaceHolder();
+    PlatformPlaceholderGenerator createPlatformPlaceholderGenerator();
 }

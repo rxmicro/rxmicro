@@ -17,7 +17,6 @@
 package io.rxmicro.data.sql.r2dbc.detail;
 
 import io.rxmicro.data.local.EntityFromDBConverter;
-import io.rxmicro.data.sql.detail.Converters;
 
 /**
  * Used by generated code that created by the {@code RxMicro Annotation Processor}.
@@ -27,10 +26,4 @@ import io.rxmicro.data.sql.detail.Converters;
  * @since 0.1
  */
 public abstract class EntityFromR2DBCSQLDBConverter<DB, META, E> implements EntityFromDBConverter {
-
-    protected final <T extends Enum<T>> T toEnum(final Class<T> type,
-                                                 final Object value,
-                                                 final String fieldName) {
-        return Converters.toEnum(type, value, fieldName);
-    }
 }

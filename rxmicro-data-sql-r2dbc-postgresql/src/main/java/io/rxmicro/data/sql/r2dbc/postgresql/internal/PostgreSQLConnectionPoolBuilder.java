@@ -20,6 +20,7 @@ import io.r2dbc.pool.ConnectionPool;
 import io.r2dbc.pool.ConnectionPoolConfiguration;
 import io.r2dbc.postgresql.PostgresqlConnectionConfiguration;
 import io.r2dbc.postgresql.PostgresqlConnectionFactory;
+import io.r2dbc.postgresql.extension.CodecRegistrar;
 import io.r2dbc.spi.Connection;
 import io.r2dbc.spi.ConnectionFactory;
 import io.rxmicro.data.sql.r2dbc.postgresql.PostgreSQLConfig;
@@ -27,6 +28,11 @@ import io.rxmicro.logger.Logger;
 import io.rxmicro.logger.LoggerFactory;
 import io.rxmicro.runtime.AutoRelease;
 import reactor.core.publisher.Mono;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.function.Function;
 
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.Requires.require;
@@ -48,6 +54,37 @@ public final class PostgreSQLConnectionPoolBuilder {
             format("?.PostgreSQLPooledClient", PostgreSQLConnectionPoolBuilder.class.getPackageName())
     );
 
+    private static final PostgreSQLConnectionPoolBuilder INSTANCE = new PostgreSQLConnectionPoolBuilder();
+
+    private PostgreSQLConnectionPoolBuilder() {
+    }
+
+    public static PostgreSQLConnectionPoolBuilder getInstance() {
+        return INSTANCE;
+    }
+
+    private final List<CodecRegistrar> codecRegistrars = new ArrayList<>();
+
+    private Function<Connection, Connection> connectionDecorator;
+
+    private boolean built;
+
+    public void addCodecRegistrar(final CodecRegistrar codecRegistrar) {
+        if (built) {
+            throw new IllegalStateException("Connection pool already built! " +
+                    "Any customizations must be done before building of the connection pool!");
+        }
+        this.codecRegistrars.add(require(codecRegistrar));
+    }
+
+    public void setConnectionDecorator(final Function<Connection, Connection> connectionDecorator) {
+        if (built) {
+            throw new IllegalStateException("Connection pool already built! " +
+                    "Any customizations must be done before building of the connection pool!");
+        }
+        this.connectionDecorator = require(connectionDecorator);
+    }
+
     public ConnectionPool build(final String namespace) {
         final PostgreSQLConfig postgreSQLConfig = getConfig(namespace, PostgreSQLConfig.class);
         final ConnectionFactory connectionFactory = createConnectionFactory(postgreSQLConfig);
@@ -62,6 +99,7 @@ public final class PostgreSQLConnectionPoolBuilder {
                 .password(postgreSQLConfig.getPassword())
                 .database(postgreSQLConfig.getDatabase())
                 .connectTimeout(postgreSQLConfig.getConnectTimeout());
+        codecRegistrars.forEach(builder::codecRegistrar);
         postgreSQLConfig.getOptions().ifPresent(builder::options);
         return new PostgresqlConnectionFactory(builder.build());
     }
@@ -78,17 +116,17 @@ public final class PostgreSQLConnectionPoolBuilder {
                 .maxCreateConnectionTime(postgreSQLConfig.getMaxCreateConnectionTime())
                 .maxIdleTime(postgreSQLConfig.getMaxIdleTime())
                 .maxLifeTime(postgreSQLConfig.getMaxLifeTime());
-        final ConnectionPool connectionPool = buildConnectionPool(postgreSQLConfig, builder);
+        final ConnectionPool connectionPool = buildConnectionPool(builder);
         LOGGER.info("PostgreSQL pooled client created: connectionString='?', poolSize:{init=?, max=?}",
                 postgreSQLConfig.getConnectionString(), postgreSQLConfig.getInitialSize(), postgreSQLConfig.getMaxSize()
         );
         registerAutoRelease(new R2DBCPostgreSQLConnectionPool(postgreSQLConfig, connectionPool));
+        built = true;
         return connectionPool;
     }
 
-    private ConnectionPool buildConnectionPool(final PostgreSQLConfig postgreSQLConfig,
-                                               final ConnectionPoolConfiguration.Builder builder) {
-        return postgreSQLConfig.getConnectionDecorator()
+    private ConnectionPool buildConnectionPool(final ConnectionPoolConfiguration.Builder builder) {
+        return Optional.ofNullable(connectionDecorator)
                 .map(decorator -> (ConnectionPool) new ConnectionPool(builder.build()) {
 
                     @Override

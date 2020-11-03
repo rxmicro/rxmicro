@@ -29,7 +29,6 @@ import io.rxmicro.annotation.processor.data.sql.model.SQLDataObjectModelClass;
 import io.rxmicro.annotation.processor.data.sql.model.SQLMethodDescriptor;
 import io.rxmicro.annotation.processor.data.sql.model.SQLStatement;
 import io.rxmicro.annotation.processor.data.sql.r2dbc.component.impl.AbstractSQLOperationDataRepositoryMethodModelBuilder;
-import io.rxmicro.data.sql.detail.Converters;
 import io.rxmicro.data.sql.model.EntityFieldList;
 import io.rxmicro.data.sql.model.EntityFieldMap;
 import io.rxmicro.data.sql.operation.Select;
@@ -59,9 +58,6 @@ public class SelectSQLRepositoryMethodModelBuilder<DMF extends SQLDataModelField
                                                final DataGenerationContext<DMF, DMC> dataGenerationContext,
                                                final ExecutableElement method) {
         super.customizeClassHeaderBuilder(classHeaderBuilder, methodResult, dataGenerationContext, method);
-        if (methodResult.isEnum()) {
-            classHeaderBuilder.addStaticImport(Converters.class, "toEnum");
-        }
         classHeaderBuilder.addImports(
                 Flowable.class,
                 ArrayList.class

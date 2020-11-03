@@ -21,9 +21,9 @@ import io.rxmicro.annotation.processor.common.component.impl.AbstractProcessorCo
 import io.rxmicro.annotation.processor.common.model.ClassHeader;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
 import io.rxmicro.annotation.processor.data.model.Variable;
-import io.rxmicro.annotation.processor.data.sql.component.PlatformPlaceHolderGeneratorFactory;
+import io.rxmicro.annotation.processor.data.sql.component.PlatformPlaceholders;
 import io.rxmicro.annotation.processor.data.sql.component.impl.builder.select.SelectSQLOperatorReader;
-import io.rxmicro.annotation.processor.data.sql.model.PlatformPlaceHolderGenerator;
+import io.rxmicro.annotation.processor.data.sql.model.PlatformPlaceholderGenerator;
 import io.rxmicro.annotation.processor.data.sql.model.VariableValuesMap;
 
 import java.lang.annotation.Annotation;
@@ -50,7 +50,7 @@ public abstract class AbstractSQLBuilder extends AbstractProcessorComponent {
     private Set<SelectSQLOperatorReader> selectSQLOperatorReaders;
 
     @Inject
-    private PlatformPlaceHolderGeneratorFactory platformPlaceHolderGeneratorFactory;
+    private PlatformPlaceholders platformPlaceHolders;
 
     protected void validateSupportedVars(final Class<? extends Annotation> annotationClass,
                                          final ExecutableElement method,
@@ -159,11 +159,10 @@ public abstract class AbstractSQLBuilder extends AbstractProcessorComponent {
     }
 
     protected final void replaceAllPlaceholders(final List<String> sqlTokens) {
-        final PlatformPlaceHolderGenerator platformPlaceHolderGenerator =
-                platformPlaceHolderGeneratorFactory.create();
+        final PlatformPlaceholderGenerator platformPlaceholderGenerator = platformPlaceHolders.createPlatformPlaceholderGenerator();
         for (int i = 0; i < sqlTokens.size(); i++) {
             if (FORMAT_PLACEHOLDER_TOKEN.equals(sqlTokens.get(i))) {
-                sqlTokens.set(i, platformPlaceHolderGenerator.getNextPlaceHolder());
+                sqlTokens.set(i, platformPlaceholderGenerator.getNextPlaceHolder());
             }
         }
     }
@@ -174,8 +173,7 @@ public abstract class AbstractSQLBuilder extends AbstractProcessorComponent {
                                      final List<Variable> methodParams,
                                      final List<String> formatParams,
                                      final List<String> bindParams) {
-        final PlatformPlaceHolderGenerator platformPlaceHolderGenerator =
-                platformPlaceHolderGeneratorFactory.create();
+        final PlatformPlaceholderGenerator platformPlaceholderGenerator = platformPlaceHolders.createPlatformPlaceholderGenerator();
         final ListIterator<String> iterator = sqlTokens.listIterator();
         while (iterator.hasNext()) {
             final String token = iterator.next();
@@ -189,7 +187,7 @@ public abstract class AbstractSQLBuilder extends AbstractProcessorComponent {
                 if (methodParams.isEmpty()) {
                     throw new InterruptProcessingException(owner, "Redundant '?' placeholder! Remove it!");
                 }
-                iterator.set(platformPlaceHolderGenerator.getNextPlaceHolder());
+                iterator.set(platformPlaceholderGenerator.getNextPlaceHolder());
                 bindParams.add(methodParams.remove(0).getGetter());
             }
         }

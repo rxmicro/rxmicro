@@ -39,9 +39,6 @@ import static io.rxmicro.runtime.local.InstanceContainer.getSingleton;
  */
 public final class PostgreSQLClientFactory {
 
-    private static final PostgreSQLConnectionPoolBuilder POSTGRE_SQL_CONNECTION_POOL_BUILDER =
-            new PostgreSQLConnectionPoolBuilder();
-
     /**
      * Returns the instance of the {@link ConnectionFactory} that is bound to config with the default namespace.
      *
@@ -79,7 +76,7 @@ public final class PostgreSQLClientFactory {
     public static ConnectionPool getPostgreSQLConnectionPool(final String namespace) {
         return getSingleton(
                 new ByTypeInstanceQualifier<>(ConnectionPool.class),
-                new LazyInstanceProvider<>(ConnectionPool.class, () -> POSTGRE_SQL_CONNECTION_POOL_BUILDER.build(namespace))
+                new LazyInstanceProvider<>(ConnectionPool.class, () -> PostgreSQLConnectionPoolBuilder.getInstance().build(namespace))
         );
     }
 

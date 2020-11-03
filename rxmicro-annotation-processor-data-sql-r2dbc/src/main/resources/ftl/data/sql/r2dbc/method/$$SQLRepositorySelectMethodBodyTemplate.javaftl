@@ -17,11 +17,7 @@
 <#elseif RETURN_ENTITY_FIELD_LIST>
     <#assign RESULT_CONVERTER>toEntityFieldList()</#assign>
 <#elseif RETURN.primitive>
-    <#if RETURN.enum>
-        <#assign RESULT_CONVERTER>(row, meta) -> toEnum(${RETURN.simpleResultType}.class, row.get(0, String.class))</#assign>
-    <#else>
-        <#assign RESULT_CONVERTER>(row, meta) -> row.get(0, ${RETURN.simpleResultType}.class)</#assign>
-    </#if>
+    <#assign RESULT_CONVERTER>(row, meta) -> row.get(0, ${RETURN.simpleResultType}.class)</#assign>
 <#elseif ENTITY_CONVERTER??>
     <#assign RESULT_CONVERTER>${ENTITY_CONVERTER}::${ENTITY_CONVERTER_METHOD}</#assign>
 </#if>

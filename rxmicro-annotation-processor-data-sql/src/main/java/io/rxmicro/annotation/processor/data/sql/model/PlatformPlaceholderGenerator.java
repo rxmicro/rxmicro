@@ -14,31 +14,13 @@
  * limitations under the License.
  */
 
-package io.rxmicro.data.sql;
-
-import java.lang.annotation.Documented;
-import java.lang.annotation.Retention;
-import java.lang.annotation.Target;
-
-import static java.lang.annotation.ElementType.FIELD;
-import static java.lang.annotation.ElementType.METHOD;
-import static java.lang.annotation.RetentionPolicy.SOURCE;
+package io.rxmicro.annotation.processor.data.sql.model;
 
 /**
- * Allows to cast the select expression.
- *
  * @author nedis
  * @since 0.1
  */
-@Documented
-@Retention(SOURCE)
-@Target({FIELD, METHOD})
-public @interface Cast {
+public interface PlatformPlaceholderGenerator {
 
-    /**
-     * Returns the expression.
-     *
-     * @return the expression
-     */
-    String value();
+    String getNextPlaceHolder();
 }

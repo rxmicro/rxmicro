@@ -16,22 +16,23 @@
 
 package io.rxmicro.data.sql.r2dbc.postgresql;
 
-import io.r2dbc.spi.Connection;
-import io.rxmicro.common.meta.BuilderMethod;
 import io.rxmicro.data.sql.SQLPooledDatabaseConfig;
 
 import java.time.Duration;
-import java.util.Optional;
-import java.util.function.Function;
 
 import static io.rxmicro.common.util.Formats.format;
 
 /**
- * Allows configuring Postgre SQL DB pool options.
+ * Allows configuring the Postgre SQL DB pool.
+ *
+ * <p>
+ * Use {@link PostgreSQLConfigCustomizer} class to define configurations that are independent of the application environment.
+ * For example, custom codecs, connection decorator, etc.
  *
  * @author nedis
  * @see PostgreSQLRepository
  * @see PostgreSQLClientFactory
+ * @see PostgreSQLConfigCustomizer
  * @since 0.1
  */
 @SuppressWarnings("UnusedReturnValue")
@@ -42,41 +43,13 @@ public final class PostgreSQLConfig extends SQLPooledDatabaseConfig {
      */
     public static final int DEFAULT_POSTGRESQL_PORT = 5432;
 
-    private Function<Connection, Connection> connectionDecorator;
-
     /**
      * Creates a Postgre SQL config instance with default settings.
      */
     public PostgreSQLConfig() {
         setPort(DEFAULT_POSTGRESQL_PORT);
         setUser("rxmicro");
-    }
-
-    /**
-     * Returns the {@link Optional} connection decorator function.
-     *
-     * <p>
-     * <i>This features is useful for testing purposes</i>.
-     *
-     * @return the {@link Optional} connection decorator function.
-     */
-    public Optional<Function<Connection, Connection>> getConnectionDecorator() {
-        return Optional.ofNullable(connectionDecorator);
-    }
-
-    /**
-     * Sets the connection decorator function.
-     *
-     * <p>
-     * <i>This features is useful for testing purposes</i>.
-     *
-     * @param connectionDecorator the connection decorator function
-     * @return the reference to this {@link PostgreSQLConfig} instance
-     */
-    @BuilderMethod
-    public PostgreSQLConfig setConnectionDecorator(final Function<Connection, Connection> connectionDecorator) {
-        this.connectionDecorator = connectionDecorator;
-        return this;
+        setDatabase("rxmicro");
     }
 
     @Override

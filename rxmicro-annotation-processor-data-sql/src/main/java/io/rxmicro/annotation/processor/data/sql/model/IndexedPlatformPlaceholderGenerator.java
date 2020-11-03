@@ -22,7 +22,7 @@ import static io.rxmicro.common.util.Formats.format;
  * @author nedis
  * @since 0.1
  */
-public final class IndexedPlatformPlaceHolderGenerator implements PlatformPlaceHolderGenerator {
+public final class IndexedPlatformPlaceholderGenerator implements PlatformPlaceholderGenerator {
 
     private final String prefix;
 
@@ -30,12 +30,12 @@ public final class IndexedPlatformPlaceHolderGenerator implements PlatformPlaceH
 
     private int index;
 
-    public static IndexedPlatformPlaceHolderGenerator createPrefixedGenerator(final String prefix,
+    public static IndexedPlatformPlaceholderGenerator createPrefixedGenerator(final String prefix,
                                                                               final int startValue) {
-        return new IndexedPlatformPlaceHolderGenerator(prefix, startValue, "");
+        return new IndexedPlatformPlaceholderGenerator(prefix, startValue, "");
     }
 
-    private IndexedPlatformPlaceHolderGenerator(final String prefix,
+    private IndexedPlatformPlaceholderGenerator(final String prefix,
                                                 final int startValue,
                                                 final String suffix) {
         this.prefix = prefix;

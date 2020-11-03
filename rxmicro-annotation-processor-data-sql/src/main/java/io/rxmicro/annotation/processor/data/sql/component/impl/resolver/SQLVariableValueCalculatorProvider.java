@@ -50,7 +50,7 @@ final class SQLVariableValueCalculatorProvider {
             (modelClass, context) -> nullIfEmpty(
                     createColumnList(
                             modelClass.getParamEntries().stream()
-                                    .map(e -> e.getKey().getSelectedColumnNameOrCastExpression())
+                                    .map(e -> e.getKey().getColumnName())
                                     .collect(Collectors.toList())
                     )
             );

@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static io.rxmicro.common.util.Formats.FORMAT_PLACEHOLDER_TOKEN;
 import static io.rxmicro.common.util.Requires.require;
 
 /**
@@ -45,7 +46,7 @@ public final class SQLVariableValue {
     }
 
     public static SQLVariableValue createSetColumnList(final List<String> columns) {
-        return new SQLVariableValue(columns, List.of(VALUE_VAR, "=", "?"), ",");
+        return new SQLVariableValue(columns, List.of(VALUE_VAR, "=", FORMAT_PLACEHOLDER_TOKEN), ",");
     }
 
     public static SQLVariableValue createSetColumnListUsingPseudoTable(final List<String> columns,
@@ -54,7 +55,7 @@ public final class SQLVariableValue {
     }
 
     public static SQLVariableValue createByIdFilter(final List<String> columns) {
-        return new SQLVariableValue(columns, List.of(VALUE_VAR, "=", "?"), "AND");
+        return new SQLVariableValue(columns, List.of(VALUE_VAR, "=", FORMAT_PLACEHOLDER_TOKEN), "AND");
     }
 
     private SQLVariableValue(final List<String> columns,

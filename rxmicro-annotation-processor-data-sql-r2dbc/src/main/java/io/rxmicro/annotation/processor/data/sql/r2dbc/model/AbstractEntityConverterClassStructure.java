@@ -50,7 +50,7 @@ abstract class AbstractEntityConverterClassStructure<DMF extends SQLDataModelFie
     final List<Map.Entry<DMF, ModelClass>> toModelParams(final List<String> selectedColumns) {
         final Set<Map.Entry<DMF, ModelClass>> params = modelClass.getParamEntries();
         return selectedColumns.stream()
-                .map(c -> params.stream().filter(e -> e.getKey().getSelectedColumnNameOrCastExpression().equals(c))
+                .map(c -> params.stream().filter(e -> e.getKey().getColumnName().equals(c))
                         .findFirst()
                         .orElseThrow(createInternalErrorSupplier(
                                 "Column '?' not defined at '?' class",

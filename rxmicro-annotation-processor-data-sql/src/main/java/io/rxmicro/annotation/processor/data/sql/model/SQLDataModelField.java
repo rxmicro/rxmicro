@@ -21,13 +21,13 @@ import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingExc
 import io.rxmicro.annotation.processor.common.util.UsedByFreemarker;
 import io.rxmicro.annotation.processor.data.model.DataModelField;
 import io.rxmicro.data.Column;
-import io.rxmicro.data.sql.Cast;
 import io.rxmicro.data.sql.NotInsertable;
 import io.rxmicro.data.sql.PrimaryKey;
 import io.rxmicro.data.sql.SequenceGenerator;
 
 import java.util.Optional;
 
+import static io.rxmicro.common.util.Formats.FORMAT_PLACEHOLDER_TOKEN;
 import static io.rxmicro.common.util.Strings.startsWith;
 
 /**
@@ -56,12 +56,8 @@ public class SQLDataModelField extends DataModelField {
         initInsertValue = false;
     }
 
-    public String getSelectedColumnNameOrCastExpression() {
-        return getCastExpression().orElse(getModelName());
-    }
-
-    public Optional<String> getCastExpression() {
-        return Optional.ofNullable(getAnnotation(Cast.class)).map(Cast::value);
+    public String getColumnName() {
+        return getModelName();
     }
 
     public Optional<String> getInsertValue(final VariableContext variableContext) {
@@ -87,10 +83,10 @@ public class SQLDataModelField extends DataModelField {
                         insertValue = null;
                     }
                 } else {
-                    insertValue = "?";
+                    insertValue = FORMAT_PLACEHOLDER_TOKEN;
                 }
             } else {
-                insertValue = "?";
+                insertValue = FORMAT_PLACEHOLDER_TOKEN;
             }
         }
         return Optional.ofNullable(insertValue);
@@ -132,7 +128,7 @@ public class SQLDataModelField extends DataModelField {
 
     @UsedByFreemarker("$$SQLEntityToSQLDBConverterTemplate.javaftl")
     public boolean isInsertValuePlaceholder() {
-        return "?".equals(insertValue);
+        return FORMAT_PLACEHOLDER_TOKEN.equals(insertValue);
     }
 
     @UsedByFreemarker("$$SQLEntityToSQLDBConverterTemplate.javaftl")

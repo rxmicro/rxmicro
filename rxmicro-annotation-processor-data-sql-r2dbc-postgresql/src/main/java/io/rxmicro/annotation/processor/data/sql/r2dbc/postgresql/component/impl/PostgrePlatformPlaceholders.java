@@ -14,15 +14,23 @@
  * limitations under the License.
  */
 
-package io.rxmicro.annotation.processor.data.sql.component;
+package io.rxmicro.annotation.processor.data.sql.r2dbc.postgresql.component.impl;
 
-import io.rxmicro.annotation.processor.data.sql.model.PlatformPlaceHolderGenerator;
+import com.google.inject.Singleton;
+import io.rxmicro.annotation.processor.data.sql.component.PlatformPlaceholders;
+import io.rxmicro.annotation.processor.data.sql.model.PlatformPlaceholderGenerator;
+
+import static io.rxmicro.annotation.processor.data.sql.model.IndexedPlatformPlaceholderGenerator.createPrefixedGenerator;
 
 /**
  * @author nedis
  * @since 0.1
  */
-public interface PlatformPlaceHolderGeneratorFactory {
+@Singleton
+public final class PostgrePlatformPlaceholders implements PlatformPlaceholders {
 
-    PlatformPlaceHolderGenerator create();
+    @Override
+    public PlatformPlaceholderGenerator createPlatformPlaceholderGenerator() {
+        return createPrefixedGenerator("$", 1);
+    }
 }

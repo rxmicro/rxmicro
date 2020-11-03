@@ -28,7 +28,7 @@ import io.rxmicro.annotation.processor.data.component.DataRepositoryInterfaceSig
 import io.rxmicro.annotation.processor.data.component.DataRepositoryMethodSignatureBuilder;
 import io.rxmicro.annotation.processor.data.component.EntityConverterBuilder;
 import io.rxmicro.annotation.processor.data.component.impl.DataGenerationContextBuilderImpl;
-import io.rxmicro.annotation.processor.data.sql.component.PlatformPlaceHolderGeneratorFactory;
+import io.rxmicro.annotation.processor.data.sql.component.PlatformPlaceholders;
 import io.rxmicro.annotation.processor.data.sql.component.SQLBuilder;
 import io.rxmicro.annotation.processor.data.sql.component.SQLRepositoryMethodModelBuilder;
 import io.rxmicro.annotation.processor.data.sql.component.SQLVariableValueResolver;
@@ -58,7 +58,7 @@ import io.rxmicro.annotation.processor.data.sql.r2dbc.component.impl.method.Dele
 import io.rxmicro.annotation.processor.data.sql.r2dbc.component.impl.method.InsertSQLRepositoryMethodModelBuilder;
 import io.rxmicro.annotation.processor.data.sql.r2dbc.component.impl.method.SelectSQLRepositoryMethodModelBuilder;
 import io.rxmicro.annotation.processor.data.sql.r2dbc.component.impl.method.UpdateSQLRepositoryMethodModelBuilder;
-import io.rxmicro.annotation.processor.data.sql.r2dbc.postgresql.component.impl.PostgrePlatformPlaceHolderGeneratorFactory;
+import io.rxmicro.annotation.processor.data.sql.r2dbc.postgresql.component.impl.PostgrePlatformPlaceholders;
 import io.rxmicro.annotation.processor.data.sql.r2dbc.postgresql.component.impl.PostgreSQLDataModelFieldBuilderImpl;
 import io.rxmicro.annotation.processor.data.sql.r2dbc.postgresql.component.impl.PostgreSQLDataRepositoryMethodSignatureBuilder;
 import io.rxmicro.annotation.processor.data.sql.r2dbc.postgresql.component.impl.PostgreSQLRepositoryClassStructureBuilderImpl;
@@ -139,8 +139,8 @@ public final class PostgreSQLDependenciesModule extends AbstractModule {
 
     @Override
     protected void configure() {
-        bind(PlatformPlaceHolderGeneratorFactory.class)
-                .to(PostgrePlatformPlaceHolderGeneratorFactory.class);
+        bind(PlatformPlaceholders.class)
+                .to(PostgrePlatformPlaceholders.class);
         bind(SupportedTypesProvider.class)
                 .to(PostgreSQLSupportedTypesProvider.class);
         bind(TokenParserRule.class)

@@ -69,11 +69,11 @@ public final class ${JAVA_MODEL_CLASS.entityToDBConverterImplSimpleClassName} ex
         </#if>
     <#elseif entry.value.enum>
         <#if param.modelWriteAccessorType.name() == "REFLECTION">
-                <#if param.lengthPresent>${param.trimMethodName}(</#if>((Enum<?>) getFieldValue(entity, "${param.fieldName}")).name()<#if param.lengthPresent>, ${param.length})</#if><#if addComma>,</#if>
+                <#if param.lengthPresent>${param.trimMethodName}(</#if>((Enum<?>) getFieldValue(entity, "${param.fieldName}"))<#if param.lengthPresent>, ${param.length})</#if><#if addComma>,</#if>
         <#elseif param.modelWriteAccessorType.name() == "DIRECT">
-                <#if param.lengthPresent>${param.trimMethodName}(</#if>entity.${param.fieldName}.name()<#if param.lengthPresent>, ${param.length})</#if><#if addComma>,</#if>
+                <#if param.lengthPresent>${param.trimMethodName}(</#if>entity.${param.fieldName}<#if param.lengthPresent>, ${param.length})</#if><#if addComma>,</#if>
         <#elseif param.modelWriteAccessorType.name() == "JAVA_BEAN">
-                <#if param.lengthPresent>${param.trimMethodName}(</#if>entity.${param.getter}().name()<#if param.lengthPresent>, ${param.length})</#if><#if addComma>,</#if>
+                <#if param.lengthPresent>${param.trimMethodName}(</#if>entity.${param.getter}()<#if param.lengthPresent>, ${param.length})</#if><#if addComma>,</#if>
         </#if>
     </#if>
 </#macro>
@@ -90,11 +90,11 @@ public final class ${JAVA_MODEL_CLASS.entityToDBConverterImplSimpleClassName} ex
     </#if>
     <#elseif entry.value.enum>
         <#if param.modelWriteAccessorType.name() == "REFLECTION">
-        setFieldValue(model, "${param.fieldName}", toEnum(${param.columnType}.class, dbRow.get(${index}, String.class), "${param.fieldName}"));
+        setFieldValue(model, "${param.fieldName}", dbRow.get(${index}, ${param.columnType}.class));
         <#elseif param.modelWriteAccessorType.name() == "DIRECT">
-        model.${param.fieldName} = toEnum(${param.columnType}.class, dbRow.get(${index}, String.class), "${param.fieldName}");
+        model.${param.fieldName} = dbRow.get(${index}, ${param.columnType}.class);
         <#elseif param.modelWriteAccessorType.name() == "JAVA_BEAN">
-        model.${param.setter}(toEnum(${param.columnType}.class, dbRow.get(${index}, String.class), "${param.fieldName}"));
+        model.${param.setter}(dbRow.get(${index}, ${param.columnType}.class));
     </#if>
     </#if>
 </#macro>
