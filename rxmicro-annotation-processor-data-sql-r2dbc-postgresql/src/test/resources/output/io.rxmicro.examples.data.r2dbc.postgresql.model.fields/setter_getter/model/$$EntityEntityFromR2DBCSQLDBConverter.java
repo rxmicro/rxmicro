@@ -25,7 +25,7 @@ public final class $$EntityEntityFromR2DBCSQLDBConverter extends EntityFromR2DBC
                          final RowMetadata metadata) {
         final Entity model = new Entity();
         model.setId(dbRow.get(0, Long.class));
-        model.setStatus(toEnum(Status.class, dbRow.get(1, String.class), "status"));
+        model.setStatus(dbRow.get(1, Status.class));
         model.setaBoolean(dbRow.get(2, Boolean.class));
         model.setaByte(dbRow.get(3, Byte.class));
         model.setaShort(dbRow.get(4, Short.class));

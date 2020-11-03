@@ -12,7 +12,7 @@ public final class $$EntityEntityToR2DBCSQLDBConverter extends EntityToR2DBCSQLD
 
     public Object[] getInsertParams(final Entity entity) {
         return new Object[]{
-                ((Enum<?>) getFieldValue(entity, "status")).name(),
+                ((Enum<?>) getFieldValue(entity, "status")),
                 getFieldValue(entity, "aBoolean"),
                 getFieldValue(entity, "aByte"),
                 getFieldValue(entity, "aShort"),
@@ -37,7 +37,7 @@ public final class $$EntityEntityToR2DBCSQLDBConverter extends EntityToR2DBCSQLD
 
     public Object[] getUpdateParams(final Entity entity) {
         return new Object[]{
-                ((Enum<?>) getFieldValue(entity, "status")).name(),
+                ((Enum<?>) getFieldValue(entity, "status")),
                 getFieldValue(entity, "aBoolean"),
                 getFieldValue(entity, "aByte"),
                 getFieldValue(entity, "aShort"),

@@ -26,7 +26,7 @@ public final class $$PostgreSQLSelectProjectionDataRepository extends AbstractPo
     @Override
     public CompletableFuture<Account> findAllColumns() {
         // Original SQL statement:  'SELECT * FROM ${table} WHERE email = 'richard.hendricks@piedpiper.com''
-        final String generatedSQL = "SELECT id, email, first_name, last_name, balance, role::text FROM account WHERE email = 'richard.hendricks@piedpiper.com'";
+        final String generatedSQL = "SELECT id, email, first_name, last_name, balance, role FROM account WHERE email = 'richard.hendricks@piedpiper.com'";
         return pool.create()
                 .flatMap(c -> executeStatement(c, generatedSQL)
                         .flatMap(r -> Mono.from(r.map(accountEntityFromR2DBCSQLDBConverter::fromDB)))

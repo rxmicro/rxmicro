@@ -13,7 +13,7 @@ public final class $$AccountEntityToR2DBCSQLDBConverter extends EntityToR2DBCSQL
                 entity.email,
                 entity.firstName,
                 entity.lastName,
-                entity.role.name()
+                entity.role
         };
     }
 
@@ -23,7 +23,7 @@ public final class $$AccountEntityToR2DBCSQLDBConverter extends EntityToR2DBCSQL
                 entity.firstName,
                 entity.lastName,
                 entity.balance,
-                entity.role.name(),
+                entity.role,
                 // primary key(s):
                 entity.id
         };

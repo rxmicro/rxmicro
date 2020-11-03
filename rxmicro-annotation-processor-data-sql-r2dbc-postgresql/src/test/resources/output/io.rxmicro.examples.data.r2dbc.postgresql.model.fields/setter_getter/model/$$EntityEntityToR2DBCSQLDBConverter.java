@@ -10,7 +10,7 @@ public final class $$EntityEntityToR2DBCSQLDBConverter extends EntityToR2DBCSQLD
 
     public Object[] getInsertParams(final Entity entity) {
         return new Object[]{
-                entity.getStatus().name(),
+                entity.getStatus(),
                 entity.getaBoolean(),
                 entity.getaByte(),
                 entity.getaShort(),
@@ -35,7 +35,7 @@ public final class $$EntityEntityToR2DBCSQLDBConverter extends EntityToR2DBCSQLD
 
     public Object[] getUpdateParams(final Entity entity) {
         return new Object[]{
-                entity.getStatus().name(),
+                entity.getStatus(),
                 entity.getaBoolean(),
                 entity.getaByte(),
                 entity.getaShort(),

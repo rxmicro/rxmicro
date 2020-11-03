@@ -101,8 +101,8 @@ final class BaseRestControllerMethod_BadRequestException_IntegrationTest extends
         verify(httpErrorResponseBodyBuilder).build(httpResponseBuilder, ThrowValidationExceptionArgumentsProvider.VALIDATION_EXCEPTION);
         verify(httpResponse, never()).setHeader(eq(ACCESS_CONTROL_ALLOW_ORIGIN), anyString());
         verify(logger).error(
-                "HTTP error: status=?, message=?, class=?",
-                400, "'name' is required", ValidationException.class.getName()
+                "HTTP error: status=?, content=?, class=?",
+                400, "{message='name' is required}", ValidationException.class.getName()
         );
     }
 

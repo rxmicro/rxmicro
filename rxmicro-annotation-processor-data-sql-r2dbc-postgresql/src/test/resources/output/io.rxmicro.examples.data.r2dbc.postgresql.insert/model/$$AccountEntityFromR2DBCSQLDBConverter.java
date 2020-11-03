@@ -26,7 +26,7 @@ public final class $$AccountEntityFromR2DBCSQLDBConverter extends EntityFromR2DB
         model.firstName = dbRow.get(2, String.class);
         model.lastName = dbRow.get(3, String.class);
         model.balance = dbRow.get(4, BigDecimal.class);
-        model.role = toEnum(Role.class, dbRow.get(5, String.class), "role");
+        model.role = dbRow.get(5, Role.class);
         return model;
     }
 }

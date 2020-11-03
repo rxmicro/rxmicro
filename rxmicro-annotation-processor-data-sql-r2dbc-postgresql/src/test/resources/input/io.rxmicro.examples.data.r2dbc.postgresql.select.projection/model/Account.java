@@ -18,7 +18,6 @@ package io.rxmicro.examples.data.r2dbc.postgresql.select.projection.model;
 
 import io.rxmicro.data.Column;
 import io.rxmicro.data.ColumnMappingStrategy;
-import io.rxmicro.data.sql.Cast;
 import io.rxmicro.data.sql.Table;
 
 import java.math.BigDecimal;
@@ -41,7 +40,6 @@ public final class Account {
 
     BigDecimal balance;
 
-    @Cast("role::text")
     Role role;
 
     public Account(final Long id,

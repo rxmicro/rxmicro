@@ -12,7 +12,7 @@ public final class $$CompositePrimaryKeyEntityToR2DBCSQLDBConverter extends Enti
         return new Object[]{
                 entity.idCategory,
                 entity.idType,
-                entity.idRole.name()
+                entity.idRole
         };
     }
 
@@ -22,7 +22,7 @@ public final class $$CompositePrimaryKeyEntityToR2DBCSQLDBConverter extends Enti
                 // primary key(s):
                 entity.idCategory,
                 entity.idType,
-                entity.idRole.name()
+                entity.idRole
         };
     }
 
@@ -30,7 +30,7 @@ public final class $$CompositePrimaryKeyEntityToR2DBCSQLDBConverter extends Enti
         return new Object[]{
                 entity.idCategory,
                 entity.idType,
-                entity.idRole.name()
+                entity.idRole
         };
     }
 }
