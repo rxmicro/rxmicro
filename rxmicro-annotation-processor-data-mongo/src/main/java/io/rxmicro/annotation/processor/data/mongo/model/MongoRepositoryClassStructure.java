@@ -48,7 +48,7 @@ public final class MongoRepositoryClassStructure extends DataRepositoryClassStru
                                          final String configNameSpace,
                                          final List<MongoRepositoryMethod> methods,
                                          final List<Map.Entry<String, DefaultConfigProxyValue>> defaultConfigValues) {
-        super(classHeaderBuilder, repositoryInterface, abstractClass, configNameSpace, methods, defaultConfigValues);
+        super(classHeaderBuilder, repositoryInterface, abstractClass, configNameSpace, methods, defaultConfigValues, List.of());
         this.collectionName = require(collectionName);
     }
 

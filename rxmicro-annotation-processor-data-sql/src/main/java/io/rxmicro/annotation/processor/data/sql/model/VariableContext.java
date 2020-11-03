@@ -26,21 +26,21 @@ import static io.rxmicro.common.util.Requires.require;
  */
 public abstract class VariableContext {
 
-    private TableContext currentTable;
+    private DbObjectName currentTableName;
 
-    public final TableContext getCurrentTable() {
-        return require(currentTable, "Current table is not set");
+    public final DbObjectName getCurrentTableName() {
+        return require(currentTableName, "Current table is not set");
     }
 
-    public void setCurrentTable(final TableContext tableContext) {
-        if (this.currentTable != null) {
+    public void setCurrentTableName(final DbObjectName currentTableName) {
+        if (this.currentTableName != null) {
             throw new InvalidStateException("currentTable  already set");
         }
-        this.currentTable = tableContext;
+        this.currentTableName = currentTableName;
     }
 
     public void releaseCurrentTable() {
-        currentTable = null;
+        currentTableName = null;
     }
 
     /**

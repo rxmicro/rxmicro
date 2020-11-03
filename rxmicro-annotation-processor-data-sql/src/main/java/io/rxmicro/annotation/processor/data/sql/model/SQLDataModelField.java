@@ -95,9 +95,9 @@ public class SQLDataModelField extends DataModelField {
     private String getSequenceName(final VariableContext variableContext,
                                    final SequenceGenerator sequenceGenerator) {
         final String schema = Optional.of(sequenceGenerator.schema()).filter(v -> !v.isEmpty())
-                .or(() -> variableContext.getCurrentTable().getSchema())
+                .or(() -> variableContext.getCurrentTableName().getSchema())
                 .orElse("");
-        final String table = variableContext.getCurrentTable().getTableSimpleName();
+        final String table = variableContext.getCurrentTableName().getSimpleName();
         final String sequenceName = sequenceGenerator.value()
                 .replace("${schema}", schema)
                 .replace("${table}", table)
@@ -133,7 +133,7 @@ public class SQLDataModelField extends DataModelField {
 
     @UsedByFreemarker("$$SQLEntityToSQLDBConverterTemplate.javaftl")
     public boolean isLengthPresent() {
-        if(lengthPresent == null) {
+        if (lengthPresent == null) {
             if (String.class.getName().equals(getFieldClass().toString())) {
                 if (length == Column.NOT_SPECIFIED_LENGTH) {
                     throw new InterruptProcessingException(

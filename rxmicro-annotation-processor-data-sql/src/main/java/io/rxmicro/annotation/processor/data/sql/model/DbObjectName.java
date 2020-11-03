@@ -18,34 +18,43 @@ package io.rxmicro.annotation.processor.data.sql.model;
 
 import java.util.Optional;
 
+import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.Requires.require;
 
 /**
  * @author nedis
- * @since 0.1
+ * @since 0.7
  */
-public final class TableContext {
+public final class DbObjectName {
 
     private final String schema;
 
-    private final String table;
+    private final String name;
 
-    public TableContext(final String schema,
-                        final String table) {
+    public DbObjectName(final String schema,
+                        final String name) {
         this.schema = require(schema);
-        this.table = require(table);
+        this.name = require(name);
     }
 
-    public TableContext(final String table) {
+    public DbObjectName(final String name) {
         this.schema = null;
-        this.table = require(table);
+        this.name = require(name);
+    }
+
+    public String getFullName() {
+        if (schema == null) {
+            return name;
+        } else {
+            return format("?.?", schema, name);
+        }
+    }
+
+    public String getSimpleName() {
+        return name;
     }
 
     public Optional<String> getSchema() {
         return Optional.ofNullable(schema);
-    }
-
-    public String getTableSimpleName() {
-        return table;
     }
 }

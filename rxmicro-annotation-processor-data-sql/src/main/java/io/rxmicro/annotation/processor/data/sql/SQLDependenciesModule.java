@@ -18,10 +18,10 @@ package io.rxmicro.annotation.processor.data.sql;
 
 import com.google.inject.AbstractModule;
 import io.rxmicro.annotation.processor.data.sql.component.SQLFieldsOrderExtractor;
+import io.rxmicro.annotation.processor.data.sql.component.impl.DbObjectNameBuilder;
 import io.rxmicro.annotation.processor.data.sql.component.impl.MethodParamResolver;
 import io.rxmicro.annotation.processor.data.sql.component.impl.SQLFieldsOrderExtractorImpl;
 import io.rxmicro.annotation.processor.data.sql.component.impl.SQLFieldsOrderValidator;
-import io.rxmicro.annotation.processor.data.sql.component.impl.TableContextBuilder;
 import io.rxmicro.annotation.processor.data.sql.component.impl.TransactionResolver;
 
 /**
@@ -39,7 +39,7 @@ public final class SQLDependenciesModule extends AbstractModule {
     }
 
     private void binClasses() {
-        bind(TableContextBuilder.class);
+        bind(DbObjectNameBuilder.class);
         bind(TransactionResolver.class);
         bind(SQLFieldsOrderValidator.class);
         bind(MethodParamResolver.class);

@@ -57,23 +57,31 @@ public abstract class DataRepositoryClassStructure extends ClassStructure {
 
     private final List<Map.Entry<String, DefaultConfigProxyValue>> defaultConfigValues;
 
+    private final List<Map.Entry<TypeElement, String>> enumMapping;
 
     protected DataRepositoryClassStructure(final ClassHeader.Builder classHeaderBuilder,
                                            final TypeElement repositoryInterface,
-                                           final TypeElement abstractClass, final String configNameSpace,
+                                           final TypeElement abstractClass,
+                                           final String configNameSpace,
                                            final List<? extends DataRepositoryMethod> methods,
-                                           final List<Map.Entry<String, DefaultConfigProxyValue>> defaultConfigValues) {
+                                           final List<Map.Entry<String, DefaultConfigProxyValue>> defaultConfigValues,
+                                           final List<Map.Entry<TypeElement, String>> enumMapping) {
         this.classHeaderBuilder = require(classHeaderBuilder);
         this.repositoryInterface = require(repositoryInterface);
         this.abstractClass = require(abstractClass);
         this.configNameSpace = require(configNameSpace);
         this.methods = require(methods);
         this.defaultConfigValues = require(defaultConfigValues);
+        this.enumMapping = require(enumMapping);
         this.modelTransformers = getModelTransformers();
     }
 
     public List<Map.Entry<String, DefaultConfigProxyValue>> getDefaultConfigValues() {
         return defaultConfigValues;
+    }
+
+    public List<Map.Entry<TypeElement, String>> getEnumMapping() {
+        return enumMapping;
     }
 
     @UsedByFreemarker("$$RepositoryFactoryImplTemplate.javaftl")
@@ -109,10 +117,10 @@ public abstract class DataRepositoryClassStructure extends ClassStructure {
     private Set<ModelTransformer> getModelTransformers() {
         return Stream.concat(
                 methods.stream()
-                        .flatMap(m -> m.getParamEntityClasses().stream())
+                        .flatMap(m -> m.getMethodSignature().getParamEntityClasses().stream())
                         .map(cl -> new ModelTransformer(cl, getEntityToDBConverterClass())),
                 methods.stream()
-                        .flatMap(m -> m.getReturnEntityClasses().stream())
+                        .flatMap(m -> m.getMethodSignature().getReturnEntityClasses().stream())
                         .map(cl -> new ModelTransformer(cl, getEntityFromDBConverterClass())))
                 .collect(toTreeSet());
     }

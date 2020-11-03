@@ -20,7 +20,9 @@ import io.rxmicro.annotation.processor.common.model.method.MethodBody;
 import io.rxmicro.annotation.processor.common.util.UsedByFreemarker;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.TypeMirror;
 
 import static io.rxmicro.common.util.Formats.format;
@@ -43,12 +45,8 @@ public abstract class DataRepositoryMethod {
         this.body = require(body);
     }
 
-    public Set<TypeMirror> getParamEntityClasses() {
-        return methodSignature.getParamEntityClasses();
-    }
-
-    public Set<TypeMirror> getReturnEntityClasses() {
-        return methodSignature.getReturnEntityClasses();
+    public DataRepositoryMethodSignature getMethodSignature() {
+        return methodSignature;
     }
 
     @UsedByFreemarker

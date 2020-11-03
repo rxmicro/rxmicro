@@ -21,12 +21,12 @@ import io.rxmicro.annotation.processor.common.component.ModelFieldBuilder;
 import io.rxmicro.annotation.processor.common.model.error.InternalErrorException;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
 import io.rxmicro.annotation.processor.data.sql.component.SQLVariableValueResolver;
-import io.rxmicro.annotation.processor.data.sql.component.impl.TableContextBuilder;
+import io.rxmicro.annotation.processor.data.sql.component.impl.DbObjectNameBuilder;
+import io.rxmicro.annotation.processor.data.sql.model.DbObjectName;
 import io.rxmicro.annotation.processor.data.sql.model.ParsedSQL;
 import io.rxmicro.annotation.processor.data.sql.model.SQLDataModelField;
 import io.rxmicro.annotation.processor.data.sql.model.SQLDataObjectModelClass;
 import io.rxmicro.annotation.processor.data.sql.model.SQLMethodDescriptor;
-import io.rxmicro.annotation.processor.data.sql.model.TableContext;
 import io.rxmicro.annotation.processor.data.sql.model.VariableContext;
 import io.rxmicro.annotation.processor.data.sql.model.VariableValuesMap;
 import io.rxmicro.data.sql.VariableValues;
@@ -59,7 +59,7 @@ public abstract class AbstractSQLVariableValueResolver
     private ModelFieldBuilder<DMF, DMC> modelFieldModelFieldBuilder;
 
     @Inject
-    private TableContextBuilder tableContextBuilder;
+    private DbObjectNameBuilder dbObjectNameBuilder;
 
     @Override
     public final VariableValuesMap resolveVariableValues(final VariableContext variableContext,
@@ -118,8 +118,8 @@ public abstract class AbstractSQLVariableValueResolver
                                    final DMC modelClass,
                                    final VariableValuesMap entityVariableValuesMap,
                                    final Set<String> supportedVariables) {
-        final TableContext tableContext = tableContextBuilder.createTableContext(modelClass.getModelTypeElement());
-        variableContext.setCurrentTable(tableContext);
+        final DbObjectName tableName = dbObjectNameBuilder.buildTableName(modelClass.getModelTypeElement());
+        variableContext.setCurrentTableName(tableName);
         for (final String variableName : supportedVariables) {
             final BiFunction<SQLDataObjectModelClass<? extends SQLDataModelField>, VariableContext, Object> provider =
                     VARIABLE_RESOLVER_PROVIDER.get(variableName);

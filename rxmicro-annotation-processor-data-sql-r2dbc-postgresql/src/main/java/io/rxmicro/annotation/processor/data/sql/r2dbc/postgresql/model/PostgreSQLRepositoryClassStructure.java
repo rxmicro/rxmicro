@@ -40,8 +40,9 @@ public final class PostgreSQLRepositoryClassStructure extends AbstractSQLDataRep
                                               final TypeElement abstractClass,
                                               final String configNameSpace,
                                               final List<SQLDataRepositoryMethod> methods,
-                                              final List<Map.Entry<String, DefaultConfigProxyValue>> defaultConfigValues) {
-        super(classHeaderBuilder, repositoryInterface, abstractClass, configNameSpace, methods, defaultConfigValues);
+                                              final List<Map.Entry<String, DefaultConfigProxyValue>> defaultConfigValues,
+                                              final List<Map.Entry<TypeElement, String>> enumMapping) {
+        super(classHeaderBuilder, repositoryInterface, abstractClass, configNameSpace, methods, defaultConfigValues, enumMapping);
     }
 
     @Override

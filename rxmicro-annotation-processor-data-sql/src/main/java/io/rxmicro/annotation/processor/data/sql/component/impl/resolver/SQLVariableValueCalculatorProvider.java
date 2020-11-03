@@ -112,9 +112,9 @@ final class SQLVariableValueCalculatorProvider {
                     ),
                     //-------------------------------------------------------------------------------------------
                     TABLE,
-                    (modelClass, context) -> context.getCurrentTable().getSchema()
-                            .map(s -> s + "." + context.getCurrentTable().getTableSimpleName())
-                            .orElse(context.getCurrentTable().getTableSimpleName())
+                    (modelClass, context) -> context.getCurrentTableName().getSchema()
+                            .map(s -> s + "." + context.getCurrentTableName().getSimpleName())
+                            .orElse(context.getCurrentTableName().getSimpleName())
                     ,
                     //-------------------------------------------------------------------------------------------
                     ON_CONFLICT_UPDATE_NOT_ID_COLUMNS,
