@@ -38,6 +38,8 @@ public final class ProcessingEnvironmentHelper {
 
     private static final String ERROR_TEMPLATE = "? is not initialized yet";
 
+    private static ProcessingEnvironment processingEnvironment;
+
     private static int errorCount;
 
     private static Elements elements;
@@ -50,13 +52,18 @@ public final class ProcessingEnvironmentHelper {
 
     private static Map<String, String> compilerOptions;
 
-    public static void init(final ProcessingEnvironment processingEnvironment) {
-        elements = new ProxyElements(processingEnvironment.getElementUtils());
-        types = new ProxyTypes(processingEnvironment.getTypeUtils());
-        messager = new ProxyMessager(processingEnvironment.getMessager());
-        filer = processingEnvironment.getFiler();
-        compilerOptions = unmodifiableOrderedMap(processingEnvironment.getOptions());
+    public static void init(final ProcessingEnvironment processingEnv) {
+        processingEnvironment = processingEnv;
+        elements = new ProxyElements(processingEnv.getElementUtils());
+        types = new ProxyTypes(processingEnv.getTypeUtils());
+        messager = new ProxyMessager(processingEnv.getMessager());
+        filer = processingEnv.getFiler();
+        compilerOptions = unmodifiableOrderedMap(processingEnv.getOptions());
         errorCount = 0;
+    }
+
+    public static ProcessingEnvironment getProcessingEnvironment() {
+        return processingEnvironment;
     }
 
     public static Elements getElements() {

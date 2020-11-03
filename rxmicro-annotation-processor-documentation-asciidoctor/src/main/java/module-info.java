@@ -29,6 +29,7 @@ module rxmicro.annotation.processor.documentation.asciidoctor {
     requires transitive rxmicro.annotation.processor.documentation;
     requires transitive rxmicro.documentation.asciidoctor;
     requires transitive rxmicro.files;
+    requires jdk.compiler;
 
     exports io.rxmicro.annotation.processor.documentation.asciidoctor.model to
             freemarker;

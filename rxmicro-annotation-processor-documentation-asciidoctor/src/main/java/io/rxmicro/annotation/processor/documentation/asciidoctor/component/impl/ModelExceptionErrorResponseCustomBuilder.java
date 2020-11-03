@@ -18,7 +18,10 @@ package io.rxmicro.annotation.processor.documentation.asciidoctor.component.impl
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import com.sun.source.tree.MethodTree;
+import com.sun.source.util.Trees;
 import io.rxmicro.annotation.processor.common.component.ModelFieldBuilder;
+import io.rxmicro.annotation.processor.common.component.impl.AbstractProcessorComponent;
 import io.rxmicro.annotation.processor.common.model.EnvironmentContext;
 import io.rxmicro.annotation.processor.common.model.ModelFieldBuilderOptions;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
@@ -33,21 +36,28 @@ import io.rxmicro.documentation.ResourceDefinition;
 import io.rxmicro.rest.model.HttpModelType;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import javax.lang.model.element.Element;
+import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.ModuleElement;
 import javax.lang.model.element.TypeElement;
 
+import static io.rxmicro.annotation.processor.common.SupportedOptions.RX_MICRO_STRICT_MODE;
+import static io.rxmicro.annotation.processor.common.SupportedOptions.RX_MICRO_STRICT_MODE_DEFAULT_VALUE;
 import static io.rxmicro.annotation.processor.common.model.ModelFieldType.REST_SERVER_RESPONSE;
 import static io.rxmicro.annotation.processor.common.util.Elements.allMethodsFromType;
+import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getProcessingEnvironment;
+import static io.rxmicro.common.util.Formats.format;
 import static java.util.Map.entry;
+import static java.util.stream.Collectors.joining;
 
 /**
  * @author nedis
  * @since 0.7
  */
 @Singleton
-public final class ModelExceptionErrorResponseCustomBuilder {
+public final class ModelExceptionErrorResponseCustomBuilder extends AbstractProcessorComponent {
 
     @Inject
     private ModelFieldBuilder<RestModelField, RestObjectModelClass> modelFieldBuilder;
@@ -65,13 +75,13 @@ public final class ModelExceptionErrorResponseCustomBuilder {
                                 final TypeElement exceptionTypeElement,
                                 final int status,
                                 final Response.Builder responseBuilder) {
-        validateCustomExceptionType(exceptionTypeElement);
         final ModuleElement currentModule = environmentContext.getCurrentModule();
         final ModelFieldBuilderOptions options = new ModelFieldBuilderOptions()
                 .setWithFieldsFromParentClasses(false);
         final RestObjectModelClass modelClass =
                 modelFieldBuilder.build(REST_SERVER_RESPONSE, currentModule, Set.of(exceptionTypeElement), options)
                         .get(exceptionTypeElement);
+        validateCustomExceptionType(exceptionTypeElement, modelClass);
         if (resourceDefinition.withExamples()) {
             responseBuilder.setExample(httpResponseExampleBuilder.build(resourceDefinition, status, modelClass));
         }
@@ -88,12 +98,40 @@ public final class ModelExceptionErrorResponseCustomBuilder {
         }
     }
 
-    private void validateCustomExceptionType(final TypeElement exceptionTypeElement) {
-        if (allMethodsFromType(exceptionTypeElement,
-                e -> "getResponseData".equals(e.getSimpleName().toString()) && e.getParameters().isEmpty()).isEmpty()) {
+    private void validateCustomExceptionType(final TypeElement exceptionTypeElement,
+                                             final RestObjectModelClass modelClass) {
+        final List<ExecutableElement> methods = allMethodsFromType(
+                exceptionTypeElement, e -> "getResponseData".equals(e.getSimpleName().toString()) && e.getParameters().isEmpty()
+        );
+        if (methods.isEmpty()) {
             throw new InterruptProcessingException(
                     exceptionTypeElement,
                     "Exception type with custom fields must override 'getResponseData' method!"
+            );
+        }
+        if (getBooleanOption(RX_MICRO_STRICT_MODE, RX_MICRO_STRICT_MODE_DEFAULT_VALUE)) {
+            validateGetResponseDataMethodBody(methods.get(0), modelClass);
+        }
+    }
+
+    private void validateGetResponseDataMethodBody(final ExecutableElement getResponseDataMethod,
+                                                   final RestObjectModelClass modelClass) {
+        com.sun.source.util.Trees trees = Trees.instance(getProcessingEnvironment());
+        final MethodTree methodTree = trees.getTree(getResponseDataMethod);
+        final String actualBody = methodTree.getBody().getStatements().stream().map(Objects::toString).collect(joining("")).trim();
+        final String expectedBody = format(
+                "return Optional.of(Map.of(?));",
+                modelClass.getParamEntries().stream()
+                        .map(e -> e.getKey().getModelName())
+                        .map(n -> format("\"?\", ?", n, n))
+                        .collect(joining(","))
+        );
+        if (!actualBody.equals(expectedBody)) {
+            throw new InterruptProcessingException(
+                    getResponseDataMethod,
+                    "Invalid method body: expected={?}, but actual is {?}",
+                    expectedBody,
+                    actualBody
             );
         }
     }

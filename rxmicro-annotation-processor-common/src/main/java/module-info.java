@@ -184,7 +184,7 @@ module rxmicro.annotation.processor.common {
             rxmicro.annotation.processor.data.sql,
             rxmicro.annotation.processor.data.sql.r2dbc,
             rxmicro.annotation.processor.data.sql.r2dbc.postgresql,
-            rxmicro.annotation.processor.cdi;
+            rxmicro.annotation.processor.cdi, rxmicro.annotation.processor.documentation.asciidoctor;
 
     opens io.rxmicro.annotation.processor.common to
             com.google.guice;
