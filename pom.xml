@@ -127,6 +127,7 @@
         <maven.model.version>3.6.3</maven.model.version>
         <!-- Test libraries -->
         <junit.version>5.7.0</junit.version>
+        <junit.platform.version>1.7.0</junit.platform.version>
         <mockito.version>3.5.13</mockito.version>
         <compile.google.testing.version>0.18</compile.google.testing.version>
         <!-- Runtime Libraries -->
