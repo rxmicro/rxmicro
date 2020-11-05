@@ -81,11 +81,11 @@ public final class PostgreSQLDeleteWithReturningSQLRepositoryMethodModelBuilder
                                       final List<Variable> params,
                                       final SQLStatement sqlStatement,
                                       final Map<String, Object> templateArguments) {
+        super.addEntityConverter(methodResult, sqlMethodDescriptor, dataGenerationContext, params, sqlStatement, templateArguments);
         sqlMethodDescriptor.getEntityParam().ifPresent(modelClass -> {
             modelClass.setDeletable(true);
             templateArguments.put("IS_PRIMARY_KEY_SIMPLE", modelClass.getPrimaryKeysParams().size() == 1);
         });
-        super.addEntityConverter(methodResult, sqlMethodDescriptor, dataGenerationContext, params, sqlStatement, templateArguments);
     }
 
     @Override

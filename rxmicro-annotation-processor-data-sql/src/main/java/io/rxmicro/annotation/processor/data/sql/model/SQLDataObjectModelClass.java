@@ -47,6 +47,10 @@ public abstract class SQLDataObjectModelClass<DMF extends SQLDataModelField> ext
 
     private Set<Map.Entry<DMF, ModelClass>> primaryKeysParams;
 
+    private boolean insertable;
+
+    private boolean updatable;
+
     private boolean deletable;
 
     public SQLDataObjectModelClass(final TypeMirror modelTypeMirror,
@@ -72,7 +76,11 @@ public abstract class SQLDataObjectModelClass<DMF extends SQLDataModelField> ext
     }
 
     public boolean isInsertable() {
-        return insertableParams != null;
+        return insertable;
+    }
+
+    public void setInsertable(final boolean insertable) {
+        this.insertable = insertable;
     }
 
     public Set<Map.Entry<DMF, ModelClass>> getInsertableParams() {
@@ -85,7 +93,11 @@ public abstract class SQLDataObjectModelClass<DMF extends SQLDataModelField> ext
     }
 
     public boolean isUpdatable() {
-        return updatableParams != null;
+        return updatable;
+    }
+
+    public void setUpdatable(final boolean updatable) {
+        this.updatable = updatable;
     }
 
     public Set<Map.Entry<DMF, ModelClass>> getUpdatableParams() {
@@ -107,7 +119,7 @@ public abstract class SQLDataObjectModelClass<DMF extends SQLDataModelField> ext
     }
 
     public boolean isPrimaryKeysPresent() {
-        return primaryKeysParams != null;
+        return !getPrimaryKeysParams().isEmpty();
     }
 
     public Set<Map.Entry<DMF, ModelClass>> getPrimaryKeysParams() {

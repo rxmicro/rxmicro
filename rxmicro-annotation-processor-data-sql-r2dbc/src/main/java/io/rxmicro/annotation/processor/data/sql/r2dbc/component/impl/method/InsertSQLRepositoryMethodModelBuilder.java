@@ -17,13 +17,20 @@
 package io.rxmicro.annotation.processor.data.sql.r2dbc.component.impl.method;
 
 import com.google.inject.Singleton;
+import io.rxmicro.annotation.processor.common.model.method.MethodResult;
+import io.rxmicro.annotation.processor.data.model.DataGenerationContext;
+import io.rxmicro.annotation.processor.data.model.Variable;
 import io.rxmicro.annotation.processor.data.sql.model.ParsedSQL;
 import io.rxmicro.annotation.processor.data.sql.model.SQLDataModelField;
 import io.rxmicro.annotation.processor.data.sql.model.SQLDataObjectModelClass;
+import io.rxmicro.annotation.processor.data.sql.model.SQLMethodDescriptor;
+import io.rxmicro.annotation.processor.data.sql.model.SQLStatement;
 import io.rxmicro.annotation.processor.data.sql.r2dbc.component.impl.AbstractSQLModificationOperationDataRepositoryMethodModelBuilder;
 import io.rxmicro.data.sql.operation.Insert;
 
 import java.lang.annotation.Annotation;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import javax.lang.model.element.ExecutableElement;
 
@@ -52,5 +59,18 @@ public class InsertSQLRepositoryMethodModelBuilder<DMF extends SQLDataModelField
     @Override
     public Class<? extends Annotation> operationType() {
         return Insert.class;
+    }
+
+    @Override
+    protected void addEntityConverter(final MethodResult methodResult,
+                                      final SQLMethodDescriptor<DMF, DMC> sqlMethodDescriptor,
+                                      final DataGenerationContext<DMF, DMC> dataGenerationContext,
+                                      final List<Variable> params,
+                                      final SQLStatement sqlStatement,
+                                      final Map<String, Object> templateArguments) {
+        super.addEntityConverter(methodResult, sqlMethodDescriptor, dataGenerationContext, params, sqlStatement, templateArguments);
+        sqlMethodDescriptor.getEntityParam().ifPresent(modelClass -> {
+            modelClass.setInsertable(true);
+        });
     }
 }
