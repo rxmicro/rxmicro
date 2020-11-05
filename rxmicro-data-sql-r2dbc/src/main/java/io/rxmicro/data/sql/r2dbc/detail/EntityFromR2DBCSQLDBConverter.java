@@ -25,5 +25,5 @@ import io.rxmicro.data.local.EntityFromDBConverter;
  * @hidden
  * @since 0.1
  */
-public abstract class EntityFromR2DBCSQLDBConverter<DB, META, E> implements EntityFromDBConverter {
+public class EntityFromR2DBCSQLDBConverter<DB, META, E> implements EntityFromDBConverter {
 }

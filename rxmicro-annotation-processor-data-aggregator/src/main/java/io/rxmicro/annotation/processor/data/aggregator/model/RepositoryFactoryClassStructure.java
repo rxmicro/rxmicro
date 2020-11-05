@@ -16,7 +16,6 @@
 
 package io.rxmicro.annotation.processor.data.aggregator.model;
 
-import io.r2dbc.postgresql.codec.EnumCodec;
 import io.rxmicro.annotation.processor.common.model.ClassHeader;
 import io.rxmicro.annotation.processor.common.model.ClassStructure;
 import io.rxmicro.annotation.processor.common.model.error.InternalErrorException;

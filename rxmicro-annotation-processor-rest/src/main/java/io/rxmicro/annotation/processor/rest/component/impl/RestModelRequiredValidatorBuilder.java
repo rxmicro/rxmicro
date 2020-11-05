@@ -20,24 +20,11 @@ import io.rxmicro.annotation.processor.common.model.type.ModelClass;
 import io.rxmicro.annotation.processor.rest.model.RestModelField;
 import io.rxmicro.annotation.processor.rest.model.validator.ModelValidatorClassStructure;
 import io.rxmicro.validation.constraint.AllowEmptyString;
-import io.rxmicro.validation.constraint.Base64URLEncoded;
-import io.rxmicro.validation.constraint.CountryCode;
-import io.rxmicro.validation.constraint.DigitsOnly;
-import io.rxmicro.validation.constraint.DomainName;
-import io.rxmicro.validation.constraint.Email;
 import io.rxmicro.validation.constraint.Enumeration;
-import io.rxmicro.validation.constraint.HostName;
-import io.rxmicro.validation.constraint.IP;
-import io.rxmicro.validation.constraint.LatinAlphabetOnly;
 import io.rxmicro.validation.constraint.Length;
 import io.rxmicro.validation.constraint.MinLength;
 import io.rxmicro.validation.constraint.Nullable;
 import io.rxmicro.validation.constraint.NullableArrayItem;
-import io.rxmicro.validation.constraint.Phone;
-import io.rxmicro.validation.constraint.Telegram;
-import io.rxmicro.validation.constraint.URI;
-import io.rxmicro.validation.constraint.Viber;
-import io.rxmicro.validation.constraint.WhatsApp;
 import io.rxmicro.validation.validator.NotEmptyStringConstraintValidator;
 import io.rxmicro.validation.validator.RequiredAndNotEmptyStringConstraintValidator;
 import io.rxmicro.validation.validator.RequiredConstraintValidator;
@@ -107,12 +94,18 @@ public final class RestModelRequiredValidatorBuilder {
 
     private boolean shouldNotEmptyValidatorBeAdded(final RestModelField restModelField) {
         final AllowEmptyString allowEmptyString = restModelField.getAnnotation(AllowEmptyString.class);
+        if (allowEmptyString != null && !allowEmptyString.off()) {
+            return false;
+        }
         final MinLength minLength = restModelField.getAnnotation(MinLength.class);
+        if (minLength != null && !minLength.off()) {
+            return false;
+        }
         final Length length = restModelField.getAnnotation(Length.class);
+        if (length != null && !length.off()) {
+            return false;
+        }
         final Enumeration enumeration = restModelField.getAnnotation(Enumeration.class);
-        return (allowEmptyString == null || allowEmptyString.off()) &&
-                (minLength == null || minLength.off()) &&
-                (length == null || length.off()) &&
-                (enumeration == null || enumeration.off());
+        return enumeration == null || enumeration.off();
     }
 }

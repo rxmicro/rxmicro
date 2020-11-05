@@ -16,6 +16,8 @@
 
 package io.rxmicro.annotation.processor.common.model;
 
+import io.rxmicro.common.meta.BuilderMethod;
+
 /**
  * @author nedis
  * @since 0.7
@@ -30,30 +32,33 @@ public final class ModelFieldBuilderOptions {
 
     private boolean accessViaReflectionMustBeDetected = true;
 
+    public boolean isRequireDefConstructor() {
+        return requireDefConstructor;
+    }
+
+    @BuilderMethod
     public ModelFieldBuilderOptions setRequireDefConstructor(final boolean requireDefConstructor) {
         this.requireDefConstructor = requireDefConstructor;
         return this;
-    }
-
-    public ModelFieldBuilderOptions setWithFieldsFromParentClasses(final boolean withFieldsFromParentClasses) {
-        this.withFieldsFromParentClasses = withFieldsFromParentClasses;
-        return this;
-    }
-
-    public ModelFieldBuilderOptions setAccessViaReflectionMustBeDetected(final boolean accessViaReflectionMustBeDetected) {
-        this.accessViaReflectionMustBeDetected = accessViaReflectionMustBeDetected;
-        return this;
-    }
-
-    public boolean isRequireDefConstructor() {
-        return requireDefConstructor;
     }
 
     public boolean isWithFieldsFromParentClasses() {
         return withFieldsFromParentClasses;
     }
 
+    @BuilderMethod
+    public ModelFieldBuilderOptions setWithFieldsFromParentClasses(final boolean withFieldsFromParentClasses) {
+        this.withFieldsFromParentClasses = withFieldsFromParentClasses;
+        return this;
+    }
+
     public boolean isAccessViaReflectionMustBeDetected() {
         return accessViaReflectionMustBeDetected;
+    }
+
+    @BuilderMethod
+    public ModelFieldBuilderOptions setAccessViaReflectionMustBeDetected(final boolean accessViaReflectionMustBeDetected) {
+        this.accessViaReflectionMustBeDetected = accessViaReflectionMustBeDetected;
+        return this;
     }
 }

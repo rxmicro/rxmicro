@@ -100,39 +100,42 @@ import static io.rxmicro.data.sql.SupportedVariables.VALUES;
  */
 public final class PostgreSQLDependenciesModule extends AbstractModule {
 
+    private static final String ASTERISK = "*";
+
     private static final Set<String> SUPPORTED_SELECT_RESULTS_VARIABLES =
             unmodifiableOrderedSet(
-                    "*", ALL_COLUMNS, TABLE, BY_ID_FILTER
+                    ASTERISK, ALL_COLUMNS, TABLE, BY_ID_FILTER
             );
 
     private static final Set<String> SUPPORTED_INSERT_PARAMS_VARIABLES =
             unmodifiableOrderedSet(
                     TABLE, INSERTED_COLUMNS, VALUES, ID_COLUMNS,
-                    ON_CONFLICT_UPDATE_INSERTED_COLUMNS, "*", ALL_COLUMNS
+                    ON_CONFLICT_UPDATE_INSERTED_COLUMNS, ASTERISK, ALL_COLUMNS
             );
 
     private static final Set<String> SUPPORTED_INSERT_RESULTS_VARIABLES =
             unmodifiableOrderedSet(
-                    TABLE, "*", ALL_COLUMNS, RETURNING_COLUMNS
+                    TABLE, ASTERISK, ALL_COLUMNS, RETURNING_COLUMNS
             );
 
     private static final Set<String> SUPPORTED_UPDATE_PARAMS_VARIABLES =
             unmodifiableOrderedSet(
-                    TABLE, UPDATED_COLUMNS, BY_ID_FILTER, "*", ALL_COLUMNS
+                    TABLE, UPDATED_COLUMNS, BY_ID_FILTER, ASTERISK, ALL_COLUMNS
             );
 
     private static final Set<String> SUPPORTED_UPDATE_RESULTS_VARIABLES =
             unmodifiableOrderedSet(
-                    TABLE, BY_ID_FILTER, "*", ALL_COLUMNS, RETURNING_COLUMNS
+                    TABLE, BY_ID_FILTER, ASTERISK, ALL_COLUMNS, RETURNING_COLUMNS
             );
+
     private static final Set<String> SUPPORTED_DELETE_PARAMS_VARIABLES =
             unmodifiableOrderedSet(
-                    TABLE, BY_ID_FILTER, "*", ALL_COLUMNS
+                    TABLE, BY_ID_FILTER, ASTERISK, ALL_COLUMNS
             );
 
     private static final Set<String> SUPPORTED_DELETE_RESULTS_VARIABLES =
             unmodifiableOrderedSet(
-                    TABLE, BY_ID_FILTER, "*", ALL_COLUMNS, RETURNING_COLUMNS
+                    TABLE, BY_ID_FILTER, ASTERISK, ALL_COLUMNS, RETURNING_COLUMNS
             );
 
     private final PostgreSQLTokenParserRuleProvider postgreSQLTokenParserRuleProvider = new PostgreSQLTokenParserRuleProvider();

@@ -21,7 +21,6 @@ import com.google.inject.Singleton;
 import io.rxmicro.annotation.processor.documentation.asciidoctor.component.SimpleErrorResponseBuilder;
 import io.rxmicro.annotation.processor.documentation.asciidoctor.model.Response;
 import io.rxmicro.annotation.processor.documentation.component.DescriptionReader;
-import io.rxmicro.annotation.processor.documentation.component.HttpResponseExampleBuilder;
 import io.rxmicro.annotation.processor.documentation.model.ProjectMetaData;
 import io.rxmicro.annotation.processor.documentation.model.ReadMoreModel;
 import io.rxmicro.annotation.processor.documentation.model.StandardHttpError;

@@ -76,7 +76,7 @@ public abstract class AbstractGenerator extends AbstractProcessorComponent {
         Throwable cause = exception;
         while (true) {
             cause = cause.getCause();
-            if (cause == null || cause == exception || throwableList.contains(cause)) {
+            if (cause == null || cause.equals(exception) || throwableList.contains(cause)) {
                 break;
             } else if (cause instanceof InterruptProcessingException) {
                 return (InterruptProcessingException) cause;

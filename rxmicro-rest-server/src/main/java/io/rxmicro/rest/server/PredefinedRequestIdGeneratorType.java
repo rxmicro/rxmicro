@@ -28,7 +28,7 @@ import io.rxmicro.rest.server.local.component.impl.TestRequestIdGenerator;
  * @see RestServerConfig
  * @since 0.7
  */
-public enum PredefinedRequestIdGeneratorType implements RequestIdGeneratorType{
+public enum PredefinedRequestIdGeneratorType implements RequestIdGeneratorType {
 
     /**
      * Generates unique IDs only within the framework of starting one JVM.

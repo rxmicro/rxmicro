@@ -26,8 +26,8 @@ public final class $$Reflections {
         });
         try {
             field.set(model, value);
-        } catch (final IllegalAccessException e) {
-            throw new CheckedWrapperException(e);
+        } catch (final IllegalAccessException ex) {
+            throw new CheckedWrapperException(ex);
         }
     }
 
@@ -41,10 +41,10 @@ public final class $$Reflections {
         });
         try {
             return method.invoke(bean, args);
-        } catch (final IllegalAccessException e) {
-            throw new CheckedWrapperException(e);
-        } catch (final InvocationTargetException e) {
-            throw new CheckedWrapperException(e.getTargetException());
+        } catch (final IllegalAccessException ex) {
+            throw new CheckedWrapperException(ex);
+        } catch (final InvocationTargetException ex) {
+            throw new CheckedWrapperException(ex.getTargetException());
         }
     }
 

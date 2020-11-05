@@ -526,7 +526,7 @@
         <!-- https://checkstyle.sourceforge.io/config_sizes.html -->
         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
         <module name="AnonInnerLength">
-            <property name="max" value="20"/>
+            <property name="max" value="30"/>
         </module>
         <!-- See MethodLength -->
         <module name="ExecutableStatementCount">

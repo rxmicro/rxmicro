@@ -28,7 +28,7 @@ import io.rxmicro.rest.server.feature.RequestIdGenerator;
 public interface RequestIdGeneratorType {
 
     /**
-     * Returns the request id generator instance
+     * Returns the request id generator instance.
      *
      * @return the request id generator instance
      * @see RequestIdGenerator

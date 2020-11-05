@@ -16,19 +16,16 @@
 
 package io.rxmicro.validation.validator;
 
-import io.rxmicro.common.util.Strings;
 import io.rxmicro.http.error.ValidationException;
 import io.rxmicro.rest.model.HttpModelType;
 import io.rxmicro.validation.ConstraintValidator;
 
-import java.util.Locale;
 import java.util.Set;
 import java.util.stream.Stream;
 
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.Strings.capitalize;
 import static io.rxmicro.validation.base.ConstraintUtils.getLatinLettersAndDigits;
-import static java.util.Locale.ENGLISH;
 import static java.util.stream.Collectors.toUnmodifiableSet;
 
 /**

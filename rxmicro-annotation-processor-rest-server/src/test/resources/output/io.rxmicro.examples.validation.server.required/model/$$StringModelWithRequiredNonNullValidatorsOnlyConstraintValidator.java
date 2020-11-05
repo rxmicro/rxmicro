@@ -1,6 +1,5 @@
 package io.rxmicro.examples.validation.server.required.model;
 
-import io.rxmicro.http.error.ValidationException;
 import io.rxmicro.rest.model.HttpModelType;
 import io.rxmicro.validation.ConstraintValidator;
 import io.rxmicro.validation.validator.EnumerationStringConstraintValidator;
@@ -32,7 +31,7 @@ public final class $$StringModelWithRequiredNonNullValidatorsOnlyConstraintValid
     @Override
     public void validate(final StringModelWithRequiredNonNullValidatorsOnly model,
                          final HttpModelType httpModelType,
-                         final String name) throws ValidationException {
+                         final String name) {
         requiredConstraintValidator.validate(model.allowEmptyString, HttpModelType.PARAMETER, "allowEmptyString");
 
         requiredConstraintValidator.validate(model.minLength, HttpModelType.PARAMETER, "minLength");

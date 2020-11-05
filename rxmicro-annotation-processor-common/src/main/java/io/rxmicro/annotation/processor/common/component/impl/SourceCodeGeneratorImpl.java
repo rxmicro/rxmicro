@@ -24,12 +24,10 @@ import io.rxmicro.annotation.processor.common.component.SourceCodeFormatter;
 import io.rxmicro.annotation.processor.common.component.SourceCodeGenerator;
 import io.rxmicro.annotation.processor.common.model.ClassStructure;
 import io.rxmicro.annotation.processor.common.model.SourceCode;
-import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
 
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.Map;
-import java.util.Optional;
 
 /**
  * @author nedis
@@ -48,8 +46,8 @@ public final class SourceCodeGeneratorImpl extends AbstractGenerator implements 
         try {
             final Template template = getTemplate(classStructure.getTemplateName());
             template.process(variables, stringWriter);
-        } catch (final Throwable throwable) {
-            catchThrowable(throwable, () -> cantGenerateClass(classStructure.getTargetFullClassName(), throwable));
+        } catch (final TemplateException | IOException ex) {
+            catchThrowable(ex, () -> cantGenerateClass(classStructure.getTargetFullClassName(), ex));
         }
         return new SourceCode(
                 classStructure.getTargetFullClassName(),

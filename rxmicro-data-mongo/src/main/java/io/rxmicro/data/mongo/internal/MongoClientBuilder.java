@@ -43,18 +43,18 @@ public final class MongoClientBuilder {
 
     private static final MongoClientBuilder INSTANCE = new MongoClientBuilder();
 
-    public static MongoClientBuilder getInstance() {
-        return INSTANCE;
-    }
-
-    private MongoClientBuilder(){
-    }
-
     private final MongoCodecsConfigurator mongoCodecsConfigurator = new MongoCodecsConfigurator();
 
     private final MongoClientSettings.Builder mongoClientSettingsBuilder = MongoClientSettings.builder();
 
     private boolean built;
+
+    public static MongoClientBuilder getInstance() {
+        return INSTANCE;
+    }
+
+    private MongoClientBuilder() {
+    }
 
     public MongoCodecsConfigurator getMongoCodecsConfigurator() {
         if (built) {
@@ -83,7 +83,7 @@ public final class MongoClientBuilder {
                 .applyConnectionString(new ConnectionString(connectionString))
                 .codecRegistry(
                         new RxMicroMongoCodecRegistry(
-                                ((AbstractMongoCodecsConfigurator<MongoCodecsConfigurator>)getMongoCodecsConfigurator())
+                                ((AbstractMongoCodecsConfigurator<MongoCodecsConfigurator>) getMongoCodecsConfigurator())
                                         .withDefaultConfigurationIfNotConfigured()
                         )
                 )

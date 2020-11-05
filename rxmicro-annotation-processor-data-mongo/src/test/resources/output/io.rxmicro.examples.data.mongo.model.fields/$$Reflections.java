@@ -35,8 +35,8 @@ public final class $$Reflections {
         });
         try {
             field.set(model, value);
-        } catch (final IllegalAccessException e) {
-            throw new CheckedWrapperException(e);
+        } catch (final IllegalAccessException ex) {
+            throw new CheckedWrapperException(ex);
         }
     }
 

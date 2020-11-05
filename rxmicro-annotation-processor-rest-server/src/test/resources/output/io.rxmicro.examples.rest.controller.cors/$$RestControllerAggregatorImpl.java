@@ -20,6 +20,7 @@ public final class $$RestControllerAggregatorImpl extends RestControllerAggregat
         $$EnvironmentCustomizer.customize();
     }
 
+    @Override
     protected List<AbstractRestController> listAllRestControllers() {
         return List.of(
                 new CrossOriginResourceSharingPreflightRestController(Set.of(

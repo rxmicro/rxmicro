@@ -25,7 +25,7 @@ import io.rxmicro.rest.model.HttpModelType;
  */
 public abstract class AbstractValidatedConverter {
 
-    protected final ValidationException createValidationExceptionForIntegerValue(final String value,
+    protected final ValidationException createExpectedIntegerValidationException(final String value,
                                                                                  final HttpModelType httpModelType,
                                                                                  final String modelName,
                                                                                  final Object minValue,

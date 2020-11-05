@@ -1,6 +1,5 @@
 package io.rxmicro.examples.validation.server.required.model;
 
-import io.rxmicro.http.error.ValidationException;
 import io.rxmicro.rest.model.HttpModelType;
 import io.rxmicro.validation.ConstraintValidator;
 import io.rxmicro.validation.validator.NotEmptyStringConstraintValidator;
@@ -26,7 +25,7 @@ public final class $$PrimitiveStringModelConstraintValidator implements Constrai
     @Override
     public void validate(final PrimitiveStringModel model,
                          final HttpModelType httpModelType,
-                         final String name) throws ValidationException {
+                         final String name) {
         requiredAndNotEmptyStringConstraintValidator.validate(model.requiredNotEmptyString, HttpModelType.PARAMETER, "requiredNotEmptyString");
 
         notEmptyStringConstraintValidator.validate(model.nullableString, HttpModelType.PARAMETER, "nullableString");

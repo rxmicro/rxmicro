@@ -150,7 +150,8 @@ public abstract class AbstractModelFieldBuilder<MF extends ModelField, MC extend
             if (modelField.getModelReadAccessorType() == ModelAccessorType.REFLECTION) {
                 warn(modelField.getFieldElement(),
                         "PERFORMANCE WARNING: To read a value from ?.? the RxMicro framework will use the reflection. " +
-                                "It is recommended to add a getter or change the field modifier: from private to default, protected or public",
+                                "It is recommended to add a getter or change the field modifier: " +
+                                "from private to default, protected or public",
                         typeElement.getQualifiedName(),
                         modelField.getFieldName()
                 );
@@ -158,7 +159,8 @@ public abstract class AbstractModelFieldBuilder<MF extends ModelField, MC extend
             if (modelField.getModelWriteAccessorType() == ModelAccessorType.REFLECTION) {
                 warn(modelField.getFieldElement(),
                         "PERFORMANCE WARNING: To write a value to ?.? the RxMicro framework will use the reflection. " +
-                                "It is recommended to add a setter or change the field modifier: from private to default, protected or public",
+                                "It is recommended to add a setter or change the field modifier: " +
+                                "from private to default, protected or public",
                         typeElement.getQualifiedName(),
                         modelField.getFieldName()
                 );

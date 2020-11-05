@@ -18,8 +18,8 @@ package io.rxmicro.annotation.processor.rest.server.component.impl;
 
 import com.google.inject.Singleton;
 import io.rxmicro.annotation.processor.common.model.AnnotatedModelElement;
-import io.rxmicro.annotation.processor.common.model.ModelFieldType;
 import io.rxmicro.annotation.processor.common.model.ModelFieldBuilderOptions;
+import io.rxmicro.annotation.processor.common.model.ModelFieldType;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
 import io.rxmicro.annotation.processor.rest.component.AbstractRestModelFieldBuilder;
 import io.rxmicro.annotation.processor.rest.model.InternalType;
@@ -104,6 +104,30 @@ public final class RestServerModelFieldBuilderImpl extends AbstractRestModelFiel
         }
     }
 
+    @Override
+    protected Set<Class<? extends Annotation>> supportedRequestAnnotations() {
+        return Set.of(
+                Header.class,
+                Parameter.class,
+                PathVariable.class,
+                RequestMethod.class,
+                RequestUrlPath.class,
+                RequestId.class,
+                RemoteAddress.class,
+                RequestBody.class
+        );
+    }
+
+    @Override
+    protected Set<Class<? extends Annotation>> supportedResponseAnnotations() {
+        return Set.of(
+                Header.class,
+                Parameter.class,
+                ResponseStatusCode.class,
+                ResponseBody.class
+        );
+    }
+
     private Optional<RestModelField> buildRequestInternal(final ModelFieldType modelFieldType,
                                                           final AnnotatedModelElement annotated) {
         final RequestUrlPath requestUrlPath = annotated.getAnnotation(RequestUrlPath.class);
@@ -148,30 +172,6 @@ public final class RestServerModelFieldBuilderImpl extends AbstractRestModelFiel
             return Optional.of(new RestModelField(annotated, InternalType.RESPONSE_BODY));
         }
         return Optional.empty();
-    }
-
-    @Override
-    protected Set<Class<? extends Annotation>> supportedRequestAnnotations() {
-        return Set.of(
-                Header.class,
-                Parameter.class,
-                PathVariable.class,
-                RequestMethod.class,
-                RequestUrlPath.class,
-                RequestId.class,
-                RemoteAddress.class,
-                RequestBody.class
-        );
-    }
-
-    @Override
-    protected Set<Class<? extends Annotation>> supportedResponseAnnotations() {
-        return Set.of(
-                Header.class,
-                Parameter.class,
-                ResponseStatusCode.class,
-                ResponseBody.class
-        );
     }
 
     private void validateInternalTypes(final AnnotatedModelElement annotated) {

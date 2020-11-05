@@ -18,8 +18,8 @@ package io.rxmicro.annotation.processor.rest.client.component.impl;
 
 import com.google.inject.Singleton;
 import io.rxmicro.annotation.processor.common.model.AnnotatedModelElement;
-import io.rxmicro.annotation.processor.common.model.ModelFieldType;
 import io.rxmicro.annotation.processor.common.model.ModelFieldBuilderOptions;
+import io.rxmicro.annotation.processor.common.model.ModelFieldType;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
 import io.rxmicro.annotation.processor.rest.client.model.RestClientObjectModelClass;
 import io.rxmicro.annotation.processor.rest.component.AbstractRestModelFieldBuilder;

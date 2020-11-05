@@ -116,8 +116,5 @@ public final class LatinAlphabetOnlyConstraintValidator implements ConstraintVal
             }
             return builder.toString().chars().mapToObj(ch -> (char) ch).collect(Collectors.toSet());
         }
-
-        private LatinAlphabetHelper() {
-        }
     }
 }

@@ -98,7 +98,7 @@ public abstract class AbstractModificationSQLBuilder
                                              SQLMethodDescriptor<DMF, DMC> sqlMethodDescriptor);
 
     public final Set<String> getSupportedVariables() {
-        if(supportedVariables == null) {
+        if (supportedVariables == null) {
             supportedVariables = Stream.concat(
                     getSupportedParamsVariables().stream(),
                     getSupportedResultsVariables().stream()

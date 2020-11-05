@@ -19,7 +19,6 @@ package io.rxmicro.logger.internal.jul;
 import io.rxmicro.logger.Level;
 
 import java.util.Arrays;
-import java.util.Locale;
 import java.util.Map;
 
 import static java.util.Locale.ENGLISH;

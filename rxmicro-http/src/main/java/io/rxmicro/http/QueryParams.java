@@ -17,7 +17,6 @@
 package io.rxmicro.http;
 
 import io.rxmicro.http.internal.EmptyQueryParams;
-import io.rxmicro.http.internal.HttpHeadersImpl;
 import io.rxmicro.http.internal.QueryParamsImpl;
 import io.rxmicro.http.local.QueryParamUtils;
 
@@ -322,7 +321,7 @@ public interface QueryParams {
      * Returns HTTP query parameters instance containing query parameter names and values extracted from the given entries.
      *
      * @param entries the collection of {@link Map.Entry}s containing the query parameter names and values from which
-     * the query parameters is populated
+     *                the query parameters is populated
      * @return the {@link QueryParams} containing the provided query parameters.
      */
     static QueryParams of(final Collection<Map.Entry<String, Object>> entries) {

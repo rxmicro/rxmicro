@@ -111,8 +111,7 @@ final class SQLVariableValueCalculatorProvider {
                     TABLE,
                     (modelClass, context) -> context.getCurrentTableName().getSchema()
                             .map(s -> s + "." + context.getCurrentTableName().getSimpleName())
-                            .orElse(context.getCurrentTableName().getSimpleName())
-                    ,
+                            .orElse(context.getCurrentTableName().getSimpleName()),
                     //-------------------------------------------------------------------------------------------
                     ON_CONFLICT_UPDATE_INSERTED_COLUMNS,
                     (modelClass, context) -> nullIfEmpty(

@@ -1,7 +1,6 @@
 package io.rxmicro.examples.validation.server.all.standard;
 
 import io.rxmicro.examples.validation.server.all.standard.model.Color;
-import io.rxmicro.http.error.ValidationException;
 import io.rxmicro.rest.model.HttpModelType;
 import io.rxmicro.validation.ConstraintValidator;
 import io.rxmicro.validation.base.LocationAccuracy;
@@ -573,7 +572,7 @@ public final class $$VirtualRequestConstraintValidator implements ConstraintVali
     @Override
     public void validate(final $$VirtualRequest model,
                          final HttpModelType httpModelType,
-                         final String name) throws ValidationException {
+                         final String name) {
         notEmptyStringConstraintValidator.validate(model.optionalParameter, HttpModelType.PARAMETER, "optionalParameter");
 
         requiredConstraintValidator.validate(model.booleanParameter, HttpModelType.PARAMETER, "booleanParameter");

@@ -19,7 +19,6 @@ package io.rxmicro.annotation.processor.data.sql.component.impl.builder.select;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
-import io.rxmicro.annotation.processor.data.model.Variable;
 import io.rxmicro.annotation.processor.data.sql.component.SQLVariableValueResolver;
 import io.rxmicro.annotation.processor.data.sql.component.impl.SQLFieldsOrderValidator;
 import io.rxmicro.annotation.processor.data.sql.model.BindParameter;
@@ -35,7 +34,6 @@ import io.rxmicro.data.sql.operation.Select;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.VariableElement;
 

@@ -142,7 +142,7 @@ public abstract class FromStringValueConverter extends AbstractValidatedConverte
             try {
                 return Byte.parseByte(value);
             } catch (final NumberFormatException ignore) {
-                throw createValidationExceptionForIntegerValue(value, httpModelType, modelName, Byte.MIN_VALUE, Byte.MAX_VALUE);
+                throw createExpectedIntegerValidationException(value, httpModelType, modelName, Byte.MIN_VALUE, Byte.MAX_VALUE);
             }
         }
     }
@@ -177,7 +177,7 @@ public abstract class FromStringValueConverter extends AbstractValidatedConverte
             try {
                 return Short.parseShort(value);
             } catch (final NumberFormatException ignore) {
-                throw createValidationExceptionForIntegerValue(value, httpModelType, modelName, Short.MIN_VALUE, Short.MAX_VALUE);
+                throw createExpectedIntegerValidationException(value, httpModelType, modelName, Short.MIN_VALUE, Short.MAX_VALUE);
             }
         }
     }
@@ -212,7 +212,7 @@ public abstract class FromStringValueConverter extends AbstractValidatedConverte
             try {
                 return Integer.parseInt(value);
             } catch (final NumberFormatException ignore) {
-                throw createValidationExceptionForIntegerValue(value, httpModelType, modelName, Integer.MIN_VALUE, Integer.MAX_VALUE);
+                throw createExpectedIntegerValidationException(value, httpModelType, modelName, Integer.MIN_VALUE, Integer.MAX_VALUE);
             }
         }
     }
@@ -247,7 +247,7 @@ public abstract class FromStringValueConverter extends AbstractValidatedConverte
             try {
                 return Long.parseLong(value);
             } catch (final NumberFormatException ignore) {
-                throw createValidationExceptionForIntegerValue(value, httpModelType, modelName, Long.MIN_VALUE, Long.MAX_VALUE);
+                throw createExpectedIntegerValidationException(value, httpModelType, modelName, Long.MIN_VALUE, Long.MAX_VALUE);
             }
         }
     }

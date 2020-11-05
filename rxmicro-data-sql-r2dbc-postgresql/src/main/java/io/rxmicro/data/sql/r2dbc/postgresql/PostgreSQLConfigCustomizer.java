@@ -37,11 +37,11 @@ import java.util.function.Function;
 public final class PostgreSQLConfigCustomizer {
 
     /**
-     * Allows to register custom codecs
+     * Allows to register custom codecs.
      *
      * @param codecRegistrars the custom codecs
      */
-    public static void registerPostgreSQLCodecs(final CodecRegistrar... codecRegistrars){
+    public static void registerPostgreSQLCodecs(final CodecRegistrar... codecRegistrars) {
         for (final CodecRegistrar codecRegistrar : codecRegistrars) {
             PostgreSQLConnectionPoolBuilder.getInstance().addCodecRegistrar(codecRegistrar);
         }
@@ -57,5 +57,8 @@ public final class PostgreSQLConfigCustomizer {
      */
     public static void setConnectionDecorator(final Function<Connection, Connection> connectionDecorator) {
         PostgreSQLConnectionPoolBuilder.getInstance().setConnectionDecorator(connectionDecorator);
+    }
+
+    private PostgreSQLConfigCustomizer() {
     }
 }

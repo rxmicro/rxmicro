@@ -38,7 +38,6 @@ import io.rxmicro.rest.model.HttpModelType;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
-import javax.lang.model.element.Element;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.ModuleElement;
 import javax.lang.model.element.TypeElement;
@@ -116,7 +115,7 @@ public final class ModelExceptionErrorResponseCustomBuilder extends AbstractProc
 
     private void validateGetResponseDataMethodBody(final ExecutableElement getResponseDataMethod,
                                                    final RestObjectModelClass modelClass) {
-        com.sun.source.util.Trees trees = Trees.instance(getProcessingEnvironment());
+        final Trees trees = Trees.instance(getProcessingEnvironment());
         final MethodTree methodTree = trees.getTree(getResponseDataMethod);
         final String actualBody = methodTree.getBody().getStatements().stream().map(Objects::toString).collect(joining("")).trim();
         final String expectedBody = format(

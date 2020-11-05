@@ -36,13 +36,13 @@ import static io.rxmicro.common.util.Strings.startsWith;
  */
 public class SQLDataModelField extends DataModelField {
 
-    private String insertValue;
-
-    private boolean initInsertValue;
-
     private final int length;
 
     private final boolean nullable;
+
+    private String insertValue;
+
+    private boolean initInsertValue;
 
     private Boolean lengthPresent;
 

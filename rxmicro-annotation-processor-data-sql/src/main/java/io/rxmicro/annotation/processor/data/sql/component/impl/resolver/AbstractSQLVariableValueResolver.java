@@ -41,8 +41,8 @@ import javax.lang.model.element.Element;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
 
-import static io.rxmicro.annotation.processor.common.model.ModelFieldType.UNDEFINED;
 import static io.rxmicro.annotation.processor.common.model.ModelFieldBuilderOptions.DEFAULT_OPTIONS;
+import static io.rxmicro.annotation.processor.common.model.ModelFieldType.UNDEFINED;
 import static io.rxmicro.annotation.processor.common.util.Annotations.getAnnotationClassParameter;
 import static io.rxmicro.annotation.processor.data.sql.component.impl.resolver.SQLVariableValueCalculatorProvider.VARIABLE_RESOLVER_PROVIDER;
 

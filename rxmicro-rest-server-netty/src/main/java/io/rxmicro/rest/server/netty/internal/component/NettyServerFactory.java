@@ -21,20 +21,15 @@ import io.rxmicro.http.ProtocolSchema;
 import io.rxmicro.logger.Logger;
 import io.rxmicro.logger.LoggerFactory;
 import io.rxmicro.rest.server.HttpServerConfig;
-import io.rxmicro.rest.server.RequestIdGeneratorType;
 import io.rxmicro.rest.server.RestServerConfig;
 import io.rxmicro.rest.server.ServerInstance;
 import io.rxmicro.rest.server.detail.component.HttpResponseBuilder;
+import io.rxmicro.rest.server.feature.RequestIdGenerator;
 import io.rxmicro.rest.server.local.component.HttpErrorResponseBodyBuilder;
 import io.rxmicro.rest.server.local.component.RequestHandler;
-import io.rxmicro.rest.server.feature.RequestIdGenerator;
 import io.rxmicro.rest.server.local.component.ServerFactory;
-import io.rxmicro.rest.server.local.component.impl.FasterButUnSafeRequestIdGenerator;
-import io.rxmicro.rest.server.local.component.impl.SafeButSlowerRequestIdGenerator;
-import io.rxmicro.rest.server.local.component.impl.TestRequestIdGenerator;
 import io.rxmicro.rest.server.netty.NettyRestServerConfig;
 
-import java.util.Map;
 import java.util.ServiceLoader;
 import java.util.concurrent.CountDownLatch;
 

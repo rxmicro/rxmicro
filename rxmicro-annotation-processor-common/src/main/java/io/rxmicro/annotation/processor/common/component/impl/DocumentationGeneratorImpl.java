@@ -23,7 +23,6 @@ import freemarker.template.TemplateException;
 import io.rxmicro.annotation.processor.common.component.DocumentationGenerator;
 import io.rxmicro.annotation.processor.common.component.PathVariablesResolver;
 import io.rxmicro.annotation.processor.common.model.DocumentStructure;
-import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
 
 import java.io.IOException;
 import java.io.StringWriter;
@@ -32,7 +31,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Map;
-import java.util.Optional;
 
 import static io.rxmicro.annotation.processor.common.SupportedOptions.RX_MICRO_DOC_DESTINATION_DIR;
 import static java.nio.file.Files.writeString;
@@ -59,8 +57,8 @@ public final class DocumentationGeneratorImpl extends AbstractGenerator implemen
             }
             writeString(Paths.get(destinationFile), stringWriter.toString());
             info("Document generated successfully: ?", destinationFile);
-        } catch (final Throwable throwable) {
-            catchThrowable(throwable, () -> cantGenerateDocument(documentStructure.getName(), throwable));
+        } catch (final TemplateException | IOException ex) {
+            catchThrowable(ex, () -> cantGenerateDocument(documentStructure.getName(), ex));
         }
     }
 

@@ -1,6 +1,5 @@
 package io.rxmicro.examples.unnamed.module.rest.controller.generator.model;
 
-import io.rxmicro.http.error.ValidationException;
 import io.rxmicro.rest.model.HttpModelType;
 import io.rxmicro.validation.ConstraintValidator;
 import io.rxmicro.validation.validator.EmailConstraintValidator;
@@ -22,7 +21,7 @@ public final class $$ResponseConstraintValidator implements ConstraintValidator<
     @Override
     public void validate(final Response model,
                          final HttpModelType httpModelType,
-                         final String name) throws ValidationException {
+                         final String name) {
         requiredAndNotEmptyStringConstraintValidator.validate(model.email, HttpModelType.PARAMETER, "email");
         emailEmailEmailConstraintValidator.validate(model.email, HttpModelType.PARAMETER, "email");
     }

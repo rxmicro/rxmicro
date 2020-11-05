@@ -19,12 +19,12 @@ package io.rxmicro.rest.server.netty;
 import io.netty.channel.ChannelId;
 
 /**
- * Predefined netty channel id
+ * Predefined netty channel id.
  *
  * @author nedis
  * @since 0.7
  */
-public enum PredefinedNettyChannelIdType implements NettyChannelIdType{
+public enum PredefinedNettyChannelIdType implements NettyChannelIdType {
 
     /**
      * Returns the short but globally non-unique string representation of the {@link io.netty.channel.ChannelId}.

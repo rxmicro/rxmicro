@@ -68,4 +68,8 @@
     <!-- This is an util class -->
     <suppress checks="NPathComplexity"
               files="TypeValidators.java"/>
+
+    <!-- There are no public alternatives to com.sun.source.util.Trees -->
+    <suppress checks="IllegalImport"
+              files="ModelExceptionErrorResponseCustomBuilder.java"/>
 </suppressions>

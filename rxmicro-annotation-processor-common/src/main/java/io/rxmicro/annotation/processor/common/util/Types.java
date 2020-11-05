@@ -19,7 +19,6 @@ package io.rxmicro.annotation.processor.common.util;
 import java.time.Instant;
 import java.util.Map;
 import java.util.Set;
-
 import javax.lang.model.type.TypeKind;
 
 import static javax.lang.model.type.TypeKind.BOOLEAN;

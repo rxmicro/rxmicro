@@ -17,7 +17,7 @@
 package io.rxmicro.rest.server.feature;
 
 /**
- * Declares the basic request id generator interface
+ * Declares the basic request id generator interface.
  *
  * @author nedis
  * @see io.rxmicro.rest.server.RequestIdGeneratorType
@@ -26,7 +26,7 @@ package io.rxmicro.rest.server.feature;
 public interface RequestIdGenerator {
 
     /**
-     * Returns the next unique request id
+     * Returns the next unique request id.
      *
      * @return the next unique request id
      */

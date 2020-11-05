@@ -16,7 +16,6 @@
 
 package io.rxmicro.config.internal;
 
-import io.rxmicro.common.util.ExCollections;
 import io.rxmicro.config.ConfigException;
 
 import java.math.BigDecimal;
@@ -43,7 +42,6 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 
 import static io.rxmicro.common.util.ExCollections.unmodifiableOrderedSet;
 import static java.util.Map.entry;

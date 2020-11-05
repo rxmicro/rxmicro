@@ -19,9 +19,9 @@ package io.rxmicro.annotation.processor.data.sql.component.impl;
 import com.google.inject.Singleton;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
 import io.rxmicro.annotation.processor.data.sql.model.DbObjectName;
+import io.rxmicro.data.sql.EnumType;
 import io.rxmicro.data.sql.Schema;
 import io.rxmicro.data.sql.Table;
-import io.rxmicro.data.sql.EnumType;
 import io.rxmicro.model.MappingStrategy;
 
 import java.util.List;
@@ -92,7 +92,7 @@ public final class DbObjectNameBuilder {
     }
 
     private DbObjectName build(final TypeElement modelTypeElement,
-                               final NameConfigurator nameConfigurator){
+                               final NameConfigurator nameConfigurator) {
         final String className = modelTypeElement.getSimpleName().toString();
         final List<String> classNameWords = splitByCamelCase(className);
         final String dbObjectName = Optional.of(nameConfigurator.name()).filter(v -> !v.isEmpty())

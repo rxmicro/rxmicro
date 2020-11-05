@@ -52,6 +52,7 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import javax.lang.model.element.TypeElement;
 
 import static io.rxmicro.annotation.processor.common.util.Errors.createInternalErrorSupplier;
 import static io.rxmicro.annotation.processor.documentation.asciidoctor.component.CharacteristicsReader.REQUIRED_RESTRICTION;
@@ -143,6 +144,7 @@ public final class ResponsesBuilderImpl implements ResponsesBuilder {
         final List<ReadMoreModel> showErrorCauseReadMoreLinks =
                 getShowErrorCauseReadMoreLinks(documentationDefinition, resourceDefinition);
         final Set<Response> responses = new TreeSet<>();
+        final TypeElement ownerClass = classStructure.getOwnerClass();
         Arrays.stream(method.getMethod().getAnnotationsByType(ModelExceptionErrorResponse.class))
                 .forEach(e -> responses.add(modelExceptionErrorResponseBuilder.buildResponse(
                         environmentContext, method.getMethod(), projectMetaData, resourceDefinition, e, showErrorCauseReadMoreLinks
@@ -151,13 +153,13 @@ public final class ResponsesBuilderImpl implements ResponsesBuilder {
                 .forEach(e -> responses.add(simpleErrorResponseBuilder.buildResponse(
                         method.getMethod(), projectMetaData, resourceDefinition, e, showErrorCauseReadMoreLinks
                 )));
-        Arrays.stream(classStructure.getOwnerClass().getAnnotationsByType(ModelExceptionErrorResponse.class))
+        Arrays.stream(ownerClass.getAnnotationsByType(ModelExceptionErrorResponse.class))
                 .forEach(e -> responses.add(modelExceptionErrorResponseBuilder.buildResponse(
-                        environmentContext, classStructure.getOwnerClass(), projectMetaData, resourceDefinition, e, showErrorCauseReadMoreLinks
+                        environmentContext, ownerClass, projectMetaData, resourceDefinition, e, showErrorCauseReadMoreLinks
                 )));
-        Arrays.stream(classStructure.getOwnerClass().getAnnotationsByType(SimpleErrorResponse.class))
+        Arrays.stream(ownerClass.getAnnotationsByType(SimpleErrorResponse.class))
                 .forEach(e -> responses.add(simpleErrorResponseBuilder.buildResponse(
-                        classStructure.getOwnerClass(), projectMetaData, resourceDefinition, e, showErrorCauseReadMoreLinks
+                        ownerClass, projectMetaData, resourceDefinition, e, showErrorCauseReadMoreLinks
                 )));
         if (environmentContext.isRxMicroModuleEnabled(RX_MICRO_VALIDATION_MODULE) &&
                 resourceDefinition.withValidationResponse() &&

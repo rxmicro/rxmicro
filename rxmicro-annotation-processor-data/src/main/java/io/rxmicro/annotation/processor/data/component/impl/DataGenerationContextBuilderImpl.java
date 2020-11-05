@@ -20,7 +20,6 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import io.rxmicro.annotation.processor.common.component.ModelFieldBuilder;
 import io.rxmicro.annotation.processor.common.component.impl.AbstractProcessorComponent;
-import io.rxmicro.annotation.processor.common.model.ModelFieldType;
 import io.rxmicro.annotation.processor.common.model.ModelFieldBuilderOptions;
 import io.rxmicro.annotation.processor.data.component.DataGenerationContextBuilder;
 import io.rxmicro.annotation.processor.data.model.DataGenerationContext;
@@ -35,6 +34,8 @@ import javax.lang.model.element.ModuleElement;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.TypeMirror;
 
+import static io.rxmicro.annotation.processor.common.model.ModelFieldType.DATA_METHOD_PARAMETER;
+import static io.rxmicro.annotation.processor.common.model.ModelFieldType.DATA_METHOD_RESULT;
 import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getElements;
 import static java.util.stream.Collectors.toSet;
 
@@ -54,7 +55,7 @@ public final class DataGenerationContextBuilderImpl<DMF extends DataModelField, 
     public DataGenerationContext<DMF, DMC> build(final ModuleElement currentModule,
                                                  final List<DataRepositoryInterfaceSignature> dataRepositoryInterfaceSignatures) {
         final Map<TypeElement, DMC> paramEntityMap = modelFieldModelFieldBuilder.build(
-                ModelFieldType.DATA_METHOD_PARAMETER,
+                DATA_METHOD_PARAMETER,
                 currentModule,
                 dataRepositoryInterfaceSignatures.stream()
                         .flatMap(r -> r.getMethods().stream()
@@ -66,7 +67,7 @@ public final class DataGenerationContextBuilderImpl<DMF extends DataModelField, 
                         .collect(toSet()),
                 new ModelFieldBuilderOptions());
         final Map<TypeElement, DMC> returnEntityMap = modelFieldModelFieldBuilder.build(
-                ModelFieldType.DATA_METHOD_RESULT,
+                DATA_METHOD_RESULT,
                 currentModule,
                 dataRepositoryInterfaceSignatures.stream()
                         .flatMap(r -> r.getMethods().stream()

@@ -1,6 +1,5 @@
 package io.rxmicro.examples.validation.server.custom;
 
-import io.rxmicro.http.error.ValidationException;
 import io.rxmicro.rest.model.HttpModelType;
 import io.rxmicro.validation.ConstraintValidator;
 import io.rxmicro.validation.validator.RequiredConstraintValidator;
@@ -21,7 +20,7 @@ public final class $$VirtualRequestConstraintValidator implements ConstraintVali
     @Override
     public void validate(final $$VirtualRequest model,
                          final HttpModelType httpModelType,
-                         final String name) throws ValidationException {
+                         final String name) {
         requiredConstraintValidator.validate(model.value, HttpModelType.PARAMETER, "value");
         valueExpectedZeroExpectedZeroConstraintValidator.validate(model.value, HttpModelType.PARAMETER, "value");
     }

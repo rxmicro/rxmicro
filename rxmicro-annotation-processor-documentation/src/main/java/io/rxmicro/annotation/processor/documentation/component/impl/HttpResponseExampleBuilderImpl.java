@@ -81,7 +81,7 @@ public final class HttpResponseExampleBuilderImpl implements HttpResponseExample
                                 .stream().flatMap(cl -> cl.getModelClass().getHeaderEntries().stream())
                                 .map(e -> entry(e.getKey().getModelName(), exampleValueBuilder.getExample(e.getKey())))).collect(toList());
         final Optional<String> body = getJsonBodyExample(restControllerClassStructureStorage, method);
-        return build(
+        return buildExample(
                 resourceDefinition,
                 method.getSuccessStatusCode(),
                 customHeaders,
@@ -93,7 +93,7 @@ public final class HttpResponseExampleBuilderImpl implements HttpResponseExample
     public String build(final ResourceDefinition resourceDefinition,
                         final int statusCode,
                         final RestObjectModelClass restObjectModelClass) {
-        return build(
+        return buildExample(
                 resourceDefinition,
                 statusCode,
                 List.of(),
@@ -106,7 +106,7 @@ public final class HttpResponseExampleBuilderImpl implements HttpResponseExample
                                     final int statusCode,
                                     final String message) {
         final String body = JsonHelper.toJsonString(Map.of("message", message), true);
-        return build(
+        return buildExample(
                 resourceDefinition,
                 statusCode,
                 List.of(),
@@ -117,7 +117,7 @@ public final class HttpResponseExampleBuilderImpl implements HttpResponseExample
     @Override
     public String buildErrorExample(final ResourceDefinition resourceDefinition,
                                     final int statusCode) {
-        return build(
+        return buildExample(
                 resourceDefinition,
                 statusCode,
                 List.of(),
@@ -125,10 +125,24 @@ public final class HttpResponseExampleBuilderImpl implements HttpResponseExample
         );
     }
 
-    private String build(final ResourceDefinition resourceDefinition,
-                         final int statusCode,
-                         final List<Map.Entry<String, Object>> customHeaders,
-                         final String body) {
+    @Override
+    public Optional<String> getJsonBodyExample(final RestControllerClassStructureStorage restControllerClassStructureStorage,
+                                               final RestControllerMethod method) {
+        return method.getToHttpDataType()
+                .map(typeElement -> jsonStructureExampleBuilder.build(
+                        restControllerClassStructureStorage.getModelWriterClassStructure(
+                                typeElement.asType().toString())
+                                .orElseThrow(createInternalErrorSupplier(
+                                        "ModelWriterClassStructure not found for type: ?",
+                                        typeElement.asType()
+                                ))
+                                .getModelClass()));
+    }
+
+    private String buildExample(final ResourceDefinition resourceDefinition,
+                                final int statusCode,
+                                final List<Map.Entry<String, Object>> customHeaders,
+                                final String body) {
         final StringBuilder httpMessageBuilder = new StringBuilder();
         httpMessageBuilder.append(format("? ? ??", HTTP_VERSION, statusCode, getStatusMessage(statusCode), lineSeparator()));
         if (body != null) {
@@ -146,20 +160,6 @@ public final class HttpResponseExampleBuilderImpl implements HttpResponseExample
             httpMessageBuilder.append(body);
         }
         return httpMessageBuilder.toString();
-    }
-
-    @Override
-    public Optional<String> getJsonBodyExample(final RestControllerClassStructureStorage restControllerClassStructureStorage,
-                                               final RestControllerMethod method) {
-        return method.getToHttpDataType()
-                .map(typeElement -> jsonStructureExampleBuilder.build(
-                        restControllerClassStructureStorage.getModelWriterClassStructure(
-                                typeElement.asType().toString())
-                                .orElseThrow(createInternalErrorSupplier(
-                                        "ModelWriterClassStructure not found for type: ?",
-                                        typeElement.asType()
-                                ))
-                                .getModelClass()));
     }
 
     private int getContentLength(final String body) {

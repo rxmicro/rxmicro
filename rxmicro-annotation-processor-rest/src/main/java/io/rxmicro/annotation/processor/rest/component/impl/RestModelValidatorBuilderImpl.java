@@ -31,9 +31,6 @@ import io.rxmicro.annotation.processor.rest.model.validator.ModelValidatorClassS
 import io.rxmicro.validation.constraint.MaxNumber;
 import io.rxmicro.validation.constraint.MinNumber;
 import io.rxmicro.validation.constraint.Nullable;
-import io.rxmicro.validation.constraint.NullableArrayItem;
-import io.rxmicro.validation.validator.RequiredConstraintValidator;
-import io.rxmicro.validation.validator.RequiredListConstraintValidator;
 
 import java.util.HashSet;
 import java.util.List;

@@ -34,7 +34,7 @@ import io.rxmicro.data.mongo.internal.MongoClientBuilder;
 public final class MongoConfigCustomizer {
 
     /**
-     * Returns the {@link MongoCodecsConfigurator} to configure required codecs
+     * Returns the {@link MongoCodecsConfigurator} to configure required codecs.
      *
      * @return the {@link MongoCodecsConfigurator} to configure required codecs
      */

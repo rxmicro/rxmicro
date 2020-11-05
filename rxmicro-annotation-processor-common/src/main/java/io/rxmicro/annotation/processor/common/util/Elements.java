@@ -31,7 +31,6 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.function.Predicate;
-import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.TypeElement;
@@ -48,6 +47,7 @@ import static java.util.stream.Collectors.toList;
 import static javax.lang.model.element.ElementKind.CONSTRUCTOR;
 import static javax.lang.model.element.ElementKind.ENUM;
 import static javax.lang.model.element.ElementKind.ENUM_CONSTANT;
+import static javax.lang.model.element.ElementKind.FIELD;
 import static javax.lang.model.element.ElementKind.METHOD;
 import static javax.lang.model.element.Modifier.DEFAULT;
 import static javax.lang.model.element.Modifier.PRIVATE;
@@ -127,7 +127,7 @@ public final class Elements {
         TypeElement currentTypeElement = typeElement;
         while (true) {
             fields.addAll(0, currentTypeElement.getEnclosedElements().stream()
-                    .filter(el -> el.getKind() == ElementKind.FIELD)
+                    .filter(el -> el.getKind() == FIELD)
                     .map(el -> (VariableElement) el)
                     .filter(filter)
                     .collect(toList()));
@@ -187,7 +187,7 @@ public final class Elements {
         TypeElement currentTypeElement = typeElement;
         while (true) {
             methods.addAll(0, currentTypeElement.getEnclosedElements().stream()
-                    .filter(el -> el.getKind() == ElementKind.METHOD)
+                    .filter(el -> el.getKind() == METHOD)
                     .map(el -> (ExecutableElement) el)
                     .filter(filter)
                     .collect(toList()));
@@ -208,7 +208,7 @@ public final class Elements {
     public static Optional<TypeElement> asTypeElement(final TypeMirror typeMirror) {
         if (typeMirror instanceof VirtualTypeMirror) {
             return Optional.of(((VirtualTypeMirror) typeMirror).getVirtualTypeElement());
-        } else{
+        } else {
             return Optional.ofNullable(getTypes().asElement(typeMirror))
                     .filter(e -> e instanceof TypeElement)
                     .map(e -> (TypeElement) e);
@@ -240,7 +240,7 @@ public final class Elements {
         TypeElement currentTypeElement = typeElement;
         while (true) {
             methods.addAll(currentTypeElement.getEnclosedElements().stream()
-                    .filter(el -> el.getKind() == ElementKind.METHOD &&
+                    .filter(el -> el.getKind() == METHOD &&
                             !el.getModifiers().contains(STATIC) &&
                             methodNames.contains(el.getSimpleName().toString()) &&
                             el.getModifiers().contains(PUBLIC))

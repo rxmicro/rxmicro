@@ -56,18 +56,18 @@ public final class PostgreSQLConnectionPoolBuilder {
 
     private static final PostgreSQLConnectionPoolBuilder INSTANCE = new PostgreSQLConnectionPoolBuilder();
 
-    private PostgreSQLConnectionPoolBuilder() {
-    }
-
-    public static PostgreSQLConnectionPoolBuilder getInstance() {
-        return INSTANCE;
-    }
-
     private final List<CodecRegistrar> codecRegistrars = new ArrayList<>();
 
     private Function<Connection, Connection> connectionDecorator;
 
     private boolean built;
+
+    public static PostgreSQLConnectionPoolBuilder getInstance() {
+        return INSTANCE;
+    }
+
+    private PostgreSQLConnectionPoolBuilder() {
+    }
 
     public void addCodecRegistrar(final CodecRegistrar codecRegistrar) {
         if (built) {

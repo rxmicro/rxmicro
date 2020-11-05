@@ -356,6 +356,7 @@ public final class MongoCodecsConfigurator extends AbstractMongoCodecsConfigurat
      *
      * @return the reference to this {@link MongoCodecsConfigurator} instance
      */
+    @Override
     public MongoCodecsConfigurator withDefaultConfiguration() {
         return withCommonCodecs()
                 .withDateTimeCodecs()

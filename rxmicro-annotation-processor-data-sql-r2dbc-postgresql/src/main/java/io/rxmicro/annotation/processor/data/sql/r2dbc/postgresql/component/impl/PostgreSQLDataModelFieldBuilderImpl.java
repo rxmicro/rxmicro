@@ -18,8 +18,8 @@ package io.rxmicro.annotation.processor.data.sql.r2dbc.postgresql.component.impl
 
 import com.google.inject.Singleton;
 import io.rxmicro.annotation.processor.common.model.AnnotatedModelElement;
-import io.rxmicro.annotation.processor.common.model.ModelFieldType;
 import io.rxmicro.annotation.processor.common.model.ModelFieldBuilderOptions;
+import io.rxmicro.annotation.processor.common.model.ModelFieldType;
 import io.rxmicro.annotation.processor.data.sql.component.AbstractSQLDataModelFieldBuilder;
 import io.rxmicro.annotation.processor.data.sql.model.SQLDataModelField;
 import io.rxmicro.annotation.processor.data.sql.r2dbc.postgresql.model.PostgreSQLDataObjectModelClass;

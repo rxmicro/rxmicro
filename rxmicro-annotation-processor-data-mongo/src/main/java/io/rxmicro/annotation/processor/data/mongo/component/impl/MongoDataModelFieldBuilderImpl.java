@@ -18,8 +18,8 @@ package io.rxmicro.annotation.processor.data.mongo.component.impl;
 
 import com.google.inject.Singleton;
 import io.rxmicro.annotation.processor.common.model.AnnotatedModelElement;
-import io.rxmicro.annotation.processor.common.model.ModelFieldType;
 import io.rxmicro.annotation.processor.common.model.ModelFieldBuilderOptions;
+import io.rxmicro.annotation.processor.common.model.ModelFieldType;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
 import io.rxmicro.annotation.processor.data.component.impl.AbstractDataModelFieldBuilder;
 import io.rxmicro.annotation.processor.data.mongo.model.MongoDataModelField;
