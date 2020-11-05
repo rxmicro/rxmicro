@@ -19,6 +19,7 @@ package io.rxmicro.annotation.processor.data.component.impl;
 import com.google.inject.Inject;
 import io.rxmicro.annotation.processor.common.component.impl.AbstractModelFieldBuilder;
 import io.rxmicro.annotation.processor.common.model.AnnotatedModelElement;
+import io.rxmicro.annotation.processor.common.model.ModelFieldBuilderOptions;
 import io.rxmicro.annotation.processor.common.model.ModelFieldType;
 import io.rxmicro.annotation.processor.common.model.definition.SupportedTypesProvider;
 import io.rxmicro.annotation.processor.common.model.type.PrimitiveModelClass;
@@ -60,7 +61,8 @@ public abstract class AbstractDataModelFieldBuilder<DMF extends DataModelField, 
                         final TypeElement typeElement,
                         final ModelNames modelNames,
                         final Set<String> fieldNames,
-                        final int nestedLevel) {
+                        final int nestedLevel,
+                        final ModelFieldBuilderOptions options) {
         final String fieldName = field.getSimpleName().toString();
         if (!fieldNames.add(fieldName)) {
             error(field, "Detected duplicate of class field name: ?", fieldName);
@@ -82,7 +84,7 @@ public abstract class AbstractDataModelFieldBuilder<DMF extends DataModelField, 
         final Column column = annotated.getAnnotation(Column.class);
         final int length = column != null ? column.length() : Column.NOT_SPECIFIED_LENGTH;
         final boolean nullable = column != null && column.nullable();
-        return validateAndReturn(build(annotated, modelName, length, nullable, id), typeElement);
+        return validateAndReturn(options, build(annotated, modelName, length, nullable, id), typeElement);
     }
 
     protected abstract DMF build(AnnotatedModelElement annotated,

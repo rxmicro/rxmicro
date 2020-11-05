@@ -89,7 +89,7 @@ public final class ModelExceptionErrorResponseBuilderImpl implements ModelExcept
             );
         } else {
             modelExceptionErrorResponseCustomBuilder.setCustomErrorResponse(
-                    environmentContext, owner, resourceDefinition, projectMetaData, exceptionTypeElement, status, responseBuilder
+                    environmentContext, resourceDefinition, projectMetaData, exceptionTypeElement, status, responseBuilder
             );
         }
         return responseBuilder.build();

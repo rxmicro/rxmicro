@@ -28,6 +28,8 @@ public final class ModelFieldBuilderOptions {
 
     private boolean withFieldsFromParentClasses = true;
 
+    private boolean accessViaReflectionMustBeDetected = true;
+
     public ModelFieldBuilderOptions setRequireDefConstructor(final boolean requireDefConstructor) {
         this.requireDefConstructor = requireDefConstructor;
         return this;
@@ -38,11 +40,20 @@ public final class ModelFieldBuilderOptions {
         return this;
     }
 
+    public ModelFieldBuilderOptions setAccessViaReflectionMustBeDetected(final boolean accessViaReflectionMustBeDetected) {
+        this.accessViaReflectionMustBeDetected = accessViaReflectionMustBeDetected;
+        return this;
+    }
+
     public boolean isRequireDefConstructor() {
         return requireDefConstructor;
     }
 
     public boolean isWithFieldsFromParentClasses() {
         return withFieldsFromParentClasses;
+    }
+
+    public boolean isAccessViaReflectionMustBeDetected() {
+        return accessViaReflectionMustBeDetected;
     }
 }

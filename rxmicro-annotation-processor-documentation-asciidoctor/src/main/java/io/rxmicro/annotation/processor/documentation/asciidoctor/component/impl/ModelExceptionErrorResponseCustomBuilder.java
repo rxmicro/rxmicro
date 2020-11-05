@@ -69,7 +69,6 @@ public final class ModelExceptionErrorResponseCustomBuilder extends AbstractProc
     private DocumentedModelFieldBuilder documentedModelFieldBuilder;
 
     void setCustomErrorResponse(final EnvironmentContext environmentContext,
-                                final Element owner,
                                 final ResourceDefinition resourceDefinition,
                                 final ProjectMetaData projectMetaData,
                                 final TypeElement exceptionTypeElement,
@@ -77,7 +76,8 @@ public final class ModelExceptionErrorResponseCustomBuilder extends AbstractProc
                                 final Response.Builder responseBuilder) {
         final ModuleElement currentModule = environmentContext.getCurrentModule();
         final ModelFieldBuilderOptions options = new ModelFieldBuilderOptions()
-                .setWithFieldsFromParentClasses(false);
+                .setWithFieldsFromParentClasses(false)
+                .setAccessViaReflectionMustBeDetected(false);
         final RestObjectModelClass modelClass =
                 modelFieldBuilder.build(REST_SERVER_RESPONSE, currentModule, Set.of(exceptionTypeElement), options)
                         .get(exceptionTypeElement);

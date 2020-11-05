@@ -46,7 +46,6 @@ import javax.lang.model.element.ModuleElement;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
 import javax.lang.model.type.DeclaredType;
-import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeMirror;
 
 import static io.rxmicro.annotation.processor.common.SupportedOptions.RX_MICRO_MAX_JSON_NESTED_DEPTH;
@@ -63,14 +62,6 @@ import static io.rxmicro.common.util.ExCollectors.toOrderedMap;
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.Strings.splitByCamelCase;
 import static java.util.Collections.unmodifiableMap;
-import static javax.lang.model.type.TypeKind.BOOLEAN;
-import static javax.lang.model.type.TypeKind.BYTE;
-import static javax.lang.model.type.TypeKind.CHAR;
-import static javax.lang.model.type.TypeKind.DOUBLE;
-import static javax.lang.model.type.TypeKind.FLOAT;
-import static javax.lang.model.type.TypeKind.INT;
-import static javax.lang.model.type.TypeKind.LONG;
-import static javax.lang.model.type.TypeKind.SHORT;
 
 /**
  * @author nedis
@@ -122,7 +113,8 @@ public abstract class AbstractModelFieldBuilder<MF extends ModelField, MC extend
                                 TypeElement typeElement,
                                 ModelNames modelNames,
                                 Set<String> fieldNames,
-                                int nestedLevel);
+                                int nestedLevel,
+                                ModelFieldBuilderOptions options);
 
     protected void validateModelClass(final TypeElement typeElement) {
         // Sub classes can add additional validators for this type element
@@ -146,24 +138,31 @@ public abstract class AbstractModelFieldBuilder<MF extends ModelField, MC extend
         final Set<String> fieldNames = new HashSet<>();
         return allModelFields(typeElement, options.isWithFieldsFromParentClasses()).stream()
                 .collect(toOrderedMap(
-                        el -> build(modelFieldType, el, typeElement, modelNames, fieldNames, nestedLevel),
+                        el -> build(modelFieldType, el, typeElement, modelNames, fieldNames, nestedLevel, options),
                         el -> extract(currentModule, modelFieldType, el, el.asType(), nestedLevel, options)
                 ));
     }
 
-    protected final <M extends ModelField> M validateAndReturn(final M modelField,
+    protected final <M extends ModelField> M validateAndReturn(final ModelFieldBuilderOptions options,
+                                                               final M modelField,
                                                                final TypeElement typeElement) {
-        if (modelField.getModelReadAccessorType() == ModelAccessorType.REFLECTION) {
-            warn(modelField.getFieldElement(),
-                    "PERFORMANCE WARNING: To read a value from ?.? rxmicro will use the reflection. " +
-                            "It is recommended to add a getter or change the field modifier: from private to default, protected or public",
-                    typeElement.getQualifiedName(), modelField.getFieldName());
-        }
-        if (modelField.getModelWriteAccessorType() == ModelAccessorType.REFLECTION) {
-            warn(modelField.getFieldElement(),
-                    "PERFORMANCE WARNING: To write a value to ?.? rxmicro will use the reflection. " +
-                            "It is recommended to add a setter or change the field modifier: from private to default, protected or public",
-                    typeElement.getQualifiedName(), modelField.getFieldName());
+        if (options.isAccessViaReflectionMustBeDetected()) {
+            if (modelField.getModelReadAccessorType() == ModelAccessorType.REFLECTION) {
+                warn(modelField.getFieldElement(),
+                        "PERFORMANCE WARNING: To read a value from ?.? the RxMicro framework will use the reflection. " +
+                                "It is recommended to add a getter or change the field modifier: from private to default, protected or public",
+                        typeElement.getQualifiedName(),
+                        modelField.getFieldName()
+                );
+            }
+            if (modelField.getModelWriteAccessorType() == ModelAccessorType.REFLECTION) {
+                warn(modelField.getFieldElement(),
+                        "PERFORMANCE WARNING: To write a value to ?.? the RxMicro framework will use the reflection. " +
+                                "It is recommended to add a setter or change the field modifier: from private to default, protected or public",
+                        typeElement.getQualifiedName(),
+                        modelField.getFieldName()
+                );
+            }
         }
         return modelField;
     }

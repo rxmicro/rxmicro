@@ -19,6 +19,7 @@ package io.rxmicro.annotation.processor.rest.component;
 import com.google.inject.Inject;
 import io.rxmicro.annotation.processor.common.component.impl.AbstractModelFieldBuilder;
 import io.rxmicro.annotation.processor.common.model.AnnotatedModelElement;
+import io.rxmicro.annotation.processor.common.model.ModelFieldBuilderOptions;
 import io.rxmicro.annotation.processor.common.model.ModelFieldType;
 import io.rxmicro.annotation.processor.common.model.definition.SupportedTypesProvider;
 import io.rxmicro.annotation.processor.common.model.error.InternalErrorException;
@@ -81,7 +82,8 @@ public abstract class AbstractRestModelFieldBuilder extends AbstractModelFieldBu
                                          final TypeElement typeElement,
                                          final ModelNames modelNames,
                                          final Set<String> fieldNames,
-                                         final int nestedLevel) {
+                                         final int nestedLevel,
+                                         final ModelFieldBuilderOptions options) {
         final String fieldName = field.getSimpleName().toString();
         if (!fieldNames.add(fieldName)) {
             error(field, "Detected duplicate of class field name: ?", fieldName);
@@ -89,7 +91,7 @@ public abstract class AbstractRestModelFieldBuilder extends AbstractModelFieldBu
         final AnnotatedModelElement annotated = build(typeElement, field);
         validateAnnotated(modelFieldType, annotated);
         return buildInternal(modelFieldType, annotated).orElseGet(() ->
-                buildCustomParameter(modelFieldType, typeElement, modelNames, nestedLevel, annotated)
+                buildCustomParameter(modelFieldType, typeElement, modelNames, nestedLevel, annotated, options)
         );
     }
 
@@ -105,33 +107,34 @@ public abstract class AbstractRestModelFieldBuilder extends AbstractModelFieldBu
                                                 final TypeElement typeElement,
                                                 final ModelNames modelNames,
                                                 final int nestedLevel,
-                                                final AnnotatedModelElement annotated) {
+                                                final AnnotatedModelElement annotated,
+                                                final ModelFieldBuilderOptions options) {
         final PathVariable pathVariable = annotated.getAnnotation(PathVariable.class);
         if (pathVariable != null) {
             final RestModelField restModelField = pathVariableRestModelFieldBuilder.build(
                     modelFieldType, typeElement, annotated, pathVariable, modelNames.modelNames("path"), nestedLevel
             );
-            return validateAndReturn(restModelField, typeElement);
+            return validateAndReturn(options, restModelField, typeElement);
         }
         final Header header = annotated.getAnnotation(Header.class);
         if (header != null) {
             final RestModelField restModelField = headerRestModelFieldBuilder.build(
                     modelFieldType, typeElement, annotated, header, modelNames.modelNames("headers"), nestedLevel
             );
-            return validateAndReturn(restModelField, typeElement);
+            return validateAndReturn(options, restModelField, typeElement);
         }
         final RequestId requestId = annotated.getAnnotation(RequestId.class);
         if (requestId != null) {
             final RestModelField restModelField = requestIdRestModelFieldBuilder.build(
                     modelFieldType, typeElement, annotated, requestId, modelNames.modelNames("headers"), nestedLevel
             );
-            return validateAndReturn(restModelField, typeElement);
+            return validateAndReturn(options, restModelField, typeElement);
         }
         final Parameter parameter = annotated.getAnnotation(Parameter.class);
         final RestModelField restModelField = parameterRestModelFieldBuilder.build(
                 modelFieldType, typeElement, annotated, parameter, modelNames.modelNames("params"), nestedLevel
         );
-        return validateAndReturn(restModelField, typeElement);
+        return validateAndReturn(options, restModelField, typeElement);
     }
 
     protected final void validateNoAnnotations(final AnnotatedModelElement annotated) {
