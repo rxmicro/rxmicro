@@ -16,11 +16,10 @@
 
 package io.rxmicro.annotation.processor.rest.model;
 
-import io.rxmicro.annotation.processor.common.model.virtual.VirtualTypeElement;
-
 import java.util.Optional;
 import javax.lang.model.element.TypeElement;
 
+import static io.rxmicro.annotation.processor.common.util.Elements.isVirtualTypeElement;
 import static io.rxmicro.annotation.processor.common.util.Errors.createInternalErrorSupplier;
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.Requires.require;
@@ -49,7 +48,7 @@ public class RestRequestModel {
     }
 
     public boolean isVirtual() {
-        return requestType instanceof VirtualTypeElement;
+        return isVirtualTypeElement(requestType);
     }
 
     public boolean requestModelNotExists() {

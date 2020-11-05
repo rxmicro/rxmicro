@@ -17,6 +17,7 @@
 package io.rxmicro.annotation.processor.common.util;
 
 
+import io.rxmicro.annotation.processor.common.model.virtual.VirtualTypeElement;
 import io.rxmicro.annotation.processor.common.model.virtual.VirtualTypeMirror;
 import io.rxmicro.model.NotStandardSerializableEnum;
 import io.rxmicro.model.Transient;
@@ -87,6 +88,10 @@ public final class Elements {
         return asTypeElement(typeMirror)
                 .map(te -> !te.getTypeParameters().isEmpty())
                 .orElse(false);
+    }
+
+    public static boolean isVirtualTypeElement(final TypeElement typeElement) {
+        return typeElement instanceof VirtualTypeElement;
     }
 
     public static boolean isNotStandardEnum(final TypeMirror typeMirror) {

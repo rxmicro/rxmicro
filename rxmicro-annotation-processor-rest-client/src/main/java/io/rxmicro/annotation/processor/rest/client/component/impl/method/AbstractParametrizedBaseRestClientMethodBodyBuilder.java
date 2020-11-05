@@ -34,6 +34,7 @@ import io.rxmicro.rest.client.detail.RequestModelExtractor;
 import java.util.Map;
 import javax.lang.model.element.TypeElement;
 
+import static io.rxmicro.annotation.processor.common.util.Elements.isVirtualTypeElement;
 import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.getModelTransformerInstanceName;
 
 /**
@@ -67,7 +68,7 @@ public abstract class AbstractParametrizedBaseRestClientMethodBodyBuilder extend
 
         addValidators(environmentContext, storage, classHeaderBuilder, parameterType, responseModel, templateArguments);
         addPathBuilder(methodSignature, templateArguments);
-        final boolean isRequestClassVirtual = requestModel.getRequiredRequestType() instanceof VirtualTypeElement;
+        final boolean isRequestClassVirtual = isVirtualTypeElement(requestModel.getRequiredRequestType());
         templateArguments.put("IS_REQUEST_CLASS_VIRTUAL", isRequestClassVirtual);
         if (isRequestClassVirtual) {
             templateArguments.put("REQUEST_VIRTUAL_CLASS", requestModel.getRequiredRequestType().getSimpleName().toString());

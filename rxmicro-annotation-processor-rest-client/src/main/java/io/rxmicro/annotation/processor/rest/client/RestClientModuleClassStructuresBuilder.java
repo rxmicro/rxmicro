@@ -26,7 +26,7 @@ import io.rxmicro.annotation.processor.common.model.ClassStructure;
 import io.rxmicro.annotation.processor.common.model.EnvironmentContext;
 import io.rxmicro.annotation.processor.common.model.ModuleInfoItem;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
-import io.rxmicro.annotation.processor.common.model.virtual.VirtualTypeElement;
+import io.rxmicro.annotation.processor.common.util.Elements;
 import io.rxmicro.annotation.processor.rest.RestCommonDependenciesModule;
 import io.rxmicro.annotation.processor.rest.client.component.PathBuilderClassStructureBuilder;
 import io.rxmicro.annotation.processor.rest.client.component.RequestModelExtractorClassStructureBuilder;
@@ -173,7 +173,7 @@ public final class RestClientModuleClassStructuresBuilder extends AbstractModule
         for (final RestClientClassSignature classSignature : classSignatures) {
             for (final RestClientMethodSignature methodSignature : classSignature.getMethodSignatures()) {
                 methodSignature.getRequestModel().getRequestType()
-                        .filter(t -> t instanceof VirtualTypeElement)
+                        .filter(Elements::isVirtualTypeElement)
                         .flatMap(t -> restClientClassStructureStorage.getModelClass(t.getQualifiedName().toString()))
                         .ifPresent(modelClass -> classStructures.add(new VirtualTypeClassStructure(modelClass, true)));
             }

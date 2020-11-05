@@ -22,6 +22,7 @@ import io.rxmicro.annotation.processor.common.model.DefaultConfigProxyValue;
 import io.rxmicro.annotation.processor.common.model.ModelTransformer;
 import io.rxmicro.annotation.processor.common.model.virtual.VirtualFieldElement;
 import io.rxmicro.annotation.processor.common.model.virtual.VirtualTypeElement;
+import io.rxmicro.annotation.processor.common.util.Elements;
 import io.rxmicro.annotation.processor.common.util.UsedByFreemarker;
 import io.rxmicro.annotation.processor.rest.model.AbstractSimpleObjectModelClass;
 import io.rxmicro.exchange.json.detail.ModelToJsonConverter;
@@ -181,7 +182,7 @@ public final class RestClientClassStructure extends ClassStructure {
         allValidators.forEach(v -> classHeaderBuilder.addImports(v.getModelValidatorImplFullClassName()));
         modelTransformers.forEach(c -> classHeaderBuilder.addImports(c.getJavaFullClassName()));
         methods.stream().flatMap(m -> m.getToHttpDataType().stream())
-                .filter(te -> te instanceof VirtualTypeElement)
+                .filter(Elements::isVirtualTypeElement)
                 .forEach(typeElement ->
                         classHeaderBuilder.addImports(((VirtualTypeElement) typeElement).getVirtualFieldElements().stream()
                                 .map(VirtualFieldElement::asType)

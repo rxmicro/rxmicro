@@ -26,6 +26,7 @@ import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.TypeMirror;
 
 import static io.rxmicro.annotation.processor.common.util.Elements.asTypeElement;
+import static io.rxmicro.annotation.processor.common.util.Elements.isVirtualTypeElement;
 import static io.rxmicro.annotation.processor.common.util.validators.TypeValidators.validateAccessibleDefaultConstructor;
 import static io.rxmicro.annotation.processor.common.util.validators.TypeValidators.validateModuleDeclaration;
 import static io.rxmicro.annotation.processor.common.util.validators.TypeValidators.validateTypeElement;
@@ -42,29 +43,31 @@ public final class ModelTypeElements {
                                                           final TypeMirror type,
                                                           final String prefix,
                                                           final ModelFieldBuilderOptions options) {
-        final String validPrefix = prefix == null || prefix.isEmpty() ? "" : prefix+": ";
+        final String validPrefix = prefix == null || prefix.isEmpty() ? "" : prefix + ": ";
         final Optional<TypeElement> optionalTypeElement = asTypeElement(type);
         if (optionalTypeElement.isPresent()) {
             final TypeElement typeElement = optionalTypeElement.get();
-            if (isDeniedPackage(typeElement.getQualifiedName().toString())) {
-                throw new InterruptProcessingException(
-                        owner,
-                        "?Model class couldn't be a library class: ?. Create a custom class at the current module",
-                        validPrefix,
-                        typeElement.getQualifiedName()
-                );
+            if (!isVirtualTypeElement(typeElement)) {
+                if (isDeniedPackage(typeElement.getQualifiedName().toString())) {
+                    throw new InterruptProcessingException(
+                            owner,
+                            "?Model class couldn't be a library class: ?. Create a custom class at the current module",
+                            validPrefix,
+                            typeElement.getQualifiedName()
+                    );
+                }
+                validateTypeElement(owner, validPrefix, typeElement);
+                if (options.isRequireDefConstructor()) {
+                    validateAccessibleDefaultConstructor(typeElement);
+                }
+                validateModuleDeclaration(currentModule, owner, validPrefix, typeElement, options.isWithFieldsFromParentClasses());
             }
-            validateTypeElement(owner, validPrefix, typeElement);
-            if (options.isRequireDefConstructor()) {
-                validateAccessibleDefaultConstructor(typeElement);
-            }
-            validateModuleDeclaration(currentModule, owner, validPrefix, typeElement, options.isWithFieldsFromParentClasses());
             return typeElement;
         } else {
             throw new InterruptProcessingException(owner, "?? is not a class", validPrefix, type);
         }
     }
 
-    private ModelTypeElements(){
+    private ModelTypeElements() {
     }
 }
