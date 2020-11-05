@@ -6,6 +6,7 @@ public final class ${IMPL_CLASS_NAME} extends RestControllerAggregator {
         ${ENVIRONMENT_CUSTOMIZER_CLASS}.customize();
     }
 
+    @Override
     protected List<AbstractRestController> listAllRestControllers() {
         return List.of(
                 <#if CORS_RESOURCES?has_content>

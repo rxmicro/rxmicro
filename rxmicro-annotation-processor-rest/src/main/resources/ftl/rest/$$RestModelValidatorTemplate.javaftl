@@ -20,7 +20,7 @@ public final class ${JAVA_MODEL_CLASS.modelValidatorImplSimpleClassName} impleme
     @Override
     public void validate(final ${JAVA_MODEL_CLASS.javaSimpleClassName} model,
                          final HttpModelType httpModelType,
-                         final String name) throws ValidationException {
+                         final String name) {
         <#if OPTIONAL>
         if (model == null){
             return;
