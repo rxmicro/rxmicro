@@ -180,7 +180,7 @@ public final class $$PostgreSQLDataRepository extends AbstractPostgreSQLReposito
 
     @Override
     public CompletableFuture<AccountResult> insert8(final Account account) {
-        // Original SQL statement:  'INSERT INTO ${table}(${inserted-columns}) VALUES(${values}) ON CONFLICT(${id-columns}) DO UPDATE SET ${on-conflict-update-not-id-columns} RETURNING ${returning-columns}'
+        // Original SQL statement:  'INSERT INTO ${table}(${inserted-columns}) VALUES(${values}) ON CONFLICT(${id-columns}) DO UPDATE SET ${on-conflict-update-inserted-columns} RETURNING ${returning-columns}'
         final String generatedSQL = "INSERT INTO account(id, email, first_name, last_name, role) VALUES(nextval('account_seq'), $1, $2, $3, $4) ON CONFLICT(id) DO UPDATE SET email = EXCLUDED.email, first_name = EXCLUDED.first_name, last_name = EXCLUDED.last_name, balance = EXCLUDED.balance, role = EXCLUDED.role RETURNING first_name, last_name";
         final Object[] insertParams = accountEntityToR2DBCSQLDBConverter.getInsertParams(account);
         final Class<?>[] insertParamTypes = accountEntityToR2DBCSQLDBConverter.getInsertParamTypes();
@@ -202,7 +202,7 @@ public final class $$PostgreSQLDataRepository extends AbstractPostgreSQLReposito
 
     @Override
     public CompletableFuture<Void> insert9(final Account account) {
-        // Original SQL statement:  'INSERT INTO ${table}(${inserted-columns}) VALUES(${values}) ON CONFLICT(${id-columns}) DO UPDATE SET ${on-conflict-update-not-id-columns}'
+        // Original SQL statement:  'INSERT INTO ${table}(${inserted-columns}) VALUES(${values}) ON CONFLICT(${id-columns}) DO UPDATE SET ${on-conflict-update-inserted-columns}'
         final String generatedSQL = "INSERT INTO account(id, email, first_name, last_name, role) VALUES(nextval('account_seq'), $1, $2, $3, $4) ON CONFLICT(id) DO UPDATE SET email = EXCLUDED.email, first_name = EXCLUDED.first_name, last_name = EXCLUDED.last_name, balance = EXCLUDED.balance, role = EXCLUDED.role";
         final Object[] insertParams = accountEntityToR2DBCSQLDBConverter.getInsertParams(account);
         final Class<?>[] insertParamTypes = accountEntityToR2DBCSQLDBConverter.getInsertParamTypes();

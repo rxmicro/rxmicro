@@ -88,7 +88,7 @@ import static io.rxmicro.data.sql.SupportedVariables.ALL_COLUMNS;
 import static io.rxmicro.data.sql.SupportedVariables.BY_ID_FILTER;
 import static io.rxmicro.data.sql.SupportedVariables.ID_COLUMNS;
 import static io.rxmicro.data.sql.SupportedVariables.INSERTED_COLUMNS;
-import static io.rxmicro.data.sql.SupportedVariables.ON_CONFLICT_UPDATE_NOT_ID_COLUMNS;
+import static io.rxmicro.data.sql.SupportedVariables.ON_CONFLICT_UPDATE_INSERTED_COLUMNS;
 import static io.rxmicro.data.sql.SupportedVariables.RETURNING_COLUMNS;
 import static io.rxmicro.data.sql.SupportedVariables.TABLE;
 import static io.rxmicro.data.sql.SupportedVariables.UPDATED_COLUMNS;
@@ -108,7 +108,7 @@ public final class PostgreSQLDependenciesModule extends AbstractModule {
     private static final Set<String> SUPPORTED_INSERT_PARAMS_VARIABLES =
             unmodifiableOrderedSet(
                     TABLE, INSERTED_COLUMNS, VALUES, ID_COLUMNS,
-                    ON_CONFLICT_UPDATE_NOT_ID_COLUMNS, "*", ALL_COLUMNS
+                    ON_CONFLICT_UPDATE_INSERTED_COLUMNS, "*", ALL_COLUMNS
             );
 
     private static final Set<String> SUPPORTED_INSERT_RESULTS_VARIABLES =

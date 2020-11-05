@@ -140,9 +140,9 @@ public final class SupportedVariables {
      *
      * <p>
      * For example (for PostgreSQL):
-     * <code>${on-conflict-update-not-id-columns} -> login = EXCLUDED.login, name = EXCLUDED.name, password = EXCLUDED.password</code>
+     * <code>${on-conflict-update-inserted-columns} -> login = EXCLUDED.login, name = EXCLUDED.name, password = EXCLUDED.password</code>
      */
-    public static final String ON_CONFLICT_UPDATE_NOT_ID_COLUMNS = "${on-conflict-update-not-id-columns}";
+    public static final String ON_CONFLICT_UPDATE_INSERTED_COLUMNS = "${on-conflict-update-inserted-columns}";
 
     /**
      * Returning columns from {@link Insert}, {@link Update} or {@link Delete} SQL expressions.
