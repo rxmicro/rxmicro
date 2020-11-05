@@ -51,14 +51,17 @@ public final class $$PostgreSQLInsertDataRepository extends AbstractPostgreSQLRe
         // Original SQL statement:  'INSERT INTO ${table}(${inserted-columns}) VALUES(${values}) RETURNING ${id-columns}'
         final String generatedSQL = "INSERT INTO account(id, email, first_name, last_name, balance, role) VALUES(nextval('account_seq'), $1, $2, $3, $4, $5) RETURNING id";
         final Object[] insertParams = accountEntityToR2DBCSQLDBConverter.getInsertParams(account);
+        final Class<?>[] insertParamTypes = accountEntityToR2DBCSQLDBConverter.getInsertParamTypes();
         return pool.create()
-                .flatMap(c -> executeStatement(c, generatedSQL, insertParams)
+                .flatMap(c -> executeStatement(c, generatedSQL, insertParams, insertParamTypes)
                         .flatMap(r -> Mono.from(r.map((row, meta) -> accountEntityFromR2DBCSQLDBConverter.setId(account, row, meta))))
                         .switchIfEmpty(close(c)
-                                .then(Mono.empty()))
+                                .then(Mono.empty())
+                        )
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
+                                .then(Mono.error(e))
+                        )
                 )
                 .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletableFuture.class, Account.class))))
                 .toFuture();
@@ -69,14 +72,17 @@ public final class $$PostgreSQLInsertDataRepository extends AbstractPostgreSQLRe
         // Original SQL statement:  'INSERT INTO ${table}(${inserted-columns}) VALUES(${values}) RETURNING ${id-columns}'
         final String generatedSQL = "INSERT INTO order(id_account, id_product, count) VALUES($1, $2, $3) RETURNING id";
         final Object[] insertParams = orderEntityToR2DBCSQLDBConverter.getInsertParams(order);
+        final Class<?>[] insertParamTypes = orderEntityToR2DBCSQLDBConverter.getInsertParamTypes();
         return pool.create()
-                .flatMap(c -> executeStatement(c, generatedSQL, insertParams)
+                .flatMap(c -> executeStatement(c, generatedSQL, insertParams, insertParamTypes)
                         .flatMap(r -> Mono.from(r.map((row, meta) -> orderEntityFromR2DBCSQLDBConverter.setId(order, row, meta))))
                         .switchIfEmpty(close(c)
-                                .then(Mono.empty()))
+                                .then(Mono.empty())
+                        )
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
+                                .then(Mono.error(e))
+                        )
                 )
                 .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletableFuture.class, Order.class))))
                 .toFuture();
@@ -87,14 +93,14 @@ public final class $$PostgreSQLInsertDataRepository extends AbstractPostgreSQLRe
         // Original SQL statement:  'INSERT INTO ${table}(${inserted-columns}) VALUES(${values})'
         final String generatedSQL = "INSERT INTO product(id, name, price, count) VALUES($1, $2, $3, $4)";
         final Object[] insertParams = productEntityToR2DBCSQLDBConverter.getInsertParams(product);
+        final Class<?>[] insertParamTypes = productEntityToR2DBCSQLDBConverter.getInsertParamTypes();
         return pool.create()
-                .flatMap(c -> executeStatement(c, generatedSQL, insertParams)
+                .flatMap(c -> executeStatement(c, generatedSQL, insertParams, insertParamTypes)
                         .flatMap(r -> Mono.from(r.getRowsUpdated()))
-                        
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
-                        
+                                .then(Mono.error(e))
+                        )
                 )
                 .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletableFuture.class, Void.class))))
                 .toFuture()
@@ -106,14 +112,14 @@ public final class $$PostgreSQLInsertDataRepository extends AbstractPostgreSQLRe
         // Original SQL statement:  'INSERT INTO ${table}(${inserted-columns}) VALUES(${values})'
         final String generatedSQL = "INSERT INTO composite_primary_key(id_category, id_type, id_role) VALUES($1, $2, $3)";
         final Object[] insertParams = compositePrimaryKeyEntityToR2DBCSQLDBConverter.getInsertParams(entity);
+        final Class<?>[] insertParamTypes = compositePrimaryKeyEntityToR2DBCSQLDBConverter.getInsertParamTypes();
         return pool.create()
-                .flatMap(c -> executeStatement(c, generatedSQL, insertParams)
+                .flatMap(c -> executeStatement(c, generatedSQL, insertParams, insertParamTypes)
                         .flatMap(r -> Mono.from(r.getRowsUpdated()))
-                        
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
-                        
+                                .then(Mono.error(e))
+                        )
                 )
                 .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletableFuture.class, Void.class))))
                 .toFuture()

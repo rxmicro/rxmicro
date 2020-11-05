@@ -67,8 +67,9 @@ public final class $$PostgreSQLTransactionUsageRepository extends AbstractPostgr
         // Original SQL statement:  'INSERT INTO ${table}(${inserted-columns}) VALUES(${values}) RETURNING ${id-columns}'
         final String generatedSQL = "INSERT INTO order(id_account, id_product, count) VALUES($1, $2, $3) RETURNING id";
         final Object[] insertParams = orderEntityToR2DBCSQLDBConverter.getInsertParams(order);
+        final Class<?>[] insertParamTypes = orderEntityToR2DBCSQLDBConverter.getInsertParamTypes();
         return extractConnectionFrom(transaction)
-                .flatMap(c -> executeStatement(c, generatedSQL, insertParams)
+                .flatMap(c -> executeStatement(c, generatedSQL, insertParams, insertParamTypes)
                         .flatMap(r -> Mono.from(r.map((row, meta) -> orderEntityFromR2DBCSQLDBConverter.setId(order, row, meta))))
                 );
     }
@@ -78,10 +79,10 @@ public final class $$PostgreSQLTransactionUsageRepository extends AbstractPostgr
         // Original SQL statement:  'UPDATE ${table} SET ${updated-columns} WHERE ${by-id-filter}'
         final String generatedSQL = "UPDATE order SET id_account = $1, id_product = $2, count = $3, created = $4 WHERE id = $5";
         final Object[] updateParams = orderEntityToR2DBCSQLDBConverter.getUpdateParams(order);
+        final Class<?>[] updateParamTypes = orderEntityToR2DBCSQLDBConverter.getUpdateParamTypes();
         return extractConnectionFrom(transaction)
-                .flatMap(c -> executeStatement(c, generatedSQL, updateParams)
+                .flatMap(c -> executeStatement(c, generatedSQL, updateParams, updateParamTypes)
                         .flatMap(r -> Mono.from(r.getRowsUpdated()))
-                        
                 )
                 .map(r -> r > 0);
     }
@@ -94,7 +95,6 @@ public final class $$PostgreSQLTransactionUsageRepository extends AbstractPostgr
         return extractConnectionFrom(transaction)
                 .flatMap(c -> executeStatement(c, generatedSQL, primaryKey)
                         .flatMap(r -> Mono.from(r.getRowsUpdated()))
-                        
                 )
                 .map(r -> r > 0);
     }

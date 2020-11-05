@@ -29,7 +29,7 @@ import java.time.Instant;
 import java.time.ZoneOffset;
 import javax.lang.model.type.TypeMirror;
 
-import static io.rxmicro.annotation.processor.common.util.DateTimes.SUPPORTED_DATE_TIME_CLASSES;
+import static io.rxmicro.annotation.processor.common.util.Types.SUPPORTED_DATE_TIME_CLASSES;
 import static io.rxmicro.common.local.Examples.INSTANT_EXAMPLE;
 
 /**

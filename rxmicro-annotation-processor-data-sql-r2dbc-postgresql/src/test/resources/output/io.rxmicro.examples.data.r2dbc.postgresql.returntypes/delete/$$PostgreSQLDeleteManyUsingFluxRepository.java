@@ -33,9 +33,11 @@ public final class $$PostgreSQLDeleteManyUsingFluxRepository extends AbstractPos
                 .flatMapMany(c -> executeStatement(c, generatedSQL)
                         .flatMapMany(r -> Flux.from(r.map((row, meta) -> accountEntityFromR2DBCSQLDBConverter.setIdFirst_nameLast_name(entity, row, meta))))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
+                                .then(Mono.error(e))
+                        )
                         .concatWith(close(c)
-                                .then(Mono.empty()))
+                                .then(Mono.empty())
+                        )
                 );
     }
 
@@ -47,9 +49,11 @@ public final class $$PostgreSQLDeleteManyUsingFluxRepository extends AbstractPos
                 .flatMapMany(c -> executeStatement(c, generatedSQL)
                         .flatMapMany(r -> Flux.from(r.map(toEntityFieldMap())))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
+                                .then(Mono.error(e))
+                        )
                         .concatWith(close(c)
-                                .then(Mono.empty()))
+                                .then(Mono.empty())
+                        )
                 );
     }
 
@@ -61,9 +65,11 @@ public final class $$PostgreSQLDeleteManyUsingFluxRepository extends AbstractPos
                 .flatMapMany(c -> executeStatement(c, generatedSQL)
                         .flatMapMany(r -> Flux.from(r.map(toEntityFieldList())))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
+                                .then(Mono.error(e))
+                        )
                         .concatWith(close(c)
-                                .then(Mono.empty()))
+                                .then(Mono.empty())
+                        )
                 );
     }
 }

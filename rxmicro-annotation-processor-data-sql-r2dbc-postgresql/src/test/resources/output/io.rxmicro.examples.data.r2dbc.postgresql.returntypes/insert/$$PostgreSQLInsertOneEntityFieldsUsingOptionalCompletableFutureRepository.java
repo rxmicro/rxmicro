@@ -30,15 +30,19 @@ public final class $$PostgreSQLInsertOneEntityFieldsUsingOptionalCompletableFutu
     public CompletableFuture<Optional<Account>> insert01(final String firstName, final String lastName) {
         // Original SQL statement:  'INSERT INTO ${table}(first_name, last_name) VALUES(?, ?) ON CONFLICT DO NOTHING RETURNING *'
         final String generatedSQL = "INSERT INTO account(first_name, last_name) VALUES($1, $2) ON CONFLICT DO NOTHING RETURNING id, first_name, last_name";
+        final Object[] insertParams = {firstName, lastName};
+        final Class<?>[] insertParamTypes = {String.class, String.class};
         final Account entity = new Account();
         return pool.create()
-                .flatMap(c -> executeStatement(c, generatedSQL, firstName, lastName)
+                .flatMap(c -> executeStatement(c, generatedSQL, insertParams, insertParamTypes)
                         .flatMap(r -> Mono.from(r.map((row, meta) -> accountEntityFromR2DBCSQLDBConverter.setIdFirst_nameLast_name(entity, row, meta))))
                         .switchIfEmpty(close(c)
-                                .then(Mono.empty()))
+                                .then(Mono.empty())
+                        )
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
+                                .then(Mono.error(e))
+                        )
                 )
                 .toFuture()
                 .thenApply(a -> Optional.ofNullable(a));
@@ -48,14 +52,18 @@ public final class $$PostgreSQLInsertOneEntityFieldsUsingOptionalCompletableFutu
     public CompletableFuture<Optional<EntityFieldMap>> insert02(final String firstName, final String lastName) {
         // Original SQL statement:  'INSERT INTO ${table}(first_name, last_name) VALUES(?, ?) ON CONFLICT DO NOTHING RETURNING first_name, last_name'
         final String generatedSQL = "INSERT INTO account(first_name, last_name) VALUES($1, $2) ON CONFLICT DO NOTHING RETURNING first_name, last_name";
+        final Object[] insertParams = {firstName, lastName};
+        final Class<?>[] insertParamTypes = {String.class, String.class};
         return pool.create()
-                .flatMap(c -> executeStatement(c, generatedSQL, firstName, lastName)
+                .flatMap(c -> executeStatement(c, generatedSQL, insertParams, insertParamTypes)
                         .flatMap(r -> Mono.from(r.map(toEntityFieldMap())))
                         .switchIfEmpty(close(c)
-                                .then(Mono.empty()))
+                                .then(Mono.empty())
+                        )
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
+                                .then(Mono.error(e))
+                        )
                 )
                 .toFuture()
                 .thenApply(a -> Optional.ofNullable(a));
@@ -65,14 +73,18 @@ public final class $$PostgreSQLInsertOneEntityFieldsUsingOptionalCompletableFutu
     public CompletableFuture<Optional<EntityFieldList>> insert03(final String firstName, final String lastName) {
         // Original SQL statement:  'INSERT INTO ${table}(first_name, last_name) VALUES(?, ?) ON CONFLICT DO NOTHING RETURNING first_name, last_name'
         final String generatedSQL = "INSERT INTO account(first_name, last_name) VALUES($1, $2) ON CONFLICT DO NOTHING RETURNING first_name, last_name";
+        final Object[] insertParams = {firstName, lastName};
+        final Class<?>[] insertParamTypes = {String.class, String.class};
         return pool.create()
-                .flatMap(c -> executeStatement(c, generatedSQL, firstName, lastName)
+                .flatMap(c -> executeStatement(c, generatedSQL, insertParams, insertParamTypes)
                         .flatMap(r -> Mono.from(r.map(toEntityFieldList())))
                         .switchIfEmpty(close(c)
-                                .then(Mono.empty()))
+                                .then(Mono.empty())
+                        )
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
+                                .then(Mono.error(e))
+                        )
                 )
                 .toFuture()
                 .thenApply(a -> Optional.ofNullable(a));

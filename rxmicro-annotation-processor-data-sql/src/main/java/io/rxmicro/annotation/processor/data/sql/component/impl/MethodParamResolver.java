@@ -74,7 +74,7 @@ public final class MethodParamResolver {
                                 if (isNotStandardEnum(parameter.asType())) {
                                     variables.add(new Variable(parameter, format("?.sql()", parameter.getSimpleName())));
                                 } else {
-                                    variables.add(new Variable(parameter, format("?.name()", parameter.getSimpleName())));
+                                    variables.add(new Variable(parameter));
                                 }
                             },
                             () -> variables.add(new Variable(parameter))

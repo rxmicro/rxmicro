@@ -39,10 +39,12 @@ public final class $$PostgreSQLDeleteOneEntityUsingMaybeRepository extends Abstr
                         .flatMap(c -> executeStatement(c, generatedSQL, primaryKey)
                                 .flatMap(r -> Mono.from(r.map((row, meta) -> accountEntityFromR2DBCSQLDBConverter.setIdFirst_nameLast_name(account, row, meta))))
                                 .switchIfEmpty(close(c)
-                                        .then(Mono.empty()))
+                                        .then(Mono.empty())
+                                )
                                 .delayUntil(s -> close(c))
                                 .onErrorResume(e -> close(c)
-                                        .then(Mono.error(e)))
+                                        .then(Mono.error(e))
+                                )
                         )
         ).firstElement();
     }
@@ -57,10 +59,12 @@ public final class $$PostgreSQLDeleteOneEntityUsingMaybeRepository extends Abstr
                         .flatMap(c -> executeStatement(c, generatedSQL, primaryKey)
                                 .flatMap(r -> Mono.from(r.map(toEntityFieldMap())))
                                 .switchIfEmpty(close(c)
-                                        .then(Mono.empty()))
+                                        .then(Mono.empty())
+                                )
                                 .delayUntil(s -> close(c))
                                 .onErrorResume(e -> close(c)
-                                        .then(Mono.error(e)))
+                                        .then(Mono.error(e))
+                                )
                         )
         ).firstElement();
     }
@@ -75,10 +79,12 @@ public final class $$PostgreSQLDeleteOneEntityUsingMaybeRepository extends Abstr
                         .flatMap(c -> executeStatement(c, generatedSQL, primaryKey)
                                 .flatMap(r -> Mono.from(r.map(toEntityFieldList())))
                                 .switchIfEmpty(close(c)
-                                        .then(Mono.empty()))
+                                        .then(Mono.empty())
+                                )
                                 .delayUntil(s -> close(c))
                                 .onErrorResume(e -> close(c)
-                                        .then(Mono.error(e)))
+                                        .then(Mono.error(e))
+                                )
                         )
         ).firstElement();
     }

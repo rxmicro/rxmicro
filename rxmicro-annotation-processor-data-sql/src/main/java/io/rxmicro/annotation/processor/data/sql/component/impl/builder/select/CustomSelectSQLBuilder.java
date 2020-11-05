@@ -22,6 +22,7 @@ import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingExc
 import io.rxmicro.annotation.processor.data.model.Variable;
 import io.rxmicro.annotation.processor.data.sql.component.SQLVariableValueResolver;
 import io.rxmicro.annotation.processor.data.sql.component.impl.SQLFieldsOrderValidator;
+import io.rxmicro.annotation.processor.data.sql.model.BindParameter;
 import io.rxmicro.annotation.processor.data.sql.model.ParsedSQL;
 import io.rxmicro.annotation.processor.data.sql.model.SQLDataModelField;
 import io.rxmicro.annotation.processor.data.sql.model.SQLDataObjectModelClass;
@@ -40,6 +41,8 @@ import javax.lang.model.element.VariableElement;
 
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.data.sql.SupportedVariables.ALL_COLUMNS;
+import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.toUnmodifiableList;
 
 /**
  * @author nedis
@@ -64,7 +67,10 @@ public class CustomSelectSQLBuilder<DMF extends SQLDataModelField, DMC extends S
         final CustomSelect customSelect = customSQL.getAnnotation(CustomSelect.class);
         final SQLStatement.Builder builder = new SQLStatement.Builder()
                 .setDefaultColumnOrder(true)
-                .setBindParams(sqlMethodDescriptor.getParams().stream().map(Variable::getGetter).collect(Collectors.toList()));
+                .setBindParams(sqlMethodDescriptor.getParams().stream()
+                        .map(v -> new BindParameter(v, v.getGetter()))
+                        .collect(toUnmodifiableList())
+                );
         if (customSelect.supportUniversalPlaceholder()) {
             // See AbstractPostgreSQLRepository.replaceUniversalPlaceholder
             builder.setSqlExpression(format("replaceUniversalPlaceholder(?)", customSQL.getSimpleName().toString()));
@@ -111,7 +117,7 @@ public class CustomSelectSQLBuilder<DMF extends SQLDataModelField, DMC extends S
     private VariableElement getCustomSQL(final ExecutableElement method) {
         final List<VariableElement> customSQLs = method.getParameters().stream()
                 .filter(v -> v.getAnnotation(CustomSelect.class) != null)
-                .collect(Collectors.toList());
+                .collect(toList());
         if (customSQLs.isEmpty()) {
             throw new InterruptProcessingException(
                     method,

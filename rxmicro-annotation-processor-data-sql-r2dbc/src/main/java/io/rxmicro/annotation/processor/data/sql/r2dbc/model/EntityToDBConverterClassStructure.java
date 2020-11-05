@@ -22,6 +22,7 @@ import io.rxmicro.annotation.processor.common.model.ClassHeader;
 import io.rxmicro.annotation.processor.common.model.type.ModelClass;
 import io.rxmicro.annotation.processor.data.sql.model.SQLDataModelField;
 import io.rxmicro.annotation.processor.data.sql.model.SQLDataObjectModelClass;
+import io.rxmicro.common.util.Requires;
 import io.rxmicro.data.sql.r2dbc.detail.EntityToR2DBCSQLDBConverter;
 
 import java.util.HashMap;
@@ -93,6 +94,17 @@ public final class EntityToDBConverterClassStructure<DMF extends SQLDataModelFie
         setEntityFieldsConverterMethods.stream()
                 .flatMap(converterMethod -> converterMethod.getValue().stream())
                 .forEach(entry -> classHeaderBuilder.addImports(entry.getKey().getFieldClass()));
+        if (modelClass.isInsertable()) {
+            modelClass.getInsertableParams().stream()
+                    .filter(p -> p.getKey().isInsertValuePlaceholder())
+                    .forEach(e -> classHeaderBuilder.addImports(e.getKey().getFieldClass()));
+        }
+        if (modelClass.isUpdatable()) {
+            modelClass.getUpdatableParams().forEach(e -> classHeaderBuilder.addImports(e.getKey().getFieldClass()));
+        }
+        if (modelClass.isPrimaryKeysPresent()) {
+            classHeaderBuilder.addStaticImport(Requires.class, "require");
+        }
         return classHeaderBuilder.build();
     }
 

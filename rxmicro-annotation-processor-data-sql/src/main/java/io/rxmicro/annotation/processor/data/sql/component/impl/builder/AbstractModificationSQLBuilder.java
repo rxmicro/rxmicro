@@ -20,6 +20,7 @@ import com.google.inject.Inject;
 import io.rxmicro.annotation.processor.common.model.ClassHeader;
 import io.rxmicro.annotation.processor.data.sql.component.SQLBuilder;
 import io.rxmicro.annotation.processor.data.sql.component.SQLVariableValueResolver;
+import io.rxmicro.annotation.processor.data.sql.model.BindParameter;
 import io.rxmicro.annotation.processor.data.sql.model.ParsedSQL;
 import io.rxmicro.annotation.processor.data.sql.model.SQLDataModelField;
 import io.rxmicro.annotation.processor.data.sql.model.SQLDataObjectModelClass;
@@ -120,7 +121,7 @@ public abstract class AbstractModificationSQLBuilder
                                            final SQLStatement.Builder builder,
                                            final List<String> sqlTokens) {
         final List<String> formatParams = new ArrayList<>();
-        final List<String> bindParams = new ArrayList<>();
+        final List<BindParameter> bindParams = new ArrayList<>();
         splitParams(method, classHeaderBuilder, sqlTokens, sqlMethodDescriptor.getParams(), formatParams, bindParams);
         final String sql = joinTokensToSQL(sqlTokens);
         if (formatParams.isEmpty()) {

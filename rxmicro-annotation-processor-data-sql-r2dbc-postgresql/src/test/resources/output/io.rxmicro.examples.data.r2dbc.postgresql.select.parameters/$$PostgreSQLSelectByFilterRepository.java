@@ -32,7 +32,7 @@ public final class $$PostgreSQLSelectByFilterRepository extends AbstractPostgreS
         // Original SQL statement:  'SELECT * FROM ${table} WHERE role = ?'
         final String generatedSQL = "SELECT first_name, last_name FROM account WHERE role = $1";
         return pool.create()
-                .flatMap(c -> executeStatement(c, generatedSQL, role.name())
+                .flatMap(c -> executeStatement(c, generatedSQL, role)
                         .flatMap(r -> Flux.from(r.map(accountEntityFromR2DBCSQLDBConverter::fromDB))
                                 .collectList())
                         .delayUntil(s -> close(c))

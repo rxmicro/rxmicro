@@ -33,15 +33,15 @@ public final class $$PostgreSQLUpdateOneEntityUsingSingleRepository extends Abst
         // Original SQL statement:  'UPDATE ${table} SET ${updated-columns} WHERE ${by-id-filter}'
         final String generatedSQL = "UPDATE account SET first_name = $1, last_name = $2 WHERE id = $3";
         final Object[] updateParams = accountEntityToR2DBCSQLDBConverter.getUpdateParams(account);
+        final Class<?>[] updateParamTypes = accountEntityToR2DBCSQLDBConverter.getUpdateParamTypes();
         return Single.fromPublisher(
                 pool.create()
-                        .flatMap(c -> executeStatement(c, generatedSQL, updateParams)
+                        .flatMap(c -> executeStatement(c, generatedSQL, updateParams, updateParamTypes)
                                 .flatMap(r -> Mono.from(r.getRowsUpdated()))
-                                
                                 .delayUntil(s -> close(c))
                                 .onErrorResume(e -> close(c)
-                                        .then(Mono.error(e)))
-                                
+                                        .then(Mono.error(e))
+                                )
                         )
         );
     }
@@ -51,15 +51,15 @@ public final class $$PostgreSQLUpdateOneEntityUsingSingleRepository extends Abst
         // Original SQL statement:  'UPDATE ${table} SET ${updated-columns} WHERE ${by-id-filter}'
         final String generatedSQL = "UPDATE account SET first_name = $1, last_name = $2 WHERE id = $3";
         final Object[] updateParams = accountEntityToR2DBCSQLDBConverter.getUpdateParams(account);
+        final Class<?>[] updateParamTypes = accountEntityToR2DBCSQLDBConverter.getUpdateParamTypes();
         return Single.fromPublisher(
                 pool.create()
-                        .flatMap(c -> executeStatement(c, generatedSQL, updateParams)
+                        .flatMap(c -> executeStatement(c, generatedSQL, updateParams, updateParamTypes)
                                 .flatMap(r -> Mono.from(r.getRowsUpdated()))
-                                
                                 .delayUntil(s -> close(c))
                                 .onErrorResume(e -> close(c)
-                                        .then(Mono.error(e)))
-                                
+                                        .then(Mono.error(e))
+                                )
                         )
         ).map(r -> r > 0);
     }
@@ -69,15 +69,18 @@ public final class $$PostgreSQLUpdateOneEntityUsingSingleRepository extends Abst
         // Original SQL statement:  'UPDATE ${table} SET ${updated-columns} WHERE ${by-id-filter} RETURNING *'
         final String generatedSQL = "UPDATE account SET first_name = $1, last_name = $2 WHERE id = $3 RETURNING id, first_name, last_name";
         final Object[] updateParams = accountEntityToR2DBCSQLDBConverter.getUpdateParams(account);
+        final Class<?>[] updateParamTypes = accountEntityToR2DBCSQLDBConverter.getUpdateParamTypes();
         return Single.fromPublisher(
                 pool.create()
-                        .flatMap(c -> executeStatement(c, generatedSQL, updateParams)
+                        .flatMap(c -> executeStatement(c, generatedSQL, updateParams, updateParamTypes)
                                 .flatMap(r -> Mono.from(r.map((row, meta) -> accountEntityFromR2DBCSQLDBConverter.setIdFirst_nameLast_name(account, row, meta))))
                                 .switchIfEmpty(close(c)
-                                        .then(Mono.empty()))
+                                        .then(Mono.empty())
+                                )
                                 .delayUntil(s -> close(c))
                                 .onErrorResume(e -> close(c)
-                                        .then(Mono.error(e)))
+                                        .then(Mono.error(e))
+                                )
                         )
         );
     }
@@ -87,15 +90,18 @@ public final class $$PostgreSQLUpdateOneEntityUsingSingleRepository extends Abst
         // Original SQL statement:  'UPDATE ${table} SET ${updated-columns} WHERE ${by-id-filter} RETURNING *'
         final String generatedSQL = "UPDATE account SET first_name = $1, last_name = $2 WHERE id = $3 RETURNING id, first_name, last_name";
         final Object[] updateParams = accountEntityToR2DBCSQLDBConverter.getUpdateParams(account);
+        final Class<?>[] updateParamTypes = accountEntityToR2DBCSQLDBConverter.getUpdateParamTypes();
         return Single.fromPublisher(
                 pool.create()
-                        .flatMap(c -> executeStatement(c, generatedSQL, updateParams)
+                        .flatMap(c -> executeStatement(c, generatedSQL, updateParams, updateParamTypes)
                                 .flatMap(r -> Mono.from(r.map(toEntityFieldMap())))
                                 .switchIfEmpty(close(c)
-                                        .then(Mono.empty()))
+                                        .then(Mono.empty())
+                                )
                                 .delayUntil(s -> close(c))
                                 .onErrorResume(e -> close(c)
-                                        .then(Mono.error(e)))
+                                        .then(Mono.error(e))
+                                )
                         )
         );
     }
@@ -105,15 +111,18 @@ public final class $$PostgreSQLUpdateOneEntityUsingSingleRepository extends Abst
         // Original SQL statement:  'UPDATE ${table} SET ${updated-columns} WHERE ${by-id-filter} RETURNING *'
         final String generatedSQL = "UPDATE account SET first_name = $1, last_name = $2 WHERE id = $3 RETURNING id, first_name, last_name";
         final Object[] updateParams = accountEntityToR2DBCSQLDBConverter.getUpdateParams(account);
+        final Class<?>[] updateParamTypes = accountEntityToR2DBCSQLDBConverter.getUpdateParamTypes();
         return Single.fromPublisher(
                 pool.create()
-                        .flatMap(c -> executeStatement(c, generatedSQL, updateParams)
+                        .flatMap(c -> executeStatement(c, generatedSQL, updateParams, updateParamTypes)
                                 .flatMap(r -> Mono.from(r.map(toEntityFieldList())))
                                 .switchIfEmpty(close(c)
-                                        .then(Mono.empty()))
+                                        .then(Mono.empty())
+                                )
                                 .delayUntil(s -> close(c))
                                 .onErrorResume(e -> close(c)
-                                        .then(Mono.error(e)))
+                                        .then(Mono.error(e))
+                                )
                         )
         );
     }

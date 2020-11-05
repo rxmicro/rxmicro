@@ -57,6 +57,7 @@ import static io.rxmicro.annotation.processor.common.util.Elements.findGetters;
 import static io.rxmicro.annotation.processor.common.util.Elements.findSetters;
 import static io.rxmicro.annotation.processor.common.util.ModelTypeElements.asValidatedModelTypeElement;
 import static io.rxmicro.annotation.processor.common.util.Names.getPackageName;
+import static io.rxmicro.annotation.processor.common.util.Types.JAVA_PRIMITIVE_REPLACEMENT;
 import static io.rxmicro.annotation.processor.common.util.validators.TypeValidators.validateGenericType;
 import static io.rxmicro.common.util.ExCollectors.toOrderedMap;
 import static io.rxmicro.common.util.Formats.format;
@@ -77,17 +78,6 @@ import static javax.lang.model.type.TypeKind.SHORT;
  */
 public abstract class AbstractModelFieldBuilder<MF extends ModelField, MC extends ObjectModelClass<MF>>
         extends AbstractProcessorComponent implements ModelFieldBuilder<MF, MC> {
-
-    private static final Map<TypeKind, Class<?>> JAVA_PRIMITIVE_REPLACEMENT = Map.of(
-            BOOLEAN, Boolean.class,
-            BYTE, Byte.class,
-            SHORT, Short.class,
-            INT, Integer.class,
-            LONG, Long.class,
-            CHAR, Character.class,
-            FLOAT, Float.class,
-            DOUBLE, Double.class
-    );
 
     private int maxNestedLevel = -1;
 

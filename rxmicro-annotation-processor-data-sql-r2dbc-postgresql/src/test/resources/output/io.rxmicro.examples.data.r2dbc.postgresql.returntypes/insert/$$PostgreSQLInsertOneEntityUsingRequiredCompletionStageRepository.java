@@ -34,14 +34,14 @@ public final class $$PostgreSQLInsertOneEntityUsingRequiredCompletionStageReposi
         // Original SQL statement:  'INSERT INTO ${table}(${inserted-columns}) VALUES(${values})'
         final String generatedSQL = "INSERT INTO account(first_name, last_name) VALUES($1, $2)";
         final Object[] insertParams = accountEntityToR2DBCSQLDBConverter.getInsertParams(account);
+        final Class<?>[] insertParamTypes = accountEntityToR2DBCSQLDBConverter.getInsertParamTypes();
         return pool.create()
-                .flatMap(c -> executeStatement(c, generatedSQL, insertParams)
+                .flatMap(c -> executeStatement(c, generatedSQL, insertParams, insertParamTypes)
                         .flatMap(r -> Mono.from(r.getRowsUpdated()))
-                        
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
-                        
+                                .then(Mono.error(e))
+                        )
                 )
                 .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletionStage.class, Void.class))))
                 .toFuture()
@@ -53,14 +53,14 @@ public final class $$PostgreSQLInsertOneEntityUsingRequiredCompletionStageReposi
         // Original SQL statement:  'INSERT INTO ${table}(${inserted-columns}) VALUES(${values})'
         final String generatedSQL = "INSERT INTO account(first_name, last_name) VALUES($1, $2)";
         final Object[] insertParams = accountEntityToR2DBCSQLDBConverter.getInsertParams(account);
+        final Class<?>[] insertParamTypes = accountEntityToR2DBCSQLDBConverter.getInsertParamTypes();
         return pool.create()
-                .flatMap(c -> executeStatement(c, generatedSQL, insertParams)
+                .flatMap(c -> executeStatement(c, generatedSQL, insertParams, insertParamTypes)
                         .flatMap(r -> Mono.from(r.getRowsUpdated()))
-                        
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
-                        
+                                .then(Mono.error(e))
+                        )
                 )
                 .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletionStage.class, Integer.class))))
                 .toFuture();
@@ -71,14 +71,14 @@ public final class $$PostgreSQLInsertOneEntityUsingRequiredCompletionStageReposi
         // Original SQL statement:  'INSERT INTO ${table}(${inserted-columns}) VALUES(${values})'
         final String generatedSQL = "INSERT INTO account(first_name, last_name) VALUES($1, $2)";
         final Object[] insertParams = accountEntityToR2DBCSQLDBConverter.getInsertParams(account);
+        final Class<?>[] insertParamTypes = accountEntityToR2DBCSQLDBConverter.getInsertParamTypes();
         return pool.create()
-                .flatMap(c -> executeStatement(c, generatedSQL, insertParams)
+                .flatMap(c -> executeStatement(c, generatedSQL, insertParams, insertParamTypes)
                         .flatMap(r -> Mono.from(r.getRowsUpdated()))
-                        
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
-                        
+                                .then(Mono.error(e))
+                        )
                 )
                 .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletionStage.class, Boolean.class))))
                 .map(r -> r > 0)
@@ -90,14 +90,17 @@ public final class $$PostgreSQLInsertOneEntityUsingRequiredCompletionStageReposi
         // Original SQL statement:  'INSERT INTO ${table}(${inserted-columns}) VALUES(${values}) RETURNING ${id-columns}'
         final String generatedSQL = "INSERT INTO account(first_name, last_name) VALUES($1, $2) RETURNING id";
         final Object[] insertParams = accountEntityToR2DBCSQLDBConverter.getInsertParams(account);
+        final Class<?>[] insertParamTypes = accountEntityToR2DBCSQLDBConverter.getInsertParamTypes();
         return pool.create()
-                .flatMap(c -> executeStatement(c, generatedSQL, insertParams)
+                .flatMap(c -> executeStatement(c, generatedSQL, insertParams, insertParamTypes)
                         .flatMap(r -> Mono.from(r.map((row, meta) -> accountEntityFromR2DBCSQLDBConverter.setId(account, row, meta))))
                         .switchIfEmpty(close(c)
-                                .then(Mono.empty()))
+                                .then(Mono.empty())
+                        )
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
+                                .then(Mono.error(e))
+                        )
                 )
                 .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletionStage.class, Account.class))))
                 .toFuture();
@@ -108,14 +111,17 @@ public final class $$PostgreSQLInsertOneEntityUsingRequiredCompletionStageReposi
         // Original SQL statement:  'INSERT INTO ${table}(${inserted-columns}) VALUES(${values}) RETURNING ${id-columns}'
         final String generatedSQL = "INSERT INTO account(first_name, last_name) VALUES($1, $2) RETURNING id";
         final Object[] insertParams = accountEntityToR2DBCSQLDBConverter.getInsertParams(account);
+        final Class<?>[] insertParamTypes = accountEntityToR2DBCSQLDBConverter.getInsertParamTypes();
         return pool.create()
-                .flatMap(c -> executeStatement(c, generatedSQL, insertParams)
+                .flatMap(c -> executeStatement(c, generatedSQL, insertParams, insertParamTypes)
                         .flatMap(r -> Mono.from(r.map(toEntityFieldMap())))
                         .switchIfEmpty(close(c)
-                                .then(Mono.empty()))
+                                .then(Mono.empty())
+                        )
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
+                                .then(Mono.error(e))
+                        )
                 )
                 .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletionStage.class, EntityFieldMap.class))))
                 .toFuture();
@@ -126,14 +132,17 @@ public final class $$PostgreSQLInsertOneEntityUsingRequiredCompletionStageReposi
         // Original SQL statement:  'INSERT INTO ${table}(${inserted-columns}) VALUES(${values}) RETURNING ${id-columns}'
         final String generatedSQL = "INSERT INTO account(first_name, last_name) VALUES($1, $2) RETURNING id";
         final Object[] insertParams = accountEntityToR2DBCSQLDBConverter.getInsertParams(account);
+        final Class<?>[] insertParamTypes = accountEntityToR2DBCSQLDBConverter.getInsertParamTypes();
         return pool.create()
-                .flatMap(c -> executeStatement(c, generatedSQL, insertParams)
+                .flatMap(c -> executeStatement(c, generatedSQL, insertParams, insertParamTypes)
                         .flatMap(r -> Mono.from(r.map(toEntityFieldList())))
                         .switchIfEmpty(close(c)
-                                .then(Mono.empty()))
+                                .then(Mono.empty())
+                        )
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
+                                .then(Mono.error(e))
+                        )
                 )
                 .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletionStage.class, EntityFieldList.class))))
                 .toFuture();
@@ -144,14 +153,17 @@ public final class $$PostgreSQLInsertOneEntityUsingRequiredCompletionStageReposi
         // Original SQL statement:  'INSERT INTO ${table}(${inserted-columns}) VALUES(${values}) RETURNING *'
         final String generatedSQL = "INSERT INTO account(first_name, last_name) VALUES($1, $2) RETURNING id, first_name, last_name";
         final Object[] insertParams = accountEntityToR2DBCSQLDBConverter.getInsertParams(account);
+        final Class<?>[] insertParamTypes = accountEntityToR2DBCSQLDBConverter.getInsertParamTypes();
         return pool.create()
-                .flatMap(c -> executeStatement(c, generatedSQL, insertParams)
+                .flatMap(c -> executeStatement(c, generatedSQL, insertParams, insertParamTypes)
                         .flatMap(r -> Mono.from(r.map((row, meta) -> accountEntityFromR2DBCSQLDBConverter.setIdFirst_nameLast_name(account, row, meta))))
                         .switchIfEmpty(close(c)
-                                .then(Mono.empty()))
+                                .then(Mono.empty())
+                        )
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
+                                .then(Mono.error(e))
+                        )
                 )
                 .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletionStage.class, Account.class))))
                 .toFuture();
@@ -162,14 +174,17 @@ public final class $$PostgreSQLInsertOneEntityUsingRequiredCompletionStageReposi
         // Original SQL statement:  'INSERT INTO ${table}(${inserted-columns}) VALUES(${values}) RETURNING *'
         final String generatedSQL = "INSERT INTO account(first_name, last_name) VALUES($1, $2) RETURNING id, first_name, last_name";
         final Object[] insertParams = accountEntityToR2DBCSQLDBConverter.getInsertParams(account);
+        final Class<?>[] insertParamTypes = accountEntityToR2DBCSQLDBConverter.getInsertParamTypes();
         return pool.create()
-                .flatMap(c -> executeStatement(c, generatedSQL, insertParams)
+                .flatMap(c -> executeStatement(c, generatedSQL, insertParams, insertParamTypes)
                         .flatMap(r -> Mono.from(r.map(toEntityFieldMap())))
                         .switchIfEmpty(close(c)
-                                .then(Mono.empty()))
+                                .then(Mono.empty())
+                        )
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
+                                .then(Mono.error(e))
+                        )
                 )
                 .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletionStage.class, EntityFieldMap.class))))
                 .toFuture();
@@ -180,14 +195,17 @@ public final class $$PostgreSQLInsertOneEntityUsingRequiredCompletionStageReposi
         // Original SQL statement:  'INSERT INTO ${table}(${inserted-columns}) VALUES(${values}) RETURNING *'
         final String generatedSQL = "INSERT INTO account(first_name, last_name) VALUES($1, $2) RETURNING id, first_name, last_name";
         final Object[] insertParams = accountEntityToR2DBCSQLDBConverter.getInsertParams(account);
+        final Class<?>[] insertParamTypes = accountEntityToR2DBCSQLDBConverter.getInsertParamTypes();
         return pool.create()
-                .flatMap(c -> executeStatement(c, generatedSQL, insertParams)
+                .flatMap(c -> executeStatement(c, generatedSQL, insertParams, insertParamTypes)
                         .flatMap(r -> Mono.from(r.map(toEntityFieldList())))
                         .switchIfEmpty(close(c)
-                                .then(Mono.empty()))
+                                .then(Mono.empty())
+                        )
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
+                                .then(Mono.error(e))
+                        )
                 )
                 .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletionStage.class, EntityFieldList.class))))
                 .toFuture();

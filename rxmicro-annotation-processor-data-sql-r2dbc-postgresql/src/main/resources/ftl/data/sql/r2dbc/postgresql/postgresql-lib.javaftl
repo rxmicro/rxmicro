@@ -13,10 +13,12 @@ return ${CONNECTION_PROVIDER}
                 .flatMap(r -> Mono.from(r.map(${RESULT_CONVERTER})))
                 <#if CLOSE_CONNECTION>
                 .switchIfEmpty(close(c)
-                        .then(Mono.empty()))
+                        .then(Mono.empty())
+                )
                 .delayUntil(s -> close(c))
                 .onErrorResume(e -> close(c)
-                        .then(Mono.error(e)))
+                        .then(Mono.error(e))
+                )
                 </#if>
         );
 <#elseif RETURN.future && !RETURN.optional>
@@ -25,10 +27,12 @@ return ${CONNECTION_PROVIDER}
                 .flatMap(r -> Mono.from(r.map(${RESULT_CONVERTER})))
                 <#if CLOSE_CONNECTION>
                 .switchIfEmpty(close(c)
-                        .then(Mono.empty()))
+                        .then(Mono.empty())
+                )
                 .delayUntil(s -> close(c))
                 .onErrorResume(e -> close(c)
-                        .then(Mono.error(e)))
+                        .then(Mono.error(e))
+                )
                 </#if>
         )
         .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(${RETURN.simpleReactiveType}.class, ${RETURN.simpleResultType}.class))))
@@ -39,10 +43,12 @@ return ${CONNECTION_PROVIDER}
                 .flatMap(r -> Mono.from(r.map(${RESULT_CONVERTER})))
                 <#if CLOSE_CONNECTION>
                 .switchIfEmpty(close(c)
-                        .then(Mono.empty()))
+                        .then(Mono.empty())
+                )
                 .delayUntil(s -> close(c))
                 .onErrorResume(e -> close(c)
-                        .then(Mono.error(e)))
+                        .then(Mono.error(e))
+                )
                 </#if>
         )
         .toFuture()
@@ -54,10 +60,12 @@ return Single.fromPublisher(
                         .flatMap(r -> Mono.from(r.map(${RESULT_CONVERTER})))
                         <#if CLOSE_CONNECTION>
                         .switchIfEmpty(close(c)
-                                .then(Mono.empty()))
+                                .then(Mono.empty())
+                        )
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
+                                .then(Mono.error(e))
+                        )
                         </#if>
                 )
 );
@@ -68,10 +76,12 @@ return Flowable.fromPublisher(
                         .flatMap(r -> Mono.from(r.map(${RESULT_CONVERTER})))
                         <#if CLOSE_CONNECTION>
                         .switchIfEmpty(close(c)
-                                .then(Mono.empty()))
+                                .then(Mono.empty())
+                        )
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
+                                .then(Mono.error(e))
+                        )
                         </#if>
                 )
 ).firstElement();
@@ -87,9 +97,11 @@ return ${CONNECTION_PROVIDER}
                 .flatMapMany(r -> Flux.from(r.map(${RESULT_CONVERTER})))
                 <#if CLOSE_CONNECTION>
                 .onErrorResume(e -> close(c)
-                        .then(Mono.error(e)))
+                        .then(Mono.error(e))
+                )
                 .concatWith(close(c)
-                        .then(Mono.empty()))
+                        .then(Mono.empty())
+                )
                 </#if>
         );
 <#elseif RETURN.mono>
@@ -99,7 +111,8 @@ return ${CONNECTION_PROVIDER}
                 <#if CLOSE_CONNECTION>
                 .delayUntil(s -> close(c))
                 .onErrorResume(e -> close(c)
-                        .then(Mono.error(e)))
+                        .then(Mono.error(e))
+                )
                 </#if>
         );
 <#elseif RETURN.future>
@@ -109,7 +122,8 @@ return ${CONNECTION_PROVIDER}
                 <#if CLOSE_CONNECTION>
                 .delayUntil(s -> close(c))
                 .onErrorResume(e -> close(c)
-                        .then(Mono.error(e)))
+                        .then(Mono.error(e))
+                )
                 </#if>
         )
         .toFuture();
@@ -120,9 +134,11 @@ return Flowable.fromPublisher(
                         .flatMapMany(r -> Flux.from(r.map(${RESULT_CONVERTER})))
                         <#if CLOSE_CONNECTION>
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
+                                .then(Mono.error(e))
+                        )
                         .concatWith(close(c)
-                                .then(Mono.empty()))
+                                .then(Mono.empty())
+                        )
                         </#if>
                 )
 );
@@ -133,9 +149,11 @@ return Flowable.fromPublisher(
                         .flatMapMany(r -> Flux.from(r.map(${RESULT_CONVERTER})))
                         <#if CLOSE_CONNECTION>
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
+                                .then(Mono.error(e))
+                        )
                         .concatWith(close(c)
-                                .then(Mono.empty()))
+                                .then(Mono.empty())
+                        )
                         </#if>
                 )
 ).collect(ArrayList::new, (l, e) -> l.add(e));

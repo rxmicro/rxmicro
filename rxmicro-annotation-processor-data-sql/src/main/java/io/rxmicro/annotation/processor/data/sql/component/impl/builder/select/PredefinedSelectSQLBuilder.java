@@ -24,6 +24,7 @@ import io.rxmicro.annotation.processor.data.sql.component.SQLFieldsOrderExtracto
 import io.rxmicro.annotation.processor.data.sql.component.SQLVariableValueResolver;
 import io.rxmicro.annotation.processor.data.sql.component.impl.SQLFieldsOrderValidator;
 import io.rxmicro.annotation.processor.data.sql.component.impl.builder.AbstractSQLBuilder;
+import io.rxmicro.annotation.processor.data.sql.model.BindParameter;
 import io.rxmicro.annotation.processor.data.sql.model.ParsedSQL;
 import io.rxmicro.annotation.processor.data.sql.model.SQLDataModelField;
 import io.rxmicro.annotation.processor.data.sql.model.SQLDataObjectModelClass;
@@ -128,7 +129,7 @@ public class PredefinedSelectSQLBuilder<DMF extends SQLDataModelField, DMC exten
                                final String originalSQL,
                                final SQLMethodDescriptor<DMF, DMC> sqlMethodDescriptor) {
         final List<String> formatParams = new ArrayList<>();
-        final List<String> bindParams = new ArrayList<>();
+        final List<BindParameter> bindParams = new ArrayList<>();
         splitParams(method, classHeaderBuilder, sqlTokens, methodParams, formatParams, bindParams);
 
         final SQLStatement.Builder builder = new SQLStatement.Builder()

@@ -33,14 +33,14 @@ public final class $$PostgreSQLUpdateDataRepository extends AbstractPostgreSQLRe
         // Original SQL statement:  'UPDATE ${table} SET ${updated-columns}'
         final String generatedSQL = "UPDATE entity_table SET value = $1";
         final Object[] updateParams = entityEntityToR2DBCSQLDBConverter.getUpdateParams(entity);
+        final Class<?>[] updateParamTypes = entityEntityToR2DBCSQLDBConverter.getUpdateParamTypes();
         return pool.create()
-                .flatMap(c -> executeStatement(c, generatedSQL, updateParams)
+                .flatMap(c -> executeStatement(c, generatedSQL, updateParams, updateParamTypes)
                         .flatMap(r -> Mono.from(r.getRowsUpdated()))
-                        
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
-                        
+                                .then(Mono.error(e))
+                        )
                 )
                 .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletableFuture.class, Void.class))))
                 .toFuture()
@@ -52,14 +52,17 @@ public final class $$PostgreSQLUpdateDataRepository extends AbstractPostgreSQLRe
         // Original SQL statement:  'UPDATE ${table} SET ${updated-columns} RETURNING *'
         final String generatedSQL = "UPDATE entity_table SET value = $1 RETURNING id, value";
         final Object[] updateParams = entityEntityToR2DBCSQLDBConverter.getUpdateParams(entity);
+        final Class<?>[] updateParamTypes = entityEntityToR2DBCSQLDBConverter.getUpdateParamTypes();
         return pool.create()
-                .flatMap(c -> executeStatement(c, generatedSQL, updateParams)
+                .flatMap(c -> executeStatement(c, generatedSQL, updateParams, updateParamTypes)
                         .flatMap(r -> Mono.from(r.map((row, meta) -> entityEntityFromR2DBCSQLDBConverter.setIdValue(entity, row, meta))))
                         .switchIfEmpty(close(c)
-                                .then(Mono.empty()))
+                                .then(Mono.empty())
+                        )
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
+                                .then(Mono.error(e))
+                        )
                 )
                 .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletableFuture.class, Entity.class))))
                 .toFuture();
@@ -69,15 +72,19 @@ public final class $$PostgreSQLUpdateDataRepository extends AbstractPostgreSQLRe
     public CompletableFuture<Entity> updateEntityTable3(final String value) {
         // Original SQL statement:  'UPDATE ${table} SET value = ? RETURNING *'
         final String generatedSQL = "UPDATE entity_table SET value = $1 RETURNING id, value";
+        final Object[] updateParams = {value};
+        final Class<?>[] updateParamTypes = {String.class};
         final Entity entity = new Entity();
         return pool.create()
-                .flatMap(c -> executeStatement(c, generatedSQL, value)
+                .flatMap(c -> executeStatement(c, generatedSQL, updateParams, updateParamTypes)
                         .flatMap(r -> Mono.from(r.map((row, meta) -> entityEntityFromR2DBCSQLDBConverter.setIdValue(entity, row, meta))))
                         .switchIfEmpty(close(c)
-                                .then(Mono.empty()))
+                                .then(Mono.empty())
+                        )
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
+                                .then(Mono.error(e))
+                        )
                 )
                 .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletableFuture.class, Entity.class))))
                 .toFuture();
@@ -87,14 +94,18 @@ public final class $$PostgreSQLUpdateDataRepository extends AbstractPostgreSQLRe
     public CompletableFuture<EntityFieldMap> updateEntityTable4(final String value) {
         // Original SQL statement:  'UPDATE ${table} SET value = ? RETURNING *'
         final String generatedSQL = "UPDATE entity_table SET value = $1 RETURNING id, value";
+        final Object[] updateParams = {value};
+        final Class<?>[] updateParamTypes = {String.class};
         return pool.create()
-                .flatMap(c -> executeStatement(c, generatedSQL, value)
+                .flatMap(c -> executeStatement(c, generatedSQL, updateParams, updateParamTypes)
                         .flatMap(r -> Mono.from(r.map(toEntityFieldMap())))
                         .switchIfEmpty(close(c)
-                                .then(Mono.empty()))
+                                .then(Mono.empty())
+                        )
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
+                                .then(Mono.error(e))
+                        )
                 )
                 .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletableFuture.class, EntityFieldMap.class))))
                 .toFuture();
@@ -104,14 +115,18 @@ public final class $$PostgreSQLUpdateDataRepository extends AbstractPostgreSQLRe
     public CompletableFuture<EntityFieldMap> updateGlobalTable1(final String value) {
         // Original SQL statement:  'UPDATE ${table} SET value = ? RETURNING value'
         final String generatedSQL = "UPDATE global_table SET value = $1 RETURNING value";
+        final Object[] updateParams = {value};
+        final Class<?>[] updateParamTypes = {String.class};
         return pool.create()
-                .flatMap(c -> executeStatement(c, generatedSQL, value)
+                .flatMap(c -> executeStatement(c, generatedSQL, updateParams, updateParamTypes)
                         .flatMap(r -> Mono.from(r.map(toEntityFieldMap())))
                         .switchIfEmpty(close(c)
-                                .then(Mono.empty()))
+                                .then(Mono.empty())
+                        )
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
+                                .then(Mono.error(e))
+                        )
                 )
                 .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletableFuture.class, EntityFieldMap.class))))
                 .toFuture();
@@ -121,14 +136,15 @@ public final class $$PostgreSQLUpdateDataRepository extends AbstractPostgreSQLRe
     public CompletableFuture<Void> updateGlobalTable2(final String value) {
         // Original SQL statement:  'UPDATE ${table} SET value = ?'
         final String generatedSQL = "UPDATE global_table SET value = $1";
+        final Object[] updateParams = {value};
+        final Class<?>[] updateParamTypes = {String.class};
         return pool.create()
-                .flatMap(c -> executeStatement(c, generatedSQL, value)
+                .flatMap(c -> executeStatement(c, generatedSQL, updateParams, updateParamTypes)
                         .flatMap(r -> Mono.from(r.getRowsUpdated()))
-                        
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
-                        
+                                .then(Mono.error(e))
+                        )
                 )
                 .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletableFuture.class, Void.class))))
                 .toFuture()
@@ -139,14 +155,18 @@ public final class $$PostgreSQLUpdateDataRepository extends AbstractPostgreSQLRe
     public CompletableFuture<EntityFieldMap> updateLocalTable1(final String value) {
         // Original SQL statement:  'UPDATE ${table} SET value = ? RETURNING value'
         final String generatedSQL = "UPDATE local_table SET value = $1 RETURNING value";
+        final Object[] updateParams = {value};
+        final Class<?>[] updateParamTypes = {String.class};
         return pool.create()
-                .flatMap(c -> executeStatement(c, generatedSQL, value)
+                .flatMap(c -> executeStatement(c, generatedSQL, updateParams, updateParamTypes)
                         .flatMap(r -> Mono.from(r.map(toEntityFieldMap())))
                         .switchIfEmpty(close(c)
-                                .then(Mono.empty()))
+                                .then(Mono.empty())
+                        )
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
+                                .then(Mono.error(e))
+                        )
                 )
                 .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletableFuture.class, EntityFieldMap.class))))
                 .toFuture();
@@ -156,14 +176,15 @@ public final class $$PostgreSQLUpdateDataRepository extends AbstractPostgreSQLRe
     public CompletableFuture<Void> updateLocalTable2(final String value) {
         // Original SQL statement:  'UPDATE ${table} SET value = ?'
         final String generatedSQL = "UPDATE local_table SET value = $1";
+        final Object[] updateParams = {value};
+        final Class<?>[] updateParamTypes = {String.class};
         return pool.create()
-                .flatMap(c -> executeStatement(c, generatedSQL, value)
+                .flatMap(c -> executeStatement(c, generatedSQL, updateParams, updateParamTypes)
                         .flatMap(r -> Mono.from(r.getRowsUpdated()))
-                        
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
-                        
+                                .then(Mono.error(e))
+                        )
                 )
                 .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletableFuture.class, Void.class))))
                 .toFuture()

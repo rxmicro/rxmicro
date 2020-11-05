@@ -19,7 +19,6 @@ package io.rxmicro.annotation.processor.data.sql.component.impl.resolver;
 import io.rxmicro.annotation.processor.data.sql.model.SQLDataObjectModelClass;
 import io.rxmicro.annotation.processor.data.sql.model.SQLVariableValue;
 import io.rxmicro.annotation.processor.data.sql.model.VariableContext;
-import io.rxmicro.data.sql.PrimaryKey;
 
 import java.util.Map;
 import java.util.function.BiFunction;
@@ -66,8 +65,7 @@ final class SQLVariableValueCalculatorProvider {
                     ID_COLUMNS,
                     (modelClass, context) -> nullIfEmpty(
                             createColumnList(
-                                    modelClass.getParamEntries().stream()
-                                            .filter(e -> e.getKey().getAnnotation(PrimaryKey.class) != null)
+                                    modelClass.getPrimaryKeysParams().stream()
                                             .map(e -> e.getKey().getModelName())
                                             .collect(Collectors.toList())
                             )
@@ -76,8 +74,7 @@ final class SQLVariableValueCalculatorProvider {
                     BY_ID_FILTER,
                     (modelClass, context) -> nullIfEmpty(
                             createByIdFilter(
-                                    modelClass.getParamEntries().stream()
-                                            .filter(e -> e.getKey().getAnnotation(PrimaryKey.class) != null)
+                                    modelClass.getPrimaryKeysParams().stream()
                                             .map(e -> e.getKey().getModelName())
                                             .collect(Collectors.toList())
                             )

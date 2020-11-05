@@ -46,11 +46,10 @@ public final class $$PostgreSQLDeleteDataRepository extends AbstractPostgreSQLRe
         return pool.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, primaryKey)
                         .flatMap(r -> Mono.from(r.getRowsUpdated()))
-                        
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
-                        
+                                .then(Mono.error(e))
+                        )
                 )
                 .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletableFuture.class, Void.class))))
                 .toFuture()
@@ -65,11 +64,10 @@ public final class $$PostgreSQLDeleteDataRepository extends AbstractPostgreSQLRe
         return pool.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, primaryKey)
                         .flatMap(r -> Mono.from(r.getRowsUpdated()))
-                        
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
-                        
+                                .then(Mono.error(e))
+                        )
                 )
                 .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletableFuture.class, Void.class))))
                 .toFuture()
@@ -84,11 +82,10 @@ public final class $$PostgreSQLDeleteDataRepository extends AbstractPostgreSQLRe
         return pool.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, primaryKey)
                         .flatMap(r -> Mono.from(r.getRowsUpdated()))
-                        
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
-                        
+                                .then(Mono.error(e))
+                        )
                 )
                 .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletableFuture.class, Void.class))))
                 .toFuture()
@@ -103,11 +100,10 @@ public final class $$PostgreSQLDeleteDataRepository extends AbstractPostgreSQLRe
         return pool.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, primaryKeys)
                         .flatMap(r -> Mono.from(r.getRowsUpdated()))
-                        
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
-                        
+                                .then(Mono.error(e))
+                        )
                 )
                 .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletableFuture.class, Void.class))))
                 .toFuture()

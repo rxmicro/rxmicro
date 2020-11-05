@@ -71,8 +71,6 @@ public abstract class AbstractSQLOperationDataRepositoryMethodModelBuilder
                                    final ExecutableElement method, final MethodResult methodResult,
                                    final DataRepositoryGeneratorConfig dataRepositoryGeneratorConfig,
                                    final DataGenerationContext<DMF, DMC> dataGenerationContext) {
-        customizeClassHeaderBuilder(classHeaderBuilder, methodResult, dataGenerationContext, method);
-
         final List<Variable> params = methodParamResolver.getMethodParams(method.getParameters());
         final SQLMethodDescriptor<DMF, DMC> sqlMethodDescriptor =
                 buildSQLMethodDescriptor(method, params, methodResult, dataGenerationContext);
@@ -86,6 +84,7 @@ public abstract class AbstractSQLOperationDataRepositoryMethodModelBuilder
         templateArguments.put("RETURN_ENTITY_FIELD_MAP", methodResult.isResultType(EntityFieldMap.class));
         templateArguments.put("RETURN_ENTITY_FIELD_LIST", methodResult.isResultType(EntityFieldList.class));
         final SQLStatement sqlStatement = sqlBuilder.build(classHeaderBuilder, parsedSQL, method, sqlMethodDescriptor);
+        customizeClassHeaderBuilder(classHeaderBuilder, methodResult, dataGenerationContext, method, sqlStatement);
         templateArguments.put("SQL", sqlStatement);
         addEntityConverter(methodResult, sqlMethodDescriptor, dataGenerationContext, params, sqlStatement, templateArguments);
         getTransactionMethodParameter(method).ifPresent(t -> templateArguments.put("TRANSACTION", t));
@@ -96,7 +95,8 @@ public abstract class AbstractSQLOperationDataRepositoryMethodModelBuilder
     protected void customizeClassHeaderBuilder(final ClassHeader.Builder classHeaderBuilder,
                                                final MethodResult methodResult,
                                                final DataGenerationContext<DMF, DMC> dataGenerationContext,
-                                               final ExecutableElement method) {
+                                               final ExecutableElement method,
+                                               final SQLStatement sqlStatement) {
         classHeaderBuilder.addImports(Mono.class, Flux.class);
     }
 

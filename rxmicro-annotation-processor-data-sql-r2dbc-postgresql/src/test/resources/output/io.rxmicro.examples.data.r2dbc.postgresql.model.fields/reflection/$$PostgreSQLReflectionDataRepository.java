@@ -49,14 +49,14 @@ public final class $$PostgreSQLReflectionDataRepository extends AbstractPostgreS
         // Original SQL statement:  'INSERT INTO ${table}(${inserted-columns}) VALUES(${values})'
         final String generatedSQL = "INSERT INTO reflection.entity(status, aBoolean, aByte, aShort, aInteger, aLong, bigInteger, aFloat, aDouble, bigDecimal, character, string, instant, localTime, localDate, localDateTime, offsetDateTime, zonedDateTime, inetAddress, uuid) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20)";
         final Object[] insertParams = entityEntityToR2DBCSQLDBConverter.getInsertParams(entity);
+        final Class<?>[] insertParamTypes = entityEntityToR2DBCSQLDBConverter.getInsertParamTypes();
         return pool.create()
-                .flatMap(c -> executeStatement(c, generatedSQL, insertParams)
+                .flatMap(c -> executeStatement(c, generatedSQL, insertParams, insertParamTypes)
                         .flatMap(r -> Mono.from(r.getRowsUpdated()))
-                        
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
-                        
+                                .then(Mono.error(e))
+                        )
                 )
                 .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletableFuture.class, Void.class))))
                 .toFuture()
@@ -68,14 +68,14 @@ public final class $$PostgreSQLReflectionDataRepository extends AbstractPostgreS
         // Original SQL statement:  'UPDATE ${table} SET ${updated-columns} WHERE ${by-id-filter}'
         final String generatedSQL = "UPDATE reflection.entity SET status = $1, aBoolean = $2, aByte = $3, aShort = $4, aInteger = $5, aLong = $6, bigInteger = $7, aFloat = $8, aDouble = $9, bigDecimal = $10, character = $11, string = $12, instant = $13, localTime = $14, localDate = $15, localDateTime = $16, offsetDateTime = $17, zonedDateTime = $18, inetAddress = $19, uuid = $20 WHERE id = $21";
         final Object[] updateParams = entityEntityToR2DBCSQLDBConverter.getUpdateParams(entity);
+        final Class<?>[] updateParamTypes = entityEntityToR2DBCSQLDBConverter.getUpdateParamTypes();
         return pool.create()
-                .flatMap(c -> executeStatement(c, generatedSQL, updateParams)
+                .flatMap(c -> executeStatement(c, generatedSQL, updateParams, updateParamTypes)
                         .flatMap(r -> Mono.from(r.getRowsUpdated()))
-                        
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
-                        
+                                .then(Mono.error(e))
+                        )
                 )
                 .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletableFuture.class, Void.class))))
                 .toFuture()
@@ -90,11 +90,10 @@ public final class $$PostgreSQLReflectionDataRepository extends AbstractPostgreS
         return pool.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, primaryKey)
                         .flatMap(r -> Mono.from(r.getRowsUpdated()))
-                        
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
-                        
+                                .then(Mono.error(e))
+                        )
                 )
                 .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletableFuture.class, Void.class))))
                 .toFuture()

@@ -30,15 +30,19 @@ public final class $$PostgreSQLUpdateOneEntityFieldsUsingOptionalCompletionStage
     public CompletionStage<Optional<Account>> update01(final String firstName, final String lastName, final Long id) {
         // Original SQL statement:  'UPDATE ${table} SET first_name = ?, last_name = ? WHERE id = ? RETURNING *'
         final String generatedSQL = "UPDATE account SET first_name = $1, last_name = $2 WHERE id = $3 RETURNING id, first_name, last_name";
+        final Object[] updateParams = {firstName, lastName, id};
+        final Class<?>[] updateParamTypes = {String.class, String.class, Long.class};
         final Account entity = new Account();
         return pool.create()
-                .flatMap(c -> executeStatement(c, generatedSQL, firstName, lastName, id)
+                .flatMap(c -> executeStatement(c, generatedSQL, updateParams, updateParamTypes)
                         .flatMap(r -> Mono.from(r.map((row, meta) -> accountEntityFromR2DBCSQLDBConverter.setIdFirst_nameLast_name(entity, row, meta))))
                         .switchIfEmpty(close(c)
-                                .then(Mono.empty()))
+                                .then(Mono.empty())
+                        )
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
+                                .then(Mono.error(e))
+                        )
                 )
                 .toFuture()
                 .thenApply(a -> Optional.ofNullable(a));
@@ -48,14 +52,18 @@ public final class $$PostgreSQLUpdateOneEntityFieldsUsingOptionalCompletionStage
     public CompletionStage<Optional<EntityFieldMap>> update02(final String firstName, final String lastName, final Long id) {
         // Original SQL statement:  'UPDATE ${table} SET first_name = ?, last_name = ? WHERE id = ? RETURNING first_name, last_name'
         final String generatedSQL = "UPDATE account SET first_name = $1, last_name = $2 WHERE id = $3 RETURNING first_name, last_name";
+        final Object[] updateParams = {firstName, lastName, id};
+        final Class<?>[] updateParamTypes = {String.class, String.class, Long.class};
         return pool.create()
-                .flatMap(c -> executeStatement(c, generatedSQL, firstName, lastName, id)
+                .flatMap(c -> executeStatement(c, generatedSQL, updateParams, updateParamTypes)
                         .flatMap(r -> Mono.from(r.map(toEntityFieldMap())))
                         .switchIfEmpty(close(c)
-                                .then(Mono.empty()))
+                                .then(Mono.empty())
+                        )
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
+                                .then(Mono.error(e))
+                        )
                 )
                 .toFuture()
                 .thenApply(a -> Optional.ofNullable(a));
@@ -65,14 +73,18 @@ public final class $$PostgreSQLUpdateOneEntityFieldsUsingOptionalCompletionStage
     public CompletionStage<Optional<EntityFieldList>> update03(final String firstName, final String lastName, final Long id) {
         // Original SQL statement:  'UPDATE ${table} SET first_name = ?, last_name = ? WHERE id = ? RETURNING first_name, last_name'
         final String generatedSQL = "UPDATE account SET first_name = $1, last_name = $2 WHERE id = $3 RETURNING first_name, last_name";
+        final Object[] updateParams = {firstName, lastName, id};
+        final Class<?>[] updateParamTypes = {String.class, String.class, Long.class};
         return pool.create()
-                .flatMap(c -> executeStatement(c, generatedSQL, firstName, lastName, id)
+                .flatMap(c -> executeStatement(c, generatedSQL, updateParams, updateParamTypes)
                         .flatMap(r -> Mono.from(r.map(toEntityFieldList())))
                         .switchIfEmpty(close(c)
-                                .then(Mono.empty()))
+                                .then(Mono.empty())
+                        )
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
+                                .then(Mono.error(e))
+                        )
                 )
                 .toFuture()
                 .thenApply(a -> Optional.ofNullable(a));

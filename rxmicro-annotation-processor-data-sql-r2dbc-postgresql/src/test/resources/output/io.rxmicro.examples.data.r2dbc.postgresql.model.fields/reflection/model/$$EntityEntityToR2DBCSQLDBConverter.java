@@ -2,7 +2,20 @@ package io.rxmicro.examples.data.r2dbc.postgresql.model.fields.reflection.model;
 
 import io.r2dbc.spi.Row;
 import io.rxmicro.data.sql.r2dbc.detail.EntityToR2DBCSQLDBConverter;
+import io.rxmicro.examples.data.r2dbc.postgresql.model.fields.Status;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.net.InetAddress;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.OffsetDateTime;
+import java.time.ZonedDateTime;
+import java.util.UUID;
+
+import static io.rxmicro.common.util.Requires.require;
 import static rxmicro.$$Reflections.getFieldValue;
 
 /**
@@ -10,9 +23,59 @@ import static rxmicro.$$Reflections.getFieldValue;
  */
 public final class $$EntityEntityToR2DBCSQLDBConverter extends EntityToR2DBCSQLDBConverter<Entity, Row> {
 
+    private static final Class<?>[] INSERT_PARAM_TYPES = {
+            Status.class,
+            Boolean.class,
+            Byte.class,
+            Short.class,
+            Integer.class,
+            Long.class,
+            BigInteger.class,
+            Float.class,
+            Double.class,
+            BigDecimal.class,
+            Character.class,
+            String.class,
+            Instant.class,
+            LocalTime.class,
+            LocalDate.class,
+            LocalDateTime.class,
+            OffsetDateTime.class,
+            ZonedDateTime.class,
+            InetAddress.class,
+            UUID.class
+    };
+
+    private static final Class<?>[] UPDATE_PARAM_TYPES = {
+            Status.class,
+            Boolean.class,
+            Byte.class,
+            Short.class,
+            Integer.class,
+            Long.class,
+            BigInteger.class,
+            Float.class,
+            Double.class,
+            BigDecimal.class,
+            Character.class,
+            String.class,
+            Instant.class,
+            LocalTime.class,
+            LocalDate.class,
+            LocalDateTime.class,
+            OffsetDateTime.class,
+            ZonedDateTime.class,
+            InetAddress.class,
+            UUID.class
+    };
+
+    public Class<?>[] getInsertParamTypes() {
+        return INSERT_PARAM_TYPES;
+    }
+
     public Object[] getInsertParams(final Entity entity) {
         return new Object[]{
-                ((Enum<?>) getFieldValue(entity, "status")),
+                getFieldValue(entity, "status"),
                 getFieldValue(entity, "aBoolean"),
                 getFieldValue(entity, "aByte"),
                 getFieldValue(entity, "aShort"),
@@ -35,9 +98,13 @@ public final class $$EntityEntityToR2DBCSQLDBConverter extends EntityToR2DBCSQLD
         };
     }
 
+    public Class<?>[] getUpdateParamTypes() {
+        return UPDATE_PARAM_TYPES;
+    }
+
     public Object[] getUpdateParams(final Entity entity) {
         return new Object[]{
-                ((Enum<?>) getFieldValue(entity, "status")),
+                getFieldValue(entity, "status"),
                 getFieldValue(entity, "aBoolean"),
                 getFieldValue(entity, "aByte"),
                 getFieldValue(entity, "aShort"),
@@ -58,11 +125,11 @@ public final class $$EntityEntityToR2DBCSQLDBConverter extends EntityToR2DBCSQLD
                 getFieldValue(entity, "inetAddress"),
                 getFieldValue(entity, "uuid"),
                 // primary key(s):
-                getFieldValue(entity, "id")
+                require(getFieldValue(entity, "id"), "Primary key must be not null!")
         };
     }
 
     public Object getPrimaryKey(final Entity entity) {
-        return getFieldValue(entity, "id");
+        return require(getFieldValue(entity, "id"), "Primary key must be not null!");
     }
 }

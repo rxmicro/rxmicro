@@ -34,14 +34,14 @@ public final class $$PostgreSQLUpdateOneEntityUsingRequiredCompletionStageReposi
         // Original SQL statement:  'UPDATE ${table} SET ${updated-columns} WHERE ${by-id-filter}'
         final String generatedSQL = "UPDATE account SET first_name = $1, last_name = $2 WHERE id = $3";
         final Object[] updateParams = accountEntityToR2DBCSQLDBConverter.getUpdateParams(account);
+        final Class<?>[] updateParamTypes = accountEntityToR2DBCSQLDBConverter.getUpdateParamTypes();
         return pool.create()
-                .flatMap(c -> executeStatement(c, generatedSQL, updateParams)
+                .flatMap(c -> executeStatement(c, generatedSQL, updateParams, updateParamTypes)
                         .flatMap(r -> Mono.from(r.getRowsUpdated()))
-                        
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
-                        
+                                .then(Mono.error(e))
+                        )
                 )
                 .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletionStage.class, Void.class))))
                 .toFuture()
@@ -53,14 +53,14 @@ public final class $$PostgreSQLUpdateOneEntityUsingRequiredCompletionStageReposi
         // Original SQL statement:  'UPDATE ${table} SET ${updated-columns} WHERE ${by-id-filter}'
         final String generatedSQL = "UPDATE account SET first_name = $1, last_name = $2 WHERE id = $3";
         final Object[] updateParams = accountEntityToR2DBCSQLDBConverter.getUpdateParams(account);
+        final Class<?>[] updateParamTypes = accountEntityToR2DBCSQLDBConverter.getUpdateParamTypes();
         return pool.create()
-                .flatMap(c -> executeStatement(c, generatedSQL, updateParams)
+                .flatMap(c -> executeStatement(c, generatedSQL, updateParams, updateParamTypes)
                         .flatMap(r -> Mono.from(r.getRowsUpdated()))
-                        
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
-                        
+                                .then(Mono.error(e))
+                        )
                 )
                 .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletionStage.class, Integer.class))))
                 .toFuture();
@@ -71,14 +71,14 @@ public final class $$PostgreSQLUpdateOneEntityUsingRequiredCompletionStageReposi
         // Original SQL statement:  'UPDATE ${table} SET ${updated-columns} WHERE ${by-id-filter}'
         final String generatedSQL = "UPDATE account SET first_name = $1, last_name = $2 WHERE id = $3";
         final Object[] updateParams = accountEntityToR2DBCSQLDBConverter.getUpdateParams(account);
+        final Class<?>[] updateParamTypes = accountEntityToR2DBCSQLDBConverter.getUpdateParamTypes();
         return pool.create()
-                .flatMap(c -> executeStatement(c, generatedSQL, updateParams)
+                .flatMap(c -> executeStatement(c, generatedSQL, updateParams, updateParamTypes)
                         .flatMap(r -> Mono.from(r.getRowsUpdated()))
-                        
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
-                        
+                                .then(Mono.error(e))
+                        )
                 )
                 .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletionStage.class, Boolean.class))))
                 .map(r -> r > 0)
@@ -90,14 +90,17 @@ public final class $$PostgreSQLUpdateOneEntityUsingRequiredCompletionStageReposi
         // Original SQL statement:  'UPDATE ${table} SET ${updated-columns} WHERE ${by-id-filter} RETURNING *'
         final String generatedSQL = "UPDATE account SET first_name = $1, last_name = $2 WHERE id = $3 RETURNING id, first_name, last_name";
         final Object[] updateParams = accountEntityToR2DBCSQLDBConverter.getUpdateParams(account);
+        final Class<?>[] updateParamTypes = accountEntityToR2DBCSQLDBConverter.getUpdateParamTypes();
         return pool.create()
-                .flatMap(c -> executeStatement(c, generatedSQL, updateParams)
+                .flatMap(c -> executeStatement(c, generatedSQL, updateParams, updateParamTypes)
                         .flatMap(r -> Mono.from(r.map((row, meta) -> accountEntityFromR2DBCSQLDBConverter.setIdFirst_nameLast_name(account, row, meta))))
                         .switchIfEmpty(close(c)
-                                .then(Mono.empty()))
+                                .then(Mono.empty())
+                        )
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
+                                .then(Mono.error(e))
+                        )
                 )
                 .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletionStage.class, Account.class))))
                 .toFuture();
@@ -108,14 +111,17 @@ public final class $$PostgreSQLUpdateOneEntityUsingRequiredCompletionStageReposi
         // Original SQL statement:  'UPDATE ${table} SET ${updated-columns} WHERE ${by-id-filter} RETURNING *'
         final String generatedSQL = "UPDATE account SET first_name = $1, last_name = $2 WHERE id = $3 RETURNING id, first_name, last_name";
         final Object[] updateParams = accountEntityToR2DBCSQLDBConverter.getUpdateParams(account);
+        final Class<?>[] updateParamTypes = accountEntityToR2DBCSQLDBConverter.getUpdateParamTypes();
         return pool.create()
-                .flatMap(c -> executeStatement(c, generatedSQL, updateParams)
+                .flatMap(c -> executeStatement(c, generatedSQL, updateParams, updateParamTypes)
                         .flatMap(r -> Mono.from(r.map(toEntityFieldMap())))
                         .switchIfEmpty(close(c)
-                                .then(Mono.empty()))
+                                .then(Mono.empty())
+                        )
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
+                                .then(Mono.error(e))
+                        )
                 )
                 .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletionStage.class, EntityFieldMap.class))))
                 .toFuture();
@@ -126,14 +132,17 @@ public final class $$PostgreSQLUpdateOneEntityUsingRequiredCompletionStageReposi
         // Original SQL statement:  'UPDATE ${table} SET ${updated-columns} WHERE ${by-id-filter} RETURNING *'
         final String generatedSQL = "UPDATE account SET first_name = $1, last_name = $2 WHERE id = $3 RETURNING id, first_name, last_name";
         final Object[] updateParams = accountEntityToR2DBCSQLDBConverter.getUpdateParams(account);
+        final Class<?>[] updateParamTypes = accountEntityToR2DBCSQLDBConverter.getUpdateParamTypes();
         return pool.create()
-                .flatMap(c -> executeStatement(c, generatedSQL, updateParams)
+                .flatMap(c -> executeStatement(c, generatedSQL, updateParams, updateParamTypes)
                         .flatMap(r -> Mono.from(r.map(toEntityFieldList())))
                         .switchIfEmpty(close(c)
-                                .then(Mono.empty()))
+                                .then(Mono.empty())
+                        )
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
+                                .then(Mono.error(e))
+                        )
                 )
                 .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletionStage.class, EntityFieldList.class))))
                 .toFuture();

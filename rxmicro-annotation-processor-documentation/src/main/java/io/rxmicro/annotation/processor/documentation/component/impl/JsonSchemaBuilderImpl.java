@@ -41,7 +41,7 @@ import java.util.Optional;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
-import static io.rxmicro.annotation.processor.common.util.DateTimes.SUPPORTED_DATE_TIME_CLASSES;
+import static io.rxmicro.annotation.processor.common.util.Types.SUPPORTED_DATE_TIME_CLASSES;
 import static io.rxmicro.common.RxMicroModule.RX_MICRO_VALIDATION_MODULE;
 
 /**

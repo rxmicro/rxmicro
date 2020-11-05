@@ -31,11 +31,10 @@ public final class $$PostgreSQLDeleteOneEntityUsingCompletableRepository extends
                 pool.create()
                         .flatMap(c -> executeStatement(c, generatedSQL, primaryKey)
                                 .flatMap(r -> Mono.from(r.getRowsUpdated()))
-                                
                                 .delayUntil(s -> close(c))
                                 .onErrorResume(e -> close(c)
-                                        .then(Mono.error(e)))
-                                
+                                        .then(Mono.error(e))
+                                )
                         )
         );
     }

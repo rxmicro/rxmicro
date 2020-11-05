@@ -14,9 +14,14 @@
 <#-- -------------------------------------------------------------------------------------------------------- -->
 <#if IS_ENTITY_PARAM>
 final Object[] updateParams = ${ENTITY_CONVERTER}.getUpdateParams(${ENTITY});
-<#assign SQL_PARAMS>, updateParams</#assign>
+final Class<?>[] updateParamTypes = ${ENTITY_CONVERTER}.getUpdateParamTypes();
+<#assign SQL_PARAMS>, updateParams, updateParamTypes</#assign>
+<#elseif SQL.bindParams?has_content>
+final Object[] updateParams = {<#list SQL.bindParams as ARG>${ARG.name}<#if ARG?has_next>, </#if></#list>};
+final Class<?>[] updateParamTypes = {<#list SQL.bindParams as ARG>${ARG.simpleTypeName}.class<#if ARG?has_next>, </#if></#list>};
+<#assign SQL_PARAMS>, updateParams, updateParamTypes</#assign>
 <#else>
-<#assign SQL_PARAMS>${getBindArgs(SQL.bindParams)}</#assign>
+<#assign SQL_PARAMS></#assign>
 </#if>
 <#-- -------------------------------------------------------------------------------------------------------- -->
 <#-- -------------------------------------------------------------------------------------------------------- -->

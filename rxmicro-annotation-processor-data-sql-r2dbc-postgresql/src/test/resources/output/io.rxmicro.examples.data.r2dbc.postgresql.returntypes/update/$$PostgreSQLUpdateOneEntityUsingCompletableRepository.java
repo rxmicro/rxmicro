@@ -27,15 +27,15 @@ public final class $$PostgreSQLUpdateOneEntityUsingCompletableRepository extends
         // Original SQL statement:  'UPDATE ${table} SET ${updated-columns} WHERE ${by-id-filter}'
         final String generatedSQL = "UPDATE account SET first_name = $1, last_name = $2 WHERE id = $3";
         final Object[] updateParams = accountEntityToR2DBCSQLDBConverter.getUpdateParams(account);
+        final Class<?>[] updateParamTypes = accountEntityToR2DBCSQLDBConverter.getUpdateParamTypes();
         return Completable.fromPublisher(
                 pool.create()
-                        .flatMap(c -> executeStatement(c, generatedSQL, updateParams)
+                        .flatMap(c -> executeStatement(c, generatedSQL, updateParams, updateParamTypes)
                                 .flatMap(r -> Mono.from(r.getRowsUpdated()))
-                                
                                 .delayUntil(s -> close(c))
                                 .onErrorResume(e -> close(c)
-                                        .then(Mono.error(e)))
-                                
+                                        .then(Mono.error(e))
+                                )
                         )
         );
     }

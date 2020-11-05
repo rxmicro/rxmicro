@@ -23,7 +23,7 @@ import io.rxmicro.annotation.processor.rest.model.RestModelField;
 import java.time.Instant;
 import java.time.format.DateTimeParseException;
 
-import static io.rxmicro.annotation.processor.common.util.DateTimes.SUPPORTED_DATE_TIME_CLASSES;
+import static io.rxmicro.annotation.processor.common.util.Types.SUPPORTED_DATE_TIME_CLASSES;
 import static io.rxmicro.common.local.Examples.INSTANT_EXAMPLE;
 import static io.rxmicro.common.util.Formats.format;
 

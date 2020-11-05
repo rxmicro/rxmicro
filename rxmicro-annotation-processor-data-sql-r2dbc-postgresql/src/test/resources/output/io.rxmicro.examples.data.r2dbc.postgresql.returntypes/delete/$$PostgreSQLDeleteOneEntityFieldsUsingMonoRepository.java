@@ -30,11 +30,10 @@ public final class $$PostgreSQLDeleteOneEntityFieldsUsingMonoRepository extends 
         return pool.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, id)
                         .flatMap(r -> Mono.from(r.getRowsUpdated()))
-                        
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
-                        
+                                .then(Mono.error(e))
+                        )
                 )
                 .then();
     }
@@ -46,11 +45,10 @@ public final class $$PostgreSQLDeleteOneEntityFieldsUsingMonoRepository extends 
         return pool.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, id)
                         .flatMap(r -> Mono.from(r.getRowsUpdated()))
-                        
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
-                        
+                                .then(Mono.error(e))
+                        )
                 );
     }
 
@@ -61,11 +59,10 @@ public final class $$PostgreSQLDeleteOneEntityFieldsUsingMonoRepository extends 
         return pool.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, id)
                         .flatMap(r -> Mono.from(r.getRowsUpdated()))
-                        
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
-                        
+                                .then(Mono.error(e))
+                        )
                 )
                 .map(r -> r > 0);
     }
@@ -79,10 +76,12 @@ public final class $$PostgreSQLDeleteOneEntityFieldsUsingMonoRepository extends 
                 .flatMap(c -> executeStatement(c, generatedSQL, id)
                         .flatMap(r -> Mono.from(r.map((row, meta) -> accountEntityFromR2DBCSQLDBConverter.setIdFirst_nameLast_name(entity, row, meta))))
                         .switchIfEmpty(close(c)
-                                .then(Mono.empty()))
+                                .then(Mono.empty())
+                        )
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
+                                .then(Mono.error(e))
+                        )
                 );
     }
 
@@ -94,10 +93,12 @@ public final class $$PostgreSQLDeleteOneEntityFieldsUsingMonoRepository extends 
                 .flatMap(c -> executeStatement(c, generatedSQL, id)
                         .flatMap(r -> Mono.from(r.map(toEntityFieldMap())))
                         .switchIfEmpty(close(c)
-                                .then(Mono.empty()))
+                                .then(Mono.empty())
+                        )
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
+                                .then(Mono.error(e))
+                        )
                 );
     }
 
@@ -109,10 +110,12 @@ public final class $$PostgreSQLDeleteOneEntityFieldsUsingMonoRepository extends 
                 .flatMap(c -> executeStatement(c, generatedSQL, id)
                         .flatMap(r -> Mono.from(r.map(toEntityFieldList())))
                         .switchIfEmpty(close(c)
-                                .then(Mono.empty()))
+                                .then(Mono.empty())
+                        )
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
+                                .then(Mono.error(e))
+                        )
                 );
     }
 }

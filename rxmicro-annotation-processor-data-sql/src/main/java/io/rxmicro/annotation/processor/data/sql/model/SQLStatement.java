@@ -37,13 +37,13 @@ public final class SQLStatement {
 
     private final String sqlExpression;
 
-    private final List<String> bindParams;
+    private final List<BindParameter> bindParams;
 
     private SQLStatement(final String originalSql,
                          final List<String> resultColumns,
                          final boolean defaultColumnOrder,
                          final String sqlExpression,
-                         final List<String> bindParams) {
+                         final List<BindParameter> bindParams) {
         this.originalSql = originalSql;
         this.resultColumns = require(resultColumns);
         this.defaultColumnOrder = defaultColumnOrder;
@@ -79,7 +79,7 @@ public final class SQLStatement {
             "$$PostgreSQLRepositorySelectMethodBodyTemplate.javaftl",
             "$$PostgreSQLRepositoryInsertMethodBodyTemplate.javaftl"
     })
-    public List<String> getBindParams() {
+    public List<BindParameter> getBindParams() {
         return bindParams;
     }
 
@@ -98,7 +98,7 @@ public final class SQLStatement {
 
         private String sqlExpression;
 
-        private List<String> bindParams = List.of();
+        private List<BindParameter> bindParams = List.of();
 
         @BuilderMethod
         public Builder setOriginalSql(final String originalSql) {
@@ -125,7 +125,7 @@ public final class SQLStatement {
         }
 
         @BuilderMethod
-        public Builder setBindParams(final List<String> bindParams) {
+        public Builder setBindParams(final List<BindParameter> bindParams) {
             this.bindParams = require(bindParams);
             return this;
         }

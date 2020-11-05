@@ -64,13 +64,15 @@ public abstract class AbstractSQLModificationOperationReturningResultDataReposit
     protected void customizeClassHeaderBuilder(final ClassHeader.Builder classHeaderBuilder,
                                                final MethodResult methodResult,
                                                final DataGenerationContext<DMF, DMC> dataGenerationContext,
-                                               final ExecutableElement method) {
+                                               final ExecutableElement method,
+                                               final SQLStatement sqlStatement) {
         classHeaderBuilder.addImports(
                 Mono.class,
                 Flux.class,
                 Flowable.class,
                 ArrayList.class
         );
+        sqlStatement.getBindParams().forEach(p -> classHeaderBuilder.addImports(p.getType()));
     }
 
     @Override

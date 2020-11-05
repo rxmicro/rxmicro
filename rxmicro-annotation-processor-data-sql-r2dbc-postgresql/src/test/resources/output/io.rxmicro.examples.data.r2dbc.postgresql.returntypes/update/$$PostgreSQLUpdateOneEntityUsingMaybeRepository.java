@@ -34,15 +34,18 @@ public final class $$PostgreSQLUpdateOneEntityUsingMaybeRepository extends Abstr
         // Original SQL statement:  'UPDATE ${table} SET ${updated-columns} WHERE ${by-id-filter} RETURNING *'
         final String generatedSQL = "UPDATE account SET first_name = $1, last_name = $2 WHERE id = $3 RETURNING id, first_name, last_name";
         final Object[] updateParams = accountEntityToR2DBCSQLDBConverter.getUpdateParams(account);
+        final Class<?>[] updateParamTypes = accountEntityToR2DBCSQLDBConverter.getUpdateParamTypes();
         return Flowable.fromPublisher(
                 pool.create()
-                        .flatMap(c -> executeStatement(c, generatedSQL, updateParams)
+                        .flatMap(c -> executeStatement(c, generatedSQL, updateParams, updateParamTypes)
                                 .flatMap(r -> Mono.from(r.map((row, meta) -> accountEntityFromR2DBCSQLDBConverter.setIdFirst_nameLast_name(account, row, meta))))
                                 .switchIfEmpty(close(c)
-                                        .then(Mono.empty()))
+                                        .then(Mono.empty())
+                                )
                                 .delayUntil(s -> close(c))
                                 .onErrorResume(e -> close(c)
-                                        .then(Mono.error(e)))
+                                        .then(Mono.error(e))
+                                )
                         )
         ).firstElement();
     }
@@ -52,15 +55,18 @@ public final class $$PostgreSQLUpdateOneEntityUsingMaybeRepository extends Abstr
         // Original SQL statement:  'UPDATE ${table} SET ${updated-columns} WHERE ${by-id-filter} RETURNING *'
         final String generatedSQL = "UPDATE account SET first_name = $1, last_name = $2 WHERE id = $3 RETURNING id, first_name, last_name";
         final Object[] updateParams = accountEntityToR2DBCSQLDBConverter.getUpdateParams(account);
+        final Class<?>[] updateParamTypes = accountEntityToR2DBCSQLDBConverter.getUpdateParamTypes();
         return Flowable.fromPublisher(
                 pool.create()
-                        .flatMap(c -> executeStatement(c, generatedSQL, updateParams)
+                        .flatMap(c -> executeStatement(c, generatedSQL, updateParams, updateParamTypes)
                                 .flatMap(r -> Mono.from(r.map(toEntityFieldMap())))
                                 .switchIfEmpty(close(c)
-                                        .then(Mono.empty()))
+                                        .then(Mono.empty())
+                                )
                                 .delayUntil(s -> close(c))
                                 .onErrorResume(e -> close(c)
-                                        .then(Mono.error(e)))
+                                        .then(Mono.error(e))
+                                )
                         )
         ).firstElement();
     }
@@ -70,15 +76,18 @@ public final class $$PostgreSQLUpdateOneEntityUsingMaybeRepository extends Abstr
         // Original SQL statement:  'UPDATE ${table} SET ${updated-columns} WHERE ${by-id-filter} RETURNING *'
         final String generatedSQL = "UPDATE account SET first_name = $1, last_name = $2 WHERE id = $3 RETURNING id, first_name, last_name";
         final Object[] updateParams = accountEntityToR2DBCSQLDBConverter.getUpdateParams(account);
+        final Class<?>[] updateParamTypes = accountEntityToR2DBCSQLDBConverter.getUpdateParamTypes();
         return Flowable.fromPublisher(
                 pool.create()
-                        .flatMap(c -> executeStatement(c, generatedSQL, updateParams)
+                        .flatMap(c -> executeStatement(c, generatedSQL, updateParams, updateParamTypes)
                                 .flatMap(r -> Mono.from(r.map(toEntityFieldList())))
                                 .switchIfEmpty(close(c)
-                                        .then(Mono.empty()))
+                                        .then(Mono.empty())
+                                )
                                 .delayUntil(s -> close(c))
                                 .onErrorResume(e -> close(c)
-                                        .then(Mono.error(e)))
+                                        .then(Mono.error(e))
+                                )
                         )
         ).firstElement();
     }

@@ -23,6 +23,7 @@ import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingExc
 import io.rxmicro.annotation.processor.data.model.Variable;
 import io.rxmicro.annotation.processor.data.sql.component.PlatformPlaceholders;
 import io.rxmicro.annotation.processor.data.sql.component.impl.builder.select.SelectSQLOperatorReader;
+import io.rxmicro.annotation.processor.data.sql.model.BindParameter;
 import io.rxmicro.annotation.processor.data.sql.model.PlatformPlaceholderGenerator;
 import io.rxmicro.annotation.processor.data.sql.model.VariableValuesMap;
 
@@ -172,7 +173,7 @@ public abstract class AbstractSQLBuilder extends AbstractProcessorComponent {
                                      final List<String> sqlTokens,
                                      final List<Variable> methodParams,
                                      final List<String> formatParams,
-                                     final List<String> bindParams) {
+                                     final List<BindParameter> bindParams) {
         final PlatformPlaceholderGenerator platformPlaceholderGenerator = platformPlaceHolders.createPlatformPlaceholderGenerator();
         final ListIterator<String> iterator = sqlTokens.listIterator();
         while (iterator.hasNext()) {
@@ -188,7 +189,8 @@ public abstract class AbstractSQLBuilder extends AbstractProcessorComponent {
                     throw new InterruptProcessingException(owner, "Redundant '?' placeholder! Remove it!");
                 }
                 iterator.set(platformPlaceholderGenerator.getNextPlaceHolder());
-                bindParams.add(methodParams.remove(0).getGetter());
+                final Variable variable = methodParams.remove(0);
+                bindParams.add(new BindParameter(variable, variable.getGetter()));
             }
         }
     }

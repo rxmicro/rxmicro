@@ -3,7 +3,7 @@
 <#-- ------------------------------------------------------------------------------------------------ -->
 <#function getBindArgs bindArgs>
 <#assign RESULT>
-<#if bindArgs?has_content>, <#list bindArgs as ARG>${ARG}<#if ARG?has_next>, </#if></#list></#if>
+<#if bindArgs?has_content>, <#list bindArgs as ARG>${ARG.name}<#if ARG?has_next>, </#if></#list></#if>
 </#assign>
 <#return RESULT?trim>
 </#function>
@@ -87,11 +87,12 @@ return Single.fromPublisher(
 ${CONNECTION_PROVIDER}
 ${shift}        .flatMap(c -> executeStatement(c, generatedSQL${SQL_PARAMS})
 ${shift}                .flatMap(r -> Mono.from(r.getRowsUpdated()))
-${shift}                <#if CLOSE_CONNECTION>
+<#if CLOSE_CONNECTION>
 ${shift}                .delayUntil(s -> close(c))
 ${shift}                .onErrorResume(e -> close(c)
-${shift}                        .then(Mono.error(e)))
-${shift}                </#if>
+${shift}                        .then(Mono.error(e))
+${shift}                )
+</#if>
 ${shift}        )<#if RETURN.mono && RETURN.integer>;</#if></#assign>
 </#macro>
 <#-- ------------------------------------------------------------------------------------------------ -->

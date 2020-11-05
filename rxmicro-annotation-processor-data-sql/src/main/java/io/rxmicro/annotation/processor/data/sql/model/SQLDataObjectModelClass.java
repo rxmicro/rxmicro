@@ -106,6 +106,10 @@ public abstract class SQLDataObjectModelClass<DMF extends SQLDataModelField> ext
         this.deletable = deletable;
     }
 
+    public boolean isPrimaryKeysPresent() {
+        return primaryKeysParams != null;
+    }
+
     public Set<Map.Entry<DMF, ModelClass>> getPrimaryKeysParams() {
         if (primaryKeysParams == null) {
             primaryKeysParams = getParamEntries().stream()

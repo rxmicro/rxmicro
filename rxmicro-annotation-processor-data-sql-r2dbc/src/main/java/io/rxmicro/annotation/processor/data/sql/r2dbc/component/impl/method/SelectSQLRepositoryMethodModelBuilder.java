@@ -56,8 +56,9 @@ public class SelectSQLRepositoryMethodModelBuilder<DMF extends SQLDataModelField
     protected void customizeClassHeaderBuilder(final ClassHeader.Builder classHeaderBuilder,
                                                final MethodResult methodResult,
                                                final DataGenerationContext<DMF, DMC> dataGenerationContext,
-                                               final ExecutableElement method) {
-        super.customizeClassHeaderBuilder(classHeaderBuilder, methodResult, dataGenerationContext, method);
+                                               final ExecutableElement method,
+                                               final SQLStatement sqlStatement) {
+        super.customizeClassHeaderBuilder(classHeaderBuilder, methodResult, dataGenerationContext, method, sqlStatement);
         classHeaderBuilder.addImports(
                 Flowable.class,
                 ArrayList.class

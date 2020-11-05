@@ -85,48 +85,15 @@ public abstract class AbstractR2DBCRepository extends AbstractSQLRepository {
 
     protected final Mono<? extends Result> executeStatement(final Connection connection,
                                                             final String sql,
-                                                            final Object param) {
-        return statements.executeStatement(connection, sql, param);
-    }
-
-    protected final Mono<? extends Result> executeStatement(final Connection connection,
-                                                            final String sql,
-                                                            final Object param1,
-                                                            final Object param2) {
-        return statements.executeStatement(connection, sql, param1, param2);
-    }
-
-    protected final Mono<? extends Result> executeStatement(final Connection connection,
-                                                            final String sql,
-                                                            final Object param1,
-                                                            final Object param2,
-                                                            final Object param3) {
-        return statements.executeStatement(connection, sql, param1, param2, param3);
-    }
-
-    protected final Mono<? extends Result> executeStatement(final Connection connection,
-                                                            final String sql,
-                                                            final Object param1,
-                                                            final Object param2,
-                                                            final Object param3,
-                                                            final Object param4) {
-        return statements.executeStatement(connection, sql, param1, param2, param3, param4);
-    }
-
-    protected final Mono<? extends Result> executeStatement(final Connection connection,
-                                                            final String sql,
-                                                            final Object param1,
-                                                            final Object param2,
-                                                            final Object param3,
-                                                            final Object param4,
-                                                            final Object param5) {
-        return statements.executeStatement(connection, sql, param1, param2, param3, param4, param5);
-    }
-
-    protected final Mono<? extends Result> executeStatement(final Connection connection,
-                                                            final String sql,
                                                             final Object... params) {
         return statements.executeStatement(connection, sql, params);
+    }
+
+    protected final Mono<? extends Result> executeStatement(final Connection connection,
+                                                            final String sql,
+                                                            final Object[] params,
+                                                            final Class<?>[] types) {
+        return statements.executeStatement(connection, sql, params, types);
     }
 
     @SuppressWarnings("SameReturnValue")

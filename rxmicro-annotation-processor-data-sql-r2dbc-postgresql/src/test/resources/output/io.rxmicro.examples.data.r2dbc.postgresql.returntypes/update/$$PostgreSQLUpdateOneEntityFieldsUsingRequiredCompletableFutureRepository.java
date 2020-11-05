@@ -29,14 +29,15 @@ public final class $$PostgreSQLUpdateOneEntityFieldsUsingRequiredCompletableFutu
     public CompletableFuture<Void> update01(final String firstName, final String lastName, final Long id) {
         // Original SQL statement:  'UPDATE ${table} SET first_name = ?, last_name = ? WHERE id = ?'
         final String generatedSQL = "UPDATE account SET first_name = $1, last_name = $2 WHERE id = $3";
+        final Object[] updateParams = {firstName, lastName, id};
+        final Class<?>[] updateParamTypes = {String.class, String.class, Long.class};
         return pool.create()
-                .flatMap(c -> executeStatement(c, generatedSQL, firstName, lastName, id)
+                .flatMap(c -> executeStatement(c, generatedSQL, updateParams, updateParamTypes)
                         .flatMap(r -> Mono.from(r.getRowsUpdated()))
-                        
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
-                        
+                                .then(Mono.error(e))
+                        )
                 )
                 .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletableFuture.class, Void.class))))
                 .toFuture()
@@ -47,14 +48,15 @@ public final class $$PostgreSQLUpdateOneEntityFieldsUsingRequiredCompletableFutu
     public CompletableFuture<Integer> update02(final String firstName, final String lastName, final Long id) {
         // Original SQL statement:  'UPDATE ${table} SET first_name = ?, last_name = ? WHERE id = ?'
         final String generatedSQL = "UPDATE account SET first_name = $1, last_name = $2 WHERE id = $3";
+        final Object[] updateParams = {firstName, lastName, id};
+        final Class<?>[] updateParamTypes = {String.class, String.class, Long.class};
         return pool.create()
-                .flatMap(c -> executeStatement(c, generatedSQL, firstName, lastName, id)
+                .flatMap(c -> executeStatement(c, generatedSQL, updateParams, updateParamTypes)
                         .flatMap(r -> Mono.from(r.getRowsUpdated()))
-                        
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
-                        
+                                .then(Mono.error(e))
+                        )
                 )
                 .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletableFuture.class, Integer.class))))
                 .toFuture();
@@ -64,14 +66,15 @@ public final class $$PostgreSQLUpdateOneEntityFieldsUsingRequiredCompletableFutu
     public CompletableFuture<Boolean> update03(final String firstName, final String lastName, final Long id) {
         // Original SQL statement:  'UPDATE ${table} SET first_name = ?, last_name = ? WHERE id = ?'
         final String generatedSQL = "UPDATE account SET first_name = $1, last_name = $2 WHERE id = $3";
+        final Object[] updateParams = {firstName, lastName, id};
+        final Class<?>[] updateParamTypes = {String.class, String.class, Long.class};
         return pool.create()
-                .flatMap(c -> executeStatement(c, generatedSQL, firstName, lastName, id)
+                .flatMap(c -> executeStatement(c, generatedSQL, updateParams, updateParamTypes)
                         .flatMap(r -> Mono.from(r.getRowsUpdated()))
-                        
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
-                        
+                                .then(Mono.error(e))
+                        )
                 )
                 .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletableFuture.class, Boolean.class))))
                 .map(r -> r > 0)
@@ -82,15 +85,19 @@ public final class $$PostgreSQLUpdateOneEntityFieldsUsingRequiredCompletableFutu
     public CompletableFuture<Account> update04(final String firstName, final String lastName, final Long id) {
         // Original SQL statement:  'UPDATE ${table} SET first_name = ?, last_name = ? WHERE id = ? RETURNING *'
         final String generatedSQL = "UPDATE account SET first_name = $1, last_name = $2 WHERE id = $3 RETURNING id, first_name, last_name";
+        final Object[] updateParams = {firstName, lastName, id};
+        final Class<?>[] updateParamTypes = {String.class, String.class, Long.class};
         final Account entity = new Account();
         return pool.create()
-                .flatMap(c -> executeStatement(c, generatedSQL, firstName, lastName, id)
+                .flatMap(c -> executeStatement(c, generatedSQL, updateParams, updateParamTypes)
                         .flatMap(r -> Mono.from(r.map((row, meta) -> accountEntityFromR2DBCSQLDBConverter.setIdFirst_nameLast_name(entity, row, meta))))
                         .switchIfEmpty(close(c)
-                                .then(Mono.empty()))
+                                .then(Mono.empty())
+                        )
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
+                                .then(Mono.error(e))
+                        )
                 )
                 .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletableFuture.class, Account.class))))
                 .toFuture();
@@ -100,14 +107,18 @@ public final class $$PostgreSQLUpdateOneEntityFieldsUsingRequiredCompletableFutu
     public CompletableFuture<EntityFieldMap> update05(final String firstName, final String lastName, final Long id) {
         // Original SQL statement:  'UPDATE ${table} SET first_name = ?, last_name = ? WHERE id = ? RETURNING first_name, last_name'
         final String generatedSQL = "UPDATE account SET first_name = $1, last_name = $2 WHERE id = $3 RETURNING first_name, last_name";
+        final Object[] updateParams = {firstName, lastName, id};
+        final Class<?>[] updateParamTypes = {String.class, String.class, Long.class};
         return pool.create()
-                .flatMap(c -> executeStatement(c, generatedSQL, firstName, lastName, id)
+                .flatMap(c -> executeStatement(c, generatedSQL, updateParams, updateParamTypes)
                         .flatMap(r -> Mono.from(r.map(toEntityFieldMap())))
                         .switchIfEmpty(close(c)
-                                .then(Mono.empty()))
+                                .then(Mono.empty())
+                        )
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
+                                .then(Mono.error(e))
+                        )
                 )
                 .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletableFuture.class, EntityFieldMap.class))))
                 .toFuture();
@@ -117,14 +128,18 @@ public final class $$PostgreSQLUpdateOneEntityFieldsUsingRequiredCompletableFutu
     public CompletableFuture<EntityFieldList> update06(final String firstName, final String lastName, final Long id) {
         // Original SQL statement:  'UPDATE ${table} SET first_name = ?, last_name = ? WHERE id = ? RETURNING first_name, last_name'
         final String generatedSQL = "UPDATE account SET first_name = $1, last_name = $2 WHERE id = $3 RETURNING first_name, last_name";
+        final Object[] updateParams = {firstName, lastName, id};
+        final Class<?>[] updateParamTypes = {String.class, String.class, Long.class};
         return pool.create()
-                .flatMap(c -> executeStatement(c, generatedSQL, firstName, lastName, id)
+                .flatMap(c -> executeStatement(c, generatedSQL, updateParams, updateParamTypes)
                         .flatMap(r -> Mono.from(r.map(toEntityFieldList())))
                         .switchIfEmpty(close(c)
-                                .then(Mono.empty()))
+                                .then(Mono.empty())
+                        )
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
+                                .then(Mono.error(e))
+                        )
                 )
                 .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletableFuture.class, EntityFieldList.class))))
                 .toFuture();

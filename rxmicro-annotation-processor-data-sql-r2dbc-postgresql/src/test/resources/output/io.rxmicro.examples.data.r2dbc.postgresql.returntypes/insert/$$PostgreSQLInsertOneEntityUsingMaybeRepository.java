@@ -34,15 +34,18 @@ public final class $$PostgreSQLInsertOneEntityUsingMaybeRepository extends Abstr
         // Original SQL statement:  'INSERT INTO ${table}(${inserted-columns}) VALUES(${values}) ON CONFLICT DO NOTHING RETURNING ${id-columns}'
         final String generatedSQL = "INSERT INTO account(first_name, last_name) VALUES($1, $2) ON CONFLICT DO NOTHING RETURNING id";
         final Object[] insertParams = accountEntityToR2DBCSQLDBConverter.getInsertParams(account);
+        final Class<?>[] insertParamTypes = accountEntityToR2DBCSQLDBConverter.getInsertParamTypes();
         return Flowable.fromPublisher(
                 pool.create()
-                        .flatMap(c -> executeStatement(c, generatedSQL, insertParams)
+                        .flatMap(c -> executeStatement(c, generatedSQL, insertParams, insertParamTypes)
                                 .flatMap(r -> Mono.from(r.map((row, meta) -> accountEntityFromR2DBCSQLDBConverter.setId(account, row, meta))))
                                 .switchIfEmpty(close(c)
-                                        .then(Mono.empty()))
+                                        .then(Mono.empty())
+                                )
                                 .delayUntil(s -> close(c))
                                 .onErrorResume(e -> close(c)
-                                        .then(Mono.error(e)))
+                                        .then(Mono.error(e))
+                                )
                         )
         ).firstElement();
     }
@@ -52,15 +55,18 @@ public final class $$PostgreSQLInsertOneEntityUsingMaybeRepository extends Abstr
         // Original SQL statement:  'INSERT INTO ${table}(${inserted-columns}) VALUES(${values}) ON CONFLICT DO NOTHING RETURNING ${id-columns}'
         final String generatedSQL = "INSERT INTO account(first_name, last_name) VALUES($1, $2) ON CONFLICT DO NOTHING RETURNING id";
         final Object[] insertParams = accountEntityToR2DBCSQLDBConverter.getInsertParams(account);
+        final Class<?>[] insertParamTypes = accountEntityToR2DBCSQLDBConverter.getInsertParamTypes();
         return Flowable.fromPublisher(
                 pool.create()
-                        .flatMap(c -> executeStatement(c, generatedSQL, insertParams)
+                        .flatMap(c -> executeStatement(c, generatedSQL, insertParams, insertParamTypes)
                                 .flatMap(r -> Mono.from(r.map(toEntityFieldMap())))
                                 .switchIfEmpty(close(c)
-                                        .then(Mono.empty()))
+                                        .then(Mono.empty())
+                                )
                                 .delayUntil(s -> close(c))
                                 .onErrorResume(e -> close(c)
-                                        .then(Mono.error(e)))
+                                        .then(Mono.error(e))
+                                )
                         )
         ).firstElement();
     }
@@ -70,15 +76,18 @@ public final class $$PostgreSQLInsertOneEntityUsingMaybeRepository extends Abstr
         // Original SQL statement:  'INSERT INTO ${table}(${inserted-columns}) VALUES(${values}) ON CONFLICT DO NOTHING RETURNING ${id-columns}'
         final String generatedSQL = "INSERT INTO account(first_name, last_name) VALUES($1, $2) ON CONFLICT DO NOTHING RETURNING id";
         final Object[] insertParams = accountEntityToR2DBCSQLDBConverter.getInsertParams(account);
+        final Class<?>[] insertParamTypes = accountEntityToR2DBCSQLDBConverter.getInsertParamTypes();
         return Flowable.fromPublisher(
                 pool.create()
-                        .flatMap(c -> executeStatement(c, generatedSQL, insertParams)
+                        .flatMap(c -> executeStatement(c, generatedSQL, insertParams, insertParamTypes)
                                 .flatMap(r -> Mono.from(r.map(toEntityFieldList())))
                                 .switchIfEmpty(close(c)
-                                        .then(Mono.empty()))
+                                        .then(Mono.empty())
+                                )
                                 .delayUntil(s -> close(c))
                                 .onErrorResume(e -> close(c)
-                                        .then(Mono.error(e)))
+                                        .then(Mono.error(e))
+                                )
                         )
         ).firstElement();
     }
@@ -88,15 +97,18 @@ public final class $$PostgreSQLInsertOneEntityUsingMaybeRepository extends Abstr
         // Original SQL statement:  'INSERT INTO ${table}(${inserted-columns}) VALUES(${values}) ON CONFLICT DO NOTHING RETURNING *'
         final String generatedSQL = "INSERT INTO account(first_name, last_name) VALUES($1, $2) ON CONFLICT DO NOTHING RETURNING id, first_name, last_name";
         final Object[] insertParams = accountEntityToR2DBCSQLDBConverter.getInsertParams(account);
+        final Class<?>[] insertParamTypes = accountEntityToR2DBCSQLDBConverter.getInsertParamTypes();
         return Flowable.fromPublisher(
                 pool.create()
-                        .flatMap(c -> executeStatement(c, generatedSQL, insertParams)
+                        .flatMap(c -> executeStatement(c, generatedSQL, insertParams, insertParamTypes)
                                 .flatMap(r -> Mono.from(r.map((row, meta) -> accountEntityFromR2DBCSQLDBConverter.setIdFirst_nameLast_name(account, row, meta))))
                                 .switchIfEmpty(close(c)
-                                        .then(Mono.empty()))
+                                        .then(Mono.empty())
+                                )
                                 .delayUntil(s -> close(c))
                                 .onErrorResume(e -> close(c)
-                                        .then(Mono.error(e)))
+                                        .then(Mono.error(e))
+                                )
                         )
         ).firstElement();
     }
@@ -106,15 +118,18 @@ public final class $$PostgreSQLInsertOneEntityUsingMaybeRepository extends Abstr
         // Original SQL statement:  'INSERT INTO ${table}(${inserted-columns}) VALUES(${values}) ON CONFLICT DO NOTHING RETURNING *'
         final String generatedSQL = "INSERT INTO account(first_name, last_name) VALUES($1, $2) ON CONFLICT DO NOTHING RETURNING id, first_name, last_name";
         final Object[] insertParams = accountEntityToR2DBCSQLDBConverter.getInsertParams(account);
+        final Class<?>[] insertParamTypes = accountEntityToR2DBCSQLDBConverter.getInsertParamTypes();
         return Flowable.fromPublisher(
                 pool.create()
-                        .flatMap(c -> executeStatement(c, generatedSQL, insertParams)
+                        .flatMap(c -> executeStatement(c, generatedSQL, insertParams, insertParamTypes)
                                 .flatMap(r -> Mono.from(r.map(toEntityFieldMap())))
                                 .switchIfEmpty(close(c)
-                                        .then(Mono.empty()))
+                                        .then(Mono.empty())
+                                )
                                 .delayUntil(s -> close(c))
                                 .onErrorResume(e -> close(c)
-                                        .then(Mono.error(e)))
+                                        .then(Mono.error(e))
+                                )
                         )
         ).firstElement();
     }
@@ -124,15 +139,18 @@ public final class $$PostgreSQLInsertOneEntityUsingMaybeRepository extends Abstr
         // Original SQL statement:  'INSERT INTO ${table}(${inserted-columns}) VALUES(${values}) ON CONFLICT DO NOTHING RETURNING *'
         final String generatedSQL = "INSERT INTO account(first_name, last_name) VALUES($1, $2) ON CONFLICT DO NOTHING RETURNING id, first_name, last_name";
         final Object[] insertParams = accountEntityToR2DBCSQLDBConverter.getInsertParams(account);
+        final Class<?>[] insertParamTypes = accountEntityToR2DBCSQLDBConverter.getInsertParamTypes();
         return Flowable.fromPublisher(
                 pool.create()
-                        .flatMap(c -> executeStatement(c, generatedSQL, insertParams)
+                        .flatMap(c -> executeStatement(c, generatedSQL, insertParams, insertParamTypes)
                                 .flatMap(r -> Mono.from(r.map(toEntityFieldList())))
                                 .switchIfEmpty(close(c)
-                                        .then(Mono.empty()))
+                                        .then(Mono.empty())
+                                )
                                 .delayUntil(s -> close(c))
                                 .onErrorResume(e -> close(c)
-                                        .then(Mono.error(e)))
+                                        .then(Mono.error(e))
+                                )
                         )
         ).firstElement();
     }

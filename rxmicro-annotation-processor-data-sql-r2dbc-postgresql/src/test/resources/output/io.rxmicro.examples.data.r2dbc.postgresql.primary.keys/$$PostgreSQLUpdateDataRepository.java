@@ -43,14 +43,14 @@ public final class $$PostgreSQLUpdateDataRepository extends AbstractPostgreSQLRe
         // Original SQL statement:  'UPDATE ${table} SET ${updated-columns} WHERE ${by-id-filter}'
         final String generatedSQL = "UPDATE account SET first_name = $1, last_name = $2, balance = $3, role = $4 WHERE id = $5";
         final Object[] updateParams = accountEntityToR2DBCSQLDBConverter.getUpdateParams(account);
+        final Class<?>[] updateParamTypes = accountEntityToR2DBCSQLDBConverter.getUpdateParamTypes();
         return pool.create()
-                .flatMap(c -> executeStatement(c, generatedSQL, updateParams)
+                .flatMap(c -> executeStatement(c, generatedSQL, updateParams, updateParamTypes)
                         .flatMap(r -> Mono.from(r.getRowsUpdated()))
-                        
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
-                        
+                                .then(Mono.error(e))
+                        )
                 )
                 .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletableFuture.class, Void.class))))
                 .toFuture()
@@ -62,14 +62,14 @@ public final class $$PostgreSQLUpdateDataRepository extends AbstractPostgreSQLRe
         // Original SQL statement:  'UPDATE ${table} SET ${updated-columns} WHERE ${by-id-filter}'
         final String generatedSQL = "UPDATE order SET id_account = $1, id_product = $2, count = $3, created = $4 WHERE id = $5";
         final Object[] updateParams = orderEntityToR2DBCSQLDBConverter.getUpdateParams(order);
+        final Class<?>[] updateParamTypes = orderEntityToR2DBCSQLDBConverter.getUpdateParamTypes();
         return pool.create()
-                .flatMap(c -> executeStatement(c, generatedSQL, updateParams)
+                .flatMap(c -> executeStatement(c, generatedSQL, updateParams, updateParamTypes)
                         .flatMap(r -> Mono.from(r.getRowsUpdated()))
-                        
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
-                        
+                                .then(Mono.error(e))
+                        )
                 )
                 .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletableFuture.class, Void.class))))
                 .toFuture()
@@ -81,14 +81,14 @@ public final class $$PostgreSQLUpdateDataRepository extends AbstractPostgreSQLRe
         // Original SQL statement:  'UPDATE ${table} SET ${updated-columns} WHERE ${by-id-filter}'
         final String generatedSQL = "UPDATE product SET name = $1, price = $2, count = $3 WHERE id = $4";
         final Object[] updateParams = productEntityToR2DBCSQLDBConverter.getUpdateParams(product);
+        final Class<?>[] updateParamTypes = productEntityToR2DBCSQLDBConverter.getUpdateParamTypes();
         return pool.create()
-                .flatMap(c -> executeStatement(c, generatedSQL, updateParams)
+                .flatMap(c -> executeStatement(c, generatedSQL, updateParams, updateParamTypes)
                         .flatMap(r -> Mono.from(r.getRowsUpdated()))
-                        
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
-                        
+                                .then(Mono.error(e))
+                        )
                 )
                 .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletableFuture.class, Void.class))))
                 .toFuture()
@@ -100,14 +100,14 @@ public final class $$PostgreSQLUpdateDataRepository extends AbstractPostgreSQLRe
         // Original SQL statement:  'UPDATE ${table} SET ${updated-columns} WHERE ${by-id-filter}'
         final String generatedSQL = "UPDATE composite_primary_key SET created = $1 WHERE id_category = $2 AND id_type = $3 AND id_role = $4";
         final Object[] updateParams = compositePrimaryKeyEntityToR2DBCSQLDBConverter.getUpdateParams(entity);
+        final Class<?>[] updateParamTypes = compositePrimaryKeyEntityToR2DBCSQLDBConverter.getUpdateParamTypes();
         return pool.create()
-                .flatMap(c -> executeStatement(c, generatedSQL, updateParams)
+                .flatMap(c -> executeStatement(c, generatedSQL, updateParams, updateParamTypes)
                         .flatMap(r -> Mono.from(r.getRowsUpdated()))
-                        
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
-                        
+                                .then(Mono.error(e))
+                        )
                 )
                 .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletableFuture.class, Void.class))))
                 .toFuture()

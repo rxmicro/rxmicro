@@ -27,14 +27,15 @@ public final class $$PostgreSQLInsertOneEntityFieldsUsingMonoRepository extends 
     public Mono<Void> insert01(final String firstName, final String lastName) {
         // Original SQL statement:  'INSERT INTO ${table}(first_name, last_name) VALUES(?, ?)'
         final String generatedSQL = "INSERT INTO account(first_name, last_name) VALUES($1, $2)";
+        final Object[] insertParams = {firstName, lastName};
+        final Class<?>[] insertParamTypes = {String.class, String.class};
         return pool.create()
-                .flatMap(c -> executeStatement(c, generatedSQL, firstName, lastName)
+                .flatMap(c -> executeStatement(c, generatedSQL, insertParams, insertParamTypes)
                         .flatMap(r -> Mono.from(r.getRowsUpdated()))
-                        
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
-                        
+                                .then(Mono.error(e))
+                        )
                 )
                 .then();
     }
@@ -43,14 +44,15 @@ public final class $$PostgreSQLInsertOneEntityFieldsUsingMonoRepository extends 
     public Mono<Integer> insert02(final String firstName, final String lastName) {
         // Original SQL statement:  'INSERT INTO ${table}(first_name, last_name) VALUES(?, ?)'
         final String generatedSQL = "INSERT INTO account(first_name, last_name) VALUES($1, $2)";
+        final Object[] insertParams = {firstName, lastName};
+        final Class<?>[] insertParamTypes = {String.class, String.class};
         return pool.create()
-                .flatMap(c -> executeStatement(c, generatedSQL, firstName, lastName)
+                .flatMap(c -> executeStatement(c, generatedSQL, insertParams, insertParamTypes)
                         .flatMap(r -> Mono.from(r.getRowsUpdated()))
-                        
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
-                        
+                                .then(Mono.error(e))
+                        )
                 );
     }
 
@@ -58,14 +60,15 @@ public final class $$PostgreSQLInsertOneEntityFieldsUsingMonoRepository extends 
     public Mono<Boolean> insert03(final String firstName, final String lastName) {
         // Original SQL statement:  'INSERT INTO ${table}(first_name, last_name) VALUES(?, ?)'
         final String generatedSQL = "INSERT INTO account(first_name, last_name) VALUES($1, $2)";
+        final Object[] insertParams = {firstName, lastName};
+        final Class<?>[] insertParamTypes = {String.class, String.class};
         return pool.create()
-                .flatMap(c -> executeStatement(c, generatedSQL, firstName, lastName)
+                .flatMap(c -> executeStatement(c, generatedSQL, insertParams, insertParamTypes)
                         .flatMap(r -> Mono.from(r.getRowsUpdated()))
-                        
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
-                        
+                                .then(Mono.error(e))
+                        )
                 )
                 .map(r -> r > 0);
     }
@@ -74,15 +77,19 @@ public final class $$PostgreSQLInsertOneEntityFieldsUsingMonoRepository extends 
     public Mono<Account> insert04(final String firstName, final String lastName) {
         // Original SQL statement:  'INSERT INTO ${table}(first_name, last_name) VALUES(?, ?) RETURNING *'
         final String generatedSQL = "INSERT INTO account(first_name, last_name) VALUES($1, $2) RETURNING id, first_name, last_name";
+        final Object[] insertParams = {firstName, lastName};
+        final Class<?>[] insertParamTypes = {String.class, String.class};
         final Account entity = new Account();
         return pool.create()
-                .flatMap(c -> executeStatement(c, generatedSQL, firstName, lastName)
+                .flatMap(c -> executeStatement(c, generatedSQL, insertParams, insertParamTypes)
                         .flatMap(r -> Mono.from(r.map((row, meta) -> accountEntityFromR2DBCSQLDBConverter.setIdFirst_nameLast_name(entity, row, meta))))
                         .switchIfEmpty(close(c)
-                                .then(Mono.empty()))
+                                .then(Mono.empty())
+                        )
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
+                                .then(Mono.error(e))
+                        )
                 );
     }
 
@@ -90,14 +97,18 @@ public final class $$PostgreSQLInsertOneEntityFieldsUsingMonoRepository extends 
     public Mono<EntityFieldMap> insert05(final String firstName, final String lastName) {
         // Original SQL statement:  'INSERT INTO ${table}(first_name, last_name) VALUES(?, ?) RETURNING first_name, last_name'
         final String generatedSQL = "INSERT INTO account(first_name, last_name) VALUES($1, $2) RETURNING first_name, last_name";
+        final Object[] insertParams = {firstName, lastName};
+        final Class<?>[] insertParamTypes = {String.class, String.class};
         return pool.create()
-                .flatMap(c -> executeStatement(c, generatedSQL, firstName, lastName)
+                .flatMap(c -> executeStatement(c, generatedSQL, insertParams, insertParamTypes)
                         .flatMap(r -> Mono.from(r.map(toEntityFieldMap())))
                         .switchIfEmpty(close(c)
-                                .then(Mono.empty()))
+                                .then(Mono.empty())
+                        )
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
+                                .then(Mono.error(e))
+                        )
                 );
     }
 
@@ -105,14 +116,18 @@ public final class $$PostgreSQLInsertOneEntityFieldsUsingMonoRepository extends 
     public Mono<EntityFieldList> insert06(final String firstName, final String lastName) {
         // Original SQL statement:  'INSERT INTO ${table}(first_name, last_name) VALUES(?, ?) RETURNING first_name, last_name'
         final String generatedSQL = "INSERT INTO account(first_name, last_name) VALUES($1, $2) RETURNING first_name, last_name";
+        final Object[] insertParams = {firstName, lastName};
+        final Class<?>[] insertParamTypes = {String.class, String.class};
         return pool.create()
-                .flatMap(c -> executeStatement(c, generatedSQL, firstName, lastName)
+                .flatMap(c -> executeStatement(c, generatedSQL, insertParams, insertParamTypes)
                         .flatMap(r -> Mono.from(r.map(toEntityFieldList())))
                         .switchIfEmpty(close(c)
-                                .then(Mono.empty()))
+                                .then(Mono.empty())
+                        )
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
+                                .then(Mono.error(e))
+                        )
                 );
     }
 }

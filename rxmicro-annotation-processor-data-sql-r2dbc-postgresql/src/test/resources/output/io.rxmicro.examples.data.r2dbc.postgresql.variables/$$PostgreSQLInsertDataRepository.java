@@ -33,14 +33,14 @@ public final class $$PostgreSQLInsertDataRepository extends AbstractPostgreSQLRe
         // Original SQL statement:  'INSERT INTO ${table}(${inserted-columns}) VALUES(${values})'
         final String generatedSQL = "INSERT INTO entity_table(value) VALUES($1)";
         final Object[] insertParams = entityEntityToR2DBCSQLDBConverter.getInsertParams(entity);
+        final Class<?>[] insertParamTypes = entityEntityToR2DBCSQLDBConverter.getInsertParamTypes();
         return pool.create()
-                .flatMap(c -> executeStatement(c, generatedSQL, insertParams)
+                .flatMap(c -> executeStatement(c, generatedSQL, insertParams, insertParamTypes)
                         .flatMap(r -> Mono.from(r.getRowsUpdated()))
-                        
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
-                        
+                                .then(Mono.error(e))
+                        )
                 )
                 .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletableFuture.class, Void.class))))
                 .toFuture()
@@ -52,14 +52,17 @@ public final class $$PostgreSQLInsertDataRepository extends AbstractPostgreSQLRe
         // Original SQL statement:  'INSERT INTO ${table}(${inserted-columns}) VALUES(${values}) RETURNING *'
         final String generatedSQL = "INSERT INTO entity_table(value) VALUES($1) RETURNING id, value";
         final Object[] insertParams = entityEntityToR2DBCSQLDBConverter.getInsertParams(entity);
+        final Class<?>[] insertParamTypes = entityEntityToR2DBCSQLDBConverter.getInsertParamTypes();
         return pool.create()
-                .flatMap(c -> executeStatement(c, generatedSQL, insertParams)
+                .flatMap(c -> executeStatement(c, generatedSQL, insertParams, insertParamTypes)
                         .flatMap(r -> Mono.from(r.map((row, meta) -> entityEntityFromR2DBCSQLDBConverter.setIdValue(entity, row, meta))))
                         .switchIfEmpty(close(c)
-                                .then(Mono.empty()))
+                                .then(Mono.empty())
+                        )
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
+                                .then(Mono.error(e))
+                        )
                 )
                 .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletableFuture.class, Entity.class))))
                 .toFuture();
@@ -69,15 +72,19 @@ public final class $$PostgreSQLInsertDataRepository extends AbstractPostgreSQLRe
     public CompletableFuture<Entity> insertIntoEntityTable3(final String value) {
         // Original SQL statement:  'INSERT INTO ${table} VALUES(?) RETURNING *'
         final String generatedSQL = "INSERT INTO entity_table VALUES($1) RETURNING id, value";
+        final Object[] insertParams = {value};
+        final Class<?>[] insertParamTypes = {String.class};
         final Entity entity = new Entity();
         return pool.create()
-                .flatMap(c -> executeStatement(c, generatedSQL, value)
+                .flatMap(c -> executeStatement(c, generatedSQL, insertParams, insertParamTypes)
                         .flatMap(r -> Mono.from(r.map((row, meta) -> entityEntityFromR2DBCSQLDBConverter.setIdValue(entity, row, meta))))
                         .switchIfEmpty(close(c)
-                                .then(Mono.empty()))
+                                .then(Mono.empty())
+                        )
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
+                                .then(Mono.error(e))
+                        )
                 )
                 .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletableFuture.class, Entity.class))))
                 .toFuture();
@@ -87,14 +94,18 @@ public final class $$PostgreSQLInsertDataRepository extends AbstractPostgreSQLRe
     public CompletableFuture<EntityFieldMap> insertIntoEntityTable4(final String value) {
         // Original SQL statement:  'INSERT INTO ${table} VALUES(?) RETURNING *'
         final String generatedSQL = "INSERT INTO entity_table VALUES($1) RETURNING id, value";
+        final Object[] insertParams = {value};
+        final Class<?>[] insertParamTypes = {String.class};
         return pool.create()
-                .flatMap(c -> executeStatement(c, generatedSQL, value)
+                .flatMap(c -> executeStatement(c, generatedSQL, insertParams, insertParamTypes)
                         .flatMap(r -> Mono.from(r.map(toEntityFieldMap())))
                         .switchIfEmpty(close(c)
-                                .then(Mono.empty()))
+                                .then(Mono.empty())
+                        )
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
+                                .then(Mono.error(e))
+                        )
                 )
                 .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletableFuture.class, EntityFieldMap.class))))
                 .toFuture();
@@ -104,14 +115,18 @@ public final class $$PostgreSQLInsertDataRepository extends AbstractPostgreSQLRe
     public CompletableFuture<EntityFieldMap> insertIntoGlobalTable1(final String value) {
         // Original SQL statement:  'INSERT INTO ${table} VALUES(?) RETURNING value'
         final String generatedSQL = "INSERT INTO global_table VALUES($1) RETURNING value";
+        final Object[] insertParams = {value};
+        final Class<?>[] insertParamTypes = {String.class};
         return pool.create()
-                .flatMap(c -> executeStatement(c, generatedSQL, value)
+                .flatMap(c -> executeStatement(c, generatedSQL, insertParams, insertParamTypes)
                         .flatMap(r -> Mono.from(r.map(toEntityFieldMap())))
                         .switchIfEmpty(close(c)
-                                .then(Mono.empty()))
+                                .then(Mono.empty())
+                        )
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
+                                .then(Mono.error(e))
+                        )
                 )
                 .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletableFuture.class, EntityFieldMap.class))))
                 .toFuture();
@@ -121,14 +136,15 @@ public final class $$PostgreSQLInsertDataRepository extends AbstractPostgreSQLRe
     public CompletableFuture<Void> insertIntoGlobalTable2(final String value) {
         // Original SQL statement:  'INSERT INTO ${table} VALUES(?)'
         final String generatedSQL = "INSERT INTO global_table VALUES($1)";
+        final Object[] insertParams = {value};
+        final Class<?>[] insertParamTypes = {String.class};
         return pool.create()
-                .flatMap(c -> executeStatement(c, generatedSQL, value)
+                .flatMap(c -> executeStatement(c, generatedSQL, insertParams, insertParamTypes)
                         .flatMap(r -> Mono.from(r.getRowsUpdated()))
-                        
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
-                        
+                                .then(Mono.error(e))
+                        )
                 )
                 .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletableFuture.class, Void.class))))
                 .toFuture()
@@ -139,14 +155,18 @@ public final class $$PostgreSQLInsertDataRepository extends AbstractPostgreSQLRe
     public CompletableFuture<EntityFieldMap> insertIntoLocalTable1(final String value) {
         // Original SQL statement:  'INSERT INTO ${table} VALUES(?) RETURNING value'
         final String generatedSQL = "INSERT INTO local_table VALUES($1) RETURNING value";
+        final Object[] insertParams = {value};
+        final Class<?>[] insertParamTypes = {String.class};
         return pool.create()
-                .flatMap(c -> executeStatement(c, generatedSQL, value)
+                .flatMap(c -> executeStatement(c, generatedSQL, insertParams, insertParamTypes)
                         .flatMap(r -> Mono.from(r.map(toEntityFieldMap())))
                         .switchIfEmpty(close(c)
-                                .then(Mono.empty()))
+                                .then(Mono.empty())
+                        )
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
+                                .then(Mono.error(e))
+                        )
                 )
                 .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletableFuture.class, EntityFieldMap.class))))
                 .toFuture();
@@ -156,14 +176,15 @@ public final class $$PostgreSQLInsertDataRepository extends AbstractPostgreSQLRe
     public CompletableFuture<Void> insertIntoLocalTable2(final String value) {
         // Original SQL statement:  'INSERT INTO ${table} VALUES(?)'
         final String generatedSQL = "INSERT INTO local_table VALUES($1)";
+        final Object[] insertParams = {value};
+        final Class<?>[] insertParamTypes = {String.class};
         return pool.create()
-                .flatMap(c -> executeStatement(c, generatedSQL, value)
+                .flatMap(c -> executeStatement(c, generatedSQL, insertParams, insertParamTypes)
                         .flatMap(r -> Mono.from(r.getRowsUpdated()))
-                        
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
-                        
+                                .then(Mono.error(e))
+                        )
                 )
                 .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletableFuture.class, Void.class))))
                 .toFuture()
