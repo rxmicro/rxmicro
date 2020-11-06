@@ -37,9 +37,7 @@ public final class $$PostgreSQLSelectOneUsingMonoRepository extends AbstractPost
                                 .then(Mono.empty())
                         )
                         .delayUntil(s -> close(c))
-                        .onErrorResume(e -> close(c)
-                                .then(Mono.error(e))
-                        )
+                        .onErrorResume(createCloseThenReturnErrorFallback(c))
                 );
     }
 
@@ -54,9 +52,7 @@ public final class $$PostgreSQLSelectOneUsingMonoRepository extends AbstractPost
                                 .then(Mono.empty())
                         )
                         .delayUntil(s -> close(c))
-                        .onErrorResume(e -> close(c)
-                                .then(Mono.error(e))
-                        )
+                        .onErrorResume(createCloseThenReturnErrorFallback(c))
                 );
     }
 
@@ -71,9 +67,7 @@ public final class $$PostgreSQLSelectOneUsingMonoRepository extends AbstractPost
                                 .then(Mono.empty())
                         )
                         .delayUntil(s -> close(c))
-                        .onErrorResume(e -> close(c)
-                                .then(Mono.error(e))
-                        )
+                        .onErrorResume(createCloseThenReturnErrorFallback(c))
                 );
     }
 
@@ -88,9 +82,7 @@ public final class $$PostgreSQLSelectOneUsingMonoRepository extends AbstractPost
                                 .then(Mono.empty())
                         )
                         .delayUntil(s -> close(c))
-                        .onErrorResume(e -> close(c)
-                                .then(Mono.error(e))
-                        )
+                        .onErrorResume(createCloseThenReturnErrorFallback(c))
                 );
     }
 
@@ -105,9 +97,7 @@ public final class $$PostgreSQLSelectOneUsingMonoRepository extends AbstractPost
                                 .then(Mono.empty())
                         )
                         .delayUntil(s -> close(c))
-                        .onErrorResume(e -> close(c)
-                                .then(Mono.error(e))
-                        )
+                        .onErrorResume(createCloseThenReturnErrorFallback(c))
                 );
     }
 
@@ -122,9 +112,7 @@ public final class $$PostgreSQLSelectOneUsingMonoRepository extends AbstractPost
                                 .then(Mono.empty())
                         )
                         .delayUntil(s -> close(c))
-                        .onErrorResume(e -> close(c)
-                                .then(Mono.error(e))
-                        )
+                        .onErrorResume(createCloseThenReturnErrorFallback(c))
                 );
     }
 }

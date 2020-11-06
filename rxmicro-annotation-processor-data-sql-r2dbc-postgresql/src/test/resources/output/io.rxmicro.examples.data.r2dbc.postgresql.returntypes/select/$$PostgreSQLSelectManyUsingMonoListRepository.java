@@ -38,9 +38,7 @@ public final class $$PostgreSQLSelectManyUsingMonoListRepository extends Abstrac
                                 .collectList()
                         )
                         .delayUntil(s -> close(c))
-                        .onErrorResume(e -> close(c)
-                                .then(Mono.error(e))
-                        )
+                        .onErrorResume(createCloseThenReturnErrorFallback(c))
                 );
     }
 
@@ -54,9 +52,7 @@ public final class $$PostgreSQLSelectManyUsingMonoListRepository extends Abstrac
                                 .collectList()
                         )
                         .delayUntil(s -> close(c))
-                        .onErrorResume(e -> close(c)
-                                .then(Mono.error(e))
-                        )
+                        .onErrorResume(createCloseThenReturnErrorFallback(c))
                 );
     }
 
@@ -70,9 +66,7 @@ public final class $$PostgreSQLSelectManyUsingMonoListRepository extends Abstrac
                                 .collectList()
                         )
                         .delayUntil(s -> close(c))
-                        .onErrorResume(e -> close(c)
-                                .then(Mono.error(e))
-                        )
+                        .onErrorResume(createCloseThenReturnErrorFallback(c))
                 );
     }
 
@@ -86,9 +80,7 @@ public final class $$PostgreSQLSelectManyUsingMonoListRepository extends Abstrac
                                 .collectList()
                         )
                         .delayUntil(s -> close(c))
-                        .onErrorResume(e -> close(c)
-                                .then(Mono.error(e))
-                        )
+                        .onErrorResume(createCloseThenReturnErrorFallback(c))
                 );
     }
 
@@ -102,9 +94,7 @@ public final class $$PostgreSQLSelectManyUsingMonoListRepository extends Abstrac
                                 .collectList()
                         )
                         .delayUntil(s -> close(c))
-                        .onErrorResume(e -> close(c)
-                                .then(Mono.error(e))
-                        )
+                        .onErrorResume(createCloseThenReturnErrorFallback(c))
                 );
     }
 
@@ -118,9 +108,7 @@ public final class $$PostgreSQLSelectManyUsingMonoListRepository extends Abstrac
                                 .collectList()
                         )
                         .delayUntil(s -> close(c))
-                        .onErrorResume(e -> close(c)
-                                .then(Mono.error(e))
-                        )
+                        .onErrorResume(createCloseThenReturnErrorFallback(c))
                 );
     }
 }

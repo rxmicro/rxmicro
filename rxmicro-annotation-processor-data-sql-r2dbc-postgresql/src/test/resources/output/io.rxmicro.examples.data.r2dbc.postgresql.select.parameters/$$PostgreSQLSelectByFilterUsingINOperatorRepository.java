@@ -43,9 +43,7 @@ public final class $$PostgreSQLSelectByFilterUsingINOperatorRepository extends A
                                 .collectList()
                         )
                         .delayUntil(s -> close(c))
-                        .onErrorResume(e -> close(c)
-                                .then(Mono.error(e))
-                        )
+                        .onErrorResume(createCloseThenReturnErrorFallback(c))
                 )
                 .toFuture();
     }
@@ -60,9 +58,7 @@ public final class $$PostgreSQLSelectByFilterUsingINOperatorRepository extends A
                                 .collectList()
                         )
                         .delayUntil(s -> close(c))
-                        .onErrorResume(e -> close(c)
-                                .then(Mono.error(e))
-                        )
+                        .onErrorResume(createCloseThenReturnErrorFallback(c))
                 )
                 .toFuture();
     }
@@ -78,9 +74,7 @@ public final class $$PostgreSQLSelectByFilterUsingINOperatorRepository extends A
                                 .then(Mono.empty())
                         )
                         .delayUntil(s -> close(c))
-                        .onErrorResume(e -> close(c)
-                                .then(Mono.error(e))
-                        )
+                        .onErrorResume(createCloseThenReturnErrorFallback(c))
                 )
                 .toFuture()
                 .thenApply(a -> Optional.ofNullable(a));
@@ -96,9 +90,7 @@ public final class $$PostgreSQLSelectByFilterUsingINOperatorRepository extends A
                                 .collectList()
                         )
                         .delayUntil(s -> close(c))
-                        .onErrorResume(e -> close(c)
-                                .then(Mono.error(e))
-                        )
+                        .onErrorResume(createCloseThenReturnErrorFallback(c))
                 )
                 .toFuture();
     }
@@ -113,9 +105,7 @@ public final class $$PostgreSQLSelectByFilterUsingINOperatorRepository extends A
                                 .collectList()
                         )
                         .delayUntil(s -> close(c))
-                        .onErrorResume(e -> close(c)
-                                .then(Mono.error(e))
-                        )
+                        .onErrorResume(createCloseThenReturnErrorFallback(c))
                 )
                 .toFuture();
     }
@@ -130,9 +120,7 @@ public final class $$PostgreSQLSelectByFilterUsingINOperatorRepository extends A
                                 .collectList()
                         )
                         .delayUntil(s -> close(c))
-                        .onErrorResume(e -> close(c)
-                                .then(Mono.error(e))
-                        )
+                        .onErrorResume(createCloseThenReturnErrorFallback(c))
                 )
                 .toFuture();
     }
@@ -147,9 +135,7 @@ public final class $$PostgreSQLSelectByFilterUsingINOperatorRepository extends A
                                 .collectList()
                         )
                         .delayUntil(s -> close(c))
-                        .onErrorResume(e -> close(c)
-                                .then(Mono.error(e))
-                        )
+                        .onErrorResume(createCloseThenReturnErrorFallback(c))
                 )
                 .toFuture();
     }
@@ -164,9 +150,7 @@ public final class $$PostgreSQLSelectByFilterUsingINOperatorRepository extends A
                                 .collectList()
                         )
                         .delayUntil(s -> close(c))
-                        .onErrorResume(e -> close(c)
-                                .then(Mono.error(e))
-                        )
+                        .onErrorResume(createCloseThenReturnErrorFallback(c))
                 )
                 .toFuture();
     }

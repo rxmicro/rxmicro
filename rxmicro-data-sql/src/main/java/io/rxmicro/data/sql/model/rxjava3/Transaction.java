@@ -17,8 +17,16 @@
 package io.rxmicro.data.sql.model.rxjava3;
 
 import io.reactivex.rxjava3.core.Completable;
+import io.reactivex.rxjava3.core.CompletableSource;
+import io.reactivex.rxjava3.core.Flowable;
+import io.reactivex.rxjava3.core.Maybe;
+import io.reactivex.rxjava3.core.MaybeSource;
+import io.reactivex.rxjava3.core.Single;
+import io.reactivex.rxjava3.core.SingleSource;
+import io.reactivex.rxjava3.functions.Function;
 import io.rxmicro.data.sql.model.IsolationLevel;
 import io.rxmicro.data.sql.model.SavePoint;
+import org.reactivestreams.Publisher;
 
 /**
  * Current implementation delegates all method calls to {@code io.r2dbc.spi.Connection},
@@ -47,6 +55,101 @@ public interface Transaction {
      * @return the {@link Completable} that indicates that the transaction has been rolled back and the connection has been closed.
      */
     Completable rollback();
+
+    /**
+     * This factory method allows simplifying the setting of the error handler.
+     *
+     * Instead of long fragment:
+     * <pre>
+     * .onErrorResumeNext(e -> transaction.rollback()
+     *          .andThen(Maybe.error(e))
+     * )
+     * </pre>
+     *
+     * You can use the shortest version:
+     * <pre>
+     * .onErrorResumeNext(transaction.createRollbackThenReturnMaybeErrorFallback());
+     * </pre>
+     *
+     * @param <T> the type of the single value of returned {@link Maybe}
+     * @return the function that handles errors
+     * @see Maybe#onErrorResumeNext(Function)
+     */
+    default <T> Function<? super Throwable, ? extends MaybeSource<? extends T>> createRollbackThenReturnMaybeErrorFallback() {
+        return throwable -> rollback()
+                .andThen(Maybe.error(throwable));
+    }
+
+    /**
+     * This factory method allows simplifying the setting of the error handler.
+     *
+     * Instead of long fragment:
+     * <pre>
+     * .onErrorResumeNext(e -> transaction.rollback()
+     *          .andThen(Single.error(e))
+     * )
+     * </pre>
+     *
+     * You can use the shortest version:
+     * <pre>
+     * .onErrorResumeNext(transaction.createRollbackThenReturnSingleErrorFallback());
+     * </pre>
+     *
+     * @param <T> the type of the single value of returned {@link Single}
+     * @return the function that handles errors
+     * @see Single#onErrorResumeNext(Function)
+     */
+    default <T> Function<? super Throwable, ? extends SingleSource<? extends T>> createRollbackThenReturnSingleErrorFallback() {
+        return throwable -> rollback()
+                .andThen(Single.error(throwable));
+    }
+
+    /**
+     * This factory method allows simplifying the setting of the error handler.
+     *
+     * Instead of long fragment:
+     * <pre>
+     * .onErrorResumeNext(e -> transaction.rollback()
+     *          .andThen(Completable.error(e))
+     * )
+     * </pre>
+     *
+     * You can use the shortest version:
+     * <pre>
+     * .onErrorResumeNext(transaction.createRollbackThenReturnCompletableErrorFallback());
+     * </pre>
+     *
+     * @return the function that handles errors
+     * @see Completable#onErrorResumeNext(Function)
+     */
+    default Function<? super Throwable, ? extends CompletableSource> createRollbackThenReturnCompletableErrorFallback() {
+        return throwable -> rollback()
+                .andThen(Completable.error(throwable));
+    }
+
+    /**
+     * This factory method allows simplifying the setting of the error handler.
+     *
+     * Instead of long fragment:
+     * <pre>
+     * .onErrorResumeNext(e -> transaction.rollback()
+     *          .andThen(Flowable.error(e))
+     * )
+     * </pre>
+     *
+     * You can use the shortest version:
+     * <pre>
+     * .onErrorResumeNext(transaction.createRollbackThenReturnFlowableErrorFallback());
+     * </pre>
+     *
+     * @param <T> the type of the single value of returned {@link Flowable}
+     * @return the function that handles errors
+     * @see Flowable#onErrorResumeNext(Function)
+     */
+    default <T> Function<? super Throwable, ? extends Publisher<? extends T>> createRollbackThenReturnFlowableErrorFallback() {
+        return throwable -> rollback()
+                .andThen(Flowable.error(throwable));
+    }
 
     /**
      * Rolls back to the save point in the current transaction.

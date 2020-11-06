@@ -33,9 +33,7 @@ public final class $$PostgreSQLDeleteOneEntityFieldsUsingSingleRepository extend
                         .flatMap(c -> executeStatement(c, generatedSQL, id)
                                 .flatMap(r -> Mono.from(r.getRowsUpdated()))
                                 .delayUntil(s -> close(c))
-                                .onErrorResume(e -> close(c)
-                                        .then(Mono.error(e))
-                                )
+                                .onErrorResume(createCloseThenReturnErrorFallback(c))
                         )
         );
     }
@@ -49,9 +47,7 @@ public final class $$PostgreSQLDeleteOneEntityFieldsUsingSingleRepository extend
                         .flatMap(c -> executeStatement(c, generatedSQL, id)
                                 .flatMap(r -> Mono.from(r.getRowsUpdated()))
                                 .delayUntil(s -> close(c))
-                                .onErrorResume(e -> close(c)
-                                        .then(Mono.error(e))
-                                )
+                                .onErrorResume(createCloseThenReturnErrorFallback(c))
                         )
         ).map(r -> r > 0);
     }
@@ -69,9 +65,7 @@ public final class $$PostgreSQLDeleteOneEntityFieldsUsingSingleRepository extend
                                         .then(Mono.empty())
                                 )
                                 .delayUntil(s -> close(c))
-                                .onErrorResume(e -> close(c)
-                                        .then(Mono.error(e))
-                                )
+                                .onErrorResume(createCloseThenReturnErrorFallback(c))
                         )
         );
     }
@@ -88,9 +82,7 @@ public final class $$PostgreSQLDeleteOneEntityFieldsUsingSingleRepository extend
                                         .then(Mono.empty())
                                 )
                                 .delayUntil(s -> close(c))
-                                .onErrorResume(e -> close(c)
-                                        .then(Mono.error(e))
-                                )
+                                .onErrorResume(createCloseThenReturnErrorFallback(c))
                         )
         );
     }
@@ -107,9 +99,7 @@ public final class $$PostgreSQLDeleteOneEntityFieldsUsingSingleRepository extend
                                         .then(Mono.empty())
                                 )
                                 .delayUntil(s -> close(c))
-                                .onErrorResume(e -> close(c)
-                                        .then(Mono.error(e))
-                                )
+                                .onErrorResume(createCloseThenReturnErrorFallback(c))
                         )
         );
     }

@@ -16,9 +16,7 @@ return ${CONNECTION_PROVIDER}
                         .then(Mono.empty())
                 )
                 .delayUntil(s -> close(c))
-                .onErrorResume(e -> close(c)
-                        .then(Mono.error(e))
-                )
+                .onErrorResume(createCloseThenReturnErrorFallback(c))
                 </#if>
         );
 <#elseif RETURN.future && !RETURN.optional>
@@ -30,9 +28,7 @@ return ${CONNECTION_PROVIDER}
                         .then(Mono.empty())
                 )
                 .delayUntil(s -> close(c))
-                .onErrorResume(e -> close(c)
-                        .then(Mono.error(e))
-                )
+                .onErrorResume(createCloseThenReturnErrorFallback(c))
                 </#if>
         )
         .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(${RETURN.simpleReactiveType}.class, ${RETURN.simpleResultType}.class))))
@@ -46,9 +42,7 @@ return ${CONNECTION_PROVIDER}
                         .then(Mono.empty())
                 )
                 .delayUntil(s -> close(c))
-                .onErrorResume(e -> close(c)
-                        .then(Mono.error(e))
-                )
+                .onErrorResume(createCloseThenReturnErrorFallback(c))
                 </#if>
         )
         .toFuture()
@@ -63,9 +57,7 @@ return Single.fromPublisher(
                                 .then(Mono.empty())
                         )
                         .delayUntil(s -> close(c))
-                        .onErrorResume(e -> close(c)
-                                .then(Mono.error(e))
-                        )
+                        .onErrorResume(createCloseThenReturnErrorFallback(c))
                         </#if>
                 )
 );
@@ -79,9 +71,7 @@ return Flowable.fromPublisher(
                                 .then(Mono.empty())
                         )
                         .delayUntil(s -> close(c))
-                        .onErrorResume(e -> close(c)
-                                .then(Mono.error(e))
-                        )
+                        .onErrorResume(createCloseThenReturnErrorFallback(c))
                         </#if>
                 )
 ).firstElement();
@@ -96,9 +86,7 @@ return ${CONNECTION_PROVIDER}
         .flatMapMany(c -> executeStatement(c, generatedSQL${SQL_PARAMS})
                 .flatMapMany(r -> Flux.from(r.map(${RESULT_CONVERTER})))
                 <#if CLOSE_CONNECTION>
-                .onErrorResume(e -> close(c)
-                        .then(Mono.error(e))
-                )
+                .onErrorResume(createCloseThenReturnErrorFallback(c))
                 .concatWith(close(c)
                         .then(Mono.empty())
                 )
@@ -110,9 +98,7 @@ return ${CONNECTION_PROVIDER}
                 .flatMap(r -> Flux.from(r.map(${RESULT_CONVERTER})).collectList())
                 <#if CLOSE_CONNECTION>
                 .delayUntil(s -> close(c))
-                .onErrorResume(e -> close(c)
-                        .then(Mono.error(e))
-                )
+                .onErrorResume(createCloseThenReturnErrorFallback(c))
                 </#if>
         );
 <#elseif RETURN.future>
@@ -121,9 +107,7 @@ return ${CONNECTION_PROVIDER}
                 .flatMap(r -> Flux.from(r.map(${RESULT_CONVERTER})).collectList())
                 <#if CLOSE_CONNECTION>
                 .delayUntil(s -> close(c))
-                .onErrorResume(e -> close(c)
-                        .then(Mono.error(e))
-                )
+                .onErrorResume(createCloseThenReturnErrorFallback(c))
                 </#if>
         )
         .toFuture();
@@ -133,9 +117,7 @@ return Flowable.fromPublisher(
                 .flatMapMany(c -> executeStatement(c, generatedSQL${SQL_PARAMS})
                         .flatMapMany(r -> Flux.from(r.map(${RESULT_CONVERTER})))
                         <#if CLOSE_CONNECTION>
-                        .onErrorResume(e -> close(c)
-                                .then(Mono.error(e))
-                        )
+                        .onErrorResume(createCloseThenReturnErrorFallback(c))
                         .concatWith(close(c)
                                 .then(Mono.empty())
                         )
@@ -148,9 +130,7 @@ return Flowable.fromPublisher(
                 .flatMapMany(c -> executeStatement(c, generatedSQL${SQL_PARAMS})
                         .flatMapMany(r -> Flux.from(r.map(${RESULT_CONVERTER})))
                         <#if CLOSE_CONNECTION>
-                        .onErrorResume(e -> close(c)
-                                .then(Mono.error(e))
-                        )
+                        .onErrorResume(createCloseThenReturnErrorFallback(c))
                         .concatWith(close(c)
                                 .then(Mono.empty())
                         )

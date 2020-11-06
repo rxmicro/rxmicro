@@ -36,9 +36,7 @@ public final class $$PostgreSQLCustomSelectRepository extends AbstractPostgreSQL
                                 .collectList()
                         )
                         .delayUntil(s -> close(c))
-                        .onErrorResume(e -> close(c)
-                                .then(Mono.error(e))
-                        )
+                        .onErrorResume(createCloseThenReturnErrorFallback(c))
                 )
                 .toFuture();
     }
@@ -53,9 +51,7 @@ public final class $$PostgreSQLCustomSelectRepository extends AbstractPostgreSQL
                                 .then(Mono.empty())
                         )
                         .delayUntil(s -> close(c))
-                        .onErrorResume(e -> close(c)
-                                .then(Mono.error(e))
-                        )
+                        .onErrorResume(createCloseThenReturnErrorFallback(c))
                 )
                 .toFuture()
                 .thenApply(a -> Optional.ofNullable(a));
@@ -71,9 +67,7 @@ public final class $$PostgreSQLCustomSelectRepository extends AbstractPostgreSQL
                                 .then(Mono.empty())
                         )
                         .delayUntil(s -> close(c))
-                        .onErrorResume(e -> close(c)
-                                .then(Mono.error(e))
-                        )
+                        .onErrorResume(createCloseThenReturnErrorFallback(c))
                 )
                 .toFuture()
                 .thenApply(a -> Optional.ofNullable(a));
@@ -89,9 +83,7 @@ public final class $$PostgreSQLCustomSelectRepository extends AbstractPostgreSQL
                                 .then(Mono.empty())
                         )
                         .delayUntil(s -> close(c))
-                        .onErrorResume(e -> close(c)
-                                .then(Mono.error(e))
-                        )
+                        .onErrorResume(createCloseThenReturnErrorFallback(c))
                 )
                 .toFuture()
                 .thenApply(a -> Optional.ofNullable(a));

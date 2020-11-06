@@ -33,9 +33,7 @@ public final class $$PostgreSQLUpdateOneEntityUsingCompletableRepository extends
                         .flatMap(c -> executeStatement(c, generatedSQL, updateParams, updateParamTypes)
                                 .flatMap(r -> Mono.from(r.getRowsUpdated()))
                                 .delayUntil(s -> close(c))
-                                .onErrorResume(e -> close(c)
-                                        .then(Mono.error(e))
-                                )
+                                .onErrorResume(createCloseThenReturnErrorFallback(c))
                         )
         );
     }

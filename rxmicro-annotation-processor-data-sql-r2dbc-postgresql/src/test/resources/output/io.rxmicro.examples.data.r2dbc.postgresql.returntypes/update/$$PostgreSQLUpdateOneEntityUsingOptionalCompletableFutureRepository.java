@@ -43,9 +43,7 @@ public final class $$PostgreSQLUpdateOneEntityUsingOptionalCompletableFutureRepo
                                 .then(Mono.empty())
                         )
                         .delayUntil(s -> close(c))
-                        .onErrorResume(e -> close(c)
-                                .then(Mono.error(e))
-                        )
+                        .onErrorResume(createCloseThenReturnErrorFallback(c))
                 )
                 .toFuture()
                 .thenApply(a -> Optional.ofNullable(a));
@@ -64,9 +62,7 @@ public final class $$PostgreSQLUpdateOneEntityUsingOptionalCompletableFutureRepo
                                 .then(Mono.empty())
                         )
                         .delayUntil(s -> close(c))
-                        .onErrorResume(e -> close(c)
-                                .then(Mono.error(e))
-                        )
+                        .onErrorResume(createCloseThenReturnErrorFallback(c))
                 )
                 .toFuture()
                 .thenApply(a -> Optional.ofNullable(a));
@@ -85,9 +81,7 @@ public final class $$PostgreSQLUpdateOneEntityUsingOptionalCompletableFutureRepo
                                 .then(Mono.empty())
                         )
                         .delayUntil(s -> close(c))
-                        .onErrorResume(e -> close(c)
-                                .then(Mono.error(e))
-                        )
+                        .onErrorResume(createCloseThenReturnErrorFallback(c))
                 )
                 .toFuture()
                 .thenApply(a -> Optional.ofNullable(a));

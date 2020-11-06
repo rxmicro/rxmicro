@@ -40,9 +40,7 @@ public final class $$PostgreSQLInsertOneEntityFieldsUsingMaybeRepository extends
                                         .then(Mono.empty())
                                 )
                                 .delayUntil(s -> close(c))
-                                .onErrorResume(e -> close(c)
-                                        .then(Mono.error(e))
-                                )
+                                .onErrorResume(createCloseThenReturnErrorFallback(c))
                         )
         ).firstElement();
     }
@@ -61,9 +59,7 @@ public final class $$PostgreSQLInsertOneEntityFieldsUsingMaybeRepository extends
                                         .then(Mono.empty())
                                 )
                                 .delayUntil(s -> close(c))
-                                .onErrorResume(e -> close(c)
-                                        .then(Mono.error(e))
-                                )
+                                .onErrorResume(createCloseThenReturnErrorFallback(c))
                         )
         ).firstElement();
     }
@@ -82,9 +78,7 @@ public final class $$PostgreSQLInsertOneEntityFieldsUsingMaybeRepository extends
                                         .then(Mono.empty())
                                 )
                                 .delayUntil(s -> close(c))
-                                .onErrorResume(e -> close(c)
-                                        .then(Mono.error(e))
-                                )
+                                .onErrorResume(createCloseThenReturnErrorFallback(c))
                         )
         ).firstElement();
     }

@@ -20,6 +20,8 @@ import io.rxmicro.data.sql.model.IsolationLevel;
 import io.rxmicro.data.sql.model.SavePoint;
 import reactor.core.publisher.Mono;
 
+import java.util.function.Function;
+
 /**
  * Current implementation delegates all method calls to {@code io.r2dbc.spi.Connection},
  * but in future this API can be extended by using other SPI.
@@ -47,6 +49,31 @@ public interface Transaction {
      * @return the {@link Mono} that indicates that the transaction has been rolled back and the connection has been closed.
      */
     Mono<Void> rollback();
+
+    /**
+     * This factory method allows simplifying the setting of the error handler.
+     *
+     * Instead of long fragment:
+     * <pre>
+     * .onErrorResume(ex -> transaction.rollback()
+     *          .then(Mono.error(ex))
+     * )
+     * </pre>
+     *
+     * You can use the shortest version:
+     * <pre>
+     * .onErrorResume(transaction.createRollbackThenReturnErrorFallback());
+     * </pre>
+     *
+     * @param <T> the type of the single value of returned {@link Mono} or {@link reactor.core.publisher.Flux}
+     * @return the function that handles errors
+     * @see Mono#onErrorResume(Function)
+     * @see reactor.core.publisher.Flux#onErrorResume(Function)
+     */
+    default <T> Function<? super Throwable, ? extends Mono<? extends T>> createRollbackThenReturnErrorFallback() {
+        return throwable -> rollback()
+                .then(Mono.error(throwable));
+    }
 
     /**
      * Rolls back to the save point in the current transaction.

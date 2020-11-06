@@ -7,7 +7,6 @@ import io.rxmicro.examples.data.r2dbc.postgresql.select.parameters.model.$$Accou
 import io.rxmicro.examples.data.r2dbc.postgresql.select.parameters.model.Account;
 import io.rxmicro.examples.data.r2dbc.postgresql.select.parameters.model.Role;
 import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -41,9 +40,7 @@ public final class $$PostgreSQLSelectComplexDataRepository extends AbstractPostg
                                 .collectList()
                         )
                         .delayUntil(s -> close(c))
-                        .onErrorResume(e -> close(c)
-                                .then(Mono.error(e))
-                        )
+                        .onErrorResume(createCloseThenReturnErrorFallback(c))
                 )
                 .toFuture();
     }

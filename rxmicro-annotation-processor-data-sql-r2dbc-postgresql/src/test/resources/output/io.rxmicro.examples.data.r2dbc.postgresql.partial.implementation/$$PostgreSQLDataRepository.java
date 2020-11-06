@@ -28,9 +28,7 @@ public final class $$PostgreSQLDataRepository extends AbstractDataRepository imp
                                 .then(Mono.empty())
                         )
                         .delayUntil(s -> close(c))
-                        .onErrorResume(e -> close(c)
-                                .then(Mono.error(e))
-                        )
+                        .onErrorResume(createCloseThenReturnErrorFallback(c))
                 )
                 .switchIfEmpty(Mono.error(useOptionalExceptionSupplier(CompletableFuture.class, Long.class)))
                 .toFuture();

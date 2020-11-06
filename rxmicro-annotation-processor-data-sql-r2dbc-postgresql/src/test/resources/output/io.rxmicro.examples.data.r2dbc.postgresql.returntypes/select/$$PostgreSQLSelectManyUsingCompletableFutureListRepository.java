@@ -8,7 +8,6 @@ import io.rxmicro.examples.data.r2dbc.postgresql.returntypes.model.$$AccountEnti
 import io.rxmicro.examples.data.r2dbc.postgresql.returntypes.model.Account;
 import io.rxmicro.examples.data.r2dbc.postgresql.returntypes.model.Role;
 import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -39,9 +38,7 @@ public final class $$PostgreSQLSelectManyUsingCompletableFutureListRepository ex
                                 .collectList()
                         )
                         .delayUntil(s -> close(c))
-                        .onErrorResume(e -> close(c)
-                                .then(Mono.error(e))
-                        )
+                        .onErrorResume(createCloseThenReturnErrorFallback(c))
                 )
                 .toFuture();
     }
@@ -56,9 +53,7 @@ public final class $$PostgreSQLSelectManyUsingCompletableFutureListRepository ex
                                 .collectList()
                         )
                         .delayUntil(s -> close(c))
-                        .onErrorResume(e -> close(c)
-                                .then(Mono.error(e))
-                        )
+                        .onErrorResume(createCloseThenReturnErrorFallback(c))
                 )
                 .toFuture();
     }
@@ -73,9 +68,7 @@ public final class $$PostgreSQLSelectManyUsingCompletableFutureListRepository ex
                                 .collectList()
                         )
                         .delayUntil(s -> close(c))
-                        .onErrorResume(e -> close(c)
-                                .then(Mono.error(e))
-                        )
+                        .onErrorResume(createCloseThenReturnErrorFallback(c))
                 )
                 .toFuture();
     }
@@ -90,9 +83,7 @@ public final class $$PostgreSQLSelectManyUsingCompletableFutureListRepository ex
                                 .collectList()
                         )
                         .delayUntil(s -> close(c))
-                        .onErrorResume(e -> close(c)
-                                .then(Mono.error(e))
-                        )
+                        .onErrorResume(createCloseThenReturnErrorFallback(c))
                 )
                 .toFuture();
     }
@@ -107,9 +98,7 @@ public final class $$PostgreSQLSelectManyUsingCompletableFutureListRepository ex
                                 .collectList()
                         )
                         .delayUntil(s -> close(c))
-                        .onErrorResume(e -> close(c)
-                                .then(Mono.error(e))
-                        )
+                        .onErrorResume(createCloseThenReturnErrorFallback(c))
                 )
                 .toFuture();
     }
@@ -124,9 +113,7 @@ public final class $$PostgreSQLSelectManyUsingCompletableFutureListRepository ex
                                 .collectList()
                         )
                         .delayUntil(s -> close(c))
-                        .onErrorResume(e -> close(c)
-                                .then(Mono.error(e))
-                        )
+                        .onErrorResume(createCloseThenReturnErrorFallback(c))
                 )
                 .toFuture();
     }

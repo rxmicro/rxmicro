@@ -29,6 +29,7 @@ import io.rxmicro.data.sql.r2dbc.internal.Statements;
 import reactor.core.publisher.Mono;
 
 import java.util.function.BiFunction;
+import java.util.function.Function;
 
 /**
  * Used by generated code that created by the {@code RxMicro Annotation Processor}.
@@ -76,6 +77,11 @@ public abstract class AbstractR2DBCRepository extends AbstractSQLRepository {
 
     protected final Mono<Void> close(final Connection connection) {
         return connections.close(connection);
+    }
+
+    protected final <T> Function<Throwable, Mono<T>> createCloseThenReturnErrorFallback(final Connection connection){
+        return throwable -> connections.close(connection)
+                .then(Mono.error(throwable));
     }
 
     protected final Mono<? extends Result> executeStatement(final Connection connection,

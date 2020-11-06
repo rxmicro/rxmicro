@@ -33,9 +33,7 @@ public final class $$PostgreSQLUpdateOneEntityFieldsUsingMonoRepository extends 
                 .flatMap(c -> executeStatement(c, generatedSQL, updateParams, updateParamTypes)
                         .flatMap(r -> Mono.from(r.getRowsUpdated()))
                         .delayUntil(s -> close(c))
-                        .onErrorResume(e -> close(c)
-                                .then(Mono.error(e))
-                        )
+                        .onErrorResume(createCloseThenReturnErrorFallback(c))
                 )
                 .then();
     }
@@ -50,9 +48,7 @@ public final class $$PostgreSQLUpdateOneEntityFieldsUsingMonoRepository extends 
                 .flatMap(c -> executeStatement(c, generatedSQL, updateParams, updateParamTypes)
                         .flatMap(r -> Mono.from(r.getRowsUpdated()))
                         .delayUntil(s -> close(c))
-                        .onErrorResume(e -> close(c)
-                                .then(Mono.error(e))
-                        )
+                        .onErrorResume(createCloseThenReturnErrorFallback(c))
                 );
     }
 
@@ -66,9 +62,7 @@ public final class $$PostgreSQLUpdateOneEntityFieldsUsingMonoRepository extends 
                 .flatMap(c -> executeStatement(c, generatedSQL, updateParams, updateParamTypes)
                         .flatMap(r -> Mono.from(r.getRowsUpdated()))
                         .delayUntil(s -> close(c))
-                        .onErrorResume(e -> close(c)
-                                .then(Mono.error(e))
-                        )
+                        .onErrorResume(createCloseThenReturnErrorFallback(c))
                 )
                 .map(r -> r > 0);
     }
@@ -87,9 +81,7 @@ public final class $$PostgreSQLUpdateOneEntityFieldsUsingMonoRepository extends 
                                 .then(Mono.empty())
                         )
                         .delayUntil(s -> close(c))
-                        .onErrorResume(e -> close(c)
-                                .then(Mono.error(e))
-                        )
+                        .onErrorResume(createCloseThenReturnErrorFallback(c))
                 );
     }
 
@@ -106,9 +98,7 @@ public final class $$PostgreSQLUpdateOneEntityFieldsUsingMonoRepository extends 
                                 .then(Mono.empty())
                         )
                         .delayUntil(s -> close(c))
-                        .onErrorResume(e -> close(c)
-                                .then(Mono.error(e))
-                        )
+                        .onErrorResume(createCloseThenReturnErrorFallback(c))
                 );
     }
 
@@ -125,9 +115,7 @@ public final class $$PostgreSQLUpdateOneEntityFieldsUsingMonoRepository extends 
                                 .then(Mono.empty())
                         )
                         .delayUntil(s -> close(c))
-                        .onErrorResume(e -> close(c)
-                                .then(Mono.error(e))
-                        )
+                        .onErrorResume(createCloseThenReturnErrorFallback(c))
                 );
     }
 }

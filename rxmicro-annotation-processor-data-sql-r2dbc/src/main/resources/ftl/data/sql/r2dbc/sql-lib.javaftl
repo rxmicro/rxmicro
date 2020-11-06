@@ -89,9 +89,7 @@ ${shift}        .flatMap(c -> executeStatement(c, generatedSQL${SQL_PARAMS})
 ${shift}                .flatMap(r -> Mono.from(r.getRowsUpdated()))
 <#if CLOSE_CONNECTION>
 ${shift}                .delayUntil(s -> close(c))
-${shift}                .onErrorResume(e -> close(c)
-${shift}                        .then(Mono.error(e))
-${shift}                )
+${shift}                .onErrorResume(createCloseThenReturnErrorFallback(c))
 </#if>
 ${shift}        )<#if RETURN.mono && RETURN.integer>;</#if></#assign>
 </#macro>

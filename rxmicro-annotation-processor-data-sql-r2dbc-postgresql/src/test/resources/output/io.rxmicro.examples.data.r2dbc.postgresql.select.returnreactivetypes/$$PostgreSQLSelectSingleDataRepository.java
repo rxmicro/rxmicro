@@ -39,9 +39,7 @@ public final class $$PostgreSQLSelectSingleDataRepository extends AbstractPostgr
                                 .then(Mono.empty())
                         )
                         .delayUntil(s -> close(c))
-                        .onErrorResume(e -> close(c)
-                                .then(Mono.error(e))
-                        )
+                        .onErrorResume(createCloseThenReturnErrorFallback(c))
                 );
     }
 
@@ -56,9 +54,7 @@ public final class $$PostgreSQLSelectSingleDataRepository extends AbstractPostgr
                                 .then(Mono.empty())
                         )
                         .delayUntil(s -> close(c))
-                        .onErrorResume(e -> close(c)
-                                .then(Mono.error(e))
-                        )
+                        .onErrorResume(createCloseThenReturnErrorFallback(c))
                 )
                 .switchIfEmpty(Mono.error(useOptionalExceptionSupplier(CompletableFuture.class, Account.class)))
                 .toFuture();
@@ -75,9 +71,7 @@ public final class $$PostgreSQLSelectSingleDataRepository extends AbstractPostgr
                                 .then(Mono.empty())
                         )
                         .delayUntil(s -> close(c))
-                        .onErrorResume(e -> close(c)
-                                .then(Mono.error(e))
-                        )
+                        .onErrorResume(createCloseThenReturnErrorFallback(c))
                 )
                 .switchIfEmpty(Mono.error(useOptionalExceptionSupplier(CompletionStage.class, Account.class)))
                 .toFuture();
@@ -94,9 +88,7 @@ public final class $$PostgreSQLSelectSingleDataRepository extends AbstractPostgr
                                 .then(Mono.empty())
                         )
                         .delayUntil(s -> close(c))
-                        .onErrorResume(e -> close(c)
-                                .then(Mono.error(e))
-                        )
+                        .onErrorResume(createCloseThenReturnErrorFallback(c))
                 )
                 .toFuture()
                 .thenApply(a -> Optional.ofNullable(a));
@@ -113,9 +105,7 @@ public final class $$PostgreSQLSelectSingleDataRepository extends AbstractPostgr
                                 .then(Mono.empty())
                         )
                         .delayUntil(s -> close(c))
-                        .onErrorResume(e -> close(c)
-                                .then(Mono.error(e))
-                        )
+                        .onErrorResume(createCloseThenReturnErrorFallback(c))
                 )
                 .toFuture()
                 .thenApply(a -> Optional.ofNullable(a));
@@ -133,9 +123,7 @@ public final class $$PostgreSQLSelectSingleDataRepository extends AbstractPostgr
                                         .then(Mono.empty())
                                 )
                                 .delayUntil(s -> close(c))
-                                .onErrorResume(e -> close(c)
-                                        .then(Mono.error(e))
-                                )
+                                .onErrorResume(createCloseThenReturnErrorFallback(c))
                         )
         );
     }
@@ -152,9 +140,7 @@ public final class $$PostgreSQLSelectSingleDataRepository extends AbstractPostgr
                                         .then(Mono.empty())
                                 )
                                 .delayUntil(s -> close(c))
-                                .onErrorResume(e -> close(c)
-                                        .then(Mono.error(e))
-                                )
+                                .onErrorResume(createCloseThenReturnErrorFallback(c))
                         )
         ).firstElement();
     }

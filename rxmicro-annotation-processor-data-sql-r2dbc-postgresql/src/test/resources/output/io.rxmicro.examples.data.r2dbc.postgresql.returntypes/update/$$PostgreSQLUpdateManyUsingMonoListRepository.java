@@ -35,9 +35,7 @@ public final class $$PostgreSQLUpdateManyUsingMonoListRepository extends Abstrac
                 .flatMap(c -> executeStatement(c, generatedSQL)
                         .flatMap(r -> Flux.from(r.map((row, meta) -> accountEntityFromR2DBCSQLDBConverter.setIdFirst_nameLast_name(entity, row, meta))).collectList())
                         .delayUntil(s -> close(c))
-                        .onErrorResume(e -> close(c)
-                                .then(Mono.error(e))
-                        )
+                        .onErrorResume(createCloseThenReturnErrorFallback(c))
                 );
     }
 
@@ -49,9 +47,7 @@ public final class $$PostgreSQLUpdateManyUsingMonoListRepository extends Abstrac
                 .flatMap(c -> executeStatement(c, generatedSQL)
                         .flatMap(r -> Flux.from(r.map(toEntityFieldMap())).collectList())
                         .delayUntil(s -> close(c))
-                        .onErrorResume(e -> close(c)
-                                .then(Mono.error(e))
-                        )
+                        .onErrorResume(createCloseThenReturnErrorFallback(c))
                 );
     }
 
@@ -63,9 +59,7 @@ public final class $$PostgreSQLUpdateManyUsingMonoListRepository extends Abstrac
                 .flatMap(c -> executeStatement(c, generatedSQL)
                         .flatMap(r -> Flux.from(r.map(toEntityFieldList())).collectList())
                         .delayUntil(s -> close(c))
-                        .onErrorResume(e -> close(c)
-                                .then(Mono.error(e))
-                        )
+                        .onErrorResume(createCloseThenReturnErrorFallback(c))
                 );
     }
 }

@@ -32,9 +32,7 @@ public final class $$PostgreSQLDataRepository extends AbstractPostgreSQLReposito
                                 .then(Mono.empty())
                         )
                         .delayUntil(s -> close(c))
-                        .onErrorResume(e -> close(c)
-                                .then(Mono.error(e))
-                        )
+                        .onErrorResume(createCloseThenReturnErrorFallback(c))
                 );
     }
 }

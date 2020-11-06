@@ -7,7 +7,6 @@ import io.rxmicro.data.sql.r2dbc.postgresql.detail.AbstractPostgreSQLRepository;
 import io.rxmicro.examples.data.r2dbc.postgresql.returntypes.model.$$AccountEntityFromR2DBCSQLDBConverter;
 import io.rxmicro.examples.data.r2dbc.postgresql.returntypes.model.Account;
 import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -36,9 +35,7 @@ public final class $$PostgreSQLUpdateManyUsingCompletableFutureListRepository ex
                 .flatMap(c -> executeStatement(c, generatedSQL)
                         .flatMap(r -> Flux.from(r.map((row, meta) -> accountEntityFromR2DBCSQLDBConverter.setIdFirst_nameLast_name(entity, row, meta))).collectList())
                         .delayUntil(s -> close(c))
-                        .onErrorResume(e -> close(c)
-                                .then(Mono.error(e))
-                        )
+                        .onErrorResume(createCloseThenReturnErrorFallback(c))
                 )
                 .toFuture();
     }
@@ -51,9 +48,7 @@ public final class $$PostgreSQLUpdateManyUsingCompletableFutureListRepository ex
                 .flatMap(c -> executeStatement(c, generatedSQL)
                         .flatMap(r -> Flux.from(r.map(toEntityFieldMap())).collectList())
                         .delayUntil(s -> close(c))
-                        .onErrorResume(e -> close(c)
-                                .then(Mono.error(e))
-                        )
+                        .onErrorResume(createCloseThenReturnErrorFallback(c))
                 )
                 .toFuture();
     }
@@ -66,9 +61,7 @@ public final class $$PostgreSQLUpdateManyUsingCompletableFutureListRepository ex
                 .flatMap(c -> executeStatement(c, generatedSQL)
                         .flatMap(r -> Flux.from(r.map(toEntityFieldList())).collectList())
                         .delayUntil(s -> close(c))
-                        .onErrorResume(e -> close(c)
-                                .then(Mono.error(e))
-                        )
+                        .onErrorResume(createCloseThenReturnErrorFallback(c))
                 )
                 .toFuture();
     }

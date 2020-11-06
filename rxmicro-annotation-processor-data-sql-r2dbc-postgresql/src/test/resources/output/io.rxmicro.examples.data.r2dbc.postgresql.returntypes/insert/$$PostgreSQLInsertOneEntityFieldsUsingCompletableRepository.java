@@ -28,9 +28,7 @@ public final class $$PostgreSQLInsertOneEntityFieldsUsingCompletableRepository e
                         .flatMap(c -> executeStatement(c, generatedSQL, insertParams, insertParamTypes)
                                 .flatMap(r -> Mono.from(r.getRowsUpdated()))
                                 .delayUntil(s -> close(c))
-                                .onErrorResume(e -> close(c)
-                                        .then(Mono.error(e))
-                                )
+                                .onErrorResume(createCloseThenReturnErrorFallback(c))
                         )
         );
     }

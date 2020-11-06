@@ -39,9 +39,7 @@ public final class $$PostgreSQLSelectManyDataRepository extends AbstractPostgreS
                                 .collectList()
                         )
                         .delayUntil(s -> close(c))
-                        .onErrorResume(e -> close(c)
-                                .then(Mono.error(e))
-                        )
+                        .onErrorResume(createCloseThenReturnErrorFallback(c))
                 );
     }
 
@@ -52,9 +50,7 @@ public final class $$PostgreSQLSelectManyDataRepository extends AbstractPostgreS
         return pool.create()
                 .flatMapMany(c -> executeStatement(c, generatedSQL)
                         .flatMapMany(r -> Flux.from(r.map(accountEntityFromR2DBCSQLDBConverter::fromDB)))
-                        .onErrorResume(e -> close(c)
-                                .then(Mono.error(e))
-                        )
+                        .onErrorResume(createCloseThenReturnErrorFallback(c))
                         .concatWith(close(c)
                                 .then(Mono.empty())
                         )
@@ -71,9 +67,7 @@ public final class $$PostgreSQLSelectManyDataRepository extends AbstractPostgreS
                                 .collectList()
                         )
                         .delayUntil(s -> close(c))
-                        .onErrorResume(e -> close(c)
-                                .then(Mono.error(e))
-                        )
+                        .onErrorResume(createCloseThenReturnErrorFallback(c))
                 )
                 .toFuture();
     }
@@ -88,9 +82,7 @@ public final class $$PostgreSQLSelectManyDataRepository extends AbstractPostgreS
                                 .collectList()
                         )
                         .delayUntil(s -> close(c))
-                        .onErrorResume(e -> close(c)
-                                .then(Mono.error(e))
-                        )
+                        .onErrorResume(createCloseThenReturnErrorFallback(c))
                 )
                 .toFuture();
     }
@@ -103,9 +95,7 @@ public final class $$PostgreSQLSelectManyDataRepository extends AbstractPostgreS
                 pool.create()
                         .flatMapMany(c -> executeStatement(c, generatedSQL)
                                 .flatMapMany(r -> Flux.from(r.map(accountEntityFromR2DBCSQLDBConverter::fromDB)))
-                                .onErrorResume(e -> close(c)
-                                        .then(Mono.error(e))
-                                )
+                                .onErrorResume(createCloseThenReturnErrorFallback(c))
                                 .concatWith(close(c)
                                         .then(Mono.empty())
                                 )
@@ -121,9 +111,7 @@ public final class $$PostgreSQLSelectManyDataRepository extends AbstractPostgreS
                 pool.create()
                         .flatMapMany(c -> executeStatement(c, generatedSQL)
                                 .flatMapMany(r -> Flux.from(r.map(accountEntityFromR2DBCSQLDBConverter::fromDB)))
-                                .onErrorResume(e -> close(c)
-                                        .then(Mono.error(e))
-                                )
+                                .onErrorResume(createCloseThenReturnErrorFallback(c))
                                 .concatWith(close(c)
                                         .then(Mono.empty())
                                 )

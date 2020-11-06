@@ -39,9 +39,7 @@ public final class $$PostgreSQLUpdateOneEntityUsingSingleRepository extends Abst
                         .flatMap(c -> executeStatement(c, generatedSQL, updateParams, updateParamTypes)
                                 .flatMap(r -> Mono.from(r.getRowsUpdated()))
                                 .delayUntil(s -> close(c))
-                                .onErrorResume(e -> close(c)
-                                        .then(Mono.error(e))
-                                )
+                                .onErrorResume(createCloseThenReturnErrorFallback(c))
                         )
         );
     }
@@ -57,9 +55,7 @@ public final class $$PostgreSQLUpdateOneEntityUsingSingleRepository extends Abst
                         .flatMap(c -> executeStatement(c, generatedSQL, updateParams, updateParamTypes)
                                 .flatMap(r -> Mono.from(r.getRowsUpdated()))
                                 .delayUntil(s -> close(c))
-                                .onErrorResume(e -> close(c)
-                                        .then(Mono.error(e))
-                                )
+                                .onErrorResume(createCloseThenReturnErrorFallback(c))
                         )
         ).map(r -> r > 0);
     }
@@ -78,9 +74,7 @@ public final class $$PostgreSQLUpdateOneEntityUsingSingleRepository extends Abst
                                         .then(Mono.empty())
                                 )
                                 .delayUntil(s -> close(c))
-                                .onErrorResume(e -> close(c)
-                                        .then(Mono.error(e))
-                                )
+                                .onErrorResume(createCloseThenReturnErrorFallback(c))
                         )
         );
     }
@@ -99,9 +93,7 @@ public final class $$PostgreSQLUpdateOneEntityUsingSingleRepository extends Abst
                                         .then(Mono.empty())
                                 )
                                 .delayUntil(s -> close(c))
-                                .onErrorResume(e -> close(c)
-                                        .then(Mono.error(e))
-                                )
+                                .onErrorResume(createCloseThenReturnErrorFallback(c))
                         )
         );
     }
@@ -120,9 +112,7 @@ public final class $$PostgreSQLUpdateOneEntityUsingSingleRepository extends Abst
                                         .then(Mono.empty())
                                 )
                                 .delayUntil(s -> close(c))
-                                .onErrorResume(e -> close(c)
-                                        .then(Mono.error(e))
-                                )
+                                .onErrorResume(createCloseThenReturnErrorFallback(c))
                         )
         );
     }

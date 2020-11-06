@@ -26,9 +26,7 @@ public final class $$PostgreSQLDeleteOneEntityFieldsUsingCompletableRepository e
                         .flatMap(c -> executeStatement(c, generatedSQL, id)
                                 .flatMap(r -> Mono.from(r.getRowsUpdated()))
                                 .delayUntil(s -> close(c))
-                                .onErrorResume(e -> close(c)
-                                        .then(Mono.error(e))
-                                )
+                                .onErrorResume(createCloseThenReturnErrorFallback(c))
                         )
         );
     }
