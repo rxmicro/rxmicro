@@ -16,20 +16,17 @@
 
 package io.rxmicro.files;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Properties;
 
 import static io.rxmicro.common.util.ExCollections.unmodifiableOrderedMap;
-import static io.rxmicro.common.util.Strings.startsWith;
-import static java.nio.charset.StandardCharsets.UTF_8;
 
 /**
  * Utility class to get properties represented by a {@link Map} from external resource.
@@ -88,27 +85,15 @@ public final class PropertiesResources {
     }
 
     private static Map<String, String> loadProperties(final InputStream in) throws IOException {
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(in, UTF_8))) {
-            final Map<String, String> map = new LinkedHashMap<>();
-            String line;
-            while ((line = br.readLine()) != null) {
-                if (line.isBlank() || startsWith(line, '#')) {
-                    continue;
-                }
-                addProperty(map, line);
-            }
-            return unmodifiableOrderedMap(map);
+        final Properties properties = new Properties();
+        properties.load(in);
+        final Map<String, String> map = new LinkedHashMap<>();
+        for (final Map.Entry<Object, Object> entry : properties.entrySet()) {
+            final Object key = entry.getKey();
+            final Object value = entry.getValue();
+            map.put(key != null ? key.toString() : null, value != null ? value.toString() : null);
         }
-    }
-
-    private static void addProperty(final Map<String, String> map,
-                                    final String line) {
-        final String[] data = line.split("=");
-        if (data.length != 2) {
-            throw new ResourceException("Can't load property from resource, " +
-                    "because it is not a properties resource: ?", line);
-        }
-        map.put(data[0].trim(), data[1].trim());
+        return unmodifiableOrderedMap(map);
     }
 
     private PropertiesResources() {
