@@ -33,10 +33,12 @@ public final class $$PostgreSQLSelectDataRepository extends AbstractPostgreSQLRe
         return pool.create()
                 .flatMap(c -> executeStatement(c, generatedSQL)
                         .flatMap(r -> Flux.from(r.map(entityEntityFromR2DBCSQLDBConverter::fromDB))
-                                .collectList())
+                                .collectList()
+                        )
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
+                                .then(Mono.error(e))
+                        )
                 )
                 .toFuture();
     }
@@ -48,10 +50,12 @@ public final class $$PostgreSQLSelectDataRepository extends AbstractPostgreSQLRe
         return pool.create()
                 .flatMap(c -> executeStatement(c, generatedSQL)
                         .flatMap(r -> Flux.from(r.map(toEntityFieldMap()))
-                                .collectList())
+                                .collectList()
+                        )
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
+                                .then(Mono.error(e))
+                        )
                 )
                 .toFuture();
     }
@@ -63,10 +67,12 @@ public final class $$PostgreSQLSelectDataRepository extends AbstractPostgreSQLRe
         return pool.create()
                 .flatMap(c -> executeStatement(c, generatedSQL)
                         .flatMap(r -> Flux.from(r.map(toEntityFieldMap()))
-                                .collectList())
+                                .collectList()
+                        )
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
+                                .then(Mono.error(e))
+                        )
                 )
                 .toFuture();
     }
@@ -78,10 +84,12 @@ public final class $$PostgreSQLSelectDataRepository extends AbstractPostgreSQLRe
         return pool.create()
                 .flatMap(c -> executeStatement(c, generatedSQL)
                         .flatMap(r -> Flux.from(r.map(toEntityFieldMap()))
-                                .collectList())
+                                .collectList()
+                        )
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
+                                .then(Mono.error(e))
+                        )
                 )
                 .toFuture();
     }

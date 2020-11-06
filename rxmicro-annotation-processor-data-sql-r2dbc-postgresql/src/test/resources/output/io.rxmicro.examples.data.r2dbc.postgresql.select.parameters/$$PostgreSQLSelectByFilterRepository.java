@@ -34,10 +34,12 @@ public final class $$PostgreSQLSelectByFilterRepository extends AbstractPostgreS
         return pool.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, role)
                         .flatMap(r -> Flux.from(r.map(accountEntityFromR2DBCSQLDBConverter::fromDB))
-                                .collectList())
+                                .collectList()
+                        )
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
+                                .then(Mono.error(e))
+                        )
                 )
                 .toFuture();
     }
@@ -49,10 +51,12 @@ public final class $$PostgreSQLSelectByFilterRepository extends AbstractPostgreS
         return pool.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, firstName1, firstName2, firstName3)
                         .flatMap(r -> Flux.from(r.map(accountEntityFromR2DBCSQLDBConverter::fromDB))
-                                .collectList())
+                                .collectList()
+                        )
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
+                                .then(Mono.error(e))
+                        )
                 )
                 .toFuture();
     }
@@ -64,10 +68,12 @@ public final class $$PostgreSQLSelectByFilterRepository extends AbstractPostgreS
         return pool.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, minBalance, maxBalance)
                         .flatMap(r -> Flux.from(r.map(accountEntityFromR2DBCSQLDBConverter::fromDB))
-                                .collectList())
+                                .collectList()
+                        )
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
+                                .then(Mono.error(e))
+                        )
                 )
                 .toFuture();
     }
@@ -79,10 +85,12 @@ public final class $$PostgreSQLSelectByFilterRepository extends AbstractPostgreS
         return pool.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, name1, name2)
                         .flatMap(r -> Flux.from(r.map(accountEntityFromR2DBCSQLDBConverter::fromDB))
-                                .collectList())
+                                .collectList()
+                        )
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
+                                .then(Mono.error(e))
+                        )
                 )
                 .toFuture();
     }
@@ -94,10 +102,12 @@ public final class $$PostgreSQLSelectByFilterRepository extends AbstractPostgreS
         return pool.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, name, name)
                         .flatMap(r -> Flux.from(r.map(accountEntityFromR2DBCSQLDBConverter::fromDB))
-                                .collectList())
+                                .collectList()
+                        )
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
+                                .then(Mono.error(e))
+                        )
                 )
                 .toFuture();
     }

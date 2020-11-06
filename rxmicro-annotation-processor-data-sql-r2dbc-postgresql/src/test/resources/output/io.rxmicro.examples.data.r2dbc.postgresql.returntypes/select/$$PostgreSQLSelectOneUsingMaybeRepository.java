@@ -37,10 +37,12 @@ public final class $$PostgreSQLSelectOneUsingMaybeRepository extends AbstractPos
                         .flatMap(c -> executeStatement(c, generatedSQL)
                                 .flatMap(r -> Mono.from(r.map(accountEntityFromR2DBCSQLDBConverter::fromDBFirst_nameLast_name)))
                                 .switchIfEmpty(close(c)
-                                        .then(Mono.empty()))
+                                        .then(Mono.empty())
+                                )
                                 .delayUntil(s -> close(c))
                                 .onErrorResume(e -> close(c)
-                                        .then(Mono.error(e)))
+                                        .then(Mono.error(e))
+                                )
                         )
         ).firstElement();
     }
@@ -54,10 +56,12 @@ public final class $$PostgreSQLSelectOneUsingMaybeRepository extends AbstractPos
                         .flatMap(c -> executeStatement(c, generatedSQL)
                                 .flatMap(r -> Mono.from(r.map(toEntityFieldMap())))
                                 .switchIfEmpty(close(c)
-                                        .then(Mono.empty()))
+                                        .then(Mono.empty())
+                                )
                                 .delayUntil(s -> close(c))
                                 .onErrorResume(e -> close(c)
-                                        .then(Mono.error(e)))
+                                        .then(Mono.error(e))
+                                )
                         )
         ).firstElement();
     }
@@ -71,10 +75,12 @@ public final class $$PostgreSQLSelectOneUsingMaybeRepository extends AbstractPos
                         .flatMap(c -> executeStatement(c, generatedSQL)
                                 .flatMap(r -> Mono.from(r.map(toEntityFieldList())))
                                 .switchIfEmpty(close(c)
-                                        .then(Mono.empty()))
+                                        .then(Mono.empty())
+                                )
                                 .delayUntil(s -> close(c))
                                 .onErrorResume(e -> close(c)
-                                        .then(Mono.error(e)))
+                                        .then(Mono.error(e))
+                                )
                         )
         ).firstElement();
     }
@@ -88,10 +94,12 @@ public final class $$PostgreSQLSelectOneUsingMaybeRepository extends AbstractPos
                         .flatMap(c -> executeStatement(c, generatedSQL)
                                 .flatMap(r -> Mono.from(r.map((row, meta) -> row.get(0, String.class))))
                                 .switchIfEmpty(close(c)
-                                        .then(Mono.empty()))
+                                        .then(Mono.empty())
+                                )
                                 .delayUntil(s -> close(c))
                                 .onErrorResume(e -> close(c)
-                                        .then(Mono.error(e)))
+                                        .then(Mono.error(e))
+                                )
                         )
         ).firstElement();
     }
@@ -105,10 +113,12 @@ public final class $$PostgreSQLSelectOneUsingMaybeRepository extends AbstractPos
                         .flatMap(c -> executeStatement(c, generatedSQL)
                                 .flatMap(r -> Mono.from(r.map((row, meta) -> row.get(0, Role.class))))
                                 .switchIfEmpty(close(c)
-                                        .then(Mono.empty()))
+                                        .then(Mono.empty())
+                                )
                                 .delayUntil(s -> close(c))
                                 .onErrorResume(e -> close(c)
-                                        .then(Mono.error(e)))
+                                        .then(Mono.error(e))
+                                )
                         )
         ).firstElement();
     }
@@ -122,10 +132,12 @@ public final class $$PostgreSQLSelectOneUsingMaybeRepository extends AbstractPos
                         .flatMap(c -> executeStatement(c, generatedSQL)
                                 .flatMap(r -> Mono.from(r.map((row, meta) -> row.get(0, BigDecimal.class))))
                                 .switchIfEmpty(close(c)
-                                        .then(Mono.empty()))
+                                        .then(Mono.empty())
+                                )
                                 .delayUntil(s -> close(c))
                                 .onErrorResume(e -> close(c)
-                                        .then(Mono.error(e)))
+                                        .then(Mono.error(e))
+                                )
                         )
         ).firstElement();
     }

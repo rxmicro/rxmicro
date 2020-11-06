@@ -35,10 +35,12 @@ public final class $$PostgreSQLSelectManyUsingMonoListRepository extends Abstrac
         return pool.create()
                 .flatMap(c -> executeStatement(c, generatedSQL)
                         .flatMap(r -> Flux.from(r.map(accountEntityFromR2DBCSQLDBConverter::fromDBFirst_nameLast_name))
-                                .collectList())
+                                .collectList()
+                        )
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
+                                .then(Mono.error(e))
+                        )
                 );
     }
 
@@ -49,10 +51,12 @@ public final class $$PostgreSQLSelectManyUsingMonoListRepository extends Abstrac
         return pool.create()
                 .flatMap(c -> executeStatement(c, generatedSQL)
                         .flatMap(r -> Flux.from(r.map(toEntityFieldMap()))
-                                .collectList())
+                                .collectList()
+                        )
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
+                                .then(Mono.error(e))
+                        )
                 );
     }
 
@@ -63,10 +67,12 @@ public final class $$PostgreSQLSelectManyUsingMonoListRepository extends Abstrac
         return pool.create()
                 .flatMap(c -> executeStatement(c, generatedSQL)
                         .flatMap(r -> Flux.from(r.map(toEntityFieldList()))
-                                .collectList())
+                                .collectList()
+                        )
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
+                                .then(Mono.error(e))
+                        )
                 );
     }
 
@@ -77,10 +83,12 @@ public final class $$PostgreSQLSelectManyUsingMonoListRepository extends Abstrac
         return pool.create()
                 .flatMap(c -> executeStatement(c, generatedSQL)
                         .flatMap(r -> Flux.from(r.map((row, meta) -> row.get(0, String.class)))
-                                .collectList())
+                                .collectList()
+                        )
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
+                                .then(Mono.error(e))
+                        )
                 );
     }
 
@@ -91,10 +99,12 @@ public final class $$PostgreSQLSelectManyUsingMonoListRepository extends Abstrac
         return pool.create()
                 .flatMap(c -> executeStatement(c, generatedSQL)
                         .flatMap(r -> Flux.from(r.map((row, meta) -> row.get(0, Role.class)))
-                                .collectList())
+                                .collectList()
+                        )
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
+                                .then(Mono.error(e))
+                        )
                 );
     }
 
@@ -105,10 +115,12 @@ public final class $$PostgreSQLSelectManyUsingMonoListRepository extends Abstrac
         return pool.create()
                 .flatMap(c -> executeStatement(c, generatedSQL)
                         .flatMap(r -> Flux.from(r.map((row, meta) -> row.get(0, BigDecimal.class)))
-                                .collectList())
+                                .collectList()
+                        )
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
+                                .then(Mono.error(e))
+                        )
                 );
     }
 }

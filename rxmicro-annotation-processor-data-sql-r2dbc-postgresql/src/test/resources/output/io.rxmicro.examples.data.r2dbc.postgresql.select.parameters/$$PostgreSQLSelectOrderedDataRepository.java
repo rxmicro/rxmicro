@@ -35,10 +35,12 @@ public final class $$PostgreSQLSelectOrderedDataRepository extends AbstractPostg
         return pool.create()
                 .flatMap(c -> executeStatement(c, generatedSQL)
                         .flatMap(r -> Flux.from(r.map(accountEntityFromR2DBCSQLDBConverter::fromDB))
-                                .collectList())
+                                .collectList()
+                        )
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
+                                .then(Mono.error(e))
+                        )
                 )
                 .toFuture();
     }
@@ -50,10 +52,12 @@ public final class $$PostgreSQLSelectOrderedDataRepository extends AbstractPostg
         return pool.create()
                 .flatMap(c -> executeStatement(c, generatedSQL)
                         .flatMap(r -> Flux.from(r.map(accountEntityFromR2DBCSQLDBConverter::fromDB))
-                                .collectList())
+                                .collectList()
+                        )
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
+                                .then(Mono.error(e))
+                        )
                 )
                 .toFuture();
     }
@@ -65,10 +69,12 @@ public final class $$PostgreSQLSelectOrderedDataRepository extends AbstractPostg
         return pool.create()
                 .flatMap(c -> executeStatement(c, generatedSQL)
                         .flatMap(r -> Flux.from(r.map(accountEntityFromR2DBCSQLDBConverter::fromDB))
-                                .collectList())
+                                .collectList()
+                        )
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
+                                .then(Mono.error(e))
+                        )
                 )
                 .toFuture();
     }
@@ -80,10 +86,12 @@ public final class $$PostgreSQLSelectOrderedDataRepository extends AbstractPostg
         return pool.create()
                 .flatMap(c -> executeStatement(c, generatedSQL)
                         .flatMap(r -> Flux.from(r.map(accountEntityFromR2DBCSQLDBConverter::fromDB))
-                                .collectList())
+                                .collectList()
+                        )
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
+                                .then(Mono.error(e))
+                        )
                 )
                 .toFuture();
     }

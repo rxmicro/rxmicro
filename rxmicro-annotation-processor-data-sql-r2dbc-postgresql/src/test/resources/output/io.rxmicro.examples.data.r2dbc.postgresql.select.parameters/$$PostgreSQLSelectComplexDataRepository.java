@@ -38,10 +38,12 @@ public final class $$PostgreSQLSelectComplexDataRepository extends AbstractPostg
         return pool.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, firstNameTemplate, balance, limit, offset)
                         .flatMap(r -> Flux.from(r.map(accountEntityFromR2DBCSQLDBConverter::fromDB))
-                                .collectList())
+                                .collectList()
+                        )
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
+                                .then(Mono.error(e))
+                        )
                 )
                 .toFuture();
     }

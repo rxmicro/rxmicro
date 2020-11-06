@@ -36,10 +36,12 @@ public final class $$PostgreSQLSelectManyDataRepository extends AbstractPostgreS
         return pool.create()
                 .flatMap(c -> executeStatement(c, generatedSQL)
                         .flatMap(r -> Flux.from(r.map(accountEntityFromR2DBCSQLDBConverter::fromDB))
-                                .collectList())
+                                .collectList()
+                        )
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
+                                .then(Mono.error(e))
+                        )
                 );
     }
 
@@ -51,9 +53,11 @@ public final class $$PostgreSQLSelectManyDataRepository extends AbstractPostgreS
                 .flatMapMany(c -> executeStatement(c, generatedSQL)
                         .flatMapMany(r -> Flux.from(r.map(accountEntityFromR2DBCSQLDBConverter::fromDB)))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
+                                .then(Mono.error(e))
+                        )
                         .concatWith(close(c)
-                                .then(Mono.empty()))
+                                .then(Mono.empty())
+                        )
                 );
     }
 
@@ -64,10 +68,12 @@ public final class $$PostgreSQLSelectManyDataRepository extends AbstractPostgreS
         return pool.create()
                 .flatMap(c -> executeStatement(c, generatedSQL)
                         .flatMap(r -> Flux.from(r.map(accountEntityFromR2DBCSQLDBConverter::fromDB))
-                                .collectList())
+                                .collectList()
+                        )
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
+                                .then(Mono.error(e))
+                        )
                 )
                 .toFuture();
     }
@@ -79,10 +85,12 @@ public final class $$PostgreSQLSelectManyDataRepository extends AbstractPostgreS
         return pool.create()
                 .flatMap(c -> executeStatement(c, generatedSQL)
                         .flatMap(r -> Flux.from(r.map(accountEntityFromR2DBCSQLDBConverter::fromDB))
-                                .collectList())
+                                .collectList()
+                        )
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
+                                .then(Mono.error(e))
+                        )
                 )
                 .toFuture();
     }
@@ -96,9 +104,11 @@ public final class $$PostgreSQLSelectManyDataRepository extends AbstractPostgreS
                         .flatMapMany(c -> executeStatement(c, generatedSQL)
                                 .flatMapMany(r -> Flux.from(r.map(accountEntityFromR2DBCSQLDBConverter::fromDB)))
                                 .onErrorResume(e -> close(c)
-                                        .then(Mono.error(e)))
+                                        .then(Mono.error(e))
+                                )
                                 .concatWith(close(c)
-                                        .then(Mono.empty()))
+                                        .then(Mono.empty())
+                                )
                         )
         ).collect(ArrayList::new, (l, e) -> l.add(e));
     }
@@ -112,9 +122,11 @@ public final class $$PostgreSQLSelectManyDataRepository extends AbstractPostgreS
                         .flatMapMany(c -> executeStatement(c, generatedSQL)
                                 .flatMapMany(r -> Flux.from(r.map(accountEntityFromR2DBCSQLDBConverter::fromDB)))
                                 .onErrorResume(e -> close(c)
-                                        .then(Mono.error(e)))
+                                        .then(Mono.error(e))
+                                )
                                 .concatWith(close(c)
-                                        .then(Mono.empty()))
+                                        .then(Mono.empty())
+                                )
                         )
         );
     }

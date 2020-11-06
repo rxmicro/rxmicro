@@ -29,10 +29,12 @@ public final class $$PostgreSQLDataRepository extends AbstractPostgreSQLReposito
                 .flatMap(c -> executeStatement(c, generatedSQL, email)
                         .flatMap(r -> Mono.from(r.map(accountEntityFromR2DBCSQLDBConverter::fromDB)))
                         .switchIfEmpty(close(c)
-                                .then(Mono.empty()))
+                                .then(Mono.empty())
+                        )
                         .delayUntil(s -> close(c))
                         .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
+                                .then(Mono.error(e))
+                        )
                 );
     }
 }

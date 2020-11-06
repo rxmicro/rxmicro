@@ -37,9 +37,11 @@ public final class $$PostgreSQLSelectManyUsingFlowableRepository extends Abstrac
                         .flatMapMany(c -> executeStatement(c, generatedSQL)
                                 .flatMapMany(r -> Flux.from(r.map(accountEntityFromR2DBCSQLDBConverter::fromDBFirst_nameLast_name)))
                                 .onErrorResume(e -> close(c)
-                                        .then(Mono.error(e)))
+                                        .then(Mono.error(e))
+                                )
                                 .concatWith(close(c)
-                                        .then(Mono.empty()))
+                                        .then(Mono.empty())
+                                )
                         )
         );
     }
@@ -53,9 +55,11 @@ public final class $$PostgreSQLSelectManyUsingFlowableRepository extends Abstrac
                         .flatMapMany(c -> executeStatement(c, generatedSQL)
                                 .flatMapMany(r -> Flux.from(r.map(toEntityFieldMap())))
                                 .onErrorResume(e -> close(c)
-                                        .then(Mono.error(e)))
+                                        .then(Mono.error(e))
+                                )
                                 .concatWith(close(c)
-                                        .then(Mono.empty()))
+                                        .then(Mono.empty())
+                                )
                         )
         );
     }
@@ -69,9 +73,11 @@ public final class $$PostgreSQLSelectManyUsingFlowableRepository extends Abstrac
                         .flatMapMany(c -> executeStatement(c, generatedSQL)
                                 .flatMapMany(r -> Flux.from(r.map(toEntityFieldList())))
                                 .onErrorResume(e -> close(c)
-                                        .then(Mono.error(e)))
+                                        .then(Mono.error(e))
+                                )
                                 .concatWith(close(c)
-                                        .then(Mono.empty()))
+                                        .then(Mono.empty())
+                                )
                         )
         );
     }
@@ -85,9 +91,11 @@ public final class $$PostgreSQLSelectManyUsingFlowableRepository extends Abstrac
                         .flatMapMany(c -> executeStatement(c, generatedSQL)
                                 .flatMapMany(r -> Flux.from(r.map((row, meta) -> row.get(0, String.class))))
                                 .onErrorResume(e -> close(c)
-                                        .then(Mono.error(e)))
+                                        .then(Mono.error(e))
+                                )
                                 .concatWith(close(c)
-                                        .then(Mono.empty()))
+                                        .then(Mono.empty())
+                                )
                         )
         );
     }
@@ -101,9 +109,11 @@ public final class $$PostgreSQLSelectManyUsingFlowableRepository extends Abstrac
                         .flatMapMany(c -> executeStatement(c, generatedSQL)
                                 .flatMapMany(r -> Flux.from(r.map((row, meta) -> row.get(0, Role.class))))
                                 .onErrorResume(e -> close(c)
-                                        .then(Mono.error(e)))
+                                        .then(Mono.error(e))
+                                )
                                 .concatWith(close(c)
-                                        .then(Mono.empty()))
+                                        .then(Mono.empty())
+                                )
                         )
         );
     }
@@ -117,9 +127,11 @@ public final class $$PostgreSQLSelectManyUsingFlowableRepository extends Abstrac
                         .flatMapMany(c -> executeStatement(c, generatedSQL)
                                 .flatMapMany(r -> Flux.from(r.map((row, meta) -> row.get(0, BigDecimal.class))))
                                 .onErrorResume(e -> close(c)
-                                        .then(Mono.error(e)))
+                                        .then(Mono.error(e))
+                                )
                                 .concatWith(close(c)
-                                        .then(Mono.empty()))
+                                        .then(Mono.empty())
+                                )
                         )
         );
     }
