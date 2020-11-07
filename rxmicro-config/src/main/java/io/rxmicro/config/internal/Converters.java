@@ -43,9 +43,11 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.function.Function;
 
-import static io.rxmicro.common.util.ExCollections.unmodifiableOrderedSet;
+import static io.rxmicro.common.util.ExCollectors.toUnmodifiableOrderedMap;
+import static io.rxmicro.config.Config.KEY_VALUE_ENTRY_DELIMITER;
+import static io.rxmicro.config.Config.VALUES_DELIMITER;
+import static java.util.Collections.unmodifiableSortedSet;
 import static java.util.Map.entry;
-import static java.util.stream.Collectors.toUnmodifiableMap;
 
 /**
  * @author nedis
@@ -97,20 +99,20 @@ public final class Converters {
         map.put(ZoneId.class, ZoneId::of);
         map.put(Period.class, Period::parse);
         // Collections
-        map.put(List.class, s -> List.of(s.split(",")));
-        map.put(Set.class, s -> Set.of(s.split(",")));
-        map.put(SortedSet.class, s -> unmodifiableOrderedSet(new TreeSet<>(Arrays.asList(s.split(",")))));
-        map.put(Map.class, s -> Arrays.stream(s.split(","))
-                .map(pair -> pair.split("="))
+        map.put(List.class, s -> List.of(s.split(String.valueOf(VALUES_DELIMITER))));
+        map.put(Set.class, s -> Set.of(s.split(String.valueOf(VALUES_DELIMITER))));
+        map.put(SortedSet.class, s -> unmodifiableSortedSet(new TreeSet<>(Arrays.asList(s.split(String.valueOf(VALUES_DELIMITER))))));
+        map.put(Map.class, s -> Arrays.stream(s.split(String.valueOf(VALUES_DELIMITER)))
+                .map(pair -> pair.split(String.valueOf(KEY_VALUE_ENTRY_DELIMITER)))
                 .map(d -> entry(d[0], d[1]))
-                .collect(toUnmodifiableMap(Map.Entry::getKey, Map.Entry::getValue)));
+                .collect(toUnmodifiableOrderedMap(Map.Entry::getKey, Map.Entry::getValue)));
         // Init CONVERTERS_MAP
         CONVERTERS_MAP = Map.copyOf(map);
     }
 
     @SuppressWarnings({"unchecked", "rawtypes"})
-    public static Object convert(final Class<?> type,
-                                 final String value) {
+    public static Object convertToType(final Class<?> type,
+                                       final String value) {
         if (value == null) {
             return null;
         } else if (type.isEnum()) {
@@ -125,6 +127,73 @@ public final class Converters {
                 );
             }
         }
+    }
+
+    public static Object convertWithoutTypeDefinition(final String value,
+                                                      final boolean supportsMap,
+                                                      final boolean supportsList) {
+        if ("true".equals(value) || "false".equals(value)) {
+            return Boolean.parseBoolean(value);
+        } else {
+            boolean foundComma = false;
+            boolean foundDot = false;
+            boolean foundAssignment = false;
+            boolean notANumber = false;
+            int eIndex = -1;
+            for (int i = 0; i < value.length(); i++) {
+                final char ch = value.charAt(i);
+                if (ch == '.') {
+                    if (foundDot) {
+                        notANumber = true;
+                    }
+                    foundDot = true;
+                } else if (ch == '=') {
+                    foundAssignment = true;
+                    notANumber = true;
+                } else if (ch == ',') {
+                    foundComma = true;
+                    notANumber = true;
+                } else if ((ch == '+' || ch == '-') && i > 0 && eIndex != i - 1) {
+                    notANumber = true;
+                } else if (ch == 'e' || ch == 'E') {
+                    if (eIndex != -1) {
+                        notANumber = true;
+                    }
+                    eIndex = i;
+                }
+            }
+            final boolean isList = supportsList && foundComma;
+            final boolean isDecimalNumberCandidate = foundDot || eIndex != -1;
+            final boolean isMap = supportsMap && foundAssignment;
+            return convert(value, isList, isDecimalNumberCandidate, isMap, notANumber);
+        }
+    }
+
+    private static Object convert(final String value,
+                                  final boolean isList,
+                                  final boolean isDecimalNumberCandidate,
+                                  final boolean isMap,
+                                  final boolean notANumber) {
+        if (isMap) {
+            return convertToType(Map.class, value);
+        } else if (isList) {
+            return convertToType(List.class, value);
+        } else if (!notANumber) {
+            try {
+                if (isDecimalNumberCandidate) {
+                    return new BigDecimal(value);
+                } else {
+                    try {
+                        return Long.parseLong(value);
+                    } catch (final NumberFormatException ignore) {
+                        return new BigInteger(value);
+                    }
+                }
+            } catch (final NumberFormatException ignore) {
+                // return string value
+            }
+        }
+        return value;
     }
 
     private Converters() {

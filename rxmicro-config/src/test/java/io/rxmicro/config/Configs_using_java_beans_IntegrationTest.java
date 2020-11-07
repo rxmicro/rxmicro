@@ -16,28 +16,10 @@
 
 package io.rxmicro.config;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
-import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
-import org.junit.jupiter.api.io.TempDir;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.List;
-import java.util.Map;
-
-import static io.rxmicro.config.detail.DefaultConfigValueBuilder.putDefaultConfigValue;
-import static io.rxmicro.config.internal.ExternalSourceProviderFactory.setCurrentDir;
-import static io.rxmicro.config.internal.ExternalSourceProviderFactory.setEnvironmentVariables;
-import static io.rxmicro.config.internal.model.PropertyNames.USER_HOME_PROPERTY;
-import static java.nio.file.Files.createDirectories;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
@@ -46,64 +28,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * @since 0.3
  */
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public final class Configs_IntegrationTest {
-
-    private static final String REAL_USER_HOME = System.getProperty(USER_HOME_PROPERTY);
-
-    @TempDir
-    static Path tempDir;
-
-    @BeforeAll
-    static void beforeAll() throws IOException {
-        putDefaultConfigValue("test.defaultConfigValues", "defaultConfigValues");
-
-        System.setProperty(USER_HOME_PROPERTY, mkDir("home/"));
-        mkDir("home/.rxmicro/");
-        setCurrentDir(mkDir("current/"));
-        setEnvironmentVariables(Map.of("test.environmentVariables", "environmentVariables"));
-        System.setProperty("test.javaSystemProperties", "javaSystemProperties");
-
-        final String root = tempDir.toAbsolutePath().toString();
-        Files.write(
-                Paths.get(root + "/home/rxmicro.properties"),
-                List.of("test.rxmicroFileAtTheHomeDir=rxmicroFileAtTheHomeDir")
-        );
-        Files.write(
-                Paths.get(root + "/home/test.properties"),
-                List.of("separateFileAtTheHomeDir=separateFileAtTheHomeDir")
-        );
-
-        Files.write(
-                Paths.get(root + "/home/.rxmicro/rxmicro.properties"),
-                List.of("test.rxmicroFileAtTheRxmicroConfigDir=rxmicroFileAtTheRxmicroConfigDir")
-        );
-        Files.write(
-                Paths.get(root + "/home/.rxmicro/test.properties"),
-                List.of("separateFileAtTheRxmicroConfigDir=separateFileAtTheRxmicroConfigDir")
-        );
-
-        Files.write(
-                Paths.get(root + "/current/rxmicro.properties"),
-                List.of("test.rxmicroFileAtTheCurrentDir=rxmicroFileAtTheCurrentDir")
-        );
-        Files.write(
-                Paths.get(root + "/current/test.properties"),
-                List.of("separateFileAtTheCurrentDir=separateFileAtTheCurrentDir")
-        );
-    }
-
-    private static String mkDir(final String relativePath) throws IOException {
-        return createDirectories(Paths.get(tempDir.toAbsolutePath().toString() + "/" + relativePath)).toAbsolutePath().toString();
-    }
-
-    @BeforeEach
-    void beforeEach() {
-        new Configs.Builder()
-                .withAllConfigSources()
-                .withCommandLineArguments(new String[]{"test.commandLineArguments=commandLineArguments"})
-                .build();
-    }
+public final class Configs_using_java_beans_IntegrationTest extends AbstractConfigsIntegrationTest {
 
     @Test
     void Should_resolve_config_from_all_supported_sources() {
@@ -120,11 +45,6 @@ public final class Configs_IntegrationTest {
         assertEquals("separateFileAtTheCurrentDir", config.getSeparateFileAtTheCurrentDir());
         assertEquals("javaSystemProperties", config.getJavaSystemProperties());
         assertEquals("commandLineArguments", config.getCommandLineArguments());
-    }
-
-    @AfterAll
-    static void afterAll() {
-        System.setProperty(USER_HOME_PROPERTY, REAL_USER_HOME);
     }
 
     /**

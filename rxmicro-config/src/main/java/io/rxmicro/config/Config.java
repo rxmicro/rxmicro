@@ -31,6 +31,38 @@ import static java.util.stream.Collectors.joining;
 public abstract class Config {
 
     /**
+     * Defines a character that used as list (set, sorted set, map entries) values delimiter.
+     *
+     * <p>
+     * Collection examples:
+     * <code>
+     * propertyName1=value1,value2,value3
+     * </code>
+     * For such cases {@code propertyName1} can be converted to {@link List}{@code <String>}
+     * (or {@link java.util.Set}{@code <String>} or {@link java.util.SortedSet}{@code <String>} if possible) instance automatically.
+     *
+     * <p>
+     * Map examples:
+     * <code>
+     * propertyName2=key1=value1,key2=value2,key3=value3
+     * </code>
+     * For such cases {@code propertyName2} can be converted to {@link java.util.Map}{@code <String, String>} instance automatically.
+     */
+    public static final Character VALUES_DELIMITER = ',';
+
+    /**
+     * Defines a character that used as key-value map entry delimiter.
+     *
+     * <p>
+     * For example:
+     * <code>
+     * propertyName=key1=value1,key2=value2,key3=value3
+     * </code>
+     * For such cases {@code propertyName} can be converted to {@link java.util.Map}{@code <String, String>} instance automatically.
+     */
+    public static final Character KEY_VALUE_ENTRY_DELIMITER = '=';
+
+    /**
      * Default name for config file or class path resource without extension.
      *
      * <p>
@@ -50,6 +82,10 @@ public abstract class Config {
      */
     public static final String RX_MICRO_CONFIG_DIRECTORY_NAME = ".rxmicro";
 
+    private static final String AS_MAP_CONFIG_NAME = AsMapConfig.class.getSimpleName();
+
+    private static final String CONFIG_NAME = Config.class.getSimpleName();
+
     /**
      * Defines the default namespace for the config class.
      *
@@ -67,11 +103,20 @@ public abstract class Config {
      * @return the default namespace
      */
     public static String getDefaultNameSpace(final String configSimpleClassName) {
-        final List<String> words = splitByCamelCase(configSimpleClassName);
+        final List<String> words = splitByCamelCase(getValidConfigSimpleClassName(configSimpleClassName));
         return words.stream()
                 .map(String::toLowerCase)
-                .filter(w -> !"config".equals(w))
                 .collect(joining("-"));
+    }
+
+    private static String getValidConfigSimpleClassName(final String name) {
+        if (name.endsWith(AS_MAP_CONFIG_NAME)) {
+            return name.substring(0, name.length() - AS_MAP_CONFIG_NAME.length());
+        } else if (name.endsWith(CONFIG_NAME)) {
+            return name.substring(0, name.length() - CONFIG_NAME.length());
+        } else {
+            return name;
+        }
     }
 
     /**

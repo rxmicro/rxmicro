@@ -19,14 +19,11 @@ package io.rxmicro.config.internal.model;
 import io.rxmicro.config.ConfigException;
 import io.rxmicro.config.ConfigSource;
 import io.rxmicro.logger.Logger;
-import io.rxmicro.logger.LoggerFactory;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -38,7 +35,6 @@ import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 import static io.rxmicro.common.util.Formats.format;
-import static io.rxmicro.common.util.Strings.capitalize;
 import static io.rxmicro.config.Config.RX_MICRO_CONFIG_DIRECTORY_NAME;
 import static io.rxmicro.config.Config.RX_MICRO_CONFIG_FILE_NAME;
 import static io.rxmicro.config.ConfigSource.DEFAULT_CONFIG_VALUES;
@@ -54,47 +50,43 @@ import static io.rxmicro.config.ConfigSource.SEPARATE_FILE_AT_THE_HOME_DIR;
 import static io.rxmicro.config.ConfigSource.SEPARATE_FILE_AT_THE_RXMICRO_CONFIG_DIR;
 import static io.rxmicro.config.internal.ExternalSourceProviderFactory.getCurrentDir;
 import static io.rxmicro.config.internal.ExternalSourceProviderFactory.getEnvironmentVariables;
-import static io.rxmicro.config.internal.model.AbstractDefaultConfigValueBuilder.getCurrentDefaultConfigValueStorage;
 import static io.rxmicro.config.internal.model.PropertyNames.USER_HOME_PROPERTY;
 import static io.rxmicro.files.PropertiesResources.loadProperties;
-import static java.util.Map.entry;
 import static java.util.stream.Collectors.toList;
 
 /**
  * @author nedis
- * @since 0.1
+ * @since 0.7
  */
-public final class ConfigProperties {
+public abstract class ConfigProperties {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ConfigProperties.class);
+    protected static final Map<String, String> SYSTEM_ENV = getEnvironmentVariables();
 
-    private static final Map<String, String> SYSTEM_ENV = getEnvironmentVariables();
+    protected static final Properties SYSTEM_PROPERTIES = System.getProperties();
 
-    private static final Properties SYSTEM_PROPERTIES = System.getProperties();
+    protected static final String USER_HOME = SYSTEM_PROPERTIES.getProperty(USER_HOME_PROPERTY);
 
-    private static final String USER_HOME = SYSTEM_PROPERTIES.getProperty(USER_HOME_PROPERTY);
+    protected static final String RX_MICRO_CONFIG_DIRECTORY = USER_HOME + "/" + RX_MICRO_CONFIG_DIRECTORY_NAME;
 
-    private static final String RX_MICRO_CONFIG_DIRECTORY = USER_HOME + "/" + RX_MICRO_CONFIG_DIRECTORY_NAME;
+    protected static final String CURRENT_DIR = getCurrentDir();
 
-    private static final String CURRENT_DIR = getCurrentDir();
+    protected static final Map<String, Optional<Map<String, String>>> RESOURCE_CACHE = new WeakHashMap<>();
 
-    private static final Map<String, Optional<Map<String, String>>> RESOURCE_CACHE = new WeakHashMap<>();
+    protected final String namespace;
 
-    private final String namespace;
-
-    private final Collection<ConfigProperty> properties;
-
-    public ConfigProperties(final String namespace,
-                            final Collection<ConfigProperty> properties) {
+    public ConfigProperties(final String namespace) {
         this.namespace = namespace;
-        this.properties = properties;
     }
 
-    public void discoverProperties(final Set<ConfigSource> configSources,
-                                   final Map<String, String> commandLineArgs) {
-        final DebugMessageBuilder debugMessageBuilder = new DebugMessageBuilder(namespace, configSources, commandLineArgs);
+    protected abstract Logger getLogger();
+
+    public final void discoverProperties(final Set<ConfigSource> configSources,
+                                         final Map<String, String> commandLineArgs) {
+        final DebugMessageBuilder debugMessageBuilder = new DebugMessageBuilder(
+                namespace, getLogger().isDebugEnabled(), configSources, commandLineArgs
+        );
         discoverProperties(configSources, commandLineArgs, debugMessageBuilder);
-        LOGGER.debug(debugMessageBuilder.toString());
+        getLogger().debug(debugMessageBuilder.toString());
     }
 
     private void discoverProperties(final Set<ConfigSource> configSources,
@@ -132,47 +124,11 @@ public final class ConfigProperties {
         }
     }
 
-    private void loadDefaultConfigValues(final DebugMessageBuilder debugMessageBuilder) {
-        final Set<Map.Entry<String, String>> resolvedEntries = new LinkedHashSet<>();
-        final DefaultConfigValueStorage storage = getCurrentDefaultConfigValueStorage();
-        final String messageTemplate = "Discovered properties from default config storage: ?";
-        if (storage.hasDefaultStringValuesStorage()) {
-            properties.forEach(p -> p.resolve(storage.getDefaultStringValuesStorage(), true).ifPresent(resolvedEntries::add));
-            debugMessageBuilder.append(messageTemplate, storage.getDefaultStringValuesStorage());
-        }
-        if (storage.hasDefaultSupplierValuesStorage()) {
-            properties.forEach(p -> p.resolve(storage.getDefaultSupplierValuesStorage(), true)
-                    .ifPresent(e -> resolvedEntries.add(entry(e.getKey(), e.getValue().toString()))));
-            debugMessageBuilder.append(messageTemplate, storage.getDefaultSupplierValuesStorage());
-        }
-        if (!resolvedEntries.isEmpty()) {
-            debugMessageBuilder.addResolvedEntries(resolvedEntries);
-            debugMessageBuilder.append(messageTemplate, resolvedEntries);
-        }
-    }
+    protected abstract void loadDefaultConfigValues(DebugMessageBuilder debugMessageBuilder);
 
-    public void setProperties() {
-        properties.forEach(ConfigProperty::setProperty);
-    }
-
-    private void loadFromEnvironmentVariables(final DebugMessageBuilder debugMessageBuilder) {
-        loadFromMap(SYSTEM_ENV, "environment variables", debugMessageBuilder);
-    }
-
-    private void loadFromMap(final Map<String, String> map,
-                             final String sourceName,
-                             final DebugMessageBuilder debugMessageBuilder) {
-        final Set<Map.Entry<String, String>> resolvedEntries = new LinkedHashSet<>();
-        properties.forEach(p -> p.resolve(map, true).ifPresent(resolvedEntries::add));
-        if (!resolvedEntries.isEmpty()) {
-            debugMessageBuilder.addResolvedEntries(resolvedEntries);
-            debugMessageBuilder.append("Discovered properties from ?: ?", sourceName, resolvedEntries);
-        }
-    }
-
-    private void loadFromClassPathResource(final String name,
-                                           final boolean useFullName,
-                                           final DebugMessageBuilder debugMessageBuilder) {
+    protected final void loadFromClassPathResource(final String name,
+                                                   final boolean useFullName,
+                                                   final DebugMessageBuilder debugMessageBuilder) {
         final String fullClassPathFileName = name + ".properties";
         final Supplier<Optional<Map<String, String>>> propertiesSupplier;
         if (useFullName) {
@@ -183,10 +139,10 @@ public final class ConfigProperties {
         loadResource(propertiesSupplier, "classpath resource", fullClassPathFileName, useFullName, debugMessageBuilder);
     }
 
-    private void loadFromPropertiesFileIfExists(final String path,
-                                                final String fileName,
-                                                final boolean useFullName,
-                                                final DebugMessageBuilder debugMessageBuilder) {
+    protected final void loadFromPropertiesFileIfExists(final String path,
+                                                        final String fileName,
+                                                        final boolean useFullName,
+                                                        final DebugMessageBuilder debugMessageBuilder) {
         final Path fullFilePath = Paths.get(format("?/?.properties", path, fileName)).toAbsolutePath();
         final String fullFilePathName = fullFilePath.toString();
         final Supplier<Optional<Map<String, String>>> propertiesSupplier;
@@ -198,43 +154,34 @@ public final class ConfigProperties {
         loadResource(propertiesSupplier, "config file", fullFilePathName, useFullName, debugMessageBuilder);
     }
 
-    private void loadResource(final Supplier<Optional<Map<String, String>>> propertiesSupplier,
-                              final String resourceType,
-                              final String resourceName,
-                              final boolean useFullName,
-                              final DebugMessageBuilder debugMessageBuilder) {
-        final Optional<Map<String, String>> resourceOptional = propertiesSupplier.get();
-        if (resourceOptional.isPresent()) {
-            final Set<Map.Entry<String, String>> resolvedEntries = new LinkedHashSet<>();
-            properties.forEach(p -> p.resolve(resourceOptional.get(), useFullName).ifPresent(resolvedEntries::add));
-            if (!resolvedEntries.isEmpty()) {
-                debugMessageBuilder.addResolvedEntries(resolvedEntries);
-                debugMessageBuilder.append("Discovered properties from '?' ?: ?", resourceName, resourceType, resolvedEntries);
-            }
-        } else {
-            debugMessageBuilder.append("? not found: ?", capitalize(resourceType), resourceName);
-        }
-    }
+    protected abstract void loadResource(Supplier<Optional<Map<String, String>>> propertiesSupplier,
+                                         String resourceType,
+                                         String resourceName,
+                                         boolean useFullName,
+                                         DebugMessageBuilder debugMessageBuilder);
 
-    private void loadFromJavaSystemProperties(final DebugMessageBuilder debugMessageBuilder) {
-        final Set<Map.Entry<String, String>> resolvedEntries = new LinkedHashSet<>();
-        properties.forEach(p -> p.resolve(SYSTEM_PROPERTIES, true).ifPresent(resolvedEntries::add));
-        if (!resolvedEntries.isEmpty()) {
-            debugMessageBuilder.addResolvedEntries(resolvedEntries);
-            debugMessageBuilder.append("Discovered properties from Java system properties: ?", resolvedEntries);
-        }
-    }
+    protected abstract void loadFromJavaSystemProperties(DebugMessageBuilder debugMessageBuilder);
 
-    private void loadFromCommandLineArguments(final Map<String, String> commandLineArgs,
-                                              final DebugMessageBuilder debugMessageBuilder) {
+    protected final void loadFromCommandLineArguments(final Map<String, String> commandLineArgs,
+                                                      final DebugMessageBuilder debugMessageBuilder) {
         loadFromMap(commandLineArgs, "command line arguments", debugMessageBuilder);
     }
 
+    protected final void loadFromEnvironmentVariables(final DebugMessageBuilder debugMessageBuilder) {
+        loadFromMap(SYSTEM_ENV, "environment variables", debugMessageBuilder);
+    }
+
+    protected abstract void loadFromMap(Map<String, String> map,
+                                        String sourceName,
+                                        DebugMessageBuilder debugMessageBuilder);
+
+    public abstract void setProperties();
+
     /**
      * @author nedis
-     * @since 0.3
+     * @since 0.7
      */
-    private static final class DebugMessageBuilder {
+    protected static final class DebugMessageBuilder {
 
         private static final String SHIFT = "  ";
 
@@ -254,42 +201,43 @@ public final class ConfigProperties {
 
         private int count;
 
-        private DebugMessageBuilder(final String namespace,
-                                    final Set<ConfigSource> configSources,
-                                    final Map<String, String> commandLineArgs) {
+        protected DebugMessageBuilder(final String namespace,
+                                      final boolean debugEnabled,
+                                      final Set<ConfigSource> configSources,
+                                      final Map<String, String> commandLineArgs) {
             this.configSources = configSources;
             this.commandLineArgs = commandLineArgs;
-            this.debugEnabled = LOGGER.isDebugEnabled();
+            this.debugEnabled = debugEnabled;
             this.namespace = namespace;
             this.messages = debugEnabled ? new ArrayList<>() : List.of();
             this.resolvedEntries = debugEnabled ? new LinkedHashMap<>() : Map.of();
         }
 
-        private void append(final String message,
-                            final Object arg1) {
+        public void append(final String message,
+                           final Object arg1) {
             if (debugEnabled) {
                 messages.add(SHIFT + SHIFT + format(message, arg1));
             }
         }
 
-        private void append(final String message,
-                            final Object arg1,
-                            final Object arg2) {
+        public void append(final String message,
+                           final Object arg1,
+                           final Object arg2) {
             if (debugEnabled) {
                 messages.add(SHIFT + SHIFT + format(message, arg1, arg2));
             }
         }
 
-        private void append(final String message,
-                            final Object arg1,
-                            final Object arg2,
-                            final Object arg3) {
+        public void append(final String message,
+                           final Object arg1,
+                           final Object arg2,
+                           final Object arg3) {
             if (debugEnabled) {
                 messages.add(SHIFT + SHIFT + format(message, arg1, arg2, arg3));
             }
         }
 
-        private void addResolvedEntries(final Set<Map.Entry<String, String>> resolvedEntries) {
+        public void addResolvedEntries(final Set<Map.Entry<String, String>> resolvedEntries) {
             if (debugEnabled) {
                 count += resolvedEntries.size();
                 resolvedEntries.forEach(e -> this.resolvedEntries.put(e, INSTANCE));
@@ -316,16 +264,16 @@ public final class ConfigProperties {
 
     /**
      * @author nedis
-     * @since 0.3
+     * @since 0.7
      */
-    private static final class ConfigSourceProvider {
+    protected static final class ConfigSourceProvider {
 
         private final Set<ConfigSource> configSources;
 
         private final Map<String, String> commandLineArgs;
 
-        private ConfigSourceProvider(final Set<ConfigSource> configSources,
-                                     final Map<String, String> commandLineArgs) {
+        protected ConfigSourceProvider(final Set<ConfigSource> configSources,
+                                       final Map<String, String> commandLineArgs) {
             this.configSources = configSources;
             this.commandLineArgs = commandLineArgs;
         }

@@ -26,7 +26,7 @@ import java.util.Optional;
 import java.util.Properties;
 import java.util.function.Supplier;
 
-import static io.rxmicro.config.internal.Converters.convert;
+import static io.rxmicro.config.internal.Converters.convertToType;
 import static java.util.Map.entry;
 
 /**
@@ -83,7 +83,7 @@ public final class ConfigProperty implements Comparable<ConfigProperty> {
         if (propertyValue != null) {
             try {
                 if (propertyValue instanceof String) {
-                    propertySetter.invoke(configInstance, convert(propertySetter.getParameterTypes()[0], (String) propertyValue));
+                    propertySetter.invoke(configInstance, convertToType(propertySetter.getParameterTypes()[0], (String) propertyValue));
                 } else {
                     propertySetter.invoke(configInstance, ((Supplier<?>) propertyValue).get());
                 }
