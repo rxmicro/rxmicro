@@ -50,6 +50,8 @@ import javax.lang.model.type.TypeMirror;
 
 import static io.rxmicro.annotation.processor.common.SupportedOptions.RX_MICRO_MAX_JSON_NESTED_DEPTH;
 import static io.rxmicro.annotation.processor.common.SupportedOptions.RX_MICRO_MAX_JSON_NESTED_DEPTH_DEFAULT_VALUE;
+import static io.rxmicro.annotation.processor.common.SupportedOptions.RX_MICRO_STRICT_MODE;
+import static io.rxmicro.annotation.processor.common.SupportedOptions.RX_MICRO_STRICT_MODE_DEFAULT_VALUE;
 import static io.rxmicro.annotation.processor.common.util.Elements.allModelFields;
 import static io.rxmicro.annotation.processor.common.util.Elements.asEnumElement;
 import static io.rxmicro.annotation.processor.common.util.Elements.findGetters;
@@ -148,22 +150,32 @@ public abstract class AbstractModelFieldBuilder<MF extends ModelField, MC extend
                                                                final TypeElement typeElement) {
         if (options.isAccessViaReflectionMustBeDetected()) {
             if (modelField.getModelReadAccessorType() == ModelAccessorType.REFLECTION) {
-                warn(modelField.getFieldElement(),
+                final String message = format(
                         "PERFORMANCE WARNING: To read a value from ?.? the RxMicro framework will use the reflection. " +
                                 "It is recommended to add a getter or change the field modifier: " +
                                 "from private to default, protected or public",
                         typeElement.getQualifiedName(),
                         modelField.getFieldName()
                 );
+                if (getBooleanOption(RX_MICRO_STRICT_MODE, RX_MICRO_STRICT_MODE_DEFAULT_VALUE)) {
+                    error(modelField.getFieldElement(), message);
+                } else {
+                    warn(modelField.getFieldElement(), message);
+                }
             }
             if (modelField.getModelWriteAccessorType() == ModelAccessorType.REFLECTION) {
-                warn(modelField.getFieldElement(),
+                final String message = format(
                         "PERFORMANCE WARNING: To write a value to ?.? the RxMicro framework will use the reflection. " +
                                 "It is recommended to add a setter or change the field modifier: " +
                                 "from private to default, protected or public",
                         typeElement.getQualifiedName(),
                         modelField.getFieldName()
                 );
+                if (getBooleanOption(RX_MICRO_STRICT_MODE, RX_MICRO_STRICT_MODE_DEFAULT_VALUE)) {
+                    error(modelField.getFieldElement(), message);
+                } else {
+                    warn(modelField.getFieldElement(), message);
+                }
             }
         }
         return modelField;

@@ -117,21 +117,30 @@ public final class ModelExceptionErrorResponseCustomBuilder extends AbstractProc
                                                    final RestObjectModelClass modelClass) {
         final Trees trees = Trees.instance(getProcessingEnvironment());
         final MethodTree methodTree = trees.getTree(getResponseDataMethod);
+        final List<String> expectedBodyCandidates = generateExpectedBodyCandidates(modelClass);
         final String actualBody = methodTree.getBody().getStatements().stream().map(Objects::toString).collect(joining("")).trim();
-        final String expectedBody = format(
-                "return Optional.of(Map.of(?));",
-                modelClass.getParamEntries().stream()
-                        .map(e -> e.getKey().getModelName())
-                        .map(n -> format("\"?\", ?", n, n))
-                        .collect(joining(","))
-        );
-        if (!actualBody.equals(expectedBody)) {
-            throw new InterruptProcessingException(
-                    getResponseDataMethod,
-                    "Invalid method body: expected={?}, but actual is {?}",
-                    expectedBody,
-                    actualBody
-            );
+        for (final String expectedBodyCandidate : expectedBodyCandidates) {
+            if (actualBody.equals(expectedBodyCandidate)) {
+                return;
+            }
         }
+        throw new InterruptProcessingException(
+                getResponseDataMethod,
+                "Invalid method body: expected one of the following: {?}, but actual is {?}",
+                expectedBodyCandidates,
+                actualBody
+        );
+    }
+
+    private List<String> generateExpectedBodyCandidates(final RestObjectModelClass modelClass) {
+        final String mapParams = modelClass.getParamEntries().stream()
+                .map(e -> e.getKey().getModelName())
+                .map(n -> format("\"?\", ?", n, n))
+                .collect(joining(","));
+        return List.of(
+                format("return Optional.of(Map.of(?));", mapParams),
+                format("return Optional.of(orderedMap(?));", mapParams),
+                format("return Optional.of(ExCollections.orderedMap(?));", mapParams)
+        );
     }
 }

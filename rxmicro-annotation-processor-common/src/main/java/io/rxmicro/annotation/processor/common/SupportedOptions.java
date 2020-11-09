@@ -77,16 +77,18 @@ public final class SupportedOptions {
      * Strict mode option.
      *
      * <p>
-     * This option allows validating methods body.
-     * Validation of method body is not public API, so sometimes RxMicro Annotation Processor can analyze your code incorrectly.
-     * For such cases it is recommended to disable strict mode.
+     * The RxMicro Annotation Processor uses additional validation rules if strict mode is activated.
      */
     public static final String RX_MICRO_STRICT_MODE = "RX_MICRO_STRICT_MODE";
 
     /**
-     * String mode is available by default
+     * String mode is disabled by default.
+     *
+     * <p>
+     * This behaviour allows starting to write code using the RxMicro framework as quick as possible.
+     * But for production code it is strong recommended to enable strict mode.
      */
-    public static final boolean RX_MICRO_STRICT_MODE_DEFAULT_VALUE = true;
+    public static final boolean RX_MICRO_STRICT_MODE_DEFAULT_VALUE = false;
 
     private SupportedOptions() {
     }
