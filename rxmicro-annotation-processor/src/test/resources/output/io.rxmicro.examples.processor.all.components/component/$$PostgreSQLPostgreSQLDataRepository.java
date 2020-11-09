@@ -31,10 +31,10 @@ public final class $$PostgreSQLPostgreSQLDataRepository extends AbstractPostgreS
                 .flatMap(c -> executeStatement(c, generatedSQL)
                         .flatMap(r -> Mono.from(r.map(accountEntityFromR2DBCSQLDBConverter::fromDB)))
                         .switchIfEmpty(close(c)
-                                .then(Mono.empty()))
+                                .then(Mono.empty())
+                        )
                         .delayUntil(s -> close(c))
-                        .onErrorResume(e -> close(c)
-                                .then(Mono.error(e)))
+                        .onErrorResume(createCloseThenReturnErrorFallback(c))
                 )
                 .switchIfEmpty(Mono.error(useOptionalExceptionSupplier(CompletableFuture.class, Account.class)))
                 .toFuture();
