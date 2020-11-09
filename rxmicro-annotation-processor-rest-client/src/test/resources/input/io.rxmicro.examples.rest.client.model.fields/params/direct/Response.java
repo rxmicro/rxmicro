@@ -19,10 +19,13 @@ package io.rxmicro.examples.rest.client.model.fields.params.direct;
 import io.rxmicro.examples.rest.client.model.fields.params.direct.nested.Nested;
 
 import java.util.List;
+import java.util.Set;
 
 public final class Response extends Abstract {
 
     Nested nested;
 
     List<Nested> nestedList;
+
+    Set<Nested> nestedSet;
 }

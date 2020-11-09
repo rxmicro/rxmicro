@@ -42,8 +42,24 @@ public final class $$ResponseModelWriter extends ModelWriter<Response> {
         response.setHeader("stringParameters", model.stringParameters);
         response.setHeader("instantParameters", model.instantParameters);
         response.setHeader("statuses", model.statuses);
-        for (final Status item : model.repeatingStatues) {
-            response.addHeader("repeatingStatues", item);
+        response.setHeader("booleanParameterSet", model.booleanParameterSet);
+        response.setHeader("byteParameterSet", model.byteParameterSet);
+        response.setHeader("shortParameterSet", model.shortParameterSet);
+        response.setHeader("intParameterSet", model.intParameterSet);
+        response.setHeader("longParameterSet", model.longParameterSet);
+        response.setHeader("bigIntParameterSet", model.bigIntParameterSet);
+        response.setHeader("floatParameterSet", model.floatParameterSet);
+        response.setHeader("doubleParameterSet", model.doubleParameterSet);
+        response.setHeader("decimalParameterSet", model.decimalParameterSet);
+        response.setHeader("charParameterSet", model.charParameterSet);
+        response.setHeader("stringParameterSet", model.stringParameterSet);
+        response.setHeader("instantParameterSet", model.instantParameterSet);
+        response.setHeader("statusSet", model.statusSet);
+        for (final Status item : model.repeatingStatuses) {
+            response.addHeader("repeatingStatuses", item);
+        }
+        for (final Status item : model.repeatingStatusSet) {
+            response.addHeader("repeatingStatusSet", item);
         }
     }
 }

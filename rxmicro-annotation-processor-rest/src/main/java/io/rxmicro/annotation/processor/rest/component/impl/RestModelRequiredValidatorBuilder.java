@@ -41,7 +41,7 @@ public final class RestModelRequiredValidatorBuilder {
     public void addRequiredValidator(final ModelValidatorClassStructure.Builder builder,
                                      final RestModelField restModelField,
                                      final ModelClass modelFieldType) {
-        if (modelFieldType.isList()) {
+        if (modelFieldType.isIterable()) {
             final Nullable nullable = restModelField.getAnnotation(Nullable.class);
             if (nullable == null || nullable.off()) {
                 builder.add(restModelField, Nullable.class.getSimpleName(),
@@ -49,8 +49,8 @@ public final class RestModelRequiredValidatorBuilder {
             }
             final NullableArrayItem nullableArrayItem = restModelField.getAnnotation(NullableArrayItem.class);
             final boolean isNullable = nullableArrayItem == null || nullableArrayItem.off();
-            if (modelFieldType.asList().isPrimitiveList() &&
-                    String.class.getName().equals(modelFieldType.asList().getElementModelClass().getJavaFullClassName())) {
+            if (modelFieldType.asIterable().isPrimitiveIterable() &&
+                    String.class.getName().equals(modelFieldType.asIterable().getElementModelClass().getJavaFullClassName())) {
                 // isString primitive
                 addRequiredStringValidator(isNullable, NullableArrayItem.class, builder, restModelField, true);
             } else if (isNullable) {
@@ -75,19 +75,19 @@ public final class RestModelRequiredValidatorBuilder {
                                             final Class<? extends Annotation> validatorAnnotationClass,
                                             final ModelValidatorClassStructure.Builder builder,
                                             final RestModelField restModelField,
-                                            final boolean validateList) {
+                                            final boolean validateIterable) {
         if (isNullable) {
             if (shouldNotEmptyValidatorBeAdded(restModelField)) {
                 builder.add(restModelField, validatorAnnotationClass.getSimpleName(),
-                        RequiredAndNotEmptyStringConstraintValidator.class.getName(), null, validateList);
+                        RequiredAndNotEmptyStringConstraintValidator.class.getName(), null, validateIterable);
             } else {
                 builder.add(restModelField, validatorAnnotationClass.getSimpleName(),
-                        RequiredConstraintValidator.class.getName(), null, validateList);
+                        RequiredConstraintValidator.class.getName(), null, validateIterable);
             }
         } else {
             if (shouldNotEmptyValidatorBeAdded(restModelField)) {
                 builder.add(restModelField, validatorAnnotationClass.getSimpleName(),
-                        NotEmptyStringConstraintValidator.class.getName(), null, validateList);
+                        NotEmptyStringConstraintValidator.class.getName(), null, validateIterable);
             }
         }
     }

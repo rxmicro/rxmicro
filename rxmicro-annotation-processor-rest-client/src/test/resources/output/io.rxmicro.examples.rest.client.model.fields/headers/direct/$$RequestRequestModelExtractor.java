@@ -38,8 +38,24 @@ public final class $$RequestRequestModelExtractor extends RequestModelExtractor<
         headerBuilder.add("stringParameters", model.stringParameters);
         headerBuilder.add("instantParameters", model.instantParameters);
         headerBuilder.add("statuses", model.statuses);
-        for (final Status item : model.repeatingStatues) {
-            headerBuilder.add("repeatingStatues", item);
+        headerBuilder.add("booleanParameterSet", model.booleanParameterSet);
+        headerBuilder.add("byteParameterSet", model.byteParameterSet);
+        headerBuilder.add("shortParameterSet", model.shortParameterSet);
+        headerBuilder.add("intParameterSet", model.intParameterSet);
+        headerBuilder.add("longParameterSet", model.longParameterSet);
+        headerBuilder.add("bigIntParameterSet", model.bigIntParameterSet);
+        headerBuilder.add("floatParameterSet", model.floatParameterSet);
+        headerBuilder.add("doubleParameterSet", model.doubleParameterSet);
+        headerBuilder.add("decimalParameterSet", model.decimalParameterSet);
+        headerBuilder.add("charParameterSet", model.charParameterSet);
+        headerBuilder.add("stringParameterSet", model.stringParameterSet);
+        headerBuilder.add("instantParameterSet", model.instantParameterSet);
+        headerBuilder.add("statusSet", model.statusSet);
+        for (final Status item : model.repeatingStatuses) {
+            headerBuilder.add("repeatingStatuses", item);
+        }
+        for (final Status item : model.repeatingStatusSet) {
+            headerBuilder.add("repeatingStatusSet", item);
         }
     }
 }

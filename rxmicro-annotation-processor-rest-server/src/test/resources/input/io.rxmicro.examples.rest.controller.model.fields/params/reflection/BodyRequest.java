@@ -19,10 +19,13 @@ package io.rxmicro.examples.rest.controller.model.fields.params.reflection;
 import io.rxmicro.examples.rest.controller.model.fields.params.reflection.nested.Nested;
 
 import java.util.List;
+import java.util.Set;
 
 public final class BodyRequest extends Abstract {
 
     private Nested nested;
 
     private List<Nested> nestedList;
+
+    private Set<Nested> nestedSet;
 }

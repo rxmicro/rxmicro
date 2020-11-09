@@ -75,7 +75,7 @@ final class MaxSizeListConstraintValidatorTest extends AbstractConstraintValidat
     @Order(13)
     void Should_throw_UnsupportedOperationException_1() {
         final UnsupportedOperationException exception =
-                assertThrows(UnsupportedOperationException.class, () -> validator.validateList(List.of()));
+                assertThrows(UnsupportedOperationException.class, () -> validator.validateIterable(List.of()));
         assertEquals("Use 'validate' instead!", exception.getMessage());
     }
 
@@ -83,7 +83,7 @@ final class MaxSizeListConstraintValidatorTest extends AbstractConstraintValidat
     @Order(14)
     void Should_throw_UnsupportedOperationException_2() {
         final UnsupportedOperationException exception =
-                assertThrows(UnsupportedOperationException.class, () -> validator.validateList(List.of(), PARAMETER, "model"));
+                assertThrows(UnsupportedOperationException.class, () -> validator.validateIterable(List.of(), PARAMETER, "model"));
         assertEquals("Use 'validate' instead!", exception.getMessage());
     }
 }

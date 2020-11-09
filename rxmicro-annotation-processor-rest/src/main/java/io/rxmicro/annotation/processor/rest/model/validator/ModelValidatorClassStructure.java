@@ -186,18 +186,18 @@ public final class ModelValidatorClassStructure extends ClassStructure {
 
         public void add(final RestModelField restModelField,
                         final String typeSimpleClassName,
-                        final boolean validateList) {
+                        final boolean validateIterable) {
             final String instanceName =
                     getModelTransformerInstanceName(typeSimpleClassName, ConstraintValidator.class);
             modelFieldValidatorsMap.computeIfAbsent(restModelField, m -> new ArrayList<>())
-                    .add(new ModelValidator(instanceName, validateList));
+                    .add(new ModelValidator(instanceName, validateIterable));
         }
 
         public void add(final RestModelField restModelField,
                         final String constraintAnnotationSimpleName,
                         final String validatorClassOriginal,
                         final String constructorArgs,
-                        final boolean validateList) {
+                        final boolean validateIterable) {
             final boolean isStateless = (constructorArgs == null || constructorArgs.isEmpty()) &&
                     getPackageName(validatorClassOriginal).equals(STANDARD_VALIDATOR_PACKAGE);
             final String validatorClass = getValidatorClassName(validatorClassOriginal);
@@ -214,7 +214,7 @@ public final class ModelValidatorClassStructure extends ClassStructure {
                 modelValidatorCreators.add(new ModelValidatorCreator(validatorClass, instanceName, constructorArgs));
             }
             modelFieldValidatorsMap.computeIfAbsent(restModelField, m -> new ArrayList<>())
-                    .add(new ModelValidator(instanceName, validateList));
+                    .add(new ModelValidator(instanceName, validateIterable));
         }
 
         private String getValidatorClassName(final String validatorClass) {

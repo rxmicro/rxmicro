@@ -21,10 +21,15 @@ import io.rxmicro.rest.Header;
 import io.rxmicro.rest.RepeatHeader;
 
 import java.util.List;
+import java.util.Set;
 
 public final class Request extends Abstract {
 
     @Header
     @RepeatHeader
-    private List<Status> repeatingStatues;
+    private List<Status> repeatingStatuses;
+
+    @Header
+    @RepeatHeader
+    private Set<Status> repeatingStatusSet;
 }

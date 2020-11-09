@@ -46,24 +46,25 @@ public final class ${JAVA_MODEL_CLASS.modelReaderImplSimpleClassName} extends Mo
 <#-- -------------------------------------------------------------------------------------------------------- -->
 <#macro setHeaderFieldValue entry>
 <#assign header = entry.key >
-<#if entry.value.list>
+<#if entry.value.iterable>
     <#assign element = entry.value.elementModelClass>
-    <#if entry.value.primitiveList>
+    <#assign containerType = entry.value.containerType>
+    <#if entry.value.primitiveIterable>
         <#assign M = element.primitiveType.convertMethod >
         <#if header.modelWriteAccessorType.name() == "REFLECTION">
-        setFieldValue(model, "${header.fieldName}", ${M}Array(httpHeaders.getValues("${header.modelName}"), HttpModelType.${header.httpModelType.name()}, "${header.modelName}"));
+        setFieldValue(model, "${header.fieldName}", ${M}${containerType}(httpHeaders.getValues("${header.modelName}"), HttpModelType.${header.httpModelType.name()}, "${header.modelName}"));
         <#elseif header.modelWriteAccessorType.name() == "DIRECT">
-        model.${header.fieldName} = ${M}Array(httpHeaders.getValues("${header.modelName}"), HttpModelType.${header.httpModelType.name()}, "${header.modelName}");
+        model.${header.fieldName} = ${M}${containerType}(httpHeaders.getValues("${header.modelName}"), HttpModelType.${header.httpModelType.name()}, "${header.modelName}");
         <#elseif header.modelWriteAccessorType.name() == "JAVA_BEAN">
-        model.${header.setter}(${M}Array(httpHeaders.getValues("${header.modelName}"), HttpModelType.${header.httpModelType.name()}, "${header.modelName}"));
+        model.${header.setter}(${M}${containerType}(httpHeaders.getValues("${header.modelName}"), HttpModelType.${header.httpModelType.name()}, "${header.modelName}"));
         </#if>
-    <#elseif entry.value.enumList>
+    <#elseif entry.value.enumIterable>
         <#if header.modelWriteAccessorType.name() == "REFLECTION">
-        setFieldValue(model, "${header.fieldName}", toEnumArray(${element.javaSimpleClassName}.class, httpHeaders.getValues("${header.modelName}"), HttpModelType.${header.httpModelType.name()}, "${header.modelName}"));
+        setFieldValue(model, "${header.fieldName}", toEnum${containerType}(${element.javaSimpleClassName}.class, httpHeaders.getValues("${header.modelName}"), HttpModelType.${header.httpModelType.name()}, "${header.modelName}"));
         <#elseif header.modelWriteAccessorType.name() == "DIRECT">
-        model.${header.fieldName} = toEnumArray(${element.javaSimpleClassName}.class, httpHeaders.getValues("${header.modelName}"), HttpModelType.${header.httpModelType.name()}, "${header.modelName}");
+        model.${header.fieldName} = toEnum${containerType}(${element.javaSimpleClassName}.class, httpHeaders.getValues("${header.modelName}"), HttpModelType.${header.httpModelType.name()}, "${header.modelName}");
         <#elseif header.modelWriteAccessorType.name() == "JAVA_BEAN">
-        model.${header.setter}(toEnumArray(${element.javaSimpleClassName}.class, httpHeaders.getValues("${header.modelName}"), HttpModelType.${header.httpModelType.name()}, "${header.modelName}"));
+        model.${header.setter}(toEnum${containerType}(${element.javaSimpleClassName}.class, httpHeaders.getValues("${header.modelName}"), HttpModelType.${header.httpModelType.name()}, "${header.modelName}"));
         </#if>
     </#if>
 <#elseif entry.value.primitive>

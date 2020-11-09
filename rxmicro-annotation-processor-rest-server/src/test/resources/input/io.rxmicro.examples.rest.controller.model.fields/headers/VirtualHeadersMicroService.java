@@ -25,6 +25,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.Instant;
 import java.util.List;
+import java.util.Set;
 
 @SuppressWarnings("EmptyMethod")
 final class VirtualHeadersMicroService {
@@ -56,7 +57,20 @@ final class VirtualHeadersMicroService {
              final @Header List<Character> charParameters,
              final @Header List<String> stringParameters,
              final @Header List<Instant> instantParameters,
-             final @Header List<Status> statuses) {
+             final @Header List<Status> statuses,
+             final @Header Set<Boolean> booleanParameterSet,
+             final @Header Set<Byte> byteParameterSet,
+             final @Header Set<Short> shortParameterSet,
+             final @Header Set<Integer> intParameterSet,
+             final @Header Set<Long> longParameterSet,
+             final @Header Set<BigInteger> bigIntParameterSet,
+             final @Header Set<Float> floatParameterSet,
+             final @Header Set<Double> doubleParameterSet,
+             final @Header Set<BigDecimal> decimalParameterSet,
+             final @Header Set<Character> charParameterSet,
+             final @Header Set<String> stringParameterSet,
+             final @Header Set<Instant> instantParameterSet,
+             final @Header Set<Status> statusSet) {
         // do something
     }
 

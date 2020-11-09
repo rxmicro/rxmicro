@@ -60,36 +60,42 @@ public interface ConstraintValidator<T> {
     }
 
     /**
-     * Validates the value list.
+     * Validates all items from the iterable.
      *
      * <p>
-     * The state of the {@code list} must not be altered.
+     * The state of the {@code iterable} must not be altered.
      *
-     * @param list          the list to validate
+     * <p>
+     * If the {@code iterable} is {@code null} validator does not throw {@link ValidationException}.
+     *
+     * @param iterable          the iterable to validate
      * @param httpModelType the http model type
      * @param modelName     the parameter or header name
      * @throws ValidationException if value does not pass the constraint
      */
-    default void validateList(final List<T> list,
-                              final HttpModelType httpModelType,
-                              final String modelName) {
-        if (list != null) {
-            for (final T actual : list) {
+    default void validateIterable(final Iterable<T> iterable,
+                                  final HttpModelType httpModelType,
+                                  final String modelName) {
+        if (iterable != null) {
+            for (final T actual : iterable) {
                 validate(actual, httpModelType, modelName);
             }
         }
     }
 
     /**
-     * Validates the root model list.
+     * Validates all items from the iterable.
      *
      * <p>
      * The state of the {@code value} must not be altered.
      *
+     * <p>
+     * If the {@code iterable} is {@code null} validator does not throw {@link ValidationException}.
+     *
      * @param models the model list to validate
      * @throws ValidationException if value does not pass the constraint
      */
-    default void validateList(final List<T> models) {
-        validateList(models, null, null);
+    default void validateIterable(final Iterable<T> models) {
+        validateIterable(models, null, null);
     }
 }

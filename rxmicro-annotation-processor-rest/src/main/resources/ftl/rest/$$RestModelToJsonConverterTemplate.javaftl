@@ -22,34 +22,34 @@ public final class ${JAVA_MODEL_CLASS.modelToJsonConverterImplSimpleClassName} e
     <#if entry.value.object>
         <#assign element = entry.value>
         <#if entry.key.modelReadAccessorType.name() == "REFLECTION">
-                .put("${entry.key.modelName}", convertIfNotNull(${element.toJsonConverterInstanceName}, (${element.javaSimpleClassName}) getFieldValue(model, "${entry.key.fieldName}")))
+                .put("${entry.key.modelName}", convertToJsonObjectIfNotNull(${element.toJsonConverterInstanceName}, (${element.javaSimpleClassName}) getFieldValue(model, "${entry.key.fieldName}")))
         <#elseif entry.key.modelReadAccessorType.name() == "DIRECT">
-                .put("${entry.key.modelName}", convertIfNotNull(${element.toJsonConverterInstanceName}, model.${entry.key.fieldName}))
+                .put("${entry.key.modelName}", convertToJsonObjectIfNotNull(${element.toJsonConverterInstanceName}, model.${entry.key.fieldName}))
         <#elseif entry.key.modelReadAccessorType.name() == "JAVA_BEAN">
-                .put("${entry.key.modelName}", convertIfNotNull(${element.toJsonConverterInstanceName}, model.${entry.key.getter}()))
+                .put("${entry.key.modelName}", convertToJsonObjectIfNotNull(${element.toJsonConverterInstanceName}, model.${entry.key.getter}()))
         </#if>
-    <#elseif entry.value.list>
-        <#if entry.value.primitiveList || entry.value.enumList>
+    <#elseif entry.value.iterable>
+        <#if entry.value.primitiveIterable || entry.value.enumIterable>
             <#if entry.key.modelReadAccessorType.name() == "REFLECTION">
-                .put("${entry.key.modelName}", getFieldValue(model, "${entry.key.fieldName}"))
+                .put("${entry.key.modelName}", (${entry.key.fieldSimpleType}) getFieldValue(model, "${entry.key.fieldName}"))
             <#elseif entry.key.modelReadAccessorType.name() == "DIRECT">
                 .put("${entry.key.modelName}", model.${entry.key.fieldName})
             <#elseif entry.key.modelReadAccessorType.name() == "JAVA_BEAN">
                 .put("${entry.key.modelName}", model.${entry.key.getter}())
             </#if>
-        <#elseif entry.value.objectList>
+        <#elseif entry.value.objectIterable>
             <#assign element = entry.value.elementModelClass>
             <#if entry.key.modelReadAccessorType.name() == "REFLECTION">
-                .put("${entry.key.modelName}", convertIfNotNull(${element.toJsonConverterInstanceName}, (List<${element.javaSimpleClassName}>) getFieldValue(model, "${entry.key.fieldName}")))
+                .put("${entry.key.modelName}", convertToJsonArrayIfNotNull(${element.toJsonConverterInstanceName}, (List<${element.javaSimpleClassName}>) getFieldValue(model, "${entry.key.fieldName}")))
             <#elseif entry.key.modelReadAccessorType.name() == "DIRECT">
-                .put("${entry.key.modelName}", convertIfNotNull(${element.toJsonConverterInstanceName}, model.${entry.key.fieldName}))
+                .put("${entry.key.modelName}", convertToJsonArrayIfNotNull(${element.toJsonConverterInstanceName}, model.${entry.key.fieldName}))
             <#elseif entry.key.modelReadAccessorType.name() == "JAVA_BEAN">
-                .put("${entry.key.modelName}", convertIfNotNull(${element.toJsonConverterInstanceName}, model.${entry.key.getter}()))
+                .put("${entry.key.modelName}", convertToJsonArrayIfNotNull(${element.toJsonConverterInstanceName}, model.${entry.key.getter}()))
             </#if>
         </#if>
     <#else>
         <#if entry.key.modelReadAccessorType.name() == "REFLECTION">
-                .put("${entry.key.modelName}", getFieldValue(model, "${entry.key.fieldName}"))
+                .put("${entry.key.modelName}", (${entry.key.fieldSimpleType}) getFieldValue(model, "${entry.key.fieldName}"))
         <#elseif entry.key.modelReadAccessorType.name() == "DIRECT">
                 .put("${entry.key.modelName}", model.${entry.key.fieldName})
         <#elseif entry.key.modelReadAccessorType.name() == "JAVA_BEAN">

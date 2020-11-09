@@ -19,10 +19,10 @@ public final class $$NotStringModelModelReader extends ModelReader<NotStringMode
         final QueryParams params = extractParams(request.getQueryString());
         model.requiredPrimitive = toInteger(params.getValue("requiredPrimitive"), HttpModelType.PARAMETER, "requiredPrimitive");
         model.nullablePrimitive = toInteger(params.getValue("nullablePrimitive"), HttpModelType.PARAMETER, "nullablePrimitive");
-        model.requiredListWithRequiredItems = toIntegerArray(params.getValues("requiredListWithRequiredItems"), HttpModelType.PARAMETER, "requiredListWithRequiredItems");
-        model.requiredListWithNullableItems = toIntegerArray(params.getValues("requiredListWithNullableItems"), HttpModelType.PARAMETER, "requiredListWithNullableItems");
-        model.nullableListWithRequiredItems = toIntegerArray(params.getValues("nullableListWithRequiredItems"), HttpModelType.PARAMETER, "nullableListWithRequiredItems");
-        model.nullableListWithNullableItems = toIntegerArray(params.getValues("nullableListWithNullableItems"), HttpModelType.PARAMETER, "nullableListWithNullableItems");
+        model.requiredListWithRequiredItems = toIntegerList(params.getValues("requiredListWithRequiredItems"), HttpModelType.PARAMETER, "requiredListWithRequiredItems");
+        model.requiredListWithNullableItems = toIntegerList(params.getValues("requiredListWithNullableItems"), HttpModelType.PARAMETER, "requiredListWithNullableItems");
+        model.nullableListWithRequiredItems = toIntegerList(params.getValues("nullableListWithRequiredItems"), HttpModelType.PARAMETER, "nullableListWithRequiredItems");
+        model.nullableListWithNullableItems = toIntegerList(params.getValues("nullableListWithNullableItems"), HttpModelType.PARAMETER, "nullableListWithNullableItems");
         return model;
     }
 }

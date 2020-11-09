@@ -42,8 +42,24 @@ public final class $$ResponseModelWriter extends ModelWriter<Response> {
         response.setHeader("stringParameters", model.getStringParameters());
         response.setHeader("instantParameters", model.getInstantParameters());
         response.setHeader("statuses", model.getStatuses());
-        for (final Status item : model.getRepeatingStatues()) {
-            response.addHeader("repeatingStatues", item);
+        response.setHeader("booleanParameterSet", model.getBooleanParameterSet());
+        response.setHeader("byteParameterSet", model.getByteParameterSet());
+        response.setHeader("shortParameterSet", model.getShortParameterSet());
+        response.setHeader("intParameterSet", model.getIntParameterSet());
+        response.setHeader("longParameterSet", model.getLongParameterSet());
+        response.setHeader("bigIntParameterSet", model.getBigIntParameterSet());
+        response.setHeader("floatParameterSet", model.getFloatParameterSet());
+        response.setHeader("doubleParameterSet", model.getDoubleParameterSet());
+        response.setHeader("decimalParameterSet", model.getDecimalParameterSet());
+        response.setHeader("charParameterSet", model.getCharParameterSet());
+        response.setHeader("stringParameterSet", model.getStringParameterSet());
+        response.setHeader("instantParameterSet", model.getInstantParameterSet());
+        response.setHeader("statusSet", model.getStatusSet());
+        for (final Status item : model.getRepeatingStatuses()) {
+            response.addHeader("repeatingStatuses", item);
+        }
+        for (final Status item : model.getRepeatingStatusSet()) {
+            response.addHeader("repeatingStatusSet", item);
         }
     }
 }

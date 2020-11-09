@@ -18,7 +18,7 @@ public final class $$VirtualListHeaderRequestModelReader extends ModelReader<$$V
                                            final boolean readParametersFromBody) {
         final $$VirtualListHeaderRequest model = new $$VirtualListHeaderRequest();
         final HttpHeaders httpHeaders = request.getHeaders();
-        model.supportedStatuses = toEnumArray(Status.class, httpHeaders.getValues("Supported-Statuses"), HttpModelType.HEADER, "Supported-Statuses");
+        model.supportedStatuses = toEnumList(Status.class, httpHeaders.getValues("Supported-Statuses"), HttpModelType.HEADER, "Supported-Statuses");
         return model;
     }
 }

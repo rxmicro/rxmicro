@@ -20,9 +20,13 @@ import io.rxmicro.examples.rest.client.model.fields.Status;
 import io.rxmicro.rest.RepeatQueryParameter;
 
 import java.util.List;
+import java.util.Set;
 
 public final class QueryRequest extends Abstract {
 
     @RepeatQueryParameter
-    List<Status> repeatingStatues;
+    List<Status> repeatingStatuses;
+
+    @RepeatQueryParameter
+    Set<Status> repeatingStatusSet;
 }

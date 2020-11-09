@@ -27,7 +27,7 @@ import io.rxmicro.annotation.processor.common.model.definition.SupportedTypesPro
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
 import io.rxmicro.annotation.processor.common.model.type.EnumModelClass;
 import io.rxmicro.annotation.processor.common.model.type.InternalModelClass;
-import io.rxmicro.annotation.processor.common.model.type.ListModelClass;
+import io.rxmicro.annotation.processor.common.model.type.IterableModelClass;
 import io.rxmicro.annotation.processor.common.model.type.ModelClass;
 import io.rxmicro.annotation.processor.common.model.type.ObjectModelClass;
 import io.rxmicro.annotation.processor.common.model.type.PrimitiveModelClass;
@@ -241,16 +241,16 @@ public abstract class AbstractModelFieldBuilder<MF extends ModelField, MC extend
         final TypeMirror itemType = type.getTypeArguments().get(0);
         if (getSupportedTypesProvider().isModelPrimitive(itemType)) {
             return asEnumElement(itemType)
-                    .map(e -> new ListModelClass(new EnumModelClass(itemType)))
-                    .orElseGet(() -> new ListModelClass(createPrimitiveModelClass(itemType)));
+                    .map(e -> new IterableModelClass(new EnumModelClass(itemType), type))
+                    .orElseGet(() -> new IterableModelClass(createPrimitiveModelClass(itemType), type));
         } else {
             final ModelClass elementModelClass = extract(
                     currentModule, modelFieldType, owner, itemType, nestedLevel + 1, options
             );
-            if (elementModelClass.isList()) {
+            if (elementModelClass.isIterable()) {
                 throw new InterruptProcessingException(owner, "Multi array does not supported yet");
             }
-            return new ListModelClass(elementModelClass);
+            return new IterableModelClass(elementModelClass, type);
         }
     }
 

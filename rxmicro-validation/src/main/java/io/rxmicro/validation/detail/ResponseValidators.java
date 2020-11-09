@@ -43,7 +43,7 @@ public final class ResponseValidators {
     public static <T> void validateResponse(final ConstraintValidator<T> validator,
                                             final List<T> response) {
         try {
-            validator.validateList(response);
+            validator.validateIterable(response);
         } catch (final ValidationException ex) {
             throw new UnexpectedResponseException("Response is invalid: ?", ex.getMessage());
         }

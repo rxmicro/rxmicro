@@ -68,15 +68,15 @@ public final class ${JAVA_MODEL_CLASS.entityToDBConverterImplSimpleClassName} ex
 <#if entry.value.object>
 <#assign element = entry.value>
 <#if param.modelReadAccessorType.name() == "REFLECTION">
-        document.append("${param.modelName}", convertIfNotNull(${element.toDBConverterInstanceName}, (${element.javaSimpleClassName}) getFieldValue(model, "${param.fieldName}")));
+        document.append("${param.modelName}", convertToObjectIfNotNull(${element.toDBConverterInstanceName}, (${element.javaSimpleClassName}) getFieldValue(model, "${param.fieldName}")));
 <#elseif param.modelReadAccessorType.name() == "DIRECT">
-        document.append("${param.modelName}", convertIfNotNull(${element.toDBConverterInstanceName}, model.${param.fieldName}));
+        document.append("${param.modelName}", convertToObjectIfNotNull(${element.toDBConverterInstanceName}, model.${param.fieldName}));
 <#elseif param.modelReadAccessorType.name() == "JAVA_BEAN">
-        document.append("${param.modelName}", convertIfNotNull(${element.toDBConverterInstanceName}, model.${param.getter}()));
+        document.append("${param.modelName}", convertToObjectIfNotNull(${element.toDBConverterInstanceName}, model.${param.getter}()));
 </#if>
-<#elseif entry.value.list>
+<#elseif entry.value.iterable>
 <#assign element = entry.value.elementModelClass>
-<#if entry.value.primitiveList || entry.value.enumList>
+<#if entry.value.primitiveIterable || entry.value.enumIterable>
 <#if param.modelReadAccessorType.name() == "REFLECTION">
         document.append("${param.modelName}", getFieldValue(model, "${param.fieldName}"));
 <#elseif param.modelReadAccessorType.name() == "DIRECT">
@@ -84,13 +84,13 @@ public final class ${JAVA_MODEL_CLASS.entityToDBConverterImplSimpleClassName} ex
 <#elseif param.modelReadAccessorType.name() == "JAVA_BEAN">
         document.append("${param.modelName}", model.${param.getter}());
 </#if>
-<#elseif entry.value.objectList>
+<#elseif entry.value.objectIterable>
 <#if param.modelReadAccessorType.name() == "REFLECTION">
-        document.append("${param.modelName}", convertIfNotNull(${element.toDBConverterInstanceName}, (List<${element.javaSimpleClassName}>) getFieldValue(model, "${param.fieldName}")));
+        document.append("${param.modelName}", convertToListIfNotNull(${element.toDBConverterInstanceName}, (List<${element.javaSimpleClassName}>) getFieldValue(model, "${param.fieldName}")));
 <#elseif param.modelReadAccessorType.name() == "DIRECT">
-        document.append("${param.modelName}", convertIfNotNull(${element.toDBConverterInstanceName}, model.${param.fieldName}));
+        document.append("${param.modelName}", convertToListIfNotNull(${element.toDBConverterInstanceName}, model.${param.fieldName}));
 <#elseif param.modelReadAccessorType.name() == "JAVA_BEAN">
-        document.append("${param.modelName}", convertIfNotNull(${element.toDBConverterInstanceName}, model.${param.getter}()));
+        document.append("${param.modelName}", convertToListIfNotNull(${element.toDBConverterInstanceName}, model.${param.getter}()));
 </#if>
 </#if>
 <#elseif entry.value.primitive || entry.value.enum>

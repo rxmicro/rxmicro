@@ -98,7 +98,7 @@ final class ModelFromJsonConverterTest {
             "RED,GREEN;         RED,GREEN",
             "RED,GREEN,BLUE;    RED,GREEN,BLUE"
     })
-    void toEnumArray_should_convert_value_successfully(final String value,
+    void toEnumList_should_convert_value_successfully(final String value,
                                                        final String expected) {
         final Object params = getParams(value);
         final List<Color> expectedList = expected == null ?
@@ -106,7 +106,7 @@ final class ModelFromJsonConverterTest {
                 Arrays.stream(expected.split(",")).map(Color::valueOf).collect(Collectors.toList());
 
         final List<Color> actualList =
-                assertDoesNotThrow(() -> converter.toEnumArray(Color.class, params, "value"));
+                assertDoesNotThrow(() -> converter.toEnumList(Color.class, params, "value"));
         assertEquals(expectedList, actualList);
     }
 
@@ -124,12 +124,12 @@ final class ModelFromJsonConverterTest {
             "true,[],{};    Expected an array of strings, but actual is '[true,[],{}]' (array of booleans, arrays, objects)!",
             "true,null;     Expected an array of strings, but actual is '[true,null]' (array of booleans, nulls)!"
     })
-    void toEnumArray_should_throw_ValidationException(final String value,
+    void toEnumList_should_throw_ValidationException(final String value,
                                                       final String expectedError) {
         final Object params = getParams(value);
 
         final ValidationException exception =
-                assertThrows(ValidationException.class, () -> converter.toEnumArray(Color.class, params, "value"));
+                assertThrows(ValidationException.class, () -> converter.toEnumList(Color.class, params, "value"));
         assertEquals("Invalid parameter \"value\": " + expectedError, exception.getMessage());
     }
 
@@ -182,7 +182,7 @@ final class ModelFromJsonConverterTest {
             "true,true;         true,true",
             "true,false,true;   true,false,true"
     })
-    void toBooleanArray_should_convert_value_successfully(final String value,
+    void toBooleanList_should_convert_value_successfully(final String value,
                                                           final String expected) {
         final Object params = getParams(value);
         final List<Boolean> expectedList = expected == null ?
@@ -190,7 +190,7 @@ final class ModelFromJsonConverterTest {
                 Arrays.stream(expected.split(",")).map(Boolean::valueOf).collect(Collectors.toList());
 
         final List<Boolean> actualList =
-                assertDoesNotThrow(() -> converter.toBooleanArray(params, "value"));
+                assertDoesNotThrow(() -> converter.toBooleanList(params, "value"));
         assertEquals(expectedList, actualList);
     }
 
@@ -208,12 +208,12 @@ final class ModelFromJsonConverterTest {
             "true,[],{};    Expected an array of booleans, but actual is '[true,[],{}]' (array of booleans, arrays, objects)!",
             "12.34,null;    Expected an array of booleans, but actual is '[12.34,null]' (array of numbers, nulls)!"
     })
-    void toBooleanArray_should_throw_ValidationException(final String value,
+    void toBooleanList_should_throw_ValidationException(final String value,
                                                          final String expectedError) {
         final Object params = getParams(value);
 
         final ValidationException exception =
-                assertThrows(ValidationException.class, () -> converter.toBooleanArray(params, "value"));
+                assertThrows(ValidationException.class, () -> converter.toBooleanList(params, "value"));
         assertEquals("Invalid parameter \"value\": " + expectedError, exception.getMessage());
     }
 
@@ -274,7 +274,7 @@ final class ModelFromJsonConverterTest {
             "125,22;        125,22",
             "22,33,44;      22,33,44"
     })
-    void toByteArray_should_convert_value_successfully(final String value,
+    void toByteList_should_convert_value_successfully(final String value,
                                                        final String expected) {
         final Object params = getParams(value);
         final List<Byte> expectedList = expected == null ?
@@ -282,7 +282,7 @@ final class ModelFromJsonConverterTest {
                 Arrays.stream(expected.split(",")).map(Byte::valueOf).collect(Collectors.toList());
 
         final List<Byte> actualList =
-                assertDoesNotThrow(() -> converter.toByteArray(params, "value"));
+                assertDoesNotThrow(() -> converter.toByteList(params, "value"));
         assertEquals(expectedList, actualList);
     }
 
@@ -299,12 +299,12 @@ final class ModelFromJsonConverterTest {
             "true,[],{};    Expected an array of numbers, but actual is '[true,[],{}]' (array of booleans, arrays, objects)!",
             "123,null,[];   Expected an array of numbers, but actual is '[123,null,[]]' (array of numbers, nulls, arrays)!"
     })
-    void toByteArray_should_throw_ValidationException(final String value,
+    void toByteList_should_throw_ValidationException(final String value,
                                                       final String expectedError) {
         final Object params = getParams(value);
 
         final ValidationException exception =
-                assertThrows(ValidationException.class, () -> converter.toByteArray(params, "value"));
+                assertThrows(ValidationException.class, () -> converter.toByteList(params, "value"));
         assertEquals("Invalid parameter \"value\": " + expectedError, exception.getMessage());
     }
 
@@ -364,7 +364,7 @@ final class ModelFromJsonConverterTest {
             "30123,256;         30123,256",
             "30123,256,8765;    30123,256,8765"
     })
-    void toShortArray_should_convert_value_successfully(final String value,
+    void toShortList_should_convert_value_successfully(final String value,
                                                         final String expected) {
         final Object params = getParams(value);
         final List<Short> expectedList = expected == null ?
@@ -372,7 +372,7 @@ final class ModelFromJsonConverterTest {
                 Arrays.stream(expected.split(",")).map(Short::valueOf).collect(Collectors.toList());
 
         final List<Short> actualList =
-                assertDoesNotThrow(() -> converter.toShortArray(params, "value"));
+                assertDoesNotThrow(() -> converter.toShortList(params, "value"));
         assertEquals(expectedList, actualList);
     }
 
@@ -389,12 +389,12 @@ final class ModelFromJsonConverterTest {
             "true,[],{};    Expected an array of numbers, but actual is '[true,[],{}]' (array of booleans, arrays, objects)!",
             "123,null,[];   Expected an array of numbers, but actual is '[123,null,[]]' (array of numbers, nulls, arrays)!"
     })
-    void toShortArray_should_throw_ValidationException(final String value,
+    void toShortList_should_throw_ValidationException(final String value,
                                                        final String expectedError) {
         final Object params = getParams(value);
 
         final ValidationException exception =
-                assertThrows(ValidationException.class, () -> converter.toShortArray(params, "value"));
+                assertThrows(ValidationException.class, () -> converter.toShortList(params, "value"));
         assertEquals("Invalid parameter \"value\": " + expectedError, exception.getMessage());
     }
 
@@ -454,7 +454,7 @@ final class ModelFromJsonConverterTest {
             "32767854,327678;           32767854,327678",
             "327678,327679,3276787;     327678,327679,3276787"
     })
-    void toIntegerArray_should_convert_value_successfully(final String value,
+    void toIntegerList_should_convert_value_successfully(final String value,
                                                           final String expected) {
         final Object params = getParams(value);
         final List<Integer> expectedList = expected == null ?
@@ -462,7 +462,7 @@ final class ModelFromJsonConverterTest {
                 Arrays.stream(expected.split(",")).map(Integer::valueOf).collect(Collectors.toList());
 
         final List<Integer> actualList =
-                assertDoesNotThrow(() -> converter.toIntegerArray(params, "value"));
+                assertDoesNotThrow(() -> converter.toIntegerList(params, "value"));
         assertEquals(expectedList, actualList);
     }
 
@@ -479,12 +479,12 @@ final class ModelFromJsonConverterTest {
             "true,[],{};    Expected an array of numbers, but actual is '[true,[],{}]' (array of booleans, arrays, objects)!",
             "123,null,[];   Expected an array of numbers, but actual is '[123,null,[]]' (array of numbers, nulls, arrays)!"
     })
-    void toIntegerArray_should_throw_ValidationException(final String value,
+    void toIntegerList_should_throw_ValidationException(final String value,
                                                          final String expectedError) {
         final Object params = getParams(value);
 
         final ValidationException exception =
-                assertThrows(ValidationException.class, () -> converter.toIntegerArray(params, "value"));
+                assertThrows(ValidationException.class, () -> converter.toIntegerList(params, "value"));
         assertEquals("Invalid parameter \"value\": " + expectedError, exception.getMessage());
     }
 
@@ -544,7 +544,7 @@ final class ModelFromJsonConverterTest {
             "2247483,22474836478902;            2247483,22474836478902",
             "2247483647,2247483647,2247483647;  2247483647,2247483647,2247483647"
     })
-    void toLongArray_should_convert_value_successfully(final String value,
+    void toLongList_should_convert_value_successfully(final String value,
                                                        final String expected) {
         final Object params = getParams(value);
         final List<Long> expectedList = expected == null ?
@@ -552,7 +552,7 @@ final class ModelFromJsonConverterTest {
                 Arrays.stream(expected.split(",")).map(Long::valueOf).collect(Collectors.toList());
 
         final List<Long> actualList =
-                assertDoesNotThrow(() -> converter.toLongArray(params, "value"));
+                assertDoesNotThrow(() -> converter.toLongList(params, "value"));
         assertEquals(expectedList, actualList);
     }
 
@@ -569,12 +569,12 @@ final class ModelFromJsonConverterTest {
             "true,[],{};    Expected an array of numbers, but actual is '[true,[],{}]' (array of booleans, arrays, objects)!",
             "123,null,[];   Expected an array of numbers, but actual is '[123,null,[]]' (array of numbers, nulls, arrays)!"
     })
-    void toLongArray_should_throw_ValidationException(final String value,
+    void toLongList_should_throw_ValidationException(final String value,
                                                       final String expectedError) {
         final Object params = getParams(value);
 
         final ValidationException exception =
-                assertThrows(ValidationException.class, () -> converter.toLongArray(params, "value"));
+                assertThrows(ValidationException.class, () -> converter.toLongList(params, "value"));
         assertEquals("Invalid parameter \"value\": " + expectedError, exception.getMessage());
     }
 
@@ -631,7 +631,7 @@ final class ModelFromJsonConverterTest {
             "999999999999999999999,3455;        999999999999999999999,3455",
             "2247483647,2247483647,2247483647;  2247483647,2247483647,2247483647"
     })
-    void toBigIntegerArray_should_convert_value_successfully(final String value,
+    void toBigIntegerList_should_convert_value_successfully(final String value,
                                                              final String expected) {
         final Object params = getParams(value);
         final List<BigInteger> expectedList = expected == null ?
@@ -639,7 +639,7 @@ final class ModelFromJsonConverterTest {
                 Arrays.stream(expected.split(",")).map(BigInteger::new).collect(Collectors.toList());
 
         final List<BigInteger> actualList =
-                assertDoesNotThrow(() -> converter.toBigIntegerArray(params, "value"));
+                assertDoesNotThrow(() -> converter.toBigIntegerList(params, "value"));
         assertEquals(expectedList, actualList);
     }
 
@@ -656,12 +656,12 @@ final class ModelFromJsonConverterTest {
             "true,[],{};    Expected an array of numbers, but actual is '[true,[],{}]' (array of booleans, arrays, objects)!",
             "123,null,[];   Expected an array of numbers, but actual is '[123,null,[]]' (array of numbers, nulls, arrays)!"
     })
-    void toBigIntegerArray_should_throw_ValidationException(final String value,
+    void toBigIntegerList_should_throw_ValidationException(final String value,
                                                             final String expectedError) {
         final Object params = getParams(value);
 
         final ValidationException exception =
-                assertThrows(ValidationException.class, () -> converter.toBigIntegerArray(params, "value"));
+                assertThrows(ValidationException.class, () -> converter.toBigIntegerList(params, "value"));
         assertEquals("Invalid parameter \"value\": " + expectedError, exception.getMessage());
     }
 
@@ -715,7 +715,7 @@ final class ModelFromJsonConverterTest {
             "3.1415,3.14;           3.1415,3.14",
             "3.14,3.1415,3.141592;  3.14,3.1415,3.141592"
     })
-    void toFloatArray_should_convert_value_successfully(final String value,
+    void toFloatList_should_convert_value_successfully(final String value,
                                                         final String expected) {
         final Object params = getParams(value);
         final List<Float> expectedList = expected == null ?
@@ -723,7 +723,7 @@ final class ModelFromJsonConverterTest {
                 Arrays.stream(expected.split(",")).map(Float::valueOf).collect(Collectors.toList());
 
         final List<Float> actualList =
-                assertDoesNotThrow(() -> converter.toFloatArray(params, "value"));
+                assertDoesNotThrow(() -> converter.toFloatList(params, "value"));
         assertEquals(expectedList, actualList);
     }
 
@@ -740,12 +740,12 @@ final class ModelFromJsonConverterTest {
             "true,[],{};    Expected an array of numbers, but actual is '[true,[],{}]' (array of booleans, arrays, objects)!",
             "123,null,[];   Expected an array of numbers, but actual is '[123,null,[]]' (array of numbers, nulls, arrays)!"
     })
-    void toFloatArray_should_throw_ValidationException(final String value,
+    void toFloatList_should_throw_ValidationException(final String value,
                                                        final String expectedError) {
         final Object params = getParams(value);
 
         final ValidationException exception =
-                assertThrows(ValidationException.class, () -> converter.toFloatArray(params, "value"));
+                assertThrows(ValidationException.class, () -> converter.toFloatList(params, "value"));
         assertEquals("Invalid parameter \"value\": " + expectedError, exception.getMessage());
     }
 
@@ -804,7 +804,7 @@ final class ModelFromJsonConverterTest {
             "3.1415,3.14;           3.1415,3.14",
             "3.14,3.1415,3.141592;  3.14,3.1415,3.141592"
     })
-    void toDoubleArray_should_convert_value_successfully(final String value,
+    void toDoubleList_should_convert_value_successfully(final String value,
                                                          final String expected) {
         final Object params = getParams(value);
         final List<Double> expectedList = expected == null ?
@@ -812,7 +812,7 @@ final class ModelFromJsonConverterTest {
                 Arrays.stream(expected.split(",")).map(Double::valueOf).collect(Collectors.toList());
 
         final List<Double> actualList =
-                assertDoesNotThrow(() -> converter.toDoubleArray(params, "value"));
+                assertDoesNotThrow(() -> converter.toDoubleList(params, "value"));
         assertEquals(expectedList, actualList);
     }
 
@@ -829,12 +829,12 @@ final class ModelFromJsonConverterTest {
             "true,[],{};    Expected an array of numbers, but actual is '[true,[],{}]' (array of booleans, arrays, objects)!",
             "123,null,[];   Expected an array of numbers, but actual is '[123,null,[]]' (array of numbers, nulls, arrays)!"
     })
-    void toDoubleArray_should_throw_ValidationException(final String value,
+    void toDoubleList_should_throw_ValidationException(final String value,
                                                         final String expectedError) {
         final Object params = getParams(value);
 
         final ValidationException exception =
-                assertThrows(ValidationException.class, () -> converter.toDoubleArray(params, "value"));
+                assertThrows(ValidationException.class, () -> converter.toDoubleList(params, "value"));
         assertEquals("Invalid parameter \"value\": " + expectedError, exception.getMessage());
     }
 
@@ -891,7 +891,7 @@ final class ModelFromJsonConverterTest {
             "3.1415,3.14;           3.1415,3.14",
             "3.14,3.1415,3.141592;  3.14,3.1415,3.141592"
     })
-    void toBigDecimalArray_should_convert_value_successfully(final String value,
+    void toBigDecimalList_should_convert_value_successfully(final String value,
                                                              final String expected) {
         final Object params = getParams(value);
         final List<BigDecimal> expectedList = expected == null ?
@@ -899,7 +899,7 @@ final class ModelFromJsonConverterTest {
                 Arrays.stream(expected.split(",")).map(BigDecimal::new).collect(Collectors.toList());
 
         final List<BigDecimal> actualList =
-                assertDoesNotThrow(() -> converter.toBigDecimalArray(params, "value"));
+                assertDoesNotThrow(() -> converter.toBigDecimalList(params, "value"));
         assertEquals(expectedList, actualList);
     }
 
@@ -916,12 +916,12 @@ final class ModelFromJsonConverterTest {
             "true,[],{};    Expected an array of numbers, but actual is '[true,[],{}]' (array of booleans, arrays, objects)!",
             "123,null,[];   Expected an array of numbers, but actual is '[123,null,[]]' (array of numbers, nulls, arrays)!"
     })
-    void toBigDecimalArray_should_throw_ValidationException(final String value,
+    void toBigDecimalList_should_throw_ValidationException(final String value,
                                                             final String expectedError) {
         final Object params = getParams(value);
 
         final ValidationException exception =
-                assertThrows(ValidationException.class, () -> converter.toBigDecimalArray(params, "value"));
+                assertThrows(ValidationException.class, () -> converter.toBigDecimalList(params, "value"));
         assertEquals("Invalid parameter \"value\": " + expectedError, exception.getMessage());
     }
 
@@ -973,7 +973,7 @@ final class ModelFromJsonConverterTest {
             "2020-01-15T10:25:45Z,2020-01-15T10:25:45Z;                     2020-01-15T10:25:45Z,2020-01-15T10:25:45Z",
             "2020-01-15T10:25:45Z,2020-01-15T10:25:45Z,2020-01-15T10:25:45Z;2020-01-15T10:25:45Z,2020-01-15T10:25:45Z,2020-01-15T10:25:45Z"
     })
-    void toInstantArray_should_convert_value_successfully(final String value,
+    void toInstantList_should_convert_value_successfully(final String value,
                                                           final String expected) {
         final Object params = getParams(value);
         final List<Instant> expectedList = expected == null ?
@@ -981,7 +981,7 @@ final class ModelFromJsonConverterTest {
                 Arrays.stream(expected.split(",")).map(Instant::parse).collect(Collectors.toList());
 
         final List<Instant> actualList =
-                assertDoesNotThrow(() -> converter.toInstantArray(params, "value"));
+                assertDoesNotThrow(() -> converter.toInstantList(params, "value"));
         assertEquals(expectedList, actualList);
     }
 
@@ -997,12 +997,12 @@ final class ModelFromJsonConverterTest {
             "true,[],{};    Expected an array of strings, but actual is '[true,[],{}]' (array of booleans, arrays, objects)!",
             "123,null,[];   Expected an array of strings, but actual is '[123,null,[]]' (array of numbers, nulls, arrays)!"
     })
-    void toInstantArray_should_throw_ValidationException(final String value,
+    void toInstantList_should_throw_ValidationException(final String value,
                                                          final String expectedError) {
         final Object params = getParams(value);
 
         final ValidationException exception =
-                assertThrows(ValidationException.class, () -> converter.toInstantArray(params, "value"));
+                assertThrows(ValidationException.class, () -> converter.toInstantList(params, "value"));
         assertEquals("Invalid parameter \"value\": " + expectedError, exception.getMessage());
     }
 
@@ -1054,7 +1054,7 @@ final class ModelFromJsonConverterTest {
             "R,G;       R,G",
             "R,G,B;     R,G,B"
     })
-    void toCharacterArray_should_convert_value_successfully(final String value,
+    void toCharacterList_should_convert_value_successfully(final String value,
                                                             final String expected) {
         final Object params = getParams(value);
         final List<Character> expectedList = expected == null ?
@@ -1062,7 +1062,7 @@ final class ModelFromJsonConverterTest {
                 Arrays.stream(expected.split(",")).map(s -> s.charAt(0)).collect(Collectors.toList());
 
         final List<Character> actualList =
-                assertDoesNotThrow(() -> converter.toCharacterArray(params, "value"));
+                assertDoesNotThrow(() -> converter.toCharacterList(params, "value"));
         assertEquals(expectedList, actualList);
     }
 
@@ -1078,12 +1078,12 @@ final class ModelFromJsonConverterTest {
             "true,[],{};    Expected an array of characters, but actual is '[true,[],{}]' (array of booleans, arrays, objects)!",
             "123,null,[];   Expected an array of characters, but actual is '[123,null,[]]' (array of numbers, nulls, arrays)!"
     })
-    void toCharacterArray_should_throw_ValidationException(final String value,
+    void toCharacterList_should_throw_ValidationException(final String value,
                                                            final String expectedError) {
         final Object params = getParams(value);
 
         final ValidationException exception =
-                assertThrows(ValidationException.class, () -> converter.toCharacterArray(params, "value"));
+                assertThrows(ValidationException.class, () -> converter.toCharacterList(params, "value"));
         assertEquals("Invalid parameter \"value\": " + expectedError, exception.getMessage());
     }
 
@@ -1132,7 +1132,7 @@ final class ModelFromJsonConverterTest {
             "RED,GREEN;         RED,GREEN",
             "RED,GREEN,BLUE;    RED,GREEN,BLUE"
     })
-    void toStringArray_should_convert_value_successfully(final String value,
+    void toStringList_should_convert_value_successfully(final String value,
                                                          final String expected) {
         final Object params = getParams(value);
         final List<String> expectedList = expected == null ?
@@ -1140,7 +1140,7 @@ final class ModelFromJsonConverterTest {
                 Arrays.stream(expected.split(",")).collect(Collectors.toList());
 
         final List<String> actualList =
-                assertDoesNotThrow(() -> converter.toStringArray(params, "value"));
+                assertDoesNotThrow(() -> converter.toStringList(params, "value"));
         assertEquals(expectedList, actualList);
     }
 
@@ -1156,12 +1156,12 @@ final class ModelFromJsonConverterTest {
             "true,[],{};    Expected an array of strings, but actual is '[true,[],{}]' (array of booleans, arrays, objects)!",
             "123,null,[];   Expected an array of strings, but actual is '[123,null,[]]' (array of numbers, nulls, arrays)!"
     })
-    void toStringArray_should_throw_ValidationException(final String value,
+    void toStringList_should_throw_ValidationException(final String value,
                                                         final String expectedError) {
         final Object params = getParams(value);
 
         final ValidationException exception =
-                assertThrows(ValidationException.class, () -> converter.toStringArray(params, "value"));
+                assertThrows(ValidationException.class, () -> converter.toStringList(params, "value"));
         assertEquals("Invalid parameter \"value\": " + expectedError, exception.getMessage());
     }
 

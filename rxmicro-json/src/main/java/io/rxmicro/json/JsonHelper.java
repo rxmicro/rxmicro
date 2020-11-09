@@ -19,6 +19,8 @@ package io.rxmicro.json;
 import io.rxmicro.json.internal.reader.JsonReader;
 import io.rxmicro.json.internal.writer.JsonWriter;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -153,12 +155,34 @@ public final class JsonHelper {
     }
 
     /**
+     * Converts the java {@link Collection}{@code <Object>} instance to the string representation of json array.
+     *
+     * @param jsonArray     the java {@link Collection}{@code <Object>} instance with data. See type conversion for more information
+     * @param humanReadable the human readable or not output
+     * @return the string representation of json array
+     */
+    public static String toJsonString(final Collection<Object> jsonArray,
+                                      final boolean humanReadable) {
+        return JsonWriter.toJsonString(new ArrayList<>(jsonArray), humanReadable);
+    }
+
+    /**
      * Converts the java {@link List}{@code <Object>} instance to string representation of json array.
      *
      * @param jsonArray the java {@link List}{@code <Object>} instance with data. See type conversion for more information
      * @return the string representation of json array
      */
     public static String toJsonString(final List<Object> jsonArray) {
+        return toJsonString(jsonArray, DEFAULT_HUMAN_READABLE_OUTPUT);
+    }
+
+    /**
+     * Converts the java {@link Collection}{@code <Object>} instance to string representation of json array.
+     *
+     * @param jsonArray the java {@link Collection}{@code <Object>} instance with data. See type conversion for more information
+     * @return the string representation of json array
+     */
+    public static String toJsonString(final Collection<Object> jsonArray) {
         return toJsonString(jsonArray, DEFAULT_HUMAN_READABLE_OUTPUT);
     }
 
@@ -176,6 +200,8 @@ public final class JsonHelper {
             return toJsonString((Map<String, Object>) value, humanReadable);
         } else if (value instanceof List) {
             return toJsonString((List<Object>) value, humanReadable);
+        } else if (value instanceof Collection) {
+            return toJsonString((Collection<Object>) value, humanReadable);
         } else {
             return JsonWriter.toJsonString(value, humanReadable);
         }

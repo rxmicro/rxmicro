@@ -65,12 +65,12 @@ public abstract class ModelClass {
     }
 
     @UsedByFreemarker
-    public final boolean isList() {
-        return this instanceof ListModelClass;
+    public final boolean isIterable() {
+        return this instanceof IterableModelClass;
     }
 
-    public final ListModelClass asList() {
-        return (ListModelClass) this;
+    public final IterableModelClass asIterable() {
+        return (IterableModelClass) this;
     }
 
     @Override

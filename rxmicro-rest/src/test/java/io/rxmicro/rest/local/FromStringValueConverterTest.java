@@ -83,7 +83,7 @@ final class FromStringValueConverterTest {
             "RED|GREEN;         RED,GREEN",
             "RED|GREEN,BLUE;    RED,GREEN,BLUE"
     })
-    void toEnumArray_should_convert_value_successfully(final String list,
+    void toEnumList_should_convert_value_successfully(final String list,
                                                        final String expected) {
         final List<String> headers = list == null ?
                 null :
@@ -93,7 +93,7 @@ final class FromStringValueConverterTest {
                 Arrays.stream(expected.split(",")).map(Color::valueOf).collect(Collectors.toList());
 
         final List<Color> actualList =
-                assertDoesNotThrow(() -> converter.toEnumArray(Color.class, headers, PARAMETER, "value"));
+                assertDoesNotThrow(() -> converter.toEnumList(Color.class, headers, PARAMETER, "value"));
         assertEquals(expectedList, actualList);
     }
 
@@ -141,7 +141,7 @@ final class FromStringValueConverterTest {
             "false|false;       false,false",
             "true|false,true;   true,false,true"
     })
-    void toBooleanArray_should_convert_value_successfully(final String list,
+    void toBooleanList_should_convert_value_successfully(final String list,
                                                           final String expected) {
         final List<String> headers = list == null ?
                 null :
@@ -151,7 +151,7 @@ final class FromStringValueConverterTest {
                 Arrays.stream(expected.split(",")).map(Boolean::valueOf).collect(Collectors.toList());
 
         final List<Boolean> actualList =
-                assertDoesNotThrow(() -> converter.toBooleanArray(headers, PARAMETER, "value"));
+                assertDoesNotThrow(() -> converter.toBooleanList(headers, PARAMETER, "value"));
         assertEquals(expectedList, actualList);
     }
 
@@ -200,7 +200,7 @@ final class FromStringValueConverterTest {
             "125|22;        125,22",
             "22|33,44;      22,33,44"
     })
-    void toByteArray_should_convert_value_successfully(final String list,
+    void toByteList_should_convert_value_successfully(final String list,
                                                        final String expected) {
         final List<String> headers = list == null ?
                 null :
@@ -210,7 +210,7 @@ final class FromStringValueConverterTest {
                 Arrays.stream(expected.split(",")).map(Byte::valueOf).collect(Collectors.toList());
 
         final List<Byte> actualList =
-                assertDoesNotThrow(() -> converter.toByteArray(headers, PARAMETER, "value"));
+                assertDoesNotThrow(() -> converter.toByteList(headers, PARAMETER, "value"));
         assertEquals(expectedList, actualList);
     }
 
@@ -258,7 +258,7 @@ final class FromStringValueConverterTest {
             "30123|256;         30123,256",
             "30123|256,8765;    30123,256,8765"
     })
-    void toShortArray_should_convert_value_successfully(final String list,
+    void toShortList_should_convert_value_successfully(final String list,
                                                         final String expected) {
         final List<String> headers = list == null ?
                 null :
@@ -268,7 +268,7 @@ final class FromStringValueConverterTest {
                 Arrays.stream(expected.split(",")).map(Short::valueOf).collect(Collectors.toList());
 
         final List<Short> actualList =
-                assertDoesNotThrow(() -> converter.toShortArray(headers, PARAMETER, "value"));
+                assertDoesNotThrow(() -> converter.toShortList(headers, PARAMETER, "value"));
         assertEquals(expectedList, actualList);
     }
 
@@ -316,7 +316,7 @@ final class FromStringValueConverterTest {
             "32767854|327678;           32767854,327678",
             "327678|327679,3276787;     327678,327679,3276787"
     })
-    void toIntegerArray_should_convert_value_successfully(final String list,
+    void toIntegerList_should_convert_value_successfully(final String list,
                                                           final String expected) {
         final List<String> headers = list == null ?
                 null :
@@ -326,7 +326,7 @@ final class FromStringValueConverterTest {
                 Arrays.stream(expected.split(",")).map(Integer::valueOf).collect(Collectors.toList());
 
         final List<Integer> actualList =
-                assertDoesNotThrow(() -> converter.toIntegerArray(headers, PARAMETER, "value"));
+                assertDoesNotThrow(() -> converter.toIntegerList(headers, PARAMETER, "value"));
         assertEquals(expectedList, actualList);
     }
 
@@ -374,7 +374,7 @@ final class FromStringValueConverterTest {
             "224748364789|2247483;              224748364789,2247483",
             "2247483647|2247483647,2247483647;  2247483647,2247483647,2247483647"
     })
-    void toLongArray_should_convert_value_successfully(final String list,
+    void toLongList_should_convert_value_successfully(final String list,
                                                        final String expected) {
         final List<String> headers = list == null ?
                 null :
@@ -384,7 +384,7 @@ final class FromStringValueConverterTest {
                 Arrays.stream(expected.split(",")).map(Long::valueOf).collect(Collectors.toList());
 
         final List<Long> actualList =
-                assertDoesNotThrow(() -> converter.toLongArray(headers, PARAMETER, "value"));
+                assertDoesNotThrow(() -> converter.toLongList(headers, PARAMETER, "value"));
         assertEquals(expectedList, actualList);
     }
 
@@ -430,7 +430,7 @@ final class FromStringValueConverterTest {
             "9999999999999999999|99999999999999999999;                      9999999999999999999,99999999999999999999",
             "9999999999999999999|9999999999999999999,9999999999999999999;   9999999999999999999,9999999999999999999,9999999999999999999"
     })
-    void toBigIntegerArray_should_convert_value_successfully(final String list,
+    void toBigIntegerList_should_convert_value_successfully(final String list,
                                                              final String expected) {
         final List<String> headers = list == null ?
                 null :
@@ -440,7 +440,7 @@ final class FromStringValueConverterTest {
                 Arrays.stream(expected.split(",")).map(BigInteger::new).collect(Collectors.toList());
 
         final List<BigInteger> actualList =
-                assertDoesNotThrow(() -> converter.toBigIntegerArray(headers, PARAMETER, "value"));
+                assertDoesNotThrow(() -> converter.toBigIntegerList(headers, PARAMETER, "value"));
         assertEquals(expectedList, actualList);
     }
 
@@ -482,7 +482,7 @@ final class FromStringValueConverterTest {
             "3.1415|3.14;           3.1415,3.14",
             "3.14|3.1415,3.141592;  3.14,3.1415,3.141592"
     })
-    void toFloatArray_should_convert_value_successfully(final String list,
+    void toFloatList_should_convert_value_successfully(final String list,
                                                         final String expected) {
         final List<String> headers = list == null ?
                 null :
@@ -492,7 +492,7 @@ final class FromStringValueConverterTest {
                 Arrays.stream(expected.split(",")).map(Float::valueOf).collect(Collectors.toList());
 
         final List<Float> actualList =
-                assertDoesNotThrow(() -> converter.toFloatArray(headers, PARAMETER, "value"));
+                assertDoesNotThrow(() -> converter.toFloatList(headers, PARAMETER, "value"));
         assertEquals(expectedList, actualList);
     }
 
@@ -539,7 +539,7 @@ final class FromStringValueConverterTest {
             "3.1415|3.14;           3.1415,3.14",
             "3.14|3.1415,3.141592;  3.14,3.1415,3.141592"
     })
-    void toDoubleArray_should_convert_value_successfully(final String list,
+    void toDoubleList_should_convert_value_successfully(final String list,
                                                          final String expected) {
         final List<String> headers = list == null ?
                 null :
@@ -549,7 +549,7 @@ final class FromStringValueConverterTest {
                 Arrays.stream(expected.split(",")).map(Double::valueOf).collect(Collectors.toList());
 
         final List<Double> actualList =
-                assertDoesNotThrow(() -> converter.toDoubleArray(headers, PARAMETER, "value"));
+                assertDoesNotThrow(() -> converter.toDoubleList(headers, PARAMETER, "value"));
         assertEquals(expectedList, actualList);
     }
 
@@ -594,7 +594,7 @@ final class FromStringValueConverterTest {
             "3.14159265358979323846|3.1415926535897932384626;               3.14159265358979323846,3.1415926535897932384626",
             "3.14159265358979323|3.14159265358979323,3.14159265358979323;   3.14159265358979323,3.14159265358979323,3.14159265358979323"
     })
-    void toBigDecimalArray_should_convert_value_successfully(final String list,
+    void toBigDecimalList_should_convert_value_successfully(final String list,
                                                              final String expected) {
         final List<String> headers = list == null ?
                 null :
@@ -604,7 +604,7 @@ final class FromStringValueConverterTest {
                 Arrays.stream(expected.split(",")).map(BigDecimal::new).collect(Collectors.toList());
 
         final List<BigDecimal> actualList =
-                assertDoesNotThrow(() -> converter.toBigDecimalArray(headers, PARAMETER, "value"));
+                assertDoesNotThrow(() -> converter.toBigDecimalList(headers, PARAMETER, "value"));
         assertEquals(expectedList, actualList);
     }
 
@@ -643,7 +643,7 @@ final class FromStringValueConverterTest {
             "2020-01-15T10:25:45Z|2020-01-15T10:25:45Z;                     2020-01-15T10:25:45Z,2020-01-15T10:25:45Z",
             "2020-01-15T10:25:45Z|2020-01-15T10:25:45Z,2020-01-15T10:25:45Z;2020-01-15T10:25:45Z,2020-01-15T10:25:45Z,2020-01-15T10:25:45Z"
     })
-    void toInstantArray_should_convert_value_successfully(final String list,
+    void toInstantList_should_convert_value_successfully(final String list,
                                                           final String expected) {
         final List<String> headers = list == null ?
                 null :
@@ -653,7 +653,7 @@ final class FromStringValueConverterTest {
                 Arrays.stream(expected.split(",")).map(Instant::parse).collect(Collectors.toList());
 
         final List<Instant> actualList =
-                assertDoesNotThrow(() -> converter.toInstantArray(headers, PARAMETER, "value"));
+                assertDoesNotThrow(() -> converter.toInstantList(headers, PARAMETER, "value"));
         assertEquals(expectedList, actualList);
     }
 
@@ -692,7 +692,7 @@ final class FromStringValueConverterTest {
             "R|G;       R,G",
             "R|G,B;     R,G,B"
     })
-    void toCharacterArray_should_convert_value_successfully(final String list,
+    void toCharacterList_should_convert_value_successfully(final String list,
                                                             final String expected) {
         final List<String> headers = list == null ?
                 null :
@@ -702,7 +702,7 @@ final class FromStringValueConverterTest {
                 Arrays.stream(expected.split(",")).map(s -> s.charAt(0)).collect(Collectors.toList());
 
         final List<Character> actualList =
-                assertDoesNotThrow(() -> converter.toCharacterArray(headers, PARAMETER, "value"));
+                assertDoesNotThrow(() -> converter.toCharacterList(headers, PARAMETER, "value"));
         assertEquals(expectedList, actualList);
     }
 
@@ -729,7 +729,7 @@ final class FromStringValueConverterTest {
             "RED|GREEN;         RED,GREEN",
             "RED|GREEN,BLUE;    RED,GREEN,BLUE"
     })
-    void toStringArray_should_convert_value_successfully(final String list,
+    void toStringList_should_convert_value_successfully(final String list,
                                                          final String expected) {
         final List<String> headers = list == null ?
                 null :
@@ -739,7 +739,7 @@ final class FromStringValueConverterTest {
                 Arrays.stream(expected.split(",")).collect(Collectors.toList());
 
         final List<String> actualList =
-                assertDoesNotThrow(() -> converter.toStringArray(headers, PARAMETER, "value"));
+                assertDoesNotThrow(() -> converter.toStringList(headers, PARAMETER, "value"));
         assertEquals(expectedList, actualList);
     }
 

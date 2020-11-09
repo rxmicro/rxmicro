@@ -19,12 +19,15 @@ package io.rxmicro.examples.rest.controller.model.fields.params.gettersetter;
 import io.rxmicro.examples.rest.controller.model.fields.params.gettersetter.nested.Nested;
 
 import java.util.List;
+import java.util.Set;
 
 public final class BodyRequest extends Abstract {
 
     private Nested nested;
 
     private List<Nested> nestedList;
+
+    private Set<Nested> nestedSet;
 
     public Nested getNested() {
         return nested;
@@ -40,5 +43,13 @@ public final class BodyRequest extends Abstract {
 
     public void setNestedList(final List<Nested> nestedList) {
         this.nestedList = nestedList;
+    }
+
+    public Set<Nested> getNestedSet() {
+        return nestedSet;
+    }
+
+    public void setNestedSet(final Set<Nested> nestedSet) {
+        this.nestedSet = nestedSet;
     }
 }

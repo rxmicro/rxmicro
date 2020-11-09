@@ -19,7 +19,7 @@ package io.rxmicro.annotation.processor.documentation.component.impl;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import io.rxmicro.annotation.processor.common.model.error.InternalErrorException;
-import io.rxmicro.annotation.processor.common.model.type.ListModelClass;
+import io.rxmicro.annotation.processor.common.model.type.IterableModelClass;
 import io.rxmicro.annotation.processor.common.model.type.ModelClass;
 import io.rxmicro.annotation.processor.documentation.component.ExampleValueBuilder;
 import io.rxmicro.annotation.processor.documentation.component.JsonStructureExampleBuilder;
@@ -52,8 +52,8 @@ public final class JsonStructureExampleBuilderImpl implements JsonStructureExamp
         for (final Map.Entry<RestModelField, ModelClass> entry : restObjectModelClass.getParamEntries()) {
             if (entry.getValue().isObject()) {
                 jsonObjectBuilder.put(entry.getKey().getModelName(), buildJsonObject(entry.getValue().asObject()));
-            } else if (entry.getValue().isList()) {
-                jsonObjectBuilder.put(entry.getKey().getModelName(), buildJsonArray(entry.getKey(), entry.getValue().asList()));
+            } else if (entry.getValue().isIterable()) {
+                jsonObjectBuilder.put(entry.getKey().getModelName(), buildJsonArray(entry.getKey(), entry.getValue().asIterable()));
             } else {
                 jsonObjectBuilder.put(entry.getKey().getModelName(), exampleValueBuilder.getExample(entry.getKey()));
             }
@@ -62,15 +62,15 @@ public final class JsonStructureExampleBuilderImpl implements JsonStructureExamp
     }
 
     private List<Object> buildJsonArray(final RestModelField restModelField,
-                                        final ListModelClass listModelClass) {
-        if (listModelClass.isObjectList()) {
-            return List.of(buildJsonObject(listModelClass.getElementModelClass().asObject()));
-        } else if (listModelClass.isPrimitiveList() || listModelClass.isEnumList()) {
+                                        final IterableModelClass iterableModelClass) {
+        if (iterableModelClass.isObjectIterable()) {
+            return List.of(buildJsonObject(iterableModelClass.getElementModelClass().asObject()));
+        } else if (iterableModelClass.isPrimitiveIterable() || iterableModelClass.isEnumIterable()) {
             return exampleValueBuilder.getExamples(restModelField);
         } else {
             throw new InternalErrorException(
                     "Unsupported array item class type: ?",
-                    listModelClass.getElementModelClass().getClass()
+                    iterableModelClass.getElementModelClass().getClass()
             );
         }
     }

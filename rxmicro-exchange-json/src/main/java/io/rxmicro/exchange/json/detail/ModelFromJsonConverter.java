@@ -27,12 +27,14 @@ import java.time.Instant;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import static io.rxmicro.common.local.Examples.INSTANT_EXAMPLE;
+import static io.rxmicro.common.util.ExCollections.unmodifiableOrderedSet;
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.json.JsonHelper.toJsonString;
 import static io.rxmicro.json.JsonTypes.asJsonArray;
@@ -58,7 +60,7 @@ public abstract class ModelFromJsonConverter<T> extends AbstractValidatedConvert
         }
     }
 
-    public final List<T> fromJsonArray(final List<Object> list,
+    public final List<T> fromJsonArray(final Collection<Object> list,
                                        final String modelName) {
         try {
             return fromJsonArray(list);
@@ -67,10 +69,9 @@ public abstract class ModelFromJsonConverter<T> extends AbstractValidatedConvert
         }
     }
 
-    private List<T> fromJsonArray(final List<Object> list) {
+    private List<T> fromJsonArray(final Collection<Object> list) {
         final List<T> array = new ArrayList<>(list.size());
-        for (int i = 0; i < list.size(); i++) {
-            final Object item = list.get(i);
+        for (final Object item : list) {
             if (item != null) {
                 array.add(fromJsonObject((Map<String, Object>) item));
             } else {
@@ -96,15 +97,21 @@ public abstract class ModelFromJsonConverter<T> extends AbstractValidatedConvert
 
     // -------------------------------------------------------------------------------------------------------------------------------------
 
-    protected final <E> E convertIfNotNull(final ModelFromJsonConverter<E> converter,
-                                           final Map<String, Object> json) {
+    protected final <E> E convertToObjectIfNotNull(final ModelFromJsonConverter<E> converter,
+                                                   final Map<String, Object> json) {
         return json != null ? converter.fromJsonObject(json) : null;
     }
 
-    protected final <E> List<E> convertIfNotNull(final ModelFromJsonConverter<E> converter,
-                                                 final List<Object> list,
-                                                 final String modelName) {
+    protected final <E> List<E> convertToListIfNotNull(final ModelFromJsonConverter<E> converter,
+                                                       final Collection<Object> list,
+                                                       final String modelName) {
         return list != null ? converter.fromJsonArray(list, modelName) : null;
+    }
+
+    protected final <E> Set<E> convertToSetIfNotNull(final ModelFromJsonConverter<E> converter,
+                                                     final Collection<Object> list,
+                                                     final String modelName) {
+        return list != null ? unmodifiableOrderedSet(converter.fromJsonArray(list, modelName)) : null;
     }
 
     // -------------------------------------------------------------------------------------------------------------------------------------
@@ -128,9 +135,9 @@ public abstract class ModelFromJsonConverter<T> extends AbstractValidatedConvert
         }
     }
 
-    protected final <E extends Enum<E>> List<E> toEnumArray(final Class<E> enumClass,
-                                                            final Object list,
-                                                            final String modelName) {
+    protected final <E extends Enum<E>> List<E> toEnumList(final Class<E> enumClass,
+                                                           final Object list,
+                                                           final String modelName) {
         if (list != null) {
             if (list instanceof List<?>) {
                 try {
@@ -151,6 +158,12 @@ public abstract class ModelFromJsonConverter<T> extends AbstractValidatedConvert
         }
     }
 
+    protected final <E extends Enum<E>> Set<E> toEnumSet(final Class<E> enumClass,
+                                                         final Object list,
+                                                         final String modelName) {
+        return unmodifiableOrderedSet(toEnumList(enumClass, list, modelName));
+    }
+
     // -------------------------------------------------------------------------------------------------------------------------------------
 
     protected final Boolean toBoolean(final Object value,
@@ -169,8 +182,8 @@ public abstract class ModelFromJsonConverter<T> extends AbstractValidatedConvert
         }
     }
 
-    protected final List<Boolean> toBooleanArray(final Object list,
-                                                 final String modelName) {
+    protected final List<Boolean> toBooleanList(final Object list,
+                                                final String modelName) {
         if (list != null) {
             if (list instanceof List<?>) {
                 try {
@@ -193,6 +206,11 @@ public abstract class ModelFromJsonConverter<T> extends AbstractValidatedConvert
         }
     }
 
+    protected final Set<Boolean> toBooleanSet(final Object list,
+                                              final String modelName) {
+        return unmodifiableOrderedSet(toBooleanList(list, modelName));
+    }
+
     // -------------------------------------------------------------------------------------------------------------------------------------
 
     protected final Byte toByte(final Object value,
@@ -210,8 +228,8 @@ public abstract class ModelFromJsonConverter<T> extends AbstractValidatedConvert
         }
     }
 
-    protected final List<Byte> toByteArray(final Object list,
-                                           final String modelName) {
+    protected final List<Byte> toByteList(final Object list,
+                                          final String modelName) {
         if (list != null) {
             if (list instanceof List<?>) {
                 try {
@@ -232,6 +250,11 @@ public abstract class ModelFromJsonConverter<T> extends AbstractValidatedConvert
         }
     }
 
+    protected final Set<Byte> toByteSet(final Object list,
+                                        final String modelName) {
+        return unmodifiableOrderedSet(toByteList(list, modelName));
+    }
+
     // -------------------------------------------------------------------------------------------------------------------------------------
 
     protected final Short toShort(final Object value,
@@ -249,8 +272,8 @@ public abstract class ModelFromJsonConverter<T> extends AbstractValidatedConvert
         }
     }
 
-    protected final List<Short> toShortArray(final Object list,
-                                             final String modelName) {
+    protected final List<Short> toShortList(final Object list,
+                                            final String modelName) {
         if (list != null) {
             if (list instanceof List<?>) {
                 try {
@@ -271,6 +294,11 @@ public abstract class ModelFromJsonConverter<T> extends AbstractValidatedConvert
         }
     }
 
+    protected final Set<Short> toShortSet(final Object list,
+                                          final String modelName) {
+        return unmodifiableOrderedSet(toShortList(list, modelName));
+    }
+
     // -------------------------------------------------------------------------------------------------------------------------------------
 
     protected final Integer toInteger(final Object val,
@@ -288,8 +316,8 @@ public abstract class ModelFromJsonConverter<T> extends AbstractValidatedConvert
         }
     }
 
-    protected final List<Integer> toIntegerArray(final Object list,
-                                                 final String modelName) {
+    protected final List<Integer> toIntegerList(final Object list,
+                                                final String modelName) {
         if (list != null) {
             if (list instanceof List<?>) {
                 try {
@@ -310,6 +338,11 @@ public abstract class ModelFromJsonConverter<T> extends AbstractValidatedConvert
         }
     }
 
+    protected final Set<Integer> toIntegerSet(final Object list,
+                                              final String modelName) {
+        return unmodifiableOrderedSet(toIntegerList(list, modelName));
+    }
+
     // -------------------------------------------------------------------------------------------------------------------------------------
 
     protected final Long toLong(final Object value,
@@ -327,8 +360,8 @@ public abstract class ModelFromJsonConverter<T> extends AbstractValidatedConvert
         }
     }
 
-    protected final List<Long> toLongArray(final Object list,
-                                           final String modelName) {
+    protected final List<Long> toLongList(final Object list,
+                                          final String modelName) {
         if (list != null) {
             if (list instanceof List<?>) {
                 try {
@@ -347,6 +380,11 @@ public abstract class ModelFromJsonConverter<T> extends AbstractValidatedConvert
         } else {
             return List.of();
         }
+    }
+
+    protected final Set<Long> toLongSet(final Object list,
+                                        final String modelName) {
+        return unmodifiableOrderedSet(toLongList(list, modelName));
     }
 
     // -------------------------------------------------------------------------------------------------------------------------------------
@@ -369,8 +407,8 @@ public abstract class ModelFromJsonConverter<T> extends AbstractValidatedConvert
         }
     }
 
-    protected final List<BigInteger> toBigIntegerArray(final Object list,
-                                                       final String modelName) {
+    protected final List<BigInteger> toBigIntegerList(final Object list,
+                                                      final String modelName) {
         if (list != null) {
             if (list instanceof List<?>) {
                 try {
@@ -391,6 +429,11 @@ public abstract class ModelFromJsonConverter<T> extends AbstractValidatedConvert
         }
     }
 
+    protected final Set<BigInteger> toBigIntegerSet(final Object list,
+                                                    final String modelName) {
+        return unmodifiableOrderedSet(toBigIntegerList(list, modelName));
+    }
+
     // -------------------------------------------------------------------------------------------------------------------------------------
 
     protected final Float toFloat(final Object value,
@@ -406,8 +449,8 @@ public abstract class ModelFromJsonConverter<T> extends AbstractValidatedConvert
         }
     }
 
-    protected final List<Float> toFloatArray(final Object list,
-                                             final String modelName) {
+    protected final List<Float> toFloatList(final Object list,
+                                            final String modelName) {
         if (list != null) {
             if (list instanceof List<?>) {
                 try {
@@ -428,6 +471,11 @@ public abstract class ModelFromJsonConverter<T> extends AbstractValidatedConvert
         }
     }
 
+    protected final Set<Float> toFloatSet(final Object list,
+                                          final String modelName) {
+        return unmodifiableOrderedSet(toFloatList(list, modelName));
+    }
+
     // -------------------------------------------------------------------------------------------------------------------------------------
 
     protected final Double toDouble(final Object value,
@@ -443,8 +491,8 @@ public abstract class ModelFromJsonConverter<T> extends AbstractValidatedConvert
         }
     }
 
-    protected final List<Double> toDoubleArray(final Object list,
-                                               final String modelName) {
+    protected final List<Double> toDoubleList(final Object list,
+                                              final String modelName) {
         if (list != null) {
             if (list instanceof List<?>) {
                 try {
@@ -465,6 +513,11 @@ public abstract class ModelFromJsonConverter<T> extends AbstractValidatedConvert
         }
     }
 
+    protected final Set<Double> toDoubleSet(final Object list,
+                                            final String modelName) {
+        return unmodifiableOrderedSet(toDoubleList(list, modelName));
+    }
+
     // -------------------------------------------------------------------------------------------------------------------------------------
 
     protected final BigDecimal toBigDecimal(final Object value,
@@ -480,8 +533,8 @@ public abstract class ModelFromJsonConverter<T> extends AbstractValidatedConvert
         }
     }
 
-    protected final List<BigDecimal> toBigDecimalArray(final Object list,
-                                                       final String modelName) {
+    protected final List<BigDecimal> toBigDecimalList(final Object list,
+                                                      final String modelName) {
         if (list != null) {
             if (list instanceof List<?>) {
                 try {
@@ -500,6 +553,11 @@ public abstract class ModelFromJsonConverter<T> extends AbstractValidatedConvert
         } else {
             return List.of();
         }
+    }
+
+    protected final Set<BigDecimal> toBigDecimalSet(final Object list,
+                                                    final String modelName) {
+        return unmodifiableOrderedSet(toBigDecimalList(list, modelName));
     }
 
     // -------------------------------------------------------------------------------------------------------------------------------------
@@ -523,8 +581,8 @@ public abstract class ModelFromJsonConverter<T> extends AbstractValidatedConvert
         }
     }
 
-    protected final List<Instant> toInstantArray(final Object list,
-                                                 final String modelName) {
+    protected final List<Instant> toInstantList(final Object list,
+                                                final String modelName) {
         if (list != null) {
             if (list instanceof List<?>) {
                 try {
@@ -542,6 +600,11 @@ public abstract class ModelFromJsonConverter<T> extends AbstractValidatedConvert
         } else {
             return List.of();
         }
+    }
+
+    protected final Set<Instant> toInstantSet(final Object list,
+                                              final String modelName) {
+        return unmodifiableOrderedSet(toInstantList(list, modelName));
     }
 
     // -------------------------------------------------------------------------------------------------------------------------------------
@@ -566,8 +629,8 @@ public abstract class ModelFromJsonConverter<T> extends AbstractValidatedConvert
         }
     }
 
-    protected final List<Character> toCharacterArray(final Object list,
-                                                     final String modelName) {
+    protected final List<Character> toCharacterList(final Object list,
+                                                    final String modelName) {
         if (list != null) {
             if (list instanceof List<?>) {
                 try {
@@ -591,6 +654,11 @@ public abstract class ModelFromJsonConverter<T> extends AbstractValidatedConvert
         }
     }
 
+    protected final Set<Character> toCharacterSet(final Object list,
+                                                  final String modelName) {
+        return unmodifiableOrderedSet(toCharacterList(list, modelName));
+    }
+
     // -------------------------------------------------------------------------------------------------------------------------------------
 
     protected final String toString(final Object value,
@@ -606,8 +674,8 @@ public abstract class ModelFromJsonConverter<T> extends AbstractValidatedConvert
         }
     }
 
-    protected final List<String> toStringArray(final Object list,
-                                               final String modelName) {
+    protected final List<String> toStringList(final Object list,
+                                              final String modelName) {
         if (list != null) {
             if (list instanceof List<?>) {
                 try {
@@ -625,6 +693,11 @@ public abstract class ModelFromJsonConverter<T> extends AbstractValidatedConvert
         } else {
             return List.of();
         }
+    }
+
+    protected final Set<String> toStringSet(final Object list,
+                                            final String modelName) {
+        return unmodifiableOrderedSet(toStringList(list, modelName));
     }
 
     // -------------------------------------------------------------------------------------------------------------------------------------

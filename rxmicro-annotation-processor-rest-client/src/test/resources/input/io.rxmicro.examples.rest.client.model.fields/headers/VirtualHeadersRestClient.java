@@ -27,6 +27,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.Instant;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.CompletionStage;
 
 @RestClient
@@ -60,5 +61,19 @@ public interface VirtualHeadersRestClient {
                               final @Header List<String> stringParameters,
                               final @Header List<Instant> instantParameters,
                               final @Header List<Status> statuses,
-                              final @Header @RepeatHeader List<Status> repeatingStatues);
+                              final @Header @RepeatHeader List<Status> repeatingStatuses,
+                              final @Header Set<Boolean> booleanParameterSet,
+                              final @Header Set<Byte> byteParameterSet,
+                              final @Header Set<Short> shortParameterSet,
+                              final @Header Set<Integer> intParameterSet,
+                              final @Header Set<Long> longParameterSet,
+                              final @Header Set<BigInteger> bigIntParameterSet,
+                              final @Header Set<Float> floatParameterSet,
+                              final @Header Set<Double> doubleParameterSet,
+                              final @Header Set<BigDecimal> decimalParameterSet,
+                              final @Header Set<Character> charParameterSet,
+                              final @Header Set<String> stringParameterSet,
+                              final @Header Set<Instant> instantParameterSet,
+                              final @Header Set<Status> statusSet,
+                              final @Header @RepeatHeader Set<Status> repeatingStatusSet);
 }

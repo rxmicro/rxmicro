@@ -28,12 +28,12 @@ public final class ModelValidator {
 
     private final String instanceName;
 
-    private final boolean validateList;
+    private final boolean validateIterable;
 
     ModelValidator(final String instanceName,
-                   final boolean validateList) {
+                   final boolean validateIterable) {
         this.instanceName = require(instanceName);
-        this.validateList = validateList;
+        this.validateIterable = validateIterable;
     }
 
     @UsedByFreemarker
@@ -43,8 +43,8 @@ public final class ModelValidator {
 
     @UsedByFreemarker
     public String getMethod() {
-        if (validateList) {
-            return "validateList";
+        if (validateIterable) {
+            return "validateIterable";
         } else {
             return "validate";
         }

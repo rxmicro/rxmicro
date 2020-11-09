@@ -41,7 +41,7 @@ public final class ${JAVA_MODEL_CLASS.requestModelExtractorImplSimpleClassName} 
         }
     <#else>
       <#if field.modelReadAccessorType.name() == "REFLECTION">
-        ${builder}.add("${field.modelName}", getFieldValue(model, "${field.fieldName}"));
+        ${builder}.add("${field.modelName}", (${field.fieldSimpleType}) getFieldValue(model, "${field.fieldName}"));
       <#elseif field.modelReadAccessorType.name() == "DIRECT">
         ${builder}.add("${field.modelName}", model.${field.fieldName});
       <#elseif field.modelReadAccessorType.name() == "JAVA_BEAN">

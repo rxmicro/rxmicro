@@ -8,6 +8,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.Instant;
 import java.util.List;
+import java.util.Set;
 
 import static rxmicro.$$Reflections.getFieldValue;
 
@@ -49,8 +50,24 @@ public final class $$ResponseModelWriter extends ModelWriter<Response> {
         response.setHeader("stringParameters", (List<String>) getFieldValue(model, "stringParameters"));
         response.setHeader("instantParameters", (List<Instant>) getFieldValue(model, "instantParameters"));
         response.setHeader("statuses", (List<Status>) getFieldValue(model, "statuses"));
-        for (final Status item : (List<Status>) getFieldValue(model, "repeatingStatues")) {
-            response.addHeader("repeatingStatues", item);
+        response.setHeader("booleanParameterSet", (Set<Boolean>) getFieldValue(model, "booleanParameterSet"));
+        response.setHeader("byteParameterSet", (Set<Byte>) getFieldValue(model, "byteParameterSet"));
+        response.setHeader("shortParameterSet", (Set<Short>) getFieldValue(model, "shortParameterSet"));
+        response.setHeader("intParameterSet", (Set<Integer>) getFieldValue(model, "intParameterSet"));
+        response.setHeader("longParameterSet", (Set<Long>) getFieldValue(model, "longParameterSet"));
+        response.setHeader("bigIntParameterSet", (Set<BigInteger>) getFieldValue(model, "bigIntParameterSet"));
+        response.setHeader("floatParameterSet", (Set<Float>) getFieldValue(model, "floatParameterSet"));
+        response.setHeader("doubleParameterSet", (Set<Double>) getFieldValue(model, "doubleParameterSet"));
+        response.setHeader("decimalParameterSet", (Set<BigDecimal>) getFieldValue(model, "decimalParameterSet"));
+        response.setHeader("charParameterSet", (Set<Character>) getFieldValue(model, "charParameterSet"));
+        response.setHeader("stringParameterSet", (Set<String>) getFieldValue(model, "stringParameterSet"));
+        response.setHeader("instantParameterSet", (Set<Instant>) getFieldValue(model, "instantParameterSet"));
+        response.setHeader("statusSet", (Set<Status>) getFieldValue(model, "statusSet"));
+        for (final Status item : (List<Status>) getFieldValue(model, "repeatingStatuses")) {
+            response.addHeader("repeatingStatuses", item);
+        }
+        for (final Status item : (Set<Status>) getFieldValue(model, "repeatingStatusSet")) {
+            response.addHeader("repeatingStatusSet", item);
         }
     }
 }

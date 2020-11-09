@@ -22,6 +22,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.Instant;
 import java.util.List;
+import java.util.Set;
 
 @SuppressWarnings("unused")
 abstract class Abstract {
@@ -77,4 +78,31 @@ abstract class Abstract {
     private List<Instant> instantParameters;
 
     private List<Status> statuses;
+
+    private Set<Boolean> booleanParameterSet;
+
+    private Set<Byte> byteParameterSet;
+
+    private Set<Short> shortParameterSet;
+
+    private Set<Integer> intParameterSet;
+
+    private Set<Long> longParameterSet;
+
+    private Set<BigInteger> bigIntParameterSet;
+
+    private Set<Float> floatParameterSet;
+
+    private Set<Double> doubleParameterSet;
+
+    private Set<BigDecimal> decimalParameterSet;
+
+    private Set<Character> charParameterSet;
+
+    private Set<String> stringParameterSet;
+
+    private Set<Instant> instantParameterSet;
+
+    private Set<Status> statusSet;
+
 }

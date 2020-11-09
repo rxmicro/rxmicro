@@ -113,16 +113,16 @@ public final class RestModelValidatorBuilderImpl extends AbstractProcessorCompon
                     .filter(e -> !e.getKey().getSimpleName().toString().equals("off"))
                     .map(e -> convertAnnotationValue(builder, restModelField, m, e))
                     .collect(joining(", "));
-            final String constructorArg = getConstructorArgs(builder, modelFieldType, constraintConstructorArg, m.isListConstraint());
-            final boolean validateList = m.isListConstraint() ? false : modelFieldType.isList();
+            final String constructorArg = getConstructorArgs(builder, modelFieldType, constraintConstructorArg, m.isIterableConstraint());
+            final boolean validateIterable = m.isIterableConstraint() ? false : modelFieldType.isIterable();
 
             builder.add(restModelField, m.getAnnotationSimpleName(),
-                    m.getJavaFullName(), constructorArg, validateList);
+                    m.getJavaFullName(), constructorArg, validateIterable);
         });
         if (modelFieldType.isObject()) {
             builder.add(restModelField, modelFieldType.asObject().getJavaSimpleClassName(), false);
-        } else if (modelFieldType.isList() && modelFieldType.asList().isObjectList()) {
-            builder.add(restModelField, modelFieldType.asList().getElementModelClass().getJavaSimpleClassName(), true);
+        } else if (modelFieldType.isIterable() && modelFieldType.asIterable().isObjectIterable()) {
+            builder.add(restModelField, modelFieldType.asIterable().getElementModelClass().getJavaSimpleClassName(), true);
         }
     }
 
@@ -152,8 +152,8 @@ public final class RestModelValidatorBuilderImpl extends AbstractProcessorCompon
             //Add enum class to constructorArg
             builder.getClassHeaderBuilder().addImports(modelFieldType.getJavaFullClassName());
             return modelFieldType.getJavaSimpleClassName() + ".class, " + constraintConstructorArg;
-        } else if (modelFieldType.isList()) {
-            final ModelClass elementModelClass = modelFieldType.asList().getElementModelClass();
+        } else if (modelFieldType.isIterable()) {
+            final ModelClass elementModelClass = modelFieldType.asIterable().getElementModelClass();
             //Add enum class to constructorArg
             if (elementModelClass.isEnum()) {
                 builder.getClassHeaderBuilder().addImports(elementModelClass.getJavaFullClassName());

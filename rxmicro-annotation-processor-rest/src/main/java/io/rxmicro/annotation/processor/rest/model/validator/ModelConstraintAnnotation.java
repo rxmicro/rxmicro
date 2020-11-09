@@ -37,7 +37,7 @@ import static io.rxmicro.common.util.Requires.require;
  */
 public final class ModelConstraintAnnotation {
 
-    private static final Set<String> LIST_VALIDATOR_CONSTRAINT_CLASS_NAMES = Set.of(
+    private static final Set<String> ITERABLE_VALIDATOR_CONSTRAINT_CLASS_NAMES = Set.of(
             Size.class.getSimpleName(),
             MinSize.class.getSimpleName(),
             MaxSize.class.getSimpleName(),
@@ -70,8 +70,8 @@ public final class ModelConstraintAnnotation {
         return annotationMirror.getAnnotationType().toString();
     }
 
-    public boolean isListConstraint() {
-        return LIST_VALIDATOR_CONSTRAINT_CLASS_NAMES.contains(getAnnotationSimpleName());
+    public boolean isIterableConstraint() {
+        return ITERABLE_VALIDATOR_CONSTRAINT_CLASS_NAMES.contains(getAnnotationSimpleName());
     }
 
     public String getJavaFullName() {

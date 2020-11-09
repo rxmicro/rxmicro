@@ -22,6 +22,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.Instant;
 import java.util.List;
+import java.util.Set;
 
 abstract class Abstract {
 
@@ -76,6 +77,32 @@ abstract class Abstract {
     private List<Instant> instantParameters;
 
     private List<Status> statuses;
+
+    private Set<Boolean> booleanParameterSet;
+
+    private Set<Byte> byteParameterSet;
+
+    private Set<Short> shortParameterSet;
+
+    private Set<Integer> intParameterSet;
+
+    private Set<Long> longParameterSet;
+
+    private Set<BigInteger> bigIntParameterSet;
+
+    private Set<Float> floatParameterSet;
+
+    private Set<Double> doubleParameterSet;
+
+    private Set<BigDecimal> decimalParameterSet;
+
+    private Set<Character> charParameterSet;
+
+    private Set<String> stringParameterSet;
+
+    private Set<Instant> instantParameterSet;
+
+    private Set<Status> statusSet;
 
     public Boolean getBooleanParameter() {
         return booleanParameter;
@@ -284,4 +311,109 @@ abstract class Abstract {
     public void setStatuses(final List<Status> statuses) {
         this.statuses = statuses;
     }
+
+    public Set<Boolean> getBooleanParameterSet() {
+        return booleanParameterSet;
+    }
+
+    public void setBooleanParameterSet(final Set<Boolean> booleanParameterSet) {
+        this.booleanParameterSet = booleanParameterSet;
+    }
+
+    public Set<Byte> getByteParameterSet() {
+        return byteParameterSet;
+    }
+
+    public void setByteParameterSet(final Set<Byte> byteParameterSet) {
+        this.byteParameterSet = byteParameterSet;
+    }
+
+    public Set<Short> getShortParameterSet() {
+        return shortParameterSet;
+    }
+
+    public void setShortParameterSet(final Set<Short> shortParameterSet) {
+        this.shortParameterSet = shortParameterSet;
+    }
+
+    public Set<Integer> getIntParameterSet() {
+        return intParameterSet;
+    }
+
+    public void setIntParameterSet(final Set<Integer> intParameterSet) {
+        this.intParameterSet = intParameterSet;
+    }
+
+    public Set<Long> getLongParameterSet() {
+        return longParameterSet;
+    }
+
+    public void setLongParameterSet(final Set<Long> longParameterSet) {
+        this.longParameterSet = longParameterSet;
+    }
+
+    public Set<BigInteger> getBigIntParameterSet() {
+        return bigIntParameterSet;
+    }
+
+    public void setBigIntParameterSet(final Set<BigInteger> bigIntParameterSet) {
+        this.bigIntParameterSet = bigIntParameterSet;
+    }
+
+    public Set<Float> getFloatParameterSet() {
+        return floatParameterSet;
+    }
+
+    public void setFloatParameterSet(final Set<Float> floatParameterSet) {
+        this.floatParameterSet = floatParameterSet;
+    }
+
+    public Set<Double> getDoubleParameterSet() {
+        return doubleParameterSet;
+    }
+
+    public void setDoubleParameterSet(final Set<Double> doubleParameterSet) {
+        this.doubleParameterSet = doubleParameterSet;
+    }
+
+    public Set<BigDecimal> getDecimalParameterSet() {
+        return decimalParameterSet;
+    }
+
+    public void setDecimalParameterSet(final Set<BigDecimal> decimalParameterSet) {
+        this.decimalParameterSet = decimalParameterSet;
+    }
+
+    public Set<Character> getCharParameterSet() {
+        return charParameterSet;
+    }
+
+    public void setCharParameterSet(final Set<Character> charParameterSet) {
+        this.charParameterSet = charParameterSet;
+    }
+
+    public Set<String> getStringParameterSet() {
+        return stringParameterSet;
+    }
+
+    public void setStringParameterSet(final Set<String> stringParameterSet) {
+        this.stringParameterSet = stringParameterSet;
+    }
+
+    public Set<Instant> getInstantParameterSet() {
+        return instantParameterSet;
+    }
+
+    public void setInstantParameterSet(final Set<Instant> instantParameterSet) {
+        this.instantParameterSet = instantParameterSet;
+    }
+
+    public Set<Status> getStatusSet() {
+        return statusSet;
+    }
+
+    public void setStatusSet(final Set<Status> statusSet) {
+        this.statusSet = statusSet;
+    }
+
 }

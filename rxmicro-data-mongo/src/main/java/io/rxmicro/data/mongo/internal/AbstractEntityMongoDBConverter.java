@@ -58,9 +58,9 @@ public abstract class AbstractEntityMongoDBConverter {
         return toType(ObjectId.class, value, fieldName);
     }
 
-    protected final List<ObjectId> toObjectIdArray(final Object list,
-                                                   final String fieldName) {
-        return toArray(ObjectId.class, list, fieldName);
+    protected final List<ObjectId> toObjectIdList(final Object list,
+                                                  final String fieldName) {
+        return toList(ObjectId.class, list, fieldName);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -70,9 +70,9 @@ public abstract class AbstractEntityMongoDBConverter {
         return toType(Boolean.class, value, fieldName);
     }
 
-    protected final List<Boolean> toBooleanArray(final Object list,
-                                                 final String fieldName) {
-        return toArray(Boolean.class, list, fieldName);
+    protected final List<Boolean> toBooleanList(final Object list,
+                                                final String fieldName) {
+        return toList(Boolean.class, list, fieldName);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -90,9 +90,9 @@ public abstract class AbstractEntityMongoDBConverter {
         }
     }
 
-    protected final List<Byte> toByteArray(final Object list,
-                                           final String fieldName) {
-        return toArray(list, fieldName, this::toByte);
+    protected final List<Byte> toByteList(final Object list,
+                                          final String fieldName) {
+        return toList(list, fieldName, this::toByte);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -110,9 +110,9 @@ public abstract class AbstractEntityMongoDBConverter {
         }
     }
 
-    protected final List<Short> toShortArray(final Object list,
-                                             final String fieldName) {
-        return toArray(list, fieldName, this::toShort);
+    protected final List<Short> toShortList(final Object list,
+                                            final String fieldName) {
+        return toList(list, fieldName, this::toShort);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -122,9 +122,9 @@ public abstract class AbstractEntityMongoDBConverter {
         return toType(Integer.class, value, fieldName);
     }
 
-    protected final List<Integer> toIntegerArray(final Object list,
-                                                 final String fieldName) {
-        return toArray(Integer.class, list, fieldName);
+    protected final List<Integer> toIntegerList(final Object list,
+                                                final String fieldName) {
+        return toList(Integer.class, list, fieldName);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -134,9 +134,9 @@ public abstract class AbstractEntityMongoDBConverter {
         return toType(Long.class, value, fieldName);
     }
 
-    protected final List<Long> toLongArray(final Object list,
-                                           final String fieldName) {
-        return toArray(Long.class, list, fieldName);
+    protected final List<Long> toLongList(final Object list,
+                                          final String fieldName) {
+        return toList(Long.class, list, fieldName);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -154,9 +154,9 @@ public abstract class AbstractEntityMongoDBConverter {
         }
     }
 
-    protected final List<Float> toFloatArray(final Object list,
-                                             final String fieldName) {
-        return toArray(list, fieldName, this::toFloat);
+    protected final List<Float> toFloatList(final Object list,
+                                            final String fieldName) {
+        return toList(list, fieldName, this::toFloat);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -166,9 +166,9 @@ public abstract class AbstractEntityMongoDBConverter {
         return toType(Double.class, value, fieldName);
     }
 
-    protected final List<Double> toDoubleArray(final Object list,
-                                               final String fieldName) {
-        return toArray(Double.class, list, fieldName);
+    protected final List<Double> toDoubleList(final Object list,
+                                              final String fieldName) {
+        return toList(Double.class, list, fieldName);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -183,9 +183,9 @@ public abstract class AbstractEntityMongoDBConverter {
         }
     }
 
-    protected final List<BigDecimal> toBigDecimalArray(final Object list,
-                                                       final String fieldName) {
-        return toArray(list, fieldName, this::toBigDecimal);
+    protected final List<BigDecimal> toBigDecimalList(final Object list,
+                                                      final String fieldName) {
+        return toList(list, fieldName, this::toBigDecimal);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -200,9 +200,9 @@ public abstract class AbstractEntityMongoDBConverter {
         }
     }
 
-    protected final List<Character> toCharacterArray(final Object list,
-                                                     final String fieldName) {
-        return toArray(list, fieldName, this::toCharacter);
+    protected final List<Character> toCharacterList(final Object list,
+                                                    final String fieldName) {
+        return toList(list, fieldName, this::toCharacter);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -212,9 +212,9 @@ public abstract class AbstractEntityMongoDBConverter {
         return toType(String.class, value, fieldName);
     }
 
-    protected final List<String> toStringArray(final Object list,
-                                               final String fieldName) {
-        return toArray(String.class, list, fieldName);
+    protected final List<String> toStringList(final Object list,
+                                              final String fieldName) {
+        return toList(String.class, list, fieldName);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -229,9 +229,9 @@ public abstract class AbstractEntityMongoDBConverter {
         }
     }
 
-    protected final List<Pattern> toPatternArray(final Object list,
-                                                 final String fieldName) {
-        return toArray(list, fieldName, this::toPattern);
+    protected final List<Pattern> toPatternList(final Object list,
+                                                final String fieldName) {
+        return toList(list, fieldName, this::toPattern);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -246,9 +246,9 @@ public abstract class AbstractEntityMongoDBConverter {
         }
     }
 
-    protected final List<Instant> toInstantArray(final Object list,
-                                                 final String fieldName) {
-        return toArray(list, fieldName, this::toInstant);
+    protected final List<Instant> toInstantList(final Object list,
+                                                final String fieldName) {
+        return toList(list, fieldName, this::toInstant);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -265,9 +265,9 @@ public abstract class AbstractEntityMongoDBConverter {
         }
     }
 
-    protected final List<LocalDate> toLocalDateArray(final Object list,
-                                                     final String fieldName) {
-        return toArray(list, fieldName, this::toLocalDate);
+    protected final List<LocalDate> toLocalDateList(final Object list,
+                                                    final String fieldName) {
+        return toList(list, fieldName, this::toLocalDate);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -284,9 +284,9 @@ public abstract class AbstractEntityMongoDBConverter {
         }
     }
 
-    protected final List<LocalDateTime> toLocalDateTimeArray(final Object list,
-                                                             final String fieldName) {
-        return toArray(list, fieldName, this::toLocalDateTime);
+    protected final List<LocalDateTime> toLocalDateTimeList(final Object list,
+                                                            final String fieldName) {
+        return toList(list, fieldName, this::toLocalDateTime);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -303,9 +303,9 @@ public abstract class AbstractEntityMongoDBConverter {
         }
     }
 
-    protected final List<LocalTime> toLocalTimeArray(final Object list,
-                                                     final String fieldName) {
-        return toArray(list, fieldName, this::toLocalTime);
+    protected final List<LocalTime> toLocalTimeList(final Object list,
+                                                    final String fieldName) {
+        return toList(list, fieldName, this::toLocalTime);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -326,9 +326,9 @@ public abstract class AbstractEntityMongoDBConverter {
         }
     }
 
-    protected final List<UUID> toUUIDArray(final Object list,
-                                           final String fieldName) {
-        return toArray(list, fieldName, this::toUUID);
+    protected final List<UUID> toUUIDList(final Object list,
+                                          final String fieldName) {
+        return toList(list, fieldName, this::toUUID);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -338,9 +338,9 @@ public abstract class AbstractEntityMongoDBConverter {
         return toType(Code.class, value, fieldName);
     }
 
-    protected final List<Code> toCodeArray(final Object list,
-                                           final String fieldName) {
-        return toArray(Code.class, list, fieldName);
+    protected final List<Code> toCodeList(final Object list,
+                                          final String fieldName) {
+        return toList(Code.class, list, fieldName);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -350,9 +350,9 @@ public abstract class AbstractEntityMongoDBConverter {
         return toType(Binary.class, value, fieldName);
     }
 
-    protected final List<Binary> toBinaryArray(final Object list,
-                                               final String fieldName) {
-        return toArray(list, fieldName, this::toBinary);
+    protected final List<Binary> toBinaryList(final Object list,
+                                              final String fieldName) {
+        return toList(list, fieldName, this::toBinary);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -375,9 +375,9 @@ public abstract class AbstractEntityMongoDBConverter {
         }
     }
 
-    protected final <T> List<T> toArray(final Class<T> type,
-                                        final Object list,
-                                        final String fieldName) {
+    protected final <T> List<T> toList(final Class<T> type,
+                                       final Object list,
+                                       final String fieldName) {
         if (list != null) {
             final List<?> result = (List<?>) list;
             for (int i = 0; i < result.size(); i++) {
@@ -394,9 +394,9 @@ public abstract class AbstractEntityMongoDBConverter {
         }
     }
 
-    protected final <T> List<T> toArray(final Object list,
-                                        final String fieldName,
-                                        final BiFunction<Object, String, T> converter) {
+    protected final <T> List<T> toList(final Object list,
+                                       final String fieldName,
+                                       final BiFunction<Object, String, T> converter) {
         if (list != null) {
             final List<?> originalList = (List<?>) list;
             final List<T> resultList = new ArrayList<>(originalList.size());
@@ -426,9 +426,9 @@ public abstract class AbstractEntityMongoDBConverter {
         }
     }
 
-    protected final <T extends Enum<T>> List<T> toEnumArray(final Class<T> type,
-                                                            final Object value,
-                                                            final String fieldName) {
-        return toArray(value, fieldName, (v, f) -> toEnum(type, v, f));
+    protected final <T extends Enum<T>> List<T> toEnumList(final Class<T> type,
+                                                           final Object value,
+                                                           final String fieldName) {
+        return toList(value, fieldName, (v, f) -> toEnum(type, v, f));
     }
 }

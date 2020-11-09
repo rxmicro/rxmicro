@@ -25,6 +25,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.Instant;
 import java.util.List;
+import java.util.Set;
 
 @SuppressWarnings("EmptyMethod")
 final class VirtualParamsMicroService {
@@ -58,7 +59,21 @@ final class VirtualParamsMicroService {
              final List<String> stringParameters,
              final List<Instant> instantParameters,
              final List<Status> statuses,
-             final List<Nested> nestedList) {
+             final List<Nested> nestedList,
+             final Set<Boolean> booleanParameterSet,
+             final Set<Byte> byteParameterSet,
+             final Set<Short> shortParameterSet,
+             final Set<Integer> intParameterSet,
+             final Set<Long> longParameterSet,
+             final Set<BigInteger> bigIntParameterSet,
+             final Set<Float> floatParameterSet,
+             final Set<Double> doubleParameterSet,
+             final Set<BigDecimal> decimalParameterSet,
+             final Set<Character> charParameterSet,
+             final Set<String> stringParameterSet,
+             final Set<Instant> instantParameterSet,
+             final Set<Status> statusSet,
+             final Set<Nested> nestedSet) {
         // do something
     }
 }

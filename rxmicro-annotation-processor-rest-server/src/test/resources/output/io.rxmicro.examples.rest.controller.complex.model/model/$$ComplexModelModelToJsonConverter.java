@@ -43,8 +43,8 @@ public final class $$ComplexModelModelToJsonConverter extends ModelToJsonConvert
                 .put("stringList", model.stringList)
                 .put("instant", model.instant)
                 .put("instantList", model.instantList)
-                .put("nested", convertIfNotNull(nestedModelModelToJsonConverter, model.nested))
-                .put("nestedList", convertIfNotNull(nestedModelModelToJsonConverter, model.nestedList))
+                .put("nested", convertToJsonObjectIfNotNull(nestedModelModelToJsonConverter, model.nested))
+                .put("nestedList", convertToJsonArrayIfNotNull(nestedModelModelToJsonConverter, model.nestedList))
                 .build();
     }
 }

@@ -19,8 +19,6 @@ package io.rxmicro.validation.base;
 import io.rxmicro.rest.model.HttpModelType;
 import io.rxmicro.validation.ConstraintValidator;
 
-import java.util.List;
-
 /**
  * Base validator class for container constraints.
  *
@@ -30,14 +28,14 @@ import java.util.List;
 public abstract class AbstractContainerConstraintValidator<T> implements ConstraintValidator<T> {
 
     @Override
-    public final void validateList(final List<T> list,
-                                   final HttpModelType httpModelType,
-                                   final String modelName) {
+    public final void validateIterable(final Iterable<T> iterable,
+                                       final HttpModelType httpModelType,
+                                       final String modelName) {
         throw new UnsupportedOperationException("Use 'validate' instead!");
     }
 
     @Override
-    public final void validateList(final List<T> models) {
+    public final void validateIterable(final Iterable<T> iterable) {
         throw new UnsupportedOperationException("Use 'validate' instead!");
     }
 }

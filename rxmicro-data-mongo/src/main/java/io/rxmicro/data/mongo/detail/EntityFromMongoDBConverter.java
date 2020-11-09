@@ -48,13 +48,13 @@ public abstract class EntityFromMongoDBConverter<DB, E> extends AbstractEntityMo
         }
     }
 
-    protected final <T> T convertIfNotNull(final EntityFromMongoDBConverter<DB, T> converter,
-                                           final DB dbRow) {
+    protected final <T> T convertToObjectIfNotNull(final EntityFromMongoDBConverter<DB, T> converter,
+                                                   final DB dbRow) {
         return dbRow != null ? converter.fromDB(dbRow) : null;
     }
 
-    protected final <T> List<T> convertIfNotNull(final EntityFromMongoDBConverter<DB, T> converter,
-                                                 final List<DB> list) {
+    protected final <T> List<T> convertToListIfNotNull(final EntityFromMongoDBConverter<DB, T> converter,
+                                                       final List<DB> list) {
         return list != null ? converter.fromDB(list) : null;
     }
 }

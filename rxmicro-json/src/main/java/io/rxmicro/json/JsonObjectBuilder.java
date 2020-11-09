@@ -18,6 +18,7 @@ package io.rxmicro.json;
 
 import io.rxmicro.common.model.MapBuilder;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -75,7 +76,7 @@ public final class JsonObjectBuilder extends MapBuilder<String, Object> {
      * @throws IllegalArgumentException if {@code withoutDuplicates} is {@code true} and detected a duplicate of property name
      */
     public JsonObjectBuilder put(final String name,
-                                 final List<?> value) {
+                                 final Collection<?> value) {
         if (value != null && !value.isEmpty()) {
             super.put(name, value);
         }

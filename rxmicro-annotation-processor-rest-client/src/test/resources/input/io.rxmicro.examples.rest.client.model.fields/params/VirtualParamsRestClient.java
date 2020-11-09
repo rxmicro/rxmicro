@@ -27,6 +27,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.Instant;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.CompletionStage;
 
 @RestClient
@@ -62,5 +63,20 @@ public interface VirtualParamsRestClient {
                               final List<Instant> instantParameters,
                               final List<Status> statuses,
                               final List<Nested> nestedList,
-                              final @RepeatQueryParameter List<Status> repeatingStatues);
+                              final @RepeatQueryParameter List<Status> repeatingStatuses,
+                              final Set<Boolean> booleanParameterSet,
+                              final Set<Byte> byteParameterSet,
+                              final Set<Short> shortParameterSet,
+                              final Set<Integer> intParameterSet,
+                              final Set<Long> longParameterSet,
+                              final Set<BigInteger> bigIntParameterSet,
+                              final Set<Float> floatParameterSet,
+                              final Set<Double> doubleParameterSet,
+                              final Set<BigDecimal> decimalParameterSet,
+                              final Set<Character> charParameterSet,
+                              final Set<String> stringParameterSet,
+                              final Set<Instant> instantParameterSet,
+                              final Set<Status> statusSet,
+                              final Set<Nested> nestedSet,
+                              final @RepeatQueryParameter Set<Status> repeatingStatusSet);
 }

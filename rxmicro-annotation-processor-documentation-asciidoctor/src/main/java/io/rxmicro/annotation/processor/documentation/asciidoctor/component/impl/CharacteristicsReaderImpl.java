@@ -19,7 +19,7 @@ package io.rxmicro.annotation.processor.documentation.asciidoctor.component.impl
 import com.google.inject.Singleton;
 import io.rxmicro.annotation.processor.common.model.EnvironmentContext;
 import io.rxmicro.annotation.processor.common.model.error.InternalErrorException;
-import io.rxmicro.annotation.processor.common.model.type.ListModelClass;
+import io.rxmicro.annotation.processor.common.model.type.IterableModelClass;
 import io.rxmicro.annotation.processor.common.model.type.ModelClass;
 import io.rxmicro.annotation.processor.documentation.asciidoctor.component.CharacteristicsReader;
 import io.rxmicro.annotation.processor.documentation.asciidoctor.component.impl.restrictions.ArrayRestrictionReader;
@@ -54,19 +54,19 @@ public final class CharacteristicsReaderImpl implements CharacteristicsReader {
         final StringBuilder descriptionBuilder = new StringBuilder();
         if (entry.getValue().isObject()) {
             objectRestrictionReader.read(environmentContext, entry, restrictions, readMores);
-        } else if (entry.getValue().isList()) {
-            final ListModelClass listModelClass = entry.getValue().asList();
-            if (listModelClass.isObjectList()) {
+        } else if (entry.getValue().isIterable()) {
+            final IterableModelClass iterableModelClass = entry.getValue().asIterable();
+            if (iterableModelClass.isObjectIterable()) {
                 objectRestrictionReader.read(environmentContext, entry, restrictions, readMores);
                 arrayRestrictionReader.read(entry, restrictions, readMores);
-            } else if (listModelClass.isPrimitiveList() || listModelClass.isEnumList()) {
+            } else if (iterableModelClass.isPrimitiveIterable() || iterableModelClass.isEnumIterable()) {
                 primitiveRestrictionReader.readPrimitive(environmentContext, entry, restrictions, readMores, descriptionBuilder);
                 arrayRestrictionReader.read(entry, restrictions, readMores);
             } else {
                 throw new InternalErrorException(
                         "?: Unsupported array model type: ?",
                         getClass().getSimpleName(),
-                        listModelClass.getElementModelClass().getClass());
+                        iterableModelClass.getElementModelClass().getClass());
             }
         } else if (entry.getValue().isPrimitive() || entry.getValue().isEnum()) {
             primitiveRestrictionReader.readPrimitive(environmentContext, entry, restrictions, readMores, descriptionBuilder);

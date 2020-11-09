@@ -20,6 +20,7 @@ import io.rxmicro.data.local.EntityToDBConverter;
 import io.rxmicro.data.mongo.internal.AbstractEntityMongoDBConverter;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -29,19 +30,18 @@ import java.util.List;
  * @hidden
  * @since 0.1
  */
-@SuppressWarnings("ForLoopReplaceableByForEach")
 public abstract class EntityToMongoDBConverter<E, DB> extends AbstractEntityMongoDBConverter implements EntityToDBConverter {
 
     public abstract DB toDB(E entity,
                             boolean withId);
 
-    public final List<DB> toDB(final List<E> list) {
+    public final List<DB> toDB(final Collection<E> list) {
         if (list == null || list.isEmpty()) {
             return null;
         } else {
             final List<DB> result = new ArrayList<>(list.size());
-            for (int i = 0; i < list.size(); i++) {
-                result.add(toDB(list.get(i), false));
+            for (final E e : list) {
+                result.add(toDB(e, false));
             }
             return result;
         }
@@ -57,13 +57,13 @@ public abstract class EntityToMongoDBConverter<E, DB> extends AbstractEntityMong
         // do nothing
     }
 
-    protected final <T> DB convertIfNotNull(final EntityToMongoDBConverter<T, DB> converter,
-                                            final T model) {
+    protected final <T> DB convertToObjectIfNotNull(final EntityToMongoDBConverter<T, DB> converter,
+                                                    final T model) {
         return model != null ? converter.toDB(model, false) : null;
     }
 
-    protected final <T> List<DB> convertIfNotNull(final EntityToMongoDBConverter<T, DB> converter,
-                                                  final List<T> list) {
+    protected final <T> List<DB> convertToListIfNotNull(final EntityToMongoDBConverter<T, DB> converter,
+                                                        final Collection<T> list) {
         return list != null ? converter.toDB(list) : null;
     }
 }

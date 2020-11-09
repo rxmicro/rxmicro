@@ -24,6 +24,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.Instant;
 import java.util.List;
+import java.util.Set;
 
 @SuppressWarnings("unused")
 @HeaderMappingStrategy
@@ -106,5 +107,44 @@ abstract class Abstract {
 
     @Header
     private List<Status> statuses;
+
+    @Header
+    private Set<Boolean> booleanParameterSet;
+
+    @Header
+    private Set<Byte> byteParameterSet;
+
+    @Header
+    private Set<Short> shortParameterSet;
+
+    @Header
+    private Set<Integer> intParameterSet;
+
+    @Header
+    private Set<Long> longParameterSet;
+
+    @Header
+    private Set<BigInteger> bigIntParameterSet;
+
+    @Header
+    private Set<Float> floatParameterSet;
+
+    @Header
+    private Set<Double> doubleParameterSet;
+
+    @Header
+    private Set<BigDecimal> decimalParameterSet;
+
+    @Header
+    private Set<Character> charParameterSet;
+
+    @Header
+    private Set<String> stringParameterSet;
+
+    @Header
+    private Set<Instant> instantParameterSet;
+
+    @Header
+    private Set<Status> statusSet;
 
 }

@@ -26,8 +26,10 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 import static io.rxmicro.common.local.Examples.INSTANT_EXAMPLE;
+import static io.rxmicro.common.util.ExCollections.unmodifiableOrderedSet;
 import static io.rxmicro.common.util.Strings.split;
 import static io.rxmicro.http.HttpValues.STRING_ARRAY_DELIMITER;
 import static java.util.Collections.unmodifiableList;
@@ -71,10 +73,10 @@ public abstract class FromStringValueConverter extends AbstractValidatedConverte
         }
     }
 
-    protected final <E extends Enum<E>> List<E> toEnumArray(final Class<E> enumClass,
-                                                            final List<String> list,
-                                                            final HttpModelType httpModelType,
-                                                            final String modelName) {
+    protected final <E extends Enum<E>> List<E> toEnumList(final Class<E> enumClass,
+                                                           final List<String> list,
+                                                           final HttpModelType httpModelType,
+                                                           final String modelName) {
         if (list != null) {
             final int size = list.size();
             final List<E> result = new ArrayList<>(size == 1 ? DEFAULT_SIZE : size);
@@ -89,6 +91,13 @@ public abstract class FromStringValueConverter extends AbstractValidatedConverte
         } else {
             return EMPTY_LIST;
         }
+    }
+
+    protected final <E extends Enum<E>> Set<E> toEnumSet(final Class<E> enumClass,
+                                                         final List<String> list,
+                                                         final HttpModelType httpModelType,
+                                                         final String modelName) {
+        return unmodifiableOrderedSet(toEnumList(enumClass, list, httpModelType, modelName));
     }
 
     // -------------------------------------------------------------------------------------------------------------------------------------
@@ -112,9 +121,9 @@ public abstract class FromStringValueConverter extends AbstractValidatedConverte
         }
     }
 
-    protected final List<Boolean> toBooleanArray(final List<String> list,
-                                                 final HttpModelType httpModelType,
-                                                 final String modelName) {
+    protected final List<Boolean> toBooleanList(final List<String> list,
+                                                final HttpModelType httpModelType,
+                                                final String modelName) {
         if (list != null) {
             final int size = list.size();
             final List<Boolean> result = new ArrayList<>(size == 1 ? DEFAULT_SIZE : size);
@@ -129,6 +138,12 @@ public abstract class FromStringValueConverter extends AbstractValidatedConverte
         } else {
             return EMPTY_LIST;
         }
+    }
+
+    protected final Set<Boolean> toBooleanSet(final List<String> list,
+                                              final HttpModelType httpModelType,
+                                              final String modelName) {
+        return unmodifiableOrderedSet(toBooleanList(list, httpModelType, modelName));
     }
 
     // -------------------------------------------------------------------------------------------------------------------------------------
@@ -147,9 +162,9 @@ public abstract class FromStringValueConverter extends AbstractValidatedConverte
         }
     }
 
-    protected final List<Byte> toByteArray(final List<String> list,
-                                           final HttpModelType httpModelType,
-                                           final String modelName) {
+    protected final List<Byte> toByteList(final List<String> list,
+                                          final HttpModelType httpModelType,
+                                          final String modelName) {
         if (list != null) {
             final int size = list.size();
             final List<Byte> result = new ArrayList<>(size == 1 ? DEFAULT_SIZE : size);
@@ -164,6 +179,12 @@ public abstract class FromStringValueConverter extends AbstractValidatedConverte
         } else {
             return EMPTY_LIST;
         }
+    }
+
+    protected final Set<Byte> toByteSet(final List<String> list,
+                                        final HttpModelType httpModelType,
+                                        final String modelName) {
+        return unmodifiableOrderedSet(toByteList(list, httpModelType, modelName));
     }
 
     // -------------------------------------------------------------------------------------------------------------------------------------
@@ -182,9 +203,9 @@ public abstract class FromStringValueConverter extends AbstractValidatedConverte
         }
     }
 
-    protected final List<Short> toShortArray(final List<String> list,
-                                             final HttpModelType httpModelType,
-                                             final String modelName) {
+    protected final List<Short> toShortList(final List<String> list,
+                                            final HttpModelType httpModelType,
+                                            final String modelName) {
         if (list != null) {
             final int size = list.size();
             final List<Short> result = new ArrayList<>(size == 1 ? DEFAULT_SIZE : size);
@@ -199,6 +220,12 @@ public abstract class FromStringValueConverter extends AbstractValidatedConverte
         } else {
             return EMPTY_LIST;
         }
+    }
+
+    protected final Set<Short> toShortSet(final List<String> list,
+                                          final HttpModelType httpModelType,
+                                          final String modelName) {
+        return unmodifiableOrderedSet(toShortList(list, httpModelType, modelName));
     }
 
     // -------------------------------------------------------------------------------------------------------------------------------------
@@ -217,9 +244,9 @@ public abstract class FromStringValueConverter extends AbstractValidatedConverte
         }
     }
 
-    protected final List<Integer> toIntegerArray(final List<String> list,
-                                                 final HttpModelType httpModelType,
-                                                 final String modelName) {
+    protected final List<Integer> toIntegerList(final List<String> list,
+                                                final HttpModelType httpModelType,
+                                                final String modelName) {
         if (list != null) {
             final int size = list.size();
             final List<Integer> result = new ArrayList<>(size == 1 ? DEFAULT_SIZE : size);
@@ -234,6 +261,12 @@ public abstract class FromStringValueConverter extends AbstractValidatedConverte
         } else {
             return EMPTY_LIST;
         }
+    }
+
+    protected final Set<Integer> toIntegerSet(final List<String> list,
+                                              final HttpModelType httpModelType,
+                                              final String modelName) {
+        return unmodifiableOrderedSet(toIntegerList(list, httpModelType, modelName));
     }
 
     // -------------------------------------------------------------------------------------------------------------------------------------
@@ -252,9 +285,9 @@ public abstract class FromStringValueConverter extends AbstractValidatedConverte
         }
     }
 
-    protected final List<Long> toLongArray(final List<String> list,
-                                           final HttpModelType httpModelType,
-                                           final String modelName) {
+    protected final List<Long> toLongList(final List<String> list,
+                                          final HttpModelType httpModelType,
+                                          final String modelName) {
         if (list != null) {
             final int size = list.size();
             final List<Long> result = new ArrayList<>(size == 1 ? DEFAULT_SIZE : size);
@@ -269,6 +302,12 @@ public abstract class FromStringValueConverter extends AbstractValidatedConverte
         } else {
             return EMPTY_LIST;
         }
+    }
+
+    protected final Set<Long> toLongSet(final List<String> list,
+                                        final HttpModelType httpModelType,
+                                        final String modelName) {
+        return unmodifiableOrderedSet(toLongList(list, httpModelType, modelName));
     }
 
     // -------------------------------------------------------------------------------------------------------------------------------------
@@ -290,9 +329,9 @@ public abstract class FromStringValueConverter extends AbstractValidatedConverte
         }
     }
 
-    protected final List<BigInteger> toBigIntegerArray(final List<String> list,
-                                                       final HttpModelType httpModelType,
-                                                       final String modelName) {
+    protected final List<BigInteger> toBigIntegerList(final List<String> list,
+                                                      final HttpModelType httpModelType,
+                                                      final String modelName) {
         if (list != null) {
             final int size = list.size();
             final List<BigInteger> result = new ArrayList<>(size == 1 ? DEFAULT_SIZE : size);
@@ -307,6 +346,12 @@ public abstract class FromStringValueConverter extends AbstractValidatedConverte
         } else {
             return EMPTY_LIST;
         }
+    }
+
+    protected final Set<BigInteger> toBigIntegerSet(final List<String> list,
+                                                    final HttpModelType httpModelType,
+                                                    final String modelName) {
+        return unmodifiableOrderedSet(toBigIntegerList(list, httpModelType, modelName));
     }
 
     // -------------------------------------------------------------------------------------------------------------------------------------
@@ -328,9 +373,9 @@ public abstract class FromStringValueConverter extends AbstractValidatedConverte
         }
     }
 
-    protected final List<Float> toFloatArray(final List<String> list,
-                                             final HttpModelType httpModelType,
-                                             final String modelName) {
+    protected final List<Float> toFloatList(final List<String> list,
+                                            final HttpModelType httpModelType,
+                                            final String modelName) {
         if (list != null) {
             final int size = list.size();
             final List<Float> result = new ArrayList<>(size == 1 ? DEFAULT_SIZE : size);
@@ -345,6 +390,12 @@ public abstract class FromStringValueConverter extends AbstractValidatedConverte
         } else {
             return EMPTY_LIST;
         }
+    }
+
+    protected final Set<Float> toFloatSet(final List<String> list,
+                                          final HttpModelType httpModelType,
+                                          final String modelName) {
+        return unmodifiableOrderedSet(toFloatList(list, httpModelType, modelName));
     }
 
     // -------------------------------------------------------------------------------------------------------------------------------------
@@ -366,9 +417,9 @@ public abstract class FromStringValueConverter extends AbstractValidatedConverte
         }
     }
 
-    protected final List<Double> toDoubleArray(final List<String> list,
-                                               final HttpModelType httpModelType,
-                                               final String modelName) {
+    protected final List<Double> toDoubleList(final List<String> list,
+                                              final HttpModelType httpModelType,
+                                              final String modelName) {
         if (list != null) {
             final int size = list.size();
             final List<Double> result = new ArrayList<>(size == 1 ? DEFAULT_SIZE : size);
@@ -383,6 +434,12 @@ public abstract class FromStringValueConverter extends AbstractValidatedConverte
         } else {
             return EMPTY_LIST;
         }
+    }
+
+    protected final Set<Double> toDoubleSet(final List<String> list,
+                                            final HttpModelType httpModelType,
+                                            final String modelName) {
+        return unmodifiableOrderedSet(toDoubleList(list, httpModelType, modelName));
     }
 
     // -------------------------------------------------------------------------------------------------------------------------------------
@@ -404,9 +461,9 @@ public abstract class FromStringValueConverter extends AbstractValidatedConverte
         }
     }
 
-    protected final List<BigDecimal> toBigDecimalArray(final List<String> list,
-                                                       final HttpModelType httpModelType,
-                                                       final String modelName) {
+    protected final List<BigDecimal> toBigDecimalList(final List<String> list,
+                                                      final HttpModelType httpModelType,
+                                                      final String modelName) {
         if (list != null) {
             final int size = list.size();
             final List<BigDecimal> result = new ArrayList<>(size == 1 ? DEFAULT_SIZE : size);
@@ -421,6 +478,12 @@ public abstract class FromStringValueConverter extends AbstractValidatedConverte
         } else {
             return EMPTY_LIST;
         }
+    }
+
+    protected final Set<BigDecimal> toBigDecimalSet(final List<String> list,
+                                                    final HttpModelType httpModelType,
+                                                    final String modelName) {
+        return unmodifiableOrderedSet(toBigDecimalList(list, httpModelType, modelName));
     }
 
     // -------------------------------------------------------------------------------------------------------------------------------------
@@ -442,9 +505,9 @@ public abstract class FromStringValueConverter extends AbstractValidatedConverte
         }
     }
 
-    protected final List<Instant> toInstantArray(final List<String> list,
-                                                 final HttpModelType httpModelType,
-                                                 final String modelName) {
+    protected final List<Instant> toInstantList(final List<String> list,
+                                                final HttpModelType httpModelType,
+                                                final String modelName) {
         if (list != null) {
             final int size = list.size();
             final List<Instant> result = new ArrayList<>(size == 1 ? DEFAULT_SIZE : size);
@@ -459,6 +522,12 @@ public abstract class FromStringValueConverter extends AbstractValidatedConverte
         } else {
             return EMPTY_LIST;
         }
+    }
+
+    protected final Set<Instant> toInstantSet(final List<String> list,
+                                              final HttpModelType httpModelType,
+                                              final String modelName) {
+        return unmodifiableOrderedSet(toInstantList(list, httpModelType, modelName));
     }
 
     // -------------------------------------------------------------------------------------------------------------------------------------
@@ -479,9 +548,9 @@ public abstract class FromStringValueConverter extends AbstractValidatedConverte
         }
     }
 
-    protected final List<Character> toCharacterArray(final List<String> list,
-                                                     final HttpModelType httpModelType,
-                                                     final String modelName) {
+    protected final List<Character> toCharacterList(final List<String> list,
+                                                    final HttpModelType httpModelType,
+                                                    final String modelName) {
         if (list != null) {
             final int size = list.size();
             final List<Character> result = new ArrayList<>(size == 1 ? DEFAULT_SIZE : size);
@@ -498,6 +567,12 @@ public abstract class FromStringValueConverter extends AbstractValidatedConverte
         }
     }
 
+    protected final Set<Character> toCharacterSet(final List<String> list,
+                                                  final HttpModelType httpModelType,
+                                                  final String modelName) {
+        return unmodifiableOrderedSet(toCharacterList(list, httpModelType, modelName));
+    }
+
     // -------------------------------------------------------------------------------------------------------------------------------------
 
     @SuppressWarnings("unused")
@@ -507,9 +582,9 @@ public abstract class FromStringValueConverter extends AbstractValidatedConverte
         return value;
     }
 
-    protected final List<String> toStringArray(final List<String> list,
-                                               final HttpModelType httpModelType,
-                                               final String modelName) {
+    protected final List<String> toStringList(final List<String> list,
+                                              final HttpModelType httpModelType,
+                                              final String modelName) {
         if (list != null) {
             final int size = list.size();
             final List<String> result = new ArrayList<>(size == 1 ? DEFAULT_SIZE : size);
@@ -524,6 +599,12 @@ public abstract class FromStringValueConverter extends AbstractValidatedConverte
         } else {
             return EMPTY_LIST;
         }
+    }
+
+    protected final Set<String> toStringSet(final List<String> list,
+                                            final HttpModelType httpModelType,
+                                            final String modelName) {
+        return unmodifiableOrderedSet(toStringList(list, httpModelType, modelName));
     }
 
     // -------------------------------------------------------------------------------------------------------------------------------------

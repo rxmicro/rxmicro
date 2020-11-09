@@ -38,8 +38,24 @@ public final class $$VirtualVirtualHeadersRequestRequestModelExtractor extends R
         headerBuilder.add("String-Parameters", model.stringParameters);
         headerBuilder.add("Instant-Parameters", model.instantParameters);
         headerBuilder.add("Statuses", model.statuses);
-        for (final Status item : model.repeatingStatues) {
-            headerBuilder.add("Repeating-Statues", item);
+        for (final Status item : model.repeatingStatuses) {
+            headerBuilder.add("Repeating-Statuses", item);
+        }
+        headerBuilder.add("Boolean-Parameter-Set", model.booleanParameterSet);
+        headerBuilder.add("Byte-Parameter-Set", model.byteParameterSet);
+        headerBuilder.add("Short-Parameter-Set", model.shortParameterSet);
+        headerBuilder.add("Int-Parameter-Set", model.intParameterSet);
+        headerBuilder.add("Long-Parameter-Set", model.longParameterSet);
+        headerBuilder.add("Big-Int-Parameter-Set", model.bigIntParameterSet);
+        headerBuilder.add("Float-Parameter-Set", model.floatParameterSet);
+        headerBuilder.add("Double-Parameter-Set", model.doubleParameterSet);
+        headerBuilder.add("Decimal-Parameter-Set", model.decimalParameterSet);
+        headerBuilder.add("Char-Parameter-Set", model.charParameterSet);
+        headerBuilder.add("String-Parameter-Set", model.stringParameterSet);
+        headerBuilder.add("Instant-Parameter-Set", model.instantParameterSet);
+        headerBuilder.add("Status-Set", model.statusSet);
+        for (final Status item : model.repeatingStatusSet) {
+            headerBuilder.add("Repeating-Status-Set", item);
         }
     }
 }

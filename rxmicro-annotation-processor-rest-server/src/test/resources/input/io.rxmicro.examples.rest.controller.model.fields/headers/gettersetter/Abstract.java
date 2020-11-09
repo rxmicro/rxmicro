@@ -24,6 +24,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.Instant;
 import java.util.List;
+import java.util.Set;
 
 @HeaderMappingStrategy
 abstract class Abstract {
@@ -105,6 +106,45 @@ abstract class Abstract {
 
     @Header
     private List<Status> statuses;
+
+    @Header
+    private Set<Boolean> booleanParameterSet;
+
+    @Header
+    private Set<Byte> byteParameterSet;
+
+    @Header
+    private Set<Short> shortParameterSet;
+
+    @Header
+    private Set<Integer> intParameterSet;
+
+    @Header
+    private Set<Long> longParameterSet;
+
+    @Header
+    private Set<BigInteger> bigIntParameterSet;
+
+    @Header
+    private Set<Float> floatParameterSet;
+
+    @Header
+    private Set<Double> doubleParameterSet;
+
+    @Header
+    private Set<BigDecimal> decimalParameterSet;
+
+    @Header
+    private Set<Character> charParameterSet;
+
+    @Header
+    private Set<String> stringParameterSet;
+
+    @Header
+    private Set<Instant> instantParameterSet;
+
+    @Header
+    private Set<Status> statusSet;
 
     public Boolean getBooleanParameter() {
         return booleanParameter;
@@ -314,4 +354,107 @@ abstract class Abstract {
         this.statuses = statuses;
     }
 
+    public Set<Boolean> getBooleanParameterSet() {
+        return booleanParameterSet;
+    }
+
+    public void setBooleanParameterSet(final Set<Boolean> booleanParameterSet) {
+        this.booleanParameterSet = booleanParameterSet;
+    }
+
+    public Set<Byte> getByteParameterSet() {
+        return byteParameterSet;
+    }
+
+    public void setByteParameterSet(final Set<Byte> byteParameterSet) {
+        this.byteParameterSet = byteParameterSet;
+    }
+
+    public Set<Short> getShortParameterSet() {
+        return shortParameterSet;
+    }
+
+    public void setShortParameterSet(final Set<Short> shortParameterSet) {
+        this.shortParameterSet = shortParameterSet;
+    }
+
+    public Set<Integer> getIntParameterSet() {
+        return intParameterSet;
+    }
+
+    public void setIntParameterSet(final Set<Integer> intParameterSet) {
+        this.intParameterSet = intParameterSet;
+    }
+
+    public Set<Long> getLongParameterSet() {
+        return longParameterSet;
+    }
+
+    public void setLongParameterSet(final Set<Long> longParameterSet) {
+        this.longParameterSet = longParameterSet;
+    }
+
+    public Set<BigInteger> getBigIntParameterSet() {
+        return bigIntParameterSet;
+    }
+
+    public void setBigIntParameterSet(final Set<BigInteger> bigIntParameterSet) {
+        this.bigIntParameterSet = bigIntParameterSet;
+    }
+
+    public Set<Float> getFloatParameterSet() {
+        return floatParameterSet;
+    }
+
+    public void setFloatParameterSet(final Set<Float> floatParameterSet) {
+        this.floatParameterSet = floatParameterSet;
+    }
+
+    public Set<Double> getDoubleParameterSet() {
+        return doubleParameterSet;
+    }
+
+    public void setDoubleParameterSet(final Set<Double> doubleParameterSet) {
+        this.doubleParameterSet = doubleParameterSet;
+    }
+
+    public Set<BigDecimal> getDecimalParameterSet() {
+        return decimalParameterSet;
+    }
+
+    public void setDecimalParameterSet(final Set<BigDecimal> decimalParameterSet) {
+        this.decimalParameterSet = decimalParameterSet;
+    }
+
+    public Set<Character> getCharParameterSet() {
+        return charParameterSet;
+    }
+
+    public void setCharParameterSet(final Set<Character> charParameterSet) {
+        this.charParameterSet = charParameterSet;
+    }
+
+    public Set<String> getStringParameterSet() {
+        return stringParameterSet;
+    }
+
+    public void setStringParameterSet(final Set<String> stringParameterSet) {
+        this.stringParameterSet = stringParameterSet;
+    }
+
+    public Set<Instant> getInstantParameterSet() {
+        return instantParameterSet;
+    }
+
+    public void setInstantParameterSet(final Set<Instant> instantParameterSet) {
+        this.instantParameterSet = instantParameterSet;
+    }
+
+    public Set<Status> getStatusSet() {
+        return statusSet;
+    }
+
+    public void setStatusSet(final Set<Status> statusSet) {
+        this.statusSet = statusSet;
+    }
 }

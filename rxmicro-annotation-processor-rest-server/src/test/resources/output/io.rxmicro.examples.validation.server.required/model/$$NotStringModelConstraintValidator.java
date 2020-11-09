@@ -25,10 +25,10 @@ public final class $$NotStringModelConstraintValidator implements ConstraintVali
         requiredConstraintValidator.validate(model.requiredPrimitive, HttpModelType.PARAMETER, "requiredPrimitive");
 
         requiredListConstraintValidator.validate(model.requiredListWithRequiredItems, HttpModelType.PARAMETER, "requiredListWithRequiredItems");
-        requiredConstraintValidator.validateList(model.requiredListWithRequiredItems, HttpModelType.PARAMETER, "requiredListWithRequiredItems");
+        requiredConstraintValidator.validateIterable(model.requiredListWithRequiredItems, HttpModelType.PARAMETER, "requiredListWithRequiredItems");
 
         requiredListConstraintValidator.validate(model.requiredListWithNullableItems, HttpModelType.PARAMETER, "requiredListWithNullableItems");
 
-        requiredConstraintValidator.validateList(model.nullableListWithRequiredItems, HttpModelType.PARAMETER, "nullableListWithRequiredItems");
+        requiredConstraintValidator.validateIterable(model.nullableListWithRequiredItems, HttpModelType.PARAMETER, "nullableListWithRequiredItems");
     }
 }

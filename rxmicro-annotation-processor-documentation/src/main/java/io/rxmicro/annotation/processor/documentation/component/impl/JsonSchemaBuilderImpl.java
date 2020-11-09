@@ -22,7 +22,7 @@ import io.rxmicro.annotation.processor.common.model.EnvironmentContext;
 import io.rxmicro.annotation.processor.common.model.ModelField;
 import io.rxmicro.annotation.processor.common.model.error.InternalErrorException;
 import io.rxmicro.annotation.processor.common.model.type.EnumModelClass;
-import io.rxmicro.annotation.processor.common.model.type.ListModelClass;
+import io.rxmicro.annotation.processor.common.model.type.IterableModelClass;
 import io.rxmicro.annotation.processor.common.model.type.ModelClass;
 import io.rxmicro.annotation.processor.common.model.type.PrimitiveModelClass;
 import io.rxmicro.annotation.processor.documentation.component.DescriptionReader;
@@ -141,22 +141,22 @@ public final class JsonSchemaBuilderImpl implements JsonSchemaBuilder {
         final ModelClass modelClass = entry.getValue();
         if (modelClass.isObject()) {
             return getJsonObjectSchema(entry.getKey(), projectDirectory, environmentContext, modelClass.asObject());
-        } else if (modelClass.isList()) {
-            final ListModelClass listModelClass = modelClass.asList();
-            if (listModelClass.isObjectList()) {
-                final RestObjectModelClass restObjectModelClass = listModelClass.getElementModelClass().asObject();
+        } else if (modelClass.isIterable()) {
+            final IterableModelClass iterableModelClass = modelClass.asIterable();
+            if (iterableModelClass.isObjectIterable()) {
+                final RestObjectModelClass restObjectModelClass = iterableModelClass.getElementModelClass().asObject();
                 return getJsonArraySchema(
                         entry.getKey(), projectDirectory, restObjectModelClass,
                         () -> getJsonObjectSchema(entry.getKey(), projectDirectory, environmentContext, restObjectModelClass)
                 );
-            } else if (listModelClass.isEnumList()) {
-                final EnumModelClass enumModelClass = listModelClass.getElementModelClass().asEnum();
+            } else if (iterableModelClass.isEnumIterable()) {
+                final EnumModelClass enumModelClass = iterableModelClass.getElementModelClass().asEnum();
                 return getJsonArraySchema(
                         entry.getKey(), projectDirectory, null,
                         () -> getJsonEnumSchema(entry.getKey(), enumModelClass)
                 );
-            } else if (listModelClass.isPrimitiveList()) {
-                final PrimitiveModelClass primitiveModelClass = listModelClass.getElementModelClass().asPrimitive();
+            } else if (iterableModelClass.isPrimitiveIterable()) {
+                final PrimitiveModelClass primitiveModelClass = iterableModelClass.getElementModelClass().asPrimitive();
                 return getJsonArraySchema(
                         entry.getKey(), projectDirectory, null,
                         () -> getJsonPrimitiveSchema(entry.getKey(), primitiveModelClass)
@@ -164,7 +164,7 @@ public final class JsonSchemaBuilderImpl implements JsonSchemaBuilder {
             } else {
                 throw new InternalErrorException(
                         "Unsupported array item class type: ?",
-                        listModelClass.getElementModelClass().getClass()
+                        iterableModelClass.getElementModelClass().getClass()
                 );
             }
         } else if (modelClass.isPrimitive()) {

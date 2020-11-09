@@ -139,8 +139,8 @@ public final class ConstraintAnnotationExtractorImpl extends AbstractProcessorCo
 
         int index = indexOfSupportedClass(field.getFieldClass(), supportedTypes);
         if (index == -1) {
-            if (modelFieldType.isList()) {
-                final ModelClass elementModelClass = modelFieldType.asList().getElementModelClass();
+            if (modelFieldType.isIterable()) {
+                final ModelClass elementModelClass = modelFieldType.asIterable().getElementModelClass();
                 index = indexOfSupportedClass(field, elementModelClass, annotationMirror, supportedTypes);
                 if (index == -1) {
                     throw new InterruptProcessingException(field.getElementAnnotatedBy(annotationMirror),

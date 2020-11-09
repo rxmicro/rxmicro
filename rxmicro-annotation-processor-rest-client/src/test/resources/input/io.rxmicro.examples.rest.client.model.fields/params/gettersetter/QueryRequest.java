@@ -20,17 +20,29 @@ import io.rxmicro.examples.rest.client.model.fields.Status;
 import io.rxmicro.rest.RepeatQueryParameter;
 
 import java.util.List;
+import java.util.Set;
 
 public final class QueryRequest extends Abstract {
 
     @RepeatQueryParameter
-    private List<Status> repeatingStatues;
+    private List<Status> repeatingStatuses;
 
-    public List<Status> getRepeatingStatues() {
-        return repeatingStatues;
+    @RepeatQueryParameter
+    private Set<Status> repeatingStatusSet;
+
+    public List<Status> getRepeatingStatuses() {
+        return repeatingStatuses;
     }
 
-    public void setRepeatingStatues(final List<Status> repeatingStatues) {
-        this.repeatingStatues = repeatingStatues;
+    public void setRepeatingStatuses(final List<Status> repeatingStatuses) {
+        this.repeatingStatuses = repeatingStatuses;
+    }
+
+    public Set<Status> getRepeatingStatusSet() {
+        return repeatingStatusSet;
+    }
+
+    public void setRepeatingStatusSet(final Set<Status> repeatingStatusSet) {
+        this.repeatingStatusSet = repeatingStatusSet;
     }
 }

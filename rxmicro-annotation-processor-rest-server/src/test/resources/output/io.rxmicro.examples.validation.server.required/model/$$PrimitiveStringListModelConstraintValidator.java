@@ -31,20 +31,20 @@ public final class $$PrimitiveStringListModelConstraintValidator implements Cons
                          final HttpModelType httpModelType,
                          final String name) {
         requiredListConstraintValidator.validate(model.requiredListWithNotEmptyItems, HttpModelType.PARAMETER, "requiredListWithNotEmptyItems");
-        requiredAndNotEmptyStringConstraintValidator.validateList(model.requiredListWithNotEmptyItems, HttpModelType.PARAMETER, "requiredListWithNotEmptyItems");
+        requiredAndNotEmptyStringConstraintValidator.validateIterable(model.requiredListWithNotEmptyItems, HttpModelType.PARAMETER, "requiredListWithNotEmptyItems");
 
-        requiredAndNotEmptyStringConstraintValidator.validateList(model.nullableListWithNotEmptyItems, HttpModelType.PARAMETER, "nullableListWithNotEmptyItems");
+        requiredAndNotEmptyStringConstraintValidator.validateIterable(model.nullableListWithNotEmptyItems, HttpModelType.PARAMETER, "nullableListWithNotEmptyItems");
 
         requiredListConstraintValidator.validate(model.requiredListWithNullableItems, HttpModelType.PARAMETER, "requiredListWithNullableItems");
-        notEmptyStringConstraintValidator.validateList(model.requiredListWithNullableItems, HttpModelType.PARAMETER, "requiredListWithNullableItems");
+        notEmptyStringConstraintValidator.validateIterable(model.requiredListWithNullableItems, HttpModelType.PARAMETER, "requiredListWithNullableItems");
 
         requiredListConstraintValidator.validate(model.requiredListWithEmptyItems, HttpModelType.PARAMETER, "requiredListWithEmptyItems");
-        requiredConstraintValidator.validateList(model.requiredListWithEmptyItems, HttpModelType.PARAMETER, "requiredListWithEmptyItems");
+        requiredConstraintValidator.validateIterable(model.requiredListWithEmptyItems, HttpModelType.PARAMETER, "requiredListWithEmptyItems");
 
         requiredListConstraintValidator.validate(model.requiredListWithNullableOrEmptyItems, HttpModelType.PARAMETER, "requiredListWithNullableOrEmptyItems");
 
-        notEmptyStringConstraintValidator.validateList(model.nullableListWithNullableItems, HttpModelType.PARAMETER, "nullableListWithNullableItems");
+        notEmptyStringConstraintValidator.validateIterable(model.nullableListWithNullableItems, HttpModelType.PARAMETER, "nullableListWithNullableItems");
 
-        requiredConstraintValidator.validateList(model.nullableListWithEmptyItems, HttpModelType.PARAMETER, "nullableListWithEmptyItems");
+        requiredConstraintValidator.validateIterable(model.nullableListWithEmptyItems, HttpModelType.PARAMETER, "nullableListWithEmptyItems");
     }
 }

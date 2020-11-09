@@ -20,6 +20,10 @@ import io.rxmicro.annotation.processor.common.util.UsedByFreemarker;
 
 import java.util.List;
 
+import javax.lang.model.type.TypeMirror;
+
+import static io.rxmicro.annotation.processor.common.util.Names.getSimpleName;
+import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getTypes;
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.Requires.require;
 
@@ -27,14 +31,19 @@ import static io.rxmicro.common.util.Requires.require;
  * @author nedis
  * @since 0.1
  */
-public final class ListModelClass extends ModelClass {
-
-    private static final String CONTAINER_SIMPLE_CLASS_NAME = List.class.getSimpleName();
+public final class IterableModelClass extends ModelClass {
 
     private final ModelClass elementModelClass;
 
-    public ListModelClass(final ModelClass elementModelClass) {
+    private final TypeMirror containerType;
+
+    private final String containerTypeName;
+
+    public IterableModelClass(final ModelClass elementModelClass,
+                              final TypeMirror containerType) {
         this.elementModelClass = require(elementModelClass);
+        this.containerType = containerType;
+        this.containerTypeName = getSimpleName(getTypes().erasure(containerType));
     }
 
     @UsedByFreemarker
@@ -43,28 +52,33 @@ public final class ListModelClass extends ModelClass {
     }
 
     @UsedByFreemarker
-    public boolean isPrimitiveList() {
+    public boolean isPrimitiveIterable() {
         return elementModelClass instanceof PrimitiveModelClass;
     }
 
     @UsedByFreemarker
-    public boolean isObjectList() {
+    public boolean isObjectIterable() {
         return elementModelClass instanceof ObjectModelClass;
     }
 
     @UsedByFreemarker
-    public boolean isEnumList() {
+    public boolean isEnumIterable() {
         return elementModelClass instanceof EnumModelClass;
+    }
+
+    @UsedByFreemarker
+    public String getContainerType(){
+        return containerTypeName;
     }
 
     @Override
     @UsedByFreemarker
     public String getJavaSimpleClassName() {
-        return format("?<?>", CONTAINER_SIMPLE_CLASS_NAME, elementModelClass.getJavaSimpleClassName());
+        return getSimpleName(containerType);
     }
 
     @Override
     public String getJavaFullClassName() {
-        return format("?<?>", List.class.getName(), elementModelClass.getJavaFullClassName());
+        return containerType.toString();
     }
 }

@@ -19,9 +19,9 @@ public final class $$ComplexResponseModelFromJsonConverter extends ModelFromJson
         final ComplexResponse model = new ComplexResponse();
         model.integerParameter = toInteger(params.get("integer_parameter"), "integer_parameter");
         model.enumParameter = toEnum(Status.class, params.get("enum_parameter"), "enum_parameter");
-        model.enumsParameter = toEnumArray(Status.class, params.get("enums_parameter"), "enums_parameter");
-        model.nestedModelParameter = convertIfNotNull(nestedModelModelFromJsonConverter, (Map<String, Object>) params.get("nested_model_parameter"));
-        model.nestedModelsParameter = convertIfNotNull(nestedModelModelFromJsonConverter, (List<Object>) params.get("nested_models_parameter"), "nested_models_parameter");
+        model.enumsParameter = toEnumList(Status.class, params.get("enums_parameter"), "enums_parameter");
+        model.nestedModelParameter = convertToObjectIfNotNull(nestedModelModelFromJsonConverter, (Map<String, Object>) params.get("nested_model_parameter"));
+        model.nestedModelsParameter = convertToListIfNotNull(nestedModelModelFromJsonConverter, (List<Object>) params.get("nested_models_parameter"), "nested_models_parameter");
         return model;
     }
 }

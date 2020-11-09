@@ -38,8 +38,24 @@ public final class $$QueryRequestRequestModelExtractor extends RequestModelExtra
         queryBuilder.add("stringParameters", model.getStringParameters());
         queryBuilder.add("instantParameters", model.getInstantParameters());
         queryBuilder.add("statuses", model.getStatuses());
-        for (final Status item : model.getRepeatingStatues()) {
-            queryBuilder.add("repeatingStatues", item);
+        queryBuilder.add("booleanParameterSet", model.getBooleanParameterSet());
+        queryBuilder.add("byteParameterSet", model.getByteParameterSet());
+        queryBuilder.add("shortParameterSet", model.getShortParameterSet());
+        queryBuilder.add("intParameterSet", model.getIntParameterSet());
+        queryBuilder.add("longParameterSet", model.getLongParameterSet());
+        queryBuilder.add("bigIntParameterSet", model.getBigIntParameterSet());
+        queryBuilder.add("floatParameterSet", model.getFloatParameterSet());
+        queryBuilder.add("doubleParameterSet", model.getDoubleParameterSet());
+        queryBuilder.add("decimalParameterSet", model.getDecimalParameterSet());
+        queryBuilder.add("charParameterSet", model.getCharParameterSet());
+        queryBuilder.add("stringParameterSet", model.getStringParameterSet());
+        queryBuilder.add("instantParameterSet", model.getInstantParameterSet());
+        queryBuilder.add("statusSet", model.getStatusSet());
+        for (final Status item : model.getRepeatingStatuses()) {
+            queryBuilder.add("repeatingStatuses", item);
+        }
+        for (final Status item : model.getRepeatingStatusSet()) {
+            queryBuilder.add("repeatingStatusSet", item);
         }
     }
 }

@@ -17,6 +17,7 @@
 package io.rxmicro.exchange.json.detail;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -27,7 +28,6 @@ import java.util.Map;
  * @hidden
  * @since 0.1
  */
-@SuppressWarnings("ForLoopReplaceableByForEach")
 public abstract class ModelToJsonConverter<T> {
 
     @SuppressWarnings("unchecked")
@@ -41,11 +41,10 @@ public abstract class ModelToJsonConverter<T> {
 
     public abstract Map<String, Object> toJsonObject(T model);
 
-    public final List<Object> toJsonObjectArray(final List<T> list) {
+    public final List<Object> toJsonObjectArray(final Collection<T> list) {
         if (list != null) {
             final List<Object> objects = new ArrayList<>();
-            for (int i = 0; i < list.size(); i++) {
-                final T model = list.get(i);
+            for (final T model : list) {
                 if (model != null) {
                     objects.add(toJsonObject(model));
                 } else {
@@ -59,13 +58,13 @@ public abstract class ModelToJsonConverter<T> {
         return null;
     }
 
-    protected final <E> Map<String, Object> convertIfNotNull(final ModelToJsonConverter<E> converter,
-                                                             final E model) {
+    protected final <E> Map<String, Object> convertToJsonObjectIfNotNull(final ModelToJsonConverter<E> converter,
+                                                                         final E model) {
         return model != null ? converter.toJsonObject(model) : null;
     }
 
-    protected final <E> List<Object> convertIfNotNull(final ModelToJsonConverter<E> converter,
-                                                      final List<E> list) {
+    protected final <E> List<Object> convertToJsonArrayIfNotNull(final ModelToJsonConverter<E> converter,
+                                                                 final Collection<E> list) {
         return list != null ? converter.toJsonObjectArray(list) : null;
     }
 }

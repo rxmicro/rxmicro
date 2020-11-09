@@ -60,8 +60,8 @@ public final class $$EntityEntityToMongoDBConverter extends EntityToMongoDBConve
         document.append("codeList", model.getCodeList());
         document.append("binary", model.getBinary());
         document.append("binaryList", model.getBinaryList());
-        document.append("nested", convertIfNotNull(nestedEntityToMongoDBConverter, model.getNested()));
-        document.append("nestedList", convertIfNotNull(nestedEntityToMongoDBConverter, model.getNestedList()));
+        document.append("nested", convertToObjectIfNotNull(nestedEntityToMongoDBConverter, model.getNested()));
+        document.append("nestedList", convertToListIfNotNull(nestedEntityToMongoDBConverter, model.getNestedList()));
         return document;
     }
 

@@ -21,19 +21,31 @@ import io.rxmicro.rest.Header;
 import io.rxmicro.rest.RepeatHeader;
 
 import java.util.List;
+import java.util.Set;
 
 public final class Response extends Abstract {
 
     @Header
     @RepeatHeader
-    private List<Status> repeatingStatues;
+    private List<Status> repeatingStatuses;
 
-    public List<Status> getRepeatingStatues() {
-        return repeatingStatues;
+    @Header
+    @RepeatHeader
+    private Set<Status> repeatingStatusSet;
+
+    public List<Status> getRepeatingStatuses() {
+        return repeatingStatuses;
     }
 
-    public void setRepeatingStatues(final List<Status> repeatingStatues) {
-        this.repeatingStatues = repeatingStatues;
+    public void setRepeatingStatuses(final List<Status> repeatingStatuses) {
+        this.repeatingStatuses = repeatingStatuses;
     }
 
+    public Set<Status> getRepeatingStatusSet() {
+        return repeatingStatusSet;
+    }
+
+    public void setRepeatingStatusSet(final Set<Status> repeatingStatusSet) {
+        this.repeatingStatusSet = repeatingStatusSet;
+    }
 }

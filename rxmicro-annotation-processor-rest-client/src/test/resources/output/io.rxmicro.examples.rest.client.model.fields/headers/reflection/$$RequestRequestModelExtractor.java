@@ -4,7 +4,11 @@ import io.rxmicro.examples.rest.client.model.fields.Status;
 import io.rxmicro.rest.client.detail.HeaderBuilder;
 import io.rxmicro.rest.client.detail.RequestModelExtractor;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.time.Instant;
 import java.util.List;
+import java.util.Set;
 
 import static rxmicro.$$Reflections.getFieldValue;
 
@@ -16,34 +20,50 @@ public final class $$RequestRequestModelExtractor extends RequestModelExtractor<
     @Override
     public void extract(final Request model,
                         final HeaderBuilder headerBuilder) {
-        headerBuilder.add("booleanParameter", getFieldValue(model, "booleanParameter"));
-        headerBuilder.add("byteParameter", getFieldValue(model, "byteParameter"));
-        headerBuilder.add("shortParameter", getFieldValue(model, "shortParameter"));
-        headerBuilder.add("intParameter", getFieldValue(model, "intParameter"));
-        headerBuilder.add("longParameter", getFieldValue(model, "longParameter"));
-        headerBuilder.add("bigIntParameter", getFieldValue(model, "bigIntParameter"));
-        headerBuilder.add("floatParameter", getFieldValue(model, "floatParameter"));
-        headerBuilder.add("doubleParameter", getFieldValue(model, "doubleParameter"));
-        headerBuilder.add("decimalParameter", getFieldValue(model, "decimalParameter"));
-        headerBuilder.add("charParameter", getFieldValue(model, "charParameter"));
-        headerBuilder.add("stringParameter", getFieldValue(model, "stringParameter"));
-        headerBuilder.add("instantParameter", getFieldValue(model, "instantParameter"));
-        headerBuilder.add("status", getFieldValue(model, "status"));
-        headerBuilder.add("booleanParameters", getFieldValue(model, "booleanParameters"));
-        headerBuilder.add("byteParameters", getFieldValue(model, "byteParameters"));
-        headerBuilder.add("shortParameters", getFieldValue(model, "shortParameters"));
-        headerBuilder.add("intParameters", getFieldValue(model, "intParameters"));
-        headerBuilder.add("longParameters", getFieldValue(model, "longParameters"));
-        headerBuilder.add("bigIntParameters", getFieldValue(model, "bigIntParameters"));
-        headerBuilder.add("floatParameters", getFieldValue(model, "floatParameters"));
-        headerBuilder.add("doubleParameters", getFieldValue(model, "doubleParameters"));
-        headerBuilder.add("decimalParameters", getFieldValue(model, "decimalParameters"));
-        headerBuilder.add("charParameters", getFieldValue(model, "charParameters"));
-        headerBuilder.add("stringParameters", getFieldValue(model, "stringParameters"));
-        headerBuilder.add("instantParameters", getFieldValue(model, "instantParameters"));
-        headerBuilder.add("statuses", getFieldValue(model, "statuses"));
-        for (final Status item : (List<Status>) getFieldValue(model, "repeatingStatues")) {
-            headerBuilder.add("repeatingStatues", item);
+        headerBuilder.add("booleanParameter", (Boolean) getFieldValue(model, "booleanParameter"));
+        headerBuilder.add("byteParameter", (Byte) getFieldValue(model, "byteParameter"));
+        headerBuilder.add("shortParameter", (Short) getFieldValue(model, "shortParameter"));
+        headerBuilder.add("intParameter", (Integer) getFieldValue(model, "intParameter"));
+        headerBuilder.add("longParameter", (Long) getFieldValue(model, "longParameter"));
+        headerBuilder.add("bigIntParameter", (BigInteger) getFieldValue(model, "bigIntParameter"));
+        headerBuilder.add("floatParameter", (Float) getFieldValue(model, "floatParameter"));
+        headerBuilder.add("doubleParameter", (Double) getFieldValue(model, "doubleParameter"));
+        headerBuilder.add("decimalParameter", (BigDecimal) getFieldValue(model, "decimalParameter"));
+        headerBuilder.add("charParameter", (Character) getFieldValue(model, "charParameter"));
+        headerBuilder.add("stringParameter", (String) getFieldValue(model, "stringParameter"));
+        headerBuilder.add("instantParameter", (Instant) getFieldValue(model, "instantParameter"));
+        headerBuilder.add("status", (Status) getFieldValue(model, "status"));
+        headerBuilder.add("booleanParameters", (List<Boolean>) getFieldValue(model, "booleanParameters"));
+        headerBuilder.add("byteParameters", (List<Byte>) getFieldValue(model, "byteParameters"));
+        headerBuilder.add("shortParameters", (List<Short>) getFieldValue(model, "shortParameters"));
+        headerBuilder.add("intParameters", (List<Integer>) getFieldValue(model, "intParameters"));
+        headerBuilder.add("longParameters", (List<Long>) getFieldValue(model, "longParameters"));
+        headerBuilder.add("bigIntParameters", (List<BigInteger>) getFieldValue(model, "bigIntParameters"));
+        headerBuilder.add("floatParameters", (List<Float>) getFieldValue(model, "floatParameters"));
+        headerBuilder.add("doubleParameters", (List<Double>) getFieldValue(model, "doubleParameters"));
+        headerBuilder.add("decimalParameters", (List<BigDecimal>) getFieldValue(model, "decimalParameters"));
+        headerBuilder.add("charParameters", (List<Character>) getFieldValue(model, "charParameters"));
+        headerBuilder.add("stringParameters", (List<String>) getFieldValue(model, "stringParameters"));
+        headerBuilder.add("instantParameters", (List<Instant>) getFieldValue(model, "instantParameters"));
+        headerBuilder.add("statuses", (List<Status>) getFieldValue(model, "statuses"));
+        headerBuilder.add("booleanParameterSet", (Set<Boolean>) getFieldValue(model, "booleanParameterSet"));
+        headerBuilder.add("byteParameterSet", (Set<Byte>) getFieldValue(model, "byteParameterSet"));
+        headerBuilder.add("shortParameterSet", (Set<Short>) getFieldValue(model, "shortParameterSet"));
+        headerBuilder.add("intParameterSet", (Set<Integer>) getFieldValue(model, "intParameterSet"));
+        headerBuilder.add("longParameterSet", (Set<Long>) getFieldValue(model, "longParameterSet"));
+        headerBuilder.add("bigIntParameterSet", (Set<BigInteger>) getFieldValue(model, "bigIntParameterSet"));
+        headerBuilder.add("floatParameterSet", (Set<Float>) getFieldValue(model, "floatParameterSet"));
+        headerBuilder.add("doubleParameterSet", (Set<Double>) getFieldValue(model, "doubleParameterSet"));
+        headerBuilder.add("decimalParameterSet", (Set<BigDecimal>) getFieldValue(model, "decimalParameterSet"));
+        headerBuilder.add("charParameterSet", (Set<Character>) getFieldValue(model, "charParameterSet"));
+        headerBuilder.add("stringParameterSet", (Set<String>) getFieldValue(model, "stringParameterSet"));
+        headerBuilder.add("instantParameterSet", (Set<Instant>) getFieldValue(model, "instantParameterSet"));
+        headerBuilder.add("statusSet", (Set<Status>) getFieldValue(model, "statusSet"));
+        for (final Status item : (List<Status>) getFieldValue(model, "repeatingStatuses")) {
+            headerBuilder.add("repeatingStatuses", item);
+        }
+        for (final Status item : (Set<Status>) getFieldValue(model, "repeatingStatusSet")) {
+            headerBuilder.add("repeatingStatusSet", item);
         }
     }
 }

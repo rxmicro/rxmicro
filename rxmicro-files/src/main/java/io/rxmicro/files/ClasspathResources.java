@@ -38,8 +38,8 @@ public final class ClasspathResources {
      * Reads bytes from the classpath resource and converts it to the {@code UTF-8} {@link String}.
      *
      * @param classPathResource the classpath resource
-     * @return the {@link List} of {@code UTF-8} strings read from the classpath resource or
-     *          the empty list if the classpath resource not found
+     * @return the {@code UTF-8} {@link String} read from the classpath resource or
+     *          the {@link Optional#empty()} if the classpath resource not found
      * @throws ResourceException if IO error occurs
      */
     public static Optional<String> readString(final String classPathResource) {

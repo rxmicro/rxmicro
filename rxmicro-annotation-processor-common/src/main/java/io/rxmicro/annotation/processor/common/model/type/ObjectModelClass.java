@@ -106,8 +106,8 @@ public abstract class ObjectModelClass<T extends ModelField> extends ModelClass 
                 final ObjectModelClass<T> objectModelClass = modelClass.asObject();
                 result.add(objectModelClass);
                 result.addAll(objectModelClass.getAllChildrenObjectModelClasses());
-            } else if (modelClass.isList() && modelClass.asList().isObjectList()) {
-                final ObjectModelClass<T> objectModelClass = modelClass.asList().getElementModelClass().asObject();
+            } else if (modelClass.isIterable() && modelClass.asIterable().isObjectIterable()) {
+                final ObjectModelClass<T> objectModelClass = modelClass.asIterable().getElementModelClass().asObject();
                 result.add(objectModelClass);
                 result.addAll(objectModelClass.getAllChildrenObjectModelClasses());
             }

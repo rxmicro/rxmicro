@@ -18,6 +18,8 @@ package io.rxmicro.json.internal.writer;
 
 import io.rxmicro.json.JsonNumber;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -110,6 +112,8 @@ public final class JsonWriter {
             addJsonObject(builder, (Map<String, Object>) value, indent + 1);
         } else if (value instanceof List) {
             addJsonArray(builder, (List<Object>) value, indent + 1);
+        } else if (value instanceof Collection) {
+            addJsonArray(builder, new ArrayList<>((Collection<Object>) value), indent + 1);
         } else if (value instanceof Boolean) {
             builder.bool((Boolean) value);
         } else if (value instanceof Number || value instanceof JsonNumber) {

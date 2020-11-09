@@ -20,7 +20,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import io.rxmicro.annotation.processor.common.model.EnvironmentContext;
 import io.rxmicro.annotation.processor.common.model.error.InternalErrorException;
-import io.rxmicro.annotation.processor.common.model.type.ListModelClass;
+import io.rxmicro.annotation.processor.common.model.type.IterableModelClass;
 import io.rxmicro.annotation.processor.common.model.type.ModelClass;
 import io.rxmicro.annotation.processor.documentation.asciidoctor.component.CharacteristicsReader;
 import io.rxmicro.annotation.processor.documentation.asciidoctor.component.DocumentedModelFieldBuilder;
@@ -112,16 +112,16 @@ public final class DocumentedModelFieldBuilderImpl implements DocumentedModelFie
                         format("\"?\"", entry.getKey().getModelName()),
                         entryList, entry.getValue().asObject(), withReadMore
                 );
-            } else if (entry.getValue().isList()) {
-                final ListModelClass listModelClass = entry.getValue().asList();
-                if (listModelClass.isObjectList()) {
+            } else if (entry.getValue().isIterable()) {
+                final IterableModelClass iterableModelClass = entry.getValue().asIterable();
+                if (iterableModelClass.isObjectIterable()) {
                     list.add(buildDocumentedModelField(
                             environmentContext, withStandardDescriptions, projectDirectory, entry, ARRAY, withReadMore
                     ));
                     extractModelRecursive(
                             environmentContext, withStandardDescriptions, projectDirectory,
                             format("\"?\" Item", entry.getKey().getModelName()),
-                            entryList, listModelClass.getElementModelClass().asObject(), withReadMore
+                            entryList, iterableModelClass.getElementModelClass().asObject(), withReadMore
                     );
                 } else {
                     list.add(buildDocumentedModelField(
@@ -174,13 +174,13 @@ public final class DocumentedModelFieldBuilderImpl implements DocumentedModelFie
             return modelClass.asPrimitive().getPrimitiveType().toJsonType();
         } else if (modelClass.isEnum()) {
             return modelClass.asEnum().getPrimitiveType().toJsonType();
-        } else if (modelClass.isList()) {
-            final ListModelClass listModelClass = modelClass.asList();
-            if (listModelClass.isPrimitiveList() || listModelClass.isEnumList()) {
+        } else if (modelClass.isIterable()) {
+            final IterableModelClass iterableModelClass = modelClass.asIterable();
+            if (iterableModelClass.isPrimitiveIterable() || iterableModelClass.isEnumIterable()) {
                 return ARRAY;
             } else {
                 throw new InternalErrorException("Unsupported primitive model list: ?",
-                        listModelClass.getElementModelClass().getClass());
+                        iterableModelClass.getElementModelClass().getClass());
             }
         } else {
             throw new InternalErrorException("Unsupported primitive model class: ?",

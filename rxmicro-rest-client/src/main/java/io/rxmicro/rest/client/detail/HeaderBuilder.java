@@ -19,9 +19,11 @@ package io.rxmicro.rest.client.detail;
 import io.rxmicro.common.model.ListBuilder;
 
 import java.math.BigDecimal;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+import static io.rxmicro.http.HttpValues.collectionToString;
 import static io.rxmicro.http.HttpValues.listToString;
 import static java.util.Map.entry;
 
@@ -54,6 +56,14 @@ public final class HeaderBuilder extends ListBuilder<Map.Entry<String, String>> 
                              final List<?> list) {
         if (list != null && !list.isEmpty()) {
             super.add(entry(name, listToString(list)));
+        }
+        return this;
+    }
+
+    public HeaderBuilder add(final String name,
+                             final Collection<?> list) {
+        if (list != null && !list.isEmpty()) {
+            super.add(entry(name, collectionToString(list)));
         }
         return this;
     }
