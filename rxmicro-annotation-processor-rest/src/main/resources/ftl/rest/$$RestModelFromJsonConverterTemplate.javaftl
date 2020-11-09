@@ -23,11 +23,11 @@ public final class ${JAVA_MODEL_CLASS.modelFromJsonConverterImplSimpleClassName}
     <#if entry.value.object>
         <#assign element = entry.value>
         <#if param.modelWriteAccessorType.name() == "REFLECTION">
-        setFieldValue(model, "${param.fieldName}", convertToObjectIfNotNull(${element.fromJsonConverterInstanceName}, (Map<String, Object>) params.get("${param.modelName}")));
+        setFieldValue(model, "${param.fieldName}", convertToObjectIfNotNull(${element.fromJsonConverterInstanceName}, params.get("${param.modelName}"), "${param.modelName}"));
         <#elseif param.modelWriteAccessorType.name() == "DIRECT">
-        model.${param.fieldName} = convertToObjectIfNotNull(${element.fromJsonConverterInstanceName}, (Map<String, Object>) params.get("${param.modelName}"));
+        model.${param.fieldName} = convertToObjectIfNotNull(${element.fromJsonConverterInstanceName}, params.get("${param.modelName}"), "${param.modelName}");
         <#elseif param.modelWriteAccessorType.name() == "JAVA_BEAN">
-        model.${param.setter}(convertToObjectIfNotNull(${element.fromJsonConverterInstanceName}, (Map<String, Object>) params.get("${param.modelName}")));
+        model.${param.setter}(convertToObjectIfNotNull(${element.fromJsonConverterInstanceName}, params.get("${param.modelName}"), "${param.modelName}"));
         </#if>
     <#elseif entry.value.iterable>
     <#assign element = entry.value.elementModelClass>
@@ -52,11 +52,11 @@ public final class ${JAVA_MODEL_CLASS.modelFromJsonConverterImplSimpleClassName}
     <#elseif entry.value.objectIterable>
         <#assign containerType = entry.value.containerType>
         <#if param.modelWriteAccessorType.name() == "REFLECTION">
-        setFieldValue(model, "${param.fieldName}", convertTo${containerType}IfNotNull(${element.fromJsonConverterInstanceName}, (List<Object>) params.get("${param.modelName}"), "${param.modelName}"));
+        setFieldValue(model, "${param.fieldName}", convertTo${containerType}IfNotNull(${element.fromJsonConverterInstanceName}, params.get("${param.modelName}"), "${param.modelName}"));
         <#elseif param.modelWriteAccessorType.name() == "DIRECT">
-        model.${param.fieldName} = convertTo${containerType}IfNotNull(${element.fromJsonConverterInstanceName}, (List<Object>) params.get("${param.modelName}"), "${param.modelName}");
+        model.${param.fieldName} = convertTo${containerType}IfNotNull(${element.fromJsonConverterInstanceName}, params.get("${param.modelName}"), "${param.modelName}");
         <#elseif param.modelWriteAccessorType.name() == "JAVA_BEAN">
-        model.${param.setter}(convertTo${containerType}IfNotNull(${element.fromJsonConverterInstanceName}, (List<Object>) params.get("${param.modelName}"), "${param.modelName}"));
+        model.${param.setter}(convertTo${containerType}IfNotNull(${element.fromJsonConverterInstanceName}, params.get("${param.modelName}"), "${param.modelName}"));
         </#if>
     </#if>
     <#elseif entry.value.primitive>

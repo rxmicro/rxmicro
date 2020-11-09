@@ -3,7 +3,6 @@ package io.rxmicro.examples.rest.controller.complex.model.model;
 import io.rxmicro.examples.rest.controller.complex.model.model.nested.$$NestedModelModelFromJsonConverter;
 import io.rxmicro.exchange.json.detail.ModelFromJsonConverter;
 
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -43,8 +42,8 @@ public final class $$ComplexModelModelFromJsonConverter extends ModelFromJsonCon
         model.stringList = toStringList(params.get("stringList"), "stringList");
         model.instant = toInstant(params.get("instant"), "instant");
         model.instantList = toInstantList(params.get("instantList"), "instantList");
-        model.nested = convertToObjectIfNotNull(nestedModelModelFromJsonConverter, (Map<String, Object>) params.get("nested"));
-        model.nestedList = convertToListIfNotNull(nestedModelModelFromJsonConverter, (List<Object>) params.get("nestedList"), "nestedList");
+        model.nested = convertToObjectIfNotNull(nestedModelModelFromJsonConverter, params.get("nested"), "nested");
+        model.nestedList = convertToListIfNotNull(nestedModelModelFromJsonConverter, params.get("nestedList"), "nestedList");
         return model;
     }
 }

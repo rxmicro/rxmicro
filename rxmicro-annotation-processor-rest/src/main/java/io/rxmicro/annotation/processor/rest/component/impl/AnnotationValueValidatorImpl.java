@@ -18,6 +18,7 @@ package io.rxmicro.annotation.processor.rest.component.impl;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import io.rxmicro.annotation.processor.common.component.IterableContainerElementExtractor;
 import io.rxmicro.annotation.processor.common.component.NumberValidators;
 import io.rxmicro.annotation.processor.common.component.impl.AbstractProcessorComponent;
 import io.rxmicro.annotation.processor.common.util.Elements;
@@ -40,10 +41,12 @@ import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.regex.PatternSyntaxException;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import javax.lang.model.element.Element;
 import javax.lang.model.type.DeclaredType;
 import javax.lang.model.type.TypeMirror;
 
@@ -57,6 +60,9 @@ public final class AnnotationValueValidatorImpl extends AbstractProcessorCompone
 
     @Inject
     private NumberValidators numberValidators;
+
+    @Inject
+    private Set<IterableContainerElementExtractor> iterableContainerElementExtractors;
 
     @Override
     public void validate(final ModelConstraintAnnotation modelConstraintAnnotation,
@@ -181,18 +187,19 @@ public final class AnnotationValueValidatorImpl extends AbstractProcessorCompone
                 Arrays.stream(subEnum.exclude()),
                 Arrays.stream(subEnum.include())
         ).collect(Collectors.toList());
+        final Element owner = restModelField.getElementAnnotatedBy(SubEnum.class);
         if (names.isEmpty()) {
             error(
-                    restModelField.getElementAnnotatedBy(SubEnum.class),
+                    owner,
                     "Annotation '@?' has invalid parameter: Expected include or exclude values",
                     SubEnum.class.getSimpleName()
             );
         }
-        final Set<String> allowedEnumConstants = getAllowedEnumConstants(restModelField);
+        final Set<String> allowedEnumConstants = getAllowedEnumConstants(owner, restModelField);
         for (final String name : names) {
             if (!allowedEnumConstants.contains(name)) {
                 error(
-                        restModelField.getElementAnnotatedBy(SubEnum.class),
+                        owner,
                         "Annotation '@?' has invalid parameter: Value '?' is invalid enum constant. Allowed values: ?",
                         SubEnum.class.getSimpleName(), name, allowedEnumConstants
                 );
@@ -202,7 +209,7 @@ public final class AnnotationValueValidatorImpl extends AbstractProcessorCompone
         for (final String include : subEnum.include()) {
             if (excludes.contains(include)) {
                 error(
-                        restModelField.getElementAnnotatedBy(SubEnum.class),
+                        owner,
                         "Annotation '@?' has invalid parameter: Value '?' couldn't be included and excluded at the same time",
                         SubEnum.class.getSimpleName(), include
                 );
@@ -210,12 +217,19 @@ public final class AnnotationValueValidatorImpl extends AbstractProcessorCompone
         }
     }
 
-    private Set<String> getAllowedEnumConstants(final RestModelField restModelField) {
+    private Set<String> getAllowedEnumConstants(final Element owner,
+                                                final RestModelField restModelField) {
         final TypeMirror typeMirror = restModelField.getFieldClass();
-        if (typeMirror.toString().startsWith(List.class.getName())) {
-            return Elements.getAllowedEnumConstants(((DeclaredType) typeMirror).getTypeArguments().get(0));
-        } else {
-            return Elements.getAllowedEnumConstants(typeMirror);
-        }
+        return getIterableContainerElementExtractor(typeMirror)
+                .map(iterableContainerElementExtractor -> Elements.getAllowedEnumConstants(
+                        iterableContainerElementExtractor.getItemType(owner, (DeclaredType)typeMirror))
+                )
+                .orElseGet(() -> Elements.getAllowedEnumConstants(typeMirror));
+    }
+
+    private Optional<IterableContainerElementExtractor> getIterableContainerElementExtractor(final TypeMirror type) {
+        return iterableContainerElementExtractors.stream()
+                .filter(iterableContainerElementExtractor -> iterableContainerElementExtractor.isSupported(type))
+                .findFirst();
     }
 }

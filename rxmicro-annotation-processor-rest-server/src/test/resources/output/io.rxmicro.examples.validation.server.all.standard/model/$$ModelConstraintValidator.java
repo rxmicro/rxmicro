@@ -33,6 +33,8 @@ import io.rxmicro.validation.validator.MaxLengthConstraintValidator;
 import io.rxmicro.validation.validator.MaxLongConstraintValidator;
 import io.rxmicro.validation.validator.MaxShortConstraintValidator;
 import io.rxmicro.validation.validator.MaxSizeListConstraintValidator;
+import io.rxmicro.validation.validator.MaxSizeMapConstraintValidator;
+import io.rxmicro.validation.validator.MaxSizeSetConstraintValidator;
 import io.rxmicro.validation.validator.MinBigDecimalNumberConstraintValidator;
 import io.rxmicro.validation.validator.MinBigIntegerNumberConstraintValidator;
 import io.rxmicro.validation.validator.MinByteConstraintValidator;
@@ -43,6 +45,8 @@ import io.rxmicro.validation.validator.MinLengthConstraintValidator;
 import io.rxmicro.validation.validator.MinLongConstraintValidator;
 import io.rxmicro.validation.validator.MinShortConstraintValidator;
 import io.rxmicro.validation.validator.MinSizeListConstraintValidator;
+import io.rxmicro.validation.validator.MinSizeMapConstraintValidator;
+import io.rxmicro.validation.validator.MinSizeSetConstraintValidator;
 import io.rxmicro.validation.validator.NotEmptyStringConstraintValidator;
 import io.rxmicro.validation.validator.NumericConstraintValidator;
 import io.rxmicro.validation.validator.PastInstantConstraintValidator;
@@ -52,7 +56,11 @@ import io.rxmicro.validation.validator.PhoneConstraintValidator;
 import io.rxmicro.validation.validator.RequiredAndNotEmptyStringConstraintValidator;
 import io.rxmicro.validation.validator.RequiredConstraintValidator;
 import io.rxmicro.validation.validator.RequiredListConstraintValidator;
+import io.rxmicro.validation.validator.RequiredMapConstraintValidator;
+import io.rxmicro.validation.validator.RequiredSetConstraintValidator;
 import io.rxmicro.validation.validator.SizeListConstraintValidator;
+import io.rxmicro.validation.validator.SizeMapConstraintValidator;
+import io.rxmicro.validation.validator.SizeSetConstraintValidator;
 import io.rxmicro.validation.validator.SkypeConstraintValidator;
 import io.rxmicro.validation.validator.SubEnumConstraintValidator;
 import io.rxmicro.validation.validator.TelegramConstraintValidator;
@@ -117,6 +125,12 @@ public final class $$ModelConstraintValidator implements ConstraintValidator<Mod
 
     private final UniqueItemsListConstraintValidator uniqueItemsListConstraintValidator =
             getStatelessValidator(UniqueItemsListConstraintValidator.class);
+
+    private final RequiredSetConstraintValidator requiredSetConstraintValidator =
+            getStatelessValidator(RequiredSetConstraintValidator.class);
+
+    private final RequiredMapConstraintValidator requiredMapConstraintValidator =
+            getStatelessValidator(RequiredMapConstraintValidator.class);
 
     private final RequiredAndNotEmptyStringConstraintValidator requiredAndNotEmptyStringConstraintValidator =
             getStatelessValidator(RequiredAndNotEmptyStringConstraintValidator.class);
@@ -496,6 +510,462 @@ public final class $$ModelConstraintValidator implements ConstraintValidator<Mod
     private final SubEnumConstraintValidator colorsSubEnumSubEnumConstraintValidator =
             new SubEnumConstraintValidator(Color.class, List.of("RED", "BLUE"), List.of());
 
+    private final MaxSizeSetConstraintValidator booleanSetMaxSizeMaxSizeSetConstraintValidator =
+            new MaxSizeSetConstraintValidator(50, true);
+
+    private final MinSizeSetConstraintValidator booleanSetMinSizeMinSizeSetConstraintValidator =
+            new MinSizeSetConstraintValidator(2, true);
+
+    private final SizeSetConstraintValidator booleanSetSizeSizeSetConstraintValidator =
+            new SizeSetConstraintValidator(12);
+
+    private final MaxByteConstraintValidator byteSetMaxIntMaxByteConstraintValidator =
+            new MaxByteConstraintValidator(10L, true);
+
+    private final MaxSizeSetConstraintValidator byteSetMaxSizeMaxSizeSetConstraintValidator =
+            new MaxSizeSetConstraintValidator(50, true);
+
+    private final MinByteConstraintValidator byteSetMinIntMinByteConstraintValidator =
+            new MinByteConstraintValidator(3L, true);
+
+    private final MinSizeSetConstraintValidator byteSetMinSizeMinSizeSetConstraintValidator =
+            new MinSizeSetConstraintValidator(2, true);
+
+    private final SizeSetConstraintValidator byteSetSizeSizeSetConstraintValidator =
+            new SizeSetConstraintValidator(12);
+
+    private final MaxShortConstraintValidator shortSetMaxIntMaxShortConstraintValidator =
+            new MaxShortConstraintValidator(10L, true);
+
+    private final MaxSizeSetConstraintValidator shortSetMaxSizeMaxSizeSetConstraintValidator =
+            new MaxSizeSetConstraintValidator(50, true);
+
+    private final MinShortConstraintValidator shortSetMinIntMinShortConstraintValidator =
+            new MinShortConstraintValidator(3L, true);
+
+    private final MinSizeSetConstraintValidator shortSetMinSizeMinSizeSetConstraintValidator =
+            new MinSizeSetConstraintValidator(2, true);
+
+    private final SizeSetConstraintValidator shortSetSizeSizeSetConstraintValidator =
+            new SizeSetConstraintValidator(12);
+
+    private final MaxIntConstraintValidator intSetMaxIntMaxIntConstraintValidator =
+            new MaxIntConstraintValidator(10L, true);
+
+    private final MaxSizeSetConstraintValidator intSetMaxSizeMaxSizeSetConstraintValidator =
+            new MaxSizeSetConstraintValidator(50, true);
+
+    private final MinIntConstraintValidator intSetMinIntMinIntConstraintValidator =
+            new MinIntConstraintValidator(3L, true);
+
+    private final MinSizeSetConstraintValidator intSetMinSizeMinSizeSetConstraintValidator =
+            new MinSizeSetConstraintValidator(2, true);
+
+    private final SizeSetConstraintValidator intSetSizeSizeSetConstraintValidator =
+            new SizeSetConstraintValidator(12);
+
+    private final MaxLongConstraintValidator longSetMaxIntMaxLongConstraintValidator =
+            new MaxLongConstraintValidator(10L, true);
+
+    private final MaxSizeSetConstraintValidator longSetMaxSizeMaxSizeSetConstraintValidator =
+            new MaxSizeSetConstraintValidator(50, true);
+
+    private final MinLongConstraintValidator longSetMinIntMinLongConstraintValidator =
+            new MinLongConstraintValidator(3L, true);
+
+    private final MinSizeSetConstraintValidator longSetMinSizeMinSizeSetConstraintValidator =
+            new MinSizeSetConstraintValidator(2, true);
+
+    private final SizeSetConstraintValidator longSetSizeSizeSetConstraintValidator =
+            new SizeSetConstraintValidator(12);
+
+    private final EnumerationCharacterConstraintValidator charSetEnumerationEnumerationCharacterConstraintValidator =
+            new EnumerationCharacterConstraintValidator(List.of("y", "n"));
+
+    private final MaxSizeSetConstraintValidator charSetMaxSizeMaxSizeSetConstraintValidator =
+            new MaxSizeSetConstraintValidator(50, true);
+
+    private final MinSizeSetConstraintValidator charSetMinSizeMinSizeSetConstraintValidator =
+            new MinSizeSetConstraintValidator(2, true);
+
+    private final SizeSetConstraintValidator charSetSizeSizeSetConstraintValidator =
+            new SizeSetConstraintValidator(12);
+
+    private final MaxFloatConstraintValidator floatSetMaxDoubleMaxFloatConstraintValidator =
+            new MaxFloatConstraintValidator(10.9);
+
+    private final MaxSizeSetConstraintValidator floatSetMaxSizeMaxSizeSetConstraintValidator =
+            new MaxSizeSetConstraintValidator(50, true);
+
+    private final MinFloatConstraintValidator floatSetMinDoubleMinFloatConstraintValidator =
+            new MinFloatConstraintValidator(3.1);
+
+    private final MinSizeSetConstraintValidator floatSetMinSizeMinSizeSetConstraintValidator =
+            new MinSizeSetConstraintValidator(2, true);
+
+    private final SizeSetConstraintValidator floatSetSizeSizeSetConstraintValidator =
+            new SizeSetConstraintValidator(12);
+
+    private final MaxDoubleConstraintValidator doubleSetMaxDoubleMaxDoubleConstraintValidator =
+            new MaxDoubleConstraintValidator(10.9);
+
+    private final MaxSizeSetConstraintValidator doubleSetMaxSizeMaxSizeSetConstraintValidator =
+            new MaxSizeSetConstraintValidator(50, true);
+
+    private final MinDoubleConstraintValidator doubleSetMinDoubleMinDoubleConstraintValidator =
+            new MinDoubleConstraintValidator(3.1);
+
+    private final MinSizeSetConstraintValidator doubleSetMinSizeMinSizeSetConstraintValidator =
+            new MinSizeSetConstraintValidator(2, true);
+
+    private final SizeSetConstraintValidator doubleSetSizeSizeSetConstraintValidator =
+            new SizeSetConstraintValidator(12);
+
+    private final LatConstraintValidator decimalSetLatLatConstraintValidator =
+            new LatConstraintValidator(LocationAccuracy.ACCURACY_1_METER);
+
+    private final LngConstraintValidator decimalSetLngLngConstraintValidator =
+            new LngConstraintValidator(LocationAccuracy.ACCURACY_1_METER);
+
+    private final MaxBigDecimalNumberConstraintValidator decimalSetMaxNumberMaxBigDecimalNumberConstraintValidator =
+            new MaxBigDecimalNumberConstraintValidator("10.9", true);
+
+    private final MaxSizeSetConstraintValidator decimalSetMaxSizeMaxSizeSetConstraintValidator =
+            new MaxSizeSetConstraintValidator(50, true);
+
+    private final MinBigDecimalNumberConstraintValidator decimalSetMinNumberMinBigDecimalNumberConstraintValidator =
+            new MinBigDecimalNumberConstraintValidator("3.1", true);
+
+    private final MinSizeSetConstraintValidator decimalSetMinSizeMinSizeSetConstraintValidator =
+            new MinSizeSetConstraintValidator(2, true);
+
+    private final NumericConstraintValidator decimalSetNumericNumericConstraintValidator =
+            new NumericConstraintValidator(5, 2);
+
+    private final SizeSetConstraintValidator decimalSetSizeSizeSetConstraintValidator =
+            new SizeSetConstraintValidator(12);
+
+    private final MaxBigIntegerNumberConstraintValidator bigIntegerSetMaxNumberMaxBigIntegerNumberConstraintValidator =
+            new MaxBigIntegerNumberConstraintValidator("10", true);
+
+    private final MaxSizeSetConstraintValidator bigIntegerSetMaxSizeMaxSizeSetConstraintValidator =
+            new MaxSizeSetConstraintValidator(50, true);
+
+    private final MinBigIntegerNumberConstraintValidator bigIntegerSetMinNumberMinBigIntegerNumberConstraintValidator =
+            new MinBigIntegerNumberConstraintValidator("3", true);
+
+    private final MinSizeSetConstraintValidator bigIntegerSetMinSizeMinSizeSetConstraintValidator =
+            new MinSizeSetConstraintValidator(2, true);
+
+    private final SizeSetConstraintValidator bigIntegerSetSizeSizeSetConstraintValidator =
+            new SizeSetConstraintValidator(12);
+
+    private final Base64URLEncodedConstraintValidator stringSetBase64URLEncodedBase64URLEncodedConstraintValidator =
+            new Base64URLEncodedConstraintValidator(Alphabet.URL);
+
+    private final CountryCodeConstraintValidator stringSetCountryCodeCountryCodeConstraintValidator =
+            new CountryCodeConstraintValidator(Format.ISO_3166_1_ALPHA_2);
+
+    private final EmailConstraintValidator stringSetEmailEmailConstraintValidator =
+            new EmailConstraintValidator(false);
+
+    private final EnumerationStringConstraintValidator stringSetEnumerationEnumerationStringConstraintValidator =
+            new EnumerationStringConstraintValidator(List.of("3", "2", "3"));
+
+    private final HostNameConstraintValidator stringSetHostNameHostNameConstraintValidator =
+            new HostNameConstraintValidator(false);
+
+    private final IPConstraintValidator stringSetIPIPConstraintValidator =
+            new IPConstraintValidator(List.of(Version.IP_V4, Version.IP_V6));
+
+    private final LatinAlphabetOnlyConstraintValidator stringSetLatinAlphabetOnlyLatinAlphabetOnlyConstraintValidator =
+            new LatinAlphabetOnlyConstraintValidator(true, true, true, "~!@#$%^&*()_+=-[]{},.;:<>?/\\\"' \t|\r\n\b");
+
+    private final LengthConstraintValidator stringSetLengthLengthConstraintValidator =
+            new LengthConstraintValidator(2);
+
+    private final MaxLengthConstraintValidator stringSetMaxLengthMaxLengthConstraintValidator =
+            new MaxLengthConstraintValidator(2, true);
+
+    private final MaxSizeSetConstraintValidator stringSetMaxSizeMaxSizeSetConstraintValidator =
+            new MaxSizeSetConstraintValidator(50, true);
+
+    private final MinLengthConstraintValidator stringSetMinLengthMinLengthConstraintValidator =
+            new MinLengthConstraintValidator(2, true);
+
+    private final MinSizeSetConstraintValidator stringSetMinSizeMinSizeSetConstraintValidator =
+            new MinSizeSetConstraintValidator(2, true);
+
+    private final PatternConstraintValidator stringSetPatternPatternConstraintValidator =
+            new PatternConstraintValidator("hello", List.of());
+
+    private final PhoneConstraintValidator stringSetPhonePhoneConstraintValidator =
+            new PhoneConstraintValidator(true, false);
+
+    private final SizeSetConstraintValidator stringSetSizeSizeSetConstraintValidator =
+            new SizeSetConstraintValidator(12);
+
+    private final TelegramConstraintValidator stringSetTelegramTelegramConstraintValidator =
+            new TelegramConstraintValidator(true, false);
+
+    private final ViberConstraintValidator stringSetViberViberConstraintValidator =
+            new ViberConstraintValidator(true, false);
+
+    private final WhatsAppConstraintValidator stringSetWhatsAppWhatsAppConstraintValidator =
+            new WhatsAppConstraintValidator(true, false);
+
+    private final MaxSizeSetConstraintValidator instantSetMaxSizeMaxSizeSetConstraintValidator =
+            new MaxSizeSetConstraintValidator(50, true);
+
+    private final MinSizeSetConstraintValidator instantSetMinSizeMinSizeSetConstraintValidator =
+            new MinSizeSetConstraintValidator(2, true);
+
+    private final SizeSetConstraintValidator instantSetSizeSizeSetConstraintValidator =
+            new SizeSetConstraintValidator(12);
+
+    private final TruncatedTimeInstantConstraintValidator instantSetTruncatedTimeTruncatedTimeInstantConstraintValidator =
+            new TruncatedTimeInstantConstraintValidator(Truncated.MILLIS);
+
+    private final MaxSizeSetConstraintValidator colorSetMaxSizeMaxSizeSetConstraintValidator =
+            new MaxSizeSetConstraintValidator(50, true);
+
+    private final MinSizeSetConstraintValidator colorSetMinSizeMinSizeSetConstraintValidator =
+            new MinSizeSetConstraintValidator(2, true);
+
+    private final SizeSetConstraintValidator colorSetSizeSizeSetConstraintValidator =
+            new SizeSetConstraintValidator(12);
+
+    private final SubEnumConstraintValidator colorSetSubEnumSubEnumConstraintValidator =
+            new SubEnumConstraintValidator(Color.class, List.of("RED", "BLUE"), List.of());
+
+    private final MaxSizeMapConstraintValidator booleanMapMaxSizeMaxSizeMapConstraintValidator =
+            new MaxSizeMapConstraintValidator(50, true);
+
+    private final MinSizeMapConstraintValidator booleanMapMinSizeMinSizeMapConstraintValidator =
+            new MinSizeMapConstraintValidator(2, true);
+
+    private final SizeMapConstraintValidator booleanMapSizeSizeMapConstraintValidator =
+            new SizeMapConstraintValidator(12);
+
+    private final MaxByteConstraintValidator byteMapMaxIntMaxByteConstraintValidator =
+            new MaxByteConstraintValidator(10L, true);
+
+    private final MaxSizeMapConstraintValidator byteMapMaxSizeMaxSizeMapConstraintValidator =
+            new MaxSizeMapConstraintValidator(50, true);
+
+    private final MinByteConstraintValidator byteMapMinIntMinByteConstraintValidator =
+            new MinByteConstraintValidator(3L, true);
+
+    private final MinSizeMapConstraintValidator byteMapMinSizeMinSizeMapConstraintValidator =
+            new MinSizeMapConstraintValidator(2, true);
+
+    private final SizeMapConstraintValidator byteMapSizeSizeMapConstraintValidator =
+            new SizeMapConstraintValidator(12);
+
+    private final MaxShortConstraintValidator shortMapMaxIntMaxShortConstraintValidator =
+            new MaxShortConstraintValidator(10L, true);
+
+    private final MaxSizeMapConstraintValidator shortMapMaxSizeMaxSizeMapConstraintValidator =
+            new MaxSizeMapConstraintValidator(50, true);
+
+    private final MinShortConstraintValidator shortMapMinIntMinShortConstraintValidator =
+            new MinShortConstraintValidator(3L, true);
+
+    private final MinSizeMapConstraintValidator shortMapMinSizeMinSizeMapConstraintValidator =
+            new MinSizeMapConstraintValidator(2, true);
+
+    private final SizeMapConstraintValidator shortMapSizeSizeMapConstraintValidator =
+            new SizeMapConstraintValidator(12);
+
+    private final MaxIntConstraintValidator intMapMaxIntMaxIntConstraintValidator =
+            new MaxIntConstraintValidator(10L, true);
+
+    private final MaxSizeMapConstraintValidator intMapMaxSizeMaxSizeMapConstraintValidator =
+            new MaxSizeMapConstraintValidator(50, true);
+
+    private final MinIntConstraintValidator intMapMinIntMinIntConstraintValidator =
+            new MinIntConstraintValidator(3L, true);
+
+    private final MinSizeMapConstraintValidator intMapMinSizeMinSizeMapConstraintValidator =
+            new MinSizeMapConstraintValidator(2, true);
+
+    private final SizeMapConstraintValidator intMapSizeSizeMapConstraintValidator =
+            new SizeMapConstraintValidator(12);
+
+    private final MaxLongConstraintValidator longMapMaxIntMaxLongConstraintValidator =
+            new MaxLongConstraintValidator(10L, true);
+
+    private final MaxSizeMapConstraintValidator longMapMaxSizeMaxSizeMapConstraintValidator =
+            new MaxSizeMapConstraintValidator(50, true);
+
+    private final MinLongConstraintValidator longMapMinIntMinLongConstraintValidator =
+            new MinLongConstraintValidator(3L, true);
+
+    private final MinSizeMapConstraintValidator longMapMinSizeMinSizeMapConstraintValidator =
+            new MinSizeMapConstraintValidator(2, true);
+
+    private final SizeMapConstraintValidator longMapSizeSizeMapConstraintValidator =
+            new SizeMapConstraintValidator(12);
+
+    private final EnumerationCharacterConstraintValidator charMapEnumerationEnumerationCharacterConstraintValidator =
+            new EnumerationCharacterConstraintValidator(List.of("y", "n"));
+
+    private final MaxSizeMapConstraintValidator charMapMaxSizeMaxSizeMapConstraintValidator =
+            new MaxSizeMapConstraintValidator(50, true);
+
+    private final MinSizeMapConstraintValidator charMapMinSizeMinSizeMapConstraintValidator =
+            new MinSizeMapConstraintValidator(2, true);
+
+    private final SizeMapConstraintValidator charMapSizeSizeMapConstraintValidator =
+            new SizeMapConstraintValidator(12);
+
+    private final MaxFloatConstraintValidator floatMapMaxDoubleMaxFloatConstraintValidator =
+            new MaxFloatConstraintValidator(10.9);
+
+    private final MaxSizeMapConstraintValidator floatMapMaxSizeMaxSizeMapConstraintValidator =
+            new MaxSizeMapConstraintValidator(50, true);
+
+    private final MinFloatConstraintValidator floatMapMinDoubleMinFloatConstraintValidator =
+            new MinFloatConstraintValidator(3.1);
+
+    private final MinSizeMapConstraintValidator floatMapMinSizeMinSizeMapConstraintValidator =
+            new MinSizeMapConstraintValidator(2, true);
+
+    private final SizeMapConstraintValidator floatMapSizeSizeMapConstraintValidator =
+            new SizeMapConstraintValidator(12);
+
+    private final MaxDoubleConstraintValidator doubleMapMaxDoubleMaxDoubleConstraintValidator =
+            new MaxDoubleConstraintValidator(10.9);
+
+    private final MaxSizeMapConstraintValidator doubleMapMaxSizeMaxSizeMapConstraintValidator =
+            new MaxSizeMapConstraintValidator(50, true);
+
+    private final MinDoubleConstraintValidator doubleMapMinDoubleMinDoubleConstraintValidator =
+            new MinDoubleConstraintValidator(3.1);
+
+    private final MinSizeMapConstraintValidator doubleMapMinSizeMinSizeMapConstraintValidator =
+            new MinSizeMapConstraintValidator(2, true);
+
+    private final SizeMapConstraintValidator doubleMapSizeSizeMapConstraintValidator =
+            new SizeMapConstraintValidator(12);
+
+    private final LatConstraintValidator decimalMapLatLatConstraintValidator =
+            new LatConstraintValidator(LocationAccuracy.ACCURACY_1_METER);
+
+    private final LngConstraintValidator decimalMapLngLngConstraintValidator =
+            new LngConstraintValidator(LocationAccuracy.ACCURACY_1_METER);
+
+    private final MaxBigDecimalNumberConstraintValidator decimalMapMaxNumberMaxBigDecimalNumberConstraintValidator =
+            new MaxBigDecimalNumberConstraintValidator("10.9", true);
+
+    private final MaxSizeMapConstraintValidator decimalMapMaxSizeMaxSizeMapConstraintValidator =
+            new MaxSizeMapConstraintValidator(50, true);
+
+    private final MinBigDecimalNumberConstraintValidator decimalMapMinNumberMinBigDecimalNumberConstraintValidator =
+            new MinBigDecimalNumberConstraintValidator("3.1", true);
+
+    private final MinSizeMapConstraintValidator decimalMapMinSizeMinSizeMapConstraintValidator =
+            new MinSizeMapConstraintValidator(2, true);
+
+    private final NumericConstraintValidator decimalMapNumericNumericConstraintValidator =
+            new NumericConstraintValidator(5, 2);
+
+    private final SizeMapConstraintValidator decimalMapSizeSizeMapConstraintValidator =
+            new SizeMapConstraintValidator(12);
+
+    private final MaxBigIntegerNumberConstraintValidator bigIntegerMapMaxNumberMaxBigIntegerNumberConstraintValidator =
+            new MaxBigIntegerNumberConstraintValidator("10", true);
+
+    private final MaxSizeMapConstraintValidator bigIntegerMapMaxSizeMaxSizeMapConstraintValidator =
+            new MaxSizeMapConstraintValidator(50, true);
+
+    private final MinBigIntegerNumberConstraintValidator bigIntegerMapMinNumberMinBigIntegerNumberConstraintValidator =
+            new MinBigIntegerNumberConstraintValidator("3", true);
+
+    private final MinSizeMapConstraintValidator bigIntegerMapMinSizeMinSizeMapConstraintValidator =
+            new MinSizeMapConstraintValidator(2, true);
+
+    private final SizeMapConstraintValidator bigIntegerMapSizeSizeMapConstraintValidator =
+            new SizeMapConstraintValidator(12);
+
+    private final Base64URLEncodedConstraintValidator stringMapBase64URLEncodedBase64URLEncodedConstraintValidator =
+            new Base64URLEncodedConstraintValidator(Alphabet.URL);
+
+    private final CountryCodeConstraintValidator stringMapCountryCodeCountryCodeConstraintValidator =
+            new CountryCodeConstraintValidator(Format.ISO_3166_1_ALPHA_2);
+
+    private final EmailConstraintValidator stringMapEmailEmailConstraintValidator =
+            new EmailConstraintValidator(false);
+
+    private final EnumerationStringConstraintValidator stringMapEnumerationEnumerationStringConstraintValidator =
+            new EnumerationStringConstraintValidator(List.of("3", "2", "3"));
+
+    private final HostNameConstraintValidator stringMapHostNameHostNameConstraintValidator =
+            new HostNameConstraintValidator(false);
+
+    private final IPConstraintValidator stringMapIPIPConstraintValidator =
+            new IPConstraintValidator(List.of(Version.IP_V4, Version.IP_V6));
+
+    private final LatinAlphabetOnlyConstraintValidator stringMapLatinAlphabetOnlyLatinAlphabetOnlyConstraintValidator =
+            new LatinAlphabetOnlyConstraintValidator(true, true, true, "~!@#$%^&*()_+=-[]{},.;:<>?/\\\"' \t|\r\n\b");
+
+    private final LengthConstraintValidator stringMapLengthLengthConstraintValidator =
+            new LengthConstraintValidator(2);
+
+    private final MaxLengthConstraintValidator stringMapMaxLengthMaxLengthConstraintValidator =
+            new MaxLengthConstraintValidator(2, true);
+
+    private final MaxSizeMapConstraintValidator stringMapMaxSizeMaxSizeMapConstraintValidator =
+            new MaxSizeMapConstraintValidator(50, true);
+
+    private final MinLengthConstraintValidator stringMapMinLengthMinLengthConstraintValidator =
+            new MinLengthConstraintValidator(2, true);
+
+    private final MinSizeMapConstraintValidator stringMapMinSizeMinSizeMapConstraintValidator =
+            new MinSizeMapConstraintValidator(2, true);
+
+    private final PatternConstraintValidator stringMapPatternPatternConstraintValidator =
+            new PatternConstraintValidator("hello", List.of());
+
+    private final PhoneConstraintValidator stringMapPhonePhoneConstraintValidator =
+            new PhoneConstraintValidator(true, false);
+
+    private final SizeMapConstraintValidator stringMapSizeSizeMapConstraintValidator =
+            new SizeMapConstraintValidator(12);
+
+    private final TelegramConstraintValidator stringMapTelegramTelegramConstraintValidator =
+            new TelegramConstraintValidator(true, false);
+
+    private final ViberConstraintValidator stringMapViberViberConstraintValidator =
+            new ViberConstraintValidator(true, false);
+
+    private final WhatsAppConstraintValidator stringMapWhatsAppWhatsAppConstraintValidator =
+            new WhatsAppConstraintValidator(true, false);
+
+    private final MaxSizeMapConstraintValidator instantMapMaxSizeMaxSizeMapConstraintValidator =
+            new MaxSizeMapConstraintValidator(50, true);
+
+    private final MinSizeMapConstraintValidator instantMapMinSizeMinSizeMapConstraintValidator =
+            new MinSizeMapConstraintValidator(2, true);
+
+    private final SizeMapConstraintValidator instantMapSizeSizeMapConstraintValidator =
+            new SizeMapConstraintValidator(12);
+
+    private final TruncatedTimeInstantConstraintValidator instantMapTruncatedTimeTruncatedTimeInstantConstraintValidator =
+            new TruncatedTimeInstantConstraintValidator(Truncated.MILLIS);
+
+    private final MaxSizeMapConstraintValidator colorMapMaxSizeMaxSizeMapConstraintValidator =
+            new MaxSizeMapConstraintValidator(50, true);
+
+    private final MinSizeMapConstraintValidator colorMapMinSizeMinSizeMapConstraintValidator =
+            new MinSizeMapConstraintValidator(2, true);
+
+    private final SizeMapConstraintValidator colorMapSizeSizeMapConstraintValidator =
+            new SizeMapConstraintValidator(12);
+
+    private final SubEnumConstraintValidator colorMapSubEnumSubEnumConstraintValidator =
+            new SubEnumConstraintValidator(Color.class, List.of("RED", "BLUE"), List.of());
+
     private final CountryCodeConstraintValidator countryCodeAlpha2CountryCodeCountryCodeConstraintValidator =
             new CountryCodeConstraintValidator(Format.ISO_3166_1_ALPHA_2);
 
@@ -800,6 +1270,262 @@ public final class $$ModelConstraintValidator implements ConstraintValidator<Mod
         colorsSizeSizeListConstraintValidator.validate(model.colors, HttpModelType.PARAMETER, "colors");
         colorsSubEnumSubEnumConstraintValidator.validateIterable(model.colors, HttpModelType.PARAMETER, "colors");
         uniqueItemsListConstraintValidator.validate(model.colors, HttpModelType.PARAMETER, "colors");
+
+        notEmptyStringConstraintValidator.validateIterable(model.optionalSet, HttpModelType.PARAMETER, "optionalSet");
+
+        requiredSetConstraintValidator.validate(model.booleanSet, HttpModelType.PARAMETER, "booleanSet");
+        requiredConstraintValidator.validateIterable(model.booleanSet, HttpModelType.PARAMETER, "booleanSet");
+        assertFalseConstraintValidator.validateIterable(model.booleanSet, HttpModelType.PARAMETER, "booleanSet");
+        assertTrueConstraintValidator.validateIterable(model.booleanSet, HttpModelType.PARAMETER, "booleanSet");
+        booleanSetMaxSizeMaxSizeSetConstraintValidator.validate(model.booleanSet, HttpModelType.PARAMETER, "booleanSet");
+        booleanSetMinSizeMinSizeSetConstraintValidator.validate(model.booleanSet, HttpModelType.PARAMETER, "booleanSet");
+        booleanSetSizeSizeSetConstraintValidator.validate(model.booleanSet, HttpModelType.PARAMETER, "booleanSet");
+
+        requiredSetConstraintValidator.validate(model.byteSet, HttpModelType.PARAMETER, "byteSet");
+        requiredConstraintValidator.validateIterable(model.byteSet, HttpModelType.PARAMETER, "byteSet");
+        byteSetMaxIntMaxByteConstraintValidator.validateIterable(model.byteSet, HttpModelType.PARAMETER, "byteSet");
+        byteSetMaxSizeMaxSizeSetConstraintValidator.validate(model.byteSet, HttpModelType.PARAMETER, "byteSet");
+        byteSetMinIntMinByteConstraintValidator.validateIterable(model.byteSet, HttpModelType.PARAMETER, "byteSet");
+        byteSetMinSizeMinSizeSetConstraintValidator.validate(model.byteSet, HttpModelType.PARAMETER, "byteSet");
+        byteSetSizeSizeSetConstraintValidator.validate(model.byteSet, HttpModelType.PARAMETER, "byteSet");
+
+        requiredSetConstraintValidator.validate(model.shortSet, HttpModelType.PARAMETER, "shortSet");
+        requiredConstraintValidator.validateIterable(model.shortSet, HttpModelType.PARAMETER, "shortSet");
+        shortSetMaxIntMaxShortConstraintValidator.validateIterable(model.shortSet, HttpModelType.PARAMETER, "shortSet");
+        shortSetMaxSizeMaxSizeSetConstraintValidator.validate(model.shortSet, HttpModelType.PARAMETER, "shortSet");
+        shortSetMinIntMinShortConstraintValidator.validateIterable(model.shortSet, HttpModelType.PARAMETER, "shortSet");
+        shortSetMinSizeMinSizeSetConstraintValidator.validate(model.shortSet, HttpModelType.PARAMETER, "shortSet");
+        shortSetSizeSizeSetConstraintValidator.validate(model.shortSet, HttpModelType.PARAMETER, "shortSet");
+
+        requiredSetConstraintValidator.validate(model.intSet, HttpModelType.PARAMETER, "intSet");
+        requiredConstraintValidator.validateIterable(model.intSet, HttpModelType.PARAMETER, "intSet");
+        intSetMaxIntMaxIntConstraintValidator.validateIterable(model.intSet, HttpModelType.PARAMETER, "intSet");
+        intSetMaxSizeMaxSizeSetConstraintValidator.validate(model.intSet, HttpModelType.PARAMETER, "intSet");
+        intSetMinIntMinIntConstraintValidator.validateIterable(model.intSet, HttpModelType.PARAMETER, "intSet");
+        intSetMinSizeMinSizeSetConstraintValidator.validate(model.intSet, HttpModelType.PARAMETER, "intSet");
+        intSetSizeSizeSetConstraintValidator.validate(model.intSet, HttpModelType.PARAMETER, "intSet");
+
+        requiredSetConstraintValidator.validate(model.longSet, HttpModelType.PARAMETER, "longSet");
+        requiredConstraintValidator.validateIterable(model.longSet, HttpModelType.PARAMETER, "longSet");
+        longSetMaxIntMaxLongConstraintValidator.validateIterable(model.longSet, HttpModelType.PARAMETER, "longSet");
+        longSetMaxSizeMaxSizeSetConstraintValidator.validate(model.longSet, HttpModelType.PARAMETER, "longSet");
+        longSetMinIntMinLongConstraintValidator.validateIterable(model.longSet, HttpModelType.PARAMETER, "longSet");
+        longSetMinSizeMinSizeSetConstraintValidator.validate(model.longSet, HttpModelType.PARAMETER, "longSet");
+        longSetSizeSizeSetConstraintValidator.validate(model.longSet, HttpModelType.PARAMETER, "longSet");
+
+        requiredSetConstraintValidator.validate(model.charSet, HttpModelType.PARAMETER, "charSet");
+        requiredConstraintValidator.validateIterable(model.charSet, HttpModelType.PARAMETER, "charSet");
+        charSetEnumerationEnumerationCharacterConstraintValidator.validateIterable(model.charSet, HttpModelType.PARAMETER, "charSet");
+        charSetMaxSizeMaxSizeSetConstraintValidator.validate(model.charSet, HttpModelType.PARAMETER, "charSet");
+        charSetMinSizeMinSizeSetConstraintValidator.validate(model.charSet, HttpModelType.PARAMETER, "charSet");
+        charSetSizeSizeSetConstraintValidator.validate(model.charSet, HttpModelType.PARAMETER, "charSet");
+
+        requiredSetConstraintValidator.validate(model.floatSet, HttpModelType.PARAMETER, "floatSet");
+        requiredConstraintValidator.validateIterable(model.floatSet, HttpModelType.PARAMETER, "floatSet");
+        floatSetMaxDoubleMaxFloatConstraintValidator.validateIterable(model.floatSet, HttpModelType.PARAMETER, "floatSet");
+        floatSetMaxSizeMaxSizeSetConstraintValidator.validate(model.floatSet, HttpModelType.PARAMETER, "floatSet");
+        floatSetMinDoubleMinFloatConstraintValidator.validateIterable(model.floatSet, HttpModelType.PARAMETER, "floatSet");
+        floatSetMinSizeMinSizeSetConstraintValidator.validate(model.floatSet, HttpModelType.PARAMETER, "floatSet");
+        floatSetSizeSizeSetConstraintValidator.validate(model.floatSet, HttpModelType.PARAMETER, "floatSet");
+
+        requiredSetConstraintValidator.validate(model.doubleSet, HttpModelType.PARAMETER, "doubleSet");
+        requiredConstraintValidator.validateIterable(model.doubleSet, HttpModelType.PARAMETER, "doubleSet");
+        doubleSetMaxDoubleMaxDoubleConstraintValidator.validateIterable(model.doubleSet, HttpModelType.PARAMETER, "doubleSet");
+        doubleSetMaxSizeMaxSizeSetConstraintValidator.validate(model.doubleSet, HttpModelType.PARAMETER, "doubleSet");
+        doubleSetMinDoubleMinDoubleConstraintValidator.validateIterable(model.doubleSet, HttpModelType.PARAMETER, "doubleSet");
+        doubleSetMinSizeMinSizeSetConstraintValidator.validate(model.doubleSet, HttpModelType.PARAMETER, "doubleSet");
+        doubleSetSizeSizeSetConstraintValidator.validate(model.doubleSet, HttpModelType.PARAMETER, "doubleSet");
+
+        requiredSetConstraintValidator.validate(model.decimalSet, HttpModelType.PARAMETER, "decimalSet");
+        requiredConstraintValidator.validateIterable(model.decimalSet, HttpModelType.PARAMETER, "decimalSet");
+        decimalSetLatLatConstraintValidator.validateIterable(model.decimalSet, HttpModelType.PARAMETER, "decimalSet");
+        decimalSetLngLngConstraintValidator.validateIterable(model.decimalSet, HttpModelType.PARAMETER, "decimalSet");
+        decimalSetMaxNumberMaxBigDecimalNumberConstraintValidator.validateIterable(model.decimalSet, HttpModelType.PARAMETER, "decimalSet");
+        decimalSetMaxSizeMaxSizeSetConstraintValidator.validate(model.decimalSet, HttpModelType.PARAMETER, "decimalSet");
+        decimalSetMinNumberMinBigDecimalNumberConstraintValidator.validateIterable(model.decimalSet, HttpModelType.PARAMETER, "decimalSet");
+        decimalSetMinSizeMinSizeSetConstraintValidator.validate(model.decimalSet, HttpModelType.PARAMETER, "decimalSet");
+        decimalSetNumericNumericConstraintValidator.validateIterable(model.decimalSet, HttpModelType.PARAMETER, "decimalSet");
+        decimalSetSizeSizeSetConstraintValidator.validate(model.decimalSet, HttpModelType.PARAMETER, "decimalSet");
+
+        requiredSetConstraintValidator.validate(model.bigIntegerSet, HttpModelType.PARAMETER, "bigIntegerSet");
+        requiredConstraintValidator.validateIterable(model.bigIntegerSet, HttpModelType.PARAMETER, "bigIntegerSet");
+        bigIntegerSetMaxNumberMaxBigIntegerNumberConstraintValidator.validateIterable(model.bigIntegerSet, HttpModelType.PARAMETER, "bigIntegerSet");
+        bigIntegerSetMaxSizeMaxSizeSetConstraintValidator.validate(model.bigIntegerSet, HttpModelType.PARAMETER, "bigIntegerSet");
+        bigIntegerSetMinNumberMinBigIntegerNumberConstraintValidator.validateIterable(model.bigIntegerSet, HttpModelType.PARAMETER, "bigIntegerSet");
+        bigIntegerSetMinSizeMinSizeSetConstraintValidator.validate(model.bigIntegerSet, HttpModelType.PARAMETER, "bigIntegerSet");
+        bigIntegerSetSizeSizeSetConstraintValidator.validate(model.bigIntegerSet, HttpModelType.PARAMETER, "bigIntegerSet");
+
+        requiredSetConstraintValidator.validate(model.stringSet, HttpModelType.PARAMETER, "stringSet");
+        requiredConstraintValidator.validateIterable(model.stringSet, HttpModelType.PARAMETER, "stringSet");
+        stringSetBase64URLEncodedBase64URLEncodedConstraintValidator.validateIterable(model.stringSet, HttpModelType.PARAMETER, "stringSet");
+        stringSetCountryCodeCountryCodeConstraintValidator.validateIterable(model.stringSet, HttpModelType.PARAMETER, "stringSet");
+        stringSetEmailEmailConstraintValidator.validateIterable(model.stringSet, HttpModelType.PARAMETER, "stringSet");
+        stringSetEnumerationEnumerationStringConstraintValidator.validateIterable(model.stringSet, HttpModelType.PARAMETER, "stringSet");
+        stringSetHostNameHostNameConstraintValidator.validateIterable(model.stringSet, HttpModelType.PARAMETER, "stringSet");
+        stringSetIPIPConstraintValidator.validateIterable(model.stringSet, HttpModelType.PARAMETER, "stringSet");
+        stringSetLatinAlphabetOnlyLatinAlphabetOnlyConstraintValidator.validateIterable(model.stringSet, HttpModelType.PARAMETER, "stringSet");
+        stringSetLengthLengthConstraintValidator.validateIterable(model.stringSet, HttpModelType.PARAMETER, "stringSet");
+        lowercaseConstraintValidator.validateIterable(model.stringSet, HttpModelType.PARAMETER, "stringSet");
+        stringSetMaxLengthMaxLengthConstraintValidator.validateIterable(model.stringSet, HttpModelType.PARAMETER, "stringSet");
+        stringSetMaxSizeMaxSizeSetConstraintValidator.validate(model.stringSet, HttpModelType.PARAMETER, "stringSet");
+        stringSetMinLengthMinLengthConstraintValidator.validateIterable(model.stringSet, HttpModelType.PARAMETER, "stringSet");
+        stringSetMinSizeMinSizeSetConstraintValidator.validate(model.stringSet, HttpModelType.PARAMETER, "stringSet");
+        stringSetPatternPatternConstraintValidator.validateIterable(model.stringSet, HttpModelType.PARAMETER, "stringSet");
+        stringSetPhonePhoneConstraintValidator.validateIterable(model.stringSet, HttpModelType.PARAMETER, "stringSet");
+        stringSetSizeSizeSetConstraintValidator.validate(model.stringSet, HttpModelType.PARAMETER, "stringSet");
+        skypeConstraintValidator.validateIterable(model.stringSet, HttpModelType.PARAMETER, "stringSet");
+        stringSetTelegramTelegramConstraintValidator.validateIterable(model.stringSet, HttpModelType.PARAMETER, "stringSet");
+        uRIConstraintValidator.validateIterable(model.stringSet, HttpModelType.PARAMETER, "stringSet");
+        uRLEncodedConstraintValidator.validateIterable(model.stringSet, HttpModelType.PARAMETER, "stringSet");
+        uppercaseConstraintValidator.validateIterable(model.stringSet, HttpModelType.PARAMETER, "stringSet");
+        stringSetViberViberConstraintValidator.validateIterable(model.stringSet, HttpModelType.PARAMETER, "stringSet");
+        stringSetWhatsAppWhatsAppConstraintValidator.validateIterable(model.stringSet, HttpModelType.PARAMETER, "stringSet");
+
+        requiredSetConstraintValidator.validate(model.instantSet, HttpModelType.PARAMETER, "instantSet");
+        requiredConstraintValidator.validateIterable(model.instantSet, HttpModelType.PARAMETER, "instantSet");
+        futureInstantConstraintValidator.validateIterable(model.instantSet, HttpModelType.PARAMETER, "instantSet");
+        futureOrPresentInstantConstraintValidator.validateIterable(model.instantSet, HttpModelType.PARAMETER, "instantSet");
+        instantSetMaxSizeMaxSizeSetConstraintValidator.validate(model.instantSet, HttpModelType.PARAMETER, "instantSet");
+        instantSetMinSizeMinSizeSetConstraintValidator.validate(model.instantSet, HttpModelType.PARAMETER, "instantSet");
+        pastInstantConstraintValidator.validateIterable(model.instantSet, HttpModelType.PARAMETER, "instantSet");
+        pastOrPresentInstantConstraintValidator.validateIterable(model.instantSet, HttpModelType.PARAMETER, "instantSet");
+        instantSetSizeSizeSetConstraintValidator.validate(model.instantSet, HttpModelType.PARAMETER, "instantSet");
+        instantSetTruncatedTimeTruncatedTimeInstantConstraintValidator.validateIterable(model.instantSet, HttpModelType.PARAMETER, "instantSet");
+
+        requiredSetConstraintValidator.validate(model.colorSet, HttpModelType.PARAMETER, "colorSet");
+        requiredConstraintValidator.validateIterable(model.colorSet, HttpModelType.PARAMETER, "colorSet");
+        colorSetMaxSizeMaxSizeSetConstraintValidator.validate(model.colorSet, HttpModelType.PARAMETER, "colorSet");
+        colorSetMinSizeMinSizeSetConstraintValidator.validate(model.colorSet, HttpModelType.PARAMETER, "colorSet");
+        colorSetSizeSizeSetConstraintValidator.validate(model.colorSet, HttpModelType.PARAMETER, "colorSet");
+        colorSetSubEnumSubEnumConstraintValidator.validateIterable(model.colorSet, HttpModelType.PARAMETER, "colorSet");
+
+        notEmptyStringConstraintValidator.validateMapValues(model.optionalMap, HttpModelType.PARAMETER, "optionalMap");
+
+        requiredMapConstraintValidator.validate(model.booleanMap, HttpModelType.PARAMETER, "booleanMap");
+        requiredConstraintValidator.validateMapValues(model.booleanMap, HttpModelType.PARAMETER, "booleanMap");
+        assertFalseConstraintValidator.validateMapValues(model.booleanMap, HttpModelType.PARAMETER, "booleanMap");
+        assertTrueConstraintValidator.validateMapValues(model.booleanMap, HttpModelType.PARAMETER, "booleanMap");
+        booleanMapMaxSizeMaxSizeMapConstraintValidator.validate(model.booleanMap, HttpModelType.PARAMETER, "booleanMap");
+        booleanMapMinSizeMinSizeMapConstraintValidator.validate(model.booleanMap, HttpModelType.PARAMETER, "booleanMap");
+        booleanMapSizeSizeMapConstraintValidator.validate(model.booleanMap, HttpModelType.PARAMETER, "booleanMap");
+
+        requiredMapConstraintValidator.validate(model.byteMap, HttpModelType.PARAMETER, "byteMap");
+        requiredConstraintValidator.validateMapValues(model.byteMap, HttpModelType.PARAMETER, "byteMap");
+        byteMapMaxIntMaxByteConstraintValidator.validateMapValues(model.byteMap, HttpModelType.PARAMETER, "byteMap");
+        byteMapMaxSizeMaxSizeMapConstraintValidator.validate(model.byteMap, HttpModelType.PARAMETER, "byteMap");
+        byteMapMinIntMinByteConstraintValidator.validateMapValues(model.byteMap, HttpModelType.PARAMETER, "byteMap");
+        byteMapMinSizeMinSizeMapConstraintValidator.validate(model.byteMap, HttpModelType.PARAMETER, "byteMap");
+        byteMapSizeSizeMapConstraintValidator.validate(model.byteMap, HttpModelType.PARAMETER, "byteMap");
+
+        requiredMapConstraintValidator.validate(model.shortMap, HttpModelType.PARAMETER, "shortMap");
+        requiredConstraintValidator.validateMapValues(model.shortMap, HttpModelType.PARAMETER, "shortMap");
+        shortMapMaxIntMaxShortConstraintValidator.validateMapValues(model.shortMap, HttpModelType.PARAMETER, "shortMap");
+        shortMapMaxSizeMaxSizeMapConstraintValidator.validate(model.shortMap, HttpModelType.PARAMETER, "shortMap");
+        shortMapMinIntMinShortConstraintValidator.validateMapValues(model.shortMap, HttpModelType.PARAMETER, "shortMap");
+        shortMapMinSizeMinSizeMapConstraintValidator.validate(model.shortMap, HttpModelType.PARAMETER, "shortMap");
+        shortMapSizeSizeMapConstraintValidator.validate(model.shortMap, HttpModelType.PARAMETER, "shortMap");
+
+        requiredMapConstraintValidator.validate(model.intMap, HttpModelType.PARAMETER, "intMap");
+        requiredConstraintValidator.validateMapValues(model.intMap, HttpModelType.PARAMETER, "intMap");
+        intMapMaxIntMaxIntConstraintValidator.validateMapValues(model.intMap, HttpModelType.PARAMETER, "intMap");
+        intMapMaxSizeMaxSizeMapConstraintValidator.validate(model.intMap, HttpModelType.PARAMETER, "intMap");
+        intMapMinIntMinIntConstraintValidator.validateMapValues(model.intMap, HttpModelType.PARAMETER, "intMap");
+        intMapMinSizeMinSizeMapConstraintValidator.validate(model.intMap, HttpModelType.PARAMETER, "intMap");
+        intMapSizeSizeMapConstraintValidator.validate(model.intMap, HttpModelType.PARAMETER, "intMap");
+
+        requiredMapConstraintValidator.validate(model.longMap, HttpModelType.PARAMETER, "longMap");
+        requiredConstraintValidator.validateMapValues(model.longMap, HttpModelType.PARAMETER, "longMap");
+        longMapMaxIntMaxLongConstraintValidator.validateMapValues(model.longMap, HttpModelType.PARAMETER, "longMap");
+        longMapMaxSizeMaxSizeMapConstraintValidator.validate(model.longMap, HttpModelType.PARAMETER, "longMap");
+        longMapMinIntMinLongConstraintValidator.validateMapValues(model.longMap, HttpModelType.PARAMETER, "longMap");
+        longMapMinSizeMinSizeMapConstraintValidator.validate(model.longMap, HttpModelType.PARAMETER, "longMap");
+        longMapSizeSizeMapConstraintValidator.validate(model.longMap, HttpModelType.PARAMETER, "longMap");
+
+        requiredMapConstraintValidator.validate(model.charMap, HttpModelType.PARAMETER, "charMap");
+        requiredConstraintValidator.validateMapValues(model.charMap, HttpModelType.PARAMETER, "charMap");
+        charMapEnumerationEnumerationCharacterConstraintValidator.validateMapValues(model.charMap, HttpModelType.PARAMETER, "charMap");
+        charMapMaxSizeMaxSizeMapConstraintValidator.validate(model.charMap, HttpModelType.PARAMETER, "charMap");
+        charMapMinSizeMinSizeMapConstraintValidator.validate(model.charMap, HttpModelType.PARAMETER, "charMap");
+        charMapSizeSizeMapConstraintValidator.validate(model.charMap, HttpModelType.PARAMETER, "charMap");
+
+        requiredMapConstraintValidator.validate(model.floatMap, HttpModelType.PARAMETER, "floatMap");
+        requiredConstraintValidator.validateMapValues(model.floatMap, HttpModelType.PARAMETER, "floatMap");
+        floatMapMaxDoubleMaxFloatConstraintValidator.validateMapValues(model.floatMap, HttpModelType.PARAMETER, "floatMap");
+        floatMapMaxSizeMaxSizeMapConstraintValidator.validate(model.floatMap, HttpModelType.PARAMETER, "floatMap");
+        floatMapMinDoubleMinFloatConstraintValidator.validateMapValues(model.floatMap, HttpModelType.PARAMETER, "floatMap");
+        floatMapMinSizeMinSizeMapConstraintValidator.validate(model.floatMap, HttpModelType.PARAMETER, "floatMap");
+        floatMapSizeSizeMapConstraintValidator.validate(model.floatMap, HttpModelType.PARAMETER, "floatMap");
+
+        requiredMapConstraintValidator.validate(model.doubleMap, HttpModelType.PARAMETER, "doubleMap");
+        requiredConstraintValidator.validateMapValues(model.doubleMap, HttpModelType.PARAMETER, "doubleMap");
+        doubleMapMaxDoubleMaxDoubleConstraintValidator.validateMapValues(model.doubleMap, HttpModelType.PARAMETER, "doubleMap");
+        doubleMapMaxSizeMaxSizeMapConstraintValidator.validate(model.doubleMap, HttpModelType.PARAMETER, "doubleMap");
+        doubleMapMinDoubleMinDoubleConstraintValidator.validateMapValues(model.doubleMap, HttpModelType.PARAMETER, "doubleMap");
+        doubleMapMinSizeMinSizeMapConstraintValidator.validate(model.doubleMap, HttpModelType.PARAMETER, "doubleMap");
+        doubleMapSizeSizeMapConstraintValidator.validate(model.doubleMap, HttpModelType.PARAMETER, "doubleMap");
+
+        requiredMapConstraintValidator.validate(model.decimalMap, HttpModelType.PARAMETER, "decimalMap");
+        requiredConstraintValidator.validateMapValues(model.decimalMap, HttpModelType.PARAMETER, "decimalMap");
+        decimalMapLatLatConstraintValidator.validateMapValues(model.decimalMap, HttpModelType.PARAMETER, "decimalMap");
+        decimalMapLngLngConstraintValidator.validateMapValues(model.decimalMap, HttpModelType.PARAMETER, "decimalMap");
+        decimalMapMaxNumberMaxBigDecimalNumberConstraintValidator.validateMapValues(model.decimalMap, HttpModelType.PARAMETER, "decimalMap");
+        decimalMapMaxSizeMaxSizeMapConstraintValidator.validate(model.decimalMap, HttpModelType.PARAMETER, "decimalMap");
+        decimalMapMinNumberMinBigDecimalNumberConstraintValidator.validateMapValues(model.decimalMap, HttpModelType.PARAMETER, "decimalMap");
+        decimalMapMinSizeMinSizeMapConstraintValidator.validate(model.decimalMap, HttpModelType.PARAMETER, "decimalMap");
+        decimalMapNumericNumericConstraintValidator.validateMapValues(model.decimalMap, HttpModelType.PARAMETER, "decimalMap");
+        decimalMapSizeSizeMapConstraintValidator.validate(model.decimalMap, HttpModelType.PARAMETER, "decimalMap");
+
+        requiredMapConstraintValidator.validate(model.bigIntegerMap, HttpModelType.PARAMETER, "bigIntegerMap");
+        requiredConstraintValidator.validateMapValues(model.bigIntegerMap, HttpModelType.PARAMETER, "bigIntegerMap");
+        bigIntegerMapMaxNumberMaxBigIntegerNumberConstraintValidator.validateMapValues(model.bigIntegerMap, HttpModelType.PARAMETER, "bigIntegerMap");
+        bigIntegerMapMaxSizeMaxSizeMapConstraintValidator.validate(model.bigIntegerMap, HttpModelType.PARAMETER, "bigIntegerMap");
+        bigIntegerMapMinNumberMinBigIntegerNumberConstraintValidator.validateMapValues(model.bigIntegerMap, HttpModelType.PARAMETER, "bigIntegerMap");
+        bigIntegerMapMinSizeMinSizeMapConstraintValidator.validate(model.bigIntegerMap, HttpModelType.PARAMETER, "bigIntegerMap");
+        bigIntegerMapSizeSizeMapConstraintValidator.validate(model.bigIntegerMap, HttpModelType.PARAMETER, "bigIntegerMap");
+
+        requiredMapConstraintValidator.validate(model.stringMap, HttpModelType.PARAMETER, "stringMap");
+        requiredConstraintValidator.validateMapValues(model.stringMap, HttpModelType.PARAMETER, "stringMap");
+        stringMapBase64URLEncodedBase64URLEncodedConstraintValidator.validateMapValues(model.stringMap, HttpModelType.PARAMETER, "stringMap");
+        stringMapCountryCodeCountryCodeConstraintValidator.validateMapValues(model.stringMap, HttpModelType.PARAMETER, "stringMap");
+        stringMapEmailEmailConstraintValidator.validateMapValues(model.stringMap, HttpModelType.PARAMETER, "stringMap");
+        stringMapEnumerationEnumerationStringConstraintValidator.validateMapValues(model.stringMap, HttpModelType.PARAMETER, "stringMap");
+        stringMapHostNameHostNameConstraintValidator.validateMapValues(model.stringMap, HttpModelType.PARAMETER, "stringMap");
+        stringMapIPIPConstraintValidator.validateMapValues(model.stringMap, HttpModelType.PARAMETER, "stringMap");
+        stringMapLatinAlphabetOnlyLatinAlphabetOnlyConstraintValidator.validateMapValues(model.stringMap, HttpModelType.PARAMETER, "stringMap");
+        stringMapLengthLengthConstraintValidator.validateMapValues(model.stringMap, HttpModelType.PARAMETER, "stringMap");
+        lowercaseConstraintValidator.validateMapValues(model.stringMap, HttpModelType.PARAMETER, "stringMap");
+        stringMapMaxLengthMaxLengthConstraintValidator.validateMapValues(model.stringMap, HttpModelType.PARAMETER, "stringMap");
+        stringMapMaxSizeMaxSizeMapConstraintValidator.validate(model.stringMap, HttpModelType.PARAMETER, "stringMap");
+        stringMapMinLengthMinLengthConstraintValidator.validateMapValues(model.stringMap, HttpModelType.PARAMETER, "stringMap");
+        stringMapMinSizeMinSizeMapConstraintValidator.validate(model.stringMap, HttpModelType.PARAMETER, "stringMap");
+        stringMapPatternPatternConstraintValidator.validateMapValues(model.stringMap, HttpModelType.PARAMETER, "stringMap");
+        stringMapPhonePhoneConstraintValidator.validateMapValues(model.stringMap, HttpModelType.PARAMETER, "stringMap");
+        stringMapSizeSizeMapConstraintValidator.validate(model.stringMap, HttpModelType.PARAMETER, "stringMap");
+        skypeConstraintValidator.validateMapValues(model.stringMap, HttpModelType.PARAMETER, "stringMap");
+        stringMapTelegramTelegramConstraintValidator.validateMapValues(model.stringMap, HttpModelType.PARAMETER, "stringMap");
+        uRIConstraintValidator.validateMapValues(model.stringMap, HttpModelType.PARAMETER, "stringMap");
+        uRLEncodedConstraintValidator.validateMapValues(model.stringMap, HttpModelType.PARAMETER, "stringMap");
+        uppercaseConstraintValidator.validateMapValues(model.stringMap, HttpModelType.PARAMETER, "stringMap");
+        stringMapViberViberConstraintValidator.validateMapValues(model.stringMap, HttpModelType.PARAMETER, "stringMap");
+        stringMapWhatsAppWhatsAppConstraintValidator.validateMapValues(model.stringMap, HttpModelType.PARAMETER, "stringMap");
+
+        requiredMapConstraintValidator.validate(model.instantMap, HttpModelType.PARAMETER, "instantMap");
+        requiredConstraintValidator.validateMapValues(model.instantMap, HttpModelType.PARAMETER, "instantMap");
+        futureInstantConstraintValidator.validateMapValues(model.instantMap, HttpModelType.PARAMETER, "instantMap");
+        futureOrPresentInstantConstraintValidator.validateMapValues(model.instantMap, HttpModelType.PARAMETER, "instantMap");
+        instantMapMaxSizeMaxSizeMapConstraintValidator.validate(model.instantMap, HttpModelType.PARAMETER, "instantMap");
+        instantMapMinSizeMinSizeMapConstraintValidator.validate(model.instantMap, HttpModelType.PARAMETER, "instantMap");
+        pastInstantConstraintValidator.validateMapValues(model.instantMap, HttpModelType.PARAMETER, "instantMap");
+        pastOrPresentInstantConstraintValidator.validateMapValues(model.instantMap, HttpModelType.PARAMETER, "instantMap");
+        instantMapSizeSizeMapConstraintValidator.validate(model.instantMap, HttpModelType.PARAMETER, "instantMap");
+        instantMapTruncatedTimeTruncatedTimeInstantConstraintValidator.validateMapValues(model.instantMap, HttpModelType.PARAMETER, "instantMap");
+
+        requiredMapConstraintValidator.validate(model.colorMap, HttpModelType.PARAMETER, "colorMap");
+        requiredConstraintValidator.validateMapValues(model.colorMap, HttpModelType.PARAMETER, "colorMap");
+        colorMapMaxSizeMaxSizeMapConstraintValidator.validate(model.colorMap, HttpModelType.PARAMETER, "colorMap");
+        colorMapMinSizeMinSizeMapConstraintValidator.validate(model.colorMap, HttpModelType.PARAMETER, "colorMap");
+        colorMapSizeSizeMapConstraintValidator.validate(model.colorMap, HttpModelType.PARAMETER, "colorMap");
+        colorMapSubEnumSubEnumConstraintValidator.validateMapValues(model.colorMap, HttpModelType.PARAMETER, "colorMap");
 
         requiredAndNotEmptyStringConstraintValidator.validate(model.countryCodeAlpha2, HttpModelType.PARAMETER, "countryCodeAlpha2");
         countryCodeAlpha2CountryCodeCountryCodeConstraintValidator.validate(model.countryCodeAlpha2, HttpModelType.PARAMETER, "countryCodeAlpha2");

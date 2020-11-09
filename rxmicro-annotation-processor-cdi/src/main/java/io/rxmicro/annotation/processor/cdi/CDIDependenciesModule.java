@@ -91,4 +91,5 @@ public final class CDIDependenciesModule extends AbstractModule {
         converterClassResolverBinder.addBinding().to(JsonResourceConverterClassResolver.class);
         converterClassResolverBinder.addBinding().to(PropertiesResourceConverterClassResolver.class);
     }
+
 }

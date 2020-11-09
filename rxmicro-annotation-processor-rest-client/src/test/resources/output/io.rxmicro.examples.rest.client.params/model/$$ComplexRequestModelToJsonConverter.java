@@ -20,8 +20,8 @@ public final class $$ComplexRequestModelToJsonConverter extends ModelToJsonConve
                 .put("integer_parameter", model.integerParameter)
                 .put("enum_parameter", model.enumParameter)
                 .put("enums_parameter", model.enumsParameter)
-                .put("nested_model_parameter", convertToJsonObjectIfNotNull(nestedModelModelToJsonConverter, model.nestedModelParameter))
-                .put("nested_models_parameter", convertToJsonArrayIfNotNull(nestedModelModelToJsonConverter, model.nestedModelsParameter))
+                .put("nested_model_parameter", convertFromObjectIfNotNull(nestedModelModelToJsonConverter, model.nestedModelParameter))
+                .put("nested_models_parameter", convertFromListIfNotNull(nestedModelModelToJsonConverter, model.nestedModelsParameter))
                 .build();
     }
 }

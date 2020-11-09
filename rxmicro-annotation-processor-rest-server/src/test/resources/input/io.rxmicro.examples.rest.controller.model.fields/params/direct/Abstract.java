@@ -17,7 +17,6 @@
 package io.rxmicro.examples.rest.controller.model.fields.params.direct;
 
 import io.rxmicro.examples.rest.controller.model.fields.Status;
-import io.rxmicro.rest.Header;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -104,5 +103,4 @@ abstract class Abstract {
     Set<Instant> instantParameterSet;
 
     Set<Status> statusSet;
-
 }

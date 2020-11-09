@@ -4,7 +4,6 @@ import io.rxmicro.examples.rest.controller.model.fields.Status;
 import io.rxmicro.examples.rest.controller.model.fields.params.direct.nested.$$NestedModelFromJsonConverter;
 import io.rxmicro.exchange.json.detail.ModelFromJsonConverter;
 
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -31,7 +30,7 @@ public final class $$VirtualVirtualParamsRequestModelFromJsonConverter extends M
         model.stringParameter = toString(params.get("stringParameter"), "stringParameter");
         model.instantParameter = toInstant(params.get("instantParameter"), "instantParameter");
         model.status = toEnum(Status.class, params.get("status"), "status");
-        model.nested = convertToObjectIfNotNull(nestedModelFromJsonConverter, (Map<String, Object>) params.get("nested"));
+        model.nested = convertToObjectIfNotNull(nestedModelFromJsonConverter, params.get("nested"), "nested");
         model.booleanParameters = toBooleanList(params.get("booleanParameters"), "booleanParameters");
         model.byteParameters = toByteList(params.get("byteParameters"), "byteParameters");
         model.shortParameters = toShortList(params.get("shortParameters"), "shortParameters");
@@ -45,7 +44,7 @@ public final class $$VirtualVirtualParamsRequestModelFromJsonConverter extends M
         model.stringParameters = toStringList(params.get("stringParameters"), "stringParameters");
         model.instantParameters = toInstantList(params.get("instantParameters"), "instantParameters");
         model.statuses = toEnumList(Status.class, params.get("statuses"), "statuses");
-        model.nestedList = convertToListIfNotNull(nestedModelFromJsonConverter, (List<Object>) params.get("nestedList"), "nestedList");
+        model.nestedList = convertToListIfNotNull(nestedModelFromJsonConverter, params.get("nestedList"), "nestedList");
         model.booleanParameterSet = toBooleanSet(params.get("booleanParameterSet"), "booleanParameterSet");
         model.byteParameterSet = toByteSet(params.get("byteParameterSet"), "byteParameterSet");
         model.shortParameterSet = toShortSet(params.get("shortParameterSet"), "shortParameterSet");
@@ -59,7 +58,7 @@ public final class $$VirtualVirtualParamsRequestModelFromJsonConverter extends M
         model.stringParameterSet = toStringSet(params.get("stringParameterSet"), "stringParameterSet");
         model.instantParameterSet = toInstantSet(params.get("instantParameterSet"), "instantParameterSet");
         model.statusSet = toEnumSet(Status.class, params.get("statusSet"), "statusSet");
-        model.nestedSet = convertToSetIfNotNull(nestedModelFromJsonConverter, (List<Object>) params.get("nestedSet"), "nestedSet");
+        model.nestedSet = convertToSetIfNotNull(nestedModelFromJsonConverter, params.get("nestedSet"), "nestedSet");
         return model;
     }
 }

@@ -19,12 +19,14 @@ package io.rxmicro.validation.constraint;
 import io.rxmicro.validation.base.ConstraintRule;
 import io.rxmicro.validation.validator.SizeListConstraintValidator;
 import io.rxmicro.validation.validator.SizeMapConstraintValidator;
+import io.rxmicro.validation.validator.SizeSetConstraintValidator;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.ElementType.METHOD;
@@ -39,6 +41,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * @see MaxSize
  * @see UniqueItems
  * @see SizeListConstraintValidator
+ * @see SizeSetConstraintValidator
  * @see SizeMapConstraintValidator
  * @since 0.1
  */
@@ -48,10 +51,12 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 @ConstraintRule(
         supportedTypes = {
                 List.class,
+                Set.class,
                 Map.class
         },
         validatorClass = {
                 SizeListConstraintValidator.class,
+                SizeSetConstraintValidator.class,
                 SizeMapConstraintValidator.class
         }
 )

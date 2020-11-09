@@ -19,7 +19,7 @@ package io.rxmicro.validation;
 import io.rxmicro.http.error.ValidationException;
 import io.rxmicro.rest.model.HttpModelType;
 
-import java.util.List;
+import java.util.Map;
 
 /**
  * Defines the logic to validate a given constraint for a given object type.
@@ -97,5 +97,37 @@ public interface ConstraintValidator<T> {
      */
     default void validateIterable(final Iterable<T> models) {
         validateIterable(models, null, null);
+    }
+
+    /**
+     * Validates the map values.
+     *
+     * <p>
+     * The state of the {@code map} must not be altered.
+     *
+     * @param map          the map with values to validate
+     * @param httpModelType the http model type
+     * @param modelName     the parameter or header name
+     * @throws ValidationException if value does not pass the constraint
+     */
+    default void validateMapValues(final Map<String, T> map,
+                                   final HttpModelType httpModelType,
+                                   final String modelName) {
+        if (map != null) {
+            validateIterable(map.values(), httpModelType, modelName);
+        }
+    }
+
+    /**
+     * Validates the root model map values.
+     *
+     * <p>
+     * The state of the {@code map} must not be altered.
+     *
+     * @param map          the map with values to validate
+     * @throws ValidationException if value does not pass the constraint
+     */
+    default void validateMapValues(final Map<String, T> map) {
+        validateMapValues(map, null, null);
     }
 }

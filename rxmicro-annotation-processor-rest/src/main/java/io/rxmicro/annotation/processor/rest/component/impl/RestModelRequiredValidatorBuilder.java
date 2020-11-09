@@ -16,9 +16,12 @@
 
 package io.rxmicro.annotation.processor.rest.component.impl;
 
+import io.rxmicro.annotation.processor.common.model.error.InternalErrorException;
+import io.rxmicro.annotation.processor.common.model.type.IterableModelClass;
 import io.rxmicro.annotation.processor.common.model.type.ModelClass;
 import io.rxmicro.annotation.processor.rest.model.RestModelField;
 import io.rxmicro.annotation.processor.rest.model.validator.ModelValidatorClassStructure;
+import io.rxmicro.validation.ConstraintValidator;
 import io.rxmicro.validation.constraint.AllowEmptyString;
 import io.rxmicro.validation.constraint.Enumeration;
 import io.rxmicro.validation.constraint.Length;
@@ -29,14 +32,26 @@ import io.rxmicro.validation.validator.NotEmptyStringConstraintValidator;
 import io.rxmicro.validation.validator.RequiredAndNotEmptyStringConstraintValidator;
 import io.rxmicro.validation.validator.RequiredConstraintValidator;
 import io.rxmicro.validation.validator.RequiredListConstraintValidator;
+import io.rxmicro.validation.validator.RequiredMapConstraintValidator;
+import io.rxmicro.validation.validator.RequiredSetConstraintValidator;
 
 import java.lang.annotation.Annotation;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
 
 /**
  * @author nedis
  * @since 0.7
  */
 public final class RestModelRequiredValidatorBuilder {
+
+    private final Map<String, Class<? extends ConstraintValidator<?>>> iterableRequiredValidators = Map.of(
+            List.class.getSimpleName(), RequiredListConstraintValidator.class,
+            Set.class.getSimpleName(), RequiredSetConstraintValidator.class,
+            Map.class.getSimpleName(), RequiredMapConstraintValidator.class
+    );
 
     public void addRequiredValidator(final ModelValidatorClassStructure.Builder builder,
                                      final RestModelField restModelField,
@@ -45,7 +60,7 @@ public final class RestModelRequiredValidatorBuilder {
             final Nullable nullable = restModelField.getAnnotation(Nullable.class);
             if (nullable == null || nullable.off()) {
                 builder.add(restModelField, Nullable.class.getSimpleName(),
-                        RequiredListConstraintValidator.class.getName(), null, false);
+                        getIterableRequiredValidator(modelFieldType.asIterable()).getName(), null, false);
             }
             final NullableArrayItem nullableArrayItem = restModelField.getAnnotation(NullableArrayItem.class);
             final boolean isNullable = nullableArrayItem == null || nullableArrayItem.off();
@@ -69,6 +84,17 @@ public final class RestModelRequiredValidatorBuilder {
                         RequiredConstraintValidator.class.getName(), null, false);
             }
         }
+    }
+
+    private Class<? extends ConstraintValidator<?>> getIterableRequiredValidator(final IterableModelClass iterableModelClass) {
+        return Optional.ofNullable(iterableRequiredValidators.get(iterableModelClass.getContainerType())).orElseThrow(
+                () -> {
+                    throw new InternalErrorException(
+                            "Required iterable validator not defined for type: ?!",
+                            iterableModelClass.getContainerType()
+                    );
+                }
+        );
     }
 
     private void addRequiredStringValidator(final boolean isNullable,

@@ -18,6 +18,10 @@ package io.rxmicro.annotation.processor.rest;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.TypeLiteral;
+import com.google.inject.multibindings.Multibinder;
+import io.rxmicro.annotation.processor.common.component.IterableContainerElementExtractor;
+import io.rxmicro.annotation.processor.common.component.impl.CollectionIterableContainerElementExtractor;
+import io.rxmicro.annotation.processor.common.component.impl.MapWithStringKeysIterableContainerElementExtractor;
 import io.rxmicro.annotation.processor.rest.component.AnnotationValueConverter;
 import io.rxmicro.annotation.processor.rest.component.AnnotationValueValidator;
 import io.rxmicro.annotation.processor.rest.component.ConstraintAnnotationExtractor;
@@ -53,6 +57,8 @@ import io.rxmicro.rest.Header;
 import io.rxmicro.rest.Parameter;
 import io.rxmicro.rest.PathVariable;
 import io.rxmicro.rest.RequestId;
+
+import static com.google.inject.multibindings.Multibinder.newSetBinder;
 
 /**
  * @author nedis
@@ -90,6 +96,7 @@ public final class RestCommonDependenciesModule extends AbstractModule {
                 .to(AnnotationValueConverterImpl.class);
 
         configureBuilders();
+        configureIterableContainerElementExtractors();
     }
 
     private void configureBuilders() {
@@ -105,5 +112,12 @@ public final class RestCommonDependenciesModule extends AbstractModule {
         bind(new TypeLiteral<RestModelFieldBuilder<RequestId>>() {
         })
                 .to(RequestIdRestModelFieldBuilder.class);
+    }
+
+    private void configureIterableContainerElementExtractors() {
+        final Multibinder<IterableContainerElementExtractor> binder =
+                newSetBinder(binder(), IterableContainerElementExtractor.class);
+        binder.addBinding().to(CollectionIterableContainerElementExtractor.class);
+        binder.addBinding().to(MapWithStringKeysIterableContainerElementExtractor.class);
     }
 }

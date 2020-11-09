@@ -16,9 +16,14 @@
 
 package io.rxmicro.examples.rest.client.model.fields.params.direct;
 
+import io.rxmicro.examples.rest.client.model.fields.Status;
 import io.rxmicro.examples.rest.client.model.fields.params.direct.nested.Nested;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.time.Instant;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public final class Response extends Abstract {
@@ -28,4 +33,32 @@ public final class Response extends Abstract {
     List<Nested> nestedList;
 
     Set<Nested> nestedSet;
+
+    Map<String, Boolean> booleanData;
+
+    Map<String, Byte> byteData;
+
+    Map<String, Short> shortData;
+
+    Map<String, Integer> integerData;
+
+    Map<String, Long> longData;
+
+    Map<String, BigInteger> bigIntegerData;
+
+    Map<String, Float> floatData;
+
+    Map<String, Double> doubleData;
+
+    Map<String, BigDecimal> bigDecimalData;
+
+    Map<String, Character> characterData;
+
+    Map<String, String> stringData;
+
+    Map<String, Status> enumData;
+
+    Map<String, Instant> instantData;
+
+    Map<String, Nested> nestedMap;
 }

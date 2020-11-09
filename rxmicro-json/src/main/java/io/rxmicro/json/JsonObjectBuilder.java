@@ -20,6 +20,7 @@ import io.rxmicro.common.model.MapBuilder;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 /**
  * JSON object builder.
@@ -77,6 +78,22 @@ public final class JsonObjectBuilder extends MapBuilder<String, Object> {
      */
     public JsonObjectBuilder put(final String name,
                                  final Collection<?> value) {
+        if (value != null && !value.isEmpty()) {
+            super.put(name, value);
+        }
+        return this;
+    }
+
+    /**
+     * Puts the specified name and value to the building JSON object  if the specified value is not {@code null} or not empty.
+     *
+     * @param name the specified name
+     * @param value the specified value
+     * @return the reference to this {@link JsonObjectBuilder} instance
+     * @throws IllegalArgumentException if {@code withoutDuplicates} is {@code true} and detected a duplicate of property name
+     */
+    public JsonObjectBuilder put(final String name,
+                                 final Map<String, ?> value) {
         if (value != null && !value.isEmpty()) {
             super.put(name, value);
         }

@@ -144,14 +144,15 @@ public final class ConstraintAnnotationExtractorImpl extends AbstractProcessorCo
                 index = indexOfSupportedClass(field, elementModelClass, annotationMirror, supportedTypes);
                 if (index == -1) {
                     throw new InterruptProcessingException(field.getElementAnnotatedBy(annotationMirror),
-                            "Type ? couldn't be validated by @?. Change field type to one of the following: [?]",
+                            "'?' or '?' types couldn't be validated by @?. Change field type to one of the following: [?]",
+                            getTypes().erasure(field.getFieldClass()),
                             elementModelClass.getJavaFullClassName(),
                             asTypeElement(annotationMirror.getAnnotationType()).orElseThrow().getQualifiedName(),
                             supportedTypes);
                 }
             } else {
                 throw new InterruptProcessingException(field.getElementAnnotatedBy(annotationMirror),
-                        "Type ? couldn't be validated by @?. Change field type to one of the following: [?]",
+                        "'?' type couldn't be validated by @?. Change field type to one of the following: [?]",
                         field.getFieldClass(),
                         asTypeElement(annotationMirror.getAnnotationType()).orElseThrow().getQualifiedName(),
                         supportedTypes);

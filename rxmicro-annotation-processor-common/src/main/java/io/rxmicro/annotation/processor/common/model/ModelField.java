@@ -31,6 +31,7 @@ import javax.lang.model.element.Name;
 import javax.lang.model.type.TypeMirror;
 
 import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getElements;
+import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.Requires.require;
 
 /**
@@ -130,6 +131,11 @@ public abstract class ModelField implements Comparable<ModelField>, Element {
         }
         final ModelField that = (ModelField) other;
         return getFieldName().equals(that.getFieldName());
+    }
+
+    @Override
+    public String toString() {
+        return format("?: ?", getClass().getSimpleName(), getFieldElement());
     }
 
     @Override

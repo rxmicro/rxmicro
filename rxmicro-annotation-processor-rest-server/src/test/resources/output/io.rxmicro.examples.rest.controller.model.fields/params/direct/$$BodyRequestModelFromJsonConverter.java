@@ -4,7 +4,6 @@ import io.rxmicro.examples.rest.controller.model.fields.Status;
 import io.rxmicro.examples.rest.controller.model.fields.params.direct.nested.$$NestedModelFromJsonConverter;
 import io.rxmicro.exchange.json.detail.ModelFromJsonConverter;
 
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -57,9 +56,23 @@ public final class $$BodyRequestModelFromJsonConverter extends ModelFromJsonConv
         model.stringParameterSet = toStringSet(params.get("stringParameterSet"), "stringParameterSet");
         model.instantParameterSet = toInstantSet(params.get("instantParameterSet"), "instantParameterSet");
         model.statusSet = toEnumSet(Status.class, params.get("statusSet"), "statusSet");
-        model.nested = convertToObjectIfNotNull(nestedModelFromJsonConverter, (Map<String, Object>) params.get("nested"));
-        model.nestedList = convertToListIfNotNull(nestedModelFromJsonConverter, (List<Object>) params.get("nestedList"), "nestedList");
-        model.nestedSet = convertToSetIfNotNull(nestedModelFromJsonConverter, (List<Object>) params.get("nestedSet"), "nestedSet");
+        model.nested = convertToObjectIfNotNull(nestedModelFromJsonConverter, params.get("nested"), "nested");
+        model.nestedList = convertToListIfNotNull(nestedModelFromJsonConverter, params.get("nestedList"), "nestedList");
+        model.nestedSet = convertToSetIfNotNull(nestedModelFromJsonConverter, params.get("nestedSet"), "nestedSet");
+        model.booleanData = toBooleanMap(params.get("booleanData"), "booleanData");
+        model.byteData = toByteMap(params.get("byteData"), "byteData");
+        model.shortData = toShortMap(params.get("shortData"), "shortData");
+        model.integerData = toIntegerMap(params.get("integerData"), "integerData");
+        model.longData = toLongMap(params.get("longData"), "longData");
+        model.bigIntegerData = toBigIntegerMap(params.get("bigIntegerData"), "bigIntegerData");
+        model.floatData = toFloatMap(params.get("floatData"), "floatData");
+        model.doubleData = toDoubleMap(params.get("doubleData"), "doubleData");
+        model.bigDecimalData = toBigDecimalMap(params.get("bigDecimalData"), "bigDecimalData");
+        model.characterData = toCharacterMap(params.get("characterData"), "characterData");
+        model.stringData = toStringMap(params.get("stringData"), "stringData");
+        model.enumData = toEnumMap(Status.class, params.get("enumData"), "enumData");
+        model.instantData = toInstantMap(params.get("instantData"), "instantData");
+        model.nestedMap = convertToMapIfNotNull(nestedModelFromJsonConverter, params.get("nestedMap"), "nestedMap");
         return model;
     }
 }

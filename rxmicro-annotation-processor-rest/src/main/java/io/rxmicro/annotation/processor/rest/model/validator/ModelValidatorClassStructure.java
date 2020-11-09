@@ -43,6 +43,7 @@ import static io.rxmicro.annotation.processor.common.util.Names.getDefaultVarNam
 import static io.rxmicro.annotation.processor.common.util.Names.getPackageName;
 import static io.rxmicro.annotation.processor.common.util.Names.getSimpleName;
 import static io.rxmicro.annotation.processor.common.util.Names.getTypeWithoutGeneric;
+import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getTypes;
 import static io.rxmicro.common.util.ExCollections.EMPTY_STRING_ARRAY;
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.Requires.require;
@@ -190,7 +191,7 @@ public final class ModelValidatorClassStructure extends ClassStructure {
             final String instanceName =
                     getModelTransformerInstanceName(typeSimpleClassName, ConstraintValidator.class);
             modelFieldValidatorsMap.computeIfAbsent(restModelField, m -> new ArrayList<>())
-                    .add(new ModelValidator(instanceName, validateIterable));
+                    .add(new ModelValidator(instanceName, getValidationMethodName(restModelField, validateIterable)));
         }
 
         public void add(final RestModelField restModelField,
@@ -214,7 +215,20 @@ public final class ModelValidatorClassStructure extends ClassStructure {
                 modelValidatorCreators.add(new ModelValidatorCreator(validatorClass, instanceName, constructorArgs));
             }
             modelFieldValidatorsMap.computeIfAbsent(restModelField, m -> new ArrayList<>())
-                    .add(new ModelValidator(instanceName, validateIterable));
+                    .add(new ModelValidator(instanceName, getValidationMethodName(restModelField, validateIterable)));
+        }
+
+        private String getValidationMethodName(final RestModelField restModelField,
+                                               final boolean validateIterable) {
+            if (validateIterable) {
+                if (Map.class.getName().equals(getTypes().erasure(restModelField.getFieldClass()).toString())) {
+                    return "validateMapValues";
+                } else {
+                    return "validateIterable";
+                }
+            } else {
+                return "validate";
+            }
         }
 
         private String getValidatorClassName(final String validatorClass) {

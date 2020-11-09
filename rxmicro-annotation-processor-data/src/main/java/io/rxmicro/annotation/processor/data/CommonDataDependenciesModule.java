@@ -17,6 +17,11 @@
 package io.rxmicro.annotation.processor.data;
 
 import com.google.inject.AbstractModule;
+import com.google.inject.multibindings.Multibinder;
+import io.rxmicro.annotation.processor.common.component.IterableContainerElementExtractor;
+import io.rxmicro.annotation.processor.common.component.impl.CollectionIterableContainerElementExtractor;
+
+import static com.google.inject.multibindings.Multibinder.newSetBinder;
 
 /**
  * @author nedis
@@ -26,6 +31,13 @@ public final class CommonDataDependenciesModule extends AbstractModule {
 
     @Override
     protected void configure() {
+        configureIterableContainerElementExtractors();
         //Add common data dependencies here
+    }
+
+    private void configureIterableContainerElementExtractors() {
+        final Multibinder<IterableContainerElementExtractor> binder =
+                newSetBinder(binder(), IterableContainerElementExtractor.class);
+        binder.addBinding().to(CollectionIterableContainerElementExtractor.class);
     }
 }

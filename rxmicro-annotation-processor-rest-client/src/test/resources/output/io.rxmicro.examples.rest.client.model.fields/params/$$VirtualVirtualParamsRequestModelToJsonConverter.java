@@ -30,7 +30,7 @@ public final class $$VirtualVirtualParamsRequestModelToJsonConverter extends Mod
                 .put("stringParameter", model.stringParameter)
                 .put("instantParameter", model.instantParameter)
                 .put("status", model.status)
-                .put("nested", convertToJsonObjectIfNotNull(nestedModelToJsonConverter, model.nested))
+                .put("nested", convertFromObjectIfNotNull(nestedModelToJsonConverter, model.nested))
                 .put("booleanParameters", model.booleanParameters)
                 .put("byteParameters", model.byteParameters)
                 .put("shortParameters", model.shortParameters)
@@ -44,7 +44,7 @@ public final class $$VirtualVirtualParamsRequestModelToJsonConverter extends Mod
                 .put("stringParameters", model.stringParameters)
                 .put("instantParameters", model.instantParameters)
                 .put("statuses", model.statuses)
-                .put("nestedList", convertToJsonArrayIfNotNull(nestedModelToJsonConverter, model.nestedList))
+                .put("nestedList", convertFromListIfNotNull(nestedModelToJsonConverter, model.nestedList))
                 .put("repeatingStatuses", model.repeatingStatuses)
                 .put("booleanParameterSet", model.booleanParameterSet)
                 .put("byteParameterSet", model.byteParameterSet)
@@ -59,7 +59,7 @@ public final class $$VirtualVirtualParamsRequestModelToJsonConverter extends Mod
                 .put("stringParameterSet", model.stringParameterSet)
                 .put("instantParameterSet", model.instantParameterSet)
                 .put("statusSet", model.statusSet)
-                .put("nestedSet", convertToJsonArrayIfNotNull(nestedModelToJsonConverter, model.nestedSet))
+                .put("nestedSet", convertFromSetIfNotNull(nestedModelToJsonConverter, model.nestedSet))
                 .put("repeatingStatusSet", model.repeatingStatusSet)
                 .build();
     }

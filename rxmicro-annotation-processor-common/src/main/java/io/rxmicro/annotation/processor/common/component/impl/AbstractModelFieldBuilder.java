@@ -17,6 +17,8 @@
 package io.rxmicro.annotation.processor.common.component.impl;
 
 
+import com.google.inject.Inject;
+import io.rxmicro.annotation.processor.common.component.IterableContainerElementExtractor;
 import io.rxmicro.annotation.processor.common.component.ModelFieldBuilder;
 import io.rxmicro.annotation.processor.common.model.AnnotatedModelElement;
 import io.rxmicro.annotation.processor.common.model.ModelAccessorType;
@@ -24,6 +26,7 @@ import io.rxmicro.annotation.processor.common.model.ModelField;
 import io.rxmicro.annotation.processor.common.model.ModelFieldBuilderOptions;
 import io.rxmicro.annotation.processor.common.model.ModelFieldType;
 import io.rxmicro.annotation.processor.common.model.definition.SupportedTypesProvider;
+import io.rxmicro.annotation.processor.common.model.error.InternalErrorException;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
 import io.rxmicro.annotation.processor.common.model.type.EnumModelClass;
 import io.rxmicro.annotation.processor.common.model.type.InternalModelClass;
@@ -75,6 +78,9 @@ public abstract class AbstractModelFieldBuilder<MF extends ModelField, MC extend
     private int maxNestedLevel = -1;
 
     protected abstract SupportedTypesProvider getSupportedTypesProvider();
+
+    @Inject
+    private Set<IterableContainerElementExtractor> iterableContainerElementExtractors;
 
     @Override
     @SuppressWarnings("unchecked")
@@ -250,7 +256,8 @@ public abstract class AbstractModelFieldBuilder<MF extends ModelField, MC extend
                                            final DeclaredType type,
                                            final int nestedLevel,
                                            final ModelFieldBuilderOptions options) {
-        final TypeMirror itemType = type.getTypeArguments().get(0);
+        final IterableContainerElementExtractor iterableContainerElementExtractor = getIterableContainerElementExtractor(type);
+        final TypeMirror itemType = iterableContainerElementExtractor.getItemType(owner, type);
         if (getSupportedTypesProvider().isModelPrimitive(itemType)) {
             return asEnumElement(itemType)
                     .map(e -> new IterableModelClass(new EnumModelClass(itemType), type))
@@ -264,6 +271,19 @@ public abstract class AbstractModelFieldBuilder<MF extends ModelField, MC extend
             }
             return new IterableModelClass(elementModelClass, type);
         }
+    }
+
+    private IterableContainerElementExtractor getIterableContainerElementExtractor(final DeclaredType type) {
+        return iterableContainerElementExtractors.stream()
+                .filter(iterableContainerElementExtractor -> iterableContainerElementExtractor.isSupported(type))
+                .findFirst()
+                .orElseThrow(() -> {
+                    throw new InternalErrorException(
+                            "? instance not configured for '?' type!",
+                            IterableContainerElementExtractor.class.getName(),
+                            type
+                    );
+                });
     }
 
     private int getMaxNestedLevel() {

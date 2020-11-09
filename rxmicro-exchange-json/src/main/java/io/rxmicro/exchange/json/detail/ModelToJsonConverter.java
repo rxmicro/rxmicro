@@ -18,8 +18,12 @@ package io.rxmicro.exchange.json.detail;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+
+import static java.util.Collections.unmodifiableMap;
 
 /**
  * Used by generated code that created by the {@code RxMicro Annotation Processor}.
@@ -58,13 +62,31 @@ public abstract class ModelToJsonConverter<T> {
         return null;
     }
 
-    protected final <E> Map<String, Object> convertToJsonObjectIfNotNull(final ModelToJsonConverter<E> converter,
-                                                                         final E model) {
+    protected final <E> Map<String, Object> convertFromObjectIfNotNull(final ModelToJsonConverter<E> converter,
+                                                                       final E model) {
         return model != null ? converter.toJsonObject(model) : null;
     }
 
-    protected final <E> List<Object> convertToJsonArrayIfNotNull(final ModelToJsonConverter<E> converter,
-                                                                 final Collection<E> list) {
+    protected final <E> List<Object> convertFromListIfNotNull(final ModelToJsonConverter<E> converter,
+                                                              final List<E> list) {
         return list != null ? converter.toJsonObjectArray(list) : null;
+    }
+
+    protected final <E> List<Object> convertFromSetIfNotNull(final ModelToJsonConverter<E> converter,
+                                                             final Set<E> list) {
+        return list != null ? converter.toJsonObjectArray(list) : null;
+    }
+
+    protected final <E> Map<String, Object> convertFromMapIfNotNull(final ModelToJsonConverter<E> converter,
+                                                                    final Map<String, E> model) {
+        if (model != null) {
+            final Map<String, Object> result = new LinkedHashMap<>();
+            for (final Map.Entry<String, E> entry : model.entrySet()) {
+                result.put(entry.getKey(), converter.toJsonObject(entry.getValue()));
+            }
+            return unmodifiableMap(result);
+        } else {
+            return null;
+        }
     }
 }

@@ -4,7 +4,6 @@ import io.rxmicro.examples.rest.controller.model.fields.Status;
 import io.rxmicro.examples.rest.controller.model.fields.params.reflection.nested.$$NestedModelFromJsonConverter;
 import io.rxmicro.exchange.json.detail.ModelFromJsonConverter;
 
-import java.util.List;
 import java.util.Map;
 
 import static rxmicro.$$Reflections.setFieldValue;
@@ -59,9 +58,23 @@ public final class $$BodyRequestModelFromJsonConverter extends ModelFromJsonConv
         setFieldValue(model, "stringParameterSet", toStringSet(params.get("stringParameterSet"), "stringParameterSet"));
         setFieldValue(model, "instantParameterSet", toInstantSet(params.get("instantParameterSet"), "instantParameterSet"));
         setFieldValue(model, "statusSet", toEnumSet(Status.class, params.get("statusSet"), "statusSet"));
-        setFieldValue(model, "nested", convertToObjectIfNotNull(nestedModelFromJsonConverter, (Map<String, Object>) params.get("nested")));
-        setFieldValue(model, "nestedList", convertToListIfNotNull(nestedModelFromJsonConverter, (List<Object>) params.get("nestedList"), "nestedList"));
-        setFieldValue(model, "nestedSet", convertToSetIfNotNull(nestedModelFromJsonConverter, (List<Object>) params.get("nestedSet"), "nestedSet"));
+        setFieldValue(model, "nested", convertToObjectIfNotNull(nestedModelFromJsonConverter, params.get("nested"), "nested"));
+        setFieldValue(model, "nestedList", convertToListIfNotNull(nestedModelFromJsonConverter, params.get("nestedList"), "nestedList"));
+        setFieldValue(model, "nestedSet", convertToSetIfNotNull(nestedModelFromJsonConverter, params.get("nestedSet"), "nestedSet"));
+        setFieldValue(model, "booleanData", toBooleanMap(params.get("booleanData"), "booleanData"));
+        setFieldValue(model, "byteData", toByteMap(params.get("byteData"), "byteData"));
+        setFieldValue(model, "shortData", toShortMap(params.get("shortData"), "shortData"));
+        setFieldValue(model, "integerData", toIntegerMap(params.get("integerData"), "integerData"));
+        setFieldValue(model, "longData", toLongMap(params.get("longData"), "longData"));
+        setFieldValue(model, "bigIntegerData", toBigIntegerMap(params.get("bigIntegerData"), "bigIntegerData"));
+        setFieldValue(model, "floatData", toFloatMap(params.get("floatData"), "floatData"));
+        setFieldValue(model, "doubleData", toDoubleMap(params.get("doubleData"), "doubleData"));
+        setFieldValue(model, "bigDecimalData", toBigDecimalMap(params.get("bigDecimalData"), "bigDecimalData"));
+        setFieldValue(model, "characterData", toCharacterMap(params.get("characterData"), "characterData"));
+        setFieldValue(model, "stringData", toStringMap(params.get("stringData"), "stringData"));
+        setFieldValue(model, "enumData", toEnumMap(Status.class, params.get("enumData"), "enumData"));
+        setFieldValue(model, "instantData", toInstantMap(params.get("instantData"), "instantData"));
+        setFieldValue(model, "nestedMap", convertToMapIfNotNull(nestedModelFromJsonConverter, params.get("nestedMap"), "nestedMap"));
         return model;
     }
 }

@@ -16,9 +16,14 @@
 
 package io.rxmicro.examples.rest.controller.model.fields.params.reflection;
 
+import io.rxmicro.examples.rest.controller.model.fields.Status;
 import io.rxmicro.examples.rest.controller.model.fields.params.reflection.nested.Nested;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.time.Instant;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public final class BodyRequest extends Abstract {
@@ -28,4 +33,32 @@ public final class BodyRequest extends Abstract {
     private List<Nested> nestedList;
 
     private Set<Nested> nestedSet;
+
+    private Map<String, Boolean> booleanData;
+
+    private Map<String, Byte> byteData;
+
+    private Map<String, Short> shortData;
+
+    private Map<String, Integer> integerData;
+
+    private Map<String, Long> longData;
+
+    private Map<String, BigInteger> bigIntegerData;
+
+    private Map<String, Float> floatData;
+
+    private Map<String, Double> doubleData;
+
+    private Map<String, BigDecimal> bigDecimalData;
+
+    private Map<String, Character> characterData;
+
+    private Map<String, String> stringData;
+
+    private Map<String, Status> enumData;
+
+    private Map<String, Instant> instantData;
+
+    private Map<String, Nested> nestedMap;
 }

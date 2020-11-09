@@ -30,6 +30,7 @@ import io.rxmicro.rest.HeaderMappingStrategy;
 import io.rxmicro.rest.RepeatHeader;
 import io.rxmicro.rest.model.HttpModelType;
 
+import java.util.Map;
 import java.util.Set;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
@@ -39,6 +40,7 @@ import static io.rxmicro.annotation.processor.common.model.ModelFieldType.REST_C
 import static io.rxmicro.annotation.processor.common.model.ModelFieldType.REST_SERVER_REQUEST;
 import static io.rxmicro.annotation.processor.common.util.Errors.IMPOSSIBLE_ERROR_ANNOTATION_NOT_FOUND_SUPPLIER;
 import static io.rxmicro.annotation.processor.common.util.Names.getSimpleName;
+import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getTypes;
 import static io.rxmicro.http.local.HttpValidators.validateHeaderName;
 
 /**
@@ -73,6 +75,12 @@ public final class HeaderRestModelFieldBuilder extends AbstractProcessorComponen
                     annotated.getElementAnnotatedBy(Header.class).orElse(field),
                     "Invalid header type. Allowed types are: ?",
                     supportedTypesProvider.getPrimitives()
+            );
+        }
+        if (Map.class.getName().equals(getTypes().erasure(annotated.getField().asType()).toString())) {
+            error(
+                    annotated.getElementAnnotatedBy(Header.class).orElse(field),
+                    "Invalid header type: java.util.Map<String, ?> is not valid type for HTTP header!"
             );
         }
         final HeaderMappingStrategy strategy = typeElement.getAnnotation(HeaderMappingStrategy.class);

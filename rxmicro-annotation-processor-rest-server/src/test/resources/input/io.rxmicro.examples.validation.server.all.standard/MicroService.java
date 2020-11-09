@@ -67,6 +67,8 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.Instant;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.CompletionStage;
 
 import static io.rxmicro.validation.base.LocationAccuracy.ACCURACY_111_KILOMETERS;
@@ -258,6 +260,185 @@ final class MicroService {
                                 @MinSize(2)
                                 @MaxSize(50)
                                 @SubEnum(include = {"RED", "BLUE"}) final List<Color> colors,
+                                @Nullable
+                                @NullableArrayItem final Set<String> optionalSet,
+                                @Size(12)
+                                @MinSize(2)
+                                @MaxSize(50)
+                                @AssertFalse
+                                @AssertTrue final Set<Boolean> booleanSet,
+                                @Size(12)
+                                @MinSize(2)
+                                @MaxSize(50)
+                                @MinInt(3)
+                                @MaxInt(10) final Set<Byte> byteSet,
+                                @Size(12)
+                                @MinSize(2)
+                                @MaxSize(50)
+                                @MinInt(3)
+                                @MaxInt(10) final Set<Short> shortSet,
+                                @Size(12)
+                                @MinSize(2)
+                                @MaxSize(50)
+                                @MinInt(3)
+                                @MaxInt(10) final Set<Integer> intSet,
+                                @Size(12)
+                                @MinSize(2)
+                                @MaxSize(50)
+                                @MinInt(3)
+                                @MaxInt(10) final Set<Long> longSet,
+                                @Size(12)
+                                @MinSize(2)
+                                @MaxSize(50)
+                                @Enumeration({"y", "n"}) final Set<Character> charSet,
+                                @Size(12)
+                                @MinSize(2)
+                                @MaxSize(50)
+                                @MinDouble(3.1)
+                                @MaxDouble(10.9) final Set<Float> floatSet,
+                                @Size(12)
+                                @MinSize(2)
+                                @MaxSize(50)
+                                @MinDouble(3.1)
+                                @MaxDouble(10.9) final Set<Double> doubleSet,
+                                @Size(12)
+                                @MinSize(2)
+                                @MaxSize(50)
+                                @MinNumber("3.1")
+                                @MaxNumber("10.9")
+                                @Lat
+                                @Lng
+                                @Numeric(scale = 5, precision = 2) final Set<BigDecimal> decimalSet,
+                                @Size(12)
+                                @MinSize(2)
+                                @MaxSize(50)
+                                @MinNumber("3")
+                                @MaxNumber("10") final Set<BigInteger> bigIntegerSet,
+                                @Size(12)
+                                @MinSize(2)
+                                @MaxSize(50)
+                                @Lowercase
+                                @Uppercase
+                                @Length(2)
+                                @MinLength(2)
+                                @MaxLength(2)
+                                @Base64URLEncoded
+                                @Email
+                                @Phone
+                                @Enumeration({"3", "2", "3"})
+                                @IP
+                                @Pattern(regexp = "hello")
+                                @URI
+                                @URLEncoded
+                                @Viber
+                                @WhatsApp
+                                @Telegram
+                                @Skype
+                                @CountryCode
+                                @HostName
+                                @LatinAlphabetOnly final Set<String> stringSet,
+                                @Size(12)
+                                @MinSize(2)
+                                @MaxSize(50)
+                                @Future
+                                @FutureOrPresent
+                                @Past
+                                @PastOrPresent
+                                @TruncatedTime final Set<Instant> instantSet,
+                                @Size(12)
+                                @MinSize(2)
+                                @MaxSize(50)
+                                @SubEnum(include = {"RED", "BLUE"}) final Set<Color> colorSet,
+                                // -------------------------------------------------------------------------------------------------
+                                @Nullable
+                                @NullableArrayItem final Map<String, String> optionalMap,
+                                @Size(12)
+                                @MinSize(2)
+                                @MaxSize(50)
+                                @AssertFalse
+                                @AssertTrue final Map<String, Boolean> booleanMap,
+                                @Size(12)
+                                @MinSize(2)
+                                @MaxSize(50)
+                                @MinInt(3)
+                                @MaxInt(10) final Map<String, Byte> byteMap,
+                                @Size(12)
+                                @MinSize(2)
+                                @MaxSize(50)
+                                @MinInt(3)
+                                @MaxInt(10) final Map<String, Short> shortMap,
+                                @Size(12)
+                                @MinSize(2)
+                                @MaxSize(50)
+                                @MinInt(3)
+                                @MaxInt(10) final Map<String, Integer> intMap,
+                                @Size(12)
+                                @MinSize(2)
+                                @MaxSize(50)
+                                @MinInt(3)
+                                @MaxInt(10) final Map<String, Long> longMap,
+                                @Size(12)
+                                @MinSize(2)
+                                @MaxSize(50)
+                                @Enumeration({"y", "n"}) final Map<String, Character> charMap,
+                                @Size(12)
+                                @MinSize(2)
+                                @MaxSize(50)
+                                @MinDouble(3.1)
+                                @MaxDouble(10.9) final Map<String, Float> floatMap,
+                                @Size(12)
+                                @MinSize(2)
+                                @MaxSize(50)
+                                @MinDouble(3.1)
+                                @MaxDouble(10.9) final Map<String, Double> doubleMap,
+                                @Size(12)
+                                @MinSize(2)
+                                @MaxSize(50)
+                                @MinNumber("3.1")
+                                @MaxNumber("10.9")
+                                @Lat
+                                @Lng
+                                @Numeric(scale = 5, precision = 2) final Map<String, BigDecimal> decimalMap,
+                                @Size(12)
+                                @MinSize(2)
+                                @MaxSize(50)
+                                @MinNumber("3")
+                                @MaxNumber("10") final Map<String, BigInteger> bigIntegerMap,
+                                @Size(12)
+                                @MinSize(2)
+                                @MaxSize(50)
+                                @Lowercase
+                                @Uppercase
+                                @Length(2)
+                                @MinLength(2)
+                                @MaxLength(2)
+                                @Base64URLEncoded
+                                @Email
+                                @Phone
+                                @Enumeration({"3", "2", "3"})
+                                @IP
+                                @Pattern(regexp = "hello")
+                                @URI
+                                @URLEncoded
+                                @Viber
+                                @WhatsApp
+                                @Telegram
+                                @Skype
+                                @CountryCode
+                                @HostName
+                                @LatinAlphabetOnly final Map<String, String> stringMap,
+                                @Size(12)
+                                @MinSize(2)
+                                @MaxSize(50)
+                                @Future
+                                @FutureOrPresent
+                                @Past
+                                @PastOrPresent
+                                @TruncatedTime final Map<String, Instant> instantMap,
+                                @Size(12)
+                                @MinSize(2)
+                                @MaxSize(50)
+                                @SubEnum(include = {"RED", "BLUE"}) final Map<String, Color> colorMap,
                                 // ----------------------------------------------------------------------------------
                                 @CountryCode(format = ISO_3166_1_ALPHA_2) final String countryCodeAlpha2,
                                 @CountryCode(format = ISO_3166_1_ALPHA_3) final String countryCodeAlpha3,

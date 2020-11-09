@@ -28,12 +28,15 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import static io.rxmicro.common.local.Examples.INSTANT_EXAMPLE;
+import static io.rxmicro.common.util.ExCollections.unmodifiableMap;
+import static io.rxmicro.common.util.ExCollections.unmodifiableOrderedMap;
 import static io.rxmicro.common.util.ExCollections.unmodifiableOrderedSet;
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.json.JsonHelper.toJsonString;
@@ -98,20 +101,64 @@ public abstract class ModelFromJsonConverter<T> extends AbstractValidatedConvert
     // -------------------------------------------------------------------------------------------------------------------------------------
 
     protected final <E> E convertToObjectIfNotNull(final ModelFromJsonConverter<E> converter,
-                                                   final Map<String, Object> json) {
-        return json != null ? converter.fromJsonObject(json) : null;
+                                                   final Object value,
+                                                   final String modelName) {
+        try {
+            return value != null ? converter.fromJsonObject((Map<String, Object>) value) : null;
+        } catch (final ClassCastException ignore) {
+            throw new ValidationException(
+                    "Invalid ? \"?\": Expected a json object, but actual is ?!",
+                    PARAMETER, modelName, getJsonActual(value)
+            );
+        }
     }
 
     protected final <E> List<E> convertToListIfNotNull(final ModelFromJsonConverter<E> converter,
-                                                       final Collection<Object> list,
+                                                       final Object value,
                                                        final String modelName) {
-        return list != null ? converter.fromJsonArray(list, modelName) : null;
+        try {
+            return value != null ? converter.fromJsonArray((Collection<Object>) value, modelName) : null;
+        } catch (final ClassCastException ignore) {
+            throw new ValidationException(
+                    "Invalid ? \"?\": Expected a json array, but actual is ?!",
+                    PARAMETER, modelName, getJsonActual(value)
+            );
+        }
     }
 
     protected final <E> Set<E> convertToSetIfNotNull(final ModelFromJsonConverter<E> converter,
-                                                     final Collection<Object> list,
+                                                     final Object value,
                                                      final String modelName) {
-        return list != null ? unmodifiableOrderedSet(converter.fromJsonArray(list, modelName)) : null;
+        try {
+            return value != null ? unmodifiableOrderedSet(converter.fromJsonArray((Collection<Object>) value, modelName)) : null;
+        } catch (final ClassCastException ignore) {
+            throw new ValidationException(
+                    "Invalid ? \"?\": Expected a json array, but actual is ?!",
+                    PARAMETER, modelName, getJsonActual(value)
+            );
+        }
+    }
+
+    protected final <E> Map<String, E> convertToMapIfNotNull(final ModelFromJsonConverter<E> converter,
+                                                             final Object value,
+                                                             final String modelName) {
+        if (value != null) {
+            try {
+                final Map<String, Object> map = (Map<String, Object>) value;
+                final Map<String, E> result = new LinkedHashMap<>();
+                for (final Map.Entry<String, Object> entry : map.entrySet()) {
+                    result.put(entry.getKey(), converter.convertToObjectIfNotNull(converter, entry.getValue(), modelName));
+                }
+                return unmodifiableOrderedMap(result);
+            } catch (final ClassCastException ignore) {
+                throw new ValidationException(
+                        "Invalid ? \"?\": Expected a json object, but actual is ?!",
+                        PARAMETER, modelName, getJsonActual(value)
+                );
+            }
+        } else {
+            return null;
+        }
     }
 
     // -------------------------------------------------------------------------------------------------------------------------------------
@@ -164,6 +211,31 @@ public abstract class ModelFromJsonConverter<T> extends AbstractValidatedConvert
         return unmodifiableOrderedSet(toEnumList(enumClass, list, modelName));
     }
 
+    protected final <E extends Enum<E>> Map<String, E> toEnumMap(final Class<E> enumClass,
+                                                                 final Object jsonObjectCandidate,
+                                                                 final String modelName) {
+        if (jsonObjectCandidate != null) {
+            if (jsonObjectCandidate instanceof Map) {
+                try {
+                    final Map<String, String> jsonObject = (Map<String, String>) jsonObjectCandidate;
+                    final Map<String, E> result = new LinkedHashMap<>();
+                    for (final Map.Entry<String, String> entry : jsonObject.entrySet()) {
+                        result.put(entry.getKey(), toEnum(enumClass, entry.getValue(), modelName));
+                    }
+                    return unmodifiableMap(result);
+                } catch (final ClassCastException ignore) {
+                    //goto throw new ValidationException
+                }
+            }
+            throw new ValidationException(
+                    "Invalid ? \"?\": Expected a json object where all values are strings, but actual is ?!",
+                    PARAMETER, modelName, getJsonActual(jsonObjectCandidate)
+            );
+        } else {
+            return Map.of();
+        }
+    }
+
     // -------------------------------------------------------------------------------------------------------------------------------------
 
     protected final Boolean toBoolean(final Object value,
@@ -211,6 +283,30 @@ public abstract class ModelFromJsonConverter<T> extends AbstractValidatedConvert
         return unmodifiableOrderedSet(toBooleanList(list, modelName));
     }
 
+    protected final Map<String, Boolean> toBooleanMap(final Object jsonObjectCandidate,
+                                                      final String modelName) {
+        if (jsonObjectCandidate != null) {
+            if (jsonObjectCandidate instanceof Map) {
+                try {
+                    final Map<String, String> jsonObject = (Map<String, String>) jsonObjectCandidate;
+                    final Map<String, Boolean> result = new LinkedHashMap<>();
+                    for (final Map.Entry<String, String> entry : jsonObject.entrySet()) {
+                        result.put(entry.getKey(), toBoolean(entry.getValue(), modelName));
+                    }
+                    return unmodifiableMap(result);
+                } catch (final ClassCastException ignore) {
+                    //goto throw new ValidationException
+                }
+            }
+            throw new ValidationException(
+                    "Invalid ? \"?\": Expected a json object where all values are booleans, but actual is ?!",
+                    PARAMETER, modelName, getJsonActual(jsonObjectCandidate)
+            );
+        } else {
+            return Map.of();
+        }
+    }
+
     // -------------------------------------------------------------------------------------------------------------------------------------
 
     protected final Byte toByte(final Object value,
@@ -253,6 +349,27 @@ public abstract class ModelFromJsonConverter<T> extends AbstractValidatedConvert
     protected final Set<Byte> toByteSet(final Object list,
                                         final String modelName) {
         return unmodifiableOrderedSet(toByteList(list, modelName));
+    }
+
+    protected final Map<String, Byte> toByteMap(final Object jsonObjectCandidate,
+                                                final String modelName) {
+        if (jsonObjectCandidate != null) {
+            if (jsonObjectCandidate instanceof Map) {
+                try {
+                    final Map<String, String> jsonObject = (Map<String, String>) jsonObjectCandidate;
+                    final Map<String, Byte> result = new LinkedHashMap<>();
+                    for (final Map.Entry<String, String> entry : jsonObject.entrySet()) {
+                        result.put(entry.getKey(), toByte(entry.getValue(), modelName));
+                    }
+                    return unmodifiableMap(result);
+                } catch (final ClassCastException ignore) {
+                    //goto throw new ValidationException
+                }
+            }
+            throw createExpectedJsonObjectWithNumberValuesValidationException(jsonObjectCandidate, modelName);
+        } else {
+            return Map.of();
+        }
     }
 
     // -------------------------------------------------------------------------------------------------------------------------------------
@@ -299,6 +416,27 @@ public abstract class ModelFromJsonConverter<T> extends AbstractValidatedConvert
         return unmodifiableOrderedSet(toShortList(list, modelName));
     }
 
+    protected final Map<String, Short> toShortMap(final Object jsonObjectCandidate,
+                                                  final String modelName) {
+        if (jsonObjectCandidate != null) {
+            if (jsonObjectCandidate instanceof Map) {
+                try {
+                    final Map<String, String> jsonObject = (Map<String, String>) jsonObjectCandidate;
+                    final Map<String, Short> result = new LinkedHashMap<>();
+                    for (final Map.Entry<String, String> entry : jsonObject.entrySet()) {
+                        result.put(entry.getKey(), toShort(entry.getValue(), modelName));
+                    }
+                    return unmodifiableMap(result);
+                } catch (final ClassCastException ignore) {
+                    //goto throw new ValidationException
+                }
+            }
+            throw createExpectedJsonObjectWithNumberValuesValidationException(jsonObjectCandidate, modelName);
+        } else {
+            return Map.of();
+        }
+    }
+
     // -------------------------------------------------------------------------------------------------------------------------------------
 
     protected final Integer toInteger(final Object val,
@@ -343,6 +481,27 @@ public abstract class ModelFromJsonConverter<T> extends AbstractValidatedConvert
         return unmodifiableOrderedSet(toIntegerList(list, modelName));
     }
 
+    protected final Map<String, Integer> toIntegerMap(final Object jsonObjectCandidate,
+                                                      final String modelName) {
+        if (jsonObjectCandidate != null) {
+            if (jsonObjectCandidate instanceof Map) {
+                try {
+                    final Map<String, String> jsonObject = (Map<String, String>) jsonObjectCandidate;
+                    final Map<String, Integer> result = new LinkedHashMap<>();
+                    for (final Map.Entry<String, String> entry : jsonObject.entrySet()) {
+                        result.put(entry.getKey(), toInteger(entry.getValue(), modelName));
+                    }
+                    return unmodifiableMap(result);
+                } catch (final ClassCastException ignore) {
+                    //goto throw new ValidationException
+                }
+            }
+            throw createExpectedJsonObjectWithNumberValuesValidationException(jsonObjectCandidate, modelName);
+        } else {
+            return Map.of();
+        }
+    }
+
     // -------------------------------------------------------------------------------------------------------------------------------------
 
     protected final Long toLong(final Object value,
@@ -385,6 +544,27 @@ public abstract class ModelFromJsonConverter<T> extends AbstractValidatedConvert
     protected final Set<Long> toLongSet(final Object list,
                                         final String modelName) {
         return unmodifiableOrderedSet(toLongList(list, modelName));
+    }
+
+    protected final Map<String, Long> toLongMap(final Object jsonObjectCandidate,
+                                                final String modelName) {
+        if (jsonObjectCandidate != null) {
+            if (jsonObjectCandidate instanceof Map) {
+                try {
+                    final Map<String, String> jsonObject = (Map<String, String>) jsonObjectCandidate;
+                    final Map<String, Long> result = new LinkedHashMap<>();
+                    for (final Map.Entry<String, String> entry : jsonObject.entrySet()) {
+                        result.put(entry.getKey(), toLong(entry.getValue(), modelName));
+                    }
+                    return unmodifiableMap(result);
+                } catch (final ClassCastException ignore) {
+                    //goto throw new ValidationException
+                }
+            }
+            throw createExpectedJsonObjectWithNumberValuesValidationException(jsonObjectCandidate, modelName);
+        } else {
+            return Map.of();
+        }
     }
 
     // -------------------------------------------------------------------------------------------------------------------------------------
@@ -434,6 +614,27 @@ public abstract class ModelFromJsonConverter<T> extends AbstractValidatedConvert
         return unmodifiableOrderedSet(toBigIntegerList(list, modelName));
     }
 
+    protected final Map<String, BigInteger> toBigIntegerMap(final Object jsonObjectCandidate,
+                                                            final String modelName) {
+        if (jsonObjectCandidate != null) {
+            if (jsonObjectCandidate instanceof Map) {
+                try {
+                    final Map<String, String> jsonObject = (Map<String, String>) jsonObjectCandidate;
+                    final Map<String, BigInteger> result = new LinkedHashMap<>();
+                    for (final Map.Entry<String, String> entry : jsonObject.entrySet()) {
+                        result.put(entry.getKey(), toBigInteger(entry.getValue(), modelName));
+                    }
+                    return unmodifiableMap(result);
+                } catch (final ClassCastException ignore) {
+                    //goto throw new ValidationException
+                }
+            }
+            throw createExpectedJsonObjectWithNumberValuesValidationException(jsonObjectCandidate, modelName);
+        } else {
+            return Map.of();
+        }
+    }
+
     // -------------------------------------------------------------------------------------------------------------------------------------
 
     protected final Float toFloat(final Object value,
@@ -474,6 +675,27 @@ public abstract class ModelFromJsonConverter<T> extends AbstractValidatedConvert
     protected final Set<Float> toFloatSet(final Object list,
                                           final String modelName) {
         return unmodifiableOrderedSet(toFloatList(list, modelName));
+    }
+
+    protected final Map<String, Float> toFloatMap(final Object jsonObjectCandidate,
+                                                  final String modelName) {
+        if (jsonObjectCandidate != null) {
+            if (jsonObjectCandidate instanceof Map) {
+                try {
+                    final Map<String, String> jsonObject = (Map<String, String>) jsonObjectCandidate;
+                    final Map<String, Float> result = new LinkedHashMap<>();
+                    for (final Map.Entry<String, String> entry : jsonObject.entrySet()) {
+                        result.put(entry.getKey(), toFloat(entry.getValue(), modelName));
+                    }
+                    return unmodifiableMap(result);
+                } catch (final ClassCastException ignore) {
+                    //goto throw new ValidationException
+                }
+            }
+            throw createExpectedJsonObjectWithNumberValuesValidationException(jsonObjectCandidate, modelName);
+        } else {
+            return Map.of();
+        }
     }
 
     // -------------------------------------------------------------------------------------------------------------------------------------
@@ -518,6 +740,27 @@ public abstract class ModelFromJsonConverter<T> extends AbstractValidatedConvert
         return unmodifiableOrderedSet(toDoubleList(list, modelName));
     }
 
+    protected final Map<String, Double> toDoubleMap(final Object jsonObjectCandidate,
+                                                    final String modelName) {
+        if (jsonObjectCandidate != null) {
+            if (jsonObjectCandidate instanceof Map) {
+                try {
+                    final Map<String, String> jsonObject = (Map<String, String>) jsonObjectCandidate;
+                    final Map<String, Double> result = new LinkedHashMap<>();
+                    for (final Map.Entry<String, String> entry : jsonObject.entrySet()) {
+                        result.put(entry.getKey(), toDouble(entry.getValue(), modelName));
+                    }
+                    return unmodifiableMap(result);
+                } catch (final ClassCastException ignore) {
+                    //goto throw new ValidationException
+                }
+            }
+            throw createExpectedJsonObjectWithNumberValuesValidationException(jsonObjectCandidate, modelName);
+        } else {
+            return Map.of();
+        }
+    }
+
     // -------------------------------------------------------------------------------------------------------------------------------------
 
     protected final BigDecimal toBigDecimal(final Object value,
@@ -558,6 +801,27 @@ public abstract class ModelFromJsonConverter<T> extends AbstractValidatedConvert
     protected final Set<BigDecimal> toBigDecimalSet(final Object list,
                                                     final String modelName) {
         return unmodifiableOrderedSet(toBigDecimalList(list, modelName));
+    }
+
+    protected final Map<String, BigDecimal> toBigDecimalMap(final Object jsonObjectCandidate,
+                                                            final String modelName) {
+        if (jsonObjectCandidate != null) {
+            if (jsonObjectCandidate instanceof Map) {
+                try {
+                    final Map<String, String> jsonObject = (Map<String, String>) jsonObjectCandidate;
+                    final Map<String, BigDecimal> result = new LinkedHashMap<>();
+                    for (final Map.Entry<String, String> entry : jsonObject.entrySet()) {
+                        result.put(entry.getKey(), toBigDecimal(entry.getValue(), modelName));
+                    }
+                    return unmodifiableMap(result);
+                } catch (final ClassCastException ignore) {
+                    //goto throw new ValidationException
+                }
+            }
+            throw createExpectedJsonObjectWithNumberValuesValidationException(jsonObjectCandidate, modelName);
+        } else {
+            return Map.of();
+        }
     }
 
     // -------------------------------------------------------------------------------------------------------------------------------------
@@ -605,6 +869,27 @@ public abstract class ModelFromJsonConverter<T> extends AbstractValidatedConvert
     protected final Set<Instant> toInstantSet(final Object list,
                                               final String modelName) {
         return unmodifiableOrderedSet(toInstantList(list, modelName));
+    }
+
+    protected final Map<String, Instant> toInstantMap(final Object jsonObjectCandidate,
+                                                      final String modelName) {
+        if (jsonObjectCandidate != null) {
+            if (jsonObjectCandidate instanceof Map) {
+                try {
+                    final Map<String, String> jsonObject = (Map<String, String>) jsonObjectCandidate;
+                    final Map<String, Instant> result = new LinkedHashMap<>();
+                    for (final Map.Entry<String, String> entry : jsonObject.entrySet()) {
+                        result.put(entry.getKey(), toInstant(entry.getValue(), modelName));
+                    }
+                    return unmodifiableMap(result);
+                } catch (final ClassCastException ignore) {
+                    //goto throw new ValidationException
+                }
+            }
+            throw createExpectedJsonObjectWithStringValuesValidationException(jsonObjectCandidate, modelName);
+        } else {
+            return Map.of();
+        }
     }
 
     // -------------------------------------------------------------------------------------------------------------------------------------
@@ -659,6 +944,30 @@ public abstract class ModelFromJsonConverter<T> extends AbstractValidatedConvert
         return unmodifiableOrderedSet(toCharacterList(list, modelName));
     }
 
+    protected final Map<String, Character> toCharacterMap(final Object jsonObjectCandidate,
+                                                          final String modelName) {
+        if (jsonObjectCandidate != null) {
+            if (jsonObjectCandidate instanceof Map) {
+                try {
+                    final Map<String, String> jsonObject = (Map<String, String>) jsonObjectCandidate;
+                    final Map<String, Character> result = new LinkedHashMap<>();
+                    for (final Map.Entry<String, String> entry : jsonObject.entrySet()) {
+                        result.put(entry.getKey(), toCharacter(entry.getValue(), modelName));
+                    }
+                    return unmodifiableMap(result);
+                } catch (final ClassCastException ignore) {
+                    //goto throw new ValidationException
+                }
+            }
+            throw new ValidationException(
+                    "Invalid ? \"?\": Expected a json object where all values are characters, but actual is ?!",
+                    PARAMETER, modelName, getJsonActual(jsonObjectCandidate)
+            );
+        } else {
+            return Map.of();
+        }
+    }
+
     // -------------------------------------------------------------------------------------------------------------------------------------
 
     protected final String toString(final Object value,
@@ -698,6 +1007,27 @@ public abstract class ModelFromJsonConverter<T> extends AbstractValidatedConvert
     protected final Set<String> toStringSet(final Object list,
                                             final String modelName) {
         return unmodifiableOrderedSet(toStringList(list, modelName));
+    }
+
+    protected final Map<String, String> toStringMap(final Object jsonObjectCandidate,
+                                                    final String modelName) {
+        if (jsonObjectCandidate != null) {
+            if (jsonObjectCandidate instanceof Map) {
+                try {
+                    final Map<String, String> jsonObject = (Map<String, String>) jsonObjectCandidate;
+                    final Map<String, String> result = new LinkedHashMap<>();
+                    for (final Map.Entry<String, String> entry : jsonObject.entrySet()) {
+                        result.put(entry.getKey(), toString(entry.getValue(), modelName));
+                    }
+                    return unmodifiableMap(result);
+                } catch (final ClassCastException ignore) {
+                    //goto throw new ValidationException
+                }
+            }
+            throw createExpectedJsonObjectWithStringValuesValidationException(jsonObjectCandidate, modelName);
+        } else {
+            return Map.of();
+        }
     }
 
     // -------------------------------------------------------------------------------------------------------------------------------------
@@ -787,6 +1117,22 @@ public abstract class ModelFromJsonConverter<T> extends AbstractValidatedConvert
         return new ValidationException(
                 "Invalid ? \"?\": Expected an array of strings, but actual is ?!",
                 PARAMETER, modelName, getJsonActual(list)
+        );
+    }
+
+    private ValidationException createExpectedJsonObjectWithNumberValuesValidationException(final Object jsonObjectCandidate,
+                                                                                            final String modelName) {
+        return new ValidationException(
+                "Invalid ? \"?\": Expected a json object where all values are numbers, but actual is ?!",
+                PARAMETER, modelName, getJsonActual(jsonObjectCandidate)
+        );
+    }
+
+    private ValidationException createExpectedJsonObjectWithStringValuesValidationException(final Object jsonObjectCandidate,
+                                                                                            final String modelName) {
+        return new ValidationException(
+                "Invalid ? \"?\": Expected a json object where all values are strings, but actual is ?!",
+                PARAMETER, modelName, getJsonActual(jsonObjectCandidate)
         );
     }
 }

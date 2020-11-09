@@ -28,6 +28,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.Instant;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -60,7 +61,8 @@ public abstract class AbstractRestSupportedTypesProvider extends SupportedTypesP
     protected TypeDefinitions<ContainerTypeDefinition> createCollectionContainers() {
         return new TypeDefinitionsImpl<>(
                 new ContainerTypeDefinition(List.class),
-                new ContainerTypeDefinition(Set.class)
+                new ContainerTypeDefinition(Set.class),
+                new ContainerTypeDefinition(Map.class)
         );
     }
 }
