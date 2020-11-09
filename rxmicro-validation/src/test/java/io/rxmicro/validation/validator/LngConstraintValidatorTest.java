@@ -63,8 +63,8 @@ final class LngConstraintValidatorTest extends AbstractConstraintValidatorTest<B
 
     @ParameterizedTest
     @CsvSource(delimiter = ';', value = {
-            "-180.00001;     Expected that 'value' >= -180, where 'value' is '-180.00001'!",
-            "180.00001;      Expected that 'value' <= 180, where 'value' is '180.00001'!",
+            "-180.00001;     Expected that value >= -180, but actual is -180.00001!",
+            "180.00001;      Expected that value <= 180, but actual is 180.00001!",
             "45.123456;      Expected scale = 5, but actual is 6!"
     })
     @Order(12)

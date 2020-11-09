@@ -18,7 +18,7 @@ package io.rxmicro.validation.constraint;
 
 import io.rxmicro.validation.base.ConstraintRule;
 import io.rxmicro.validation.internal.SelfDocumented;
-import io.rxmicro.validation.validator.UniqueItemsConstraintValidator;
+import io.rxmicro.validation.validator.UniqueItemsListConstraintValidator;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
@@ -37,7 +37,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * @see Size
  * @see MinSize
  * @see MaxSize
- * @see UniqueItemsConstraintValidator
+ * @see UniqueItemsListConstraintValidator
  * @since 0.1
  */
 @Documented
@@ -45,7 +45,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 @Target({FIELD, METHOD, PARAMETER})
 @ConstraintRule(
         supportedTypes = List.class,
-        validatorClass = UniqueItemsConstraintValidator.class
+        validatorClass = UniqueItemsListConstraintValidator.class
 )
 @SelfDocumented
 public @interface UniqueItems {

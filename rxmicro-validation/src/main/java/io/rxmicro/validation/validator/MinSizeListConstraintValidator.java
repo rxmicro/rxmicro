@@ -18,9 +18,12 @@ package io.rxmicro.validation.validator;
 
 import io.rxmicro.rest.model.HttpModelType;
 import io.rxmicro.validation.ConstraintValidator;
+import io.rxmicro.validation.base.AbstractContainerConstraintValidator;
 import io.rxmicro.validation.base.AbstractMinConstraintValidator;
 
 import java.util.List;
+
+import static io.rxmicro.validation.internal.ConstraintValidators.validateMinValue;
 
 /**
  * Validator for the {@link io.rxmicro.validation.constraint.MinSize} constraint.
@@ -29,42 +32,37 @@ import java.util.List;
  * @see io.rxmicro.validation.constraint.MinSize
  * @since 0.1
  */
-public class MinSizeConstraintValidator extends AbstractMinConstraintValidator<Integer>
+public class MinSizeListConstraintValidator extends AbstractContainerConstraintValidator<List<?>>
         implements ConstraintValidator<List<?>> {
 
+    private final int minValue;
+
+    private final boolean inclusive;
+
     /**
-     * Creates the default instance of {@link MinSizeConstraintValidator} with the specified parameters.
+     * Creates the default instance of {@link MinSizeListConstraintValidator} with the specified parameters.
      *
      * @param minValue the supported min value.
      * @param inclusive whether the specified minimum is inclusive or exclusive.
      */
-    public MinSizeConstraintValidator(final int minValue,
-                                      final boolean inclusive) {
-        super(minValue, inclusive);
+    public MinSizeListConstraintValidator(final int minValue,
+                                          final boolean inclusive) {
+
+        this.minValue = minValue;
+        this.inclusive = inclusive;
     }
 
     @Override
-    public void validate(final List<?> value,
+    public void validate(final List<?> values,
                          final HttpModelType httpModelType,
                          final String modelName) {
-        if (value != null) {
-            final int actual = value.size();
-            validate(actual, httpModelType, modelName,
-                    "Invalid ? \"?\": Expected that 'list size' >= ?, where 'list size' is '?'!",
-                    "Invalid ? \"?\": Expected that 'list size' > ?, where 'list size' is '?'!"
+        if (values != null) {
+            final int actual = values.size();
+            validateMinValue(
+                    minValue, inclusive, actual, httpModelType, modelName,
+                    "Invalid ? \"?\": Expected that array length >= ?, but actual is ?. (array: " + values + ")!",
+                    "Invalid ? \"?\": Expected that array length > ?, but actual is ?. (array: " + values + ")!"
             );
         }
-    }
-
-    @Override
-    public void validateList(final List<List<?>> list,
-                             final HttpModelType httpModelType,
-                             final String modelName) {
-        throw new AbstractMethodError("Use 'validate' instead!");
-    }
-
-    @Override
-    public void validateList(final List<List<?>> models) {
-        throw new AbstractMethodError("Use 'validate' instead!");
     }
 }

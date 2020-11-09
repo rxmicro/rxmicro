@@ -18,9 +18,13 @@ package io.rxmicro.validation.validator;
 
 import io.rxmicro.rest.model.HttpModelType;
 import io.rxmicro.validation.ConstraintValidator;
+import io.rxmicro.validation.base.AbstractContainerConstraintValidator;
 import io.rxmicro.validation.base.AbstractMaxConstraintValidator;
 
 import java.util.List;
+import java.util.Map;
+
+import static io.rxmicro.validation.internal.ConstraintValidators.validateMaxValue;
 
 /**
  * Validator for the {@link io.rxmicro.validation.constraint.MaxSize} constraint.
@@ -29,42 +33,38 @@ import java.util.List;
  * @see io.rxmicro.validation.constraint.MaxSize
  * @since 0.1
  */
-public class MaxSizeConstraintValidator extends AbstractMaxConstraintValidator<Integer>
-        implements ConstraintValidator<List<?>> {
+public class MaxSizeMapConstraintValidator extends AbstractContainerConstraintValidator<Map<?, ?>>
+        implements ConstraintValidator<Map<?, ?>> {
+
+    private final int maxValue;
+
+    private final boolean inclusive;
 
     /**
-     * Creates the default instance of {@link MaxSizeConstraintValidator} with the specified parameters.
+     * Creates the default instance of {@link MaxSizeMapConstraintValidator} with the specified parameters.
      *
      * @param maxValue the supported max value.
      * @param inclusive whether the specified minimum is inclusive or exclusive.
      */
-    public MaxSizeConstraintValidator(final int maxValue,
-                                      final boolean inclusive) {
-        super(maxValue, inclusive);
+    public MaxSizeMapConstraintValidator(final int maxValue,
+                                         final boolean inclusive) {
+        this.maxValue = maxValue;
+        this.inclusive = inclusive;
     }
 
     @Override
-    public void validate(final List<?> value,
+    public void validate(final Map<?, ?> map,
                          final HttpModelType httpModelType,
                          final String modelName) {
-        if (value != null) {
-            final int actual = value.size();
-            validate(actual, httpModelType, modelName,
-                    "Invalid ? \"?\": Expected that 'list size' <= ?, where 'list size' is '?'!",
-                    "Invalid ? \"?\": Expected that 'list size' < ?, where 'list size' is '?'!"
+        if (map != null) {
+            final int actual = map.size();
+            validateMaxValue(
+                    maxValue, inclusive, actual, httpModelType, modelName,
+                    "Invalid ? \"?\": Expected ? max supported object property(ies) (inclusive), " +
+                            "but actual is ?. (object: " + map + ")!",
+                    "Invalid ? \"?\": Expected ? max supported object property(ies) (exclusive), " +
+                            "but actual is ?. (object: " + map + ")!"
             );
         }
-    }
-
-    @Override
-    public void validateList(final List<List<?>> list,
-                             final HttpModelType httpModelType,
-                             final String modelName) {
-        throw new AbstractMethodError("Use 'validate' instead!");
-    }
-
-    @Override
-    public void validateList(final List<List<?>> models) {
-        throw new AbstractMethodError("Use 'validate' instead!");
     }
 }

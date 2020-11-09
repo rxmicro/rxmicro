@@ -77,7 +77,7 @@ final class MinBigDecimalNumberConstraintValidatorTest extends AbstractConstrain
                         .validate(new BigDecimal(actual), type, fieldName)
         );
         assertEquals(
-                format("Invalid parameter \"fieldName\": Expected that 'value' > 10, where 'value' is '?'!", actual),
+                format("Invalid parameter \"fieldName\": Expected that value > 10, but actual is ?!", actual),
                 exception.getMessage());
     }
 
@@ -89,7 +89,7 @@ final class MinBigDecimalNumberConstraintValidatorTest extends AbstractConstrain
                         .validate(new BigDecimal("5"), type, fieldName)
         );
         assertEquals(
-                "Invalid parameter \"fieldName\": Expected that 'value' >= 10, where 'value' is '5'!",
+                "Invalid parameter \"fieldName\": Expected that value >= 10, but actual is 5!",
                 exception.getMessage()
         );
     }
@@ -102,7 +102,7 @@ final class MinBigDecimalNumberConstraintValidatorTest extends AbstractConstrain
                         .validate(new BigDecimal("5"), type, fieldName)
         );
         assertEquals(
-                "Invalid parameter \"fieldName\": Expected that 'value' > 10, where 'value' is '5'!",
+                "Invalid parameter \"fieldName\": Expected that value > 10, but actual is 5!",
                 exception.getMessage()
         );
     }

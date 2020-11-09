@@ -41,23 +41,24 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  */
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-final class MinSizeConstraintValidatorTest extends AbstractConstraintValidatorTest<List<?>> {
+final class SizeListConstraintValidatorTest extends AbstractConstraintValidatorTest<List<?>> {
 
     @Override
     ConstraintValidator<List<?>> instantiate() {
-        return new MinSizeConstraintValidator(3, true);
+        return new SizeListConstraintValidator(3);
     }
 
     @Test
     @Order(11)
     void Should_process_parameter_as_a_valid_one() {
-        assertDoesNotThrow(() -> validator.validate(List.of(1, 2, 3, 4), PARAMETER, "value"));
+        assertDoesNotThrow(() -> validator.validate(List.of(1, 2, 3), PARAMETER, "value"));
     }
 
     @ParameterizedTest
     @ValueSource(strings = {
-            "1",
-            "1,2"
+            "",
+            "1,2",
+            "1,2,3,4"
     })
     @Order(12)
     void Should_throw_ValidationException(final String value) {
@@ -65,24 +66,8 @@ final class MinSizeConstraintValidatorTest extends AbstractConstraintValidatorTe
         final ValidationException exception =
                 assertThrows(ValidationException.class, () -> validator.validate(list, PARAMETER, "value"));
         assertEquals(
-                format("Invalid parameter \"value\": Expected that 'list size' >= 3, where 'list size' is '?'!", list.size()),
+                format("Invalid parameter \"value\": Expected array length = 3, but actual is ?. (array: ?)!", list.size(), list),
                 exception.getMessage()
         );
-    }
-
-    @Test
-    @Order(13)
-    void Should_throw_AbstractMethodError_1() {
-        final AbstractMethodError exception =
-                assertThrows(AbstractMethodError.class, () -> validator.validateList(List.of()));
-        assertEquals("Use 'validate' instead!", exception.getMessage());
-    }
-
-    @Test
-    @Order(14)
-    void Should_throw_AbstractMethodError_2() {
-        final AbstractMethodError exception =
-                assertThrows(AbstractMethodError.class, () -> validator.validateList(List.of(), PARAMETER, "model"));
-        assertEquals("Use 'validate' instead!", exception.getMessage());
     }
 }

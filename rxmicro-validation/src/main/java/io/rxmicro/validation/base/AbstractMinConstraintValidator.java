@@ -19,6 +19,8 @@ package io.rxmicro.validation.base;
 import io.rxmicro.http.error.ValidationException;
 import io.rxmicro.rest.model.HttpModelType;
 
+import static io.rxmicro.validation.internal.ConstraintValidators.validateMinValue;
+
 /**
  * Base validator class for minimum constraints.
  *
@@ -28,9 +30,9 @@ import io.rxmicro.rest.model.HttpModelType;
  */
 public abstract class AbstractMinConstraintValidator<T extends Comparable<T>> {
 
-    private final T minValue;
+    protected final T minValue;
 
-    private final boolean inclusive;
+    protected final boolean inclusive;
 
     /**
      * Creates an instance of the base validator class for minimum constraint.
@@ -58,43 +60,10 @@ public abstract class AbstractMinConstraintValidator<T extends Comparable<T>> {
     public final void validate(final T actual,
                                final HttpModelType httpModelType,
                                final String modelName) {
-        validate(actual, httpModelType, modelName,
-                "Invalid ? \"?\": Expected that 'value' >= ?, where 'value' is '?'!",
-                "Invalid ? \"?\": Expected that 'value' > ?, where 'value' is '?'!");
-    }
-
-    /**
-     * Validates the single actual.
-     *
-     * <p>
-     * The state of the {@code actual} must not be altered.
-     *
-     * @param actual                        the actual value to validate
-     * @param httpModelType                 the http model type
-     * @param modelName                     the parameter or header name
-     * @param inclusiveErrorMessageTemplate the inclusive error message template
-     * @param exclusiveErrorMessageTemplate the exclusive error message template
-     * @throws ValidationException if actual does not pass the constraint
-     */
-    protected final void validate(final T actual,
-                                  final HttpModelType httpModelType,
-                                  final String modelName,
-                                  final String inclusiveErrorMessageTemplate,
-                                  final String exclusiveErrorMessageTemplate) {
-        if (actual != null) {
-            if (inclusive) {
-                if (actual.compareTo(minValue) < 0) {
-                    throw new ValidationException(
-                            inclusiveErrorMessageTemplate,
-                            httpModelType, modelName, minValue, actual);
-                }
-            } else {
-                if (actual.compareTo(minValue) <= 0) {
-                    throw new ValidationException(
-                            exclusiveErrorMessageTemplate,
-                            httpModelType, modelName, minValue, actual);
-                }
-            }
-        }
+        validateMinValue(
+                minValue, inclusive, actual, httpModelType, modelName,
+                "Invalid ? \"?\": Expected that value >= ?, but actual is ?!",
+                "Invalid ? \"?\": Expected that value > ?, but actual is ?!"
+        );
     }
 }

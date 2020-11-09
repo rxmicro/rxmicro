@@ -17,12 +17,14 @@
 package io.rxmicro.validation.constraint;
 
 import io.rxmicro.validation.base.ConstraintRule;
-import io.rxmicro.validation.validator.SizeConstraintValidator;
+import io.rxmicro.validation.validator.SizeListConstraintValidator;
+import io.rxmicro.validation.validator.SizeMapConstraintValidator;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 import java.util.List;
+import java.util.Map;
 
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.ElementType.METHOD;
@@ -30,21 +32,28 @@ import static java.lang.annotation.ElementType.PARAMETER;
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
- * The annotated element must have the expected list size.
+ * The annotated element must have the expected items count.
  *
  * @author nedis
  * @see MinSize
  * @see MaxSize
  * @see UniqueItems
- * @see SizeConstraintValidator
+ * @see SizeListConstraintValidator
+ * @see SizeMapConstraintValidator
  * @since 0.1
  */
 @Documented
 @Retention(SOURCE)
 @Target({FIELD, METHOD, PARAMETER})
 @ConstraintRule(
-        supportedTypes = List.class,
-        validatorClass = SizeConstraintValidator.class
+        supportedTypes = {
+                List.class,
+                Map.class
+        },
+        validatorClass = {
+                SizeListConstraintValidator.class,
+                SizeMapConstraintValidator.class
+        }
 )
 public @interface Size {
 
@@ -59,9 +68,9 @@ public @interface Size {
     boolean off() default false;
 
     /**
-     * Returns the expected list size.
+     * Returns the expected items count.
      *
-     * @return the expected list size
+     * @return the expected items count
      */
     int value();
 }

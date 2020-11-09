@@ -63,8 +63,8 @@ final class LatConstraintValidatorTest extends AbstractConstraintValidatorTest<B
 
     @ParameterizedTest
     @CsvSource(delimiter = ';', value = {
-            "-90.00001;     Expected that 'value' >= -90, where 'value' is '-90.00001'!",
-            "90.00001;      Expected that 'value' <= 90, where 'value' is '90.00001'!",
+            "-90.00001;     Expected that value >= -90, but actual is -90.00001!",
+            "90.00001;      Expected that value <= 90, but actual is 90.00001!",
             "45.123456;     Expected scale = 5, but actual is 6!"
     })
     @Order(12)

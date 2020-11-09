@@ -17,12 +17,14 @@
 package io.rxmicro.validation.constraint;
 
 import io.rxmicro.validation.base.ConstraintRule;
-import io.rxmicro.validation.validator.MaxSizeConstraintValidator;
+import io.rxmicro.validation.validator.MaxSizeListConstraintValidator;
+import io.rxmicro.validation.validator.MaxSizeMapConstraintValidator;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 import java.util.List;
+import java.util.Map;
 
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.ElementType.METHOD;
@@ -30,22 +32,29 @@ import static java.lang.annotation.ElementType.PARAMETER;
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
- * The annotated element must have a list size whose value must be lower or
+ * The annotated element must have items whose count must be lower or
  * equal to the specified maximum.
  *
  * @author nedis
  * @see Size
  * @see MinSize
  * @see UniqueItems
- * @see MaxSizeConstraintValidator
+ * @see MaxSizeListConstraintValidator
+ * @see MaxSizeMapConstraintValidator
  * @since 0.1
  */
 @Documented
 @Retention(SOURCE)
 @Target({FIELD, METHOD, PARAMETER})
 @ConstraintRule(
-        supportedTypes = List.class,
-        validatorClass = MaxSizeConstraintValidator.class
+        supportedTypes = {
+                List.class,
+                Map.class
+        },
+        validatorClass = {
+                MaxSizeListConstraintValidator.class,
+                MaxSizeMapConstraintValidator.class
+        }
 )
 public @interface MaxSize {
 
@@ -60,9 +69,9 @@ public @interface MaxSize {
     boolean off() default false;
 
     /**
-     * Returns the value the list size must be lower or equal to.
+     * Returns the max items count.
      *
-     * @return the value the list size must be lower or equal to
+     * @return the max items count
      */
     int value();
 

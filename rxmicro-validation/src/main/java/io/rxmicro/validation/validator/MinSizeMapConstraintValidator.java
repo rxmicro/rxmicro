@@ -18,41 +18,50 @@ package io.rxmicro.validation.validator;
 
 import io.rxmicro.rest.model.HttpModelType;
 import io.rxmicro.validation.ConstraintValidator;
-import io.rxmicro.validation.base.AbstractMinConstraintValidator;
+import io.rxmicro.validation.base.AbstractContainerConstraintValidator;
+
+import java.util.Map;
 
 import static io.rxmicro.validation.internal.ConstraintValidators.validateMinValue;
 
 /**
- * Validator for the {@link io.rxmicro.validation.constraint.MinLength} constraint.
+ * Validator for the {@link io.rxmicro.validation.constraint.MinSize} constraint.
  *
  * @author nedis
- * @see io.rxmicro.validation.constraint.MinLength
+ * @see io.rxmicro.validation.constraint.MinSize
  * @since 0.1
  */
-public class MinLengthConstraintValidator extends AbstractMinConstraintValidator<Integer>
-        implements ConstraintValidator<String> {
+public class MinSizeMapConstraintValidator extends AbstractContainerConstraintValidator<Map<?, ?>>
+        implements ConstraintValidator<Map<?, ?>> {
+
+    private final int minValue;
+
+    private final boolean inclusive;
 
     /**
-     * Creates the default instance of {@link MinLengthConstraintValidator} with the specified parameters.
+     * Creates the default instance of {@link MinSizeMapConstraintValidator} with the specified parameters.
      *
      * @param minValue the supported min value.
      * @param inclusive whether the specified minimum is inclusive or exclusive.
      */
-    public MinLengthConstraintValidator(final int minValue,
-                                        final boolean inclusive) {
-        super(minValue, inclusive);
+    public MinSizeMapConstraintValidator(final int minValue,
+                                         final boolean inclusive) {
+        this.minValue = minValue;
+        this.inclusive = inclusive;
     }
 
     @Override
-    public void validate(final String value,
+    public void validate(final Map<?, ?> map,
                          final HttpModelType httpModelType,
                          final String modelName) {
-        if (value != null) {
-            final int actual = value.length();
+        if (map != null) {
+            final int actual = map.size();
             validateMinValue(
                     minValue, inclusive, actual, httpModelType, modelName,
-                    "Invalid ? \"?\": Expected that 'string length' >= ?, where 'string length' is '?'!",
-                    "Invalid ? \"?\": Expected that 'string length' > ?, where 'string length' is '?'!"
+                    "Invalid ? \"?\": Expected ? min supported object property(ies) (inclusive), " +
+                            "but actual is ?. (object: " + map + ")!",
+                    "Invalid ? \"?\": Expected ? min supported object property(ies) (exclusive), " +
+                            "but actual is ?. (object: " + map + ")!"
             );
         }
     }

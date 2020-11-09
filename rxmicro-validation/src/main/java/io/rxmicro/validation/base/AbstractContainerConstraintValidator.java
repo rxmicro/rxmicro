@@ -22,22 +22,22 @@ import io.rxmicro.validation.ConstraintValidator;
 import java.util.List;
 
 /**
- * Base validator class for list constraints.
+ * Base validator class for container constraints.
  *
  * @author nedis
  * @since 0.1
  */
-public abstract class AbstractListConstraintValidator implements ConstraintValidator<List<?>> {
+public abstract class AbstractContainerConstraintValidator<T> implements ConstraintValidator<T> {
 
     @Override
-    public final void validateList(final List<List<?>> list,
+    public final void validateList(final List<T> list,
                                    final HttpModelType httpModelType,
                                    final String modelName) {
         throw new UnsupportedOperationException("Use 'validate' instead!");
     }
 
     @Override
-    public final void validateList(final List<List<?>> models) {
+    public final void validateList(final List<T> models) {
         throw new UnsupportedOperationException("Use 'validate' instead!");
     }
 }

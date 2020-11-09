@@ -18,41 +18,49 @@ package io.rxmicro.validation.validator;
 
 import io.rxmicro.rest.model.HttpModelType;
 import io.rxmicro.validation.ConstraintValidator;
-import io.rxmicro.validation.base.AbstractMaxConstraintValidator;
+import io.rxmicro.validation.base.AbstractContainerConstraintValidator;
+
+import java.util.List;
 
 import static io.rxmicro.validation.internal.ConstraintValidators.validateMaxValue;
 
 /**
- * Validator for the {@link io.rxmicro.validation.constraint.MaxLength} constraint.
+ * Validator for the {@link io.rxmicro.validation.constraint.MaxSize} constraint.
  *
  * @author nedis
- * @see io.rxmicro.validation.constraint.MaxLength
+ * @see io.rxmicro.validation.constraint.MaxSize
  * @since 0.1
  */
-public class MaxLengthConstraintValidator extends AbstractMaxConstraintValidator<Integer>
-        implements ConstraintValidator<String> {
+public class MaxSizeListConstraintValidator extends AbstractContainerConstraintValidator<List<?>>
+        implements ConstraintValidator<List<?>> {
+
+    private final int maxValue;
+
+    private final boolean inclusive;
 
     /**
-     * Creates the default instance of {@link MaxLengthConstraintValidator} with the specified parameters.
+     * Creates the default instance of {@link MaxSizeListConstraintValidator} with the specified parameters.
      *
      * @param maxValue the supported max value.
      * @param inclusive whether the specified minimum is inclusive or exclusive.
      */
-    public MaxLengthConstraintValidator(final int maxValue,
-                                        final boolean inclusive) {
-        super(maxValue, inclusive);
+    public MaxSizeListConstraintValidator(final int maxValue,
+                                          final boolean inclusive) {
+
+        this.maxValue = maxValue;
+        this.inclusive = inclusive;
     }
 
     @Override
-    public void validate(final String value,
+    public void validate(final List<?> values,
                          final HttpModelType httpModelType,
                          final String modelName) {
-        if (value != null) {
-            final int actual = value.length();
+        if (values != null) {
+            final int actual = values.size();
             validateMaxValue(
                     maxValue, inclusive, actual, httpModelType, modelName,
-                    "Invalid ? \"?\": Expected that 'string length' <= ?, where 'string length' is '?'!",
-                    "Invalid ? \"?\": Expected that 'string length' < ?, where 'string length' is '?'!"
+                    "Invalid ? \"?\": Expected that array length <= ?, but actual is ?. (array: " + values + ")!",
+                    "Invalid ? \"?\": Expected that array length < ?, but actual is ?. (array: " + values + ")!"
             );
         }
     }

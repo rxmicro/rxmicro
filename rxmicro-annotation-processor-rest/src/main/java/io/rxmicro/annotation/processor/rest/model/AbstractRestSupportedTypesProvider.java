@@ -20,12 +20,15 @@ import io.rxmicro.annotation.processor.common.model.definition.SupportedTypesPro
 import io.rxmicro.annotation.processor.common.model.definition.TypeDefinition;
 import io.rxmicro.annotation.processor.common.model.definition.TypeDefinitions;
 import io.rxmicro.annotation.processor.common.model.definition.impl.ByNameTypeDefinition;
+import io.rxmicro.annotation.processor.common.model.definition.impl.ContainerTypeDefinition;
 import io.rxmicro.annotation.processor.common.model.definition.impl.EnumTypeDefinition;
 import io.rxmicro.annotation.processor.common.model.definition.impl.TypeDefinitionsImpl;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.Instant;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author nedis
@@ -50,6 +53,14 @@ public abstract class AbstractRestSupportedTypesProvider extends SupportedTypesP
                 new ByNameTypeDefinition(Character.class),
                 new ByNameTypeDefinition(String.class),
                 new ByNameTypeDefinition(Instant.class)
+        );
+    }
+
+    @Override
+    protected TypeDefinitions<ContainerTypeDefinition> createCollectionContainers() {
+        return new TypeDefinitionsImpl<>(
+                new ContainerTypeDefinition(List.class),
+                new ContainerTypeDefinition(Map.class)
         );
     }
 }

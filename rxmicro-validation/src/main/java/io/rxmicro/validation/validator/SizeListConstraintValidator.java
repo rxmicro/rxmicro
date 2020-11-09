@@ -18,31 +18,40 @@ package io.rxmicro.validation.validator;
 
 import io.rxmicro.http.error.ValidationException;
 import io.rxmicro.rest.model.HttpModelType;
-import io.rxmicro.validation.base.AbstractListConstraintValidator;
+import io.rxmicro.validation.base.AbstractContainerConstraintValidator;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
- * Validator for the {@link io.rxmicro.validation.constraint.UniqueItems} constraint.
+ * Validator for the {@link io.rxmicro.validation.constraint.Size} constraint.
  *
  * @author nedis
- * @see io.rxmicro.validation.constraint.UniqueItems
+ * @see io.rxmicro.validation.constraint.Size
  * @since 0.1
  */
-public class UniqueItemsConstraintValidator extends AbstractListConstraintValidator {
+public class SizeListConstraintValidator extends AbstractContainerConstraintValidator<List<?>> {
+
+    private final int expectedSize;
+
+    /**
+     * Creates the default instance of {@link SizeListConstraintValidator} with the specified collection size.
+     *
+     * @param expectedSize the specified collection size
+     */
+    public SizeListConstraintValidator(final int expectedSize) {
+        this.expectedSize = expectedSize;
+    }
 
     @Override
-    public void validate(final List<?> actual,
+    public void validate(final List<?> value,
                          final HttpModelType httpModelType,
                          final String modelName) {
-        if (actual != null) {
-            final Set<?> set = new HashSet<>(actual);
-            if (set.size() != actual.size()) {
+        if (value != null) {
+            final int actual = value.size();
+            if (actual != expectedSize) {
                 throw new ValidationException(
-                        "Invalid ? \"?\": Expected unique items, but actual is '?'!",
-                        httpModelType, modelName, actual
+                        "Invalid ? \"?\": Expected array length = ?, but actual is ?. (array: ?)!",
+                        httpModelType, modelName, expectedSize, actual, value
                 );
             }
         }

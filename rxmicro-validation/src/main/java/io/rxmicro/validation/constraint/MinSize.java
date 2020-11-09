@@ -17,12 +17,14 @@
 package io.rxmicro.validation.constraint;
 
 import io.rxmicro.validation.base.ConstraintRule;
-import io.rxmicro.validation.validator.MinSizeConstraintValidator;
+import io.rxmicro.validation.validator.MinSizeListConstraintValidator;
+import io.rxmicro.validation.validator.MinSizeMapConstraintValidator;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 import java.util.List;
+import java.util.Map;
 
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.ElementType.METHOD;
@@ -30,22 +32,29 @@ import static java.lang.annotation.ElementType.PARAMETER;
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
- * The annotated element must have a list size whose value must be higher or
+ * The annotated element must have items whose count must be higher or
  * equal to the specified minimum.
  *
  * @author nedis
  * @see Size
  * @see MaxSize
  * @see UniqueItems
- * @see MinSizeConstraintValidator
+ * @see MinSizeListConstraintValidator
+ * @see MinSizeMapConstraintValidator
  * @since 0.1
  */
 @Documented
 @Retention(SOURCE)
 @Target({FIELD, METHOD, PARAMETER})
 @ConstraintRule(
-        supportedTypes = List.class,
-        validatorClass = MinSizeConstraintValidator.class
+        supportedTypes = {
+                List.class,
+                Map.class
+        },
+        validatorClass = {
+                MinSizeListConstraintValidator.class,
+                MinSizeMapConstraintValidator.class
+        }
 )
 public @interface MinSize {
 
@@ -60,9 +69,9 @@ public @interface MinSize {
     boolean off() default false;
 
     /**
-     * Returns the value the list size must be higher or equal to.
+     * Returns the min items count.
      *
-     * @return the value the list size must be higher or equal to
+     * @return the min items count
      */
     int value();
 
@@ -70,7 +79,7 @@ public @interface MinSize {
      * Specifies whether the specified minimum is inclusive or exclusive.
      * By default, it is inclusive.
      *
-     * @return  {@code true} if the value must be lower or equal to the specified maximum,
+     * @return  {@code true} if the value must be lower or equal to the specified minimum,
      *          {@code false} if the value must be lower
      */
     boolean inclusive() default true;
