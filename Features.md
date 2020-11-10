@@ -6,7 +6,7 @@ Feature                                                 | Status
 --------------------------------------------------------| --------------------------------------------------------
 UserGuide                                               | **Completed**
 Javadoc                                                 | **Completed**
-Unit tests                                              | In progress
+Unit tests                                              | 50%
 
 ## Reactive support
 
@@ -31,8 +31,7 @@ Log aggregation                                         | TODO
 Properties file support                                 | **Supported**
 Async file access                                       | TODO
 JSON Format                                             | **Supported**
-Service discovery                                       | TODO
-Link to documentation in error message                  | TODO
+Link to documentation in error message                  | In progress
 Runtime context                                         | **Supported**
 Transient model fields                                  | **Supported**
 Netty native support (Linux/OSX)                        | **Supported**
@@ -70,6 +69,7 @@ HTTP Headers                                            | **Supported**
 HTTP Parameters                                         | **Supported**
 HTTP Parameters Discriminator                           | TODO
 HTTP Path Variables                                     | **Supported**
+Map model type                                          | **Supported**
 Internal request params (Url, Method, Remote address)   | **Supported**
 Internal response params (body, status, headers)        | **Supported**
 @SuccessStatus                                          | **Supported**
@@ -106,6 +106,7 @@ Static query parameters (@AddQueryParameter)            | **Supported**
 Static default config values (@DefaultConfigValue)      | **Supported**
 Internal parameters (response body, status)             | **Supported**
 Mapping strategy                                        | **Supported**
+Map model type                                          | **Supported**
 Request/Response JSON converter                         | **Supported**
 Request/Response validator                              | **Supported**
 Custom validator                                        | **Supported**
