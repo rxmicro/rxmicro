@@ -56,11 +56,11 @@ public final class ModuleInfoDescriptorValidatorImpl extends AbstractProcessorCo
         if (getBooleanOption(RX_MICRO_STRICT_MODE, RX_MICRO_STRICT_MODE_DEFAULT_VALUE)) {
             validateThatDocumentationModuleIsStatic(moduleElement);
         }
-        validateThatCustomConfigPackageIsExportedToConfigAndRuntime(moduleElement);
         if (moduleElement.isUnnamed()) {
             validateDefaultPackage(getElements().getPackageElement(""), true);
         } else {
             validateDefaultPackage(getElements().getPackageElement(moduleElement, ""), false);
+            validateThatCustomConfigPackageIsExportedToConfigAndRuntime(moduleElement);
         }
     }
 
@@ -69,16 +69,15 @@ public final class ModuleInfoDescriptorValidatorImpl extends AbstractProcessorCo
             if (directive.getKind() == ModuleElement.DirectiveKind.REQUIRES) {
                 final ModuleElement.RequiresDirective requiresDirective = (ModuleElement.RequiresDirective) directive;
                 if (RX_MICRO_DOCUMENTATION_ASCIIDOCTOR_MODULE.getName()
-                        .equals(requiresDirective.getDependency().getQualifiedName().toString())) {
-                    if (!requiresDirective.isStatic()) {
-                        throw new InterruptProcessingException(
-                                "https://docs.rxmicro.io/latest/user-guide/project-documentation.html#min_settings",
-                                moduleElement,
-                                "'?' module is required for compile time only! " +
-                                        "Add 'static' modifier and remove dependency from classpath!",
-                                RX_MICRO_DOCUMENTATION_ASCIIDOCTOR_MODULE.getName()
-                        );
-                    }
+                        .equals(requiresDirective.getDependency().getQualifiedName().toString()) &&
+                        !requiresDirective.isStatic()) {
+                    throw new InterruptProcessingException(
+                            "https://docs.rxmicro.io/latest/user-guide/project-documentation.html#min_settings",
+                            moduleElement,
+                            "'?' module is required for compile time only! " +
+                                    "Add 'static' modifier and remove dependency from classpath!",
+                            RX_MICRO_DOCUMENTATION_ASCIIDOCTOR_MODULE.getName()
+                    );
                 }
             }
         }
@@ -141,10 +140,9 @@ public final class ModuleInfoDescriptorValidatorImpl extends AbstractProcessorCo
 
     private boolean hasCustomConfigClass(final PackageElement packageElement) {
         for (final Element element : packageElement.getEnclosedElements()) {
-            if (element instanceof TypeElement) {
-                if (findSuperType((TypeElement) element, Config.class).isPresent()) {
-                    return true;
-                }
+            if (element instanceof TypeElement &&
+                    findSuperType((TypeElement) element, Config.class).isPresent()) {
+                return true;
             }
         }
         return false;

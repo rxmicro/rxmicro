@@ -46,7 +46,7 @@ public interface SelectOneUsingOptionalCompletableFutureRepository {
     @Select("SELECT email FROM ${table} WHERE email='richard.hendricks@piedpiper.com'")
     CompletableFuture<Optional<String>> find04();
 
-    @Select("SELECT role::text FROM ${table} WHERE email='richard.hendricks@piedpiper.com'")
+    @Select("SELECT role FROM ${table} WHERE email='richard.hendricks@piedpiper.com'")
     CompletableFuture<Optional<Role>> find05();
 
     @Select("SELECT balance FROM ${table} WHERE email='richard.hendricks@piedpiper.com'")

@@ -46,7 +46,7 @@ public interface SelectManyUsingMonoListRepository {
     @Select("SELECT email FROM ${table} ORDER BY id")
     Mono<List<String>> findAll04();
 
-    @Select("SELECT DISTINCT role::text FROM ${table} ORDER BY role")
+    @Select("SELECT DISTINCT role FROM ${table} ORDER BY role")
     Mono<List<Role>> findAll05();
 
     @Select("SELECT DISTINCT balance FROM ${table}")

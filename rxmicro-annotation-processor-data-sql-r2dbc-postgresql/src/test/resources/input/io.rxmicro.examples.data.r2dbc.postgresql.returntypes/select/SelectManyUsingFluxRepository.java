@@ -45,7 +45,7 @@ public interface SelectManyUsingFluxRepository {
     @Select("SELECT email FROM ${table} ORDER BY id")
     Flux<String> findAll04();
 
-    @Select("SELECT DISTINCT role::text FROM ${table} ORDER BY role")
+    @Select("SELECT DISTINCT role FROM ${table} ORDER BY role")
     Flux<Role> findAll05();
 
     @Select("SELECT DISTINCT balance FROM ${table}")

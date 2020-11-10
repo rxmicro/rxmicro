@@ -30,15 +30,21 @@ import static io.rxmicro.validation.internal.ConstraintValidators.validateMaxVal
  */
 public abstract class AbstractMaxConstraintValidator<T extends Comparable<T>> {
 
+    /**
+     * The maximum supported value.
+     */
     protected final T maxValue;
 
+    /**
+     * Specifies whether the specified maximum is inclusive or not.
+     */
     protected final boolean inclusive;
 
     /**
      * Creates an instance of the base validator class for maximum constraint.
      *
      * @param maxValue the maximum supported value
-     * @param inclusive specifies whether the specified min is inclusive or not.
+     * @param inclusive specifies whether the specified maximum is inclusive or not.
      */
     protected AbstractMaxConstraintValidator(final T maxValue,
                                              final boolean inclusive) {

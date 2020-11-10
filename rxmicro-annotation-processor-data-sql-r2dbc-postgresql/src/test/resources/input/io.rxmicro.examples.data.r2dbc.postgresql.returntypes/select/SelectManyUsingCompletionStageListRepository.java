@@ -46,7 +46,7 @@ public interface SelectManyUsingCompletionStageListRepository {
     @Select("SELECT email FROM ${table} ORDER BY id")
     CompletionStage<List<String>> findAll04();
 
-    @Select("SELECT DISTINCT role::text FROM ${table} ORDER BY role")
+    @Select("SELECT DISTINCT role FROM ${table} ORDER BY role")
     CompletionStage<List<Role>> findAll05();
 
     @Select("SELECT DISTINCT balance FROM ${table}")

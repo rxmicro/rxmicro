@@ -69,6 +69,7 @@ public interface Transaction {
     /**
      * This factory method allows simplifying the setting of the error handler.
      *
+     * <p>
      * Instead of long fragment:
      * <pre>
      * .onErrorResumeNext(e -> transaction.rollback()
@@ -76,6 +77,7 @@ public interface Transaction {
      * )
      * </pre>
      *
+     * <p>
      * You can use the shortest version:
      * <pre>
      * .onErrorResumeNext(transaction.createRollbackThenReturnMaybeErrorFallback());
@@ -93,6 +95,7 @@ public interface Transaction {
     /**
      * This factory method allows simplifying the setting of the error handler.
      *
+     * <p>
      * Instead of long fragment:
      * <pre>
      * .onErrorResumeNext(e -> transaction.rollback()
@@ -100,6 +103,7 @@ public interface Transaction {
      * )
      * </pre>
      *
+     * <p>
      * You can use the shortest version:
      * <pre>
      * .onErrorResumeNext(transaction.createRollbackThenReturnSingleErrorFallback());
@@ -117,6 +121,7 @@ public interface Transaction {
     /**
      * This factory method allows simplifying the setting of the error handler.
      *
+     * <p>
      * Instead of long fragment:
      * <pre>
      * .onErrorResumeNext(e -> transaction.rollback()
@@ -124,6 +129,7 @@ public interface Transaction {
      * )
      * </pre>
      *
+     * <p>
      * You can use the shortest version:
      * <pre>
      * .onErrorResumeNext(transaction.createRollbackThenReturnCompletableErrorFallback());
@@ -140,6 +146,7 @@ public interface Transaction {
     /**
      * This factory method allows simplifying the setting of the error handler.
      *
+     * <p>
      * Instead of long fragment:
      * <pre>
      * .onErrorResumeNext(e -> transaction.rollback()
@@ -147,6 +154,7 @@ public interface Transaction {
      * )
      * </pre>
      *
+     * <p>
      * You can use the shortest version:
      * <pre>
      * .onErrorResumeNext(transaction.createRollbackThenReturnFlowableErrorFallback());

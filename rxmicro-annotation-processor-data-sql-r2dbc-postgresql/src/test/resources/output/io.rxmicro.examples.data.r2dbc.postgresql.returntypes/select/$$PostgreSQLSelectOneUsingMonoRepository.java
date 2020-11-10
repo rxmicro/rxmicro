@@ -88,8 +88,8 @@ public final class $$PostgreSQLSelectOneUsingMonoRepository extends AbstractPost
 
     @Override
     public Mono<Role> find05() {
-        // Original SQL statement:  'SELECT role::text FROM ${table} WHERE email = 'richard.hendricks@piedpiper.com''
-        final String generatedSQL = "SELECT role::text FROM account WHERE email = 'richard.hendricks@piedpiper.com'";
+        // Original SQL statement:  'SELECT role FROM ${table} WHERE email = 'richard.hendricks@piedpiper.com''
+        final String generatedSQL = "SELECT role FROM account WHERE email = 'richard.hendricks@piedpiper.com'";
         return pool.create()
                 .flatMap(c -> executeStatement(c, generatedSQL)
                         .flatMap(r -> Mono.from(r.map((row, meta) -> row.get(0, Role.class))))

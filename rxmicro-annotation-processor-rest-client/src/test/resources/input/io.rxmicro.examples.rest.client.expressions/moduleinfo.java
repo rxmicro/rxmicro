@@ -17,4 +17,8 @@
 module examples.rest.client.expressions {
     requires rxmicro.rest.client.jdk;
     requires rxmicro.rest.client.exchange.json;
+
+    exports io.rxmicro.examples.rest.client.expressions to
+            rxmicro.runtime,
+            rxmicro.config;
 }

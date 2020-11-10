@@ -23,6 +23,7 @@ import io.rxmicro.validation.ConstraintValidator;
  * Base validator class for container constraints.
  *
  * @author nedis
+ * @param <T> the type to validate
  * @since 0.1
  */
 public abstract class AbstractContainerConstraintValidator<T> implements ConstraintValidator<T> {

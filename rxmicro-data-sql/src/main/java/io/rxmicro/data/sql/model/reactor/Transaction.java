@@ -63,6 +63,7 @@ public interface Transaction {
     /**
      * This factory method allows simplifying the setting of the error handler.
      *
+     * <p>
      * Instead of long fragment:
      * <pre>
      * .onErrorResume(ex -> transaction.rollback()
@@ -70,6 +71,7 @@ public interface Transaction {
      * )
      * </pre>
      *
+     * <p>
      * You can use the shortest version:
      * <pre>
      * .onErrorResume(transaction.createRollbackThenReturnErrorFallback());

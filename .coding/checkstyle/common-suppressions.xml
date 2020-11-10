@@ -72,4 +72,8 @@
     <!-- There are no public alternatives to com.sun.source.util.Trees -->
     <suppress checks="IllegalImport"
               files="ModelExceptionErrorResponseCustomBuilder.java"/>
+
+    <!-- This is utility class that used by generated converters -->
+    <suppress checks="MethodCount"
+              files="ModelFromJsonConverter.java"/>
 </suppressions>

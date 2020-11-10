@@ -30,8 +30,14 @@ import static io.rxmicro.validation.internal.ConstraintValidators.validateMinVal
  */
 public abstract class AbstractMinConstraintValidator<T extends Comparable<T>> {
 
+    /**
+     * The minimum supported value.
+     */
     protected final T minValue;
 
+    /**
+     * Specifies whether the specified minimum is inclusive or not.
+     */
     protected final boolean inclusive;
 
     /**

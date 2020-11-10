@@ -97,8 +97,8 @@ public final class $$PostgreSQLSelectManyUsingSingleListRepository extends Abstr
 
     @Override
     public Single<List<Role>> findAll05() {
-        // Original SQL statement:  'SELECT DISTINCT role::text FROM ${table} ORDER BY role'
-        final String generatedSQL = "SELECT DISTINCT role::text FROM account ORDER BY role";
+        // Original SQL statement:  'SELECT DISTINCT role FROM ${table} ORDER BY role'
+        final String generatedSQL = "SELECT DISTINCT role FROM account ORDER BY role";
         return Flowable.fromPublisher(
                 pool.create()
                         .flatMapMany(c -> executeStatement(c, generatedSQL)

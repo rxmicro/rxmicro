@@ -86,8 +86,8 @@ public final class $$PostgreSQLSelectManyUsingMonoListRepository extends Abstrac
 
     @Override
     public Mono<List<Role>> findAll05() {
-        // Original SQL statement:  'SELECT DISTINCT role::text FROM ${table} ORDER BY role'
-        final String generatedSQL = "SELECT DISTINCT role::text FROM account ORDER BY role";
+        // Original SQL statement:  'SELECT DISTINCT role FROM ${table} ORDER BY role'
+        final String generatedSQL = "SELECT DISTINCT role FROM account ORDER BY role";
         return pool.create()
                 .flatMap(c -> executeStatement(c, generatedSQL)
                         .flatMap(r -> Flux.from(r.map((row, meta) -> row.get(0, Role.class)))

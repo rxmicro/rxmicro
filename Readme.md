@@ -80,6 +80,8 @@ Verify via `pmd`:
 mvn --fail-at-end -DskipTests -P pmd clean verify
 ```
 
+If build failed find `PMD Failure` phrase at the console output...
+
 ```
 mvn --fail-at-end -DskipTests -P pmd \
         -Dmaven-pmd-plugin.failOnViolation=false \
@@ -99,6 +101,8 @@ Verify via `checkstyle`:
 mvn --fail-at-end -DskipTests -P checkstyle clean verify
 ```
 
+If build failed find `reported by Checkstyle` phrase at the console output...
+
 ```
 mvn --fail-at-end -DskipTests -P checkstyle \
         -Dmaven-checkstyle-plugin.failOnViolation=false \
@@ -112,6 +116,8 @@ Verify via `spotbugs`, `pmd`, `checkstyle`:
 ```
 mvn --fail-at-end -DskipTests -P spotbugs,pmd,checkstyle clean verify
 ```
+
+If build failed find `PMD Failure`, `reported by Checkstyle` phrase at the console output...
 
 ```
 mvn --fail-at-end -DskipTests -P spotbugs,pmd,checkstyle \

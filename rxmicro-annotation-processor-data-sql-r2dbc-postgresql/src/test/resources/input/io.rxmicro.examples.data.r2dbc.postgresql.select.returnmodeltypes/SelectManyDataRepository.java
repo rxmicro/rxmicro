@@ -53,7 +53,7 @@ public interface SelectManyDataRepository {
     CompletableFuture<List<String>> findAllEmails();
 
     @Select(
-            value = "SELECT DISTINCT role::text FROM ${table} ORDER BY role",
+            value = "SELECT DISTINCT role FROM ${table} ORDER BY role",
             entityClass = Account.class
     )
     CompletableFuture<List<Role>> findAllRoles();

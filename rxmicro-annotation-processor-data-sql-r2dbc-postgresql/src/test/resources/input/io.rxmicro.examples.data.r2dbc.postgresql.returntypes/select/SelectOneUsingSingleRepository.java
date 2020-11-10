@@ -45,7 +45,7 @@ public interface SelectOneUsingSingleRepository {
     @Select("SELECT email FROM ${table} WHERE email='richard.hendricks@piedpiper.com'")
     Single<String> find04();
 
-    @Select("SELECT role::text FROM ${table} WHERE email='richard.hendricks@piedpiper.com'")
+    @Select("SELECT role FROM ${table} WHERE email='richard.hendricks@piedpiper.com'")
     Single<Role> find05();
 
     @Select("SELECT balance FROM ${table} WHERE email='richard.hendricks@piedpiper.com'")

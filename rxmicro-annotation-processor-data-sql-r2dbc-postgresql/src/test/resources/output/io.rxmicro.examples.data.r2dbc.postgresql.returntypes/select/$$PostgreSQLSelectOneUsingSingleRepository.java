@@ -97,8 +97,8 @@ public final class $$PostgreSQLSelectOneUsingSingleRepository extends AbstractPo
 
     @Override
     public Single<Role> find05() {
-        // Original SQL statement:  'SELECT role::text FROM ${table} WHERE email = 'richard.hendricks@piedpiper.com''
-        final String generatedSQL = "SELECT role::text FROM account WHERE email = 'richard.hendricks@piedpiper.com'";
+        // Original SQL statement:  'SELECT role FROM ${table} WHERE email = 'richard.hendricks@piedpiper.com''
+        final String generatedSQL = "SELECT role FROM account WHERE email = 'richard.hendricks@piedpiper.com'";
         return Single.fromPublisher(
                 pool.create()
                         .flatMap(c -> executeStatement(c, generatedSQL)

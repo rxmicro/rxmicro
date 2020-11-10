@@ -50,7 +50,7 @@ public interface SelectSingleDataRepository {
             "WHERE email='richard.hendricks@piedpiper.com'")
     CompletableFuture<String> findSingleEmail();
 
-    @Select("SELECT role::text FROM ${table} " +
+    @Select("SELECT role FROM ${table} " +
             "WHERE email='richard.hendricks@piedpiper.com'")
     CompletableFuture<Role> findSingleRole();
 
