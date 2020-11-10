@@ -18,13 +18,10 @@ package io.rxmicro.annotation.processor.common.model.type;
 
 import io.rxmicro.annotation.processor.common.util.UsedByFreemarker;
 
-import java.util.List;
-
 import javax.lang.model.type.TypeMirror;
 
 import static io.rxmicro.annotation.processor.common.util.Names.getSimpleName;
 import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getTypes;
-import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.Requires.require;
 
 /**
@@ -67,7 +64,7 @@ public final class IterableModelClass extends ModelClass {
     }
 
     @UsedByFreemarker
-    public String getContainerType(){
+    public String getContainerType() {
         return containerTypeName;
     }
 

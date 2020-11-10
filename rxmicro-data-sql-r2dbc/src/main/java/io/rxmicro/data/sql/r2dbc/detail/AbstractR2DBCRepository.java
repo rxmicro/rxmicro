@@ -79,7 +79,7 @@ public abstract class AbstractR2DBCRepository extends AbstractSQLRepository {
         return connections.close(connection);
     }
 
-    protected final <T> Function<Throwable, Mono<T>> createCloseThenReturnErrorFallback(final Connection connection){
+    protected final <T> Function<Throwable, Mono<T>> createCloseThenReturnErrorFallback(final Connection connection) {
         return throwable -> connections.close(connection)
                 .then(Mono.error(throwable));
     }

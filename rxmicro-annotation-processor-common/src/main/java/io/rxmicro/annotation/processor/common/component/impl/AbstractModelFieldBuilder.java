@@ -77,10 +77,10 @@ public abstract class AbstractModelFieldBuilder<MF extends ModelField, MC extend
 
     private int maxNestedLevel = -1;
 
-    protected abstract SupportedTypesProvider getSupportedTypesProvider();
-
     @Inject
     private Set<IterableContainerElementExtractor> iterableContainerElementExtractors;
+
+    protected abstract SupportedTypesProvider getSupportedTypesProvider();
 
     @Override
     @SuppressWarnings("unchecked")

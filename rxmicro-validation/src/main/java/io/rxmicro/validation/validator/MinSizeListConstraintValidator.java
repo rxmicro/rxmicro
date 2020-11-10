@@ -19,7 +19,6 @@ package io.rxmicro.validation.validator;
 import io.rxmicro.rest.model.HttpModelType;
 import io.rxmicro.validation.ConstraintValidator;
 import io.rxmicro.validation.base.AbstractContainerConstraintValidator;
-import io.rxmicro.validation.base.AbstractMinConstraintValidator;
 
 import java.util.List;
 

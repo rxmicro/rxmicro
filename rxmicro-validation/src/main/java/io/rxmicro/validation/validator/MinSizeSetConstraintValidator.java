@@ -20,7 +20,6 @@ import io.rxmicro.rest.model.HttpModelType;
 import io.rxmicro.validation.ConstraintValidator;
 import io.rxmicro.validation.base.AbstractContainerConstraintValidator;
 
-import java.util.List;
 import java.util.Set;
 
 import static io.rxmicro.validation.internal.ConstraintValidators.validateMinValue;

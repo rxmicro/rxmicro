@@ -222,7 +222,7 @@ public final class AnnotationValueValidatorImpl extends AbstractProcessorCompone
         final TypeMirror typeMirror = restModelField.getFieldClass();
         return getIterableContainerElementExtractor(typeMirror)
                 .map(iterableContainerElementExtractor -> Elements.getAllowedEnumConstants(
-                        iterableContainerElementExtractor.getItemType(owner, (DeclaredType)typeMirror))
+                        iterableContainerElementExtractor.getItemType(owner, (DeclaredType) typeMirror))
                 )
                 .orElseGet(() -> Elements.getAllowedEnumConstants(typeMirror));
     }

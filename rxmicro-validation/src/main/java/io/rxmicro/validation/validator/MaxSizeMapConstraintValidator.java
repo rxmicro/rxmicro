@@ -19,9 +19,7 @@ package io.rxmicro.validation.validator;
 import io.rxmicro.rest.model.HttpModelType;
 import io.rxmicro.validation.ConstraintValidator;
 import io.rxmicro.validation.base.AbstractContainerConstraintValidator;
-import io.rxmicro.validation.base.AbstractMaxConstraintValidator;
 
-import java.util.List;
 import java.util.Map;
 
 import static io.rxmicro.validation.internal.ConstraintValidators.validateMaxValue;

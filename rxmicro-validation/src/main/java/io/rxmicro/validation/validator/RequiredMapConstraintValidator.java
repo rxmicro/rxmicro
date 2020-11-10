@@ -20,7 +20,6 @@ import io.rxmicro.http.error.ValidationException;
 import io.rxmicro.rest.model.HttpModelType;
 import io.rxmicro.validation.ConstraintValidator;
 
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -30,10 +29,10 @@ import java.util.Map;
  * @see io.rxmicro.validation.constraint.Nullable
  * @since 0.1
  */
-public class RequiredMapConstraintValidator implements ConstraintValidator<Map<?,?>> {
+public class RequiredMapConstraintValidator implements ConstraintValidator<Map<?, ?>> {
 
     @Override
-    public void validate(final Map<?,?> map,
+    public void validate(final Map<?, ?> map,
                          final HttpModelType httpModelType,
                          final String modelName) {
         if (map.isEmpty()) {

@@ -20,7 +20,6 @@ import io.rxmicro.http.error.ValidationException;
 import io.rxmicro.rest.model.HttpModelType;
 import io.rxmicro.validation.base.AbstractContainerConstraintValidator;
 
-import java.util.List;
 import java.util.Map;
 
 /**
