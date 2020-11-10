@@ -156,33 +156,33 @@ public abstract class AbstractModelFieldBuilder<MF extends ModelField, MC extend
                                                                final TypeElement typeElement) {
         if (options.isAccessViaReflectionMustBeDetected()) {
             if (modelField.getModelReadAccessorType() == ModelAccessorType.REFLECTION) {
+                final String link = "https://docs.rxmicro.io/latest/user-guide/core.html#core-encapsulation";
                 final String message = format(
                         "PERFORMANCE WARNING: To read a value from ?.? the RxMicro framework will use the reflection. " +
                                 "It is recommended to add a getter or change the field modifier: " +
-                                "from private to default, protected or public! " +
-                                "Read more at https://docs.rxmicro.io/latest/user-guide/core.html#core-encapsulation",
+                                "from private to default, protected or public!",
                         typeElement.getQualifiedName(),
                         modelField.getFieldName()
                 );
                 if (getBooleanOption(RX_MICRO_STRICT_MODE, RX_MICRO_STRICT_MODE_DEFAULT_VALUE)) {
-                    error(modelField.getFieldElement(), message);
+                    error(link, modelField.getFieldElement(), message);
                 } else {
-                    warn(modelField.getFieldElement(), message);
+                    warn(link, modelField.getFieldElement(), message);
                 }
             }
             if (modelField.getModelWriteAccessorType() == ModelAccessorType.REFLECTION) {
+                final String link = "https://docs.rxmicro.io/latest/user-guide/core.html#core-encapsulation";
                 final String message = format(
                         "PERFORMANCE WARNING: To write a value to ?.? the RxMicro framework will use the reflection. " +
                                 "It is recommended to add a setter or change the field modifier: " +
-                                "from private to default, protected or public! " +
-                                "Read more at https://docs.rxmicro.io/latest/user-guide/core.html#core-encapsulation",
+                                "from private to default, protected or public!",
                         typeElement.getQualifiedName(),
                         modelField.getFieldName()
                 );
                 if (getBooleanOption(RX_MICRO_STRICT_MODE, RX_MICRO_STRICT_MODE_DEFAULT_VALUE)) {
-                    error(modelField.getFieldElement(), message);
+                    error(link, modelField.getFieldElement(), message);
                 } else {
-                    warn(modelField.getFieldElement(), message);
+                    warn(link, modelField.getFieldElement(), message);
                 }
             }
         }

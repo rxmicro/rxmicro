@@ -72,10 +72,10 @@ public final class ModuleInfoDescriptorValidatorImpl extends AbstractProcessorCo
                         .equals(requiresDirective.getDependency().getQualifiedName().toString())) {
                     if (!requiresDirective.isStatic()) {
                         throw new InterruptProcessingException(
+                                "https://docs.rxmicro.io/latest/user-guide/project-documentation.html#min_settings",
                                 moduleElement,
                                 "'?' module is required for compile time only! " +
-                                        "Add 'static' modifier and remove dependency from classpath! " +
-                                        "Ream more at https://docs.rxmicro.io/latest/user-guide/project-documentation.html#min_settings",
+                                        "Add 'static' modifier and remove dependency from classpath!",
                                 RX_MICRO_DOCUMENTATION_ASCIIDOCTOR_MODULE.getName()
                         );
                     }
@@ -93,10 +93,10 @@ public final class ModuleInfoDescriptorValidatorImpl extends AbstractProcessorCo
             final Map<String, List<String>> missingExports = getMissingExports(moduleElement, packageElements);
             if (!missingExports.isEmpty()) {
                 throw new InterruptProcessingException(
+                        "https://docs.rxmicro.io/latest/user-guide/core.html#user_defined_configurations",
                         moduleElement,
                         "For custom config classes it is necessary to add 'exports' directive to the 'module-info.java'. " +
-                                "The following export directive(s) is(are) missing: {?}. " +
-                                "Ream more at https://docs.rxmicro.io/latest/user-guide/core.html#user_defined_configurations",
+                                "The following export directive(s) is(are) missing: {?}.",
                         missingExports.entrySet().stream()
                                 .map(e -> format("exports ? to ?;", e.getKey(), String.join(",", e.getValue())))
                                 .collect(joining(" "))
@@ -159,14 +159,14 @@ public final class ModuleInfoDescriptorValidatorImpl extends AbstractProcessorCo
             if (element instanceof TypeElement) {
                 if (isUnNamedModule) {
                     if (!RX_MICRO_VIRTUAL_MODULE_INFO_ANNOTATION_NAME.equals(element.getSimpleName().toString())) {
-                        error(element,
+                        error(
+                                "https://docs.rxmicro.io/latest/user-guide/java-integration.html#java-integration-unnamed-module",
+                                element,
                                 "Each class (interface, enum or annotation) must be declared at a package! " +
                                         "Unnamed (default) package is not supported! " +
                                         "Move this element to the named package! " +
                                         "FYI: If you want to add the virtual module " +
-                                        "you should use the predefined by RxMicro framework name: '?' instead of '?'! " +
-                                        "Read more at " +
-                                        "https://docs.rxmicro.io/latest/user-guide/java-integration.html#java-integration-unnamed-module",
+                                        "you should use the predefined by RxMicro framework name: '?' instead of '?'!",
                                 RX_MICRO_VIRTUAL_MODULE_INFO_ANNOTATION_NAME,
                                 element.getSimpleName()
                         );

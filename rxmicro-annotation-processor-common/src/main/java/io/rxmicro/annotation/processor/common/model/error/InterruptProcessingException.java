@@ -20,6 +20,7 @@ import io.rxmicro.common.RxMicroException;
 
 import javax.lang.model.element.Element;
 
+import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.Requires.require;
 
 /**
@@ -28,12 +29,22 @@ import static io.rxmicro.common.util.Requires.require;
  */
 public final class InterruptProcessingException extends RxMicroException {
 
+    public static final String READ_MORE_TEMPLATE = " Read more at ?";
+
     private final Element element;
 
     public InterruptProcessingException(final Element element,
                                         final String message,
                                         final Object... args) {
-        super(false, false, message, args);
+        super(false, false, message.trim(), args);
+        this.element = require(element);
+    }
+
+    public InterruptProcessingException(final String readMoreLink,
+                                        final Element element,
+                                        final String message,
+                                        final Object... args) {
+        super(false, false, message.trim() + format(READ_MORE_TEMPLATE, readMoreLink), args);
         this.element = require(element);
     }
 

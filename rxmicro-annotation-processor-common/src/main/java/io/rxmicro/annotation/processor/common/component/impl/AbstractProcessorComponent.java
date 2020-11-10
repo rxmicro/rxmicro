@@ -25,6 +25,7 @@ import java.util.function.Supplier;
 import javax.lang.model.element.Element;
 import javax.tools.Diagnostic;
 
+import static io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException.READ_MORE_TEMPLATE;
 import static io.rxmicro.annotation.processor.common.util.InternalLoggers.logMessage;
 import static io.rxmicro.annotation.processor.common.util.InternalLoggers.logThrowableStackTrace;
 import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.errorDetected;
@@ -90,6 +91,14 @@ public abstract class AbstractProcessorComponent {
         }
     }
 
+    protected final void warn(final String readMoreLink,
+                              final Element element,
+                              final String message,
+                              final Object... args) {
+        final String mes = format(message, args) + format(READ_MORE_TEMPLATE, readMoreLink);
+        getMessager().printMessage(Diagnostic.Kind.MANDATORY_WARNING, mes, element);
+    }
+
     protected final void warn(final Element element,
                               final String message,
                               final Object... args) {
@@ -106,6 +115,15 @@ public abstract class AbstractProcessorComponent {
 
     protected final void error(final InterruptProcessingException exception) {
         error(exception.getElement(), exception.getMessage());
+    }
+
+    protected final void error(final String readMoreLink,
+                               final Element element,
+                               final String message,
+                               final Object... args) {
+        final String mes = format(message, args) + format(READ_MORE_TEMPLATE, readMoreLink);
+        getMessager().printMessage(Diagnostic.Kind.ERROR, mes, element);
+        errorDetected();
     }
 
     protected final void error(final Element element,
