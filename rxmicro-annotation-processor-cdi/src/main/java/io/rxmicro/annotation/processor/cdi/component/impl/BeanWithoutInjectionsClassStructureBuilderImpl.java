@@ -111,7 +111,7 @@ public final class BeanWithoutInjectionsClassStructureBuilderImpl
                 .filter(pe -> !isDeniedPackage(pe.getQualifiedName().toString()))
                 .collect(toSet());
         return packageElements.stream()
-                .flatMap(pe -> pe.getEnclosedElements().stream().map(e -> (TypeElement) e))
+                .flatMap(pe -> pe.getEnclosedElements().stream().filter(e -> e instanceof TypeElement).map(e -> (TypeElement) e))
                 .filter(environmentContext::isRxMicroClassShouldBeProcessed)
                 .filter(te -> te.getKind() == ElementKind.CLASS)
                 .collect(toTreeSet(Comparator.comparing(o -> o.getQualifiedName().toString())));

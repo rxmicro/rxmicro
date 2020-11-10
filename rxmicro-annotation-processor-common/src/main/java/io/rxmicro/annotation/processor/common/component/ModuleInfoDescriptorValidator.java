@@ -20,9 +20,9 @@ import javax.lang.model.element.ModuleElement;
 
 /**
  * @author nedis
- * @since 0.2
+ * @since 0.7
  */
-public interface UnnamedPackageValidator {
+public interface ModuleInfoDescriptorValidator {
 
-    void validate(ModuleElement realModuleElement);
+    void validate(ModuleElement moduleElement);
 }

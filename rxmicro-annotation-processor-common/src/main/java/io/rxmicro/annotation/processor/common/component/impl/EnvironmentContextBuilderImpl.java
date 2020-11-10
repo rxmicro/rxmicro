@@ -20,7 +20,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import io.rxmicro.annotation.processor.common.component.CurrentModuleDecorator;
 import io.rxmicro.annotation.processor.common.component.EnvironmentContextBuilder;
-import io.rxmicro.annotation.processor.common.component.UnnamedPackageValidator;
+import io.rxmicro.annotation.processor.common.component.ModuleInfoDescriptorValidator;
 import io.rxmicro.annotation.processor.common.model.DefaultConfigProxyValue;
 import io.rxmicro.annotation.processor.common.model.EnvironmentContext;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
@@ -54,15 +54,15 @@ public final class EnvironmentContextBuilderImpl extends AbstractProcessorCompon
         implements EnvironmentContextBuilder {
 
     @Inject
-    private UnnamedPackageValidator unnamedPackageValidator;
+    private CurrentModuleDecorator currentModuleDecorator;
 
     @Inject
-    private CurrentModuleDecorator currentModuleDecorator;
+    private ModuleInfoDescriptorValidator moduleInfoDescriptorValidator;
 
     @Override
     public EnvironmentContext build(final RoundEnvironment roundEnv,
                                     final ModuleElement realModuleElement) {
-        unnamedPackageValidator.validate(realModuleElement);
+        moduleInfoDescriptorValidator.validate(realModuleElement);
         final ModuleElement currentModule = currentModuleDecorator.decorate(realModuleElement);
         final Set<RxMicroModule> rxMicroModules = getRxMicroModules(currentModule);
         final Map<String, Element> includePackages = roundEnv.getElementsAnnotatedWith(IncludeAll.class)

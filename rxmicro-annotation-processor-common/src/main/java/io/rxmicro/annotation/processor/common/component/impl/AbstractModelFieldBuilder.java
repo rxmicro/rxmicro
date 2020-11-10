@@ -159,7 +159,8 @@ public abstract class AbstractModelFieldBuilder<MF extends ModelField, MC extend
                 final String message = format(
                         "PERFORMANCE WARNING: To read a value from ?.? the RxMicro framework will use the reflection. " +
                                 "It is recommended to add a getter or change the field modifier: " +
-                                "from private to default, protected or public",
+                                "from private to default, protected or public! " +
+                                "Read more at https://docs.rxmicro.io/latest/user-guide/core.html#core-encapsulation",
                         typeElement.getQualifiedName(),
                         modelField.getFieldName()
                 );
@@ -173,7 +174,8 @@ public abstract class AbstractModelFieldBuilder<MF extends ModelField, MC extend
                 final String message = format(
                         "PERFORMANCE WARNING: To write a value to ?.? the RxMicro framework will use the reflection. " +
                                 "It is recommended to add a setter or change the field modifier: " +
-                                "from private to default, protected or public",
+                                "from private to default, protected or public! " +
+                                "Read more at https://docs.rxmicro.io/latest/user-guide/core.html#core-encapsulation",
                         typeElement.getQualifiedName(),
                         modelField.getFieldName()
                 );

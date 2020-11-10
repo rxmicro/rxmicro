@@ -21,7 +21,7 @@ import io.rxmicro.annotation.processor.common.component.AnnotationProcessingInfo
 import io.rxmicro.annotation.processor.common.component.ClassWriter;
 import io.rxmicro.annotation.processor.common.component.CurrentModuleDecorator;
 import io.rxmicro.annotation.processor.common.component.EnvironmentContextBuilder;
-import io.rxmicro.annotation.processor.common.component.UnnamedPackageValidator;
+import io.rxmicro.annotation.processor.common.component.ModuleInfoDescriptorValidator;
 
 /**
  * @author nedis
@@ -39,7 +39,7 @@ public final class RxMicroAnnotationProcessorDependenciesModule extends Abstract
                 .to(AnnotationProcessingInformerImpl.class);
         bind(CurrentModuleDecorator.class)
                 .to(CurrentModuleDecoratorImpl.class);
-        bind(UnnamedPackageValidator.class)
-                .to(UnnamedPackageValidatorImpl.class);
+        bind(ModuleInfoDescriptorValidator.class)
+                .to(ModuleInfoDescriptorValidatorImpl.class);
     }
 }
