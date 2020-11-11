@@ -532,6 +532,7 @@
                                 junit.jupiter.execution.timeout.mode = disabled_on_debug
                             </configurationParameters>
                         </properties>
+                        <trimStackTrace>false</trimStackTrace>
                     </configuration>
                 </plugin>
                 <plugin>
