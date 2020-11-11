@@ -40,6 +40,21 @@ public final class Constants {
      */
     public static final int NANOS_IN_1_SECOND = 1_000_000_000;
 
+    /**
+     * The environment variable that activates additional check in runtime.
+     *
+     * <p>
+     * The RxMicro team recommends to activate strict mode for runtime only for {@code dev} and {@code staging} environments,
+     * because additional checks decrease total performance of your application.
+     *
+     * <p>
+     * This variable has {@code boolean} type.
+     *
+     * <p>
+     * By default strict mode is disabled.
+     */
+    public static final String RX_MICRO_RUNTIME_STRICT_MODE = "RX_MICRO_RUNTIME_STRICT_MODE";
+
     private Constants() {
     }
 

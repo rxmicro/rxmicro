@@ -16,19 +16,23 @@
 
 package io.rxmicro.config.internal.model;
 
+import io.rxmicro.config.ConfigException;
 import io.rxmicro.logger.Logger;
 import io.rxmicro.logger.LoggerFactory;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.Supplier;
 
+import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.Strings.capitalize;
 import static io.rxmicro.config.internal.model.AbstractDefaultConfigValueBuilder.getCurrentDefaultConfigValueStorage;
 import static java.util.Map.entry;
+import static java.util.stream.Collectors.toMap;
 
 /**
  * @author nedis
@@ -79,6 +83,9 @@ public final class JavaBeanConfigProperties extends ConfigProperties {
                                 final DebugMessageBuilder debugMessageBuilder) {
         final Optional<Map<String, String>> resourceOptional = propertiesSupplier.get();
         if (resourceOptional.isPresent()) {
+            if (RUNTIME_STRICT_MODE_ACTIVATED) {
+                validateRedundantProperties(resourceOptional.get(), format("'?' ?", resourceName, resourceType), useFullName);
+            }
             final Set<Map.Entry<String, String>> resolvedEntries = new LinkedHashSet<>();
             properties.forEach(p -> p.resolve(resourceOptional.get(), useFullName).ifPresent(resolvedEntries::add));
             if (!resolvedEntries.isEmpty()) {
@@ -92,6 +99,15 @@ public final class JavaBeanConfigProperties extends ConfigProperties {
 
     @Override
     protected void loadFromJavaSystemProperties(final DebugMessageBuilder debugMessageBuilder) {
+        if (RUNTIME_STRICT_MODE_ACTIVATED) {
+            validateRedundantProperties(
+                    SYSTEM_PROPERTIES.entrySet().stream()
+                            .map(e -> entry(e.getKey().toString(), e.getValue().toString()))
+                            .collect(toMap(Map.Entry::getKey, Map.Entry::getValue)),
+                    "Java system properties",
+                    true
+            );
+        }
         final Set<Map.Entry<String, String>> resolvedEntries = new LinkedHashSet<>();
         properties.forEach(p -> p.resolve(SYSTEM_PROPERTIES, true).ifPresent(resolvedEntries::add));
         if (!resolvedEntries.isEmpty()) {
@@ -104,11 +120,34 @@ public final class JavaBeanConfigProperties extends ConfigProperties {
     protected void loadFromMap(final Map<String, String> map,
                                final String sourceName,
                                final DebugMessageBuilder debugMessageBuilder) {
+        if (RUNTIME_STRICT_MODE_ACTIVATED) {
+            validateRedundantProperties(map, sourceName, true);
+        }
         final Set<Map.Entry<String, String>> resolvedEntries = new LinkedHashSet<>();
         properties.forEach(p -> p.resolve(map, true).ifPresent(resolvedEntries::add));
         if (!resolvedEntries.isEmpty()) {
             debugMessageBuilder.addResolvedEntries(resolvedEntries);
             debugMessageBuilder.append("Discovered properties from ?: ?", sourceName, resolvedEntries);
+        }
+    }
+
+    private void validateRedundantProperties(final Map<String, String> map,
+                                             final String sourceName,
+                                             final boolean useFullName) {
+        final Map<String, String> mapCopy;
+        if (useFullName) {
+            mapCopy = map.entrySet().stream()
+                    .filter(e -> e.getKey().startsWith(namespace + "."))
+                    .collect(toMap(Map.Entry::getKey, Map.Entry::getValue));
+        } else {
+            mapCopy = new HashMap<>(map);
+        }
+        properties.forEach(p -> mapCopy.remove(p.getPropertyName(useFullName)));
+        if (!mapCopy.isEmpty()) {
+            throw new ConfigException(
+                    "Detected redundant property(ies) defined at ? for the namespace: '?': ?",
+                    sourceName, namespace, mapCopy
+            );
         }
     }
 

@@ -16,8 +16,11 @@
 
 package io.rxmicro.runtime.detail;
 
+import io.rxmicro.logger.Logger;
+import io.rxmicro.logger.LoggerFactory;
 import io.rxmicro.runtime.internal.RuntimeVersion;
 
+import static io.rxmicro.common.Constants.RX_MICRO_RUNTIME_STRICT_MODE;
 import static io.rxmicro.runtime.internal.RuntimeVersion.setRxMicroVersion;
 
 /**
@@ -29,10 +32,15 @@ import static io.rxmicro.runtime.internal.RuntimeVersion.setRxMicroVersion;
  */
 public final class Runtimes {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(Runtimes.class);
+
     public static final String ENTRY_POINT_PACKAGE = "rxmicro";
 
     static {
         setRxMicroVersion();
+        if (Boolean.parseBoolean(System.getenv(RX_MICRO_RUNTIME_STRICT_MODE))) {
+            LOGGER.info("!!! RxMicro Runtime Strict Mode is activated !!!");
+        }
     }
 
     public static Module getRuntimeModule() {
