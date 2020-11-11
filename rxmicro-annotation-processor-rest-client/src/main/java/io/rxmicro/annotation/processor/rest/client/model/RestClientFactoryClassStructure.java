@@ -35,7 +35,7 @@ import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.EN
 import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.getEntryPointFullClassName;
 import static io.rxmicro.common.util.Requires.require;
 import static io.rxmicro.rest.client.RestClientFactory.REST_CLIENT_FACTORY_IMPL_CLASS_NAME;
-import static io.rxmicro.runtime.detail.Runtimes.ENTRY_POINT_PACKAGE;
+import static io.rxmicro.runtime.detail.RxMicroRuntime.ENTRY_POINT_PACKAGE;
 
 /**
  * @author nedis

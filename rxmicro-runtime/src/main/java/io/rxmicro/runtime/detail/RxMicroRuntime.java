@@ -30,9 +30,9 @@ import static io.rxmicro.runtime.internal.RuntimeVersion.setRxMicroVersion;
  * @hidden
  * @since 0.1
  */
-public final class Runtimes {
+public final class RxMicroRuntime {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(Runtimes.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(RxMicroRuntime.class);
 
     public static final String ENTRY_POINT_PACKAGE = "rxmicro";
 
@@ -44,13 +44,13 @@ public final class Runtimes {
     }
 
     public static Module getRuntimeModule() {
-        return Runtimes.class.getModule();
+        return RxMicroRuntime.class.getModule();
     }
 
     public static String getRxMicroVersion() {
         return RuntimeVersion.getRxMicroVersion();
     }
 
-    private Runtimes() {
+    private RxMicroRuntime() {
     }
 }

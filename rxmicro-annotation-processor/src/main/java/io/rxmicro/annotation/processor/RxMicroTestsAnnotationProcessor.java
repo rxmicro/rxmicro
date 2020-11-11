@@ -24,7 +24,7 @@ import io.rxmicro.annotation.processor.common.model.ClassHeader;
 import io.rxmicro.annotation.processor.common.model.ClassStructure;
 import io.rxmicro.annotation.processor.common.model.EnvironmentContext;
 import io.rxmicro.common.util.Formats;
-import io.rxmicro.runtime.detail.Runtimes;
+import io.rxmicro.runtime.detail.RxMicroRuntime;
 import io.rxmicro.tool.common.Reflections;
 
 import java.util.Map;
@@ -38,7 +38,7 @@ import static io.rxmicro.annotation.processor.common.model.AnnotationProcessorTy
 import static io.rxmicro.annotation.processor.common.model.ClassHeader.newClassHeaderBuilder;
 import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.getEntryPointFullClassName;
 import static io.rxmicro.annotation.processor.common.util.Injects.injectDependencies;
-import static io.rxmicro.runtime.detail.Runtimes.ENTRY_POINT_PACKAGE;
+import static io.rxmicro.runtime.detail.RxMicroRuntime.ENTRY_POINT_PACKAGE;
 import static io.rxmicro.tool.common.TestFixers.COMPONENT_TEST_FIXER;
 import static io.rxmicro.tool.common.TestFixers.INTEGRATION_TEST_FIXER;
 import static io.rxmicro.tool.common.TestFixers.REST_BASED_MICRO_SERVICE_TEST_FIXER;
@@ -138,7 +138,7 @@ public final class RxMicroTestsAnnotationProcessor extends BaseRxMicroAnnotation
             customizeClassHeader(builder);
             return builder
                     .addStaticImport(Formats.class, "format")
-                    .addStaticImport(Runtimes.class, "getRuntimeModule")
+                    .addStaticImport(RxMicroRuntime.class, "getRuntimeModule")
                     .build();
         }
 

@@ -22,7 +22,7 @@ import io.rxmicro.annotation.processor.common.model.ModuleInfoItem;
 import io.rxmicro.annotation.processor.common.model.error.InternalErrorException;
 import io.rxmicro.common.RxMicroModule;
 import io.rxmicro.config.Configs;
-import io.rxmicro.runtime.detail.Runtimes;
+import io.rxmicro.runtime.detail.RxMicroRuntime;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +49,7 @@ import static javax.lang.model.element.ModuleElement.DirectiveKind.OPENS;
 public final class ModuleInfoCustomizerImpl implements ModuleInfoCustomizer {
 
     private final Map<RxMicroModule, Map.Entry<Class<?>, String>> moduleMapping = Map.of(
-            RX_MICRO_RUNTIME_MODULE, entry(Runtimes.class, "getRuntimeModule"),
+            RX_MICRO_RUNTIME_MODULE, entry(RxMicroRuntime.class, "getRuntimeModule"),
             RX_MICRO_CONFIG_MODULE, entry(Configs.class, "getConfigModule")
     );
 

@@ -48,7 +48,7 @@ import static io.rxmicro.common.util.Strings.startsWith;
 import static io.rxmicro.http.HttpStandardHeaderNames.ACCEPT;
 import static io.rxmicro.http.HttpStandardHeaderNames.REQUEST_ID;
 import static io.rxmicro.http.HttpStandardHeaderNames.USER_AGENT;
-import static io.rxmicro.runtime.detail.Runtimes.getRxMicroVersion;
+import static io.rxmicro.runtime.detail.RxMicroRuntime.getRxMicroVersion;
 import static java.lang.System.lineSeparator;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.util.Map.entry;

@@ -17,7 +17,7 @@
 package io.rxmicro.annotation.processor.common.model;
 
 import io.rxmicro.config.detail.DefaultConfigValueBuilder;
-import io.rxmicro.runtime.detail.Runtimes;
+import io.rxmicro.runtime.detail.RxMicroRuntime;
 
 import java.util.List;
 import java.util.Map;
@@ -26,7 +26,7 @@ import javax.lang.model.element.ModuleElement;
 import static io.rxmicro.annotation.processor.common.model.ClassHeader.newClassHeaderBuilder;
 import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.ENVIRONMENT_CUSTOMIZER_SIMPLE_CLASS_NAME;
 import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.getEntryPointFullClassName;
-import static io.rxmicro.runtime.detail.Runtimes.ENTRY_POINT_PACKAGE;
+import static io.rxmicro.runtime.detail.RxMicroRuntime.ENTRY_POINT_PACKAGE;
 
 /**
  * @author nedis
@@ -67,7 +67,7 @@ public final class EnvironmentCustomizerClassStructure extends ClassStructure {
     @Override
     public ClassHeader getClassHeader() {
         return newClassHeaderBuilder(ENTRY_POINT_PACKAGE)
-                .addStaticImport(Runtimes.class, "getRuntimeModule")
+                .addStaticImport(RxMicroRuntime.class, "getRuntimeModule")
                 .addStaticImport(DefaultConfigValueBuilder.class, "putDefaultConfigValue")
                 .build();
     }

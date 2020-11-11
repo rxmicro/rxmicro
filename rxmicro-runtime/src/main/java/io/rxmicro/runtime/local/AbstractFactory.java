@@ -28,7 +28,7 @@ import java.util.Optional;
 import java.util.function.Supplier;
 
 import static io.rxmicro.common.util.Formats.format;
-import static io.rxmicro.runtime.detail.Runtimes.ENTRY_POINT_PACKAGE;
+import static io.rxmicro.runtime.detail.RxMicroRuntime.ENTRY_POINT_PACKAGE;
 import static io.rxmicro.runtime.internal.RuntimeVersion.setRxMicroVersion;
 import static io.rxmicro.runtime.local.InstanceContainer.getSingleton;
 import static io.rxmicro.runtime.local.InstanceContainer.overrideSingleton;

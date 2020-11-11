@@ -20,7 +20,7 @@ import java.util.function.Supplier;
 
 import static io.rxmicro.common.Constants.RX_MICRO_FRAMEWORK_NAME;
 import static io.rxmicro.common.util.Formats.format;
-import static io.rxmicro.runtime.detail.Runtimes.getRxMicroVersion;
+import static io.rxmicro.runtime.detail.RxMicroRuntime.getRxMicroVersion;
 import static java.time.Instant.now;
 import static java.time.ZoneOffset.UTC;
 import static java.time.format.DateTimeFormatter.RFC_1123_DATE_TIME;
