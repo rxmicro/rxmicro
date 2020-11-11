@@ -27,8 +27,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import static io.rxmicro.common.local.DeniedPackages.isDeniedPackage;
 import static io.rxmicro.common.util.Formats.format;
-import static io.rxmicro.tool.common.DeniedPackages.isDeniedPackage;
 import static java.lang.reflect.Modifier.isStatic;
 
 /**

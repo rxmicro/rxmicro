@@ -40,4 +40,14 @@ public interface LoggerImplProvider {
      * @return the {@link Logger} instance
      */
     Logger getLogger(String name);
+
+    /**
+     * Returns the {@link Logger} instance by the specified class name.
+     *
+     * @param clazz the specified class name
+     * @return the {@link Logger} instance
+     */
+    default Logger getLogger(final Class<?> clazz){
+        return getLogger(clazz.getName());
+    }
 }

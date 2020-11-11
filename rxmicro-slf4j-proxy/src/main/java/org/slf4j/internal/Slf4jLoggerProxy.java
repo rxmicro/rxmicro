@@ -21,7 +21,6 @@ import io.rxmicro.logger.LoggerFactory;
 import org.slf4j.Marker;
 
 import static io.rxmicro.common.util.Formats.FORMAT_PLACEHOLDER_TOKEN;
-import static io.rxmicro.common.util.Requires.require;
 
 /**
  * Unfortunately some db drivers removed support of JUL,
@@ -40,18 +39,19 @@ public final class Slf4jLoggerProxy implements org.slf4j.Logger {
 
     private static final String SLF4J_PLACEHOLDER = "{}";
 
-    private final String name;
-
     private final Logger logger;
 
     public Slf4jLoggerProxy(final String name) {
-        this.name = require(name);
         this.logger = LoggerFactory.getLogger(name);
+    }
+
+    public Slf4jLoggerProxy(final Class<?> clazz) {
+        this.logger = LoggerFactory.getLogger(clazz);
     }
 
     @Override
     public String getName() {
-        return name;
+        return logger.getName();
     }
 
     @Override

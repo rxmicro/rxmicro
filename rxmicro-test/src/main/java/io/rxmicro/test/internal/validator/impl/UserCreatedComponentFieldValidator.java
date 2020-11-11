@@ -27,7 +27,7 @@ import io.rxmicro.test.local.InvalidTestConfigException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 
-import static io.rxmicro.tool.common.DeniedPackages.isDeniedPackage;
+import static io.rxmicro.common.local.DeniedPackages.isDeniedPackage;
 
 /**
  * @author nedis

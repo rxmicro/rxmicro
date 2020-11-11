@@ -40,9 +40,9 @@ import javax.lang.model.type.TypeMirror;
 
 import static io.rxmicro.annotation.processor.common.util.Names.getPackageName;
 import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getTypes;
+import static io.rxmicro.common.local.DeniedPackages.isDeniedPackage;
 import static io.rxmicro.common.util.ExCollectors.toUnmodifiableOrderedSet;
 import static io.rxmicro.common.util.Strings.capitalize;
-import static io.rxmicro.tool.common.DeniedPackages.isDeniedPackage;
 import static java.util.stream.Collectors.toList;
 import static javax.lang.model.element.ElementKind.CONSTRUCTOR;
 import static javax.lang.model.element.ElementKind.ENUM;

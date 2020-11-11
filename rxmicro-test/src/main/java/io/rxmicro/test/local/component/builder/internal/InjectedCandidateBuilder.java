@@ -24,12 +24,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import static io.rxmicro.common.local.DeniedPackages.isDeniedPackage;
 import static io.rxmicro.common.util.ExCollections.unmodifiableMap;
 import static io.rxmicro.common.util.GeneratedClassRules.isGeneratedClass;
 import static io.rxmicro.common.util.Requires.require;
 import static io.rxmicro.test.local.util.Mocks.isMock;
 import static io.rxmicro.test.local.util.UserComponents.isUserComponentField;
-import static io.rxmicro.tool.common.DeniedPackages.isDeniedPackage;
 import static io.rxmicro.tool.common.Reflections.allFields;
 import static io.rxmicro.tool.common.Reflections.getFieldValue;
 import static java.util.function.Function.identity;

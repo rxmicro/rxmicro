@@ -30,7 +30,7 @@ import static io.rxmicro.annotation.processor.common.util.Elements.isVirtualType
 import static io.rxmicro.annotation.processor.common.util.validators.TypeValidators.validateAccessibleDefaultConstructor;
 import static io.rxmicro.annotation.processor.common.util.validators.TypeValidators.validateModuleDeclaration;
 import static io.rxmicro.annotation.processor.common.util.validators.TypeValidators.validateTypeElement;
-import static io.rxmicro.tool.common.DeniedPackages.isDeniedPackage;
+import static io.rxmicro.common.local.DeniedPackages.isDeniedPackage;
 
 /**
  * @author nedis

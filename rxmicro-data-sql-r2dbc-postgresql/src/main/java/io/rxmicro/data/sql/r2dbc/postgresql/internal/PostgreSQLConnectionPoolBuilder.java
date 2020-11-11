@@ -34,7 +34,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 
-import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.Requires.require;
 import static io.rxmicro.config.Configs.getConfig;
 import static io.rxmicro.runtime.local.InstanceContainer.registerAutoRelease;
@@ -50,17 +49,13 @@ import static io.rxmicro.runtime.local.InstanceContainer.registerAutoRelease;
  */
 public final class PostgreSQLConnectionPoolBuilder {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(
-            format("?.PostgreSQLPooledClient", PostgreSQLConnectionPoolBuilder.class.getPackageName())
-    );
-
     private static final PostgreSQLConnectionPoolBuilder INSTANCE = new PostgreSQLConnectionPoolBuilder();
 
     private final List<CodecRegistrar> codecRegistrars = new ArrayList<>();
 
     private Function<Connection, Connection> connectionDecorator;
 
-    private boolean built;
+    private PostgreSQLConnectionPool postgreSQLConnectionPool;
 
     public static PostgreSQLConnectionPoolBuilder getInstance() {
         return INSTANCE;
@@ -70,25 +65,27 @@ public final class PostgreSQLConnectionPoolBuilder {
     }
 
     public void addCodecRegistrar(final CodecRegistrar codecRegistrar) {
-        if (built) {
-            throw new IllegalStateException("Connection pool already built! " +
-                    "Any customizations must be done before building of the connection pool!");
-        }
+        validateState();
         this.codecRegistrars.add(require(codecRegistrar));
     }
 
     public void setConnectionDecorator(final Function<Connection, Connection> connectionDecorator) {
-        if (built) {
-            throw new IllegalStateException("Connection pool already built! " +
-                    "Any customizations must be done before building of the connection pool!");
-        }
+        validateState();
         this.connectionDecorator = require(connectionDecorator);
     }
 
     public ConnectionPool build(final String namespace) {
+        validateState();
         final PostgreSQLConfig postgreSQLConfig = getConfig(namespace, PostgreSQLConfig.class);
         final ConnectionFactory connectionFactory = createConnectionFactory(postgreSQLConfig);
         return createConnectionPool(postgreSQLConfig, connectionFactory);
+    }
+
+    private void validateState() {
+        if (postgreSQLConnectionPool != null) {
+            throw new IllegalStateException("Connection pool already built! " +
+                    "Any customizations must be done before building of the connection pool!");
+        }
     }
 
     private ConnectionFactory createConnectionFactory(final PostgreSQLConfig postgreSQLConfig) {
@@ -117,11 +114,7 @@ public final class PostgreSQLConnectionPoolBuilder {
                 .maxIdleTime(postgreSQLConfig.getMaxIdleTime())
                 .maxLifeTime(postgreSQLConfig.getMaxLifeTime());
         final ConnectionPool connectionPool = buildConnectionPool(builder);
-        LOGGER.info("PostgreSQL pooled client created: connectionString='?', poolSize:{init=?, max=?}",
-                postgreSQLConfig.getConnectionString(), postgreSQLConfig.getInitialSize(), postgreSQLConfig.getMaxSize()
-        );
-        registerAutoRelease(new R2DBCPostgreSQLConnectionPool(postgreSQLConfig, connectionPool));
-        built = true;
+        postgreSQLConnectionPool = new PostgreSQLConnectionPool(postgreSQLConfig, connectionPool);
         return connectionPool;
     }
 
@@ -142,22 +135,28 @@ public final class PostgreSQLConnectionPoolBuilder {
      * @author nedis
      * @since 0.1
      */
-    private static final class R2DBCPostgreSQLConnectionPool implements AutoRelease {
+    private static final class PostgreSQLConnectionPool implements AutoRelease {
+
+        private static final Logger LOGGER = LoggerFactory.getLogger(PostgreSQLConnectionPool.class);
 
         private final PostgreSQLConfig postgreSQLConfig;
 
         private final ConnectionPool connectionPool;
 
-        private R2DBCPostgreSQLConnectionPool(final PostgreSQLConfig postgreSQLConfig,
-                                              final ConnectionPool connectionPool) {
+        private PostgreSQLConnectionPool(final PostgreSQLConfig postgreSQLConfig,
+                                         final ConnectionPool connectionPool) {
             this.postgreSQLConfig = require(postgreSQLConfig);
             this.connectionPool = require(connectionPool);
+            LOGGER.info("Pool created: connectionString='?', poolSize:{init=?, max=?}",
+                    postgreSQLConfig.getConnectionString(), postgreSQLConfig.getInitialSize(), postgreSQLConfig.getMaxSize()
+            );
+            registerAutoRelease(this);
         }
 
         @Override
         public void release() {
             connectionPool.dispose();
-            LOGGER.info("PostgreSQL pooled client closed: connectionString='?'", postgreSQLConfig.getConnectionString());
+            LOGGER.info("Pool disposed: connectionString='?'", postgreSQLConfig.getConnectionString());
         }
     }
 }

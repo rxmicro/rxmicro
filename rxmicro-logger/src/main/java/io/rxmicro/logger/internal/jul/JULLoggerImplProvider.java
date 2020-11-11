@@ -17,6 +17,7 @@
 package io.rxmicro.logger.internal.jul;
 
 import io.rxmicro.common.ImpossibleException;
+import io.rxmicro.logger.Constants;
 import io.rxmicro.logger.Logger;
 import io.rxmicro.logger.impl.LoggerImplProvider;
 import io.rxmicro.logger.internal.jul.config.LoggerConfigBuilder;
@@ -26,13 +27,17 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.util.Arrays;
 import java.util.Map;
+import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.stream.Stream;
 
+import static io.rxmicro.common.local.DeniedPackages.isDeniedPackage;
 import static io.rxmicro.common.util.Formats.format;
-import static io.rxmicro.logger.Constants.HIDE_LOGGER_CONFIGURATION;
+import static io.rxmicro.logger.Constants.CONFIGURATION_LOGGER_CLASS_NAME_TRIM_MODE;
+import static io.rxmicro.logger.Constants.CONFIGURATION_PROPERTIES_HIDE;
 import static io.rxmicro.logger.internal.jul.LevelMappings.fixLevelValue;
 import static java.lang.System.lineSeparator;
 import static java.util.function.Function.identity;
@@ -46,9 +51,12 @@ public final class JULLoggerImplProvider implements LoggerImplProvider {
 
     private final LoggerConfigBuilder loggerConfigBuilder = new LoggerConfigBuilder();
 
+    private Constants.TrimMode trimMode;
+
     @Override
     public void setup() {
         final Map<String, String> config = loggerConfigBuilder.build();
+        trimMode = getTrimMode(config);
         try {
             final byte[] configBytes = toConfigBytes(config);
             LogManager.getLogManager()
@@ -56,7 +64,7 @@ public final class JULLoggerImplProvider implements LoggerImplProvider {
         } catch (final IOException ex) {
             throw new ImpossibleException(ex, "Configuration created automatically, so IO error is impossible!");
         }
-        if (!Boolean.parseBoolean(config.get(HIDE_LOGGER_CONFIGURATION))) {
+        if (!Boolean.parseBoolean(config.get(CONFIGURATION_PROPERTIES_HIDE))) {
             java.util.logging.Logger.getGlobal().log(
                     Level.INFO,
                     Stream.of(
@@ -68,9 +76,45 @@ public final class JULLoggerImplProvider implements LoggerImplProvider {
         }
     }
 
+    private Constants.TrimMode getTrimMode(final Map<String, String> config) {
+        return Optional.ofNullable(config.get(CONFIGURATION_LOGGER_CLASS_NAME_TRIM_MODE))
+                .map(name -> {
+                    try {
+                        return Constants.TrimMode.valueOf(name);
+                    } catch (final IllegalArgumentException ignore) {
+                        final String message = format(
+                                "Unsupported ?: '?'. Must be one of the following: ?!",
+                                CONFIGURATION_LOGGER_CLASS_NAME_TRIM_MODE, name, Arrays.toString(Constants.TrimMode.values())
+                        );
+                        java.util.logging.Logger.getGlobal().log(Level.SEVERE, message);
+                        throw new ExceptionInInitializerError(message);
+                    }
+                })
+                .orElse(Constants.TrimMode.ALL_CLASSES);
+    }
+
     @Override
     public Logger getLogger(final String name) {
         return new JULLogger(name);
+    }
+
+    @Override
+    public Logger getLogger(final Class<?> clazz) {
+        return new JULLogger(getTrimmedName(clazz));
+    }
+
+    private String getTrimmedName(final Class<?> clazz) {
+        if (trimMode == Constants.TrimMode.ALL_CLASSES) {
+            return clazz.getSimpleName();
+        } else if (trimMode == Constants.TrimMode.FRAMEWORK_CLASSES_ONLY) {
+            if (isDeniedPackage(clazz.getPackageName())) {
+                return clazz.getSimpleName();
+            } else {
+                return clazz.getName();
+            }
+        } else {
+            return clazz.getName();
+        }
     }
 
     // Simplest version without Unicode and special characters support

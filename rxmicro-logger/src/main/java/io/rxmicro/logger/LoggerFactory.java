@@ -53,7 +53,7 @@ public final class LoggerFactory {
      * @return the {@link Logger} instance
      */
     public static Logger getLogger(final Class<?> className) {
-        return LOGGER_IMPL_FACTORY.getLogger(className.getName());
+        return LOGGER_IMPL_FACTORY.getLogger(className);
     }
 
     /**

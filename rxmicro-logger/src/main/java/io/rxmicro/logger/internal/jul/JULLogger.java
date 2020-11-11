@@ -32,8 +32,16 @@ final class JULLogger extends AbstractLogger {
 
     private final java.util.logging.Logger logger;
 
+    private final String name;
+
     JULLogger(final String name) {
-        logger = java.util.logging.Logger.getLogger(name);
+        this.logger = java.util.logging.Logger.getLogger(name);
+        this.name = name;
+    }
+
+    @Override
+    public String getName() {
+        return name;
     }
 
     @Override

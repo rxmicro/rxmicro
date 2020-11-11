@@ -38,8 +38,8 @@ import static io.rxmicro.annotation.processor.cdi.model.InjectionPointType.BEAN;
 import static io.rxmicro.annotation.processor.cdi.model.InjectionPointType.MULTI_BINDER;
 import static io.rxmicro.annotation.processor.common.util.Elements.allSuperTypesAndInterfaces;
 import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getElements;
+import static io.rxmicro.common.local.DeniedPackages.isDeniedPackage;
 import static io.rxmicro.common.util.ExCollectors.toTreeSet;
-import static io.rxmicro.tool.common.DeniedPackages.isDeniedPackage;
 import static java.util.stream.Collectors.toSet;
 
 /**

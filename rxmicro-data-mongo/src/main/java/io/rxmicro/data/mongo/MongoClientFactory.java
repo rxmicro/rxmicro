@@ -46,7 +46,7 @@ public final class MongoClientFactory {
     public static MongoClient getMongoClient(final String namespace) {
         return getSingleton(
                 new ByTypeInstanceQualifier<>(MongoClient.class),
-                new LazyInstanceProvider<>(MongoClient.class, () -> MongoClientBuilder.getInstance().getMongoClient(namespace))
+                new LazyInstanceProvider<>(MongoClient.class, () -> MongoClientBuilder.getInstance().build(namespace))
         );
     }
 

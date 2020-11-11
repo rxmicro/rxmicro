@@ -39,6 +39,13 @@ import java.util.function.Supplier;
 public interface Logger {
 
     /**
+     * Return the name of this Logger instance.
+     *
+     * @return the name of this Logger instance
+     */
+    String getName();
+
+    /**
      * Returns {@code true} if the logger instance enabled for the {@code TRACE} level.
      *
      * @return {@code true} if this Logger is enabled for the {@code TRACE} level

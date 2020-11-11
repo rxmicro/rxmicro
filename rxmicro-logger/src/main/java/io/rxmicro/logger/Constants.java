@@ -41,9 +41,55 @@ public final class Constants {
     public static final String LOGGER_VARIABLE_PREFIX = "logger.";
 
     /**
-     * Predefined logger setting that hides the displaying the RxMicro logger configuration during start up.
+     * Predefined logger setting that hides the displaying the RxMicro logger configuration properties during start up.
+     *
+     * <p>
+     * This variable has {@code boolean} type.
+     * By default the current logger configuration is displayed:
+     * <pre>
+     * [INFO] global : Using java.util.logging with the following config:
+     *
+     *   .level=INFO
+     *   handlers=io.rxmicro.logger.internal.jul.config.adapter.SystemOutConsoleHandler
+     *   io.rxmicro.logger.internal.jul.config.adapter.SystemOutConsoleHandler.level=ALL
+     *
+     * </pre>
      */
-    public static final String HIDE_LOGGER_CONFIGURATION = "rxmicro.logger.configuration.hide";
+    public static final String CONFIGURATION_PROPERTIES_HIDE = "configuration.properties.hide";
+
+    /**
+     * This option configures which type of class name will be used as logger name: simple or full class name.
+     *
+     * <p>
+     * This variable has {@link TrimMode} type.
+     *
+     * <p>
+     *  By default the RxMicro framework uses {@link TrimMode#WITHOUT_TRIM} mode
+     */
+    public static final String CONFIGURATION_LOGGER_CLASS_NAME_TRIM_MODE = "configuration.logger.class.name.trim.mode";
+
+    /**
+     * Configures supported trim modes for logger names.
+     */
+    public enum TrimMode {
+
+        /**
+         * Full class name will be used for all logger names.
+         */
+        WITHOUT_TRIM,
+
+        /**
+         * If class is located at the {@code io.rxmicro.*} package or at any package that belongs to the RxMicro framework dependencies,
+         * simple class name will be used,
+         * otherwise full class name will be used
+         */
+        FRAMEWORK_CLASSES_ONLY,
+
+        /**
+         * Simple class names will be used for all logger names.
+         */
+        ALL_CLASSES
+    }
 
     private Constants() {
     }

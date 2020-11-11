@@ -58,7 +58,7 @@ import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentH
 import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getTypes;
 import static io.rxmicro.annotation.processor.common.util.validators.TypeValidators.validateGenericType;
 import static io.rxmicro.common.RxMicroModule.RX_MICRO_DATA_SQL_R2DBC_POSTGRESQL_MODULE;
-import static io.rxmicro.tool.common.DeniedPackages.isDeniedPackage;
+import static io.rxmicro.common.local.DeniedPackages.isDeniedPackage;
 import static java.util.Map.entry;
 
 /**

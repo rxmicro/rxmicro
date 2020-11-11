@@ -82,7 +82,7 @@ public final class LoggerFactory {
      * @return logger
      */
     public static Logger getLogger(final Class<?> clazz) {
-        return getLogger(clazz.getName());
+        return new Slf4jLoggerProxy(clazz);
     }
 
     /**

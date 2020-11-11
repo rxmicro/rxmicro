@@ -116,6 +116,11 @@ abstract class AbstractBaseRestControllerMethodTest {
         }
 
         @Override
+        public String getName() {
+            return logger.getName();
+        }
+
+        @Override
         public boolean isTraceEnabled() {
             return logger.isTraceEnabled();
         }

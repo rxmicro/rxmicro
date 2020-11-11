@@ -26,7 +26,6 @@ import io.rxmicro.logger.LoggerFactory;
 import io.rxmicro.runtime.AutoRelease;
 
 import static com.mongodb.reactivestreams.client.MongoClients.create;
-import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.Requires.require;
 import static io.rxmicro.config.Configs.getConfig;
 import static io.rxmicro.runtime.local.InstanceContainer.registerAutoRelease;
@@ -37,17 +36,13 @@ import static io.rxmicro.runtime.local.InstanceContainer.registerAutoRelease;
  */
 public final class MongoClientBuilder {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(
-            format("?.MongoClient", MongoClientBuilder.class.getPackageName())
-    );
-
     private static final MongoClientBuilder INSTANCE = new MongoClientBuilder();
 
     private final MongoCodecsConfigurator mongoCodecsConfigurator = new MongoCodecsConfigurator();
 
     private final MongoClientSettings.Builder mongoClientSettingsBuilder = MongoClientSettings.builder();
 
-    private boolean built;
+    private MongoDBClient mongoDBClient;
 
     public static MongoClientBuilder getInstance() {
         return INSTANCE;
@@ -57,27 +52,28 @@ public final class MongoClientBuilder {
     }
 
     public MongoCodecsConfigurator getMongoCodecsConfigurator() {
-        if (built) {
-            throw new IllegalStateException("Mongo client already built! " +
-                    "Any customizations must be done before building of the mongo client!");
-        }
+        validateState();
         return mongoCodecsConfigurator;
     }
 
     public MongoClientSettings.Builder getMongoClientSettingsBuilder() {
-        if (built) {
-            throw new IllegalStateException("Mongo client already built! " +
-                    "Any customizations must be done before building of the mongo client!");
-        }
+        validateState();
         return mongoClientSettingsBuilder;
     }
 
-    public MongoClient getMongoClient(final String namespace) {
-        final MongoConfig mongoConfig = getConfig(namespace, MongoConfig.class);
-        return getMongoClient(mongoConfig);
+    public MongoClient build(final String namespace) {
+        validateState();
+        return build(getConfig(namespace, MongoConfig.class));
     }
 
-    private MongoClient getMongoClient(final MongoConfig mongoConfig) {
+    private void validateState() {
+        if (mongoDBClient != null) {
+            throw new IllegalStateException("Mongo client already built! " +
+                    "Any customizations must be done before building of the mongo client!");
+        }
+    }
+
+    private MongoClient build(final MongoConfig mongoConfig) {
         final String connectionString = mongoConfig.getConnectionString();
         final MongoClientSettings settings = getMongoClientSettingsBuilder()
                 .applyConnectionString(new ConnectionString(connectionString))
@@ -89,10 +85,7 @@ public final class MongoClientBuilder {
                 )
                 .build();
         final MongoClient mongoClient = create(settings);
-        LOGGER.info("Mongo client created: connectionString='?', database='?'",
-                connectionString, mongoConfig.getDatabase());
-        registerAutoRelease(new MongoClientProxy(connectionString, mongoClient));
-        built = true;
+        mongoDBClient = new MongoDBClient(mongoConfig, connectionString, mongoClient);
         return mongoClient;
     }
 
@@ -100,16 +93,21 @@ public final class MongoClientBuilder {
      * @author nedis
      * @since 0.1
      */
-    private static final class MongoClientProxy implements AutoRelease {
+    private static final class MongoDBClient implements AutoRelease {
+
+        private static final Logger LOGGER = LoggerFactory.getLogger(MongoDBClient.class);
 
         private final String connectionString;
 
         private final MongoClient mongoClient;
 
-        private MongoClientProxy(final String connectionString,
-                                 final MongoClient mongoClient) {
+        private MongoDBClient(final MongoConfig mongoConfig,
+                              final String connectionString,
+                              final MongoClient mongoClient) {
             this.connectionString = require(connectionString);
             this.mongoClient = require(mongoClient);
+            LOGGER.info("Mongo client created: connectionString='?', database='?'", connectionString, mongoConfig.getDatabase());
+            registerAutoRelease(this);
         }
 
         @Override

@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package io.rxmicro.tool.common;
+package io.rxmicro.common.local;
 
-import static io.rxmicro.tool.common.internal.DeniedPackageConstants.DENIED_PACKAGES;
+import static io.rxmicro.common.internal.DeniedPackageConstants.DENIED_PACKAGES;
 
 /**
  * Utility class that verifies that the tested package name is denied or not.
