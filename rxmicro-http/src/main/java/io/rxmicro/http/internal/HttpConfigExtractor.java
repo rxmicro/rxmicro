@@ -40,7 +40,6 @@ public final class HttpConfigExtractor {
         config.setSchema(schema)
                 .setHost(getHost(connectionStringSource))
                 .setPort(getPort(schema, connectionStringSource));
-
     }
 
     private ProtocolSchema getSchema(final StringBuilder connectionStringSource) {
