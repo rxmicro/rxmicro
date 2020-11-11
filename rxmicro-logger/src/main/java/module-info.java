@@ -52,6 +52,5 @@ module rxmicro.logger {
     exports io.rxmicro.logger;
     exports io.rxmicro.logger.impl;
 
-    opens io.rxmicro.logger.internal.jul.config.adapter to
-            java.logging;
+    opens io.rxmicro.logger.jul;
 }

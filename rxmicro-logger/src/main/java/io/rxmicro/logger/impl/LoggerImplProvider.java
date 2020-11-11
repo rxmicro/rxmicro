@@ -47,7 +47,7 @@ public interface LoggerImplProvider {
      * @param clazz the specified class name
      * @return the {@link Logger} instance
      */
-    default Logger getLogger(final Class<?> clazz){
+    default Logger getLogger(final Class<?> clazz) {
         return getLogger(clazz.getName());
     }
 }

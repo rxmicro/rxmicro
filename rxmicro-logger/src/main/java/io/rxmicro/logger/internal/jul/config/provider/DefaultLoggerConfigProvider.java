@@ -17,7 +17,7 @@
 package io.rxmicro.logger.internal.jul.config.provider;
 
 import io.rxmicro.logger.internal.jul.config.LoggerConfigProvider;
-import io.rxmicro.logger.internal.jul.config.adapter.SystemOutConsoleHandler;
+import io.rxmicro.logger.jul.SystemOutConsoleHandler;
 
 import java.util.LinkedHashMap;
 import java.util.Map;

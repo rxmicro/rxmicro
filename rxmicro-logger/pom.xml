@@ -49,5 +49,12 @@
             <artifactId>rxmicro-files</artifactId>
             <version>0.7-SNAPSHOT</version>
         </dependency>
+
+        <dependency>
+            <groupId>io.rxmicro</groupId>
+            <artifactId>rxmicro-tool-common</artifactId>
+            <version>0.7-SNAPSHOT</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 </project>

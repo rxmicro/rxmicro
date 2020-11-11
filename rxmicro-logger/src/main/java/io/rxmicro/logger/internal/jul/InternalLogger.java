@@ -14,24 +14,28 @@
  * limitations under the License.
  */
 
-package io.rxmicro.logger.internal.jul.config.adapter;
+package io.rxmicro.logger.internal.jul;
 
-import java.util.logging.LogRecord;
-import java.util.logging.StreamHandler;
+import io.rxmicro.logger.internal.jul.config.adapter.RxMicroLogRecord;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import static java.util.logging.Logger.GLOBAL_LOGGER_NAME;
 
 /**
  * @author nedis
- * @since 0.1
+ * @since 0.7
  */
-public class SystemOutConsoleHandler extends StreamHandler {
+public final class InternalLogger {
 
-    public SystemOutConsoleHandler() {
-        super(System.out, new DefaultLoggerFormatter());
+    private static final Logger LOGGER = Logger.getGlobal();
+
+    public static void logInternal(final Level level,
+                                   final String msg) {
+        LOGGER.log(new RxMicroLogRecord(GLOBAL_LOGGER_NAME, level, msg));
     }
 
-    @Override
-    public synchronized void publish(final LogRecord record) {
-        super.publish(record);
-        flush();
+    private InternalLogger() {
     }
 }

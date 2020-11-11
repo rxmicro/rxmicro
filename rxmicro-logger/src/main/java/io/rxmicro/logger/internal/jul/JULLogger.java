@@ -18,6 +18,7 @@ package io.rxmicro.logger.internal.jul;
 
 import io.rxmicro.logger.Level;
 import io.rxmicro.logger.impl.AbstractLogger;
+import io.rxmicro.logger.internal.jul.config.adapter.RxMicroLogRecord;
 
 import static io.rxmicro.logger.internal.jul.LevelMappings.getJulLevel;
 
@@ -52,13 +53,13 @@ final class JULLogger extends AbstractLogger {
     @Override
     protected void log(final Level level,
                        final String message) {
-        logger.log(getJulLevel(level), message);
+        logger.log(new RxMicroLogRecord(name, getJulLevel(level), message));
     }
 
     @Override
     protected void log(final Level level,
                        final String message,
                        final Throwable throwable) {
-        logger.log(getJulLevel(level), message, throwable);
+        logger.log(new RxMicroLogRecord(name, getJulLevel(level), message, throwable));
     }
 }
