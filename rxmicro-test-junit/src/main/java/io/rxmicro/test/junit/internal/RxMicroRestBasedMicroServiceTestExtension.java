@@ -45,6 +45,7 @@ import org.junit.jupiter.api.extension.BeforeEachCallback;
 import org.junit.jupiter.api.extension.BeforeTestExecutionCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
 
+import java.lang.reflect.InaccessibleObjectException;
 import java.util.List;
 import java.util.Map;
 
@@ -65,6 +66,7 @@ import static io.rxmicro.test.local.UnNamedModuleFixers.restBasedMicroServiceTes
 import static io.rxmicro.test.local.util.Annotations.getRequiredAnnotation;
 import static io.rxmicro.test.local.util.Modules.isRequiredModule;
 import static io.rxmicro.test.local.util.Safes.safeInvoke;
+import static io.rxmicro.test.local.util.TestExceptions.reThrowInaccessibleObjectException;
 
 /**
  * @author nedis
@@ -179,10 +181,14 @@ public final class RxMicroRestBasedMicroServiceTestExtension
         getBeforeTestInvoker().invokeIfFound(context, testInstances);
 
         serverContainer.register(restControllerInstanceResolver.getRestControllerClasses());
-        userCreatedComponentInjector.injectIfFound(
-                testInstances,
-                restControllerInstanceResolver.getRestControllerInstances()
-        );
+        try {
+            userCreatedComponentInjector.injectIfFound(
+                    testInstances,
+                    restControllerInstanceResolver.getRestControllerInstances()
+            );
+        } catch (final InaccessibleObjectException ex){
+            reThrowInaccessibleObjectException(ex);
+        }
     }
 
     @Override

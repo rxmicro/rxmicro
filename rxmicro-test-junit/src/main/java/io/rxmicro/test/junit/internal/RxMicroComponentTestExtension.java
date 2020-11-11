@@ -38,6 +38,7 @@ import org.junit.jupiter.api.extension.BeforeEachCallback;
 import org.junit.jupiter.api.extension.BeforeTestExecutionCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
 
+import java.lang.reflect.InaccessibleObjectException;
 import java.util.List;
 
 import static io.rxmicro.config.local.DefaultConfigValueBuilderReSetter.resetDefaultConfigValueStorage;
@@ -50,6 +51,7 @@ import static io.rxmicro.test.junit.internal.TestObjects.getTestInstances;
 import static io.rxmicro.test.local.UnNamedModuleFixers.componentTestsFix;
 import static io.rxmicro.test.local.util.Annotations.getRequiredAnnotation;
 import static io.rxmicro.test.local.util.Modules.isRequiredModule;
+import static io.rxmicro.test.local.util.TestExceptions.reThrowInaccessibleObjectException;
 
 /**
  * @author nedis
@@ -129,7 +131,14 @@ public final class RxMicroComponentTestExtension
                     .build();
         }
         final Object testedComponentInstance = testedComponentResolver.getTestedComponentInstance(testInstances);
-        userCreatedComponentInjector.injectIfFound(testInstances, List.of(testedComponentInstance));
+        try {
+            userCreatedComponentInjector.injectIfFound(
+                    testInstances,
+                    List.of(testedComponentInstance)
+            );
+        } catch (final InaccessibleObjectException ex) {
+            reThrowInaccessibleObjectException(ex);
+        }
     }
 
     @Override
