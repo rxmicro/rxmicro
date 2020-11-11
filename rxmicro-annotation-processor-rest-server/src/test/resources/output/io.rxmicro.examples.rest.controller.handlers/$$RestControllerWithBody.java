@@ -9,6 +9,7 @@ import io.rxmicro.rest.server.detail.model.HttpResponse;
 import io.rxmicro.rest.server.detail.model.Registration;
 import io.rxmicro.rest.server.detail.model.mapping.ExactUrlRequestMappingRule;
 
+import java.util.List;
 import java.util.concurrent.CompletionStage;
 
 /**
@@ -97,7 +98,8 @@ public final class $$RestControllerWithBody extends AbstractRestController {
                 this,
                 new Registration(
                         "/",
-                        "completedFuture1()",
+                        "completedFuture1",
+                        List.of(),
                         this::completedFuture1,
                         false,
                         new ExactUrlRequestMappingRule(
@@ -108,7 +110,10 @@ public final class $$RestControllerWithBody extends AbstractRestController {
                 ),
                 new Registration(
                         "/",
-                        "completedFuture2(io.rxmicro.examples.rest.controller.handlers.Request)",
+                        "completedFuture2",
+                        List.of(
+                                io.rxmicro.examples.rest.controller.handlers.Request.class
+                        ),
                         this::completedFuture2,
                         false,
                         new ExactUrlRequestMappingRule(
@@ -119,7 +124,10 @@ public final class $$RestControllerWithBody extends AbstractRestController {
                 ),
                 new Registration(
                         "/",
-                        "completedFuture3(java.lang.String)",
+                        "completedFuture3",
+                        List.of(
+                                java.lang.String.class
+                        ),
                         this::completedFuture3,
                         false,
                         new ExactUrlRequestMappingRule(
@@ -130,7 +138,8 @@ public final class $$RestControllerWithBody extends AbstractRestController {
                 ),
                 new Registration(
                         "/",
-                        "completedFuture4()",
+                        "completedFuture4",
+                        List.of(),
                         this::completedFuture4,
                         false,
                         new ExactUrlRequestMappingRule(
@@ -141,7 +150,10 @@ public final class $$RestControllerWithBody extends AbstractRestController {
                 ),
                 new Registration(
                         "/",
-                        "completedFuture5(io.rxmicro.examples.rest.controller.handlers.Request)",
+                        "completedFuture5",
+                        List.of(
+                                io.rxmicro.examples.rest.controller.handlers.Request.class
+                        ),
                         this::completedFuture5,
                         false,
                         new ExactUrlRequestMappingRule(
@@ -152,7 +164,10 @@ public final class $$RestControllerWithBody extends AbstractRestController {
                 ),
                 new Registration(
                         "/",
-                        "completedFuture6(java.lang.String)",
+                        "completedFuture6",
+                        List.of(
+                                java.lang.String.class
+                        ),
                         this::completedFuture6,
                         false,
                         new ExactUrlRequestMappingRule(
@@ -163,7 +178,8 @@ public final class $$RestControllerWithBody extends AbstractRestController {
                 ),
                 new Registration(
                         "/",
-                        "completionStage1()",
+                        "completionStage1",
+                        List.of(),
                         this::completionStage1,
                         false,
                         new ExactUrlRequestMappingRule(
@@ -174,7 +190,10 @@ public final class $$RestControllerWithBody extends AbstractRestController {
                 ),
                 new Registration(
                         "/",
-                        "completionStage2(io.rxmicro.examples.rest.controller.handlers.Request)",
+                        "completionStage2",
+                        List.of(
+                                io.rxmicro.examples.rest.controller.handlers.Request.class
+                        ),
                         this::completionStage2,
                         false,
                         new ExactUrlRequestMappingRule(
@@ -185,7 +204,10 @@ public final class $$RestControllerWithBody extends AbstractRestController {
                 ),
                 new Registration(
                         "/",
-                        "completionStage3(java.lang.String)",
+                        "completionStage3",
+                        List.of(
+                                java.lang.String.class
+                        ),
                         this::completionStage3,
                         false,
                         new ExactUrlRequestMappingRule(
@@ -196,7 +218,8 @@ public final class $$RestControllerWithBody extends AbstractRestController {
                 ),
                 new Registration(
                         "/",
-                        "completionStage4()",
+                        "completionStage4",
+                        List.of(),
                         this::completionStage4,
                         false,
                         new ExactUrlRequestMappingRule(
@@ -207,7 +230,10 @@ public final class $$RestControllerWithBody extends AbstractRestController {
                 ),
                 new Registration(
                         "/",
-                        "completionStage5(io.rxmicro.examples.rest.controller.handlers.Request)",
+                        "completionStage5",
+                        List.of(
+                                io.rxmicro.examples.rest.controller.handlers.Request.class
+                        ),
                         this::completionStage5,
                         false,
                         new ExactUrlRequestMappingRule(
@@ -218,7 +244,10 @@ public final class $$RestControllerWithBody extends AbstractRestController {
                 ),
                 new Registration(
                         "/",
-                        "completionStage6(java.lang.String)",
+                        "completionStage6",
+                        List.of(
+                                java.lang.String.class
+                        ),
                         this::completionStage6,
                         false,
                         new ExactUrlRequestMappingRule(
@@ -229,7 +258,8 @@ public final class $$RestControllerWithBody extends AbstractRestController {
                 ),
                 new Registration(
                         "/",
-                        "mono1()",
+                        "mono1",
+                        List.of(),
                         this::mono1,
                         false,
                         new ExactUrlRequestMappingRule(
@@ -240,7 +270,10 @@ public final class $$RestControllerWithBody extends AbstractRestController {
                 ),
                 new Registration(
                         "/",
-                        "mono2(io.rxmicro.examples.rest.controller.handlers.Request)",
+                        "mono2",
+                        List.of(
+                                io.rxmicro.examples.rest.controller.handlers.Request.class
+                        ),
                         this::mono2,
                         false,
                         new ExactUrlRequestMappingRule(
@@ -251,7 +284,10 @@ public final class $$RestControllerWithBody extends AbstractRestController {
                 ),
                 new Registration(
                         "/",
-                        "mono3(java.lang.String)",
+                        "mono3",
+                        List.of(
+                                java.lang.String.class
+                        ),
                         this::mono3,
                         false,
                         new ExactUrlRequestMappingRule(
@@ -262,7 +298,8 @@ public final class $$RestControllerWithBody extends AbstractRestController {
                 ),
                 new Registration(
                         "/",
-                        "single1()",
+                        "single1",
+                        List.of(),
                         this::single1,
                         false,
                         new ExactUrlRequestMappingRule(
@@ -273,7 +310,10 @@ public final class $$RestControllerWithBody extends AbstractRestController {
                 ),
                 new Registration(
                         "/",
-                        "single2(io.rxmicro.examples.rest.controller.handlers.Request)",
+                        "single2",
+                        List.of(
+                                io.rxmicro.examples.rest.controller.handlers.Request.class
+                        ),
                         this::single2,
                         false,
                         new ExactUrlRequestMappingRule(
@@ -284,7 +324,10 @@ public final class $$RestControllerWithBody extends AbstractRestController {
                 ),
                 new Registration(
                         "/",
-                        "single3(java.lang.String)",
+                        "single3",
+                        List.of(
+                                java.lang.String.class
+                        ),
                         this::single3,
                         false,
                         new ExactUrlRequestMappingRule(
@@ -295,7 +338,8 @@ public final class $$RestControllerWithBody extends AbstractRestController {
                 ),
                 new Registration(
                         "/",
-                        "maybe1()",
+                        "maybe1",
+                        List.of(),
                         this::maybe1,
                         false,
                         new ExactUrlRequestMappingRule(
@@ -306,7 +350,10 @@ public final class $$RestControllerWithBody extends AbstractRestController {
                 ),
                 new Registration(
                         "/",
-                        "maybe2(io.rxmicro.examples.rest.controller.handlers.Request)",
+                        "maybe2",
+                        List.of(
+                                io.rxmicro.examples.rest.controller.handlers.Request.class
+                        ),
                         this::maybe2,
                         false,
                         new ExactUrlRequestMappingRule(
@@ -317,7 +364,10 @@ public final class $$RestControllerWithBody extends AbstractRestController {
                 ),
                 new Registration(
                         "/",
-                        "maybe3(java.lang.String)",
+                        "maybe3",
+                        List.of(
+                                java.lang.String.class
+                        ),
                         this::maybe3,
                         false,
                         new ExactUrlRequestMappingRule(

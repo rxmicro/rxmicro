@@ -42,7 +42,10 @@ public final class $$DirectPathVariablesMicroService extends AbstractRestControl
                 this,
                 new Registration(
                         "/",
-                        "put(io.rxmicro.examples.rest.controller.model.fields.pathvariables.direct.Request)",
+                        "put",
+                        List.of(
+                                io.rxmicro.examples.rest.controller.model.fields.pathvariables.direct.Request.class
+                        ),
                         this::put,
                         false,
                         new UrlTemplateRequestMappingRule(

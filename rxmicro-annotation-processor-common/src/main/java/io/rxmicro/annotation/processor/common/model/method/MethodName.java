@@ -22,9 +22,12 @@ import io.rxmicro.annotation.processor.common.util.UsedByFreemarker;
 import java.util.List;
 import javax.lang.model.type.TypeMirror;
 
+import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getTypes;
+import static io.rxmicro.annotation.processor.common.util.Types.JAVA_PRIMITIVE_REPLACEMENT;
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.Requires.require;
 import static java.util.stream.Collectors.joining;
+import static java.util.stream.Collectors.toList;
 
 /**
  * @author nedis
@@ -70,10 +73,15 @@ public final class MethodName {
     }
 
     @UsedByFreemarker("$$RestControllerTemplate.javaftl")
-    public String getMethodSignature() {
-        return format("?(?)", simpleName, parameterTypes.stream()
-                .map(TypeMirror::toString)
-                .collect(joining(","))
-        );
+    public List<String> getParamTypeClasses() {
+        return parameterTypes.stream()
+                .map(t -> {
+                    if (t.getKind().isPrimitive()) {
+                        return JAVA_PRIMITIVE_REPLACEMENT.get(t.getKind()).getName() + ".TYPE";
+                    } else {
+                        return getTypes().erasure(t).toString() + ".class";
+                    }
+                })
+                .collect(toList());
     }
 }

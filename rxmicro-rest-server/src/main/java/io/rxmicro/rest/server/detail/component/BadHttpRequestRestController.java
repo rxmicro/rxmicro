@@ -22,6 +22,7 @@ import io.rxmicro.rest.server.detail.model.HttpResponse;
 import io.rxmicro.rest.server.detail.model.Registration;
 import io.rxmicro.rest.server.detail.model.mapping.RequestMappingRule;
 
+import java.util.List;
 import java.util.concurrent.CompletionStage;
 
 import static io.rxmicro.common.util.Requires.require;
@@ -52,7 +53,8 @@ public final class BadHttpRequestRestController extends AbstractRestController {
                 this,
                 new Registration(
                         "",
-                        "handle(PathVariableMapping, HttpRequest)",
+                        "handle",
+                        List.of(PathVariableMapping.class, HttpRequest.class),
                         this::handle,
                         false,
                         requestMappingRule

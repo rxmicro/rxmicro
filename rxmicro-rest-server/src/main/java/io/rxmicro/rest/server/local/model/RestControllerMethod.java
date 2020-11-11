@@ -22,11 +22,15 @@ import io.rxmicro.rest.server.detail.model.HttpRequest;
 import io.rxmicro.rest.server.detail.model.HttpResponse;
 import io.rxmicro.rest.server.internal.BaseRestControllerMethod;
 
+import java.util.List;
 import java.util.concurrent.CompletionStage;
 import java.util.function.BiFunction;
 
+import static io.rxmicro.common.util.ExCollections.unmodifiableList;
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.Requires.require;
+import static java.util.stream.Collectors.joining;
+import static java.util.stream.Collectors.toList;
 
 /**
  * @author nedis
@@ -36,16 +40,20 @@ public final class RestControllerMethod extends BaseRestControllerMethod {
 
     private final String methodName;
 
+    private final List<Class<?>> paramTypes;
+
     private final BiFunction<PathVariableMapping, HttpRequest, CompletionStage<HttpResponse>> function;
 
     public RestControllerMethod(
             final String parentUrl,
             final AbstractRestController restController,
             final String methodName,
+            final List<Class<?>> paramTypes,
             final BiFunction<PathVariableMapping, HttpRequest, CompletionStage<HttpResponse>> function,
             final boolean corsRequestPossible) {
         super(parentUrl, restController, corsRequestPossible);
         this.methodName = require(methodName);
+        this.paramTypes = unmodifiableList(paramTypes);
         this.function = require(function);
     }
 
@@ -60,8 +68,26 @@ public final class RestControllerMethod extends BaseRestControllerMethod {
         return function.apply(pathVariableMapping, request);
     }
 
+    public String getShortName(){
+        return format(
+                "?.?(?)",
+                getRestController().getRestControllerClass().getSimpleName(),
+                methodName,
+                paramTypes.stream().map(Class::getSimpleName).collect(joining(", "))
+        );
+    }
+
+    public String getFullName(){
+        return format(
+                "?.?(?)",
+                getRestController().getRestControllerClass().getName(),
+                methodName,
+                paramTypes.stream().map(Class::getName).collect(joining(", "))
+        );
+    }
+
     @Override
     public String toString() {
-        return format("?.?", getRestController().getRestControllerClass().getName(), methodName);
+        return getFullName();
     }
 }

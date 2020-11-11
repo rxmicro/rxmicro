@@ -81,6 +81,7 @@ public final class CrossOriginResourceSharingPreflightRestController extends Abs
                 new Registration(
                         "",
                         "handle",
+                        List.of(PathVariableMapping.class, HttpRequest.class),
                         this::handle,
                         false,
                         exactUrlMapping.keySet().stream()
@@ -90,6 +91,7 @@ public final class CrossOriginResourceSharingPreflightRestController extends Abs
                 new Registration(
                         "",
                         "handle",
+                        List.of(PathVariableMapping.class, HttpRequest.class),
                         this::handle,
                         false,
                         urlTemplateMapping.stream()

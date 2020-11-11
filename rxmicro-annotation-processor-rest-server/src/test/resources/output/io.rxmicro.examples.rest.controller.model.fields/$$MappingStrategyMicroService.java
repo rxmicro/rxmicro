@@ -9,6 +9,7 @@ import io.rxmicro.rest.server.detail.model.HttpResponse;
 import io.rxmicro.rest.server.detail.model.Registration;
 import io.rxmicro.rest.server.detail.model.mapping.ExactUrlRequestMappingRule;
 
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 
@@ -44,7 +45,10 @@ public final class $$MappingStrategyMicroService extends AbstractRestController 
                 this,
                 new Registration(
                         "/",
-                        "consume1(java.math.BigDecimal,java.time.Instant)",
+                        "consume1",
+                        List.of(
+                                java.math.BigDecimal.class, java.time.Instant.class
+                        ),
                         this::consume1,
                         false,
                         new ExactUrlRequestMappingRule(
@@ -55,7 +59,10 @@ public final class $$MappingStrategyMicroService extends AbstractRestController 
                 ),
                 new Registration(
                         "/",
-                        "consume2(java.math.BigDecimal,java.time.Instant)",
+                        "consume2",
+                        List.of(
+                                java.math.BigDecimal.class, java.time.Instant.class
+                        ),
                         this::consume2,
                         false,
                         new ExactUrlRequestMappingRule(
@@ -66,7 +73,10 @@ public final class $$MappingStrategyMicroService extends AbstractRestController 
                 ),
                 new Registration(
                         "/",
-                        "consume3(java.math.BigDecimal,java.time.Instant)",
+                        "consume3",
+                        List.of(
+                                java.math.BigDecimal.class, java.time.Instant.class
+                        ),
                         this::consume3,
                         false,
                         new ExactUrlRequestMappingRule(

@@ -56,7 +56,14 @@ public final class ${PREFIX}${JAVA_CLASS_NAME} extends ${PARENT_CLASS_NAME} {
                 <#list METHODS as METHOD>
                 new Registration(
                         "${PARENT_URL}",
-                        "${METHOD.name.methodSignature}",
+                        "${METHOD.name.simpleName}",
+                        <#if METHOD.name.paramTypeClasses?has_content>
+                        List.of(
+                                <#list METHOD.name.paramTypeClasses as TYPE>${TYPE}<#if TYPE?has_next>, </#if></#list>
+                        ),
+                        <#else>
+                        List.of(),
+                        </#if>
                         this::${METHOD.name.uniqueJavaName},
                         ${CORS_ENABLED?c},
                         <#list METHOD.httpMethodMappings as MAPPING>

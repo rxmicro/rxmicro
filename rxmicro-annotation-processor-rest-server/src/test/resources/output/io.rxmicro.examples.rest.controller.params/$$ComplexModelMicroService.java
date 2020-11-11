@@ -13,6 +13,7 @@ import io.rxmicro.rest.server.detail.model.HttpResponse;
 import io.rxmicro.rest.server.detail.model.Registration;
 import io.rxmicro.rest.server.detail.model.mapping.ExactUrlRequestMappingRule;
 
+import java.util.List;
 import java.util.concurrent.CompletionStage;
 
 /**
@@ -44,7 +45,10 @@ public final class $$ComplexModelMicroService extends AbstractRestController {
                 this,
                 new Registration(
                         "/",
-                        "handle(io.rxmicro.examples.rest.controller.params.model.ComplexRequest)",
+                        "handle",
+                        List.of(
+                                io.rxmicro.examples.rest.controller.params.model.ComplexRequest.class
+                        ),
                         this::handle,
                         false,
                         new ExactUrlRequestMappingRule(

@@ -42,7 +42,10 @@ public final class $$ReflectionPathVariablesMicroService extends AbstractRestCon
                 this,
                 new Registration(
                         "/",
-                        "put(io.rxmicro.examples.rest.controller.model.fields.pathvariables.reflection.Request)",
+                        "put",
+                        List.of(
+                                io.rxmicro.examples.rest.controller.model.fields.pathvariables.reflection.Request.class
+                        ),
                         this::put,
                         false,
                         new UrlTemplateRequestMappingRule(

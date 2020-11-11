@@ -40,7 +40,10 @@ public final class $$VirtualPathVariablesMicroService extends AbstractRestContro
                 this,
                 new Registration(
                         "/",
-                        "put(java.lang.Boolean,java.lang.Byte,java.lang.Short,java.lang.Integer,java.lang.Long,java.math.BigInteger,java.lang.Float,java.lang.Double,java.math.BigDecimal,java.lang.Character,java.lang.String,java.time.Instant,io.rxmicro.examples.rest.controller.model.fields.Status)",
+                        "put",
+                        List.of(
+                                java.lang.Boolean.class, java.lang.Byte.class, java.lang.Short.class, java.lang.Integer.class, java.lang.Long.class, java.math.BigInteger.class, java.lang.Float.class, java.lang.Double.class, java.math.BigDecimal.class, java.lang.Character.class, java.lang.String.class, java.time.Instant.class, io.rxmicro.examples.rest.controller.model.fields.Status.class
+                        ),
                         this::put,
                         false,
                         new UrlTemplateRequestMappingRule(

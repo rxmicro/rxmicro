@@ -20,6 +20,7 @@ import io.rxmicro.config.ConfigException;
 import io.rxmicro.logger.Logger;
 import io.rxmicro.logger.LoggerFactory;
 import io.rxmicro.rest.model.PathVariableMapping;
+import io.rxmicro.rest.server.RestServerConfig;
 import io.rxmicro.rest.server.detail.component.AbstractRestController;
 import io.rxmicro.rest.server.detail.model.HttpRequest;
 import io.rxmicro.rest.server.detail.model.HttpResponse;
@@ -69,6 +70,8 @@ public final class Router implements DynamicRestControllerRegistrar, RequestHand
 
     private final ComponentResolver componentResolver;
 
+    private final RestServerConfig restServerConfig;
+
     private final CompletionStage<HttpResponse> handlerNotFoundStage;
 
     private final CompletionStage<HttpResponse> corsNotAllowedStage;
@@ -77,6 +80,7 @@ public final class Router implements DynamicRestControllerRegistrar, RequestHand
 
     public Router(final ComponentResolver componentResolver) {
         this.componentResolver = componentResolver;
+        this.restServerConfig = componentResolver.getRestServerConfig();
         this.requestMappingKeyBuilder = componentResolver.getRequestMappingKeyBuilder();
         this.handlerNotFoundStage = completedStage(
                 componentResolver.getHttpErrorResponseBodyBuilder().build(
@@ -122,6 +126,7 @@ public final class Router implements DynamicRestControllerRegistrar, RequestHand
                     registration.getParentUrl(),
                     restController,
                     registration.getMethodName(),
+                    registration.getParamTypes(),
                     registration.getMethod(),
                     registration.isCorsRequestPossible()
             );
@@ -135,9 +140,17 @@ public final class Router implements DynamicRestControllerRegistrar, RequestHand
                 } else {
                     urlTemplateRestControllers.add(entry((UrlTemplateRequestMappingRule) requestMapping, method));
                 }
-                LOGGER.info("Mapped ? onto ?", () -> requestMapping, method::toString);
+                LOGGER.info("Mapped ? onto ?", () -> requestMapping, () -> getMethodName(method));
             });
         });
+    }
+
+    private String getMethodName(final RestControllerMethod method) {
+        if(restServerConfig.isUseFullClassNamesForRouterMappingLogMessages()){
+            return method.getFullName();
+        } else{
+            return method.getShortName();
+        }
     }
 
     @Override

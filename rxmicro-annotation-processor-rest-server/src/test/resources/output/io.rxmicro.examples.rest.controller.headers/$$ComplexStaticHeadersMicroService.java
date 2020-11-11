@@ -9,6 +9,7 @@ import io.rxmicro.rest.server.detail.model.HttpResponse;
 import io.rxmicro.rest.server.detail.model.Registration;
 import io.rxmicro.rest.server.detail.model.mapping.ExactUrlRequestMappingRule;
 
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 
@@ -35,7 +36,8 @@ public final class $$ComplexStaticHeadersMicroService extends AbstractRestContro
                 this,
                 new Registration(
                         "/",
-                        "get1()",
+                        "get1",
+                        List.of(),
                         this::get1,
                         false,
                         new ExactUrlRequestMappingRule(
@@ -46,7 +48,8 @@ public final class $$ComplexStaticHeadersMicroService extends AbstractRestContro
                 ),
                 new Registration(
                         "/",
-                        "get2()",
+                        "get2",
+                        List.of(),
                         this::get2,
                         false,
                         new ExactUrlRequestMappingRule(
@@ -57,7 +60,8 @@ public final class $$ComplexStaticHeadersMicroService extends AbstractRestContro
                 ),
                 new Registration(
                         "/",
-                        "get3()",
+                        "get3",
+                        List.of(),
                         this::get3,
                         false,
                         new ExactUrlRequestMappingRule(
@@ -68,7 +72,8 @@ public final class $$ComplexStaticHeadersMicroService extends AbstractRestContro
                 ),
                 new Registration(
                         "/",
-                        "get4()",
+                        "get4",
+                        List.of(),
                         this::get4,
                         false,
                         new ExactUrlRequestMappingRule(

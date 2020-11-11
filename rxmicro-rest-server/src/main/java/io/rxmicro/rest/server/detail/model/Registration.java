@@ -36,6 +36,8 @@ public final class Registration {
 
     private final String methodName;
 
+    private final List<Class<?>> paramTypes;
+
     private final BiFunction<PathVariableMapping, HttpRequest, CompletionStage<HttpResponse>> method;
 
     private final boolean corsRequestPossible;
@@ -44,11 +46,13 @@ public final class Registration {
 
     public Registration(final String parentUrl,
                         final String methodName,
+                        final List<Class<?>> paramTypes,
                         final BiFunction<PathVariableMapping, HttpRequest, CompletionStage<HttpResponse>> method,
                         final boolean corsRequestPossible,
                         final RequestMappingRule... requestMappingRules) {
         this.parentUrl = parentUrl;
         this.methodName = methodName;
+        this.paramTypes = paramTypes;
         this.method = method;
         this.corsRequestPossible = corsRequestPossible;
         this.requestMappingRules = List.of(requestMappingRules);
@@ -56,6 +60,10 @@ public final class Registration {
 
     public String getMethodName() {
         return methodName;
+    }
+
+    public List<Class<?>> getParamTypes() {
+        return paramTypes;
     }
 
     public BiFunction<PathVariableMapping, HttpRequest, CompletionStage<HttpResponse>> getMethod() {

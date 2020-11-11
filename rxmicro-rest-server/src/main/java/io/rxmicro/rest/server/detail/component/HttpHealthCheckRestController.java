@@ -24,6 +24,7 @@ import io.rxmicro.rest.server.detail.model.Registration;
 import io.rxmicro.rest.server.detail.model.mapping.ExactUrlRequestMappingRule;
 import io.rxmicro.rest.server.detail.model.mapping.RequestMappingRule;
 
+import java.util.List;
 import java.util.Set;
 import java.util.concurrent.CompletionStage;
 
@@ -50,7 +51,8 @@ public final class HttpHealthCheckRestController extends AbstractRestController 
                 this,
                 new Registration(
                         "",
-                        "handle(PathVariableMapping, HttpRequest)",
+                        "handle",
+                        List.of(PathVariableMapping.class, HttpRequest.class),
                         this::handle,
                         false,
                         httpHealthCheckRegistrations.stream()

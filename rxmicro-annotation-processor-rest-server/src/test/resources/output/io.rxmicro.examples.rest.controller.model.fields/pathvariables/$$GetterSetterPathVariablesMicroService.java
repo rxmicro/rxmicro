@@ -42,7 +42,10 @@ public final class $$GetterSetterPathVariablesMicroService extends AbstractRestC
                 this,
                 new Registration(
                         "/",
-                        "put(io.rxmicro.examples.rest.controller.model.fields.pathvariables.gettersetter.Request)",
+                        "put",
+                        List.of(
+                                io.rxmicro.examples.rest.controller.model.fields.pathvariables.gettersetter.Request.class
+                        ),
                         this::put,
                         false,
                         new UrlTemplateRequestMappingRule(

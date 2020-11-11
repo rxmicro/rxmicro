@@ -76,6 +76,8 @@ public class RestServerConfig extends Config {
 
     private boolean showRuntimeEnv;
 
+    private boolean useFullClassNamesForRouterMappingLogMessages = true;
+
     /**
      * Configures REST server for development environment.
      *
@@ -360,6 +362,47 @@ public class RestServerConfig extends Config {
         return this;
     }
 
+    /**
+     * Returns {@code true} if rest server must use full class names for router mapping log messages.
+     *
+     * <p>
+     * If {@code useFullClassNamesForRouterMappingLogMessages} is {@code true}, then log message will be:
+     * <pre>
+     * [DEBUG] Router : Mapped "POST '/send' <with-body> onto examples.controller.PublicController.send(examples.model.SendRequest)
+     * </pre>
+     * Otherwise the log message will be:
+     * <pre>
+     * [DEBUG] Router : Mapped "POST '/send' <with-body> onto PublicController.send(SendRequest)
+     * </pre>
+     *
+     * @return {@code true} if rest server must use full class names for router mapping log messages.
+     */
+    public boolean isUseFullClassNamesForRouterMappingLogMessages() {
+        return useFullClassNamesForRouterMappingLogMessages;
+    }
+
+    /**
+     * Sets {@code true} if rest server must use full class names for router mapping log messages.
+     *
+     * <p>
+     * If {@code useFullClassNamesForRouterMappingLogMessages} is {@code true}, then log message will be:
+     * <pre>
+     * [DEBUG] Router : Mapped "POST '/send' <with-body> onto examples.controller.PublicController.send(examples.model.SendRequest)
+     * </pre>
+     * Otherwise the log message will be:
+     * <pre>
+     * [DEBUG] Router : Mapped "POST '/send' <with-body> onto PublicController.send(SendRequest)
+     * </pre>
+     *
+     * @param useFullClassNamesForRouterMappingLogMessages enable full class name for router mapping log messages.
+     * @return {@code true} if rest server must use full class names for router mapping log messages.
+     */
+    @BuilderMethod
+    public RestServerConfig setUseFullClassNamesForRouterMappingLogMessages(final boolean useFullClassNamesForRouterMappingLogMessages) {
+        this.useFullClassNamesForRouterMappingLogMessages = useFullClassNamesForRouterMappingLogMessages;
+        return this;
+    }
+
     @Override
     public String toString() {
         return "RestServerConfig{" +
@@ -370,10 +413,12 @@ public class RestServerConfig extends Config {
                 ", humanReadableOutput=" + humanReadableOutput +
                 ", hideInternalErrorMessage=" + hideInternalErrorMessage +
                 ", logNotServerErrors=" + logNotServerErrors +
-                ", standardResponseHeaders=" + staticResponseHeaders +
+                ", staticResponseHeaders=" + staticResponseHeaders +
                 ", generatorType=" + generatorType +
                 ", returnGeneratedRequestId=" + returnGeneratedRequestId +
-                ", disableTraceLoggerMessagesForHttpHealthChecks=" + disableLoggerMessagesForHttpHealthChecks +
+                ", disableLoggerMessagesForHttpHealthChecks=" + disableLoggerMessagesForHttpHealthChecks +
+                ", showRuntimeEnv=" + showRuntimeEnv +
+                ", useFullClassNamesForRouterMappingLogMessages=" + useFullClassNamesForRouterMappingLogMessages +
                 '}';
     }
 }

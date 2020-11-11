@@ -9,6 +9,7 @@ import io.rxmicro.rest.server.detail.model.HttpResponse;
 import io.rxmicro.rest.server.detail.model.Registration;
 import io.rxmicro.rest.server.detail.model.mapping.ExactUrlRequestMappingRule;
 
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 
@@ -38,7 +39,10 @@ public final class $$ListHeaderMicroService extends AbstractRestController {
                 this,
                 new Registration(
                         "/",
-                        "consume(java.util.List<io.rxmicro.examples.rest.controller.headers.model.Status>)",
+                        "consume",
+                        List.of(
+                                java.util.List.class
+                        ),
                         this::consume,
                         false,
                         new ExactUrlRequestMappingRule(

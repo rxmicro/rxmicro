@@ -41,7 +41,8 @@ public final class $$ComplexCORSMicroService extends AbstractRestController {
                 this,
                 new Registration(
                         "/",
-                        "handler1()",
+                        "handler1",
+                        List.of(),
                         this::handler1,
                         true,
                         new ExactUrlRequestMappingRule(
@@ -67,7 +68,8 @@ public final class $$ComplexCORSMicroService extends AbstractRestController {
                 ),
                 new Registration(
                         "/",
-                        "handler2()",
+                        "handler2",
+                        List.of(),
                         this::handler2,
                         true,
                         new ExactUrlRequestMappingRule(
@@ -83,7 +85,10 @@ public final class $$ComplexCORSMicroService extends AbstractRestController {
                 ),
                 new Registration(
                         "/",
-                        "handler3(java.lang.String)",
+                        "handler3",
+                        List.of(
+                                java.lang.String.class
+                        ),
                         this::handler3,
                         true,
                         new UrlTemplateRequestMappingRule(

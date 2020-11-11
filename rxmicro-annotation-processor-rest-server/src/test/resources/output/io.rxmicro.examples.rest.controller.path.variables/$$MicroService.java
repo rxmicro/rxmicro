@@ -45,7 +45,10 @@ public final class $$MicroService extends AbstractRestController {
                 this,
                 new Registration(
                         "/",
-                        "consume(io.rxmicro.examples.rest.controller.path.variables.model.Request)",
+                        "consume",
+                        List.of(
+                                io.rxmicro.examples.rest.controller.path.variables.model.Request.class
+                        ),
                         this::consumeRequest,
                         false,
                         new UrlTemplateRequestMappingRule(
@@ -87,7 +90,10 @@ public final class $$MicroService extends AbstractRestController {
                 ),
                 new Registration(
                         "/",
-                        "consume(java.lang.String,java.lang.String,java.lang.String)",
+                        "consume",
+                        List.of(
+                                java.lang.String.class, java.lang.String.class, java.lang.String.class
+                        ),
                         this::consumeStringStringString,
                         false,
                         new UrlTemplateRequestMappingRule(

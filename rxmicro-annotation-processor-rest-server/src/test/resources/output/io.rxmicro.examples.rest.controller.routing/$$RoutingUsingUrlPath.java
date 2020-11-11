@@ -41,7 +41,8 @@ public final class $$RoutingUsingUrlPath extends AbstractRestController {
                 this,
                 new Registration(
                         "/",
-                        "get1()",
+                        "get1",
+                        List.of(),
                         this::get1,
                         false,
                         new ExactUrlRequestMappingRule(
@@ -52,7 +53,8 @@ public final class $$RoutingUsingUrlPath extends AbstractRestController {
                 ),
                 new Registration(
                         "/",
-                        "get2()",
+                        "get2",
+                        List.of(),
                         this::get2,
                         false,
                         new ExactUrlRequestMappingRule(
@@ -63,7 +65,10 @@ public final class $$RoutingUsingUrlPath extends AbstractRestController {
                 ),
                 new Registration(
                         "/",
-                        "get3(java.lang.String)",
+                        "get3",
+                        List.of(
+                                java.lang.String.class
+                        ),
                         this::get3,
                         false,
                         new UrlTemplateRequestMappingRule(

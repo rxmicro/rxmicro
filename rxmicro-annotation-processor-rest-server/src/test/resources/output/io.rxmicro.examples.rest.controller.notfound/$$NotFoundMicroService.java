@@ -9,6 +9,7 @@ import io.rxmicro.rest.server.detail.model.HttpResponse;
 import io.rxmicro.rest.server.detail.model.Registration;
 import io.rxmicro.rest.server.detail.model.mapping.ExactUrlRequestMappingRule;
 
+import java.util.List;
 import java.util.concurrent.CompletionStage;
 
 /**
@@ -55,7 +56,10 @@ public final class $$NotFoundMicroService extends AbstractRestController {
                 this,
                 new Registration(
                         "/",
-                        "getOptional1(java.lang.Boolean)",
+                        "getOptional1",
+                        List.of(
+                                java.lang.Boolean.class
+                        ),
                         this::getOptional1,
                         false,
                         new ExactUrlRequestMappingRule(
@@ -66,7 +70,10 @@ public final class $$NotFoundMicroService extends AbstractRestController {
                 ),
                 new Registration(
                         "/",
-                        "getOptional2(java.lang.Boolean)",
+                        "getOptional2",
+                        List.of(
+                                java.lang.Boolean.class
+                        ),
                         this::getOptional2,
                         false,
                         new ExactUrlRequestMappingRule(
@@ -77,7 +84,10 @@ public final class $$NotFoundMicroService extends AbstractRestController {
                 ),
                 new Registration(
                         "/",
-                        "getOptional3(java.lang.Boolean)",
+                        "getOptional3",
+                        List.of(
+                                java.lang.Boolean.class
+                        ),
                         this::getOptional3,
                         false,
                         new ExactUrlRequestMappingRule(

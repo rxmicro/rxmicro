@@ -9,6 +9,7 @@ import io.rxmicro.rest.server.detail.model.HttpResponse;
 import io.rxmicro.rest.server.detail.model.Registration;
 import io.rxmicro.rest.server.detail.model.mapping.ExactUrlRequestMappingRule;
 
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 
@@ -35,7 +36,8 @@ public final class $$MicroService extends AbstractRestController {
                 this,
                 new Registration(
                         "/",
-                        "success()",
+                        "success",
+                        List.of(),
                         this::success,
                         false,
                         new ExactUrlRequestMappingRule(
@@ -46,7 +48,8 @@ public final class $$MicroService extends AbstractRestController {
                 ),
                 new Registration(
                         "/",
-                        "permanentRedirect()",
+                        "permanentRedirect",
+                        List.of(),
                         this::permanentRedirect,
                         false,
                         new ExactUrlRequestMappingRule(
@@ -57,7 +60,8 @@ public final class $$MicroService extends AbstractRestController {
                 ),
                 new Registration(
                         "/",
-                        "notFound()",
+                        "notFound",
+                        List.of(),
                         this::notFound,
                         false,
                         new ExactUrlRequestMappingRule(
@@ -68,7 +72,8 @@ public final class $$MicroService extends AbstractRestController {
                 ),
                 new Registration(
                         "/",
-                        "internalError()",
+                        "internalError",
+                        List.of(),
                         this::internalError,
                         false,
                         new ExactUrlRequestMappingRule(

@@ -9,6 +9,7 @@ import io.rxmicro.rest.server.detail.model.HttpResponse;
 import io.rxmicro.rest.server.detail.model.Registration;
 import io.rxmicro.rest.server.detail.model.mapping.ExactUrlRequestMappingRule;
 
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 
@@ -38,7 +39,10 @@ public final class $$VirtualParamsMicroService extends AbstractRestController {
                 this,
                 new Registration(
                         "/",
-                        "put(java.lang.Boolean,java.lang.Byte,java.lang.Short,java.lang.Integer,java.lang.Long,java.math.BigInteger,java.lang.Float,java.lang.Double,java.math.BigDecimal,java.lang.Character,java.lang.String,java.time.Instant,io.rxmicro.examples.rest.controller.model.fields.Status,io.rxmicro.examples.rest.controller.model.fields.params.direct.nested.Nested,java.util.List<java.lang.Boolean>,java.util.List<java.lang.Byte>,java.util.List<java.lang.Short>,java.util.List<java.lang.Integer>,java.util.List<java.lang.Long>,java.util.List<java.math.BigInteger>,java.util.List<java.lang.Float>,java.util.List<java.lang.Double>,java.util.List<java.math.BigDecimal>,java.util.List<java.lang.Character>,java.util.List<java.lang.String>,java.util.List<java.time.Instant>,java.util.List<io.rxmicro.examples.rest.controller.model.fields.Status>,java.util.List<io.rxmicro.examples.rest.controller.model.fields.params.direct.nested.Nested>,java.util.Set<java.lang.Boolean>,java.util.Set<java.lang.Byte>,java.util.Set<java.lang.Short>,java.util.Set<java.lang.Integer>,java.util.Set<java.lang.Long>,java.util.Set<java.math.BigInteger>,java.util.Set<java.lang.Float>,java.util.Set<java.lang.Double>,java.util.Set<java.math.BigDecimal>,java.util.Set<java.lang.Character>,java.util.Set<java.lang.String>,java.util.Set<java.time.Instant>,java.util.Set<io.rxmicro.examples.rest.controller.model.fields.Status>,java.util.Set<io.rxmicro.examples.rest.controller.model.fields.params.direct.nested.Nested>)",
+                        "put",
+                        List.of(
+                                java.lang.Boolean.class, java.lang.Byte.class, java.lang.Short.class, java.lang.Integer.class, java.lang.Long.class, java.math.BigInteger.class, java.lang.Float.class, java.lang.Double.class, java.math.BigDecimal.class, java.lang.Character.class, java.lang.String.class, java.time.Instant.class, io.rxmicro.examples.rest.controller.model.fields.Status.class, io.rxmicro.examples.rest.controller.model.fields.params.direct.nested.Nested.class, java.util.List.class, java.util.List.class, java.util.List.class, java.util.List.class, java.util.List.class, java.util.List.class, java.util.List.class, java.util.List.class, java.util.List.class, java.util.List.class, java.util.List.class, java.util.List.class, java.util.List.class, java.util.List.class, java.util.Set.class, java.util.Set.class, java.util.Set.class, java.util.Set.class, java.util.Set.class, java.util.Set.class, java.util.Set.class, java.util.Set.class, java.util.Set.class, java.util.Set.class, java.util.Set.class, java.util.Set.class, java.util.Set.class, java.util.Set.class
+                        ),
                         this::put,
                         false,
                         new ExactUrlRequestMappingRule(

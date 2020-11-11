@@ -9,6 +9,7 @@ import io.rxmicro.rest.server.detail.model.HttpResponse;
 import io.rxmicro.rest.server.detail.model.Registration;
 import io.rxmicro.rest.server.detail.model.mapping.ExactUrlRequestMappingRule;
 
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 
@@ -38,7 +39,10 @@ public final class $$VirtualInternalsMicroService extends AbstractRestController
                 this,
                 new Registration(
                         "/",
-                        "put(io.rxmicro.rest.server.detail.model.HttpRequest,io.rxmicro.http.HttpVersion,io.rxmicro.http.HttpHeaders,java.net.SocketAddress,java.lang.String,java.lang.String,java.lang.String,byte[],java.lang.String)",
+                        "put",
+                        List.of(
+                                io.rxmicro.rest.server.detail.model.HttpRequest.class, io.rxmicro.http.HttpVersion.class, io.rxmicro.http.HttpHeaders.class, java.net.SocketAddress.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, byte[].class, java.lang.String.class
+                        ),
                         this::put,
                         false,
                         new ExactUrlRequestMappingRule(

@@ -9,6 +9,7 @@ import io.rxmicro.rest.server.detail.model.HttpResponse;
 import io.rxmicro.rest.server.detail.model.Registration;
 import io.rxmicro.rest.server.detail.model.mapping.ExactUrlRequestMappingRule;
 
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 
@@ -41,7 +42,10 @@ public final class $$RoutingUsingHttpBody extends AbstractRestController {
                 this,
                 new Registration(
                         "/",
-                        "handleRequestsWithoutBody(java.lang.String)",
+                        "handleRequestsWithoutBody",
+                        List.of(
+                                java.lang.String.class
+                        ),
                         this::handleRequestsWithoutBody,
                         false,
                         new ExactUrlRequestMappingRule(
@@ -82,7 +86,10 @@ public final class $$RoutingUsingHttpBody extends AbstractRestController {
                 ),
                 new Registration(
                         "/",
-                        "handleRequestsWithBody(java.lang.String)",
+                        "handleRequestsWithBody",
+                        List.of(
+                                java.lang.String.class
+                        ),
                         this::handleRequestsWithBody,
                         false,
                         new ExactUrlRequestMappingRule(

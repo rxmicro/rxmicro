@@ -9,6 +9,7 @@ import io.rxmicro.rest.server.detail.model.HttpResponse;
 import io.rxmicro.rest.server.detail.model.Registration;
 import io.rxmicro.rest.server.detail.model.mapping.ExactUrlRequestMappingRule;
 
+import java.util.List;
 import java.util.concurrent.CompletionStage;
 
 /**
@@ -40,7 +41,10 @@ public final class $$MicroService extends AbstractRestController {
                 this,
                 new Registration(
                         "/",
-                        "updateObject1(java.lang.Integer)",
+                        "updateObject1",
+                        List.of(
+                                java.lang.Integer.class
+                        ),
                         this::updateObject1,
                         false,
                         new ExactUrlRequestMappingRule(
@@ -51,7 +55,10 @@ public final class $$MicroService extends AbstractRestController {
                 ),
                 new Registration(
                         "/",
-                        "updateObject2(java.lang.Integer)",
+                        "updateObject2",
+                        List.of(
+                                java.lang.Integer.class
+                        ),
                         this::updateObject2,
                         false,
                         new ExactUrlRequestMappingRule(
