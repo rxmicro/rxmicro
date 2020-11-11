@@ -135,7 +135,7 @@ public final class Router implements DynamicRestControllerRegistrar, RequestHand
                 } else {
                     urlTemplateRestControllers.add(entry((UrlTemplateRequestMappingRule) requestMapping, method));
                 }
-                LOGGER.debug("Mapped ? onto ?", () -> requestMapping, method::toString);
+                LOGGER.info("Mapped ? onto ?", () -> requestMapping, method::toString);
             });
         });
     }
