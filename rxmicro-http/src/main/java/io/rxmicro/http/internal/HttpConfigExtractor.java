@@ -22,6 +22,9 @@ import io.rxmicro.http.ProtocolSchema;
 
 import java.util.Arrays;
 
+import static java.util.Locale.ENGLISH;
+import static java.util.stream.Collectors.toList;
+
 /**
  * @author nedis
  * @since 0.1
@@ -48,10 +51,15 @@ public final class HttpConfigExtractor {
             final String schema = connectionStringSource.substring(0, index);
             connectionStringSource.delete(0, index + PROTOCOL_SEPARATOR.length());
             try {
-                return ProtocolSchema.valueOf(schema);
+                return ProtocolSchema.valueOf(schema.toUpperCase(ENGLISH));
             } catch (final IllegalArgumentException ignore) {
-                throw new ConfigException("Only following schemas are supported: ?",
-                        Arrays.toString(ProtocolSchema.values()));
+                throw new ConfigException(
+                        "Unsupported protocol schema: '?'! Only following schemas are supported: ?",
+                        schema,
+                        Arrays.stream(ProtocolSchema.values())
+                                .map(e -> e.name().toLowerCase(ENGLISH))
+                                .collect(toList())
+                );
             }
         }
     }
@@ -81,8 +89,10 @@ public final class HttpConfigExtractor {
             try {
                 return Integer.parseInt(connectionStringSource.toString());
             } catch (final NumberFormatException ignore) {
-                throw new ConfigException("Port must be a number: ?",
-                        connectionStringSource.toString());
+                throw new ConfigException(
+                        "Port must be a number: ?",
+                        connectionStringSource.toString()
+                );
             }
         }
     }
