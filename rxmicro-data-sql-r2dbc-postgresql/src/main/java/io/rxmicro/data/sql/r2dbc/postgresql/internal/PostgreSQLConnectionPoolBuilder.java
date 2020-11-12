@@ -114,7 +114,7 @@ public final class PostgreSQLConnectionPoolBuilder {
                 .maxIdleTime(postgreSQLConfig.getMaxIdleTime())
                 .maxLifeTime(postgreSQLConfig.getMaxLifeTime());
         final ConnectionPool connectionPool = buildConnectionPool(builder);
-        postgreSQLConnectionPool = new PostgreSQLConnectionPool(postgreSQLConfig, connectionPool);
+        postgreSQLConnectionPool = new PostgreSQLConnectionPool(this, postgreSQLConfig, connectionPool);
         return connectionPool;
     }
 
@@ -139,12 +139,16 @@ public final class PostgreSQLConnectionPoolBuilder {
 
         private static final Logger LOGGER = LoggerFactory.getLogger(PostgreSQLConnectionPool.class);
 
+        private final PostgreSQLConnectionPoolBuilder builder;
+
         private final PostgreSQLConfig postgreSQLConfig;
 
         private final ConnectionPool connectionPool;
 
-        private PostgreSQLConnectionPool(final PostgreSQLConfig postgreSQLConfig,
+        private PostgreSQLConnectionPool(final PostgreSQLConnectionPoolBuilder builder,
+                                         final PostgreSQLConfig postgreSQLConfig,
                                          final ConnectionPool connectionPool) {
+            this.builder = builder;
             this.postgreSQLConfig = require(postgreSQLConfig);
             this.connectionPool = require(connectionPool);
             LOGGER.info("Pool created: connectionString='?', poolSize:{init=?, max=?}",
@@ -157,6 +161,7 @@ public final class PostgreSQLConnectionPoolBuilder {
         public void release() {
             connectionPool.dispose();
             LOGGER.info("Pool disposed: connectionString='?'", postgreSQLConfig.getConnectionString());
+            builder.postgreSQLConnectionPool = null;
         }
     }
 }

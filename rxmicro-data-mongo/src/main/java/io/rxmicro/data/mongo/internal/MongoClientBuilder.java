@@ -66,13 +66,6 @@ public final class MongoClientBuilder {
         return build(getConfig(namespace, MongoConfig.class));
     }
 
-    private void validateState() {
-        if (mongoDBClient != null) {
-            throw new IllegalStateException("Mongo client already built! " +
-                    "Any customizations must be done before building of the mongo client!");
-        }
-    }
-
     private MongoClient build(final MongoConfig mongoConfig) {
         final String connectionString = mongoConfig.getConnectionString();
         final MongoClientSettings settings = getMongoClientSettingsBuilder()
@@ -85,8 +78,15 @@ public final class MongoClientBuilder {
                 )
                 .build();
         final MongoClient mongoClient = create(settings);
-        mongoDBClient = new MongoDBClient(mongoConfig, connectionString, mongoClient);
+        mongoDBClient = new MongoDBClient(this, mongoConfig, connectionString, mongoClient);
         return mongoClient;
+    }
+
+    private void validateState() {
+        if (mongoDBClient != null) {
+            throw new IllegalStateException("Mongo client already built! " +
+                    "Any customizations must be done before building of the mongo client!");
+        }
     }
 
     /**
@@ -97,13 +97,17 @@ public final class MongoClientBuilder {
 
         private static final Logger LOGGER = LoggerFactory.getLogger(MongoDBClient.class);
 
+        private final MongoClientBuilder builder;
+
         private final String connectionString;
 
         private final MongoClient mongoClient;
 
-        private MongoDBClient(final MongoConfig mongoConfig,
+        private MongoDBClient(final MongoClientBuilder builder,
+                              final MongoConfig mongoConfig,
                               final String connectionString,
                               final MongoClient mongoClient) {
+            this.builder = builder;
             this.connectionString = require(connectionString);
             this.mongoClient = require(mongoClient);
             LOGGER.info("Mongo client created: connectionString='?', database='?'", connectionString, mongoConfig.getDatabase());
@@ -114,6 +118,7 @@ public final class MongoClientBuilder {
         public void release() {
             mongoClient.close();
             LOGGER.info("Mongo client closed: connectionString='?'", connectionString);
+            builder.mongoDBClient = null;
         }
     }
 }
