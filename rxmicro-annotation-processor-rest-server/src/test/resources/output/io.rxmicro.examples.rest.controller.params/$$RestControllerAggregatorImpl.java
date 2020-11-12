@@ -19,11 +19,11 @@ public final class $$RestControllerAggregatorImpl extends RestControllerAggregat
     @Override
     protected List<AbstractRestController> listAllRestControllers() {
         return List.of(
-                // See https://github.com/netty/netty/blob/c10c697e5bf664d9d8d1dcee93569265b19ca03a/codec-http/src/main/java/io/netty/handler/codec/http/HttpRequestDecoder.java#L93
-                new BadHttpRequestRestController(new ExactUrlRequestMappingRule("GET", "/bad-request", false)),
                 new io.rxmicro.examples.rest.controller.params.$$ComplexModelMicroService(),
                 new io.rxmicro.examples.rest.controller.params.$$ListQueryParamMicroService(),
-                new io.rxmicro.examples.rest.controller.params.$$SimpleUsageMicroService()
+                new io.rxmicro.examples.rest.controller.params.$$SimpleUsageMicroService(),
+                // See https://github.com/netty/netty/blob/c10c697e5bf664d9d8d1dcee93569265b19ca03a/codec-http/src/main/java/io/netty/handler/codec/http/HttpRequestDecoder.java#L93
+                new BadHttpRequestRestController(new ExactUrlRequestMappingRule("GET", "/bad-request", false))
         );
     }
 }

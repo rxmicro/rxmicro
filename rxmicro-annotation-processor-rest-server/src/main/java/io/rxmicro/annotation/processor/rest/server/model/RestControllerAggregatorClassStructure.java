@@ -19,6 +19,7 @@ package io.rxmicro.annotation.processor.rest.server.model;
 import io.rxmicro.annotation.processor.common.model.ClassHeader;
 import io.rxmicro.annotation.processor.common.model.ClassStructure;
 import io.rxmicro.annotation.processor.common.model.EnvironmentContext;
+import io.rxmicro.annotation.processor.common.util.UsedByFreemarker;
 import io.rxmicro.common.RxMicroModule;
 import io.rxmicro.rest.model.UrlSegments;
 import io.rxmicro.rest.server.detail.component.AbstractRestController;
@@ -40,10 +41,13 @@ import java.util.TreeSet;
 
 import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.ENVIRONMENT_CUSTOMIZER_SIMPLE_CLASS_NAME;
 import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.getEntryPointFullClassName;
+import static io.rxmicro.annotation.processor.rest.server.model.RestControllerAggregatorClassStructure.RestControllerModelType.BAD_REQUEST_NETTY;
+import static io.rxmicro.annotation.processor.rest.server.model.RestControllerAggregatorClassStructure.RestControllerModelType.CORS;
+import static io.rxmicro.annotation.processor.rest.server.model.RestControllerAggregatorClassStructure.RestControllerModelType.CUSTOM;
+import static io.rxmicro.annotation.processor.rest.server.model.RestControllerAggregatorClassStructure.RestControllerModelType.HEATH_CHECK;
 import static io.rxmicro.common.util.Requires.require;
 import static io.rxmicro.rest.server.detail.component.RestControllerAggregator.REST_CONTROLLER_AGGREGATOR_IMPL_CLASS_NAME;
 import static io.rxmicro.runtime.detail.RxMicroRuntime.ENTRY_POINT_PACKAGE;
-import static java.util.stream.Collectors.toList;
 
 /**
  * @author nedis
@@ -83,14 +87,23 @@ public final class RestControllerAggregatorClassStructure extends ClassStructure
     @Override
     public Map<String, Object> getTemplateVariables() {
         final Map<String, Object> map = new HashMap<>();
-        map.put("IMPL_CLASS_NAME", REST_CONTROLLER_AGGREGATOR_IMPL_CLASS_NAME);
-        map.put("JAVA_REST_CONTROLLER_CLASSES", classStructures.stream()
-                .map(RestControllerClassStructure::getTargetFullClassName)
-                .collect(toList()));
+        final List<RestControllerModel> restControllerModels = classStructures.stream()
+                .map(s -> new RestControllerModel(CUSTOM, s.getTargetFullClassName()))
+                .collect(java.util.stream.Collectors.toList());
         map.put("CORS_RESOURCES", crossOriginResourceSharingResources);
+        if (!crossOriginResourceSharingResources.isEmpty()) {
+            restControllerModels.add(new RestControllerModel(CORS));
+        }
         map.put("HTTP_HEALTH_CHECKS", httpHealthChecks);
+        if (!httpHealthChecks.isEmpty()) {
+            restControllerModels.add(new RestControllerModel(HEATH_CHECK));
+        }
+        if (isRestServerNetty) {
+            restControllerModels.add(new RestControllerModel(BAD_REQUEST_NETTY));
+        }
+        map.put("IMPL_CLASS_NAME", REST_CONTROLLER_AGGREGATOR_IMPL_CLASS_NAME);
+        map.put("JAVA_REST_CONTROLLER_CLASSES", restControllerModels);
         map.put("ENVIRONMENT_CUSTOMIZER_CLASS", ENVIRONMENT_CUSTOMIZER_SIMPLE_CLASS_NAME);
-        map.put("IS_NETTY_REST_SERVER", isRestServerNetty);
         return map;
     }
 
@@ -120,5 +133,52 @@ public final class RestControllerAggregatorClassStructure extends ClassStructure
                         RestControllerAggregator.class,
                         List.class
                 ).build();
+    }
+
+    /**
+     * @author nedis
+     * @since 0.7
+     */
+    public static final class RestControllerModel {
+
+        private final RestControllerModelType type;
+
+        private final String customClassName;
+
+        public RestControllerModel(final RestControllerModelType type,
+                                   final String customClassName) {
+            this.type = require(type);
+            this.customClassName = require(customClassName);
+        }
+
+        public RestControllerModel(final RestControllerModelType type) {
+            this.type = require(type);
+            this.customClassName = null;
+        }
+
+        @UsedByFreemarker("$$RestControllerAggregatorTemplate.javaftl")
+        public RestControllerModelType getType() {
+            return type;
+        }
+
+        @UsedByFreemarker("$$RestControllerAggregatorTemplate.javaftl")
+        public String getCustomClassName() {
+            return customClassName;
+        }
+    }
+
+    /**
+     * @author nedis
+     * @since 0.7
+     */
+    public enum RestControllerModelType {
+
+        CUSTOM,
+
+        CORS,
+
+        HEATH_CHECK,
+
+        BAD_REQUEST_NETTY
     }
 }
