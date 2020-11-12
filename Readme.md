@@ -119,7 +119,7 @@ Verify via `spotbugs`, `pmd`, `checkstyle`:
 mvn --fail-at-end -DskipTests -P spotbugs,pmd,checkstyle clean verify
 ```
 
-If build failed find `PMD Failure`, `reported by Checkstyle` phrase at the console output...
+If build failed find `Total bugs`, `PMD Failure`, `reported by Checkstyle` phrase at the console output...
 
 ```
 mvn --fail-at-end -DskipTests -P spotbugs,pmd,checkstyle \

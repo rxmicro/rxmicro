@@ -13,6 +13,7 @@ import io.rxmicro.rest.server.detail.model.HttpResponse;
 import io.rxmicro.rest.server.detail.model.Registration;
 import io.rxmicro.rest.server.detail.model.mapping.ExactUrlRequestMappingRule;
 
+import java.util.List;
 import java.util.concurrent.CompletionStage;
 
 import static io.rxmicro.validation.detail.ResponseValidators.validateResponse;
@@ -55,7 +56,10 @@ public final class $$MicroService extends AbstractRestController {
                 this,
                 new Registration(
                         "/",
-                        "put1(io.rxmicro.examples.validation.server.all.standard.model.Model)",
+                        "put1",
+                        List.of(
+                                io.rxmicro.examples.validation.server.all.standard.model.Model.class
+                        ),
                         this::put1,
                         false,
                         new ExactUrlRequestMappingRule(
@@ -66,7 +70,10 @@ public final class $$MicroService extends AbstractRestController {
                 ),
                 new Registration(
                         "/",
-                        "put2(java.lang.String,java.lang.Boolean,java.lang.Byte,java.lang.Short,java.lang.Integer,java.lang.Long,java.math.BigInteger,java.lang.Float,java.lang.Double,java.math.BigDecimal,java.lang.Character,java.lang.String,java.time.Instant,io.rxmicro.examples.validation.server.all.standard.model.Color,java.util.List<java.lang.String>,java.util.List<java.lang.Boolean>,java.util.List<java.lang.Byte>,java.util.List<java.lang.Short>,java.util.List<java.lang.Integer>,java.util.List<java.lang.Long>,java.util.List<java.lang.Character>,java.util.List<java.lang.Float>,java.util.List<java.lang.Double>,java.util.List<java.math.BigDecimal>,java.util.List<java.math.BigInteger>,java.util.List<java.lang.String>,java.util.List<java.time.Instant>,java.util.List<io.rxmicro.examples.validation.server.all.standard.model.Color>,java.util.Set<java.lang.String>,java.util.Set<java.lang.Boolean>,java.util.Set<java.lang.Byte>,java.util.Set<java.lang.Short>,java.util.Set<java.lang.Integer>,java.util.Set<java.lang.Long>,java.util.Set<java.lang.Character>,java.util.Set<java.lang.Float>,java.util.Set<java.lang.Double>,java.util.Set<java.math.BigDecimal>,java.util.Set<java.math.BigInteger>,java.util.Set<java.lang.String>,java.util.Set<java.time.Instant>,java.util.Set<io.rxmicro.examples.validation.server.all.standard.model.Color>,java.util.Map<java.lang.String,java.lang.String>,java.util.Map<java.lang.String,java.lang.Boolean>,java.util.Map<java.lang.String,java.lang.Byte>,java.util.Map<java.lang.String,java.lang.Short>,java.util.Map<java.lang.String,java.lang.Integer>,java.util.Map<java.lang.String,java.lang.Long>,java.util.Map<java.lang.String,java.lang.Character>,java.util.Map<java.lang.String,java.lang.Float>,java.util.Map<java.lang.String,java.lang.Double>,java.util.Map<java.lang.String,java.math.BigDecimal>,java.util.Map<java.lang.String,java.math.BigInteger>,java.util.Map<java.lang.String,java.lang.String>,java.util.Map<java.lang.String,java.time.Instant>,java.util.Map<java.lang.String,io.rxmicro.examples.validation.server.all.standard.model.Color>,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.math.BigDecimal,java.math.BigDecimal,java.math.BigDecimal,java.math.BigDecimal,java.math.BigDecimal,java.math.BigDecimal,java.math.BigDecimal,java.math.BigDecimal,java.math.BigDecimal,java.math.BigDecimal,java.math.BigDecimal,java.math.BigDecimal,java.math.BigDecimal,java.math.BigDecimal,java.math.BigDecimal,java.math.BigDecimal)",
+                        "put2",
+                        List.of(
+                                java.lang.String.class, java.lang.Boolean.class, java.lang.Byte.class, java.lang.Short.class, java.lang.Integer.class, java.lang.Long.class, java.math.BigInteger.class, java.lang.Float.class, java.lang.Double.class, java.math.BigDecimal.class, java.lang.Character.class, java.lang.String.class, java.time.Instant.class, io.rxmicro.examples.validation.server.all.standard.model.Color.class, java.util.List.class, java.util.List.class, java.util.List.class, java.util.List.class, java.util.List.class, java.util.List.class, java.util.List.class, java.util.List.class, java.util.List.class, java.util.List.class, java.util.List.class, java.util.List.class, java.util.List.class, java.util.List.class, java.util.Set.class, java.util.Set.class, java.util.Set.class, java.util.Set.class, java.util.Set.class, java.util.Set.class, java.util.Set.class, java.util.Set.class, java.util.Set.class, java.util.Set.class, java.util.Set.class, java.util.Set.class, java.util.Set.class, java.util.Set.class, java.util.Map.class, java.util.Map.class, java.util.Map.class, java.util.Map.class, java.util.Map.class, java.util.Map.class, java.util.Map.class, java.util.Map.class, java.util.Map.class, java.util.Map.class, java.util.Map.class, java.util.Map.class, java.util.Map.class, java.util.Map.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.math.BigDecimal.class, java.math.BigDecimal.class, java.math.BigDecimal.class, java.math.BigDecimal.class, java.math.BigDecimal.class, java.math.BigDecimal.class, java.math.BigDecimal.class, java.math.BigDecimal.class, java.math.BigDecimal.class, java.math.BigDecimal.class, java.math.BigDecimal.class, java.math.BigDecimal.class, java.math.BigDecimal.class, java.math.BigDecimal.class, java.math.BigDecimal.class, java.math.BigDecimal.class
+                        ),
                         this::put2,
                         false,
                         new ExactUrlRequestMappingRule(

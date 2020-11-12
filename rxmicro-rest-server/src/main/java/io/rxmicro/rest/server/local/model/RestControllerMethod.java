@@ -30,7 +30,6 @@ import static io.rxmicro.common.util.ExCollections.unmodifiableList;
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.Requires.require;
 import static java.util.stream.Collectors.joining;
-import static java.util.stream.Collectors.toList;
 
 /**
  * @author nedis
@@ -68,7 +67,7 @@ public final class RestControllerMethod extends BaseRestControllerMethod {
         return function.apply(pathVariableMapping, request);
     }
 
-    public String getShortName(){
+    public String getShortName() {
         return format(
                 "?.?(?)",
                 getRestController().getRestControllerClass().getSimpleName(),
@@ -77,7 +76,7 @@ public final class RestControllerMethod extends BaseRestControllerMethod {
         );
     }
 
-    public String getFullName(){
+    public String getFullName() {
         return format(
                 "?.?(?)",
                 getRestController().getRestControllerClass().getName(),

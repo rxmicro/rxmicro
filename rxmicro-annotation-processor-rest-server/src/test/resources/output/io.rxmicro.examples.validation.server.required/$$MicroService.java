@@ -24,6 +24,7 @@ import io.rxmicro.rest.server.detail.model.HttpResponse;
 import io.rxmicro.rest.server.detail.model.Registration;
 import io.rxmicro.rest.server.detail.model.mapping.ExactUrlRequestMappingRule;
 
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 
@@ -80,7 +81,10 @@ public final class $$MicroService extends AbstractRestController {
                 this,
                 new Registration(
                         "/",
-                        "test1(io.rxmicro.examples.validation.server.required.model.NotStringModel)",
+                        "test1",
+                        List.of(
+                                io.rxmicro.examples.validation.server.required.model.NotStringModel.class
+                        ),
                         this::test1,
                         false,
                         new ExactUrlRequestMappingRule(
@@ -91,7 +95,10 @@ public final class $$MicroService extends AbstractRestController {
                 ),
                 new Registration(
                         "/",
-                        "test2(io.rxmicro.examples.validation.server.required.model.PrimitiveStringModel)",
+                        "test2",
+                        List.of(
+                                io.rxmicro.examples.validation.server.required.model.PrimitiveStringModel.class
+                        ),
                         this::test2,
                         false,
                         new ExactUrlRequestMappingRule(
@@ -102,7 +109,10 @@ public final class $$MicroService extends AbstractRestController {
                 ),
                 new Registration(
                         "/",
-                        "test3(io.rxmicro.examples.validation.server.required.model.PrimitiveStringListModel)",
+                        "test3",
+                        List.of(
+                                io.rxmicro.examples.validation.server.required.model.PrimitiveStringListModel.class
+                        ),
                         this::test3,
                         false,
                         new ExactUrlRequestMappingRule(
@@ -113,7 +123,10 @@ public final class $$MicroService extends AbstractRestController {
                 ),
                 new Registration(
                         "/",
-                        "test4(io.rxmicro.examples.validation.server.required.model.StringModelWithRequiredNonNullValidatorsOnly)",
+                        "test4",
+                        List.of(
+                                io.rxmicro.examples.validation.server.required.model.StringModelWithRequiredNonNullValidatorsOnly.class
+                        ),
                         this::test4,
                         false,
                         new ExactUrlRequestMappingRule(
@@ -124,7 +137,10 @@ public final class $$MicroService extends AbstractRestController {
                 ),
                 new Registration(
                         "/",
-                        "test5(io.rxmicro.examples.validation.server.required.model.StringModelWithRequiredAndNotEmptyValidatorsOnly)",
+                        "test5",
+                        List.of(
+                                io.rxmicro.examples.validation.server.required.model.StringModelWithRequiredAndNotEmptyValidatorsOnly.class
+                        ),
                         this::test5,
                         false,
                         new ExactUrlRequestMappingRule(

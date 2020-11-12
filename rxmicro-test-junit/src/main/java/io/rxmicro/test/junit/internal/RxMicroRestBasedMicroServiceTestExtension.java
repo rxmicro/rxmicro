@@ -186,7 +186,7 @@ public final class RxMicroRestBasedMicroServiceTestExtension
                     testInstances,
                     restControllerInstanceResolver.getRestControllerInstances()
             );
-        } catch (final InaccessibleObjectException ex){
+        } catch (final InaccessibleObjectException ex) {
             reThrowInaccessibleObjectException(ex);
         }
     }

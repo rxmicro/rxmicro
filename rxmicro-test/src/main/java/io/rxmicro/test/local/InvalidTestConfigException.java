@@ -19,8 +19,6 @@ package io.rxmicro.test.local;
 import io.rxmicro.common.RxMicroException;
 import io.rxmicro.common.util.Formats;
 
-import static io.rxmicro.common.util.Requires.require;
-
 /**
  * Signals that current test configuration contains error(s) that must be fixed before the launch of tests
  *

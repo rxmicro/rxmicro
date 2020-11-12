@@ -99,7 +99,7 @@ final class ModelFromJsonConverterTest {
             "RED,GREEN,BLUE;    RED,GREEN,BLUE"
     })
     void toEnumList_should_convert_value_successfully(final String value,
-                                                       final String expected) {
+                                                      final String expected) {
         final Object params = getParams(value);
         final List<Color> expectedList = expected == null ?
                 List.of() :
@@ -125,7 +125,7 @@ final class ModelFromJsonConverterTest {
             "true,null;     Expected an array of strings, but actual is '[true,null]' (array of booleans, nulls)!"
     })
     void toEnumList_should_throw_ValidationException(final String value,
-                                                      final String expectedError) {
+                                                     final String expectedError) {
         final Object params = getParams(value);
 
         final ValidationException exception =
@@ -183,7 +183,7 @@ final class ModelFromJsonConverterTest {
             "true,false,true;   true,false,true"
     })
     void toBooleanList_should_convert_value_successfully(final String value,
-                                                          final String expected) {
+                                                         final String expected) {
         final Object params = getParams(value);
         final List<Boolean> expectedList = expected == null ?
                 List.of() :
@@ -209,7 +209,7 @@ final class ModelFromJsonConverterTest {
             "12.34,null;    Expected an array of booleans, but actual is '[12.34,null]' (array of numbers, nulls)!"
     })
     void toBooleanList_should_throw_ValidationException(final String value,
-                                                         final String expectedError) {
+                                                        final String expectedError) {
         final Object params = getParams(value);
 
         final ValidationException exception =
@@ -275,7 +275,7 @@ final class ModelFromJsonConverterTest {
             "22,33,44;      22,33,44"
     })
     void toByteList_should_convert_value_successfully(final String value,
-                                                       final String expected) {
+                                                      final String expected) {
         final Object params = getParams(value);
         final List<Byte> expectedList = expected == null ?
                 List.of() :
@@ -300,7 +300,7 @@ final class ModelFromJsonConverterTest {
             "123,null,[];   Expected an array of numbers, but actual is '[123,null,[]]' (array of numbers, nulls, arrays)!"
     })
     void toByteList_should_throw_ValidationException(final String value,
-                                                      final String expectedError) {
+                                                     final String expectedError) {
         final Object params = getParams(value);
 
         final ValidationException exception =
@@ -365,7 +365,7 @@ final class ModelFromJsonConverterTest {
             "30123,256,8765;    30123,256,8765"
     })
     void toShortList_should_convert_value_successfully(final String value,
-                                                        final String expected) {
+                                                       final String expected) {
         final Object params = getParams(value);
         final List<Short> expectedList = expected == null ?
                 List.of() :
@@ -390,7 +390,7 @@ final class ModelFromJsonConverterTest {
             "123,null,[];   Expected an array of numbers, but actual is '[123,null,[]]' (array of numbers, nulls, arrays)!"
     })
     void toShortList_should_throw_ValidationException(final String value,
-                                                       final String expectedError) {
+                                                      final String expectedError) {
         final Object params = getParams(value);
 
         final ValidationException exception =
@@ -455,7 +455,7 @@ final class ModelFromJsonConverterTest {
             "327678,327679,3276787;     327678,327679,3276787"
     })
     void toIntegerList_should_convert_value_successfully(final String value,
-                                                          final String expected) {
+                                                         final String expected) {
         final Object params = getParams(value);
         final List<Integer> expectedList = expected == null ?
                 List.of() :
@@ -480,7 +480,7 @@ final class ModelFromJsonConverterTest {
             "123,null,[];   Expected an array of numbers, but actual is '[123,null,[]]' (array of numbers, nulls, arrays)!"
     })
     void toIntegerList_should_throw_ValidationException(final String value,
-                                                         final String expectedError) {
+                                                        final String expectedError) {
         final Object params = getParams(value);
 
         final ValidationException exception =
@@ -545,7 +545,7 @@ final class ModelFromJsonConverterTest {
             "2247483647,2247483647,2247483647;  2247483647,2247483647,2247483647"
     })
     void toLongList_should_convert_value_successfully(final String value,
-                                                       final String expected) {
+                                                      final String expected) {
         final Object params = getParams(value);
         final List<Long> expectedList = expected == null ?
                 List.of() :
@@ -570,7 +570,7 @@ final class ModelFromJsonConverterTest {
             "123,null,[];   Expected an array of numbers, but actual is '[123,null,[]]' (array of numbers, nulls, arrays)!"
     })
     void toLongList_should_throw_ValidationException(final String value,
-                                                      final String expectedError) {
+                                                     final String expectedError) {
         final Object params = getParams(value);
 
         final ValidationException exception =
@@ -632,7 +632,7 @@ final class ModelFromJsonConverterTest {
             "2247483647,2247483647,2247483647;  2247483647,2247483647,2247483647"
     })
     void toBigIntegerList_should_convert_value_successfully(final String value,
-                                                             final String expected) {
+                                                            final String expected) {
         final Object params = getParams(value);
         final List<BigInteger> expectedList = expected == null ?
                 List.of() :
@@ -657,7 +657,7 @@ final class ModelFromJsonConverterTest {
             "123,null,[];   Expected an array of numbers, but actual is '[123,null,[]]' (array of numbers, nulls, arrays)!"
     })
     void toBigIntegerList_should_throw_ValidationException(final String value,
-                                                            final String expectedError) {
+                                                           final String expectedError) {
         final Object params = getParams(value);
 
         final ValidationException exception =
@@ -716,7 +716,7 @@ final class ModelFromJsonConverterTest {
             "3.14,3.1415,3.141592;  3.14,3.1415,3.141592"
     })
     void toFloatList_should_convert_value_successfully(final String value,
-                                                        final String expected) {
+                                                       final String expected) {
         final Object params = getParams(value);
         final List<Float> expectedList = expected == null ?
                 List.of() :
@@ -741,7 +741,7 @@ final class ModelFromJsonConverterTest {
             "123,null,[];   Expected an array of numbers, but actual is '[123,null,[]]' (array of numbers, nulls, arrays)!"
     })
     void toFloatList_should_throw_ValidationException(final String value,
-                                                       final String expectedError) {
+                                                      final String expectedError) {
         final Object params = getParams(value);
 
         final ValidationException exception =
@@ -805,7 +805,7 @@ final class ModelFromJsonConverterTest {
             "3.14,3.1415,3.141592;  3.14,3.1415,3.141592"
     })
     void toDoubleList_should_convert_value_successfully(final String value,
-                                                         final String expected) {
+                                                        final String expected) {
         final Object params = getParams(value);
         final List<Double> expectedList = expected == null ?
                 List.of() :
@@ -830,7 +830,7 @@ final class ModelFromJsonConverterTest {
             "123,null,[];   Expected an array of numbers, but actual is '[123,null,[]]' (array of numbers, nulls, arrays)!"
     })
     void toDoubleList_should_throw_ValidationException(final String value,
-                                                        final String expectedError) {
+                                                       final String expectedError) {
         final Object params = getParams(value);
 
         final ValidationException exception =
@@ -892,7 +892,7 @@ final class ModelFromJsonConverterTest {
             "3.14,3.1415,3.141592;  3.14,3.1415,3.141592"
     })
     void toBigDecimalList_should_convert_value_successfully(final String value,
-                                                             final String expected) {
+                                                            final String expected) {
         final Object params = getParams(value);
         final List<BigDecimal> expectedList = expected == null ?
                 List.of() :
@@ -917,7 +917,7 @@ final class ModelFromJsonConverterTest {
             "123,null,[];   Expected an array of numbers, but actual is '[123,null,[]]' (array of numbers, nulls, arrays)!"
     })
     void toBigDecimalList_should_throw_ValidationException(final String value,
-                                                            final String expectedError) {
+                                                           final String expectedError) {
         final Object params = getParams(value);
 
         final ValidationException exception =
@@ -974,7 +974,7 @@ final class ModelFromJsonConverterTest {
             "2020-01-15T10:25:45Z,2020-01-15T10:25:45Z,2020-01-15T10:25:45Z;2020-01-15T10:25:45Z,2020-01-15T10:25:45Z,2020-01-15T10:25:45Z"
     })
     void toInstantList_should_convert_value_successfully(final String value,
-                                                          final String expected) {
+                                                         final String expected) {
         final Object params = getParams(value);
         final List<Instant> expectedList = expected == null ?
                 List.of() :
@@ -998,7 +998,7 @@ final class ModelFromJsonConverterTest {
             "123,null,[];   Expected an array of strings, but actual is '[123,null,[]]' (array of numbers, nulls, arrays)!"
     })
     void toInstantList_should_throw_ValidationException(final String value,
-                                                         final String expectedError) {
+                                                        final String expectedError) {
         final Object params = getParams(value);
 
         final ValidationException exception =
@@ -1055,7 +1055,7 @@ final class ModelFromJsonConverterTest {
             "R,G,B;     R,G,B"
     })
     void toCharacterList_should_convert_value_successfully(final String value,
-                                                            final String expected) {
+                                                           final String expected) {
         final Object params = getParams(value);
         final List<Character> expectedList = expected == null ?
                 List.of() :
@@ -1079,7 +1079,7 @@ final class ModelFromJsonConverterTest {
             "123,null,[];   Expected an array of characters, but actual is '[123,null,[]]' (array of numbers, nulls, arrays)!"
     })
     void toCharacterList_should_throw_ValidationException(final String value,
-                                                           final String expectedError) {
+                                                          final String expectedError) {
         final Object params = getParams(value);
 
         final ValidationException exception =
@@ -1133,7 +1133,7 @@ final class ModelFromJsonConverterTest {
             "RED,GREEN,BLUE;    RED,GREEN,BLUE"
     })
     void toStringList_should_convert_value_successfully(final String value,
-                                                         final String expected) {
+                                                        final String expected) {
         final Object params = getParams(value);
         final List<String> expectedList = expected == null ?
                 List.of() :
@@ -1157,7 +1157,7 @@ final class ModelFromJsonConverterTest {
             "123,null,[];   Expected an array of strings, but actual is '[123,null,[]]' (array of numbers, nulls, arrays)!"
     })
     void toStringList_should_throw_ValidationException(final String value,
-                                                        final String expectedError) {
+                                                       final String expectedError) {
         final Object params = getParams(value);
 
         final ValidationException exception =

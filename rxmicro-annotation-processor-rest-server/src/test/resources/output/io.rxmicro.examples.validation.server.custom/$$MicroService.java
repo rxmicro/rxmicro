@@ -9,6 +9,7 @@ import io.rxmicro.rest.server.detail.model.HttpResponse;
 import io.rxmicro.rest.server.detail.model.Registration;
 import io.rxmicro.rest.server.detail.model.mapping.ExactUrlRequestMappingRule;
 
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 
@@ -41,7 +42,10 @@ public final class $$MicroService extends AbstractRestController {
                 this,
                 new Registration(
                         "/",
-                        "consume(java.math.BigDecimal)",
+                        "consume",
+                        List.of(
+                                java.math.BigDecimal.class
+                        ),
                         this::consume,
                         false,
                         new ExactUrlRequestMappingRule(

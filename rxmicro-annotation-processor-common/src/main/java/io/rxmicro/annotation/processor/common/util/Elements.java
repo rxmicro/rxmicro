@@ -246,7 +246,7 @@ public final class Elements {
                     .map(e -> (ExecutableElement) e)
                     .filter(el -> el.getParameters().size() == 1)
                     .collect(toList());
-            if(!methods.isEmpty()){
+            if (!methods.isEmpty()) {
                 return Optional.of(methods.get(0));
             }
             final TypeMirror superClass = currentTypeElement.getSuperclass();

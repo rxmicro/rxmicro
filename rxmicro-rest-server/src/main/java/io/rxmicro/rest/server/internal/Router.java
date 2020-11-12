@@ -146,9 +146,9 @@ public final class Router implements DynamicRestControllerRegistrar, RequestHand
     }
 
     private String getMethodName(final RestControllerMethod method) {
-        if(restServerConfig.isUseFullClassNamesForRouterMappingLogMessages()){
+        if (restServerConfig.isUseFullClassNamesForRouterMappingLogMessages()) {
             return method.getFullName();
-        } else{
+        } else {
             return method.getShortName();
         }
     }

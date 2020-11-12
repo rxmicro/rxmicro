@@ -14,6 +14,7 @@ import io.rxmicro.rest.server.detail.model.HttpResponse;
 import io.rxmicro.rest.server.detail.model.Registration;
 import io.rxmicro.rest.server.detail.model.mapping.ExactUrlRequestMappingRule;
 
+import java.util.List;
 import java.util.concurrent.CompletionStage;
 
 import static io.rxmicro.validation.detail.ResponseValidators.validateResponse;
@@ -50,7 +51,10 @@ public final class $$MicroService extends AbstractRestController {
                 this,
                 new Registration(
                         "/",
-                        "consume(io.rxmicro.examples.unnamed.module.rest.controller.generator.model.Request)",
+                        "consume",
+                        List.of(
+                                io.rxmicro.examples.unnamed.module.rest.controller.generator.model.Request.class
+                        ),
                         this::consume,
                         false,
                         new ExactUrlRequestMappingRule(

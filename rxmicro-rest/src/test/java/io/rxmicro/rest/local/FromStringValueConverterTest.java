@@ -84,7 +84,7 @@ final class FromStringValueConverterTest {
             "RED|GREEN,BLUE;    RED,GREEN,BLUE"
     })
     void toEnumList_should_convert_value_successfully(final String list,
-                                                       final String expected) {
+                                                      final String expected) {
         final List<String> headers = list == null ?
                 null :
                 List.of(list.split(","));
@@ -142,7 +142,7 @@ final class FromStringValueConverterTest {
             "true|false,true;   true,false,true"
     })
     void toBooleanList_should_convert_value_successfully(final String list,
-                                                          final String expected) {
+                                                         final String expected) {
         final List<String> headers = list == null ?
                 null :
                 List.of(list.split(","));
@@ -201,7 +201,7 @@ final class FromStringValueConverterTest {
             "22|33,44;      22,33,44"
     })
     void toByteList_should_convert_value_successfully(final String list,
-                                                       final String expected) {
+                                                      final String expected) {
         final List<String> headers = list == null ?
                 null :
                 List.of(list.split(","));
@@ -259,7 +259,7 @@ final class FromStringValueConverterTest {
             "30123|256,8765;    30123,256,8765"
     })
     void toShortList_should_convert_value_successfully(final String list,
-                                                        final String expected) {
+                                                       final String expected) {
         final List<String> headers = list == null ?
                 null :
                 List.of(list.split(","));
@@ -317,7 +317,7 @@ final class FromStringValueConverterTest {
             "327678|327679,3276787;     327678,327679,3276787"
     })
     void toIntegerList_should_convert_value_successfully(final String list,
-                                                          final String expected) {
+                                                         final String expected) {
         final List<String> headers = list == null ?
                 null :
                 List.of(list.split(","));
@@ -375,7 +375,7 @@ final class FromStringValueConverterTest {
             "2247483647|2247483647,2247483647;  2247483647,2247483647,2247483647"
     })
     void toLongList_should_convert_value_successfully(final String list,
-                                                       final String expected) {
+                                                      final String expected) {
         final List<String> headers = list == null ?
                 null :
                 List.of(list.split(","));
@@ -431,7 +431,7 @@ final class FromStringValueConverterTest {
             "9999999999999999999|9999999999999999999,9999999999999999999;   9999999999999999999,9999999999999999999,9999999999999999999"
     })
     void toBigIntegerList_should_convert_value_successfully(final String list,
-                                                             final String expected) {
+                                                            final String expected) {
         final List<String> headers = list == null ?
                 null :
                 List.of(list.split(","));
@@ -483,7 +483,7 @@ final class FromStringValueConverterTest {
             "3.14|3.1415,3.141592;  3.14,3.1415,3.141592"
     })
     void toFloatList_should_convert_value_successfully(final String list,
-                                                        final String expected) {
+                                                       final String expected) {
         final List<String> headers = list == null ?
                 null :
                 List.of(list.split(","));
@@ -540,7 +540,7 @@ final class FromStringValueConverterTest {
             "3.14|3.1415,3.141592;  3.14,3.1415,3.141592"
     })
     void toDoubleList_should_convert_value_successfully(final String list,
-                                                         final String expected) {
+                                                        final String expected) {
         final List<String> headers = list == null ?
                 null :
                 List.of(list.split(","));
@@ -595,7 +595,7 @@ final class FromStringValueConverterTest {
             "3.14159265358979323|3.14159265358979323,3.14159265358979323;   3.14159265358979323,3.14159265358979323,3.14159265358979323"
     })
     void toBigDecimalList_should_convert_value_successfully(final String list,
-                                                             final String expected) {
+                                                            final String expected) {
         final List<String> headers = list == null ?
                 null :
                 List.of(list.split(","));
@@ -644,7 +644,7 @@ final class FromStringValueConverterTest {
             "2020-01-15T10:25:45Z|2020-01-15T10:25:45Z,2020-01-15T10:25:45Z;2020-01-15T10:25:45Z,2020-01-15T10:25:45Z,2020-01-15T10:25:45Z"
     })
     void toInstantList_should_convert_value_successfully(final String list,
-                                                          final String expected) {
+                                                         final String expected) {
         final List<String> headers = list == null ?
                 null :
                 List.of(list.split(","));
@@ -693,7 +693,7 @@ final class FromStringValueConverterTest {
             "R|G,B;     R,G,B"
     })
     void toCharacterList_should_convert_value_successfully(final String list,
-                                                            final String expected) {
+                                                           final String expected) {
         final List<String> headers = list == null ?
                 null :
                 List.of(list.split(","));
@@ -730,7 +730,7 @@ final class FromStringValueConverterTest {
             "RED|GREEN,BLUE;    RED,GREEN,BLUE"
     })
     void toStringList_should_convert_value_successfully(final String list,
-                                                         final String expected) {
+                                                        final String expected) {
         final List<String> headers = list == null ?
                 null :
                 List.of(list.split(","));

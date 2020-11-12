@@ -11,6 +11,7 @@ import io.rxmicro.rest.server.detail.model.HttpResponse;
 import io.rxmicro.rest.server.detail.model.Registration;
 import io.rxmicro.rest.server.detail.model.mapping.ExactUrlRequestMappingRule;
 
+import java.util.List;
 import java.util.concurrent.CompletionStage;
 
 import static io.rxmicro.cdi.BeanFactory.getBean;
@@ -41,7 +42,8 @@ public final class $$MicroService extends AbstractRestController {
                 this,
                 new Registration(
                         "/",
-                        "fromRestClient()",
+                        "fromRestClient",
+                        List.of(),
                         this::fromRestClient,
                         false,
                         new ExactUrlRequestMappingRule(
@@ -52,7 +54,8 @@ public final class $$MicroService extends AbstractRestController {
                 ),
                 new Registration(
                         "/",
-                        "fromPostgreSQL()",
+                        "fromPostgreSQL",
+                        List.of(),
                         this::fromPostgreSQL,
                         false,
                         new ExactUrlRequestMappingRule(
@@ -63,7 +66,8 @@ public final class $$MicroService extends AbstractRestController {
                 ),
                 new Registration(
                         "/",
-                        "fromMongo()",
+                        "fromMongo",
+                        List.of(),
                         this::fromMongo,
                         false,
                         new ExactUrlRequestMappingRule(

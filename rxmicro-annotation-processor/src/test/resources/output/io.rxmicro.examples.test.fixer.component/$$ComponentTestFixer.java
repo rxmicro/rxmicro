@@ -3,7 +3,7 @@ package rxmicro;
 import java.util.stream.Stream;
 
 import static io.rxmicro.common.util.Formats.format;
-import static io.rxmicro.runtime.detail.Runtimes.getRuntimeModule;
+import static io.rxmicro.runtime.detail.RxMicroRuntime.getRuntimeModule;
 import static io.rxmicro.tool.common.Reflections.getToolCommonModule;
 
 /**
