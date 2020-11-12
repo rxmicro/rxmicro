@@ -16,6 +16,7 @@
 
 package io.rxmicro.logger.internal.jul.config.adapter.pattern.consumers;
 
+import io.rxmicro.common.ImpossibleException;
 import io.rxmicro.logger.internal.jul.config.adapter.RxMicroLogRecord;
 import io.rxmicro.logger.internal.jul.config.adapter.pattern.AbstractBiConsumer;
 import io.rxmicro.logger.internal.jul.config.adapter.pattern.BiConsumerArguments;
@@ -23,7 +24,7 @@ import io.rxmicro.logger.internal.jul.config.adapter.pattern.BiConsumerArguments
 import java.util.logging.LogRecord;
 
 import static io.rxmicro.common.Constants.RX_MICRO_RUNTIME_STRICT_MODE;
-import static io.rxmicro.logger.internal.jul.InternalLogger.logInternal;
+import static io.rxmicro.logger.internal.jul.InternalLoggerHelper.logInternal;
 import static java.util.logging.Level.WARNING;
 
 /**
@@ -47,6 +48,10 @@ public final class LineNumberBiConsumer extends AbstractBiConsumer {
     @Override
     public void accept(final StringBuilder messageBuilder,
                        final LogRecord record) {
-        messageBuilder.append(((RxMicroLogRecord) record).getLineNumber());
+        if (record instanceof RxMicroLogRecord) {
+            messageBuilder.append(((RxMicroLogRecord) record).getLineNumber());
+        } else {
+            throw new ImpossibleException("Record must be of RxMicroLogRecord type: actual type is ?", record.getClass());
+        }
     }
 }

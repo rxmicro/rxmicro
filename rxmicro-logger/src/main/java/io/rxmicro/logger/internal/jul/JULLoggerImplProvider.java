@@ -33,7 +33,7 @@ import java.util.stream.Stream;
 
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.logger.Constants.CONFIGURATION_PROPERTIES_HIDE;
-import static io.rxmicro.logger.internal.jul.InternalLogger.logInternal;
+import static io.rxmicro.logger.internal.jul.InternalLoggerHelper.logInternal;
 import static io.rxmicro.logger.internal.jul.LevelMappings.fixLevelValue;
 import static java.lang.System.lineSeparator;
 import static java.util.function.Function.identity;

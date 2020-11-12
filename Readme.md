@@ -63,6 +63,8 @@ Verify via `spotbugs`:
 mvn --fail-at-end -DskipTests -P spotbugs clean verify
 ```
 
+If build failed find `Total bugs` phrase at the console output...
+
 ```
 mvn --fail-at-end -DskipTests -P spotbugs \ 
         -Dspotbugs-maven-plugin.failOnError=false \

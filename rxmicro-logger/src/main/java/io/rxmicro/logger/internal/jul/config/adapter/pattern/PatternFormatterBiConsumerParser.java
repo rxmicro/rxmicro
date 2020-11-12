@@ -142,7 +142,7 @@ public final class PatternFormatterBiConsumerParser {
     private Optional<BiConsumerArguments> getBiConsumerArguments(final StringIterator iterator) {
         final StringBuilder wordBuilder = new StringBuilder();
         while (iterator.next()) {
-            char ch = iterator.getCurrent();
+            final char ch = iterator.getCurrent();
             if ('{' == ch) {
                 final ConversionSpecifier conversionSpecifier = getConversionSpecifier(wordBuilder.toString());
                 final List<String> options = getBiConsumerArgumentsOptions(conversionSpecifier, iterator);
@@ -180,7 +180,7 @@ public final class PatternFormatterBiConsumerParser {
         final List<String> options = new ArrayList<>();
         final StringBuilder paramsBuilder = new StringBuilder();
         while (iterator.next()) {
-            char ch = iterator.getCurrent();
+            final char ch = iterator.getCurrent();
             if ('}' == ch) {
                 if (!options.isEmpty()) {
                     options.add(paramsBuilder.toString().trim());

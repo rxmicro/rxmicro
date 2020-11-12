@@ -17,7 +17,7 @@
 package io.rxmicro.logger.internal.jul.config.adapter;
 
 import io.rxmicro.logger.impl.AbstractLogger;
-import io.rxmicro.logger.internal.jul.InternalLogger;
+import io.rxmicro.logger.internal.jul.InternalLoggerHelper;
 
 import java.util.Optional;
 import java.util.Set;
@@ -72,7 +72,7 @@ public final class RxMicroLogRecord extends LogRecord {
     @Override
     public String getSourceClassName() {
         if (needToInferCaller) {
-            getDataFromStackFrame();
+            extractDataFromStackFrameIfPossible();
         }
         return super.getSourceClassName();
     }
@@ -85,7 +85,7 @@ public final class RxMicroLogRecord extends LogRecord {
     @Override
     public String getSourceMethodName() {
         if (needToInferCaller) {
-            getDataFromStackFrame();
+            extractDataFromStackFrameIfPossible();
         }
         return super.getSourceMethodName();
     }
@@ -95,7 +95,7 @@ public final class RxMicroLogRecord extends LogRecord {
         throw new UnsupportedOperationException("Use setStackFrame instead!");
     }
 
-    private void getDataFromStackFrame() {
+    private void extractDataFromStackFrameIfPossible() {
         final Optional<StackWalker.StackFrame> optionalStackFrame = getStackFrame();
         if (optionalStackFrame.isPresent()) {
             final StackWalker.StackFrame stackFrame = optionalStackFrame.get();
@@ -112,14 +112,14 @@ public final class RxMicroLogRecord extends LogRecord {
 
     public String getFileName() {
         if (needToInferCaller) {
-            getDataFromStackFrame();
+            extractDataFromStackFrameIfPossible();
         }
         return fileName;
     }
 
     public int getLineNumber() {
         if (needToInferCaller) {
-            getDataFromStackFrame();
+            extractDataFromStackFrameIfPossible();
         }
         return lineNumber;
     }
@@ -155,9 +155,9 @@ public final class RxMicroLogRecord extends LogRecord {
      */
     private static class StackFrameFilter implements Predicate<StackWalker.StackFrame> {
 
-        private static final Set<Class<?>> classes = Set.of(
+        private static final Set<Class<?>> CLASSES = Set.of(
                 AbstractLogger.class,
-                InternalLogger.class
+                InternalLoggerHelper.class
         );
 
         private boolean nextFrameInValid;
@@ -167,7 +167,7 @@ public final class RxMicroLogRecord extends LogRecord {
             if (nextFrameInValid) {
                 return true;
             } else {
-                if (classes.contains(frame.getDeclaringClass())) {
+                if (CLASSES.contains(frame.getDeclaringClass())) {
                     nextFrameInValid = true;
                 }
                 return false;

@@ -16,6 +16,7 @@
 
 package io.rxmicro.logger.internal.jul.config.adapter.pattern.consumers;
 
+import io.rxmicro.common.ImpossibleException;
 import io.rxmicro.logger.internal.jul.config.adapter.RxMicroLogRecord;
 import io.rxmicro.logger.internal.jul.config.adapter.pattern.AbstractBiConsumer;
 import io.rxmicro.logger.internal.jul.config.adapter.pattern.BiConsumerArguments;
@@ -36,6 +37,10 @@ public final class ThreadNameBiConsumer extends AbstractBiConsumer {
     @Override
     public void accept(final StringBuilder messageBuilder,
                        final LogRecord record) {
-        messageBuilder.append(((RxMicroLogRecord) record).getThreadName());
+        if (record instanceof RxMicroLogRecord) {
+            messageBuilder.append(((RxMicroLogRecord) record).getThreadName());
+        } else {
+            throw new ImpossibleException("Record must be of RxMicroLogRecord type: actual type is ?", record.getClass());
+        }
     }
 }

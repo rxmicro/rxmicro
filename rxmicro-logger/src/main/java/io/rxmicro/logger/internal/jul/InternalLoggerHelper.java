@@ -27,7 +27,7 @@ import static java.util.logging.Logger.GLOBAL_LOGGER_NAME;
  * @author nedis
  * @since 0.7
  */
-public final class InternalLogger {
+public final class InternalLoggerHelper {
 
     private static final Logger LOGGER = Logger.getGlobal();
 
@@ -36,6 +36,6 @@ public final class InternalLogger {
         LOGGER.log(new RxMicroLogRecord(GLOBAL_LOGGER_NAME, level, msg));
     }
 
-    private InternalLogger() {
+    private InternalLoggerHelper() {
     }
 }

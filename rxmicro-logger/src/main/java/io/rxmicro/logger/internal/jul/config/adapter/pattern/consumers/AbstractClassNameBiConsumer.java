@@ -37,7 +37,7 @@ abstract class AbstractClassNameBiConsumer extends AbstractBiConsumer {
     AbstractClassNameBiConsumer(final BiConsumerArguments arguments) {
         super(arguments);
         final List<String> options = arguments.getOptions();
-        this.fullName = options.size() < 1 || parseFullNameOption(arguments, options.get(0));
+        this.fullName = options.isEmpty() || parseFullNameOption(arguments, options.get(0));
         if (options.size() > 1) {
             throw createUnsupportedOptionException(arguments, options.subList(1, options.size()));
         }
@@ -61,7 +61,7 @@ abstract class AbstractClassNameBiConsumer extends AbstractBiConsumer {
             messageBuilder.append(getName(record));
         } else {
             final String fullName = getName(record);
-            int index = fullName.lastIndexOf('.');
+            final int index = fullName.lastIndexOf('.');
             final String shortName = index != -1 ? fullName.substring(index) : fullName;
             messageBuilder.append(shortName);
         }
