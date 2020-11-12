@@ -25,12 +25,12 @@ import static io.rxmicro.config.internal.waitfor.WaitForServiceFactory.createWai
  *
  * <p>
  * Example of usage:
- * <pre>
+ * <pre><code>
  * public static void main(final String[] args) {
  *      new WaitFor(args).waitFor();
  *      startRestServer(MicroService.class);
  * }
- * </pre>
+ * </code></pre>
  *
  * <p>
  * <strong>Command line arguments:</strong>

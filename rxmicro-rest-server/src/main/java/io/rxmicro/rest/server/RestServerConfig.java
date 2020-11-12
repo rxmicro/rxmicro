@@ -367,13 +367,13 @@ public class RestServerConfig extends Config {
      *
      * <p>
      * If {@code useFullClassNamesForRouterMappingLogMessages} is {@code true}, then log message will be:
-     * <pre>
+     * <pre><code>
      * [DEBUG] Router : Mapped "POST '/send' <with-body> onto examples.controller.PublicController.send(examples.model.SendRequest)
-     * </pre>
+     * </code></pre>
      * Otherwise the log message will be:
-     * <pre>
+     * <pre><code>
      * [DEBUG] Router : Mapped "POST '/send' <with-body> onto PublicController.send(SendRequest)
-     * </pre>
+     * </code></pre>
      *
      * @return {@code true} if rest server must use full class names for router mapping log messages.
      */
@@ -386,13 +386,13 @@ public class RestServerConfig extends Config {
      *
      * <p>
      * If {@code useFullClassNamesForRouterMappingLogMessages} is {@code true}, then log message will be:
-     * <pre>
+     * <pre><code>
      * [DEBUG] Router : Mapped "POST '/send' <with-body> onto examples.controller.PublicController.send(examples.model.SendRequest)
-     * </pre>
+     * </code></pre>
      * Otherwise the log message will be:
-     * <pre>
+     * <pre><code>
      * [DEBUG] Router : Mapped "POST '/send' <with-body> onto PublicController.send(SendRequest)
-     * </pre>
+     * </code></pre>
      *
      * @param useFullClassNamesForRouterMappingLogMessages enable full class name for router mapping log messages.
      * @return {@code true} if rest server must use full class names for router mapping log messages.

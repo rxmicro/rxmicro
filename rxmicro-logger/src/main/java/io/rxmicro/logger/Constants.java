@@ -46,14 +46,14 @@ public final class Constants {
      * <p>
      * This variable has {@code boolean} type.
      * By default the current logger configuration is displayed:
-     * <pre>
+     * <pre><code>
      * [INFO] global : Using java.util.logging with the following config:
      *
      *   .level=INFO
      *   handlers=io.rxmicro.logger.jul.SystemOutConsoleHandler
      *   io.rxmicro.logger.jul.SystemOutConsoleHandler.level=ALL
      *
-     * </pre>
+     * </code></pre>
      */
     public static final String CONFIGURATION_PROPERTIES_HIDE = "configuration.properties.hide";
 

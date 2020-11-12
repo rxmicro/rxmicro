@@ -66,10 +66,10 @@ public final class Formats {
      *
      * <p>
      * For example:
-     * <pre>
-     *     final Object[] args = {"Hello", "world!"};
-     *     System.out.println(Formats.format("? ?", "args));
-     * </pre>
+     * <pre><code>
+     * final Object[] args = {"Hello", "world!"};
+     * System.out.println(Formats.format("? ?", "args));
+     * </code></pre>
      * produces the following output:
      * {@code Hello world!}
      *

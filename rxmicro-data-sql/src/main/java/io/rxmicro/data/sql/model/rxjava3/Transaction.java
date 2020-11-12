@@ -71,17 +71,17 @@ public interface Transaction {
      *
      * <p>
      * Instead of long fragment:
-     * <pre>
+     * <pre><code>
      * .onErrorResumeNext(e -> transaction.rollback()
      *          .andThen(Maybe.error(e))
      * )
-     * </pre>
+     * </code></pre>
      *
      * <p>
      * You can use the shortest version:
-     * <pre>
+     * <pre><code>
      * .onErrorResumeNext(transaction.createRollbackThenReturnMaybeErrorFallback());
-     * </pre>
+     * </code></pre>
      *
      * @param <T> the type of the single value of returned {@link Maybe}
      * @return the function that handles errors
@@ -97,17 +97,17 @@ public interface Transaction {
      *
      * <p>
      * Instead of long fragment:
-     * <pre>
+     * <pre><code>
      * .onErrorResumeNext(e -> transaction.rollback()
      *          .andThen(Single.error(e))
      * )
-     * </pre>
+     * </code></pre>
      *
      * <p>
      * You can use the shortest version:
-     * <pre>
+     * <pre><code>
      * .onErrorResumeNext(transaction.createRollbackThenReturnSingleErrorFallback());
-     * </pre>
+     * </code></pre>
      *
      * @param <T> the type of the single value of returned {@link Single}
      * @return the function that handles errors
@@ -123,17 +123,17 @@ public interface Transaction {
      *
      * <p>
      * Instead of long fragment:
-     * <pre>
+     * <pre><code>
      * .onErrorResumeNext(e -> transaction.rollback()
      *          .andThen(Completable.error(e))
      * )
-     * </pre>
+     * </code></pre>
      *
      * <p>
      * You can use the shortest version:
-     * <pre>
+     * <pre><code>
      * .onErrorResumeNext(transaction.createRollbackThenReturnCompletableErrorFallback());
-     * </pre>
+     * </code></pre>
      *
      * @return the function that handles errors
      * @see Completable#onErrorResumeNext(Function)
@@ -148,17 +148,17 @@ public interface Transaction {
      *
      * <p>
      * Instead of long fragment:
-     * <pre>
+     * <pre><code>
      * .onErrorResumeNext(e -> transaction.rollback()
      *          .andThen(Flowable.error(e))
      * )
-     * </pre>
+     * </code></pre>
      *
      * <p>
      * You can use the shortest version:
-     * <pre>
+     * <pre><code>
      * .onErrorResumeNext(transaction.createRollbackThenReturnFlowableErrorFallback());
-     * </pre>
+     * </code></pre>
      *
      * @param <T> the type of the single value of returned {@link Flowable}
      * @return the function that handles errors

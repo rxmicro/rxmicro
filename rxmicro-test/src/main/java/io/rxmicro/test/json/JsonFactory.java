@@ -52,11 +52,11 @@ public final class JsonFactory {
      *
      * <p>
      * The RxMicro framework defines a standard JSON model which is returned in case of any error:
-     * <pre>
+     * <pre><code>
      * {
      *    "message": "Not Found"
      * }
-     * </pre>
+     * </code></pre>
      *
      * <p>
      * (Read more: {@link io.rxmicro.http.error.HttpErrorException})

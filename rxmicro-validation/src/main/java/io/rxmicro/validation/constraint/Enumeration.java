@@ -39,12 +39,12 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * <p>
  * For example if enum value equals to java keyword.
  * The following enum couldn't be compiled, because {@code 'new'} is java keyword
- * <pre>
+ * <pre><code>
  * enum OrderType {
  *      new,    // compile error
  *      old
  * }
- * </pre>
+ * </code></pre>
  *
  * <p>
  * To solve this issue use @{@link Enumeration} annotation, otherwise use Java enum.

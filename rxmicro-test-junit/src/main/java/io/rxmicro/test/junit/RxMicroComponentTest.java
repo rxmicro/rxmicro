@@ -36,7 +36,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * When testing a component, using the following test:
  *
  * <p>
- * <pre>
+ * <pre><code>
  * {@code @io.rxmicro.test.mockito.junit.InitMocks}
  * {@code @RxMicroComponentTest(BusinessService.class)}
  * final class BusinessServiceTest {
@@ -84,13 +84,13 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  *     static void afterAll() {
  *     }
  * }
- * </pre>
+ * </code></pre>
  *
  * <p>
  * the execution order will be as follows:
  *
  * <p>
- * <pre>
+ * <pre><code>
  * RX-MICRO: Test class validated.
  * USER-TEST: '@org.junit.jupiter.api.BeforeAll' invoked.
  *
@@ -123,7 +123,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * MOCKITO: All mocks destroyed.
  *
  * USER-TEST: '@org.junit.jupiter.api.AfterAll' invoked.
- * </pre>
+ * </code></pre>
  *
  * <p>
  * In the above execution order of user and RxMicro code the following clarifications are implied:

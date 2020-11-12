@@ -51,19 +51,19 @@ public @interface PostConstruct {
     /**
      * Default name of method, which the RxMicro framework interprets as method annotated by this annotation,
      * i.e.
-     * <pre>
+     * <pre><code>
      * void {@value #DEFAULT_POST_CONSTRUCT_METHOD_NAME}() {
      *
      * }
-     * </pre>
+     * </code></pre>
      * is equivalent to
      *
-     * <pre>
+     * <pre><code>
      * {@code @}{@link PostConstruct}
      * void ${any-method-name}() {
      *
      * }
-     * </pre>
+     * </code></pre>
      */
     String DEFAULT_POST_CONSTRUCT_METHOD_NAME = "postConstruct";
 }

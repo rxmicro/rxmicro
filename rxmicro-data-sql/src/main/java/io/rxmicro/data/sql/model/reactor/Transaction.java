@@ -65,17 +65,17 @@ public interface Transaction {
      *
      * <p>
      * Instead of long fragment:
-     * <pre>
+     * <pre><code>
      * .onErrorResume(ex -> transaction.rollback()
      *          .then(Mono.error(ex))
      * )
-     * </pre>
+     * </code></pre>
      *
      * <p>
      * You can use the shortest version:
-     * <pre>
+     * <pre><code>
      * .onErrorResume(transaction.createRollbackThenReturnErrorFallback());
-     * </pre>
+     * </code></pre>
      *
      * @param <T> the type of the single value of returned {@link Mono} or {@link reactor.core.publisher.Flux}
      * @return the function that handles errors

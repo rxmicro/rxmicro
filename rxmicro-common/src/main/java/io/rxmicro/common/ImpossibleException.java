@@ -23,14 +23,14 @@ import io.rxmicro.common.util.Formats;
  *
  * <p>
  * For example:
- * <pre>
+ * <pre><code>
  * final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
  * try (OutputStream out = byteArrayOutputStream) {
  *      // do something
  * } catch (final IOException e) {
  *     throw new ImpossibleException(e, "Writer uses the byte array, so IO exception is impossible!");
  * }
- * </pre>
+ * </code></pre>
  *
  * @author nedis
  * @since 0.1

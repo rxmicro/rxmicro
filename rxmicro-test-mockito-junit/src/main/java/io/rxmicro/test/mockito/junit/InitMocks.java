@@ -35,7 +35,7 @@ import java.lang.annotation.Target;
  *
  * <p>
  * <strong>Usage example:</strong>
- * <pre>
+ * <pre><code>
  * {@code @InitMocks}
  * final class Test {
  *
@@ -48,7 +48,7 @@ import java.lang.annotation.Target;
  *         ...
  *     }
  * }
- * </pre>
+ * </code></pre>
  *
  * @author nedis
  * @see MockitoExtension

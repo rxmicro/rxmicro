@@ -103,7 +103,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * When testing a Rest-based microservice, using the following test:
  *
  * <p>
- * <pre>
+ * <pre><code>
  * {@code @io.rxmicro.test.mockito.junit.InitMocks}
  * {@code @RxMicroRestBasedMicroServiceTest(MicroService.class)}
  * final class MicroServiceTest {
@@ -151,11 +151,11 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  *     static void afterAll() {
  *     }
  * }
- * </pre>
+ * </code></pre>
  * the execution order will be as follows:
  *
  * <p>
- * <pre>
+ * <pre><code>
  * RX-MICRO: Test class validated.
  * RX-MICRO: HTTP server started without any REST-based microservices using random free port.
  * RX-MICRO: Blocking HTTP client created and connected to the started HTTP server.
@@ -196,7 +196,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * USER-TEST: '@org.junit.jupiter.api.AfterAll' invoked.
  * RX-MICRO: Blocking HTTP client released.
  * RX-MICRO: HTTP server stopped.
- * </pre>
+ * </code></pre>
  * In the above execution order of user and RxMicro code the following clarifications are implied:
  *
  * <p>

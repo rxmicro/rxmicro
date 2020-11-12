@@ -52,11 +52,11 @@ import java.util.Optional;
  *
  * <p>
  * For this purpose, the RxMicro framework defines a standard JSON model which is returned in case of any error:
- * <pre>
+ * <pre><code>
  * {
  *    "message": "Not Found"
  * }
- * </pre>
+ * </code></pre>
  *
  * <p>
  * Thus, in case of an error, the client determines the error category basing on HTTP status code analysis. For more information,
