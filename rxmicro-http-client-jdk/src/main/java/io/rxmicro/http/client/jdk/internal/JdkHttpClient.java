@@ -46,6 +46,7 @@ import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.Requires.require;
 import static io.rxmicro.common.util.Strings.startsWith;
 import static io.rxmicro.http.HttpStandardHeaderNames.ACCEPT;
+import static io.rxmicro.http.HttpStandardHeaderNames.CONTENT_TYPE;
 import static io.rxmicro.http.HttpStandardHeaderNames.REQUEST_ID;
 import static io.rxmicro.http.HttpStandardHeaderNames.USER_AGENT;
 import static io.rxmicro.runtime.detail.RxMicroRuntime.getRxMicroVersion;
@@ -89,8 +90,10 @@ final class JdkHttpClient implements HttpClient {
         this.host = httpClientConfig.getHost();
         this.port = httpClientConfig.getPort();
         this.secrets = secrets;
+        final String contentType = require(contentConverter.getContentType());
         this.requiredHeaders = List.of(
-                entry(ACCEPT, require(contentConverter.getContentType())),
+                entry(ACCEPT, contentType),
+                entry(CONTENT_TYPE, contentType),
                 entry(USER_AGENT, format("?-JdkHttpClient/?", RX_MICRO_FRAMEWORK_NAME, getRxMicroVersion()))
         );
         this.requestBodyConverter = require(contentConverter.getRequestContentConverter());
