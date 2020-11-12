@@ -230,6 +230,35 @@ public final class Elements {
         return findGetterOrSetter(typeElement, variableElement, false);
     }
 
+    public static Optional<ExecutableElement> findSetter(final TypeElement typeElement,
+                                                         final String propertyName) {
+        final Set<String> methodNames = Set.of(
+                "set" + capitalize(propertyName),
+                "set" + propertyName
+        );
+        TypeElement currentTypeElement = typeElement;
+        while (true) {
+            final List<ExecutableElement> methods = currentTypeElement.getEnclosedElements().stream()
+                    .filter(el -> el.getKind() == METHOD &&
+                            !el.getModifiers().contains(STATIC) &&
+                            methodNames.contains(el.getSimpleName().toString()) &&
+                            el.getModifiers().contains(PUBLIC))
+                    .map(e -> (ExecutableElement) e)
+                    .filter(el -> el.getParameters().size() == 1)
+                    .collect(toList());
+            if(!methods.isEmpty()){
+                return Optional.of(methods.get(0));
+            }
+            final TypeMirror superClass = currentTypeElement.getSuperclass();
+            if (superClassIsObject(superClass)) {
+                break;
+            } else {
+                currentTypeElement = asTypeElement(superClass).orElseThrow();
+            }
+        }
+        return Optional.empty();
+    }
+
     private static List<ExecutableElement> findGetterOrSetter(final TypeElement typeElement,
                                                               final VariableElement variableElement,
                                                               final boolean getter) {

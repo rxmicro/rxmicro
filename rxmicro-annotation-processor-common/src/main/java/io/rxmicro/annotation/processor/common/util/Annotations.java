@@ -41,6 +41,7 @@ import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.MirroredTypeException;
 
 import static io.rxmicro.annotation.processor.common.util.Elements.asTypeElement;
+import static io.rxmicro.annotation.processor.common.util.Elements.findSetter;
 import static io.rxmicro.annotation.processor.common.util.Errors.createInternalErrorSupplier;
 import static io.rxmicro.annotation.processor.common.util.Names.getSimpleName;
 import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getElements;
@@ -134,13 +135,21 @@ public final class Annotations {
         return Stream.concat(
                 Arrays.stream(element.getAnnotationsByType(DefaultConfigValue.class)).map(defaultConfigValue -> entry(
                         getDefaultConfigValueName(
-                                element, defaultConfigValue.name(), defaultConfigValue::configClass, defaultConfigNameSpace
+                                element,
+                                DefaultConfigValue.class,
+                                defaultConfigValue.name(),
+                                defaultConfigValue::configClass,
+                                defaultConfigNameSpace
                         ),
                         new DefaultConfigProxyValue(defaultConfigValue.value())
                 )),
                 Arrays.stream(element.getAnnotationsByType(DefaultConfigValueSupplier.class)).map(defaultConfigValue -> entry(
                         getDefaultConfigValueName(
-                                element, defaultConfigValue.name(), defaultConfigValue::configClass, defaultConfigNameSpace
+                                element,
+                                DefaultConfigValueSupplier.class,
+                                defaultConfigValue.name(),
+                                defaultConfigValue::configClass,
+                                defaultConfigNameSpace
                         ),
                         new DefaultConfigProxyValue(getRequiredAnnotationClassParameter(defaultConfigValue::supplier))
                 ))
@@ -148,18 +157,40 @@ public final class Annotations {
     }
 
     private static String getDefaultConfigValueName(final Element element,
+                                                    final Class<? extends Annotation> annotationClass,
                                                     final String name,
                                                     final Supplier<Class<?>> classSupplier,
                                                     final String defaultConfigNameSpace) {
+        final Optional<TypeElement> annotationClassParameter = getAnnotationClassParameter(classSupplier, Config.class);
         if (name.indexOf('.') != -1) {
-            if (getAnnotationClassParameter(classSupplier, Config.class).isPresent()) {
+            if (annotationClassParameter.isPresent()) {
                 throw new InterruptProcessingException(element, "Redundant config class! Remove it!");
             }
             return name;
         } else {
-            return getAnnotationClassParameter(classSupplier, Config.class)
+            annotationClassParameter.ifPresent(typeElement ->
+                    validateThatConfigClassContainsProperty(element, annotationClass, typeElement, name)
+            );
+            return annotationClassParameter
                     .map(te -> getDefaultNameSpace(getSimpleName(te)))
                     .orElse(defaultConfigNameSpace) + "." + name;
+        }
+    }
+
+    private static void validateThatConfigClassContainsProperty(final Element element,
+                                                                final Class<? extends Annotation> annotationClass,
+                                                                final TypeElement typeElement,
+                                                                final String property) {
+        if (findSetter(typeElement, property).isEmpty()) {
+            throw new InterruptProcessingException(
+                    element,
+                    "Invalid 'configClass' or 'name' parameter for @? annotation: " +
+                            "'?' class does not contain setter for the '?' property! " +
+                            "Change invalid parameter(s)!",
+                    annotationClass.getName(),
+                    typeElement.getQualifiedName().toString(),
+                    property
+            );
         }
     }
 

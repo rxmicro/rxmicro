@@ -61,10 +61,16 @@ public final class JavaBeanConfigProperties extends ConfigProperties {
         final DefaultConfigValueStorage storage = getCurrentDefaultConfigValueStorage();
         final String messageTemplate = "Discovered properties from default config storage: ?";
         if (storage.hasDefaultStringValuesStorage()) {
+            if (RUNTIME_STRICT_MODE_ACTIVATED) {
+                validateRedundantProperties(storage.getDefaultStringValuesStorage(), "default config storage", true);
+            }
             properties.forEach(p -> p.resolve(storage.getDefaultStringValuesStorage(), true).ifPresent(resolvedEntries::add));
             debugMessageBuilder.append(messageTemplate, storage.getDefaultStringValuesStorage());
         }
         if (storage.hasDefaultSupplierValuesStorage()) {
+            if (RUNTIME_STRICT_MODE_ACTIVATED) {
+                validateRedundantProperties(storage.getDefaultSupplierValuesStorage(), "default config storage", true);
+            }
             properties.forEach(p -> p.resolve(storage.getDefaultSupplierValuesStorage(), true)
                     .ifPresent(e -> resolvedEntries.add(entry(e.getKey(), String.valueOf(e.getValue())))));
             debugMessageBuilder.append(messageTemplate, storage.getDefaultSupplierValuesStorage());
@@ -131,10 +137,10 @@ public final class JavaBeanConfigProperties extends ConfigProperties {
         }
     }
 
-    private void validateRedundantProperties(final Map<String, String> map,
+    private void validateRedundantProperties(final Map<String, ?> map,
                                              final String sourceName,
                                              final boolean useFullName) {
-        final Map<String, String> mapCopy;
+        final Map<String, ?> mapCopy;
         if (useFullName) {
             mapCopy = map.entrySet().stream()
                     .filter(e -> e.getKey().startsWith(namespace + "."))
