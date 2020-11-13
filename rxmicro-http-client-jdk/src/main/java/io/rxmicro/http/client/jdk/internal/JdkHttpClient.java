@@ -17,7 +17,6 @@
 package io.rxmicro.http.client.jdk.internal;
 
 import io.rxmicro.config.Secrets;
-import io.rxmicro.http.ProtocolSchema;
 import io.rxmicro.http.client.ClientHttpResponse;
 import io.rxmicro.http.client.HttpClient;
 import io.rxmicro.http.client.HttpClientConfig;
@@ -65,11 +64,7 @@ final class JdkHttpClient implements HttpClient {
 
     private final java.net.http.HttpClient client;
 
-    private final ProtocolSchema protocol;
-
-    private final String host;
-
-    private final int port;
+    private final String connectionString;
 
     private final Secrets secrets;
 
@@ -86,9 +81,7 @@ final class JdkHttpClient implements HttpClient {
                   final Secrets secrets,
                   final HttpClientContentConverter contentConverter) {
         this.logger = LoggerFactory.getLogger(loggerClass);
-        this.protocol = httpClientConfig.getSchema();
-        this.host = httpClientConfig.getHost();
-        this.port = httpClientConfig.getPort();
+        this.connectionString = httpClientConfig.getConnectionString();
         this.secrets = secrets;
         final String contentType = require(contentConverter.getContentType());
         this.requiredHeaders = List.of(
@@ -130,9 +123,12 @@ final class JdkHttpClient implements HttpClient {
 
     private HttpRequest.Builder newRequestBuilder(final String path,
                                                   final List<Map.Entry<String, String>> headers) {
-        final HttpRequest.Builder requestBuilder = HttpRequest.newBuilder()
-                .uri(URI.create(format("?://?:??",
-                        protocol.getSchema(), host, port, startsWith(path, '/') ? path : "/" + path)));
+        final HttpRequest.Builder requestBuilder;
+        if (startsWith(path, '/')) {
+            requestBuilder = HttpRequest.newBuilder().uri(URI.create(connectionString + path));
+        } else {
+            requestBuilder = HttpRequest.newBuilder().uri(URI.create(connectionString + '/' + path));
+        }
         setHeaders(requestBuilder, headers);
         if (!timeout.isZero()) {
             requestBuilder.timeout(timeout);
