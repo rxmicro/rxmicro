@@ -7,7 +7,7 @@ import io.rxmicro.examples.rest.client.handlers.model.Request;
 import io.rxmicro.examples.rest.client.handlers.model.Response;
 import io.rxmicro.http.client.ClientHttpResponse;
 import io.rxmicro.http.client.HttpClient;
-import io.rxmicro.http.client.HttpClientConfig;
+import io.rxmicro.rest.client.RestClientConfig;
 import io.rxmicro.rest.client.detail.AbstractRestClient;
 import io.rxmicro.rest.client.detail.QueryBuilder;
 import reactor.core.publisher.Mono;
@@ -42,10 +42,10 @@ public final class $$RestClientWithBody extends AbstractRestClient implements Re
 
     private final HttpClient client;
 
-    private final HttpClientConfig config;
+    private final RestClientConfig config;
 
     public $$RestClientWithBody(final HttpClient client,
-                                final HttpClientConfig config) {
+                                final RestClientConfig config) {
         this.client = client;
         this.config = config;
     }

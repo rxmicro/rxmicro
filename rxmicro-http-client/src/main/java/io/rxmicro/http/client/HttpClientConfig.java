@@ -38,7 +38,7 @@ import static java.time.Duration.ofSeconds;
 public class HttpClientConfig extends HttpConfig {
 
     /**
-     * Default HTTp client timeout in seconds.
+     * Default HTTP client timeout in seconds.
      */
     public static final int DEFAULT_HTTP_CLIENT_TIMEOUT_VALUE_IN_SECONDS = 7;
 
@@ -51,7 +51,7 @@ public class HttpClientConfig extends HttpConfig {
     /**
      * Creates a HTTP client config instance with default settings.
      */
-    public HttpClientConfig() {
+    protected HttpClientConfig() {
         setHost("localhost");
     }
 
@@ -145,7 +145,8 @@ public class HttpClientConfig extends HttpConfig {
     public String toString() {
         return "HttpClientConfig {connectionString=" + getConnectionString() +
                 ", accessKey=" + hideSecretInfo(getAccessKey()) +
-                ", followRedirects=" + followRedirects + '}' +
-                ", requestTimeout=" + format(requestTimeout) + '}';
+                ", followRedirects=" + followRedirects +
+                ", requestTimeout=" + format(requestTimeout) +
+                '}';
     }
 }

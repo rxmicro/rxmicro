@@ -106,7 +106,7 @@ public final class ${PREFIX}${JAVA_CLASS_NAME} extends ${PARENT_CLASS_NAME} {
                                        final int statusCode,
                                        final HttpHeaders headers) {
         <#if GENERATE_RESPONSE_VALIDATORS && VALIDATORS_MAP[JAVA_RESPONSE_CLASS.fullClassName]?? >
-        validateResponse(${VALIDATORS_MAP[JAVA_RESPONSE_CLASS.fullClassName].modelValidatorInstanceName}, model);
+        validateResponse(restServerConfig.isEnableAdditionalValidations(), ${VALIDATORS_MAP[JAVA_RESPONSE_CLASS.fullClassName].modelValidatorInstanceName}, model);
         </#if>
         final HttpResponse response = httpResponseBuilder.build();
         response.setStatus(statusCode);

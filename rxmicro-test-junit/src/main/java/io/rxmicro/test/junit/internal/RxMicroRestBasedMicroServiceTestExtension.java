@@ -50,7 +50,6 @@ import java.util.List;
 import java.util.Map;
 
 import static io.rxmicro.config.local.DefaultConfigValueBuilderReSetter.resetDefaultConfigValueStorage;
-import static io.rxmicro.rest.server.PredefinedRequestIdGeneratorType.FOR_TESTS_ONLY;
 import static io.rxmicro.rest.server.local.component.RestServerLauncher.launchWithoutRestControllers;
 import static io.rxmicro.runtime.local.AbstractFactory.clearFactories;
 import static io.rxmicro.runtime.local.InstanceContainer.clearContainer;
@@ -127,7 +126,6 @@ public final class RxMicroRestBasedMicroServiceTestExtension
                         .setStartTimeTrackerEnabled(false),
                 new RestServerConfig()
                         .setDevelopmentMode(true)
-                        .setGeneratorType(FOR_TESTS_ONLY)
         );
         serverContainer = launchWithoutRestControllers(configs);
         restControllerInstanceResolver = new RestControllerInstanceResolver(restControllerClasses, serverContainer);

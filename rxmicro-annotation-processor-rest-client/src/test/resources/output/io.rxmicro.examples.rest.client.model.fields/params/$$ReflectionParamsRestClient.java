@@ -8,7 +8,7 @@ import io.rxmicro.examples.rest.client.model.fields.params.reflection.QueryReque
 import io.rxmicro.examples.rest.client.model.fields.params.reflection.Response;
 import io.rxmicro.http.client.ClientHttpResponse;
 import io.rxmicro.http.client.HttpClient;
-import io.rxmicro.http.client.HttpClientConfig;
+import io.rxmicro.rest.client.RestClientConfig;
 import io.rxmicro.rest.client.detail.AbstractRestClient;
 import io.rxmicro.rest.client.detail.QueryBuilder;
 
@@ -33,10 +33,10 @@ public final class $$ReflectionParamsRestClient extends AbstractRestClient imple
 
     private final HttpClient client;
 
-    private final HttpClientConfig config;
+    private final RestClientConfig config;
 
     public $$ReflectionParamsRestClient(final HttpClient client,
-                                        final HttpClientConfig config) {
+                                        final RestClientConfig config) {
         this.client = client;
         this.config = config;
     }

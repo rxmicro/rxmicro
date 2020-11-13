@@ -1,7 +1,7 @@
 package io.rxmicro.examples.processor.restclient.v1;
 
 import io.rxmicro.http.client.HttpClient;
-import io.rxmicro.http.client.HttpClientConfig;
+import io.rxmicro.rest.client.RestClientConfig;
 import io.rxmicro.rest.client.detail.AbstractRestClient;
 
 /**
@@ -11,10 +11,10 @@ public final class $$RestClientV1 extends AbstractRestClient implements RestClie
 
     private final HttpClient client;
 
-    private final HttpClientConfig config;
+    private final RestClientConfig config;
 
     public $$RestClientV1(final HttpClient client,
-                          final HttpClientConfig config) {
+                          final RestClientConfig config) {
         this.client = client;
         this.config = config;
     }

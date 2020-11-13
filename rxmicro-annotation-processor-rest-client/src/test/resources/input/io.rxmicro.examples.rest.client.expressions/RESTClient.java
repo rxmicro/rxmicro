@@ -24,7 +24,7 @@ import java.util.concurrent.CompletableFuture;
 
 // tag::content[]
 @RestClient(
-        configClass = CustomHttpClientConfig.class,    // <1>
+        configClass = CustomRestClientConfig.class,    // <1>
         configNameSpace = "custom"                     // <2>
 )
 @AddHeader(name = "Use-Proxy", value = "${useProxy}")  // <3>

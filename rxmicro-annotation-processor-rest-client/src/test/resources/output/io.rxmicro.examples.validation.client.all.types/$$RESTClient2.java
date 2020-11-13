@@ -10,14 +10,15 @@ import io.rxmicro.examples.validation.client.all.types.model.Request;
 import io.rxmicro.examples.validation.client.all.types.model.Response;
 import io.rxmicro.http.client.ClientHttpResponse;
 import io.rxmicro.http.client.HttpClient;
-import io.rxmicro.http.client.HttpClientConfig;
 import io.rxmicro.http.error.ValidationException;
+import io.rxmicro.rest.client.RestClientConfig;
 import io.rxmicro.rest.client.detail.AbstractRestClient;
 import reactor.core.publisher.Mono;
 
 import java.util.concurrent.CompletableFuture;
 
 import static io.rxmicro.rest.client.detail.ErrorResponseCheckerHelper.throwExceptionIfNotSuccess;
+import static io.rxmicro.validation.detail.RequestValidators.validateRequest;
 import static io.rxmicro.validation.detail.ResponseValidators.validateIfResponseExists;
 import static io.rxmicro.validation.detail.ResponseValidators.validateResponse;
 
@@ -76,10 +77,10 @@ public final class $$RESTClient2 extends AbstractRestClient implements RESTClien
 
     private final HttpClient client;
 
-    private final HttpClientConfig config;
+    private final RestClientConfig config;
 
     public $$RESTClient2(final HttpClient client,
-                         final HttpClientConfig config) {
+                         final RestClientConfig config) {
         this.client = client;
         this.config = config;
     }
@@ -88,7 +89,7 @@ public final class $$RESTClient2 extends AbstractRestClient implements RESTClien
     public CompletableFuture<Void> put1(final String email) {
         final $$VirtualREST2Request virtualRequest = new $$VirtualREST2Request(email);
         try {
-            virtualREST2RequestConstraintValidator.validate(virtualRequest);
+            validateRequest(config.isEnableAdditionalValidations(), virtualREST2RequestConstraintValidator, virtualRequest);
         } catch (final ValidationException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -104,7 +105,7 @@ public final class $$RESTClient2 extends AbstractRestClient implements RESTClien
     @Override
     public CompletableFuture<Void> put2(final Request request) {
         try {
-            requestConstraintValidator.validate(request);
+            validateRequest(config.isEnableAdditionalValidations(), requestConstraintValidator, request);
         } catch (final ValidationException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -130,7 +131,7 @@ public final class $$RESTClient2 extends AbstractRestClient implements RESTClien
     public CompletableFuture<Response> put4(final String email) {
         final $$VirtualREST2Request2 virtualRequest = new $$VirtualREST2Request2(email);
         try {
-            virtualREST2Request2ConstraintValidator.validate(virtualRequest);
+            validateRequest(config.isEnableAdditionalValidations(), virtualREST2Request2ConstraintValidator, virtualRequest);
         } catch (final ValidationException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -141,13 +142,13 @@ public final class $$RESTClient2 extends AbstractRestClient implements RESTClien
                 .handle(throwExceptionIfNotSuccess());
         return response
                 .thenApply(resp -> responseModelReader.readSingle(resp))
-                .whenComplete((resp, th) -> validateIfResponseExists(responseConstraintValidator, resp));
+                .whenComplete((resp, th) -> validateIfResponseExists(true, responseConstraintValidator, resp));
     }
 
     @Override
     public CompletableFuture<Response> put5(final Request request) {
         try {
-            requestConstraintValidator.validate(request);
+            validateRequest(config.isEnableAdditionalValidations(), requestConstraintValidator, request);
         } catch (final ValidationException e) {
             return CompletableFuture.failedFuture(e);
         }
@@ -158,7 +159,7 @@ public final class $$RESTClient2 extends AbstractRestClient implements RESTClien
                 .handle(throwExceptionIfNotSuccess());
         return response
                 .thenApply(resp -> responseModelReader.readSingle(resp))
-                .whenComplete((resp, th) -> validateIfResponseExists(responseConstraintValidator, resp));
+                .whenComplete((resp, th) -> validateIfResponseExists(true, responseConstraintValidator, resp));
     }
 
     @Override
@@ -168,14 +169,14 @@ public final class $$RESTClient2 extends AbstractRestClient implements RESTClien
                 .handle(throwExceptionIfNotSuccess());
         return response
                 .thenApply(resp -> responseModelReader.readSingle(resp))
-                .whenComplete((resp, th) -> validateIfResponseExists(responseConstraintValidator, resp));
+                .whenComplete((resp, th) -> validateIfResponseExists(true, responseConstraintValidator, resp));
     }
 
     @Override
     public Mono<Void> put7(final String email) {
         final $$VirtualREST2Request3 virtualRequest = new $$VirtualREST2Request3(email);
         try {
-            virtualREST2Request3ConstraintValidator.validate(virtualRequest);
+            validateRequest(config.isEnableAdditionalValidations(), virtualREST2Request3ConstraintValidator, virtualRequest);
         } catch (final ValidationException e) {
             return Mono.error(e);
         }
@@ -191,7 +192,7 @@ public final class $$RESTClient2 extends AbstractRestClient implements RESTClien
     @Override
     public Mono<Void> put8(final Request request) {
         try {
-            requestConstraintValidator.validate(request);
+            validateRequest(config.isEnableAdditionalValidations(), requestConstraintValidator, request);
         } catch (final ValidationException e) {
             return Mono.error(e);
         }
@@ -217,7 +218,7 @@ public final class $$RESTClient2 extends AbstractRestClient implements RESTClien
     public Mono<Response> put10(final String email) {
         final $$VirtualREST2Request4 virtualRequest = new $$VirtualREST2Request4(email);
         try {
-            virtualREST2Request4ConstraintValidator.validate(virtualRequest);
+            validateRequest(config.isEnableAdditionalValidations(), virtualREST2Request4ConstraintValidator, virtualRequest);
         } catch (final ValidationException e) {
             return Mono.error(e);
         }
@@ -228,13 +229,13 @@ public final class $$RESTClient2 extends AbstractRestClient implements RESTClien
                 .handle(throwExceptionIfNotSuccess());
         return Mono.fromFuture(response)
                 .map(resp -> responseModelReader.readSingle(resp))
-                .doOnSuccess(resp -> validateResponse(responseConstraintValidator, resp));
+                .doOnSuccess(resp -> validateResponse(true, responseConstraintValidator, resp));
     }
 
     @Override
     public Mono<Response> put11(final Request request) {
         try {
-            requestConstraintValidator.validate(request);
+            validateRequest(config.isEnableAdditionalValidations(), requestConstraintValidator, request);
         } catch (final ValidationException e) {
             return Mono.error(e);
         }
@@ -245,7 +246,7 @@ public final class $$RESTClient2 extends AbstractRestClient implements RESTClien
                 .handle(throwExceptionIfNotSuccess());
         return Mono.fromFuture(response)
                 .map(resp -> responseModelReader.readSingle(resp))
-                .doOnSuccess(resp -> validateResponse(responseConstraintValidator, resp));
+                .doOnSuccess(resp -> validateResponse(true, responseConstraintValidator, resp));
     }
 
     @Override
@@ -255,14 +256,14 @@ public final class $$RESTClient2 extends AbstractRestClient implements RESTClien
                 .handle(throwExceptionIfNotSuccess());
         return Mono.fromFuture(response)
                 .map(resp -> responseModelReader.readSingle(resp))
-                .doOnSuccess(resp -> validateResponse(responseConstraintValidator, resp));
+                .doOnSuccess(resp -> validateResponse(true, responseConstraintValidator, resp));
     }
 
     @Override
     public Completable put13(final String email) {
         final $$VirtualREST2Request5 virtualRequest = new $$VirtualREST2Request5(email);
         try {
-            virtualREST2Request5ConstraintValidator.validate(virtualRequest);
+            validateRequest(config.isEnableAdditionalValidations(), virtualREST2Request5ConstraintValidator, virtualRequest);
         } catch (final ValidationException e) {
             return Completable.error(e);
         }
@@ -277,7 +278,7 @@ public final class $$RESTClient2 extends AbstractRestClient implements RESTClien
     @Override
     public Completable put14(final Request request) {
         try {
-            requestConstraintValidator.validate(request);
+            validateRequest(config.isEnableAdditionalValidations(), requestConstraintValidator, request);
         } catch (final ValidationException e) {
             return Completable.error(e);
         }
@@ -301,7 +302,7 @@ public final class $$RESTClient2 extends AbstractRestClient implements RESTClien
     public Single<Response> put16(final String email) {
         final $$VirtualREST2Request6 virtualRequest = new $$VirtualREST2Request6(email);
         try {
-            virtualREST2Request6ConstraintValidator.validate(virtualRequest);
+            validateRequest(config.isEnableAdditionalValidations(), virtualREST2Request6ConstraintValidator, virtualRequest);
         } catch (final ValidationException e) {
             return Single.error(e);
         }
@@ -312,13 +313,13 @@ public final class $$RESTClient2 extends AbstractRestClient implements RESTClien
                 .handle(throwExceptionIfNotSuccess());
         return Single.fromCompletionStage(response)
                 .map(resp -> responseModelReader.readSingle(resp))
-                .doOnSuccess(resp -> validateResponse(responseConstraintValidator, resp));
+                .doOnSuccess(resp -> validateResponse(true, responseConstraintValidator, resp));
     }
 
     @Override
     public Single<Response> put17(final Request request) {
         try {
-            requestConstraintValidator.validate(request);
+            validateRequest(config.isEnableAdditionalValidations(), requestConstraintValidator, request);
         } catch (final ValidationException e) {
             return Single.error(e);
         }
@@ -329,7 +330,7 @@ public final class $$RESTClient2 extends AbstractRestClient implements RESTClien
                 .handle(throwExceptionIfNotSuccess());
         return Single.fromCompletionStage(response)
                 .map(resp -> responseModelReader.readSingle(resp))
-                .doOnSuccess(resp -> validateResponse(responseConstraintValidator, resp));
+                .doOnSuccess(resp -> validateResponse(true, responseConstraintValidator, resp));
     }
 
     @Override
@@ -339,6 +340,6 @@ public final class $$RESTClient2 extends AbstractRestClient implements RESTClien
                 .handle(throwExceptionIfNotSuccess());
         return Single.fromCompletionStage(response)
                 .map(resp -> responseModelReader.readSingle(resp))
-                .doOnSuccess(resp -> validateResponse(responseConstraintValidator, resp));
+                .doOnSuccess(resp -> validateResponse(true, responseConstraintValidator, resp));
     }
 }

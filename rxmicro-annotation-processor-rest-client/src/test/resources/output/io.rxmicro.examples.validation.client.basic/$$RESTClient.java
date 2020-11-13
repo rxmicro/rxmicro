@@ -5,7 +5,7 @@ import io.rxmicro.examples.validation.client.basic.model.$$ResponseModelReader;
 import io.rxmicro.examples.validation.client.basic.model.Response;
 import io.rxmicro.http.client.ClientHttpResponse;
 import io.rxmicro.http.client.HttpClient;
-import io.rxmicro.http.client.HttpClientConfig;
+import io.rxmicro.rest.client.RestClientConfig;
 import io.rxmicro.rest.client.detail.AbstractRestClient;
 
 import java.util.concurrent.CompletableFuture;
@@ -26,10 +26,10 @@ public final class $$RESTClient extends AbstractRestClient implements RESTClient
 
     private final HttpClient client;
 
-    private final HttpClientConfig config;
+    private final RestClientConfig config;
 
     public $$RESTClient(final HttpClient client,
-                        final HttpClientConfig config) {
+                        final RestClientConfig config) {
         this.client = client;
         this.config = config;
     }
@@ -41,6 +41,6 @@ public final class $$RESTClient extends AbstractRestClient implements RESTClient
                 .handle(throwExceptionIfNotSuccess());
         return response
                 .thenApply(resp -> responseModelReader.readSingle(resp))
-                .whenComplete((resp, th) -> validateIfResponseExists(responseConstraintValidator, resp));
+                .whenComplete((resp, th) -> validateIfResponseExists(true, responseConstraintValidator, resp));
     }
 }

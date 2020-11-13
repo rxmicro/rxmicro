@@ -6,7 +6,7 @@ import io.rxmicro.examples.rest.client.params.model.ComplexRequest;
 import io.rxmicro.examples.rest.client.params.model.ComplexResponse;
 import io.rxmicro.http.client.ClientHttpResponse;
 import io.rxmicro.http.client.HttpClient;
-import io.rxmicro.http.client.HttpClientConfig;
+import io.rxmicro.rest.client.RestClientConfig;
 import io.rxmicro.rest.client.detail.AbstractRestClient;
 
 import java.util.concurrent.CompletableFuture;
@@ -26,10 +26,10 @@ public final class $$ComplexModelRestClient extends AbstractRestClient implement
 
     private final HttpClient client;
 
-    private final HttpClientConfig config;
+    private final RestClientConfig config;
 
     public $$ComplexModelRestClient(final HttpClient client,
-                                    final HttpClientConfig config) {
+                                    final RestClientConfig config) {
         this.client = client;
         this.config = config;
     }

@@ -32,7 +32,7 @@ import io.rxmicro.examples.rest.client.model.fields.pathvariables.DirectPathVari
 import io.rxmicro.examples.rest.client.model.fields.pathvariables.GetterSetterPathVariablesRestClient;
 import io.rxmicro.examples.rest.client.model.fields.pathvariables.ReflectionPathVariablesRestClient;
 import io.rxmicro.examples.rest.client.model.fields.pathvariables.VirtualPathVariablesRestClient;
-import io.rxmicro.http.client.HttpClientConfig;
+import io.rxmicro.rest.client.RestClientConfig;
 import io.rxmicro.rest.client.RestClientFactory;
 
 import static io.rxmicro.rest.client.detail.RestClientImplFactory.createRestClient;
@@ -48,98 +48,98 @@ public final class $$RestClientFactoryImpl extends RestClientFactory {
 
     public $$RestClientFactoryImpl() {
         register(MappingStrategyRestClient.class, () -> createRestClient(
-                "http-client",
-                HttpClientConfig.class,
+                "rest-client",
+                RestClientConfig.class,
                 MappingStrategyRestClient.class,
                 $$MappingStrategyRestClient::new)
         );
         register(DirectHeadersRestClient.class, () -> createRestClient(
-                "http-client",
-                HttpClientConfig.class,
+                "rest-client",
+                RestClientConfig.class,
                 DirectHeadersRestClient.class,
                 $$DirectHeadersRestClient::new)
         );
         register(GetterSetterHeadersRestClient.class, () -> createRestClient(
-                "http-client",
-                HttpClientConfig.class,
+                "rest-client",
+                RestClientConfig.class,
                 GetterSetterHeadersRestClient.class,
                 $$GetterSetterHeadersRestClient::new)
         );
         register(ReflectionHeadersRestClient.class, () -> createRestClient(
-                "http-client",
-                HttpClientConfig.class,
+                "rest-client",
+                RestClientConfig.class,
                 ReflectionHeadersRestClient.class,
                 $$ReflectionHeadersRestClient::new)
         );
         register(VirtualHeadersRestClient.class, () -> createRestClient(
-                "http-client",
-                HttpClientConfig.class,
+                "rest-client",
+                RestClientConfig.class,
                 VirtualHeadersRestClient.class,
                 $$VirtualHeadersRestClient::new)
         );
         register(DirectInternalsRestClient.class, () -> createRestClient(
-                "http-client",
-                HttpClientConfig.class,
+                "rest-client",
+                RestClientConfig.class,
                 DirectInternalsRestClient.class,
                 $$DirectInternalsRestClient::new)
         );
         register(GetterSetterInternalsRestClient.class, () -> createRestClient(
-                "http-client",
-                HttpClientConfig.class,
+                "rest-client",
+                RestClientConfig.class,
                 GetterSetterInternalsRestClient.class,
                 $$GetterSetterInternalsRestClient::new)
         );
         register(ReflectionInternalsRestClient.class, () -> createRestClient(
-                "http-client",
-                HttpClientConfig.class,
+                "rest-client",
+                RestClientConfig.class,
                 ReflectionInternalsRestClient.class,
                 $$ReflectionInternalsRestClient::new)
         );
         register(DirectParamsRestClient.class, () -> createRestClient(
-                "http-client",
-                HttpClientConfig.class,
+                "rest-client",
+                RestClientConfig.class,
                 DirectParamsRestClient.class,
                 $$DirectParamsRestClient::new)
         );
         register(GetterSetterParamsRestClient.class, () -> createRestClient(
-                "http-client",
-                HttpClientConfig.class,
+                "rest-client",
+                RestClientConfig.class,
                 GetterSetterParamsRestClient.class,
                 $$GetterSetterParamsRestClient::new)
         );
         register(ReflectionParamsRestClient.class, () -> createRestClient(
-                "http-client",
-                HttpClientConfig.class,
+                "rest-client",
+                RestClientConfig.class,
                 ReflectionParamsRestClient.class,
                 $$ReflectionParamsRestClient::new)
         );
         register(VirtualParamsRestClient.class, () -> createRestClient(
-                "http-client",
-                HttpClientConfig.class,
+                "rest-client",
+                RestClientConfig.class,
                 VirtualParamsRestClient.class,
                 $$VirtualParamsRestClient::new)
         );
         register(DirectPathVariablesRestClient.class, () -> createRestClient(
-                "http-client",
-                HttpClientConfig.class,
+                "rest-client",
+                RestClientConfig.class,
                 DirectPathVariablesRestClient.class,
                 $$DirectPathVariablesRestClient::new)
         );
         register(GetterSetterPathVariablesRestClient.class, () -> createRestClient(
-                "http-client",
-                HttpClientConfig.class,
+                "rest-client",
+                RestClientConfig.class,
                 GetterSetterPathVariablesRestClient.class,
                 $$GetterSetterPathVariablesRestClient::new)
         );
         register(ReflectionPathVariablesRestClient.class, () -> createRestClient(
-                "http-client",
-                HttpClientConfig.class,
+                "rest-client",
+                RestClientConfig.class,
                 ReflectionPathVariablesRestClient.class,
                 $$ReflectionPathVariablesRestClient::new)
         );
         register(VirtualPathVariablesRestClient.class, () -> createRestClient(
-                "http-client",
-                HttpClientConfig.class,
+                "rest-client",
+                RestClientConfig.class,
                 VirtualPathVariablesRestClient.class,
                 $$VirtualPathVariablesRestClient::new)
         );

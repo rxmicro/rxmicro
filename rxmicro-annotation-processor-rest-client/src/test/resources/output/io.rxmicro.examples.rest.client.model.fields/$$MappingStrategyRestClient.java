@@ -2,7 +2,7 @@ package io.rxmicro.examples.rest.client.model.fields;
 
 import io.rxmicro.http.client.ClientHttpResponse;
 import io.rxmicro.http.client.HttpClient;
-import io.rxmicro.http.client.HttpClientConfig;
+import io.rxmicro.rest.client.RestClientConfig;
 import io.rxmicro.rest.client.detail.AbstractRestClient;
 import io.rxmicro.rest.client.detail.HeaderBuilder;
 import io.rxmicro.rest.client.detail.QueryBuilder;
@@ -30,10 +30,10 @@ public final class $$MappingStrategyRestClient extends AbstractRestClient implem
 
     private final HttpClient client;
 
-    private final HttpClientConfig config;
+    private final RestClientConfig config;
 
     public $$MappingStrategyRestClient(final HttpClient client,
-                                       final HttpClientConfig config) {
+                                       final RestClientConfig config) {
         this.client = client;
         this.config = config;
     }

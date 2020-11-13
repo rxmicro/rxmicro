@@ -6,7 +6,7 @@ import io.rxmicro.examples.rest.client.model.fields.headers.direct.Request;
 import io.rxmicro.examples.rest.client.model.fields.headers.direct.Response;
 import io.rxmicro.http.client.ClientHttpResponse;
 import io.rxmicro.http.client.HttpClient;
-import io.rxmicro.http.client.HttpClientConfig;
+import io.rxmicro.rest.client.RestClientConfig;
 import io.rxmicro.rest.client.detail.AbstractRestClient;
 import io.rxmicro.rest.client.detail.HeaderBuilder;
 
@@ -28,10 +28,10 @@ public final class $$DirectHeadersRestClient extends AbstractRestClient implemen
 
     private final HttpClient client;
 
-    private final HttpClientConfig config;
+    private final RestClientConfig config;
 
     public $$DirectHeadersRestClient(final HttpClient client,
-                                     final HttpClientConfig config) {
+                                     final RestClientConfig config) {
         this.client = client;
         this.config = config;
     }

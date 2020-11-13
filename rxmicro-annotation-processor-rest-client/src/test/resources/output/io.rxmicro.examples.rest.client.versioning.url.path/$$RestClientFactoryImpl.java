@@ -4,7 +4,7 @@ import io.rxmicro.examples.rest.client.versioning.url.path.$$NewRestClient;
 import io.rxmicro.examples.rest.client.versioning.url.path.$$OldRestClient;
 import io.rxmicro.examples.rest.client.versioning.url.path.NewRestClient;
 import io.rxmicro.examples.rest.client.versioning.url.path.OldRestClient;
-import io.rxmicro.http.client.HttpClientConfig;
+import io.rxmicro.rest.client.RestClientConfig;
 import io.rxmicro.rest.client.RestClientFactory;
 
 import static io.rxmicro.rest.client.detail.RestClientImplFactory.createRestClient;
@@ -20,14 +20,14 @@ public final class $$RestClientFactoryImpl extends RestClientFactory {
 
     public $$RestClientFactoryImpl() {
         register(NewRestClient.class, () -> createRestClient(
-                "http-client",
-                HttpClientConfig.class,
+                "rest-client",
+                RestClientConfig.class,
                 NewRestClient.class,
                 $$NewRestClient::new)
         );
         register(OldRestClient.class, () -> createRestClient(
-                "http-client",
-                HttpClientConfig.class,
+                "rest-client",
+                RestClientConfig.class,
                 OldRestClient.class,
                 $$OldRestClient::new)
         );

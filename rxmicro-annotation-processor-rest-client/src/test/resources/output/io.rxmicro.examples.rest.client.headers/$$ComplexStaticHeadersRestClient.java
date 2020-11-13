@@ -2,7 +2,7 @@ package io.rxmicro.examples.rest.client.headers;
 
 import io.rxmicro.http.client.ClientHttpResponse;
 import io.rxmicro.http.client.HttpClient;
-import io.rxmicro.http.client.HttpClientConfig;
+import io.rxmicro.rest.client.RestClientConfig;
 import io.rxmicro.rest.client.detail.AbstractRestClient;
 import io.rxmicro.rest.client.detail.HeaderBuilder;
 
@@ -17,10 +17,10 @@ public final class $$ComplexStaticHeadersRestClient extends AbstractRestClient i
 
     private final HttpClient client;
 
-    private final HttpClientConfig config;
+    private final RestClientConfig config;
 
     public $$ComplexStaticHeadersRestClient(final HttpClient client,
-                                            final HttpClientConfig config) {
+                                            final RestClientConfig config) {
         this.client = client;
         this.config = config;
     }

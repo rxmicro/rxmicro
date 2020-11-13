@@ -31,35 +31,43 @@ import java.util.List;
  */
 public final class ResponseValidators {
 
-    public static <T> void validateResponse(final ConstraintValidator<T> validator,
+    public static <T> void validateResponse(final boolean shouldValidationBeActivated,
+                                            final ConstraintValidator<T> validator,
                                             final T response) {
-        try {
-            validator.validate(response);
-        } catch (final ValidationException ex) {
-            throw new UnexpectedResponseException("Response is invalid: ?", ex.getMessage());
+        if (shouldValidationBeActivated) {
+            try {
+                validator.validate(response);
+            } catch (final ValidationException ex) {
+                throw new UnexpectedResponseException("Response is invalid: ?", ex.getMessage());
+            }
         }
     }
 
-    public static <T> void validateResponse(final ConstraintValidator<T> validator,
+    public static <T> void validateResponse(final boolean shouldValidationBeActivated,
+                                            final ConstraintValidator<T> validator,
                                             final List<T> response) {
-        try {
-            validator.validateIterable(response);
-        } catch (final ValidationException ex) {
-            throw new UnexpectedResponseException("Response is invalid: ?", ex.getMessage());
+        if (shouldValidationBeActivated) {
+            try {
+                validator.validateIterable(response);
+            } catch (final ValidationException ex) {
+                throw new UnexpectedResponseException("Response is invalid: ?", ex.getMessage());
+            }
         }
     }
 
-    public static <T> void validateIfResponseExists(final ConstraintValidator<T> validator,
+    public static <T> void validateIfResponseExists(final boolean shouldValidationBeActivated,
+                                                    final ConstraintValidator<T> validator,
                                                     final T response) {
         if (response != null) {
-            validateResponse(validator, response);
+            validateResponse(shouldValidationBeActivated, validator, response);
         }
     }
 
-    public static <T> void validateIfResponseExists(final ConstraintValidator<T> validator,
+    public static <T> void validateIfResponseExists(final boolean shouldValidationBeActivated,
+                                                    final ConstraintValidator<T> validator,
                                                     final List<T> response) {
         if (response != null) {
-            validateResponse(validator, response);
+            validateResponse(shouldValidationBeActivated, validator, response);
         }
     }
 

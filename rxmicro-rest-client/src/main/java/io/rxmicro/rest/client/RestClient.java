@@ -54,10 +54,10 @@ public @interface RestClient {
     String configNameSpace() default "";
 
     /**
-     * Allows extending the standard {@link HttpClientConfig} class.
+     * Allows extending the standard {@link RestClientConfig} class.
      *
      * @return the custom class with additional properties
-     * @see HttpClientConfig
+     * @see RestClientConfig
      */
-    Class<? extends HttpClientConfig> configClass() default HttpClientConfig.class;
+    Class<? extends RestClientConfig> configClass() default RestClientConfig.class;
 }

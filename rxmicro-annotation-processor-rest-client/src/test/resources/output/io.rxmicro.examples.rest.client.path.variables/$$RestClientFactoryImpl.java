@@ -2,7 +2,7 @@ package rxmicro;
 
 import io.rxmicro.examples.rest.client.path.variables.$$RESTClient;
 import io.rxmicro.examples.rest.client.path.variables.RESTClient;
-import io.rxmicro.http.client.HttpClientConfig;
+import io.rxmicro.rest.client.RestClientConfig;
 import io.rxmicro.rest.client.RestClientFactory;
 
 import static io.rxmicro.rest.client.detail.RestClientImplFactory.createRestClient;
@@ -18,8 +18,8 @@ public final class $$RestClientFactoryImpl extends RestClientFactory {
 
     public $$RestClientFactoryImpl() {
         register(RESTClient.class, () -> createRestClient(
-                "http-client",
-                HttpClientConfig.class,
+                "rest-client",
+                RestClientConfig.class,
                 RESTClient.class,
                 $$RESTClient::new)
         );

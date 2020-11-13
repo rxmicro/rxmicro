@@ -4,7 +4,7 @@ import io.rxmicro.examples.rest.client.model.fields.Status;
 import io.rxmicro.examples.rest.client.model.fields.params.direct.nested.Nested;
 import io.rxmicro.http.client.ClientHttpResponse;
 import io.rxmicro.http.client.HttpClient;
-import io.rxmicro.http.client.HttpClientConfig;
+import io.rxmicro.rest.client.RestClientConfig;
 import io.rxmicro.rest.client.detail.AbstractRestClient;
 
 import java.math.BigDecimal;
@@ -27,10 +27,10 @@ public final class $$VirtualParamsRestClient extends AbstractRestClient implemen
 
     private final HttpClient client;
 
-    private final HttpClientConfig config;
+    private final RestClientConfig config;
 
     public $$VirtualParamsRestClient(final HttpClient client,
-                                     final HttpClientConfig config) {
+                                     final RestClientConfig config) {
         this.client = client;
         this.config = config;
     }

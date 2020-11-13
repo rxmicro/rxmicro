@@ -4,7 +4,7 @@ import io.rxmicro.examples.validation.client.all.types.$$RESTClient1;
 import io.rxmicro.examples.validation.client.all.types.$$RESTClient2;
 import io.rxmicro.examples.validation.client.all.types.RESTClient1;
 import io.rxmicro.examples.validation.client.all.types.RESTClient2;
-import io.rxmicro.http.client.HttpClientConfig;
+import io.rxmicro.rest.client.RestClientConfig;
 import io.rxmicro.rest.client.RestClientFactory;
 
 import static io.rxmicro.rest.client.detail.RestClientImplFactory.createRestClient;
@@ -20,14 +20,14 @@ public final class $$RestClientFactoryImpl extends RestClientFactory {
 
     public $$RestClientFactoryImpl() {
         register(RESTClient1.class, () -> createRestClient(
-                "http-client",
-                HttpClientConfig.class,
+                "rest-client",
+                RestClientConfig.class,
                 RESTClient1.class,
                 $$RESTClient1::new)
         );
         register(RESTClient2.class, () -> createRestClient(
-                "http-client",
-                HttpClientConfig.class,
+                "rest-client",
+                RestClientConfig.class,
                 RESTClient2.class,
                 $$RESTClient2::new)
         );

@@ -69,7 +69,7 @@ public final class $$MicroService extends AbstractRestController {
     private HttpResponse buildResponse(final Response model,
                                        final int statusCode,
                                        final HttpHeaders headers) {
-        validateResponse(responseConstraintValidator, model);
+        validateResponse(restServerConfig.isEnableAdditionalValidations(), responseConstraintValidator, model);
         final HttpResponse response = httpResponseBuilder.build();
         response.setStatus(statusCode);
         response.setOrAddHeaders(headers);

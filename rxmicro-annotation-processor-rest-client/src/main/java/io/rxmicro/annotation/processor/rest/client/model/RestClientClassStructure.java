@@ -31,6 +31,7 @@ import io.rxmicro.http.client.HttpClient;
 import io.rxmicro.rest.client.detail.ModelReader;
 import io.rxmicro.rest.client.detail.PathBuilder;
 import io.rxmicro.rest.client.detail.RequestModelExtractor;
+import io.rxmicro.validation.detail.RequestValidators;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -177,7 +178,8 @@ public final class RestClientClassStructure extends ClassStructure {
                         HttpClient.class,
                         ClientHttpResponse.class
                 )
-                .addImports(restClientAbstractClass);
+                .addImports(restClientAbstractClass)
+                .addStaticImport(RequestValidators.class, "validateRequest");
         classHeaderBuilder.addImports(getHttpClientConfigFullClassName());
         allValidators.forEach(v -> classHeaderBuilder.addImports(v.getModelValidatorImplFullClassName()));
         modelTransformers.forEach(c -> classHeaderBuilder.addImports(c.getJavaFullClassName()));

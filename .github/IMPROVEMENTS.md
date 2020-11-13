@@ -24,3 +24,4 @@
     phonePhonePhoneConstraintValidator.validate(model.phone, HttpModelType.PARAMETER, "phone");
   }
   ```
+* Add validators for redundant HTTP headers and params  

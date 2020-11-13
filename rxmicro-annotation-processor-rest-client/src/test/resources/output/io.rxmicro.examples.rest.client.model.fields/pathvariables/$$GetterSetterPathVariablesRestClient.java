@@ -4,7 +4,7 @@ import io.rxmicro.examples.rest.client.model.fields.pathvariables.gettersetter.$
 import io.rxmicro.examples.rest.client.model.fields.pathvariables.gettersetter.Request;
 import io.rxmicro.http.client.ClientHttpResponse;
 import io.rxmicro.http.client.HttpClient;
-import io.rxmicro.http.client.HttpClientConfig;
+import io.rxmicro.rest.client.RestClientConfig;
 import io.rxmicro.rest.client.detail.AbstractRestClient;
 
 import java.util.concurrent.CompletableFuture;
@@ -22,10 +22,10 @@ public final class $$GetterSetterPathVariablesRestClient extends AbstractRestCli
 
     private final HttpClient client;
 
-    private final HttpClientConfig config;
+    private final RestClientConfig config;
 
     public $$GetterSetterPathVariablesRestClient(final HttpClient client,
-                                                 final HttpClientConfig config) {
+                                                 final RestClientConfig config) {
         this.client = client;
         this.config = config;
     }

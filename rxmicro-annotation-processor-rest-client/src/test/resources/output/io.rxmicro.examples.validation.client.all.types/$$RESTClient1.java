@@ -10,13 +10,14 @@ import io.rxmicro.examples.validation.client.all.types.model.Request;
 import io.rxmicro.examples.validation.client.all.types.model.Response;
 import io.rxmicro.http.client.ClientHttpResponse;
 import io.rxmicro.http.client.HttpClient;
-import io.rxmicro.http.client.HttpClientConfig;
+import io.rxmicro.rest.client.RestClientConfig;
 import io.rxmicro.rest.client.detail.AbstractRestClient;
 import reactor.core.publisher.Mono;
 
 import java.util.concurrent.CompletableFuture;
 
 import static io.rxmicro.rest.client.detail.ErrorResponseCheckerHelper.throwExceptionIfNotSuccess;
+import static io.rxmicro.validation.detail.RequestValidators.validateRequest;
 import static io.rxmicro.validation.detail.ResponseValidators.validateIfResponseExists;
 import static io.rxmicro.validation.detail.ResponseValidators.validateResponse;
 
@@ -75,10 +76,10 @@ public final class $$RESTClient1 extends AbstractRestClient implements RESTClien
 
     private final HttpClient client;
 
-    private final HttpClientConfig config;
+    private final RestClientConfig config;
 
     public $$RESTClient1(final HttpClient client,
-                         final HttpClientConfig config) {
+                         final RestClientConfig config) {
         this.client = client;
         this.config = config;
     }
@@ -86,7 +87,7 @@ public final class $$RESTClient1 extends AbstractRestClient implements RESTClien
     @Override
     public CompletableFuture<Void> put1(final String email) {
         final $$VirtualREST1Request virtualRequest = new $$VirtualREST1Request(email);
-        virtualREST1RequestConstraintValidator.validate(virtualRequest);
+        validateRequest(config.isEnableAdditionalValidations(), virtualREST1RequestConstraintValidator, virtualRequest);
         final String path = "/put1";
         final Object body = virtualREST1RequestModelToJsonConverter.toJson(virtualRequest);
         final CompletableFuture<ClientHttpResponse> response = client
@@ -98,7 +99,7 @@ public final class $$RESTClient1 extends AbstractRestClient implements RESTClien
 
     @Override
     public CompletableFuture<Void> put2(final Request request) {
-        requestConstraintValidator.validate(request);
+        validateRequest(config.isEnableAdditionalValidations(), requestConstraintValidator, request);
         final String path = "/put2";
         final Object body = requestModelToJsonConverter.toJson(request);
         final CompletableFuture<ClientHttpResponse> response = client
@@ -120,7 +121,7 @@ public final class $$RESTClient1 extends AbstractRestClient implements RESTClien
     @Override
     public CompletableFuture<Response> put4(final String email) {
         final $$VirtualREST1Request2 virtualRequest = new $$VirtualREST1Request2(email);
-        virtualREST1Request2ConstraintValidator.validate(virtualRequest);
+        validateRequest(config.isEnableAdditionalValidations(), virtualREST1Request2ConstraintValidator, virtualRequest);
         final String path = "/put4";
         final Object body = virtualREST1Request2ModelToJsonConverter.toJson(virtualRequest);
         final CompletableFuture<ClientHttpResponse> response = client
@@ -128,12 +129,12 @@ public final class $$RESTClient1 extends AbstractRestClient implements RESTClien
                 .handle(throwExceptionIfNotSuccess());
         return response
                 .thenApply(resp -> responseModelReader.readSingle(resp))
-                .whenComplete((resp, th) -> validateIfResponseExists(responseConstraintValidator, resp));
+                .whenComplete((resp, th) -> validateIfResponseExists(true, responseConstraintValidator, resp));
     }
 
     @Override
     public CompletableFuture<Response> put5(final Request request) {
-        requestConstraintValidator.validate(request);
+        validateRequest(config.isEnableAdditionalValidations(), requestConstraintValidator, request);
         final String path = "/put5";
         final Object body = requestModelToJsonConverter.toJson(request);
         final CompletableFuture<ClientHttpResponse> response = client
@@ -141,7 +142,7 @@ public final class $$RESTClient1 extends AbstractRestClient implements RESTClien
                 .handle(throwExceptionIfNotSuccess());
         return response
                 .thenApply(resp -> responseModelReader.readSingle(resp))
-                .whenComplete((resp, th) -> validateIfResponseExists(responseConstraintValidator, resp));
+                .whenComplete((resp, th) -> validateIfResponseExists(true, responseConstraintValidator, resp));
     }
 
     @Override
@@ -151,13 +152,13 @@ public final class $$RESTClient1 extends AbstractRestClient implements RESTClien
                 .handle(throwExceptionIfNotSuccess());
         return response
                 .thenApply(resp -> responseModelReader.readSingle(resp))
-                .whenComplete((resp, th) -> validateIfResponseExists(responseConstraintValidator, resp));
+                .whenComplete((resp, th) -> validateIfResponseExists(true, responseConstraintValidator, resp));
     }
 
     @Override
     public Mono<Void> put7(final String email) {
         final $$VirtualREST1Request3 virtualRequest = new $$VirtualREST1Request3(email);
-        virtualREST1Request3ConstraintValidator.validate(virtualRequest);
+        validateRequest(config.isEnableAdditionalValidations(), virtualREST1Request3ConstraintValidator, virtualRequest);
         final String path = "/put7";
         final Object body = virtualREST1Request3ModelToJsonConverter.toJson(virtualRequest);
         final CompletableFuture<ClientHttpResponse> response = client
@@ -169,7 +170,7 @@ public final class $$RESTClient1 extends AbstractRestClient implements RESTClien
 
     @Override
     public Mono<Void> put8(final Request request) {
-        requestConstraintValidator.validate(request);
+        validateRequest(config.isEnableAdditionalValidations(), requestConstraintValidator, request);
         final String path = "/put8";
         final Object body = requestModelToJsonConverter.toJson(request);
         final CompletableFuture<ClientHttpResponse> response = client
@@ -191,7 +192,7 @@ public final class $$RESTClient1 extends AbstractRestClient implements RESTClien
     @Override
     public Mono<Response> put10(final String email) {
         final $$VirtualREST1Request4 virtualRequest = new $$VirtualREST1Request4(email);
-        virtualREST1Request4ConstraintValidator.validate(virtualRequest);
+        validateRequest(config.isEnableAdditionalValidations(), virtualREST1Request4ConstraintValidator, virtualRequest);
         final String path = "/put10";
         final Object body = virtualREST1Request4ModelToJsonConverter.toJson(virtualRequest);
         final CompletableFuture<ClientHttpResponse> response = client
@@ -199,12 +200,12 @@ public final class $$RESTClient1 extends AbstractRestClient implements RESTClien
                 .handle(throwExceptionIfNotSuccess());
         return Mono.fromFuture(response)
                 .map(resp -> responseModelReader.readSingle(resp))
-                .doOnSuccess(resp -> validateResponse(responseConstraintValidator, resp));
+                .doOnSuccess(resp -> validateResponse(true, responseConstraintValidator, resp));
     }
 
     @Override
     public Mono<Response> put11(final Request request) {
-        requestConstraintValidator.validate(request);
+        validateRequest(config.isEnableAdditionalValidations(), requestConstraintValidator, request);
         final String path = "/put11";
         final Object body = requestModelToJsonConverter.toJson(request);
         final CompletableFuture<ClientHttpResponse> response = client
@@ -212,7 +213,7 @@ public final class $$RESTClient1 extends AbstractRestClient implements RESTClien
                 .handle(throwExceptionIfNotSuccess());
         return Mono.fromFuture(response)
                 .map(resp -> responseModelReader.readSingle(resp))
-                .doOnSuccess(resp -> validateResponse(responseConstraintValidator, resp));
+                .doOnSuccess(resp -> validateResponse(true, responseConstraintValidator, resp));
     }
 
     @Override
@@ -222,13 +223,13 @@ public final class $$RESTClient1 extends AbstractRestClient implements RESTClien
                 .handle(throwExceptionIfNotSuccess());
         return Mono.fromFuture(response)
                 .map(resp -> responseModelReader.readSingle(resp))
-                .doOnSuccess(resp -> validateResponse(responseConstraintValidator, resp));
+                .doOnSuccess(resp -> validateResponse(true, responseConstraintValidator, resp));
     }
 
     @Override
     public Completable put13(final String email) {
         final $$VirtualREST1Request5 virtualRequest = new $$VirtualREST1Request5(email);
-        virtualREST1Request5ConstraintValidator.validate(virtualRequest);
+        validateRequest(config.isEnableAdditionalValidations(), virtualREST1Request5ConstraintValidator, virtualRequest);
         final String path = "/put13";
         final Object body = virtualREST1Request5ModelToJsonConverter.toJson(virtualRequest);
         final CompletableFuture<ClientHttpResponse> response = client
@@ -239,7 +240,7 @@ public final class $$RESTClient1 extends AbstractRestClient implements RESTClien
 
     @Override
     public Completable put14(final Request request) {
-        requestConstraintValidator.validate(request);
+        validateRequest(config.isEnableAdditionalValidations(), requestConstraintValidator, request);
         final String path = "/put14";
         final Object body = requestModelToJsonConverter.toJson(request);
         final CompletableFuture<ClientHttpResponse> response = client
@@ -259,7 +260,7 @@ public final class $$RESTClient1 extends AbstractRestClient implements RESTClien
     @Override
     public Single<Response> put16(final String email) {
         final $$VirtualREST1Request6 virtualRequest = new $$VirtualREST1Request6(email);
-        virtualREST1Request6ConstraintValidator.validate(virtualRequest);
+        validateRequest(config.isEnableAdditionalValidations(), virtualREST1Request6ConstraintValidator, virtualRequest);
         final String path = "/put16";
         final Object body = virtualREST1Request6ModelToJsonConverter.toJson(virtualRequest);
         final CompletableFuture<ClientHttpResponse> response = client
@@ -267,12 +268,12 @@ public final class $$RESTClient1 extends AbstractRestClient implements RESTClien
                 .handle(throwExceptionIfNotSuccess());
         return Single.fromCompletionStage(response)
                 .map(resp -> responseModelReader.readSingle(resp))
-                .doOnSuccess(resp -> validateResponse(responseConstraintValidator, resp));
+                .doOnSuccess(resp -> validateResponse(true, responseConstraintValidator, resp));
     }
 
     @Override
     public Single<Response> put17(final Request request) {
-        requestConstraintValidator.validate(request);
+        validateRequest(config.isEnableAdditionalValidations(), requestConstraintValidator, request);
         final String path = "/put17";
         final Object body = requestModelToJsonConverter.toJson(request);
         final CompletableFuture<ClientHttpResponse> response = client
@@ -280,7 +281,7 @@ public final class $$RESTClient1 extends AbstractRestClient implements RESTClien
                 .handle(throwExceptionIfNotSuccess());
         return Single.fromCompletionStage(response)
                 .map(resp -> responseModelReader.readSingle(resp))
-                .doOnSuccess(resp -> validateResponse(responseConstraintValidator, resp));
+                .doOnSuccess(resp -> validateResponse(true, responseConstraintValidator, resp));
     }
 
     @Override
@@ -290,6 +291,6 @@ public final class $$RESTClient1 extends AbstractRestClient implements RESTClien
                 .handle(throwExceptionIfNotSuccess());
         return Single.fromCompletionStage(response)
                 .map(resp -> responseModelReader.readSingle(resp))
-                .doOnSuccess(resp -> validateResponse(responseConstraintValidator, resp));
+                .doOnSuccess(resp -> validateResponse(true, responseConstraintValidator, resp));
     }
 }

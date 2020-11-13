@@ -10,7 +10,7 @@ import io.rxmicro.examples.rest.client.params.ComplexStaticQueryParametersRestCl
 import io.rxmicro.examples.rest.client.params.RepeatingQueryParamsRestClient;
 import io.rxmicro.examples.rest.client.params.SimpleUsageRestClient;
 import io.rxmicro.examples.rest.client.params.StaticQueryParametersRestClient;
-import io.rxmicro.http.client.HttpClientConfig;
+import io.rxmicro.rest.client.RestClientConfig;
 import io.rxmicro.rest.client.RestClientFactory;
 
 import static io.rxmicro.rest.client.detail.RestClientImplFactory.createRestClient;
@@ -26,32 +26,32 @@ public final class $$RestClientFactoryImpl extends RestClientFactory {
 
     public $$RestClientFactoryImpl() {
         register(ComplexModelRestClient.class, () -> createRestClient(
-                "http-client",
-                HttpClientConfig.class,
+                "rest-client",
+                RestClientConfig.class,
                 ComplexModelRestClient.class,
                 $$ComplexModelRestClient::new)
         );
         register(ComplexStaticQueryParametersRestClient.class, () -> createRestClient(
-                "http-client",
-                HttpClientConfig.class,
+                "rest-client",
+                RestClientConfig.class,
                 ComplexStaticQueryParametersRestClient.class,
                 $$ComplexStaticQueryParametersRestClient::new)
         );
         register(RepeatingQueryParamsRestClient.class, () -> createRestClient(
-                "http-client",
-                HttpClientConfig.class,
+                "rest-client",
+                RestClientConfig.class,
                 RepeatingQueryParamsRestClient.class,
                 $$RepeatingQueryParamsRestClient::new)
         );
         register(SimpleUsageRestClient.class, () -> createRestClient(
-                "http-client",
-                HttpClientConfig.class,
+                "rest-client",
+                RestClientConfig.class,
                 SimpleUsageRestClient.class,
                 $$SimpleUsageRestClient::new)
         );
         register(StaticQueryParametersRestClient.class, () -> createRestClient(
-                "http-client",
-                HttpClientConfig.class,
+                "rest-client",
+                RestClientConfig.class,
                 StaticQueryParametersRestClient.class,
                 $$StaticQueryParametersRestClient::new)
         );

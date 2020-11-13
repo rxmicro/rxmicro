@@ -17,10 +17,10 @@ public final class $$RESTClient extends AbstractRestClient implements RESTClient
 
     private final HttpClient client;
 
-    private final CustomHttpClientConfig config;
+    private final CustomRestClientConfig config;
 
     public $$RESTClient(final HttpClient client,
-                        final CustomHttpClientConfig config) {
+                        final CustomRestClientConfig config) {
         this.client = client;
         this.config = config;
     }

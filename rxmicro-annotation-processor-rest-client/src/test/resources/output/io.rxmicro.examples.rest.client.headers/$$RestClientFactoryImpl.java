@@ -10,7 +10,7 @@ import io.rxmicro.examples.rest.client.headers.ListHeaderRestClient;
 import io.rxmicro.examples.rest.client.headers.RepeatingHeadersRestClient;
 import io.rxmicro.examples.rest.client.headers.SimpleUsageRestClient;
 import io.rxmicro.examples.rest.client.headers.StaticHeadersRestClient;
-import io.rxmicro.http.client.HttpClientConfig;
+import io.rxmicro.rest.client.RestClientConfig;
 import io.rxmicro.rest.client.RestClientFactory;
 
 import static io.rxmicro.rest.client.detail.RestClientImplFactory.createRestClient;
@@ -26,32 +26,32 @@ public final class $$RestClientFactoryImpl extends RestClientFactory {
 
     public $$RestClientFactoryImpl() {
         register(ComplexStaticHeadersRestClient.class, () -> createRestClient(
-                "http-client",
-                HttpClientConfig.class,
+                "rest-client",
+                RestClientConfig.class,
                 ComplexStaticHeadersRestClient.class,
                 $$ComplexStaticHeadersRestClient::new)
         );
         register(ListHeaderRestClient.class, () -> createRestClient(
-                "http-client",
-                HttpClientConfig.class,
+                "rest-client",
+                RestClientConfig.class,
                 ListHeaderRestClient.class,
                 $$ListHeaderRestClient::new)
         );
         register(RepeatingHeadersRestClient.class, () -> createRestClient(
-                "http-client",
-                HttpClientConfig.class,
+                "rest-client",
+                RestClientConfig.class,
                 RepeatingHeadersRestClient.class,
                 $$RepeatingHeadersRestClient::new)
         );
         register(SimpleUsageRestClient.class, () -> createRestClient(
-                "http-client",
-                HttpClientConfig.class,
+                "rest-client",
+                RestClientConfig.class,
                 SimpleUsageRestClient.class,
                 $$SimpleUsageRestClient::new)
         );
         register(StaticHeadersRestClient.class, () -> createRestClient(
-                "http-client",
-                HttpClientConfig.class,
+                "rest-client",
+                RestClientConfig.class,
                 StaticHeadersRestClient.class,
                 $$StaticHeadersRestClient::new)
         );

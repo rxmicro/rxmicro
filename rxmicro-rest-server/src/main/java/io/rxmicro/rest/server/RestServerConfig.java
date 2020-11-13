@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Set;
 
 import static io.rxmicro.common.util.Requires.require;
+import static io.rxmicro.rest.server.PredefinedRequestIdGeneratorType.FOR_TESTS_ONLY;
 
 /**
  * Allows to configure a REST server options.
@@ -55,7 +56,7 @@ public class RestServerConfig extends Config {
 
     private String corsNotAllowedErrorMessage = "CORS not allowed";
 
-    private boolean humanReadableOutput;
+    private boolean humanReadableOutput; // false
 
     private boolean hideInternalErrorMessage = true;
 
@@ -74,9 +75,11 @@ public class RestServerConfig extends Config {
 
     private boolean disableLoggerMessagesForHttpHealthChecks = true;
 
-    private boolean showRuntimeEnv;
+    private boolean showRuntimeEnv; // false
 
     private boolean useFullClassNamesForRouterMappingLogMessages = true;
+
+    private boolean enableAdditionalValidations; // false
 
     /**
      * Configures REST server for development environment.
@@ -89,11 +92,14 @@ public class RestServerConfig extends Config {
         if (devModeEnable) {
             return this
                     .setHumanReadableOutput(true)
-                    .setHideInternalErrorMessage(false);
+                    .setHideInternalErrorMessage(false)
+                    .setEnableAdditionalValidations(true)
+                    .setGeneratorType(FOR_TESTS_ONLY);
         } else {
             return this
                     .setHumanReadableOutput(false)
-                    .setHideInternalErrorMessage(true);
+                    .setHideInternalErrorMessage(true)
+                    .setEnableAdditionalValidations(false);
         }
     }
 
@@ -402,11 +408,31 @@ public class RestServerConfig extends Config {
      * </code></pre>
      *
      * @param useFullClassNamesForRouterMappingLogMessages enable full class name for router mapping log messages.
-     * @return {@code true} if rest server must use full class names for router mapping log messages.
+     * @return the reference to this {@link RestServerConfig} instance
      */
     @BuilderMethod
     public RestServerConfig setUseFullClassNamesForRouterMappingLogMessages(final boolean useFullClassNamesForRouterMappingLogMessages) {
         this.useFullClassNamesForRouterMappingLogMessages = useFullClassNamesForRouterMappingLogMessages;
+        return this;
+    }
+
+    /**
+     * Returns {@code true} if additional validations are enabled.
+     *
+     * @return {@code true} if additional validations are enabled
+     */
+    public boolean isEnableAdditionalValidations() {
+        return enableAdditionalValidations;
+    }
+
+    /**
+     * Sets {@code true} if additional validations must be activated.
+     *
+     * @param enableAdditionalValidations enable additional validations or not
+     * @return the reference to this {@link RestServerConfig} instance
+     */
+    public RestServerConfig setEnableAdditionalValidations(final boolean enableAdditionalValidations) {
+        this.enableAdditionalValidations = enableAdditionalValidations;
         return this;
     }
 
@@ -426,6 +452,7 @@ public class RestServerConfig extends Config {
                 ", disableLoggerMessagesForHttpHealthChecks=" + disableLoggerMessagesForHttpHealthChecks +
                 ", showRuntimeEnv=" + showRuntimeEnv +
                 ", useFullClassNamesForRouterMappingLogMessages=" + useFullClassNamesForRouterMappingLogMessages +
+                ", enableAdditionalValidations=" + enableAdditionalValidations +
                 '}';
     }
 }

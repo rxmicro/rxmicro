@@ -17,10 +17,10 @@
 package io.rxmicro.examples.rest.client.expressions;
 
 import io.rxmicro.http.ProtocolSchema;
-import io.rxmicro.http.client.HttpClientConfig;
+import io.rxmicro.rest.client.RestClientConfig;
 
 // tag::content[]
-public final class CustomHttpClientConfig extends HttpClientConfig {
+public final class CustomRestClientConfig extends RestClientConfig {
 
     private boolean useProxy = true;
 
@@ -30,7 +30,7 @@ public final class CustomHttpClientConfig extends HttpClientConfig {
         return useProxy;
     }
 
-    public CustomHttpClientConfig setUseProxy(final boolean useProxy) {
+    public CustomRestClientConfig setUseProxy(final boolean useProxy) {
         this.useProxy = useProxy;
         return this;
     }
@@ -39,24 +39,24 @@ public final class CustomHttpClientConfig extends HttpClientConfig {
         return mode;
     }
 
-    public CustomHttpClientConfig setMode(final Mode mode) {
+    public CustomRestClientConfig setMode(final Mode mode) {
         this.mode = mode;
         return this;
     }
 
     @Override
-    public CustomHttpClientConfig setSchema(final ProtocolSchema schema) {
-        return (CustomHttpClientConfig) super.setSchema(schema);
+    public CustomRestClientConfig setSchema(final ProtocolSchema schema) {
+        return (CustomRestClientConfig) super.setSchema(schema);
     }
 
     @Override
-    public CustomHttpClientConfig setHost(final String host) {
-        return (CustomHttpClientConfig) super.setHost(host);
+    public CustomRestClientConfig setHost(final String host) {
+        return (CustomRestClientConfig) super.setHost(host);
     }
 
     @Override
-    public CustomHttpClientConfig setPort(final int port) {
-        return (CustomHttpClientConfig) super.setPort(port);
+    public CustomRestClientConfig setPort(final int port) {
+        return (CustomRestClientConfig) super.setPort(port);
     }
 
     public enum Mode {
