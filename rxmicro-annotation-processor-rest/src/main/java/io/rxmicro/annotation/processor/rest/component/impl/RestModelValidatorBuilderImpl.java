@@ -77,8 +77,20 @@ public final class RestModelValidatorBuilderImpl extends AbstractProcessorCompon
                                    final RestObjectModelClass objectModelClass,
                                    final Set<ModelValidatorClassStructure> childrenValidators,
                                    final boolean optional) {
-        final ModelValidatorClassStructure.Builder builder =
-                new ModelValidatorClassStructure.Builder(objectModelClass);
+        final ModelValidatorClassStructure.Builder builder = new ModelValidatorClassStructure.Builder(objectModelClass);
+        extractPrimitiveValidators(objectModelClass, builder);
+        extractObjectChildValidators(result, objectModelClass, builder);
+        extractObjectIterableChildValidators(result, objectModelClass, builder);
+        if (builder.isValidatorsNotFound()) {
+            return;
+        }
+        final ModelValidatorClassStructure classStructure = builder.build(optional);
+        result.add(classStructure);
+        childrenValidators.add(classStructure);
+    }
+
+    private void extractPrimitiveValidators(final RestObjectModelClass objectModelClass,
+                                            final ModelValidatorClassStructure.Builder builder) {
         Stream.of(
                 objectModelClass.getPathVariableEntries().stream(),
                 objectModelClass.getHeaderEntries().stream(),
@@ -86,20 +98,32 @@ public final class RestModelValidatorBuilderImpl extends AbstractProcessorCompon
         )
                 .flatMap(identity())
                 .forEach(e -> extractFieldValidators(builder, e.getKey(), e.getValue()));
+    }
 
+    private void extractObjectChildValidators(final Set<ModelValidatorClassStructure> result,
+                                              final RestObjectModelClass objectModelClass,
+                                              final ModelValidatorClassStructure.Builder builder) {
         objectModelClass.getParamEntries().stream()
                 .filter(e -> e.getValue().isObject())
                 .forEach(e -> extractValidators(
                         result,
                         e.getValue().asObject(),
                         builder.getChildrenValidators(),
-                        e.getKey().hasAnnotation(Nullable.class)));
-        if (builder.isValidatorsNotFound()) {
-            return;
-        }
-        final ModelValidatorClassStructure classStructure = builder.build(optional);
-        result.add(classStructure);
-        childrenValidators.add(classStructure);
+                        e.getKey().hasAnnotation(Nullable.class))
+                );
+    }
+
+    private void extractObjectIterableChildValidators(final Set<ModelValidatorClassStructure> result,
+                                                      final RestObjectModelClass objectModelClass,
+                                                      final ModelValidatorClassStructure.Builder builder) {
+        objectModelClass.getParamEntries().stream()
+                .filter(e -> e.getValue().isIterable() && e.getValue().asIterable().isObjectIterable())
+                .forEach(e -> extractValidators(
+                        result,
+                        (RestObjectModelClass) e.getValue().asIterable().getElementModelClass(),
+                        builder.getChildrenValidators(),
+                        e.getKey().hasAnnotation(Nullable.class))
+                );
     }
 
     @SuppressWarnings("SimplifiableConditionalExpression")

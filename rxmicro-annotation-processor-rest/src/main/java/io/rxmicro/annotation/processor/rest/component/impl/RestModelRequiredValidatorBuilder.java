@@ -63,12 +63,12 @@ public final class RestModelRequiredValidatorBuilder {
                         getIterableRequiredValidator(modelFieldType.asIterable()).getName(), null, false);
             }
             final NullableArrayItem nullableArrayItem = restModelField.getAnnotation(NullableArrayItem.class);
-            final boolean isNullable = nullableArrayItem == null || nullableArrayItem.off();
+            final boolean isArrayItemNotNull = nullableArrayItem == null || nullableArrayItem.off();
             if (modelFieldType.asIterable().isPrimitiveIterable() &&
                     String.class.getName().equals(modelFieldType.asIterable().getElementModelClass().getJavaFullClassName())) {
                 // isString primitive
-                addRequiredStringValidator(isNullable, NullableArrayItem.class, builder, restModelField, true);
-            } else if (isNullable) {
+                addRequiredStringValidator(isArrayItemNotNull, NullableArrayItem.class, builder, restModelField, true);
+            } else if (isArrayItemNotNull) {
                 builder.add(restModelField, NullableArrayItem.class.getSimpleName(),
                         RequiredConstraintValidator.class.getName(), null, true);
             }
