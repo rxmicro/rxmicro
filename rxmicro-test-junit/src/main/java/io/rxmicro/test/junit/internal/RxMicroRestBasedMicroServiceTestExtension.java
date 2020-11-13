@@ -126,7 +126,7 @@ public final class RxMicroRestBasedMicroServiceTestExtension
                         .setPort(randomFreePort)
                         .setStartTimeTrackerEnabled(false),
                 new RestServerConfig()
-                        .setDevelopmentMode()
+                        .setDevelopmentMode(true)
                         .setGeneratorType(FOR_TESTS_ONLY)
         );
         serverContainer = launchWithoutRestControllers(configs);

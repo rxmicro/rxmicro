@@ -81,13 +81,20 @@ public class RestServerConfig extends Config {
     /**
      * Configures REST server for development environment.
      *
+     * @param devModeEnable developer mode enable or not
      * @return the reference to this  {@link RestServerConfig} instance
      */
     @BuilderMethod
-    public RestServerConfig setDevelopmentMode() {
-        return this
-                .setHumanReadableOutput(true)
-                .setHideInternalErrorMessage(false);
+    public RestServerConfig setDevelopmentMode(final boolean devModeEnable) {
+        if (devModeEnable) {
+            return this
+                    .setHumanReadableOutput(true)
+                    .setHideInternalErrorMessage(false);
+        } else {
+            return this
+                    .setHumanReadableOutput(false)
+                    .setHideInternalErrorMessage(true);
+        }
     }
 
     /**
