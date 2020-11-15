@@ -60,7 +60,7 @@ public class RestServerConfig extends Config {
 
     private boolean hideInternalErrorMessage = true;
 
-    private boolean logNotServerErrors = true;
+    private boolean logHttpErrorExceptions = true;
 
     private Set<StaticResponseHeader> staticResponseHeaders = new LinkedHashSet<>(
             List.of(
@@ -236,23 +236,23 @@ public class RestServerConfig extends Config {
     }
 
     /**
-     * Returns {@code true} if the RxMicro framework must log all not server errors (i.e. status codes from 300 to 499).
+     * Returns {@code true} if the RxMicro framework must log all not errors (i.e. status codes from 300 to 599).
      *
-     * @return {@code true} if the RxMicro framework must log all not server errors (i.e. status codes from 300 to 499)
+     * @return {@code true} if the RxMicro framework must log all not errors (i.e. status codes from 300 to 599)
      */
-    public boolean isLogNotServerErrors() {
-        return logNotServerErrors;
+    public boolean isLogHttpErrorExceptions() {
+        return logHttpErrorExceptions;
     }
 
     /**
-     * Activates or disables the logging of not server errors.
+     * Activates or disables the logging of client and server errors.
      *
-     * @param logNotServerErrors log not server errors or not
+     * @param logHttpErrorExceptions log not server errors or not
      * @return the reference to this  {@link RestServerConfig} instance
      */
     @BuilderMethod
-    public RestServerConfig setLogNotServerErrors(final boolean logNotServerErrors) {
-        this.logNotServerErrors = logNotServerErrors;
+    public RestServerConfig setLogHttpErrorExceptions(final boolean logHttpErrorExceptions) {
+        this.logHttpErrorExceptions = logHttpErrorExceptions;
         return this;
     }
 
@@ -445,7 +445,7 @@ public class RestServerConfig extends Config {
                 ", corsNotAllowedErrorMessage='" + corsNotAllowedErrorMessage + '\'' +
                 ", humanReadableOutput=" + humanReadableOutput +
                 ", hideInternalErrorMessage=" + hideInternalErrorMessage +
-                ", logNotServerErrors=" + logNotServerErrors +
+                ", logNotServerErrors=" + logHttpErrorExceptions +
                 ", staticResponseHeaders=" + staticResponseHeaders +
                 ", generatorType=" + generatorType +
                 ", returnGeneratedRequestId=" + returnGeneratedRequestId +

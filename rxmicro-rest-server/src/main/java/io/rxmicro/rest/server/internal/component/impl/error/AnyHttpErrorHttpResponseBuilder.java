@@ -26,7 +26,6 @@ import io.rxmicro.rest.server.local.component.HttpErrorResponseBodyBuilder;
 import java.util.Objects;
 
 import static io.rxmicro.common.util.Requires.require;
-import static io.rxmicro.http.HttpStatuses.getErrorMessage;
 
 /**
  * @author nedis
@@ -40,38 +39,25 @@ public final class AnyHttpErrorHttpResponseBuilder {
 
     private final HttpErrorResponseBodyBuilder httpErrorResponseBodyBuilder;
 
-    private final boolean hideInternalErrorMessage;
-
-    private final boolean logNotServerErrors;
+    private final boolean logHttpErrorExceptions;
 
     public AnyHttpErrorHttpResponseBuilder(final HttpResponseBuilder httpResponseBuilder,
                                            final HttpErrorResponseBodyBuilder httpErrorResponseBodyBuilder,
-                                           final boolean hideInternalErrorMessage,
-                                           final boolean logNotServerErrors) {
+                                           final boolean logHttpErrorExceptions) {
         this.httpResponseBuilder = require(httpResponseBuilder);
         this.httpErrorResponseBodyBuilder = require(httpErrorResponseBodyBuilder);
-        this.hideInternalErrorMessage = hideInternalErrorMessage;
-        this.logNotServerErrors = logNotServerErrors;
+        this.logHttpErrorExceptions = logHttpErrorExceptions;
     }
 
     public HttpResponse build(final HttpErrorException ex) {
-        if (ex.isServerErrorCode()) {
-            LOGGER.error("HTTP server error: ?", ex.getMessage());
-            if (hideInternalErrorMessage) {
-                return httpErrorResponseBodyBuilder.build(httpResponseBuilder, ex.getStatusCode(), getErrorMessage(ex.getStatusCode()));
-            } else {
-                return httpErrorResponseBodyBuilder.build(httpResponseBuilder, ex);
-            }
-        } else {
-            if (logNotServerErrors) {
-                LOGGER.error(
-                        "HTTP error: status=?, content=?, class=?",
-                        ex.getStatusCode(),
-                        ex.getResponseData().map(Objects::toString).orElse("null"),
-                        ex.getClass().getName()
-                );
-            }
-            return httpErrorResponseBodyBuilder.build(httpResponseBuilder, ex);
+        if (logHttpErrorExceptions) {
+            LOGGER.error(
+                    "HTTP error: status=?, content=?, class=?",
+                    ex.getStatusCode(),
+                    ex.getResponseData().map(Objects::toString).orElse("null"),
+                    ex.getClass().getName()
+            );
         }
+        return httpErrorResponseBodyBuilder.build(httpResponseBuilder, ex);
     }
 }

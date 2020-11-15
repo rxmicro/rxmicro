@@ -89,7 +89,7 @@ final class BaseRestControllerMethod_BadRequestException_IntegrationTest extends
     void Should_return_BadRequestError_response(final BiFunction<PathVariableMapping, HttpRequest, CompletionStage<HttpResponse>> func) {
         when(request.getHeaders()).thenReturn(httpHeaders);
         when(httpErrorResponseBodyBuilder.build(any(), any(HttpErrorException.class))).thenReturn(httpResponse);
-        when(restServerConfig.isLogNotServerErrors()).thenReturn(true);
+        when(restServerConfig.isLogHttpErrorExceptions()).thenReturn(true);
 
         final BaseRestControllerMethod method = build(
                 "",

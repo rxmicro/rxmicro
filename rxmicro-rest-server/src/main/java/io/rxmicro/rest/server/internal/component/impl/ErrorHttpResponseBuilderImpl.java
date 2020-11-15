@@ -47,14 +47,14 @@ public final class ErrorHttpResponseBuilderImpl implements ErrorHttpResponseBuil
                                         final HttpErrorResponseBodyBuilder httpErrorResponseBodyBuilder,
                                         final String parentUrl,
                                         final boolean hideInternalErrorMessage,
-                                        final boolean logNotServerErrors) {
+                                        final boolean logHttpErrorExceptions) {
         this.redirectHttpResponseBuilder =
                 new RedirectHttpResponseBuilder(httpResponseBuilder, parentUrl);
         this.httpCallFailedHttpResponseBuilder =
                 new HttpCallFailedHttpResponseBuilder(httpResponseBuilder, httpErrorResponseBodyBuilder, hideInternalErrorMessage);
         this.anyHttpErrorHttpResponseBuilder =
                 new AnyHttpErrorHttpResponseBuilder(
-                        httpResponseBuilder, httpErrorResponseBodyBuilder, hideInternalErrorMessage, logNotServerErrors
+                        httpResponseBuilder, httpErrorResponseBodyBuilder, logHttpErrorExceptions
                 );
         this.throwableHttpResponseBuilder =
                 new ThrowableHttpResponseBuilder(httpResponseBuilder, httpErrorResponseBodyBuilder, hideInternalErrorMessage);
