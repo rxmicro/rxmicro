@@ -16,12 +16,14 @@
 
 package io.rxmicro.test.dbunit.junit.internal;
 
+import io.rxmicro.common.CheckedWrapperException;
 import io.rxmicro.test.dbunit.ExpectedDataSet;
 import io.rxmicro.test.dbunit.InitialDataSet;
 import io.rxmicro.test.dbunit.RollbackChanges;
 import io.rxmicro.test.dbunit.junit.DbUnitTest;
 import io.rxmicro.test.dbunit.junit.RetrieveConnectionStrategy;
 import io.rxmicro.test.dbunit.local.DatabaseStateInitializer;
+import io.rxmicro.test.dbunit.local.DatabaseStateRestorer;
 import io.rxmicro.test.dbunit.local.DatabaseStateVerifier;
 import io.rxmicro.test.dbunit.local.RollbackChangesController;
 import org.junit.jupiter.api.extension.AfterAllCallback;
@@ -32,7 +34,9 @@ import org.junit.jupiter.api.extension.BeforeTestExecutionCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
 
 import java.lang.reflect.Method;
+import java.util.Optional;
 
+import static io.rxmicro.common.util.Exceptions.reThrow;
 import static io.rxmicro.test.dbunit.TestDatabaseConfig.getCurrentTestDatabaseConfig;
 import static io.rxmicro.test.dbunit.TestDatabaseConfig.releaseCurrentTestDatabaseConfig;
 import static io.rxmicro.test.dbunit.junit.RetrieveConnectionStrategy.PER_ALL_TEST_CLASSES;
@@ -59,6 +63,8 @@ public final class DbUnitTestExtension implements
 
     private final RollbackChangesController rollbackChangesController = new RollbackChangesController();
 
+    private final DatabaseStateRestorer databaseStateRestorer = new DatabaseStateRestorer();
+
     private RetrieveConnectionStrategy retrieveConnectionStrategy;
 
     @Override
@@ -83,27 +89,47 @@ public final class DbUnitTestExtension implements
             setCurrentDatabaseConnection(createNewDatabaseConnection(getCurrentTestDatabaseConfig()));
         }
         final Method testMethod = context.getRequiredTestMethod();
-        final RollbackChanges rollbackChanges = testMethod.getAnnotation(RollbackChanges.class);
-        if (rollbackChanges != null) {
-            rollbackChangesController.startTestTransaction(rollbackChanges);
-        }
-        final InitialDataSet dataSet = testMethod.getAnnotation(InitialDataSet.class);
-        if (dataSet != null) {
-            databaseStateInitializer.initWith(dataSet);
-        }
+        Optional.ofNullable(testMethod.getAnnotation(RollbackChanges.class)).ifPresent(rollbackChangesController::startTestTransaction);
+        Optional.ofNullable(testMethod.getAnnotation(InitialDataSet.class)).ifPresent(databaseStateInitializer::initWith);
     }
 
     @Override
     public void afterTestExecution(final ExtensionContext context) {
-        final ExpectedDataSet dataSet = context.getRequiredTestMethod().getAnnotation(ExpectedDataSet.class);
-        if (dataSet != null) {
-            databaseStateVerifier.verifyExpected(dataSet);
+        final Method testMethod = context.getRequiredTestMethod();
+        boolean success = false;
+        try {
+            Optional.ofNullable(testMethod.getAnnotation(ExpectedDataSet.class)).ifPresent(databaseStateVerifier::verifyExpected);
+            Optional.ofNullable(testMethod.getAnnotation(InitialDataSet.class)).ifPresent(databaseStateRestorer::restoreStateIfEnabled);
+            success = true;
+            rollbackChangesIfTestTransactionStarted(null);
+        } catch (final CheckedWrapperException | Error ex) {
+            if (!success) {
+                rollbackChangesIfTestTransactionStarted(ex);
+            } else {
+                throw ex;
+            }
+        } finally {
+            if (retrieveConnectionStrategy == PER_TEST_METHOD) {
+                releaseCurrentDatabaseConnection();
+            }
         }
-        if (rollbackChangesController.isTestTransactionStarted()) {
-            rollbackChangesController.rollbackChanges();
+    }
+
+    private void rollbackChangesIfTestTransactionStarted(final Throwable throwable) {
+        try {
+            if (rollbackChangesController.isTestTransactionStarted()) {
+                rollbackChangesController.rollbackChanges();
+            }
+        } catch (final CheckedWrapperException ex) {
+            if (throwable != null) {
+                throwable.addSuppressed(ex);
+                reThrow(throwable);
+            } else {
+                throw ex;
+            }
         }
-        if (retrieveConnectionStrategy == PER_TEST_METHOD) {
-            releaseCurrentDatabaseConnection();
+        if (throwable != null) {
+            reThrow(throwable);
         }
     }
 
