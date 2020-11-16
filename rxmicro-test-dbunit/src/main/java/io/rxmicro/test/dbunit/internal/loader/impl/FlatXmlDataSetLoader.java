@@ -33,6 +33,8 @@ import java.util.List;
  */
 public final class FlatXmlDataSetLoader implements DataSetLoader {
 
+    private static final boolean VALIDATE_USING_DTD = false;
+
     @Override
     public List<String> getSupportedExtensions() {
         return List.of("xml");
@@ -43,6 +45,7 @@ public final class FlatXmlDataSetLoader implements DataSetLoader {
         try (final InputStream closableIn = in) {
             return new FlatXmlDataSetBuilder()
                     .setCaseSensitiveTableNames(true)
+                    .setDtdMetadata(VALIDATE_USING_DTD)
                     .build(closableIn);
         } catch (final DatabaseUnitException | IOException ex) {
             throw new CheckedWrapperException(ex);

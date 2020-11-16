@@ -16,7 +16,6 @@
 
 package io.rxmicro.test.dbunit.internal.loader;
 
-import org.dbunit.DatabaseUnitException;
 import org.dbunit.dataset.IDataSet;
 
 import java.io.InputStream;
