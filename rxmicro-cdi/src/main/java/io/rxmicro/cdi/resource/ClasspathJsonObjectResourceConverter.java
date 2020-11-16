@@ -21,7 +21,7 @@ import io.rxmicro.json.JsonHelper;
 import java.util.Map;
 import java.util.Optional;
 
-import static io.rxmicro.cdi.resource.ResourceSchemes.CLASSPATH_SCHEME;
+import static io.rxmicro.common.util.InputStreamResources.CLASSPATH_SCHEME;
 import static io.rxmicro.files.ClasspathResources.readString;
 
 /**

@@ -37,6 +37,7 @@
                 <configuration>
                     <argLine>
                         @{argLine}
+                        --add-opens rxmicro.test.dbunit/io.rxmicro.test.dbunit.internal=ALL-UNNAMED
                     </argLine>
                 </configuration>
             </plugin>

@@ -24,7 +24,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Optional;
 
-import static io.rxmicro.cdi.resource.ResourceSchemes.FILE_SCHEME;
+import static io.rxmicro.common.util.InputStreamResources.FILE_SCHEME;
 
 /**
  * Base abstract class that converts resource path to the {@link Path} type.

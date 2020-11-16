@@ -22,6 +22,7 @@ import org.dbunit.DatabaseUnitException;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
@@ -39,11 +40,11 @@ public final class FlatXmlDataSetLoader implements DataSetLoader {
 
     @Override
     public IDataSet load(final InputStream in) {
-        try {
+        try (final InputStream closableIn = in) {
             return new FlatXmlDataSetBuilder()
                     .setCaseSensitiveTableNames(true)
-                    .build(in);
-        } catch (final DatabaseUnitException ex) {
+                    .build(closableIn);
+        } catch (final DatabaseUnitException | IOException ex) {
             throw new CheckedWrapperException(ex);
         }
     }

@@ -1,0 +1,2 @@
+
+DELETE FROM public.order;

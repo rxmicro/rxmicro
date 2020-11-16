@@ -55,7 +55,8 @@ public @interface InitialDataSet {
      * Returns a list of sql script files to execute before inserting initial dataset.
      *
      * <p>
-     * Note that commands inside sql file must be separated by {@code ';'}.
+     * Note that commands inside sql file must be separated by {@code ';'} and
+     * current SQL script parser does not support comments, so executable scripts must be without any types of comments
      *
      * @return a list of sql script files to execute before inserting initial dataset.
      */
@@ -65,7 +66,8 @@ public @interface InitialDataSet {
      * Returns a list of sql script files to execute after comparing with expected dataset.
      *
      * <p>
-     * Note that commands inside sql file must be separated by {@code ';'}.
+     * Note that commands inside sql file must be separated by {@code ';'} and
+     * current SQL script parser does not support comments, so executable scripts must be without any types of comments
      *
      * @return a list of sql script files to execute after comparing with expected dataset.
      */

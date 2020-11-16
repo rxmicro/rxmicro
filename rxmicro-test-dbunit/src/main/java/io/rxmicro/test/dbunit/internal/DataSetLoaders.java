@@ -23,16 +23,15 @@ import org.dbunit.dataset.CompositeDataSet;
 import org.dbunit.dataset.DataSetException;
 import org.dbunit.dataset.IDataSet;
 
-import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import static io.rxmicro.common.util.InputStreamResources.getInputStreamResource;
+import static io.rxmicro.common.util.InputStreamResources.getSupportedInputStreamResources;
 import static java.util.Map.entry;
 import static java.util.stream.Collectors.toUnmodifiableMap;
 
@@ -41,10 +40,6 @@ import static java.util.stream.Collectors.toUnmodifiableMap;
  * @since 0.7
  */
 public final class DataSetLoaders {
-
-    private static final String FILE_SCHEME = "file://";
-
-    private static final String CLASSPATH_SCHEME = "classpath:";
 
     private static final Map<String, DataSetLoader> LOADER_MAP =
             List.of(
@@ -74,29 +69,15 @@ public final class DataSetLoaders {
 
     public static IDataSet loadIDataSet(final String resource) {
         final String extension = getExtension(resource);
-        final Optional<InputStream> optionalIn =
-                getClasspathInputStream(resource)
-                        .or(() -> getFileInputStream(resource));
-        return optionalIn.map(in -> loadFromInputStream(resource, extension, in)).orElseThrow(() -> {
-            throw new InvalidTestConfigException(
-                    "Can't load dataset from '?' resource: Unsupported resource! Only classpath and file resources supported",
-                    resource
-            );
-        });
-    }
-
-    private static Optional<InputStream> getClasspathInputStream(final String resource) {
-        final String res = resource.startsWith(CLASSPATH_SCHEME) ? resource.substring(CLASSPATH_SCHEME.length()) : resource;
-        return Optional.ofNullable(DataSetLoaders.class.getClassLoader().getResourceAsStream(res));
-    }
-
-    private static Optional<InputStream> getFileInputStream(final String resource) {
-        final String fileName = resource.startsWith(FILE_SCHEME) ? resource.substring(FILE_SCHEME.length()) : resource;
-        try {
-            return Optional.of(Files.newInputStream(Paths.get(fileName).toAbsolutePath()));
-        } catch (final IOException ignore) {
-            return Optional.empty();
-        }
+        return getInputStreamResource(resource)
+                .map(r -> loadFromInputStream(resource, extension, r.getBufferedInputStream()))
+                .orElseThrow(() -> {
+                    throw new InvalidTestConfigException(
+                            "Can't load dataset from '?' resource: Unsupported resource! Only following resources supported: ?",
+                            resource,
+                            getSupportedInputStreamResources()
+                    );
+                });
     }
 
     private static String getExtension(final String resource) {

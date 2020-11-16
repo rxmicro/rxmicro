@@ -16,11 +16,17 @@
 
 package io.rxmicro.test.dbunit.internal;
 
+import io.rxmicro.common.model.InputStreamResource;
+import io.rxmicro.config.ConfigException;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
+import static io.rxmicro.common.util.InputStreamResources.getInputStreamResource;
 import static io.rxmicro.test.dbunit.local.DatabaseConnectionHelper.getCurrentDatabaseConnection;
 
 /**
@@ -28,6 +34,8 @@ import static io.rxmicro.test.dbunit.local.DatabaseConnectionHelper.getCurrentDa
  * @since 0.7
  */
 public abstract class AbstractDatabaseStateChanger {
+
+    private final SQLScriptReader sqlScriptReader = new SQLScriptReader();
 
     protected final void executeJdbcStatements(final List<String> sqlStatements) throws SQLException {
         final Connection connection = getCurrentDatabaseConnection().getConnection();
@@ -40,6 +48,20 @@ public abstract class AbstractDatabaseStateChanger {
     }
 
     protected final void executeSqlScripts(final List<String> sqlScripts) throws SQLException {
-        // TODO
+        final List<String> statements = readJdbcStatements(sqlScripts);
+        executeJdbcStatements(statements);
+    }
+
+    private List<String> readJdbcStatements(final List<String> sqlScripts) {
+        final List<String> statements = new ArrayList<>();
+        for (final String sqlScript : sqlScripts) {
+            final Optional<InputStreamResource> inputStreamResource = getInputStreamResource(sqlScript);
+            if (inputStreamResource.isPresent()) {
+                statements.addAll(sqlScriptReader.readJdbcStatements(inputStreamResource.get()));
+            } else {
+                throw new ConfigException("SQL script not found: '?'", sqlScript);
+            }
+        }
+        return statements;
     }
 }
