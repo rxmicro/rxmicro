@@ -59,5 +59,8 @@ module rxmicro.test.junit {
             org.junit.jupiter.params,
             org.junit.jupiter.api;
 
+    exports io.rxmicro.test.junit.local to
+            rxmicro.test.dbunit.junit;
+
     provides RxMicroTestExtension with JUnitRxMicroTestExtension;
 }

@@ -102,6 +102,28 @@ public final class Reflections {
     }
 
     /**
+     * Returns {@code true} if the specified class instance contains at least one method, that matches to the method selection predicate.
+     *
+     * @param classInstance the specified class instance
+     * @param predicate     the method selection predicate
+     * @return {@code true} if the specified class instance contains at least one method, that matches to the method selection predicate
+     * @see Class#getDeclaredMethods()
+     * @see Class#getSuperclass()
+     * @throws NullPointerException if any parameter is null
+     */
+    public static boolean containsMethod(final Class<?> classInstance,
+                                         final Predicate<Method> predicate) {
+        Class<?> current = classInstance;
+        while (current != null && current != Object.class) {
+            if (Arrays.stream(current.getDeclaredMethods()).anyMatch(predicate)) {
+                return true;
+            }
+            current = current.getSuperclass();
+        }
+        return false;
+    }
+
+    /**
      * Returns the unmodifiable {@link Set} of all parents for the specified class.
      *
      * @param clazz the specified class

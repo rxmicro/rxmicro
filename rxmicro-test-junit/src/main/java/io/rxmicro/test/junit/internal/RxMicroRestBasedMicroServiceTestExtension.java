@@ -58,9 +58,9 @@ import static io.rxmicro.test.junit.internal.StatelessComponentFactory.getBefore
 import static io.rxmicro.test.junit.internal.StatelessComponentFactory.getBlockingHttpClientBuilder;
 import static io.rxmicro.test.junit.internal.StatelessComponentFactory.getConfigResolver;
 import static io.rxmicro.test.junit.internal.StatelessComponentFactory.getServerPortHelper;
-import static io.rxmicro.test.junit.internal.TestObjects.SUPPORTED_TEST_ANNOTATIONS;
-import static io.rxmicro.test.junit.internal.TestObjects.getOwnerTestClass;
-import static io.rxmicro.test.junit.internal.TestObjects.getTestInstances;
+import static io.rxmicro.test.junit.local.TestObjects.SUPPORTED_TEST_ANNOTATIONS;
+import static io.rxmicro.test.junit.local.TestObjects.getOwnerTestClass;
+import static io.rxmicro.test.junit.local.TestObjects.getTestInstances;
 import static io.rxmicro.test.local.UnNamedModuleFixers.restBasedMicroServiceTestsFix;
 import static io.rxmicro.test.local.util.Annotations.getRequiredAnnotation;
 import static io.rxmicro.test.local.util.Modules.isRequiredModule;

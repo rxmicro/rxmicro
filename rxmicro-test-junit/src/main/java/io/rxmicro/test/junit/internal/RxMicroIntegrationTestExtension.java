@@ -34,9 +34,9 @@ import java.util.List;
 
 import static io.rxmicro.test.junit.internal.StatelessComponentFactory.getBeforeTestInvoker;
 import static io.rxmicro.test.junit.internal.StatelessComponentFactory.getBlockingHttpClientBuilder;
-import static io.rxmicro.test.junit.internal.TestObjects.SUPPORTED_TEST_ANNOTATIONS;
-import static io.rxmicro.test.junit.internal.TestObjects.getOwnerTestClass;
-import static io.rxmicro.test.junit.internal.TestObjects.getTestInstances;
+import static io.rxmicro.test.junit.local.TestObjects.SUPPORTED_TEST_ANNOTATIONS;
+import static io.rxmicro.test.junit.local.TestObjects.getOwnerTestClass;
+import static io.rxmicro.test.junit.local.TestObjects.getTestInstances;
 import static io.rxmicro.test.local.UnNamedModuleFixers.integrationTestsFix;
 import static io.rxmicro.test.local.util.Annotations.getRequiredAnnotation;
 

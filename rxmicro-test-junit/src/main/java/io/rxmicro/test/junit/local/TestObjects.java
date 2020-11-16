@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package io.rxmicro.test.junit.internal;
+package io.rxmicro.test.junit.local;
 
 import io.rxmicro.test.junit.RxMicroComponentTest;
 import io.rxmicro.test.junit.RxMicroIntegrationTest;
@@ -33,15 +33,15 @@ import static io.rxmicro.tool.common.Reflections.getFieldValue;
  * @author nedis
  * @since 0.1
  */
-final class TestObjects {
+public final class TestObjects {
 
-    static final Set<Class<? extends Annotation>> SUPPORTED_TEST_ANNOTATIONS = Set.of(
+    public static final Set<Class<? extends Annotation>> SUPPORTED_TEST_ANNOTATIONS = Set.of(
             RxMicroIntegrationTest.class,
             RxMicroRestBasedMicroServiceTest.class,
             RxMicroComponentTest.class
     );
 
-    static Class<?> getOwnerTestClass(final ExtensionContext context) {
+    public static Class<?> getOwnerTestClass(final ExtensionContext context) {
         Class<?> testClass = context.getRequiredTestClass();
         if (testClass.isMemberClass()) {
             if (testClass.isAnnotationPresent(Nested.class)) {
@@ -61,7 +61,7 @@ final class TestObjects {
         return testClass;
     }
 
-    static List<Object> getTestInstances(final ExtensionContext context) {
+    public static List<Object> getTestInstances(final ExtensionContext context) {
         final Object testInstance = context.getRequiredTestInstance();
         if (testInstance.getClass().isMemberClass()) {
             return List.of(testInstance, getFieldValue(testInstance, "this$0"));

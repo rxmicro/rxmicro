@@ -46,6 +46,7 @@ import static io.rxmicro.test.dbunit.local.DatabaseConnectionFactory.createNewDa
 import static io.rxmicro.test.dbunit.local.DatabaseConnectionHelper.isCurrentDatabaseConnectionPresent;
 import static io.rxmicro.test.dbunit.local.DatabaseConnectionHelper.releaseCurrentDatabaseConnection;
 import static io.rxmicro.test.dbunit.local.DatabaseConnectionHelper.setCurrentDatabaseConnection;
+import static io.rxmicro.test.junit.local.TestObjects.getOwnerTestClass;
 import static io.rxmicro.test.local.util.Annotations.getRequiredAnnotation;
 
 /**
@@ -69,7 +70,7 @@ public final class DbUnitTestExtension implements
 
     @Override
     public void beforeAll(final ExtensionContext context) {
-        final Class<?> testClass = context.getRequiredTestClass();
+        final Class<?> testClass = getOwnerTestClass(context);
         retrieveConnectionStrategy = getRequiredAnnotation(testClass, DbUnitTest.class).retrieveConnectionStrategy();
     }
 

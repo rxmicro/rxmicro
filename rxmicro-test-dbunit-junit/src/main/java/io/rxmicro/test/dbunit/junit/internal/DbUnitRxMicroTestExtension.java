@@ -22,13 +22,16 @@ import io.rxmicro.test.dbunit.junit.DbUnitTest;
 import io.rxmicro.test.local.InvalidTestConfigException;
 import io.rxmicro.test.local.component.RxMicroTestExtension;
 import io.rxmicro.test.local.model.TestModel;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.extension.Extension;
 
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Method;
 import java.util.Set;
+import java.util.function.Predicate;
 
-import static io.rxmicro.tool.common.Reflections.allMethods;
+import static io.rxmicro.tool.common.Reflections.containsMethod;
 
 /**
  * @author nedis
@@ -80,14 +83,27 @@ public final class DbUnitRxMicroTestExtension implements RxMicroTestExtension {
     }
 
     private void validateIfDbUnitTestIsRedundantAnnotation(final TestModel testModel) {
-        if (allMethods(testModel.getTestClass(),
-                m -> m.getAnnotation(InitialDataSet.class) != null ||
-                        m.getAnnotation(ExpectedDataSet.class) != null).isEmpty()) {
+        if (testModel.getTestClass().isAnnotationPresent(DbUnitTest.class)) {
+            final Predicate<Method> methodHasDataSetAnnotationPredicate =
+                    m -> m.getAnnotation(InitialDataSet.class) != null || m.getAnnotation(ExpectedDataSet.class) != null;
+            if (containsMethod(testModel.getTestClass(), methodHasDataSetAnnotationPredicate)) {
+                return;
+            }
+            boolean hasNested = false;
+            for (final Class<?> nestMember : testModel.getTestClass().getNestMembers()) {
+                if (nestMember.isAnnotationPresent(Nested.class)) {
+                    hasNested = true;
+                    if (containsMethod(nestMember, methodHasDataSetAnnotationPredicate)) {
+                        return;
+                    }
+                }
+            }
             throw new InvalidTestConfigException(
                     "It seems that '@?' is redundant annotation, " +
-                            "because '?' test class does not contain any test methods annotated by '@?' or '@?' annotations!" +
+                            "because '?' test class? does not contain any test methods annotated by '@?' or '@?' annotations!" +
                             "Remove the redundant annotation!",
                     DbUnitTest.class.getName(),
+                    hasNested ? " (or any it nested class(es))" : "",
                     testModel.getTestClass().getName(),
                     InitialDataSet.class.getSimpleName(), ExpectedDataSet.class.getSimpleName()
             );
