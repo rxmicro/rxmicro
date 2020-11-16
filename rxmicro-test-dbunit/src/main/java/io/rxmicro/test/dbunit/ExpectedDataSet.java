@@ -33,4 +33,14 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 public @interface ExpectedDataSet {
 
     String[] value() default {};
+
+    /**
+     * Returns column names to sort the dataset with.
+     *
+     * <p>
+     * If column has the same name for two or more table, use full column name: ${tableName}.${columnName}
+     *
+     * @return column names to sort the dataset with
+     */
+    String[] orderBy() default {};
 }

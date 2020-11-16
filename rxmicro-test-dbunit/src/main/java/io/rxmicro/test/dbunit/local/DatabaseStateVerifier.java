@@ -18,12 +18,21 @@ package io.rxmicro.test.dbunit.local;
 
 import io.rxmicro.common.CheckedWrapperException;
 import io.rxmicro.test.dbunit.ExpectedDataSet;
-import org.dbunit.Assertion;
+import io.rxmicro.test.dbunit.internal.OrderByColumnExtractor;
 import org.dbunit.DatabaseUnitException;
-import org.dbunit.database.DatabaseDataSet;
+import org.dbunit.assertion.DbUnitAssert;
+import org.dbunit.assertion.DefaultFailureHandler;
+import org.dbunit.assertion.FailureFactory;
 import org.dbunit.dataset.IDataSet;
+import org.dbunit.dataset.ITable;
+import org.dbunit.dataset.ITableIterator;
+import org.dbunit.dataset.NoSuchTableException;
+import org.dbunit.dataset.SortedTable;
+import org.dbunit.dataset.filter.DefaultColumnFilter;
 
 import java.sql.SQLException;
+import java.util.Map;
+import java.util.Set;
 
 import static io.rxmicro.test.dbunit.internal.DataSetLoaders.loadIDataSet;
 import static io.rxmicro.test.dbunit.local.DatabaseConnectionHelper.getCurrentDatabaseConnection;
@@ -34,14 +43,49 @@ import static io.rxmicro.test.dbunit.local.DatabaseConnectionHelper.getCurrentDa
  */
 public final class DatabaseStateVerifier {
 
+    private final FailureFactory failureFactory = new DefaultFailureHandler.DefaultFailureFactory();
+
+    private final DbUnitAssert dbUnitAssert = new DbUnitAssert();
+
+    private final OrderByColumnExtractor orderByColumnExtractor = new OrderByColumnExtractor();
+
     public void verifyExpected(final ExpectedDataSet expectedDataSetAnnotation) {
         final IDataSet expectedDataSet = loadIDataSet(expectedDataSetAnnotation.value());
         try {
             final IDataSet actualDataSet = getCurrentDatabaseConnection().createDataSet();
-
-            Assertion.assertEquals(expectedDataSet, actualDataSet);
+            assertEquals(expectedDataSet, actualDataSet, expectedDataSetAnnotation);
         } catch (final SQLException | DatabaseUnitException ex) {
             throw new CheckedWrapperException(ex);
+        }
+    }
+
+    private void assertEquals(final IDataSet expectedDataSet,
+                              final IDataSet actualDataSet,
+                              final ExpectedDataSet expectedDataSetAnnotation) throws DatabaseUnitException {
+        final ITableIterator iterator = expectedDataSet.iterator();
+        final Map<String, Set<String>> orderByColumnMap =
+                orderByColumnExtractor.getOrderByColumns(expectedDataSet, expectedDataSetAnnotation.orderBy());
+        while (iterator.next()) {
+            ITable expectedTable = iterator.getTable();
+            ITable actualTable;
+            final String tableName = expectedTable.getTableMetaData().getTableName();
+            try {
+                actualTable = actualDataSet.getTable(tableName);
+            } catch (final NoSuchTableException ex) {
+                throw failureFactory.createFailure(
+                        "Actual dataset does not contain expected table!",
+                        tableName,
+                        "null"
+                );
+            }
+            actualTable = DefaultColumnFilter.includedColumnsTable(actualTable, expectedTable.getTableMetaData().getColumns());
+
+            final Set<String> orderByColumns = orderByColumnMap.get(tableName);
+            if (orderByColumns != null) {
+                expectedTable = new SortedTable(expectedTable, orderByColumns.toArray(new String[0]));
+                actualTable = new SortedTable(actualTable, orderByColumns.toArray(new String[0]));
+            }
+            dbUnitAssert.assertEquals(expectedTable, actualTable);
         }
     }
 }
