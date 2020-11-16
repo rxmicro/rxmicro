@@ -18,28 +18,45 @@ package io.rxmicro.test.dbunit.local;
 
 import io.rxmicro.common.CheckedWrapperException;
 import io.rxmicro.test.dbunit.InitialDataSet;
+import io.rxmicro.test.dbunit.internal.AbstractDatabaseStateChanger;
 import org.dbunit.DatabaseUnitException;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.operation.DatabaseOperation;
 
 import java.sql.SQLException;
+import java.util.Arrays;
 
 import static io.rxmicro.test.dbunit.internal.DataSetLoaders.loadIDataSet;
 import static io.rxmicro.test.dbunit.local.DatabaseConnectionHelper.getCurrentDatabaseConnection;
+import static java.util.stream.Collectors.toList;
 
 /**
  * @author nedis
  * @since 0.7
  */
-public final class DatabaseStateInitializer {
+public final class DatabaseStateInitializer extends AbstractDatabaseStateChanger {
 
     public void initWith(final InitialDataSet initialDataSet) {
         final IDataSet dataSet = loadIDataSet(initialDataSet.value());
-        final DatabaseOperation operation = initialDataSet.initDatabaseStrategy().getOperation();
         try {
+            executeBeforeStatementsAndScripts(initialDataSet);
+            final DatabaseOperation operation = initialDataSet.initDatabaseStrategy().getOperation();
             operation.execute(getCurrentDatabaseConnection(), dataSet);
         } catch (final DatabaseUnitException | SQLException ex) {
-           throw new CheckedWrapperException(ex);
+            throw new CheckedWrapperException(ex);
+        }
+    }
+
+    private void executeBeforeStatementsAndScripts(final InitialDataSet initialDataSet) throws SQLException {
+        if (initialDataSet.executeStatementsBefore().length > 0) {
+            executeJdbcStatements(Arrays.stream(initialDataSet.executeStatementsBefore())
+                    .filter(s -> !s.trim().isEmpty())
+                    .collect(toList()));
+        }
+        if (initialDataSet.executeScriptsBefore().length > 0) {
+            executeSqlScripts(Arrays.stream(initialDataSet.executeScriptsBefore())
+                    .filter(s -> !s.trim().isEmpty())
+                    .collect(toList()));
         }
     }
 }

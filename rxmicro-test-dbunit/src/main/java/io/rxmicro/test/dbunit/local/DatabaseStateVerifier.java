@@ -37,7 +37,7 @@ public final class DatabaseStateVerifier {
     public void verifyExpected(final ExpectedDataSet expectedDataSetAnnotation) {
         final IDataSet expectedDataSet = loadIDataSet(expectedDataSetAnnotation.value());
         try {
-            final IDataSet actualDataSet = new DatabaseDataSet(getCurrentDatabaseConnection(), false);
+            final IDataSet actualDataSet = getCurrentDatabaseConnection().createDataSet();
 
             Assertion.assertEquals(expectedDataSet, actualDataSet);
         } catch (final SQLException | DatabaseUnitException ex) {

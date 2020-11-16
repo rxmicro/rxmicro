@@ -36,4 +36,38 @@ public @interface InitialDataSet {
     String[] value() default {};
 
     InitDatabaseStrategy initDatabaseStrategy() default CLEAN_INSERT;
+
+    /**
+     * Returns a list of jdbc statements to execute before inserting initial dataset.
+     *
+     * @return a list of jdbc statements to execute before inserting initial dataset.
+     */
+    String[] executeStatementsBefore() default {};
+
+    /**
+     * Returns a list of jdbc statements to execute after comparing with expected dataset.
+     *
+     * @return a list of jdbc statements to execute after comparing with expected dataset.
+     */
+    String[] executeStatementsAfter() default {};
+
+    /**
+     * Returns a list of sql script files to execute before inserting initial dataset.
+     *
+     * <p>
+     * Note that commands inside sql file must be separated by {@code ';'}.
+     *
+     * @return a list of sql script files to execute before inserting initial dataset.
+     */
+    String[] executeScriptsBefore() default {};
+
+    /**
+     * Returns a list of sql script files to execute after comparing with expected dataset.
+     *
+     * <p>
+     * Note that commands inside sql file must be separated by {@code ';'}.
+     *
+     * @return a list of sql script files to execute after comparing with expected dataset.
+     */
+    String[] executeScriptsAfter() default {};
 }
