@@ -31,7 +31,7 @@ import static io.rxmicro.test.dbunit.local.DatabaseConnectionHelper.getCurrentDa
  * @author nedis
  * @since 0.7
  */
-public final class DatabaseInitializer {
+public final class DatabaseStateInitializer {
 
     public void initWith(final InitialDataSet initialDataSet) {
         final IDataSet dataSet = loadIDataSet(initialDataSet.value());

@@ -21,7 +21,7 @@ import io.rxmicro.test.dbunit.InitialDataSet;
 import io.rxmicro.test.dbunit.RollbackChanges;
 import io.rxmicro.test.dbunit.junit.DbUnitTest;
 import io.rxmicro.test.dbunit.junit.RetrieveConnectionStrategy;
-import io.rxmicro.test.dbunit.local.DatabaseInitializer;
+import io.rxmicro.test.dbunit.local.DatabaseStateInitializer;
 import io.rxmicro.test.dbunit.local.DatabaseStateVerifier;
 import io.rxmicro.test.dbunit.local.RollbackChangesController;
 import org.junit.jupiter.api.extension.AfterAllCallback;
@@ -53,7 +53,7 @@ public final class DbUnitTestExtension implements
         BeforeAllCallback, BeforeEachCallback, BeforeTestExecutionCallback,
         AfterTestExecutionCallback, AfterAllCallback {
 
-    private final DatabaseInitializer databaseInitializer = new DatabaseInitializer();
+    private final DatabaseStateInitializer databaseStateInitializer = new DatabaseStateInitializer();
 
     private final DatabaseStateVerifier databaseStateVerifier = new DatabaseStateVerifier();
 
@@ -89,7 +89,7 @@ public final class DbUnitTestExtension implements
         }
         final InitialDataSet dataSet = testMethod.getAnnotation(InitialDataSet.class);
         if (dataSet != null) {
-            databaseInitializer.initWith(dataSet);
+            databaseStateInitializer.initWith(dataSet);
         }
     }
 
