@@ -18,16 +18,20 @@ package io.rxmicro.test.dbunit.junit.internal;
 
 import io.rxmicro.test.dbunit.ExpectedDataSet;
 import io.rxmicro.test.dbunit.InitialDataSet;
+import io.rxmicro.test.dbunit.RollbackChanges;
 import io.rxmicro.test.dbunit.junit.DbUnitTest;
 import io.rxmicro.test.dbunit.junit.RetrieveConnectionStrategy;
 import io.rxmicro.test.dbunit.local.DatabaseInitializer;
 import io.rxmicro.test.dbunit.local.DatabaseStateVerifier;
+import io.rxmicro.test.dbunit.local.RollbackChangesController;
 import org.junit.jupiter.api.extension.AfterAllCallback;
 import org.junit.jupiter.api.extension.AfterTestExecutionCallback;
 import org.junit.jupiter.api.extension.BeforeAllCallback;
 import org.junit.jupiter.api.extension.BeforeEachCallback;
 import org.junit.jupiter.api.extension.BeforeTestExecutionCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
+
+import java.lang.reflect.Method;
 
 import static io.rxmicro.test.dbunit.TestDatabaseConfig.getCurrentTestDatabaseConfig;
 import static io.rxmicro.test.dbunit.TestDatabaseConfig.releaseCurrentTestDatabaseConfig;
@@ -53,6 +57,8 @@ public final class DbUnitTestExtension implements
 
     private final DatabaseStateVerifier databaseStateVerifier = new DatabaseStateVerifier();
 
+    private final RollbackChangesController rollbackChangesController = new RollbackChangesController();
+
     private RetrieveConnectionStrategy retrieveConnectionStrategy;
 
     @Override
@@ -76,7 +82,12 @@ public final class DbUnitTestExtension implements
         if (retrieveConnectionStrategy == PER_TEST_METHOD) {
             setCurrentDatabaseConnection(createNewDatabaseConnection(getCurrentTestDatabaseConfig()));
         }
-        final InitialDataSet dataSet = context.getRequiredTestMethod().getAnnotation(InitialDataSet.class);
+        final Method testMethod = context.getRequiredTestMethod();
+        final RollbackChanges rollbackChanges = testMethod.getAnnotation(RollbackChanges.class);
+        if (rollbackChanges != null) {
+            rollbackChangesController.startTestTransaction(rollbackChanges);
+        }
+        final InitialDataSet dataSet = testMethod.getAnnotation(InitialDataSet.class);
         if (dataSet != null) {
             databaseInitializer.initWith(dataSet);
         }
@@ -87,6 +98,9 @@ public final class DbUnitTestExtension implements
         final ExpectedDataSet dataSet = context.getRequiredTestMethod().getAnnotation(ExpectedDataSet.class);
         if (dataSet != null) {
             databaseStateVerifier.verifyExpected(dataSet);
+        }
+        if (rollbackChangesController.isTestTransactionStarted()) {
+            rollbackChangesController.rollbackChanges();
         }
         if (retrieveConnectionStrategy == PER_TEST_METHOD) {
             releaseCurrentDatabaseConnection();
