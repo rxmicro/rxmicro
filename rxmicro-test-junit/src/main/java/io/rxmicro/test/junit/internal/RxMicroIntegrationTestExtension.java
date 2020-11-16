@@ -43,6 +43,7 @@ import static io.rxmicro.test.local.util.Annotations.getRequiredAnnotation;
 /**
  * @author nedis
  * @since 0.1
+ * @link https://junit.org/junit5/docs/current/user-guide/#extensions-execution-order-overview
  */
 public final class RxMicroIntegrationTestExtension
         implements BeforeAllCallback, BeforeEachCallback, AfterEachCallback {

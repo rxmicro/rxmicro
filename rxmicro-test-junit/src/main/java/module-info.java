@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import io.rxmicro.test.junit.internal.JUnitTestExtension;
-import io.rxmicro.test.local.component.TestExtension;
+import io.rxmicro.test.junit.internal.JUnitRxMicroTestExtension;
+import io.rxmicro.test.local.component.RxMicroTestExtension;
 
 /**
  * The module designed for test writing using the <a href="https://junit.org/junit5/">JUnit 5</a> framework.
@@ -59,5 +59,5 @@ module rxmicro.test.junit {
             org.junit.jupiter.params,
             org.junit.jupiter.api;
 
-    provides TestExtension with JUnitTestExtension;
+    provides RxMicroTestExtension with JUnitRxMicroTestExtension;
 }

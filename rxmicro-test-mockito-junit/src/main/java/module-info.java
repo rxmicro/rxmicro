@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import io.rxmicro.test.local.component.TestExtension;
-import io.rxmicro.test.mockito.junit.internal.MockitoTestExtension;
+import io.rxmicro.test.local.component.RxMicroTestExtension;
+import io.rxmicro.test.mockito.junit.internal.MockitoRxMicroTestExtension;
 
 /**
  * The module designed for test writing using the <a href="https://junit.org/junit5/">JUnit 5</a> and
@@ -56,5 +56,5 @@ module rxmicro.test.mockito.junit {
 
     exports io.rxmicro.test.mockito.junit;
 
-    provides TestExtension with MockitoTestExtension;
+    provides RxMicroTestExtension with MockitoRxMicroTestExtension;
 }

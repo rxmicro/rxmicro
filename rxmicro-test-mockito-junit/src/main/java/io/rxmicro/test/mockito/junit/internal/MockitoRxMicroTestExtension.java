@@ -17,7 +17,7 @@
 package io.rxmicro.test.mockito.junit.internal;
 
 import io.rxmicro.test.local.InvalidTestConfigException;
-import io.rxmicro.test.local.component.TestExtension;
+import io.rxmicro.test.local.component.RxMicroTestExtension;
 import io.rxmicro.test.local.model.TestModel;
 import io.rxmicro.test.mockito.junit.InitMocks;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -32,7 +32,7 @@ import java.util.Set;
  * @author nedis
  * @since 0.1
  */
-public final class MockitoTestExtension implements TestExtension {
+public final class MockitoRxMicroTestExtension implements RxMicroTestExtension {
 
     @Override
     public void validate(final TestModel testModel,

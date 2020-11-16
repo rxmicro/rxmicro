@@ -91,6 +91,8 @@
         <module>rxmicro-test-junit</module>
         <module>rxmicro-test-mockito</module>
         <module>rxmicro-test-mockito-junit</module>
+        <module>rxmicro-test-dbunit</module>
+        <module>rxmicro-test-dbunit-junit</module>
 
         <module>rxmicro-files</module>
         <module>rxmicro-monitoring</module>
@@ -130,6 +132,7 @@
         <junit.platform.version>1.7.0</junit.platform.version>
         <mockito.version>3.5.13</mockito.version>
         <compile.google.testing.version>0.18</compile.google.testing.version>
+        <dbunit.version>2.7.0</dbunit.version>
         <!-- Runtime Libraries -->
         <netty.version>4.1.52.Final</netty.version>
 

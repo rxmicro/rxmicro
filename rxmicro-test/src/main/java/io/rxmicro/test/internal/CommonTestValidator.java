@@ -36,8 +36,8 @@ import java.util.Set;
 
 import static io.rxmicro.common.RxMicroModule.isRxMicroPackage;
 import static io.rxmicro.common.util.ExCollections.unmodifiableOrderedSet;
-import static io.rxmicro.test.local.component.TestExtensions.supportedPerClassAnnotationsFromTestExtensions;
-import static io.rxmicro.test.local.component.TestExtensions.validateUsingTestExtensions;
+import static io.rxmicro.test.local.component.RxMicroTestExtensions.supportedPerClassAnnotationsFromTestExtensions;
+import static io.rxmicro.test.local.component.RxMicroTestExtensions.validateUsingTestExtensions;
 import static io.rxmicro.test.local.util.FieldNames.getHumanReadableFieldName;
 import static java.util.stream.Collectors.toSet;
 

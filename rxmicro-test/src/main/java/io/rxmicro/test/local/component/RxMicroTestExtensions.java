@@ -30,27 +30,27 @@ import static java.util.stream.Collectors.toSet;
  * @author nedis
  * @since 0.1
  */
-public final class TestExtensions {
+public final class RxMicroTestExtensions {
 
-    private static final Set<TestExtension> TEST_EXTENSIONS;
+    private static final Set<RxMicroTestExtension> RX_MICRO_TEST_EXTENSIONS;
 
     static {
-        final Set<TestExtension> testExtensions = new HashSet<>();
-        for (final TestExtension testExtension : ServiceLoader.load(TestExtension.class)) {
-            testExtensions.add(testExtension);
+        final Set<RxMicroTestExtension> rxMicroTestExtensions = new HashSet<>();
+        for (final RxMicroTestExtension rxMicroTestExtension : ServiceLoader.load(RxMicroTestExtension.class)) {
+            rxMicroTestExtensions.add(rxMicroTestExtension);
         }
-        TEST_EXTENSIONS = unmodifiableSet(testExtensions);
+        RX_MICRO_TEST_EXTENSIONS = unmodifiableSet(rxMicroTestExtensions);
     }
 
     public static void validateUsingTestExtensions(final TestModel testModel,
                                                    final Set<Class<? extends Annotation>> supportedRxMicroTestAnnotations) {
-        TEST_EXTENSIONS.forEach(ex -> ex.validate(testModel, supportedRxMicroTestAnnotations));
+        RX_MICRO_TEST_EXTENSIONS.forEach(ex -> ex.validate(testModel, supportedRxMicroTestAnnotations));
     }
 
     public static Set<Class<? extends Annotation>> supportedPerClassAnnotationsFromTestExtensions() {
-        return TEST_EXTENSIONS.stream().flatMap(ex -> ex.supportedPerClassAnnotations().stream()).collect(toSet());
+        return RX_MICRO_TEST_EXTENSIONS.stream().flatMap(ex -> ex.supportedPerClassAnnotations().stream()).collect(toSet());
     }
 
-    private TestExtensions() {
+    private RxMicroTestExtensions() {
     }
 }

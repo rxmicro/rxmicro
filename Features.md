@@ -170,7 +170,7 @@ Mockito integration                                     | **Supported**
 TestNG integration                                      | TODO
 EasyMock integration                                    | TODO
 Rest-assured.io integration                             | TODO
-DBUnit integration                                      | TODO
+DBUnit integration                                      | **Supported**
 Test container integration                              | TODO
 
 ## Documentation

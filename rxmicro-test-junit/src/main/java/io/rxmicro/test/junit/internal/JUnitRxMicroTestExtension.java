@@ -20,7 +20,7 @@ import io.rxmicro.test.junit.RxMicroComponentTest;
 import io.rxmicro.test.junit.RxMicroIntegrationTest;
 import io.rxmicro.test.junit.RxMicroRestBasedMicroServiceTest;
 import io.rxmicro.test.local.InvalidTestConfigException;
-import io.rxmicro.test.local.component.TestExtension;
+import io.rxmicro.test.local.component.RxMicroTestExtension;
 import io.rxmicro.test.local.model.TestModel;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.extension.Extension;
@@ -32,7 +32,7 @@ import java.util.Set;
  * @author nedis
  * @since 0.1
  */
-public final class JUnitTestExtension implements TestExtension {
+public final class JUnitRxMicroTestExtension implements RxMicroTestExtension {
 
     @Override
     public void validate(final TestModel testModel,

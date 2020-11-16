@@ -15,7 +15,7 @@
  */
 
 import io.rxmicro.common.model.UnNamedModuleFixer;
-import io.rxmicro.test.local.component.TestExtension;
+import io.rxmicro.test.local.component.RxMicroTestExtension;
 
 /**
  * The basic module designed for test writing using any modern testing framework.
@@ -65,9 +65,13 @@ module rxmicro.test {
 
     exports io.rxmicro.test.local to
             rxmicro.test.junit,
-            rxmicro.test.mockito, rxmicro.test.mockito.junit;
+            rxmicro.test.mockito,
+            rxmicro.test.mockito.junit,
+            rxmicro.test.dbunit, rxmicro.test.dbunit.junit;
     exports io.rxmicro.test.local.component to
-            rxmicro.test.junit, rxmicro.test.mockito.junit;
+            rxmicro.test.junit,
+            rxmicro.test.mockito.junit,
+            rxmicro.test.dbunit.junit;
     exports io.rxmicro.test.local.component.builder to
             rxmicro.test.junit;
     exports io.rxmicro.test.local.component.injector to
@@ -75,10 +79,13 @@ module rxmicro.test {
     exports io.rxmicro.test.local.component.validator to
             rxmicro.test.junit;
     exports io.rxmicro.test.local.util to
-            rxmicro.test.junit;
+            rxmicro.test.junit,
+            rxmicro.test.dbunit.junit;
     exports io.rxmicro.test.local.model to
-            rxmicro.test.junit, rxmicro.test.mockito.junit;
+            rxmicro.test.junit,
+            rxmicro.test.mockito.junit,
+            rxmicro.test.dbunit.junit;
 
     uses UnNamedModuleFixer;
-    uses TestExtension;
+    uses RxMicroTestExtension;
 }

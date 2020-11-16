@@ -16,6 +16,9 @@
 
 package io.rxmicro.common.util;
 
+import java.util.Arrays;
+import java.util.function.Supplier;
+
 import static io.rxmicro.common.util.Formats.format;
 
 /**
@@ -71,6 +74,34 @@ public final class Requires {
         //assert instance != null : format(message, args);
         if (instance == null) {
             throw new NullPointerException(format(message, args));
+        }
+        return instance;
+    }
+
+    /**
+     * Checks that the specified object reference is not {@code null} and throws a exception with custom message if it is.
+     *
+     * <p>
+     * The main advantage of this method comparing with {@link java.util.Objects#requireNonNull(Object, String)} is the ability to replace
+     * {@code if} statement by the {@code assert} one.
+     * This replacement can increase the performance of the RxMicro framework.
+     *
+     * @param instance the specified object
+     * @param message the message template
+     * @param suppliers the message template argument suppliers
+     * @param <T> the type of the reference
+     * @return {@code obj} if not {@code null}
+     * @see java.util.Objects#requireNonNull(Object, String)
+     * @throws NullPointerException if the message template is {@code null} or the specified object is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    @SafeVarargs
+    public static <T> T require(final T instance,
+                                final String message,
+                                final Supplier<Object>... suppliers) {
+        //assert instance != null : format(message, args);
+        if (instance == null) {
+            throw new NullPointerException(format(message, Arrays.stream(suppliers).map(Supplier::get).toArray()));
         }
         return instance;
     }

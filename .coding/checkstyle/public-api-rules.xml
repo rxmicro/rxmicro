@@ -46,7 +46,7 @@
         <module name="AtclauseOrder">
             <property name="id" value="TypeAtclauseOrder"/>
             <property name="tagOrder"
-                      value="@author, @deprecated, @hidden, @see, @since"/>
+                      value="@author, @deprecated, @hidden, @see, @since, @link"/>
             <property name="target" value="CLASS_DEF, INTERFACE_DEF, ENUM_DEF, CTOR_DEF"/>
         </module>
         <module name="AtclauseOrder">

@@ -25,7 +25,7 @@ import java.util.Set;
  * @author nedis
  * @since 0.1
  */
-public interface TestExtension {
+public interface RxMicroTestExtension {
 
     void validate(TestModel testModel,
                   Set<Class<? extends Annotation>> supportedRxMicroTestAnnotations);

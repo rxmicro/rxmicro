@@ -162,7 +162,8 @@ public final class RepositoryFactoryClassStructure extends ClassStructure {
                 builder, postgreSQLRepositories, PostgreSQLRepositoryFactory.class, "createPostgreSQLRepository");
         if (!postgresEnumMapping.isEmpty()) {
             builder.addStaticImport(PostgreSQLConfigCustomizer.class, "registerPostgreSQLCodecs")
-                    .addImports(postgresEnumMapping.stream().map(Map.Entry::getKey).toArray(TypeElement[]::new));
+                    .addImports(postgresEnumMapping.stream().map(Map.Entry::getKey).toArray(TypeElement[]::new))
+                    .addImports(Set.class);
         }
         return builder.build();
     }
