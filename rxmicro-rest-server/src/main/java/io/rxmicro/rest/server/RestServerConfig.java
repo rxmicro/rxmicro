@@ -56,7 +56,7 @@ public class RestServerConfig extends Config {
 
     private String corsNotAllowedErrorMessage = "CORS not allowed";
 
-    private boolean humanReadableOutput; // false
+    private boolean humanReadableOutput;
 
     private boolean hideInternalErrorMessage = true;
 
@@ -75,11 +75,11 @@ public class RestServerConfig extends Config {
 
     private boolean disableLoggerMessagesForHttpHealthChecks = true;
 
-    private boolean showRuntimeEnv; // false
+    private boolean showRuntimeEnv;
 
     private boolean useFullClassNamesForRouterMappingLogMessages = true;
 
-    private boolean enableAdditionalValidations; // false
+    private boolean enableAdditionalValidations;
 
     /**
      * Configures REST server for development environment.
@@ -431,6 +431,7 @@ public class RestServerConfig extends Config {
      * @param enableAdditionalValidations enable additional validations or not
      * @return the reference to this {@link RestServerConfig} instance
      */
+    @BuilderMethod
     public RestServerConfig setEnableAdditionalValidations(final boolean enableAdditionalValidations) {
         this.enableAdditionalValidations = enableAdditionalValidations;
         return this;

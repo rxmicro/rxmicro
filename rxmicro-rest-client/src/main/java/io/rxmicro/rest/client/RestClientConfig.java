@@ -16,6 +16,7 @@
 
 package io.rxmicro.rest.client;
 
+import io.rxmicro.common.meta.BuilderMethod;
 import io.rxmicro.http.client.HttpClientConfig;
 
 import static io.rxmicro.common.util.Formats.format;
@@ -29,7 +30,7 @@ import static io.rxmicro.config.Secrets.hideSecretInfo;
  */
 public class RestClientConfig extends HttpClientConfig {
 
-    private boolean enableAdditionalValidations; // false
+    private boolean enableAdditionalValidations;
 
     /**
      * Returns {@code true} if additional validations are enabled.
@@ -46,6 +47,7 @@ public class RestClientConfig extends HttpClientConfig {
      * @param enableAdditionalValidations enable additional validations or not
      * @return the reference to this {@link RestClientConfig} instance
      */
+    @BuilderMethod
     public RestClientConfig setEnableAdditionalValidations(final boolean enableAdditionalValidations) {
         this.enableAdditionalValidations = enableAdditionalValidations;
         return this;

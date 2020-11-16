@@ -109,8 +109,7 @@ public final class RestModelValidatorBuilderImpl extends AbstractProcessorCompon
                         result,
                         e.getValue().asObject(),
                         builder.getChildrenValidators(),
-                        e.getKey().hasAnnotation(Nullable.class))
-                );
+                        e.getKey().hasAnnotation(Nullable.class)));
     }
 
     private void extractObjectIterableChildValidators(final Set<ModelValidatorClassStructure> result,
@@ -122,8 +121,7 @@ public final class RestModelValidatorBuilderImpl extends AbstractProcessorCompon
                         result,
                         (RestObjectModelClass) e.getValue().asIterable().getElementModelClass(),
                         builder.getChildrenValidators(),
-                        e.getKey().hasAnnotation(Nullable.class))
-                );
+                        e.getKey().hasAnnotation(Nullable.class)));
     }
 
     @SuppressWarnings("SimplifiableConditionalExpression")
