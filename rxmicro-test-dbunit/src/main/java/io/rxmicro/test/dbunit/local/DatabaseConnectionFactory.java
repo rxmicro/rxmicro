@@ -33,9 +33,12 @@ import java.sql.SQLException;
  */
 public final class DatabaseConnectionFactory {
 
+    private static final ConnectionProvider CONNECTION_PROVIDER = config ->
+            DriverManager.getConnection(config.getJdbcUrl(), config.getUser(), config.getPassword().toString());
+
     public static DatabaseConnection createNewDatabaseConnection(final TestDatabaseConfig config) {
         try {
-            final Connection connection = getConnection(config);
+            final Connection connection = CONNECTION_PROVIDER.getConnection(config);
             if (config.isSchemaPresent()) {
                 final Constructor<? extends DatabaseConnection> constructor =
                         config.getType().getDatabaseConnectionClass()
@@ -60,10 +63,15 @@ public final class DatabaseConnectionFactory {
         }
     }
 
-    private static Connection getConnection(final TestDatabaseConfig config) throws SQLException {
-        return DriverManager.getConnection(config.getJdbcUrl(), config.getUser(), config.getPassword().toString());
+    private DatabaseConnectionFactory() {
     }
 
-    private DatabaseConnectionFactory() {
+    /**
+     * @author nedis
+     * @since 0.7
+     */
+    public interface ConnectionProvider {
+
+        Connection getConnection(TestDatabaseConfig config) throws SQLException;
     }
 }

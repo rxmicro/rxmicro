@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package io.rxmicro.test.dbunit.local;
+package io.rxmicro.test.dbunit.local.component;
 
 import io.rxmicro.common.CheckedWrapperException;
 import io.rxmicro.test.dbunit.ExpectedDataSet;
