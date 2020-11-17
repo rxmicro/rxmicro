@@ -29,7 +29,9 @@ import static io.rxmicro.config.Networks.validatePort;
  */
 public final class TestDatabaseConfig extends Config {
 
-    private static final int PORT_NOT_SPECIFIED = -1;
+    public static final String DEFAULT_HOST = "localhost";
+
+    public static final int PORT_NOT_SPECIFIED = -1;
 
     private static final ThreadLocal<TestDatabaseConfig> CURRENT_TEST_DATABASE_CONFIG = new ThreadLocal<>();
 
@@ -37,7 +39,7 @@ public final class TestDatabaseConfig extends Config {
 
     private String jdbcDriver;
 
-    private String host = "localhost";
+    private String host = DEFAULT_HOST;
 
     private int port = PORT_NOT_SPECIFIED;
 

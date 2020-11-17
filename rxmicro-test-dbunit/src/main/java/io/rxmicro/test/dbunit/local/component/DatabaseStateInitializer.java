@@ -18,15 +18,20 @@ package io.rxmicro.test.dbunit.local.component;
 
 import io.rxmicro.common.CheckedWrapperException;
 import io.rxmicro.test.dbunit.InitialDataSet;
-import io.rxmicro.test.dbunit.internal.AbstractDatabaseStateChanger;
+import io.rxmicro.test.dbunit.internal.component.AbstractDatabaseStateChanger;
+import io.rxmicro.test.dbunit.internal.data.TestValueProvider;
 import org.dbunit.DatabaseUnitException;
 import org.dbunit.dataset.IDataSet;
+import org.dbunit.dataset.ReplacementDataSet;
 import org.dbunit.operation.DatabaseOperation;
 
 import java.sql.SQLException;
 import java.util.Arrays;
+import java.util.Map;
 
+import static io.rxmicro.test.dbunit.Expressions.NULL_VALUE;
 import static io.rxmicro.test.dbunit.internal.DataSetLoaders.loadIDataSet;
+import static io.rxmicro.test.dbunit.internal.TestValueProviders.getAllTestValueProviders;
 import static io.rxmicro.test.dbunit.local.DatabaseConnectionHelper.getCurrentDatabaseConnection;
 import static java.util.stream.Collectors.toList;
 
@@ -37,14 +42,24 @@ import static java.util.stream.Collectors.toList;
 public final class DatabaseStateInitializer extends AbstractDatabaseStateChanger {
 
     public void initWith(final InitialDataSet initialDataSet) {
-        final IDataSet dataSet = loadIDataSet(initialDataSet.value());
+        IDataSet dataSet = loadIDataSet(initialDataSet.value());
         try {
+            dataSet = decorateWithReplacementDataSet(dataSet);
             executeBeforeStatementsAndScripts(initialDataSet);
             final DatabaseOperation operation = initialDataSet.initDatabaseStrategy().getOperation();
             operation.execute(getCurrentDatabaseConnection(), dataSet);
         } catch (final DatabaseUnitException | SQLException ex) {
             throw new CheckedWrapperException(ex);
         }
+    }
+
+    private IDataSet decorateWithReplacementDataSet(final IDataSet dataSet) {
+        final ReplacementDataSet replacementDataSet = new ReplacementDataSet(dataSet);
+        replacementDataSet.addReplacementObject(NULL_VALUE, null);
+        for (final Map.Entry<String, TestValueProvider> entry : getAllTestValueProviders()) {
+            replacementDataSet.addReplacementObject(entry.getKey(), entry.getValue().getValue());
+        }
+        return replacementDataSet;
     }
 
     private void executeBeforeStatementsAndScripts(final InitialDataSet initialDataSet) throws SQLException {

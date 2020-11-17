@@ -18,15 +18,16 @@ package io.rxmicro.test.dbunit.local.component;
 
 import io.rxmicro.common.CheckedWrapperException;
 import io.rxmicro.test.dbunit.ExpectedDataSet;
-import io.rxmicro.test.dbunit.internal.OrderByColumnExtractor;
+import io.rxmicro.test.dbunit.internal.component.OrderByColumnExtractor;
+import io.rxmicro.test.dbunit.internal.component.RxMicroDefaultFailureHandler;
 import org.dbunit.DatabaseUnitException;
 import org.dbunit.assertion.DbUnitAssert;
-import org.dbunit.assertion.DefaultFailureHandler;
-import org.dbunit.assertion.FailureFactory;
+import org.dbunit.assertion.FailureHandler;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.ITable;
 import org.dbunit.dataset.ITableIterator;
 import org.dbunit.dataset.NoSuchTableException;
+import org.dbunit.dataset.ReplacementTable;
 import org.dbunit.dataset.SortedTable;
 import org.dbunit.dataset.filter.DefaultColumnFilter;
 
@@ -34,6 +35,7 @@ import java.sql.SQLException;
 import java.util.Map;
 import java.util.Set;
 
+import static io.rxmicro.test.dbunit.Expressions.NULL_VALUE;
 import static io.rxmicro.test.dbunit.internal.DataSetLoaders.loadIDataSet;
 import static io.rxmicro.test.dbunit.local.DatabaseConnectionHelper.getCurrentDatabaseConnection;
 
@@ -43,7 +45,7 @@ import static io.rxmicro.test.dbunit.local.DatabaseConnectionHelper.getCurrentDa
  */
 public final class DatabaseStateVerifier {
 
-    private final FailureFactory failureFactory = new DefaultFailureHandler.DefaultFailureFactory();
+    private final FailureHandler failureHandler = new RxMicroDefaultFailureHandler();
 
     private final DbUnitAssert dbUnitAssert = new DbUnitAssert();
 
@@ -72,12 +74,13 @@ public final class DatabaseStateVerifier {
             try {
                 actualTable = actualDataSet.getTable(tableName);
             } catch (final NoSuchTableException ex) {
-                throw failureFactory.createFailure(
+                throw failureHandler.createFailure(
                         "Actual dataset does not contain expected table!",
                         tableName,
                         "null"
                 );
             }
+            expectedTable = decorateWithReplacementTable(expectedTable);
             actualTable = DefaultColumnFilter.includedColumnsTable(actualTable, expectedTable.getTableMetaData().getColumns());
 
             final Set<String> orderByColumns = orderByColumnMap.get(tableName);
@@ -85,7 +88,13 @@ public final class DatabaseStateVerifier {
                 expectedTable = new SortedTable(expectedTable, orderByColumns.toArray(new String[0]));
                 actualTable = new SortedTable(actualTable, orderByColumns.toArray(new String[0]));
             }
-            dbUnitAssert.assertEquals(expectedTable, actualTable);
+            dbUnitAssert.assertEquals(expectedTable, actualTable, failureHandler);
         }
+    }
+
+    private ITable decorateWithReplacementTable(final ITable expectedTable) {
+        final ReplacementTable replacementTable = new ReplacementTable(expectedTable);
+        replacementTable.addReplacementObject(NULL_VALUE, null);
+        return replacementTable;
     }
 }

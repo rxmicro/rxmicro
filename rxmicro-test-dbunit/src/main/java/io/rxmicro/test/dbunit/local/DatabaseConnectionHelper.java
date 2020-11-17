@@ -67,7 +67,7 @@ public final class DatabaseConnectionHelper {
         }
     }
 
-    public static void closeDatabaseConnection(final DatabaseConnection connection){
+    public static void closeDatabaseConnection(final DatabaseConnection connection) {
         try {
             connection.close();
         } catch (final SQLException ex) {

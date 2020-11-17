@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package io.rxmicro.test.dbunit.internal;
+package io.rxmicro.test.dbunit.internal.component;
 
 import io.rxmicro.config.ConfigException;
 import io.rxmicro.test.dbunit.DatabaseType;

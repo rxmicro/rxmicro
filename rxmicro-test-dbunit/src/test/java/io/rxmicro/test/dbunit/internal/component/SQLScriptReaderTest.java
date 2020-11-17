@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package io.rxmicro.test.dbunit.internal;
+package io.rxmicro.test.dbunit.internal.component;
 
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;

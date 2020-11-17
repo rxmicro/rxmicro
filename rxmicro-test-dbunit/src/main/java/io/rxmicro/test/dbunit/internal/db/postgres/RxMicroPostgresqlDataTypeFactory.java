@@ -16,11 +16,13 @@
 
 package io.rxmicro.test.dbunit.internal.db.postgres;
 
+import io.rxmicro.test.dbunit.internal.data.type.RxMicroTimestampDataType;
 import org.dbunit.dataset.datatype.DataType;
 import org.dbunit.dataset.datatype.DataTypeException;
 import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory;
 
 import java.lang.reflect.Field;
+import java.sql.Types;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
@@ -45,9 +47,9 @@ public class RxMicroPostgresqlDataTypeFactory extends PostgresqlDataTypeFactory 
 
     @SuppressWarnings("unchecked")
     private static Set<String> findEnumNames() {
-        final String repositoryClassName = format("?.?", ENTRY_POINT_PACKAGE, POSTGRES_SQL_CONFIG_AUTO_CUSTOMIZER_CLASS_NAME);
+        final String configAutoCustomizerClassName = format("?.?", ENTRY_POINT_PACKAGE, POSTGRES_SQL_CONFIG_AUTO_CUSTOMIZER_CLASS_NAME);
         try {
-            final Class<?> repositoryClass = Class.forName(repositoryClassName);
+            final Class<?> repositoryClass = Class.forName(configAutoCustomizerClassName);
             final Field field = repositoryClass.getDeclaredField("POSTGRES_ENUM_MAPPING");
             if (!field.canAccess(null)) {
                 field.setAccessible(true);
@@ -63,6 +65,8 @@ public class RxMicroPostgresqlDataTypeFactory extends PostgresqlDataTypeFactory 
                                    final String sqlTypeName) throws DataTypeException {
         if (isEnumType(sqlTypeName)) {
             return super.createDataType(TYPES_OTHER, sqlTypeName);
+        } else if (sqlType == Types.TIMESTAMP) {
+            return new RxMicroTimestampDataType();
         } else {
             return super.createDataType(sqlType, sqlTypeName);
         }

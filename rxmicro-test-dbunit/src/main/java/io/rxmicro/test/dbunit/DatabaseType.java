@@ -17,7 +17,7 @@
 package io.rxmicro.test.dbunit;
 
 import io.rxmicro.config.ConfigException;
-import io.rxmicro.test.dbunit.internal.JdbcUrlParser;
+import io.rxmicro.test.dbunit.internal.component.JdbcUrlParser;
 import io.rxmicro.test.dbunit.internal.db.postgres.RxMicroPostgresDatabaseConnection;
 import org.dbunit.database.DatabaseConnection;
 

@@ -18,7 +18,7 @@ package io.rxmicro.test.dbunit.local.component;
 
 import io.rxmicro.common.CheckedWrapperException;
 import io.rxmicro.test.dbunit.InitialDataSet;
-import io.rxmicro.test.dbunit.internal.AbstractDatabaseStateChanger;
+import io.rxmicro.test.dbunit.internal.component.AbstractDatabaseStateChanger;
 
 import java.sql.SQLException;
 import java.util.Arrays;

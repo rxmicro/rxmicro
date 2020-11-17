@@ -20,6 +20,7 @@ import io.rxmicro.config.Config;
 import io.rxmicro.test.Alternative;
 import io.rxmicro.test.WithConfig;
 import io.rxmicro.test.dbunit.TestDatabaseConfig;
+import io.rxmicro.test.dbunit.TestValueProviderConfig;
 import io.rxmicro.test.local.InvalidTestConfigException;
 import io.rxmicro.test.local.component.validator.CommonTestValidator;
 import io.rxmicro.test.local.model.TestModel;
@@ -35,7 +36,8 @@ import java.util.Set;
 public final class DBUnitTestValidator extends CommonTestValidator {
 
     private static final Set<Class<? extends Config>> SUPPORTED_CONFIG_CLASSES = Set.of(
-            TestDatabaseConfig.class
+            TestDatabaseConfig.class,
+            TestValueProviderConfig.class
     );
 
     @Override
