@@ -70,7 +70,7 @@ public final class RxMicroIntegrationTestExtension extends AbstractJUnitTestExte
         if (blockingHttpClientInjector.hasField()) {
             final BlockingHttpClientConfig config =
                     blockingHttpClientInjector.getConfig(testClass, true, 8080);
-            integrationTestValidator.validate(config);
+            integrationTestValidator.validate(testModel, config);
             blockingHttpClient = getBlockingHttpClientBuilder().build(testClass, config);
         }
     }

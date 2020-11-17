@@ -66,6 +66,10 @@ public final class JUnitRxMicroTestExtension implements RxMicroTestExtension {
 
     @Override
     public Set<Class<? extends Annotation>> supportedPerClassAnnotations() {
-        return Set.of();
+        return Set.of(
+                RxMicroComponentTest.class,
+                RxMicroIntegrationTest.class,
+                RxMicroRestBasedMicroServiceTest.class
+        );
     }
 }

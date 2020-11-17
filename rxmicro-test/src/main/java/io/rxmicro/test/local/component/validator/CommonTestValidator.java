@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package io.rxmicro.test.internal;
+package io.rxmicro.test.local.component.validator;
 
 import io.rxmicro.test.SetConfigValue;
 import io.rxmicro.test.internal.validator.impl.BlockingHttpClientFieldValidator;
@@ -35,9 +35,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import static io.rxmicro.common.RxMicroModule.isRxMicroPackage;
-import static io.rxmicro.common.util.ExCollections.unmodifiableOrderedSet;
 import static io.rxmicro.test.local.component.RxMicroTestExtensions.supportedPerClassAnnotationsFromTestExtensions;
-import static io.rxmicro.test.local.component.RxMicroTestExtensions.validateUsingTestExtensions;
 import static io.rxmicro.test.local.util.FieldNames.getHumanReadableFieldName;
 import static java.util.stream.Collectors.toSet;
 
@@ -52,13 +50,14 @@ public abstract class CommonTestValidator {
             SetConfigValue.List.class
     );
 
-    private final Set<Class<? extends Annotation>> supportedRxMicroTestAnnotations;
+    public final void validate(final TestModel testModel) {
+        validateUsingCommonRules(testModel);
+        validateUsingSpecificRules(testModel);
 
-    public CommonTestValidator(final Set<Class<? extends Annotation>> supportedRxMicroTestAnnotations) {
-        this.supportedRxMicroTestAnnotations = unmodifiableOrderedSet(supportedRxMicroTestAnnotations);
+        validateThatClassNotContainRedundantAnnotation(testModel);
     }
 
-    public void validate(final TestModel testModel) {
+    private void validateUsingCommonRules(final TestModel testModel) {
         new ConfigFieldValidator()
                 .validate(testModel.getStaticConfigs());
         new ConfigFieldValidator()
@@ -82,24 +81,27 @@ public abstract class CommonTestValidator {
 
         validateRestClientFactoryState(testModel);
         validateRepositoryFactoryState(testModel);
-
-        validateUsingTestExtensions(testModel, supportedRxMicroTestAnnotations);
-        validateThatClassNotContainRedundantAnnotation(testModel);
     }
 
-    private void validateThatClassNotContainRedundantAnnotation(final TestModel testModel) {
-        final Set<Class<? extends Annotation>> presentAnnotations = supportedRxMicroTestAnnotations.stream()
+    protected abstract void validateUsingSpecificRules(TestModel testModel);
+
+    protected final void validateThatOnlyOneAnnotationExistsPerTestClass(final TestModel testModel,
+                                                                         final Set<Class<? extends Annotation>> supportedAnnotations) {
+        final Set<Class<? extends Annotation>> presentAnnotations = supportedAnnotations.stream()
                 .filter(a -> testModel.getTestClass().isAnnotationPresent(a))
                 .collect(toSet());
         if (presentAnnotations.size() > 1) {
             throw new InvalidTestConfigException(
                     "Per test class only one annotation is allowed from the list: ?. " +
-                            "Remove redundant annotation(s)!",
-                    supportedRxMicroTestAnnotations);
+                            "Remove redundant annotation(s) from '?' test class!",
+                    supportedAnnotations,
+                    testModel.getTestClass().getName()
+            );
         }
+    }
 
-        final Set<Class<? extends Annotation>> supportedPerClassAnnotations = new HashSet<>(supportedRxMicroTestAnnotations);
-        supportedPerClassAnnotations.addAll(SUPPORTED_PER_CLASS_ANNOTATIONS);
+    private void validateThatClassNotContainRedundantAnnotation(final TestModel testModel) {
+        final Set<Class<? extends Annotation>> supportedPerClassAnnotations = new HashSet<>(SUPPORTED_PER_CLASS_ANNOTATIONS);
         supportedPerClassAnnotations.addAll(supportedPerClassAnnotationsFromTestExtensions());
 
         Arrays.stream(testModel.getTestClass().getAnnotations())
@@ -108,8 +110,9 @@ public abstract class CommonTestValidator {
                 .forEach(a -> {
                     throw new InvalidTestConfigException(
                             "Test class annotated by redundant annotation: '@?'. " +
-                                    "Remove redundant annotation!",
-                            a.annotationType().getName()
+                                    "Remove redundant annotation from '?' test class!",
+                            a.annotationType().getName(),
+                            testModel.getTestClass().getName()
                     );
                 });
     }

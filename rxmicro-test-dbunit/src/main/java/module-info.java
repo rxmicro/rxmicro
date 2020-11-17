@@ -29,4 +29,6 @@ module rxmicro.test.dbunit {
     exports io.rxmicro.test.dbunit;
     exports io.rxmicro.test.dbunit.local to
             rxmicro.test.dbunit.junit;
+    exports io.rxmicro.test.dbunit.local.component.validator to
+            rxmicro.test.dbunit.junit;
 }

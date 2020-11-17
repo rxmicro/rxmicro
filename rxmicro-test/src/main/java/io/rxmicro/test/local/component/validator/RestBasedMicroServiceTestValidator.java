@@ -18,7 +18,6 @@ package io.rxmicro.test.local.component.validator;
 
 import io.rxmicro.http.ProtocolSchema;
 import io.rxmicro.rest.server.detail.component.AbstractRestController;
-import io.rxmicro.test.internal.CommonTestValidator;
 import io.rxmicro.test.local.BlockingHttpClientConfig;
 import io.rxmicro.test.local.InvalidTestConfigException;
 import io.rxmicro.test.local.model.TestModel;
@@ -26,6 +25,7 @@ import io.rxmicro.test.local.model.TestModel;
 import java.lang.annotation.Annotation;
 import java.util.Set;
 
+import static io.rxmicro.test.local.component.RxMicroTestExtensions.validateUsingTestExtensions;
 import static io.rxmicro.test.local.util.GeneratedClasses.isClassGenerated;
 
 /**
@@ -34,23 +34,15 @@ import static io.rxmicro.test.local.util.GeneratedClasses.isClassGenerated;
  */
 public final class RestBasedMicroServiceTestValidator extends CommonTestValidator {
 
+    private final Set<Class<? extends Annotation>> supportedTestAnnotations;
+
     public RestBasedMicroServiceTestValidator(final Set<Class<? extends Annotation>> supportedTestAnnotations) {
-        super(supportedTestAnnotations);
+        this.supportedTestAnnotations = supportedTestAnnotations;
     }
 
     public void validate(final TestModel testModel,
                          final Class<?>... restControllerClasses) {
         validate(testModel);
-        validate(testModel.getTestClass(), restControllerClasses);
-        if (testModel.isInstanceConfigsPresent()) {
-            throw new InvalidTestConfigException("Rest-based microservice test supports static configs only! " +
-                    "Remove not static configs or add the missing 'static' modifier for ?",
-                    testModel.getInstanceConfigs());
-        }
-    }
-
-    private void validate(final Class<?> testClass,
-                          final Class<?>... restControllerClasses) {
         for (final Class<?> restControllerClass : restControllerClasses) {
             if (!isClassGenerated(restControllerClass, "?.$$?", AbstractRestController.class)) {
                 throw new InvalidTestConfigException(
@@ -60,22 +52,41 @@ public final class RestBasedMicroServiceTestValidator extends CommonTestValidato
                                 "Read more at https://docs.rxmicro.io/latest/user-guide/quick-start.html#compiling_the_project",
                         restControllerClass.getName(),
                         restControllerClass.getName(),
-                        testClass.getName()
+                        testModel.getTestClass().getName()
                 );
             }
         }
     }
 
-    public void validate(final BlockingHttpClientConfig config) {
+    public void validate(final TestModel testModel,
+                         final BlockingHttpClientConfig config) {
         if (!"localhost".equals(config.getHost())) {
             throw new InvalidTestConfigException(
-                    "For REST based micro service tests HTTP server host must be 'localhost' only!"
+                    "For REST based micro service tests HTTP server host must be 'localhost' only! Fix setting for ? test class!",
+                    testModel.getTestClass().getName()
             );
         }
         if (config.getSchema() != ProtocolSchema.HTTP) {
             throw new InvalidTestConfigException(
-                    "For REST based micro service tests HTTP server supports the 'http' schema only!"
+                    "For REST based micro service tests HTTP server supports the 'http' schema only! Fix setting for ? test class!",
+                    testModel.getTestClass().getName()
             );
         }
     }
+
+    @Override
+    protected void validateUsingSpecificRules(final TestModel testModel) {
+        validateThatOnlyOneAnnotationExistsPerTestClass(testModel, supportedTestAnnotations);
+        validateUsingTestExtensions(testModel, supportedTestAnnotations);
+        if (testModel.isInstanceConfigsPresent()) {
+            throw new InvalidTestConfigException(
+                    "Rest-based microservice test supports static configs only! " +
+                            "Remove not static configs or add the missing 'static' modifier for ? from '?' test class!",
+                    testModel.getInstanceConfigs(),
+                    testModel.getTestClass().getName()
+            );
+        }
+    }
+
+
 }

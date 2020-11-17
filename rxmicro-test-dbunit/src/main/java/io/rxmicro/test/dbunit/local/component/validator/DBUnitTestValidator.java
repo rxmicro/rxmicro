@@ -14,52 +14,37 @@
  * limitations under the License.
  */
 
-package io.rxmicro.test.local.component.validator;
+package io.rxmicro.test.dbunit.local.component.validator;
 
+import io.rxmicro.config.Config;
 import io.rxmicro.test.Alternative;
 import io.rxmicro.test.WithConfig;
-import io.rxmicro.test.local.BlockingHttpClientConfig;
+import io.rxmicro.test.dbunit.TestDatabaseConfig;
 import io.rxmicro.test.local.InvalidTestConfigException;
+import io.rxmicro.test.local.component.validator.CommonTestValidator;
 import io.rxmicro.test.local.model.TestModel;
 
-import java.lang.annotation.Annotation;
+import java.lang.reflect.Field;
+import java.util.List;
 import java.util.Set;
-
-import static io.rxmicro.test.local.component.RxMicroTestExtensions.validateUsingTestExtensions;
 
 /**
  * @author nedis
- * @since 0.1
+ * @since 0.7
  */
-public final class IntegrationTestValidator extends CommonTestValidator {
+public final class DBUnitTestValidator extends CommonTestValidator {
 
-    private final Set<Class<? extends Annotation>> supportedTestAnnotations;
-
-    public IntegrationTestValidator(final Set<Class<? extends Annotation>> supportedTestAnnotations) {
-        this.supportedTestAnnotations = supportedTestAnnotations;
-    }
-
-    public void validate(final TestModel testModel,
-                         final BlockingHttpClientConfig config) {
-        if (!config.isFollowRedirects()) {
-            throw new InvalidTestConfigException(
-                    "For integration tests blocking HTTP client must support follow redirects! Fix setting for ? test class!",
-                    testModel.getTestClass().getName()
-            );
-        }
-    }
+    private static final Set<Class<? extends Config>> SUPPORTED_CONFIG_CLASSES = Set.of(
+            TestDatabaseConfig.class
+    );
 
     @Override
     protected void validateUsingSpecificRules(final TestModel testModel) {
-        validateThatOnlyOneAnnotationExistsPerTestClass(testModel, supportedTestAnnotations);
-        validateUsingTestExtensions(testModel, supportedTestAnnotations);
-        if (testModel.isStaticConfigsPresent() || testModel.isInstanceConfigsPresent()) {
-            throw new InvalidTestConfigException(
-                    "Integration test does not support custom configs. " +
-                            "Remove all fields annotated by '@?' annotation from '?' test class!",
-                    WithConfig.class.getName(),
-                    testModel.getTestClass().getName()
-            );
+        if (testModel.isStaticConfigsPresent()) {
+            validateSupportedConfigClasses(testModel, testModel.getStaticConfigs());
+        }
+        if (testModel.isInstanceConfigsPresent()) {
+            validateSupportedConfigClasses(testModel, testModel.getInstanceConfigs());
         }
         if (!testModel.getHttpClientFactories().isEmpty() ||
                 !testModel.getSqlConnectionPools().isEmpty() ||
@@ -74,6 +59,21 @@ public final class IntegrationTestValidator extends CommonTestValidator {
                     Alternative.class.getName(),
                     testModel.getTestClass().getName()
             );
+        }
+    }
+
+    private void validateSupportedConfigClasses(final TestModel testModel,
+                                                final List<Field> configFields) {
+        for (final Field field : configFields) {
+            if (!SUPPORTED_CONFIG_CLASSES.contains(field.getType())) {
+                throw new InvalidTestConfigException(
+                        "DBUnit test does not support custom configs except ? ones. " +
+                                "Remove field annotated by '@?' annotation from '?' test class!",
+                        SUPPORTED_CONFIG_CLASSES,
+                        WithConfig.class.getName(),
+                        testModel.getTestClass().getName()
+                );
+            }
         }
     }
 }

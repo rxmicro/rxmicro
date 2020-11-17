@@ -17,7 +17,6 @@
 package io.rxmicro.test.local.component.validator;
 
 import io.rxmicro.test.BlockingHttpClient;
-import io.rxmicro.test.internal.CommonTestValidator;
 import io.rxmicro.test.internal.validator.impl.TestedComponentFieldValidator;
 import io.rxmicro.test.local.InvalidTestConfigException;
 import io.rxmicro.test.local.model.TestModel;
@@ -25,43 +24,38 @@ import io.rxmicro.test.local.model.TestModel;
 import java.lang.annotation.Annotation;
 import java.util.Set;
 
+import static io.rxmicro.test.local.component.RxMicroTestExtensions.validateUsingTestExtensions;
+
 /**
  * @author nedis
  * @since 0.1
  */
 public final class ComponentTestValidator extends CommonTestValidator {
 
+    private final Set<Class<? extends Annotation>> supportedTestAnnotations;
+
     public ComponentTestValidator(final Set<Class<? extends Annotation>> supportedTestAnnotations) {
-        super(supportedTestAnnotations);
+        this.supportedTestAnnotations = supportedTestAnnotations;
     }
 
     @Override
-    public void validate(final TestModel testModel) {
-        super.validate(testModel);
+    protected void validateUsingSpecificRules(final TestModel testModel) {
+        validateThatOnlyOneAnnotationExistsPerTestClass(testModel, supportedTestAnnotations);
+        validateUsingTestExtensions(testModel, supportedTestAnnotations);
         if (!testModel.getBlockingHttpClients().isEmpty()) {
             throw new InvalidTestConfigException(
-                    "Component test does not support '?' field. Remove this field!",
-                    BlockingHttpClient.class.getName()
+                    "Component test does not support '?' field. Remove this field from ? test class!",
+                    BlockingHttpClient.class.getName(),
+                    testModel.getTestClass().getName()
             );
         }
         if (testModel.isInstanceConfigsPresent() && testModel.isStaticConfigsPresent()) {
             throw new InvalidTestConfigException(
-                    "Redundant static config(s): ?. Remove redundant config(s)",
-                    testModel.getStaticConfigs()
-            );
-        }
-
-        // This check is redundant for CDI beans testing:
-        /*if (testModel.getTestedComponents().isEmpty()) {
-            final Class<?> testedComponentClass = testModel.getTestedComponentClass();
-            throw new InvalidTestConfigException("Missing tested component field. " +
-                    "Add 'private ? ?;' to the component test class: '?'",
-                    testedComponentClass.getName(),
-                    unCapitalize(testedComponentClass.getSimpleName()),
+                    "Redundant static config(s): ?. Remove redundant config(s) from ? test class!",
+                    testModel.getStaticConfigs(),
                     testModel.getTestClass().getName()
             );
-        }*/
-        new TestedComponentFieldValidator(testModel.getTestedComponentClass().orElseThrow())
-                .validate(testModel.getTestedComponents());
+        }
+        new TestedComponentFieldValidator(testModel.getTestedComponentClass().orElseThrow()).validate(testModel.getTestedComponents());
     }
 }

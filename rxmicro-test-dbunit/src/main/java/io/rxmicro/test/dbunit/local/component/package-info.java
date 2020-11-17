@@ -14,19 +14,8 @@
  * limitations under the License.
  */
 
-package io.rxmicro.test.local.component.validator;
-
-import io.rxmicro.test.internal.CommonTestValidator;
-
-import java.util.Set;
-
 /**
  * @author nedis
  * @since 0.7
  */
-public final class DBUnitTestValidator extends CommonTestValidator {
-
-    public DBUnitTestValidator() {
-        super(Set.of());
-    }
-}
+package io.rxmicro.test.dbunit.local.component;

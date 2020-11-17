@@ -27,8 +27,8 @@ import io.rxmicro.test.dbunit.local.DatabaseStateInitializer;
 import io.rxmicro.test.dbunit.local.DatabaseStateRestorer;
 import io.rxmicro.test.dbunit.local.DatabaseStateVerifier;
 import io.rxmicro.test.dbunit.local.RollbackChangesController;
+import io.rxmicro.test.dbunit.local.component.validator.DBUnitTestValidator;
 import io.rxmicro.test.local.component.builder.TestModelBuilder;
-import io.rxmicro.test.local.component.validator.DBUnitTestValidator;
 import io.rxmicro.test.local.model.TestModel;
 import org.junit.jupiter.api.extension.AfterAllCallback;
 import org.junit.jupiter.api.extension.AfterTestExecutionCallback;
@@ -88,6 +88,8 @@ public final class DbUnitTestExtension implements
             new Configs.Builder()
                     .withConfigs(getConfigResolver().getStaticConfigMap(testModel))
                     .build();
+        } else {
+            new Configs.Builder().buildIfNotConfigured();
         }
     }
 
