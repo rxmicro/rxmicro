@@ -15,6 +15,8 @@
  */
 
 /**
+ * The module designed for test writing using the <a href="http://dbunit.sourceforge.net/">DbUnit</a> framework.
+ *
  * @author nedis
  * @since 0.7
  */

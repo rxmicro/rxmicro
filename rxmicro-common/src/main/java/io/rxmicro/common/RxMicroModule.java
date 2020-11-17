@@ -199,6 +199,17 @@ public enum RxMicroModule {
     RX_MICRO_TEST_MODULE("rxmicro.test"),
 
     /**
+     * The module designed for test writing using the <a href="http://dbunit.sourceforge.net/">DbUnit</a> framework.
+     */
+    RX_MICRO_TEST_DBUNIT_MODULE("rxmicro.test.dbunit"),
+
+    /**
+     * The module designed for test writing using the <a href="https://junit.org/junit5/">JUnit 5</a> and
+     * <a href="http://dbunit.sourceforge.net/">DbUnit</a> frameworks.
+     */
+    RX_MICRO_TEST_DBUNIT_JUNIT_MODULE("rxmicro.test.dbunit.junit"),
+
+    /**
      * The module designed for test writing using the <a href="https://junit.org/junit5/">JUnit 5</a> framework.
      */
     RX_MICRO_TEST_JUNIT_MODULE("rxmicro.test.junit"),
@@ -210,7 +221,7 @@ public enum RxMicroModule {
 
     /**
      * The module designed for test writing using the <a href="https://junit.org/junit5/">JUnit 5</a> and
-     * <a href="https://site.mockito.org/">Mockito</a> framework.
+     * <a href="https://site.mockito.org/">Mockito</a> frameworks.
      */
     RX_MICRO_TEST_MOCKITO_JUNIT_MODULE("rxmicro.test.mockito.junit"),
 

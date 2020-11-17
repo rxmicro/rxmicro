@@ -18,6 +18,9 @@ import io.rxmicro.test.dbunit.junit.internal.DbUnitRxMicroTestExtension;
 import io.rxmicro.test.local.component.RxMicroTestExtension;
 
 /**
+ * The module designed for test writing using the <a href="https://junit.org/junit5/">JUnit 5</a> and
+ * <a href="http://dbunit.sourceforge.net/">DbUnit</a> frameworks.
+ *
  * @author nedis
  * @since 0.7
  */
