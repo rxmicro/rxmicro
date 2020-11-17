@@ -17,8 +17,8 @@
 package io.rxmicro.test.local.component.builder;
 
 import io.rxmicro.test.BlockingHttpClient;
+import io.rxmicro.test.internal.BlockingHttpClientImpl;
 import io.rxmicro.test.local.BlockingHttpClientConfig;
-import io.rxmicro.test.local.BlockingHttpClientImpl;
 
 /**
  * @author nedis

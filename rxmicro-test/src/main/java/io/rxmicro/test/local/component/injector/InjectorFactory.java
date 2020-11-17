@@ -17,7 +17,7 @@
 package io.rxmicro.test.local.component.injector;
 
 import io.rxmicro.test.Alternative;
-import io.rxmicro.test.local.AlternativeEntryPoint;
+import io.rxmicro.test.internal.AlternativeEntryPoint;
 import io.rxmicro.test.local.component.TestedComponentResolver;
 import io.rxmicro.test.local.model.TestModel;
 

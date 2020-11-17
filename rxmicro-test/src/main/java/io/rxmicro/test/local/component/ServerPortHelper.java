@@ -14,29 +14,25 @@
  * limitations under the License.
  */
 
-package io.rxmicro.test.local;
+package io.rxmicro.test.local.component;
 
-import io.rxmicro.test.SystemOut;
+import io.rxmicro.config.Config;
+import io.rxmicro.rest.server.HttpServerConfig;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-
-import static java.nio.charset.StandardCharsets.UTF_8;
+import java.util.Collection;
 
 /**
  * @author nedis
  * @since 0.1
  */
-public final class SystemOutImpl implements SystemOut {
+public final class ServerPortHelper {
 
-    private final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-
-    public PrintStream getPrintStream() {
-        return new PrintStream(outputStream, false, UTF_8);
-    }
-
-    @Override
-    public byte[] asBytes() {
-        return outputStream.toByteArray();
+    public int getServerPort(final Collection<Config> configs) {
+        for (final Config config : configs) {
+            if (config instanceof HttpServerConfig) {
+                return ((HttpServerConfig) config).getPort();
+            }
+        }
+        throw new UnsupportedOperationException("Impossible exception: HttpServerConfig always found");
     }
 }

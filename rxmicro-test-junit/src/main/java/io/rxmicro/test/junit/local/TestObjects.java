@@ -16,16 +16,11 @@
 
 package io.rxmicro.test.junit.local;
 
-import io.rxmicro.test.junit.RxMicroComponentTest;
-import io.rxmicro.test.junit.RxMicroIntegrationTest;
-import io.rxmicro.test.junit.RxMicroRestBasedMicroServiceTest;
 import io.rxmicro.test.local.InvalidTestConfigException;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.extension.ExtensionContext;
 
-import java.lang.annotation.Annotation;
 import java.util.List;
-import java.util.Set;
 
 import static io.rxmicro.tool.common.Reflections.getFieldValue;
 
@@ -34,12 +29,6 @@ import static io.rxmicro.tool.common.Reflections.getFieldValue;
  * @since 0.1
  */
 public final class TestObjects {
-
-    public static final Set<Class<? extends Annotation>> SUPPORTED_TEST_ANNOTATIONS = Set.of(
-            RxMicroIntegrationTest.class,
-            RxMicroRestBasedMicroServiceTest.class,
-            RxMicroComponentTest.class
-    );
 
     public static Class<?> getOwnerTestClass(final ExtensionContext context) {
         Class<?> testClass = context.getRequiredTestClass();

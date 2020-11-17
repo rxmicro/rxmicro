@@ -64,6 +64,6 @@ public final class DatabaseConnectionFactory {
         return DriverManager.getConnection(config.getJdbcUrl(), config.getUser(), config.getPassword().toString());
     }
 
-    private DatabaseConnectionFactory(){
+    private DatabaseConnectionFactory() {
     }
 }

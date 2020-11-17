@@ -14,17 +14,15 @@
  * limitations under the License.
  */
 
-package io.rxmicro.test.junit.internal;
+package io.rxmicro.test.local.component;
 
-import io.rxmicro.test.local.component.ConfigResolver;
 import io.rxmicro.test.local.component.builder.BlockingHttpClientBuilder;
-import io.rxmicro.test.local.component.builder.ServerPortHelper;
 
 /**
  * @author nedis
- * @since 0.5
+ * @since 0.7
  */
-final class StatelessComponentFactory {
+public final class StatelessComponentFactory {
 
     private static ServerPortHelper serverPortHelper;
 
@@ -32,34 +30,25 @@ final class StatelessComponentFactory {
 
     private static ConfigResolver configResolver;
 
-    private static BeforeTestInvoker beforeTestInvoker;
-
-    static ServerPortHelper getServerPortHelper() {
+    public static ServerPortHelper getServerPortHelper() {
         if (serverPortHelper == null) {
             serverPortHelper = new ServerPortHelper();
         }
         return serverPortHelper;
     }
 
-    static BlockingHttpClientBuilder getBlockingHttpClientBuilder() {
+    public static BlockingHttpClientBuilder getBlockingHttpClientBuilder() {
         if (blockingHttpClientBuilder == null) {
             blockingHttpClientBuilder = new BlockingHttpClientBuilder();
         }
         return blockingHttpClientBuilder;
     }
 
-    static ConfigResolver getConfigResolver() {
+    public static ConfigResolver getConfigResolver() {
         if (configResolver == null) {
             configResolver = new ConfigResolver();
         }
         return configResolver;
-    }
-
-    static BeforeTestInvoker getBeforeTestInvoker() {
-        if (beforeTestInvoker == null) {
-            beforeTestInvoker = new BeforeTestInvoker();
-        }
-        return beforeTestInvoker;
     }
 
     private StatelessComponentFactory() {

@@ -19,7 +19,6 @@ package io.rxmicro.test.junit.internal;
 import io.rxmicro.cdi.BeanFactory;
 import io.rxmicro.config.Configs;
 import io.rxmicro.test.junit.RxMicroComponentTest;
-import io.rxmicro.test.local.component.ConfigResolver;
 import io.rxmicro.test.local.component.TestedComponentResolver;
 import io.rxmicro.test.local.component.builder.TestModelBuilder;
 import io.rxmicro.test.local.component.injector.BeanFactoryInjector;
@@ -44,11 +43,9 @@ import java.util.List;
 import static io.rxmicro.config.local.DefaultConfigValueBuilderReSetter.resetDefaultConfigValueStorage;
 import static io.rxmicro.runtime.local.AbstractFactory.clearFactories;
 import static io.rxmicro.runtime.local.InstanceContainer.clearContainer;
-import static io.rxmicro.test.junit.internal.StatelessComponentFactory.getBeforeTestInvoker;
-import static io.rxmicro.test.junit.internal.StatelessComponentFactory.getConfigResolver;
-import static io.rxmicro.test.junit.local.TestObjects.SUPPORTED_TEST_ANNOTATIONS;
 import static io.rxmicro.test.junit.local.TestObjects.getTestInstances;
 import static io.rxmicro.test.local.UnNamedModuleFixers.componentTestsFix;
+import static io.rxmicro.test.local.component.StatelessComponentFactory.getConfigResolver;
 import static io.rxmicro.test.local.util.Annotations.getRequiredAnnotation;
 import static io.rxmicro.test.local.util.Modules.isRequiredModule;
 import static io.rxmicro.test.local.util.TestExceptions.reThrowInaccessibleObjectException;
@@ -58,14 +55,12 @@ import static io.rxmicro.test.local.util.TestExceptions.reThrowInaccessibleObjec
  * @since 0.1
  * @link https://junit.org/junit5/docs/current/user-guide/#extensions-execution-order-overview
  */
-public final class RxMicroComponentTestExtension
+public final class RxMicroComponentTestExtension extends AbstractJUnitTestExtension
         implements BeforeAllCallback, BeforeEachCallback, BeforeTestExecutionCallback, AfterEachCallback {
 
     static {
         componentTestsFix();
     }
-
-    private final ConfigResolver configResolver = getConfigResolver();
 
     private TestModel testModel;
 
@@ -94,10 +89,10 @@ public final class RxMicroComponentTestExtension
         testModel = testModelBuilder.build(testClass);
         new ComponentTestValidator(SUPPORTED_TEST_ANNOTATIONS).validate(testModel);
 
-        configResolver.setDefaultConfigValues(testClass);
+        getConfigResolver().setDefaultConfigValues(testClass);
         if (testModel.isStaticConfigsPresent()) {
             new Configs.Builder()
-                    .withConfigs(configResolver.getStaticConfigMap(testModel))
+                    .withConfigs(getConfigResolver().getStaticConfigMap(testModel))
                     .build();
         }
         final InjectorFactory injectorFactory = new InjectorFactory(testModel);
@@ -128,7 +123,7 @@ public final class RxMicroComponentTestExtension
         getBeforeTestInvoker().invokeIfFound(context, testInstances);
         if (testModel.isInstanceConfigsPresent()) {
             new Configs.Builder()
-                    .withConfigs(configResolver.getInstanceConfigMap(testModel, testInstances))
+                    .withConfigs(getConfigResolver().getInstanceConfigMap(testModel, testInstances))
                     .build();
         }
         final Object testedComponentInstance = testedComponentResolver.getTestedComponentInstance(testInstances);

@@ -19,7 +19,7 @@ package io.rxmicro.test.local.component.injector;
 import io.rxmicro.rest.client.RestClientFactory;
 import io.rxmicro.runtime.detail.ByTypeInstanceQualifier;
 import io.rxmicro.runtime.local.AbstractFactory;
-import io.rxmicro.test.local.AlternativeEntryPoint;
+import io.rxmicro.test.internal.AlternativeEntryPoint;
 
 import java.util.List;
 

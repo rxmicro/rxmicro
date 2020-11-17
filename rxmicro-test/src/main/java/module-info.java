@@ -67,17 +67,20 @@ module rxmicro.test {
             rxmicro.test.junit,
             rxmicro.test.mockito,
             rxmicro.test.mockito.junit,
-            rxmicro.test.dbunit, rxmicro.test.dbunit.junit;
+            rxmicro.test.dbunit,
+            rxmicro.test.dbunit.junit;
     exports io.rxmicro.test.local.component to
             rxmicro.test.junit,
             rxmicro.test.mockito.junit,
             rxmicro.test.dbunit.junit;
     exports io.rxmicro.test.local.component.builder to
-            rxmicro.test.junit;
+            rxmicro.test.junit,
+            rxmicro.test.dbunit.junit;
     exports io.rxmicro.test.local.component.injector to
             rxmicro.test.junit;
     exports io.rxmicro.test.local.component.validator to
-            rxmicro.test.junit;
+            rxmicro.test.junit,
+            rxmicro.test.dbunit.junit;
     exports io.rxmicro.test.local.util to
             rxmicro.test.junit,
             rxmicro.test.dbunit.junit;

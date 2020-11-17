@@ -54,14 +54,12 @@ import static io.rxmicro.rest.server.local.component.RestServerLauncher.launchWi
 import static io.rxmicro.runtime.local.AbstractFactory.clearFactories;
 import static io.rxmicro.runtime.local.InstanceContainer.clearContainer;
 import static io.rxmicro.test.HttpServers.getRandomFreePort;
-import static io.rxmicro.test.junit.internal.StatelessComponentFactory.getBeforeTestInvoker;
-import static io.rxmicro.test.junit.internal.StatelessComponentFactory.getBlockingHttpClientBuilder;
-import static io.rxmicro.test.junit.internal.StatelessComponentFactory.getConfigResolver;
-import static io.rxmicro.test.junit.internal.StatelessComponentFactory.getServerPortHelper;
-import static io.rxmicro.test.junit.local.TestObjects.SUPPORTED_TEST_ANNOTATIONS;
 import static io.rxmicro.test.junit.local.TestObjects.getOwnerTestClass;
 import static io.rxmicro.test.junit.local.TestObjects.getTestInstances;
 import static io.rxmicro.test.local.UnNamedModuleFixers.restBasedMicroServiceTestsFix;
+import static io.rxmicro.test.local.component.StatelessComponentFactory.getBlockingHttpClientBuilder;
+import static io.rxmicro.test.local.component.StatelessComponentFactory.getConfigResolver;
+import static io.rxmicro.test.local.component.StatelessComponentFactory.getServerPortHelper;
 import static io.rxmicro.test.local.util.Annotations.getRequiredAnnotation;
 import static io.rxmicro.test.local.util.Modules.isRequiredModule;
 import static io.rxmicro.test.local.util.Safes.safeInvoke;
@@ -72,7 +70,7 @@ import static io.rxmicro.test.local.util.TestExceptions.reThrowInaccessibleObjec
  * @since 0.1
  * @link https://junit.org/junit5/docs/current/user-guide/#extensions-execution-order-overview
  */
-public final class RxMicroRestBasedMicroServiceTestExtension
+public final class RxMicroRestBasedMicroServiceTestExtension extends AbstractJUnitTestExtension
         implements BeforeAllCallback, BeforeEachCallback, BeforeTestExecutionCallback, AfterEachCallback, AfterAllCallback {
 
     static {

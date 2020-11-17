@@ -32,12 +32,10 @@ import org.junit.jupiter.api.extension.ExtensionContext;
 
 import java.util.List;
 
-import static io.rxmicro.test.junit.internal.StatelessComponentFactory.getBeforeTestInvoker;
-import static io.rxmicro.test.junit.internal.StatelessComponentFactory.getBlockingHttpClientBuilder;
-import static io.rxmicro.test.junit.local.TestObjects.SUPPORTED_TEST_ANNOTATIONS;
 import static io.rxmicro.test.junit.local.TestObjects.getOwnerTestClass;
 import static io.rxmicro.test.junit.local.TestObjects.getTestInstances;
 import static io.rxmicro.test.local.UnNamedModuleFixers.integrationTestsFix;
+import static io.rxmicro.test.local.component.StatelessComponentFactory.getBlockingHttpClientBuilder;
 import static io.rxmicro.test.local.util.Annotations.getRequiredAnnotation;
 
 /**
@@ -45,7 +43,7 @@ import static io.rxmicro.test.local.util.Annotations.getRequiredAnnotation;
  * @since 0.1
  * @link https://junit.org/junit5/docs/current/user-guide/#extensions-execution-order-overview
  */
-public final class RxMicroIntegrationTestExtension
+public final class RxMicroIntegrationTestExtension extends AbstractJUnitTestExtension
         implements BeforeAllCallback, BeforeEachCallback, AfterEachCallback {
 
     static {

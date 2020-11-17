@@ -19,9 +19,9 @@ package io.rxmicro.test.local.component.builder;
 import io.rxmicro.test.Alternative;
 import io.rxmicro.test.BlockingHttpClient;
 import io.rxmicro.test.SystemOut;
-import io.rxmicro.test.local.BlockingHttpClientImpl;
+import io.rxmicro.test.internal.BlockingHttpClientImpl;
+import io.rxmicro.test.internal.SystemOutImpl;
 import io.rxmicro.test.local.InvalidTestConfigException;
-import io.rxmicro.test.local.SystemOutImpl;
 import io.rxmicro.test.local.component.builder.internal.ReplacementExclusion;
 import io.rxmicro.test.local.model.TestModel;
 

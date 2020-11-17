@@ -14,25 +14,19 @@
  * limitations under the License.
  */
 
-package io.rxmicro.test.local.component.builder;
+package io.rxmicro.test.local.component.validator;
 
-import io.rxmicro.config.Config;
-import io.rxmicro.rest.server.HttpServerConfig;
+import io.rxmicro.test.internal.CommonTestValidator;
 
-import java.util.Collection;
+import java.util.Set;
 
 /**
  * @author nedis
- * @since 0.1
+ * @since 0.7
  */
-public final class ServerPortHelper {
+public final class DBUnitTestValidator extends CommonTestValidator {
 
-    public int getServerPort(final Collection<Config> configs) {
-        for (final Config config : configs) {
-            if (config instanceof HttpServerConfig) {
-                return ((HttpServerConfig) config).getPort();
-            }
-        }
-        throw new UnsupportedOperationException("Impossible exception: HttpServerConfig always found");
+    public DBUnitTestValidator() {
+        super(Set.of());
     }
 }

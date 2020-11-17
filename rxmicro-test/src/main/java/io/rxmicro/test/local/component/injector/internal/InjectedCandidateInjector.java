@@ -17,7 +17,7 @@
 package io.rxmicro.test.local.component.injector.internal;
 
 import io.rxmicro.common.ImpossibleException;
-import io.rxmicro.test.local.AlternativeEntryPoint;
+import io.rxmicro.test.internal.AlternativeEntryPoint;
 import io.rxmicro.test.local.InvalidTestConfigException;
 import io.rxmicro.test.local.model.internal.InjectedCandidate;
 

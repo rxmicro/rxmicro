@@ -17,6 +17,7 @@
 package io.rxmicro.test.dbunit.junit.internal;
 
 import io.rxmicro.common.CheckedWrapperException;
+import io.rxmicro.config.Configs;
 import io.rxmicro.test.dbunit.ExpectedDataSet;
 import io.rxmicro.test.dbunit.InitialDataSet;
 import io.rxmicro.test.dbunit.RollbackChanges;
@@ -26,6 +27,9 @@ import io.rxmicro.test.dbunit.local.DatabaseStateInitializer;
 import io.rxmicro.test.dbunit.local.DatabaseStateRestorer;
 import io.rxmicro.test.dbunit.local.DatabaseStateVerifier;
 import io.rxmicro.test.dbunit.local.RollbackChangesController;
+import io.rxmicro.test.local.component.builder.TestModelBuilder;
+import io.rxmicro.test.local.component.validator.DBUnitTestValidator;
+import io.rxmicro.test.local.model.TestModel;
 import org.junit.jupiter.api.extension.AfterAllCallback;
 import org.junit.jupiter.api.extension.AfterTestExecutionCallback;
 import org.junit.jupiter.api.extension.BeforeAllCallback;
@@ -34,6 +38,7 @@ import org.junit.jupiter.api.extension.BeforeTestExecutionCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
 
 import java.lang.reflect.Method;
+import java.util.List;
 import java.util.Optional;
 
 import static io.rxmicro.common.util.Exceptions.reThrow;
@@ -47,6 +52,8 @@ import static io.rxmicro.test.dbunit.local.DatabaseConnectionHelper.isCurrentDat
 import static io.rxmicro.test.dbunit.local.DatabaseConnectionHelper.releaseCurrentDatabaseConnection;
 import static io.rxmicro.test.dbunit.local.DatabaseConnectionHelper.setCurrentDatabaseConnection;
 import static io.rxmicro.test.junit.local.TestObjects.getOwnerTestClass;
+import static io.rxmicro.test.junit.local.TestObjects.getTestInstances;
+import static io.rxmicro.test.local.component.StatelessComponentFactory.getConfigResolver;
 import static io.rxmicro.test.local.util.Annotations.getRequiredAnnotation;
 
 /**
@@ -66,12 +73,22 @@ public final class DbUnitTestExtension implements
 
     private final DatabaseStateRestorer databaseStateRestorer = new DatabaseStateRestorer();
 
+    private TestModel testModel;
+
     private RetrieveConnectionStrategy retrieveConnectionStrategy;
 
     @Override
     public void beforeAll(final ExtensionContext context) {
         final Class<?> testClass = getOwnerTestClass(context);
         retrieveConnectionStrategy = getRequiredAnnotation(testClass, DbUnitTest.class).retrieveConnectionStrategy();
+        testModel = new TestModelBuilder(false).build(testClass);
+        new DBUnitTestValidator().validate(testModel);
+        getConfigResolver().setDefaultConfigValues(testClass);
+        if (testModel.isStaticConfigsPresent()) {
+            new Configs.Builder()
+                    .withConfigs(getConfigResolver().getStaticConfigMap(testModel))
+                    .build();
+        }
     }
 
     @Override
@@ -86,6 +103,12 @@ public final class DbUnitTestExtension implements
 
     @Override
     public void beforeTestExecution(final ExtensionContext context) {
+        final List<Object> testInstances = getTestInstances(context);
+        if (testModel.isInstanceConfigsPresent()) {
+            new Configs.Builder()
+                    .withConfigs(getConfigResolver().getInstanceConfigMap(testModel, testInstances))
+                    .build();
+        }
         if (retrieveConnectionStrategy == PER_TEST_METHOD) {
             setCurrentDatabaseConnection(createNewDatabaseConnection(getCurrentTestDatabaseConfig()));
         }
@@ -112,6 +135,7 @@ public final class DbUnitTestExtension implements
         } finally {
             if (retrieveConnectionStrategy == PER_TEST_METHOD) {
                 releaseCurrentDatabaseConnection();
+                releaseCurrentTestDatabaseConfig();
             }
         }
     }

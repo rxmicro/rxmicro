@@ -14,9 +14,10 @@
  * limitations under the License.
  */
 
-package io.rxmicro.test.local;
+package io.rxmicro.test.internal;
 
 import io.rxmicro.test.Alternative;
+import io.rxmicro.test.local.InvalidTestConfigException;
 
 import java.lang.reflect.Field;
 import java.util.List;

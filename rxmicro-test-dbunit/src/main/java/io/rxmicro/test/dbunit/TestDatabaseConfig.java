@@ -52,7 +52,6 @@ public final class TestDatabaseConfig extends Config {
     public static TestDatabaseConfig getCurrentTestDatabaseConfig() {
         TestDatabaseConfig testDatabaseConfig = CURRENT_TEST_DATABASE_CONFIG.get();
         if (testDatabaseConfig == null) {
-            new Configs.Builder().buildIfNotConfigured();
             testDatabaseConfig = Configs.getConfig(TestDatabaseConfig.class);
             CURRENT_TEST_DATABASE_CONFIG.set(testDatabaseConfig);
         }
@@ -92,7 +91,7 @@ public final class TestDatabaseConfig extends Config {
     }
 
     @BuilderMethod
-    public TestDatabaseConfig setJdbcUrl(final String jdbcUrl){
+    public TestDatabaseConfig setJdbcUrl(final String jdbcUrl) {
         final TestDatabaseConfig config = DatabaseType.parseJdbcUrl(jdbcUrl);
         this.type = config.type;
         this.host = config.host;
@@ -108,7 +107,7 @@ public final class TestDatabaseConfig extends Config {
      * @return the reference to this {@link TestDatabaseConfig} instance
      */
     @BuilderMethod
-    public TestDatabaseConfig setUrl(final String jdbcUrl){
+    public TestDatabaseConfig setUrl(final String jdbcUrl) {
         return setJdbcUrl(jdbcUrl);
     }
 
@@ -138,7 +137,7 @@ public final class TestDatabaseConfig extends Config {
         return this;
     }
 
-    public boolean isSchemaPresent(){
+    public boolean isSchemaPresent() {
         return schema != null;
     }
 

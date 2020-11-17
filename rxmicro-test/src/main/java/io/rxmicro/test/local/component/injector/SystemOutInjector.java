@@ -17,8 +17,8 @@
 package io.rxmicro.test.local.component.injector;
 
 import io.rxmicro.test.SystemOut;
+import io.rxmicro.test.internal.SystemOutImpl;
 import io.rxmicro.test.local.InvalidTestConfigException;
-import io.rxmicro.test.local.SystemOutImpl;
 
 import java.io.PrintStream;
 import java.lang.reflect.Field;

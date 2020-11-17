@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package io.rxmicro.test.local;
+package io.rxmicro.test.internal;
 
 import io.rxmicro.http.HttpHeaders;
 import io.rxmicro.http.client.ClientHttpResponse;
