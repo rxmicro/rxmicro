@@ -98,14 +98,9 @@ public abstract class DataRepositoryClassStructure extends ClassStructure {
         return repositoryInterface.asType().toString();
     }
 
-    @UsedByFreemarker("$$RepositoryFactoryImplTemplate.javaftl")
-    public final String getTargetSimpleClassName() {
-        return format("???", GENERATED_CLASS_NAME_PREFIX, getRepositoryTypePrefix(), getSimpleInterfaceName());
-    }
-
     @Override
     public final String getTargetFullClassName() {
-        return getPackageName() + "." + getTargetSimpleClassName();
+        return format("?.???", getPackageName(), GENERATED_CLASS_NAME_PREFIX, getRepositoryTypePrefix(), getSimpleInterfaceName());
     }
 
     protected abstract String getRepositoryTypePrefix();

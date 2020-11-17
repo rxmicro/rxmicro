@@ -12,10 +12,6 @@ final class ${CLASS_NAME} {
         // All required customization must be here
     }
 
-    public static void customize() {
-        //do nothing. All customization is done at the static section
-    }
-
     <#if CURRENT_MODULE_IS_NAMED>
     private static void addExportsToRuntime() {
         final Module currentModule = $$EnvironmentCustomizer.class.getModule();

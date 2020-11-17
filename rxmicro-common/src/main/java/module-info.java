@@ -53,6 +53,8 @@ module rxmicro.common {
     exports io.rxmicro.common.meta;
     exports io.rxmicro.common.util;
 
+    exports io.rxmicro.common.detail;
+
     exports io.rxmicro.common.local to
             rxmicro.logger,
             rxmicro.runtime,

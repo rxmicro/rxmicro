@@ -20,6 +20,7 @@ import io.rxmicro.annotation.processor.common.model.ClassHeader;
 import io.rxmicro.annotation.processor.common.model.ClassStructure;
 import io.rxmicro.annotation.processor.common.model.DefaultConfigProxyValue;
 import io.rxmicro.annotation.processor.common.model.ModuleInfoItem;
+import io.rxmicro.common.detail.Customizers;
 import io.rxmicro.config.detail.DefaultConfigValueBuilder;
 import io.rxmicro.rest.client.RestClientFactory;
 import io.rxmicro.rest.client.detail.RestClientImplFactory;
@@ -82,7 +83,8 @@ public final class RestClientFactoryClassStructure extends ClassStructure {
         final ClassHeader.Builder classHeaderBuilder = newClassHeaderBuilder(ENTRY_POINT_PACKAGE)
                 .addImports(RestClientFactory.class)
                 .addStaticImport(RestClientImplFactory.class, "createRestClient")
-                .addStaticImport(DefaultConfigValueBuilder.class, "putDefaultConfigValue");
+                .addStaticImport(DefaultConfigValueBuilder.class, "putDefaultConfigValue")
+                .addStaticImport(Customizers.class, "invokeStaticSection");
         moduleInfoItems.forEach(m -> m.addImports(classHeaderBuilder));
         for (final RestClientClassStructure classStructure : classStructures) {
             classHeaderBuilder.addImports(classStructure.getFullInterfaceName(), classStructure.getTargetFullClassName());

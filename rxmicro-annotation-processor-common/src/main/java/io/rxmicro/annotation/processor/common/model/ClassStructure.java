@@ -16,6 +16,8 @@
 
 package io.rxmicro.annotation.processor.common.model;
 
+import io.rxmicro.annotation.processor.common.util.UsedByFreemarker;
+
 import java.util.List;
 import java.util.Map;
 
@@ -27,6 +29,10 @@ import static io.rxmicro.annotation.processor.common.util.Names.getSimpleName;
  */
 public abstract class ClassStructure implements Comparable<ClassStructure> {
 
+    @UsedByFreemarker({
+            "$$RestClientFactoryImplTemplate.javaftl",
+            "$$RepositoryFactoryImplTemplate.javaftl"
+    })
     public final String getTargetSimpleClassName() {
         return getSimpleName(getTargetFullClassName());
     }

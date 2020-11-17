@@ -21,6 +21,7 @@ import io.rxmicro.annotation.processor.common.model.ClassStructure;
 import io.rxmicro.annotation.processor.common.model.EnvironmentContext;
 import io.rxmicro.annotation.processor.common.util.UsedByFreemarker;
 import io.rxmicro.common.RxMicroModule;
+import io.rxmicro.common.detail.Customizers;
 import io.rxmicro.rest.model.UrlSegments;
 import io.rxmicro.rest.server.detail.component.AbstractRestController;
 import io.rxmicro.rest.server.detail.component.BadHttpRequestRestController;
@@ -109,7 +110,13 @@ public final class RestControllerAggregatorClassStructure extends ClassStructure
 
     @Override
     public ClassHeader getClassHeader() {
-        final ClassHeader.Builder classHeaderBuilder = ClassHeader.newClassHeaderBuilder(ENTRY_POINT_PACKAGE);
+        final ClassHeader.Builder classHeaderBuilder = ClassHeader.newClassHeaderBuilder(ENTRY_POINT_PACKAGE)
+                .addStaticImport(Customizers.class, "invokeStaticSection")
+                .addImports(
+                        AbstractRestController.class,
+                        RestControllerAggregator.class,
+                        List.class
+                );
         if (!crossOriginResourceSharingResources.isEmpty()) {
             classHeaderBuilder.addImports(
                     Set.class,
@@ -127,12 +134,7 @@ public final class RestControllerAggregatorClassStructure extends ClassStructure
         if (isRestServerNetty) {
             classHeaderBuilder.addImports(ExactUrlRequestMappingRule.class, BadHttpRequestRestController.class);
         }
-        return classHeaderBuilder
-                .addImports(
-                        AbstractRestController.class,
-                        RestControllerAggregator.class,
-                        List.class
-                ).build();
+        return classHeaderBuilder.build();
     }
 
     /**

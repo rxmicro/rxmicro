@@ -125,11 +125,6 @@ public final class RestClientClassStructure extends ClassStructure {
     }
 
     @UsedByFreemarker("$$RestClientFactoryImplTemplate.javaftl")
-    public String getTargetSimpleClassName() {
-        return GENERATED_CLASS_NAME_PREFIX + restClientInterface.getSimpleName().toString();
-    }
-
-    @UsedByFreemarker("$$RestClientFactoryImplTemplate.javaftl")
     public String getConfigNameSpace() {
         return configNameSpace;
     }
@@ -149,7 +144,7 @@ public final class RestClientClassStructure extends ClassStructure {
 
     @Override
     public String getTargetFullClassName() {
-        return getPackageName(restClientInterface) + "." + getTargetSimpleClassName();
+        return getPackageName(restClientInterface) + "." + GENERATED_CLASS_NAME_PREFIX + restClientInterface.getSimpleName();
     }
 
     @Override
