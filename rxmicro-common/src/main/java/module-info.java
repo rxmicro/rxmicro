@@ -53,8 +53,6 @@ module rxmicro.common {
     exports io.rxmicro.common.meta;
     exports io.rxmicro.common.util;
 
-    exports io.rxmicro.common.detail;
-
     exports io.rxmicro.common.local to
             rxmicro.logger,
             rxmicro.runtime,
@@ -63,9 +61,9 @@ module rxmicro.common {
             rxmicro.rest.server.netty,
             rxmicro.json,
             rxmicro.exchange.json,
-            rxmicro.annotation.processor.documentation,
-            rxmicro.test.mockito,
             rxmicro.test,
+            rxmicro.test.mockito,
+            rxmicro.annotation.processor.documentation,
             rxmicro.annotation.processor.common,
             rxmicro.annotation.processor.cdi;
 

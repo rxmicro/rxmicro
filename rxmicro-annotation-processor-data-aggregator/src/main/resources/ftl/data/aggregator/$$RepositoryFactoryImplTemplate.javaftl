@@ -3,9 +3,9 @@
 public final class ${IMPL_CLASS_NAME} extends RepositoryFactory {
 
     static {
-        invokeStaticSection(${ENVIRONMENT_CUSTOMIZER_CLASS}.class);
+        ${ENVIRONMENT_CUSTOMIZER_CLASS}.customize();
         <#list CONFIG_AUTO_CUSTOMIZER_CLASSES as C>
-        invokeStaticSection(${C.targetSimpleClassName}.class);
+        ${C.targetSimpleClassName}.customize();
         </#list>
         <#list DEFAULT_CONFIG_VALUES as V>
         putDefaultConfigValue("${V.key}", ${V.value});

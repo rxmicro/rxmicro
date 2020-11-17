@@ -19,7 +19,6 @@ package io.rxmicro.annotation.processor.cdi.model;
 import io.rxmicro.annotation.processor.common.model.ClassHeader;
 import io.rxmicro.annotation.processor.common.model.ClassStructure;
 import io.rxmicro.cdi.detail.InternalBeanFactory;
-import io.rxmicro.common.detail.Customizers;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -67,8 +66,7 @@ public final class BeanFactoryImplClassStructure extends ClassStructure {
     @Override
     public ClassHeader getClassHeader() {
         final ClassHeader.Builder builder = newClassHeaderBuilder(ENTRY_POINT_PACKAGE)
-                .addImports(InternalBeanFactory.class)
-                .addStaticImport(Customizers.class, "invokeStaticSection");
+                .addImports(InternalBeanFactory.class);
         for (final BeanSupplierClassStructure beanSupplierClassStructure : beanSupplierClassStructures) {
             builder
                     .addImports(beanSupplierClassStructure.getTargetFullClassName())

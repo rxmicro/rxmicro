@@ -21,7 +21,6 @@ import io.rxmicro.annotation.processor.common.model.ClassStructure;
 import io.rxmicro.annotation.processor.common.model.EnvironmentContext;
 import io.rxmicro.annotation.processor.common.util.UsedByFreemarker;
 import io.rxmicro.common.RxMicroModule;
-import io.rxmicro.common.detail.Customizers;
 import io.rxmicro.rest.model.UrlSegments;
 import io.rxmicro.rest.server.detail.component.AbstractRestController;
 import io.rxmicro.rest.server.detail.component.BadHttpRequestRestController;
@@ -111,7 +110,6 @@ public final class RestControllerAggregatorClassStructure extends ClassStructure
     @Override
     public ClassHeader getClassHeader() {
         final ClassHeader.Builder classHeaderBuilder = ClassHeader.newClassHeaderBuilder(ENTRY_POINT_PACKAGE)
-                .addStaticImport(Customizers.class, "invokeStaticSection")
                 .addImports(
                         AbstractRestController.class,
                         RestControllerAggregator.class,

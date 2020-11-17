@@ -13,6 +13,10 @@ public final class ${IMPL_CLASS_NAME} extends PostgreSQLConfigAutoCustomizer{
         registerAllPostgreSQLCodecs(POSTGRES_ENUM_MAPPING);
     }
 
+    public static void customize() {
+        //do nothing. All customization is done at the static section
+    }
+
     private ${IMPL_CLASS_NAME}(){
     }
 }

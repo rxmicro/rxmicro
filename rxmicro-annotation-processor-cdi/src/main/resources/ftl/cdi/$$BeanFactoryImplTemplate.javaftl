@@ -3,7 +3,7 @@
 public final class ${IMPL_CLASS_NAME} extends InternalBeanFactory {
 
     static {
-        invokeStaticSection(${ENVIRONMENT_CUSTOMIZER_CLASS}.class);
+        ${ENVIRONMENT_CUSTOMIZER_CLASS}.customize();
     }
 
     public ${IMPL_CLASS_NAME}() {
