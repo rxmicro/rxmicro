@@ -9,10 +9,6 @@ final class $$EnvironmentCustomizer {
         // All required customization must be here
     }
 
-    public static void customize() {
-        //do nothing. All customization is done at the static section
-    }
-
     private $$EnvironmentCustomizer() {
     }
 }

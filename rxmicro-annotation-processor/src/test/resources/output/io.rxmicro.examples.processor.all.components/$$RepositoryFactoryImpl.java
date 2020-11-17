@@ -6,6 +6,7 @@ import io.rxmicro.examples.processor.all.components.component.$$PostgreSQLPostgr
 import io.rxmicro.examples.processor.all.components.component.MongoDataRepository;
 import io.rxmicro.examples.processor.all.components.component.PostgreSQLDataRepository;
 
+import static io.rxmicro.common.detail.Customizers.invokeStaticSection;
 import static io.rxmicro.data.mongo.detail.MongoRepositoryFactory.createMongoRepository;
 import static io.rxmicro.data.sql.r2dbc.postgresql.detail.PostgreSQLRepositoryFactory.createPostgreSQLRepository;
 
@@ -15,7 +16,7 @@ import static io.rxmicro.data.sql.r2dbc.postgresql.detail.PostgreSQLRepositoryFa
 public final class $$RepositoryFactoryImpl extends RepositoryFactory {
 
     static {
-        $$EnvironmentCustomizer.customize();
+        invokeStaticSection($$EnvironmentCustomizer.class);
     }
 
     public $$RepositoryFactoryImpl() {

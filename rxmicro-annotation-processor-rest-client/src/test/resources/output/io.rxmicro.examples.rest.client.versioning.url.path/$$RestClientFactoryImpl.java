@@ -7,6 +7,7 @@ import io.rxmicro.examples.rest.client.versioning.url.path.OldRestClient;
 import io.rxmicro.rest.client.RestClientConfig;
 import io.rxmicro.rest.client.RestClientFactory;
 
+import static io.rxmicro.common.detail.Customizers.invokeStaticSection;
 import static io.rxmicro.rest.client.detail.RestClientImplFactory.createRestClient;
 
 /**
@@ -15,7 +16,7 @@ import static io.rxmicro.rest.client.detail.RestClientImplFactory.createRestClie
 public final class $$RestClientFactoryImpl extends RestClientFactory {
 
     static {
-        $$EnvironmentCustomizer.customize();
+        invokeStaticSection($$EnvironmentCustomizer.class);
     }
 
     public $$RestClientFactoryImpl() {
