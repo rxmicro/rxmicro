@@ -24,6 +24,7 @@ import io.rxmicro.annotation.processor.common.model.TokenParserRule;
 import io.rxmicro.annotation.processor.common.model.definition.SupportedTypesProvider;
 import io.rxmicro.annotation.processor.data.component.DataClassStructureBuilder;
 import io.rxmicro.annotation.processor.data.component.DataGenerationContextBuilder;
+import io.rxmicro.annotation.processor.data.component.DataRepositoryConfigAutoCustomizerBuilder;
 import io.rxmicro.annotation.processor.data.component.DataRepositoryInterfaceSignatureBuilder;
 import io.rxmicro.annotation.processor.data.component.DataRepositoryMethodSignatureBuilder;
 import io.rxmicro.annotation.processor.data.component.EntityConverterBuilder;
@@ -60,6 +61,7 @@ import io.rxmicro.annotation.processor.data.sql.r2dbc.component.impl.method.Sele
 import io.rxmicro.annotation.processor.data.sql.r2dbc.component.impl.method.UpdateSQLRepositoryMethodModelBuilder;
 import io.rxmicro.annotation.processor.data.sql.r2dbc.postgresql.component.impl.PostgrePlatformPlaceholders;
 import io.rxmicro.annotation.processor.data.sql.r2dbc.postgresql.component.impl.PostgreSQLDataModelFieldBuilderImpl;
+import io.rxmicro.annotation.processor.data.sql.r2dbc.postgresql.component.impl.PostgreSQLDataRepositoryConfigAutoCustomizerBuilder;
 import io.rxmicro.annotation.processor.data.sql.r2dbc.postgresql.component.impl.PostgreSQLDataRepositoryMethodSignatureBuilder;
 import io.rxmicro.annotation.processor.data.sql.r2dbc.postgresql.component.impl.PostgreSQLRepositoryClassStructureBuilderImpl;
 import io.rxmicro.annotation.processor.data.sql.r2dbc.postgresql.component.impl.PostgreSQLTokenParserRuleProvider;
@@ -169,6 +171,8 @@ public final class PostgreSQLDependenciesModule extends AbstractModule {
         })
                 .to(new TypeLiteral<DataGenerationContextBuilderImpl<SQLDataModelField, PostgreSQLDataObjectModelClass>>() {
                 });
+        bind(DataRepositoryConfigAutoCustomizerBuilder.class)
+                .to(PostgreSQLDataRepositoryConfigAutoCustomizerBuilder.class);
         bindSupportedVariables();
         bindMethodBodyBuilders();
         bindSelectInternalComponents();

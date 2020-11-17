@@ -19,28 +19,25 @@ package io.rxmicro.annotation.processor.data.aggregator.model;
 import io.rxmicro.annotation.processor.common.model.ClassHeader;
 import io.rxmicro.annotation.processor.common.model.ClassStructure;
 import io.rxmicro.annotation.processor.common.model.error.InternalErrorException;
-import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
 import io.rxmicro.annotation.processor.data.model.DataRepositoryClassStructure;
+import io.rxmicro.annotation.processor.data.model.DataRepositoryConfigAutoCustomizerClassStructure;
 import io.rxmicro.annotation.processor.data.mongo.model.MongoRepositoryClassStructure;
 import io.rxmicro.annotation.processor.data.sql.r2dbc.postgresql.model.PostgreSQLRepositoryClassStructure;
 import io.rxmicro.config.detail.DefaultConfigValueBuilder;
 import io.rxmicro.data.RepositoryFactory;
 import io.rxmicro.data.mongo.detail.MongoRepositoryFactory;
-import io.rxmicro.data.sql.r2dbc.postgresql.PostgreSQLConfigCustomizer;
 import io.rxmicro.data.sql.r2dbc.postgresql.detail.PostgreSQLRepositoryFactory;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import javax.lang.model.element.TypeElement;
 
 import static io.rxmicro.annotation.processor.common.model.ClassHeader.newClassHeaderBuilder;
 import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.ENVIRONMENT_CUSTOMIZER_SIMPLE_CLASS_NAME;
 import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.getEntryPointFullClassName;
-import static io.rxmicro.common.util.ExCollections.unmodifiableList;
-import static io.rxmicro.common.util.Requires.require;
 import static io.rxmicro.data.RepositoryFactory.REPOSITORY_FACTORY_IMPL_CLASS_NAME;
 import static io.rxmicro.runtime.detail.RxMicroRuntime.ENTRY_POINT_PACKAGE;
 import static java.util.stream.Collectors.toList;
@@ -51,79 +48,32 @@ import static java.util.stream.Collectors.toList;
  */
 public final class RepositoryFactoryClassStructure extends ClassStructure {
 
-    private final Set<DataRepositoryClassStructure> classStructures;
+    private final Set<DataRepositoryClassStructure> dataRepositoryClassStructures;
+
+    private final Set<DataRepositoryConfigAutoCustomizerClassStructure> dataRepositoryConfigAutoCustomizerClassStructures;
 
     private final List<MongoRepositoryClassStructure> mongoRepositories;
 
     private final List<PostgreSQLRepositoryClassStructure> postgreSQLRepositories;
 
-    private final List<Map.Entry<TypeElement, String>> postgresEnumMapping;
-
-    public RepositoryFactoryClassStructure(final Set<DataRepositoryClassStructure> classStructures) {
-        this.classStructures = require(classStructures);
-        this.mongoRepositories = new ArrayList<>();
-        this.postgreSQLRepositories = new ArrayList<>();
-        final List<Map.Entry<TypeElement, String>> postgresEnumMapping = new ArrayList<>();
-        for (final DataRepositoryClassStructure classStructure : classStructures) {
-            if (classStructure instanceof MongoRepositoryClassStructure) {
-                mongoRepositories.add((MongoRepositoryClassStructure) classStructure);
-            } else if (classStructure instanceof PostgreSQLRepositoryClassStructure) {
-                postgreSQLRepositories.add((PostgreSQLRepositoryClassStructure) classStructure);
-                postgresEnumMapping.addAll(classStructure.getEnumMapping());
-            } else {
-                throw new InternalErrorException("Unsupported data repository: " + classStructure);
+    public RepositoryFactoryClassStructure(final Set<? extends ClassStructure> classStructures) {
+        dataRepositoryClassStructures = new LinkedHashSet<>();
+        dataRepositoryConfigAutoCustomizerClassStructures = new LinkedHashSet<>();
+        mongoRepositories = new ArrayList<>();
+        postgreSQLRepositories = new ArrayList<>();
+        for (final ClassStructure classStructure : classStructures) {
+            if (classStructure instanceof DataRepositoryConfigAutoCustomizerClassStructure) {
+                dataRepositoryConfigAutoCustomizerClassStructures.add((DataRepositoryConfigAutoCustomizerClassStructure) classStructure);
+            } else if (classStructure instanceof DataRepositoryClassStructure) {
+                dataRepositoryClassStructures.add((DataRepositoryClassStructure) classStructure);
+                if (classStructure instanceof MongoRepositoryClassStructure) {
+                    mongoRepositories.add((MongoRepositoryClassStructure) classStructure);
+                } else if (classStructure instanceof PostgreSQLRepositoryClassStructure) {
+                    postgreSQLRepositories.add((PostgreSQLRepositoryClassStructure) classStructure);
+                } else {
+                    throw new InternalErrorException("Unsupported data repository: " + classStructure);
+                }
             }
-        }
-        this.postgresEnumMapping = validateAndReturnPostgresEnumMappingWithoutDuplicates(postgresEnumMapping);
-    }
-
-    private List<Map.Entry<TypeElement, String>> validateAndReturnPostgresEnumMappingWithoutDuplicates(
-            final List<Map.Entry<TypeElement, String>> postgresEnumMapping) {
-        final Map<String, Map.Entry<TypeElement, String>> classNames = new HashMap<>();
-        final Map<String, Map.Entry<TypeElement, String>> dbTypeNames = new HashMap<>();
-        for (final Map.Entry<TypeElement, String> entry : postgresEnumMapping) {
-            final String fullClassName = entry.getKey().getQualifiedName().toString();
-            validateEnumClassNames(classNames, entry, fullClassName);
-            validateDbTypeNames(dbTypeNames, entry, fullClassName);
-        }
-        return unmodifiableList(classNames.values());
-    }
-
-    private void validateEnumClassNames(final Map<String, Map.Entry<TypeElement, String>> classNames,
-                                        final Map.Entry<TypeElement, String> entry,
-                                        final String fullClassName) {
-        final Map.Entry<TypeElement, String> processedEntry = classNames.get(fullClassName);
-        if (processedEntry != null) {
-            if (!entry.getValue().equals(processedEntry.getValue())) {
-                throw new InterruptProcessingException(
-                        entry.getKey(),
-                        "Detected two different db type names for the same enum class: ?, " +
-                                "first db type name = ? and second db type name = ?!" +
-                                "Set unique db type name per enum class!",
-                        fullClassName, entry.getValue(), processedEntry.getValue()
-                );
-            }
-        } else {
-            classNames.put(fullClassName, entry);
-        }
-    }
-
-    private void validateDbTypeNames(final Map<String, Map.Entry<TypeElement, String>> dbTypeNames,
-                                     final Map.Entry<TypeElement, String> entry,
-                                     final String fullClassName) {
-        final Map.Entry<TypeElement, String> processedEntry = dbTypeNames.get(entry.getValue());
-        if (processedEntry != null) {
-            if (!fullClassName.equals(processedEntry.getKey().getQualifiedName().toString())) {
-                throw new InterruptProcessingException(
-                        entry.getKey(),
-                        "Detected two different enum classes for the same db type name: ?, " +
-                                "first enum class = ? and second enum class = ?!" +
-                                "Set unique db type name per enum class!",
-                        fullClassName, entry.getValue(), processedEntry.getValue()
-                );
-            }
-        } else {
-            dbTypeNames.put(fullClassName, entry);
         }
     }
 
@@ -143,11 +93,11 @@ public final class RepositoryFactoryClassStructure extends ClassStructure {
         map.put("IMPL_CLASS_NAME", REPOSITORY_FACTORY_IMPL_CLASS_NAME);
         map.put("MONGO_REPOSITORIES", mongoRepositories);
         map.put("POSTGRE_SQL_REPOSITORIES", postgreSQLRepositories);
-        map.put("POSTGRES_ENUM_MAPPING", postgresEnumMapping);
         map.put("ENVIRONMENT_CUSTOMIZER_CLASS", ENVIRONMENT_CUSTOMIZER_SIMPLE_CLASS_NAME);
-        map.put("DEFAULT_CONFIG_VALUES", classStructures.stream()
+        map.put("DEFAULT_CONFIG_VALUES", dataRepositoryClassStructures.stream()
                 .flatMap(s -> s.getDefaultConfigValues().stream())
                 .collect(toList()));
+        map.put("CONFIG_AUTO_CUSTOMIZER_CLASSES", dataRepositoryConfigAutoCustomizerClassStructures);
         return map;
     }
 
@@ -160,10 +110,8 @@ public final class RepositoryFactoryClassStructure extends ClassStructure {
                 builder, mongoRepositories, MongoRepositoryFactory.class, "createMongoRepository");
         addRepositoryImports(
                 builder, postgreSQLRepositories, PostgreSQLRepositoryFactory.class, "createPostgreSQLRepository");
-        if (!postgresEnumMapping.isEmpty()) {
-            builder.addStaticImport(PostgreSQLConfigCustomizer.class, "registerPostgreSQLCodecs")
-                    .addImports(postgresEnumMapping.stream().map(Map.Entry::getKey).toArray(TypeElement[]::new))
-                    .addImports(Set.class);
+        for (final DataRepositoryConfigAutoCustomizerClassStructure classStructure : dataRepositoryConfigAutoCustomizerClassStructures) {
+            builder.addImports(classStructure.getTargetFullClassName());
         }
         return builder.build();
     }

@@ -23,14 +23,17 @@ import io.rxmicro.annotation.processor.common.model.EnvironmentContext;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
 import io.rxmicro.annotation.processor.data.component.DataClassStructureBuilder;
 import io.rxmicro.annotation.processor.data.component.DataGenerationContextBuilder;
+import io.rxmicro.annotation.processor.data.component.DataRepositoryConfigAutoCustomizerBuilder;
 import io.rxmicro.annotation.processor.data.component.DataRepositoryInterfaceSignatureBuilder;
 import io.rxmicro.annotation.processor.data.component.EntityConverterBuilder;
 import io.rxmicro.annotation.processor.data.model.DataGenerationContext;
 import io.rxmicro.annotation.processor.data.model.DataModelField;
 import io.rxmicro.annotation.processor.data.model.DataObjectModelClass;
+import io.rxmicro.annotation.processor.data.model.DataRepositoryClassStructure;
 import io.rxmicro.annotation.processor.data.model.DataRepositoryInterfaceSignature;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Set;
 import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.element.TypeElement;
@@ -56,6 +59,9 @@ public abstract class AbstractDataModuleClassStructuresBuilder<DMF extends DataM
     @Inject
     private EntityConverterBuilder<DMF, DMC> entityConverterBuilder;
 
+    @Inject
+    private DataRepositoryConfigAutoCustomizerBuilder dataRepositoryConfigAutoCustomizerBuilder;
+
     @Override
     public final Set<? extends ClassStructure> buildClassStructures(final EnvironmentContext environmentContext,
                                                                     final Set<? extends TypeElement> annotations,
@@ -67,10 +73,12 @@ public abstract class AbstractDataModuleClassStructuresBuilder<DMF extends DataM
                     environmentContext.getCurrentModule(),
                     new ArrayList<>(signatures)
             );
-            final Set<ClassStructure> result = signatures.stream()
+            final Set<DataRepositoryClassStructure> dataRepositoryClassStructures = signatures.stream()
                     .map(signature -> dataClassStructureBuilder.build(environmentContext, signature, dataGenerationContext))
                     .collect(toSet());
+            final Set<ClassStructure> result = new HashSet<>(dataRepositoryClassStructures);
             result.addAll(entityConverterBuilder.build(dataGenerationContext));
+            dataRepositoryConfigAutoCustomizerBuilder.build(dataRepositoryClassStructures).ifPresent(result::add);
             return result;
         } catch (final InterruptProcessingException ex) {
             error(ex);

@@ -21,7 +21,6 @@ import io.rxmicro.annotation.processor.common.model.ClassStructure;
 import io.rxmicro.annotation.processor.common.model.EnvironmentContext;
 import io.rxmicro.annotation.processor.data.AbstractDataModuleClassStructuresBuilder;
 import io.rxmicro.annotation.processor.data.aggregator.model.RepositoryFactoryClassStructure;
-import io.rxmicro.annotation.processor.data.model.DataRepositoryClassStructure;
 import io.rxmicro.annotation.processor.data.mongo.MongoModuleClassStructuresBuilder;
 import io.rxmicro.annotation.processor.data.sql.r2dbc.postgresql.PostgreSQLModuleClassStructuresBuilder;
 
@@ -60,14 +59,7 @@ public final class DataRepositoryModuleClassStructuresBuilder
         if (!allClassStructures.isEmpty()) {
             return Stream.concat(
                     allClassStructures.stream(),
-                    Stream.of(
-                            new RepositoryFactoryClassStructure(
-                                    allClassStructures.stream()
-                                            .filter(s -> s instanceof DataRepositoryClassStructure)
-                                            .map(s -> (DataRepositoryClassStructure) s)
-                                            .collect(toSet())
-                            )
-                    )
+                    Stream.of(new RepositoryFactoryClassStructure(allClassStructures))
             ).collect(toSet());
         } else {
             return Set.of();

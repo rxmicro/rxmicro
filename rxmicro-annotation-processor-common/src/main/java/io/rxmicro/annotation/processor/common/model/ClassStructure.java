@@ -19,11 +19,17 @@ package io.rxmicro.annotation.processor.common.model;
 import java.util.List;
 import java.util.Map;
 
+import static io.rxmicro.annotation.processor.common.util.Names.getSimpleName;
+
 /**
  * @author nedis
  * @since 0.1
  */
 public abstract class ClassStructure implements Comparable<ClassStructure> {
+
+    public final String getTargetSimpleClassName() {
+        return getSimpleName(getTargetFullClassName());
+    }
 
     public abstract String getTargetFullClassName();
 

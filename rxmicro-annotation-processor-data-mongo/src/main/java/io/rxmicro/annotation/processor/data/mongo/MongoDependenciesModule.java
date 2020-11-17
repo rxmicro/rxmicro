@@ -24,6 +24,7 @@ import io.rxmicro.annotation.processor.common.model.TokenParserRule;
 import io.rxmicro.annotation.processor.common.model.definition.SupportedTypesProvider;
 import io.rxmicro.annotation.processor.data.component.DataClassStructureBuilder;
 import io.rxmicro.annotation.processor.data.component.DataGenerationContextBuilder;
+import io.rxmicro.annotation.processor.data.component.DataRepositoryConfigAutoCustomizerBuilder;
 import io.rxmicro.annotation.processor.data.component.DataRepositoryInterfaceSignatureBuilder;
 import io.rxmicro.annotation.processor.data.component.DataRepositoryMethodSignatureBuilder;
 import io.rxmicro.annotation.processor.data.component.EntityConverterBuilder;
@@ -33,6 +34,7 @@ import io.rxmicro.annotation.processor.data.mongo.component.MongoRepositoryMetho
 import io.rxmicro.annotation.processor.data.mongo.component.impl.BsonExpressionBuilderImpl;
 import io.rxmicro.annotation.processor.data.mongo.component.impl.BsonTokenParserRuleProvider;
 import io.rxmicro.annotation.processor.data.mongo.component.impl.MongoDataModelFieldBuilderImpl;
+import io.rxmicro.annotation.processor.data.mongo.component.impl.MongoDataRepositoryConfigAutoCustomizerBuilder;
 import io.rxmicro.annotation.processor.data.mongo.component.impl.MongoDataRepositoryInterfaceSignatureBuilder;
 import io.rxmicro.annotation.processor.data.mongo.component.impl.MongoDataRepositoryMethodSignatureBuilder;
 import io.rxmicro.annotation.processor.data.mongo.component.impl.MongoDocumentEntityConverterBuilder;
@@ -75,6 +77,8 @@ public final class MongoDependenciesModule extends AbstractModule {
         bind(TokenParserRule.class)
                 .annotatedWith(BsonTokenParserRule.class)
                 .toProvider(bsonTokenParserRuleProvider::get);
+        bind(DataRepositoryConfigAutoCustomizerBuilder.class)
+                .to(MongoDataRepositoryConfigAutoCustomizerBuilder.class);
 
         bindParametrizedClasses();
         bindMethodBodyBuilders();

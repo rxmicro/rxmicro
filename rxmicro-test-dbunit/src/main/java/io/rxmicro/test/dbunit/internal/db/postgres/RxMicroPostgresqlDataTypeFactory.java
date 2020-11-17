@@ -20,12 +20,13 @@ import org.dbunit.dataset.datatype.DataType;
 import org.dbunit.dataset.datatype.DataTypeException;
 import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory;
 
-import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Field;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Set;
 
 import static io.rxmicro.common.util.Formats.format;
-import static io.rxmicro.data.RepositoryFactory.REPOSITORY_FACTORY_IMPL_CLASS_NAME;
+import static io.rxmicro.data.sql.r2dbc.postgresql.detail.PostgreSQLConfigAutoCustomizer.POSTGRES_SQL_CONFIG_AUTO_CUSTOMIZER_CLASS_NAME;
 import static io.rxmicro.runtime.detail.RxMicroRuntime.ENTRY_POINT_PACKAGE;
 
 /**
@@ -44,11 +45,15 @@ public class RxMicroPostgresqlDataTypeFactory extends PostgresqlDataTypeFactory 
 
     @SuppressWarnings("unchecked")
     private static Set<String> findEnumNames() {
-        final String repositoryClassName = format("?.?", ENTRY_POINT_PACKAGE, REPOSITORY_FACTORY_IMPL_CLASS_NAME);
+        final String repositoryClassName = format("?.?", ENTRY_POINT_PACKAGE, POSTGRES_SQL_CONFIG_AUTO_CUSTOMIZER_CLASS_NAME);
         try {
             final Class<?> repositoryClass = Class.forName(repositoryClassName);
-            return (Set<String>) repositoryClass.getMethod("getPostgresEnumNames").invoke(repositoryClass);
-        } catch (final ClassNotFoundException | NoSuchMethodException | IllegalAccessException | InvocationTargetException ignore) {
+            final Field field = repositoryClass.getDeclaredField("POSTGRES_ENUM_MAPPING");
+            if (!field.canAccess(null)) {
+                field.setAccessible(true);
+            }
+            return ((Map<String, Class<? extends Enum<?>>>) field.get(null)).keySet();
+        } catch (final ClassNotFoundException | NoSuchFieldException | IllegalAccessException ignore) {
             return Set.of();
         }
     }

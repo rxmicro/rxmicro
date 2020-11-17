@@ -4,30 +4,13 @@ public final class ${IMPL_CLASS_NAME} extends RepositoryFactory {
 
     static {
         ${ENVIRONMENT_CUSTOMIZER_CLASS}.customize();
+        <#list CONFIG_AUTO_CUSTOMIZER_CLASSES as C>
+        ${C.targetSimpleClassName}.class.getName();
+        </#list>
         <#list DEFAULT_CONFIG_VALUES as V>
         putDefaultConfigValue("${V.key}", ${V.value});
         </#list>
-        <#if POSTGRES_ENUM_MAPPING?has_content>
-        // Registers enum codecs for all found enums
-        registerPostgreSQLCodecs(
-        <#list POSTGRES_ENUM_MAPPING as V>
-                io.r2dbc.postgresql.codec.EnumCodec.builder()
-                        .withEnum("${V.value}", ${V.key.simpleName}.class)
-                        .build()<#if V?has_next>,</#if>
-        </#list>
-        );
-        </#if>
     }
-    <#if POSTGRES_ENUM_MAPPING?has_content>
-
-    public static Set<String> getPostgresEnumNames() {
-        return Set.of(
-                <#list POSTGRES_ENUM_MAPPING as V>
-                "${V.value}"<#if V?has_next>,</#if>
-                </#list>
-        );
-    }
-    </#if>
 
     public ${IMPL_CLASS_NAME}() {
         <#list MONGO_REPOSITORIES as REPOSITORY>
