@@ -60,14 +60,18 @@ public final class DatabaseConnectionHelper {
         final DatabaseConnection connection = DATABASE_CONNECTION_THREAD_LOCAL.get();
         try {
             if (connection != null) {
-                try {
-                    connection.close();
-                } catch (final SQLException ex) {
-                    LOGGER.warn(ex, "Close connection failed: ?", ex.getMessage());
-                }
+                closeDatabaseConnection(connection);
             }
         } finally {
             DATABASE_CONNECTION_THREAD_LOCAL.remove();
+        }
+    }
+
+    public static void closeDatabaseConnection(final DatabaseConnection connection){
+        try {
+            connection.close();
+        } catch (final SQLException ex) {
+            LOGGER.warn(ex, "Close connection failed: ?", ex.getMessage());
         }
     }
 }

@@ -30,6 +30,7 @@ import io.rxmicro.test.dbunit.local.RollbackChangesController;
 import io.rxmicro.test.dbunit.local.component.validator.DBUnitTestValidator;
 import io.rxmicro.test.local.component.builder.TestModelBuilder;
 import io.rxmicro.test.local.model.TestModel;
+import org.dbunit.database.DatabaseConnection;
 import org.junit.jupiter.api.extension.AfterAllCallback;
 import org.junit.jupiter.api.extension.AfterTestExecutionCallback;
 import org.junit.jupiter.api.extension.BeforeAllCallback;
@@ -48,6 +49,7 @@ import static io.rxmicro.test.dbunit.junit.RetrieveConnectionStrategy.PER_ALL_TE
 import static io.rxmicro.test.dbunit.junit.RetrieveConnectionStrategy.PER_TEST_CLASS;
 import static io.rxmicro.test.dbunit.junit.RetrieveConnectionStrategy.PER_TEST_METHOD;
 import static io.rxmicro.test.dbunit.local.DatabaseConnectionFactory.createNewDatabaseConnection;
+import static io.rxmicro.test.dbunit.local.DatabaseConnectionHelper.closeDatabaseConnection;
 import static io.rxmicro.test.dbunit.local.DatabaseConnectionHelper.isCurrentDatabaseConnectionPresent;
 import static io.rxmicro.test.dbunit.local.DatabaseConnectionHelper.releaseCurrentDatabaseConnection;
 import static io.rxmicro.test.dbunit.local.DatabaseConnectionHelper.setCurrentDatabaseConnection;
@@ -97,9 +99,17 @@ public final class DbUnitTestExtension implements
     public void beforeEach(final ExtensionContext context) {
         // It is necessary to set connection after @BeforeAll and only one per class.
         // See https://junit.org/junit5/docs/current/user-guide/#extensions-execution-order-overview
-        if (!isCurrentDatabaseConnectionPresent() &&
-                (retrieveConnectionStrategy == PER_ALL_TEST_CLASSES || retrieveConnectionStrategy == PER_TEST_CLASS)) {
-            setCurrentDatabaseConnection(createNewDatabaseConnection(getCurrentTestDatabaseConfig()));
+        if (!isCurrentDatabaseConnectionPresent()) {
+            final DatabaseConnection databaseConnection = createNewDatabaseConnection(getCurrentTestDatabaseConfig());
+            if (retrieveConnectionStrategy == PER_TEST_CLASS || retrieveConnectionStrategy == PER_ALL_TEST_CLASSES) {
+                setCurrentDatabaseConnection(databaseConnection);
+            }
+            if (retrieveConnectionStrategy == PER_ALL_TEST_CLASSES) {
+                Runtime.getRuntime().addShutdownHook(new Thread(
+                        () -> closeDatabaseConnection(databaseConnection),
+                        "Close shared database connection hook"
+                ));
+            }
         }
     }
 
