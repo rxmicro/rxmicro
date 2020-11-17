@@ -30,11 +30,14 @@ import io.rxmicro.test.local.InvalidTestConfigException;
 import io.rxmicro.test.local.model.TestModel;
 
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
 import static io.rxmicro.common.RxMicroModule.isRxMicroPackage;
+import static io.rxmicro.test.internal.DetectTypeRules.isMongoRepositoryField;
+import static io.rxmicro.test.internal.DetectTypeRules.isPostgreRepositoryField;
 import static io.rxmicro.test.local.component.RxMicroTestExtensions.supportedPerClassAnnotationsFromTestExtensions;
 import static io.rxmicro.test.local.util.FieldNames.getHumanReadableFieldName;
 import static java.util.stream.Collectors.toSet;
@@ -131,15 +134,43 @@ public abstract class CommonTestValidator {
     }
 
     private void validateRepositoryFactoryState(final TestModel testModel) {
-        if (!testModel.getRepositories().isEmpty() && !testModel.getMongoDataBases().isEmpty()) {
-            final String mongoField = getHumanReadableFieldName(testModel.getMongoDataBases().get(0));
-            final String repositoryField = getHumanReadableFieldName(testModel.getRepositories().get(0));
-            throw new InvalidTestConfigException(
-                    "'?' mongo database alternative conflicts with '?' repository. " +
-                            "Remove the mongo database alternative or the repository field!",
-                    mongoField,
-                    repositoryField
-            );
+        if (!testModel.getRepositories().isEmpty()) {
+            validateMongoRepositoryFactoryState(testModel);
+            validatePostgresRepositoryFactoryState(testModel);
+        }
+    }
+
+    private void validateMongoRepositoryFactoryState(final TestModel testModel) {
+        if (!testModel.getMongoDataBases().isEmpty()) {
+            for (final Field field : testModel.getRepositories()) {
+                if (isMongoRepositoryField(field.getType())) {
+                    final String mongoField = getHumanReadableFieldName(testModel.getMongoDataBases().get(0));
+                    final String repositoryField = getHumanReadableFieldName(field);
+                    throw new InvalidTestConfigException(
+                            "'?' mongo database alternative conflicts with '?' repository. " +
+                                    "Remove the mongo database alternative or the repository field!",
+                            mongoField,
+                            repositoryField
+                    );
+                }
+            }
+        }
+    }
+
+    private void validatePostgresRepositoryFactoryState(final TestModel testModel) {
+        if (!testModel.getSqlConnectionPools().isEmpty()) {
+            for (final Field field : testModel.getRepositories()) {
+                if (isPostgreRepositoryField(field.getType())) {
+                    final String connectionPoolField = getHumanReadableFieldName(testModel.getSqlConnectionPools().get(0));
+                    final String repositoryField = getHumanReadableFieldName(field);
+                    throw new InvalidTestConfigException(
+                            "'?' sql connection pool alternative conflicts with '?' repository. " +
+                                    "Remove the sql connection pool alternative or the repository field!",
+                            connectionPoolField,
+                            repositoryField
+                    );
+                }
+            }
         }
     }
 }

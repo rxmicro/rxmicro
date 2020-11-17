@@ -59,16 +59,17 @@ public final class DetectTypeRules {
         return HttpClientFactory.class == type;
     }
 
-    @SuppressWarnings("RedundantIfStatement")
     public static boolean isRepositoryField(final Class<?> type) {
-        if (isClassGenerated(type, "?.$$Mongo?", AbstractMongoRepository.class)) {
-            return true;
-        }
-        if (isClassGenerated(type, "?.$$PostgreSQL?", AbstractPostgreSQLRepository.class)) {
-            return true;
-        }
         // Add new repository types here
-        return false;
+        return isMongoRepositoryField(type) || isPostgreRepositoryField(type);
+    }
+
+    public static boolean isMongoRepositoryField(final Class<?> type) {
+        return isClassGenerated(type, "?.$$Mongo?", AbstractMongoRepository.class);
+    }
+
+    public static boolean isPostgreRepositoryField(final Class<?> type) {
+        return isClassGenerated(type, "?.$$PostgreSQL?", AbstractPostgreSQLRepository.class);
     }
 
     public static boolean isBeanField(final Class<?> type) {
