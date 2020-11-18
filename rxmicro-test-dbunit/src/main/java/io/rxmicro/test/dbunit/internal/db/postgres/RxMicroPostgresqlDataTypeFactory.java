@@ -16,13 +16,11 @@
 
 package io.rxmicro.test.dbunit.internal.db.postgres;
 
-import io.rxmicro.test.dbunit.internal.data.type.RxMicroTimestampDataType;
 import org.dbunit.dataset.datatype.DataType;
 import org.dbunit.dataset.datatype.DataTypeException;
 import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory;
 
 import java.lang.reflect.Field;
-import java.sql.Types;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
@@ -30,6 +28,7 @@ import java.util.Set;
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.data.sql.r2dbc.postgresql.detail.PostgreSQLConfigAutoCustomizer.POSTGRES_SQL_CONFIG_AUTO_CUSTOMIZER_CLASS_NAME;
 import static io.rxmicro.runtime.detail.RxMicroRuntime.ENTRY_POINT_PACKAGE;
+import static io.rxmicro.test.dbunit.internal.data.type.RxMicroDataTypes.CUSTOM_DATA_TYPES;
 
 /**
  * @author nedis
@@ -65,9 +64,12 @@ public class RxMicroPostgresqlDataTypeFactory extends PostgresqlDataTypeFactory 
                                    final String sqlTypeName) throws DataTypeException {
         if (isEnumType(sqlTypeName)) {
             return super.createDataType(TYPES_OTHER, sqlTypeName);
-        } else if (sqlType == Types.TIMESTAMP) {
-            return new RxMicroTimestampDataType();
         } else {
+            for (final DataType dataType : CUSTOM_DATA_TYPES) {
+                if (dataType.getSqlType() == sqlType) {
+                    return dataType;
+                }
+            }
             return super.createDataType(sqlType, sqlTypeName);
         }
     }

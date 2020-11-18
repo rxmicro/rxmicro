@@ -37,6 +37,7 @@ import java.util.Set;
 
 import static io.rxmicro.test.dbunit.Expressions.NULL_VALUE;
 import static io.rxmicro.test.dbunit.internal.DataSetLoaders.loadIDataSet;
+import static io.rxmicro.test.dbunit.internal.data.ExpressionValueResolver.asExpression;
 import static io.rxmicro.test.dbunit.local.DatabaseConnectionHelper.getCurrentDatabaseConnection;
 
 /**
@@ -94,7 +95,7 @@ public final class DatabaseStateVerifier {
 
     private ITable decorateWithReplacementTable(final ITable expectedTable) {
         final ReplacementTable replacementTable = new ReplacementTable(expectedTable);
-        replacementTable.addReplacementObject(NULL_VALUE, null);
+        replacementTable.addReplacementObject(asExpression(NULL_VALUE), null);
         return replacementTable;
     }
 }

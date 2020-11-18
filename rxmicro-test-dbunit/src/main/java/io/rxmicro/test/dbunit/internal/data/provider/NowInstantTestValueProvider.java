@@ -36,8 +36,7 @@ import static java.time.temporal.ChronoUnit.SECONDS;
  */
 public final class NowInstantTestValueProvider implements TestValueProvider {
 
-    // static value allows using the global state for now instan generation
-    private static Instant lastUsed;
+    private Instant lastUsed;
 
     @Override
     public Object getValue() {

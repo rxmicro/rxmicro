@@ -17,64 +17,77 @@
 package io.rxmicro.test.dbunit.internal.data.resolver;
 
 import io.rxmicro.config.ConfigException;
+import io.rxmicro.test.GlobalTestConfig;
 import io.rxmicro.test.dbunit.Expressions;
-import io.rxmicro.test.dbunit.TestValueProviderConfig;
-import io.rxmicro.test.dbunit.internal.data.ExpressionValueResolver;
-import io.rxmicro.test.dbunit.internal.data.type.InstantIntervalValue;
+import io.rxmicro.test.dbunit.internal.data.value.InstantIntervalValue;
 
 import java.time.Duration;
 import java.time.Instant;
 import java.time.format.DateTimeParseException;
 import java.util.List;
+import java.util.Set;
 
+import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.config.Configs.getConfig;
+import static io.rxmicro.test.dbunit.Expressions.NOW_INSTANT_1;
+import static io.rxmicro.test.dbunit.Expressions.NOW_INSTANT_2;
+import static io.rxmicro.test.dbunit.Expressions.NOW_INSTANT_3;
 import static io.rxmicro.test.dbunit.internal.TestValueProviders.getTestValueProvider;
 
 /**
  * @author nedis
  * @since 0.7
  */
-public final class NowInstantExpressionValueResolver implements ExpressionValueResolver {
+public final class NowInstantExpressionValueResolver extends AbstractExpressionValueResolver {
 
-    private static final String NAME = "now";
+    public NowInstantExpressionValueResolver() {
+        super(Set.of(
+                NOW_INSTANT_1,
+                NOW_INSTANT_2,
+                NOW_INSTANT_3
+        ));
+    }
 
     @Override
     public List<String> getExamples() {
-        return List.of("${now}", "${now:PT1S}", "${now:PT2.345S}");
+        return List.of(
+                format("${?}", NOW_INSTANT_1),
+                format("${?:PT1S}", NOW_INSTANT_1),
+                format("${?:PT2.345S}", NOW_INSTANT_1),
+                format("${?:PT2.345S}", NOW_INSTANT_2)
+        );
     }
 
     @Override
-    public boolean isSupport(final String expression) {
-        return expression.startsWith(NAME);
-    }
-
-    @Override
-    public Object resolve(final String expression) {
-        final Duration delta = getDelta(expression);
-        final Instant instant = (Instant) getTestValueProvider(Expressions.NOW_INSTANT).getValue();
-        return new InstantIntervalValue(instant, delta);
-    }
-
-    private Duration getDelta(final String expression) {
-        if (expression.length() > 4) {
-            try {
-                return Duration.parse(expression.substring(4));
-            } catch (final DateTimeParseException ex) {
-                throw new ConfigException(
-                        "Invalid ${?} expression: '?'. Delta must be parsable duration: '?'. Valid examples are: ?!",
-                        NAME, expression, ex.getMessage(), getExamples()
-                );
-            }
+    public Object resolve(final String exp) {
+        final ParsedExpression expression = parse(exp);
+        if (expression.getParamsSize() > 1) {
+            throw new ConfigException(
+                    "Invalid ${?} expression: '?'. Expression must follow the next templates: '${?}' " +
+                            "or '${?:${delta}}'. Valid examples are: ?!",
+                    expression.getName(), expression, expression.getName(),
+                    expression.getName(), getExamples()
+            );
         } else {
-            if (expression.length() == 4) {
-                if (expression.charAt(3) != ':') {
-                    throw new ConfigException(
-                            "Invalid ${?} expression: '?'. Expression must use ':' separator! Valid examples are: ?!",
-                            NAME, expression, getExamples()
-                    );
-                }
+            final Duration delta;
+            if (expression.isParamsPresent()) {
+                delta = getDelta(expression);
+            } else {
+                delta = getConfig(GlobalTestConfig.class).getDefaultInstantCompareDelta();
             }
-            return getConfig(TestValueProviderConfig.class).getNowInstantCompareDelta();
+            final Instant instant = (Instant) getTestValueProvider(Expressions.NOW_INSTANT_1).getValue();
+            return new InstantIntervalValue(instant, delta);
+        }
+    }
+
+    private Duration getDelta(final ParsedExpression expression) {
+        try {
+            return Duration.parse(expression.getParam(0));
+        } catch (final DateTimeParseException ex) {
+            throw new ConfigException(
+                    "Invalid ${?} expression: '?'. Delta must be parsable duration: '?'. Valid examples are: ?!",
+                    expression.getName(), expression, ex.getMessage(), getExamples()
+            );
         }
     }
 }

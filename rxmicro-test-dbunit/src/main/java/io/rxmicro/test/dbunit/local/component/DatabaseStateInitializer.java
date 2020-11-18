@@ -32,6 +32,7 @@ import java.util.Map;
 import static io.rxmicro.test.dbunit.Expressions.NULL_VALUE;
 import static io.rxmicro.test.dbunit.internal.DataSetLoaders.loadIDataSet;
 import static io.rxmicro.test.dbunit.internal.TestValueProviders.getAllTestValueProviders;
+import static io.rxmicro.test.dbunit.internal.data.ExpressionValueResolver.asExpression;
 import static io.rxmicro.test.dbunit.local.DatabaseConnectionHelper.getCurrentDatabaseConnection;
 import static java.util.stream.Collectors.toList;
 
@@ -55,9 +56,9 @@ public final class DatabaseStateInitializer extends AbstractDatabaseStateChanger
 
     private IDataSet decorateWithReplacementDataSet(final IDataSet dataSet) {
         final ReplacementDataSet replacementDataSet = new ReplacementDataSet(dataSet);
-        replacementDataSet.addReplacementObject(NULL_VALUE, null);
+        replacementDataSet.addReplacementObject(asExpression(NULL_VALUE), null);
         for (final Map.Entry<String, TestValueProvider> entry : getAllTestValueProviders()) {
-            replacementDataSet.addReplacementObject(entry.getKey(), entry.getValue().getValue());
+            replacementDataSet.addReplacementObject(asExpression(entry.getKey()), entry.getValue().getValue());
         }
         return replacementDataSet;
     }

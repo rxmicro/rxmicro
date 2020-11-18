@@ -24,7 +24,10 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
-import static io.rxmicro.test.dbunit.Expressions.NOW_INSTANT;
+import static io.rxmicro.test.dbunit.Expressions.NOW_INSTANT_1;
+import static io.rxmicro.test.dbunit.Expressions.NOW_INSTANT_2;
+import static io.rxmicro.test.dbunit.Expressions.NOW_INSTANT_3;
+import static java.util.Map.entry;
 
 /**
  * @author nedis
@@ -32,8 +35,12 @@ import static io.rxmicro.test.dbunit.Expressions.NOW_INSTANT;
  */
 public final class TestValueProviders {
 
-    private static final Map<String, TestValueProvider> VALUE_PROVIDER_MAP = Map.of(
-            NOW_INSTANT, new NowInstantTestValueProvider()
+    private static final TestValueProvider NOW_INSTANT_TEST_VALUE_PROVIDER = new NowInstantTestValueProvider();
+
+    private static final Map<String, TestValueProvider> VALUE_PROVIDER_MAP = Map.ofEntries(
+            entry(NOW_INSTANT_1, NOW_INSTANT_TEST_VALUE_PROVIDER),
+            entry(NOW_INSTANT_2, NOW_INSTANT_TEST_VALUE_PROVIDER),
+            entry(NOW_INSTANT_3, NOW_INSTANT_TEST_VALUE_PROVIDER)
     );
 
     public static TestValueProvider getTestValueProvider(final String expression) {

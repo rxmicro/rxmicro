@@ -19,6 +19,7 @@ package io.rxmicro.test.dbunit.internal;
 import io.rxmicro.config.ConfigException;
 import io.rxmicro.test.dbunit.internal.data.ExpressionValueResolver;
 import io.rxmicro.test.dbunit.internal.data.resolver.InstantIntervalExpressionValueResolver;
+import io.rxmicro.test.dbunit.internal.data.resolver.LongIntervalExpressionValueResolver;
 import io.rxmicro.test.dbunit.internal.data.resolver.NowInstantExpressionValueResolver;
 
 import java.util.List;
@@ -33,7 +34,8 @@ public final class ExpressionValueResolvers {
 
     private static final List<ExpressionValueResolver> EXPRESSION_VALUE_RESOLVERS = List.of(
             new NowInstantExpressionValueResolver(),
-            new InstantIntervalExpressionValueResolver()
+            new InstantIntervalExpressionValueResolver(),
+            new LongIntervalExpressionValueResolver()
     );
 
     public static boolean isExpressionValue(final Object value) {

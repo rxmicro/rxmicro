@@ -14,27 +14,27 @@
  * limitations under the License.
  */
 
-package io.rxmicro.test.dbunit.internal.data;
+package io.rxmicro.test.dbunit.internal.data.type;
 
+import org.dbunit.dataset.datatype.DataType;
+
+import java.sql.Types;
 import java.util.List;
 
 /**
  * @author nedis
  * @since 0.7
  */
-public interface ExpressionValueResolver {
+public final class RxMicroDataTypes {
 
-    List<String> getExamples();
+    public static final List<DataType> CUSTOM_DATA_TYPES = List.of(
+            new RxMicroTimestampDataType(),
+            new RxMicroIntegerDataType("TINYINT", Types.TINYINT),
+            new RxMicroIntegerDataType("SMALLINT", Types.SMALLINT),
+            new RxMicroIntegerDataType("INTEGER", Types.INTEGER),
+            new RxMicroLongDataType()
+    );
 
-    boolean isSupport(String expression);
-
-    Object resolve(String expression);
-
-    static boolean isExpression(final String value) {
-        return value.startsWith("${") && value.endsWith("}");
-    }
-
-    static String asExpression(final String expression) {
-        return "${" + expression + '}';
+    private RxMicroDataTypes() {
     }
 }

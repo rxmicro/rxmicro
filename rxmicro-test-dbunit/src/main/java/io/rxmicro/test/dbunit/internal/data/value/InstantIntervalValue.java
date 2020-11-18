@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package io.rxmicro.test.dbunit.internal.data.type;
+package io.rxmicro.test.dbunit.internal.data.value;
 
 import java.sql.Timestamp;
 import java.time.Duration;
@@ -27,7 +27,7 @@ import static io.rxmicro.common.util.Formats.format;
  * @author nedis
  * @since 0.7
  */
-public class InstantIntervalValue implements Comparable<Object> {
+public final class InstantIntervalValue implements Comparable<Object> {
 
     private final Instant minInstant;
 

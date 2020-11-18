@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package io.rxmicro.test.dbunit;
+package io.rxmicro.test;
 
 import io.rxmicro.common.meta.BuilderMethod;
 import io.rxmicro.test.local.model.BaseTestConfig;
@@ -25,19 +25,19 @@ import java.time.Duration;
  * @author nedis
  * @since 0.7
  */
-public final class TestValueProviderConfig extends BaseTestConfig {
+public final class GlobalTestConfig extends BaseTestConfig {
 
-    public static final Duration DEFAULT_NOW_INSTANT_GENERATION_DISCRETE_STEP = Duration.ofSeconds(5);
+    public static final Duration DEFAULT_INSTANT_COMPARE_DELTA_VALUE = Duration.ofSeconds(5);
 
-    private Duration nowInstantGenerationDiscreteStep = DEFAULT_NOW_INSTANT_GENERATION_DISCRETE_STEP;
+    private Duration defaultInstantCompareDelta = DEFAULT_INSTANT_COMPARE_DELTA_VALUE;
 
-    public Duration getNowInstantGenerationDiscreteStep() {
-        return nowInstantGenerationDiscreteStep;
+    public Duration getDefaultInstantCompareDelta() {
+        return defaultInstantCompareDelta;
     }
 
     @BuilderMethod
-    public TestValueProviderConfig setNowInstantGenerationDiscreteStep(final Duration nowInstantGenerationDiscreteStep) {
-        this.nowInstantGenerationDiscreteStep = nowInstantGenerationDiscreteStep;
+    public GlobalTestConfig setDefaultInstantCompareDelta(final Duration defaultInstantCompareDelta) {
+        this.defaultInstantCompareDelta = defaultInstantCompareDelta;
         return this;
     }
 }

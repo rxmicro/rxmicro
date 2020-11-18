@@ -16,7 +16,7 @@
 
 package io.rxmicro.test.dbunit.internal.data.type;
 
-import io.rxmicro.test.dbunit.internal.data.value.InstantIntervalValue;
+import io.rxmicro.test.dbunit.internal.data.value.LongIntervalValue;
 import org.dbunit.dataset.datatype.AbstractDataType;
 import org.dbunit.dataset.datatype.DataType;
 import org.dbunit.dataset.datatype.TypeCastException;
@@ -24,69 +24,58 @@ import org.dbunit.dataset.datatype.TypeCastException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.sql.Types;
-import java.time.Instant;
 
 import static io.rxmicro.test.dbunit.internal.ExpressionValueResolvers.isExpressionValue;
 import static io.rxmicro.test.dbunit.internal.ExpressionValueResolvers.resolveExpressionValue;
 
 /**
- * Unfortunately org.dbunit.dataset.datatype.TimestampDataType class has default constructor :(
+ * Unfortunately org.dbunit.dataset.datatype.LongDataType class has default constructor :(
  * So it is necessary to use composition instead of inheritance!
  *
  * @author nedis
  * @since 0.7
  */
-public class RxMicroTimestampDataType extends AbstractDataType {
+public class RxMicroLongDataType extends AbstractDataType {
 
-    private final DataType defaultTimestampDataType = DataType.TIMESTAMP;
+    private final DataType defaultIntegerDataType = DataType.BIGINT_AUX_LONG;
 
-    public RxMicroTimestampDataType() {
-        super("TIMESTAMP", Types.TIMESTAMP, Timestamp.class, false);
+    public RxMicroLongDataType() {
+        super("BIGINT", Types.BIGINT, Long.class, true);
     }
 
     @Override
     public Object typeCast(final Object value) throws TypeCastException {
         if (isExpressionValue(value)) {
             return resolveExpressionValue(value);
-        } else if (value instanceof Instant) {
-            return Timestamp.from((Instant) value);
         } else {
-            return defaultTimestampDataType.typeCast(value);
+            return defaultIntegerDataType.typeCast(value);
         }
     }
 
-    @Override
-    public boolean isDateTime() {
-        return true;
-    }
-
-    @Override
     public Object getSqlValue(final int column,
                               final ResultSet resultSet) throws SQLException {
-        final Timestamp value = resultSet.getTimestamp(column);
-        if (value == null || resultSet.wasNull()) {
+        final long value = resultSet.getLong(column);
+        if (resultSet.wasNull()) {
             return null;
-        } else {
+        }else{
             return value;
         }
     }
 
-    @Override
     public void setSqlValue(final Object value,
                             final int column,
                             final PreparedStatement statement) throws SQLException, TypeCastException {
-        statement.setTimestamp(column, (java.sql.Timestamp) typeCast(value));
+        statement.setLong(column, ((Number)typeCast(value)).longValue());
     }
 
     @Override
     protected int compareNonNulls(final Object value1,
                                   final Object value2) throws TypeCastException {
-        if (value1 instanceof InstantIntervalValue) {
-            return ((InstantIntervalValue) value1).compareTo(value2);
-        } else if (value2 instanceof InstantIntervalValue) {
-            return Math.negateExact(((InstantIntervalValue) value2).compareTo(value1));
+        if (value1 instanceof LongIntervalValue) {
+            return ((LongIntervalValue) value1).compareTo(value2);
+        } else if (value2 instanceof LongIntervalValue) {
+            return Math.negateExact(((LongIntervalValue) value2).compareTo(value1));
         } else {
             return super.compareNonNulls(value1, value2);
         }

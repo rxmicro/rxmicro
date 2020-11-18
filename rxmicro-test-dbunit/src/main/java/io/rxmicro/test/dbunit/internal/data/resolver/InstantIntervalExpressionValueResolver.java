@@ -18,66 +18,79 @@ package io.rxmicro.test.dbunit.internal.data.resolver;
 
 import io.rxmicro.config.ConfigException;
 import io.rxmicro.test.dbunit.Expressions;
-import io.rxmicro.test.dbunit.internal.data.ExpressionValueResolver;
-import io.rxmicro.test.dbunit.internal.data.type.InstantIntervalValue;
+import io.rxmicro.test.dbunit.internal.data.value.InstantIntervalValue;
 
 import java.time.Duration;
 import java.time.Instant;
 import java.time.format.DateTimeParseException;
 import java.util.List;
+import java.util.Set;
 
+import static io.rxmicro.common.util.Formats.format;
+import static io.rxmicro.test.dbunit.Expressions.INSTANT_INTERVAL_1;
+import static io.rxmicro.test.dbunit.Expressions.INSTANT_INTERVAL_2;
+import static io.rxmicro.test.dbunit.Expressions.INSTANT_INTERVAL_3;
 import static io.rxmicro.test.dbunit.internal.TestValueProviders.getTestValueProvider;
 
 /**
  * @author nedis
  * @since 0.7
  */
-public final class InstantIntervalExpressionValueResolver implements ExpressionValueResolver {
+public final class InstantIntervalExpressionValueResolver extends AbstractExpressionValueResolver {
 
-    private static final String NAME = "interval";
+    public InstantIntervalExpressionValueResolver() {
+        super(Set.of(
+                INSTANT_INTERVAL_1,
+                INSTANT_INTERVAL_2,
+                INSTANT_INTERVAL_3
+        ));
+    }
 
     @Override
     public List<String> getExamples() {
         return List.of(
-                "${interval:now:-PT5S:PT5S}",
-                "${interval:now+PT5S:-PT5S:PT5S}",
-                "${interval:now-PT5S:now+PT5S}",
-                "${interval:now:now+PT5S}",
-                "${interval:2020-01-15T10:25:45Z:2020-01-16T11:35:55Z}",
-                "${interval:2020-01-15T10:25:45.123Z:now+PT5S}"
+                format("${?:now:-PT5S:PT5S}", INSTANT_INTERVAL_1),
+                format("${?:now+PT5S:-PT5S:PT5S}", INSTANT_INTERVAL_1),
+                format("${?:now-PT5S:now+PT5S}", INSTANT_INTERVAL_2),
+                format("${?:now:now+PT5S}", INSTANT_INTERVAL_2),
+                format("${?:2020-01-15T10:25:45Z:2020-01-16T11:35:55Z}", INSTANT_INTERVAL_2),
+                format("${?:2020-01-15T10:25:45.123Z:now+PT5S}", INSTANT_INTERVAL_3)
         );
     }
 
     @Override
-    public boolean isSupport(final String expression) {
-        return expression.startsWith(NAME);
-    }
-
-    @Override
-    public Object resolve(final String expression) {
-        final String[] parts = expression.split(":");
-        if (parts.length == 3) {
-            final Instant minValue = parseComplexInstant(expression, parts[1]);
-            final Instant maxValue = parseComplexInstant(expression, parts[2]);
-            return new InstantIntervalValue(minValue, maxValue);
-        } else if (parts.length == 4) {
-            final Instant value = parseComplexInstant(expression, parts[1]);
-            final Duration minDelta = parseDuration(expression, parts[2]);
-            final Duration maxDelta = parseDuration(expression, parts[3]);
-            return new InstantIntervalValue(value.plusMillis(minDelta.toMillis()), value.plusMillis(maxDelta.toMillis()));
+    public Object resolve(final String exp) {
+        final ParsedExpression expression = parse(exp);
+        if (expression.getParamsSize() == 2) {
+            final Instant minValue = parseComplexInstant(expression, expression.getParam(0));
+            final Instant maxValue = parseComplexInstant(expression, expression.getParam(1));
+            return createInstantIntervalValue(expression, minValue, maxValue);
+        } else if (expression.getParamsSize() == 3) {
+            final Instant value = parseComplexInstant(expression, expression.getParam(0));
+            final Duration minDelta = parseDuration(expression, expression.getParam(1));
+            final Duration maxDelta = parseDuration(expression, expression.getParam(2));
+            return createInstantIntervalValue(expression, value.plusMillis(minDelta.toMillis()), value.plusMillis(maxDelta.toMillis()));
         } else {
             throw new ConfigException(
-                    "Invalid ${?} expression: '?'. Expression must follow the next templates: '${interval:${minInstant}:${maxInstant}}' " +
-                            "or '${interval:${instant}:${minDelta}:${maxDelta}}'. Valid examples are: ?!",
-                    NAME, expression, getExamples()
+                    "Invalid ${?} expression: '?'. Expression must follow the next templates: '${?:${minInstant}:${maxInstant}}' " +
+                            "or '${?:${instant}:${minDelta}:${maxDelta}}'. Valid examples are: ?!",
+                    expression.getName(), expression, expression.getName(),
+                    expression.getName(), getExamples()
             );
         }
     }
 
-    private Instant parseComplexInstant(final String expression,
+    private InstantIntervalValue createInstantIntervalValue(final ParsedExpression expression,
+                                                            final Instant minValue,
+                                                            final Instant maxValue) {
+        validateInterval(expression, minValue, maxValue);
+        return new InstantIntervalValue(minValue, maxValue);
+    }
+
+    private Instant parseComplexInstant(final ParsedExpression expression,
                                         final String instantValue) {
         final List<String> parts = splitBySign(instantValue);
-        if(parts.size() == 1){
+        if (parts.size() == 1) {
             return parseInstant(expression, instantValue);
         } else {
             final Instant instant = parseInstant(expression, parts.get(0));
@@ -99,30 +112,30 @@ public final class InstantIntervalExpressionValueResolver implements ExpressionV
         return List.of(instant);
     }
 
-    private Instant parseInstant(final String expression,
+    private Instant parseInstant(final ParsedExpression expression,
                                  final String instant) {
         if ("now".equals(instant)) {
-            return (Instant) getTestValueProvider(Expressions.NOW_INSTANT).getValue();
+            return (Instant) getTestValueProvider(Expressions.NOW_INSTANT_1).getValue();
         } else {
             try {
                 return Instant.parse(instant);
             } catch (final DateTimeParseException ex) {
                 throw new ConfigException(
                         "Invalid ${?} expression: '?'. '?' value must be parsable instant: '?'. Valid examples are: ?!",
-                        NAME, expression, instant, ex.getMessage(), getExamples()
+                        expression.getName(), expression, instant, ex.getMessage(), getExamples()
                 );
             }
         }
     }
 
-    private Duration parseDuration(final String expression,
+    private Duration parseDuration(final ParsedExpression expression,
                                    final String duration) {
         try {
             return Duration.parse(duration);
         } catch (final DateTimeParseException ex) {
             throw new ConfigException(
                     "Invalid ${?} expression: '?'. '?' delta must be parsable duration: '?'. Valid examples are: ?!",
-                    NAME, expression, duration, ex.getMessage(), getExamples()
+                    expression.getName(), expression, duration, ex.getMessage(), getExamples()
             );
         }
     }

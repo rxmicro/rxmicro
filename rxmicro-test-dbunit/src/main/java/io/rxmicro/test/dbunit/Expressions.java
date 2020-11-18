@@ -22,9 +22,33 @@ package io.rxmicro.test.dbunit;
  */
 public final class Expressions {
 
-    public static final String NULL_VALUE = "${null}";
+    public static final String NULL_VALUE = "null";
 
-    public static final String NOW_INSTANT = "${now}";
+    public static final String NOW_INSTANT_1 = "now";
+
+    public static final String NOW_INSTANT_2 = "instant:now";
+
+    public static final String NOW_INSTANT_3 = "timestamp:now";
+
+    public static final String INSTANT_INTERVAL_1 = "interval";
+
+    public static final String INSTANT_INTERVAL_2 = "instant:interval";
+
+    public static final String INSTANT_INTERVAL_3 = "timestamp:interval";
+
+    public static final String INTEGER_INTERVAL_1 = "int:interval";
+
+    public static final String INTEGER_INTERVAL_2 = "integer:interval";
+
+    public static final String TINYINT_INTERVAL = "tinyint:interval";
+
+    public static final String SHORT_INTERVAL = "short:interval";
+
+    public static final String SMALLINT_INTERVAL = "smallint:interval";
+
+    public static final String LONG_INTERVAL = "long:interval";
+
+    public static final String BIGINT_INTERVAL = "bigint:interval";
 
     private Expressions() {
     }
