@@ -17,10 +17,9 @@
 package io.rxmicro.rest.server.internal.component.impl.error;
 
 import io.rxmicro.http.error.HttpErrorException;
-import io.rxmicro.logger.Logger;
-import io.rxmicro.logger.LoggerFactory;
 import io.rxmicro.rest.server.detail.component.HttpResponseBuilder;
 import io.rxmicro.rest.server.detail.model.HttpResponse;
+import io.rxmicro.rest.server.feature.ErrorHandler;
 import io.rxmicro.rest.server.local.component.HttpErrorResponseBodyBuilder;
 
 import java.util.Objects;
@@ -31,9 +30,7 @@ import static io.rxmicro.common.util.Requires.require;
  * @author nedis
  * @since 0.1
  */
-public final class AnyHttpErrorHttpResponseBuilder {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(AnyHttpErrorHttpResponseBuilder.class);
+public final class AnyHttpErrorHttpResponseBuilder extends ErrorHandler {
 
     private final HttpResponseBuilder httpResponseBuilder;
 

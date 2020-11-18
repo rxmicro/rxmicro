@@ -16,11 +16,10 @@
 
 package io.rxmicro.rest.server.internal.component.impl.error;
 
-import io.rxmicro.logger.Logger;
-import io.rxmicro.logger.LoggerFactory;
 import io.rxmicro.rest.model.HttpCallFailedException;
 import io.rxmicro.rest.server.detail.component.HttpResponseBuilder;
 import io.rxmicro.rest.server.detail.model.HttpResponse;
+import io.rxmicro.rest.server.feature.ErrorHandler;
 import io.rxmicro.rest.server.local.component.HttpErrorResponseBodyBuilder;
 
 import static io.rxmicro.common.util.Requires.require;
@@ -30,9 +29,7 @@ import static io.rxmicro.http.HttpStatuses.getErrorMessage;
  * @author nedis
  * @since 0.1
  */
-public final class HttpCallFailedHttpResponseBuilder {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(HttpCallFailedHttpResponseBuilder.class);
+public final class HttpCallFailedHttpResponseBuilder extends ErrorHandler {
 
     private final HttpResponseBuilder httpResponseBuilder;
 

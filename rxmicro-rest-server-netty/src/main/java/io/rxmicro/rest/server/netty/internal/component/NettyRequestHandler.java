@@ -20,7 +20,6 @@ import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.codec.http.FullHttpRequest;
-import io.netty.handler.codec.http.HttpResponseStatus;
 import io.netty.util.AttributeKey;
 import io.rxmicro.config.Secrets;
 import io.rxmicro.logger.Logger;
@@ -63,13 +62,11 @@ final class NettyRequestHandler extends SimpleChannelInboundHandler<FullHttpRequ
 
     private final RequestIdGenerator requestIdGenerator;
 
-    private final HttpResponseBuilder responseBuilder;
-
-    private final HttpErrorResponseBodyBuilder responseContentBuilder;
-
     private final boolean returnGeneratedRequestId;
 
     private final boolean disableLoggerMessagesForHttpHealthChecks;
+
+    private final NettyErrorHandler nettyErrorHandler;
 
     NettyRequestHandler(final NettyRestServerConfig nettyRestServerConfig,
                         final RequestHandler requestHandler,
@@ -80,10 +77,9 @@ final class NettyRequestHandler extends SimpleChannelInboundHandler<FullHttpRequ
         this.nettyRestServerConfig = nettyRestServerConfig;
         this.requestHandler = requestHandler;
         this.requestIdGenerator = requestIdGenerator;
-        this.responseBuilder = responseBuilder;
-        this.responseContentBuilder = responseContentBuilder;
         this.returnGeneratedRequestId = restServerConfig.isReturnGeneratedRequestId();
         this.disableLoggerMessagesForHttpHealthChecks = restServerConfig.isDisableLoggerMessagesForHttpHealthChecks();
+        this.nettyErrorHandler = new NettyErrorHandler(nettyRestServerConfig, responseBuilder, responseContentBuilder);
     }
 
     @Override
@@ -267,19 +263,7 @@ final class NettyRequestHandler extends SimpleChannelInboundHandler<FullHttpRequ
                              final long startTime,
                              final boolean keepAlive) {
         final String requestId = ctx.channel().attr(REQUEST_ID_KEY).get();
-        LOGGER.error(
-                cause,
-                "Error: message=?, Id=?, Channel=?, IP=?",
-                cause.getMessage(),
-                requestId,
-                nettyRestServerConfig.getChannelIdType().getId(ctx.channel().id()),
-                ctx.channel().remoteAddress()
-        );
-        final NettyHttpResponse errorResponse = (NettyHttpResponse) responseContentBuilder.build(
-                responseBuilder,
-                HttpResponseStatus.INTERNAL_SERVER_ERROR.code(),
-                "Internal error"
-        );
+        final NettyHttpResponse errorResponse = nettyErrorHandler.build(requestId, ctx, cause);
         writeAndFlush(ctx, requestId, "", startTime, keepAlive, errorResponse);
         return null;
     }

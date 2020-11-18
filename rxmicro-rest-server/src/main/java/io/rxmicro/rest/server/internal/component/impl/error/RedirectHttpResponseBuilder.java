@@ -20,6 +20,7 @@ import io.rxmicro.common.InvalidStateException;
 import io.rxmicro.http.error.RedirectException;
 import io.rxmicro.rest.server.detail.component.HttpResponseBuilder;
 import io.rxmicro.rest.server.detail.model.HttpResponse;
+import io.rxmicro.rest.server.feature.ErrorHandler;
 
 import static io.rxmicro.common.util.Requires.require;
 import static io.rxmicro.http.HttpStandardHeaderNames.LOCATION;
@@ -28,7 +29,7 @@ import static io.rxmicro.http.HttpStandardHeaderNames.LOCATION;
  * @author nedis
  * @since 0.1
  */
-public final class RedirectHttpResponseBuilder {
+public final class RedirectHttpResponseBuilder extends ErrorHandler {
 
     private final HttpResponseBuilder httpResponseBuilder;
 
