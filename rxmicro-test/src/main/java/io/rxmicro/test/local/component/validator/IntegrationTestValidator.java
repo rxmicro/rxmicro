@@ -20,9 +20,12 @@ import io.rxmicro.test.Alternative;
 import io.rxmicro.test.WithConfig;
 import io.rxmicro.test.local.BlockingHttpClientConfig;
 import io.rxmicro.test.local.InvalidTestConfigException;
+import io.rxmicro.test.local.model.BaseTestConfig;
 import io.rxmicro.test.local.model.TestModel;
 
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Field;
+import java.util.List;
 import java.util.Set;
 
 import static io.rxmicro.test.local.component.RxMicroTestExtensions.validateUsingTestExtensions;
@@ -53,13 +56,11 @@ public final class IntegrationTestValidator extends CommonTestValidator {
     protected void validateUsingSpecificRules(final TestModel testModel) {
         validateThatOnlyOneAnnotationExistsPerTestClass(testModel, supportedTestAnnotations);
         validateUsingTestExtensions(testModel, supportedTestAnnotations);
-        if (testModel.isStaticConfigsPresent() || testModel.isInstanceConfigsPresent()) {
-            throw new InvalidTestConfigException(
-                    "Integration test does not support custom configs. " +
-                            "Remove all fields annotated by '@?' annotation from '?' test class!",
-                    WithConfig.class.getName(),
-                    testModel.getTestClass().getName()
-            );
+        if (testModel.isStaticConfigsPresent()) {
+            validateSupportedConfigClasses(testModel, testModel.getStaticConfigs());
+        }
+        if (testModel.isInstanceConfigsPresent()) {
+            validateSupportedConfigClasses(testModel, testModel.getInstanceConfigs());
         }
         if (!testModel.getHttpClientFactories().isEmpty() ||
                 !testModel.getSqlConnectionPools().isEmpty() ||
@@ -74,6 +75,20 @@ public final class IntegrationTestValidator extends CommonTestValidator {
                     Alternative.class.getName(),
                     testModel.getTestClass().getName()
             );
+        }
+    }
+
+    private void validateSupportedConfigClasses(final TestModel testModel,
+                                                final List<Field> configFields) {
+        for (final Field field : configFields) {
+            if (!BaseTestConfig.class.isAssignableFrom(field.getType())) {
+                throw new InvalidTestConfigException(
+                        "Integration test does not support custom configs. " +
+                                "Remove all fields annotated by '@?' annotation from '?' test class!",
+                        WithConfig.class.getName(),
+                        testModel.getTestClass().getName()
+                );
+            }
         }
     }
 }

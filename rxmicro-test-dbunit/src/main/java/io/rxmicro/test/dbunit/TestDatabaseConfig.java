@@ -17,8 +17,8 @@
 package io.rxmicro.test.dbunit;
 
 import io.rxmicro.common.meta.BuilderMethod;
-import io.rxmicro.config.Config;
 import io.rxmicro.config.Configs;
+import io.rxmicro.test.local.model.BaseTestConfig;
 
 import static io.rxmicro.common.util.Requires.require;
 import static io.rxmicro.config.Networks.validatePort;
@@ -27,7 +27,7 @@ import static io.rxmicro.config.Networks.validatePort;
  * @author nedis
  * @since 0.7
  */
-public final class TestDatabaseConfig extends Config {
+public final class TestDatabaseConfig extends BaseTestConfig {
 
     public static final String DEFAULT_HOST = "localhost";
 

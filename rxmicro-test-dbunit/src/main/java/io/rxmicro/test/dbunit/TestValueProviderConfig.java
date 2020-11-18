@@ -17,7 +17,7 @@
 package io.rxmicro.test.dbunit;
 
 import io.rxmicro.common.meta.BuilderMethod;
-import io.rxmicro.config.Config;
+import io.rxmicro.test.local.model.BaseTestConfig;
 
 import java.time.Duration;
 
@@ -25,7 +25,7 @@ import java.time.Duration;
  * @author nedis
  * @since 0.7
  */
-public final class TestValueProviderConfig extends Config {
+public final class TestValueProviderConfig extends BaseTestConfig {
 
     public static final Duration DEFAULT_NOW_INSTANT_GENERATION_DISCRETE_STEP = Duration.ofSeconds(10);
 
