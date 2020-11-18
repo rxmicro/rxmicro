@@ -29,6 +29,6 @@ public final class RuntimeConstants {
      */
     public static final Module RX_MICRO_RUNTIME_MODULE = RuntimeConstants.class.getModule();
 
-    private RuntimeConstants(){
+    private RuntimeConstants() {
     }
 }

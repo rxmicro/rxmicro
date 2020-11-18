@@ -35,7 +35,7 @@ import static io.rxmicro.test.dbunit.Expressions.TINYINT_INTERVAL;
  * @author nedis
  * @since 0.7
  */
-public final class LongIntervalExpressionValueResolver extends AbstractExpressionValueResolver{
+public final class LongIntervalExpressionValueResolver extends AbstractExpressionValueResolver {
 
     public LongIntervalExpressionValueResolver() {
         super(Set.of(

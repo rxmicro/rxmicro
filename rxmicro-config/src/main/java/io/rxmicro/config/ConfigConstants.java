@@ -29,6 +29,6 @@ public final class ConfigConstants {
      */
     public static final Module RX_MICRO_CONFIG_MODULE = ConfigConstants.class.getModule();
 
-    private ConfigConstants(){
+    private ConfigConstants() {
     }
 }

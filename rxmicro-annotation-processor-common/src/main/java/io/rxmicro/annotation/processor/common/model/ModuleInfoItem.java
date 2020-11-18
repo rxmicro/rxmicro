@@ -21,7 +21,6 @@ import io.rxmicro.annotation.processor.common.util.UsedByFreemarker;
 
 import javax.lang.model.element.ModuleElement;
 
-import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.Requires.require;
 
 /**

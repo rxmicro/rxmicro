@@ -24,6 +24,6 @@ import io.rxmicro.config.Config;
  */
 public class BaseTestConfig extends Config {
 
-    protected BaseTestConfig(){
+    protected BaseTestConfig() {
     }
 }

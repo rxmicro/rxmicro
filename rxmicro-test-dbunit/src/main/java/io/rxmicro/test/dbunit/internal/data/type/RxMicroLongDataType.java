@@ -58,7 +58,7 @@ public class RxMicroLongDataType extends AbstractDataType {
         final long value = resultSet.getLong(column);
         if (resultSet.wasNull()) {
             return null;
-        }else{
+        } else {
             return value;
         }
     }
@@ -66,7 +66,7 @@ public class RxMicroLongDataType extends AbstractDataType {
     public void setSqlValue(final Object value,
                             final int column,
                             final PreparedStatement statement) throws SQLException, TypeCastException {
-        statement.setLong(column, ((Number)typeCast(value)).longValue());
+        statement.setLong(column, ((Number) typeCast(value)).longValue());
     }
 
     @Override

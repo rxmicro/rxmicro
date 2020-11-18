@@ -28,8 +28,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
 
-import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.internal.FinalFieldUpdater.setFinalFieldValue;
+import static io.rxmicro.common.util.Formats.format;
 import static java.lang.reflect.Modifier.isFinal;
 import static java.lang.reflect.Modifier.isStatic;
 import static java.util.Collections.unmodifiableList;

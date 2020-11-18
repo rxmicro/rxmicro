@@ -31,6 +31,7 @@ import java.lang.reflect.Modifier;
 import java.util.Map;
 import java.util.Set;
 
+import static io.rxmicro.common.util.Reflections.allFields;
 import static io.rxmicro.common.util.Requires.require;
 import static io.rxmicro.test.internal.DetectTypeRules.isBlockingHttpClient;
 import static io.rxmicro.test.internal.DetectTypeRules.isConfig;
@@ -44,7 +45,6 @@ import static io.rxmicro.test.local.component.builder.internal.MockReplacementEx
 import static io.rxmicro.test.local.util.Inners.getOuterClass;
 import static io.rxmicro.test.local.util.Inners.isInnerClass;
 import static io.rxmicro.test.local.util.UserComponents.isUserComponentField;
-import static io.rxmicro.common.util.Reflections.allFields;
 
 /**
  * @author nedis

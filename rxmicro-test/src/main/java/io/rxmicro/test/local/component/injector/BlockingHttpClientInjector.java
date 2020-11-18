@@ -25,10 +25,10 @@ import io.rxmicro.test.local.component.builder.BlockingHttpClientSettingsRandomP
 import java.lang.reflect.Field;
 import java.util.List;
 
-import static io.rxmicro.config.Networks.validatePort;
-import static io.rxmicro.test.local.util.Annotations.getPresentOrDefaultAnnotation;
 import static io.rxmicro.common.util.Reflections.getFieldValue;
 import static io.rxmicro.common.util.Reflections.setFieldValue;
+import static io.rxmicro.config.Networks.validatePort;
+import static io.rxmicro.test.local.util.Annotations.getPresentOrDefaultAnnotation;
 import static java.time.Duration.ofSeconds;
 
 /**

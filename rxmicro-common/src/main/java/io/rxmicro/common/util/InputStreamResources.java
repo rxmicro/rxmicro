@@ -48,7 +48,7 @@ public final class InputStreamResources {
                 .or(() -> getUrlInputStreamResource(resourcePath));
     }
 
-    public static List<String> getSupportedInputStreamResources(){
+    public static List<String> getSupportedInputStreamResources() {
         return List.of("classpath", "file", "url");
     }
 

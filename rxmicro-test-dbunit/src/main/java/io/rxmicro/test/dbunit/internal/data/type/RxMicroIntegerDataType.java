@@ -16,7 +16,6 @@
 
 package io.rxmicro.test.dbunit.internal.data.type;
 
-import io.rxmicro.test.dbunit.internal.data.value.InstantIntervalValue;
 import io.rxmicro.test.dbunit.internal.data.value.LongIntervalValue;
 import org.dbunit.dataset.datatype.AbstractDataType;
 import org.dbunit.dataset.datatype.DataType;

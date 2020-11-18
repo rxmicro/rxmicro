@@ -24,9 +24,9 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+import static io.rxmicro.common.util.Reflections.getFieldValue;
 import static io.rxmicro.common.util.Requires.require;
 import static io.rxmicro.test.local.util.FieldNames.getHumanReadableFieldName;
-import static io.rxmicro.common.util.Reflections.getFieldValue;
 
 /**
  * @author nedis

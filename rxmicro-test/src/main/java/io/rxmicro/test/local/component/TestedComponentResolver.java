@@ -24,14 +24,14 @@ import java.util.List;
 import java.util.Optional;
 
 import static io.rxmicro.cdi.BeanFactory.getBean;
+import static io.rxmicro.common.util.Reflections.getFieldValue;
+import static io.rxmicro.common.util.Reflections.setFieldValue;
 import static io.rxmicro.data.RepositoryFactory.getRepository;
 import static io.rxmicro.rest.client.RestClientFactory.getRestClient;
 import static io.rxmicro.runtime.local.Instances.instantiate;
 import static io.rxmicro.test.internal.DetectTypeRules.isBeanField;
 import static io.rxmicro.test.internal.DetectTypeRules.isRepositoryField;
 import static io.rxmicro.test.internal.DetectTypeRules.isRestClientField;
-import static io.rxmicro.common.util.Reflections.getFieldValue;
-import static io.rxmicro.common.util.Reflections.setFieldValue;
 
 /**
  * @author nedis

@@ -29,6 +29,6 @@ public class ErrorHandler {
 
     protected static final Logger LOGGER = LoggerFactory.getLogger(ErrorHandler.class);
 
-    protected ErrorHandler(){
+    protected ErrorHandler() {
     }
 }

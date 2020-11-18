@@ -27,11 +27,11 @@ import java.util.Set;
 import static io.rxmicro.common.local.DeniedPackages.isDeniedPackage;
 import static io.rxmicro.common.util.ExCollections.unmodifiableMap;
 import static io.rxmicro.common.util.GeneratedClassRules.isGeneratedClass;
+import static io.rxmicro.common.util.Reflections.allFields;
+import static io.rxmicro.common.util.Reflections.getFieldValue;
 import static io.rxmicro.common.util.Requires.require;
 import static io.rxmicro.test.local.util.Mocks.isMock;
 import static io.rxmicro.test.local.util.UserComponents.isUserComponentField;
-import static io.rxmicro.common.util.Reflections.allFields;
-import static io.rxmicro.common.util.Reflections.getFieldValue;
 import static java.util.function.Function.identity;
 import static java.util.stream.Collectors.toMap;
 
