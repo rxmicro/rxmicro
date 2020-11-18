@@ -16,6 +16,8 @@
 
 package io.rxmicro.tool.common;
 
+import io.rxmicro.common.util.Reflections;
+
 /**
  * Test fixer class names.
  *
@@ -23,6 +25,15 @@ package io.rxmicro.tool.common;
  * @since 0.1
  */
 public final class TestFixers {
+
+    /**
+     * Returns the {@link Module} for the {@code rxmicro.tool.common} module.
+     *
+     * @return the {@link Module} for the {@code rxmicro.tool.common} module
+     */
+    public static Module getToolCommonModule() {
+        return Reflections.class.getModule();
+    }
 
     /**
      * Fixer class name for component tests.

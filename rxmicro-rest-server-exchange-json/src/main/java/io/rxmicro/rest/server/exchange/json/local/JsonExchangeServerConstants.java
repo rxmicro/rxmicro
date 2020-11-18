@@ -14,24 +14,16 @@
  * limitations under the License.
  */
 
-package io.rxmicro.test.local.util;
-
-import static io.rxmicro.common.util.Reflections.getDeclaredField;
+package io.rxmicro.rest.server.exchange.json.local;
 
 /**
  * @author nedis
  * @since 0.1
  */
-public final class Inners {
+public final class JsonExchangeServerConstants {
 
-    public static boolean isInnerClass(final Class<?> clazz) {
-        return clazz.isMemberClass();
-    }
+    public static final String MESSAGE = "message";
 
-    public static Class<?> getOuterClass(final Class<?> clazz) {
-        return getDeclaredField(clazz, "this$0").getType();
-    }
-
-    private Inners() {
+    private JsonExchangeServerConstants() {
     }
 }

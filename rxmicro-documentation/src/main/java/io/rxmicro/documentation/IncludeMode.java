@@ -22,7 +22,7 @@ package io.rxmicro.documentation;
  * @author nedis
  * @see Author
  * @see BaseEndpoint
- * @see Constants
+ * @see DocumentationConstants
  * @see Description
  * @see DocumentationDefinition
  * @see DocumentationVersion

@@ -22,7 +22,7 @@ import org.junit.jupiter.api.extension.ExtensionContext;
 
 import java.util.List;
 
-import static io.rxmicro.tool.common.Reflections.getFieldValue;
+import static io.rxmicro.common.util.Reflections.getFieldValue;
 
 /**
  * @author nedis

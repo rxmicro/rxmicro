@@ -30,8 +30,8 @@ import static io.rxmicro.runtime.local.Instances.instantiate;
 import static io.rxmicro.test.internal.DetectTypeRules.isBeanField;
 import static io.rxmicro.test.internal.DetectTypeRules.isRepositoryField;
 import static io.rxmicro.test.internal.DetectTypeRules.isRestClientField;
-import static io.rxmicro.tool.common.Reflections.getFieldValue;
-import static io.rxmicro.tool.common.Reflections.setFieldValue;
+import static io.rxmicro.common.util.Reflections.getFieldValue;
+import static io.rxmicro.common.util.Reflections.setFieldValue;
 
 /**
  * @author nedis

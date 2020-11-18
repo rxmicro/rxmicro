@@ -4,7 +4,6 @@ import io.rxmicro.data.RepositoryFactory;
 import io.rxmicro.examples.processor.mongo.$$MongoDataRepository;
 import io.rxmicro.examples.processor.mongo.DataRepository;
 
-import static io.rxmicro.common.detail.Customizers.invokeStaticSection;
 import static io.rxmicro.data.mongo.detail.MongoRepositoryFactory.createMongoRepository;
 
 /**
@@ -13,7 +12,7 @@ import static io.rxmicro.data.mongo.detail.MongoRepositoryFactory.createMongoRep
 public final class $$RepositoryFactoryImpl extends RepositoryFactory {
 
     static {
-        invokeStaticSection($$EnvironmentCustomizer.class);
+        $$EnvironmentCustomizer.customize();
     }
 
     public $$RepositoryFactoryImpl() {

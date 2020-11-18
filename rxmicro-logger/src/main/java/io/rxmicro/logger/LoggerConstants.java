@@ -24,7 +24,7 @@ package io.rxmicro.logger;
  * @see Logger
  * @since 0.1
  */
-public final class Constants {
+public final class LoggerConstants {
 
     /**
      * The prefix for environment variable or java system properties that
@@ -57,6 +57,6 @@ public final class Constants {
      */
     public static final String CONFIGURATION_PROPERTIES_HIDE = "configuration.properties.hide";
 
-    private Constants() {
+    private LoggerConstants() {
     }
 }

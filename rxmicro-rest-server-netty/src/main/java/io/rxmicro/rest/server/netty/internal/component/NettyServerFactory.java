@@ -33,7 +33,7 @@ import io.rxmicro.rest.server.netty.NettyRestServerConfig;
 import java.util.ServiceLoader;
 import java.util.concurrent.CountDownLatch;
 
-import static io.rxmicro.common.Constants.RX_MICRO_FRAMEWORK_NAME;
+import static io.rxmicro.common.CommonConstants.RX_MICRO_FRAMEWORK_NAME;
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.Requires.require;
 import static io.rxmicro.config.Configs.getConfig;

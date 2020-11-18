@@ -23,7 +23,12 @@ package io.rxmicro.common;
  * @since 0.1
  */
 @SuppressWarnings("JavaDoc")
-public final class Constants {
+public final class CommonConstants {
+
+    /**
+     * The reference to the {@link Module} object of the {@code rxmicro.common} module.
+     */
+    public static final Module RX_MICRO_COMMON_MODULE = CommonConstants.class.getModule();
 
     /**
      * The RxMicro framework name: {@value #RX_MICRO_FRAMEWORK_NAME}.
@@ -55,7 +60,7 @@ public final class Constants {
      */
     public static final String RX_MICRO_RUNTIME_STRICT_MODE = "RX_MICRO_RUNTIME_STRICT_MODE";
 
-    private Constants() {
+    private CommonConstants() {
     }
 
     /**

@@ -34,7 +34,7 @@ package io.rxmicro.documentation;
  * @see Title
  * @since 0.1
  */
-public final class Constants {
+public final class DocumentationConstants {
 
     /**
      * Default author name.
@@ -56,6 +56,6 @@ public final class Constants {
      */
     public static final String DEFAULT_LICENSE_URL = "http://www.apache.org/licenses/LICENSE-2.0";
 
-    private Constants() {
+    private DocumentationConstants() {
     }
 }

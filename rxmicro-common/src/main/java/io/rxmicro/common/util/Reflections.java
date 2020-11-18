@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package io.rxmicro.tool.common;
+package io.rxmicro.common.util;
 
 import io.rxmicro.common.CheckedWrapperException;
 
@@ -29,7 +29,7 @@ import java.util.Set;
 import java.util.function.Predicate;
 
 import static io.rxmicro.common.util.Formats.format;
-import static io.rxmicro.tool.common.internal.FinalFieldUpdater.setFinalFieldValue;
+import static io.rxmicro.common.internal.FinalFieldUpdater.setFinalFieldValue;
 import static java.lang.reflect.Modifier.isFinal;
 import static java.lang.reflect.Modifier.isStatic;
 import static java.util.Collections.unmodifiableList;
@@ -43,15 +43,6 @@ import static java.util.stream.Collectors.toList;
  * @since 0.1
  */
 public final class Reflections {
-
-    /**
-     * Returns the {@link Module} for the {@code rxmicro.tool.common} module.
-     *
-     * @return the {@link Module} for the {@code rxmicro.tool.common} module
-     */
-    public static Module getToolCommonModule() {
-        return Reflections.class.getModule();
-    }
 
     /**
      * Returns the all declared fields from the specified class instance and all it parents (except {@link Object})

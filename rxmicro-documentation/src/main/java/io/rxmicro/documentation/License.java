@@ -21,8 +21,8 @@ import java.lang.annotation.Repeatable;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
-import static io.rxmicro.documentation.Constants.DEFAULT_LICENSE_NAME;
-import static io.rxmicro.documentation.Constants.DEFAULT_LICENSE_URL;
+import static io.rxmicro.documentation.DocumentationConstants.DEFAULT_LICENSE_NAME;
+import static io.rxmicro.documentation.DocumentationConstants.DEFAULT_LICENSE_URL;
 import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
 import static java.lang.annotation.ElementType.MODULE;
 import static java.lang.annotation.RetentionPolicy.SOURCE;
@@ -36,7 +36,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * @author nedis
  * @see Author
  * @see BaseEndpoint
- * @see Constants
+ * @see DocumentationConstants
  * @see Description
  * @see DocumentationDefinition
  * @see DocumentationVersion

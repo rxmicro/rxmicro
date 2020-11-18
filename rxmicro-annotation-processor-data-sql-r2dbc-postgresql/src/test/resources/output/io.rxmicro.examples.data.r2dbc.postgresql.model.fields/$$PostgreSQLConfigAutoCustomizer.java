@@ -19,6 +19,10 @@ public final class $$PostgreSQLConfigAutoCustomizer extends PostgreSQLConfigAuto
         registerAllPostgreSQLCodecs(POSTGRES_ENUM_MAPPING);
     }
 
+    public static void customize() {
+        //do nothing. All customization is done at the static section
+    }
+
     private $$PostgreSQLConfigAutoCustomizer(){
     }
 }

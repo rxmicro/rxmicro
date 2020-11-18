@@ -5,8 +5,7 @@ import io.rxmicro.examples.rest.client.expressions.CustomRestClientConfig;
 import io.rxmicro.examples.rest.client.expressions.RESTClient;
 import io.rxmicro.rest.client.RestClientFactory;
 
-import static io.rxmicro.common.detail.Customizers.invokeStaticSection;
-import static io.rxmicro.config.Configs.getConfigModule;
+import static io.rxmicro.config.ConfigConstants.RX_MICRO_CONFIG_MODULE;
 import static io.rxmicro.rest.client.detail.RestClientImplFactory.createRestClient;
 
 /**
@@ -15,10 +14,10 @@ import static io.rxmicro.rest.client.detail.RestClientImplFactory.createRestClie
 public final class $$RestClientFactoryImpl extends RestClientFactory {
 
     static {
-        invokeStaticSection($$EnvironmentCustomizer.class);
+        $$EnvironmentCustomizer.customize();
         // Add required module declaration automatically
         final Module currentModule = $$RestClientFactoryImpl.class.getModule();
-        currentModule.addOpens("io.rxmicro.examples.rest.client.expressions", getConfigModule());
+        currentModule.addOpens("io.rxmicro.examples.rest.client.expressions", RX_MICRO_CONFIG_MODULE);
     }
 
     public $$RestClientFactoryImpl() {

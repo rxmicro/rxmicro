@@ -22,7 +22,7 @@ package io.rxmicro.model;
  * @author nedis
  * @since 0.4
  */
-public final class Constants {
+public final class ModelConstants {
 
     /**
      * Underscored delimiter.
@@ -34,6 +34,6 @@ public final class Constants {
      */
     public static final String HYPHEN_DELIMITER = "-";
 
-    private Constants() {
+    private ModelConstants() {
     }
 }

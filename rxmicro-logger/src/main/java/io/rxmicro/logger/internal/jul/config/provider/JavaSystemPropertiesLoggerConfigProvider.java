@@ -22,7 +22,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import static io.rxmicro.common.util.ExCollections.unmodifiableOrderedMap;
-import static io.rxmicro.logger.Constants.LOGGER_VARIABLE_PREFIX;
+import static io.rxmicro.logger.LoggerConstants.LOGGER_VARIABLE_PREFIX;
 
 /**
  * @author nedis

@@ -24,7 +24,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Base64;
 import java.util.Random;
 
-import static io.rxmicro.common.Constants.NANOS_IN_1_MILLIS;
+import static io.rxmicro.common.CommonConstants.NANOS_IN_1_MILLIS;
 
 /**
  * Generates unique IDs only within the framework of starting one JVM.

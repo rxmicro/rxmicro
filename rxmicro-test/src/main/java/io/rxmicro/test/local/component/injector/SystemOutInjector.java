@@ -24,8 +24,8 @@ import java.io.PrintStream;
 import java.lang.reflect.Field;
 import java.util.List;
 
-import static io.rxmicro.tool.common.Reflections.getFieldValue;
-import static io.rxmicro.tool.common.Reflections.setFieldValue;
+import static io.rxmicro.common.util.Reflections.getFieldValue;
+import static io.rxmicro.common.util.Reflections.setFieldValue;
 
 /**
  * @author nedis

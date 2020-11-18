@@ -22,7 +22,7 @@ import io.rxmicro.annotation.processor.common.model.AnnotationProcessorType;
 
 import java.math.BigDecimal;
 
-import static io.rxmicro.common.Constants.NANOS_IN_1_SECOND;
+import static io.rxmicro.common.CommonConstants.NANOS_IN_1_SECOND;
 import static java.math.RoundingMode.HALF_UP;
 
 /**

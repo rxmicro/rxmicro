@@ -14,16 +14,21 @@
  * limitations under the License.
  */
 
-package io.rxmicro.rest.server.exchange.json.local;
+package io.rxmicro.documentation.asciidoctor;
 
 /**
+ * Predefined constants.
+ *
  * @author nedis
- * @since 0.1
+ * @since 0.2
  */
-public final class Constants {
+public final class AsciidoctorDocumentationConstants {
 
-    public static final String MESSAGE = "message";
+    /**
+     * Required static field for user defined exception.
+     */
+    public static final String STATUS_CODE_STATIC_FIELD_NAME = "STATUS_CODE";
 
-    private Constants() {
+    private AsciidoctorDocumentationConstants() {
     }
 }

@@ -27,14 +27,14 @@ import io.rxmicro.rest.server.local.component.HttpErrorResponseBodyBuilder;
 import java.util.Map;
 import java.util.Optional;
 
-import static io.rxmicro.common.Constants.RX_MICRO_FRAMEWORK_NAME;
-import static io.rxmicro.exchange.json.Constants.CONTENT_TYPE_APPLICATION_JSON;
+import static io.rxmicro.common.CommonConstants.RX_MICRO_FRAMEWORK_NAME;
+import static io.rxmicro.exchange.json.JsonExchangeConstants.CONTENT_TYPE_APPLICATION_JSON;
 import static io.rxmicro.http.HttpStandardHeaderNames.CONTENT_TYPE;
 import static io.rxmicro.http.HttpStandardHeaderNames.SERVER;
 import static io.rxmicro.json.JsonHelper.toJsonString;
 import static io.rxmicro.json.JsonTypes.asJsonObject;
 import static io.rxmicro.json.JsonTypes.isJsonObject;
-import static io.rxmicro.rest.server.exchange.json.local.Constants.MESSAGE;
+import static io.rxmicro.rest.server.exchange.json.local.JsonExchangeServerConstants.MESSAGE;
 
 /**
  * @author nedis

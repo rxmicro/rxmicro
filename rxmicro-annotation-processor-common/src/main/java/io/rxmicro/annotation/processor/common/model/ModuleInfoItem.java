@@ -34,22 +34,22 @@ public final class ModuleInfoItem {
 
     private final String packageName;
 
-    private final Class<?> factoryClass;
+    private final Class<?> constantClass;
 
-    private final String factoryMethod;
+    private final String fieldName;
 
     public ModuleInfoItem(final ModuleElement.DirectiveKind directive,
                           final String packageName,
-                          final Class<?> factoryClass,
-                          final String factoryMethod) {
+                          final Class<?> constantClass,
+                          final String fieldName) {
         this.directive = require(directive);
         this.packageName = require(packageName);
-        this.factoryClass = require(factoryClass);
-        this.factoryMethod = require(factoryMethod);
+        this.constantClass = require(constantClass);
+        this.fieldName = require(fieldName);
     }
 
     public void addImports(final ClassHeader.Builder builder) {
-        builder.addStaticImport(factoryClass, factoryMethod);
+        builder.addStaticImport(constantClass, fieldName);
     }
 
     @UsedByFreemarker("$$RestClientFactoryImplTemplate.javaftl")
@@ -70,6 +70,6 @@ public final class ModuleInfoItem {
 
     @UsedByFreemarker("$$RestClientFactoryImplTemplate.javaftl")
     public String getModuleExpression() {
-        return format("?()", factoryMethod);
+        return fieldName;
     }
 }

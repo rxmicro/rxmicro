@@ -21,7 +21,7 @@ import io.rxmicro.json.JsonHelper;
 
 import java.util.function.Function;
 
-import static io.rxmicro.exchange.json.Constants.CONTENT_TYPE_APPLICATION_JSON;
+import static io.rxmicro.exchange.json.JsonExchangeConstants.CONTENT_TYPE_APPLICATION_JSON;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 /**

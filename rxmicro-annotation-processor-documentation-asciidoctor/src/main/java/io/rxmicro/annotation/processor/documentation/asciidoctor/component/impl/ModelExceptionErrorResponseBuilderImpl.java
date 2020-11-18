@@ -42,7 +42,7 @@ import static io.rxmicro.annotation.processor.common.util.Annotations.getRequire
 import static io.rxmicro.annotation.processor.common.util.Elements.allFields;
 import static io.rxmicro.annotation.processor.common.util.Elements.allModelFields;
 import static io.rxmicro.annotation.processor.documentation.asciidoctor.component.DocumentedModelFieldBuilder.buildApiVersionHeaderDocumentedModelField;
-import static io.rxmicro.documentation.asciidoctor.Constants.STATUS_CODE_STATIC_FIELD_NAME;
+import static io.rxmicro.documentation.asciidoctor.AsciidoctorDocumentationConstants.STATUS_CODE_STATIC_FIELD_NAME;
 
 /**
  * @author nedis

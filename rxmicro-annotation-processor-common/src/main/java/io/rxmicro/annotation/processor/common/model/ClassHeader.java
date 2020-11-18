@@ -203,15 +203,15 @@ public final class ClassHeader {
 
         @BuilderMethod
         public Builder addStaticImport(final Class<?> className,
-                                       final String methodName) {
-            addStaticImport(className.getName(), methodName);
+                                       final String methodOrFieldName) {
+            addStaticImport(className.getName(), methodOrFieldName);
             return this;
         }
 
         @BuilderMethod
         public Builder addStaticImport(final String className,
-                                       final String methodName) {
-            staticImports.add(format("?.?", className, methodName));
+                                       final String methodOrFieldName) {
+            staticImports.add(format("?.?", className, methodOrFieldName));
             return this;
         }
 

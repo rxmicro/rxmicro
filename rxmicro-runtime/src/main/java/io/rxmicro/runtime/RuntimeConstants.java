@@ -14,24 +14,21 @@
  * limitations under the License.
  */
 
-package io.rxmicro.test.local.util;
-
-import static io.rxmicro.common.util.Reflections.getDeclaredField;
+package io.rxmicro.runtime;
 
 /**
+ * The common constants for the {@code rxmicro.runtime} module.
+ *
  * @author nedis
- * @since 0.1
+ * @since 0.7
  */
-public final class Inners {
+public final class RuntimeConstants {
 
-    public static boolean isInnerClass(final Class<?> clazz) {
-        return clazz.isMemberClass();
-    }
+    /**
+     * The reference to the {@link Module} object of the {@code rxmicro.runtime} module.
+     */
+    public static final Module RX_MICRO_RUNTIME_MODULE = RuntimeConstants.class.getModule();
 
-    public static Class<?> getOuterClass(final Class<?> clazz) {
-        return getDeclaredField(clazz, "this$0").getType();
-    }
-
-    private Inners() {
+    private RuntimeConstants(){
     }
 }

@@ -28,7 +28,7 @@ import java.util.Map;
 import java.util.Set;
 
 import static io.rxmicro.common.util.Requires.require;
-import static io.rxmicro.tool.common.Reflections.setFieldValue;
+import static io.rxmicro.common.util.Reflections.setFieldValue;
 import static java.util.stream.Collectors.toList;
 
 /**

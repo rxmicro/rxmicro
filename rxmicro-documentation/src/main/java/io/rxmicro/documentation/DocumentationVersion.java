@@ -33,7 +33,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * @author nedis
  * @see Author
  * @see BaseEndpoint
- * @see Constants
+ * @see DocumentationConstants
  * @see Description
  * @see DocumentationDefinition
  * @see IncludeDescription

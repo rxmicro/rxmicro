@@ -19,7 +19,7 @@ final class ${CLASS_NAME} {
     <#if CURRENT_MODULE_IS_NAMED>
     private static void addExportsToRuntime() {
         final Module currentModule = $$EnvironmentCustomizer.class.getModule();
-        currentModule.addExports("${PACKAGE_NAME}", getRuntimeModule());
+        currentModule.addExports("${PACKAGE_NAME}", RX_MICRO_RUNTIME_MODULE);
     }
 
     </#if>

@@ -102,15 +102,6 @@ public final class Configs {
         return getConfig(getDefaultNameSpace(configClass), configClass);
     }
 
-    /**
-     * Returns the {@link Module} instance for the current class.
-     *
-     * @return the {@link Module} instance for the current class
-     */
-    public static Module getConfigModule() {
-        return Configs.class.getModule();
-    }
-
     private Configs(final Map<String, Config> storage,
                     final Set<ConfigSource> configSources,
                     final List<String> commandLineArgs) {

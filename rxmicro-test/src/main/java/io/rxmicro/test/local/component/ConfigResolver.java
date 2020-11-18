@@ -35,7 +35,7 @@ import static io.rxmicro.config.Config.getDefaultNameSpace;
 import static io.rxmicro.config.detail.DefaultConfigValueBuilder.putDefaultConfigValue;
 import static io.rxmicro.test.local.util.Inners.getOuterClass;
 import static io.rxmicro.test.local.util.Inners.isInnerClass;
-import static io.rxmicro.tool.common.Reflections.getFieldValue;
+import static io.rxmicro.common.util.Reflections.getFieldValue;
 import static java.util.Arrays.asList;
 import static java.util.Collections.singletonList;
 import static java.util.Map.entry;

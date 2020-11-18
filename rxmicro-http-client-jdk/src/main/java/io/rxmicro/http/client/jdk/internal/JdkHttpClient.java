@@ -38,7 +38,7 @@ import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
 
-import static io.rxmicro.common.Constants.RX_MICRO_FRAMEWORK_NAME;
+import static io.rxmicro.common.CommonConstants.RX_MICRO_FRAMEWORK_NAME;
 import static io.rxmicro.common.util.Exceptions.isInstanceOf;
 import static io.rxmicro.common.util.Exceptions.reThrow;
 import static io.rxmicro.common.util.Formats.format;

@@ -21,8 +21,8 @@ import io.rxmicro.annotation.processor.common.component.ModuleInfoCustomizer;
 import io.rxmicro.annotation.processor.common.model.ModuleInfoItem;
 import io.rxmicro.annotation.processor.common.model.error.InternalErrorException;
 import io.rxmicro.common.RxMicroModule;
-import io.rxmicro.config.Configs;
-import io.rxmicro.runtime.detail.RxMicroRuntime;
+import io.rxmicro.config.ConfigConstants;
+import io.rxmicro.runtime.RuntimeConstants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,8 +49,8 @@ import static javax.lang.model.element.ModuleElement.DirectiveKind.OPENS;
 public final class ModuleInfoCustomizerImpl implements ModuleInfoCustomizer {
 
     private final Map<RxMicroModule, Map.Entry<Class<?>, String>> moduleMapping = Map.of(
-            RX_MICRO_RUNTIME_MODULE, entry(RxMicroRuntime.class, "getRuntimeModule"),
-            RX_MICRO_CONFIG_MODULE, entry(Configs.class, "getConfigModule")
+            RX_MICRO_RUNTIME_MODULE, entry(RuntimeConstants.class, "RX_MICRO_RUNTIME_MODULE"),
+            RX_MICRO_CONFIG_MODULE, entry(ConfigConstants.class, "RX_MICRO_CONFIG_MODULE")
     );
 
     @Override

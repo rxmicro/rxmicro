@@ -14,21 +14,21 @@
  * limitations under the License.
  */
 
-package io.rxmicro.documentation.asciidoctor;
+package io.rxmicro.exchange.json;
 
 /**
- * Predefined constants.
+ * Defines the JSON constants.
  *
  * @author nedis
- * @since 0.2
+ * @since 0.1
  */
-public final class Constants {
+public final class JsonExchangeConstants {
 
     /**
-     * Required static field for user defined exception.
+     * Mime content type for JSON format.
      */
-    public static final String STATUS_CODE_STATIC_FIELD_NAME = "STATUS_CODE";
+    public static final String CONTENT_TYPE_APPLICATION_JSON = "application/json";
 
-    private Constants() {
+    private JsonExchangeConstants() {
     }
 }

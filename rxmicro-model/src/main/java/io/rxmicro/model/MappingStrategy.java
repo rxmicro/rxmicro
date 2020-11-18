@@ -20,8 +20,8 @@ import java.util.List;
 import java.util.Locale;
 
 import static io.rxmicro.common.util.Strings.capitalize;
-import static io.rxmicro.model.Constants.HYPHEN_DELIMITER;
-import static io.rxmicro.model.Constants.UNDERSCORED_DELIMITER;
+import static io.rxmicro.model.ModelConstants.HYPHEN_DELIMITER;
+import static io.rxmicro.model.ModelConstants.UNDERSCORED_DELIMITER;
 import static java.util.stream.Collectors.joining;
 
 /**

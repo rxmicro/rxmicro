@@ -22,7 +22,7 @@ import io.rxmicro.logger.internal.jul.config.adapter.pattern.BiConsumerArguments
 
 import java.util.logging.LogRecord;
 
-import static io.rxmicro.common.Constants.RX_MICRO_RUNTIME_STRICT_MODE;
+import static io.rxmicro.common.CommonConstants.RX_MICRO_RUNTIME_STRICT_MODE;
 import static io.rxmicro.logger.internal.jul.InternalLoggerHelper.logInternal;
 import static java.util.logging.Level.WARNING;
 

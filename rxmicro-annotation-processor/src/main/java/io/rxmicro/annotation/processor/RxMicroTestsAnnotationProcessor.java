@@ -23,9 +23,9 @@ import io.rxmicro.annotation.processor.common.model.AnnotationProcessorType;
 import io.rxmicro.annotation.processor.common.model.ClassHeader;
 import io.rxmicro.annotation.processor.common.model.ClassStructure;
 import io.rxmicro.annotation.processor.common.model.EnvironmentContext;
+import io.rxmicro.common.CommonConstants;
 import io.rxmicro.common.util.Formats;
-import io.rxmicro.runtime.detail.RxMicroRuntime;
-import io.rxmicro.tool.common.Reflections;
+import io.rxmicro.runtime.RuntimeConstants;
 
 import java.util.Map;
 import java.util.Set;
@@ -138,7 +138,7 @@ public final class RxMicroTestsAnnotationProcessor extends BaseRxMicroAnnotation
             customizeClassHeader(builder);
             return builder
                     .addStaticImport(Formats.class, "format")
-                    .addStaticImport(RxMicroRuntime.class, "getRuntimeModule")
+                    .addStaticImport(RuntimeConstants.class, "RX_MICRO_RUNTIME_MODULE")
                     .build();
         }
 
@@ -160,7 +160,7 @@ public final class RxMicroTestsAnnotationProcessor extends BaseRxMicroAnnotation
         protected void customizeClassHeader(final ClassHeader.Builder builder) {
             builder
                     .addImports(Stream.class)
-                    .addStaticImport(Reflections.class, "getToolCommonModule");
+                    .addStaticImport(CommonConstants.class, "RX_MICRO_COMMON_MODULE");
         }
 
         @Override

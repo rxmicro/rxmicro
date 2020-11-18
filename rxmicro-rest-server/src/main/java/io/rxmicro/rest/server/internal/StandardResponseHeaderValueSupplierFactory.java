@@ -18,7 +18,7 @@ package io.rxmicro.rest.server.internal;
 
 import java.util.function.Supplier;
 
-import static io.rxmicro.common.Constants.RX_MICRO_FRAMEWORK_NAME;
+import static io.rxmicro.common.CommonConstants.RX_MICRO_FRAMEWORK_NAME;
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.runtime.detail.RxMicroRuntime.getRxMicroVersion;
 import static java.time.Instant.now;

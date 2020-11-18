@@ -14,21 +14,21 @@
  * limitations under the License.
  */
 
-package io.rxmicro.exchange.json;
+package io.rxmicro.config;
 
 /**
- * Defines the JSON constants.
+ * The common constants for the {@code rxmicro.config} module.
  *
  * @author nedis
- * @since 0.1
+ * @since 0.7
  */
-public final class Constants {
+public final class ConfigConstants {
 
     /**
-     * Mime content type for JSON format.
+     * The reference to the {@link Module} instance of the {@code rxmicro.config} module.
      */
-    public static final String CONTENT_TYPE_APPLICATION_JSON = "application/json";
+    public static final Module RX_MICRO_CONFIG_MODULE = ConfigConstants.class.getModule();
 
-    private Constants() {
+    private ConfigConstants(){
     }
 }

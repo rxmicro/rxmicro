@@ -34,7 +34,7 @@ import java.util.WeakHashMap;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
-import static io.rxmicro.common.Constants.RX_MICRO_RUNTIME_STRICT_MODE;
+import static io.rxmicro.common.CommonConstants.RX_MICRO_RUNTIME_STRICT_MODE;
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.config.Config.RX_MICRO_CONFIG_DIRECTORY_NAME;
 import static io.rxmicro.config.Config.RX_MICRO_CONFIG_FILE_NAME;

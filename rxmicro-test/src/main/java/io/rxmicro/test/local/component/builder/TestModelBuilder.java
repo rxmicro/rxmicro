@@ -44,7 +44,7 @@ import static io.rxmicro.test.local.component.builder.internal.MockReplacementEx
 import static io.rxmicro.test.local.util.Inners.getOuterClass;
 import static io.rxmicro.test.local.util.Inners.isInnerClass;
 import static io.rxmicro.test.local.util.UserComponents.isUserComponentField;
-import static io.rxmicro.tool.common.Reflections.allFields;
+import static io.rxmicro.common.util.Reflections.allFields;
 
 /**
  * @author nedis

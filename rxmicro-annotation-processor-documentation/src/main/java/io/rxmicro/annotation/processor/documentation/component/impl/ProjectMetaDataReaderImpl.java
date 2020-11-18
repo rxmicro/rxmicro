@@ -37,10 +37,10 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import javax.lang.model.element.ModuleElement;
 
-import static io.rxmicro.documentation.Constants.DEFAULT_AUTHOR;
-import static io.rxmicro.documentation.Constants.DEFAULT_EMAIL;
-import static io.rxmicro.documentation.Constants.DEFAULT_LICENSE_NAME;
-import static io.rxmicro.documentation.Constants.DEFAULT_LICENSE_URL;
+import static io.rxmicro.documentation.DocumentationConstants.DEFAULT_AUTHOR;
+import static io.rxmicro.documentation.DocumentationConstants.DEFAULT_EMAIL;
+import static io.rxmicro.documentation.DocumentationConstants.DEFAULT_LICENSE_NAME;
+import static io.rxmicro.documentation.DocumentationConstants.DEFAULT_LICENSE_URL;
 
 /**
  * @author nedis
