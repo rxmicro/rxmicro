@@ -137,8 +137,10 @@ public final class RxMicroTestsAnnotationProcessor extends BaseRxMicroAnnotation
             final ClassHeader.Builder builder = newClassHeaderBuilder(ENTRY_POINT_PACKAGE);
             customizeClassHeader(builder);
             return builder
+                    .addImports(Set.class)
                     .addStaticImport(Formats.class, "format")
                     .addStaticImport(RuntimeConstants.class, "RX_MICRO_RUNTIME_MODULE")
+                    .addStaticImport(CommonConstants.class, "RX_MICRO_COMMON_MODULE")
                     .build();
         }
 
@@ -158,9 +160,7 @@ public final class RxMicroTestsAnnotationProcessor extends BaseRxMicroAnnotation
 
         @Override
         protected void customizeClassHeader(final ClassHeader.Builder builder) {
-            builder
-                    .addImports(Stream.class)
-                    .addStaticImport(CommonConstants.class, "RX_MICRO_COMMON_MODULE");
+            // do nothing
         }
 
         @Override

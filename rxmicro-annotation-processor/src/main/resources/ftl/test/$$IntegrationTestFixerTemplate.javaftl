@@ -10,11 +10,20 @@ public final class ${JAVA_CLASS_NAME} {
     public ${JAVA_CLASS_NAME}() {
         final Module currentModule = getClass().getModule();
         if (currentModule.isNamed()) {
-            final Module unNamedModule = getClass().getClassLoader().getUnnamedModule();
-            currentModule.getPackages().forEach(p -> {
-                currentModule.addOpens(p, unNamedModule);
-                System.out.println(format("opens ?/? to ALL-UNNAMED", currentModule.getName(), p));
-            });
+            System.out.println("Fix the environment for integration test(s)...");
+            final Module unnamedModule = getClass().getClassLoader().getUnnamedModule();
+            final Set<Module> modules = Set.of(unnamedModule, RX_MICRO_COMMON_MODULE);
+            for (final Module module : modules) {
+                for (final String packageName : currentModule.getPackages()) {
+                    currentModule.addOpens(packageName, module);
+                    System.out.println(format(
+                            "opens ?/? to ?",
+                            currentModule.getName(),
+                            packageName,
+                            module.isNamed() ? module.getName() : "ALL-UNNAMED")
+                    );
+                }
+            }
         }
     }
 }

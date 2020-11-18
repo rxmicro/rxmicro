@@ -1,6 +1,6 @@
 package rxmicro;
 
-import java.util.stream.Stream;
+import java.util.Set;
 
 import static io.rxmicro.common.CommonConstants.RX_MICRO_COMMON_MODULE;
 import static io.rxmicro.common.util.Formats.format;
@@ -19,23 +19,20 @@ public final class $$ComponentTestFixer {
     public $$ComponentTestFixer() {
         final Module currentModule = getClass().getModule();
         if (currentModule.isNamed()) {
-            Stream.concat(
-                    Stream.of(
-                            getClass().getClassLoader().getUnnamedModule()
-                    ),
-                    Stream.of(
-                            RX_MICRO_RUNTIME_MODULE,
-                            RX_MICRO_COMMON_MODULE
-                    ).filter(m -> m.isNamed())
-            ).forEach(moduleName -> currentModule.getPackages().forEach(packageName -> {
-                currentModule.addOpens(packageName, moduleName);
-                System.out.println(format(
-                        "opens ?/? to ?",
-                        currentModule.getName(),
-                        packageName,
-                        moduleName.isNamed() ? moduleName.getName() : "ALL-UNNAMED")
-                );
-            }));
+            System.out.println("Fix the environment for componnet test(s)...");
+            final Module unnamedModule = getClass().getClassLoader().getUnnamedModule();
+            final Set<Module> modules = Set.of(unnamedModule, RX_MICRO_RUNTIME_MODULE, RX_MICRO_COMMON_MODULE);
+            for (final Module module : modules) {
+                for (final String packageName : currentModule.getPackages()) {
+                    currentModule.addOpens(packageName, module);
+                    System.out.println(format(
+                            "opens ?/? to ?",
+                            currentModule.getName(),
+                            packageName,
+                            module.isNamed() ? module.getName() : "ALL-UNNAMED")
+                    );
+                }
+            }
         }
     }
 }
