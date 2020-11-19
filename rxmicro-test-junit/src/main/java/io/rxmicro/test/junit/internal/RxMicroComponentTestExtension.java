@@ -94,6 +94,8 @@ public final class RxMicroComponentTestExtension extends AbstractJUnitTestExtens
             new Configs.Builder()
                     .withConfigs(getConfigResolver().getStaticConfigMap(testModel))
                     .build();
+        } else {
+            new Configs.Builder().buildIfNotConfigured();
         }
         final InjectorFactory injectorFactory = new InjectorFactory(testModel);
         repositoryInjector = injectorFactory.createRepositoryInjector();
