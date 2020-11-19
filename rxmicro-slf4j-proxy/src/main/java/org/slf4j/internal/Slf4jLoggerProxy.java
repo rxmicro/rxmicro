@@ -72,20 +72,20 @@ public final class Slf4jLoggerProxy implements org.slf4j.Logger {
     @Override
     public void trace(final String format,
                       final Object arg) {
-        logger.trace(format.replace(SLF4J_PLACEHOLDER, FORMAT_PLACEHOLDER_TOKEN), arg);
+        logger.trace(fixPlaceholders(format), arg);
     }
 
     @Override
     public void trace(final String format,
                       final Object arg1,
                       final Object arg2) {
-        logger.trace(format.replace(SLF4J_PLACEHOLDER, FORMAT_PLACEHOLDER_TOKEN), arg1, arg2);
+        logger.trace(fixPlaceholders(format), arg1, arg2);
     }
 
     @Override
     public void trace(final String format,
                       final Object... arguments) {
-        logger.trace(format.replace(SLF4J_PLACEHOLDER, FORMAT_PLACEHOLDER_TOKEN), arguments);
+        logger.trace(fixPlaceholders(format), arguments);
     }
 
     @Override
@@ -147,20 +147,20 @@ public final class Slf4jLoggerProxy implements org.slf4j.Logger {
     @Override
     public void debug(final String format,
                       final Object arg) {
-        logger.debug(format.replace(SLF4J_PLACEHOLDER, FORMAT_PLACEHOLDER_TOKEN), arg);
+        logger.debug(fixPlaceholders(format), arg);
     }
 
     @Override
     public void debug(final String format,
                       final Object arg1,
                       final Object arg2) {
-        logger.debug(format.replace(SLF4J_PLACEHOLDER, FORMAT_PLACEHOLDER_TOKEN), arg1, arg2);
+        logger.debug(fixPlaceholders(format), arg1, arg2);
     }
 
     @Override
     public void debug(final String format,
                       final Object... arguments) {
-        logger.debug(format.replace(SLF4J_PLACEHOLDER, FORMAT_PLACEHOLDER_TOKEN), arguments);
+        logger.debug(fixPlaceholders(format), arguments);
     }
 
     @Override
@@ -222,20 +222,20 @@ public final class Slf4jLoggerProxy implements org.slf4j.Logger {
     @Override
     public void info(final String format,
                      final Object arg) {
-        logger.info(format.replace(SLF4J_PLACEHOLDER, FORMAT_PLACEHOLDER_TOKEN), arg);
+        logger.info(fixPlaceholders(format), arg);
     }
 
     @Override
     public void info(final String format,
                      final Object arg1,
                      final Object arg2) {
-        logger.info(format.replace(SLF4J_PLACEHOLDER, FORMAT_PLACEHOLDER_TOKEN), arg1, arg2);
+        logger.info(fixPlaceholders(format), arg1, arg2);
     }
 
     @Override
     public void info(final String format,
                      final Object... arguments) {
-        logger.info(format.replace(SLF4J_PLACEHOLDER, FORMAT_PLACEHOLDER_TOKEN), arguments);
+        logger.info(fixPlaceholders(format), arguments);
     }
 
     @Override
@@ -297,20 +297,20 @@ public final class Slf4jLoggerProxy implements org.slf4j.Logger {
     @Override
     public void warn(final String format,
                      final Object arg) {
-        logger.warn(format.replace(SLF4J_PLACEHOLDER, FORMAT_PLACEHOLDER_TOKEN), arg);
+        logger.warn(fixPlaceholders(format), arg);
     }
 
     @Override
     public void warn(final String format,
                      final Object... arguments) {
-        logger.warn(format.replace(SLF4J_PLACEHOLDER, FORMAT_PLACEHOLDER_TOKEN), arguments);
+        logger.warn(fixPlaceholders(format), arguments);
     }
 
     @Override
     public void warn(final String format,
                      final Object arg1,
                      final Object arg2) {
-        logger.warn(format.replace(SLF4J_PLACEHOLDER, FORMAT_PLACEHOLDER_TOKEN), arg1, arg2);
+        logger.warn(fixPlaceholders(format), arg1, arg2);
     }
 
     @Override
@@ -372,20 +372,20 @@ public final class Slf4jLoggerProxy implements org.slf4j.Logger {
     @Override
     public void error(final String format,
                       final Object arg) {
-        logger.error(format.replace(SLF4J_PLACEHOLDER, FORMAT_PLACEHOLDER_TOKEN), arg);
+        logger.error(fixPlaceholders(format), arg);
     }
 
     @Override
     public void error(final String format,
                       final Object arg1,
                       final Object arg2) {
-        logger.error(format.replace(SLF4J_PLACEHOLDER, FORMAT_PLACEHOLDER_TOKEN), arg1, arg2);
+        logger.error(fixPlaceholders(format), arg1, arg2);
     }
 
     @Override
     public void error(final String format,
                       final Object... arguments) {
-        logger.error(format.replace(SLF4J_PLACEHOLDER, FORMAT_PLACEHOLDER_TOKEN), arguments);
+        logger.error(fixPlaceholders(format), arguments);
     }
 
     @Override
@@ -427,5 +427,9 @@ public final class Slf4jLoggerProxy implements org.slf4j.Logger {
                       final String msg,
                       final Throwable throwable) {
         throw new UnsupportedOperationException();
+    }
+
+    private String fixPlaceholders(final String template) {
+        return template.replace(SLF4J_PLACEHOLDER, FORMAT_PLACEHOLDER_TOKEN);
     }
 }
