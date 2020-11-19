@@ -16,6 +16,7 @@
 
 package org.slf4j;
 
+import org.slf4j.internal.ILoggerFactoryProxy;
 import org.slf4j.internal.Slf4jLoggerProxy;
 
 /**
@@ -42,14 +43,18 @@ import org.slf4j.internal.Slf4jLoggerProxy;
  * Please note that all methods in <code>LoggerFactory</code> are static.
  *
  * @author nedis
- * @see <a href="http://www.slf4j.org/apidocs/org/slf4j/LoggerFactory.html">http://www.slf4j.org/apidocs/org/slf4j/LoggerFactory.html</a>
+ * @see <a href="https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/LoggerFactory.html">
+ *     https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/LoggerFactory.html</a>
  * @since 0.3
  */
 public final class LoggerFactory {
 
+    private static final ILoggerFactory I_LOGGER_FACTORY = new ILoggerFactoryProxy();
+
     /**
      * See
-     * <a href="http://www.slf4j.org/apidocs/org/slf4j/LoggerFactory.html">http://www.slf4j.org/apidocs/org/slf4j/LoggerFactory.html</a>.
+     * <a href="https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/LoggerFactory.html">
+     *     https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/LoggerFactory.html</a>.
      *
      * <p>
      * Return a logger named according to the name parameter using the
@@ -64,7 +69,8 @@ public final class LoggerFactory {
 
     /**
      * See
-     * <a href="http://www.slf4j.org/apidocs/org/slf4j/LoggerFactory.html">http://www.slf4j.org/apidocs/org/slf4j/LoggerFactory.html</a>.
+     * <a href="https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/LoggerFactory.html">
+     *     https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/LoggerFactory.html</a>.
      *
      * <p>
      * Return a logger named corresponding to the class passed as parameter,
@@ -87,7 +93,8 @@ public final class LoggerFactory {
 
     /**
      * See
-     * <a href="http://www.slf4j.org/apidocs/org/slf4j/LoggerFactory.html">http://www.slf4j.org/apidocs/org/slf4j/LoggerFactory.html</a>.
+     * <a href="https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/LoggerFactory.html">
+     *     https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/LoggerFactory.html</a>.
      *
      * <p>
      * Return the {@link ILoggerFactory} instance in use.
@@ -95,11 +102,10 @@ public final class LoggerFactory {
      * <p>
      * ILoggerFactory instance is bound with this class at compile time.
      *
-     * @return nothing
-     * @throws UnsupportedOperationException proxy does not contain ILoggerFactory implementation
+     * @return the ILoggerFactory instance in use
      */
     public static ILoggerFactory getILoggerFactory() {
-        throw new UnsupportedOperationException("Proxy does not contain ILoggerFactory implementation");
+        return I_LOGGER_FACTORY;
     }
 
     private LoggerFactory() {

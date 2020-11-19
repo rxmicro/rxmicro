@@ -37,14 +37,16 @@ package org.slf4j;
  * compile time.
  *
  * @author nedis
- * @see <a href="http://www.slf4j.org/apidocs/org/slf4j/ILoggerFactory.html">http://www.slf4j.org/apidocs/org/slf4j/ILoggerFactory.html</a>
+ * @see <a href="https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/ILoggerFactory.html">
+ *     https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/ILoggerFactory.html</a>
  * @since 0.3
  */
 public interface ILoggerFactory {
 
     /**
      * See
-     * <a href="http://www.slf4j.org/apidocs/org/slf4j/ILoggerFactory.html">http://www.slf4j.org/apidocs/org/slf4j/ILoggerFactory.html</a>.
+     * <a href="https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/ILoggerFactory.html">
+     *     https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/ILoggerFactory.html</a>.
      *
      * <p>
      * Return an appropriate {@link Logger} instance as specified by the

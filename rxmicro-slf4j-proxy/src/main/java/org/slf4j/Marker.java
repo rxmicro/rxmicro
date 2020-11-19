@@ -41,13 +41,15 @@ import java.util.Iterator;
  * references of their own.
  *
  * @author nedis
- * @see <a href="http://www.slf4j.org/apidocs/org/slf4j/Marker.html">http://www.slf4j.org/apidocs/org/slf4j/Marker.html</a>
+ * @see <a href="https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Marker.html">
+ *     https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Marker.html</a>
  * @since 0.3
  */
 public interface Marker extends Serializable {
 
     /**
-     * See <a href="http://www.slf4j.org/apidocs/org/slf4j/Marker.html">http://www.slf4j.org/apidocs/org/slf4j/Marker.html</a>.
+     * See <a href="https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Marker.html">
+     *     https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Marker.html</a>.
      *
      * <p>
      * This constant represents any marker, including a {@code null} marker.
@@ -55,7 +57,8 @@ public interface Marker extends Serializable {
     String ANY_MARKER = "*";
 
     /**
-     * See <a href="http://www.slf4j.org/apidocs/org/slf4j/Marker.html">http://www.slf4j.org/apidocs/org/slf4j/Marker.html</a>.
+     * See <a href="https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Marker.html">
+     *     https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Marker.html</a>.
      *
      * <p>
      * This constant represents any non-null marker.
@@ -63,7 +66,8 @@ public interface Marker extends Serializable {
     String ANY_NON_NULL_MARKER = "+";
 
     /**
-     * See <a href="http://www.slf4j.org/apidocs/org/slf4j/Marker.html">http://www.slf4j.org/apidocs/org/slf4j/Marker.html</a>.
+     * See <a href="https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Marker.html">
+     *     https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Marker.html</a>.
      *
      * <p>
      * Get the name of this Marker.
@@ -73,7 +77,8 @@ public interface Marker extends Serializable {
     String getName();
 
     /**
-     * See <a href="http://www.slf4j.org/apidocs/org/slf4j/Marker.html">http://www.slf4j.org/apidocs/org/slf4j/Marker.html</a>.
+     * See <a href="https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Marker.html">
+     *     https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Marker.html</a>.
      *
      * <p>
      * Add a reference to another Marker.
@@ -84,7 +89,8 @@ public interface Marker extends Serializable {
     void add(Marker reference);
 
     /**
-     * See <a href="http://www.slf4j.org/apidocs/org/slf4j/Marker.html">http://www.slf4j.org/apidocs/org/slf4j/Marker.html</a>.
+     * See <a href="https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Marker.html">
+     *     https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Marker.html</a>.
      *
      * <p>
      * Remove a marker reference.
@@ -95,7 +101,8 @@ public interface Marker extends Serializable {
     boolean remove(Marker reference);
 
     /**
-     * See <a href="http://www.slf4j.org/apidocs/org/slf4j/Marker.html">http://www.slf4j.org/apidocs/org/slf4j/Marker.html</a>.
+     * See <a href="https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Marker.html">
+     *     https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Marker.html</a>.
      *
      * <p>
      * Does this marker have any references?
@@ -107,7 +114,8 @@ public interface Marker extends Serializable {
     boolean hasChildren();
 
     /**
-     * See <a href="http://www.slf4j.org/apidocs/org/slf4j/Marker.html">http://www.slf4j.org/apidocs/org/slf4j/Marker.html</a>.
+     * See <a href="https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Marker.html">
+     *     https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Marker.html</a>.
      *
      * <p>
      * Does this marker have any references?
@@ -117,7 +125,8 @@ public interface Marker extends Serializable {
     boolean hasReferences();
 
     /**
-     * See <a href="http://www.slf4j.org/apidocs/org/slf4j/Marker.html">http://www.slf4j.org/apidocs/org/slf4j/Marker.html</a>.
+     * See <a href="https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Marker.html">
+     *     https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Marker.html</a>.
      *
      * <p>
      * Returns an Iterator which can be used to iterate over the references of this
@@ -128,7 +137,8 @@ public interface Marker extends Serializable {
     Iterator<Marker> iterator();
 
     /**
-     * See <a href="http://www.slf4j.org/apidocs/org/slf4j/Marker.html">http://www.slf4j.org/apidocs/org/slf4j/Marker.html</a>.
+     * See <a href="https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Marker.html">
+     *     https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Marker.html</a>.
      *
      * <p>
      * Does this marker contain a reference to the 'other' marker? Marker A is defined 
@@ -142,7 +152,8 @@ public interface Marker extends Serializable {
     boolean contains(Marker other);
 
     /**
-     * See <a href="http://www.slf4j.org/apidocs/org/slf4j/Marker.html">http://www.slf4j.org/apidocs/org/slf4j/Marker.html</a>.
+     * See <a href="https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Marker.html">
+     *     https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Marker.html</a>.
      *
      * <p>
      * Does this marker contain the marker named 'name'?

@@ -61,7 +61,7 @@ public final class Slf4jLoggerProxy implements org.slf4j.Logger {
 
     @Override
     public boolean isTraceEnabled(final Marker marker) {
-        throw new UnsupportedOperationException();
+        return logger.isTraceEnabled();
     }
 
     @Override
@@ -97,14 +97,14 @@ public final class Slf4jLoggerProxy implements org.slf4j.Logger {
     @Override
     public void trace(final Marker marker,
                       final String msg) {
-        throw new UnsupportedOperationException();
+        logger.trace(msg);
     }
 
     @Override
     public void trace(final Marker marker,
                       final String format,
                       final Object arg) {
-        throw new UnsupportedOperationException();
+        logger.trace(fixPlaceholders(format), arg);
     }
 
     @Override
@@ -112,21 +112,21 @@ public final class Slf4jLoggerProxy implements org.slf4j.Logger {
                       final String format,
                       final Object arg1,
                       final Object arg2) {
-        throw new UnsupportedOperationException();
+        logger.trace(fixPlaceholders(format), arg1, arg2);
     }
 
     @Override
     public void trace(final Marker marker,
                       final String format,
-                      final Object... argArray) {
-        throw new UnsupportedOperationException();
+                      final Object... arguments) {
+        logger.trace(fixPlaceholders(format), arguments);
     }
 
     @Override
     public void trace(final Marker marker,
                       final String msg,
                       final Throwable throwable) {
-        throw new UnsupportedOperationException();
+        logger.trace(throwable, msg);
     }
 
     @Override
@@ -136,7 +136,7 @@ public final class Slf4jLoggerProxy implements org.slf4j.Logger {
 
     @Override
     public boolean isDebugEnabled(final Marker marker) {
-        throw new UnsupportedOperationException();
+        return logger.isDebugEnabled();
     }
 
     @Override
@@ -172,14 +172,14 @@ public final class Slf4jLoggerProxy implements org.slf4j.Logger {
     @Override
     public void debug(final Marker marker,
                       final String msg) {
-        throw new UnsupportedOperationException();
+        logger.debug(msg);
     }
 
     @Override
     public void debug(final Marker marker,
                       final String format,
                       final Object arg) {
-        throw new UnsupportedOperationException();
+        logger.debug(fixPlaceholders(format), arg);
     }
 
     @Override
@@ -187,21 +187,21 @@ public final class Slf4jLoggerProxy implements org.slf4j.Logger {
                       final String format,
                       final Object arg1,
                       final Object arg2) {
-        throw new UnsupportedOperationException();
+        logger.debug(fixPlaceholders(format), arg1, arg2);
     }
 
     @Override
     public void debug(final Marker marker,
                       final String format,
                       final Object... arguments) {
-        throw new UnsupportedOperationException();
+        logger.debug(fixPlaceholders(format), arguments);
     }
 
     @Override
     public void debug(final Marker marker,
                       final String msg,
                       final Throwable throwable) {
-        throw new UnsupportedOperationException();
+        logger.debug(msg, throwable);
     }
 
     @Override
@@ -211,7 +211,7 @@ public final class Slf4jLoggerProxy implements org.slf4j.Logger {
 
     @Override
     public boolean isInfoEnabled(final Marker marker) {
-        throw new UnsupportedOperationException();
+        return logger.isInfoEnabled();
     }
 
     @Override
@@ -247,14 +247,14 @@ public final class Slf4jLoggerProxy implements org.slf4j.Logger {
     @Override
     public void info(final Marker marker,
                      final String msg) {
-        throw new UnsupportedOperationException();
+        logger.info(msg);
     }
 
     @Override
     public void info(final Marker marker,
                      final String format,
                      final Object arg) {
-        throw new UnsupportedOperationException();
+        logger.info(fixPlaceholders(format), arg);
     }
 
     @Override
@@ -262,21 +262,21 @@ public final class Slf4jLoggerProxy implements org.slf4j.Logger {
                      final String format,
                      final Object arg1,
                      final Object arg2) {
-        throw new UnsupportedOperationException();
+        logger.info(fixPlaceholders(format), arg1, arg2);
     }
 
     @Override
     public void info(final Marker marker,
                      final String format,
                      final Object... arguments) {
-        throw new UnsupportedOperationException();
+        logger.info(fixPlaceholders(format), arguments);
     }
 
     @Override
     public void info(final Marker marker,
                      final String msg,
                      final Throwable throwable) {
-        throw new UnsupportedOperationException();
+        logger.info(msg, throwable);
     }
 
     @Override
@@ -286,7 +286,7 @@ public final class Slf4jLoggerProxy implements org.slf4j.Logger {
 
     @Override
     public boolean isWarnEnabled(final Marker marker) {
-        throw new UnsupportedOperationException();
+        return logger.isWarnEnabled();
     }
 
     @Override
@@ -322,14 +322,14 @@ public final class Slf4jLoggerProxy implements org.slf4j.Logger {
     @Override
     public void warn(final Marker marker,
                      final String msg) {
-        throw new UnsupportedOperationException();
+        logger.warn(msg);
     }
 
     @Override
     public void warn(final Marker marker,
                      final String format,
                      final Object arg) {
-        throw new UnsupportedOperationException();
+        logger.warn(fixPlaceholders(format), arg);
     }
 
     @Override
@@ -337,21 +337,21 @@ public final class Slf4jLoggerProxy implements org.slf4j.Logger {
                      final String format,
                      final Object arg1,
                      final Object arg2) {
-        throw new UnsupportedOperationException();
+        logger.warn(fixPlaceholders(format), arg1, arg2);
     }
 
     @Override
     public void warn(final Marker marker,
                      final String format,
                      final Object... arguments) {
-        throw new UnsupportedOperationException();
+        logger.warn(fixPlaceholders(format), arguments);
     }
 
     @Override
     public void warn(final Marker marker,
                      final String msg,
                      final Throwable throwable) {
-        throw new UnsupportedOperationException();
+        logger.warn(msg, throwable);
     }
 
     @Override
@@ -361,7 +361,7 @@ public final class Slf4jLoggerProxy implements org.slf4j.Logger {
 
     @Override
     public boolean isErrorEnabled(final Marker marker) {
-        throw new UnsupportedOperationException();
+        return logger.isErrorEnabled();
     }
 
     @Override
@@ -397,14 +397,14 @@ public final class Slf4jLoggerProxy implements org.slf4j.Logger {
     @Override
     public void error(final Marker marker,
                       final String msg) {
-        throw new UnsupportedOperationException();
+        logger.error(msg);
     }
 
     @Override
     public void error(final Marker marker,
                       final String format,
                       final Object arg) {
-        throw new UnsupportedOperationException();
+        logger.error(fixPlaceholders(format), arg);
     }
 
     @Override
@@ -412,21 +412,21 @@ public final class Slf4jLoggerProxy implements org.slf4j.Logger {
                       final String format,
                       final Object arg1,
                       final Object arg2) {
-        throw new UnsupportedOperationException();
+        logger.error(fixPlaceholders(format), arg1, arg2);
     }
 
     @Override
     public void error(final Marker marker,
                       final String format,
                       final Object... arguments) {
-        throw new UnsupportedOperationException();
+        logger.error(fixPlaceholders(format), arguments);
     }
 
     @Override
     public void error(final Marker marker,
                       final String msg,
                       final Throwable throwable) {
-        throw new UnsupportedOperationException();
+        logger.error(msg, throwable);
     }
 
     private String fixPlaceholders(final String template) {

@@ -33,7 +33,8 @@ package org.slf4j;
  * of this interface.
  *
  * @author nedis
- * @see <a href="http://www.slf4j.org/apidocs/org/slf4j/Logger.html">http://www.slf4j.org/apidocs/org/slf4j/Logger.html</a>
+ * @see <a href="https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html">
+ *     https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html</a>
  * @since 0.3
  */
 public interface Logger {
@@ -44,7 +45,8 @@ public interface Logger {
     String ROOT_LOGGER_NAME = "ROOT";
 
     /**
-     * See <a href="http://www.slf4j.org/apidocs/org/slf4j/Logger.html">http://www.slf4j.org/apidocs/org/slf4j/Logger.html</a>.
+     * See <a href="https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html">
+     *     https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html</a>.
      *
      * <p>
      * Return the name of this <code>Logger</code> instance.
@@ -54,7 +56,8 @@ public interface Logger {
     String getName();
 
     /**
-     * See <a href="http://www.slf4j.org/apidocs/org/slf4j/Logger.html">http://www.slf4j.org/apidocs/org/slf4j/Logger.html</a>.
+     * See <a href="https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html">
+     *     https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html</a>.
      *
      * <p>
      * Is the logger instance enabled for the {@code TRACE} level?
@@ -64,7 +67,8 @@ public interface Logger {
     boolean isTraceEnabled();
 
     /**
-     * See <a href="http://www.slf4j.org/apidocs/org/slf4j/Logger.html">http://www.slf4j.org/apidocs/org/slf4j/Logger.html</a>.
+     * See <a href="https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html">
+     *     https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html</a>.
      *
      * <p>
      * Similar to {@link #isTraceEnabled()} method except that the
@@ -76,7 +80,8 @@ public interface Logger {
     boolean isTraceEnabled(Marker marker);
 
     /**
-     * See <a href="http://www.slf4j.org/apidocs/org/slf4j/Logger.html">http://www.slf4j.org/apidocs/org/slf4j/Logger.html</a>.
+     * See <a href="https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html">
+     *     https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html</a>.
      *
      * <p>
      * Log a message at the {@code TRACE} level.
@@ -86,7 +91,8 @@ public interface Logger {
     void trace(String msg);
 
     /**
-     * See <a href="http://www.slf4j.org/apidocs/org/slf4j/Logger.html">http://www.slf4j.org/apidocs/org/slf4j/Logger.html</a>.
+     * See <a href="https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html">
+     *     https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html</a>.
      *
      * <p>
      * Log a message at the {@code TRACE} level according to the specified format and argument.
@@ -101,7 +107,8 @@ public interface Logger {
                Object arg);
 
     /**
-     * See <a href="http://www.slf4j.org/apidocs/org/slf4j/Logger.html">http://www.slf4j.org/apidocs/org/slf4j/Logger.html</a>.
+     * See <a href="https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html">
+     *     https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html</a>.
      *
      * <p>
      * Log a message at the {@code TRACE} level according to the specified format and argument.
@@ -118,7 +125,8 @@ public interface Logger {
                Object arg2);
 
     /**
-     * See <a href="http://www.slf4j.org/apidocs/org/slf4j/Logger.html">http://www.slf4j.org/apidocs/org/slf4j/Logger.html</a>.
+     * See <a href="https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html">
+     *     https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html</a>.
      *
      * <p>
      * Log a message at the {@code TRACE} level according to the specified format and argument.
@@ -133,7 +141,8 @@ public interface Logger {
                Object... arguments);
 
     /**
-     * See <a href="http://www.slf4j.org/apidocs/org/slf4j/Logger.html">http://www.slf4j.org/apidocs/org/slf4j/Logger.html</a>.
+     * See <a href="https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html">
+     *     https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html</a>.
      *
      * <p>
      * Log an exception (throwable) at the {@code TRACE} level with an accompanying message.
@@ -145,7 +154,8 @@ public interface Logger {
                Throwable throwable);
 
     /**
-     * See <a href="http://www.slf4j.org/apidocs/org/slf4j/Logger.html">http://www.slf4j.org/apidocs/org/slf4j/Logger.html</a>.
+     * See <a href="https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html">
+     *     https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html</a>.
      *
      * <p>
      * Log a message with the specific Marker at the {@code TRACE} level.
@@ -157,7 +167,8 @@ public interface Logger {
                String msg);
 
     /**
-     * See <a href="http://www.slf4j.org/apidocs/org/slf4j/Logger.html">http://www.slf4j.org/apidocs/org/slf4j/Logger.html</a>.
+     * See <a href="https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html">
+     *     https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html</a>.
      *
      * <p>
      * This method is similar to {@link #trace(String, Object)} method except that the
@@ -172,7 +183,8 @@ public interface Logger {
                Object arg);
 
     /**
-     * See <a href="http://www.slf4j.org/apidocs/org/slf4j/Logger.html">http://www.slf4j.org/apidocs/org/slf4j/Logger.html</a>.
+     * See <a href="https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html">
+     *     https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html</a>.
      *
      * <p>
      * This method is similar to {@link #trace(String, Object, Object)}
@@ -190,7 +202,8 @@ public interface Logger {
                Object arg2);
 
     /**
-     * See <a href="http://www.slf4j.org/apidocs/org/slf4j/Logger.html">http://www.slf4j.org/apidocs/org/slf4j/Logger.html</a>.
+     * See <a href="https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html">
+     *     https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html</a>.
      *
      * <p>
      * This method is similar to {@link #trace(String, Object...)}
@@ -206,7 +219,8 @@ public interface Logger {
                Object... argArray);
 
     /**
-     * See <a href="http://www.slf4j.org/apidocs/org/slf4j/Logger.html">http://www.slf4j.org/apidocs/org/slf4j/Logger.html</a>.
+     * See <a href="https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html">
+     *     https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html</a>.
      *
      * <p>
      * This method is similar to {@link #trace(String, Throwable)} method except that the
@@ -221,7 +235,8 @@ public interface Logger {
                Throwable throwable);
 
     /**
-     * See <a href="http://www.slf4j.org/apidocs/org/slf4j/Logger.html">http://www.slf4j.org/apidocs/org/slf4j/Logger.html</a>.
+     * See <a href="https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html">
+     *     https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html</a>.
      *
      * <p>
      * Is the logger instance enabled for the {@code DEBUG} level?
@@ -231,7 +246,8 @@ public interface Logger {
     boolean isDebugEnabled();
 
     /**
-     * See <a href="http://www.slf4j.org/apidocs/org/slf4j/Logger.html">http://www.slf4j.org/apidocs/org/slf4j/Logger.html</a>.
+     * See <a href="https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html">
+     *     https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html</a>.
      *
      * <p>
      * Similar to {@link #isDebugEnabled()} method except that the
@@ -243,7 +259,8 @@ public interface Logger {
     boolean isDebugEnabled(Marker marker);
 
     /**
-     * See <a href="http://www.slf4j.org/apidocs/org/slf4j/Logger.html">http://www.slf4j.org/apidocs/org/slf4j/Logger.html</a>.
+     * See <a href="https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html">
+     *     https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html</a>.
      *
      * <p>
      * Log a message at the {@code DEBUG} level.
@@ -253,7 +270,8 @@ public interface Logger {
     void debug(String msg);
 
     /**
-     * See <a href="http://www.slf4j.org/apidocs/org/slf4j/Logger.html">http://www.slf4j.org/apidocs/org/slf4j/Logger.html</a>.
+     * See <a href="https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html">
+     *     https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html</a>.
      *
      * <p>
      * Log a message at the {@code DEBUG} level according to the specified format and argument.
@@ -268,7 +286,8 @@ public interface Logger {
                Object arg);
 
     /**
-     * See <a href="http://www.slf4j.org/apidocs/org/slf4j/Logger.html">http://www.slf4j.org/apidocs/org/slf4j/Logger.html</a>.
+     * See <a href="https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html">
+     *     https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html</a>.
      *
      * <p>
      * Log a message at the {@code DEBUG} level according to the specified format and argument.
@@ -285,7 +304,8 @@ public interface Logger {
                Object arg2);
 
     /**
-     * See <a href="http://www.slf4j.org/apidocs/org/slf4j/Logger.html">http://www.slf4j.org/apidocs/org/slf4j/Logger.html</a>.
+     * See <a href="https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html">
+     *     https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html</a>.
      *
      * <p>
      * Log a message at the {@code DEBUG} level according to the specified format and argument.
@@ -300,7 +320,8 @@ public interface Logger {
                Object... arguments);
 
     /**
-     * See <a href="http://www.slf4j.org/apidocs/org/slf4j/Logger.html">http://www.slf4j.org/apidocs/org/slf4j/Logger.html</a>.
+     * See <a href="https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html">
+     *     https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html</a>.
      *
      * <p>
      * Log an exception (throwable) at the {@code DEBUG} level with an accompanying message.
@@ -312,7 +333,8 @@ public interface Logger {
                Throwable throwable);
 
     /**
-     * See <a href="http://www.slf4j.org/apidocs/org/slf4j/Logger.html">http://www.slf4j.org/apidocs/org/slf4j/Logger.html</a>.
+     * See <a href="https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html">
+     *     https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html</a>.
      *
      * <p>
      * Log a message with the specific Marker at the {@code DEBUG} level.
@@ -324,7 +346,8 @@ public interface Logger {
                String msg);
 
     /**
-     * See <a href="http://www.slf4j.org/apidocs/org/slf4j/Logger.html">http://www.slf4j.org/apidocs/org/slf4j/Logger.html</a>.
+     * See <a href="https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html">
+     *     https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html</a>.
      *
      * <p>
      * This method is similar to {@link #debug(String, Object)} method except that the
@@ -339,7 +362,8 @@ public interface Logger {
                Object arg);
 
     /**
-     * See <a href="http://www.slf4j.org/apidocs/org/slf4j/Logger.html">http://www.slf4j.org/apidocs/org/slf4j/Logger.html</a>.
+     * See <a href="https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html">
+     *     https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html</a>.
      *
      * <p>
      * This method is similar to {@link #debug(String, Object, Object)}
@@ -357,7 +381,8 @@ public interface Logger {
                Object arg2);
 
     /**
-     * See <a href="http://www.slf4j.org/apidocs/org/slf4j/Logger.html">http://www.slf4j.org/apidocs/org/slf4j/Logger.html</a>.
+     * See <a href="https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html">
+     *     https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html</a>.
      *
      * <p>
      * This method is similar to {@link #debug(String, Object...)}
@@ -373,7 +398,8 @@ public interface Logger {
                Object... argArray);
 
     /**
-     * See <a href="http://www.slf4j.org/apidocs/org/slf4j/Logger.html">http://www.slf4j.org/apidocs/org/slf4j/Logger.html</a>.
+     * See <a href="https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html">
+     *     https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html</a>.
      *
      * <p>
      * This method is similar to {@link #debug(String, Throwable)} method except that the
@@ -388,7 +414,8 @@ public interface Logger {
                Throwable throwable);
 
     /**
-     * See <a href="http://www.slf4j.org/apidocs/org/slf4j/Logger.html">http://www.slf4j.org/apidocs/org/slf4j/Logger.html</a>.
+     * See <a href="https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html">
+     *     https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html</a>.
      *
      * <p>
      * Is the logger instance enabled for the {@code INFO} level?
@@ -398,7 +425,8 @@ public interface Logger {
     boolean isInfoEnabled();
 
     /**
-     * See <a href="http://www.slf4j.org/apidocs/org/slf4j/Logger.html">http://www.slf4j.org/apidocs/org/slf4j/Logger.html</a>.
+     * See <a href="https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html">
+     *     https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html</a>.
      *
      * <p>
      * Similar to {@link #isInfoEnabled()} method except that the
@@ -410,7 +438,8 @@ public interface Logger {
     boolean isInfoEnabled(Marker marker);
 
     /**
-     * See <a href="http://www.slf4j.org/apidocs/org/slf4j/Logger.html">http://www.slf4j.org/apidocs/org/slf4j/Logger.html</a>.
+     * See <a href="https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html">
+     *     https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html</a>.
      *
      * <p>
      * Log a message at the {@code INFO} level.
@@ -420,7 +449,8 @@ public interface Logger {
     void info(String msg);
 
     /**
-     * See <a href="http://www.slf4j.org/apidocs/org/slf4j/Logger.html">http://www.slf4j.org/apidocs/org/slf4j/Logger.html</a>.
+     * See <a href="https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html">
+     *     https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html</a>.
      *
      * <p>
      * Log a message at the {@code INFO} level according to the specified format and argument.
@@ -435,7 +465,8 @@ public interface Logger {
               Object arg);
 
     /**
-     * See <a href="http://www.slf4j.org/apidocs/org/slf4j/Logger.html">http://www.slf4j.org/apidocs/org/slf4j/Logger.html</a>.
+     * See <a href="https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html">
+     *     https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html</a>.
      *
      * <p>
      * Log a message at the {@code INFO} level according to the specified format and argument.
@@ -452,7 +483,8 @@ public interface Logger {
               Object arg2);
 
     /**
-     * See <a href="http://www.slf4j.org/apidocs/org/slf4j/Logger.html">http://www.slf4j.org/apidocs/org/slf4j/Logger.html</a>.
+     * See <a href="https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html">
+     *     https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html</a>.
      *
      * <p>
      * Log a message at the {@code INFO} level according to the specified format and argument.
@@ -467,7 +499,8 @@ public interface Logger {
               Object... arguments);
 
     /**
-     * See <a href="http://www.slf4j.org/apidocs/org/slf4j/Logger.html">http://www.slf4j.org/apidocs/org/slf4j/Logger.html</a>.
+     * See <a href="https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html">
+     *     https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html</a>.
      *
      * <p>
      * Log an exception (throwable) at the {@code INFO} level with an accompanying message.
@@ -479,7 +512,8 @@ public interface Logger {
               Throwable throwable);
 
     /**
-     * See <a href="http://www.slf4j.org/apidocs/org/slf4j/Logger.html">http://www.slf4j.org/apidocs/org/slf4j/Logger.html</a>.
+     * See <a href="https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html">
+     *     https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html</a>.
      *
      * <p>
      * Log a message with the specific Marker at the {@code INFO} level.
@@ -491,7 +525,8 @@ public interface Logger {
               String msg);
 
     /**
-     * See <a href="http://www.slf4j.org/apidocs/org/slf4j/Logger.html">http://www.slf4j.org/apidocs/org/slf4j/Logger.html</a>.
+     * See <a href="https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html">
+     *     https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html</a>.
      *
      * <p>
      * This method is similar to {@link #info(String, Object)} method except that the
@@ -506,7 +541,8 @@ public interface Logger {
               Object arg);
 
     /**
-     * See <a href="http://www.slf4j.org/apidocs/org/slf4j/Logger.html">http://www.slf4j.org/apidocs/org/slf4j/Logger.html</a>.
+     * See <a href="https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html">
+     *     https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html</a>.
      *
      * <p>
      * This method is similar to {@link #info(String, Object, Object)}
@@ -524,7 +560,8 @@ public interface Logger {
               Object arg2);
 
     /**
-     * See <a href="http://www.slf4j.org/apidocs/org/slf4j/Logger.html">http://www.slf4j.org/apidocs/org/slf4j/Logger.html</a>.
+     * See <a href="https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html">
+     *     https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html</a>.
      *
      * <p>
      * This method is similar to {@link #info(String, Object...)}
@@ -540,7 +577,8 @@ public interface Logger {
               Object... argArray);
 
     /**
-     * See <a href="http://www.slf4j.org/apidocs/org/slf4j/Logger.html">http://www.slf4j.org/apidocs/org/slf4j/Logger.html</a>.
+     * See <a href="https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html">
+     *     https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html</a>.
      *
      * <p>
      * This method is similar to {@link #info(String, Throwable)} method except that the
@@ -555,7 +593,8 @@ public interface Logger {
               Throwable throwable);
 
     /**
-     * See <a href="http://www.slf4j.org/apidocs/org/slf4j/Logger.html">http://www.slf4j.org/apidocs/org/slf4j/Logger.html</a>.
+     * See <a href="https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html">
+     *     https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html</a>.
      *
      * <p>
      * Is the logger instance enabled for the {@code WARN} level?
@@ -565,7 +604,8 @@ public interface Logger {
     boolean isWarnEnabled();
 
     /**
-     * See <a href="http://www.slf4j.org/apidocs/org/slf4j/Logger.html">http://www.slf4j.org/apidocs/org/slf4j/Logger.html</a>.
+     * See <a href="https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html">
+     *     https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html</a>.
      *
      * <p>
      * Similar to {@link #isWarnEnabled()} method except that the
@@ -577,7 +617,8 @@ public interface Logger {
     boolean isWarnEnabled(Marker marker);
 
     /**
-     * See <a href="http://www.slf4j.org/apidocs/org/slf4j/Logger.html">http://www.slf4j.org/apidocs/org/slf4j/Logger.html</a>.
+     * See <a href="https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html">
+     *     https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html</a>.
      *
      * <p>
      * Log a message at the {@code WARN} level.
@@ -587,7 +628,8 @@ public interface Logger {
     void warn(String msg);
 
     /**
-     * See <a href="http://www.slf4j.org/apidocs/org/slf4j/Logger.html">http://www.slf4j.org/apidocs/org/slf4j/Logger.html</a>.
+     * See <a href="https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html">
+     *     https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html</a>.
      *
      * <p>
      * Log a message at the {@code WARN} level according to the specified format and argument.
@@ -602,7 +644,8 @@ public interface Logger {
               Object arg);
 
     /**
-     * See <a href="http://www.slf4j.org/apidocs/org/slf4j/Logger.html">http://www.slf4j.org/apidocs/org/slf4j/Logger.html</a>.
+     * See <a href="https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html">
+     *     https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html</a>.
      *
      * <p>
      * Log a message at the {@code WARN} level according to the specified format and argument.
@@ -619,7 +662,8 @@ public interface Logger {
               Object arg2);
 
     /**
-     * See <a href="http://www.slf4j.org/apidocs/org/slf4j/Logger.html">http://www.slf4j.org/apidocs/org/slf4j/Logger.html</a>.
+     * See <a href="https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html">
+     *     https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html</a>.
      *
      * <p>
      * Log a message at the {@code WARN} level according to the specified format and argument.
@@ -634,7 +678,8 @@ public interface Logger {
               Object... arguments);
 
     /**
-     * See <a href="http://www.slf4j.org/apidocs/org/slf4j/Logger.html">http://www.slf4j.org/apidocs/org/slf4j/Logger.html</a>.
+     * See <a href="https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html">
+     *     https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html</a>.
      *
      * <p>
      * Log an exception (throwable) at the {@code WARN} level with an accompanying message.
@@ -646,7 +691,8 @@ public interface Logger {
               Throwable throwable);
 
     /**
-     * See <a href="http://www.slf4j.org/apidocs/org/slf4j/Logger.html">http://www.slf4j.org/apidocs/org/slf4j/Logger.html</a>.
+     * See <a href="https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html">
+     *     https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html</a>.
      *
      * <p>
      * Log a message with the specific Marker at the {@code WARN} level.
@@ -658,7 +704,8 @@ public interface Logger {
               String msg);
 
     /**
-     * See <a href="http://www.slf4j.org/apidocs/org/slf4j/Logger.html">http://www.slf4j.org/apidocs/org/slf4j/Logger.html</a>.
+     * See <a href="https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html">
+     *     https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html</a>.
      *
      * <p>
      * This method is similar to {@link #warn(String, Object)} method except that the
@@ -673,7 +720,8 @@ public interface Logger {
               Object arg);
 
     /**
-     * See <a href="http://www.slf4j.org/apidocs/org/slf4j/Logger.html">http://www.slf4j.org/apidocs/org/slf4j/Logger.html</a>.
+     * See <a href="https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html">
+     *     https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html</a>.
      *
      * <p>
      * This method is similar to {@link #warn(String, Object, Object)}
@@ -691,7 +739,8 @@ public interface Logger {
               Object arg2);
 
     /**
-     * See <a href="http://www.slf4j.org/apidocs/org/slf4j/Logger.html">http://www.slf4j.org/apidocs/org/slf4j/Logger.html</a>.
+     * See <a href="https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html">
+     *     https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html</a>.
      *
      * <p>
      * This method is similar to {@link #warn(String, Object...)}
@@ -707,7 +756,8 @@ public interface Logger {
               Object... argArray);
 
     /**
-     * See <a href="http://www.slf4j.org/apidocs/org/slf4j/Logger.html">http://www.slf4j.org/apidocs/org/slf4j/Logger.html</a>.
+     * See <a href="https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html">
+     *     https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html</a>.
      *
      * <p>
      * This method is similar to {@link #warn(String, Throwable)} method except that the
@@ -722,7 +772,8 @@ public interface Logger {
               Throwable throwable);
 
     /**
-     * See <a href="http://www.slf4j.org/apidocs/org/slf4j/Logger.html">http://www.slf4j.org/apidocs/org/slf4j/Logger.html</a>.
+     * See <a href="https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html">
+     *     https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html</a>.
      *
      * <p>
      * Is the logger instance enabled for the {@code ERROR} level?
@@ -732,7 +783,8 @@ public interface Logger {
     boolean isErrorEnabled();
 
     /**
-     * See <a href="http://www.slf4j.org/apidocs/org/slf4j/Logger.html">http://www.slf4j.org/apidocs/org/slf4j/Logger.html</a>.
+     * See <a href="https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html">
+     *     https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html</a>.
      *
      * <p>
      * Similar to {@link #isErrorEnabled()} method except that the
@@ -744,7 +796,8 @@ public interface Logger {
     boolean isErrorEnabled(Marker marker);
 
     /**
-     * See <a href="http://www.slf4j.org/apidocs/org/slf4j/Logger.html">http://www.slf4j.org/apidocs/org/slf4j/Logger.html</a>.
+     * See <a href="https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html">
+     *     https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html</a>.
      *
      * <p>
      * Log a message at the {@code ERROR} level.
@@ -754,7 +807,8 @@ public interface Logger {
     void error(String msg);
 
     /**
-     * See <a href="http://www.slf4j.org/apidocs/org/slf4j/Logger.html">http://www.slf4j.org/apidocs/org/slf4j/Logger.html</a>.
+     * See <a href="https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html">
+     *     https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html</a>.
      *
      * <p>
      * Log a message at the {@code ERROR} level according to the specified format and argument.
@@ -769,7 +823,8 @@ public interface Logger {
                Object arg);
 
     /**
-     * See <a href="http://www.slf4j.org/apidocs/org/slf4j/Logger.html">http://www.slf4j.org/apidocs/org/slf4j/Logger.html</a>.
+     * See <a href="https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html">
+     *     https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html</a>.
      *
      * <p>
      * Log a message at the {@code ERROR} level according to the specified format and argument.
@@ -786,7 +841,8 @@ public interface Logger {
                Object arg2);
 
     /**
-     * See <a href="http://www.slf4j.org/apidocs/org/slf4j/Logger.html">http://www.slf4j.org/apidocs/org/slf4j/Logger.html</a>.
+     * See <a href="https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html">
+     *     https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html</a>.
      *
      * <p>
      * Log a message at the {@code ERROR} level according to the specified format and argument.
@@ -801,7 +857,8 @@ public interface Logger {
                Object... arguments);
 
     /**
-     * See <a href="http://www.slf4j.org/apidocs/org/slf4j/Logger.html">http://www.slf4j.org/apidocs/org/slf4j/Logger.html</a>.
+     * See <a href="https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html">
+     *     https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html</a>.
      *
      * <p>
      * Log an exception (throwable) at the {@code ERROR} level with an accompanying message.
@@ -813,7 +870,8 @@ public interface Logger {
                Throwable throwable);
 
     /**
-     * See <a href="http://www.slf4j.org/apidocs/org/slf4j/Logger.html">http://www.slf4j.org/apidocs/org/slf4j/Logger.html</a>.
+     * See <a href="https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html">
+     *     https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html</a>.
      *
      * <p>
      * Log a message with the specific Marker at the {@code ERROR} level.
@@ -825,7 +883,8 @@ public interface Logger {
                String msg);
 
     /**
-     * See <a href="http://www.slf4j.org/apidocs/org/slf4j/Logger.html">http://www.slf4j.org/apidocs/org/slf4j/Logger.html</a>.
+     * See <a href="https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html">
+     *     https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html</a>.
      *
      * <p>
      * This method is similar to {@link #error(String, Object)} method except that the
@@ -840,7 +899,8 @@ public interface Logger {
                Object arg);
 
     /**
-     * See <a href="http://www.slf4j.org/apidocs/org/slf4j/Logger.html">http://www.slf4j.org/apidocs/org/slf4j/Logger.html</a>.
+     * See <a href="https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html">
+     *     https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html</a>.
      *
      * <p>
      * This method is similar to {@link #error(String, Object, Object)}
@@ -858,7 +918,8 @@ public interface Logger {
                Object arg2);
 
     /**
-     * See <a href="http://www.slf4j.org/apidocs/org/slf4j/Logger.html">http://www.slf4j.org/apidocs/org/slf4j/Logger.html</a>.
+     * See <a href="https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html">
+     *     https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html</a>.
      *
      * <p>
      * This method is similar to {@link #error(String, Object...)}
@@ -874,7 +935,8 @@ public interface Logger {
                Object... argArray);
 
     /**
-     * See <a href="http://www.slf4j.org/apidocs/org/slf4j/Logger.html">http://www.slf4j.org/apidocs/org/slf4j/Logger.html</a>.
+     * See <a href="https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html">
+     *     https://www.javadoc.io/doc/org.slf4j/slf4j-api/1.7.30/org/slf4j/Logger.html</a>.
      *
      * <p>
      * This method is similar to {@link #error(String, Throwable)} method except that the
