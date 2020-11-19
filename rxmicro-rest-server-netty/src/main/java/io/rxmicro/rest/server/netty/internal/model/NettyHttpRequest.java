@@ -21,6 +21,7 @@ import io.netty.handler.codec.http.FullHttpRequest;
 import io.rxmicro.common.InvalidStateException;
 import io.rxmicro.http.HttpHeaders;
 import io.rxmicro.http.HttpVersion;
+import io.rxmicro.logger.RequestIdSupplier;
 import io.rxmicro.rest.server.detail.model.HttpRequest;
 import io.rxmicro.rest.server.feature.RequestIdGenerator;
 
@@ -32,7 +33,7 @@ import static io.rxmicro.http.HttpStandardHeaderNames.REQUEST_ID;
  * @author nedis
  * @since 0.1
  */
-public final class NettyHttpRequest implements HttpRequest {
+public final class NettyHttpRequest implements HttpRequest, RequestIdSupplier {
 
     private static final byte[] EMPTY = new byte[0];
 

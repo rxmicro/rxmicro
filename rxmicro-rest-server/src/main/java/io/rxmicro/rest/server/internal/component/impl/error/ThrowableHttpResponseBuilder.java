@@ -17,6 +17,7 @@
 package io.rxmicro.rest.server.internal.component.impl.error;
 
 import io.rxmicro.http.error.InternalHttpErrorException;
+import io.rxmicro.logger.RequestIdSupplier;
 import io.rxmicro.rest.server.detail.component.HttpResponseBuilder;
 import io.rxmicro.rest.server.detail.model.HttpResponse;
 import io.rxmicro.rest.server.feature.ErrorHandler;
@@ -47,8 +48,9 @@ public final class ThrowableHttpResponseBuilder extends ErrorHandler {
         this.hideInternalErrorMessage = hideInternalErrorMessage;
     }
 
-    public HttpResponse build(final Throwable throwable) {
-        LOGGER.error(throwable, "Internal server error: ?", throwable.getMessage());
+    public HttpResponse build(final RequestIdSupplier requestIdSupplier,
+                              final Throwable throwable) {
+        LOGGER.error(requestIdSupplier, throwable, "Internal server error: ?", throwable.getMessage());
         if (hideInternalErrorMessage) {
             return httpErrorResponseBodyBuilder.build(
                     httpResponseBuilder,

@@ -18,6 +18,7 @@ package io.rxmicro.logger.impl;
 
 import io.rxmicro.logger.Level;
 import io.rxmicro.logger.Logger;
+import io.rxmicro.logger.RequestIdSupplier;
 
 import java.util.Arrays;
 import java.util.function.Supplier;
@@ -48,7 +49,8 @@ public abstract class AbstractLogger implements Logger {
      * @param level the specified level.
      * @param message the specified message.
      */
-    protected abstract void log(Level level, String message);
+    protected abstract void log(Level level,
+                                String message);
 
     /**
      * Logs the specified message with the specified level and prints stacktrace for the specified throwable.
@@ -57,7 +59,33 @@ public abstract class AbstractLogger implements Logger {
      * @param message the specified message.
      * @param throwable the specified throwable.
      */
-    protected abstract void log(Level level, String message, Throwable throwable);
+    protected abstract void log(Level level,
+                                String message,
+                                Throwable throwable);
+
+    /**
+     * Logs the specified message with the specified level.
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param level the specified level.
+     * @param message the specified message.
+     */
+    protected abstract void log(RequestIdSupplier requestIdSupplier,
+                                Level level,
+                                String message);
+
+    /**
+     * Logs the specified message with the specified level and prints stacktrace for the specified throwable.
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param level the specified level.
+     * @param message the specified message.
+     * @param throwable the specified throwable.
+     */
+    protected abstract void log(RequestIdSupplier requestIdSupplier,
+                                Level level,
+                                String message,
+                                Throwable throwable);
 
     @Override
     public final boolean isTraceEnabled() {
@@ -336,6 +364,306 @@ public abstract class AbstractLogger implements Logger {
         if (isLevelEnabled(Level.TRACE)) {
             final String finalMessage = getFinalMessage(msg, suppliers);
             log(Level.TRACE, finalMessage, throwable);
+        }
+    }
+
+    @Override
+    public final void trace(final RequestIdSupplier requestIdSupplier,
+                            final String msg) {
+        if (isLevelEnabled(Level.TRACE)) {
+            log(requestIdSupplier, Level.TRACE, msg);
+        }
+    }
+
+    @Override
+    public final void trace(final RequestIdSupplier requestIdSupplier,
+                            final String msg,
+                            final Object arg1) {
+        if (isLevelEnabled(Level.TRACE)) {
+            final String finalMessage = getFinalMessage(msg, arg1);
+            log(requestIdSupplier, Level.TRACE, finalMessage);
+        }
+    }
+
+    @Override
+    public final void trace(final RequestIdSupplier requestIdSupplier,
+                            final String msg,
+                            final Object arg1,
+                            final Object arg2) {
+        if (isLevelEnabled(Level.TRACE)) {
+            final String finalMessage = getFinalMessage(msg, arg1, arg2);
+            log(requestIdSupplier, Level.TRACE, finalMessage);
+        }
+    }
+
+    @Override
+    public final void trace(final RequestIdSupplier requestIdSupplier,
+                            final String msg,
+                            final Object arg1,
+                            final Object arg2,
+                            final Object arg3) {
+        if (isLevelEnabled(Level.TRACE)) {
+            final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3);
+            log(requestIdSupplier, Level.TRACE, finalMessage);
+        }
+    }
+
+    @Override
+    public final void trace(final RequestIdSupplier requestIdSupplier,
+                            final String msg,
+                            final Object arg1,
+                            final Object arg2,
+                            final Object arg3,
+                            final Object arg4) {
+        if (isLevelEnabled(Level.TRACE)) {
+            final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4);
+            log(requestIdSupplier, Level.TRACE, finalMessage);
+        }
+    }
+
+    @Override
+    public final void trace(final RequestIdSupplier requestIdSupplier,
+                            final String msg,
+                            final Object arg1,
+                            final Object arg2,
+                            final Object arg3,
+                            final Object arg4,
+                            final Object arg5) {
+        if (isLevelEnabled(Level.TRACE)) {
+            final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4, arg5);
+            log(requestIdSupplier, Level.TRACE, finalMessage);
+        }
+    }
+
+    @Override
+    public final void trace(final RequestIdSupplier requestIdSupplier,
+                            final String msg,
+                            final Object... arguments) {
+        if (isLevelEnabled(Level.TRACE)) {
+            final String finalMessage = getFinalMessage(msg, arguments);
+            log(requestIdSupplier, Level.TRACE, finalMessage);
+        }
+    }
+
+    @Override
+    public final void trace(final RequestIdSupplier requestIdSupplier,
+                            final String msg,
+                            final Supplier<?> arg1) {
+        if (isLevelEnabled(Level.TRACE)) {
+            final String finalMessage = getFinalMessage(msg, arg1);
+            log(requestIdSupplier, Level.TRACE, finalMessage);
+        }
+    }
+
+    @Override
+    public final void trace(final RequestIdSupplier requestIdSupplier,
+                            final String msg,
+                            final Supplier<?> arg1,
+                            final Supplier<?> arg2) {
+        if (isLevelEnabled(Level.TRACE)) {
+            final String finalMessage = getFinalMessage(msg, arg1, arg2);
+            log(requestIdSupplier, Level.TRACE, finalMessage);
+        }
+    }
+
+    @Override
+    public final void trace(final RequestIdSupplier requestIdSupplier,
+                            final String msg,
+                            final Supplier<?> arg1,
+                            final Supplier<?> arg2,
+                            final Supplier<?> arg3) {
+        if (isLevelEnabled(Level.TRACE)) {
+            final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3);
+            log(requestIdSupplier, Level.TRACE, finalMessage);
+        }
+    }
+
+    @Override
+    public final void trace(final RequestIdSupplier requestIdSupplier,
+                            final String msg,
+                            final Supplier<?> arg1,
+                            final Supplier<?> arg2,
+                            final Supplier<?> arg3,
+                            final Supplier<?> arg4) {
+        if (isLevelEnabled(Level.TRACE)) {
+            final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4);
+            log(requestIdSupplier, Level.TRACE, finalMessage);
+        }
+    }
+
+    @Override
+    public final void trace(final RequestIdSupplier requestIdSupplier,
+                            final String msg,
+                            final Supplier<?> arg1,
+                            final Supplier<?> arg2,
+                            final Supplier<?> arg3,
+                            final Supplier<?> arg4,
+                            final Supplier<?> arg5) {
+        if (isLevelEnabled(Level.TRACE)) {
+            final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4, arg5);
+            log(requestIdSupplier, Level.TRACE, finalMessage);
+        }
+    }
+
+    @Override
+    public final void trace(final RequestIdSupplier requestIdSupplier,
+                            final String msg,
+                            final Supplier<?>... suppliers) {
+        if (isLevelEnabled(Level.TRACE)) {
+            final String finalMessage = getFinalMessage(msg, suppliers);
+            log(requestIdSupplier, Level.TRACE, finalMessage);
+        }
+    }
+
+    @Override
+    public final void trace(final RequestIdSupplier requestIdSupplier,
+                            final Throwable throwable,
+                            final String msg,
+                            final Object arg1) {
+        if (isLevelEnabled(Level.TRACE)) {
+            final String finalMessage = getFinalMessage(msg, arg1);
+            log(requestIdSupplier, Level.TRACE, finalMessage, throwable);
+        }
+    }
+
+    @Override
+    public final void trace(final RequestIdSupplier requestIdSupplier,
+                            final Throwable throwable,
+                            final String msg,
+                            final Object arg1,
+                            final Object arg2) {
+        if (isLevelEnabled(Level.TRACE)) {
+            final String finalMessage = getFinalMessage(msg, arg1, arg2);
+            log(requestIdSupplier, Level.TRACE, finalMessage, throwable);
+        }
+    }
+
+    @Override
+    public final void trace(final RequestIdSupplier requestIdSupplier,
+                            final Throwable throwable,
+                            final String msg,
+                            final Object arg1,
+                            final Object arg2,
+                            final Object arg3) {
+        if (isLevelEnabled(Level.TRACE)) {
+            final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3);
+            log(requestIdSupplier, Level.TRACE, finalMessage, throwable);
+        }
+    }
+
+    @Override
+    public final void trace(final RequestIdSupplier requestIdSupplier,
+                            final Throwable throwable,
+                            final String msg,
+                            final Object arg1,
+                            final Object arg2,
+                            final Object arg3,
+                            final Object arg4) {
+        if (isLevelEnabled(Level.TRACE)) {
+            final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4);
+            log(requestIdSupplier, Level.TRACE, finalMessage, throwable);
+        }
+    }
+
+    @Override
+    public final void trace(final RequestIdSupplier requestIdSupplier,
+                            final Throwable throwable,
+                            final String msg,
+                            final Object arg1,
+                            final Object arg2,
+                            final Object arg3,
+                            final Object arg4,
+                            final Object arg5) {
+        if (isLevelEnabled(Level.TRACE)) {
+            final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4, arg5);
+            log(requestIdSupplier, Level.TRACE, finalMessage, throwable);
+        }
+    }
+
+    @Override
+    public final void trace(final RequestIdSupplier requestIdSupplier,
+                            final Throwable throwable,
+                            final String msg,
+                            final Object... arguments) {
+        if (isLevelEnabled(Level.TRACE)) {
+            final String finalMessage = getFinalMessage(msg, arguments);
+            log(requestIdSupplier, Level.TRACE, finalMessage, throwable);
+        }
+    }
+
+    @Override
+    public final void trace(final RequestIdSupplier requestIdSupplier,
+                            final Throwable throwable,
+                            final String msg,
+                            final Supplier<?> arg1) {
+        if (isLevelEnabled(Level.TRACE)) {
+            final String finalMessage = getFinalMessage(msg, arg1);
+            log(requestIdSupplier, Level.TRACE, finalMessage, throwable);
+        }
+    }
+
+    @Override
+    public final void trace(final RequestIdSupplier requestIdSupplier,
+                            final Throwable throwable,
+                            final String msg,
+                            final Supplier<?> arg1,
+                            final Supplier<?> arg2) {
+        if (isLevelEnabled(Level.TRACE)) {
+            final String finalMessage = getFinalMessage(msg, arg1, arg2);
+            log(requestIdSupplier, Level.TRACE, finalMessage, throwable);
+        }
+    }
+
+    @Override
+    public final void trace(final RequestIdSupplier requestIdSupplier,
+                            final Throwable throwable,
+                            final String msg,
+                            final Supplier<?> arg1,
+                            final Supplier<?> arg2,
+                            final Supplier<?> arg3) {
+        if (isLevelEnabled(Level.TRACE)) {
+            final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3);
+            log(requestIdSupplier, Level.TRACE, finalMessage, throwable);
+        }
+    }
+
+    @Override
+    public final void trace(final RequestIdSupplier requestIdSupplier,
+                            final Throwable throwable,
+                            final String msg,
+                            final Supplier<?> arg1,
+                            final Supplier<?> arg2,
+                            final Supplier<?> arg3,
+                            final Supplier<?> arg4) {
+        if (isLevelEnabled(Level.TRACE)) {
+            final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4);
+            log(requestIdSupplier, Level.TRACE, finalMessage, throwable);
+        }
+    }
+
+    @Override
+    public final void trace(final RequestIdSupplier requestIdSupplier,
+                            final Throwable throwable,
+                            final String msg,
+                            final Supplier<?> arg1,
+                            final Supplier<?> arg2,
+                            final Supplier<?> arg3,
+                            final Supplier<?> arg4,
+                            final Supplier<?> arg5) {
+        if (isLevelEnabled(Level.TRACE)) {
+            final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4, arg5);
+            log(requestIdSupplier, Level.TRACE, finalMessage, throwable);
+        }
+    }
+
+    @Override
+    public final void trace(final RequestIdSupplier requestIdSupplier,
+                            final Throwable throwable,
+                            final String msg,
+                            final Supplier<?>... suppliers) {
+        if (isLevelEnabled(Level.TRACE)) {
+            final String finalMessage = getFinalMessage(msg, suppliers);
+            log(requestIdSupplier, Level.TRACE, finalMessage, throwable);
         }
     }
 
@@ -620,6 +948,306 @@ public abstract class AbstractLogger implements Logger {
     }
 
     @Override
+    public final void debug(final RequestIdSupplier requestIdSupplier,
+                            final String msg) {
+        if (isLevelEnabled(Level.DEBUG)) {
+            log(requestIdSupplier, Level.DEBUG, msg);
+        }
+    }
+
+    @Override
+    public final void debug(final RequestIdSupplier requestIdSupplier,
+                            final String msg,
+                            final Object arg1) {
+        if (isLevelEnabled(Level.DEBUG)) {
+            final String finalMessage = getFinalMessage(msg, arg1);
+            log(requestIdSupplier, Level.DEBUG, finalMessage);
+        }
+    }
+
+    @Override
+    public final void debug(final RequestIdSupplier requestIdSupplier,
+                            final String msg,
+                            final Object arg1,
+                            final Object arg2) {
+        if (isLevelEnabled(Level.DEBUG)) {
+            final String finalMessage = getFinalMessage(msg, arg1, arg2);
+            log(requestIdSupplier, Level.DEBUG, finalMessage);
+        }
+    }
+
+    @Override
+    public final void debug(final RequestIdSupplier requestIdSupplier,
+                            final String msg,
+                            final Object arg1,
+                            final Object arg2,
+                            final Object arg3) {
+        if (isLevelEnabled(Level.DEBUG)) {
+            final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3);
+            log(requestIdSupplier, Level.DEBUG, finalMessage);
+        }
+    }
+
+    @Override
+    public final void debug(final RequestIdSupplier requestIdSupplier,
+                            final String msg,
+                            final Object arg1,
+                            final Object arg2,
+                            final Object arg3,
+                            final Object arg4) {
+        if (isLevelEnabled(Level.DEBUG)) {
+            final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4);
+            log(requestIdSupplier, Level.DEBUG, finalMessage);
+        }
+    }
+
+    @Override
+    public final void debug(final RequestIdSupplier requestIdSupplier,
+                            final String msg,
+                            final Object arg1,
+                            final Object arg2,
+                            final Object arg3,
+                            final Object arg4,
+                            final Object arg5) {
+        if (isLevelEnabled(Level.DEBUG)) {
+            final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4, arg5);
+            log(requestIdSupplier, Level.DEBUG, finalMessage);
+        }
+    }
+
+    @Override
+    public final void debug(final RequestIdSupplier requestIdSupplier,
+                            final String msg,
+                            final Object... arguments) {
+        if (isLevelEnabled(Level.DEBUG)) {
+            final String finalMessage = getFinalMessage(msg, arguments);
+            log(requestIdSupplier, Level.DEBUG, finalMessage);
+        }
+    }
+
+    @Override
+    public final void debug(final RequestIdSupplier requestIdSupplier,
+                            final String msg,
+                            final Supplier<?> arg1) {
+        if (isLevelEnabled(Level.DEBUG)) {
+            final String finalMessage = getFinalMessage(msg, arg1);
+            log(requestIdSupplier, Level.DEBUG, finalMessage);
+        }
+    }
+
+    @Override
+    public final void debug(final RequestIdSupplier requestIdSupplier,
+                            final String msg,
+                            final Supplier<?> arg1,
+                            final Supplier<?> arg2) {
+        if (isLevelEnabled(Level.DEBUG)) {
+            final String finalMessage = getFinalMessage(msg, arg1, arg2);
+            log(requestIdSupplier, Level.DEBUG, finalMessage);
+        }
+    }
+
+    @Override
+    public final void debug(final RequestIdSupplier requestIdSupplier,
+                            final String msg,
+                            final Supplier<?> arg1,
+                            final Supplier<?> arg2,
+                            final Supplier<?> arg3) {
+        if (isLevelEnabled(Level.DEBUG)) {
+            final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3);
+            log(requestIdSupplier, Level.DEBUG, finalMessage);
+        }
+    }
+
+    @Override
+    public final void debug(final RequestIdSupplier requestIdSupplier,
+                            final String msg,
+                            final Supplier<?> arg1,
+                            final Supplier<?> arg2,
+                            final Supplier<?> arg3,
+                            final Supplier<?> arg4) {
+        if (isLevelEnabled(Level.DEBUG)) {
+            final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4);
+            log(requestIdSupplier, Level.DEBUG, finalMessage);
+        }
+    }
+
+    @Override
+    public final void debug(final RequestIdSupplier requestIdSupplier,
+                            final String msg,
+                            final Supplier<?> arg1,
+                            final Supplier<?> arg2,
+                            final Supplier<?> arg3,
+                            final Supplier<?> arg4,
+                            final Supplier<?> arg5) {
+        if (isLevelEnabled(Level.DEBUG)) {
+            final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4, arg5);
+            log(requestIdSupplier, Level.DEBUG, finalMessage);
+        }
+    }
+
+    @Override
+    public final void debug(final RequestIdSupplier requestIdSupplier,
+                            final String msg,
+                            final Supplier<?>... suppliers) {
+        if (isLevelEnabled(Level.DEBUG)) {
+            final String finalMessage = getFinalMessage(msg, suppliers);
+            log(requestIdSupplier, Level.DEBUG, finalMessage);
+        }
+    }
+
+    @Override
+    public final void debug(final RequestIdSupplier requestIdSupplier,
+                            final Throwable throwable,
+                            final String msg,
+                            final Object arg1) {
+        if (isLevelEnabled(Level.DEBUG)) {
+            final String finalMessage = getFinalMessage(msg, arg1);
+            log(requestIdSupplier, Level.DEBUG, finalMessage, throwable);
+        }
+    }
+
+    @Override
+    public final void debug(final RequestIdSupplier requestIdSupplier,
+                            final Throwable throwable,
+                            final String msg,
+                            final Object arg1,
+                            final Object arg2) {
+        if (isLevelEnabled(Level.DEBUG)) {
+            final String finalMessage = getFinalMessage(msg, arg1, arg2);
+            log(requestIdSupplier, Level.DEBUG, finalMessage, throwable);
+        }
+    }
+
+    @Override
+    public final void debug(final RequestIdSupplier requestIdSupplier,
+                            final Throwable throwable,
+                            final String msg,
+                            final Object arg1,
+                            final Object arg2,
+                            final Object arg3) {
+        if (isLevelEnabled(Level.DEBUG)) {
+            final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3);
+            log(requestIdSupplier, Level.DEBUG, finalMessage, throwable);
+        }
+    }
+
+    @Override
+    public final void debug(final RequestIdSupplier requestIdSupplier,
+                            final Throwable throwable,
+                            final String msg,
+                            final Object arg1,
+                            final Object arg2,
+                            final Object arg3,
+                            final Object arg4) {
+        if (isLevelEnabled(Level.DEBUG)) {
+            final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4);
+            log(requestIdSupplier, Level.DEBUG, finalMessage, throwable);
+        }
+    }
+
+    @Override
+    public final void debug(final RequestIdSupplier requestIdSupplier,
+                            final Throwable throwable,
+                            final String msg,
+                            final Object arg1,
+                            final Object arg2,
+                            final Object arg3,
+                            final Object arg4,
+                            final Object arg5) {
+        if (isLevelEnabled(Level.DEBUG)) {
+            final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4, arg5);
+            log(requestIdSupplier, Level.DEBUG, finalMessage, throwable);
+        }
+    }
+
+    @Override
+    public final void debug(final RequestIdSupplier requestIdSupplier,
+                            final Throwable throwable,
+                            final String msg,
+                            final Object... arguments) {
+        if (isLevelEnabled(Level.DEBUG)) {
+            final String finalMessage = getFinalMessage(msg, arguments);
+            log(requestIdSupplier, Level.DEBUG, finalMessage, throwable);
+        }
+    }
+
+    @Override
+    public final void debug(final RequestIdSupplier requestIdSupplier,
+                            final Throwable throwable,
+                            final String msg,
+                            final Supplier<?> arg1) {
+        if (isLevelEnabled(Level.DEBUG)) {
+            final String finalMessage = getFinalMessage(msg, arg1);
+            log(requestIdSupplier, Level.DEBUG, finalMessage, throwable);
+        }
+    }
+
+    @Override
+    public final void debug(final RequestIdSupplier requestIdSupplier,
+                            final Throwable throwable,
+                            final String msg,
+                            final Supplier<?> arg1,
+                            final Supplier<?> arg2) {
+        if (isLevelEnabled(Level.DEBUG)) {
+            final String finalMessage = getFinalMessage(msg, arg1, arg2);
+            log(requestIdSupplier, Level.DEBUG, finalMessage, throwable);
+        }
+    }
+
+    @Override
+    public final void debug(final RequestIdSupplier requestIdSupplier,
+                            final Throwable throwable,
+                            final String msg,
+                            final Supplier<?> arg1,
+                            final Supplier<?> arg2,
+                            final Supplier<?> arg3) {
+        if (isLevelEnabled(Level.DEBUG)) {
+            final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3);
+            log(requestIdSupplier, Level.DEBUG, finalMessage, throwable);
+        }
+    }
+
+    @Override
+    public final void debug(final RequestIdSupplier requestIdSupplier,
+                            final Throwable throwable,
+                            final String msg,
+                            final Supplier<?> arg1,
+                            final Supplier<?> arg2,
+                            final Supplier<?> arg3,
+                            final Supplier<?> arg4) {
+        if (isLevelEnabled(Level.DEBUG)) {
+            final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4);
+            log(requestIdSupplier, Level.DEBUG, finalMessage, throwable);
+        }
+    }
+
+    @Override
+    public final void debug(final RequestIdSupplier requestIdSupplier,
+                            final Throwable throwable,
+                            final String msg,
+                            final Supplier<?> arg1,
+                            final Supplier<?> arg2,
+                            final Supplier<?> arg3,
+                            final Supplier<?> arg4,
+                            final Supplier<?> arg5) {
+        if (isLevelEnabled(Level.DEBUG)) {
+            final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4, arg5);
+            log(requestIdSupplier, Level.DEBUG, finalMessage, throwable);
+        }
+    }
+
+    @Override
+    public final void debug(final RequestIdSupplier requestIdSupplier,
+                            final Throwable throwable,
+                            final String msg,
+                            final Supplier<?>... suppliers) {
+        if (isLevelEnabled(Level.DEBUG)) {
+            final String finalMessage = getFinalMessage(msg, suppliers);
+            log(requestIdSupplier, Level.DEBUG, finalMessage, throwable);
+        }
+    }
+
+    @Override
     public final boolean isInfoEnabled() {
         return isLevelEnabled(Level.INFO);
     }
@@ -896,6 +1524,306 @@ public abstract class AbstractLogger implements Logger {
         if (isLevelEnabled(Level.INFO)) {
             final String finalMessage = getFinalMessage(msg, suppliers);
             log(Level.INFO, finalMessage, throwable);
+        }
+    }
+
+    @Override
+    public final void info(final RequestIdSupplier requestIdSupplier,
+                           final String msg) {
+        if (isLevelEnabled(Level.INFO)) {
+            log(requestIdSupplier, Level.INFO, msg);
+        }
+    }
+
+    @Override
+    public final void info(final RequestIdSupplier requestIdSupplier,
+                           final String msg,
+                           final Object arg1) {
+        if (isLevelEnabled(Level.INFO)) {
+            final String finalMessage = getFinalMessage(msg, arg1);
+            log(requestIdSupplier, Level.INFO, finalMessage);
+        }
+    }
+
+    @Override
+    public final void info(final RequestIdSupplier requestIdSupplier,
+                           final String msg,
+                           final Object arg1,
+                           final Object arg2) {
+        if (isLevelEnabled(Level.INFO)) {
+            final String finalMessage = getFinalMessage(msg, arg1, arg2);
+            log(requestIdSupplier, Level.INFO, finalMessage);
+        }
+    }
+
+    @Override
+    public final void info(final RequestIdSupplier requestIdSupplier,
+                           final String msg,
+                           final Object arg1,
+                           final Object arg2,
+                           final Object arg3) {
+        if (isLevelEnabled(Level.INFO)) {
+            final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3);
+            log(requestIdSupplier, Level.INFO, finalMessage);
+        }
+    }
+
+    @Override
+    public final void info(final RequestIdSupplier requestIdSupplier,
+                           final String msg,
+                           final Object arg1,
+                           final Object arg2,
+                           final Object arg3,
+                           final Object arg4) {
+        if (isLevelEnabled(Level.INFO)) {
+            final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4);
+            log(requestIdSupplier, Level.INFO, finalMessage);
+        }
+    }
+
+    @Override
+    public final void info(final RequestIdSupplier requestIdSupplier,
+                           final String msg,
+                           final Object arg1,
+                           final Object arg2,
+                           final Object arg3,
+                           final Object arg4,
+                           final Object arg5) {
+        if (isLevelEnabled(Level.INFO)) {
+            final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4, arg5);
+            log(requestIdSupplier, Level.INFO, finalMessage);
+        }
+    }
+
+    @Override
+    public final void info(final RequestIdSupplier requestIdSupplier,
+                           final String msg,
+                           final Object... arguments) {
+        if (isLevelEnabled(Level.INFO)) {
+            final String finalMessage = getFinalMessage(msg, arguments);
+            log(requestIdSupplier, Level.INFO, finalMessage);
+        }
+    }
+
+    @Override
+    public final void info(final RequestIdSupplier requestIdSupplier,
+                           final String msg,
+                           final Supplier<?> arg1) {
+        if (isLevelEnabled(Level.INFO)) {
+            final String finalMessage = getFinalMessage(msg, arg1);
+            log(requestIdSupplier, Level.INFO, finalMessage);
+        }
+    }
+
+    @Override
+    public final void info(final RequestIdSupplier requestIdSupplier,
+                           final String msg,
+                           final Supplier<?> arg1,
+                           final Supplier<?> arg2) {
+        if (isLevelEnabled(Level.INFO)) {
+            final String finalMessage = getFinalMessage(msg, arg1, arg2);
+            log(requestIdSupplier, Level.INFO, finalMessage);
+        }
+    }
+
+    @Override
+    public final void info(final RequestIdSupplier requestIdSupplier,
+                           final String msg,
+                           final Supplier<?> arg1,
+                           final Supplier<?> arg2,
+                           final Supplier<?> arg3) {
+        if (isLevelEnabled(Level.INFO)) {
+            final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3);
+            log(requestIdSupplier, Level.INFO, finalMessage);
+        }
+    }
+
+    @Override
+    public final void info(final RequestIdSupplier requestIdSupplier,
+                           final String msg,
+                           final Supplier<?> arg1,
+                           final Supplier<?> arg2,
+                           final Supplier<?> arg3,
+                           final Supplier<?> arg4) {
+        if (isLevelEnabled(Level.INFO)) {
+            final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4);
+            log(requestIdSupplier, Level.INFO, finalMessage);
+        }
+    }
+
+    @Override
+    public final void info(final RequestIdSupplier requestIdSupplier,
+                           final String msg,
+                           final Supplier<?> arg1,
+                           final Supplier<?> arg2,
+                           final Supplier<?> arg3,
+                           final Supplier<?> arg4,
+                           final Supplier<?> arg5) {
+        if (isLevelEnabled(Level.INFO)) {
+            final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4, arg5);
+            log(requestIdSupplier, Level.INFO, finalMessage);
+        }
+    }
+
+    @Override
+    public final void info(final RequestIdSupplier requestIdSupplier,
+                           final String msg,
+                           final Supplier<?>... suppliers) {
+        if (isLevelEnabled(Level.INFO)) {
+            final String finalMessage = getFinalMessage(msg, suppliers);
+            log(requestIdSupplier, Level.INFO, finalMessage);
+        }
+    }
+
+    @Override
+    public final void info(final RequestIdSupplier requestIdSupplier,
+                           final Throwable throwable,
+                           final String msg,
+                           final Object arg1) {
+        if (isLevelEnabled(Level.INFO)) {
+            final String finalMessage = getFinalMessage(msg, arg1);
+            log(requestIdSupplier, Level.INFO, finalMessage, throwable);
+        }
+    }
+
+    @Override
+    public final void info(final RequestIdSupplier requestIdSupplier,
+                           final Throwable throwable,
+                           final String msg,
+                           final Object arg1,
+                           final Object arg2) {
+        if (isLevelEnabled(Level.INFO)) {
+            final String finalMessage = getFinalMessage(msg, arg1, arg2);
+            log(requestIdSupplier, Level.INFO, finalMessage, throwable);
+        }
+    }
+
+    @Override
+    public final void info(final RequestIdSupplier requestIdSupplier,
+                           final Throwable throwable,
+                           final String msg,
+                           final Object arg1,
+                           final Object arg2,
+                           final Object arg3) {
+        if (isLevelEnabled(Level.INFO)) {
+            final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3);
+            log(requestIdSupplier, Level.INFO, finalMessage, throwable);
+        }
+    }
+
+    @Override
+    public final void info(final RequestIdSupplier requestIdSupplier,
+                           final Throwable throwable,
+                           final String msg,
+                           final Object arg1,
+                           final Object arg2,
+                           final Object arg3,
+                           final Object arg4) {
+        if (isLevelEnabled(Level.INFO)) {
+            final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4);
+            log(requestIdSupplier, Level.INFO, finalMessage, throwable);
+        }
+    }
+
+    @Override
+    public final void info(final RequestIdSupplier requestIdSupplier,
+                           final Throwable throwable,
+                           final String msg,
+                           final Object arg1,
+                           final Object arg2,
+                           final Object arg3,
+                           final Object arg4,
+                           final Object arg5) {
+        if (isLevelEnabled(Level.INFO)) {
+            final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4, arg5);
+            log(requestIdSupplier, Level.INFO, finalMessage, throwable);
+        }
+    }
+
+    @Override
+    public final void info(final RequestIdSupplier requestIdSupplier,
+                           final Throwable throwable,
+                           final String msg,
+                           final Object... arguments) {
+        if (isLevelEnabled(Level.INFO)) {
+            final String finalMessage = getFinalMessage(msg, arguments);
+            log(requestIdSupplier, Level.INFO, finalMessage, throwable);
+        }
+    }
+
+    @Override
+    public final void info(final RequestIdSupplier requestIdSupplier,
+                           final Throwable throwable,
+                           final String msg,
+                           final Supplier<?> arg1) {
+        if (isLevelEnabled(Level.INFO)) {
+            final String finalMessage = getFinalMessage(msg, arg1);
+            log(requestIdSupplier, Level.INFO, finalMessage, throwable);
+        }
+    }
+
+    @Override
+    public final void info(final RequestIdSupplier requestIdSupplier,
+                           final Throwable throwable,
+                           final String msg,
+                           final Supplier<?> arg1,
+                           final Supplier<?> arg2) {
+        if (isLevelEnabled(Level.INFO)) {
+            final String finalMessage = getFinalMessage(msg, arg1, arg2);
+            log(requestIdSupplier, Level.INFO, finalMessage, throwable);
+        }
+    }
+
+    @Override
+    public final void info(final RequestIdSupplier requestIdSupplier,
+                           final Throwable throwable,
+                           final String msg,
+                           final Supplier<?> arg1,
+                           final Supplier<?> arg2,
+                           final Supplier<?> arg3) {
+        if (isLevelEnabled(Level.INFO)) {
+            final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3);
+            log(requestIdSupplier, Level.INFO, finalMessage, throwable);
+        }
+    }
+
+    @Override
+    public final void info(final RequestIdSupplier requestIdSupplier,
+                           final Throwable throwable,
+                           final String msg,
+                           final Supplier<?> arg1,
+                           final Supplier<?> arg2,
+                           final Supplier<?> arg3,
+                           final Supplier<?> arg4) {
+        if (isLevelEnabled(Level.INFO)) {
+            final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4);
+            log(requestIdSupplier, Level.INFO, finalMessage, throwable);
+        }
+    }
+
+    @Override
+    public final void info(final RequestIdSupplier requestIdSupplier,
+                           final Throwable throwable,
+                           final String msg,
+                           final Supplier<?> arg1,
+                           final Supplier<?> arg2,
+                           final Supplier<?> arg3,
+                           final Supplier<?> arg4,
+                           final Supplier<?> arg5) {
+        if (isLevelEnabled(Level.INFO)) {
+            final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4, arg5);
+            log(requestIdSupplier, Level.INFO, finalMessage, throwable);
+        }
+    }
+
+    @Override
+    public final void info(final RequestIdSupplier requestIdSupplier,
+                           final Throwable throwable,
+                           final String msg,
+                           final Supplier<?>... suppliers) {
+        if (isLevelEnabled(Level.INFO)) {
+            final String finalMessage = getFinalMessage(msg, suppliers);
+            log(requestIdSupplier, Level.INFO, finalMessage, throwable);
         }
     }
 
@@ -1180,6 +2108,306 @@ public abstract class AbstractLogger implements Logger {
     }
 
     @Override
+    public final void warn(final RequestIdSupplier requestIdSupplier,
+                           final String msg) {
+        if (isLevelEnabled(Level.WARN)) {
+            log(requestIdSupplier, Level.WARN, msg);
+        }
+    }
+
+    @Override
+    public final void warn(final RequestIdSupplier requestIdSupplier,
+                           final String msg,
+                           final Object arg1) {
+        if (isLevelEnabled(Level.WARN)) {
+            final String finalMessage = getFinalMessage(msg, arg1);
+            log(requestIdSupplier, Level.WARN, finalMessage);
+        }
+    }
+
+    @Override
+    public final void warn(final RequestIdSupplier requestIdSupplier,
+                           final String msg,
+                           final Object arg1,
+                           final Object arg2) {
+        if (isLevelEnabled(Level.WARN)) {
+            final String finalMessage = getFinalMessage(msg, arg1, arg2);
+            log(requestIdSupplier, Level.WARN, finalMessage);
+        }
+    }
+
+    @Override
+    public final void warn(final RequestIdSupplier requestIdSupplier,
+                           final String msg,
+                           final Object arg1,
+                           final Object arg2,
+                           final Object arg3) {
+        if (isLevelEnabled(Level.WARN)) {
+            final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3);
+            log(requestIdSupplier, Level.WARN, finalMessage);
+        }
+    }
+
+    @Override
+    public final void warn(final RequestIdSupplier requestIdSupplier,
+                           final String msg,
+                           final Object arg1,
+                           final Object arg2,
+                           final Object arg3,
+                           final Object arg4) {
+        if (isLevelEnabled(Level.WARN)) {
+            final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4);
+            log(requestIdSupplier, Level.WARN, finalMessage);
+        }
+    }
+
+    @Override
+    public final void warn(final RequestIdSupplier requestIdSupplier,
+                           final String msg,
+                           final Object arg1,
+                           final Object arg2,
+                           final Object arg3,
+                           final Object arg4,
+                           final Object arg5) {
+        if (isLevelEnabled(Level.WARN)) {
+            final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4, arg5);
+            log(requestIdSupplier, Level.WARN, finalMessage);
+        }
+    }
+
+    @Override
+    public final void warn(final RequestIdSupplier requestIdSupplier,
+                           final String msg,
+                           final Object... arguments) {
+        if (isLevelEnabled(Level.WARN)) {
+            final String finalMessage = getFinalMessage(msg, arguments);
+            log(requestIdSupplier, Level.WARN, finalMessage);
+        }
+    }
+
+    @Override
+    public final void warn(final RequestIdSupplier requestIdSupplier,
+                           final String msg,
+                           final Supplier<?> arg1) {
+        if (isLevelEnabled(Level.WARN)) {
+            final String finalMessage = getFinalMessage(msg, arg1);
+            log(requestIdSupplier, Level.WARN, finalMessage);
+        }
+    }
+
+    @Override
+    public final void warn(final RequestIdSupplier requestIdSupplier,
+                           final String msg,
+                           final Supplier<?> arg1,
+                           final Supplier<?> arg2) {
+        if (isLevelEnabled(Level.WARN)) {
+            final String finalMessage = getFinalMessage(msg, arg1, arg2);
+            log(requestIdSupplier, Level.WARN, finalMessage);
+        }
+    }
+
+    @Override
+    public final void warn(final RequestIdSupplier requestIdSupplier,
+                           final String msg,
+                           final Supplier<?> arg1,
+                           final Supplier<?> arg2,
+                           final Supplier<?> arg3) {
+        if (isLevelEnabled(Level.WARN)) {
+            final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3);
+            log(requestIdSupplier, Level.WARN, finalMessage);
+        }
+    }
+
+    @Override
+    public final void warn(final RequestIdSupplier requestIdSupplier,
+                           final String msg,
+                           final Supplier<?> arg1,
+                           final Supplier<?> arg2,
+                           final Supplier<?> arg3,
+                           final Supplier<?> arg4) {
+        if (isLevelEnabled(Level.WARN)) {
+            final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4);
+            log(requestIdSupplier, Level.WARN, finalMessage);
+        }
+    }
+
+    @Override
+    public final void warn(final RequestIdSupplier requestIdSupplier,
+                           final String msg,
+                           final Supplier<?> arg1,
+                           final Supplier<?> arg2,
+                           final Supplier<?> arg3,
+                           final Supplier<?> arg4,
+                           final Supplier<?> arg5) {
+        if (isLevelEnabled(Level.WARN)) {
+            final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4, arg5);
+            log(requestIdSupplier, Level.WARN, finalMessage);
+        }
+    }
+
+    @Override
+    public final void warn(final RequestIdSupplier requestIdSupplier,
+                           final String msg,
+                           final Supplier<?>... suppliers) {
+        if (isLevelEnabled(Level.WARN)) {
+            final String finalMessage = getFinalMessage(msg, suppliers);
+            log(requestIdSupplier, Level.WARN, finalMessage);
+        }
+    }
+
+    @Override
+    public final void warn(final RequestIdSupplier requestIdSupplier,
+                           final Throwable throwable,
+                           final String msg,
+                           final Object arg1) {
+        if (isLevelEnabled(Level.WARN)) {
+            final String finalMessage = getFinalMessage(msg, arg1);
+            log(requestIdSupplier, Level.WARN, finalMessage, throwable);
+        }
+    }
+
+    @Override
+    public final void warn(final RequestIdSupplier requestIdSupplier,
+                           final Throwable throwable,
+                           final String msg,
+                           final Object arg1,
+                           final Object arg2) {
+        if (isLevelEnabled(Level.WARN)) {
+            final String finalMessage = getFinalMessage(msg, arg1, arg2);
+            log(requestIdSupplier, Level.WARN, finalMessage, throwable);
+        }
+    }
+
+    @Override
+    public final void warn(final RequestIdSupplier requestIdSupplier,
+                           final Throwable throwable,
+                           final String msg,
+                           final Object arg1,
+                           final Object arg2,
+                           final Object arg3) {
+        if (isLevelEnabled(Level.WARN)) {
+            final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3);
+            log(requestIdSupplier, Level.WARN, finalMessage, throwable);
+        }
+    }
+
+    @Override
+    public final void warn(final RequestIdSupplier requestIdSupplier,
+                           final Throwable throwable,
+                           final String msg,
+                           final Object arg1,
+                           final Object arg2,
+                           final Object arg3,
+                           final Object arg4) {
+        if (isLevelEnabled(Level.WARN)) {
+            final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4);
+            log(requestIdSupplier, Level.WARN, finalMessage, throwable);
+        }
+    }
+
+    @Override
+    public final void warn(final RequestIdSupplier requestIdSupplier,
+                           final Throwable throwable,
+                           final String msg,
+                           final Object arg1,
+                           final Object arg2,
+                           final Object arg3,
+                           final Object arg4,
+                           final Object arg5) {
+        if (isLevelEnabled(Level.WARN)) {
+            final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4, arg5);
+            log(requestIdSupplier, Level.WARN, finalMessage, throwable);
+        }
+    }
+
+    @Override
+    public final void warn(final RequestIdSupplier requestIdSupplier,
+                           final Throwable throwable,
+                           final String msg,
+                           final Object... arguments) {
+        if (isLevelEnabled(Level.WARN)) {
+            final String finalMessage = getFinalMessage(msg, arguments);
+            log(requestIdSupplier, Level.WARN, finalMessage, throwable);
+        }
+    }
+
+    @Override
+    public final void warn(final RequestIdSupplier requestIdSupplier,
+                           final Throwable throwable,
+                           final String msg,
+                           final Supplier<?> arg1) {
+        if (isLevelEnabled(Level.WARN)) {
+            final String finalMessage = getFinalMessage(msg, arg1);
+            log(requestIdSupplier, Level.WARN, finalMessage, throwable);
+        }
+    }
+
+    @Override
+    public final void warn(final RequestIdSupplier requestIdSupplier,
+                           final Throwable throwable,
+                           final String msg,
+                           final Supplier<?> arg1,
+                           final Supplier<?> arg2) {
+        if (isLevelEnabled(Level.WARN)) {
+            final String finalMessage = getFinalMessage(msg, arg1, arg2);
+            log(requestIdSupplier, Level.WARN, finalMessage, throwable);
+        }
+    }
+
+    @Override
+    public final void warn(final RequestIdSupplier requestIdSupplier,
+                           final Throwable throwable,
+                           final String msg,
+                           final Supplier<?> arg1,
+                           final Supplier<?> arg2,
+                           final Supplier<?> arg3) {
+        if (isLevelEnabled(Level.WARN)) {
+            final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3);
+            log(requestIdSupplier, Level.WARN, finalMessage, throwable);
+        }
+    }
+
+    @Override
+    public final void warn(final RequestIdSupplier requestIdSupplier,
+                           final Throwable throwable,
+                           final String msg,
+                           final Supplier<?> arg1,
+                           final Supplier<?> arg2,
+                           final Supplier<?> arg3,
+                           final Supplier<?> arg4) {
+        if (isLevelEnabled(Level.WARN)) {
+            final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4);
+            log(requestIdSupplier, Level.WARN, finalMessage, throwable);
+        }
+    }
+
+    @Override
+    public final void warn(final RequestIdSupplier requestIdSupplier,
+                           final Throwable throwable,
+                           final String msg,
+                           final Supplier<?> arg1,
+                           final Supplier<?> arg2,
+                           final Supplier<?> arg3,
+                           final Supplier<?> arg4,
+                           final Supplier<?> arg5) {
+        if (isLevelEnabled(Level.WARN)) {
+            final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4, arg5);
+            log(requestIdSupplier, Level.WARN, finalMessage, throwable);
+        }
+    }
+
+    @Override
+    public final void warn(final RequestIdSupplier requestIdSupplier,
+                           final Throwable throwable,
+                           final String msg,
+                           final Supplier<?>... suppliers) {
+        if (isLevelEnabled(Level.WARN)) {
+            final String finalMessage = getFinalMessage(msg, suppliers);
+            log(requestIdSupplier, Level.WARN, finalMessage, throwable);
+        }
+    }
+
+    @Override
     public final boolean isErrorEnabled() {
         return isLevelEnabled(Level.ERROR);
     }
@@ -1456,6 +2684,306 @@ public abstract class AbstractLogger implements Logger {
         if (isLevelEnabled(Level.ERROR)) {
             final String finalMessage = getFinalMessage(msg, suppliers);
             log(Level.ERROR, finalMessage, throwable);
+        }
+    }
+
+    @Override
+    public final void error(final RequestIdSupplier requestIdSupplier,
+                            final String msg) {
+        if (isLevelEnabled(Level.ERROR)) {
+            log(requestIdSupplier, Level.ERROR, msg);
+        }
+    }
+
+    @Override
+    public final void error(final RequestIdSupplier requestIdSupplier,
+                            final String msg,
+                            final Object arg1) {
+        if (isLevelEnabled(Level.ERROR)) {
+            final String finalMessage = getFinalMessage(msg, arg1);
+            log(requestIdSupplier, Level.ERROR, finalMessage);
+        }
+    }
+
+    @Override
+    public final void error(final RequestIdSupplier requestIdSupplier,
+                            final String msg,
+                            final Object arg1,
+                            final Object arg2) {
+        if (isLevelEnabled(Level.ERROR)) {
+            final String finalMessage = getFinalMessage(msg, arg1, arg2);
+            log(requestIdSupplier, Level.ERROR, finalMessage);
+        }
+    }
+
+    @Override
+    public final void error(final RequestIdSupplier requestIdSupplier,
+                            final String msg,
+                            final Object arg1,
+                            final Object arg2,
+                            final Object arg3) {
+        if (isLevelEnabled(Level.ERROR)) {
+            final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3);
+            log(requestIdSupplier, Level.ERROR, finalMessage);
+        }
+    }
+
+    @Override
+    public final void error(final RequestIdSupplier requestIdSupplier,
+                            final String msg,
+                            final Object arg1,
+                            final Object arg2,
+                            final Object arg3,
+                            final Object arg4) {
+        if (isLevelEnabled(Level.ERROR)) {
+            final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4);
+            log(requestIdSupplier, Level.ERROR, finalMessage);
+        }
+    }
+
+    @Override
+    public final void error(final RequestIdSupplier requestIdSupplier,
+                            final String msg,
+                            final Object arg1,
+                            final Object arg2,
+                            final Object arg3,
+                            final Object arg4,
+                            final Object arg5) {
+        if (isLevelEnabled(Level.ERROR)) {
+            final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4, arg5);
+            log(requestIdSupplier, Level.ERROR, finalMessage);
+        }
+    }
+
+    @Override
+    public final void error(final RequestIdSupplier requestIdSupplier,
+                            final String msg,
+                            final Object... arguments) {
+        if (isLevelEnabled(Level.ERROR)) {
+            final String finalMessage = getFinalMessage(msg, arguments);
+            log(requestIdSupplier, Level.ERROR, finalMessage);
+        }
+    }
+
+    @Override
+    public final void error(final RequestIdSupplier requestIdSupplier,
+                            final String msg,
+                            final Supplier<?> arg1) {
+        if (isLevelEnabled(Level.ERROR)) {
+            final String finalMessage = getFinalMessage(msg, arg1);
+            log(requestIdSupplier, Level.ERROR, finalMessage);
+        }
+    }
+
+    @Override
+    public final void error(final RequestIdSupplier requestIdSupplier,
+                            final String msg,
+                            final Supplier<?> arg1,
+                            final Supplier<?> arg2) {
+        if (isLevelEnabled(Level.ERROR)) {
+            final String finalMessage = getFinalMessage(msg, arg1, arg2);
+            log(requestIdSupplier, Level.ERROR, finalMessage);
+        }
+    }
+
+    @Override
+    public final void error(final RequestIdSupplier requestIdSupplier,
+                            final String msg,
+                            final Supplier<?> arg1,
+                            final Supplier<?> arg2,
+                            final Supplier<?> arg3) {
+        if (isLevelEnabled(Level.ERROR)) {
+            final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3);
+            log(requestIdSupplier, Level.ERROR, finalMessage);
+        }
+    }
+
+    @Override
+    public final void error(final RequestIdSupplier requestIdSupplier,
+                            final String msg,
+                            final Supplier<?> arg1,
+                            final Supplier<?> arg2,
+                            final Supplier<?> arg3,
+                            final Supplier<?> arg4) {
+        if (isLevelEnabled(Level.ERROR)) {
+            final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4);
+            log(requestIdSupplier, Level.ERROR, finalMessage);
+        }
+    }
+
+    @Override
+    public final void error(final RequestIdSupplier requestIdSupplier,
+                            final String msg,
+                            final Supplier<?> arg1,
+                            final Supplier<?> arg2,
+                            final Supplier<?> arg3,
+                            final Supplier<?> arg4,
+                            final Supplier<?> arg5) {
+        if (isLevelEnabled(Level.ERROR)) {
+            final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4, arg5);
+            log(requestIdSupplier, Level.ERROR, finalMessage);
+        }
+    }
+
+    @Override
+    public final void error(final RequestIdSupplier requestIdSupplier,
+                            final String msg,
+                            final Supplier<?>... suppliers) {
+        if (isLevelEnabled(Level.ERROR)) {
+            final String finalMessage = getFinalMessage(msg, suppliers);
+            log(requestIdSupplier, Level.ERROR, finalMessage);
+        }
+    }
+
+    @Override
+    public final void error(final RequestIdSupplier requestIdSupplier,
+                            final Throwable throwable,
+                            final String msg,
+                            final Object arg1) {
+        if (isLevelEnabled(Level.ERROR)) {
+            final String finalMessage = getFinalMessage(msg, arg1);
+            log(requestIdSupplier, Level.ERROR, finalMessage, throwable);
+        }
+    }
+
+    @Override
+    public final void error(final RequestIdSupplier requestIdSupplier,
+                            final Throwable throwable,
+                            final String msg,
+                            final Object arg1,
+                            final Object arg2) {
+        if (isLevelEnabled(Level.ERROR)) {
+            final String finalMessage = getFinalMessage(msg, arg1, arg2);
+            log(requestIdSupplier, Level.ERROR, finalMessage, throwable);
+        }
+    }
+
+    @Override
+    public final void error(final RequestIdSupplier requestIdSupplier,
+                            final Throwable throwable,
+                            final String msg,
+                            final Object arg1,
+                            final Object arg2,
+                            final Object arg3) {
+        if (isLevelEnabled(Level.ERROR)) {
+            final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3);
+            log(requestIdSupplier, Level.ERROR, finalMessage, throwable);
+        }
+    }
+
+    @Override
+    public final void error(final RequestIdSupplier requestIdSupplier,
+                            final Throwable throwable,
+                            final String msg,
+                            final Object arg1,
+                            final Object arg2,
+                            final Object arg3,
+                            final Object arg4) {
+        if (isLevelEnabled(Level.ERROR)) {
+            final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4);
+            log(requestIdSupplier, Level.ERROR, finalMessage, throwable);
+        }
+    }
+
+    @Override
+    public final void error(final RequestIdSupplier requestIdSupplier,
+                            final Throwable throwable,
+                            final String msg,
+                            final Object arg1,
+                            final Object arg2,
+                            final Object arg3,
+                            final Object arg4,
+                            final Object arg5) {
+        if (isLevelEnabled(Level.ERROR)) {
+            final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4, arg5);
+            log(requestIdSupplier, Level.ERROR, finalMessage, throwable);
+        }
+    }
+
+    @Override
+    public final void error(final RequestIdSupplier requestIdSupplier,
+                            final Throwable throwable,
+                            final String msg,
+                            final Object... arguments) {
+        if (isLevelEnabled(Level.ERROR)) {
+            final String finalMessage = getFinalMessage(msg, arguments);
+            log(requestIdSupplier, Level.ERROR, finalMessage, throwable);
+        }
+    }
+
+    @Override
+    public final void error(final RequestIdSupplier requestIdSupplier,
+                            final Throwable throwable,
+                            final String msg,
+                            final Supplier<?> arg1) {
+        if (isLevelEnabled(Level.ERROR)) {
+            final String finalMessage = getFinalMessage(msg, arg1);
+            log(requestIdSupplier, Level.ERROR, finalMessage, throwable);
+        }
+    }
+
+    @Override
+    public final void error(final RequestIdSupplier requestIdSupplier,
+                            final Throwable throwable,
+                            final String msg,
+                            final Supplier<?> arg1,
+                            final Supplier<?> arg2) {
+        if (isLevelEnabled(Level.ERROR)) {
+            final String finalMessage = getFinalMessage(msg, arg1, arg2);
+            log(requestIdSupplier, Level.ERROR, finalMessage, throwable);
+        }
+    }
+
+    @Override
+    public final void error(final RequestIdSupplier requestIdSupplier,
+                            final Throwable throwable,
+                            final String msg,
+                            final Supplier<?> arg1,
+                            final Supplier<?> arg2,
+                            final Supplier<?> arg3) {
+        if (isLevelEnabled(Level.ERROR)) {
+            final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3);
+            log(requestIdSupplier, Level.ERROR, finalMessage, throwable);
+        }
+    }
+
+    @Override
+    public final void error(final RequestIdSupplier requestIdSupplier,
+                            final Throwable throwable,
+                            final String msg,
+                            final Supplier<?> arg1,
+                            final Supplier<?> arg2,
+                            final Supplier<?> arg3,
+                            final Supplier<?> arg4) {
+        if (isLevelEnabled(Level.ERROR)) {
+            final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4);
+            log(requestIdSupplier, Level.ERROR, finalMessage, throwable);
+        }
+    }
+
+    @Override
+    public final void error(final RequestIdSupplier requestIdSupplier,
+                            final Throwable throwable,
+                            final String msg,
+                            final Supplier<?> arg1,
+                            final Supplier<?> arg2,
+                            final Supplier<?> arg3,
+                            final Supplier<?> arg4,
+                            final Supplier<?> arg5) {
+        if (isLevelEnabled(Level.ERROR)) {
+            final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4, arg5);
+            log(requestIdSupplier, Level.ERROR, finalMessage, throwable);
+        }
+    }
+
+    @Override
+    public final void error(final RequestIdSupplier requestIdSupplier,
+                            final Throwable throwable,
+                            final String msg,
+                            final Supplier<?>... suppliers) {
+        if (isLevelEnabled(Level.ERROR)) {
+            final String finalMessage = getFinalMessage(msg, suppliers);
+            log(requestIdSupplier, Level.ERROR, finalMessage, throwable);
         }
     }
 

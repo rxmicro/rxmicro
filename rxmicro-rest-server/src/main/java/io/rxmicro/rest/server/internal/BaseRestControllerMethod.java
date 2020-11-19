@@ -63,9 +63,9 @@ public abstract class BaseRestControllerMethod {
         CompletionStage<HttpResponse> response;
         try {
             response = invoke(pathVariableMapping, request)
-                    .exceptionally(errorHttpResponseBuilder::build);
+                    .exceptionally(throwable -> errorHttpResponseBuilder.build(request, throwable));
         } catch (final Throwable th) {
-            response = completedStage(errorHttpResponseBuilder.build(th));
+            response = completedStage(errorHttpResponseBuilder.build(request, th));
         }
         final String origin = request.getHeaders().getValue(ORIGIN);
         if (corsRequestPossible && origin != null) {

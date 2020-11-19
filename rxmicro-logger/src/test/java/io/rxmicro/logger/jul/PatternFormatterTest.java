@@ -74,6 +74,12 @@ final class PatternFormatterTest {
             "%C{short}: %message%%%n;                                        Class: message%",
             "%C{0}: %message%%%n;                                            Class: message%",
 
+            "{%id}: %message%%%n;                                            {ID12345}: message%",
+            "{%rid}: %message%%%n;                                           {ID12345}: message%",
+            "{%request-id}: %message%%%n;                                    {ID12345}: message%",
+            "{%request_id}: %message%%%n;                                    {ID12345}: message%",
+            "{%requestId}: %message%%%n;                                     {ID12345}: message%",
+
             "%d{yyyy-MM-dd HH:mm:ss.SSS, UTC} [%p] %c: %m%n;                 2020-01-02 03:04:05.123 [INFO] full.LoggerName: message",
             "%d{, UTC} {%t{}} %c{}: %m{}%n{};                                2020-01-02 03:04:05.123 {thread-1} full.LoggerName: message",
             "%date{, UTC} [%level] %logger: %message%n;                      2020-01-02 03:04:05.123 [INFO] full.LoggerName: message",
@@ -85,7 +91,7 @@ final class PatternFormatterTest {
     @Order(1)
     void Should_format_correctly(final String pattern,
                                  final String expectedMessage) {
-        final RxMicroLogRecord record = new RxMicroLogRecord("full.LoggerName", INFO, "message");
+        final RxMicroLogRecord record = new RxMicroLogRecord(() -> "ID12345","full.LoggerName", INFO, "message");
         record.setInstant(Instant.parse("2020-01-02T03:04:05.123Z"));
         record.setThreadName("thread-1");
         record.setStackFrame("package.Class", "method", "Class.java", 15);

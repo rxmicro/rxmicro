@@ -70,10 +70,8 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void trace(final String format,
-                       final Object arg1) {
-        trace(format, new Object[]{arg1});
-    }
+    void trace(String format,
+               Object arg1);
 
     /**
      * Log the message at the {@code TRACE} level according to the specified format and arguments.
@@ -87,11 +85,9 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void trace(final String format,
-                       final Object arg1,
-                       final Object arg2) {
-        trace(format, new Object[]{arg1, arg2});
-    }
+    void trace(String format,
+               Object arg1,
+               Object arg2);
 
     /**
      * Log the message at the {@code TRACE} level according to the specified format and arguments.
@@ -106,12 +102,10 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void trace(final String format,
-                       final Object arg1,
-                       final Object arg2,
-                       final Object arg3) {
-        trace(format, new Object[]{arg1, arg2, arg3});
-    }
+    void trace(String format,
+               Object arg1,
+               Object arg2,
+               Object arg3);
 
     /**
      * Log the message at the {@code TRACE} level according to the specified format and arguments.
@@ -127,13 +121,11 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void trace(final String format,
-                       final Object arg1,
-                       final Object arg2,
-                       final Object arg3,
-                       final Object arg4) {
-        trace(format, new Object[]{arg1, arg2, arg3, arg4});
-    }
+    void trace(String format,
+               Object arg1,
+               Object arg2,
+               Object arg3,
+               Object arg4);
 
     /**
      * Log the message at the {@code TRACE} level according to the specified format and arguments.
@@ -150,14 +142,12 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void trace(final String format,
-                       final Object arg1,
-                       final Object arg2,
-                       final Object arg3,
-                       final Object arg4,
-                       final Object arg5) {
-        trace(format, new Object[]{arg1, arg2, arg3, arg4, arg5});
-    }
+    void trace(String format,
+               Object arg1,
+               Object arg2,
+               Object arg3,
+               Object arg4,
+               Object arg5);
 
     /**
      * Log the message at the {@code TRACE} level according to the specified format and arguments.
@@ -170,7 +160,8 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    void trace(String format, Object... arguments);
+    void trace(String format,
+               Object... arguments);
 
     /**
      * Log the message at the {@code TRACE} level according to the specified format and argument.
@@ -183,10 +174,8 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void trace(final String format,
-                       final Supplier<?> arg1) {
-        trace(format, new Object[]{arg1});
-    }
+    void trace(String format,
+               Supplier<?> arg1);
 
     /**
      * Log the message at the {@code TRACE} level according to the specified format and arguments.
@@ -200,11 +189,9 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void trace(final String format,
-                       final Supplier<?> arg1,
-                       final Supplier<?> arg2) {
-        trace(format, new Object[]{arg1, arg2});
-    }
+    void trace(String format,
+               Supplier<?> arg1,
+               Supplier<?> arg2);
 
     /**
      * Log the message at the {@code TRACE} level according to the specified format and arguments.
@@ -219,12 +206,10 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void trace(final String format,
-                       final Supplier<?> arg1,
-                       final Supplier<?> arg2,
-                       final Supplier<?> arg3) {
-        trace(format, new Object[]{arg1, arg2, arg3});
-    }
+    void trace(String format,
+               Supplier<?> arg1,
+               Supplier<?> arg2,
+               Supplier<?> arg3);
 
     /**
      * Log the message at the {@code TRACE} level according to the specified format and arguments.
@@ -240,13 +225,11 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void trace(final String format,
-                       final Supplier<?> arg1,
-                       final Supplier<?> arg2,
-                       final Supplier<?> arg3,
-                       final Supplier<?> arg4) {
-        trace(format, new Object[]{arg1, arg2, arg3, arg4});
-    }
+    void trace(String format,
+               Supplier<?> arg1,
+               Supplier<?> arg2,
+               Supplier<?> arg3,
+               Supplier<?> arg4);
 
     /**
      * Log the message at the {@code TRACE} level according to the specified format and arguments.
@@ -263,14 +246,12 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void trace(final String format,
-                       final Supplier<?> arg1,
-                       final Supplier<?> arg2,
-                       final Supplier<?> arg3,
-                       final Supplier<?> arg4,
-                       final Supplier<?> arg5) {
-        trace(format, new Object[]{arg1, arg2, arg3, arg4, arg5});
-    }
+    void trace(String format,
+               Supplier<?> arg1,
+               Supplier<?> arg2,
+               Supplier<?> arg3,
+               Supplier<?> arg4,
+               Supplier<?> arg5);
 
     /**
      * Log the message at the {@code TRACE} level according to the specified format and arguments.
@@ -283,7 +264,8 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    void trace(String format, Supplier<?>... suppliers);
+    void trace(String format,
+               Supplier<?>... suppliers);
 
     /**
      * Log the message with the throwable at the {@code TRACE} level according to the specified format and arguments.
@@ -297,11 +279,9 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void trace(final Throwable throwable,
-                       final String format,
-                       final Object arg1) {
-        trace(throwable, format, new Object[]{arg1});
-    }
+    void trace(Throwable throwable,
+               String format,
+               Object arg1);
 
     /**
      * Log the message with the throwable at the {@code TRACE} level according to the specified format and arguments.
@@ -316,12 +296,10 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void trace(final Throwable throwable,
-                       final String format,
-                       final Object arg1,
-                       final Object arg2) {
-        trace(throwable, format, new Object[]{arg1, arg2});
-    }
+    void trace(Throwable throwable,
+               String format,
+               Object arg1,
+               Object arg2);
 
     /**
      * Log the message with the throwable at the {@code TRACE} level according to the specified format and arguments.
@@ -337,13 +315,11 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void trace(final Throwable throwable,
-                       final String format,
-                       final Object arg1,
-                       final Object arg2,
-                       final Object arg3) {
-        trace(throwable, format, new Object[]{arg1, arg2, arg3});
-    }
+    void trace(Throwable throwable,
+               String format,
+               Object arg1,
+               Object arg2,
+               Object arg3);
 
     /**
      * Log the message with the throwable at the {@code TRACE} level according to the specified format and arguments.
@@ -360,14 +336,12 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void trace(final Throwable throwable,
-                       final String format,
-                       final Object arg1,
-                       final Object arg2,
-                       final Object arg3,
-                       final Object arg4) {
-        trace(throwable, format, new Object[]{arg1, arg2, arg3, arg4});
-    }
+    void trace(Throwable throwable,
+               String format,
+               Object arg1,
+               Object arg2,
+               Object arg3,
+               Object arg4);
 
     /**
      * Log the message with the throwable at the {@code TRACE} level according to the specified format and arguments.
@@ -385,15 +359,13 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void trace(final Throwable throwable,
-                       final String format,
-                       final Object arg1,
-                       final Object arg2,
-                       final Object arg3,
-                       final Object arg4,
-                       final Object arg5) {
-        trace(throwable, format, new Object[]{arg1, arg2, arg3, arg4, arg5});
-    }
+    void trace(Throwable throwable,
+               String format,
+               Object arg1,
+               Object arg2,
+               Object arg3,
+               Object arg4,
+               Object arg5);
 
     /**
      * Log the message with the throwable at the {@code TRACE} level according to the specified format and arguments.
@@ -407,7 +379,9 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    void trace(Throwable throwable, String format, Object... arguments);
+    void trace(Throwable throwable,
+               String format,
+               Object... arguments);
 
     /**
      * Log the message with the throwable at the {@code TRACE} level according to the specified format and argument.
@@ -421,11 +395,9 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void trace(final Throwable throwable,
-                       final String format,
-                       final Supplier<?> arg1) {
-        trace(throwable, format, new Object[]{arg1});
-    }
+    void trace(Throwable throwable,
+               String format,
+               Supplier<?> arg1);
 
     /**
      * Log the message with the throwable at the {@code TRACE} level according to the specified format and arguments.
@@ -440,12 +412,10 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void trace(final Throwable throwable,
-                       final String format,
-                       final Supplier<?> arg1,
-                       final Supplier<?> arg2) {
-        trace(throwable, format, new Object[]{arg1, arg2});
-    }
+    void trace(Throwable throwable,
+               String format,
+               Supplier<?> arg1,
+               Supplier<?> arg2);
 
     /**
      * Log the message with the throwable at the {@code TRACE} level according to the specified format and arguments.
@@ -461,13 +431,11 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void trace(final Throwable throwable,
-                       final String format,
-                       final Supplier<?> arg1,
-                       final Supplier<?> arg2,
-                       final Supplier<?> arg3) {
-        trace(throwable, format, new Object[]{arg1, arg2, arg3});
-    }
+    void trace(Throwable throwable,
+               String format,
+               Supplier<?> arg1,
+               Supplier<?> arg2,
+               Supplier<?> arg3);
 
     /**
      * Log the message with the throwable at the {@code TRACE} level according to the specified format and arguments.
@@ -484,14 +452,12 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void trace(final Throwable throwable,
-                       final String format,
-                       final Supplier<?> arg1,
-                       final Supplier<?> arg2,
-                       final Supplier<?> arg3,
-                       final Supplier<?> arg4) {
-        trace(throwable, format, new Object[]{arg1, arg2, arg3, arg4});
-    }
+    void trace(Throwable throwable,
+               String format,
+               Supplier<?> arg1,
+               Supplier<?> arg2,
+               Supplier<?> arg3,
+               Supplier<?> arg4);
 
     /**
      * Log the message with the throwable at the {@code TRACE} level according to the specified format and arguments.
@@ -509,15 +475,13 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void trace(final Throwable throwable,
-                       final String format,
-                       final Supplier<?> arg1,
-                       final Supplier<?> arg2,
-                       final Supplier<?> arg3,
-                       final Supplier<?> arg4,
-                       final Supplier<?> arg5) {
-        trace(throwable, format, new Object[]{arg1, arg2, arg3, arg4, arg5});
-    }
+    void trace(Throwable throwable,
+               String format,
+               Supplier<?> arg1,
+               Supplier<?> arg2,
+               Supplier<?> arg3,
+               Supplier<?> arg4,
+               Supplier<?> arg5);
 
     /**
      * Log the message with the throwable at the {@code TRACE} level according to the specified format and arguments.
@@ -531,7 +495,506 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    void trace(Throwable throwable, String format, Supplier<?>... suppliers);
+    void trace(Throwable throwable,
+               String format,
+               Supplier<?>... suppliers);
+
+    /**
+     * Log the message at the {@code TRACE} level.
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param msg the message string to be logged
+     */
+    void trace(RequestIdSupplier requestIdSupplier,
+               String msg);
+
+    /**
+     * Log the message at the {@code TRACE} level according to the specified format and argument.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param format the format string
+     * @param arg1 the argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void trace(RequestIdSupplier requestIdSupplier,
+               String format,
+               Object arg1);
+
+    /**
+     * Log the message at the {@code TRACE} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void trace(RequestIdSupplier requestIdSupplier,
+               String format,
+               Object arg1,
+               Object arg2);
+
+    /**
+     * Log the message at the {@code TRACE} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void trace(RequestIdSupplier requestIdSupplier,
+               String format,
+               Object arg1,
+               Object arg2,
+               Object arg3);
+
+    /**
+     * Log the message at the {@code TRACE} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @param arg4 the forth argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void trace(RequestIdSupplier requestIdSupplier,
+               String format,
+               Object arg1,
+               Object arg2,
+               Object arg3,
+               Object arg4) ;
+
+    /**
+     * Log the message at the {@code TRACE} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @param arg4 the forth argument
+     * @param arg5 the fifth argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void trace(RequestIdSupplier requestIdSupplier,
+               String format,
+               Object arg1,
+               Object arg2,
+               Object arg3,
+               Object arg4,
+               Object arg5) ;
+
+    /**
+     * Log the message at the {@code TRACE} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param format the format string
+     * @param arguments the arguments
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void trace(RequestIdSupplier requestIdSupplier,
+               String format,
+               Object... arguments);
+
+    /**
+     * Log the message at the {@code TRACE} level according to the specified format and argument.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param format the format string
+     * @param arg1 the argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void trace(RequestIdSupplier requestIdSupplier,
+               String format,
+               Supplier<?> arg1);
+
+    /**
+     * Log the message at the {@code TRACE} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void trace(RequestIdSupplier requestIdSupplier,
+               String format,
+               Supplier<?> arg1,
+               Supplier<?> arg2);
+
+    /**
+     * Log the message at the {@code TRACE} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void trace(RequestIdSupplier requestIdSupplier,
+               String format,
+               Supplier<?> arg1,
+               Supplier<?> arg2,
+               Supplier<?> arg3);
+
+    /**
+     * Log the message at the {@code TRACE} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @param arg4 the forth argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void trace(RequestIdSupplier requestIdSupplier,
+               String format,
+               Supplier<?> arg1,
+               Supplier<?> arg2,
+               Supplier<?> arg3,
+               Supplier<?> arg4);
+
+    /**
+     * Log the message at the {@code TRACE} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @param arg4 the forth argument
+     * @param arg5 the fifth argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void trace(RequestIdSupplier requestIdSupplier,
+               String format,
+               Supplier<?> arg1,
+               Supplier<?> arg2,
+               Supplier<?> arg3,
+               Supplier<?> arg4,
+               Supplier<?> arg5);
+
+    /**
+     * Log the message at the {@code TRACE} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param format the format string
+     * @param suppliers the argument suppliers
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void trace(RequestIdSupplier requestIdSupplier,
+               String format,
+               Supplier<?>... suppliers);
+
+    /**
+     * Log the message with the throwable at the {@code TRACE} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void trace(RequestIdSupplier requestIdSupplier,
+               Throwable throwable,
+               String format,
+               Object arg1);
+
+    /**
+     * Log the message with the throwable at the {@code TRACE} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void trace(RequestIdSupplier requestIdSupplier,
+               Throwable throwable,
+               String format,
+               Object arg1,
+               Object arg2);
+
+    /**
+     * Log the message with the throwable at the {@code TRACE} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void trace(RequestIdSupplier requestIdSupplier,
+               Throwable throwable,
+               String format,
+               Object arg1,
+               Object arg2,
+               Object arg3);
+
+    /**
+     * Log the message with the throwable at the {@code TRACE} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @param arg4 the forth argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void trace(RequestIdSupplier requestIdSupplier,
+               Throwable throwable,
+               String format,
+               Object arg1,
+               Object arg2,
+               Object arg3,
+               Object arg4);
+
+    /**
+     * Log the message with the throwable at the {@code TRACE} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @param arg4 the forth argument
+     * @param arg5 the fifth argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void trace(RequestIdSupplier requestIdSupplier,
+               Throwable throwable,
+               String format,
+               Object arg1,
+               Object arg2,
+               Object arg3,
+               Object arg4,
+               Object arg5);
+
+    /**
+     * Log the message with the throwable at the {@code TRACE} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arguments the arguments
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void trace(RequestIdSupplier requestIdSupplier,
+               Throwable throwable,
+               String format,
+               Object... arguments);
+
+    /**
+     * Log the message with the throwable at the {@code TRACE} level according to the specified format and argument.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void trace(RequestIdSupplier requestIdSupplier,
+               Throwable throwable,
+               String format,
+               Supplier<?> arg1) ;
+
+    /**
+     * Log the message with the throwable at the {@code TRACE} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void trace(RequestIdSupplier requestIdSupplier,
+               Throwable throwable,
+               String format,
+               Supplier<?> arg1,
+               Supplier<?> arg2);
+
+    /**
+     * Log the message with the throwable at the {@code TRACE} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void trace(RequestIdSupplier requestIdSupplier,
+               Throwable throwable,
+               String format,
+               Supplier<?> arg1,
+               Supplier<?> arg2,
+               Supplier<?> arg3);
+
+    /**
+     * Log the message with the throwable at the {@code TRACE} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @param arg4 the forth argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void trace(RequestIdSupplier requestIdSupplier,
+               Throwable throwable,
+               String format,
+               Supplier<?> arg1,
+               Supplier<?> arg2,
+               Supplier<?> arg3,
+               Supplier<?> arg4);
+
+    /**
+     * Log the message with the throwable at the {@code TRACE} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @param arg4 the forth argument
+     * @param arg5 the fifth argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void trace(RequestIdSupplier requestIdSupplier,
+               Throwable throwable,
+               String format,
+               Supplier<?> arg1,
+               Supplier<?> arg2,
+               Supplier<?> arg3,
+               Supplier<?> arg4,
+               Supplier<?> arg5);
+
+    /**
+     * Log the message with the throwable at the {@code TRACE} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param throwable the throwable
+     * @param format the format string
+     * @param suppliers the suppliers
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void trace(RequestIdSupplier requestIdSupplier,
+               Throwable throwable,
+               String format,
+               Supplier<?>... suppliers);
 
     // -------------------------------------------------------------------------------------------------------------------------------------
 
@@ -560,10 +1023,8 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void debug(final String format,
-                       final Object arg1) {
-        debug(format, new Object[]{arg1});
-    }
+    void debug(String format,
+               Object arg1);
 
     /**
      * Log the message at the {@code DEBUG} level according to the specified format and arguments.
@@ -577,11 +1038,9 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void debug(final String format,
-                       final Object arg1,
-                       final Object arg2) {
-        debug(format, new Object[]{arg1, arg2});
-    }
+    void debug(String format,
+               Object arg1,
+               Object arg2);
 
     /**
      * Log the message at the {@code DEBUG} level according to the specified format and arguments.
@@ -596,12 +1055,10 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void debug(final String format,
-                       final Object arg1,
-                       final Object arg2,
-                       final Object arg3) {
-        debug(format, new Object[]{arg1, arg2, arg3});
-    }
+    void debug(String format,
+               Object arg1,
+               Object arg2,
+               Object arg3);
 
     /**
      * Log the message at the {@code DEBUG} level according to the specified format and arguments.
@@ -617,13 +1074,11 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void debug(final String format,
-                       final Object arg1,
-                       final Object arg2,
-                       final Object arg3,
-                       final Object arg4) {
-        debug(format, new Object[]{arg1, arg2, arg3, arg4});
-    }
+    void debug(String format,
+               Object arg1,
+               Object arg2,
+               Object arg3,
+               Object arg4);
 
     /**
      * Log the message at the {@code DEBUG} level according to the specified format and arguments.
@@ -640,14 +1095,12 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void debug(final String format,
-                       final Object arg1,
-                       final Object arg2,
-                       final Object arg3,
-                       final Object arg4,
-                       final Object arg5) {
-        debug(format, new Object[]{arg1, arg2, arg3, arg4, arg5});
-    }
+    void debug(String format,
+               Object arg1,
+               Object arg2,
+               Object arg3,
+               Object arg4,
+               Object arg5);
 
     /**
      * Log the message at the {@code DEBUG} level according to the specified format and arguments.
@@ -660,7 +1113,8 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    void debug(String format, Object... arguments);
+    void debug(String format,
+               Object... arguments);
 
     /**
      * Log the message at the {@code DEBUG} level according to the specified format and argument.
@@ -673,10 +1127,8 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void debug(final String format,
-                       final Supplier<?> arg1) {
-        debug(format, new Object[]{arg1});
-    }
+    void debug(String format,
+               Supplier<?> arg1);
 
     /**
      * Log the message at the {@code DEBUG} level according to the specified format and arguments.
@@ -690,11 +1142,9 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void debug(final String format,
-                       final Supplier<?> arg1,
-                       final Supplier<?> arg2) {
-        debug(format, new Object[]{arg1, arg2});
-    }
+    void debug(String format,
+               Supplier<?> arg1,
+               Supplier<?> arg2);
 
     /**
      * Log the message at the {@code DEBUG} level according to the specified format and arguments.
@@ -709,12 +1159,10 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void debug(final String format,
-                       final Supplier<?> arg1,
-                       final Supplier<?> arg2,
-                       final Supplier<?> arg3) {
-        debug(format, new Object[]{arg1, arg2, arg3});
-    }
+    void debug(String format,
+               Supplier<?> arg1,
+               Supplier<?> arg2,
+               Supplier<?> arg3);
 
     /**
      * Log the message at the {@code DEBUG} level according to the specified format and arguments.
@@ -730,13 +1178,11 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void debug(final String format,
-                       final Supplier<?> arg1,
-                       final Supplier<?> arg2,
-                       final Supplier<?> arg3,
-                       final Supplier<?> arg4) {
-        debug(format, new Object[]{arg1, arg2, arg3, arg4});
-    }
+    void debug(String format,
+               Supplier<?> arg1,
+               Supplier<?> arg2,
+               Supplier<?> arg3,
+               Supplier<?> arg4);
 
     /**
      * Log the message at the {@code DEBUG} level according to the specified format and arguments.
@@ -753,14 +1199,12 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void debug(final String format,
-                       final Supplier<?> arg1,
-                       final Supplier<?> arg2,
-                       final Supplier<?> arg3,
-                       final Supplier<?> arg4,
-                       final Supplier<?> arg5) {
-        debug(format, new Object[]{arg1, arg2, arg3, arg4, arg5});
-    }
+    void debug(String format,
+               Supplier<?> arg1,
+               Supplier<?> arg2,
+               Supplier<?> arg3,
+               Supplier<?> arg4,
+               Supplier<?> arg5);
 
     /**
      * Log the message at the {@code DEBUG} level according to the specified format and arguments.
@@ -773,7 +1217,8 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    void debug(String format, Supplier<?>... suppliers);
+    void debug(String format,
+               Supplier<?>... suppliers);
 
     /**
      * Log the message with the throwable at the {@code DEBUG} level according to the specified format and arguments.
@@ -787,11 +1232,9 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void debug(final Throwable throwable,
-                       final String format,
-                       final Object arg1) {
-        debug(throwable, format, new Object[]{arg1});
-    }
+    void debug(Throwable throwable,
+               String format,
+               Object arg1);
 
     /**
      * Log the message with the throwable at the {@code DEBUG} level according to the specified format and arguments.
@@ -806,12 +1249,10 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void debug(final Throwable throwable,
-                       final String format,
-                       final Object arg1,
-                       final Object arg2) {
-        debug(throwable, format, new Object[]{arg1, arg2});
-    }
+    void debug(Throwable throwable,
+               String format,
+               Object arg1,
+               Object arg2);
 
     /**
      * Log the message with the throwable at the {@code DEBUG} level according to the specified format and arguments.
@@ -827,13 +1268,11 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void debug(final Throwable throwable,
-                       final String format,
-                       final Object arg1,
-                       final Object arg2,
-                       final Object arg3) {
-        debug(throwable, format, new Object[]{arg1, arg2, arg3});
-    }
+    void debug(Throwable throwable,
+               String format,
+               Object arg1,
+               Object arg2,
+               Object arg3);
 
     /**
      * Log the message with the throwable at the {@code DEBUG} level according to the specified format and arguments.
@@ -850,14 +1289,12 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void debug(final Throwable throwable,
-                       final String format,
-                       final Object arg1,
-                       final Object arg2,
-                       final Object arg3,
-                       final Object arg4) {
-        debug(throwable, format, new Object[]{arg1, arg2, arg3, arg4});
-    }
+    void debug(Throwable throwable,
+               String format,
+               Object arg1,
+               Object arg2,
+               Object arg3,
+               Object arg4);
 
     /**
      * Log the message with the throwable at the {@code DEBUG} level according to the specified format and arguments.
@@ -875,15 +1312,13 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void debug(final Throwable throwable,
-                       final String format,
-                       final Object arg1,
-                       final Object arg2,
-                       final Object arg3,
-                       final Object arg4,
-                       final Object arg5) {
-        debug(throwable, format, new Object[]{arg1, arg2, arg3, arg4, arg5});
-    }
+    void debug(Throwable throwable,
+               String format,
+               Object arg1,
+               Object arg2,
+               Object arg3,
+               Object arg4,
+               Object arg5);
 
     /**
      * Log the message with the throwable at the {@code DEBUG} level according to the specified format and arguments.
@@ -897,7 +1332,9 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    void debug(Throwable throwable, String format, Object... arguments);
+    void debug(Throwable throwable,
+               String format,
+               Object... arguments);
 
     /**
      * Log the message with the throwable at the {@code DEBUG} level according to the specified format and argument.
@@ -911,11 +1348,9 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void debug(final Throwable throwable,
-                       final String format,
-                       final Supplier<?> arg1) {
-        debug(throwable, format, new Object[]{arg1});
-    }
+    void debug(Throwable throwable,
+               String format,
+               Supplier<?> arg1);
 
     /**
      * Log the message with the throwable at the {@code DEBUG} level according to the specified format and arguments.
@@ -930,12 +1365,10 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void debug(final Throwable throwable,
-                       final String format,
-                       final Supplier<?> arg1,
-                       final Supplier<?> arg2) {
-        debug(throwable, format, new Object[]{arg1, arg2});
-    }
+    void debug(Throwable throwable,
+               String format,
+               Supplier<?> arg1,
+               Supplier<?> arg2);
 
     /**
      * Log the message with the throwable at the {@code DEBUG} level according to the specified format and arguments.
@@ -951,13 +1384,11 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void debug(final Throwable throwable,
-                       final String format,
-                       final Supplier<?> arg1,
-                       final Supplier<?> arg2,
-                       final Supplier<?> arg3) {
-        debug(throwable, format, new Object[]{arg1, arg2, arg3});
-    }
+    void debug(Throwable throwable,
+               String format,
+               Supplier<?> arg1,
+               Supplier<?> arg2,
+               Supplier<?> arg3);
 
     /**
      * Log the message with the throwable at the {@code DEBUG} level according to the specified format and arguments.
@@ -974,14 +1405,12 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void debug(final Throwable throwable,
-                       final String format,
-                       final Supplier<?> arg1,
-                       final Supplier<?> arg2,
-                       final Supplier<?> arg3,
-                       final Supplier<?> arg4) {
-        debug(throwable, format, new Object[]{arg1, arg2, arg3, arg4});
-    }
+    void debug(Throwable throwable,
+               String format,
+               Supplier<?> arg1,
+               Supplier<?> arg2,
+               Supplier<?> arg3,
+               Supplier<?> arg4);
 
     /**
      * Log the message with the throwable at the {@code DEBUG} level according to the specified format and arguments.
@@ -999,15 +1428,13 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void debug(final Throwable throwable,
-                       final String format,
-                       final Supplier<?> arg1,
-                       final Supplier<?> arg2,
-                       final Supplier<?> arg3,
-                       final Supplier<?> arg4,
-                       final Supplier<?> arg5) {
-        debug(throwable, format, new Object[]{arg1, arg2, arg3, arg4, arg5});
-    }
+    void debug(Throwable throwable,
+               String format,
+               Supplier<?> arg1,
+               Supplier<?> arg2,
+               Supplier<?> arg3,
+               Supplier<?> arg4,
+               Supplier<?> arg5);
 
     /**
      * Log the message with the throwable at the {@code DEBUG} level according to the specified format and arguments.
@@ -1021,7 +1448,506 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    void debug(Throwable throwable, String format, Supplier<?>... suppliers);
+    void debug(Throwable throwable,
+               String format,
+               Supplier<?>... suppliers);
+
+    /**
+     * Log the message at the {@code DEBUG} level.
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param msg the message string to be logged
+     */
+    void debug(RequestIdSupplier requestIdSupplier,
+               String msg);
+
+    /**
+     * Log the message at the {@code DEBUG} level according to the specified format and argument.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param format the format string
+     * @param arg1 the argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void debug(RequestIdSupplier requestIdSupplier,
+               String format,
+               Object arg1) ;
+
+    /**
+     * Log the message at the {@code DEBUG} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void debug(RequestIdSupplier requestIdSupplier,
+               String format,
+               Object arg1,
+               Object arg2) ;
+
+    /**
+     * Log the message at the {@code DEBUG} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void debug(RequestIdSupplier requestIdSupplier,
+               String format,
+               Object arg1,
+               Object arg2,
+               Object arg3);
+
+    /**
+     * Log the message at the {@code DEBUG} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @param arg4 the forth argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void debug(RequestIdSupplier requestIdSupplier,
+               String format,
+               Object arg1,
+               Object arg2,
+               Object arg3,
+               Object arg4);
+
+    /**
+     * Log the message at the {@code DEBUG} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @param arg4 the forth argument
+     * @param arg5 the fifth argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void debug(RequestIdSupplier requestIdSupplier,
+               String format,
+               Object arg1,
+               Object arg2,
+               Object arg3,
+               Object arg4,
+               Object arg5);
+
+    /**
+     * Log the message at the {@code DEBUG} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param format the format string
+     * @param arguments the arguments
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void debug(RequestIdSupplier requestIdSupplier,
+               String format,
+               Object... arguments);
+
+    /**
+     * Log the message at the {@code DEBUG} level according to the specified format and argument.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param format the format string
+     * @param arg1 the argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void debug(RequestIdSupplier requestIdSupplier,
+               String format,
+               Supplier<?> arg1);
+
+    /**
+     * Log the message at the {@code DEBUG} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void debug(RequestIdSupplier requestIdSupplier,
+               String format,
+               Supplier<?> arg1,
+               Supplier<?> arg2);
+
+    /**
+     * Log the message at the {@code DEBUG} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void debug(RequestIdSupplier requestIdSupplier,
+               String format,
+               Supplier<?> arg1,
+               Supplier<?> arg2,
+               Supplier<?> arg3);
+
+    /**
+     * Log the message at the {@code DEBUG} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @param arg4 the forth argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void debug(RequestIdSupplier requestIdSupplier,
+               String format,
+               Supplier<?> arg1,
+               Supplier<?> arg2,
+               Supplier<?> arg3,
+               Supplier<?> arg4);
+
+    /**
+     * Log the message at the {@code DEBUG} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @param arg4 the forth argument
+     * @param arg5 the fifth argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void debug(RequestIdSupplier requestIdSupplier,
+               String format,
+               Supplier<?> arg1,
+               Supplier<?> arg2,
+               Supplier<?> arg3,
+               Supplier<?> arg4,
+               Supplier<?> arg5);
+
+    /**
+     * Log the message at the {@code DEBUG} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param format the format string
+     * @param suppliers the argument suppliers
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void debug(RequestIdSupplier requestIdSupplier,
+               String format,
+               Supplier<?>... suppliers);
+
+    /**
+     * Log the message with the throwable at the {@code DEBUG} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void debug(RequestIdSupplier requestIdSupplier,
+               Throwable throwable,
+               String format,
+               Object arg1) ;
+
+    /**
+     * Log the message with the throwable at the {@code DEBUG} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void debug(RequestIdSupplier requestIdSupplier,
+               Throwable throwable,
+               String format,
+               Object arg1,
+               Object arg2);
+
+    /**
+     * Log the message with the throwable at the {@code DEBUG} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void debug(RequestIdSupplier requestIdSupplier,
+               Throwable throwable,
+               String format,
+               Object arg1,
+               Object arg2,
+               Object arg3);
+
+    /**
+     * Log the message with the throwable at the {@code DEBUG} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @param arg4 the forth argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void debug(RequestIdSupplier requestIdSupplier,
+               Throwable throwable,
+               String format,
+               Object arg1,
+               Object arg2,
+               Object arg3,
+               Object arg4);
+
+    /**
+     * Log the message with the throwable at the {@code DEBUG} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @param arg4 the forth argument
+     * @param arg5 the fifth argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void debug(RequestIdSupplier requestIdSupplier,
+               Throwable throwable,
+               String format,
+               Object arg1,
+               Object arg2,
+               Object arg3,
+               Object arg4,
+               Object arg5) ;
+
+    /**
+     * Log the message with the throwable at the {@code DEBUG} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arguments the arguments
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void debug(RequestIdSupplier requestIdSupplier,
+               Throwable throwable,
+               String format,
+               Object... arguments);
+
+    /**
+     * Log the message with the throwable at the {@code DEBUG} level according to the specified format and argument.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void debug(RequestIdSupplier requestIdSupplier,
+               Throwable throwable,
+               String format,
+               Supplier<?> arg1) ;
+
+    /**
+     * Log the message with the throwable at the {@code DEBUG} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void debug(RequestIdSupplier requestIdSupplier,
+               Throwable throwable,
+               String format,
+               Supplier<?> arg1,
+               Supplier<?> arg2);
+
+    /**
+     * Log the message with the throwable at the {@code DEBUG} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void debug(RequestIdSupplier requestIdSupplier,
+               Throwable throwable,
+               String format,
+               Supplier<?> arg1,
+               Supplier<?> arg2,
+               Supplier<?> arg3);
+
+    /**
+     * Log the message with the throwable at the {@code DEBUG} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @param arg4 the forth argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void debug(RequestIdSupplier requestIdSupplier,
+               Throwable throwable,
+               String format,
+               Supplier<?> arg1,
+               Supplier<?> arg2,
+               Supplier<?> arg3,
+               Supplier<?> arg4);
+
+    /**
+     * Log the message with the throwable at the {@code DEBUG} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @param arg4 the forth argument
+     * @param arg5 the fifth argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void debug(RequestIdSupplier requestIdSupplier,
+               Throwable throwable,
+               String format,
+               Supplier<?> arg1,
+               Supplier<?> arg2,
+               Supplier<?> arg3,
+               Supplier<?> arg4,
+               Supplier<?> arg5);
+
+    /**
+     * Log the message with the throwable at the {@code DEBUG} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param throwable the throwable
+     * @param format the format string
+     * @param suppliers the suppliers
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void debug(RequestIdSupplier requestIdSupplier,
+               Throwable throwable,
+               String format,
+               Supplier<?>... suppliers);
 
     // -------------------------------------------------------------------------------------------------------------------------------------
 
@@ -1050,10 +1976,8 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void info(final String format,
-                      final Object arg1) {
-        info(format, new Object[]{arg1});
-    }
+    void info(String format,
+              Object arg1) ;
 
     /**
      * Log the message at the {@code INFO} level according to the specified format and arguments.
@@ -1067,11 +1991,9 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void info(final String format,
-                      final Object arg1,
-                      final Object arg2) {
-        info(format, new Object[]{arg1, arg2});
-    }
+    void info(String format,
+              Object arg1,
+              Object arg2);
 
     /**
      * Log the message at the {@code INFO} level according to the specified format and arguments.
@@ -1086,12 +2008,10 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void info(final String format,
-                      final Object arg1,
-                      final Object arg2,
-                      final Object arg3) {
-        info(format, new Object[]{arg1, arg2, arg3});
-    }
+    void info(String format,
+              Object arg1,
+              Object arg2,
+              Object arg3);
 
     /**
      * Log the message at the {@code INFO} level according to the specified format and arguments.
@@ -1107,13 +2027,11 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void info(final String format,
-                      final Object arg1,
-                      final Object arg2,
-                      final Object arg3,
-                      final Object arg4) {
-        info(format, new Object[]{arg1, arg2, arg3, arg4});
-    }
+    void info(String format,
+              Object arg1,
+              Object arg2,
+              Object arg3,
+              Object arg4) ;
 
     /**
      * Log the message at the {@code INFO} level according to the specified format and arguments.
@@ -1130,14 +2048,12 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void info(final String format,
-                      final Object arg1,
-                      final Object arg2,
-                      final Object arg3,
-                      final Object arg4,
-                      final Object arg5) {
-        info(format, new Object[]{arg1, arg2, arg3, arg4, arg5});
-    }
+    void info(String format,
+              Object arg1,
+              Object arg2,
+              Object arg3,
+              Object arg4,
+              Object arg5) ;
 
     /**
      * Log the message at the {@code INFO} level according to the specified format and arguments.
@@ -1150,7 +2066,8 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    void info(String format, Object... arguments);
+    void info(String format,
+              Object... arguments);
 
     /**
      * Log the message at the {@code INFO} level according to the specified format and argument.
@@ -1163,10 +2080,8 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void info(final String format,
-                      final Supplier<?> arg1) {
-        info(format, new Object[]{arg1});
-    }
+    void info(String format,
+              Supplier<?> arg1);
 
     /**
      * Log the message at the {@code INFO} level according to the specified format and arguments.
@@ -1180,11 +2095,9 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void info(final String format,
-                      final Supplier<?> arg1,
-                      final Supplier<?> arg2) {
-        info(format, new Object[]{arg1, arg2});
-    }
+    void info(String format,
+              Supplier<?> arg1,
+              Supplier<?> arg2);
 
     /**
      * Log the message at the {@code INFO} level according to the specified format and arguments.
@@ -1199,12 +2112,10 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void info(final String format,
-                      final Supplier<?> arg1,
-                      final Supplier<?> arg2,
-                      final Supplier<?> arg3) {
-        info(format, new Object[]{arg1, arg2, arg3});
-    }
+    void info(String format,
+              Supplier<?> arg1,
+              Supplier<?> arg2,
+              Supplier<?> arg3) ;
 
     /**
      * Log the message at the {@code INFO} level according to the specified format and arguments.
@@ -1220,13 +2131,11 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void info(final String format,
-                      final Supplier<?> arg1,
-                      final Supplier<?> arg2,
-                      final Supplier<?> arg3,
-                      final Supplier<?> arg4) {
-        info(format, new Object[]{arg1, arg2, arg3, arg4});
-    }
+    void info(String format,
+              Supplier<?> arg1,
+              Supplier<?> arg2,
+              Supplier<?> arg3,
+              Supplier<?> arg4);
 
     /**
      * Log the message at the {@code INFO} level according to the specified format and arguments.
@@ -1243,14 +2152,12 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void info(final String format,
-                      final Supplier<?> arg1,
-                      final Supplier<?> arg2,
-                      final Supplier<?> arg3,
-                      final Supplier<?> arg4,
-                      final Supplier<?> arg5) {
-        info(format, new Object[]{arg1, arg2, arg3, arg4, arg5});
-    }
+    void info(String format,
+              Supplier<?> arg1,
+              Supplier<?> arg2,
+              Supplier<?> arg3,
+              Supplier<?> arg4,
+              Supplier<?> arg5);
 
     /**
      * Log the message at the {@code INFO} level according to the specified format and arguments.
@@ -1263,7 +2170,8 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    void info(String format, Supplier<?>... suppliers);
+    void info(String format,
+              Supplier<?>... suppliers);
 
     /**
      * Log the message with the throwable at the {@code INFO} level according to the specified format and arguments.
@@ -1277,11 +2185,9 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void info(final Throwable throwable,
-                      final String format,
-                      final Object arg1) {
-        info(throwable, format, new Object[]{arg1});
-    }
+    void info(Throwable throwable,
+              String format,
+              Object arg1) ;
 
     /**
      * Log the message with the throwable at the {@code INFO} level according to the specified format and arguments.
@@ -1296,12 +2202,10 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void info(final Throwable throwable,
-                      final String format,
-                      final Object arg1,
-                      final Object arg2) {
-        info(throwable, format, new Object[]{arg1, arg2});
-    }
+    void info(Throwable throwable,
+              String format,
+              Object arg1,
+              Object arg2) ;
 
     /**
      * Log the message with the throwable at the {@code INFO} level according to the specified format and arguments.
@@ -1317,13 +2221,11 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void info(final Throwable throwable,
-                      final String format,
-                      final Object arg1,
-                      final Object arg2,
-                      final Object arg3) {
-        info(throwable, format, new Object[]{arg1, arg2, arg3});
-    }
+    void info(Throwable throwable,
+              String format,
+              Object arg1,
+              Object arg2,
+              Object arg3) ;
 
     /**
      * Log the message with the throwable at the {@code INFO} level according to the specified format and arguments.
@@ -1340,14 +2242,12 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void info(final Throwable throwable,
-                      final String format,
-                      final Object arg1,
-                      final Object arg2,
-                      final Object arg3,
-                      final Object arg4) {
-        info(throwable, format, new Object[]{arg1, arg2, arg3, arg4});
-    }
+    void info(Throwable throwable,
+              String format,
+              Object arg1,
+              Object arg2,
+              Object arg3,
+              Object arg4) ;
 
     /**
      * Log the message with the throwable at the {@code INFO} level according to the specified format and arguments.
@@ -1365,15 +2265,13 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void info(final Throwable throwable,
-                      final String format,
-                      final Object arg1,
-                      final Object arg2,
-                      final Object arg3,
-                      final Object arg4,
-                      final Object arg5) {
-        info(throwable, format, new Object[]{arg1, arg2, arg3, arg4, arg5});
-    }
+    void info(Throwable throwable,
+              String format,
+              Object arg1,
+              Object arg2,
+              Object arg3,
+              Object arg4,
+              Object arg5) ;
 
     /**
      * Log the message with the throwable at the {@code INFO} level according to the specified format and arguments.
@@ -1387,7 +2285,9 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    void info(Throwable throwable, String format, Object... arguments);
+    void info(Throwable throwable,
+              String format,
+              Object... arguments);
 
     /**
      * Log the message with the throwable at the {@code INFO} level according to the specified format and argument.
@@ -1401,11 +2301,9 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void info(final Throwable throwable,
-                      final String format,
-                      final Supplier<?> arg1) {
-        info(throwable, format, new Object[]{arg1});
-    }
+    void info(Throwable throwable,
+              String format,
+              Supplier<?> arg1);
 
     /**
      * Log the message with the throwable at the {@code INFO} level according to the specified format and arguments.
@@ -1420,12 +2318,10 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void info(final Throwable throwable,
-                      final String format,
-                      final Supplier<?> arg1,
-                      final Supplier<?> arg2) {
-        info(throwable, format, new Object[]{arg1, arg2});
-    }
+    void info(Throwable throwable,
+              String format,
+              Supplier<?> arg1,
+              Supplier<?> arg2);
 
     /**
      * Log the message with the throwable at the {@code INFO} level according to the specified format and arguments.
@@ -1441,13 +2337,11 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void info(final Throwable throwable,
-                      final String format,
-                      final Supplier<?> arg1,
-                      final Supplier<?> arg2,
-                      final Supplier<?> arg3) {
-        info(throwable, format, new Object[]{arg1, arg2, arg3});
-    }
+    void info(Throwable throwable,
+              String format,
+              Supplier<?> arg1,
+              Supplier<?> arg2,
+              Supplier<?> arg3);
 
     /**
      * Log the message with the throwable at the {@code INFO} level according to the specified format and arguments.
@@ -1464,14 +2358,12 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void info(final Throwable throwable,
-                      final String format,
-                      final Supplier<?> arg1,
-                      final Supplier<?> arg2,
-                      final Supplier<?> arg3,
-                      final Supplier<?> arg4) {
-        info(throwable, format, new Object[]{arg1, arg2, arg3, arg4});
-    }
+    void info(Throwable throwable,
+              String format,
+              Supplier<?> arg1,
+              Supplier<?> arg2,
+              Supplier<?> arg3,
+              Supplier<?> arg4);
 
     /**
      * Log the message with the throwable at the {@code INFO} level according to the specified format and arguments.
@@ -1489,15 +2381,13 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void info(final Throwable throwable,
-                      final String format,
-                      final Supplier<?> arg1,
-                      final Supplier<?> arg2,
-                      final Supplier<?> arg3,
-                      final Supplier<?> arg4,
-                      final Supplier<?> arg5) {
-        info(throwable, format, new Object[]{arg1, arg2, arg3, arg4, arg5});
-    }
+    void info(Throwable throwable,
+              String format,
+              Supplier<?> arg1,
+              Supplier<?> arg2,
+              Supplier<?> arg3,
+              Supplier<?> arg4,
+              Supplier<?> arg5);
 
     /**
      * Log the message with the throwable at the {@code INFO} level according to the specified format and arguments.
@@ -1511,7 +2401,506 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    void info(Throwable throwable, String format, Supplier<?>... suppliers);
+    void info(Throwable throwable,
+              String format,
+              Supplier<?>... suppliers);
+
+    /**
+     * Log the message at the {@code INFO} level.
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param msg the message string to be logged
+     */
+    void info(RequestIdSupplier requestIdSupplier,
+              String msg);
+
+    /**
+     * Log the message at the {@code INFO} level according to the specified format and argument.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param format the format string
+     * @param arg1 the argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void info(RequestIdSupplier requestIdSupplier,
+              String format,
+              Object arg1);
+
+    /**
+     * Log the message at the {@code INFO} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void info(RequestIdSupplier requestIdSupplier,
+              String format,
+              Object arg1,
+              Object arg2);
+
+    /**
+     * Log the message at the {@code INFO} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void info(RequestIdSupplier requestIdSupplier,
+              String format,
+              Object arg1,
+              Object arg2,
+              Object arg3) ;
+
+    /**
+     * Log the message at the {@code INFO} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @param arg4 the forth argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void info(RequestIdSupplier requestIdSupplier,
+              String format,
+              Object arg1,
+              Object arg2,
+              Object arg3,
+              Object arg4) ;
+
+    /**
+     * Log the message at the {@code INFO} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @param arg4 the forth argument
+     * @param arg5 the fifth argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void info(RequestIdSupplier requestIdSupplier,
+              String format,
+              Object arg1,
+              Object arg2,
+              Object arg3,
+              Object arg4,
+              Object arg5) ;
+
+    /**
+     * Log the message at the {@code INFO} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param format the format string
+     * @param arguments the arguments
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void info(RequestIdSupplier requestIdSupplier,
+              String format,
+              Object... arguments);
+
+    /**
+     * Log the message at the {@code INFO} level according to the specified format and argument.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param format the format string
+     * @param arg1 the argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void info(RequestIdSupplier requestIdSupplier,
+              String format,
+              Supplier<?> arg1);
+
+    /**
+     * Log the message at the {@code INFO} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void info(RequestIdSupplier requestIdSupplier,
+              String format,
+              Supplier<?> arg1,
+              Supplier<?> arg2);
+
+    /**
+     * Log the message at the {@code INFO} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void info(RequestIdSupplier requestIdSupplier,
+              String format,
+              Supplier<?> arg1,
+              Supplier<?> arg2,
+              Supplier<?> arg3);
+
+    /**
+     * Log the message at the {@code INFO} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @param arg4 the forth argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void info(RequestIdSupplier requestIdSupplier,
+              String format,
+              Supplier<?> arg1,
+              Supplier<?> arg2,
+              Supplier<?> arg3,
+              Supplier<?> arg4);
+
+    /**
+     * Log the message at the {@code INFO} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @param arg4 the forth argument
+     * @param arg5 the fifth argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void info(RequestIdSupplier requestIdSupplier,
+              String format,
+              Supplier<?> arg1,
+              Supplier<?> arg2,
+              Supplier<?> arg3,
+              Supplier<?> arg4,
+              Supplier<?> arg5);
+
+    /**
+     * Log the message at the {@code INFO} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param format the format string
+     * @param suppliers the argument suppliers
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void info(RequestIdSupplier requestIdSupplier,
+              String format,
+              Supplier<?>... suppliers);
+
+    /**
+     * Log the message with the throwable at the {@code INFO} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void info(RequestIdSupplier requestIdSupplier,
+              Throwable throwable,
+              String format,
+              Object arg1);
+
+    /**
+     * Log the message with the throwable at the {@code INFO} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void info(RequestIdSupplier requestIdSupplier,
+              Throwable throwable,
+              String format,
+              Object arg1,
+              Object arg2) ;
+
+    /**
+     * Log the message with the throwable at the {@code INFO} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void info(RequestIdSupplier requestIdSupplier,
+              Throwable throwable,
+              String format,
+              Object arg1,
+              Object arg2,
+              Object arg3);
+
+    /**
+     * Log the message with the throwable at the {@code INFO} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @param arg4 the forth argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void info(RequestIdSupplier requestIdSupplier,
+              Throwable throwable,
+              String format,
+              Object arg1,
+              Object arg2,
+              Object arg3,
+              Object arg4) ;
+
+    /**
+     * Log the message with the throwable at the {@code INFO} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @param arg4 the forth argument
+     * @param arg5 the fifth argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void info(RequestIdSupplier requestIdSupplier,
+              Throwable throwable,
+              String format,
+              Object arg1,
+              Object arg2,
+              Object arg3,
+              Object arg4,
+              Object arg5) ;
+
+    /**
+     * Log the message with the throwable at the {@code INFO} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arguments the arguments
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void info(RequestIdSupplier requestIdSupplier,
+              Throwable throwable,
+              String format,
+              Object... arguments);
+
+    /**
+     * Log the message with the throwable at the {@code INFO} level according to the specified format and argument.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void info(RequestIdSupplier requestIdSupplier,
+              Throwable throwable,
+              String format,
+              Supplier<?> arg1);
+
+    /**
+     * Log the message with the throwable at the {@code INFO} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void info(RequestIdSupplier requestIdSupplier,
+              Throwable throwable,
+              String format,
+              Supplier<?> arg1,
+              Supplier<?> arg2);
+
+    /**
+     * Log the message with the throwable at the {@code INFO} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void info(RequestIdSupplier requestIdSupplier,
+              Throwable throwable,
+              String format,
+              Supplier<?> arg1,
+              Supplier<?> arg2,
+              Supplier<?> arg3);
+
+    /**
+     * Log the message with the throwable at the {@code INFO} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @param arg4 the forth argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void info(RequestIdSupplier requestIdSupplier,
+              Throwable throwable,
+              String format,
+              Supplier<?> arg1,
+              Supplier<?> arg2,
+              Supplier<?> arg3,
+              Supplier<?> arg4);
+
+    /**
+     * Log the message with the throwable at the {@code INFO} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @param arg4 the forth argument
+     * @param arg5 the fifth argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void info(RequestIdSupplier requestIdSupplier,
+              Throwable throwable,
+              String format,
+              Supplier<?> arg1,
+              Supplier<?> arg2,
+              Supplier<?> arg3,
+              Supplier<?> arg4,
+              Supplier<?> arg5);
+
+    /**
+     * Log the message with the throwable at the {@code INFO} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param throwable the throwable
+     * @param format the format string
+     * @param suppliers the suppliers
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void info(RequestIdSupplier requestIdSupplier,
+              Throwable throwable,
+              String format,
+              Supplier<?>... suppliers);
 
     // -------------------------------------------------------------------------------------------------------------------------------------
 
@@ -1540,10 +2929,8 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void warn(final String format,
-                      final Object arg1) {
-        warn(format, new Object[]{arg1});
-    }
+    void warn(String format,
+              Object arg1);
 
     /**
      * Log the message at the {@code WARN} level according to the specified format and arguments.
@@ -1557,11 +2944,9 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void warn(final String format,
-                      final Object arg1,
-                      final Object arg2) {
-        warn(format, new Object[]{arg1, arg2});
-    }
+    void warn(String format,
+              Object arg1,
+              Object arg2);
 
     /**
      * Log the message at the {@code WARN} level according to the specified format and arguments.
@@ -1576,12 +2961,10 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void warn(final String format,
-                      final Object arg1,
-                      final Object arg2,
-                      final Object arg3) {
-        warn(format, new Object[]{arg1, arg2, arg3});
-    }
+    void warn(String format,
+              Object arg1,
+              Object arg2,
+              Object arg3);
 
     /**
      * Log the message at the {@code WARN} level according to the specified format and arguments.
@@ -1597,13 +2980,11 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void warn(final String format,
-                      final Object arg1,
-                      final Object arg2,
-                      final Object arg3,
-                      final Object arg4) {
-        warn(format, new Object[]{arg1, arg2, arg3, arg4});
-    }
+    void warn(String format,
+              Object arg1,
+              Object arg2,
+              Object arg3,
+              Object arg4);
 
     /**
      * Log the message at the {@code WARN} level according to the specified format and arguments.
@@ -1620,14 +3001,12 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void warn(final String format,
-                      final Object arg1,
-                      final Object arg2,
-                      final Object arg3,
-                      final Object arg4,
-                      final Object arg5) {
-        warn(format, new Object[]{arg1, arg2, arg3, arg4, arg5});
-    }
+    void warn(String format,
+              Object arg1,
+              Object arg2,
+              Object arg3,
+              Object arg4,
+              Object arg5);
 
     /**
      * Log the message at the {@code WARN} level according to the specified format and arguments.
@@ -1640,7 +3019,8 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    void warn(String format, Object... arguments);
+    void warn(String format,
+              Object... arguments);
 
     /**
      * Log the message at the {@code WARN} level according to the specified format and argument.
@@ -1653,10 +3033,8 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void warn(final String format,
-                      final Supplier<?> arg1) {
-        warn(format, new Object[]{arg1});
-    }
+    void warn(String format,
+              Supplier<?> arg1);
 
     /**
      * Log the message at the {@code WARN} level according to the specified format and arguments.
@@ -1670,11 +3048,9 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void warn(final String format,
-                      final Supplier<?> arg1,
-                      final Supplier<?> arg2) {
-        warn(format, new Object[]{arg1, arg2});
-    }
+    void warn(String format,
+              Supplier<?> arg1,
+              Supplier<?> arg2);
 
     /**
      * Log the message at the {@code WARN} level according to the specified format and arguments.
@@ -1689,12 +3065,10 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void warn(final String format,
-                      final Supplier<?> arg1,
-                      final Supplier<?> arg2,
-                      final Supplier<?> arg3) {
-        warn(format, new Object[]{arg1, arg2, arg3});
-    }
+    void warn(String format,
+              Supplier<?> arg1,
+              Supplier<?> arg2,
+              Supplier<?> arg3);
 
     /**
      * Log the message at the {@code WARN} level according to the specified format and arguments.
@@ -1710,13 +3084,11 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void warn(final String format,
-                      final Supplier<?> arg1,
-                      final Supplier<?> arg2,
-                      final Supplier<?> arg3,
-                      final Supplier<?> arg4) {
-        warn(format, new Object[]{arg1, arg2, arg3, arg4});
-    }
+    void warn(String format,
+              Supplier<?> arg1,
+              Supplier<?> arg2,
+              Supplier<?> arg3,
+              Supplier<?> arg4);
 
     /**
      * Log the message at the {@code WARN} level according to the specified format and arguments.
@@ -1733,14 +3105,12 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void warn(final String format,
-                      final Supplier<?> arg1,
-                      final Supplier<?> arg2,
-                      final Supplier<?> arg3,
-                      final Supplier<?> arg4,
-                      final Supplier<?> arg5) {
-        warn(format, new Object[]{arg1, arg2, arg3, arg4, arg5});
-    }
+    void warn(String format,
+              Supplier<?> arg1,
+              Supplier<?> arg2,
+              Supplier<?> arg3,
+              Supplier<?> arg4,
+              Supplier<?> arg5);
 
     /**
      * Log the message at the {@code WARN} level according to the specified format and arguments.
@@ -1753,7 +3123,8 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    void warn(String format, Supplier<?>... suppliers);
+    void warn(String format,
+              Supplier<?>... suppliers);
 
     /**
      * Log the message with the throwable at the {@code WARN} level according to the specified format and arguments.
@@ -1767,11 +3138,9 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void warn(final Throwable throwable,
-                      final String format,
-                      final Object arg1) {
-        warn(throwable, format, new Object[]{arg1});
-    }
+    void warn(Throwable throwable,
+              String format,
+              Object arg1);
 
     /**
      * Log the message with the throwable at the {@code WARN} level according to the specified format and arguments.
@@ -1786,12 +3155,10 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void warn(final Throwable throwable,
-                      final String format,
-                      final Object arg1,
-                      final Object arg2) {
-        warn(throwable, format, new Object[]{arg1, arg2});
-    }
+    void warn(Throwable throwable,
+              String format,
+              Object arg1,
+              Object arg2);
 
     /**
      * Log the message with the throwable at the {@code WARN} level according to the specified format and arguments.
@@ -1807,13 +3174,11 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void warn(final Throwable throwable,
-                      final String format,
-                      final Object arg1,
-                      final Object arg2,
-                      final Object arg3) {
-        warn(throwable, format, new Object[]{arg1, arg2, arg3});
-    }
+    void warn(Throwable throwable,
+              String format,
+              Object arg1,
+              Object arg2,
+              Object arg3);
 
     /**
      * Log the message with the throwable at the {@code WARN} level according to the specified format and arguments.
@@ -1830,14 +3195,12 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void warn(final Throwable throwable,
-                      final String format,
-                      final Object arg1,
-                      final Object arg2,
-                      final Object arg3,
-                      final Object arg4) {
-        warn(throwable, format, new Object[]{arg1, arg2, arg3, arg4});
-    }
+    void warn(Throwable throwable,
+              String format,
+              Object arg1,
+              Object arg2,
+              Object arg3,
+              Object arg4);
 
     /**
      * Log the message with the throwable at the {@code WARN} level according to the specified format and arguments.
@@ -1855,15 +3218,13 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void warn(final Throwable throwable,
-                      final String format,
-                      final Object arg1,
-                      final Object arg2,
-                      final Object arg3,
-                      final Object arg4,
-                      final Object arg5) {
-        warn(throwable, format, new Object[]{arg1, arg2, arg3, arg4, arg5});
-    }
+    void warn(Throwable throwable,
+              String format,
+              Object arg1,
+              Object arg2,
+              Object arg3,
+              Object arg4,
+              Object arg5);
 
     /**
      * Log the message with the throwable at the {@code WARN} level according to the specified format and arguments.
@@ -1877,7 +3238,9 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    void warn(Throwable throwable, String format, Object... arguments);
+    void warn(Throwable throwable,
+              String format,
+              Object... arguments);
 
     /**
      * Log the message with the throwable at the {@code WARN} level according to the specified format and argument.
@@ -1891,11 +3254,9 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void warn(final Throwable throwable,
-                      final String format,
-                      final Supplier<?> arg1) {
-        warn(throwable, format, new Object[]{arg1});
-    }
+    void warn(Throwable throwable,
+              String format,
+              Supplier<?> arg1);
 
     /**
      * Log the message with the throwable at the {@code WARN} level according to the specified format and arguments.
@@ -1910,12 +3271,10 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void warn(final Throwable throwable,
-                      final String format,
-                      final Supplier<?> arg1,
-                      final Supplier<?> arg2) {
-        warn(throwable, format, new Object[]{arg1, arg2});
-    }
+    void warn(Throwable throwable,
+              String format,
+              Supplier<?> arg1,
+              Supplier<?> arg2);
 
     /**
      * Log the message with the throwable at the {@code WARN} level according to the specified format and arguments.
@@ -1931,13 +3290,11 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void warn(final Throwable throwable,
-                      final String format,
-                      final Supplier<?> arg1,
-                      final Supplier<?> arg2,
-                      final Supplier<?> arg3) {
-        warn(throwable, format, new Object[]{arg1, arg2, arg3});
-    }
+    void warn(Throwable throwable,
+              String format,
+              Supplier<?> arg1,
+              Supplier<?> arg2,
+              Supplier<?> arg3);
 
     /**
      * Log the message with the throwable at the {@code WARN} level according to the specified format and arguments.
@@ -1954,14 +3311,12 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void warn(final Throwable throwable,
-                      final String format,
-                      final Supplier<?> arg1,
-                      final Supplier<?> arg2,
-                      final Supplier<?> arg3,
-                      final Supplier<?> arg4) {
-        warn(throwable, format, new Object[]{arg1, arg2, arg3, arg4});
-    }
+    void warn(Throwable throwable,
+              String format,
+              Supplier<?> arg1,
+              Supplier<?> arg2,
+              Supplier<?> arg3,
+              Supplier<?> arg4);
 
     /**
      * Log the message with the throwable at the {@code WARN} level according to the specified format and arguments.
@@ -1979,15 +3334,13 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void warn(final Throwable throwable,
-                      final String format,
-                      final Supplier<?> arg1,
-                      final Supplier<?> arg2,
-                      final Supplier<?> arg3,
-                      final Supplier<?> arg4,
-                      final Supplier<?> arg5) {
-        warn(throwable, format, new Object[]{arg1, arg2, arg3, arg4, arg5});
-    }
+    void warn(Throwable throwable,
+              String format,
+              Supplier<?> arg1,
+              Supplier<?> arg2,
+              Supplier<?> arg3,
+              Supplier<?> arg4,
+              Supplier<?> arg5);
 
     /**
      * Log the message with the throwable at the {@code WARN} level according to the specified format and arguments.
@@ -2001,7 +3354,506 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    void warn(Throwable throwable, String format, Supplier<?>... suppliers);
+    void warn(Throwable throwable,
+              String format,
+              Supplier<?>... suppliers);
+
+    /**
+     * Log the message at the {@code WARN} level.
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param msg the message string to be logged
+     */
+    void warn(RequestIdSupplier requestIdSupplier,
+              String msg);
+
+    /**
+     * Log the message at the {@code WARN} level according to the specified format and argument.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param format the format string
+     * @param arg1 the argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void warn(RequestIdSupplier requestIdSupplier,
+              String format,
+              Object arg1);
+
+    /**
+     * Log the message at the {@code WARN} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void warn(RequestIdSupplier requestIdSupplier,
+              String format,
+              Object arg1,
+              Object arg2);
+
+    /**
+     * Log the message at the {@code WARN} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void warn(RequestIdSupplier requestIdSupplier,
+              String format,
+              Object arg1,
+              Object arg2,
+              Object arg3);
+
+    /**
+     * Log the message at the {@code WARN} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @param arg4 the forth argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void warn(RequestIdSupplier requestIdSupplier,
+              String format,
+              Object arg1,
+              Object arg2,
+              Object arg3,
+              Object arg4);
+
+    /**
+     * Log the message at the {@code WARN} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @param arg4 the forth argument
+     * @param arg5 the fifth argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void warn(RequestIdSupplier requestIdSupplier,
+              String format,
+              Object arg1,
+              Object arg2,
+              Object arg3,
+              Object arg4,
+              Object arg5);
+
+    /**
+     * Log the message at the {@code WARN} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param format the format string
+     * @param arguments the arguments
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void warn(RequestIdSupplier requestIdSupplier,
+              String format,
+              Object... arguments);
+
+    /**
+     * Log the message at the {@code WARN} level according to the specified format and argument.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param format the format string
+     * @param arg1 the argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void warn(RequestIdSupplier requestIdSupplier,
+              String format,
+              Supplier<?> arg1);
+
+    /**
+     * Log the message at the {@code WARN} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void warn(RequestIdSupplier requestIdSupplier,
+              String format,
+              Supplier<?> arg1,
+              Supplier<?> arg2);
+
+    /**
+     * Log the message at the {@code WARN} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void warn(RequestIdSupplier requestIdSupplier,
+              String format,
+              Supplier<?> arg1,
+              Supplier<?> arg2,
+              Supplier<?> arg3);
+
+    /**
+     * Log the message at the {@code WARN} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @param arg4 the forth argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void warn(RequestIdSupplier requestIdSupplier,
+              String format,
+              Supplier<?> arg1,
+              Supplier<?> arg2,
+              Supplier<?> arg3,
+              Supplier<?> arg4);
+
+    /**
+     * Log the message at the {@code WARN} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @param arg4 the forth argument
+     * @param arg5 the fifth argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void warn(RequestIdSupplier requestIdSupplier,
+              String format,
+              Supplier<?> arg1,
+              Supplier<?> arg2,
+              Supplier<?> arg3,
+              Supplier<?> arg4,
+              Supplier<?> arg5);
+
+    /**
+     * Log the message at the {@code WARN} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param format the format string
+     * @param suppliers the argument suppliers
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void warn(RequestIdSupplier requestIdSupplier,
+              String format,
+              Supplier<?>... suppliers);
+
+    /**
+     * Log the message with the throwable at the {@code WARN} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void warn(RequestIdSupplier requestIdSupplier,
+              Throwable throwable,
+              String format,
+              Object arg1);
+
+    /**
+     * Log the message with the throwable at the {@code WARN} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void warn(RequestIdSupplier requestIdSupplier,
+              Throwable throwable,
+              String format,
+              Object arg1,
+              Object arg2);
+
+    /**
+     * Log the message with the throwable at the {@code WARN} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void warn(RequestIdSupplier requestIdSupplier,
+              Throwable throwable,
+              String format,
+              Object arg1,
+              Object arg2,
+              Object arg3);
+
+    /**
+     * Log the message with the throwable at the {@code WARN} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @param arg4 the forth argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void warn(RequestIdSupplier requestIdSupplier,
+              Throwable throwable,
+              String format,
+              Object arg1,
+              Object arg2,
+              Object arg3,
+              Object arg4) ;
+
+    /**
+     * Log the message with the throwable at the {@code WARN} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @param arg4 the forth argument
+     * @param arg5 the fifth argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void warn(RequestIdSupplier requestIdSupplier,
+              Throwable throwable,
+              String format,
+              Object arg1,
+              Object arg2,
+              Object arg3,
+              Object arg4,
+              Object arg5) ;
+
+    /**
+     * Log the message with the throwable at the {@code WARN} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arguments the arguments
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void warn(RequestIdSupplier requestIdSupplier,
+              Throwable throwable,
+              String format,
+              Object... arguments);
+
+    /**
+     * Log the message with the throwable at the {@code WARN} level according to the specified format and argument.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void warn(RequestIdSupplier requestIdSupplier,
+              Throwable throwable,
+              String format,
+              Supplier<?> arg1);
+
+    /**
+     * Log the message with the throwable at the {@code WARN} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void warn(RequestIdSupplier requestIdSupplier,
+              Throwable throwable,
+              String format,
+              Supplier<?> arg1,
+              Supplier<?> arg2);
+
+    /**
+     * Log the message with the throwable at the {@code WARN} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void warn(RequestIdSupplier requestIdSupplier,
+              Throwable throwable,
+              String format,
+              Supplier<?> arg1,
+              Supplier<?> arg2,
+              Supplier<?> arg3);
+
+    /**
+     * Log the message with the throwable at the {@code WARN} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @param arg4 the forth argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void warn(RequestIdSupplier requestIdSupplier,
+              Throwable throwable,
+              String format,
+              Supplier<?> arg1,
+              Supplier<?> arg2,
+              Supplier<?> arg3,
+              Supplier<?> arg4);
+
+    /**
+     * Log the message with the throwable at the {@code WARN} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @param arg4 the forth argument
+     * @param arg5 the fifth argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void warn(RequestIdSupplier requestIdSupplier,
+              Throwable throwable,
+              String format,
+              Supplier<?> arg1,
+              Supplier<?> arg2,
+              Supplier<?> arg3,
+              Supplier<?> arg4,
+              Supplier<?> arg5);
+
+    /**
+     * Log the message with the throwable at the {@code WARN} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param throwable the throwable
+     * @param format the format string
+     * @param suppliers the suppliers
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void warn(RequestIdSupplier requestIdSupplier,
+              Throwable throwable,
+              String format,
+              Supplier<?>... suppliers);
 
     // -------------------------------------------------------------------------------------------------------------------------------------
 
@@ -2030,10 +3882,8 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void error(final String format,
-                       final Object arg1) {
-        error(format, new Object[]{arg1});
-    }
+    void error(String format,
+               Object arg1);
 
     /**
      * Log the message at the {@code ERROR} level according to the specified format and arguments.
@@ -2047,11 +3897,9 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void error(final String format,
-                       final Object arg1,
-                       final Object arg2) {
-        error(format, new Object[]{arg1, arg2});
-    }
+    void error(String format,
+               Object arg1,
+               Object arg2);
 
     /**
      * Log the message at the {@code ERROR} level according to the specified format and arguments.
@@ -2066,12 +3914,10 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void error(final String format,
-                       final Object arg1,
-                       final Object arg2,
-                       final Object arg3) {
-        error(format, new Object[]{arg1, arg2, arg3});
-    }
+    void error(String format,
+               Object arg1,
+               Object arg2,
+               Object arg3);
 
     /**
      * Log the message at the {@code ERROR} level according to the specified format and arguments.
@@ -2087,13 +3933,11 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void error(final String format,
-                       final Object arg1,
-                       final Object arg2,
-                       final Object arg3,
-                       final Object arg4) {
-        error(format, new Object[]{arg1, arg2, arg3, arg4});
-    }
+    void error(String format,
+               Object arg1,
+               Object arg2,
+               Object arg3,
+               Object arg4);
 
     /**
      * Log the message at the {@code ERROR} level according to the specified format and arguments.
@@ -2110,14 +3954,12 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void error(final String format,
-                       final Object arg1,
-                       final Object arg2,
-                       final Object arg3,
-                       final Object arg4,
-                       final Object arg5) {
-        error(format, new Object[]{arg1, arg2, arg3, arg4, arg5});
-    }
+    void error(String format,
+               Object arg1,
+               Object arg2,
+               Object arg3,
+               Object arg4,
+               Object arg5);
 
     /**
      * Log the message at the {@code ERROR} level according to the specified format and arguments.
@@ -2130,7 +3972,8 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    void error(String format, Object... arguments);
+    void error(String format,
+               Object... arguments);
 
     /**
      * Log the message at the {@code ERROR} level according to the specified format and argument.
@@ -2143,10 +3986,8 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void error(final String format,
-                       final Supplier<?> arg1) {
-        error(format, new Object[]{arg1});
-    }
+    void error(String format,
+               Supplier<?> arg1);
 
     /**
      * Log the message at the {@code ERROR} level according to the specified format and arguments.
@@ -2160,11 +4001,9 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void error(final String format,
-                       final Supplier<?> arg1,
-                       final Supplier<?> arg2) {
-        error(format, new Object[]{arg1, arg2});
-    }
+    void error(String format,
+               Supplier<?> arg1,
+               Supplier<?> arg2);
 
     /**
      * Log the message at the {@code ERROR} level according to the specified format and arguments.
@@ -2179,12 +4018,10 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void error(final String format,
-                       final Supplier<?> arg1,
-                       final Supplier<?> arg2,
-                       final Supplier<?> arg3) {
-        error(format, new Object[]{arg1, arg2, arg3});
-    }
+    void error(String format,
+               Supplier<?> arg1,
+               Supplier<?> arg2,
+               Supplier<?> arg3);
 
     /**
      * Log the message at the {@code ERROR} level according to the specified format and arguments.
@@ -2200,13 +4037,11 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void error(final String format,
-                       final Supplier<?> arg1,
-                       final Supplier<?> arg2,
-                       final Supplier<?> arg3,
-                       final Supplier<?> arg4) {
-        error(format, new Object[]{arg1, arg2, arg3, arg4});
-    }
+    void error(String format,
+               Supplier<?> arg1,
+               Supplier<?> arg2,
+               Supplier<?> arg3,
+               Supplier<?> arg4);
 
     /**
      * Log the message at the {@code ERROR} level according to the specified format and arguments.
@@ -2223,14 +4058,12 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void error(final String format,
-                       final Supplier<?> arg1,
-                       final Supplier<?> arg2,
-                       final Supplier<?> arg3,
-                       final Supplier<?> arg4,
-                       final Supplier<?> arg5) {
-        error(format, new Object[]{arg1, arg2, arg3, arg4, arg5});
-    }
+    void error(String format,
+               Supplier<?> arg1,
+               Supplier<?> arg2,
+               Supplier<?> arg3,
+               Supplier<?> arg4,
+               Supplier<?> arg5);
 
     /**
      * Log the message at the {@code ERROR} level according to the specified format and arguments.
@@ -2257,11 +4090,9 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void error(final Throwable throwable,
-                       final String format,
-                       final Object arg1) {
-        error(throwable, format, new Object[]{arg1});
-    }
+    void error(Throwable throwable,
+               String format,
+               Object arg1);
 
     /**
      * Log the message with the throwable at the {@code ERROR} level according to the specified format and arguments.
@@ -2276,12 +4107,10 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void error(final Throwable throwable,
-                       final String format,
-                       final Object arg1,
-                       final Object arg2) {
-        error(throwable, format, new Object[]{arg1, arg2});
-    }
+    void error(Throwable throwable,
+               String format,
+               Object arg1,
+               Object arg2);
 
     /**
      * Log the message with the throwable at the {@code ERROR} level according to the specified format and arguments.
@@ -2297,13 +4126,11 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void error(final Throwable throwable,
-                       final String format,
-                       final Object arg1,
-                       final Object arg2,
-                       final Object arg3) {
-        error(throwable, format, new Object[]{arg1, arg2, arg3});
-    }
+    void error(Throwable throwable,
+               String format,
+               Object arg1,
+               Object arg2,
+               Object arg3);
 
     /**
      * Log the message with the throwable at the {@code ERROR} level according to the specified format and arguments.
@@ -2320,14 +4147,12 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void error(final Throwable throwable,
-                       final String format,
-                       final Object arg1,
-                       final Object arg2,
-                       final Object arg3,
-                       final Object arg4) {
-        error(throwable, format, new Object[]{arg1, arg2, arg3, arg4});
-    }
+    void error(Throwable throwable,
+               String format,
+               Object arg1,
+               Object arg2,
+               Object arg3,
+               Object arg4);
 
     /**
      * Log the message with the throwable at the {@code ERROR} level according to the specified format and arguments.
@@ -2345,15 +4170,13 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void error(final Throwable throwable,
-                       final String format,
-                       final Object arg1,
-                       final Object arg2,
-                       final Object arg3,
-                       final Object arg4,
-                       final Object arg5) {
-        error(throwable, format, new Object[]{arg1, arg2, arg3, arg4, arg5});
-    }
+    void error(Throwable throwable,
+               String format,
+               Object arg1,
+               Object arg2,
+               Object arg3,
+               Object arg4,
+               Object arg5);
 
     /**
      * Log the message with the throwable at the {@code ERROR} level according to the specified format and arguments.
@@ -2381,11 +4204,9 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void error(final Throwable throwable,
-                       final String format,
-                       final Supplier<?> arg1) {
-        error(throwable, format, new Object[]{arg1});
-    }
+    void error(Throwable throwable,
+               String format,
+               Supplier<?> arg1);
 
     /**
      * Log the message with the throwable at the {@code ERROR} level according to the specified format and arguments.
@@ -2400,12 +4221,10 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void error(final Throwable throwable,
-                       final String format,
-                       final Supplier<?> arg1,
-                       final Supplier<?> arg2) {
-        error(throwable, format, new Object[]{arg1, arg2});
-    }
+    void error(Throwable throwable,
+               String format,
+               Supplier<?> arg1,
+               Supplier<?> arg2);
 
     /**
      * Log the message with the throwable at the {@code ERROR} level according to the specified format and arguments.
@@ -2421,13 +4240,11 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void error(final Throwable throwable,
-                       final String format,
-                       final Supplier<?> arg1,
-                       final Supplier<?> arg2,
-                       final Supplier<?> arg3) {
-        error(throwable, format, new Object[]{arg1, arg2, arg3});
-    }
+    void error(Throwable throwable,
+               String format,
+               Supplier<?> arg1,
+               Supplier<?> arg2,
+               Supplier<?> arg3);
 
     /**
      * Log the message with the throwable at the {@code ERROR} level according to the specified format and arguments.
@@ -2444,14 +4261,12 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void error(final Throwable throwable,
-                       final String format,
-                       final Supplier<?> arg1,
-                       final Supplier<?> arg2,
-                       final Supplier<?> arg3,
-                       final Supplier<?> arg4) {
-        error(throwable, format, new Object[]{arg1, arg2, arg3, arg4});
-    }
+    void error(Throwable throwable,
+               String format,
+               Supplier<?> arg1,
+               Supplier<?> arg2,
+               Supplier<?> arg3,
+               Supplier<?> arg4);
 
     /**
      * Log the message with the throwable at the {@code ERROR} level according to the specified format and arguments.
@@ -2469,15 +4284,13 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    default void error(final Throwable throwable,
-                       final String format,
-                       final Supplier<?> arg1,
-                       final Supplier<?> arg2,
-                       final Supplier<?> arg3,
-                       final Supplier<?> arg4,
-                       final Supplier<?> arg5) {
-        error(throwable, format, new Object[]{arg1, arg2, arg3, arg4, arg5});
-    }
+    void error(Throwable throwable,
+               String format,
+               Supplier<?> arg1,
+               Supplier<?> arg2,
+               Supplier<?> arg3,
+               Supplier<?> arg4,
+               Supplier<?> arg5);
 
     /**
      * Log the message with the throwable at the {@code ERROR} level according to the specified format and arguments.
@@ -2491,5 +4304,497 @@ public interface Logger {
      * @throws NullPointerException if {@code message} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    void error(Throwable throwable, String format, Supplier<?>... suppliers);
+    void error(Throwable throwable,
+               String format,
+               Supplier<?>... suppliers);
+
+    /**
+     * Log the message at the {@code ERROR} level.
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param msg the message string to be logged
+     */
+    void error(RequestIdSupplier requestIdSupplier,
+               String msg);
+
+    /**
+     * Log the message at the {@code ERROR} level according to the specified format and argument.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param format the format string
+     * @param arg1 the argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void error(RequestIdSupplier requestIdSupplier,
+               String format,
+               Object arg1);
+
+    /**
+     * Log the message at the {@code ERROR} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void error(RequestIdSupplier requestIdSupplier,
+               String format,
+               Object arg1,
+               Object arg2);
+
+    /**
+     * Log the message at the {@code ERROR} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void error(RequestIdSupplier requestIdSupplier,
+               String format,
+               Object arg1,
+               Object arg2,
+               Object arg3);
+
+    /**
+     * Log the message at the {@code ERROR} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @param arg4 the forth argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void error(RequestIdSupplier requestIdSupplier,
+               String format,
+               Object arg1,
+               Object arg2,
+               Object arg3,
+               Object arg4);
+
+    /**
+     * Log the message at the {@code ERROR} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @param arg4 the forth argument
+     * @param arg5 the fifth argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void error(RequestIdSupplier requestIdSupplier,
+               String format,
+               Object arg1,
+               Object arg2,
+               Object arg3,
+               Object arg4,
+               Object arg5);
+
+    /**
+     * Log the message at the {@code ERROR} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param format the format string
+     * @param arguments the arguments
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void error(RequestIdSupplier requestIdSupplier, String format, Object... arguments);
+
+    /**
+     * Log the message at the {@code ERROR} level according to the specified format and argument.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param format the format string
+     * @param arg1 the argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void error(RequestIdSupplier requestIdSupplier,
+               String format,
+               Supplier<?> arg1);
+
+    /**
+     * Log the message at the {@code ERROR} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void error(RequestIdSupplier requestIdSupplier,
+               String format,
+               Supplier<?> arg1,
+               Supplier<?> arg2);
+
+    /**
+     * Log the message at the {@code ERROR} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void error(RequestIdSupplier requestIdSupplier,
+               String format,
+               Supplier<?> arg1,
+               Supplier<?> arg2,
+               Supplier<?> arg3);
+
+    /**
+     * Log the message at the {@code ERROR} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @param arg4 the forth argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void error(RequestIdSupplier requestIdSupplier,
+               String format,
+               Supplier<?> arg1,
+               Supplier<?> arg2,
+               Supplier<?> arg3,
+               Supplier<?> arg4);
+
+    /**
+     * Log the message at the {@code ERROR} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @param arg4 the forth argument
+     * @param arg5 the fifth argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void error(RequestIdSupplier requestIdSupplier,
+               String format,
+               Supplier<?> arg1,
+               Supplier<?> arg2,
+               Supplier<?> arg3,
+               Supplier<?> arg4,
+               Supplier<?> arg5);
+
+    /**
+     * Log the message at the {@code ERROR} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param format the format string
+     * @param suppliers the argument suppliers
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void error(RequestIdSupplier requestIdSupplier, String format, Supplier<?>... suppliers);
+
+    /**
+     * Log the message with the throwable at the {@code ERROR} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void error(RequestIdSupplier requestIdSupplier,
+               Throwable throwable,
+               String format,
+               Object arg1);
+
+    /**
+     * Log the message with the throwable at the {@code ERROR} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void error(RequestIdSupplier requestIdSupplier,
+               Throwable throwable,
+               String format,
+               Object arg1,
+               Object arg2);
+
+    /**
+     * Log the message with the throwable at the {@code ERROR} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void error(RequestIdSupplier requestIdSupplier,
+               Throwable throwable,
+               String format,
+               Object arg1,
+               Object arg2,
+               Object arg3);
+
+    /**
+     * Log the message with the throwable at the {@code ERROR} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @param arg4 the forth argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void error(RequestIdSupplier requestIdSupplier,
+               Throwable throwable,
+               String format,
+               Object arg1,
+               Object arg2,
+               Object arg3,
+               Object arg4);
+
+    /**
+     * Log the message with the throwable at the {@code ERROR} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @param arg4 the forth argument
+     * @param arg5 the fifth argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void error(RequestIdSupplier requestIdSupplier,
+               Throwable throwable,
+               String format,
+               Object arg1,
+               Object arg2,
+               Object arg3,
+               Object arg4,
+               Object arg5);
+
+    /**
+     * Log the message with the throwable at the {@code ERROR} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arguments the arguments
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void error(RequestIdSupplier requestIdSupplier, Throwable throwable, String format, Object... arguments);
+
+    /**
+     * Log the message with the throwable at the {@code ERROR} level according to the specified format and argument.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void error(RequestIdSupplier requestIdSupplier,
+               Throwable throwable,
+               String format,
+               Supplier<?> arg1);
+
+    /**
+     * Log the message with the throwable at the {@code ERROR} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void error(RequestIdSupplier requestIdSupplier,
+               Throwable throwable,
+               String format,
+               Supplier<?> arg1,
+               Supplier<?> arg2);
+
+    /**
+     * Log the message with the throwable at the {@code ERROR} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void error(RequestIdSupplier requestIdSupplier,
+               Throwable throwable,
+               String format,
+               Supplier<?> arg1,
+               Supplier<?> arg2,
+               Supplier<?> arg3);
+
+    /**
+     * Log the message with the throwable at the {@code ERROR} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @param arg4 the forth argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void error(RequestIdSupplier requestIdSupplier,
+               Throwable throwable,
+               String format,
+               Supplier<?> arg1,
+               Supplier<?> arg2,
+               Supplier<?> arg3,
+               Supplier<?> arg4);
+
+    /**
+     * Log the message with the throwable at the {@code ERROR} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param throwable the throwable
+     * @param format the format string
+     * @param arg1 the first argument
+     * @param arg2 the second argument
+     * @param arg3 the third argument
+     * @param arg4 the forth argument
+     * @param arg5 the fifth argument
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void error(RequestIdSupplier requestIdSupplier,
+               Throwable throwable,
+               String format,
+               Supplier<?> arg1,
+               Supplier<?> arg2,
+               Supplier<?> arg3,
+               Supplier<?> arg4,
+               Supplier<?> arg5);
+
+    /**
+     * Log the message with the throwable at the {@code ERROR} level according to the specified format and arguments.
+     *
+     * <p>
+     * <i>(This method uses {@link Formats#format(String, Object...)} method to format logger message.)</i>
+     *
+     * @param requestIdSupplier the request id supplier.
+     * @param throwable the throwable
+     * @param format the format string
+     * @param suppliers the suppliers
+     * @throws NullPointerException if {@code message} is {@code null}
+     * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
+     */
+    void error(RequestIdSupplier requestIdSupplier,
+               Throwable throwable,
+               String format,
+               Supplier<?>... suppliers);
 }

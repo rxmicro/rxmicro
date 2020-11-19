@@ -48,10 +48,10 @@ final class NettyErrorHandler extends ErrorHandler {
                             final ChannelHandlerContext ctx,
                             final Throwable cause) {
         LOGGER.error(
+                () -> requestId,
                 cause,
-                "Netty channel error: message=?, Id=?, Channel=?, IP=?",
+                "Netty channel error: message=?, Channel=?, IP=?",
                 cause.getMessage(),
-                requestId,
                 nettyRestServerConfig.getChannelIdType().getId(ctx.channel().id()),
                 ctx.channel().remoteAddress()
         );

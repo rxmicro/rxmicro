@@ -16,6 +16,7 @@
 
 package io.rxmicro.logger.internal.jul.config.adapter;
 
+import io.rxmicro.logger.RequestIdSupplier;
 import io.rxmicro.logger.impl.AbstractLogger;
 import io.rxmicro.logger.internal.jul.InternalLoggerHelper;
 
@@ -33,6 +34,10 @@ import static io.rxmicro.common.util.Requires.require;
  */
 public final class RxMicroLogRecord extends LogRecord {
 
+    private static final RequestIdSupplier UNDEFINED_REQUEST_ID_SUPPLIER = () -> null;
+
+    private final RequestIdSupplier requestIdSupplier;
+
     private String threadName;
 
     private boolean needToInferCaller;
@@ -44,21 +49,38 @@ public final class RxMicroLogRecord extends LogRecord {
     public RxMicroLogRecord(final String loggerName,
                             final Level level,
                             final String msg) {
-        super(level, msg);
-        threadName = Thread.currentThread().getName();
-        setLoggerName(loggerName);
-        needToInferCaller = true;
+        this(UNDEFINED_REQUEST_ID_SUPPLIER, loggerName, level, msg, null);
+    }
+
+    public RxMicroLogRecord(final RequestIdSupplier requestIdSupplier,
+                            final String loggerName,
+                            final Level level,
+                            final String msg) {
+        this(requestIdSupplier, loggerName, level, msg, null);
     }
 
     public RxMicroLogRecord(final String loggerName,
                             final Level level,
                             final String msg,
                             final Throwable throwable) {
+        this(UNDEFINED_REQUEST_ID_SUPPLIER, loggerName, level, msg, throwable);
+    }
+
+    public RxMicroLogRecord(final RequestIdSupplier requestIdSupplier,
+                            final String loggerName,
+                            final Level level,
+                            final String msg,
+                            final Throwable throwable) {
         super(level, msg);
+        this.requestIdSupplier = requestIdSupplier;
+        setLoggerName(loggerName);
         setThrown(throwable);
         threadName = Thread.currentThread().getName();
-        setLoggerName(loggerName);
         needToInferCaller = true;
+    }
+
+    public String getRequestId() {
+        return requestIdSupplier.getRequestId();
     }
 
     public String getThreadName() {

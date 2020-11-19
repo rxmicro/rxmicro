@@ -16,6 +16,7 @@
 
 package io.rxmicro.rest.server.internal.component;
 
+import io.rxmicro.logger.RequestIdSupplier;
 import io.rxmicro.rest.server.detail.model.HttpResponse;
 
 /**
@@ -24,5 +25,5 @@ import io.rxmicro.rest.server.detail.model.HttpResponse;
  */
 public interface ErrorHttpResponseBuilder {
 
-    HttpResponse build(Throwable throwable);
+    HttpResponse build(RequestIdSupplier requestIdSupplier, Throwable throwable);
 }

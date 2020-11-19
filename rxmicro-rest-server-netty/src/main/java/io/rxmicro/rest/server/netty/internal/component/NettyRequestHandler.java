@@ -24,6 +24,7 @@ import io.netty.util.AttributeKey;
 import io.rxmicro.config.Secrets;
 import io.rxmicro.logger.Logger;
 import io.rxmicro.logger.LoggerFactory;
+import io.rxmicro.logger.RequestIdSupplier;
 import io.rxmicro.rest.server.RestServerConfig;
 import io.rxmicro.rest.server.detail.component.HttpResponseBuilder;
 import io.rxmicro.rest.server.detail.model.HttpResponse;
@@ -126,8 +127,8 @@ final class NettyRequestHandler extends SimpleChannelInboundHandler<FullHttpRequ
     private void traceRequest(final NettyHttpRequest request,
                               final ChannelHandlerContext ctx) {
         LOGGER.trace(
-                "HTTP request:  (Id=?, Channel=?, IP=?):\n? ?\n?\n\n?",
-                request.getRequestId(),
+                request,
+                "HTTP request:  (Channel=?, IP=?):\n? ?\n?\n\n?",
                 nettyRestServerConfig.getChannelIdType().getId(ctx.channel().id()),
                 ctx.channel().remoteAddress(),
                 format("? ??",
@@ -151,8 +152,8 @@ final class NettyRequestHandler extends SimpleChannelInboundHandler<FullHttpRequ
     private void debugRequest(final NettyHttpRequest request,
                               final ChannelHandlerContext ctx) {
         LOGGER.debug(
-                "HTTP request:  Id=?, Channel=?, IP=?, Request=?",
-                request.getRequestId(),
+                request,
+                "HTTP request:  Channel=?, IP=?, Request=?",
                 nettyRestServerConfig.getChannelIdType().getId(ctx.channel().id()),
                 ctx.channel().remoteAddress(),
                 format("? ??",
@@ -181,25 +182,25 @@ final class NettyRequestHandler extends SimpleChannelInboundHandler<FullHttpRequ
         if (!keepAlive) {
             httpResponse.setHeader(CONNECTION, "close");
         }
-        writeAndFlush(ctx, request.getRequestId(), request.getUri(), startTime, keepAlive, httpResponse);
+        writeAndFlush(ctx, request, request.getUri(), startTime, keepAlive, httpResponse);
     }
 
     private void writeAndFlush(final ChannelHandlerContext ctx,
-                               final String requestId,
+                               final RequestIdSupplier requestIdSupplier,
                                final String requestUri,
                                final long startTime,
                                final boolean keepAlive,
                                final NettyHttpResponse httpResponse) {
         ctx.writeAndFlush(httpResponse.toFullHttpResponse())
                 .addListener((ChannelFutureListener) future -> {
-                    logResponse(requestId, requestUri, startTime, httpResponse, ctx);
+                    logResponse(requestIdSupplier, requestUri, startTime, httpResponse, ctx);
                     if (!keepAlive) {
                         future.channel().close();
                     }
                 });
     }
 
-    private void logResponse(final String requestId,
+    private void logResponse(final RequestIdSupplier requestIdSupplier,
                              final String requestUri,
                              final long startTime,
                              final NettyHttpResponse httpResponse,
@@ -208,22 +209,22 @@ final class NettyRequestHandler extends SimpleChannelInboundHandler<FullHttpRequ
             if (disableLoggerMessagesForHttpHealthChecks && HTTP_HEALTH_CHECK_ENDPOINT.equals(requestUri)) {
                 return;
             }
-            traceResponse(requestId, startTime, httpResponse, ctx);
+            traceResponse(requestIdSupplier, startTime, httpResponse, ctx);
         } else if (LOGGER.isDebugEnabled()) {
             if (disableLoggerMessagesForHttpHealthChecks && HTTP_HEALTH_CHECK_ENDPOINT.equals(requestUri)) {
                 return;
             }
-            debugResponse(requestId, startTime, httpResponse, ctx);
+            debugResponse(requestIdSupplier, startTime, httpResponse, ctx);
         }
     }
 
-    private void traceResponse(final String requestId,
+    private void traceResponse(final RequestIdSupplier requestIdSupplier,
                                final long startTime,
                                final NettyHttpResponse httpResponse,
                                final ChannelHandlerContext ctx) {
         LOGGER.trace(
-                "HTTP response: (Id=?, Channel=?, Duration=?):\n? ?\n?\n\n?",
-                requestId,
+                requestIdSupplier,
+                "HTTP response: (Channel=?, Duration=?):\n? ?\n?\n\n?",
                 nettyRestServerConfig.getChannelIdType().getId(ctx.channel().id()),
                 startTime == 0L ? "undefined" : format(Duration.ofNanos(System.nanoTime() - startTime)),
                 httpResponse.getHttpVersion(),
@@ -237,13 +238,13 @@ final class NettyRequestHandler extends SimpleChannelInboundHandler<FullHttpRequ
         );
     }
 
-    private void debugResponse(final String requestId,
+    private void debugResponse(final RequestIdSupplier requestIdSupplier,
                                final long startTime,
                                final NettyHttpResponse httpResponse,
                                final ChannelHandlerContext ctx) {
         LOGGER.debug(
-                "HTTP response: Id=?, Channel=?, Content=? bytes, Duration=?",
-                requestId,
+                requestIdSupplier,
+                "HTTP response: Channel=?, Content=? bytes, Duration=?",
                 nettyRestServerConfig.getChannelIdType().getId(ctx.channel().id()),
                 httpResponse.getContentLength(),
                 startTime == 0L ? "undefined" : format(Duration.ofNanos(System.nanoTime() - startTime))
@@ -264,7 +265,7 @@ final class NettyRequestHandler extends SimpleChannelInboundHandler<FullHttpRequ
                              final boolean keepAlive) {
         final String requestId = ctx.channel().attr(REQUEST_ID_KEY).get();
         final NettyHttpResponse errorResponse = nettyErrorHandler.build(requestId, ctx, cause);
-        writeAndFlush(ctx, requestId, "", startTime, keepAlive, errorResponse);
+        writeAndFlush(ctx, () -> requestId, "", startTime, keepAlive, errorResponse);
         return null;
     }
 }

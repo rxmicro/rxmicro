@@ -14,27 +14,30 @@
  * limitations under the License.
  */
 
-package io.rxmicro.rest.server.feature;
-
-import io.rxmicro.logger.Logger;
-import io.rxmicro.logger.LoggerFactory;
+package io.rxmicro.logger;
 
 /**
- * Declares an accessible class that used as logger name for all error response builders.
+ * The request id supplier.
  *
  * @author nedis
  * @since 0.7
  */
-public class ErrorHandler {
+public interface RequestIdSupplier {
 
     /**
-     * Logger static instance.
+     * Log message must contain {@value #UNDEFINED_REQUEST_ID} string if request id is is null.
      */
-    protected static final Logger LOGGER = LoggerFactory.getLogger(ErrorHandler.class);
+    String UNDEFINED_REQUEST_ID = "null";
 
     /**
-     * Protected constructor allowing subclassing but not direct instantiation.
+     * Log message must contain {@value #UNSUPPORTED_REQUEST_ID_FEATURE} string if request id is not supported by logger framework.
      */
-    protected ErrorHandler() {
-    }
+    String UNSUPPORTED_REQUEST_ID_FEATURE = "unsupported-request-id-feature";
+
+    /**
+     * Returns the request id.
+     *
+     * @return the request id
+     */
+    String getRequestId();
 }

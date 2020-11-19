@@ -17,6 +17,7 @@
 package io.rxmicro.rest.server.internal;
 
 import io.rxmicro.logger.Logger;
+import io.rxmicro.logger.RequestIdSupplier;
 import io.rxmicro.logger.impl.LoggerImplProvider;
 import io.rxmicro.rest.model.PathVariableMapping;
 import io.rxmicro.rest.server.RestServerConfig;
@@ -131,13 +132,13 @@ abstract class AbstractBaseRestControllerMethodTest {
         }
 
         @Override
-        public void trace(final String msg, final Object arg1) {
-            logger.trace(msg, arg1);
+        public void trace(final String format, final Object arg1) {
+            logger.trace(format, arg1);
         }
 
         @Override
-        public void trace(final String msg, final Object arg1, final Object arg2) {
-            logger.trace(msg, arg1, arg2);
+        public void trace(final String format, final Object arg1, final Object arg2) {
+            logger.trace(format, arg1, arg2);
         }
 
         @Override
@@ -151,7 +152,8 @@ abstract class AbstractBaseRestControllerMethodTest {
         }
 
         @Override
-        public void trace(final String format, final Object arg1, final Object arg2, final Object arg3, final Object arg4, final Object arg5) {
+        public void trace(final String format, final Object arg1, final Object arg2, final Object arg3, final Object arg4,
+                          final Object arg5) {
             logger.trace(format, arg1, arg2, arg3, arg4, arg5);
         }
 
@@ -161,93 +163,244 @@ abstract class AbstractBaseRestControllerMethodTest {
         }
 
         @Override
-        public void trace(final String msg, final Supplier<?> arg1) {
-            logger.trace(msg, arg1);
+        public void trace(final String format, final Supplier<?> arg1) {
+            logger.trace(format, arg1);
         }
 
         @Override
-        public void trace(final String msg, final Supplier<?> arg1, final Supplier<?> arg2) {
-            logger.trace(msg, arg1, arg2);
+        public void trace(final String format, final Supplier<?> arg1, final Supplier<?> arg2) {
+            logger.trace(format, arg1, arg2);
         }
 
         @Override
-        public void trace(final String msg, final Supplier<?> arg1, final Supplier<?> arg2, final Supplier<?> arg3) {
-            logger.trace(msg, arg1, arg2, arg3);
+        public void trace(final String format, final Supplier<?> arg1, final Supplier<?> arg2, final Supplier<?> arg3) {
+            logger.trace(format, arg1, arg2, arg3);
         }
 
         @Override
-        public void trace(final String msg, final Supplier<?> arg1, final Supplier<?> arg2, final Supplier<?> arg3, final Supplier<?> arg4) {
-            logger.trace(msg, arg1, arg2, arg3, arg4);
+        public void trace(final String format, final Supplier<?> arg1, final Supplier<?> arg2, final Supplier<?> arg3,
+                          final Supplier<?> arg4) {
+            logger.trace(format, arg1, arg2, arg3, arg4);
         }
 
         @Override
-        public void trace(final String msg, final Supplier<?> arg1, final Supplier<?> arg2, final Supplier<?> arg3, final Supplier<?> arg4, final Supplier<?> arg5) {
-            logger.trace(msg, arg1, arg2, arg3, arg4, arg5);
+        public void trace(final String format, final Supplier<?> arg1, final Supplier<?> arg2, final Supplier<?> arg3,
+                          final Supplier<?> arg4, final Supplier<?> arg5) {
+            logger.trace(format, arg1, arg2, arg3, arg4, arg5);
         }
 
         @Override
-        public void trace(final String msg, final Supplier<?>... suppliers) {
-            logger.trace(msg, suppliers);
+        public void trace(final String format, final Supplier<?>... suppliers) {
+            logger.trace(format, suppliers);
         }
 
         @Override
-        public void trace(final Throwable throwable, final String msg, final Object arg1) {
-            logger.trace(throwable, msg, arg1);
+        public void trace(final Throwable throwable, final String format, final Object arg1) {
+            logger.trace(throwable, format, arg1);
         }
 
         @Override
-        public void trace(final Throwable throwable, final String msg, final Object arg1, final Object arg2) {
-            logger.trace(throwable, msg, arg1, arg2);
+        public void trace(final Throwable throwable, final String format, final Object arg1, final Object arg2) {
+            logger.trace(throwable, format, arg1, arg2);
         }
 
         @Override
-        public void trace(final Throwable throwable, final String msg, final Object arg1, final Object arg2, final Object arg3) {
-            logger.trace(throwable, msg, arg1, arg2, arg3);
+        public void trace(final Throwable throwable, final String format, final Object arg1, final Object arg2, final Object arg3) {
+            logger.trace(throwable, format, arg1, arg2, arg3);
         }
 
         @Override
-        public void trace(final Throwable throwable, final String msg, final Object arg1, final Object arg2, final Object arg3, final Object arg4) {
-            logger.trace(throwable, msg, arg1, arg2, arg3, arg4);
+        public void trace(final Throwable throwable, final String format, final Object arg1, final Object arg2, final Object arg3,
+                          final Object arg4) {
+            logger.trace(throwable, format, arg1, arg2, arg3, arg4);
         }
 
         @Override
-        public void trace(final Throwable throwable, final String msg, final Object arg1, final Object arg2, final Object arg3, final Object arg4, final Object arg5) {
-            logger.trace(throwable, msg, arg1, arg2, arg3, arg4, arg5);
+        public void trace(final Throwable throwable, final String format, final Object arg1, final Object arg2, final Object arg3,
+                          final Object arg4, final Object arg5) {
+            logger.trace(throwable, format, arg1, arg2, arg3, arg4, arg5);
         }
 
         @Override
-        public void trace(final Throwable throwable, final String msg, final Object... arguments) {
-            logger.trace(throwable, msg, arguments);
+        public void trace(final Throwable throwable, final String format, final Object... arguments) {
+            logger.trace(throwable, format, arguments);
         }
 
         @Override
-        public void trace(final Throwable throwable, final String msg, final Supplier<?> arg1) {
-            logger.trace(throwable, msg, arg1);
+        public void trace(final Throwable throwable, final String format, final Supplier<?> arg1) {
+            logger.trace(throwable, format, arg1);
         }
 
         @Override
-        public void trace(final Throwable throwable, final String msg, final Supplier<?> arg1, final Supplier<?> arg2) {
-            logger.trace(throwable, msg, arg1, arg2);
+        public void trace(final Throwable throwable, final String format, final Supplier<?> arg1, final Supplier<?> arg2) {
+            logger.trace(throwable, format, arg1, arg2);
         }
 
         @Override
-        public void trace(final Throwable throwable, final String msg, final Supplier<?> arg1, final Supplier<?> arg2, final Supplier<?> arg3) {
-            logger.trace(throwable, msg, arg1, arg2, arg3);
+        public void trace(final Throwable throwable, final String format, final Supplier<?> arg1, final Supplier<?> arg2,
+                          final Supplier<?> arg3) {
+            logger.trace(throwable, format, arg1, arg2, arg3);
         }
 
         @Override
-        public void trace(final Throwable throwable, final String msg, final Supplier<?> arg1, final Supplier<?> arg2, final Supplier<?> arg3, final Supplier<?> arg4) {
-            logger.trace(throwable, msg, arg1, arg2, arg3, arg4);
+        public void trace(final Throwable throwable, final String format, final Supplier<?> arg1, final Supplier<?> arg2,
+                          final Supplier<?> arg3, final Supplier<?> arg4) {
+            logger.trace(throwable, format, arg1, arg2, arg3, arg4);
         }
 
         @Override
-        public void trace(final Throwable throwable, final String msg, final Supplier<?> arg1, final Supplier<?> arg2, final Supplier<?> arg3, final Supplier<?> arg4, final Supplier<?> arg5) {
-            logger.trace(throwable, msg, arg1, arg2, arg3, arg4, arg5);
+        public void trace(final Throwable throwable, final String format, final Supplier<?> arg1, final Supplier<?> arg2,
+                          final Supplier<?> arg3, final Supplier<?> arg4, final Supplier<?> arg5) {
+            logger.trace(throwable, format, arg1, arg2, arg3, arg4, arg5);
         }
 
         @Override
-        public void trace(final Throwable throwable, final String msg, final Supplier<?>... suppliers) {
-            logger.trace(throwable, msg, suppliers);
+        public void trace(final Throwable throwable, final String format, final Supplier<?>... suppliers) {
+            logger.trace(throwable, format, suppliers);
+        }
+
+        @Override
+        public void trace(final RequestIdSupplier requestIdSupplier, final String msg) {
+            logger.trace(requestIdSupplier, msg);
+        }
+
+        @Override
+        public void trace(final RequestIdSupplier requestIdSupplier, final String format, final Object arg1) {
+            logger.trace(requestIdSupplier, format, arg1);
+        }
+
+        @Override
+        public void trace(final RequestIdSupplier requestIdSupplier, final String format, final Object arg1, final Object arg2) {
+            logger.trace(requestIdSupplier, format, arg1, arg2);
+        }
+
+        @Override
+        public void trace(final RequestIdSupplier requestIdSupplier, final String format, final Object arg1, final Object arg2,
+                          final Object arg3) {
+            logger.trace(requestIdSupplier, format, arg1, arg2, arg3);
+        }
+
+        @Override
+        public void trace(final RequestIdSupplier requestIdSupplier, final String format, final Object arg1, final Object arg2,
+                          final Object arg3, final Object arg4) {
+            logger.trace(requestIdSupplier, format, arg1, arg2, arg3, arg4);
+        }
+
+        @Override
+        public void trace(final RequestIdSupplier requestIdSupplier, final String format, final Object arg1, final Object arg2,
+                          final Object arg3, final Object arg4, final Object arg5) {
+            logger.trace(requestIdSupplier, format, arg1, arg2, arg3, arg4, arg5);
+        }
+
+        @Override
+        public void trace(final RequestIdSupplier requestIdSupplier, final String format, final Object... arguments) {
+            logger.trace(requestIdSupplier, format, arguments);
+        }
+
+        @Override
+        public void trace(final RequestIdSupplier requestIdSupplier, final String format, final Supplier<?> arg1) {
+            logger.trace(requestIdSupplier, format, arg1);
+        }
+
+        @Override
+        public void trace(final RequestIdSupplier requestIdSupplier, final String format, final Supplier<?> arg1,
+                          final Supplier<?> arg2) {
+            logger.trace(requestIdSupplier, format, arg1, arg2);
+        }
+
+        @Override
+        public void trace(final RequestIdSupplier requestIdSupplier, final String format, final Supplier<?> arg1,
+                          final Supplier<?> arg2, final Supplier<?> arg3) {
+            logger.trace(requestIdSupplier, format, arg1, arg2, arg3);
+        }
+
+        @Override
+        public void trace(final RequestIdSupplier requestIdSupplier, final String format, final Supplier<?> arg1,
+                          final Supplier<?> arg2, final Supplier<?> arg3, final Supplier<?> arg4) {
+            logger.trace(requestIdSupplier, format, arg1, arg2, arg3, arg4);
+        }
+
+        @Override
+        public void trace(final RequestIdSupplier requestIdSupplier, final String format, final Supplier<?> arg1,
+                          final Supplier<?> arg2, final Supplier<?> arg3, final Supplier<?> arg4, final Supplier<?> arg5) {
+            logger.trace(requestIdSupplier, format, arg1, arg2, arg3, arg4, arg5);
+        }
+
+        @Override
+        public void trace(final RequestIdSupplier requestIdSupplier, final String format, final Supplier<?>... suppliers) {
+            logger.trace(requestIdSupplier, format, suppliers);
+        }
+
+        @Override
+        public void trace(final RequestIdSupplier requestIdSupplier, final Throwable throwable, final String format,
+                          final Object arg1) {
+            logger.trace(requestIdSupplier, throwable, format, arg1);
+        }
+
+        @Override
+        public void trace(final RequestIdSupplier requestIdSupplier, final Throwable throwable, final String format,
+                          final Object arg1, final Object arg2) {
+            logger.trace(requestIdSupplier, throwable, format, arg1, arg2);
+        }
+
+        @Override
+        public void trace(final RequestIdSupplier requestIdSupplier, final Throwable throwable, final String format,
+                          final Object arg1, final Object arg2, final Object arg3) {
+            logger.trace(requestIdSupplier, throwable, format, arg1, arg2, arg3);
+        }
+
+        @Override
+        public void trace(final RequestIdSupplier requestIdSupplier, final Throwable throwable, final String format,
+                          final Object arg1, final Object arg2, final Object arg3, final Object arg4) {
+            logger.trace(requestIdSupplier, throwable, format, arg1, arg2, arg3, arg4);
+        }
+
+        @Override
+        public void trace(final RequestIdSupplier requestIdSupplier, final Throwable throwable, final String format,
+                          final Object arg1, final Object arg2, final Object arg3, final Object arg4, final Object arg5) {
+            logger.trace(requestIdSupplier, throwable, format, arg1, arg2, arg3, arg4, arg5);
+        }
+
+        @Override
+        public void trace(final RequestIdSupplier requestIdSupplier, final Throwable throwable, final String format,
+                          final Object... arguments) {
+            logger.trace(requestIdSupplier, throwable, format, arguments);
+        }
+
+        @Override
+        public void trace(final RequestIdSupplier requestIdSupplier, final Throwable throwable, final String format,
+                          final Supplier<?> arg1) {
+            logger.trace(requestIdSupplier, throwable, format, arg1);
+        }
+
+        @Override
+        public void trace(final RequestIdSupplier requestIdSupplier, final Throwable throwable, final String format,
+                          final Supplier<?> arg1, final Supplier<?> arg2) {
+            logger.trace(requestIdSupplier, throwable, format, arg1, arg2);
+        }
+
+        @Override
+        public void trace(final RequestIdSupplier requestIdSupplier, final Throwable throwable, final String format,
+                          final Supplier<?> arg1, final Supplier<?> arg2, final Supplier<?> arg3) {
+            logger.trace(requestIdSupplier, throwable, format, arg1, arg2, arg3);
+        }
+
+        @Override
+        public void trace(final RequestIdSupplier requestIdSupplier, final Throwable throwable, final String format,
+                          final Supplier<?> arg1, final Supplier<?> arg2, final Supplier<?> arg3, final Supplier<?> arg4) {
+            logger.trace(requestIdSupplier, throwable, format, arg1, arg2, arg3, arg4);
+        }
+
+        @Override
+        public void trace(final RequestIdSupplier requestIdSupplier, final Throwable throwable, final String format,
+                          final Supplier<?> arg1, final Supplier<?> arg2, final Supplier<?> arg3, final Supplier<?> arg4, final Supplier<?> arg5) {
+            logger.trace(requestIdSupplier, throwable, format, arg1, arg2, arg3, arg4, arg5);
+        }
+
+        @Override
+        public void trace(final RequestIdSupplier requestIdSupplier, final Throwable throwable, final String format,
+                          final Supplier<?>... suppliers) {
+            logger.trace(requestIdSupplier, throwable, format, suppliers);
         }
 
         @Override
@@ -261,123 +414,273 @@ abstract class AbstractBaseRestControllerMethodTest {
         }
 
         @Override
-        public void debug(final String msg, final Object arg1) {
-            logger.debug(msg, arg1);
+        public void debug(final String format, final Object arg1) {
+            logger.debug(format, arg1);
         }
 
         @Override
-        public void debug(final String msg, final Object arg1, final Object arg2) {
-            logger.debug(msg, arg1, arg2);
+        public void debug(final String format, final Object arg1, final Object arg2) {
+            logger.debug(format, arg1, arg2);
         }
 
         @Override
-        public void debug(final String msg, final Object arg1, final Object arg2, final Object arg3) {
-            logger.debug(msg, arg1, arg2, arg3);
+        public void debug(final String format, final Object arg1, final Object arg2, final Object arg3) {
+            logger.debug(format, arg1, arg2, arg3);
         }
 
         @Override
-        public void debug(final String msg, final Object arg1, final Object arg2, final Object arg3, final Object arg4) {
-            logger.debug(msg, arg1, arg2, arg3, arg4);
+        public void debug(final String format, final Object arg1, final Object arg2, final Object arg3, final Object arg4) {
+            logger.debug(format, arg1, arg2, arg3, arg4);
         }
 
         @Override
-        public void debug(final String msg, final Object arg1, final Object arg2, final Object arg3, final Object arg4, final Object arg5) {
-            logger.debug(msg, arg1, arg2, arg3, arg4, arg5);
+        public void debug(final String format, final Object arg1, final Object arg2, final Object arg3, final Object arg4,
+                          final Object arg5) {
+            logger.debug(format, arg1, arg2, arg3, arg4, arg5);
         }
 
         @Override
-        public void debug(final String msg, final Object... arguments) {
-            logger.debug(msg, arguments);
+        public void debug(final String format, final Object... arguments) {
+            logger.debug(format, arguments);
         }
 
         @Override
-        public void debug(final String msg, final Supplier<?> arg1) {
-            logger.debug(msg, arg1);
+        public void debug(final String format, final Supplier<?> arg1) {
+            logger.debug(format, arg1);
         }
 
         @Override
-        public void debug(final String msg, final Supplier<?> arg1, final Supplier<?> arg2) {
-            logger.debug(msg, arg1, arg2);
+        public void debug(final String format, final Supplier<?> arg1, final Supplier<?> arg2) {
+            logger.debug(format, arg1, arg2);
         }
 
         @Override
-        public void debug(final String msg, final Supplier<?> arg1, final Supplier<?> arg2, final Supplier<?> arg3) {
-            logger.debug(msg, arg1, arg2, arg3);
+        public void debug(final String format, final Supplier<?> arg1, final Supplier<?> arg2, final Supplier<?> arg3) {
+            logger.debug(format, arg1, arg2, arg3);
         }
 
         @Override
-        public void debug(final String msg, final Supplier<?> arg1, final Supplier<?> arg2, final Supplier<?> arg3, final Supplier<?> arg4) {
-            logger.debug(msg, arg1, arg2, arg3, arg4);
+        public void debug(final String format, final Supplier<?> arg1, final Supplier<?> arg2, final Supplier<?> arg3,
+                          final Supplier<?> arg4) {
+            logger.debug(format, arg1, arg2, arg3, arg4);
         }
 
         @Override
-        public void debug(final String msg, final Supplier<?> arg1, final Supplier<?> arg2, final Supplier<?> arg3, final Supplier<?> arg4, final Supplier<?> arg5) {
-            logger.debug(msg, arg1, arg2, arg3, arg4, arg5);
+        public void debug(final String format, final Supplier<?> arg1, final Supplier<?> arg2, final Supplier<?> arg3,
+                          final Supplier<?> arg4, final Supplier<?> arg5) {
+            logger.debug(format, arg1, arg2, arg3, arg4, arg5);
         }
 
         @Override
-        public void debug(final String msg, final Supplier<?>... suppliers) {
-            logger.debug(msg, suppliers);
+        public void debug(final String format, final Supplier<?>... suppliers) {
+            logger.debug(format, suppliers);
         }
 
         @Override
-        public void debug(final Throwable throwable, final String msg, final Object arg1) {
-            logger.debug(throwable, msg, arg1);
+        public void debug(final Throwable throwable, final String format, final Object arg1) {
+            logger.debug(throwable, format, arg1);
         }
 
         @Override
-        public void debug(final Throwable throwable, final String msg, final Object arg1, final Object arg2) {
-            logger.debug(throwable, msg, arg1, arg2);
+        public void debug(final Throwable throwable, final String format, final Object arg1, final Object arg2) {
+            logger.debug(throwable, format, arg1, arg2);
         }
 
         @Override
-        public void debug(final Throwable throwable, final String msg, final Object arg1, final Object arg2, final Object arg3) {
-            logger.debug(throwable, msg, arg1, arg2, arg3);
+        public void debug(final Throwable throwable, final String format, final Object arg1, final Object arg2, final Object arg3) {
+            logger.debug(throwable, format, arg1, arg2, arg3);
         }
 
         @Override
-        public void debug(final Throwable throwable, final String msg, final Object arg1, final Object arg2, final Object arg3, final Object arg4) {
-            logger.debug(throwable, msg, arg1, arg2, arg3, arg4);
+        public void debug(final Throwable throwable, final String format, final Object arg1, final Object arg2, final Object arg3,
+                          final Object arg4) {
+            logger.debug(throwable, format, arg1, arg2, arg3, arg4);
         }
 
         @Override
-        public void debug(final Throwable throwable, final String msg, final Object arg1, final Object arg2, final Object arg3, final Object arg4, final Object arg5) {
-            logger.debug(throwable, msg, arg1, arg2, arg3, arg4, arg5);
+        public void debug(final Throwable throwable, final String format, final Object arg1, final Object arg2, final Object arg3,
+                          final Object arg4, final Object arg5) {
+            logger.debug(throwable, format, arg1, arg2, arg3, arg4, arg5);
         }
 
         @Override
-        public void debug(final Throwable throwable, final String msg, final Object... arguments) {
-            logger.debug(throwable, msg, arguments);
+        public void debug(final Throwable throwable, final String format, final Object... arguments) {
+            logger.debug(throwable, format, arguments);
         }
 
         @Override
-        public void debug(final Throwable throwable, final String msg, final Supplier<?> arg1) {
-            logger.debug(throwable, msg, arg1);
+        public void debug(final Throwable throwable, final String format, final Supplier<?> arg1) {
+            logger.debug(throwable, format, arg1);
         }
 
         @Override
-        public void debug(final Throwable throwable, final String msg, final Supplier<?> arg1, final Supplier<?> arg2) {
-            logger.debug(throwable, msg, arg1, arg2);
+        public void debug(final Throwable throwable, final String format, final Supplier<?> arg1, final Supplier<?> arg2) {
+            logger.debug(throwable, format, arg1, arg2);
         }
 
         @Override
-        public void debug(final Throwable throwable, final String msg, final Supplier<?> arg1, final Supplier<?> arg2, final Supplier<?> arg3) {
-            logger.debug(throwable, msg, arg1, arg2, arg3);
+        public void debug(final Throwable throwable, final String format, final Supplier<?> arg1, final Supplier<?> arg2,
+                          final Supplier<?> arg3) {
+            logger.debug(throwable, format, arg1, arg2, arg3);
         }
 
         @Override
-        public void debug(final Throwable throwable, final String msg, final Supplier<?> arg1, final Supplier<?> arg2, final Supplier<?> arg3, final Supplier<?> arg4) {
-            logger.debug(throwable, msg, arg1, arg2, arg3, arg4);
+        public void debug(final Throwable throwable, final String format, final Supplier<?> arg1, final Supplier<?> arg2,
+                          final Supplier<?> arg3, final Supplier<?> arg4) {
+            logger.debug(throwable, format, arg1, arg2, arg3, arg4);
         }
 
         @Override
-        public void debug(final Throwable throwable, final String msg, final Supplier<?> arg1, final Supplier<?> arg2, final Supplier<?> arg3, final Supplier<?> arg4, final Supplier<?> arg5) {
-            logger.debug(throwable, msg, arg1, arg2, arg3, arg4, arg5);
+        public void debug(final Throwable throwable, final String format, final Supplier<?> arg1, final Supplier<?> arg2,
+                          final Supplier<?> arg3, final Supplier<?> arg4, final Supplier<?> arg5) {
+            logger.debug(throwable, format, arg1, arg2, arg3, arg4, arg5);
         }
 
         @Override
-        public void debug(final Throwable throwable, final String msg, final Supplier<?>... suppliers) {
-            logger.debug(throwable, msg, suppliers);
+        public void debug(final Throwable throwable, final String format, final Supplier<?>... suppliers) {
+            logger.debug(throwable, format, suppliers);
+        }
+
+        @Override
+        public void debug(final RequestIdSupplier requestIdSupplier, final String msg) {
+            logger.debug(requestIdSupplier, msg);
+        }
+
+        @Override
+        public void debug(final RequestIdSupplier requestIdSupplier, final String format, final Object arg1) {
+            logger.debug(requestIdSupplier, format, arg1);
+        }
+
+        @Override
+        public void debug(final RequestIdSupplier requestIdSupplier, final String format, final Object arg1, final Object arg2) {
+            logger.debug(requestIdSupplier, format, arg1, arg2);
+        }
+
+        @Override
+        public void debug(final RequestIdSupplier requestIdSupplier, final String format, final Object arg1, final Object arg2,
+                          final Object arg3) {
+            logger.debug(requestIdSupplier, format, arg1, arg2, arg3);
+        }
+
+        @Override
+        public void debug(final RequestIdSupplier requestIdSupplier, final String format, final Object arg1, final Object arg2,
+                          final Object arg3, final Object arg4) {
+            logger.debug(requestIdSupplier, format, arg1, arg2, arg3, arg4);
+        }
+
+        @Override
+        public void debug(final RequestIdSupplier requestIdSupplier, final String format, final Object arg1, final Object arg2,
+                          final Object arg3, final Object arg4, final Object arg5) {
+            logger.debug(requestIdSupplier, format, arg1, arg2, arg3, arg4, arg5);
+        }
+
+        @Override
+        public void debug(final RequestIdSupplier requestIdSupplier, final String format, final Object... arguments) {
+            logger.debug(requestIdSupplier, format, arguments);
+        }
+
+        @Override
+        public void debug(final RequestIdSupplier requestIdSupplier, final String format, final Supplier<?> arg1) {
+            logger.debug(requestIdSupplier, format, arg1);
+        }
+
+        @Override
+        public void debug(final RequestIdSupplier requestIdSupplier, final String format, final Supplier<?> arg1, final Supplier<?> arg2) {
+            logger.debug(requestIdSupplier, format, arg1, arg2);
+        }
+
+        @Override
+        public void debug(final RequestIdSupplier requestIdSupplier, final String format, final Supplier<?> arg1, final Supplier<?> arg2,
+                          final Supplier<?> arg3) {
+            logger.debug(requestIdSupplier, format, arg1, arg2, arg3);
+        }
+
+        @Override
+        public void debug(final RequestIdSupplier requestIdSupplier, final String format, final Supplier<?> arg1, final Supplier<?> arg2,
+                          final Supplier<?> arg3, final Supplier<?> arg4) {
+            logger.debug(requestIdSupplier, format, arg1, arg2, arg3, arg4);
+        }
+
+        @Override
+        public void debug(final RequestIdSupplier requestIdSupplier, final String format, final Supplier<?> arg1, final Supplier<?> arg2,
+                          final Supplier<?> arg3, final Supplier<?> arg4, final Supplier<?> arg5) {
+            logger.debug(requestIdSupplier, format, arg1, arg2, arg3, arg4, arg5);
+        }
+
+        @Override
+        public void debug(final RequestIdSupplier requestIdSupplier, final String format, final Supplier<?>... suppliers) {
+            logger.debug(requestIdSupplier, format, suppliers);
+        }
+
+        @Override
+        public void debug(final RequestIdSupplier requestIdSupplier, final Throwable throwable, final String format, final Object arg1) {
+            logger.debug(requestIdSupplier, throwable, format, arg1);
+        }
+
+        @Override
+        public void debug(final RequestIdSupplier requestIdSupplier, final Throwable throwable, final String format, final Object arg1,
+                          final Object arg2) {
+            logger.debug(requestIdSupplier, throwable, format, arg1, arg2);
+        }
+
+        @Override
+        public void debug(final RequestIdSupplier requestIdSupplier, final Throwable throwable, final String format, final Object arg1,
+                          final Object arg2, final Object arg3) {
+            logger.debug(requestIdSupplier, throwable, format, arg1, arg2, arg3);
+        }
+
+        @Override
+        public void debug(final RequestIdSupplier requestIdSupplier, final Throwable throwable, final String format, final Object arg1,
+                          final Object arg2, final Object arg3, final Object arg4) {
+            logger.debug(requestIdSupplier, throwable, format, arg1, arg2, arg3, arg4);
+        }
+
+        @Override
+        public void debug(final RequestIdSupplier requestIdSupplier, final Throwable throwable, final String format, final Object arg1,
+                          final Object arg2, final Object arg3, final Object arg4, final Object arg5) {
+            logger.debug(requestIdSupplier, throwable, format, arg1, arg2, arg3, arg4, arg5);
+        }
+
+        @Override
+        public void debug(final RequestIdSupplier requestIdSupplier, final Throwable throwable, final String format,
+                          final Object... arguments) {
+            logger.debug(requestIdSupplier, throwable, format, arguments);
+        }
+
+        @Override
+        public void debug(final RequestIdSupplier requestIdSupplier, final Throwable throwable, final String format,
+                          final Supplier<?> arg1) {
+            logger.debug(requestIdSupplier, throwable, format, arg1);
+        }
+
+        @Override
+        public void debug(final RequestIdSupplier requestIdSupplier, final Throwable throwable, final String format,
+                          final Supplier<?> arg1, final Supplier<?> arg2) {
+            logger.debug(requestIdSupplier, throwable, format, arg1, arg2);
+        }
+
+        @Override
+        public void debug(final RequestIdSupplier requestIdSupplier, final Throwable throwable, final String format,
+                          final Supplier<?> arg1, final Supplier<?> arg2, final Supplier<?> arg3) {
+            logger.debug(requestIdSupplier, throwable, format, arg1, arg2, arg3);
+        }
+
+        @Override
+        public void debug(final RequestIdSupplier requestIdSupplier, final Throwable throwable, final String format,
+                          final Supplier<?> arg1, final Supplier<?> arg2, final Supplier<?> arg3, final Supplier<?> arg4) {
+            logger.debug(requestIdSupplier, throwable, format, arg1, arg2, arg3, arg4);
+        }
+
+        @Override
+        public void debug(final RequestIdSupplier requestIdSupplier, final Throwable throwable, final String format,
+                          final Supplier<?> arg1, final Supplier<?> arg2, final Supplier<?> arg3, final Supplier<?> arg4, final Supplier<?> arg5) {
+            logger.debug(requestIdSupplier, throwable, format, arg1, arg2, arg3, arg4, arg5);
+        }
+
+        @Override
+        public void debug(final RequestIdSupplier requestIdSupplier, final Throwable throwable, final String format,
+                          final Supplier<?>... suppliers) {
+            logger.debug(requestIdSupplier, throwable, format, suppliers);
         }
 
         @Override
@@ -391,123 +694,274 @@ abstract class AbstractBaseRestControllerMethodTest {
         }
 
         @Override
-        public void info(final String msg, final Object arg1) {
-            logger.info(msg, arg1);
+        public void info(final String format, final Object arg1) {
+            logger.info(format, arg1);
         }
 
         @Override
-        public void info(final String msg, final Object arg1, final Object arg2) {
-            logger.info(msg, arg1, arg2);
+        public void info(final String format, final Object arg1, final Object arg2) {
+            logger.info(format, arg1, arg2);
         }
 
         @Override
-        public void info(final String msg, final Object arg1, final Object arg2, final Object arg3) {
-            logger.info(msg, arg1, arg2, arg3);
+        public void info(final String format, final Object arg1, final Object arg2, final Object arg3) {
+            logger.info(format, arg1, arg2, arg3);
         }
 
         @Override
-        public void info(final String msg, final Object arg1, final Object arg2, final Object arg3, final Object arg4) {
-            logger.info(msg, arg1, arg2, arg3, arg4);
+        public void info(final String format, final Object arg1, final Object arg2, final Object arg3, final Object arg4) {
+            logger.info(format, arg1, arg2, arg3, arg4);
         }
 
         @Override
-        public void info(final String msg, final Object arg1, final Object arg2, final Object arg3, final Object arg4, final Object arg5) {
-            logger.info(msg, arg1, arg2, arg3, arg4, arg5);
+        public void info(final String format, final Object arg1, final Object arg2, final Object arg3, final Object arg4,
+                         final Object arg5) {
+            logger.info(format, arg1, arg2, arg3, arg4, arg5);
         }
 
         @Override
-        public void info(final String msg, final Object... arguments) {
-            logger.info(msg, arguments);
+        public void info(final String format, final Object... arguments) {
+            logger.info(format, arguments);
         }
 
         @Override
-        public void info(final String msg, final Supplier<?> arg1) {
-            logger.info(msg, arg1);
+        public void info(final String format, final Supplier<?> arg1) {
+            logger.info(format, arg1);
         }
 
         @Override
-        public void info(final String msg, final Supplier<?> arg1, final Supplier<?> arg2) {
-            logger.info(msg, arg1, arg2);
+        public void info(final String format, final Supplier<?> arg1, final Supplier<?> arg2) {
+            logger.info(format, arg1, arg2);
         }
 
         @Override
-        public void info(final String msg, final Supplier<?> arg1, final Supplier<?> arg2, final Supplier<?> arg3) {
-            logger.info(msg, arg1, arg2, arg3);
+        public void info(final String format, final Supplier<?> arg1, final Supplier<?> arg2, final Supplier<?> arg3) {
+            logger.info(format, arg1, arg2, arg3);
         }
 
         @Override
-        public void info(final String msg, final Supplier<?> arg1, final Supplier<?> arg2, final Supplier<?> arg3, final Supplier<?> arg4) {
-            logger.info(msg, arg1, arg2, arg3, arg4);
+        public void info(final String format, final Supplier<?> arg1, final Supplier<?> arg2, final Supplier<?> arg3,
+                         final Supplier<?> arg4) {
+            logger.info(format, arg1, arg2, arg3, arg4);
         }
 
         @Override
-        public void info(final String msg, final Supplier<?> arg1, final Supplier<?> arg2, final Supplier<?> arg3, final Supplier<?> arg4, final Supplier<?> arg5) {
-            logger.info(msg, arg1, arg2, arg3, arg4, arg5);
+        public void info(final String format, final Supplier<?> arg1, final Supplier<?> arg2, final Supplier<?> arg3,
+                         final Supplier<?> arg4, final Supplier<?> arg5) {
+            logger.info(format, arg1, arg2, arg3, arg4, arg5);
         }
 
         @Override
-        public void info(final String msg, final Supplier<?>... suppliers) {
-            logger.info(msg, suppliers);
+        public void info(final String format, final Supplier<?>... suppliers) {
+            logger.info(format, suppliers);
         }
 
         @Override
-        public void info(final Throwable throwable, final String msg, final Object arg1) {
-            logger.info(throwable, msg, arg1);
+        public void info(final Throwable throwable, final String format, final Object arg1) {
+            logger.info(throwable, format, arg1);
         }
 
         @Override
-        public void info(final Throwable throwable, final String msg, final Object arg1, final Object arg2) {
-            logger.info(throwable, msg, arg1, arg2);
+        public void info(final Throwable throwable, final String format, final Object arg1, final Object arg2) {
+            logger.info(throwable, format, arg1, arg2);
         }
 
         @Override
-        public void info(final Throwable throwable, final String msg, final Object arg1, final Object arg2, final Object arg3) {
-            logger.info(throwable, msg, arg1, arg2, arg3);
+        public void info(final Throwable throwable, final String format, final Object arg1, final Object arg2, final Object arg3) {
+            logger.info(throwable, format, arg1, arg2, arg3);
         }
 
         @Override
-        public void info(final Throwable throwable, final String msg, final Object arg1, final Object arg2, final Object arg3, final Object arg4) {
-            logger.info(throwable, msg, arg1, arg2, arg3, arg4);
+        public void info(final Throwable throwable, final String format, final Object arg1, final Object arg2, final Object arg3,
+                         final Object arg4) {
+            logger.info(throwable, format, arg1, arg2, arg3, arg4);
         }
 
         @Override
-        public void info(final Throwable throwable, final String msg, final Object arg1, final Object arg2, final Object arg3, final Object arg4, final Object arg5) {
-            logger.info(throwable, msg, arg1, arg2, arg3, arg4, arg5);
+        public void info(final Throwable throwable, final String format, final Object arg1, final Object arg2, final Object arg3,
+                         final Object arg4, final Object arg5) {
+            logger.info(throwable, format, arg1, arg2, arg3, arg4, arg5);
         }
 
         @Override
-        public void info(final Throwable throwable, final String msg, final Object... arguments) {
-            logger.info(throwable, msg, arguments);
+        public void info(final Throwable throwable, final String format, final Object... arguments) {
+            logger.info(throwable, format, arguments);
         }
 
         @Override
-        public void info(final Throwable throwable, final String msg, final Supplier<?> arg1) {
-            logger.info(throwable, msg, arg1);
+        public void info(final Throwable throwable, final String format, final Supplier<?> arg1) {
+            logger.info(throwable, format, arg1);
         }
 
         @Override
-        public void info(final Throwable throwable, final String msg, final Supplier<?> arg1, final Supplier<?> arg2) {
-            logger.info(throwable, msg, arg1, arg2);
+        public void info(final Throwable throwable, final String format, final Supplier<?> arg1, final Supplier<?> arg2) {
+            logger.info(throwable, format, arg1, arg2);
         }
 
         @Override
-        public void info(final Throwable throwable, final String msg, final Supplier<?> arg1, final Supplier<?> arg2, final Supplier<?> arg3) {
-            logger.info(throwable, msg, arg1, arg2, arg3);
+        public void info(final Throwable throwable, final String format, final Supplier<?> arg1, final Supplier<?> arg2,
+                         final Supplier<?> arg3) {
+            logger.info(throwable, format, arg1, arg2, arg3);
         }
 
         @Override
-        public void info(final Throwable throwable, final String msg, final Supplier<?> arg1, final Supplier<?> arg2, final Supplier<?> arg3, final Supplier<?> arg4) {
-            logger.info(throwable, msg, arg1, arg2, arg3, arg4);
+        public void info(final Throwable throwable, final String format, final Supplier<?> arg1, final Supplier<?> arg2,
+                         final Supplier<?> arg3, final Supplier<?> arg4) {
+            logger.info(throwable, format, arg1, arg2, arg3, arg4);
         }
 
         @Override
-        public void info(final Throwable throwable, final String msg, final Supplier<?> arg1, final Supplier<?> arg2, final Supplier<?> arg3, final Supplier<?> arg4, final Supplier<?> arg5) {
-            logger.info(throwable, msg, arg1, arg2, arg3, arg4, arg5);
+        public void info(final Throwable throwable, final String format, final Supplier<?> arg1, final Supplier<?> arg2,
+                         final Supplier<?> arg3, final Supplier<?> arg4, final Supplier<?> arg5) {
+            logger.info(throwable, format, arg1, arg2, arg3, arg4, arg5);
         }
 
         @Override
-        public void info(final Throwable throwable, final String msg, final Supplier<?>... suppliers) {
-            logger.info(throwable, msg, suppliers);
+        public void info(final Throwable throwable, final String format, final Supplier<?>... suppliers) {
+            logger.info(throwable, format, suppliers);
+        }
+
+        @Override
+        public void info(final RequestIdSupplier requestIdSupplier, final String msg) {
+            logger.info(requestIdSupplier, msg);
+        }
+
+        @Override
+        public void info(final RequestIdSupplier requestIdSupplier, final String format, final Object arg1) {
+            logger.info(requestIdSupplier, format, arg1);
+        }
+
+        @Override
+        public void info(final RequestIdSupplier requestIdSupplier, final String format, final Object arg1, final Object arg2) {
+            logger.info(requestIdSupplier, format, arg1, arg2);
+        }
+
+        @Override
+        public void info(final RequestIdSupplier requestIdSupplier, final String format, final Object arg1, final Object arg2,
+                         final Object arg3) {
+            logger.info(requestIdSupplier, format, arg1, arg2, arg3);
+        }
+
+        @Override
+        public void info(final RequestIdSupplier requestIdSupplier, final String format, final Object arg1, final Object arg2,
+                         final Object arg3, final Object arg4) {
+            logger.info(requestIdSupplier, format, arg1, arg2, arg3, arg4);
+        }
+
+        @Override
+        public void info(final RequestIdSupplier requestIdSupplier, final String format, final Object arg1, final Object arg2,
+                         final Object arg3, final Object arg4, final Object arg5) {
+            logger.info(requestIdSupplier, format, arg1, arg2, arg3, arg4, arg5);
+        }
+
+        @Override
+        public void info(final RequestIdSupplier requestIdSupplier, final String format, final Object... arguments) {
+            logger.info(requestIdSupplier, format, arguments);
+        }
+
+        @Override
+        public void info(final RequestIdSupplier requestIdSupplier, final String format, final Supplier<?> arg1) {
+            logger.info(requestIdSupplier, format, arg1);
+        }
+
+        @Override
+        public void info(final RequestIdSupplier requestIdSupplier, final String format, final Supplier<?> arg1, final Supplier<?> arg2) {
+            logger.info(requestIdSupplier, format, arg1, arg2);
+        }
+
+        @Override
+        public void info(final RequestIdSupplier requestIdSupplier, final String format, final Supplier<?> arg1, final Supplier<?> arg2,
+                         final Supplier<?> arg3) {
+            logger.info(requestIdSupplier, format, arg1, arg2, arg3);
+        }
+
+        @Override
+        public void info(final RequestIdSupplier requestIdSupplier, final String format, final Supplier<?> arg1, final Supplier<?> arg2,
+                         final Supplier<?> arg3, final Supplier<?> arg4) {
+            logger.info(requestIdSupplier, format, arg1, arg2, arg3, arg4);
+        }
+
+        @Override
+        public void info(final RequestIdSupplier requestIdSupplier, final String format, final Supplier<?> arg1, final Supplier<?> arg2,
+                         final Supplier<?> arg3, final Supplier<?> arg4, final Supplier<?> arg5) {
+            logger.info(requestIdSupplier, format, arg1, arg2, arg3, arg4, arg5);
+        }
+
+        @Override
+        public void info(final RequestIdSupplier requestIdSupplier, final String format, final Supplier<?>... suppliers) {
+            logger.info(requestIdSupplier, format, suppliers);
+        }
+
+        @Override
+        public void info(final RequestIdSupplier requestIdSupplier, final Throwable throwable, final String format, final Object arg1) {
+            logger.info(requestIdSupplier, throwable, format, arg1);
+        }
+
+        @Override
+        public void info(final RequestIdSupplier requestIdSupplier, final Throwable throwable, final String format, final Object arg1,
+                         final Object arg2) {
+            logger.info(requestIdSupplier, throwable, format, arg1, arg2);
+        }
+
+        @Override
+        public void info(final RequestIdSupplier requestIdSupplier, final Throwable throwable, final String format, final Object arg1,
+                         final Object arg2, final Object arg3) {
+            logger.info(requestIdSupplier, throwable, format, arg1, arg2, arg3);
+        }
+
+        @Override
+        public void info(final RequestIdSupplier requestIdSupplier, final Throwable throwable, final String format, final Object arg1,
+                         final Object arg2, final Object arg3, final Object arg4) {
+            logger.info(requestIdSupplier, throwable, format, arg1, arg2, arg3, arg4);
+        }
+
+        @Override
+        public void info(final RequestIdSupplier requestIdSupplier, final Throwable throwable, final String format, final Object arg1,
+                         final Object arg2, final Object arg3, final Object arg4, final Object arg5) {
+            logger.info(requestIdSupplier, throwable, format, arg1, arg2, arg3, arg4, arg5);
+        }
+
+        @Override
+        public void info(final RequestIdSupplier requestIdSupplier, final Throwable throwable, final String format,
+                         final Object... arguments) {
+            logger.info(requestIdSupplier, throwable, format, arguments);
+        }
+
+        @Override
+        public void info(final RequestIdSupplier requestIdSupplier, final Throwable throwable, final String format,
+                         final Supplier<?> arg1) {
+            logger.info(requestIdSupplier, throwable, format, arg1);
+        }
+
+        @Override
+        public void info(final RequestIdSupplier requestIdSupplier, final Throwable throwable, final String format,
+                         final Supplier<?> arg1, final Supplier<?> arg2) {
+            logger.info(requestIdSupplier, throwable, format, arg1, arg2);
+        }
+
+        @Override
+        public void info(final RequestIdSupplier requestIdSupplier, final Throwable throwable, final String format,
+                         final Supplier<?> arg1, final Supplier<?> arg2, final Supplier<?> arg3) {
+            logger.info(requestIdSupplier, throwable, format, arg1, arg2, arg3);
+        }
+
+        @Override
+        public void info(final RequestIdSupplier requestIdSupplier, final Throwable throwable, final String format,
+                         final Supplier<?> arg1, final Supplier<?> arg2, final Supplier<?> arg3, final Supplier<?> arg4) {
+            logger.info(requestIdSupplier, throwable, format, arg1, arg2, arg3, arg4);
+        }
+
+        @Override
+        public void info(final RequestIdSupplier requestIdSupplier, final Throwable throwable, final String format,
+                         final Supplier<?> arg1, final Supplier<?> arg2, final Supplier<?> arg3, final Supplier<?> arg4,
+                         final Supplier<?> arg5) {
+            logger.info(requestIdSupplier, throwable, format, arg1, arg2, arg3, arg4, arg5);
+        }
+
+        @Override
+        public void info(final RequestIdSupplier requestIdSupplier, final Throwable throwable, final String format,
+                         final Supplier<?>... suppliers) {
+            logger.info(requestIdSupplier, throwable, format, suppliers);
         }
 
         @Override
@@ -521,123 +975,275 @@ abstract class AbstractBaseRestControllerMethodTest {
         }
 
         @Override
-        public void warn(final String msg, final Object arg1) {
-            logger.warn(msg, arg1);
+        public void warn(final String format, final Object arg1) {
+            logger.warn(format, arg1);
         }
 
         @Override
-        public void warn(final String msg, final Object arg1, final Object arg2) {
-            logger.warn(msg, arg1, arg2);
+        public void warn(final String format, final Object arg1, final Object arg2) {
+            logger.warn(format, arg1, arg2);
         }
 
         @Override
-        public void warn(final String msg, final Object arg1, final Object arg2, final Object arg3) {
-            logger.warn(msg, arg1, arg2, arg3);
+        public void warn(final String format, final Object arg1, final Object arg2, final Object arg3) {
+            logger.warn(format, arg1, arg2, arg3);
         }
 
         @Override
-        public void warn(final String msg, final Object arg1, final Object arg2, final Object arg3, final Object arg4) {
-            logger.warn(msg, arg1, arg2, arg3, arg4);
+        public void warn(final String format, final Object arg1, final Object arg2, final Object arg3, final Object arg4) {
+            logger.warn(format, arg1, arg2, arg3, arg4);
         }
 
         @Override
-        public void warn(final String msg, final Object arg1, final Object arg2, final Object arg3, final Object arg4, final Object arg5) {
-            logger.warn(msg, arg1, arg2, arg3, arg4, arg5);
+        public void warn(final String format, final Object arg1, final Object arg2, final Object arg3, final Object arg4,
+                         final Object arg5) {
+            logger.warn(format, arg1, arg2, arg3, arg4, arg5);
         }
 
         @Override
-        public void warn(final String msg, final Object... arguments) {
-            logger.warn(msg, arguments);
+        public void warn(final String format, final Object... arguments) {
+            logger.warn(format, arguments);
         }
 
         @Override
-        public void warn(final String msg, final Supplier<?> arg1) {
-            logger.warn(msg, arg1);
+        public void warn(final String format, final Supplier<?> arg1) {
+            logger.warn(format, arg1);
         }
 
         @Override
-        public void warn(final String msg, final Supplier<?> arg1, final Supplier<?> arg2) {
-            logger.warn(msg, arg1, arg2);
+        public void warn(final String format, final Supplier<?> arg1, final Supplier<?> arg2) {
+            logger.warn(format, arg1, arg2);
         }
 
         @Override
-        public void warn(final String msg, final Supplier<?> arg1, final Supplier<?> arg2, final Supplier<?> arg3) {
-            logger.warn(msg, arg1, arg2, arg3);
+        public void warn(final String format, final Supplier<?> arg1, final Supplier<?> arg2, final Supplier<?> arg3) {
+            logger.warn(format, arg1, arg2, arg3);
         }
 
         @Override
-        public void warn(final String msg, final Supplier<?> arg1, final Supplier<?> arg2, final Supplier<?> arg3, final Supplier<?> arg4) {
-            logger.warn(msg, arg1, arg2, arg3, arg4);
+        public void warn(final String format, final Supplier<?> arg1, final Supplier<?> arg2, final Supplier<?> arg3,
+                         final Supplier<?> arg4) {
+            logger.warn(format, arg1, arg2, arg3, arg4);
         }
 
         @Override
-        public void warn(final String msg, final Supplier<?> arg1, final Supplier<?> arg2, final Supplier<?> arg3, final Supplier<?> arg4, final Supplier<?> arg5) {
-            logger.warn(msg, arg1, arg2, arg3, arg4, arg5);
+        public void warn(final String format, final Supplier<?> arg1, final Supplier<?> arg2, final Supplier<?> arg3,
+                         final Supplier<?> arg4, final Supplier<?> arg5) {
+            logger.warn(format, arg1, arg2, arg3, arg4, arg5);
         }
 
         @Override
-        public void warn(final String msg, final Supplier<?>... suppliers) {
-            logger.warn(msg, suppliers);
+        public void warn(final String format, final Supplier<?>... suppliers) {
+            logger.warn(format, suppliers);
         }
 
         @Override
-        public void warn(final Throwable throwable, final String msg, final Object arg1) {
-            logger.warn(throwable, msg, arg1);
+        public void warn(final Throwable throwable, final String format, final Object arg1) {
+            logger.warn(throwable, format, arg1);
         }
 
         @Override
-        public void warn(final Throwable throwable, final String msg, final Object arg1, final Object arg2) {
-            logger.warn(throwable, msg, arg1, arg2);
+        public void warn(final Throwable throwable, final String format, final Object arg1, final Object arg2) {
+            logger.warn(throwable, format, arg1, arg2);
         }
 
         @Override
-        public void warn(final Throwable throwable, final String msg, final Object arg1, final Object arg2, final Object arg3) {
-            logger.warn(throwable, msg, arg1, arg2, arg3);
+        public void warn(final Throwable throwable, final String format, final Object arg1, final Object arg2, final Object arg3) {
+            logger.warn(throwable, format, arg1, arg2, arg3);
         }
 
         @Override
-        public void warn(final Throwable throwable, final String msg, final Object arg1, final Object arg2, final Object arg3, final Object arg4) {
-            logger.warn(throwable, msg, arg1, arg2, arg3, arg4);
+        public void warn(final Throwable throwable, final String format, final Object arg1, final Object arg2, final Object arg3,
+                         final Object arg4) {
+            logger.warn(throwable, format, arg1, arg2, arg3, arg4);
         }
 
         @Override
-        public void warn(final Throwable throwable, final String msg, final Object arg1, final Object arg2, final Object arg3, final Object arg4, final Object arg5) {
-            logger.warn(throwable, msg, arg1, arg2, arg3, arg4, arg5);
+        public void warn(final Throwable throwable, final String format, final Object arg1, final Object arg2, final Object arg3,
+                         final Object arg4, final Object arg5) {
+            logger.warn(throwable, format, arg1, arg2, arg3, arg4, arg5);
         }
 
         @Override
-        public void warn(final Throwable throwable, final String msg, final Object... arguments) {
-            logger.warn(throwable, msg, arguments);
+        public void warn(final Throwable throwable, final String format, final Object... arguments) {
+            logger.warn(throwable, format, arguments);
         }
 
         @Override
-        public void warn(final Throwable throwable, final String msg, final Supplier<?> arg1) {
-            logger.warn(throwable, msg, arg1);
+        public void warn(final Throwable throwable, final String format, final Supplier<?> arg1) {
+            logger.warn(throwable, format, arg1);
         }
 
         @Override
-        public void warn(final Throwable throwable, final String msg, final Supplier<?> arg1, final Supplier<?> arg2) {
-            logger.warn(throwable, msg, arg1, arg2);
+        public void warn(final Throwable throwable, final String format, final Supplier<?> arg1, final Supplier<?> arg2) {
+            logger.warn(throwable, format, arg1, arg2);
         }
 
         @Override
-        public void warn(final Throwable throwable, final String msg, final Supplier<?> arg1, final Supplier<?> arg2, final Supplier<?> arg3) {
-            logger.warn(throwable, msg, arg1, arg2, arg3);
+        public void warn(final Throwable throwable, final String format, final Supplier<?> arg1, final Supplier<?> arg2,
+                         final Supplier<?> arg3) {
+            logger.warn(throwable, format, arg1, arg2, arg3);
         }
 
         @Override
-        public void warn(final Throwable throwable, final String msg, final Supplier<?> arg1, final Supplier<?> arg2, final Supplier<?> arg3, final Supplier<?> arg4) {
-            logger.warn(throwable, msg, arg1, arg2, arg3, arg4);
+        public void warn(final Throwable throwable, final String format, final Supplier<?> arg1, final Supplier<?> arg2,
+                         final Supplier<?> arg3, final Supplier<?> arg4) {
+            logger.warn(throwable, format, arg1, arg2, arg3, arg4);
         }
 
         @Override
-        public void warn(final Throwable throwable, final String msg, final Supplier<?> arg1, final Supplier<?> arg2, final Supplier<?> arg3, final Supplier<?> arg4, final Supplier<?> arg5) {
-            logger.warn(throwable, msg, arg1, arg2, arg3, arg4, arg5);
+        public void warn(final Throwable throwable, final String format, final Supplier<?> arg1, final Supplier<?> arg2,
+                         final Supplier<?> arg3, final Supplier<?> arg4, final Supplier<?> arg5) {
+            logger.warn(throwable, format, arg1, arg2, arg3, arg4, arg5);
         }
 
         @Override
-        public void warn(final Throwable throwable, final String msg, final Supplier<?>... suppliers) {
-            logger.warn(throwable, msg, suppliers);
+        public void warn(final Throwable throwable, final String format, final Supplier<?>... suppliers) {
+            logger.warn(throwable, format, suppliers);
+        }
+
+        @Override
+        public void warn(final RequestIdSupplier requestIdSupplier, final String msg) {
+            logger.warn(requestIdSupplier, msg);
+        }
+
+        @Override
+        public void warn(final RequestIdSupplier requestIdSupplier, final String format, final Object arg1) {
+            logger.warn(requestIdSupplier, format, arg1);
+        }
+
+        @Override
+        public void warn(final RequestIdSupplier requestIdSupplier, final String format, final Object arg1, final Object arg2) {
+            logger.warn(requestIdSupplier, format, arg1, arg2);
+        }
+
+        @Override
+        public void warn(final RequestIdSupplier requestIdSupplier, final String format, final Object arg1, final Object arg2,
+                         final Object arg3) {
+            logger.warn(requestIdSupplier, format, arg1, arg2, arg3);
+        }
+
+        @Override
+        public void warn(final RequestIdSupplier requestIdSupplier, final String format, final Object arg1, final Object arg2,
+                         final Object arg3, final Object arg4) {
+            logger.warn(requestIdSupplier, format, arg1, arg2, arg3, arg4);
+        }
+
+        @Override
+        public void warn(final RequestIdSupplier requestIdSupplier, final String format, final Object arg1, final Object arg2,
+                         final Object arg3, final Object arg4, final Object arg5) {
+            logger.warn(requestIdSupplier, format, arg1, arg2, arg3, arg4, arg5);
+        }
+
+        @Override
+        public void warn(final RequestIdSupplier requestIdSupplier, final String format, final Object... arguments) {
+            logger.warn(requestIdSupplier, format, arguments);
+        }
+
+        @Override
+        public void warn(final RequestIdSupplier requestIdSupplier, final String format, final Supplier<?> arg1) {
+            logger.warn(requestIdSupplier, format, arg1);
+        }
+
+        @Override
+        public void warn(final RequestIdSupplier requestIdSupplier, final String format, final Supplier<?> arg1,
+                         final Supplier<?> arg2) {
+            logger.warn(requestIdSupplier, format, arg1, arg2);
+        }
+
+        @Override
+        public void warn(final RequestIdSupplier requestIdSupplier, final String format, final Supplier<?> arg1,
+                         final Supplier<?> arg2, final Supplier<?> arg3) {
+            logger.warn(requestIdSupplier, format, arg1, arg2, arg3);
+        }
+
+        @Override
+        public void warn(final RequestIdSupplier requestIdSupplier, final String format, final Supplier<?> arg1,
+                         final Supplier<?> arg2, final Supplier<?> arg3, final Supplier<?> arg4) {
+            logger.warn(requestIdSupplier, format, arg1, arg2, arg3, arg4);
+        }
+
+        @Override
+        public void warn(final RequestIdSupplier requestIdSupplier, final String format, final Supplier<?> arg1,
+                         final Supplier<?> arg2, final Supplier<?> arg3, final Supplier<?> arg4, final Supplier<?> arg5) {
+            logger.warn(requestIdSupplier, format, arg1, arg2, arg3, arg4, arg5);
+        }
+
+        @Override
+        public void warn(final RequestIdSupplier requestIdSupplier, final String format, final Supplier<?>... suppliers) {
+            logger.warn(requestIdSupplier, format, suppliers);
+        }
+
+        @Override
+        public void warn(final RequestIdSupplier requestIdSupplier, final Throwable throwable, final String format,
+                         final Object arg1) {
+            logger.warn(requestIdSupplier, throwable, format, arg1);
+        }
+
+        @Override
+        public void warn(final RequestIdSupplier requestIdSupplier, final Throwable throwable, final String format,
+                         final Object arg1, final Object arg2) {
+            logger.warn(requestIdSupplier, throwable, format, arg1, arg2);
+        }
+
+        @Override
+        public void warn(final RequestIdSupplier requestIdSupplier, final Throwable throwable, final String format,
+                         final Object arg1, final Object arg2, final Object arg3) {
+            logger.warn(requestIdSupplier, throwable, format, arg1, arg2, arg3);
+        }
+
+        @Override
+        public void warn(final RequestIdSupplier requestIdSupplier, final Throwable throwable, final String format,
+                         final Object arg1, final Object arg2, final Object arg3, final Object arg4) {
+            logger.warn(requestIdSupplier, throwable, format, arg1, arg2, arg3, arg4);
+        }
+
+        @Override
+        public void warn(final RequestIdSupplier requestIdSupplier, final Throwable throwable, final String format,
+                         final Object arg1, final Object arg2, final Object arg3, final Object arg4, final Object arg5) {
+            logger.warn(requestIdSupplier, throwable, format, arg1, arg2, arg3, arg4, arg5);
+        }
+
+        @Override
+        public void warn(final RequestIdSupplier requestIdSupplier, final Throwable throwable, final String format,
+                         final Object... arguments) {
+            logger.warn(requestIdSupplier, throwable, format, arguments);
+        }
+
+        @Override
+        public void warn(final RequestIdSupplier requestIdSupplier, final Throwable throwable, final String format,
+                         final Supplier<?> arg1) {
+            logger.warn(requestIdSupplier, throwable, format, arg1);
+        }
+
+        @Override
+        public void warn(final RequestIdSupplier requestIdSupplier, final Throwable throwable, final String format,
+                         final Supplier<?> arg1, final Supplier<?> arg2) {
+            logger.warn(requestIdSupplier, throwable, format, arg1, arg2);
+        }
+
+        @Override
+        public void warn(final RequestIdSupplier requestIdSupplier, final Throwable throwable, final String format,
+                         final Supplier<?> arg1, final Supplier<?> arg2, final Supplier<?> arg3) {
+            logger.warn(requestIdSupplier, throwable, format, arg1, arg2, arg3);
+        }
+
+        @Override
+        public void warn(final RequestIdSupplier requestIdSupplier, final Throwable throwable, final String format,
+                         final Supplier<?> arg1, final Supplier<?> arg2, final Supplier<?> arg3, final Supplier<?> arg4) {
+            logger.warn(requestIdSupplier, throwable, format, arg1, arg2, arg3, arg4);
+        }
+
+        @Override
+        public void warn(final RequestIdSupplier requestIdSupplier, final Throwable throwable, final String format,
+                         final Supplier<?> arg1, final Supplier<?> arg2, final Supplier<?> arg3, final Supplier<?> arg4, final Supplier<?> arg5) {
+            logger.warn(requestIdSupplier, throwable, format, arg1, arg2, arg3, arg4, arg5);
+        }
+
+        @Override
+        public void warn(final RequestIdSupplier requestIdSupplier, final Throwable throwable, final String format,
+                         final Supplier<?>... suppliers) {
+            logger.warn(requestIdSupplier, throwable, format, suppliers);
         }
 
         @Override
@@ -651,123 +1257,276 @@ abstract class AbstractBaseRestControllerMethodTest {
         }
 
         @Override
-        public void error(final String msg, final Object arg1) {
-            logger.error(msg, arg1);
+        public void error(final String format, final Object arg1) {
+            logger.error(format, arg1);
         }
 
         @Override
-        public void error(final String msg, final Object arg1, final Object arg2) {
-            logger.error(msg, arg1, arg2);
+        public void error(final String format, final Object arg1, final Object arg2) {
+            logger.error(format, arg1, arg2);
         }
 
         @Override
-        public void error(final String msg, final Object arg1, final Object arg2, final Object arg3) {
-            logger.error(msg, arg1, arg2, arg3);
+        public void error(final String format, final Object arg1, final Object arg2, final Object arg3) {
+            logger.error(format, arg1, arg2, arg3);
         }
 
         @Override
-        public void error(final String msg, final Object arg1, final Object arg2, final Object arg3, final Object arg4) {
-            logger.error(msg, arg1, arg2, arg3, arg4);
+        public void error(final String format, final Object arg1, final Object arg2, final Object arg3, final Object arg4) {
+            logger.error(format, arg1, arg2, arg3, arg4);
         }
 
         @Override
-        public void error(final String msg, final Object arg1, final Object arg2, final Object arg3, final Object arg4, final Object arg5) {
-            logger.error(msg, arg1, arg2, arg3, arg4, arg5);
+        public void error(final String format, final Object arg1, final Object arg2, final Object arg3, final Object arg4,
+                          final Object arg5) {
+            logger.error(format, arg1, arg2, arg3, arg4, arg5);
         }
 
         @Override
-        public void error(final String msg, final Object... arguments) {
-            logger.error(msg, arguments);
+        public void error(final String format, final Object... arguments) {
+            logger.error(format, arguments);
         }
 
         @Override
-        public void error(final String msg, final Supplier<?> arg1) {
-            logger.error(msg, arg1);
+        public void error(final String format, final Supplier<?> arg1) {
+            logger.error(format, arg1);
         }
 
         @Override
-        public void error(final String msg, final Supplier<?> arg1, final Supplier<?> arg2) {
-            logger.error(msg, arg1, arg2);
+        public void error(final String format, final Supplier<?> arg1, final Supplier<?> arg2) {
+            logger.error(format, arg1, arg2);
         }
 
         @Override
-        public void error(final String msg, final Supplier<?> arg1, final Supplier<?> arg2, final Supplier<?> arg3) {
-            logger.error(msg, arg1, arg2, arg3);
+        public void error(final String format, final Supplier<?> arg1, final Supplier<?> arg2, final Supplier<?> arg3) {
+            logger.error(format, arg1, arg2, arg3);
         }
 
         @Override
-        public void error(final String msg, final Supplier<?> arg1, final Supplier<?> arg2, final Supplier<?> arg3, final Supplier<?> arg4) {
-            logger.error(msg, arg1, arg2, arg3, arg4);
+        public void error(final String format, final Supplier<?> arg1, final Supplier<?> arg2, final Supplier<?> arg3,
+                          final Supplier<?> arg4) {
+            logger.error(format, arg1, arg2, arg3, arg4);
         }
 
         @Override
-        public void error(final String msg, final Supplier<?> arg1, final Supplier<?> arg2, final Supplier<?> arg3, final Supplier<?> arg4, final Supplier<?> arg5) {
-            logger.error(msg, arg1, arg2, arg3, arg4, arg5);
+        public void error(final String format, final Supplier<?> arg1, final Supplier<?> arg2, final Supplier<?> arg3,
+                          final Supplier<?> arg4, final Supplier<?> arg5) {
+            logger.error(format, arg1, arg2, arg3, arg4, arg5);
         }
 
         @Override
-        public void error(final String msg, final Supplier<?>... suppliers) {
-            logger.error(msg, suppliers);
+        public void error(final String format, final Supplier<?>... suppliers) {
+            logger.error(format, suppliers);
         }
 
         @Override
-        public void error(final Throwable throwable, final String msg, final Object arg1) {
-            logger.error(throwable, msg, arg1);
+        public void error(final Throwable throwable, final String format, final Object arg1) {
+            logger.error(throwable, format, arg1);
         }
 
         @Override
-        public void error(final Throwable throwable, final String msg, final Object arg1, final Object arg2) {
-            logger.error(throwable, msg, arg1, arg2);
+        public void error(final Throwable throwable, final String format, final Object arg1, final Object arg2) {
+            logger.error(throwable, format, arg1, arg2);
         }
 
         @Override
-        public void error(final Throwable throwable, final String msg, final Object arg1, final Object arg2, final Object arg3) {
-            logger.error(throwable, msg, arg1, arg2, arg3);
+        public void error(final Throwable throwable, final String format, final Object arg1, final Object arg2, final Object arg3) {
+            logger.error(throwable, format, arg1, arg2, arg3);
         }
 
         @Override
-        public void error(final Throwable throwable, final String msg, final Object arg1, final Object arg2, final Object arg3, final Object arg4) {
-            logger.error(throwable, msg, arg1, arg2, arg3, arg4);
+        public void error(final Throwable throwable, final String format, final Object arg1, final Object arg2, final Object arg3,
+                          final Object arg4) {
+            logger.error(throwable, format, arg1, arg2, arg3, arg4);
         }
 
         @Override
-        public void error(final Throwable throwable, final String msg, final Object arg1, final Object arg2, final Object arg3, final Object arg4, final Object arg5) {
-            logger.error(throwable, msg, arg1, arg2, arg3, arg4, arg5);
+        public void error(final Throwable throwable, final String format, final Object arg1, final Object arg2, final Object arg3,
+                          final Object arg4, final Object arg5) {
+            logger.error(throwable, format, arg1, arg2, arg3, arg4, arg5);
         }
 
         @Override
-        public void error(final Throwable throwable, final String msg, final Object... arguments) {
-            logger.error(throwable, msg, arguments);
+        public void error(final Throwable throwable, final String format, final Object... arguments) {
+            logger.error(throwable, format, arguments);
         }
 
         @Override
-        public void error(final Throwable throwable, final String msg, final Supplier<?> arg1) {
-            logger.error(throwable, msg, arg1);
+        public void error(final Throwable throwable, final String format, final Supplier<?> arg1) {
+            logger.error(throwable, format, arg1);
         }
 
         @Override
-        public void error(final Throwable throwable, final String msg, final Supplier<?> arg1, final Supplier<?> arg2) {
-            logger.error(throwable, msg, arg1, arg2);
+        public void error(final Throwable throwable, final String format, final Supplier<?> arg1, final Supplier<?> arg2) {
+            logger.error(throwable, format, arg1, arg2);
         }
 
         @Override
-        public void error(final Throwable throwable, final String msg, final Supplier<?> arg1, final Supplier<?> arg2, final Supplier<?> arg3) {
-            logger.error(throwable, msg, arg1, arg2, arg3);
+        public void error(final Throwable throwable, final String format, final Supplier<?> arg1, final Supplier<?> arg2,
+                          final Supplier<?> arg3) {
+            logger.error(throwable, format, arg1, arg2, arg3);
         }
 
         @Override
-        public void error(final Throwable throwable, final String msg, final Supplier<?> arg1, final Supplier<?> arg2, final Supplier<?> arg3, final Supplier<?> arg4) {
-            logger.error(throwable, msg, arg1, arg2, arg3, arg4);
+        public void error(final Throwable throwable, final String format, final Supplier<?> arg1, final Supplier<?> arg2,
+                          final Supplier<?> arg3, final Supplier<?> arg4) {
+            logger.error(throwable, format, arg1, arg2, arg3, arg4);
         }
 
         @Override
-        public void error(final Throwable throwable, final String msg, final Supplier<?> arg1, final Supplier<?> arg2, final Supplier<?> arg3, final Supplier<?> arg4, final Supplier<?> arg5) {
-            logger.error(throwable, msg, arg1, arg2, arg3, arg4, arg5);
+        public void error(final Throwable throwable, final String format, final Supplier<?> arg1, final Supplier<?> arg2,
+                          final Supplier<?> arg3, final Supplier<?> arg4, final Supplier<?> arg5) {
+            logger.error(throwable, format, arg1, arg2, arg3, arg4, arg5);
         }
 
         @Override
-        public void error(final Throwable throwable, final String msg, final Supplier<?>... suppliers) {
-            logger.error(throwable, msg, suppliers);
+        public void error(final Throwable throwable, final String format, final Supplier<?>... suppliers) {
+            logger.error(throwable, format, suppliers);
+        }
+
+        @Override
+        public void error(final RequestIdSupplier requestIdSupplier, final String msg) {
+            logger.error(requestIdSupplier, msg);
+        }
+
+        @Override
+        public void error(final RequestIdSupplier requestIdSupplier, final String format, final Object arg1) {
+            logger.error(requestIdSupplier, format, arg1);
+        }
+
+        @Override
+        public void error(final RequestIdSupplier requestIdSupplier, final String format, final Object arg1, final Object arg2) {
+            logger.error(requestIdSupplier, format, arg1, arg2);
+        }
+
+        @Override
+        public void error(final RequestIdSupplier requestIdSupplier, final String format, final Object arg1, final Object arg2,
+                          final Object arg3) {
+            logger.error(requestIdSupplier, format, arg1, arg2, arg3);
+        }
+
+        @Override
+        public void error(final RequestIdSupplier requestIdSupplier, final String format, final Object arg1, final Object arg2,
+                          final Object arg3, final Object arg4) {
+            logger.error(requestIdSupplier, format, arg1, arg2, arg3, arg4);
+        }
+
+        @Override
+        public void error(final RequestIdSupplier requestIdSupplier, final String format, final Object arg1, final Object arg2,
+                          final Object arg3, final Object arg4, final Object arg5) {
+            logger.error(requestIdSupplier, format, arg1, arg2, arg3, arg4, arg5);
+        }
+
+        @Override
+        public void error(final RequestIdSupplier requestIdSupplier, final String format, final Object... arguments) {
+            logger.error(requestIdSupplier, format, arguments);
+        }
+
+        @Override
+        public void error(final RequestIdSupplier requestIdSupplier, final String format, final Supplier<?> arg1) {
+            logger.error(requestIdSupplier, format, arg1);
+        }
+
+        @Override
+        public void error(final RequestIdSupplier requestIdSupplier, final String format, final Supplier<?> arg1,
+                          final Supplier<?> arg2) {
+            logger.error(requestIdSupplier, format, arg1, arg2);
+        }
+
+        @Override
+        public void error(final RequestIdSupplier requestIdSupplier, final String format, final Supplier<?> arg1,
+                          final Supplier<?> arg2, final Supplier<?> arg3) {
+            logger.error(requestIdSupplier, format, arg1, arg2, arg3);
+        }
+
+        @Override
+        public void error(final RequestIdSupplier requestIdSupplier, final String format, final Supplier<?> arg1,
+                          final Supplier<?> arg2, final Supplier<?> arg3, final Supplier<?> arg4) {
+            logger.error(requestIdSupplier, format, arg1, arg2, arg3, arg4);
+        }
+
+        @Override
+        public void error(final RequestIdSupplier requestIdSupplier, final String format, final Supplier<?> arg1,
+                          final Supplier<?> arg2, final Supplier<?> arg3, final Supplier<?> arg4, final Supplier<?> arg5) {
+            logger.error(requestIdSupplier, format, arg1, arg2, arg3, arg4, arg5);
+        }
+
+        @Override
+        public void error(final RequestIdSupplier requestIdSupplier, final String format, final Supplier<?>... suppliers) {
+            logger.error(requestIdSupplier, format, suppliers);
+        }
+
+        @Override
+        public void error(final RequestIdSupplier requestIdSupplier, final Throwable throwable, final String format,
+                          final Object arg1) {
+            logger.error(requestIdSupplier, throwable, format, arg1);
+        }
+
+        @Override
+        public void error(final RequestIdSupplier requestIdSupplier, final Throwable throwable, final String format,
+                          final Object arg1, final Object arg2) {
+            logger.error(requestIdSupplier, throwable, format, arg1, arg2);
+        }
+
+        @Override
+        public void error(final RequestIdSupplier requestIdSupplier, final Throwable throwable, final String format,
+                          final Object arg1, final Object arg2, final Object arg3) {
+            logger.error(requestIdSupplier, throwable, format, arg1, arg2, arg3);
+        }
+
+        @Override
+        public void error(final RequestIdSupplier requestIdSupplier, final Throwable throwable, final String format,
+                          final Object arg1, final Object arg2, final Object arg3, final Object arg4) {
+            logger.error(requestIdSupplier, throwable, format, arg1, arg2, arg3, arg4);
+        }
+
+        @Override
+        public void error(final RequestIdSupplier requestIdSupplier, final Throwable throwable, final String format,
+                          final Object arg1, final Object arg2, final Object arg3, final Object arg4, final Object arg5) {
+            logger.error(requestIdSupplier, throwable, format, arg1, arg2, arg3, arg4, arg5);
+        }
+
+        @Override
+        public void error(final RequestIdSupplier requestIdSupplier, final Throwable throwable, final String format,
+                          final Object... arguments) {
+            logger.error(requestIdSupplier, throwable, format, arguments);
+        }
+
+        @Override
+        public void error(final RequestIdSupplier requestIdSupplier, final Throwable throwable, final String format,
+                          final Supplier<?> arg1) {
+            logger.error(requestIdSupplier, throwable, format, arg1);
+        }
+
+        @Override
+        public void error(final RequestIdSupplier requestIdSupplier, final Throwable throwable, final String format,
+                          final Supplier<?> arg1, final Supplier<?> arg2) {
+            logger.error(requestIdSupplier, throwable, format, arg1, arg2);
+        }
+
+        @Override
+        public void error(final RequestIdSupplier requestIdSupplier, final Throwable throwable, final String format,
+                          final Supplier<?> arg1, final Supplier<?> arg2, final Supplier<?> arg3) {
+            logger.error(requestIdSupplier, throwable, format, arg1, arg2, arg3);
+        }
+
+        @Override
+        public void error(final RequestIdSupplier requestIdSupplier, final Throwable throwable, final String format,
+                          final Supplier<?> arg1, final Supplier<?> arg2, final Supplier<?> arg3, final Supplier<?> arg4) {
+            logger.error(requestIdSupplier, throwable, format, arg1, arg2, arg3, arg4);
+        }
+
+        @Override
+        public void error(final RequestIdSupplier requestIdSupplier, final Throwable throwable, final String format,
+                          final Supplier<?> arg1, final Supplier<?> arg2, final Supplier<?> arg3, final Supplier<?> arg4,
+                          final Supplier<?> arg5) {
+            logger.error(requestIdSupplier, throwable, format, arg1, arg2, arg3, arg4, arg5);
+        }
+
+        @Override
+        public void error(final RequestIdSupplier requestIdSupplier, final Throwable throwable, final String format,
+                          final Supplier<?>... suppliers) {
+            logger.error(requestIdSupplier, throwable, format, suppliers);
         }
     }
 }

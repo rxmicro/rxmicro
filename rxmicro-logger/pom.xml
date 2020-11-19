@@ -37,6 +37,7 @@
                     <argLine>
                         @{argLine}
                         --add-opens rxmicro.logger/io.rxmicro.logger.internal.jul=ALL-UNNAMED
+                        --add-opens rxmicro.logger/io.rxmicro.logger.internal.jul.config.adapter.pattern=ALL-UNNAMED
                     </argLine>
                 </configuration>
             </plugin>

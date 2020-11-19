@@ -17,6 +17,7 @@
 package io.rxmicro.rest.server.internal.component.impl;
 
 import io.rxmicro.http.error.HttpErrorException;
+import io.rxmicro.logger.RequestIdSupplier;
 import io.rxmicro.rest.model.HttpCallFailedException;
 import io.rxmicro.rest.server.detail.component.HttpResponseBuilder;
 import io.rxmicro.rest.server.detail.model.HttpResponse;
@@ -61,19 +62,20 @@ public final class ErrorHttpResponseBuilderImpl implements ErrorHttpResponseBuil
     }
 
     @Override
-    public HttpResponse build(final Throwable throwable) {
+    public HttpResponse build(final RequestIdSupplier requestIdSupplier,
+                              final Throwable throwable) {
         final Throwable th = getRealThrowable(throwable);
         if (th instanceof HttpErrorException) {
             final HttpErrorException exception = (HttpErrorException) th;
             if (exception.isRedirectCode()) {
                 return redirectHttpResponseBuilder.build(exception);
             } else if (exception instanceof HttpCallFailedException) {
-                return httpCallFailedHttpResponseBuilder.build((HttpCallFailedException) exception);
+                return httpCallFailedHttpResponseBuilder.build(requestIdSupplier, (HttpCallFailedException) exception);
             } else {
-                return anyHttpErrorHttpResponseBuilder.build(exception);
+                return anyHttpErrorHttpResponseBuilder.build(requestIdSupplier, exception);
             }
         } else {
-            return throwableHttpResponseBuilder.build(th);
+            return throwableHttpResponseBuilder.build(requestIdSupplier, th);
         }
     }
 }

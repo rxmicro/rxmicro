@@ -17,6 +17,7 @@
 package io.rxmicro.rest.server.internal.component.impl.error;
 
 import io.rxmicro.http.error.HttpErrorException;
+import io.rxmicro.logger.RequestIdSupplier;
 import io.rxmicro.rest.server.detail.component.HttpResponseBuilder;
 import io.rxmicro.rest.server.detail.model.HttpResponse;
 import io.rxmicro.rest.server.feature.ErrorHandler;
@@ -46,9 +47,11 @@ public final class AnyHttpErrorHttpResponseBuilder extends ErrorHandler {
         this.logHttpErrorExceptions = logHttpErrorExceptions;
     }
 
-    public HttpResponse build(final HttpErrorException ex) {
+    public HttpResponse build(final RequestIdSupplier requestIdSupplier,
+                              final HttpErrorException ex) {
         if (logHttpErrorExceptions) {
             LOGGER.error(
+                    requestIdSupplier,
                     "HTTP error: status=?, content=?, class=?",
                     ex.getStatusCode(),
                     ex.getResponseData().map(Objects::toString).orElse("null"),

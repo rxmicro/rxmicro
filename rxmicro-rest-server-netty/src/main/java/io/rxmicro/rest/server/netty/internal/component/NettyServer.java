@@ -18,24 +18,19 @@ package io.rxmicro.rest.server.netty.internal.component;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.socket.ServerSocketChannel;
-import io.netty.channel.socket.SocketChannel;
-import io.netty.util.AttributeKey;
 import io.netty.util.concurrent.Future;
 import io.rxmicro.logger.Logger;
 import io.rxmicro.logger.LoggerFactory;
 import io.rxmicro.rest.server.HttpServerConfig;
 import io.rxmicro.rest.server.netty.NettyRestServerConfig;
 
-import java.time.Duration;
 import java.util.concurrent.CountDownLatch;
 
 import static io.rxmicro.common.CommonConstants.NANOS_IN_1_MILLIS;
 import static io.rxmicro.common.local.StartTimeStampHelper.START_TIME_STAMP;
-import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.Requires.require;
 import static io.rxmicro.rest.server.netty.internal.util.NettyTransportFactory.getCurrentNettyTransport;
 
@@ -44,8 +39,6 @@ import static io.rxmicro.rest.server.netty.internal.util.NettyTransportFactory.g
  * @since 0.1
  */
 final class NettyServer implements Runnable {
-
-    private static final AttributeKey<Long> CHANNEL_TTL = AttributeKey.valueOf("CHANNEL_TTL");
 
     private static final Logger LOGGER = LoggerFactory.getLogger(NettyServer.class);
 
@@ -82,7 +75,7 @@ final class NettyServer implements Runnable {
             final ServerBootstrap bootstrap = new ServerBootstrap()
                     .group(serverGroup, workerGroup)
                     .channel(serverSocketChannelClass)
-                    .childHandler(new RxMicroChannelInitializer(nettyRestServerConfig));
+                    .childHandler(new NettyClientConnectionController(nettyRestServerConfig));
             nettyRestServerConfig.getServerOptions().forEach((o, v) -> bootstrap.option((ChannelOption<Object>) o, v));
             nettyRestServerConfig.getClientOptions().forEach((o, v) -> bootstrap.childOption((ChannelOption<Object>) o, v));
 
@@ -117,42 +110,6 @@ final class NettyServer implements Runnable {
                     httpServerConfig::getHost,
                     httpServerConfig::getPort,
                     () -> getCurrentNettyTransport(nettyRestServerConfig)
-            );
-        }
-    }
-
-    /**
-     * @author nedis
-     * @since 0.3
-     */
-    private static final class RxMicroChannelInitializer extends ChannelInitializer<SocketChannel> {
-
-        private final NettyRestServerConfig nettyRestServerConfig;
-
-        private RxMicroChannelInitializer(final NettyRestServerConfig nettyRestServerConfig) {
-            this.nettyRestServerConfig = require(nettyRestServerConfig);
-        }
-
-        @Override
-        protected void initChannel(final SocketChannel ch) {
-            if (LOGGER.isTraceEnabled()) {
-                ch.attr(CHANNEL_TTL).set(System.nanoTime());
-                LOGGER.trace(
-                        "Client connection created: Channel=?, IP=?",
-                        ch.id().asShortText(), ch.remoteAddress()
-                );
-            }
-            nettyRestServerConfig.getHandlerSuppliers().forEach(s -> ch.pipeline().addLast(s.get()));
-            ch.closeFuture().addListener(future -> {
-                        if (LOGGER.isTraceEnabled()) {
-                            LOGGER.trace(
-                                    "Client connection closed: Channel=?, IP=?, TTL=?",
-                                    ch.id().asShortText(),
-                                    ch.remoteAddress(),
-                                    format(Duration.ofNanos(System.nanoTime() - ch.attr(CHANNEL_TTL).get()))
-                            );
-                        }
-                    }
             );
         }
     }

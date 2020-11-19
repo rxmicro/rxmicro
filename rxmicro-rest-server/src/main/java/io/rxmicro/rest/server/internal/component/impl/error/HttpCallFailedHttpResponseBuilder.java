@@ -16,6 +16,7 @@
 
 package io.rxmicro.rest.server.internal.component.impl.error;
 
+import io.rxmicro.logger.RequestIdSupplier;
 import io.rxmicro.rest.model.HttpCallFailedException;
 import io.rxmicro.rest.server.detail.component.HttpResponseBuilder;
 import io.rxmicro.rest.server.detail.model.HttpResponse;
@@ -45,9 +46,10 @@ public final class HttpCallFailedHttpResponseBuilder extends ErrorHandler {
         this.hideInternalErrorMessage = hideInternalErrorMessage;
     }
 
-    public HttpResponse build(final HttpCallFailedException exception) {
+    public HttpResponse build(final RequestIdSupplier requestIdSupplier,
+                              final HttpCallFailedException exception) {
         if (exception.isServerErrorCode()) {
-            LOGGER.error("Http call failed: ?", exception.getMessage());
+            LOGGER.error(requestIdSupplier, "Http call failed: ?", exception.getMessage());
         }
         if (httpErrorResponseBodyBuilder.isRxMicroError(exception)) {
             return httpErrorResponseBodyBuilder.build(httpResponseBuilder, exception);

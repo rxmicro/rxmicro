@@ -18,6 +18,7 @@ package io.rxmicro.rest.server.detail.model;
 
 import io.rxmicro.http.HttpHeaders;
 import io.rxmicro.http.HttpVersion;
+import io.rxmicro.logger.RequestIdSupplier;
 
 import java.net.SocketAddress;
 
@@ -36,7 +37,7 @@ import java.net.SocketAddress;
  * @author nedis
  * @since 0.1
  */
-public interface HttpRequest {
+public interface HttpRequest extends RequestIdSupplier {
 
     /**
      * Returns the remote address for the connected HTTP client.

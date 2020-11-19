@@ -179,10 +179,10 @@ public final class Router implements DynamicRestControllerRegistrar, RequestHand
             }
         }
         if (OPTIONS.name().equals(request.getMethod())) {
-            LOGGER.error("CORS not allowed: Handler not found: ?", requestMappingKey);
+            LOGGER.error(request, "CORS not allowed: Handler not found: ?", requestMappingKey);
             return corsNotAllowedStage;
         } else {
-            LOGGER.error("Handler not found: ?", requestMappingKey);
+            LOGGER.error(request, "Handler not found: ?", requestMappingKey);
             return handlerNotFoundStage;
         }
     }

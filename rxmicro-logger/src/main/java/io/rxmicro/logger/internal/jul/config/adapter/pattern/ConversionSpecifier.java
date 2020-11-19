@@ -159,7 +159,32 @@ public enum ConversionSpecifier {
     /**
      * Outputs the name of the thread that generated the logging event.
      */
-    THREAD_NAME_2("thread");
+    THREAD_NAME_2("thread"),
+
+    /**
+     * Outputs the request id if specified
+     */
+    REQUEST_ID_1("id"),
+
+    /**
+     * Outputs the request id if specified
+     */
+    REQUEST_ID_2("rid"),
+
+    /**
+     * Outputs the request id if specified
+     */
+    REQUEST_ID_3("request-id"),
+
+    /**
+     * Outputs the request id if specified
+     */
+    REQUEST_ID_4("request_id"),
+
+    /**
+     * Outputs the request id if specified
+     */
+    REQUEST_ID_5("requestId");
 
     private final String specifier;
 

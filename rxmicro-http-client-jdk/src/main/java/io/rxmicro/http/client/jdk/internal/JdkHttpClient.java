@@ -24,6 +24,7 @@ import io.rxmicro.http.client.HttpClientContentConverter;
 import io.rxmicro.http.client.HttpClientTimeoutException;
 import io.rxmicro.logger.Logger;
 import io.rxmicro.logger.LoggerFactory;
+import io.rxmicro.logger.RequestIdSupplier;
 
 import java.net.URI;
 import java.net.http.HttpRequest;
@@ -48,6 +49,7 @@ import static io.rxmicro.http.HttpStandardHeaderNames.ACCEPT;
 import static io.rxmicro.http.HttpStandardHeaderNames.CONTENT_TYPE;
 import static io.rxmicro.http.HttpStandardHeaderNames.REQUEST_ID;
 import static io.rxmicro.http.HttpStandardHeaderNames.USER_AGENT;
+import static io.rxmicro.logger.RequestIdSupplier.UNDEFINED_REQUEST_ID;
 import static io.rxmicro.runtime.detail.RxMicroRuntime.getRxMicroVersion;
 import static java.lang.System.lineSeparator;
 import static java.nio.charset.StandardCharsets.UTF_8;
@@ -186,11 +188,11 @@ final class JdkHttpClient implements HttpClient {
     private CompletableFuture<HttpResponse<byte[]>> trace(final HttpRequest request,
                                                           final byte[] requestBody,
                                                           final CompletableFuture<HttpResponse<byte[]>> response) {
-        final String requestId = request.headers().firstValue(REQUEST_ID).orElse(null);
+        final String requestId = request.headers().firstValue(REQUEST_ID).orElse(UNDEFINED_REQUEST_ID);
         final long startTime = System.nanoTime();
         logger.trace(
-                "HTTP request sent?:\n? ?\n?\n\n?",
-                requestId != null ? format(" (Id=?)", requestId) : "",
+                () -> requestId,
+                "HTTP request sent:\n? ?\n?\n\n?",
                 format("? ?", request.method(), secrets.hideAllSecretsIn(request.uri().toString())),
                 request.version().map(Enum::toString).orElse(""),
                 request.headers().map().entrySet().stream()
@@ -204,8 +206,8 @@ final class JdkHttpClient implements HttpClient {
         return response.whenComplete((resp, th) -> {
             if (resp != null) {
                 logger.trace(
-                        "HTTP response received (?Duration=?):\n? ?\n?\n\n?",
-                        requestId != null ? format("Id=?, ", requestId) : "",
+                        () -> requestId,
+                        "HTTP response received (Duration=?):\n? ?\n?\n\n?",
                         format(Duration.ofNanos(System.nanoTime() - startTime)),
                         resp.version(),
                         resp.statusCode(),
@@ -223,18 +225,20 @@ final class JdkHttpClient implements HttpClient {
 
     private CompletableFuture<HttpResponse<byte[]>> debug(final HttpRequest request,
                                                           final CompletableFuture<HttpResponse<byte[]>> response) {
-        final String requestId = request.headers().firstValue(REQUEST_ID).orElse(null);
+        final String requestId = request.headers().firstValue(REQUEST_ID).orElse(UNDEFINED_REQUEST_ID);
         final String uri = request.uri().toString();
         final int index = uri.indexOf('?');
         final long startTime = System.nanoTime();
-        logger.debug("HTTP request sent?: '?'",
-                requestId != null ? format(" (Id=?)", requestId) : "",
+        logger.debug(
+                () -> requestId,
+                "HTTP request sent: '?'",
                 format("? ?", request.method(),
                         index != -1 ? uri.substring(0, index) : uri));
         return response.whenComplete((resp, th) -> {
             if (resp != null) {
-                logger.debug("HTTP response received (?Duration=?): '?/?', Content=? bytes",
-                        requestId != null ? format("Id=?, ", requestId) : "",
+                logger.debug(
+                        () -> requestId,
+                        "HTTP response received (Duration=?): '?/?', Content=? bytes",
                         format(Duration.ofNanos(System.nanoTime() - startTime)),
                         resp.statusCode(),
                         resp.version(),

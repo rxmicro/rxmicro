@@ -27,6 +27,7 @@ import io.rxmicro.logger.internal.jul.config.adapter.pattern.consumers.LoggingMe
 import io.rxmicro.logger.internal.jul.config.adapter.pattern.consumers.MethodNameBiConsumer;
 import io.rxmicro.logger.internal.jul.config.adapter.pattern.consumers.PlatformDependentLineSeparatorBiConsumer;
 import io.rxmicro.logger.internal.jul.config.adapter.pattern.consumers.RelativeTimeBiConsumer;
+import io.rxmicro.logger.internal.jul.config.adapter.pattern.consumers.RequestIdBiConsumer;
 import io.rxmicro.logger.internal.jul.config.adapter.pattern.consumers.StringConstantBiConsumer;
 import io.rxmicro.logger.internal.jul.config.adapter.pattern.consumers.ThreadNameBiConsumer;
 import io.rxmicro.logger.internal.jul.config.adapter.pattern.consumers.ThrowableStackTraceBiConsumer;
@@ -63,6 +64,11 @@ import static io.rxmicro.logger.internal.jul.config.adapter.pattern.ConversionSp
 import static io.rxmicro.logger.internal.jul.config.adapter.pattern.ConversionSpecifier.PLATFORM_DEPENDENT_LINE_SEPARATOR;
 import static io.rxmicro.logger.internal.jul.config.adapter.pattern.ConversionSpecifier.RELATIVE_TIME_1;
 import static io.rxmicro.logger.internal.jul.config.adapter.pattern.ConversionSpecifier.RELATIVE_TIME_2;
+import static io.rxmicro.logger.internal.jul.config.adapter.pattern.ConversionSpecifier.REQUEST_ID_1;
+import static io.rxmicro.logger.internal.jul.config.adapter.pattern.ConversionSpecifier.REQUEST_ID_2;
+import static io.rxmicro.logger.internal.jul.config.adapter.pattern.ConversionSpecifier.REQUEST_ID_3;
+import static io.rxmicro.logger.internal.jul.config.adapter.pattern.ConversionSpecifier.REQUEST_ID_4;
+import static io.rxmicro.logger.internal.jul.config.adapter.pattern.ConversionSpecifier.REQUEST_ID_5;
 import static io.rxmicro.logger.internal.jul.config.adapter.pattern.ConversionSpecifier.THREAD_NAME_1;
 import static io.rxmicro.logger.internal.jul.config.adapter.pattern.ConversionSpecifier.THREAD_NAME_2;
 import static java.util.Map.entry;
@@ -101,7 +107,12 @@ public final class PatternFormatterBiConsumerParser {
                 entry(RELATIVE_TIME_1, RelativeTimeBiConsumer::new),
                 entry(RELATIVE_TIME_2, RelativeTimeBiConsumer::new),
                 entry(THREAD_NAME_1, ThreadNameBiConsumer::new),
-                entry(THREAD_NAME_2, ThreadNameBiConsumer::new)
+                entry(THREAD_NAME_2, ThreadNameBiConsumer::new),
+                entry(REQUEST_ID_1, RequestIdBiConsumer::new),
+                entry(REQUEST_ID_2, RequestIdBiConsumer::new),
+                entry(REQUEST_ID_3, RequestIdBiConsumer::new),
+                entry(REQUEST_ID_4, RequestIdBiConsumer::new),
+                entry(REQUEST_ID_5, RequestIdBiConsumer::new)
         );
     }
 
@@ -147,7 +158,7 @@ public final class PatternFormatterBiConsumerParser {
                 final ConversionSpecifier conversionSpecifier = getConversionSpecifier(wordBuilder.toString());
                 final List<String> options = getBiConsumerArgumentsOptions(conversionSpecifier, iterator);
                 return Optional.of(new BiConsumerArguments(conversionSpecifier, options));
-            } else if (Character.isLetter(ch)) {
+            } else if (Character.isLetter(ch) || ch == '-' || ch == '_') {
                 wordBuilder.append(ch);
             } else if ('%' == ch && wordBuilder.length() == 0) {
                 return Optional.empty();
