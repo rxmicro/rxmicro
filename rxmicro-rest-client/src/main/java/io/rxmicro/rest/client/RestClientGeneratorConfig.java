@@ -85,13 +85,6 @@ public @interface RestClientGeneratorConfig {
     GenerateOption generateResponseValidators() default GenerateOption.AUTO_DETECT;
 
     /**
-     * Allows enabling/disabling the generation required module directives.
-     *
-     * @return {@code true} if required module directives must be generated
-     */
-    boolean generateRequiredModuleDirectives() default true;
-
-    /**
      * Provides supported request validation modes for REST clients.
      *
      * @author nedis

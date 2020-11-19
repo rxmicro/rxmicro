@@ -20,11 +20,9 @@ import com.google.inject.Inject;
 import io.rxmicro.annotation.processor.common.CommonDependenciesModule;
 import io.rxmicro.annotation.processor.common.FormatSourceCodeDependenciesModule;
 import io.rxmicro.annotation.processor.common.component.ModuleGeneratorConfigBuilder;
-import io.rxmicro.annotation.processor.common.component.ModuleInfoCustomizer;
 import io.rxmicro.annotation.processor.common.component.impl.AbstractModuleClassStructuresBuilder;
 import io.rxmicro.annotation.processor.common.model.ClassStructure;
 import io.rxmicro.annotation.processor.common.model.EnvironmentContext;
-import io.rxmicro.annotation.processor.common.model.ModuleInfoItem;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
 import io.rxmicro.annotation.processor.common.util.Elements;
 import io.rxmicro.annotation.processor.rest.RestCommonDependenciesModule;
@@ -61,11 +59,7 @@ import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.element.TypeElement;
 
 import static io.rxmicro.annotation.processor.common.util.Injects.injectDependencies;
-import static io.rxmicro.annotation.processor.common.util.Names.getPackageName;
-import static io.rxmicro.common.RxMicroModule.RX_MICRO_CONFIG_MODULE;
-import static io.rxmicro.common.RxMicroModule.RX_MICRO_RUNTIME_MODULE;
 import static io.rxmicro.common.util.Formats.format;
-import static java.util.Map.entry;
 import static java.util.stream.Collectors.joining;
 import static java.util.stream.Collectors.toList;
 
@@ -104,9 +98,6 @@ public final class RestClientModuleClassStructuresBuilder extends AbstractModule
 
     @Inject
     private RestModelValidatorBuilder restModelValidatorBuilder;
-
-    @Inject
-    private ModuleInfoCustomizer moduleInfoCustomizer;
 
     public static RestClientModuleClassStructuresBuilder create() {
         final RestClientModuleClassStructuresBuilder builder = new RestClientModuleClassStructuresBuilder();
@@ -148,14 +139,11 @@ public final class RestClientModuleClassStructuresBuilder extends AbstractModule
                 final Set<RestClientClassStructure> restClientClassStructures =
                         restClientClassStructureBuilder.build(environmentContext, restClientClassStructureStorage, classSignatures);
                 classStructures.addAll(restClientClassStructures);
-                final List<ModuleInfoItem> moduleInfoItems =
-                        buildModuleInfoItems(environmentContext, restClientClassStructures);
                 classStructures.add(new RestClientFactoryClassStructure(
                         restClientClassStructures,
                         restClientClassStructures.stream()
                                 .flatMap(c -> c.getDefaultConfigValues().stream())
-                                .collect(toList()),
-                        moduleInfoItems
+                                .collect(toList())
                 ));
                 addAllVirtualRequestClassStructures(classStructures, classSignatures, restClientClassStructureStorage);
                 return classStructures;
@@ -284,25 +272,6 @@ public final class RestClientModuleClassStructuresBuilder extends AbstractModule
                                     m.getModelTypeElement(), DisableValidation.class))
                             .collect(toList()))
             );
-        }
-    }
-
-    private List<ModuleInfoItem> buildModuleInfoItems(final EnvironmentContext environmentContext,
-                                                      final Set<RestClientClassStructure> restClientClassStructures) {
-        if (environmentContext.get(RestClientModuleGeneratorConfig.class).isGenerateRequiredModuleDirectives() &&
-                !environmentContext.getCurrentModule().isUnnamed()) {
-            final Set<String> allModulePackages = environmentContext.get(RestClientModuleGeneratorConfig.class).getAllModulePackages();
-            final Set<String> packages = restClientClassStructures.stream()
-                    .map(r -> getPackageName(r.getHttpClientConfigFullClassName().asType()))
-                    .filter(allModulePackages::contains)
-                    .collect(Collectors.toSet());
-            return moduleInfoCustomizer.build(
-                    environmentContext.getCurrentModule(),
-                    packages.stream().map(p -> entry(p, RX_MICRO_RUNTIME_MODULE)).collect(toList()),
-                    packages.stream().map(p -> entry(p, RX_MICRO_CONFIG_MODULE)).collect(toList())
-            );
-        } else {
-            return List.of();
         }
     }
 }

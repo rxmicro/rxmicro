@@ -19,8 +19,6 @@ package io.rxmicro.annotation.processor.rest.client.model;
 import io.rxmicro.annotation.processor.common.model.ClassHeader;
 import io.rxmicro.annotation.processor.common.model.ClassStructure;
 import io.rxmicro.annotation.processor.common.model.DefaultConfigProxyValue;
-import io.rxmicro.annotation.processor.common.model.ModuleInfoItem;
-import io.rxmicro.config.detail.DefaultConfigValueBuilder;
 import io.rxmicro.rest.client.RestClientFactory;
 import io.rxmicro.rest.client.detail.RestClientImplFactory;
 
@@ -47,14 +45,10 @@ public final class RestClientFactoryClassStructure extends ClassStructure {
 
     private final List<Map.Entry<String, DefaultConfigProxyValue>> defaultConfigValues;
 
-    private final List<ModuleInfoItem> moduleInfoItems;
-
     public RestClientFactoryClassStructure(final Set<RestClientClassStructure> classStructures,
-                                           final List<Map.Entry<String, DefaultConfigProxyValue>> defaultConfigValues,
-                                           final List<ModuleInfoItem> moduleInfoItems) {
+                                           final List<Map.Entry<String, DefaultConfigProxyValue>> defaultConfigValues) {
         this.classStructures = new TreeSet<>(require(classStructures));
         this.defaultConfigValues = require(defaultConfigValues);
-        this.moduleInfoItems = require(moduleInfoItems);
     }
 
     @Override
@@ -72,7 +66,6 @@ public final class RestClientFactoryClassStructure extends ClassStructure {
         final Map<String, Object> map = new HashMap<>();
         map.put("IMPL_CLASS_NAME", REST_CLIENT_FACTORY_IMPL_CLASS_NAME);
         map.put("REST_CLIENTS", classStructures);
-        map.put("MODULE_INFO_ITEMS", moduleInfoItems);
         map.put("ENVIRONMENT_CUSTOMIZER_CLASS", ENVIRONMENT_CUSTOMIZER_SIMPLE_CLASS_NAME);
         return map;
     }
@@ -81,9 +74,7 @@ public final class RestClientFactoryClassStructure extends ClassStructure {
     public ClassHeader getClassHeader() {
         final ClassHeader.Builder classHeaderBuilder = newClassHeaderBuilder(ENTRY_POINT_PACKAGE)
                 .addImports(RestClientFactory.class)
-                .addStaticImport(RestClientImplFactory.class, "createRestClient")
-                .addStaticImport(DefaultConfigValueBuilder.class, "putDefaultConfigValue");
-        moduleInfoItems.forEach(m -> m.addImports(classHeaderBuilder));
+                .addStaticImport(RestClientImplFactory.class, "createRestClient");
         for (final RestClientClassStructure classStructure : classStructures) {
             classHeaderBuilder.addImports(classStructure.getFullInterfaceName(), classStructure.getTargetFullClassName());
             classHeaderBuilder.addImports(classStructure.getHttpClientConfigFullClassName());

@@ -22,11 +22,7 @@ import io.rxmicro.annotation.processor.rest.model.RestModuleGeneratorConfig;
 import io.rxmicro.rest.client.RestClientGeneratorConfig;
 import io.rxmicro.rest.model.ClientExchangeFormatModule;
 
-import java.util.Set;
-import javax.lang.model.element.PackageElement;
-
 import static io.rxmicro.common.RxMicroModule.RX_MICRO_VALIDATION_MODULE;
-import static java.util.stream.Collectors.toSet;
 
 /**
  * @author nedis
@@ -42,10 +38,6 @@ public final class RestClientModuleGeneratorConfig extends RestModuleGeneratorCo
 
     private final boolean generateResponseValidators;
 
-    private final boolean generateRequiredModuleDirectives;
-
-    private final Set<String> allModulePackages;
-
     public RestClientModuleGeneratorConfig(final EnvironmentContext environmentContext,
                                            final ClientExchangeFormatModule exchangeFormat,
                                            final RestClientGeneratorConfig restClientGeneratorConfig) {
@@ -54,13 +46,6 @@ public final class RestClientModuleGeneratorConfig extends RestModuleGeneratorCo
         this.requestValidationMode = restClientGeneratorConfig.requestValidationMode();
         this.generateRequestValidators = getOption(restClientGeneratorConfig.generateRequestValidators(), autoValue);
         this.generateResponseValidators = getOption(restClientGeneratorConfig.generateResponseValidators(), autoValue);
-        this.generateRequiredModuleDirectives = restClientGeneratorConfig.generateRequiredModuleDirectives();
-        this.allModulePackages = this.generateRequiredModuleDirectives && !environmentContext.getCurrentModule().isUnnamed() ?
-                environmentContext.getCurrentModule().getEnclosedElements().stream()
-                        .map(e -> (PackageElement) e)
-                        .map(pe -> pe.getQualifiedName().toString())
-                        .collect(toSet()) :
-                Set.of();
     }
 
     public RestClientGeneratorConfig.RequestValidationMode getRequestValidationMode() {
@@ -88,13 +73,5 @@ public final class RestClientModuleGeneratorConfig extends RestModuleGeneratorCo
 
     public boolean isGenerateResponseValidators() {
         return generateResponseValidators;
-    }
-
-    public boolean isGenerateRequiredModuleDirectives() {
-        return generateRequiredModuleDirectives;
-    }
-
-    public Set<String> getAllModulePackages() {
-        return allModulePackages;
     }
 }

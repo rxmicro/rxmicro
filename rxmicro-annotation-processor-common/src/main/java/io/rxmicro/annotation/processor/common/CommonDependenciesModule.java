@@ -24,7 +24,6 @@ import io.rxmicro.annotation.processor.common.component.ExpressionParser;
 import io.rxmicro.annotation.processor.common.component.MethodBodyGenerator;
 import io.rxmicro.annotation.processor.common.component.MethodParametersBuilder;
 import io.rxmicro.annotation.processor.common.component.MethodResultBuilder;
-import io.rxmicro.annotation.processor.common.component.ModuleInfoCustomizer;
 import io.rxmicro.annotation.processor.common.component.NumberValidators;
 import io.rxmicro.annotation.processor.common.component.PathVariablesResolver;
 import io.rxmicro.annotation.processor.common.component.impl.DocumentationGeneratorImpl;
@@ -33,7 +32,6 @@ import io.rxmicro.annotation.processor.common.component.impl.ExpressionParserImp
 import io.rxmicro.annotation.processor.common.component.impl.MethodBodyGeneratorImpl;
 import io.rxmicro.annotation.processor.common.component.impl.MethodParametersBuilderImpl;
 import io.rxmicro.annotation.processor.common.component.impl.MethodResultBuilderImpl;
-import io.rxmicro.annotation.processor.common.component.impl.ModuleInfoCustomizerImpl;
 import io.rxmicro.annotation.processor.common.component.impl.NumberValidatorsImpl;
 import io.rxmicro.annotation.processor.common.component.impl.PathVariablesResolverImpl;
 import io.rxmicro.annotation.processor.common.component.impl.ReactiveMethodResultBuilder;
@@ -61,8 +59,6 @@ public final class CommonDependenciesModule extends AbstractModule {
                 .to(ExpressionParserImpl.class);
         bind(ExpressionBuilder.class)
                 .to(ExpressionBuilderImpl.class);
-        bind(ModuleInfoCustomizer.class)
-                .to(ModuleInfoCustomizerImpl.class);
         bind(DocumentationGenerator.class)
                 .to(DocumentationGeneratorImpl.class);
         bind(PathVariablesResolver.class)

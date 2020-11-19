@@ -4,13 +4,6 @@ public final class ${IMPL_CLASS_NAME} extends RestClientFactory {
 
     static {
         ${ENVIRONMENT_CUSTOMIZER_CLASS}.customize();
-        <#if MODULE_INFO_ITEMS?has_content>
-        // Add required module declaration automatically
-        final Module currentModule = ${IMPL_CLASS_NAME}.class.getModule();
-        <#list MODULE_INFO_ITEMS as ITEM>
-        currentModule.${ITEM.addMethod}("${ITEM.packageName}", ${ITEM.moduleExpression});
-        </#list>
-        </#if>
     }
 
     public ${IMPL_CLASS_NAME}() {
