@@ -22,6 +22,7 @@ import io.rxmicro.common.InvalidStateException;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -32,6 +33,7 @@ import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.runtime.internal.RuntimeVersion.setRxMicroVersion;
 import static java.lang.reflect.Modifier.isStatic;
 import static java.util.stream.Collectors.joining;
+import static java.util.stream.Collectors.toList;
 
 /**
  * Used by generated code that created by the {@code RxMicro Annotation Processor}.
@@ -49,8 +51,10 @@ public final class RuntimeReflections {
     }
 
     public static void setFieldValue(final Object model,
-                                     final Field field,
-                                     final Object value) {
+                                     final String fieldName,
+                                     final Object value,
+                                     final Consumer<Field> setAccessibleConsumer) {
+        final Field field = getCachedField(model, fieldName, setAccessibleConsumer);
         try {
             field.set(model, value);
         } catch (final IllegalAccessException ex) {
@@ -59,7 +63,9 @@ public final class RuntimeReflections {
     }
 
     public static Object getFieldValue(final Object model,
-                                       final Field field) {
+                                       final String fieldName,
+                                       final Consumer<Field> setAccessibleConsumer) {
+        final Field field = getCachedField(model, fieldName, setAccessibleConsumer);
         try {
             return field.get(model);
         } catch (final IllegalAccessException ex) {
@@ -68,8 +74,11 @@ public final class RuntimeReflections {
     }
 
     public static Object invoke(final Object model,
-                                final Method method,
+                                final String methodName,
+                                final Consumer<Method> setAccessibleConsumer,
                                 final Object... args) {
+        final List<Class<?>> argTypes = Arrays.stream(args).map(Object::getClass).collect(toList());
+        final Method method = getMethod(model, methodName, argTypes, setAccessibleConsumer);
         try {
             return method.invoke(model, args);
         } catch (final IllegalAccessException ex) {
@@ -79,9 +88,9 @@ public final class RuntimeReflections {
         }
     }
 
-    public static Field getField(final Object model,
-                                 final String fieldName,
-                                 final Consumer<Field> setAccessibleConsumer) {
+    private static Field getCachedField(final Object model,
+                                        final String fieldName,
+                                        final Consumer<Field> setAccessibleConsumer) {
         final Class<?> cl = model.getClass();
         final Map<String, Field> fieldMap = CACHE.computeIfAbsent(cl, c -> createFieldMap(cl, setAccessibleConsumer));
 
@@ -93,11 +102,11 @@ public final class RuntimeReflections {
         return field;
     }
 
-    public static Method getMethod(final Object bean,
-                                   final String methodName,
-                                   final List<Class<?>> argTypes,
-                                   final Consumer<Method> setAccessibleConsumer) {
-        final Class<?> cl = bean instanceof Class ? (Class<?>) bean : bean.getClass();
+    private static Method getMethod(final Object model,
+                                    final String methodName,
+                                    final List<Class<?>> argTypes,
+                                    final Consumer<Method> setAccessibleConsumer) {
+        final Class<?> cl = model instanceof Class ? (Class<?>) model : model.getClass();
         try {
             final Method method = cl.getDeclaredMethod(methodName, argTypes.toArray(new Class[0]));
             if (setAccessibleConsumer != null) {

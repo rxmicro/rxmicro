@@ -16,15 +16,9 @@
 
 package io.rxmicro.annotation.processor.common.model;
 
-import io.rxmicro.common.CheckedWrapperException;
 import io.rxmicro.runtime.detail.RuntimeReflections;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.Arrays;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import static io.rxmicro.annotation.processor.common.model.ClassHeader.newClassHeaderBuilder;
 import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.REFLECTIONS_FULL_CLASS_NAME;
@@ -73,20 +67,8 @@ public final class ReflectionsClassStructure extends ClassStructure {
 
     @Override
     public ClassHeader getClassHeader() {
-        final ClassHeader.Builder builder = newClassHeaderBuilder(ENTRY_POINT_PACKAGE)
-                .addImports(CheckedWrapperException.class);
-        if (getterRequired || setterRequired) {
-            builder
-                    .addImports(Field.class)
-                    .addStaticImport(RuntimeReflections.class, "getField");
-        }
-        if (invokeRequired) {
-            builder
-                    .addImports(Method.class, InvocationTargetException.class)
-                    .addStaticImport(RuntimeReflections.class, "getMethod")
-                    .addStaticImport(Arrays.class, "stream")
-                    .addStaticImport(Collectors.class, "toList");
-        }
-        return builder.build();
+        return newClassHeaderBuilder(ENTRY_POINT_PACKAGE)
+                .addImports(RuntimeReflections.class)
+                .build();
     }
 }
