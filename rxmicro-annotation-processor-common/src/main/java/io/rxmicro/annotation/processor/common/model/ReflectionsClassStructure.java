@@ -17,7 +17,7 @@
 package io.rxmicro.annotation.processor.common.model;
 
 import io.rxmicro.common.CheckedWrapperException;
-import io.rxmicro.runtime.detail.Reflections;
+import io.rxmicro.runtime.detail.RuntimeReflections;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -78,12 +78,12 @@ public final class ReflectionsClassStructure extends ClassStructure {
         if (getterRequired || setterRequired) {
             builder
                     .addImports(Field.class)
-                    .addStaticImport(Reflections.class, "getField");
+                    .addStaticImport(RuntimeReflections.class, "getField");
         }
         if (invokeRequired) {
             builder
                     .addImports(Method.class, InvocationTargetException.class)
-                    .addStaticImport(Reflections.class, "getMethod")
+                    .addStaticImport(RuntimeReflections.class, "getMethod")
                     .addStaticImport(Arrays.class, "stream")
                     .addStaticImport(Collectors.class, "toList");
         }

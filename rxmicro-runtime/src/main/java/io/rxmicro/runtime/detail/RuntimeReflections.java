@@ -16,9 +16,11 @@
 
 package io.rxmicro.runtime.detail;
 
+import io.rxmicro.common.CheckedWrapperException;
 import io.rxmicro.common.InvalidStateException;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -38,12 +40,43 @@ import static java.util.stream.Collectors.joining;
  * @hidden
  * @since 0.1
  */
-public final class Reflections {
+public final class RuntimeReflections {
 
     private static final Map<Class<?>, Map<String, Field>> CACHE = new HashMap<>();
 
     static {
         setRxMicroVersion();
+    }
+
+    public static void setFieldValue(final Object model,
+                                     final Field field,
+                                     final Object value) {
+        try {
+            field.set(model, value);
+        } catch (final IllegalAccessException ex) {
+            throw new CheckedWrapperException(ex);
+        }
+    }
+
+    public static Object getFieldValue(final Object model,
+                                       final Field field) {
+        try {
+            return field.get(model);
+        } catch (final IllegalAccessException ex) {
+            throw new CheckedWrapperException(ex);
+        }
+    }
+
+    public static Object invoke(final Object model,
+                                final Method method,
+                                final Object... args) {
+        try {
+            return method.invoke(model, args);
+        } catch (final IllegalAccessException ex) {
+            throw new CheckedWrapperException(ex);
+        } catch (final InvocationTargetException ex) {
+            throw new CheckedWrapperException(ex.getTargetException());
+        }
     }
 
     public static Field getField(final Object model,
@@ -102,6 +135,6 @@ public final class Reflections {
         return map;
     }
 
-    private Reflections() {
+    private RuntimeReflections() {
     }
 }
