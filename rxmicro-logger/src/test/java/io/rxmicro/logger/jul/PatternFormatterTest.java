@@ -26,6 +26,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.lang.reflect.Field;
 import java.time.Instant;
@@ -51,20 +52,40 @@ final class PatternFormatterTest {
     @CsvSource(delimiter = ';', value = {
             "Hello world;                                                    Hello world",
             "%message%n;                                                     message",
-            "%logger: %message%;                                             LoggerName: message%",
-            "%logger: %message%n;                                            LoggerName: message",
-            "%logger: %message%%%n;                                          LoggerName: message%",
-            "%d{yyyy-MM-dd HH:mm:ss.SSS, UTC} [%p] %c: %m%n;                 2020-01-02 03:04:05.123 [INFO] LoggerName: message",
-            "%d{, UTC} {%t{}} [%p{}] %c{}: %m{}%n{};                         2020-01-02 03:04:05.123 {thread-1} [INFO] LoggerName: message",
-            "%date{, UTC} [%level] %logger: %message%n;                      2020-01-02 03:04:05.123 [INFO] LoggerName: message",
-            "%d{HH:mm:ss.SSS, UTC} {%t} [%p] %C.%M: %m%n;                    03:04:05.123 {thread-1} [INFO] package.Class.method: message",
+            "%c: %message%;                                                  full.LoggerName: message%",
+            "%c{full}: %message%;                                            full.LoggerName: message%",
+            "%c{short}: %message%;                                           LoggerName: message%",
+            "%c{0}: %message%;                                               LoggerName: message%",
+            "%lo: %message%n;                                                full.LoggerName: message",
+            "%lo{full}: %message%n;                                          full.LoggerName: message",
+            "%lo{short}: %message%n;                                         LoggerName: message",
+            "%lo{0}: %message%n;                                             LoggerName: message",
+            "%logger: %message%%%n;                                          full.LoggerName: message%",
+            "%logger{full}: %message%%%n;                                    full.LoggerName: message%",
+            "%logger{short}: %message%%%n;                                   LoggerName: message%",
+            "%logger{0}: %message%%%n;                                       LoggerName: message%",
+
+            "%class: %message%%%n;                                           package.Class: message%",
+            "%class{full}: %message%%%n;                                     package.Class: message%",
+            "%class{short}: %message%%%n;                                    Class: message%",
+            "%class{0}: %message%%%n;                                        Class: message%",
+            "%C: %message%%%n;                                               package.Class: message%",
+            "%C{full}: %message%%%n;                                         package.Class: message%",
+            "%C{short}: %message%%%n;                                        Class: message%",
+            "%C{0}: %message%%%n;                                            Class: message%",
+
+            "%d{yyyy-MM-dd HH:mm:ss.SSS, UTC} [%p] %c: %m%n;                 2020-01-02 03:04:05.123 [INFO] full.LoggerName: message",
+            "%d{, UTC} {%t{}} %c{}: %m{}%n{};                                2020-01-02 03:04:05.123 {thread-1} full.LoggerName: message",
+            "%date{, UTC} [%level] %logger: %message%n;                      2020-01-02 03:04:05.123 [INFO] full.LoggerName: message",
+            "%d{HH:mm:ss.SSS, UTC} {%t} [%le] %C.%M: %m%n;                   03:04:05.123 {thread-1} [INFO] package.Class.method: message",
             "%date{yyyy-MM-dd, UTC} {%thread} [%le] %class.%method: %mes%n;  2020-01-02 {thread-1} [INFO] package.Class.method: message",
-            "%d{HH:mm:ss.SSS, UTC} %C.%M(%F:%L): %m%n;                       03:04:05.123 package.Class.method(Class.java:15): message"
+            "%d{HH:mm:ss.SSS, UTC} %C.%M(%F:%L): %m%n;                       03:04:05.123 package.Class.method(Class.java:15): message",
+            "%class{0}.%method(%file:%line): %mes%n;                         Class.method(Class.java:15): message"
     })
     @Order(1)
     void Should_format_correctly(final String pattern,
                                  final String expectedMessage) {
-        final RxMicroLogRecord record = new RxMicroLogRecord("LoggerName", INFO, "message");
+        final RxMicroLogRecord record = new RxMicroLogRecord("full.LoggerName", INFO, "message");
         record.setInstant(Instant.parse("2020-01-02T03:04:05.123Z"));
         record.setThreadName("thread-1");
         record.setStackFrame("package.Class", "method", "Class.java", 15);
@@ -80,9 +101,13 @@ final class PatternFormatterTest {
         );
     }
 
-    @Test
+    @ParameterizedTest
+    @ValueSource(strings = {
+            "%r [%p] %c: %m%n",
+            "%relative [%level] %logger: %message%n"
+    })
     @Order(2)
-    void Should_format_with_relative_time_and_throwable() throws NoSuchFieldException, IllegalAccessException {
+    void Should_format_with_relative_time_and_throwable(final String pattern) throws NoSuchFieldException, IllegalAccessException {
         final Exception exception = new Exception("Test exception");
         exception.setStackTrace(new StackTraceElement[]{
                 new StackTraceElement("package.Class", "method", "Class.java", 15),
@@ -95,7 +120,7 @@ final class PatternFormatterTest {
         record.setStackFrame("package.Class", "method", "Class.java", 15);
         record.setThrown(exception);
 
-        final PatternFormatter patternFormatter = assertDoesNotThrow(() -> new PatternFormatter("%r [%p] %c: %m%n"));
+        final PatternFormatter patternFormatter = assertDoesNotThrow(() -> new PatternFormatter(pattern));
         setRelativeTimeStart(patternFormatter);
 
         assertEquals(

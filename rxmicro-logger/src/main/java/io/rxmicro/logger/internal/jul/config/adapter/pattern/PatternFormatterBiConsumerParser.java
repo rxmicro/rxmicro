@@ -182,7 +182,7 @@ public final class PatternFormatterBiConsumerParser {
         while (iterator.next()) {
             final char ch = iterator.getCurrent();
             if ('}' == ch) {
-                if (!options.isEmpty()) {
+                if (paramsBuilder.length() > 0) {
                     options.add(paramsBuilder.toString().trim());
                 }
                 return unmodifiableList(options);
