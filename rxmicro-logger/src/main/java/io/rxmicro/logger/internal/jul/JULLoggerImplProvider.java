@@ -26,6 +26,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.LogManager;
@@ -46,6 +47,8 @@ import static java.util.stream.Collectors.joining;
 public final class JULLoggerImplProvider implements LoggerImplProvider {
 
     private final LoggerConfigBuilder loggerConfigBuilder = new LoggerConfigBuilder();
+
+    private final Map<String, Logger> loggerCache = new HashMap<>();
 
     @Override
     public void setup() {
@@ -71,7 +74,7 @@ public final class JULLoggerImplProvider implements LoggerImplProvider {
 
     @Override
     public Logger getLogger(final String name) {
-        return new JULLogger(name);
+        return loggerCache.computeIfAbsent(name, JULLogger::new);
     }
 
     // Simplest version without Unicode and special characters support
