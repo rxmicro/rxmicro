@@ -1,6 +1,8 @@
 package io.rxmicro.examples.processor.all.components.component;
 
 import io.r2dbc.pool.ConnectionPool;
+import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionFactory;
+import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionPool;
 import io.rxmicro.data.sql.r2dbc.postgresql.detail.AbstractPostgreSQLRepository;
 import io.rxmicro.examples.processor.all.components.model.$$AccountEntityFromR2DBCSQLDBConverter;
 import io.rxmicro.examples.processor.all.components.model.Account;
@@ -16,18 +18,18 @@ public final class $$PostgreSQLPostgreSQLDataRepository extends AbstractPostgreS
     private final $$AccountEntityFromR2DBCSQLDBConverter accountEntityFromR2DBCSQLDBConverter =
             new $$AccountEntityFromR2DBCSQLDBConverter();
 
-    private final ConnectionPool pool;
+    private final RepositoryConnectionFactory connectionFactory;
 
     public $$PostgreSQLPostgreSQLDataRepository(final ConnectionPool pool) {
         super(PostgreSQLDataRepository.class);
-        this.pool = pool;
+        this.connectionFactory = new RepositoryConnectionPool(PostgreSQLDataRepository.class, pool);
     }
 
     @Override
     public CompletableFuture<Account> get() {
         // Original SQL statement:  'SELECT * FROM ${table} WHERE id = 1'
         final String generatedSQL = "SELECT value FROM account WHERE id = 1";
-        return pool.create()
+        return this.connectionFactory.create()
                 .flatMap(c -> executeStatement(c, generatedSQL)
                         .flatMap(r -> Mono.from(r.map(accountEntityFromR2DBCSQLDBConverter::fromDB)))
                         .switchIfEmpty(close(c)

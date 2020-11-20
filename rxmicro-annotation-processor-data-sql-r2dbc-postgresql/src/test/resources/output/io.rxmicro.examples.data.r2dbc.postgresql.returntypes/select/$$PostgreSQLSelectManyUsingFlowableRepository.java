@@ -4,6 +4,8 @@ import io.r2dbc.pool.ConnectionPool;
 import io.reactivex.rxjava3.core.Flowable;
 import io.rxmicro.data.sql.model.EntityFieldList;
 import io.rxmicro.data.sql.model.EntityFieldMap;
+import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionFactory;
+import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionPool;
 import io.rxmicro.data.sql.r2dbc.postgresql.detail.AbstractPostgreSQLRepository;
 import io.rxmicro.examples.data.r2dbc.postgresql.returntypes.model.$$AccountEntityFromR2DBCSQLDBConverter;
 import io.rxmicro.examples.data.r2dbc.postgresql.returntypes.model.Account;
@@ -21,11 +23,11 @@ public final class $$PostgreSQLSelectManyUsingFlowableRepository extends Abstrac
     private final $$AccountEntityFromR2DBCSQLDBConverter accountEntityFromR2DBCSQLDBConverter =
             new $$AccountEntityFromR2DBCSQLDBConverter();
 
-    private final ConnectionPool pool;
+    private final RepositoryConnectionFactory connectionFactory;
 
     public $$PostgreSQLSelectManyUsingFlowableRepository(final ConnectionPool pool) {
         super(SelectManyUsingFlowableRepository.class);
-        this.pool = pool;
+        this.connectionFactory = new RepositoryConnectionPool(SelectManyUsingFlowableRepository.class, pool);
     }
 
     @Override
@@ -33,7 +35,7 @@ public final class $$PostgreSQLSelectManyUsingFlowableRepository extends Abstrac
         // Original SQL statement:  'SELECT first_name, last_name FROM ${table} ORDER BY id'
         final String generatedSQL = "SELECT first_name, last_name FROM account ORDER BY id";
         return Flowable.fromPublisher(
-                pool.create()
+                this.connectionFactory.create()
                         .flatMapMany(c -> executeStatement(c, generatedSQL)
                                 .flatMapMany(r -> Flux.from(r.map(accountEntityFromR2DBCSQLDBConverter::fromDBFirst_nameLast_name)))
                                 .onErrorResume(createCloseThenReturnErrorFallback(c))
@@ -49,7 +51,7 @@ public final class $$PostgreSQLSelectManyUsingFlowableRepository extends Abstrac
         // Original SQL statement:  'SELECT first_name, last_name FROM ${table} ORDER BY id'
         final String generatedSQL = "SELECT first_name, last_name FROM account ORDER BY id";
         return Flowable.fromPublisher(
-                pool.create()
+                this.connectionFactory.create()
                         .flatMapMany(c -> executeStatement(c, generatedSQL)
                                 .flatMapMany(r -> Flux.from(r.map(toEntityFieldMap())))
                                 .onErrorResume(createCloseThenReturnErrorFallback(c))
@@ -65,7 +67,7 @@ public final class $$PostgreSQLSelectManyUsingFlowableRepository extends Abstrac
         // Original SQL statement:  'SELECT first_name, last_name FROM ${table} ORDER BY id'
         final String generatedSQL = "SELECT first_name, last_name FROM account ORDER BY id";
         return Flowable.fromPublisher(
-                pool.create()
+                this.connectionFactory.create()
                         .flatMapMany(c -> executeStatement(c, generatedSQL)
                                 .flatMapMany(r -> Flux.from(r.map(toEntityFieldList())))
                                 .onErrorResume(createCloseThenReturnErrorFallback(c))
@@ -81,7 +83,7 @@ public final class $$PostgreSQLSelectManyUsingFlowableRepository extends Abstrac
         // Original SQL statement:  'SELECT email FROM ${table} ORDER BY id'
         final String generatedSQL = "SELECT email FROM account ORDER BY id";
         return Flowable.fromPublisher(
-                pool.create()
+                this.connectionFactory.create()
                         .flatMapMany(c -> executeStatement(c, generatedSQL)
                                 .flatMapMany(r -> Flux.from(r.map((row, meta) -> row.get(0, String.class))))
                                 .onErrorResume(createCloseThenReturnErrorFallback(c))
@@ -97,7 +99,7 @@ public final class $$PostgreSQLSelectManyUsingFlowableRepository extends Abstrac
         // Original SQL statement:  'SELECT DISTINCT role FROM ${table} ORDER BY role'
         final String generatedSQL = "SELECT DISTINCT role FROM account ORDER BY role";
         return Flowable.fromPublisher(
-                pool.create()
+                this.connectionFactory.create()
                         .flatMapMany(c -> executeStatement(c, generatedSQL)
                                 .flatMapMany(r -> Flux.from(r.map((row, meta) -> row.get(0, Role.class))))
                                 .onErrorResume(createCloseThenReturnErrorFallback(c))
@@ -113,7 +115,7 @@ public final class $$PostgreSQLSelectManyUsingFlowableRepository extends Abstrac
         // Original SQL statement:  'SELECT DISTINCT balance FROM ${table}'
         final String generatedSQL = "SELECT DISTINCT balance FROM account";
         return Flowable.fromPublisher(
-                pool.create()
+                this.connectionFactory.create()
                         .flatMapMany(c -> executeStatement(c, generatedSQL)
                                 .flatMapMany(r -> Flux.from(r.map((row, meta) -> row.get(0, BigDecimal.class))))
                                 .onErrorResume(createCloseThenReturnErrorFallback(c))

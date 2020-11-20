@@ -2,6 +2,8 @@ package io.rxmicro.examples.data.r2dbc.postgresql.returntypes.delete;
 
 import io.r2dbc.pool.ConnectionPool;
 import io.reactivex.rxjava3.core.Completable;
+import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionFactory;
+import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionPool;
 import io.rxmicro.data.sql.r2dbc.postgresql.detail.AbstractPostgreSQLRepository;
 import io.rxmicro.examples.data.r2dbc.postgresql.returntypes.model.$$AccountEntityToR2DBCSQLDBConverter;
 import io.rxmicro.examples.data.r2dbc.postgresql.returntypes.model.Account;
@@ -15,11 +17,11 @@ public final class $$PostgreSQLDeleteOneEntityUsingCompletableRepository extends
     private final $$AccountEntityToR2DBCSQLDBConverter accountEntityToR2DBCSQLDBConverter =
             new $$AccountEntityToR2DBCSQLDBConverter();
 
-    private final ConnectionPool pool;
+    private final RepositoryConnectionFactory connectionFactory;
 
     public $$PostgreSQLDeleteOneEntityUsingCompletableRepository(final ConnectionPool pool) {
         super(DeleteOneEntityUsingCompletableRepository.class);
-        this.pool = pool;
+        this.connectionFactory = new RepositoryConnectionPool(DeleteOneEntityUsingCompletableRepository.class, pool);
     }
 
     @Override
@@ -28,7 +30,7 @@ public final class $$PostgreSQLDeleteOneEntityUsingCompletableRepository extends
         final String generatedSQL = "DELETE FROM account WHERE id = $1";
         final Object primaryKey = accountEntityToR2DBCSQLDBConverter.getPrimaryKey(account);
         return Completable.fromPublisher(
-                pool.create()
+                this.connectionFactory.create()
                         .flatMap(c -> executeStatement(c, generatedSQL, primaryKey)
                                 .flatMap(r -> Mono.from(r.getRowsUpdated()))
                                 .delayUntil(s -> close(c))

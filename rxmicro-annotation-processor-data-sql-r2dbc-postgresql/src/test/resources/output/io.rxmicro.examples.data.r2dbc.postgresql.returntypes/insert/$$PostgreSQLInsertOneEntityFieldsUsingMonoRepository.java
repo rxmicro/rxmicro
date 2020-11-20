@@ -3,6 +3,8 @@ package io.rxmicro.examples.data.r2dbc.postgresql.returntypes.insert;
 import io.r2dbc.pool.ConnectionPool;
 import io.rxmicro.data.sql.model.EntityFieldList;
 import io.rxmicro.data.sql.model.EntityFieldMap;
+import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionFactory;
+import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionPool;
 import io.rxmicro.data.sql.r2dbc.postgresql.detail.AbstractPostgreSQLRepository;
 import io.rxmicro.examples.data.r2dbc.postgresql.returntypes.model.$$AccountEntityFromR2DBCSQLDBConverter;
 import io.rxmicro.examples.data.r2dbc.postgresql.returntypes.model.Account;
@@ -16,11 +18,11 @@ public final class $$PostgreSQLInsertOneEntityFieldsUsingMonoRepository extends 
     private final $$AccountEntityFromR2DBCSQLDBConverter accountEntityFromR2DBCSQLDBConverter =
             new $$AccountEntityFromR2DBCSQLDBConverter();
 
-    private final ConnectionPool pool;
+    private final RepositoryConnectionFactory connectionFactory;
 
     public $$PostgreSQLInsertOneEntityFieldsUsingMonoRepository(final ConnectionPool pool) {
         super(InsertOneEntityFieldsUsingMonoRepository.class);
-        this.pool = pool;
+        this.connectionFactory = new RepositoryConnectionPool(InsertOneEntityFieldsUsingMonoRepository.class, pool);
     }
 
     @Override
@@ -29,7 +31,7 @@ public final class $$PostgreSQLInsertOneEntityFieldsUsingMonoRepository extends 
         final String generatedSQL = "INSERT INTO account(first_name, last_name) VALUES($1, $2)";
         final Object[] insertParams = {firstName, lastName};
         final Class<?>[] insertParamTypes = {String.class, String.class};
-        return pool.create()
+        return this.connectionFactory.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, insertParams, insertParamTypes)
                         .flatMap(r -> Mono.from(r.getRowsUpdated()))
                         .delayUntil(s -> close(c))
@@ -44,7 +46,7 @@ public final class $$PostgreSQLInsertOneEntityFieldsUsingMonoRepository extends 
         final String generatedSQL = "INSERT INTO account(first_name, last_name) VALUES($1, $2)";
         final Object[] insertParams = {firstName, lastName};
         final Class<?>[] insertParamTypes = {String.class, String.class};
-        return pool.create()
+        return this.connectionFactory.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, insertParams, insertParamTypes)
                         .flatMap(r -> Mono.from(r.getRowsUpdated()))
                         .delayUntil(s -> close(c))
@@ -58,7 +60,7 @@ public final class $$PostgreSQLInsertOneEntityFieldsUsingMonoRepository extends 
         final String generatedSQL = "INSERT INTO account(first_name, last_name) VALUES($1, $2)";
         final Object[] insertParams = {firstName, lastName};
         final Class<?>[] insertParamTypes = {String.class, String.class};
-        return pool.create()
+        return this.connectionFactory.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, insertParams, insertParamTypes)
                         .flatMap(r -> Mono.from(r.getRowsUpdated()))
                         .delayUntil(s -> close(c))
@@ -73,10 +75,10 @@ public final class $$PostgreSQLInsertOneEntityFieldsUsingMonoRepository extends 
         final String generatedSQL = "INSERT INTO account(first_name, last_name) VALUES($1, $2) RETURNING id, first_name, last_name";
         final Object[] insertParams = {firstName, lastName};
         final Class<?>[] insertParamTypes = {String.class, String.class};
-        final Account entity = new Account();
-        return pool.create()
+        final Account resultEntity = new Account();
+        return this.connectionFactory.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, insertParams, insertParamTypes)
-                        .flatMap(r -> Mono.from(r.map((row, meta) -> accountEntityFromR2DBCSQLDBConverter.setIdFirst_nameLast_name(entity, row, meta))))
+                        .flatMap(r -> Mono.from(r.map((row, meta) -> accountEntityFromR2DBCSQLDBConverter.setIdFirst_nameLast_name(resultEntity, row, meta))))
                         .switchIfEmpty(close(c)
                                 .then(Mono.empty())
                         )
@@ -91,7 +93,7 @@ public final class $$PostgreSQLInsertOneEntityFieldsUsingMonoRepository extends 
         final String generatedSQL = "INSERT INTO account(first_name, last_name) VALUES($1, $2) RETURNING first_name, last_name";
         final Object[] insertParams = {firstName, lastName};
         final Class<?>[] insertParamTypes = {String.class, String.class};
-        return pool.create()
+        return this.connectionFactory.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, insertParams, insertParamTypes)
                         .flatMap(r -> Mono.from(r.map(toEntityFieldMap())))
                         .switchIfEmpty(close(c)
@@ -108,7 +110,7 @@ public final class $$PostgreSQLInsertOneEntityFieldsUsingMonoRepository extends 
         final String generatedSQL = "INSERT INTO account(first_name, last_name) VALUES($1, $2) RETURNING first_name, last_name";
         final Object[] insertParams = {firstName, lastName};
         final Class<?>[] insertParamTypes = {String.class, String.class};
-        return pool.create()
+        return this.connectionFactory.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, insertParams, insertParamTypes)
                         .flatMap(r -> Mono.from(r.map(toEntityFieldList())))
                         .switchIfEmpty(close(c)

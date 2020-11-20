@@ -1,6 +1,8 @@
 package io.rxmicro.examples.processor.r2dbc.postgresql;
 
 import io.r2dbc.pool.ConnectionPool;
+import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionFactory;
+import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionPool;
 import io.rxmicro.data.sql.r2dbc.postgresql.detail.AbstractPostgreSQLRepository;
 
 /**
@@ -8,10 +10,10 @@ import io.rxmicro.data.sql.r2dbc.postgresql.detail.AbstractPostgreSQLRepository;
  */
 public final class $$PostgreSQLDataRepository extends AbstractPostgreSQLRepository implements DataRepository {
 
-    private final ConnectionPool pool;
+    private final RepositoryConnectionFactory connectionFactory;
 
     public $$PostgreSQLDataRepository(final ConnectionPool pool) {
         super(DataRepository.class);
-        this.pool = pool;
+        this.connectionFactory = new RepositoryConnectionPool(DataRepository.class, pool);
     }
 }

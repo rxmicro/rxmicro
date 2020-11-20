@@ -20,6 +20,8 @@ import com.google.inject.AbstractModule;
 import com.google.inject.multibindings.Multibinder;
 import io.rxmicro.annotation.processor.common.component.IterableContainerElementExtractor;
 import io.rxmicro.annotation.processor.common.component.impl.CollectionIterableContainerElementExtractor;
+import io.rxmicro.annotation.processor.data.component.DataMethodParamsResolver;
+import io.rxmicro.annotation.processor.data.component.impl.DataMethodParamsResolverImpl;
 
 import static com.google.inject.multibindings.Multibinder.newSetBinder;
 
@@ -32,6 +34,9 @@ public final class CommonDataDependenciesModule extends AbstractModule {
     @Override
     protected void configure() {
         configureIterableContainerElementExtractors();
+
+        bind(DataMethodParamsResolver.class)
+                .to(DataMethodParamsResolverImpl.class);
         //Add common data dependencies here
     }
 

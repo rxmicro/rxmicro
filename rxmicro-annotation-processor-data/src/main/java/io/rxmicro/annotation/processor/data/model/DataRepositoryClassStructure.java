@@ -123,4 +123,12 @@ public abstract class DataRepositoryClassStructure extends ClassStructure {
     protected abstract Class<? extends EntityToDBConverter> getEntityToDBConverterClass();
 
     protected abstract Class<? extends EntityFromDBConverter> getEntityFromDBConverterClass();
+
+    protected abstract void customizeClassHeader();
+
+    @Override
+    public final ClassHeader getClassHeader() {
+        customizeClassHeader();
+        return classHeaderBuilder.build();
+    }
 }

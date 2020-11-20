@@ -20,6 +20,7 @@ import com.google.inject.Singleton;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
 import io.rxmicro.annotation.processor.common.model.method.MethodResult;
 import io.rxmicro.annotation.processor.data.model.DataGenerationContext;
+import io.rxmicro.annotation.processor.data.model.DataMethodParams;
 import io.rxmicro.annotation.processor.data.model.Variable;
 import io.rxmicro.annotation.processor.data.sql.model.ParsedSQL;
 import io.rxmicro.annotation.processor.data.sql.model.SQLDataModelField;
@@ -51,12 +52,13 @@ public final class PostgreSQLDeleteWithReturningSQLRepositoryMethodModelBuilder
                                   final MethodResult methodResult,
                                   final DataGenerationContext<SQLDataModelField, PostgreSQLDataObjectModelClass> dataGenerationContext,
                                   final ExecutableElement method,
-                                  final List<Variable> params) {
+                                  final DataMethodParams dataMethodParams) {
+        super.validateMethod(parsedSQL, methodResult, dataGenerationContext, method, dataMethodParams);
         if (parsedSQL.doesNotContain(PostgreSQLKeywords.RETURNING)) {
             throw new InterruptProcessingException(method,
                     "Missing '?' keyword in the '?' statement", PostgreSQLKeywords.RETURNING, INSERT);
         }
-        validateThatEntityContainsPrimaryKeyIfParamIsEntity(dataGenerationContext, method, params);
+        validateThatEntityContainsPrimaryKeyIfParamIsEntity(dataGenerationContext, method, dataMethodParams.getOtherParams());
     }
 
     @Override

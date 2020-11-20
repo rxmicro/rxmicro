@@ -1,6 +1,8 @@
 package io.rxmicro.examples.data.r2dbc.postgresql.partial.implementation;
 
 import io.r2dbc.pool.ConnectionPool;
+import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionFactory;
+import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionPool;
 import reactor.core.publisher.Mono;
 
 import java.util.concurrent.CompletableFuture;
@@ -10,18 +12,18 @@ import java.util.concurrent.CompletableFuture;
  */
 public final class $$PostgreSQLDataRepository extends AbstractDataRepository implements DataRepository {
 
-    private final ConnectionPool pool;
+    private final RepositoryConnectionFactory connectionFactory;
 
     public $$PostgreSQLDataRepository(final ConnectionPool pool) {
         super(DataRepository.class);
-        this.pool = pool;
+        this.connectionFactory = new RepositoryConnectionPool(DataRepository.class, pool);
     }
 
     @Override
     public CompletableFuture<Long> generatedMethod() {
         // Original SQL statement:  'SELECT 1 + 1'
         final String generatedSQL = "SELECT 1 + 1";
-        return pool.create()
+        return this.connectionFactory.create()
                 .flatMap(c -> executeStatement(c, generatedSQL)
                         .flatMap(r -> Mono.from(r.map((row, meta) -> row.get(0, Long.class))))
                         .switchIfEmpty(close(c)

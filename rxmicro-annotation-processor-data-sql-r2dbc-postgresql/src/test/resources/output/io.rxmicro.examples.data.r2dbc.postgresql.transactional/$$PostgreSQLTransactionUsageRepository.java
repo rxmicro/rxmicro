@@ -2,6 +2,8 @@ package io.rxmicro.examples.data.r2dbc.postgresql.transactional;
 
 import io.r2dbc.pool.ConnectionPool;
 import io.rxmicro.data.sql.model.reactor.Transaction;
+import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionFactory;
+import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionPool;
 import io.rxmicro.data.sql.r2dbc.postgresql.detail.AbstractPostgreSQLRepository;
 import io.rxmicro.examples.data.r2dbc.postgresql.transactional.model.$$AccountEntityFromR2DBCSQLDBConverter;
 import io.rxmicro.examples.data.r2dbc.postgresql.transactional.model.$$OrderEntityFromR2DBCSQLDBConverter;
@@ -29,16 +31,16 @@ public final class $$PostgreSQLTransactionUsageRepository extends AbstractPostgr
     private final $$ProductEntityFromR2DBCSQLDBConverter productEntityFromR2DBCSQLDBConverter =
             new $$ProductEntityFromR2DBCSQLDBConverter();
 
-    private final ConnectionPool pool;
+    private final RepositoryConnectionFactory connectionFactory;
 
     public $$PostgreSQLTransactionUsageRepository(final ConnectionPool pool) {
         super(TransactionUsageRepository.class);
-        this.pool = pool;
+        this.connectionFactory = new RepositoryConnectionPool(TransactionUsageRepository.class, pool);
     }
 
     @Override
     public Mono<Transaction> beginTransaction() {
-        return pool.create()
+        return this.connectionFactory.create()
                 .flatMap(c -> beginReactorTransaction(c));
     }
 

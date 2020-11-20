@@ -2,6 +2,8 @@ package io.rxmicro.examples.data.r2dbc.postgresql.variables;
 
 import io.r2dbc.pool.ConnectionPool;
 import io.rxmicro.data.sql.model.EntityFieldMap;
+import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionFactory;
+import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionPool;
 import io.rxmicro.data.sql.r2dbc.postgresql.detail.AbstractPostgreSQLRepository;
 import io.rxmicro.examples.data.r2dbc.postgresql.variables.model.$$EntityEntityFromR2DBCSQLDBConverter;
 import io.rxmicro.examples.data.r2dbc.postgresql.variables.model.$$EntityEntityToR2DBCSQLDBConverter;
@@ -21,11 +23,11 @@ public final class $$PostgreSQLUpdateDataRepository extends AbstractPostgreSQLRe
     private final $$EntityEntityToR2DBCSQLDBConverter entityEntityToR2DBCSQLDBConverter =
             new $$EntityEntityToR2DBCSQLDBConverter();
 
-    private final ConnectionPool pool;
+    private final RepositoryConnectionFactory connectionFactory;
 
     public $$PostgreSQLUpdateDataRepository(final ConnectionPool pool) {
         super(UpdateDataRepository.class);
-        this.pool = pool;
+        this.connectionFactory = new RepositoryConnectionPool(UpdateDataRepository.class, pool);
     }
 
     @Override
@@ -34,7 +36,7 @@ public final class $$PostgreSQLUpdateDataRepository extends AbstractPostgreSQLRe
         final String generatedSQL = "UPDATE entity_table SET value = $1";
         final Object[] updateParams = entityEntityToR2DBCSQLDBConverter.getUpdateParams(entity);
         final Class<?>[] updateParamTypes = entityEntityToR2DBCSQLDBConverter.getUpdateParamTypes();
-        return pool.create()
+        return this.connectionFactory.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, updateParams, updateParamTypes)
                         .flatMap(r -> Mono.from(r.getRowsUpdated()))
                         .delayUntil(s -> close(c))
@@ -51,7 +53,7 @@ public final class $$PostgreSQLUpdateDataRepository extends AbstractPostgreSQLRe
         final String generatedSQL = "UPDATE entity_table SET value = $1 RETURNING id, value";
         final Object[] updateParams = entityEntityToR2DBCSQLDBConverter.getUpdateParams(entity);
         final Class<?>[] updateParamTypes = entityEntityToR2DBCSQLDBConverter.getUpdateParamTypes();
-        return pool.create()
+        return this.connectionFactory.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, updateParams, updateParamTypes)
                         .flatMap(r -> Mono.from(r.map((row, meta) -> entityEntityFromR2DBCSQLDBConverter.setIdValue(entity, row, meta))))
                         .switchIfEmpty(close(c)
@@ -70,10 +72,10 @@ public final class $$PostgreSQLUpdateDataRepository extends AbstractPostgreSQLRe
         final String generatedSQL = "UPDATE entity_table SET value = $1 RETURNING id, value";
         final Object[] updateParams = {value};
         final Class<?>[] updateParamTypes = {String.class};
-        final Entity entity = new Entity();
-        return pool.create()
+        final Entity resultEntity = new Entity();
+        return this.connectionFactory.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, updateParams, updateParamTypes)
-                        .flatMap(r -> Mono.from(r.map((row, meta) -> entityEntityFromR2DBCSQLDBConverter.setIdValue(entity, row, meta))))
+                        .flatMap(r -> Mono.from(r.map((row, meta) -> entityEntityFromR2DBCSQLDBConverter.setIdValue(resultEntity, row, meta))))
                         .switchIfEmpty(close(c)
                                 .then(Mono.empty())
                         )
@@ -90,7 +92,7 @@ public final class $$PostgreSQLUpdateDataRepository extends AbstractPostgreSQLRe
         final String generatedSQL = "UPDATE entity_table SET value = $1 RETURNING id, value";
         final Object[] updateParams = {value};
         final Class<?>[] updateParamTypes = {String.class};
-        return pool.create()
+        return this.connectionFactory.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, updateParams, updateParamTypes)
                         .flatMap(r -> Mono.from(r.map(toEntityFieldMap())))
                         .switchIfEmpty(close(c)
@@ -109,7 +111,7 @@ public final class $$PostgreSQLUpdateDataRepository extends AbstractPostgreSQLRe
         final String generatedSQL = "UPDATE global_table SET value = $1 RETURNING value";
         final Object[] updateParams = {value};
         final Class<?>[] updateParamTypes = {String.class};
-        return pool.create()
+        return this.connectionFactory.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, updateParams, updateParamTypes)
                         .flatMap(r -> Mono.from(r.map(toEntityFieldMap())))
                         .switchIfEmpty(close(c)
@@ -128,7 +130,7 @@ public final class $$PostgreSQLUpdateDataRepository extends AbstractPostgreSQLRe
         final String generatedSQL = "UPDATE global_table SET value = $1";
         final Object[] updateParams = {value};
         final Class<?>[] updateParamTypes = {String.class};
-        return pool.create()
+        return this.connectionFactory.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, updateParams, updateParamTypes)
                         .flatMap(r -> Mono.from(r.getRowsUpdated()))
                         .delayUntil(s -> close(c))
@@ -145,7 +147,7 @@ public final class $$PostgreSQLUpdateDataRepository extends AbstractPostgreSQLRe
         final String generatedSQL = "UPDATE local_table SET value = $1 RETURNING value";
         final Object[] updateParams = {value};
         final Class<?>[] updateParamTypes = {String.class};
-        return pool.create()
+        return this.connectionFactory.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, updateParams, updateParamTypes)
                         .flatMap(r -> Mono.from(r.map(toEntityFieldMap())))
                         .switchIfEmpty(close(c)
@@ -164,7 +166,7 @@ public final class $$PostgreSQLUpdateDataRepository extends AbstractPostgreSQLRe
         final String generatedSQL = "UPDATE local_table SET value = $1";
         final Object[] updateParams = {value};
         final Class<?>[] updateParamTypes = {String.class};
-        return pool.create()
+        return this.connectionFactory.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, updateParams, updateParamTypes)
                         .flatMap(r -> Mono.from(r.getRowsUpdated()))
                         .delayUntil(s -> close(c))

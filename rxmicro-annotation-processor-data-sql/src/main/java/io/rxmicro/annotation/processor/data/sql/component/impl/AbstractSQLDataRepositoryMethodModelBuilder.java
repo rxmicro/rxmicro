@@ -52,9 +52,6 @@ public abstract class AbstractSQLDataRepositoryMethodModelBuilder<DMF extends SQ
         implements SQLRepositoryMethodModelBuilder<DMF, DMC> {
 
     @Inject
-    private TransactionResolver transactionResolver;
-
-    @Inject
     private TokenParser tokenParser;
 
     @Inject
@@ -64,10 +61,7 @@ public abstract class AbstractSQLDataRepositoryMethodModelBuilder<DMF extends SQ
     @Override
     protected final SQLDataRepositoryMethod build(final DataRepositoryMethodSignature dataRepositoryMethodSignature,
                                                   final MethodBody body) {
-        return new SQLDataRepositoryMethod(
-                dataRepositoryMethodSignature,
-                body
-        );
+        return new SQLDataRepositoryMethod(dataRepositoryMethodSignature, body);
     }
 
     protected final SQLMethodDescriptor<DMF, DMC> buildSQLMethodDescriptor(final ExecutableElement method,
@@ -141,10 +135,6 @@ public abstract class AbstractSQLDataRepositoryMethodModelBuilder<DMF extends SQ
                 dataGenerationContext.isEntityParamType(methodResult.getResultType()) ||
                 methodResult.isResultType(EntityFieldList.class) ||
                 methodResult.isResultType(EntityFieldMap.class);
-    }
-
-    protected final Optional<String> getTransactionMethodParameter(final ExecutableElement method) {
-        return transactionResolver.getTransactionParameter(method).map(Variable::getGetter);
     }
 
     private void validate(final ExecutableElement method,

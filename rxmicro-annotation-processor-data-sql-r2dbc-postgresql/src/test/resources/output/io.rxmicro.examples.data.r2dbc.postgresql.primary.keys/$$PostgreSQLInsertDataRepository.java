@@ -1,6 +1,8 @@
 package io.rxmicro.examples.data.r2dbc.postgresql.primary.keys;
 
 import io.r2dbc.pool.ConnectionPool;
+import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionFactory;
+import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionPool;
 import io.rxmicro.data.sql.r2dbc.postgresql.detail.AbstractPostgreSQLRepository;
 import io.rxmicro.examples.data.r2dbc.postgresql.primary.keys.model.$$AccountEntityFromR2DBCSQLDBConverter;
 import io.rxmicro.examples.data.r2dbc.postgresql.primary.keys.model.$$AccountEntityToR2DBCSQLDBConverter;
@@ -39,11 +41,11 @@ public final class $$PostgreSQLInsertDataRepository extends AbstractPostgreSQLRe
     private final $$ProductEntityToR2DBCSQLDBConverter productEntityToR2DBCSQLDBConverter =
             new $$ProductEntityToR2DBCSQLDBConverter();
 
-    private final ConnectionPool pool;
+    private final RepositoryConnectionFactory connectionFactory;
 
     public $$PostgreSQLInsertDataRepository(final ConnectionPool pool) {
         super(InsertDataRepository.class);
-        this.pool = pool;
+        this.connectionFactory = new RepositoryConnectionPool(InsertDataRepository.class, pool);
     }
 
     @Override
@@ -52,7 +54,7 @@ public final class $$PostgreSQLInsertDataRepository extends AbstractPostgreSQLRe
         final String generatedSQL = "INSERT INTO account(id, email, first_name, last_name, balance, role) VALUES(nextval('account_seq'), $1, $2, $3, $4, $5) RETURNING id";
         final Object[] insertParams = accountEntityToR2DBCSQLDBConverter.getInsertParams(account);
         final Class<?>[] insertParamTypes = accountEntityToR2DBCSQLDBConverter.getInsertParamTypes();
-        return pool.create()
+        return this.connectionFactory.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, insertParams, insertParamTypes)
                         .flatMap(r -> Mono.from(r.map((row, meta) -> accountEntityFromR2DBCSQLDBConverter.setId(account, row, meta))))
                         .switchIfEmpty(close(c)
@@ -71,7 +73,7 @@ public final class $$PostgreSQLInsertDataRepository extends AbstractPostgreSQLRe
         final String generatedSQL = "INSERT INTO order(id_account, id_product, count) VALUES($1, $2, $3) RETURNING id";
         final Object[] insertParams = orderEntityToR2DBCSQLDBConverter.getInsertParams(order);
         final Class<?>[] insertParamTypes = orderEntityToR2DBCSQLDBConverter.getInsertParamTypes();
-        return pool.create()
+        return this.connectionFactory.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, insertParams, insertParamTypes)
                         .flatMap(r -> Mono.from(r.map((row, meta) -> orderEntityFromR2DBCSQLDBConverter.setId(order, row, meta))))
                         .switchIfEmpty(close(c)
@@ -90,7 +92,7 @@ public final class $$PostgreSQLInsertDataRepository extends AbstractPostgreSQLRe
         final String generatedSQL = "INSERT INTO product(id, name, price, count) VALUES($1, $2, $3, $4)";
         final Object[] insertParams = productEntityToR2DBCSQLDBConverter.getInsertParams(product);
         final Class<?>[] insertParamTypes = productEntityToR2DBCSQLDBConverter.getInsertParamTypes();
-        return pool.create()
+        return this.connectionFactory.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, insertParams, insertParamTypes)
                         .flatMap(r -> Mono.from(r.getRowsUpdated()))
                         .delayUntil(s -> close(c))
@@ -107,7 +109,7 @@ public final class $$PostgreSQLInsertDataRepository extends AbstractPostgreSQLRe
         final String generatedSQL = "INSERT INTO composite_primary_key(id_category, id_type, id_role) VALUES($1, $2, $3)";
         final Object[] insertParams = compositePrimaryKeyEntityToR2DBCSQLDBConverter.getInsertParams(entity);
         final Class<?>[] insertParamTypes = compositePrimaryKeyEntityToR2DBCSQLDBConverter.getInsertParamTypes();
-        return pool.create()
+        return this.connectionFactory.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, insertParams, insertParamTypes)
                         .flatMap(r -> Mono.from(r.getRowsUpdated()))
                         .delayUntil(s -> close(c))

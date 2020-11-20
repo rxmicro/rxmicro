@@ -21,6 +21,7 @@ import io.reactivex.rxjava3.core.Flowable;
 import io.rxmicro.annotation.processor.common.model.ClassHeader;
 import io.rxmicro.annotation.processor.common.model.method.MethodResult;
 import io.rxmicro.annotation.processor.data.model.DataGenerationContext;
+import io.rxmicro.annotation.processor.data.model.DataMethodParams;
 import io.rxmicro.annotation.processor.data.model.Variable;
 import io.rxmicro.annotation.processor.data.sql.model.EntityFromDBConverterMethod;
 import io.rxmicro.annotation.processor.data.sql.model.ParsedSQL;
@@ -66,9 +67,11 @@ public class SelectSQLRepositoryMethodModelBuilder<DMF extends SQLDataModelField
     }
 
     @Override
-    protected void validateMethod(final ParsedSQL<Select> parsedSQL, final MethodResult methodResult,
+    protected void validateMethod(final ParsedSQL<Select> parsedSQL,
+                                  final MethodResult methodResult,
                                   final DataGenerationContext<DMF, DMC> dataGenerationContext,
-                                  final ExecutableElement method, final List<Variable> params) {
+                                  final ExecutableElement method,
+                                  final DataMethodParams dataMethodParams) {
         validateReturnType(
                 method,
                 methodResult.getResultType(),

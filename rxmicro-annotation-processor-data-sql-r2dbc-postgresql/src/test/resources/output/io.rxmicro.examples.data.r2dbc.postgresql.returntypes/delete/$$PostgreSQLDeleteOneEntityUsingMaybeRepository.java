@@ -5,6 +5,8 @@ import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.core.Maybe;
 import io.rxmicro.data.sql.model.EntityFieldList;
 import io.rxmicro.data.sql.model.EntityFieldMap;
+import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionFactory;
+import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionPool;
 import io.rxmicro.data.sql.r2dbc.postgresql.detail.AbstractPostgreSQLRepository;
 import io.rxmicro.examples.data.r2dbc.postgresql.returntypes.model.$$AccountEntityFromR2DBCSQLDBConverter;
 import io.rxmicro.examples.data.r2dbc.postgresql.returntypes.model.$$AccountEntityToR2DBCSQLDBConverter;
@@ -22,11 +24,11 @@ public final class $$PostgreSQLDeleteOneEntityUsingMaybeRepository extends Abstr
     private final $$AccountEntityToR2DBCSQLDBConverter accountEntityToR2DBCSQLDBConverter =
             new $$AccountEntityToR2DBCSQLDBConverter();
 
-    private final ConnectionPool pool;
+    private final RepositoryConnectionFactory connectionFactory;
 
     public $$PostgreSQLDeleteOneEntityUsingMaybeRepository(final ConnectionPool pool) {
         super(DeleteOneEntityUsingMaybeRepository.class);
-        this.pool = pool;
+        this.connectionFactory = new RepositoryConnectionPool(DeleteOneEntityUsingMaybeRepository.class, pool);
     }
 
     @Override
@@ -35,7 +37,7 @@ public final class $$PostgreSQLDeleteOneEntityUsingMaybeRepository extends Abstr
         final String generatedSQL = "DELETE FROM account WHERE id = $1 RETURNING id, first_name, last_name";
         final Object primaryKey = accountEntityToR2DBCSQLDBConverter.getPrimaryKey(account);
         return Flowable.fromPublisher(
-                pool.create()
+                this.connectionFactory.create()
                         .flatMap(c -> executeStatement(c, generatedSQL, primaryKey)
                                 .flatMap(r -> Mono.from(r.map((row, meta) -> accountEntityFromR2DBCSQLDBConverter.setIdFirst_nameLast_name(account, row, meta))))
                                 .switchIfEmpty(close(c)
@@ -53,7 +55,7 @@ public final class $$PostgreSQLDeleteOneEntityUsingMaybeRepository extends Abstr
         final String generatedSQL = "DELETE FROM account WHERE id = $1 RETURNING id, first_name, last_name";
         final Object primaryKey = accountEntityToR2DBCSQLDBConverter.getPrimaryKey(account);
         return Flowable.fromPublisher(
-                pool.create()
+                this.connectionFactory.create()
                         .flatMap(c -> executeStatement(c, generatedSQL, primaryKey)
                                 .flatMap(r -> Mono.from(r.map(toEntityFieldMap())))
                                 .switchIfEmpty(close(c)
@@ -71,7 +73,7 @@ public final class $$PostgreSQLDeleteOneEntityUsingMaybeRepository extends Abstr
         final String generatedSQL = "DELETE FROM account WHERE id = $1 RETURNING id, first_name, last_name";
         final Object primaryKey = accountEntityToR2DBCSQLDBConverter.getPrimaryKey(account);
         return Flowable.fromPublisher(
-                pool.create()
+                this.connectionFactory.create()
                         .flatMap(c -> executeStatement(c, generatedSQL, primaryKey)
                                 .flatMap(r -> Mono.from(r.map(toEntityFieldList())))
                                 .switchIfEmpty(close(c)

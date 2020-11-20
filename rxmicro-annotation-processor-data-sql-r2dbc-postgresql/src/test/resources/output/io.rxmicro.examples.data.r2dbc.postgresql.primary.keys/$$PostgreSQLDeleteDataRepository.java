@@ -1,6 +1,8 @@
 package io.rxmicro.examples.data.r2dbc.postgresql.primary.keys;
 
 import io.r2dbc.pool.ConnectionPool;
+import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionFactory;
+import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionPool;
 import io.rxmicro.data.sql.r2dbc.postgresql.detail.AbstractPostgreSQLRepository;
 import io.rxmicro.examples.data.r2dbc.postgresql.primary.keys.model.$$AccountEntityToR2DBCSQLDBConverter;
 import io.rxmicro.examples.data.r2dbc.postgresql.primary.keys.model.$$CompositePrimaryKeyEntityToR2DBCSQLDBConverter;
@@ -31,11 +33,11 @@ public final class $$PostgreSQLDeleteDataRepository extends AbstractPostgreSQLRe
     private final $$ProductEntityToR2DBCSQLDBConverter productEntityToR2DBCSQLDBConverter =
             new $$ProductEntityToR2DBCSQLDBConverter();
 
-    private final ConnectionPool pool;
+    private final RepositoryConnectionFactory connectionFactory;
 
     public $$PostgreSQLDeleteDataRepository(final ConnectionPool pool) {
         super(DeleteDataRepository.class);
-        this.pool = pool;
+        this.connectionFactory = new RepositoryConnectionPool(DeleteDataRepository.class, pool);
     }
 
     @Override
@@ -43,7 +45,7 @@ public final class $$PostgreSQLDeleteDataRepository extends AbstractPostgreSQLRe
         // Original SQL statement:  'DELETE FROM ${table} WHERE ${by-id-filter}'
         final String generatedSQL = "DELETE FROM account WHERE id = $1";
         final Object primaryKey = accountEntityToR2DBCSQLDBConverter.getPrimaryKey(account);
-        return pool.create()
+        return this.connectionFactory.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, primaryKey)
                         .flatMap(r -> Mono.from(r.getRowsUpdated()))
                         .delayUntil(s -> close(c))
@@ -59,7 +61,7 @@ public final class $$PostgreSQLDeleteDataRepository extends AbstractPostgreSQLRe
         // Original SQL statement:  'DELETE FROM ${table} WHERE ${by-id-filter}'
         final String generatedSQL = "DELETE FROM order WHERE id = $1";
         final Object primaryKey = orderEntityToR2DBCSQLDBConverter.getPrimaryKey(order);
-        return pool.create()
+        return this.connectionFactory.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, primaryKey)
                         .flatMap(r -> Mono.from(r.getRowsUpdated()))
                         .delayUntil(s -> close(c))
@@ -75,7 +77,7 @@ public final class $$PostgreSQLDeleteDataRepository extends AbstractPostgreSQLRe
         // Original SQL statement:  'DELETE FROM ${table} WHERE ${by-id-filter}'
         final String generatedSQL = "DELETE FROM product WHERE id = $1";
         final Object primaryKey = productEntityToR2DBCSQLDBConverter.getPrimaryKey(product);
-        return pool.create()
+        return this.connectionFactory.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, primaryKey)
                         .flatMap(r -> Mono.from(r.getRowsUpdated()))
                         .delayUntil(s -> close(c))
@@ -91,7 +93,7 @@ public final class $$PostgreSQLDeleteDataRepository extends AbstractPostgreSQLRe
         // Original SQL statement:  'DELETE FROM ${table} WHERE ${by-id-filter}'
         final String generatedSQL = "DELETE FROM composite_primary_key WHERE id_category = $1 AND id_type = $2 AND id_role = $3";
         final Object[] primaryKeys = compositePrimaryKeyEntityToR2DBCSQLDBConverter.getPrimaryKeys(entity);
-        return pool.create()
+        return this.connectionFactory.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, primaryKeys)
                         .flatMap(r -> Mono.from(r.getRowsUpdated()))
                         .delayUntil(s -> close(c))

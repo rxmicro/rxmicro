@@ -3,6 +3,8 @@ package io.rxmicro.examples.data.r2dbc.postgresql.select.returnreactivetypes;
 import io.r2dbc.pool.ConnectionPool;
 import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.core.Single;
+import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionFactory;
+import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionPool;
 import io.rxmicro.data.sql.r2dbc.postgresql.detail.AbstractPostgreSQLRepository;
 import io.rxmicro.examples.data.r2dbc.postgresql.select.returnreactivetypes.model.$$AccountEntityFromR2DBCSQLDBConverter;
 import io.rxmicro.examples.data.r2dbc.postgresql.select.returnreactivetypes.model.Account;
@@ -22,18 +24,18 @@ public final class $$PostgreSQLSelectManyDataRepository extends AbstractPostgreS
     private final $$AccountEntityFromR2DBCSQLDBConverter accountEntityFromR2DBCSQLDBConverter =
             new $$AccountEntityFromR2DBCSQLDBConverter();
 
-    private final ConnectionPool pool;
+    private final RepositoryConnectionFactory connectionFactory;
 
     public $$PostgreSQLSelectManyDataRepository(final ConnectionPool pool) {
         super(SelectManyDataRepository.class);
-        this.pool = pool;
+        this.connectionFactory = new RepositoryConnectionPool(SelectManyDataRepository.class, pool);
     }
 
     @Override
     public Mono<List<Account>> findAll1() {
         // Original SQL statement:  'SELECT * FROM ${table} ORDER BY id'
         final String generatedSQL = "SELECT first_name, last_name FROM account ORDER BY id";
-        return pool.create()
+        return this.connectionFactory.create()
                 .flatMap(c -> executeStatement(c, generatedSQL)
                         .flatMap(r -> Flux.from(r.map(accountEntityFromR2DBCSQLDBConverter::fromDB))
                                 .collectList()
@@ -47,7 +49,7 @@ public final class $$PostgreSQLSelectManyDataRepository extends AbstractPostgreS
     public Flux<Account> findAll2() {
         // Original SQL statement:  'SELECT * FROM ${table} ORDER BY id'
         final String generatedSQL = "SELECT first_name, last_name FROM account ORDER BY id";
-        return pool.create()
+        return this.connectionFactory.create()
                 .flatMapMany(c -> executeStatement(c, generatedSQL)
                         .flatMapMany(r -> Flux.from(r.map(accountEntityFromR2DBCSQLDBConverter::fromDB)))
                         .onErrorResume(createCloseThenReturnErrorFallback(c))
@@ -61,7 +63,7 @@ public final class $$PostgreSQLSelectManyDataRepository extends AbstractPostgreS
     public CompletableFuture<List<Account>> findAll3() {
         // Original SQL statement:  'SELECT * FROM ${table} ORDER BY id'
         final String generatedSQL = "SELECT first_name, last_name FROM account ORDER BY id";
-        return pool.create()
+        return this.connectionFactory.create()
                 .flatMap(c -> executeStatement(c, generatedSQL)
                         .flatMap(r -> Flux.from(r.map(accountEntityFromR2DBCSQLDBConverter::fromDB))
                                 .collectList()
@@ -76,7 +78,7 @@ public final class $$PostgreSQLSelectManyDataRepository extends AbstractPostgreS
     public CompletionStage<List<Account>> findAll4() {
         // Original SQL statement:  'SELECT * FROM ${table} ORDER BY id'
         final String generatedSQL = "SELECT first_name, last_name FROM account ORDER BY id";
-        return pool.create()
+        return this.connectionFactory.create()
                 .flatMap(c -> executeStatement(c, generatedSQL)
                         .flatMap(r -> Flux.from(r.map(accountEntityFromR2DBCSQLDBConverter::fromDB))
                                 .collectList()
@@ -92,7 +94,7 @@ public final class $$PostgreSQLSelectManyDataRepository extends AbstractPostgreS
         // Original SQL statement:  'SELECT * FROM ${table} ORDER BY id'
         final String generatedSQL = "SELECT first_name, last_name FROM account ORDER BY id";
         return Flowable.fromPublisher(
-                pool.create()
+                this.connectionFactory.create()
                         .flatMapMany(c -> executeStatement(c, generatedSQL)
                                 .flatMapMany(r -> Flux.from(r.map(accountEntityFromR2DBCSQLDBConverter::fromDB)))
                                 .onErrorResume(createCloseThenReturnErrorFallback(c))
@@ -108,7 +110,7 @@ public final class $$PostgreSQLSelectManyDataRepository extends AbstractPostgreS
         // Original SQL statement:  'SELECT * FROM ${table} ORDER BY id'
         final String generatedSQL = "SELECT first_name, last_name FROM account ORDER BY id";
         return Flowable.fromPublisher(
-                pool.create()
+                this.connectionFactory.create()
                         .flatMapMany(c -> executeStatement(c, generatedSQL)
                                 .flatMapMany(r -> Flux.from(r.map(accountEntityFromR2DBCSQLDBConverter::fromDB)))
                                 .onErrorResume(createCloseThenReturnErrorFallback(c))

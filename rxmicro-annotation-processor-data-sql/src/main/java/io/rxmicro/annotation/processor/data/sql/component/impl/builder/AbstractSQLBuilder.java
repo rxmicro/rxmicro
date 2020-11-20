@@ -28,6 +28,7 @@ import io.rxmicro.annotation.processor.data.sql.model.PlatformPlaceholderGenerat
 import io.rxmicro.annotation.processor.data.sql.model.VariableValuesMap;
 
 import java.lang.annotation.Annotation;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -174,22 +175,23 @@ public abstract class AbstractSQLBuilder extends AbstractProcessorComponent {
                                      final List<Variable> methodParams,
                                      final List<String> formatParams,
                                      final List<BindParameter> bindParams) {
+        final ArrayList<Variable> methodParamsCopy = new ArrayList<>(methodParams);
         final PlatformPlaceholderGenerator platformPlaceholderGenerator = platformPlaceHolders.createPlatformPlaceholderGenerator();
         final ListIterator<String> iterator = sqlTokens.listIterator();
         while (iterator.hasNext()) {
             final String token = iterator.next();
             for (final SelectSQLOperatorReader reader : selectSQLOperatorReaders) {
                 if (reader.canRead(token)) {
-                    reader.read(classHeaderBuilder, iterator, methodParams, formatParams);
+                    reader.read(classHeaderBuilder, iterator, methodParamsCopy, formatParams);
                     break;
                 }
             }
             if (FORMAT_PLACEHOLDER_TOKEN.equals(token)) {
-                if (methodParams.isEmpty()) {
+                if (methodParamsCopy.isEmpty()) {
                     throw new InterruptProcessingException(owner, "Redundant '?' placeholder! Remove it!");
                 }
                 iterator.set(platformPlaceholderGenerator.getNextPlaceHolder());
-                final Variable variable = methodParams.remove(0);
+                final Variable variable = methodParamsCopy.remove(0);
                 bindParams.add(new BindParameter(variable, variable.getGetter()));
             }
         }

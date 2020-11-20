@@ -5,6 +5,8 @@ import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.core.Single;
 import io.rxmicro.data.sql.model.EntityFieldList;
 import io.rxmicro.data.sql.model.EntityFieldMap;
+import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionFactory;
+import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionPool;
 import io.rxmicro.data.sql.r2dbc.postgresql.detail.AbstractPostgreSQLRepository;
 import io.rxmicro.examples.data.r2dbc.postgresql.returntypes.model.$$AccountEntityFromR2DBCSQLDBConverter;
 import io.rxmicro.examples.data.r2dbc.postgresql.returntypes.model.Account;
@@ -22,22 +24,22 @@ public final class $$PostgreSQLUpdateManyUsingSingleListRepository extends Abstr
     private final $$AccountEntityFromR2DBCSQLDBConverter accountEntityFromR2DBCSQLDBConverter =
             new $$AccountEntityFromR2DBCSQLDBConverter();
 
-    private final ConnectionPool pool;
+    private final RepositoryConnectionFactory connectionFactory;
 
     public $$PostgreSQLUpdateManyUsingSingleListRepository(final ConnectionPool pool) {
         super(UpdateManyUsingSingleListRepository.class);
-        this.pool = pool;
+        this.connectionFactory = new RepositoryConnectionPool(UpdateManyUsingSingleListRepository.class, pool);
     }
 
     @Override
     public Single<List<Account>> updateAll01() {
         // Original SQL statement:  'UPDATE ${table} SET first_name = 'Russ', last_name = 'Hanneman' RETURNING *'
         final String generatedSQL = "UPDATE account SET first_name = 'Russ', last_name = 'Hanneman' RETURNING id, first_name, last_name";
-        final Account entity = new Account();
+        final Account resultEntity = new Account();
         return Flowable.fromPublisher(
-                pool.create()
+                this.connectionFactory.create()
                         .flatMapMany(c -> executeStatement(c, generatedSQL)
-                                .flatMapMany(r -> Flux.from(r.map((row, meta) -> accountEntityFromR2DBCSQLDBConverter.setIdFirst_nameLast_name(entity, row, meta))))
+                                .flatMapMany(r -> Flux.from(r.map((row, meta) -> accountEntityFromR2DBCSQLDBConverter.setIdFirst_nameLast_name(resultEntity, row, meta))))
                                 .onErrorResume(createCloseThenReturnErrorFallback(c))
                                 .concatWith(close(c)
                                         .then(Mono.empty())
@@ -51,7 +53,7 @@ public final class $$PostgreSQLUpdateManyUsingSingleListRepository extends Abstr
         // Original SQL statement:  'UPDATE ${table} SET first_name = 'Russ', last_name = 'Hanneman' RETURNING first_name, last_name'
         final String generatedSQL = "UPDATE account SET first_name = 'Russ', last_name = 'Hanneman' RETURNING first_name, last_name";
         return Flowable.fromPublisher(
-                pool.create()
+                this.connectionFactory.create()
                         .flatMapMany(c -> executeStatement(c, generatedSQL)
                                 .flatMapMany(r -> Flux.from(r.map(toEntityFieldMap())))
                                 .onErrorResume(createCloseThenReturnErrorFallback(c))
@@ -67,7 +69,7 @@ public final class $$PostgreSQLUpdateManyUsingSingleListRepository extends Abstr
         // Original SQL statement:  'UPDATE ${table} SET first_name = 'Russ', last_name = 'Hanneman' RETURNING first_name, last_name'
         final String generatedSQL = "UPDATE account SET first_name = 'Russ', last_name = 'Hanneman' RETURNING first_name, last_name";
         return Flowable.fromPublisher(
-                pool.create()
+                this.connectionFactory.create()
                         .flatMapMany(c -> executeStatement(c, generatedSQL)
                                 .flatMapMany(r -> Flux.from(r.map(toEntityFieldList())))
                                 .onErrorResume(createCloseThenReturnErrorFallback(c))

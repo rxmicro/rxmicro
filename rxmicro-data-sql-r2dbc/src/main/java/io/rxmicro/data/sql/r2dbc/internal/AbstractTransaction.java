@@ -16,10 +16,10 @@
 
 package io.rxmicro.data.sql.r2dbc.internal;
 
-import io.r2dbc.spi.Connection;
 import io.rxmicro.common.InvalidStateException;
 import io.rxmicro.data.sql.model.IsolationLevel;
 import io.rxmicro.data.sql.model.SavePoint;
+import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnection;
 import org.reactivestreams.Publisher;
 import reactor.core.publisher.Mono;
 
@@ -54,18 +54,18 @@ public abstract class AbstractTransaction {
             io.r2dbc.spi.IsolationLevel.SERIALIZABLE, SERIALIZABLE
     );
 
-    private final Connection connection;
+    private final RepositoryConnection connection;
 
     private List<SavePoint> savePoints = List.of();
 
     private boolean active;
 
-    protected AbstractTransaction(final Connection connection) {
+    protected AbstractTransaction(final RepositoryConnection connection) {
         this.connection = require(connection);
         this.active = true;
     }
 
-    Connection getConnection() {
+    RepositoryConnection getConnection() {
         return connection;
     }
 
@@ -133,7 +133,7 @@ public abstract class AbstractTransaction {
 
     protected final void checkActive() {
         if (!active) {
-            throw new InvalidStateException("Current transaction is not active");
+            throw new InvalidStateException("Current transaction is not active!");
         }
     }
 }

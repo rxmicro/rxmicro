@@ -2,6 +2,8 @@ package io.rxmicro.examples.data.r2dbc.postgresql.variables;
 
 import io.r2dbc.pool.ConnectionPool;
 import io.rxmicro.data.sql.model.EntityFieldMap;
+import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionFactory;
+import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionPool;
 import io.rxmicro.data.sql.r2dbc.postgresql.detail.AbstractPostgreSQLRepository;
 import io.rxmicro.examples.data.r2dbc.postgresql.variables.model.$$EntityEntityFromR2DBCSQLDBConverter;
 import io.rxmicro.examples.data.r2dbc.postgresql.variables.model.Entity;
@@ -18,18 +20,18 @@ public final class $$PostgreSQLSelectDataRepository extends AbstractPostgreSQLRe
     private final $$EntityEntityFromR2DBCSQLDBConverter entityEntityFromR2DBCSQLDBConverter =
             new $$EntityEntityFromR2DBCSQLDBConverter();
 
-    private final ConnectionPool pool;
+    private final RepositoryConnectionFactory connectionFactory;
 
     public $$PostgreSQLSelectDataRepository(final ConnectionPool pool) {
         super(SelectDataRepository.class);
-        this.pool = pool;
+        this.connectionFactory = new RepositoryConnectionPool(SelectDataRepository.class, pool);
     }
 
     @Override
     public CompletableFuture<List<Entity>> findFromEntityTable1() {
         // Original SQL statement:  'SELECT * FROM ${table}'
         final String generatedSQL = "SELECT id, value FROM entity_table";
-        return pool.create()
+        return this.connectionFactory.create()
                 .flatMap(c -> executeStatement(c, generatedSQL)
                         .flatMap(r -> Flux.from(r.map(entityEntityFromR2DBCSQLDBConverter::fromDB))
                                 .collectList()
@@ -44,7 +46,7 @@ public final class $$PostgreSQLSelectDataRepository extends AbstractPostgreSQLRe
     public CompletableFuture<List<EntityFieldMap>> findFromEntityTable2() {
         // Original SQL statement:  'SELECT * FROM ${table}'
         final String generatedSQL = "SELECT * FROM entity_table";
-        return pool.create()
+        return this.connectionFactory.create()
                 .flatMap(c -> executeStatement(c, generatedSQL)
                         .flatMap(r -> Flux.from(r.map(toEntityFieldMap()))
                                 .collectList()
@@ -59,7 +61,7 @@ public final class $$PostgreSQLSelectDataRepository extends AbstractPostgreSQLRe
     public CompletableFuture<List<EntityFieldMap>> findFromGlobalTable() {
         // Original SQL statement:  'SELECT * FROM ${table}'
         final String generatedSQL = "SELECT * FROM global_table";
-        return pool.create()
+        return this.connectionFactory.create()
                 .flatMap(c -> executeStatement(c, generatedSQL)
                         .flatMap(r -> Flux.from(r.map(toEntityFieldMap()))
                                 .collectList()
@@ -74,7 +76,7 @@ public final class $$PostgreSQLSelectDataRepository extends AbstractPostgreSQLRe
     public CompletableFuture<List<EntityFieldMap>> findFromLocalTable() {
         // Original SQL statement:  'SELECT * FROM ${table}'
         final String generatedSQL = "SELECT * FROM local_table";
-        return pool.create()
+        return this.connectionFactory.create()
                 .flatMap(c -> executeStatement(c, generatedSQL)
                         .flatMap(r -> Flux.from(r.map(toEntityFieldMap()))
                                 .collectList()

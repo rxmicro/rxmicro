@@ -5,7 +5,7 @@
 <#if ISOLATION_LEVEL??>
 <#-- -------------------------------------------------------------------------------------------------------- -->
 <#if RETURN.mono>
-return pool.create()
+return this.connectionFactory.create(${CONNECTION_CREATE_PARAM})
         .flatMap(c -> beginReactorTransaction(c)
                 .flatMap(t -> t.setIsolationLevel(isolationLevel)
                         .thenReturn(t)
@@ -13,12 +13,12 @@ return pool.create()
         );
 <#-- -------------------------------------------------------------------------------------------------------- -->
 <#elseif RETURN.single>
-return Single.fromPublisher(pool.create().flatMap(c -> beginRxJava3Transaction(c)))
+return Single.fromPublisher(this.connectionFactory.create(${CONNECTION_CREATE_PARAM}).flatMap(c -> beginRxJava3Transaction(c)))
                 .flatMap(t -> t.setIsolationLevel(isolationLevel)
                         .andThen(Single.just(t)));
 <#-- -------------------------------------------------------------------------------------------------------- -->
 <#elseif RETURN.future>
-return pool.create()
+return this.connectionFactory.create(${CONNECTION_CREATE_PARAM})
         .flatMap(c -> beginCompletableFutureTransaction(c))
                 .toFuture()
                 .thenCompose(t -> t.setIsolationLevel(isolationLevel)
@@ -33,17 +33,17 @@ return pool.create()
 <#else>
 <#-- -------------------------------------------------------------------------------------------------------- -->
 <#if RETURN.mono>
-return pool.create()
+return this.connectionFactory.create(${CONNECTION_CREATE_PARAM})
         .flatMap(c -> beginReactorTransaction(c));
 <#-- -------------------------------------------------------------------------------------------------------- -->
 <#elseif RETURN.single>
 return Single.fromPublisher(
-        pool.create()
+        this.connectionFactory.create(${CONNECTION_CREATE_PARAM})
                 .flatMap(c -> beginRxJava3Transaction(c))
 );
 <#-- -------------------------------------------------------------------------------------------------------- -->
 <#elseif RETURN.future>
-return pool.create()
+return this.connectionFactory.create(${CONNECTION_CREATE_PARAM})
         .flatMap(c -> beginCompletableFutureTransaction(c))
         .toFuture();
 <#-- -------------------------------------------------------------------------------------------------------- -->

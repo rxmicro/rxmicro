@@ -87,11 +87,10 @@ public final class MongoRepositoryClassStructure extends DataRepositoryClassStru
     }
 
     @Override
-    public ClassHeader getClassHeader() {
+    protected void customizeClassHeader() {
         classHeaderBuilder
                 .addImports(MongoDatabase.class)
                 .addImports(abstractClass);
         modelTransformers.forEach(c -> classHeaderBuilder.addImports(c.getJavaFullClassName()));
-        return classHeaderBuilder.build();
     }
 }

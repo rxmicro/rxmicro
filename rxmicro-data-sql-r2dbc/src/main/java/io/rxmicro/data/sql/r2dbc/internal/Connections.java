@@ -16,10 +16,10 @@
 
 package io.rxmicro.data.sql.r2dbc.internal;
 
-import io.r2dbc.spi.Connection;
 import io.rxmicro.data.sql.r2dbc.internal.transaction.CompletableFutureTransaction;
 import io.rxmicro.data.sql.r2dbc.internal.transaction.ReactorTransaction;
 import io.rxmicro.data.sql.r2dbc.internal.transaction.RxJava3Transaction;
+import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnection;
 import io.rxmicro.logger.Logger;
 import reactor.core.publisher.Mono;
 
@@ -35,44 +35,34 @@ public final class Connections {
         this.logger = logger;
     }
 
-    public Mono<Connection> extractConnectionFrom(final io.rxmicro.data.sql.model.reactor.Transaction transaction) {
+    public Mono<RepositoryConnection> extractConnectionFrom(final io.rxmicro.data.sql.model.reactor.Transaction transaction) {
         return Mono.just(((AbstractTransaction) transaction).getConnection());
     }
 
-    public Mono<Connection> extractConnectionFrom(final io.rxmicro.data.sql.model.rxjava3.Transaction transaction) {
+    public Mono<RepositoryConnection> extractConnectionFrom(final io.rxmicro.data.sql.model.rxjava3.Transaction transaction) {
         return Mono.just(((AbstractTransaction) transaction).getConnection());
     }
 
-    public Mono<Connection> extractConnectionFrom(final io.rxmicro.data.sql.model.completablefuture.Transaction transaction) {
+    public Mono<RepositoryConnection> extractConnectionFrom(final io.rxmicro.data.sql.model.completablefuture.Transaction transaction) {
         return Mono.just(((AbstractTransaction) transaction).getConnection());
     }
 
-    public Mono<io.rxmicro.data.sql.model.reactor.Transaction> beginReactorTransaction(final Connection connection) {
+    public Mono<io.rxmicro.data.sql.model.reactor.Transaction> beginReactorTransaction(final RepositoryConnection connection) {
         return Mono.from(connection.beginTransaction())
                 .thenReturn(new ReactorTransaction(connection));
     }
 
-    public Mono<io.rxmicro.data.sql.model.rxjava3.Transaction> beginRxJava3Transaction(final Connection connection) {
+    public Mono<io.rxmicro.data.sql.model.rxjava3.Transaction> beginRxJava3Transaction(final RepositoryConnection connection) {
         return Mono.from(connection.beginTransaction())
                 .thenReturn(new RxJava3Transaction(connection));
     }
 
-    public Mono<io.rxmicro.data.sql.model.completablefuture.Transaction> beginCompletableFutureTransaction(final Connection connection) {
+    public Mono<io.rxmicro.data.sql.model.completablefuture.Transaction> beginCompletableFutureTransaction(final RepositoryConnection connection) {
         return Mono.from(connection.beginTransaction())
                 .thenReturn(new CompletableFutureTransaction(connection));
     }
 
-    public Mono<Void> close(final Connection connection) {
-        final Mono<Void> closeMono = Mono.from(connection.close());
-        if (logger.isTraceEnabled()) {
-            return closeMono.doFinally(s ->
-                    logger.trace("Connection{type=?, id=?} closed: signal: '?'",
-                            connection.getClass().getSimpleName(),
-                            System.identityHashCode(connection),
-                            s
-                    ));
-        } else {
-            return closeMono;
-        }
+    public Mono<Void> close(final RepositoryConnection connection) {
+        return connection.close();
     }
 }

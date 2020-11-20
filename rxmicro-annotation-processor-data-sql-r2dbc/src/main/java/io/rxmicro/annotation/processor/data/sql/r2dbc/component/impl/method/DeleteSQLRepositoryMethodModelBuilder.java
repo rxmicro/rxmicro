@@ -19,6 +19,7 @@ package io.rxmicro.annotation.processor.data.sql.r2dbc.component.impl.method;
 import com.google.inject.Singleton;
 import io.rxmicro.annotation.processor.common.model.method.MethodResult;
 import io.rxmicro.annotation.processor.data.model.DataGenerationContext;
+import io.rxmicro.annotation.processor.data.model.DataMethodParams;
 import io.rxmicro.annotation.processor.data.model.Variable;
 import io.rxmicro.annotation.processor.data.sql.model.ParsedSQL;
 import io.rxmicro.annotation.processor.data.sql.model.SQLDataModelField;
@@ -61,9 +62,9 @@ public class DeleteSQLRepositoryMethodModelBuilder<DMF extends SQLDataModelField
                                   final MethodResult methodResult,
                                   final DataGenerationContext<DMF, DMC> dataGenerationContext,
                                   final ExecutableElement method,
-                                  final List<Variable> params) {
-        super.validateMethod(parsedSQL, methodResult, dataGenerationContext, method, params);
-        validateThatEntityContainsPrimaryKeyIfParamIsEntity(dataGenerationContext, method, params);
+                                  final DataMethodParams dataMethodParams) {
+        super.validateMethod(parsedSQL, methodResult, dataGenerationContext, method, dataMethodParams);
+        validateThatEntityContainsPrimaryKeyIfParamIsEntity(dataGenerationContext, method, dataMethodParams.getOtherParams());
     }
 
     @Override

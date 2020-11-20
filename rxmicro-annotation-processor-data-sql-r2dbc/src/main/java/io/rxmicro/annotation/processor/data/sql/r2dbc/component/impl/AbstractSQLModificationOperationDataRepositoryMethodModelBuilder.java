@@ -16,8 +16,10 @@
 
 package io.rxmicro.annotation.processor.data.sql.r2dbc.component.impl;
 
+import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
 import io.rxmicro.annotation.processor.common.model.method.MethodResult;
 import io.rxmicro.annotation.processor.data.model.DataGenerationContext;
+import io.rxmicro.annotation.processor.data.model.DataMethodParams;
 import io.rxmicro.annotation.processor.data.model.DataRepositoryMethodSignature;
 import io.rxmicro.annotation.processor.data.model.Variable;
 import io.rxmicro.annotation.processor.data.sql.model.ParsedSQL;
@@ -25,15 +27,18 @@ import io.rxmicro.annotation.processor.data.sql.model.SQLDataModelField;
 import io.rxmicro.annotation.processor.data.sql.model.SQLDataObjectModelClass;
 import io.rxmicro.annotation.processor.data.sql.model.SQLMethodDescriptor;
 import io.rxmicro.annotation.processor.data.sql.model.SQLStatement;
+import io.rxmicro.data.sql.operation.CustomSelect;
 import io.rxmicro.data.sql.r2dbc.detail.EntityToR2DBCSQLDBConverter;
 
 import java.lang.annotation.Annotation;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import javax.lang.model.element.ExecutableElement;
 
 import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.getModelTransformerInstanceName;
 import static io.rxmicro.annotation.processor.common.util.Names.getSimpleName;
+import static io.rxmicro.annotation.processor.data.sql.model.CommonSQLGroupRules.CUSTOM_SELECT_GROUP;
 
 /**
  * @author nedis
@@ -54,9 +59,18 @@ public abstract class AbstractSQLModificationOperationDataRepositoryMethodModelB
     protected void validateMethod(final ParsedSQL<A> parsedSQL, final MethodResult methodResult,
                                   final DataGenerationContext<DMF, DMC> dataGenerationContext,
                                   final ExecutableElement method,
-                                  final List<Variable> params) {
+                                  final DataMethodParams dataMethodParams) {
         validateRequiredSingleReturnType(method, methodResult);
         validateReturnType(method, methodResult.getResultType(), Void.class, Integer.class, Boolean.class);
+        final List<Variable> customSelectParams = dataMethodParams.getParamsOfGroup(CUSTOM_SELECT_GROUP);
+        if (!customSelectParams.isEmpty()) {
+            throw new InterruptProcessingException(
+                    customSelectParams.get(0).getElement(),
+                    "Parameter(s) annotated by '@?' annotation is(are) not supported for '?' operation. " +
+                            "Remove this(these) parameter(s)!",
+                    CustomSelect.class, operationType().getSimpleName().toUpperCase(Locale.ENGLISH)
+            );
+        }
     }
 
     @Override

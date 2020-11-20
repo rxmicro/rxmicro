@@ -16,12 +16,12 @@
 
 package io.rxmicro.data.sql.r2dbc.internal.transaction;
 
-import io.r2dbc.spi.Connection;
 import io.reactivex.rxjava3.core.Completable;
 import io.rxmicro.data.sql.model.IsolationLevel;
 import io.rxmicro.data.sql.model.SavePoint;
 import io.rxmicro.data.sql.model.rxjava3.Transaction;
 import io.rxmicro.data.sql.r2dbc.internal.AbstractTransaction;
+import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnection;
 
 import static io.reactivex.rxjava3.core.Completable.fromPublisher;
 
@@ -31,7 +31,7 @@ import static io.reactivex.rxjava3.core.Completable.fromPublisher;
  */
 public final class RxJava3Transaction extends AbstractTransaction implements Transaction {
 
-    public RxJava3Transaction(final Connection connection) {
+    public RxJava3Transaction(final RepositoryConnection connection) {
         super(connection);
     }
 

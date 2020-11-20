@@ -1,6 +1,8 @@
 package io.rxmicro.examples.data.r2dbc.postgresql.select.parameters;
 
 import io.r2dbc.pool.ConnectionPool;
+import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionFactory;
+import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionPool;
 import io.rxmicro.data.sql.r2dbc.postgresql.detail.AbstractPostgreSQLRepository;
 import io.rxmicro.examples.data.r2dbc.postgresql.select.parameters.model.$$AccountEntityFromR2DBCSQLDBConverter;
 import io.rxmicro.examples.data.r2dbc.postgresql.select.parameters.model.Account;
@@ -19,18 +21,18 @@ public final class $$PostgreSQLSelectByFilterRepository extends AbstractPostgreS
     private final $$AccountEntityFromR2DBCSQLDBConverter accountEntityFromR2DBCSQLDBConverter =
             new $$AccountEntityFromR2DBCSQLDBConverter();
 
-    private final ConnectionPool pool;
+    private final RepositoryConnectionFactory connectionFactory;
 
     public $$PostgreSQLSelectByFilterRepository(final ConnectionPool pool) {
         super(SelectByFilterRepository.class);
-        this.pool = pool;
+        this.connectionFactory = new RepositoryConnectionPool(SelectByFilterRepository.class, pool);
     }
 
     @Override
     public CompletableFuture<List<Account>> findByRole(final Role role) {
         // Original SQL statement:  'SELECT * FROM ${table} WHERE role = ?'
         final String generatedSQL = "SELECT first_name, last_name FROM account WHERE role = $1";
-        return pool.create()
+        return this.connectionFactory.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, role)
                         .flatMap(r -> Flux.from(r.map(accountEntityFromR2DBCSQLDBConverter::fromDB))
                                 .collectList()
@@ -45,7 +47,7 @@ public final class $$PostgreSQLSelectByFilterRepository extends AbstractPostgreS
     public CompletableFuture<List<Account>> findByFirstName(final String firstName1, final String firstName2, final String firstName3) {
         // Original SQL statement:  'SELECT * FROM ${table} WHERE first_name = ? OR first_name = ? OR first_name = ?'
         final String generatedSQL = "SELECT first_name, last_name FROM account WHERE first_name = $1 OR first_name = $2 OR first_name = $3";
-        return pool.create()
+        return this.connectionFactory.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, firstName1, firstName2, firstName3)
                         .flatMap(r -> Flux.from(r.map(accountEntityFromR2DBCSQLDBConverter::fromDB))
                                 .collectList()
@@ -60,7 +62,7 @@ public final class $$PostgreSQLSelectByFilterRepository extends AbstractPostgreS
     public CompletableFuture<List<Account>> findByBalance(final BigDecimal minBalance, final BigDecimal maxBalance) {
         // Original SQL statement:  'SELECT * FROM ${table} WHERE balance BETWEEN ? AND ?'
         final String generatedSQL = "SELECT first_name, last_name FROM account WHERE balance BETWEEN $1 AND $2";
-        return pool.create()
+        return this.connectionFactory.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, minBalance, maxBalance)
                         .flatMap(r -> Flux.from(r.map(accountEntityFromR2DBCSQLDBConverter::fromDB))
                                 .collectList()
@@ -75,7 +77,7 @@ public final class $$PostgreSQLSelectByFilterRepository extends AbstractPostgreS
     public CompletableFuture<List<Account>> findByFirstOrLastName(final String name1, final String name2) {
         // Original SQL statement:  'SELECT * FROM ${table} WHERE first_name = ? OR last_name = ?'
         final String generatedSQL = "SELECT first_name, last_name FROM account WHERE first_name = $1 OR last_name = $2";
-        return pool.create()
+        return this.connectionFactory.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, name1, name2)
                         .flatMap(r -> Flux.from(r.map(accountEntityFromR2DBCSQLDBConverter::fromDB))
                                 .collectList()
@@ -90,7 +92,7 @@ public final class $$PostgreSQLSelectByFilterRepository extends AbstractPostgreS
     public CompletableFuture<List<Account>> findByFirstOrLastName(final String name) {
         // Original SQL statement:  'SELECT * FROM ${table} WHERE first_name ILIKE ? OR last_name ILIKE ?'
         final String generatedSQL = "SELECT first_name, last_name FROM account WHERE first_name ILIKE $1 OR last_name ILIKE $2";
-        return pool.create()
+        return this.connectionFactory.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, name, name)
                         .flatMap(r -> Flux.from(r.map(accountEntityFromR2DBCSQLDBConverter::fromDB))
                                 .collectList()

@@ -4,6 +4,8 @@ import io.r2dbc.pool.ConnectionPool;
 import io.reactivex.rxjava3.core.Flowable;
 import io.rxmicro.data.sql.model.EntityFieldList;
 import io.rxmicro.data.sql.model.EntityFieldMap;
+import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionFactory;
+import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionPool;
 import io.rxmicro.data.sql.r2dbc.postgresql.detail.AbstractPostgreSQLRepository;
 import io.rxmicro.examples.data.r2dbc.postgresql.returntypes.model.$$AccountEntityFromR2DBCSQLDBConverter;
 import io.rxmicro.examples.data.r2dbc.postgresql.returntypes.model.Account;
@@ -18,22 +20,22 @@ public final class $$PostgreSQLInsertManyUsingFlowableRepository extends Abstrac
     private final $$AccountEntityFromR2DBCSQLDBConverter accountEntityFromR2DBCSQLDBConverter =
             new $$AccountEntityFromR2DBCSQLDBConverter();
 
-    private final ConnectionPool pool;
+    private final RepositoryConnectionFactory connectionFactory;
 
     public $$PostgreSQLInsertManyUsingFlowableRepository(final ConnectionPool pool) {
         super(InsertManyUsingFlowableRepository.class);
-        this.pool = pool;
+        this.connectionFactory = new RepositoryConnectionPool(InsertManyUsingFlowableRepository.class, pool);
     }
 
     @Override
     public Flowable<Account> insertAll01() {
         // Original SQL statement:  'INSERT INTO ${table} SELECT * FROM dump RETURNING *'
         final String generatedSQL = "INSERT INTO account SELECT * FROM dump RETURNING id, first_name, last_name";
-        final Account entity = new Account();
+        final Account resultEntity = new Account();
         return Flowable.fromPublisher(
-                pool.create()
+                this.connectionFactory.create()
                         .flatMapMany(c -> executeStatement(c, generatedSQL)
-                                .flatMapMany(r -> Flux.from(r.map((row, meta) -> accountEntityFromR2DBCSQLDBConverter.setIdFirst_nameLast_name(entity, row, meta))))
+                                .flatMapMany(r -> Flux.from(r.map((row, meta) -> accountEntityFromR2DBCSQLDBConverter.setIdFirst_nameLast_name(resultEntity, row, meta))))
                                 .onErrorResume(createCloseThenReturnErrorFallback(c))
                                 .concatWith(close(c)
                                         .then(Mono.empty())
@@ -47,7 +49,7 @@ public final class $$PostgreSQLInsertManyUsingFlowableRepository extends Abstrac
         // Original SQL statement:  'INSERT INTO ${table} SELECT * FROM dump RETURNING first_name, last_name'
         final String generatedSQL = "INSERT INTO account SELECT * FROM dump RETURNING first_name, last_name";
         return Flowable.fromPublisher(
-                pool.create()
+                this.connectionFactory.create()
                         .flatMapMany(c -> executeStatement(c, generatedSQL)
                                 .flatMapMany(r -> Flux.from(r.map(toEntityFieldMap())))
                                 .onErrorResume(createCloseThenReturnErrorFallback(c))
@@ -63,7 +65,7 @@ public final class $$PostgreSQLInsertManyUsingFlowableRepository extends Abstrac
         // Original SQL statement:  'INSERT INTO ${table} SELECT * FROM dump RETURNING first_name, last_name'
         final String generatedSQL = "INSERT INTO account SELECT * FROM dump RETURNING first_name, last_name";
         return Flowable.fromPublisher(
-                pool.create()
+                this.connectionFactory.create()
                         .flatMapMany(c -> executeStatement(c, generatedSQL)
                                 .flatMapMany(r -> Flux.from(r.map(toEntityFieldList())))
                                 .onErrorResume(createCloseThenReturnErrorFallback(c))

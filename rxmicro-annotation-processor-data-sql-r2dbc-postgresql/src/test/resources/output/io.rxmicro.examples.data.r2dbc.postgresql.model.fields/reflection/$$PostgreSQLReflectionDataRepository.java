@@ -1,6 +1,8 @@
 package io.rxmicro.examples.data.r2dbc.postgresql.model.fields.reflection;
 
 import io.r2dbc.pool.ConnectionPool;
+import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionFactory;
+import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionPool;
 import io.rxmicro.data.sql.r2dbc.postgresql.detail.AbstractPostgreSQLRepository;
 import io.rxmicro.examples.data.r2dbc.postgresql.model.fields.reflection.model.$$EntityEntityFromR2DBCSQLDBConverter;
 import io.rxmicro.examples.data.r2dbc.postgresql.model.fields.reflection.model.$$EntityEntityToR2DBCSQLDBConverter;
@@ -22,18 +24,18 @@ public final class $$PostgreSQLReflectionDataRepository extends AbstractPostgreS
     private final $$EntityEntityToR2DBCSQLDBConverter entityEntityToR2DBCSQLDBConverter =
             new $$EntityEntityToR2DBCSQLDBConverter();
 
-    private final ConnectionPool pool;
+    private final RepositoryConnectionFactory connectionFactory;
 
     public $$PostgreSQLReflectionDataRepository(final ConnectionPool pool) {
         super(ReflectionDataRepository.class);
-        this.pool = pool;
+        this.connectionFactory = new RepositoryConnectionPool(ReflectionDataRepository.class, pool);
     }
 
     @Override
     public CompletableFuture<List<Entity>> findAll() {
         // Original SQL statement:  'SELECT * FROM ${table}'
         final String generatedSQL = "SELECT id, status, aBoolean, aByte, aShort, aInteger, aLong, bigInteger, aFloat, aDouble, bigDecimal, character, string, instant, localTime, localDate, localDateTime, offsetDateTime, zonedDateTime, inetAddress, uuid FROM reflection.entity";
-        return pool.create()
+        return this.connectionFactory.create()
                 .flatMap(c -> executeStatement(c, generatedSQL)
                         .flatMap(r -> Flux.from(r.map(entityEntityFromR2DBCSQLDBConverter::fromDB))
                                 .collectList()
@@ -50,7 +52,7 @@ public final class $$PostgreSQLReflectionDataRepository extends AbstractPostgreS
         final String generatedSQL = "INSERT INTO reflection.entity(status, aBoolean, aByte, aShort, aInteger, aLong, bigInteger, aFloat, aDouble, bigDecimal, character, string, instant, localTime, localDate, localDateTime, offsetDateTime, zonedDateTime, inetAddress, uuid) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20)";
         final Object[] insertParams = entityEntityToR2DBCSQLDBConverter.getInsertParams(entity);
         final Class<?>[] insertParamTypes = entityEntityToR2DBCSQLDBConverter.getInsertParamTypes();
-        return pool.create()
+        return this.connectionFactory.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, insertParams, insertParamTypes)
                         .flatMap(r -> Mono.from(r.getRowsUpdated()))
                         .delayUntil(s -> close(c))
@@ -67,7 +69,7 @@ public final class $$PostgreSQLReflectionDataRepository extends AbstractPostgreS
         final String generatedSQL = "UPDATE reflection.entity SET status = $1, aBoolean = $2, aByte = $3, aShort = $4, aInteger = $5, aLong = $6, bigInteger = $7, aFloat = $8, aDouble = $9, bigDecimal = $10, character = $11, string = $12, instant = $13, localTime = $14, localDate = $15, localDateTime = $16, offsetDateTime = $17, zonedDateTime = $18, inetAddress = $19, uuid = $20 WHERE id = $21";
         final Object[] updateParams = entityEntityToR2DBCSQLDBConverter.getUpdateParams(entity);
         final Class<?>[] updateParamTypes = entityEntityToR2DBCSQLDBConverter.getUpdateParamTypes();
-        return pool.create()
+        return this.connectionFactory.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, updateParams, updateParamTypes)
                         .flatMap(r -> Mono.from(r.getRowsUpdated()))
                         .delayUntil(s -> close(c))
@@ -83,7 +85,7 @@ public final class $$PostgreSQLReflectionDataRepository extends AbstractPostgreS
         // Original SQL statement:  'DELETE FROM ${table} WHERE ${by-id-filter}'
         final String generatedSQL = "DELETE FROM reflection.entity WHERE id = $1";
         final Object primaryKey = entityEntityToR2DBCSQLDBConverter.getPrimaryKey(entity);
-        return pool.create()
+        return this.connectionFactory.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, primaryKey)
                         .flatMap(r -> Mono.from(r.getRowsUpdated()))
                         .delayUntil(s -> close(c))

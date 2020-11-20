@@ -18,13 +18,15 @@ package io.rxmicro.annotation.processor.data.sql.r2dbc.component.impl;
 
 import com.google.inject.Inject;
 import io.rxmicro.annotation.processor.common.model.ClassHeader;
+import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
 import io.rxmicro.annotation.processor.common.model.method.MethodBody;
 import io.rxmicro.annotation.processor.common.model.method.MethodResult;
+import io.rxmicro.annotation.processor.data.component.DataMethodParamsResolver;
 import io.rxmicro.annotation.processor.data.model.DataGenerationContext;
+import io.rxmicro.annotation.processor.data.model.DataMethodParams;
 import io.rxmicro.annotation.processor.data.model.Variable;
 import io.rxmicro.annotation.processor.data.sql.component.SQLBuilder;
 import io.rxmicro.annotation.processor.data.sql.component.impl.AbstractSQLDataRepositoryMethodModelBuilder;
-import io.rxmicro.annotation.processor.data.sql.component.impl.MethodParamResolver;
 import io.rxmicro.annotation.processor.data.sql.model.ParsedSQL;
 import io.rxmicro.annotation.processor.data.sql.model.SQLDataModelField;
 import io.rxmicro.annotation.processor.data.sql.model.SQLDataObjectModelClass;
@@ -32,8 +34,12 @@ import io.rxmicro.annotation.processor.data.sql.model.SQLMethodBody;
 import io.rxmicro.annotation.processor.data.sql.model.SQLMethodDescriptor;
 import io.rxmicro.annotation.processor.data.sql.model.SQLStatement;
 import io.rxmicro.data.DataRepositoryGeneratorConfig;
+import io.rxmicro.data.Pageable;
+import io.rxmicro.data.RepeatParameter;
 import io.rxmicro.data.sql.model.EntityFieldList;
 import io.rxmicro.data.sql.model.EntityFieldMap;
+import io.rxmicro.data.sql.model.reactor.Transaction;
+import io.rxmicro.logger.RequestIdSupplier;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -41,7 +47,18 @@ import java.lang.annotation.Annotation;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 import javax.lang.model.element.ExecutableElement;
+import javax.lang.model.element.VariableElement;
+
+import static io.rxmicro.annotation.processor.data.model.CommonDataGroupRules.REQUEST_ID_SUPPLIER_GROUP;
+import static io.rxmicro.annotation.processor.data.model.CommonDataGroupRules.REQUEST_ID_SUPPLIER_PREDICATE;
+import static io.rxmicro.annotation.processor.data.sql.model.CommonSQLGroupRules.CUSTOM_SELECT_GROUP;
+import static io.rxmicro.annotation.processor.data.sql.model.CommonSQLGroupRules.CUSTOM_SELECT_PREDICATE;
+import static io.rxmicro.annotation.processor.data.sql.model.CommonSQLGroupRules.TRANSACTION_GROUP;
+import static io.rxmicro.annotation.processor.data.sql.model.CommonSQLGroupRules.TRANSACTION_PREDICATE;
+import static java.util.stream.Collectors.joining;
 
 /**
  * @author nedis
@@ -51,8 +68,14 @@ public abstract class AbstractSQLOperationDataRepositoryMethodModelBuilder
         <A extends Annotation, DMF extends SQLDataModelField, DMC extends SQLDataObjectModelClass<DMF>>
         extends AbstractSQLDataRepositoryMethodModelBuilder<DMF, DMC> {
 
+    private final Map<String, Predicate<VariableElement>> groupRules = Map.of(
+            REQUEST_ID_SUPPLIER_GROUP, REQUEST_ID_SUPPLIER_PREDICATE,
+            TRANSACTION_GROUP, TRANSACTION_PREDICATE,
+            CUSTOM_SELECT_GROUP, CUSTOM_SELECT_PREDICATE
+    );
+
     @Inject
-    private MethodParamResolver methodParamResolver;
+    private DataMethodParamsResolver dataMethodParamsResolver;
 
     @Inject
     private SQLBuilder<A, DMF, DMC> sqlBuilder;
@@ -67,16 +90,19 @@ public abstract class AbstractSQLOperationDataRepositoryMethodModelBuilder
     }
 
     @Override
-    protected MethodBody buildBody(final ClassHeader.Builder classHeaderBuilder,
-                                   final ExecutableElement method, final MethodResult methodResult,
-                                   final DataRepositoryGeneratorConfig dataRepositoryGeneratorConfig,
-                                   final DataGenerationContext<DMF, DMC> dataGenerationContext) {
-        final List<Variable> params = methodParamResolver.getMethodParams(method.getParameters());
+    protected final MethodBody buildBody(final ClassHeader.Builder classHeaderBuilder,
+                                         final ExecutableElement method,
+                                         final MethodResult methodResult,
+                                         final DataRepositoryGeneratorConfig dataRepositoryGeneratorConfig,
+                                         final DataGenerationContext<DMF, DMC> dataGenerationContext) {
+        final DataMethodParams dataMethodParams = dataMethodParamsResolver.resolve(method, groupRules);
+        validateCommonDataMethodParams(dataMethodParams);
+        final List<Variable> params = dataMethodParams.getOtherParams();
         final SQLMethodDescriptor<DMF, DMC> sqlMethodDescriptor =
                 buildSQLMethodDescriptor(method, params, methodResult, dataGenerationContext);
 
         final ParsedSQL<A> parsedSQL = parseSQL(method);
-        validateMethod(parsedSQL, methodResult, dataGenerationContext, method, params);
+        validateMethod(parsedSQL, methodResult, dataGenerationContext, method, dataMethodParams);
 
         final Map<String, Object> templateArguments = new HashMap<>();
         putCommonArguments(dataRepositoryGeneratorConfig, templateArguments);
@@ -87,9 +113,61 @@ public abstract class AbstractSQLOperationDataRepositoryMethodModelBuilder
         customizeClassHeaderBuilder(classHeaderBuilder, methodResult, dataGenerationContext, method, sqlStatement);
         templateArguments.put("SQL", sqlStatement);
         addEntityConverter(methodResult, sqlMethodDescriptor, dataGenerationContext, params, sqlStatement, templateArguments);
-        getTransactionMethodParameter(method).ifPresent(t -> templateArguments.put("TRANSACTION", t));
 
+        dataMethodParams.getSingleParamOfGroup(TRANSACTION_GROUP).ifPresent(t ->
+                templateArguments.put("TRANSACTION", t.getName()));
+        templateArguments.put(
+                "CONNECTION_CREATE_PARAM",
+                dataMethodParams.getSingleParamOfGroup(REQUEST_ID_SUPPLIER_GROUP).map(Variable::getName).orElse("")
+        );
         return new SQLMethodBody(methodBodyGenerator.generate(getTemplateName(), templateArguments));
+    }
+
+    protected void validateCommonDataMethodParams(final DataMethodParams dataMethodParams) {
+        final List<Variable> requestIdSupplierParams = dataMethodParams.getParamsOfGroup(REQUEST_ID_SUPPLIER_GROUP);
+        final List<Variable> transactionParams = dataMethodParams.getParamsOfGroup(TRANSACTION_GROUP);
+        if (requestIdSupplierParams.size() > 1) {
+            throw createNotUniqueParameterException(requestIdSupplierParams, 1, RequestIdSupplier.class);
+        }
+        if (transactionParams.size() > 1) {
+            throw createNotUniqueParameterException(transactionParams, 1, Transaction.class);
+        }
+        if (!transactionParams.isEmpty() && !requestIdSupplierParams.isEmpty()) {
+            throw new InterruptProcessingException(
+                    requestIdSupplierParams.get(0).getElement(),
+                    "'?' parameter is redundant. The request id supplier must be bind to the transaction object. For example: " +
+                            "'ReactiveType<Transaction> beginTransaction(RequestIdSupplier requestIdSupplier);' " +
+                            "Remove this parameter!",
+                    requestIdSupplierParams.get(0).getName()
+            );
+        }
+        final List<Variable> pageableParams = dataMethodParams.getOtherParams().stream()
+                .filter(v -> v.is(Pageable.class))
+                .collect(Collectors.toList());
+        if (pageableParams.size() > 2) {
+            throw createNotUniqueParameterException(pageableParams, 2, Pageable.class);
+        }
+    }
+
+    private InterruptProcessingException createNotUniqueParameterException(final List<Variable> params,
+                                                                           final int startIndex,
+                                                                           final Class<?> expectedClass) {
+        final Variable variable = params.get(startIndex);
+        if (variable.isRepeated()) {
+            return new InterruptProcessingException(
+                    variable.getElement(),
+                    "Only one parameter of '?' type is allowed per method. Remove the redundant '@?' annotation!",
+                    expectedClass.getName(),
+                    RepeatParameter.class.getSimpleName()
+            );
+        } else {
+            return new InterruptProcessingException(
+                    variable.getElement(),
+                    "Only one parameter of '?' type is allowed per method. Remove the redundant parameter(s): ?",
+                    expectedClass.getName(),
+                    params.stream().skip(startIndex).map(Variable::getName).collect(joining(", "))
+            );
+        }
     }
 
     protected void customizeClassHeaderBuilder(final ClassHeader.Builder classHeaderBuilder,
@@ -104,7 +182,7 @@ public abstract class AbstractSQLOperationDataRepositoryMethodModelBuilder
                                            MethodResult methodResult,
                                            DataGenerationContext<DMF, DMC> dataGenerationContext,
                                            ExecutableElement method,
-                                           List<Variable> params);
+                                           DataMethodParams dataMethodParams);
 
     protected abstract ParsedSQL<A> parseSQL(ExecutableElement method);
 

@@ -16,7 +16,6 @@
 
 package io.rxmicro.data.sql.r2dbc.detail;
 
-import io.r2dbc.spi.Connection;
 import io.r2dbc.spi.Result;
 import io.r2dbc.spi.Row;
 import io.r2dbc.spi.RowMetadata;
@@ -50,52 +49,55 @@ public abstract class AbstractR2DBCRepository extends AbstractSQLRepository {
         statements = new Statements(logger);
     }
 
-    protected final Mono<Connection> extractConnectionFrom(final io.rxmicro.data.sql.model.reactor.Transaction transaction) {
+    protected final Mono<RepositoryConnection> extractConnectionFrom(
+            final io.rxmicro.data.sql.model.reactor.Transaction transaction) {
         return connections.extractConnectionFrom(transaction);
     }
 
-    protected final Mono<Connection> extractConnectionFrom(final io.rxmicro.data.sql.model.rxjava3.Transaction transaction) {
+    protected final Mono<RepositoryConnection> extractConnectionFrom(
+            final io.rxmicro.data.sql.model.rxjava3.Transaction transaction) {
         return connections.extractConnectionFrom(transaction);
     }
 
-    protected final Mono<Connection> extractConnectionFrom(final io.rxmicro.data.sql.model.completablefuture.Transaction transaction) {
+    protected final Mono<RepositoryConnection> extractConnectionFrom(
+            final io.rxmicro.data.sql.model.completablefuture.Transaction transaction) {
         return connections.extractConnectionFrom(transaction);
     }
 
-    protected final Mono<io.rxmicro.data.sql.model.reactor.Transaction> beginReactorTransaction(final Connection connection) {
+    protected final Mono<io.rxmicro.data.sql.model.reactor.Transaction> beginReactorTransaction(final RepositoryConnection connection) {
         return connections.beginReactorTransaction(connection);
     }
 
-    protected final Mono<io.rxmicro.data.sql.model.rxjava3.Transaction> beginRxJava3Transaction(final Connection connection) {
+    protected final Mono<io.rxmicro.data.sql.model.rxjava3.Transaction> beginRxJava3Transaction(final RepositoryConnection connection) {
         return connections.beginRxJava3Transaction(connection);
     }
 
     protected final Mono<io.rxmicro.data.sql.model.completablefuture.Transaction> beginCompletableFutureTransaction(
-            final Connection connection) {
+            final RepositoryConnection connection) {
         return connections.beginCompletableFutureTransaction(connection);
     }
 
-    protected final Mono<Void> close(final Connection connection) {
+    protected final Mono<Void> close(final RepositoryConnection connection) {
         return connections.close(connection);
     }
 
-    protected final <T> Function<Throwable, Mono<T>> createCloseThenReturnErrorFallback(final Connection connection) {
+    protected final <T> Function<Throwable, Mono<T>> createCloseThenReturnErrorFallback(final RepositoryConnection connection) {
         return throwable -> connections.close(connection)
                 .then(Mono.error(throwable));
     }
 
-    protected final Mono<? extends Result> executeStatement(final Connection connection,
+    protected final Mono<? extends Result> executeStatement(final RepositoryConnection connection,
                                                             final String sql) {
         return statements.executeStatement(connection, sql);
     }
 
-    protected final Mono<? extends Result> executeStatement(final Connection connection,
+    protected final Mono<? extends Result> executeStatement(final RepositoryConnection connection,
                                                             final String sql,
                                                             final Object... params) {
         return statements.executeStatement(connection, sql, params);
     }
 
-    protected final Mono<? extends Result> executeStatement(final Connection connection,
+    protected final Mono<? extends Result> executeStatement(final RepositoryConnection connection,
                                                             final String sql,
                                                             final Object[] params,
                                                             final Class<?>[] types) {

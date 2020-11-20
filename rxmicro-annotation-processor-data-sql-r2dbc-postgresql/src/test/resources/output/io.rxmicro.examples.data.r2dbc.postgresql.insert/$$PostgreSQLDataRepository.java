@@ -2,6 +2,8 @@ package io.rxmicro.examples.data.r2dbc.postgresql.insert;
 
 import io.r2dbc.pool.ConnectionPool;
 import io.rxmicro.data.sql.model.EntityFieldMap;
+import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionFactory;
+import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionPool;
 import io.rxmicro.data.sql.r2dbc.postgresql.detail.AbstractPostgreSQLRepository;
 import io.rxmicro.examples.data.r2dbc.postgresql.insert.model.$$AccountEntityFromR2DBCSQLDBConverter;
 import io.rxmicro.examples.data.r2dbc.postgresql.insert.model.$$AccountEntityToR2DBCSQLDBConverter;
@@ -30,11 +32,11 @@ public final class $$PostgreSQLDataRepository extends AbstractPostgreSQLReposito
     private final $$AccountResultEntityFromR2DBCSQLDBConverter accountResultEntityFromR2DBCSQLDBConverter =
             new $$AccountResultEntityFromR2DBCSQLDBConverter();
 
-    private final ConnectionPool pool;
+    private final RepositoryConnectionFactory connectionFactory;
 
     public $$PostgreSQLDataRepository(final ConnectionPool pool) {
         super(DataRepository.class);
-        this.pool = pool;
+        this.connectionFactory = new RepositoryConnectionPool(DataRepository.class, pool);
     }
 
     @Override
@@ -43,7 +45,7 @@ public final class $$PostgreSQLDataRepository extends AbstractPostgreSQLReposito
         final String generatedSQL = "INSERT INTO account(id, email, first_name, last_name, role) VALUES(nextval('account_seq'), $1, $2, $3, $4)";
         final Object[] insertParams = accountEntityToR2DBCSQLDBConverter.getInsertParams(account);
         final Class<?>[] insertParamTypes = accountEntityToR2DBCSQLDBConverter.getInsertParamTypes();
-        return pool.create()
+        return this.connectionFactory.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, insertParams, insertParamTypes)
                         .flatMap(r -> Mono.from(r.getRowsUpdated()))
                         .delayUntil(s -> close(c))
@@ -60,7 +62,7 @@ public final class $$PostgreSQLDataRepository extends AbstractPostgreSQLReposito
         final String generatedSQL = "INSERT INTO account(id, email, first_name, last_name, role) VALUES(nextval('account_seq'), $1, $2, $3, $4) RETURNING id";
         final Object[] insertParams = accountEntityToR2DBCSQLDBConverter.getInsertParams(account);
         final Class<?>[] insertParamTypes = accountEntityToR2DBCSQLDBConverter.getInsertParamTypes();
-        return pool.create()
+        return this.connectionFactory.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, insertParams, insertParamTypes)
                         .flatMap(r -> Mono.from(r.map((row, meta) -> accountEntityFromR2DBCSQLDBConverter.setId(account, row, meta))))
                         .switchIfEmpty(close(c)
@@ -79,7 +81,7 @@ public final class $$PostgreSQLDataRepository extends AbstractPostgreSQLReposito
         final String generatedSQL = "INSERT INTO account VALUES(nextval('account_seq'), $1, $2, $3, $4, $5)";
         final Object[] insertParams = {email, firstName, lastName, balance, role};
         final Class<?>[] insertParamTypes = {String.class, String.class, String.class, BigDecimal.class, Role.class};
-        return pool.create()
+        return this.connectionFactory.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, insertParams, insertParamTypes)
                         .flatMap(r -> Mono.from(r.getRowsUpdated()))
                         .delayUntil(s -> close(c))
@@ -95,10 +97,10 @@ public final class $$PostgreSQLDataRepository extends AbstractPostgreSQLReposito
         final String generatedSQL = "INSERT INTO account VALUES(nextval('account_seq'), $1, $2, $3, $4, $5) RETURNING id, email, first_name, last_name, balance, role";
         final Object[] insertParams = {email, firstName, lastName, balance, role};
         final Class<?>[] insertParamTypes = {String.class, String.class, String.class, BigDecimal.class, Role.class};
-        final Account entity = new Account();
-        return pool.create()
+        final Account resultEntity = new Account();
+        return this.connectionFactory.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, insertParams, insertParamTypes)
-                        .flatMap(r -> Mono.from(r.map((row, meta) -> accountEntityFromR2DBCSQLDBConverter.setIdEmailFirst_nameLast_nameBalanceRole(entity, row, meta))))
+                        .flatMap(r -> Mono.from(r.map((row, meta) -> accountEntityFromR2DBCSQLDBConverter.setIdEmailFirst_nameLast_nameBalanceRole(resultEntity, row, meta))))
                         .switchIfEmpty(close(c)
                                 .then(Mono.empty())
                         )
@@ -115,7 +117,7 @@ public final class $$PostgreSQLDataRepository extends AbstractPostgreSQLReposito
         final String generatedSQL = "INSERT INTO account VALUES(nextval('account_seq'), $1, $2, $3, $4, $5)";
         final Object[] insertParams = {email, firstName, lastName, balance, role};
         final Class<?>[] insertParamTypes = {String.class, String.class, String.class, BigDecimal.class, Role.class};
-        return pool.create()
+        return this.connectionFactory.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, insertParams, insertParamTypes)
                         .flatMap(r -> Mono.from(r.getRowsUpdated()))
                         .delayUntil(s -> close(c))
@@ -131,7 +133,7 @@ public final class $$PostgreSQLDataRepository extends AbstractPostgreSQLReposito
         final String generatedSQL = "INSERT INTO account VALUES(nextval('account_seq'), $1, $2, $3, $4, $5) RETURNING id, email, first_name, last_name, balance, role";
         final Object[] insertParams = {email, firstName, lastName, balance, role};
         final Class<?>[] insertParamTypes = {String.class, String.class, String.class, BigDecimal.class, Role.class};
-        return pool.create()
+        return this.connectionFactory.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, insertParams, insertParamTypes)
                         .flatMap(r -> Mono.from(r.map(toEntityFieldMap())))
                         .switchIfEmpty(close(c)
@@ -150,10 +152,10 @@ public final class $$PostgreSQLDataRepository extends AbstractPostgreSQLReposito
         final String generatedSQL = "INSERT INTO account(id, email, first_name, last_name, role) VALUES(nextval('account_seq'), $1, $2, $3, $4) RETURNING first_name, last_name";
         final Object[] insertParams = accountEntityToR2DBCSQLDBConverter.getInsertParams(account);
         final Class<?>[] insertParamTypes = accountEntityToR2DBCSQLDBConverter.getInsertParamTypes();
-        final AccountResult entity = new AccountResult();
-        return pool.create()
+        final AccountResult resultEntity = new AccountResult();
+        return this.connectionFactory.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, insertParams, insertParamTypes)
-                        .flatMap(r -> Mono.from(r.map((row, meta) -> accountResultEntityFromR2DBCSQLDBConverter.setFirst_nameLast_name(entity, row, meta))))
+                        .flatMap(r -> Mono.from(r.map((row, meta) -> accountResultEntityFromR2DBCSQLDBConverter.setFirst_nameLast_name(resultEntity, row, meta))))
                         .switchIfEmpty(close(c)
                                 .then(Mono.empty())
                         )
@@ -170,10 +172,10 @@ public final class $$PostgreSQLDataRepository extends AbstractPostgreSQLReposito
         final String generatedSQL = "INSERT INTO account(id, email, first_name, last_name, role) VALUES(nextval('account_seq'), $1, $2, $3, $4) ON CONFLICT(id) DO UPDATE SET email = EXCLUDED.email, first_name = EXCLUDED.first_name, last_name = EXCLUDED.last_name, balance = EXCLUDED.balance, role = EXCLUDED.role RETURNING first_name, last_name";
         final Object[] insertParams = accountEntityToR2DBCSQLDBConverter.getInsertParams(account);
         final Class<?>[] insertParamTypes = accountEntityToR2DBCSQLDBConverter.getInsertParamTypes();
-        final AccountResult entity = new AccountResult();
-        return pool.create()
+        final AccountResult resultEntity = new AccountResult();
+        return this.connectionFactory.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, insertParams, insertParamTypes)
-                        .flatMap(r -> Mono.from(r.map((row, meta) -> accountResultEntityFromR2DBCSQLDBConverter.setFirst_nameLast_name(entity, row, meta))))
+                        .flatMap(r -> Mono.from(r.map((row, meta) -> accountResultEntityFromR2DBCSQLDBConverter.setFirst_nameLast_name(resultEntity, row, meta))))
                         .switchIfEmpty(close(c)
                                 .then(Mono.empty())
                         )
@@ -190,7 +192,7 @@ public final class $$PostgreSQLDataRepository extends AbstractPostgreSQLReposito
         final String generatedSQL = "INSERT INTO account(id, email, first_name, last_name, role) VALUES(nextval('account_seq'), $1, $2, $3, $4) ON CONFLICT(id) DO UPDATE SET email = EXCLUDED.email, first_name = EXCLUDED.first_name, last_name = EXCLUDED.last_name, balance = EXCLUDED.balance, role = EXCLUDED.role";
         final Object[] insertParams = accountEntityToR2DBCSQLDBConverter.getInsertParams(account);
         final Class<?>[] insertParamTypes = accountEntityToR2DBCSQLDBConverter.getInsertParamTypes();
-        return pool.create()
+        return this.connectionFactory.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, insertParams, insertParamTypes)
                         .flatMap(r -> Mono.from(r.getRowsUpdated()))
                         .delayUntil(s -> close(c))
@@ -207,7 +209,7 @@ public final class $$PostgreSQLDataRepository extends AbstractPostgreSQLReposito
         final String generatedSQL = "INSERT INTO account(id, email, first_name, last_name, role) VALUES(nextval('account_seq'), $1, $2, $3, $4) ON CONFLICT(id) DO NOTHING";
         final Object[] insertParams = accountEntityToR2DBCSQLDBConverter.getInsertParams(account);
         final Class<?>[] insertParamTypes = accountEntityToR2DBCSQLDBConverter.getInsertParamTypes();
-        return pool.create()
+        return this.connectionFactory.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, insertParams, insertParamTypes)
                         .flatMap(r -> Mono.from(r.getRowsUpdated()))
                         .delayUntil(s -> close(c))
@@ -222,10 +224,10 @@ public final class $$PostgreSQLDataRepository extends AbstractPostgreSQLReposito
     public CompletableFuture<List<Account>> insertMany1() {
         // Original SQL statement:  'INSERT INTO ${table} SELECT * FROM dump RETURNING *'
         final String generatedSQL = "INSERT INTO account SELECT * FROM dump RETURNING id, email, first_name, last_name, balance, role";
-        final Account entity = new Account();
-        return pool.create()
+        final Account resultEntity = new Account();
+        return this.connectionFactory.create()
                 .flatMap(c -> executeStatement(c, generatedSQL)
-                        .flatMap(r -> Flux.from(r.map((row, meta) -> accountEntityFromR2DBCSQLDBConverter.setIdEmailFirst_nameLast_nameBalanceRole(entity, row, meta))).collectList())
+                        .flatMap(r -> Flux.from(r.map((row, meta) -> accountEntityFromR2DBCSQLDBConverter.setIdEmailFirst_nameLast_nameBalanceRole(resultEntity, row, meta))).collectList())
                         .delayUntil(s -> close(c))
                         .onErrorResume(createCloseThenReturnErrorFallback(c))
                 )
@@ -236,7 +238,7 @@ public final class $$PostgreSQLDataRepository extends AbstractPostgreSQLReposito
     public CompletableFuture<Integer> insertMany2() {
         // Original SQL statement:  'INSERT INTO account SELECT * FROM dump'
         final String generatedSQL = "INSERT INTO account SELECT * FROM dump";
-        return pool.create()
+        return this.connectionFactory.create()
                 .flatMap(c -> executeStatement(c, generatedSQL)
                         .flatMap(r -> Mono.from(r.getRowsUpdated()))
                         .delayUntil(s -> close(c))

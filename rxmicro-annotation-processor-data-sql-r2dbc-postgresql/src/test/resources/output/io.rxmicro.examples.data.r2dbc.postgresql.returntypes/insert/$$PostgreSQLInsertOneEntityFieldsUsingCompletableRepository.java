@@ -2,6 +2,8 @@ package io.rxmicro.examples.data.r2dbc.postgresql.returntypes.insert;
 
 import io.r2dbc.pool.ConnectionPool;
 import io.reactivex.rxjava3.core.Completable;
+import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionFactory;
+import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionPool;
 import io.rxmicro.data.sql.r2dbc.postgresql.detail.AbstractPostgreSQLRepository;
 import reactor.core.publisher.Mono;
 
@@ -10,11 +12,11 @@ import reactor.core.publisher.Mono;
  */
 public final class $$PostgreSQLInsertOneEntityFieldsUsingCompletableRepository extends AbstractPostgreSQLRepository implements InsertOneEntityFieldsUsingCompletableRepository {
 
-    private final ConnectionPool pool;
+    private final RepositoryConnectionFactory connectionFactory;
 
     public $$PostgreSQLInsertOneEntityFieldsUsingCompletableRepository(final ConnectionPool pool) {
         super(InsertOneEntityFieldsUsingCompletableRepository.class);
-        this.pool = pool;
+        this.connectionFactory = new RepositoryConnectionPool(InsertOneEntityFieldsUsingCompletableRepository.class, pool);
     }
 
     @Override
@@ -24,7 +26,7 @@ public final class $$PostgreSQLInsertOneEntityFieldsUsingCompletableRepository e
         final Object[] insertParams = {firstName, lastName};
         final Class<?>[] insertParamTypes = {String.class, String.class};
         return Completable.fromPublisher(
-                pool.create()
+                this.connectionFactory.create()
                         .flatMap(c -> executeStatement(c, generatedSQL, insertParams, insertParamTypes)
                                 .flatMap(r -> Mono.from(r.getRowsUpdated()))
                                 .delayUntil(s -> close(c))

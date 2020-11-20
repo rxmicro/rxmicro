@@ -2,6 +2,8 @@ package io.rxmicro.examples.data.r2dbc.postgresql.returntypes.delete;
 
 import io.r2dbc.pool.ConnectionPool;
 import io.reactivex.rxjava3.core.Completable;
+import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionFactory;
+import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionPool;
 import io.rxmicro.data.sql.r2dbc.postgresql.detail.AbstractPostgreSQLRepository;
 import reactor.core.publisher.Mono;
 
@@ -10,11 +12,11 @@ import reactor.core.publisher.Mono;
  */
 public final class $$PostgreSQLDeleteOneEntityFieldsUsingCompletableRepository extends AbstractPostgreSQLRepository implements DeleteOneEntityFieldsUsingCompletableRepository {
 
-    private final ConnectionPool pool;
+    private final RepositoryConnectionFactory connectionFactory;
 
     public $$PostgreSQLDeleteOneEntityFieldsUsingCompletableRepository(final ConnectionPool pool) {
         super(DeleteOneEntityFieldsUsingCompletableRepository.class);
-        this.pool = pool;
+        this.connectionFactory = new RepositoryConnectionPool(DeleteOneEntityFieldsUsingCompletableRepository.class, pool);
     }
 
     @Override
@@ -22,7 +24,7 @@ public final class $$PostgreSQLDeleteOneEntityFieldsUsingCompletableRepository e
         // Original SQL statement:  'DELETE FROM ${table} WHERE id = ?'
         final String generatedSQL = "DELETE FROM account WHERE id = $1";
         return Completable.fromPublisher(
-                pool.create()
+                this.connectionFactory.create()
                         .flatMap(c -> executeStatement(c, generatedSQL, id)
                                 .flatMap(r -> Mono.from(r.getRowsUpdated()))
                                 .delayUntil(s -> close(c))

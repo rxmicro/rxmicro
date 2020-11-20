@@ -3,6 +3,8 @@ package io.rxmicro.examples.data.r2dbc.postgresql.returntypes.update;
 import io.r2dbc.pool.ConnectionPool;
 import io.rxmicro.data.sql.model.EntityFieldList;
 import io.rxmicro.data.sql.model.EntityFieldMap;
+import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionFactory;
+import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionPool;
 import io.rxmicro.data.sql.r2dbc.postgresql.detail.AbstractPostgreSQLRepository;
 import io.rxmicro.examples.data.r2dbc.postgresql.returntypes.model.$$AccountEntityFromR2DBCSQLDBConverter;
 import io.rxmicro.examples.data.r2dbc.postgresql.returntypes.model.Account;
@@ -18,11 +20,11 @@ public final class $$PostgreSQLUpdateOneEntityFieldsUsingRequiredCompletableFutu
     private final $$AccountEntityFromR2DBCSQLDBConverter accountEntityFromR2DBCSQLDBConverter =
             new $$AccountEntityFromR2DBCSQLDBConverter();
 
-    private final ConnectionPool pool;
+    private final RepositoryConnectionFactory connectionFactory;
 
     public $$PostgreSQLUpdateOneEntityFieldsUsingRequiredCompletableFutureRepository(final ConnectionPool pool) {
         super(UpdateOneEntityFieldsUsingRequiredCompletableFutureRepository.class);
-        this.pool = pool;
+        this.connectionFactory = new RepositoryConnectionPool(UpdateOneEntityFieldsUsingRequiredCompletableFutureRepository.class, pool);
     }
 
     @Override
@@ -31,7 +33,7 @@ public final class $$PostgreSQLUpdateOneEntityFieldsUsingRequiredCompletableFutu
         final String generatedSQL = "UPDATE account SET first_name = $1, last_name = $2 WHERE id = $3";
         final Object[] updateParams = {firstName, lastName, id};
         final Class<?>[] updateParamTypes = {String.class, String.class, Long.class};
-        return pool.create()
+        return this.connectionFactory.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, updateParams, updateParamTypes)
                         .flatMap(r -> Mono.from(r.getRowsUpdated()))
                         .delayUntil(s -> close(c))
@@ -48,7 +50,7 @@ public final class $$PostgreSQLUpdateOneEntityFieldsUsingRequiredCompletableFutu
         final String generatedSQL = "UPDATE account SET first_name = $1, last_name = $2 WHERE id = $3";
         final Object[] updateParams = {firstName, lastName, id};
         final Class<?>[] updateParamTypes = {String.class, String.class, Long.class};
-        return pool.create()
+        return this.connectionFactory.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, updateParams, updateParamTypes)
                         .flatMap(r -> Mono.from(r.getRowsUpdated()))
                         .delayUntil(s -> close(c))
@@ -64,7 +66,7 @@ public final class $$PostgreSQLUpdateOneEntityFieldsUsingRequiredCompletableFutu
         final String generatedSQL = "UPDATE account SET first_name = $1, last_name = $2 WHERE id = $3";
         final Object[] updateParams = {firstName, lastName, id};
         final Class<?>[] updateParamTypes = {String.class, String.class, Long.class};
-        return pool.create()
+        return this.connectionFactory.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, updateParams, updateParamTypes)
                         .flatMap(r -> Mono.from(r.getRowsUpdated()))
                         .delayUntil(s -> close(c))
@@ -81,10 +83,10 @@ public final class $$PostgreSQLUpdateOneEntityFieldsUsingRequiredCompletableFutu
         final String generatedSQL = "UPDATE account SET first_name = $1, last_name = $2 WHERE id = $3 RETURNING id, first_name, last_name";
         final Object[] updateParams = {firstName, lastName, id};
         final Class<?>[] updateParamTypes = {String.class, String.class, Long.class};
-        final Account entity = new Account();
-        return pool.create()
+        final Account resultEntity = new Account();
+        return this.connectionFactory.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, updateParams, updateParamTypes)
-                        .flatMap(r -> Mono.from(r.map((row, meta) -> accountEntityFromR2DBCSQLDBConverter.setIdFirst_nameLast_name(entity, row, meta))))
+                        .flatMap(r -> Mono.from(r.map((row, meta) -> accountEntityFromR2DBCSQLDBConverter.setIdFirst_nameLast_name(resultEntity, row, meta))))
                         .switchIfEmpty(close(c)
                                 .then(Mono.empty())
                         )
@@ -101,7 +103,7 @@ public final class $$PostgreSQLUpdateOneEntityFieldsUsingRequiredCompletableFutu
         final String generatedSQL = "UPDATE account SET first_name = $1, last_name = $2 WHERE id = $3 RETURNING first_name, last_name";
         final Object[] updateParams = {firstName, lastName, id};
         final Class<?>[] updateParamTypes = {String.class, String.class, Long.class};
-        return pool.create()
+        return this.connectionFactory.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, updateParams, updateParamTypes)
                         .flatMap(r -> Mono.from(r.map(toEntityFieldMap())))
                         .switchIfEmpty(close(c)
@@ -120,7 +122,7 @@ public final class $$PostgreSQLUpdateOneEntityFieldsUsingRequiredCompletableFutu
         final String generatedSQL = "UPDATE account SET first_name = $1, last_name = $2 WHERE id = $3 RETURNING first_name, last_name";
         final Object[] updateParams = {firstName, lastName, id};
         final Class<?>[] updateParamTypes = {String.class, String.class, Long.class};
-        return pool.create()
+        return this.connectionFactory.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, updateParams, updateParamTypes)
                         .flatMap(r -> Mono.from(r.map(toEntityFieldList())))
                         .switchIfEmpty(close(c)

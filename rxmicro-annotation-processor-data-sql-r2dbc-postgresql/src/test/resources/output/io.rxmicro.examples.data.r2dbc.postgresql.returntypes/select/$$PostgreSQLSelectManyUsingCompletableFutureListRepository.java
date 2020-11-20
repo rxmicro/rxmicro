@@ -3,6 +3,8 @@ package io.rxmicro.examples.data.r2dbc.postgresql.returntypes.select;
 import io.r2dbc.pool.ConnectionPool;
 import io.rxmicro.data.sql.model.EntityFieldList;
 import io.rxmicro.data.sql.model.EntityFieldMap;
+import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionFactory;
+import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionPool;
 import io.rxmicro.data.sql.r2dbc.postgresql.detail.AbstractPostgreSQLRepository;
 import io.rxmicro.examples.data.r2dbc.postgresql.returntypes.model.$$AccountEntityFromR2DBCSQLDBConverter;
 import io.rxmicro.examples.data.r2dbc.postgresql.returntypes.model.Account;
@@ -21,18 +23,18 @@ public final class $$PostgreSQLSelectManyUsingCompletableFutureListRepository ex
     private final $$AccountEntityFromR2DBCSQLDBConverter accountEntityFromR2DBCSQLDBConverter =
             new $$AccountEntityFromR2DBCSQLDBConverter();
 
-    private final ConnectionPool pool;
+    private final RepositoryConnectionFactory connectionFactory;
 
     public $$PostgreSQLSelectManyUsingCompletableFutureListRepository(final ConnectionPool pool) {
         super(SelectManyUsingCompletableFutureListRepository.class);
-        this.pool = pool;
+        this.connectionFactory = new RepositoryConnectionPool(SelectManyUsingCompletableFutureListRepository.class, pool);
     }
 
     @Override
     public CompletableFuture<List<Account>> findAll01() {
         // Original SQL statement:  'SELECT first_name, last_name FROM ${table} ORDER BY id'
         final String generatedSQL = "SELECT first_name, last_name FROM account ORDER BY id";
-        return pool.create()
+        return this.connectionFactory.create()
                 .flatMap(c -> executeStatement(c, generatedSQL)
                         .flatMap(r -> Flux.from(r.map(accountEntityFromR2DBCSQLDBConverter::fromDBFirst_nameLast_name))
                                 .collectList()
@@ -47,7 +49,7 @@ public final class $$PostgreSQLSelectManyUsingCompletableFutureListRepository ex
     public CompletableFuture<List<EntityFieldMap>> findAll02() {
         // Original SQL statement:  'SELECT first_name, last_name FROM ${table} ORDER BY id'
         final String generatedSQL = "SELECT first_name, last_name FROM account ORDER BY id";
-        return pool.create()
+        return this.connectionFactory.create()
                 .flatMap(c -> executeStatement(c, generatedSQL)
                         .flatMap(r -> Flux.from(r.map(toEntityFieldMap()))
                                 .collectList()
@@ -62,7 +64,7 @@ public final class $$PostgreSQLSelectManyUsingCompletableFutureListRepository ex
     public CompletableFuture<List<EntityFieldList>> findAll03() {
         // Original SQL statement:  'SELECT first_name, last_name FROM ${table} ORDER BY id'
         final String generatedSQL = "SELECT first_name, last_name FROM account ORDER BY id";
-        return pool.create()
+        return this.connectionFactory.create()
                 .flatMap(c -> executeStatement(c, generatedSQL)
                         .flatMap(r -> Flux.from(r.map(toEntityFieldList()))
                                 .collectList()
@@ -77,7 +79,7 @@ public final class $$PostgreSQLSelectManyUsingCompletableFutureListRepository ex
     public CompletableFuture<List<String>> findAll04() {
         // Original SQL statement:  'SELECT email FROM ${table} ORDER BY id'
         final String generatedSQL = "SELECT email FROM account ORDER BY id";
-        return pool.create()
+        return this.connectionFactory.create()
                 .flatMap(c -> executeStatement(c, generatedSQL)
                         .flatMap(r -> Flux.from(r.map((row, meta) -> row.get(0, String.class)))
                                 .collectList()
@@ -92,7 +94,7 @@ public final class $$PostgreSQLSelectManyUsingCompletableFutureListRepository ex
     public CompletableFuture<List<Role>> findAll05() {
         // Original SQL statement:  'SELECT DISTINCT role FROM ${table} ORDER BY role'
         final String generatedSQL = "SELECT DISTINCT role FROM account ORDER BY role";
-        return pool.create()
+        return this.connectionFactory.create()
                 .flatMap(c -> executeStatement(c, generatedSQL)
                         .flatMap(r -> Flux.from(r.map((row, meta) -> row.get(0, Role.class)))
                                 .collectList()
@@ -107,7 +109,7 @@ public final class $$PostgreSQLSelectManyUsingCompletableFutureListRepository ex
     public CompletableFuture<List<BigDecimal>> findAll06() {
         // Original SQL statement:  'SELECT DISTINCT balance FROM ${table}'
         final String generatedSQL = "SELECT DISTINCT balance FROM account";
-        return pool.create()
+        return this.connectionFactory.create()
                 .flatMap(c -> executeStatement(c, generatedSQL)
                         .flatMap(r -> Flux.from(r.map((row, meta) -> row.get(0, BigDecimal.class)))
                                 .collectList()

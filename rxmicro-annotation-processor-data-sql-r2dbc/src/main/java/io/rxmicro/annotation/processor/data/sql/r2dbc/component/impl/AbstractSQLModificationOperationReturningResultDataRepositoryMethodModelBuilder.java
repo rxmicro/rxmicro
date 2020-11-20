@@ -18,17 +18,21 @@ package io.rxmicro.annotation.processor.data.sql.r2dbc.component.impl;
 
 import io.reactivex.rxjava3.core.Flowable;
 import io.rxmicro.annotation.processor.common.model.ClassHeader;
+import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
 import io.rxmicro.annotation.processor.common.model.method.MethodResult;
 import io.rxmicro.annotation.processor.data.model.DataGenerationContext;
+import io.rxmicro.annotation.processor.data.model.DataMethodParams;
 import io.rxmicro.annotation.processor.data.model.DataRepositoryMethodSignature;
 import io.rxmicro.annotation.processor.data.model.Variable;
 import io.rxmicro.annotation.processor.data.sql.model.EntitySetFieldsConverterMethod;
+import io.rxmicro.annotation.processor.data.sql.model.ParsedSQL;
 import io.rxmicro.annotation.processor.data.sql.model.SQLDataModelField;
 import io.rxmicro.annotation.processor.data.sql.model.SQLDataObjectModelClass;
 import io.rxmicro.annotation.processor.data.sql.model.SQLMethodDescriptor;
 import io.rxmicro.annotation.processor.data.sql.model.SQLStatement;
 import io.rxmicro.data.sql.model.EntityFieldList;
 import io.rxmicro.data.sql.model.EntityFieldMap;
+import io.rxmicro.data.sql.operation.CustomSelect;
 import io.rxmicro.data.sql.r2dbc.detail.EntityFromR2DBCSQLDBConverter;
 import io.rxmicro.data.sql.r2dbc.detail.EntityToR2DBCSQLDBConverter;
 import reactor.core.publisher.Flux;
@@ -44,6 +48,7 @@ import javax.lang.model.element.ExecutableElement;
 import static io.rxmicro.annotation.processor.common.util.Errors.createInternalErrorSupplier;
 import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.getModelTransformerInstanceName;
 import static io.rxmicro.annotation.processor.common.util.Names.getSimpleName;
+import static io.rxmicro.annotation.processor.data.sql.model.CommonSQLGroupRules.CUSTOM_SELECT_GROUP;
 
 /**
  * @author nedis
@@ -58,6 +63,23 @@ public abstract class AbstractSQLModificationOperationReturningResultDataReposit
                                      final DataGenerationContext<DMF, DMC> dataGenerationContext) {
         return super.isSupported(dataRepositoryMethodSignature, dataGenerationContext) &&
                 isEntityResultReturn(dataGenerationContext, dataRepositoryMethodSignature.getMethodResult());
+    }
+
+    @Override
+    protected void validateMethod(final ParsedSQL<A> parsedSQL,
+                                  final MethodResult methodResult,
+                                  final DataGenerationContext<DMF, DMC> dataGenerationContext,
+                                  final ExecutableElement method,
+                                  final DataMethodParams dataMethodParams) {
+        final List<Variable> customSelectParams = dataMethodParams.getParamsOfGroup(CUSTOM_SELECT_GROUP);
+        if (!customSelectParams.isEmpty()) {
+            throw new InterruptProcessingException(
+                    customSelectParams.get(0).getElement(),
+                    "Parameter(s) annotated by '@?' annotation is(are) not supported for '?' operation. " +
+                            "Remove this(these) parameter(s)!",
+                    CustomSelect.class, operationType().getSimpleName().toUpperCase(Locale.ENGLISH)
+            );
+        }
     }
 
     @Override

@@ -20,6 +20,7 @@ import com.google.inject.Singleton;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
 import io.rxmicro.annotation.processor.common.model.method.MethodResult;
 import io.rxmicro.annotation.processor.data.model.DataGenerationContext;
+import io.rxmicro.annotation.processor.data.model.DataMethodParams;
 import io.rxmicro.annotation.processor.data.model.Variable;
 import io.rxmicro.annotation.processor.data.sql.model.ParsedSQL;
 import io.rxmicro.annotation.processor.data.sql.model.SQLDataModelField;
@@ -53,7 +54,9 @@ public final class PostgreSQLInsertWithReturningSQLRepositoryMethodModelBuilder
     protected void validateMethod(final ParsedSQL<Insert> parsedSQL,
                                   final MethodResult methodResult,
                                   final DataGenerationContext<SQLDataModelField, PostgreSQLDataObjectModelClass> dataGenerationContext,
-                                  final ExecutableElement method, final List<Variable> params) {
+                                  final ExecutableElement method,
+                                  final DataMethodParams dataMethodParams) {
+        super.validateMethod(parsedSQL, methodResult, dataGenerationContext, method, dataMethodParams);
         if (parsedSQL.doesNotContain(RETURNING)) {
             throw new InterruptProcessingException(method, "Missing '?' keyword in the '?' statement", RETURNING, INSERT);
         }

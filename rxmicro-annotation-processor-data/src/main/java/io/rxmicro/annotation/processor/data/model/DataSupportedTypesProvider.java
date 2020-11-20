@@ -26,6 +26,7 @@ import io.rxmicro.annotation.processor.common.model.definition.TypeDefinitions;
 import io.rxmicro.annotation.processor.common.model.definition.impl.ByNameTypeDefinition;
 import io.rxmicro.annotation.processor.common.model.definition.impl.TypeDefinitionsImpl;
 import io.rxmicro.data.Pageable;
+import io.rxmicro.logger.RequestIdSupplier;
 import reactor.core.publisher.Flux;
 
 import java.util.List;
@@ -53,7 +54,8 @@ public abstract class DataSupportedTypesProvider extends SupportedTypesProvider 
     @Override
     protected TypeDefinitions<TypeDefinition> createStandardMethodParameterTypes() {
         return new TypeDefinitionsImpl<>(
-                new ByNameTypeDefinition(Pageable.class)
+                new ByNameTypeDefinition(Pageable.class),
+                new ByNameTypeDefinition(RequestIdSupplier.class)
         );
     }
 }

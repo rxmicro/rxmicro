@@ -16,11 +16,11 @@
 
 package io.rxmicro.data.sql.r2dbc.internal.transaction;
 
-import io.r2dbc.spi.Connection;
 import io.rxmicro.data.sql.model.IsolationLevel;
 import io.rxmicro.data.sql.model.SavePoint;
 import io.rxmicro.data.sql.model.completablefuture.Transaction;
 import io.rxmicro.data.sql.r2dbc.internal.AbstractTransaction;
+import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnection;
 import reactor.core.publisher.Mono;
 
 import java.util.concurrent.CompletableFuture;
@@ -31,7 +31,7 @@ import java.util.concurrent.CompletableFuture;
  */
 public final class CompletableFutureTransaction extends AbstractTransaction implements Transaction {
 
-    public CompletableFutureTransaction(final Connection connection) {
+    public CompletableFutureTransaction(final RepositoryConnection connection) {
         super(connection);
     }
 

@@ -4,6 +4,8 @@ import io.r2dbc.pool.ConnectionPool;
 import io.reactivex.rxjava3.core.Single;
 import io.rxmicro.data.sql.model.EntityFieldList;
 import io.rxmicro.data.sql.model.EntityFieldMap;
+import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionFactory;
+import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionPool;
 import io.rxmicro.data.sql.r2dbc.postgresql.detail.AbstractPostgreSQLRepository;
 import io.rxmicro.examples.data.r2dbc.postgresql.returntypes.model.$$AccountEntityFromR2DBCSQLDBConverter;
 import io.rxmicro.examples.data.r2dbc.postgresql.returntypes.model.$$AccountEntityToR2DBCSQLDBConverter;
@@ -21,11 +23,11 @@ public final class $$PostgreSQLUpdateOneEntityUsingSingleRepository extends Abst
     private final $$AccountEntityToR2DBCSQLDBConverter accountEntityToR2DBCSQLDBConverter =
             new $$AccountEntityToR2DBCSQLDBConverter();
 
-    private final ConnectionPool pool;
+    private final RepositoryConnectionFactory connectionFactory;
 
     public $$PostgreSQLUpdateOneEntityUsingSingleRepository(final ConnectionPool pool) {
         super(UpdateOneEntityUsingSingleRepository.class);
-        this.pool = pool;
+        this.connectionFactory = new RepositoryConnectionPool(UpdateOneEntityUsingSingleRepository.class, pool);
     }
 
     @Override
@@ -35,7 +37,7 @@ public final class $$PostgreSQLUpdateOneEntityUsingSingleRepository extends Abst
         final Object[] updateParams = accountEntityToR2DBCSQLDBConverter.getUpdateParams(account);
         final Class<?>[] updateParamTypes = accountEntityToR2DBCSQLDBConverter.getUpdateParamTypes();
         return Single.fromPublisher(
-                pool.create()
+                this.connectionFactory.create()
                         .flatMap(c -> executeStatement(c, generatedSQL, updateParams, updateParamTypes)
                                 .flatMap(r -> Mono.from(r.getRowsUpdated()))
                                 .delayUntil(s -> close(c))
@@ -51,7 +53,7 @@ public final class $$PostgreSQLUpdateOneEntityUsingSingleRepository extends Abst
         final Object[] updateParams = accountEntityToR2DBCSQLDBConverter.getUpdateParams(account);
         final Class<?>[] updateParamTypes = accountEntityToR2DBCSQLDBConverter.getUpdateParamTypes();
         return Single.fromPublisher(
-                pool.create()
+                this.connectionFactory.create()
                         .flatMap(c -> executeStatement(c, generatedSQL, updateParams, updateParamTypes)
                                 .flatMap(r -> Mono.from(r.getRowsUpdated()))
                                 .delayUntil(s -> close(c))
@@ -67,7 +69,7 @@ public final class $$PostgreSQLUpdateOneEntityUsingSingleRepository extends Abst
         final Object[] updateParams = accountEntityToR2DBCSQLDBConverter.getUpdateParams(account);
         final Class<?>[] updateParamTypes = accountEntityToR2DBCSQLDBConverter.getUpdateParamTypes();
         return Single.fromPublisher(
-                pool.create()
+                this.connectionFactory.create()
                         .flatMap(c -> executeStatement(c, generatedSQL, updateParams, updateParamTypes)
                                 .flatMap(r -> Mono.from(r.map((row, meta) -> accountEntityFromR2DBCSQLDBConverter.setIdFirst_nameLast_name(account, row, meta))))
                                 .switchIfEmpty(close(c)
@@ -86,7 +88,7 @@ public final class $$PostgreSQLUpdateOneEntityUsingSingleRepository extends Abst
         final Object[] updateParams = accountEntityToR2DBCSQLDBConverter.getUpdateParams(account);
         final Class<?>[] updateParamTypes = accountEntityToR2DBCSQLDBConverter.getUpdateParamTypes();
         return Single.fromPublisher(
-                pool.create()
+                this.connectionFactory.create()
                         .flatMap(c -> executeStatement(c, generatedSQL, updateParams, updateParamTypes)
                                 .flatMap(r -> Mono.from(r.map(toEntityFieldMap())))
                                 .switchIfEmpty(close(c)
@@ -105,7 +107,7 @@ public final class $$PostgreSQLUpdateOneEntityUsingSingleRepository extends Abst
         final Object[] updateParams = accountEntityToR2DBCSQLDBConverter.getUpdateParams(account);
         final Class<?>[] updateParamTypes = accountEntityToR2DBCSQLDBConverter.getUpdateParamTypes();
         return Single.fromPublisher(
-                pool.create()
+                this.connectionFactory.create()
                         .flatMap(c -> executeStatement(c, generatedSQL, updateParams, updateParamTypes)
                                 .flatMap(r -> Mono.from(r.map(toEntityFieldList())))
                                 .switchIfEmpty(close(c)

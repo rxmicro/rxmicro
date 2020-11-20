@@ -2,6 +2,8 @@ package io.rxmicro.examples.data.r2dbc.postgresql.returntypes.update;
 
 import io.r2dbc.pool.ConnectionPool;
 import io.reactivex.rxjava3.core.Completable;
+import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionFactory;
+import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionPool;
 import io.rxmicro.data.sql.r2dbc.postgresql.detail.AbstractPostgreSQLRepository;
 import io.rxmicro.examples.data.r2dbc.postgresql.returntypes.model.$$AccountEntityToR2DBCSQLDBConverter;
 import io.rxmicro.examples.data.r2dbc.postgresql.returntypes.model.Account;
@@ -15,11 +17,11 @@ public final class $$PostgreSQLUpdateOneEntityUsingCompletableRepository extends
     private final $$AccountEntityToR2DBCSQLDBConverter accountEntityToR2DBCSQLDBConverter =
             new $$AccountEntityToR2DBCSQLDBConverter();
 
-    private final ConnectionPool pool;
+    private final RepositoryConnectionFactory connectionFactory;
 
     public $$PostgreSQLUpdateOneEntityUsingCompletableRepository(final ConnectionPool pool) {
         super(UpdateOneEntityUsingCompletableRepository.class);
-        this.pool = pool;
+        this.connectionFactory = new RepositoryConnectionPool(UpdateOneEntityUsingCompletableRepository.class, pool);
     }
 
     @Override
@@ -29,7 +31,7 @@ public final class $$PostgreSQLUpdateOneEntityUsingCompletableRepository extends
         final Object[] updateParams = accountEntityToR2DBCSQLDBConverter.getUpdateParams(account);
         final Class<?>[] updateParamTypes = accountEntityToR2DBCSQLDBConverter.getUpdateParamTypes();
         return Completable.fromPublisher(
-                pool.create()
+                this.connectionFactory.create()
                         .flatMap(c -> executeStatement(c, generatedSQL, updateParams, updateParamTypes)
                                 .flatMap(r -> Mono.from(r.getRowsUpdated()))
                                 .delayUntil(s -> close(c))

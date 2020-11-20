@@ -4,6 +4,8 @@ import io.r2dbc.pool.ConnectionPool;
 import io.reactivex.rxjava3.core.Single;
 import io.rxmicro.data.sql.model.EntityFieldList;
 import io.rxmicro.data.sql.model.EntityFieldMap;
+import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionFactory;
+import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionPool;
 import io.rxmicro.data.sql.r2dbc.postgresql.detail.AbstractPostgreSQLRepository;
 import io.rxmicro.examples.data.r2dbc.postgresql.returntypes.model.$$AccountEntityFromR2DBCSQLDBConverter;
 import io.rxmicro.examples.data.r2dbc.postgresql.returntypes.model.$$AccountEntityToR2DBCSQLDBConverter;
@@ -21,11 +23,11 @@ public final class $$PostgreSQLDeleteOneEntityUsingSingleRepository extends Abst
     private final $$AccountEntityToR2DBCSQLDBConverter accountEntityToR2DBCSQLDBConverter =
             new $$AccountEntityToR2DBCSQLDBConverter();
 
-    private final ConnectionPool pool;
+    private final RepositoryConnectionFactory connectionFactory;
 
     public $$PostgreSQLDeleteOneEntityUsingSingleRepository(final ConnectionPool pool) {
         super(DeleteOneEntityUsingSingleRepository.class);
-        this.pool = pool;
+        this.connectionFactory = new RepositoryConnectionPool(DeleteOneEntityUsingSingleRepository.class, pool);
     }
 
     @Override
@@ -34,7 +36,7 @@ public final class $$PostgreSQLDeleteOneEntityUsingSingleRepository extends Abst
         final String generatedSQL = "DELETE FROM account WHERE id = $1";
         final Object primaryKey = accountEntityToR2DBCSQLDBConverter.getPrimaryKey(account);
         return Single.fromPublisher(
-                pool.create()
+                this.connectionFactory.create()
                         .flatMap(c -> executeStatement(c, generatedSQL, primaryKey)
                                 .flatMap(r -> Mono.from(r.getRowsUpdated()))
                                 .delayUntil(s -> close(c))
@@ -49,7 +51,7 @@ public final class $$PostgreSQLDeleteOneEntityUsingSingleRepository extends Abst
         final String generatedSQL = "DELETE FROM account WHERE id = $1";
         final Object primaryKey = accountEntityToR2DBCSQLDBConverter.getPrimaryKey(account);
         return Single.fromPublisher(
-                pool.create()
+                this.connectionFactory.create()
                         .flatMap(c -> executeStatement(c, generatedSQL, primaryKey)
                                 .flatMap(r -> Mono.from(r.getRowsUpdated()))
                                 .delayUntil(s -> close(c))
@@ -64,7 +66,7 @@ public final class $$PostgreSQLDeleteOneEntityUsingSingleRepository extends Abst
         final String generatedSQL = "DELETE FROM account WHERE id = $1 RETURNING id, first_name, last_name";
         final Object primaryKey = accountEntityToR2DBCSQLDBConverter.getPrimaryKey(account);
         return Single.fromPublisher(
-                pool.create()
+                this.connectionFactory.create()
                         .flatMap(c -> executeStatement(c, generatedSQL, primaryKey)
                                 .flatMap(r -> Mono.from(r.map((row, meta) -> accountEntityFromR2DBCSQLDBConverter.setIdFirst_nameLast_name(account, row, meta))))
                                 .switchIfEmpty(close(c)
@@ -82,7 +84,7 @@ public final class $$PostgreSQLDeleteOneEntityUsingSingleRepository extends Abst
         final String generatedSQL = "DELETE FROM account WHERE id = $1 RETURNING id, first_name, last_name";
         final Object primaryKey = accountEntityToR2DBCSQLDBConverter.getPrimaryKey(account);
         return Single.fromPublisher(
-                pool.create()
+                this.connectionFactory.create()
                         .flatMap(c -> executeStatement(c, generatedSQL, primaryKey)
                                 .flatMap(r -> Mono.from(r.map(toEntityFieldMap())))
                                 .switchIfEmpty(close(c)
@@ -100,7 +102,7 @@ public final class $$PostgreSQLDeleteOneEntityUsingSingleRepository extends Abst
         final String generatedSQL = "DELETE FROM account WHERE id = $1 RETURNING id, first_name, last_name";
         final Object primaryKey = accountEntityToR2DBCSQLDBConverter.getPrimaryKey(account);
         return Single.fromPublisher(
-                pool.create()
+                this.connectionFactory.create()
                         .flatMap(c -> executeStatement(c, generatedSQL, primaryKey)
                                 .flatMap(r -> Mono.from(r.map(toEntityFieldList())))
                                 .switchIfEmpty(close(c)

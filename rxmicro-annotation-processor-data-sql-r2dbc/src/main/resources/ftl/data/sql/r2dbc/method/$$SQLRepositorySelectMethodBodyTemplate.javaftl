@@ -7,7 +7,7 @@
 <#if TRANSACTION??>
 <#assign CONNECTION_PROVIDER>extractConnectionFrom(${TRANSACTION})</#assign>
 <#else>
-<#assign CONNECTION_PROVIDER>pool.create()</#assign>
+<#assign CONNECTION_PROVIDER>this.connectionFactory.create(${CONNECTION_CREATE_PARAM})</#assign>
 </#if>
 <#-- -------------------------------------------------------------------------------------------------------- -->
 <#-- -------------------------------------------------------------------------------------------------------- -->

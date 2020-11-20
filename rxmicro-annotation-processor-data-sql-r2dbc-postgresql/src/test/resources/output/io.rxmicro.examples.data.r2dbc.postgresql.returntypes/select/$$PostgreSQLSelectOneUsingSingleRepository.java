@@ -4,6 +4,8 @@ import io.r2dbc.pool.ConnectionPool;
 import io.reactivex.rxjava3.core.Single;
 import io.rxmicro.data.sql.model.EntityFieldList;
 import io.rxmicro.data.sql.model.EntityFieldMap;
+import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionFactory;
+import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionPool;
 import io.rxmicro.data.sql.r2dbc.postgresql.detail.AbstractPostgreSQLRepository;
 import io.rxmicro.examples.data.r2dbc.postgresql.returntypes.model.$$AccountEntityFromR2DBCSQLDBConverter;
 import io.rxmicro.examples.data.r2dbc.postgresql.returntypes.model.Account;
@@ -20,11 +22,11 @@ public final class $$PostgreSQLSelectOneUsingSingleRepository extends AbstractPo
     private final $$AccountEntityFromR2DBCSQLDBConverter accountEntityFromR2DBCSQLDBConverter =
             new $$AccountEntityFromR2DBCSQLDBConverter();
 
-    private final ConnectionPool pool;
+    private final RepositoryConnectionFactory connectionFactory;
 
     public $$PostgreSQLSelectOneUsingSingleRepository(final ConnectionPool pool) {
         super(SelectOneUsingSingleRepository.class);
-        this.pool = pool;
+        this.connectionFactory = new RepositoryConnectionPool(SelectOneUsingSingleRepository.class, pool);
     }
 
     @Override
@@ -32,7 +34,7 @@ public final class $$PostgreSQLSelectOneUsingSingleRepository extends AbstractPo
         // Original SQL statement:  'SELECT first_name, last_name FROM ${table} WHERE email = 'richard.hendricks@piedpiper.com''
         final String generatedSQL = "SELECT first_name, last_name FROM account WHERE email = 'richard.hendricks@piedpiper.com'";
         return Single.fromPublisher(
-                pool.create()
+                this.connectionFactory.create()
                         .flatMap(c -> executeStatement(c, generatedSQL)
                                 .flatMap(r -> Mono.from(r.map(accountEntityFromR2DBCSQLDBConverter::fromDBFirst_nameLast_name)))
                                 .switchIfEmpty(close(c)
@@ -49,7 +51,7 @@ public final class $$PostgreSQLSelectOneUsingSingleRepository extends AbstractPo
         // Original SQL statement:  'SELECT first_name, last_name FROM ${table} WHERE email = 'richard.hendricks@piedpiper.com''
         final String generatedSQL = "SELECT first_name, last_name FROM account WHERE email = 'richard.hendricks@piedpiper.com'";
         return Single.fromPublisher(
-                pool.create()
+                this.connectionFactory.create()
                         .flatMap(c -> executeStatement(c, generatedSQL)
                                 .flatMap(r -> Mono.from(r.map(toEntityFieldMap())))
                                 .switchIfEmpty(close(c)
@@ -66,7 +68,7 @@ public final class $$PostgreSQLSelectOneUsingSingleRepository extends AbstractPo
         // Original SQL statement:  'SELECT first_name, last_name FROM ${table} WHERE email = 'richard.hendricks@piedpiper.com''
         final String generatedSQL = "SELECT first_name, last_name FROM account WHERE email = 'richard.hendricks@piedpiper.com'";
         return Single.fromPublisher(
-                pool.create()
+                this.connectionFactory.create()
                         .flatMap(c -> executeStatement(c, generatedSQL)
                                 .flatMap(r -> Mono.from(r.map(toEntityFieldList())))
                                 .switchIfEmpty(close(c)
@@ -83,7 +85,7 @@ public final class $$PostgreSQLSelectOneUsingSingleRepository extends AbstractPo
         // Original SQL statement:  'SELECT email FROM ${table} WHERE email = 'richard.hendricks@piedpiper.com''
         final String generatedSQL = "SELECT email FROM account WHERE email = 'richard.hendricks@piedpiper.com'";
         return Single.fromPublisher(
-                pool.create()
+                this.connectionFactory.create()
                         .flatMap(c -> executeStatement(c, generatedSQL)
                                 .flatMap(r -> Mono.from(r.map((row, meta) -> row.get(0, String.class))))
                                 .switchIfEmpty(close(c)
@@ -100,7 +102,7 @@ public final class $$PostgreSQLSelectOneUsingSingleRepository extends AbstractPo
         // Original SQL statement:  'SELECT role FROM ${table} WHERE email = 'richard.hendricks@piedpiper.com''
         final String generatedSQL = "SELECT role FROM account WHERE email = 'richard.hendricks@piedpiper.com'";
         return Single.fromPublisher(
-                pool.create()
+                this.connectionFactory.create()
                         .flatMap(c -> executeStatement(c, generatedSQL)
                                 .flatMap(r -> Mono.from(r.map((row, meta) -> row.get(0, Role.class))))
                                 .switchIfEmpty(close(c)
@@ -117,7 +119,7 @@ public final class $$PostgreSQLSelectOneUsingSingleRepository extends AbstractPo
         // Original SQL statement:  'SELECT balance FROM ${table} WHERE email = 'richard.hendricks@piedpiper.com''
         final String generatedSQL = "SELECT balance FROM account WHERE email = 'richard.hendricks@piedpiper.com'";
         return Single.fromPublisher(
-                pool.create()
+                this.connectionFactory.create()
                         .flatMap(c -> executeStatement(c, generatedSQL)
                                 .flatMap(r -> Mono.from(r.map((row, meta) -> row.get(0, BigDecimal.class))))
                                 .switchIfEmpty(close(c)

@@ -4,6 +4,8 @@ import io.r2dbc.pool.ConnectionPool;
 import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.core.Maybe;
 import io.reactivex.rxjava3.core.Single;
+import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionFactory;
+import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionPool;
 import io.rxmicro.data.sql.r2dbc.postgresql.detail.AbstractPostgreSQLRepository;
 import io.rxmicro.examples.data.r2dbc.postgresql.select.returnreactivetypes.model.$$AccountEntityFromR2DBCSQLDBConverter;
 import io.rxmicro.examples.data.r2dbc.postgresql.select.returnreactivetypes.model.Account;
@@ -21,18 +23,18 @@ public final class $$PostgreSQLSelectSingleDataRepository extends AbstractPostgr
     private final $$AccountEntityFromR2DBCSQLDBConverter accountEntityFromR2DBCSQLDBConverter =
             new $$AccountEntityFromR2DBCSQLDBConverter();
 
-    private final ConnectionPool pool;
+    private final RepositoryConnectionFactory connectionFactory;
 
     public $$PostgreSQLSelectSingleDataRepository(final ConnectionPool pool) {
         super(SelectSingleDataRepository.class);
-        this.pool = pool;
+        this.connectionFactory = new RepositoryConnectionPool(SelectSingleDataRepository.class, pool);
     }
 
     @Override
     public Mono<Account> findByEmail1(final String email) {
         // Original SQL statement:  'SELECT * FROM ${table} WHERE email = ?'
         final String generatedSQL = "SELECT first_name, last_name FROM account WHERE email = $1";
-        return pool.create()
+        return this.connectionFactory.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, email)
                         .flatMap(r -> Mono.from(r.map(accountEntityFromR2DBCSQLDBConverter::fromDB)))
                         .switchIfEmpty(close(c)
@@ -47,7 +49,7 @@ public final class $$PostgreSQLSelectSingleDataRepository extends AbstractPostgr
     public CompletableFuture<Account> findByEmail2(final String email) {
         // Original SQL statement:  'SELECT * FROM ${table} WHERE email = ?'
         final String generatedSQL = "SELECT first_name, last_name FROM account WHERE email = $1";
-        return pool.create()
+        return this.connectionFactory.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, email)
                         .flatMap(r -> Mono.from(r.map(accountEntityFromR2DBCSQLDBConverter::fromDB)))
                         .switchIfEmpty(close(c)
@@ -64,7 +66,7 @@ public final class $$PostgreSQLSelectSingleDataRepository extends AbstractPostgr
     public CompletionStage<Account> findByEmail3(final String email) {
         // Original SQL statement:  'SELECT * FROM ${table} WHERE email = ?'
         final String generatedSQL = "SELECT first_name, last_name FROM account WHERE email = $1";
-        return pool.create()
+        return this.connectionFactory.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, email)
                         .flatMap(r -> Mono.from(r.map(accountEntityFromR2DBCSQLDBConverter::fromDB)))
                         .switchIfEmpty(close(c)
@@ -81,7 +83,7 @@ public final class $$PostgreSQLSelectSingleDataRepository extends AbstractPostgr
     public CompletableFuture<Optional<Account>> findByEmail4(final String email) {
         // Original SQL statement:  'SELECT * FROM ${table} WHERE email = ?'
         final String generatedSQL = "SELECT first_name, last_name FROM account WHERE email = $1";
-        return pool.create()
+        return this.connectionFactory.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, email)
                         .flatMap(r -> Mono.from(r.map(accountEntityFromR2DBCSQLDBConverter::fromDB)))
                         .switchIfEmpty(close(c)
@@ -98,7 +100,7 @@ public final class $$PostgreSQLSelectSingleDataRepository extends AbstractPostgr
     public CompletionStage<Optional<Account>> findByEmail5(final String email) {
         // Original SQL statement:  'SELECT * FROM ${table} WHERE email = ?'
         final String generatedSQL = "SELECT first_name, last_name FROM account WHERE email = $1";
-        return pool.create()
+        return this.connectionFactory.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, email)
                         .flatMap(r -> Mono.from(r.map(accountEntityFromR2DBCSQLDBConverter::fromDB)))
                         .switchIfEmpty(close(c)
@@ -116,7 +118,7 @@ public final class $$PostgreSQLSelectSingleDataRepository extends AbstractPostgr
         // Original SQL statement:  'SELECT * FROM ${table} WHERE email = ?'
         final String generatedSQL = "SELECT first_name, last_name FROM account WHERE email = $1";
         return Single.fromPublisher(
-                pool.create()
+                this.connectionFactory.create()
                         .flatMap(c -> executeStatement(c, generatedSQL, email)
                                 .flatMap(r -> Mono.from(r.map(accountEntityFromR2DBCSQLDBConverter::fromDB)))
                                 .switchIfEmpty(close(c)
@@ -133,7 +135,7 @@ public final class $$PostgreSQLSelectSingleDataRepository extends AbstractPostgr
         // Original SQL statement:  'SELECT * FROM ${table} WHERE email = ?'
         final String generatedSQL = "SELECT first_name, last_name FROM account WHERE email = $1";
         return Flowable.fromPublisher(
-                pool.create()
+                this.connectionFactory.create()
                         .flatMap(c -> executeStatement(c, generatedSQL, email)
                                 .flatMap(r -> Mono.from(r.map(accountEntityFromR2DBCSQLDBConverter::fromDB)))
                                 .switchIfEmpty(close(c)

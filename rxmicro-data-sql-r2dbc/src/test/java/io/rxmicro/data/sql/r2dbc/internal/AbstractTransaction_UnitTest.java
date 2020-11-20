@@ -16,10 +16,10 @@
 
 package io.rxmicro.data.sql.r2dbc.internal;
 
-import io.r2dbc.spi.Connection;
 import io.rxmicro.common.InvalidStateException;
 import io.rxmicro.data.sql.model.IsolationLevel;
 import io.rxmicro.data.sql.model.SavePoint;
+import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnection;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
@@ -30,7 +30,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.function.Executable;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.reactivestreams.Publisher;
+import reactor.core.publisher.Mono;
 
 import static io.rxmicro.data.sql.model.IsolationLevel.READ_COMMITTED;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -55,10 +55,10 @@ final class AbstractTransaction_UnitTest {
     private static final IsolationLevel ISOLATION_LEVEL = READ_COMMITTED;
 
     @Mock
-    private Connection connection;
+    private RepositoryConnection connection;
 
     @Mock
-    private Publisher<Void> mockPublisher;
+    private Mono<Void> mockPublisher;
 
     private AbstractTransaction transaction;
 
@@ -131,6 +131,6 @@ final class AbstractTransaction_UnitTest {
 
     private void assertCurrentTransactionNotActive(final Executable executable) {
         final InvalidStateException exception = assertThrows(InvalidStateException.class, executable);
-        assertEquals("Current transaction is not active", exception.getMessage());
+        assertEquals("Current transaction is not active!", exception.getMessage());
     }
 }

@@ -21,6 +21,8 @@ import io.rxmicro.annotation.processor.common.model.ClassHeader;
 import io.rxmicro.annotation.processor.common.model.DefaultConfigProxyValue;
 import io.rxmicro.annotation.processor.data.model.DataRepositoryClassStructure;
 import io.rxmicro.annotation.processor.data.sql.model.SQLDataRepositoryMethod;
+import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionFactory;
+import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionPool;
 
 import java.util.HashMap;
 import java.util.List;
@@ -64,11 +66,10 @@ public abstract class AbstractSQLDataRepositoryClassStructure extends DataReposi
     }
 
     @Override
-    public ClassHeader getClassHeader() {
+    protected void customizeClassHeader() {
         classHeaderBuilder
-                .addImports(ConnectionPool.class)
+                .addImports(ConnectionPool.class, RepositoryConnectionFactory.class, RepositoryConnectionPool.class)
                 .addImports(abstractClass);
         modelTransformers.forEach(c -> classHeaderBuilder.addImports(c.getJavaFullClassName()));
-        return classHeaderBuilder.build();
     }
 }

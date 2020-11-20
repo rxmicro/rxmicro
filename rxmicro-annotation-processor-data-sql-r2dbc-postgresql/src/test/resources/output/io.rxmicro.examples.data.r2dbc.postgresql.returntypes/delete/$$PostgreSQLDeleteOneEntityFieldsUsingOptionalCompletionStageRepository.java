@@ -3,6 +3,8 @@ package io.rxmicro.examples.data.r2dbc.postgresql.returntypes.delete;
 import io.r2dbc.pool.ConnectionPool;
 import io.rxmicro.data.sql.model.EntityFieldList;
 import io.rxmicro.data.sql.model.EntityFieldMap;
+import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionFactory;
+import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionPool;
 import io.rxmicro.data.sql.r2dbc.postgresql.detail.AbstractPostgreSQLRepository;
 import io.rxmicro.examples.data.r2dbc.postgresql.returntypes.model.$$AccountEntityFromR2DBCSQLDBConverter;
 import io.rxmicro.examples.data.r2dbc.postgresql.returntypes.model.Account;
@@ -19,21 +21,21 @@ public final class $$PostgreSQLDeleteOneEntityFieldsUsingOptionalCompletionStage
     private final $$AccountEntityFromR2DBCSQLDBConverter accountEntityFromR2DBCSQLDBConverter =
             new $$AccountEntityFromR2DBCSQLDBConverter();
 
-    private final ConnectionPool pool;
+    private final RepositoryConnectionFactory connectionFactory;
 
     public $$PostgreSQLDeleteOneEntityFieldsUsingOptionalCompletionStageRepository(final ConnectionPool pool) {
         super(DeleteOneEntityFieldsUsingOptionalCompletionStageRepository.class);
-        this.pool = pool;
+        this.connectionFactory = new RepositoryConnectionPool(DeleteOneEntityFieldsUsingOptionalCompletionStageRepository.class, pool);
     }
 
     @Override
     public CompletionStage<Optional<Account>> delete01(final Long id) {
         // Original SQL statement:  'DELETE FROM ${table} WHERE id = ? RETURNING *'
         final String generatedSQL = "DELETE FROM account WHERE id = $1 RETURNING id, first_name, last_name";
-        final Account entity = new Account();
-        return pool.create()
+        final Account resultEntity = new Account();
+        return this.connectionFactory.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, id)
-                        .flatMap(r -> Mono.from(r.map((row, meta) -> accountEntityFromR2DBCSQLDBConverter.setIdFirst_nameLast_name(entity, row, meta))))
+                        .flatMap(r -> Mono.from(r.map((row, meta) -> accountEntityFromR2DBCSQLDBConverter.setIdFirst_nameLast_name(resultEntity, row, meta))))
                         .switchIfEmpty(close(c)
                                 .then(Mono.empty())
                         )
@@ -48,7 +50,7 @@ public final class $$PostgreSQLDeleteOneEntityFieldsUsingOptionalCompletionStage
     public CompletionStage<Optional<EntityFieldMap>> delete02(final Long id) {
         // Original SQL statement:  'DELETE FROM ${table} WHERE id = ? RETURNING first_name, last_name'
         final String generatedSQL = "DELETE FROM account WHERE id = $1 RETURNING first_name, last_name";
-        return pool.create()
+        return this.connectionFactory.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, id)
                         .flatMap(r -> Mono.from(r.map(toEntityFieldMap())))
                         .switchIfEmpty(close(c)
@@ -65,7 +67,7 @@ public final class $$PostgreSQLDeleteOneEntityFieldsUsingOptionalCompletionStage
     public CompletionStage<Optional<EntityFieldList>> delete03(final Long id) {
         // Original SQL statement:  'DELETE FROM ${table} WHERE id = ? RETURNING first_name, last_name'
         final String generatedSQL = "DELETE FROM account WHERE id = $1 RETURNING first_name, last_name";
-        return pool.create()
+        return this.connectionFactory.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, id)
                         .flatMap(r -> Mono.from(r.map(toEntityFieldList())))
                         .switchIfEmpty(close(c)

@@ -1,6 +1,8 @@
 package io.rxmicro.examples.data.r2dbc.postgresql.primary.keys;
 
 import io.r2dbc.pool.ConnectionPool;
+import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionFactory;
+import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionPool;
 import io.rxmicro.data.sql.r2dbc.postgresql.detail.AbstractPostgreSQLRepository;
 import io.rxmicro.examples.data.r2dbc.postgresql.primary.keys.model.$$AccountEntityToR2DBCSQLDBConverter;
 import io.rxmicro.examples.data.r2dbc.postgresql.primary.keys.model.$$CompositePrimaryKeyEntityToR2DBCSQLDBConverter;
@@ -31,11 +33,11 @@ public final class $$PostgreSQLUpdateDataRepository extends AbstractPostgreSQLRe
     private final $$ProductEntityToR2DBCSQLDBConverter productEntityToR2DBCSQLDBConverter =
             new $$ProductEntityToR2DBCSQLDBConverter();
 
-    private final ConnectionPool pool;
+    private final RepositoryConnectionFactory connectionFactory;
 
     public $$PostgreSQLUpdateDataRepository(final ConnectionPool pool) {
         super(UpdateDataRepository.class);
-        this.pool = pool;
+        this.connectionFactory = new RepositoryConnectionPool(UpdateDataRepository.class, pool);
     }
 
     @Override
@@ -44,7 +46,7 @@ public final class $$PostgreSQLUpdateDataRepository extends AbstractPostgreSQLRe
         final String generatedSQL = "UPDATE account SET first_name = $1, last_name = $2, balance = $3, role = $4 WHERE id = $5";
         final Object[] updateParams = accountEntityToR2DBCSQLDBConverter.getUpdateParams(account);
         final Class<?>[] updateParamTypes = accountEntityToR2DBCSQLDBConverter.getUpdateParamTypes();
-        return pool.create()
+        return this.connectionFactory.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, updateParams, updateParamTypes)
                         .flatMap(r -> Mono.from(r.getRowsUpdated()))
                         .delayUntil(s -> close(c))
@@ -61,7 +63,7 @@ public final class $$PostgreSQLUpdateDataRepository extends AbstractPostgreSQLRe
         final String generatedSQL = "UPDATE order SET id_account = $1, id_product = $2, count = $3, created = $4 WHERE id = $5";
         final Object[] updateParams = orderEntityToR2DBCSQLDBConverter.getUpdateParams(order);
         final Class<?>[] updateParamTypes = orderEntityToR2DBCSQLDBConverter.getUpdateParamTypes();
-        return pool.create()
+        return this.connectionFactory.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, updateParams, updateParamTypes)
                         .flatMap(r -> Mono.from(r.getRowsUpdated()))
                         .delayUntil(s -> close(c))
@@ -78,7 +80,7 @@ public final class $$PostgreSQLUpdateDataRepository extends AbstractPostgreSQLRe
         final String generatedSQL = "UPDATE product SET name = $1, price = $2, count = $3 WHERE id = $4";
         final Object[] updateParams = productEntityToR2DBCSQLDBConverter.getUpdateParams(product);
         final Class<?>[] updateParamTypes = productEntityToR2DBCSQLDBConverter.getUpdateParamTypes();
-        return pool.create()
+        return this.connectionFactory.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, updateParams, updateParamTypes)
                         .flatMap(r -> Mono.from(r.getRowsUpdated()))
                         .delayUntil(s -> close(c))
@@ -95,7 +97,7 @@ public final class $$PostgreSQLUpdateDataRepository extends AbstractPostgreSQLRe
         final String generatedSQL = "UPDATE composite_primary_key SET created = $1 WHERE id_category = $2 AND id_type = $3 AND id_role = $4";
         final Object[] updateParams = compositePrimaryKeyEntityToR2DBCSQLDBConverter.getUpdateParams(entity);
         final Class<?>[] updateParamTypes = compositePrimaryKeyEntityToR2DBCSQLDBConverter.getUpdateParamTypes();
-        return pool.create()
+        return this.connectionFactory.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, updateParams, updateParamTypes)
                         .flatMap(r -> Mono.from(r.getRowsUpdated()))
                         .delayUntil(s -> close(c))

@@ -16,11 +16,11 @@
 
 package io.rxmicro.data.sql.r2dbc.internal.transaction;
 
-import io.r2dbc.spi.Connection;
 import io.rxmicro.data.sql.model.IsolationLevel;
 import io.rxmicro.data.sql.model.SavePoint;
 import io.rxmicro.data.sql.model.reactor.Transaction;
 import io.rxmicro.data.sql.r2dbc.internal.AbstractTransaction;
+import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnection;
 import reactor.core.publisher.Mono;
 
 /**
@@ -29,7 +29,7 @@ import reactor.core.publisher.Mono;
  */
 public final class ReactorTransaction extends AbstractTransaction implements Transaction {
 
-    public ReactorTransaction(final Connection connection) {
+    public ReactorTransaction(final RepositoryConnection connection) {
         super(connection);
     }
 

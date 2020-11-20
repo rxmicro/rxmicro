@@ -3,6 +3,8 @@ package io.rxmicro.examples.data.r2dbc.postgresql.transactional;
 import io.r2dbc.pool.ConnectionPool;
 import io.rxmicro.data.sql.model.IsolationLevel;
 import io.rxmicro.data.sql.model.completablefuture.Transaction;
+import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionFactory;
+import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionPool;
 import io.rxmicro.data.sql.r2dbc.postgresql.detail.AbstractPostgreSQLRepository;
 
 import java.util.concurrent.CompletableFuture;
@@ -13,23 +15,23 @@ import java.util.concurrent.CompletionStage;
  */
 public final class $$PostgreSQLBeginCompletableFutureTransactionRepository extends AbstractPostgreSQLRepository implements BeginCompletableFutureTransactionRepository {
 
-    private final ConnectionPool pool;
+    private final RepositoryConnectionFactory connectionFactory;
 
     public $$PostgreSQLBeginCompletableFutureTransactionRepository(final ConnectionPool pool) {
         super(BeginCompletableFutureTransactionRepository.class);
-        this.pool = pool;
+        this.connectionFactory = new RepositoryConnectionPool(BeginCompletableFutureTransactionRepository.class, pool);
     }
 
     @Override
     public CompletionStage<Transaction> beginTransaction1() {
-        return pool.create()
+        return this.connectionFactory.create()
                 .flatMap(c -> beginCompletableFutureTransaction(c))
                 .toFuture();
     }
 
     @Override
     public CompletionStage<Transaction> beginTransaction1(final IsolationLevel isolationLevel) {
-        return pool.create()
+        return this.connectionFactory.create()
                 .flatMap(c -> beginCompletableFutureTransaction(c))
                         .toFuture()
                         .thenCompose(t -> t.setIsolationLevel(isolationLevel)
@@ -38,14 +40,14 @@ public final class $$PostgreSQLBeginCompletableFutureTransactionRepository exten
 
     @Override
     public CompletableFuture<Transaction> beginTransaction2() {
-        return pool.create()
+        return this.connectionFactory.create()
                 .flatMap(c -> beginCompletableFutureTransaction(c))
                 .toFuture();
     }
 
     @Override
     public CompletableFuture<Transaction> beginTransaction2(final IsolationLevel isolationLevel) {
-        return pool.create()
+        return this.connectionFactory.create()
                 .flatMap(c -> beginCompletableFutureTransaction(c))
                         .toFuture()
                         .thenCompose(t -> t.setIsolationLevel(isolationLevel)

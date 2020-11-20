@@ -2,6 +2,8 @@ package io.rxmicro.examples.data.r2dbc.postgresql.delete;
 
 import io.r2dbc.pool.ConnectionPool;
 import io.rxmicro.data.sql.model.EntityFieldMap;
+import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionFactory;
+import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionPool;
 import io.rxmicro.data.sql.r2dbc.postgresql.detail.AbstractPostgreSQLRepository;
 import io.rxmicro.examples.data.r2dbc.postgresql.delete.model.$$AccountEntityFromR2DBCSQLDBConverter;
 import io.rxmicro.examples.data.r2dbc.postgresql.delete.model.$$AccountEntityToR2DBCSQLDBConverter;
@@ -22,11 +24,11 @@ public final class $$PostgreSQLDataRepository extends AbstractPostgreSQLReposito
     private final $$AccountEntityToR2DBCSQLDBConverter accountEntityToR2DBCSQLDBConverter =
             new $$AccountEntityToR2DBCSQLDBConverter();
 
-    private final ConnectionPool pool;
+    private final RepositoryConnectionFactory connectionFactory;
 
     public $$PostgreSQLDataRepository(final ConnectionPool pool) {
         super(DataRepository.class);
-        this.pool = pool;
+        this.connectionFactory = new RepositoryConnectionPool(DataRepository.class, pool);
     }
 
     @Override
@@ -34,7 +36,7 @@ public final class $$PostgreSQLDataRepository extends AbstractPostgreSQLReposito
         // Original SQL statement:  'DELETE FROM ${table} WHERE ${by-id-filter}'
         final String generatedSQL = "DELETE FROM account WHERE id = $1";
         final Object primaryKey = accountEntityToR2DBCSQLDBConverter.getPrimaryKey(account);
-        return pool.create()
+        return this.connectionFactory.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, primaryKey)
                         .flatMap(r -> Mono.from(r.getRowsUpdated()))
                         .delayUntil(s -> close(c))
@@ -49,7 +51,7 @@ public final class $$PostgreSQLDataRepository extends AbstractPostgreSQLReposito
     public CompletableFuture<Integer> delete2(final BigDecimal minRequiredBalance) {
         // Original SQL statement:  'DELETE FROM ${table} WHERE balance < ?'
         final String generatedSQL = "DELETE FROM account WHERE balance < $1";
-        return pool.create()
+        return this.connectionFactory.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, minRequiredBalance)
                         .flatMap(r -> Mono.from(r.getRowsUpdated()))
                         .delayUntil(s -> close(c))
@@ -63,10 +65,10 @@ public final class $$PostgreSQLDataRepository extends AbstractPostgreSQLReposito
     public CompletableFuture<Account> delete3(final Long id) {
         // Original SQL statement:  'DELETE FROM ${table} WHERE ${by-id-filter} RETURNING *'
         final String generatedSQL = "DELETE FROM account WHERE id = $1 RETURNING id, email, first_name, last_name, balance, role";
-        final Account entity = new Account();
-        return pool.create()
+        final Account resultEntity = new Account();
+        return this.connectionFactory.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, id)
-                        .flatMap(r -> Mono.from(r.map((row, meta) -> accountEntityFromR2DBCSQLDBConverter.setIdEmailFirst_nameLast_nameBalanceRole(entity, row, meta))))
+                        .flatMap(r -> Mono.from(r.map((row, meta) -> accountEntityFromR2DBCSQLDBConverter.setIdEmailFirst_nameLast_nameBalanceRole(resultEntity, row, meta))))
                         .switchIfEmpty(close(c)
                                 .then(Mono.empty())
                         )
@@ -81,7 +83,7 @@ public final class $$PostgreSQLDataRepository extends AbstractPostgreSQLReposito
     public CompletableFuture<Integer> delete4(final Long id) {
         // Original SQL statement:  'DELETE FROM ${table} WHERE ${by-id-filter}'
         final String generatedSQL = "DELETE FROM account WHERE id = $1";
-        return pool.create()
+        return this.connectionFactory.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, id)
                         .flatMap(r -> Mono.from(r.getRowsUpdated()))
                         .delayUntil(s -> close(c))
@@ -95,7 +97,7 @@ public final class $$PostgreSQLDataRepository extends AbstractPostgreSQLReposito
     public CompletableFuture<EntityFieldMap> delete5(final Long id) {
         // Original SQL statement:  'DELETE FROM ${table} WHERE ${by-id-filter} RETURNING *'
         final String generatedSQL = "DELETE FROM account WHERE id = $1 RETURNING id, email, first_name, last_name, balance, role";
-        return pool.create()
+        return this.connectionFactory.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, id)
                         .flatMap(r -> Mono.from(r.map(toEntityFieldMap())))
                         .switchIfEmpty(close(c)

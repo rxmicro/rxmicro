@@ -16,13 +16,17 @@
 
 package io.rxmicro.annotation.processor.data.sql.r2dbc.component.impl.method;
 
+import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import io.rxmicro.annotation.processor.common.model.ClassHeader;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
 import io.rxmicro.annotation.processor.common.model.method.MethodBody;
 import io.rxmicro.annotation.processor.common.model.method.MethodResult;
+import io.rxmicro.annotation.processor.data.component.DataMethodParamsResolver;
 import io.rxmicro.annotation.processor.data.model.DataGenerationContext;
+import io.rxmicro.annotation.processor.data.model.DataMethodParams;
 import io.rxmicro.annotation.processor.data.model.DataRepositoryMethodSignature;
+import io.rxmicro.annotation.processor.data.model.Variable;
 import io.rxmicro.annotation.processor.data.sql.component.impl.AbstractSQLDataRepositoryMethodModelBuilder;
 import io.rxmicro.annotation.processor.data.sql.model.SQLDataModelField;
 import io.rxmicro.annotation.processor.data.sql.model.SQLDataObjectModelClass;
@@ -30,17 +34,24 @@ import io.rxmicro.annotation.processor.data.sql.model.SQLMethodBody;
 import io.rxmicro.data.DataRepositoryGeneratorConfig;
 import io.rxmicro.data.sql.model.IsolationLevel;
 import io.rxmicro.data.sql.model.TransactionType;
+import io.rxmicro.logger.RequestIdSupplier;
 import reactor.core.publisher.Mono;
 
 import java.lang.annotation.Annotation;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
+import java.util.Set;
+import java.util.function.Predicate;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.VariableElement;
 
+import static io.rxmicro.annotation.processor.data.sql.model.CommonSQLGroupRules.ISOLATION_LEVEL_GROUP;
+import static io.rxmicro.annotation.processor.data.sql.model.CommonSQLGroupRules.ISOLATION_LEVEL_PREDICATE;
+import static io.rxmicro.annotation.processor.data.sql.model.CommonSQLGroupRules.REQUEST_ID_SUPPLIER_GROUP;
+import static io.rxmicro.annotation.processor.data.sql.model.CommonSQLGroupRules.REQUEST_ID_SUPPLIER_PREDICATE;
 import static io.rxmicro.data.sql.model.TransactionType.SUPPORTED_TRANSACTION_TYPES;
+import static java.util.stream.Collectors.joining;
 
 /**
  * @author nedis
@@ -49,6 +60,14 @@ import static io.rxmicro.data.sql.model.TransactionType.SUPPORTED_TRANSACTION_TY
 @Singleton
 public class CreateTransactionSQLRepositoryMethodModelBuilder<DMF extends SQLDataModelField, DMC extends SQLDataObjectModelClass<DMF>>
         extends AbstractSQLDataRepositoryMethodModelBuilder<DMF, DMC> {
+
+    private final Map<String, Predicate<VariableElement>> groupRules = Map.of(
+            REQUEST_ID_SUPPLIER_GROUP, REQUEST_ID_SUPPLIER_PREDICATE,
+            ISOLATION_LEVEL_GROUP, ISOLATION_LEVEL_PREDICATE
+    );
+
+    @Inject
+    private DataMethodParamsResolver dataMethodParamsResolver;
 
     @Override
     public boolean isSupported(final DataRepositoryMethodSignature dataRepositoryMethodSignature,
@@ -63,23 +82,61 @@ public class CreateTransactionSQLRepositoryMethodModelBuilder<DMF extends SQLDat
 
     @Override
     protected MethodBody buildBody(final ClassHeader.Builder classHeaderBuilder,
-                                   final ExecutableElement repositoryMethod, final MethodResult methodResult,
+                                   final ExecutableElement method,
+                                   final MethodResult methodResult,
                                    final DataRepositoryGeneratorConfig dataRepositoryGeneratorConfig,
                                    final DataGenerationContext<DMF, DMC> dataGenerationContext) {
         classHeaderBuilder.addImports(Mono.class);
+        final DataMethodParams dataMethodParams = dataMethodParamsResolver.resolve(method, groupRules);
+        validateCommonDataMethodParams(method, dataMethodParams);
+
         final TransactionType transactionType = TransactionType.byClassName(methodResult.getResultType().toString());
-        validateRequiredSingleReturnType(repositoryMethod, methodResult);
-        validateTransactionType(repositoryMethod, methodResult, transactionType);
+        validateRequiredSingleReturnType(method, methodResult);
+        validateTransactionType(method, methodResult, transactionType);
 
         final Map<String, Object> templateArguments = new HashMap<>();
         templateArguments.put("RETURN", methodResult);
-        getIsolationLevelParameter(repositoryMethod).ifPresent(v ->
-                templateArguments.put("ISOLATION_LEVEL", v.getSimpleName().toString()));
 
+        dataMethodParams.getSingleParamOfGroup(ISOLATION_LEVEL_GROUP).ifPresent(v ->
+                templateArguments.put("ISOLATION_LEVEL", v));
+        templateArguments.put(
+                "CONNECTION_CREATE_PARAM",
+                dataMethodParams.getSingleParamOfGroup(REQUEST_ID_SUPPLIER_GROUP).map(Variable::getName).orElse("")
+        );
         return new SQLMethodBody(
                 methodBodyGenerator.generate(
                         "data/sql/r2dbc/method/$$SQLRepositoryCreateTransactionMethodBodyTemplate.javaftl",
                         templateArguments));
+    }
+
+    private void validateCommonDataMethodParams(final ExecutableElement method,
+                                                final DataMethodParams dataMethodParams) {
+        final List<Variable> requestIdSupplierParams = dataMethodParams.getParamsOfGroup(REQUEST_ID_SUPPLIER_GROUP);
+        if (requestIdSupplierParams.size() > 1) {
+            throw new InterruptProcessingException(
+                    requestIdSupplierParams.get(1).getElement(),
+                    "Only one parameter of '?' type is allowed per method. Remove the redundant parameter(s): ?",
+                    RequestIdSupplier.class.getName(),
+                    requestIdSupplierParams.stream().skip(1).map(Variable::getName).collect(joining(", "))
+            );
+        }
+        final List<Variable> isolationLevelParams = dataMethodParams.getParamsOfGroup(ISOLATION_LEVEL_GROUP);
+        if (isolationLevelParams.size() > 1) {
+            throw new InterruptProcessingException(
+                    isolationLevelParams.get(1).getElement(),
+                    "Only one parameter of '?' type is allowed per method. Remove the redundant parameter(s): ?",
+                    IsolationLevel.class.getName(),
+                    isolationLevelParams.stream().skip(1).map(Variable::getName).collect(joining(", "))
+            );
+        }
+        for (final Variable param : dataMethodParams.getOtherParams()) {
+            throw new InterruptProcessingException(
+                    method,
+                    "Unsupported method parameter: '?'. " +
+                            "'?' method can contain only following types of parameters: ?! Remove unsupported parameter!",
+                    param.getName(), method.getSimpleName(), Set.of(IsolationLevel.class.getName(), RequestIdSupplier.class.getName())
+            );
+        }
     }
 
     private void validateTransactionType(final ExecutableElement repositoryMethod,
@@ -115,23 +172,6 @@ public class CreateTransactionSQLRepositoryMethodModelBuilder<DMF extends SQLDat
         } else {
             throw new InterruptProcessingException(repositoryMethod, "Unsupported method result: ?", methodResult);
         }
-    }
-
-    private Optional<VariableElement> getIsolationLevelParameter(final ExecutableElement repositoryMethod) {
-        final List<? extends VariableElement> parameters = repositoryMethod.getParameters();
-        if (parameters.isEmpty()) {
-            return Optional.empty();
-        } else if (parameters.size() == 1) {
-            final VariableElement param = parameters.get(0);
-            if (param.asType().toString().equals(IsolationLevel.class.getName())) {
-                return Optional.of(param);
-            }
-        }
-        throw new InterruptProcessingException(
-                repositoryMethod,
-                "Method can contains no parameters or one parameter of '?' type only",
-                IsolationLevel.class.getName()
-        );
     }
 
     /**

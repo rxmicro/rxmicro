@@ -5,6 +5,8 @@ import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.core.Maybe;
 import io.rxmicro.data.sql.model.EntityFieldList;
 import io.rxmicro.data.sql.model.EntityFieldMap;
+import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionFactory;
+import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnectionPool;
 import io.rxmicro.data.sql.r2dbc.postgresql.detail.AbstractPostgreSQLRepository;
 import io.rxmicro.examples.data.r2dbc.postgresql.returntypes.model.$$AccountEntityFromR2DBCSQLDBConverter;
 import io.rxmicro.examples.data.r2dbc.postgresql.returntypes.model.Account;
@@ -18,11 +20,11 @@ public final class $$PostgreSQLUpdateOneEntityFieldsUsingMaybeRepository extends
     private final $$AccountEntityFromR2DBCSQLDBConverter accountEntityFromR2DBCSQLDBConverter =
             new $$AccountEntityFromR2DBCSQLDBConverter();
 
-    private final ConnectionPool pool;
+    private final RepositoryConnectionFactory connectionFactory;
 
     public $$PostgreSQLUpdateOneEntityFieldsUsingMaybeRepository(final ConnectionPool pool) {
         super(UpdateOneEntityFieldsUsingMaybeRepository.class);
-        this.pool = pool;
+        this.connectionFactory = new RepositoryConnectionPool(UpdateOneEntityFieldsUsingMaybeRepository.class, pool);
     }
 
     @Override
@@ -31,11 +33,11 @@ public final class $$PostgreSQLUpdateOneEntityFieldsUsingMaybeRepository extends
         final String generatedSQL = "UPDATE account SET first_name = $1, last_name = $2 WHERE id = $3 RETURNING id, first_name, last_name";
         final Object[] updateParams = {firstName, lastName, id};
         final Class<?>[] updateParamTypes = {String.class, String.class, Long.class};
-        final Account entity = new Account();
+        final Account resultEntity = new Account();
         return Flowable.fromPublisher(
-                pool.create()
+                this.connectionFactory.create()
                         .flatMap(c -> executeStatement(c, generatedSQL, updateParams, updateParamTypes)
-                                .flatMap(r -> Mono.from(r.map((row, meta) -> accountEntityFromR2DBCSQLDBConverter.setIdFirst_nameLast_name(entity, row, meta))))
+                                .flatMap(r -> Mono.from(r.map((row, meta) -> accountEntityFromR2DBCSQLDBConverter.setIdFirst_nameLast_name(resultEntity, row, meta))))
                                 .switchIfEmpty(close(c)
                                         .then(Mono.empty())
                                 )
@@ -52,7 +54,7 @@ public final class $$PostgreSQLUpdateOneEntityFieldsUsingMaybeRepository extends
         final Object[] updateParams = {firstName, lastName, id};
         final Class<?>[] updateParamTypes = {String.class, String.class, Long.class};
         return Flowable.fromPublisher(
-                pool.create()
+                this.connectionFactory.create()
                         .flatMap(c -> executeStatement(c, generatedSQL, updateParams, updateParamTypes)
                                 .flatMap(r -> Mono.from(r.map(toEntityFieldMap())))
                                 .switchIfEmpty(close(c)
@@ -71,7 +73,7 @@ public final class $$PostgreSQLUpdateOneEntityFieldsUsingMaybeRepository extends
         final Object[] updateParams = {firstName, lastName, id};
         final Class<?>[] updateParamTypes = {String.class, String.class, Long.class};
         return Flowable.fromPublisher(
-                pool.create()
+                this.connectionFactory.create()
                         .flatMap(c -> executeStatement(c, generatedSQL, updateParams, updateParamTypes)
                                 .flatMap(r -> Mono.from(r.map(toEntityFieldList())))
                                 .switchIfEmpty(close(c)
