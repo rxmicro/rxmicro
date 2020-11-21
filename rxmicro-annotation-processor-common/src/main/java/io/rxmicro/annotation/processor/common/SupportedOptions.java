@@ -64,6 +64,16 @@ public final class SupportedOptions {
     public static final String RX_MICRO_DOC_DESTINATION_DIR = "RX_MICRO_DOC_DESTINATION_DIR";
 
     /**
+     * This option allows analyzing parent {@code pom.xml} if child {@code pom.xml} does not contain required property.
+     */
+    public static final String RX_MICRO_DOC_ANALYZE_PARENT_POM = "RX_MICRO_DOC_ANALYZE_PARENT_POM";
+
+    /**
+     * Analyzing of parent {@code pom.xml} is enabled by default.
+     */
+    public static final boolean RX_MICRO_DOC_ANALYZE_PARENT_POM_DEFAULT_VALUE = true;
+
+    /**
      * The unnamed module support for a microservice project.
      */
     public static final String RX_MICRO_BUILD_UNNAMED_MODULE = "RX_MICRO_BUILD_UNNAMED_MODULE";

@@ -17,6 +17,7 @@
 package io.rxmicro.annotation.processor.documentation.component.impl;
 
 import com.google.inject.Singleton;
+import io.rxmicro.annotation.processor.common.component.impl.AbstractProcessorComponent;
 import io.rxmicro.annotation.processor.documentation.component.ProjectMetaDataProviderResolver;
 import io.rxmicro.annotation.processor.documentation.component.impl.model.MavenPOMProjectMetaDataProvider;
 import io.rxmicro.annotation.processor.documentation.model.ProjectMetaDataProvider;
@@ -37,6 +38,8 @@ import java.util.List;
 import java.util.Optional;
 import javax.tools.FileObject;
 
+import static io.rxmicro.annotation.processor.common.SupportedOptions.RX_MICRO_DOC_ANALYZE_PARENT_POM;
+import static io.rxmicro.annotation.processor.common.SupportedOptions.RX_MICRO_DOC_ANALYZE_PARENT_POM_DEFAULT_VALUE;
 import static io.rxmicro.annotation.processor.common.util.InternalLoggers.logThrowableStackTrace;
 import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getFiler;
 import static io.rxmicro.annotation.processor.common.util.Stubs.stub;
@@ -49,7 +52,7 @@ import static javax.tools.StandardLocation.SOURCE_OUTPUT;
  * @since 0.1
  */
 @Singleton
-public final class ProjectMetaDataProviderResolverImpl implements ProjectMetaDataProviderResolver {
+public final class ProjectMetaDataProviderResolverImpl extends AbstractProcessorComponent implements ProjectMetaDataProviderResolver {
 
     @Override
     public ProjectMetaDataProvider resolve() {
@@ -96,6 +99,7 @@ public final class ProjectMetaDataProviderResolverImpl implements ProjectMetaDat
             final MavenXpp3Reader reader = new MavenXpp3Reader();
             final List<Model> models = new ArrayList<>();
             File pomXml = pomXmlPath;
+            final boolean analyzeParent = getBooleanOption(RX_MICRO_DOC_ANALYZE_PARENT_POM, RX_MICRO_DOC_ANALYZE_PARENT_POM_DEFAULT_VALUE);
             while (true) {
                 final Model model;
                 try (Reader fileReader = Files.newBufferedReader(pomXml.toPath(), UTF_8)) {
@@ -104,7 +108,7 @@ public final class ProjectMetaDataProviderResolverImpl implements ProjectMetaDat
                 model.setPomFile(pomXmlPath);
                 models.add(model);
                 final Parent parent = model.getParent();
-                if (parent == null) {
+                if (parent == null || !analyzeParent) {
                     break;
                 }
                 pomXml = new File(pomXml.getParentFile(), parent.getRelativePath()).getAbsoluteFile();
