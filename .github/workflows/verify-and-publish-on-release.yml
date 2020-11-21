@@ -29,196 +29,99 @@ on:
     types: [created]
 
 jobs:
-
-  #
-  # ------------- Run Unit tests on Linux with all supported JDK versions -------------
-  #
-
-  test-on-linux:
-    name: Test on JDK-${{ matrix.jdk }}/${{ matrix.os }}
-    runs-on: ${{ matrix.os }}
+  # -----------------------------------------------------------------------------------------------------
+  # --- Verify Code Quality via Spotbugs, PMD, Checkstyle and Javadoc Tool ------------------------------
+  # ------------------ https://spotbugs.github.io/ ------------------------------------------------------
+  # ------------------ https://pmd.github.io/ -----------------------------------------------------------
+  # ------------------ https://checkstyle.sourceforge.io/ -----------------------------------------------
+  # -----------------------------------------------------------------------------------------------------
+  verify-using-profiles:
+    name: Verify using '${{ matrix.tool }}' profile
+    runs-on: ubuntu-latest
     strategy:
       matrix:
-        jdk: ['11', '12', '13', '14', '15']
-        os: [ubuntu-latest]
+        tool:
+          - spotbugs
+          - pmd
+          - checkstyle
+          # 'release' profile verifies generated javadocs
+          - release
       fail-fast: false
 
     steps:
+      # https://github.com/actions/checkout/blob/main/README.md
       - name: Checkout rxmicro repo
         uses: actions/checkout@v2
 
+      # https://github.com/actions/cache/blob/main/README.md
       - name: Setup m2 local repo
-        uses: actions/cache@v1
+        uses: actions/cache@v2
         with:
           path: ~/.m2/repository
-          key: rxmicro-maven-${{ runner.os }}-cache
+          key: rxmicro-m2-local-${{ runner.os }}-repo
 
+      # https://github.com/actions/setup-java/blob/main/README.md
+      - name: Setup JDK 11
+        uses: actions/setup-java@v1
+        with:
+          java-version: '11'
+
+      - name: Verify
+        run: mvn --fail-at-end -DskipTests -P ${{ matrix.tool }} package
+  # -----------------------------------------------------------------------------------------------------
+  # ------------- Run Unit tests on Linux, Windows and MacOS with all supported JDK versions ------------
+  # -----------------------------------------------------------------------------------------------------
+  test-on-linux-windows-and-macos:
+    name: Test on JDK-${{ matrix.jdk }}/${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    needs: [verify-using-profiles]
+    strategy:
+      matrix:
+        jdk: ['11', '12', '13', '14', '15']
+        os: [ubuntu-latest, windows-latest, macOS-latest]
+      fail-fast: false
+
+    steps:
+      # https://github.com/actions/checkout/blob/main/README.md
+      - name: Checkout rxmicro repo
+        uses: actions/checkout@v2
+
+      # https://github.com/actions/cache/blob/main/README.md
+      - name: Setup m2 local repo
+        uses: actions/cache@v2
+        with:
+          path: ~/.m2/repository
+          key: rxmicro-m2-local-${{ runner.os }}-repo
+
+      # https://github.com/actions/setup-java/blob/main/README.md
       - name: Setup JDK 11
         uses: actions/setup-java@v1
         with:
           java-version: '${{ matrix.jdk }}'
 
       - name: Run all tests
-        run: mvn --fail-at-end test
-
-  #
-  # ------------- Verify Code Quality via Spotbugs Tool -------------
-  # ------------------ https://spotbugs.github.io/ ------------------
-  #
-
-  verify-via-spotbugs:
-    name: Verify via Spotbugs Tool
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout rxmicro repo
-        uses: actions/checkout@v2
-
-      - name: Setup m2 local repo
-        uses: actions/cache@v1
-        with:
-          path: ~/.m2/repository
-          key: rxmicro-maven-${{ runner.os }}-cache
-
-      - name: Setup JDK 11
-        uses: actions/setup-java@v1
-        with:
-          java-version: '11'
-
-      - name: Verify
-        run: mvn --fail-at-end -DskipTests -P spotbugs verify
-
-  #
-  # ------------- Verify Code Quality via PMD Tool -------------
-  # ------------------ https://pmd.github.io/ ------------------
-  #
-
-  verify-via-pmd:
-    name: Verify via PMD Tool
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout rxmicro repo
-        uses: actions/checkout@v2
-
-      - name: Setup m2 local repo
-        uses: actions/cache@v1
-        with:
-          path: ~/.m2/repository
-          key: rxmicro-maven-${{ runner.os }}-cache
-
-      - name: Setup JDK 11
-        uses: actions/setup-java@v1
-        with:
-          java-version: '11'
-
-      - name: Verify
-        run: mvn --fail-at-end -DskipTests -P pmd verify
-
-  #
-  # ------------- Verify Code Quality via Checkstyle Tool -------------
-  # --------------- https://checkstyle.sourceforge.io/ ----------------
-  #
-
-  verify-via-checkstyle:
-    name: Verify via Checkstyle Tool
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout rxmicro repo
-        uses: actions/checkout@v2
-
-      - name: Setup m2 local repo
-        uses: actions/cache@v1
-        with:
-          path: ~/.m2/repository
-          key: rxmicro-maven-${{ runner.os }}-cache
-
-      - name: Setup JDK 11
-        uses: actions/setup-java@v1
-        with:
-          java-version: '11'
-
-      - name: Verify
-        run: mvn --fail-at-end -DskipTests -P checkstyle verify
-
-  #
-  # ----------------- Verify RxMicro Javadocs  -----------------
-  #
-
-  verify-javadoc:
-    name: Verify javadoc
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout rxmicro repo
-        uses: actions/checkout@v2
-
-      - name: Setup m2 local repo
-        uses: actions/cache@v1
-        with:
-          path: ~/.m2/repository
-          key: rxmicro-maven-${{ runner.os }}-cache
-
-      - name: Setup JDK 11
-        uses: actions/setup-java@v1
-        with:
-          java-version: '11'
-
-      - name: Verify
-        run: mvn --fail-at-end -DskipTests -P release package
-
-  #
-  # ------------- Run Unit tests on Windows and MacOS with all supported JDK versions -------------
-  #
-
-  test-on-windows-and-macos:
-    name: Test on JDK-${{ matrix.jdk }}/${{ matrix.os }}
-    runs-on: ${{ matrix.os }}
-    needs: [test-on-linux, verify-via-spotbugs, verify-via-pmd, verify-via-checkstyle, verify-javadoc]
-    strategy:
-      matrix:
-        jdk: ['11', '12', '13', '14', '15']
-        os: [windows-latest, macOS-latest]
-      fail-fast: false
-
-    steps:
-      - name: Checkout rxmicro repo
-        uses: actions/checkout@v2
-
-      - name: Setup m2 local repo
-        uses: actions/cache@v1
-        with:
-          path: ~/.m2/repository
-          key: rxmicro-maven-${{ runner.os }}-cache
-
-      - name: Setup JDK 11
-        uses: actions/setup-java@v1
-        with:
-          java-version: '11'
-
-      - name: Run all tests
-        run: mvn --fail-at-end test
-
-  #
-  # ------------- Verify Examples and Upload Coverage Report -------------
-  #
-
+        run: mvn --fail-at-end verify
+  # -----------------------------------------------------------------------------------------------------
+  # ------------- Verify Examples and Upload Coverage Report --------------------------------------------
+  # -----------------------------------------------------------------------------------------------------
   verify-examples-and-upload-jacoco-report:
     name: Verify Examples and Upload Coverage Report
     runs-on: ubuntu-latest
-    needs: test-on-windows-and-macos
+    needs: test-on-linux-windows-and-macos
 
     steps:
+      # https://github.com/actions/checkout/blob/main/README.md
       - name: Checkout rxmicro repo
         uses: actions/checkout@v2
 
+      # https://github.com/actions/cache/blob/main/README.md
       - name: Setup m2 local repo
-        uses: actions/cache@v1
+        uses: actions/cache@v2
         with:
           path: ~/.m2/repository
-          key: rxmicro-maven-${{ runner.os }}-cache
+          key: rxmicro-m2-local-${{ runner.os }}-repo
 
+      # https://github.com/actions/setup-java/blob/main/README.md
       - name: Setup JDK 11
         uses: actions/setup-java@v1
         with:
@@ -263,26 +166,27 @@ jobs:
         run: |
           export CODECOV_TOKEN="${{ secrets.CODECOV_IO_TOKEN }}"
           bash <(curl -s https://codecov.io/bash)
-
-  #
-  # ------------- Publish to Maven Central -------------
-  #
-
+  # -----------------------------------------------------------------------------------------------------
+  # ------------- Publish to Maven Central --------------------------------------------------------------
+  # -----------------------------------------------------------------------------------------------------
   publish-to-maven-central:
     name: Publish to Maven Central
     runs-on: ubuntu-latest
     needs: verify-examples-and-upload-jacoco-report
 
     steps:
+      # https://github.com/actions/checkout/blob/main/README.md
       - name: Checkout rxmicro repo
         uses: actions/checkout@v2
 
+      # https://github.com/actions/cache/blob/main/README.md
       - name: Setup m2 local repo
-        uses: actions/cache@v1
+        uses: actions/cache@v2
         with:
           path: ~/.m2/repository
-          key: rxmicro-maven-${{ runner.os }}-cache
+          key: rxmicro-m2-local-${{ runner.os }}-repo
 
+      # https://github.com/actions/setup-java/blob/main/README.md
       - name: Setup JDK 11
         uses: actions/setup-java@v1
         with:

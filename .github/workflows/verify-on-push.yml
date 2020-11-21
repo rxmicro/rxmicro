@@ -39,116 +39,197 @@ on:
       - '.github/workflows/verify-on-push.yml'
 
 jobs:
-
-  #
-  # ------------- Run Unit tests on Linux with JDK LTS and JDK latest version -------------
-  #
-
+  # -----------------------------------------------------------------------------------------------------
+  # ------------- Run Unit tests on Linux with JDK LTS and JDK latest version ---------------------------
+  # -----------------------------------------------------------------------------------------------------
   test-on-linux:
     name: Test on JDK-${{ matrix.jdk }}/${{ matrix.os }}
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         # JDK LTS and latest JDK
         jdk: ['11', '15']
-        os: [ubuntu-latest]
       fail-fast: false
 
     steps:
+      # https://github.com/actions/checkout/blob/main/README.md
       - name: Checkout rxmicro repo
         uses: actions/checkout@v2
 
+      # https://github.com/actions/cache/blob/main/README.md
       - name: Setup m2 local repo
-        uses: actions/cache@v1
+        uses: actions/cache@v2
         with:
           path: ~/.m2/repository
-          key: rxmicro-maven-${{ runner.os }}-cache
+          key: rxmicro-m2-local-${{ runner.os }}-repo
 
-      - name: Setup JDK 11
+      # https://github.com/actions/setup-java/blob/main/README.md
+      - name: Setup JDK ${{ matrix.jdk }}
         uses: actions/setup-java@v1
         with:
-          java-version: '11'
+          java-version: '${{ matrix.jdk }}'
 
       - name: Run all tests
-        run: mvn --fail-at-end test
-
-  #
-  # ------------- Verify Code Quality via Spotbugs Tool -------------
-  # ------------------ https://spotbugs.github.io/ ------------------
-  #
-
-  verify-via-spotbugs:
-    name: Verify via Spotbugs Tool
+        run: mvn --fail-at-end verify
+  # -----------------------------------------------------------------------------------------------------
+  # --- Verify Code Quality via Spotbugs, PMD and checkstyle Tool ---------------------------------------
+  # ------------------ https://spotbugs.github.io/ ------------------------------------------------------
+  # ------------------ https://pmd.github.io/ -----------------------------------------------------------
+  # ------------------ https://checkstyle.sourceforge.io/ -----------------------------------------------
+  # -----------------------------------------------------------------------------------------------------
+  verify-via-source-code-tool:
+    name: Verify via ${{ matrix.tool }} tool
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        tool:
+          - spotbugs
+          - pmd
+          - checkstyle
+      fail-fast: false
 
     steps:
+      # https://github.com/actions/checkout/blob/main/README.md
       - name: Checkout rxmicro repo
         uses: actions/checkout@v2
 
+      # https://github.com/actions/cache/blob/main/README.md
       - name: Setup m2 local repo
-        uses: actions/cache@v1
+        uses: actions/cache@v2
         with:
           path: ~/.m2/repository
-          key: rxmicro-maven-${{ runner.os }}-cache
+          key: rxmicro-m2-local-${{ runner.os }}-repo
 
+      # https://github.com/actions/setup-java/blob/main/README.md
       - name: Setup JDK 11
         uses: actions/setup-java@v1
         with:
           java-version: '11'
 
       - name: Verify
-        run: mvn --fail-at-end -DskipTests -P spotbugs verify
-
-  #
-  # ------------- Verify Code Quality via PMD Tool -------------
-  # ------------------ https://pmd.github.io/ ------------------
-  #
-
-  verify-via-pmd:
-    name: Verify via PMD Tool
+        run: mvn --fail-at-end -DskipTests -P ${{ matrix.tool }} verify
+  # -----------------------------------------------------------------------------------------------------
+  # ------------- Install the latest version of the RxMicro framework to m2 local cache -----------------
+  # -----------------------------------------------------------------------------------------------------
+  prepare-examples-verification:
+    name: Prepare to verify examples
     runs-on: ubuntu-latest
 
     steps:
+      # https://github.com/actions/checkout/blob/main/README.md
       - name: Checkout rxmicro repo
         uses: actions/checkout@v2
 
+      # https://github.com/actions/cache/blob/main/README.md
       - name: Setup m2 local repo
-        uses: actions/cache@v1
+        uses: actions/cache@v2
         with:
           path: ~/.m2/repository
-          key: rxmicro-maven-${{ runner.os }}-cache
+          key: rxmicro-m2-local-${{ runner.os }}-repo
 
+      # https://github.com/actions/setup-java/blob/main/README.md
       - name: Setup JDK 11
         uses: actions/setup-java@v1
         with:
           java-version: '11'
 
-      - name: Verify
-        run: mvn --fail-at-end -DskipTests -P pmd verify
+      - name: Prepare
+        run: mvn -DskipTests install
 
-  #
-  # ------------- Verify Code Quality via Checkstyle Tool -------------
-  # --------------- https://checkstyle.sourceforge.io/ ----------------
-  #
+      # https://github.com/actions/upload-artifact/blob/main/README.md
+      - name: Save latest rxmicro artefacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: latest-rxmicro-version
+          path: ~/.m2/repository/io/rxmicro/
+          if-no-files-found: error
+          retention-days: 1
 
-  verify-via-checkstyle:
-    name: Verify via Checkstyle Tool
+      # m2 local repo must not contain the snapshot versions!
+      - name: Remove latest rxmicro artefacts
+        run: rm -rf ~/.m2/repository/io/rxmicro/
+
+  # -----------------------------------------------------------------------------------------------------
+  # ------------- Verify examples using the latest RxMicro framework ------------------------------------
+  # ------------- https://github.com/rxmicro/rxmicro-usage/tree/master/examples -------------------------
+  # -----------------------------------------------------------------------------------------------------
+  verify-examples:
+    name: Verify ${{ matrix.group }} examples
     runs-on: ubuntu-latest
-
+    needs: [prepare-examples-verification]
+    strategy:
+      matrix:
+        group:
+          - group-cdi
+          - group-common
+          - group-data-mongo
+          - group-data-r2dbc-postgresql
+          - group-documentation-asciidoctor
+          - group-monitoring
+          - group-processor
+          - group-rest-client
+          - group-rest-controller
+          - group-testing-dbunit
+          - group-testing-junit
+          - group-unnamed-module
+          - group-validation
+          - quick-start
+        install-graalvm: [false]
+        include:
+          - group: group-graalvm
+            install-graalvm: true
+      fail-fast: false
     steps:
+      # https://github.com/actions/checkout/blob/main/README.md
       - name: Checkout rxmicro repo
         uses: actions/checkout@v2
 
+      # https://github.com/actions/cache/blob/main/README.md
       - name: Setup m2 local repo
-        uses: actions/cache@v1
+        uses: actions/cache@v2
         with:
           path: ~/.m2/repository
-          key: rxmicro-maven-${{ runner.os }}-cache
+          key: rxmicro-m2-local-${{ runner.os }}-repo
 
+      - name: Checkout examples
+        run: git clone https://github.com/rxmicro/rxmicro-usage
+
+      # https://github.com/actions/setup-java/blob/main/README.md
       - name: Setup JDK 11
         uses: actions/setup-java@v1
         with:
           java-version: '11'
 
-      - name: Verify
-        run: mvn --fail-at-end -DskipTests -P checkstyle verify
+      # https://www.graalvm.org/downloads/
+      # https://www.graalvm.org/docs/getting-started/#native-images
+      - name: Install Graalvm and Native Image
+        if: ${{ matrix.install-graalvm }}
+        run: |
+          GRAAL_VM_VERSION=20.0.0
+          GRAAL_VM_BUILD=graalvm-ce-java11-linux-amd64-${GRAAL_VM_VERSION}
+          DOWNLOAD_LINK=https://github.com/graalvm/graalvm-ce-builds/releases/download/vm-${GRAAL_VM_VERSION}/${GRAAL_VM_BUILD}.tar.gz
+          mkdir ~/GraalVM
+          wget -P ~/GraalVM $DOWNLOAD_LINK
+          tar --strip-components=1 -xvzf ~/GraalVM/${GRAAL_VM_BUILD}.tar.gz -C ~/GraalVM
+          rm -f ~/GraalVM/${GRAAL_VM_BUILD}.tar.gz
+          ~/GraalVM/bin/gu install native-image
+
+      # https://github.com/actions/download-artifact/blob/main/README.md
+      - name: Download latest rxmicro artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: latest-rxmicro-version
+          path: ~/.m2/repository/io/rxmicro/
+
+      # Print dir tree with file size for debug purposes
+      - name: Show downloaded rxmicro artifacts
+        run: |
+          sudo apt install tree
+          tree -s ~/.m2/repository/io/rxmicro/
+
+      - name: Verify ${{ matrix.group }}
+        run: |
+          LATEST_VERSION=$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)
+          GRAALVM_HOME=~/GraalVM
+          cd rxmicro-usage/examples/${{ matrix.group }}
+          mvn --fail-at-end -Drxmicro.version=$LATEST_VERSION verify
