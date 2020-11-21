@@ -37,6 +37,7 @@ public class BaseModel {
      * This is basic class designed for extension only.
      */
     protected BaseModel() {
+        // This is basic class designed for extension only.
     }
 
     @Override

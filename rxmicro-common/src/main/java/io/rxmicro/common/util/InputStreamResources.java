@@ -80,4 +80,7 @@ public final class InputStreamResources {
             return Optional.empty();
         }
     }
+
+    private InputStreamResources(){
+    }
 }
