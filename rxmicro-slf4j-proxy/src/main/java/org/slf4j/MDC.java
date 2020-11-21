@@ -129,7 +129,7 @@ public final class MDC {
      *
      * @param contextMap must contain only keys and values of type String
      */
-    public static void setContextMap(Map<String, String> contextMap) {
+    public static void setContextMap(final Map<String, String> contextMap) {
         // do nothing
     }
 
@@ -140,6 +140,9 @@ public final class MDC {
      */
     public static MDCAdapter getMDCAdapter() {
         return DoNothingMDCAdapter.getInstance();
+    }
+
+    private MDC(){
     }
 
     /**

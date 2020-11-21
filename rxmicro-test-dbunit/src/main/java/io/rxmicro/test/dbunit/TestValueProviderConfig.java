@@ -22,19 +22,35 @@ import io.rxmicro.test.local.model.BaseTestConfig;
 import java.time.Duration;
 
 /**
+ * Allows configuring the test value provider.
+ *
  * @author nedis
  * @since 0.7
  */
 public final class TestValueProviderConfig extends BaseTestConfig {
 
+    /**
+     * Default duration of the now instant generation discrete step.
+     */
     public static final Duration DEFAULT_NOW_INSTANT_GENERATION_DISCRETE_STEP = Duration.ofSeconds(5);
 
     private Duration nowInstantGenerationDiscreteStep = DEFAULT_NOW_INSTANT_GENERATION_DISCRETE_STEP;
 
+    /**
+     * Returns the duration of the now instant generation discrete step.
+     *
+     * @return the duration of the now instant generation discrete step.
+     */
     public Duration getNowInstantGenerationDiscreteStep() {
         return nowInstantGenerationDiscreteStep;
     }
 
+    /**
+     * Sets the duration of the now instant generation discrete step.
+     *
+     * @param nowInstantGenerationDiscreteStep the duration of the now instant generation discrete step.
+     * @return the reference to this  {@link TestValueProviderConfig} instance
+     */
     @BuilderMethod
     public TestValueProviderConfig setNowInstantGenerationDiscreteStep(final Duration nowInstantGenerationDiscreteStep) {
         this.nowInstantGenerationDiscreteStep = nowInstantGenerationDiscreteStep;

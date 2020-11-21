@@ -14,27 +14,10 @@
  * limitations under the License.
  */
 
-package io.rxmicro.annotation.processor.data.model;
-
-import io.rxmicro.logger.RequestIdSupplier;
-
-import java.util.function.Predicate;
-import javax.lang.model.element.VariableElement;
-
 /**
+ * The root package for the {@code rxmicro.test.dbunit.junit} module.
+ *
  * @author nedis
  * @since 0.7
  */
-public final class CommonDataGroupRules {
-
-    public static final String REQUEST_ID_SUPPLIER_GROUP = "REQUEST_ID_SUPPLIER_GROUP";
-
-    public static final Predicate<VariableElement> REQUEST_ID_SUPPLIER_PREDICATE = expectedType(RequestIdSupplier.class);
-
-    public static Predicate<VariableElement> expectedType(final Class<?> type) {
-        return v -> type.getName().equals(v.asType().toString());
-    }
-
-    private CommonDataGroupRules(){
-    }
-}
+package io.rxmicro.test.dbunit.junit;

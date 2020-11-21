@@ -22,19 +22,35 @@ import io.rxmicro.test.local.model.BaseTestConfig;
 import java.time.Duration;
 
 /**
+ * Allows configuring the global test environment.
+ *
  * @author nedis
  * @since 0.7
  */
 public final class GlobalTestConfig extends BaseTestConfig {
 
+    /**
+     * Default delta that used to compare two instance of {@link java.time.Instant} type.
+     */
     public static final Duration DEFAULT_INSTANT_COMPARE_DELTA_VALUE = Duration.ofSeconds(5);
 
     private Duration defaultInstantCompareDelta = DEFAULT_INSTANT_COMPARE_DELTA_VALUE;
 
+    /**
+     * Returns the delta that used to compare two instance of {@link java.time.Instant} type.
+     *
+     * @return the delta that used to compare two instance of {@link java.time.Instant} type.
+     */
     public Duration getDefaultInstantCompareDelta() {
         return defaultInstantCompareDelta;
     }
 
+    /**
+     * Sets the delta that used to compare two instance of {@link java.time.Instant} type.
+     *
+     * @param defaultInstantCompareDelta the delta that used to compare two instance of {@link java.time.Instant} type.
+     * @return the reference to this  {@link GlobalTestConfig} instance
+     */
     @BuilderMethod
     public GlobalTestConfig setDefaultInstantCompareDelta(final Duration defaultInstantCompareDelta) {
         this.defaultInstantCompareDelta = defaultInstantCompareDelta;

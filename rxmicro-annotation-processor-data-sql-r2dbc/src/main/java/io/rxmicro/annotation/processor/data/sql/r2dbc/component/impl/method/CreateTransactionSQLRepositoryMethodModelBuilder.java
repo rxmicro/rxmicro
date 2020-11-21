@@ -46,10 +46,10 @@ import java.util.function.Predicate;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.VariableElement;
 
+import static io.rxmicro.annotation.processor.data.model.CommonDataGroupRules.REQUEST_ID_SUPPLIER_GROUP;
+import static io.rxmicro.annotation.processor.data.model.CommonDataGroupRules.REQUEST_ID_SUPPLIER_PREDICATE;
 import static io.rxmicro.annotation.processor.data.sql.model.CommonSQLGroupRules.ISOLATION_LEVEL_GROUP;
 import static io.rxmicro.annotation.processor.data.sql.model.CommonSQLGroupRules.ISOLATION_LEVEL_PREDICATE;
-import static io.rxmicro.annotation.processor.data.sql.model.CommonSQLGroupRules.REQUEST_ID_SUPPLIER_GROUP;
-import static io.rxmicro.annotation.processor.data.sql.model.CommonSQLGroupRules.REQUEST_ID_SUPPLIER_PREDICATE;
 import static io.rxmicro.data.sql.model.TransactionType.SUPPORTED_TRANSACTION_TYPES;
 import static java.util.stream.Collectors.joining;
 

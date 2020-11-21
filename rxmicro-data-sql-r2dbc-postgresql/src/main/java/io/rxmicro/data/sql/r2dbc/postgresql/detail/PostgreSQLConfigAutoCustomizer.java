@@ -44,5 +44,6 @@ public class PostgreSQLConfigAutoCustomizer {
     }
 
     protected PostgreSQLConfigAutoCustomizer() {
+        // This is basic class designed for extension only.
     }
 }

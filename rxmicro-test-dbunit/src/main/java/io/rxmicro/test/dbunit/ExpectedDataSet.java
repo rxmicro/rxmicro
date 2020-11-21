@@ -24,6 +24,9 @@ import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
+ * Provides the expected state of tested database after execution of test method.
+ * If expected state does not match to the actual database state the {@link AssertionError} error will throw.
+ *
  * @author nedis
  * @since 0.7
  */
@@ -32,13 +35,18 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Target(METHOD)
 public @interface ExpectedDataSet {
 
+    /**
+     * Returns the list of dataset files.
+     *
+     * @return the list of dataset files.
+     */
     String[] value() default {};
 
     /**
      * Returns column names to sort the dataset with.
      *
      * <p>
-     * If column has the same name for two or more table, use full column name: ${tableName}.${columnName}
+     * If column has the same name for two or more table, use full column name: ${tableName}.${columnName}.
      *
      * @return column names to sort the dataset with
      */

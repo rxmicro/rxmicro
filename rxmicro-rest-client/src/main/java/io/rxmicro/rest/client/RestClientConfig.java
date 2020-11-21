@@ -23,7 +23,7 @@ import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.config.Secrets.hideSecretInfo;
 
 /**
- * Allows to configure a REST client options.
+ * Allows configuring a REST client options.
  *
  * @author nedis
  * @since 0.7

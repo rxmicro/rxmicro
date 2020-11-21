@@ -16,20 +16,20 @@
 
 package io.rxmicro.annotation.processor.data.sql.model;
 
-import io.rxmicro.annotation.processor.data.model.CommonDataGroupRules;
 import io.rxmicro.data.sql.model.IsolationLevel;
 import io.rxmicro.data.sql.operation.CustomSelect;
 
 import java.util.function.Predicate;
 import javax.lang.model.element.VariableElement;
 
+import static io.rxmicro.annotation.processor.data.model.CommonDataGroupRules.expectedType;
 import static io.rxmicro.data.sql.model.TransactionType.SUPPORTED_TRANSACTION_TYPES;
 
 /**
  * @author nedis
  * @since 0.7
  */
-public class CommonSQLGroupRules extends CommonDataGroupRules {
+public final class CommonSQLGroupRules {
 
     public static final String TRANSACTION_GROUP = "TRANSACTION_GROUP";
 
@@ -45,6 +45,6 @@ public class CommonSQLGroupRules extends CommonDataGroupRules {
 
     public static final Predicate<VariableElement> ISOLATION_LEVEL_PREDICATE = expectedType(IsolationLevel.class);
 
-    protected CommonSQLGroupRules(){
+    private CommonSQLGroupRules(){
     }
 }

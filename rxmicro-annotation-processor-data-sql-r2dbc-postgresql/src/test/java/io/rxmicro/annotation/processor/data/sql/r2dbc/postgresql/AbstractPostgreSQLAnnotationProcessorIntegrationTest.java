@@ -22,6 +22,7 @@ import io.rxmicro.annotation.processor.integration.test.AbstractRxMicroAnnotatio
 import javax.annotation.processing.Processor;
 
 import static io.rxmicro.data.RepositoryFactory.REPOSITORY_FACTORY_IMPL_CLASS_NAME;
+import static io.rxmicro.data.sql.r2dbc.postgresql.detail.PostgreSQLConfigAutoCustomizer.POSTGRES_SQL_CONFIG_AUTO_CUSTOMIZER_CLASS_NAME;
 
 /**
  * @author nedis
@@ -31,7 +32,7 @@ public abstract class AbstractPostgreSQLAnnotationProcessorIntegrationTest
         extends AbstractRxMicroAnnotationProcessorIntegrationTest {
 
     public AbstractPostgreSQLAnnotationProcessorIntegrationTest() {
-        super(REPOSITORY_FACTORY_IMPL_CLASS_NAME);
+        super(REPOSITORY_FACTORY_IMPL_CLASS_NAME, POSTGRES_SQL_CONFIG_AUTO_CUSTOMIZER_CLASS_NAME);
     }
 
     @Override

@@ -104,7 +104,7 @@ final class BaseRestControllerMethod_Throwable_IntegrationTest extends AbstractB
         assertSame(httpResponse, actualResponse);
         verify(httpErrorResponseBodyBuilder).build(httpResponseBuilder, InternalHttpErrorException.STATUS_CODE, expectedMessage);
         verify(httpResponse, never()).setHeader(eq(ACCESS_CONTROL_ALLOW_ORIGIN), anyString());
-        verify(logger).error(throwable, "Internal server error: ?", throwable.getMessage());
+        verify(logger).error(request, throwable, "Internal server error: ?", throwable.getMessage());
     }
 
     @ParameterizedTest
@@ -128,7 +128,7 @@ final class BaseRestControllerMethod_Throwable_IntegrationTest extends AbstractB
 
         assertSame(httpResponse, actualResponse);
         verify(httpResponse, never()).setHeader(eq(ACCESS_CONTROL_ALLOW_ORIGIN), anyString());
-        verify(logger).error(throwable, "Internal server error: ?", throwable.getMessage());
+        verify(logger).error(request, throwable, "Internal server error: ?", throwable.getMessage());
     }
 
     /**

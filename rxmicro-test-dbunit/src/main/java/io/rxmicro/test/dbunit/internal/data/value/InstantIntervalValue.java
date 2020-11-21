@@ -52,22 +52,6 @@ public final class InstantIntervalValue implements Comparable<Object> {
     }
 
     @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || (getClass() != o.getClass() && !(o instanceof Timestamp))) {
-            return false;
-        }
-        return compareTo(o) == 0;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(minInstant, maxInstant);
-    }
-
-    @Override
     public int compareTo(final Object o) {
         if (o instanceof Timestamp) {
             return compareTo((Timestamp) o);

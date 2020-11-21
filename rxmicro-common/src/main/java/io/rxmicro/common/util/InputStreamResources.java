@@ -27,6 +27,8 @@ import java.util.List;
 import java.util.Optional;
 
 /**
+ * The input stream resource utils.
+ *
  * @author nedis
  * @since 0.7
  */
@@ -42,12 +44,24 @@ public final class InputStreamResources {
      */
     public static final String CLASSPATH_SCHEME = "classpath:";
 
+    /**
+     * Returns the {@link Optional} of the {@link InputStreamResource} instance for the provided resource path.
+     *
+     * @param resourcePath the provided resource path.
+     * @return the {@link Optional} of the {@link InputStreamResource} instance for the provided resource path.
+     * @see #getSupportedInputStreamResources()
+     */
     public static Optional<InputStreamResource> getInputStreamResource(final String resourcePath) {
         return getClasspathInputStreamResource(resourcePath)
                 .or(() -> getFileInputStreamResource(resourcePath))
                 .or(() -> getUrlInputStreamResource(resourcePath));
     }
 
+    /**
+     * Returns the supported input stream resources: {@code classpath}, {@code file} and {@code url}.
+     *
+     * @return the supported input stream resources: {@code classpath}, {@code file} and {@code url}.
+     */
     public static List<String> getSupportedInputStreamResources() {
         return List.of("classpath", "file", "url");
     }
@@ -81,6 +95,6 @@ public final class InputStreamResources {
         }
     }
 
-    private InputStreamResources(){
+    private InputStreamResources() {
     }
 }

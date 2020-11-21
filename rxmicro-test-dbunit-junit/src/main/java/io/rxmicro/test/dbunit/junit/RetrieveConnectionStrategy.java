@@ -17,14 +17,29 @@
 package io.rxmicro.test.dbunit.junit;
 
 /**
+ * Declares the strategies that used by BDUnit for retrieving of connection to database.
+ *
  * @author nedis
  * @since 0.7
  */
 public enum RetrieveConnectionStrategy {
 
+    /**
+     * This strategy informs the DBUnit to use single connection per all tests for your project.
+     *
+     * <p>
+     * The RxMicro team recommends to use this strategy for external databases only.
+     */
     PER_ALL_TEST_CLASSES,
 
+    /**
+     * This strategy informs the DBUnit to create a new connection before run all tests for each test class and
+     * to close after running all tests for each test class.
+     */
     PER_TEST_CLASS,
 
+    /**
+     * This strategy informs the DBUnit to create a new connection before each test and to close after each one.
+     */
     PER_TEST_METHOD
 }

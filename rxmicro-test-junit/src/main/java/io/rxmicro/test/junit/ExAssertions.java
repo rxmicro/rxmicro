@@ -28,6 +28,8 @@ import java.util.function.Supplier;
 import static io.rxmicro.config.Configs.getConfig;
 
 /**
+ * {@code ExAssertions} is a collection of utility methods that extends the {@link Assertions} utils.
+ *
  * @author nedis
  * @since 0.7
  */
@@ -35,23 +37,56 @@ public class ExAssertions extends Assertions {
 
     private static boolean configInit = false;
 
+    /**
+     * Asserts that {@code expected} and {@code actual} are equal within the default {@code delta} configured
+     * via {@link GlobalTestConfig} config class.
+     *
+     * @param expected the expected instant
+     * @param actual the actual instant
+     * @param message the custom error message that should be used if assertion is failed.
+     * @see GlobalTestConfig#getDefaultInstantCompareDelta()
+     */
     public static void assertInstantEquals(final Instant expected,
                                            final Instant actual,
                                            final String message) {
         assertInstantEquals(expected, actual, getDefaultInstantCompareDelta(), message);
     }
 
+    /**
+     * Asserts that {@code expected} and {@code actual} are equal within the default {@code delta} configured
+     * via {@link GlobalTestConfig} config class.
+     *
+     * @param expected the expected instant
+     * @param actual the actual instant
+     * @param messageSupplier the custom error message supplier that should be used if assertion is failed.
+     * @see GlobalTestConfig#getDefaultInstantCompareDelta()
+     */
     public static void assertInstantEquals(final Instant expected,
                                            final Instant actual,
                                            final Supplier<String> messageSupplier) {
         assertInstantEquals(expected, actual, getDefaultInstantCompareDelta(), messageSupplier);
     }
 
+    /**
+     * Asserts that {@code expected} and {@code actual} are equal within the default {@code delta} configured
+     * via {@link GlobalTestConfig} config class.
+     *
+     * @param expected the expected instant
+     * @param actual the actual instant
+     * @see GlobalTestConfig#getDefaultInstantCompareDelta()
+     */
     public static void assertInstantEquals(final Instant expected,
                                            final Instant actual) {
         assertInstantEquals(expected, actual, getDefaultInstantCompareDelta(), (String) null);
     }
 
+    /**
+     * Asserts that {@code expected} and {@code actual} are equal within the given non-negative {@code delta}.
+     *
+     * @param expected the expected instant
+     * @param actual the actual instant
+     * @param message the custom error message that should be used if assertion is failed.
+     */
     public static void assertInstantEquals(final Instant expected,
                                            final Instant actual,
                                            final Duration delta,
@@ -61,6 +96,13 @@ public class ExAssertions extends Assertions {
         }
     }
 
+    /**
+     * Asserts that {@code expected} and {@code actual} are equal within the given non-negative {@code delta}.
+     *
+     * @param expected the expected instant
+     * @param actual the actual instant
+     * @param messageSupplier the custom error message supplier that should be used if assertion is failed.
+     */
     public static void assertInstantEquals(final Instant expected,
                                            final Instant actual,
                                            final Duration delta,
@@ -70,6 +112,12 @@ public class ExAssertions extends Assertions {
         }
     }
 
+    /**
+     * Asserts that {@code expected} and {@code actual} are equal within the given non-negative {@code delta}.
+     *
+     * @param expected the expected instant
+     * @param actual the actual instant
+     */
     public static void assertInstantEquals(final Instant expected,
                                            final Instant actual,
                                            final Duration delta) {

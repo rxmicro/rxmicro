@@ -37,7 +37,7 @@ import java.util.function.Function;
 public final class PostgreSQLConfigCustomizer {
 
     /**
-     * Allows to register custom codecs.
+     * Allows registering custom codecs.
      *
      * @param codecRegistrars the custom codecs
      */

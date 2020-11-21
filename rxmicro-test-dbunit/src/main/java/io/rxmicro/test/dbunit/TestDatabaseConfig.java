@@ -24,13 +24,21 @@ import static io.rxmicro.common.util.Requires.require;
 import static io.rxmicro.config.Networks.validatePort;
 
 /**
+ * Allows configuring the connection options that used by the DBUnit to work with test database.
+ *
  * @author nedis
  * @since 0.7
  */
 public final class TestDatabaseConfig extends BaseTestConfig {
 
+    /**
+     * The default host name.
+     */
     public static final String DEFAULT_HOST = "localhost";
 
+    /**
+     * The unspecified port constant.
+     */
     public static final int PORT_NOT_SPECIFIED = -1;
 
     private static final ThreadLocal<TestDatabaseConfig> CURRENT_TEST_DATABASE_CONFIG = new ThreadLocal<>();
@@ -51,6 +59,14 @@ public final class TestDatabaseConfig extends BaseTestConfig {
 
     private CharSequence password;
 
+    /**
+     * Returns the current instance of the {@link TestDatabaseConfig} class that used by the DBUnit to work with test database.
+     * <p>
+     * This method uses the {@link ThreadLocal} variable to store the reference to the current instance of the {@link TestDatabaseConfig}.
+     * It means that developer can use this method correctly for parallel tests.
+     *
+     * @return the current instance of the {@link TestDatabaseConfig} class that used by the DBUnit to work with test database.
+     */
     public static TestDatabaseConfig getCurrentTestDatabaseConfig() {
         TestDatabaseConfig testDatabaseConfig = CURRENT_TEST_DATABASE_CONFIG.get();
         if (testDatabaseConfig == null) {
@@ -60,30 +76,64 @@ public final class TestDatabaseConfig extends BaseTestConfig {
         return testDatabaseConfig;
     }
 
+    /**
+     * Remove the current instance of the {@link TestDatabaseConfig} from the {@link ThreadLocal} variable.
+     */
     public static void releaseCurrentTestDatabaseConfig() {
         CURRENT_TEST_DATABASE_CONFIG.remove();
     }
 
+    /**
+     * Returns the JDBC driver full class name.
+     *
+     * @return the JDBC driver full class name.
+     * @see java.sql.Driver
+     */
     public String getJdbcDriver() {
         return jdbcDriver != null ? jdbcDriver : getType().getDefaultJdbcDriver();
     }
 
+    /**
+     * Sets the custom JDBC driver full class name.
+     *
+     * @param jdbcDriver the custom JDBC driver full class name.
+     * @return the reference to this  {@link TestDatabaseConfig} instance
+     * @see java.sql.Driver
+     */
     @BuilderMethod
     public TestDatabaseConfig setJdbcDriver(final String jdbcDriver) {
         this.jdbcDriver = jdbcDriver;
         return this;
     }
 
+    /**
+     * Returns the {@link DatabaseType} that defines the standard JDBC settings for each supported database.
+     *
+     * @return the {@link DatabaseType} that defines the standard JDBC settings for each supported database.
+     */
     public DatabaseType getType() {
         return require(type, "Required 'type' property is null! Set database type!");
     }
 
+
+    /**
+     * Sets the {@link DatabaseType} that defines the standard JDBC settings for each supported database.
+     *
+     * @param type the {@link DatabaseType} that defines the standard JDBC settings for each supported database.
+     * @return the reference to this  {@link TestDatabaseConfig} instance
+     */
     @BuilderMethod
     public TestDatabaseConfig setType(final DatabaseType type) {
         this.type = type;
         return this;
     }
 
+    /**
+     * Returns the JDBC connection url.
+     *
+     * @return the JDBC connection url.
+     * @see java.sql.DriverManager
+     */
     public String getJdbcUrl() {
         if (port == PORT_NOT_SPECIFIED) {
             return getType().getJdbcUrl(getHost(), getDatabase());
@@ -92,6 +142,15 @@ public final class TestDatabaseConfig extends BaseTestConfig {
         }
     }
 
+    /**
+     * Sets the JDBC connection url.
+     *
+     * <p>
+     * Alias for {@link #setUrl(String)} method.
+     *
+     * @param jdbcUrl the JDBC connection url.
+     * @return the reference to this  {@link TestDatabaseConfig} instance
+     */
     @BuilderMethod
     public TestDatabaseConfig setJdbcUrl(final String jdbcUrl) {
         final TestDatabaseConfig config = DatabaseType.parseJdbcUrl(jdbcUrl);
@@ -103,9 +162,12 @@ public final class TestDatabaseConfig extends BaseTestConfig {
     }
 
     /**
-     * Alias for {@link #setJdbcUrl(String)}.
+     * Sets the JDBC connection url.
      *
-     * @param jdbcUrl the jdbc url
+     * <p>
+     * Alias for {@link #setJdbcUrl(String)} method.
+     *
+     * @param jdbcUrl the JDBC connection url.
      * @return the reference to this {@link TestDatabaseConfig} instance
      */
     @BuilderMethod
@@ -113,60 +175,126 @@ public final class TestDatabaseConfig extends BaseTestConfig {
         return setJdbcUrl(jdbcUrl);
     }
 
+    /**
+     * Returns the database host name or IP address.
+     *
+     * @return the database host name or IP address.
+     */
     public String getHost() {
         return require(host, "Required 'host' property is null! Provide a valid database host!");
     }
 
+    /**
+     * Sets the database host name or IP address.
+     *
+     * @param host the database host name or IP address.
+     * @return the reference to this  {@link TestDatabaseConfig} instance
+     */
     @BuilderMethod
     public TestDatabaseConfig setHost(final String host) {
         this.host = require(host, "Required 'host' property can't be null! Provide a valid database host!");
         return this;
     }
 
+    /**
+     * Sets the custom database port.
+     *
+     * @param port the custom database port.
+     * @return the reference to this  {@link TestDatabaseConfig} instance
+     */
     @BuilderMethod
     public TestDatabaseConfig setPort(final int port) {
         this.port = validatePort(port);
         return this;
     }
 
+    /**
+     * Returns the database name.
+     *
+     * @return the database name.
+     */
     public String getDatabase() {
         return require(database, "Required 'database' property is null! Provide a valid database name!");
     }
 
+    /**
+     * Sets the database name.
+     *
+     * @param database the database name.
+     * @return the reference to this  {@link TestDatabaseConfig} instance
+     */
     @BuilderMethod
     public TestDatabaseConfig setDatabase(final String database) {
         this.database = require(database, "Required 'database' property can't be null! Provide a valid database name!");
         return this;
     }
 
+    /**
+     * Returns {@code true} if database schema is configured.
+     *
+     * @return {@code true} if database schema is configured.
+     */
     public boolean isSchemaPresent() {
         return schema != null;
     }
 
+    /**
+     * Returns the configured database schema.
+     *
+     * @return the configured database schema.
+     */
     public String getSchema() {
         return require(schema, "Optional 'schema' property is null! Provide a valid schema name!");
     }
 
+    /**
+     * Sets the database schema.
+     *
+     * @param schema the database schema.
+     * @return the reference to this  {@link TestDatabaseConfig} instance
+     */
     @BuilderMethod
     public TestDatabaseConfig setSchema(final String schema) {
         this.schema = require(schema, "Required 'schema' property can't be null! Provide a valid schema name!");
         return this;
     }
 
+    /**
+     * Returns the database user.
+     *
+     * @return the database user.
+     */
     public String getUser() {
         return require(user, "Required 'username' property is null! Provide a valid database username!");
     }
 
+    /**
+     * Sets the database user.
+     *
+     * @param user the database user.
+     * @return the reference to this  {@link TestDatabaseConfig} instance
+     */
     @BuilderMethod
     public TestDatabaseConfig setUser(final String user) {
         this.user = require(user, "Required 'username' property can't be null! Provide a valid database username!");
         return this;
     }
 
+    /**
+     * Returns the user password.
+     *
+     * @return the user password.
+     */
     public CharSequence getPassword() {
         return require(password, "Required 'password' property is null! Provide a valid database password!");
     }
 
+    /**
+     * Sets the user password.
+     *
+     * @param password the user password.
+     * @return the reference to this  {@link TestDatabaseConfig} instance
+     */
     @BuilderMethod
     public TestDatabaseConfig setPassword(final CharSequence password) {
         require(password, "Required 'password' property can't be null! Provide a valid database password!");

@@ -121,7 +121,17 @@
     </Match>
     <Match>
         <Class name="io.rxmicro.test.dbunit.internal.component.AbstractDatabaseStateChanger"/>
-        <Method name="write" />
+        <Method name="executeJdbcStatements" />
         <Bug pattern="RCN_REDUNDANT_NULLCHECK_WOULD_HAVE_BEEN_A_NPE"/>
+    </Match>
+
+    <!-- equals method is not used for these classes: -->
+    <Match>
+        <Class name="io.rxmicro.test.dbunit.internal.data.value.InstantIntervalValue"/>
+        <Bug pattern="EQ_COMPARETO_USE_OBJECT_EQUALS"/>
+    </Match>
+    <Match>
+        <Class name="io.rxmicro.test.dbunit.internal.data.value.LongIntervalValue"/>
+        <Bug pattern="EQ_COMPARETO_USE_OBJECT_EQUALS"/>
     </Match>
 </FindBugsFilter>

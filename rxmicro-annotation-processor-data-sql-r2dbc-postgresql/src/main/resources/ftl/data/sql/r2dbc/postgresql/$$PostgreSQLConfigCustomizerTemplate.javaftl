@@ -4,7 +4,7 @@ public final class ${IMPL_CLASS_NAME} extends PostgreSQLConfigAutoCustomizer{
 
     private static final Map<String, Class<? extends Enum<?>>> POSTGRES_ENUM_MAPPING = Map.of(
             <#list POSTGRES_ENUM_MAPPING as V>
-            "${V.value}", ${V.key.simpleName}.class<#if V?has_next>,</#if>
+            "${V.value}", ${V.key}.class<#if V?has_next>,</#if>
             </#list>
     );
 

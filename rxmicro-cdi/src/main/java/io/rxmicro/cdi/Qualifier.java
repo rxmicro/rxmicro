@@ -28,7 +28,7 @@ import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
- * Allows to customize an injection point by specifying a string value or custom annotation.
+ * Allows customizing an injection point by specifying a string value or custom annotation.
  * This annotation can also be used to specify a component name.
  *
  * <p>

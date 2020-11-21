@@ -25,6 +25,8 @@ import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
+ * Provides the init state of tested database before execution of test method.
+ *
  * @author nedis
  * @since 0.7
  */
@@ -33,8 +35,18 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Target(METHOD)
 public @interface InitialDataSet {
 
+    /**
+     * Returns the list of dataset files.
+     *
+     * @return the list of dataset files.
+     */
     String[] value() default {};
 
+    /**
+     * Returns the init database strategy that used by DBUnit to synchronize database state with the provided dataset files.
+     *
+     * @return the init database strategy that used by DBUnit to synchronize database state with the provided dataset files.
+     */
     InitDatabaseStrategy initDatabaseStrategy() default CLEAN_INSERT;
 
     /**

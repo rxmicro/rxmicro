@@ -16,6 +16,8 @@
 
 package io.rxmicro.annotation.processor.data.model;
 
+import io.rxmicro.common.meta.BuilderMethod;
+
 import java.util.Objects;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.VariableElement;
@@ -57,20 +59,6 @@ public class Variable {
         this(element, element.getSimpleName().toString(), getter, 1);
     }
 
-    /*public Variable(final TypeMirror type,
-                    final String name) {
-        this(type, name, name);
-    }
-
-    public Variable(final TypeMirror type,
-                    final String name,
-                    final String getter) {
-        this.type = require(type);
-        this.name = require(name);
-        this.getter = require(getter);
-        this.repeatCount = 1;
-    }*/
-
     public String getGetter() {
         return getter;
     }
@@ -104,10 +92,14 @@ public class Variable {
     }
 
     @Override
-    public boolean equals(final Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        final Variable variable = (Variable) o;
+    public boolean equals(final Object other) {
+        if (this == other) {
+            return true;
+        }
+        if (other == null || getClass() != other.getClass()) {
+            return false;
+        }
+        final Variable variable = (Variable) other;
         return repeatCount == variable.repeatCount &&
                 element.equals(variable.element) &&
                 name.equals(variable.name) &&
@@ -138,6 +130,7 @@ public class Variable {
 
         private int repeatCount = 1;
 
+        @BuilderMethod
         public Builder setVariableElement(final VariableElement variableElement) {
             this.variableElement = require(variableElement);
             setName(variableElement.getSimpleName().toString());
@@ -145,17 +138,20 @@ public class Variable {
             return this;
         }
 
+        @BuilderMethod
         public Builder setName(final String name) {
             this.name = require(name);
             setGetter(name);
             return this;
         }
 
+        @BuilderMethod
         public Builder setGetter(final String getter) {
             this.getter = require(getter);
             return this;
         }
 
+        @BuilderMethod
         public Builder setRepeatCount(final int repeatCount) {
             this.repeatCount = repeatCount;
             return this;

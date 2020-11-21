@@ -17,37 +17,81 @@
 package io.rxmicro.test.dbunit;
 
 /**
+ * The list of the supported expressions by the DBUnit.
+ *
  * @author nedis
  * @since 0.7
  */
 public final class Expressions {
 
+    /**
+     * Null value expression.
+     */
     public static final String NULL_VALUE = "null";
 
+    /**
+     * Now instant expression.
+     */
     public static final String NOW_INSTANT_1 = "now";
 
+    /**
+     * Now instant expression.
+     */
     public static final String NOW_INSTANT_2 = "instant:now";
 
+    /**
+     * Now instant expression.
+     */
     public static final String NOW_INSTANT_3 = "timestamp:now";
 
+    /**
+     * Now instant interval.
+     */
     public static final String INSTANT_INTERVAL_1 = "interval";
 
+    /**
+     * Now instant interval.
+     */
     public static final String INSTANT_INTERVAL_2 = "instant:interval";
 
+    /**
+     * Now instant interval.
+     */
     public static final String INSTANT_INTERVAL_3 = "timestamp:interval";
 
+    /**
+     * Integer number interval.
+     */
     public static final String INTEGER_INTERVAL_1 = "int:interval";
 
+    /**
+     * Integer number interval.
+     */
     public static final String INTEGER_INTERVAL_2 = "integer:interval";
 
+    /**
+     * Integer number interval.
+     */
     public static final String TINYINT_INTERVAL = "tinyint:interval";
 
+    /**
+     * Integer number interval.
+     */
     public static final String SHORT_INTERVAL = "short:interval";
 
+    /**
+     * Integer number interval.
+     */
     public static final String SMALLINT_INTERVAL = "smallint:interval";
 
+    /**
+     * Integer number interval.
+     */
     public static final String LONG_INTERVAL = "long:interval";
 
+    /**
+     * Integer number interval.
+     */
     public static final String BIGINT_INTERVAL = "bigint:interval";
 
     private Expressions() {

@@ -43,7 +43,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 public @interface RestClientGeneratorConfig {
 
     /**
-     * Allows to specify the format for message exchange with a server.
+     * Allows specifying the format for message exchange with a server.
      *
      * @return the message exchange format.
      */

@@ -36,5 +36,6 @@ public class ErrorHandler {
      * Protected constructor allowing subclassing but not direct instantiation.
      */
     protected ErrorHandler() {
+        // Protected constructor allowing subclassing but not direct instantiation.
     }
 }

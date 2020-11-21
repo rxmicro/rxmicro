@@ -28,6 +28,8 @@ import java.lang.annotation.Target;
 import static io.rxmicro.test.dbunit.junit.RetrieveConnectionStrategy.PER_TEST_CLASS;
 
 /**
+ * Declares the test class as a DBUnit integration test.
+ *
  * @author nedis
  * @since 0.7
  */
@@ -37,5 +39,10 @@ import static io.rxmicro.test.dbunit.junit.RetrieveConnectionStrategy.PER_TEST_C
 @Inherited
 public @interface DbUnitTest {
 
+    /**
+     * Returns the strategies that should be used by BDUnit for retrieving of connection to database.
+     *
+     * @return the strategies that should be used by BDUnit for retrieving of connection to database.
+     */
     RetrieveConnectionStrategy retrieveConnectionStrategy() default PER_TEST_CLASS;
 }

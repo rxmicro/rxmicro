@@ -17,6 +17,25 @@
 /**
  * The module designed for test writing using the <a href="http://dbunit.sourceforge.net/">DbUnit</a> framework.
  *
+ * <p>
+ * This module follows the next package structure rules:
+ * <ul>
+ *     <li>
+ *         {@code io.rxmicro.test.dbunit.junit} - is root module package that contains:
+ *         <ul>
+ *             <li>
+ *                 {@code internal} - is sub package with classes for current module use only.
+ *             </li>
+ *             <li>
+ *                 {@code local} - is shared sub package, which can be used by other {@code rxmicro} modules only.
+ *             </li>
+ *             <li>
+ *                 any other sub packages and root package - are public API that available for usage.
+ *             </li>
+ *         </ul>
+ *     </li>
+ * </ul>
+ *
  * @author nedis
  * @since 0.7
  */

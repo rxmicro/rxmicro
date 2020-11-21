@@ -31,6 +31,8 @@ import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.ge
 import static io.rxmicro.common.util.Requires.require;
 import static io.rxmicro.data.sql.r2dbc.postgresql.detail.PostgreSQLConfigAutoCustomizer.POSTGRES_SQL_CONFIG_AUTO_CUSTOMIZER_CLASS_NAME;
 import static io.rxmicro.runtime.detail.RxMicroRuntime.ENTRY_POINT_PACKAGE;
+import static java.util.Map.entry;
+import static java.util.stream.Collectors.toList;
 
 /**
  * @author nedis
@@ -58,7 +60,8 @@ public final class PostgreSQLConfigAutoCustomizerClassStructure extends DataRepo
     public Map<String, Object> getTemplateVariables() {
         final Map<String, Object> map = new HashMap<>();
         map.put("IMPL_CLASS_NAME", POSTGRES_SQL_CONFIG_AUTO_CUSTOMIZER_CLASS_NAME);
-        map.put("POSTGRES_ENUM_MAPPING", postgresEnumMapping);
+        map.put("POSTGRES_ENUM_MAPPING", postgresEnumMapping.stream()
+                .map(e -> entry(e.getKey().getSimpleName().toString(), e.getValue())).collect(toList()));
         return map;
     }
 

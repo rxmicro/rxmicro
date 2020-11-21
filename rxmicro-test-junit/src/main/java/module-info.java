@@ -33,11 +33,6 @@ import io.rxmicro.test.local.component.RxMicroTestExtension;
  *                 {@code local} - is shared sub package, which can be used by other {@code rxmicro} modules only.
  *             </li>
  *             <li>
- *                 {@code detail} - is sub package for generated code by {@code RxMicro Annotation Processor} use preferably.<br>
- *                 <i>Developer must not use classes from this sub package!</i><br>
- *                 <i>(Except documented abilities: HTTP internal types, partial implementations, etc.)</i>
- *             </li>
- *             <li>
  *                 any other sub packages and root package - are public API that available for usage.
  *             </li>
  *         </ul>

@@ -25,6 +25,9 @@ import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
+ * Declares the transactional test.
+ * The transaction test means that all changes made by test will rolled back after test execution.
+ *
  * @author nedis
  * @since 0.7
  */
@@ -33,6 +36,11 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Target(METHOD)
 public @interface RollbackChanges {
 
+    /**
+     * Returns the transaction isolation level that should be used for transactional test.
+     *
+     * @return the transaction isolation level that should be used for transactional test.
+     */
     IsolationLevel isolationLevel() default IsolationLevel.DEFAULT;
 
     /**
@@ -74,6 +82,15 @@ public @interface RollbackChanges {
             this.level = level;
         }
 
+        /**
+         * Returns the transaction isolation level.
+         *
+         * @return the transaction isolation level.
+         * @see Connection#TRANSACTION_READ_COMMITTED
+         * @see Connection#TRANSACTION_READ_UNCOMMITTED
+         * @see Connection#TRANSACTION_REPEATABLE_READ
+         * @see Connection#TRANSACTION_SERIALIZABLE
+         */
         public int getLevel() {
             return level;
         }

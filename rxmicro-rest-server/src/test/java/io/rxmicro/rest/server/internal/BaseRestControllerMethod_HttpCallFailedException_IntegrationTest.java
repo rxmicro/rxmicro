@@ -102,6 +102,7 @@ final class BaseRestControllerMethod_HttpCallFailedException_IntegrationTest ext
         assertSame(httpResponse, actualResponse);
         verify(httpResponse, never()).setHeader(eq(ACCESS_CONTROL_ALLOW_ORIGIN), anyString());
         verify(logger).error(
+                request,
                 "Http call failed: ?",
                 format("500 HTTP/1.1\nHeader1: value1\n\n<body>")
         );
@@ -126,6 +127,7 @@ final class BaseRestControllerMethod_HttpCallFailedException_IntegrationTest ext
         assertSame(httpResponse, actualResponse);
         verify(httpResponse, never()).setHeader(eq(ACCESS_CONTROL_ALLOW_ORIGIN), anyString());
         verify(logger).error(
+                request,
                 "Http call failed: ?",
                 format("500 HTTP/1.1\nHeader1: value1\n\n")
         );
@@ -149,6 +151,7 @@ final class BaseRestControllerMethod_HttpCallFailedException_IntegrationTest ext
         assertSame(httpResponse, actualResponse);
         verify(httpResponse, never()).setHeader(eq(ACCESS_CONTROL_ALLOW_ORIGIN), anyString());
         verify(logger).error(
+                request,
                 "Http call failed: ?",
                 format("500 HTTP/1.1\nHeader1: value1\n\n<body>")
         );
@@ -175,6 +178,7 @@ final class BaseRestControllerMethod_HttpCallFailedException_IntegrationTest ext
         assertSame(httpResponse, actualResponse);
         verify(httpResponse, never()).setHeader(eq(ACCESS_CONTROL_ALLOW_ORIGIN), anyString());
         verify(logger).error(
+                request,
                 "Http call failed: ?",
                 format("500 HTTP/1.1\nHeader1: value1\n\n<body>")
         );

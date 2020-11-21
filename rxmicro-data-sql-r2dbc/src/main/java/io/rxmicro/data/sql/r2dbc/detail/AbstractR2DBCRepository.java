@@ -45,7 +45,7 @@ public abstract class AbstractR2DBCRepository extends AbstractSQLRepository {
 
     protected AbstractR2DBCRepository(final Class<?> repositoryInterface) {
         super(repositoryInterface);
-        connections = new Connections(logger);
+        connections = new Connections();
         statements = new Statements(logger);
     }
 

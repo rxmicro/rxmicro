@@ -582,7 +582,7 @@ public interface Logger {
                Object arg1,
                Object arg2,
                Object arg3,
-               Object arg4) ;
+               Object arg4);
 
     /**
      * Log the message at the {@code TRACE} level according to the specified format and arguments.
@@ -606,7 +606,7 @@ public interface Logger {
                Object arg2,
                Object arg3,
                Object arg4,
-               Object arg5) ;
+               Object arg5);
 
     /**
      * Log the message at the {@code TRACE} level according to the specified format and arguments.
@@ -884,7 +884,7 @@ public interface Logger {
     void trace(RequestIdSupplier requestIdSupplier,
                Throwable throwable,
                String format,
-               Supplier<?> arg1) ;
+               Supplier<?> arg1);
 
     /**
      * Log the message with the throwable at the {@code TRACE} level according to the specified format and arguments.
@@ -1475,7 +1475,7 @@ public interface Logger {
      */
     void debug(RequestIdSupplier requestIdSupplier,
                String format,
-               Object arg1) ;
+               Object arg1);
 
     /**
      * Log the message at the {@code DEBUG} level according to the specified format and arguments.
@@ -1493,7 +1493,7 @@ public interface Logger {
     void debug(RequestIdSupplier requestIdSupplier,
                String format,
                Object arg1,
-               Object arg2) ;
+               Object arg2);
 
     /**
      * Log the message at the {@code DEBUG} level according to the specified format and arguments.
@@ -1709,7 +1709,7 @@ public interface Logger {
     void debug(RequestIdSupplier requestIdSupplier,
                Throwable throwable,
                String format,
-               Object arg1) ;
+               Object arg1);
 
     /**
      * Log the message with the throwable at the {@code DEBUG} level according to the specified format and arguments.
@@ -1801,7 +1801,7 @@ public interface Logger {
                Object arg2,
                Object arg3,
                Object arg4,
-               Object arg5) ;
+               Object arg5);
 
     /**
      * Log the message with the throwable at the {@code DEBUG} level according to the specified format and arguments.
@@ -1837,7 +1837,7 @@ public interface Logger {
     void debug(RequestIdSupplier requestIdSupplier,
                Throwable throwable,
                String format,
-               Supplier<?> arg1) ;
+               Supplier<?> arg1);
 
     /**
      * Log the message with the throwable at the {@code DEBUG} level according to the specified format and arguments.
@@ -1977,7 +1977,7 @@ public interface Logger {
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
     void info(String format,
-              Object arg1) ;
+              Object arg1);
 
     /**
      * Log the message at the {@code INFO} level according to the specified format and arguments.
@@ -2031,7 +2031,7 @@ public interface Logger {
               Object arg1,
               Object arg2,
               Object arg3,
-              Object arg4) ;
+              Object arg4);
 
     /**
      * Log the message at the {@code INFO} level according to the specified format and arguments.
@@ -2053,7 +2053,7 @@ public interface Logger {
               Object arg2,
               Object arg3,
               Object arg4,
-              Object arg5) ;
+              Object arg5);
 
     /**
      * Log the message at the {@code INFO} level according to the specified format and arguments.
@@ -2115,7 +2115,7 @@ public interface Logger {
     void info(String format,
               Supplier<?> arg1,
               Supplier<?> arg2,
-              Supplier<?> arg3) ;
+              Supplier<?> arg3);
 
     /**
      * Log the message at the {@code INFO} level according to the specified format and arguments.
@@ -2187,7 +2187,7 @@ public interface Logger {
      */
     void info(Throwable throwable,
               String format,
-              Object arg1) ;
+              Object arg1);
 
     /**
      * Log the message with the throwable at the {@code INFO} level according to the specified format and arguments.
@@ -2205,7 +2205,7 @@ public interface Logger {
     void info(Throwable throwable,
               String format,
               Object arg1,
-              Object arg2) ;
+              Object arg2);
 
     /**
      * Log the message with the throwable at the {@code INFO} level according to the specified format and arguments.
@@ -2225,7 +2225,7 @@ public interface Logger {
               String format,
               Object arg1,
               Object arg2,
-              Object arg3) ;
+              Object arg3);
 
     /**
      * Log the message with the throwable at the {@code INFO} level according to the specified format and arguments.
@@ -2247,7 +2247,7 @@ public interface Logger {
               Object arg1,
               Object arg2,
               Object arg3,
-              Object arg4) ;
+              Object arg4);
 
     /**
      * Log the message with the throwable at the {@code INFO} level according to the specified format and arguments.
@@ -2271,7 +2271,7 @@ public interface Logger {
               Object arg2,
               Object arg3,
               Object arg4,
-              Object arg5) ;
+              Object arg5);
 
     /**
      * Log the message with the throwable at the {@code INFO} level according to the specified format and arguments.
@@ -2466,7 +2466,7 @@ public interface Logger {
               String format,
               Object arg1,
               Object arg2,
-              Object arg3) ;
+              Object arg3);
 
     /**
      * Log the message at the {@code INFO} level according to the specified format and arguments.
@@ -2488,7 +2488,7 @@ public interface Logger {
               Object arg1,
               Object arg2,
               Object arg3,
-              Object arg4) ;
+              Object arg4);
 
     /**
      * Log the message at the {@code INFO} level according to the specified format and arguments.
@@ -2512,7 +2512,7 @@ public interface Logger {
               Object arg2,
               Object arg3,
               Object arg4,
-              Object arg5) ;
+              Object arg5);
 
     /**
      * Log the message at the {@code INFO} level according to the specified format and arguments.
@@ -2682,7 +2682,7 @@ public interface Logger {
               Throwable throwable,
               String format,
               Object arg1,
-              Object arg2) ;
+              Object arg2);
 
     /**
      * Log the message with the throwable at the {@code INFO} level according to the specified format and arguments.
@@ -2728,7 +2728,7 @@ public interface Logger {
               Object arg1,
               Object arg2,
               Object arg3,
-              Object arg4) ;
+              Object arg4);
 
     /**
      * Log the message with the throwable at the {@code INFO} level according to the specified format and arguments.
@@ -2754,7 +2754,7 @@ public interface Logger {
               Object arg2,
               Object arg3,
               Object arg4,
-              Object arg5) ;
+              Object arg5);
 
     /**
      * Log the message with the throwable at the {@code INFO} level according to the specified format and arguments.
@@ -3681,7 +3681,7 @@ public interface Logger {
               Object arg1,
               Object arg2,
               Object arg3,
-              Object arg4) ;
+              Object arg4);
 
     /**
      * Log the message with the throwable at the {@code WARN} level according to the specified format and arguments.
@@ -3707,7 +3707,7 @@ public interface Logger {
               Object arg2,
               Object arg3,
               Object arg4,
-              Object arg5) ;
+              Object arg5);
 
     /**
      * Log the message with the throwable at the {@code WARN} level according to the specified format and arguments.

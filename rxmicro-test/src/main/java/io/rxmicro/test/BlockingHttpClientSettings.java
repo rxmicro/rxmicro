@@ -29,7 +29,7 @@ import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
- * Allows to configure the following component: {@link BlockingHttpClient}, in order to execute HTTP requests in tests.
+ * Allows configuring the following component: {@link BlockingHttpClient}, in order to execute HTTP requests in tests.
  *
  * <p>
  * <i>(This annotation applies only to the {@link BlockingHttpClient} type fields.)</i>

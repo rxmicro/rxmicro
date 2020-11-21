@@ -16,7 +16,10 @@
 
 package io.rxmicro.annotation.processor.data.model;
 
+import io.rxmicro.annotation.processor.common.model.ClassHeader;
 import io.rxmicro.annotation.processor.common.model.ClassStructure;
+
+import java.util.Map;
 
 /**
  * @author nedis
@@ -24,4 +27,19 @@ import io.rxmicro.annotation.processor.common.model.ClassStructure;
  */
 public abstract class DataRepositoryConfigAutoCustomizerClassStructure extends ClassStructure {
 
+    protected DataRepositoryConfigAutoCustomizerClassStructure(){
+        // This is basic class designed for extension only.
+    }
+
+    @Override
+    public abstract String getTargetFullClassName();
+
+    @Override
+    public abstract String getTemplateName();
+
+    @Override
+    public abstract Map<String, Object> getTemplateVariables();
+
+    @Override
+    public abstract ClassHeader getClassHeader();
 }

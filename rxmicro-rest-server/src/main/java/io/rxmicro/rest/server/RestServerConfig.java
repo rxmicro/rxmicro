@@ -27,7 +27,7 @@ import static io.rxmicro.common.util.Requires.require;
 import static io.rxmicro.rest.server.PredefinedRequestIdGeneratorType.FOR_TESTS_ONLY;
 
 /**
- * Allows to configure a REST server options.
+ * Allows configuring a REST server options.
  *
  * @author nedis
  * @see RequestIdGeneratorType

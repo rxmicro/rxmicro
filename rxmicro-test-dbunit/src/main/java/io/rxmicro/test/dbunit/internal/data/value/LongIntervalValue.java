@@ -42,22 +42,6 @@ public final class LongIntervalValue implements Comparable<Object> {
     }
 
     @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || (getClass() != o.getClass() && !(o instanceof Number))) {
-            return false;
-        }
-        return compareTo(o) == 0;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(min, max);
-    }
-
-    @Override
     public int compareTo(final Object o) {
         if (o instanceof Number) {
             return compareTo((Number) o);

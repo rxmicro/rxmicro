@@ -51,7 +51,9 @@ public interface HttpRequest extends RequestIdSupplier {
      *
      * @return the <code>{@value io.rxmicro.http.HttpStandardHeaderNames#REQUEST_ID}</code> HTTP header
      * @see io.rxmicro.http.HttpStandardHeaderNames#REQUEST_ID
+     * @see RequestIdSupplier
      */
+    @Override
     String getRequestId();
 
     /**

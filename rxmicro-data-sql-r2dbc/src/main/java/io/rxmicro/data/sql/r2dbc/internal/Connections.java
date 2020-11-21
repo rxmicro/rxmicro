@@ -16,11 +16,10 @@
 
 package io.rxmicro.data.sql.r2dbc.internal;
 
+import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnection;
 import io.rxmicro.data.sql.r2dbc.internal.transaction.CompletableFutureTransaction;
 import io.rxmicro.data.sql.r2dbc.internal.transaction.ReactorTransaction;
 import io.rxmicro.data.sql.r2dbc.internal.transaction.RxJava3Transaction;
-import io.rxmicro.data.sql.r2dbc.detail.RepositoryConnection;
-import io.rxmicro.logger.Logger;
 import reactor.core.publisher.Mono;
 
 /**
@@ -28,12 +27,6 @@ import reactor.core.publisher.Mono;
  * @since 0.1
  */
 public final class Connections {
-
-    private final Logger logger;
-
-    public Connections(final Logger logger) {
-        this.logger = logger;
-    }
 
     public Mono<RepositoryConnection> extractConnectionFrom(final io.rxmicro.data.sql.model.reactor.Transaction transaction) {
         return Mono.just(((AbstractTransaction) transaction).getConnection());

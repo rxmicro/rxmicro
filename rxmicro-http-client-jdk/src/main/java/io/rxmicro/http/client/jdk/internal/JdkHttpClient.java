@@ -24,7 +24,6 @@ import io.rxmicro.http.client.HttpClientContentConverter;
 import io.rxmicro.http.client.HttpClientTimeoutException;
 import io.rxmicro.logger.Logger;
 import io.rxmicro.logger.LoggerFactory;
-import io.rxmicro.logger.RequestIdSupplier;
 
 import java.net.URI;
 import java.net.http.HttpRequest;
