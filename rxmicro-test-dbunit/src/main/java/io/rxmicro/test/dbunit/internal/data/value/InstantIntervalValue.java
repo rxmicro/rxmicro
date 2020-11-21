@@ -20,6 +20,7 @@ import java.sql.Timestamp;
 import java.time.Duration;
 import java.time.Instant;
 import java.time.ZoneOffset;
+import java.util.Objects;
 
 import static io.rxmicro.common.util.Formats.format;
 
@@ -48,6 +49,22 @@ public final class InstantIntervalValue implements Comparable<Object> {
     @Override
     public String toString() {
         return "An instant belonging to the interval: [" + minInstant + ", " + maxInstant + ']';
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || (getClass() != o.getClass() && !(o instanceof Timestamp))) {
+            return false;
+        }
+        return compareTo(o) == 0;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(minInstant, maxInstant);
     }
 
     @Override

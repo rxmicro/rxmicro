@@ -16,6 +16,8 @@
 
 package io.rxmicro.test.dbunit.internal.data.value;
 
+import java.util.Objects;
+
 import static io.rxmicro.common.util.Formats.format;
 
 /**
@@ -37,6 +39,22 @@ public final class LongIntervalValue implements Comparable<Object> {
     @Override
     public String toString() {
         return "An integer belonging to the interval: [" + min + ", " + max + ']';
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || (getClass() != o.getClass() && !(o instanceof Number))) {
+            return false;
+        }
+        return compareTo(o) == 0;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(min, max);
     }
 
     @Override

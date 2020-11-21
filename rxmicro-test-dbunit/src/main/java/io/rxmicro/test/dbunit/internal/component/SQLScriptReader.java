@@ -22,8 +22,11 @@ import io.rxmicro.common.model.InputStreamResource;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 /**
  * @author nedis
@@ -31,8 +34,8 @@ import java.util.List;
  */
 public final class SQLScriptReader {
 
-    public List<String> readJdbcStatements(final InputStreamResource inputStreamResource) {
-        try (final BufferedReader reader = new BufferedReader(new InputStreamReader(inputStreamResource.getBufferedInputStream()))) {
+    public List<String> readJdbcStatements(final InputStreamResource resource) {
+        try (final BufferedReader reader = new BufferedReader(new InputStreamReader(resource.getBufferedInputStream(), UTF_8))) {
             final List<String> statements = new ArrayList<>();
             final StringBuilder statementBuilder = new StringBuilder();
             boolean stringLiteral = false;
@@ -67,7 +70,7 @@ public final class SQLScriptReader {
             return statements;
         } catch (final IOException ex) {
             throw new CheckedWrapperException(
-                    ex, "Can't read SQL statements from resource: '?': ?", inputStreamResource.getResourcePath(), ex.getMessage()
+                    ex, "Can't read SQL statements from resource: '?': ?", resource.getResourcePath(), ex.getMessage()
             );
         }
     }
