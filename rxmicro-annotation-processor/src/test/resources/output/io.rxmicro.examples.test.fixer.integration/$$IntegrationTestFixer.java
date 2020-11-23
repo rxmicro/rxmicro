@@ -3,7 +3,7 @@ package rxmicro;
 import java.util.Set;
 
 import static io.rxmicro.common.CommonConstants.RX_MICRO_COMMON_MODULE;
-import static io.rxmicro.common.util.Formats.format;
+import static io.rxmicro.common.util.TestLoggers.logInfoTestMessage;
 import static io.rxmicro.runtime.RuntimeConstants.RX_MICRO_RUNTIME_MODULE;
 
 /**
@@ -19,17 +19,17 @@ public final class $$IntegrationTestFixer {
     public $$IntegrationTestFixer() {
         final Module currentModule = getClass().getModule();
         if (currentModule.isNamed()) {
-            System.out.println("Fix the environment for integration test(s)...");
+            logInfoTestMessage("Fix the environment for integration test(s)...");
             final Module unnamedModule = getClass().getClassLoader().getUnnamedModule();
             final Set<Module> modules = Set.of(unnamedModule, RX_MICRO_COMMON_MODULE);
             for (final Module module : modules) {
                 for (final String packageName : currentModule.getPackages()) {
                     currentModule.addOpens(packageName, module);
-                    System.out.println(format(
+                    logInfoTestMessage(
                             "opens ?/? to ?",
                             currentModule.getName(),
                             packageName,
-                            module.isNamed() ? module.getName() : "ALL-UNNAMED")
+                            module.isNamed() ? module.getName() : "ALL-UNNAMED"
                     );
                 }
             }

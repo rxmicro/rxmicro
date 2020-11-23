@@ -22,7 +22,7 @@ import io.rxmicro.test.mockito.httpclient.internal.model.ResponseModel;
 import java.util.List;
 import java.util.Map;
 
-import static io.rxmicro.common.local.TestLoggers.logTestMessage;
+import static io.rxmicro.common.util.TestLoggers.logInfoTestMessage;
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.http.QueryParams.joinPath;
 import static io.rxmicro.test.mockito.httpclient.internal.AnyValues.ANY_BODY;
@@ -40,7 +40,7 @@ public final class HttpClientMockLogger {
     public void log(final HttpRequestMock httpRequestMock,
                     final ResponseModel responseModel) {
         if (httpRequestMock.isBodyPresent() || httpRequestMock.isAny()) {
-            logTestMessage(
+            logInfoTestMessage(
                     "HttpRequestMock:\n\t? '?'\n?\n\n\t?\nHttpResponseMock:\n?",
                     httpRequestMock.getMethod().map(Enum::name).orElse(ANY_METHOD),
                     httpRequestMock.getPath().orElse(ANY_URL_PATH),
@@ -49,7 +49,7 @@ public final class HttpClientMockLogger {
                     getResponse(responseModel)
             );
         } else {
-            logTestMessage(
+            logInfoTestMessage(
                     "HttpRequestMock:\n\t? '?'\n?\nHttpResponseMock:\n?",
                     httpRequestMock.getMethod().map(Enum::name).orElse(ANY_METHOD),
                     getPath(httpRequestMock),

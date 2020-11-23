@@ -19,7 +19,7 @@ package io.rxmicro.common.model;
 import java.util.Arrays;
 import java.util.function.BiConsumer;
 
-import static io.rxmicro.common.local.TestLoggers.logTestMessage;
+import static io.rxmicro.common.util.TestLoggers.logInfoTestMessage;
 
 /**
  * Java 9 has introduced the <a href="https://www.oracle.com/corporate/features/understanding-java-9-modules.html">JPMS</a>.
@@ -57,19 +57,19 @@ public abstract class UnNamedModuleFixer {
     public abstract void fix(Module unNamedModule);
 
     /**
-     * Adds open instruction.
+     * Adds opens or exports instructions.
      *
-     * @param currentModule teh current module.
-     * @param addOpenConsumer the open consumer.
+     * @param currentModule the current module.
+     * @param consumer the action consumer.
      * @param packageNames the package names.
      */
-    protected final void addOpens(final Module currentModule,
-                                  final BiConsumer<Module, String> addOpenConsumer,
-                                  final String... packageNames) {
+    protected final void addOpensOrExports(final Module currentModule,
+                                           final BiConsumer<Module, String> consumer,
+                                           final String... packageNames) {
         if (currentModule.isNamed()) {
-            Arrays.stream(packageNames).forEach(p -> {
-                logTestMessage("opens ?/? to ALL-UNNAMED", currentModule.getName(), p);
-                addOpenConsumer.accept(currentModule, p);
+            Arrays.stream(packageNames).forEach(packageName -> {
+                logInfoTestMessage("opens ?/? to ALL-UNNAMED", currentModule.getName(), packageName);
+                consumer.accept(currentModule, packageName);
             });
         }
     }

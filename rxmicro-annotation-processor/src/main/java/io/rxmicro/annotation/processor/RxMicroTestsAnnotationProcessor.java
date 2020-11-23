@@ -24,6 +24,7 @@ import io.rxmicro.annotation.processor.common.model.ClassHeader;
 import io.rxmicro.annotation.processor.common.model.ClassStructure;
 import io.rxmicro.annotation.processor.common.model.EnvironmentContext;
 import io.rxmicro.common.CommonConstants;
+import io.rxmicro.common.util.TestLoggers;
 import io.rxmicro.common.util.Formats;
 import io.rxmicro.runtime.RuntimeConstants;
 
@@ -140,6 +141,7 @@ public final class RxMicroTestsAnnotationProcessor extends BaseRxMicroAnnotation
                     .addStaticImport(Formats.class, "format")
                     .addStaticImport(RuntimeConstants.class, "RX_MICRO_RUNTIME_MODULE")
                     .addStaticImport(CommonConstants.class, "RX_MICRO_COMMON_MODULE")
+                    .addStaticImport(TestLoggers.class, "logInfoTestMessage")
                     .build();
         }
 

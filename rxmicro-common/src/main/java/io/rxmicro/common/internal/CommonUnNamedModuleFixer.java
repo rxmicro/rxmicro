@@ -18,6 +18,8 @@ package io.rxmicro.common.internal;
 
 import io.rxmicro.common.model.UnNamedModuleFixer;
 
+import static io.rxmicro.common.CommonConstants.RX_MICRO_COMMON_MODULE;
+
 /**
  * @author nedis
  * @since 0.4
@@ -26,8 +28,8 @@ public final class CommonUnNamedModuleFixer extends UnNamedModuleFixer {
 
     @Override
     public void fix(final Module unNamedModule) {
-        addOpens(
-                getClass().getModule(),
+        addOpensOrExports(
+                RX_MICRO_COMMON_MODULE,
                 (currentModule, packageName) -> currentModule.addOpens(packageName, unNamedModule),
                 "io.rxmicro.common.local"
         );

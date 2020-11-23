@@ -26,7 +26,7 @@ public final class HttpUnNamedModuleFixer extends UnNamedModuleFixer {
 
     @Override
     public void fix(final Module unNamedModule) {
-        addOpens(
+        addOpensOrExports(
                 getClass().getModule(),
                 (currentModule, packageName) -> currentModule.addOpens(packageName, unNamedModule),
                 "io.rxmicro.http.local"

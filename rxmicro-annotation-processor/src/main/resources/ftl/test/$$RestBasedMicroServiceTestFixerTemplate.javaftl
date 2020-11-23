@@ -10,17 +10,17 @@ public final class ${JAVA_CLASS_NAME} {
     public ${JAVA_CLASS_NAME}() {
         final Module currentModule = getClass().getModule();
         if (currentModule.isNamed()) {
-            System.out.println("Fix the environment for REST based microservice test(s)...");
+            logInfoTestMessage("Fix the environment for REST based microservice test(s)...");
             final Module unnamedModule = getClass().getClassLoader().getUnnamedModule();
             final Set<Module> modules = Set.of(unnamedModule, RX_MICRO_COMMON_MODULE);
             for (final Module module : modules) {
                 for (final String packageName : currentModule.getPackages()) {
                     currentModule.addOpens(packageName, module);
-                    System.out.println(format(
+                    logInfoTestMessage(
                             "opens ?/? to ?",
                             currentModule.getName(),
                             packageName,
-                            module.isNamed() ? module.getName() : "ALL-UNNAMED")
+                            module.isNamed() ? module.getName() : "ALL-UNNAMED"
                     );
                 }
             }

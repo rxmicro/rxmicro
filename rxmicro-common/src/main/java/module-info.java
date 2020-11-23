@@ -65,7 +65,8 @@ module rxmicro.common {
             rxmicro.test.mockito,
             rxmicro.annotation.processor.documentation,
             rxmicro.annotation.processor.common,
-            rxmicro.annotation.processor.cdi;
+            rxmicro.annotation.processor.cdi,
+            rxmicro.annotation.processor;
 
     provides UnNamedModuleFixer with CommonUnNamedModuleFixer;
 }

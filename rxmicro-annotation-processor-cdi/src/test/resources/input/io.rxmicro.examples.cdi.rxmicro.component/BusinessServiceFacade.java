@@ -18,6 +18,7 @@ package io.rxmicro.examples.cdi.rxmicro.component;
 
 import io.rxmicro.cdi.Inject;
 import io.rxmicro.http.client.HttpClientConfig;
+import io.rxmicro.rest.client.RestClientConfig;
 
 // tag::content[]
 public final class BusinessServiceFacade {
@@ -28,7 +29,7 @@ public final class BusinessServiceFacade {
 
     // <2>
     @Inject
-    HttpClientConfig config;
+    RestClientConfig config;
 
     void postConstruct() {
         System.out.println(restClient.getClass().getSimpleName());
