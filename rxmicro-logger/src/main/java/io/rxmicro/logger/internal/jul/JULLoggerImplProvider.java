@@ -26,8 +26,8 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.stream.Stream;
@@ -48,7 +48,7 @@ public final class JULLoggerImplProvider implements LoggerImplProvider {
 
     private final LoggerConfigBuilder loggerConfigBuilder = new LoggerConfigBuilder();
 
-    private final Map<String, Logger> loggerCache = new HashMap<>();
+    private final Map<String, Logger> loggerCache = new ConcurrentHashMap<>();
 
     @Override
     public void setup() {
