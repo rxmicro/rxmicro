@@ -33,7 +33,9 @@ import java.util.Map;
  *     https://github.com/mongodb/mongo-java-driver/commit/6a163f715fe08ed8d39acac3d11c896ae547df73
  * </a>
  *
+ * <p>
  * Do nothing.
+ *
  * <p>
  * The RxMicro framework does not support MDC, because {@link MDC} can be used for
  * <a href=https://en.wikipedia.org/wiki/Multithreading_(computer_architecture)">multithreading programming model</a> only.
@@ -47,6 +49,7 @@ public final class MDC {
 
     /**
      * Do nothing.
+     *
      * <p>
      * The RxMicro framework does not support MDC, because {@link MDC} can be used for
      * <a href=https://en.wikipedia.org/wiki/Multithreading_(computer_architecture)">multithreading programming model</a> only.
@@ -54,12 +57,13 @@ public final class MDC {
      * @param key non-null key
      * @param val value to put in the map
      */
-    public static void put(final String key, final String val){
+    public static void put(final String key, final String val) {
         // do nothing
     }
 
     /**
      * Do nothing.
+     *
      * <p>
      * The RxMicro framework does not support MDC, because {@link MDC} can be used for
      * <a href=https://en.wikipedia.org/wiki/Multithreading_(computer_architecture)">multithreading programming model</a> only.
@@ -69,12 +73,13 @@ public final class MDC {
      *
      * @return a <code>Closeable</code> instance that does nothing.
      */
-    public static MDCCloseable putCloseable(final String key, final String val){
+    public static MDCCloseable putCloseable(final String key, final String val) {
         return MDCCloseable.DO_NOTHING;
     }
 
     /**
      * Do nothing.
+     *
      * <p>
      * The RxMicro framework does not support MDC, because {@link MDC} can be used for
      * <a href=https://en.wikipedia.org/wiki/Multithreading_(computer_architecture)">multithreading programming model</a> only.
@@ -89,6 +94,7 @@ public final class MDC {
 
     /**
      * Do nothing.
+     *
      * <p>
      * The RxMicro framework does not support MDC, because {@link MDC} can be used for
      * <a href=https://en.wikipedia.org/wiki/Multithreading_(computer_architecture)">multithreading programming model</a> only.
@@ -101,6 +107,7 @@ public final class MDC {
 
     /**
      * Do nothing.
+     *
      * <p>
      * The RxMicro framework does not support MDC, because {@link MDC} can be used for
      * <a href=https://en.wikipedia.org/wiki/Multithreading_(computer_architecture)">multithreading programming model</a> only.
@@ -111,6 +118,7 @@ public final class MDC {
 
     /**
      * Do nothing.
+     *
      * <p>
      * The RxMicro framework does not support MDC, because {@link MDC} can be used for
      * <a href=https://en.wikipedia.org/wiki/Multithreading_(computer_architecture)">multithreading programming model</a> only.
@@ -123,6 +131,7 @@ public final class MDC {
 
     /**
      * Do nothing.
+     *
      * <p>
      * The RxMicro framework does not support MDC, because {@link MDC} can be used for
      * <a href=https://en.wikipedia.org/wiki/Multithreading_(computer_architecture)">multithreading programming model</a> only.
@@ -142,7 +151,7 @@ public final class MDC {
         return DoNothingMDCAdapter.getInstance();
     }
 
-    private MDC(){
+    private MDC() {
     }
 
     /**

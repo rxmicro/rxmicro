@@ -39,7 +39,7 @@ public abstract class AbstractDatabaseStateChanger {
 
     protected final void executeJdbcStatements(final List<String> sqlStatements) throws SQLException {
         final Connection connection = getCurrentDatabaseConnection().getConnection();
-        try (final Statement statement = connection.createStatement()) {
+        try (Statement statement = connection.createStatement()) {
             for (final String sqlStatement : sqlStatements) {
                 statement.addBatch(sqlStatement);
             }

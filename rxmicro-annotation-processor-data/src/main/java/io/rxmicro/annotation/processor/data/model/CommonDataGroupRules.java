@@ -35,6 +35,6 @@ public final class CommonDataGroupRules {
         return v -> type.getName().equals(v.asType().toString());
     }
 
-    private CommonDataGroupRules(){
+    private CommonDataGroupRules() {
     }
 }

@@ -27,7 +27,7 @@ import java.util.Map;
  */
 public abstract class DataRepositoryConfigAutoCustomizerClassStructure extends ClassStructure {
 
-    protected DataRepositoryConfigAutoCustomizerClassStructure(){
+    protected DataRepositoryConfigAutoCustomizerClassStructure() {
         // This is basic class designed for extension only.
     }
 

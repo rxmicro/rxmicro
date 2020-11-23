@@ -39,7 +39,7 @@ public final class DoNothingMDCAdapter implements MDCAdapter {
         return INSTANCE;
     }
 
-    private DoNothingMDCAdapter(){
+    private DoNothingMDCAdapter() {
     }
 
     @Override

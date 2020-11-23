@@ -20,7 +20,6 @@ import java.sql.Timestamp;
 import java.time.Duration;
 import java.time.Instant;
 import java.time.ZoneOffset;
-import java.util.Objects;
 
 import static io.rxmicro.common.util.Formats.format;
 
@@ -52,15 +51,15 @@ public final class InstantIntervalValue implements Comparable<Object> {
     }
 
     @Override
-    public int compareTo(final Object o) {
-        if (o instanceof Timestamp) {
-            return compareTo((Timestamp) o);
-        } else if (o instanceof InstantIntervalValue) {
-            return compareTo((InstantIntervalValue) o);
-        } else if (o == null) {
+    public int compareTo(final Object other) {
+        if (other instanceof Timestamp) {
+            return compareTo((Timestamp) other);
+        } else if (other instanceof InstantIntervalValue) {
+            return compareTo((InstantIntervalValue) other);
+        } else if (other == null) {
             return 1;
         } else {
-            throw new ClassCastException(format("Can't compare ? and ?", InstantIntervalValue.class, o.getClass()));
+            throw new ClassCastException(format("Can't compare ? and ?", InstantIntervalValue.class, other.getClass()));
         }
     }
 

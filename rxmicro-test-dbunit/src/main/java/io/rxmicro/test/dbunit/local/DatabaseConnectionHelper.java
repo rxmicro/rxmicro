@@ -74,4 +74,7 @@ public final class DatabaseConnectionHelper {
             LOGGER.warn(ex, "Close connection failed: ?", ex.getMessage());
         }
     }
+
+    private DatabaseConnectionHelper() {
+    }
 }

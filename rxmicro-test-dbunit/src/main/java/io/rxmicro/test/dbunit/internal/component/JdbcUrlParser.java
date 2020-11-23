@@ -30,14 +30,14 @@ public final class JdbcUrlParser {
 
     public TestDatabaseConfig parse(final DatabaseType databaseType,
                                     final String jdbcUrl) {
-        final TestDatabaseConfig config = new TestDatabaseConfig()
-                .setType(databaseType);
         final int index = jdbcUrl.indexOf("://");
         if (index == -1) {
             throw new ConfigException("Invalid jdbc url format: ?. Expected the following: '?'", jdbcUrl, JDBC_FORMAT);
         }
         final StringBuilder builder = new StringBuilder();
         boolean portFound = false;
+        final TestDatabaseConfig config = new TestDatabaseConfig()
+                .setType(databaseType);
         for (int i = index + 3; i < jdbcUrl.length(); i++) {
             final char ch = jdbcUrl.charAt(i);
             if (ch == ':') {

@@ -38,7 +38,7 @@ import static io.rxmicro.common.util.Formats.format;
 public class OrderByColumnExtractor {
 
     public Map<String, Set<String>> getOrderByColumns(final IDataSet expectedDataSet,
-                                                      final String[] orderBy) throws DataSetException {
+                                                      final String... orderBy) throws DataSetException {
         if (orderBy.length > 0) {
             final Map<String, Set<String>> map = new LinkedHashMap<>();
             for (final String orderByColumn : orderBy) {

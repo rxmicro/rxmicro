@@ -53,6 +53,7 @@ public class RxMicroLongDataType extends AbstractDataType {
         }
     }
 
+    @Override
     public Object getSqlValue(final int column,
                               final ResultSet resultSet) throws SQLException {
         final long value = resultSet.getLong(column);
@@ -63,6 +64,7 @@ public class RxMicroLongDataType extends AbstractDataType {
         }
     }
 
+    @Override
     public void setSqlValue(final Object value,
                             final int column,
                             final PreparedStatement statement) throws SQLException, TypeCastException {

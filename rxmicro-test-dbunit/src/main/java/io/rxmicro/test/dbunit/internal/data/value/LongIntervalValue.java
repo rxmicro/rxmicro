@@ -16,8 +16,6 @@
 
 package io.rxmicro.test.dbunit.internal.data.value;
 
-import java.util.Objects;
-
 import static io.rxmicro.common.util.Formats.format;
 
 /**
@@ -42,15 +40,15 @@ public final class LongIntervalValue implements Comparable<Object> {
     }
 
     @Override
-    public int compareTo(final Object o) {
-        if (o instanceof Number) {
-            return compareTo((Number) o);
-        } else if (o instanceof LongIntervalValue) {
-            return compareTo((LongIntervalValue) o);
-        } else if (o == null) {
+    public int compareTo(final Object other) {
+        if (other instanceof Number) {
+            return compareTo((Number) other);
+        } else if (other instanceof LongIntervalValue) {
+            return compareTo((LongIntervalValue) other);
+        } else if (other == null) {
             return 1;
         } else {
-            throw new ClassCastException(format("Can't compare ? and ?", LongIntervalValue.class, o.getClass()));
+            throw new ClassCastException(format("Can't compare ? and ?", LongIntervalValue.class, other.getClass()));
         }
     }
 

@@ -14,27 +14,21 @@
  * limitations under the License.
  */
 
-package io.rxmicro.cdi.resource;
-
-import io.rxmicro.json.JsonHelper;
-
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.List;
-import java.util.Optional;
-
 /**
- * Defines the resource converter that convert text file to the json array format.
+ * The spi package for the {@code rxmicro.slf4j.proxy} module.
+ *
+ * <p>
+ * Unfortunately some db drivers removed support of JUL,
+ * so the RxMicro framework requires a org.slf4j proxy to enable logging without slf4j-api:
+ * <a href="http://www.slf4j.org">http://www.slf4j.org</a>.
+ *
+ * <p>
+ * Read more:
+ * <a href="https://github.com/mongodb/mongo-java-driver/commit/6a163f715fe08ed8d39acac3d11c896ae547df73">
+ *     https://github.com/mongodb/mongo-java-driver/commit/6a163f715fe08ed8d39acac3d11c896ae547df73
+ * </a>
  *
  * @author nedis
- * @see JsonHelper#readJsonArray(String)
- * @since 0.6
+ * @since 0.7
  */
-public final class FileJsonArrayResourceConverter extends AbstractFileResourceConverter<List<Object>> {
-
-    @Override
-    protected Optional<List<Object>> convert(final Path path) throws IOException {
-        return Optional.of(JsonHelper.readJsonArray(Files.readString(path)));
-    }
-}
+package org.slf4j.spi;

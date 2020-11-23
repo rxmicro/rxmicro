@@ -81,7 +81,7 @@ public final class JsonNumber {
     /**
      * Returns the value of the specified number as an {@code int}.
      *
-     * @return  the numeric value represented by this object after conversion
+     * @return the numeric value represented by this object after conversion
      *          to type {@code int}.
      * @throws NumberFormatException If the string does not contain a parsable {@code int}..
      */
@@ -92,7 +92,7 @@ public final class JsonNumber {
     /**
      * Returns the value of the specified number as a {@code long}.
      *
-     * @return  the numeric value represented by this object after conversion
+     * @return the numeric value represented by this object after conversion
      *          to type {@code long}.
      * @throws NumberFormatException If the string does not contain a parsable {@code long}.
      */
@@ -103,7 +103,7 @@ public final class JsonNumber {
     /**
      * Returns the value of the specified number as a {@code float}.
      *
-     * @return  the numeric value represented by this object after conversion
+     * @return the numeric value represented by this object after conversion
      *          to type {@code float}.
      * @throws NumberFormatException If the string does not contain a parsable {@code float}.
      */
@@ -114,7 +114,7 @@ public final class JsonNumber {
     /**
      * Returns the value of the specified number as a {@code double}.
      *
-     * @return  the numeric value represented by this object after conversion
+     * @return the numeric value represented by this object after conversion
      *          to type {@code double}.
      * @throws NumberFormatException If the string does not contain a parsable {@code double}.
      */
@@ -125,7 +125,7 @@ public final class JsonNumber {
     /**
      * Returns the value of the specified number as a {@code byte}.
      *
-     * @return  the numeric value represented by this object after conversion
+     * @return the numeric value represented by this object after conversion
      *          to type {@code byte}.
      * @throws NumberFormatException If the string does not contain a parsable {@code byte}.
      */
@@ -136,7 +136,7 @@ public final class JsonNumber {
     /**
      * Returns the value of the specified number as a {@code short}.
      *
-     * @return  the numeric value represented by this object after conversion
+     * @return the numeric value represented by this object after conversion
      *          to type {@code short}.
      * @throws NumberFormatException If the string does not contain a parsable {@code short}.
      */

@@ -29,6 +29,7 @@ import java.util.Map;
  *     https://github.com/mongodb/mongo-java-driver/commit/6a163f715fe08ed8d39acac3d11c896ae547df73
  * </a>
  *
+ * <p>
  * Do nothing.
  * <p>
  * The RxMicro framework does not support MDC, because {@link org.slf4j.MDC} can be used for
@@ -52,6 +53,9 @@ public interface MDCAdapter {
      *
      * <p>If the current thread does not have a context map it is created as a side
      * effect of this call.
+     *
+     * @param key the key
+     * @param val the value
      */
     void put(String key, String val);
 
@@ -64,6 +68,7 @@ public interface MDCAdapter {
      * Get the context identified by the <code>key</code> parameter.
      * The <code>key</code> parameter cannot be null.
      *
+     * @param key the key
      * @return the string value identified by the <code>key</code> parameter.
      */
     String get(String key);
@@ -80,6 +85,8 @@ public interface MDCAdapter {
      * <p>
      * This method does nothing if there is no previous value
      * associated with <code>key</code>.
+     *
+     * @param key the key
      */
     void remove(String key);
 
@@ -103,7 +110,6 @@ public interface MDCAdapter {
      * values of type String. Returned value may be null.
      *
      * @return A copy of the current thread's context map. May be null.
-     * @since 1.5.1
      */
     Map<String, String> getCopyOfContextMap();
 
@@ -118,8 +124,6 @@ public interface MDCAdapter {
      * parameter must only contain keys and values of type String.
      *
      * @param contextMap must contain only keys and values of type String
-     *
-     * @since 1.5.1
      */
     void setContextMap(Map<String, String> contextMap);
 }

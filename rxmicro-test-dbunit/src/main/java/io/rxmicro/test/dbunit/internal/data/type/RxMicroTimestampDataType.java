@@ -77,7 +77,7 @@ public class RxMicroTimestampDataType extends AbstractDataType {
     public void setSqlValue(final Object value,
                             final int column,
                             final PreparedStatement statement) throws SQLException, TypeCastException {
-        statement.setTimestamp(column, (java.sql.Timestamp) typeCast(value));
+        statement.setTimestamp(column, (Timestamp) typeCast(value));
     }
 
     @Override

@@ -28,29 +28,35 @@ import reactor.core.publisher.Mono;
  */
 public final class Connections {
 
-    public Mono<RepositoryConnection> extractConnectionFrom(final io.rxmicro.data.sql.model.reactor.Transaction transaction) {
+    public Mono<RepositoryConnection> extractConnectionFrom(
+            final io.rxmicro.data.sql.model.reactor.Transaction transaction) {
         return Mono.just(((AbstractTransaction) transaction).getConnection());
     }
 
-    public Mono<RepositoryConnection> extractConnectionFrom(final io.rxmicro.data.sql.model.rxjava3.Transaction transaction) {
+    public Mono<RepositoryConnection> extractConnectionFrom(
+            final io.rxmicro.data.sql.model.rxjava3.Transaction transaction) {
         return Mono.just(((AbstractTransaction) transaction).getConnection());
     }
 
-    public Mono<RepositoryConnection> extractConnectionFrom(final io.rxmicro.data.sql.model.completablefuture.Transaction transaction) {
+    public Mono<RepositoryConnection> extractConnectionFrom(
+            final io.rxmicro.data.sql.model.completablefuture.Transaction transaction) {
         return Mono.just(((AbstractTransaction) transaction).getConnection());
     }
 
-    public Mono<io.rxmicro.data.sql.model.reactor.Transaction> beginReactorTransaction(final RepositoryConnection connection) {
+    public Mono<io.rxmicro.data.sql.model.reactor.Transaction> beginReactorTransaction(
+            final RepositoryConnection connection) {
         return Mono.from(connection.beginTransaction())
                 .thenReturn(new ReactorTransaction(connection));
     }
 
-    public Mono<io.rxmicro.data.sql.model.rxjava3.Transaction> beginRxJava3Transaction(final RepositoryConnection connection) {
+    public Mono<io.rxmicro.data.sql.model.rxjava3.Transaction> beginRxJava3Transaction(
+            final RepositoryConnection connection) {
         return Mono.from(connection.beginTransaction())
                 .thenReturn(new RxJava3Transaction(connection));
     }
 
-    public Mono<io.rxmicro.data.sql.model.completablefuture.Transaction> beginCompletableFutureTransaction(final RepositoryConnection connection) {
+    public Mono<io.rxmicro.data.sql.model.completablefuture.Transaction> beginCompletableFutureTransaction(
+            final RepositoryConnection connection) {
         return Mono.from(connection.beginTransaction())
                 .thenReturn(new CompletableFutureTransaction(connection));
     }

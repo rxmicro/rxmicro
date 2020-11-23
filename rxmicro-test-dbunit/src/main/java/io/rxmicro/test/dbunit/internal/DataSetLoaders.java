@@ -100,4 +100,7 @@ public final class DataSetLoaders {
                     );
                 });
     }
+
+    private DataSetLoaders() {
+    }
 }

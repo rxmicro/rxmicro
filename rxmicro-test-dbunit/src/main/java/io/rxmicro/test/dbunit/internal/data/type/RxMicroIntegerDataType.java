@@ -53,6 +53,7 @@ public class RxMicroIntegerDataType extends AbstractDataType {
         }
     }
 
+    @Override
     public Object getSqlValue(final int column,
                               final ResultSet resultSet) throws SQLException {
         final int value = resultSet.getInt(column);
@@ -63,10 +64,11 @@ public class RxMicroIntegerDataType extends AbstractDataType {
         }
     }
 
+    @Override
     public void setSqlValue(final Object value,
                             final int column,
                             final PreparedStatement statement) throws SQLException, TypeCastException {
-        statement.setInt(column, ((Integer) typeCast(value)));
+        statement.setInt(column, (Integer) typeCast(value));
     }
 
     @Override

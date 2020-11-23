@@ -225,7 +225,7 @@ jobs:
       - name: Show downloaded rxmicro artifacts
         run: |
           sudo apt install tree
-          tree -s ~/.m2/repository/io/rxmicro/
+          tree -hD ~/.m2/repository/io/rxmicro/
 
       - name: Verify ${{ matrix.group }}
         run: |

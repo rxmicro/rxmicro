@@ -42,7 +42,7 @@ public final class FlatXmlDataSetLoader implements DataSetLoader {
 
     @Override
     public IDataSet load(final InputStream in) {
-        try (final InputStream closableIn = in) {
+        try (InputStream closableIn = in) {
             return new FlatXmlDataSetBuilder()
                     .setCaseSensitiveTableNames(true)
                     .setDtdMetadata(VALIDATE_USING_DTD)

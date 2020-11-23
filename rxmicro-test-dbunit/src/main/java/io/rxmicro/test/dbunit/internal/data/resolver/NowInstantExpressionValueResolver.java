@@ -18,7 +18,6 @@ package io.rxmicro.test.dbunit.internal.data.resolver;
 
 import io.rxmicro.config.ConfigException;
 import io.rxmicro.test.GlobalTestConfig;
-import io.rxmicro.test.dbunit.Expressions;
 import io.rxmicro.test.dbunit.internal.data.value.InstantIntervalValue;
 
 import java.time.Duration;
@@ -75,7 +74,7 @@ public final class NowInstantExpressionValueResolver extends AbstractExpressionV
             } else {
                 delta = getConfig(GlobalTestConfig.class).getDefaultInstantCompareDelta();
             }
-            final Instant instant = (Instant) getTestValueProvider(Expressions.NOW_INSTANT_1).getValue();
+            final Instant instant = (Instant) getTestValueProvider(NOW_INSTANT_1).getValue();
             return new InstantIntervalValue(instant, delta);
         }
     }

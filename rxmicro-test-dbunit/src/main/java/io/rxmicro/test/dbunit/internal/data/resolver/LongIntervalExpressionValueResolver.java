@@ -52,13 +52,13 @@ public final class LongIntervalExpressionValueResolver extends AbstractExpressio
     @Override
     public List<String> getExamples() {
         return List.of(
-                format("${?:4:100}", INTEGER_INTERVAL_1),
-                format("${?:4:100}", INTEGER_INTERVAL_2),
-                format("${?:4:100}", TINYINT_INTERVAL),
+                format("${?:400:10000}", INTEGER_INTERVAL_1),
+                format("${?:400:10000}", INTEGER_INTERVAL_2),
+                format("${?:2:10}", TINYINT_INTERVAL),
                 format("${?:4:100}", SHORT_INTERVAL),
                 format("${?:4:100}", SMALLINT_INTERVAL),
-                format("${?:4:100}", LONG_INTERVAL),
-                format("${?:4:100}", BIGINT_INTERVAL)
+                format("${?:400000:1000000000000}", LONG_INTERVAL),
+                format("${?:400000:1000000000000}", BIGINT_INTERVAL)
         );
     }
 

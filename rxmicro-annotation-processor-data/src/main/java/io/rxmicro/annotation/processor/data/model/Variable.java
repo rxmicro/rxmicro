@@ -71,7 +71,7 @@ public class Variable {
         return element.asType();
     }
 
-    public Element getElement(){
+    public Element getElement() {
         return element;
     }
 
@@ -83,7 +83,7 @@ public class Variable {
         return fullClassName.equals(getType().toString());
     }
 
-    public boolean isRepeated(){
+    public boolean isRepeated() {
         return repeatCount > 1;
     }
 

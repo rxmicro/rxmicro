@@ -45,6 +45,6 @@ public final class CommonSQLGroupRules {
 
     public static final Predicate<VariableElement> ISOLATION_LEVEL_PREDICATE = expectedType(IsolationLevel.class);
 
-    private CommonSQLGroupRules(){
+    private CommonSQLGroupRules() {
     }
 }

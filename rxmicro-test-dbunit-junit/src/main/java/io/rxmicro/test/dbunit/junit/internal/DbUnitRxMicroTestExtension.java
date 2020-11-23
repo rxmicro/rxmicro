@@ -69,15 +69,13 @@ public final class DbUnitRxMicroTestExtension implements RxMicroTestExtension {
         for (final Annotation annotation : testModel.getTestClass().getAnnotations()) {
             if (annotation.annotationType() == DbUnitTest.class) {
                 dbUnitFound = true;
-            } else if (TEST_CONTAINERS_ANNOTATION_CLASS_NAME.equals(annotation.annotationType().getName())) {
-                if (dbUnitFound) {
-                    throw new InvalidTestConfigException(
-                            "'@?' must be added before '@?' annotation for class: '?'",
-                            DbUnitTest.class.getName(),
-                            annotation.annotationType().getName(),
-                            testModel.getTestClass().getName()
-                    );
-                }
+            } else if (TEST_CONTAINERS_ANNOTATION_CLASS_NAME.equals(annotation.annotationType().getName()) && dbUnitFound) {
+                throw new InvalidTestConfigException(
+                        "'@?' must be added before '@?' annotation for class: '?'",
+                        DbUnitTest.class.getName(),
+                        annotation.annotationType().getName(),
+                        testModel.getTestClass().getName()
+                );
             }
         }
     }

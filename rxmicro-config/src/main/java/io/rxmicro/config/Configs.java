@@ -102,12 +102,8 @@ public final class Configs {
         return getConfig(getDefaultNameSpace(configClass), configClass);
     }
 
-    private Configs(final Map<String, Config> storage,
-                    final Set<ConfigSource> configSources,
-                    final List<String> commandLineArgs) {
-        this.loader = new EnvironmentConfigLoader(configSources);
-        this.storage = new ConcurrentHashMap<>(storage);
-        this.commandLineArgs = commandLineArgs.isEmpty() ?
+    private Map<String, String> commandLineArgsToMap(final List<String> commandLineArgs) {
+        return commandLineArgs.isEmpty() ?
                 Map.of() :
                 commandLineArgs.stream().map(cmd -> {
                     final String[] data = cmd.split("=");
@@ -118,6 +114,14 @@ public final class Configs {
                         return entry(data[0], data[1]);
                     }
                 }).collect(toMap(Map.Entry::getKey, Map.Entry::getValue));
+    }
+
+    private Configs(final Map<String, Config> storage,
+                    final Set<ConfigSource> configSources,
+                    final List<String> commandLineArgs) {
+        this.loader = new EnvironmentConfigLoader(configSources);
+        this.storage = new ConcurrentHashMap<>(storage);
+        this.commandLineArgs = commandLineArgsToMap(commandLineArgs);
     }
 
     /**

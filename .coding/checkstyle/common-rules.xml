@@ -419,7 +419,7 @@
             <property name="id" value="CommonAbbreviationAsWordInName"/>
             <property name="allowedAbbreviationLength" value="2"/>
             <property name="allowedAbbreviations"
-                      value="CDI, JSE, POM, JUL, URL, URI, REST, HTTP, UUID, ASCII, DBC, SQL, DBCSQL, CORS, DBCSQLDB"/>
+                      value="CDI, JSE, POM, JUL, URL, URI, REST, HTTP, UUID, ASCII, DBC, SQL, DBCSQL, CORS, DBCSQLDB, MDC"/>
             <property name="ignoreFinal" value="true"/>
             <property name="ignoreStatic" value="true"/>
             <property name="ignoreStaticFinal" value="true"/>

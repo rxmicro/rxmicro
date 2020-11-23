@@ -66,7 +66,7 @@ public enum InitDatabaseStrategy {
 
     private final DatabaseOperation operation;
 
-    InitDatabaseStrategy(DatabaseOperation operation) {
+    InitDatabaseStrategy(final DatabaseOperation operation) {
         this.operation = operation;
     }
 

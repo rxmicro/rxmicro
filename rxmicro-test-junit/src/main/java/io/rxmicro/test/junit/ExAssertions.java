@@ -35,7 +35,7 @@ import static io.rxmicro.config.Configs.getConfig;
  */
 public class ExAssertions extends Assertions {
 
-    private static boolean configInit = false;
+    private static boolean configInit;
 
     /**
      * Asserts that {@code expected} and {@code actual} are equal within the default {@code delta} configured
@@ -147,5 +147,6 @@ public class ExAssertions extends Assertions {
      * Protected constructor allowing subclassing but not direct instantiation.
      */
     protected ExAssertions() {
+        // Protected constructor allowing subclassing but not direct instantiation.
     }
 }
