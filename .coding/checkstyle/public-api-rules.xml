@@ -46,13 +46,13 @@
         <module name="AtclauseOrder">
             <property name="id" value="TypeAtclauseOrder"/>
             <property name="tagOrder"
-                      value="@author, @deprecated, @hidden, @see, @since, @link"/>
+                      value="@author, @deprecated, @hidden, @see, @link, @since"/>
             <property name="target" value="CLASS_DEF, INTERFACE_DEF, ENUM_DEF, CTOR_DEF"/>
         </module>
         <module name="AtclauseOrder">
             <property name="id" value="MethodAtclauseOrder"/>
             <property name="tagOrder"
-                      value="@author, @deprecated, @hidden, @param, @return, @see, @since, @throws"/>
+                      value="@author, @deprecated, @hidden, @param, @return, @see, @link, @since, @throws"/>
             <property name="target" value="METHOD_DEF, CTOR_DEF"/>
         </module>
         <module name="AtclauseOrder">

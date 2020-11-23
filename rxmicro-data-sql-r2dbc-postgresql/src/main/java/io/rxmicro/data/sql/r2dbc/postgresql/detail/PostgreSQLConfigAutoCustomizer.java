@@ -28,14 +28,14 @@ import static io.rxmicro.data.sql.r2dbc.postgresql.PostgreSQLConfigCustomizer.re
  * @author nedis
  * @since 0.7
  */
-public class PostgreSQLConfigAutoCustomizer {
+public abstract class PostgreSQLConfigAutoCustomizer {
 
     public static final String POSTGRES_SQL_CONFIG_AUTO_CUSTOMIZER_CLASS_NAME =
             format("??", GENERATED_CLASS_NAME_PREFIX, PostgreSQLConfigAutoCustomizer.class.getSimpleName());
 
-    protected static void registerAllPostgreSQLCodecs(final Map<String, Class<? extends Enum<?>>> enumMapping) {
+    protected static void customizeTheCurrentPostgreSQLConfig(final PostgreSQLConfigAutoCustomizer customizer) {
         registerPostgreSQLCodecs(
-                enumMapping.entrySet().stream()
+                customizer.getEnumMapping().entrySet().stream()
                         .map(e -> io.r2dbc.postgresql.codec.EnumCodec.builder()
                                 .withEnum(e.getKey(), e.getValue())
                                 .build())
@@ -46,4 +46,6 @@ public class PostgreSQLConfigAutoCustomizer {
     protected PostgreSQLConfigAutoCustomizer() {
         // This is basic class designed for extension only.
     }
+
+    public abstract Map<String, Class<? extends Enum<?>>> getEnumMapping();
 }

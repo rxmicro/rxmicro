@@ -2,15 +2,8 @@
 <#-- -------------------------------------------------------------------------------------------------------- -->
 public final class ${IMPL_CLASS_NAME} extends PostgreSQLConfigAutoCustomizer{
 
-    private static final Map<String, Class<? extends Enum<?>>> POSTGRES_ENUM_MAPPING = Map.of(
-            <#list POSTGRES_ENUM_MAPPING as V>
-            "${V.value}", ${V.key}.class<#if V?has_next>,</#if>
-            </#list>
-    );
-
     static {
-        // Registers enum codecs for all found enums
-        registerAllPostgreSQLCodecs(POSTGRES_ENUM_MAPPING);
+        customizeTheCurrentPostgreSQLConfig(new ${IMPL_CLASS_NAME}());
     }
 
     public static void customize() {
@@ -18,5 +11,14 @@ public final class ${IMPL_CLASS_NAME} extends PostgreSQLConfigAutoCustomizer{
     }
 
     private ${IMPL_CLASS_NAME}(){
+    }
+
+    @Override
+    public Map<String, Class<? extends Enum<?>>> getEnumMapping() {
+        return Map.of(
+                <#list POSTGRES_ENUM_MAPPING as V>
+                "${V.value}", ${V.key}.class<#if V?has_next>,</#if>
+                </#list>
+        );
     }
 }

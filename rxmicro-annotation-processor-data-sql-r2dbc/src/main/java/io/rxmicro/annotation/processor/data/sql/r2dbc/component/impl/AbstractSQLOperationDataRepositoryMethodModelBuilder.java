@@ -125,10 +125,10 @@ public abstract class AbstractSQLOperationDataRepositoryMethodModelBuilder
 
     protected void validateCommonDataMethodParams(final DataMethodParams dataMethodParams) {
         final List<Variable> requestIdSupplierParams = dataMethodParams.getParamsOfGroup(REQUEST_ID_SUPPLIER_GROUP);
-        final List<Variable> transactionParams = dataMethodParams.getParamsOfGroup(TRANSACTION_GROUP);
         if (requestIdSupplierParams.size() > 1) {
             throw createNotUniqueParameterException(requestIdSupplierParams, 1, RequestIdSupplier.class);
         }
+        final List<Variable> transactionParams = dataMethodParams.getParamsOfGroup(TRANSACTION_GROUP);
         if (transactionParams.size() > 1) {
             throw createNotUniqueParameterException(transactionParams, 1, Transaction.class);
         }

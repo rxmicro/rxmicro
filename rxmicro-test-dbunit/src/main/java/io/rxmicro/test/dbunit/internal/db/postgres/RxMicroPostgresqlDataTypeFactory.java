@@ -16,13 +16,14 @@
 
 package io.rxmicro.test.dbunit.internal.db.postgres;
 
+import io.rxmicro.data.sql.r2dbc.postgresql.detail.PostgreSQLConfigAutoCustomizer;
 import org.dbunit.dataset.datatype.DataType;
 import org.dbunit.dataset.datatype.DataTypeException;
 import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory;
 
-import java.lang.reflect.Field;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Locale;
-import java.util.Map;
 import java.util.Set;
 
 import static io.rxmicro.common.util.Formats.format;
@@ -46,15 +47,19 @@ public class RxMicroPostgresqlDataTypeFactory extends PostgresqlDataTypeFactory 
 
     @SuppressWarnings("unchecked")
     private static Set<String> findEnumNames() {
-        final String configAutoCustomizerClassName = format("?.?", ENTRY_POINT_PACKAGE, POSTGRES_SQL_CONFIG_AUTO_CUSTOMIZER_CLASS_NAME);
+        final String configAutoCustomizerClassName =
+                format("?.?", ENTRY_POINT_PACKAGE, POSTGRES_SQL_CONFIG_AUTO_CUSTOMIZER_CLASS_NAME);
         try {
-            final Class<?> repositoryClass = Class.forName(configAutoCustomizerClassName);
-            final Field field = repositoryClass.getDeclaredField("POSTGRES_ENUM_MAPPING");
-            if (!field.canAccess(null)) {
-                field.setAccessible(true);
-            }
-            return ((Map<String, Class<? extends Enum<?>>>) field.get(null)).keySet();
-        } catch (final ClassNotFoundException | NoSuchFieldException | IllegalAccessException ignore) {
+            final Class<PostgreSQLConfigAutoCustomizer> repositoryClass =
+                    (Class<PostgreSQLConfigAutoCustomizer>) Class.forName(configAutoCustomizerClassName);
+            final Constructor<PostgreSQLConfigAutoCustomizer> constructor = repositoryClass.getConstructor();
+            constructor.setAccessible(true);
+            return constructor.newInstance().getEnumMapping().keySet();
+        } catch (final ClassNotFoundException |
+                IllegalAccessException |
+                NoSuchMethodException |
+                InstantiationException |
+                InvocationTargetException ignore) {
             return Set.of();
         }
     }

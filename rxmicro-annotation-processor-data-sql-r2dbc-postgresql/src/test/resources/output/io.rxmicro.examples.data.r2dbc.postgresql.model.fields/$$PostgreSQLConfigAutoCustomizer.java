@@ -10,13 +10,8 @@ import java.util.Map;
  */
 public final class $$PostgreSQLConfigAutoCustomizer extends PostgreSQLConfigAutoCustomizer{
 
-    private static final Map<String, Class<? extends Enum<?>>> POSTGRES_ENUM_MAPPING = Map.of(
-            "status", Status.class
-    );
-
     static {
-        // Registers enum codecs for all found enums
-        registerAllPostgreSQLCodecs(POSTGRES_ENUM_MAPPING);
+        customizeTheCurrentPostgreSQLConfig(new $$PostgreSQLConfigAutoCustomizer());
     }
 
     public static void customize() {
@@ -24,5 +19,12 @@ public final class $$PostgreSQLConfigAutoCustomizer extends PostgreSQLConfigAuto
     }
 
     private $$PostgreSQLConfigAutoCustomizer(){
+    }
+
+    @Override
+    public Map<String, Class<? extends Enum<?>>> getEnumMapping() {
+        return Map.of(
+                "status", Status.class
+        );
     }
 }
