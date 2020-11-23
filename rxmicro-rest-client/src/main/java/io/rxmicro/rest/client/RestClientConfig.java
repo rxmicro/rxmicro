@@ -17,7 +17,10 @@
 package io.rxmicro.rest.client;
 
 import io.rxmicro.common.meta.BuilderMethod;
+import io.rxmicro.http.ProtocolSchema;
 import io.rxmicro.http.client.HttpClientConfig;
+
+import java.time.Duration;
 
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.config.Secrets.hideSecretInfo;
@@ -51,6 +54,41 @@ public class RestClientConfig extends HttpClientConfig {
     public RestClientConfig setEnableAdditionalValidations(final boolean enableAdditionalValidations) {
         this.enableAdditionalValidations = enableAdditionalValidations;
         return this;
+    }
+
+    @Override
+    public RestClientConfig setAccessKey(final String accessKey) {
+        return (RestClientConfig) super.setAccessKey(accessKey);
+    }
+
+    @Override
+    public RestClientConfig setFollowRedirects(final boolean followRedirects) {
+        return (RestClientConfig) super.setFollowRedirects(followRedirects);
+    }
+
+    @Override
+    public RestClientConfig setRequestTimeout(final Duration requestTimeout) {
+        return (RestClientConfig) super.setRequestTimeout(requestTimeout);
+    }
+
+    @Override
+    public RestClientConfig setSchema(final ProtocolSchema schema) {
+        return (RestClientConfig) super.setSchema(schema);
+    }
+
+    @Override
+    public RestClientConfig setHost(final String host) {
+        return (RestClientConfig) super.setHost(host);
+    }
+
+    @Override
+    public RestClientConfig setPort(final int port) {
+        return (RestClientConfig) super.setPort(port);
+    }
+
+    @Override
+    public RestClientConfig setConnectionString(final String connectionString) {
+        return (RestClientConfig) super.setConnectionString(connectionString);
     }
 
     @Override
