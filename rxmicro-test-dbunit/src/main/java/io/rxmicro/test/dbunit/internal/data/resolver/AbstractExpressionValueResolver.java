@@ -80,7 +80,7 @@ public abstract class AbstractExpressionValueResolver implements ExpressionValue
      * @author nedis
      * @since 0.7
      */
-    protected static class ParsedExpression {
+    protected static final class ParsedExpression {
 
         private final String name;
 

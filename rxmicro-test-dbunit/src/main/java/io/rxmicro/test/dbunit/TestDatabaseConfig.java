@@ -61,6 +61,7 @@ public final class TestDatabaseConfig extends BaseTestConfig {
 
     /**
      * Returns the current instance of the {@link TestDatabaseConfig} class that used by the DBUnit to work with test database.
+     *
      * <p>
      * This method uses the {@link ThreadLocal} variable to store the reference to the current instance of the {@link TestDatabaseConfig}.
      * It means that developer can use this method correctly for parallel tests.

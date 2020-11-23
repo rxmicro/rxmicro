@@ -45,6 +45,7 @@ public class ExAssertions extends Assertions {
      * @param actual the actual instant
      * @param message the custom error message that should be used if assertion is failed.
      * @see GlobalTestConfig#getDefaultInstantCompareDelta()
+     * @throws AssertionFailedError if {@code expected} and {@code actual} are not equal
      */
     public static void assertInstantEquals(final Instant expected,
                                            final Instant actual,
@@ -60,6 +61,7 @@ public class ExAssertions extends Assertions {
      * @param actual the actual instant
      * @param messageSupplier the custom error message supplier that should be used if assertion is failed.
      * @see GlobalTestConfig#getDefaultInstantCompareDelta()
+     * @throws AssertionFailedError if {@code expected} and {@code actual} are not equal
      */
     public static void assertInstantEquals(final Instant expected,
                                            final Instant actual,
@@ -74,6 +76,7 @@ public class ExAssertions extends Assertions {
      * @param expected the expected instant
      * @param actual the actual instant
      * @see GlobalTestConfig#getDefaultInstantCompareDelta()
+     * @throws AssertionFailedError if {@code expected} and {@code actual} are not equal
      */
     public static void assertInstantEquals(final Instant expected,
                                            final Instant actual) {
@@ -85,7 +88,10 @@ public class ExAssertions extends Assertions {
      *
      * @param expected the expected instant
      * @param actual the actual instant
+     * @param delta the custom delta
      * @param message the custom error message that should be used if assertion is failed.
+     * @throws IllegalArgumentException if delta is negative
+     * @throws AssertionFailedError if {@code expected} and {@code actual} are not equal
      */
     public static void assertInstantEquals(final Instant expected,
                                            final Instant actual,
@@ -101,7 +107,10 @@ public class ExAssertions extends Assertions {
      *
      * @param expected the expected instant
      * @param actual the actual instant
+     * @param delta the custom delta
      * @param messageSupplier the custom error message supplier that should be used if assertion is failed.
+     * @throws IllegalArgumentException if delta is negative
+     * @throws AssertionFailedError if {@code expected} and {@code actual} are not equal
      */
     public static void assertInstantEquals(final Instant expected,
                                            final Instant actual,
@@ -117,6 +126,9 @@ public class ExAssertions extends Assertions {
      *
      * @param expected the expected instant
      * @param actual the actual instant
+     * @param delta the custom delta
+     * @throws IllegalArgumentException if delta is negative
+     * @throws AssertionFailedError if {@code expected} and {@code actual} are not equal
      */
     public static void assertInstantEquals(final Instant expected,
                                            final Instant actual,

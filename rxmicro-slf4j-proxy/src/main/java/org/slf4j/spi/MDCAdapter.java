@@ -31,6 +31,7 @@ import java.util.Map;
  *
  * <p>
  * Do nothing.
+ *
  * <p>
  * The RxMicro framework does not support MDC, because {@link org.slf4j.MDC} can be used for
  * <a href=https://en.wikipedia.org/wiki/Multithreading_(computer_architecture)">multithreading programming model</a> only.

@@ -32,7 +32,7 @@ public final class DatabaseConnectionHelper {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DatabaseConnectionHelper.class);
 
-    private final static ThreadLocal<DatabaseConnection> DATABASE_CONNECTION_THREAD_LOCAL = new ThreadLocal<>();
+    private static final ThreadLocal<DatabaseConnection> DATABASE_CONNECTION_THREAD_LOCAL = new ThreadLocal<>();
 
     public static DatabaseConnection getCurrentDatabaseConnection() {
         return require(

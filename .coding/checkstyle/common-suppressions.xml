@@ -26,7 +26,7 @@
     <suppress checks="IllegalCatch"
               files="LoggerFactory.java|BaseRestControllerMethod.java|NettyRequestHandler.java|InstanceContainer.java|Safes.java"/>
     <suppress checks="IllegalCatch"
-              files="RxMicroAnnotationProcessor.java|AbstractRxMicroProcessor.java|Injects.java"/>
+              files="RxMicroAnnotationProcessor.java|AbstractRxMicroProcessor.java|Injects.java|DbUnitTestExtension.java"/>
 
     <!-- Safe.Consumer is basic interface for testing  -->
     <suppress checks="IllegalThrows"
@@ -52,7 +52,7 @@
 
     <!-- This is a simple expression -->
     <suppress checks="BooleanExpressionComplexity"
-              files="IntegrationTestValidator.java"/>
+              files="IntegrationTestValidator.java|DBUnitTestValidator.java"/>
 
     <!-- This is a class-configurator -->
     <suppress checks="ClassFanOutComplexity"

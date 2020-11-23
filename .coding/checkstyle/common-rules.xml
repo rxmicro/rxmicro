@@ -317,7 +317,7 @@
             <property name="separateLineBetweenGroups" value="true"/>
         </module>
         <module name="IllegalImport">
-            <property name="illegalPkgs" value="java.sql, sun, com.sun"/>
+            <property name="illegalPkgs" value="sun, com.sun"/>
         </module>
         <!-- This rule is very complex for current project: -->
         <!-- module name="ImportControl"/ -->
