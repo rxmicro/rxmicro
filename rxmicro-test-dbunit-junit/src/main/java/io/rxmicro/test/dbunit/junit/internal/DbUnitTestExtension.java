@@ -86,24 +86,24 @@ public final class DbUnitTestExtension implements
         testModel = new TestModelBuilder(false).build(testClass);
         new DBUnitTestValidator().validate(testModel);
         getConfigResolver().setDefaultConfigValues(testClass);
+        // Each test must use the separate config storage
         if (testModel.isStaticConfigsPresent()) {
             new Configs.Builder()
                     .withConfigs(getConfigResolver().getStaticConfigMap(testModel))
                     .build();
         } else {
-            new Configs.Builder().buildIfNotConfigured();
+            new Configs.Builder().build();
         }
     }
 
     @Override
     public void beforeEach(final ExtensionContext context) {
-        // It is necessary to set connection after @BeforeAll and only one per class.
+        // It is necessary to set connection after @BeforeAll, before @BeforeEach and only once per class.
         // See https://junit.org/junit5/docs/current/user-guide/#extensions-execution-order-overview
-        if (!isCurrentDatabaseConnectionPresent()) {
+        if (!isCurrentDatabaseConnectionPresent() &&
+                (retrieveConnectionStrategy == PER_TEST_CLASS || retrieveConnectionStrategy == PER_ALL_TEST_CLASSES)) {
             final DatabaseConnection databaseConnection = createNewDatabaseConnection(getCurrentTestDatabaseConfig());
-            if (retrieveConnectionStrategy == PER_TEST_CLASS || retrieveConnectionStrategy == PER_ALL_TEST_CLASSES) {
-                setCurrentDatabaseConnection(databaseConnection);
-            }
+            setCurrentDatabaseConnection(databaseConnection);
             if (retrieveConnectionStrategy == PER_ALL_TEST_CLASSES) {
                 Runtime.getRuntime().addShutdownHook(new Thread(
                         () -> closeDatabaseConnection(databaseConnection),
@@ -146,8 +146,8 @@ public final class DbUnitTestExtension implements
             }
         } finally {
             if (retrieveConnectionStrategy == PER_TEST_METHOD) {
-                releaseCurrentDatabaseConnection();
                 releaseCurrentTestDatabaseConfig();
+                releaseCurrentDatabaseConnection();
             }
         }
     }
@@ -174,7 +174,7 @@ public final class DbUnitTestExtension implements
     public void afterAll(final ExtensionContext context) {
         if (retrieveConnectionStrategy == PER_TEST_CLASS) {
             releaseCurrentDatabaseConnection();
+            releaseCurrentTestDatabaseConfig();
         }
-        releaseCurrentTestDatabaseConfig();
     }
 }

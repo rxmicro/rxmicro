@@ -52,7 +52,7 @@ public class RxMicroPostgresqlDataTypeFactory extends PostgresqlDataTypeFactory 
         try {
             final Class<PostgreSQLConfigAutoCustomizer> repositoryClass =
                     (Class<PostgreSQLConfigAutoCustomizer>) Class.forName(configAutoCustomizerClassName);
-            final Constructor<PostgreSQLConfigAutoCustomizer> constructor = repositoryClass.getConstructor();
+            final Constructor<PostgreSQLConfigAutoCustomizer> constructor = repositoryClass.getDeclaredConstructor();
             constructor.setAccessible(true);
             return constructor.newInstance().getEnumMapping().keySet();
         } catch (final ClassNotFoundException |
