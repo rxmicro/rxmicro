@@ -12,7 +12,7 @@ public final class ${JAVA_CLASS_NAME} {
         if (currentModule.isNamed()) {
             logInfoTestMessage("Fix the environment for REST based microservice test(s)...");
             final Module unnamedModule = getClass().getClassLoader().getUnnamedModule();
-            final Set<Module> modules = Set.of(unnamedModule, RX_MICRO_COMMON_MODULE);
+            final Set<Module> modules = unmodifiableOrderedSet(unnamedModule, RX_MICRO_COMMON_MODULE);
             for (final Module module : modules) {
                 for (final String packageName : currentModule.getPackages()) {
                     currentModule.addOpens(packageName, module);
