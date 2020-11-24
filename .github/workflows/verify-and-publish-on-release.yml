@@ -240,12 +240,89 @@ jobs:
           if-no-files-found: error
           retention-days: 1
   # -----------------------------------------------------------------------------------------------------
+  # ------------- Update User Guide (User Guide must use the latest RxMicro framework version) ----------
+  # -----------------------------------------------------------------------------------------------------
+  update-user-guide:
+    name: Update User Guide
+    runs-on: ubuntu-latest
+    needs: verify-examples
+
+    steps:
+      - name: Checkout `rxmicro-usage` Repository
+        run: |
+          git clone https://github.com/rxmicro/rxmicro-usage
+
+      # https://github.com/actions/cache/blob/main/README.md
+      - name: Setup Maven Local Repository
+        uses: actions/cache@v1
+        with:
+          path: ~/.m2/repository
+          key: rxmicro-doc-m2-local-${{ runner.os }}-repo
+
+      # https://github.com/actions/setup-java/blob/main/README.md
+      - name: Setup JDK 11
+        uses: actions/setup-java@v1
+        with:
+          java-version: '11'
+
+      - name: Install the Last Version of RxMicro
+        run: |
+          git clone https://github.com/rxmicro/rxmicro
+          cd rxmicro/
+          mvn -DskipTests -B install --file pom.xml
+
+      - name: Recompile Examples of REST-based microservice documentations
+        run: |
+          cd rxmicro/
+          LATEST_VERSION=$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)
+          cd ../examples/group-documentation-asciidoctor
+          mvn -DskipTests -Drxmicro.version=$LATEST_VERSION -B compile --file documentation-asciidoctor-custom-sections/pom.xml
+          mvn -DskipTests -Drxmicro.version=$LATEST_VERSION -B compile --file documentation-asciidoctor-echo/pom.xml
+          mvn -DskipTests -Drxmicro.version=$LATEST_VERSION -B compile --file documentation-asciidoctor-errors/pom.xml
+          mvn -DskipTests -Drxmicro.version=$LATEST_VERSION -B compile --file documentation-asciidoctor-quick-start/pom.xml
+          mvn -DskipTests -Drxmicro.version=$LATEST_VERSION -B compile --file documentation-asciidoctor-validation/pom.xml
+          mvn -DskipTests -Drxmicro.version=$LATEST_VERSION -B compile --file documentation-asciidoctor-metadata-annotations/pom.xml
+          mvn -DskipTests -Drxmicro.version=$LATEST_VERSION -B compile --file documentation-asciidoctor-metadata-pomxml/pom.xml
+
+      - name: Build the Last Version of RxMicro User Guide
+        run: |
+          cd rxmicro/
+          LATEST_VERSION=$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)
+          cd ../
+          cd documentation/
+          mvn -Drxmicro.version=$LATEST_VERSION -B verify --file pom.xml
+
+      - name: Clone the `docs` Repository
+        run: git clone https://github.com/rxmicro/docs
+
+      - name: Update the `docs` Repository
+        run: |
+          rm -R docs/latest/
+          mkdir docs/latest/
+          mv -v documentation/target/generated-docs/images docs/latest
+          mv -v documentation/target/generated-docs/project-documentation-examples docs/latest
+          mv -v documentation/target/generated-docs/user-guide docs/latest
+          mv -v documentation/target/generated-docs/user-guide.html docs/latest
+          mv -v documentation/target/generated-docs/user-guide.pdf docs/latest
+          mkdir docs/latest/styles/
+          mv -v documentation/target/generated-docs/styles/rxmicro-doc.min.css docs/latest/styles/
+
+      - name: Commit and Push Changes to the `docs` Repository
+        run: |
+          cd docs
+          git config user.email "rxmicro.io@gmail.com"
+          git config user.name "rxmicro"
+          git add --all
+          git commit --amend -m "Update user guide. Commit#${{ github.sha }}"
+          git remote set-url origin https://rxmicro:${{ secrets.AUTO_UPDATE_RX_MICRO_IO_DOC_ACCESS_TOKEN }}@github.com/rxmicro/docs.git
+          git push --force origin master
+  # -----------------------------------------------------------------------------------------------------
   # ------------- Verify Examples and Upload Coverage Report --------------------------------------------
   # -----------------------------------------------------------------------------------------------------
   upload-jacoco-report:
     name: Upload Coverage Report
     runs-on: ubuntu-latest
-    needs: verify-examples
+    needs: update-user-guide
 
     steps:
       # https://github.com/actions/checkout/blob/main/README.md
