@@ -21,11 +21,23 @@ This document contains the *change log* for all RxMicro releases since **0.2**.
 * Add auto registration feature for enum codecs for Postgres R2DBC driver.
 * Add support collections for configs.
 * Fix the logger module.
+* Add PatternFormatter for logger module.
 * Add missing unit tests for converters.
 * Refactor JsonNumber class. (Previous version did not match `java.lang.Number` contract).
 * Add length and nullable params for `@Column` annotation. 
 * Introduce `@AllowEmptyString` constraint.
 * Add not empty string validator.
+* Add validator for @VariableValues
+* Add @ExpectedUpdatedRowsCount annotation that enables validation for updated rows count during DML operation, 
+  like Insert, Update and Delete.
+* Add delete all rule.
+* Add RequestIdSupplier contract that allows tracing user request.
+* Add integration with [DbUnit](http://dbunit.sourceforge.net/).
+* Add expression support for dbunit datasets.
+* Introduce BaseModel class.
+* Introduce enableAdditionalValidations logic.
+* Introduce RX_MICRO_RUNTIME_STRICT_MODE environment variable that activates additional checks in runtime. 
+  (For `dev` and `staging` environments only!)
 
 ## RxMicro v0.6
 
