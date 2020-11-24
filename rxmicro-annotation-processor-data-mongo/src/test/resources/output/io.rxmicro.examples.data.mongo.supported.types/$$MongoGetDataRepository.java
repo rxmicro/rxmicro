@@ -141,7 +141,7 @@ public final class $$MongoGetDataRepository extends AbstractMongoRepository impl
         // pipeline2 = "{ $limit: ? }
         final Document pipeline2 = new Document("$limit", pageable.getLimit());
         // pipeline3 = "{ $skip: ? }
-        final Document pipeline3 = new Document("$skip", pageable.getSkip());
+        final Document pipeline3 = new Document("$skip", pageable.getOffset());
         final List<Document> pipeline = Arrays.asList(pipeline0, pipeline1, pipeline2, pipeline3);
         final AggregatePublisher<Document> result = collection
                 .aggregate(pipeline)
@@ -270,7 +270,7 @@ public final class $$MongoGetDataRepository extends AbstractMongoRepository impl
                 .find(query)
                 .sort(sort)
                 .limit(pageable.getLimit())
-                .skip(pageable.getSkip())
+                .skip(pageable.getOffset())
                 .returnKey(false);
         return Mono.from(result)
                 .map(supportedTypesEntityEntityFromMongoDBConverter::fromDB);
@@ -381,7 +381,7 @@ public final class $$MongoGetDataRepository extends AbstractMongoRepository impl
                 .countDocuments(query, new CountOptions()
                         .hint(hint)
                         .limit(pageable.getLimit())
-                        .skip(pageable.getSkip())
+                        .skip(pageable.getOffset())
                 );
         return Mono.from(result);
     }

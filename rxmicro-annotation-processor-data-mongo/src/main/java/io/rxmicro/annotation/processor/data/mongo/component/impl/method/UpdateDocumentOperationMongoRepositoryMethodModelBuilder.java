@@ -23,11 +23,11 @@ import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingExc
 import io.rxmicro.annotation.processor.common.model.method.MethodResult;
 import io.rxmicro.annotation.processor.data.model.DataGenerationContext;
 import io.rxmicro.annotation.processor.data.model.DataRepositoryMethodSignature;
+import io.rxmicro.annotation.processor.data.model.Variable;
 import io.rxmicro.annotation.processor.data.mongo.component.BsonExpressionBuilder;
 import io.rxmicro.annotation.processor.data.mongo.component.impl.MethodParameterReader;
 import io.rxmicro.annotation.processor.data.mongo.model.MongoDataModelField;
 import io.rxmicro.annotation.processor.data.mongo.model.MongoDataObjectModelClass;
-import io.rxmicro.annotation.processor.data.mongo.model.MongoVariable;
 import io.rxmicro.data.DataRepositoryGeneratorConfig;
 import io.rxmicro.data.mongo.DocumentId;
 import io.rxmicro.data.mongo.detail.EntityToMongoDBConverter;
@@ -68,7 +68,7 @@ public final class UpdateDocumentOperationMongoRepositoryMethodModelBuilder
                                  final MethodParameterReader methodParameterReader,
                                  final DataRepositoryGeneratorConfig dataRepositoryGeneratorConfig,
                                  final DataGenerationContext<MongoDataModelField, MongoDataObjectModelClass> dataGenerationContext) {
-        final MongoVariable document = getDocument(method, methodParameterReader, dataGenerationContext);
+        final Variable document = getDocument(method, methodParameterReader, dataGenerationContext);
 
         final Map<String, Object> templateArguments = new HashMap<>();
         putCommonArguments(dataRepositoryGeneratorConfig, templateArguments);
@@ -89,10 +89,10 @@ public final class UpdateDocumentOperationMongoRepositoryMethodModelBuilder
         );
     }
 
-    private MongoVariable getDocument(final ExecutableElement method,
-                                      final MethodParameterReader methodParameterReader,
-                                      final DataGenerationContext<MongoDataModelField, MongoDataObjectModelClass> dataGenerationContext) {
-        final MongoVariable mongoVar = methodParameterReader.nextVar().orElseThrow(() -> {
+    private Variable getDocument(final ExecutableElement method,
+                                 final MethodParameterReader methodParameterReader,
+                                 final DataGenerationContext<MongoDataModelField, MongoDataObjectModelClass> dataGenerationContext) {
+        final Variable mongoVar = methodParameterReader.nextVar().orElseThrow(() -> {
             throw new InterruptProcessingException(
                     method,
                     "The first method parameter must be a document!"

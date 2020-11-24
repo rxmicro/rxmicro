@@ -25,3 +25,4 @@
   }
   ```
 * Add validators for redundant HTTP headers and params  
+* Add support of RequestIdSupplier to Mongo data repositories

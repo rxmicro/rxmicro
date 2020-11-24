@@ -22,11 +22,11 @@ import io.rxmicro.annotation.processor.common.model.ClassHeader;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
 import io.rxmicro.annotation.processor.common.model.method.MethodResult;
 import io.rxmicro.annotation.processor.data.model.DataGenerationContext;
+import io.rxmicro.annotation.processor.data.model.Variable;
 import io.rxmicro.annotation.processor.data.mongo.component.impl.AbstractMongoRepositoryMethodModelBuilder;
 import io.rxmicro.annotation.processor.data.mongo.component.impl.MethodParameterReader;
 import io.rxmicro.annotation.processor.data.mongo.model.MongoDataModelField;
 import io.rxmicro.annotation.processor.data.mongo.model.MongoDataObjectModelClass;
-import io.rxmicro.annotation.processor.data.mongo.model.MongoVariable;
 import io.rxmicro.data.DataRepositoryGeneratorConfig;
 import io.rxmicro.data.mongo.detail.EntityToMongoDBConverter;
 import io.rxmicro.data.mongo.operation.Insert;
@@ -61,7 +61,7 @@ public final class InsertOperationMongoRepositoryMethodModelBuilder extends Abst
                                      final DataRepositoryGeneratorConfig dataRepositoryGeneratorConfig,
                                      final DataGenerationContext<MongoDataModelField, MongoDataObjectModelClass> dataGenerationContext) {
         classHeaderBuilder.addImports(Document.class);
-        final MongoVariable entity = getEntity(method, methodParameterReader, dataGenerationContext);
+        final Variable entity = getEntity(method, methodParameterReader, dataGenerationContext);
         validateRequiredSingleReturnType(method, methodResult);
         validateReturnType(method, methodResult.getResultType(),
                 Void.class.getName(),
@@ -84,10 +84,10 @@ public final class InsertOperationMongoRepositoryMethodModelBuilder extends Abst
         );
     }
 
-    private MongoVariable getEntity(final ExecutableElement method,
-                                    final MethodParameterReader methodParameterReader,
-                                    final DataGenerationContext<MongoDataModelField, MongoDataObjectModelClass> dataGenerationContext) {
-        final MongoVariable mongoVar = methodParameterReader.nextVar().orElseThrow(() -> {
+    private Variable getEntity(final ExecutableElement method,
+                               final MethodParameterReader methodParameterReader,
+                               final DataGenerationContext<MongoDataModelField, MongoDataObjectModelClass> dataGenerationContext) {
+        final Variable mongoVar = methodParameterReader.nextVar().orElseThrow(() -> {
             throw new InterruptProcessingException(
                     method,
                     "Method must have only one parameter. " +

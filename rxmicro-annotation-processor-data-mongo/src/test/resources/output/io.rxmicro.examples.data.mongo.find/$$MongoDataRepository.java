@@ -63,7 +63,7 @@ public final class $$MongoDataRepository extends AbstractMongoRepository impleme
                 .find(query)
                 .sort(sort)
                 .limit(pageable.getLimit())
-                .skip(pageable.getSkip())
+                .skip(pageable.getOffset())
                 .returnKey(false);
         return Flux.from(result)
                 .map(accountEntityFromMongoDBConverter::fromDB);
@@ -81,7 +81,7 @@ public final class $$MongoDataRepository extends AbstractMongoRepository impleme
                 .find(query)
                 .sort(sort)
                 .limit(pageable.getLimit())
-                .skip(pageable.getSkip())
+                .skip(pageable.getOffset())
                 .returnKey(false);
         return Flux.from(result)
                 .map(accountEntityFromMongoDBConverter::fromDB);

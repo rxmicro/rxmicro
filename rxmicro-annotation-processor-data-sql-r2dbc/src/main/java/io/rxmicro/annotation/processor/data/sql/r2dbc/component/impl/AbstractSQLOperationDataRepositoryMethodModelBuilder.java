@@ -34,8 +34,6 @@ import io.rxmicro.annotation.processor.data.sql.model.SQLMethodBody;
 import io.rxmicro.annotation.processor.data.sql.model.SQLMethodDescriptor;
 import io.rxmicro.annotation.processor.data.sql.model.SQLStatement;
 import io.rxmicro.data.DataRepositoryGeneratorConfig;
-import io.rxmicro.data.Pageable;
-import io.rxmicro.data.RepeatParameter;
 import io.rxmicro.data.sql.model.EntityFieldList;
 import io.rxmicro.data.sql.model.EntityFieldMap;
 import io.rxmicro.data.sql.model.reactor.Transaction;
@@ -48,7 +46,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.VariableElement;
 
@@ -58,7 +55,6 @@ import static io.rxmicro.annotation.processor.data.sql.model.CommonSQLGroupRules
 import static io.rxmicro.annotation.processor.data.sql.model.CommonSQLGroupRules.CUSTOM_SELECT_PREDICATE;
 import static io.rxmicro.annotation.processor.data.sql.model.CommonSQLGroupRules.TRANSACTION_GROUP;
 import static io.rxmicro.annotation.processor.data.sql.model.CommonSQLGroupRules.TRANSACTION_PREDICATE;
-import static java.util.stream.Collectors.joining;
 
 /**
  * @author nedis
@@ -141,33 +137,7 @@ public abstract class AbstractSQLOperationDataRepositoryMethodModelBuilder
                     requestIdSupplierParams.get(0).getName()
             );
         }
-        final List<Variable> pageableParams = dataMethodParams.getOtherParams().stream()
-                .filter(v -> v.is(Pageable.class))
-                .collect(Collectors.toList());
-        if (pageableParams.size() > 2) {
-            throw createNotUniqueParameterException(pageableParams, 2, Pageable.class);
-        }
-    }
-
-    private InterruptProcessingException createNotUniqueParameterException(final List<Variable> params,
-                                                                           final int startIndex,
-                                                                           final Class<?> expectedClass) {
-        final Variable variable = params.get(startIndex);
-        if (variable.isRepeated()) {
-            return new InterruptProcessingException(
-                    variable.getElement(),
-                    "Only one parameter of '?' type is allowed per method. Remove the redundant '@?' annotation!",
-                    expectedClass.getName(),
-                    RepeatParameter.class.getSimpleName()
-            );
-        } else {
-            return new InterruptProcessingException(
-                    variable.getElement(),
-                    "Only one parameter of '?' type is allowed per method. Remove the redundant parameter(s): ?",
-                    expectedClass.getName(),
-                    params.stream().skip(startIndex).map(Variable::getName).collect(joining(", "))
-            );
-        }
+        validatePageableParameter(dataMethodParams);
     }
 
     protected void customizeClassHeaderBuilder(final ClassHeader.Builder classHeaderBuilder,

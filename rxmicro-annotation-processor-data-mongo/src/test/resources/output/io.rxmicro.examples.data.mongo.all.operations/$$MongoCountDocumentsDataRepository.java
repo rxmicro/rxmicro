@@ -36,7 +36,7 @@ public final class $$MongoCountDocumentsDataRepository extends AbstractMongoRepo
         final Publisher<Long> result = collection
                 .countDocuments(query, new CountOptions()
                         .limit(pageable.getLimit())
-                        .skip(pageable.getSkip())
+                        .skip(pageable.getOffset())
                 );
         return Mono.from(result);
     }
@@ -82,7 +82,7 @@ public final class $$MongoCountDocumentsDataRepository extends AbstractMongoRepo
         final Publisher<Long> result = collection
                 .countDocuments(query, new CountOptions()
                         .limit(pageable.getLimit())
-                        .skip(pageable.getSkip())
+                        .skip(pageable.getOffset())
                 );
         return Single.fromPublisher(result);
     }
@@ -131,7 +131,7 @@ public final class $$MongoCountDocumentsDataRepository extends AbstractMongoRepo
         final Publisher<Long> result = collection
                 .countDocuments(query, new CountOptions()
                         .limit(pageable.getLimit())
-                        .skip(pageable.getSkip())
+                        .skip(pageable.getOffset())
                 );
         return new PublisherToRequiredMonoFutureAdapter<>(
                 result,
@@ -189,7 +189,7 @@ public final class $$MongoCountDocumentsDataRepository extends AbstractMongoRepo
         final Publisher<Long> result = collection
                 .countDocuments(query, new CountOptions()
                         .limit(pageable.getLimit())
-                        .skip(pageable.getSkip())
+                        .skip(pageable.getOffset())
                 );
         return new PublisherToRequiredMonoFutureAdapter<>(
                 result,

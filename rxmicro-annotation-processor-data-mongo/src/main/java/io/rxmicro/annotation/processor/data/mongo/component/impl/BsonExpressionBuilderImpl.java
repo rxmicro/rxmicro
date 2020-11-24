@@ -28,7 +28,6 @@ import io.rxmicro.annotation.processor.data.model.Variable;
 import io.rxmicro.annotation.processor.data.mongo.component.BsonExpressionBuilder;
 import io.rxmicro.annotation.processor.data.mongo.model.BsonExpression;
 import io.rxmicro.annotation.processor.data.mongo.model.BsonTokenParserRule;
-import io.rxmicro.annotation.processor.data.mongo.model.MongoVariable;
 import org.bson.internal.UuidHelper;
 import org.bson.json.JsonParseException;
 import org.bson.types.Binary;
@@ -111,14 +110,14 @@ public final class BsonExpressionBuilderImpl implements BsonExpressionBuilder {
                     ex.getMessage()
             );
         }
-        final List<MongoVariable> arguments = methodParameterReader.getVars(repositoryMethod, entry.getValue());
+        final List<Variable> arguments = methodParameterReader.getVars(repositoryMethod, entry.getValue());
         final List<String> lines = getLines(repositoryMethod, classHeaderBuilder, arguments, basicDBObject);
         return new BsonExpression(expressionTemplate, lines);
     }
 
     private List<String> getLines(final ExecutableElement repositoryMethod,
                                   final ClassHeader.Builder classHeaderBuilder,
-                                  final List<MongoVariable> arguments,
+                                  final List<Variable> arguments,
                                   final BasicDBObject basicDBObject) {
         if (basicDBObject.size() == 1 && !(basicDBObject.values().iterator().next() instanceof BasicDBObject)) {
             final Map.Entry<String, Object> entry = basicDBObject.entrySet().iterator().next();
@@ -159,7 +158,7 @@ public final class BsonExpressionBuilderImpl implements BsonExpressionBuilder {
                                   final ClassHeader.Builder classHeaderBuilder,
                                   final List<String> lines,
                                   final BasicDBObject basicDBObject,
-                                  final Iterator<MongoVariable> varIterator,
+                                  final Iterator<Variable> varIterator,
                                   final int shift) {
         for (final Map.Entry<String, Object> entry : basicDBObject.entrySet()) {
             final Object value = entry.getValue();

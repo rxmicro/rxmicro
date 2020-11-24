@@ -32,12 +32,18 @@ public final class Pageable {
     /**
      * Set of predefined dynamic data repository method parameter names that must be interpret by
      * the RxMicro Annotation Processor as {@code offset} or {@code skip} parameter.
+     *
+     * <p>
+     * This rule is applied for Mongo Data Repositories only!
      */
     public static final Set<String> OFFSET_NAMES = Set.of("offset", "skip", "omit", "ignore");
 
     /**
      * Set of predefined dynamic data repository method parameter names that must be interpret by
      * the RxMicro Annotation Processor as {@code limit} parameter.
+     *
+     * <p>
+     * This rule is applied for Mongo Data Repositories only!
      */
     public static final Set<String> LIMIT_NAMES = Set.of("limit", "count", "rows", "returns");
 
@@ -69,24 +75,9 @@ public final class Pageable {
     /**
      * Returns the number of items to be skipped during execution of query.
      *
-     * <p>
-     * <i>Alias for {@link #getSkip()} method.</i>
-     *
      * @return the number of items to be skipped during execution of query.
      */
     public int getOffset() {
-        return offset;
-    }
-
-    /**
-     * Returns the number of items to be skipped during execution of query.
-     *
-     * <p>
-     * <i>Alias for {@link #getOffset()} method.</i>
-     *
-     * @return the number of items to be skipped during execution of query.
-     */
-    public int getSkip() {
         return offset;
     }
 

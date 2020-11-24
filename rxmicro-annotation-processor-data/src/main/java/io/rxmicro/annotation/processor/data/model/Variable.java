@@ -17,20 +17,24 @@
 package io.rxmicro.annotation.processor.data.model;
 
 import io.rxmicro.common.meta.BuilderMethod;
+import io.rxmicro.data.Pageable;
 
 import java.util.Objects;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.VariableElement;
+import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeMirror;
 
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.Requires.require;
+import static io.rxmicro.data.Pageable.LIMIT_NAMES;
+import static io.rxmicro.data.Pageable.OFFSET_NAMES;
 
 /**
  * @author nedis
  * @since 0.1
  */
-public class Variable {
+public final class Variable {
 
     private final VariableElement element;
 
@@ -40,23 +44,27 @@ public class Variable {
 
     private final int repeatCount;
 
-    protected Variable(final VariableElement element,
-                       final String name,
-                       final String getter,
-                       final int repeatCount) {
+    private final boolean limit;
+
+    private final boolean skip;
+
+    private Variable(final VariableElement element,
+                     final String name,
+                     final String getter,
+                     final int repeatCount) {
         this.element = require(element);
         this.name = require(name);
         this.getter = require(getter);
         this.repeatCount = repeatCount;
-    }
-
-    public Variable(final VariableElement element) {
-        this(element, element.getSimpleName().toString(), element.getSimpleName().toString(), 1);
-    }
-
-    public Variable(final VariableElement element,
-                    final String getter) {
-        this(element, element.getSimpleName().toString(), getter, 1);
+        if (Pageable.class.getName().equals(element.asType().toString())) {
+            this.limit = getter.contains("getLimit");
+            this.skip = getter.contains("getOffset");
+        } else {
+            this.limit = LIMIT_NAMES.contains(element.getSimpleName().toString()) &&
+                    element.asType().getKind() == TypeKind.INT;
+            this.skip = OFFSET_NAMES.contains(element.getSimpleName().toString()) &&
+                    element.asType().getKind() == TypeKind.INT;
+        }
     }
 
     public String getGetter() {
@@ -87,8 +95,12 @@ public class Variable {
         return repeatCount > 1;
     }
 
-    public int getRepeatCount() {
-        return repeatCount;
+    public boolean isLimit() {
+        return limit;
+    }
+
+    public boolean isSkip() {
+        return skip;
     }
 
     @Override

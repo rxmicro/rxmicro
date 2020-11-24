@@ -23,11 +23,11 @@ import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingExc
 import io.rxmicro.annotation.processor.common.model.method.MethodResult;
 import io.rxmicro.annotation.processor.data.model.DataGenerationContext;
 import io.rxmicro.annotation.processor.data.model.DataRepositoryMethodSignature;
+import io.rxmicro.annotation.processor.data.model.Variable;
 import io.rxmicro.annotation.processor.data.mongo.component.impl.AbstractMongoRepositoryMethodModelBuilder;
 import io.rxmicro.annotation.processor.data.mongo.component.impl.MethodParameterReader;
 import io.rxmicro.annotation.processor.data.mongo.model.MongoDataModelField;
 import io.rxmicro.annotation.processor.data.mongo.model.MongoDataObjectModelClass;
-import io.rxmicro.annotation.processor.data.mongo.model.MongoVariable;
 import io.rxmicro.common.util.Formats;
 import io.rxmicro.data.DataRepositoryGeneratorConfig;
 import io.rxmicro.data.mongo.detail.EntityToMongoDBConverter;
@@ -84,7 +84,7 @@ public final class DeleteEntityOrByIdOperationMongoRepositoryMethodModelBuilder 
         final Map<String, Object> templateArguments = new HashMap<>();
         putCommonArguments(dataRepositoryGeneratorConfig, templateArguments);
         templateArguments.put("RETURN", methodResult);
-        final MongoVariable arg = getEntityOrDocumentId(method, methodParameterReader, dataGenerationContext);
+        final Variable arg = getEntityOrDocumentId(method, methodParameterReader, dataGenerationContext);
         if (dataGenerationContext.isEntityParamType(arg.getType())) {
             templateArguments.put("ENTITY", arg.getName());
             templateArguments.put("ENTITY_CONVERTER", getModelTransformerInstanceName(
@@ -100,12 +100,11 @@ public final class DeleteEntityOrByIdOperationMongoRepositoryMethodModelBuilder 
         );
     }
 
-    private MongoVariable getEntityOrDocumentId(
+    private Variable getEntityOrDocumentId(
             final ExecutableElement method,
             final MethodParameterReader methodParameterReader,
             final DataGenerationContext<MongoDataModelField, MongoDataObjectModelClass> dataGenerationContext) {
-
-        final MongoVariable mongoVar = methodParameterReader.nextVar().orElseThrow(() -> {
+        final Variable mongoVar = methodParameterReader.nextVar().orElseThrow(() -> {
             throw new InterruptProcessingException(method,
                     "Method must have only one parameter. It must be a document id or a document with document id field!."
             );
@@ -115,8 +114,7 @@ public final class DeleteEntityOrByIdOperationMongoRepositoryMethodModelBuilder 
         } else {
             if (!allowedPrimitives().contains(mongoVar.getType())) {
                 throw new InterruptProcessingException(method,
-                        "Method parameter must be a document id of primitive type. " +
-                                "(FYI: Allowed primitive types are: ?)",
+                        "Method parameter must be a document id of primitive type. (FYI: Allowed primitive types are: ?)",
                         allowedPrimitives().getTypeDefinitions());
             }
             return mongoVar;

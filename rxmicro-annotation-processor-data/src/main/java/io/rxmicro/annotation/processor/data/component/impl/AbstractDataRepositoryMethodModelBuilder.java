@@ -29,11 +29,15 @@ import io.rxmicro.annotation.processor.common.model.method.MethodBody;
 import io.rxmicro.annotation.processor.common.model.method.MethodResult;
 import io.rxmicro.annotation.processor.data.component.DataRepositoryMethodModelBuilder;
 import io.rxmicro.annotation.processor.data.model.DataGenerationContext;
+import io.rxmicro.annotation.processor.data.model.DataMethodParams;
 import io.rxmicro.annotation.processor.data.model.DataModelField;
 import io.rxmicro.annotation.processor.data.model.DataObjectModelClass;
 import io.rxmicro.annotation.processor.data.model.DataRepositoryMethod;
 import io.rxmicro.annotation.processor.data.model.DataRepositoryMethodSignature;
+import io.rxmicro.annotation.processor.data.model.Variable;
 import io.rxmicro.data.DataRepositoryGeneratorConfig;
+import io.rxmicro.data.Pageable;
+import io.rxmicro.data.RepeatParameter;
 import reactor.core.publisher.Mono;
 
 import java.util.Arrays;
@@ -207,6 +211,36 @@ public abstract class AbstractDataRepositoryMethodModelBuilder
                         supportedClasses.stream()
                 ).collect(toList())
         );
+    }
+
+    protected final void validatePageableParameter(final DataMethodParams dataMethodParams) {
+        final List<Variable> pageableParams = dataMethodParams.getOtherParams().stream()
+                .filter(v -> v.is(Pageable.class))
+                .collect(toList());
+        if (pageableParams.size() > 2) {
+            throw createNotUniqueParameterException(pageableParams, 2, Pageable.class);
+        }
+    }
+
+    protected final InterruptProcessingException createNotUniqueParameterException(final List<Variable> params,
+                                                                                   final int startIndex,
+                                                                                   final Class<?> expectedClass) {
+        final Variable variable = params.get(startIndex);
+        if (variable.isRepeated()) {
+            return new InterruptProcessingException(
+                    variable.getElement(),
+                    "Only one parameter of '?' type is allowed per method. Remove the redundant '@?' annotation!",
+                    expectedClass.getName(),
+                    RepeatParameter.class.getSimpleName()
+            );
+        } else {
+            return new InterruptProcessingException(
+                    variable.getElement(),
+                    "Only one parameter of '?' type is allowed per method. Remove the redundant parameter(s): ?",
+                    expectedClass.getName(),
+                    params.stream().skip(startIndex).map(Variable::getName).collect(joining(", "))
+            );
+        }
     }
 
     protected final void putCommonArguments(final DataRepositoryGeneratorConfig dataRepositoryGeneratorConfig,

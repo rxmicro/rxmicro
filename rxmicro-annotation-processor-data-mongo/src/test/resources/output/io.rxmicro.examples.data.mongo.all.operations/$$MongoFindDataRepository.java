@@ -94,7 +94,7 @@ public final class $$MongoFindDataRepository extends AbstractMongoRepository imp
                 .find()
                 .sort(sort)
                 .limit(pageable.getLimit())
-                .skip(pageable.getSkip())
+                .skip(pageable.getOffset())
                 .returnKey(false);
         return Flux.from(result)
                 .map(accountEntityFromMongoDBConverter::fromDB)
@@ -111,7 +111,7 @@ public final class $$MongoFindDataRepository extends AbstractMongoRepository imp
                 .find(query)
                 .sort(sort)
                 .limit(pageable.getLimit())
-                .skip(pageable.getSkip())
+                .skip(pageable.getOffset())
                 .returnKey(false);
         return Flux.from(result)
                 .map(accountEntityFromMongoDBConverter::fromDB);
@@ -127,7 +127,7 @@ public final class $$MongoFindDataRepository extends AbstractMongoRepository imp
                 .find(query)
                 .sort(sort)
                 .limit(pageable.getLimit())
-                .skip(pageable.getSkip())
+                .skip(pageable.getOffset())
                 .returnKey(false);
         return Flux.from(result)
                 .map(accountEntityFromMongoDBConverter::fromDB)
@@ -144,7 +144,7 @@ public final class $$MongoFindDataRepository extends AbstractMongoRepository imp
                 .find()
                 .projection(projection)
                 .limit(pageable.getLimit())
-                .skip(pageable.getSkip())
+                .skip(pageable.getOffset())
                 .returnKey(false);
         return Flux.from(result)
                 .map(accountEntityFromMongoDBConverter::fromDB);
@@ -163,7 +163,7 @@ public final class $$MongoFindDataRepository extends AbstractMongoRepository imp
                 .projection(projection)
                 .sort(sort)
                 .limit(pageable.getLimit())
-                .skip(pageable.getSkip())
+                .skip(pageable.getOffset())
                 .returnKey(false);
         return Flux.from(result)
                 .map(accountEntityFromMongoDBConverter::fromDB)
@@ -227,7 +227,7 @@ public final class $$MongoFindDataRepository extends AbstractMongoRepository imp
                 .find()
                 .sort(sort)
                 .limit(pageable.getLimit())
-                .skip(pageable.getSkip())
+                .skip(pageable.getOffset())
                 .returnKey(false);
         return Flowable.fromPublisher(result)
                 .map(accountEntityFromMongoDBConverter::fromDB)
@@ -244,7 +244,7 @@ public final class $$MongoFindDataRepository extends AbstractMongoRepository imp
                 .find(query)
                 .sort(sort)
                 .limit(pageable.getLimit())
-                .skip(pageable.getSkip())
+                .skip(pageable.getOffset())
                 .returnKey(false);
         return Flowable.fromPublisher(result)
                 .map(accountEntityFromMongoDBConverter::fromDB);
@@ -260,7 +260,7 @@ public final class $$MongoFindDataRepository extends AbstractMongoRepository imp
                 .find(query)
                 .sort(sort)
                 .limit(pageable.getLimit())
-                .skip(pageable.getSkip())
+                .skip(pageable.getOffset())
                 .returnKey(false);
         return Flowable.fromPublisher(result)
                 .map(accountEntityFromMongoDBConverter::fromDB)
@@ -277,7 +277,7 @@ public final class $$MongoFindDataRepository extends AbstractMongoRepository imp
                 .find()
                 .projection(projection)
                 .limit(pageable.getLimit())
-                .skip(pageable.getSkip())
+                .skip(pageable.getOffset())
                 .returnKey(false);
         return Flowable.fromPublisher(result)
                 .map(accountEntityFromMongoDBConverter::fromDB);
@@ -296,7 +296,7 @@ public final class $$MongoFindDataRepository extends AbstractMongoRepository imp
                 .projection(projection)
                 .sort(sort)
                 .limit(pageable.getLimit())
-                .skip(pageable.getSkip())
+                .skip(pageable.getOffset())
                 .returnKey(false);
         return Flowable.fromPublisher(result)
                 .map(accountEntityFromMongoDBConverter::fromDB)
@@ -363,7 +363,7 @@ public final class $$MongoFindDataRepository extends AbstractMongoRepository imp
                 .find()
                 .sort(sort)
                 .limit(pageable.getLimit())
-                .skip(pageable.getSkip())
+                .skip(pageable.getOffset())
                 .returnKey(false);
         return new PublisherToFluxFutureAdapter<>(result)
                 .thenApply(l -> l.stream().map(accountEntityFromMongoDBConverter::fromDB)
@@ -380,7 +380,7 @@ public final class $$MongoFindDataRepository extends AbstractMongoRepository imp
                 .find(query)
                 .sort(sort)
                 .limit(pageable.getLimit())
-                .skip(pageable.getSkip())
+                .skip(pageable.getOffset())
                 .returnKey(false);
         return new PublisherToFluxFutureAdapter<>(result)
                 .thenApply(l -> l.stream().map(accountEntityFromMongoDBConverter::fromDB)
@@ -397,7 +397,7 @@ public final class $$MongoFindDataRepository extends AbstractMongoRepository imp
                 .find(query)
                 .sort(sort)
                 .limit(pageable.getLimit())
-                .skip(pageable.getSkip())
+                .skip(pageable.getOffset())
                 .returnKey(false);
         return new PublisherToFluxFutureAdapter<>(result)
                 .thenApply(l -> l.stream().map(accountEntityFromMongoDBConverter::fromDB)
@@ -414,7 +414,7 @@ public final class $$MongoFindDataRepository extends AbstractMongoRepository imp
                 .find()
                 .projection(projection)
                 .limit(pageable.getLimit())
-                .skip(pageable.getSkip())
+                .skip(pageable.getOffset())
                 .returnKey(false);
         return new PublisherToFluxFutureAdapter<>(result)
                 .thenApply(l -> l.stream().map(accountEntityFromMongoDBConverter::fromDB)
@@ -434,7 +434,7 @@ public final class $$MongoFindDataRepository extends AbstractMongoRepository imp
                 .projection(projection)
                 .sort(sort)
                 .limit(pageable.getLimit())
-                .skip(pageable.getSkip())
+                .skip(pageable.getOffset())
                 .returnKey(false);
         return new PublisherToFluxFutureAdapter<>(result)
                 .thenApply(l -> l.stream().map(accountEntityFromMongoDBConverter::fromDB)
@@ -504,7 +504,7 @@ public final class $$MongoFindDataRepository extends AbstractMongoRepository imp
                 .find()
                 .sort(sort)
                 .limit(pageable.getLimit())
-                .skip(pageable.getSkip())
+                .skip(pageable.getOffset())
                 .returnKey(false);
         return new PublisherToFluxFutureAdapter<>(result)
                 .thenApply(l -> l.stream().map(accountEntityFromMongoDBConverter::fromDB)
@@ -521,7 +521,7 @@ public final class $$MongoFindDataRepository extends AbstractMongoRepository imp
                 .find(query)
                 .sort(sort)
                 .limit(pageable.getLimit())
-                .skip(pageable.getSkip())
+                .skip(pageable.getOffset())
                 .returnKey(false);
         return new PublisherToFluxFutureAdapter<>(result)
                 .thenApply(l -> l.stream().map(accountEntityFromMongoDBConverter::fromDB)
@@ -538,7 +538,7 @@ public final class $$MongoFindDataRepository extends AbstractMongoRepository imp
                 .find(query)
                 .sort(sort)
                 .limit(pageable.getLimit())
-                .skip(pageable.getSkip())
+                .skip(pageable.getOffset())
                 .returnKey(false);
         return new PublisherToFluxFutureAdapter<>(result)
                 .thenApply(l -> l.stream().map(accountEntityFromMongoDBConverter::fromDB)
@@ -558,7 +558,7 @@ public final class $$MongoFindDataRepository extends AbstractMongoRepository imp
                 .projection(projection)
                 .hint(hint)
                 .limit(pageable.getLimit())
-                .skip(pageable.getSkip())
+                .skip(pageable.getOffset())
                 .returnKey(false);
         return new PublisherToFluxFutureAdapter<>(result)
                 .thenApply(l -> l.stream().map(accountEntityFromMongoDBConverter::fromDB)
@@ -581,7 +581,7 @@ public final class $$MongoFindDataRepository extends AbstractMongoRepository imp
                 .hint(hint)
                 .sort(sort)
                 .limit(pageable.getLimit())
-                .skip(pageable.getSkip())
+                .skip(pageable.getOffset())
                 .returnKey(false);
         return new PublisherToFluxFutureAdapter<>(result)
                 .thenApply(l -> l.stream().map(accountEntityFromMongoDBConverter::fromDB)

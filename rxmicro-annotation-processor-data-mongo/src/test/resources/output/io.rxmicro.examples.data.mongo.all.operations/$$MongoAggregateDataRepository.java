@@ -211,7 +211,7 @@ public final class $$MongoAggregateDataRepository extends AbstractMongoRepositor
         // pipeline2 = "{ $limit : ? }
         final Document pipeline2 = new Document("$limit", pageable.getLimit());
         // pipeline3 = "{ $skip : ? }
-        final Document pipeline3 = new Document("$skip", pageable.getSkip());
+        final Document pipeline3 = new Document("$skip", pageable.getOffset());
         final List<Document> pipeline = Arrays.asList(pipeline0, pipeline1, pipeline2, pipeline3);
         final AggregatePublisher<Document> result = collection
                 .aggregate(pipeline)
@@ -395,7 +395,7 @@ public final class $$MongoAggregateDataRepository extends AbstractMongoRepositor
         // pipeline2 = "{ $limit : ? }
         final Document pipeline2 = new Document("$limit", pageable.getLimit());
         // pipeline3 = "{ $skip : ? }
-        final Document pipeline3 = new Document("$skip", pageable.getSkip());
+        final Document pipeline3 = new Document("$skip", pageable.getOffset());
         final List<Document> pipeline = Arrays.asList(pipeline0, pipeline1, pipeline2, pipeline3);
         final AggregatePublisher<Document> result = collection
                 .aggregate(pipeline)
@@ -583,7 +583,7 @@ public final class $$MongoAggregateDataRepository extends AbstractMongoRepositor
         // pipeline2 = "{ $limit : ? }
         final Document pipeline2 = new Document("$limit", pageable.getLimit());
         // pipeline3 = "{ $skip : ? }
-        final Document pipeline3 = new Document("$skip", pageable.getSkip());
+        final Document pipeline3 = new Document("$skip", pageable.getOffset());
         final List<Document> pipeline = Arrays.asList(pipeline0, pipeline1, pipeline2, pipeline3);
         final AggregatePublisher<Document> result = collection
                 .aggregate(pipeline)
@@ -770,7 +770,7 @@ public final class $$MongoAggregateDataRepository extends AbstractMongoRepositor
         // pipeline2 = "{ $limit : ? }
         final Document pipeline2 = new Document("$limit", pageable.getLimit());
         // pipeline3 = "{ $skip : ? }
-        final Document pipeline3 = new Document("$skip", pageable.getSkip());
+        final Document pipeline3 = new Document("$skip", pageable.getOffset());
         final List<Document> pipeline = Arrays.asList(pipeline0, pipeline1, pipeline2, pipeline3);
         final AggregatePublisher<Document> result = collection
                 .aggregate(pipeline)

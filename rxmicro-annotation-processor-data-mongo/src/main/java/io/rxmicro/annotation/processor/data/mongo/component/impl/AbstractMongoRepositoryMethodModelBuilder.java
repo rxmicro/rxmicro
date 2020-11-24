@@ -16,13 +16,16 @@
 
 package io.rxmicro.annotation.processor.data.mongo.component.impl;
 
+import com.google.inject.Inject;
 import com.mongodb.BasicDBObject;
 import io.rxmicro.annotation.processor.common.model.ClassHeader;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
 import io.rxmicro.annotation.processor.common.model.method.MethodBody;
 import io.rxmicro.annotation.processor.common.model.method.MethodResult;
+import io.rxmicro.annotation.processor.data.component.DataMethodParamsResolver;
 import io.rxmicro.annotation.processor.data.component.impl.AbstractDataRepositoryMethodModelBuilder;
 import io.rxmicro.annotation.processor.data.model.DataGenerationContext;
+import io.rxmicro.annotation.processor.data.model.DataMethodParams;
 import io.rxmicro.annotation.processor.data.model.DataRepositoryMethodSignature;
 import io.rxmicro.annotation.processor.data.model.Variable;
 import io.rxmicro.annotation.processor.data.mongo.component.MongoRepositoryMethodModelBuilder;
@@ -30,20 +33,24 @@ import io.rxmicro.annotation.processor.data.mongo.model.MongoDataModelField;
 import io.rxmicro.annotation.processor.data.mongo.model.MongoDataObjectModelClass;
 import io.rxmicro.annotation.processor.data.mongo.model.MongoMethodBody;
 import io.rxmicro.annotation.processor.data.mongo.model.MongoRepositoryMethod;
-import io.rxmicro.annotation.processor.data.mongo.model.MongoVariable;
 import io.rxmicro.data.DataRepositoryGeneratorConfig;
 import io.rxmicro.data.detail.adapter.PublisherToFluxFutureAdapter;
 import io.rxmicro.data.detail.adapter.PublisherToOptionalMonoFutureAdapter;
 import io.rxmicro.data.detail.adapter.PublisherToRequiredMonoFutureAdapter;
+import io.rxmicro.logger.RequestIdSupplier;
 import org.bson.conversions.Bson;
 
 import java.lang.annotation.Annotation;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import javax.lang.model.element.ExecutableElement;
+import javax.lang.model.element.VariableElement;
 
+import static io.rxmicro.annotation.processor.data.model.CommonDataGroupRules.REQUEST_ID_SUPPLIER_GROUP;
+import static io.rxmicro.annotation.processor.data.model.CommonDataGroupRules.REQUEST_ID_SUPPLIER_PREDICATE;
 import static java.util.stream.Collectors.joining;
 
 /**
@@ -53,6 +60,13 @@ import static java.util.stream.Collectors.joining;
 public abstract class AbstractMongoRepositoryMethodModelBuilder
         extends AbstractDataRepositoryMethodModelBuilder<MongoDataModelField, MongoRepositoryMethod, MongoDataObjectModelClass>
         implements MongoRepositoryMethodModelBuilder {
+
+    private final Map<String, Predicate<VariableElement>> groupRules = Map.of(
+            REQUEST_ID_SUPPLIER_GROUP, REQUEST_ID_SUPPLIER_PREDICATE
+    );
+
+    @Inject
+    private DataMethodParamsResolver dataMethodParamsResolver;
 
     @Override
     protected final MongoRepositoryMethod build(final DataRepositoryMethodSignature dataRepositoryMethodSignature,
@@ -85,20 +99,21 @@ public abstract class AbstractMongoRepositoryMethodModelBuilder
 
     @Override
     protected final MethodBody buildBody(final ClassHeader.Builder classHeaderBuilder,
-                                         final ExecutableElement repositoryMethod,
+                                         final ExecutableElement method,
                                          final MethodResult methodResult,
                                          final DataRepositoryGeneratorConfig dataRepositoryGeneratorConfig,
                                          final DataGenerationContext<MongoDataModelField, MongoDataObjectModelClass> generationContext) {
-        final MethodParameterReader methodParameterReader =
-                new MethodParameterReader(repositoryMethod.getParameters(), supportedTypesProvider);
+        final DataMethodParams dataMethodParams = dataMethodParamsResolver.resolve(method, groupRules);
+        validateCommonDataMethodParams(dataMethodParams);
+        final MethodParameterReader methodParameterReader = new MethodParameterReader(dataMethodParams);
         final List<String> content = buildBody(
                 classHeaderBuilder,
-                repositoryMethod, methodResult,
+                method, methodResult,
                 methodParameterReader,
                 dataRepositoryGeneratorConfig,
                 generationContext
         );
-        validateUnusedMethodParameters(repositoryMethod, methodParameterReader);
+        validateUnusedMethodParameters(method, methodParameterReader);
         return new MongoMethodBody(content);
     }
 
@@ -108,6 +123,20 @@ public abstract class AbstractMongoRepositoryMethodModelBuilder
                                               MethodParameterReader methodParameterReader,
                                               DataRepositoryGeneratorConfig dataRepositoryGeneratorConfig,
                                               DataGenerationContext<MongoDataModelField, MongoDataObjectModelClass> dataGenerationContext);
+
+    protected void validateCommonDataMethodParams(final DataMethodParams dataMethodParams) {
+        final List<Variable> requestIdSupplierParams = dataMethodParams.getParamsOfGroup(REQUEST_ID_SUPPLIER_GROUP);
+        if (!requestIdSupplierParams.isEmpty()) {
+            final Variable variable = requestIdSupplierParams.get(0);
+            throw new InterruptProcessingException(
+                    variable.getElement(),
+                    "Unfortunately, the RxMicro framework does not support the '?' parameter for Mongo data repositories yet! " +
+                            "Remove unsupported parameter!",
+                    RequestIdSupplier.class.getName()
+            );
+        }
+        validatePageableParameter(dataMethodParams);
+    }
 
     private void validateUnusedMethodParameters(final ExecutableElement repositoryMethod,
                                                 final MethodParameterReader methodParameterReader) {
@@ -133,8 +162,8 @@ public abstract class AbstractMongoRepositoryMethodModelBuilder
         if (skip > -1) {
             templateArguments.put("SKIP", skip);
         }
-        Optional<MongoVariable> limitVar = methodParameterReader.nextIfLimit();
-        final Optional<MongoVariable> skipVar = methodParameterReader.nextIfSkip();
+        Optional<Variable> limitVar = methodParameterReader.nextIfLimit();
+        final Optional<Variable> skipVar = methodParameterReader.nextIfSkip();
         if (limitVar.isEmpty()) {
             limitVar = methodParameterReader.nextIfLimit();
         }
