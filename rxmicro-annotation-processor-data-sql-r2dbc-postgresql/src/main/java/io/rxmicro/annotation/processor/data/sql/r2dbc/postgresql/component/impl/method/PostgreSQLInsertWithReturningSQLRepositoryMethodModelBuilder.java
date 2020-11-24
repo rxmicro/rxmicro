@@ -66,7 +66,8 @@ public final class PostgreSQLInsertWithReturningSQLRepositoryMethodModelBuilder
     }
 
     @Override
-    protected ParsedSQL<Insert> parseSQL(final ExecutableElement method) {
+    protected ParsedSQL<Insert> parseSQL(final ExecutableElement method,
+                                         final DataMethodParams dataMethodParams) {
         final Insert annotation = method.getAnnotation(Insert.class);
         final String originalSQL = Optional.of(annotation.value()).filter(v -> !v.isEmpty()).orElse(DEFAULT_INSERT_WITH_RETURNING_ID);
         return parseSQL(originalSQL, annotation);

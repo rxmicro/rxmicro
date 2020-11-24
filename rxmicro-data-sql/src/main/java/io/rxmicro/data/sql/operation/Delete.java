@@ -41,11 +41,18 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 public @interface Delete {
 
     /**
-     * The default {@code DELETE} statement if value is empty.
+     * The default {@code DELETE} statement if value is empty and repository method contains parameter.
      *
      * @see io.rxmicro.data.sql.SupportedVariables
      */
-    String DEFAULT_DELETE = "DELETE FROM ${table} WHERE ${by-id-filter}";
+    String DEFAULT_DELETE_WITH_PARAMETER = "DELETE FROM ${table} WHERE ${by-id-filter}";
+
+    /**
+     * The default {@code DELETE} statement if value is empty and repository method does not contain any parameter.
+     *
+     * @see io.rxmicro.data.sql.SupportedVariables
+     */
+    String DEFAULT_DELETE_WITHOUT_PARAMETERS = "DELETE FROM ${table}";
 
     /**
      * Customize {@code DELETE} query.
@@ -54,7 +61,7 @@ public @interface Delete {
      * By default, Rx Micro generate the default sql.
      *
      * <p>
-     * See {@link #DEFAULT_DELETE} for details
+     * See {@link #DEFAULT_DELETE_WITH_PARAMETER} for details
      *
      * @return custom {@code DELETE} SQL
      */

@@ -35,7 +35,8 @@ import java.util.Map;
 import java.util.Optional;
 import javax.lang.model.element.ExecutableElement;
 
-import static io.rxmicro.data.sql.operation.Delete.DEFAULT_DELETE;
+import static io.rxmicro.data.sql.operation.Delete.DEFAULT_DELETE_WITHOUT_PARAMETERS;
+import static io.rxmicro.data.sql.operation.Delete.DEFAULT_DELETE_WITH_PARAMETER;
 
 /**
  * @author nedis
@@ -46,9 +47,11 @@ public class DeleteSQLRepositoryMethodModelBuilder<DMF extends SQLDataModelField
         extends AbstractSQLModificationOperationDataRepositoryMethodModelBuilder<Delete, DMF, DMC> {
 
     @Override
-    protected ParsedSQL<Delete> parseSQL(final ExecutableElement method) {
+    protected ParsedSQL<Delete> parseSQL(final ExecutableElement method,
+                                         final DataMethodParams dataMethodParams) {
         final Delete annotation = method.getAnnotation(Delete.class);
-        final String originalSQL = Optional.of(annotation.value()).filter(v -> !v.isEmpty()).orElse(DEFAULT_DELETE);
+        final String originalSQL = Optional.of(annotation.value()).filter(v -> !v.isEmpty())
+                .orElse(dataMethodParams.getOtherParams().isEmpty() ? DEFAULT_DELETE_WITHOUT_PARAMETERS : DEFAULT_DELETE_WITH_PARAMETER);
         return parseSQL(originalSQL, annotation);
     }
 

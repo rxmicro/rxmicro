@@ -46,7 +46,8 @@ public class UpdateSQLRepositoryMethodModelBuilder<DMF extends SQLDataModelField
         extends AbstractSQLModificationOperationDataRepositoryMethodModelBuilder<Update, DMF, DMC> {
 
     @Override
-    protected ParsedSQL<Update> parseSQL(final ExecutableElement method) {
+    protected ParsedSQL<Update> parseSQL(final ExecutableElement method,
+                                         final DataMethodParams dataMethodParams) {
         final Update annotation = method.getAnnotation(Update.class);
         final String originalSQL = Optional.of(annotation.value()).filter(v -> !v.isEmpty()).orElse(DEFAULT_UPDATE);
         return parseSQL(originalSQL, annotation);

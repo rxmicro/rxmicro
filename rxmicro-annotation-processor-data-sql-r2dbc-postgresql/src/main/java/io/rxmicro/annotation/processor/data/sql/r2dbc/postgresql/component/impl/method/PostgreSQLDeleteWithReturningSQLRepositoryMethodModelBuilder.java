@@ -62,7 +62,8 @@ public final class PostgreSQLDeleteWithReturningSQLRepositoryMethodModelBuilder
     }
 
     @Override
-    protected ParsedSQL<Delete> parseSQL(final ExecutableElement method) {
+    protected ParsedSQL<Delete> parseSQL(final ExecutableElement method,
+                                         final DataMethodParams dataMethodParams) {
         final Delete annotation = method.getAnnotation(Delete.class);
         final ParsedSQL<Delete> parsedSQL = parseSQL(annotation.value(), annotation);
         if (parsedSQL.getSqlTokens().isEmpty()) {

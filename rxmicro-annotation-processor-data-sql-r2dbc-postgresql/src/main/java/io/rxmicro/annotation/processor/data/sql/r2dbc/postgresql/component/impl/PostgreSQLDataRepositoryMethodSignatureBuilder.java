@@ -18,6 +18,7 @@ package io.rxmicro.annotation.processor.data.sql.r2dbc.postgresql.component.impl
 
 import com.google.inject.Singleton;
 import io.rxmicro.annotation.processor.data.component.impl.AbstractDataRepositoryMethodSignatureBuilder;
+import io.rxmicro.data.sql.ExpectedUpdatedRowsCount;
 import io.rxmicro.data.sql.VariableValues;
 
 import java.lang.annotation.Annotation;
@@ -43,6 +44,7 @@ public final class PostgreSQLDataRepositoryMethodSignatureBuilder extends Abstra
     protected Set<Class<? extends Annotation>> getSupportedAnnotationsPerMethod() {
         final Set<Class<? extends Annotation>> annotations = new HashSet<>(POSTGRESQL_OPERATION_ANNOTATIONS);
         annotations.add(VariableValues.class);
+        annotations.add(ExpectedUpdatedRowsCount.class);
         return unmodifiableSet(annotations);
     }
 }

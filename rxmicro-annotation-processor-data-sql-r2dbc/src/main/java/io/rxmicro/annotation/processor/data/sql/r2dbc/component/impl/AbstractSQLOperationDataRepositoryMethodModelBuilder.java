@@ -97,7 +97,7 @@ public abstract class AbstractSQLOperationDataRepositoryMethodModelBuilder
         final SQLMethodDescriptor<DMF, DMC> sqlMethodDescriptor =
                 buildSQLMethodDescriptor(method, params, methodResult, dataGenerationContext);
 
-        final ParsedSQL<A> parsedSQL = parseSQL(method);
+        final ParsedSQL<A> parsedSQL = parseSQL(method, dataMethodParams);
         validateMethod(parsedSQL, methodResult, dataGenerationContext, method, dataMethodParams);
 
         final Map<String, Object> templateArguments = new HashMap<>();
@@ -154,7 +154,8 @@ public abstract class AbstractSQLOperationDataRepositoryMethodModelBuilder
                                            ExecutableElement method,
                                            DataMethodParams dataMethodParams);
 
-    protected abstract ParsedSQL<A> parseSQL(ExecutableElement method);
+    protected abstract ParsedSQL<A> parseSQL(ExecutableElement method,
+                                             DataMethodParams dataMethodParams);
 
     protected abstract void addEntityConverter(MethodResult methodResult,
                                                SQLMethodDescriptor<DMF, DMC> sqlMethodDescriptor,

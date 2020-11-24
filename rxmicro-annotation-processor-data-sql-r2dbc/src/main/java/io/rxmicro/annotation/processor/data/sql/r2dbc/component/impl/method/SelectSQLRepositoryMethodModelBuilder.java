@@ -19,6 +19,7 @@ package io.rxmicro.annotation.processor.data.sql.r2dbc.component.impl.method;
 import com.google.inject.Singleton;
 import io.reactivex.rxjava3.core.Flowable;
 import io.rxmicro.annotation.processor.common.model.ClassHeader;
+import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
 import io.rxmicro.annotation.processor.common.model.method.MethodResult;
 import io.rxmicro.annotation.processor.data.model.DataGenerationContext;
 import io.rxmicro.annotation.processor.data.model.DataMethodParams;
@@ -30,15 +31,20 @@ import io.rxmicro.annotation.processor.data.sql.model.SQLDataObjectModelClass;
 import io.rxmicro.annotation.processor.data.sql.model.SQLMethodDescriptor;
 import io.rxmicro.annotation.processor.data.sql.model.SQLStatement;
 import io.rxmicro.annotation.processor.data.sql.r2dbc.component.impl.AbstractSQLOperationDataRepositoryMethodModelBuilder;
+import io.rxmicro.data.sql.ExpectedUpdatedRowsCount;
 import io.rxmicro.data.sql.model.EntityFieldList;
 import io.rxmicro.data.sql.model.EntityFieldMap;
+import io.rxmicro.data.sql.operation.Delete;
+import io.rxmicro.data.sql.operation.Insert;
 import io.rxmicro.data.sql.operation.Select;
+import io.rxmicro.data.sql.operation.Update;
 import io.rxmicro.data.sql.r2dbc.detail.EntityFromR2DBCSQLDBConverter;
 
 import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Stream;
 import javax.lang.model.element.ExecutableElement;
 
@@ -87,10 +93,19 @@ public class SelectSQLRepositoryMethodModelBuilder<DMF extends SQLDataModelField
                         ).map(Class::getName)
                 ).toArray(String[]::new)
         );
+        if (method.getAnnotation(ExpectedUpdatedRowsCount.class) != null) {
+            throw new InterruptProcessingException(
+                    method,
+                    "'@?' annotation can be applied for ? operations only! Remove the redundant annotation!",
+                    ExpectedUpdatedRowsCount.class.getSimpleName(),
+                    Set.of(Insert.class, Update.class, Delete.class)
+            );
+        }
     }
 
     @Override
-    protected ParsedSQL<Select> parseSQL(final ExecutableElement method) {
+    protected ParsedSQL<Select> parseSQL(final ExecutableElement method,
+                                         final DataMethodParams dataMethodParams) {
         final Select annotation = method.getAnnotation(Select.class);
         return parseSQL(annotation.value(), annotation);
     }

@@ -19,6 +19,7 @@ package io.rxmicro.annotation.processor.data.sql.r2dbc.component.impl.method;
 import com.google.inject.Singleton;
 import io.rxmicro.annotation.processor.common.model.method.MethodResult;
 import io.rxmicro.annotation.processor.data.model.DataGenerationContext;
+import io.rxmicro.annotation.processor.data.model.DataMethodParams;
 import io.rxmicro.annotation.processor.data.model.Variable;
 import io.rxmicro.annotation.processor.data.sql.model.ParsedSQL;
 import io.rxmicro.annotation.processor.data.sql.model.SQLDataModelField;
@@ -45,7 +46,8 @@ public class InsertSQLRepositoryMethodModelBuilder<DMF extends SQLDataModelField
         extends AbstractSQLModificationOperationDataRepositoryMethodModelBuilder<Insert, DMF, DMC> {
 
     @Override
-    protected ParsedSQL<Insert> parseSQL(final ExecutableElement method) {
+    protected ParsedSQL<Insert> parseSQL(final ExecutableElement method,
+                                         final DataMethodParams dataMethodParams) {
         final Insert annotation = method.getAnnotation(Insert.class);
         final String originalSQL = Optional.of(annotation.value()).filter(v -> !v.isEmpty()).orElse(DEFAULT_INSERT);
         return parseSQL(originalSQL, annotation);
