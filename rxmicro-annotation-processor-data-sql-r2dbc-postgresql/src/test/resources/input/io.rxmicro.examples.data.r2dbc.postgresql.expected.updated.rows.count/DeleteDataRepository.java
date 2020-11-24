@@ -33,13 +33,12 @@ import java.util.concurrent.CompletionStage;
 
 @PostgreSQLRepository
 @VariableValues({
-        "${table}", "account",
-        "${by-id-filter}", "id = ?"
+        "${table}", "account"
 })
 public interface DeleteDataRepository {
 
     @ExpectedUpdatedRowsCount(1)
-    @Delete
+    @Delete(entityClass = Account.class)
     CompletableFuture<Void> delete01(Long id);
 
     @ExpectedUpdatedRowsCount(10)
@@ -47,7 +46,7 @@ public interface DeleteDataRepository {
     CompletableFuture<Integer> delete02();
 
     @ExpectedUpdatedRowsCount(1)
-    @Delete
+    @Delete(entityClass = Account.class)
     CompletableFuture<Boolean> delete03(Long id);
 
     @ExpectedUpdatedRowsCount(1)
@@ -59,7 +58,7 @@ public interface DeleteDataRepository {
     CompletableFuture<Account> delete05(Long id);
 
     @ExpectedUpdatedRowsCount(1)
-    @Delete
+    @Delete(entityClass = Account.class)
     CompletionStage<Void> delete06(Long id);
 
     @ExpectedUpdatedRowsCount(10)
@@ -67,7 +66,7 @@ public interface DeleteDataRepository {
     CompletionStage<Integer> delete07(String firstName1, String firstName2, String firstName3);
 
     @ExpectedUpdatedRowsCount(1)
-    @Delete
+    @Delete(entityClass = Account.class)
     CompletionStage<Boolean> delete08(Long id);
 
     @ExpectedUpdatedRowsCount(1)
@@ -79,7 +78,7 @@ public interface DeleteDataRepository {
     CompletionStage<Account> delete10(Long id);
 
     @ExpectedUpdatedRowsCount(1)
-    @Delete
+    @Delete(entityClass = Account.class)
     Mono<Void> delete11(Long id);
 
     @ExpectedUpdatedRowsCount(10)
@@ -87,7 +86,7 @@ public interface DeleteDataRepository {
     Mono<Integer> delete12(Transaction transaction, @RepeatParameter(2) String name);
 
     @ExpectedUpdatedRowsCount(1)
-    @Delete
+    @Delete(entityClass = Account.class)
     Mono<Boolean> delete13(Long id);
 
     @ExpectedUpdatedRowsCount(1)
@@ -99,7 +98,7 @@ public interface DeleteDataRepository {
     Mono<Account> delete15(Long id);
 
     @ExpectedUpdatedRowsCount(1)
-    @Delete
+    @Delete(entityClass = Account.class)
     Completable delete16(RequestIdSupplier requestIdSupplier, Long id);
 
     @ExpectedUpdatedRowsCount(1)
@@ -107,7 +106,7 @@ public interface DeleteDataRepository {
     Single<Integer> delete17();
 
     @ExpectedUpdatedRowsCount(1)
-    @Delete
+    @Delete(entityClass = Account.class)
     Single<Boolean> delete18(Long id);
 
     @ExpectedUpdatedRowsCount(1)

@@ -30,8 +30,7 @@ import java.util.concurrent.CompletionStage;
 
 @PostgreSQLRepository
 @VariableValues({
-        "${table}", "account",
-        "${by-id-filter}", "id = ?"
+        "${table}", "account"
 })
 public interface UpdateDataRepository {
 

@@ -21,6 +21,14 @@ import io.rxmicro.data.sql.operation.Insert;
 import io.rxmicro.data.sql.operation.Select;
 import io.rxmicro.data.sql.operation.Update;
 
+import java.util.Arrays;
+import java.util.Set;
+
+import static io.rxmicro.common.util.Reflections.getFieldValue;
+import static java.lang.reflect.Modifier.isPublic;
+import static java.lang.reflect.Modifier.isStatic;
+import static java.util.stream.Collectors.toUnmodifiableSet;
+
 /**
  * Supported variables that can be used in the SQL queries.
  *
@@ -154,6 +162,14 @@ public final class SupportedVariables {
      * For example: <code>RETURNING ${returning-columns} -> RETURNING id, login, name, password</code>
      */
     public static final String RETURNING_COLUMNS = "${returning-columns}";
+
+    /**
+     * Contains all supported variables.
+     */
+    public static final Set<String> ALL_SUPPORTED_VARIABLES = Arrays.stream(SupportedVariables.class.getDeclaredFields())
+            .filter(f -> isStatic(f.getModifiers()) && isPublic(f.getModifiers()) && f.getType() == String.class)
+            .map(f -> (String) getFieldValue((Object) null, f))
+            .collect(toUnmodifiableSet());
 
     private SupportedVariables() {
     }

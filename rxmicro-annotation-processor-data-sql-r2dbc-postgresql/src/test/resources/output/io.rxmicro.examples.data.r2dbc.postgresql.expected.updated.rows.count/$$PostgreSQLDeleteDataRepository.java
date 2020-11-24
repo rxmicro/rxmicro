@@ -33,11 +33,11 @@ public final class $$PostgreSQLDeleteDataRepository extends AbstractPostgreSQLRe
     @Override
     public CompletableFuture<Void> delete01(final Long id) {
         // Original SQL statement:  'DELETE FROM ${table} WHERE ${by-id-filter}'
-        final String generatedSQL = "DELETE FROM account WHERE id = ?";
+        final String generatedSQL = "DELETE FROM account WHERE id = $1";
         return this.connectionFactory.create()
-                .flatMap(c -> executeStatement(c, generatedSQL)
+                .flatMap(c -> executeStatement(c, generatedSQL, id)
                         .flatMap(r -> Mono.from(r.getRowsUpdated())
-                                .map(actual -> validateRowsUpdated(1, actual, generatedSQL))
+                                .map(actual -> validateRowsUpdated(1, actual, generatedSQL, id))
                         )
                         .delayUntil(s -> close(c))
                         .onErrorResume(createCloseThenReturnErrorFallback(c))
@@ -66,11 +66,11 @@ public final class $$PostgreSQLDeleteDataRepository extends AbstractPostgreSQLRe
     @Override
     public CompletableFuture<Boolean> delete03(final Long id) {
         // Original SQL statement:  'DELETE FROM ${table} WHERE ${by-id-filter}'
-        final String generatedSQL = "DELETE FROM account WHERE id = ?";
+        final String generatedSQL = "DELETE FROM account WHERE id = $1";
         return this.connectionFactory.create()
-                .flatMap(c -> executeStatement(c, generatedSQL)
+                .flatMap(c -> executeStatement(c, generatedSQL, id)
                         .flatMap(r -> Mono.from(r.getRowsUpdated())
-                                .map(actual -> validateRowsUpdated(1, actual, generatedSQL))
+                                .map(actual -> validateRowsUpdated(1, actual, generatedSQL, id))
                         )
                         .delayUntil(s -> close(c))
                         .onErrorResume(createCloseThenReturnErrorFallback(c))
@@ -121,11 +121,11 @@ public final class $$PostgreSQLDeleteDataRepository extends AbstractPostgreSQLRe
     @Override
     public CompletionStage<Void> delete06(final Long id) {
         // Original SQL statement:  'DELETE FROM ${table} WHERE ${by-id-filter}'
-        final String generatedSQL = "DELETE FROM account WHERE id = ?";
+        final String generatedSQL = "DELETE FROM account WHERE id = $1";
         return this.connectionFactory.create()
-                .flatMap(c -> executeStatement(c, generatedSQL)
+                .flatMap(c -> executeStatement(c, generatedSQL, id)
                         .flatMap(r -> Mono.from(r.getRowsUpdated())
-                                .map(actual -> validateRowsUpdated(1, actual, generatedSQL))
+                                .map(actual -> validateRowsUpdated(1, actual, generatedSQL, id))
                         )
                         .delayUntil(s -> close(c))
                         .onErrorResume(createCloseThenReturnErrorFallback(c))
@@ -154,11 +154,11 @@ public final class $$PostgreSQLDeleteDataRepository extends AbstractPostgreSQLRe
     @Override
     public CompletionStage<Boolean> delete08(final Long id) {
         // Original SQL statement:  'DELETE FROM ${table} WHERE ${by-id-filter}'
-        final String generatedSQL = "DELETE FROM account WHERE id = ?";
+        final String generatedSQL = "DELETE FROM account WHERE id = $1";
         return this.connectionFactory.create()
-                .flatMap(c -> executeStatement(c, generatedSQL)
+                .flatMap(c -> executeStatement(c, generatedSQL, id)
                         .flatMap(r -> Mono.from(r.getRowsUpdated())
-                                .map(actual -> validateRowsUpdated(1, actual, generatedSQL))
+                                .map(actual -> validateRowsUpdated(1, actual, generatedSQL, id))
                         )
                         .delayUntil(s -> close(c))
                         .onErrorResume(createCloseThenReturnErrorFallback(c))
@@ -209,11 +209,11 @@ public final class $$PostgreSQLDeleteDataRepository extends AbstractPostgreSQLRe
     @Override
     public Mono<Void> delete11(final Long id) {
         // Original SQL statement:  'DELETE FROM ${table} WHERE ${by-id-filter}'
-        final String generatedSQL = "DELETE FROM account WHERE id = ?";
+        final String generatedSQL = "DELETE FROM account WHERE id = $1";
         return this.connectionFactory.create()
-                .flatMap(c -> executeStatement(c, generatedSQL)
+                .flatMap(c -> executeStatement(c, generatedSQL, id)
                         .flatMap(r -> Mono.from(r.getRowsUpdated())
-                                .map(actual -> validateRowsUpdated(1, actual, generatedSQL))
+                                .map(actual -> validateRowsUpdated(1, actual, generatedSQL, id))
                         )
                         .delayUntil(s -> close(c))
                         .onErrorResume(createCloseThenReturnErrorFallback(c))
@@ -236,11 +236,11 @@ public final class $$PostgreSQLDeleteDataRepository extends AbstractPostgreSQLRe
     @Override
     public Mono<Boolean> delete13(final Long id) {
         // Original SQL statement:  'DELETE FROM ${table} WHERE ${by-id-filter}'
-        final String generatedSQL = "DELETE FROM account WHERE id = ?";
+        final String generatedSQL = "DELETE FROM account WHERE id = $1";
         return this.connectionFactory.create()
-                .flatMap(c -> executeStatement(c, generatedSQL)
+                .flatMap(c -> executeStatement(c, generatedSQL, id)
                         .flatMap(r -> Mono.from(r.getRowsUpdated())
-                                .map(actual -> validateRowsUpdated(1, actual, generatedSQL))
+                                .map(actual -> validateRowsUpdated(1, actual, generatedSQL, id))
                         )
                         .delayUntil(s -> close(c))
                         .onErrorResume(createCloseThenReturnErrorFallback(c))
@@ -285,12 +285,12 @@ public final class $$PostgreSQLDeleteDataRepository extends AbstractPostgreSQLRe
     @Override
     public Completable delete16(final RequestIdSupplier requestIdSupplier, final Long id) {
         // Original SQL statement:  'DELETE FROM ${table} WHERE ${by-id-filter}'
-        final String generatedSQL = "DELETE FROM account WHERE id = ?";
+        final String generatedSQL = "DELETE FROM account WHERE id = $1";
         return Completable.fromPublisher(
                 this.connectionFactory.create(requestIdSupplier)
-                        .flatMap(c -> executeStatement(c, generatedSQL)
+                        .flatMap(c -> executeStatement(c, generatedSQL, id)
                                 .flatMap(r -> Mono.from(r.getRowsUpdated())
-                                        .map(actual -> validateRowsUpdated(1, actual, generatedSQL))
+                                        .map(actual -> validateRowsUpdated(1, actual, generatedSQL, id))
                                 )
                                 .delayUntil(s -> close(c))
                                 .onErrorResume(createCloseThenReturnErrorFallback(c))
@@ -317,12 +317,12 @@ public final class $$PostgreSQLDeleteDataRepository extends AbstractPostgreSQLRe
     @Override
     public Single<Boolean> delete18(final Long id) {
         // Original SQL statement:  'DELETE FROM ${table} WHERE ${by-id-filter}'
-        final String generatedSQL = "DELETE FROM account WHERE id = ?";
+        final String generatedSQL = "DELETE FROM account WHERE id = $1";
         return Single.fromPublisher(
                 this.connectionFactory.create()
-                        .flatMap(c -> executeStatement(c, generatedSQL)
+                        .flatMap(c -> executeStatement(c, generatedSQL, id)
                                 .flatMap(r -> Mono.from(r.getRowsUpdated())
-                                        .map(actual -> validateRowsUpdated(1, actual, generatedSQL))
+                                        .map(actual -> validateRowsUpdated(1, actual, generatedSQL, id))
                                 )
                                 .delayUntil(s -> close(c))
                                 .onErrorResume(createCloseThenReturnErrorFallback(c))

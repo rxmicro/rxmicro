@@ -30,6 +30,10 @@ import io.rxmicro.annotation.processor.data.sql.model.SQLMethodDescriptor;
 import io.rxmicro.annotation.processor.data.sql.model.VariableContext;
 import io.rxmicro.annotation.processor.data.sql.model.VariableValuesMap;
 import io.rxmicro.data.sql.VariableValues;
+import io.rxmicro.data.sql.operation.Delete;
+import io.rxmicro.data.sql.operation.Insert;
+import io.rxmicro.data.sql.operation.Select;
+import io.rxmicro.data.sql.operation.Update;
 
 import java.lang.annotation.Annotation;
 import java.util.HashMap;
@@ -45,6 +49,8 @@ import static io.rxmicro.annotation.processor.common.model.ModelFieldBuilderOpti
 import static io.rxmicro.annotation.processor.common.model.ModelFieldType.UNDEFINED;
 import static io.rxmicro.annotation.processor.common.util.Annotations.getAnnotationClassParameter;
 import static io.rxmicro.annotation.processor.data.sql.component.impl.resolver.SQLVariableValueCalculatorProvider.VARIABLE_RESOLVER_PROVIDER;
+import static io.rxmicro.common.util.Formats.FORMAT_PLACEHOLDER_TOKEN;
+import static io.rxmicro.data.sql.SupportedVariables.ALL_SUPPORTED_VARIABLES;
 
 /**
  * @author nedis
@@ -159,16 +165,31 @@ public abstract class AbstractSQLVariableValueResolver
         for (int i = 0; i < variables.length; i += 2) {
             final String variableName = variables[i];
             final String variableValue = variables[i + 1];
-            final boolean alreadyExists = variableValuesMap.containsKey(variableName);
-            if (alreadyExists) {
-                throw new InterruptProcessingException(
-                        owner,
-                        "Variable definition '? = ?' is redundant. Remove it!",
-                        variableName, variableValue
-                );
-            } else {
-                variableValuesMap.put(variableName, variableValue);
-            }
+            validateVariableValue(owner, variableValuesMap, variableName, variableValue);
+            variableValuesMap.put(variableName, variableValue);
+        }
+    }
+
+    private void validateVariableValue(final Element owner,
+                                       final VariableValuesMap variableValuesMap,
+                                       final String variableName,
+                                       final String variableValue) {
+        if (variableValuesMap.containsKey(variableName)) {
+            throw new InterruptProcessingException(
+                    owner,
+                    "Variable definition '? = ?' is redundant. Remove it!",
+                    variableName, variableValue
+            );
+        }
+        if (variableValue.contains(FORMAT_PLACEHOLDER_TOKEN) && ALL_SUPPORTED_VARIABLES.contains(variableName)) {
+            throw new InterruptProcessingException(
+                    owner,
+                    "Variable definition '? = ?' couldn't contain universal placeholder: '?'. " +
+                            "Only static values are supported now! " +
+                            "For dynamic values use 'entityClass' parameter that available for '@?', '@?', '@?' and '@?' annotations!",
+                    variableName, variableValue, "?",
+                    Insert.class.getSimpleName(), Update.class.getSimpleName(), Delete.class.getSimpleName(), Select.class.getSimpleName()
+            );
         }
     }
 
