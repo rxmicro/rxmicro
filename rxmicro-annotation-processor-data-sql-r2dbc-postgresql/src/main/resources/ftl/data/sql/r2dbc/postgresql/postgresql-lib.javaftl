@@ -1,79 +1,35 @@
 <#include "../sql-lib.javaftl">
 <#-- ------------------------------------------------------------------------------------------------ -->
-<#-- ---------------- https://freemarker.apache.org/docs/ref_directive_function.html ---------------- -->
-<#-- ------------------------------------------------------------------------------------------------ -->
-<#-- ------------------------------------------------------------------------------------------------ -->
 <#-- ----------------- https://freemarker.apache.org/docs/ref_directive_macro.html ------------------ -->
 <#-- ------------------------------------------------------------------------------------------------ -->
 <#macro returnEntityResult RETURN CONNECTION_PROVIDER SQL_PARAMS RESULT_CONVERTER CLOSE_CONNECTION>
 <#if RETURN.oneItem>
 <#if RETURN.mono>
-return ${CONNECTION_PROVIDER}
-        .flatMap(c -> executeStatement(c, generatedSQL${SQL_PARAMS})
-                .flatMap(r -> Mono.from(r.map(${RESULT_CONVERTER})))
-                <#if CLOSE_CONNECTION>
-                .switchIfEmpty(close(c)
-                        .then(Mono.empty())
-                )
-                .delayUntil(s -> close(c))
-                .onErrorResume(createCloseThenReturnErrorFallback(c))
-                </#if>
-        );
+<@defineRESULT_PUBLISHER shift='' CONNECTION_PROVIDER=CONNECTION_PROVIDER CLOSE_CONNECTION=CLOSE_CONNECTION/>
+return ${RESULT_PUBLISHER};
+<#-- -------------------------------------------------------------------------------------------------------- -->
 <#elseif RETURN.future && !RETURN.optional>
-return ${CONNECTION_PROVIDER}
-        .flatMap(c -> executeStatement(c, generatedSQL${SQL_PARAMS})
-                .flatMap(r -> Mono.from(r.map(${RESULT_CONVERTER})))
-                <#if CLOSE_CONNECTION>
-                .switchIfEmpty(close(c)
-                        .then(Mono.empty())
-                )
-                .delayUntil(s -> close(c))
-                .onErrorResume(createCloseThenReturnErrorFallback(c))
-                </#if>
-        )
+<@defineRESULT_PUBLISHER shift='' CONNECTION_PROVIDER=CONNECTION_PROVIDER CLOSE_CONNECTION=CLOSE_CONNECTION/>
+return ${RESULT_PUBLISHER}
         .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(${RETURN.simpleReactiveType}.class, ${RETURN.simpleResultType}.class))))
         .toFuture();
+<#-- -------------------------------------------------------------------------------------------------------- -->
 <#elseif RETURN.future && RETURN.optional>
-return ${CONNECTION_PROVIDER}
-        .flatMap(c -> executeStatement(c, generatedSQL${SQL_PARAMS})
-                .flatMap(r -> Mono.from(r.map(${RESULT_CONVERTER})))
-                <#if CLOSE_CONNECTION>
-                .switchIfEmpty(close(c)
-                        .then(Mono.empty())
-                )
-                .delayUntil(s -> close(c))
-                .onErrorResume(createCloseThenReturnErrorFallback(c))
-                </#if>
-        )
+<@defineRESULT_PUBLISHER shift='' CONNECTION_PROVIDER=CONNECTION_PROVIDER CLOSE_CONNECTION=CLOSE_CONNECTION/>
+return ${RESULT_PUBLISHER}
         .toFuture()
         .thenApply(a -> Optional.ofNullable(a));
+<#-- -------------------------------------------------------------------------------------------------------- -->
 <#elseif RETURN.single>
+<@defineRESULT_PUBLISHER shift='        ' CONNECTION_PROVIDER=CONNECTION_PROVIDER CLOSE_CONNECTION=CLOSE_CONNECTION/>
 return Single.fromPublisher(
-        ${CONNECTION_PROVIDER}
-                .flatMap(c -> executeStatement(c, generatedSQL${SQL_PARAMS})
-                        .flatMap(r -> Mono.from(r.map(${RESULT_CONVERTER})))
-                        <#if CLOSE_CONNECTION>
-                        .switchIfEmpty(close(c)
-                                .then(Mono.empty())
-                        )
-                        .delayUntil(s -> close(c))
-                        .onErrorResume(createCloseThenReturnErrorFallback(c))
-                        </#if>
-                )
+        ${RESULT_PUBLISHER}
 );
+<#-- -------------------------------------------------------------------------------------------------------- -->
 <#elseif RETURN.maybe>
+<@defineRESULT_PUBLISHER shift='        ' CONNECTION_PROVIDER=CONNECTION_PROVIDER CLOSE_CONNECTION=CLOSE_CONNECTION/>
 return Flowable.fromPublisher(
-        ${CONNECTION_PROVIDER}
-                .flatMap(c -> executeStatement(c, generatedSQL${SQL_PARAMS})
-                        .flatMap(r -> Mono.from(r.map(${RESULT_CONVERTER})))
-                        <#if CLOSE_CONNECTION>
-                        .switchIfEmpty(close(c)
-                                .then(Mono.empty())
-                        )
-                        .delayUntil(s -> close(c))
-                        .onErrorResume(createCloseThenReturnErrorFallback(c))
-                        </#if>
-                )
+        ${RESULT_PUBLISHER}
 ).firstElement();
 <#-- -------------------------------------------------------------------------------------------------------- -->
 <#else>
@@ -143,6 +99,40 @@ return Flowable.fromPublisher(
 </#if>
 <#-- -------------------------------------------------------------------------------------------------------- -->
 </#if>
+</#macro>
+<#-- ------------------------------------------------------------------------------------------------ -->
+<#-- ----------------- https://freemarker.apache.org/docs/ref_directive_macro.html ------------------ -->
+<#-- ------------------------------------------------------------------------------------------------ -->
+<#macro defineRESULT_PUBLISHER shift CONNECTION_PROVIDER CLOSE_CONNECTION>
+<#assign RESULT_PUBLISHER>
+<#-- ------------------------------------------------------------------------------------------------ -->
+${CONNECTION_PROVIDER}
+${shift}        .flatMap(c -> executeStatement(c, generatedSQL${SQL_PARAMS})
+<#if EXPECTED_UPDATED_ROWS_COUNT?? && EXPECTED_UPDATED_ROWS_COUNT == 0>
+${shift}                .flatMap(r -> Mono.from(r.map(${RESULT_CONVERTER}))
+${shift}                        .map(ignore -> (${RETURN.simpleResultType})throwExceptionIfNotEmptyResult(generatedSQL${SQL_PARAMS}))
+${shift}                )
+<#else>
+${shift}                .flatMap(r -> Mono.from(r.map(${RESULT_CONVERTER})))
+</#if>
+<#-- ------------------------------------------------------------------------------------------------ -->
+<#-- ------------------------------------------------------------------------------------------------ -->
+<#if CLOSE_CONNECTION>
+${shift}                .switchIfEmpty(close(c)
+<#if EXPECTED_UPDATED_ROWS_COUNT?? && EXPECTED_UPDATED_ROWS_COUNT == 1>
+${shift}                        .then(throwExceptionIfEmptyResult(generatedSQL${SQL_PARAMS}))
+<#else>
+${shift}                        .then(Mono.empty())
+</#if>
+${shift}                )
+${shift}                .delayUntil(s -> close(c))
+${shift}                .onErrorResume(createCloseThenReturnErrorFallback(c))
+<#-- ------------------------------------------------------------------------------------------------ -->
+<#elseif EXPECTED_UPDATED_ROWS_COUNT?? && EXPECTED_UPDATED_ROWS_COUNT == 1>
+${shift}                .switchIfEmpty(throwExceptionIfEmptyResult(generatedSQL${SQL_PARAMS}))
+</#if>
+${shift}        )</#assign>
+<#-- ------------------------------------------------------------------------------------------------ -->
 </#macro>
 <#-- ------------------------------------------------------------------------------------------------ -->
 <#-- ----------------- https://freemarker.apache.org/docs/ref_directive_macro.html ------------------ -->

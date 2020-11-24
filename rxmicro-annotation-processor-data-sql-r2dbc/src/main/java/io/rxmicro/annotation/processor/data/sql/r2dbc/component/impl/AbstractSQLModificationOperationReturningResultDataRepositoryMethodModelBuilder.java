@@ -30,6 +30,7 @@ import io.rxmicro.annotation.processor.data.sql.model.SQLDataModelField;
 import io.rxmicro.annotation.processor.data.sql.model.SQLDataObjectModelClass;
 import io.rxmicro.annotation.processor.data.sql.model.SQLMethodDescriptor;
 import io.rxmicro.annotation.processor.data.sql.model.SQLStatement;
+import io.rxmicro.data.sql.ExpectedUpdatedRowsCount;
 import io.rxmicro.data.sql.model.EntityFieldList;
 import io.rxmicro.data.sql.model.EntityFieldMap;
 import io.rxmicro.data.sql.operation.CustomSelect;
@@ -43,6 +44,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Optional;
 import javax.lang.model.element.ExecutableElement;
 
 import static io.rxmicro.annotation.processor.common.util.Errors.createInternalErrorSupplier;
@@ -80,6 +82,26 @@ public abstract class AbstractSQLModificationOperationReturningResultDataReposit
                     CustomSelect.class, operationType().getSimpleName().toUpperCase(Locale.ENGLISH)
             );
         }
+        Optional.ofNullable(method.getAnnotation(ExpectedUpdatedRowsCount.class)).ifPresent(expectedUpdatedRowsCount -> {
+            final int expectedValue = expectedUpdatedRowsCount.value();
+            if (methodResult.isOneItem()) {
+                if (expectedValue > 1) {
+                    throw new InterruptProcessingException(
+                            method,
+                            "Expected updated rows count value conflict with repository method result: expectedValue is ?, " +
+                                    "but the repository method returns the single result! " +
+                                    "Set valid expected rows count value or change the repository method result!",
+                            expectedValue
+                    );
+                }
+            } else {
+                throw new InterruptProcessingException(
+                        method,
+                        "'@?' annotation is not supported for repository methods that return not single result! " +
+                                "Remove unsupported annotation!"
+                );
+            }
+        });
     }
 
     @Override

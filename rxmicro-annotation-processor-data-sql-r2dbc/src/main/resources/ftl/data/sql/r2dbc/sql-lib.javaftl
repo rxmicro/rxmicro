@@ -86,7 +86,13 @@ return Single.fromPublisher(
 <#assign RESULT_PUBLISHER>
 ${CONNECTION_PROVIDER}
 ${shift}        .flatMap(c -> executeStatement(c, generatedSQL${SQL_PARAMS})
+<#if EXPECTED_UPDATED_ROWS_COUNT??>
+${shift}                .flatMap(r -> Mono.from(r.getRowsUpdated())
+${shift}                        .map(actual -> validateRowsUpdated(${EXPECTED_UPDATED_ROWS_COUNT}, actual, generatedSQL${SQL_PARAMS}))
+${shift}                )
+<#else>
 ${shift}                .flatMap(r -> Mono.from(r.getRowsUpdated()))
+</#if>
 <#if CLOSE_CONNECTION>
 ${shift}                .delayUntil(s -> close(c))
 ${shift}                .onErrorResume(createCloseThenReturnErrorFallback(c))

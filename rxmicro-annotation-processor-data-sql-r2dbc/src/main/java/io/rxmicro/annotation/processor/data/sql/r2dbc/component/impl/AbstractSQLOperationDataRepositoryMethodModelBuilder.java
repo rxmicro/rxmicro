@@ -34,6 +34,7 @@ import io.rxmicro.annotation.processor.data.sql.model.SQLMethodBody;
 import io.rxmicro.annotation.processor.data.sql.model.SQLMethodDescriptor;
 import io.rxmicro.annotation.processor.data.sql.model.SQLStatement;
 import io.rxmicro.data.DataRepositoryGeneratorConfig;
+import io.rxmicro.data.sql.ExpectedUpdatedRowsCount;
 import io.rxmicro.data.sql.model.EntityFieldList;
 import io.rxmicro.data.sql.model.EntityFieldMap;
 import io.rxmicro.data.sql.model.reactor.Transaction;
@@ -45,6 +46,7 @@ import java.lang.annotation.Annotation;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.Predicate;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.VariableElement;
@@ -103,6 +105,10 @@ public abstract class AbstractSQLOperationDataRepositoryMethodModelBuilder
         final Map<String, Object> templateArguments = new HashMap<>();
         putCommonArguments(dataRepositoryGeneratorConfig, templateArguments);
         templateArguments.put("RETURN", methodResult);
+        Optional.ofNullable(method.getAnnotation(ExpectedUpdatedRowsCount.class)).ifPresent(expectedUpdatedRowsCount -> {
+            validateExpectedUpdatedRowsCount(method, expectedUpdatedRowsCount.value());
+            templateArguments.put("EXPECTED_UPDATED_ROWS_COUNT", expectedUpdatedRowsCount.value());
+        });
         templateArguments.put("RETURN_ENTITY_FIELD_MAP", methodResult.isResultType(EntityFieldMap.class));
         templateArguments.put("RETURN_ENTITY_FIELD_LIST", methodResult.isResultType(EntityFieldList.class));
         final SQLStatement sqlStatement = sqlBuilder.build(classHeaderBuilder, parsedSQL, method, sqlMethodDescriptor);
@@ -138,6 +144,17 @@ public abstract class AbstractSQLOperationDataRepositoryMethodModelBuilder
             );
         }
         validatePageableParameter(dataMethodParams);
+    }
+
+    protected final void validateExpectedUpdatedRowsCount(final ExecutableElement method,
+                                                          final int expectedValue) {
+        if (expectedValue < 0) {
+            throw new InterruptProcessingException(
+                    method,
+                    "Invalid value for '@?' annotation: ?. Must be >= 0!",
+                    ExpectedUpdatedRowsCount.class.getSimpleName(), expectedValue
+            );
+        }
     }
 
     protected void customizeClassHeaderBuilder(final ClassHeader.Builder classHeaderBuilder,
