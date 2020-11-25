@@ -259,6 +259,18 @@ import java.util.logging.LogRecord;
  *              Outputs the name of the thread that generated the logging event.
  *         </td>
  *     </tr>
+ *     <tr>
+ *         <td>
+ *              <strong>id</strong><br>
+ *              <strong>rid</strong><br>
+ *              <strong>request-id</strong><br>
+ *              <strong>request_id</strong><br>
+ *              <strong>requestId</strong><br>
+ *         </td>
+ *         <td>
+ *              Outputs the request id if specified.
+ *         </td>
+ *     </tr>
  * </table>
  *
  *
