@@ -351,6 +351,12 @@ jobs:
         with:
           path: ./rxmicro-annotation-processor/target/
 
+      # Print dir tree with file size for debug purposes
+      - name: Show downloaded rxmicro artifacts
+        run: |
+          sudo apt install tree
+          tree -hD ./rxmicro-annotation-processor/target/
+
       - name: Create Jacoco Aggregate
         run: mvn site
 
