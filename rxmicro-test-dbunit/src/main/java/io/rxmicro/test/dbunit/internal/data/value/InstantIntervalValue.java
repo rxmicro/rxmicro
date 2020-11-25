@@ -19,7 +19,6 @@ package io.rxmicro.test.dbunit.internal.data.value;
 import java.sql.Timestamp;
 import java.time.Duration;
 import java.time.Instant;
-import java.time.ZoneOffset;
 
 import static io.rxmicro.common.util.Formats.format;
 
@@ -64,7 +63,7 @@ public final class InstantIntervalValue implements Comparable<Object> {
     }
 
     public int compareTo(final Timestamp timestamp) {
-        final Instant other = timestamp.toLocalDateTime().toInstant(ZoneOffset.UTC);
+        final Instant other = timestamp.toInstant();
         if (minInstant.isAfter(other)) {
             return -1;
         } else if (maxInstant.isBefore(other)) {

@@ -38,6 +38,7 @@
                     <argLine>
                         @{argLine}
                         --add-opens rxmicro.test.dbunit/io.rxmicro.test.dbunit.internal.component=ALL-UNNAMED
+                        --add-opens rxmicro.test.dbunit/io.rxmicro.test.dbunit.internal.data.type=ALL-UNNAMED
                     </argLine>
                 </configuration>
             </plugin>

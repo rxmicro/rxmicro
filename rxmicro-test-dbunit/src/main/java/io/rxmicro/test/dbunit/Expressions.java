@@ -17,7 +17,7 @@
 package io.rxmicro.test.dbunit;
 
 /**
- * The list of the supported expressions by the DBUnit.
+ * The list of the supported expressions by the {@code rxmicro.test.dbunit} module.
  *
  * @author nedis
  * @since 0.7

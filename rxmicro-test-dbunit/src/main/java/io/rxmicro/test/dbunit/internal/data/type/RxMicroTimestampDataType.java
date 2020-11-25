@@ -16,6 +16,7 @@
 
 package io.rxmicro.test.dbunit.internal.data.type;
 
+import io.rxmicro.test.GlobalTestConfig;
 import io.rxmicro.test.dbunit.internal.data.value.InstantIntervalValue;
 import org.dbunit.dataset.datatype.AbstractDataType;
 import org.dbunit.dataset.datatype.DataType;
@@ -27,9 +28,17 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.sql.Types;
 import java.time.Instant;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.time.format.DateTimeParseException;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.TimeZone;
 
+import static io.rxmicro.config.Configs.getConfig;
 import static io.rxmicro.test.dbunit.internal.ExpressionValueResolvers.isExpressionValue;
 import static io.rxmicro.test.dbunit.internal.ExpressionValueResolvers.resolveExpressionValue;
+import static java.time.temporal.ChronoField.NANO_OF_SECOND;
 
 /**
  * Unfortunately org.dbunit.dataset.datatype.TimestampDataType class has default constructor :(
@@ -42,6 +51,10 @@ public class RxMicroTimestampDataType extends AbstractDataType {
 
     private final DataType defaultTimestampDataType = DataType.TIMESTAMP;
 
+    private TimeZone prevTimeZone;
+
+    private Calendar calendar;
+
     public RxMicroTimestampDataType() {
         super("TIMESTAMP", Types.TIMESTAMP, Timestamp.class, false);
     }
@@ -52,7 +65,31 @@ public class RxMicroTimestampDataType extends AbstractDataType {
             return resolveExpressionValue(value);
         } else if (value instanceof Instant) {
             return Timestamp.from((Instant) value);
+        } else if (value instanceof String) {
+            return parseString((String) value);
         } else {
+            return defaultTimestampDataType.typeCast(value);
+        }
+    }
+
+    protected Object parseString(final String value) throws TypeCastException {
+        try {
+            // Try to parse as Instant
+            return Timestamp.from(Instant.parse(value));
+        } catch (final DateTimeParseException ignore) {
+            return parseUsingConfiguredTimeZone(value);
+        }
+    }
+
+    private Object parseUsingConfiguredTimeZone(final String value) throws TypeCastException {
+        final DateTimeFormatter dateTimeFormatter = new DateTimeFormatterBuilder()
+                .appendPattern("yyyy-MM-dd HH:mm:ss")
+                .parseDefaulting(NANO_OF_SECOND, 0)
+                .toFormatter()
+                .withZone(getTimeZone().toZoneId());
+        try {
+            return Timestamp.from(dateTimeFormatter.parse(value, Instant::from));
+        } catch (final DateTimeParseException ignore) {
             return defaultTimestampDataType.typeCast(value);
         }
     }
@@ -65,7 +102,7 @@ public class RxMicroTimestampDataType extends AbstractDataType {
     @Override
     public Object getSqlValue(final int column,
                               final ResultSet resultSet) throws SQLException {
-        final Timestamp value = resultSet.getTimestamp(column);
+        final Timestamp value = resultSet.getTimestamp(column, getCalendar());
         if (value == null || resultSet.wasNull()) {
             return null;
         } else {
@@ -77,7 +114,23 @@ public class RxMicroTimestampDataType extends AbstractDataType {
     public void setSqlValue(final Object value,
                             final int column,
                             final PreparedStatement statement) throws SQLException, TypeCastException {
-        statement.setTimestamp(column, (Timestamp) typeCast(value));
+        statement.setTimestamp(column, (Timestamp) typeCast(value), getCalendar());
+    }
+
+    private Calendar getCalendar() {
+        final TimeZone oldPrevTimeZone = prevTimeZone;
+        if (!getTimeZone().equals(oldPrevTimeZone)) {
+            calendar = new GregorianCalendar(prevTimeZone);
+        }
+        return calendar;
+    }
+
+    private TimeZone getTimeZone() {
+        final TimeZone timeZone = getConfig(GlobalTestConfig.class).getTimestampTimeZone();
+        if (!timeZone.equals(prevTimeZone)) {
+            prevTimeZone = timeZone;
+        }
+        return timeZone;
     }
 
     @Override
