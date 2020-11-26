@@ -20,7 +20,7 @@
     <parent>
         <artifactId>rxmicro</artifactId>
         <groupId>io.rxmicro</groupId>
-        <version>0.7-SNAPSHOT</version>
+        <version>0.7</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>rxmicro-rest</artifactId>
@@ -47,12 +47,12 @@
         <dependency>
             <groupId>io.rxmicro</groupId>
             <artifactId>rxmicro-model</artifactId>
-            <version>0.7-SNAPSHOT</version>
+            <version>0.7</version>
         </dependency>
         <dependency>
             <groupId>io.rxmicro</groupId>
             <artifactId>rxmicro-http</artifactId>
-            <version>0.7-SNAPSHOT</version>
+            <version>0.7</version>
         </dependency>
     </dependencies>
 </project>
