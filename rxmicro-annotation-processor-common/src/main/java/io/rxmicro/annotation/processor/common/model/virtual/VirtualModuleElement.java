@@ -72,7 +72,7 @@ public final class VirtualModuleElement implements ModuleElement, VirtualElement
 
     @Override
     public List<? extends Element> getEnclosedElements() {
-        throw new InternalErrorException("?.getEnclosedElements() must be implemented!", getClass().getSimpleName());
+        return unnamedModuleElement.getEnclosedElements();
     }
 
     @Override
@@ -92,7 +92,7 @@ public final class VirtualModuleElement implements ModuleElement, VirtualElement
 
     @Override
     public List<? extends Directive> getDirectives() {
-        return List.of();
+        return unnamedModuleElement.getDirectives();
     }
 
     @Override
@@ -122,7 +122,7 @@ public final class VirtualModuleElement implements ModuleElement, VirtualElement
 
     @Override
     public <R, P> R accept(final ElementVisitor<R, P> visitor, final P parameter) {
-        throw new UnsupportedOperationException();
+        return unnamedModuleElement.accept(visitor, parameter);
     }
 
     @Override

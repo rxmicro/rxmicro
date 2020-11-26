@@ -137,22 +137,26 @@ public final class EnvironmentContextBuilderImpl extends AbstractProcessorCompon
     }
 
     private List<String> getPackagesThatMustBeOpenedToRxMicroCommonModule(final ModuleElement currentModule) {
-        final List<String> packages = getPackagesThatContainModelClassesWithDynamicToStringMethod(currentModule);
-        if (packages.isEmpty()) {
+        if (currentModule.isUnnamed()) {
             return List.of();
         } else {
-            final List<String> alreadyOpenedPackages = currentModule.getDirectives().stream()
-                    .filter(d -> d.getKind() == ModuleElement.DirectiveKind.OPENS)
-                    .map(d -> (ModuleElement.OpensDirective) d)
-                    .filter(d -> d.getTargetModules().stream()
-                            .anyMatch(moduleElement ->
-                                    RxMicroModule.RX_MICRO_COMMON_MODULE.getName().equals(moduleElement.getQualifiedName().toString())))
-                    .map(d -> d.getPackage().getQualifiedName().toString())
-                    .collect(toList());
-            return packages.stream()
-                    .filter(packageName -> alreadyOpenedPackages.stream()
-                            .noneMatch(alreadyOpenedPackage -> alreadyOpenedPackage.equals(packageName)))
-                    .collect(toList());
+            final List<String> packages = getPackagesThatContainModelClassesWithDynamicToStringMethod(currentModule);
+            if (packages.isEmpty()) {
+                return List.of();
+            } else {
+                final List<String> alreadyOpenedPackages = currentModule.getDirectives().stream()
+                        .filter(d -> d.getKind() == ModuleElement.DirectiveKind.OPENS)
+                        .map(d -> (ModuleElement.OpensDirective) d)
+                        .filter(d -> d.getTargetModules().stream()
+                                .anyMatch(moduleElement ->
+                                        RxMicroModule.RX_MICRO_COMMON_MODULE.getName().equals(moduleElement.getQualifiedName().toString())))
+                        .map(d -> d.getPackage().getQualifiedName().toString())
+                        .collect(toList());
+                return packages.stream()
+                        .filter(packageName -> alreadyOpenedPackages.stream()
+                                .noneMatch(alreadyOpenedPackage -> alreadyOpenedPackage.equals(packageName)))
+                        .collect(toList());
+            }
         }
     }
 
