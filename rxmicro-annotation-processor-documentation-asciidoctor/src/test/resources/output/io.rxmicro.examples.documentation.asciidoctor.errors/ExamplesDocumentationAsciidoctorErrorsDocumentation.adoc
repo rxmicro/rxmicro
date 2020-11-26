@@ -211,6 +211,62 @@ a|The detailed cause of the arisen error.
 
 |===
 
+// --------------------------------------------------- Proxy Micro Service | GET / | Response 410 ---------------------------------------------------
+==== Response 410
+
+Custom description
+
+// ---------------------------------------------- Proxy Micro Service | GET / | Response 410 | Example ----------------------------------------------
+===== HTTP Response Example
+
+[source,http]
+----
+HTTP/1.1 410 Gone
+Content-Type: application/json
+Content-Length: 48
+Request-Id: 62jJeu8x1310662
+
+{
+  "nextAttemptAfter": "2222-01-01T10:00:00Z"
+}
+----
+
+// ---------------------------------------------- Proxy Micro Service | GET / | Response 410 | Headers ----------------------------------------------
+===== HTTP Response Headers Description
+
+[cols="25%,9%,28%,32%"]
+|===
+^|*Name* |*Type* |*Restrictions*| *Description*
+|*Request-Id*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`unique: true`#
+a|An unique request string identifier.
+
+.Read more:
+* [small]#https://docs.rxmicro.io/latest/user-guide/rest-controller.html#rest-controller-rqeuest-id-section[_What is request id?_^]#
+|===
+
+// ------------------------------------------ Proxy Micro Service | GET / | Response 410 | Body Parameters ------------------------------------------
+===== HTTP Response Body Parameters Description
+
+[cols="25%,9%,28%,32%"]
+|===
+^|*Name* |*Type* |*Restrictions*| *Description*
+|*nextAttemptAfter*
+|`string`
+a|
+* [small]#`optional: true`#
+
+* [small]#`format: UTC`#
+a|The client must repeat some action after this instant
+
+.Read more:
+* [small]#https://en.wikipedia.org/wiki/Coordinated_Universal_Time[_What is UTC?_^]#
+|===
+
 // --------------------------------------------------- Proxy Micro Service | GET / | Response 504 ---------------------------------------------------
 ==== Response 504
 

@@ -78,6 +78,8 @@ public interface InsertDataRepository {
     @Insert
     Mono<Void> insert11(Account account);
 
+    // tag::content[]
+    // <1>
     @ExpectedUpdatedRowsCount(10)
     @Insert("INSERT INTO ${table} SELECT * FROM dump")
     Mono<Integer> insert12();
@@ -93,6 +95,7 @@ public interface InsertDataRepository {
     @ExpectedUpdatedRowsCount(0)
     @Insert("INSERT INTO ${table} VALUES(nextval('account_seq'),?,?) RETURNING *")
     Mono<Account> insert15(String firstName, String lastName);
+    // end::content[]
 
     @ExpectedUpdatedRowsCount(1)
     @Insert

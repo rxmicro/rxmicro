@@ -18,6 +18,7 @@ package io.rxmicro.examples.documentation.asciidoctor.errors;
 
 import io.rxmicro.documentation.ModelExceptionErrorResponse;
 import io.rxmicro.documentation.SimpleErrorResponse;
+import io.rxmicro.examples.documentation.asciidoctor.errors.model.CustomErrorModelException;
 import io.rxmicro.examples.documentation.asciidoctor.errors.model.NotAcceptableException;
 import io.rxmicro.examples.documentation.asciidoctor.errors.model.Response;
 import io.rxmicro.http.client.HttpClientTimeoutException;
@@ -43,6 +44,7 @@ final class ProxyMicroService {
     )
     @ModelExceptionErrorResponse(HttpClientTimeoutException.class)  // <5>
     @ModelExceptionErrorResponse(NotAcceptableException.class)      // <6>
+    @ModelExceptionErrorResponse(CustomErrorModelException.class)   // <7>
     CompletableFuture<Optional<Response>> get() {
         return externalMicroService.get().thenApply(Optional::of);
     }

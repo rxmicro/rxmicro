@@ -77,6 +77,8 @@ public interface DeleteDataRepository {
     @Delete("DELETE FROM ${table} WHERE ${by-id-filter} RETURNING *")
     CompletionStage<Account> delete10(Long id);
 
+    // tag::content[]
+    // <1>
     @ExpectedUpdatedRowsCount(1)
     @Delete(entityClass = Account.class)
     Mono<Void> delete11(Long id);
@@ -96,6 +98,7 @@ public interface DeleteDataRepository {
     @ExpectedUpdatedRowsCount(0)
     @Delete("DELETE FROM ${table} WHERE ${by-id-filter} RETURNING *")
     Mono<Account> delete15(Long id);
+    // end::content[]
 
     @ExpectedUpdatedRowsCount(1)
     @Delete(entityClass = Account.class)

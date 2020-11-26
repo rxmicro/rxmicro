@@ -78,6 +78,8 @@ public interface UpdateDataRepository {
     @Update
     Mono<Void> update11(Account account);
 
+    // tag::content[]
+    // <1>
     @ExpectedUpdatedRowsCount(10)
     @Update("UPDATE ${table} SET first_name=?, last_name=? WHERE email=?")
     Mono<Integer> update12(String firstName, String lastName, String email);
@@ -93,6 +95,7 @@ public interface UpdateDataRepository {
     @ExpectedUpdatedRowsCount(0)
     @Update("UPDATE ${table} SET first_name=?, last_name=? WHERE ${by-id-filter} RETURNING *")
     Mono<Account> update15(String firstName, String lastName, Long id);
+    // end::content[]
 
     @ExpectedUpdatedRowsCount(1)
     @Update
