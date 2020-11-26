@@ -25,7 +25,7 @@ import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
- * Provides the init state of tested database before execution of test method.
+ * Provides the init state of tested database before execution of the test method.
  *
  * @author nedis
  * @since 0.7

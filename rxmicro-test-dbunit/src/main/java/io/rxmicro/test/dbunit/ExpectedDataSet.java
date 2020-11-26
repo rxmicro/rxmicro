@@ -24,8 +24,8 @@ import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
- * Provides the expected state of tested database after execution of test method.
- * If expected state does not match to the actual database state the {@link AssertionError} error will throw.
+ * Provides the expected state of tested database after execution of the test method.
+ * If expected state does not match to the actual database state the {@link AssertionError} error will be thrown.
  *
  * @author nedis
  * @since 0.7

@@ -16,7 +16,6 @@
 
 package io.rxmicro.annotation.processor.common.model.virtual;
 
-import io.rxmicro.annotation.processor.common.model.error.InternalErrorException;
 import io.rxmicro.annotation.processor.common.util.Names;
 
 import java.lang.annotation.Annotation;

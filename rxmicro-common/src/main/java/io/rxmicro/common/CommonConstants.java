@@ -49,7 +49,7 @@ public final class CommonConstants {
      * The environment variable that activates additional check in runtime.
      *
      * <p>
-     * The RxMicro team recommends to activate strict mode for runtime only for {@code dev} and {@code staging} environments,
+     * The RxMicro team recommends activating strict mode for runtime only for {@code dev} and {@code staging} environments,
      * because additional checks decrease total performance of your application.
      *
      * <p>

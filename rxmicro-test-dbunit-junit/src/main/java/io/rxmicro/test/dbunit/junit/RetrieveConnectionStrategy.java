@@ -28,7 +28,7 @@ public enum RetrieveConnectionStrategy {
      * This strategy informs the DBUnit to use single connection per all tests for your project.
      *
      * <p>
-     * The RxMicro team recommends to use this strategy for external databases only.
+     * The RxMicro team recommends using this strategy for external databases only.
      */
     PER_ALL_TEST_CLASSES,
 
@@ -39,7 +39,7 @@ public enum RetrieveConnectionStrategy {
     PER_TEST_CLASS,
 
     /**
-     * This strategy informs the DBUnit to create a new connection before each test and to close after each one.
+     * This strategy informs the DBUnit to create a new connection before each test method and to close after each one.
      */
     PER_TEST_METHOD
 }
