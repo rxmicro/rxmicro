@@ -21,6 +21,7 @@ import io.rxmicro.logger.internal.jul.config.adapter.RxMicroLogRecord;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static io.rxmicro.common.util.Formats.format;
 import static java.util.logging.Logger.GLOBAL_LOGGER_NAME;
 
 /**
@@ -34,6 +35,12 @@ public final class InternalLoggerHelper {
     public static void logInternal(final Level level,
                                    final String msg) {
         LOGGER.log(new RxMicroLogRecord(GLOBAL_LOGGER_NAME, level, msg));
+    }
+
+    public static void logInternal(final Level level,
+                                   final String template,
+                                   final Object... args) {
+        LOGGER.log(new RxMicroLogRecord(GLOBAL_LOGGER_NAME, level, format(template, args)));
     }
 
     private InternalLoggerHelper() {

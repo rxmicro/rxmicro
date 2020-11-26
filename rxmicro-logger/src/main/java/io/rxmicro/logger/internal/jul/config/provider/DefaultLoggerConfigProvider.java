@@ -17,7 +17,7 @@
 package io.rxmicro.logger.internal.jul.config.provider;
 
 import io.rxmicro.logger.internal.jul.config.LoggerConfigProvider;
-import io.rxmicro.logger.jul.SystemOutConsoleHandler;
+import io.rxmicro.logger.jul.SystemConsoleHandler;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -34,7 +34,7 @@ public final class DefaultLoggerConfigProvider implements LoggerConfigProvider {
 
     @Override
     public Map<String, String> getConfiguration() {
-        final String handler = SystemOutConsoleHandler.class.getName();
+        final String handler = SystemConsoleHandler.class.getName();
         final Map<String, String> properties = new LinkedHashMap<>();
         properties.put(".level", DEFAULT_LOGGER_ROOT_LEVEL);
 
