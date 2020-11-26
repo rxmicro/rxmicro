@@ -313,12 +313,17 @@ public final class Elements {
                         .equals(method1.getParameters().stream().map(v -> v.asType().toString()).collect(toList()));
     }
 
+    public static boolean doesExtendSuperType(final TypeElement type,
+                                              final Class<?> expectedSuperType) {
+        return findSuperType(type, expectedSuperType).isPresent();
+    }
+
     public static Optional<? extends TypeMirror> findSuperType(final TypeElement type,
-                                                               final Class<?> expectedType) {
+                                                               final Class<?> expectedSuperType) {
         TypeElement currentTypeElement = type;
         while (true) {
             final Optional<? extends TypeMirror> first = currentTypeElement.getInterfaces().stream()
-                    .filter(t -> getTypes().erasure(t).toString().equals(expectedType.getName()))
+                    .filter(t -> getTypes().erasure(t).toString().equals(expectedSuperType.getName()))
                     .findFirst();
             if (first.isPresent()) {
                 return first;
@@ -326,7 +331,7 @@ public final class Elements {
             final TypeMirror superClass = currentTypeElement.getSuperclass();
             if (superClassIsObject(superClass)) {
                 return Optional.empty();
-            } else if (getTypes().erasure(superClass).toString().equals(expectedType.getName())) {
+            } else if (getTypes().erasure(superClass).toString().equals(expectedSuperType.getName())) {
                 return Optional.of(superClass);
             } else {
                 currentTypeElement = asTypeElement(superClass).orElseThrow();

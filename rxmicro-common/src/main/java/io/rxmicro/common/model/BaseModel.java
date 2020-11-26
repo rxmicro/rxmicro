@@ -21,6 +21,7 @@ import io.rxmicro.common.CheckedWrapperException;
 import java.lang.reflect.InaccessibleObjectException;
 import java.util.stream.Collectors;
 
+import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.Reflections.allFields;
 import static io.rxmicro.common.util.Reflections.getFieldValue;
 import static java.util.Map.entry;
@@ -46,7 +47,11 @@ public class BaseModel {
             return getClass().getSimpleName() + '{' +
                     allFields(getClass(), field -> true).stream()
                             .map(field -> entry(field.getName(), getFieldValue(this, field)))
-                            .map(e -> e.getKey() + '=' + e.getValue())
+                            .map(e -> format(
+                                    "?=?",
+                                    e.getKey(),
+                                    e.getValue() instanceof String ? '\'' + e.getValue().toString() + '\'' : e.getValue()
+                            ))
                             .collect(Collectors.joining(", ")) +
                     '}';
         } catch (final CheckedWrapperException |

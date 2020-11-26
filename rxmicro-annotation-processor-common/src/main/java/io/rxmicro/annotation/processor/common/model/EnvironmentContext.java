@@ -50,16 +50,20 @@ public final class EnvironmentContext {
 
     private final List<Map.Entry<String, DefaultConfigProxyValue>> defaultConfigValues;
 
+    private final List<String> packagesThatMustBeOpenedToRxMicroCommonModule;
+
     public EnvironmentContext(final ModuleElement currentModule,
                               final Set<RxMicroModule> rxMicroModules,
                               final Set<String> includePackages,
                               final Set<String> excludePackages,
-                              final List<Map.Entry<String, DefaultConfigProxyValue>> defaultConfigValues) {
+                              final List<Map.Entry<String, DefaultConfigProxyValue>> defaultConfigValues,
+                              final List<String> packagesThatMustBeOpenedToRxMicroCommonModule) {
         this.currentModule = require(currentModule);
         this.rxMicroModules = new TreeSet<>(rxMicroModules);
         this.includePackages = require(includePackages);
         this.excludePackages = require(excludePackages);
         this.defaultConfigValues = require(defaultConfigValues);
+        this.packagesThatMustBeOpenedToRxMicroCommonModule = packagesThatMustBeOpenedToRxMicroCommonModule;
     }
 
     public ModuleElement getCurrentModule() {
@@ -114,6 +118,10 @@ public final class EnvironmentContext {
 
     public List<Map.Entry<String, DefaultConfigProxyValue>> getDefaultConfigValues() {
         return defaultConfigValues;
+    }
+
+    public List<String> getPackagesThatMustBeOpenedToRxMicroCommonModule() {
+        return packagesThatMustBeOpenedToRxMicroCommonModule;
     }
 
     @Override

@@ -138,7 +138,11 @@ public abstract class AbstractModuleClassStructuresBuilder extends AbstractProce
                         environmentContext.getDefaultConfigValues().stream(),
                         structures.stream().flatMap(classStructure -> classStructure.getDefaultConfigProxyValues().stream())
                 ).collect(toList());
-        return new EnvironmentCustomizerClassStructure(environmentContext.getCurrentModule(), defaultConfigValues);
+        return new EnvironmentCustomizerClassStructure(
+                environmentContext.getCurrentModule(),
+                defaultConfigValues,
+                environmentContext.getPackagesThatMustBeOpenedToRxMicroCommonModule()
+        );
     }
 
     protected final boolean isAnnotationPerPackageHierarchyAbsent(final TypeElement modelTypeElement,

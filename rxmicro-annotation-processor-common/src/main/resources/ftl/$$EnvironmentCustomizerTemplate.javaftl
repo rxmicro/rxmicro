@@ -9,6 +9,9 @@ final class ${CLASS_NAME} {
         <#if DEFAULT_CONFIG_VALUES?has_content>
         putDefaultConfigValues();
         </#if>
+        <#if PACKAGES_THAT_MUST_BE_OPENED_TO_RX_MICRO_COMMON_MODULE?has_content>
+        addOpensToRxMicroCommonModule();
+        </#if>
         // All required customization must be here
     }
 
@@ -27,6 +30,15 @@ final class ${CLASS_NAME} {
     private static void putDefaultConfigValues() {
         <#list DEFAULT_CONFIG_VALUES as V>
         putDefaultConfigValue("${V.key}", ${V.value});
+        </#list>
+    }
+
+    </#if>
+    <#if PACKAGES_THAT_MUST_BE_OPENED_TO_RX_MICRO_COMMON_MODULE?has_content>
+    private static void addOpensToRxMicroCommonModule(){
+        final Module currentModule = $$EnvironmentCustomizer.class.getModule();
+        <#list PACKAGES_THAT_MUST_BE_OPENED_TO_RX_MICRO_COMMON_MODULE as P>
+        currentModule.addOpens("${P}", RX_MICRO_COMMON_MODULE);
         </#list>
     }
 

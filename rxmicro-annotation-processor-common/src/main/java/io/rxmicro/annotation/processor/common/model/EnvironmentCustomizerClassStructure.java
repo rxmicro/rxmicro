@@ -16,6 +16,7 @@
 
 package io.rxmicro.annotation.processor.common.model;
 
+import io.rxmicro.common.CommonConstants;
 import io.rxmicro.config.detail.DefaultConfigValueBuilder;
 import io.rxmicro.runtime.RuntimeConstants;
 
@@ -38,10 +39,14 @@ public final class EnvironmentCustomizerClassStructure extends ClassStructure {
 
     private final List<Map.Entry<String, DefaultConfigProxyValue>> defaultConfigProxyValues;
 
+    private final List<String> packagesThatMustBeOpenedToRxMicroCommonModule;
+
     public EnvironmentCustomizerClassStructure(final ModuleElement currentModule,
-                                               final List<Map.Entry<String, DefaultConfigProxyValue>> defaultConfigProxyValues) {
+                                               final List<Map.Entry<String, DefaultConfigProxyValue>> defaultConfigProxyValues,
+                                               final List<String> packagesThatMustBeOpenedToRxMicroCommonModule) {
         this.currentModule = currentModule;
         this.defaultConfigProxyValues = defaultConfigProxyValues;
+        this.packagesThatMustBeOpenedToRxMicroCommonModule = packagesThatMustBeOpenedToRxMicroCommonModule;
     }
 
     @Override
@@ -60,15 +65,19 @@ public final class EnvironmentCustomizerClassStructure extends ClassStructure {
                 "PACKAGE_NAME", ENTRY_POINT_PACKAGE,
                 "CURRENT_MODULE_IS_NAMED", !currentModule.isUnnamed(),
                 "CLASS_NAME", ENVIRONMENT_CUSTOMIZER_SIMPLE_CLASS_NAME,
-                "DEFAULT_CONFIG_VALUES", defaultConfigProxyValues
+                "DEFAULT_CONFIG_VALUES", defaultConfigProxyValues,
+                "PACKAGES_THAT_MUST_BE_OPENED_TO_RX_MICRO_COMMON_MODULE", packagesThatMustBeOpenedToRxMicroCommonModule
         );
     }
 
     @Override
     public ClassHeader getClassHeader() {
-        return newClassHeaderBuilder(ENTRY_POINT_PACKAGE)
+        final ClassHeader.Builder builder = newClassHeaderBuilder(ENTRY_POINT_PACKAGE)
                 .addStaticImport(RuntimeConstants.class, "RX_MICRO_RUNTIME_MODULE")
-                .addStaticImport(DefaultConfigValueBuilder.class, "putDefaultConfigValue")
-                .build();
+                .addStaticImport(DefaultConfigValueBuilder.class, "putDefaultConfigValue");
+        if (!packagesThatMustBeOpenedToRxMicroCommonModule.isEmpty()) {
+            builder.addStaticImport(CommonConstants.class, "RX_MICRO_COMMON_MODULE");
+        }
+        return builder.build();
     }
 }

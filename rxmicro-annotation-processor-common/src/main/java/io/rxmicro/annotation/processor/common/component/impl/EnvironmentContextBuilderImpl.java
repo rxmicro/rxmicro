@@ -25,7 +25,9 @@ import io.rxmicro.annotation.processor.common.model.DefaultConfigProxyValue;
 import io.rxmicro.annotation.processor.common.model.EnvironmentContext;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
 import io.rxmicro.annotation.processor.common.util.Annotations;
+import io.rxmicro.common.ImpossibleException;
 import io.rxmicro.common.RxMicroModule;
+import io.rxmicro.common.model.BaseModel;
 import io.rxmicro.config.ExcludeAll;
 import io.rxmicro.config.IncludeAll;
 
@@ -35,13 +37,19 @@ import java.util.Map;
 import java.util.Set;
 import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.element.Element;
+import javax.lang.model.element.ElementKind;
+import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.ModuleElement;
 import javax.lang.model.element.PackageElement;
 import javax.lang.model.element.QualifiedNameable;
+import javax.lang.model.element.TypeElement;
 
+import static io.rxmicro.annotation.processor.common.util.Elements.asTypeElement;
+import static io.rxmicro.annotation.processor.common.util.Elements.doesExtendSuperType;
 import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getElements;
 import static io.rxmicro.common.util.Strings.startsWith;
 import static java.util.Map.entry;
+import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toMap;
 import static java.util.stream.Collectors.toSet;
 
@@ -80,7 +88,9 @@ public final class EnvironmentContextBuilderImpl extends AbstractProcessorCompon
                 rxMicroModules,
                 Set.copyOf(includePackages.keySet()),
                 Set.copyOf(excludePackages.keySet()),
-                getDefaultConfigValues(currentModule));
+                getDefaultConfigValues(currentModule),
+                getPackagesThatMustBeOpenedToRxMicroCommonModule(currentModule)
+        );
         info("?", environmentContext);
         return environmentContext;
     }
@@ -124,5 +134,52 @@ public final class EnvironmentContextBuilderImpl extends AbstractProcessorCompon
             }
         }
         return defaultConfigValues;
+    }
+
+    private List<String> getPackagesThatMustBeOpenedToRxMicroCommonModule(final ModuleElement currentModule) {
+        final List<String> packages = getPackagesThatContainModelClassesWithDynamicToStringMethod(currentModule);
+        if (packages.isEmpty()) {
+            return List.of();
+        } else {
+            final List<String> alreadyOpenedPackages = currentModule.getDirectives().stream()
+                    .filter(d -> d.getKind() == ModuleElement.DirectiveKind.OPENS)
+                    .map(d -> (ModuleElement.OpensDirective) d)
+                    .filter(d -> d.getTargetModules().stream()
+                            .anyMatch(moduleElement ->
+                                    RxMicroModule.RX_MICRO_COMMON_MODULE.getName().equals(moduleElement.getQualifiedName().toString())))
+                    .map(d -> d.getPackage().getQualifiedName().toString())
+                    .collect(toList());
+            return packages.stream()
+                    .filter(packageName -> alreadyOpenedPackages.stream()
+                            .noneMatch(alreadyOpenedPackage -> alreadyOpenedPackage.equals(packageName)))
+                    .collect(toList());
+        }
+    }
+
+    private List<String> getPackagesThatContainModelClassesWithDynamicToStringMethod(final ModuleElement currentModule) {
+        return currentModule.getEnclosedElements().stream()
+                .flatMap(e -> e.getEnclosedElements().stream())
+                .filter(e -> e.getKind() == ElementKind.CLASS &&
+                        doesExtendSuperType((TypeElement) e, BaseModel.class) &&
+                        doesToStringMethodNotOverridden((TypeElement) e)
+                )
+                .map(e -> ((PackageElement) e.getEnclosingElement()).getQualifiedName().toString())
+                .collect(toList());
+    }
+
+    private boolean doesToStringMethodNotOverridden(final TypeElement typeElement) {
+        TypeElement current = typeElement;
+        while (!BaseModel.class.getName().equals(current.getQualifiedName().toString())) {
+            if (current.getEnclosedElements().stream()
+                    .anyMatch(e -> e.getKind() == ElementKind.METHOD &&
+                            "toString".equals(e.getSimpleName().toString()) &&
+                            ((ExecutableElement) e).getParameters().isEmpty())) {
+                return false;
+            }
+            current = asTypeElement(current.getSuperclass()).orElseThrow(() -> {
+                throw new ImpossibleException("Type element extends BaseModel, so super class must be found always!");
+            });
+        }
+        return true;
     }
 }
