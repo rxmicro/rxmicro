@@ -85,7 +85,7 @@ public final class SQLScriptReader {
                     statementBuilder.deleteCharAt(0);
                 } else if (index < statementBuilder.length() - 1) {
                     final char nextCh = statementBuilder.charAt(index + 1);
-                    if (nextCh == '\n' || nextCh == '\t' || nextCh == ' ') {
+                    if (nextCh == '\r' || nextCh == '\n' || nextCh == '\t' || nextCh == ' ') {
                         statementBuilder.deleteCharAt(index);
                     } else {
                         if (ch == '\n' || ch == '\t') {
