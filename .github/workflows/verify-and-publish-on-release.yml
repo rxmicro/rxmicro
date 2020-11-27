@@ -237,7 +237,7 @@ jobs:
         with:
           name: latest-jacoco-meta-data-${{ matrix.group }}
           path: ~/jacoco
-          if-no-files-found: error
+          if-no-files-found: warn
           retention-days: 1
   # -----------------------------------------------------------------------------------------------------
   # ------------- Update User Guide (User Guide must use the latest RxMicro framework version) ----------
