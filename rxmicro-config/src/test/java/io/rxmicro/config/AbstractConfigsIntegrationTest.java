@@ -20,11 +20,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 
 import java.io.IOException;
-import java.nio.file.FileVisitResult;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.SimpleFileVisitor;
+import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.List;
 import java.util.Map;
@@ -50,6 +46,8 @@ public abstract class AbstractConfigsIntegrationTest {
     private String mkDir(final String relativePath) throws IOException {
         return createDirectories(Paths.get(TEMP_DIRECTORY.toString() + "/" + relativePath)).toAbsolutePath().toString();
     }
+
+    private static Thread DELETE_TEMP_DIR_SHUTDOWN_HOOK;
 
     @BeforeEach
     void beforeEach() throws IOException {
@@ -94,6 +92,11 @@ public abstract class AbstractConfigsIntegrationTest {
                 .withAllConfigSources()
                 .withCommandLineArguments(new String[]{"test.commandLineArguments=commandLineArguments"})
                 .build();
+
+        if (DELETE_TEMP_DIR_SHUTDOWN_HOOK == null) {
+            DELETE_TEMP_DIR_SHUTDOWN_HOOK = new Thread(this::deleteTempDirectory, "DELETE_TEMP_DIR_SHUTDOWN_HOOK");
+            Runtime.getRuntime().addShutdownHook(DELETE_TEMP_DIR_SHUTDOWN_HOOK);
+        }
     }
 
     private void prepareTempDirectory() throws IOException {
@@ -101,30 +104,37 @@ public abstract class AbstractConfigsIntegrationTest {
     }
 
     @AfterEach
-    void afterEach() throws IOException {
+    void afterEach() {
         resetDefaultConfigValueStorage();
         System.setProperty(USER_HOME_PROPERTY, REAL_USER_HOME);
-        deleteTempDirectory();
     }
 
-    private void deleteTempDirectory() throws IOException {
+    private void deleteTempDirectory() {
         if (Files.exists(TEMP_DIRECTORY)) {
-            if (Files.isDirectory(TEMP_DIRECTORY)) {
-                Files.walkFileTree(TEMP_DIRECTORY, new SimpleFileVisitor<>() {
-                    @Override
-                    public FileVisitResult visitFile(final Path file, final BasicFileAttributes attrs) throws IOException {
-                        Files.delete(file);
-                        return FileVisitResult.CONTINUE;
-                    }
+            try {
+                if (Files.isDirectory(TEMP_DIRECTORY)) {
+                    Files.walkFileTree(TEMP_DIRECTORY, new SimpleFileVisitor<>() {
+                        @Override
+                        public FileVisitResult visitFile(final Path file, final BasicFileAttributes attrs) throws IOException {
+                            Files.delete(file);
+                            return FileVisitResult.CONTINUE;
+                        }
 
-                    @Override
-                    public FileVisitResult postVisitDirectory(final Path dir, final IOException exc) throws IOException {
-                        Files.delete(dir);
-                        return FileVisitResult.CONTINUE;
-                    }
-                });
-            } else {
-                Files.delete(TEMP_DIRECTORY);
+                        @Override
+                        public FileVisitResult postVisitDirectory(final Path dir, final IOException exc) throws IOException {
+                            try {
+                                Files.delete(dir);
+                            } catch (final DirectoryNotEmptyException ex) {
+                                ex.printStackTrace();
+                            }
+                            return FileVisitResult.CONTINUE;
+                        }
+                    });
+                } else {
+                    Files.delete(TEMP_DIRECTORY);
+                }
+            } catch (final IOException io) {
+                io.printStackTrace();
             }
         }
     }
