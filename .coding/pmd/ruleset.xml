@@ -68,8 +68,7 @@
             <property name="strictMode" value="true"/>
         </properties>
     </rule>
-    <rule ref="category/java/bestpractices.xml/PositionLiteralsFirstInCaseInsensitiveComparisons"/>
-    <rule ref="category/java/bestpractices.xml/PositionLiteralsFirstInComparisons"/>
+    <rule ref="category/java/bestpractices.xml/LiteralsFirstInComparisons"/>
     <!-- Sometimes original stacktrace is redundant, because the exception class name contains all required information: -->
     <!-- rule ref="category/java/bestpractices.xml/PreserveStackTrace"/ -->
     <rule ref="category/java/bestpractices.xml/ReplaceEnumerationWithIterator"/>
@@ -324,10 +323,10 @@
     <!-- rule ref="category/java/errorprone.xml/DataflowAnomalyAnalysis"/ -->
     <rule ref="category/java/errorprone.xml/DetachedTestCase"/>
     <rule ref="category/java/errorprone.xml/DoNotCallGarbageCollectionExplicitly"/>
-    <rule ref="category/java/errorprone.xml/DoNotCallSystemExit"/>
     <rule ref="category/java/errorprone.xml/DoNotExtendJavaLangThrowable"/>
     <!-- Android specific rule: -->
     <!-- rule ref="category/java/errorprone.xml/DoNotHardCodeSDCard"/ -->
+    <rule ref="category/java/errorprone.xml/DoNotTerminateVM"/>
     <rule ref="category/java/errorprone.xml/DoNotThrowExceptionInFinally"/>
     <rule ref="category/java/errorprone.xml/DontImportSun"/>
     <rule ref="category/java/errorprone.xml/DontUseFloatTypeForLoopIndices"/>
@@ -379,7 +378,7 @@
     <rule ref="category/java/errorprone.xml/ProperLogger">
         <properties>
             <property name="staticLoggerName" value="LOGGER"/>
-            <property name="loggerName" value="logget"/>
+            <property name="loggerName" value="logger"/>
             <property name="loggerClass" value="Logger"/>
         </properties>
     </rule>

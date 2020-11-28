@@ -132,7 +132,7 @@ public final class RestModelValidatorBuilderImpl extends AbstractProcessorCompon
         constraintAnnotationExtractor.extract(restModelField, modelFieldType).forEach(m -> {
             annotationValueValidator.validate(m, restModelField);
             final String constraintConstructorArg = m.getElementValues().entrySet().stream()
-                    .filter(e -> !e.getKey().getSimpleName().toString().equals("off"))
+                    .filter(e -> !"off".equals(e.getKey().getSimpleName().toString()))
                     .map(e -> convertAnnotationValue(builder, restModelField, m, e))
                     .collect(joining(", "));
             final String constructorArg = getConstructorArgs(builder, modelFieldType, constraintConstructorArg, m.isIterableConstraint());

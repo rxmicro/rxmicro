@@ -154,9 +154,9 @@
         <external.lib.opentest4j.version>1.2.0</external.lib.opentest4j.version>
 
         <!-- Code quality -->
-        <spotbugs.version>4.0.3</spotbugs.version>
-        <pmd.version>6.23.0</pmd.version>
-        <checkstyle.version>8.32</checkstyle.version>
+        <spotbugs.version>4.1.4</spotbugs.version>
+        <pmd.version>6.29.0</pmd.version>
+        <checkstyle.version>8.37</checkstyle.version>
 
         <!-- Maven core plugins -->
         <maven-clean-plugin.version>3.1.0</maven-clean-plugin.version>
@@ -180,8 +180,8 @@
 
         <!-- Code quality plugins -->
         <jacoco-maven-plugin.version>0.8.6</jacoco-maven-plugin.version>
-        <spotbugs-maven-plugin.version>4.0.0</spotbugs-maven-plugin.version>
-        <maven-pmd-plugin.version>3.13.0</maven-pmd-plugin.version>
+        <spotbugs-maven-plugin.version>4.1.4</spotbugs-maven-plugin.version>
+        <maven-pmd-plugin.version>3.14.0</maven-pmd-plugin.version>
         <maven-checkstyle-plugin.version>3.1.1</maven-checkstyle-plugin.version>
 
         <!-- Code quality plugin configuration properties -->
