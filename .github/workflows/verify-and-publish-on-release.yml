@@ -276,7 +276,7 @@ jobs:
         run: |
           cd rxmicro/
           LATEST_VERSION=$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)
-          RELEASE_VERSION=$(echo $CURRENT_VERSION | sed 's/-SNAPSHOT//g')
+          RELEASE_VERSION=$(echo $LATEST_VERSION | sed 's/-SNAPSHOT//g')
           cd ../
           cd rxmicro-usage/documentation/
           mvn -Drxmicro.version=$RELEASE_VERSION -B verify --file pom.xml
@@ -344,8 +344,8 @@ jobs:
 
       - name: Update version of the RxMicro framework
         run: |
-          CURRENT_VERSION=$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)
-          RELEASE_VERSION=$(echo $CURRENT_VERSION | sed 's/-SNAPSHOT//g')
+          LATEST_VERSION=$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)
+          RELEASE_VERSION=$(echo $LATEST_VERSION | sed 's/-SNAPSHOT//g')
           mvn versions:set -DnewVersion=$RELEASE_VERSION
 
       - name: Deploy to OSSRH

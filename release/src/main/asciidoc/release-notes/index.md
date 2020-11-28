@@ -2,6 +2,22 @@
 
 This document contains the *change log* for all RxMicro releases since **0.2**.
 
+## RxMicro v0.7.1
+
+* Dependency updates:
+  * guava: 29.0-jre -> 30.0-jre  
+  * mockito: 3.5.13 -> 3.6.28
+  * google compile-testing: 0.18 -> 0.19
+  * netty: 4.1.52.Final -> 4.1.54.Final
+  * rxjava3: 3.0.6 -> 3.0.7
+  * projectreactor: 3.3.10.RELEASE -> 3.4.0
+  * mongodb-driver-reactivestreams: 4.1.0 -> 4.1.1
+  * mongodb-driver-core: 4.1.0 -> 4.1.1
+  * bson: 4.1.0 -> 4.1.1
+  * r2dbc-spi: 0.8.2.RELEASE -> 0.8.3.RELEASE
+  * r2dbc-postgresql: 0.8.5.RELEASE -> 0.8.6.RELEASE
+  * r2dbc-pool: 0.8.4.RELEASE -> 0.8.5.RELEASE
+
 ## RxMicro v0.7
 
 * Add support for `${on-conflict-update-inserted-columns}` SQL variable.
