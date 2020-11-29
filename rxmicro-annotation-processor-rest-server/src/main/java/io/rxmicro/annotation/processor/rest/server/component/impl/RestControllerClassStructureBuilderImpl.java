@@ -23,8 +23,11 @@ import io.rxmicro.annotation.processor.common.model.EnvironmentContext;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
 import io.rxmicro.annotation.processor.common.model.method.MethodBody;
 import io.rxmicro.annotation.processor.common.model.method.MethodName;
+import io.rxmicro.annotation.processor.common.model.type.IterableModelClass;
+import io.rxmicro.annotation.processor.common.model.type.ModelClass;
 import io.rxmicro.annotation.processor.rest.component.PathVariableValidator;
 import io.rxmicro.annotation.processor.rest.model.HttpMethodMapping;
+import io.rxmicro.annotation.processor.rest.model.RestObjectModelClass;
 import io.rxmicro.annotation.processor.rest.model.StaticHeaders;
 import io.rxmicro.annotation.processor.rest.server.component.RestControllerClassStructureBuilder;
 import io.rxmicro.annotation.processor.rest.server.component.RestControllerMethodBodyBuilder;
@@ -193,13 +196,25 @@ public final class RestControllerClassStructureBuilderImpl implements RestContro
                                      final RestControllerClassStructureStorage restControllerClassStructureStorage) {
         if (!methodSignature.getRequestModel().requestModelNotExists()) {
             for (final HttpMethodMapping httpMethodMapping : httpMethodMappings) {
-                if (!httpMethodMapping.isHttpBody() &&
-                        !restControllerClassStructureStorage.getModelReaderClassStructure(
-                                methodSignature.getRequestModel().getRequiredRequestType().asType().toString()
-                        ).orElseThrow().getModelClass().getAllChildrenObjectModelClasses().isEmpty()) {
-                    throw new InterruptProcessingException(methodSignature.getExecutableElement(),
-                            "Nested model classes not allowed for @?(\"?\")",
-                            httpMethodMapping.getMethod(), httpMethodMapping.getExactOrTemplateUri());
+                if (!httpMethodMapping.isHttpBody()) {
+                    final RestObjectModelClass restObjectModelClass =
+                            restControllerClassStructureStorage.getModelReaderClassStructure(
+                                    methodSignature.getRequestModel().getRequiredRequestType().asType().toString()
+                            ).orElseThrow().getModelClass();
+                    if (!restObjectModelClass.getAllChildrenObjectModelClasses().isEmpty()) {
+                        throw new InterruptProcessingException(methodSignature.getExecutableElement(),
+                                "Nested model classes not allowed for @?(\"?\")",
+                                httpMethodMapping.getMethod(), httpMethodMapping.getExactOrTemplateUri());
+                    }
+                    if (restObjectModelClass.getParamEntries().stream()
+                            .map(Map.Entry::getValue)
+                            .filter(ModelClass::isIterable)
+                            .map(ModelClass::asIterable)
+                            .anyMatch(IterableModelClass::isMap)) {
+                        throw new InterruptProcessingException(methodSignature.getExecutableElement(),
+                                "java.util.Map<String, ?> model item container not allowed for @?(\"?\")",
+                                "?", httpMethodMapping.getMethod(), httpMethodMapping.getExactOrTemplateUri());
+                    }
                 }
             }
         }

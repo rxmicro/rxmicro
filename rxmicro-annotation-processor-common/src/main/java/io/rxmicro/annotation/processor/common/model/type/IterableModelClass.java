@@ -68,6 +68,10 @@ public final class IterableModelClass extends ModelClass {
         return containerTypeName;
     }
 
+    public boolean isMap(){
+        return "Map".equals(containerTypeName);
+    }
+
     @Override
     @UsedByFreemarker
     public String getJavaSimpleClassName() {
