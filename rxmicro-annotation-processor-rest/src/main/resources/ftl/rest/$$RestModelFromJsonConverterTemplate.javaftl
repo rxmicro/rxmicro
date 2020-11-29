@@ -12,14 +12,14 @@ public final class ${JAVA_MODEL_CLASS.modelFromJsonConverterImplSimpleClassName}
     public ${JAVA_MODEL_CLASS.javaSimpleClassName} fromJsonObject(final Map<String, Object> params) {
         final ${JAVA_MODEL_CLASS.javaSimpleClassName} model = new ${JAVA_MODEL_CLASS.javaSimpleClassName}();
         <#if JAVA_MODEL_CLASS.paramEntries?has_content>
-        readBody(params, model);
+        readParamsToModel(params, model);
         </#if>
         return model;
     }
     <#if JAVA_MODEL_CLASS.paramEntries?has_content>
 
-    protected void readBody(final Map<String, Object> params,
-                            final ${JAVA_MODEL_CLASS.javaSimpleClassName} model) {
+    protected void readParamsToModel(final Map<String, Object> params,
+                                     final ${JAVA_MODEL_CLASS.javaSimpleClassName} model) {
         <#list JAVA_MODEL_CLASS.paramEntries as fieldEntry>
         <@setParamFieldValue entry=fieldEntry/>
         </#list>

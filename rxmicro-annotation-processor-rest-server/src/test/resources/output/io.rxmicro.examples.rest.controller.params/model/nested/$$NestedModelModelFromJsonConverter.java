@@ -12,12 +12,12 @@ public final class $$NestedModelModelFromJsonConverter extends ModelFromJsonConv
     @Override
     public NestedModel fromJsonObject(final Map<String, Object> params) {
         final NestedModel model = new NestedModel();
-        readBody(params, model);
+        readParamsToModel(params, model);
         return model;
     }
 
-    protected void readBody(final Map<String, Object> params,
-                            final NestedModel model) {
+    protected void readParamsToModel(final Map<String, Object> params,
+                                     final NestedModel model) {
         model.stringParameter = toString(params.get("string_parameter"), "string_parameter");
         model.bigDecimalParameter = toBigDecimal(params.get("big_decimal_parameter"), "big_decimal_parameter");
         model.instantParameter = toInstant(params.get("instant_parameter"), "instant_parameter");

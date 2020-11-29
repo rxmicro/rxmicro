@@ -17,14 +17,14 @@ public final class $$VirtualRoutingUsingHttpBodyRequestModelReader extends Model
                                                      final boolean readParametersFromBody) {
         final $$VirtualRoutingUsingHttpBodyRequest model = new $$VirtualRoutingUsingHttpBodyRequest();
         final QueryParams params = extractParams(request.getQueryString());
-        read(pathVariableMapping, request, params, model);
+        readPrimitivesToModel(pathVariableMapping, request, params, model);
         return model;
     }
 
-    protected void read(final PathVariableMapping pathVariableMapping,
-                        final HttpRequest request,
-                        final QueryParams params,
-                        final $$VirtualRoutingUsingHttpBodyRequest model) {
+    protected void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
+                                         final HttpRequest request,
+                                         final QueryParams params,
+                                         final $$VirtualRoutingUsingHttpBodyRequest model) {
         model.parameter = toString(params.getValue("parameter"), HttpModelType.PARAMETER, "parameter");
     }
 }

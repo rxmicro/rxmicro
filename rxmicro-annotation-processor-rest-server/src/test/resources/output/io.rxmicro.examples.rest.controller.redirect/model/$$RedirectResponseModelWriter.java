@@ -15,11 +15,11 @@ public final class $$RedirectResponseModelWriter extends ModelWriter<RedirectRes
     @Override
     public void write(final RedirectResponse model,
                       final HttpResponse response) {
-        setHeadersAndInternals(model, response);
+        writePrimitivesToResponse(model, response);
     }
 
-    protected void setHeadersAndInternals(final RedirectResponse model,
-                                          final HttpResponse response) {
+    protected void writePrimitivesToResponse(final RedirectResponse model,
+                                             final HttpResponse response) {
         response.setStatus(model.status);
         response.setHeader("Location", model.location);
     }

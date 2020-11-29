@@ -12,12 +12,12 @@ public final class $$RequestModelFromJsonConverter extends ModelFromJsonConverte
     @Override
     public Request fromJsonObject(final Map<String, Object> params) {
         final Request model = new Request();
-        readBody(params, model);
+        readParamsToModel(params, model);
         return model;
     }
 
-    protected void readBody(final Map<String, Object> params,
-                            final Request model) {
+    protected void readParamsToModel(final Map<String, Object> params,
+                                     final Request model) {
         model.endpointVersion = toString(params.get("endpoint_version"), "endpoint_version");
         model.useProxy = toBoolean(params.get("use-Proxy"), "use-Proxy");
     }

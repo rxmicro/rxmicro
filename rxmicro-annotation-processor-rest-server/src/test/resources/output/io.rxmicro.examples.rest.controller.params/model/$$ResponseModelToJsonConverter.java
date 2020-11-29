@@ -13,12 +13,12 @@ public final class $$ResponseModelToJsonConverter extends ModelToJsonConverter<R
     @Override
     public Map<String, Object> toJsonObject(final Response model) {
         final JsonObjectBuilder builder = new JsonObjectBuilder();
-        putValues(model, builder);
+        putValuesToBuilder(model, builder);
         return builder.build();
     }
 
-    protected void putValues(final Response model,
-                             final JsonObjectBuilder builder) {
+    protected void putValuesToBuilder(final Response model,
+                                      final JsonObjectBuilder builder) {
         builder.put("endpoint_version", model.endpointVersion);
         builder.put("use-Proxy", model.useProxy);
     }

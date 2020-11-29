@@ -12,7 +12,7 @@ public final class ${JAVA_MODEL_CLASS.modelToJsonConverterImplSimpleClassName} e
     public Map<String, Object> toJsonObject(final ${JAVA_MODEL_CLASS.javaSimpleClassName} model) {
         <#if JAVA_MODEL_CLASS.paramEntries?has_content>
         final JsonObjectBuilder builder = new JsonObjectBuilder();
-        putValues(model, builder);
+        putValuesToBuilder(model, builder);
         return builder.build();
         <#else>
         return Map.of();
@@ -20,8 +20,8 @@ public final class ${JAVA_MODEL_CLASS.modelToJsonConverterImplSimpleClassName} e
     }
     <#if JAVA_MODEL_CLASS.paramEntries?has_content>
 
-    protected void putValues(final ${JAVA_MODEL_CLASS.javaSimpleClassName} model,
-                             final JsonObjectBuilder builder) {
+    protected void putValuesToBuilder(final ${JAVA_MODEL_CLASS.javaSimpleClassName} model,
+                                      final JsonObjectBuilder builder) {
         <#list JAVA_MODEL_CLASS.paramEntries as fieldEntry>
         <@putJsonEntry entry=fieldEntry/>
         </#list>

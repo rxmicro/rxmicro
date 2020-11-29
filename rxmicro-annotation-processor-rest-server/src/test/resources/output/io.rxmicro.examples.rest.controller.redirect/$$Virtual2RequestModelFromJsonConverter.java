@@ -12,12 +12,12 @@ public final class $$Virtual2RequestModelFromJsonConverter extends ModelFromJson
     @Override
     public $$Virtual2Request fromJsonObject(final Map<String, Object> params) {
         final $$Virtual2Request model = new $$Virtual2Request();
-        readBody(params, model);
+        readParamsToModel(params, model);
         return model;
     }
 
-    protected void readBody(final Map<String, Object> params,
-                            final $$Virtual2Request model) {
+    protected void readParamsToModel(final Map<String, Object> params,
+                                     final $$Virtual2Request model) {
         model.parameter = toString(params.get("parameter"), "parameter");
     }
 }

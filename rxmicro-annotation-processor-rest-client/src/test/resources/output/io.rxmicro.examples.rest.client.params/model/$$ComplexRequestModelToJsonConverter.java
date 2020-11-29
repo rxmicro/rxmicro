@@ -17,12 +17,12 @@ public final class $$ComplexRequestModelToJsonConverter extends ModelToJsonConve
     @Override
     public Map<String, Object> toJsonObject(final ComplexRequest model) {
         final JsonObjectBuilder builder = new JsonObjectBuilder();
-        putValues(model, builder);
+        putValuesToBuilder(model, builder);
         return builder.build();
     }
 
-    protected void putValues(final ComplexRequest model,
-                             final JsonObjectBuilder builder) {
+    protected void putValuesToBuilder(final ComplexRequest model,
+                                      final JsonObjectBuilder builder) {
         builder.put("integer_parameter", model.integerParameter);
         builder.put("enum_parameter", model.enumParameter);
         builder.put("enums_parameter", model.enumsParameter);

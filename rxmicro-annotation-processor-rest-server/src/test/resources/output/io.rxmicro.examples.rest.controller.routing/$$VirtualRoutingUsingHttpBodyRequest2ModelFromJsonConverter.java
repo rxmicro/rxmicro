@@ -12,12 +12,12 @@ public final class $$VirtualRoutingUsingHttpBodyRequest2ModelFromJsonConverter e
     @Override
     public $$VirtualRoutingUsingHttpBodyRequest2 fromJsonObject(final Map<String, Object> params) {
         final $$VirtualRoutingUsingHttpBodyRequest2 model = new $$VirtualRoutingUsingHttpBodyRequest2();
-        readBody(params, model);
+        readParamsToModel(params, model);
         return model;
     }
 
-    protected void readBody(final Map<String, Object> params,
-                            final $$VirtualRoutingUsingHttpBodyRequest2 model) {
+    protected void readParamsToModel(final Map<String, Object> params,
+                                     final $$VirtualRoutingUsingHttpBodyRequest2 model) {
         model.parameter = toString(params.get("parameter"), "parameter");
     }
 }

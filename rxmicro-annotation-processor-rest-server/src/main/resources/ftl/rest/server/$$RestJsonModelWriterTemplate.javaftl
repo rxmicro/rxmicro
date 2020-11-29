@@ -1,13 +1,5 @@
 <#include "../../common-lib.javaftl">
 <#-- -------------------------------------------------------------------------------------------------------- -->
-<#if JAVA_MODEL_CLASS.internals?has_content && JAVA_MODEL_CLASS.headerEntries?has_content>
-<#assign SET_METHOD>setHeadersAndInternals</#assign>
-<#elseif JAVA_MODEL_CLASS.headerEntries?has_content>
-<#assign SET_METHOD>setHeaders</#assign>
-<#elseif JAVA_MODEL_CLASS.internals?has_content>
-<#assign SET_METHOD>setInternals</#assign>
-</#if>
-<#-- -------------------------------------------------------------------------------------------------------- -->
 public final class ${JAVA_MODEL_CLASS.modelWriterImplSimpleClassName} extends ModelWriter<${JAVA_MODEL_CLASS.javaSimpleClassName}> {
 <#if JAVA_MODEL_CLASS.paramEntriesPresent>
     private final ${JAVA_MODEL_CLASS.modelToJsonConverterImplSimpleClassName} ${JAVA_MODEL_CLASS.toJsonConverterInstanceName};
@@ -26,7 +18,7 @@ public final class ${JAVA_MODEL_CLASS.modelWriterImplSimpleClassName} extends Mo
     public void write(final ${JAVA_MODEL_CLASS.javaSimpleClassName} model,
                       final HttpResponse response) {
         <#if JAVA_MODEL_CLASS.internals?has_content || JAVA_MODEL_CLASS.headerEntries?has_content>
-        ${SET_METHOD}(model, response);
+        writePrimitivesToResponse(model, response);
         </#if>
         response.setHeader(HttpStandardHeaderNames.CONTENT_TYPE, outputMimeType);
         final Map<String, Object> json = ${JAVA_MODEL_CLASS.toJsonConverterInstanceName}.toJsonObject(model);
@@ -43,14 +35,14 @@ public final class ${JAVA_MODEL_CLASS.modelWriterImplSimpleClassName} extends Mo
     public void write(final ${JAVA_MODEL_CLASS.javaSimpleClassName} model,
                       final HttpResponse response) {
         <#if JAVA_MODEL_CLASS.internals?has_content || JAVA_MODEL_CLASS.headerEntries?has_content>
-        ${SET_METHOD}(model, response);
+        writePrimitivesToResponse(model, response);
         </#if>
     }
 </#if>
 <#if JAVA_MODEL_CLASS.internals?has_content || JAVA_MODEL_CLASS.headerEntries?has_content>
 
-    protected void ${SET_METHOD       }(final ${JAVA_MODEL_CLASS.javaSimpleClassName} model,
-                   ${space(SET_METHOD)} final HttpResponse response) {
+    protected void writePrimitivesToResponse(final ${JAVA_MODEL_CLASS.javaSimpleClassName} model,
+                                             final HttpResponse response) {
         <#list JAVA_MODEL_CLASS.internals as INTERNAL>
         <@setInternal INTERNAL=INTERNAL/>
         </#list>

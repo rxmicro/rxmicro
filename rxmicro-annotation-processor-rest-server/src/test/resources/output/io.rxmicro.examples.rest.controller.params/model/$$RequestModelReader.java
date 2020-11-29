@@ -30,15 +30,15 @@ public final class $$RequestModelReader extends ModelReader<Request> {
         } else {
             final Request model = new Request();
             final QueryParams params = extractParams(request.getQueryString());
-            read(pathVariableMapping, request, params, model);
+            readPrimitivesToModel(pathVariableMapping, request, params, model);
             return model;
         }
     }
 
-    protected void read(final PathVariableMapping pathVariableMapping,
-                        final HttpRequest request,
-                        final QueryParams params,
-                        final Request model) {
+    protected void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
+                                         final HttpRequest request,
+                                         final QueryParams params,
+                                         final Request model) {
         model.endpointVersion = toString(params.getValue("endpoint_version"), HttpModelType.PARAMETER, "endpoint_version");
         model.useProxy = toBoolean(params.getValue("use-Proxy"), HttpModelType.PARAMETER, "use-Proxy");
     }

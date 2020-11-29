@@ -56,8 +56,7 @@ public final class ModelReaderClassStructure extends AbstractRestControllerModel
 
     @Override
     protected void customize(final Map<String, Object> map) {
-        map.put("HTTP_READER_TYPE", readerType);
-        map.put("PARAMS_PRESENT", modelClass.isParamsPresent());
+        map.put("CONFIGURATOR", new ModelReaderConfigurator(modelClass, readerType));
     }
 
     @Override

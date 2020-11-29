@@ -16,12 +16,12 @@ public final class $$ComplexRequestModelFromJsonConverter extends ModelFromJsonC
     @Override
     public ComplexRequest fromJsonObject(final Map<String, Object> params) {
         final ComplexRequest model = new ComplexRequest();
-        readBody(params, model);
+        readParamsToModel(params, model);
         return model;
     }
 
-    protected void readBody(final Map<String, Object> params,
-                            final ComplexRequest model) {
+    protected void readParamsToModel(final Map<String, Object> params,
+                                     final ComplexRequest model) {
         model.integerParameter = toInteger(params.get("integer_parameter"), "integer_parameter");
         model.enumParameter = toEnum(Status.class, params.get("enum_parameter"), "enum_parameter");
         model.enumsParameter = toEnumList(Status.class, params.get("enums_parameter"), "enums_parameter");

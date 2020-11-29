@@ -13,12 +13,12 @@ public final class $$ResponseModelReader extends ModelReader<Response> {
     @Override
     public Response readSingle(final ClientHttpResponse response) {
         final Response model = new Response();
-        read(response, model);
+        readPrimitivesToModel(response, model);
         return model;
     }
 
-    protected void read(final ClientHttpResponse response,
-                        final Response model) {
+    protected void readPrimitivesToModel(final ClientHttpResponse response,
+                                         final Response model) {
         final HttpHeaders httpHeaders = response.getHeaders();
         model.endpointVersion = toString(httpHeaders.getValue("Endpoint-Version"), HttpModelType.HEADER, "Endpoint-Version");
         model.useProxy = toBoolean(httpHeaders.getValue("UseProxy"), HttpModelType.HEADER, "UseProxy");

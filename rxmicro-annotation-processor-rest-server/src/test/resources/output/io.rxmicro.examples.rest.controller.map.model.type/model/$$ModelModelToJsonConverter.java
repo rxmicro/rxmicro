@@ -17,12 +17,12 @@ public final class $$ModelModelToJsonConverter extends ModelToJsonConverter<Mode
     @Override
     public Map<String, Object> toJsonObject(final Model model) {
         final JsonObjectBuilder builder = new JsonObjectBuilder();
-        putValues(model, builder);
+        putValuesToBuilder(model, builder);
         return builder.build();
     }
 
-    protected void putValues(final Model model,
-                             final JsonObjectBuilder builder) {
+    protected void putValuesToBuilder(final Model model,
+                                      final JsonObjectBuilder builder) {
         builder.put("nested", convertFromMapIfNotNull(nestedModelToJsonConverter, model.nested));
     }
 }

@@ -17,14 +17,14 @@ public final class $$VirtualNotFoundRequestModelReader extends ModelReader<$$Vir
                                          final boolean readParametersFromBody) {
         final $$VirtualNotFoundRequest model = new $$VirtualNotFoundRequest();
         final QueryParams params = extractParams(request.getQueryString());
-        read(pathVariableMapping, request, params, model);
+        readPrimitivesToModel(pathVariableMapping, request, params, model);
         return model;
     }
 
-    protected void read(final PathVariableMapping pathVariableMapping,
-                        final HttpRequest request,
-                        final QueryParams params,
-                        final $$VirtualNotFoundRequest model) {
+    protected void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
+                                         final HttpRequest request,
+                                         final QueryParams params,
+                                         final $$VirtualNotFoundRequest model) {
         model.found = toBoolean(params.getValue("found"), HttpModelType.PARAMETER, "found");
     }
 }

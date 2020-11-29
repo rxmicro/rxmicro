@@ -1,10 +1,7 @@
 <#include "../../common-lib.javaftl">
 <#-- -------------------------------------------------------------------------------------------------------- -->
-<#assign HAS_INTERVALS_OR_PATH_VARS_OR_HEADERS=JAVA_MODEL_CLASS.internals?has_content || JAVA_MODEL_CLASS.pathVariableEntries?has_content || JAVA_MODEL_CLASS.headerEntries?has_content>
-<#assign HAS_PARAMETERS=JAVA_MODEL_CLASS.paramEntries?has_content>
-<#-- -------------------------------------------------------------------------------------------------------- -->
 public final class ${JAVA_MODEL_CLASS.modelReaderImplSimpleClassName} extends ModelReader<${JAVA_MODEL_CLASS.javaSimpleClassName}> {
-    <#if (HTTP_READER_TYPE.name() == "HTTP_BODY" || HTTP_READER_TYPE.name() == "QUERY_OR_HTTP_BODY") && PARAMS_PRESENT>
+    <#if CONFIGURATOR.bodyParamsPresents>
 
     private final ExchangeDataFormatConverter<Object> exchangeDataFormatConverter =
             new JsonExchangeDataFormatConverter(false);
@@ -18,87 +15,79 @@ public final class ${JAVA_MODEL_CLASS.modelReaderImplSimpleClassName} extends Mo
            ${space(JAVA_MODEL_CLASS.javaSimpleClassName)}      final HttpRequest request,
            ${space(JAVA_MODEL_CLASS.javaSimpleClassName)}      final boolean readParametersFromBody) {
         <#-- -------------------------------------------------------------------------------------------------------- -->
-        <#if HTTP_READER_TYPE.name() == "INTERNAL_VARIABLE_ONLY" || HTTP_READER_TYPE.name() == "PATH_VARIABLES_ONLY">
-        final ${JAVA_MODEL_CLASS.javaSimpleClassName} model = new ${JAVA_MODEL_CLASS.javaSimpleClassName}();
-        read(pathVariableMapping, request, model);
-        return model;
+        <#if CONFIGURATOR.withoutFields>
+        return new ${JAVA_MODEL_CLASS.javaSimpleClassName}();
         <#-- -------------------------------------------------------------------------------------------------------- -->
-        <#elseif HTTP_READER_TYPE.name() == "QUERY_STRING">
-        final ${JAVA_MODEL_CLASS.javaSimpleClassName} model = new ${JAVA_MODEL_CLASS.javaSimpleClassName}();
-        <#if HAS_PARAMETERS>
-        final QueryParams params = extractParams(request.getQueryString());
-        </#if>
-        read(pathVariableMapping, request, <#if HAS_PARAMETERS>params, </#if>model);
-        return model;
-        <#-- -------------------------------------------------------------------------------------------------------- -->
-        <#elseif HTTP_READER_TYPE.name() == "HTTP_BODY">
-        <@handleHttpBody shift=""/>
-        <#-- -------------------------------------------------------------------------------------------------------- -->
-        <#elseif HTTP_READER_TYPE.name() == "QUERY_OR_HTTP_BODY">
-        <#if PARAMS_PRESENT>
+        <#elseif CONFIGURATOR.queryParamsPresents && CONFIGURATOR.bodyParamsPresents>
         if (readParametersFromBody) {
             <@handleHttpBody shift="    "/>
         } else {
             final ${JAVA_MODEL_CLASS.javaSimpleClassName} model = new ${JAVA_MODEL_CLASS.javaSimpleClassName}();
-            <#if HAS_PARAMETERS>
             final QueryParams params = extractParams(request.getQueryString());
-            </#if>
-            read(pathVariableMapping, request, <#if HAS_PARAMETERS>params, </#if>model);
+            readPrimitivesToModel(pathVariableMapping, request, params, model);
             return model;
         }
-        <#else>
+        <#-- -------------------------------------------------------------------------------------------------------- -->
+        <#elseif CONFIGURATOR.queryParamsPresents>
         final ${JAVA_MODEL_CLASS.javaSimpleClassName} model = new ${JAVA_MODEL_CLASS.javaSimpleClassName}();
-        read(pathVariableMapping, request, model);
+        final QueryParams params = extractParams(request.getQueryString());
+        readPrimitivesToModel(pathVariableMapping, request, params, model);
         return model;
-        </#if>
+        <#-- -------------------------------------------------------------------------------------------------------- -->
+        <#elseif CONFIGURATOR.bodyParamsPresents>
+        <@handleHttpBody shift=""/>
         <#-- -------------------------------------------------------------------------------------------------------- -->
         <#else>
-        return new ${JAVA_MODEL_CLASS.javaSimpleClassName}();
+        final ${JAVA_MODEL_CLASS.javaSimpleClassName} model = new ${JAVA_MODEL_CLASS.javaSimpleClassName}();
+        readPrimitivesToModel(pathVariableMapping, request, model);
+        return model;
         </#if>
     }
-    <#if HTTP_READER_TYPE.name() == "INTERNAL_VARIABLE_ONLY" || HTTP_READER_TYPE.name() == "PATH_VARIABLES_ONLY" ||
-         HTTP_READER_TYPE.name() == "QUERY_STRING" || HTTP_READER_TYPE.name() == "QUERY_OR_HTTP_BODY" ||
-        (HTTP_READER_TYPE.name() == "HTTP_BODY" && HAS_INTERVALS_OR_PATH_VARS_OR_HEADERS)>
+    <#if CONFIGURATOR.queryParamsPresents>
 
-    protected void read(final PathVariableMapping pathVariableMapping,
-                        final HttpRequest request,<#if (HTTP_READER_TYPE.name() == "QUERY_STRING" || HTTP_READER_TYPE.name() == "QUERY_OR_HTTP_BODY") && HAS_PARAMETERS>
-                        final QueryParams params,</#if>
-                        final ${JAVA_MODEL_CLASS.javaSimpleClassName} model) {
-        <@setSimpleProperties shift=""/>
-        <#if HTTP_READER_TYPE.name() == "QUERY_STRING" || HTTP_READER_TYPE.name() == "QUERY_OR_HTTP_BODY">
-        <@setQueryParams shift=""/>
+    protected void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
+                                         final HttpRequest request,
+                                         final QueryParams params,
+                                         final ${JAVA_MODEL_CLASS.javaSimpleClassName} model) {
+        <#if CONFIGURATOR.headersPresents || CONFIGURATOR.internalsPresents || CONFIGURATOR.pathVariablesPresents>
+        readPrimitivesToModel(pathVariableMapping, request, model);
         </#if>
+        <@setQueryParams shift=""/>
     }
     </#if>
+    <#if CONFIGURATOR.headersPresents || CONFIGURATOR.internalsPresents || CONFIGURATOR.pathVariablesPresents>
+
+    protected void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
+                                         final HttpRequest request,
+                                         final ${JAVA_MODEL_CLASS.javaSimpleClassName} model) {
+        <@setSimpleProperties shift=""/>
+    }
+</#if>
 }
 <#-- -------------------------------------------------------------------------------------------------------- -->
 <#macro handleHttpBody shift>
-    <#if PARAMS_PRESENT>
         ${shift}final Object body = exchangeDataFormatConverter.fromBytes(request.getContent());
         ${shift}final ${JAVA_MODEL_CLASS.javaSimpleClassName} model = ${JAVA_MODEL_CLASS.fromJsonConverterInstanceName}.fromJsonObject(body);
-    <#else>
-        ${shift}final ${JAVA_MODEL_CLASS.javaSimpleClassName} model = new ${JAVA_MODEL_CLASS.javaSimpleClassName}();
-    </#if>
-        <#if HAS_INTERVALS_OR_PATH_VARS_OR_HEADERS>
-        read(pathVariableMapping, request, model);
+        <#if CONFIGURATOR.headersPresents || CONFIGURATOR.internalsPresents || CONFIGURATOR.pathVariablesPresents>
+        ${shift}readPrimitivesToModel(pathVariableMapping, request, model);
         </#if>
         ${shift}return model;
 </#macro>
 <#-- -------------------------------------------------------------------------------------------------------- -->
 <#macro setSimpleProperties shift>
-    <#if JAVA_MODEL_CLASS.internals?has_content>
+    <#if CONFIGURATOR.internalsPresents>
     <#list JAVA_MODEL_CLASS.internals as INTERNAL>
         <@setInternal INTERNAL=INTERNAL shift=shift/>
     </#list>
     </#if>
     <#-- ---------------------------------------------------------------------------------------------------- -->
-    <#if JAVA_MODEL_CLASS.pathVariableEntries?has_content>
+    <#if CONFIGURATOR.pathVariablesPresents>
         <#list JAVA_MODEL_CLASS.pathVariableEntries as ENTRY>
             <@setPathVariableFieldValue entry=ENTRY shift=shift/>
         </#list>
     </#if>
     <#-- ---------------------------------------------------------------------------------------------------- -->
-    <#if JAVA_MODEL_CLASS.headerEntries?has_content>
+    <#if CONFIGURATOR.headersPresents>
         ${shift}final HttpHeaders httpHeaders = request.getHeaders();
         <#list JAVA_MODEL_CLASS.headerEntries as ENTRY>
             <@setHeaderFieldValue entry=ENTRY shift=shift/>

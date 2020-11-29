@@ -12,7 +12,12 @@ public final class $$ResponseModelFromJsonConverter extends ModelFromJsonConvert
     @Override
     public Response fromJsonObject(final Map<String, Object> params) {
         final Response model = new Response();
-        model.email = toString(params.get("email"), "email");
+        readParamsToModel(params, model);
         return model;
+    }
+
+    protected void readParamsToModel(final Map<String, Object> params,
+                                     final Response model) {
+        model.email = toString(params.get("email"), "email");
     }
 }

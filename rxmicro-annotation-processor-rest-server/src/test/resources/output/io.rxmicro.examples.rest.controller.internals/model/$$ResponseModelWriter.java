@@ -15,11 +15,11 @@ public final class $$ResponseModelWriter extends ModelWriter<Response> {
     @Override
     public void write(final Response model,
                       final HttpResponse response) {
-        setInternals(model, response);
+        writePrimitivesToResponse(model, response);
     }
 
-    protected void setInternals(final Response model,
-                                final HttpResponse response) {
+    protected void writePrimitivesToResponse(final Response model,
+                                             final HttpResponse response) {
         response.setStatus(model.status);
         response.setVersion(model.version);
         response.setOrAddHeaders(model.headers);

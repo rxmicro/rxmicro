@@ -15,13 +15,13 @@ public final class $$VirtualRoutingUsingUrlPathRequestModelReader extends ModelR
                                                     final HttpRequest request,
                                                     final boolean readParametersFromBody) {
         final $$VirtualRoutingUsingUrlPathRequest model = new $$VirtualRoutingUsingUrlPathRequest();
-        read(pathVariableMapping, request, model);
+        readPrimitivesToModel(pathVariableMapping, request, model);
         return model;
     }
 
-    protected void read(final PathVariableMapping pathVariableMapping,
-                        final HttpRequest request,
-                        final $$VirtualRoutingUsingUrlPathRequest model) {
+    protected void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
+                                         final HttpRequest request,
+                                         final $$VirtualRoutingUsingUrlPathRequest model) {
         model.type = toString(pathVariableMapping.getValue("type"), HttpModelType.PATH, "type");
     }
 }

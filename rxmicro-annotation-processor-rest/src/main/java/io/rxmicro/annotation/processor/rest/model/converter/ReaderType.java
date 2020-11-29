@@ -16,29 +16,15 @@
 
 package io.rxmicro.annotation.processor.rest.model.converter;
 
-import io.rxmicro.annotation.processor.common.util.UsedByFreemarker;
-
 /**
  * @author nedis
  * @since 0.1
  */
 public enum ReaderType {
 
-    @UsedByFreemarker("$$RestJsonModelReaderTemplate.javaftl")
-    INTERNAL_VARIABLE_ONLY,
-
-    @UsedByFreemarker("$$RestJsonModelReaderTemplate.javaftl")
-    PATH_VARIABLES_ONLY,
-
-    @UsedByFreemarker("$$RestJsonModelReaderTemplate.javaftl")
     QUERY_STRING,
 
-    @UsedByFreemarker("$$RestJsonModelReaderTemplate.javaftl")
     HTTP_BODY,
 
-    @UsedByFreemarker("$$RestJsonModelReaderTemplate.javaftl")
-    QUERY_OR_HTTP_BODY,
-
-    @UsedByFreemarker("$$RestJsonModelReaderTemplate.javaftl")
-    WITHOUT_ANY_FIELDS
+    QUERY_OR_HTTP_BODY
 }

@@ -12,12 +12,12 @@ public final class $$VirtualRequestModelFromJsonConverter extends ModelFromJsonC
     @Override
     public $$VirtualRequest fromJsonObject(final Map<String, Object> params) {
         final $$VirtualRequest model = new $$VirtualRequest();
-        readBody(params, model);
+        readParamsToModel(params, model);
         return model;
     }
 
-    protected void readBody(final Map<String, Object> params,
-                            final $$VirtualRequest model) {
+    protected void readParamsToModel(final Map<String, Object> params,
+                                     final $$VirtualRequest model) {
         model.parameter = toString(params.get("parameter"), "parameter");
     }
 }

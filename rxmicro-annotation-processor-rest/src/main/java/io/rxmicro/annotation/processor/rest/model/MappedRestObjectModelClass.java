@@ -21,11 +21,8 @@ import io.rxmicro.annotation.processor.rest.model.converter.ReaderType;
 import java.util.List;
 
 import static io.rxmicro.annotation.processor.rest.model.converter.ReaderType.HTTP_BODY;
-import static io.rxmicro.annotation.processor.rest.model.converter.ReaderType.INTERNAL_VARIABLE_ONLY;
-import static io.rxmicro.annotation.processor.rest.model.converter.ReaderType.PATH_VARIABLES_ONLY;
 import static io.rxmicro.annotation.processor.rest.model.converter.ReaderType.QUERY_OR_HTTP_BODY;
 import static io.rxmicro.annotation.processor.rest.model.converter.ReaderType.QUERY_STRING;
-import static io.rxmicro.annotation.processor.rest.model.converter.ReaderType.WITHOUT_ANY_FIELDS;
 import static io.rxmicro.common.util.Requires.require;
 
 /**
@@ -57,23 +54,6 @@ public final class MappedRestObjectModelClass {
     }
 
     public ReaderType getReaderType() {
-        if (!modelClass.isHeadersPresent() &&
-                !modelClass.isParamsPresent()) {
-            if (!modelClass.isPathVariablesPresent()) {
-                if (modelClass.isInternalsPresent()) {
-                    return INTERNAL_VARIABLE_ONLY;
-                } else {
-                    return WITHOUT_ANY_FIELDS;
-                }
-            } else {
-                return PATH_VARIABLES_ONLY;
-            }
-        } else {
-            return resolveReaderType();
-        }
-    }
-
-    private ReaderType resolveReaderType() {
         boolean query = false;
         boolean body = false;
         for (final HttpMethodMapping descriptor : httpMethodMappings) {

@@ -15,11 +15,11 @@ public final class $$AllSupportedTypesModelWriter extends ModelWriter<AllSupport
     @Override
     public void write(final AllSupportedTypes model,
                       final HttpResponse response) {
-        setHeaders(model, response);
+        writePrimitivesToResponse(model, response);
     }
 
-    protected void setHeaders(final AllSupportedTypes model,
-                              final HttpResponse response) {
+    protected void writePrimitivesToResponse(final AllSupportedTypes model,
+                                             final HttpResponse response) {
         response.setHeader("Status", model.status);
         response.setHeader("Status-List", model.statusList);
         response.setHeader("A-Boolean", model.aBoolean);

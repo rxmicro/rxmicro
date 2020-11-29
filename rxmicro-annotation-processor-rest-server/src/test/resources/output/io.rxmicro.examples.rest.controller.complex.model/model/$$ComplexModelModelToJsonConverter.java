@@ -17,12 +17,12 @@ public final class $$ComplexModelModelToJsonConverter extends ModelToJsonConvert
     @Override
     public Map<String, Object> toJsonObject(final ComplexModel model) {
         final JsonObjectBuilder builder = new JsonObjectBuilder();
-        putValues(model, builder);
+        putValuesToBuilder(model, builder);
         return builder.build();
     }
 
-    protected void putValues(final ComplexModel model,
-                             final JsonObjectBuilder builder) {
+    protected void putValuesToBuilder(final ComplexModel model,
+                                      final JsonObjectBuilder builder) {
         builder.put("status", model.status);
         builder.put("statusList", model.statusList);
         builder.put("aBoolean", model.aBoolean);

@@ -16,13 +16,13 @@ public final class $$AllSupportedTypesModelReader extends ModelReader<AllSupport
                                   final HttpRequest request,
                                   final boolean readParametersFromBody) {
         final AllSupportedTypes model = new AllSupportedTypes();
-        read(pathVariableMapping, request, model);
+        readPrimitivesToModel(pathVariableMapping, request, model);
         return model;
     }
 
-    protected void read(final PathVariableMapping pathVariableMapping,
-                        final HttpRequest request,
-                        final AllSupportedTypes model) {
+    protected void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
+                                         final HttpRequest request,
+                                         final AllSupportedTypes model) {
         final HttpHeaders httpHeaders = request.getHeaders();
         model.status = toEnum(Status.class, httpHeaders.getValue("Status"), HttpModelType.HEADER, "Status");
         model.statusList = toEnumList(Status.class, httpHeaders.getValues("Status-List"), HttpModelType.HEADER, "Status-List");

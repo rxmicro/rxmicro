@@ -15,13 +15,13 @@ public final class $$VirtualComplexCORSRequestModelReader extends ModelReader<$$
                                             final HttpRequest request,
                                             final boolean readParametersFromBody) {
         final $$VirtualComplexCORSRequest model = new $$VirtualComplexCORSRequest();
-        read(pathVariableMapping, request, model);
+        readPrimitivesToModel(pathVariableMapping, request, model);
         return model;
     }
 
-    protected void read(final PathVariableMapping pathVariableMapping,
-                        final HttpRequest request,
-                        final $$VirtualComplexCORSRequest model) {
+    protected void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
+                                         final HttpRequest request,
+                                         final $$VirtualComplexCORSRequest model) {
         model.path = toString(pathVariableMapping.getValue("path"), HttpModelType.PATH, "path");
     }
 }

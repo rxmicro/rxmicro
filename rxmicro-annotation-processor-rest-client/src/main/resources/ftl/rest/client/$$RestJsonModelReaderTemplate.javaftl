@@ -17,7 +17,7 @@ public final class ${JAVA_MODEL_CLASS.modelReaderImplSimpleClassName} extends Mo
         final ${JAVA_MODEL_CLASS.javaSimpleClassName} model = new ${JAVA_MODEL_CLASS.javaSimpleClassName}();
         </#if>
         <#-- ------------------------------------------------------------------------------------------------ -->
-        read(response, model);
+        readPrimitivesToModel(response, model);
         <#-- ------------------------------------------------------------------------------------------------ -->
         return model;
 <#-- -------------------------------------------------------------------------------------------------------- -->
@@ -35,8 +35,8 @@ public final class ${JAVA_MODEL_CLASS.modelReaderImplSimpleClassName} extends Mo
     </#if>
     <#if JAVA_MODEL_CLASS.internals?has_content || JAVA_MODEL_CLASS.headerEntries?has_content>
 
-    protected void read(final ClientHttpResponse response,
-                        final ${JAVA_MODEL_CLASS.javaSimpleClassName} model) {
+    protected void readPrimitivesToModel(final ClientHttpResponse response,
+                                         final ${JAVA_MODEL_CLASS.javaSimpleClassName} model) {
         <#list JAVA_MODEL_CLASS.internals as INTERNAL>
         <@setInternal INTERNAL=INTERNAL/>
         </#list>

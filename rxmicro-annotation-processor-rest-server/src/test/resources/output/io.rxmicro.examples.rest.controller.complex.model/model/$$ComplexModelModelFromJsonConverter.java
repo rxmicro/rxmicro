@@ -16,12 +16,12 @@ public final class $$ComplexModelModelFromJsonConverter extends ModelFromJsonCon
     @Override
     public ComplexModel fromJsonObject(final Map<String, Object> params) {
         final ComplexModel model = new ComplexModel();
-        readBody(params, model);
+        readParamsToModel(params, model);
         return model;
     }
 
-    protected void readBody(final Map<String, Object> params,
-                            final ComplexModel model) {
+    protected void readParamsToModel(final Map<String, Object> params,
+                                     final ComplexModel model) {
         model.status = toEnum(Status.class, params.get("status"), "status");
         model.statusList = toEnumList(Status.class, params.get("statusList"), "statusList");
         model.aBoolean = toBoolean(params.get("aBoolean"), "aBoolean");
