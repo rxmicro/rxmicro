@@ -27,7 +27,9 @@ import io.rxmicro.common.util.Formats;
  */
 public abstract class PathBuilder<T> {
 
-    public abstract String build(String urlTemplate, T model);
+    public abstract String build(String key,
+                                 String urlTemplate,
+                                 T model);
 
     protected final String format(final String template,
                                   final Object... args) {

@@ -28,8 +28,10 @@ import io.rxmicro.rest.model.UrlSegments;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import static io.rxmicro.annotation.processor.common.model.ClassHeader.newClassHeaderBuilder;
@@ -76,7 +78,7 @@ public final class PathBuilderClassStructure extends ClassStructure {
         final Map<String, Object> map = new HashMap<>();
         map.put("JAVA_MODEL_CLASS", modelClass);
         final List<Map.Entry<UrlSegments, List<String>>> urlTemplates = getUrlTemplates();
-        if (httpMethodMappings.size() == 1) {
+        if (urlTemplates.size() == 1) {
             map.put("SINGLE", urlTemplates.get(0));
         } else {
             map.put("URL_TEMPLATES", urlTemplates);
@@ -102,22 +104,26 @@ public final class PathBuilderClassStructure extends ClassStructure {
     private List<Map.Entry<UrlSegments, List<String>>> getUrlTemplates() {
         final List<Map.Entry<UrlSegments, List<String>>> list = new ArrayList<>();
         final Map<String, RestModelField> pathVariableMap = modelClass.getPathVariableMap();
+        final Set<String> originalUrls = new HashSet<>();
         for (final HttpMethodMapping httpMethodMapping : httpMethodMappings) {
             final UrlSegments urlSegments = httpMethodMapping.getUrlSegments();
-            final List<String> args = urlSegments.getVariables().stream()
-                    .map(v -> require(pathVariableMap.get(v)))
-                    .map(f -> {
-                        if (f.getModelReadAccessorType() == ModelAccessorType.REFLECTION) {
-                            return format("getFieldValue(model, \"?\")", f.getFieldName());
-                        } else if (f.getModelReadAccessorType() == ModelAccessorType.DIRECT) {
-                            return format("model.?", f.getFieldName());
-                        } else if (f.getModelReadAccessorType() == ModelAccessorType.JAVA_BEAN) {
-                            return format("model.?()", f.getGetter());
-                        } else {
-                            throw new InternalErrorException("Unsupported ModelAccessorType: " + f.getModelReadAccessorType());
-                        }
-                    }).collect(Collectors.toList());
-            list.add(entry(urlSegments, args));
+            // Add unique original urls only!
+            if (originalUrls.add(urlSegments.getOriginalUrl())) {
+                final List<String> args = urlSegments.getVariables().stream()
+                        .map(v -> require(pathVariableMap.get(v)))
+                        .map(f -> {
+                            if (f.getModelReadAccessorType() == ModelAccessorType.REFLECTION) {
+                                return format("getFieldValue(model, \"?\")", f.getFieldName());
+                            } else if (f.getModelReadAccessorType() == ModelAccessorType.DIRECT) {
+                                return format("model.?", f.getFieldName());
+                            } else if (f.getModelReadAccessorType() == ModelAccessorType.JAVA_BEAN) {
+                                return format("model.?()", f.getGetter());
+                            } else {
+                                throw new InternalErrorException("Unsupported ModelAccessorType: " + f.getModelReadAccessorType());
+                            }
+                        }).collect(Collectors.toList());
+                list.add(entry(urlSegments, args));
+            }
         }
         return list;
     }

@@ -90,6 +90,7 @@ public abstract class BaseRestClientMethodBodyBuilder implements RestClientMetho
                     type
             );
             templateArguments.put("URL_TEMPLATE", urlSegments.getUrlTemplate());
+            templateArguments.put("URL_TEMPLATE_KEY", urlSegments.getOriginalUrl());
             templateArguments.put("PATH_BUILDER", getModelTransformerInstanceName(type, PathBuilder.class));
         } else {
             pathVariableValidator.validateThatPathVariablesNotFound(

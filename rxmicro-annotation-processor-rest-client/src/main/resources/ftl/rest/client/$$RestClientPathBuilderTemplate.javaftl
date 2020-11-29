@@ -3,15 +3,15 @@
 public final class ${JAVA_MODEL_CLASS.pathBuilderImplSimpleClassName} extends PathBuilder<${JAVA_MODEL_CLASS.javaSimpleClassName}> {
 
     @Override
-    public String build(final String urlTemplate,
+    public String build(final String key,
+                        final String urlTemplate,
                         final ${JAVA_MODEL_CLASS.javaSimpleClassName} model) {
         <#if SINGLE??>
         // ${SINGLE.key.originalUrl}
         return format(urlTemplate, ${SINGLE.value?join(", ")});
         <#else>
         <#list URL_TEMPLATES as ITEM>
-        if ("${ITEM.key.urlTemplate}".equals(urlTemplate)) {
-            // ${ITEM.key.originalUrl}
+        if ("${ITEM.key.originalUrl}".equals(key)) {
             return format(urlTemplate, ${ITEM.value?join(", ")});
         }
         </#list>

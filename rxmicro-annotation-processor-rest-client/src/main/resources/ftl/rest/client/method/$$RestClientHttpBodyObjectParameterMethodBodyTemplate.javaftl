@@ -9,7 +9,7 @@ final ${REQUEST_VIRTUAL_CLASS} virtualRequest = new ${REQUEST_VIRTUAL_CLASS}(<#l
 </#if>
 <#-- -------------------------------------------------------------------------------------------------------- -->
 <#if URL_TEMPLATE??>
-final String path = ${PATH_BUILDER}.build("${URL_TEMPLATE}", ${MODEL});
+final String path = ${PATH_BUILDER}.build("${URL_TEMPLATE_KEY}", "${URL_TEMPLATE}", ${MODEL});
 <#else>
 final String path = "${PATH}";
 </#if>
