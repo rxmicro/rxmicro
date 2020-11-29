@@ -24,6 +24,11 @@
 
 name: Verify on Push
 
+# Global settings
+env:
+  DEFAULT_JDK_LTS_VERSION: '11'
+  GRAAL_VM_VERSION: '20.3.0'
+
 on:
   push:
     branches: [ master ]
@@ -68,7 +73,7 @@ jobs:
       - name: Setup JDK ${{ matrix.jdk }}
         uses: actions/setup-java@v1
         with:
-          java-version: '${{ matrix.jdk }}'
+          java-version: ${{ matrix.jdk }}
 
       - name: Run all tests
         run: mvn --fail-at-end verify
@@ -104,10 +109,10 @@ jobs:
           key: rxmicro-m2-local-${{ runner.os }}-repo
 
       # https://github.com/actions/setup-java/blob/main/README.md
-      - name: Setup JDK 11
+      - name: Setup JDK ${{ env.DEFAULT_JDK_LTS_VERSION }}
         uses: actions/setup-java@v1
         with:
-          java-version: '11'
+          java-version: ${{ env.DEFAULT_JDK_LTS_VERSION }}
 
       - name: Verify
         run: mvn --fail-at-end -DskipTests -P ${{ matrix.profile }} package
@@ -131,10 +136,10 @@ jobs:
           key: rxmicro-m2-local-${{ runner.os }}-repo
 
       # https://github.com/actions/setup-java/blob/main/README.md
-      - name: Setup JDK 11
+      - name: Setup JDK ${{ env.DEFAULT_JDK_LTS_VERSION }}
         uses: actions/setup-java@v1
         with:
-          java-version: '11'
+          java-version: ${{ env.DEFAULT_JDK_LTS_VERSION }}
 
       - name: Prepare
         run: mvn -DskipTests install
@@ -198,19 +203,18 @@ jobs:
         run: git clone https://github.com/rxmicro/rxmicro-usage
 
       # https://github.com/actions/setup-java/blob/main/README.md
-      - name: Setup JDK 11
+      - name: Setup JDK ${{ env.DEFAULT_JDK_LTS_VERSION }}
         uses: actions/setup-java@v1
         with:
-          java-version: '11'
+          java-version: ${{ env.DEFAULT_JDK_LTS_VERSION }}
 
       # https://www.graalvm.org/downloads/
       # https://www.graalvm.org/docs/getting-started/#native-images
       - name: Install Graalvm and Native Image
         if: ${{ matrix.install-graalvm }}
         run: |
-          GRAAL_VM_VERSION=20.0.0
-          GRAAL_VM_BUILD=graalvm-ce-java11-linux-amd64-${GRAAL_VM_VERSION}
-          DOWNLOAD_LINK=https://github.com/graalvm/graalvm-ce-builds/releases/download/vm-${GRAAL_VM_VERSION}/${GRAAL_VM_BUILD}.tar.gz
+          GRAAL_VM_BUILD=graalvm-ce-java11-linux-amd64-${{env.GRAAL_VM_VERSION}}
+          DOWNLOAD_LINK=https://github.com/graalvm/graalvm-ce-builds/releases/download/vm-${{env.GRAAL_VM_VERSION}}/${GRAAL_VM_BUILD}.tar.gz
           mkdir ~/GraalVM
           wget -P ~/GraalVM $DOWNLOAD_LINK
           tar --strip-components=1 -xvzf ~/GraalVM/${GRAAL_VM_BUILD}.tar.gz -C ~/GraalVM
@@ -250,6 +254,10 @@ jobs:
           path: ~/jacoco
           if-no-files-found: ignore
           retention-days: 1
+
+      # m2 local repo must not contain the snapshot versions!
+      - name: Remove latest rxmicro artefacts
+        run: rm -rf ~/.m2/repository/io/rxmicro/
   # -----------------------------------------------------------------------------------------------------
   # ------------- Merge jacoco.exec and Upload Coverage Report ------------------------------------------
   # -----------------------------------------------------------------------------------------------------
@@ -271,10 +279,10 @@ jobs:
           key: rxmicro-m2-local-${{ runner.os }}-repo
 
       # https://github.com/actions/setup-java/blob/main/README.md
-      - name: Setup JDK 11
+      - name: Setup JDK ${{ env.DEFAULT_JDK_LTS_VERSION }}
         uses: actions/setup-java@v1
         with:
-          java-version: '11'
+          java-version: ${{ env.DEFAULT_JDK_LTS_VERSION }}
 
       - name: Prepare
         run: mvn install
@@ -311,4 +319,3 @@ jobs:
           name: latest-maven-report-${{ github.sha }}
           path: ./target/staging
           if-no-files-found: error
-          retention-days: 20
