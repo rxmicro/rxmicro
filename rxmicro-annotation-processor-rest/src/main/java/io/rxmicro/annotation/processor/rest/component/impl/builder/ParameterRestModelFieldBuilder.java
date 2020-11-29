@@ -35,6 +35,8 @@ import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
 
 import static io.rxmicro.annotation.processor.common.model.ModelFieldType.REST_CLIENT_RESPONSE;
+import static io.rxmicro.annotation.processor.common.model.ModelFieldType.REST_SERVER_REQUEST;
+import static io.rxmicro.annotation.processor.common.model.ModelFieldType.REST_SERVER_RESPONSE;
 import static io.rxmicro.annotation.processor.common.util.Errors.IMPOSSIBLE_ERROR_ANNOTATION_NOT_FOUND_SUPPLIER;
 import static io.rxmicro.http.local.HttpValidators.validateParameterName;
 
@@ -80,7 +82,7 @@ public final class ParameterRestModelFieldBuilder extends AbstractProcessorCompo
 
     private void validateRepeatQueryParameter(final ModelFieldType modelFieldType,
                                               final AnnotatedModelElement annotated) {
-        if (modelFieldType == REST_CLIENT_RESPONSE) {
+        if (modelFieldType == REST_CLIENT_RESPONSE || modelFieldType == REST_SERVER_RESPONSE || modelFieldType == REST_SERVER_REQUEST) {
             throw new InterruptProcessingException(
                     annotated.getElementAnnotatedBy(RepeatQueryParameter.class).orElseThrow(IMPOSSIBLE_ERROR_ANNOTATION_NOT_FOUND_SUPPLIER),
                     "'@?' annotation can be applied for client HTTP request model only! Remove the redundant annotation!",
