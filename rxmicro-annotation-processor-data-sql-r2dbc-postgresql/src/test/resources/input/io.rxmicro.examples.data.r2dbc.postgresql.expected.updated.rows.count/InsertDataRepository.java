@@ -79,7 +79,6 @@ public interface InsertDataRepository {
     Mono<Void> insert11(Account account);
 
     // tag::content[]
-    // <1>
     @ExpectedUpdatedRowsCount(10)
     @Insert("INSERT INTO ${table} SELECT * FROM dump")
     Mono<Integer> insert12();

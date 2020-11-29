@@ -17,10 +17,17 @@ public final class $$VirtualMappingStrategyRequest3ModelReader extends ModelRead
                                                  final HttpRequest request,
                                                  final boolean readParametersFromBody) {
         final $$VirtualMappingStrategyRequest3 model = new $$VirtualMappingStrategyRequest3();
+        final QueryParams params = extractParams(request.getQueryString());
+        read(pathVariableMapping, request, params, model);
+        return model;
+    }
+
+    protected void read(final PathVariableMapping pathVariableMapping,
+                        final HttpRequest request,
+                        final QueryParams params,
+                        final $$VirtualMappingStrategyRequest3 model) {
         final HttpHeaders httpHeaders = request.getHeaders();
         model.supportedApiVersionCode = toBigDecimal(httpHeaders.getValue("Supported-Api-Version-Code"), HttpModelType.HEADER, "Supported-Api-Version-Code");
-        final QueryParams params = extractParams(request.getQueryString());
         model.maxSupportedDateTime = toInstant(params.getValue("max-supported-date-time"), HttpModelType.PARAMETER, "max-supported-date-time");
-        return model;
     }
 }

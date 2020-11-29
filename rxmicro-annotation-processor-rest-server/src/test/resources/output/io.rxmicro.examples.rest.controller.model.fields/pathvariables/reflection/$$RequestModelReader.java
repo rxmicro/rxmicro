@@ -18,6 +18,13 @@ public final class $$RequestModelReader extends ModelReader<Request> {
                         final HttpRequest request,
                         final boolean readParametersFromBody) {
         final Request model = new Request();
+        read(pathVariableMapping, request, model);
+        return model;
+    }
+
+    protected void read(final PathVariableMapping pathVariableMapping,
+                        final HttpRequest request,
+                        final Request model) {
         setFieldValue(model, "booleanParameter", toBoolean(pathVariableMapping.getValue("a"), HttpModelType.PATH, "a"));
         setFieldValue(model, "byteParameter", toByte(pathVariableMapping.getValue("b"), HttpModelType.PATH, "b"));
         setFieldValue(model, "shortParameter", toShort(pathVariableMapping.getValue("c"), HttpModelType.PATH, "c"));
@@ -31,6 +38,5 @@ public final class $$RequestModelReader extends ModelReader<Request> {
         setFieldValue(model, "stringParameter", toString(pathVariableMapping.getValue("k"), HttpModelType.PATH, "k"));
         setFieldValue(model, "instantParameter", toInstant(pathVariableMapping.getValue("l"), HttpModelType.PATH, "l"));
         setFieldValue(model, "status", toEnum(Status.class, pathVariableMapping.getValue("m"), HttpModelType.PATH, "m"));
-        return model;
     }
 }

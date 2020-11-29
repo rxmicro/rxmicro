@@ -16,12 +16,17 @@ public final class $$ComplexRequestModelToJsonConverter extends ModelToJsonConve
 
     @Override
     public Map<String, Object> toJsonObject(final ComplexRequest model) {
-        return new JsonObjectBuilder()
-                .put("integer_parameter", model.integerParameter)
-                .put("enum_parameter", model.enumParameter)
-                .put("enums_parameter", model.enumsParameter)
-                .put("nested_model_parameter", convertFromObjectIfNotNull(nestedModelModelToJsonConverter, model.nestedModelParameter))
-                .put("nested_models_parameter", convertFromListIfNotNull(nestedModelModelToJsonConverter, model.nestedModelsParameter))
-                .build();
+        final JsonObjectBuilder builder = new JsonObjectBuilder();
+        putValues(model, builder);
+        return builder.build();
+    }
+
+    protected void putValues(final ComplexRequest model,
+                             final JsonObjectBuilder builder) {
+        builder.put("integer_parameter", model.integerParameter);
+        builder.put("enum_parameter", model.enumParameter);
+        builder.put("enums_parameter", model.enumsParameter);
+        builder.put("nested_model_parameter", convertFromObjectIfNotNull(nestedModelModelToJsonConverter, model.nestedModelParameter));
+        builder.put("nested_models_parameter", convertFromListIfNotNull(nestedModelModelToJsonConverter, model.nestedModelsParameter));
     }
 }

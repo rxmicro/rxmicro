@@ -17,6 +17,12 @@ public final class $$VirtualVirtualParamsRequestModelFromJsonConverter extends M
     @Override
     public $$VirtualVirtualParamsRequest fromJsonObject(final Map<String, Object> params) {
         final $$VirtualVirtualParamsRequest model = new $$VirtualVirtualParamsRequest();
+        readBody(params, model);
+        return model;
+    }
+
+    protected void readBody(final Map<String, Object> params,
+                            final $$VirtualVirtualParamsRequest model) {
         model.booleanParameter = toBoolean(params.get("booleanParameter"), "booleanParameter");
         model.byteParameter = toByte(params.get("byteParameter"), "byteParameter");
         model.shortParameter = toShort(params.get("shortParameter"), "shortParameter");
@@ -59,6 +65,5 @@ public final class $$VirtualVirtualParamsRequestModelFromJsonConverter extends M
         model.instantParameterSet = toInstantSet(params.get("instantParameterSet"), "instantParameterSet");
         model.statusSet = toEnumSet(Status.class, params.get("statusSet"), "statusSet");
         model.nestedSet = convertToSetIfNotNull(nestedModelFromJsonConverter, params.get("nestedSet"), "nestedSet");
-        return model;
     }
 }

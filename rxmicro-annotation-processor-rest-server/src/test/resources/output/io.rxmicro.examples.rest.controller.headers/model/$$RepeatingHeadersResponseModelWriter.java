@@ -15,6 +15,11 @@ public final class $$RepeatingHeadersResponseModelWriter extends ModelWriter<Rep
     @Override
     public void write(final RepeatingHeadersResponse model,
                       final HttpResponse response) {
+        setHeaders(model, response);
+    }
+
+    protected void setHeaders(final RepeatingHeadersResponse model,
+                              final HttpResponse response) {
         response.setHeader("Single-Header", model.singleHeader);
         for (final Status item : model.repeatingHeader) {
             response.addHeader("Repeating-Header", item);

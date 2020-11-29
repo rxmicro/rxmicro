@@ -1,60 +1,71 @@
 <#include "../common-lib.javaftl">
 <#-- -------------------------------------------------------------------------------------------------------- -->
 public final class ${JAVA_MODEL_CLASS.modelToJsonConverterImplSimpleClassName} extends ModelToJsonConverter<${JAVA_MODEL_CLASS.javaSimpleClassName}> {
-
     <#list JAVA_MODEL_CONVERTER_CHILDREN as CHILD>
     <#assign className=CHILD.javaSimpleClassName>
+
     private final ${CHILD.modelToJsonConverterImplSimpleClassName} ${CHILD.toJsonConverterInstanceName} =
             new ${CHILD.modelToJsonConverterImplSimpleClassName}();
-
     </#list>
+
     @Override
     public Map<String, Object> toJsonObject(final ${JAVA_MODEL_CLASS.javaSimpleClassName} model) {
-        return new JsonObjectBuilder()
-                <#list JAVA_MODEL_CLASS.paramEntries as fieldEntry>
-                <@putJsonEntry entry=fieldEntry/>
-                </#list>
-                .build();
+        <#if JAVA_MODEL_CLASS.paramEntries?has_content>
+        final JsonObjectBuilder builder = new JsonObjectBuilder();
+        putValues(model, builder);
+        return builder.build();
+        <#else>
+        return Map.of();
+        </#if>
     }
+    <#if JAVA_MODEL_CLASS.paramEntries?has_content>
+
+    protected void putValues(final ${JAVA_MODEL_CLASS.javaSimpleClassName} model,
+                             final JsonObjectBuilder builder) {
+        <#list JAVA_MODEL_CLASS.paramEntries as fieldEntry>
+        <@putJsonEntry entry=fieldEntry/>
+        </#list>
+    }
+    </#if>
 }
 <#-- -------------------------------------------------------------------------------------------------------- -->
 <#macro putJsonEntry entry>
     <#if entry.value.object>
         <#assign element = entry.value>
         <#if entry.key.modelReadAccessorType.name() == "REFLECTION">
-                .put("${entry.key.modelName}", convertFromObjectIfNotNull(${element.toJsonConverterInstanceName}, (${element.javaSimpleClassName}) getFieldValue(model, "${entry.key.fieldName}")))
+        builder.put("${entry.key.modelName}", convertFromObjectIfNotNull(${element.toJsonConverterInstanceName}, (${element.javaSimpleClassName}) getFieldValue(model, "${entry.key.fieldName}")));
         <#elseif entry.key.modelReadAccessorType.name() == "DIRECT">
-                .put("${entry.key.modelName}", convertFromObjectIfNotNull(${element.toJsonConverterInstanceName}, model.${entry.key.fieldName}))
+        builder.put("${entry.key.modelName}", convertFromObjectIfNotNull(${element.toJsonConverterInstanceName}, model.${entry.key.fieldName}));
         <#elseif entry.key.modelReadAccessorType.name() == "JAVA_BEAN">
-                .put("${entry.key.modelName}", convertFromObjectIfNotNull(${element.toJsonConverterInstanceName}, model.${entry.key.getter}()))
+        builder.put("${entry.key.modelName}", convertFromObjectIfNotNull(${element.toJsonConverterInstanceName}, model.${entry.key.getter}()));
         </#if>
     <#elseif entry.value.iterable>
         <#if entry.value.primitiveIterable || entry.value.enumIterable>
             <#if entry.key.modelReadAccessorType.name() == "REFLECTION">
-                .put("${entry.key.modelName}", (${entry.key.fieldSimpleType}) getFieldValue(model, "${entry.key.fieldName}"))
+        builder.put("${entry.key.modelName}", (${entry.key.fieldSimpleType}) getFieldValue(model, "${entry.key.fieldName}"));
             <#elseif entry.key.modelReadAccessorType.name() == "DIRECT">
-                .put("${entry.key.modelName}", model.${entry.key.fieldName})
+        builder.put("${entry.key.modelName}", model.${entry.key.fieldName});
             <#elseif entry.key.modelReadAccessorType.name() == "JAVA_BEAN">
-                .put("${entry.key.modelName}", model.${entry.key.getter}())
+        builder.put("${entry.key.modelName}", model.${entry.key.getter}());
             </#if>
         <#elseif entry.value.objectIterable>
             <#assign element = entry.value.elementModelClass>
             <#assign containerType = entry.value.containerType>
             <#if entry.key.modelReadAccessorType.name() == "REFLECTION">
-                .put("${entry.key.modelName}", convertFrom${containerType}IfNotNull(${element.toJsonConverterInstanceName}, (${entry.value.javaSimpleClassName}) getFieldValue(model, "${entry.key.fieldName}")))
+        builder.put("${entry.key.modelName}", convertFrom${containerType}IfNotNull(${element.toJsonConverterInstanceName}, (${entry.value.javaSimpleClassName}) getFieldValue(model, "${entry.key.fieldName}")));
             <#elseif entry.key.modelReadAccessorType.name() == "DIRECT">
-                .put("${entry.key.modelName}", convertFrom${containerType}IfNotNull(${element.toJsonConverterInstanceName}, model.${entry.key.fieldName}))
+        builder.put("${entry.key.modelName}", convertFrom${containerType}IfNotNull(${element.toJsonConverterInstanceName}, model.${entry.key.fieldName}));
             <#elseif entry.key.modelReadAccessorType.name() == "JAVA_BEAN">
-                .put("${entry.key.modelName}", convertFrom${containerType}IfNotNull(${element.toJsonConverterInstanceName}, model.${entry.key.getter}()))
+        builder.put("${entry.key.modelName}", convertFrom${containerType}IfNotNull(${element.toJsonConverterInstanceName}, model.${entry.key.getter}()));
             </#if>
         </#if>
     <#else>
         <#if entry.key.modelReadAccessorType.name() == "REFLECTION">
-                .put("${entry.key.modelName}", (${entry.key.fieldSimpleType}) getFieldValue(model, "${entry.key.fieldName}"))
+        builder.put("${entry.key.modelName}", (${entry.key.fieldSimpleType}) getFieldValue(model, "${entry.key.fieldName}"));
         <#elseif entry.key.modelReadAccessorType.name() == "DIRECT">
-                .put("${entry.key.modelName}", model.${entry.key.fieldName})
+        builder.put("${entry.key.modelName}", model.${entry.key.fieldName});
         <#elseif entry.key.modelReadAccessorType.name() == "JAVA_BEAN">
-                .put("${entry.key.modelName}", model.${entry.key.getter}())
+        builder.put("${entry.key.modelName}", model.${entry.key.getter}());
         </#if>
     </#if>
 </#macro>

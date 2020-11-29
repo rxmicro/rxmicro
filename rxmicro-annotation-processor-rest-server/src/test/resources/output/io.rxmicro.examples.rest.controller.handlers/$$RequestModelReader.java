@@ -17,7 +17,14 @@ public final class $$RequestModelReader extends ModelReader<Request> {
                         final boolean readParametersFromBody) {
         final Request model = new Request();
         final QueryParams params = extractParams(request.getQueryString());
-        model.value = toString(params.getValue("value"), HttpModelType.PARAMETER, "value");
+        read(pathVariableMapping, request, params, model);
         return model;
+    }
+
+    protected void read(final PathVariableMapping pathVariableMapping,
+                        final HttpRequest request,
+                        final QueryParams params,
+                        final Request model) {
+        model.value = toString(params.getValue("value"), HttpModelType.PARAMETER, "value");
     }
 }

@@ -13,8 +13,13 @@ public final class $$ListHeaderResponseModelReader extends ModelReader<ListHeade
     @Override
     public ListHeaderResponse readSingle(final ClientHttpResponse response) {
         final ListHeaderResponse model = new ListHeaderResponse();
+        read(response, model);
+        return model;
+    }
+
+    protected void read(final ClientHttpResponse response,
+                        final ListHeaderResponse model) {
         final HttpHeaders httpHeaders = response.getHeaders();
         model.supportedStatuses = toEnumList(Status.class, httpHeaders.getValues("Supported-Statuses"), HttpModelType.HEADER, "Supported-Statuses");
-        return model;
     }
 }

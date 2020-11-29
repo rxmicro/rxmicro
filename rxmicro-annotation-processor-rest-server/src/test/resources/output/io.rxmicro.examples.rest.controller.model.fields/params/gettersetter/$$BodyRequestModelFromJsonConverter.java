@@ -17,6 +17,12 @@ public final class $$BodyRequestModelFromJsonConverter extends ModelFromJsonConv
     @Override
     public BodyRequest fromJsonObject(final Map<String, Object> params) {
         final BodyRequest model = new BodyRequest();
+        readBody(params, model);
+        return model;
+    }
+
+    protected void readBody(final Map<String, Object> params,
+                            final BodyRequest model) {
         model.setBooleanParameter(toBoolean(params.get("booleanParameter"), "booleanParameter"));
         model.setByteParameter(toByte(params.get("byteParameter"), "byteParameter"));
         model.setShortParameter(toShort(params.get("shortParameter"), "shortParameter"));
@@ -73,6 +79,5 @@ public final class $$BodyRequestModelFromJsonConverter extends ModelFromJsonConv
         model.setEnumData(toEnumMap(Status.class, params.get("enumData"), "enumData"));
         model.setInstantData(toInstantMap(params.get("instantData"), "instantData"));
         model.setNestedMap(convertToMapIfNotNull(nestedModelFromJsonConverter, params.get("nestedMap"), "nestedMap"));
-        return model;
     }
 }

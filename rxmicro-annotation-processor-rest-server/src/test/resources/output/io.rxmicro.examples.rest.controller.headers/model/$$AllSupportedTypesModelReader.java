@@ -16,6 +16,13 @@ public final class $$AllSupportedTypesModelReader extends ModelReader<AllSupport
                                   final HttpRequest request,
                                   final boolean readParametersFromBody) {
         final AllSupportedTypes model = new AllSupportedTypes();
+        read(pathVariableMapping, request, model);
+        return model;
+    }
+
+    protected void read(final PathVariableMapping pathVariableMapping,
+                        final HttpRequest request,
+                        final AllSupportedTypes model) {
         final HttpHeaders httpHeaders = request.getHeaders();
         model.status = toEnum(Status.class, httpHeaders.getValue("Status"), HttpModelType.HEADER, "Status");
         model.statusList = toEnumList(Status.class, httpHeaders.getValues("Status-List"), HttpModelType.HEADER, "Status-List");
@@ -43,6 +50,5 @@ public final class $$AllSupportedTypesModelReader extends ModelReader<AllSupport
         model.stringList = toStringList(httpHeaders.getValues("String-List"), HttpModelType.HEADER, "String-List");
         model.instant = toInstant(httpHeaders.getValue("Instant"), HttpModelType.HEADER, "Instant");
         model.instantList = toInstantList(httpHeaders.getValues("Instant-List"), HttpModelType.HEADER, "Instant-List");
-        return model;
     }
 }

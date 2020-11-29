@@ -17,7 +17,14 @@ public final class $$VirtualWithoutBodyRequestModelReader extends ModelReader<$$
                                             final boolean readParametersFromBody) {
         final $$VirtualWithoutBodyRequest model = new $$VirtualWithoutBodyRequest();
         final QueryParams params = extractParams(request.getQueryString());
-        model.requestParameter = toString(params.getValue("requestParameter"), HttpModelType.PARAMETER, "requestParameter");
+        read(pathVariableMapping, request, params, model);
         return model;
+    }
+
+    protected void read(final PathVariableMapping pathVariableMapping,
+                        final HttpRequest request,
+                        final QueryParams params,
+                        final $$VirtualWithoutBodyRequest model) {
+        model.requestParameter = toString(params.getValue("requestParameter"), HttpModelType.PARAMETER, "requestParameter");
     }
 }

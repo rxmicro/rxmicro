@@ -12,8 +12,13 @@ public final class $$VirtualSimpleUsageRequestModelFromJsonConverter extends Mod
     @Override
     public $$VirtualSimpleUsageRequest fromJsonObject(final Map<String, Object> params) {
         final $$VirtualSimpleUsageRequest model = new $$VirtualSimpleUsageRequest();
+        readBody(params, model);
+        return model;
+    }
+
+    protected void readBody(final Map<String, Object> params,
+                            final $$VirtualSimpleUsageRequest model) {
         model.endpointVersion = toString(params.get("endpoint_version"), "endpoint_version");
         model.useProxy = toBoolean(params.get("use-Proxy"), "use-Proxy");
-        return model;
     }
 }

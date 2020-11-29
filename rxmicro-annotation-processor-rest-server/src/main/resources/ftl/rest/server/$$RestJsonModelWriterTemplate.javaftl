@@ -1,7 +1,14 @@
 <#include "../../common-lib.javaftl">
 <#-- -------------------------------------------------------------------------------------------------------- -->
+<#if JAVA_MODEL_CLASS.internals?has_content && JAVA_MODEL_CLASS.headerEntries?has_content>
+<#assign SET_METHOD>setHeadersAndInternals</#assign>
+<#elseif JAVA_MODEL_CLASS.headerEntries?has_content>
+<#assign SET_METHOD>setHeaders</#assign>
+<#elseif JAVA_MODEL_CLASS.internals?has_content>
+<#assign SET_METHOD>setInternals</#assign>
+</#if>
+<#-- -------------------------------------------------------------------------------------------------------- -->
 public final class ${JAVA_MODEL_CLASS.modelWriterImplSimpleClassName} extends ModelWriter<${JAVA_MODEL_CLASS.javaSimpleClassName}> {
-
 <#if JAVA_MODEL_CLASS.paramEntriesPresent>
     private final ${JAVA_MODEL_CLASS.modelToJsonConverterImplSimpleClassName} ${JAVA_MODEL_CLASS.toJsonConverterInstanceName};
 
@@ -18,18 +25,16 @@ public final class ${JAVA_MODEL_CLASS.modelWriterImplSimpleClassName} extends Mo
     @Override
     public void write(final ${JAVA_MODEL_CLASS.javaSimpleClassName} model,
                       final HttpResponse response) {
-        <#list JAVA_MODEL_CLASS.internals as INTERNAL>
-        <@setInternal INTERNAL=INTERNAL/>
-        </#list>
-        <#list JAVA_MODEL_CLASS.headerEntries as ENTRY>
-        <@setHeader header=ENTRY.key type=ENTRY.value/>
-        </#list>
-        final Map<String, Object> json = ${JAVA_MODEL_CLASS.toJsonConverterInstanceName}.toJsonObject(model);
+        <#if JAVA_MODEL_CLASS.internals?has_content || JAVA_MODEL_CLASS.headerEntries?has_content>
+        ${SET_METHOD}(model, response);
+        </#if>
         response.setHeader(HttpStandardHeaderNames.CONTENT_TYPE, outputMimeType);
+        final Map<String, Object> json = ${JAVA_MODEL_CLASS.toJsonConverterInstanceName}.toJsonObject(model);
         response.setContent(exchangeDataFormatConverter.toBytes(json));
     }
 <#-- -------------------------------------------------------------------------------------------------------- -->
 <#else>
+
     public ${JAVA_MODEL_CLASS.modelWriterImplSimpleClassName}(final boolean humanReadableOutput) {
         //do nothing
     }
@@ -37,11 +42,20 @@ public final class ${JAVA_MODEL_CLASS.modelWriterImplSimpleClassName} extends Mo
     @Override
     public void write(final ${JAVA_MODEL_CLASS.javaSimpleClassName} model,
                       final HttpResponse response) {
-        <#list JAVA_MODEL_CLASS.headerEntries as ENTRY>
-        <@setHeader header=ENTRY.key type=ENTRY.value/>
-        </#list>
+        <#if JAVA_MODEL_CLASS.internals?has_content || JAVA_MODEL_CLASS.headerEntries?has_content>
+        ${SET_METHOD}(model, response);
+        </#if>
+    }
+</#if>
+<#if JAVA_MODEL_CLASS.internals?has_content || JAVA_MODEL_CLASS.headerEntries?has_content>
+
+    protected void ${SET_METHOD       }(final ${JAVA_MODEL_CLASS.javaSimpleClassName} model,
+                   ${space(SET_METHOD)} final HttpResponse response) {
         <#list JAVA_MODEL_CLASS.internals as INTERNAL>
         <@setInternal INTERNAL=INTERNAL/>
+        </#list>
+        <#list JAVA_MODEL_CLASS.headerEntries as ENTRY>
+        <@setHeader header=ENTRY.key type=ENTRY.value/>
         </#list>
     }
 </#if>

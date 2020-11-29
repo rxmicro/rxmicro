@@ -13,6 +13,12 @@ public final class $$NestedModelFromJsonConverter extends ModelFromJsonConverter
     @Override
     public Nested fromJsonObject(final Map<String, Object> params) {
         final Nested model = new Nested();
+        readBody(params, model);
+        return model;
+    }
+
+    protected void readBody(final Map<String, Object> params,
+                            final Nested model) {
         model.booleanData = toBooleanMap(params.get("booleanData"), "booleanData");
         model.byteData = toByteMap(params.get("byteData"), "byteData");
         model.shortData = toShortMap(params.get("shortData"), "shortData");
@@ -26,6 +32,5 @@ public final class $$NestedModelFromJsonConverter extends ModelFromJsonConverter
         model.stringData = toStringMap(params.get("stringData"), "stringData");
         model.enumData = toEnumMap(Status.class, params.get("enumData"), "enumData");
         model.instantData = toInstantMap(params.get("instantData"), "instantData");
-        return model;
     }
 }

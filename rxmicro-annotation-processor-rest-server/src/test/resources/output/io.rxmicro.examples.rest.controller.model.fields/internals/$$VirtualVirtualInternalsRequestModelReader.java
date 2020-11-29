@@ -16,6 +16,13 @@ public final class $$VirtualVirtualInternalsRequestModelReader extends ModelRead
                                                  final HttpRequest request,
                                                  final boolean readParametersFromBody) {
         final $$VirtualVirtualInternalsRequest model = new $$VirtualVirtualInternalsRequest();
+        read(pathVariableMapping, request, model);
+        return model;
+    }
+
+    protected void read(final PathVariableMapping pathVariableMapping,
+                        final HttpRequest request,
+                        final $$VirtualVirtualInternalsRequest model) {
         model.request = request;
         model.version = request.getVersion();
         model.headers = request.getHeaders();
@@ -26,6 +33,5 @@ public final class $$VirtualVirtualInternalsRequestModelReader extends ModelRead
         model.body = request.getContent();
         final HttpHeaders httpHeaders = request.getHeaders();
         model.id = toString(httpHeaders.getValue("Request-Id"), HttpModelType.HEADER, "Request-Id");
-        return model;
     }
 }

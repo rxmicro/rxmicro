@@ -12,20 +12,25 @@ public final class $$NestedModelToJsonConverter extends ModelToJsonConverter<Nes
 
     @Override
     public Map<String, Object> toJsonObject(final Nested model) {
-        return new JsonObjectBuilder()
-                .put("booleanData", model.booleanData)
-                .put("byteData", model.byteData)
-                .put("shortData", model.shortData)
-                .put("integerData", model.integerData)
-                .put("longData", model.longData)
-                .put("bigIntegerData", model.bigIntegerData)
-                .put("floatData", model.floatData)
-                .put("doubleData", model.doubleData)
-                .put("bigDecimalData", model.bigDecimalData)
-                .put("characterData", model.characterData)
-                .put("stringData", model.stringData)
-                .put("enumData", model.enumData)
-                .put("instantData", model.instantData)
-                .build();
+        final JsonObjectBuilder builder = new JsonObjectBuilder();
+        putValues(model, builder);
+        return builder.build();
+    }
+
+    protected void putValues(final Nested model,
+                             final JsonObjectBuilder builder) {
+        builder.put("booleanData", model.booleanData);
+        builder.put("byteData", model.byteData);
+        builder.put("shortData", model.shortData);
+        builder.put("integerData", model.integerData);
+        builder.put("longData", model.longData);
+        builder.put("bigIntegerData", model.bigIntegerData);
+        builder.put("floatData", model.floatData);
+        builder.put("doubleData", model.doubleData);
+        builder.put("bigDecimalData", model.bigDecimalData);
+        builder.put("characterData", model.characterData);
+        builder.put("stringData", model.stringData);
+        builder.put("enumData", model.enumData);
+        builder.put("instantData", model.instantData);
     }
 }

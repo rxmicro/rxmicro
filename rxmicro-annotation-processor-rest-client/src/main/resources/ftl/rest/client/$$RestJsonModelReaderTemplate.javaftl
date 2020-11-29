@@ -17,16 +17,7 @@ public final class ${JAVA_MODEL_CLASS.modelReaderImplSimpleClassName} extends Mo
         final ${JAVA_MODEL_CLASS.javaSimpleClassName} model = new ${JAVA_MODEL_CLASS.javaSimpleClassName}();
         </#if>
         <#-- ------------------------------------------------------------------------------------------------ -->
-        <#list JAVA_MODEL_CLASS.internals as INTERNAL>
-        <@setInternal INTERNAL=INTERNAL/>
-        </#list>
-        <#-- ------------------------------------------------------------------------------------------------ -->
-        <#if JAVA_MODEL_CLASS.headerEntries?has_content>
-        final HttpHeaders httpHeaders = response.getHeaders();
-        <#list JAVA_MODEL_CLASS.headerEntries as ENTRY>
-        <@setHeaderFieldValue entry=ENTRY/>
-        </#list>
-        </#if>
+        read(response, model);
         <#-- ------------------------------------------------------------------------------------------------ -->
         return model;
 <#-- -------------------------------------------------------------------------------------------------------- -->
@@ -40,6 +31,22 @@ public final class ${JAVA_MODEL_CLASS.modelReaderImplSimpleClassName} extends Mo
     @Override
     public List<${JAVA_MODEL_CLASS.javaSimpleClassName}> readList(final ClientHttpResponse response) {
         return ${JAVA_MODEL_CLASS.fromJsonConverterInstanceName}.fromJsonArray(response.getBody());
+    }
+    </#if>
+    <#if JAVA_MODEL_CLASS.internals?has_content || JAVA_MODEL_CLASS.headerEntries?has_content>
+
+    protected void read(final ClientHttpResponse response,
+                        final ${JAVA_MODEL_CLASS.javaSimpleClassName} model) {
+        <#list JAVA_MODEL_CLASS.internals as INTERNAL>
+        <@setInternal INTERNAL=INTERNAL/>
+        </#list>
+        <#-- ------------------------------------------------------------------------------------------------ -->
+        <#if JAVA_MODEL_CLASS.headerEntries?has_content>
+        final HttpHeaders httpHeaders = response.getHeaders();
+        <#list JAVA_MODEL_CLASS.headerEntries as ENTRY>
+        <@setHeaderFieldValue entry=ENTRY/>
+        </#list>
+        </#if>
     }
     </#if>
 }

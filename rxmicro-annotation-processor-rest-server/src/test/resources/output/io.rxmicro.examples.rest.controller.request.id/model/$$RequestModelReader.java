@@ -16,8 +16,14 @@ public final class $$RequestModelReader extends ModelReader<Request> {
                         final HttpRequest request,
                         final boolean readParametersFromBody) {
         final Request model = new Request();
+        read(pathVariableMapping, request, model);
+        return model;
+    }
+
+    protected void read(final PathVariableMapping pathVariableMapping,
+                        final HttpRequest request,
+                        final Request model) {
         final HttpHeaders httpHeaders = request.getHeaders();
         model.requestId = toString(httpHeaders.getValue("Request-Id"), HttpModelType.HEADER, "Request-Id");
-        return model;
     }
 }

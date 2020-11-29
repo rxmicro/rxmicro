@@ -12,10 +12,15 @@ public final class $$NestedModelModelToJsonConverter extends ModelToJsonConverte
 
     @Override
     public Map<String, Object> toJsonObject(final NestedModel model) {
-        return new JsonObjectBuilder()
-                .put("string_parameter", model.stringParameter)
-                .put("big_decimal_parameter", model.bigDecimalParameter)
-                .put("instant_parameter", model.instantParameter)
-                .build();
+        final JsonObjectBuilder builder = new JsonObjectBuilder();
+        putValues(model, builder);
+        return builder.build();
+    }
+
+    protected void putValues(final NestedModel model,
+                             final JsonObjectBuilder builder) {
+        builder.put("string_parameter", model.stringParameter);
+        builder.put("big_decimal_parameter", model.bigDecimalParameter);
+        builder.put("instant_parameter", model.instantParameter);
     }
 }

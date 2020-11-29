@@ -19,6 +19,11 @@ public final class $$ResponseModelWriter extends ModelWriter<Response> {
     @Override
     public void write(final Response model,
                       final HttpResponse response) {
+        setInternals(model, response);
+    }
+
+    protected void setInternals(final Response model,
+                                final HttpResponse response) {
         response.setVersion((HttpVersion) getFieldValue(model, "version"));
         response.setOrAddHeaders((HttpHeaders) getFieldValue(model, "headers"));
         response.setStatus((Integer) getFieldValue(model, "status"));

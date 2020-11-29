@@ -16,63 +16,68 @@ public final class $$BodyRequestModelToJsonConverter extends ModelToJsonConverte
 
     @Override
     public Map<String, Object> toJsonObject(final BodyRequest model) {
-        return new JsonObjectBuilder()
-                .put("booleanParameter", model.getBooleanParameter())
-                .put("byteParameter", model.getByteParameter())
-                .put("shortParameter", model.getShortParameter())
-                .put("intParameter", model.getIntParameter())
-                .put("longParameter", model.getLongParameter())
-                .put("bigIntParameter", model.getBigIntParameter())
-                .put("floatParameter", model.getFloatParameter())
-                .put("doubleParameter", model.getDoubleParameter())
-                .put("decimalParameter", model.getDecimalParameter())
-                .put("charParameter", model.getCharParameter())
-                .put("stringParameter", model.getStringParameter())
-                .put("instantParameter", model.getInstantParameter())
-                .put("status", model.getStatus())
-                .put("booleanParameters", model.getBooleanParameters())
-                .put("byteParameters", model.getByteParameters())
-                .put("shortParameters", model.getShortParameters())
-                .put("intParameters", model.getIntParameters())
-                .put("longParameters", model.getLongParameters())
-                .put("bigIntParameters", model.getBigIntParameters())
-                .put("floatParameters", model.getFloatParameters())
-                .put("doubleParameters", model.getDoubleParameters())
-                .put("decimalParameters", model.getDecimalParameters())
-                .put("charParameters", model.getCharParameters())
-                .put("stringParameters", model.getStringParameters())
-                .put("instantParameters", model.getInstantParameters())
-                .put("statuses", model.getStatuses())
-                .put("booleanParameterSet", model.getBooleanParameterSet())
-                .put("byteParameterSet", model.getByteParameterSet())
-                .put("shortParameterSet", model.getShortParameterSet())
-                .put("intParameterSet", model.getIntParameterSet())
-                .put("longParameterSet", model.getLongParameterSet())
-                .put("bigIntParameterSet", model.getBigIntParameterSet())
-                .put("floatParameterSet", model.getFloatParameterSet())
-                .put("doubleParameterSet", model.getDoubleParameterSet())
-                .put("decimalParameterSet", model.getDecimalParameterSet())
-                .put("charParameterSet", model.getCharParameterSet())
-                .put("stringParameterSet", model.getStringParameterSet())
-                .put("instantParameterSet", model.getInstantParameterSet())
-                .put("statusSet", model.getStatusSet())
-                .put("nested", convertFromObjectIfNotNull(nestedModelToJsonConverter, model.getNested()))
-                .put("nestedList", convertFromListIfNotNull(nestedModelToJsonConverter, model.getNestedList()))
-                .put("nestedSet", convertFromSetIfNotNull(nestedModelToJsonConverter, model.getNestedSet()))
-                .put("booleanData", model.getBooleanData())
-                .put("byteData", model.getByteData())
-                .put("shortData", model.getShortData())
-                .put("integerData", model.getIntegerData())
-                .put("longData", model.getLongData())
-                .put("bigIntegerData", model.getBigIntegerData())
-                .put("floatData", model.getFloatData())
-                .put("doubleData", model.getDoubleData())
-                .put("bigDecimalData", model.getBigDecimalData())
-                .put("characterData", model.getCharacterData())
-                .put("stringData", model.getStringData())
-                .put("enumData", model.getEnumData())
-                .put("instantData", model.getInstantData())
-                .put("nestedMap", convertFromMapIfNotNull(nestedModelToJsonConverter, model.getNestedMap()))
-                .build();
+        final JsonObjectBuilder builder = new JsonObjectBuilder();
+        putValues(model, builder);
+        return builder.build();
+    }
+
+    protected void putValues(final BodyRequest model,
+                             final JsonObjectBuilder builder) {
+        builder.put("booleanParameter", model.getBooleanParameter());
+        builder.put("byteParameter", model.getByteParameter());
+        builder.put("shortParameter", model.getShortParameter());
+        builder.put("intParameter", model.getIntParameter());
+        builder.put("longParameter", model.getLongParameter());
+        builder.put("bigIntParameter", model.getBigIntParameter());
+        builder.put("floatParameter", model.getFloatParameter());
+        builder.put("doubleParameter", model.getDoubleParameter());
+        builder.put("decimalParameter", model.getDecimalParameter());
+        builder.put("charParameter", model.getCharParameter());
+        builder.put("stringParameter", model.getStringParameter());
+        builder.put("instantParameter", model.getInstantParameter());
+        builder.put("status", model.getStatus());
+        builder.put("booleanParameters", model.getBooleanParameters());
+        builder.put("byteParameters", model.getByteParameters());
+        builder.put("shortParameters", model.getShortParameters());
+        builder.put("intParameters", model.getIntParameters());
+        builder.put("longParameters", model.getLongParameters());
+        builder.put("bigIntParameters", model.getBigIntParameters());
+        builder.put("floatParameters", model.getFloatParameters());
+        builder.put("doubleParameters", model.getDoubleParameters());
+        builder.put("decimalParameters", model.getDecimalParameters());
+        builder.put("charParameters", model.getCharParameters());
+        builder.put("stringParameters", model.getStringParameters());
+        builder.put("instantParameters", model.getInstantParameters());
+        builder.put("statuses", model.getStatuses());
+        builder.put("booleanParameterSet", model.getBooleanParameterSet());
+        builder.put("byteParameterSet", model.getByteParameterSet());
+        builder.put("shortParameterSet", model.getShortParameterSet());
+        builder.put("intParameterSet", model.getIntParameterSet());
+        builder.put("longParameterSet", model.getLongParameterSet());
+        builder.put("bigIntParameterSet", model.getBigIntParameterSet());
+        builder.put("floatParameterSet", model.getFloatParameterSet());
+        builder.put("doubleParameterSet", model.getDoubleParameterSet());
+        builder.put("decimalParameterSet", model.getDecimalParameterSet());
+        builder.put("charParameterSet", model.getCharParameterSet());
+        builder.put("stringParameterSet", model.getStringParameterSet());
+        builder.put("instantParameterSet", model.getInstantParameterSet());
+        builder.put("statusSet", model.getStatusSet());
+        builder.put("nested", convertFromObjectIfNotNull(nestedModelToJsonConverter, model.getNested()));
+        builder.put("nestedList", convertFromListIfNotNull(nestedModelToJsonConverter, model.getNestedList()));
+        builder.put("nestedSet", convertFromSetIfNotNull(nestedModelToJsonConverter, model.getNestedSet()));
+        builder.put("booleanData", model.getBooleanData());
+        builder.put("byteData", model.getByteData());
+        builder.put("shortData", model.getShortData());
+        builder.put("integerData", model.getIntegerData());
+        builder.put("longData", model.getLongData());
+        builder.put("bigIntegerData", model.getBigIntegerData());
+        builder.put("floatData", model.getFloatData());
+        builder.put("doubleData", model.getDoubleData());
+        builder.put("bigDecimalData", model.getBigDecimalData());
+        builder.put("characterData", model.getCharacterData());
+        builder.put("stringData", model.getStringData());
+        builder.put("enumData", model.getEnumData());
+        builder.put("instantData", model.getInstantData());
+        builder.put("nestedMap", convertFromMapIfNotNull(nestedModelToJsonConverter, model.getNestedMap()));
     }
 }

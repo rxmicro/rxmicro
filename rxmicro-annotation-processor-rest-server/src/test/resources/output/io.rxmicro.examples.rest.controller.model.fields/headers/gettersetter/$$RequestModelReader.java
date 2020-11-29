@@ -17,6 +17,13 @@ public final class $$RequestModelReader extends ModelReader<Request> {
                         final HttpRequest request,
                         final boolean readParametersFromBody) {
         final Request model = new Request();
+        read(pathVariableMapping, request, model);
+        return model;
+    }
+
+    protected void read(final PathVariableMapping pathVariableMapping,
+                        final HttpRequest request,
+                        final Request model) {
         final HttpHeaders httpHeaders = request.getHeaders();
         model.setBooleanParameter(toBoolean(httpHeaders.getValue("booleanParameter"), HttpModelType.HEADER, "booleanParameter"));
         model.setByteParameter(toByte(httpHeaders.getValue("byteParameter"), HttpModelType.HEADER, "byteParameter"));
@@ -57,6 +64,5 @@ public final class $$RequestModelReader extends ModelReader<Request> {
         model.setStringParameterSet(toStringSet(httpHeaders.getValues("stringParameterSet"), HttpModelType.HEADER, "stringParameterSet"));
         model.setInstantParameterSet(toInstantSet(httpHeaders.getValues("instantParameterSet"), HttpModelType.HEADER, "instantParameterSet"));
         model.setStatusSet(toEnumSet(Status.class, httpHeaders.getValues("statusSet"), HttpModelType.HEADER, "statusSet"));
-        return model;
     }
 }

@@ -16,6 +16,12 @@ public final class $$ComplexModelModelFromJsonConverter extends ModelFromJsonCon
     @Override
     public ComplexModel fromJsonObject(final Map<String, Object> params) {
         final ComplexModel model = new ComplexModel();
+        readBody(params, model);
+        return model;
+    }
+
+    protected void readBody(final Map<String, Object> params,
+                            final ComplexModel model) {
         model.status = toEnum(Status.class, params.get("status"), "status");
         model.statusList = toEnumList(Status.class, params.get("statusList"), "statusList");
         model.aBoolean = toBoolean(params.get("aBoolean"), "aBoolean");
@@ -44,6 +50,5 @@ public final class $$ComplexModelModelFromJsonConverter extends ModelFromJsonCon
         model.instantList = toInstantList(params.get("instantList"), "instantList");
         model.nested = convertToObjectIfNotNull(nestedModelModelFromJsonConverter, params.get("nested"), "nested");
         model.nestedList = convertToListIfNotNull(nestedModelModelFromJsonConverter, params.get("nestedList"), "nestedList");
-        return model;
     }
 }

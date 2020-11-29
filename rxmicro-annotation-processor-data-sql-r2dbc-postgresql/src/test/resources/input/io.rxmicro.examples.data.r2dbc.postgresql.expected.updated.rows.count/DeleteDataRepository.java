@@ -78,7 +78,6 @@ public interface DeleteDataRepository {
     CompletionStage<Account> delete10(Long id);
 
     // tag::content[]
-    // <1>
     @ExpectedUpdatedRowsCount(1)
     @Delete(entityClass = Account.class)
     Mono<Void> delete11(Long id);

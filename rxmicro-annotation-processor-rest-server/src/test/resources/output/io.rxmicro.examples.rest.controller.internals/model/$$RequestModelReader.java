@@ -14,12 +14,18 @@ public final class $$RequestModelReader extends ModelReader<Request> {
                         final HttpRequest request,
                         final boolean readParametersFromBody) {
         final Request model = new Request();
+        read(pathVariableMapping, request, model);
+        return model;
+    }
+
+    protected void read(final PathVariableMapping pathVariableMapping,
+                        final HttpRequest request,
+                        final Request model) {
         model.remoteAddress1 = String.valueOf(request.getRemoteAddress());
         model.urlPath = request.getUri();
         model.method = request.getMethod();
         model.httpVersion = request.getVersion();
         model.headers = request.getHeaders();
         model.bodyBytes = request.getContent();
-        return model;
     }
 }

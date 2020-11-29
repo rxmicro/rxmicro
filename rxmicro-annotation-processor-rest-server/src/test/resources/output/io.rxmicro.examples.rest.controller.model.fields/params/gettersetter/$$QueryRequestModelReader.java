@@ -18,6 +18,14 @@ public final class $$QueryRequestModelReader extends ModelReader<QueryRequest> {
                              final boolean readParametersFromBody) {
         final QueryRequest model = new QueryRequest();
         final QueryParams params = extractParams(request.getQueryString());
+        read(pathVariableMapping, request, params, model);
+        return model;
+    }
+
+    protected void read(final PathVariableMapping pathVariableMapping,
+                        final HttpRequest request,
+                        final QueryParams params,
+                        final QueryRequest model) {
         model.setBooleanParameter(toBoolean(params.getValue("booleanParameter"), HttpModelType.PARAMETER, "booleanParameter"));
         model.setByteParameter(toByte(params.getValue("byteParameter"), HttpModelType.PARAMETER, "byteParameter"));
         model.setShortParameter(toShort(params.getValue("shortParameter"), HttpModelType.PARAMETER, "shortParameter"));
@@ -57,6 +65,5 @@ public final class $$QueryRequestModelReader extends ModelReader<QueryRequest> {
         model.setStringParameterSet(toStringSet(params.getValues("stringParameterSet"), HttpModelType.PARAMETER, "stringParameterSet"));
         model.setInstantParameterSet(toInstantSet(params.getValues("instantParameterSet"), HttpModelType.PARAMETER, "instantParameterSet"));
         model.setStatusSet(toEnumSet(Status.class, params.getValues("statusSet"), HttpModelType.PARAMETER, "statusSet"));
-        return model;
     }
 }

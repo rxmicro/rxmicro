@@ -15,6 +15,11 @@ public final class $$ResponseModelWriter extends ModelWriter<Response> {
     @Override
     public void write(final Response model,
                       final HttpResponse response) {
+        setInternals(model, response);
+    }
+
+    protected void setInternals(final Response model,
+                                final HttpResponse response) {
         response.setVersion(model.getVersion());
         response.setOrAddHeaders(model.getHeaders());
         response.setStatus(model.getStatus());

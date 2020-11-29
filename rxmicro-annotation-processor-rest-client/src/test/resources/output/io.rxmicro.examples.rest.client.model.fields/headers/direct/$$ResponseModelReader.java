@@ -14,6 +14,12 @@ public final class $$ResponseModelReader extends ModelReader<Response> {
     @Override
     public Response readSingle(final ClientHttpResponse response) {
         final Response model = new Response();
+        read(response, model);
+        return model;
+    }
+
+    protected void read(final ClientHttpResponse response,
+                        final Response model) {
         final HttpHeaders httpHeaders = response.getHeaders();
         model.booleanParameter = toBoolean(httpHeaders.getValue("booleanParameter"), HttpModelType.HEADER, "booleanParameter");
         model.byteParameter = toByte(httpHeaders.getValue("byteParameter"), HttpModelType.HEADER, "byteParameter");
@@ -54,6 +60,5 @@ public final class $$ResponseModelReader extends ModelReader<Response> {
         model.stringParameterSet = toStringSet(httpHeaders.getValues("stringParameterSet"), HttpModelType.HEADER, "stringParameterSet");
         model.instantParameterSet = toInstantSet(httpHeaders.getValues("instantParameterSet"), HttpModelType.HEADER, "instantParameterSet");
         model.statusSet = toEnumSet(Status.class, httpHeaders.getValues("statusSet"), HttpModelType.HEADER, "statusSet");
-        return model;
     }
 }

@@ -16,63 +16,68 @@ public final class $$BodyRequestModelToJsonConverter extends ModelToJsonConverte
 
     @Override
     public Map<String, Object> toJsonObject(final BodyRequest model) {
-        return new JsonObjectBuilder()
-                .put("booleanParameter", model.booleanParameter)
-                .put("byteParameter", model.byteParameter)
-                .put("shortParameter", model.shortParameter)
-                .put("intParameter", model.intParameter)
-                .put("longParameter", model.longParameter)
-                .put("bigIntParameter", model.bigIntParameter)
-                .put("floatParameter", model.floatParameter)
-                .put("doubleParameter", model.doubleParameter)
-                .put("decimalParameter", model.decimalParameter)
-                .put("charParameter", model.charParameter)
-                .put("stringParameter", model.stringParameter)
-                .put("instantParameter", model.instantParameter)
-                .put("status", model.status)
-                .put("booleanParameters", model.booleanParameters)
-                .put("byteParameters", model.byteParameters)
-                .put("shortParameters", model.shortParameters)
-                .put("intParameters", model.intParameters)
-                .put("longParameters", model.longParameters)
-                .put("bigIntParameters", model.bigIntParameters)
-                .put("floatParameters", model.floatParameters)
-                .put("doubleParameters", model.doubleParameters)
-                .put("decimalParameters", model.decimalParameters)
-                .put("charParameters", model.charParameters)
-                .put("stringParameters", model.stringParameters)
-                .put("instantParameters", model.instantParameters)
-                .put("statuses", model.statuses)
-                .put("booleanParameterSet", model.booleanParameterSet)
-                .put("byteParameterSet", model.byteParameterSet)
-                .put("shortParameterSet", model.shortParameterSet)
-                .put("intParameterSet", model.intParameterSet)
-                .put("longParameterSet", model.longParameterSet)
-                .put("bigIntParameterSet", model.bigIntParameterSet)
-                .put("floatParameterSet", model.floatParameterSet)
-                .put("doubleParameterSet", model.doubleParameterSet)
-                .put("decimalParameterSet", model.decimalParameterSet)
-                .put("charParameterSet", model.charParameterSet)
-                .put("stringParameterSet", model.stringParameterSet)
-                .put("instantParameterSet", model.instantParameterSet)
-                .put("statusSet", model.statusSet)
-                .put("nested", convertFromObjectIfNotNull(nestedModelToJsonConverter, model.nested))
-                .put("nestedList", convertFromListIfNotNull(nestedModelToJsonConverter, model.nestedList))
-                .put("nestedSet", convertFromSetIfNotNull(nestedModelToJsonConverter, model.nestedSet))
-                .put("booleanData", model.booleanData)
-                .put("byteData", model.byteData)
-                .put("shortData", model.shortData)
-                .put("integerData", model.integerData)
-                .put("longData", model.longData)
-                .put("bigIntegerData", model.bigIntegerData)
-                .put("floatData", model.floatData)
-                .put("doubleData", model.doubleData)
-                .put("bigDecimalData", model.bigDecimalData)
-                .put("characterData", model.characterData)
-                .put("stringData", model.stringData)
-                .put("enumData", model.enumData)
-                .put("instantData", model.instantData)
-                .put("nestedMap", convertFromMapIfNotNull(nestedModelToJsonConverter, model.nestedMap))
-                .build();
+        final JsonObjectBuilder builder = new JsonObjectBuilder();
+        putValues(model, builder);
+        return builder.build();
+    }
+
+    protected void putValues(final BodyRequest model,
+                             final JsonObjectBuilder builder) {
+        builder.put("booleanParameter", model.booleanParameter);
+        builder.put("byteParameter", model.byteParameter);
+        builder.put("shortParameter", model.shortParameter);
+        builder.put("intParameter", model.intParameter);
+        builder.put("longParameter", model.longParameter);
+        builder.put("bigIntParameter", model.bigIntParameter);
+        builder.put("floatParameter", model.floatParameter);
+        builder.put("doubleParameter", model.doubleParameter);
+        builder.put("decimalParameter", model.decimalParameter);
+        builder.put("charParameter", model.charParameter);
+        builder.put("stringParameter", model.stringParameter);
+        builder.put("instantParameter", model.instantParameter);
+        builder.put("status", model.status);
+        builder.put("booleanParameters", model.booleanParameters);
+        builder.put("byteParameters", model.byteParameters);
+        builder.put("shortParameters", model.shortParameters);
+        builder.put("intParameters", model.intParameters);
+        builder.put("longParameters", model.longParameters);
+        builder.put("bigIntParameters", model.bigIntParameters);
+        builder.put("floatParameters", model.floatParameters);
+        builder.put("doubleParameters", model.doubleParameters);
+        builder.put("decimalParameters", model.decimalParameters);
+        builder.put("charParameters", model.charParameters);
+        builder.put("stringParameters", model.stringParameters);
+        builder.put("instantParameters", model.instantParameters);
+        builder.put("statuses", model.statuses);
+        builder.put("booleanParameterSet", model.booleanParameterSet);
+        builder.put("byteParameterSet", model.byteParameterSet);
+        builder.put("shortParameterSet", model.shortParameterSet);
+        builder.put("intParameterSet", model.intParameterSet);
+        builder.put("longParameterSet", model.longParameterSet);
+        builder.put("bigIntParameterSet", model.bigIntParameterSet);
+        builder.put("floatParameterSet", model.floatParameterSet);
+        builder.put("doubleParameterSet", model.doubleParameterSet);
+        builder.put("decimalParameterSet", model.decimalParameterSet);
+        builder.put("charParameterSet", model.charParameterSet);
+        builder.put("stringParameterSet", model.stringParameterSet);
+        builder.put("instantParameterSet", model.instantParameterSet);
+        builder.put("statusSet", model.statusSet);
+        builder.put("nested", convertFromObjectIfNotNull(nestedModelToJsonConverter, model.nested));
+        builder.put("nestedList", convertFromListIfNotNull(nestedModelToJsonConverter, model.nestedList));
+        builder.put("nestedSet", convertFromSetIfNotNull(nestedModelToJsonConverter, model.nestedSet));
+        builder.put("booleanData", model.booleanData);
+        builder.put("byteData", model.byteData);
+        builder.put("shortData", model.shortData);
+        builder.put("integerData", model.integerData);
+        builder.put("longData", model.longData);
+        builder.put("bigIntegerData", model.bigIntegerData);
+        builder.put("floatData", model.floatData);
+        builder.put("doubleData", model.doubleData);
+        builder.put("bigDecimalData", model.bigDecimalData);
+        builder.put("characterData", model.characterData);
+        builder.put("stringData", model.stringData);
+        builder.put("enumData", model.enumData);
+        builder.put("instantData", model.instantData);
+        builder.put("nestedMap", convertFromMapIfNotNull(nestedModelToJsonConverter, model.nestedMap));
     }
 }

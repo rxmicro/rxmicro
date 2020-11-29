@@ -25,63 +25,68 @@ public final class $$BodyRequestModelToJsonConverter extends ModelToJsonConverte
 
     @Override
     public Map<String, Object> toJsonObject(final BodyRequest model) {
-        return new JsonObjectBuilder()
-                .put("booleanParameter", (Boolean) getFieldValue(model, "booleanParameter"))
-                .put("byteParameter", (Byte) getFieldValue(model, "byteParameter"))
-                .put("shortParameter", (Short) getFieldValue(model, "shortParameter"))
-                .put("intParameter", (Integer) getFieldValue(model, "intParameter"))
-                .put("longParameter", (Long) getFieldValue(model, "longParameter"))
-                .put("bigIntParameter", (BigInteger) getFieldValue(model, "bigIntParameter"))
-                .put("floatParameter", (Float) getFieldValue(model, "floatParameter"))
-                .put("doubleParameter", (Double) getFieldValue(model, "doubleParameter"))
-                .put("decimalParameter", (BigDecimal) getFieldValue(model, "decimalParameter"))
-                .put("charParameter", (Character) getFieldValue(model, "charParameter"))
-                .put("stringParameter", (String) getFieldValue(model, "stringParameter"))
-                .put("instantParameter", (Instant) getFieldValue(model, "instantParameter"))
-                .put("status", (Status) getFieldValue(model, "status"))
-                .put("booleanParameters", (List<Boolean>) getFieldValue(model, "booleanParameters"))
-                .put("byteParameters", (List<Byte>) getFieldValue(model, "byteParameters"))
-                .put("shortParameters", (List<Short>) getFieldValue(model, "shortParameters"))
-                .put("intParameters", (List<Integer>) getFieldValue(model, "intParameters"))
-                .put("longParameters", (List<Long>) getFieldValue(model, "longParameters"))
-                .put("bigIntParameters", (List<BigInteger>) getFieldValue(model, "bigIntParameters"))
-                .put("floatParameters", (List<Float>) getFieldValue(model, "floatParameters"))
-                .put("doubleParameters", (List<Double>) getFieldValue(model, "doubleParameters"))
-                .put("decimalParameters", (List<BigDecimal>) getFieldValue(model, "decimalParameters"))
-                .put("charParameters", (List<Character>) getFieldValue(model, "charParameters"))
-                .put("stringParameters", (List<String>) getFieldValue(model, "stringParameters"))
-                .put("instantParameters", (List<Instant>) getFieldValue(model, "instantParameters"))
-                .put("statuses", (List<Status>) getFieldValue(model, "statuses"))
-                .put("booleanParameterSet", (Set<Boolean>) getFieldValue(model, "booleanParameterSet"))
-                .put("byteParameterSet", (Set<Byte>) getFieldValue(model, "byteParameterSet"))
-                .put("shortParameterSet", (Set<Short>) getFieldValue(model, "shortParameterSet"))
-                .put("intParameterSet", (Set<Integer>) getFieldValue(model, "intParameterSet"))
-                .put("longParameterSet", (Set<Long>) getFieldValue(model, "longParameterSet"))
-                .put("bigIntParameterSet", (Set<BigInteger>) getFieldValue(model, "bigIntParameterSet"))
-                .put("floatParameterSet", (Set<Float>) getFieldValue(model, "floatParameterSet"))
-                .put("doubleParameterSet", (Set<Double>) getFieldValue(model, "doubleParameterSet"))
-                .put("decimalParameterSet", (Set<BigDecimal>) getFieldValue(model, "decimalParameterSet"))
-                .put("charParameterSet", (Set<Character>) getFieldValue(model, "charParameterSet"))
-                .put("stringParameterSet", (Set<String>) getFieldValue(model, "stringParameterSet"))
-                .put("instantParameterSet", (Set<Instant>) getFieldValue(model, "instantParameterSet"))
-                .put("statusSet", (Set<Status>) getFieldValue(model, "statusSet"))
-                .put("nested", convertFromObjectIfNotNull(nestedModelToJsonConverter, (Nested) getFieldValue(model, "nested")))
-                .put("nestedList", convertFromListIfNotNull(nestedModelToJsonConverter, (List<Nested>) getFieldValue(model, "nestedList")))
-                .put("nestedSet", convertFromSetIfNotNull(nestedModelToJsonConverter, (Set<Nested>) getFieldValue(model, "nestedSet")))
-                .put("booleanData", (Map<String, Boolean>) getFieldValue(model, "booleanData"))
-                .put("byteData", (Map<String, Byte>) getFieldValue(model, "byteData"))
-                .put("shortData", (Map<String, Short>) getFieldValue(model, "shortData"))
-                .put("integerData", (Map<String, Integer>) getFieldValue(model, "integerData"))
-                .put("longData", (Map<String, Long>) getFieldValue(model, "longData"))
-                .put("bigIntegerData", (Map<String, BigInteger>) getFieldValue(model, "bigIntegerData"))
-                .put("floatData", (Map<String, Float>) getFieldValue(model, "floatData"))
-                .put("doubleData", (Map<String, Double>) getFieldValue(model, "doubleData"))
-                .put("bigDecimalData", (Map<String, BigDecimal>) getFieldValue(model, "bigDecimalData"))
-                .put("characterData", (Map<String, Character>) getFieldValue(model, "characterData"))
-                .put("stringData", (Map<String, String>) getFieldValue(model, "stringData"))
-                .put("enumData", (Map<String, Status>) getFieldValue(model, "enumData"))
-                .put("instantData", (Map<String, Instant>) getFieldValue(model, "instantData"))
-                .put("nestedMap", convertFromMapIfNotNull(nestedModelToJsonConverter, (Map<String, Nested>) getFieldValue(model, "nestedMap")))
-                .build();
+        final JsonObjectBuilder builder = new JsonObjectBuilder();
+        putValues(model, builder);
+        return builder.build();
+    }
+
+    protected void putValues(final BodyRequest model,
+                             final JsonObjectBuilder builder) {
+        builder.put("booleanParameter", (Boolean) getFieldValue(model, "booleanParameter"));
+        builder.put("byteParameter", (Byte) getFieldValue(model, "byteParameter"));
+        builder.put("shortParameter", (Short) getFieldValue(model, "shortParameter"));
+        builder.put("intParameter", (Integer) getFieldValue(model, "intParameter"));
+        builder.put("longParameter", (Long) getFieldValue(model, "longParameter"));
+        builder.put("bigIntParameter", (BigInteger) getFieldValue(model, "bigIntParameter"));
+        builder.put("floatParameter", (Float) getFieldValue(model, "floatParameter"));
+        builder.put("doubleParameter", (Double) getFieldValue(model, "doubleParameter"));
+        builder.put("decimalParameter", (BigDecimal) getFieldValue(model, "decimalParameter"));
+        builder.put("charParameter", (Character) getFieldValue(model, "charParameter"));
+        builder.put("stringParameter", (String) getFieldValue(model, "stringParameter"));
+        builder.put("instantParameter", (Instant) getFieldValue(model, "instantParameter"));
+        builder.put("status", (Status) getFieldValue(model, "status"));
+        builder.put("booleanParameters", (List<Boolean>) getFieldValue(model, "booleanParameters"));
+        builder.put("byteParameters", (List<Byte>) getFieldValue(model, "byteParameters"));
+        builder.put("shortParameters", (List<Short>) getFieldValue(model, "shortParameters"));
+        builder.put("intParameters", (List<Integer>) getFieldValue(model, "intParameters"));
+        builder.put("longParameters", (List<Long>) getFieldValue(model, "longParameters"));
+        builder.put("bigIntParameters", (List<BigInteger>) getFieldValue(model, "bigIntParameters"));
+        builder.put("floatParameters", (List<Float>) getFieldValue(model, "floatParameters"));
+        builder.put("doubleParameters", (List<Double>) getFieldValue(model, "doubleParameters"));
+        builder.put("decimalParameters", (List<BigDecimal>) getFieldValue(model, "decimalParameters"));
+        builder.put("charParameters", (List<Character>) getFieldValue(model, "charParameters"));
+        builder.put("stringParameters", (List<String>) getFieldValue(model, "stringParameters"));
+        builder.put("instantParameters", (List<Instant>) getFieldValue(model, "instantParameters"));
+        builder.put("statuses", (List<Status>) getFieldValue(model, "statuses"));
+        builder.put("booleanParameterSet", (Set<Boolean>) getFieldValue(model, "booleanParameterSet"));
+        builder.put("byteParameterSet", (Set<Byte>) getFieldValue(model, "byteParameterSet"));
+        builder.put("shortParameterSet", (Set<Short>) getFieldValue(model, "shortParameterSet"));
+        builder.put("intParameterSet", (Set<Integer>) getFieldValue(model, "intParameterSet"));
+        builder.put("longParameterSet", (Set<Long>) getFieldValue(model, "longParameterSet"));
+        builder.put("bigIntParameterSet", (Set<BigInteger>) getFieldValue(model, "bigIntParameterSet"));
+        builder.put("floatParameterSet", (Set<Float>) getFieldValue(model, "floatParameterSet"));
+        builder.put("doubleParameterSet", (Set<Double>) getFieldValue(model, "doubleParameterSet"));
+        builder.put("decimalParameterSet", (Set<BigDecimal>) getFieldValue(model, "decimalParameterSet"));
+        builder.put("charParameterSet", (Set<Character>) getFieldValue(model, "charParameterSet"));
+        builder.put("stringParameterSet", (Set<String>) getFieldValue(model, "stringParameterSet"));
+        builder.put("instantParameterSet", (Set<Instant>) getFieldValue(model, "instantParameterSet"));
+        builder.put("statusSet", (Set<Status>) getFieldValue(model, "statusSet"));
+        builder.put("nested", convertFromObjectIfNotNull(nestedModelToJsonConverter, (Nested) getFieldValue(model, "nested")));
+        builder.put("nestedList", convertFromListIfNotNull(nestedModelToJsonConverter, (List<Nested>) getFieldValue(model, "nestedList")));
+        builder.put("nestedSet", convertFromSetIfNotNull(nestedModelToJsonConverter, (Set<Nested>) getFieldValue(model, "nestedSet")));
+        builder.put("booleanData", (Map<String, Boolean>) getFieldValue(model, "booleanData"));
+        builder.put("byteData", (Map<String, Byte>) getFieldValue(model, "byteData"));
+        builder.put("shortData", (Map<String, Short>) getFieldValue(model, "shortData"));
+        builder.put("integerData", (Map<String, Integer>) getFieldValue(model, "integerData"));
+        builder.put("longData", (Map<String, Long>) getFieldValue(model, "longData"));
+        builder.put("bigIntegerData", (Map<String, BigInteger>) getFieldValue(model, "bigIntegerData"));
+        builder.put("floatData", (Map<String, Float>) getFieldValue(model, "floatData"));
+        builder.put("doubleData", (Map<String, Double>) getFieldValue(model, "doubleData"));
+        builder.put("bigDecimalData", (Map<String, BigDecimal>) getFieldValue(model, "bigDecimalData"));
+        builder.put("characterData", (Map<String, Character>) getFieldValue(model, "characterData"));
+        builder.put("stringData", (Map<String, String>) getFieldValue(model, "stringData"));
+        builder.put("enumData", (Map<String, Status>) getFieldValue(model, "enumData"));
+        builder.put("instantData", (Map<String, Instant>) getFieldValue(model, "instantData"));
+        builder.put("nestedMap", convertFromMapIfNotNull(nestedModelToJsonConverter, (Map<String, Nested>) getFieldValue(model, "nestedMap")));
     }
 }

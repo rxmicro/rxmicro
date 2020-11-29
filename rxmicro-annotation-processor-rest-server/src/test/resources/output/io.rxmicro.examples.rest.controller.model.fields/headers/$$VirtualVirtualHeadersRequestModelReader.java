@@ -17,6 +17,13 @@ public final class $$VirtualVirtualHeadersRequestModelReader extends ModelReader
                                                final HttpRequest request,
                                                final boolean readParametersFromBody) {
         final $$VirtualVirtualHeadersRequest model = new $$VirtualVirtualHeadersRequest();
+        read(pathVariableMapping, request, model);
+        return model;
+    }
+
+    protected void read(final PathVariableMapping pathVariableMapping,
+                        final HttpRequest request,
+                        final $$VirtualVirtualHeadersRequest model) {
         final HttpHeaders httpHeaders = request.getHeaders();
         model.booleanParameter = toBoolean(httpHeaders.getValue("Boolean-Parameter"), HttpModelType.HEADER, "Boolean-Parameter");
         model.byteParameter = toByte(httpHeaders.getValue("Byte-Parameter"), HttpModelType.HEADER, "Byte-Parameter");
@@ -57,6 +64,5 @@ public final class $$VirtualVirtualHeadersRequestModelReader extends ModelReader
         model.stringParameterSet = toStringSet(httpHeaders.getValues("String-Parameter-Set"), HttpModelType.HEADER, "String-Parameter-Set");
         model.instantParameterSet = toInstantSet(httpHeaders.getValues("Instant-Parameter-Set"), HttpModelType.HEADER, "Instant-Parameter-Set");
         model.statusSet = toEnumSet(Status.class, httpHeaders.getValues("Status-Set"), HttpModelType.HEADER, "Status-Set");
-        return model;
     }
 }

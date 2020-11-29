@@ -18,6 +18,13 @@ public final class $$RequestModelReader extends ModelReader<Request> {
                         final HttpRequest request,
                         final boolean readParametersFromBody) {
         final Request model = new Request();
+        read(pathVariableMapping, request, model);
+        return model;
+    }
+
+    protected void read(final PathVariableMapping pathVariableMapping,
+                        final HttpRequest request,
+                        final Request model) {
         setFieldValue(model, "version", request.getVersion());
         setFieldValue(model, "headers", request.getHeaders());
         setFieldValue(model, "request", request);
@@ -28,6 +35,5 @@ public final class $$RequestModelReader extends ModelReader<Request> {
         setFieldValue(model, "body", request.getContent());
         final HttpHeaders httpHeaders = request.getHeaders();
         setFieldValue(model, "id", toString(httpHeaders.getValue("Request-Id"), HttpModelType.HEADER, "Request-Id"));
-        return model;
     }
 }

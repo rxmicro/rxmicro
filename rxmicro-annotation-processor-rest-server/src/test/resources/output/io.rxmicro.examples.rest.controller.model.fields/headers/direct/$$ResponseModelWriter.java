@@ -16,6 +16,11 @@ public final class $$ResponseModelWriter extends ModelWriter<Response> {
     @Override
     public void write(final Response model,
                       final HttpResponse response) {
+        setHeaders(model, response);
+    }
+
+    protected void setHeaders(final Response model,
+                              final HttpResponse response) {
         response.setHeader("booleanParameter", model.booleanParameter);
         response.setHeader("byteParameter", model.byteParameter);
         response.setHeader("shortParameter", model.shortParameter);

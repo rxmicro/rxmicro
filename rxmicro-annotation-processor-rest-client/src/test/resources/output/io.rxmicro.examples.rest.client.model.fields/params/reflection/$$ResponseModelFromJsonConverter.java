@@ -19,6 +19,12 @@ public final class $$ResponseModelFromJsonConverter extends ModelFromJsonConvert
     @Override
     public Response fromJsonObject(final Map<String, Object> params) {
         final Response model = new Response();
+        readBody(params, model);
+        return model;
+    }
+
+    protected void readBody(final Map<String, Object> params,
+                            final Response model) {
         setFieldValue(model, "booleanParameter", toBoolean(params.get("booleanParameter"), "booleanParameter"));
         setFieldValue(model, "byteParameter", toByte(params.get("byteParameter"), "byteParameter"));
         setFieldValue(model, "shortParameter", toShort(params.get("shortParameter"), "shortParameter"));
@@ -75,6 +81,5 @@ public final class $$ResponseModelFromJsonConverter extends ModelFromJsonConvert
         setFieldValue(model, "enumData", toEnumMap(Status.class, params.get("enumData"), "enumData"));
         setFieldValue(model, "instantData", toInstantMap(params.get("instantData"), "instantData"));
         setFieldValue(model, "nestedMap", convertToMapIfNotNull(nestedModelFromJsonConverter, params.get("nestedMap"), "nestedMap"));
-        return model;
     }
 }

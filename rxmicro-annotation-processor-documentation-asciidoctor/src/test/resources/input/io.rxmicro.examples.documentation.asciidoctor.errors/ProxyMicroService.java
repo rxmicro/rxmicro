@@ -44,7 +44,7 @@ final class ProxyMicroService {
     )
     @ModelExceptionErrorResponse(HttpClientTimeoutException.class)  // <5>
     @ModelExceptionErrorResponse(NotAcceptableException.class)      // <6>
-    @ModelExceptionErrorResponse(CustomErrorModelException.class)   // <7>
+    @ModelExceptionErrorResponse(CustomErrorModelException.class)   // <6>
     CompletableFuture<Optional<Response>> get() {
         return externalMicroService.get().thenApply(Optional::of);
     }

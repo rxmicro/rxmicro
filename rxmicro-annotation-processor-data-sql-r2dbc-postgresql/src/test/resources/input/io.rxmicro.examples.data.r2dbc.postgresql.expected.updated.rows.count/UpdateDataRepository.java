@@ -79,7 +79,6 @@ public interface UpdateDataRepository {
     Mono<Void> update11(Account account);
 
     // tag::content[]
-    // <1>
     @ExpectedUpdatedRowsCount(10)
     @Update("UPDATE ${table} SET first_name=?, last_name=? WHERE email=?")
     Mono<Integer> update12(String firstName, String lastName, String email);

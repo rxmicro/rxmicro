@@ -1,15 +1,18 @@
 <#include "../../common-lib.javaftl">
 <#-- -------------------------------------------------------------------------------------------------------- -->
+<#assign HAS_INTERVALS_OR_PATH_VARS_OR_HEADERS=JAVA_MODEL_CLASS.internals?has_content || JAVA_MODEL_CLASS.pathVariableEntries?has_content || JAVA_MODEL_CLASS.headerEntries?has_content>
+<#assign HAS_PARAMETERS=JAVA_MODEL_CLASS.paramEntries?has_content>
+<#-- -------------------------------------------------------------------------------------------------------- -->
 public final class ${JAVA_MODEL_CLASS.modelReaderImplSimpleClassName} extends ModelReader<${JAVA_MODEL_CLASS.javaSimpleClassName}> {
-
     <#if (HTTP_READER_TYPE.name() == "HTTP_BODY" || HTTP_READER_TYPE.name() == "QUERY_OR_HTTP_BODY") && PARAMS_PRESENT>
+
     private final ExchangeDataFormatConverter<Object> exchangeDataFormatConverter =
             new JsonExchangeDataFormatConverter(false);
 
     private final ${JAVA_MODEL_CLASS.modelFromJsonConverterImplSimpleClassName} ${JAVA_MODEL_CLASS.fromJsonConverterInstanceName} =
             new ${JAVA_MODEL_CLASS.modelFromJsonConverterImplSimpleClassName}();
-
     </#if>
+
     @Override
     public ${JAVA_MODEL_CLASS.javaSimpleClassName       } read(final PathVariableMapping pathVariableMapping,
            ${space(JAVA_MODEL_CLASS.javaSimpleClassName)}      final HttpRequest request,
@@ -17,13 +20,15 @@ public final class ${JAVA_MODEL_CLASS.modelReaderImplSimpleClassName} extends Mo
         <#-- -------------------------------------------------------------------------------------------------------- -->
         <#if HTTP_READER_TYPE.name() == "INTERNAL_VARIABLE_ONLY" || HTTP_READER_TYPE.name() == "PATH_VARIABLES_ONLY">
         final ${JAVA_MODEL_CLASS.javaSimpleClassName} model = new ${JAVA_MODEL_CLASS.javaSimpleClassName}();
-        <@setSimpleProperties shift=""/>
+        read(pathVariableMapping, request, model);
         return model;
         <#-- -------------------------------------------------------------------------------------------------------- -->
         <#elseif HTTP_READER_TYPE.name() == "QUERY_STRING">
         final ${JAVA_MODEL_CLASS.javaSimpleClassName} model = new ${JAVA_MODEL_CLASS.javaSimpleClassName}();
-        <@setSimpleProperties shift=""/>
-        <@setQueryParams shift=""/>
+        <#if HAS_PARAMETERS>
+        final QueryParams params = extractParams(request.getQueryString());
+        </#if>
+        read(pathVariableMapping, request, <#if HAS_PARAMETERS>params, </#if>model);
         return model;
         <#-- -------------------------------------------------------------------------------------------------------- -->
         <#elseif HTTP_READER_TYPE.name() == "HTTP_BODY">
@@ -35,14 +40,15 @@ public final class ${JAVA_MODEL_CLASS.modelReaderImplSimpleClassName} extends Mo
             <@handleHttpBody shift="    "/>
         } else {
             final ${JAVA_MODEL_CLASS.javaSimpleClassName} model = new ${JAVA_MODEL_CLASS.javaSimpleClassName}();
-            <@setSimpleProperties shift="    "/>
-            <@setQueryParams shift="    "/>
+            <#if HAS_PARAMETERS>
+            final QueryParams params = extractParams(request.getQueryString());
+            </#if>
+            read(pathVariableMapping, request, <#if HAS_PARAMETERS>params, </#if>model);
             return model;
         }
         <#else>
         final ${JAVA_MODEL_CLASS.javaSimpleClassName} model = new ${JAVA_MODEL_CLASS.javaSimpleClassName}();
-        <@setSimpleProperties shift=""/>
-        <@setQueryParams shift=""/>
+        read(pathVariableMapping, request, model);
         return model;
         </#if>
         <#-- -------------------------------------------------------------------------------------------------------- -->
@@ -50,6 +56,20 @@ public final class ${JAVA_MODEL_CLASS.modelReaderImplSimpleClassName} extends Mo
         return new ${JAVA_MODEL_CLASS.javaSimpleClassName}();
         </#if>
     }
+    <#if HTTP_READER_TYPE.name() == "INTERNAL_VARIABLE_ONLY" || HTTP_READER_TYPE.name() == "PATH_VARIABLES_ONLY" ||
+         HTTP_READER_TYPE.name() == "QUERY_STRING" || HTTP_READER_TYPE.name() == "QUERY_OR_HTTP_BODY" ||
+        (HTTP_READER_TYPE.name() == "HTTP_BODY" && HAS_INTERVALS_OR_PATH_VARS_OR_HEADERS)>
+
+    protected void read(final PathVariableMapping pathVariableMapping,
+                        final HttpRequest request,<#if (HTTP_READER_TYPE.name() == "QUERY_STRING" || HTTP_READER_TYPE.name() == "QUERY_OR_HTTP_BODY") && HAS_PARAMETERS>
+                        final QueryParams params,</#if>
+                        final ${JAVA_MODEL_CLASS.javaSimpleClassName} model) {
+        <@setSimpleProperties shift=""/>
+        <#if HTTP_READER_TYPE.name() == "QUERY_STRING" || HTTP_READER_TYPE.name() == "QUERY_OR_HTTP_BODY">
+        <@setQueryParams shift=""/>
+        </#if>
+    }
+    </#if>
 }
 <#-- -------------------------------------------------------------------------------------------------------- -->
 <#macro handleHttpBody shift>
@@ -59,7 +79,9 @@ public final class ${JAVA_MODEL_CLASS.modelReaderImplSimpleClassName} extends Mo
     <#else>
         ${shift}final ${JAVA_MODEL_CLASS.javaSimpleClassName} model = new ${JAVA_MODEL_CLASS.javaSimpleClassName}();
     </#if>
-        <@setSimpleProperties shift=shift/>
+        <#if HAS_INTERVALS_OR_PATH_VARS_OR_HEADERS>
+        read(pathVariableMapping, request, model);
+        </#if>
         ${shift}return model;
 </#macro>
 <#-- -------------------------------------------------------------------------------------------------------- -->
@@ -182,8 +204,6 @@ public final class ${JAVA_MODEL_CLASS.modelReaderImplSimpleClassName} extends Mo
 </#macro>
 <#-- -------------------------------------------------------------------------------------------------------- -->
 <#macro setQueryParams shift>
-    <#if JAVA_MODEL_CLASS.paramEntries?has_content>
-        ${shift}final QueryParams params = extractParams(request.getQueryString());
     <#list JAVA_MODEL_CLASS.paramEntries as fieldEntry>
         <#if fieldEntry.value.object>
         throwNotImplYet("Nested model lists does not supported yet. " +
@@ -205,7 +225,6 @@ public final class ${JAVA_MODEL_CLASS.modelReaderImplSimpleClassName} extends Mo
         <@setParamFieldValue entry=fieldEntry shift=shift/>
         </#if>
     </#list>
-    </#if>
 </#macro>
 <#-- -------------------------------------------------------------------------------------------------------- -->
 <#macro setParamFieldValue entry shift>

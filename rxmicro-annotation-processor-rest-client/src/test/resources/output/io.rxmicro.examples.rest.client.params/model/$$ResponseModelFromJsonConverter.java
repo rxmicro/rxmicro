@@ -12,8 +12,13 @@ public final class $$ResponseModelFromJsonConverter extends ModelFromJsonConvert
     @Override
     public Response fromJsonObject(final Map<String, Object> params) {
         final Response model = new Response();
+        readBody(params, model);
+        return model;
+    }
+
+    protected void readBody(final Map<String, Object> params,
+                            final Response model) {
         model.endpointVersion = toString(params.get("endpoint_version"), "endpoint_version");
         model.useProxy = toBoolean(params.get("use-Proxy"), "use-Proxy");
-        return model;
     }
 }

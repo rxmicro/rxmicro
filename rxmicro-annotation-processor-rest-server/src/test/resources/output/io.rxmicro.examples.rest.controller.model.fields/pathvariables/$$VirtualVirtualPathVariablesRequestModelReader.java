@@ -16,6 +16,13 @@ public final class $$VirtualVirtualPathVariablesRequestModelReader extends Model
                                                      final HttpRequest request,
                                                      final boolean readParametersFromBody) {
         final $$VirtualVirtualPathVariablesRequest model = new $$VirtualVirtualPathVariablesRequest();
+        read(pathVariableMapping, request, model);
+        return model;
+    }
+
+    protected void read(final PathVariableMapping pathVariableMapping,
+                        final HttpRequest request,
+                        final $$VirtualVirtualPathVariablesRequest model) {
         model.booleanParameter = toBoolean(pathVariableMapping.getValue("a"), HttpModelType.PATH, "a");
         model.byteParameter = toByte(pathVariableMapping.getValue("b"), HttpModelType.PATH, "b");
         model.shortParameter = toShort(pathVariableMapping.getValue("c"), HttpModelType.PATH, "c");
@@ -29,6 +36,5 @@ public final class $$VirtualVirtualPathVariablesRequestModelReader extends Model
         model.stringParameter = toString(pathVariableMapping.getValue("k"), HttpModelType.PATH, "k");
         model.instantParameter = toInstant(pathVariableMapping.getValue("l"), HttpModelType.PATH, "l");
         model.status = toEnum(Status.class, pathVariableMapping.getValue("m"), HttpModelType.PATH, "m");
-        return model;
     }
 }

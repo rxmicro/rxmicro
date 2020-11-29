@@ -12,8 +12,13 @@ public final class $$NestedModelToJsonConverter extends ModelToJsonConverter<Nes
 
     @Override
     public Map<String, Object> toJsonObject(final Nested model) {
-        return new JsonObjectBuilder()
-                .put("value", model.getValue())
-                .build();
+        final JsonObjectBuilder builder = new JsonObjectBuilder();
+        putValues(model, builder);
+        return builder.build();
+    }
+
+    protected void putValues(final Nested model,
+                             final JsonObjectBuilder builder) {
+        builder.put("value", model.getValue());
     }
 }

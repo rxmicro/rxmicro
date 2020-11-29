@@ -16,9 +16,15 @@ public final class $$VirtualSimpleUsageRequestModelReader extends ModelReader<$$
                                             final HttpRequest request,
                                             final boolean readParametersFromBody) {
         final $$VirtualSimpleUsageRequest model = new $$VirtualSimpleUsageRequest();
+        read(pathVariableMapping, request, model);
+        return model;
+    }
+
+    protected void read(final PathVariableMapping pathVariableMapping,
+                        final HttpRequest request,
+                        final $$VirtualSimpleUsageRequest model) {
         final HttpHeaders httpHeaders = request.getHeaders();
         model.endpointVersion = toString(httpHeaders.getValue("Endpoint-Version"), HttpModelType.HEADER, "Endpoint-Version");
         model.useProxy = toBoolean(httpHeaders.getValue("UseProxy"), HttpModelType.HEADER, "UseProxy");
-        return model;
     }
 }
