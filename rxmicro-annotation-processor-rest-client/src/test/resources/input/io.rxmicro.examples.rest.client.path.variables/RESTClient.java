@@ -33,8 +33,8 @@ public interface RESTClient {
 
     // <1>
     @GET("/${category}/${class}-${subType}")
-    CompletableFuture<Void> consume(final @PathVariable String category,       // <2>
-                                    final @PathVariable("class") String type,  // <3>
-                                    final @PathVariable String subType);
+    CompletableFuture<Void> consume(@PathVariable String category,       // <2>
+                                    @PathVariable("class") String type,  // <3>
+                                    @PathVariable String subType);
 }
 // end::content[]

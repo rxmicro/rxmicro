@@ -12,8 +12,13 @@ public final class $$VirtualREST2Request6ModelToJsonConverter extends ModelToJso
 
     @Override
     public Map<String, Object> toJsonObject(final $$VirtualREST2Request6 model) {
-        return new JsonObjectBuilder()
-                .put("email", model.email)
-                .build();
+        final JsonObjectBuilder builder = new JsonObjectBuilder();
+        putValuesToBuilder(model, builder);
+        return builder.build();
+    }
+
+    protected void putValuesToBuilder(final $$VirtualREST2Request6 model,
+                                      final JsonObjectBuilder builder) {
+        builder.put("email", model.email);
     }
 }

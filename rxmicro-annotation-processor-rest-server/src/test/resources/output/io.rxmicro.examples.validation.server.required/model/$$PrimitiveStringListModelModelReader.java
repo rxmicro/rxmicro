@@ -17,6 +17,14 @@ public final class $$PrimitiveStringListModelModelReader extends ModelReader<Pri
                                          final boolean readParametersFromBody) {
         final PrimitiveStringListModel model = new PrimitiveStringListModel();
         final QueryParams params = extractParams(request.getQueryString());
+        readPrimitivesToModel(pathVariableMapping, request, params, model);
+        return model;
+    }
+
+    protected void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
+                                         final HttpRequest request,
+                                         final QueryParams params,
+                                         final PrimitiveStringListModel model) {
         model.requiredListWithNotEmptyItems = toStringList(params.getValues("requiredListWithNotEmptyItems"), HttpModelType.PARAMETER, "requiredListWithNotEmptyItems");
         model.nullableListWithNotEmptyItems = toStringList(params.getValues("nullableListWithNotEmptyItems"), HttpModelType.PARAMETER, "nullableListWithNotEmptyItems");
         model.requiredListWithNullableItems = toStringList(params.getValues("requiredListWithNullableItems"), HttpModelType.PARAMETER, "requiredListWithNullableItems");
@@ -25,6 +33,5 @@ public final class $$PrimitiveStringListModelModelReader extends ModelReader<Pri
         model.nullableListWithNullableItems = toStringList(params.getValues("nullableListWithNullableItems"), HttpModelType.PARAMETER, "nullableListWithNullableItems");
         model.nullableListWithEmptyItems = toStringList(params.getValues("nullableListWithEmptyItems"), HttpModelType.PARAMETER, "nullableListWithEmptyItems");
         model.nullableListWithNullableOrEmptyItems = toStringList(params.getValues("nullableListWithNullableOrEmptyItems"), HttpModelType.PARAMETER, "nullableListWithNullableOrEmptyItems");
-        return model;
     }
 }

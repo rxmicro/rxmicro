@@ -32,7 +32,7 @@ public final class $$ReflectionPathVariablesRestClient extends AbstractRestClien
 
     @Override
     public CompletionStage<Void> put(final Request request) {
-        final String path = requestPathBuilder.build("/path-variables/reflection/?/?/?/?/?/?/?/?/?/?/?/?/?/?", request);
+        final String path = requestPathBuilder.build("/path-variables/reflection/${a}/${b}/${c}/${d}/${e}/${f}/${g}/${j}/${h}/${i}/${j}/${k}/${l}/${m}", "/path-variables/reflection/?/?/?/?/?/?/?/?/?/?/?/?/?/?", request);
         final CompletableFuture<ClientHttpResponse> response = client
                 .sendAsync("PUT", path, EMPTY_HEADERS)
                 .handle(throwExceptionIfNotSuccess());

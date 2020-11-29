@@ -28,8 +28,8 @@ public final class $$ResponseModelWriter extends ModelWriter<Response> {
     @Override
     public void write(final Response model,
                       final HttpResponse response) {
-        final Map<String, Object> json = responseModelToJsonConverter.toJsonObject(model);
         response.setHeader(HttpStandardHeaderNames.CONTENT_TYPE, outputMimeType);
+        final Map<String, Object> json = responseModelToJsonConverter.toJsonObject(model);
         response.setContent(exchangeDataFormatConverter.toBytes(json));
     }
 }

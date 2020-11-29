@@ -34,7 +34,7 @@ public final class $$RESTClient extends AbstractRestClient implements RESTClient
 
     @Override
     public CompletableFuture<Void> consume(final Request request) {
-        final String path = requestPathBuilder.build("/?/?-?", request);
+        final String path = requestPathBuilder.build("/${category}/${class}-${subType}", "/?/?-?", request);
         final CompletableFuture<ClientHttpResponse> response = client
                 .sendAsync("GET", path, EMPTY_HEADERS)
                 .handle(throwExceptionIfNotSuccess());
@@ -45,7 +45,7 @@ public final class $$RESTClient extends AbstractRestClient implements RESTClient
     @Override
     public CompletableFuture<Void> consume(final String category, final String type, final String subType) {
         final $$VirtualRESTRequest virtualRequest = new $$VirtualRESTRequest(category, type, subType);
-        final String path = virtualRESTRequestPathBuilder.build("/?/?-?", virtualRequest);
+        final String path = virtualRESTRequestPathBuilder.build("/${category}/${class}-${subType}", "/?/?-?", virtualRequest);
         final CompletableFuture<ClientHttpResponse> response = client
                 .sendAsync("GET", path, EMPTY_HEADERS)
                 .handle(throwExceptionIfNotSuccess());

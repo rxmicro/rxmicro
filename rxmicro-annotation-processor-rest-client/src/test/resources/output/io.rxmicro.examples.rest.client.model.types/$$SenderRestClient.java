@@ -137,7 +137,7 @@ public final class $$SenderRestClient extends AbstractRestClient implements Send
 
     @Override
     public CompletionStage<Void> consume(final HttpBodyWithPathVarRequest request) {
-        final String path = httpBodyWithPathVarRequestPathBuilder.build("/consume03/?/?/?/?/?/?/?/?/?/?/?/?/?/?", request);
+        final String path = httpBodyWithPathVarRequestPathBuilder.build("/consume03/${a}/${b}/${c}/${d}/${e}/${f}/${g}/${j}/${h}/${i}/${j}/${k}/${l}/${m}", "/consume03/?/?/?/?/?/?/?/?/?/?/?/?/?/?", request);
         final Object body = httpBodyWithPathVarRequestModelToJsonConverter.toJson(request);
         final CompletableFuture<ClientHttpResponse> response = client
                 .sendAsync("POST", path, EMPTY_HEADERS, body)
@@ -148,7 +148,7 @@ public final class $$SenderRestClient extends AbstractRestClient implements Send
 
     @Override
     public CompletionStage<Void> consume(final HttpBodyWithPathVarAndHeadersRequest request) {
-        final String path = httpBodyWithPathVarAndHeadersRequestPathBuilder.build("/consume06/?/?/?/?/?/?/?/?/?/?/?/?/?/?", request);
+        final String path = httpBodyWithPathVarAndHeadersRequestPathBuilder.build("/consume06/${a}/${b}/${c}/${d}/${e}/${f}/${g}/${j}/${h}/${i}/${j}/${k}/${l}/${m}", "/consume06/?/?/?/?/?/?/?/?/?/?/?/?/?/?", request);
         final HeaderBuilder headerBuilder = new HeaderBuilder();
         httpBodyWithPathVarAndHeadersRequestRequestModelExtractor.extract(request, headerBuilder);
         final Object body = httpBodyWithPathVarAndHeadersRequestModelToJsonConverter.toJson(request);
@@ -161,7 +161,7 @@ public final class $$SenderRestClient extends AbstractRestClient implements Send
 
     @Override
     public CompletionStage<Void> get(final PathVarOnlyRequest request) {
-        final String path = pathVarOnlyRequestPathBuilder.build("/consume12/?/?/?/?/?/?/?/?/?/?/?/?/?/?", request);
+        final String path = pathVarOnlyRequestPathBuilder.build("/consume12/${a}/${b}/${c}/${d}/${e}/${f}/${g}/${j}/${h}/${i}/${j}/${k}/${l}/${m}", "/consume12/?/?/?/?/?/?/?/?/?/?/?/?/?/?", request);
         final CompletableFuture<ClientHttpResponse> response = client
                 .sendAsync("GET", path, EMPTY_HEADERS)
                 .handle(throwExceptionIfNotSuccess());
@@ -171,7 +171,7 @@ public final class $$SenderRestClient extends AbstractRestClient implements Send
 
     @Override
     public CompletionStage<Void> post(final PathVarOnlyRequest request) {
-        final String path = pathVarOnlyRequestPathBuilder.build("/consume12/?/?/?/?/?/?/?/?/?/?/?/?/?/?", request);
+        final String path = pathVarOnlyRequestPathBuilder.build("/consume12/${a}/${b}/${c}/${d}/${e}/${f}/${g}/${j}/${h}/${i}/${j}/${k}/${l}/${m}", "/consume12/?/?/?/?/?/?/?/?/?/?/?/?/?/?", request);
         final CompletableFuture<ClientHttpResponse> response = client
                 .sendAsync("POST", path, EMPTY_HEADERS)
                 .handle(throwExceptionIfNotSuccess());
@@ -205,7 +205,7 @@ public final class $$SenderRestClient extends AbstractRestClient implements Send
 
     @Override
     public CompletionStage<Void> get(final PathVarAndHeadersRequest request) {
-        final String path = pathVarAndHeadersRequestPathBuilder.build("/consume16/?/?/?/?/?/?/?/?/?/?/?/?/?/?", request);
+        final String path = pathVarAndHeadersRequestPathBuilder.build("/consume16/${a}/${b}/${c}/${d}/${e}/${f}/${g}/${j}/${h}/${i}/${j}/${k}/${l}/${m}", "/consume16/?/?/?/?/?/?/?/?/?/?/?/?/?/?", request);
         final HeaderBuilder headerBuilder = new HeaderBuilder();
         pathVarAndHeadersRequestRequestModelExtractor.extract(request, headerBuilder);
         final CompletableFuture<ClientHttpResponse> response = client
@@ -217,7 +217,7 @@ public final class $$SenderRestClient extends AbstractRestClient implements Send
 
     @Override
     public CompletionStage<Void> post(final PathVarAndHeadersRequest request) {
-        final String path = pathVarAndHeadersRequestPathBuilder.build("/consume16/?/?/?/?/?/?/?/?/?/?/?/?/?/?", request);
+        final String path = pathVarAndHeadersRequestPathBuilder.build("/consume16/${a}/${b}/${c}/${d}/${e}/${f}/${g}/${j}/${h}/${i}/${j}/${k}/${l}/${m}", "/consume16/?/?/?/?/?/?/?/?/?/?/?/?/?/?", request);
         final HeaderBuilder headerBuilder = new HeaderBuilder();
         pathVarAndHeadersRequestRequestModelExtractor.extract(request, headerBuilder);
         final CompletableFuture<ClientHttpResponse> response = client
@@ -254,7 +254,7 @@ public final class $$SenderRestClient extends AbstractRestClient implements Send
 
     @Override
     public CompletionStage<Void> consume(final QueryStringWithPathVarRequest request) {
-        final String path = queryStringWithPathVarRequestPathBuilder.build("/consume43/?/?/?/?/?/?/?/?/?/?/?/?/?/?", request);
+        final String path = queryStringWithPathVarRequestPathBuilder.build("/consume43/${a}/${b}/${c}/${d}/${e}/${f}/${g}/${j}/${h}/${i}/${j}/${k}/${l}/${m}", "/consume43/?/?/?/?/?/?/?/?/?/?/?/?/?/?", request);
         final QueryBuilder queryBuilder = new QueryBuilder();
         queryStringWithPathVarRequestRequestModelExtractor.extract(request, queryBuilder);
         final CompletableFuture<ClientHttpResponse> response = client
@@ -266,7 +266,7 @@ public final class $$SenderRestClient extends AbstractRestClient implements Send
 
     @Override
     public CompletionStage<Void> consume(final QueryStringWithPathVarAndHeadersRequest request) {
-        final String path = queryStringWithPathVarAndHeadersRequestPathBuilder.build("/consume46/?/?/?/?/?/?/?/?/?/?/?/?/?/?", request);
+        final String path = queryStringWithPathVarAndHeadersRequestPathBuilder.build("/consume46/${a}/${b}/${c}/${d}/${e}/${f}/${g}/${j}/${h}/${i}/${j}/${k}/${l}/${m}", "/consume46/?/?/?/?/?/?/?/?/?/?/?/?/?/?", request);
         final HeaderBuilder headerBuilder = new HeaderBuilder();
         final QueryBuilder queryBuilder = new QueryBuilder();
         queryStringWithPathVarAndHeadersRequestRequestModelExtractor.extract(request, headerBuilder, queryBuilder);

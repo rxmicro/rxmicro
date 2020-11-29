@@ -12,7 +12,12 @@ public final class $$AccountModelFromJsonConverter extends ModelFromJsonConverte
     @Override
     public Account fromJsonObject(final Map<String, Object> params) {
         final Account model = new Account();
-        model.value = toString(params.get("value"), "value");
+        readParamsToModel(params, model);
         return model;
+    }
+
+    protected void readParamsToModel(final Map<String, Object> params,
+                                     final Account model) {
+        model.value = toString(params.get("value"), "value");
     }
 }

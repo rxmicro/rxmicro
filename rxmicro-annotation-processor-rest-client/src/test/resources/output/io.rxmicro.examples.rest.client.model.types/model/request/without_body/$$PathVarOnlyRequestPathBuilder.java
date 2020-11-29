@@ -8,16 +8,10 @@ import io.rxmicro.rest.client.detail.PathBuilder;
 public final class $$PathVarOnlyRequestPathBuilder extends PathBuilder<PathVarOnlyRequest> {
 
     @Override
-    public String build(final String urlTemplate,
+    public String build(final String key,
+                        final String urlTemplate,
                         final PathVarOnlyRequest model) {
-        if ("/consume12/?/?/?/?/?/?/?/?/?/?/?/?/?/?".equals(urlTemplate)) {
-            // /consume12/${a}/${b}/${c}/${d}/${e}/${f}/${g}/${j}/${h}/${i}/${j}/${k}/${l}/${m}
-            return format(urlTemplate, model.booleanPathVariable, model.bytePathVariable, model.shortPathVariable, model.intPathVariable, model.longPathVariable, model.bigIntegerPathVariable, model.floatPathVariable, model.charPathVariable, model.doublePathVariable, model.decimalPathVariable, model.charPathVariable, model.stringPathVariable, model.instantPathVariable, model.enumPathVariable);
-        }
-        if ("/consume12/?/?/?/?/?/?/?/?/?/?/?/?/?/?".equals(urlTemplate)) {
-            // /consume12/${a}/${b}/${c}/${d}/${e}/${f}/${g}/${j}/${h}/${i}/${j}/${k}/${l}/${m}
-            return format(urlTemplate, model.booleanPathVariable, model.bytePathVariable, model.shortPathVariable, model.intPathVariable, model.longPathVariable, model.bigIntegerPathVariable, model.floatPathVariable, model.charPathVariable, model.doublePathVariable, model.decimalPathVariable, model.charPathVariable, model.stringPathVariable, model.instantPathVariable, model.enumPathVariable);
-        }
-        throw new UnsupportedOperationException("Unsupported url template: " + urlTemplate);
+        // /consume12/${a}/${b}/${c}/${d}/${e}/${f}/${g}/${j}/${h}/${i}/${j}/${k}/${l}/${m}
+        return format(urlTemplate, model.booleanPathVariable, model.bytePathVariable, model.shortPathVariable, model.intPathVariable, model.longPathVariable, model.bigIntegerPathVariable, model.floatPathVariable, model.charPathVariable, model.doublePathVariable, model.decimalPathVariable, model.charPathVariable, model.stringPathVariable, model.instantPathVariable, model.enumPathVariable);
     }
 }

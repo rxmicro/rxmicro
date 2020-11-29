@@ -12,6 +12,12 @@ public final class $$ModelModelFromJsonConverter extends ModelFromJsonConverter<
     @Override
     public Model fromJsonObject(final Map<String, Object> params) {
         final Model model = new Model();
+        readParamsToModel(params, model);
+        return model;
+    }
+
+    protected void readParamsToModel(final Map<String, Object> params,
+                                     final Model model) {
         model.optionalParameter = toString(params.get("optionalParameter"), "optionalParameter");
         model.booleanParameter = toBoolean(params.get("booleanParameter"), "booleanParameter");
         model.byteParameter = toByte(params.get("byteParameter"), "byteParameter");
@@ -92,6 +98,5 @@ public final class $$ModelModelFromJsonConverter extends ModelFromJsonConverter<
         model.lng11cm = toBigDecimal(params.get("lng11cm"), "lng11cm");
         model.lat1cm = toBigDecimal(params.get("lat1cm"), "lat1cm");
         model.lng1cm = toBigDecimal(params.get("lng1cm"), "lng1cm");
-        return model;
     }
 }

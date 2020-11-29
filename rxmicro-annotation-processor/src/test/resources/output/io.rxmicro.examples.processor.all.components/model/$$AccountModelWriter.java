@@ -28,8 +28,8 @@ public final class $$AccountModelWriter extends ModelWriter<Account> {
     @Override
     public void write(final Account model,
                       final HttpResponse response) {
-        final Map<String, Object> json = accountModelToJsonConverter.toJsonObject(model);
         response.setHeader(HttpStandardHeaderNames.CONTENT_TYPE, outputMimeType);
+        final Map<String, Object> json = accountModelToJsonConverter.toJsonObject(model);
         response.setContent(exchangeDataFormatConverter.toBytes(json));
     }
 }

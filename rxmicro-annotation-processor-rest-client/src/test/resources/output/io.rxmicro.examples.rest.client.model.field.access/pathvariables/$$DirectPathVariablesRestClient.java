@@ -32,7 +32,7 @@ public final class $$DirectPathVariablesRestClient extends AbstractRestClient im
 
     @Override
     public CompletionStage<Void> put(final Request request) {
-        final String path = requestPathBuilder.build("/path-variables/direct/?/?/?/?/?/?/?/?/?/?/?/?/?/?", request);
+        final String path = requestPathBuilder.build("/path-variables/direct/${a}/${b}/${c}/${d}/${e}/${f}/${g}/${j}/${h}/${i}/${j}/${k}/${l}/${m}", "/path-variables/direct/?/?/?/?/?/?/?/?/?/?/?/?/?/?", request);
         final CompletableFuture<ClientHttpResponse> response = client
                 .sendAsync("PUT", path, EMPTY_HEADERS)
                 .handle(throwExceptionIfNotSuccess());

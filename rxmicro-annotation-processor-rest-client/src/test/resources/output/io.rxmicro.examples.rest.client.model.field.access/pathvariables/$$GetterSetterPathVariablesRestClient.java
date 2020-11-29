@@ -32,7 +32,7 @@ public final class $$GetterSetterPathVariablesRestClient extends AbstractRestCli
 
     @Override
     public CompletionStage<Void> put(final Request request) {
-        final String path = requestPathBuilder.build("/path-variables/gettersetter/?/?/?/?/?/?/?/?/?/?/?/?/?/?", request);
+        final String path = requestPathBuilder.build("/path-variables/gettersetter/${a}/${b}/${c}/${d}/${e}/${f}/${g}/${j}/${h}/${i}/${j}/${k}/${l}/${m}", "/path-variables/gettersetter/?/?/?/?/?/?/?/?/?/?/?/?/?/?", request);
         final CompletableFuture<ClientHttpResponse> response = client
                 .sendAsync("PUT", path, EMPTY_HEADERS)
                 .handle(throwExceptionIfNotSuccess());

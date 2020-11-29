@@ -17,10 +17,17 @@ public final class $$StringModelWithRequiredAndNotEmptyValidatorsOnlyModelReader
                                                                  final boolean readParametersFromBody) {
         final StringModelWithRequiredAndNotEmptyValidatorsOnly model = new StringModelWithRequiredAndNotEmptyValidatorsOnly();
         final QueryParams params = extractParams(request.getQueryString());
+        readPrimitivesToModel(pathVariableMapping, request, params, model);
+        return model;
+    }
+
+    protected void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
+                                         final HttpRequest request,
+                                         final QueryParams params,
+                                         final StringModelWithRequiredAndNotEmptyValidatorsOnly model) {
         model.string = toString(params.getValue("string"), HttpModelType.PARAMETER, "string");
         model.minLength = toString(params.getValue("minLength"), HttpModelType.PARAMETER, "minLength");
         model.length = toString(params.getValue("length"), HttpModelType.PARAMETER, "length");
         model.enumeration = toString(params.getValue("enumeration"), HttpModelType.PARAMETER, "enumeration");
-        return model;
     }
 }

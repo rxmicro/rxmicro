@@ -17,12 +17,19 @@ public final class $$NotStringModelModelReader extends ModelReader<NotStringMode
                                final boolean readParametersFromBody) {
         final NotStringModel model = new NotStringModel();
         final QueryParams params = extractParams(request.getQueryString());
+        readPrimitivesToModel(pathVariableMapping, request, params, model);
+        return model;
+    }
+
+    protected void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
+                                         final HttpRequest request,
+                                         final QueryParams params,
+                                         final NotStringModel model) {
         model.requiredPrimitive = toInteger(params.getValue("requiredPrimitive"), HttpModelType.PARAMETER, "requiredPrimitive");
         model.nullablePrimitive = toInteger(params.getValue("nullablePrimitive"), HttpModelType.PARAMETER, "nullablePrimitive");
         model.requiredListWithRequiredItems = toIntegerList(params.getValues("requiredListWithRequiredItems"), HttpModelType.PARAMETER, "requiredListWithRequiredItems");
         model.requiredListWithNullableItems = toIntegerList(params.getValues("requiredListWithNullableItems"), HttpModelType.PARAMETER, "requiredListWithNullableItems");
         model.nullableListWithRequiredItems = toIntegerList(params.getValues("nullableListWithRequiredItems"), HttpModelType.PARAMETER, "nullableListWithRequiredItems");
         model.nullableListWithNullableItems = toIntegerList(params.getValues("nullableListWithNullableItems"), HttpModelType.PARAMETER, "nullableListWithNullableItems");
-        return model;
     }
 }

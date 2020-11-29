@@ -17,10 +17,17 @@ public final class $$PrimitiveStringModelModelReader extends ModelReader<Primiti
                                      final boolean readParametersFromBody) {
         final PrimitiveStringModel model = new PrimitiveStringModel();
         final QueryParams params = extractParams(request.getQueryString());
+        readPrimitivesToModel(pathVariableMapping, request, params, model);
+        return model;
+    }
+
+    protected void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
+                                         final HttpRequest request,
+                                         final QueryParams params,
+                                         final PrimitiveStringModel model) {
         model.requiredNotEmptyString = toString(params.getValue("requiredNotEmptyString"), HttpModelType.PARAMETER, "requiredNotEmptyString");
         model.nullableString = toString(params.getValue("nullableString"), HttpModelType.PARAMETER, "nullableString");
         model.allowEmptyString = toString(params.getValue("allowEmptyString"), HttpModelType.PARAMETER, "allowEmptyString");
         model.nullableAndAllowEmptyString = toString(params.getValue("nullableAndAllowEmptyString"), HttpModelType.PARAMETER, "nullableAndAllowEmptyString");
-        return model;
     }
 }

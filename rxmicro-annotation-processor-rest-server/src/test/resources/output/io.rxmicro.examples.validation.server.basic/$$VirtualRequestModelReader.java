@@ -17,7 +17,14 @@ public final class $$VirtualRequestModelReader extends ModelReader<$$VirtualRequ
                                  final boolean readParametersFromBody) {
         final $$VirtualRequest model = new $$VirtualRequest();
         final QueryParams params = extractParams(request.getQueryString());
-        model.email = toString(params.getValue("email"), HttpModelType.PARAMETER, "email");
+        readPrimitivesToModel(pathVariableMapping, request, params, model);
         return model;
+    }
+
+    protected void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
+                                         final HttpRequest request,
+                                         final QueryParams params,
+                                         final $$VirtualRequest model) {
+        model.email = toString(params.getValue("email"), HttpModelType.PARAMETER, "email");
     }
 }

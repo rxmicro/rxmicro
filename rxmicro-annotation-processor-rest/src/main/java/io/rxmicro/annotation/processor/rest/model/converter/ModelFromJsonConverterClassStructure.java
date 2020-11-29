@@ -35,13 +35,10 @@ import static io.rxmicro.common.util.Requires.require;
  */
 public final class ModelFromJsonConverterClassStructure extends AbstractModelJsonConverterClassStructure {
 
-    private final ReaderType readerType;
-
     public ModelFromJsonConverterClassStructure(final ReaderType readerType,
                                                 final RestObjectModelClass modelClass,
                                                 final ExchangeFormat exchangeFormat) {
         super(modelClass, exchangeFormat);
-        this.readerType = require(readerType);
     }
 
     @Override
@@ -66,8 +63,4 @@ public final class ModelFromJsonConverterClassStructure extends AbstractModelJso
         return ModelFromJsonConverter.class;
     }
 
-    @Override
-    protected void customize(final Map<String, Object> map) {
-        map.put("HTTP_READER_TYPE", readerType);
-    }
 }

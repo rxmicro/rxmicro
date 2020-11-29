@@ -10,7 +10,8 @@ import static rxmicro.$$Reflections.getFieldValue;
 public final class $$RequestPathBuilder extends PathBuilder<Request> {
 
     @Override
-    public String build(final String urlTemplate,
+    public String build(final String key,
+                        final String urlTemplate,
                         final Request model) {
         // /path-variables/reflection/${a}/${b}/${c}/${d}/${e}/${f}/${g}/${j}/${h}/${i}/${j}/${k}/${l}/${m}
         return format(urlTemplate, getFieldValue(model, "booleanPathVariable"), getFieldValue(model, "bytePathVariable"), getFieldValue(model, "shortPathVariable"), getFieldValue(model, "intPathVariable"), getFieldValue(model, "longPathVariable"), getFieldValue(model, "bigIntegerPathVariable"), getFieldValue(model, "floatPathVariable"), getFieldValue(model, "charPathVariable"), getFieldValue(model, "doublePathVariable"), getFieldValue(model, "decimalPathVariable"), getFieldValue(model, "charPathVariable"), getFieldValue(model, "stringPathVariable"), getFieldValue(model, "instantPathVariable"), getFieldValue(model, "enumPathVariable"));

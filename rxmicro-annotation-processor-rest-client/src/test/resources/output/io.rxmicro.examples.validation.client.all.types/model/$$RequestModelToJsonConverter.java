@@ -12,8 +12,13 @@ public final class $$RequestModelToJsonConverter extends ModelToJsonConverter<Re
 
     @Override
     public Map<String, Object> toJsonObject(final Request model) {
-        return new JsonObjectBuilder()
-                .put("email", model.email)
-                .build();
+        final JsonObjectBuilder builder = new JsonObjectBuilder();
+        putValuesToBuilder(model, builder);
+        return builder.build();
+    }
+
+    protected void putValuesToBuilder(final Request model,
+                                      final JsonObjectBuilder builder) {
+        builder.put("email", model.email);
     }
 }

@@ -12,8 +12,13 @@ public final class $$AccountModelToJsonConverter extends ModelToJsonConverter<Ac
 
     @Override
     public Map<String, Object> toJsonObject(final Account model) {
-        return new JsonObjectBuilder()
-                .put("value", model.value)
-                .build();
+        final JsonObjectBuilder builder = new JsonObjectBuilder();
+        putValuesToBuilder(model, builder);
+        return builder.build();
+    }
+
+    protected void putValuesToBuilder(final Account model,
+                                      final JsonObjectBuilder builder) {
+        builder.put("value", model.value);
     }
 }
