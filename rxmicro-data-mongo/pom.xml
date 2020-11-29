@@ -20,7 +20,7 @@
     <parent>
         <artifactId>rxmicro</artifactId>
         <groupId>io.rxmicro</groupId>
-        <version>0.8-SNAPSHOT</version>
+        <version>0.7.2-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>rxmicro-data-mongo</artifactId>
@@ -47,22 +47,22 @@
         <dependency>
             <groupId>io.rxmicro</groupId>
             <artifactId>rxmicro-common</artifactId>
-            <version>0.8-SNAPSHOT</version>
+            <version>0.7.2-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>io.rxmicro</groupId>
             <artifactId>rxmicro-data</artifactId>
-            <version>0.8-SNAPSHOT</version>
+            <version>0.7.2-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>io.rxmicro</groupId>
             <artifactId>rxmicro-logger</artifactId>
-            <version>0.8-SNAPSHOT</version>
+            <version>0.7.2-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>io.rxmicro</groupId>
             <artifactId>rxmicro-config</artifactId>
-            <version>0.8-SNAPSHOT</version>
+            <version>0.7.2-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.mongodb</groupId>
@@ -87,7 +87,7 @@
         <dependency>
             <groupId>io.rxmicro</groupId>
             <artifactId>rxmicro-slf4j-proxy</artifactId>
-            <version>0.8-SNAPSHOT</version>
+            <version>0.7.2-SNAPSHOT</version>
         </dependency>
     </dependencies>
 </project>
