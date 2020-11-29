@@ -24,10 +24,8 @@ import io.rxmicro.rest.model.ExchangeFormat;
 import io.rxmicro.rest.model.HttpModelType;
 
 import java.util.List;
-import java.util.Map;
 
 import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.REFLECTIONS_FULL_CLASS_NAME;
-import static io.rxmicro.common.util.Requires.require;
 
 /**
  * @author nedis
@@ -35,8 +33,7 @@ import static io.rxmicro.common.util.Requires.require;
  */
 public final class ModelFromJsonConverterClassStructure extends AbstractModelJsonConverterClassStructure {
 
-    public ModelFromJsonConverterClassStructure(final ReaderType readerType,
-                                                final RestObjectModelClass modelClass,
+    public ModelFromJsonConverterClassStructure(final RestObjectModelClass modelClass,
                                                 final ExchangeFormat exchangeFormat) {
         super(modelClass, exchangeFormat);
     }

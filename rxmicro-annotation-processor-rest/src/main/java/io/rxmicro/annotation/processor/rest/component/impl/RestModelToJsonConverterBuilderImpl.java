@@ -21,7 +21,6 @@ import io.rxmicro.annotation.processor.rest.component.AbstractModelJsonConverter
 import io.rxmicro.annotation.processor.rest.component.RestModelToJsonConverterBuilder;
 import io.rxmicro.annotation.processor.rest.model.RestObjectModelClass;
 import io.rxmicro.annotation.processor.rest.model.converter.ModelToJsonConverterClassStructure;
-import io.rxmicro.annotation.processor.rest.model.converter.ReaderType;
 import io.rxmicro.rest.model.ExchangeFormat;
 
 /**
@@ -34,8 +33,7 @@ public final class RestModelToJsonConverterBuilderImpl
         implements RestModelToJsonConverterBuilder {
 
     @Override
-    protected ModelToJsonConverterClassStructure newInstance(final ReaderType readerType,
-                                                             final RestObjectModelClass modelClass,
+    protected ModelToJsonConverterClassStructure newInstance(final RestObjectModelClass modelClass,
                                                              final ExchangeFormat exchangeFormat,
                                                              final boolean isRestClientModel) {
         return new ModelToJsonConverterClassStructure(modelClass, exchangeFormat);

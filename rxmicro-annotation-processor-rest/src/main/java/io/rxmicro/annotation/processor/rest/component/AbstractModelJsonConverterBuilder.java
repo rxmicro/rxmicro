@@ -22,7 +22,6 @@ import io.rxmicro.annotation.processor.rest.model.AbstractModelJsonConverterClas
 import io.rxmicro.annotation.processor.rest.model.HttpMethodMapping;
 import io.rxmicro.annotation.processor.rest.model.MappedRestObjectModelClass;
 import io.rxmicro.annotation.processor.rest.model.RestObjectModelClass;
-import io.rxmicro.annotation.processor.rest.model.converter.ReaderType;
 import io.rxmicro.rest.model.ExchangeFormat;
 
 import java.util.HashSet;
@@ -40,8 +39,7 @@ import static java.util.function.Function.identity;
 public abstract class AbstractModelJsonConverterBuilder<T extends AbstractModelJsonConverterClassStructure>
         extends AbstractProcessorComponent {
 
-    protected abstract T newInstance(ReaderType readerType,
-                                     RestObjectModelClass modelClass,
+    protected abstract T newInstance(RestObjectModelClass modelClass,
                                      ExchangeFormat exchangeFormat,
                                      boolean isRestClientModel);
 
@@ -70,17 +68,16 @@ public abstract class AbstractModelJsonConverterBuilder<T extends AbstractModelJ
                            final boolean isRestClientModel) {
         final Set<T> structures = new HashSet<>();
         for (final MappedRestObjectModelClass entry : mappedRestObjectModelClasses) {
-            final ReaderType readerType = isRestClientModel ? ReaderType.HTTP_BODY : entry.getReaderType();
             final RestObjectModelClass modelClass = entry.getModelClass();
             final boolean shouldGenerate = !withHttpBodyOnly ||
                     entry.getHttpMethodMappings().stream().anyMatch(HttpMethodMapping::isHttpBody);
             if (shouldGenerate) {
                 structures.addAll(notEmpty(Stream.of(
                         Stream.of(
-                                newInstance(readerType, modelClass, exchangeFormat, isRestClientModel)
+                                newInstance(modelClass, exchangeFormat, isRestClientModel)
                         ),
                         modelClass.getAllChildrenObjectModelClasses().stream()
-                                .map(m -> newInstance(readerType, (RestObjectModelClass) m, exchangeFormat, isRestClientModel))
+                                .map(m -> newInstance((RestObjectModelClass) m, exchangeFormat, isRestClientModel))
                                 .map(c -> (ClassStructure) c)
                         ).flatMap(identity()).map(t -> (T) t)
                 ));
