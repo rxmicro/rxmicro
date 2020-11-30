@@ -61,7 +61,9 @@ public final class MongoDataModelFieldBuilderImpl extends AbstractDataModelField
         return new MongoDataObjectModelClass(
                 type,
                 typeElement,
-                getFieldMap(currentModule, modelFieldType, asTypeElement(type).orElseThrow(), nestedLevel, options)
+                getFieldMap(currentModule, modelFieldType, asTypeElement(type).orElseThrow(), nestedLevel, options),
+                null,
+                true
         );
     }
 

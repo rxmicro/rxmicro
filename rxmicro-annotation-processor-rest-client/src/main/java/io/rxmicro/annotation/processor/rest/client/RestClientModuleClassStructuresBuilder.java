@@ -226,7 +226,7 @@ public final class RestClientModuleClassStructuresBuilder extends AbstractModule
                                       final List<MappedRestObjectModelClass> toHttpPathModelClasses) {
         for (final MappedRestObjectModelClass modelClass : toHttpDataModelClasses) {
             if (modelClass.getReaderType() == ReaderType.QUERY_STRING) {
-                if (modelClass.getModelClass().isParamsPresent() ||
+                if (modelClass.getModelClass().isParamEntriesPresent() ||
                         modelClass.getModelClass().isHeadersPresent()) {
                     toHttpQueryModelClasses.add(modelClass);
                 }
@@ -236,10 +236,10 @@ public final class RestClientModuleClassStructuresBuilder extends AbstractModule
                             modelClass.cloneUsingNewModelClass(
                                     ((RestClientObjectModelClass) modelClass.getModelClass()).cloneWithHeadersOnly()));
                 }
-                if (modelClass.getModelClass().isParamsPresent()) {
+                if (modelClass.getModelClass().isParamEntriesPresent()) {
                     toHttpBodyModelClasses.add(modelClass);
                 }
-            } else if (modelClass.getModelClass().isParamsPresent() ||
+            } else if (modelClass.getModelClass().isParamEntriesPresent() ||
                     modelClass.getModelClass().isHeadersPresent()) {
                 toHttpQueryModelClasses.add(modelClass);
                 toHttpBodyModelClasses.add(modelClass);

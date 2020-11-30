@@ -17,6 +17,7 @@
 package io.rxmicro.annotation.processor.data.sql.r2dbc.postgresql.model;
 
 import io.rxmicro.annotation.processor.common.model.type.ModelClass;
+import io.rxmicro.annotation.processor.common.model.type.ObjectModelClass;
 import io.rxmicro.annotation.processor.data.sql.model.SQLDataModelField;
 import io.rxmicro.annotation.processor.data.sql.model.SQLDataObjectModelClass;
 import io.rxmicro.data.local.EntityFromDBConverter;
@@ -36,8 +37,10 @@ public final class PostgreSQLDataObjectModelClass extends SQLDataObjectModelClas
 
     public PostgreSQLDataObjectModelClass(final TypeMirror modelTypeMirror,
                                           final TypeElement modelTypeElement,
-                                          final Map<SQLDataModelField, ModelClass> params) {
-        super(modelTypeMirror, modelTypeElement, params);
+                                          final Map<SQLDataModelField, ModelClass> params,
+                                          final ObjectModelClass<SQLDataModelField> parent,
+                                          final boolean modelClassReturnedByRestMethod) {
+        super(modelTypeMirror, modelTypeElement, params, parent, modelClassReturnedByRestMethod);
     }
 
     @Override

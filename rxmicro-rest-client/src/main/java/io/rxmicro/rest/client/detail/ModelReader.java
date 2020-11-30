@@ -31,10 +31,10 @@ import java.util.List;
 public abstract class ModelReader<T> extends FromStringValueConverter {
 
     public T readSingle(final ClientHttpResponse response) {
-        throw new AbstractMethodError("Annotation processor did not generate an implementation of this method");
+        throw new AbstractMethodError("The RxMicro Annotation Processor did not generate an implementation of this method!");
     }
 
     public List<T> readList(final ClientHttpResponse response) {
-        throw new AbstractMethodError("Annotation processor did not generate an implementation of this method");
+        throw new AbstractMethodError("The RxMicro Annotation Processor did not generate an implementation of this method!");
     }
 }

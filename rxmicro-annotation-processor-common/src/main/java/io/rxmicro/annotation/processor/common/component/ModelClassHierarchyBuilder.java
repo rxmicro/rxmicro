@@ -14,21 +14,21 @@
  * limitations under the License.
  */
 
-package io.rxmicro.rest.server.detail.component;
+package io.rxmicro.annotation.processor.common.component;
 
-import io.rxmicro.rest.server.detail.model.HttpResponse;
+import io.rxmicro.annotation.processor.common.model.ModelField;
+import io.rxmicro.annotation.processor.common.model.type.ObjectModelClass;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 /**
- * Used by generated code that created by the {@code RxMicro Annotation Processor}.
- *
  * @author nedis
- * @hidden
- * @since 0.1
+ * @since 0.7.2
  */
-public abstract class ModelWriter<T> {
+public interface ModelClassHierarchyBuilder<MF extends ModelField, MC extends ObjectModelClass<MF>> {
 
-    public void write(final T model,
-                      final HttpResponse response) {
-        throw new AbstractMethodError("The RxMicro Annotation Processor did not generate an implementation of this method!");
-    }
+    Optional<List<MC>> build(MC returnedByRestMethodModelClass,
+                             Set<String> returnedByRestMethodModelClassNames);
 }

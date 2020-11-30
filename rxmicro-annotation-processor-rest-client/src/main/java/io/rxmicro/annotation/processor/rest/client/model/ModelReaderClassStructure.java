@@ -81,7 +81,7 @@ public final class ModelReaderClassStructure extends ClassStructure {
         final Map<String, Object> map = new HashMap<>();
         map.put("JAVA_MODEL_CLASS", modelClass);
         map.put("READER_TYPE", modelReaderType);
-        map.put("WITH_BODY", modelClass.isParamsPresent());
+        map.put("WITH_BODY", modelClass.isParamEntriesPresent());
         return map;
     }
 

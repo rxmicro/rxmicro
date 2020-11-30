@@ -17,6 +17,7 @@
 package io.rxmicro.annotation.processor.data.mongo.model;
 
 import io.rxmicro.annotation.processor.common.model.type.ModelClass;
+import io.rxmicro.annotation.processor.common.model.type.ObjectModelClass;
 import io.rxmicro.annotation.processor.data.model.DataObjectModelClass;
 import io.rxmicro.data.local.EntityFromDBConverter;
 import io.rxmicro.data.local.EntityToDBConverter;
@@ -35,8 +36,10 @@ public final class MongoDataObjectModelClass extends DataObjectModelClass<MongoD
 
     public MongoDataObjectModelClass(final TypeMirror modelTypeMirror,
                                      final TypeElement modelTypeElement,
-                                     final Map<MongoDataModelField, ModelClass> params) {
-        super(modelTypeMirror, modelTypeElement, params);
+                                     final Map<MongoDataModelField, ModelClass> params,
+                                     final ObjectModelClass<MongoDataModelField> parent,
+                                     final boolean modelClassReturnedByRestMethod) {
+        super(modelTypeMirror, modelTypeElement, params, parent, modelClassReturnedByRestMethod);
     }
 
     @Override

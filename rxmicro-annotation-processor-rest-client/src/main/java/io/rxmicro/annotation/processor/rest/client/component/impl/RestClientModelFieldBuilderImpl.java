@@ -61,7 +61,10 @@ public final class RestClientModelFieldBuilderImpl extends AbstractRestModelFiel
         return new RestClientObjectModelClass(
                 type,
                 typeElement,
-                getFieldMap(currentModule, modelFieldType, asTypeElement(type).orElseThrow(), nestedLevel, options));
+                getFieldMap(currentModule, modelFieldType, asTypeElement(type).orElseThrow(), nestedLevel, options),
+                null,
+                true
+        );
     }
 
     @Override

@@ -18,6 +18,7 @@ package io.rxmicro.annotation.processor.rest.component.impl;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import io.rxmicro.annotation.processor.common.component.ModelClassHierarchyBuilder;
 import io.rxmicro.annotation.processor.common.component.ModelFieldBuilder;
 import io.rxmicro.annotation.processor.common.component.impl.AbstractProcessorComponent;
 import io.rxmicro.annotation.processor.common.model.EnvironmentContext;
@@ -37,7 +38,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import javax.lang.model.element.ModuleElement;
 import javax.lang.model.element.TypeElement;
 
@@ -56,24 +60,38 @@ public final class RestGenerationContextBuilderImpl extends AbstractProcessorCom
     @Inject
     private ModelFieldBuilder<RestModelField, RestObjectModelClass> modelFieldBuilder;
 
+    @Inject
+    private ModelClassHierarchyBuilder<RestModelField, RestObjectModelClass> modelClassHierarchyBuilder;
+
     @Override
     public RestGenerationContext build(final EnvironmentContext environmentContext,
                                        final Class<? extends RestModuleGeneratorConfig> restModuleGeneratorConfigClass,
                                        final Set<? extends RestClassSignature> restClassSignatures) {
         final ModuleElement currentModule = environmentContext.getCurrentModule();
         final RestModuleGeneratorConfig restModuleGeneratorConfig = environmentContext.get(restModuleGeneratorConfigClass);
-        final RestGenerationContext.Builder builder = new RestGenerationContext.Builder();
-        setFromHttpDataModelClasses(restClassSignatures, restModuleGeneratorConfig, currentModule, builder);
-        setToHttpDataModelClasses(restClassSignatures, restModuleGeneratorConfig, currentModule, builder);
         final ExchangeFormatModule exchangeFormatModule = restModuleGeneratorConfig.getExchangeFormatModule();
         validateModuleDependencies(environmentContext, exchangeFormatModule);
-        return builder.build();
+
+        final List<MappedRestObjectModelClass> fromHttpDataModelClasses =
+                getFromHttpDataModelClasses(restClassSignatures, restModuleGeneratorConfig, currentModule);
+        final List<MappedRestObjectModelClass> toHttpDataModelClasses =
+                getToHttpDataModelClasses(restClassSignatures, restModuleGeneratorConfig, currentModule);
+        addModelClassHierarchy(fromHttpDataModelClasses, toHttpDataModelClasses);
+        return new RestGenerationContext(fromHttpDataModelClasses, toHttpDataModelClasses);
     }
 
-    private void setFromHttpDataModelClasses(final Set<? extends RestClassSignature> restClassStructures,
-                                             final RestModuleGeneratorConfig restModuleGeneratorConfig,
-                                             final ModuleElement currentModule,
-                                             final RestGenerationContext.Builder builder) {
+    private void validateModuleDependencies(final EnvironmentContext environmentContext,
+                                            final ExchangeFormatModule exchangeFormatModule) {
+        if (!environmentContext.isRxMicroModuleEnabled(exchangeFormatModule.getRxMicroModule())) {
+            throw new InterruptProcessingException(environmentContext.getCurrentModule(),
+                    "Missing module dependency. Add \"requires ?;\" to module-info.java",
+                    exchangeFormatModule.getRxMicroModule().getName());
+        }
+    }
+
+    private List<MappedRestObjectModelClass> getFromHttpDataModelClasses(final Set<? extends RestClassSignature> restClassStructures,
+                                                                         final RestModuleGeneratorConfig restModuleGeneratorConfig,
+                                                                         final ModuleElement currentModule) {
         final Map<TypeElement, RestObjectModelClass> fromHttpDataMap = modelFieldBuilder.build(
                 restModuleGeneratorConfig.getFromHttpDataModelFieldType(),
                 currentModule,
@@ -82,19 +100,17 @@ public final class RestGenerationContextBuilderImpl extends AbstractProcessorCom
                         .collect(toTreeSet(UNIQUE_TYPES_COMPARATOR)),
                 new ModelFieldBuilderOptions()
                         .setRequireDefConstructor(true));
-        final List<MappedRestObjectModelClass> fromHttpDataModelClasses = group(fromHttpDataMap, restClassStructures.stream()
+        return group(fromHttpDataMap, restClassStructures.stream()
                 .flatMap(cl -> cl.getMethodSignatures().stream()
                         .flatMap(m -> m.getFromHttpDataType()
                                 .map(r -> Map.entry(r.toString(), m.getHttpMethodMappings()))
                                 .stream()))
                 .collect(toList()));
-        builder.setFromHttpDataModelClasses(fromHttpDataModelClasses);
     }
 
-    private void setToHttpDataModelClasses(final Set<? extends RestClassSignature> restClassStructures,
-                                           final RestModuleGeneratorConfig restModuleGeneratorConfig,
-                                           final ModuleElement currentModule,
-                                           final RestGenerationContext.Builder builder) {
+    private List<MappedRestObjectModelClass> getToHttpDataModelClasses(final Set<? extends RestClassSignature> restClassStructures,
+                                                                       final RestModuleGeneratorConfig restModuleGeneratorConfig,
+                                                                       final ModuleElement currentModule) {
         final Map<TypeElement, RestObjectModelClass> toHttpDataMap = modelFieldBuilder.build(
                 restModuleGeneratorConfig.getToHttpDataModelFieldType(),
                 currentModule,
@@ -102,13 +118,12 @@ public final class RestGenerationContextBuilderImpl extends AbstractProcessorCom
                         .flatMap(m -> m.getToHttpDataModelTypes().stream())
                         .collect(toTreeSet(UNIQUE_TYPES_COMPARATOR)),
                 new ModelFieldBuilderOptions());
-        final List<MappedRestObjectModelClass> toHttpDataModelClasses = group(toHttpDataMap, restClassStructures.stream()
+        return group(toHttpDataMap, restClassStructures.stream()
                 .flatMap(cl -> cl.getMethodSignatures().stream()
                         .flatMap(m -> m.getToHttpDataType()
                                 .map(r -> Map.entry(r.toString(), m.getHttpMethodMappings()))
                                 .stream()))
                 .collect(toList()));
-        builder.setToHttpDataModelClasses(toHttpDataModelClasses);
     }
 
     private List<MappedRestObjectModelClass> group(final Map<TypeElement, RestObjectModelClass> dataMap,
@@ -126,12 +141,32 @@ public final class RestGenerationContextBuilderImpl extends AbstractProcessorCom
                 .collect(toList());
     }
 
-    private void validateModuleDependencies(final EnvironmentContext environmentContext,
-                                            final ExchangeFormatModule exchangeFormatModule) {
-        if (!environmentContext.isRxMicroModuleEnabled(exchangeFormatModule.getRxMicroModule())) {
-            throw new InterruptProcessingException(environmentContext.getCurrentModule(),
-                    "Missing module dependency. Add \"requires ?;\" to module-info.java",
-                    exchangeFormatModule.getRxMicroModule().getName());
+    private void addModelClassHierarchy(final List<MappedRestObjectModelClass> fromHttpDataModelClasses,
+                                        final List<MappedRestObjectModelClass> toHttpDataModelClasses) {
+        final Set<String> notAbstractModelClassNames = Stream.concat(
+                fromHttpDataModelClasses.stream().map(m -> m.getModelClass().getJavaFullClassName()),
+                toHttpDataModelClasses.stream().map(m -> m.getModelClass().getJavaFullClassName())
+        ).collect(Collectors.toSet());
+        addModelClassHierarchy(fromHttpDataModelClasses, notAbstractModelClassNames);
+        addModelClassHierarchy(toHttpDataModelClasses, notAbstractModelClassNames);
+    }
+
+    private void addModelClassHierarchy(final List<MappedRestObjectModelClass> mappedRestObjectModelClasses,
+                                        final Set<String> notAbstractModelClassNames) {
+        for (int i = 0; i < mappedRestObjectModelClasses.size(); i++) {
+            final MappedRestObjectModelClass mappedRestObjectModelClass = mappedRestObjectModelClasses.get(i);
+            final Optional<List<RestObjectModelClass>> modelClassListOptional =
+                    modelClassHierarchyBuilder.build(mappedRestObjectModelClass.getModelClass(), notAbstractModelClassNames);
+            if (modelClassListOptional.isPresent()) {
+                final List<RestObjectModelClass> list = modelClassListOptional.get();
+                mappedRestObjectModelClasses.set(
+                        i,
+                        new MappedRestObjectModelClass(
+                                // The last item is a child object model class with set parent(s)
+                                list.get(list.size() - 1),
+                                mappedRestObjectModelClass.getHttpMethodMappings()
+                        ));
+            }
         }
     }
 }

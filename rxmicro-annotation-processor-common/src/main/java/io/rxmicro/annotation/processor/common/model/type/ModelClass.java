@@ -92,6 +92,6 @@ public abstract class ModelClass {
 
     @Override
     public String toString() {
-        return getClass() + "#" + getJavaFullClassName();
+        return getClass().getSimpleName() + "#" + getJavaFullClassName();
     }
 }

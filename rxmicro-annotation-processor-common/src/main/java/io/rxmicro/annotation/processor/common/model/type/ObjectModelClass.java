@@ -19,11 +19,15 @@ package io.rxmicro.annotation.processor.common.model.type;
 import io.rxmicro.annotation.processor.common.model.ModelField;
 import io.rxmicro.annotation.processor.common.util.UsedByFreemarker;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.TypeMirror;
 
@@ -43,12 +47,39 @@ public abstract class ObjectModelClass<T extends ModelField> extends ModelClass 
 
     private final Map<T, ModelClass> params;
 
-    public ObjectModelClass(final TypeMirror modelTypeMirror,
-                            final TypeElement modelTypeElement,
-                            final Map<T, ModelClass> params) {
+    private final ObjectModelClass<T> parent;
+
+    private final boolean modelClassReturnedByRestMethod;
+
+    protected ObjectModelClass(final TypeMirror modelTypeMirror,
+                               final TypeElement modelTypeElement,
+                               final Map<T, ModelClass> params,
+                               final ObjectModelClass<T> parent,
+                               final boolean modelClassReturnedByRestMethod) {
         this.modelTypeMirror = require(modelTypeMirror);
         this.modelTypeElement = require(modelTypeElement);
         this.params = require(params);
+        this.parent = parent;
+        this.modelClassReturnedByRestMethod = modelClassReturnedByRestMethod;
+    }
+
+    public Optional<? extends ObjectModelClass<T>> getParent() {
+        return Optional.ofNullable(parent);
+    }
+
+    public List<ObjectModelClass<T>> getAllParents() {
+        if (parent == null) {
+            return List.of();
+        } else {
+            return Stream.concat(
+                    Stream.of(parent),
+                    parent.getAllParents().stream()
+            ).collect(Collectors.toList());
+        }
+    }
+
+    public boolean isModelClassReturnedByRestMethod() {
+        return modelClassReturnedByRestMethod;
     }
 
     public TypeMirror getModelTypeMirror() {
@@ -91,12 +122,13 @@ public abstract class ObjectModelClass<T extends ModelField> extends ModelClass 
         return !params.isEmpty();
     }
 
-    public List<TypeMirror> getModelFieldTypes() {
-        return params.keySet().stream().map(ModelField::getFieldClass).collect(Collectors.toList());
+    @UsedByFreemarker("$$RestJsonModelWriterTemplate.javaftl")
+    public boolean isParamEntriesPresentAtThisOrAnyParent(){
+        return isParamEntriesPresent() || (parent != null && parent.isParamEntriesPresentAtThisOrAnyParent());
     }
 
-    public boolean isParamsPresent() {
-        return !getParamEntries().isEmpty();
+    public List<TypeMirror> getModelFieldTypes() {
+        return params.keySet().stream().map(ModelField::getFieldClass).collect(Collectors.toList());
     }
 
     public Set<ObjectModelClass<T>> getAllChildrenObjectModelClasses() {
@@ -113,5 +145,14 @@ public abstract class ObjectModelClass<T extends ModelField> extends ModelClass 
             }
         }
         return result;
+    }
+
+    /**
+     * Declared fields must be ordered: fields that declared at super class must be at the beginning of collection
+     *
+     * @see io.rxmicro.annotation.processor.common.util.Elements#allFields(TypeElement, boolean, Predicate)
+     */
+    public Collection<Map.Entry<T, ModelClass>> getAllOrderedDeclaredFields() {
+        return params.entrySet();
     }
 }

@@ -66,6 +66,6 @@ public final class QueryWithObjectParameterRestClientMethodBodyBuilder
     protected void customizeTemplateArguments(final Map<String, Object> templateArguments,
                                               final RestObjectModelClass modelClass,
                                               final TypeElement parameterType) {
-        templateArguments.put("HAS_MODEL_QUERY_PARAMS", modelClass.isParamsPresent());
+        templateArguments.put("HAS_MODEL_QUERY_PARAMS", modelClass.isParamEntriesPresent());
     }
 }

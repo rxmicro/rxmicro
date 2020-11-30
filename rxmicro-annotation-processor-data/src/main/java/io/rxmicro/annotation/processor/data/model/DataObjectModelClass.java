@@ -37,8 +37,10 @@ public abstract class DataObjectModelClass<F extends DataModelField> extends Obj
 
     public DataObjectModelClass(final TypeMirror modelTypeMirror,
                                 final TypeElement modelTypeElement,
-                                final Map<F, ModelClass> params) {
-        super(modelTypeMirror, modelTypeElement, params);
+                                final Map<F, ModelClass> params,
+                                final ObjectModelClass<F> parent,
+                                final boolean modelClassReturnedByRestMethod) {
+        super(modelTypeMirror, modelTypeElement, params, parent, modelClassReturnedByRestMethod);
     }
 
     @UsedByFreemarker({

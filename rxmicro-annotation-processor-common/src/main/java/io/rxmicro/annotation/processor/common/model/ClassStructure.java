@@ -20,6 +20,7 @@ import io.rxmicro.annotation.processor.common.util.UsedByFreemarker;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import static io.rxmicro.annotation.processor.common.util.Names.getSimpleName;
 
@@ -35,6 +36,20 @@ public abstract class ClassStructure implements Comparable<ClassStructure> {
     })
     public final String getTargetSimpleClassName() {
         return getSimpleName(getTargetFullClassName());
+    }
+
+    /**
+     * Returns the full class name for model class that is used to generate the current class structure if exists,
+     * otherwise {@link Optional#empty()}
+     *
+     * <p>
+     * For example for {@code ModelReader<T>} the {@code T} will be returned.
+     *
+     * @return the full class name for model class that is used to generate the current class structure if exists,
+     *          otherwise {@link Optional#empty()}
+     */
+    public Optional<String> getModelClassFullClassName(){
+        return Optional.empty();
     }
 
     public abstract String getTargetFullClassName();

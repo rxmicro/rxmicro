@@ -17,6 +17,7 @@
 package io.rxmicro.annotation.processor.rest.server.model;
 
 import io.rxmicro.annotation.processor.common.model.type.ModelClass;
+import io.rxmicro.annotation.processor.common.model.type.ObjectModelClass;
 import io.rxmicro.annotation.processor.common.util.UsedByFreemarker;
 import io.rxmicro.annotation.processor.rest.model.RestModelField;
 import io.rxmicro.annotation.processor.rest.model.RestObjectModelClass;
@@ -37,8 +38,10 @@ public final class RestServerObjectModelClass extends RestObjectModelClass {
 
     public RestServerObjectModelClass(final TypeMirror modelTypeMirror,
                                       final TypeElement modelTypeElement,
-                                      final Map<RestModelField, ModelClass> fields) {
-        super(modelTypeMirror, modelTypeElement, fields);
+                                      final Map<RestModelField, ModelClass> fields,
+                                      final ObjectModelClass<RestModelField> parent,
+                                      final boolean modelClassReturnedByRestMethod) {
+        super(modelTypeMirror, modelTypeElement, fields, parent, modelClassReturnedByRestMethod);
     }
 
     @UsedByFreemarker(

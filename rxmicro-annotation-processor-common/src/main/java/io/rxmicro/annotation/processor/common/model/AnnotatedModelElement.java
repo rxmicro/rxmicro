@@ -39,7 +39,6 @@ import javax.lang.model.util.Elements;
 import static io.rxmicro.annotation.processor.common.model.ModelAccessorType.DIRECT;
 import static io.rxmicro.annotation.processor.common.model.ModelAccessorType.JAVA_BEAN;
 import static io.rxmicro.annotation.processor.common.model.ModelAccessorType.REFLECTION;
-import static io.rxmicro.annotation.processor.common.util.Names.getPackageName;
 import static io.rxmicro.common.util.Requires.require;
 import static io.rxmicro.common.util.Strings.splitByCamelCase;
 import static javax.lang.model.element.Modifier.PRIVATE;
@@ -118,11 +117,9 @@ public final class AnnotatedModelElement {
         if (field.getModifiers().contains(Modifier.PUBLIC)) {
             return DIRECT;
         } else {
-            final String fieldPackageName = getPackageName(field.getEnclosingElement().asType());
-            if (fieldPackageName.equals(modelPackageName) &&
-                    (field.getModifiers().stream().noneMatch(m ->
-                            m == Modifier.PROTECTED || m == PRIVATE || m == Modifier.PUBLIC) ||
-                            field.getModifiers().contains(Modifier.PROTECTED))) {
+            if ((field.getModifiers().stream().noneMatch(m ->
+                    m == Modifier.PROTECTED || m == PRIVATE || m == Modifier.PUBLIC) ||
+                    field.getModifiers().contains(Modifier.PROTECTED))) {
                 return DIRECT;
             } else {
                 if (javaBeanUsagePredicate.get()) {

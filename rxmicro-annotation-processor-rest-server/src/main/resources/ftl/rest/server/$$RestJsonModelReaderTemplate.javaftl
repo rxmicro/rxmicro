@@ -1,6 +1,12 @@
 <#include "../../common-lib.javaftl">
 <#-- -------------------------------------------------------------------------------------------------------- -->
 public final class ${JAVA_MODEL_CLASS.modelReaderImplSimpleClassName} extends ModelReader<${JAVA_MODEL_CLASS.javaSimpleClassName}> {
+    <#if HAS_PARENT>
+
+    private final ${PARENT} parentReader =
+            new ${PARENT}();
+    </#if>
+    <#-- ---------------------------------------------------------------------------------------------------- -->
     <#if CONFIGURATOR.bodyParamsPresents>
 
     private final ExchangeDataFormatConverter<Object> exchangeDataFormatConverter =
@@ -9,6 +15,8 @@ public final class ${JAVA_MODEL_CLASS.modelReaderImplSimpleClassName} extends Mo
     private final ${JAVA_MODEL_CLASS.modelFromJsonConverterImplSimpleClassName} ${JAVA_MODEL_CLASS.fromJsonConverterInstanceName} =
             new ${JAVA_MODEL_CLASS.modelFromJsonConverterImplSimpleClassName}();
     </#if>
+    <#-- ---------------------------------------------------------------------------------------------------- -->
+    <#if JAVA_MODEL_CLASS.modelClassReturnedByRestMethod>
 
     @Override
     public ${JAVA_MODEL_CLASS.javaSimpleClassName       } read(final PathVariableMapping pathVariableMapping,
@@ -39,27 +47,35 @@ public final class ${JAVA_MODEL_CLASS.modelReaderImplSimpleClassName} extends Mo
         <#-- -------------------------------------------------------------------------------------------------------- -->
         <#else>
         final ${JAVA_MODEL_CLASS.javaSimpleClassName} model = new ${JAVA_MODEL_CLASS.javaSimpleClassName}();
-        readPrimitivesToModel(pathVariableMapping, request, model);
-        return model;
-        </#if>
-    }
-    <#if CONFIGURATOR.queryParamsPresents>
-
-    protected void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
-                                         final HttpRequest request,
-                                         final QueryParams params,
-                                         final ${JAVA_MODEL_CLASS.javaSimpleClassName} model) {
         <#if CONFIGURATOR.headersPresents || CONFIGURATOR.internalsPresents || CONFIGURATOR.pathVariablesPresents>
         readPrimitivesToModel(pathVariableMapping, request, model);
         </#if>
+        return model;
+        </#if>
+    }
+    </#if>
+    <#-- ---------------------------------------------------------------------------------------------------- -->
+    <#if CONFIGURATOR.queryParamsPresents>
+
+    public void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
+                                      final HttpRequest request,
+                                      final QueryParams params,
+                                      final ${JAVA_MODEL_CLASS.javaSimpleClassName} model) {
+        <#if HAS_PARENT>
+        parentReader.readPrimitivesToModel(pathVariableMapping, request, params, model);
+        </#if>
+        <@setSimpleProperties shift=""/>
         <@setQueryParams shift=""/>
     }
     </#if>
     <#if CONFIGURATOR.headersPresents || CONFIGURATOR.internalsPresents || CONFIGURATOR.pathVariablesPresents>
 
-    protected void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
-                                         final HttpRequest request,
-                                         final ${JAVA_MODEL_CLASS.javaSimpleClassName} model) {
+    public void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
+                                      final HttpRequest request,
+                                      final ${JAVA_MODEL_CLASS.javaSimpleClassName} model) {
+        <#if HAS_PARENT>
+        parentReader.readPrimitivesToModel(pathVariableMapping, request, model);
+        </#if>
         <@setSimpleProperties shift=""/>
     }
 </#if>
@@ -87,7 +103,7 @@ public final class ${JAVA_MODEL_CLASS.modelReaderImplSimpleClassName} extends Mo
         </#list>
     </#if>
     <#-- ---------------------------------------------------------------------------------------------------- -->
-    <#if CONFIGURATOR.headersPresents>
+    <#if CONFIGURATOR.headersPresents && JAVA_MODEL_CLASS.headerEntries?has_content>
         ${shift}final HttpHeaders httpHeaders = request.getHeaders();
         <#list JAVA_MODEL_CLASS.headerEntries as ENTRY>
             <@setHeaderFieldValue entry=ENTRY shift=shift/>

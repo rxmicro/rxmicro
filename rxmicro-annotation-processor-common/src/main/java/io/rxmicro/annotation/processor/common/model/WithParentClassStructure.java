@@ -14,21 +14,19 @@
  * limitations under the License.
  */
 
-package io.rxmicro.rest.server.detail.component;
+package io.rxmicro.annotation.processor.common.model;
 
-import io.rxmicro.rest.server.detail.model.HttpResponse;
+import io.rxmicro.annotation.processor.common.model.type.ObjectModelClass;
 
 /**
- * Used by generated code that created by the {@code RxMicro Annotation Processor}.
- *
  * @author nedis
- * @hidden
- * @since 0.1
+ * @since 0.7.2
  */
-public abstract class ModelWriter<T> {
+public interface WithParentClassStructure<CS extends ClassStructure, MF extends ModelField, MC extends ObjectModelClass<MF>> {
 
-    public void write(final T model,
-                      final HttpResponse response) {
-        throw new AbstractMethodError("The RxMicro Annotation Processor did not generate an implementation of this method!");
-    }
+    String getTargetFullClassName();
+
+    boolean setParent(CS parent);
+
+    MC getModelClass();
 }

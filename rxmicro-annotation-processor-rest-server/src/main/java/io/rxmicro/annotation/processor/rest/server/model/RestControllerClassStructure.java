@@ -200,7 +200,7 @@ public final class RestControllerClassStructure extends CDIUsageCandidateClassSt
                     .filter(t -> classStructureStorage.isRequestValidatorPresent(t.getQualifiedName().toString()))
                     .map(RestServerSimpleObjectModelClass::new)
                     .collect(toMap(
-                            AbstractSimpleObjectModelClass::getFullClassName,
+                            AbstractSimpleObjectModelClass::getJavaFullClassName,
                             identity(),
                             (o1, o2) -> o1
                     )));
@@ -216,7 +216,7 @@ public final class RestControllerClassStructure extends CDIUsageCandidateClassSt
                     .filter(t -> classStructureStorage.isResponseValidatorPresent(t.getQualifiedName().toString()))
                     .map(RestServerSimpleObjectModelClass::new)
                     .collect(toMap(
-                            AbstractSimpleObjectModelClass::getFullClassName,
+                            AbstractSimpleObjectModelClass::getJavaFullClassName,
                             identity(),
                             (o1, o2) -> o1
                     )));

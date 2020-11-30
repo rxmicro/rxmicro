@@ -42,14 +42,14 @@ public abstract class AbstractSimpleObjectModelClass {
     @UsedByFreemarker(
             "$$RestControllerTemplate.javaftl"
     )
-    public String getSimpleClassName() {
+    public String getJavaSimpleClassName() {
         return typeElement.getSimpleName().toString();
     }
 
     @UsedByFreemarker(
             "$$RestControllerTemplate.javaftl"
     )
-    public String getFullClassName() {
+    public String getJavaFullClassName() {
         return typeElement.getQualifiedName().toString();
     }
 
@@ -76,7 +76,7 @@ public abstract class AbstractSimpleObjectModelClass {
 
     @Override
     public final int hashCode() {
-        return getFullClassName().hashCode();
+        return getJavaFullClassName().hashCode();
     }
 
     @Override
@@ -88,11 +88,11 @@ public abstract class AbstractSimpleObjectModelClass {
             return false;
         }
         final AbstractSimpleObjectModelClass that = (AbstractSimpleObjectModelClass) other;
-        return getFullClassName().equals(that.getFullClassName());
+        return getJavaFullClassName().equals(that.getJavaFullClassName());
     }
 
     @Override
     public final String toString() {
-        return format("? [?]", getClass().getSimpleName(), getFullClassName());
+        return format("? [?]", getClass().getSimpleName(), getJavaFullClassName());
     }
 }

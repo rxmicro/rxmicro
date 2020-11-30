@@ -95,7 +95,7 @@ public abstract class ModelFromJsonConverter<T> extends AbstractValidatedConvert
     }
 
     public T fromJsonObject(final Map<String, Object> jsonObject) {
-        throw new AbstractMethodError("Annotation processor did not generate an implementation of this method!");
+        throw new AbstractMethodError("The RxMicro Annotation Processor did not generate an implementation of this method!");
     }
 
     // -------------------------------------------------------------------------------------------------------------------------------------

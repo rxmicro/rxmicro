@@ -17,10 +17,11 @@
 package io.rxmicro.annotation.processor.rest.component;
 
 import io.rxmicro.annotation.processor.common.component.impl.AbstractProcessorComponent;
-import io.rxmicro.annotation.processor.common.model.ClassStructure;
+import io.rxmicro.annotation.processor.common.model.type.ObjectModelClass;
 import io.rxmicro.annotation.processor.rest.model.AbstractModelJsonConverterClassStructure;
 import io.rxmicro.annotation.processor.rest.model.HttpMethodMapping;
 import io.rxmicro.annotation.processor.rest.model.MappedRestObjectModelClass;
+import io.rxmicro.annotation.processor.rest.model.RestModelField;
 import io.rxmicro.annotation.processor.rest.model.RestObjectModelClass;
 import io.rxmicro.rest.model.ExchangeFormat;
 
@@ -29,8 +30,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
 
+import static io.rxmicro.common.util.ExCollections.unmodifiableOrderedSet;
 import static io.rxmicro.common.util.ExCollectors.toOrderedSet;
-import static java.util.function.Function.identity;
 
 /**
  * @author nedis
@@ -49,19 +50,12 @@ public abstract class AbstractModelJsonConverterBuilder<T extends AbstractModelJ
         return build(mappedRestObjectModelClasses, exchangeFormat, !isRestClientModel, isRestClientModel);
     }
 
-    private Set<T> notEmpty(final Stream<T> source) {
-        return source
-                .filter(s -> s.getModelClass().isParamsPresent())
-                .collect(toOrderedSet());
-    }
-
     public final Set<T> buildToJson(final List<MappedRestObjectModelClass> mappedRestObjectModelClasses,
                                     final ExchangeFormat exchangeFormat,
                                     final boolean isRestClientModel) {
         return build(mappedRestObjectModelClasses, exchangeFormat, false, isRestClientModel);
     }
 
-    @SuppressWarnings("unchecked")
     protected Set<T> build(final List<MappedRestObjectModelClass> mappedRestObjectModelClasses,
                            final ExchangeFormat exchangeFormat,
                            final boolean withHttpBodyOnly,
@@ -72,17 +66,26 @@ public abstract class AbstractModelJsonConverterBuilder<T extends AbstractModelJ
             final boolean shouldGenerate = !withHttpBodyOnly ||
                     entry.getHttpMethodMappings().stream().anyMatch(HttpMethodMapping::isHttpBody);
             if (shouldGenerate) {
-                structures.addAll(notEmpty(Stream.of(
-                        Stream.of(
-                                newInstance(modelClass, exchangeFormat, isRestClientModel)
-                        ),
-                        modelClass.getAllChildrenObjectModelClasses().stream()
+                final Set<ObjectModelClass<RestModelField>> modelClassWithParents =
+                        Stream.concat(Stream.of(modelClass), modelClass.getAllParents().stream()).collect(toOrderedSet());
+                final Set<ObjectModelClass<RestModelField>> modelClasses = new HashSet<>(modelClassWithParents);
+                for (final ObjectModelClass<RestModelField> modelClassOrParent : modelClassWithParents) {
+                    for (final ObjectModelClass<RestModelField> objectModelClass : modelClassOrParent.getAllChildrenObjectModelClasses()) {
+                        modelClasses.add(objectModelClass);
+                        modelClasses.addAll(objectModelClass.getAllParents());
+                    }
+                }
+                structures.addAll(
+                        modelClasses.stream()
+                                .filter(mc ->
+                                        mc.isParamEntriesPresent() ||
+                                                (mc.isModelClassReturnedByRestMethod() && mc.isParamEntriesPresentAtThisOrAnyParent())
+                                )
                                 .map(m -> newInstance((RestObjectModelClass) m, exchangeFormat, isRestClientModel))
-                                .map(c -> (ClassStructure) c)
-                        ).flatMap(identity()).map(t -> (T) t)
-                ));
+                                .collect(toOrderedSet())
+                );
             }
         }
-        return structures;
+        return unmodifiableOrderedSet(structures);
     }
 }

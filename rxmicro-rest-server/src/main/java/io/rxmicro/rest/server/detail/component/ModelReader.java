@@ -37,9 +37,11 @@ import static java.net.URLDecoder.decode;
  */
 public abstract class ModelReader<T> extends FromStringValueConverter {
 
-    public abstract T read(PathVariableMapping pathVariableMapping,
-                           HttpRequest request,
-                           boolean readParametersFromBody);
+    public T read(final PathVariableMapping pathVariableMapping,
+                  final HttpRequest request,
+                  final boolean readParametersFromBody) {
+        throw new AbstractMethodError("The RxMicro Annotation Processor did not generate an implementation of this method!");
+    }
 
     protected final QueryParams extractParams(final String queryString) {
         try {

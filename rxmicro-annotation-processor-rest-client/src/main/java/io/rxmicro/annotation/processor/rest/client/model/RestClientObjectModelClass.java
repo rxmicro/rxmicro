@@ -17,6 +17,7 @@
 package io.rxmicro.annotation.processor.rest.client.model;
 
 import io.rxmicro.annotation.processor.common.model.type.ModelClass;
+import io.rxmicro.annotation.processor.common.model.type.ObjectModelClass;
 import io.rxmicro.annotation.processor.common.util.UsedByFreemarker;
 import io.rxmicro.annotation.processor.rest.model.RestModelField;
 import io.rxmicro.annotation.processor.rest.model.RestObjectModelClass;
@@ -38,16 +39,22 @@ public final class RestClientObjectModelClass extends RestObjectModelClass {
 
     public RestClientObjectModelClass(final TypeMirror modelTypeMirror,
                                       final TypeElement modelTypeElement,
-                                      final Map<RestModelField, ModelClass> fields) {
-        super(modelTypeMirror, modelTypeElement, fields);
+                                      final Map<RestModelField, ModelClass> fields,
+                                      final ObjectModelClass<RestModelField> parent,
+                                      final boolean modelClassReturnedByRestMethod) {
+        super(modelTypeMirror, modelTypeElement, fields, parent, modelClassReturnedByRestMethod);
     }
 
     public RestClientObjectModelClass cloneWithHeadersOnly() {
-        return new RestClientObjectModelClass(getModelTypeMirror(), getModelTypeElement(), headers);
+        return new RestClientObjectModelClass(
+                getModelTypeMirror(), getModelTypeElement(), headers, getParent().orElse(null), isModelClassReturnedByRestMethod()
+        );
     }
 
     public RestClientObjectModelClass cloneWithPathVariablesOnly() {
-        return new RestClientObjectModelClass(getModelTypeMirror(), getModelTypeElement(), pathVariables);
+        return new RestClientObjectModelClass(
+                getModelTypeMirror(), getModelTypeElement(), pathVariables, getParent().orElse(null), isModelClassReturnedByRestMethod()
+        );
     }
 
     @UsedByFreemarker(

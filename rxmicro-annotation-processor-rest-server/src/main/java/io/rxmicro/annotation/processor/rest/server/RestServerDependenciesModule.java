@@ -19,6 +19,7 @@ package io.rxmicro.annotation.processor.rest.server;
 import com.google.inject.AbstractModule;
 import com.google.inject.TypeLiteral;
 import com.google.inject.multibindings.Multibinder;
+import io.rxmicro.annotation.processor.common.component.ModelClassHierarchyBuilder;
 import io.rxmicro.annotation.processor.common.component.ModelFieldBuilder;
 import io.rxmicro.annotation.processor.common.component.ModuleGeneratorConfigBuilder;
 import io.rxmicro.annotation.processor.common.model.definition.SupportedTypesProvider;
@@ -42,6 +43,7 @@ import io.rxmicro.annotation.processor.rest.server.component.impl.RestController
 import io.rxmicro.annotation.processor.rest.server.component.impl.RestControllerClassStructureBuilderImpl;
 import io.rxmicro.annotation.processor.rest.server.component.impl.RestControllerMethodSignatureBuilderImpl;
 import io.rxmicro.annotation.processor.rest.server.component.impl.RestDocumentationGeneratorImpl;
+import io.rxmicro.annotation.processor.rest.server.component.impl.RestServerModelClassHierarchyBuilder;
 import io.rxmicro.annotation.processor.rest.server.component.impl.RestServerModelFieldBuilderImpl;
 import io.rxmicro.annotation.processor.rest.server.component.impl.RestServerModuleGeneratorConfigBuilder;
 import io.rxmicro.annotation.processor.rest.server.component.impl.ServerCommonOptionBuilderImpl;
@@ -88,6 +90,9 @@ public final class RestServerDependenciesModule extends AbstractModule {
                 .to(RestControllerMethodSignatureBuilderImpl.class);
         bind(ServerCommonOptionBuilder.class)
                 .to(ServerCommonOptionBuilderImpl.class);
+        bind(new TypeLiteral<ModelClassHierarchyBuilder<RestModelField, RestObjectModelClass>>() {
+        })
+                .to(RestServerModelClassHierarchyBuilder.class);
 
         bindMethodBodyBuilders();
     }

@@ -60,7 +60,7 @@ public final class RestClientModelReaderBuilderImpl implements RestClientModelRe
 
     private ModelReaderType getModelReaderType(final MappedRestObjectModelClass restModelClass,
                                                final Set<RestClientClassSignature> classSignatures) {
-        final String type = restModelClass.getModelClass().getFullClassName();
+        final String type = restModelClass.getModelClass().getJavaFullClassName();
         final Set<ModelReaderType> modelReaders = new HashSet<>();
         for (final RestClientClassSignature classSignature : classSignatures) {
             for (final RestClientMethodSignature methodSignature : classSignature.getMethodSignatures()) {

@@ -1,25 +1,37 @@
 <#include "../common-lib.javaftl">
 <#-- -------------------------------------------------------------------------------------------------------- -->
 public final class ${JAVA_MODEL_CLASS.modelFromJsonConverterImplSimpleClassName} extends ModelFromJsonConverter<${JAVA_MODEL_CLASS.javaSimpleClassName}> {
+    <#if HAS_PARENT>
+
+    private final ${PARENT} parentConverter =
+            new ${PARENT}();
+    </#if>
     <#list JAVA_MODEL_CONVERTER_CHILDREN as CHILD>
 
     private final ${CHILD.modelFromJsonConverterImplSimpleClassName} ${CHILD.fromJsonConverterInstanceName} =
             new ${CHILD.modelFromJsonConverterImplSimpleClassName}();
     </#list>
 <#-- ---------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+    <#if JAVA_MODEL_CLASS.modelClassReturnedByRestMethod>
 
     @Override
     public ${JAVA_MODEL_CLASS.javaSimpleClassName} fromJsonObject(final Map<String, Object> params) {
         final ${JAVA_MODEL_CLASS.javaSimpleClassName} model = new ${JAVA_MODEL_CLASS.javaSimpleClassName}();
         <#if JAVA_MODEL_CLASS.paramEntries?has_content>
         readParamsToModel(params, model);
+        <#elseif HAS_PARENT>
+        parentConverter.readParamsToModel(params, model);
         </#if>
         return model;
     }
+    </#if>
     <#if JAVA_MODEL_CLASS.paramEntries?has_content>
 
-    protected void readParamsToModel(final Map<String, Object> params,
-                                     final ${JAVA_MODEL_CLASS.javaSimpleClassName} model) {
+    public void readParamsToModel(final Map<String, Object> params,
+                                  final ${JAVA_MODEL_CLASS.javaSimpleClassName} model) {
+        <#if HAS_PARENT>
+        parentConverter.readParamsToModel(params, model);
+        </#if>
         <#list JAVA_MODEL_CLASS.paramEntries as fieldEntry>
         <@setParamFieldValue entry=fieldEntry/>
         </#list>

@@ -17,6 +17,7 @@
 package io.rxmicro.annotation.processor.data.sql.model;
 
 import io.rxmicro.annotation.processor.common.model.type.ModelClass;
+import io.rxmicro.annotation.processor.common.model.type.ObjectModelClass;
 import io.rxmicro.annotation.processor.data.model.DataObjectModelClass;
 import io.rxmicro.data.sql.NotInsertable;
 import io.rxmicro.data.sql.NotUpdatable;
@@ -53,10 +54,12 @@ public abstract class SQLDataObjectModelClass<DMF extends SQLDataModelField> ext
 
     private boolean deletable;
 
-    public SQLDataObjectModelClass(final TypeMirror modelTypeMirror,
-                                   final TypeElement modelTypeElement,
-                                   final Map<DMF, ModelClass> params) {
-        super(modelTypeMirror, modelTypeElement, params);
+    protected SQLDataObjectModelClass(final TypeMirror modelTypeMirror,
+                                      final TypeElement modelTypeElement,
+                                      final Map<DMF, ModelClass> params,
+                                      final ObjectModelClass<DMF> parent,
+                                      final boolean modelClassReturnedByRestMethod) {
+        super(modelTypeMirror, modelTypeElement, params, parent, modelClassReturnedByRestMethod);
     }
 
     public Set<EntityFromDBConverterMethod> getEntityFromDBConverterMethods() {

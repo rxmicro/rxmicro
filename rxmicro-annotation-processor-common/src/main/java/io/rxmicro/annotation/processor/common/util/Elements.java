@@ -16,7 +16,7 @@
 
 package io.rxmicro.annotation.processor.common.util;
 
-
+import io.rxmicro.annotation.processor.common.model.type.ObjectModelClass;
 import io.rxmicro.annotation.processor.common.model.virtual.VirtualTypeElement;
 import io.rxmicro.annotation.processor.common.model.virtual.VirtualTypeMirror;
 import io.rxmicro.model.NotStandardSerializableEnum;
@@ -120,12 +120,19 @@ public final class Elements {
         return allFields(typeElement, true, filter);
     }
 
+    /**
+     * Returns ordered declared fields: fields that declared at super class are returned at the beginning of list
+     *
+     * @see ObjectModelClass#getAllOrderedDeclaredFields()
+     */
     public static List<VariableElement> allFields(final TypeElement typeElement,
                                                   final boolean withFieldsFromParentClasses,
                                                   final Predicate<VariableElement> filter) {
         final List<VariableElement> fields = new ArrayList<>();
         TypeElement currentTypeElement = typeElement;
         while (true) {
+            // Some the RxMicro Annotation processor logic depends on fields order: For example AbstractModelClassHierarchyBuilder
+            // component requires that fields that declared at super class were at the beginning of returning list!!!
             fields.addAll(0, currentTypeElement.getEnclosedElements().stream()
                     .filter(el -> el.getKind() == FIELD)
                     .map(el -> (VariableElement) el)
@@ -337,6 +344,24 @@ public final class Elements {
                 currentTypeElement = asTypeElement(superClass).orElseThrow();
             }
         }
+    }
+
+    public static List<TypeElement> allSuperTypes(final TypeElement type) {
+        final List<TypeElement> list = new ArrayList<>();
+        TypeElement currentTypeElement = type;
+        while (true) {
+            final TypeMirror superClass = currentTypeElement.getSuperclass();
+            if (superClassIsObject(superClass)) {
+                break;
+            } else {
+                currentTypeElement = asTypeElement(superClass).orElseThrow();
+                if (isDeniedPackage(getPackageName(currentTypeElement))) {
+                    break;
+                }
+                list.add(currentTypeElement);
+            }
+        }
+        return list;
     }
 
     public static SortedSet<TypeElement> allSuperTypesAndInterfaces(final TypeElement type,

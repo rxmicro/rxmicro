@@ -73,7 +73,7 @@ public final class HttpBodyObjectParameterRestClientMethodBodyBuilder
                                               final RestObjectModelClass modelClass,
                                               final TypeElement parameterType) {
         templateArguments.put("HAS_MODEL_QUERY_PARAMS", false);
-        templateArguments.put("HAS_BODY", modelClass.isParamsPresent());
+        templateArguments.put("HAS_BODY", modelClass.isParamEntriesPresent());
 
         final String instanceName = getModelTransformerInstanceName(getSimpleName(parameterType), ModelToJsonConverter.class);
         templateArguments.put("REQUEST_CONVERTER", instanceName);

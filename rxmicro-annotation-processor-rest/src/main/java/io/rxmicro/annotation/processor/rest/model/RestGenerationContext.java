@@ -18,7 +18,7 @@ package io.rxmicro.annotation.processor.rest.model;
 
 import java.util.List;
 
-import static io.rxmicro.common.util.Requires.require;
+import static io.rxmicro.common.util.ExCollections.unmodifiableList;
 
 /**
  * @author nedis
@@ -30,10 +30,10 @@ public final class RestGenerationContext {
 
     private final List<MappedRestObjectModelClass> toHttpDataModelClasses;
 
-    private RestGenerationContext(final List<MappedRestObjectModelClass> fromHttpDataModelClasses,
-                                  final List<MappedRestObjectModelClass> toHttpDataModelClasses) {
-        this.fromHttpDataModelClasses = require(fromHttpDataModelClasses);
-        this.toHttpDataModelClasses = require(toHttpDataModelClasses);
+    public RestGenerationContext(final List<MappedRestObjectModelClass> fromHttpDataModelClasses,
+                                 final List<MappedRestObjectModelClass> toHttpDataModelClasses) {
+        this.fromHttpDataModelClasses = unmodifiableList(fromHttpDataModelClasses);
+        this.toHttpDataModelClasses = unmodifiableList(toHttpDataModelClasses);
     }
 
     public List<MappedRestObjectModelClass> getFromHttpDataModelClasses() {
@@ -42,32 +42,5 @@ public final class RestGenerationContext {
 
     public List<MappedRestObjectModelClass> getToHttpDataModelClasses() {
         return toHttpDataModelClasses;
-    }
-
-    /**
-     * @author nedis
-     * @since 0.1
-     */
-    @SuppressWarnings("UnusedReturnValue")
-    public static final class Builder {
-
-        private List<MappedRestObjectModelClass> fromHttpDataModelClasses;
-
-        private List<MappedRestObjectModelClass> toHttpDataModelClasses;
-
-        public void setFromHttpDataModelClasses(final List<MappedRestObjectModelClass> fromHttpDataModelClasses) {
-            this.fromHttpDataModelClasses = require(fromHttpDataModelClasses);
-        }
-
-        public void setToHttpDataModelClasses(final List<MappedRestObjectModelClass> toHttpDataModelClasses) {
-            this.toHttpDataModelClasses = require(toHttpDataModelClasses);
-        }
-
-        public RestGenerationContext build() {
-            return new RestGenerationContext(
-                    fromHttpDataModelClasses,
-                    toHttpDataModelClasses
-            );
-        }
     }
 }

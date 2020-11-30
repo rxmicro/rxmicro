@@ -71,4 +71,12 @@ public final class MappedRestObjectModelClass {
             return QUERY_OR_HTTP_BODY;
         }
     }
+
+    @Override
+    public String toString() {
+        return "MappedRestObjectModelClass{" +
+                "modelClass=" + modelClass +
+                ", httpMethodMappings=" + httpMethodMappings +
+                '}';
+    }
 }

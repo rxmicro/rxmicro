@@ -17,6 +17,8 @@
 package io.rxmicro.annotation.processor.rest.server.model;
 
 import io.rxmicro.annotation.processor.common.model.ClassHeader;
+import io.rxmicro.annotation.processor.common.model.WithParentClassStructure;
+import io.rxmicro.annotation.processor.rest.model.RestModelField;
 import io.rxmicro.annotation.processor.rest.model.RestObjectModelClass;
 import io.rxmicro.annotation.processor.rest.model.converter.ReaderType;
 import io.rxmicro.exchange.json.detail.JsonExchangeDataFormatConverter;
@@ -38,15 +40,29 @@ import static io.rxmicro.common.util.Requires.require;
  * @author nedis
  * @since 0.1
  */
-public final class ModelReaderClassStructure extends AbstractRestControllerModelClassStructure {
+public final class ModelReaderClassStructure extends AbstractRestControllerModelClassStructure
+        implements WithParentClassStructure<ModelReaderClassStructure, RestModelField, RestObjectModelClass> {
 
     private final ReaderType readerType;
+
+    private ModelReaderClassStructure parent;
 
     public ModelReaderClassStructure(final ReaderType readerType,
                                      final RestObjectModelClass modelClass,
                                      final ExchangeFormat exchangeFormat) {
         super(modelClass, exchangeFormat);
         this.readerType = require(readerType);
+    }
+
+    @Override
+    public boolean setParent(final ModelReaderClassStructure parent) {
+        if (parent.getModelClass().isHeadersOrPathVariablesOrInternalsPresent() ||
+                (readerType.isQueryPresent() && parent.getModelClass().isParamEntriesPresentAtThisOrAnyParent())) {
+            this.parent = parent;
+            return true;
+        } else{
+            return false;
+        }
     }
 
     @Override
@@ -57,6 +73,12 @@ public final class ModelReaderClassStructure extends AbstractRestControllerModel
     @Override
     protected void customize(final Map<String, Object> map) {
         map.put("CONFIGURATOR", new ModelReaderConfigurator(modelClass, readerType));
+        if (parent != null) {
+            map.put("PARENT", parent.getTargetSimpleClassName());
+            map.put("HAS_PARENT", true);
+        } else {
+            map.put("HAS_PARENT", false);
+        }
     }
 
     @Override
@@ -71,6 +93,9 @@ public final class ModelReaderClassStructure extends AbstractRestControllerModel
                 ExchangeDataFormatConverter.class,
                 JsonExchangeDataFormatConverter.class
         );
+        if (parent != null) {
+            classHeaderBuilder.addImports(parent.getTargetFullClassName());
+        }
         if (isRequiredReflectionSetter()) {
             classHeaderBuilder.addStaticImport(REFLECTIONS_FULL_CLASS_NAME, "setFieldValue");
         }
@@ -83,4 +108,5 @@ public final class ModelReaderClassStructure extends AbstractRestControllerModel
                 modelClass.isPathVariablesReadReflectionRequired() ||
                 modelClass.isParamsReadReflectionRequired();
     }
+
 }

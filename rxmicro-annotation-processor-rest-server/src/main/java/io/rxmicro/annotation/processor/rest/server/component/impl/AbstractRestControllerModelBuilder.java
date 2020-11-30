@@ -23,9 +23,13 @@ import io.rxmicro.annotation.processor.rest.model.converter.ReaderType;
 import io.rxmicro.annotation.processor.rest.server.model.AbstractRestControllerModelClassStructure;
 import io.rxmicro.rest.model.ExchangeFormat;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import static io.rxmicro.common.util.ExCollections.unmodifiableOrderedSet;
+import static io.rxmicro.common.util.ExCollectors.toOrderedSet;
 
 /**
  * @author nedis
@@ -40,9 +44,17 @@ public abstract class AbstractRestControllerModelBuilder<T extends AbstractRestC
 
     public final Set<T> build(final List<MappedRestObjectModelClass> mappedRestObjectModelClasses,
                               final ExchangeFormat exchangeFormat) {
-        return mappedRestObjectModelClasses.stream()
-                .map(restModelClass ->
-                        newInstance(restModelClass.getReaderType(), restModelClass.getModelClass(), exchangeFormat))
-                .collect(Collectors.toSet());
+        final Set<T> structures = new HashSet<>();
+        for (final MappedRestObjectModelClass mappedRestObjectModelClass : mappedRestObjectModelClasses) {
+            final RestObjectModelClass modelClass = mappedRestObjectModelClass.getModelClass();
+            structures.addAll(
+                    Stream.concat(Stream.of(modelClass), modelClass.getAllParents().stream())
+                            .map(mc -> (RestObjectModelClass)mc)
+                            .filter(mc -> mc.isHeadersOrPathVariablesOrInternalsPresent() || mc.isModelClassReturnedByRestMethod())
+                            .map(mc -> newInstance(mappedRestObjectModelClass.getReaderType(), mc, exchangeFormat))
+                            .collect(toOrderedSet())
+            );
+        }
+        return unmodifiableOrderedSet(structures);
     }
 }

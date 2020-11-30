@@ -17,7 +17,9 @@
 package io.rxmicro.annotation.processor.rest.model.converter;
 
 import io.rxmicro.annotation.processor.common.model.ClassHeader;
+import io.rxmicro.annotation.processor.common.model.WithParentClassStructure;
 import io.rxmicro.annotation.processor.rest.model.AbstractModelJsonConverterClassStructure;
+import io.rxmicro.annotation.processor.rest.model.RestModelField;
 import io.rxmicro.annotation.processor.rest.model.RestObjectModelClass;
 import io.rxmicro.exchange.json.detail.ModelToJsonConverter;
 import io.rxmicro.json.JsonObjectBuilder;
@@ -26,16 +28,26 @@ import io.rxmicro.rest.model.ExchangeFormat;
 import java.util.Map;
 
 import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.REFLECTIONS_FULL_CLASS_NAME;
+import static io.rxmicro.common.util.Requires.require;
 
 /**
  * @author nedis
  * @since 0.1
  */
-public final class ModelToJsonConverterClassStructure extends AbstractModelJsonConverterClassStructure {
+public final class ModelToJsonConverterClassStructure extends AbstractModelJsonConverterClassStructure
+        implements WithParentClassStructure<ModelToJsonConverterClassStructure, RestModelField, RestObjectModelClass> {
+
+    private ModelToJsonConverterClassStructure parent;
 
     public ModelToJsonConverterClassStructure(final RestObjectModelClass modelClass,
                                               final ExchangeFormat exchangeFormat) {
         super(modelClass, exchangeFormat);
+    }
+
+    @Override
+    public boolean setParent(final ModelToJsonConverterClassStructure parent) {
+        this.parent = require(parent);
+        return true;
     }
 
     @Override
@@ -45,8 +57,21 @@ public final class ModelToJsonConverterClassStructure extends AbstractModelJsonC
                 ModelToJsonConverter.class,
                 Map.class
         );
+        if (parent != null) {
+            classHeaderBuilder.addImports(parent.getTargetFullClassName());
+        }
         if (isRequiredReflectionGetter()) {
             classHeaderBuilder.addStaticImport(REFLECTIONS_FULL_CLASS_NAME, "getFieldValue");
+        }
+    }
+
+    @Override
+    protected void customize(final Map<String, Object> map) {
+        if (parent != null) {
+            map.put("PARENT", parent.getTargetSimpleClassName());
+            map.put("HAS_PARENT", true);
+        } else {
+            map.put("HAS_PARENT", false);
         }
     }
 

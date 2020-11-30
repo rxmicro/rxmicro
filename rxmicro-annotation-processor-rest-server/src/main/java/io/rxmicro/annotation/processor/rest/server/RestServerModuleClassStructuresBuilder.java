@@ -20,9 +20,11 @@ import com.google.inject.Inject;
 import io.rxmicro.annotation.processor.common.CommonDependenciesModule;
 import io.rxmicro.annotation.processor.common.FormatSourceCodeDependenciesModule;
 import io.rxmicro.annotation.processor.common.component.ModuleGeneratorConfigBuilder;
+import io.rxmicro.annotation.processor.common.component.WithParentClassStructureInitializer;
 import io.rxmicro.annotation.processor.common.component.impl.AbstractModuleClassStructuresBuilder;
 import io.rxmicro.annotation.processor.common.model.ClassStructure;
 import io.rxmicro.annotation.processor.common.model.EnvironmentContext;
+import io.rxmicro.annotation.processor.common.model.WithParentClassStructure;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
 import io.rxmicro.annotation.processor.common.util.Elements;
 import io.rxmicro.annotation.processor.rest.RestCommonDependenciesModule;
@@ -104,6 +106,9 @@ public final class RestServerModuleClassStructuresBuilder extends AbstractModule
 
     @Inject
     private RestDocumentationGenerator restDocumentationGenerator;
+
+    @Inject
+    private WithParentClassStructureInitializer withParentClassStructureInitializer;
 
     public static RestServerModuleClassStructuresBuilder create() {
         final RestServerModuleClassStructuresBuilder builder = new RestServerModuleClassStructuresBuilder();
@@ -197,18 +202,30 @@ public final class RestServerModuleClassStructuresBuilder extends AbstractModule
         final ExchangeFormat exchangeFormat =
                 environmentContext.get(RestServerModuleGeneratorConfig.class).getExchangeFormatModule().getExchangeFormat();
         final RestControllerClassStructureStorage.Builder builder = new RestControllerClassStructureStorage.Builder()
-                .addModelReaders(modelReaderBuilder.build(
-                        generationContext.getFromHttpDataModelClasses(), exchangeFormat
-                ))
-                .addModelWriters(modelWriterBuilder.build(
-                        generationContext.getToHttpDataModelClasses(), exchangeFormat
-                ))
-                .addModelFromJsonConverters(restModelFromJsonConverterBuilder.buildFromJson(
-                        generationContext.getFromHttpDataModelClasses(), exchangeFormat, false
-                ))
-                .addModelToJsonConverters(restModelToJsonConverterBuilder.buildToJson(
-                        generationContext.getToHttpDataModelClasses(), exchangeFormat, false
-                ));
+                .addModelReaders(
+                        initializeParentsIfExist(
+                                modelReaderBuilder.build(generationContext.getFromHttpDataModelClasses(), exchangeFormat)
+                        )
+                )
+                .addModelWriters(
+                        initializeParentsIfExist(
+                                modelWriterBuilder.build(generationContext.getToHttpDataModelClasses(), exchangeFormat)
+                        )
+                )
+                .addModelFromJsonConverters(
+                        initializeParentsIfExist(
+                                restModelFromJsonConverterBuilder.buildFromJson(
+                                        generationContext.getFromHttpDataModelClasses(), exchangeFormat, false
+                                )
+                        )
+                )
+                .addModelToJsonConverters(
+                        initializeParentsIfExist(
+                                restModelToJsonConverterBuilder.buildToJson(
+                                        generationContext.getToHttpDataModelClasses(), exchangeFormat, false
+                                )
+                        )
+                );
         addValidators(environmentContext, generationContext, builder);
         return builder.build();
     }
@@ -218,22 +235,36 @@ public final class RestServerModuleClassStructuresBuilder extends AbstractModule
                                final RestControllerClassStructureStorage.Builder builder) {
         if (environmentContext.get(RestServerModuleGeneratorConfig.class).isGenerateRequestValidators()) {
             builder.addRequestValidators(
-                    restModelValidatorBuilder.build(generationContext.getFromHttpDataModelClasses().stream()
-                            .map(MappedRestObjectModelClass::getModelClass)
-                            .filter(m -> isAnnotationPerPackageHierarchyAbsent(
-                                    m.getModelTypeElement(), DisableValidation.class))
-                            .collect(toList()))
+                    initializeParentsIfExist(
+                            restModelValidatorBuilder.build(generationContext.getFromHttpDataModelClasses().stream()
+                                    .map(MappedRestObjectModelClass::getModelClass)
+                                    .filter(m -> isAnnotationPerPackageHierarchyAbsent(
+                                            m.getModelTypeElement(), DisableValidation.class))
+                                    .collect(toList()))
+                    )
             );
         }
         if (environmentContext.get(RestServerModuleGeneratorConfig.class).isGenerateResponseValidators()) {
             builder.addResponseValidators(
-                    restModelValidatorBuilder.build(generationContext.getToHttpDataModelClasses().stream()
-                            .map(MappedRestObjectModelClass::getModelClass)
-                            .filter(m -> isAnnotationPerPackageHierarchyAbsent(
-                                    m.getModelTypeElement(), DisableValidation.class))
-                            .collect(toList()))
+                    initializeParentsIfExist(
+                            restModelValidatorBuilder.build(generationContext.getToHttpDataModelClasses().stream()
+                                    .map(MappedRestObjectModelClass::getModelClass)
+                                    .filter(m -> isAnnotationPerPackageHierarchyAbsent(
+                                            m.getModelTypeElement(), DisableValidation.class))
+                                    .collect(toList()))
+                    )
             );
         }
+    }
+
+    @SuppressWarnings("unchecked")
+    private <T extends ClassStructure> Set<T> initializeParentsIfExist(final Set<T> set) {
+        for (final T classStructure : set) {
+            if (classStructure instanceof WithParentClassStructure) {
+                withParentClassStructureInitializer.setParentIfExists((WithParentClassStructure<T,?,?>) classStructure, set);
+            }
+        }
+        return set;
     }
 
     private void addAllVirtualRequestClassStructures(final Set<ClassStructure> classStructures,

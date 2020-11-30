@@ -24,6 +24,7 @@ import io.rxmicro.rest.model.ExchangeFormat;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 import static io.rxmicro.annotation.processor.common.model.ClassHeader.newClassHeaderBuilder;
 import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.getModelTransformerFullClassName;
@@ -45,7 +46,12 @@ public abstract class AbstractRestControllerModelClassStructure extends ClassStr
         this.exchangeFormat = require(exchangeFormat);
     }
 
-    public RestObjectModelClass getModelClass() {
+    @Override
+    public final Optional<String> getModelClassFullClassName() {
+        return Optional.of(modelClass.getJavaFullClassName());
+    }
+
+    public final RestObjectModelClass getModelClass() {
         return modelClass;
     }
 

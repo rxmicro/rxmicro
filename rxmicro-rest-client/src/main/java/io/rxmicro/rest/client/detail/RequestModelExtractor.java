@@ -28,16 +28,16 @@ public abstract class RequestModelExtractor<T> {
     public void extract(final T model,
                         final HeaderBuilder headerBuilder,
                         final QueryBuilder queryBuilder) {
-        throw new AbstractMethodError("Annotation processor did not generate an implementation of this method");
+        throw new AbstractMethodError("The RxMicro Annotation Processor did not generate an implementation of this method!");
     }
 
     public void extract(final T model,
                         final QueryBuilder queryBuilder) {
-        throw new AbstractMethodError("Annotation processor did not generate an implementation of this method");
+        throw new AbstractMethodError("The RxMicro Annotation Processor did not generate an implementation of this method!");
     }
 
     public void extract(final T model,
                         final HeaderBuilder headerBuilder) {
-        throw new AbstractMethodError("Annotation processor did not generate an implementation of this method");
+        throw new AbstractMethodError("The RxMicro Annotation Processor did not generate an implementation of this method!");
     }
 }

@@ -26,5 +26,13 @@ public enum ReaderType {
 
     HTTP_BODY,
 
-    QUERY_OR_HTTP_BODY
+    QUERY_OR_HTTP_BODY;
+
+    public boolean isQueryPresent(){
+        return this == QUERY_STRING || this == QUERY_OR_HTTP_BODY;
+    }
+
+    public boolean isHttpBodyPresent(){
+        return this == HTTP_BODY || this == QUERY_OR_HTTP_BODY;
+    }
 }

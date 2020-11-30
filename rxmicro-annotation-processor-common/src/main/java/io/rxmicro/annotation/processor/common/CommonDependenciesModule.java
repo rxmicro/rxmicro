@@ -26,6 +26,7 @@ import io.rxmicro.annotation.processor.common.component.MethodParametersBuilder;
 import io.rxmicro.annotation.processor.common.component.MethodResultBuilder;
 import io.rxmicro.annotation.processor.common.component.NumberValidators;
 import io.rxmicro.annotation.processor.common.component.PathVariablesResolver;
+import io.rxmicro.annotation.processor.common.component.WithParentClassStructureInitializer;
 import io.rxmicro.annotation.processor.common.component.impl.DocumentationGeneratorImpl;
 import io.rxmicro.annotation.processor.common.component.impl.ExpressionBuilderImpl;
 import io.rxmicro.annotation.processor.common.component.impl.ExpressionParserImpl;
@@ -35,6 +36,7 @@ import io.rxmicro.annotation.processor.common.component.impl.MethodResultBuilder
 import io.rxmicro.annotation.processor.common.component.impl.NumberValidatorsImpl;
 import io.rxmicro.annotation.processor.common.component.impl.PathVariablesResolverImpl;
 import io.rxmicro.annotation.processor.common.component.impl.ReactiveMethodResultBuilder;
+import io.rxmicro.annotation.processor.common.component.impl.WithParentClassStructureInitializerImpl;
 import io.rxmicro.annotation.processor.common.component.impl.reactive.JSECompletableFutureReactiveMethodResultBuilder;
 import io.rxmicro.annotation.processor.common.component.impl.reactive.RxJavaReactiveMethodResultBuilder;
 import io.rxmicro.annotation.processor.common.component.impl.reactive.SpringReactorReactiveMethodResultBuilder;
@@ -65,6 +67,8 @@ public final class CommonDependenciesModule extends AbstractModule {
                 .to(PathVariablesResolverImpl.class);
         bind(NumberValidators.class)
                 .to(NumberValidatorsImpl.class);
+        bind(WithParentClassStructureInitializer.class)
+                .to(WithParentClassStructureInitializerImpl.class);
 
         configureReactiveMethodResultBuilder();
     }

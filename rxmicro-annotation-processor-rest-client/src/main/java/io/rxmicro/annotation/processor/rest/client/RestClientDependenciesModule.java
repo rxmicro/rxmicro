@@ -19,6 +19,7 @@ package io.rxmicro.annotation.processor.rest.client;
 import com.google.inject.AbstractModule;
 import com.google.inject.TypeLiteral;
 import com.google.inject.multibindings.Multibinder;
+import io.rxmicro.annotation.processor.common.component.ModelClassHierarchyBuilder;
 import io.rxmicro.annotation.processor.common.component.ModelFieldBuilder;
 import io.rxmicro.annotation.processor.common.component.ModuleGeneratorConfigBuilder;
 import io.rxmicro.annotation.processor.common.model.definition.SupportedTypesProvider;
@@ -38,6 +39,7 @@ import io.rxmicro.annotation.processor.rest.client.component.impl.RestClientClas
 import io.rxmicro.annotation.processor.rest.client.component.impl.RestClientClassStructureBuilderImpl;
 import io.rxmicro.annotation.processor.rest.client.component.impl.RestClientMethodBuilderImpl;
 import io.rxmicro.annotation.processor.rest.client.component.impl.RestClientMethodSignatureBuilderImpl;
+import io.rxmicro.annotation.processor.rest.client.component.impl.RestClientModelClassHierarchyBuilder;
 import io.rxmicro.annotation.processor.rest.client.component.impl.RestClientModelFieldBuilderImpl;
 import io.rxmicro.annotation.processor.rest.client.component.impl.RestClientModelReaderBuilderImpl;
 import io.rxmicro.annotation.processor.rest.client.component.impl.RestClientModuleGeneratorConfigBuilder;
@@ -45,6 +47,7 @@ import io.rxmicro.annotation.processor.rest.client.component.impl.method.HttpBod
 import io.rxmicro.annotation.processor.rest.client.component.impl.method.QueryWithObjectParameterRestClientMethodBodyBuilder;
 import io.rxmicro.annotation.processor.rest.client.component.impl.method.WithoutParametersRestClientMethodBodyBuilder;
 import io.rxmicro.annotation.processor.rest.client.model.RestClientModuleGeneratorConfig;
+import io.rxmicro.annotation.processor.rest.client.model.RestClientObjectModelClass;
 import io.rxmicro.annotation.processor.rest.client.model.RestClientSupportedTypesProvider;
 import io.rxmicro.annotation.processor.rest.model.RestModelField;
 import io.rxmicro.annotation.processor.rest.model.RestObjectModelClass;
@@ -83,6 +86,9 @@ public final class RestClientDependenciesModule extends AbstractModule {
                 .to(RestClientModelReaderBuilderImpl.class);
         bind(RestClientMethodSignatureBuilder.class)
                 .to(RestClientMethodSignatureBuilderImpl.class);
+        bind(new TypeLiteral<ModelClassHierarchyBuilder<RestModelField, RestObjectModelClass>>() {
+        })
+                .to(RestClientModelClassHierarchyBuilder.class);
 
         bindMethodBodyBuilders();
     }

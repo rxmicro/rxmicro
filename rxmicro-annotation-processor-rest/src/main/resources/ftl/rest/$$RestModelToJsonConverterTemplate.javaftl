@@ -1,27 +1,35 @@
 <#include "../common-lib.javaftl">
 <#-- -------------------------------------------------------------------------------------------------------- -->
 public final class ${JAVA_MODEL_CLASS.modelToJsonConverterImplSimpleClassName} extends ModelToJsonConverter<${JAVA_MODEL_CLASS.javaSimpleClassName}> {
+    <#if HAS_PARENT>
+
+    private final ${PARENT} parentConverter =
+            new ${PARENT}();
+    </#if>
     <#list JAVA_MODEL_CONVERTER_CHILDREN as CHILD>
     <#assign className=CHILD.javaSimpleClassName>
 
     private final ${CHILD.modelToJsonConverterImplSimpleClassName} ${CHILD.toJsonConverterInstanceName} =
             new ${CHILD.modelToJsonConverterImplSimpleClassName}();
     </#list>
+    <#if JAVA_MODEL_CLASS.modelClassReturnedByRestMethod>
 
     @Override
     public Map<String, Object> toJsonObject(final ${JAVA_MODEL_CLASS.javaSimpleClassName} model) {
-        <#if JAVA_MODEL_CLASS.paramEntries?has_content>
         final JsonObjectBuilder builder = new JsonObjectBuilder();
+        <#if JAVA_MODEL_CLASS.paramEntriesPresentAtThisOrAnyParent>
         putValuesToBuilder(model, builder);
-        return builder.build();
-        <#else>
-        return Map.of();
         </#if>
+        return builder.build();
     }
-    <#if JAVA_MODEL_CLASS.paramEntries?has_content>
+    </#if>
+    <#if JAVA_MODEL_CLASS.paramEntriesPresentAtThisOrAnyParent>
 
-    protected void putValuesToBuilder(final ${JAVA_MODEL_CLASS.javaSimpleClassName} model,
-                                      final JsonObjectBuilder builder) {
+    public void putValuesToBuilder(final ${JAVA_MODEL_CLASS.javaSimpleClassName} model,
+                                   final JsonObjectBuilder builder) {
+        <#if HAS_PARENT>
+        parentConverter.putValuesToBuilder(model, builder);
+        </#if>
         <#list JAVA_MODEL_CLASS.paramEntries as fieldEntry>
         <@putJsonEntry entry=fieldEntry/>
         </#list>

@@ -43,7 +43,9 @@ public abstract class ModelToJsonConverter<T> {
         }
     }
 
-    public abstract Map<String, Object> toJsonObject(T model);
+    public Map<String, Object> toJsonObject(final T model) {
+        throw new AbstractMethodError("The RxMicro Annotation Processor did not generate an implementation of this method!");
+    }
 
     public final List<Object> toJsonObjectArray(final Collection<T> list) {
         if (list != null) {
