@@ -21,8 +21,8 @@ public final class $$BodyWithInternalsAndHeadersResponseModelToJsonConverter ext
         return builder.build();
     }
 
-    protected void putValuesToBuilder(final BodyWithInternalsAndHeadersResponse model,
-                                      final JsonObjectBuilder builder) {
+    public void putValuesToBuilder(final BodyWithInternalsAndHeadersResponse model,
+                                   final JsonObjectBuilder builder) {
         builder.put("booleanParameter", model.booleanParameter);
         builder.put("byteParameter", model.byteParameter);
         builder.put("shortParameter", model.shortParameter);

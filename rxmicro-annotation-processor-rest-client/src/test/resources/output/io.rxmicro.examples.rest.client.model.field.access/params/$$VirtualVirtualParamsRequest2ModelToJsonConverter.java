@@ -21,8 +21,8 @@ public final class $$VirtualVirtualParamsRequest2ModelToJsonConverter extends Mo
         return builder.build();
     }
 
-    protected void putValuesToBuilder(final $$VirtualVirtualParamsRequest2 model,
-                                      final JsonObjectBuilder builder) {
+    public void putValuesToBuilder(final $$VirtualVirtualParamsRequest2 model,
+                                   final JsonObjectBuilder builder) {
         builder.put("booleanParameter", model.booleanParameter);
         builder.put("byteParameter", model.byteParameter);
         builder.put("shortParameter", model.shortParameter);

@@ -18,8 +18,8 @@ public final class $$ResponseModelWriter extends ModelWriter<Response> {
         writePrimitivesToResponse(model, response);
     }
 
-    protected void writePrimitivesToResponse(final Response model,
-                                             final HttpResponse response) {
+    public void writePrimitivesToResponse(final Response model,
+                                          final HttpResponse response) {
         response.setStatus(model.getInternalResponseStatusCode());
         response.setVersion(model.getInternalHttpVersion());
         response.setOrAddHeaders(model.getInternalHttpHeaders());

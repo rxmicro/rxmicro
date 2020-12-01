@@ -18,8 +18,8 @@ public final class $$RedirectResponseModelWriter extends ModelWriter<RedirectRes
         writePrimitivesToResponse(model, response);
     }
 
-    protected void writePrimitivesToResponse(final RedirectResponse model,
-                                             final HttpResponse response) {
+    public void writePrimitivesToResponse(final RedirectResponse model,
+                                          final HttpResponse response) {
         response.setStatus(model.status);
         response.setHeader("Location", model.location);
     }

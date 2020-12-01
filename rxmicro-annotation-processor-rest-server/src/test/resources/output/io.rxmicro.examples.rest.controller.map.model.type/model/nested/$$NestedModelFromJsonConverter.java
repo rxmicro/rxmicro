@@ -17,8 +17,8 @@ public final class $$NestedModelFromJsonConverter extends ModelFromJsonConverter
         return model;
     }
 
-    protected void readParamsToModel(final Map<String, Object> params,
-                                     final Nested model) {
+    public void readParamsToModel(final Map<String, Object> params,
+                                  final Nested model) {
         model.booleanData = toBooleanMap(params.get("booleanData"), "booleanData");
         model.byteData = toByteMap(params.get("byteData"), "byteData");
         model.shortData = toShortMap(params.get("shortData"), "shortData");

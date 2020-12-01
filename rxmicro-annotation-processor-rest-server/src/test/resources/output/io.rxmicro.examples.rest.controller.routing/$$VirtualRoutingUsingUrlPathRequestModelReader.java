@@ -19,9 +19,9 @@ public final class $$VirtualRoutingUsingUrlPathRequestModelReader extends ModelR
         return model;
     }
 
-    protected void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
-                                         final HttpRequest request,
-                                         final $$VirtualRoutingUsingUrlPathRequest model) {
+    public void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
+                                      final HttpRequest request,
+                                      final $$VirtualRoutingUsingUrlPathRequest model) {
         model.type = toString(pathVariableMapping.getValue("type"), HttpModelType.PATH, "type");
     }
 }

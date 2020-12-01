@@ -30,8 +30,8 @@ public final class $$BodyRequestModelToJsonConverter extends ModelToJsonConverte
         return builder.build();
     }
 
-    protected void putValuesToBuilder(final BodyRequest model,
-                                      final JsonObjectBuilder builder) {
+    public void putValuesToBuilder(final BodyRequest model,
+                                   final JsonObjectBuilder builder) {
         builder.put("booleanParameter", (Boolean) getFieldValue(model, "booleanParameter"));
         builder.put("byteParameter", (Byte) getFieldValue(model, "byteParameter"));
         builder.put("shortParameter", (Short) getFieldValue(model, "shortParameter"));

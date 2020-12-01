@@ -19,8 +19,8 @@ public final class $$ResponseModelWriter extends ModelWriter<Response> {
         writePrimitivesToResponse(model, response);
     }
 
-    protected void writePrimitivesToResponse(final Response model,
-                                             final HttpResponse response) {
+    public void writePrimitivesToResponse(final Response model,
+                                          final HttpResponse response) {
         response.setHeader("booleanHeader", model.getBooleanHeader());
         response.setHeader("byteHeader", model.getByteHeader());
         response.setHeader("shortHeader", model.getShortHeader());

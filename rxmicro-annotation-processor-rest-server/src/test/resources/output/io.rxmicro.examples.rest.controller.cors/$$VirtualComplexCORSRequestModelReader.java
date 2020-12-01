@@ -19,9 +19,9 @@ public final class $$VirtualComplexCORSRequestModelReader extends ModelReader<$$
         return model;
     }
 
-    protected void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
-                                         final HttpRequest request,
-                                         final $$VirtualComplexCORSRequest model) {
+    public void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
+                                      final HttpRequest request,
+                                      final $$VirtualComplexCORSRequest model) {
         model.path = toString(pathVariableMapping.getValue("path"), HttpModelType.PATH, "path");
     }
 }

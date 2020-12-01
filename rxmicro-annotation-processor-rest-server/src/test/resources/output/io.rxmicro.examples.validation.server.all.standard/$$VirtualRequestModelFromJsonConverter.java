@@ -17,8 +17,8 @@ public final class $$VirtualRequestModelFromJsonConverter extends ModelFromJsonC
         return model;
     }
 
-    protected void readParamsToModel(final Map<String, Object> params,
-                                     final $$VirtualRequest model) {
+    public void readParamsToModel(final Map<String, Object> params,
+                                  final $$VirtualRequest model) {
         model.optionalParameter = toString(params.get("optionalParameter"), "optionalParameter");
         model.booleanParameter = toBoolean(params.get("booleanParameter"), "booleanParameter");
         model.byteParameter = toByte(params.get("byteParameter"), "byteParameter");

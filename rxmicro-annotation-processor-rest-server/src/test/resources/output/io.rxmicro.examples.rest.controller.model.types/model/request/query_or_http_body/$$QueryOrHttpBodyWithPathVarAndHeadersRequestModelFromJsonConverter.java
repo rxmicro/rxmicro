@@ -17,8 +17,8 @@ public final class $$QueryOrHttpBodyWithPathVarAndHeadersRequestModelFromJsonCon
         return model;
     }
 
-    protected void readParamsToModel(final Map<String, Object> params,
-                                     final QueryOrHttpBodyWithPathVarAndHeadersRequest model) {
+    public void readParamsToModel(final Map<String, Object> params,
+                                  final QueryOrHttpBodyWithPathVarAndHeadersRequest model) {
         model.booleanParameter = toBoolean(params.get("booleanParameter"), "booleanParameter");
         model.byteParameter = toByte(params.get("byteParameter"), "byteParameter");
         model.shortParameter = toShort(params.get("shortParameter"), "shortParameter");

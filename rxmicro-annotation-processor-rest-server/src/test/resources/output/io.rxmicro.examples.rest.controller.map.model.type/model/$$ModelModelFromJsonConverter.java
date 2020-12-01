@@ -20,8 +20,8 @@ public final class $$ModelModelFromJsonConverter extends ModelFromJsonConverter<
         return model;
     }
 
-    protected void readParamsToModel(final Map<String, Object> params,
-                                     final Model model) {
+    public void readParamsToModel(final Map<String, Object> params,
+                                  final Model model) {
         model.nested = convertToMapIfNotNull(nestedModelFromJsonConverter, params.get("nested"), "nested");
     }
 }

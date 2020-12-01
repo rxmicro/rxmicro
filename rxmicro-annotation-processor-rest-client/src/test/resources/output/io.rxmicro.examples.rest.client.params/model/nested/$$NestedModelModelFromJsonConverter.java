@@ -16,8 +16,8 @@ public final class $$NestedModelModelFromJsonConverter extends ModelFromJsonConv
         return model;
     }
 
-    protected void readParamsToModel(final Map<String, Object> params,
-                                     final NestedModel model) {
+    public void readParamsToModel(final Map<String, Object> params,
+                                  final NestedModel model) {
         model.stringParameter = toString(params.get("string_parameter"), "string_parameter");
         model.bigDecimalParameter = toBigDecimal(params.get("big_decimal_parameter"), "big_decimal_parameter");
         model.instantParameter = toInstant(params.get("instant_parameter"), "instant_parameter");

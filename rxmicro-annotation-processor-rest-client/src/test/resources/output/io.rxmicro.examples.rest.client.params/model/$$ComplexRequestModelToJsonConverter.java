@@ -21,8 +21,8 @@ public final class $$ComplexRequestModelToJsonConverter extends ModelToJsonConve
         return builder.build();
     }
 
-    protected void putValuesToBuilder(final ComplexRequest model,
-                                      final JsonObjectBuilder builder) {
+    public void putValuesToBuilder(final ComplexRequest model,
+                                   final JsonObjectBuilder builder) {
         builder.put("integer_parameter", model.integerParameter);
         builder.put("enum_parameter", model.enumParameter);
         builder.put("enums_parameter", model.enumsParameter);

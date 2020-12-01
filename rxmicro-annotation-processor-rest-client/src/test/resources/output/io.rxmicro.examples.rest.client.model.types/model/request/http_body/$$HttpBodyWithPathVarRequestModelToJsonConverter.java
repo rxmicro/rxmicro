@@ -21,8 +21,8 @@ public final class $$HttpBodyWithPathVarRequestModelToJsonConverter extends Mode
         return builder.build();
     }
 
-    protected void putValuesToBuilder(final HttpBodyWithPathVarRequest model,
-                                      final JsonObjectBuilder builder) {
+    public void putValuesToBuilder(final HttpBodyWithPathVarRequest model,
+                                   final JsonObjectBuilder builder) {
         builder.put("booleanParameter", model.booleanParameter);
         builder.put("byteParameter", model.byteParameter);
         builder.put("shortParameter", model.shortParameter);

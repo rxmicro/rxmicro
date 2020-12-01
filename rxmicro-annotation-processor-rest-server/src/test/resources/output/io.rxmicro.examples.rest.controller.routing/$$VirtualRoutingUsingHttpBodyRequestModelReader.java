@@ -21,10 +21,10 @@ public final class $$VirtualRoutingUsingHttpBodyRequestModelReader extends Model
         return model;
     }
 
-    protected void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
-                                         final HttpRequest request,
-                                         final QueryParams params,
-                                         final $$VirtualRoutingUsingHttpBodyRequest model) {
+    public void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
+                                      final HttpRequest request,
+                                      final QueryParams params,
+                                      final $$VirtualRoutingUsingHttpBodyRequest model) {
         model.parameter = toString(params.getValue("parameter"), HttpModelType.PARAMETER, "parameter");
     }
 }

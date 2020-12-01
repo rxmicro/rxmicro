@@ -19,9 +19,9 @@ public final class $$RequestModelReader extends ModelReader<Request> {
         return model;
     }
 
-    protected void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
-                                         final HttpRequest request,
-                                         final Request model) {
+    public void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
+                                      final HttpRequest request,
+                                      final Request model) {
         model.category = toString(pathVariableMapping.getValue("category"), HttpModelType.PATH, "category");
         model.type = toString(pathVariableMapping.getValue("class"), HttpModelType.PATH, "class");
         model.subType = toString(pathVariableMapping.getValue("subType"), HttpModelType.PATH, "subType");

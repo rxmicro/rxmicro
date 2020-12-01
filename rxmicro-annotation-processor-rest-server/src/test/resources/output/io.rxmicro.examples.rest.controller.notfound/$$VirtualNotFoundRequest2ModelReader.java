@@ -21,10 +21,10 @@ public final class $$VirtualNotFoundRequest2ModelReader extends ModelReader<$$Vi
         return model;
     }
 
-    protected void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
-                                         final HttpRequest request,
-                                         final QueryParams params,
-                                         final $$VirtualNotFoundRequest2 model) {
+    public void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
+                                      final HttpRequest request,
+                                      final QueryParams params,
+                                      final $$VirtualNotFoundRequest2 model) {
         model.found = toBoolean(params.getValue("found"), HttpModelType.PARAMETER, "found");
     }
 }

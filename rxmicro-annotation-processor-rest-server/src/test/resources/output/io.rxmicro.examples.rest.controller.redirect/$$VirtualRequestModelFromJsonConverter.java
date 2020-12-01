@@ -16,8 +16,8 @@ public final class $$VirtualRequestModelFromJsonConverter extends ModelFromJsonC
         return model;
     }
 
-    protected void readParamsToModel(final Map<String, Object> params,
-                                     final $$VirtualRequest model) {
+    public void readParamsToModel(final Map<String, Object> params,
+                                  final $$VirtualRequest model) {
         model.parameter = toString(params.get("parameter"), "parameter");
     }
 }

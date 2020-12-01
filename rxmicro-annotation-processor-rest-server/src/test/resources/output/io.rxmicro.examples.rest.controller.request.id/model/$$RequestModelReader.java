@@ -20,9 +20,9 @@ public final class $$RequestModelReader extends ModelReader<Request> {
         return model;
     }
 
-    protected void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
-                                         final HttpRequest request,
-                                         final Request model) {
+    public void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
+                                      final HttpRequest request,
+                                      final Request model) {
         final HttpHeaders httpHeaders = request.getHeaders();
         model.requestId = toString(httpHeaders.getValue("Request-Id"), HttpModelType.HEADER, "Request-Id");
     }

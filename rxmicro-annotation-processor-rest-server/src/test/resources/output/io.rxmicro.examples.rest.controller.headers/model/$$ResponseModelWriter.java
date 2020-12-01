@@ -18,8 +18,8 @@ public final class $$ResponseModelWriter extends ModelWriter<Response> {
         writePrimitivesToResponse(model, response);
     }
 
-    protected void writePrimitivesToResponse(final Response model,
-                                             final HttpResponse response) {
+    public void writePrimitivesToResponse(final Response model,
+                                          final HttpResponse response) {
         response.setHeader("Endpoint-Version", model.endpointVersion);
         response.setHeader("UseProxy", model.useProxy);
     }

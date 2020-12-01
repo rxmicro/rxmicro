@@ -21,8 +21,8 @@ public final class $$ResponseModelFromJsonConverter extends ModelFromJsonConvert
         return model;
     }
 
-    protected void readParamsToModel(final Map<String, Object> params,
-                                     final Response model) {
+    public void readParamsToModel(final Map<String, Object> params,
+                                  final Response model) {
         model.setBooleanParameter(toBoolean(params.get("booleanParameter"), "booleanParameter"));
         model.setByteParameter(toByte(params.get("byteParameter"), "byteParameter"));
         model.setShortParameter(toShort(params.get("shortParameter"), "shortParameter"));

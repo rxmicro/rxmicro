@@ -16,8 +16,8 @@ public final class $$ModelModelFromJsonConverter extends ModelFromJsonConverter<
         return model;
     }
 
-    protected void readParamsToModel(final Map<String, Object> params,
-                                     final Model model) {
+    public void readParamsToModel(final Map<String, Object> params,
+                                  final Model model) {
         model.optionalParameter = toString(params.get("optionalParameter"), "optionalParameter");
         model.booleanParameter = toBoolean(params.get("booleanParameter"), "booleanParameter");
         model.byteParameter = toByte(params.get("byteParameter"), "byteParameter");

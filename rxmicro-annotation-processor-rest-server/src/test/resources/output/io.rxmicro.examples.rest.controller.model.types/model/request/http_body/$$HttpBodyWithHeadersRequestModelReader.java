@@ -30,9 +30,9 @@ public final class $$HttpBodyWithHeadersRequestModelReader extends ModelReader<H
         return model;
     }
 
-    protected void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
-                                         final HttpRequest request,
-                                         final HttpBodyWithHeadersRequest model) {
+    public void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
+                                      final HttpRequest request,
+                                      final HttpBodyWithHeadersRequest model) {
         final HttpHeaders httpHeaders = request.getHeaders();
         model.booleanHeader = toBoolean(httpHeaders.getValue("booleanHeader"), HttpModelType.HEADER, "booleanHeader");
         model.byteHeader = toByte(httpHeaders.getValue("byteHeader"), HttpModelType.HEADER, "byteHeader");

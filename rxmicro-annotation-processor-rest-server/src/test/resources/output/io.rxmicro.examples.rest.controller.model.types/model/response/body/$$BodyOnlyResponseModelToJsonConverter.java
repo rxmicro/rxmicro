@@ -21,8 +21,8 @@ public final class $$BodyOnlyResponseModelToJsonConverter extends ModelToJsonCon
         return builder.build();
     }
 
-    protected void putValuesToBuilder(final BodyOnlyResponse model,
-                                      final JsonObjectBuilder builder) {
+    public void putValuesToBuilder(final BodyOnlyResponse model,
+                                   final JsonObjectBuilder builder) {
         builder.put("booleanParameter", model.booleanParameter);
         builder.put("byteParameter", model.byteParameter);
         builder.put("shortParameter", model.shortParameter);

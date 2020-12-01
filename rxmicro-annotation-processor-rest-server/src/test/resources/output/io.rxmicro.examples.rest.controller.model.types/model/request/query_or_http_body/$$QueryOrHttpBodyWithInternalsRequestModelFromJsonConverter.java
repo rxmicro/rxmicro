@@ -17,8 +17,8 @@ public final class $$QueryOrHttpBodyWithInternalsRequestModelFromJsonConverter e
         return model;
     }
 
-    protected void readParamsToModel(final Map<String, Object> params,
-                                     final QueryOrHttpBodyWithInternalsRequest model) {
+    public void readParamsToModel(final Map<String, Object> params,
+                                  final QueryOrHttpBodyWithInternalsRequest model) {
         model.booleanParameter = toBoolean(params.get("booleanParameter"), "booleanParameter");
         model.byteParameter = toByte(params.get("byteParameter"), "byteParameter");
         model.shortParameter = toShort(params.get("shortParameter"), "shortParameter");

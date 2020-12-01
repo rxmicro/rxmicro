@@ -21,10 +21,10 @@ public final class $$VirtualWithBodyRequestModelReader extends ModelReader<$$Vir
         return model;
     }
 
-    protected void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
-                                         final HttpRequest request,
-                                         final QueryParams params,
-                                         final $$VirtualWithBodyRequest model) {
+    public void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
+                                      final HttpRequest request,
+                                      final QueryParams params,
+                                      final $$VirtualWithBodyRequest model) {
         model.requestParameter = toString(params.getValue("requestParameter"), HttpModelType.PARAMETER, "requestParameter");
     }
 }

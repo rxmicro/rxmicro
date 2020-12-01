@@ -21,8 +21,8 @@ public final class $$ComplexModelModelToJsonConverter extends ModelToJsonConvert
         return builder.build();
     }
 
-    protected void putValuesToBuilder(final ComplexModel model,
-                                      final JsonObjectBuilder builder) {
+    public void putValuesToBuilder(final ComplexModel model,
+                                   final JsonObjectBuilder builder) {
         builder.put("status", model.status);
         builder.put("statusList", model.statusList);
         builder.put("aBoolean", model.aBoolean);

@@ -17,8 +17,8 @@ public final class $$VirtualREST1Request2ModelToJsonConverter extends ModelToJso
         return builder.build();
     }
 
-    protected void putValuesToBuilder(final $$VirtualREST1Request2 model,
-                                      final JsonObjectBuilder builder) {
+    public void putValuesToBuilder(final $$VirtualREST1Request2 model,
+                                   final JsonObjectBuilder builder) {
         builder.put("email", model.email);
     }
 }

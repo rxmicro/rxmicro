@@ -21,10 +21,10 @@ public final class $$VirtualRequest2ModelReader extends ModelReader<$$VirtualReq
         return model;
     }
 
-    protected void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
-                                         final HttpRequest request,
-                                         final QueryParams params,
-                                         final $$VirtualRequest2 model) {
+    public void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
+                                      final HttpRequest request,
+                                      final QueryParams params,
+                                      final $$VirtualRequest2 model) {
         model.id = toInteger(params.getValue("id"), HttpModelType.PARAMETER, "id");
     }
 }

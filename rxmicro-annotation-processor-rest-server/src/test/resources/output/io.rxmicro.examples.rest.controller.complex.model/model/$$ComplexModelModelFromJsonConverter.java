@@ -20,8 +20,8 @@ public final class $$ComplexModelModelFromJsonConverter extends ModelFromJsonCon
         return model;
     }
 
-    protected void readParamsToModel(final Map<String, Object> params,
-                                     final ComplexModel model) {
+    public void readParamsToModel(final Map<String, Object> params,
+                                  final ComplexModel model) {
         model.status = toEnum(Status.class, params.get("status"), "status");
         model.statusList = toEnumList(Status.class, params.get("statusList"), "statusList");
         model.aBoolean = toBoolean(params.get("aBoolean"), "aBoolean");

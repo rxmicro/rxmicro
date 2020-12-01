@@ -17,8 +17,8 @@ public final class $$ModelModelToJsonConverter extends ModelToJsonConverter<Mode
         return builder.build();
     }
 
-    protected void putValuesToBuilder(final Model model,
-                                      final JsonObjectBuilder builder) {
+    public void putValuesToBuilder(final Model model,
+                                   final JsonObjectBuilder builder) {
         builder.put("optionalParameter", model.optionalParameter);
         builder.put("booleanParameter", model.booleanParameter);
         builder.put("byteParameter", model.byteParameter);

@@ -22,9 +22,9 @@ public final class $$RequestModelReader extends ModelReader<Request> {
         return model;
     }
 
-    protected void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
-                                         final HttpRequest request,
-                                         final Request model) {
+    public void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
+                                      final HttpRequest request,
+                                      final Request model) {
         setFieldValue(model, "booleanPathVariable", toBoolean(pathVariableMapping.getValue("a"), HttpModelType.PATH, "a"));
         setFieldValue(model, "bytePathVariable", toByte(pathVariableMapping.getValue("b"), HttpModelType.PATH, "b"));
         setFieldValue(model, "shortPathVariable", toShort(pathVariableMapping.getValue("c"), HttpModelType.PATH, "c"));

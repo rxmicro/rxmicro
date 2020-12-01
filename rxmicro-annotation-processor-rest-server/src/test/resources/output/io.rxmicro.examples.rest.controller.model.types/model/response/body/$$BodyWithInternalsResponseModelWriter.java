@@ -34,8 +34,8 @@ public final class $$BodyWithInternalsResponseModelWriter extends ModelWriter<Bo
         response.setContent(exchangeDataFormatConverter.toBytes(json));
     }
 
-    protected void writePrimitivesToResponse(final BodyWithInternalsResponse model,
-                                             final HttpResponse response) {
+    public void writePrimitivesToResponse(final BodyWithInternalsResponse model,
+                                          final HttpResponse response) {
         response.setStatus(model.internalResponseStatusCode);
         response.setVersion(model.internalHttpVersion);
     }

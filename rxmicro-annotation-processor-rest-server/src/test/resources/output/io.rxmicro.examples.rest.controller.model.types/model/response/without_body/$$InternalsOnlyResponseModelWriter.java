@@ -18,8 +18,8 @@ public final class $$InternalsOnlyResponseModelWriter extends ModelWriter<Intern
         writePrimitivesToResponse(model, response);
     }
 
-    protected void writePrimitivesToResponse(final InternalsOnlyResponse model,
-                                             final HttpResponse response) {
+    public void writePrimitivesToResponse(final InternalsOnlyResponse model,
+                                          final HttpResponse response) {
         response.setStatus(model.internalResponseStatusCode);
         response.setVersion(model.internalHttpVersion);
         response.setOrAddHeaders(model.internalHttpHeaders);

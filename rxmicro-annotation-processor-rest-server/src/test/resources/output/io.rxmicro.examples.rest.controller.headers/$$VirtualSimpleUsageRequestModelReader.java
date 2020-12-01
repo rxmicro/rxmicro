@@ -20,9 +20,9 @@ public final class $$VirtualSimpleUsageRequestModelReader extends ModelReader<$$
         return model;
     }
 
-    protected void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
-                                         final HttpRequest request,
-                                         final $$VirtualSimpleUsageRequest model) {
+    public void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
+                                      final HttpRequest request,
+                                      final $$VirtualSimpleUsageRequest model) {
         final HttpHeaders httpHeaders = request.getHeaders();
         model.endpointVersion = toString(httpHeaders.getValue("Endpoint-Version"), HttpModelType.HEADER, "Endpoint-Version");
         model.useProxy = toBoolean(httpHeaders.getValue("UseProxy"), HttpModelType.HEADER, "UseProxy");

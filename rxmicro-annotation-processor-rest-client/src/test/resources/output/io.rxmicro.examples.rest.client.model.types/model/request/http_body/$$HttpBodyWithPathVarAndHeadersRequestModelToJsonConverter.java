@@ -21,8 +21,8 @@ public final class $$HttpBodyWithPathVarAndHeadersRequestModelToJsonConverter ex
         return builder.build();
     }
 
-    protected void putValuesToBuilder(final HttpBodyWithPathVarAndHeadersRequest model,
-                                      final JsonObjectBuilder builder) {
+    public void putValuesToBuilder(final HttpBodyWithPathVarAndHeadersRequest model,
+                                   final JsonObjectBuilder builder) {
         builder.put("booleanParameter", model.booleanParameter);
         builder.put("byteParameter", model.byteParameter);
         builder.put("shortParameter", model.shortParameter);

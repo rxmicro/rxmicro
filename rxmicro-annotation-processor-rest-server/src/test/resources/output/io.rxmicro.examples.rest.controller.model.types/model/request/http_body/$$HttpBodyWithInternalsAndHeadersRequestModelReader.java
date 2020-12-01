@@ -30,9 +30,9 @@ public final class $$HttpBodyWithInternalsAndHeadersRequestModelReader extends M
         return model;
     }
 
-    protected void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
-                                         final HttpRequest request,
-                                         final HttpBodyWithInternalsAndHeadersRequest model) {
+    public void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
+                                      final HttpRequest request,
+                                      final HttpBodyWithInternalsAndHeadersRequest model) {
         model.internalRemoteAddress1 = String.valueOf(request.getRemoteAddress());
         model.internalRemoteAddress2 = request.getRemoteAddress();
         model.internalUrlPath = request.getUri();

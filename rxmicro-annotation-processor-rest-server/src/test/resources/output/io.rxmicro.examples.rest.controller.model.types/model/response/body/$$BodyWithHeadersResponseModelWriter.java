@@ -35,8 +35,8 @@ public final class $$BodyWithHeadersResponseModelWriter extends ModelWriter<Body
         response.setContent(exchangeDataFormatConverter.toBytes(json));
     }
 
-    protected void writePrimitivesToResponse(final BodyWithHeadersResponse model,
-                                             final HttpResponse response) {
+    public void writePrimitivesToResponse(final BodyWithHeadersResponse model,
+                                          final HttpResponse response) {
         response.setHeader("booleanHeader", model.booleanHeader);
         response.setHeader("byteHeader", model.byteHeader);
         response.setHeader("shortHeader", model.shortHeader);

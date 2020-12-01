@@ -16,8 +16,8 @@ public final class $$VirtualRoutingUsingHttpBodyRequest2ModelFromJsonConverter e
         return model;
     }
 
-    protected void readParamsToModel(final Map<String, Object> params,
-                                     final $$VirtualRoutingUsingHttpBodyRequest2 model) {
+    public void readParamsToModel(final Map<String, Object> params,
+                                  final $$VirtualRoutingUsingHttpBodyRequest2 model) {
         model.parameter = toString(params.get("parameter"), "parameter");
     }
 }

@@ -17,8 +17,8 @@ public final class $$ResponseModelToJsonConverter extends ModelToJsonConverter<R
         return builder.build();
     }
 
-    protected void putValuesToBuilder(final Response model,
-                                      final JsonObjectBuilder builder) {
+    public void putValuesToBuilder(final Response model,
+                                   final JsonObjectBuilder builder) {
         builder.put("email", model.email);
     }
 }

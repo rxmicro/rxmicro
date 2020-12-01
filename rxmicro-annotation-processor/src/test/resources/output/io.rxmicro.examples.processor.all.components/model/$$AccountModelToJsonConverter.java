@@ -17,8 +17,8 @@ public final class $$AccountModelToJsonConverter extends ModelToJsonConverter<Ac
         return builder.build();
     }
 
-    protected void putValuesToBuilder(final Account model,
-                                      final JsonObjectBuilder builder) {
+    public void putValuesToBuilder(final Account model,
+                                   final JsonObjectBuilder builder) {
         builder.put("value", model.value);
     }
 }

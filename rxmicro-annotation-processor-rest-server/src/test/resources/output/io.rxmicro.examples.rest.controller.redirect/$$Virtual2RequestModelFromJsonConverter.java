@@ -16,8 +16,8 @@ public final class $$Virtual2RequestModelFromJsonConverter extends ModelFromJson
         return model;
     }
 
-    protected void readParamsToModel(final Map<String, Object> params,
-                                     final $$Virtual2Request model) {
+    public void readParamsToModel(final Map<String, Object> params,
+                                  final $$Virtual2Request model) {
         model.parameter = toString(params.get("parameter"), "parameter");
     }
 }

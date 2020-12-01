@@ -21,9 +21,9 @@ public final class $$HeadersOnlyRequestModelReader extends ModelReader<HeadersOn
         return model;
     }
 
-    protected void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
-                                         final HttpRequest request,
-                                         final HeadersOnlyRequest model) {
+    public void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
+                                      final HttpRequest request,
+                                      final HeadersOnlyRequest model) {
         final HttpHeaders httpHeaders = request.getHeaders();
         model.booleanHeader = toBoolean(httpHeaders.getValue("booleanHeader"), HttpModelType.HEADER, "booleanHeader");
         model.byteHeader = toByte(httpHeaders.getValue("byteHeader"), HttpModelType.HEADER, "byteHeader");

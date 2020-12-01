@@ -17,8 +17,8 @@ public final class $$NestedModelToJsonConverter extends ModelToJsonConverter<Nes
         return builder.build();
     }
 
-    protected void putValuesToBuilder(final Nested model,
-                                      final JsonObjectBuilder builder) {
+    public void putValuesToBuilder(final Nested model,
+                                   final JsonObjectBuilder builder) {
         builder.put("value", model.value);
     }
 }

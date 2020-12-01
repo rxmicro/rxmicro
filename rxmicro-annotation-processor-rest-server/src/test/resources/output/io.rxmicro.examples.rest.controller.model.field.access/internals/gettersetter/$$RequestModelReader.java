@@ -18,9 +18,9 @@ public final class $$RequestModelReader extends ModelReader<Request> {
         return model;
     }
 
-    protected void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
-                                         final HttpRequest request,
-                                         final Request model) {
+    public void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
+                                      final HttpRequest request,
+                                      final Request model) {
         model.setInternalRemoteAddress1(String.valueOf(request.getRemoteAddress()));
         model.setInternalRemoteAddress2(request.getRemoteAddress());
         model.setInternalUrlPath(request.getUri());

@@ -35,8 +35,8 @@ public final class $$BodyWithInternalsAndHeadersResponseModelWriter extends Mode
         response.setContent(exchangeDataFormatConverter.toBytes(json));
     }
 
-    protected void writePrimitivesToResponse(final BodyWithInternalsAndHeadersResponse model,
-                                             final HttpResponse response) {
+    public void writePrimitivesToResponse(final BodyWithInternalsAndHeadersResponse model,
+                                          final HttpResponse response) {
         response.setStatus(model.internalResponseStatusCode);
         response.setVersion(model.internalHttpVersion);
         response.setHeader("booleanHeader", model.booleanHeader);

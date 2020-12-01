@@ -21,10 +21,10 @@ public final class $$VirtualRequestModelReader extends ModelReader<$$VirtualRequ
         return model;
     }
 
-    protected void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
-                                         final HttpRequest request,
-                                         final QueryParams params,
-                                         final $$VirtualRequest model) {
+    public void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
+                                      final HttpRequest request,
+                                      final QueryParams params,
+                                      final $$VirtualRequest model) {
         model.value = toBigDecimal(params.getValue("value"), HttpModelType.PARAMETER, "value");
     }
 }

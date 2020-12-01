@@ -21,10 +21,10 @@ public final class $$PrimitiveStringListModelModelReader extends ModelReader<Pri
         return model;
     }
 
-    protected void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
-                                         final HttpRequest request,
-                                         final QueryParams params,
-                                         final PrimitiveStringListModel model) {
+    public void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
+                                      final HttpRequest request,
+                                      final QueryParams params,
+                                      final PrimitiveStringListModel model) {
         model.requiredListWithNotEmptyItems = toStringList(params.getValues("requiredListWithNotEmptyItems"), HttpModelType.PARAMETER, "requiredListWithNotEmptyItems");
         model.nullableListWithNotEmptyItems = toStringList(params.getValues("nullableListWithNotEmptyItems"), HttpModelType.PARAMETER, "nullableListWithNotEmptyItems");
         model.requiredListWithNullableItems = toStringList(params.getValues("requiredListWithNullableItems"), HttpModelType.PARAMETER, "requiredListWithNullableItems");

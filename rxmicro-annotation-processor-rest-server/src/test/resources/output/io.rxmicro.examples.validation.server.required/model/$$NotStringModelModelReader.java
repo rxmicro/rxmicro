@@ -21,10 +21,10 @@ public final class $$NotStringModelModelReader extends ModelReader<NotStringMode
         return model;
     }
 
-    protected void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
-                                         final HttpRequest request,
-                                         final QueryParams params,
-                                         final NotStringModel model) {
+    public void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
+                                      final HttpRequest request,
+                                      final QueryParams params,
+                                      final NotStringModel model) {
         model.requiredPrimitive = toInteger(params.getValue("requiredPrimitive"), HttpModelType.PARAMETER, "requiredPrimitive");
         model.nullablePrimitive = toInteger(params.getValue("nullablePrimitive"), HttpModelType.PARAMETER, "nullablePrimitive");
         model.requiredListWithRequiredItems = toIntegerList(params.getValues("requiredListWithRequiredItems"), HttpModelType.PARAMETER, "requiredListWithRequiredItems");

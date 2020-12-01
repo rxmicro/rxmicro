@@ -18,8 +18,8 @@ public final class $$RepeatingHeadersResponseModelWriter extends ModelWriter<Rep
         writePrimitivesToResponse(model, response);
     }
 
-    protected void writePrimitivesToResponse(final RepeatingHeadersResponse model,
-                                             final HttpResponse response) {
+    public void writePrimitivesToResponse(final RepeatingHeadersResponse model,
+                                          final HttpResponse response) {
         response.setHeader("Single-Header", model.singleHeader);
         for (final Status item : model.repeatingHeader) {
             response.addHeader("Repeating-Header", item);

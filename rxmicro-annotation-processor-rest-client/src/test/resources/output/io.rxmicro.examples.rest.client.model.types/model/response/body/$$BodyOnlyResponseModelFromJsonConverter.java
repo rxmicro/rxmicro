@@ -21,8 +21,8 @@ public final class $$BodyOnlyResponseModelFromJsonConverter extends ModelFromJso
         return model;
     }
 
-    protected void readParamsToModel(final Map<String, Object> params,
-                                     final BodyOnlyResponse model) {
+    public void readParamsToModel(final Map<String, Object> params,
+                                  final BodyOnlyResponse model) {
         model.booleanParameter = toBoolean(params.get("booleanParameter"), "booleanParameter");
         model.byteParameter = toByte(params.get("byteParameter"), "byteParameter");
         model.shortParameter = toShort(params.get("shortParameter"), "shortParameter");

@@ -16,8 +16,8 @@ public final class $$NestedModelModelFromJsonConverter extends ModelFromJsonConv
         return model;
     }
 
-    protected void readParamsToModel(final Map<String, Object> params,
-                                     final NestedModel model) {
+    public void readParamsToModel(final Map<String, Object> params,
+                                  final NestedModel model) {
         model.value = toString(params.get("value"), "value");
     }
 }

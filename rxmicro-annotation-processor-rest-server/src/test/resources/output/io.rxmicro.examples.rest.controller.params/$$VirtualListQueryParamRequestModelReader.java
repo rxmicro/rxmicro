@@ -22,10 +22,10 @@ public final class $$VirtualListQueryParamRequestModelReader extends ModelReader
         return model;
     }
 
-    protected void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
-                                         final HttpRequest request,
-                                         final QueryParams params,
-                                         final $$VirtualListQueryParamRequest model) {
+    public void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
+                                      final HttpRequest request,
+                                      final QueryParams params,
+                                      final $$VirtualListQueryParamRequest model) {
         model.supportedStatuses = toEnumList(Status.class, params.getValues("supported_statuses"), HttpModelType.PARAMETER, "supported_statuses");
     }
 }

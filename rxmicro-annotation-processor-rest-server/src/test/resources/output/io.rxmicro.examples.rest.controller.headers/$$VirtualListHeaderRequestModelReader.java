@@ -21,9 +21,9 @@ public final class $$VirtualListHeaderRequestModelReader extends ModelReader<$$V
         return model;
     }
 
-    protected void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
-                                         final HttpRequest request,
-                                         final $$VirtualListHeaderRequest model) {
+    public void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
+                                      final HttpRequest request,
+                                      final $$VirtualListHeaderRequest model) {
         final HttpHeaders httpHeaders = request.getHeaders();
         model.supportedStatuses = toEnumList(Status.class, httpHeaders.getValues("Supported-Statuses"), HttpModelType.HEADER, "Supported-Statuses");
     }

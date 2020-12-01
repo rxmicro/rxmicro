@@ -21,8 +21,8 @@ public final class $$ResponseModelToJsonConverter extends ModelToJsonConverter<R
         return builder.build();
     }
 
-    protected void putValuesToBuilder(final Response model,
-                                      final JsonObjectBuilder builder) {
+    public void putValuesToBuilder(final Response model,
+                                   final JsonObjectBuilder builder) {
         builder.put("booleanParameter", model.getBooleanParameter());
         builder.put("byteParameter", model.getByteParameter());
         builder.put("shortParameter", model.getShortParameter());

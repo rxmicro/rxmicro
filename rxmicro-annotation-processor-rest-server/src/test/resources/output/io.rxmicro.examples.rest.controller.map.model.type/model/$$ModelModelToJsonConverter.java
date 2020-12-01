@@ -21,8 +21,8 @@ public final class $$ModelModelToJsonConverter extends ModelToJsonConverter<Mode
         return builder.build();
     }
 
-    protected void putValuesToBuilder(final Model model,
-                                      final JsonObjectBuilder builder) {
+    public void putValuesToBuilder(final Model model,
+                                   final JsonObjectBuilder builder) {
         builder.put("nested", convertFromMapIfNotNull(nestedModelToJsonConverter, model.nested));
     }
 }

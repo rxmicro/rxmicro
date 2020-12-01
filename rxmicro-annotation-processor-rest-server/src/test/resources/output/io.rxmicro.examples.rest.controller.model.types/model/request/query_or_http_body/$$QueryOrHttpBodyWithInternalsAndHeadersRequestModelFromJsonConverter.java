@@ -17,8 +17,8 @@ public final class $$QueryOrHttpBodyWithInternalsAndHeadersRequestModelFromJsonC
         return model;
     }
 
-    protected void readParamsToModel(final Map<String, Object> params,
-                                     final QueryOrHttpBodyWithInternalsAndHeadersRequest model) {
+    public void readParamsToModel(final Map<String, Object> params,
+                                  final QueryOrHttpBodyWithInternalsAndHeadersRequest model) {
         model.booleanParameter = toBoolean(params.get("booleanParameter"), "booleanParameter");
         model.byteParameter = toByte(params.get("byteParameter"), "byteParameter");
         model.shortParameter = toShort(params.get("shortParameter"), "shortParameter");

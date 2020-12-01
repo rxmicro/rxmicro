@@ -21,10 +21,10 @@ public final class $$StringModelWithRequiredNonNullValidatorsOnlyModelReader ext
         return model;
     }
 
-    protected void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
-                                         final HttpRequest request,
-                                         final QueryParams params,
-                                         final StringModelWithRequiredNonNullValidatorsOnly model) {
+    public void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
+                                      final HttpRequest request,
+                                      final QueryParams params,
+                                      final StringModelWithRequiredNonNullValidatorsOnly model) {
         model.allowEmptyString = toString(params.getValue("allowEmptyString"), HttpModelType.PARAMETER, "allowEmptyString");
         model.minLength = toString(params.getValue("minLength"), HttpModelType.PARAMETER, "minLength");
         model.length = toString(params.getValue("length"), HttpModelType.PARAMETER, "length");

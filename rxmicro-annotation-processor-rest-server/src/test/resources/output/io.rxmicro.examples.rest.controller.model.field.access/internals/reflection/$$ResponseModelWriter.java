@@ -22,8 +22,8 @@ public final class $$ResponseModelWriter extends ModelWriter<Response> {
         writePrimitivesToResponse(model, response);
     }
 
-    protected void writePrimitivesToResponse(final Response model,
-                                             final HttpResponse response) {
+    public void writePrimitivesToResponse(final Response model,
+                                          final HttpResponse response) {
         response.setStatus((Integer) getFieldValue(model, "internalResponseStatusCode"));
         response.setVersion((HttpVersion) getFieldValue(model, "internalHttpVersion"));
         response.setOrAddHeaders((HttpHeaders) getFieldValue(model, "internalHttpHeaders"));

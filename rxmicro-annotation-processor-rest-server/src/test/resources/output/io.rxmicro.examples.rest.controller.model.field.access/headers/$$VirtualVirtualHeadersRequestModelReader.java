@@ -21,9 +21,9 @@ public final class $$VirtualVirtualHeadersRequestModelReader extends ModelReader
         return model;
     }
 
-    protected void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
-                                         final HttpRequest request,
-                                         final $$VirtualVirtualHeadersRequest model) {
+    public void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
+                                      final HttpRequest request,
+                                      final $$VirtualVirtualHeadersRequest model) {
         final HttpHeaders httpHeaders = request.getHeaders();
         model.booleanHeader = toBoolean(httpHeaders.getValue("Boolean-Header"), HttpModelType.HEADER, "Boolean-Header");
         model.byteHeader = toByte(httpHeaders.getValue("Byte-Header"), HttpModelType.HEADER, "Byte-Header");

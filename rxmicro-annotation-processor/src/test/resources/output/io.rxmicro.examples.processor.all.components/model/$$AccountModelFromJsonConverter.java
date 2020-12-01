@@ -16,8 +16,8 @@ public final class $$AccountModelFromJsonConverter extends ModelFromJsonConverte
         return model;
     }
 
-    protected void readParamsToModel(final Map<String, Object> params,
-                                     final Account model) {
+    public void readParamsToModel(final Map<String, Object> params,
+                                  final Account model) {
         model.value = toString(params.get("value"), "value");
     }
 }

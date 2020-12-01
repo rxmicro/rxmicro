@@ -21,8 +21,8 @@ public final class $$HttpBodyRequestModelToJsonConverter extends ModelToJsonConv
         return builder.build();
     }
 
-    protected void putValuesToBuilder(final HttpBodyRequest model,
-                                      final JsonObjectBuilder builder) {
+    public void putValuesToBuilder(final HttpBodyRequest model,
+                                   final JsonObjectBuilder builder) {
         builder.put("booleanParameter", model.booleanParameter);
         builder.put("byteParameter", model.byteParameter);
         builder.put("shortParameter", model.shortParameter);

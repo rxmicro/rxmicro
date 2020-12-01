@@ -16,8 +16,8 @@ public final class $$RequestModelFromJsonConverter extends ModelFromJsonConverte
         return model;
     }
 
-    protected void readParamsToModel(final Map<String, Object> params,
-                                     final Request model) {
+    public void readParamsToModel(final Map<String, Object> params,
+                                  final Request model) {
         model.endpointVersion = toString(params.get("endpoint_version"), "endpoint_version");
         model.useProxy = toBoolean(params.get("use-Proxy"), "use-Proxy");
     }

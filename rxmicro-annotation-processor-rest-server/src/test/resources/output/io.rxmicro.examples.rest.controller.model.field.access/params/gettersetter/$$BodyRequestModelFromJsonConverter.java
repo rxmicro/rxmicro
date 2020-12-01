@@ -21,8 +21,8 @@ public final class $$BodyRequestModelFromJsonConverter extends ModelFromJsonConv
         return model;
     }
 
-    protected void readParamsToModel(final Map<String, Object> params,
-                                     final BodyRequest model) {
+    public void readParamsToModel(final Map<String, Object> params,
+                                  final BodyRequest model) {
         model.setBooleanParameter(toBoolean(params.get("booleanParameter"), "booleanParameter"));
         model.setByteParameter(toByte(params.get("byteParameter"), "byteParameter"));
         model.setShortParameter(toShort(params.get("shortParameter"), "shortParameter"));

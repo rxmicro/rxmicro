@@ -37,11 +37,18 @@ public final class $$QueryOrHttpBodyWithInternalsRequestModelReader extends Mode
         }
     }
 
-    protected void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
-                                         final HttpRequest request,
-                                         final QueryParams params,
-                                         final QueryOrHttpBodyWithInternalsRequest model) {
-        readPrimitivesToModel(pathVariableMapping, request, model);
+    public void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
+                                      final HttpRequest request,
+                                      final QueryParams params,
+                                      final QueryOrHttpBodyWithInternalsRequest model) {
+        model.internalRemoteAddress1 = String.valueOf(request.getRemoteAddress());
+        model.internalRemoteAddress2 = request.getRemoteAddress();
+        model.internalUrlPath = request.getUri();
+        model.internalRequestMethod = request.getMethod();
+        model.internalHttpVersion = request.getVersion();
+        model.internalRequestHeaders = request.getHeaders();
+        model.internalRequestBody = request.getContent();
+        model.internalRequest = request;
         model.booleanParameter = toBoolean(params.getValue("booleanParameter"), HttpModelType.PARAMETER, "booleanParameter");
         model.byteParameter = toByte(params.getValue("byteParameter"), HttpModelType.PARAMETER, "byteParameter");
         model.shortParameter = toShort(params.getValue("shortParameter"), HttpModelType.PARAMETER, "shortParameter");
@@ -83,9 +90,9 @@ public final class $$QueryOrHttpBodyWithInternalsRequestModelReader extends Mode
         model.enumParameterSet = toEnumSet(Status.class, params.getValues("enumParameterSet"), HttpModelType.PARAMETER, "enumParameterSet");
     }
 
-    protected void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
-                                         final HttpRequest request,
-                                         final QueryOrHttpBodyWithInternalsRequest model) {
+    public void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
+                                      final HttpRequest request,
+                                      final QueryOrHttpBodyWithInternalsRequest model) {
         model.internalRemoteAddress1 = String.valueOf(request.getRemoteAddress());
         model.internalRemoteAddress2 = request.getRemoteAddress();
         model.internalUrlPath = request.getUri();
