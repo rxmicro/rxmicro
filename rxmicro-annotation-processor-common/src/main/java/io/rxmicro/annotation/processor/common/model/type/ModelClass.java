@@ -16,7 +16,6 @@
 
 package io.rxmicro.annotation.processor.common.model.type;
 
-import io.rxmicro.annotation.processor.common.model.ClassStructure;
 import io.rxmicro.annotation.processor.common.model.LoggableClassName;
 import io.rxmicro.annotation.processor.common.model.ModelField;
 import io.rxmicro.annotation.processor.common.util.UsedByFreemarker;

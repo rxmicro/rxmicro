@@ -34,11 +34,11 @@ import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.TypeElement;
 
-import static io.rxmicro.annotation.processor.config.SupportedOptions.ALL_SUPPORTED_OPTIONS;
 import static io.rxmicro.annotation.processor.common.util.Injects.injectDependencies;
 import static io.rxmicro.annotation.processor.common.util.InternalLoggers.logThrowableStackTrace;
 import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.doesNotContainErrors;
 import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getMessager;
+import static io.rxmicro.annotation.processor.config.SupportedOptions.ALL_SUPPORTED_OPTIONS;
 import static javax.tools.Diagnostic.Kind.ERROR;
 
 /**

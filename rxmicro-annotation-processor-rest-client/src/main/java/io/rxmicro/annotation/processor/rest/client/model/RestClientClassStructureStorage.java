@@ -25,7 +25,6 @@ import io.rxmicro.annotation.processor.rest.model.converter.ModelToJsonConverter
 import io.rxmicro.annotation.processor.rest.model.validator.ModelValidatorClassStructure;
 import io.rxmicro.common.meta.BuilderMethod;
 
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;

@@ -16,9 +16,9 @@
 
 package io.rxmicro.annotation.processor.rest.server.model;
 
-import io.rxmicro.annotation.processor.config.DocumentationType;
 import io.rxmicro.annotation.processor.common.model.EnvironmentContext;
 import io.rxmicro.annotation.processor.common.model.ModelFieldType;
+import io.rxmicro.annotation.processor.config.DocumentationType;
 import io.rxmicro.annotation.processor.rest.model.RestModuleGeneratorConfig;
 import io.rxmicro.common.RxMicroModule;
 import io.rxmicro.rest.model.ServerExchangeFormatModule;

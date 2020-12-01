@@ -60,7 +60,7 @@ public final class ModelReaderClassStructure extends AbstractRestControllerModel
                 (readerType.isQueryPresent() && parent.getModelClass().isParamEntriesPresentAtThisOrAnyParent())) {
             this.parent = parent;
             return true;
-        } else{
+        } else {
             return false;
         }
     }

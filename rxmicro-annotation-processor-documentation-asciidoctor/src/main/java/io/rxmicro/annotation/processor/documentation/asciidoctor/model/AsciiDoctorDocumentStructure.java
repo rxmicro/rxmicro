@@ -17,8 +17,8 @@
 package io.rxmicro.annotation.processor.documentation.asciidoctor.model;
 
 import io.rxmicro.annotation.processor.common.model.DocumentStructure;
-import io.rxmicro.annotation.processor.config.DocumentationType;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
+import io.rxmicro.annotation.processor.config.DocumentationType;
 import io.rxmicro.annotation.processor.documentation.model.ProjectMetaData;
 import io.rxmicro.documentation.DocumentationDefinition;
 import io.rxmicro.documentation.IntroductionDefinition;

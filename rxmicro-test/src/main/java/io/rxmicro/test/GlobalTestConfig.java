@@ -41,7 +41,7 @@ public final class GlobalTestConfig extends BaseTestConfig {
     public static final TimeZone DEFAULT_TIMESTAMP_TIME_ZONE = TimeZone.getTimeZone("UTC");
 
     private Duration defaultInstantCompareDelta = DEFAULT_INSTANT_COMPARE_DELTA_VALUE;
-    
+
     private TimeZone timestampTimeZone = DEFAULT_TIMESTAMP_TIME_ZONE;
 
     /**

@@ -18,7 +18,6 @@ package io.rxmicro.annotation.processor.rest.server.component.impl;
 
 import com.google.inject.Singleton;
 import io.rxmicro.annotation.processor.common.component.impl.AbstractModelClassHierarchyBuilder;
-import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
 import io.rxmicro.annotation.processor.common.model.type.ModelClass;
 import io.rxmicro.annotation.processor.rest.model.RestModelField;
 import io.rxmicro.annotation.processor.rest.model.RestObjectModelClass;

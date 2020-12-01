@@ -20,7 +20,6 @@ import io.rxmicro.annotation.processor.common.model.method.MethodBody;
 import io.rxmicro.annotation.processor.common.util.UsedByFreemarker;
 
 import java.util.List;
-
 import javax.lang.model.element.VariableElement;
 
 import static io.rxmicro.common.util.Formats.format;

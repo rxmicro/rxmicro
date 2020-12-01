@@ -139,12 +139,12 @@ public final class EnvironmentContext {
                 DEFAULT_OFFSET + "Include packages:" + (includePackages.isEmpty() ?
                 " <none>" :
                 lineSeparator() + includePackages.stream()
-                        .map(s -> DEFAULT_OFFSET + DEFAULT_OFFSET +  s + ".*")
+                        .map(s -> DEFAULT_OFFSET + DEFAULT_OFFSET + s + ".*")
                         .collect(joining(lineSeparator()))) + lineSeparator() +
                 DEFAULT_OFFSET + "Exclude packages:" + (excludePackages.isEmpty() ?
                 " <none>" :
                 lineSeparator() + excludePackages.stream()
-                        .map(s -> DEFAULT_OFFSET + DEFAULT_OFFSET  + s + ".*")
+                        .map(s -> DEFAULT_OFFSET + DEFAULT_OFFSET + s + ".*")
                         .collect(joining(lineSeparator())));
     }
 

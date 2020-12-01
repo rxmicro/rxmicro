@@ -21,7 +21,6 @@ import io.rxmicro.annotation.processor.rest.model.RestMethodSignature;
 import io.rxmicro.annotation.processor.rest.model.RestRequestModel;
 import io.rxmicro.annotation.processor.rest.model.RestResponseModel;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import javax.lang.model.element.ExecutableElement;

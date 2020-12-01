@@ -92,7 +92,7 @@ public abstract class RestObjectModelClass extends ObjectModelClass<RestModelFie
 
     @Override
     public Optional<RestObjectModelClass> getParent() {
-        return super.getParent().map(o -> (RestObjectModelClass)o);
+        return super.getParent().map(o -> (RestObjectModelClass) o);
     }
 
     @Override
@@ -168,7 +168,7 @@ public abstract class RestObjectModelClass extends ObjectModelClass<RestModelFie
         return !pathVariables.isEmpty();
     }
 
-    public boolean isHeadersOrPathVariablesOrInternalsPresent(){
+    public boolean isHeadersOrPathVariablesOrInternalsPresent() {
         return isHeadersPresent() || isPathVariablesPresent() || isInternalsPresent();
     }
 

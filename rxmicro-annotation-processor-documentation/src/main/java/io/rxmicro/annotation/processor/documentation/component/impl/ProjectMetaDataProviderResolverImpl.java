@@ -38,11 +38,11 @@ import java.util.List;
 import java.util.Optional;
 import javax.tools.FileObject;
 
-import static io.rxmicro.annotation.processor.config.SupportedOptions.RX_MICRO_DOC_ANALYZE_PARENT_POM;
-import static io.rxmicro.annotation.processor.config.SupportedOptions.RX_MICRO_DOC_ANALYZE_PARENT_POM_DEFAULT_VALUE;
 import static io.rxmicro.annotation.processor.common.util.InternalLoggers.logThrowableStackTrace;
 import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getFiler;
 import static io.rxmicro.annotation.processor.common.util.Stubs.stub;
+import static io.rxmicro.annotation.processor.config.SupportedOptions.RX_MICRO_DOC_ANALYZE_PARENT_POM;
+import static io.rxmicro.annotation.processor.config.SupportedOptions.RX_MICRO_DOC_ANALYZE_PARENT_POM_DEFAULT_VALUE;
 import static io.rxmicro.annotation.processor.documentation.TestSystemProperties.RX_MICRO_POM_XML_ABSOLUTE_PATH;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static javax.tools.StandardLocation.SOURCE_OUTPUT;

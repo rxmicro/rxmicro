@@ -47,7 +47,6 @@ import io.rxmicro.annotation.processor.rest.client.component.impl.method.HttpBod
 import io.rxmicro.annotation.processor.rest.client.component.impl.method.QueryWithObjectParameterRestClientMethodBodyBuilder;
 import io.rxmicro.annotation.processor.rest.client.component.impl.method.WithoutParametersRestClientMethodBodyBuilder;
 import io.rxmicro.annotation.processor.rest.client.model.RestClientModuleGeneratorConfig;
-import io.rxmicro.annotation.processor.rest.client.model.RestClientObjectModelClass;
 import io.rxmicro.annotation.processor.rest.client.model.RestClientSupportedTypesProvider;
 import io.rxmicro.annotation.processor.rest.model.RestModelField;
 import io.rxmicro.annotation.processor.rest.model.RestObjectModelClass;

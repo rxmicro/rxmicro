@@ -74,7 +74,7 @@ public final class RestControllerMethodSignature implements RestMethodSignature 
         return simpleName;
     }
 
-    public List<? extends VariableElement> getParameters(){
+    public List<? extends VariableElement> getParameters() {
         return executableElement.getParameters();
     }
 

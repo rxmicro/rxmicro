@@ -20,7 +20,12 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 
 import java.io.IOException;
-import java.nio.file.*;
+import java.nio.file.DirectoryNotEmptyException;
+import java.nio.file.FileVisitResult;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.List;
 import java.util.Map;
@@ -43,11 +48,11 @@ public abstract class AbstractConfigsIntegrationTest {
     private static final Path TEMP_DIRECTORY =
             Paths.get(System.getProperty("java.io.tmpdir") + "/rxmicro-configs-integration-test").toAbsolutePath();
 
+    private static Thread DELETE_TEMP_DIR_SHUTDOWN_HOOK;
+
     private String mkDir(final String relativePath) throws IOException {
         return createDirectories(Paths.get(TEMP_DIRECTORY.toString() + "/" + relativePath)).toAbsolutePath().toString();
     }
-
-    private static Thread DELETE_TEMP_DIR_SHUTDOWN_HOOK;
 
     @BeforeEach
     void beforeEach() throws IOException {

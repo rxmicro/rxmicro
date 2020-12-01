@@ -50,7 +50,7 @@ public final class ModelWriterClassStructure extends AbstractRestControllerModel
         if (parent.getModelClass().isHeadersOrPathVariablesOrInternalsPresent()) {
             this.parent = parent;
             return true;
-        } else{
+        } else {
             return false;
         }
     }
