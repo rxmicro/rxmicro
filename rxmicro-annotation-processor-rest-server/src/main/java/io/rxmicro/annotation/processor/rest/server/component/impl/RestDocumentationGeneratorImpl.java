@@ -21,7 +21,7 @@ import com.google.inject.Singleton;
 import io.rxmicro.annotation.processor.common.component.DocumentationGenerator;
 import io.rxmicro.annotation.processor.common.component.impl.AbstractProcessorComponent;
 import io.rxmicro.annotation.processor.common.model.DocumentStructure;
-import io.rxmicro.annotation.processor.common.model.DocumentationType;
+import io.rxmicro.annotation.processor.config.DocumentationType;
 import io.rxmicro.annotation.processor.common.model.EnvironmentContext;
 import io.rxmicro.annotation.processor.common.model.error.InternalErrorException;
 import io.rxmicro.annotation.processor.rest.server.component.AbstractDocumentationModuleClassStructuresBuilder;

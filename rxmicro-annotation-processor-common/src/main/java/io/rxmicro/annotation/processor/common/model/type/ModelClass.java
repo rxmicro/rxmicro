@@ -16,6 +16,7 @@
 
 package io.rxmicro.annotation.processor.common.model.type;
 
+import io.rxmicro.annotation.processor.common.model.LoggableClassName;
 import io.rxmicro.annotation.processor.common.model.ModelField;
 import io.rxmicro.annotation.processor.common.util.UsedByFreemarker;
 
@@ -25,11 +26,16 @@ import java.util.Objects;
  * @author nedis
  * @since 0.1
  */
-public abstract class ModelClass {
+public abstract class ModelClass implements LoggableClassName {
 
     public abstract String getJavaSimpleClassName();
 
     public abstract String getJavaFullClassName();
+
+    @Override
+    public String getLoggableFullClassName() {
+        return getJavaFullClassName();
+    }
 
     @UsedByFreemarker
     public final boolean isPrimitive() {

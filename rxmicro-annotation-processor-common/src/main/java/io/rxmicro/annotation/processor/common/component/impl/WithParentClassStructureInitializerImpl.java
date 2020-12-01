@@ -46,9 +46,13 @@ public final class WithParentClassStructureInitializerImpl extends AbstractProce
                     if (modelClassFullClassNameOptional.isPresent() && modelClassFullClassNameOptional.get().equals(javaFullClassName)) {
                         if (withParentClassStructure.setParent(classStructureCandidate)) {
                             debug(
-                                    "Set parent class structure:\n?\n\t?",
-                                    classStructureCandidate.getTargetFullClassName(),
-                                    withParentClassStructure.getTargetFullClassName()
+                                    "Set parent class structure:\n?",
+                                    () -> showParentChildRelation(
+                                            0,
+                                            true,
+                                            classStructureCandidate,
+                                            withParentClassStructure
+                                    )
                             );
                         }
                         return;

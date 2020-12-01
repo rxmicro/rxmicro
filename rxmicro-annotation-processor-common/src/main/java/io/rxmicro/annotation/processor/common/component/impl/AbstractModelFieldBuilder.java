@@ -51,10 +51,10 @@ import javax.lang.model.element.VariableElement;
 import javax.lang.model.type.DeclaredType;
 import javax.lang.model.type.TypeMirror;
 
-import static io.rxmicro.annotation.processor.common.SupportedOptions.RX_MICRO_MAX_JSON_NESTED_DEPTH;
-import static io.rxmicro.annotation.processor.common.SupportedOptions.RX_MICRO_MAX_JSON_NESTED_DEPTH_DEFAULT_VALUE;
-import static io.rxmicro.annotation.processor.common.SupportedOptions.RX_MICRO_STRICT_MODE;
-import static io.rxmicro.annotation.processor.common.SupportedOptions.RX_MICRO_STRICT_MODE_DEFAULT_VALUE;
+import static io.rxmicro.annotation.processor.config.SupportedOptions.RX_MICRO_MAX_JSON_NESTED_DEPTH;
+import static io.rxmicro.annotation.processor.config.SupportedOptions.RX_MICRO_MAX_JSON_NESTED_DEPTH_DEFAULT_VALUE;
+import static io.rxmicro.annotation.processor.config.SupportedOptions.RX_MICRO_STRICT_MODE;
+import static io.rxmicro.annotation.processor.config.SupportedOptions.RX_MICRO_STRICT_MODE_DEFAULT_VALUE;
 import static io.rxmicro.annotation.processor.common.util.Elements.allModelFields;
 import static io.rxmicro.annotation.processor.common.util.Elements.asEnumElement;
 import static io.rxmicro.annotation.processor.common.util.Elements.findGetters;
@@ -97,11 +97,13 @@ public abstract class AbstractModelFieldBuilder<MF extends ModelField, MC extend
             if (modelClass.isObject()) {
                 final MC objectModelClass = (MC) modelClass;
                 result.put(typeElement, objectModelClass);
-                debugIfEnabled(objectModelClass);
+                traceIfEnabled(objectModelClass);
             } else {
-                error(typeElement,
+                error(
+                        typeElement,
                         "Invalid model class: ?. Model class could be an json object only",
-                        typeElement.getQualifiedName());
+                        typeElement.getQualifiedName()
+                );
             }
         }
         return unmodifiableMap(result);
@@ -202,9 +204,16 @@ public abstract class AbstractModelFieldBuilder<MF extends ModelField, MC extend
         }
     }
 
-    protected void debugIfEnabled(final ObjectModelClass<MF> objectModelClass) {
-        debug(() -> format("All children object model classes of ? class:\n?",
-                objectModelClass.getJavaFullClassName(), objectModelClass.getAllChildrenObjectModelClasses()));
+    protected void traceIfEnabled(final ObjectModelClass<MF> objectModelClass) {
+        if (!objectModelClass.getAllChildrenObjectModelClasses().isEmpty()) {
+            trace(() ->
+                    format(
+                            "All children object model classes of ? class:\n?",
+                            objectModelClass.getJavaFullClassName(),
+                            objectModelClass.getAllChildrenObjectModelClasses()
+                    )
+            );
+        }
     }
 
     private ModelClass extract(final ModuleElement currentModule,

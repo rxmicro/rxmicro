@@ -32,7 +32,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Map;
 
-import static io.rxmicro.annotation.processor.common.SupportedOptions.RX_MICRO_DOC_DESTINATION_DIR;
+import static io.rxmicro.annotation.processor.config.SupportedOptions.RX_MICRO_DOC_DESTINATION_DIR;
 import static java.nio.file.Files.writeString;
 
 /**

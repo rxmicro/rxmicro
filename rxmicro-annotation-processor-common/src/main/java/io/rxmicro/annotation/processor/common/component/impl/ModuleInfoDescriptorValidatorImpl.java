@@ -33,8 +33,8 @@ import javax.lang.model.element.ModuleElement;
 import javax.lang.model.element.PackageElement;
 import javax.lang.model.element.TypeElement;
 
-import static io.rxmicro.annotation.processor.common.SupportedOptions.RX_MICRO_STRICT_MODE;
-import static io.rxmicro.annotation.processor.common.SupportedOptions.RX_MICRO_STRICT_MODE_DEFAULT_VALUE;
+import static io.rxmicro.annotation.processor.config.SupportedOptions.RX_MICRO_STRICT_MODE;
+import static io.rxmicro.annotation.processor.config.SupportedOptions.RX_MICRO_STRICT_MODE_DEFAULT_VALUE;
 import static io.rxmicro.annotation.processor.common.util.Elements.findSuperType;
 import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getElements;
 import static io.rxmicro.common.CommonConstants.VirtualModuleInfoConstants.RX_MICRO_VIRTUAL_MODULE_INFO_ANNOTATION_NAME;

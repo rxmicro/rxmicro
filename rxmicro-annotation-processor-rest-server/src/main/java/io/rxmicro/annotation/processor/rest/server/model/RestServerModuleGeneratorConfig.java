@@ -16,7 +16,7 @@
 
 package io.rxmicro.annotation.processor.rest.server.model;
 
-import io.rxmicro.annotation.processor.common.model.DocumentationType;
+import io.rxmicro.annotation.processor.config.DocumentationType;
 import io.rxmicro.annotation.processor.common.model.EnvironmentContext;
 import io.rxmicro.annotation.processor.common.model.ModelFieldType;
 import io.rxmicro.annotation.processor.rest.model.RestModuleGeneratorConfig;
@@ -29,7 +29,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static io.rxmicro.annotation.processor.common.model.DocumentationType.ASCII_DOCTOR;
+import static io.rxmicro.annotation.processor.config.DocumentationType.ASCII_DOCTOR;
 import static io.rxmicro.common.RxMicroModule.RX_MICRO_DOCUMENTATION_ASCIIDOCTOR_MODULE;
 import static io.rxmicro.common.RxMicroModule.RX_MICRO_VALIDATION_MODULE;
 

@@ -25,17 +25,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
-import java.util.concurrent.atomic.AtomicInteger;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.TypeMirror;
 
 import static io.rxmicro.annotation.processor.common.util.Elements.allSuperTypes;
 import static io.rxmicro.common.util.ExCollections.unmodifiableList;
 import static io.rxmicro.common.util.Requires.require;
-import static java.util.stream.Collectors.joining;
 import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toMap;
 
@@ -122,16 +121,21 @@ public abstract class AbstractModelClassHierarchyBuilder<MF extends ModelField, 
 
     private String classHierarchyToString(final List<MC> list) {
         final StringBuilder stringBuilder = new StringBuilder();
-        for (int i = 0; i < list.size(); i++) {
-            final MC mc = list.get(i);
-            stringBuilder.append("\t".repeat(i));
-            if (!mc.isModelClassReturnedByRestMethod()) {
-                stringBuilder.append("abstract ");
+        final ListIterator<MC> iterator = list.listIterator();
+        int index = 0;
+        while (iterator.hasNext()) {
+            final MC parent = iterator.next();
+            if (iterator.hasNext()) {
+                final MC child = iterator.next();
+                stringBuilder.append(showParentChildRelation(index, index == 0, parent, child)).append('\n');
+                iterator.previous();
+                index++;
+            } else {
+                break;
             }
-            stringBuilder.append(mc.getJavaFullClassName());
-            if (i != list.size() - 1) {
-                stringBuilder.append('\n');
-            }
+        }
+        if (stringBuilder.length() > 0) {
+            stringBuilder.deleteCharAt(stringBuilder.length() - 1);
         }
         return stringBuilder.toString();
     }

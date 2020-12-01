@@ -78,6 +78,15 @@ public abstract class ObjectModelClass<T extends ModelField> extends ModelClass 
         }
     }
 
+    @Override
+    public String getLoggableFullClassName() {
+        if (modelClassReturnedByRestMethod) {
+            return super.getLoggableFullClassName();
+        } else {
+            return "abstract " + super.getLoggableFullClassName();
+        }
+    }
+
     public boolean isModelClassReturnedByRestMethod() {
         return modelClassReturnedByRestMethod;
     }
@@ -123,7 +132,7 @@ public abstract class ObjectModelClass<T extends ModelField> extends ModelClass 
     }
 
     @UsedByFreemarker("$$RestJsonModelWriterTemplate.javaftl")
-    public boolean isParamEntriesPresentAtThisOrAnyParent(){
+    public boolean isParamEntriesPresentAtThisOrAnyParent() {
         return isParamEntriesPresent() || (parent != null && parent.isParamEntriesPresentAtThisOrAnyParent());
     }
 

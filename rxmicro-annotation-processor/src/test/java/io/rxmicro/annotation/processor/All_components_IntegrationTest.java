@@ -16,7 +16,7 @@
 
 package io.rxmicro.annotation.processor;
 
-import io.rxmicro.annotation.processor.common.component.impl.AbstractProcessorComponent;
+import io.rxmicro.annotation.processor.config.LogLevel;
 import io.rxmicro.annotation.processor.integration.test.AbstractRxMicroAnnotationProcessorIntegrationTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -25,7 +25,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 import java.io.IOException;
 import javax.annotation.processing.Processor;
 
-import static io.rxmicro.annotation.processor.common.SupportedOptions.RX_MICRO_LOG_LEVEL;
+import static io.rxmicro.annotation.processor.config.SupportedOptions.RX_MICRO_LOG_LEVEL;
 import static io.rxmicro.annotation.processor.integration.test.ExternalModule.EXTERNAL_MONGO_DB_BSON_MODULE;
 import static io.rxmicro.annotation.processor.integration.test.ExternalModule.EXTERNAL_MONGO_DB_DRIVER_CORE_MODULE;
 import static io.rxmicro.annotation.processor.integration.test.ExternalModule.EXTERNAL_MONGO_DB_REACTIVE_DRIVER_MODULE;
@@ -58,7 +58,7 @@ final class All_components_IntegrationTest extends AbstractRxMicroAnnotationProc
                 BEAN_FACTORY_IMPL_CLASS_NAME,
                 REPOSITORY_FACTORY_IMPL_CLASS_NAME
         );
-        addCompilerOption(RX_MICRO_LOG_LEVEL, AbstractProcessorComponent.Level.DEBUG.name());
+        addCompilerOption(RX_MICRO_LOG_LEVEL, LogLevel.DEBUG.name());
     }
 
     @BeforeEach

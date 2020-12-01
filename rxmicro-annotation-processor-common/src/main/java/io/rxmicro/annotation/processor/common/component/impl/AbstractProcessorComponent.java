@@ -16,8 +16,9 @@
 
 package io.rxmicro.annotation.processor.common.component.impl;
 
-import io.rxmicro.annotation.processor.common.SupportedOptions;
+import io.rxmicro.annotation.processor.common.model.LoggableClassName;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
+import io.rxmicro.annotation.processor.config.LogLevel;
 
 import java.util.Arrays;
 import java.util.Optional;
@@ -26,11 +27,17 @@ import javax.lang.model.element.Element;
 import javax.tools.Diagnostic;
 
 import static io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException.READ_MORE_TEMPLATE;
+import static io.rxmicro.annotation.processor.common.util.InternalLoggers.DEFAULT_OFFSET;
 import static io.rxmicro.annotation.processor.common.util.InternalLoggers.logMessage;
 import static io.rxmicro.annotation.processor.common.util.InternalLoggers.logThrowableStackTrace;
 import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.errorDetected;
 import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getCompilerOptions;
 import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getMessager;
+import static io.rxmicro.annotation.processor.config.LogLevel.DEBUG;
+import static io.rxmicro.annotation.processor.config.LogLevel.INFO;
+import static io.rxmicro.annotation.processor.config.LogLevel.TRACE;
+import static io.rxmicro.annotation.processor.config.SupportedOptions.RX_MICRO_LOG_LEVEL;
+import static io.rxmicro.annotation.processor.config.SupportedOptions.RX_MICRO_LOG_LEVEL_DEFAULT_VALUE;
 import static io.rxmicro.common.util.Formats.format;
 
 /**
@@ -39,55 +46,84 @@ import static io.rxmicro.common.util.Formats.format;
  */
 public abstract class AbstractProcessorComponent {
 
-    private Level level;
+    private LogLevel level;
 
-    private Level getLevel() {
+    private LogLevel getLevel() {
         if (level == null) {
-            level = Level.of(getStringOption(
-                    SupportedOptions.RX_MICRO_LOG_LEVEL,
-                    SupportedOptions.RX_MICRO_LOG_LEVEL_DEFAULT_VALUE
-            ));
+            final String stringLogLevel = getStringOption(RX_MICRO_LOG_LEVEL, RX_MICRO_LOG_LEVEL_DEFAULT_VALUE.name());
+            try {
+                level = LogLevel.valueOf(stringLogLevel);
+            } catch (final IllegalArgumentException ignore) {
+                getMessager().printMessage(
+                        Diagnostic.Kind.MANDATORY_WARNING,
+                        format("Unsupported logger level for the RxMicro Annotation Processor: '?'. " +
+                                        "Only following supported: ?. Using default level: '?'",
+                                stringLogLevel, Arrays.toString(LogLevel.values()), RX_MICRO_LOG_LEVEL_DEFAULT_VALUE
+                        )
+                );
+                level = RX_MICRO_LOG_LEVEL_DEFAULT_VALUE;
+            }
         }
         return level;
     }
 
+    protected final void trace(final Supplier<String> supplier) {
+        if (getLevel().isEnabled(TRACE)) {
+            logMessage(TRACE, supplier.get());
+        }
+    }
+
+    protected final void trace(final String message,
+                               final Object... args) {
+        if (getLevel().isEnabled(TRACE)) {
+            logMessage(TRACE, format(message, args));
+        }
+    }
+
+    protected final void trace(final String message,
+                               final Supplier<?>... args) {
+        if (getLevel().isEnabled(TRACE)) {
+            logMessage(TRACE, format(message, Arrays.stream(args).map(Supplier::get).toArray()));
+        }
+    }
+
     protected final void debug(final Supplier<String> supplier) {
-        if (getLevel() == Level.DEBUG) {
-            logMessage(Level.DEBUG, supplier.get());
+        if (getLevel().isEnabled(DEBUG)) {
+            logMessage(DEBUG, supplier.get());
         }
     }
 
     protected final void debug(final String message,
                                final Object... args) {
-        if (getLevel() == Level.DEBUG) {
-            logMessage(Level.DEBUG, format(message, args));
+        if (getLevel().isEnabled(DEBUG)) {
+            logMessage(DEBUG, format(message, args));
         }
     }
 
     protected final void debug(final String message,
                                final Supplier<?>... args) {
-        if (getLevel() == Level.DEBUG) {
-            logMessage(Level.DEBUG, format(message, Arrays.stream(args).map(Supplier::get).toArray()));
+        if (getLevel().isEnabled(DEBUG)) {
+            logMessage(DEBUG, format(message, Arrays.stream(args).map(Supplier::get).toArray()));
         }
     }
 
     protected final void info(final Supplier<String> supplier) {
-        if (getLevel() == Level.INFO) {
-            logMessage(Level.INFO, supplier.get());
+        if (getLevel().isEnabled(INFO)) {
+            logMessage(INFO, supplier.get());
         }
     }
 
     protected final void info(final String message,
                               final Object... args) {
-        if (getLevel() == Level.INFO) {
-            logMessage(Level.INFO, format(message, args));
+        if (getLevel().isEnabled(INFO)) {
+            logMessage(INFO, format(message, args));
         }
     }
 
     protected final void info(final String message,
                               final Supplier<?>... args) {
-        if (getLevel() == Level.INFO) {
-            logMessage(Level.INFO, format(message, Arrays.stream(args).map(Supplier::get).toArray()));
+        if (getLevel().isEnabled(INFO)) {
+            logMessage(INFO, format(message, Arrays.stream(args).map(Supplier::get).toArray()));
         }
     }
 
@@ -108,9 +144,7 @@ public abstract class AbstractProcessorComponent {
 
     protected final void error(final String message,
                                final Object... args) {
-        if (getLevel() != Level.OFF) {
-            getMessager().printMessage(Diagnostic.Kind.ERROR, format(message, args));
-        }
+        getMessager().printMessage(Diagnostic.Kind.ERROR, format(message, args));
     }
 
     protected final void error(final InterruptProcessingException exception) {
@@ -196,25 +230,15 @@ public abstract class AbstractProcessorComponent {
         return defaultValue;
     }
 
-    /**
-     * @author nedis
-     * @since 0.1
-     */
-    public enum Level {
-
-        INFO,
-
-        DEBUG,
-
-        OFF;
-
-        static Level of(final String name) {
-            for (final Level value : values()) {
-                if (value.name().equalsIgnoreCase(name)) {
-                    return value;
-                }
-            }
-            return OFF;
-        }
+    protected final String showParentChildRelation(final int repeatOffset,
+                                                   final boolean showParent,
+                                                   final LoggableClassName parentClass,
+                                                   final LoggableClassName childClass) {
+        final char rowHead = '^';
+        final String rowTail = "|-";
+        final int offsetValue = repeatOffset * 3 + 1;
+        return (showParent ? DEFAULT_OFFSET.repeat(offsetValue) + parentClass.getLoggableFullClassName() + '\n' : "") +
+                DEFAULT_OFFSET.repeat(offsetValue) + DEFAULT_OFFSET + rowHead + '\n' +
+                DEFAULT_OFFSET.repeat(offsetValue) + DEFAULT_OFFSET + rowTail + DEFAULT_OFFSET + childClass.getLoggableFullClassName();
     }
 }

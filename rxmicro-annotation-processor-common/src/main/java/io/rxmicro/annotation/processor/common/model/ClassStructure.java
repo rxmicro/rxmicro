@@ -28,7 +28,7 @@ import static io.rxmicro.annotation.processor.common.util.Names.getSimpleName;
  * @author nedis
  * @since 0.1
  */
-public abstract class ClassStructure implements Comparable<ClassStructure> {
+public abstract class ClassStructure implements Comparable<ClassStructure>, LoggableClassName {
 
     @UsedByFreemarker({
             "$$RestClientFactoryImplTemplate.javaftl",
@@ -74,6 +74,11 @@ public abstract class ClassStructure implements Comparable<ClassStructure> {
 
     public List<Map.Entry<String, DefaultConfigProxyValue>> getDefaultConfigProxyValues() {
         return List.of();
+    }
+
+    @Override
+    public String getLoggableFullClassName() {
+        return getTargetFullClassName();
     }
 
     @Override

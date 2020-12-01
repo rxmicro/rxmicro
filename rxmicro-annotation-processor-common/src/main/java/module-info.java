@@ -35,7 +35,10 @@ module rxmicro.annotation.processor.common {
     requires transitive org.reactivestreams;
     requires transitive io.reactivex.rxjava3;
 
+    requires transitive rxmicro.annotation.processor.config;
+
     exports io.rxmicro.annotation.processor.common to
+            rxmicro.common,
             rxmicro.annotation.processor,
             rxmicro.annotation.processor.data.mongo,
             rxmicro.annotation.processor.data.aggregator,

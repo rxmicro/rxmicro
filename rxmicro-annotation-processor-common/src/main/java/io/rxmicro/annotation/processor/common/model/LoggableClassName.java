@@ -16,28 +16,11 @@
 
 package io.rxmicro.annotation.processor.common.model;
 
-import static io.rxmicro.documentation.PathVariables.PROJECT_DIR;
-
 /**
  * @author nedis
- * @since 0.1
+ * @since 0.7.2
  */
-public enum DocumentationType {
+public interface LoggableClassName {
 
-    ASCII_DOCTOR(PROJECT_DIR + "/src/main/asciidoc");
-
-    private final String destinationDirectory;
-
-    DocumentationType(final String destinationDirectory) {
-        this.destinationDirectory = destinationDirectory;
-    }
-
-    public String getDestinationDirectory() {
-        return destinationDirectory;
-    }
-
-    @Override
-    public String toString() {
-        return name().replace("_", " ");
-    }
+    String getLoggableFullClassName();
 }

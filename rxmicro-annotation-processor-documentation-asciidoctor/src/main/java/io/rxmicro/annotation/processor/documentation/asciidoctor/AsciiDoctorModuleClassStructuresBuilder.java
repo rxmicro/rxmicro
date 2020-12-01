@@ -19,7 +19,7 @@ package io.rxmicro.annotation.processor.documentation.asciidoctor;
 import com.google.inject.Inject;
 import io.rxmicro.annotation.processor.common.CommonDependenciesModule;
 import io.rxmicro.annotation.processor.common.model.DocumentStructure;
-import io.rxmicro.annotation.processor.common.model.DocumentationType;
+import io.rxmicro.annotation.processor.config.DocumentationType;
 import io.rxmicro.annotation.processor.common.model.EnvironmentContext;
 import io.rxmicro.annotation.processor.documentation.DocumentationDependenciesModule;
 import io.rxmicro.annotation.processor.documentation.asciidoctor.component.GenerationOutputOrganizer;
@@ -49,7 +49,7 @@ import java.util.Optional;
 import java.util.Set;
 import javax.lang.model.element.ModuleElement;
 
-import static io.rxmicro.annotation.processor.common.model.DocumentationType.ASCII_DOCTOR;
+import static io.rxmicro.annotation.processor.config.DocumentationType.ASCII_DOCTOR;
 import static io.rxmicro.annotation.processor.common.util.Annotations.getPresentOrDefaultAnnotation;
 import static io.rxmicro.annotation.processor.common.util.Injects.injectDependencies;
 import static java.util.Map.entry;

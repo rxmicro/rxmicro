@@ -104,6 +104,7 @@
 
         <module>rxmicro-annotation-processor</module>
         <module>rxmicro-annotation-processor-integration-test</module>
+        <module>rxmicro-annotation-processor-config</module>
         <module>rxmicro-annotation-processor-common</module>
         <module>rxmicro-annotation-processor-cdi</module>
         <module>rxmicro-annotation-processor-rest</module>

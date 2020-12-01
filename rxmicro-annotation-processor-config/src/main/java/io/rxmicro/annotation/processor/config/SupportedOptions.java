@@ -14,13 +14,17 @@
  * limitations under the License.
  */
 
-package io.rxmicro.annotation.processor.common;
+package io.rxmicro.annotation.processor.config;
 
-import io.rxmicro.annotation.processor.common.component.impl.AbstractProcessorComponent;
-import io.rxmicro.annotation.processor.common.model.DocumentationType;
+import io.rxmicro.common.util.Reflections;
+
+import java.util.Arrays;
+import java.util.Set;
+
+import static java.util.stream.Collectors.toUnmodifiableSet;
 
 /**
- * Supported options by {@code RxMicro Annotation Processor}.
+ * Supported options by the {@code RxMicro Annotation Processor}.
  *
  * @author nedis
  * @since 0.1
@@ -38,25 +42,21 @@ public final class SupportedOptions {
     public static final int RX_MICRO_MAX_JSON_NESTED_DEPTH_DEFAULT_VALUE = 20;
 
     /**
-     * {@code RxMicro Annotation Processor} logging level.
+     * The {@code RxMicro Annotation Processor} logging level.
      *
-     * OFF
-     * INFO
-     * DEBUG
-     * other == OFF
-     *
-     * @see io.rxmicro.annotation.processor.common.component.impl.AbstractProcessorComponent.Level
+     * @see LogLevel
      */
     public static final String RX_MICRO_LOG_LEVEL = "RX_MICRO_LOG_LEVEL";
 
     /**
      * Default logging level.
      */
-    public static final String RX_MICRO_LOG_LEVEL_DEFAULT_VALUE = AbstractProcessorComponent.Level.INFO.name();
+    public static final LogLevel RX_MICRO_LOG_LEVEL_DEFAULT_VALUE = LogLevel.INFO;
 
     /**
      * The resulting directory for generated documentation.
      *
+     * <p>
      * Default value is defined at {@link DocumentationType} enum
      *
      * @see DocumentationType
@@ -99,6 +99,14 @@ public final class SupportedOptions {
      * But for production code it is strong recommended to enable strict mode.
      */
     public static final boolean RX_MICRO_STRICT_MODE_DEFAULT_VALUE = false;
+
+    /**
+     * Contains all supported options.
+     */
+    public static final Set<String> ALL_SUPPORTED_OPTIONS = Arrays.stream(SupportedOptions.class.getDeclaredFields())
+            .filter(field -> field.getType() == String.class && !field.getName().endsWith("_DEFAULT_VALUE"))
+            .map(field -> (String) Reflections.getFieldValue(SupportedOptions.class, field))
+            .collect(toUnmodifiableSet());
 
     private SupportedOptions() {
     }

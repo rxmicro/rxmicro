@@ -26,7 +26,7 @@ import org.junit.jupiter.params.provider.ArgumentsSource;
 import java.io.IOException;
 
 import static com.google.testing.compile.CompilationSubject.assertThat;
-import static io.rxmicro.annotation.processor.common.SupportedOptions.RX_MICRO_BUILD_UNNAMED_MODULE;
+import static io.rxmicro.annotation.processor.config.SupportedOptions.RX_MICRO_BUILD_UNNAMED_MODULE;
 import static io.rxmicro.annotation.processor.documentation.TestSystemProperties.RX_MICRO_POM_XML_ABSOLUTE_PATH;
 import static io.rxmicro.common.util.Formats.format;
 

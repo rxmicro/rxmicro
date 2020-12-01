@@ -14,27 +14,10 @@
  * limitations under the License.
  */
 
-package io.rxmicro.annotation.processor.common.util;
-
-import io.rxmicro.annotation.processor.config.LogLevel;
-
 /**
+ * The {@code RxMicro Annotation Processor} config root package.
+ *
  * @author nedis
- * @since 0.4
+ * @since 0.7.2
  */
-public final class InternalLoggers {
-
-    public static final String DEFAULT_OFFSET = "  ";
-
-    public static void logMessage(final LogLevel level,
-                                  final String message) {
-        System.out.println("[" + level + "] " + message);
-    }
-
-    public static void logThrowableStackTrace(final Throwable throwable) {
-        throwable.printStackTrace();
-    }
-
-    private InternalLoggers() {
-    }
-}
+package io.rxmicro.annotation.processor.config;

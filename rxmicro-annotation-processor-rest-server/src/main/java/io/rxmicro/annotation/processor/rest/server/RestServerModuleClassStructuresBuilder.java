@@ -59,6 +59,7 @@ import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.element.TypeElement;
 
 import static io.rxmicro.annotation.processor.common.util.Injects.injectDependencies;
+import static io.rxmicro.annotation.processor.common.util.InternalLoggers.DEFAULT_OFFSET;
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.rest.method.HttpMethods.HTTP_METHOD_ANNOTATIONS;
 import static java.util.Map.entry;
@@ -189,8 +190,8 @@ public final class RestServerModuleClassStructuresBuilder extends AbstractModule
         info("Found the following REST controllers:\n?", () -> set.stream()
                 .map(s -> s.getMethodSignatures().stream()
                         .flatMap(m -> m.getHttpMethodMappings().stream().map(h -> entry(h, m)))
-                        .map(e -> format("  ? ? -> ?",
-                                e.getKey().getMethod(), e.getKey().getExactOrTemplateUri(),
+                        .map(e -> format("?? ? -> ?",
+                                DEFAULT_OFFSET, e.getKey().getMethod(), e.getKey().getExactOrTemplateUri(),
                                 e.getValue()))
                         .collect(joining("\n")))
                 .collect(joining("\n"))

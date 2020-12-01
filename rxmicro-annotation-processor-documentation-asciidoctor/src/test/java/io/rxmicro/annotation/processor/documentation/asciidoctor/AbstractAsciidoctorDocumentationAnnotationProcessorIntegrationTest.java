@@ -38,7 +38,7 @@ import java.util.Optional;
 import java.util.TreeSet;
 import javax.annotation.processing.Processor;
 
-import static io.rxmicro.annotation.processor.common.SupportedOptions.RX_MICRO_DOC_DESTINATION_DIR;
+import static io.rxmicro.annotation.processor.config.SupportedOptions.RX_MICRO_DOC_DESTINATION_DIR;
 import static io.rxmicro.annotation.processor.documentation.TestSystemProperties.RX_MICRO_POM_XML_ABSOLUTE_PATH;
 import static io.rxmicro.annotation.processor.documentation.TestSystemProperties.RX_MICRO_PROJECT_DIRECTORY_PATH;
 import static io.rxmicro.annotation.processor.documentation.TestSystemProperties.RX_MICRO_PROJECT_DOCUMENTATION_VERSION;

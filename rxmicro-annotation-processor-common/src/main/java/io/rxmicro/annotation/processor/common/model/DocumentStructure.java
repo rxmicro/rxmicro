@@ -16,6 +16,8 @@
 
 package io.rxmicro.annotation.processor.common.model;
 
+import io.rxmicro.annotation.processor.config.DocumentationType;
+
 import java.util.Map;
 import java.util.Optional;
 import javax.lang.model.element.ModuleElement;

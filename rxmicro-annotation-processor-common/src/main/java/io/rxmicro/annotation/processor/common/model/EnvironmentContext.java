@@ -18,6 +18,7 @@ package io.rxmicro.annotation.processor.common.model;
 
 import io.rxmicro.annotation.processor.common.model.virtual.VirtualModuleElement;
 import io.rxmicro.common.RxMicroModule;
+import io.rxmicro.runtime.detail.RxMicroRuntime;
 
 import java.util.HashMap;
 import java.util.List;
@@ -28,6 +29,7 @@ import java.util.TreeSet;
 import javax.lang.model.element.ModuleElement;
 import javax.lang.model.element.TypeElement;
 
+import static io.rxmicro.annotation.processor.common.util.InternalLoggers.DEFAULT_OFFSET;
 import static io.rxmicro.common.util.Requires.require;
 import static java.lang.System.lineSeparator;
 import static java.util.stream.Collectors.joining;
@@ -127,21 +129,22 @@ public final class EnvironmentContext {
     @Override
     public String toString() {
         return "Current environment context is:" + lineSeparator() +
-                "  Current module:" + lineSeparator() + "    `" +
+                DEFAULT_OFFSET + "RxMicro version: " + RxMicroRuntime.getRxMicroVersion() + lineSeparator() +
+                DEFAULT_OFFSET + "Current module:" + lineSeparator() + "    `" +
                 getModuleName() + "`" + lineSeparator() +
-                "  Available RxMicro modules: " + lineSeparator() +
+                DEFAULT_OFFSET + "Available RxMicro modules: " + lineSeparator() +
                 rxMicroModules.stream()
-                        .map(s -> "    `" + s + "`;")
+                        .map(s -> DEFAULT_OFFSET + DEFAULT_OFFSET + '`' + s + "`;")
                         .collect(joining(lineSeparator())) + lineSeparator() +
-                "  Include packages:" + (includePackages.isEmpty() ?
+                DEFAULT_OFFSET + "Include packages:" + (includePackages.isEmpty() ?
                 " <none>" :
                 lineSeparator() + includePackages.stream()
-                        .map(s -> "    " + s + ".*")
+                        .map(s -> DEFAULT_OFFSET + DEFAULT_OFFSET +  s + ".*")
                         .collect(joining(lineSeparator()))) + lineSeparator() +
-                "  Exclude packages:" + (excludePackages.isEmpty() ?
+                DEFAULT_OFFSET + "Exclude packages:" + (excludePackages.isEmpty() ?
                 " <none>" :
                 lineSeparator() + excludePackages.stream()
-                        .map(s -> "    " + s + ".*")
+                        .map(s -> DEFAULT_OFFSET + DEFAULT_OFFSET  + s + ".*")
                         .collect(joining(lineSeparator())));
     }
 

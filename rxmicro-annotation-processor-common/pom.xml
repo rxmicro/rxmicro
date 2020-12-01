@@ -142,5 +142,10 @@
             <artifactId>rxjava</artifactId>
             <version>${external.lib.rxjava.version}</version>
         </dependency>
+        <dependency>
+            <groupId>io.rxmicro</groupId>
+            <artifactId>rxmicro-annotation-processor-config</artifactId>
+            <version>0.7.2-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 </project>

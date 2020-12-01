@@ -20,6 +20,7 @@ import io.rxmicro.annotation.processor.cdi.CDIClassStructuresBuilder;
 import io.rxmicro.annotation.processor.common.BaseRxMicroAnnotationProcessor;
 import io.rxmicro.annotation.processor.common.component.impl.AbstractModuleClassStructuresBuilder;
 import io.rxmicro.annotation.processor.common.component.impl.CompositeModuleClassStructuresBuilder;
+import io.rxmicro.annotation.processor.config.SupportedOptions;
 import io.rxmicro.annotation.processor.data.aggregator.DataRepositoryModuleClassStructuresBuilder;
 import io.rxmicro.annotation.processor.rest.client.RestClientModuleClassStructuresBuilder;
 import io.rxmicro.annotation.processor.rest.server.RestServerModuleClassStructuresBuilder;
@@ -62,6 +63,15 @@ import static io.rxmicro.common.util.Exceptions.reThrow;
  * The compiled source and generated codes along with the RxMicro runtime libraries perform useful work.
  *
  * @author nedis
+ * @see SupportedOptions#RX_MICRO_MAX_JSON_NESTED_DEPTH
+ * @see SupportedOptions#RX_MICRO_LOG_LEVEL
+ * @see io.rxmicro.annotation.processor.config.LogLevel
+ * @see SupportedOptions#RX_MICRO_DOC_DESTINATION_DIR
+ * @see io.rxmicro.annotation.processor.config.DocumentationType
+ * @see SupportedOptions#RX_MICRO_DOC_ANALYZE_PARENT_POM
+ * @see SupportedOptions#RX_MICRO_BUILD_UNNAMED_MODULE
+ * @see SupportedOptions#RX_MICRO_STRICT_MODE
+ * @see SupportedOptions#ALL_SUPPORTED_OPTIONS
  * @since 0.1
  */
 public final class RxMicroAnnotationProcessor extends BaseRxMicroAnnotationProcessor {

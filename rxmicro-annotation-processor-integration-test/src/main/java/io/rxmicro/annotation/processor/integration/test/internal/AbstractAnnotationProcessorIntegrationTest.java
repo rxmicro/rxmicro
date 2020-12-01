@@ -18,7 +18,7 @@ package io.rxmicro.annotation.processor.integration.test.internal;
 
 import com.google.testing.compile.Compilation;
 import com.google.testing.compile.JavaFileObjectSubject;
-import io.rxmicro.annotation.processor.common.component.impl.AbstractProcessorComponent;
+import io.rxmicro.annotation.processor.config.LogLevel;
 import io.rxmicro.common.CheckedWrapperException;
 import org.opentest4j.AssertionFailedError;
 
@@ -40,7 +40,7 @@ import javax.tools.JavaFileObject;
 import static com.google.testing.compile.CompilationSubject.assertThat;
 import static com.google.testing.compile.Compiler.javac;
 import static com.google.testing.compile.JavaFileObjects.forSourceString;
-import static io.rxmicro.annotation.processor.common.SupportedOptions.RX_MICRO_LOG_LEVEL;
+import static io.rxmicro.annotation.processor.config.SupportedOptions.RX_MICRO_LOG_LEVEL;
 import static io.rxmicro.common.util.ExCollectors.toTreeSet;
 import static io.rxmicro.common.util.Formats.format;
 import static java.lang.System.lineSeparator;
@@ -57,7 +57,7 @@ public abstract class AbstractAnnotationProcessorIntegrationTest {
     private static Field javaFileObjectSubjectActualField;
 
     final Map<String, String> compilerOptions = new LinkedHashMap<>(
-            Map.of(RX_MICRO_LOG_LEVEL, AbstractProcessorComponent.Level.OFF.name())
+            Map.of(RX_MICRO_LOG_LEVEL, LogLevel.OFF.name())
     );
 
     private final Set<String> modulePath;
