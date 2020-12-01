@@ -18,12 +18,14 @@ package io.rxmicro.annotation.processor.common.component.impl;
 
 import com.google.inject.Singleton;
 import io.rxmicro.annotation.processor.common.component.ClassWriter;
+import io.rxmicro.annotation.processor.common.model.AnnotationProcessorType;
 import io.rxmicro.annotation.processor.common.model.SourceCode;
 
 import java.io.IOException;
 import java.io.Writer;
 import javax.annotation.processing.FilerException;
 
+import static io.rxmicro.annotation.processor.common.model.AnnotationProcessorType.PROJECT_COMPILE;
 import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getFiler;
 
 /**
@@ -34,10 +36,15 @@ import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentH
 public final class ClassWriterImpl extends AbstractProcessorComponent implements ClassWriter {
 
     @Override
-    public void write(final SourceCode sourceCode) {
+    public void write(final SourceCode sourceCode,
+                      final AnnotationProcessorType annotationProcessorType) {
         try (Writer writer = getFiler().createSourceFile(sourceCode.getName()).openWriter()) {
             writer.write(sourceCode.getContent());
-            debug("Class generated successfully: ?", sourceCode::getName);
+            if (annotationProcessorType == PROJECT_COMPILE) {
+                debug("Class generated successfully: ?", sourceCode::getName);
+            } else {
+                info("Test fixer class generated successfully: ?", sourceCode::getName);
+            }
         } catch (final FilerException ex) {
             //If java source file already created skip error
             if (!ex.getMessage().startsWith("Attempt to recreate a file for type ")) {

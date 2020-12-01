@@ -16,6 +16,7 @@
 
 package io.rxmicro.annotation.processor.common.component;
 
+import io.rxmicro.annotation.processor.common.model.AnnotationProcessorType;
 import io.rxmicro.annotation.processor.common.model.SourceCode;
 
 /**
@@ -24,5 +25,5 @@ import io.rxmicro.annotation.processor.common.model.SourceCode;
  */
 public interface ClassWriter {
 
-    void write(SourceCode sourceCode);
+    void write(SourceCode sourceCode, AnnotationProcessorType annotationProcessorType);
 }

@@ -109,7 +109,7 @@ public abstract class AbstractRxMicroProcessor extends AbstractProcessor {
     protected final void generateClasses(final Collection<SourceCode> sourceCodes) {
         if (doesNotContainErrors()) {
             annotationProcessingInformer.classesGenerationStarted();
-            sourceCodes.forEach(classWriter::write);
+            sourceCodes.forEach(sourceCode -> classWriter.write(sourceCode, getAnnotationProcessorType()));
             annotationProcessingInformer.classesGenerationCompleted();
         }
         annotationProcessingInformer.annotationProcessingCompleted(getAnnotationProcessorType(), doesNotContainErrors());
