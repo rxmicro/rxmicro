@@ -16,10 +16,13 @@
 
 package io.rxmicro.model;
 
+import io.rxmicro.common.ImpossibleException;
+
 import java.util.List;
 import java.util.Locale;
 
 import static io.rxmicro.common.util.Strings.capitalize;
+import static io.rxmicro.common.util.Strings.splitByCamelCase;
 import static io.rxmicro.model.ModelConstants.HYPHEN_DELIMITER;
 import static io.rxmicro.model.ModelConstants.UNDERSCORED_DELIMITER;
 import static java.util.stream.Collectors.joining;
@@ -43,6 +46,11 @@ public enum MappingStrategy {
     LOWERCASE_WITH_HYPHEN(HYPHEN_DELIMITER),
 
     /**
+     * Example: {@code hello world = helloWorld}.
+     */
+    LOWERCASE_WITH_SPACE_CHARACTER(" "),
+
+    /**
      * Example: {@code HELLO_WORLD = helloWorld}.
      */
     UPPERCASE_WITH_UNDERSCORED(UNDERSCORED_DELIMITER),
@@ -51,6 +59,11 @@ public enum MappingStrategy {
      * Example: {@code HELLO-WORLD = helloWorld}.
      */
     UPPERCASE_WITH_HYPHEN(HYPHEN_DELIMITER),
+
+    /**
+     * Example: {@code HELLO WORLD = helloWorld}.
+     */
+    UPPERCASE_WITH_SPACE_CHARACTER(" "),
 
     /**
      * Example: {@code Hello_World = helloWorld}.
@@ -86,6 +99,17 @@ public enum MappingStrategy {
                 .collect(joining(delimiter));
     }
 
+    /**
+     * Returns the model name based on defined mapping strategy and word list that created using the camel case rule.
+     *
+     * @param camelCaseName the name that follows the camel case rule.
+     * @return the model name based on defined mapping strategy and word list that created using the camel case rule.
+     * @see io.rxmicro.common.util.Strings#splitByCamelCase(String)
+     */
+    public String getModelName(final String camelCaseName) {
+        return getModelName(splitByCamelCase(camelCaseName));
+    }
+
     private String convert(final String word) {
         if (name().startsWith("LOWERCASE")) {
             return word.toLowerCase(Locale.ENGLISH);
@@ -94,7 +118,7 @@ public enum MappingStrategy {
         } else if (name().startsWith("CAPITALIZE")) {
             return capitalize(word);
         } else {
-            throw new UnsupportedOperationException();
+            throw new ImpossibleException("Undefined mapping strategy group: '?'!", name());
         }
     }
 }

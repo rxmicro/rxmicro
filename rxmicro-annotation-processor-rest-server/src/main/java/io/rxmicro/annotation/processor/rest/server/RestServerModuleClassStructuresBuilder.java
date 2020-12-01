@@ -32,6 +32,7 @@ import io.rxmicro.annotation.processor.rest.component.RestGenerationContextBuild
 import io.rxmicro.annotation.processor.rest.component.RestModelFromJsonConverterBuilder;
 import io.rxmicro.annotation.processor.rest.component.RestModelToJsonConverterBuilder;
 import io.rxmicro.annotation.processor.rest.component.RestModelValidatorBuilder;
+import io.rxmicro.annotation.processor.rest.model.HttpMethodMapping;
 import io.rxmicro.annotation.processor.rest.model.MappedRestObjectModelClass;
 import io.rxmicro.annotation.processor.rest.model.RestGenerationContext;
 import io.rxmicro.annotation.processor.rest.model.VirtualTypeClassStructure;
@@ -59,11 +60,10 @@ import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.element.TypeElement;
 
 import static io.rxmicro.annotation.processor.common.util.Injects.injectDependencies;
-import static io.rxmicro.annotation.processor.common.util.InternalLoggers.DEFAULT_OFFSET;
+import static io.rxmicro.annotation.processor.common.util.LoggerMessages.DEFAULT_OFFSET;
+import static io.rxmicro.annotation.processor.common.util.LoggerMessages.getLoggableMethodName;
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.rest.method.HttpMethods.HTTP_METHOD_ANNOTATIONS;
-import static java.util.Map.entry;
-import static java.util.stream.Collectors.joining;
 import static java.util.stream.Collectors.toList;
 
 /**
@@ -127,6 +127,11 @@ public final class RestServerModuleClassStructuresBuilder extends AbstractModule
     }
 
     @Override
+    public String getBuilderName() {
+        return "rest-server-annotation-processor-module";
+    }
+
+    @Override
     public Set<String> getSupportedAnnotationTypes() {
         return Stream
                 .concat(
@@ -163,7 +168,6 @@ public final class RestServerModuleClassStructuresBuilder extends AbstractModule
                         restControllerClassStructureBuilder.build(
                                 environmentContext, restControllerClassStructureStorage, classSignatures
                         );
-
                 classStructures.addAll(restControllerClassStructures);
                 classStructures.add(new RestControllerAggregatorClassStructure(
                         environmentContext,
@@ -187,15 +191,26 @@ public final class RestServerModuleClassStructuresBuilder extends AbstractModule
     }
 
     private void logFoundRestControllers(final Set<RestControllerClassSignature> set) {
-        info("Found the following REST controllers:\n?", () -> set.stream()
-                .map(s -> s.getMethodSignatures().stream()
-                        .flatMap(m -> m.getHttpMethodMappings().stream().map(h -> entry(h, m)))
-                        .map(e -> format("?? ? -> ?",
-                                DEFAULT_OFFSET, e.getKey().getMethod(), e.getKey().getExactOrTemplateUri(),
-                                e.getValue()))
-                        .collect(joining("\n")))
-                .collect(joining("\n"))
-        );
+        if (isInfoEnabled()) {
+            final StringBuilder stringBuilder = new StringBuilder("Found the following REST controllers:\n");
+            for (final RestControllerClassSignature signature : set) {
+                stringBuilder.append(format("??:\n", DEFAULT_OFFSET, signature.getTypeElement().getQualifiedName()));
+                for (final RestControllerMethodSignature methodSignature : signature.getMethodSignatures()) {
+                    for (final HttpMethodMapping httpMethodMapping : methodSignature.getHttpMethodMappings()) {
+                        stringBuilder.append(format(
+                                "??'? ?' -> ?;\n",
+                                DEFAULT_OFFSET,
+                                DEFAULT_OFFSET,
+                                httpMethodMapping.getMethod(),
+                                httpMethodMapping.getExactOrTemplateUri(),
+                                getLoggableMethodName(methodSignature.getExecutableElement())
+                        ));
+                    }
+                }
+            }
+            stringBuilder.deleteCharAt(stringBuilder.length() - 1);
+            info(stringBuilder.toString());
+        }
     }
 
     private RestControllerClassStructureStorage buildRestClassStructureStorage(final EnvironmentContext environmentContext,
@@ -204,30 +219,24 @@ public final class RestServerModuleClassStructuresBuilder extends AbstractModule
                 environmentContext.get(RestServerModuleGeneratorConfig.class).getExchangeFormatModule().getExchangeFormat();
         final RestControllerClassStructureStorage.Builder builder = new RestControllerClassStructureStorage.Builder()
                 .addModelReaders(
-                        initializeParentsIfExist(
-                                modelReaderBuilder.build(generationContext.getFromHttpDataModelClasses(), exchangeFormat)
-                        )
+                        modelReaderBuilder.build(generationContext.getFromHttpDataModelClasses(), exchangeFormat)
                 )
                 .addModelWriters(
-                        initializeParentsIfExist(
-                                modelWriterBuilder.build(generationContext.getToHttpDataModelClasses(), exchangeFormat)
-                        )
+                        modelWriterBuilder.build(generationContext.getToHttpDataModelClasses(), exchangeFormat)
                 )
                 .addModelFromJsonConverters(
-                        initializeParentsIfExist(
-                                restModelFromJsonConverterBuilder.buildFromJson(
-                                        generationContext.getFromHttpDataModelClasses(), exchangeFormat, false
-                                )
+                        restModelFromJsonConverterBuilder.buildFromJson(
+                                generationContext.getFromHttpDataModelClasses(), exchangeFormat, false
                         )
                 )
                 .addModelToJsonConverters(
-                        initializeParentsIfExist(
-                                restModelToJsonConverterBuilder.buildToJson(
-                                        generationContext.getToHttpDataModelClasses(), exchangeFormat, false
-                                )
+                        restModelToJsonConverterBuilder.buildToJson(
+                                generationContext.getToHttpDataModelClasses(), exchangeFormat, false
                         )
                 );
         addValidators(environmentContext, generationContext, builder);
+        setParentsForExistingChildren(builder);
+        logRestControllerClassStructureStorage(builder);
         return builder.build();
     }
 
@@ -236,36 +245,52 @@ public final class RestServerModuleClassStructuresBuilder extends AbstractModule
                                final RestControllerClassStructureStorage.Builder builder) {
         if (environmentContext.get(RestServerModuleGeneratorConfig.class).isGenerateRequestValidators()) {
             builder.addRequestValidators(
-                    initializeParentsIfExist(
-                            restModelValidatorBuilder.build(generationContext.getFromHttpDataModelClasses().stream()
-                                    .map(MappedRestObjectModelClass::getModelClass)
-                                    .filter(m -> isAnnotationPerPackageHierarchyAbsent(
-                                            m.getModelTypeElement(), DisableValidation.class))
-                                    .collect(toList()))
-                    )
+                    restModelValidatorBuilder.build(generationContext.getFromHttpDataModelClasses().stream()
+                            .map(MappedRestObjectModelClass::getModelClass)
+                            .filter(m -> isAnnotationPerPackageHierarchyAbsent(
+                                    m.getModelTypeElement(), DisableValidation.class))
+                            .collect(toList()))
             );
         }
         if (environmentContext.get(RestServerModuleGeneratorConfig.class).isGenerateResponseValidators()) {
             builder.addResponseValidators(
-                    initializeParentsIfExist(
-                            restModelValidatorBuilder.build(generationContext.getToHttpDataModelClasses().stream()
-                                    .map(MappedRestObjectModelClass::getModelClass)
-                                    .filter(m -> isAnnotationPerPackageHierarchyAbsent(
-                                            m.getModelTypeElement(), DisableValidation.class))
-                                    .collect(toList()))
-                    )
+                    restModelValidatorBuilder.build(generationContext.getToHttpDataModelClasses().stream()
+                            .map(MappedRestObjectModelClass::getModelClass)
+                            .filter(m -> isAnnotationPerPackageHierarchyAbsent(
+                                    m.getModelTypeElement(), DisableValidation.class))
+                            .collect(toList()))
             );
         }
     }
 
+    private void setParentsForExistingChildren(final RestControllerClassStructureStorage.Builder builder) {
+        initializeParentsIfExist(builder.getRequestValidators());
+        initializeParentsIfExist(builder.getResponseValidators());
+        initializeParentsIfExist(builder.getModelReaders());
+        initializeParentsIfExist(builder.getModelWriters());
+        initializeParentsIfExist(builder.getModelFromJsonConverters());
+        initializeParentsIfExist(builder.getModelToJsonConverters());
+    }
+
     @SuppressWarnings("unchecked")
-    private <T extends ClassStructure> Set<T> initializeParentsIfExist(final Set<T> set) {
+    private <T extends ClassStructure> void initializeParentsIfExist(final Set<T> set) {
         for (final T classStructure : set) {
             if (classStructure instanceof WithParentClassStructure) {
-                withParentClassStructureInitializer.setParentIfExists((WithParentClassStructure<T,?,?>) classStructure, set);
+                withParentClassStructureInitializer.setParentIfExists((WithParentClassStructure<T, ?, ?>) classStructure, set);
             }
         }
-        return set;
+    }
+
+    private void logRestControllerClassStructureStorage(final RestControllerClassStructureStorage.Builder builder) {
+        if (isDebugEnabled()) {
+            logClassStructureStorageItem("request model reader(s)", builder.getModelReaders());
+            logClassStructureStorageItem("request model converter(s)", builder.getModelFromJsonConverters());
+            logClassStructureStorageItem("request validator(s)", builder.getRequestValidators());
+
+            logClassStructureStorageItem("response model writer(s)", builder.getModelWriters());
+            logClassStructureStorageItem("response model converter(s)", builder.getModelToJsonConverters());
+            logClassStructureStorageItem("response validator(s)", builder.getResponseValidators());
+        }
     }
 
     private void addAllVirtualRequestClassStructures(final Set<ClassStructure> classStructures,

@@ -29,7 +29,7 @@ import java.util.TreeSet;
 import javax.lang.model.element.ModuleElement;
 import javax.lang.model.element.TypeElement;
 
-import static io.rxmicro.annotation.processor.common.util.InternalLoggers.DEFAULT_OFFSET;
+import static io.rxmicro.annotation.processor.common.util.LoggerMessages.DEFAULT_OFFSET;
 import static io.rxmicro.common.util.Requires.require;
 import static java.lang.System.lineSeparator;
 import static java.util.stream.Collectors.joining;

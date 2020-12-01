@@ -24,13 +24,11 @@ import io.rxmicro.data.sql.Schema;
 import io.rxmicro.data.sql.Table;
 import io.rxmicro.model.MappingStrategy;
 
-import java.util.List;
 import java.util.Optional;
 import javax.lang.model.element.TypeElement;
 
 import static io.rxmicro.annotation.processor.common.util.Annotations.defaultAnnotationInstance;
 import static io.rxmicro.common.util.Strings.capitalize;
-import static io.rxmicro.common.util.Strings.splitByCamelCase;
 
 /**
  * @author nedis
@@ -94,9 +92,8 @@ public final class DbObjectNameBuilder {
     private DbObjectName build(final TypeElement modelTypeElement,
                                final NameConfigurator nameConfigurator) {
         final String className = modelTypeElement.getSimpleName().toString();
-        final List<String> classNameWords = splitByCamelCase(className);
         final String dbObjectName = Optional.of(nameConfigurator.name()).filter(v -> !v.isEmpty())
-                .orElseGet(() -> nameConfigurator.mappingStrategy().getModelName(classNameWords));
+                .orElseGet(() -> nameConfigurator.mappingStrategy().getModelName(className));
         final Optional<String> schemaOptional = getSchema(nameConfigurator.schema(), modelTypeElement);
         if (schemaOptional.isPresent()) {
             if (dbObjectName.contains(".")) {

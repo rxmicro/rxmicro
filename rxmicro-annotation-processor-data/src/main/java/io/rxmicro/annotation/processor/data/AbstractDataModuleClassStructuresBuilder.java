@@ -31,6 +31,7 @@ import io.rxmicro.annotation.processor.data.model.DataModelField;
 import io.rxmicro.annotation.processor.data.model.DataObjectModelClass;
 import io.rxmicro.annotation.processor.data.model.DataRepositoryClassStructure;
 import io.rxmicro.annotation.processor.data.model.DataRepositoryInterfaceSignature;
+import io.rxmicro.annotation.processor.data.model.DataRepositoryMethod;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -38,6 +39,9 @@ import java.util.Set;
 import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.element.TypeElement;
 
+import static io.rxmicro.annotation.processor.common.util.LoggerMessages.DEFAULT_OFFSET;
+import static io.rxmicro.annotation.processor.common.util.LoggerMessages.getLoggableMethodName;
+import static io.rxmicro.common.util.Formats.format;
 import static java.util.stream.Collectors.toSet;
 
 /**
@@ -76,13 +80,39 @@ public abstract class AbstractDataModuleClassStructuresBuilder<DMF extends DataM
             final Set<DataRepositoryClassStructure> dataRepositoryClassStructures = signatures.stream()
                     .map(signature -> dataClassStructureBuilder.build(environmentContext, signature, dataGenerationContext))
                     .collect(toSet());
+            logFoundDataRepositories(dataRepositoryClassStructures);
             final Set<ClassStructure> result = new HashSet<>(dataRepositoryClassStructures);
-            result.addAll(entityConverterBuilder.build(dataGenerationContext));
-            dataRepositoryConfigAutoCustomizerBuilder.build(dataRepositoryClassStructures).ifPresent(result::add);
+            final Set<? extends ClassStructure> entityConverters = entityConverterBuilder.build(dataGenerationContext);
+            logClassStructureStorageItem("entity converter(s)", entityConverters);
+            result.addAll(entityConverters);
+            dataRepositoryConfigAutoCustomizerBuilder.build(dataRepositoryClassStructures).ifPresent(e -> {
+                result.add(e);
+                logClassStructureStorageItem("data repository config auto customizer", Set.of(e));
+            });
             return result;
         } catch (final InterruptProcessingException ex) {
             error(ex);
             return Set.of();
+        }
+    }
+
+    private void logFoundDataRepositories(final Set<DataRepositoryClassStructure> dataRepositoryClassStructures) {
+        if (isInfoEnabled()) {
+            final StringBuilder stringBuilder = new StringBuilder("Found the following data repositories:\n");
+            for (final DataRepositoryClassStructure classStructure : dataRepositoryClassStructures) {
+                stringBuilder.append(format("??:\n", DEFAULT_OFFSET, classStructure.getFullInterfaceName()));
+                for (final DataRepositoryMethod method : classStructure.getMethods()) {
+                    stringBuilder.append(format(
+                            "??'?' -> ?;\n",
+                            DEFAULT_OFFSET,
+                            DEFAULT_OFFSET,
+                            method.getOperationName(),
+                            getLoggableMethodName(method.getMethodSignature().getMethod())
+                    ));
+                }
+            }
+            stringBuilder.deleteCharAt(stringBuilder.length() - 1);
+            info(stringBuilder.toString());
         }
     }
 }

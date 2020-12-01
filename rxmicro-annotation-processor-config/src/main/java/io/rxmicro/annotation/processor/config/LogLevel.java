@@ -17,7 +17,7 @@
 package io.rxmicro.annotation.processor.config;
 
 /**
- * The RxMicro Annotation Processor Logger Level.
+ * The {@code RxMicro Annotation Processor} Logger Level.
  *
  * @author nedis
  * @since 0.7.2
@@ -26,6 +26,10 @@ public enum LogLevel {
 
     /**
      * Enable info, debug and trace messages.
+     *
+     * <p>
+     * Current version of the {@code RxMicro Annotation Processor} does not show any trace messages.
+     * It will be implemented later.
      */
     TRACE,
 

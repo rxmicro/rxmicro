@@ -26,6 +26,8 @@ import io.rxmicro.annotation.processor.common.model.type.ObjectModelClass;
 import java.util.Collection;
 import java.util.Optional;
 
+import static io.rxmicro.annotation.processor.common.util.LoggerMessages.getLoggableParentChildRelationFragment;
+
 /**
  * @author nedis
  * @since 0.7.2
@@ -47,7 +49,7 @@ public final class WithParentClassStructureInitializerImpl extends AbstractProce
                         if (withParentClassStructure.setParent(classStructureCandidate)) {
                             debug(
                                     "Set parent class structure:\n?",
-                                    () -> showParentChildRelation(
+                                    () -> getLoggableParentChildRelationFragment(
                                             0,
                                             true,
                                             classStructureCandidate,

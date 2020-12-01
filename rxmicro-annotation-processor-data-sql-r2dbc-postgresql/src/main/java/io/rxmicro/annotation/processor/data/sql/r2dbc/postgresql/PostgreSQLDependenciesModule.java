@@ -54,7 +54,7 @@ import io.rxmicro.annotation.processor.data.sql.model.inject.SupportedSelectResu
 import io.rxmicro.annotation.processor.data.sql.model.inject.SupportedUpdateParamsVariables;
 import io.rxmicro.annotation.processor.data.sql.model.inject.SupportedUpdateResultsVariables;
 import io.rxmicro.annotation.processor.data.sql.r2dbc.component.impl.SQLEntityConverterBuilder;
-import io.rxmicro.annotation.processor.data.sql.r2dbc.component.impl.method.CreateTransactionSQLRepositoryMethodModelBuilder;
+import io.rxmicro.annotation.processor.data.sql.r2dbc.component.impl.method.BeginTransactionSQLRepositoryMethodModelBuilder;
 import io.rxmicro.annotation.processor.data.sql.r2dbc.component.impl.method.DeleteSQLRepositoryMethodModelBuilder;
 import io.rxmicro.annotation.processor.data.sql.r2dbc.component.impl.method.InsertSQLRepositoryMethodModelBuilder;
 import io.rxmicro.annotation.processor.data.sql.r2dbc.component.impl.method.SelectSQLRepositoryMethodModelBuilder;
@@ -220,7 +220,7 @@ public final class PostgreSQLDependenciesModule extends AbstractModule {
                 .to(new TypeLiteral<SelectSQLRepositoryMethodModelBuilder<SQLDataModelField, PostgreSQLDataObjectModelClass>>() {
                 });
         sqlOperationBinder.addBinding()
-                .to(new TypeLiteral<CreateTransactionSQLRepositoryMethodModelBuilder<SQLDataModelField, PostgreSQLDataObjectModelClass>>() {
+                .to(new TypeLiteral<BeginTransactionSQLRepositoryMethodModelBuilder<SQLDataModelField, PostgreSQLDataObjectModelClass>>() {
                 });
         sqlOperationBinder.addBinding()
                 .to(PostgreSQLInsertWithReturningSQLRepositoryMethodModelBuilder.class);

@@ -103,6 +103,10 @@ public abstract class DataRepositoryClassStructure extends ClassStructure {
         return format("?.???", getPackageName(), GENERATED_CLASS_NAME_PREFIX, getRepositoryTypePrefix(), getSimpleInterfaceName());
     }
 
+    public List<? extends DataRepositoryMethod> getMethods() {
+        return methods;
+    }
+
     protected abstract String getRepositoryTypePrefix();
 
     protected final String getPackageName() {

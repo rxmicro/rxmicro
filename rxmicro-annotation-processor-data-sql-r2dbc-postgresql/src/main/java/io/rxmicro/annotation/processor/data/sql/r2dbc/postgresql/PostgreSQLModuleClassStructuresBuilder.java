@@ -55,6 +55,11 @@ public final class PostgreSQLModuleClassStructuresBuilder
     }
 
     @Override
+    public String getBuilderName() {
+        return "postgresql-data-repositories-annotation-processor-module";
+    }
+
+    @Override
     public Set<String> getSupportedAnnotationTypes() {
         return Set.of(PostgreSQLRepository.class.getName());
     }

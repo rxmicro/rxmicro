@@ -16,6 +16,7 @@
 
 package io.rxmicro.annotation.processor.common.model.type;
 
+import io.rxmicro.annotation.processor.common.model.ClassStructure;
 import io.rxmicro.annotation.processor.common.model.LoggableClassName;
 import io.rxmicro.annotation.processor.common.model.ModelField;
 import io.rxmicro.annotation.processor.common.util.UsedByFreemarker;
@@ -26,7 +27,7 @@ import java.util.Objects;
  * @author nedis
  * @since 0.1
  */
-public abstract class ModelClass implements LoggableClassName {
+public abstract class ModelClass implements Comparable<ModelClass>, LoggableClassName {
 
     public abstract String getJavaSimpleClassName();
 
@@ -99,5 +100,10 @@ public abstract class ModelClass implements LoggableClassName {
     @Override
     public String toString() {
         return getClass().getSimpleName() + "#" + getJavaFullClassName();
+    }
+
+    @Override
+    public final int compareTo(final ModelClass other) {
+        return getJavaFullClassName().compareTo(other.getJavaFullClassName());
     }
 }

@@ -27,6 +27,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -109,17 +110,17 @@ public final class RestControllerClassStructureStorage {
     @SuppressWarnings("UnusedReturnValue")
     public static final class Builder {
 
-        private final Set<ModelValidatorClassStructure> requestValidators = new HashSet<>();
+        private final Set<ModelValidatorClassStructure> requestValidators = new TreeSet<>();
 
-        private final Set<ModelValidatorClassStructure> responseValidators = new HashSet<>();
+        private final Set<ModelValidatorClassStructure> responseValidators = new TreeSet<>();
 
-        private final Set<ModelReaderClassStructure> modelReaders = new HashSet<>();
+        private final Set<ModelReaderClassStructure> modelReaders = new TreeSet<>();
 
-        private final Set<ModelWriterClassStructure> modelWriters = new HashSet<>();
+        private final Set<ModelWriterClassStructure> modelWriters = new TreeSet<>();
 
-        private final Set<ModelFromJsonConverterClassStructure> modelFromJsonConverters = new HashSet<>();
+        private final Set<ModelFromJsonConverterClassStructure> modelFromJsonConverters = new TreeSet<>();
 
-        private final Set<ModelToJsonConverterClassStructure> modelToJsonConverters = new HashSet<>();
+        private final Set<ModelToJsonConverterClassStructure> modelToJsonConverters = new TreeSet<>();
 
         public void addRequestValidators(
                 final Set<ModelValidatorClassStructure> requestValidators) {
@@ -157,6 +158,30 @@ public final class RestControllerClassStructureStorage {
                 final Set<ModelToJsonConverterClassStructure> modelToJsonConverters) {
             this.modelToJsonConverters.addAll(modelToJsonConverters);
             return this;
+        }
+
+        public Set<ModelValidatorClassStructure> getRequestValidators() {
+            return requestValidators;
+        }
+
+        public Set<ModelValidatorClassStructure> getResponseValidators() {
+            return responseValidators;
+        }
+
+        public Set<ModelReaderClassStructure> getModelReaders() {
+            return modelReaders;
+        }
+
+        public Set<ModelWriterClassStructure> getModelWriters() {
+            return modelWriters;
+        }
+
+        public Set<ModelFromJsonConverterClassStructure> getModelFromJsonConverters() {
+            return modelFromJsonConverters;
+        }
+
+        public Set<ModelToJsonConverterClassStructure> getModelToJsonConverters() {
+            return modelToJsonConverters;
         }
 
         public RestControllerClassStructureStorage build() {

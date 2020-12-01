@@ -29,6 +29,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -132,21 +133,21 @@ public final class RestClientClassStructureStorage {
     @SuppressWarnings("UnusedReturnValue")
     public static final class Builder {
 
-        private final Set<RestObjectModelClass> restClientObjectModelClasses = new HashSet<>();
+        private final Set<RestObjectModelClass> restClientObjectModelClasses = new TreeSet<>();
 
-        private final Set<ModelValidatorClassStructure> requestValidators = new HashSet<>();
+        private final Set<ModelValidatorClassStructure> requestValidators = new TreeSet<>();
 
-        private final Set<ModelValidatorClassStructure> responseValidators = new HashSet<>();
+        private final Set<ModelValidatorClassStructure> responseValidators = new TreeSet<>();
 
-        private final Set<PathBuilderClassStructure> pathBuilders = new HashSet<>();
+        private final Set<PathBuilderClassStructure> pathBuilders = new TreeSet<>();
 
-        private final Set<ModelReaderClassStructure> modelReaders = new HashSet<>();
+        private final Set<ModelReaderClassStructure> modelReaders = new TreeSet<>();
 
-        private final Set<RequestModelExtractorClassStructure> requestModelExtractors = new HashSet<>();
+        private final Set<RequestModelExtractorClassStructure> requestModelExtractors = new TreeSet<>();
 
-        private final Set<ModelFromJsonConverterClassStructure> modelFromJsonConverters = new HashSet<>();
+        private final Set<ModelFromJsonConverterClassStructure> modelFromJsonConverters = new TreeSet<>();
 
-        private final Set<ModelToJsonConverterClassStructure> modelToJsonConverters = new HashSet<>();
+        private final Set<ModelToJsonConverterClassStructure> modelToJsonConverters = new TreeSet<>();
 
         public void addRestObjectModelClasses(
                 final Set<RestObjectModelClass> restObjectModelClasses) {
@@ -196,6 +197,38 @@ public final class RestClientClassStructureStorage {
                 final Set<ModelToJsonConverterClassStructure> modelToJsonConverters) {
             this.modelToJsonConverters.addAll(modelToJsonConverters);
             return this;
+        }
+
+        public Set<RestObjectModelClass> getRestClientObjectModelClasses() {
+            return restClientObjectModelClasses;
+        }
+
+        public Set<ModelValidatorClassStructure> getRequestValidators() {
+            return requestValidators;
+        }
+
+        public Set<ModelValidatorClassStructure> getResponseValidators() {
+            return responseValidators;
+        }
+
+        public Set<PathBuilderClassStructure> getPathBuilders() {
+            return pathBuilders;
+        }
+
+        public Set<ModelReaderClassStructure> getModelReaders() {
+            return modelReaders;
+        }
+
+        public Set<RequestModelExtractorClassStructure> getRequestModelExtractors() {
+            return requestModelExtractors;
+        }
+
+        public Set<ModelFromJsonConverterClassStructure> getModelFromJsonConverters() {
+            return modelFromJsonConverters;
+        }
+
+        public Set<ModelToJsonConverterClassStructure> getModelToJsonConverters() {
+            return modelToJsonConverters;
         }
 
         public RestClientClassStructureStorage build() {

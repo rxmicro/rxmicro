@@ -26,8 +26,9 @@ import io.rxmicro.annotation.processor.data.model.DataRepositoryMethodSignature;
  */
 public class SQLDataRepositoryMethod extends DataRepositoryMethod {
 
-    public SQLDataRepositoryMethod(final DataRepositoryMethodSignature methodSignature,
+    public SQLDataRepositoryMethod(final String operationName,
+                                   final DataRepositoryMethodSignature methodSignature,
                                    final MethodBody body) {
-        super(methodSignature, body);
+        super(operationName, methodSignature, body);
     }
 }

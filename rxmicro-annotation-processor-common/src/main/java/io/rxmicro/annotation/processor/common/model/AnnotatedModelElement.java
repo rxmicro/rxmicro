@@ -40,7 +40,6 @@ import static io.rxmicro.annotation.processor.common.model.ModelAccessorType.DIR
 import static io.rxmicro.annotation.processor.common.model.ModelAccessorType.JAVA_BEAN;
 import static io.rxmicro.annotation.processor.common.model.ModelAccessorType.REFLECTION;
 import static io.rxmicro.common.util.Requires.require;
-import static io.rxmicro.common.util.Strings.splitByCamelCase;
 import static javax.lang.model.element.Modifier.PRIVATE;
 
 /**
@@ -194,7 +193,7 @@ public final class AnnotatedModelElement {
         if (!customModelName.isEmpty()) {
             return customModelName;
         } else if (mappingStrategyAnnotation != null) {
-            return mappingStrategySupplier.get().getModelName(splitByCamelCase(field.getSimpleName().toString()));
+            return mappingStrategySupplier.get().getModelName(field.getSimpleName().toString());
         } else {
             return field.getSimpleName().toString();
         }

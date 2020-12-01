@@ -16,7 +16,6 @@
 
 package io.rxmicro.annotation.processor.common.component.impl;
 
-import io.rxmicro.annotation.processor.common.model.LoggableClassName;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
 import io.rxmicro.annotation.processor.config.LogLevel;
 
@@ -27,7 +26,6 @@ import javax.lang.model.element.Element;
 import javax.tools.Diagnostic;
 
 import static io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException.READ_MORE_TEMPLATE;
-import static io.rxmicro.annotation.processor.common.util.InternalLoggers.DEFAULT_OFFSET;
 import static io.rxmicro.annotation.processor.common.util.InternalLoggers.logMessage;
 import static io.rxmicro.annotation.processor.common.util.InternalLoggers.logThrowableStackTrace;
 import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.errorDetected;
@@ -67,62 +65,74 @@ public abstract class AbstractProcessorComponent {
         return level;
     }
 
+    protected final boolean isTraceEnabled() {
+        return getLevel().isEnabled(TRACE);
+    }
+
     protected final void trace(final Supplier<String> supplier) {
-        if (getLevel().isEnabled(TRACE)) {
+        if (isTraceEnabled()) {
             logMessage(TRACE, supplier.get());
         }
     }
 
     protected final void trace(final String message,
                                final Object... args) {
-        if (getLevel().isEnabled(TRACE)) {
+        if (isTraceEnabled()) {
             logMessage(TRACE, format(message, args));
         }
     }
 
     protected final void trace(final String message,
                                final Supplier<?>... args) {
-        if (getLevel().isEnabled(TRACE)) {
+        if (isTraceEnabled()) {
             logMessage(TRACE, format(message, Arrays.stream(args).map(Supplier::get).toArray()));
         }
     }
 
+    protected final boolean isDebugEnabled() {
+        return getLevel().isEnabled(DEBUG);
+    }
+
     protected final void debug(final Supplier<String> supplier) {
-        if (getLevel().isEnabled(DEBUG)) {
+        if (isDebugEnabled()) {
             logMessage(DEBUG, supplier.get());
         }
     }
 
     protected final void debug(final String message,
                                final Object... args) {
-        if (getLevel().isEnabled(DEBUG)) {
+        if (isDebugEnabled()) {
             logMessage(DEBUG, format(message, args));
         }
     }
 
     protected final void debug(final String message,
                                final Supplier<?>... args) {
-        if (getLevel().isEnabled(DEBUG)) {
+        if (isDebugEnabled()) {
             logMessage(DEBUG, format(message, Arrays.stream(args).map(Supplier::get).toArray()));
         }
     }
 
+    protected final boolean isInfoEnabled() {
+        return getLevel().isEnabled(INFO);
+    }
+
     protected final void info(final Supplier<String> supplier) {
-        if (getLevel().isEnabled(INFO)) {
+        if (isInfoEnabled()) {
             logMessage(INFO, supplier.get());
         }
     }
 
     protected final void info(final String message,
                               final Object... args) {
-        if (getLevel().isEnabled(INFO)) {
+        if (isInfoEnabled()) {
             logMessage(INFO, format(message, args));
         }
     }
 
     protected final void info(final String message,
                               final Supplier<?>... args) {
-        if (getLevel().isEnabled(INFO)) {
+        if (isInfoEnabled()) {
             logMessage(INFO, format(message, Arrays.stream(args).map(Supplier::get).toArray()));
         }
     }
@@ -228,17 +238,5 @@ public abstract class AbstractProcessorComponent {
             return value;
         }
         return defaultValue;
-    }
-
-    protected final String showParentChildRelation(final int repeatOffset,
-                                                   final boolean showParent,
-                                                   final LoggableClassName parentClass,
-                                                   final LoggableClassName childClass) {
-        final char rowHead = '^';
-        final String rowTail = "|-";
-        final int offsetValue = repeatOffset * 3 + 1;
-        return (showParent ? DEFAULT_OFFSET.repeat(offsetValue) + parentClass.getLoggableFullClassName() + '\n' : "") +
-                DEFAULT_OFFSET.repeat(offsetValue) + DEFAULT_OFFSET + rowHead + '\n' +
-                DEFAULT_OFFSET.repeat(offsetValue) + DEFAULT_OFFSET + rowTail + DEFAULT_OFFSET + childClass.getLoggableFullClassName();
     }
 }

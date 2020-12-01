@@ -42,6 +42,8 @@ import java.util.Optional;
 import javax.lang.model.element.ExecutableElement;
 
 import static io.rxmicro.annotation.processor.common.util.Elements.asTypeElement;
+import static io.rxmicro.common.util.Strings.splitByCamelCase;
+import static io.rxmicro.model.MappingStrategy.UPPERCASE_WITH_SPACE_CHARACTER;
 
 /**
  * @author nedis
@@ -61,7 +63,11 @@ public abstract class AbstractSQLDataRepositoryMethodModelBuilder<DMF extends SQ
     @Override
     protected final SQLDataRepositoryMethod build(final DataRepositoryMethodSignature dataRepositoryMethodSignature,
                                                   final MethodBody body) {
-        return new SQLDataRepositoryMethod(dataRepositoryMethodSignature, body);
+        return new SQLDataRepositoryMethod(
+                UPPERCASE_WITH_SPACE_CHARACTER.getModelName(splitByCamelCase(operationType().getSimpleName())),
+                dataRepositoryMethodSignature,
+                body
+        );
     }
 
     protected final SQLMethodDescriptor<DMF, DMC> buildSQLMethodDescriptor(final ExecutableElement method,

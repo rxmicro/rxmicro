@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.Optional;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
+import javax.lang.model.element.VariableElement;
 
 import static io.rxmicro.common.util.Formats.format;
 import static java.util.stream.Collectors.joining;
@@ -71,6 +72,10 @@ public final class RestControllerMethodSignature implements RestMethodSignature 
 
     public String getSimpleName() {
         return simpleName;
+    }
+
+    public List<? extends VariableElement> getParameters(){
+        return executableElement.getParameters();
     }
 
     public RestRequestModel getRequestModel() {

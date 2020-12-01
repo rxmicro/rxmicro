@@ -31,6 +31,8 @@ import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.element.TypeElement;
 
 import static io.rxmicro.annotation.processor.common.util.Injects.injectDependencies;
+import static io.rxmicro.annotation.processor.common.util.LoggerMessages.LOG_MESSAGE_LINE_DELIMITER;
+import static io.rxmicro.annotation.processor.common.util.LoggerMessages.getAlignedWithLineDelimiterMessage;
 import static java.util.stream.Collectors.toSet;
 
 /**
@@ -67,6 +69,11 @@ public class CompositeModuleClassStructuresBuilder<T extends AbstractModuleClass
     }
 
     @Override
+    public String getBuilderName() {
+        return "composite-annotation-processor-module";
+    }
+
+    @Override
     public final Set<String> getSupportedAnnotationTypes() {
         return moduleClassStructuresBuilders.stream()
                 .flatMap(builder -> builder.getSupportedAnnotationTypes().stream())
@@ -90,9 +97,20 @@ public class CompositeModuleClassStructuresBuilder<T extends AbstractModuleClass
             }
             for (final Map.Entry<T, Set<TypeElement>> entry : map.entrySet()) {
                 try {
+                    final T builder = entry.getKey();
+                    if (!(builder instanceof CompositeModuleClassStructuresBuilder)) {
+                        debug(LOG_MESSAGE_LINE_DELIMITER);
+                        debug(() -> getAlignedWithLineDelimiterMessage("? started", builder.getBuilderName()));
+                        debug(LOG_MESSAGE_LINE_DELIMITER);
+                    }
                     classStructures.addAll(
-                            entry.getKey().buildClassStructures(environmentContext, entry.getValue(), roundEnv)
+                            builder.buildClassStructures(environmentContext, entry.getValue(), roundEnv)
                     );
+                    if (!(builder instanceof CompositeModuleClassStructuresBuilder)) {
+                        debug(LOG_MESSAGE_LINE_DELIMITER);
+                        debug(() -> getAlignedWithLineDelimiterMessage("? completed", builder.getBuilderName()));
+                        debug(LOG_MESSAGE_LINE_DELIMITER);
+                    }
                 } catch (final InterruptProcessingException ex) {
                     error(ex);
                 }

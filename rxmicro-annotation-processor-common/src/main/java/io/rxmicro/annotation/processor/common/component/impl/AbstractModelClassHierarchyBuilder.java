@@ -33,6 +33,7 @@ import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.TypeMirror;
 
 import static io.rxmicro.annotation.processor.common.util.Elements.allSuperTypes;
+import static io.rxmicro.annotation.processor.common.util.LoggerMessages.getLoggableParentChildRelationFragment;
 import static io.rxmicro.common.util.ExCollections.unmodifiableList;
 import static io.rxmicro.common.util.Requires.require;
 import static java.util.stream.Collectors.toList;
@@ -127,7 +128,7 @@ public abstract class AbstractModelClassHierarchyBuilder<MF extends ModelField, 
             final MC parent = iterator.next();
             if (iterator.hasNext()) {
                 final MC child = iterator.next();
-                stringBuilder.append(showParentChildRelation(index, index == 0, parent, child)).append('\n');
+                stringBuilder.append(getLoggableParentChildRelationFragment(index, index == 0, parent, child)).append('\n');
                 iterator.previous();
                 index++;
             } else {

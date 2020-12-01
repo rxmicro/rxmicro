@@ -21,6 +21,8 @@ import io.rxmicro.annotation.processor.common.util.UsedByFreemarker;
 
 import java.util.List;
 
+import javax.lang.model.element.VariableElement;
+
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.Requires.require;
 import static java.util.stream.Collectors.joining;
@@ -31,14 +33,22 @@ import static java.util.stream.Collectors.joining;
  */
 public abstract class DataRepositoryMethod {
 
+    private final String operationName;
+
     private final DataRepositoryMethodSignature methodSignature;
 
     private final MethodBody body;
 
-    public DataRepositoryMethod(final DataRepositoryMethodSignature methodSignature,
+    public DataRepositoryMethod(final String operationName,
+                                final DataRepositoryMethodSignature methodSignature,
                                 final MethodBody body) {
+        this.operationName = operationName;
         this.methodSignature = require(methodSignature);
         this.body = require(body);
+    }
+
+    public String getOperationName() {
+        return operationName;
     }
 
     public DataRepositoryMethodSignature getMethodSignature() {
@@ -60,6 +70,10 @@ public abstract class DataRepositoryMethod {
         return methodSignature.getParams().stream()
                 .map(e -> format("final ? ?", e.getSimpleType(), e.getName()))
                 .collect(joining(", "));
+    }
+
+    public List<? extends VariableElement> getParameters() {
+        return methodSignature.getMethod().getParameters();
     }
 
     @UsedByFreemarker

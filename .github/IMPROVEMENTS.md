@@ -1,5 +1,6 @@
 # TODO Improvements
 
+* Add `TRACE` log level for the RxMicro Annotation Processor.
 * Converters and Validators must support an inheritance.
 * BeanSupplier must be implemented more efficient: It is necessary to set only one valid qualifier instead of an array of possible qualifiers.
 * ResponseModelToJsonConverter can convert a model to byte array without using ExchangeDataFormatConverter.

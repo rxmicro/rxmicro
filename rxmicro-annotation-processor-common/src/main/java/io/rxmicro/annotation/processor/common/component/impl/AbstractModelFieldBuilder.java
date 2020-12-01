@@ -51,10 +51,6 @@ import javax.lang.model.element.VariableElement;
 import javax.lang.model.type.DeclaredType;
 import javax.lang.model.type.TypeMirror;
 
-import static io.rxmicro.annotation.processor.config.SupportedOptions.RX_MICRO_MAX_JSON_NESTED_DEPTH;
-import static io.rxmicro.annotation.processor.config.SupportedOptions.RX_MICRO_MAX_JSON_NESTED_DEPTH_DEFAULT_VALUE;
-import static io.rxmicro.annotation.processor.config.SupportedOptions.RX_MICRO_STRICT_MODE;
-import static io.rxmicro.annotation.processor.config.SupportedOptions.RX_MICRO_STRICT_MODE_DEFAULT_VALUE;
 import static io.rxmicro.annotation.processor.common.util.Elements.allModelFields;
 import static io.rxmicro.annotation.processor.common.util.Elements.asEnumElement;
 import static io.rxmicro.annotation.processor.common.util.Elements.findGetters;
@@ -63,9 +59,12 @@ import static io.rxmicro.annotation.processor.common.util.ModelTypeElements.asVa
 import static io.rxmicro.annotation.processor.common.util.Names.getPackageName;
 import static io.rxmicro.annotation.processor.common.util.Types.JAVA_PRIMITIVE_REPLACEMENT;
 import static io.rxmicro.annotation.processor.common.util.validators.TypeValidators.validateGenericType;
+import static io.rxmicro.annotation.processor.config.SupportedOptions.RX_MICRO_MAX_JSON_NESTED_DEPTH;
+import static io.rxmicro.annotation.processor.config.SupportedOptions.RX_MICRO_MAX_JSON_NESTED_DEPTH_DEFAULT_VALUE;
+import static io.rxmicro.annotation.processor.config.SupportedOptions.RX_MICRO_STRICT_MODE;
+import static io.rxmicro.annotation.processor.config.SupportedOptions.RX_MICRO_STRICT_MODE_DEFAULT_VALUE;
 import static io.rxmicro.common.util.ExCollectors.toOrderedMap;
 import static io.rxmicro.common.util.Formats.format;
-import static io.rxmicro.common.util.Strings.splitByCamelCase;
 import static java.util.Collections.unmodifiableMap;
 
 /**
@@ -97,7 +96,6 @@ public abstract class AbstractModelFieldBuilder<MF extends ModelField, MC extend
             if (modelClass.isObject()) {
                 final MC objectModelClass = (MC) modelClass;
                 result.put(typeElement, objectModelClass);
-                traceIfEnabled(objectModelClass);
             } else {
                 error(
                         typeElement,
@@ -198,21 +196,9 @@ public abstract class AbstractModelFieldBuilder<MF extends ModelField, MC extend
         if (!value.isEmpty()) {
             return value;
         } else if (annotation != null) {
-            return mappingStrategySupplier.get().getModelName(splitByCamelCase(fieldName));
+            return mappingStrategySupplier.get().getModelName(fieldName);
         } else {
             return fieldName;
-        }
-    }
-
-    protected void traceIfEnabled(final ObjectModelClass<MF> objectModelClass) {
-        if (!objectModelClass.getAllChildrenObjectModelClasses().isEmpty()) {
-            trace(() ->
-                    format(
-                            "All children object model classes of ? class:\n?",
-                            objectModelClass.getJavaFullClassName(),
-                            objectModelClass.getAllChildrenObjectModelClasses()
-                    )
-            );
         }
     }
 

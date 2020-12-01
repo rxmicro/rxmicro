@@ -42,6 +42,7 @@ import io.rxmicro.annotation.processor.rest.component.RestGenerationContextBuild
 import io.rxmicro.annotation.processor.rest.component.RestModelFromJsonConverterBuilder;
 import io.rxmicro.annotation.processor.rest.component.RestModelToJsonConverterBuilder;
 import io.rxmicro.annotation.processor.rest.component.RestModelValidatorBuilder;
+import io.rxmicro.annotation.processor.rest.model.HttpMethodMapping;
 import io.rxmicro.annotation.processor.rest.model.MappedRestObjectModelClass;
 import io.rxmicro.annotation.processor.rest.model.RestGenerationContext;
 import io.rxmicro.annotation.processor.rest.model.VirtualTypeClassStructure;
@@ -59,8 +60,9 @@ import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.element.TypeElement;
 
 import static io.rxmicro.annotation.processor.common.util.Injects.injectDependencies;
+import static io.rxmicro.annotation.processor.common.util.LoggerMessages.DEFAULT_OFFSET;
+import static io.rxmicro.annotation.processor.common.util.LoggerMessages.getLoggableMethodName;
 import static io.rxmicro.common.util.Formats.format;
-import static java.util.stream.Collectors.joining;
 import static java.util.stream.Collectors.toList;
 
 /**
@@ -112,6 +114,11 @@ public final class RestClientModuleClassStructuresBuilder extends AbstractModule
     }
 
     private RestClientModuleClassStructuresBuilder() {
+    }
+
+    @Override
+    public String getBuilderName() {
+        return "rest-client-annotation-processor-module";
     }
 
     @Override
@@ -169,15 +176,26 @@ public final class RestClientModuleClassStructuresBuilder extends AbstractModule
     }
 
     private void logFoundRestClients(final Set<RestClientClassSignature> set) {
-        info("Found the following rest clients:\n?", () -> set.stream()
-                .map(s -> s.getMethodSignatures().stream()
-                        .map(e -> format("  ? ? -> ?",
-                                e.getHttpMethodMapping().getMethod(),
-                                e.getHttpMethodMapping().getExactOrTemplateUri(),
-                                e.toString()))
-                        .collect(joining("\n")))
-                .collect(joining("\n"))
-        );
+        if (isInfoEnabled()) {
+            final StringBuilder stringBuilder = new StringBuilder("Found the following REST clients:\n");
+            for (final RestClientClassSignature signature : set) {
+                stringBuilder.append(format("??:\n", DEFAULT_OFFSET, signature.getRestClientInterface().getQualifiedName()));
+                for (final RestClientMethodSignature methodSignature : signature.getMethodSignatures()) {
+                    for (final HttpMethodMapping httpMethodMapping : methodSignature.getHttpMethodMappings()) {
+                        stringBuilder.append(format(
+                                "??'? ?' -> ?;\n",
+                                DEFAULT_OFFSET,
+                                DEFAULT_OFFSET,
+                                httpMethodMapping.getMethod(),
+                                httpMethodMapping.getExactOrTemplateUri(),
+                                getLoggableMethodName(methodSignature.getMethod())
+                        ));
+                    }
+                }
+            }
+            stringBuilder.deleteCharAt(stringBuilder.length() - 1);
+            info(stringBuilder.toString());
+        }
     }
 
     private RestClientClassStructureStorage buildRestClientClassStructureStorage(final EnvironmentContext environmentContext,
@@ -217,6 +235,7 @@ public final class RestClientModuleClassStructuresBuilder extends AbstractModule
         builder.addRestObjectModelClasses(
                 context.getToHttpDataModelClasses().stream().map(MappedRestObjectModelClass::getModelClass).collect(Collectors.toSet())
         );
+        logRestClientClassStructureStorage(builder);
         return builder.build();
     }
 
@@ -272,6 +291,19 @@ public final class RestClientModuleClassStructuresBuilder extends AbstractModule
                                     m.getModelTypeElement(), DisableValidation.class))
                             .collect(toList()))
             );
+        }
+    }
+
+    private void logRestClientClassStructureStorage(final RestClientClassStructureStorage.Builder builder) {
+        if (isDebugEnabled()) {
+            logClassStructureStorageItem("path variable builder(s)", builder.getPathBuilders());
+            logClassStructureStorageItem("request model extractor(s)", builder.getRequestModelExtractors());
+            logClassStructureStorageItem("request model converter(s)", builder.getModelToJsonConverters());
+            logClassStructureStorageItem("request validator(s)", builder.getRequestValidators());
+
+            logClassStructureStorageItem("response model reader", builder.getModelReaders());
+            logClassStructureStorageItem("response model converter(s)", builder.getModelFromJsonConverters());
+            logClassStructureStorageItem("response validator(s)", builder.getResponseValidators());
         }
     }
 }

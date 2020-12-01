@@ -51,6 +51,7 @@ import javax.lang.model.element.VariableElement;
 
 import static io.rxmicro.annotation.processor.data.model.CommonDataGroupRules.REQUEST_ID_SUPPLIER_GROUP;
 import static io.rxmicro.annotation.processor.data.model.CommonDataGroupRules.REQUEST_ID_SUPPLIER_PREDICATE;
+import static io.rxmicro.model.MappingStrategy.CAPITALIZE_CAMEL_CASE;
 import static java.util.stream.Collectors.joining;
 
 /**
@@ -71,7 +72,11 @@ public abstract class AbstractMongoRepositoryMethodModelBuilder
     @Override
     protected final MongoRepositoryMethod build(final DataRepositoryMethodSignature dataRepositoryMethodSignature,
                                                 final MethodBody body) {
-        return new MongoRepositoryMethod(dataRepositoryMethodSignature, body);
+        return new MongoRepositoryMethod(
+                CAPITALIZE_CAMEL_CASE.getModelName(operationType().getSimpleName()),
+                dataRepositoryMethodSignature,
+                body
+        );
     }
 
     @Override

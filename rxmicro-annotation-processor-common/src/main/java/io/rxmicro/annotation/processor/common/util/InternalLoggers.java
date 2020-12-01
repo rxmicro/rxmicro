@@ -24,8 +24,6 @@ import io.rxmicro.annotation.processor.config.LogLevel;
  */
 public final class InternalLoggers {
 
-    public static final String DEFAULT_OFFSET = "  ";
-
     public static void logMessage(final LogLevel level,
                                   final String message) {
         System.out.println("[" + level + "] " + message);

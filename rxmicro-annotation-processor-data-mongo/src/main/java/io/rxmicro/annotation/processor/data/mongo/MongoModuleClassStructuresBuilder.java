@@ -51,6 +51,11 @@ public final class MongoModuleClassStructuresBuilder
     }
 
     @Override
+    public String getBuilderName() {
+        return "mongo-data-repositories-annotation-processor-module";
+    }
+
+    @Override
     public Set<String> getSupportedAnnotationTypes() {
         return Set.of(MongoRepository.class.getName());
     }

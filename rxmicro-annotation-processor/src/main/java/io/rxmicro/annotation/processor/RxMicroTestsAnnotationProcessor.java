@@ -89,6 +89,11 @@ public final class RxMicroTestsAnnotationProcessor extends BaseRxMicroAnnotation
         }
 
         @Override
+        public String getBuilderName() {
+            return "test-fixer-annotation-processor-module";
+        }
+
+        @Override
         public Set<String> getSupportedAnnotationTypes() {
             return testFixerMap.keySet();
         }

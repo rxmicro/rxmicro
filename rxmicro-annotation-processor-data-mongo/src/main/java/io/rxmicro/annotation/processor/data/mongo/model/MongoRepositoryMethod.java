@@ -26,8 +26,9 @@ import io.rxmicro.annotation.processor.data.model.DataRepositoryMethodSignature;
  */
 public final class MongoRepositoryMethod extends DataRepositoryMethod {
 
-    public MongoRepositoryMethod(final DataRepositoryMethodSignature methodSignature,
+    public MongoRepositoryMethod(final String operationName,
+                                 final DataRepositoryMethodSignature methodSignature,
                                  final MethodBody body) {
-        super(methodSignature, body);
+        super(operationName, methodSignature, body);
     }
 }

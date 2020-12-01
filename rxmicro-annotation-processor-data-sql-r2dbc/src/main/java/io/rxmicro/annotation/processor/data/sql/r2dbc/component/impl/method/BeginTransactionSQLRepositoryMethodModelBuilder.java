@@ -58,7 +58,7 @@ import static java.util.stream.Collectors.joining;
  * @since 0.1
  */
 @Singleton
-public class CreateTransactionSQLRepositoryMethodModelBuilder<DMF extends SQLDataModelField, DMC extends SQLDataObjectModelClass<DMF>>
+public class BeginTransactionSQLRepositoryMethodModelBuilder<DMF extends SQLDataModelField, DMC extends SQLDataObjectModelClass<DMF>>
         extends AbstractSQLDataRepositoryMethodModelBuilder<DMF, DMC> {
 
     private final Map<String, Predicate<VariableElement>> groupRules = Map.of(
@@ -77,7 +77,7 @@ public class CreateTransactionSQLRepositoryMethodModelBuilder<DMF extends SQLDat
 
     @Override
     public Class<? extends Annotation> operationType() {
-        return CreateTransaction.class;
+        return BeginTransaction.class;
     }
 
     @Override
@@ -178,6 +178,6 @@ public class CreateTransactionSQLRepositoryMethodModelBuilder<DMF extends SQLDat
      * @author nedis
      * @since 0.1
      */
-    private @interface CreateTransaction {
+    private @interface BeginTransaction {
     }
 }

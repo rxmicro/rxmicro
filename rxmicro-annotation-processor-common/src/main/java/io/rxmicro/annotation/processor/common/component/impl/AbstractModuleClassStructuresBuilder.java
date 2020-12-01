@@ -40,9 +40,11 @@ import javax.lang.model.element.Element;
 import javax.lang.model.element.PackageElement;
 import javax.lang.model.element.TypeElement;
 
+import static io.rxmicro.annotation.processor.common.util.LoggerMessages.DEFAULT_OFFSET;
+import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getElements;
 import static io.rxmicro.annotation.processor.config.SupportedOptions.RX_MICRO_BUILD_UNNAMED_MODULE;
 import static io.rxmicro.annotation.processor.config.SupportedOptions.RX_MICRO_BUILD_UNNAMED_MODULE_DEFAULT_VALUE;
-import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getElements;
+import static java.util.stream.Collectors.joining;
 import static java.util.stream.Collectors.toList;
 
 /**
@@ -53,6 +55,8 @@ public abstract class AbstractModuleClassStructuresBuilder extends AbstractProce
 
     @Inject
     private SourceCodeGenerator sourceCodeGenerator;
+
+    public abstract String getBuilderName();
 
     public abstract Set<String> getSupportedAnnotationTypes();
 
@@ -181,6 +185,19 @@ public abstract class AbstractModuleClassStructuresBuilder extends AbstractProce
             return null;
         } else {
             return packageName.substring(0, index);
+        }
+    }
+
+    protected void logClassStructureStorageItem(final String name,
+                                                final Set<? extends ClassStructure> classStructures) {
+        if (!classStructures.isEmpty() && isDebugEnabled()) {
+            debug(
+                    "The following ? will be generated:\n?",
+                    name,
+                    classStructures.stream()
+                            .map(classStructure -> DEFAULT_OFFSET + classStructure.getLoggableFullClassName())
+                            .collect(joining("\n"))
+            );
         }
     }
 }

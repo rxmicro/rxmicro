@@ -28,6 +28,7 @@ import io.rxmicro.annotation.processor.common.model.CDIUsageCandidateClassStruct
 import io.rxmicro.annotation.processor.common.model.ClassStructure;
 import io.rxmicro.annotation.processor.common.model.EnvironmentContext;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Stream;
 import javax.annotation.processing.RoundEnvironment;
@@ -67,6 +68,11 @@ public final class CDIClassStructuresBuilder extends AbstractModuleClassStructur
     }
 
     @Override
+    public String getBuilderName() {
+        return "cdi-annotation-processor-module";
+    }
+
+    @Override
     public Set<String> getSupportedAnnotationTypes() {
         return INJECT_ANNOTATIONS.stream().map(Class::getName).collect(toSet());
     }
@@ -75,19 +81,23 @@ public final class CDIClassStructuresBuilder extends AbstractModuleClassStructur
     public Set<? extends ClassStructure> buildClassStructures(final EnvironmentContext environmentContext,
                                                               final Set<? extends TypeElement> annotations,
                                                               final RoundEnvironment roundEnv) {
-        final Set<BeanSupplierClassStructure> beanSupplierClassStructures =
+        final Set<BeanSupplierClassStructure> beanWithInjectionsClassStructures =
                 beanWithInjectionsClassStructureBuilder.build(environmentContext, annotations, roundEnv);
-        beanSupplierClassStructures.addAll(
+        final Set<BeanSupplierClassStructure> beanWithoutInjectionsClassStructures =
                 beanWithoutInjectionsClassStructureBuilder.build(
                         environmentContext,
-                        beanSupplierClassStructures.stream()
+                        beanWithInjectionsClassStructures.stream()
                                 .flatMap(s -> s.getBeanDefinition().getInjectionPoints().stream())
                                 .collect(toList()),
-                        beanSupplierClassStructures.stream()
+                        beanWithInjectionsClassStructures.stream()
                                 .map(s -> s.getBeanDefinition().getBeanTypeElement().asType().toString())
                                 .collect(toSet())
-                )
-        );
+                );
+        logAllFoundBeanSuppliers(beanWithInjectionsClassStructures, beanWithoutInjectionsClassStructures);
+        final Set<BeanSupplierClassStructure> beanSupplierClassStructures = new HashSet<>();
+        beanSupplierClassStructures.addAll(beanWithInjectionsClassStructures);
+        beanSupplierClassStructures.addAll(beanWithoutInjectionsClassStructures);
+
         beanDefinitionTypes = beanSupplierClassStructures.stream()
                 .map(s -> s.getBeanDefinition().getBeanTypeElement().asType().toString())
                 .collect(toSet());
@@ -97,6 +107,14 @@ public final class CDIClassStructuresBuilder extends AbstractModuleClassStructur
                         Stream.of(new BeanFactoryImplClassStructure(beanSupplierClassStructures))
                 )
                 .collect(toSet());
+    }
+
+    private void logAllFoundBeanSuppliers(final Set<BeanSupplierClassStructure> beanWithInjectionsClassStructures,
+                                          final Set<BeanSupplierClassStructure> beanWithoutInjectionsClassStructures) {
+        if (isDebugEnabled()) {
+            logClassStructureStorageItem("bean with injection(s) supplier(s)", beanWithInjectionsClassStructures);
+            logClassStructureStorageItem("bean without injection(s) supplier(s)", beanWithoutInjectionsClassStructures);
+        }
     }
 
     @Override
