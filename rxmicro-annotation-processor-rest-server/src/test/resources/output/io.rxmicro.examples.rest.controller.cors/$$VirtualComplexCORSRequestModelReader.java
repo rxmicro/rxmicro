@@ -1,5 +1,6 @@
 package io.rxmicro.examples.rest.controller.cors;
 
+import io.rxmicro.http.QueryParams;
 import io.rxmicro.rest.model.HttpModelType;
 import io.rxmicro.rest.model.PathVariableMapping;
 import io.rxmicro.rest.server.detail.component.ModelReader;
@@ -15,13 +16,15 @@ public final class $$VirtualComplexCORSRequestModelReader extends ModelReader<$$
                                             final HttpRequest request,
                                             final boolean readParametersFromBody) {
         final $$VirtualComplexCORSRequest model = new $$VirtualComplexCORSRequest();
-        readPrimitivesToModel(pathVariableMapping, request, model);
+        readPrimitivesToModel(pathVariableMapping, request, QueryParams.of(), model, readParametersFromBody);
         return model;
     }
 
     public void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
                                       final HttpRequest request,
-                                      final $$VirtualComplexCORSRequest model) {
+                                      final QueryParams params,
+                                      final $$VirtualComplexCORSRequest model,
+                                      final boolean readParametersFromBody) {
         model.path = toString(pathVariableMapping.getValue("path"), HttpModelType.PATH, "path");
     }
 }

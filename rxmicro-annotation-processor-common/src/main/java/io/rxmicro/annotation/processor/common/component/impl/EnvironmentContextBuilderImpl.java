@@ -155,6 +155,7 @@ public final class EnvironmentContextBuilderImpl extends AbstractProcessorCompon
                 return packages.stream()
                         .filter(packageName -> alreadyOpenedPackages.stream()
                                 .noneMatch(alreadyOpenedPackage -> alreadyOpenedPackage.equals(packageName)))
+                        .sorted()
                         .collect(toList());
             }
         }

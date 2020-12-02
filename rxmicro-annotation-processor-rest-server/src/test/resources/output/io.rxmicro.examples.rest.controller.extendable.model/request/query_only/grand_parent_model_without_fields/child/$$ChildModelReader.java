@@ -21,15 +21,16 @@ public final class $$ChildModelReader extends ModelReader<Child> {
                       final boolean readParametersFromBody) {
         final Child model = new Child();
         final QueryParams params = extractParams(request.getQueryString());
-        readPrimitivesToModel(pathVariableMapping, request, params, model);
+        readPrimitivesToModel(pathVariableMapping, request, params, model, readParametersFromBody);
         return model;
     }
 
     public void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
                                       final HttpRequest request,
                                       final QueryParams params,
-                                      final Child model) {
-        parentReader.readPrimitivesToModel(pathVariableMapping, request, params, model);
+                                      final Child model,
+                                      final boolean readParametersFromBody) {
+        parentReader.readPrimitivesToModel(pathVariableMapping, request, params, model, readParametersFromBody);
         model.childParameter = toString(params.getValue("childParameter"), HttpModelType.PARAMETER, "childParameter");
     }
 }

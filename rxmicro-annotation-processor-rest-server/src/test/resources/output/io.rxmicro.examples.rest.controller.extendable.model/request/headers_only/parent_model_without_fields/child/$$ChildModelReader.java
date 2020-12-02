@@ -2,6 +2,7 @@ package io.rxmicro.examples.rest.controller.extendable.model.request.headers_onl
 
 import io.rxmicro.examples.rest.controller.extendable.model.request.headers_only.parent_model_without_fields.grand.$$GrandParentModelReader;
 import io.rxmicro.http.HttpHeaders;
+import io.rxmicro.http.QueryParams;
 import io.rxmicro.rest.model.HttpModelType;
 import io.rxmicro.rest.model.PathVariableMapping;
 import io.rxmicro.rest.server.detail.component.ModelReader;
@@ -20,14 +21,16 @@ public final class $$ChildModelReader extends ModelReader<Child> {
                       final HttpRequest request,
                       final boolean readParametersFromBody) {
         final Child model = new Child();
-        readPrimitivesToModel(pathVariableMapping, request, model);
+        readPrimitivesToModel(pathVariableMapping, request, QueryParams.of(), model, readParametersFromBody);
         return model;
     }
 
     public void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
                                       final HttpRequest request,
-                                      final Child model) {
-        parentReader.readPrimitivesToModel(pathVariableMapping, request, model);
+                                      final QueryParams params,
+                                      final Child model,
+                                      final boolean readParametersFromBody) {
+        parentReader.readPrimitivesToModel(pathVariableMapping, request, params, model, readParametersFromBody);
         final HttpHeaders httpHeaders = request.getHeaders();
         model.childHeader = toString(httpHeaders.getValue("childHeader"), HttpModelType.HEADER, "childHeader");
     }

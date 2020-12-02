@@ -16,7 +16,12 @@ public final class $$ChildModelFromJsonConverter extends ModelFromJsonConverter<
     @Override
     public Child fromJsonObject(final Map<String, Object> params) {
         final Child model = new Child();
-        parentConverter.readParamsToModel(params, model);
+        readParamsToModel(params, model);
         return model;
+    }
+
+    public void readParamsToModel(final Map<String, Object> params,
+                                  final Child model) {
+        parentConverter.readParamsToModel(params, model);
     }
 }

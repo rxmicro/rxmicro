@@ -17,14 +17,15 @@ public final class $$VirtualCustomizeNotFoundRequestModelReader extends ModelRea
                                                   final boolean readParametersFromBody) {
         final $$VirtualCustomizeNotFoundRequest model = new $$VirtualCustomizeNotFoundRequest();
         final QueryParams params = extractParams(request.getQueryString());
-        readPrimitivesToModel(pathVariableMapping, request, params, model);
+        readPrimitivesToModel(pathVariableMapping, request, params, model, readParametersFromBody);
         return model;
     }
 
     public void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
                                       final HttpRequest request,
                                       final QueryParams params,
-                                      final $$VirtualCustomizeNotFoundRequest model) {
+                                      final $$VirtualCustomizeNotFoundRequest model,
+                                      final boolean readParametersFromBody) {
         model.found = toBoolean(params.getValue("found"), HttpModelType.PARAMETER, "found");
     }
 }

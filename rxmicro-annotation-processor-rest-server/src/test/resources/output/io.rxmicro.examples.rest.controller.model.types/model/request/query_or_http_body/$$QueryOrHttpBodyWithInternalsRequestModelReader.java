@@ -27,12 +27,12 @@ public final class $$QueryOrHttpBodyWithInternalsRequestModelReader extends Mode
         if (readParametersFromBody) {
             final Object body = exchangeDataFormatConverter.fromBytes(request.getContent());
             final QueryOrHttpBodyWithInternalsRequest model = queryOrHttpBodyWithInternalsRequestModelFromJsonConverter.fromJsonObject(body);
-            readPrimitivesToModel(pathVariableMapping, request, model);
+            readPrimitivesToModel(pathVariableMapping, request, QueryParams.of(), model, readParametersFromBody);
             return model;
         } else {
             final QueryOrHttpBodyWithInternalsRequest model = new QueryOrHttpBodyWithInternalsRequest();
             final QueryParams params = extractParams(request.getQueryString());
-            readPrimitivesToModel(pathVariableMapping, request, params, model);
+            readPrimitivesToModel(pathVariableMapping, request, params, model, readParametersFromBody);
             return model;
         }
     }
@@ -40,7 +40,8 @@ public final class $$QueryOrHttpBodyWithInternalsRequestModelReader extends Mode
     public void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
                                       final HttpRequest request,
                                       final QueryParams params,
-                                      final QueryOrHttpBodyWithInternalsRequest model) {
+                                      final QueryOrHttpBodyWithInternalsRequest model,
+                                      final boolean readParametersFromBody) {
         model.internalRemoteAddress1 = String.valueOf(request.getRemoteAddress());
         model.internalRemoteAddress2 = request.getRemoteAddress();
         model.internalUrlPath = request.getUri();
@@ -49,6 +50,9 @@ public final class $$QueryOrHttpBodyWithInternalsRequestModelReader extends Mode
         model.internalRequestHeaders = request.getHeaders();
         model.internalRequestBody = request.getContent();
         model.internalRequest = request;
+        if (readParametersFromBody) {
+            return;
+        }
         model.booleanParameter = toBoolean(params.getValue("booleanParameter"), HttpModelType.PARAMETER, "booleanParameter");
         model.byteParameter = toByte(params.getValue("byteParameter"), HttpModelType.PARAMETER, "byteParameter");
         model.shortParameter = toShort(params.getValue("shortParameter"), HttpModelType.PARAMETER, "shortParameter");
@@ -88,18 +92,5 @@ public final class $$QueryOrHttpBodyWithInternalsRequestModelReader extends Mode
         model.stringParameterSet = toStringSet(params.getValues("stringParameterSet"), HttpModelType.PARAMETER, "stringParameterSet");
         model.instantParameterSet = toInstantSet(params.getValues("instantParameterSet"), HttpModelType.PARAMETER, "instantParameterSet");
         model.enumParameterSet = toEnumSet(Status.class, params.getValues("enumParameterSet"), HttpModelType.PARAMETER, "enumParameterSet");
-    }
-
-    public void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
-                                      final HttpRequest request,
-                                      final QueryOrHttpBodyWithInternalsRequest model) {
-        model.internalRemoteAddress1 = String.valueOf(request.getRemoteAddress());
-        model.internalRemoteAddress2 = request.getRemoteAddress();
-        model.internalUrlPath = request.getUri();
-        model.internalRequestMethod = request.getMethod();
-        model.internalHttpVersion = request.getVersion();
-        model.internalRequestHeaders = request.getHeaders();
-        model.internalRequestBody = request.getContent();
-        model.internalRequest = request;
     }
 }

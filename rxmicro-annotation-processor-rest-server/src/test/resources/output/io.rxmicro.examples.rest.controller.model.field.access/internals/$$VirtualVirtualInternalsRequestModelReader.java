@@ -1,6 +1,7 @@
 package io.rxmicro.examples.rest.controller.model.field.access.internals;
 
 import io.rxmicro.http.HttpHeaders;
+import io.rxmicro.http.QueryParams;
 import io.rxmicro.rest.model.HttpModelType;
 import io.rxmicro.rest.model.PathVariableMapping;
 import io.rxmicro.rest.server.detail.component.ModelReader;
@@ -16,13 +17,15 @@ public final class $$VirtualVirtualInternalsRequestModelReader extends ModelRead
                                                  final HttpRequest request,
                                                  final boolean readParametersFromBody) {
         final $$VirtualVirtualInternalsRequest model = new $$VirtualVirtualInternalsRequest();
-        readPrimitivesToModel(pathVariableMapping, request, model);
+        readPrimitivesToModel(pathVariableMapping, request, QueryParams.of(), model, readParametersFromBody);
         return model;
     }
 
     public void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
                                       final HttpRequest request,
-                                      final $$VirtualVirtualInternalsRequest model) {
+                                      final QueryParams params,
+                                      final $$VirtualVirtualInternalsRequest model,
+                                      final boolean readParametersFromBody) {
         model.internalRemoteAddress1 = String.valueOf(request.getRemoteAddress());
         model.internalRemoteAddress2 = request.getRemoteAddress();
         model.internalUrlPath = request.getUri();

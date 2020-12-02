@@ -2,6 +2,7 @@ package io.rxmicro.examples.rest.controller.model.types.model.request.without_bo
 
 import io.rxmicro.examples.rest.controller.model.types.model.Status;
 import io.rxmicro.http.HttpHeaders;
+import io.rxmicro.http.QueryParams;
 import io.rxmicro.rest.model.HttpModelType;
 import io.rxmicro.rest.model.PathVariableMapping;
 import io.rxmicro.rest.server.detail.component.ModelReader;
@@ -17,13 +18,15 @@ public final class $$PathVarAndHeadersRequestModelReader extends ModelReader<Pat
                                          final HttpRequest request,
                                          final boolean readParametersFromBody) {
         final PathVarAndHeadersRequest model = new PathVarAndHeadersRequest();
-        readPrimitivesToModel(pathVariableMapping, request, model);
+        readPrimitivesToModel(pathVariableMapping, request, QueryParams.of(), model, readParametersFromBody);
         return model;
     }
 
     public void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
                                       final HttpRequest request,
-                                      final PathVarAndHeadersRequest model) {
+                                      final QueryParams params,
+                                      final PathVarAndHeadersRequest model,
+                                      final boolean readParametersFromBody) {
         model.booleanPathVariable = toBoolean(pathVariableMapping.getValue("a"), HttpModelType.PATH, "a");
         model.bytePathVariable = toByte(pathVariableMapping.getValue("b"), HttpModelType.PATH, "b");
         model.shortPathVariable = toShort(pathVariableMapping.getValue("c"), HttpModelType.PATH, "c");

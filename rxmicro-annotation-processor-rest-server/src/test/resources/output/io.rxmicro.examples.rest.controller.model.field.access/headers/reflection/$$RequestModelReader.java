@@ -2,6 +2,7 @@ package io.rxmicro.examples.rest.controller.model.field.access.headers.reflectio
 
 import io.rxmicro.examples.rest.controller.model.field.access.Status;
 import io.rxmicro.http.HttpHeaders;
+import io.rxmicro.http.QueryParams;
 import io.rxmicro.rest.model.HttpModelType;
 import io.rxmicro.rest.model.PathVariableMapping;
 import io.rxmicro.rest.server.detail.component.ModelReader;
@@ -19,13 +20,15 @@ public final class $$RequestModelReader extends ModelReader<Request> {
                         final HttpRequest request,
                         final boolean readParametersFromBody) {
         final Request model = new Request();
-        readPrimitivesToModel(pathVariableMapping, request, model);
+        readPrimitivesToModel(pathVariableMapping, request, QueryParams.of(), model, readParametersFromBody);
         return model;
     }
 
     public void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
                                       final HttpRequest request,
-                                      final Request model) {
+                                      final QueryParams params,
+                                      final Request model,
+                                      final boolean readParametersFromBody) {
         final HttpHeaders httpHeaders = request.getHeaders();
         setFieldValue(model, "booleanHeader", toBoolean(httpHeaders.getValue("booleanHeader"), HttpModelType.HEADER, "booleanHeader"));
         setFieldValue(model, "byteHeader", toByte(httpHeaders.getValue("byteHeader"), HttpModelType.HEADER, "byteHeader"));

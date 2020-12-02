@@ -17,14 +17,15 @@ public final class $$VirtualRequest2ModelReader extends ModelReader<$$VirtualReq
                                   final boolean readParametersFromBody) {
         final $$VirtualRequest2 model = new $$VirtualRequest2();
         final QueryParams params = extractParams(request.getQueryString());
-        readPrimitivesToModel(pathVariableMapping, request, params, model);
+        readPrimitivesToModel(pathVariableMapping, request, params, model, readParametersFromBody);
         return model;
     }
 
     public void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
                                       final HttpRequest request,
                                       final QueryParams params,
-                                      final $$VirtualRequest2 model) {
+                                      final $$VirtualRequest2 model,
+                                      final boolean readParametersFromBody) {
         model.id = toInteger(params.getValue("id"), HttpModelType.PARAMETER, "id");
     }
 }

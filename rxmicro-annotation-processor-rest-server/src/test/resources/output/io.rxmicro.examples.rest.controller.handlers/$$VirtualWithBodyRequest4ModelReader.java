@@ -17,14 +17,15 @@ public final class $$VirtualWithBodyRequest4ModelReader extends ModelReader<$$Vi
                                           final boolean readParametersFromBody) {
         final $$VirtualWithBodyRequest4 model = new $$VirtualWithBodyRequest4();
         final QueryParams params = extractParams(request.getQueryString());
-        readPrimitivesToModel(pathVariableMapping, request, params, model);
+        readPrimitivesToModel(pathVariableMapping, request, params, model, readParametersFromBody);
         return model;
     }
 
     public void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
                                       final HttpRequest request,
                                       final QueryParams params,
-                                      final $$VirtualWithBodyRequest4 model) {
+                                      final $$VirtualWithBodyRequest4 model,
+                                      final boolean readParametersFromBody) {
         model.requestParameter = toString(params.getValue("requestParameter"), HttpModelType.PARAMETER, "requestParameter");
     }
 }

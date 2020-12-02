@@ -17,14 +17,15 @@ public final class $$ParentModelReader extends ModelReader<Parent> {
                        final boolean readParametersFromBody) {
         final Parent model = new Parent();
         final QueryParams params = extractParams(request.getQueryString());
-        readPrimitivesToModel(pathVariableMapping, request, params, model);
+        readPrimitivesToModel(pathVariableMapping, request, params, model, readParametersFromBody);
         return model;
     }
 
     public void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
                                       final HttpRequest request,
                                       final QueryParams params,
-                                      final Parent model) {
+                                      final Parent model,
+                                      final boolean readParametersFromBody) {
         model.parentParameter = toString(params.getValue("parentParameter"), HttpModelType.PARAMETER, "parentParameter");
     }
 }

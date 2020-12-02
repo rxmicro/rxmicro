@@ -18,14 +18,15 @@ public final class $$VirtualListQueryParamRequestModelReader extends ModelReader
                                                final boolean readParametersFromBody) {
         final $$VirtualListQueryParamRequest model = new $$VirtualListQueryParamRequest();
         final QueryParams params = extractParams(request.getQueryString());
-        readPrimitivesToModel(pathVariableMapping, request, params, model);
+        readPrimitivesToModel(pathVariableMapping, request, params, model, readParametersFromBody);
         return model;
     }
 
     public void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
                                       final HttpRequest request,
                                       final QueryParams params,
-                                      final $$VirtualListQueryParamRequest model) {
+                                      final $$VirtualListQueryParamRequest model,
+                                      final boolean readParametersFromBody) {
         model.supportedStatuses = toEnumList(Status.class, params.getValues("supported_statuses"), HttpModelType.PARAMETER, "supported_statuses");
     }
 }

@@ -18,14 +18,15 @@ public final class $$QueryStringWithInternalsRequestModelReader extends ModelRea
                                                 final boolean readParametersFromBody) {
         final QueryStringWithInternalsRequest model = new QueryStringWithInternalsRequest();
         final QueryParams params = extractParams(request.getQueryString());
-        readPrimitivesToModel(pathVariableMapping, request, params, model);
+        readPrimitivesToModel(pathVariableMapping, request, params, model, readParametersFromBody);
         return model;
     }
 
     public void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
                                       final HttpRequest request,
                                       final QueryParams params,
-                                      final QueryStringWithInternalsRequest model) {
+                                      final QueryStringWithInternalsRequest model,
+                                      final boolean readParametersFromBody) {
         model.internalRemoteAddress1 = String.valueOf(request.getRemoteAddress());
         model.internalRemoteAddress2 = request.getRemoteAddress();
         model.internalUrlPath = request.getUri();
@@ -73,18 +74,5 @@ public final class $$QueryStringWithInternalsRequestModelReader extends ModelRea
         model.stringParameterSet = toStringSet(params.getValues("stringParameterSet"), HttpModelType.PARAMETER, "stringParameterSet");
         model.instantParameterSet = toInstantSet(params.getValues("instantParameterSet"), HttpModelType.PARAMETER, "instantParameterSet");
         model.enumParameterSet = toEnumSet(Status.class, params.getValues("enumParameterSet"), HttpModelType.PARAMETER, "enumParameterSet");
-    }
-
-    public void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
-                                      final HttpRequest request,
-                                      final QueryStringWithInternalsRequest model) {
-        model.internalRemoteAddress1 = String.valueOf(request.getRemoteAddress());
-        model.internalRemoteAddress2 = request.getRemoteAddress();
-        model.internalUrlPath = request.getUri();
-        model.internalRequestMethod = request.getMethod();
-        model.internalHttpVersion = request.getVersion();
-        model.internalRequestHeaders = request.getHeaders();
-        model.internalRequestBody = request.getContent();
-        model.internalRequest = request;
     }
 }

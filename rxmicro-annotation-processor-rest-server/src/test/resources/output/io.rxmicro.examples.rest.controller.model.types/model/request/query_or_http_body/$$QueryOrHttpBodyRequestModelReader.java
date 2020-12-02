@@ -31,7 +31,7 @@ public final class $$QueryOrHttpBodyRequestModelReader extends ModelReader<Query
         } else {
             final QueryOrHttpBodyRequest model = new QueryOrHttpBodyRequest();
             final QueryParams params = extractParams(request.getQueryString());
-            readPrimitivesToModel(pathVariableMapping, request, params, model);
+            readPrimitivesToModel(pathVariableMapping, request, params, model, readParametersFromBody);
             return model;
         }
     }
@@ -39,7 +39,11 @@ public final class $$QueryOrHttpBodyRequestModelReader extends ModelReader<Query
     public void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
                                       final HttpRequest request,
                                       final QueryParams params,
-                                      final QueryOrHttpBodyRequest model) {
+                                      final QueryOrHttpBodyRequest model,
+                                      final boolean readParametersFromBody) {
+        if (readParametersFromBody) {
+            return;
+        }
         model.booleanParameter = toBoolean(params.getValue("booleanParameter"), HttpModelType.PARAMETER, "booleanParameter");
         model.byteParameter = toByte(params.getValue("byteParameter"), HttpModelType.PARAMETER, "byteParameter");
         model.shortParameter = toShort(params.getValue("shortParameter"), HttpModelType.PARAMETER, "shortParameter");

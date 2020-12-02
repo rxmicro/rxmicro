@@ -30,7 +30,7 @@ public final class $$RequestModelReader extends ModelReader<Request> {
         } else {
             final Request model = new Request();
             final QueryParams params = extractParams(request.getQueryString());
-            readPrimitivesToModel(pathVariableMapping, request, params, model);
+            readPrimitivesToModel(pathVariableMapping, request, params, model, readParametersFromBody);
             return model;
         }
     }
@@ -38,7 +38,11 @@ public final class $$RequestModelReader extends ModelReader<Request> {
     public void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
                                       final HttpRequest request,
                                       final QueryParams params,
-                                      final Request model) {
+                                      final Request model,
+                                      final boolean readParametersFromBody) {
+        if (readParametersFromBody) {
+            return;
+        }
         model.endpointVersion = toString(params.getValue("endpoint_version"), HttpModelType.PARAMETER, "endpoint_version");
         model.useProxy = toBoolean(params.getValue("use-Proxy"), HttpModelType.PARAMETER, "use-Proxy");
     }

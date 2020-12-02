@@ -2,6 +2,7 @@ package io.rxmicro.examples.rest.controller.model.field.access.headers;
 
 import io.rxmicro.examples.rest.controller.model.field.access.Status;
 import io.rxmicro.http.HttpHeaders;
+import io.rxmicro.http.QueryParams;
 import io.rxmicro.rest.model.HttpModelType;
 import io.rxmicro.rest.model.PathVariableMapping;
 import io.rxmicro.rest.server.detail.component.ModelReader;
@@ -17,13 +18,15 @@ public final class $$VirtualVirtualHeadersRequestModelReader extends ModelReader
                                                final HttpRequest request,
                                                final boolean readParametersFromBody) {
         final $$VirtualVirtualHeadersRequest model = new $$VirtualVirtualHeadersRequest();
-        readPrimitivesToModel(pathVariableMapping, request, model);
+        readPrimitivesToModel(pathVariableMapping, request, QueryParams.of(), model, readParametersFromBody);
         return model;
     }
 
     public void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
                                       final HttpRequest request,
-                                      final $$VirtualVirtualHeadersRequest model) {
+                                      final QueryParams params,
+                                      final $$VirtualVirtualHeadersRequest model,
+                                      final boolean readParametersFromBody) {
         final HttpHeaders httpHeaders = request.getHeaders();
         model.booleanHeader = toBoolean(httpHeaders.getValue("Boolean-Header"), HttpModelType.HEADER, "Boolean-Header");
         model.byteHeader = toByte(httpHeaders.getValue("Byte-Header"), HttpModelType.HEADER, "Byte-Header");

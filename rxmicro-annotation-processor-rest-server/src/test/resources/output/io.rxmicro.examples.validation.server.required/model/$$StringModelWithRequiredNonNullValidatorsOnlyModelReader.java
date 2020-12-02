@@ -17,14 +17,15 @@ public final class $$StringModelWithRequiredNonNullValidatorsOnlyModelReader ext
                                                              final boolean readParametersFromBody) {
         final StringModelWithRequiredNonNullValidatorsOnly model = new StringModelWithRequiredNonNullValidatorsOnly();
         final QueryParams params = extractParams(request.getQueryString());
-        readPrimitivesToModel(pathVariableMapping, request, params, model);
+        readPrimitivesToModel(pathVariableMapping, request, params, model, readParametersFromBody);
         return model;
     }
 
     public void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
                                       final HttpRequest request,
                                       final QueryParams params,
-                                      final StringModelWithRequiredNonNullValidatorsOnly model) {
+                                      final StringModelWithRequiredNonNullValidatorsOnly model,
+                                      final boolean readParametersFromBody) {
         model.allowEmptyString = toString(params.getValue("allowEmptyString"), HttpModelType.PARAMETER, "allowEmptyString");
         model.minLength = toString(params.getValue("minLength"), HttpModelType.PARAMETER, "minLength");
         model.length = toString(params.getValue("length"), HttpModelType.PARAMETER, "length");

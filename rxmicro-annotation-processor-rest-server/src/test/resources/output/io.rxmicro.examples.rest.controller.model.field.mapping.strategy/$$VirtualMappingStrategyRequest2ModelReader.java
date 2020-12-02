@@ -18,23 +18,17 @@ public final class $$VirtualMappingStrategyRequest2ModelReader extends ModelRead
                                                  final boolean readParametersFromBody) {
         final $$VirtualMappingStrategyRequest2 model = new $$VirtualMappingStrategyRequest2();
         final QueryParams params = extractParams(request.getQueryString());
-        readPrimitivesToModel(pathVariableMapping, request, params, model);
+        readPrimitivesToModel(pathVariableMapping, request, params, model, readParametersFromBody);
         return model;
     }
 
     public void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
                                       final HttpRequest request,
                                       final QueryParams params,
-                                      final $$VirtualMappingStrategyRequest2 model) {
+                                      final $$VirtualMappingStrategyRequest2 model,
+                                      final boolean readParametersFromBody) {
         final HttpHeaders httpHeaders = request.getHeaders();
         model.supportedApiVersionCode = toBigDecimal(httpHeaders.getValue("Supported_Api_Version_Code"), HttpModelType.HEADER, "Supported_Api_Version_Code");
         model.maxSupportedDateTime = toInstant(params.getValue("max_supported_date_time"), HttpModelType.PARAMETER, "max_supported_date_time");
-    }
-
-    public void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
-                                      final HttpRequest request,
-                                      final $$VirtualMappingStrategyRequest2 model) {
-        final HttpHeaders httpHeaders = request.getHeaders();
-        model.supportedApiVersionCode = toBigDecimal(httpHeaders.getValue("Supported_Api_Version_Code"), HttpModelType.HEADER, "Supported_Api_Version_Code");
     }
 }

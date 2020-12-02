@@ -1,6 +1,7 @@
 package io.rxmicro.examples.rest.controller.extendable.model.request.path_vars_only.all_models_contain_fields.child;
 
 import io.rxmicro.examples.rest.controller.extendable.model.request.path_vars_only.all_models_contain_fields.parent.$$ParentModelReader;
+import io.rxmicro.http.QueryParams;
 import io.rxmicro.rest.model.HttpModelType;
 import io.rxmicro.rest.model.PathVariableMapping;
 import io.rxmicro.rest.server.detail.component.ModelReader;
@@ -19,14 +20,16 @@ public final class $$ChildModelReader extends ModelReader<Child> {
                       final HttpRequest request,
                       final boolean readParametersFromBody) {
         final Child model = new Child();
-        readPrimitivesToModel(pathVariableMapping, request, model);
+        readPrimitivesToModel(pathVariableMapping, request, QueryParams.of(), model, readParametersFromBody);
         return model;
     }
 
     public void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
                                       final HttpRequest request,
-                                      final Child model) {
-        parentReader.readPrimitivesToModel(pathVariableMapping, request, model);
+                                      final QueryParams params,
+                                      final Child model,
+                                      final boolean readParametersFromBody) {
+        parentReader.readPrimitivesToModel(pathVariableMapping, request, params, model, readParametersFromBody);
         model.childVar = toString(pathVariableMapping.getValue("childVar"), HttpModelType.PATH, "childVar");
     }
 }

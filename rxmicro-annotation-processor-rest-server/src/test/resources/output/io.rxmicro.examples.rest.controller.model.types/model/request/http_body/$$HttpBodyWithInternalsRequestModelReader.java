@@ -1,6 +1,7 @@
 package io.rxmicro.examples.rest.controller.model.types.model.request.http_body;
 
 import io.rxmicro.exchange.json.detail.JsonExchangeDataFormatConverter;
+import io.rxmicro.http.QueryParams;
 import io.rxmicro.rest.detail.ExchangeDataFormatConverter;
 import io.rxmicro.rest.model.PathVariableMapping;
 import io.rxmicro.rest.server.detail.component.ModelReader;
@@ -23,13 +24,15 @@ public final class $$HttpBodyWithInternalsRequestModelReader extends ModelReader
                                              final boolean readParametersFromBody) {
         final Object body = exchangeDataFormatConverter.fromBytes(request.getContent());
         final HttpBodyWithInternalsRequest model = httpBodyWithInternalsRequestModelFromJsonConverter.fromJsonObject(body);
-        readPrimitivesToModel(pathVariableMapping, request, model);
+        readPrimitivesToModel(pathVariableMapping, request, QueryParams.of(), model, readParametersFromBody);
         return model;
     }
 
     public void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
                                       final HttpRequest request,
-                                      final HttpBodyWithInternalsRequest model) {
+                                      final QueryParams params,
+                                      final HttpBodyWithInternalsRequest model,
+                                      final boolean readParametersFromBody) {
         model.internalRemoteAddress1 = String.valueOf(request.getRemoteAddress());
         model.internalRemoteAddress2 = request.getRemoteAddress();
         model.internalUrlPath = request.getUri();

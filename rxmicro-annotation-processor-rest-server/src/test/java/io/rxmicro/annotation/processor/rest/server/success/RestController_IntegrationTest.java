@@ -62,6 +62,8 @@ final class RestController_IntegrationTest extends AbstractRestServerAnnotationP
             addAggregator("$$EnvironmentCustomizer");
             addCompilerOption(RX_MICRO_BUILD_UNNAMED_MODULE, "true");
             removeFromModulePath("rxmicro-documentation-asciidoctor");
+        } else if ("io.rxmicro.examples.rest.controller.extendable.model".equals(packageName)) {
+            addAggregator("$$EnvironmentCustomizer");
         }
         super.verifyAllClassesInPackage(packageName);
     }

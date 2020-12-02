@@ -1,5 +1,6 @@
 package io.rxmicro.examples.rest.controller.path.variables.model;
 
+import io.rxmicro.http.QueryParams;
 import io.rxmicro.rest.model.HttpModelType;
 import io.rxmicro.rest.model.PathVariableMapping;
 import io.rxmicro.rest.server.detail.component.ModelReader;
@@ -15,13 +16,15 @@ public final class $$RequestModelReader extends ModelReader<Request> {
                         final HttpRequest request,
                         final boolean readParametersFromBody) {
         final Request model = new Request();
-        readPrimitivesToModel(pathVariableMapping, request, model);
+        readPrimitivesToModel(pathVariableMapping, request, QueryParams.of(), model, readParametersFromBody);
         return model;
     }
 
     public void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
                                       final HttpRequest request,
-                                      final Request model) {
+                                      final QueryParams params,
+                                      final Request model,
+                                      final boolean readParametersFromBody) {
         model.category = toString(pathVariableMapping.getValue("category"), HttpModelType.PATH, "category");
         model.type = toString(pathVariableMapping.getValue("class"), HttpModelType.PATH, "class");
         model.subType = toString(pathVariableMapping.getValue("subType"), HttpModelType.PATH, "subType");

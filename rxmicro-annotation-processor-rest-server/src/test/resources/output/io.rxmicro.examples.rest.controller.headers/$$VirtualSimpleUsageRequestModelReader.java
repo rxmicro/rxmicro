@@ -1,6 +1,7 @@
 package io.rxmicro.examples.rest.controller.headers;
 
 import io.rxmicro.http.HttpHeaders;
+import io.rxmicro.http.QueryParams;
 import io.rxmicro.rest.model.HttpModelType;
 import io.rxmicro.rest.model.PathVariableMapping;
 import io.rxmicro.rest.server.detail.component.ModelReader;
@@ -16,13 +17,15 @@ public final class $$VirtualSimpleUsageRequestModelReader extends ModelReader<$$
                                             final HttpRequest request,
                                             final boolean readParametersFromBody) {
         final $$VirtualSimpleUsageRequest model = new $$VirtualSimpleUsageRequest();
-        readPrimitivesToModel(pathVariableMapping, request, model);
+        readPrimitivesToModel(pathVariableMapping, request, QueryParams.of(), model, readParametersFromBody);
         return model;
     }
 
     public void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
                                       final HttpRequest request,
-                                      final $$VirtualSimpleUsageRequest model) {
+                                      final QueryParams params,
+                                      final $$VirtualSimpleUsageRequest model,
+                                      final boolean readParametersFromBody) {
         final HttpHeaders httpHeaders = request.getHeaders();
         model.endpointVersion = toString(httpHeaders.getValue("Endpoint-Version"), HttpModelType.HEADER, "Endpoint-Version");
         model.useProxy = toBoolean(httpHeaders.getValue("UseProxy"), HttpModelType.HEADER, "UseProxy");

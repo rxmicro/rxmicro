@@ -18,14 +18,15 @@ public final class $$QueryRequestModelReader extends ModelReader<QueryRequest> {
                              final boolean readParametersFromBody) {
         final QueryRequest model = new QueryRequest();
         final QueryParams params = extractParams(request.getQueryString());
-        readPrimitivesToModel(pathVariableMapping, request, params, model);
+        readPrimitivesToModel(pathVariableMapping, request, params, model, readParametersFromBody);
         return model;
     }
 
     public void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
                                       final HttpRequest request,
                                       final QueryParams params,
-                                      final QueryRequest model) {
+                                      final QueryRequest model,
+                                      final boolean readParametersFromBody) {
         model.setBooleanParameter(toBoolean(params.getValue("booleanParameter"), HttpModelType.PARAMETER, "booleanParameter"));
         model.setByteParameter(toByte(params.getValue("byteParameter"), HttpModelType.PARAMETER, "byteParameter"));
         model.setShortParameter(toShort(params.getValue("shortParameter"), HttpModelType.PARAMETER, "shortParameter"));

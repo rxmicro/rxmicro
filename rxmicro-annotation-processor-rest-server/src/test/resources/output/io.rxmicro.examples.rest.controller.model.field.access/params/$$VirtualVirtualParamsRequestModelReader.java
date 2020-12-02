@@ -18,14 +18,15 @@ public final class $$VirtualVirtualParamsRequestModelReader extends ModelReader<
                                               final boolean readParametersFromBody) {
         final $$VirtualVirtualParamsRequest model = new $$VirtualVirtualParamsRequest();
         final QueryParams params = extractParams(request.getQueryString());
-        readPrimitivesToModel(pathVariableMapping, request, params, model);
+        readPrimitivesToModel(pathVariableMapping, request, params, model, readParametersFromBody);
         return model;
     }
 
     public void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
                                       final HttpRequest request,
                                       final QueryParams params,
-                                      final $$VirtualVirtualParamsRequest model) {
+                                      final $$VirtualVirtualParamsRequest model,
+                                      final boolean readParametersFromBody) {
         model.booleanParameter = toBoolean(params.getValue("booleanParameter"), HttpModelType.PARAMETER, "booleanParameter");
         model.byteParameter = toByte(params.getValue("byteParameter"), HttpModelType.PARAMETER, "byteParameter");
         model.shortParameter = toShort(params.getValue("shortParameter"), HttpModelType.PARAMETER, "shortParameter");

@@ -1,6 +1,7 @@
 package io.rxmicro.examples.rest.controller.headers.model;
 
 import io.rxmicro.http.HttpHeaders;
+import io.rxmicro.http.QueryParams;
 import io.rxmicro.rest.model.HttpModelType;
 import io.rxmicro.rest.model.PathVariableMapping;
 import io.rxmicro.rest.server.detail.component.ModelReader;
@@ -16,13 +17,15 @@ public final class $$AllSupportedTypesModelReader extends ModelReader<AllSupport
                                   final HttpRequest request,
                                   final boolean readParametersFromBody) {
         final AllSupportedTypes model = new AllSupportedTypes();
-        readPrimitivesToModel(pathVariableMapping, request, model);
+        readPrimitivesToModel(pathVariableMapping, request, QueryParams.of(), model, readParametersFromBody);
         return model;
     }
 
     public void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
                                       final HttpRequest request,
-                                      final AllSupportedTypes model) {
+                                      final QueryParams params,
+                                      final AllSupportedTypes model,
+                                      final boolean readParametersFromBody) {
         final HttpHeaders httpHeaders = request.getHeaders();
         model.status = toEnum(Status.class, httpHeaders.getValue("Status"), HttpModelType.HEADER, "Status");
         model.statusList = toEnumList(Status.class, httpHeaders.getValues("Status-List"), HttpModelType.HEADER, "Status-List");

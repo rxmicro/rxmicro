@@ -1,6 +1,7 @@
 package io.rxmicro.examples.rest.controller.model.field.access.pathvariables;
 
 import io.rxmicro.examples.rest.controller.model.field.access.Status;
+import io.rxmicro.http.QueryParams;
 import io.rxmicro.rest.model.HttpModelType;
 import io.rxmicro.rest.model.PathVariableMapping;
 import io.rxmicro.rest.server.detail.component.ModelReader;
@@ -16,13 +17,15 @@ public final class $$VirtualVirtualPathVariablesRequestModelReader extends Model
                                                      final HttpRequest request,
                                                      final boolean readParametersFromBody) {
         final $$VirtualVirtualPathVariablesRequest model = new $$VirtualVirtualPathVariablesRequest();
-        readPrimitivesToModel(pathVariableMapping, request, model);
+        readPrimitivesToModel(pathVariableMapping, request, QueryParams.of(), model, readParametersFromBody);
         return model;
     }
 
     public void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
                                       final HttpRequest request,
-                                      final $$VirtualVirtualPathVariablesRequest model) {
+                                      final QueryParams params,
+                                      final $$VirtualVirtualPathVariablesRequest model,
+                                      final boolean readParametersFromBody) {
         model.booleanPathVariable = toBoolean(pathVariableMapping.getValue("a"), HttpModelType.PATH, "a");
         model.bytePathVariable = toByte(pathVariableMapping.getValue("b"), HttpModelType.PATH, "b");
         model.shortPathVariable = toShort(pathVariableMapping.getValue("c"), HttpModelType.PATH, "c");

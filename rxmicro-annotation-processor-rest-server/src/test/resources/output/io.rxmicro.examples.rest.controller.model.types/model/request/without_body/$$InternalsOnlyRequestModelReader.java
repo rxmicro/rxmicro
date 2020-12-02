@@ -1,5 +1,6 @@
 package io.rxmicro.examples.rest.controller.model.types.model.request.without_body;
 
+import io.rxmicro.http.QueryParams;
 import io.rxmicro.rest.model.PathVariableMapping;
 import io.rxmicro.rest.server.detail.component.ModelReader;
 import io.rxmicro.rest.server.detail.model.HttpRequest;
@@ -14,13 +15,15 @@ public final class $$InternalsOnlyRequestModelReader extends ModelReader<Interna
                                      final HttpRequest request,
                                      final boolean readParametersFromBody) {
         final InternalsOnlyRequest model = new InternalsOnlyRequest();
-        readPrimitivesToModel(pathVariableMapping, request, model);
+        readPrimitivesToModel(pathVariableMapping, request, QueryParams.of(), model, readParametersFromBody);
         return model;
     }
 
     public void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
                                       final HttpRequest request,
-                                      final InternalsOnlyRequest model) {
+                                      final QueryParams params,
+                                      final InternalsOnlyRequest model,
+                                      final boolean readParametersFromBody) {
         model.internalRemoteAddress1 = String.valueOf(request.getRemoteAddress());
         model.internalRemoteAddress2 = request.getRemoteAddress();
         model.internalUrlPath = request.getUri();

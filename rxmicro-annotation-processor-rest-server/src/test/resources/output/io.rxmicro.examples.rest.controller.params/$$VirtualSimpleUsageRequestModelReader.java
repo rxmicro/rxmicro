@@ -30,7 +30,7 @@ public final class $$VirtualSimpleUsageRequestModelReader extends ModelReader<$$
         } else {
             final $$VirtualSimpleUsageRequest model = new $$VirtualSimpleUsageRequest();
             final QueryParams params = extractParams(request.getQueryString());
-            readPrimitivesToModel(pathVariableMapping, request, params, model);
+            readPrimitivesToModel(pathVariableMapping, request, params, model, readParametersFromBody);
             return model;
         }
     }
@@ -38,7 +38,11 @@ public final class $$VirtualSimpleUsageRequestModelReader extends ModelReader<$$
     public void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
                                       final HttpRequest request,
                                       final QueryParams params,
-                                      final $$VirtualSimpleUsageRequest model) {
+                                      final $$VirtualSimpleUsageRequest model,
+                                      final boolean readParametersFromBody) {
+        if (readParametersFromBody) {
+            return;
+        }
         model.endpointVersion = toString(params.getValue("endpoint_version"), HttpModelType.PARAMETER, "endpoint_version");
         model.useProxy = toBoolean(params.getValue("use-Proxy"), HttpModelType.PARAMETER, "use-Proxy");
     }
