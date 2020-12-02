@@ -7,7 +7,7 @@ public final class ${JAVA_MODEL_CLASS.modelReaderImplSimpleClassName} extends Mo
             new ${PARENT}();
     </#if>
     <#-- ---------------------------------------------------------------------------------------------------- -->
-    <#if CONFIGURATOR.bodyParamsPresents>
+    <#if CONFIGURATOR.bodyParamsPresents && JAVA_MODEL_CLASS.modelClassReturnedByRestMethod>
 
     private final ExchangeDataFormatConverter<Object> exchangeDataFormatConverter =
             new JsonExchangeDataFormatConverter(false);
@@ -23,69 +23,59 @@ public final class ${JAVA_MODEL_CLASS.modelReaderImplSimpleClassName} extends Mo
            ${space(JAVA_MODEL_CLASS.javaSimpleClassName)}      final HttpRequest request,
            ${space(JAVA_MODEL_CLASS.javaSimpleClassName)}      final boolean readParametersFromBody) {
         <#-- -------------------------------------------------------------------------------------------------------- -->
-        <#if CONFIGURATOR.withoutFields>
-        return new ${JAVA_MODEL_CLASS.javaSimpleClassName}();
-        <#-- -------------------------------------------------------------------------------------------------------- -->
-        <#elseif CONFIGURATOR.queryParamsPresents && CONFIGURATOR.bodyParamsPresents>
+        <#if CONFIGURATOR.queryParamsPresents && CONFIGURATOR.bodyParamsPresents>
         if (readParametersFromBody) {
             <@handleHttpBody shift="    "/>
         } else {
             final ${JAVA_MODEL_CLASS.javaSimpleClassName} model = new ${JAVA_MODEL_CLASS.javaSimpleClassName}();
             final QueryParams params = extractParams(request.getQueryString());
-            readPrimitivesToModel(pathVariableMapping, request, params, model);
+            readPrimitivesToModel(pathVariableMapping, request, params, model, readParametersFromBody);
             return model;
         }
         <#-- -------------------------------------------------------------------------------------------------------- -->
         <#elseif CONFIGURATOR.queryParamsPresents>
         final ${JAVA_MODEL_CLASS.javaSimpleClassName} model = new ${JAVA_MODEL_CLASS.javaSimpleClassName}();
         final QueryParams params = extractParams(request.getQueryString());
-        readPrimitivesToModel(pathVariableMapping, request, params, model);
+        readPrimitivesToModel(pathVariableMapping, request, params, model, readParametersFromBody);
         return model;
         <#-- -------------------------------------------------------------------------------------------------------- -->
         <#elseif CONFIGURATOR.bodyParamsPresents>
         <@handleHttpBody shift=""/>
         <#-- -------------------------------------------------------------------------------------------------------- -->
-        <#else>
+        <#elseif CONFIGURATOR.headersPresents || CONFIGURATOR.internalsPresents || CONFIGURATOR.pathVariablesPresents>
         final ${JAVA_MODEL_CLASS.javaSimpleClassName} model = new ${JAVA_MODEL_CLASS.javaSimpleClassName}();
-        <#if CONFIGURATOR.headersPresents || CONFIGURATOR.internalsPresents || CONFIGURATOR.pathVariablesPresents>
-        readPrimitivesToModel(pathVariableMapping, request, model);
-        </#if>
+        readPrimitivesToModel(pathVariableMapping, request, QueryParams.of(), model, readParametersFromBody);
         return model;
+        <#-- -------------------------------------------------------------------------------------------------------- -->
+        <#else>
+        return new ${JAVA_MODEL_CLASS.javaSimpleClassName}();
         </#if>
     }
     </#if>
     <#-- ---------------------------------------------------------------------------------------------------- -->
-    <#if CONFIGURATOR.queryParamsPresents>
+    <#if CONFIGURATOR.queryParamsPresents || CONFIGURATOR.headersPresents || CONFIGURATOR.internalsPresents || CONFIGURATOR.pathVariablesPresents>
 
     public void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
                                       final HttpRequest request,
                                       final QueryParams params,
-                                      final ${JAVA_MODEL_CLASS.javaSimpleClassName} model) {
+                                      final ${JAVA_MODEL_CLASS.javaSimpleClassName} model,
+                                      final boolean readParametersFromBody) {
         <#if HAS_PARENT>
-        parentReader.readPrimitivesToModel(pathVariableMapping, request, params, model);
+        parentReader.readPrimitivesToModel(pathVariableMapping, request, params, model, readParametersFromBody);
         </#if>
         <@setSimpleProperties shift=""/>
+        <#if CONFIGURATOR.queryParamsPresents>
         <@setQueryParams shift=""/>
+        </#if>
     }
     </#if>
-    <#if CONFIGURATOR.headersPresents || CONFIGURATOR.internalsPresents || CONFIGURATOR.pathVariablesPresents>
-
-    public void readPrimitivesToModel(final PathVariableMapping pathVariableMapping,
-                                      final HttpRequest request,
-                                      final ${JAVA_MODEL_CLASS.javaSimpleClassName} model) {
-        <#if HAS_PARENT>
-        parentReader.readPrimitivesToModel(pathVariableMapping, request, model);
-        </#if>
-        <@setSimpleProperties shift=""/>
-    }
-</#if>
 }
 <#-- -------------------------------------------------------------------------------------------------------- -->
 <#macro handleHttpBody shift>
         ${shift}final Object body = exchangeDataFormatConverter.fromBytes(request.getContent());
         ${shift}final ${JAVA_MODEL_CLASS.javaSimpleClassName} model = ${JAVA_MODEL_CLASS.fromJsonConverterInstanceName}.fromJsonObject(body);
         <#if CONFIGURATOR.headersPresents || CONFIGURATOR.internalsPresents || CONFIGURATOR.pathVariablesPresents>
-        ${shift}readPrimitivesToModel(pathVariableMapping, request, model);
+        ${shift}readPrimitivesToModel(pathVariableMapping, request, QueryParams.of(), model, readParametersFromBody);
         </#if>
         ${shift}return model;
 </#macro>
@@ -207,8 +197,14 @@ public final class ${JAVA_MODEL_CLASS.modelReaderImplSimpleClassName} extends Mo
         ${shift}model.${item.setter}(${value});
     </#if>
 </#macro>
-<#-- -------------------------------------------------------------------------------------------------------- -->
+<#-- ---------------------------------------------------------------------------------------------------------------- -->
 <#macro setQueryParams shift>
+    <#if CONFIGURATOR.queryParamsPresents && CONFIGURATOR.bodyParamsPresents && JAVA_MODEL_CLASS.paramEntries?has_content>
+        if (readParametersFromBody) {
+            return;
+        }
+    </#if>
+    <#-- -------------------------------------------------------------------------------------------------------- -->
     <#list JAVA_MODEL_CLASS.paramEntries as fieldEntry>
         <#if fieldEntry.value.object>
         throwNotImplYet("Nested model lists does not supported yet. " +

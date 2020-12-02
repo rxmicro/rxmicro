@@ -17,6 +17,7 @@
 package io.rxmicro.annotation.processor.rest.server.component.impl;
 
 import com.google.inject.Singleton;
+import io.rxmicro.annotation.processor.rest.model.MappedRestObjectModelClass;
 import io.rxmicro.annotation.processor.rest.model.RestObjectModelClass;
 import io.rxmicro.annotation.processor.rest.model.converter.ReaderType;
 import io.rxmicro.annotation.processor.rest.server.component.ModelReaderBuilder;
@@ -37,5 +38,13 @@ public final class ModelReaderBuilderImpl
                                                     final RestObjectModelClass modelClass,
                                                     final ExchangeFormat exchangeFormat) {
         return new ModelReaderClassStructure(readerType, modelClass, exchangeFormat);
+    }
+
+    @Override
+    protected boolean shouldModelClassBeProcessed(final MappedRestObjectModelClass mappedRestObjectModelClass,
+                                                  final RestObjectModelClass modelClass) {
+        return modelClass.isModelClassReturnedByRestMethod() ||
+                modelClass.isHeadersOrPathVariablesOrInternalsPresent() ||
+                (mappedRestObjectModelClass.getReaderType().isQueryPresent() && modelClass.isParamEntriesPresent());
     }
 }

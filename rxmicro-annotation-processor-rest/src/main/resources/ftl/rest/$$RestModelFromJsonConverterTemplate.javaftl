@@ -17,7 +17,7 @@ public final class ${JAVA_MODEL_CLASS.modelFromJsonConverterImplSimpleClassName}
     @Override
     public ${JAVA_MODEL_CLASS.javaSimpleClassName} fromJsonObject(final Map<String, Object> params) {
         final ${JAVA_MODEL_CLASS.javaSimpleClassName} model = new ${JAVA_MODEL_CLASS.javaSimpleClassName}();
-        <#if JAVA_MODEL_CLASS.paramEntries?has_content>
+        <#if JAVA_MODEL_CLASS.paramEntriesPresentAtThisOrAnyParent>
         readParamsToModel(params, model);
         <#elseif HAS_PARENT>
         parentConverter.readParamsToModel(params, model);
@@ -25,7 +25,7 @@ public final class ${JAVA_MODEL_CLASS.modelFromJsonConverterImplSimpleClassName}
         return model;
     }
     </#if>
-    <#if JAVA_MODEL_CLASS.paramEntries?has_content>
+    <#if JAVA_MODEL_CLASS.paramEntriesPresentAtThisOrAnyParent>
 
     public void readParamsToModel(final Map<String, Object> params,
                                   final ${JAVA_MODEL_CLASS.javaSimpleClassName} model) {

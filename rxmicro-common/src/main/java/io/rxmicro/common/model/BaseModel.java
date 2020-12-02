@@ -24,7 +24,6 @@ import java.util.stream.Collectors;
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.Reflections.allFields;
 import static io.rxmicro.common.util.Reflections.getFieldValue;
-import static java.util.Map.entry;
 
 /**
  * Defines a basic model class that overrides {@link Object#toString()} method that read all model field values using reflection.
@@ -46,11 +45,11 @@ public class BaseModel {
         try {
             return getClass().getSimpleName() + '{' +
                     allFields(getClass(), field -> true).stream()
-                            .map(field -> entry(field.getName(), getFieldValue(this, field)))
+                            .map(field -> new Pair(field.getName(), getFieldValue(this, field)))
                             .map(e -> format(
                                     "?=?",
-                                    e.getKey(),
-                                    e.getValue() instanceof String ? '\'' + e.getValue().toString() + '\'' : e.getValue()
+                                    e.fieldName,
+                                    e.fieldValue instanceof String ? '\'' + e.fieldValue.toString() + '\'' : e.fieldValue
                             ))
                             .collect(Collectors.joining(", ")) +
                     '}';
@@ -60,6 +59,23 @@ public class BaseModel {
                 IllegalArgumentException |
                 ExceptionInInitializerError ex) {
             return getClass().getSimpleName() + "{Can't read field data: " + ex.getMessage() + '}';
+        }
+    }
+
+    /**
+     * @author nedis
+     * @since 0.7.2
+     */
+    private static final class Pair {
+
+        private final String fieldName;
+
+        private final Object fieldValue;
+
+        private Pair(final String fieldName,
+                     final Object fieldValue) {
+            this.fieldName = fieldName;
+            this.fieldValue = fieldValue;
         }
     }
 }

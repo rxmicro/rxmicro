@@ -108,19 +108,19 @@ public final class ModelReaderConfigurator {
                 !isPresent(modelClass, RestObjectModelClass::isPathVariablesPresent);
     }*/
 
-    @UsedByFreemarker("$$RestJsonModelReaderTemplate.javaftl")
+    /*@UsedByFreemarker("$$RestJsonModelReaderTemplate.javaftl")
     public boolean isWithoutFields() {
         return !headersPresents && !internalsPresents && !pathVariablesPresents && !queryParamsPresents && !bodyParamsPresents;
-    }
+    }*/
 
     @Override
     public String toString() {
         return "ModelReaderConfigurator{" +
-                "headersPresents=" + headersPresents +
-                ", internalsPresents=" + internalsPresents +
-                ", pathVariablePresents=" + pathVariablesPresents +
-                ", queryParamsPresents=" + queryParamsPresents +
-                ", bodyParamsPresents=" + bodyParamsPresents +
+                "headers=" + headersPresents +
+                ", internals=" + internalsPresents +
+                ", pathVariable=" + pathVariablesPresents +
+                ", queryParams=" + queryParamsPresents +
+                ", bodyParams=" + bodyParamsPresents +
                 '}';
     }
 }

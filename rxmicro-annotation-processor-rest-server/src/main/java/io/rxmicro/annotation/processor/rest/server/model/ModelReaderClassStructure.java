@@ -56,7 +56,7 @@ public final class ModelReaderClassStructure extends AbstractRestControllerModel
 
     @Override
     public boolean setParent(final ModelReaderClassStructure parent) {
-        if (parent.getModelClass().isHeadersOrPathVariablesOrInternalsPresent() ||
+        if (parent.getModelClass().isHeadersOrPathVariablesOrInternalsPresentAtThisOrAnyParent() ||
                 (readerType.isQueryPresent() && parent.getModelClass().isParamEntriesPresentAtThisOrAnyParent())) {
             this.parent = parent;
             return true;

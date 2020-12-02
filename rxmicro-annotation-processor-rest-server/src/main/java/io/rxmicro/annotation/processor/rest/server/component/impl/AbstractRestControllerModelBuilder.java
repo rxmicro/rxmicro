@@ -50,11 +50,14 @@ public abstract class AbstractRestControllerModelBuilder<T extends AbstractRestC
             structures.addAll(
                     Stream.concat(Stream.of(modelClass), modelClass.getAllParents().stream())
                             .map(mc -> (RestObjectModelClass) mc)
-                            .filter(mc -> mc.isHeadersOrPathVariablesOrInternalsPresent() || mc.isModelClassReturnedByRestMethod())
+                            .filter(mc -> shouldModelClassBeProcessed(mappedRestObjectModelClass, mc))
                             .map(mc -> newInstance(mappedRestObjectModelClass.getReaderType(), mc, exchangeFormat))
                             .collect(toOrderedSet())
             );
         }
         return unmodifiableOrderedSet(structures);
     }
+
+    protected abstract boolean shouldModelClassBeProcessed(MappedRestObjectModelClass mappedRestObjectModelClass,
+                                                           RestObjectModelClass modelClass);
 }

@@ -18,6 +18,7 @@ package io.rxmicro.annotation.processor.rest.server.component.impl;
 
 import com.google.inject.Singleton;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
+import io.rxmicro.annotation.processor.rest.model.MappedRestObjectModelClass;
 import io.rxmicro.annotation.processor.rest.model.RestModelField;
 import io.rxmicro.annotation.processor.rest.model.RestObjectModelClass;
 import io.rxmicro.annotation.processor.rest.model.converter.ReaderType;
@@ -41,6 +42,13 @@ public final class ModelWriterBuilderImpl
                                                     final ExchangeFormat exchangeFormat) {
         validate(modelClass);
         return new ModelWriterClassStructure(modelClass, exchangeFormat);
+    }
+
+    @Override
+    protected boolean shouldModelClassBeProcessed(final MappedRestObjectModelClass mappedRestObjectModelClass,
+                                                  final RestObjectModelClass modelClass) {
+        return modelClass.isModelClassReturnedByRestMethod() ||
+                modelClass.isHeadersOrPathVariablesOrInternalsPresent();
     }
 
     private void validate(final RestObjectModelClass modelClass) {
