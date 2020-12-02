@@ -21,7 +21,7 @@ import io.rxmicro.rest.method.PUT;
 
 public class MicroService {
 
-    @PUT("/1")
+    @PUT(value = "/1", httpBody = false)
     void consume(final Child request) {
         System.out.println(request);
     }

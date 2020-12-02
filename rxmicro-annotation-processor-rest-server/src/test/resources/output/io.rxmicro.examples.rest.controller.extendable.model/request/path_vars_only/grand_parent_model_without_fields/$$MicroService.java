@@ -59,7 +59,7 @@ public final class $$MicroService extends AbstractRestController {
                                         "/1/?/?",
                                         List.of("parentVar", "childVar")
                                 ),
-                                true
+                                false
                         )
 
                 ),
@@ -77,7 +77,7 @@ public final class $$MicroService extends AbstractRestController {
                                         "/2/?",
                                         List.of("parentVar")
                                 ),
-                                true
+                                false
                         )
 
                 )

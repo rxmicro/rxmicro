@@ -55,7 +55,7 @@ public final class $$MicroService extends AbstractRestController {
                         new ExactUrlRequestMappingRule(
                                 "PUT",
                                 "/1",
-                                true
+                                false
                         )
                 ),
                 new Registration(
@@ -69,7 +69,7 @@ public final class $$MicroService extends AbstractRestController {
                         new ExactUrlRequestMappingRule(
                                 "PUT",
                                 "/2",
-                                true
+                                false
                         )
                 )
         );

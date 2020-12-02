@@ -50,7 +50,7 @@ public final class $$MicroService extends AbstractRestController {
                         new ExactUrlRequestMappingRule(
                                 "PUT",
                                 "/1",
-                                true
+                                false
                         )
                 )
         );
