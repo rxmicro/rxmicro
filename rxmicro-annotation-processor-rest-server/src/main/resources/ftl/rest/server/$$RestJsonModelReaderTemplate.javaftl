@@ -117,17 +117,17 @@ public final class ${JAVA_MODEL_CLASS.modelReaderImplSimpleClassName} extends Mo
     <#assign M = entry.value.primitiveType.convertMethod >
     <#if pathVariable.modelWriteAccessorType.name() == "REFLECTION">
         ${shift}setFieldValue(model, "${pathVariable.fieldName}", ${M}(pathVariableMapping.getValue("${pathVariable.modelName}"), HttpModelType.${pathVariable.httpModelType.name()}, "${pathVariable.modelName}"));
-    <#elseif pathVariable.modelReadAccessorType.name() == "DIRECT">
+    <#elseif pathVariable.modelWriteAccessorType.name() == "DIRECT">
         ${shift}model.${pathVariable.fieldName} = ${M}(pathVariableMapping.getValue("${pathVariable.modelName}"), HttpModelType.${pathVariable.httpModelType.name()}, "${pathVariable.modelName}");
-    <#elseif pathVariable.modelReadAccessorType.name() == "JAVA_BEAN">
+    <#elseif pathVariable.modelWriteAccessorType.name() == "JAVA_BEAN">
         ${shift}model.${pathVariable.setter}(${M}(pathVariableMapping.getValue("${pathVariable.modelName}"), HttpModelType.${pathVariable.httpModelType.name()}, "${pathVariable.modelName}"));
     </#if>
 <#elseif entry.value.enum>
     <#if pathVariable.modelWriteAccessorType.name() == "REFLECTION">
         ${shift}setFieldValue(model, "${pathVariable.fieldName}", toEnum(${entry.value.javaSimpleClassName}.class, pathVariableMapping.getValue("${pathVariable.modelName}"), HttpModelType.${pathVariable.httpModelType.name()}, "${pathVariable.modelName}"));
-    <#elseif pathVariable.modelReadAccessorType.name() == "DIRECT">
+    <#elseif pathVariable.modelWriteAccessorType.name() == "DIRECT">
         ${shift}model.${pathVariable.fieldName} = toEnum(${entry.value.javaSimpleClassName}.class, pathVariableMapping.getValue("${pathVariable.modelName}"), HttpModelType.${pathVariable.httpModelType.name()}, "${pathVariable.modelName}");
-    <#elseif pathVariable.modelReadAccessorType.name() == "JAVA_BEAN">
+    <#elseif pathVariable.modelWriteAccessorType.name() == "JAVA_BEAN">
         ${shift}model.${pathVariable.setter}(toEnum(${entry.value.javaSimpleClassName}.class, pathVariableMapping.getValue("${pathVariable.modelName}"), HttpModelType.${pathVariable.httpModelType.name()}, "${pathVariable.modelName}"));
     </#if>
 </#if>
@@ -160,17 +160,17 @@ public final class ${JAVA_MODEL_CLASS.modelReaderImplSimpleClassName} extends Mo
     <#assign M = entry.value.primitiveType.convertMethod >
     <#if header.modelWriteAccessorType.name() == "REFLECTION">
         ${shift}setFieldValue(model, "${header.fieldName}", ${M}(httpHeaders.getValue("${header.modelName}"), HttpModelType.${header.httpModelType.name()}, "${header.modelName}"));
-    <#elseif header.modelReadAccessorType.name() == "DIRECT">
+    <#elseif header.modelWriteAccessorType.name() == "DIRECT">
         ${shift}model.${header.fieldName} = ${M}(httpHeaders.getValue("${header.modelName}"), HttpModelType.${header.httpModelType.name()}, "${header.modelName}");
-    <#elseif header.modelReadAccessorType.name() == "JAVA_BEAN">
+    <#elseif header.modelWriteAccessorType.name() == "JAVA_BEAN">
         ${shift}model.${header.setter}(${M}(httpHeaders.getValue("${header.modelName}"), HttpModelType.${header.httpModelType.name()}, "${header.modelName}"));
     </#if>
 <#elseif entry.value.enum>
     <#if header.modelWriteAccessorType.name() == "REFLECTION">
         ${shift}setFieldValue(model, "${header.fieldName}", toEnum(${entry.value.javaSimpleClassName}.class, httpHeaders.getValue("${header.modelName}"), HttpModelType.${header.httpModelType.name()}, "${header.modelName}"));
-    <#elseif header.modelReadAccessorType.name() == "DIRECT">
+    <#elseif header.modelWriteAccessorType.name() == "DIRECT">
         ${shift}model.${header.fieldName} = toEnum(${entry.value.javaSimpleClassName}.class, httpHeaders.getValue("${header.modelName}"), HttpModelType.${header.httpModelType.name()}, "${header.modelName}");
-    <#elseif header.modelReadAccessorType.name() == "JAVA_BEAN">
+    <#elseif header.modelWriteAccessorType.name() == "JAVA_BEAN">
         ${shift}model.${header.setter}(toEnum(${entry.value.javaSimpleClassName}.class, httpHeaders.getValue("${header.modelName}"), HttpModelType.${header.httpModelType.name()}, "${header.modelName}"));
     </#if>
 </#if>
@@ -201,9 +201,9 @@ public final class ${JAVA_MODEL_CLASS.modelReaderImplSimpleClassName} extends Mo
 <#macro setInternalValue item value shift>
     <#if item.modelWriteAccessorType.name() == "REFLECTION">
         ${shift}setFieldValue(model, "${item.fieldName}", ${value});
-    <#elseif item.modelReadAccessorType.name() == "DIRECT">
+    <#elseif item.modelWriteAccessorType.name() == "DIRECT">
         ${shift}model.${item.fieldName} = ${value};
-    <#elseif item.modelReadAccessorType.name() == "JAVA_BEAN">
+    <#elseif item.modelWriteAccessorType.name() == "JAVA_BEAN">
         ${shift}model.${item.setter}(${value});
     </#if>
 </#macro>

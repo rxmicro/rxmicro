@@ -49,11 +49,11 @@ public final class ${JAVA_MODEL_CLASS.entityToDBConverterImplSimpleClassName} ex
 <#function getId>
 <#assign RESULT>
 <#if ID??>
-    <#if ID.key.modelWriteAccessorType.name() == "REFLECTION">
+    <#if ID.key.modelReadAccessorType.name() == "REFLECTION">
         getFieldValue(model, "${ID.key.fieldName}")
-    <#elseif ID.key.modelWriteAccessorType.name() == "DIRECT">
+    <#elseif ID.key.modelReadAccessorType.name() == "DIRECT">
         model.${ID.key.fieldName}
-    <#elseif ID.key.modelWriteAccessorType.name() == "JAVA_BEAN">
+    <#elseif ID.key.modelReadAccessorType.name() == "JAVA_BEAN">
         model.${ID.key.getter}()
     </#if>
 <#else>

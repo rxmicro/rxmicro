@@ -88,11 +88,11 @@ public final class ${JAVA_MODEL_CLASS.entityToDBConverterImplSimpleClassName} ex
 <#macro getParamItem entry addComma>
 <#assign param = entry.key>
     <#if entry.value.primitive || entry.value.enum>
-        <#if param.modelWriteAccessorType.name() == "REFLECTION">
+        <#if param.modelReadAccessorType.name() == "REFLECTION">
                 <#if param.lengthPresent>${param.trimMethodName}(</#if>getFieldValue(entity, "${param.fieldName}")<#if param.lengthPresent>, ${param.length})</#if><#if addComma>,</#if>
-        <#elseif param.modelWriteAccessorType.name() == "DIRECT">
+        <#elseif param.modelReadAccessorType.name() == "DIRECT">
                 <#if param.lengthPresent>${param.trimMethodName}(</#if>entity.${param.fieldName}<#if param.lengthPresent>, ${param.length})</#if><#if addComma>,</#if>
-        <#elseif param.modelWriteAccessorType.name() == "JAVA_BEAN">
+        <#elseif param.modelReadAccessorType.name() == "JAVA_BEAN">
                 <#if param.lengthPresent>${param.trimMethodName}(</#if>entity.${param.getter}()<#if param.lengthPresent>, ${param.length})</#if><#if addComma>,</#if>
         </#if>
     </#if>
@@ -101,11 +101,11 @@ public final class ${JAVA_MODEL_CLASS.entityToDBConverterImplSimpleClassName} ex
 <#macro getPrimaryKey entry addComma>
 <#assign param = entry.key>
     <#if entry.value.primitive || entry.value.enum>
-        <#if param.modelWriteAccessorType.name() == "REFLECTION">
+        <#if param.modelReadAccessorType.name() == "REFLECTION">
                 require(getFieldValue(entity, "${param.fieldName}"), "Primary key must be not null!")<#if addComma>,</#if>
-        <#elseif param.modelWriteAccessorType.name() == "DIRECT">
+        <#elseif param.modelReadAccessorType.name() == "DIRECT">
                 require(entity.${param.fieldName}, "Primary key must be not null!")<#if addComma>,</#if>
-        <#elseif param.modelWriteAccessorType.name() == "JAVA_BEAN">
+        <#elseif param.modelReadAccessorType.name() == "JAVA_BEAN">
                 require(entity.${param.getter}(), "Primary key must be not null!")<#if addComma>,</#if>
         </#if>
     </#if>
