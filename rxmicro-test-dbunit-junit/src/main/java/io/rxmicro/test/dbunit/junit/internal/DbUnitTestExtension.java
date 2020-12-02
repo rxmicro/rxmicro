@@ -21,6 +21,7 @@ import io.rxmicro.config.Configs;
 import io.rxmicro.test.dbunit.ExpectedDataSet;
 import io.rxmicro.test.dbunit.InitialDataSet;
 import io.rxmicro.test.dbunit.RollbackChanges;
+import io.rxmicro.test.dbunit.TestDatabaseConfig;
 import io.rxmicro.test.dbunit.junit.DbUnitTest;
 import io.rxmicro.test.dbunit.junit.RetrieveConnectionStrategy;
 import io.rxmicro.test.dbunit.local.component.DatabaseStateInitializer;
@@ -67,6 +68,8 @@ public final class DbUnitTestExtension implements
         BeforeAllCallback, BeforeEachCallback, BeforeTestExecutionCallback,
         AfterTestExecutionCallback, AfterAllCallback {
 
+    private static DatabaseConnection sharedDatabaseConnection;
+
     private final DatabaseStateInitializer databaseStateInitializer = new DatabaseStateInitializer();
 
     private final DatabaseStateVerifier databaseStateVerifier = new DatabaseStateVerifier();
@@ -92,7 +95,23 @@ public final class DbUnitTestExtension implements
                     .withConfigs(getConfigResolver().getStaticConfigMap(testModel))
                     .build();
         } else {
-            new Configs.Builder().build();
+            new Configs.Builder().buildIfNotConfigured();
+        }
+        if (retrieveConnectionStrategy == PER_ALL_TEST_CLASSES) {
+            setSharedDatabaseConnection();
+        }
+    }
+
+    private void setSharedDatabaseConnection() {
+        if (sharedDatabaseConnection == null) {
+            sharedDatabaseConnection = createNewDatabaseConnection(Configs.getConfig(TestDatabaseConfig.class));
+            Runtime.getRuntime().addShutdownHook(new Thread(
+                    () -> closeDatabaseConnection(sharedDatabaseConnection),
+                    "Close shared database connection hook"
+            ));
+        }
+        if (!isCurrentDatabaseConnectionPresent()) {
+            setCurrentDatabaseConnection(sharedDatabaseConnection);
         }
     }
 
@@ -100,16 +119,8 @@ public final class DbUnitTestExtension implements
     public void beforeEach(final ExtensionContext context) {
         // It is necessary to set connection after @BeforeAll, before @BeforeEach and only once per class.
         // See https://junit.org/junit5/docs/current/user-guide/#extensions-execution-order-overview
-        if (!isCurrentDatabaseConnectionPresent() &&
-                (retrieveConnectionStrategy == PER_TEST_CLASS || retrieveConnectionStrategy == PER_ALL_TEST_CLASSES)) {
-            final DatabaseConnection databaseConnection = createNewDatabaseConnection(getCurrentTestDatabaseConfig());
-            setCurrentDatabaseConnection(databaseConnection);
-            if (retrieveConnectionStrategy == PER_ALL_TEST_CLASSES) {
-                Runtime.getRuntime().addShutdownHook(new Thread(
-                        () -> closeDatabaseConnection(databaseConnection),
-                        "Close shared database connection hook"
-                ));
-            }
+        if (!isCurrentDatabaseConnectionPresent() && retrieveConnectionStrategy == PER_TEST_CLASS) {
+            setCurrentDatabaseConnection(createNewDatabaseConnection(getCurrentTestDatabaseConfig()));
         }
     }
 

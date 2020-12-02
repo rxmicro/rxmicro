@@ -21,6 +21,7 @@ import io.rxmicro.logger.LoggerFactory;
 import org.dbunit.database.DatabaseConnection;
 
 import java.sql.SQLException;
+import java.util.function.Supplier;
 
 import static io.rxmicro.common.util.Requires.require;
 
@@ -34,36 +35,36 @@ public final class DatabaseConnectionHelper {
 
     private static final ThreadLocal<DatabaseConnection> DATABASE_CONNECTION_THREAD_LOCAL = new ThreadLocal<>();
 
+    private static final Supplier<Object> CURRENT_THREAD_NAME_SUPPLIER = () -> Thread.currentThread().getName();
+
     public static DatabaseConnection getCurrentDatabaseConnection() {
-        return require(
-                DATABASE_CONNECTION_THREAD_LOCAL.get(),
-                "Database connection is not configured for thread: '?'!",
-                () -> Thread.currentThread().getName()
-        );
+        final DatabaseConnection connection = getDatabaseConnectionFromThreadLocal();
+        return require(connection, "Database connection is not configured for thread: '?'!", CURRENT_THREAD_NAME_SUPPLIER);
     }
 
     public static void setCurrentDatabaseConnection(final DatabaseConnection connection) {
-        DATABASE_CONNECTION_THREAD_LOCAL.set(
-                require(
-                        connection,
-                        "Database connection is not configured for thread: '?'!",
-                        () -> Thread.currentThread().getName()
-                )
-        );
+        require(connection, "Database connection is not configured for thread: '?'!", CURRENT_THREAD_NAME_SUPPLIER);
+        final DatabaseConnection prevDatabaseConnection = getDatabaseConnectionFromThreadLocal();
+        if (prevDatabaseConnection != null) {
+            closeDatabaseConnection(prevDatabaseConnection);
+        }
+        DATABASE_CONNECTION_THREAD_LOCAL.set(connection);
     }
 
     public static boolean isCurrentDatabaseConnectionPresent() {
-        return DATABASE_CONNECTION_THREAD_LOCAL.get() != null;
+        return getDatabaseConnectionFromThreadLocal() != null;
     }
 
     public static void releaseCurrentDatabaseConnection() {
-        final DatabaseConnection connection = DATABASE_CONNECTION_THREAD_LOCAL.get();
+        final DatabaseConnection databaseConnection = getDatabaseConnectionFromThreadLocal();
         try {
-            if (connection != null) {
-                closeDatabaseConnection(connection);
+            if (databaseConnection != null) {
+                closeDatabaseConnection(databaseConnection);
             }
         } finally {
-            DATABASE_CONNECTION_THREAD_LOCAL.remove();
+            if (databaseConnection != null) {
+                DATABASE_CONNECTION_THREAD_LOCAL.remove();
+            }
         }
     }
 
@@ -73,6 +74,10 @@ public final class DatabaseConnectionHelper {
         } catch (final SQLException ex) {
             LOGGER.warn(ex, "Close connection failed: ?", ex.getMessage());
         }
+    }
+
+    private static DatabaseConnection getDatabaseConnectionFromThreadLocal() {
+        return DATABASE_CONNECTION_THREAD_LOCAL.get();
     }
 
     private DatabaseConnectionHelper() {

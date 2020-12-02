@@ -29,7 +29,7 @@ import static io.rxmicro.config.Networks.validatePort;
  * @author nedis
  * @since 0.7
  */
-public final class TestDatabaseConfig extends BaseTestConfig {
+public final class TestDatabaseConfig extends BaseTestConfig implements Cloneable {
 
     /**
      * The default host name.
@@ -71,7 +71,7 @@ public final class TestDatabaseConfig extends BaseTestConfig {
     public static TestDatabaseConfig getCurrentTestDatabaseConfig() {
         TestDatabaseConfig testDatabaseConfig = CURRENT_TEST_DATABASE_CONFIG.get();
         if (testDatabaseConfig == null) {
-            testDatabaseConfig = Configs.getConfig(TestDatabaseConfig.class);
+            testDatabaseConfig = Configs.getConfig(TestDatabaseConfig.class).clone();
             CURRENT_TEST_DATABASE_CONFIG.set(testDatabaseConfig);
         }
         return testDatabaseConfig;
@@ -103,7 +103,7 @@ public final class TestDatabaseConfig extends BaseTestConfig {
      */
     @BuilderMethod
     public TestDatabaseConfig setJdbcDriver(final String jdbcDriver) {
-        this.jdbcDriver = jdbcDriver;
+        this.jdbcDriver = require(jdbcDriver, "Required 'jdbcDriver' property can't be null! Provide a valid jdbc driver class name!");
         return this;
     }
 
@@ -125,7 +125,7 @@ public final class TestDatabaseConfig extends BaseTestConfig {
      */
     @BuilderMethod
     public TestDatabaseConfig setType(final DatabaseType type) {
-        this.type = type;
+        this.type = require(type, "Required 'type' property can't be null! Provide a valid database type!");
         return this;
     }
 
@@ -301,5 +301,19 @@ public final class TestDatabaseConfig extends BaseTestConfig {
         require(password, "Required 'password' property can't be null! Provide a valid database password!");
         this.password = password;
         return this;
+    }
+
+    @Override
+    public TestDatabaseConfig clone() {
+        final TestDatabaseConfig clone = new TestDatabaseConfig();
+        clone.type = type;
+        clone.jdbcDriver = jdbcDriver;
+        clone.host = host;
+        clone.port = port;
+        clone.database = database;
+        clone.schema = schema;
+        clone.user = user;
+        clone.password = password;
+        return clone;
     }
 }
