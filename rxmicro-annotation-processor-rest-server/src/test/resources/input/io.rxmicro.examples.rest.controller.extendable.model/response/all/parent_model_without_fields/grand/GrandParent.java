@@ -23,10 +23,10 @@ import io.rxmicro.rest.ResponseStatusCode;
 public class GrandParent extends BaseModel {
 
     @ResponseStatusCode
-    Integer internalStatusCode;
+    Integer internalStatusCode = 221;
 
     @Header
-    String grandHeader;
+    String grandHeader = "grandHeader";
 
-    String grandParameter;
+    String grandParameter = "grandParameter";
 }

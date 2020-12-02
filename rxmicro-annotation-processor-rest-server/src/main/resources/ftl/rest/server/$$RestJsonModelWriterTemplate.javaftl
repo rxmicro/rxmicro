@@ -28,10 +28,8 @@ public final class ${JAVA_MODEL_CLASS.modelWriterImplSimpleClassName} extends Mo
     @Override
     public void write(final ${JAVA_MODEL_CLASS.javaSimpleClassName} model,
                       final HttpResponse response) {
-        <#if JAVA_MODEL_CLASS.internals?has_content || JAVA_MODEL_CLASS.headerEntries?has_content>
+        <#if JAVA_MODEL_CLASS.headersOrPathVariablesOrInternalsPresentAtThisOrAnyParent>
         writePrimitivesToResponse(model, response);
-        <#elseif HAS_PARENT>
-        parentWriter.writePrimitivesToResponse(model, response);
         </#if>
         response.setHeader(HttpStandardHeaderNames.CONTENT_TYPE, outputMimeType);
         final Map<String, Object> json = ${JAVA_MODEL_CLASS.toJsonConverterInstanceName}.toJsonObject(model);
@@ -56,16 +54,14 @@ public final class ${JAVA_MODEL_CLASS.modelWriterImplSimpleClassName} extends Mo
     @Override
     public void write(final ${JAVA_MODEL_CLASS.javaSimpleClassName} model,
                       final HttpResponse response) {
-        <#if JAVA_MODEL_CLASS.internals?has_content || JAVA_MODEL_CLASS.headerEntries?has_content>
+        <#if JAVA_MODEL_CLASS.headersOrPathVariablesOrInternalsPresentAtThisOrAnyParent>
         writePrimitivesToResponse(model, response);
-        <#elseif HAS_PARENT>
-        parentWriter.writePrimitivesToResponse(model, response);
         </#if>
     }
     </#if>
 </#if>
 <#-- -------------------------------------------------------------------------------------------------------- -->
-<#if JAVA_MODEL_CLASS.internals?has_content || JAVA_MODEL_CLASS.headerEntries?has_content>
+<#if JAVA_MODEL_CLASS.headersOrPathVariablesOrInternalsPresentAtThisOrAnyParent>
 
     public void writePrimitivesToResponse(final ${JAVA_MODEL_CLASS.javaSimpleClassName} model,
                                           final HttpResponse response) {

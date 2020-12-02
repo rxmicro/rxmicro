@@ -20,5 +20,5 @@ import io.rxmicro.common.model.BaseModel;
 
 public class Nested extends BaseModel {
 
-    String childNestedParameter;
+    String childNestedParameter = "childNestedParameter";
 }

@@ -17,15 +17,15 @@
 package io.rxmicro.examples.rest.controller.extendable.model.response.all.child_model_without_fields.grand;
 
 import io.rxmicro.common.model.BaseModel;
-import io.rxmicro.http.HttpVersion;
+import io.rxmicro.http.HttpHeaders;
 import io.rxmicro.rest.Header;
 
 public class GrandParent extends BaseModel {
 
-    HttpVersion httpVersion;
+    HttpHeaders headers = HttpHeaders.of("internalHeader", "internalHeader");
 
     @Header
-    String grandHeader;
+    String grandHeader = "grandHeader";
 
-    String grandParameter;
+    String grandParameter = "grandParameter";
 }

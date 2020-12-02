@@ -17,9 +17,9 @@
 package io.rxmicro.examples.rest.controller.extendable.model.response.any.internal_header_body.child;
 
 import io.rxmicro.examples.rest.controller.extendable.model.response.any.internal_header_body.parent.Parent;
-import io.rxmicro.http.HttpVersion;
+import io.rxmicro.http.HttpHeaders;
 
 public class Child extends Parent {
 
-    HttpVersion httpVersion;
+    HttpHeaders headers = HttpHeaders.of("internalHeader", "internalHeader");
 }

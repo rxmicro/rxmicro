@@ -21,7 +21,7 @@ import io.rxmicro.examples.rest.controller.extendable.model.response.body_only.a
 
 public class Parent extends GrandParent {
 
-    String parentParameter;
+    String parentParameter = "parentParameter";
 
-    Nested parentNestedParameter;
+    Nested parentNestedParameter = new Nested();
 }

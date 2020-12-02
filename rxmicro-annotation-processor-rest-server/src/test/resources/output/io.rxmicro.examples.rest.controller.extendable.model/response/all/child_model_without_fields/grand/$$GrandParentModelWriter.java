@@ -24,7 +24,7 @@ public final class $$GrandParentModelWriter extends ModelWriter<GrandParent> {
 
     public void writePrimitivesToResponse(final GrandParent model,
                                           final HttpResponse response) {
-        response.setVersion(model.httpVersion);
+        response.setOrAddHeaders(model.headers);
         response.setHeader("grandHeader", model.grandHeader);
     }
 }

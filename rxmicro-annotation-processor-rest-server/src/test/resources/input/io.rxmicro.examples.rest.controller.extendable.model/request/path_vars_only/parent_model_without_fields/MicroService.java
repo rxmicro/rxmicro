@@ -23,6 +23,6 @@ public class MicroService {
 
     @PUT("/1/${grandVar}/${childVar}")
     void consume(final Child request) {
-        // do something
+        System.out.println(request);
     }
 }

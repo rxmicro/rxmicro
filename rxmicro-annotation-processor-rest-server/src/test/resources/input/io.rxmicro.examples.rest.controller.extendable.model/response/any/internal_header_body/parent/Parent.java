@@ -22,5 +22,5 @@ import io.rxmicro.rest.Header;
 public class Parent extends GrandParent {
 
     @Header
-    String parentHeader;
+    String parentHeader = "parentHeader";
 }

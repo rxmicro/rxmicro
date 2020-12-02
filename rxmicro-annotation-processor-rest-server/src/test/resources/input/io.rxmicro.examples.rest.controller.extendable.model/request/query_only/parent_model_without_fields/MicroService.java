@@ -23,6 +23,6 @@ public class MicroService {
 
     @GET("/1")
     void consume(final Child request) {
-        // do something
+        System.out.println(request);
     }
 }

@@ -22,5 +22,5 @@ import io.rxmicro.rest.ResponseStatusCode;
 public class GrandParent extends BaseModel {
 
     @ResponseStatusCode
-    Integer internalStatusCode;
+    Integer internalStatusCode = 208;
 }

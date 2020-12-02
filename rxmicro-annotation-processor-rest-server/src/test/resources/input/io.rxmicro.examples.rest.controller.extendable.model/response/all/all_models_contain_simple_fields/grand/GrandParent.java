@@ -22,7 +22,7 @@ import io.rxmicro.rest.Header;
 public class GrandParent extends BaseModel {
 
     @Header
-    String grandHeader;
+    String grandHeader = "grandHeader";
 
-    String grandParameter;
+    String grandParameter = "grandParameter";
 }

@@ -24,11 +24,11 @@ public class MicroService {
 
     @GET("/1")
     void consume(final Child request) {
-        // do something
+        System.out.println(request);
     }
 
     @GET("/2")
     void consume(final Parent request) {
-        // do something
+        System.out.println(request);
     }
 }

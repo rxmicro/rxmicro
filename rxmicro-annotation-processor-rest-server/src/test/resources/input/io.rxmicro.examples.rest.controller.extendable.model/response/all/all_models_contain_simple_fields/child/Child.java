@@ -17,15 +17,15 @@
 package io.rxmicro.examples.rest.controller.extendable.model.response.all.all_models_contain_simple_fields.child;
 
 import io.rxmicro.examples.rest.controller.extendable.model.response.all.all_models_contain_simple_fields.parent.Parent;
-import io.rxmicro.http.HttpVersion;
+import io.rxmicro.http.HttpHeaders;
 import io.rxmicro.rest.Header;
 
 public class Child extends Parent {
 
-    HttpVersion httpVersion;
+    HttpHeaders headers = HttpHeaders.of("internalHeader", "internalHeader");
 
     @Header
-    String childHeader;
+    String childHeader = "childHeader";
 
-    String childParameter;
+    String childParameter = "childParameter";
 }

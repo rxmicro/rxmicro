@@ -18,6 +18,11 @@ public final class $$ChildModelWriter extends ModelWriter<Child> {
     @Override
     public void write(final Child model,
                       final HttpResponse response) {
+        writePrimitivesToResponse(model, response);
+    }
+
+    public void writePrimitivesToResponse(final Child model,
+                                          final HttpResponse response) {
         parentWriter.writePrimitivesToResponse(model, response);
     }
 }

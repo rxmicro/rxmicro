@@ -1,5 +1,6 @@
 package io.rxmicro.examples.rest.controller.extendable.model.response.any.header_body_internal.child;
 
+import io.rxmicro.examples.rest.controller.extendable.model.response.any.header_body_internal.parent.$$ParentModelWriter;
 import io.rxmicro.exchange.json.detail.JsonExchangeDataFormatConverter;
 import io.rxmicro.http.HttpStandardHeaderNames;
 import io.rxmicro.rest.detail.ExchangeDataFormatConverter;
@@ -13,6 +14,8 @@ import java.util.Map;
  */
 public final class $$ChildModelWriter extends ModelWriter<Child> {
 
+    private final $$ParentModelWriter parentWriter;
+
     private final $$ChildModelToJsonConverter childModelToJsonConverter;
 
     private final ExchangeDataFormatConverter<Object> exchangeDataFormatConverter;
@@ -21,6 +24,7 @@ public final class $$ChildModelWriter extends ModelWriter<Child> {
 
     public $$ChildModelWriter(final boolean humanReadableOutput) {
         exchangeDataFormatConverter = new JsonExchangeDataFormatConverter(humanReadableOutput);
+        parentWriter = new $$ParentModelWriter(humanReadableOutput);
         childModelToJsonConverter = new $$ChildModelToJsonConverter();
         outputMimeType = exchangeDataFormatConverter.getMimeType();
     }
@@ -36,6 +40,7 @@ public final class $$ChildModelWriter extends ModelWriter<Child> {
 
     public void writePrimitivesToResponse(final Child model,
                                           final HttpResponse response) {
+        parentWriter.writePrimitivesToResponse(model, response);
         response.setHeader("childHeader", model.childHeader);
     }
 }

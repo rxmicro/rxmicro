@@ -172,6 +172,12 @@ public abstract class RestObjectModelClass extends ObjectModelClass<RestModelFie
         return isHeadersPresent() || isPathVariablesPresent() || isInternalsPresent();
     }
 
+    @UsedByFreemarker("$$RestJsonModelWriterTemplate.javaftl")
+    public boolean isHeadersOrPathVariablesOrInternalsPresentAtThisOrAnyParent() {
+        return isHeadersOrPathVariablesOrInternalsPresent() ||
+                getParent().map(RestObjectModelClass::isHeadersOrPathVariablesOrInternalsPresent).orElse(false);
+    }
+
     @UsedByFreemarker
     public Set<Map.Entry<RestModelField, ModelClass>> getHeaderEntries() {
         return headers.entrySet();

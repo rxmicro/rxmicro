@@ -23,10 +23,10 @@ import io.rxmicro.rest.ResponseStatusCode;
 public class Parent extends GrandParent {
 
     @ResponseStatusCode
-    Integer internalStatusCode;
+    Integer internalStatusCode = 219;
 
     @Header
-    String parentHeader;
+    String parentHeader = "parentHeader";
 
-    String parentParameter;
+    String parentParameter = "parentParameter";
 }

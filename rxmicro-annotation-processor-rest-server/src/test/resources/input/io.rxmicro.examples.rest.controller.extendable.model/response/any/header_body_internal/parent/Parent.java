@@ -20,5 +20,5 @@ import io.rxmicro.examples.rest.controller.extendable.model.response.any.header_
 
 public class Parent extends GrandParent {
 
-    String parentParameter;
+    String parentParameter = "parentParameter";
 }

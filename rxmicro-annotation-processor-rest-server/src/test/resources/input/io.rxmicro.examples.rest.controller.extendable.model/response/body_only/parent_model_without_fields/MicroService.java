@@ -19,12 +19,13 @@ package io.rxmicro.examples.rest.controller.extendable.model.response.body_only.
 import io.rxmicro.examples.rest.controller.extendable.model.response.body_only.parent_model_without_fields.child.Child;
 import io.rxmicro.rest.method.GET;
 
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 
 public class MicroService {
 
     @GET("/1")
     CompletionStage<Child> produce1() {
-        throw new UnsupportedOperationException();
+        return CompletableFuture.completedStage(new Child());
     }
 }

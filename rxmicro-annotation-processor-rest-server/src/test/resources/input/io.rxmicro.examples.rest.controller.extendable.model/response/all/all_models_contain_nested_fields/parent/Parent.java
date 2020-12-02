@@ -24,12 +24,12 @@ import io.rxmicro.rest.ResponseStatusCode;
 public class Parent extends GrandParent {
 
     @ResponseStatusCode
-    Integer internalStatusCode;
+    Integer internalStatusCode = 211;
 
     @Header
-    String parentHeader;
+    String parentHeader = "parentHeader";
 
-    String parentParameter;
+    String parentParameter = "parentParameter";
 
-    Nested parentNestedParameter;
+    Nested parentNestedParameter = new Nested();
 }

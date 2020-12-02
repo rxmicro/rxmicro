@@ -32,9 +32,14 @@ public final class $$ParentModelWriter extends ModelWriter<Parent> {
     @Override
     public void write(final Parent model,
                       final HttpResponse response) {
-        parentWriter.writePrimitivesToResponse(model, response);
+        writePrimitivesToResponse(model, response);
         response.setHeader(HttpStandardHeaderNames.CONTENT_TYPE, outputMimeType);
         final Map<String, Object> json = parentModelToJsonConverter.toJsonObject(model);
         response.setContent(exchangeDataFormatConverter.toBytes(json));
+    }
+
+    public void writePrimitivesToResponse(final Parent model,
+                                          final HttpResponse response) {
+        parentWriter.writePrimitivesToResponse(model, response);
     }
 }

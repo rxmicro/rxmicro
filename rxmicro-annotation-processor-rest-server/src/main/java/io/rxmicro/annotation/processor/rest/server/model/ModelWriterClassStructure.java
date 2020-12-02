@@ -47,7 +47,7 @@ public final class ModelWriterClassStructure extends AbstractRestControllerModel
 
     @Override
     public boolean setParent(final ModelWriterClassStructure parent) {
-        if (parent.getModelClass().isHeadersOrPathVariablesOrInternalsPresent()) {
+        if (parent.getModelClass().isHeadersOrPathVariablesOrInternalsPresentAtThisOrAnyParent()) {
             this.parent = parent;
             return true;
         } else {

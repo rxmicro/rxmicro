@@ -20,5 +20,5 @@ import io.rxmicro.common.model.BaseModel;
 
 public class GrandParent extends BaseModel {
 
-    String grandParameter;
+    String grandParameter = "grandParameter";
 }

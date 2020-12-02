@@ -20,17 +20,18 @@ import io.rxmicro.examples.rest.controller.extendable.model.response.any.body_in
 import io.rxmicro.examples.rest.controller.extendable.model.response.any.body_internal_header.parent.Parent;
 import io.rxmicro.rest.method.GET;
 
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 
 public class MicroService {
 
     @GET("/1")
     CompletionStage<Child> produce1() {
-        throw new UnsupportedOperationException();
+        return CompletableFuture.completedStage(new Child());
     }
 
     @GET("/2")
     CompletionStage<Parent> produce2() {
-        throw new UnsupportedOperationException();
+        return CompletableFuture.completedStage(new Parent());
     }
 }

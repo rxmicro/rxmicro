@@ -20,5 +20,5 @@ import io.rxmicro.examples.rest.controller.extendable.model.response.any.body_in
 
 public class Child extends Parent {
 
-    String childParameter;
+    String childParameter = "childParameter";
 }

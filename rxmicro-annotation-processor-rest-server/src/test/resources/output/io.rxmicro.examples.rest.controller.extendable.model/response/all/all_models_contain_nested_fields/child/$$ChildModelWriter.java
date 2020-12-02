@@ -41,7 +41,7 @@ public final class $$ChildModelWriter extends ModelWriter<Child> {
     public void writePrimitivesToResponse(final Child model,
                                           final HttpResponse response) {
         parentWriter.writePrimitivesToResponse(model, response);
-        response.setVersion(model.httpVersion);
+        response.setOrAddHeaders(model.headers);
         response.setHeader("childHeader", model.childHeader);
     }
 }
