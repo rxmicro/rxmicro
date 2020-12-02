@@ -52,7 +52,7 @@ public final class FactoryMethodFinderImpl implements FactoryMethodFinder {
         if (methods.size() > 1) {
             throw new InterruptProcessingException(methods.get(0),
                     "Only one factory method allowed per class. " +
-                            "Remove the following methods: ?",
+                            "Remove the following methods: ?!",
                     methods.stream().skip(1)
                             .map(e -> format("?.?(?)",
                                     e.getEnclosingElement().asType().toString(),
@@ -73,7 +73,7 @@ public final class FactoryMethodFinderImpl implements FactoryMethodFinder {
             if (!getTypes().erasure(method.getReturnType()).toString().equals(beanTypeElement.getQualifiedName().toString())) {
                 throw new InterruptProcessingException(
                         method,
-                        "Factory method method must instance of '?' type",
+                        "Factory method must return an instance of '?' type!",
                         beanTypeElement.getQualifiedName().toString()
                 );
             }
