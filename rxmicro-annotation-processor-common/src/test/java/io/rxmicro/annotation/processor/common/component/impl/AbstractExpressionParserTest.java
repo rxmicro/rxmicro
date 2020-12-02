@@ -47,7 +47,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 @ExtendWith({
         MockitoExtension.class
 })
-final class AbstractExpressionParser_UnitTest {
+final class AbstractExpressionParserTest {
 
     private final AbstractExpressionParser parser = new AbstractExpressionParser() {
     };

@@ -43,7 +43,7 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
  */
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-final class TokenParserImpl_UnitTest {
+final class TokenParserImplTest {
 
     private final TokenParser tokenParser = new TokenParserImpl();
 

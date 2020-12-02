@@ -37,7 +37,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  */
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-final class RxMicroTimestampDataType_UnitTest {
+final class RxMicroTimestampDataTypeTest {
 
     public static final Instant EXPECTED_INSTANT = Instant.parse("2020-10-30T16:36:09Z");
 

@@ -38,7 +38,7 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
  * @since 0.7
  */
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
-final class Converters_UnitTest {
+final class ConvertersTest {
 
     static Stream<Arguments> convertWithoutTypeDefinitionArguments() {
         return Stream.of(

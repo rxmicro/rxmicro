@@ -35,7 +35,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  */
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-final class ExternalModule_UnitTest {
+final class ExternalModuleTest {
 
     @ParameterizedTest
     @EnumSource(ExternalModule.class)

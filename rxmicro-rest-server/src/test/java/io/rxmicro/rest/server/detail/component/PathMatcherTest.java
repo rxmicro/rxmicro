@@ -41,7 +41,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  */
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-class PathMatcher_UnitTest {
+final class PathMatcherTest {
 
     @Test
     @Order(1)

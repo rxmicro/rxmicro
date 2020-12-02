@@ -43,7 +43,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  */
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @SuppressWarnings({"AssertEqualsBetweenInconvertibleTypes", "SimplifiableJUnitAssertion"})
-final class Stubs_UnitTest {
+final class StubsTest {
 
     private static final double DOUBLE_DELTA = 0.00000001;
 

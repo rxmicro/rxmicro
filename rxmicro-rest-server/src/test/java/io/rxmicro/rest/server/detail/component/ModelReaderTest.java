@@ -43,7 +43,7 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
  */
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-class ModelReader_UnitTest {
+final class ModelReaderTest {
 
     private final ModelReader<Object> reader = new ModelReader<>() {
         @Override

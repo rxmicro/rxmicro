@@ -41,7 +41,7 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
  */
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-final class SQLs_UnitTest {
+final class SQLsTest {
 
     @ParameterizedTest(name = "[{index}] -> {0}")
     @ArgumentsSource(SelectSQLQueriesProvider.class)

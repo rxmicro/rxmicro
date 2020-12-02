@@ -33,7 +33,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  */
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-final class LogLevel_UnitTest {
+final class LogLevelTest {
 
     @ParameterizedTest
     @CsvSource({

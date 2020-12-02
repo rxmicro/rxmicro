@@ -33,7 +33,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  */
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-final class JsonNumber_UnitTest {
+final class JsonNumberTest {
 
     @Order(1)
     @ParameterizedTest

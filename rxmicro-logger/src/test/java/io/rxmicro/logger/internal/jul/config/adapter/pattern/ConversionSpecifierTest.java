@@ -31,7 +31,7 @@ import static org.junit.jupiter.api.Assertions.fail;
  * @since 0.7
  */
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
-final class ConversionSpecifier_UnitTest {
+final class ConversionSpecifierTest {
 
     @Test
     void Should_contains_unique_specifiers() {

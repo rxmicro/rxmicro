@@ -44,7 +44,7 @@ import static org.mockito.Mockito.when;
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @ExtendWith(MockitoExtension.class)
-final class AbstractTransaction_UnitTest {
+final class AbstractTransactionTest {
 
     private static final SavePoint SAVE_POINT_A = new SavePoint("A");
 

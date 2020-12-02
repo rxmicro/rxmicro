@@ -37,7 +37,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  */
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-final class Strings_UnitTest {
+final class StringsTest {
 
     @Test
     @Order(1)
