@@ -19,9 +19,11 @@ package io.rxmicro.test.json;
 import io.rxmicro.json.JsonObjectBuilder;
 import io.rxmicro.test.json.internal.JsonConverter;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import static io.rxmicro.common.util.ExCollections.unmodifiableList;
 import static io.rxmicro.common.util.Formats.format;
@@ -422,6 +424,46 @@ public final class JsonFactory {
                         .map(JsonConverter::convertIfNecessary)
                         .collect(toList())
         );
+    }
+
+    /**
+     * Returns the {@link Map} ordered by keys that represents the original JSON object.
+     *
+     * <p>
+     * This method is useful to compare two JSON objects with unordered properties.
+     *
+     * @param jsonObject the original JSON object.
+     * @return the {@link Map} ordered by keys that represents the original JSON object.
+     * @throws ClassCastException if the original JSON object is not valid JSON.
+     */
+    @SuppressWarnings("unchecked")
+    public static Map<String, Object> orderedJsonObject(final Object jsonObject) {
+        final Map<String, Object> result = new TreeMap<>();
+        for (final Map.Entry<String, Object> entry : ((Map<String, Object>) jsonObject).entrySet()) {
+            if (entry.getValue() instanceof Map) {
+                result.put(entry.getKey(), orderedJsonObject(entry.getValue()));
+            } else if (entry.getValue() instanceof List) {
+                result.put(entry.getKey(), listOfOrderedJsonObjects((List<Object>) entry.getValue()));
+            } else {
+                result.put(entry.getKey(), entry.getValue());
+            }
+        }
+        return result;
+    }
+
+    @SuppressWarnings("unchecked")
+    private static List<Object> listOfOrderedJsonObjects(final List<Object> list) {
+        final List<Object> result = new ArrayList<>(list.size());
+        for (final Object o : list) {
+            if (o instanceof Map) {
+                result.add(orderedJsonObject(o));
+            } else if (o instanceof List) {
+                result.add(listOfOrderedJsonObjects((List<Object>) o));
+            } else {
+                result.add(o);
+            }
+        }
+        return result;
     }
 
     private static Map<String, Object> jsonObjectInternal(final Object... args) {
