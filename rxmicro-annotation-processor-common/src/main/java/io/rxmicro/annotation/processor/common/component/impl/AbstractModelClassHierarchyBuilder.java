@@ -112,13 +112,13 @@ public abstract class AbstractModelClassHierarchyBuilder<MF extends ModelField, 
         return null;
     }
 
-    protected abstract MC createObjectModelClass(final TypeMirror modelTypeMirror,
-                                                 final TypeElement modelTypeElement,
-                                                 final Map<MF, ModelClass> params,
-                                                 final MC parent,
-                                                 final boolean modelClassReturnedByRestMethod);
+    protected abstract MC createObjectModelClass(TypeMirror modelTypeMirror,
+                                                 TypeElement modelTypeElement,
+                                                 Map<MF, ModelClass> params,
+                                                 MC parent,
+                                                 boolean modelClassReturnedByRestMethod);
 
-    protected abstract void validateParentModelClass(final MC parentModelClass);
+    protected abstract void validateParentModelClass(MC parentModelClass);
 
     private String classHierarchyToString(final List<MC> list) {
         final StringBuilder stringBuilder = new StringBuilder();

@@ -49,18 +49,18 @@ import static java.util.stream.Collectors.toMap;
  */
 public abstract class RestObjectModelClass extends ObjectModelClass<RestModelField> {
 
+    protected final Map<RestModelField, ModelClass> pathVariables;
+
+    protected final Map<RestModelField, ModelClass> headers;
+
+    protected final Map<RestModelField, ModelClass> internals;
+
     /**
      * Declared fields must be ordered: fields that declared at super class must be at the beginning of collection
      *
      * @see io.rxmicro.annotation.processor.common.util.Elements#allFields(TypeElement, boolean, Predicate)
      */
     private final Map<RestModelField, ModelClass> allFieldsInDeclaredOrder;
-
-    protected final Map<RestModelField, ModelClass> pathVariables;
-
-    protected final Map<RestModelField, ModelClass> headers;
-
-    protected final Map<RestModelField, ModelClass> internals;
 
     protected RestObjectModelClass(final TypeMirror modelTypeMirror,
                                    final TypeElement modelTypeElement,

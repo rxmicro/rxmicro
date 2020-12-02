@@ -113,20 +113,14 @@ public final class AnnotatedModelElement {
     }
 
     private ModelAccessorType getModelAccessorType(final Supplier<Boolean> javaBeanUsagePredicate) {
-        if (field.getModifiers().contains(Modifier.PUBLIC)) {
-            return DIRECT;
-        } else {
-            if ((field.getModifiers().stream().noneMatch(m ->
-                    m == Modifier.PROTECTED || m == PRIVATE || m == Modifier.PUBLIC) ||
-                    field.getModifiers().contains(Modifier.PROTECTED))) {
-                return DIRECT;
+        if (field.getModifiers().contains(PRIVATE)) {
+            if (javaBeanUsagePredicate.get()) {
+                return JAVA_BEAN;
             } else {
-                if (javaBeanUsagePredicate.get()) {
-                    return JAVA_BEAN;
-                } else {
-                    return REFLECTION;
-                }
+                return REFLECTION;
             }
+        } else {
+            return DIRECT;
         }
     }
 

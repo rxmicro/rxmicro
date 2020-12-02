@@ -46,8 +46,8 @@ public final class RestBasedMicroServiceTestValidator extends CommonTestValidato
         for (final Class<?> restControllerClass : restControllerClasses) {
             if (!isClassGenerated(restControllerClass, "?.$$?", AbstractRestController.class)) {
                 throw new InvalidTestConfigException(
-                        "'?' is not REST controller class or the the RxMicro Annotation Processor does not generate wrapper for '?' class. " +
-                                "Set valid REST controller class for the REST based micro service test: '?' or " +
+                        "'?' is not REST controller class or the the RxMicro Annotation Processor does not generate wrapper for " +
+                                "'?' class. Set valid REST controller class for the REST based micro service test: '?' or " +
                                 "recompile the project with activated RxMicro Annotation Processor! " +
                                 "Read more at https://docs.rxmicro.io/latest/user-guide/quick-start.html#compiling_the_project",
                         restControllerClass.getName(),

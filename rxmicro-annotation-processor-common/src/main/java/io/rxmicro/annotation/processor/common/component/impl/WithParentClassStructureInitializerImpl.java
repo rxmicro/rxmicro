@@ -33,7 +33,8 @@ import static io.rxmicro.annotation.processor.common.util.LoggerMessages.getLogg
  * @since 0.7.2
  */
 @Singleton
-public final class WithParentClassStructureInitializerImpl extends AbstractProcessorComponent implements WithParentClassStructureInitializer {
+public final class WithParentClassStructureInitializerImpl extends AbstractProcessorComponent
+        implements WithParentClassStructureInitializer {
 
     @Override
     public <CS extends ClassStructure, MF extends ModelField, MC extends ObjectModelClass<MF>> void setParentIfExists(
