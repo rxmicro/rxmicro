@@ -20,6 +20,7 @@ import io.rxmicro.annotation.processor.common.FormatSourceCodeDependenciesModule
 import io.rxmicro.annotation.processor.common.model.ClassStructure;
 import io.rxmicro.annotation.processor.common.model.EnvironmentContext;
 import io.rxmicro.annotation.processor.common.model.error.InternalErrorException;
+import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingBecauseAFewErrorsFoundException;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
 
 import java.util.HashMap;
@@ -113,12 +114,17 @@ public class CompositeModuleClassStructuresBuilder<T extends AbstractModuleClass
                     }
                 } catch (final InterruptProcessingException ex) {
                     error(ex);
+                } catch (final InterruptProcessingBecauseAFewErrorsFoundException ignore) {
+                    // do nothing, because all errors already printed
                 }
             }
             moduleClassStructuresBuilders.forEach(builder -> builder.afterAllClassStructuresBuilt(classStructures));
             return classStructures;
         } catch (final InterruptProcessingException ex) {
             error(ex);
+            return Set.of();
+        } catch (final InterruptProcessingBecauseAFewErrorsFoundException ignore) {
+            // do nothing, because all errors already printed
             return Set.of();
         }
     }

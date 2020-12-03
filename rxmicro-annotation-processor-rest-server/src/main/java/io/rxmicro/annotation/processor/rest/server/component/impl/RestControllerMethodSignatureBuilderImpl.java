@@ -18,6 +18,7 @@ package io.rxmicro.annotation.processor.rest.server.component.impl;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingBecauseAFewErrorsFoundException;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
 import io.rxmicro.annotation.processor.rest.component.HttpMethodMappingBuilder;
 import io.rxmicro.annotation.processor.rest.component.RestRequestModelBuilder;
@@ -57,6 +58,7 @@ import javax.lang.model.element.ModuleElement;
 import javax.lang.model.element.TypeElement;
 
 import static io.rxmicro.annotation.processor.common.util.Elements.allMethods;
+import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.doesContainCompilationErrors;
 import static io.rxmicro.annotation.processor.common.util.validators.AnnotationValidators.validateNoAnnotationPerElement;
 import static io.rxmicro.annotation.processor.common.util.validators.AnnotationValidators.validateRedundantAnnotationsPerElement;
 import static io.rxmicro.cdi.PostConstruct.DEFAULT_POST_CONSTRUCT_METHOD_NAME;
@@ -84,33 +86,21 @@ public final class RestControllerMethodSignatureBuilderImpl
     public List<RestControllerMethodSignature> build(final ModuleElement restControllerModule,
                                                      final TypeElement restControllerClass,
                                                      final ParentUrl parentUrl) {
-        final List<ExecutableElement> methods = allMethods(restControllerClass, el ->
-                el.getAnnotationMirrors().stream().anyMatch(a -> getSupportedAnnotations().isAnnotationSupported(a.getAnnotationType())));
-        validateMethods(methods);
-        return methods.stream()
+        final List<RestControllerMethodSignature> methods = allMethods(restControllerClass, el ->
+                el.getAnnotationMirrors().stream().anyMatch(a -> getSupportedAnnotations().isAnnotationSupported(a.getAnnotationType())))
+                .stream()
                 .map(method -> getRestControllerMethodSignature(restControllerModule, parentUrl, method))
                 .collect(Collectors.toList());
+        if (doesContainCompilationErrors()) {
+            throw new InterruptProcessingBecauseAFewErrorsFoundException();
+        }
+        return methods;
     }
 
     private RestControllerMethodSignature getRestControllerMethodSignature(final ModuleElement restControllerModule,
                                                                            final ParentUrl parentUrl,
                                                                            final ExecutableElement method) {
-        final RestRequestModel requestModel = restRequestModelBuilder.build(restControllerModule, method, true);
-        if (!requestModel.isVirtual()) {
-            validateNoAnnotationPerElement(method, HeaderMappingStrategy.class);
-            validateNoAnnotationPerElement(method, ParameterMappingStrategy.class);
-        }
-        return new RestControllerMethodSignature(
-                parentUrl,
-                method,
-                requestModel,
-                restResponseModelBuilder.build(restControllerModule, method, false),
-                httpMethodMappingBuilder.buildList(parentUrl, method)
-        );
-    }
-
-    private void validateMethods(final List<ExecutableElement> methods) {
-        for (final ExecutableElement method : methods) {
+        try {
             validateMethodName(method);
             final List<? extends AnnotationMirror> annotations = method.getAnnotationMirrors();
             validateRedundantAnnotationsPerElement(
@@ -125,6 +115,21 @@ public final class RestControllerMethodSignatureBuilderImpl
                             .filter(a -> getHttpMethodAnnotations().isAnnotationSupported(a.getAnnotationType()))
                             .collect(Collectors.toList())
             );
+            final RestRequestModel requestModel = restRequestModelBuilder.build(restControllerModule, method, true);
+            if (!requestModel.isVirtual()) {
+                validateNoAnnotationPerElement(method, HeaderMappingStrategy.class);
+                validateNoAnnotationPerElement(method, ParameterMappingStrategy.class);
+            }
+            return new RestControllerMethodSignature(
+                    parentUrl,
+                    method,
+                    requestModel,
+                    restResponseModelBuilder.build(restControllerModule, method, false),
+                    httpMethodMappingBuilder.buildList(parentUrl, method)
+            );
+        } catch (final InterruptProcessingException exception) {
+            error(exception);
+            return null;
         }
     }
 

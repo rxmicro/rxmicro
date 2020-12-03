@@ -20,6 +20,7 @@ import com.google.inject.Inject;
 import io.rxmicro.annotation.processor.common.component.impl.AbstractModuleClassStructuresBuilder;
 import io.rxmicro.annotation.processor.common.model.ClassStructure;
 import io.rxmicro.annotation.processor.common.model.EnvironmentContext;
+import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingBecauseAFewErrorsFoundException;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
 import io.rxmicro.annotation.processor.data.component.DataClassStructureBuilder;
 import io.rxmicro.annotation.processor.data.component.DataGenerationContextBuilder;
@@ -92,6 +93,9 @@ public abstract class AbstractDataModuleClassStructuresBuilder<DMF extends DataM
             return result;
         } catch (final InterruptProcessingException ex) {
             error(ex);
+            return Set.of();
+        } catch (final InterruptProcessingBecauseAFewErrorsFoundException ignore) {
+            // do nothing, because all errors already printed
             return Set.of();
         }
     }

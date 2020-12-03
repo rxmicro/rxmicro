@@ -23,6 +23,7 @@ import io.rxmicro.annotation.processor.common.component.ClassWriter;
 import io.rxmicro.annotation.processor.common.component.EnvironmentContextBuilder;
 import io.rxmicro.annotation.processor.common.model.AnnotationProcessorType;
 import io.rxmicro.annotation.processor.common.model.SourceCode;
+import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingBecauseAFewErrorsFoundException;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
 import io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper;
 
@@ -36,7 +37,7 @@ import javax.lang.model.element.TypeElement;
 
 import static io.rxmicro.annotation.processor.common.util.Injects.injectDependencies;
 import static io.rxmicro.annotation.processor.common.util.InternalLoggers.logThrowableStackTrace;
-import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.doesNotContainErrors;
+import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.doesNotContainCompilationErrors;
 import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getMessager;
 import static io.rxmicro.annotation.processor.config.SupportedOptions.ALL_SUPPORTED_OPTIONS;
 import static javax.tools.Diagnostic.Kind.ERROR;
@@ -92,6 +93,9 @@ public abstract class AbstractRxMicroProcessor extends AbstractProcessor {
             } catch (final InterruptProcessingException ex) {
                 getMessager().printMessage(ERROR, ex.getMessage(), ex.getElement());
                 return false;
+            } catch (final InterruptProcessingBecauseAFewErrorsFoundException ignore) {
+                // do nothing, because all errors already printed
+                return false;
             } catch (final Throwable throwable) {
                 getMessager().printMessage(ERROR, "RxMicroAnnotationProcessor internal error: " + throwable.getMessage());
                 logThrowableStackTrace(throwable);
@@ -107,11 +111,11 @@ public abstract class AbstractRxMicroProcessor extends AbstractProcessor {
     protected abstract AnnotationProcessorType getAnnotationProcessorType();
 
     protected final void generateClasses(final Collection<SourceCode> sourceCodes) {
-        if (doesNotContainErrors()) {
+        if (doesNotContainCompilationErrors()) {
             annotationProcessingInformer.classesGenerationStarted();
             sourceCodes.forEach(sourceCode -> classWriter.write(sourceCode, getAnnotationProcessorType()));
             annotationProcessingInformer.classesGenerationCompleted();
         }
-        annotationProcessingInformer.annotationProcessingCompleted(getAnnotationProcessorType(), doesNotContainErrors());
+        annotationProcessingInformer.annotationProcessingCompleted(getAnnotationProcessorType(), doesNotContainCompilationErrors());
     }
 }

@@ -19,6 +19,7 @@ package io.rxmicro.annotation.processor.data.component.impl;
 import io.rxmicro.annotation.processor.common.component.impl.AbstractProcessorComponent;
 import io.rxmicro.annotation.processor.common.model.ClassHeader;
 import io.rxmicro.annotation.processor.common.model.EnvironmentContext;
+import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingBecauseAFewErrorsFoundException;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
 import io.rxmicro.annotation.processor.data.component.DataClassStructureBuilder;
 import io.rxmicro.annotation.processor.data.component.DataRepositoryMethodModelBuilder;
@@ -71,9 +72,7 @@ public abstract class AbstractDataClassStructureBuilder<DMF extends DataModelFie
             }
         });
         if (count.get() != methods.size()) {
-            throw new InterruptProcessingException(signature.getRepositoryInterface(),
-                    "Repository class couldn't be generated because some methods have errors. " +
-                            "Fix these errors and compile again.");
+            throw new InterruptProcessingBecauseAFewErrorsFoundException();
         }
         return methods;
     }

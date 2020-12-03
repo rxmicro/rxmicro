@@ -25,6 +25,7 @@ import io.rxmicro.annotation.processor.common.component.impl.AbstractModuleClass
 import io.rxmicro.annotation.processor.common.model.ClassStructure;
 import io.rxmicro.annotation.processor.common.model.EnvironmentContext;
 import io.rxmicro.annotation.processor.common.model.WithParentClassStructure;
+import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingBecauseAFewErrorsFoundException;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
 import io.rxmicro.annotation.processor.common.util.Elements;
 import io.rxmicro.annotation.processor.rest.RestCommonDependenciesModule;
@@ -186,6 +187,9 @@ public final class RestServerModuleClassStructuresBuilder extends AbstractModule
             return Set.of();
         } catch (final InterruptProcessingException ex) {
             error(ex);
+            return Set.of();
+        } catch (final InterruptProcessingBecauseAFewErrorsFoundException ignore) {
+            // do nothing, because all errors already printed
             return Set.of();
         }
     }

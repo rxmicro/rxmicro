@@ -28,7 +28,7 @@ import javax.tools.Diagnostic;
 import static io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException.READ_MORE_TEMPLATE;
 import static io.rxmicro.annotation.processor.common.util.InternalLoggers.logMessage;
 import static io.rxmicro.annotation.processor.common.util.InternalLoggers.logThrowableStackTrace;
-import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.errorDetected;
+import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.aNewCompilationErrorDetected;
 import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getCompilerOptions;
 import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getMessager;
 import static io.rxmicro.annotation.processor.config.LogLevel.DEBUG;
@@ -167,7 +167,7 @@ public abstract class AbstractProcessorComponent {
                                final Object... args) {
         final String mes = format(message, args) + format(READ_MORE_TEMPLATE, readMoreLink);
         getMessager().printMessage(Diagnostic.Kind.ERROR, mes, element);
-        errorDetected();
+        aNewCompilationErrorDetected();
     }
 
     protected final void error(final Element element,
@@ -175,7 +175,7 @@ public abstract class AbstractProcessorComponent {
                                final Object... args) {
         final String mes = (args.length == 0) ? message : format(message, args);
         getMessager().printMessage(Diagnostic.Kind.ERROR, mes, element);
-        errorDetected();
+        aNewCompilationErrorDetected();
     }
 
     protected final void cantGenerateClass(final String generatedClassName,
@@ -183,7 +183,7 @@ public abstract class AbstractProcessorComponent {
         logThrowableStackTrace(throwable);
         getMessager().printMessage(Diagnostic.Kind.ERROR,
                 format("Can't generate class ?: ?", generatedClassName, throwable.getMessage()));
-        errorDetected();
+        aNewCompilationErrorDetected();
     }
 
     protected final void cantGenerateDocument(final String documentName,
@@ -191,7 +191,7 @@ public abstract class AbstractProcessorComponent {
         logThrowableStackTrace(throwable);
         getMessager().printMessage(Diagnostic.Kind.ERROR,
                 format("Can't generate document ?: ?", documentName, throwable.getMessage()));
-        errorDetected();
+        aNewCompilationErrorDetected();
     }
 
     protected final void cantGenerateMethodBody(final String templateName,
@@ -200,7 +200,7 @@ public abstract class AbstractProcessorComponent {
         getMessager().printMessage(Diagnostic.Kind.ERROR,
                 format("Can't generate method body using '?' template: ?",
                         templateName, throwable.getMessage()));
-        errorDetected();
+        aNewCompilationErrorDetected();
     }
 
     protected final int getIntOption(final String propertyName,

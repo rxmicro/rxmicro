@@ -40,7 +40,7 @@ public final class ProcessingEnvironmentHelper {
 
     private static ProcessingEnvironment processingEnvironment;
 
-    private static int errorCount;
+    private static int compilationErrors;
 
     private static Elements elements;
 
@@ -59,7 +59,7 @@ public final class ProcessingEnvironmentHelper {
         messager = new ProxyMessager(processingEnv.getMessager());
         filer = processingEnv.getFiler();
         compilerOptions = unmodifiableOrderedMap(processingEnv.getOptions());
-        errorCount = 0;
+        compilationErrors = 0;
     }
 
     public static ProcessingEnvironment getProcessingEnvironment() {
@@ -86,12 +86,16 @@ public final class ProcessingEnvironmentHelper {
         return require(compilerOptions, ERROR_TEMPLATE, ProcessingEnvironmentHelper.class.getName());
     }
 
-    public static boolean doesNotContainErrors() {
-        return errorCount == 0;
+    public static boolean doesContainCompilationErrors() {
+        return compilationErrors > 0;
     }
 
-    public static void errorDetected() {
-        errorCount++;
+    public static boolean doesNotContainCompilationErrors() {
+        return compilationErrors == 0;
+    }
+
+    public static void aNewCompilationErrorDetected() {
+        compilationErrors++;
     }
 
     private ProcessingEnvironmentHelper() {
