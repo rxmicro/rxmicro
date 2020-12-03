@@ -245,7 +245,8 @@
             <property name="max" value="2"/>
         </module>
         <module name="NoArrayTrailingComma"/>
-        <module name="NoClone"/>
+        <!-- 'clone' contract can be useful for some cases -->
+        <!-- module name="NoClone"/ -->
         <module name="NoEnumTrailingComma"/>
         <module name="NoFinalizer"/>
         <module name="OneStatementPerLine">

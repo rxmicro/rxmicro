@@ -97,26 +97,9 @@ public class CompositeModuleClassStructuresBuilder<T extends AbstractModuleClass
                 }
             }
             for (final Map.Entry<T, Set<TypeElement>> entry : map.entrySet()) {
-                try {
-                    final T builder = entry.getKey();
-                    if (!(builder instanceof CompositeModuleClassStructuresBuilder)) {
-                        debug(LOG_MESSAGE_LINE_DELIMITER);
-                        debug(() -> getAlignedWithLineDelimiterMessage("? started", builder.getBuilderName()));
-                        debug(LOG_MESSAGE_LINE_DELIMITER);
-                    }
-                    classStructures.addAll(
-                            builder.buildClassStructures(environmentContext, entry.getValue(), roundEnv)
-                    );
-                    if (!(builder instanceof CompositeModuleClassStructuresBuilder)) {
-                        debug(LOG_MESSAGE_LINE_DELIMITER);
-                        debug(() -> getAlignedWithLineDelimiterMessage("? completed", builder.getBuilderName()));
-                        debug(LOG_MESSAGE_LINE_DELIMITER);
-                    }
-                } catch (final InterruptProcessingException ex) {
-                    error(ex);
-                } catch (final InterruptProcessingBecauseAFewErrorsFoundException ignore) {
-                    // do nothing, because all errors already printed
-                }
+                final T builder = entry.getKey();
+                final Set<TypeElement> typeElements = entry.getValue();
+                addClassStructuresUsingProvidedBuilder(environmentContext, roundEnv, classStructures, builder, typeElements);
             }
             moduleClassStructuresBuilders.forEach(builder -> builder.afterAllClassStructuresBuilt(classStructures));
             return classStructures;
@@ -126,6 +109,32 @@ public class CompositeModuleClassStructuresBuilder<T extends AbstractModuleClass
         } catch (final InterruptProcessingBecauseAFewErrorsFoundException ignore) {
             // do nothing, because all errors already printed
             return Set.of();
+        }
+    }
+
+    private void addClassStructuresUsingProvidedBuilder(final EnvironmentContext environmentContext,
+                                                        final RoundEnvironment roundEnv,
+                                                        final Set<ClassStructure> classStructures,
+                                                        final T builder,
+                                                        final Set<TypeElement> typeElements) {
+        try {
+            if (!(builder instanceof CompositeModuleClassStructuresBuilder)) {
+                debug(LOG_MESSAGE_LINE_DELIMITER);
+                debug(() -> getAlignedWithLineDelimiterMessage("? started", builder.getBuilderName()));
+                debug(LOG_MESSAGE_LINE_DELIMITER);
+            }
+            classStructures.addAll(
+                    builder.buildClassStructures(environmentContext, typeElements, roundEnv)
+            );
+            if (!(builder instanceof CompositeModuleClassStructuresBuilder)) {
+                debug(LOG_MESSAGE_LINE_DELIMITER);
+                debug(() -> getAlignedWithLineDelimiterMessage("? completed", builder.getBuilderName()));
+                debug(LOG_MESSAGE_LINE_DELIMITER);
+            }
+        } catch (final InterruptProcessingException ex) {
+            error(ex);
+        } catch (final InterruptProcessingBecauseAFewErrorsFoundException ignore) {
+            // do nothing, because all errors already printed
         }
     }
 }

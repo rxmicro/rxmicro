@@ -63,6 +63,8 @@ public class BaseModel {
     }
 
     /**
+     * This is analog of {@link java.util.Map.Entry} that supports {@code null} values.
+     *
      * @author nedis
      * @since 0.7.2
      */

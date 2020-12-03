@@ -56,13 +56,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  */
 public abstract class AbstractAnnotationProcessorIntegrationTest {
 
-    private final ExampleWithErrorReader exampleWithErrorReader = new ExampleWithErrorReaderImpl();
-
     private static Field javaFileObjectSubjectActualField;
 
     final Map<String, String> compilerOptions = new LinkedHashMap<>(
             Map.of(RX_MICRO_LOG_LEVEL, LogLevel.OFF.name())
     );
+
+    private final ExampleWithErrorReader exampleWithErrorReader = new ExampleWithErrorReaderImpl();
 
     private final Set<String> modulePath;
 

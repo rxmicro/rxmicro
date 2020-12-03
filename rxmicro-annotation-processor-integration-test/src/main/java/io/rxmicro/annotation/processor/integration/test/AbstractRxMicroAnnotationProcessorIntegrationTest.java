@@ -205,6 +205,34 @@ public abstract class AbstractRxMicroAnnotationProcessorIntegrationTest extends 
         resources.addAll(toAdd);
     }
 
+    private static void validateIncludesAndExcludes(final Method method,
+                                                    final IncludeExample[] includeExamples,
+                                                    final ExcludeExample[] excludeExamples) {
+        if (includeExamples.length > 0 && excludeExamples.length > 0) {
+            throw new InvalidStateException("Only includes OR excludes must be specified per test method: ?", method);
+        }
+    }
+
+    private static Predicate<String> createPackagePredicate(final IncludeExample[] includeExamples,
+                                                            final ExcludeExample[] excludeExamples) {
+
+        if (includeExamples.length > 0) {
+            final List<Pattern> patterns = Arrays.stream(includeExamples)
+                    .map(annotation -> Pattern.compile(annotation.value()))
+                    .collect(toList());
+            return resource ->
+                    patterns.stream().anyMatch(pattern -> pattern.matcher(resource.replace('/', '.')).find());
+        } else if (excludeExamples.length > 0) {
+            final List<Pattern> patterns = Arrays.stream(excludeExamples)
+                    .map(annotation -> Pattern.compile(annotation.value()))
+                    .collect(toList());
+            return resource ->
+                    patterns.stream().noneMatch(pattern -> pattern.matcher(resource.replace('/', '.')).find());
+        } else {
+            return resource -> true;
+        }
+    }
+
     /**
      * @author nedis
      * @since 0.1
@@ -236,34 +264,6 @@ public abstract class AbstractRxMicroAnnotationProcessorIntegrationTest extends 
             return getResourcesAtTheFolderWithAllNestedOnes(ERROR, r -> !r.endsWith(".class")).stream()
                     .filter(createPackagePredicate(includeExamples, excludeExamples))
                     .map(Arguments::of);
-        }
-    }
-
-    private static void validateIncludesAndExcludes(final Method method,
-                                                    final IncludeExample[] includeExamples,
-                                                    final ExcludeExample[] excludeExamples) {
-        if (includeExamples.length > 0 && excludeExamples.length > 0) {
-            throw new InvalidStateException("Only includes OR excludes must be specified per test method: ?", method);
-        }
-    }
-
-    private static Predicate<String> createPackagePredicate(final IncludeExample[] includeExamples,
-                                                            final ExcludeExample[] excludeExamples) {
-
-        if (includeExamples.length > 0) {
-            final List<Pattern> patterns = Arrays.stream(includeExamples)
-                    .map(annotation -> Pattern.compile(annotation.value()))
-                    .collect(toList());
-            return resource ->
-                    patterns.stream().anyMatch(pattern -> pattern.matcher(resource.replace('/', '.')).find());
-        } else if (excludeExamples.length > 0) {
-            final List<Pattern> patterns = Arrays.stream(excludeExamples)
-                    .map(annotation -> Pattern.compile(annotation.value()))
-                    .collect(toList());
-            return resource ->
-                    patterns.stream().noneMatch(pattern -> pattern.matcher(resource.replace('/', '.')).find());
-        } else {
-            return resource -> true;
         }
     }
 }

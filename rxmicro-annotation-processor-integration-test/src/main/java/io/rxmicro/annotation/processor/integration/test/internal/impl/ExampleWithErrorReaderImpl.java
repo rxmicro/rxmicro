@@ -70,22 +70,10 @@ public final class ExampleWithErrorReaderImpl implements ExampleWithErrorReader 
         while (iterator.hasNext()) {
             final String line = iterator.next();
             if (line.startsWith(ERROR_LINE_NUMBER_PREFIX)) {
-                if (lineNumber != -1) {
-                    throw new InvalidStateException(
-                            "'?' classpath resource does not contain required error message comment for found error line number: '? ?'! " +
-                                    "Example of missing comment is: '? Invalid data'",
-                            classpathResource, ERROR_LINE_NUMBER_PREFIX, lineNumber, ERROR_MESSAGE_PREFIX
-                    );
-                }
+                validateLineNumber(classpathResource, lineNumber);
                 lineNumber = getErrorLineNumber(classpathResource, line);
             } else if (line.startsWith(ERROR_MESSAGE_PREFIX)) {
-                if (message != null) {
-                    throw new InvalidStateException(
-                            "'?' classpath resource does not contain required error line number comment for found error message: '? ?'. " +
-                                    "Example of missing comment is: '? 12'",
-                            classpathResource, ERROR_MESSAGE_PREFIX, message, ERROR_LINE_NUMBER_PREFIX
-                    );
-                }
+                validateMessage(classpathResource, message);
                 message = getErrorMessage(classpathResource, line, iterator);
             }
             if (lineNumber != -1 && message != null) {
@@ -102,6 +90,28 @@ public final class ExampleWithErrorReaderImpl implements ExampleWithErrorReader 
             );
         }
         return compilationErrors;
+    }
+
+    private void validateLineNumber(final String classpathResource,
+                                    final int lineNumber) {
+        if (lineNumber != -1) {
+            throw new InvalidStateException(
+                    "'?' classpath resource does not contain required error message comment for found error line number: '? ?'! " +
+                            "Example of missing comment is: '? Invalid data'",
+                    classpathResource, ERROR_LINE_NUMBER_PREFIX, lineNumber, ERROR_MESSAGE_PREFIX
+            );
+        }
+    }
+
+    private void validateMessage(final String classpathResource,
+                                 final String message) {
+        if (message != null) {
+            throw new InvalidStateException(
+                    "'?' classpath resource does not contain required error line number comment for found error message: '? ?'. " +
+                            "Example of missing comment is: '? 12'",
+                    classpathResource, ERROR_MESSAGE_PREFIX, message, ERROR_LINE_NUMBER_PREFIX
+            );
+        }
     }
 
     private int getErrorLineNumber(final String classpathResource,
@@ -136,9 +146,9 @@ public final class ExampleWithErrorReaderImpl implements ExampleWithErrorReader 
         final String message = errorMessageBuilder.toString().trim();
         if (message.isEmpty()) {
             throw new InvalidStateException(
-                    "'?' classpath resource does not contain required error message comment. " +
+                    "'?' classpath resource contains invalid error message comment: Expected NOT EMPTY message after '?' prefix. " +
                             "Example of missing comment is: '? Invalid data'",
-                    classpathResource, ERROR_MESSAGE_PREFIX
+                    classpathResource, ERROR_MESSAGE_PREFIX, ERROR_MESSAGE_PREFIX
             );
         }
         return message;
