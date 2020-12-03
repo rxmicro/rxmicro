@@ -14,16 +14,23 @@
  * limitations under the License.
  */
 
-package io.rxmicro.annotation.processor.cdi.success;
+package io.rxmicro.annotation.processor.cdi;
 
-import io.rxmicro.annotation.processor.cdi.AbstractCDIAnnotationProcessorIntegrationTest;
+import io.rxmicro.annotation.processor.common.BaseRxMicroAnnotationProcessor;
+import io.rxmicro.annotation.processor.integration.test.AbstractRxMicroAnnotationProcessorIntegrationTest;
+import io.rxmicro.annotation.processor.integration.test.config.ExcludeExample;
+import io.rxmicro.annotation.processor.integration.test.config.IncludeExample;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ArgumentsSource;
 
 import java.io.IOException;
+import javax.annotation.processing.Processor;
 
 import static io.rxmicro.annotation.processor.config.SupportedOptions.RX_MICRO_BUILD_UNNAMED_MODULE;
 import static io.rxmicro.annotation.processor.integration.test.ExternalModule.EXTERNAL_MONGO_DB_BSON_MODULE;
@@ -39,13 +46,24 @@ import static io.rxmicro.annotation.processor.integration.test.ExternalModule.EX
 import static io.rxmicro.annotation.processor.integration.test.ExternalModule.EXTERNAL_R2DBC_SPI_MODULE;
 import static io.rxmicro.annotation.processor.integration.test.ExternalModule.EXTERNAL_REACTIVE_STREAMS_MODULE;
 import static io.rxmicro.annotation.processor.integration.test.ExternalModule.EXTERNAL_REACTOR_CORE_MODULE;
+import static io.rxmicro.cdi.BeanFactory.BEAN_FACTORY_IMPL_CLASS_NAME;
 
 /**
  * @author nedis
- *
+ * @since 0.7.2
  */
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
-final class CDI_IntegrationTest extends AbstractCDIAnnotationProcessorIntegrationTest {
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+final class CDI_SuccessCompilation_IntegrationTest extends AbstractRxMicroAnnotationProcessorIntegrationTest {
+
+    public CDI_SuccessCompilation_IntegrationTest() {
+        super(BEAN_FACTORY_IMPL_CLASS_NAME);
+    }
+
+    @Override
+    protected final Processor createAnnotationProcessor() {
+        return new BaseRxMicroAnnotationProcessor(CDIClassStructuresBuilder.create());
+    }
 
     @BeforeEach
     void beforeEach() {
@@ -69,13 +87,21 @@ final class CDI_IntegrationTest extends AbstractCDIAnnotationProcessorIntegratio
         addExternalModule(EXTERNAL_REACTOR_CORE_MODULE);
     }
 
+    @Order(1)
     @ParameterizedTest
+    @IncludeExample("io.rxmicro.examples.unnamed.module")
     @ArgumentsSource(AllInputPackagesArgumentsProvider.class)
-    void verify(final String packageName) throws IOException {
-        if (packageName.startsWith("io.rxmicro.examples.unnamed.module")) {
-            addAggregator("$$EnvironmentCustomizer");
-            addCompilerOption(RX_MICRO_BUILD_UNNAMED_MODULE, "true");
-        }
-        super.verifyAllClassesInPackage(packageName);
+    void Should_compile_unnamed_module_successful(final String packageName) throws IOException {
+        addAggregator("$$EnvironmentCustomizer");
+        addCompilerOption(RX_MICRO_BUILD_UNNAMED_MODULE, "true");
+        shouldCompileAndGenerateClassesSuccessfully(packageName);
+    }
+
+    @Order(2)
+    @ParameterizedTest
+    @ExcludeExample("io.rxmicro.examples.unnamed.module")
+    @ArgumentsSource(AllInputPackagesArgumentsProvider.class)
+    void Should_compile_successful(final String packageName) throws IOException {
+        shouldCompileAndGenerateClassesSuccessfully(packageName);
     }
 }

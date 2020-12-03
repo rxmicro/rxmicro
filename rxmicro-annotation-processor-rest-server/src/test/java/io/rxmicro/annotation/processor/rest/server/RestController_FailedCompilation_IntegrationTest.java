@@ -18,7 +18,6 @@ package io.rxmicro.annotation.processor.rest.server;
 
 import io.rxmicro.annotation.processor.common.BaseRxMicroAnnotationProcessor;
 import io.rxmicro.annotation.processor.integration.test.AbstractRxMicroAnnotationProcessorIntegrationTest;
-import io.rxmicro.annotation.processor.integration.test.config.ExcludeExample;
 import io.rxmicro.annotation.processor.integration.test.config.IncludeExample;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayNameGeneration;
@@ -29,18 +28,13 @@ import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ArgumentsSource;
 
-import java.io.IOException;
 import javax.annotation.processing.Processor;
 
-import static io.rxmicro.annotation.processor.config.SupportedOptions.RX_MICRO_BUILD_UNNAMED_MODULE;
-import static io.rxmicro.annotation.processor.integration.test.ExternalModule.EXTERNAL_NETTY_BUFFER_MODULE;
-import static io.rxmicro.annotation.processor.integration.test.ExternalModule.EXTERNAL_NETTY_CODEC_HTTP_MODULE;
-import static io.rxmicro.annotation.processor.integration.test.ExternalModule.EXTERNAL_NETTY_CODEC_MODULE;
-import static io.rxmicro.annotation.processor.integration.test.ExternalModule.EXTERNAL_NETTY_COMMON_MODULE;
-import static io.rxmicro.annotation.processor.integration.test.ExternalModule.EXTERNAL_NETTY_TRANSPORT_MODULE;
 import static io.rxmicro.annotation.processor.integration.test.ExternalModule.EXTERNAL_REACTIVE_STREAMS_MODULE;
 import static io.rxmicro.annotation.processor.integration.test.ExternalModule.EXTERNAL_REACTOR_CORE_MODULE;
 import static io.rxmicro.annotation.processor.integration.test.ExternalModule.EXTERNAL_RX_JAVA_3_MODULE;
+import static io.rxmicro.common.RxMicroModule.RX_MICRO_REST_SERVER_EXCHANGE_JSON_MODULE;
+import static io.rxmicro.common.RxMicroModule.RX_MICRO_VALIDATION_MODULE;
 import static io.rxmicro.rest.server.detail.component.RestControllerAggregator.REST_CONTROLLER_AGGREGATOR_IMPL_CLASS_NAME;
 
 /**
@@ -49,9 +43,9 @@ import static io.rxmicro.rest.server.detail.component.RestControllerAggregator.R
  */
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-final class SuccessCompilation_IntegrationTest extends AbstractRxMicroAnnotationProcessorIntegrationTest {
+final class RestController_FailedCompilation_IntegrationTest extends AbstractRxMicroAnnotationProcessorIntegrationTest {
 
-    public SuccessCompilation_IntegrationTest() {
+    public RestController_FailedCompilation_IntegrationTest() {
         super(REST_CONTROLLER_AGGREGATOR_IMPL_CLASS_NAME);
     }
 
@@ -62,12 +56,6 @@ final class SuccessCompilation_IntegrationTest extends AbstractRxMicroAnnotation
 
     @BeforeEach
     void beforeEach() {
-        addExternalModule(EXTERNAL_NETTY_COMMON_MODULE);
-        addExternalModule(EXTERNAL_NETTY_CODEC_HTTP_MODULE);
-        addExternalModule(EXTERNAL_NETTY_CODEC_MODULE);
-        addExternalModule(EXTERNAL_NETTY_BUFFER_MODULE);
-        addExternalModule(EXTERNAL_NETTY_TRANSPORT_MODULE);
-
         addExternalModule(EXTERNAL_REACTIVE_STREAMS_MODULE);
         addExternalModule(EXTERNAL_REACTOR_CORE_MODULE);
         addExternalModule(EXTERNAL_RX_JAVA_3_MODULE);
@@ -75,30 +63,25 @@ final class SuccessCompilation_IntegrationTest extends AbstractRxMicroAnnotation
 
     @Order(1)
     @ParameterizedTest
-    @IncludeExample("io.rxmicro.examples.unnamed.module")
-    @ArgumentsSource(AllInputPackagesArgumentsProvider.class)
-    void Should_compile_unnamed_module_successful(final String packageName) throws IOException {
-        addAggregator("$$EnvironmentCustomizer");
-        addCompilerOption(RX_MICRO_BUILD_UNNAMED_MODULE, "true");
-        removeFromModulePath("rxmicro-documentation-asciidoctor");
-        super.verifyAllClassesInPackage(packageName);
+    @IncludeExample("error.controller")
+    @ArgumentsSource(AllErrorPackagesArgumentsProvider.class)
+    void Should_throw_compilation_error_if_RestController_has_invalid_declaration(final String classpathResource) {
+        shouldThrowCompilationError(classpathResource, RX_MICRO_REST_SERVER_EXCHANGE_JSON_MODULE, RX_MICRO_VALIDATION_MODULE);
     }
 
     @Order(2)
     @ParameterizedTest
-    @IncludeExample("io.rxmicro.examples.rest.controller.extendable.model")
-    @ArgumentsSource(AllInputPackagesArgumentsProvider.class)
-    void Should_compile_extendable_model_successful(final String packageName) throws IOException {
-        addAggregator("$$EnvironmentCustomizer");
-        super.verifyAllClassesInPackage(packageName);
+    @IncludeExample("error.method")
+    @ArgumentsSource(AllErrorPackagesArgumentsProvider.class)
+    void Should_throw_compilation_error_if_RestController_method_has_invalid_declaration(final String classpathResource) {
+        shouldThrowCompilationError(classpathResource, RX_MICRO_REST_SERVER_EXCHANGE_JSON_MODULE, RX_MICRO_VALIDATION_MODULE);
     }
 
     @Order(3)
     @ParameterizedTest
-    @ExcludeExample("io.rxmicro.examples.unnamed.module")
-    @ExcludeExample("io.rxmicro.examples.rest.controller.extendable.model")
-    @ArgumentsSource(AllInputPackagesArgumentsProvider.class)
-    void Should_compile_successful(final String packageName) throws IOException {
-        super.verifyAllClassesInPackage(packageName);
+    @IncludeExample("error.validation")
+    @ArgumentsSource(AllErrorPackagesArgumentsProvider.class)
+    void Should_throw_compilation_error_if_Request_model_contains_invalid_constraints(final String classpathResource) {
+        shouldThrowCompilationError(classpathResource, RX_MICRO_REST_SERVER_EXCHANGE_JSON_MODULE, RX_MICRO_VALIDATION_MODULE);
     }
 }

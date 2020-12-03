@@ -14,11 +14,10 @@
  * limitations under the License.
  */
 
-package io.rxmicro.annotation.processor.rest.server;
+package io.rxmicro.annotation.processor.data.mongo;
 
 import io.rxmicro.annotation.processor.common.BaseRxMicroAnnotationProcessor;
 import io.rxmicro.annotation.processor.integration.test.AbstractRxMicroAnnotationProcessorIntegrationTest;
-import io.rxmicro.annotation.processor.integration.test.config.IncludeExample;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
@@ -28,14 +27,16 @@ import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ArgumentsSource;
 
+import java.io.IOException;
 import javax.annotation.processing.Processor;
 
+import static io.rxmicro.annotation.processor.integration.test.ExternalModule.EXTERNAL_MONGO_DB_BSON_MODULE;
+import static io.rxmicro.annotation.processor.integration.test.ExternalModule.EXTERNAL_MONGO_DB_DRIVER_CORE_MODULE;
+import static io.rxmicro.annotation.processor.integration.test.ExternalModule.EXTERNAL_MONGO_DB_REACTIVE_DRIVER_MODULE;
 import static io.rxmicro.annotation.processor.integration.test.ExternalModule.EXTERNAL_REACTIVE_STREAMS_MODULE;
 import static io.rxmicro.annotation.processor.integration.test.ExternalModule.EXTERNAL_REACTOR_CORE_MODULE;
 import static io.rxmicro.annotation.processor.integration.test.ExternalModule.EXTERNAL_RX_JAVA_3_MODULE;
-import static io.rxmicro.common.RxMicroModule.RX_MICRO_REST_SERVER_EXCHANGE_JSON_MODULE;
-import static io.rxmicro.common.RxMicroModule.RX_MICRO_VALIDATION_MODULE;
-import static io.rxmicro.rest.server.detail.component.RestControllerAggregator.REST_CONTROLLER_AGGREGATOR_IMPL_CLASS_NAME;
+import static io.rxmicro.data.RepositoryFactory.REPOSITORY_FACTORY_IMPL_CLASS_NAME;
 
 /**
  * @author nedis
@@ -43,15 +44,15 @@ import static io.rxmicro.rest.server.detail.component.RestControllerAggregator.R
  */
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-final class FailedCompilation_IntegrationTest extends AbstractRxMicroAnnotationProcessorIntegrationTest {
+final class MongoDataRepositories_SuccessCompilation_IntegrationTest extends AbstractRxMicroAnnotationProcessorIntegrationTest {
 
-    public FailedCompilation_IntegrationTest() {
-        super(REST_CONTROLLER_AGGREGATOR_IMPL_CLASS_NAME);
+    public MongoDataRepositories_SuccessCompilation_IntegrationTest() {
+        super(REPOSITORY_FACTORY_IMPL_CLASS_NAME);
     }
 
     @Override
     protected final Processor createAnnotationProcessor() {
-        return new BaseRxMicroAnnotationProcessor(RestServerModuleClassStructuresBuilder.create());
+        return new BaseRxMicroAnnotationProcessor(MongoModuleClassStructuresBuilder.create());
     }
 
     @BeforeEach
@@ -59,29 +60,16 @@ final class FailedCompilation_IntegrationTest extends AbstractRxMicroAnnotationP
         addExternalModule(EXTERNAL_REACTIVE_STREAMS_MODULE);
         addExternalModule(EXTERNAL_REACTOR_CORE_MODULE);
         addExternalModule(EXTERNAL_RX_JAVA_3_MODULE);
+
+        addExternalModule(EXTERNAL_MONGO_DB_BSON_MODULE);
+        addExternalModule(EXTERNAL_MONGO_DB_DRIVER_CORE_MODULE);
+        addExternalModule(EXTERNAL_MONGO_DB_REACTIVE_DRIVER_MODULE);
     }
 
     @Order(1)
     @ParameterizedTest
-    @IncludeExample("error.controller")
-    @ArgumentsSource(AllErrorPackagesArgumentsProvider.class)
-    void Should_throw_compilation_error_if_RestController_has_invalid_declaration(final String classpathResource) {
-        shouldThrowCompilationError(classpathResource, RX_MICRO_REST_SERVER_EXCHANGE_JSON_MODULE, RX_MICRO_VALIDATION_MODULE);
-    }
-
-    @Order(2)
-    @ParameterizedTest
-    @IncludeExample("error.method")
-    @ArgumentsSource(AllErrorPackagesArgumentsProvider.class)
-    void Should_throw_compilation_error_if_RestController_method_has_invalid_declaration(final String classpathResource) {
-        shouldThrowCompilationError(classpathResource, RX_MICRO_REST_SERVER_EXCHANGE_JSON_MODULE, RX_MICRO_VALIDATION_MODULE);
-    }
-
-    @Order(3)
-    @ParameterizedTest
-    @IncludeExample("error.validation")
-    @ArgumentsSource(AllErrorPackagesArgumentsProvider.class)
-    void Should_throw_compilation_error_if_Request_model_contains_invalid_constraints(final String classpathResource) {
-        shouldThrowCompilationError(classpathResource, RX_MICRO_REST_SERVER_EXCHANGE_JSON_MODULE, RX_MICRO_VALIDATION_MODULE);
+    @ArgumentsSource(AllInputPackagesArgumentsProvider.class)
+    void Should_compile_successful(final String packageName) throws IOException {
+        shouldCompileAndGenerateClassesSuccessfully(packageName);
     }
 }

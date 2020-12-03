@@ -19,6 +19,11 @@ package io.rxmicro.annotation.processor;
 import io.rxmicro.annotation.processor.config.LogLevel;
 import io.rxmicro.annotation.processor.integration.test.AbstractRxMicroAnnotationProcessorIntegrationTest;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayNameGeneration;
+import org.junit.jupiter.api.DisplayNameGenerator;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -46,12 +51,13 @@ import static io.rxmicro.rest.server.detail.component.RestControllerAggregator.R
 
 /**
  * @author nedis
- *
  * @since 0.1
  */
-final class All_components_IntegrationTest extends AbstractRxMicroAnnotationProcessorIntegrationTest {
+@DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+final class AllComponents_SuccessCompilation_IntegrationTest extends AbstractRxMicroAnnotationProcessorIntegrationTest {
 
-    public All_components_IntegrationTest() {
+    public AllComponents_SuccessCompilation_IntegrationTest() {
         super(
                 REST_CONTROLLER_AGGREGATOR_IMPL_CLASS_NAME,
                 REST_CLIENT_FACTORY_IMPL_CLASS_NAME,
@@ -59,6 +65,11 @@ final class All_components_IntegrationTest extends AbstractRxMicroAnnotationProc
                 REPOSITORY_FACTORY_IMPL_CLASS_NAME
         );
         addCompilerOption(RX_MICRO_LOG_LEVEL, LogLevel.DEBUG.name());
+    }
+
+    @Override
+    protected Processor createAnnotationProcessor() {
+        return new RxMicroAnnotationProcessor();
     }
 
     @BeforeEach
@@ -82,6 +93,7 @@ final class All_components_IntegrationTest extends AbstractRxMicroAnnotationProc
         addExternalModule(EXTERNAL_NETTY_TRANSPORT_MODULE);
     }
 
+    @Order(1)
     @ParameterizedTest
     @ValueSource(strings = {
             "io.rxmicro.examples.processor.all.components",
@@ -91,12 +103,7 @@ final class All_components_IntegrationTest extends AbstractRxMicroAnnotationProc
             "io.rxmicro.examples.processor.r2dbc.postgresql",
             "io.rxmicro.examples.processor.restclient"
     })
-    void verify(final String packageName) throws IOException {
-        super.verifyAllClassesInPackage(packageName);
-    }
-
-    @Override
-    protected Processor createAnnotationProcessor() {
-        return new RxMicroAnnotationProcessor();
+    void Should_compile_successfully(final String packageName) throws IOException {
+        shouldCompileAndGenerateClassesSuccessfully(packageName);
     }
 }

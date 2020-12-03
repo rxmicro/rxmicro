@@ -130,7 +130,7 @@ public abstract class AbstractRxMicroAnnotationProcessorIntegrationTest extends 
         addToModulePath(externalModule.getJarPath());
     }
 
-    protected void verifyAllClassesInPackage(final String packageName) throws IOException {
+    protected final void shouldCompileAndGenerateClassesSuccessfully(final String packageName) throws IOException {
         final Compilation compilation = compileAllIn(packageName);
         assertThat(compilation).succeeded();
         assertAllGeneratedIn(compilation, packageName);

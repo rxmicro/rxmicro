@@ -21,6 +21,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -49,20 +50,28 @@ import static io.rxmicro.tool.common.TestFixers.REST_BASED_MICRO_SERVICE_TEST_FI
 
 /**
  * @author nedis
- *
  * @since 0.1
  */
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-final class Tests_IntegrationTest
-        extends AbstractRxMicroAnnotationProcessorIntegrationTest {
+final class TestFixers_SuccessCompilation_IntegrationTest extends AbstractRxMicroAnnotationProcessorIntegrationTest {
 
-    public Tests_IntegrationTest() {
+    public TestFixers_SuccessCompilation_IntegrationTest() {
         super(
                 COMPONENT_TEST_FIXER,
                 REST_BASED_MICRO_SERVICE_TEST_FIXER,
                 INTEGRATION_TEST_FIXER
         );
+    }
+
+    @Override
+    protected Processor createAnnotationProcessor() {
+        return new RxMicroTestsAnnotationProcessor();
+    }
+
+    @Override
+    protected boolean withEnvironmentCustomizer() {
+        return false;
     }
 
     @BeforeEach
@@ -87,23 +96,14 @@ final class Tests_IntegrationTest
         addExternalModule(EXTERNAL_MOCKITO_JUNIT_JUPITER_MODULE);
     }
 
+    @Order(1)
     @ParameterizedTest
     @ValueSource(strings = {
             "io.rxmicro.examples.test.fixer.component",
             "io.rxmicro.examples.test.fixer.microservice",
             "io.rxmicro.examples.test.fixer.integration",
     })
-    void verify(final String packageName) throws IOException {
-        super.verifyAllClassesInPackage(packageName);
-    }
-
-    @Override
-    protected Processor createAnnotationProcessor() {
-        return new RxMicroTestsAnnotationProcessor();
-    }
-
-    @Override
-    protected boolean withEnvironmentCustomizer() {
-        return false;
+    void Should_compile_successfully(final String packageName) throws IOException {
+        shouldCompileAndGenerateClassesSuccessfully(packageName);
     }
 }

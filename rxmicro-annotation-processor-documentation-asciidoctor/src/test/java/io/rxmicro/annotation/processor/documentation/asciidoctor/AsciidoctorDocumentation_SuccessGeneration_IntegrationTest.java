@@ -14,12 +14,17 @@
  * limitations under the License.
  */
 
-package io.rxmicro.annotation.processor.documentation.asciidoctor.success;
+package io.rxmicro.annotation.processor.documentation.asciidoctor;
 
 import com.google.testing.compile.Compilation;
 import io.rxmicro.annotation.processor.documentation.asciidoctor.AbstractAsciidoctorDocumentationAnnotationProcessorIntegrationTest;
+import io.rxmicro.annotation.processor.integration.test.config.ExcludeExample;
+import io.rxmicro.annotation.processor.integration.test.config.IncludeExample;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ArgumentsSource;
 
@@ -32,20 +37,33 @@ import static io.rxmicro.common.util.Formats.format;
 
 /**
  * @author nedis
- *
- * @since 0.1
+ * @since 0.7.2
  */
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
-final class AsciidoctorProjectDocumentation_IntegrationTest
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+final class AsciidoctorDocumentation_SuccessGeneration_IntegrationTest
         extends AbstractAsciidoctorDocumentationAnnotationProcessorIntegrationTest {
 
+    @Order(1)
     @ParameterizedTest
+    @IncludeExample("io.rxmicro.examples.unnamed.module")
     @ArgumentsSource(AllInputPackagesArgumentsProvider.class)
-    void verify(final String packageName) throws IOException {
+    void Should_generate_documentation_for_unnamed_module_successfully(final String packageName) throws IOException {
         System.setProperty(RX_MICRO_POM_XML_ABSOLUTE_PATH, format("?/?/pom.xml", INPUT_DIR, packageName));
-        if (packageName.startsWith("io.rxmicro.examples.unnamed.module")) {
-            addCompilerOption(RX_MICRO_BUILD_UNNAMED_MODULE, "true");
-        }
+        addCompilerOption(RX_MICRO_BUILD_UNNAMED_MODULE, "true");
+
+        final Compilation compilation = compileAllIn(packageName);
+        assertThat(compilation).succeeded();
+        assertGeneratedDoc(packageName);
+    }
+
+    @Order(2)
+    @ParameterizedTest
+    @ExcludeExample("io.rxmicro.examples.unnamed.module")
+    @ArgumentsSource(AllInputPackagesArgumentsProvider.class)
+    void Should_generate_documentation_successfully(final String packageName) throws IOException {
+        System.setProperty(RX_MICRO_POM_XML_ABSOLUTE_PATH, format("?/?/pom.xml", INPUT_DIR, packageName));
+
         final Compilation compilation = compileAllIn(packageName);
         assertThat(compilation).succeeded();
         assertGeneratedDoc(packageName);

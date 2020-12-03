@@ -42,8 +42,6 @@ import static io.rxmicro.annotation.processor.config.SupportedOptions.RX_MICRO_D
 import static io.rxmicro.annotation.processor.documentation.TestSystemProperties.RX_MICRO_POM_XML_ABSOLUTE_PATH;
 import static io.rxmicro.annotation.processor.documentation.TestSystemProperties.RX_MICRO_PROJECT_DIRECTORY_PATH;
 import static io.rxmicro.annotation.processor.documentation.TestSystemProperties.RX_MICRO_PROJECT_DOCUMENTATION_VERSION;
-import static io.rxmicro.annotation.processor.documentation.asciidoctor.TestOptions.RX_MICRO_IGNORE_EMPTY_SPACES_DURING_ASCIIDOCTOR_CONTENT_COMPARISON;
-import static io.rxmicro.annotation.processor.documentation.asciidoctor.TestOptions.RX_MICRO_IGNORE_EMPTY_SPACES_DURING_ASCIIDOCTOR_CONTENT_COMPARISON_VALUE;
 import static io.rxmicro.annotation.processor.integration.test.ExternalModule.EXTERNAL_NETTY_BUFFER_MODULE;
 import static io.rxmicro.annotation.processor.integration.test.ExternalModule.EXTERNAL_NETTY_CODEC_HTTP_MODULE;
 import static io.rxmicro.annotation.processor.integration.test.ExternalModule.EXTERNAL_NETTY_CODEC_MODULE;
@@ -57,10 +55,21 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author nedis
- *
+ * @since 0.7.2
  */
 public abstract class AbstractAsciidoctorDocumentationAnnotationProcessorIntegrationTest
         extends AbstractRxMicroAnnotationProcessorIntegrationTest {
+
+    /**
+     * Boolean system environment variable or Java system property
+     */
+    static final String RX_MICRO_IGNORE_EMPTY_SPACES_DURING_ASCIIDOCTOR_CONTENT_COMPARISON =
+            "RX_MICRO_IGNORE_EMPTY_SPACES_DURING_ASCIIDOCTOR_CONTENT_COMPARISON";
+
+    /**
+     * By default ignoring the empty spaces is activated
+     */
+    static final boolean RX_MICRO_IGNORE_EMPTY_SPACES_DURING_ASCIIDOCTOR_CONTENT_COMPARISON_VALUE = true;
 
     protected static final String INPUT_DIR;
 
