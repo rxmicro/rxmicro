@@ -17,8 +17,13 @@
 package io.rxmicro.annotation.processor.integration.test;
 
 import com.google.testing.compile.Compilation;
+import io.rxmicro.annotation.processor.integration.test.config.ExcludeExample;
+import io.rxmicro.annotation.processor.integration.test.config.IncludeExample;
 import io.rxmicro.annotation.processor.integration.test.internal.AbstractAnnotationProcessorIntegrationTest;
 import io.rxmicro.annotation.processor.integration.test.internal.SourceCodeResource;
+import io.rxmicro.annotation.processor.integration.test.model.CompilationError;
+import io.rxmicro.annotation.processor.integration.test.model.ExampleWithError;
+import io.rxmicro.common.InvalidStateException;
 import io.rxmicro.common.RxMicroModule;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.params.provider.Arguments;
@@ -26,6 +31,7 @@ import org.junit.jupiter.params.provider.ArgumentsProvider;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Method;
 import java.net.URISyntaxException;
 import java.util.Arrays;
 import java.util.Collection;
@@ -35,6 +41,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.Predicate;
+import java.util.regex.Pattern;
 import java.util.stream.Stream;
 import javax.tools.JavaFileObject;
 
@@ -57,11 +65,15 @@ import static java.util.stream.Collectors.toSet;
  */
 public abstract class AbstractRxMicroAnnotationProcessorIntegrationTest extends AbstractAnnotationProcessorIntegrationTest {
 
+    private static final String ERROR = "error";
+
     private static final String INPUT = "input";
 
     private static final String OUTPUT = "output";
 
     private final Map<String, String> aggregators;
+
+    private final Set<ExternalModule> externalModules = new HashSet<>();
 
     public static String getInputAbsolutePath(final Class<?> clazz) {
         return getAbsolutePath(clazz, INPUT);
@@ -101,7 +113,7 @@ public abstract class AbstractRxMicroAnnotationProcessorIntegrationTest extends 
                                         final Collection<ExternalModule> externalModules) {
         return forSourceLines("module-info",
                 Stream.of(
-                        Stream.of("module rxmicro.dynamic {"),
+                        Stream.of("module rxmicro.dynamic.integration.test {"),
                         rxMicroModules.stream().map(m -> format("    requires ?;", m.getName())),
                         externalModules.stream().map(m -> format("    requires ?;", m.getModuleName())),
                         Stream.of("}")
@@ -110,10 +122,11 @@ public abstract class AbstractRxMicroAnnotationProcessorIntegrationTest extends 
     }
 
     protected JavaFileObject moduleInfo(final RxMicroModule... rxMicroModules) {
-        return moduleInfo(Arrays.asList(rxMicroModules), List.of());
+        return moduleInfo(Arrays.asList(rxMicroModules), externalModules);
     }
 
     protected void addExternalModule(final ExternalModule externalModule) {
+        this.externalModules.add(externalModule);
         addToModulePath(externalModule.getJarPath());
     }
 
@@ -121,6 +134,26 @@ public abstract class AbstractRxMicroAnnotationProcessorIntegrationTest extends 
         final Compilation compilation = compileAllIn(packageName);
         assertThat(compilation).succeeded();
         assertAllGeneratedIn(compilation, packageName);
+    }
+
+    protected final void shouldThrowCompilationError(final String classpathResource,
+                                                     final RxMicroModule... rxMicroModules) {
+        final ExampleWithError exampleWithError = getExampleWithError(classpathResource);
+
+        final JavaFileObject restController = forSourceLines(exampleWithError.getName(), exampleWithError.getSource());
+        final Compilation compilation = compile(restController, moduleInfo(rxMicroModules));
+
+        for (final CompilationError compilationError : exampleWithError.getCompilationErrors()) {
+            if (compilationError.isLineNumberPresents()) {
+                assertThat(compilation)
+                        .hadErrorContaining(compilationError.getMessage())
+                        .inFile(restController)
+                        .onLine(compilationError.getLineNumber());
+            } else {
+                assertThat(compilation).hadErrorContaining(compilationError.getMessage());
+            }
+        }
+        assertThat(compilation).hadErrorCount(exampleWithError.getCompilationErrors().size());
     }
 
     protected Compilation compileAllIn(final String packageName) {
@@ -180,7 +213,57 @@ public abstract class AbstractRxMicroAnnotationProcessorIntegrationTest extends 
 
         @Override
         public Stream<? extends Arguments> provideArguments(final ExtensionContext extensionContext) {
-            return getOnlyChildrenAtTheFolder(INPUT, r -> r.startsWith("io.rxmicro.examples")).stream().map(Arguments::of);
+            final IncludeExample[] includeExamples = extensionContext.getRequiredTestMethod().getAnnotationsByType(IncludeExample.class);
+            final ExcludeExample[] excludeExamples = extensionContext.getRequiredTestMethod().getAnnotationsByType(ExcludeExample.class);
+            validateIncludesAndExcludes(extensionContext.getRequiredTestMethod(), includeExamples, excludeExamples);
+            return getOnlyChildrenAtTheFolder(INPUT, r -> r.startsWith("io.rxmicro.examples")).stream()
+                    .filter(createPackagePredicate(includeExamples, excludeExamples))
+                    .map(Arguments::of);
+        }
+    }
+
+    /**
+     * @author nedis
+     * @since 0.7.2
+     */
+    protected static final class AllErrorPackagesArgumentsProvider implements ArgumentsProvider {
+
+        @Override
+        public Stream<? extends Arguments> provideArguments(final ExtensionContext extensionContext) {
+            final IncludeExample[] includeExamples = extensionContext.getRequiredTestMethod().getAnnotationsByType(IncludeExample.class);
+            final ExcludeExample[] excludeExamples = extensionContext.getRequiredTestMethod().getAnnotationsByType(ExcludeExample.class);
+            validateIncludesAndExcludes(extensionContext.getRequiredTestMethod(), includeExamples, excludeExamples);
+            return getResourcesAtTheFolderWithAllNestedOnes(ERROR, r -> !r.endsWith(".class")).stream()
+                    .filter(createPackagePredicate(includeExamples, excludeExamples))
+                    .map(Arguments::of);
+        }
+    }
+
+    private static void validateIncludesAndExcludes(final Method method,
+                                                    final IncludeExample[] includeExamples,
+                                                    final ExcludeExample[] excludeExamples) {
+        if (includeExamples.length > 0 && excludeExamples.length > 0) {
+            throw new InvalidStateException("Only includes OR excludes must be specified per test method: ?", method);
+        }
+    }
+
+    private static Predicate<String> createPackagePredicate(final IncludeExample[] includeExamples,
+                                                            final ExcludeExample[] excludeExamples) {
+
+        if (includeExamples.length > 0) {
+            final List<Pattern> patterns = Arrays.stream(includeExamples)
+                    .map(annotation -> Pattern.compile(annotation.value()))
+                    .collect(toList());
+            return resource ->
+                    patterns.stream().anyMatch(pattern -> pattern.matcher(resource.replace('/', '.')).find());
+        } else if (excludeExamples.length > 0) {
+            final List<Pattern> patterns = Arrays.stream(excludeExamples)
+                    .map(annotation -> Pattern.compile(annotation.value()))
+                    .collect(toList());
+            return resource ->
+                    patterns.stream().noneMatch(pattern -> pattern.matcher(resource.replace('/', '.')).find());
+        } else {
+            return resource -> true;
         }
     }
 }

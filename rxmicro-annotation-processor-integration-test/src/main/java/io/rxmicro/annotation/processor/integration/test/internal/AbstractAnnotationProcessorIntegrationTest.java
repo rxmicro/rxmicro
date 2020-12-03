@@ -19,6 +19,8 @@ package io.rxmicro.annotation.processor.integration.test.internal;
 import com.google.testing.compile.Compilation;
 import com.google.testing.compile.JavaFileObjectSubject;
 import io.rxmicro.annotation.processor.config.LogLevel;
+import io.rxmicro.annotation.processor.integration.test.internal.impl.ExampleWithErrorReaderImpl;
+import io.rxmicro.annotation.processor.integration.test.model.ExampleWithError;
 import io.rxmicro.common.CheckedWrapperException;
 import org.opentest4j.AssertionFailedError;
 
@@ -53,6 +55,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * @since 0.1
  */
 public abstract class AbstractAnnotationProcessorIntegrationTest {
+
+    private final ExampleWithErrorReader exampleWithErrorReader = new ExampleWithErrorReaderImpl();
 
     private static Field javaFileObjectSubjectActualField;
 
@@ -136,6 +140,10 @@ public abstract class AbstractAnnotationProcessorIntegrationTest {
         for (final SourceCodeResource expectedSourceCodeResource : expectedSourceCodeResources) {
             assertGeneratedFile(compilation, expectedSourceCodeResource, useEqualsToInsteadOfEquivalentSource);
         }
+    }
+
+    protected ExampleWithError getExampleWithError(final String classpathResource) {
+        return exampleWithErrorReader.read(classpathResource);
     }
 
     private void assertGeneratedFile(final Compilation compilation,
