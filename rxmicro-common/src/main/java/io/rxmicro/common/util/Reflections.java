@@ -20,20 +20,21 @@ import io.rxmicro.common.CheckedWrapperException;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Member;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
 
 import static io.rxmicro.common.internal.FinalFieldUpdater.setFinalFieldValue;
+import static io.rxmicro.common.util.ExCollections.unmodifiableOrderedSet;
 import static io.rxmicro.common.util.Formats.format;
 import static java.lang.reflect.Modifier.isFinal;
 import static java.lang.reflect.Modifier.isStatic;
 import static java.util.Collections.unmodifiableList;
-import static java.util.Collections.unmodifiableSet;
+import static java.util.stream.Collectors.joining;
 import static java.util.stream.Collectors.toList;
 
 /**
@@ -48,6 +49,9 @@ public final class Reflections {
      * Returns the all declared fields from the specified class instance and all it parents (except {@link Object})
      * that filtered by {@code predicate}.
      *
+     * <p>
+     * Fields from super class are returned first.
+     *
      * @param classInstance the specified class instance
      * @param predicate     the field selection predicate
      * @return the all declared fields as unmodified list
@@ -60,7 +64,7 @@ public final class Reflections {
         final List<Field> fields = new ArrayList<>();
         Class<?> current = classInstance;
         while (current != null && current != Object.class) {
-            fields.addAll(Arrays.stream(current.getDeclaredFields())
+            fields.addAll(0, Arrays.stream(current.getDeclaredFields())
                     .filter(predicate)
                     .collect(toList()));
             current = current.getSuperclass();
@@ -71,6 +75,9 @@ public final class Reflections {
     /**
      * Returns the all declared methods from the specified class instance and all it parents (except {@link Object})
      * that filtered by {@code predicate}.
+     *
+     * <p>
+     * Methods from super class are returned first.
      *
      * @param classInstance the specified class instance
      * @param predicate     the method selection predicate
@@ -84,7 +91,7 @@ public final class Reflections {
         final List<Method> methods = new ArrayList<>();
         Class<?> current = classInstance;
         while (current != null && current != Object.class) {
-            methods.addAll(Arrays.stream(current.getDeclaredMethods())
+            methods.addAll(0, Arrays.stream(current.getDeclaredMethods())
                     .filter(predicate)
                     .collect(toList()));
             current = current.getSuperclass();
@@ -117,18 +124,21 @@ public final class Reflections {
     /**
      * Returns the unmodifiable {@link Set} of all parents for the specified class.
      *
+     * <p>
+     * Parent classes are returned first.
+     *
      * @param clazz the specified class
      * @return the unmodifiable {@link Set} of all parents for the specified class
      * @throws NullPointerException if any parameter is null
      */
     public static Set<Class<?>> allSuperClasses(final Class<?> clazz) {
-        final Set<Class<?>> set = new LinkedHashSet<>();
+        final List<Class<?>> set = new ArrayList<>();
         Class<?> currentClass = clazz.getSuperclass();
         while (currentClass != null && currentClass != Object.class) {
-            set.add(currentClass);
+            set.add(0, currentClass);
             currentClass = currentClass.getSuperclass();
         }
-        return unmodifiableSet(set);
+        return unmodifiableOrderedSet(set);
     }
 
     /**
@@ -264,19 +274,14 @@ public final class Reflections {
     public static Object getFieldValue(final Object instance,
                                        final Class<?> classInstance,
                                        final String fieldName) {
-        try {
-            final Object validInstance = instance.getClass() == Class.class ? null : instance;
-            final Field field = classInstance.getDeclaredField(fieldName);
-            return getFieldValue(validInstance, field);
-        } catch (final NoSuchFieldException ex) {
-            throw new CheckedWrapperException(ex, "Field '?.?' not defined", instance.getClass().getName(), fieldName);
-        }
+        final Field field = findField(classInstance, fieldName);
+        return getFieldValue(instance, field);
     }
 
     /**
      * Returns the field value.
      *
-     * @param instance the specified instance
+     * @param instance the specified instance. If requested field is static the specified instance can be {@link Class} instance.
      * @param fieldName the field name
      * @return the field value.
      * @see Class#getDeclaredField(String)
@@ -319,7 +324,7 @@ public final class Reflections {
     }
 
     /**
-     * Returns the declared field instance.
+     * Returns the declared field from instance or from any it parent.
      *
      * @param classInstance the specified class instance
      * @param fieldName the specified field name
@@ -348,11 +353,7 @@ public final class Reflections {
      */
     public static Field getDeclaredField(final Class<?> classInstance,
                                          final String fieldName) {
-        try {
-            return classInstance.getDeclaredField(fieldName);
-        } catch (final NoSuchFieldException ex) {
-            throw new CheckedWrapperException(ex, "Field '?.?' not defined", classInstance.getName(), fieldName);
-        }
+        return findField(classInstance, fieldName);
     }
 
     /**
@@ -391,15 +392,11 @@ public final class Reflections {
     public static void setFieldValue(final Object instance,
                                      final String fieldName,
                                      final Object value) {
-        try {
-            final Class<?> classInstance =
-                    instance.getClass() == Class.class ? (Class<?>) instance : instance.getClass();
-            final Object validInstance = instance.getClass() == Class.class ? null : instance;
-            final Field field = classInstance.getDeclaredField(fieldName);
-            setFieldValue(validInstance, field, value);
-        } catch (final NoSuchFieldException ex) {
-            throw new CheckedWrapperException(ex, "Field '?.?' not defined", instance.getClass().getName(), fieldName);
-        }
+        final Class<?> classInstance =
+                instance.getClass() == Class.class ? (Class<?>) instance : instance.getClass();
+        final Field field = findField(classInstance, fieldName);
+        final Object validInstance = instance.getClass() == Class.class ? null : instance;
+        setFieldValue(validInstance, field, value);
     }
 
     /**
@@ -545,20 +542,75 @@ public final class Reflections {
                                       final Object... args) {
         final Class<?>[] parameterTypes = Arrays.stream(args).map(Object::getClass).toArray(Class[]::new);
         for (final Object instance : instances) {
+            Method method;
             try {
-                final Method method = instance.getClass().getDeclaredMethod(methodName, parameterTypes);
+                method = findMethod(instance.getClass(), methodName, parameterTypes);
+            } catch (final CheckedWrapperException ignore) {
+                method = null;
+            }
+            if (method != null) {
                 if (!method.canAccess(instance)) {
                     method.setAccessible(true);
                 }
-                return invokeMethod(instance, method, args);
-            } catch (final NoSuchMethodException ignore) {
-                // do nothing
+                final Object validInstance = isStatic(method.getModifiers()) ? null : instance;
+                return invokeMethod(validInstance, method, args);
             }
         }
         throw new IllegalArgumentException(format(
                 "At least one class must contain the method 'void ?()': classes=?",
                 methodName, instances.stream().map(Object::getClass).collect(toList())
         ));
+    }
+
+    /**
+     * Invokes the method by name.
+     *
+     * @param instance  the specified instance
+     * @param methodName the specified method name
+     * @param args       the arguments for the method
+     * @return the method result
+     * @see Method#canAccess(Object)
+     * @see Method#setAccessible(boolean)
+     * @see Method#invoke(Object, Object...)
+     * @throws CheckedWrapperException
+     * <ul>
+     *     <li>
+     *         if this {@code Method} object is enforcing Java language access control and the underlying method is inaccessible, or
+     *     </li>
+     *     <li>
+     *         if the underlying method throws an exception.
+     *     </li>
+     * </ul>
+     * @throws SecurityException            if the request is denied by the security manager
+     * @throws IllegalArgumentException
+     * <ul>
+     *      <li>
+     *          if this reflected object is a static member or constructor and the given {@code obj} is non-{@code null}, or
+     *      </li>
+     *      <li>
+     *          if this reflected object is an instance method or field and the given {@code obj} is {@code null} or
+     *          of type that is not a subclass of the {@link java.lang.reflect.Member#getDeclaringClass() declaring class} of the member, or
+     *      </li>
+     *      <li>
+     *          if the specified object is not an instance of the class or interface declaring the underlying
+     *          field (or a subclass or implementor thereof), or
+     *      </li>
+     * </ul>
+     * @throws NullPointerException         if any parameter is null
+     * @throws ExceptionInInitializerError  if the initialization provoked by this method fails.
+     * @throws java.lang.reflect.InaccessibleObjectException if access cannot be enabled
+     */
+    @SuppressWarnings("UnusedReturnValue")
+    public static Object invokeMethod(final Object instance,
+                                      final String methodName,
+                                      final Object... args) {
+        final Class<?>[] parameterTypes = Arrays.stream(args).map(Object::getClass).toArray(Class[]::new);
+        final Method method = findMethod(instance.getClass(), methodName, parameterTypes);
+        final Object validInstance = isStatic(method.getModifiers()) ? null : instance;
+        if (!method.canAccess(instance)) {
+            method.setAccessible(true);
+        }
+        return invokeMethod(validInstance, method, args);
     }
 
     /**
@@ -602,20 +654,57 @@ public final class Reflections {
                                       final Object... args) {
         try {
             return method.invoke(instance, args);
-        } catch (final IllegalAccessException ex) {
+        } catch (final IllegalAccessException | InvocationTargetException ex) {
             throw new CheckedWrapperException(ex);
-        } catch (final InvocationTargetException ex) {
-            throw new CheckedWrapperException(ex.getTargetException());
         }
     }
 
-    private static boolean isValidInstance(final Field field,
+    private static boolean isValidInstance(final Member member,
                                            final Object instance) {
         if (instance == null) {
-            return isStatic(field.getModifiers());
+            return isStatic(member.getModifiers());
         } else {
-            return instance.getClass() == field.getDeclaringClass() ||
-                    allSuperClasses(instance.getClass()).contains(field.getDeclaringClass());
+            return instance.getClass() == member.getDeclaringClass() ||
+                    allSuperClasses(instance.getClass()).contains(member.getDeclaringClass());
+        }
+    }
+
+    private static Field findField(final Class<?> clazz,
+                                   final String fieldName) {
+        try {
+            return clazz.getDeclaredField(fieldName);
+        } catch (final NoSuchFieldException ex) {
+            for (final Class<?> superClass : allSuperClasses(clazz)) {
+                try {
+                    return superClass.getDeclaredField(fieldName);
+                } catch (final NoSuchFieldException ignore) {
+                    // do nothing
+                }
+            }
+            throw new CheckedWrapperException(ex, "Field '?.?' not defined", clazz.getName(), fieldName);
+        }
+    }
+
+    private static Method findMethod(final Class<?> clazz,
+                                     final String methodName,
+                                     final Class<?>[] parameterTypes) {
+        try {
+            return clazz.getDeclaredMethod(methodName, parameterTypes);
+        } catch (final NoSuchMethodException ex) {
+            for (final Class<?> superClass : allSuperClasses(clazz)) {
+                try {
+                    return superClass.getDeclaredMethod(methodName, parameterTypes);
+                } catch (final NoSuchMethodException ignore) {
+                    // do nothing
+                }
+            }
+            throw new CheckedWrapperException(
+                    ex,
+                    "Method '?.?(?)' not defined",
+                    clazz.getName(),
+                    methodName,
+                    Arrays.stream(parameterTypes).map(Class::getName).collect(joining(", "))
+            );
         }
     }
 
