@@ -24,7 +24,6 @@ import io.rxmicro.annotation.processor.common.component.WithParentClassStructure
 import io.rxmicro.annotation.processor.common.component.impl.AbstractModuleClassStructuresBuilder;
 import io.rxmicro.annotation.processor.common.model.ClassStructure;
 import io.rxmicro.annotation.processor.common.model.EnvironmentContext;
-import io.rxmicro.annotation.processor.common.model.WithParentClassStructure;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingBecauseAFewErrorsFoundException;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
 import io.rxmicro.annotation.processor.common.util.Elements;
@@ -268,21 +267,12 @@ public final class RestServerModuleClassStructuresBuilder extends AbstractModule
     }
 
     private void setParentsForExistingChildren(final RestControllerClassStructureStorage.Builder builder) {
-        initializeParentsIfExist(builder.getRequestValidators());
-        initializeParentsIfExist(builder.getResponseValidators());
-        initializeParentsIfExist(builder.getModelReaders());
-        initializeParentsIfExist(builder.getModelWriters());
-        initializeParentsIfExist(builder.getModelFromJsonConverters());
-        initializeParentsIfExist(builder.getModelToJsonConverters());
-    }
-
-    @SuppressWarnings("unchecked")
-    private <T extends ClassStructure> void initializeParentsIfExist(final Set<T> set) {
-        for (final T classStructure : set) {
-            if (classStructure instanceof WithParentClassStructure) {
-                withParentClassStructureInitializer.setParentIfExists((WithParentClassStructure<T, ?, ?>) classStructure, set);
-            }
-        }
+        withParentClassStructureInitializer.setParentIfExists(builder.getRequestValidators());
+        withParentClassStructureInitializer.setParentIfExists(builder.getResponseValidators());
+        withParentClassStructureInitializer.setParentIfExists(builder.getModelReaders());
+        withParentClassStructureInitializer.setParentIfExists(builder.getModelWriters());
+        withParentClassStructureInitializer.setParentIfExists(builder.getModelFromJsonConverters());
+        withParentClassStructureInitializer.setParentIfExists(builder.getModelToJsonConverters());
     }
 
     private void logRestControllerClassStructureStorage(final RestControllerClassStructureStorage.Builder builder) {

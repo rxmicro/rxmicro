@@ -24,7 +24,6 @@ import io.rxmicro.annotation.processor.common.model.WithParentClassStructure;
 import io.rxmicro.annotation.processor.common.model.type.ObjectModelClass;
 
 import java.util.Collection;
-import java.util.Optional;
 
 import static io.rxmicro.annotation.processor.common.util.LoggerMessages.getLoggableParentChildRelationFragment;
 
@@ -37,29 +36,34 @@ public final class WithParentClassStructureInitializerImpl extends AbstractProce
         implements WithParentClassStructureInitializer {
 
     @Override
-    public <CS extends ClassStructure, MF extends ModelField, MC extends ObjectModelClass<MF>> void setParentIfExists(
-            final WithParentClassStructure<CS, MF, MC> withParentClassStructure,
-            final Collection<CS> classStructureCandidates) {
-        final MC modelClass = withParentClassStructure.getModelClass();
+    public <CS extends ClassStructure & WithParentClassStructure<CS, MF, MC>, MF extends ModelField, MC extends ObjectModelClass<MF>>
+    void setParentIfExists(final Collection<CS> classStructureCandidates) {
+        for (final CS currentItem : classStructureCandidates) {
+            setParent(classStructureCandidates, currentItem);
+        }
+    }
+
+    private <CS extends ClassStructure & WithParentClassStructure<CS, MF, MC>, MF extends ModelField, MC extends ObjectModelClass<MF>>
+    void setParent(final Collection<CS> classStructureCandidates,
+                   final CS currentItem) {
+        final MC modelClass = currentItem.getModelClass();
         for (final ObjectModelClass<MF> parent : modelClass.getAllParents()) {
             final String javaFullClassName = parent.getJavaFullClassName();
             for (final CS classStructureCandidate : classStructureCandidates) {
-                if (!withParentClassStructure.equals(classStructureCandidate)) {
-                    final Optional<String> modelClassFullClassNameOptional = classStructureCandidate.getModelClassFullClassName();
-                    if (modelClassFullClassNameOptional.isPresent() && modelClassFullClassNameOptional.get().equals(javaFullClassName)) {
-                        if (withParentClassStructure.setParent(classStructureCandidate)) {
-                            debug(
-                                    "Set parent class structure:\n?",
-                                    () -> getLoggableParentChildRelationFragment(
-                                            0,
-                                            true,
-                                            classStructureCandidate,
-                                            withParentClassStructure
-                                    )
-                            );
-                        }
-                        return;
+                if (!currentItem.equals(classStructureCandidate) &&
+                        classStructureCandidate.getModelClass().getJavaFullClassName().equals(javaFullClassName)) {
+                    if (currentItem.setParent(classStructureCandidate)) {
+                        debug(
+                                "Set parent class structure:\n?",
+                                () -> getLoggableParentChildRelationFragment(
+                                        0,
+                                        true,
+                                        classStructureCandidate,
+                                        currentItem
+                                )
+                        );
                     }
+                    return;
                 }
             }
         }

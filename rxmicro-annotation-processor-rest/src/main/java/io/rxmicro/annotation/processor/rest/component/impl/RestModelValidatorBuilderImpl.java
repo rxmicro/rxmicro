@@ -70,8 +70,13 @@ public final class RestModelValidatorBuilderImpl extends AbstractProcessorCompon
         final Set<ModelValidatorClassStructure> result = new HashSet<>();
         for (final RestObjectModelClass objectModelClass : objectModelClasses) {
             extractValidators(result, objectModelClass, new HashSet<>(), false);
-            for (final ObjectModelClass<RestModelField> parent : objectModelClass.getAllParents()) {
-                extractValidators(result, (RestObjectModelClass) parent, new HashSet<>(), false);
+            for (final ObjectModelClass<RestModelField> p : objectModelClass.getAllParents()) {
+                final RestObjectModelClass parent = (RestObjectModelClass) p;
+                if (parent.isModelClassReturnedByRestMethod() ||
+                        parent.isHeadersOrPathVariablesOrInternalsPresent() ||
+                        parent.isParamEntriesPresent()) {
+                    extractValidators(result, parent, new HashSet<>(), false);
+                }
             }
         }
         return result;

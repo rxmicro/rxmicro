@@ -29,7 +29,6 @@ import java.util.Collection;
  */
 public interface WithParentClassStructureInitializer {
 
-    <CS extends ClassStructure, MF extends ModelField, MC extends ObjectModelClass<MF>> void setParentIfExists(
-            WithParentClassStructure<CS, MF, MC> withParentClassStructure,
+    <CS extends ClassStructure & WithParentClassStructure<CS, MF, MC>, MF extends ModelField, MC extends ObjectModelClass<MF>> void setParentIfExists(
             Collection<CS> classStructureCandidates);
 }

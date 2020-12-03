@@ -21,7 +21,6 @@ import io.rxmicro.annotation.processor.common.model.ClassStructure;
 import io.rxmicro.annotation.processor.common.model.WithParentClassStructure;
 import io.rxmicro.annotation.processor.rest.model.RestModelField;
 import io.rxmicro.annotation.processor.rest.model.RestObjectModelClass;
-import io.rxmicro.annotation.processor.rest.model.converter.ModelFromJsonConverterClassStructure;
 import io.rxmicro.http.error.ValidationException;
 import io.rxmicro.rest.model.HttpModelType;
 import io.rxmicro.validation.ConstraintValidator;
@@ -34,7 +33,6 @@ import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Stream;
@@ -94,11 +92,6 @@ public final class ModelValidatorClassStructure extends ClassStructure
     @Override
     public RestObjectModelClass getModelClass() {
         return modelClass;
-    }
-
-    @Override
-    public Optional<String> getModelClassFullClassName() {
-        return Optional.of(modelClass.getJavaFullClassName());
     }
 
     public String getModelFullClassName() {

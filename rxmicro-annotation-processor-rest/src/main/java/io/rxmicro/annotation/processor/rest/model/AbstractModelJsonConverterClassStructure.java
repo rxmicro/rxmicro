@@ -24,7 +24,6 @@ import io.rxmicro.rest.model.ExchangeFormat;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 import java.util.Set;
 
 import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.getModelTransformerFullClassName;
@@ -48,11 +47,6 @@ public abstract class AbstractModelJsonConverterClassStructure extends ClassStru
         this.modelClass = require(modelClass);
         this.exchangeFormat = require(exchangeFormat);
         this.allChildrenObjectModelClasses = modelClass.getAllChildrenObjectModelClasses();
-    }
-
-    @Override
-    public final Optional<String> getModelClassFullClassName() {
-        return Optional.of(modelClass.getJavaFullClassName());
     }
 
     public final RestObjectModelClass getModelClass() {

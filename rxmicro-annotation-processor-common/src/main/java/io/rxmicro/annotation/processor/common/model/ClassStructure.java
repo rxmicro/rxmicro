@@ -38,20 +38,6 @@ public abstract class ClassStructure implements Comparable<ClassStructure>, Logg
         return getSimpleName(getTargetFullClassName());
     }
 
-    /**
-     * Returns the full class name for model class that is used to generate the current class structure if exists,
-     * otherwise {@link Optional#empty()}
-     *
-     * <p>
-     * For example for {@code ModelReader<T>} the {@code T} will be returned.
-     *
-     * @return the full class name for model class that is used to generate the current class structure if exists,
-     *          otherwise {@link Optional#empty()}
-     */
-    public Optional<String> getModelClassFullClassName() {
-        return Optional.empty();
-    }
-
     public abstract String getTargetFullClassName();
 
     public abstract String getTemplateName();
