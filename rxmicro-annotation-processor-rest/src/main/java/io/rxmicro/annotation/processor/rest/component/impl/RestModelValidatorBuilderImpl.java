@@ -69,7 +69,8 @@ public final class RestModelValidatorBuilderImpl extends AbstractProcessorCompon
     public Set<ModelValidatorClassStructure> build(final List<RestObjectModelClass> objectModelClasses) {
         final Set<ModelValidatorClassStructure> result = new HashSet<>();
         for (final RestObjectModelClass objectModelClass : objectModelClasses) {
-            extractValidators(result, objectModelClass, new HashSet<>(), false);
+            final boolean isValidatorGenerated = extractValidators(result, objectModelClass, new HashSet<>(), false);
+            final int sizeBefore = result.size();
             for (final ObjectModelClass<RestModelField> p : objectModelClass.getAllParents()) {
                 final RestObjectModelClass parent = (RestObjectModelClass) p;
                 if (parent.isModelClassReturnedByRestMethod() ||
@@ -78,24 +79,30 @@ public final class RestModelValidatorBuilderImpl extends AbstractProcessorCompon
                     extractValidators(result, parent, new HashSet<>(), false);
                 }
             }
+            if (!isValidatorGenerated && sizeBefore < result.size()) {
+                // Generate empty validator for child class that has parent validators!
+                result.add(new ModelValidatorClassStructure.Builder(objectModelClass).build(false));
+            }
         }
         return result;
     }
 
-    private void extractValidators(final Set<ModelValidatorClassStructure> result,
-                                   final RestObjectModelClass objectModelClass,
-                                   final Set<ModelValidatorClassStructure> childrenValidators,
-                                   final boolean optional) {
+    private boolean extractValidators(final Set<ModelValidatorClassStructure> result,
+                                      final RestObjectModelClass objectModelClass,
+                                      final Set<ModelValidatorClassStructure> childrenValidators,
+                                      final boolean optional) {
         final ModelValidatorClassStructure.Builder builder = new ModelValidatorClassStructure.Builder(objectModelClass);
         extractPrimitiveValidators(objectModelClass, builder);
         extractObjectChildValidators(result, objectModelClass, builder);
         extractObjectIterableChildValidators(result, objectModelClass, builder);
         if (builder.isValidatorsNotFound()) {
-            return;
+            return false;
+        } else {
+            final ModelValidatorClassStructure classStructure = builder.build(optional);
+            result.add(classStructure);
+            childrenValidators.add(classStructure);
+            return true;
         }
-        final ModelValidatorClassStructure classStructure = builder.build(optional);
-        result.add(classStructure);
-        childrenValidators.add(classStructure);
     }
 
     private void extractPrimitiveValidators(final RestObjectModelClass objectModelClass,
