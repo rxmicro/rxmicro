@@ -12,9 +12,9 @@ Unit tests                                              | 50%
 
 Feature                                                 | Status
 ------------------------------------------------------- | --------------------------------------------------------
-Java CompletableFuture                                  | **Supported**
-Spring reactor (Mono, Flux)                             | **Supported**
-RxJava3 (Single, Maybe, Completable, Flowable)          | **Supported**
+Java `CompletableFuture`                                | **Supported**
+Spring reactor (`Mono`, `Flux`)                         | **Supported**
+RxJava3 (`Single`, `Maybe`, `Completable`, `Flowable`)  | **Supported**
 
 ## Common features
 
@@ -25,18 +25,17 @@ Annotation configuration                                | **Supported**
 System variable configuration                           | **Supported**
 System properties configuration                         | **Supported**
 File configuration                                      | **Supported**
+Dynamic configuration                                   | **Supported**
 System OUT Logging                                      | **Supported**
-File Logging                                            | TODO
-Log aggregation                                         | TODO
 Properties file support                                 | **Supported**
 Async file access                                       | TODO
-JSON Format                                             | **Supported**
+`JSON` Format                                           | **Supported**
 Link to documentation in error message                  | In progress
 Runtime context                                         | **Supported**
 Transient model fields                                  | **Supported**
-Netty native support (Linux/OSX)                        | **Supported**
+Netty native support (`Linux/OSX`)                      | **Supported**
 GraalVM native images                                   | **Supported**
-XML exchange format                                     | TODO
+`XML` exchange format                                   | TODO
 
 ## Context Dependency Injection
 
@@ -53,8 +52,10 @@ JEE Injection style                                     | **Supported**
 Spring Injection style                                  | **Supported**
 Internal types injection                                | **Supported**
 Custom bean injection                                   | **Supported**
-@Factory method                                         | **Supported**
-@Factory class                                          | **Supported**
+`@PostConstruct` annotation                             | **Supported**
+`@Factory` method                                       | **Supported**
+`@Factory` class                                        | **Supported**
+`@Resource` annotation                                  | **Supported**
 Optional injection                                      | **Supported**
 Multibinder                                             | **Supported**
 Dependency graph verification during compilation        | TODO
@@ -69,10 +70,11 @@ HTTP Headers                                            | **Supported**
 HTTP Parameters                                         | **Supported**
 HTTP Parameters Discriminator                           | TODO
 HTTP Path Variables                                     | **Supported**
+Model inheritance                                       | **Supported**
 Map model type                                          | **Supported**
 Internal request params (Url, Method, Remote address)   | **Supported**
 Internal response params (body, status, headers)        | **Supported**
-@SuccessStatus                                          | **Supported**
+`@SuccessStatus`                                        | **Supported**
 not found message                                       | **Supported**
 Mapping strategy                                        | **Supported**
 Virtual request for primitive method parameters         | **Supported**
@@ -101,9 +103,9 @@ HTTP Parameters                                         | **Supported**
 HTTP Path Variables                                     | **Supported**
 HTTP Parameters Discriminator                           | TODO
 Virtual request for primitive method parameters         | **Supported**
-Static headers (@AddHeader)                             | **Supported**
-Static query parameters (@AddQueryParameter)            | **Supported**
-Static default config values (@DefaultConfigValue)      | **Supported**
+Static headers (`@AddHeader`)                           | **Supported**
+Static query parameters (`@AddQueryParameter`)          | **Supported**
+Static default config values (`@DefaultConfigValue`)    | **Supported**
 Internal parameters (response body, status)             | **Supported**
 Mapping strategy                                        | **Supported**
 Map model type                                          | **Supported**
@@ -179,6 +181,14 @@ Feature                                                 | Status
 --------------------------------------------------------| --------------------------------------------------------
 Asciidoc documentation                                  | **Supported**
 Open API specification                                  | TODO
+
+## Monitoring
+
+Feature                                                 | Status
+--------------------------------------------------------| --------------------------------------------------------
+HealthCheck                                             | **Supported**
+Request tracing                                         | **Supported**
+
 
 ## Messaging
 
