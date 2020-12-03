@@ -18,8 +18,10 @@ package io.rxmicro.annotation.processor.rest.model.validator;
 
 import io.rxmicro.annotation.processor.common.model.ClassHeader;
 import io.rxmicro.annotation.processor.common.model.ClassStructure;
+import io.rxmicro.annotation.processor.common.model.WithParentClassStructure;
 import io.rxmicro.annotation.processor.rest.model.RestModelField;
 import io.rxmicro.annotation.processor.rest.model.RestObjectModelClass;
+import io.rxmicro.annotation.processor.rest.model.converter.ModelFromJsonConverterClassStructure;
 import io.rxmicro.http.error.ValidationException;
 import io.rxmicro.rest.model.HttpModelType;
 import io.rxmicro.validation.ConstraintValidator;
@@ -32,6 +34,7 @@ import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Stream;
@@ -53,7 +56,8 @@ import static java.util.stream.Collectors.toList;
  * @author nedis
  * @since 0.1
  */
-public final class ModelValidatorClassStructure extends ClassStructure {
+public final class ModelValidatorClassStructure extends ClassStructure
+        implements WithParentClassStructure<ModelValidatorClassStructure, RestModelField, RestObjectModelClass> {
 
     private final boolean optional;
 
@@ -68,6 +72,8 @@ public final class ModelValidatorClassStructure extends ClassStructure {
     private final Set<String> stdValidatorClassImports;
 
     private final Set<ModelValidatorClassStructure> childrenValidators;
+
+    private ModelValidatorClassStructure parent;
 
     private ModelValidatorClassStructure(final boolean optional,
                                          final ClassHeader.Builder classHeaderBuilder,
@@ -85,12 +91,24 @@ public final class ModelValidatorClassStructure extends ClassStructure {
         this.childrenValidators = require(childrenValidators);
     }
 
+    @Override
     public RestObjectModelClass getModelClass() {
         return modelClass;
     }
 
+    @Override
+    public Optional<String> getModelClassFullClassName() {
+        return Optional.of(modelClass.getJavaFullClassName());
+    }
+
     public String getModelFullClassName() {
         return modelClass.getJavaFullClassName();
+    }
+
+    @Override
+    public boolean setParent(final ModelValidatorClassStructure parent) {
+        this.parent = parent;
+        return true;
     }
 
     @Override
@@ -111,6 +129,12 @@ public final class ModelValidatorClassStructure extends ClassStructure {
         map.put("JAVA_MODEL_VALIDATOR_CREATORS", modelValidatorCreators);
         map.put("JAVA_MODEL_VALIDATOR_INVOKERS", modelFieldValidatorsInvokers);
         map.put("JAVA_MODEL_VALIDATOR_CHILDREN", childrenValidators);
+        if (parent != null) {
+            map.put("PARENT", parent.getTargetSimpleClassName());
+            map.put("HAS_PARENT", true);
+        } else {
+            map.put("HAS_PARENT", false);
+        }
         return map;
     }
 
@@ -131,6 +155,9 @@ public final class ModelValidatorClassStructure extends ClassStructure {
                                 .toArray(String[]::new)
                 )
                 .addStaticImport(StatelessValidators.class, "getStatelessValidator");
+        if (parent != null) {
+            classHeaderBuilder.addImports(parent.getTargetFullClassName());
+        }
         if (isRequiredReflectionGetter()) {
             classHeaderBuilder.addStaticImport(REFLECTIONS_FULL_CLASS_NAME, "getFieldValue");
         }

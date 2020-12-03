@@ -2,6 +2,11 @@
 <#-- -------------------------------------------------------------------------------------------------------- -->
 public final class ${JAVA_MODEL_CLASS.modelValidatorImplSimpleClassName} implements ConstraintValidator<${JAVA_MODEL_CLASS.javaSimpleClassName}> {
 
+    <#if HAS_PARENT>
+    private final ${PARENT} parentValidator =
+            new ${PARENT}();
+
+    </#if>
     <#list JAVA_MODEL_VALIDATOR_CHILDREN as CHILD>
     private final ${CHILD.modelClass.modelValidatorImplSimpleClassName} ${CHILD.modelClass.modelValidatorInstanceName} =
             new ${CHILD.modelClass.modelValidatorImplSimpleClassName}();
@@ -25,6 +30,10 @@ public final class ${JAVA_MODEL_CLASS.modelValidatorImplSimpleClassName} impleme
         if (model == null){
             return;
         }
+        </#if>
+        <#-- -------------------------------------------------------------------------------------------------------- -->
+        <#if HAS_PARENT>
+        parentValidator.validate(model, httpModelType, name);
         </#if>
         <#-- -------------------------------------------------------------------------------------------------------- -->
         <#list JAVA_MODEL_VALIDATOR_INVOKERS as INV>

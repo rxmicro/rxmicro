@@ -20,6 +20,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import io.rxmicro.annotation.processor.common.component.impl.AbstractProcessorComponent;
 import io.rxmicro.annotation.processor.common.model.type.ModelClass;
+import io.rxmicro.annotation.processor.common.model.type.ObjectModelClass;
 import io.rxmicro.annotation.processor.rest.component.AnnotationValueConverter;
 import io.rxmicro.annotation.processor.rest.component.AnnotationValueValidator;
 import io.rxmicro.annotation.processor.rest.component.ConstraintAnnotationExtractor;
@@ -69,6 +70,9 @@ public final class RestModelValidatorBuilderImpl extends AbstractProcessorCompon
         final Set<ModelValidatorClassStructure> result = new HashSet<>();
         for (final RestObjectModelClass objectModelClass : objectModelClasses) {
             extractValidators(result, objectModelClass, new HashSet<>(), false);
+            for (final ObjectModelClass<RestModelField> parent : objectModelClass.getAllParents()) {
+                extractValidators(result, (RestObjectModelClass) parent, new HashSet<>(), false);
+            }
         }
         return result;
     }
