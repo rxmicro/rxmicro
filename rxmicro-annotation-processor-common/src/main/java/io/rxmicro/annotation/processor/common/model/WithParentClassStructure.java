@@ -25,8 +25,7 @@ import io.rxmicro.annotation.processor.common.model.type.ObjectModelClass;
 public interface WithParentClassStructure<
         CS extends ClassStructure & WithParentClassStructure<CS, MF, MC>,
         MF extends ModelField,
-        MC extends ObjectModelClass<MF>
-        > extends LoggableClassName {
+        MC extends ObjectModelClass<MF>> extends LoggableClassName {
 
     String getTargetFullClassName();
 

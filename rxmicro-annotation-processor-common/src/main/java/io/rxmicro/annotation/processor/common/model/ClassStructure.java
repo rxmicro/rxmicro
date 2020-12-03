@@ -20,7 +20,6 @@ import io.rxmicro.annotation.processor.common.util.UsedByFreemarker;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import static io.rxmicro.annotation.processor.common.util.Names.getSimpleName;
 

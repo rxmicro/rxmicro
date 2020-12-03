@@ -22,8 +22,10 @@ package io.rxmicro.json.internal.reader;
  */
 public final class JsonDelimiters {
 
+    private static final int VERTICAL_TAB = 0x0B;
+
     static boolean isIgnoredDelimiter(final char ch) {
-        return ch == ' ' || ch == '\u00A0' || ch == '\t' || ch == '\n' || ch == '\r' || ch == 0x0B;
+        return ch == ' ' || ch == '\u00A0' || ch == '\t' || ch == '\n' || ch == '\r' || ch == VERTICAL_TAB;
     }
 
     static boolean isJsonObjectDelimiter(final char ch) {

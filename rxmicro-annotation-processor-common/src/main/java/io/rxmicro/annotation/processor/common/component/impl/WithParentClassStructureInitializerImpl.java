@@ -36,16 +36,18 @@ public final class WithParentClassStructureInitializerImpl extends AbstractProce
         implements WithParentClassStructureInitializer {
 
     @Override
-    public <CS extends ClassStructure & WithParentClassStructure<CS, MF, MC>, MF extends ModelField, MC extends ObjectModelClass<MF>>
-    void setParentIfExists(final Collection<CS> classStructureCandidates) {
+    public <CS extends ClassStructure & WithParentClassStructure<CS, MF, MC>,
+            MF extends ModelField,
+            MC extends ObjectModelClass<MF>> void setParentIfExists(final Collection<CS> classStructureCandidates) {
         for (final CS currentItem : classStructureCandidates) {
             setParent(classStructureCandidates, currentItem);
         }
     }
 
-    private <CS extends ClassStructure & WithParentClassStructure<CS, MF, MC>, MF extends ModelField, MC extends ObjectModelClass<MF>>
-    void setParent(final Collection<CS> classStructureCandidates,
-                   final CS currentItem) {
+    private <CS extends ClassStructure & WithParentClassStructure<CS, MF, MC>,
+            MF extends ModelField,
+            MC extends ObjectModelClass<MF>> void setParent(final Collection<CS> classStructureCandidates,
+                                                            final CS currentItem) {
         final MC modelClass = currentItem.getModelClass();
         for (final ObjectModelClass<MF> parent : modelClass.getAllParents()) {
             final String javaFullClassName = parent.getJavaFullClassName();

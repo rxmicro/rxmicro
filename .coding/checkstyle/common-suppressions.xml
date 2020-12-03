@@ -52,7 +52,7 @@
 
     <!-- This is a simple expression -->
     <suppress checks="BooleanExpressionComplexity"
-              files="IntegrationTestValidator.java|DBUnitTestValidator.java"/>
+              files="IntegrationTestValidator.java|DBUnitTestValidator.java|JsonDelimiters.java"/>
 
     <!-- This is a class-configurator -->
     <suppress checks="ClassFanOutComplexity"
