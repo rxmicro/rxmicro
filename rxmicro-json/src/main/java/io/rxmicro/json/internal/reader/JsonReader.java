@@ -25,11 +25,11 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import static io.rxmicro.common.util.ExCollections.unmodifiableList;
-import static io.rxmicro.common.util.ExCollections.unmodifiableMap;
 import static io.rxmicro.json.internal.reader.JsonDelimiters.isIgnoredDelimiter;
 import static io.rxmicro.json.internal.reader.JsonPropertyReader.readPropertyName;
 import static io.rxmicro.json.internal.reader.JsonPropertyReader.readPropertyValue;
+import static java.util.Collections.unmodifiableList;
+import static java.util.Collections.unmodifiableMap;
 
 /**
  * @author nedis

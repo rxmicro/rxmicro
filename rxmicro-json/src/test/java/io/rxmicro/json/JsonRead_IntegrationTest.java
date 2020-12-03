@@ -40,6 +40,7 @@ import static io.rxmicro.json.JsonData.getJsonStringFromClasspathResource;
 import static io.rxmicro.json.JsonHelper.readJson;
 import static io.rxmicro.json.JsonHelper.readJsonArray;
 import static io.rxmicro.json.JsonHelper.readJsonObject;
+import static java.util.Collections.singletonMap;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
@@ -134,6 +135,13 @@ final class JsonRead_IntegrationTest {
         final Object actual = readJson(getJsonStringFromClasspathResource("string-with-quotation-mark.json"));
         final String expected = "Hello \"Java\"";
         assertEquals(expected, actual);
+    }
+
+    @Test
+    @Order(12)
+    void Should_support_null_values() {
+        final Map<String, Object> actual = readJsonObject("{\"property\":null}");
+        assertEquals(singletonMap("property", null), actual);
     }
 
     private static final class JsonPrimitiveArgumentsProvider implements ArgumentsProvider {
