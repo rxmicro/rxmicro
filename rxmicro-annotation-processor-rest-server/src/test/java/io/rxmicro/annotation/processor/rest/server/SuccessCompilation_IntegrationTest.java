@@ -14,16 +14,23 @@
  * limitations under the License.
  */
 
-package io.rxmicro.annotation.processor.rest.server.success;
+package io.rxmicro.annotation.processor.rest.server;
 
-import io.rxmicro.annotation.processor.rest.server.AbstractRestServerAnnotationProcessorIntegrationTest;
+import io.rxmicro.annotation.processor.common.BaseRxMicroAnnotationProcessor;
+import io.rxmicro.annotation.processor.integration.test.AbstractRxMicroAnnotationProcessorIntegrationTest;
+import io.rxmicro.annotation.processor.integration.test.config.ExcludeExample;
+import io.rxmicro.annotation.processor.integration.test.config.IncludeExample;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ArgumentsSource;
 
 import java.io.IOException;
+import javax.annotation.processing.Processor;
 
 import static io.rxmicro.annotation.processor.config.SupportedOptions.RX_MICRO_BUILD_UNNAMED_MODULE;
 import static io.rxmicro.annotation.processor.integration.test.ExternalModule.EXTERNAL_NETTY_BUFFER_MODULE;
@@ -34,13 +41,24 @@ import static io.rxmicro.annotation.processor.integration.test.ExternalModule.EX
 import static io.rxmicro.annotation.processor.integration.test.ExternalModule.EXTERNAL_REACTIVE_STREAMS_MODULE;
 import static io.rxmicro.annotation.processor.integration.test.ExternalModule.EXTERNAL_REACTOR_CORE_MODULE;
 import static io.rxmicro.annotation.processor.integration.test.ExternalModule.EXTERNAL_RX_JAVA_3_MODULE;
+import static io.rxmicro.rest.server.detail.component.RestControllerAggregator.REST_CONTROLLER_AGGREGATOR_IMPL_CLASS_NAME;
 
 /**
  * @author nedis
- *
+ * @since 0.7.2
  */
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
-final class RestController_IntegrationTest extends AbstractRestServerAnnotationProcessorIntegrationTest {
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+final class SuccessCompilation_IntegrationTest extends AbstractRxMicroAnnotationProcessorIntegrationTest {
+
+    public SuccessCompilation_IntegrationTest() {
+        super(REST_CONTROLLER_AGGREGATOR_IMPL_CLASS_NAME);
+    }
+
+    @Override
+    protected final Processor createAnnotationProcessor() {
+        return new BaseRxMicroAnnotationProcessor(RestServerModuleClassStructuresBuilder.create());
+    }
 
     @BeforeEach
     void beforeEach() {
@@ -55,16 +73,32 @@ final class RestController_IntegrationTest extends AbstractRestServerAnnotationP
         addExternalModule(EXTERNAL_RX_JAVA_3_MODULE);
     }
 
+    @Order(1)
     @ParameterizedTest
+    @IncludeExample("io.rxmicro.examples.unnamed.module")
     @ArgumentsSource(AllInputPackagesArgumentsProvider.class)
-    void verify(final String packageName) throws IOException {
-        if (packageName.startsWith("io.rxmicro.examples.unnamed.module")) {
-            addAggregator("$$EnvironmentCustomizer");
-            addCompilerOption(RX_MICRO_BUILD_UNNAMED_MODULE, "true");
-            removeFromModulePath("rxmicro-documentation-asciidoctor");
-        } else if ("io.rxmicro.examples.rest.controller.extendable.model".equals(packageName)) {
-            addAggregator("$$EnvironmentCustomizer");
-        }
+    void Should_compile_unnamed_module_successful(final String packageName) throws IOException {
+        addAggregator("$$EnvironmentCustomizer");
+        addCompilerOption(RX_MICRO_BUILD_UNNAMED_MODULE, "true");
+        removeFromModulePath("rxmicro-documentation-asciidoctor");
+        super.verifyAllClassesInPackage(packageName);
+    }
+
+    @Order(2)
+    @ParameterizedTest
+    @IncludeExample("io.rxmicro.examples.rest.controller.extendable.model")
+    @ArgumentsSource(AllInputPackagesArgumentsProvider.class)
+    void Should_compile_extendable_model_successful(final String packageName) throws IOException {
+        addAggregator("$$EnvironmentCustomizer");
+        super.verifyAllClassesInPackage(packageName);
+    }
+
+    @Order(3)
+    @ParameterizedTest
+    @ExcludeExample("io.rxmicro.examples.unnamed.module")
+    @ExcludeExample("io.rxmicro.examples.rest.controller.extendable.model")
+    @ArgumentsSource(AllInputPackagesArgumentsProvider.class)
+    void Should_compile_successful(final String packageName) throws IOException {
         super.verifyAllClassesInPackage(packageName);
     }
 }

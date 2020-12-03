@@ -14,20 +14,25 @@
  * limitations under the License.
  */
 
-package io.rxmicro.annotation.processor.documentation.asciidoctor;
+package error.controller;
+
+import io.rxmicro.rest.method.GET;
 
 /**
  * @author nedis
- *
- * @since 0.1
+ * @since 0.7.2
  */
-public final class TestOptions {
+class Rest_controller_must_contain_accessible_default_contructor {
 
-    static final String RX_MICRO_IGNORE_EMPTY_SPACES_DURING_ASCIIDOCTOR_CONTENT_COMPARISON =
-            "RX_MICRO_IGNORE_EMPTY_SPACES_DURING_ASCIIDOCTOR_CONTENT_COMPARISON";
+    private Rest_controller_must_contain_accessible_default_contructor(){
 
-    static final boolean RX_MICRO_IGNORE_EMPTY_SPACES_DURING_ASCIIDOCTOR_CONTENT_COMPARISON_VALUE = true;
+    }
 
-    private TestOptions() {
+    @GET("/")
+    void test() {
+
     }
 }
+// Line: 25
+// Error: Class 'error.controller.Rest_controller_must_contain_accessible_default_contructor'
+//        must declare a public or protected or default constructor without parameters

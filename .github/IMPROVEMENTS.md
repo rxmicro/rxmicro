@@ -29,3 +29,4 @@
 * Add support of RequestIdSupplier to Mongo data repositories
 * Support QueryParams as internal variable
 * Support Map<String, Object> convertedBody as internal variable
+* Refactor integration tests for rxmicro framework testing

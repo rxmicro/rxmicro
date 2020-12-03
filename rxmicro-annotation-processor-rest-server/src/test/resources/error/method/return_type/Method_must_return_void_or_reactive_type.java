@@ -14,20 +14,22 @@
  * limitations under the License.
  */
 
-package io.rxmicro.annotation.processor.documentation.asciidoctor;
+package error.method.return_type;
+
+import io.rxmicro.rest.method.GET;
 
 /**
  * @author nedis
- *
- * @since 0.1
+ * @since 0.7.2
  */
-public final class TestOptions {
+public final class Method_must_return_void_or_reactive_type {
 
-    static final String RX_MICRO_IGNORE_EMPTY_SPACES_DURING_ASCIIDOCTOR_CONTENT_COMPARISON =
-            "RX_MICRO_IGNORE_EMPTY_SPACES_DURING_ASCIIDOCTOR_CONTENT_COMPARISON";
-
-    static final boolean RX_MICRO_IGNORE_EMPTY_SPACES_DURING_ASCIIDOCTOR_CONTENT_COMPARISON_VALUE = true;
-
-    private TestOptions() {
+    @GET("/")
+    String test(){
+        return "";
     }
 }
+// Line: 28
+// Error: Invalid return type. Expected one of the following: [java.util.concurrent.CompletionStage,
+//          java.util.concurrent.CompletableFuture, reactor.core.publisher.Mono, io.reactivex.rxjava3.core.Maybe,
+//          io.reactivex.rxjava3.core.Single, io.reactivex.rxjava3.core.Completable]

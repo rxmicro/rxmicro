@@ -14,20 +14,21 @@
  * limitations under the License.
  */
 
-package io.rxmicro.annotation.processor.documentation.asciidoctor;
+package error.method.modifier;
+
+import io.rxmicro.rest.method.GET;
 
 /**
  * @author nedis
- *
- * @since 0.1
+ * @since 0.7.2
  */
-public final class TestOptions {
+public final class Method_cant_be_static {
 
-    static final String RX_MICRO_IGNORE_EMPTY_SPACES_DURING_ASCIIDOCTOR_CONTENT_COMPARISON =
-            "RX_MICRO_IGNORE_EMPTY_SPACES_DURING_ASCIIDOCTOR_CONTENT_COMPARISON";
+    @GET("/")
+    static void test(){
 
-    static final boolean RX_MICRO_IGNORE_EMPTY_SPACES_DURING_ASCIIDOCTOR_CONTENT_COMPARISON_VALUE = true;
-
-    private TestOptions() {
     }
 }
+// Line: 28
+// Error: Annotation(s) '@io.rxmicro.rest.method.GET' couldn't be applied to the static method.
+//        Only not static methods are supported

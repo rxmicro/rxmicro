@@ -14,20 +14,20 @@
  * limitations under the License.
  */
 
-package io.rxmicro.annotation.processor.documentation.asciidoctor;
+package error.controller;
+
+import io.rxmicro.rest.method.GET;
 
 /**
  * @author nedis
- *
- * @since 0.1
+ * @since 0.7.2
  */
-public final class TestOptions {
+class Rest_controller_must_extend_Object_only extends Throwable {
 
-    static final String RX_MICRO_IGNORE_EMPTY_SPACES_DURING_ASCIIDOCTOR_CONTENT_COMPARISON =
-            "RX_MICRO_IGNORE_EMPTY_SPACES_DURING_ASCIIDOCTOR_CONTENT_COMPARISON";
+    @GET("/")
+    void test() {
 
-    static final boolean RX_MICRO_IGNORE_EMPTY_SPACES_DURING_ASCIIDOCTOR_CONTENT_COMPARISON_VALUE = true;
-
-    private TestOptions() {
     }
 }
+// Line: 25
+// Error: Rest controller class must extend java.lang.Object class only

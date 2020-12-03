@@ -14,20 +14,22 @@
  * limitations under the License.
  */
 
-package io.rxmicro.annotation.processor.documentation.asciidoctor;
+package error.method.redundant_annotations;
+
+import io.rxmicro.rest.ParameterMappingStrategy;
+import io.rxmicro.rest.method.GET;
 
 /**
  * @author nedis
- *
- * @since 0.1
+ * @since 0.7.2
  */
-public final class TestOptions {
+public final class Method_contains_redundant_ParameterMappingStrategy_annotation {
 
-    static final String RX_MICRO_IGNORE_EMPTY_SPACES_DURING_ASCIIDOCTOR_CONTENT_COMPARISON =
-            "RX_MICRO_IGNORE_EMPTY_SPACES_DURING_ASCIIDOCTOR_CONTENT_COMPARISON";
+    @GET("/")
+    @ParameterMappingStrategy
+    void test(){
 
-    static final boolean RX_MICRO_IGNORE_EMPTY_SPACES_DURING_ASCIIDOCTOR_CONTENT_COMPARISON_VALUE = true;
-
-    private TestOptions() {
     }
 }
+// Line: 30
+// Error: Detected redundant annotation: '@io.rxmicro.rest.ParameterMappingStrategy'
