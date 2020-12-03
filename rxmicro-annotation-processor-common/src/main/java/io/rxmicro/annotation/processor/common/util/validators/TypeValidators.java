@@ -37,6 +37,7 @@ import static javax.lang.model.element.ElementKind.ENUM;
 import static javax.lang.model.element.Modifier.ABSTRACT;
 import static javax.lang.model.element.Modifier.PROTECTED;
 import static javax.lang.model.element.Modifier.PUBLIC;
+import static javax.lang.model.type.TypeKind.TYPEVAR;
 import static javax.lang.model.type.TypeKind.WILDCARD;
 
 /**
@@ -205,6 +206,9 @@ public final class TypeValidators {
             for (final TypeMirror itemType : typeArguments) {
                 if (itemType.getKind() == WILDCARD) {
                     throw new InterruptProcessingException(owner, "?Wildcard is not allowed: ?", validPrefix, type);
+                }
+                if (itemType.getKind() == TYPEVAR) {
+                    throw new InterruptProcessingException(owner, "?Type variable is not allowed: ?", validPrefix, type);
                 }
                 if (isGenericType(itemType)) {
                     validateGenericType(owner, itemType, prefix);
