@@ -2,6 +2,41 @@
 
 This document contains the *change log* for all RxMicro releases since **0.2**.
 
+## RxMicro v0.7.2
+
+* Add an inheritance support for REST controller models 
+  (*REST clients and entity converters still does not support an inheritance. It will be implemented later*):
+  * RequestModelReader;
+  * RequestModelFromJsonConverter;
+  * RequestValidator;
+  * ResponseModelWriter;
+  * ResponseModelToJsonConverter;
+  * ResponseValidator;
+* Add additional validators:
+  * `java.util.Map<String, ?>` model must be supported for HTTP body only!
+  * `@RepeatQueryParameter` can be applied to REST client request only!
+* Fix path builder issue: now `/${a}/${b}` and `/${b}/${a}` resolved as different paths.
+* Add `rxmicro-annotation-processor-config` module, that contains public classes that used as configuration for 
+  the `RxMicro Annotation Processor`.
+* Fix the `RxMicro Annotation Processor` logger.
+* Add useful `DEBUG` log messages for the `RxMicro Annotation Processor`.
+* Add useful `INFO` log messages for the `RxMicro Test Annotation Processor`.
+* Fix modelReadAccessorType issue.
+* Fix `rxmicro-test-dbunit` module issues:
+  * `setCurrentDatabaseConnection()` must release previous connection if found;
+  * `TestDatabaseConfig` threadLocal variable must save copy of the global `TestDatabaseConfig` instance;
+  * `sharedDatabaseConnection` (connection for all tests in project) must be implemented correctly;
+* Add `JsonFactory.orderedJsonObject()` method that allows comparing two JSON objects with unordered properties.
+* Add `TYPEVAR` validation.
+* Add `InterruptProcessingBecauseAFewErrorsFoundException` that must be used to interrupt processing if any errors found.
+* Refactor integration.test module:
+  * Add `@ExcludeExample` annotation;
+  * Add `@IncludeExample` annotation;
+  * Add `ExampleWithError` contract that allows setting the error messages at example source code as line comment.
+  * Add `shouldThrowCompilationError` method that simplifies the failed compilation test writing.
+* Fix `JsonReader` component: 
+  the previous version did not support `null` values, thus the following JSON `{"value": null}` couldn't be parsed.
+
 ## RxMicro v0.7.1
 
 * Dependency updates:
