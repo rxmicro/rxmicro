@@ -23,7 +23,7 @@ package io.rxmicro.json.internal.reader;
 public final class JsonDelimiters {
 
     static boolean isIgnoredDelimiter(final char ch) {
-        return ch <= ' ' || ch == '\u00A0';
+        return ch == ' ' || ch == '\u00A0' || ch == '\t' || ch == '\n' || ch == '\r' || ch == 0x0B;
     }
 
     static boolean isJsonObjectDelimiter(final char ch) {
