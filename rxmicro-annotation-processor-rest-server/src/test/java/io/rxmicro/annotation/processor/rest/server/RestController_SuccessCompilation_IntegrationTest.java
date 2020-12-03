@@ -87,6 +87,7 @@ final class RestController_SuccessCompilation_IntegrationTest extends AbstractRx
     @Order(2)
     @ParameterizedTest
     @IncludeExample("io.rxmicro.examples.rest.controller.extendable.model")
+    @IncludeExample("io.rxmicro.examples.validation.server.extendable.model")
     @ArgumentsSource(AllInputPackagesArgumentsProvider.class)
     void Should_compile_extendable_model_successful(final String packageName) throws IOException {
         addAggregator("$$EnvironmentCustomizer");
@@ -97,6 +98,7 @@ final class RestController_SuccessCompilation_IntegrationTest extends AbstractRx
     @ParameterizedTest
     @ExcludeExample("io.rxmicro.examples.unnamed.module")
     @ExcludeExample("io.rxmicro.examples.rest.controller.extendable.model")
+    @ExcludeExample("io.rxmicro.examples.validation.server.extendable.model")
     @ArgumentsSource(AllInputPackagesArgumentsProvider.class)
     void Should_compile_successful(final String packageName) throws IOException {
         shouldCompileAndGenerateClassesSuccessfully(packageName);
