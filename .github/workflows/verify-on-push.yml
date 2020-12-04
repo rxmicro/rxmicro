@@ -148,7 +148,7 @@ jobs:
       - name: Save latest rxmicro artefacts
         uses: actions/upload-artifact@v2
         with:
-          name: latest-rxmicro-version
+          name: rxmicro-framework
           path: ~/.m2/repository/io/rxmicro/
           if-no-files-found: error
           retention-days: 1
@@ -225,7 +225,7 @@ jobs:
       - name: Download latest rxmicro artifacts
         uses: actions/download-artifact@v2
         with:
-          name: latest-rxmicro-version
+          name: rxmicro-framework
           path: ~/.m2/repository/io/rxmicro/
 
       # Print dir tree with file size for debug purposes
@@ -320,6 +320,6 @@ jobs:
       - name: Save latest rxmicro artefacts
         uses: actions/upload-artifact@v2
         with:
-          name: latest-maven-report-${{ github.sha }}
+          name: staging-report-${{ github.sha }}
           path: ./target/staging
           if-no-files-found: error
