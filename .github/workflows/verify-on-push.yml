@@ -244,13 +244,14 @@ jobs:
       - name: Collect jacoco metadata
         run: |
           mkdir -p ~/jacoco
-          find ./rxmicro-usage/examples/${{ matrix.group }} -name '*.exec' -exec /bin/bash -c 'count=0; for name in "$@"; do count=`expr $count + 1`; cp $name ~/jacoco/jacoco-$count.exec; done' argv0 {} +
+          cp ./rxmicro-usage/tool/src/main/java/CopyJacocoExec.java CopyJacocoExec.java
+          java CopyJacocoExec.java ./rxmicro-usage/examples/${{ matrix.group }} ~/jacoco
 
       # https://github.com/actions/upload-artifact/blob/main/README.md
       - name: Save collected jacoco metadata
         uses: actions/upload-artifact@v2
         with:
-          name: latest-jacoco-meta-data-${{ matrix.group }}
+          name: jacoco-${{ matrix.group }}-meta-data
           path: ~/jacoco
           if-no-files-found: ignore
           retention-days: 1
