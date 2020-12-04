@@ -323,6 +323,7 @@ jobs:
     needs:
       - verify-using-profiles
       - test-on-linux-windows-and-macos
+      - verify-examples
       - update-user-guide
 
     steps:
@@ -359,3 +360,21 @@ jobs:
 
       - name: Deploy to OSSRH
         run: mvn -P release -DskipTests deploy
+
+      - name: Resolve release tag
+        id: resolve-release-tag
+        run: |
+          LATEST_VERSION=$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)
+          RELEASE_VERSION=$(echo $LATEST_VERSION | sed 's/-SNAPSHOT//g')
+          echo "::set-output name=version::$RELEASE_VERSION"
+
+      # https://github.com/ncipollo/release-action/blob/main/README.md
+      - name: Update github release
+        uses: ncipollo/release-action@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          tag: ${{ steps.resolve-release-tag.outputs.version }}
+          prerelease: false
+          allowUpdates: true
+          omitNameDuringUpdate: true
+          omitBodyDuringUpdate: true
