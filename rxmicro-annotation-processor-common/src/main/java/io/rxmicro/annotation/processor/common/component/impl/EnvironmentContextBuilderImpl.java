@@ -21,10 +21,8 @@ import com.google.inject.Singleton;
 import io.rxmicro.annotation.processor.common.component.CurrentModuleDecorator;
 import io.rxmicro.annotation.processor.common.component.EnvironmentContextBuilder;
 import io.rxmicro.annotation.processor.common.component.ModuleInfoDescriptorValidator;
-import io.rxmicro.annotation.processor.common.model.DefaultConfigProxyValue;
 import io.rxmicro.annotation.processor.common.model.EnvironmentContext;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
-import io.rxmicro.annotation.processor.common.util.Annotations;
 import io.rxmicro.common.ImpossibleException;
 import io.rxmicro.common.RxMicroModule;
 import io.rxmicro.common.model.BaseModel;
@@ -44,10 +42,10 @@ import javax.lang.model.element.PackageElement;
 import javax.lang.model.element.QualifiedNameable;
 import javax.lang.model.element.TypeElement;
 
+import static io.rxmicro.annotation.processor.common.util.Annotations.getValidatedDefaultConfigValues;
 import static io.rxmicro.annotation.processor.common.util.Elements.asTypeElement;
 import static io.rxmicro.annotation.processor.common.util.Elements.doesExtendSuperType;
 import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getElements;
-import static io.rxmicro.common.util.Strings.startsWith;
 import static java.util.Map.entry;
 import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toMap;
@@ -88,7 +86,7 @@ public final class EnvironmentContextBuilderImpl extends AbstractProcessorCompon
                 rxMicroModules,
                 Set.copyOf(includePackages.keySet()),
                 Set.copyOf(excludePackages.keySet()),
-                getDefaultConfigValues(currentModule),
+                getValidatedDefaultConfigValues(currentModule),
                 getPackagesThatMustBeOpenedToRxMicroCommonModule(currentModule)
         );
         info("?", environmentContext);
@@ -119,21 +117,6 @@ public final class EnvironmentContextBuilderImpl extends AbstractProcessorCompon
                 );
             }
         }
-    }
-
-    private List<Map.Entry<String, DefaultConfigProxyValue>> getDefaultConfigValues(final ModuleElement currentModule) {
-        final List<Map.Entry<String, DefaultConfigProxyValue>> defaultConfigValues =
-                Annotations.getDefaultConfigValues("", currentModule);
-        for (final Map.Entry<String, DefaultConfigProxyValue> defaultConfigValue : defaultConfigValues) {
-            if (startsWith(defaultConfigValue.getKey(), '.')) {
-                throw new InterruptProcessingException(
-                        currentModule,
-                        "Missing name space for default config name: ?",
-                        defaultConfigValue.getKey().substring(1)
-                );
-            }
-        }
-        return defaultConfigValues;
     }
 
     private List<String> getPackagesThatMustBeOpenedToRxMicroCommonModule(final ModuleElement currentModule) {

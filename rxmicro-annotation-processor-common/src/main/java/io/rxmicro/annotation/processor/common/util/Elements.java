@@ -43,6 +43,7 @@ import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentH
 import static io.rxmicro.common.local.DeniedPackages.isDeniedPackage;
 import static io.rxmicro.common.util.ExCollectors.toUnmodifiableOrderedSet;
 import static io.rxmicro.common.util.Strings.capitalize;
+import static io.rxmicro.common.util.Strings.unCapitalize;
 import static java.util.stream.Collectors.toList;
 import static javax.lang.model.element.ElementKind.CONSTRUCTOR;
 import static javax.lang.model.element.ElementKind.ENUM;
@@ -206,6 +207,19 @@ public final class Elements {
             }
         }
         return methods;
+    }
+
+    public static Set<String> allDeclaredProperties(final TypeElement typeElement) {
+        return allMethods(typeElement, e ->
+                e.getModifiers().contains(PUBLIC) &&
+                        !e.getModifiers().contains(STATIC) &&
+                        e.getSimpleName().toString().startsWith("set") &&
+                        e.getParameters().size() == 1)
+                .stream()
+                .map(e -> e.getSimpleName().toString())
+                .filter(name -> name.length() > 3)
+                .map(name -> unCapitalize(name.substring(3)))
+                .collect(toUnmodifiableOrderedSet());
     }
 
     public static boolean superClassIsObject(final TypeMirror superClass) {

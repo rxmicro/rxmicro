@@ -32,6 +32,7 @@ import io.rxmicro.annotation.processor.data.sql.model.SQLDataModelField;
 import io.rxmicro.annotation.processor.data.sql.model.SQLDataRepositoryMethod;
 import io.rxmicro.annotation.processor.data.sql.r2dbc.postgresql.model.PostgreSQLDataObjectModelClass;
 import io.rxmicro.annotation.processor.data.sql.r2dbc.postgresql.model.PostgreSQLRepositoryClassStructure;
+import io.rxmicro.data.sql.r2dbc.postgresql.PostgreSQLConfig;
 import io.rxmicro.data.sql.r2dbc.postgresql.PostgreSQLRepository;
 
 import java.util.ArrayList;
@@ -44,10 +45,11 @@ import java.util.stream.Stream;
 import javax.lang.model.element.TypeElement;
 
 import static io.rxmicro.annotation.processor.common.model.ClassHeader.newClassHeaderBuilder;
-import static io.rxmicro.annotation.processor.common.util.Annotations.getDefaultConfigValues;
+import static io.rxmicro.annotation.processor.common.util.Annotations.getValidatedDefaultConfigValues;
 import static io.rxmicro.annotation.processor.common.util.Elements.asEnumElement;
 import static io.rxmicro.annotation.processor.common.util.Elements.asTypeElement;
 import static io.rxmicro.annotation.processor.common.util.Names.getPackageName;
+import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getElements;
 import static io.rxmicro.common.util.ExCollections.unmodifiableList;
 import static java.util.Map.entry;
 import static java.util.function.Function.identity;
@@ -82,13 +84,14 @@ public final class PostgreSQLRepositoryClassStructureBuilderImpl
                 classHeaderBuilder
         );
         final List<Map.Entry<TypeElement, String>> enumMapping = getEnumMappings(methods, dataGenerationContext);
+        final TypeElement configClass = Optional.ofNullable(getElements().getTypeElement(PostgreSQLConfig.class.getName())).orElseThrow();
         return new PostgreSQLRepositoryClassStructure(
                 classHeaderBuilder,
                 signature.getRepositoryInterface(),
                 signature.getRepositoryAbstractClass(),
                 postgreSQLRepository.configNameSpace(),
                 methods,
-                getDefaultConfigValues(postgreSQLRepository.configNameSpace(), signature.getRepositoryInterface()),
+                getValidatedDefaultConfigValues(postgreSQLRepository.configNameSpace(), configClass, signature.getRepositoryInterface()),
                 enumMapping
         );
     }

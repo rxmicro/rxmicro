@@ -29,14 +29,18 @@ import io.rxmicro.annotation.processor.data.mongo.model.MongoDataModelField;
 import io.rxmicro.annotation.processor.data.mongo.model.MongoDataObjectModelClass;
 import io.rxmicro.annotation.processor.data.mongo.model.MongoRepositoryClassStructure;
 import io.rxmicro.annotation.processor.data.mongo.model.MongoRepositoryMethod;
+import io.rxmicro.data.mongo.MongoConfig;
 import io.rxmicro.data.mongo.MongoRepository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
+import javax.lang.model.element.TypeElement;
 
 import static io.rxmicro.annotation.processor.common.model.ClassHeader.newClassHeaderBuilder;
-import static io.rxmicro.annotation.processor.common.util.Annotations.getDefaultConfigValues;
+import static io.rxmicro.annotation.processor.common.util.Annotations.getValidatedDefaultConfigValues;
 import static io.rxmicro.annotation.processor.common.util.Names.getPackageName;
+import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getElements;
 
 /**
  * @author nedis
@@ -65,6 +69,7 @@ public final class MongoRepositoryClassStructureBuilderImpl
                 signature,
                 classHeaderBuilder
         );
+        final TypeElement configClass = Optional.ofNullable(getElements().getTypeElement(MongoConfig.class.getName())).orElseThrow();
         return new MongoRepositoryClassStructure(
                 classHeaderBuilder,
                 signature.getRepositoryInterface(),
@@ -72,7 +77,7 @@ public final class MongoRepositoryClassStructureBuilderImpl
                 mongoRepository.collection(),
                 mongoRepository.configNameSpace(),
                 methods,
-                getDefaultConfigValues(mongoRepository.configNameSpace(), signature.getRepositoryInterface())
+                getValidatedDefaultConfigValues(mongoRepository.configNameSpace(), configClass, signature.getRepositoryInterface())
         );
     }
 }

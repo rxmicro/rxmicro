@@ -42,17 +42,13 @@ import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 import javax.lang.model.element.TypeElement;
 
-import static io.rxmicro.annotation.processor.common.util.Annotations.getDefaultConfigValues;
 import static io.rxmicro.annotation.processor.common.util.Annotations.getRequiredAnnotationClassParameter;
-import static io.rxmicro.annotation.processor.common.util.Elements.allMethods;
+import static io.rxmicro.annotation.processor.common.util.Annotations.getValidatedDefaultConfigValues;
 import static io.rxmicro.annotation.processor.common.util.Names.getPackageName;
 import static io.rxmicro.annotation.processor.common.util.Names.getSimpleName;
 import static io.rxmicro.common.util.Formats.format;
-import static io.rxmicro.common.util.Strings.unCapitalize;
 import static io.rxmicro.config.Config.getDefaultNameSpace;
 import static java.util.stream.Collectors.toSet;
-import static javax.lang.model.element.Modifier.PUBLIC;
-import static javax.lang.model.element.Modifier.STATIC;
 
 /**
  * @author nedis
@@ -105,8 +101,7 @@ public final class RestClientClassStructureBuilderImpl extends AbstractProcessor
                 getDefaultNameSpace(getSimpleName(configClass)) :
                 configNameSpace;
         final List<Map.Entry<String, DefaultConfigProxyValue>> defaultConfigValues =
-                getDefaultConfigValues(restClientConfigNameSpace, restClientInterface);
-        validateDefaultConfigValues(restClientInterface, configClass, defaultConfigValues);
+                getValidatedDefaultConfigValues(restClientConfigNameSpace, configClass, restClientInterface);
         return new RestClientClassStructure(
                 classHeaderBuilder,
                 restClientConfigNameSpace,
@@ -116,33 +111,6 @@ public final class RestClientClassStructureBuilderImpl extends AbstractProcessor
                 signature.getRestClientAbstractClass(),
                 methods,
                 restClientClassStructureStorage);
-    }
-
-    private void validateDefaultConfigValues(final TypeElement restClientInterface,
-                                             final TypeElement configClass,
-                                             final List<Map.Entry<String, DefaultConfigProxyValue>> defaultConfigValues) {
-        final Set<String> detectedNames = allMethods(configClass, e ->
-                e.getModifiers().contains(PUBLIC) &&
-                        !e.getModifiers().contains(STATIC) &&
-                        e.getSimpleName().toString().startsWith("set") &&
-                        e.getParameters().size() == 1)
-                .stream()
-                .map(e -> e.getSimpleName().toString())
-                .filter(name -> name.length() > 3)
-                .map(name -> unCapitalize(name.substring(3)))
-                .collect(toSet());
-        for (final Map.Entry<String, DefaultConfigProxyValue> value : defaultConfigValues) {
-            final String propertyName = value.getKey().substring(value.getKey().lastIndexOf('.') + 1);
-            if (!detectedNames.contains(propertyName)) {
-                throw new InterruptProcessingException(restClientInterface,
-                        "Config class '?' does not contain '?' property." +
-                                " Supported properties are : '?'." +
-                                " Fix the name for default config value!",
-                        configClass.asType().toString(),
-                        propertyName,
-                        detectedNames);
-            }
-        }
     }
 
     private StaticHeaders getCommonHeaders(final RestClientClassSignature signature,

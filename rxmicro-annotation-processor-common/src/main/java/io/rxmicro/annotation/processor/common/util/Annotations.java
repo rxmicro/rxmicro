@@ -29,6 +29,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -37,15 +38,18 @@ import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.AnnotationValue;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ExecutableElement;
+import javax.lang.model.element.ModuleElement;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.MirroredTypeException;
 
+import static io.rxmicro.annotation.processor.common.util.Elements.allDeclaredProperties;
 import static io.rxmicro.annotation.processor.common.util.Elements.asTypeElement;
 import static io.rxmicro.annotation.processor.common.util.Elements.findSetter;
 import static io.rxmicro.annotation.processor.common.util.Errors.createInternalErrorSupplier;
 import static io.rxmicro.annotation.processor.common.util.Names.getSimpleName;
 import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getElements;
 import static io.rxmicro.common.util.Formats.format;
+import static io.rxmicro.common.util.Strings.startsWith;
 import static io.rxmicro.config.Config.getDefaultNameSpace;
 import static java.util.Map.entry;
 
@@ -130,8 +134,62 @@ public final class Annotations {
         return getAnnotationClassParameter(classSupplier, Void.class).orElseThrow();
     }
 
-    public static List<Map.Entry<String, DefaultConfigProxyValue>> getDefaultConfigValues(final String defaultConfigNameSpace,
-                                                                                          final Element element) {
+    public static List<Map.Entry<String, DefaultConfigProxyValue>> getValidatedDefaultConfigValues(final String defaultConfigNameSpace,
+                                                                                                   final TypeElement configClass,
+                                                                                                   final Element element) {
+        final List<Map.Entry<String, DefaultConfigProxyValue>> values = getDefaultConfigValues(defaultConfigNameSpace, element);
+        validateDefaultConfigValues(defaultConfigNameSpace, configClass, element, values);
+        return values;
+    }
+
+    public static List<Map.Entry<String, DefaultConfigProxyValue>> getValidatedDefaultConfigValues(final ModuleElement moduleElement) {
+        final List<Map.Entry<String, DefaultConfigProxyValue>> values = getDefaultConfigValues("", moduleElement);
+        validateDefaultConfigValues(moduleElement, values);
+        return values;
+    }
+
+    private static void validateDefaultConfigValues(final String defaultConfigNameSpace,
+                                                    final TypeElement configClass,
+                                                    final Element element,
+                                                    final List<Map.Entry<String, DefaultConfigProxyValue>> values) {
+        final Set<String> declaredProperties = allDeclaredProperties(configClass);
+        for (final Map.Entry<String, DefaultConfigProxyValue> value : values) {
+            final String[] namePair = value.getKey().split("\\.");
+            final String nameSpace = namePair[0];
+            if (!defaultConfigNameSpace.equals(nameSpace)) {
+                throw new InterruptProcessingException(
+                        element,
+                        "Invalid namespace for property: '?'. Expected '?', but actual is '?'!",
+                        value.getKey(), defaultConfigNameSpace, nameSpace
+                );
+            }
+            final String propertyName = namePair[1];
+            if (!declaredProperties.contains(propertyName)) {
+                throw new InterruptProcessingException(
+                        element,
+                        "Config class '?' does not contain '?' property. Supported properties are : '?'." +
+                                " Fix the name for default config value!",
+                        configClass.asType().toString(), propertyName, declaredProperties
+                );
+            }
+        }
+    }
+
+    private static void validateDefaultConfigValues(final ModuleElement moduleElement,
+                                                    final List<Map.Entry<String, DefaultConfigProxyValue>> values) {
+        for (final Map.Entry<String, DefaultConfigProxyValue> defaultConfigValue : values) {
+            if (startsWith(defaultConfigValue.getKey(), '.')) {
+                throw new InterruptProcessingException(
+                        moduleElement,
+                        "Missing name space for default config name: ?",
+                        defaultConfigValue.getKey().substring(1)
+                );
+            }
+        }
+    }
+
+    private static List<Map.Entry<String, DefaultConfigProxyValue>> getDefaultConfigValues(final String defaultConfigNameSpace,
+                                                                                           final Element element) {
         return Stream.concat(
                 Arrays.stream(element.getAnnotationsByType(DefaultConfigValue.class)).map(defaultConfigValue -> entry(
                         getDefaultConfigValueName(
