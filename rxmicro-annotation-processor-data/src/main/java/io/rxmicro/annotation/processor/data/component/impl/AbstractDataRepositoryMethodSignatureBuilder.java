@@ -59,10 +59,10 @@ public abstract class AbstractDataRepositoryMethodSignatureBuilder
     @Override
     public final List<DataRepositoryMethodSignature> build(
             final EnvironmentContext environmentContext,
-            final TypeElement restClientInterface,
+            final TypeElement dataRepositoryInterface,
             final Map.Entry<TypeElement, List<ExecutableElement>> overriddenMethodCandidates) {
 
-        final List<ExecutableElement> methods = allImplementableMethods(restClientInterface);
+        final List<ExecutableElement> methods = allImplementableMethods(dataRepositoryInterface);
         validateMethods(methods, overriddenMethodCandidates.getValue());
         return methods.stream()
                 .filter(e -> notContainIn(e, overriddenMethodCandidates.getValue()))

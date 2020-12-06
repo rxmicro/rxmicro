@@ -41,6 +41,9 @@ public final class DataRepositoryInterfaceSignature extends TypeSignature {
         this.repositoryInterface = require(repositoryInterface);
         this.repositoryAbstractClass = require(repositoryAbstractClass);
         this.methods = require(methods);
+        for (final DataRepositoryMethodSignature method : methods) {
+            method.setDataRepositoryInterfaceSignature(this);
+        }
     }
 
     public TypeElement getRepositoryInterface() {

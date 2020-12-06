@@ -31,6 +31,6 @@ import javax.lang.model.element.TypeElement;
 public interface DataRepositoryMethodSignatureBuilder {
 
     List<DataRepositoryMethodSignature> build(EnvironmentContext environmentContext,
-                                              TypeElement restClientInterface,
+                                              TypeElement dataRepositoryInterface,
                                               Map.Entry<TypeElement, List<ExecutableElement>> overriddenMethodCandidates);
 }

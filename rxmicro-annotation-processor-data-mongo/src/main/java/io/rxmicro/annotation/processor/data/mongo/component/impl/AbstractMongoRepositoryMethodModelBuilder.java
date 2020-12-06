@@ -37,6 +37,10 @@ import io.rxmicro.data.DataRepositoryGeneratorConfig;
 import io.rxmicro.data.detail.adapter.PublisherToFluxFutureAdapter;
 import io.rxmicro.data.detail.adapter.PublisherToOptionalMonoFutureAdapter;
 import io.rxmicro.data.detail.adapter.PublisherToRequiredMonoFutureAdapter;
+import io.rxmicro.data.mongo.MongoRepository;
+import io.rxmicro.data.mongo.operation.Delete;
+import io.rxmicro.data.mongo.operation.Insert;
+import io.rxmicro.data.mongo.operation.Update;
 import io.rxmicro.logger.RequestIdSupplier;
 import org.bson.conversions.Bson;
 
@@ -51,7 +55,8 @@ import javax.lang.model.element.VariableElement;
 
 import static io.rxmicro.annotation.processor.data.model.CommonDataGroupRules.REQUEST_ID_SUPPLIER_GROUP;
 import static io.rxmicro.annotation.processor.data.model.CommonDataGroupRules.REQUEST_ID_SUPPLIER_PREDICATE;
-import static io.rxmicro.model.MappingStrategy.CAPITALIZE_CAMEL_CASE;
+import static io.rxmicro.common.util.Formats.format;
+import static io.rxmicro.common.util.Strings.unCapitalize;
 import static java.util.stream.Collectors.joining;
 
 /**
@@ -61,6 +66,12 @@ import static java.util.stream.Collectors.joining;
 public abstract class AbstractMongoRepositoryMethodModelBuilder
         extends AbstractDataRepositoryMethodModelBuilder<MongoDataModelField, MongoRepositoryMethod, MongoDataObjectModelClass>
         implements MongoRepositoryMethodModelBuilder {
+
+    private static final Map<Class<? extends Annotation>, String> MONGO_DB_NOT_STD_OPERATION_NAMES = Map.of(
+            Insert.class, "insertOne",
+            Update.class, "updateMany",
+            Delete.class, "deleteMany"
+    );
 
     private final Map<String, Predicate<VariableElement>> groupRules = Map.of(
             REQUEST_ID_SUPPLIER_GROUP, REQUEST_ID_SUPPLIER_PREDICATE
@@ -72,8 +83,13 @@ public abstract class AbstractMongoRepositoryMethodModelBuilder
     @Override
     protected final MongoRepositoryMethod build(final DataRepositoryMethodSignature dataRepositoryMethodSignature,
                                                 final MethodBody body) {
+        final String collection =
+                dataRepositoryMethodSignature.getDataRepositoryInterfaceSignature().getRepositoryInterface()
+                        .getAnnotation(MongoRepository.class).collection();
+        final String operation = Optional.ofNullable(MONGO_DB_NOT_STD_OPERATION_NAMES.get(operationType()))
+                .orElseGet(() -> unCapitalize(operationType().getSimpleName()));
         return new MongoRepositoryMethod(
-                CAPITALIZE_CAMEL_CASE.getModelName(operationType().getSimpleName()),
+                format("db.?.?()", collection, operation),
                 dataRepositoryMethodSignature,
                 body
         );

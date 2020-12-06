@@ -46,6 +46,8 @@ public final class DataRepositoryMethodSignature {
 
     private final List<MethodParameter> params;
 
+    private DataRepositoryInterfaceSignature dataRepositoryInterfaceSignature;
+
     public DataRepositoryMethodSignature(final SupportedTypesProvider supportedTypesProvider,
                                          final ExecutableElement method,
                                          final boolean operationReturnVoid,
@@ -56,6 +58,14 @@ public final class DataRepositoryMethodSignature {
         this.operationReturnVoid = operationReturnVoid;
         this.methodResult = require(methodResult);
         this.params = require(params);
+    }
+
+    public DataRepositoryInterfaceSignature getDataRepositoryInterfaceSignature() {
+        return dataRepositoryInterfaceSignature;
+    }
+
+    public void setDataRepositoryInterfaceSignature(final DataRepositoryInterfaceSignature dataRepositoryInterfaceSignature) {
+        this.dataRepositoryInterfaceSignature = dataRepositoryInterfaceSignature;
     }
 
     public ExecutableElement getMethod() {

@@ -25,7 +25,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
  * Denotes a repository method that must execute a
- * <a href="https://docs.mongodb.com/manual/reference/method/db.collection.updateMany/">{@code db.collection.updateOne()}</a> operation.
+ * <a href="https://docs.mongodb.com/manual/reference/method/db.collection.updateMany/">{@code db.collection.updateMany()}</a> operation.
  *
  * @author nedis
  * @see io.rxmicro.data.mongo.MongoRepository
