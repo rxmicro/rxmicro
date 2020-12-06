@@ -49,7 +49,7 @@ public final class SystemOutInjector {
                         SystemOut.class.getSimpleName()
                 );
             }
-            final SystemOutImpl systemOutImpl = new SystemOutImpl();
+            final SystemOutImpl systemOutImpl = new SystemOutImpl(ORIGINAL_OUT);
             setFieldValue(testInstances, this.systemOutField, systemOutImpl);
             System.setOut(systemOutImpl.getPrintStream());
         }

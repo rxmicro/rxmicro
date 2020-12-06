@@ -19,6 +19,8 @@ package io.rxmicro.test.internal;
 import io.rxmicro.test.SystemOut;
 
 import java.io.ByteArrayOutputStream;
+import java.io.FilterOutputStream;
+import java.io.IOException;
 import java.io.PrintStream;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
@@ -29,14 +31,52 @@ import static java.nio.charset.StandardCharsets.UTF_8;
  */
 public final class SystemOutImpl implements SystemOut {
 
-    private final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    private final SpyOutputStream spyOutputStream;
+
+    public SystemOutImpl(final PrintStream originalStdout) {
+        this.spyOutputStream = new SpyOutputStream(originalStdout);
+    }
 
     public PrintStream getPrintStream() {
-        return new PrintStream(outputStream, false, UTF_8);
+        return new PrintStream(spyOutputStream, false, UTF_8);
     }
 
     @Override
     public byte[] asBytes() {
-        return outputStream.toByteArray();
+        return spyOutputStream.byteArrayOutputStream.toByteArray();
+    }
+
+    /**
+     * @author nedis
+     * @since 0.7.2
+     */
+    @SuppressWarnings("NullableProblems")
+    private static final class SpyOutputStream extends FilterOutputStream {
+
+        private final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+
+        private SpyOutputStream(final PrintStream originalStdout) {
+            super(originalStdout);
+        }
+
+        @Override
+        public void write(final int byteValue) throws IOException {
+            super.write(byteValue);
+            byteArrayOutputStream.write(byteValue);
+        }
+
+        @Override
+        public void write(final byte[] bytes) throws IOException {
+            super.write(bytes);
+            byteArrayOutputStream.write(bytes);
+        }
+
+        @Override
+        public void write(final byte[] bytes,
+                          final int off,
+                          final int len) throws IOException {
+            super.write(bytes, off, len);
+            byteArrayOutputStream.write(bytes, off, len);
+        }
     }
 }
