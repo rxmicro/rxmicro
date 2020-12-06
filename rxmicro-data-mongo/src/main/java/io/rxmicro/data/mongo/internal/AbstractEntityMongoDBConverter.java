@@ -175,12 +175,25 @@ public abstract class AbstractEntityMongoDBConverter {
 
     protected final BigDecimal toBigDecimal(final Object value,
                                             final String fieldName) {
-        final Decimal128 decimal128 = toType(Decimal128.class, value, fieldName);
-        if (decimal128 != null) {
-            return decimal128.bigDecimalValue();
-        } else {
+        if (value == null) {
             return null;
+        } else if (isIntegerNumber(value)) {
+            final Number number = toType(Number.class, value, fieldName);
+            return BigDecimal.valueOf(number.longValue());
+        } else if (isDoubleOrFloatNumber(value)) {
+            final Number number = toType(Number.class, value, fieldName);
+            return BigDecimal.valueOf(number.doubleValue());
+        } else {
+            return toType(Decimal128.class, value, fieldName).bigDecimalValue();
         }
+    }
+
+    private boolean isIntegerNumber(final Object value) {
+        return value instanceof Integer || value instanceof Long;
+    }
+
+    private boolean isDoubleOrFloatNumber(final Object value) {
+        return value instanceof Double || value instanceof Float;
     }
 
     protected final List<BigDecimal> toBigDecimalList(final Object list,
