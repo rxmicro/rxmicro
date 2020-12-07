@@ -37,6 +37,7 @@ public final class MongoConfigCustomizer {
      * Returns the {@link MongoCodecsConfigurator} to configure required codecs.
      *
      * @return the {@link MongoCodecsConfigurator} to configure required codecs
+     * @throws IllegalStateException if mongo client already built
      */
     public static MongoCodecsConfigurator getCurrentMongoCodecsConfigurator() {
         return MongoClientBuilder.getInstance().getMongoCodecsConfigurator();
@@ -46,7 +47,8 @@ public final class MongoConfigCustomizer {
      * Returns {@link MongoClientSettings.Builder} instance that allows configuring the
      * {@link com.mongodb.reactivestreams.client.MongoClient} using low-level reactive Mongo DB java driver API.
      *
-     * @return Returns {@link MongoClientSettings.Builder} instance
+     * @return {@link MongoClientSettings.Builder} instance
+     * @throws IllegalStateException if mongo client already built
      */
     public MongoClientSettings.Builder getCurrentMongoClientSettingsBuilder() {
         return MongoClientBuilder.getInstance().getMongoClientSettingsBuilder();
