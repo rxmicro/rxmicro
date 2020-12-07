@@ -31,9 +31,16 @@ import static io.rxmicro.common.util.ExCollections.unmodifiableOrderedMap;
  * @author nedis
  * @since 0.7
  */
-public abstract class AsMapConfig extends Config implements Map<String, Object> {
+public class AsMapConfig extends Config implements Map<String, Object> {
 
     private Map<String, Object> map;
+
+    /**
+     * This is basic class designed for extension only.
+     */
+    protected AsMapConfig() {
+        // This is basic class designed for extension only.
+    }
 
     /**
      * Returns {@code true} if the current config should support {@link Map}{@code <String, String>} values.
@@ -278,5 +285,12 @@ public abstract class AsMapConfig extends Config implements Map<String, Object> 
     @SuppressWarnings("unchecked")
     public List<String> getList(final Object key) {
         return (List<String>) get(key);
+    }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "{" +
+                "map=" + map +
+                '}';
     }
 }
