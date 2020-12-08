@@ -28,6 +28,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.function.Supplier;
 
+import static io.rxmicro.common.local.RxMicroEnvironment.isRuntimeStrictModeEnabled;
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.Strings.capitalize;
 import static io.rxmicro.config.internal.model.AbstractDefaultConfigValueBuilder.getCurrentDefaultConfigValueStorage;
@@ -61,14 +62,14 @@ public final class JavaBeanConfigProperties extends ConfigProperties {
         final DefaultConfigValueStorage storage = getCurrentDefaultConfigValueStorage();
         final String messageTemplate = "Discovered properties from default config storage: ?";
         if (storage.hasDefaultStringValuesStorage()) {
-            if (RUNTIME_STRICT_MODE_ACTIVATED) {
+            if (isRuntimeStrictModeEnabled()) {
                 validateRedundantProperties(storage.getDefaultStringValuesStorage(), "default config storage", true);
             }
             properties.forEach(p -> p.resolve(storage.getDefaultStringValuesStorage(), true).ifPresent(resolvedEntries::add));
             debugMessageBuilder.append(messageTemplate, storage.getDefaultStringValuesStorage());
         }
         if (storage.hasDefaultSupplierValuesStorage()) {
-            if (RUNTIME_STRICT_MODE_ACTIVATED) {
+            if (isRuntimeStrictModeEnabled()) {
                 validateRedundantProperties(storage.getDefaultSupplierValuesStorage(), "default config storage", true);
             }
             properties.forEach(p -> p.resolve(storage.getDefaultSupplierValuesStorage(), true)
@@ -89,7 +90,7 @@ public final class JavaBeanConfigProperties extends ConfigProperties {
                                 final DebugMessageBuilder debugMessageBuilder) {
         final Optional<Map<String, String>> resourceOptional = propertiesSupplier.get();
         if (resourceOptional.isPresent()) {
-            if (RUNTIME_STRICT_MODE_ACTIVATED) {
+            if (isRuntimeStrictModeEnabled()) {
                 validateRedundantProperties(resourceOptional.get(), format("'?' ?", resourceName, resourceType), useFullName);
             }
             final Set<Map.Entry<String, String>> resolvedEntries = new LinkedHashSet<>();
@@ -105,7 +106,7 @@ public final class JavaBeanConfigProperties extends ConfigProperties {
 
     @Override
     protected void loadFromJavaSystemProperties(final DebugMessageBuilder debugMessageBuilder) {
-        if (RUNTIME_STRICT_MODE_ACTIVATED) {
+        if (isRuntimeStrictModeEnabled()) {
             validateRedundantProperties(
                     SYSTEM_PROPERTIES.entrySet().stream()
                             .map(e -> entry(e.getKey().toString(), e.getValue().toString()))
@@ -126,7 +127,7 @@ public final class JavaBeanConfigProperties extends ConfigProperties {
     protected void loadFromMap(final Map<String, String> map,
                                final String sourceName,
                                final DebugMessageBuilder debugMessageBuilder) {
-        if (RUNTIME_STRICT_MODE_ACTIVATED) {
+        if (isRuntimeStrictModeEnabled()) {
             validateRedundantProperties(map, sourceName, true);
         }
         final Set<Map.Entry<String, String>> resolvedEntries = new LinkedHashSet<>();

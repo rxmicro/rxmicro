@@ -34,7 +34,6 @@ import java.util.WeakHashMap;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
-import static io.rxmicro.common.CommonConstants.RX_MICRO_RUNTIME_STRICT_MODE;
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.config.Config.RX_MICRO_CONFIG_DIRECTORY_NAME;
 import static io.rxmicro.config.Config.RX_MICRO_CONFIG_FILE_NAME;
@@ -62,8 +61,6 @@ import static java.util.stream.Collectors.toList;
 public abstract class ConfigProperties {
 
     protected static final Map<String, String> SYSTEM_ENV = getEnvironmentVariables();
-
-    protected static final boolean RUNTIME_STRICT_MODE_ACTIVATED = Boolean.parseBoolean(SYSTEM_ENV.get(RX_MICRO_RUNTIME_STRICT_MODE));
 
     protected static final Properties SYSTEM_PROPERTIES = System.getProperties();
 

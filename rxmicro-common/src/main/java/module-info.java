@@ -56,6 +56,7 @@ module rxmicro.common {
     exports io.rxmicro.common.local to
             rxmicro.logger,
             rxmicro.runtime,
+            rxmicro.config,
             rxmicro.rest,
             rxmicro.rest.server,
             rxmicro.rest.server.netty,

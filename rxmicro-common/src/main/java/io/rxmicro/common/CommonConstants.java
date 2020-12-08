@@ -46,7 +46,7 @@ public final class CommonConstants {
     public static final int NANOS_IN_1_SECOND = 1_000_000_000;
 
     /**
-     * The environment variable that activates additional check in runtime.
+     * The environment variable (or Java system property) that activates additional check in runtime.
      *
      * <p>
      * The RxMicro team recommends activating strict mode for runtime only for {@code dev} and {@code staging} environments,

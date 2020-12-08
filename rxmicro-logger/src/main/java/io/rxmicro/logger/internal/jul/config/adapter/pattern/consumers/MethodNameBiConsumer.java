@@ -21,7 +21,7 @@ import io.rxmicro.logger.internal.jul.config.adapter.pattern.BiConsumerArguments
 
 import java.util.logging.LogRecord;
 
-import static io.rxmicro.common.CommonConstants.RX_MICRO_RUNTIME_STRICT_MODE;
+import static io.rxmicro.common.local.RxMicroEnvironment.isRuntimeStrictModeEnabled;
 import static io.rxmicro.logger.internal.jul.InternalLoggerHelper.logInternal;
 import static java.util.logging.Level.WARNING;
 
@@ -34,7 +34,7 @@ public final class MethodNameBiConsumer extends AbstractBiConsumer {
     public MethodNameBiConsumer(final BiConsumerArguments arguments) {
         super(arguments);
         validateNoOptions(arguments);
-        if (Boolean.parseBoolean(System.getenv(RX_MICRO_RUNTIME_STRICT_MODE))) {
+        if (isRuntimeStrictModeEnabled()) {
             logInternal(
                     WARNING,
                     "Generating the method name is not particularly fast. " +
