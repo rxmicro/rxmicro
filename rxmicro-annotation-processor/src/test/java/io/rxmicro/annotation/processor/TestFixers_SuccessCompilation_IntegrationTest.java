@@ -38,6 +38,11 @@ import static io.rxmicro.annotation.processor.integration.test.ExternalModule.EX
 import static io.rxmicro.annotation.processor.integration.test.ExternalModule.EXTERNAL_MONGO_DB_BSON_MODULE;
 import static io.rxmicro.annotation.processor.integration.test.ExternalModule.EXTERNAL_MONGO_DB_DRIVER_CORE_MODULE;
 import static io.rxmicro.annotation.processor.integration.test.ExternalModule.EXTERNAL_MONGO_DB_REACTIVE_DRIVER_MODULE;
+import static io.rxmicro.annotation.processor.integration.test.ExternalModule.EXTERNAL_NETTY_BUFFER_MODULE;
+import static io.rxmicro.annotation.processor.integration.test.ExternalModule.EXTERNAL_NETTY_CODEC_HTTP_MODULE;
+import static io.rxmicro.annotation.processor.integration.test.ExternalModule.EXTERNAL_NETTY_CODEC_MODULE;
+import static io.rxmicro.annotation.processor.integration.test.ExternalModule.EXTERNAL_NETTY_COMMON_MODULE;
+import static io.rxmicro.annotation.processor.integration.test.ExternalModule.EXTERNAL_NETTY_TRANSPORT_MODULE;
 import static io.rxmicro.annotation.processor.integration.test.ExternalModule.EXTERNAL_OPENTEST4J_MODULE;
 import static io.rxmicro.annotation.processor.integration.test.ExternalModule.EXTERNAL_R2DBC_POOL_MODULE;
 import static io.rxmicro.annotation.processor.integration.test.ExternalModule.EXTERNAL_R2DBC_POSTGRESQL_MODULE;
@@ -86,6 +91,12 @@ final class TestFixers_SuccessCompilation_IntegrationTest extends AbstractRxMicr
         addExternalModule(EXTERNAL_MONGO_DB_BSON_MODULE);
         addExternalModule(EXTERNAL_MONGO_DB_REACTIVE_DRIVER_MODULE);
         addExternalModule(EXTERNAL_MONGO_DB_DRIVER_CORE_MODULE);
+
+        addExternalModule(EXTERNAL_NETTY_COMMON_MODULE);
+        addExternalModule(EXTERNAL_NETTY_CODEC_HTTP_MODULE);
+        addExternalModule(EXTERNAL_NETTY_CODEC_MODULE);
+        addExternalModule(EXTERNAL_NETTY_BUFFER_MODULE);
+        addExternalModule(EXTERNAL_NETTY_TRANSPORT_MODULE);
 
         addExternalModule(EXTERNAL_JUNIT_JUPITER_API_MODULE);
         addExternalModule(EXTERNAL_JUNIT_JUPITER_PARAMS_MODULE);
