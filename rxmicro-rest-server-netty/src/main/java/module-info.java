@@ -14,11 +14,13 @@
  * limitations under the License.
  */
 
+import io.rxmicro.common.model.UnNamedModuleFixer;
 import io.rxmicro.rest.server.detail.component.HttpResponseBuilder;
 import io.rxmicro.rest.server.local.component.HttpErrorResponseBodyBuilder;
 import io.rxmicro.rest.server.local.component.ServerFactory;
 import io.rxmicro.rest.server.netty.internal.component.NettyHttpResponseBuilder;
 import io.rxmicro.rest.server.netty.internal.component.NettyServerFactory;
+import io.rxmicro.rest.server.netty.internal.test.NettyServerUnNamedModuleFixer;
 
 /**
  * The module that defines HTTP server implementation based on <a href="https://netty.io/">Netty</a>.
@@ -74,4 +76,5 @@ module rxmicro.rest.server.netty {
 
     provides ServerFactory with NettyServerFactory;
     provides HttpResponseBuilder with NettyHttpResponseBuilder;
+    provides UnNamedModuleFixer with NettyServerUnNamedModuleFixer;
 }
