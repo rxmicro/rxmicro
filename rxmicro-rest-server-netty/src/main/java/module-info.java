@@ -64,6 +64,9 @@ module rxmicro.rest.server.netty {
 
     exports io.rxmicro.rest.server.netty;
 
+    exports io.rxmicro.rest.server.netty.local
+            to rxmicro.test.junit;
+
     opens io.rxmicro.rest.server.netty to
             rxmicro.config;
 

@@ -41,6 +41,7 @@ import java.lang.reflect.InaccessibleObjectException;
 import java.util.List;
 
 import static io.rxmicro.config.local.DefaultConfigValueBuilderReSetter.resetDefaultConfigValueStorage;
+import static io.rxmicro.rest.server.netty.local.NettyRestServerConfigCustomizerState.setNettyRestServerConfigCustomizerState;
 import static io.rxmicro.runtime.local.AbstractFactory.clearFactories;
 import static io.rxmicro.runtime.local.InstanceContainer.clearContainer;
 import static io.rxmicro.test.junit.local.TestObjects.getTestInstances;
@@ -143,6 +144,7 @@ public final class RxMicroComponentTestExtension extends AbstractJUnitTestExtens
     public void afterEach(final ExtensionContext context) {
         clearContainer();
         clearFactories();
+        setNettyRestServerConfigCustomizerState(false);
         resetDefaultConfigValueStorage();
         systemOutInjector.resetIfNecessary();
     }

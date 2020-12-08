@@ -27,6 +27,7 @@ import java.time.Duration;
 
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.Requires.require;
+import static io.rxmicro.rest.server.netty.internal.component.InternalNettyRestServerConfigCustomizer.getHandlerSuppliers;
 
 /**
  * @author nedis
@@ -53,7 +54,7 @@ final class NettyClientConnectionController extends ChannelInitializer<SocketCha
                     nettyRestServerConfig.getChannelIdType().getId(ch.id()), ch.remoteAddress()
             );
         }
-        nettyRestServerConfig.getHandlerSuppliers().forEach(s -> ch.pipeline().addLast(s.get()));
+        getHandlerSuppliers().forEach(s -> ch.pipeline().addLast(s.get()));
         ch.closeFuture().addListener(future -> {
                     if (LOGGER.isTraceEnabled()) {
                         LOGGER.trace(

@@ -32,6 +32,8 @@ import java.util.concurrent.CountDownLatch;
 import static io.rxmicro.common.CommonConstants.NANOS_IN_1_MILLIS;
 import static io.rxmicro.common.local.StartTimeStampHelper.START_TIME_STAMP;
 import static io.rxmicro.common.util.Requires.require;
+import static io.rxmicro.rest.server.netty.internal.component.InternalNettyRestServerConfigCustomizer.getClientOptions;
+import static io.rxmicro.rest.server.netty.internal.component.InternalNettyRestServerConfigCustomizer.getServerOptions;
 import static io.rxmicro.rest.server.netty.internal.util.NettyTransportFactory.getCurrentNettyTransport;
 
 /**
@@ -76,8 +78,8 @@ final class NettyServer implements Runnable {
                     .group(serverGroup, workerGroup)
                     .channel(serverSocketChannelClass)
                     .childHandler(new NettyClientConnectionController(nettyRestServerConfig));
-            nettyRestServerConfig.getServerOptions().forEach((o, v) -> bootstrap.option((ChannelOption<Object>) o, v));
-            nettyRestServerConfig.getClientOptions().forEach((o, v) -> bootstrap.childOption((ChannelOption<Object>) o, v));
+            getServerOptions().forEach((o, v) -> bootstrap.option((ChannelOption<Object>) o, v));
+            getClientOptions().forEach((o, v) -> bootstrap.childOption((ChannelOption<Object>) o, v));
 
             final ChannelFuture channelFuture = bootstrap.bind(httpServerConfig.getHost(), httpServerConfig.getPort()).sync();
             logStartedMessage();

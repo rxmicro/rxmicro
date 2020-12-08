@@ -40,115 +40,15 @@ import static io.rxmicro.common.util.Requires.require;
  * @see ChannelOption
  * @see HttpServerCodec
  * @see HttpObjectAggregator
+ * @see NettyRestServerConfigCustomizer
  * @since 0.1
  */
 @SuppressWarnings("UnusedReturnValue")
 public final class NettyRestServerConfig extends Config {
 
-    /**
-     * Default backlog size.
-     */
-    public static final int DEFAULT_BACKLOG_SIZE = 128;
-
-    /**
-     * Default aggregator content length in bytes.
-     */
-    public static final int DEFAULT_AGGREGATOR_CONTENT_LENGTH_IN_BYTES = 64 * 1024;
-
-    private final Map<ChannelOption<?>, Object> serverOptions = new LinkedHashMap<>(
-            Map.of(ChannelOption.SO_BACKLOG, DEFAULT_BACKLOG_SIZE)
-    );
-
-    private final Map<ChannelOption<?>, Object> clientOptions = new LinkedHashMap<>();
-
-    private final List<Supplier<ChannelHandler>> handlerSuppliers = new ArrayList<>(List.of(
-            HttpServerCodec::new,
-            () -> new HttpObjectAggregator(DEFAULT_AGGREGATOR_CONTENT_LENGTH_IN_BYTES, true)
-    ));
-
     private NettyTransport transport = NettyTransport.AUTO;
 
     private NettyChannelIdType channelIdType = PredefinedNettyChannelIdType.SHORT;
-
-    /**
-     * Adds server channel option.
-     *
-     * @param option option name
-     * @param value  option value
-     * @param <T>    option type
-     * @return the reference to this {@link NettyRestServerConfig} instance
-     * @see ChannelOption
-     */
-    @BuilderMethod
-    public <T> NettyRestServerConfig serverOption(final ChannelOption<T> option, final T value) {
-        serverOptions.put(require(option), require(value));
-        return this;
-    }
-
-    /**
-     * Adds client channel option.
-     *
-     * @param option option name
-     * @param value  option value
-     * @param <T>    option type
-     * @return the reference to this {@link NettyRestServerConfig} instance
-     * @see ChannelOption
-     */
-    @BuilderMethod
-    public <T> NettyRestServerConfig clientOption(final ChannelOption<T> option, final T value) {
-        clientOptions.put(require(option), require(value));
-        return this;
-    }
-
-    /**
-     * Adds channel handler supplier to the last position of channel handlers.
-     *
-     * @param channelHandlerSupplier channel handler supplier
-     * @return the reference to this {@link NettyRestServerConfig} instance
-     */
-    @BuilderMethod
-    public NettyRestServerConfig addLast(final Supplier<ChannelHandler> channelHandlerSupplier) {
-        handlerSuppliers.add(require(channelHandlerSupplier));
-        return this;
-    }
-
-    /**
-     * Resets channel handlers, i.e. removes all configured channel handlers.
-     *
-     * @return the reference to this {@link NettyRestServerConfig} instance
-     */
-    @BuilderMethod
-    public NettyRestServerConfig resetChannelHandlers() {
-        handlerSuppliers.clear();
-        return this;
-    }
-
-    /**
-     * Returns configured server options.
-     *
-     * @return configured server options
-     */
-    public Map<ChannelOption<?>, Object> getServerOptions() {
-        return serverOptions;
-    }
-
-    /**
-     * Returns configured client options.
-     *
-     * @return configured client options
-     */
-    public Map<ChannelOption<?>, Object> getClientOptions() {
-        return clientOptions;
-    }
-
-    /**
-     * Returns configured {@link ChannelHandler} suppliers.
-     *
-     * @return configured {@link ChannelHandler} suppliers
-     */
-    public List<Supplier<ChannelHandler>> getHandlerSuppliers() {
-        return handlerSuppliers;
-    }
 
     /**
      * Returns current {@link NettyTransport}.
@@ -198,10 +98,8 @@ public final class NettyRestServerConfig extends Config {
     @Override
     public String toString() {
         return "NettyRestServerConfig{" +
-                "serverOptions=" + serverOptions +
-                ", clientOptions=" + clientOptions +
-                ", handlerSuppliers=" + handlerSuppliers +
-                ", transport=" + transport +
+                "transport=" + transport +
+                ", channelIdType=" + channelIdType +
                 '}';
     }
 }

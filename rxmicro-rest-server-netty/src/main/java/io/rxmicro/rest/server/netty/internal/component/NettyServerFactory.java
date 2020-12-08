@@ -37,6 +37,7 @@ import static io.rxmicro.common.CommonConstants.RX_MICRO_FRAMEWORK_NAME;
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.Requires.require;
 import static io.rxmicro.config.Configs.getConfig;
+import static io.rxmicro.rest.server.netty.NettyRestServerConfigCustomizer.addChannelHandlerSupplierToLastPosition;
 import static io.rxmicro.rest.server.netty.internal.util.NettyTransportFactory.getServerSocketChannelClass;
 import static io.rxmicro.rest.server.netty.internal.util.NettyTransportFactory.newEventLoopGroup;
 import static io.rxmicro.runtime.local.Instances.getImplementation;
@@ -65,7 +66,7 @@ public final class NettyServerFactory implements ServerFactory {
             final RestServerConfig restServerConfig = getConfig(RestServerConfig.class);
             final RequestIdGenerator requestIdGenerator = restServerConfig.getGeneratorType().getRequestIdGenerator();
             final NettyRestServerConfig nettyRestServerConfig = getConfig(NettyRestServerConfig.class);
-            nettyRestServerConfig.addLast(() -> new NettyRequestHandler(
+            addChannelHandlerSupplierToLastPosition(() -> new NettyRequestHandler(
                     nettyRestServerConfig,
                     requestHandler,
                     requestIdGenerator,
