@@ -19,6 +19,7 @@ package io.rxmicro.data.sql;
 import io.rxmicro.common.meta.BuilderMethod;
 
 import java.time.Duration;
+import java.util.Map;
 
 import static io.rxmicro.common.util.Requires.require;
 
@@ -293,8 +294,8 @@ public class SQLPooledDatabaseConfig extends SQLDatabaseConfig {
     }
 
     @Override
-    public SQLPooledDatabaseConfig addOption(final String name, final String value) {
-        return (SQLPooledDatabaseConfig) super.addOption(name, value);
+    public SQLPooledDatabaseConfig setOptions(final Map<String, String> options) {
+        return (SQLPooledDatabaseConfig) super.setOptions(options);
     }
 
     @Override

@@ -20,7 +20,6 @@ import io.rxmicro.common.meta.BuilderMethod;
 import io.rxmicro.config.Config;
 
 import java.time.Duration;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
@@ -38,7 +37,7 @@ import static io.rxmicro.config.Networks.validatePort;
 @SuppressWarnings("UnusedReturnValue")
 public class SQLDatabaseConfig extends Config {
 
-    private final Map<String, String> options = new HashMap<>();
+    private Map<String, String> options;
 
     private String host = "localhost";
 
@@ -158,16 +157,14 @@ public class SQLDatabaseConfig extends Config {
     }
 
     /**
-     * Adds the new db specific option.
+     * Sets the additional database options.
      *
-     * @param name the option name
-     * @param value the option value
+     * @param options the additional options
      * @return the reference to this {@link SQLDatabaseConfig} instance
      */
     @BuilderMethod
-    public SQLDatabaseConfig addOption(final String name,
-                                       final String value) {
-        options.put(require(name), require(value));
+    public SQLDatabaseConfig setOptions(final Map<String, String> options) {
+        this.options = require(options);
         return this;
     }
 
@@ -177,7 +174,7 @@ public class SQLDatabaseConfig extends Config {
      * @return the db specific options
      */
     public Optional<Map<String, String>> getOptions() {
-        return Optional.of(options).filter(m -> !m.isEmpty());
+        return Optional.ofNullable(options).filter(m -> !m.isEmpty());
     }
 
     /**

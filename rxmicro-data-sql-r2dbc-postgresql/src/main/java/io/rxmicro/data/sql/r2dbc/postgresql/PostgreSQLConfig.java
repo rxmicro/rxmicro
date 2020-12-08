@@ -19,6 +19,7 @@ package io.rxmicro.data.sql.r2dbc.postgresql;
 import io.rxmicro.data.sql.SQLPooledDatabaseConfig;
 
 import java.time.Duration;
+import java.util.Map;
 
 import static io.rxmicro.common.util.Formats.format;
 
@@ -124,8 +125,8 @@ public final class PostgreSQLConfig extends SQLPooledDatabaseConfig {
     }
 
     @Override
-    public PostgreSQLConfig addOption(final String name, final String value) {
-        return (PostgreSQLConfig) super.addOption(name, value);
+    public PostgreSQLConfig setOptions(final Map<String, String> options) {
+        return (PostgreSQLConfig) super.setOptions(options);
     }
 
     @Override
