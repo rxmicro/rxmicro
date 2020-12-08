@@ -19,18 +19,26 @@ package io.rxmicro.config.internal;
 import io.rxmicro.common.util.ExCollections;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.lang.annotation.Retention;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.stream.Stream;
 
+import static io.rxmicro.config.internal.Converters.convertToType;
 import static io.rxmicro.config.internal.Converters.convertWithoutTypeDefinition;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 /**
@@ -38,6 +46,7 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
  * @since 0.7
  */
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 final class ConvertersTest {
 
     static Stream<Arguments> convertWithoutTypeDefinitionArguments() {
@@ -81,10 +90,82 @@ final class ConvertersTest {
 
     @ParameterizedTest
     @MethodSource("convertWithoutTypeDefinitionArguments")
+    @Order(1)
     void Should_convert_without_type_definition(final String value,
                                                 final boolean supportsMap,
                                                 final boolean supportsList,
                                                 final Object expected) {
         assertEquals(expected, convertWithoutTypeDefinition(value, supportsMap, supportsList));
+    }
+
+    @Test
+    @Order(2)
+    void Should_convert_to_interface_type_using_defined_enum_constant() {
+        final Object result = convertToType(TestInterface.class, "@io.rxmicro.config.internal.ConvertersTest$TestEnum:VALUE");
+        assertSame(TestEnum.VALUE, result);
+    }
+
+    @Test
+    @Order(3)
+    void Should_convert_to_interface_type_using_defined_interface_constant() {
+        final Object result = convertToType(TestInterface.class, "@io.rxmicro.config.internal.ConvertersTest$TestInterface:VALUE");
+        assertSame(TestInterface.VALUE, result);
+    }
+
+    @Test
+    @Order(4)
+    void Should_convert_to_interface_type_using_defined_class_constant() {
+        final Object result = convertToType(TestInterface.class, "@io.rxmicro.config.internal.ConvertersTest$TestClass:VALUE");
+        assertSame(TestClass.VALUE, result);
+    }
+
+    @Test
+    @Order(5)
+    void Should_convert_to_interface_type_using_defined_annotation_constant() {
+        final Object result = convertToType(TestInterface.class, "@io.rxmicro.config.internal.ConvertersTest$TestAnnotation:VALUE");
+        assertSame(TestAnnotation.VALUE, result);
+    }
+
+    /**
+     * @author nedis
+     * @since 0.7.2
+     */
+    private interface TestInterface {
+
+        TestInterface VALUE = new TestInterface() {
+
+        };
+    }
+
+    /**
+     * @author nedis
+     * @since 0.7.2
+     */
+    private enum TestEnum implements TestInterface {
+
+        VALUE
+    }
+
+    /**
+     * @author nedis
+     * @since 0.7.2
+     */
+    private static final class TestClass {
+
+        public static final TestInterface VALUE = new TestInterface() {
+
+        };
+    }
+
+    /**
+     * @author nedis
+     * @since 0.7.2
+     */
+    @Retention(RUNTIME)
+    private @interface TestAnnotation {
+
+        TestInterface VALUE = new TestInterface() {
+
+        };
     }
 }

@@ -39,6 +39,8 @@
                         --add-opens rxmicro.config/io.rxmicro.config=ALL-UNNAMED
                         --add-opens rxmicro.config/io.rxmicro.config.internal=ALL-UNNAMED
                         --add-opens rxmicro.config/io.rxmicro.config.internal.waitfor=ALL-UNNAMED
+
+                        --add-opens rxmicro.config/io.rxmicro.config.internal=rxmicro.common
                     </argLine>
                 </configuration>
             </plugin>
