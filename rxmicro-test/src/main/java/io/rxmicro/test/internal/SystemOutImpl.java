@@ -50,7 +50,6 @@ public final class SystemOutImpl implements SystemOut {
      * @author nedis
      * @since 0.7.2
      */
-    @SuppressWarnings("NullableProblems")
     private static final class SpyOutputStream extends FilterOutputStream {
 
         private final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
@@ -63,20 +62,6 @@ public final class SystemOutImpl implements SystemOut {
         public void write(final int byteValue) throws IOException {
             super.write(byteValue);
             byteArrayOutputStream.write(byteValue);
-        }
-
-        @Override
-        public void write(final byte[] bytes) throws IOException {
-            super.write(bytes);
-            byteArrayOutputStream.write(bytes);
-        }
-
-        @Override
-        public void write(final byte[] bytes,
-                          final int off,
-                          final int len) throws IOException {
-            super.write(bytes, off, len);
-            byteArrayOutputStream.write(bytes, off, len);
         }
     }
 }
