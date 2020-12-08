@@ -23,6 +23,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Function;
 import java.util.stream.Stream;
 
 import static io.rxmicro.common.util.Formats.format;
@@ -48,10 +49,14 @@ public final class TestedProcessProxy extends Process {
         );
         this.outputCatcher.start();
         this.onExit = process.onExit()
-                .thenApply(process -> {
-                    interruptOutputCatcher(true);
-                    return process;
-                });
+                .thenApply(interruptOutputCatcherAfterProcessExit());
+    }
+
+    private Function<Process, Process> interruptOutputCatcherAfterProcessExit() {
+        return process -> {
+            interruptOutputCatcher(true);
+            return process;
+        };
     }
 
     @Override
@@ -77,6 +82,16 @@ public final class TestedProcessProxy extends Process {
     }
 
     @Override
+    public boolean waitFor(final long timeout,
+                           final TimeUnit unit) throws InterruptedException {
+        final boolean isProcessTerminated = process.waitFor(timeout, unit);
+        if (isProcessTerminated) {
+            interruptOutputCatcher(true);
+        }
+        return isProcessTerminated;
+    }
+
+    @Override
     public int exitValue() {
         return process.exitValue();
     }
@@ -94,33 +109,6 @@ public final class TestedProcessProxy extends Process {
         process.destroyForcibly();
         waitForOutputCatcherTerminated();
         return this;
-    }
-
-    private void interruptOutputCatcher(final boolean waitForOutputCatcherTerminated) {
-        if (outputCatcher.isAlive()) {
-            outputCatcher.interrupt();
-            if (waitForOutputCatcherTerminated) {
-                waitForOutputCatcherTerminated();
-            }
-        }
-    }
-
-    private void waitForOutputCatcherTerminated() {
-        try {
-            outputCatcher.join();
-        } catch (final InterruptedException ex) {
-            throw new CheckedWrapperException(ex);
-        }
-    }
-
-    @Override
-    public boolean waitFor(final long timeout,
-                           final TimeUnit unit) throws InterruptedException {
-        final boolean isProcessTerminated = process.waitFor(timeout, unit);
-        if (isProcessTerminated) {
-            interruptOutputCatcher(true);
-        }
-        return isProcessTerminated;
     }
 
     @Override
@@ -161,6 +149,23 @@ public final class TestedProcessProxy extends Process {
     @Override
     public Stream<ProcessHandle> descendants() {
         return process.descendants();
+    }
+
+    private void interruptOutputCatcher(final boolean waitForOutputCatcherTerminated) {
+        if (outputCatcher.isAlive()) {
+            outputCatcher.interrupt();
+            if (waitForOutputCatcherTerminated) {
+                waitForOutputCatcherTerminated();
+            }
+        }
+    }
+
+    private void waitForOutputCatcherTerminated() {
+        try {
+            outputCatcher.join();
+        } catch (final InterruptedException ex) {
+            throw new CheckedWrapperException(ex);
+        }
     }
 
     /**

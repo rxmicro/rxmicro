@@ -46,13 +46,13 @@ public class InternalNettyRestServerConfigCustomizer {
      */
     public static final int DEFAULT_AGGREGATOR_CONTENT_LENGTH_IN_BYTES = 64 * 1024;
 
-    protected static final Map<ChannelOption<?>, Object> serverOptions = new LinkedHashMap<>(
+    protected static final Map<ChannelOption<?>, Object> SERVER_OPTIONS = new LinkedHashMap<>(
             Map.of(ChannelOption.SO_BACKLOG, DEFAULT_BACKLOG_SIZE)
     );
 
-    protected static final Map<ChannelOption<?>, Object> clientOptions = new LinkedHashMap<>();
+    protected static final Map<ChannelOption<?>, Object> CLIENT_OPTIONS = new LinkedHashMap<>();
 
-    protected static final List<Supplier<ChannelHandler>> handlerSuppliers = new ArrayList<>(List.of(
+    protected static final List<Supplier<ChannelHandler>> HANDLER_SUPPLIERS = new ArrayList<>(List.of(
             HttpServerCodec::new,
             () -> new HttpObjectAggregator(DEFAULT_AGGREGATOR_CONTENT_LENGTH_IN_BYTES, true)
     ));
@@ -63,16 +63,20 @@ public class InternalNettyRestServerConfigCustomizer {
 
     static Map<ChannelOption<?>, Object> getServerOptions() {
         setNettyRestServerConfigCustomizerState(true);
-        return serverOptions;
+        return SERVER_OPTIONS;
     }
 
     static Map<ChannelOption<?>, Object> getClientOptions() {
         setNettyRestServerConfigCustomizerState(true);
-        return clientOptions;
+        return CLIENT_OPTIONS;
     }
 
     static List<Supplier<ChannelHandler>> getHandlerSuppliers() {
         setNettyRestServerConfigCustomizerState(true);
-        return handlerSuppliers;
+        return HANDLER_SUPPLIERS;
+    }
+
+    protected InternalNettyRestServerConfigCustomizer() {
+        // This is basic class designed for extension only.
     }
 }

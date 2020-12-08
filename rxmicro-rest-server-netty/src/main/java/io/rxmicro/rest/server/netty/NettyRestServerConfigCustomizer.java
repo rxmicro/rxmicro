@@ -57,7 +57,7 @@ public final class NettyRestServerConfigCustomizer extends InternalNettyRestServ
     @SuppressWarnings("unchecked")
     public static <T> T setServerOption(final ChannelOption<T> option, final T value) {
         validateState();
-        return (T) serverOptions.put(require(option), require(value));
+        return (T) SERVER_OPTIONS.put(require(option), require(value));
     }
 
     /**
@@ -75,7 +75,7 @@ public final class NettyRestServerConfigCustomizer extends InternalNettyRestServ
     @SuppressWarnings("unchecked")
     public static <T> T setClientOption(final ChannelOption<T> option, final T value) {
         validateState();
-        return (T) clientOptions.put(require(option), require(value));
+        return (T) CLIENT_OPTIONS.put(require(option), require(value));
     }
 
     /**
@@ -85,7 +85,7 @@ public final class NettyRestServerConfigCustomizer extends InternalNettyRestServ
      */
     public static void resetChannelHandlers() {
         validateState();
-        handlerSuppliers.clear();
+        HANDLER_SUPPLIERS.clear();
     }
 
     /**
@@ -97,7 +97,7 @@ public final class NettyRestServerConfigCustomizer extends InternalNettyRestServ
      */
     public static void addChannelHandlerSupplierToLastPosition(final Supplier<ChannelHandler> channelHandlerSupplier) {
         validateState();
-        handlerSuppliers.add(require(channelHandlerSupplier));
+        HANDLER_SUPPLIERS.add(require(channelHandlerSupplier));
     }
 
     private NettyRestServerConfigCustomizer() {

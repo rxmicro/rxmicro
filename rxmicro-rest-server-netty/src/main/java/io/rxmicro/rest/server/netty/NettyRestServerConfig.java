@@ -16,18 +16,11 @@
 
 package io.rxmicro.rest.server.netty;
 
-import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelOption;
 import io.netty.handler.codec.http.HttpObjectAggregator;
 import io.netty.handler.codec.http.HttpServerCodec;
 import io.rxmicro.common.meta.BuilderMethod;
 import io.rxmicro.config.Config;
-
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.function.Supplier;
 
 import static io.rxmicro.common.util.Requires.require;
 

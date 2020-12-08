@@ -66,6 +66,12 @@ public final class Elements {
     public static final Comparator<TypeElement> UNIQUE_TYPES_COMPARATOR =
             Comparator.comparing(o -> o.getQualifiedName().toString());
 
+    private static final String SETTER_PREFIX = "set";
+
+    private static final String GETTER_NOT_BOOLEAN_PREFIX = "get";
+
+    private static final String GETTER_BOOLEAN_PREFIX = "is";
+
     public static Set<String> getAllowedEnumConstants(final TypeMirror typeMirror) {
         return asEnumElement(typeMirror)
                 .map(Elements::getAllowedEnumConstants)
@@ -213,7 +219,7 @@ public final class Elements {
         return allMethods(typeElement, e ->
                 e.getModifiers().contains(PUBLIC) &&
                         !e.getModifiers().contains(STATIC) &&
-                        e.getSimpleName().toString().startsWith("set") &&
+                        e.getSimpleName().toString().startsWith(SETTER_PREFIX) &&
                         e.getParameters().size() == 1)
                 .stream()
                 .map(e -> e.getSimpleName().toString())
@@ -253,10 +259,7 @@ public final class Elements {
 
     public static Optional<ExecutableElement> findSetter(final TypeElement typeElement,
                                                          final String propertyName) {
-        final Set<String> methodNames = Set.of(
-                "set" + capitalize(propertyName),
-                "set" + propertyName
-        );
+        final Set<String> methodNames = getSettersOrGettersMethodNames(false, propertyName);
         TypeElement currentTypeElement = typeElement;
         while (true) {
             final List<ExecutableElement> methods = currentTypeElement.getEnclosedElements().stream()
@@ -314,15 +317,15 @@ public final class Elements {
                                                               final String fieldName) {
         if (getter) {
             return Set.copyOf(List.of(
-                    "get" + capitalize(fieldName),
-                    "get" + fieldName,
-                    "is" + capitalize(fieldName),
-                    "is" + fieldName
+                    GETTER_NOT_BOOLEAN_PREFIX + capitalize(fieldName),
+                    GETTER_NOT_BOOLEAN_PREFIX + fieldName,
+                    GETTER_BOOLEAN_PREFIX + capitalize(fieldName),
+                    GETTER_BOOLEAN_PREFIX + fieldName
             ));
         } else {
             return Set.copyOf(List.of(
-                    "set" + capitalize(fieldName),
-                    "set" + fieldName
+                    SETTER_PREFIX + capitalize(fieldName),
+                    SETTER_PREFIX + fieldName
             ));
         }
     }
