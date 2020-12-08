@@ -237,7 +237,7 @@ jobs:
       - name: Verify ${{ matrix.group }}
         run: |
           LATEST_VERSION=$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)
-          GRAALVM_HOME=~/GraalVM
+          export GRAALVM_HOME=~/GraalVM
           cd rxmicro-usage/examples/${{ matrix.group }}
           mvn --fail-at-end -Drxmicro.version=$LATEST_VERSION verify
 
