@@ -1,6 +1,6 @@
 [
   {
-    "name": "io.rxmicro.config.Config",
-    "allDeclaredMethods":true
+    "name": "io.rxmicro.http.HttpConfig",
+    "allDeclaredMethods": true
   }
 ]

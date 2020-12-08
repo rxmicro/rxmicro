@@ -1,34 +1,11 @@
 [
   {
     "name": "io.rxmicro.data.mongo.MongoConfig",
+    "allDeclaredMethods": true,
     "methods": [
       {
         "name": "<init>",
         "parameterTypes": []
-      },
-      {
-        "name": "setHost",
-        "parameterTypes": [
-          "java.lang.String"
-        ]
-      },
-      {
-        "name": "setPort",
-        "parameterTypes": [
-          "int"
-        ]
-      },
-      {
-        "name": "setDatabase",
-        "parameterTypes": [
-          "java.lang.String"
-        ]
-      },
-      {
-        "name": "setMongoCodecsConfigurator",
-        "parameterTypes": [
-          "io.rxmicro.data.mongo.MongoCodecsConfigurator"
-        ]
       }
     ]
   },

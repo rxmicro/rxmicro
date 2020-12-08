@@ -1,27 +1,5 @@
 [
   {
-    "name": "io.netty.bootstrap.ServerBootstrap$1"
-  },
-  {
-    "name": "io.netty.bootstrap.ServerBootstrap$ServerBootstrapAcceptor",
-    "methods": [
-      {
-        "name": "channelRead",
-        "parameterTypes": [
-          "io.netty.channel.ChannelHandlerContext",
-          "java.lang.Object"
-        ]
-      },
-      {
-        "name": "exceptionCaught",
-        "parameterTypes": [
-          "io.netty.channel.ChannelHandlerContext",
-          "java.lang.Throwable"
-        ]
-      }
-    ]
-  },
-  {
     "name": "io.netty.buffer.AbstractByteBufAllocator",
     "allDeclaredMethods": true
   },
@@ -35,16 +13,73 @@
     ]
   },
   {
-    "name": "io.netty.channel.ChannelInboundHandlerAdapter",
+    "name": "io.netty.channel.ChannelDuplexHandler",
     "methods": [
       {
-        "name": "channelActive",
+        "name": "bind",
+        "parameterTypes": [
+          "io.netty.channel.ChannelHandlerContext",
+          "java.net.SocketAddress",
+          "io.netty.channel.ChannelPromise"
+        ]
+      },
+      {
+        "name": "close",
+        "parameterTypes": [
+          "io.netty.channel.ChannelHandlerContext",
+          "io.netty.channel.ChannelPromise"
+        ]
+      },
+      {
+        "name": "connect",
+        "parameterTypes": [
+          "io.netty.channel.ChannelHandlerContext",
+          "java.net.SocketAddress",
+          "java.net.SocketAddress",
+          "io.netty.channel.ChannelPromise"
+        ]
+      },
+      {
+        "name": "deregister",
+        "parameterTypes": [
+          "io.netty.channel.ChannelHandlerContext",
+          "io.netty.channel.ChannelPromise"
+        ]
+      },
+      {
+        "name": "disconnect",
+        "parameterTypes": [
+          "io.netty.channel.ChannelHandlerContext",
+          "io.netty.channel.ChannelPromise"
+        ]
+      },
+      {
+        "name": "flush",
         "parameterTypes": [
           "io.netty.channel.ChannelHandlerContext"
         ]
       },
       {
-        "name": "channelInactive",
+        "name": "read",
+        "parameterTypes": [
+          "io.netty.channel.ChannelHandlerContext"
+        ]
+      },
+      {
+        "name": "write",
+        "parameterTypes": [
+          "io.netty.channel.ChannelHandlerContext",
+          "java.lang.Object",
+          "io.netty.channel.ChannelPromise"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "io.netty.channel.ChannelInboundHandlerAdapter",
+    "methods": [
+      {
+        "name": "channelActive",
         "parameterTypes": [
           "io.netty.channel.ChannelHandlerContext"
         ]
@@ -103,133 +138,6 @@
         "name": "channelRegistered",
         "parameterTypes": [
           "io.netty.channel.ChannelHandlerContext"
-        ]
-      },
-      {
-        "name": "exceptionCaught",
-        "parameterTypes": [
-          "io.netty.channel.ChannelHandlerContext",
-          "java.lang.Throwable"
-        ]
-      }
-    ]
-  },
-  {
-    "name": "io.netty.channel.CombinedChannelDuplexHandler",
-    "methods": [
-      {
-        "name": "bind",
-        "parameterTypes": [
-          "io.netty.channel.ChannelHandlerContext",
-          "java.net.SocketAddress",
-          "io.netty.channel.ChannelPromise"
-        ]
-      },
-      {
-        "name": "channelActive",
-        "parameterTypes": [
-          "io.netty.channel.ChannelHandlerContext"
-        ]
-      },
-      {
-        "name": "channelInactive",
-        "parameterTypes": [
-          "io.netty.channel.ChannelHandlerContext"
-        ]
-      },
-      {
-        "name": "channelRead",
-        "parameterTypes": [
-          "io.netty.channel.ChannelHandlerContext",
-          "java.lang.Object"
-        ]
-      },
-      {
-        "name": "channelReadComplete",
-        "parameterTypes": [
-          "io.netty.channel.ChannelHandlerContext"
-        ]
-      },
-      {
-        "name": "channelRegistered",
-        "parameterTypes": [
-          "io.netty.channel.ChannelHandlerContext"
-        ]
-      },
-      {
-        "name": "channelUnregistered",
-        "parameterTypes": [
-          "io.netty.channel.ChannelHandlerContext"
-        ]
-      },
-      {
-        "name": "channelWritabilityChanged",
-        "parameterTypes": [
-          "io.netty.channel.ChannelHandlerContext"
-        ]
-      },
-      {
-        "name": "close",
-        "parameterTypes": [
-          "io.netty.channel.ChannelHandlerContext",
-          "io.netty.channel.ChannelPromise"
-        ]
-      },
-      {
-        "name": "connect",
-        "parameterTypes": [
-          "io.netty.channel.ChannelHandlerContext",
-          "java.net.SocketAddress",
-          "java.net.SocketAddress",
-          "io.netty.channel.ChannelPromise"
-        ]
-      },
-      {
-        "name": "deregister",
-        "parameterTypes": [
-          "io.netty.channel.ChannelHandlerContext",
-          "io.netty.channel.ChannelPromise"
-        ]
-      },
-      {
-        "name": "disconnect",
-        "parameterTypes": [
-          "io.netty.channel.ChannelHandlerContext",
-          "io.netty.channel.ChannelPromise"
-        ]
-      },
-      {
-        "name": "exceptionCaught",
-        "parameterTypes": [
-          "io.netty.channel.ChannelHandlerContext",
-          "java.lang.Throwable"
-        ]
-      },
-      {
-        "name": "flush",
-        "parameterTypes": [
-          "io.netty.channel.ChannelHandlerContext"
-        ]
-      },
-      {
-        "name": "read",
-        "parameterTypes": [
-          "io.netty.channel.ChannelHandlerContext"
-        ]
-      },
-      {
-        "name": "userEventTriggered",
-        "parameterTypes": [
-          "io.netty.channel.ChannelHandlerContext",
-          "java.lang.Object"
-        ]
-      },
-      {
-        "name": "write",
-        "parameterTypes": [
-          "io.netty.channel.ChannelHandlerContext",
-          "java.lang.Object",
-          "io.netty.channel.ChannelPromise"
         ]
       }
     ]
@@ -417,19 +325,7 @@
     ]
   },
   {
-    "name": "io.netty.channel.SimpleChannelInboundHandler",
-    "methods": [
-      {
-        "name": "channelRead",
-        "parameterTypes": [
-          "io.netty.channel.ChannelHandlerContext",
-          "java.lang.Object"
-        ]
-      }
-    ]
-  },
-  {
-    "name": "io.netty.channel.socket.nio.NioServerSocketChannel",
+    "name": "io.netty.channel.socket.nio.NioSocketChannel",
     "methods": [
       {
         "name": "<init>",
@@ -438,7 +334,7 @@
     ]
   },
   {
-    "name": "io.netty.handler.codec.MessageAggregator",
+    "name": "io.netty.handler.codec.ByteToMessageDecoder",
     "methods": [
       {
         "name": "channelInactive",
@@ -447,18 +343,20 @@
         ]
       },
       {
+        "name": "channelRead",
+        "parameterTypes": [
+          "io.netty.channel.ChannelHandlerContext",
+          "java.lang.Object"
+        ]
+      },
+      {
         "name": "channelReadComplete",
         "parameterTypes": [
           "io.netty.channel.ChannelHandlerContext"
         ]
-      }
-    ]
-  },
-  {
-    "name": "io.netty.handler.codec.MessageToMessageDecoder",
-    "methods": [
+      },
       {
-        "name": "channelRead",
+        "name": "userEventTriggered",
         "parameterTypes": [
           "io.netty.channel.ChannelHandlerContext",
           "java.lang.Object"
@@ -467,10 +365,16 @@
     ]
   },
   {
-    "name": "io.netty.handler.codec.http.HttpObjectAggregator"
+    "name": "io.netty.handler.codec.LengthFieldBasedFrameDecoder"
   },
   {
-    "name": "io.netty.handler.codec.http.HttpServerCodec"
+    "name": "io.netty.util.AbstractReferenceCounted",
+    "fields": [
+      {
+        "name": "refCnt",
+        "allowUnsafeAccess": true
+      }
+    ]
   },
   {
     "name": "io.netty.util.ReferenceCountUtil",
@@ -582,11 +486,63 @@
     ]
   },
   {
+    "name": "java.security.MessageDigestSpi"
+  },
+  {
     "name": "jdk.internal.misc.Unsafe",
     "methods": [
       {
         "name": "getUnsafe",
         "parameterTypes": []
+      }
+    ]
+  },
+  {
+    "name": "reactor.netty.channel.BootstrapHandlers$BootstrapInitializerHandler",
+    "methods": [
+      {
+        "name": "channelInactive",
+        "parameterTypes": [
+          "io.netty.channel.ChannelHandlerContext"
+        ]
+      },
+      {
+        "name": "exceptionCaught",
+        "parameterTypes": [
+          "io.netty.channel.ChannelHandlerContext",
+          "java.lang.Throwable"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "reactor.netty.channel.ChannelOperationsHandler",
+    "methods": [
+      {
+        "name": "channelActive",
+        "parameterTypes": [
+          "io.netty.channel.ChannelHandlerContext"
+        ]
+      },
+      {
+        "name": "channelInactive",
+        "parameterTypes": [
+          "io.netty.channel.ChannelHandlerContext"
+        ]
+      },
+      {
+        "name": "channelRead",
+        "parameterTypes": [
+          "io.netty.channel.ChannelHandlerContext",
+          "java.lang.Object"
+        ]
+      },
+      {
+        "name": "exceptionCaught",
+        "parameterTypes": [
+          "io.netty.channel.ChannelHandlerContext",
+          "java.lang.Throwable"
+        ]
       }
     ]
   },
@@ -642,6 +598,15 @@
       {
         "name": "selectedKeys",
         "allowUnsafeAccess": true
+      }
+    ]
+  },
+  {
+    "name": "sun.security.provider.MD5",
+    "methods": [
+      {
+        "name": "<init>",
+        "parameterTypes": []
       }
     ]
   }

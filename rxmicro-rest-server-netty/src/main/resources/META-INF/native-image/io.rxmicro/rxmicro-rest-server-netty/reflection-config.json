@@ -6,20 +6,11 @@
       {
         "name": "<init>",
         "parameterTypes": []
-      },
-      {
-        "name": "setTransport",
-        "parameterTypes": [
-          "io.rxmicro.rest.server.netty.NettyTransport"
-        ]
-      },
-      {
-        "name": "setChannelIdType",
-        "parameterTypes": [
-          "io.rxmicro.rest.server.netty.NettyChannelIdType"
-        ]
       }
     ]
+  },
+  {
+    "name": "io.rxmicro.rest.server.netty.internal.component.NettyClientConnectionController"
   },
   {
     "name": "io.rxmicro.rest.server.netty.internal.component.NettyRequestHandler",
