@@ -238,6 +238,7 @@ jobs:
         run: |
           LATEST_VERSION=$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)
           export GRAALVM_HOME=~/GraalVM
+          find rxmicro-usage/examples/${{ matrix.group }}/ -maxdepth 1 -type d -exec ln -s $GRAALVM_HOME/bin/native-image {}/native-image \;
           cd rxmicro-usage/examples/${{ matrix.group }}
           mvn --fail-at-end -Drxmicro.version=$LATEST_VERSION verify
 
