@@ -82,8 +82,8 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        jdk: ['11', '12', '13', '14', '15']
-        os: [ubuntu-latest, windows-latest, macOS-latest]
+        jdk: [ '11', '12', '13', '14', '15' ]
+        os: [ ubuntu-latest, windows-latest, macOS-latest ]
       fail-fast: false
 
     steps:
@@ -138,7 +138,7 @@ jobs:
       - name: Save latest rxmicro artefacts
         uses: actions/upload-artifact@v2
         with:
-          name: latest-rxmicro-release-version
+          name: rxmicro-framework
           path: ~/.m2/repository/io/rxmicro/
           if-no-files-found: error
           retention-days: 1
@@ -146,7 +146,6 @@ jobs:
       # m2 local repo must not contain the snapshot versions!
       - name: Remove latest rxmicro artefacts
         run: rm -rf ~/.m2/repository/io/rxmicro/
-
   # -----------------------------------------------------------------------------------------------------
   # ------------- Verify examples using the latest RxMicro framework ------------------------------------
   # ------------- https://github.com/rxmicro/rxmicro-usage/tree/master/examples -------------------------
@@ -172,7 +171,7 @@ jobs:
           - group-unnamed-module
           - group-validation
           - quick-start
-        install-graalvm: [false]
+        install-graalvm: [ false ]
         include:
           - group: group-graalvm
             install-graalvm: true
@@ -210,6 +209,7 @@ jobs:
           tar --strip-components=1 -xvzf ~/GraalVM/${GRAAL_VM_BUILD}.tar.gz -C ~/GraalVM
           rm -f ~/GraalVM/${GRAAL_VM_BUILD}.tar.gz
           ~/GraalVM/bin/gu install native-image
+          find rxmicro-usage/examples/${{ matrix.group }}/ -maxdepth 1 -type d -exec ln -s ~/GraalVM/bin/native-image {}/native-image \;
 
       # https://github.com/actions/download-artifact/blob/main/README.md
       - name: Download latest rxmicro artifacts
@@ -222,12 +222,12 @@ jobs:
       - name: Show downloaded rxmicro artifacts
         run: |
           sudo apt install tree
-          tree -hD ~/.m2/repository/io/rxmicro/
+          tree -ahD ~/.m2/repository/io/rxmicro/
 
       - name: Verify ${{ matrix.group }}
         run: |
           LATEST_VERSION=$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)
-          GRAALVM_HOME=~/GraalVM
+          export GRAALVM_HOME=~/GraalVM
           cd rxmicro-usage/examples/${{ matrix.group }}
           mvn --fail-at-end -Drxmicro.version=$LATEST_VERSION verify
 
@@ -256,23 +256,23 @@ jobs:
         with:
           java-version: ${{ env.DEFAULT_JDK_LTS_VERSION }}
 
-      - name: Checkout repositories
-        run: |
-          git clone https://github.com/rxmicro/rxmicro-usage
-          git clone https://github.com/rxmicro/rxmicro
+      - name: Checkout 'rxmicro-usage' Repository
+        run: git clone https://github.com/rxmicro/rxmicro-usage
 
       # https://github.com/actions/download-artifact/blob/main/README.md
       - name: Download latest rxmicro artifacts
         uses: actions/download-artifact@v2
         with:
-          name: latest-rxmicro-release-version
+          name: rxmicro-framework
           path: ~/.m2/repository/io/rxmicro/
+
+      - name: Resolve RxMicro Framework Version
+        run: find ~/.m2/repository/io/rxmicro/rxmicro/ -maxdepth 1 -type d -name "*-SNAPSHOT" -printf "%f\n" > RXMICRO_VERSION.txt
 
       - name: Recompile Examples of REST-based microservice documentations
         run: |
-          cd rxmicro/
-          LATEST_VERSION=$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)
-          cd ../rxmicro-usage/examples/group-documentation-asciidoctor
+          LATEST_VERSION=$(cat RXMICRO_VERSION.txt)
+          cd rxmicro-usage/examples/group-documentation-asciidoctor
           mvn -DskipTests -Drxmicro.version=$LATEST_VERSION -B compile --file documentation-asciidoctor-custom-sections/pom.xml
           mvn -DskipTests -Drxmicro.version=$LATEST_VERSION -B compile --file documentation-asciidoctor-echo/pom.xml
           mvn -DskipTests -Drxmicro.version=$LATEST_VERSION -B compile --file documentation-asciidoctor-errors/pom.xml
@@ -283,10 +283,8 @@ jobs:
 
       - name: Build the Last Version of RxMicro User Guide
         run: |
-          cd rxmicro/
-          LATEST_VERSION=$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)
+          LATEST_VERSION=$(cat RXMICRO_VERSION.txt)
           RELEASE_VERSION=$(echo $LATEST_VERSION | sed 's/-SNAPSHOT//g')
-          cd ../
           cd rxmicro-usage/documentation/
           mvn -Drxmicro.version=$RELEASE_VERSION -B verify --file pom.xml
 
@@ -305,15 +303,14 @@ jobs:
           mkdir docs/latest/styles/
           mv -v rxmicro-usage/documentation/target/generated-docs/styles/rxmicro-doc.min.css docs/latest/styles/
 
-      - name: Commit and Push Changes to the `docs` Repository
-        run: |
-          cd docs
-          git config user.email "rxmicro.io@gmail.com"
-          git config user.name "rxmicro"
-          git add --all
-          git commit --amend -m "Update user guide. Commit#${{ github.sha }}"
-          git remote set-url origin https://rxmicro:${{ secrets.AUTO_UPDATE_RX_MICRO_IO_DOC_ACCESS_TOKEN }}@github.com/rxmicro/docs.git
-          git push --force origin master
+      # https://github.com/actions/upload-artifact/blob/main/README.md
+      - name: Save latest documentation
+        uses: actions/upload-artifact@v2
+        with:
+          name: rxmicro-documentaion
+          path: docs
+          if-no-files-found: error
+          retention-days: 1
   # -----------------------------------------------------------------------------------------------------
   # ------------- Publish to Maven Central --------------------------------------------------------------
   # -----------------------------------------------------------------------------------------------------
@@ -365,7 +362,7 @@ jobs:
         id: resolve-release-tag
         run: |
           LATEST_VERSION=$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)
-          RELEASE_VERSION=$(echo $LATEST_VERSION | sed 's/-SNAPSHOT//g')
+          RELEASE_VERSION=v$(echo $LATEST_VERSION | sed 's/-SNAPSHOT//g')
           echo "::set-output name=version::$RELEASE_VERSION"
 
       # https://github.com/ncipollo/release-action/blob/main/README.md
@@ -378,3 +375,34 @@ jobs:
           allowUpdates: true
           omitNameDuringUpdate: true
           omitBodyDuringUpdate: true
+  # -----------------------------------------------------------------------------------------------------
+  # ------------- Upload the latest version of User Guide -----------------------------------------------
+  # -----------------------------------------------------------------------------------------------------
+  upload-user-guide:
+    name: Upload User Guide
+    runs-on: ubuntu-latest
+    needs: publish-to-maven-central
+
+    steps:
+      # https://github.com/actions/download-artifact/blob/main/README.md
+      - name: Download latest rxmicro documentation
+        uses: actions/download-artifact@v2
+        with:
+          name: rxmicro-documentaion
+          path: docs
+
+      # Print dir tree with file size for debug purposes
+      - name: Show downloaded rxmicro documentation
+        run: |
+          sudo apt install tree
+          tree -ahD docs
+
+      - name: Commit and Push Changes to the `docs` Repository
+        run: |
+          cd docs
+          git config user.email "rxmicro.io@gmail.com"
+          git config user.name "rxmicro"
+          git add --all
+          git commit --amend -m "Update user guide. Commit#${{ github.sha }}"
+          git remote set-url origin https://rxmicro:${{ secrets.AUTO_UPDATE_RX_MICRO_IO_DOC_ACCESS_TOKEN }}@github.com/rxmicro/docs.git
+          git push --force origin master
