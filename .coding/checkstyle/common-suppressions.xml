@@ -28,7 +28,7 @@
     <suppress checks="IllegalCatch"
               files="RxMicroAnnotationProcessor.java|AbstractRxMicroProcessor.java|Injects.java|DbUnitTestExtension.java"/>
     <suppress checks="IllegalCatch"
-              files="TestedProcessProxy.java"/>
+              files="TestedProcessProxy.java|JULLoggerImplProvider.java"/>
 
     <!-- Safe.Consumer is basic interface for testing  -->
     <suppress checks="IllegalThrows"

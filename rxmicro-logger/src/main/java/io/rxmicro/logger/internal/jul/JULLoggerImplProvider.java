@@ -50,6 +50,15 @@ public final class JULLoggerImplProvider implements LoggerImplProvider {
 
     private final Map<String, Logger> loggerCache = new ConcurrentHashMap<>();
 
+    static {
+        // Workaround for https://bugs.openjdk.java.net/browse/JDK-6448699
+        try {
+            Class.forName("io.rxmicro.logger.jul.SystemConsoleHandler", true, ClassLoader.getSystemClassLoader());
+        } catch (final Throwable throwable) {
+            throwable.printStackTrace();
+        }
+    }
+
     @Override
     public void setup() {
         final Map<String, String> config = loggerConfigBuilder.build();
