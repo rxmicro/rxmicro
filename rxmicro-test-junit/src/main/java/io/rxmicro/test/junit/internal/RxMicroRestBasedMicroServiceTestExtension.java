@@ -51,7 +51,7 @@ import java.util.Map;
 
 import static io.rxmicro.config.local.DefaultConfigValueBuilderReSetter.resetDefaultConfigValueStorage;
 import static io.rxmicro.rest.server.local.component.RestServerLauncher.launchWithoutRestControllers;
-import static io.rxmicro.rest.server.netty.local.NettyRestServerConfigCustomizerState.setNettyRestServerConfigCustomizerState;
+import static io.rxmicro.rest.server.netty.local.NettyConfiguratorControllerResetter.resetNettyConfiguratorController;
 import static io.rxmicro.runtime.local.AbstractFactory.clearFactories;
 import static io.rxmicro.runtime.local.InstanceContainer.clearContainer;
 import static io.rxmicro.test.HttpServers.getRandomFreePort;
@@ -194,7 +194,7 @@ public final class RxMicroRestBasedMicroServiceTestExtension extends AbstractJUn
         clearContainer();
         clearFactories();
         resetDefaultConfigValueStorage();
-        setNettyRestServerConfigCustomizerState(false);
+        resetNettyConfiguratorController();
         serverContainer.unregisterAllRestControllers();
         systemOutInjector.resetIfNecessary();
     }

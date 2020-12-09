@@ -16,7 +16,9 @@
 
 package io.rxmicro.rest.server.netty.internal.component;
 
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelInitializer;
+import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.util.AttributeKey;
 import io.rxmicro.logger.Logger;
@@ -24,10 +26,14 @@ import io.rxmicro.logger.LoggerFactory;
 import io.rxmicro.rest.server.netty.NettyRestServerConfig;
 
 import java.time.Duration;
+import java.util.List;
+import java.util.Map;
+import java.util.function.Supplier;
 
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.Requires.require;
-import static io.rxmicro.rest.server.netty.internal.component.InternalNettyRestServerConfigCustomizer.getHandlerSuppliers;
+import static io.rxmicro.rest.server.netty.internal.component.InternalNettyConfiguratorBuilder.NETTY_RX_MICRO_REQUEST_HANDLER_NAME;
+import static io.rxmicro.rest.server.netty.internal.component.NettyConfiguratorController.getNettyConfiguratorController;
 
 /**
  * @author nedis
@@ -41,8 +47,15 @@ final class NettyClientConnectionController extends ChannelInitializer<SocketCha
 
     private final NettyRestServerConfig nettyRestServerConfig;
 
-    NettyClientConnectionController(final NettyRestServerConfig nettyRestServerConfig) {
+    private final NettyRequestHandler nettyRequestHandler;
+
+    private final List<Map.Entry<String, Supplier<ChannelHandler>>> handlerSuppliers;
+
+    NettyClientConnectionController(final NettyRestServerConfig nettyRestServerConfig,
+                                    final NettyRequestHandler nettyRequestHandler) {
         this.nettyRestServerConfig = require(nettyRestServerConfig);
+        this.nettyRequestHandler = nettyRequestHandler;
+        this.handlerSuppliers = getNettyConfiguratorController().getNettyConfigurator().getHandlerSuppliers();
     }
 
     @Override
@@ -54,7 +67,11 @@ final class NettyClientConnectionController extends ChannelInitializer<SocketCha
                     nettyRestServerConfig.getChannelIdType().getId(ch.id()), ch.remoteAddress()
             );
         }
-        getHandlerSuppliers().forEach(s -> ch.pipeline().addLast(s.get()));
+        final ChannelPipeline pipeline = ch.pipeline();
+        for (final Map.Entry<String, Supplier<ChannelHandler>> entry : handlerSuppliers) {
+            pipeline.addLast(entry.getKey(), entry.getValue().get());
+        }
+        pipeline.addLast(NETTY_RX_MICRO_REQUEST_HANDLER_NAME, nettyRequestHandler);
         ch.closeFuture().addListener(future -> {
                     if (LOGGER.isTraceEnabled()) {
                         LOGGER.trace(

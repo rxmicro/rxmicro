@@ -32,8 +32,7 @@ import java.util.concurrent.CountDownLatch;
 import static io.rxmicro.common.CommonConstants.NANOS_IN_1_MILLIS;
 import static io.rxmicro.common.local.StartTimeStampHelper.START_TIME_STAMP;
 import static io.rxmicro.common.util.Requires.require;
-import static io.rxmicro.rest.server.netty.internal.component.InternalNettyRestServerConfigCustomizer.getClientOptions;
-import static io.rxmicro.rest.server.netty.internal.component.InternalNettyRestServerConfigCustomizer.getServerOptions;
+import static io.rxmicro.rest.server.netty.internal.component.NettyConfiguratorController.getNettyConfiguratorController;
 import static io.rxmicro.rest.server.netty.internal.util.NettyTransportFactory.getCurrentNettyTransport;
 
 /**
@@ -48,6 +47,8 @@ final class NettyServer implements Runnable {
 
     private final NettyRestServerConfig nettyRestServerConfig;
 
+    private final NettyRequestHandler nettyRequestHandler;
+
     private final Class<? extends ServerSocketChannel> serverSocketChannelClass;
 
     private final EventLoopGroup serverGroup;
@@ -58,12 +59,14 @@ final class NettyServer implements Runnable {
 
     NettyServer(final HttpServerConfig httpServerConfig,
                 final NettyRestServerConfig nettyRestServerConfig,
+                final NettyRequestHandler nettyRequestHandler,
                 final Class<? extends ServerSocketChannel> serverSocketChannelClass,
                 final EventLoopGroup serverGroup,
                 final EventLoopGroup workerGroup,
                 final CountDownLatch latch) {
         this.httpServerConfig = httpServerConfig;
         this.nettyRestServerConfig = require(nettyRestServerConfig);
+        this.nettyRequestHandler = nettyRequestHandler;
         this.serverSocketChannelClass = require(serverSocketChannelClass);
         this.serverGroup = require(serverGroup);
         this.workerGroup = require(workerGroup);
@@ -77,9 +80,10 @@ final class NettyServer implements Runnable {
             final ServerBootstrap bootstrap = new ServerBootstrap()
                     .group(serverGroup, workerGroup)
                     .channel(serverSocketChannelClass)
-                    .childHandler(new NettyClientConnectionController(nettyRestServerConfig));
-            getServerOptions().forEach((o, v) -> bootstrap.option((ChannelOption<Object>) o, v));
-            getClientOptions().forEach((o, v) -> bootstrap.childOption((ChannelOption<Object>) o, v));
+                    .childHandler(new NettyClientConnectionController(nettyRestServerConfig, nettyRequestHandler));
+            final NettyConfiguratorController.NettyConfigurator nettyConfigurator = getNettyConfiguratorController().getNettyConfigurator();
+            nettyConfigurator.getServerOptions().forEach((o, v) -> bootstrap.option((ChannelOption<Object>) o, v));
+            nettyConfigurator.getClientOptions().forEach((o, v) -> bootstrap.childOption((ChannelOption<Object>) o, v));
 
             final ChannelFuture channelFuture = bootstrap.bind(httpServerConfig.getHost(), httpServerConfig.getPort()).sync();
             logStartedMessage();

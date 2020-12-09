@@ -16,18 +16,10 @@
 
 package io.rxmicro.rest.server.netty;
 
-import io.netty.channel.ChannelHandler;
-import io.netty.channel.ChannelOption;
-import io.netty.handler.codec.http.HttpObjectAggregator;
-import io.netty.handler.codec.http.HttpServerCodec;
-import io.rxmicro.rest.server.netty.internal.component.InternalNettyRestServerConfigCustomizer;
-
-import java.util.function.Supplier;
-
-import static io.rxmicro.common.util.Requires.require;
+import static io.rxmicro.rest.server.netty.internal.component.NettyConfiguratorController.getNettyConfiguratorController;
 
 /**
- * Allows configuring the application specific configs for netty REST server.
+ * Allows configuring the application specific configs for netty HTTP server.
  *
  * <ul>
  *     <li>{@link NettyRestServerConfig} must be used for environment specific configs.</li>
@@ -36,68 +28,22 @@ import static io.rxmicro.common.util.Requires.require;
  *
  * @author nedis
  * @see NettyRestServerConfig
- * @see HttpServerCodec
- * @see HttpObjectAggregator
+ * @see NettyConfiguratorBuilder
  * @since 0.7.2
  */
-public final class NettyRestServerConfigCustomizer extends InternalNettyRestServerConfigCustomizer {
+public final class NettyRestServerConfigCustomizer {
 
     /**
-     * Adds server channel option.
+     * Returns the current {@link NettyConfiguratorBuilder} instance that must be used for configuration of netty HTTP server.
      *
-     * @param option option name
-     * @param value  option value
-     * @param <T>    option type
-     * @return the previous value associated with {@code option}, or {@code null} if there was no mapping for {@code option}.
-     * @see ChannelOption
-     * @see java.util.Map
-     * @throws IllegalStateException if netty server already built
-     * @throws NullPointerException if {@code option} or {@code value} is {@code null}
-     */
-    @SuppressWarnings("unchecked")
-    public static <T> T setServerOption(final ChannelOption<T> option, final T value) {
-        validateState();
-        return (T) SERVER_OPTIONS.put(require(option), require(value));
-    }
-
-    /**
-     * Adds client channel option.
+     * <p>
+     * The {@link NettyConfiguratorBuilder} must be used for application specific configs.
      *
-     * @param option option name
-     * @param value  option value
-     * @param <T>    option type
-     * @return the previous value associated with {@code option}, or {@code null} if there was no mapping for {@code option}.
-     * @see ChannelOption
-     * @see java.util.Map
-     * @throws IllegalStateException if netty server already built
-     * @throws NullPointerException if {@code option} or {@code value} is {@code null}
+     * @return the current {@link NettyConfiguratorBuilder} instance
+     * @throws IllegalStateException if Netty configurator already built.
      */
-    @SuppressWarnings("unchecked")
-    public static <T> T setClientOption(final ChannelOption<T> option, final T value) {
-        validateState();
-        return (T) CLIENT_OPTIONS.put(require(option), require(value));
-    }
-
-    /**
-     * Resets channel handlers, i.e. removes all configured channel handlers.
-     *
-     * @throws IllegalStateException if netty server already built
-     */
-    public static void resetChannelHandlers() {
-        validateState();
-        HANDLER_SUPPLIERS.clear();
-    }
-
-    /**
-     * Adds channel handler supplier to the last position of channel handlers.
-     *
-     * @param channelHandlerSupplier channel handler supplier
-     * @throws IllegalStateException if netty server already built
-     * @throws NullPointerException if {@code channelHandlerSupplier} is {@code null}
-     */
-    public static void addChannelHandlerSupplierToLastPosition(final Supplier<ChannelHandler> channelHandlerSupplier) {
-        validateState();
-        HANDLER_SUPPLIERS.add(require(channelHandlerSupplier));
+    public static NettyConfiguratorBuilder getCurrentNettyConfiguratorBuilder() {
+        return getNettyConfiguratorController().getNettyConfiguratorBuilder();
     }
 
     private NettyRestServerConfigCustomizer() {

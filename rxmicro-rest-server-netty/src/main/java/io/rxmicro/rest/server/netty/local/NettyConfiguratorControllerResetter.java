@@ -16,25 +16,18 @@
 
 package io.rxmicro.rest.server.netty.local;
 
+import static io.rxmicro.rest.server.netty.internal.component.NettyConfiguratorController.getNettyConfiguratorController;
+
 /**
  * @author nedis
  * @since 0.7.2
  */
-public final class NettyRestServerConfigCustomizerState {
+public final class NettyConfiguratorControllerResetter {
 
-    private static boolean built;
-
-    public static void validateNettyRestServerConfigCustomizerState() {
-        if (built) {
-            throw new IllegalStateException("Netty server already built! " +
-                    "Any customizations must be done before building of the netty server!");
-        }
+    public static void resetNettyConfiguratorController() {
+        getNettyConfiguratorController().reset();
     }
 
-    public static void setNettyRestServerConfigCustomizerState(final boolean built) {
-        NettyRestServerConfigCustomizerState.built = built;
-    }
-
-    private NettyRestServerConfigCustomizerState() {
+    private NettyConfiguratorControllerResetter() {
     }
 }
