@@ -220,6 +220,7 @@ jobs:
           tar --strip-components=1 -xvzf ~/GraalVM/${GRAAL_VM_BUILD}.tar.gz -C ~/GraalVM
           rm -f ~/GraalVM/${GRAAL_VM_BUILD}.tar.gz
           ~/GraalVM/bin/gu install native-image
+          find rxmicro-usage/examples/${{ matrix.group }}/ -maxdepth 1 -type d -exec ln -s ~/GraalVM/bin/native-image {}/native-image \;
 
       # https://github.com/actions/download-artifact/blob/main/README.md
       - name: Download latest rxmicro artifacts
@@ -238,7 +239,6 @@ jobs:
         run: |
           LATEST_VERSION=$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)
           export GRAALVM_HOME=~/GraalVM
-          find rxmicro-usage/examples/${{ matrix.group }}/ -maxdepth 1 -type d -exec ln -s $GRAALVM_HOME/bin/native-image {}/native-image \;
           cd rxmicro-usage/examples/${{ matrix.group }}
           mvn --fail-at-end -Drxmicro.version=$LATEST_VERSION verify
 
@@ -297,6 +297,13 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           path: ./rxmicro-annotation-processor/target/
+
+      # Move all found jacoco.exec file to ./rxmicro-annotation-processor/target/ directory
+      - name: Re order jacoco metadata
+        run: |
+          cd ./rxmicro-annotation-processor/target/
+          cp ./rxmicro-usage/tool/src/main/java/ReOrderJacocoExec.java ReOrderJacocoExec.java
+          java ReOrderJacocoExec.java
 
       # Print dir tree with file size for debug purposes
       - name: Show downloaded rxmicro artifacts
