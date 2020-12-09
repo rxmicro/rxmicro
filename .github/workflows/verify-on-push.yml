@@ -245,8 +245,8 @@ jobs:
       - name: Collect jacoco metadata
         run: |
           mkdir -p ~/jacoco
-          cp ./rxmicro-usage/tool/src/main/java/CopyJacocoExec.java CopyJacocoExec.java
-          java CopyJacocoExec.java ./rxmicro-usage/examples/${{ matrix.group }} ~/jacoco
+          cp rxmicro-usage/tool/src/main/java/CopyJacocoExec.java CopyJacocoExec.java
+          java CopyJacocoExec.java rxmicro-usage/examples/${{ matrix.group }} ~/jacoco
 
       # https://github.com/actions/upload-artifact/blob/main/README.md
       - name: Save collected jacoco metadata
@@ -296,20 +296,20 @@ jobs:
       - name: Download all collected jacoco metadata
         uses: actions/download-artifact@v2
         with:
-          path: ./rxmicro-annotation-processor/target/
+          path: rxmicro-annotation-processor/target/
 
-      # Move all found jacoco.exec file to ./rxmicro-annotation-processor/target/ directory
+      # Move all found jacoco.exec file to rxmicro-annotation-processor/target/ directory
       - name: Re order jacoco metadata
         run: |
-          cd ./rxmicro-annotation-processor/target/
-          cp ./rxmicro-usage/tool/src/main/java/ReOrderJacocoExec.java ReOrderJacocoExec.java
+          cd rxmicro-annotation-processor/target/
+          wget https://raw.githubusercontent.com/rxmicro/rxmicro-usage/master/tool/src/main/java/ReOrderJacocoExec.java
           java ReOrderJacocoExec.java
 
       # Print dir tree with file size for debug purposes
       - name: Show downloaded rxmicro artifacts
         run: |
           sudo apt install tree
-          tree -hD ./rxmicro-annotation-processor/target/
+          tree -hD rxmicro-annotation-processor/target/
 
       - name: Create Jacoco Aggregate
         run: mvn site site:stage
@@ -329,5 +329,5 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: staging-report-${{ github.sha }}
-          path: ./target/staging
+          path: target/staging
           if-no-files-found: error
