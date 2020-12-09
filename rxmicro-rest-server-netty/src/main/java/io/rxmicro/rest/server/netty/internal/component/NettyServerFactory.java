@@ -31,6 +31,7 @@ import io.rxmicro.rest.server.netty.NettyRestServerConfig;
 
 import java.util.ServiceLoader;
 import java.util.concurrent.CountDownLatch;
+import java.util.function.Supplier;
 
 import static io.rxmicro.common.CommonConstants.RX_MICRO_FRAMEWORK_NAME;
 import static io.rxmicro.common.util.Formats.format;
@@ -61,7 +62,7 @@ public final class NettyServerFactory implements ServerFactory {
             final RestServerConfig restServerConfig = getConfig(RestServerConfig.class);
             final RequestIdGenerator requestIdGenerator = restServerConfig.getGeneratorType().getRequestIdGenerator();
             final NettyRestServerConfig nettyRestServerConfig = getConfig(NettyRestServerConfig.class);
-            final NettyRequestHandler nettyRequestHandler = new NettyRequestHandler(
+            final Supplier<NettyRequestHandler> nettyRequestHandlerSupplier = () -> new NettyRequestHandler(
                     nettyRestServerConfig,
                     requestHandler,
                     requestIdGenerator,
@@ -69,7 +70,7 @@ public final class NettyServerFactory implements ServerFactory {
                     responseContentBuilder,
                     restServerConfig
             );
-            return start(httpServerConfig, nettyRestServerConfig, nettyRequestHandler);
+            return start(httpServerConfig, nettyRestServerConfig, nettyRequestHandlerSupplier);
         } catch (final ClassNotFoundException ex) {
             throw new ConfigException("Required class not found: " + ex.getMessage());
         }
@@ -77,14 +78,14 @@ public final class NettyServerFactory implements ServerFactory {
 
     private ServerInstance start(final HttpServerConfig httpServerConfig,
                                  final NettyRestServerConfig nettyRestServerConfig,
-                                 final NettyRequestHandler nettyRequestHandler)
+                                 final Supplier<NettyRequestHandler> nettyRequestHandlerSupplier)
             throws ClassNotFoundException {
         final CountDownLatch latch = new CountDownLatch(1);
         final Thread thread = new Thread(
                 new NettyServer(
                         httpServerConfig,
                         nettyRestServerConfig,
-                        nettyRequestHandler,
+                        nettyRequestHandlerSupplier,
                         getServerSocketChannelClass(nettyRestServerConfig),
                         newEventLoopGroup(nettyRestServerConfig),
                         newEventLoopGroup(nettyRestServerConfig),

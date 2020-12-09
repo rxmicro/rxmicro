@@ -47,14 +47,14 @@ final class NettyClientConnectionController extends ChannelInitializer<SocketCha
 
     private final NettyRestServerConfig nettyRestServerConfig;
 
-    private final NettyRequestHandler nettyRequestHandler;
+    private final Supplier<NettyRequestHandler> nettyRequestHandlerSupplier;
 
     private final List<Map.Entry<String, Supplier<ChannelHandler>>> handlerSuppliers;
 
     NettyClientConnectionController(final NettyRestServerConfig nettyRestServerConfig,
-                                    final NettyRequestHandler nettyRequestHandler) {
+                                    final Supplier<NettyRequestHandler> nettyRequestHandlerSupplier) {
         this.nettyRestServerConfig = require(nettyRestServerConfig);
-        this.nettyRequestHandler = nettyRequestHandler;
+        this.nettyRequestHandlerSupplier = nettyRequestHandlerSupplier;
         this.handlerSuppliers = getNettyConfiguratorController().getNettyConfigurator().getHandlerSuppliers();
     }
 
@@ -71,7 +71,7 @@ final class NettyClientConnectionController extends ChannelInitializer<SocketCha
         for (final Map.Entry<String, Supplier<ChannelHandler>> entry : handlerSuppliers) {
             pipeline.addLast(entry.getKey(), entry.getValue().get());
         }
-        pipeline.addLast(NETTY_RX_MICRO_REQUEST_HANDLER_NAME, nettyRequestHandler);
+        pipeline.addLast(NETTY_RX_MICRO_REQUEST_HANDLER_NAME, nettyRequestHandlerSupplier.get());
         ch.closeFuture().addListener(future -> {
                     if (LOGGER.isTraceEnabled()) {
                         LOGGER.trace(
