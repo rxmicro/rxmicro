@@ -4,14 +4,21 @@ This document contains the *change log* for all RxMicro releases since **0.2**.
 
 ## RxMicro v0.7.2
 
+* Add `NettyRestServerConfigCustomizer` and `NettyConfiguratorBuilder` classes.
+  (So `NettyRestServerConfig` must be used for environment specific configs and 
+  `NettyRestServerConfigCustomizer` must be used for application specific configs).
+* Add support for custom types that now can be used as valid config parameter type.
+* Update `SystemOutImpl` logic
+  (`SystemOutImpl` must print all messages to the original console and must store it to the local cache for future comparison!)  
+* Fix `TestedProcessProxy` implementation.
 * Add an inheritance support for REST controller models 
   (*REST clients and entity converters still does not support an inheritance. It will be implemented later*):
-  * RequestModelReader;
-  * RequestModelFromJsonConverter;
-  * RequestValidator;
-  * ResponseModelWriter;
-  * ResponseModelToJsonConverter;
-  * ResponseValidator;
+  * `RequestModelReader`;
+  * `RequestModelFromJsonConverter`;
+  * `RequestValidator`;
+  * `ResponseModelWriter`;
+  * `ResponseModelToJsonConverter`;
+  * `ResponseValidator`;
 * Add additional validators:
   * `java.util.Map<String, ?>` model must be supported for HTTP body only!
   * `@RepeatQueryParameter` can be applied to REST client request only!
@@ -91,7 +98,7 @@ This document contains the *change log* for all RxMicro releases since **0.2**.
 * Add expression support for dbunit datasets.
 * Introduce BaseModel class.
 * Introduce enableAdditionalValidations logic.
-* Introduce RX_MICRO_RUNTIME_STRICT_MODE environment variable that activates additional checks in runtime. 
+* Introduce `RX_MICRO_RUNTIME_STRICT_MODE` environment variable that activates additional checks in runtime. 
   (For `dev` and `staging` environments only!)
 
 ## RxMicro v0.6
