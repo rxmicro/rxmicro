@@ -191,11 +191,7 @@ public final class Converters {
                 if (isDecimalNumberCandidate) {
                     return new BigDecimal(value);
                 } else {
-                    try {
-                        return Long.parseLong(value);
-                    } catch (final NumberFormatException ignore) {
-                        return new BigInteger(value);
-                    }
+                    return Long.parseLong(value);
                 }
             } catch (final NumberFormatException ignore) {
                 // return string value

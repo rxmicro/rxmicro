@@ -16,7 +16,6 @@
 
 package io.rxmicro.config.internal;
 
-import io.rxmicro.common.util.ExCollections;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.MethodOrderer;
@@ -29,11 +28,11 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import java.lang.annotation.Retention;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.stream.Stream;
 
+import static io.rxmicro.common.util.ExCollections.unmodifiableOrderedMap;
 import static io.rxmicro.config.internal.Converters.convertToType;
 import static io.rxmicro.config.internal.Converters.convertWithoutTypeDefinition;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
@@ -54,7 +53,7 @@ final class ConvertersTest {
                 arguments("true", true, true, Boolean.TRUE),
                 arguments("false", true, true, Boolean.FALSE),
                 arguments("a,b,c", true, true, List.of("a", "b", "c")),
-                arguments("k1=v1,k2=v2", true, true, ExCollections.unmodifiableOrderedMap(new LinkedHashMap<>() {
+                arguments("k1=v1,k2=v2", true, true, unmodifiableOrderedMap(new LinkedHashMap<>() {
                     {
                         put("k1", "v1");
                         put("k2", "v2");
@@ -63,9 +62,6 @@ final class ConvertersTest {
                 arguments("987654321", true, true, 987654321L),
                 arguments("-987654321", true, true, -987654321L),
                 arguments("+987654321", true, true, 987654321L),
-                arguments("987654321987654321987654321987654321", true, true, new BigInteger("987654321987654321987654321987654321")),
-                arguments("+987654321987654321987654321987654321", true, true, new BigInteger("987654321987654321987654321987654321")),
-                arguments("-987654321987654321987654321987654321", true, true, new BigInteger("-987654321987654321987654321987654321")),
                 arguments("3.14", true, true, new BigDecimal("3.14")),
                 arguments("-3.14", true, true, new BigDecimal("-3.14")),
                 arguments("+3.14", true, true, new BigDecimal("+3.14")),
