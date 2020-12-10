@@ -20,7 +20,7 @@
     <parent>
         <artifactId>rxmicro</artifactId>
         <groupId>io.rxmicro</groupId>
-        <version>0.7.2-SNAPSHOT</version>
+        <version>0.7.3-SHAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>rxmicro-annotation-processor-rest-client</artifactId>
@@ -89,23 +89,23 @@
         <dependency>
             <groupId>io.rxmicro</groupId>
             <artifactId>rxmicro-rest-client-jdk</artifactId>
-            <version>0.7.2-SNAPSHOT</version>
+            <version>0.7.3-SHAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>io.rxmicro</groupId>
             <artifactId>rxmicro-rest-client-exchange-json</artifactId>
-            <version>0.7.2-SNAPSHOT</version>
+            <version>0.7.3-SHAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>io.rxmicro</groupId>
             <artifactId>rxmicro-annotation-processor-rest</artifactId>
-            <version>0.7.2-SNAPSHOT</version>
+            <version>0.7.3-SHAPSHOT</version>
         </dependency>
 
         <dependency>
             <groupId>io.rxmicro</groupId>
             <artifactId>rxmicro-annotation-processor-integration-test</artifactId>
-            <version>0.7.2-SNAPSHOT</version>
+            <version>0.7.3-SHAPSHOT</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
