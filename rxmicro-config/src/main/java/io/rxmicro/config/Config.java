@@ -127,4 +127,14 @@ public abstract class Config {
     public String getNameSpace() {
         return getDefaultNameSpace(getClass());
     }
+
+    /**
+     * Validates the config instance state after injection all properties.
+     *
+     * @param namespace the namespace
+     * @throws ConfigException if current config instance has invalid state
+     */
+    protected void validate(final String namespace) {
+        // do nothing, but child classes can require additional validation logic
+    }
 }

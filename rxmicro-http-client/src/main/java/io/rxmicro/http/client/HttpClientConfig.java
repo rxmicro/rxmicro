@@ -25,6 +25,7 @@ import java.time.Duration;
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.Requires.require;
 import static io.rxmicro.config.Secrets.hideSecretInfo;
+import static io.rxmicro.http.ProtocolSchema.HTTP;
 import static java.time.Duration.ofSeconds;
 
 /**
@@ -36,6 +37,11 @@ import static java.time.Duration.ofSeconds;
  */
 @SuppressWarnings("UnusedReturnValue")
 public class HttpClientConfig extends HttpConfig {
+
+    /**
+     * Default HTTP port.
+     */
+    public static final int DEFAULT_HTTP_PORT = 80;
 
     /**
      * Default HTTP client timeout in seconds.
@@ -52,7 +58,9 @@ public class HttpClientConfig extends HttpConfig {
      * Creates a HTTP client config instance with default settings.
      */
     protected HttpClientConfig() {
+        setSchema(HTTP);
         setHost("localhost");
+        setPort(DEFAULT_HTTP_PORT);
     }
 
     /**

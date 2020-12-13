@@ -50,8 +50,6 @@ public final class PostgreSQLConfig extends SQLPooledDatabaseConfig {
      */
     public PostgreSQLConfig() {
         setPort(DEFAULT_POSTGRESQL_PORT);
-        setUser("rxmicro");
-        setDatabase("rxmicro");
     }
 
     @Override

@@ -33,16 +33,11 @@ import static io.rxmicro.config.Networks.validatePort;
 @SuppressWarnings("UnusedReturnValue")
 public abstract class HttpConfig extends Config {
 
-    /**
-     * Default HTTP port.
-     */
-    public static final int DEFAULT_HTTP_PORT = 8080;
-
-    private ProtocolSchema schema = ProtocolSchema.HTTP;
+    private ProtocolSchema schema;
 
     private String host;
 
-    private int port = DEFAULT_HTTP_PORT;
+    private int port;
 
     /**
      * Returns the protocol schema.

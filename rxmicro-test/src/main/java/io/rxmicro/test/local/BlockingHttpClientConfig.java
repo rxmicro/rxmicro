@@ -23,6 +23,8 @@ import io.rxmicro.rest.Version;
 
 import java.time.Duration;
 
+import static io.rxmicro.http.ProtocolSchema.HTTP;
+
 /**
  * @author nedis
  * @since 0.1
@@ -30,12 +32,20 @@ import java.time.Duration;
 @SuppressWarnings("UnusedReturnValue")
 public final class BlockingHttpClientConfig extends HttpClientConfig {
 
+    private static final int DEFAULT_HTTP_PORT = 8080;
+
     private Version.Strategy versionStrategy = Version.Strategy.URL_PATH;
 
     private String versionValue = "";
 
     public Version.Strategy getVersionStrategy() {
         return versionStrategy;
+    }
+
+    public BlockingHttpClientConfig() {
+        setSchema(HTTP);
+        setHost("localhost");
+        setPort(DEFAULT_HTTP_PORT);
     }
 
     @BuilderMethod

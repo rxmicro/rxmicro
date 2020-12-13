@@ -17,11 +17,17 @@
 package io.rxmicro.test.dbunit;
 
 import io.rxmicro.common.meta.BuilderMethod;
+import io.rxmicro.config.ConfigException;
 import io.rxmicro.config.Configs;
 import io.rxmicro.test.local.model.BaseTestConfig;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.Requires.require;
 import static io.rxmicro.config.Networks.validatePort;
+import static io.rxmicro.test.dbunit.DatabaseType.POSTGRES;
 
 /**
  * Allows configuring the connection options that used by the DBUnit to work with test database.
@@ -43,7 +49,7 @@ public final class TestDatabaseConfig extends BaseTestConfig implements Cloneabl
 
     private static final ThreadLocal<TestDatabaseConfig> CURRENT_TEST_DATABASE_CONFIG = new ThreadLocal<>();
 
-    private DatabaseType type;
+    private DatabaseType type = POSTGRES;
 
     private String jdbcDriver;
 
@@ -315,5 +321,25 @@ public final class TestDatabaseConfig extends BaseTestConfig implements Cloneabl
         clone.user = user;
         clone.password = password;
         return clone;
+    }
+
+    @Override
+    protected void validate(final String namespace) {
+        final List<String> properties = new ArrayList<>();
+        if (user == null) {
+            properties.add(format("?.user", namespace));
+        }
+        if (password == null) {
+            properties.add(format("?.password", namespace));
+        }
+        if (database == null) {
+            properties.add(format("?.database", namespace));
+        }
+        if (!properties.isEmpty()) {
+            throw new ConfigException(
+                    "Can't create instance of '?' class for '?' namespace, because required property(ies) is(are) missing: ?!",
+                    getClass().getName(), namespace, properties
+            );
+        }
     }
 }

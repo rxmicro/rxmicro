@@ -84,8 +84,11 @@ public final class Configs {
             throw new ConfigException(
                     "Configs are not built. Use Configs.Builder to build configuration");
         }
-        return (T) instance.storage.computeIfAbsent(namespace, n ->
-                instance.loader.getEnvironmentConfig(namespace, configClass, instance.commandLineArgs));
+        return (T) instance.storage.computeIfAbsent(namespace, n -> {
+            final Config config = instance.loader.getEnvironmentConfig(namespace, configClass, instance.commandLineArgs);
+            config.validate(namespace);
+            return config;
+        });
     }
 
     /**

@@ -18,8 +18,11 @@ package io.rxmicro.data.sql;
 
 import io.rxmicro.common.meta.BuilderMethod;
 import io.rxmicro.config.Config;
+import io.rxmicro.config.ConfigException;
 
 import java.time.Duration;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -37,19 +40,28 @@ import static io.rxmicro.config.Networks.validatePort;
 @SuppressWarnings("UnusedReturnValue")
 public class SQLDatabaseConfig extends Config {
 
+    /**
+     * Default SQL database server host.
+     */
+    public static final String DEFAULT_HOST = "localhost";
+
     private Map<String, String> options;
 
-    private String host = "localhost";
+    private String host;
 
-    private int port;
+    private int port = -1;
 
     private String user;
 
     private CharSequence password;
 
-    private String database = "db";
+    private String database;
 
     private Duration connectTimeout;
+
+    public SQLDatabaseConfig() {
+        host = DEFAULT_HOST;
+    }
 
     /**
      * Returns the server host name.
@@ -205,5 +217,28 @@ public class SQLDatabaseConfig extends Config {
      */
     public String getConnectionString() {
         return format("sql://?:?/?", host, port, database);
+    }
+
+    @Override
+    protected void validate(final String namespace) {
+        final List<String> properties = new ArrayList<>();
+        if (port == -1) {
+            properties.add(format("?.port", namespace));
+        }
+        if (user == null) {
+            properties.add(format("?.user", namespace));
+        }
+        if (password == null) {
+            properties.add(format("?.password", namespace));
+        }
+        if (database == null) {
+            properties.add(format("?.database", namespace));
+        }
+        if (!properties.isEmpty()) {
+            throw new ConfigException(
+                    "Can't create instance of '?' class for '?' namespace, because required property(ies) is(are) missing: ?!",
+                    getClass().getName(), namespace, properties
+            );
+        }
     }
 }

@@ -20,6 +20,8 @@ import io.rxmicro.common.meta.BuilderMethod;
 import io.rxmicro.http.HttpConfig;
 import io.rxmicro.http.ProtocolSchema;
 
+import static io.rxmicro.http.ProtocolSchema.HTTP;
+
 /**
  * Allows configuring HTTP server options.
  *
@@ -29,13 +31,20 @@ import io.rxmicro.http.ProtocolSchema;
 @SuppressWarnings("UnusedReturnValue")
 public class HttpServerConfig extends HttpConfig {
 
+    /**
+     * Default HTTP port.
+     */
+    public static final int DEFAULT_HTTP_PORT = 8080;
+
     private boolean startTimeTrackerEnabled = true;
 
     /**
      * Creates a HTTP server config instance with default settings.
      */
     public HttpServerConfig() {
+        setSchema(HTTP);
         setHost("0.0.0.0");
+        setPort(DEFAULT_HTTP_PORT);
     }
 
     /**

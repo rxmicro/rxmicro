@@ -476,6 +476,7 @@ public class RestServerConfig extends Config {
                 ", showRuntimeEnv=" + showRuntimeEnv +
                 ", useFullClassNamesForRouterMappingLogMessages=" + useFullClassNamesForRouterMappingLogMessages +
                 ", enableAdditionalValidations=" + enableAdditionalValidations +
+                ", waitingForRequestIdGeneratorInitTimeoutInMillis=" + waitingForRequestIdGeneratorInitTimeoutInMillis +
                 '}';
     }
 }
