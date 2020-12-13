@@ -14,14 +14,15 @@
  * limitations under the License.
  */
 
-package io.rxmicro.logger.impl;
+package io.rxmicro.logger;
 
-import io.rxmicro.common.InvalidStateException;
 import io.rxmicro.common.local.StartTimeStampHelper;
-import io.rxmicro.logger.Logger;
+import io.rxmicro.logger.impl.LoggerImplProvider;
 import io.rxmicro.logger.internal.jul.JULLoggerImplProvider;
 
+import static io.rxmicro.common.util.Reflections.setFieldValue;
 import static io.rxmicro.common.util.Requires.require;
+import static io.rxmicro.logger.internal.LoggerImplProviderFactoryHelper.createAndSetupLoggerImplProvider;
 import static java.util.Objects.requireNonNullElseGet;
 
 /**
@@ -42,9 +43,11 @@ import static java.util.Objects.requireNonNullElseGet;
  */
 public final class LoggerImplProviderFactory {
 
-    private static LoggerImplProvider impl;
+    private static LoggerImplProvider currentLoggerImplProvider;
 
-    private static boolean init;
+    private static LoggerImplProvider defaultLoggerImplProvider;
+
+    private static boolean loggerFactoryInitialized;
 
     static {
         StartTimeStampHelper.init();
@@ -55,9 +58,9 @@ public final class LoggerImplProviderFactory {
      *
      * @return the {@link LoggerImplProvider} instance that configured by default
      */
-    public static LoggerImplProvider getLoggerImplFactory() {
-        init = true;
-        return requireNonNullElseGet(impl, JULLoggerImplProvider::new);
+    static LoggerImplProvider getLoggerImplFactory() {
+        loggerFactoryInitialized = true;
+        return requireNonNullElseGet(currentLoggerImplProvider, LoggerImplProviderFactory::getDefaultLoggerImplProvider);
     }
 
     /**
@@ -67,13 +70,29 @@ public final class LoggerImplProviderFactory {
      * This method is useful for testing purposes, because it allows replacing the default {@link LoggerImplProvider} by the mock.
      *
      * @param impl the {@link LoggerImplProvider} instance
-     * @throws InvalidStateException if {@code LoggerImplProviderFactory} instance already created
      */
     public static void setLoggerImplFactory(final LoggerImplProvider impl) {
-        if (init) {
-            throw new InvalidStateException("LoggerImplProviderFactory instance already created");
+        currentLoggerImplProvider = require(impl);
+        if (loggerFactoryInitialized) {
+            setFieldValue(LoggerFactory.class, "LOGGER_IMPL_PROVIDER", currentLoggerImplProvider);
         }
-        LoggerImplProviderFactory.impl = require(impl);
+    }
+
+    /**
+     * Resets the {@link LoggerImplProviderFactory}.
+     */
+    public static void resetLoggerImplFactory() {
+        currentLoggerImplProvider = getDefaultLoggerImplProvider();
+        if (loggerFactoryInitialized) {
+            setFieldValue(LoggerFactory.class, "LOGGER_IMPL_PROVIDER", currentLoggerImplProvider);
+        }
+    }
+
+    private static LoggerImplProvider getDefaultLoggerImplProvider() {
+        if (defaultLoggerImplProvider == null) {
+            defaultLoggerImplProvider = createAndSetupLoggerImplProvider(JULLoggerImplProvider.class);
+        }
+        return defaultLoggerImplProvider;
     }
 
     private LoggerImplProviderFactory() {

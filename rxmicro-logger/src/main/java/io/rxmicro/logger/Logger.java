@@ -33,7 +33,7 @@ import java.util.function.Supplier;
  * @see Formats
  * @see LoggerFactory
  * @see Level
- * @see io.rxmicro.logger.impl.LoggerImplProviderFactory
+ * @see LoggerImplProviderFactory
  * @since 0.1
  */
 public interface Logger {

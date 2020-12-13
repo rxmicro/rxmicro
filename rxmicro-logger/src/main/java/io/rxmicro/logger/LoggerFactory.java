@@ -19,7 +19,7 @@ package io.rxmicro.logger;
 import io.rxmicro.common.local.StartTimeStampHelper;
 import io.rxmicro.logger.impl.LoggerImplProvider;
 
-import static io.rxmicro.logger.impl.LoggerImplProviderFactory.getLoggerImplFactory;
+import static io.rxmicro.logger.LoggerImplProviderFactory.getLoggerImplFactory;
 
 /**
  * Factory that must be used to get a {@link Logger} instance.
@@ -28,22 +28,16 @@ import static io.rxmicro.logger.impl.LoggerImplProviderFactory.getLoggerImplFact
  * @see Logger
  * @see Level
  * @see LoggerImplProvider
- * @see io.rxmicro.logger.impl.LoggerImplProviderFactory
+ * @see LoggerImplProviderFactory
  * @since 0.1
  */
 public final class LoggerFactory {
 
-    private static final LoggerImplProvider LOGGER_IMPL_FACTORY;
+    private static final LoggerImplProvider LOGGER_IMPL_PROVIDER;
 
     static {
         StartTimeStampHelper.init();
-        LOGGER_IMPL_FACTORY = getLoggerImplFactory();
-        try {
-            LOGGER_IMPL_FACTORY.setup();
-        } catch (final Throwable throwable) {
-            System.err.println("Can't setup logger impl factory: " + throwable.getMessage());
-            throwable.printStackTrace();
-        }
+        LOGGER_IMPL_PROVIDER = getLoggerImplFactory();
     }
 
     /**
@@ -53,7 +47,7 @@ public final class LoggerFactory {
      * @return the {@link Logger} instance
      */
     public static Logger getLogger(final Class<?> className) {
-        return LOGGER_IMPL_FACTORY.getLogger(className);
+        return LOGGER_IMPL_PROVIDER.getLogger(className);
     }
 
     /**
@@ -63,7 +57,7 @@ public final class LoggerFactory {
      * @return the {@link Logger} instance
      */
     public static Logger getLogger(final String name) {
-        return LOGGER_IMPL_FACTORY.getLogger(name);
+        return LOGGER_IMPL_PROVIDER.getLogger(name);
     }
 
     private LoggerFactory() {

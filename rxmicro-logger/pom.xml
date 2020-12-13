@@ -36,6 +36,8 @@
                 <configuration>
                     <argLine>
                         @{argLine}
+                        --add-opens java.base/java.lang.reflect=rxmicro.common
+                        --add-opens rxmicro.logger/io.rxmicro.logger=ALL-UNNAMED
                         --add-opens rxmicro.logger/io.rxmicro.logger.internal.jul=ALL-UNNAMED
                         --add-opens rxmicro.logger/io.rxmicro.logger.internal.jul.config.adapter.pattern=ALL-UNNAMED
                     </argLine>

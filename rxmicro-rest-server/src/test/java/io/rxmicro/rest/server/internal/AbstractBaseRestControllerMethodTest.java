@@ -31,8 +31,7 @@ import java.util.concurrent.CompletionStage;
 import java.util.function.BiFunction;
 import java.util.function.Supplier;
 
-import static io.rxmicro.logger.impl.LoggerImplProviderFactory.getLoggerImplFactory;
-import static io.rxmicro.logger.impl.LoggerImplProviderFactory.setLoggerImplFactory;
+import static io.rxmicro.logger.LoggerImplProviderFactory.setLoggerImplFactory;
 
 /**
  * @author nedis
@@ -41,8 +40,10 @@ import static io.rxmicro.logger.impl.LoggerImplProviderFactory.setLoggerImplFact
  */
 abstract class AbstractBaseRestControllerMethodTest {
 
+    private static final MockLoggerImplProvider MOCK_LOGGER_IMPL_PROVIDER = new MockLoggerImplProvider();
+
     static {
-        setLoggerImplFactory(new MockLoggerImplProvider());
+        setLoggerImplFactory(MOCK_LOGGER_IMPL_PROVIDER);
     }
 
     @Mock
@@ -77,7 +78,7 @@ abstract class AbstractBaseRestControllerMethodTest {
     }
 
     protected final void setLoggerMock(final Logger logger) {
-        ((MockLoggerImplProvider) getLoggerImplFactory()).setLogger(logger);
+        MOCK_LOGGER_IMPL_PROVIDER.setLogger(logger);
     }
 
     /**

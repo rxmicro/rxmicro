@@ -55,8 +55,8 @@
 
         <module>rxmicro-common</module>
         <module>rxmicro-model</module>
-        <module>rxmicro-runtime</module>
         <module>rxmicro-logger</module>
+        <module>rxmicro-runtime</module>
         <module>rxmicro-config</module>
         <module>rxmicro-cdi</module>
         <module>rxmicro-slf4j-proxy</module>

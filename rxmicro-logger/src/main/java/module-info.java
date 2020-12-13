@@ -54,4 +54,6 @@ module rxmicro.logger {
     exports io.rxmicro.logger.jul;
 
     opens io.rxmicro.logger.jul;
+    opens io.rxmicro.logger to
+            rxmicro.common;
 }
