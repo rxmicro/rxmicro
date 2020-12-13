@@ -14,25 +14,10 @@
  * limitations under the License.
  */
 
-package io.rxmicro.rest.server.local.component.impl;
-
-import io.rxmicro.rest.server.feature.RequestIdGenerator;
-
 /**
- * Request id generator used for test environment only.
- *
- * By default, it is automatically activated for test environment.
- * Returns predefined value: {@code TestRequestId}. See {@link TestRequestIdGenerator#TEST_REQUEST_ID}
+ * Root package for predefined request id generators.
  *
  * @author nedis
- * @since 0.1
+ * @since 0.7.3
  */
-public final class TestRequestIdGenerator implements RequestIdGenerator {
-
-    private static final String TEST_REQUEST_ID = "TestRequestId";
-
-    @Override
-    public String getNextId() {
-        return TEST_REQUEST_ID;
-    }
-}
+package io.rxmicro.rest.server.feature.request.id.generator;

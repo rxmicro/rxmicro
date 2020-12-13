@@ -14,25 +14,23 @@
  * limitations under the License.
  */
 
-package io.rxmicro.rest.server;
+package io.rxmicro.rest.server.feature.request.id.generator.internal;
 
-import io.rxmicro.rest.server.feature.RequestIdGenerator;
+import io.rxmicro.rest.server.feature.request.id.generator.DeterministicValueProvider;
 
 /**
- * Defines supported HTTP request id generator types.
- *
  * @author nedis
- * @see RestServerConfig
- * @since 0.1
+ * @since 0.7.3
  */
-public interface RequestIdGeneratorType {
+public final class CurrentTimeInMillisAsDeterministicValueProvider implements DeterministicValueProvider {
 
-    /**
-     * Returns the request id generator instance.
-     *
-     * @return the request id generator instance
-     * @see RequestIdGenerator
-     * @see PredefinedRequestIdGeneratorType
-     */
-    RequestIdGenerator getRequestIdGenerator();
+    @Override
+    public long getValue() {
+        return System.currentTimeMillis();
+    }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName();
+    }
 }

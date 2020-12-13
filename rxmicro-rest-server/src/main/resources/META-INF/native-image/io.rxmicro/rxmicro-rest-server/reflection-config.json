@@ -27,5 +27,11 @@
         "parameterTypes": []
       }
     ]
+  },
+  {
+    "name": "io.rxmicro.rest.server.PredefinedRequestIdGeneratorProvider"
+  },
+  {
+    "name": "io.rxmicro.rest.server.PredefinedStaticResponseHeader"
   }
 ]

@@ -18,19 +18,19 @@ package io.rxmicro.rest.server;
 
 import io.rxmicro.common.meta.BuilderMethod;
 import io.rxmicro.config.Config;
+import io.rxmicro.rest.server.feature.RequestIdGenerator;
 
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
 import static io.rxmicro.common.util.Requires.require;
-import static io.rxmicro.rest.server.PredefinedRequestIdGeneratorType.FOR_TESTS_ONLY;
 
 /**
  * Allows configuring a REST server options.
  *
  * @author nedis
- * @see RequestIdGeneratorType
+ * @see RequestIdGeneratorProvider
  * @since 0.1
  */
 @SuppressWarnings("UnusedReturnValue")
@@ -69,7 +69,7 @@ public class RestServerConfig extends Config {
             )
     );
 
-    private RequestIdGeneratorType generatorType = PredefinedRequestIdGeneratorType.FASTER_BUT_UNSAFE;
+    private RequestIdGeneratorProvider requestIdGeneratorProvider = PredefinedRequestIdGeneratorProvider.DEFAULT_96_BIT;
 
     private boolean returnGeneratedRequestId = true;
 
@@ -80,6 +80,8 @@ public class RestServerConfig extends Config {
     private boolean useFullClassNamesForRouterMappingLogMessages = true;
 
     private boolean enableAdditionalValidations;
+
+    private int waitingForRequestIdGeneratorInitTimeoutInMillis = 3_000;
 
     /**
      * Configures REST server for development environment.
@@ -93,8 +95,7 @@ public class RestServerConfig extends Config {
             return this
                     .setHumanReadableOutput(true)
                     .setHideInternalErrorMessage(false)
-                    .setEnableAdditionalValidations(true)
-                    .setGeneratorType(FOR_TESTS_ONLY);
+                    .setEnableAdditionalValidations(true);
         } else {
             return this
                     .setHumanReadableOutput(false)
@@ -290,23 +291,44 @@ public class RestServerConfig extends Config {
     }
 
     /**
-     * Returns used {@link RequestIdGeneratorType}.
+     * Returns the configured {@link RequestIdGenerator} instance.
      *
-     * @return used {@link RequestIdGeneratorType}
+     * @return the configured {@link RequestIdGenerator} instance.
      */
-    public RequestIdGeneratorType getGeneratorType() {
-        return generatorType;
+    public RequestIdGenerator getRequestIdGenerator() {
+        return requestIdGeneratorProvider.getRequestIdGenerator(this);
     }
 
     /**
-     * Allows changing a {@link RequestIdGeneratorType}.
+     * Allows changing a {@link RequestIdGeneratorProvider}.
      *
-     * @param generatorType generator type
+     * @param requestIdGeneratorProvider generator type
      * @return the reference to this  {@link RestServerConfig} instance
      */
     @BuilderMethod
-    public RestServerConfig setGeneratorType(final RequestIdGeneratorType generatorType) {
-        this.generatorType = require(generatorType);
+    public RestServerConfig setRequestIdGeneratorProvider(final RequestIdGeneratorProvider requestIdGeneratorProvider) {
+        this.requestIdGeneratorProvider = require(requestIdGeneratorProvider);
+        return this;
+    }
+
+    /**
+     * Returns the waiting for request id generator initialization timeout in millis.
+     *
+     * @return the waiting for request id generator initialization timeout in millis.
+     */
+    public int getWaitingForRequestIdGeneratorInitTimeoutInMillis() {
+        return waitingForRequestIdGeneratorInitTimeoutInMillis;
+    }
+
+    /**
+     * Sets the waiting for request id generator initialization timeout in millis.
+     *
+     * @param waitingForRequestIdGeneratorInitTimeoutInMillis new timeout in millis
+     * @return the reference to this  {@link RestServerConfig} instance
+     */
+    @BuilderMethod
+    public RestServerConfig setWaitingForRequestIdGeneratorInitTimeoutInMillis(final int waitingForRequestIdGeneratorInitTimeoutInMillis) {
+        this.waitingForRequestIdGeneratorInitTimeoutInMillis = waitingForRequestIdGeneratorInitTimeoutInMillis;
         return this;
     }
 
@@ -448,7 +470,7 @@ public class RestServerConfig extends Config {
                 ", hideInternalErrorMessage=" + hideInternalErrorMessage +
                 ", logNotServerErrors=" + logHttpErrorExceptions +
                 ", staticResponseHeaders=" + staticResponseHeaders +
-                ", generatorType=" + generatorType +
+                ", generatorType=" + requestIdGeneratorProvider +
                 ", returnGeneratedRequestId=" + returnGeneratedRequestId +
                 ", disableLoggerMessagesForHttpHealthChecks=" + disableLoggerMessagesForHttpHealthChecks +
                 ", showRuntimeEnv=" + showRuntimeEnv +

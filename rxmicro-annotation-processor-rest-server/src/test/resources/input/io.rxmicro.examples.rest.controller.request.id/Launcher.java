@@ -19,7 +19,7 @@ package io.rxmicro.examples.rest.controller.request.id;
 import io.rxmicro.config.Configs;
 import io.rxmicro.rest.server.RestServerConfig;
 
-import static io.rxmicro.rest.server.PredefinedRequestIdGeneratorType.SAFE_BUT_SLOWER;
+import static io.rxmicro.rest.server.PredefinedRequestIdGeneratorProvider.UUID_128_BITS;
 import static io.rxmicro.rest.server.RxMicro.startRestServer;
 
 public final class Launcher {
@@ -28,7 +28,7 @@ public final class Launcher {
         // tag::content[]
         new Configs.Builder()
                 .withConfigs(new RestServerConfig()
-                        .setGeneratorType(SAFE_BUT_SLOWER)) // <1>
+                        .setRequestIdGeneratorProvider(UUID_128_BITS)) // <1>
                 .build();
         // end::content[]
         startRestServer(MicroService.class);

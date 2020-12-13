@@ -30,8 +30,7 @@ public final class ServerUnNamedModuleFixer extends UnNamedModuleFixer {
                 getClass().getModule(),
                 (currentModule, packageName) -> currentModule.addOpens(packageName, unNamedModule),
                 "io.rxmicro.rest.server.local.model",
-                "io.rxmicro.rest.server.local.component",
-                "io.rxmicro.rest.server.local.component.impl"
+                "io.rxmicro.rest.server.local.component"
         );
     }
 }

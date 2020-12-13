@@ -16,11 +16,13 @@
 
 package io.rxmicro.rest.server.feature;
 
+import io.rxmicro.rest.server.RequestIdGeneratorProvider;
+
 /**
  * Declares the basic request id generator interface.
  *
  * @author nedis
- * @see io.rxmicro.rest.server.RequestIdGeneratorType
+ * @see RequestIdGeneratorProvider
  * @since 0.1
  */
 public interface RequestIdGenerator {

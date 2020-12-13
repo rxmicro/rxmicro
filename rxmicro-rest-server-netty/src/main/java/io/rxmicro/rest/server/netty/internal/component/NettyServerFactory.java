@@ -60,7 +60,7 @@ public final class NettyServerFactory implements ServerFactory {
         try {
             final HttpServerConfig httpServerConfig = getConfig(HttpServerConfig.class);
             final RestServerConfig restServerConfig = getConfig(RestServerConfig.class);
-            final RequestIdGenerator requestIdGenerator = restServerConfig.getGeneratorType().getRequestIdGenerator();
+            final RequestIdGenerator requestIdGenerator = restServerConfig.getRequestIdGenerator();
             final NettyRestServerConfig nettyRestServerConfig = getConfig(NettyRestServerConfig.class);
             final Supplier<NettyRequestHandler> nettyRequestHandlerSupplier = () -> new NettyRequestHandler(
                     nettyRestServerConfig,

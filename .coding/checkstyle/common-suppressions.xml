@@ -78,4 +78,8 @@
     <!-- This is utility class that used by generated converters -->
     <suppress checks="MethodCount"
               files="ModelFromJsonConverter.java"/>
+
+    <!-- This is bit operations -->
+    <suppress checks="MagicNumber"
+              files="Random52BitsAndDeterministic44BitsRequestIdGenerator.java|DeterministicRequestIdGenerator.java"/>
 </suppressions>

@@ -23,5 +23,8 @@
         ]
       }
     ]
+  },
+  {
+    "name": "io.rxmicro.rest.server.netty.PredefinedNettyChannelIdType"
   }
 ]
