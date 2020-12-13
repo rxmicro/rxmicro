@@ -29,7 +29,13 @@ import io.rxmicro.rest.server.feature.RequestIdGenerator;
 public interface RequestIdGeneratorProvider {
 
     /**
-     * Returns the request id generator instance.
+     * Returns the request id generator instance or throws {@link CurrentRequestIdGeneratorCantBeUsedException} if configured
+     * request id generator can't be used because the next request id generation method is blocked by operation system.
+     * For example, if the entropy source is {@code /dev/random} on various Unix-like operating systems.
+     *
+     * <p>
+     * By default the RxMicro framework waits {@link RestServerConfig#getWaitingForRequestIdGeneratorInitTimeoutInMillis()} millis before
+     * throwing the {@link CurrentRequestIdGeneratorCantBeUsedException} exception.
      *
      * @param restServerConfig the rest server config instance
      * @return the request id generator instance
@@ -41,7 +47,12 @@ public interface RequestIdGeneratorProvider {
 
     /**
      * Indicates that current request id generator can't be used, because the next request id generation method is blocked by
-     * operation system for example, if the entropy source is {@code /dev/random} on various Unix-like operating systems.
+     * operation system.
+     * For example, if the entropy source is {@code /dev/random} on various Unix-like operating systems.
+     *
+     * <p>
+     * By default the RxMicro framework waits {@link RestServerConfig#getWaitingForRequestIdGeneratorInitTimeoutInMillis()} millis before
+     * throwing the {@link CurrentRequestIdGeneratorCantBeUsedException} exception.
      *
      * @author nedis
      * @since 0.7.3

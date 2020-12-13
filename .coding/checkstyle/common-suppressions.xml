@@ -24,9 +24,9 @@
 
     <!-- These classes are a top level ones, which must catch ALL possible types of exceptions and log it -->
     <suppress checks="IllegalCatch"
-              files="LoggerFactory.java|BaseRestControllerMethod.java|NettyRequestHandler.java|InstanceContainer.java|Safes.java"/>
+              files="LoggerImplProviderFactoryHelper.java|BaseRestControllerMethod.java|NettyRequestHandler.java|InstanceContainer.java"/>
     <suppress checks="IllegalCatch"
-              files="RxMicroAnnotationProcessor.java|AbstractRxMicroProcessor.java|Injects.java|DbUnitTestExtension.java"/>
+              files="RxMicroAnnotationProcessor.java|AbstractRxMicroProcessor.java|Injects.java|DbUnitTestExtension.java|Safes.java"/>
     <suppress checks="IllegalCatch"
               files="TestedProcessProxy.java|JULLoggerImplProvider.java"/>
 
@@ -81,5 +81,10 @@
 
     <!-- This is bit operations -->
     <suppress checks="MagicNumber"
-              files="Random52BitsAndDeterministic44BitsRequestIdGenerator.java|DeterministicRequestIdGenerator.java"/>
+              files="PartlyRandom96BitsRequestIdGenerator.java|Deterministic96BitsRequestIdGenerator.java"/>
+
+    <!-- Binary format is very usable for this case -->
+    <suppress checks="IllegalTokenText"
+              lines="81"
+              files="Deterministic96BitsRequestIdGenerator.java"/>
 </suppressions>

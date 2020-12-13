@@ -35,7 +35,7 @@ public interface DeterministicValueProvider {
             new CurrentTimeInMillisAsDeterministicValueProvider();
 
     /**
-     * Return the deterministic value
+     * Return the deterministic value.
      *
      * @return the deterministic value
      */

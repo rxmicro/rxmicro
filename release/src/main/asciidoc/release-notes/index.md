@@ -2,6 +2,16 @@
 
 This document contains the *change log* for all RxMicro releases since **0.2**.
 
+## RxMicro v0.7.3
+
+* Refactor predefined request id generators:
+  * `UUID_128_BITS`
+  * `RANDOM_96_BITS`
+  * `PARTLY_RANDOM_96_BITS`
+  * `DETERMINISTIC_96_BITS`
+  * `DEFAULT_96_BIT`
+* Introduce `validate` method for any config classes.
+
 ## RxMicro v0.7.2
 
 * Add `NettyRestServerConfigCustomizer` and `NettyConfiguratorBuilder` classes.

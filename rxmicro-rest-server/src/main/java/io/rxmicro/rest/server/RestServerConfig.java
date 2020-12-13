@@ -48,6 +48,14 @@ public class RestServerConfig extends Config {
      */
     public static final int DEFAULT_CORS_NOT_ALLOWED_ERROR_STATUS_CODE = 200;
 
+    /**
+     * Default timeout used to verify that the next request id generation method is not blocked by operation system.
+     *
+     * @see RequestIdGeneratorProvider#getRequestIdGenerator(RestServerConfig)
+     * @see io.rxmicro.rest.server.RequestIdGeneratorProvider.CurrentRequestIdGeneratorCantBeUsedException
+     */
+    public static final int DEFAULT_WAITING_FOR_REQUEST_ID_GENERATOR_INIT_TIMEOUT_IN_MILLIS = 3_000;
+
     private int handlerNotFoundErrorStatusCode = DEFAULT_HANDLER_NOT_FOUND_ERROR_STATUS_CODE;
 
     private String handlerNotFoundErrorMessage = "Handler not found";
@@ -81,7 +89,7 @@ public class RestServerConfig extends Config {
 
     private boolean enableAdditionalValidations;
 
-    private int waitingForRequestIdGeneratorInitTimeoutInMillis = 3_000;
+    private int waitingForRequestIdGeneratorInitTimeoutInMillis = DEFAULT_WAITING_FOR_REQUEST_ID_GENERATOR_INIT_TIMEOUT_IN_MILLIS;
 
     /**
      * Configures REST server for development environment.
@@ -315,6 +323,8 @@ public class RestServerConfig extends Config {
      * Returns the waiting for request id generator initialization timeout in millis.
      *
      * @return the waiting for request id generator initialization timeout in millis.
+     * @see RequestIdGeneratorProvider#getRequestIdGenerator(RestServerConfig)
+     * @see io.rxmicro.rest.server.RequestIdGeneratorProvider.CurrentRequestIdGeneratorCantBeUsedException
      */
     public int getWaitingForRequestIdGeneratorInitTimeoutInMillis() {
         return waitingForRequestIdGeneratorInitTimeoutInMillis;
@@ -325,6 +335,8 @@ public class RestServerConfig extends Config {
      *
      * @param waitingForRequestIdGeneratorInitTimeoutInMillis new timeout in millis
      * @return the reference to this  {@link RestServerConfig} instance
+     * @see RequestIdGeneratorProvider#getRequestIdGenerator(RestServerConfig)
+     * @see io.rxmicro.rest.server.RequestIdGeneratorProvider.CurrentRequestIdGeneratorCantBeUsedException
      */
     @BuilderMethod
     public RestServerConfig setWaitingForRequestIdGeneratorInitTimeoutInMillis(final int waitingForRequestIdGeneratorInitTimeoutInMillis) {
