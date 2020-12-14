@@ -47,14 +47,14 @@ jobs:
   # -----------------------------------------------------------------------------------------------------
   # ------------- Run Unit tests on Linux and Windows with LTS and latest version of JDK ----------------
   # -----------------------------------------------------------------------------------------------------
-  test-on-linux-and-windows:
-    name: Test on JDK-${{ matrix.jdk }}/${{ matrix.os }}
+  verify-on-linux-and-windows:
+    name: Verify on JDK-${{ matrix.jdk }}/${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         # LTS and latest JDK
-        jdk: ['11', '15']
-        os: [ubuntu-latest, windows-latest]
+        jdk: [ '11', '15' ]
+        os: [ ubuntu-latest, windows-latest ]
       fail-fast: false
 
     steps:
@@ -119,8 +119,8 @@ jobs:
   # -----------------------------------------------------------------------------------------------------
   # ------------- Install the latest version of the RxMicro framework to m2 local cache -----------------
   # -----------------------------------------------------------------------------------------------------
-  prepare-examples-verification:
-    name: Prepare to verify examples
+  build-latest-rxmicro-framework:
+    name: Build the latest rxmicro framework
     runs-on: ubuntu-latest
 
     steps:
@@ -164,7 +164,7 @@ jobs:
   verify-examples:
     name: Verify ${{ matrix.group }} examples
     runs-on: ubuntu-latest
-    needs: prepare-examples-verification
+    needs: build-latest-rxmicro-framework
     strategy:
       matrix:
         group:
@@ -268,7 +268,7 @@ jobs:
     runs-on: ubuntu-latest
     needs:
       - verify-examples
-      - test-on-linux-and-windows
+      - verify-on-linux-and-windows
       - verify-using-profiles
 
     steps:
