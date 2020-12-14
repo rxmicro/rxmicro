@@ -45,8 +45,6 @@ public final class LoggerImplProviderFactory {
 
     private static LoggerImplProvider currentLoggerImplProvider;
 
-    private static LoggerImplProvider defaultLoggerImplProvider;
-
     private static boolean loggerFactoryInitialized;
 
     static {
@@ -60,7 +58,7 @@ public final class LoggerImplProviderFactory {
      */
     static LoggerImplProvider getLoggerImplFactory() {
         loggerFactoryInitialized = true;
-        return requireNonNullElseGet(currentLoggerImplProvider, LoggerImplProviderFactory::getDefaultLoggerImplProvider);
+        return requireNonNullElseGet(currentLoggerImplProvider, LoggerImplProviderFactory::createAndSetupDefaultLoggerImplProvider);
     }
 
     /**
@@ -82,17 +80,14 @@ public final class LoggerImplProviderFactory {
      * Resets the {@link LoggerImplProviderFactory}.
      */
     public static void resetLoggerImplFactory() {
-        currentLoggerImplProvider = getDefaultLoggerImplProvider();
+        currentLoggerImplProvider = createAndSetupDefaultLoggerImplProvider();
         if (loggerFactoryInitialized) {
             setFieldValue(LoggerFactory.class, "LOGGER_IMPL_PROVIDER", currentLoggerImplProvider);
         }
     }
 
-    private static LoggerImplProvider getDefaultLoggerImplProvider() {
-        if (defaultLoggerImplProvider == null) {
-            defaultLoggerImplProvider = createAndSetupLoggerImplProvider(JULLoggerImplProvider.class);
-        }
-        return defaultLoggerImplProvider;
+    private static LoggerImplProvider createAndSetupDefaultLoggerImplProvider() {
+        return createAndSetupLoggerImplProvider(JULLoggerImplProvider.class);
     }
 
     private LoggerImplProviderFactory() {
