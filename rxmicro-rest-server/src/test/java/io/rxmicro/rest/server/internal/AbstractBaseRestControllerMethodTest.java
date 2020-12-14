@@ -196,6 +196,11 @@ abstract class AbstractBaseRestControllerMethodTest {
         }
 
         @Override
+        public void trace(final Throwable throwable, final String msg) {
+            logger.trace(throwable, msg);
+        }
+
+        @Override
         public void trace(final Throwable throwable, final String format, final Object arg1) {
             logger.trace(throwable, format, arg1);
         }
@@ -405,6 +410,11 @@ abstract class AbstractBaseRestControllerMethodTest {
         }
 
         @Override
+        public void trace(final RequestIdSupplier requestIdSupplier, final Throwable throwable, final String msg) {
+            logger.trace(requestIdSupplier, throwable, msg);
+        }
+
+        @Override
         public boolean isDebugEnabled() {
             return logger.isDebugEnabled();
         }
@@ -475,6 +485,11 @@ abstract class AbstractBaseRestControllerMethodTest {
         @Override
         public void debug(final String format, final Supplier<?>... suppliers) {
             logger.debug(format, suppliers);
+        }
+
+        @Override
+        public void debug(final Throwable throwable, final String msg) {
+            logger.debug(throwable, msg);
         }
 
         @Override
@@ -685,6 +700,11 @@ abstract class AbstractBaseRestControllerMethodTest {
         }
 
         @Override
+        public void debug(final RequestIdSupplier requestIdSupplier, final Throwable throwable, final String msg) {
+            logger.debug(requestIdSupplier, throwable, msg);
+        }
+
+        @Override
         public boolean isInfoEnabled() {
             return logger.isInfoEnabled();
         }
@@ -755,6 +775,11 @@ abstract class AbstractBaseRestControllerMethodTest {
         @Override
         public void info(final String format, final Supplier<?>... suppliers) {
             logger.info(format, suppliers);
+        }
+
+        @Override
+        public void info(final Throwable throwable, final String msg) {
+            logger.info(throwable, msg);
         }
 
         @Override
@@ -966,6 +991,11 @@ abstract class AbstractBaseRestControllerMethodTest {
         }
 
         @Override
+        public void info(final RequestIdSupplier requestIdSupplier, final Throwable throwable, final String msg) {
+            logger.info(requestIdSupplier, throwable, msg);
+        }
+
+        @Override
         public boolean isWarnEnabled() {
             return logger.isWarnEnabled();
         }
@@ -1036,6 +1066,11 @@ abstract class AbstractBaseRestControllerMethodTest {
         @Override
         public void warn(final String format, final Supplier<?>... suppliers) {
             logger.warn(format, suppliers);
+        }
+
+        @Override
+        public void warn(final Throwable throwable, final String msg) {
+            logger.warn(throwable, msg);
         }
 
         @Override
@@ -1248,6 +1283,11 @@ abstract class AbstractBaseRestControllerMethodTest {
         }
 
         @Override
+        public void warn(final RequestIdSupplier requestIdSupplier, final Throwable throwable, final String msg) {
+            logger.warn(requestIdSupplier, throwable, msg);
+        }
+
+        @Override
         public boolean isErrorEnabled() {
             return logger.isErrorEnabled();
         }
@@ -1318,6 +1358,11 @@ abstract class AbstractBaseRestControllerMethodTest {
         @Override
         public void error(final String format, final Supplier<?>... suppliers) {
             logger.error(format, suppliers);
+        }
+
+        @Override
+        public void error(final Throwable throwable, final String msg) {
+            logger.error(throwable, msg);
         }
 
         @Override
@@ -1528,6 +1573,11 @@ abstract class AbstractBaseRestControllerMethodTest {
         public void error(final RequestIdSupplier requestIdSupplier, final Throwable throwable, final String format,
                           final Supplier<?>... suppliers) {
             logger.error(requestIdSupplier, throwable, format, suppliers);
+        }
+
+        @Override
+        public void error(final RequestIdSupplier requestIdSupplier, final Throwable throwable, final String msg) {
+            logger.error(requestIdSupplier, throwable, msg);
         }
     }
 }
