@@ -16,6 +16,11 @@
 
 package io.rxmicro.config.internal.waitfor;
 
+import org.junit.jupiter.api.DisplayNameGeneration;
+import org.junit.jupiter.api.DisplayNameGenerator;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
@@ -27,9 +32,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author nedis
- *
  * @since 0.3
  */
+@DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 final class WaitForUtilsTest {
 
     @ParameterizedTest
@@ -43,6 +49,7 @@ final class WaitForUtilsTest {
             "wait-for --timeout=5 localhost:27017 name.prop=value,                      name.prop=value",
             "name.prop=value wait-for --timeout=5 localhost:27017 name.prop=value,      name.prop=value name.prop=value",
     })
+    @Order(1)
     void Should_exclude_wait_for_args(final String args,
                                       final String expectedArgs) {
         final List<String> actual = withoutWaitForArguments(args.split(" "));

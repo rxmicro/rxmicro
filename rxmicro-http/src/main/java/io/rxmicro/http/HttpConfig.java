@@ -139,6 +139,6 @@ public abstract class HttpConfig extends Config {
 
     @Override
     public String toString() {
-        return "HttpConfig {connectionString=" + getConnectionString() + '}';
+        return "HttpConfig {connectionString='" + getConnectionString() + "'}";
     }
 }

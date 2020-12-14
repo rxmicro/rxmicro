@@ -17,6 +17,7 @@
 package io.rxmicro.config.internal.waitfor.impl;
 
 import io.rxmicro.config.ConfigException;
+import io.rxmicro.config.ServiceYetNotAvailableException;
 import io.rxmicro.config.internal.waitfor.WaitForService;
 import io.rxmicro.config.internal.waitfor.model.Params;
 import io.rxmicro.logger.Logger;
@@ -97,6 +98,6 @@ public final class TcpSocketWaitForService implements WaitForService {
                 // do nothing
             }
         } while (System.nanoTime() - start < timeoutInNanos);
-        throw new ConfigException("tcp socket '?' in not available", params.getDestination());
+        throw new ServiceYetNotAvailableException("tcp socket '?' is not available yet!", params.getDestination());
     }
 }

@@ -89,7 +89,7 @@ public final class HttpConfigExtractor {
                 return Integer.parseInt(connectionStringSource.toString());
             } catch (final NumberFormatException ignore) {
                 throw new ConfigException(
-                        "Port must be a number: ?",
+                        "Invalid port value: expected a number, but actual is '?'!",
                         connectionStringSource.toString()
                 );
             }

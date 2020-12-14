@@ -29,7 +29,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 
-import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.runtime.internal.RuntimeVersion.setRxMicroVersion;
 import static java.lang.reflect.Modifier.isStatic;
 import static java.util.stream.Collectors.joining;
@@ -81,10 +80,8 @@ public final class RuntimeReflections {
         final Method method = getMethod(model, methodName, argTypes, setAccessibleConsumer);
         try {
             return method.invoke(model, args);
-        } catch (final IllegalAccessException ex) {
+        } catch (final IllegalAccessException | InvocationTargetException ex) {
             throw new CheckedWrapperException(ex);
-        } catch (final InvocationTargetException ex) {
-            throw new CheckedWrapperException(ex.getTargetException());
         }
     }
 
@@ -96,8 +93,7 @@ public final class RuntimeReflections {
 
         final Field field = fieldMap.get(fieldName);
         if (field == null) {
-            throw new IllegalArgumentException(
-                    format("Field '?.?' is not defined", cl.getName(), fieldName));
+            throw new InvalidStateException("Field '?.?' is not defined", cl.getName(), fieldName);
         }
         return field;
     }
@@ -114,12 +110,11 @@ public final class RuntimeReflections {
             }
             return method;
         } catch (final NoSuchMethodException ignore) {
-            throw new IllegalArgumentException(
-                    format("Method '?.?(?)' is not defined",
-                            cl.getName(),
-                            methodName,
-                            argTypes.stream().map(Class::getName).collect(joining(", "))
-                    )
+            throw new InvalidStateException(
+                    "Method '?.?(?)' is not defined",
+                    cl.getName(),
+                    methodName,
+                    argTypes.stream().map(Class::getName).collect(joining(", "))
             );
         }
     }

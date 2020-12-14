@@ -53,7 +53,7 @@ public final class ToCustomTypeConverter {
                 } catch (final ClassNotFoundException ignore) {
                     throw new ConfigException(
                             "Can't convert '?' to '?', because '?' class not defined!",
-                            String.class.getName(), destinationType, fullClassName
+                            value, destinationType, fullClassName
                     );
                 }
             }
@@ -69,8 +69,8 @@ public final class ToCustomTypeConverter {
             return Optional.of(Enum.valueOf((Class<? extends Enum>) fullClass, constName));
         } catch (final IllegalArgumentException ignore) {
             throw new ConfigException(
-                    "Can't convert '?' to '?', because '?' ? does not contain '?' enum constant!",
-                    String.class.getName(), destinationType, fullClass.getName(), getKind(fullClass), constName
+                    "Can't convert '@?.?' to '?', because '?' ? does not contain '?' enum constant!",
+                    fullClass.getName(), constName, destinationType, fullClass.getName(), getKind(fullClass), constName
             );
         }
     }
@@ -82,27 +82,27 @@ public final class ToCustomTypeConverter {
             final Field declaredField = fullClass.getDeclaredField(constName);
             if (!Modifier.isStatic(declaredField.getModifiers())) {
                 throw new ConfigException(
-                        "Can't convert '?' to '?', because '?' field declared at '?' ? not static!",
-                        String.class.getName(), destinationType, constName, fullClass.getName(), getKind(fullClass)
+                        "Can't convert '@?.?' to '?', because '?' field declared at '?' ? not static!",
+                        fullClass.getName(), constName, destinationType, constName, fullClass.getName(), getKind(fullClass)
                 );
             }
             if (!Modifier.isPublic(declaredField.getModifiers())) {
                 throw new ConfigException(
-                        "Can't convert '?' to '?', because '?' field declared at '?' ? not public!",
-                        String.class.getName(), destinationType, constName, fullClass.getName(), getKind(fullClass)
+                        "Can't convert '@?.?' to '?', because '?' field declared at '?' ? not public!",
+                        fullClass.getName(), constName, destinationType, constName, fullClass.getName(), getKind(fullClass)
                 );
             }
             if (!Modifier.isFinal(declaredField.getModifiers())) {
                 throw new ConfigException(
-                        "Can't convert '?' to '?', because '?' field declared at '?' ? not final!",
-                        String.class.getName(), destinationType, constName, fullClass.getName(), getKind(fullClass)
+                        "Can't convert '@?.?' to '?', because '?' field declared at '?' ? not final!",
+                        fullClass.getName(), constName, destinationType, constName, fullClass.getName(), getKind(fullClass)
                 );
             }
             return Optional.of(Reflections.getFieldValue((Object) null, declaredField));
         } catch (final NoSuchFieldException ignore) {
             throw new ConfigException(
-                    "Can't convert '?' to '?', because '?' ? does not contain '?' public static final field!",
-                    String.class.getName(), destinationType, fullClass.getName(), getKind(fullClass), constName
+                    "Can't convert '@?.?' to '?', because '?' ? does not contain '?' public static final field!",
+                    fullClass.getName(), constName, destinationType, fullClass.getName(), getKind(fullClass), constName
             );
         }
     }
@@ -110,10 +110,10 @@ public final class ToCustomTypeConverter {
     private String getKind(final Class<?> fullClass) {
         if (fullClass.isEnum()) {
             return "enum";
-        } else if (fullClass.isInterface()) {
-            return "interface";
         } else if (fullClass.isAnnotation()) {
             return "annotation";
+        } else if (fullClass.isInterface()) {
+            return "interface";
         } else {
             return "class";
         }

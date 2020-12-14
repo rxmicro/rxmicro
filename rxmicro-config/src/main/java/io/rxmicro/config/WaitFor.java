@@ -74,7 +74,7 @@ public final class WaitFor {
     /**
      * For configuration WaitForService using environment variables or Java system properties, use {@code `WAIT_FOR`} name.
      */
-    public static final String WAIT_FOR_ENV_VAR_OF_JAVA_SYS_PROP_NAME = "WAIT_FOR";
+    public static final String WAIT_FOR_ENV_VAR_OR_JAVA_SYS_PROP_NAME = "WAIT_FOR";
 
     /**
      * For configuration WaitForService using command line arguments, use {@code `wait-for`} name.
@@ -120,6 +120,7 @@ public final class WaitFor {
      * Creates a WaitFor instance.
      *
      * @param commandLineArgs command line arguments
+     * @throws ConfigException if the provided arguments are not valid
      */
     public WaitFor(final String commandLineArgs) {
         if (commandLineArgs.indexOf(' ') != -1) {
@@ -133,6 +134,7 @@ public final class WaitFor {
      * Creates a WaitFor instance.
      *
      * @param commandLineArgs command line arguments
+     * @throws ConfigException if the provided arguments are not valid
      */
     public WaitFor(final String... commandLineArgs) {
         waitForService = createWaitForService(commandLineArgs).orElse(null);
@@ -141,7 +143,10 @@ public final class WaitFor {
     /**
      * Starts the suspending the current thread until configured service is up.
      *
-     * @throws ConfigException if configured service is not up.
+     * <p>
+     * If current environment does not enable {@link WaitFor} this method does nothing.
+     *
+     * @throws ServiceYetNotAvailableException if configured service is not up.
      */
     public void start() {
         if (waitForService != null) {

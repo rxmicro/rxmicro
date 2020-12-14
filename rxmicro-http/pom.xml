@@ -37,6 +37,7 @@
                     <argLine>
                         @{argLine}
                         --add-opens rxmicro.http/io.rxmicro.http.local=ALL-UNNAMED
+                        --add-opens rxmicro.http/io.rxmicro.http.internal=ALL-UNNAMED
                     </argLine>
                 </configuration>
             </plugin>

@@ -47,7 +47,7 @@ public final class WaitForServiceFactory {
             if (WAIT_FOR_TCP_SOCKET_TYPE_NAME.equals(params.getType())) {
                 return Optional.of(new TcpSocketWaitForService(params));
             } else {
-                throw new ConfigException("Unsupported type: '?'", params.getType());
+                throw new ConfigException("Unsupported type: '?'!", params.getType());
             }
         }
     }

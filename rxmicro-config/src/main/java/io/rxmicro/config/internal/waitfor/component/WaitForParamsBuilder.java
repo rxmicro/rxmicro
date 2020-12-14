@@ -20,6 +20,7 @@ import io.rxmicro.config.ConfigException;
 import io.rxmicro.config.internal.waitfor.model.Params;
 
 import java.time.Duration;
+import java.time.format.DateTimeParseException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -45,7 +46,7 @@ public final class WaitForParamsBuilder {
                 paramsMap.getOrDefault(WAIT_FOR_TYPE_PARAM_NAME, WAIT_FOR_TCP_SOCKET_TYPE_NAME),
                 getTimeout(paramsMap),
                 Optional.ofNullable(paramsMap.get(DESTINATION)).orElseThrow(() -> {
-                    throw new ConfigException("Wait for destination nor found");
+                    throw new ConfigException("Expected destination. For example: java Main.class wait-for localhost:8080");
                 })
         );
     }
@@ -91,7 +92,18 @@ public final class WaitForParamsBuilder {
         try {
             return Duration.ofSeconds(Long.parseLong(value));
         } catch (final NumberFormatException ignore) {
+            return parseAsStringDuration(value);
+        }
+    }
+
+    private static Duration parseAsStringDuration(final String value) {
+        try {
             return Duration.parse(value);
+        } catch (final DateTimeParseException ignore) {
+            throw new ConfigException(
+                    "Invalid ? value: '?'! Must be a parsable by ?.parse(String) method duration!",
+                    WAIT_FOR_TIMEOUT, value, Duration.class.getName()
+            );
         }
     }
 

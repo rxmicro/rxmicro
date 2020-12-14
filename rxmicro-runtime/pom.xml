@@ -36,6 +36,7 @@
                 <configuration>
                     <argLine>
                         @{argLine}
+                        --add-opens rxmicro.runtime/io.rxmicro.runtime.detail=ALL-UNNAMED
                     </argLine>
                 </configuration>
             </plugin>

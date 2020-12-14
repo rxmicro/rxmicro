@@ -25,8 +25,10 @@ import java.util.List;
 import java.util.Optional;
 
 import static io.rxmicro.common.util.ExCollections.unmodifiableList;
+import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.config.WaitFor.WAIT_FOR_COMMAND_LINE_ARG;
-import static io.rxmicro.config.WaitFor.WAIT_FOR_ENV_VAR_OF_JAVA_SYS_PROP_NAME;
+import static io.rxmicro.config.WaitFor.WAIT_FOR_ENV_VAR_OR_JAVA_SYS_PROP_NAME;
+import static java.lang.System.lineSeparator;
 
 /**
  * @author nedis
@@ -43,10 +45,12 @@ public final class WaitForParamsExtractor {
                 final String arg = iterator.next();
                 validateCommandLineArg(arg);
                 if (extract(iterator, result, arg)) {
+                    validateOnlyOneWaitForConfigurationPerProject(result);
                     return unmodifiableList(result);
                 }
             }
         }
+        validateOnlyOneWaitForConfigurationPerProject(List.of());
         return getParamsFromEvnVariables();
     }
 
@@ -62,7 +66,7 @@ public final class WaitForParamsExtractor {
                 }
             }
             if (result.isEmpty()) {
-                throw new ConfigException("Expected destination. For example: java Main.class wait-for ${destination}");
+                throw new ConfigException("Expected destination. For example: java Main.class wait-for localhost:8080");
             }
             return true;
         }
@@ -74,40 +78,69 @@ public final class WaitForParamsExtractor {
             throw new ConfigException(
                     "Invalid Java system property: '?'. Use '?' instead!",
                     WAIT_FOR_COMMAND_LINE_ARG,
-                    WAIT_FOR_ENV_VAR_OF_JAVA_SYS_PROP_NAME
+                    WAIT_FOR_ENV_VAR_OR_JAVA_SYS_PROP_NAME
             );
         }
         if (System.getenv(WAIT_FOR_COMMAND_LINE_ARG) != null) {
             throw new ConfigException(
                     "Invalid environment variable: '?'. Use '?' instead!",
                     WAIT_FOR_COMMAND_LINE_ARG,
-                    WAIT_FOR_ENV_VAR_OF_JAVA_SYS_PROP_NAME
+                    WAIT_FOR_ENV_VAR_OR_JAVA_SYS_PROP_NAME
             );
         }
     }
 
     private static void validateCommandLineArg(final String arg) {
-        if (WAIT_FOR_ENV_VAR_OF_JAVA_SYS_PROP_NAME.equals(arg)) {
+        if (WAIT_FOR_ENV_VAR_OR_JAVA_SYS_PROP_NAME.equals(arg)) {
             throw new ConfigException(
                     "Invalid command line argument: '?'. Use '?' instead!",
-                    WAIT_FOR_ENV_VAR_OF_JAVA_SYS_PROP_NAME,
+                    WAIT_FOR_ENV_VAR_OR_JAVA_SYS_PROP_NAME,
                     WAIT_FOR_COMMAND_LINE_ARG
             );
         }
     }
 
     private static List<String> getParamsFromEvnVariables() {
-        final List<String> result = Optional.ofNullable(System.getProperty(WAIT_FOR_ENV_VAR_OF_JAVA_SYS_PROP_NAME))
-                .or(() -> Optional.ofNullable(System.getenv(WAIT_FOR_ENV_VAR_OF_JAVA_SYS_PROP_NAME)))
+        final String property = System.getProperty(WAIT_FOR_ENV_VAR_OR_JAVA_SYS_PROP_NAME);
+        if (property != null) {
+            return getParamsFromEvnVariablesOrJavaSystemProperties(property);
+        } else {
+            return getParamsFromEvnVariablesOrJavaSystemProperties(System.getenv(WAIT_FOR_ENV_VAR_OR_JAVA_SYS_PROP_NAME));
+        }
+    }
+
+    private static List<String> getParamsFromEvnVariablesOrJavaSystemProperties(final String nullableValue) {
+        final List<String> result = Optional.ofNullable(nullableValue)
                 .map(values -> Arrays.asList(values.split(" ")))
                 .orElse(null);
         if (result != null) {
             if (result.isEmpty()) {
-                throw new ConfigException("Expected destination. For example: export WAIT_FOR=${destination}");
+                throw new ConfigException("Expected destination. For example: export WAIT_FOR=localhost:8080");
             }
             return unmodifiableList(result);
         } else {
             return List.of();
+        }
+    }
+
+    private static void validateOnlyOneWaitForConfigurationPerProject(final List<String> commandLineArguments) {
+        final List<String> sources = new ArrayList<>();
+        if (!commandLineArguments.isEmpty()) {
+            sources.add(format("Command line arguments: ?", String.join(" ", commandLineArguments)));
+        }
+        List<String> params = getParamsFromEvnVariablesOrJavaSystemProperties(System.getProperty(WAIT_FOR_ENV_VAR_OR_JAVA_SYS_PROP_NAME));
+        if (!params.isEmpty()) {
+            sources.add(format("? Java system property: ?", WAIT_FOR_ENV_VAR_OR_JAVA_SYS_PROP_NAME, String.join(" ", params)));
+        }
+        params = getParamsFromEvnVariablesOrJavaSystemProperties(System.getenv(WAIT_FOR_ENV_VAR_OR_JAVA_SYS_PROP_NAME));
+        if (!params.isEmpty()) {
+            sources.add(format("? environment variable: ?", WAIT_FOR_ENV_VAR_OR_JAVA_SYS_PROP_NAME, String.join(" ", params)));
+        }
+        if (sources.size() > 1) {
+            throw new ConfigException(
+                    "Detected a duplicate of the wait for service configuration:\n\t?! Only one configuration source must be used!",
+                    String.join(lineSeparator() + "\t", sources)
+            );
         }
     }
 
