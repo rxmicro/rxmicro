@@ -87,10 +87,6 @@ public final class DateTimeOfLoggingEventBiConsumer extends AbstractBiConsumer {
 
     @Override
     public String toString() {
-        if (DEFAULT_PATTERN.equals(pattern)) {
-            return super.toString();
-        } else {
-            return format("?{?}", conversionSpecifier, pattern);
-        }
+        return format("?{?}", conversionSpecifier, pattern);
     }
 }

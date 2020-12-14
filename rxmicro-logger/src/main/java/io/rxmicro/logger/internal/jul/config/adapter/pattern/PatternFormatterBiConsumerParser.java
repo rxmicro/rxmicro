@@ -168,11 +168,7 @@ public final class PatternFormatterBiConsumerParser {
                 return Optional.of(new BiConsumerArguments(getConversionSpecifier(wordBuilder.toString())));
             }
         }
-        if (wordBuilder.length() > 0) {
-            return Optional.of(new BiConsumerArguments(getConversionSpecifier(wordBuilder.toString())));
-        } else {
-            return Optional.empty();
-        }
+        return Optional.of(new BiConsumerArguments(getConversionSpecifier(wordBuilder.toString())));
     }
 
     private ConversionSpecifier getConversionSpecifier(final String conversionSpecifier) {

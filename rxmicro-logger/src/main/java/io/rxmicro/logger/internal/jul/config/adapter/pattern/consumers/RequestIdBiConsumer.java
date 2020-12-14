@@ -33,6 +33,7 @@ public final class RequestIdBiConsumer extends AbstractBiConsumer {
 
     public RequestIdBiConsumer(final BiConsumerArguments arguments) {
         super(arguments);
+        validateNoOptions(arguments);
     }
 
     @Override

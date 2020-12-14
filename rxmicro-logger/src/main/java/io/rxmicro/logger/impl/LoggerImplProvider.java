@@ -31,7 +31,7 @@ public interface LoggerImplProvider {
     /**
      * Sets up the current provider.
      */
-    void setup();
+    void setup() throws Throwable;
 
     /**
      * Returns the {@link Logger} instance by the specified name.

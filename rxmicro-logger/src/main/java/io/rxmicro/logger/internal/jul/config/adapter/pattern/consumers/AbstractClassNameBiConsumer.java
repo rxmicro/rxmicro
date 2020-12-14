@@ -34,6 +34,8 @@ abstract class AbstractClassNameBiConsumer extends AbstractBiConsumer {
 
     private final boolean fullName;
 
+    private String option = FULL;
+
     AbstractClassNameBiConsumer(final BiConsumerArguments arguments) {
         super(arguments);
         final List<String> options = arguments.getOptions();
@@ -45,6 +47,7 @@ abstract class AbstractClassNameBiConsumer extends AbstractBiConsumer {
 
     private boolean parseFullNameOption(final BiConsumerArguments arguments,
                                         final String option) {
+        this.option = option;
         if ("0".equals(option) || SHORT.equals(option)) {
             return false;
         } else if (FULL.equals(option)) {
@@ -68,4 +71,9 @@ abstract class AbstractClassNameBiConsumer extends AbstractBiConsumer {
     }
 
     protected abstract String getName(LogRecord record);
+
+    @Override
+    public String toString() {
+        return conversionSpecifier.toString() + '{' + option + '}';
+    }
 }

@@ -340,4 +340,11 @@ public final class PatternFormatter extends Formatter {
         }
         return messageBuilder.toString();
     }
+
+    @Override
+    public String toString() {
+        return "PatternFormatter{" +
+                "biConsumers=" + biConsumers +
+                '}';
+    }
 }

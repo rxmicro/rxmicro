@@ -22,6 +22,7 @@ import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -138,6 +139,32 @@ final class PatternFormatterTest {
                         ""
                 ).stream().collect(joining(lineSeparator())),
                 patternFormatter.format(record)
+        );
+    }
+
+    @Order(3)
+    @Test
+    void toString_should_display_all_configured_consumers() {
+        final String pattern = "%logger %class %date %file %line %message %method %n %level %relative %thread %requestId";
+        final PatternFormatter patternFormatter = assertDoesNotThrow(() -> new PatternFormatter(pattern));
+
+        assertEquals(
+                "PatternFormatter{biConsumers=[" +
+                        "%logger{full}, ' ', %class{full}, ' ', %date{yyyy-MM-dd HH:mm:ss.SSS}, ' ', %file, ' ', %line, ' ', %message, " +
+                        "' ', %method, ' ', %n, ' ', %level, ' ', %relative, ' ', %thread, ' ', %requestId, %throwable]}",
+                patternFormatter.toString()
+        );
+    }
+
+    @Order(4)
+    @Test
+    void Should_use_default_pattern_if_the_specified_one_is_invalid(){
+        final String pattern = "%logger{";
+        final PatternFormatter patternFormatter = assertDoesNotThrow(() -> new PatternFormatter(pattern));
+
+        assertEquals(
+                "PatternFormatter{biConsumers=[%d{yyyy-MM-dd HH:mm:ss.SSS}, ' [', %p, '] ', %c{full}, ': ', %m, %n, %throwable]}",
+                patternFormatter.toString()
         );
     }
 

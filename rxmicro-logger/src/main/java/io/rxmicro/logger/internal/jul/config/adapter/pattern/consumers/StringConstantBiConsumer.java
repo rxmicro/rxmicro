@@ -41,6 +41,6 @@ public final class StringConstantBiConsumer implements BiConsumer<StringBuilder,
 
     @Override
     public String toString() {
-        return format("String constant fragment: '?'", value);
+        return format("'?'", value);
     }
 }

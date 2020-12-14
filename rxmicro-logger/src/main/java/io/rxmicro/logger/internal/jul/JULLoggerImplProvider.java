@@ -16,7 +16,6 @@
 
 package io.rxmicro.logger.internal.jul;
 
-import io.rxmicro.common.ImpossibleException;
 import io.rxmicro.logger.Logger;
 import io.rxmicro.logger.impl.LoggerImplProvider;
 import io.rxmicro.logger.internal.jul.config.LoggerConfigBuilder;
@@ -60,15 +59,11 @@ public final class JULLoggerImplProvider implements LoggerImplProvider {
     }
 
     @Override
-    public void setup() {
+    public void setup() throws IOException {
         final Map<String, String> config = loggerConfigBuilder.build();
-        try {
-            final byte[] configBytes = toConfigBytes(config);
-            LogManager.getLogManager()
-                    .readConfiguration(new ByteArrayInputStream(configBytes));
-        } catch (final IOException ex) {
-            throw new ImpossibleException(ex, "Configuration created automatically, so IO error is impossible!");
-        }
+        final byte[] configBytes = toConfigBytes(config);
+        LogManager.getLogManager().readConfiguration(new ByteArrayInputStream(configBytes));
+
         if (!Boolean.parseBoolean(config.get(CONFIGURATION_PROPERTIES_HIDE))) {
             logInternal(
                     Level.INFO,
