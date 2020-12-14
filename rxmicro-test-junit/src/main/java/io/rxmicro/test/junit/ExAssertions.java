@@ -18,6 +18,7 @@ package io.rxmicro.test.junit;
 
 import io.rxmicro.config.Configs;
 import io.rxmicro.test.GlobalTestConfig;
+import io.rxmicro.test.SystemOut;
 import org.junit.jupiter.api.Assertions;
 import org.opentest4j.AssertionFailedError;
 
@@ -25,6 +26,7 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.function.Supplier;
 
+import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.config.Configs.getConfig;
 
 /**
@@ -134,6 +136,33 @@ public class ExAssertions extends Assertions {
                                            final Instant actual,
                                            final Duration delta) {
         assertInstantEquals(expected, actual, delta, (String) null);
+    }
+
+    /**
+     * Asserts that the current {@link SystemOut} contain the required {@code message}.
+     *
+     * @param systemOut the current {@link SystemOut}
+     * @param message the required message
+     * @throws AssertionFailedError if the current {@link SystemOut} does not contain required message
+     */
+    public static void assertSystemOutContains(final SystemOut systemOut,
+                                               final String message) {
+        assertSystemOutContains(systemOut.asString(), message);
+    }
+
+    /**
+     * Asserts that the current {@code systemOut} contain the required {@code message}.
+     *
+     * @param systemOut the current system out
+     * @param message the required message
+     * @throws AssertionFailedError if the current {@code systemOut} does not contain required message
+     */
+    public static void assertSystemOutContains(final String systemOut,
+                                               final String message) {
+        assertTrue(
+                systemOut.contains(message),
+                () -> format("System out does not contain required message: '?'! Full out is:\n?", message, systemOut)
+        );
     }
 
     private static boolean isNotEqual(final Instant expected,
