@@ -18,7 +18,7 @@ package io.rxmicro.logger.internal.jul.config.adapter.pattern.consumers;
 
 import io.rxmicro.logger.internal.jul.config.adapter.pattern.AbstractBiConsumer;
 import io.rxmicro.logger.internal.jul.config.adapter.pattern.BiConsumerArguments;
-import io.rxmicro.logger.internal.jul.config.adapter.pattern.PatternFormatterParseException;
+import io.rxmicro.logger.jul.PatternFormatterParseException;
 
 import java.time.DateTimeException;
 import java.time.LocalDateTime;

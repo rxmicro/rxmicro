@@ -57,7 +57,7 @@ public class SystemConsoleHandler extends StreamHandler {
             return System.err;
         } else {
             if (!STD_OUT.equals(stream)) {
-                logInternal(Level.WARNING, "Unsupported stream name: ?! Set 'stdout' as default stream!", stream);
+                logInternal(Level.WARNING, "Unsupported stream name: ?! Set 'stdout' as destination stream!", stream);
             }
             return System.out;
         }

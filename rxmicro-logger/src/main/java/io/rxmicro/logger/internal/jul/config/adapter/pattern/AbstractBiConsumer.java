@@ -16,6 +16,8 @@
 
 package io.rxmicro.logger.internal.jul.config.adapter.pattern;
 
+import io.rxmicro.logger.jul.PatternFormatterParseException;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.BiConsumer;

@@ -31,6 +31,7 @@ import io.rxmicro.logger.internal.jul.config.adapter.pattern.consumers.RequestId
 import io.rxmicro.logger.internal.jul.config.adapter.pattern.consumers.StringConstantBiConsumer;
 import io.rxmicro.logger.internal.jul.config.adapter.pattern.consumers.ThreadNameBiConsumer;
 import io.rxmicro.logger.internal.jul.config.adapter.pattern.consumers.ThrowableStackTraceBiConsumer;
+import io.rxmicro.logger.jul.PatternFormatterParseException;
 
 import java.util.ArrayList;
 import java.util.Arrays;

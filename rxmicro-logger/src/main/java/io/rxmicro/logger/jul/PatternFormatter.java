@@ -23,8 +23,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.BiConsumer;
 import java.util.logging.Formatter;
+import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.LogRecord;
+
+import static io.rxmicro.logger.internal.jul.InternalLoggerHelper.logInternal;
 
 /**
  * This class supports conversion specifiers that can be used as format control expressions.
@@ -301,7 +304,18 @@ public final class PatternFormatter extends Formatter {
      * @param pattern the specified pattern.
      */
     public PatternFormatter(final String pattern) {
-        this.biConsumers = new PatternFormatterBiConsumerParser().parse(pattern);
+        List<BiConsumer<StringBuilder, LogRecord>> biConsumers;
+        try {
+            biConsumers = new PatternFormatterBiConsumerParser().parse(pattern);
+        } catch (final PatternFormatterParseException ex) {
+            logInternal(
+                    Level.SEVERE,
+                    "The '?' pattern is invalid: ?. Set '?' as pattern for all log messages!",
+                    pattern, ex.getMessage(), DEFAULT_PATTERN
+            );
+            biConsumers = new PatternFormatterBiConsumerParser().parse(DEFAULT_PATTERN);
+        }
+        this.biConsumers = biConsumers;
     }
 
     /**
@@ -325,10 +339,5 @@ public final class PatternFormatter extends Formatter {
             biConsumer.accept(messageBuilder, record);
         }
         return messageBuilder.toString();
-    }
-
-    @Override
-    public String formatMessage(final LogRecord record) {
-        return format(record);
     }
 }

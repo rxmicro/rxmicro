@@ -14,16 +14,27 @@
  * limitations under the License.
  */
 
-package io.rxmicro.logger.internal.jul.config.adapter.pattern;
+package io.rxmicro.logger.jul;
 
 import io.rxmicro.common.RxMicroException;
 
 /**
+ * Indicates that pattern not valid for the {@link PatternFormatter} instance.
+ *
  * @author nedis
- * @since 0.7
+ * @since 0.7.3
  */
 public final class PatternFormatterParseException extends RxMicroException {
 
+    /**
+     * Creates an instance of {@link PatternFormatterParseException} class
+     *
+     * <p>
+     * <i>(FYI: This constructor uses {@link io.rxmicro.common.util.Formats#format(String, Object...)} method to format error message.)</i>
+     *
+     * @param message the error message template
+     * @param args the error message template arguments
+     */
     public PatternFormatterParseException(final String message,
                                           final Object... args) {
         super(message, args);
