@@ -229,6 +229,14 @@ public abstract class AbstractLogger implements Logger {
 
     @Override
     public final void trace(final Throwable throwable,
+                            final String msg) {
+        if (isLevelEnabled(Level.TRACE)) {
+            log(Level.TRACE, msg, throwable);
+        }
+    }
+
+    @Override
+    public final void trace(final Throwable throwable,
                             final String msg,
                             final Object arg1) {
         if (isLevelEnabled(Level.TRACE)) {
@@ -512,6 +520,15 @@ public abstract class AbstractLogger implements Logger {
         if (isLevelEnabled(Level.TRACE)) {
             final String finalMessage = getFinalMessage(msg, suppliers);
             log(requestIdSupplier, Level.TRACE, finalMessage);
+        }
+    }
+
+    @Override
+    public final void trace(final RequestIdSupplier requestIdSupplier,
+                            final Throwable throwable,
+                            final String msg) {
+        if (isLevelEnabled(Level.TRACE)) {
+            log(requestIdSupplier, Level.TRACE, msg, throwable);
         }
     }
 
@@ -809,6 +826,14 @@ public abstract class AbstractLogger implements Logger {
 
     @Override
     public final void debug(final Throwable throwable,
+                            final String msg) {
+        if (isLevelEnabled(Level.DEBUG)) {
+            log(Level.DEBUG, msg, throwable);
+        }
+    }
+
+    @Override
+    public final void debug(final Throwable throwable,
                             final String msg,
                             final Object arg1) {
         if (isLevelEnabled(Level.DEBUG)) {
@@ -1092,6 +1117,15 @@ public abstract class AbstractLogger implements Logger {
         if (isLevelEnabled(Level.DEBUG)) {
             final String finalMessage = getFinalMessage(msg, suppliers);
             log(requestIdSupplier, Level.DEBUG, finalMessage);
+        }
+    }
+
+    @Override
+    public final void debug(final RequestIdSupplier requestIdSupplier,
+                            final Throwable throwable,
+                            final String msg) {
+        if (isLevelEnabled(Level.DEBUG)) {
+            log(requestIdSupplier, Level.DEBUG, msg, throwable);
         }
     }
 
@@ -1389,6 +1423,14 @@ public abstract class AbstractLogger implements Logger {
 
     @Override
     public final void info(final Throwable throwable,
+                           final String msg) {
+        if (isLevelEnabled(Level.INFO)) {
+            log(Level.INFO, msg, throwable);
+        }
+    }
+
+    @Override
+    public final void info(final Throwable throwable,
                            final String msg,
                            final Object arg1) {
         if (isLevelEnabled(Level.INFO)) {
@@ -1672,6 +1714,15 @@ public abstract class AbstractLogger implements Logger {
         if (isLevelEnabled(Level.INFO)) {
             final String finalMessage = getFinalMessage(msg, suppliers);
             log(requestIdSupplier, Level.INFO, finalMessage);
+        }
+    }
+
+    @Override
+    public final void info(final RequestIdSupplier requestIdSupplier,
+                           final Throwable throwable,
+                           final String msg) {
+        if (isLevelEnabled(Level.INFO)) {
+            log(requestIdSupplier, Level.INFO, msg, throwable);
         }
     }
 
@@ -1969,6 +2020,14 @@ public abstract class AbstractLogger implements Logger {
 
     @Override
     public final void warn(final Throwable throwable,
+                           final String msg) {
+        if (isLevelEnabled(Level.WARN)) {
+            log(Level.WARN, msg, throwable);
+        }
+    }
+
+    @Override
+    public final void warn(final Throwable throwable,
                            final String msg,
                            final Object arg1) {
         if (isLevelEnabled(Level.WARN)) {
@@ -2252,6 +2311,15 @@ public abstract class AbstractLogger implements Logger {
         if (isLevelEnabled(Level.WARN)) {
             final String finalMessage = getFinalMessage(msg, suppliers);
             log(requestIdSupplier, Level.WARN, finalMessage);
+        }
+    }
+
+    @Override
+    public final void warn(final RequestIdSupplier requestIdSupplier,
+                           final Throwable throwable,
+                           final String msg) {
+        if (isLevelEnabled(Level.WARN)) {
+            log(requestIdSupplier, Level.WARN, msg, throwable);
         }
     }
 
@@ -2549,6 +2617,14 @@ public abstract class AbstractLogger implements Logger {
 
     @Override
     public final void error(final Throwable throwable,
+                            final String msg) {
+        if (isLevelEnabled(Level.ERROR)) {
+            log(Level.ERROR, msg, throwable);
+        }
+    }
+
+    @Override
+    public final void error(final Throwable throwable,
                             final String msg,
                             final Object arg1) {
         if (isLevelEnabled(Level.ERROR)) {
@@ -2832,6 +2908,15 @@ public abstract class AbstractLogger implements Logger {
         if (isLevelEnabled(Level.ERROR)) {
             final String finalMessage = getFinalMessage(msg, suppliers);
             log(requestIdSupplier, Level.ERROR, finalMessage);
+        }
+    }
+
+    @Override
+    public final void error(final RequestIdSupplier requestIdSupplier,
+                            final Throwable throwable,
+                            final String msg) {
+        if (isLevelEnabled(Level.ERROR)) {
+            log(requestIdSupplier, Level.ERROR, msg, throwable);
         }
     }
 
