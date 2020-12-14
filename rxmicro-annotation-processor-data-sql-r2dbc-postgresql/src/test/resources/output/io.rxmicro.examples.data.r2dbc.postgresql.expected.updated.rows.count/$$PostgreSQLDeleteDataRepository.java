@@ -88,11 +88,11 @@ public final class $$PostgreSQLDeleteDataRepository extends AbstractPostgreSQLRe
         return this.connectionFactory.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, id)
                         .flatMap(r -> Mono.from(r.map((row, meta) -> accountEntityFromR2DBCSQLDBConverter.setIdEmailFirst_nameLast_nameBalanceRole(resultEntity, row, meta))))
+                        .delayUntil(s -> close(c))
+                        .onErrorResume(createCloseThenReturnErrorFallback(c))
                         .switchIfEmpty(close(c)
                                 .then(throwExceptionIfEmptyResult(generatedSQL, id))
                         )
-                        .delayUntil(s -> close(c))
-                        .onErrorResume(createCloseThenReturnErrorFallback(c))
                 )
                 .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletableFuture.class, Account.class))))
                 .toFuture();
@@ -108,11 +108,11 @@ public final class $$PostgreSQLDeleteDataRepository extends AbstractPostgreSQLRe
                         .flatMap(r -> Mono.from(r.map((row, meta) -> accountEntityFromR2DBCSQLDBConverter.setIdEmailFirst_nameLast_nameBalanceRole(resultEntity, row, meta)))
                                 .map(ignore -> (Account)throwExceptionIfNotEmptyResult(generatedSQL, id))
                         )
+                        .delayUntil(s -> close(c))
+                        .onErrorResume(createCloseThenReturnErrorFallback(c))
                         .switchIfEmpty(close(c)
                                 .then(Mono.empty())
                         )
-                        .delayUntil(s -> close(c))
-                        .onErrorResume(createCloseThenReturnErrorFallback(c))
                 )
                 .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletableFuture.class, Account.class))))
                 .toFuture();
@@ -176,11 +176,11 @@ public final class $$PostgreSQLDeleteDataRepository extends AbstractPostgreSQLRe
         return this.connectionFactory.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, id)
                         .flatMap(r -> Mono.from(r.map((row, meta) -> accountEntityFromR2DBCSQLDBConverter.setIdEmailFirst_nameLast_nameBalanceRole(resultEntity, row, meta))))
+                        .delayUntil(s -> close(c))
+                        .onErrorResume(createCloseThenReturnErrorFallback(c))
                         .switchIfEmpty(close(c)
                                 .then(throwExceptionIfEmptyResult(generatedSQL, id))
                         )
-                        .delayUntil(s -> close(c))
-                        .onErrorResume(createCloseThenReturnErrorFallback(c))
                 )
                 .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletionStage.class, Account.class))))
                 .toFuture();
@@ -196,11 +196,11 @@ public final class $$PostgreSQLDeleteDataRepository extends AbstractPostgreSQLRe
                         .flatMap(r -> Mono.from(r.map((row, meta) -> accountEntityFromR2DBCSQLDBConverter.setIdEmailFirst_nameLast_nameBalanceRole(resultEntity, row, meta)))
                                 .map(ignore -> (Account)throwExceptionIfNotEmptyResult(generatedSQL, id))
                         )
+                        .delayUntil(s -> close(c))
+                        .onErrorResume(createCloseThenReturnErrorFallback(c))
                         .switchIfEmpty(close(c)
                                 .then(Mono.empty())
                         )
-                        .delayUntil(s -> close(c))
-                        .onErrorResume(createCloseThenReturnErrorFallback(c))
                 )
                 .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletionStage.class, Account.class))))
                 .toFuture();
@@ -256,11 +256,11 @@ public final class $$PostgreSQLDeleteDataRepository extends AbstractPostgreSQLRe
         return this.connectionFactory.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, id)
                         .flatMap(r -> Mono.from(r.map((row, meta) -> accountEntityFromR2DBCSQLDBConverter.setIdEmailFirst_nameLast_nameBalanceRole(resultEntity, row, meta))))
+                        .delayUntil(s -> close(c))
+                        .onErrorResume(createCloseThenReturnErrorFallback(c))
                         .switchIfEmpty(close(c)
                                 .then(throwExceptionIfEmptyResult(generatedSQL, id))
                         )
-                        .delayUntil(s -> close(c))
-                        .onErrorResume(createCloseThenReturnErrorFallback(c))
                 );
     }
 
@@ -274,11 +274,11 @@ public final class $$PostgreSQLDeleteDataRepository extends AbstractPostgreSQLRe
                         .flatMap(r -> Mono.from(r.map((row, meta) -> accountEntityFromR2DBCSQLDBConverter.setIdEmailFirst_nameLast_nameBalanceRole(resultEntity, row, meta)))
                                 .map(ignore -> (Account)throwExceptionIfNotEmptyResult(generatedSQL, id))
                         )
+                        .delayUntil(s -> close(c))
+                        .onErrorResume(createCloseThenReturnErrorFallback(c))
                         .switchIfEmpty(close(c)
                                 .then(Mono.empty())
                         )
-                        .delayUntil(s -> close(c))
-                        .onErrorResume(createCloseThenReturnErrorFallback(c))
                 );
     }
 
@@ -339,11 +339,11 @@ public final class $$PostgreSQLDeleteDataRepository extends AbstractPostgreSQLRe
                 this.connectionFactory.create()
                         .flatMap(c -> executeStatement(c, generatedSQL, id)
                                 .flatMap(r -> Mono.from(r.map((row, meta) -> accountEntityFromR2DBCSQLDBConverter.setIdEmailFirst_nameLast_nameBalanceRole(resultEntity, row, meta))))
+                                .delayUntil(s -> close(c))
+                                .onErrorResume(createCloseThenReturnErrorFallback(c))
                                 .switchIfEmpty(close(c)
                                         .then(throwExceptionIfEmptyResult(generatedSQL, id))
                                 )
-                                .delayUntil(s -> close(c))
-                                .onErrorResume(createCloseThenReturnErrorFallback(c))
                         )
         );
     }
@@ -359,11 +359,11 @@ public final class $$PostgreSQLDeleteDataRepository extends AbstractPostgreSQLRe
                                 .flatMap(r -> Mono.from(r.map((row, meta) -> accountEntityFromR2DBCSQLDBConverter.setIdEmailFirst_nameLast_nameBalanceRole(resultEntity, row, meta)))
                                         .map(ignore -> (Account)throwExceptionIfNotEmptyResult(generatedSQL, id))
                                 )
+                                .delayUntil(s -> close(c))
+                                .onErrorResume(createCloseThenReturnErrorFallback(c))
                                 .switchIfEmpty(close(c)
                                         .then(Mono.empty())
                                 )
-                                .delayUntil(s -> close(c))
-                                .onErrorResume(createCloseThenReturnErrorFallback(c))
                         )
         );
     }

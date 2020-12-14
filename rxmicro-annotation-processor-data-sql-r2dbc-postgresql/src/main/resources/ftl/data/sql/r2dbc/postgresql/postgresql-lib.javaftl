@@ -118,6 +118,8 @@ ${shift}                .flatMap(r -> Mono.from(r.map(${RESULT_CONVERTER})))
 <#-- ------------------------------------------------------------------------------------------------ -->
 <#-- ------------------------------------------------------------------------------------------------ -->
 <#if CLOSE_CONNECTION>
+${shift}                .delayUntil(s -> close(c))
+${shift}                .onErrorResume(createCloseThenReturnErrorFallback(c))
 ${shift}                .switchIfEmpty(close(c)
 <#if EXPECTED_UPDATED_ROWS_COUNT?? && EXPECTED_UPDATED_ROWS_COUNT == 1>
 ${shift}                        .then(throwExceptionIfEmptyResult(generatedSQL${SQL_PARAMS}))
@@ -125,8 +127,6 @@ ${shift}                        .then(throwExceptionIfEmptyResult(generatedSQL${
 ${shift}                        .then(Mono.empty())
 </#if>
 ${shift}                )
-${shift}                .delayUntil(s -> close(c))
-${shift}                .onErrorResume(createCloseThenReturnErrorFallback(c))
 <#-- ------------------------------------------------------------------------------------------------ -->
 <#elseif EXPECTED_UPDATED_ROWS_COUNT?? && EXPECTED_UPDATED_ROWS_COUNT == 1>
 ${shift}                .switchIfEmpty(throwExceptionIfEmptyResult(generatedSQL${SQL_PARAMS}))

@@ -69,11 +69,11 @@ public final class $$PostgreSQLDeleteOneEntityUsingSingleRepository extends Abst
                 this.connectionFactory.create()
                         .flatMap(c -> executeStatement(c, generatedSQL, primaryKey)
                                 .flatMap(r -> Mono.from(r.map((row, meta) -> accountEntityFromR2DBCSQLDBConverter.setIdFirst_nameLast_name(account, row, meta))))
+                                .delayUntil(s -> close(c))
+                                .onErrorResume(createCloseThenReturnErrorFallback(c))
                                 .switchIfEmpty(close(c)
                                         .then(Mono.empty())
                                 )
-                                .delayUntil(s -> close(c))
-                                .onErrorResume(createCloseThenReturnErrorFallback(c))
                         )
         );
     }
@@ -87,11 +87,11 @@ public final class $$PostgreSQLDeleteOneEntityUsingSingleRepository extends Abst
                 this.connectionFactory.create()
                         .flatMap(c -> executeStatement(c, generatedSQL, primaryKey)
                                 .flatMap(r -> Mono.from(r.map(toEntityFieldMap())))
+                                .delayUntil(s -> close(c))
+                                .onErrorResume(createCloseThenReturnErrorFallback(c))
                                 .switchIfEmpty(close(c)
                                         .then(Mono.empty())
                                 )
-                                .delayUntil(s -> close(c))
-                                .onErrorResume(createCloseThenReturnErrorFallback(c))
                         )
         );
     }
@@ -105,11 +105,11 @@ public final class $$PostgreSQLDeleteOneEntityUsingSingleRepository extends Abst
                 this.connectionFactory.create()
                         .flatMap(c -> executeStatement(c, generatedSQL, primaryKey)
                                 .flatMap(r -> Mono.from(r.map(toEntityFieldList())))
+                                .delayUntil(s -> close(c))
+                                .onErrorResume(createCloseThenReturnErrorFallback(c))
                                 .switchIfEmpty(close(c)
                                         .then(Mono.empty())
                                 )
-                                .delayUntil(s -> close(c))
-                                .onErrorResume(createCloseThenReturnErrorFallback(c))
                         )
         );
     }

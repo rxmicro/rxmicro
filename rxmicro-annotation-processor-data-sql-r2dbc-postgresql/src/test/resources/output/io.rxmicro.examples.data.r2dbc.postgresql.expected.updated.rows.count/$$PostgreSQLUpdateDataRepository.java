@@ -98,11 +98,11 @@ public final class $$PostgreSQLUpdateDataRepository extends AbstractPostgreSQLRe
         return this.connectionFactory.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, updateParams, updateParamTypes)
                         .flatMap(r -> Mono.from(r.map((row, meta) -> accountEntityFromR2DBCSQLDBConverter.setIdEmailFirst_nameLast_nameBalanceRole(resultEntity, row, meta))))
+                        .delayUntil(s -> close(c))
+                        .onErrorResume(createCloseThenReturnErrorFallback(c))
                         .switchIfEmpty(close(c)
                                 .then(throwExceptionIfEmptyResult(generatedSQL, updateParams, updateParamTypes))
                         )
-                        .delayUntil(s -> close(c))
-                        .onErrorResume(createCloseThenReturnErrorFallback(c))
                 )
                 .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletableFuture.class, Account.class))))
                 .toFuture();
@@ -120,11 +120,11 @@ public final class $$PostgreSQLUpdateDataRepository extends AbstractPostgreSQLRe
                         .flatMap(r -> Mono.from(r.map((row, meta) -> accountEntityFromR2DBCSQLDBConverter.setIdEmailFirst_nameLast_nameBalanceRole(resultEntity, row, meta)))
                                 .map(ignore -> (Account)throwExceptionIfNotEmptyResult(generatedSQL, updateParams, updateParamTypes))
                         )
+                        .delayUntil(s -> close(c))
+                        .onErrorResume(createCloseThenReturnErrorFallback(c))
                         .switchIfEmpty(close(c)
                                 .then(Mono.empty())
                         )
-                        .delayUntil(s -> close(c))
-                        .onErrorResume(createCloseThenReturnErrorFallback(c))
                 )
                 .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletableFuture.class, Account.class))))
                 .toFuture();
@@ -196,11 +196,11 @@ public final class $$PostgreSQLUpdateDataRepository extends AbstractPostgreSQLRe
         return this.connectionFactory.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, updateParams, updateParamTypes)
                         .flatMap(r -> Mono.from(r.map((row, meta) -> accountEntityFromR2DBCSQLDBConverter.setIdEmailFirst_nameLast_nameBalanceRole(resultEntity, row, meta))))
+                        .delayUntil(s -> close(c))
+                        .onErrorResume(createCloseThenReturnErrorFallback(c))
                         .switchIfEmpty(close(c)
                                 .then(throwExceptionIfEmptyResult(generatedSQL, updateParams, updateParamTypes))
                         )
-                        .delayUntil(s -> close(c))
-                        .onErrorResume(createCloseThenReturnErrorFallback(c))
                 )
                 .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletionStage.class, Account.class))))
                 .toFuture();
@@ -218,11 +218,11 @@ public final class $$PostgreSQLUpdateDataRepository extends AbstractPostgreSQLRe
                         .flatMap(r -> Mono.from(r.map((row, meta) -> accountEntityFromR2DBCSQLDBConverter.setIdEmailFirst_nameLast_nameBalanceRole(resultEntity, row, meta)))
                                 .map(ignore -> (Account)throwExceptionIfNotEmptyResult(generatedSQL, updateParams, updateParamTypes))
                         )
+                        .delayUntil(s -> close(c))
+                        .onErrorResume(createCloseThenReturnErrorFallback(c))
                         .switchIfEmpty(close(c)
                                 .then(Mono.empty())
                         )
-                        .delayUntil(s -> close(c))
-                        .onErrorResume(createCloseThenReturnErrorFallback(c))
                 )
                 .switchIfEmpty(Mono.defer(() -> Mono.error(useOptionalExceptionSupplier(CompletionStage.class, Account.class))))
                 .toFuture();
@@ -288,11 +288,11 @@ public final class $$PostgreSQLUpdateDataRepository extends AbstractPostgreSQLRe
         return this.connectionFactory.create()
                 .flatMap(c -> executeStatement(c, generatedSQL, updateParams, updateParamTypes)
                         .flatMap(r -> Mono.from(r.map((row, meta) -> accountEntityFromR2DBCSQLDBConverter.setIdEmailFirst_nameLast_nameBalanceRole(resultEntity, row, meta))))
+                        .delayUntil(s -> close(c))
+                        .onErrorResume(createCloseThenReturnErrorFallback(c))
                         .switchIfEmpty(close(c)
                                 .then(throwExceptionIfEmptyResult(generatedSQL, updateParams, updateParamTypes))
                         )
-                        .delayUntil(s -> close(c))
-                        .onErrorResume(createCloseThenReturnErrorFallback(c))
                 );
     }
 
@@ -308,11 +308,11 @@ public final class $$PostgreSQLUpdateDataRepository extends AbstractPostgreSQLRe
                         .flatMap(r -> Mono.from(r.map((row, meta) -> accountEntityFromR2DBCSQLDBConverter.setIdEmailFirst_nameLast_nameBalanceRole(resultEntity, row, meta)))
                                 .map(ignore -> (Account)throwExceptionIfNotEmptyResult(generatedSQL, updateParams, updateParamTypes))
                         )
+                        .delayUntil(s -> close(c))
+                        .onErrorResume(createCloseThenReturnErrorFallback(c))
                         .switchIfEmpty(close(c)
                                 .then(Mono.empty())
                         )
-                        .delayUntil(s -> close(c))
-                        .onErrorResume(createCloseThenReturnErrorFallback(c))
                 );
     }
 
@@ -381,11 +381,11 @@ public final class $$PostgreSQLUpdateDataRepository extends AbstractPostgreSQLRe
                 this.connectionFactory.create()
                         .flatMap(c -> executeStatement(c, generatedSQL, updateParams, updateParamTypes)
                                 .flatMap(r -> Mono.from(r.map((row, meta) -> accountEntityFromR2DBCSQLDBConverter.setIdEmailFirst_nameLast_nameBalanceRole(resultEntity, row, meta))))
+                                .delayUntil(s -> close(c))
+                                .onErrorResume(createCloseThenReturnErrorFallback(c))
                                 .switchIfEmpty(close(c)
                                         .then(throwExceptionIfEmptyResult(generatedSQL, updateParams, updateParamTypes))
                                 )
-                                .delayUntil(s -> close(c))
-                                .onErrorResume(createCloseThenReturnErrorFallback(c))
                         )
         );
     }
@@ -403,11 +403,11 @@ public final class $$PostgreSQLUpdateDataRepository extends AbstractPostgreSQLRe
                                 .flatMap(r -> Mono.from(r.map((row, meta) -> accountEntityFromR2DBCSQLDBConverter.setIdEmailFirst_nameLast_nameBalanceRole(resultEntity, row, meta)))
                                         .map(ignore -> (Account)throwExceptionIfNotEmptyResult(generatedSQL, updateParams, updateParamTypes))
                                 )
+                                .delayUntil(s -> close(c))
+                                .onErrorResume(createCloseThenReturnErrorFallback(c))
                                 .switchIfEmpty(close(c)
                                         .then(Mono.empty())
                                 )
-                                .delayUntil(s -> close(c))
-                                .onErrorResume(createCloseThenReturnErrorFallback(c))
                         )
         );
     }
