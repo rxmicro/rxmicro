@@ -135,14 +135,15 @@
         <compile.google.testing.version>0.19</compile.google.testing.version>
         <dbunit.version>2.7.0</dbunit.version>
         <!-- Runtime Libraries -->
-        <netty.version>4.1.54.Final</netty.version>
+        <netty.version>4.1.55.Final</netty.version>
 
-        <external.lib.rxjava.version>3.0.7</external.lib.rxjava.version>
-        <external.lib.projectreactor.version>3.4.0</external.lib.projectreactor.version>
+        <external.lib.rxjava.version>3.0.8</external.lib.rxjava.version>
+        <external.lib.projectreactor.version>3.4.1</external.lib.projectreactor.version>
         <external.lib.reactivestreams.version>1.0.3</external.lib.reactivestreams.version>
 
         <internal.mongo-driver.version>4.1.1</internal.mongo-driver.version>
-        <external.lib.mongodb-driver-reactivestreams.version>${internal.mongo-driver.version}</external.lib.mongodb-driver-reactivestreams.version>
+        <external.lib.mongodb-driver-reactivestreams.version>${internal.mongo-driver.version}
+        </external.lib.mongodb-driver-reactivestreams.version>
         <external.lib.mongodb-driver-core.version>${internal.mongo-driver.version}</external.lib.mongodb-driver-core.version>
         <external.lib.bson.version>${internal.mongo-driver.version}</external.lib.bson.version>
 
@@ -155,9 +156,9 @@
         <external.lib.opentest4j.version>1.2.0</external.lib.opentest4j.version>
 
         <!-- Code quality -->
-        <spotbugs.version>4.1.4</spotbugs.version>
-        <pmd.version>6.29.0</pmd.version>
-        <checkstyle.version>8.37</checkstyle.version>
+        <spotbugs.version>4.2.0</spotbugs.version>
+        <pmd.version>6.30.0</pmd.version>
+        <checkstyle.version>8.38</checkstyle.version>
 
         <!-- Maven core plugins -->
         <maven-clean-plugin.version>3.1.0</maven-clean-plugin.version>

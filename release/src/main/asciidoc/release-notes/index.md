@@ -4,13 +4,21 @@ This document contains the *change log* for all RxMicro releases since **0.2**.
 
 ## RxMicro v0.7.3
 
-* Refactor predefined request id generators:
+* Refactor predefined request id generators: introduce the following generators:
   * `UUID_128_BITS`
   * `RANDOM_96_BITS`
   * `PARTLY_RANDOM_96_BITS`
   * `DETERMINISTIC_96_BITS`
   * `DEFAULT_96_BIT`
 * Introduce `validate` method for any config classes.
+* Dependency updates:
+  * `netty`: 4.1.54.Final -> 4.1.55.Final
+  * `rxjava`: 3.0.7 -> 3.0.8
+  * `projectreactor`: 3.4.0 -> 3.4.1
+* Source code tool updates:
+  * `spotbugs`: 4.1.4 -> 4.2.0
+  * `pmd`: 6.29.0 -> 6.30.0
+  * `checkstyle`: 8.37 -> 8.38
 
 ## RxMicro v0.7.2
 
