@@ -31,8 +31,9 @@
               files="TestedProcessProxy.java|JULLoggerImplProvider.java"/>
 
     <!-- Safe.Consumer is basic interface for testing  -->
+    <!-- LoggerImplProvider is basic interface for extension  -->
     <suppress checks="IllegalThrows"
-              files="Safes.java"/>
+              files="Safes.java|LoggerImplProvider.java"/>
 
     <!-- java.util.Date support for compatibility only! -->
     <suppress checks="IllegalType"

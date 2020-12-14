@@ -27,7 +27,7 @@ import io.rxmicro.common.RxMicroException;
 public final class PatternFormatterParseException extends RxMicroException {
 
     /**
-     * Creates an instance of {@link PatternFormatterParseException} class
+     * Creates an instance of {@link PatternFormatterParseException} class.
      *
      * <p>
      * <i>(FYI: This constructor uses {@link io.rxmicro.common.util.Formats#format(String, Object...)} method to format error message.)</i>

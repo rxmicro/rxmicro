@@ -30,6 +30,8 @@ public interface LoggerImplProvider {
 
     /**
      * Sets up the current provider.
+     *
+     * @throws Throwable if setup failed.
      */
     void setup() throws Throwable;
 
