@@ -40,48 +40,62 @@ public final class DeniedPackageConstants {
             ).collect(Collectors.toSet());
 
     private static final Set<String> JDK_PACKAGES = Set.of(
+            "com.sun.",
             "java.",
             "javax.",
-            "sun.",
             "jdk.",
-            "com.sun.",
-            "org.ietf.jgss.",
-            "org.w3c.dom.",
-            "org.xml.sax.",
-            "org.jcp.",
-            "org.graalvm.",
             "netscape.javascript.",
-            "org.openjdk."
+            "org.graalvm.",
+            "org.ietf.jgss.",
+            "org.jcp.",
+            "org.openjdk.",
+            "org.xml.sax.",
+            "org.w3c.dom.",
+            "sun."
     );
 
     private static final Set<String> EXTERNAL_LIBS_PACKAGES = Set.of(
-            "io.netty.",
-            "org.slf4j.",
-            "com.google.",
             "autovalue.shaded.",
-            "io.projectreactor.",
-            "io.reactivex.",
-            "junit.",
-            "org.junit.",
-            "org.freemarker.",
-            "freemarker.",
-            "org.bson.",
+
+            "com.google.",
+            "com.graphbuilder.",
+            "com.microsoft.",
             "com.mongodb.",
-            "io.r2dbc.",
-            "reactor.",
-            "org.reactivestreams.",
-            "org.apiguardian.",
-            "org.opentest4j.",
-            "org.aopalliance.",
-            "difflib.",
             "com.ongres.",
-            "net.bytebuddy.",
+
+            "difflib.",
+
+            "freemarker.",
+
+            "io.netty.",
+            "io.projectreactor.",
+            "io.r2dbc.",
+            "io.reactivex.",
+
             "joptsimple.",
+            "junit.",
+
+            "net.bytebuddy.",
+
+            "org.aopalliance.",
             "org.apache.",
+            "org.apiguardian.",
+            "org.bson.",
+            "org.checkerframework.",
             "org.codehaus.",
+            "org.dbunit.",
+            "org.freemarker.",
             "org.hamcrest.",
+            "org.junit.",
             "org.mockito.",
-            "org.objenesis."
+            "org.objectweb.",
+            "org.objenesis.",
+            "org.opentest4j.",
+            "org.openxmlformats.",
+            "org.reactivestreams.",
+            "org.slf4j.",
+
+            "reactor."
     );
 
     public static final Set<String> DENIED_PACKAGES =
