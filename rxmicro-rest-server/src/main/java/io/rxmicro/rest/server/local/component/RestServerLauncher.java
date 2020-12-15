@@ -30,11 +30,11 @@ import io.rxmicro.rest.server.local.model.ServerContainer;
 import java.util.Map;
 
 import static io.rxmicro.common.util.Formats.format;
+import static io.rxmicro.common.util.Reflections.instantiate;
 import static io.rxmicro.common.util.Requires.require;
 import static io.rxmicro.config.Configs.getConfig;
 import static io.rxmicro.rest.server.detail.component.RestControllerAggregator.REST_CONTROLLER_AGGREGATOR_IMPL_CLASS_NAME;
 import static io.rxmicro.runtime.detail.RxMicroRuntime.ENTRY_POINT_PACKAGE;
-import static io.rxmicro.runtime.local.Instances.instantiate;
 
 /**
  * @author nedis

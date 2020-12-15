@@ -23,7 +23,7 @@ import java.util.Map;
 import java.util.function.Supplier;
 
 import static io.rxmicro.common.util.ExCollections.unmodifiableMap;
-import static io.rxmicro.runtime.local.Instances.instantiate;
+import static io.rxmicro.common.util.Reflections.instantiate;
 
 /**
  * @author nedis

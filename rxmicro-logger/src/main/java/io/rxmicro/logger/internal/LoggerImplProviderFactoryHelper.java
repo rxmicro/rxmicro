@@ -16,10 +16,9 @@
 
 package io.rxmicro.logger.internal;
 
+import io.rxmicro.common.util.Reflections;
 import io.rxmicro.logger.impl.LoggerImplProvider;
 import io.rxmicro.logger.internal.jul.JULLoggerImplProvider;
-
-import static io.rxmicro.common.util.Formats.format;
 
 /**
  * @author nedis
@@ -42,7 +41,7 @@ public final class LoggerImplProviderFactoryHelper {
         if (loggerImplProviderClass == JULLoggerImplProvider.class) {
             return new JULLoggerImplProvider();
         } else {
-            throw new IllegalArgumentException(format("? not supported yet!", loggerImplProviderClass.getName()));
+            return Reflections.instantiate(loggerImplProviderClass);
         }
     }
 

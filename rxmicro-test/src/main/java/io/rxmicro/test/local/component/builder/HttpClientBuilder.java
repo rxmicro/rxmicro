@@ -24,7 +24,7 @@ import io.rxmicro.http.client.HttpClientFactory;
 
 import java.util.ServiceLoader;
 
-import static io.rxmicro.runtime.local.Instances.getImplementation;
+import static io.rxmicro.runtime.local.Implementations.getImplementation;
 
 /**
  * @author nedis

@@ -24,8 +24,8 @@ import io.rxmicro.logger.LoggerFactory;
 import java.util.ServiceLoader;
 
 import static io.rxmicro.common.util.Formats.format;
+import static io.rxmicro.common.util.Reflections.instantiate;
 import static io.rxmicro.runtime.detail.RxMicroRuntime.ENTRY_POINT_PACKAGE;
-import static io.rxmicro.runtime.local.Instances.instantiate;
 import static io.rxmicro.tool.common.TestFixers.COMPONENT_TEST_FIXER;
 import static io.rxmicro.tool.common.TestFixers.INTEGRATION_TEST_FIXER;
 import static io.rxmicro.tool.common.TestFixers.REST_BASED_MICRO_SERVICE_TEST_FIXER;

@@ -24,8 +24,8 @@ import java.util.List;
 
 import static io.rxmicro.cdi.BeanFactory.BEAN_FACTORY_IMPL_CLASS_NAME;
 import static io.rxmicro.common.util.Formats.format;
+import static io.rxmicro.common.util.Reflections.instantiate;
 import static io.rxmicro.runtime.detail.RxMicroRuntime.ENTRY_POINT_PACKAGE;
-import static io.rxmicro.runtime.local.Instances.instantiate;
 import static java.util.stream.Collectors.toList;
 
 /**

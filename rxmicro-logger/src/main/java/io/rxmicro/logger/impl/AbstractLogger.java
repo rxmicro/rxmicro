@@ -24,7 +24,6 @@ import java.util.Arrays;
 import java.util.function.Supplier;
 
 import static io.rxmicro.common.util.Formats.format;
-import static io.rxmicro.common.util.Requires.require;
 
 /**
  * Abstract logger implementation that delegates the log events to `log` methods.
@@ -3074,11 +3073,11 @@ public abstract class AbstractLogger implements Logger {
 
     private String getFinalMessage(final String msg,
                                    final Object... arguments) {
-        return arguments.length == 0 ? require(msg) : format(msg, arguments);
+        return format(msg, arguments);
     }
 
     private String getFinalMessage(final String msg,
                                    final Supplier<?>... suppliers) {
-        return suppliers.length == 0 ? require(msg) : format(msg, Arrays.stream(suppliers).map(Supplier::get).toArray());
+        return format(msg, Arrays.stream(suppliers).map(Supplier::get).toArray());
     }
 }

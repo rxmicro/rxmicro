@@ -28,12 +28,12 @@ import java.util.Optional;
 import java.util.function.Supplier;
 
 import static io.rxmicro.common.util.Formats.format;
+import static io.rxmicro.common.util.Reflections.instantiate;
 import static io.rxmicro.runtime.detail.RxMicroRuntime.ENTRY_POINT_PACKAGE;
 import static io.rxmicro.runtime.internal.RuntimeVersion.setRxMicroVersion;
 import static io.rxmicro.runtime.local.InstanceContainer.getSingleton;
 import static io.rxmicro.runtime.local.InstanceContainer.overrideSingleton;
 import static io.rxmicro.runtime.local.InstanceContainer.registerSingleton;
-import static io.rxmicro.runtime.local.Instances.instantiate;
 
 /**
  * @author nedis
@@ -64,8 +64,7 @@ public abstract class AbstractFactory {
     }
 
     protected static AbstractFactory get(final String implClassName) {
-        return FACTORIES.computeIfAbsent(implClassName, cl ->
-                instantiate(format("?.?", ENTRY_POINT_PACKAGE, cl)));
+        return FACTORIES.computeIfAbsent(implClassName, cl -> instantiate(format("?.?", ENTRY_POINT_PACKAGE, cl)));
     }
 
     protected static void registerFactory(final String implClassName,

@@ -101,7 +101,7 @@ public final class RxMicroLogRecord extends LogRecord {
 
     @Override
     public void setSourceClassName(final String sourceClassName) {
-        throw new UnsupportedOperationException("Use setStackFrame instead!");
+        throw new UnsupportedOperationException("Use setStackFrame() instead!");
     }
 
     @Override
@@ -114,7 +114,7 @@ public final class RxMicroLogRecord extends LogRecord {
 
     @Override
     public void setSourceMethodName(final String sourceMethodName) {
-        throw new UnsupportedOperationException("Use setStackFrame instead!");
+        throw new UnsupportedOperationException("Use setStackFrame() instead!");
     }
 
     private void extractDataFromStackFrameIfPossible() {

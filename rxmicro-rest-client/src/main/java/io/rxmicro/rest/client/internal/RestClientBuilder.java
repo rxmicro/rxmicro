@@ -26,8 +26,8 @@ import io.rxmicro.runtime.local.provider.LazyInstanceProvider;
 
 import java.util.ServiceLoader;
 
+import static io.rxmicro.runtime.local.Implementations.getImplementation;
 import static io.rxmicro.runtime.local.InstanceContainer.getSingleton;
-import static io.rxmicro.runtime.local.Instances.getImplementation;
 
 /**
  * @author nedis

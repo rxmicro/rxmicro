@@ -25,6 +25,7 @@ import io.rxmicro.rest.server.netty.NettyTransport;
 
 import static io.rxmicro.common.util.Environments.isCurrentOsLinux;
 import static io.rxmicro.common.util.Environments.isCurrentOsMac;
+import static io.rxmicro.common.util.Reflections.instantiate;
 import static io.rxmicro.rest.server.netty.NettyTransport.AUTO;
 import static io.rxmicro.rest.server.netty.NettyTransport.EPOLL;
 import static io.rxmicro.rest.server.netty.NettyTransport.KQUEUE;
@@ -35,7 +36,6 @@ import static io.rxmicro.rest.server.netty.internal.util.NettyTransports.getKQue
 import static io.rxmicro.rest.server.netty.internal.util.NettyTransports.getKQueueServerSocketChannelClass;
 import static io.rxmicro.rest.server.netty.internal.util.NettyTransports.isEPollNativeAdded;
 import static io.rxmicro.rest.server.netty.internal.util.NettyTransports.isKQueueNativeAdded;
-import static io.rxmicro.runtime.local.Instances.instantiate;
 
 /**
  * @author nedis

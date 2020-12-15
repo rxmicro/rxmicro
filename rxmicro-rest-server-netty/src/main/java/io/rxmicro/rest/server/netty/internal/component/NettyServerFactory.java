@@ -39,7 +39,7 @@ import static io.rxmicro.common.util.Requires.require;
 import static io.rxmicro.config.Configs.getConfig;
 import static io.rxmicro.rest.server.netty.internal.util.NettyTransportFactory.getServerSocketChannelClass;
 import static io.rxmicro.rest.server.netty.internal.util.NettyTransportFactory.newEventLoopGroup;
-import static io.rxmicro.runtime.local.Instances.getImplementation;
+import static io.rxmicro.runtime.local.Implementations.getImplementation;
 
 /**
  * @author nedis

@@ -128,7 +128,7 @@ final class AbstractLoggerTest {
 
         verify(logger, times(1)).isLevelEnabled(any(Level.class));
         verify(logger, times(1)).log(any(Level.class), anyString());
-        verify(logger, never()).log(any(Level.class), anyString(), any(Throwable.class));
+        verify(logger, never()).log(any(Level.class), eq("123456"), any(Throwable.class));
         verify(logger, never()).log(any(RequestIdSupplier.class), any(Level.class), anyString());
         verify(logger, never()).log(any(RequestIdSupplier.class), any(Level.class), anyString(), any(Throwable.class));
     }
@@ -143,7 +143,7 @@ final class AbstractLoggerTest {
 
         verify(logger, times(1)).isLevelEnabled(any(Level.class));
         verify(logger, never()).log(any(Level.class), anyString());
-        verify(logger, times(1)).log(any(Level.class), anyString(), eq(THROWABLE));
+        verify(logger, times(1)).log(any(Level.class), eq("123456"), eq(THROWABLE));
         verify(logger, never()).log(any(RequestIdSupplier.class), any(Level.class), anyString());
         verify(logger, never()).log(any(RequestIdSupplier.class), any(Level.class), anyString(), any(Throwable.class));
     }
@@ -159,7 +159,7 @@ final class AbstractLoggerTest {
         verify(logger, times(1)).isLevelEnabled(any(Level.class));
         verify(logger, never()).log(any(Level.class), anyString());
         verify(logger, never()).log(any(Level.class), anyString(), any(Throwable.class));
-        verify(logger, times(1)).log(any(RequestIdSupplier.class), any(Level.class), anyString());
+        verify(logger, times(1)).log(eq(REQUEST_ID_SUPPLIER), any(Level.class), eq("123456"));
         verify(logger, never()).log(any(RequestIdSupplier.class), any(Level.class), anyString(), any(Throwable.class));
     }
 
@@ -175,7 +175,7 @@ final class AbstractLoggerTest {
         verify(logger, never()).log(any(Level.class), anyString());
         verify(logger, never()).log(any(Level.class), anyString(), any(Throwable.class));
         verify(logger, never()).log(any(RequestIdSupplier.class), any(Level.class), anyString());
-        verify(logger, times(1)).log(eq(REQUEST_ID_SUPPLIER), any(Level.class), anyString(), eq(THROWABLE));
+        verify(logger, times(1)).log(eq(REQUEST_ID_SUPPLIER), any(Level.class), eq("123456"), eq(THROWABLE));
     }
 
     @Order(6)
