@@ -25,6 +25,7 @@ import io.rxmicro.data.sql.r2dbc.postgresql.detail.AbstractPostgreSQLRepository;
 import io.rxmicro.http.client.HttpClientFactory;
 import io.rxmicro.rest.client.detail.AbstractRestClient;
 import io.rxmicro.test.BlockingHttpClient;
+import io.rxmicro.test.SystemErr;
 import io.rxmicro.test.SystemOut;
 
 import static io.rxmicro.test.local.util.GeneratedClasses.isClassGenerated;
@@ -45,6 +46,10 @@ public final class DetectTypeRules {
 
     public static boolean isSystemOut(final Class<?> type) {
         return SystemOut.class == type;
+    }
+
+    public static boolean isSystemErr(final Class<?> type) {
+        return SystemErr.class == type;
     }
 
     public static boolean isMongoDatabase(final Class<?> type) {

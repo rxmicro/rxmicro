@@ -20,7 +20,7 @@ import io.rxmicro.test.Alternative;
 import io.rxmicro.test.BlockingHttpClient;
 import io.rxmicro.test.SystemOut;
 import io.rxmicro.test.internal.BlockingHttpClientImpl;
-import io.rxmicro.test.internal.SystemOutImpl;
+import io.rxmicro.test.internal.SystemStreamImpl;
 import io.rxmicro.test.local.InvalidTestConfigException;
 import io.rxmicro.test.local.component.builder.internal.ReplacementExclusion;
 import io.rxmicro.test.local.model.TestModel;
@@ -40,6 +40,7 @@ import static io.rxmicro.test.internal.DetectTypeRules.isMongoDatabase;
 import static io.rxmicro.test.internal.DetectTypeRules.isRepositoryField;
 import static io.rxmicro.test.internal.DetectTypeRules.isRestClientField;
 import static io.rxmicro.test.internal.DetectTypeRules.isSqlConnectionPool;
+import static io.rxmicro.test.internal.DetectTypeRules.isSystemErr;
 import static io.rxmicro.test.internal.DetectTypeRules.isSystemOut;
 import static io.rxmicro.test.local.component.builder.internal.MockReplacementExclusion.MOCK_REPLACEMENT_EXCLUSION;
 import static io.rxmicro.test.local.util.Inners.getOuterClass;
@@ -61,7 +62,7 @@ public final class TestModelBuilder {
             ),
             SystemOut.class,
             Map.of(
-                    SystemOutImpl.class, Set.of(),
+                    SystemStreamImpl.class, Set.of(),
                     PrintStream.class, Set.of(MOCK_REPLACEMENT_EXCLUSION)
             )
     );
@@ -98,6 +99,8 @@ public final class TestModelBuilder {
             validate(field);
             if (isSystemOut(field.getType())) {
                 builder.addSystemOut(field);
+            } else if (isSystemErr(field.getType())) {
+                builder.addSystemErr(field);
             } else if (isBlockingHttpClient(field.getType())) {
                 builder.addBlockingHttpClient(field);
             } else if (field.getType() == testedComponentClass) {

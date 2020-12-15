@@ -19,12 +19,12 @@ package io.rxmicro.test;
 import io.rxmicro.test.internal.SystemStream;
 
 /**
- * The additional interface for easy {@link System#out} access during testing.
+ * The additional interface for easy {@link System#err} access during testing.
  *
  * @author nedis
- * @see System#out
+ * @see System#err
  * @since 0.1
  */
-public interface SystemOut extends SystemStream {
+public interface SystemErr extends SystemStream {
 
 }

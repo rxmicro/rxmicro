@@ -22,7 +22,7 @@ import io.rxmicro.test.local.BlockingHttpClientConfig;
 import io.rxmicro.test.local.component.builder.TestModelBuilder;
 import io.rxmicro.test.local.component.injector.BlockingHttpClientInjector;
 import io.rxmicro.test.local.component.injector.InjectorFactory;
-import io.rxmicro.test.local.component.injector.SystemOutInjector;
+import io.rxmicro.test.local.component.injector.SystemStreamInjector;
 import io.rxmicro.test.local.component.validator.IntegrationTestValidator;
 import io.rxmicro.test.local.model.TestModel;
 import org.junit.jupiter.api.extension.AfterEachCallback;
@@ -54,7 +54,7 @@ public final class RxMicroIntegrationTestExtension extends AbstractJUnitTestExte
 
     private BlockingHttpClientInjector blockingHttpClientInjector;
 
-    private SystemOutInjector systemOutInjector;
+    private SystemStreamInjector systemStreamInjector;
 
     @Override
     public void beforeAll(final ExtensionContext context) {
@@ -66,7 +66,7 @@ public final class RxMicroIntegrationTestExtension extends AbstractJUnitTestExte
         integrationTestValidator.validate(testModel);
         final InjectorFactory injectorFactory = new InjectorFactory(testModel);
         blockingHttpClientInjector = injectorFactory.createBlockingHttpClientInjector();
-        systemOutInjector = injectorFactory.createSystemOutInjector();
+        systemStreamInjector = injectorFactory.createSystemOutInjector();
         if (blockingHttpClientInjector.hasField()) {
             final BlockingHttpClientConfig config =
                     blockingHttpClientInjector.getConfig(testClass, true, 8080);
@@ -80,11 +80,11 @@ public final class RxMicroIntegrationTestExtension extends AbstractJUnitTestExte
         getBeforeTestInvoker().throwErrorIfFound(context);
         final List<Object> testInstances = getTestInstances(context);
         blockingHttpClientInjector.injectIfFound(testInstances, blockingHttpClient);
-        systemOutInjector.injectIfFound(testInstances);
+        systemStreamInjector.injectIfFound(testInstances);
     }
 
     @Override
     public void afterEach(final ExtensionContext context) {
-        systemOutInjector.resetIfNecessary();
+        systemStreamInjector.resetIfNecessary();
     }
 }

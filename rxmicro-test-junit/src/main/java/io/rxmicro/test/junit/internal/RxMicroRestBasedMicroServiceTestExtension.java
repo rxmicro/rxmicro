@@ -34,7 +34,7 @@ import io.rxmicro.test.local.component.injector.InjectorFactory;
 import io.rxmicro.test.local.component.injector.RepositoryInjector;
 import io.rxmicro.test.local.component.injector.RestClientInjector;
 import io.rxmicro.test.local.component.injector.RuntimeContextComponentInjector;
-import io.rxmicro.test.local.component.injector.SystemOutInjector;
+import io.rxmicro.test.local.component.injector.SystemStreamInjector;
 import io.rxmicro.test.local.component.injector.UserCreatedComponentInjector;
 import io.rxmicro.test.local.component.validator.RestBasedMicroServiceTestValidator;
 import io.rxmicro.test.local.model.TestModel;
@@ -93,7 +93,7 @@ public final class RxMicroRestBasedMicroServiceTestExtension extends AbstractJUn
 
     private BlockingHttpClientInjector blockingHttpClientInjector;
 
-    private SystemOutInjector systemOutInjector;
+    private SystemStreamInjector systemStreamInjector;
 
     private UserCreatedComponentInjector userCreatedComponentInjector;
 
@@ -146,7 +146,7 @@ public final class RxMicroRestBasedMicroServiceTestExtension extends AbstractJUn
                                  final Map<String, Config> configs) {
         final InjectorFactory injectorFactory = new InjectorFactory(testModel);
         blockingHttpClientInjector = injectorFactory.createBlockingHttpClientInjector();
-        systemOutInjector = injectorFactory.createSystemOutInjector();
+        systemStreamInjector = injectorFactory.createSystemOutInjector();
         if (blockingHttpClientInjector.hasField()) {
             final int serverPort = getServerPortHelper().getServerPort(configs.values());
             final BlockingHttpClientConfig config = blockingHttpClientInjector.getConfig(testClass, false, serverPort);
@@ -170,7 +170,7 @@ public final class RxMicroRestBasedMicroServiceTestExtension extends AbstractJUn
         beanFactoryInjector.injectIfFound(testInstances);
 
         blockingHttpClientInjector.injectIfFound(testInstances, blockingHttpClient);
-        systemOutInjector.injectIfFound(testInstances);
+        systemStreamInjector.injectIfFound(testInstances);
     }
 
     @Override
@@ -196,7 +196,7 @@ public final class RxMicroRestBasedMicroServiceTestExtension extends AbstractJUn
         resetDefaultConfigValueStorage();
         resetNettyConfiguratorController();
         serverContainer.unregisterAllRestControllers();
-        systemOutInjector.resetIfNecessary();
+        systemStreamInjector.resetIfNecessary();
     }
 
     @Override

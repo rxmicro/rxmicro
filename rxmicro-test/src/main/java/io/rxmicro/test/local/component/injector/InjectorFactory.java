@@ -56,10 +56,14 @@ public final class InjectorFactory {
 
     private final Field systemOutField;
 
+    private final Field systemErrField;
+
     public InjectorFactory(final TestModel testModel) {
         blockingHttpClientField = testModel.getBlockingHttpClients().stream().findFirst()
                 .orElse(null);
         systemOutField = testModel.getSystemOuts().stream().findFirst()
+                .orElse(null);
+        systemErrField = testModel.getSystemErrs().stream().findFirst()
                 .orElse(null);
         testedComponent = testModel.getTestedComponents().stream().findFirst().orElse(null);
         testedComponentClass = testModel.getTestedComponentClass().orElse(null);
@@ -81,8 +85,8 @@ public final class InjectorFactory {
         return new BlockingHttpClientInjector(blockingHttpClientField);
     }
 
-    public SystemOutInjector createSystemOutInjector() {
-        return new SystemOutInjector(systemOutField);
+    public SystemStreamInjector createSystemOutInjector() {
+        return new SystemStreamInjector(systemOutField, systemErrField);
     }
 
     public RuntimeContextComponentInjector createRuntimeContextComponentInjector() {

@@ -26,7 +26,7 @@ import io.rxmicro.test.local.component.injector.InjectorFactory;
 import io.rxmicro.test.local.component.injector.RepositoryInjector;
 import io.rxmicro.test.local.component.injector.RestClientInjector;
 import io.rxmicro.test.local.component.injector.RuntimeContextComponentInjector;
-import io.rxmicro.test.local.component.injector.SystemOutInjector;
+import io.rxmicro.test.local.component.injector.SystemStreamInjector;
 import io.rxmicro.test.local.component.injector.UserCreatedComponentInjector;
 import io.rxmicro.test.local.component.validator.ComponentTestValidator;
 import io.rxmicro.test.local.model.TestModel;
@@ -77,7 +77,7 @@ public final class RxMicroComponentTestExtension extends AbstractJUnitTestExtens
 
     private TestedComponentResolver testedComponentResolver;
 
-    private SystemOutInjector systemOutInjector;
+    private SystemStreamInjector systemStreamInjector;
 
     @Override
     public void beforeAll(final ExtensionContext context) {
@@ -105,7 +105,7 @@ public final class RxMicroComponentTestExtension extends AbstractJUnitTestExtens
         userCreatedComponentInjector = injectorFactory.createUserCreatedComponentInjector();
         beanFactoryInjector = injectorFactory.createBeanFactoryInjector();
         testedComponentResolver = injectorFactory.createTestedComponentResolver();
-        systemOutInjector = injectorFactory.createSystemOutInjector();
+        systemStreamInjector = injectorFactory.createSystemOutInjector();
     }
 
     @Override
@@ -117,7 +117,7 @@ public final class RxMicroComponentTestExtension extends AbstractJUnitTestExtens
         repositoryInjector.injectIfFound(testInstances);
         restClientInjector.injectIfFound(testInstances);
         beanFactoryInjector.injectIfFound(testInstances);
-        systemOutInjector.injectIfFound(testInstances);
+        systemStreamInjector.injectIfFound(testInstances);
     }
 
     @Override
@@ -146,6 +146,6 @@ public final class RxMicroComponentTestExtension extends AbstractJUnitTestExtens
         clearFactories();
         resetDefaultConfigValueStorage();
         resetNettyConfiguratorController();
-        systemOutInjector.resetIfNecessary();
+        systemStreamInjector.resetIfNecessary();
     }
 }

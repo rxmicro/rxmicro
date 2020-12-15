@@ -45,6 +45,8 @@ public final class TestModel {
 
     private final List<Field> systemOuts;
 
+    private final List<Field> systemErrs;
+
     private final List<Field> testedComponents;
 
     private final List<Field> userCreatedComponents;
@@ -67,6 +69,7 @@ public final class TestModel {
                       final List<Field> instanceConfigs,
                       final List<Field> blockingHttpClients,
                       final List<Field> systemOuts,
+                      final List<Field> systemErrs,
                       final List<Field> testedComponents,
                       final List<Field> userCreatedComponents,
                       final List<Field> beanComponents,
@@ -81,6 +84,7 @@ public final class TestModel {
         this.blockingHttpClients = blockingHttpClients;
         this.systemOuts = systemOuts;
         this.testedComponentClass = testedComponentClass;
+        this.systemErrs = systemErrs;
         this.testedComponents = testedComponents;
         this.userCreatedComponents = userCreatedComponents;
         this.beanComponents = beanComponents;
@@ -117,6 +121,10 @@ public final class TestModel {
 
     public List<Field> getSystemOuts() {
         return systemOuts;
+    }
+
+    public List<Field> getSystemErrs() {
+        return systemErrs;
     }
 
     public List<Field> getTestedComponents() {
@@ -187,6 +195,8 @@ public final class TestModel {
 
         private final List<Field> systemOuts = new ArrayList<>(1);
 
+        private final List<Field> systemErrs = new ArrayList<>(1);
+
         private final List<Field> testedComponents = new ArrayList<>(1);
 
         private final List<Field> userCreatedComponents = new ArrayList<>(5);
@@ -229,6 +239,10 @@ public final class TestModel {
             systemOuts.add(field);
         }
 
+        public void addSystemErr(final Field field) {
+            systemErrs.add(field);
+        }
+
         public void addTestedComponent(final Field field) {
             testedComponents.add(field);
         }
@@ -269,6 +283,7 @@ public final class TestModel {
                     instanceConfigs,
                     blockingHttpClients,
                     systemOuts,
+                    systemErrs,
                     testedComponents,
                     userCreatedComponents,
                     beanComponents,

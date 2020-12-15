@@ -16,6 +16,7 @@
 
 package io.rxmicro.test.internal;
 
+import io.rxmicro.test.SystemErr;
 import io.rxmicro.test.SystemOut;
 
 import java.io.ByteArrayOutputStream;
@@ -29,11 +30,11 @@ import static java.nio.charset.StandardCharsets.UTF_8;
  * @author nedis
  * @since 0.1
  */
-public final class SystemOutImpl implements SystemOut {
+public final class SystemStreamImpl implements SystemOut, SystemErr {
 
     private final SpyOutputStream spyOutputStream;
 
-    public SystemOutImpl(final PrintStream originalStdout) {
+    public SystemStreamImpl(final PrintStream originalStdout) {
         this.spyOutputStream = new SpyOutputStream(originalStdout);
     }
 
