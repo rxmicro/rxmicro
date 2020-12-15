@@ -28,7 +28,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.Map;
-import java.util.Set;
 
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.rest.model.HttpModelType.PARAMETER;
@@ -66,7 +65,7 @@ final class SizeMapConstraintValidatorTest extends AbstractConstraintValidatorTe
         final ValidationException exception =
                 assertThrows(ValidationException.class, () -> validator.validate(list, PARAMETER, "value"));
         assertEquals(
-                format("Invalid parameter \"value\": Expected array length = 2, but actual is ?. (array: ?)!", list.size(), list),
+                format("Invalid parameter \"value\": Expected 2 object property(ies), but actual is ?. (object: ?)!", list.size(), list),
                 exception.getMessage()
         );
     }

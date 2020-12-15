@@ -14,7 +14,7 @@ public final class $$ComponentTestFixer {
 
     static {
         final Module currentModule = $$ComponentTestFixer.class.getModule();
-        currentModule.addExports("rxmicro", RX_MICRO_RUNTIME_MODULE);
+        currentModule.addExports("rxmicro", RX_MICRO_COMMON_MODULE);
     }
 
     public $$ComponentTestFixer() {

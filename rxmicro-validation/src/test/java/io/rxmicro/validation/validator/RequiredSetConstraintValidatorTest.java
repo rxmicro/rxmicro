@@ -17,19 +17,15 @@
 package io.rxmicro.validation.validator;
 
 import io.rxmicro.http.error.ValidationException;
-import io.rxmicro.validation.ConstraintValidator;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.Set;
 
-import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.rest.model.HttpModelType.PARAMETER;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -41,33 +37,25 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  */
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-final class SizeSetConstraintValidatorTest extends AbstractConstraintValidatorTest<Set<?>> {
+final class RequiredSetConstraintValidatorTest {
 
-    @Override
-    ConstraintValidator<Set<?>> instantiate() {
-        return new SizeSetConstraintValidator(3);
-    }
+    private final RequiredSetConstraintValidator validator = new RequiredSetConstraintValidator();
 
     @Test
     @Order(11)
     void Should_process_parameter_as_a_valid_one() {
-        assertDoesNotThrow(() -> validator.validate(Set.of(1, 2, 3), PARAMETER, "value"));
+        assertDoesNotThrow(() -> validator.validate(Set.of("item"), PARAMETER, "value"));
     }
 
-    @ParameterizedTest
-    @ValueSource(strings = {
-            "",
-            "1,2",
-            "1,2,3,4"
-    })
+    @Test
     @Order(12)
-    void Should_throw_ValidationException(final String value) {
-        final Set<String> list = value.isEmpty() ? Set.of() : Set.of(value.split(","));
+    void Should_throw_ValidationException() {
         final ValidationException exception =
-                assertThrows(ValidationException.class, () -> validator.validate(list, PARAMETER, "value"));
+                assertThrows(ValidationException.class, () -> validator.validate(Set.of(), PARAMETER, "value"));
         assertEquals(
-                format("Invalid parameter \"value\": Expected array length = 3, but actual is ?. (array: ?)!", list.size(), list),
+                "Parameter \"value\" is required!",
                 exception.getMessage()
         );
     }
+
 }

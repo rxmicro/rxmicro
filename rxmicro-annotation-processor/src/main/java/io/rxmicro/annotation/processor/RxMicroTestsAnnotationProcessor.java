@@ -27,6 +27,7 @@ import io.rxmicro.common.CommonConstants;
 import io.rxmicro.common.util.ExCollections;
 import io.rxmicro.common.util.Formats;
 import io.rxmicro.common.util.TestLoggers;
+import io.rxmicro.runtime.RuntimeConstants;
 
 import java.util.Map;
 import java.util.Set;
@@ -150,7 +151,7 @@ public final class RxMicroTestsAnnotationProcessor extends BaseRxMicroAnnotation
                     .build();
         }
 
-        protected void customizeClassHeader(ClassHeader.Builder builder) {
+        protected void customizeClassHeader(final ClassHeader.Builder builder) {
             // do nothing
         }
     }
@@ -169,6 +170,11 @@ public final class RxMicroTestsAnnotationProcessor extends BaseRxMicroAnnotation
         @Override
         public String getTemplateName() {
             return "test/$$ComponentTestFixerTemplate.javaftl";
+        }
+
+        @Override
+        protected void customizeClassHeader(final ClassHeader.Builder builder) {
+            builder.addStaticImport(RuntimeConstants.class, "RX_MICRO_RUNTIME_MODULE");
         }
     }
 
