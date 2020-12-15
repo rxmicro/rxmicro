@@ -42,6 +42,7 @@
                         --add-opens rxmicro.logger/io.rxmicro.logger.impl=ALL-UNNAMED
                         --add-opens rxmicro.logger/io.rxmicro.logger.internal=ALL-UNNAMED
                         --add-opens rxmicro.logger/io.rxmicro.logger.internal.jul=ALL-UNNAMED
+                        --add-opens rxmicro.logger/io.rxmicro.logger.internal.jul.config.adapter=ALL-UNNAMED
                         --add-opens rxmicro.logger/io.rxmicro.logger.internal.jul.config.adapter.pattern=ALL-UNNAMED
                         --add-opens rxmicro.logger/io.rxmicro.logger.internal.jul=rxmicro.common
                     </argLine>

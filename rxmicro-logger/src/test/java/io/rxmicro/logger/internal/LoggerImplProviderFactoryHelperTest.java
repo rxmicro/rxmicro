@@ -59,8 +59,6 @@ final class LoggerImplProviderFactoryHelperTest {
                     .collect(toList());
             assertEquals("Can't setup logger impl factory: test", lines.get(0));
             assertEquals("java.lang.Throwable: test", lines.get(1));
-            assertEquals("\tat rxmicro.logger/io.rxmicro.logger.internal.LoggerImplProviderFactoryHelperTest$" +
-                    "TestLoggerImplProvider.setup(LoggerImplProviderFactoryHelperTest.java:77)", lines.get(2));
         } finally {
             System.setErr(ORIGINAL_SYS_ERROR);
         }
