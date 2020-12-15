@@ -4,7 +4,7 @@ public final class ${JAVA_CLASS_NAME} {
 
     static {
         final Module currentModule = ${JAVA_CLASS_NAME}.class.getModule();
-        currentModule.addExports("${PACKAGE_NAME}", RX_MICRO_RUNTIME_MODULE);
+        currentModule.addExports("${PACKAGE_NAME}", RX_MICRO_COMMON_MODULE);
     }
 
     public ${JAVA_CLASS_NAME}() {

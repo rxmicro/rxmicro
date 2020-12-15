@@ -27,7 +27,6 @@ import io.rxmicro.common.CommonConstants;
 import io.rxmicro.common.util.ExCollections;
 import io.rxmicro.common.util.Formats;
 import io.rxmicro.common.util.TestLoggers;
-import io.rxmicro.runtime.RuntimeConstants;
 
 import java.util.Map;
 import java.util.Set;
@@ -145,14 +144,15 @@ public final class RxMicroTestsAnnotationProcessor extends BaseRxMicroAnnotation
             return builder
                     .addImports(Set.class)
                     .addStaticImport(Formats.class, "format")
-                    .addStaticImport(RuntimeConstants.class, "RX_MICRO_RUNTIME_MODULE")
                     .addStaticImport(CommonConstants.class, "RX_MICRO_COMMON_MODULE")
                     .addStaticImport(TestLoggers.class, "logInfoTestMessage")
                     .addStaticImport(ExCollections.class, "unmodifiableOrderedSet")
                     .build();
         }
 
-        protected abstract void customizeClassHeader(ClassHeader.Builder builder);
+        protected void customizeClassHeader(ClassHeader.Builder builder) {
+            // do nothing
+        }
     }
 
     /**
@@ -164,11 +164,6 @@ public final class RxMicroTestsAnnotationProcessor extends BaseRxMicroAnnotation
         @Override
         protected String getSimpleClassName() {
             return COMPONENT_TEST_FIXER;
-        }
-
-        @Override
-        protected void customizeClassHeader(final ClassHeader.Builder builder) {
-            // do nothing
         }
 
         @Override
@@ -189,11 +184,6 @@ public final class RxMicroTestsAnnotationProcessor extends BaseRxMicroAnnotation
         }
 
         @Override
-        protected void customizeClassHeader(final ClassHeader.Builder builder) {
-            // do nothing
-        }
-
-        @Override
         public String getTemplateName() {
             return "test/$$RestBasedMicroServiceTestFixerTemplate.javaftl";
         }
@@ -208,11 +198,6 @@ public final class RxMicroTestsAnnotationProcessor extends BaseRxMicroAnnotation
         @Override
         protected String getSimpleClassName() {
             return INTEGRATION_TEST_FIXER;
-        }
-
-        @Override
-        protected void customizeClassHeader(final ClassHeader.Builder builder) {
-            // do nothing
         }
 
         @Override
