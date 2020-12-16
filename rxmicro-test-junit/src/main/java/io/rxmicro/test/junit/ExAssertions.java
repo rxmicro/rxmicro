@@ -152,18 +152,6 @@ public class ExAssertions extends Assertions {
     }
 
     /**
-     * Asserts that the current {@link SystemErr} contain the required {@code message}.
-     *
-     * @param systemErr the current {@link SystemErr}
-     * @param message the required message
-     * @throws AssertionFailedError if the current {@link SystemOut} does not contain required message
-     */
-    public static void assertSystemErrContains(final SystemErr systemErr,
-                                               final String message) {
-        assertSystemErrContains(systemErr.asString(), message);
-    }
-
-    /**
      * Asserts that the current {@code systemOut} contain the required {@code message}.
      *
      * @param systemOut the current system out
@@ -176,6 +164,18 @@ public class ExAssertions extends Assertions {
                 systemOut.contains(message),
                 () -> format("System out does not contain required message: '?'! Full out is:\n?", message, systemOut)
         );
+    }
+
+    /**
+     * Asserts that the current {@link SystemErr} contain the required {@code message}.
+     *
+     * @param systemErr the current {@link SystemErr}
+     * @param message the required message
+     * @throws AssertionFailedError if the current {@link SystemOut} does not contain required message
+     */
+    public static void assertSystemErrContains(final SystemErr systemErr,
+                                               final String message) {
+        assertSystemErrContains(systemErr.asString(), message);
     }
 
     /**
