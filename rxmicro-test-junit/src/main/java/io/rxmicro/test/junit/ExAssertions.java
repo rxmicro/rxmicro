@@ -18,6 +18,7 @@ package io.rxmicro.test.junit;
 
 import io.rxmicro.config.Configs;
 import io.rxmicro.test.GlobalTestConfig;
+import io.rxmicro.test.SystemErr;
 import io.rxmicro.test.SystemOut;
 import org.junit.jupiter.api.Assertions;
 import org.opentest4j.AssertionFailedError;
@@ -151,6 +152,18 @@ public class ExAssertions extends Assertions {
     }
 
     /**
+     * Asserts that the current {@link SystemErr} contain the required {@code message}.
+     *
+     * @param systemErr the current {@link SystemErr}
+     * @param message the required message
+     * @throws AssertionFailedError if the current {@link SystemOut} does not contain required message
+     */
+    public static void assertSystemErrContains(final SystemErr systemErr,
+                                               final String message) {
+        assertSystemErrContains(systemErr.asString(), message);
+    }
+
+    /**
      * Asserts that the current {@code systemOut} contain the required {@code message}.
      *
      * @param systemOut the current system out
@@ -162,6 +175,21 @@ public class ExAssertions extends Assertions {
         assertTrue(
                 systemOut.contains(message),
                 () -> format("System out does not contain required message: '?'! Full out is:\n?", message, systemOut)
+        );
+    }
+
+    /**
+     * Asserts that the current {@code systemOut} contain the required {@code message}.
+     *
+     * @param systemErr the current system out
+     * @param message the required message
+     * @throws AssertionFailedError if the current {@code systemOut} does not contain required message
+     */
+    public static void assertSystemErrContains(final String systemErr,
+                                               final String message) {
+        assertTrue(
+                systemErr.contains(message),
+                () -> format("System err does not contain required message: '?'! Full out is:\n?", message, systemErr)
         );
     }
 
