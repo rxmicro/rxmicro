@@ -16,9 +16,6 @@
 
 package io.rxmicro.config.internal.model;
 
-import io.rxmicro.common.CheckedWrapperException;
-
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Map;
 import java.util.Objects;
@@ -26,6 +23,7 @@ import java.util.Optional;
 import java.util.Properties;
 import java.util.function.Supplier;
 
+import static io.rxmicro.common.util.Reflections.invokeMethod;
 import static io.rxmicro.config.internal.Converters.convertToType;
 import static java.util.Map.entry;
 
@@ -85,16 +83,10 @@ public final class ConfigProperty implements Comparable<ConfigProperty> {
 
     public void setProperty() {
         if (propertyValue != null) {
-            try {
-                if (propertyValue instanceof String) {
-                    propertySetter.invoke(configInstance, convertToType(propertySetter.getParameterTypes()[0], (String) propertyValue));
-                } else {
-                    propertySetter.invoke(configInstance, ((Supplier<?>) propertyValue).get());
-                }
-            } catch (final IllegalAccessException ex) {
-                throw new CheckedWrapperException(ex, "Can't set property: ?", propertyName);
-            } catch (final InvocationTargetException ex) {
-                throw new CheckedWrapperException(ex.getTargetException(), "Can't set property: ?", propertyName);
+            if (propertyValue instanceof String) {
+                invokeMethod(configInstance, propertySetter, convertToType(propertySetter.getParameterTypes()[0], (String) propertyValue));
+            } else {
+                invokeMethod(configInstance, propertySetter, ((Supplier<?>) propertyValue).get());
             }
         }
     }
