@@ -76,9 +76,10 @@ public final class MockitoRxMicroTestExtension implements RxMicroTestExtension {
             for (final Class<? extends Extension> extensionClass : extendWith.value()) {
                 if (extensionClass == MockitoExtension.class) {
                     throw new InvalidTestConfigException(
-                            "Unsupported test extension: '?'. Use '@?' instead!",
-                            MockitoExtension.class.getName(),
-                            InitMocks.class.getName()
+                            "Use '@?' annotation instead of '@?(?.class)'!",
+                            InitMocks.class.getName(),
+                            ExtendWith.class.getSimpleName(),
+                            MockitoExtension.class.getSimpleName()
                     );
                 }
             }

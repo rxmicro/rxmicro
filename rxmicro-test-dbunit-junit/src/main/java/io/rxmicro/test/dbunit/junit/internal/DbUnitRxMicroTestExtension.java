@@ -55,9 +55,10 @@ public final class DbUnitRxMicroTestExtension implements RxMicroTestExtension {
             for (final Class<? extends Extension> extension : extendWith.value()) {
                 if (extension == DbUnitTestExtension.class) {
                     throw new InvalidTestConfigException(
-                            "Unsupported test extension: '?'. Use '@?' instead!",
-                            DbUnitTestExtension.class.getName(),
-                            ExtendWith.class.getName()
+                            "Use '@?' annotation instead of @?(?.class)!",
+                            DbUnitTest.class.getName(),
+                            ExtendWith.class.getSimpleName(),
+                            DbUnitTestExtension.class.getSimpleName()
                     );
                 }
             }
@@ -88,7 +89,7 @@ public final class DbUnitRxMicroTestExtension implements RxMicroTestExtension {
                 return;
             }
             boolean hasNested = false;
-            for (final Class<?> nestMember : testModel.getTestClass().getNestMembers()) {
+            for (final Class<?> nestMember : testModel.getTestClass().getDeclaredClasses()) {
                 if (nestMember.isAnnotationPresent(Nested.class)) {
                     hasNested = true;
                     if (containsMethod(nestMember, methodHasDataSetAnnotationPredicate)) {
@@ -98,11 +99,11 @@ public final class DbUnitRxMicroTestExtension implements RxMicroTestExtension {
             }
             throw new InvalidTestConfigException(
                     "It seems that '@?' is redundant annotation, " +
-                            "because '?' test class? does not contain any test methods annotated by '@?' or '@?' annotations!" +
+                            "because '?' test class? does not contain any test methods annotated by '@?' or '@?' annotations! " +
                             "Remove the redundant annotation!",
                     DbUnitTest.class.getName(),
-                    hasNested ? " (or any it nested class(es))" : "",
                     testModel.getTestClass().getName(),
+                    hasNested ? " (or any it nested class(es))" : "",
                     InitialDataSet.class.getSimpleName(), ExpectedDataSet.class.getSimpleName()
             );
         }

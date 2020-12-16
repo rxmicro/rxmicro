@@ -37,6 +37,11 @@
                 <configuration>
                     <argLine>
                         @{argLine}
+                        --add-exports org.junit.platform.commons/org.junit.platform.commons.util=ALL-UNNAMED
+                        --add-exports org.junit.platform.commons/org.junit.platform.commons.logging=ALL-UNNAMED
+
+                        --add-opens rxmicro.test.dbunit.junit/io.rxmicro.test.dbunit.junit.internal=ALL-UNNAMED
+                        --add-opens rxmicro.test.dbunit.junit/io.rxmicro.test.dbunit.junit.internal=org.junit.platform.commons
                     </argLine>
                 </configuration>
             </plugin>

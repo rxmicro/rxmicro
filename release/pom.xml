@@ -263,6 +263,12 @@
 
         <dependency>
             <groupId>io.rxmicro</groupId>
+            <artifactId>rxmicro-slf4j-proxy</artifactId>
+            <version>0.7.4-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.rxmicro</groupId>
             <artifactId>rxmicro-model</artifactId>
             <version>0.7.4-SNAPSHOT</version>
         </dependency>
@@ -283,6 +289,11 @@
         <dependency>
             <groupId>io.rxmicro</groupId>
             <artifactId>rxmicro-rest-client</artifactId>
+            <version>0.7.4-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>io.rxmicro</groupId>
+            <artifactId>rxmicro-rest-client-jdk</artifactId>
             <version>0.7.4-SNAPSHOT</version>
         </dependency>
         <dependency>
@@ -339,6 +350,16 @@
         <dependency>
             <groupId>io.rxmicro</groupId>
             <artifactId>rxmicro-test-mockito-junit</artifactId>
+            <version>0.7.4-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>io.rxmicro</groupId>
+            <artifactId>rxmicro-test-dbunit</artifactId>
+            <version>0.7.4-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>io.rxmicro</groupId>
+            <artifactId>rxmicro-test-dbunit-junit</artifactId>
             <version>0.7.4-SNAPSHOT</version>
         </dependency>
 

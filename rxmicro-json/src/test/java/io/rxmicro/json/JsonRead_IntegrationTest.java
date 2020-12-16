@@ -204,7 +204,9 @@ final class JsonRead_IntegrationTest {
 
             "{\"k\":1]};                            Expected ',' or '}', but actual is ']'! Index=6",
             "{\"k\":1[};                            Expected ',' or '}', but actual is '['! Index=6",
-            "{\"k\":1{};                            Expected ',' or '}', but actual is '{'! Index=6"
+            "{\"k\":1{};                            Expected ',' or '}', but actual is '{'! Index=6",
+
+            "{\"k\":1:};                            Expected ',' or '}', but actual is ':'! Index=6"
     })
     @Order(14)
     void readJsonObject_should_throw_JsonException(final String json,

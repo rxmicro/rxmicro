@@ -40,24 +40,27 @@ public final class JUnitRxMicroTestExtension implements RxMicroTestExtension {
         final ExtendWith[] extendWiths = testModel.getTestClass().getAnnotationsByType(ExtendWith.class);
         for (final ExtendWith extendWith : extendWiths) {
             for (final Class<? extends Extension> extension : extendWith.value()) {
-                final String messageTemplate = "Unsupported test extension: '?'. Use '@?' instead!";
+                final String messageTemplate = "Use '@?' annotation instead of @?(?.class)!";
                 if (extension == RxMicroComponentTestExtension.class) {
                     throw new InvalidTestConfigException(
                             messageTemplate,
-                            RxMicroComponentTestExtension.class.getName(),
-                            RxMicroComponentTest.class.getName()
+                            RxMicroComponentTest.class.getName(),
+                            ExtendWith.class.getSimpleName(),
+                            RxMicroComponentTestExtension.class.getSimpleName()
                     );
                 } else if (extension == RxMicroIntegrationTestExtension.class) {
                     throw new InvalidTestConfigException(
                             messageTemplate,
-                            RxMicroIntegrationTestExtension.class.getName(),
-                            RxMicroIntegrationTest.class.getName()
+                            RxMicroIntegrationTest.class.getName(),
+                            ExtendWith.class.getSimpleName(),
+                            RxMicroIntegrationTestExtension.class.getSimpleName()
                     );
                 } else if (extension == RxMicroRestBasedMicroServiceTestExtension.class) {
                     throw new InvalidTestConfigException(
                             messageTemplate,
-                            RxMicroRestBasedMicroServiceTestExtension.class.getName(),
-                            RxMicroRestBasedMicroServiceTest.class.getName()
+                            RxMicroRestBasedMicroServiceTest.class.getName(),
+                            ExtendWith.class.getSimpleName(),
+                            RxMicroRestBasedMicroServiceTestExtension.class.getSimpleName()
                     );
                 }
             }
