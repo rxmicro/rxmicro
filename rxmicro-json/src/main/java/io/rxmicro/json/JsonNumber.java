@@ -19,8 +19,6 @@ package io.rxmicro.json;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
-import static io.rxmicro.json.internal.validator.Validators.validateNumber;
-
 /**
  * Java class which store json number value.
  *
@@ -31,39 +29,10 @@ import static io.rxmicro.json.internal.validator.Validators.validateNumber;
  * @see JsonTypes
  * @see JsonHelper
  * @see JsonException
+ * @see BigDecimal
  * @since 0.1
  */
-public final class JsonNumber {
-
-    /**
-     * A constant holding a Not-a-Number (NaN) value.
-     */
-    public static final String NAN = "NaN";
-
-    /**
-     * A constant holding a Not-a-Number (NaN) positive value.
-     */
-    public static final String POSITIVE_NAN = "+NaN";
-
-    /**
-     * A constant holding a Not-a-Number (NaN) negative value.
-     */
-    public static final String NEGATIVE_NAN = "-NaN";
-
-    /**
-     * A constant holding the infinity.
-     */
-    public static final String INFINITY = "Infinity";
-
-    /**
-     * A constant holding the positive infinity.
-     */
-    public static final String POSITIVE_INFINITY = "+Infinity";
-
-    /**
-     * A constant holding the negative infinity.
-     */
-    public static final String NEGATIVE_INFINITY = "-Infinity";
+public final class JsonNumber implements Comparable<JsonNumber> {
 
     private final String number;
 
@@ -74,7 +43,7 @@ public final class JsonNumber {
      * @throws NumberFormatException if the specified string is not the string representation of a number
      */
     public JsonNumber(final String number) {
-        validateNumber(number);
+        JsonNumberValidators.validateJsonNumber(number);
         this.number = number;
     }
 
@@ -163,42 +132,6 @@ public final class JsonNumber {
         return new BigDecimal(number);
     }
 
-    /**
-     * Returns {@code true} if current number is {@code NaN}.
-     *
-     * @return {@code true} if current number is {@code NaN}
-     */
-    public boolean isNaN() {
-        return number.charAt(0) == NAN.charAt(0);
-    }
-
-    /**
-     * Returns {@code true} if current number is {@code infinite}.
-     *
-     * @return {@code true} if current number is {@code infinite}
-     */
-    public boolean isInfinite() {
-        return isPositiveInfinite() || isNegativeInfinite();
-    }
-
-    /**
-     * Returns {@code true} if current number is {@code positive infinite}.
-     *
-     * @return {@code true} if current number is {@code positive infinite}
-     */
-    public boolean isPositiveInfinite() {
-        return number.charAt(0) == INFINITY.charAt(0);
-    }
-
-    /**
-     * Returns {@code true} if current number is {@code negative infinite}.
-     *
-     * @return {@code true} if current number is {@code negative infinite}
-     */
-    public boolean isNegativeInfinite() {
-        return number.length() >= 2 && number.charAt(0) == '-' && number.charAt(1) == NEGATIVE_INFINITY.charAt(1);
-    }
-
     @Override
     public int hashCode() {
         return number.hashCode();
@@ -219,5 +152,82 @@ public final class JsonNumber {
     @Override
     public String toString() {
         return number;
+    }
+
+    @Override
+    public int compareTo(final JsonNumber o) {
+        return new BigDecimal(number).compareTo(new BigDecimal(o.number));
+    }
+
+    /**
+     * This class contains validation logic for {@link JsonNumber} class.
+     *
+     * @author nedis
+     * @since 0.7.3
+     */
+    private static final class JsonNumberValidators {
+
+        private static void validateJsonNumber(final String number) {
+            if (number.isEmpty()) {
+                throw new NumberFormatException("Empty string is not valid number!");
+            }
+            if (number.length() == 1) {
+                final char ch = number.charAt(0);
+                if (ch == '+' || ch == '-' || ch == 'e' || ch == 'E' || ch == '.') {
+                    throw new NumberFormatException("Not a number: " + number);
+                }
+            }
+            validateUsualNumber(number);
+        }
+
+        private static void validateUsualNumber(final String number) {
+            boolean foundPoint = false;
+            boolean foundE = false;
+            boolean foundDigit = false;
+            int index = number.charAt(0) == '+' || number.charAt(0) == '-' ? 1 : 0;
+            while (index < number.length()) {
+                final char ch = number.charAt(index);
+                if (ch == '.') {
+                    if (foundPoint) {
+                        throw createNumberFormatException(number, foundE);
+                    }
+                    foundPoint = true;
+                } else if (ch == 'e' || ch == 'E') {
+                    if (foundE) {
+                        throw new NumberFormatException("Multiple E delimiters: " + number);
+                    }
+                    if (!foundDigit) {
+                        throw new NumberFormatException("Missing mantissa for the scientific notation: " + number);
+                    }
+                    if (index < number.length() - 1 && (number.charAt(index + 1) == '-' || number.charAt(index + 1) == '+')) {
+                        index++;
+                    }
+                    if (index == number.length() - 1) {
+                        throw new NumberFormatException("Missing exponent value for scientific notation of number: " + number);
+                    }
+                    foundE = true;
+                    // For verification of exponent value, i.e. if scientific notation detected then point not allowed more
+                    foundPoint = true;
+                } else {
+                    if ((ch < '0' || ch > '9') && !Character.isDigit(ch)) {
+                        throw new NumberFormatException("Not a number: " + number);
+                    }
+                    foundDigit = true;
+                }
+                index++;
+            }
+        }
+
+        private static NumberFormatException createNumberFormatException(final String number,
+                                                                         final boolean foundE) {
+            if (foundE) {
+                return new NumberFormatException("Exponent value must be an integer for scientific notation of the number: " + number);
+            } else {
+                return new NumberFormatException("Multiple points: " + number);
+            }
+        }
+
+        private JsonNumberValidators() {
+        }
     }
 }

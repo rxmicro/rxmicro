@@ -30,6 +30,9 @@ import org.junit.jupiter.params.provider.ArgumentsSource;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.stream.Stream;
 
 import static io.rxmicro.json.JsonData.COMPLEX_WRITABLE_JSON_ARRAY;
@@ -44,7 +47,7 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 /**
  * @author nedis
- *
+ * @since 0.1
  */
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -111,26 +114,52 @@ final class JsonWrite_IntegrationTest {
     }
 
     @ParameterizedTest
-    @ArgumentsSource(JsonPrimitiveArgumentsProvider.class)
+    @ArgumentsSource(ToJsonStringArgumentsProvider.class)
     @Order(9)
-    void Should_write_json_primitive_correctly(final Object jsonPrimitive, final String expected) {
-        final String actual = toJsonString(jsonPrimitive);
+    void Should_write_json_correctly(final Object json,
+                                     final String expected) {
+        final String actual = toJsonString(json);
         assertEquals(expected, actual);
     }
 
     @Test
     @Order(10)
     void Should_write_escaped_characters_correctly() {
-        final String actual = toJsonString("\r\t\n\u0090");
+        final String actual = toJsonString("\r\t\n\u0090\\qwerty", true);
         final String expected = getJsonStringFromClasspathResource("escape.json");
         assertEquals(expected, actual);
     }
 
-    private static final class JsonPrimitiveArgumentsProvider implements ArgumentsProvider {
+    @Test
+    @Order(11)
+    void Should_not_use_human_readable_output_by_default() {
+        final Map<String, Object> jsonObject = Map.of("key", 12);
+        assertEquals(toJsonString(jsonObject, false), toJsonString(jsonObject));
+
+        final List<Object> jsonArray1 = List.of(12, true);
+        assertEquals(toJsonString(jsonArray1, false), toJsonString(jsonArray1));
+
+        final Set<Object> jsonArray2 = Set.of(12);
+        assertEquals(toJsonString(jsonArray2, false), toJsonString(jsonArray2));
+    }
+
+    /**
+     * @author nedis
+     * @since 0.1
+     */
+    private static final class ToJsonStringArgumentsProvider implements ArgumentsProvider {
 
         @Override
         public Stream<? extends Arguments> provideArguments(final ExtensionContext context) {
             return Stream.of(
+                    arguments(Map.of("key", 24), "{\"key\":24}"),
+                    arguments(List.of("string", 24, true), "[\"string\",24,true]"),
+                    arguments(Set.of(45), "[45]"),
+
+                    arguments(Map.of("key", Map.of("key", 24)), "{\"key\":{\"key\":24}}"),
+                    arguments(Map.of("key", List.of("string", 24, true)), "{\"key\":[\"string\",24,true]}"),
+                    arguments(Map.of("key", Set.of(45)), "{\"key\":[45]}"),
+
                     arguments(null, "null"),
                     arguments(true, "true"),
                     arguments(false, "false"),

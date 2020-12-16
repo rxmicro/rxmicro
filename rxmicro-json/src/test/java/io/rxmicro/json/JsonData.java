@@ -32,7 +32,7 @@ import static java.util.stream.Collectors.joining;
 
 /**
  * @author nedis
- *
+ * @since 0.1
  */
 final class JsonData {
 

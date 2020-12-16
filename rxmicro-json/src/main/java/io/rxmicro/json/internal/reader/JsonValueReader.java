@@ -18,6 +18,7 @@ package io.rxmicro.json.internal.reader;
 
 import io.rxmicro.common.model.StringIterator;
 import io.rxmicro.json.JsonException;
+import io.rxmicro.json.JsonNumber;
 
 import static io.rxmicro.json.internal.reader.JsonDelimiters.isIgnoredDelimiter;
 import static io.rxmicro.json.internal.reader.JsonDelimiters.isJsonArrayDelimiter;
@@ -27,22 +28,34 @@ import static io.rxmicro.json.internal.reader.JsonDelimiters.isJsonObjectDelimit
  * @author nedis
  * @since 0.5
  */
-final class JsonPropertyReader {
+final class JsonValueReader {
 
     private static final int HEX_RADIX = 16;
 
     private static final int UNICODE_CHARACTER_LENGTH = 4;
 
-    static String readPropertyName(final StringIterator iterator) {
+    static String readPropertyName(final char ch,
+                                   final StringIterator iterator) {
+        if (ch != '"') {
+            throw new JsonException("Expected '\"'. Index=?", iterator.getIndex());
+        }
         return readString(iterator, false);
     }
 
-    static String readPropertyValue(final StringIterator iterator) {
+    static Object readPrimitiveValue(final StringIterator iterator) {
+        return resolveValue(readValue(iterator), iterator.getIndex());
+    }
+
+    private static String readValue(final StringIterator iterator) {
         final StringBuilder sb = new StringBuilder();
         while (iterator.next()) {
             final char ch = iterator.getCurrent();
             if (ch == '"') {
-                return readString(iterator, true);
+                if (sb.length() == 0) {
+                    return readString(iterator, true);
+                } else {
+                    return sb.toString();
+                }
             }
             if (isIgnoredDelimiter(ch) || ch == ',' || ch == ':' || isJsonObjectDelimiter(ch) || isJsonArrayDelimiter(ch)) {
                 iterator.previous();
@@ -52,6 +65,25 @@ final class JsonPropertyReader {
             }
         }
         return sb.toString();
+    }
+
+    private static Object resolveValue(final String value,
+                                       final int index) {
+        if (value.startsWith("\"")) {
+            return value.substring(1, value.length() - 1);
+        } else if ("true".equals(value)) {
+            return Boolean.TRUE;
+        } else if ("false".equals(value)) {
+            return Boolean.FALSE;
+        } else if ("null".equals(value)) {
+            return null;
+        } else {
+            try {
+                return new JsonNumber(value);
+            } catch (final NumberFormatException exception) {
+                throw new JsonException(exception, "? is not a json number. Index=?", value, index);
+            }
+        }
     }
 
     private static String readString(final StringIterator iterator,
@@ -120,7 +152,12 @@ final class JsonPropertyReader {
     private static char readUnicodeCharacter(final StringIterator iterator) {
         final StringBuilder sb = new StringBuilder();
         while (iterator.next()) {
-            sb.append(iterator.getCurrent());
+            final char current = iterator.getCurrent();
+            if (current >= '0' && current <= '9' || current >= 'a' && current <= 'f' || current >= 'A' && current <= 'F') {
+                sb.append(current);
+            } else {
+                break;
+            }
             if (sb.length() == UNICODE_CHARACTER_LENGTH) {
                 break;
             }
@@ -128,10 +165,10 @@ final class JsonPropertyReader {
         if (sb.length() == UNICODE_CHARACTER_LENGTH) {
             return (char) Integer.parseInt(sb.toString(), HEX_RADIX);
         } else {
-            throw new JsonException("Expected valid Unicode character at the end of string");
+            throw new JsonException("Expected a valid Unicode character, but actual is '\\u?'. Index=?", sb, iterator.getIndex());
         }
     }
 
-    private JsonPropertyReader() {
+    private JsonValueReader() {
     }
 }

@@ -32,27 +32,21 @@ public final class JsonWriter {
 
     public static String toJsonString(final Map<String, Object> jsonObject,
                                       final boolean humanReadable) {
-        final JsonToStringBuilder builder = humanReadable ?
-                new HumanReadableJsonToStringBuilder() :
-                new CompactJsonToStringBuilder();
+        final JsonToStringBuilder builder = createJsonToStringBuilder(humanReadable);
         addJsonObject(builder, jsonObject, 1);
         return builder.build();
     }
 
     public static String toJsonString(final List<Object> jsonArray,
                                       final boolean humanReadable) {
-        final JsonToStringBuilder builder = humanReadable ?
-                new HumanReadableJsonToStringBuilder() :
-                new CompactJsonToStringBuilder();
+        final JsonToStringBuilder builder = createJsonToStringBuilder(humanReadable);
         addJsonArray(builder, jsonArray, 1);
         return builder.build();
     }
 
     public static String toJsonString(final Object value,
                                       final boolean humanReadable) {
-        final JsonToStringBuilder builder = humanReadable ?
-                new HumanReadableJsonToStringBuilder() :
-                new CompactJsonToStringBuilder();
+        final JsonToStringBuilder builder = createJsonToStringBuilder(humanReadable);
         if (value == null) {
             builder.nullValue();
         } else if (value instanceof Boolean) {
@@ -60,9 +54,14 @@ public final class JsonWriter {
         } else if (value instanceof Number || value instanceof JsonNumber) {
             builder.number(value);
         } else {
+            // String or any object
             builder.string(value.toString());
         }
         return builder.build();
+    }
+
+    private static JsonToStringBuilder createJsonToStringBuilder(final boolean humanReadable) {
+        return humanReadable ? new HumanReadableJsonToStringBuilder() : new CompactJsonToStringBuilder();
     }
 
     private static void addJsonObject(final JsonToStringBuilder builder,
@@ -119,6 +118,7 @@ public final class JsonWriter {
         } else if (value instanceof Number || value instanceof JsonNumber) {
             builder.number(value);
         } else {
+            // String or any object
             builder.string(value.toString());
         }
     }

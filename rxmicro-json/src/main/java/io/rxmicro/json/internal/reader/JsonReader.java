@@ -18,16 +18,23 @@ package io.rxmicro.json.internal.reader;
 
 import io.rxmicro.common.model.StringIterator;
 import io.rxmicro.json.JsonException;
-import io.rxmicro.json.JsonNumber;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import static io.rxmicro.json.internal.reader.JsonDelimiters.END_OF_JSON;
+import static io.rxmicro.json.internal.reader.JsonDelimiters.EXPECT_ARRAY_END;
+import static io.rxmicro.json.internal.reader.JsonDelimiters.EXPECT_ARRAY_ITEM;
+import static io.rxmicro.json.internal.reader.JsonDelimiters.EXPECT_COMMA;
+import static io.rxmicro.json.internal.reader.JsonDelimiters.EXPECT_OBJECT_END;
+import static io.rxmicro.json.internal.reader.JsonDelimiters.EXPECT_PROPERTY_NAME;
+import static io.rxmicro.json.internal.reader.JsonDelimiters.createUnExpectedTokenError;
+import static io.rxmicro.json.internal.reader.JsonDelimiters.expectThatExpectedValuesContainSpecifiedToken;
 import static io.rxmicro.json.internal.reader.JsonDelimiters.isIgnoredDelimiter;
-import static io.rxmicro.json.internal.reader.JsonPropertyReader.readPropertyName;
-import static io.rxmicro.json.internal.reader.JsonPropertyReader.readPropertyValue;
+import static io.rxmicro.json.internal.reader.JsonValueReader.readPrimitiveValue;
+import static io.rxmicro.json.internal.reader.JsonValueReader.readPropertyName;
 import static java.util.Collections.unmodifiableList;
 import static java.util.Collections.unmodifiableMap;
 
@@ -41,10 +48,13 @@ public final class JsonReader {
                                                      final int recursionDepth) {
         final StringIterator iterator = new StringIterator(jsonObject);
         final char ch = getNextSignificantCharacter(iterator);
+        expectNotBlankString(ch);
         if (ch == '{') {
-            return readObject(iterator, recursionDepth);
+            final Map<String, Object> result = readObject(iterator, recursionDepth);
+            expectEndOfFile(iterator);
+            return result;
         } else {
-            throw new JsonException("Provided string is not JSON object: ?", jsonObject);
+            throw new JsonException("The provided string is not JSON object: ?!", jsonObject);
         }
     }
 
@@ -52,100 +62,109 @@ public final class JsonReader {
                                              final int recursionDepth) {
         final StringIterator iterator = new StringIterator(jsonArray);
         final char ch = getNextSignificantCharacter(iterator);
+        expectNotBlankString(ch);
         if (ch == '[') {
-            return readArray(iterator, recursionDepth);
+            final List<Object> result = readArray(iterator, recursionDepth);
+            expectEndOfFile(iterator);
+            return result;
         } else {
-            throw new JsonException("Provided string is not JSON array: ?", jsonArray);
+            throw new JsonException("The provided string is not JSON array: ?!", jsonArray);
         }
     }
 
     public static Object readJsonPrimitive(final String jsonPrimitive) {
         final StringIterator iterator = new StringIterator(jsonPrimitive);
-        final String value = readPropertyValue(iterator);
-        if (iterator.next()) {
-            throw new JsonException("Provided string is not JSON primitive: ?", jsonPrimitive);
+        final char ch = getNextSignificantCharacter(iterator);
+        expectNotBlankString(ch);
+        if (ch == '{' || ch == '[') {
+            throw new JsonException("The provided string is not JSON primitive: ?!", jsonPrimitive);
         } else {
-            return resolveValue(value);
+            iterator.previous();
+            final Object value = readPrimitiveValue(iterator);
+            expectEndOfFile(iterator);
+            return value;
         }
     }
 
     private static Map<String, Object> readObject(final StringIterator iterator,
                                                   final int recursionDepth) {
-        if (recursionDepth <= 0) {
-            throw new JsonException("Stack overflow");
-        }
+        expectPositiveRecursionDepth(recursionDepth);
         final Map<String, Object> result = new LinkedHashMap<>();
+        int expectedValues = EXPECT_PROPERTY_NAME | EXPECT_OBJECT_END;
         while (true) {
-            char ch = getNextSignificantCharacter(iterator);
-            if (ch == '}') {
+            final char ch = getNextSignificantCharacter(iterator);
+            if (ch == END_OF_JSON) {
+                throw createUnExpectedTokenError(iterator, expectedValues);
+            } else if (ch == '}') {
+                expectThatExpectedValuesContainSpecifiedToken(iterator, expectedValues, EXPECT_OBJECT_END);
                 return unmodifiableMap(result);
-            } else if (ch != '"') {
-                throw new JsonException("Expected '\"'. Index=?", iterator.getIndex());
-            }
-            final String propertyName = readPropertyName(iterator);
-            gotoStartValueToken(propertyName, iterator);
-            ch = getNextSignificantCharacter(iterator);
-            if (ch == '{') {
-                final Map<String, Object> jsonObject = readObject(iterator, recursionDepth - 1);
-                result.put(propertyName, jsonObject);
-            } else if (ch == '[') {
-                final List<Object> jsonArray = readArray(iterator, recursionDepth - 1);
-                result.put(propertyName, jsonArray);
+            } else if (ch == ',') {
+                expectThatExpectedValuesContainSpecifiedToken(iterator, expectedValues, EXPECT_COMMA);
+                expectedValues = EXPECT_PROPERTY_NAME;
             } else {
-                iterator.previous();
-                final String value = readPropertyValue(iterator);
-                result.put(propertyName, resolveValue(value));
+                expectThatExpectedValuesContainSpecifiedToken(iterator, expectedValues, EXPECT_PROPERTY_NAME);
+                final String propertyName = readPropertyName(ch, iterator);
+                readPropertyDelimiter(iterator);
+                final Object propertyValue = readPropertyValue(iterator, recursionDepth, propertyName);
+                result.put(propertyName, propertyValue);
+                expectedValues = EXPECT_OBJECT_END | EXPECT_COMMA;
             }
-            // Expected ',' or '}':
-            ch = getNextSignificantCharacter(iterator);
-            if (ch == '}') {
-                return unmodifiableMap(result);
-            } else if (ch != ',') {
-                throw new JsonException("Expected ','. Index=?", iterator.getIndex());
-            }
+        }
+    }
+
+    private static void readPropertyDelimiter(final StringIterator iterator) {
+        final char ch = getNextSignificantCharacter(iterator);
+        if (ch != ':') {
+            throw new JsonException("Expected ':'. Index=?", iterator.getIndex());
+        }
+    }
+
+    private static Object readPropertyValue(final StringIterator iterator,
+                                            final int recursionDepth,
+                                            final String propertyName) {
+        final char ch = getNextSignificantCharacter(iterator);
+        if (ch == '{') {
+            return readObject(iterator, recursionDepth - 1);
+        } else if (ch == '[') {
+            return readArray(iterator, recursionDepth - 1);
+        } else {
+            expectPropertyValue(iterator, ch, propertyName);
+            iterator.previous();
+            return readPrimitiveValue(iterator);
         }
     }
 
     private static List<Object> readArray(final StringIterator iterator,
                                           final int recursionDepth) {
-        if (recursionDepth <= 0) {
-            throw new JsonException("Stack overflow");
-        }
+        expectPositiveRecursionDepth(recursionDepth);
         final List<Object> list = new ArrayList<>();
+        int expectedValues = EXPECT_ARRAY_ITEM | EXPECT_ARRAY_END;
         while (true) {
-            char ch = getNextSignificantCharacter(iterator);
-            if (ch == ']') {
+            final char ch = getNextSignificantCharacter(iterator);
+            if (ch == END_OF_JSON) {
+                throw createUnExpectedTokenError(iterator, expectedValues);
+            } else if (ch == ']') {
+                expectThatExpectedValuesContainSpecifiedToken(iterator, expectedValues, EXPECT_ARRAY_END);
                 return unmodifiableList(list);
             } else if (ch == '{') {
+                expectThatExpectedValuesContainSpecifiedToken(iterator, expectedValues, EXPECT_ARRAY_ITEM);
                 list.add(readObject(iterator, recursionDepth - 1));
+                expectedValues = EXPECT_COMMA | EXPECT_ARRAY_END;
             } else if (ch == '[') {
+                expectThatExpectedValuesContainSpecifiedToken(iterator, expectedValues, EXPECT_ARRAY_ITEM);
                 list.add(readArray(iterator, recursionDepth - 1));
+                expectedValues = EXPECT_COMMA | EXPECT_ARRAY_END;
             } else {
-                iterator.previous();
-                final String value = readPropertyValue(iterator);
-                list.add(resolveValue(value));
+                if (ch == ',') {
+                    expectThatExpectedValuesContainSpecifiedToken(iterator, expectedValues, EXPECT_COMMA);
+                    expectedValues = EXPECT_ARRAY_ITEM;
+                } else {
+                    expectThatExpectedValuesContainSpecifiedToken(iterator, expectedValues, EXPECT_ARRAY_ITEM);
+                    iterator.previous();
+                    list.add(readPrimitiveValue(iterator));
+                    expectedValues = EXPECT_COMMA | EXPECT_ARRAY_END;
+                }
             }
-            // Expected ',' or ']':
-            ch = getNextSignificantCharacter(iterator);
-            if (ch == ']') {
-                return unmodifiableList(list);
-            } else if (ch != ',') {
-                throw new JsonException("Expected ','. Index=?", iterator.getIndex());
-            }
-        }
-    }
-
-    private static Object resolveValue(final String value) {
-        if (value.startsWith("\"")) {
-            return value.substring(1, value.length() - 1);
-        } else if ("true".equals(value)) {
-            return Boolean.TRUE;
-        } else if ("false".equals(value)) {
-            return Boolean.FALSE;
-        } else if ("null".equals(value)) {
-            return null;
-        } else {
-            return new JsonNumber(value);
         }
     }
 
@@ -156,20 +175,38 @@ public final class JsonReader {
                 return ch;
             }
         }
-        return 0;
+        return END_OF_JSON;
     }
 
-    private static void gotoStartValueToken(final String name,
-                                            final StringIterator iterator) {
-        char ch = getNextSignificantCharacter(iterator);
-        if (ch != ':') {
-            throw new JsonException("Expected ':'. Index=?", iterator.getIndex());
+    private static void expectNotBlankString(final char ch) {
+        if (ch == END_OF_JSON) {
+            throw new JsonException("Blank string is not valid json!");
         }
-        ch = getNextSignificantCharacter(iterator);
-        if (ch != 0) {
-            iterator.previous();
-        } else {
-            throw new JsonException("Expected value for property: ?", name);
+    }
+
+    private static void expectEndOfFile(final StringIterator iterator) {
+        final char ch = getNextSignificantCharacter(iterator);
+        if (ch != END_OF_JSON) {
+            throw new JsonException("Expected END_OF_JSON but actual is '?'. Index=?", ch, iterator.getIndex());
+        }
+    }
+
+    private static void expectPositiveRecursionDepth(final int recursionDepth) {
+        if (recursionDepth <= 0) {
+            throw new JsonException(
+                    "The provided JSON contains a large number of nested items! Increase the recursionDepth parameter!"
+            );
+        }
+    }
+
+    private static void expectPropertyValue(final StringIterator iterator,
+                                            final char ch,
+                                            final String propertyName) {
+        if (ch == '}' || ch == ',' || ch == ':' || ch == ']') {
+            throw new JsonException(
+                    "Expected a value for the '?' property, but actual is '?'! Index=?",
+                    propertyName, ch, iterator.getIndex()
+            );
         }
     }
 

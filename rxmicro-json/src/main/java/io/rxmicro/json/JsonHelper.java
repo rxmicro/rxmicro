@@ -287,9 +287,6 @@ public final class JsonHelper {
     public static Object readJson(final String json,
                                   final int recursionDepth) {
         final String trimJson = json.trim();
-        if (trimJson.isEmpty()) {
-            throw new JsonException("empty string");
-        }
         if (startsWith(trimJson, '{')) {
             return JsonReader.readJsonObject(json, recursionDepth);
         } else if (startsWith(trimJson, '[')) {

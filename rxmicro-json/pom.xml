@@ -37,6 +37,7 @@
                     <argLine>
                         @{argLine}
                         --add-opens rxmicro.json/io.rxmicro.json=ALL-UNNAMED
+                        --add-opens rxmicro.json/io.rxmicro.json.internal.writer=ALL-UNNAMED
                     </argLine>
                 </configuration>
             </plugin>
