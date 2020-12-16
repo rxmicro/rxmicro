@@ -2,6 +2,19 @@
 
 This document contains the *change log* for all RxMicro releases since **0.2**.
 
+## RxMicro v0.7.4
+
+* Add unit tests and remove redundant code
+* Refactor `rxmicro-json` module: 
+  It must support test suites from [https://github.com/nst/JSONTestSuite](https://github.com/nst/JSONTestSuite)
+* Add `SystemErr` interface.
+* Add `assertSystemOutContains` and `assertSystemErrContains` assert methods.
+* Refactor `LoggerImplProviderFactory`: `resetLoggerImplFactory` method recreates `JULLoggerImplProvider` instance.  
+* Add missing methods for `Logger` interface.
+* Update `DeniedPackageConstants`.
+* Refactor `PatternFormatter`: 
+  if provided `pattern` invalid, the `PatternFormatter` will use default pattern instead of throwing an exception.
+
 ## RxMicro v0.7.3
 
 * Refactor predefined request id generators: introduce the following generators:
