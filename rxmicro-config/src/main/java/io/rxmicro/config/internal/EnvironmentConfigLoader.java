@@ -24,7 +24,7 @@ import io.rxmicro.config.internal.model.ConfigProperties;
 import java.util.Map;
 import java.util.Set;
 
-import static io.rxmicro.common.util.Reflections.instantiate;
+import static io.rxmicro.reflection.Reflections.instantiate;
 
 /**
  * @author nedis

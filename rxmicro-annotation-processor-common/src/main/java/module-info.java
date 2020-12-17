@@ -22,13 +22,15 @@
  */
 @SuppressWarnings("JavaRequiresAutoModule")
 module rxmicro.annotation.processor.common {
-    requires transitive java.compiler;
-    requires transitive rxmicro.json;
-    requires transitive rxmicro.config;
+    requires transitive rxmicro.common;
     requires transitive rxmicro.model;
+    requires transitive rxmicro.config;
+    requires transitive rxmicro.json;
     requires transitive rxmicro.tool.common;
     requires transitive rxmicro.documentation;
     requires transitive rxmicro.validation;
+
+    requires transitive java.compiler;
     requires transitive com.google.guice;
     requires transitive freemarker;
     requires transitive reactor.core;
@@ -38,156 +40,159 @@ module rxmicro.annotation.processor.common {
     requires transitive rxmicro.annotation.processor.config;
 
     exports io.rxmicro.annotation.processor.common to
-            rxmicro.common,
             rxmicro.annotation.processor,
             rxmicro.annotation.processor.data.mongo,
+            rxmicro.annotation.processor.data.sql.r2dbc,
+            rxmicro.annotation.processor.data.sql.r2dbc.postgresql,
             rxmicro.annotation.processor.data.aggregator,
             rxmicro.annotation.processor.rest.client,
             rxmicro.annotation.processor.rest.server,
             rxmicro.annotation.processor.documentation,
             rxmicro.annotation.processor.documentation.asciidoctor,
-            rxmicro.annotation.processor.data.sql.r2dbc,
-            rxmicro.annotation.processor.data.sql.r2dbc.postgresql,
             rxmicro.annotation.processor.cdi;
     exports io.rxmicro.annotation.processor.common.util to
             rxmicro.annotation.processor,
             rxmicro.annotation.processor.data,
             rxmicro.annotation.processor.data.mongo,
+            rxmicro.annotation.processor.data.sql,
+            rxmicro.annotation.processor.data.sql.r2dbc,
+            rxmicro.annotation.processor.data.sql.r2dbc.postgresql,
             rxmicro.annotation.processor.data.aggregator,
             rxmicro.annotation.processor.rest,
             rxmicro.annotation.processor.rest.client,
             rxmicro.annotation.processor.rest.server,
             rxmicro.annotation.processor.documentation,
             rxmicro.annotation.processor.documentation.asciidoctor,
-            rxmicro.annotation.processor.data.sql,
-            rxmicro.annotation.processor.data.sql.r2dbc,
-            rxmicro.annotation.processor.data.sql.r2dbc.postgresql,
             rxmicro.annotation.processor.cdi;
     exports io.rxmicro.annotation.processor.common.util.validators to
             rxmicro.annotation.processor,
             rxmicro.annotation.processor.data,
             rxmicro.annotation.processor.data.mongo,
+            rxmicro.annotation.processor.data.sql,
+            rxmicro.annotation.processor.data.sql.r2dbc,
+            rxmicro.annotation.processor.data.sql.r2dbc.postgresql,
             rxmicro.annotation.processor.data.aggregator,
             rxmicro.annotation.processor.rest,
             rxmicro.annotation.processor.rest.client,
             rxmicro.annotation.processor.rest.server,
             rxmicro.annotation.processor.documentation,
             rxmicro.annotation.processor.documentation.asciidoctor,
-            rxmicro.annotation.processor.data.sql,
-            rxmicro.annotation.processor.data.sql.r2dbc,
-            rxmicro.annotation.processor.data.sql.r2dbc.postgresql,
             rxmicro.annotation.processor.cdi;
     exports io.rxmicro.annotation.processor.common.model to
             freemarker,
             rxmicro.annotation.processor,
             rxmicro.annotation.processor.data,
             rxmicro.annotation.processor.data.mongo,
+            rxmicro.annotation.processor.data.sql,
+            rxmicro.annotation.processor.data.sql.r2dbc,
+            rxmicro.annotation.processor.data.sql.r2dbc.postgresql,
             rxmicro.annotation.processor.data.aggregator,
             rxmicro.annotation.processor.rest,
             rxmicro.annotation.processor.rest.client,
             rxmicro.annotation.processor.rest.server,
             rxmicro.annotation.processor.documentation,
             rxmicro.annotation.processor.documentation.asciidoctor,
-            rxmicro.annotation.processor.data.sql,
-            rxmicro.annotation.processor.data.sql.r2dbc,
-            rxmicro.annotation.processor.data.sql.r2dbc.postgresql,
             rxmicro.annotation.processor.cdi;
     exports io.rxmicro.annotation.processor.common.model.error to
             freemarker,
             rxmicro.annotation.processor,
             rxmicro.annotation.processor.data,
             rxmicro.annotation.processor.data.mongo,
+            rxmicro.annotation.processor.data.sql,
+            rxmicro.annotation.processor.data.sql.r2dbc,
+            rxmicro.annotation.processor.data.sql.r2dbc.postgresql,
             rxmicro.annotation.processor.data.aggregator,
             rxmicro.annotation.processor.rest,
             rxmicro.annotation.processor.rest.client,
             rxmicro.annotation.processor.rest.server,
             rxmicro.annotation.processor.documentation,
             rxmicro.annotation.processor.documentation.asciidoctor,
-            rxmicro.annotation.processor.data.sql,
-            rxmicro.annotation.processor.data.sql.r2dbc,
-            rxmicro.annotation.processor.data.sql.r2dbc.postgresql,
             rxmicro.annotation.processor.cdi;
     exports io.rxmicro.annotation.processor.common.model.virtual to
             freemarker,
             rxmicro.annotation.processor.rest,
             rxmicro.annotation.processor.rest.client,
-            rxmicro.annotation.processor.rest.server, rxmicro.annotation.processor.cdi;
+            rxmicro.annotation.processor.rest.server,
+            rxmicro.annotation.processor.cdi;
     exports io.rxmicro.annotation.processor.common.model.method to
             freemarker,
             rxmicro.annotation.processor.data,
             rxmicro.annotation.processor.data.mongo,
+            rxmicro.annotation.processor.data.sql,
+            rxmicro.annotation.processor.data.sql.r2dbc,
+            rxmicro.annotation.processor.data.sql.r2dbc.postgresql,
             rxmicro.annotation.processor.data.aggregator,
             rxmicro.annotation.processor.rest,
             rxmicro.annotation.processor.rest.client,
             rxmicro.annotation.processor.rest.server,
             rxmicro.annotation.processor.documentation,
             rxmicro.annotation.processor.documentation.asciidoctor,
-            rxmicro.annotation.processor.data.sql,
-            rxmicro.annotation.processor.data.sql.r2dbc,
-            rxmicro.annotation.processor.data.sql.r2dbc.postgresql,
             rxmicro.annotation.processor.cdi;
     exports io.rxmicro.annotation.processor.common.model.definition to
             freemarker,
             rxmicro.annotation.processor.data,
             rxmicro.annotation.processor.data.mongo,
+            rxmicro.annotation.processor.data.sql,
+            rxmicro.annotation.processor.data.sql.r2dbc,
+            rxmicro.annotation.processor.data.sql.r2dbc.postgresql,
             rxmicro.annotation.processor.data.aggregator,
             rxmicro.annotation.processor.rest,
             rxmicro.annotation.processor.rest.client,
             rxmicro.annotation.processor.rest.server,
-            rxmicro.annotation.processor.data.sql,
-            rxmicro.annotation.processor.data.sql.r2dbc,
-            rxmicro.annotation.processor.data.sql.r2dbc.postgresql,
-            rxmicro.annotation.processor.cdi, rxmicro.annotation.processor.documentation;
+            rxmicro.annotation.processor.documentation,
+            rxmicro.annotation.processor.cdi;
     exports io.rxmicro.annotation.processor.common.model.definition.impl to
             freemarker,
             rxmicro.annotation.processor.data,
             rxmicro.annotation.processor.data.mongo,
+            rxmicro.annotation.processor.data.sql,
+            rxmicro.annotation.processor.data.sql.r2dbc,
+            rxmicro.annotation.processor.data.sql.r2dbc.postgresql,
             rxmicro.annotation.processor.data.aggregator,
             rxmicro.annotation.processor.rest,
             rxmicro.annotation.processor.rest.client,
-            rxmicro.annotation.processor.rest.server,
-            rxmicro.annotation.processor.data.sql,
-            rxmicro.annotation.processor.data.sql.r2dbc,
-            rxmicro.annotation.processor.data.sql.r2dbc.postgresql;
+            rxmicro.annotation.processor.rest.server;
     exports io.rxmicro.annotation.processor.common.model.type to
             freemarker,
             rxmicro.annotation.processor.data,
             rxmicro.annotation.processor.data.mongo,
+            rxmicro.annotation.processor.data.sql,
+            rxmicro.annotation.processor.data.sql.r2dbc,
+            rxmicro.annotation.processor.data.sql.r2dbc.postgresql,
             rxmicro.annotation.processor.data.aggregator,
             rxmicro.annotation.processor.rest,
             rxmicro.annotation.processor.rest.client,
             rxmicro.annotation.processor.rest.server,
             rxmicro.annotation.processor.documentation,
             rxmicro.annotation.processor.documentation.asciidoctor,
-            rxmicro.annotation.processor.data.sql,
-            rxmicro.annotation.processor.data.sql.r2dbc,
-            rxmicro.annotation.processor.data.sql.r2dbc.postgresql,
             rxmicro.annotation.processor.cdi;
     exports io.rxmicro.annotation.processor.common.component to
             rxmicro.annotation.processor,
             rxmicro.annotation.processor.data,
             rxmicro.annotation.processor.data.mongo,
+            rxmicro.annotation.processor.data.sql,
+            rxmicro.annotation.processor.data.sql.r2dbc,
+            rxmicro.annotation.processor.data.sql.r2dbc.postgresql,
             rxmicro.annotation.processor.data.aggregator,
             rxmicro.annotation.processor.rest,
             rxmicro.annotation.processor.rest.client,
             rxmicro.annotation.processor.rest.server,
             rxmicro.annotation.processor.documentation,
-            rxmicro.annotation.processor.data.sql,
-            rxmicro.annotation.processor.data.sql.r2dbc,
-            rxmicro.annotation.processor.data.sql.r2dbc.postgresql, rxmicro.annotation.processor.documentation.asciidoctor;
+            rxmicro.annotation.processor.documentation.asciidoctor;
     exports io.rxmicro.annotation.processor.common.component.impl to
             rxmicro.annotation.processor,
             rxmicro.annotation.processor.data,
             rxmicro.annotation.processor.data.mongo,
+            rxmicro.annotation.processor.data.sql,
+            rxmicro.annotation.processor.data.sql.r2dbc,
+            rxmicro.annotation.processor.data.sql.r2dbc.postgresql,
             rxmicro.annotation.processor.data.aggregator,
             rxmicro.annotation.processor.rest,
             rxmicro.annotation.processor.rest.client,
             rxmicro.annotation.processor.rest.server,
             rxmicro.annotation.processor.documentation,
-            rxmicro.annotation.processor.data.sql,
-            rxmicro.annotation.processor.data.sql.r2dbc,
-            rxmicro.annotation.processor.data.sql.r2dbc.postgresql,
-            rxmicro.annotation.processor.cdi, rxmicro.annotation.processor.documentation.asciidoctor;
+            rxmicro.annotation.processor.documentation.asciidoctor,
+            rxmicro.annotation.processor.cdi;
 
     opens io.rxmicro.annotation.processor.common to
             com.google.guice;

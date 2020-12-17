@@ -158,7 +158,7 @@ final class PatternFormatterTest {
 
     @Order(4)
     @Test
-    void Should_use_default_pattern_if_the_specified_one_is_invalid(){
+    void Should_use_default_pattern_if_the_specified_one_is_invalid() {
         final String pattern = "%logger{";
         final PatternFormatter patternFormatter = assertDoesNotThrow(() -> new PatternFormatter(pattern));
 
@@ -170,7 +170,7 @@ final class PatternFormatterTest {
 
     @Order(5)
     @Test
-    void Should_support_LogRecord_type_if_RxMicroLogRecord_is_not_used(){
+    void Should_support_LogRecord_type_if_RxMicroLogRecord_is_not_used() {
         final LogRecord record = new LogRecord(INFO, "message");
         record.setLoggerName("LoggerName");
         record.setInstant(Instant.parse("2020-01-02T03:04:05.123Z"));

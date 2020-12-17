@@ -14,8 +14,9 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   -->
-<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xmlns="http://maven.apache.org/POM/4.0.0"
+
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>rxmicro</artifactId>
@@ -23,20 +24,24 @@
         <version>0.7.4-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>rxmicro-runtime</artifactId>
+    <artifactId>rxmicro-reflection</artifactId>
 
     <description>
-        The module that defines common runtime components.
+        The module with reflection utils that used by other rxmicro modules.
     </description>
 
     <build>
         <plugins>
             <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven-compiler-plugin.version}</version>
+            </plugin>
+            <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
                     <argLine>
                         @{argLine}
-                        --add-opens rxmicro.runtime/io.rxmicro.runtime.detail=ALL-UNNAMED
+                        --add-opens rxmicro.reflection/io.rxmicro.reflection=ALL-UNNAMED
                     </argLine>
                 </configuration>
             </plugin>
@@ -47,16 +52,6 @@
         <dependency>
             <groupId>io.rxmicro</groupId>
             <artifactId>rxmicro-common</artifactId>
-            <version>0.7.4-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>io.rxmicro</groupId>
-            <artifactId>rxmicro-logger</artifactId>
-            <version>0.7.4-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>io.rxmicro</groupId>
-            <artifactId>rxmicro-reflection</artifactId>
             <version>0.7.4-SNAPSHOT</version>
         </dependency>
     </dependencies>

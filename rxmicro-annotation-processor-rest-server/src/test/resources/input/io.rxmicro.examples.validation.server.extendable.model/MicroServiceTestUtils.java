@@ -16,7 +16,7 @@
 
 package io.rxmicro.examples.validation.server.extendable.model;
 
-import io.rxmicro.common.util.Reflections;
+import io.rxmicro.reflection.Reflections;
 
 public final class MicroServiceTestUtils {
 

@@ -16,7 +16,7 @@
 
 package io.rxmicro.test.local.util;
 
-import static io.rxmicro.common.util.Reflections.getDeclaredField;
+import static io.rxmicro.reflection.Reflections.getDeclaredField;
 
 /**
  * @author nedis

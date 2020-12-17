@@ -43,19 +43,18 @@ import io.rxmicro.test.local.component.RxMicroTestExtension;
  * @since 0.1
  */
 module rxmicro.test.junit {
-    requires transitive org.junit.jupiter.api;
-    requires transitive rxmicro.json;
-    requires transitive org.junit.jupiter.params;
     requires transitive rxmicro.test;
+
+    requires transitive org.junit.jupiter.api;
+    requires transitive org.junit.jupiter.params;
 
     exports io.rxmicro.test.junit;
 
+    exports io.rxmicro.test.junit.local to
+            rxmicro.test.dbunit.junit;
     exports io.rxmicro.test.junit.internal to
             org.junit.jupiter.params,
             org.junit.jupiter.api;
-
-    exports io.rxmicro.test.junit.local to
-            rxmicro.test.dbunit.junit;
 
     provides RxMicroTestExtension with JUnitRxMicroTestExtension;
 }

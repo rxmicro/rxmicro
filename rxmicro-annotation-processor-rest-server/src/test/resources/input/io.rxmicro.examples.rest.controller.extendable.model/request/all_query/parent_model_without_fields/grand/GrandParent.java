@@ -16,8 +16,8 @@
 
 package io.rxmicro.examples.rest.controller.extendable.model.request.all_query.parent_model_without_fields.grand;
 
-import io.rxmicro.common.model.BaseModel;
 import io.rxmicro.http.HttpVersion;
+import io.rxmicro.model.BaseModel;
 import io.rxmicro.rest.Header;
 import io.rxmicro.rest.PathVariable;
 

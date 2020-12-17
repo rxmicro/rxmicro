@@ -59,6 +59,7 @@ import io.rxmicro.config.internal.test.ConfigUnNamedModuleFixer;
  */
 module rxmicro.config {
     requires transitive rxmicro.runtime;
+    requires transitive rxmicro.reflection;
     requires rxmicro.files;
 
     exports io.rxmicro.config;
@@ -66,6 +67,9 @@ module rxmicro.config {
 
     exports io.rxmicro.config.local to
             rxmicro.test.junit;
+
+    opens io.rxmicro.config.internal to
+            rxmicro.reflection;
 
     provides UnNamedModuleFixer with ConfigUnNamedModuleFixer;
 }

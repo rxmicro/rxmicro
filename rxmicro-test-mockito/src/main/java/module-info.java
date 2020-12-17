@@ -41,6 +41,7 @@ import io.rxmicro.http.client.HttpClientContentConverter;
 @SuppressWarnings("JavaRequiresAutoModule")
 module rxmicro.test.mockito {
     requires transitive rxmicro.test;
+
     requires transitive org.mockito;
 
     exports io.rxmicro.test.mockito.httpclient;

@@ -4,13 +4,13 @@ final class ${CLASS_NAME} {
 
     static {
         <#if CURRENT_MODULE_IS_NAMED>
-        addExportsToRuntime();
+        exportTheRxmicroPackageToReflectionModule();
         </#if>
         <#if DEFAULT_CONFIG_VALUES?has_content>
         putDefaultConfigValues();
         </#if>
-        <#if PACKAGES_THAT_MUST_BE_OPENED_TO_RX_MICRO_COMMON_MODULE?has_content>
-        addOpensToRxMicroCommonModule();
+        <#if PACKAGES_THAT_MUST_BE_OPENED_TO_RX_MICRO_REFLECTION_MODULE?has_content>
+        openThePackagesWithModelClassesToReflectionModule();
         </#if>
         // All required customization must be here
     }
@@ -20,9 +20,9 @@ final class ${CLASS_NAME} {
     }
 
     <#if CURRENT_MODULE_IS_NAMED>
-    private static void addExportsToRuntime() {
+    private static void exportTheRxmicroPackageToReflectionModule() {
         final Module currentModule = $$EnvironmentCustomizer.class.getModule();
-        currentModule.addExports("${PACKAGE_NAME}", RX_MICRO_RUNTIME_MODULE);
+        currentModule.addExports("${PACKAGE_NAME}", RX_MICRO_REFLECTION_MODULE);
     }
 
     </#if>
@@ -34,11 +34,11 @@ final class ${CLASS_NAME} {
     }
 
     </#if>
-    <#if PACKAGES_THAT_MUST_BE_OPENED_TO_RX_MICRO_COMMON_MODULE?has_content>
-    private static void addOpensToRxMicroCommonModule(){
+    <#if PACKAGES_THAT_MUST_BE_OPENED_TO_RX_MICRO_REFLECTION_MODULE?has_content>
+    private static void openThePackagesWithModelClassesToReflectionModule(){
         final Module currentModule = $$EnvironmentCustomizer.class.getModule();
-        <#list PACKAGES_THAT_MUST_BE_OPENED_TO_RX_MICRO_COMMON_MODULE as P>
-        currentModule.addOpens("${P}", RX_MICRO_COMMON_MODULE);
+        <#list PACKAGES_THAT_MUST_BE_OPENED_TO_RX_MICRO_REFLECTION_MODULE as P>
+        currentModule.addOpens("${P}", RX_MICRO_REFLECTION_MODULE);
         </#list>
     }
 

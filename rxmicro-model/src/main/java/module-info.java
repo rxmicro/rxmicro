@@ -45,6 +45,7 @@
  * @since 0.1
  */
 module rxmicro.model {
+    requires transitive rxmicro.reflection;
     requires transitive rxmicro.common;
 
     exports io.rxmicro.model;

@@ -38,7 +38,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 final class HttpConfigExtractorTest {
 
-    private final HttpConfig config = new HttpConfig(){
+    private final HttpConfig config = new HttpConfig() {
 
     };
 
@@ -71,7 +71,7 @@ final class HttpConfigExtractorTest {
     })
     @Order(2)
     void Should_throw_ConfigException(final String source,
-                                      final String expectedMessage){
+                                      final String expectedMessage) {
         final ConfigException exception = assertThrows(ConfigException.class, () -> extractor.extract(source, config));
         assertEquals(expectedMessage, exception.getMessage());
     }

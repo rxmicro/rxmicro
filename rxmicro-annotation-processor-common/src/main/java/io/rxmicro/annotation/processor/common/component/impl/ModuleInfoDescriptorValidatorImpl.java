@@ -38,9 +38,8 @@ import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentH
 import static io.rxmicro.annotation.processor.config.SupportedOptions.RX_MICRO_STRICT_MODE;
 import static io.rxmicro.annotation.processor.config.SupportedOptions.RX_MICRO_STRICT_MODE_DEFAULT_VALUE;
 import static io.rxmicro.common.CommonConstants.VirtualModuleInfoConstants.RX_MICRO_VIRTUAL_MODULE_INFO_ANNOTATION_NAME;
-import static io.rxmicro.common.RxMicroModule.RX_MICRO_CONFIG_MODULE;
 import static io.rxmicro.common.RxMicroModule.RX_MICRO_DOCUMENTATION_ASCIIDOCTOR_MODULE;
-import static io.rxmicro.common.RxMicroModule.RX_MICRO_RUNTIME_MODULE;
+import static io.rxmicro.common.RxMicroModule.RX_MICRO_REFLECTION_MODULE;
 import static io.rxmicro.common.util.Formats.format;
 import static java.util.stream.Collectors.joining;
 
@@ -60,7 +59,7 @@ public final class ModuleInfoDescriptorValidatorImpl extends AbstractProcessorCo
             validateDefaultPackage(getElements().getPackageElement(""), true);
         } else {
             validateDefaultPackage(getElements().getPackageElement(moduleElement, ""), false);
-            validateThatCustomConfigPackageIsExportedToConfigAndRuntime(moduleElement);
+            validateThatCustomConfigPackageIsExportedToReflectionModule(moduleElement);
         }
     }
 
@@ -83,7 +82,7 @@ public final class ModuleInfoDescriptorValidatorImpl extends AbstractProcessorCo
         }
     }
 
-    private void validateThatCustomConfigPackageIsExportedToConfigAndRuntime(final ModuleElement moduleElement) {
+    private void validateThatCustomConfigPackageIsExportedToReflectionModule(final ModuleElement moduleElement) {
         final Set<PackageElement> packageElements = moduleElement.getEnclosedElements().stream()
                 .map(e -> (PackageElement) e)
                 .filter(this::hasCustomConfigClass)
@@ -107,7 +106,7 @@ public final class ModuleInfoDescriptorValidatorImpl extends AbstractProcessorCo
     private Map<String, List<String>> getMissingExports(final ModuleElement moduleElement,
                                                         final Set<PackageElement> packageElements) {
         final Map<String, List<String>> missingExports = new LinkedHashMap<>();
-        final List<String> requiredExportTargets = List.of(RX_MICRO_RUNTIME_MODULE.getName(), RX_MICRO_CONFIG_MODULE.getName());
+        final List<String> requiredExportTargets = List.of(RX_MICRO_REFLECTION_MODULE.getName());
         for (final ModuleElement.Directive directive : moduleElement.getDirectives()) {
             if (directive.getKind() == ModuleElement.DirectiveKind.EXPORTS) {
                 final ModuleElement.ExportsDirective exportsDirective = (ModuleElement.ExportsDirective) directive;

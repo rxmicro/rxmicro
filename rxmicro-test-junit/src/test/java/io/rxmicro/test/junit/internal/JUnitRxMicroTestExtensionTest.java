@@ -43,7 +43,7 @@ final class JUnitRxMicroTestExtensionTest {
 
     @Test
     @Order(1)
-    void Should_throw_InvalidTestConfigException_if_RxMicroComponentTestExtension_is_used(){
+    void Should_throw_InvalidTestConfigException_if_RxMicroComponentTestExtension_is_used() {
         final TestModel.Builder builder = new TestModel.Builder(TestClass1.class);
 
         final InvalidTestConfigException exception = assertThrows(InvalidTestConfigException.class, () ->
@@ -57,7 +57,7 @@ final class JUnitRxMicroTestExtensionTest {
 
     @Test
     @Order(2)
-    void Should_throw_InvalidTestConfigException_if_RxMicroRestBasedMicroServiceTestExtension_is_used(){
+    void Should_throw_InvalidTestConfigException_if_RxMicroRestBasedMicroServiceTestExtension_is_used() {
         final TestModel.Builder builder = new TestModel.Builder(TestClass2.class);
 
         final InvalidTestConfigException exception = assertThrows(InvalidTestConfigException.class, () ->
@@ -71,7 +71,7 @@ final class JUnitRxMicroTestExtensionTest {
 
     @Test
     @Order(3)
-    void Should_throw_InvalidTestConfigException_if_RxMicroIntegrationTestExtension_is_used(){
+    void Should_throw_InvalidTestConfigException_if_RxMicroIntegrationTestExtension_is_used() {
         final TestModel.Builder builder = new TestModel.Builder(TestClass3.class);
 
         final InvalidTestConfigException exception = assertThrows(InvalidTestConfigException.class, () ->

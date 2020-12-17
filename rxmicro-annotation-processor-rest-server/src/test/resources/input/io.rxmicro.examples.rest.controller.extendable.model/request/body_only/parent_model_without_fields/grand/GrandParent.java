@@ -16,7 +16,7 @@
 
 package io.rxmicro.examples.rest.controller.extendable.model.request.body_only.parent_model_without_fields.grand;
 
-import io.rxmicro.common.model.BaseModel;
+import io.rxmicro.model.BaseModel;
 
 public class GrandParent extends BaseModel {
 

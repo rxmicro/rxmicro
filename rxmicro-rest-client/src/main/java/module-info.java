@@ -48,16 +48,13 @@ import io.rxmicro.http.client.HttpClientFactory;
  * @since 0.1
  */
 module rxmicro.rest.client {
-    requires transitive rxmicro.rest;
     requires transitive rxmicro.http.client;
+    requires transitive rxmicro.rest;
     requires transitive rxmicro.logger;
 
     exports io.rxmicro.rest.client;
 
     exports io.rxmicro.rest.client.detail;
-
-    opens io.rxmicro.rest.client to
-            rxmicro.config;
 
     uses HttpClientFactory;
     uses HttpClientContentConverter;

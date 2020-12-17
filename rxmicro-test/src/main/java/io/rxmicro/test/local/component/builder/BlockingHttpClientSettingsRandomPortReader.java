@@ -21,9 +21,9 @@ import io.rxmicro.test.local.InvalidTestConfigException;
 import java.lang.reflect.Field;
 import java.util.Collections;
 
-import static io.rxmicro.common.util.Reflections.getDeclaredField;
-import static io.rxmicro.common.util.Reflections.getFieldValue;
 import static io.rxmicro.config.Networks.validatePort;
+import static io.rxmicro.reflection.Reflections.getDeclaredField;
+import static io.rxmicro.reflection.Reflections.getFieldValue;
 import static java.lang.reflect.Modifier.isFinal;
 import static java.lang.reflect.Modifier.isStatic;
 

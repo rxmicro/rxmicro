@@ -49,30 +49,33 @@ import io.rxmicro.runtime.local.test.RuntimeUnNamedModuleFixer;
  */
 module rxmicro.runtime {
     requires transitive rxmicro.common;
+    requires transitive rxmicro.reflection;
     requires transitive rxmicro.logger;
 
     exports io.rxmicro.runtime;
+
     exports io.rxmicro.runtime.detail;
 
     exports io.rxmicro.runtime.local to
-            rxmicro.test,
-            rxmicro.test.junit,
-            rxmicro.data,
             rxmicro.config,
+            rxmicro.data,
             rxmicro.data.mongo,
+            rxmicro.data.sql.r2dbc.postgresql,
+            rxmicro.cdi,
+            rxmicro.http.client,
+            rxmicro.http.client.jdk,
             rxmicro.rest.client,
             rxmicro.rest.server,
             rxmicro.rest.server.netty,
             rxmicro.validation,
-            rxmicro.annotation.processor,
-            rxmicro.http.client,
-            rxmicro.http.client.jdk,
-            rxmicro.data.sql.r2dbc.postgresql,
-            rxmicro.cdi;
+            rxmicro.test,
+            rxmicro.test.junit,
+            rxmicro.annotation.processor;
     exports io.rxmicro.runtime.local.provider to
-            rxmicro.data, rxmicro.rest.client,
-            rxmicro.data.sql.r2dbc.postgresql,
+            rxmicro.data,
             rxmicro.data.mongo,
+            rxmicro.data.sql.r2dbc.postgresql,
+            rxmicro.rest.client,
             rxmicro.test;
     exports io.rxmicro.runtime.local.error to
             rxmicro.cdi;

@@ -31,7 +31,7 @@ import java.lang.reflect.Method;
 import java.util.Set;
 import java.util.function.Predicate;
 
-import static io.rxmicro.common.util.Reflections.containsMethod;
+import static io.rxmicro.reflection.Reflections.containsMethod;
 
 /**
  * @author nedis

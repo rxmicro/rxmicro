@@ -55,22 +55,19 @@ import io.rxmicro.rest.server.netty.internal.test.NettyServerUnNamedModuleFixer;
 @SuppressWarnings("JavaRequiresAutoModule")
 module rxmicro.rest.server.netty {
     requires transitive rxmicro.rest.server;
+
     requires transitive io.netty.transport;
     requires transitive io.netty.buffer;
     requires transitive io.netty.codec;
     requires transitive io.netty.codec.http;
     requires transitive io.netty.common;
-
     // For sun.misc.Unsafe
     requires jdk.unsupported;
 
     exports io.rxmicro.rest.server.netty;
 
-    exports io.rxmicro.rest.server.netty.local
-            to rxmicro.test.junit;
-
-    opens io.rxmicro.rest.server.netty to
-            rxmicro.config;
+    exports io.rxmicro.rest.server.netty.local to
+            rxmicro.test.junit;
 
     uses HttpErrorResponseBodyBuilder;
 

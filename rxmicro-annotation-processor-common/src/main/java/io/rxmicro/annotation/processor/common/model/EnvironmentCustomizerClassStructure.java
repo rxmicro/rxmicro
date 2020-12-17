@@ -16,9 +16,8 @@
 
 package io.rxmicro.annotation.processor.common.model;
 
-import io.rxmicro.common.CommonConstants;
 import io.rxmicro.config.detail.DefaultConfigValueBuilder;
-import io.rxmicro.runtime.RuntimeConstants;
+import io.rxmicro.reflection.ReflectionConstants;
 
 import java.util.List;
 import java.util.Map;
@@ -66,18 +65,15 @@ public final class EnvironmentCustomizerClassStructure extends ClassStructure {
                 "CURRENT_MODULE_IS_NAMED", !currentModule.isUnnamed(),
                 "CLASS_NAME", ENVIRONMENT_CUSTOMIZER_SIMPLE_CLASS_NAME,
                 "DEFAULT_CONFIG_VALUES", defaultConfigProxyValues,
-                "PACKAGES_THAT_MUST_BE_OPENED_TO_RX_MICRO_COMMON_MODULE", packagesThatMustBeOpenedToRxMicroCommonModule
+                "PACKAGES_THAT_MUST_BE_OPENED_TO_RX_MICRO_REFLECTION_MODULE", packagesThatMustBeOpenedToRxMicroCommonModule
         );
     }
 
     @Override
     public ClassHeader getClassHeader() {
-        final ClassHeader.Builder builder = newClassHeaderBuilder(ENTRY_POINT_PACKAGE)
-                .addStaticImport(RuntimeConstants.class, "RX_MICRO_RUNTIME_MODULE")
-                .addStaticImport(DefaultConfigValueBuilder.class, "putDefaultConfigValue");
-        if (!packagesThatMustBeOpenedToRxMicroCommonModule.isEmpty()) {
-            builder.addStaticImport(CommonConstants.class, "RX_MICRO_COMMON_MODULE");
-        }
-        return builder.build();
+        return newClassHeaderBuilder(ENTRY_POINT_PACKAGE)
+                .addStaticImport(ReflectionConstants.class, "RX_MICRO_REFLECTION_MODULE")
+                .addStaticImport(DefaultConfigValueBuilder.class, "putDefaultConfigValue")
+                .build();
     }
 }

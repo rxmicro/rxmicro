@@ -46,7 +46,7 @@ final class DbUnitRxMicroTestExtensionTest {
 
     @Test
     @Order(1)
-    void Should_throw_InvalidTestConfigException_if_ExtendWith_is_used_instead_of_DbUnitTest(){
+    void Should_throw_InvalidTestConfigException_if_ExtendWith_is_used_instead_of_DbUnitTest() {
         final TestModel.Builder builder = new TestModel.Builder(TestClass1.class);
 
         final InvalidTestConfigException exception = assertThrows(InvalidTestConfigException.class, () ->
@@ -60,7 +60,7 @@ final class DbUnitRxMicroTestExtensionTest {
 
     @Test
     @Order(2)
-    void Should_throw_InvalidTestConfigException_if_DbUnitTest_before_Testcontainers(){
+    void Should_throw_InvalidTestConfigException_if_DbUnitTest_before_Testcontainers() {
         final TestModel.Builder builder = new TestModel.Builder(TestClass2.class);
 
         final InvalidTestConfigException exception = assertThrows(InvalidTestConfigException.class, () ->
@@ -75,7 +75,7 @@ final class DbUnitRxMicroTestExtensionTest {
 
     @Test
     @Order(3)
-    void Should_throw_InvalidTestConfigException_if_DbUnitTest_is_redundant_without_nested_class(){
+    void Should_throw_InvalidTestConfigException_if_DbUnitTest_is_redundant_without_nested_class() {
         final TestModel.Builder builder = new TestModel.Builder(TestClass3.class);
 
         final InvalidTestConfigException exception = assertThrows(InvalidTestConfigException.class, () ->
@@ -92,7 +92,7 @@ final class DbUnitRxMicroTestExtensionTest {
 
     @Test
     @Order(4)
-    void Should_throw_InvalidTestConfigException_if_DbUnitTest_is_redundant_with_nested_class(){
+    void Should_throw_InvalidTestConfigException_if_DbUnitTest_is_redundant_with_nested_class() {
         final TestModel.Builder builder = new TestModel.Builder(TestClass4.class);
 
         final InvalidTestConfigException exception = assertThrows(InvalidTestConfigException.class, () ->

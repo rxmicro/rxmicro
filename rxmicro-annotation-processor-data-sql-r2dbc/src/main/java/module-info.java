@@ -21,8 +21,9 @@
  * @since 0.1
  */
 module rxmicro.annotation.processor.data.sql.r2dbc {
-    requires transitive rxmicro.annotation.processor.data.sql;
     requires transitive rxmicro.data.sql.r2dbc;
+
+    requires transitive rxmicro.annotation.processor.data.sql;
 
     exports io.rxmicro.annotation.processor.data.sql.r2dbc to
             rxmicro.annotation.processor.data.sql.r2dbc.postgresql;

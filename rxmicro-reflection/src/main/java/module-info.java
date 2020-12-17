@@ -15,19 +15,16 @@
  */
 
 /**
- * The module designed for test writing using the <a href="http://dbunit.sourceforge.net/">DbUnit</a> framework.
+ * The module with reflection utils that used by other {@code rxmicro} modules.
  *
  * <p>
  * This module follows the next package structure rules:
  * <ul>
  *     <li>
- *         {@code io.rxmicro.test.dbunit.junit} - is root module package that contains:
+ *         {@code io.rxmicro.reflection} - is root module package that contains:
  *         <ul>
  *             <li>
  *                 {@code internal} - is sub package with classes for current module use only.
- *             </li>
- *             <li>
- *                 {@code local} - is shared sub package, which can be used by other {@code rxmicro} modules only.
  *             </li>
  *             <li>
  *                 any other sub packages and root package - are public API that available for usage.
@@ -37,21 +34,10 @@
  * </ul>
  *
  * @author nedis
- * @since 0.7
+ * @since 0.7.4
  */
-@SuppressWarnings("JavaRequiresAutoModule")
-module rxmicro.test.dbunit {
-    requires transitive rxmicro.test;
+module rxmicro.reflection {
+    requires rxmicro.common;
 
-    requires transitive dbunit;
-    requires java.sql;
-
-    exports io.rxmicro.test.dbunit;
-
-    exports io.rxmicro.test.dbunit.local to
-            rxmicro.test.dbunit.junit;
-    exports io.rxmicro.test.dbunit.local.component to
-            rxmicro.test.dbunit.junit;
-    exports io.rxmicro.test.dbunit.local.component.validator to
-            rxmicro.test.dbunit.junit;
+    exports io.rxmicro.reflection;
 }

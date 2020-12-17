@@ -44,6 +44,7 @@ import io.rxmicro.test.mockito.junit.internal.MockitoRxMicroTestExtension;
 module rxmicro.test.mockito.junit {
     requires transitive rxmicro.test.junit;
     requires transitive rxmicro.test.mockito;
+
     requires transitive mockito.junit.jupiter;
 
     exports io.rxmicro.test.mockito.junit;

@@ -16,7 +16,7 @@
 
 package io.rxmicro.annotation.processor.config;
 
-import io.rxmicro.common.util.Reflections;
+import io.rxmicro.reflection.Reflections;
 
 import java.util.Arrays;
 import java.util.Set;

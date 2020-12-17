@@ -24,10 +24,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
 import java.io.File;
-import java.util.Optional;
 import java.util.Set;
 
-import static io.rxmicro.common.CommonConstants.RX_MICRO_HOME_VARIABLE_NAME;
+import static io.rxmicro.common.TestUtil.getRootDirectory;
 import static io.rxmicro.common.util.Formats.format;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -71,9 +70,7 @@ final class RxMicroModuleTest {
     @Test
     @Order(1)
     void Should_contain_all_declared_modules() {
-        final File rootDirectory = new File(Optional.ofNullable(System.getenv(RX_MICRO_HOME_VARIABLE_NAME)).orElseThrow(() -> {
-            throw new InvalidStateException("Required '?' environment variable not defined", RX_MICRO_HOME_VARIABLE_NAME);
-        }));
+        final File rootDirectory = getRootDirectory();
         final File[] modules = rootDirectory.listFiles((dir, name) -> name.startsWith("rxmicro-"));
         if (modules == null) {
             fail("Module directories not found. Is it valid root directory: " + rootDirectory.getAbsolutePath() + "?");

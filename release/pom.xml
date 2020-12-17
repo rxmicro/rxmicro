@@ -85,6 +85,11 @@
         </dependency>
         <dependency>
             <groupId>io.rxmicro</groupId>
+            <artifactId>rxmicro-annotation-processor-config</artifactId>
+            <version>0.7.4-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>io.rxmicro</groupId>
             <artifactId>rxmicro-annotation-processor-common</artifactId>
             <version>0.7.4-SNAPSHOT</version>
         </dependency>
@@ -159,6 +164,11 @@
         <dependency>
             <groupId>io.rxmicro</groupId>
             <artifactId>rxmicro-common</artifactId>
+            <version>0.7.4-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>io.rxmicro</groupId>
+            <artifactId>rxmicro-reflection</artifactId>
             <version>0.7.4-SNAPSHOT</version>
         </dependency>
         <dependency>
@@ -363,6 +373,28 @@
             <version>0.7.4-SNAPSHOT</version>
         </dependency>
 
+        <!-- Virtual modules -->
+
+        <dependency>
+            <groupId>io.rxmicro</groupId>
+            <artifactId>rxmicro-netty-native</artifactId>
+            <version>0.7.4-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>io.rxmicro</groupId>
+            <artifactId>rxmicro-netty-native-all</artifactId>
+            <version>0.7.4-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>io.rxmicro</groupId>
+            <artifactId>rxmicro-netty-native-linux</artifactId>
+            <version>0.7.4-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>io.rxmicro</groupId>
+            <artifactId>rxmicro-netty-native-osx</artifactId>
+            <version>0.7.4-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
 </project>

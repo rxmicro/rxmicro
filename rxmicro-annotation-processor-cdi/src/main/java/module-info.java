@@ -21,14 +21,16 @@
  * @since 0.1
  */
 module rxmicro.annotation.processor.cdi {
-    requires rxmicro.cdi;
     requires rxmicro.config;
     requires rxmicro.data.mongo;
     requires rxmicro.data.sql.r2dbc.postgresql;
     requires rxmicro.rest.client;
-    requires rxmicro.annotation.processor.common;
+    requires rxmicro.cdi;
+
     requires com.google.guice;
     requires freemarker;
+
+    requires rxmicro.annotation.processor.common;
 
     exports io.rxmicro.annotation.processor.cdi to
             rxmicro.annotation.processor;

@@ -22,12 +22,14 @@
  */
 module rxmicro.annotation.processor {
     requires rxmicro.test;
+
+    requires com.google.guice;
+    requires freemarker;
+
     requires rxmicro.annotation.processor.data.aggregator;
     requires rxmicro.annotation.processor.rest.client;
     requires rxmicro.annotation.processor.rest.server;
     requires rxmicro.annotation.processor.cdi;
-    requires com.google.guice;
-    requires freemarker;
 
     exports io.rxmicro.annotation.processor;
 

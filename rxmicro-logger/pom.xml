@@ -36,15 +36,17 @@
                 <configuration>
                     <argLine>
                         @{argLine}
-                        --add-opens java.base/java.lang=rxmicro.common
-                        --add-opens java.base/java.lang.reflect=rxmicro.common
+                        --add-opens java.base/java.lang=rxmicro.reflection
+                        --add-opens java.base/java.lang.reflect=rxmicro.reflection
+
                         --add-opens rxmicro.logger/io.rxmicro.logger=ALL-UNNAMED
                         --add-opens rxmicro.logger/io.rxmicro.logger.impl=ALL-UNNAMED
                         --add-opens rxmicro.logger/io.rxmicro.logger.internal=ALL-UNNAMED
                         --add-opens rxmicro.logger/io.rxmicro.logger.internal.jul=ALL-UNNAMED
                         --add-opens rxmicro.logger/io.rxmicro.logger.internal.jul.config.adapter=ALL-UNNAMED
                         --add-opens rxmicro.logger/io.rxmicro.logger.internal.jul.config.adapter.pattern=ALL-UNNAMED
-                        --add-opens rxmicro.logger/io.rxmicro.logger.internal.jul=rxmicro.common
+
+                        --add-opens rxmicro.logger/io.rxmicro.logger.internal.jul=rxmicro.reflection
                     </argLine>
                 </configuration>
             </plugin>
@@ -52,6 +54,11 @@
     </build>
 
     <dependencies>
+        <dependency>
+            <groupId>io.rxmicro</groupId>
+            <artifactId>rxmicro-reflection</artifactId>
+            <version>0.7.4-SNAPSHOT</version>
+        </dependency>
         <dependency>
             <groupId>io.rxmicro</groupId>
             <artifactId>rxmicro-files</artifactId>

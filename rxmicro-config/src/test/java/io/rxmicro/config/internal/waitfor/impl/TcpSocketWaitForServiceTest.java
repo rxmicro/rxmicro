@@ -53,7 +53,7 @@ final class TcpSocketWaitForServiceTest {
             "localhost:8080:8443"
     })
     @Order(1)
-    void Should_throw_ConfigException_if_destination_is_invalid(final String destination){
+    void Should_throw_ConfigException_if_destination_is_invalid(final String destination) {
         final ConfigException exception = assertThrows(ConfigException.class, () ->
                 new TcpSocketWaitForService(new Params(
                         WAIT_FOR_TCP_SOCKET_TYPE_NAME,
@@ -67,7 +67,7 @@ final class TcpSocketWaitForServiceTest {
 
     @Test
     @Order(2)
-    void Should_throw_ConfigException_if_port_is_not_number(){
+    void Should_throw_ConfigException_if_port_is_not_number() {
         final ConfigException exception = assertThrows(ConfigException.class, () ->
                 new TcpSocketWaitForService(new Params(
                         WAIT_FOR_TCP_SOCKET_TYPE_NAME,
@@ -86,12 +86,12 @@ final class TcpSocketWaitForServiceTest {
             "99999"
     })
     @Order(3)
-    void Should_throw_ConfigException_if_port_is_not_valid_number(final String port){
+    void Should_throw_ConfigException_if_port_is_not_valid_number(final String port) {
         final ConfigException exception = assertThrows(ConfigException.class, () ->
                 new TcpSocketWaitForService(new Params(
                         WAIT_FOR_TCP_SOCKET_TYPE_NAME,
                         Duration.ofSeconds(Long.parseLong(WAIT_FOR_TIMEOUT_DEFAULT_VALUE_IN_SECONDS)),
-                        "localhost:"+port)));
+                        "localhost:" + port)));
         assertEquals(
                 format("Invalid port value: ? (Must be 0 < ? < 65535)", port, port),
                 exception.getMessage()
@@ -100,7 +100,7 @@ final class TcpSocketWaitForServiceTest {
 
     @Test
     @Order(4)
-    void Should_throw_ServiceYetNotAvailableException_if_tcp_socket_is_not_available(){
+    void Should_throw_ServiceYetNotAvailableException_if_tcp_socket_is_not_available() {
         final int randomFreePort = getRandomFreePort();
         final TcpSocketWaitForService service = new TcpSocketWaitForService(new Params(
                 WAIT_FOR_TCP_SOCKET_TYPE_NAME,

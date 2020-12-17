@@ -16,7 +16,7 @@
 
 package io.rxmicro.examples.rest.controller.extendable.model.request.any_query_or_body.header_path_param.grand;
 
-import io.rxmicro.common.model.BaseModel;
+import io.rxmicro.model.BaseModel;
 
 public class GrandParent extends BaseModel {
 

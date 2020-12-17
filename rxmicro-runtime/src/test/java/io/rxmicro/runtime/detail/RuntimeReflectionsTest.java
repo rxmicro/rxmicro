@@ -160,7 +160,7 @@ final class RuntimeReflectionsTest {
         );
         assertEquals(
                 "RuntimeException",
-                ((InvocationTargetException)exception.getCause()).getTargetException().getMessage()
+                ((InvocationTargetException) exception.getCause()).getTargetException().getMessage()
         );
     }
 
@@ -187,11 +187,11 @@ final class RuntimeReflectionsTest {
 
         private String value = "init";
 
-        private void privateMethod(){
+        private void privateMethod() {
 
         }
 
-        public static void methodThatThrowsException(){
+        public static void methodThatThrowsException() {
             throw new RuntimeException("RuntimeException");
         }
     }

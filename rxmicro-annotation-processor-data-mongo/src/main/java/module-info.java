@@ -21,8 +21,9 @@
  * @since 0.1
  */
 module rxmicro.annotation.processor.data.mongo {
-    requires transitive rxmicro.annotation.processor.data;
     requires transitive rxmicro.data.mongo;
+
+    requires transitive rxmicro.annotation.processor.data;
 
     exports io.rxmicro.annotation.processor.data.mongo to
             rxmicro.annotation.processor.data.aggregator;

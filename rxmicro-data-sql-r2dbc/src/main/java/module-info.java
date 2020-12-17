@@ -51,11 +51,11 @@
 @SuppressWarnings("JavaRequiresAutoModule")
 module rxmicro.data.sql.r2dbc {
     requires transitive rxmicro.data.sql;
+
+    requires transitive org.reactivestreams;
+    requires transitive reactor.core;
     requires transitive r2dbc.spi;
     requires transitive r2dbc.pool;
-    requires transitive reactor.core;
-    requires transitive org.reactivestreams;
-
     requires static io.reactivex.rxjava3;
 
     exports io.rxmicro.data.sql.r2dbc.detail;

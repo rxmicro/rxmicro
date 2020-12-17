@@ -76,9 +76,7 @@ jobs:
           java-version: ${{ matrix.jdk }}
 
       - name: Run all tests
-        run: |
-          export RX_MICRO_HOME=$(pwd)
-          mvn --fail-at-end verify
+        run: mvn --fail-at-end verify
   # -----------------------------------------------------------------------------------------------------
   # --- Verify Code Quality via Spotbugs, PMD, Checkstyle and Javadoc Tool ------------------------------
   # ------------------ https://spotbugs.github.io/ ------------------------------------------------------

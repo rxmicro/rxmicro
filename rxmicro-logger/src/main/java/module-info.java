@@ -45,17 +45,20 @@
  * @since 0.1
  */
 module rxmicro.logger {
+    requires transitive rxmicro.reflection;
     requires transitive rxmicro.common;
     requires rxmicro.files;
+
     requires java.logging;
 
     exports io.rxmicro.logger;
     exports io.rxmicro.logger.impl;
     exports io.rxmicro.logger.jul;
 
+    exports io.rxmicro.logger.internal to
+            rxmicro.reflection;
+
     opens io.rxmicro.logger.jul;
     opens io.rxmicro.logger to
-            rxmicro.common;
-    opens io.rxmicro.logger.internal to
-            rxmicro.common;
+            rxmicro.reflection;
 }

@@ -48,8 +48,8 @@
 module rxmicro.data.sql {
     requires transitive rxmicro.data;
     requires transitive rxmicro.logger;
-    requires transitive org.reactivestreams;
 
+    requires transitive org.reactivestreams;
     requires static reactor.core;
     requires static io.reactivex.rxjava3;
 

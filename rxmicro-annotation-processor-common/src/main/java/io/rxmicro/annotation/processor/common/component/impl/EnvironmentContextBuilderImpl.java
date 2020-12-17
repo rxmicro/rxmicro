@@ -25,9 +25,9 @@ import io.rxmicro.annotation.processor.common.model.EnvironmentContext;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
 import io.rxmicro.common.ImpossibleException;
 import io.rxmicro.common.RxMicroModule;
-import io.rxmicro.common.model.BaseModel;
 import io.rxmicro.config.ExcludeAll;
 import io.rxmicro.config.IncludeAll;
+import io.rxmicro.model.BaseModel;
 
 import java.util.Arrays;
 import java.util.List;
@@ -46,6 +46,7 @@ import static io.rxmicro.annotation.processor.common.util.Annotations.getValidat
 import static io.rxmicro.annotation.processor.common.util.Elements.asTypeElement;
 import static io.rxmicro.annotation.processor.common.util.Elements.doesExtendSuperType;
 import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getElements;
+import static io.rxmicro.common.RxMicroModule.RX_MICRO_REFLECTION_MODULE;
 import static java.util.Map.entry;
 import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toMap;
@@ -87,7 +88,7 @@ public final class EnvironmentContextBuilderImpl extends AbstractProcessorCompon
                 Set.copyOf(includePackages.keySet()),
                 Set.copyOf(excludePackages.keySet()),
                 getValidatedDefaultConfigValues(currentModule),
-                getPackagesThatMustBeOpenedToRxMicroCommonModule(currentModule)
+                getPackagesThatMustBeOpenedToRxMicroReflectionModule(currentModule)
         );
         info("?", environmentContext);
         return environmentContext;
@@ -119,7 +120,7 @@ public final class EnvironmentContextBuilderImpl extends AbstractProcessorCompon
         }
     }
 
-    private List<String> getPackagesThatMustBeOpenedToRxMicroCommonModule(final ModuleElement currentModule) {
+    private List<String> getPackagesThatMustBeOpenedToRxMicroReflectionModule(final ModuleElement currentModule) {
         if (currentModule.isUnnamed()) {
             return List.of();
         } else {
@@ -132,7 +133,7 @@ public final class EnvironmentContextBuilderImpl extends AbstractProcessorCompon
                         .map(d -> (ModuleElement.OpensDirective) d)
                         .filter(d -> d.getTargetModules().stream()
                                 .anyMatch(moduleElement ->
-                                        RxMicroModule.RX_MICRO_COMMON_MODULE.getName().equals(moduleElement.getQualifiedName().toString())))
+                                        RX_MICRO_REFLECTION_MODULE.getName().equals(moduleElement.getQualifiedName().toString())))
                         .map(d -> d.getPackage().getQualifiedName().toString())
                         .collect(toList());
                 return packages.stream()
@@ -165,7 +166,7 @@ public final class EnvironmentContextBuilderImpl extends AbstractProcessorCompon
                 return false;
             }
             current = asTypeElement(current.getSuperclass()).orElseThrow(() -> {
-                throw new ImpossibleException("Type element extends BaseModel, so super class must be found always!");
+                throw new ImpossibleException("Type element extends the BaseModel class, so super class must be found always!");
             });
         }
         return true;

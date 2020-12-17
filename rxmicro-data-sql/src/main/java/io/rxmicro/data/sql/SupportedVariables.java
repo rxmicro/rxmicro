@@ -24,7 +24,7 @@ import io.rxmicro.data.sql.operation.Update;
 import java.util.Arrays;
 import java.util.Set;
 
-import static io.rxmicro.common.util.Reflections.getFieldValue;
+import static io.rxmicro.reflection.Reflections.getFieldValue;
 import static java.lang.reflect.Modifier.isPublic;
 import static java.lang.reflect.Modifier.isStatic;
 import static java.util.stream.Collectors.toUnmodifiableSet;

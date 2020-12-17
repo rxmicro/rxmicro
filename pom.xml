@@ -54,6 +54,7 @@
         <module>release</module>
 
         <module>rxmicro-common</module>
+        <module>rxmicro-reflection</module>
         <module>rxmicro-model</module>
         <module>rxmicro-logger</module>
         <module>rxmicro-runtime</module>

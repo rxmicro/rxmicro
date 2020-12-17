@@ -16,7 +16,7 @@
 
 package io.rxmicro.examples.rest.controller.extendable.model.response.any.header_body_internal.grand;
 
-import io.rxmicro.common.model.BaseModel;
+import io.rxmicro.model.BaseModel;
 import io.rxmicro.rest.ResponseStatusCode;
 
 public class GrandParent extends BaseModel {

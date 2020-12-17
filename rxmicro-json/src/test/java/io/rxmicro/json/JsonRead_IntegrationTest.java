@@ -330,7 +330,7 @@ final class JsonRead_IntegrationTest {
             "{\"title\":\"\\u041f\\u043e\\u043b\\u0442\\u043e\\u0440\\u0430 \\u0417\\u0435\\u043c\\u043b\\u0435\\u043a\\u043e\\u043f\"}"
     })
     @Order(19)
-    void readJson_should_parse_unicode_characters(final String json){
+    void readJson_should_parse_unicode_characters(final String json) {
         assertDoesNotThrow(() -> readJson(json));
     }
 
@@ -340,7 +340,7 @@ final class JsonRead_IntegrationTest {
             "{\"a\":1//comment\n}"
     })
     @Order(20)
-    void readJson_should_not_support_comments(final String json){
+    void readJson_should_not_support_comments(final String json) {
         assertThrows(JsonException.class, () -> readJson(json));
     }
 

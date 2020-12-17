@@ -52,7 +52,7 @@ final class WaitForServiceFactoryTest {
     })
     @Order(1)
     void Should_throw_ConfigException(final String args,
-                                      final String expectedMessage){
+                                      final String expectedMessage) {
         final ConfigException exception =
                 assertThrows(ConfigException.class, () -> createWaitForService(args.split(" ")));
         assertEquals(expectedMessage, exception.getMessage());

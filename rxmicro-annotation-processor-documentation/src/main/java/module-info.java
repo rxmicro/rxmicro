@@ -24,12 +24,14 @@ import io.rxmicro.annotation.processor.documentation.component.IncludeReferenceS
  */
 @SuppressWarnings("JavaRequiresAutoModule")
 module rxmicro.annotation.processor.documentation {
-    requires transitive rxmicro.annotation.processor.rest.server;
-    requires transitive rxmicro.documentation;
-    requires transitive maven.model;
-    requires transitive plexus.utils;
     requires transitive rxmicro.files;
     requires transitive rxmicro.http.client;
+    requires transitive rxmicro.documentation;
+
+    requires transitive maven.model;
+    requires transitive plexus.utils;
+
+    requires transitive rxmicro.annotation.processor.rest.server;
 
     exports io.rxmicro.annotation.processor.documentation to
             rxmicro.annotation.processor.documentation.asciidoctor;

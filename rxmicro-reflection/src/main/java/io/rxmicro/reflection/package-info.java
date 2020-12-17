@@ -14,21 +14,10 @@
  * limitations under the License.
  */
 
-package io.rxmicro.runtime;
-
 /**
- * The common constants for the {@code rxmicro.runtime} module.
+ * The root package for the {@code rxmicro.reflection} module.
  *
  * @author nedis
- * @since 0.7
+ * @since 0.7.4
  */
-public final class RuntimeConstants {
-
-    /**
-     * The reference to the {@link Module} object of the {@code rxmicro.runtime} module.
-     */
-    public static final Module RX_MICRO_RUNTIME_MODULE = RuntimeConstants.class.getModule();
-
-    private RuntimeConstants() {
-    }
-}
+package io.rxmicro.reflection;

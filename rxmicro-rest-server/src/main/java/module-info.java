@@ -57,25 +57,22 @@ module rxmicro.rest.server {
 
     exports io.rxmicro.rest.server;
     exports io.rxmicro.rest.server.feature;
+    exports io.rxmicro.rest.server.feature.request.id.generator;
 
     exports io.rxmicro.rest.server.detail.model;
     exports io.rxmicro.rest.server.detail.model.mapping;
     exports io.rxmicro.rest.server.detail.component;
-    exports io.rxmicro.rest.server.feature.request.id.generator;
 
     exports io.rxmicro.rest.server.local.component to
             rxmicro.rest.server.netty,
+            rxmicro.rest.server.exchange.json,
             rxmicro.validation,
             rxmicro.test,
             rxmicro.test.junit,
-            rxmicro.rest.server.exchange.json,
             rxmicro.annotation.processor.rest.server;
     exports io.rxmicro.rest.server.local.model to
             rxmicro.test,
             rxmicro.test.junit;
-
-    opens io.rxmicro.rest.server to
-            rxmicro.config;
 
     uses HttpResponseBuilder;
     uses ServerFactory;

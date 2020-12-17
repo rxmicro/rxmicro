@@ -22,7 +22,7 @@ import io.rxmicro.files.ResourceException;
 import java.util.Optional;
 
 import static io.rxmicro.common.util.Environments.resolveEnvironmentVariables;
-import static io.rxmicro.common.util.Reflections.instantiate;
+import static io.rxmicro.reflection.Reflections.instantiate;
 
 /**
  * Used by generated code that created by the {@code RxMicro Annotation Processor}.

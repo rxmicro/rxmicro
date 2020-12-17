@@ -25,7 +25,7 @@ import io.rxmicro.rest.server.netty.NettyTransport;
 
 import static io.rxmicro.common.util.Environments.isCurrentOsLinux;
 import static io.rxmicro.common.util.Environments.isCurrentOsMac;
-import static io.rxmicro.common.util.Reflections.instantiate;
+import static io.rxmicro.reflection.Reflections.instantiate;
 import static io.rxmicro.rest.server.netty.NettyTransport.AUTO;
 import static io.rxmicro.rest.server.netty.NettyTransport.EPOLL;
 import static io.rxmicro.rest.server.netty.NettyTransport.KQUEUE;

@@ -51,6 +51,7 @@ import io.rxmicro.data.local.test.DataUnNamedModuleFixer;
 module rxmicro.data {
     requires transitive rxmicro.config;
     requires transitive rxmicro.model;
+
     requires transitive org.reactivestreams;
 
     exports io.rxmicro.data;
@@ -59,13 +60,13 @@ module rxmicro.data {
     exports io.rxmicro.data.detail.adapter;
 
     exports io.rxmicro.data.local to
-            rxmicro.data.sql,
             rxmicro.data.mongo,
+            rxmicro.data.sql,
             rxmicro.data.sql.r2dbc,
             rxmicro.data.sql.r2dbc.postgresql,
             rxmicro.annotation.processor.data,
-            rxmicro.annotation.processor.data.sql.r2dbc.postgresql,
-            rxmicro.annotation.processor.data.mongo;
+            rxmicro.annotation.processor.data.mongo,
+            rxmicro.annotation.processor.data.sql.r2dbc.postgresql;
     exports io.rxmicro.data.local.test to
             rxmicro.test;
 

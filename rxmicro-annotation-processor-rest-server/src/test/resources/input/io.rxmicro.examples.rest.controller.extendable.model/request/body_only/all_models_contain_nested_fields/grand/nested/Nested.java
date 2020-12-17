@@ -16,7 +16,7 @@
 
 package io.rxmicro.examples.rest.controller.extendable.model.request.body_only.all_models_contain_nested_fields.grand.nested;
 
-import io.rxmicro.common.model.BaseModel;
+import io.rxmicro.model.BaseModel;
 
 public class Nested extends BaseModel {
 

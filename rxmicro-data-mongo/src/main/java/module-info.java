@@ -47,6 +47,7 @@
 @SuppressWarnings("JavaRequiresAutoModule")
 module rxmicro.data.mongo {
     requires transitive rxmicro.data;
+
     requires transitive org.mongodb.bson;
     requires transitive org.mongodb.driver.reactivestreams;
     requires transitive org.mongodb.driver.core;
@@ -59,7 +60,4 @@ module rxmicro.data.mongo {
 
     exports io.rxmicro.data.mongo.local to
             rxmicro.annotation.processor.data.mongo;
-
-    opens io.rxmicro.data.mongo to
-            rxmicro.config;
 }

@@ -21,7 +21,7 @@ import io.rxmicro.validation.ConstraintValidator;
 import java.util.HashMap;
 import java.util.Map;
 
-import static io.rxmicro.common.util.Reflections.instantiate;
+import static io.rxmicro.reflection.Reflections.instantiate;
 
 /**
  * Used by generated code that created by the {@code RxMicro Annotation Processor}.

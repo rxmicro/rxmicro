@@ -21,8 +21,9 @@
  * @since 0.1
  */
 module rxmicro.annotation.processor.rest.client {
-    requires transitive rxmicro.annotation.processor.rest;
     requires transitive rxmicro.rest.client;
+
+    requires transitive rxmicro.annotation.processor.rest;
 
     exports io.rxmicro.annotation.processor.rest.client to
             rxmicro.annotation.processor;

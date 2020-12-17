@@ -23,11 +23,12 @@ import io.rxmicro.annotation.processor.rest.server.component.AbstractDocumentati
  * @since 0.1
  */
 module rxmicro.annotation.processor.rest.server {
-    requires transitive rxmicro.annotation.processor.rest;
     requires transitive rxmicro.rest.server;
     requires transitive rxmicro.monitoring;
-    requires transitive rxmicro.rest.client;
+    requires rxmicro.rest.client;
     requires transitive rxmicro.cdi;
+
+    requires transitive rxmicro.annotation.processor.rest;
 
     exports io.rxmicro.annotation.processor.rest.server to
             rxmicro.annotation.processor,

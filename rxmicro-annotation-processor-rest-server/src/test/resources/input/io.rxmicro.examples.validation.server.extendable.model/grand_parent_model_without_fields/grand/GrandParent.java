@@ -16,7 +16,7 @@
 
 package io.rxmicro.examples.validation.server.extendable.model.grand_parent_model_without_fields.grand;
 
-import io.rxmicro.common.model.BaseModel;
+import io.rxmicro.model.BaseModel;
 
 public class GrandParent extends BaseModel {
 

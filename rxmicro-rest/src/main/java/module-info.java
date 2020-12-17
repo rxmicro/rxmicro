@@ -47,8 +47,8 @@
  */
 module rxmicro.rest {
     requires transitive rxmicro.common;
-    requires transitive rxmicro.http;
     requires transitive rxmicro.model;
+    requires transitive rxmicro.http;
 
     exports io.rxmicro.rest;
     exports io.rxmicro.rest.model;
@@ -56,7 +56,7 @@ module rxmicro.rest {
     exports io.rxmicro.rest.detail;
 
     exports io.rxmicro.rest.local to
-            rxmicro.rest.server,
             rxmicro.rest.client,
+            rxmicro.rest.server,
             rxmicro.exchange.json;
 }

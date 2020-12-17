@@ -16,8 +16,8 @@
 
 package io.rxmicro.config.internal.component;
 
-import io.rxmicro.common.util.Reflections;
 import io.rxmicro.config.ConfigException;
+import io.rxmicro.reflection.Reflections;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;

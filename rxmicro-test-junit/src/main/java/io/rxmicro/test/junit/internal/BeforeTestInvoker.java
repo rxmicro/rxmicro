@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import static io.rxmicro.common.util.Reflections.invokeMethod;
+import static io.rxmicro.reflection.Reflections.invokeMethod;
 
 /**
  * @author nedis

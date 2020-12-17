@@ -64,10 +64,10 @@ module rxmicro.common {
             rxmicro.exchange.json,
             rxmicro.test,
             rxmicro.test.mockito,
-            rxmicro.annotation.processor.documentation,
+            rxmicro.annotation.processor,
             rxmicro.annotation.processor.common,
             rxmicro.annotation.processor.cdi,
-            rxmicro.annotation.processor;
+            rxmicro.annotation.processor.documentation;
 
     provides UnNamedModuleFixer with CommonUnNamedModuleFixer;
 }

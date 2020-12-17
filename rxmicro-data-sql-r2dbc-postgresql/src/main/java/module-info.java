@@ -51,6 +51,7 @@
 @SuppressWarnings("JavaRequiresAutoModule")
 module rxmicro.data.sql.r2dbc.postgresql {
     requires transitive rxmicro.data.sql.r2dbc;
+
     requires transitive r2dbc.postgresql;
     requires transitive r2dbc.pool;
 

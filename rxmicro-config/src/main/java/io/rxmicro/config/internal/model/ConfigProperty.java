@@ -23,8 +23,8 @@ import java.util.Optional;
 import java.util.Properties;
 import java.util.function.Supplier;
 
-import static io.rxmicro.common.util.Reflections.invokeMethod;
 import static io.rxmicro.config.internal.Converters.convertToType;
+import static io.rxmicro.reflection.Reflections.invokeMethod;
 import static java.util.Map.entry;
 
 /**

@@ -21,32 +21,33 @@
  * @since 0.1
  */
 module rxmicro.annotation.processor.data {
-    requires transitive rxmicro.annotation.processor.common;
     requires transitive rxmicro.data;
+
+    requires transitive rxmicro.annotation.processor.common;
 
     exports io.rxmicro.annotation.processor.data to
             rxmicro.annotation.processor.data.mongo,
-            rxmicro.annotation.processor.data.aggregator,
-            rxmicro.annotation.processor.data.sql.r2dbc.postgresql;
+            rxmicro.annotation.processor.data.sql.r2dbc.postgresql,
+            rxmicro.annotation.processor.data.aggregator;
     exports io.rxmicro.annotation.processor.data.model to
             freemarker,
             rxmicro.annotation.processor.data.mongo,
-            rxmicro.annotation.processor.data.aggregator,
             rxmicro.annotation.processor.data.sql,
             rxmicro.annotation.processor.data.sql.r2dbc,
-            rxmicro.annotation.processor.data.sql.r2dbc.postgresql;
+            rxmicro.annotation.processor.data.sql.r2dbc.postgresql,
+            rxmicro.annotation.processor.data.aggregator;
     exports io.rxmicro.annotation.processor.data.component to
             rxmicro.annotation.processor.data.mongo,
-            rxmicro.annotation.processor.data.aggregator,
             rxmicro.annotation.processor.data.sql,
             rxmicro.annotation.processor.data.sql.r2dbc,
-            rxmicro.annotation.processor.data.sql.r2dbc.postgresql;
+            rxmicro.annotation.processor.data.sql.r2dbc.postgresql,
+            rxmicro.annotation.processor.data.aggregator;
     exports io.rxmicro.annotation.processor.data.component.impl to
             rxmicro.annotation.processor.data.mongo,
-            rxmicro.annotation.processor.data.aggregator,
             rxmicro.annotation.processor.data.sql,
             rxmicro.annotation.processor.data.sql.r2dbc,
-            rxmicro.annotation.processor.data.sql.r2dbc.postgresql;
+            rxmicro.annotation.processor.data.sql.r2dbc.postgresql,
+            rxmicro.annotation.processor.data.aggregator;
 
     opens io.rxmicro.annotation.processor.data to
             com.google.guice;
@@ -54,5 +55,4 @@ module rxmicro.annotation.processor.data {
             com.google.guice;
     opens io.rxmicro.annotation.processor.data.component.impl to
             com.google.guice;
-
 }

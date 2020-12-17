@@ -31,8 +31,8 @@ import java.lang.reflect.Modifier;
 import java.util.Map;
 import java.util.Set;
 
-import static io.rxmicro.common.util.Reflections.allFields;
 import static io.rxmicro.common.util.Requires.require;
+import static io.rxmicro.reflection.Reflections.allFields;
 import static io.rxmicro.test.internal.DetectTypeRules.isBlockingHttpClient;
 import static io.rxmicro.test.internal.DetectTypeRules.isConfig;
 import static io.rxmicro.test.internal.DetectTypeRules.isHttpClientFactory;

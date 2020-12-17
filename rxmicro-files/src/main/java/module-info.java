@@ -45,7 +45,7 @@
  * @since 0.1
  */
 module rxmicro.files {
-    requires transitive rxmicro.json;
+    requires transitive rxmicro.common;
 
     exports io.rxmicro.files;
 }

@@ -21,33 +21,37 @@
  * @since 0.1
  */
 module rxmicro.annotation.processor.rest {
-    requires transitive rxmicro.annotation.processor.common;
     requires transitive rxmicro.rest;
     requires transitive rxmicro.exchange.json;
 
+    requires transitive rxmicro.annotation.processor.common;
+
     exports io.rxmicro.annotation.processor.rest to
+            rxmicro.annotation.processor.rest.client,
             rxmicro.annotation.processor.rest.server,
-            rxmicro.annotation.processor.rest.client, rxmicro.annotation.processor.documentation.asciidoctor;
+            rxmicro.annotation.processor.documentation.asciidoctor;
     exports io.rxmicro.annotation.processor.rest.model to
             freemarker,
-            rxmicro.annotation.processor.rest.server,
             rxmicro.annotation.processor.rest.client,
+            rxmicro.annotation.processor.rest.server,
             rxmicro.annotation.processor.documentation,
             rxmicro.annotation.processor.documentation.asciidoctor;
     exports io.rxmicro.annotation.processor.rest.model.converter to
             freemarker,
-            rxmicro.annotation.processor.rest.server,
-            rxmicro.annotation.processor.rest.client;
+            rxmicro.annotation.processor.rest.client,
+            rxmicro.annotation.processor.rest.server;
     exports io.rxmicro.annotation.processor.rest.model.validator to
             freemarker,
-            rxmicro.annotation.processor.rest.server,
-            rxmicro.annotation.processor.rest.client;
+            rxmicro.annotation.processor.rest.client,
+            rxmicro.annotation.processor.rest.server;
     exports io.rxmicro.annotation.processor.rest.component to
+            rxmicro.annotation.processor.rest.client,
             rxmicro.annotation.processor.rest.server,
-            rxmicro.annotation.processor.rest.client, rxmicro.annotation.processor.documentation, rxmicro.annotation.processor.documentation.asciidoctor;
+            rxmicro.annotation.processor.documentation,
+            rxmicro.annotation.processor.documentation.asciidoctor;
     exports io.rxmicro.annotation.processor.rest.component.impl to
-            rxmicro.annotation.processor.rest.server,
-            rxmicro.annotation.processor.rest.client;
+            rxmicro.annotation.processor.rest.client,
+            rxmicro.annotation.processor.rest.server;
 
     opens io.rxmicro.annotation.processor.rest.component to
             com.google.guice;

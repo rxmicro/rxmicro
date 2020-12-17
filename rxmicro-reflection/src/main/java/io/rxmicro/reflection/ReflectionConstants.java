@@ -14,21 +14,21 @@
  * limitations under the License.
  */
 
-package io.rxmicro.config;
+package io.rxmicro.reflection;
 
 /**
- * The common constants for the {@code rxmicro.config} module.
+ * The constants for the {@code rxmicro.reflection} module.
  *
  * @author nedis
- * @since 0.7
+ * @since 0.7.4
  */
-public final class ConfigConstants {
+public final class ReflectionConstants {
 
     /**
-     * The reference to the {@link Module} instance of the {@code rxmicro.config} module.
+     * The reference to the {@link Module} object of the {@code rxmicro.reflection} module.
      */
-    public static final Module RX_MICRO_CONFIG_MODULE = ConfigConstants.class.getModule();
+    public static final Module RX_MICRO_REFLECTION_MODULE = ReflectionConstants.class.getModule();
 
-    private ConfigConstants() {
+    private ReflectionConstants() {
     }
 }

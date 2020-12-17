@@ -16,7 +16,7 @@
 
 package io.rxmicro.test.mockito.junit.internal;
 
-import io.rxmicro.common.util.Reflections;
+import io.rxmicro.reflection.Reflections;
 import io.rxmicro.test.junit.RxMicroIntegrationTest;
 import io.rxmicro.test.local.InvalidTestConfigException;
 import io.rxmicro.test.local.model.TestModel;
@@ -48,7 +48,7 @@ final class MockitoRxMicroTestExtensionTest {
 
     @Test
     @Order(1)
-    void Should_throw_InvalidTestConfigException_if_InitMocks_annotation_not_found(){
+    void Should_throw_InvalidTestConfigException_if_InitMocks_annotation_not_found() {
         final TestModel.Builder builder = new TestModel.Builder(TestClass1.class);
         builder.addBeanComponent(Reflections.getDeclaredField(TestClass1.class, "bean"));
 
@@ -63,7 +63,7 @@ final class MockitoRxMicroTestExtensionTest {
 
     @Test
     @Order(2)
-    void Should_throw_InvalidTestConfigException_if_InitMocks_after_RxMicroIntegrationTest(){
+    void Should_throw_InvalidTestConfigException_if_InitMocks_after_RxMicroIntegrationTest() {
         final TestModel.Builder builder = new TestModel.Builder(TestClass2.class);
         builder.addBeanComponent(Reflections.getDeclaredField(TestClass2.class, "bean"));
 
@@ -78,7 +78,7 @@ final class MockitoRxMicroTestExtensionTest {
 
     @Test
     @Order(3)
-    void Should_throw_InvalidTestConfigException_if_ExtendWith_used_instead_of_InitMocks(){
+    void Should_throw_InvalidTestConfigException_if_ExtendWith_used_instead_of_InitMocks() {
         final TestModel.Builder builder = new TestModel.Builder(TestClass3.class);
         builder.addBeanComponent(Reflections.getDeclaredField(TestClass3.class, "bean"));
 

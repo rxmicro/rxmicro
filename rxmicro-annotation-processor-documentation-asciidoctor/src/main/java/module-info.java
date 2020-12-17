@@ -26,10 +26,12 @@ import io.rxmicro.annotation.processor.rest.server.component.AbstractDocumentati
  * @since 0.1
  */
 module rxmicro.annotation.processor.documentation.asciidoctor {
-    requires transitive rxmicro.annotation.processor.documentation;
-    requires transitive rxmicro.documentation.asciidoctor;
     requires transitive rxmicro.files;
+    requires transitive rxmicro.documentation.asciidoctor;
+
     requires jdk.compiler;
+
+    requires transitive rxmicro.annotation.processor.documentation;
 
     exports io.rxmicro.annotation.processor.documentation.asciidoctor.model to
             freemarker;

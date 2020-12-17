@@ -16,9 +16,9 @@
 
 package io.rxmicro.logger.internal;
 
-import io.rxmicro.common.util.Reflections;
 import io.rxmicro.logger.impl.LoggerImplProvider;
 import io.rxmicro.logger.internal.jul.JULLoggerImplProvider;
+import io.rxmicro.reflection.Reflections;
 
 /**
  * @author nedis

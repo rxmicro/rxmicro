@@ -16,7 +16,7 @@
 
 package io.rxmicro.examples.rest.controller.extendable.model.response.headers_only.all_models_contain_fields.grand;
 
-import io.rxmicro.common.model.BaseModel;
+import io.rxmicro.model.BaseModel;
 import io.rxmicro.rest.Header;
 
 public class GrandParent extends BaseModel {
