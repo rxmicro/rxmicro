@@ -24,7 +24,7 @@ import java.util.concurrent.CompletableFuture;
 public class MicroService {
 
     @POST("/")
-    CompletableFuture<Model> process(final Model model){
+    CompletableFuture<Model> process(final Model model) {
         return CompletableFuture.completedFuture(model);
     }
 }

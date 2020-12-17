@@ -20,8 +20,6 @@ import io.rxmicro.data.Column;
 import io.rxmicro.data.ColumnMappingStrategy;
 import io.rxmicro.data.sql.Table;
 
-import java.math.BigDecimal;
-
 @Table
 @ColumnMappingStrategy
 public class AccountResult {

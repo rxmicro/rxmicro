@@ -17,13 +17,11 @@
 package io.rxmicro.examples.rest.controller.model.field.access.params.reflection;
 
 import io.rxmicro.examples.rest.controller.model.field.access.Status;
-import io.rxmicro.examples.rest.controller.model.field.access.params.reflection.nested.Nested;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.Instant;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 public class QueryRequest {
@@ -62,7 +60,7 @@ public class QueryRequest {
 
     private List<Integer> intParameterList;
 
-    private  List<Long> longParameterList;
+    private List<Long> longParameterList;
 
     private List<BigInteger> bigIntParameterList;
 

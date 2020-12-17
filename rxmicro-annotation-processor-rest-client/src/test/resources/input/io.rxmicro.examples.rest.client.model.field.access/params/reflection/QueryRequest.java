@@ -61,7 +61,7 @@ public class QueryRequest {
 
     private List<Integer> intParameterList;
 
-    private  List<Long> longParameterList;
+    private List<Long> longParameterList;
 
     private List<BigInteger> bigIntParameterList;
 

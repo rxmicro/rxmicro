@@ -23,12 +23,12 @@ import io.rxmicro.rest.method.POST;
 public class MicroService {
 
     @POST("/consume1")
-    void consume1(final ObjectRequest request){
+    void consume1(final ObjectRequest request) {
 
     }
 
     @POST("/consume2")
-    void consume2(final ArrayRequest request){
+    void consume2(final ArrayRequest request) {
 
     }
 }

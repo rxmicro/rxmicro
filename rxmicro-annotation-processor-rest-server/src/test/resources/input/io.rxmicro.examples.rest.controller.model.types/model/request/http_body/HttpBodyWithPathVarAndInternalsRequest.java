@@ -23,7 +23,6 @@ import io.rxmicro.http.HttpVersion;
 import io.rxmicro.rest.PathVariable;
 import io.rxmicro.rest.RemoteAddress;
 import io.rxmicro.rest.RequestBody;
-import io.rxmicro.rest.RequestId;
 import io.rxmicro.rest.RequestMethod;
 import io.rxmicro.rest.RequestUrlPath;
 import io.rxmicro.rest.server.detail.model.HttpRequest;

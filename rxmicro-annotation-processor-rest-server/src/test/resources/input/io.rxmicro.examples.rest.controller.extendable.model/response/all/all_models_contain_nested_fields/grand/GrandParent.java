@@ -16,8 +16,8 @@
 
 package io.rxmicro.examples.rest.controller.extendable.model.response.all.all_models_contain_nested_fields.grand;
 
-import io.rxmicro.model.BaseModel;
 import io.rxmicro.examples.rest.controller.extendable.model.response.all.all_models_contain_nested_fields.grand.nested.Nested;
+import io.rxmicro.model.BaseModel;
 import io.rxmicro.rest.Header;
 
 public class GrandParent extends BaseModel {

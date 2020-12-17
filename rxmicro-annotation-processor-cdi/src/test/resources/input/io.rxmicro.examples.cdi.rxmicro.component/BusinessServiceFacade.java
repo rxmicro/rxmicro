@@ -17,7 +17,6 @@
 package io.rxmicro.examples.cdi.rxmicro.component;
 
 import io.rxmicro.cdi.Inject;
-import io.rxmicro.http.client.HttpClientConfig;
 import io.rxmicro.rest.client.RestClientConfig;
 
 // tag::content[]

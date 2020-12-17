@@ -20,7 +20,6 @@ import io.rxmicro.examples.rest.client.model.types.model.Status;
 import io.rxmicro.http.HttpHeaders;
 import io.rxmicro.http.HttpVersion;
 import io.rxmicro.rest.Header;
-import io.rxmicro.rest.RepeatHeader;
 import io.rxmicro.rest.ResponseBody;
 import io.rxmicro.rest.ResponseStatusCode;
 

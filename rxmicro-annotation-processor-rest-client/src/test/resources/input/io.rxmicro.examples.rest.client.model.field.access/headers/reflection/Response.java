@@ -18,7 +18,6 @@ package io.rxmicro.examples.rest.client.model.field.access.headers.reflection;
 
 import io.rxmicro.examples.rest.client.model.field.access.Status;
 import io.rxmicro.rest.Header;
-import io.rxmicro.rest.RepeatHeader;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
