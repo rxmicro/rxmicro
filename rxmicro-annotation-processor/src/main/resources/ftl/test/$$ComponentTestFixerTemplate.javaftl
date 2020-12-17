@@ -10,7 +10,7 @@ public final class ${JAVA_CLASS_NAME} {
     public ${JAVA_CLASS_NAME}() {
         final Module currentModule = getClass().getModule();
         if (currentModule.isNamed()) {
-            logInfoTestMessage("Fix the environment for componnet test(s)...");
+            logInfoTestMessage("Fix the environment for component test(s)...");
             final Module unnamedModule = getClass().getClassLoader().getUnnamedModule();
             final Set<Module> modules = unmodifiableOrderedSet(unnamedModule, RX_MICRO_REFLECTION_MODULE);
             for (final Module module : modules) {
