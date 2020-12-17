@@ -51,7 +51,6 @@ public final class UnNamedModuleFixers {
     }
 
     private static void testFix(final String testFixSimpleClassName) {
-        commonFix();
         try {
             instantiate(format("?.?", ENTRY_POINT_PACKAGE, testFixSimpleClassName));
         } catch (final CheckedWrapperException ex) {
@@ -59,6 +58,7 @@ public final class UnNamedModuleFixers {
                 LOGGER.error(ex, "Can't instantiate a `?.?` class: ?", ENTRY_POINT_PACKAGE, testFixSimpleClassName, ex.getMessage());
             }
         }
+        commonFix();
     }
 
     private static void commonFix() {
