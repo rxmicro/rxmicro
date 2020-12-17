@@ -72,6 +72,9 @@ import static io.rxmicro.common.util.Exceptions.reThrow;
  * @see SupportedOptions#RX_MICRO_BUILD_UNNAMED_MODULE
  * @see SupportedOptions#RX_MICRO_STRICT_MODE
  * @see SupportedOptions#ALL_SUPPORTED_OPTIONS
+ * @see <a href="https://docs.rxmicro.io/latest/user-guide/core.html#core-how-it-works-section">
+ *     Documentation -&gt; Core -&gt; How It Works
+ * </a>
  * @since 0.1
  */
 public final class RxMicroAnnotationProcessor extends BaseRxMicroAnnotationProcessor {
