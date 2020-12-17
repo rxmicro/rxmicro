@@ -25,6 +25,7 @@ import io.rxmicro.test.local.component.injector.InjectorFactory;
 import io.rxmicro.test.local.component.injector.SystemStreamInjector;
 import io.rxmicro.test.local.component.validator.IntegrationTestValidator;
 import io.rxmicro.test.local.model.TestModel;
+import org.junit.jupiter.api.extension.AfterAllCallback;
 import org.junit.jupiter.api.extension.AfterEachCallback;
 import org.junit.jupiter.api.extension.BeforeAllCallback;
 import org.junit.jupiter.api.extension.BeforeEachCallback;
@@ -32,6 +33,10 @@ import org.junit.jupiter.api.extension.ExtensionContext;
 
 import java.util.List;
 
+import static io.rxmicro.config.local.DefaultConfigValueBuilderReSetter.resetDefaultConfigValueStorage;
+import static io.rxmicro.rest.server.netty.local.NettyConfiguratorControllerResetter.resetNettyConfiguratorController;
+import static io.rxmicro.runtime.local.AbstractFactory.clearFactories;
+import static io.rxmicro.runtime.local.InstanceContainer.clearContainer;
 import static io.rxmicro.test.junit.local.TestObjects.getOwnerTestClass;
 import static io.rxmicro.test.junit.local.TestObjects.getTestInstances;
 import static io.rxmicro.test.local.UnNamedModuleFixers.integrationTestsFix;
@@ -44,7 +49,7 @@ import static io.rxmicro.test.local.util.Annotations.getRequiredAnnotation;
  * @link https://junit.org/junit5/docs/current/user-guide/#extensions-execution-order-overview
  */
 public final class RxMicroIntegrationTestExtension extends AbstractJUnitTestExtension
-        implements BeforeAllCallback, BeforeEachCallback, AfterEachCallback {
+        implements BeforeAllCallback, BeforeEachCallback, AfterEachCallback, AfterAllCallback {
 
     static {
         integrationTestsFix();
@@ -86,5 +91,13 @@ public final class RxMicroIntegrationTestExtension extends AbstractJUnitTestExte
     @Override
     public void afterEach(final ExtensionContext context) {
         systemStreamInjector.resetIfNecessary();
+    }
+
+    @Override
+    public void afterAll(final ExtensionContext context) {
+        clearContainer();
+        clearFactories();
+        resetDefaultConfigValueStorage();
+        resetNettyConfiguratorController();
     }
 }
