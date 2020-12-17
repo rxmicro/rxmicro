@@ -14,6 +14,7 @@ This document contains the *change log* for all RxMicro releases since **0.2**.
 * Update `DeniedPackageConstants`.
 * Refactor `PatternFormatter`: 
   if provided `pattern` invalid, the `PatternFormatter` will use default pattern instead of throwing an exception.
+* Introduce `rxmicro.reflection` module
 
 ## RxMicro v0.7.3
 
