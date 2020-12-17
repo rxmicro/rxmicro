@@ -23,11 +23,10 @@ import io.rxmicro.annotation.processor.common.model.AnnotationProcessorType;
 import io.rxmicro.annotation.processor.common.model.ClassHeader;
 import io.rxmicro.annotation.processor.common.model.ClassStructure;
 import io.rxmicro.annotation.processor.common.model.EnvironmentContext;
-import io.rxmicro.common.CommonConstants;
 import io.rxmicro.common.util.ExCollections;
 import io.rxmicro.common.util.Formats;
 import io.rxmicro.common.util.TestLoggers;
-import io.rxmicro.runtime.RuntimeConstants;
+import io.rxmicro.reflection.ReflectionConstants;
 
 import java.util.Map;
 import java.util.Set;
@@ -50,7 +49,61 @@ import static io.rxmicro.tool.common.TestFixers.REST_BASED_MICRO_SERVICE_TEST_FI
  * <p>
  * The RxMicro framework uses the {@link javax.annotation.processing.Processor}, which generates standard code using RxMicro annotations.
  *
+ * <p>
+ * <strong>How it works?</strong>
+ *
+ * <p>
+ * Java 9 has introduced the <a href="https://www.oracle.com/corporate/features/understanding-java-9-modules.html">JPMS</a>.
+ *
+ * <p>
+ * This system requires that a developer defines the {@code module-info.java} descriptor for each project.
+ * In this descriptor, the developer must describe all the dependencies of the current project.
+ * In the context of the unit module system, the tests required for each project should be configured as a separate module,
+ * since they depend on libraries that should not be available in the runtime.
+ * Usually such libraries are unit testing libraries (e.g. <a href="https://junit.org/junit5/">JUnit 5</a>),
+ * mock creation libraries (e.g. <a href="https://site.mockito.org/">Mockito</a>), etc.
+ *
+ * <p>
+ * When trying to create a separate {@code module-info.java} descriptor available only for unit tests, many modern IDEs report an error.
+ *
+ * <p>
+ * <strong>Therefore, the simplest and most common solution to this problem is to organize unit tests in the form of automatic module.
+ * This solution allows You to correct compilation errors, but when starting tests, there will be runtime errors.
+ * To fix runtime errors, when starting the Java virtual machine, You must add options that configure the Java module system at runtime.
+ * </strong>
+ *
+ * <p>
+ * In case the tests are run, these options must be added to the {@code maven-surefire-plugin}:
+ * <pre>
+ * {@code
+ * <plugin>
+ *     <artifactId>maven-surefire-plugin</artifactId>
+ *     <version>2.22.1</version>
+ *     <configuration>
+ *         <argLine>
+ *             --add-exports ...
+ *             --add-opens ...
+ *             --patch-module ...
+ *             --add-modules ...
+ *             --add-reads ...
+ *         </argLine>
+ *     </configuration>
+ * </plugin>
+ * }</pre>
+ *
+ * <p>
+ * The specified configuration options for the Java module system at runtime
+ * can also be added using the features of the {@link Module} class.
+ *
+ * <p>
+ * In order the developer is relieved of the need to add the necessary options to the {@code maven-surefire-plugin} configuration,
+ * the RxMicro framework provides a special {@link RxMicroTestsAnnotationProcessor} component that generates {@code ?TestFixer} classes
+ * with all required exports.
+ *
  * @author nedis
+ * @see <a href="https://docs.rxmicro.io/latest/user-guide/testing.html#testing-how-it-works-section">
+ *     Documentation -&gt; Testing -&gt; How It Works
+ * </a>
  * @since 0.1
  */
 public final class RxMicroTestsAnnotationProcessor extends BaseRxMicroAnnotationProcessor {
@@ -145,7 +198,7 @@ public final class RxMicroTestsAnnotationProcessor extends BaseRxMicroAnnotation
             return builder
                     .addImports(Set.class)
                     .addStaticImport(Formats.class, "format")
-                    .addStaticImport(CommonConstants.class, "RX_MICRO_COMMON_MODULE")
+                    .addStaticImport(ReflectionConstants.class, "RX_MICRO_REFLECTION_MODULE")
                     .addStaticImport(TestLoggers.class, "logInfoTestMessage")
                     .addStaticImport(ExCollections.class, "unmodifiableOrderedSet")
                     .build();
@@ -170,11 +223,6 @@ public final class RxMicroTestsAnnotationProcessor extends BaseRxMicroAnnotation
         @Override
         public String getTemplateName() {
             return "test/$$ComponentTestFixerTemplate.javaftl";
-        }
-
-        @Override
-        protected void customizeClassHeader(final ClassHeader.Builder builder) {
-            builder.addStaticImport(RuntimeConstants.class, "RX_MICRO_RUNTIME_MODULE");
         }
     }
 
