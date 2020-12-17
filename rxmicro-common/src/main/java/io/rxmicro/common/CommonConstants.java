@@ -36,6 +36,11 @@ public final class CommonConstants {
     public static final String RX_MICRO_FRAMEWORK_NAME = "RxMicro";
 
     /**
+     * The {@value #RX_MICRO_HOME_VARIABLE_NAME} environment variable.
+     */
+    public static final String RX_MICRO_HOME_VARIABLE_NAME = "RX_MICRO_HOME";
+
+    /**
      * Nanos in 1 millis.
      */
     public static final int NANOS_IN_1_MILLIS = 1_000_000;

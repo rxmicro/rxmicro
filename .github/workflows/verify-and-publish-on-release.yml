@@ -105,7 +105,9 @@ jobs:
           java-version: ${{ matrix.jdk }}
 
       - name: Run all tests
-        run: mvn --fail-at-end verify
+        run: |
+          export RX_MICRO_HOME=$(pwd)
+          mvn --fail-at-end verify
   # -----------------------------------------------------------------------------------------------------
   # ------------- Install the latest version of the RxMicro framework to m2 local cache -----------------
   # -----------------------------------------------------------------------------------------------------

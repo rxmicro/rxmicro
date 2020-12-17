@@ -28,15 +28,24 @@ import java.util.Optional;
 public enum RxMicroModule {
 
     /**
-     * The module that is an implementation of the <a href="https://en.wikipedia.org/wiki/Dependency_injection">Dependency Injection</a>
-     * design pattern, that is integrated to the RxMicro framework.
-     */
-    RX_MICRO_CDI_MODULE("rxmicro.cdi"),
-
-    /**
      * The common module with base models and useful utils.
      */
     RX_MICRO_COMMON_MODULE("rxmicro.common"),
+
+    /**
+     * The module with reflection utils that used by other {@code rxmicro} modules.
+     */
+    RX_MICRO_REFLECTION_MODULE("rxmicro.reflection"),
+
+    /**
+     * The basic module that provides the basic modelling classes and annotations.
+     */
+    RX_MICRO_MODEL_MODULE("rxmicro.model"),
+
+    /**
+     * The module that defines common runtime components.
+     */
+    RX_MICRO_RUNTIME_MODULE("rxmicro.runtime"),
 
     /**
      * The module for flexible configuration of microservice projects to any environment.
@@ -52,6 +61,22 @@ public enum RxMicroModule {
      * </ul>
      */
     RX_MICRO_CONFIG_MODULE("rxmicro.config"),
+
+    /**
+     * The module for logging important events during the work of microservices that is integrated to the RxMicro framework.
+     */
+    RX_MICRO_LOGGER_MODULE("rxmicro.logger"),
+
+    /**
+     * The module to work with file system using sync and async modes.
+     */
+    RX_MICRO_FILES_MODULE("rxmicro.files"),
+
+    /**
+     * The module that is an implementation of the <a href="https://en.wikipedia.org/wiki/Dependency_injection">Dependency Injection</a>
+     * design pattern, that is integrated to the RxMicro framework.
+     */
+    RX_MICRO_CDI_MODULE("rxmicro.cdi"),
 
     /**
      * The basic module to work with dynamic repositories for interaction with SQL and NoSQL databases.
@@ -98,16 +123,6 @@ public enum RxMicroModule {
     RX_MICRO_DOCUMENTATION_ASCIIDOCTOR_MODULE("rxmicro.documentation.asciidoctor"),
 
     /**
-     * The module for converting a Java models to JSON format and vice versa.
-     */
-    RX_MICRO_EXCHANGE_JSON_MODULE("rxmicro.exchange.json"),
-
-    /**
-     * The module to work with file system using sync and async modes.
-     */
-    RX_MICRO_FILES_MODULE("rxmicro.files"),
-
-    /**
      * The basic module to work with HTTP protocol.
      */
     RX_MICRO_HTTP_MODULE("rxmicro.http"),
@@ -127,26 +142,6 @@ public enum RxMicroModule {
     RX_MICRO_HTTP_CLIENT_JDK_MODULE("rxmicro.http.client.jdk"),
 
     /**
-     * The module for low-level and efficient work with <a href="https://json.org/">JSON</a> format.
-     */
-    RX_MICRO_JSON_MODULE("rxmicro.json"),
-
-    /**
-     * The module for logging important events during the work of microservices that is integrated to the RxMicro framework.
-     */
-    RX_MICRO_LOGGER_MODULE("rxmicro.logger"),
-
-    /**
-     * The basic module that provides the basic modelling classes and annotations.
-     */
-    RX_MICRO_MODEL_MODULE("rxmicro.model"),
-
-    /**
-     * The module for monitoring of microservices work.
-     */
-    RX_MICRO_MONITORING_MODULE("rxmicro.monitoring"),
-
-    /**
      * The basic module that defines basic RxMicro annotations, required when using the
      * <a href="https://en.wikipedia.org/wiki/Representational_state_transfer">REST architecture</a> of building program systems.
      */
@@ -156,11 +151,6 @@ public enum RxMicroModule {
      * The basic module used to create and run REST clients.
      */
     RX_MICRO_REST_CLIENT_MODULE("rxmicro.rest.client"),
-
-    /**
-     * The module for converting Java models to JSON format and vice versa for REST clients.
-     */
-    RX_MICRO_REST_CLIENT_EXCHANGE_JSON_MODULE("rxmicro.rest.client.exchange.json"),
 
     /**
      * The module that is a REST client implementation module based on
@@ -177,21 +167,44 @@ public enum RxMicroModule {
     RX_MICRO_REST_SERVER_MODULE("rxmicro.rest.server"),
 
     /**
-     * The module for converting Java models to JSON format and vice versa for REST controllers.
-     */
-    RX_MICRO_REST_SERVER_EXCHANGE_JSON_MODULE("rxmicro.rest.server.exchange.json"),
-
-    /**
      * The module that defines HTTP server implementation based on <a href="https://netty.io/">Netty</a>.
      */
     RX_MICRO_REST_SERVER_NETTY_MODULE("rxmicro.rest.server.netty"),
 
     /**
-     * The module that defines common runtime components.
+     * The module for low-level and efficient work with <a href="https://json.org/">JSON</a> format.
      */
-    RX_MICRO_RUNTIME_MODULE("rxmicro.runtime"),
+    RX_MICRO_JSON_MODULE("rxmicro.json"),
 
-    //rxmicro-slf4j-proxy is a workaround module, so it was excluded from this list
+    /**
+     * The module for converting a Java models to JSON format and vice versa.
+     */
+    RX_MICRO_EXCHANGE_JSON_MODULE("rxmicro.exchange.json"),
+
+    /**
+     * The module for converting Java models to JSON format and vice versa for REST clients.
+     */
+    RX_MICRO_REST_CLIENT_EXCHANGE_JSON_MODULE("rxmicro.rest.client.exchange.json"),
+
+    /**
+     * The module for converting Java models to JSON format and vice versa for REST controllers.
+     */
+    RX_MICRO_REST_SERVER_EXCHANGE_JSON_MODULE("rxmicro.rest.server.exchange.json"),
+
+    /**
+     * The module for monitoring of microservices work.
+     */
+    RX_MICRO_MONITORING_MODULE("rxmicro.monitoring"),
+
+    /**
+     * The basic module that contains all supported constraints and validators.
+     */
+    RX_MICRO_VALIDATION_MODULE("rxmicro.validation"),
+
+    /**
+     * The basic module that provides common tools for other modules.
+     */
+    RX_MICRO_TOOL_COMMON_MODULE("rxmicro.tool.common"),
 
     /**
      * The basic module designed for test writing using any modern testing framework.
@@ -223,17 +236,7 @@ public enum RxMicroModule {
      * The module designed for test writing using the <a href="https://junit.org/junit5/">JUnit 5</a> and
      * <a href="https://site.mockito.org/">Mockito</a> frameworks.
      */
-    RX_MICRO_TEST_MOCKITO_JUNIT_MODULE("rxmicro.test.mockito.junit"),
-
-    /**
-     * The basic module that provides common tools for other modules.
-     */
-    RX_MICRO_TOOL_COMMON_MODULE("rxmicro.tool.common"),
-
-    /**
-     * The basic module that contains all supported constraints and validators.
-     */
-    RX_MICRO_VALIDATION_MODULE("rxmicro.validation");
+    RX_MICRO_TEST_MOCKITO_JUNIT_MODULE("rxmicro.test.mockito.junit");
 
     private final String name;
 

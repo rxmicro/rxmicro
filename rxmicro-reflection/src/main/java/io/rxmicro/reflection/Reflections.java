@@ -14,9 +14,10 @@
  * limitations under the License.
  */
 
-package io.rxmicro.common.util;
+package io.rxmicro.reflection;
 
 import io.rxmicro.common.CheckedWrapperException;
+import io.rxmicro.reflection.internal.FinalFieldUpdater;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -28,7 +29,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
 
-import static io.rxmicro.common.internal.FinalFieldUpdater.setFinalFieldValue;
 import static io.rxmicro.common.util.ExCollections.unmodifiableOrderedSet;
 import static io.rxmicro.common.util.Formats.format;
 import static java.lang.reflect.Modifier.isFinal;
@@ -486,7 +486,7 @@ public final class Reflections {
                 field.setAccessible(true);
             }
             if (isFinal(field.getModifiers())) {
-                setFinalFieldValue(validInstance, field, value);
+                FinalFieldUpdater.setFinalFieldValue(validInstance, field, value);
             } else {
                 field.set(validInstance, value);
             }

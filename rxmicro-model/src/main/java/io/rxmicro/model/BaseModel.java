@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package io.rxmicro.common.model;
+package io.rxmicro.model;
 
 import io.rxmicro.common.CheckedWrapperException;
 
@@ -22,11 +22,11 @@ import java.lang.reflect.InaccessibleObjectException;
 import java.util.stream.Collectors;
 
 import static io.rxmicro.common.util.Formats.format;
-import static io.rxmicro.common.util.Reflections.allFields;
-import static io.rxmicro.common.util.Reflections.getFieldValue;
+import static io.rxmicro.reflection.Reflections.allFields;
+import static io.rxmicro.reflection.Reflections.getFieldValue;
 
 /**
- * Defines a basic model class that overrides {@link Object#toString()} method that read all model field values using reflection.
+ * Defines a basic model class that overrides {@link Object#toString()} method that reads all model field values using {@code reflection}.
  *
  * @author nedis
  * @since 0.7

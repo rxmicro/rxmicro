@@ -76,7 +76,9 @@ jobs:
           java-version: ${{ matrix.jdk }}
 
       - name: Run all tests
-        run: mvn --fail-at-end verify
+        run: |
+          export RX_MICRO_HOME=$(pwd)
+          mvn --fail-at-end verify
   # -----------------------------------------------------------------------------------------------------
   # --- Verify Code Quality via Spotbugs, PMD, Checkstyle and Javadoc Tool ------------------------------
   # ------------------ https://spotbugs.github.io/ ------------------------------------------------------
@@ -290,7 +292,9 @@ jobs:
           java-version: ${{ env.DEFAULT_JDK_LTS_VERSION }}
 
       - name: Prepare
-        run: mvn install
+        run: |
+          export RX_MICRO_HOME=$(pwd)
+          mvn install
 
       # https://github.com/actions/download-artifact/blob/main/README.md
       - name: Download all collected jacoco metadata

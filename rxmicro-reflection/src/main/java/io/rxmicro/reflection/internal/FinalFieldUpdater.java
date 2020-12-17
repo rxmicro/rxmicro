@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package io.rxmicro.common.internal;
+package io.rxmicro.reflection.internal;
 
 import io.rxmicro.common.CheckedWrapperException;
 
