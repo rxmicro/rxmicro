@@ -14,12 +14,17 @@
  * limitations under the License.
  */
 
-package io.rxmicro.rest.server;
+package io.rxmicro.http.server;
 
 import io.rxmicro.common.meta.BuilderMethod;
 import io.rxmicro.http.HttpConfig;
 import io.rxmicro.http.ProtocolSchema;
 
+import java.nio.file.Path;
+
+import static io.rxmicro.files.Paths.CURRENT_DIRECTORY;
+import static io.rxmicro.files.Paths.createPath;
+import static io.rxmicro.files.Paths.validateDirectory;
 import static io.rxmicro.http.ProtocolSchema.HTTP;
 
 /**
@@ -36,7 +41,9 @@ public class HttpServerConfig extends HttpConfig {
      */
     public static final int DEFAULT_HTTP_PORT = 8080;
 
-    private boolean startTimeTrackerEnabled = true;
+    private boolean startTimeTrackerEnabled;
+
+    private Path rootDirectory;
 
     /**
      * Creates a HTTP server config instance with default settings.
@@ -45,6 +52,8 @@ public class HttpServerConfig extends HttpConfig {
         setSchema(HTTP);
         setHost("0.0.0.0");
         setPort(DEFAULT_HTTP_PORT);
+        this.startTimeTrackerEnabled = true;
+        this.rootDirectory = createPath(CURRENT_DIRECTORY);
     }
 
     /**
@@ -68,6 +77,39 @@ public class HttpServerConfig extends HttpConfig {
     @BuilderMethod
     public HttpServerConfig setStartTimeTrackerEnabled(final boolean startTimeTrackerEnabled) {
         this.startTimeTrackerEnabled = startTimeTrackerEnabled;
+        return this;
+    }
+
+    public Path getRootDirectory() {
+        return rootDirectory;
+    }
+
+    /**
+     *
+     *
+     * @param rootDirectoryPath the provided root directory path
+     * @return the reference to this {@link HttpServerConfig} instance
+     * @throws io.rxmicro.files.ResourceException if the provided path is not directory or not found
+     */
+    @BuilderMethod
+    public HttpServerConfig setRootDirectory(final String rootDirectoryPath) {
+        final Path path = createPath(rootDirectoryPath);
+        validateDirectory(path);
+        this.rootDirectory = path;
+        return this;
+    }
+
+    /**
+     *
+     *
+     * @param rootDirectoryPath the provided root directory path
+     * @return the reference to this {@link HttpServerConfig} instance
+     * @throws io.rxmicro.files.ResourceException if the provided path is not directory or not found
+     */
+    @BuilderMethod
+    public HttpServerConfig setRootDirectory(final Path rootDirectoryPath) {
+        validateDirectory(rootDirectoryPath);
+        this.rootDirectory = rootDirectoryPath;
         return this;
     }
 

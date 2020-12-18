@@ -14,25 +14,10 @@
  * limitations under the License.
  */
 
-package io.rxmicro.test.local.component;
-
-import io.rxmicro.config.Config;
-import io.rxmicro.http.server.HttpServerConfig;
-
-import java.util.Collection;
-
 /**
+ * The root package for the {@code rxmicro.http.server} module.
+ *
  * @author nedis
- * @since 0.1
+ * @since 0.8
  */
-public final class ServerPortHelper {
-
-    public int getServerPort(final Collection<Config> configs) {
-        for (final Config config : configs) {
-            if (config instanceof HttpServerConfig) {
-                return ((HttpServerConfig) config).getPort();
-            }
-        }
-        throw new UnsupportedOperationException("Impossible exception: HttpServerConfig always found");
-    }
-}
+package io.rxmicro.http.server;

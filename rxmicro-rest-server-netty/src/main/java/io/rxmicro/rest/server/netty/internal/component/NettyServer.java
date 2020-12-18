@@ -22,9 +22,9 @@ import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.socket.ServerSocketChannel;
 import io.netty.util.concurrent.Future;
+import io.rxmicro.http.server.HttpServerConfig;
 import io.rxmicro.logger.Logger;
 import io.rxmicro.logger.LoggerFactory;
-import io.rxmicro.rest.server.HttpServerConfig;
 import io.rxmicro.rest.server.netty.NettyRestServerConfig;
 
 import java.util.concurrent.CountDownLatch;

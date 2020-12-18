@@ -14,20 +14,14 @@
  * limitations under the License.
  */
 
-import io.rxmicro.common.model.UnNamedModuleFixer;
-import io.rxmicro.rest.server.detail.component.HttpResponseBuilder;
-import io.rxmicro.rest.server.local.component.HttpErrorResponseBodyBuilder;
-import io.rxmicro.rest.server.local.component.ServerFactory;
-import io.rxmicro.rest.server.local.test.ServerUnNamedModuleFixer;
-
 /**
- * The basic HTTP server module used to create REST controllers and run REST-based microservices.
+ * The module that provides settings for HTTP server.
  *
  * <p>
  * This module follows the next package structure rules:
  * <ul>
  *     <li>
- *         {@code io.rxmicro.rest.server} - is root module package that contains:
+ *         {@code io.rxmicro.http.client} - is root module package that contains:
  *         <ul>
  *             <li>
  *                 {@code internal} - is sub package with classes for current module use only.
@@ -48,36 +42,12 @@ import io.rxmicro.rest.server.local.test.ServerUnNamedModuleFixer;
  * </ul>
  *
  * @author nedis
- * @since 0.1
+ * @since 0.8
  */
-module rxmicro.rest.server {
-    requires transitive rxmicro.http.server;
-    requires transitive rxmicro.rest;
-    requires transitive rxmicro.logger;
-    requires transitive rxmicro.config;
+module rxmicro.http.server {
+    requires transitive rxmicro.common;
+    requires transitive rxmicro.http;
+    requires rxmicro.files;
 
-    exports io.rxmicro.rest.server;
-    exports io.rxmicro.rest.server.feature;
-    exports io.rxmicro.rest.server.feature.request.id.generator;
-
-    exports io.rxmicro.rest.server.detail.model;
-    exports io.rxmicro.rest.server.detail.model.mapping;
-    exports io.rxmicro.rest.server.detail.component;
-
-    exports io.rxmicro.rest.server.local.component to
-            rxmicro.rest.server.netty,
-            rxmicro.rest.server.exchange.json,
-            rxmicro.validation,
-            rxmicro.test,
-            rxmicro.test.junit,
-            rxmicro.annotation.processor.rest.server;
-    exports io.rxmicro.rest.server.local.model to
-            rxmicro.test,
-            rxmicro.test.junit;
-
-    uses HttpResponseBuilder;
-    uses ServerFactory;
-    uses HttpErrorResponseBodyBuilder;
-
-    provides UnNamedModuleFixer with ServerUnNamedModuleFixer;
+    exports io.rxmicro.http.server;
 }

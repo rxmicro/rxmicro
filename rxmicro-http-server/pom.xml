@@ -6,7 +6,7 @@
   ~ you may not use this file except in compliance with the License.
   ~ You may obtain a copy of the License at
   ~
-  ~ http://www.apache.org/licenses/LICENSE-2.0
+  ~     http://www.apache.org/licenses/LICENSE-2.0
   ~
   ~ Unless required by applicable law or agreed to in writing, software
   ~ distributed under the License is distributed on an "AS IS" BASIS,
@@ -14,8 +14,9 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   -->
-<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xmlns="http://maven.apache.org/POM/4.0.0"
+
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>rxmicro</artifactId>
@@ -23,10 +24,10 @@
         <version>0.8-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>rxmicro-rest-server</artifactId>
+    <artifactId>rxmicro-http-server</artifactId>
 
     <description>
-        The basic HTTP server module used to create REST controllers and run REST-based microservices.
+        The module that provides settings for HTTP server.
     </description>
 
     <build>
@@ -36,13 +37,6 @@
                 <configuration>
                     <argLine>
                         @{argLine}
-                        --add-opens java.base/java.lang=rxmicro.reflection
-                        --add-opens java.base/java.lang.reflect=rxmicro.reflection
-                        --add-opens rxmicro.rest.server/io.rxmicro.rest.server.detail.component=ALL-UNNAMED
-                        --add-opens rxmicro.rest.server/io.rxmicro.rest.server.internal=ALL-UNNAMED
-                        --add-opens rxmicro.rest.server/io.rxmicro.rest.server.internal.component.impl=ALL-UNNAMED
-                        --add-opens rxmicro.rest.server/io.rxmicro.rest.server.internal.component.impl.error=ALL-UNNAMED
-                        --add-opens rxmicro.rest.server/io.rxmicro.rest.server.feature.request.id.generator=ALL-UNNAMED
                     </argLine>
                 </configuration>
             </plugin>
@@ -52,30 +46,18 @@
     <dependencies>
         <dependency>
             <groupId>io.rxmicro</groupId>
-            <artifactId>rxmicro-http-server</artifactId>
+            <artifactId>rxmicro-common</artifactId>
             <version>0.8-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>io.rxmicro</groupId>
-            <artifactId>rxmicro-rest</artifactId>
+            <artifactId>rxmicro-files</artifactId>
             <version>0.8-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>io.rxmicro</groupId>
-            <artifactId>rxmicro-logger</artifactId>
+            <artifactId>rxmicro-http</artifactId>
             <version>0.8-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>io.rxmicro</groupId>
-            <artifactId>rxmicro-config</artifactId>
-            <version>0.8-SNAPSHOT</version>
-        </dependency>
-
-        <dependency>
-            <groupId>io.rxmicro</groupId>
-            <artifactId>rxmicro-tool-common</artifactId>
-            <version>0.8-SNAPSHOT</version>
-            <scope>test</scope>
         </dependency>
     </dependencies>
 </project>
