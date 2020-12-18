@@ -16,6 +16,8 @@
 
 package io.rxmicro.rest.server.netty.internal.component;
 
+import io.netty.util.internal.logging.InternalLoggerFactory;
+import io.netty.util.internal.logging.JdkLoggerFactory;
 import io.rxmicro.config.ConfigException;
 import io.rxmicro.logger.Logger;
 import io.rxmicro.logger.LoggerFactory;
@@ -58,6 +60,7 @@ public final class NettyServerFactory implements ServerFactory {
     @Override
     public ServerInstance startNewServer(final RequestHandler requestHandler) {
         try {
+            initNettyFactories();
             final HttpServerConfig httpServerConfig = getConfig(HttpServerConfig.class);
             final RestServerConfig restServerConfig = getConfig(RestServerConfig.class);
             final RequestIdGenerator requestIdGenerator = restServerConfig.getRequestIdGenerator();
@@ -74,6 +77,10 @@ public final class NettyServerFactory implements ServerFactory {
         } catch (final ClassNotFoundException ex) {
             throw new ConfigException("Required class not found: " + ex.getMessage());
         }
+    }
+
+    private void initNettyFactories() {
+        InternalLoggerFactory.setDefaultFactory(JdkLoggerFactory.INSTANCE);
     }
 
     private ServerInstance start(final HttpServerConfig httpServerConfig,
