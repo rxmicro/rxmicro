@@ -54,7 +54,7 @@ public final class RequestIdGeneratorProviderHelper {
                 return preferredRequestIdGenerator;
             });
             return future.get(restServerConfig.getWaitingForRequestIdGeneratorInitTimeoutInMillis(), MILLISECONDS);
-        } catch (final InterruptedException | ExecutionException | TimeoutException | CancellationException ignore) {
+        } catch (final InterruptedException | ExecutionException | TimeoutException | CancellationException exception) {
             if (fallbackRequestIdGeneratorSupplier != null) {
                 final RequestIdGenerator fallbackRequestIdGenerator = fallbackRequestIdGeneratorSupplier.get();
                 logger.warn(
@@ -64,7 +64,7 @@ public final class RequestIdGeneratorProviderHelper {
                 );
                 return fallbackRequestIdGenerator;
             } else {
-                throw new RequestIdGeneratorProvider.CurrentRequestIdGeneratorCantBeUsedException(preferredRequestIdGenerator);
+                throw new RequestIdGeneratorProvider.CurrentRequestIdGeneratorCantBeUsedException(exception, preferredRequestIdGenerator);
             }
         } finally {
             executorService.shutdownNow();

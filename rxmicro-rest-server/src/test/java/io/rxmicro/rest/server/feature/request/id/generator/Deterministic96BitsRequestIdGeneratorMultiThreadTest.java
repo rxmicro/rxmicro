@@ -44,7 +44,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 final class Deterministic96BitsRequestIdGeneratorMultiThreadTest {
 
-    private static final int THREAD_COUNT = 1;
+    private static final int THREAD_COUNT = 10;
 
     private static final int REQUEST_ID_COUNT = 10_000;
 
