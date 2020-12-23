@@ -22,8 +22,11 @@ import io.rxmicro.http.client.HttpClientConfig;
 import io.rxmicro.http.client.HttpClientContentConverter;
 import io.rxmicro.http.client.HttpClientFactory;
 
+import java.util.Optional;
 import java.util.ServiceLoader;
+import java.util.function.Function;
 
+import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.runtime.local.Implementations.getImplementation;
 
 /**
@@ -37,7 +40,8 @@ public final class HttpClientBuilder {
         final HttpClientFactory httpClientFactory =
                 getImplementation(HttpClientFactory.class, true, ServiceLoader::load);
         final HttpClientContentConverter converter =
-                getImplementation(HttpClientContentConverter.class, true, ServiceLoader::load);
+                Optional.ofNullable(getImplementation(HttpClientContentConverter.class, false, ServiceLoader::load))
+                        .orElseGet(DefaultHttpClientContentConverter::new);
         return httpClientFactory.create(loggerClass, httpClientConfig, DisabledSecretsImpl.INSTANCE, converter);
     }
 
@@ -57,6 +61,41 @@ public final class HttpClientBuilder {
         @Override
         public String hideAllSecretsIn(final String message) {
             return message;
+        }
+    }
+
+    /**
+     * @author nedis
+     * @since 0.8
+     */
+    private static final class DefaultHttpClientContentConverter implements HttpClientContentConverter {
+
+        @Override
+        public Function<Object, byte[]> getRequestContentConverter() {
+            return o -> {
+                if (o == null) {
+                    return new byte[0];
+                } else if (o instanceof byte[]) {
+                    return (byte[]) o;
+                } else {
+                    throw new UnsupportedOperationException(format("Can't convert ? to byte array", o.getClass().getName()));
+                }
+            };
+        }
+
+        @Override
+        public Function<byte[], Object> getResponseContentConverter() {
+            return bytes -> bytes;
+        }
+
+        /**
+         * RFC 2046 states in section 4.5.1:
+         *
+         * The "octet-stream" subtype is used to indicate that a body contains arbitrary binary data.
+         */
+        @Override
+        public String getContentType() {
+            return "application/octet-stream";
         }
     }
 }
