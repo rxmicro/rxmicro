@@ -27,9 +27,11 @@ import io.rxmicro.rest.server.detail.component.BadHttpRequestRestController;
 import io.rxmicro.rest.server.detail.component.CrossOriginResourceSharingPreflightRestController;
 import io.rxmicro.rest.server.detail.component.HttpHealthCheckRestController;
 import io.rxmicro.rest.server.detail.component.RestControllerAggregator;
+import io.rxmicro.rest.server.detail.component.StaticResourceRestController;
 import io.rxmicro.rest.server.detail.model.CrossOriginResourceSharingResource;
 import io.rxmicro.rest.server.detail.model.HttpHealthCheckRegistration;
 import io.rxmicro.rest.server.detail.model.mapping.ExactUrlRequestMappingRule;
+import io.rxmicro.rest.server.detail.model.mapping.resource.UrlPathMatchTemplate;
 
 import java.util.Collection;
 import java.util.Comparator;
@@ -45,6 +47,7 @@ import static io.rxmicro.annotation.processor.rest.server.model.RestControllerAg
 import static io.rxmicro.annotation.processor.rest.server.model.RestControllerAggregatorClassStructure.RestControllerModelType.CORS;
 import static io.rxmicro.annotation.processor.rest.server.model.RestControllerAggregatorClassStructure.RestControllerModelType.CUSTOM;
 import static io.rxmicro.annotation.processor.rest.server.model.RestControllerAggregatorClassStructure.RestControllerModelType.HEATH_CHECK;
+import static io.rxmicro.annotation.processor.rest.server.model.RestControllerAggregatorClassStructure.RestControllerModelType.STATIC_RESOURCES_STANDARD_CONTROLLER;
 import static io.rxmicro.common.util.Requires.require;
 import static io.rxmicro.rest.server.detail.component.RestControllerAggregator.REST_CONTROLLER_AGGREGATOR_IMPL_CLASS_NAME;
 import static io.rxmicro.runtime.detail.RxMicroRuntime.ENTRY_POINT_PACKAGE;
@@ -61,14 +64,18 @@ public final class RestControllerAggregatorClassStructure extends ClassStructure
 
     private final Set<HttpHealthCheck> httpHealthChecks;
 
+    private final DeclaredStaticResources declaredStaticResources;
+
     private final boolean isRestServerNetty;
 
     public RestControllerAggregatorClassStructure(final EnvironmentContext environmentContext,
                                                   final Collection<RestControllerClassStructure> classStructures,
                                                   final Set<CrossOriginResourceSharingResource> resources,
-                                                  final Set<HttpHealthCheck> httpHealthChecks) {
+                                                  final Set<HttpHealthCheck> httpHealthChecks,
+                                                  final DeclaredStaticResources declaredStaticResources) {
         this.crossOriginResourceSharingResources = require(resources);
         this.httpHealthChecks = require(httpHealthChecks);
+        this.declaredStaticResources = declaredStaticResources;
         this.classStructures = new TreeSet<>(Comparator.comparing(RestControllerClassStructure::getTargetFullClassName));
         this.classStructures.addAll(require(classStructures));
         this.isRestServerNetty = environmentContext.isRxMicroModuleEnabled(RxMicroModule.RX_MICRO_REST_SERVER_NETTY_MODULE);
@@ -104,17 +111,17 @@ public final class RestControllerAggregatorClassStructure extends ClassStructure
         map.put("IMPL_CLASS_NAME", REST_CONTROLLER_AGGREGATOR_IMPL_CLASS_NAME);
         map.put("JAVA_REST_CONTROLLER_CLASSES", restControllerModels);
         map.put("ENVIRONMENT_CUSTOMIZER_CLASS", ENVIRONMENT_CUSTOMIZER_SIMPLE_CLASS_NAME);
+        if (declaredStaticResources.exist()) {
+            restControllerModels.add(new RestControllerModel(STATIC_RESOURCES_STANDARD_CONTROLLER));
+            map.put("DECLARED_STATIC_RESOURCES", declaredStaticResources);
+        }
         return map;
     }
 
     @Override
     public ClassHeader getClassHeader() {
         final ClassHeader.Builder classHeaderBuilder = ClassHeader.newClassHeaderBuilder(ENTRY_POINT_PACKAGE)
-                .addImports(
-                        AbstractRestController.class,
-                        RestControllerAggregator.class,
-                        List.class
-                );
+                .addImports(AbstractRestController.class, RestControllerAggregator.class, List.class);
         if (!crossOriginResourceSharingResources.isEmpty()) {
             classHeaderBuilder.addImports(
                     Set.class,
@@ -124,15 +131,29 @@ public final class RestControllerAggregatorClassStructure extends ClassStructure
             );
         }
         if (!httpHealthChecks.isEmpty()) {
-            classHeaderBuilder.addImports(
-                    HttpHealthCheckRestController.class,
-                    HttpHealthCheckRegistration.class
-            );
+            classHeaderBuilder.addImports(HttpHealthCheckRestController.class, HttpHealthCheckRegistration.class);
         }
         if (isRestServerNetty) {
             classHeaderBuilder.addImports(ExactUrlRequestMappingRule.class, BadHttpRequestRestController.class);
         }
+        if (declaredStaticResources.exist()) {
+            customizeClassHeaderBuilderForDeclaredStaticResources(classHeaderBuilder);
+        }
         return classHeaderBuilder.build();
+    }
+
+    private void customizeClassHeaderBuilderForDeclaredStaticResources(final ClassHeader.Builder classHeaderBuilder) {
+        classHeaderBuilder.addImports(StaticResourceRestController.class, Map.class, List.class);
+        for (final UrlPathMatchTemplate urlPathMatchTemplate : declaredStaticResources.getResourcePathTemplates()) {
+            classHeaderBuilder.addImports(urlPathMatchTemplate.getClass());
+        }
+        for (final Map.Entry<UrlPathMatchTemplate, String> entry : declaredStaticResources.getCustomTemplateResourceMapping()) {
+            classHeaderBuilder.addImports(entry.getKey().getClass());
+        }
+        if (!declaredStaticResources.getCustomTemplateResourceMapping().isEmpty() ||
+                !declaredStaticResources.getCustomExactResourceMapping().isEmpty()) {
+            classHeaderBuilder.addStaticImport(Map.class, "entry");
+        }
     }
 
     /**
@@ -175,10 +196,16 @@ public final class RestControllerAggregatorClassStructure extends ClassStructure
 
         CUSTOM,
 
+        @UsedByFreemarker("$$RestControllerAggregatorTemplate.javaftl")
         CORS,
 
+        @UsedByFreemarker("$$RestControllerAggregatorTemplate.javaftl")
         HEATH_CHECK,
 
-        BAD_REQUEST_NETTY
+        @UsedByFreemarker("$$RestControllerAggregatorTemplate.javaftl")
+        BAD_REQUEST_NETTY,
+
+        @UsedByFreemarker("$$RestControllerAggregatorTemplate.javaftl")
+        STATIC_RESOURCES_STANDARD_CONTROLLER
     }
 }

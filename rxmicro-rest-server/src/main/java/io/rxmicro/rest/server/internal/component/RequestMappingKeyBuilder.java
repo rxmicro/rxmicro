@@ -17,7 +17,7 @@
 package io.rxmicro.rest.server.internal.component;
 
 import io.rxmicro.rest.server.detail.model.HttpRequest;
-import io.rxmicro.rest.server.detail.model.mapping.ExactUrlRequestMappingRule;
+import io.rxmicro.rest.server.detail.model.mapping.RequestMappingRule;
 
 /**
  * @author nedis
@@ -27,5 +27,5 @@ public interface RequestMappingKeyBuilder {
 
     String build(HttpRequest request);
 
-    String build(ExactUrlRequestMappingRule registration);
+    String build(RequestMappingRule requestMappingRule);
 }

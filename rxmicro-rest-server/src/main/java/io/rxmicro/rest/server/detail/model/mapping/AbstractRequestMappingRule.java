@@ -16,7 +16,6 @@
 
 package io.rxmicro.rest.server.detail.model.mapping;
 
-import java.util.Objects;
 import java.util.Optional;
 
 import static io.rxmicro.common.util.Requires.require;
@@ -68,32 +67,6 @@ abstract class AbstractRequestMappingRule implements RequestMappingRule {
     }
 
     @Override
-    public int hashCode() {
-        int result = method.hashCode();
-        result = 31 * result + (httpBody ? 1 : 0);
-        result = 31 * result + (versionHeaderValue != null ? versionHeaderValue.hashCode() : 0);
-        return result;
-    }
-
-    @Override
-    public boolean equals(final Object other) {
-        if (this == other) {
-            return true;
-        }
-        if (other == null || getClass() != other.getClass()) {
-            return false;
-        }
-        final AbstractRequestMappingRule that = (AbstractRequestMappingRule) other;
-        if (httpBody != that.httpBody) {
-            return false;
-        }
-        if (!method.equals(that.method)) {
-            return false;
-        }
-        return Objects.equals(versionHeaderValue, that.versionHeaderValue);
-    }
-
-    @Override
     public final String toString() {
         final StringBuilder stringBuilder = new StringBuilder("\"");
         stringBuilder.append(method).append(" '").append(getUri()).append("' ");
@@ -103,7 +76,6 @@ abstract class AbstractRequestMappingRule implements RequestMappingRule {
         if (httpBody) {
             stringBuilder.append("<with-body>");
         }
-
         return stringBuilder.toString();
     }
 }

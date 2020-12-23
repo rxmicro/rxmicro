@@ -32,7 +32,7 @@ import io.rxmicro.rest.server.detail.model.HttpRequest;
 import io.rxmicro.rest.server.detail.model.HttpResponse;
 import io.rxmicro.rest.server.detail.model.Registration;
 import io.rxmicro.rest.server.detail.model.mapping.ExactUrlRequestMappingRule;
-import io.rxmicro.rest.server.detail.model.mapping.UrlTemplateRequestMappingRule;
+import io.rxmicro.rest.server.detail.model.mapping.WithUrlPathVariablesRequestMappingRule;
 import io.rxmicro.rest.server.feature.EnableCrossOriginResourceSharing;
 import io.rxmicro.validation.ConstraintValidator;
 import io.rxmicro.validation.detail.ResponseValidators;
@@ -175,7 +175,7 @@ public final class RestControllerClassStructure extends CDIUsageCandidateClassSt
                         PathVariableMapping.class,
                         CompletionStage.class,
                         HttpHeaders.class,
-                        UrlTemplateRequestMappingRule.class,
+                        WithUrlPathVariablesRequestMappingRule.class,
                         UrlSegments.class,
                         List.class,
                         ExactUrlRequestMappingRule.class

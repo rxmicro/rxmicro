@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 
-package io.rxmicro.annotation.processor.rest.component.impl;
+package io.rxmicro.annotation.processor.rest.component;
 
+import io.rxmicro.annotation.processor.common.component.impl.AbstractProcessorComponent;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
 
 import javax.lang.model.element.Element;
@@ -24,35 +25,39 @@ import javax.lang.model.element.Element;
  * @author nedis
  * @since 0.1
  */
-abstract class AbstractUrlBuilder {
+public class BaseUrlBuilder extends AbstractProcessorComponent {
 
-    final void validateNotNull(final Element element,
-                               final String path,
-                               final String validPrefix) {
+    protected BaseUrlBuilder() {
+        // This is basic class designed for extension only.
+    }
+
+    protected final void validateNotNull(final Element element,
+                                         final String path,
+                                         final String validPrefix) {
         if (path == null) {
             throw new InterruptProcessingException(element, "?: Expected not null value", validPrefix);
         }
     }
 
-    final void validateNotEmpty(final Element element,
-                                final String path,
-                                final String validPrefix) {
+    protected final void validateNotEmpty(final Element element,
+                                          final String path,
+                                          final String validPrefix) {
         if (path.isEmpty()) {
             throw new InterruptProcessingException(element, "?: Expected not empty value", validPrefix);
         }
     }
 
-    final void validateNotRoot(final Element element,
-                               final String path,
-                               final String validPrefix) {
+    protected final void validateNotRoot(final Element element,
+                                         final String path,
+                                         final String validPrefix) {
         if ("/".equals(path)) {
             throw new InterruptProcessingException(element, "?: Expected not empty value", validPrefix);
         }
     }
 
-    final void validateThatPathIsTrimmedValue(final Element element,
-                                              final String path,
-                                              final String validPrefix) {
+    protected final void validateThatPathIsTrimmedValue(final Element element,
+                                                        final String path,
+                                                        final String validPrefix) {
         if (!path.equals(path.trim())) {
             throw new InterruptProcessingException(element, "?: Expected trimmed value", validPrefix);
         }

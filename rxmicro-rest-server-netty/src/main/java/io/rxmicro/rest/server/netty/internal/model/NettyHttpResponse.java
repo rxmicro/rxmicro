@@ -17,13 +17,16 @@
 package io.rxmicro.rest.server.netty.internal.model;
 
 import io.netty.handler.codec.http.DefaultFullHttpResponse;
+import io.netty.handler.codec.http.DefaultHttpResponse;
 import io.netty.handler.codec.http.FullHttpResponse;
 import io.netty.handler.codec.http.HttpHeaders;
 import io.netty.handler.codec.http.HttpResponseStatus;
 import io.netty.handler.codec.http.HttpVersion;
+import io.rxmicro.common.InvalidStateException;
 import io.rxmicro.http.local.RepeatableHttpHeaders;
 import io.rxmicro.rest.server.detail.model.HttpResponse;
 
+import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
 
@@ -45,15 +48,22 @@ public final class NettyHttpResponse implements HttpResponse {
 
     private byte[] content;
 
+    private Path sendFilePath;
+
     public NettyHttpResponse() {
         httpVersion = HttpVersion.HTTP_1_1;
         status = HttpResponseStatus.OK;
         setContent(EMPTY_CONTENT);
     }
 
-    public FullHttpResponse toFullHttpResponse() {
+    public FullHttpResponse toHttpResponseWithBody() {
         final HttpHeaders headers = this.headers.toHttpHeaders();
         return new DefaultFullHttpResponse(httpVersion, status, wrappedBuffer(content), headers, headers);
+    }
+
+    public io.netty.handler.codec.http.HttpResponse toHttpResponseWithoutBody() {
+        final HttpHeaders headers = this.headers.toHttpHeaders();
+        return new DefaultHttpResponse(httpVersion, status, headers);
     }
 
     public HttpResponseStatus getStatus() {
@@ -61,12 +71,13 @@ public final class NettyHttpResponse implements HttpResponse {
     }
 
     @Override
-    public void setStatus(final int status) {
+    public NettyHttpResponse setStatus(final int status) {
         this.status = HttpResponseStatus.valueOf(status);
+        return this;
     }
 
     @Override
-    public void setVersion(final io.rxmicro.http.HttpVersion httpVersion) {
+    public NettyHttpResponse setVersion(final io.rxmicro.http.HttpVersion httpVersion) {
         if (httpVersion == io.rxmicro.http.HttpVersion.HTTP_1_1) {
             this.httpVersion = HttpVersion.HTTP_1_1;
         } else if (httpVersion == io.rxmicro.http.HttpVersion.HTTP_1_0) {
@@ -74,19 +85,21 @@ public final class NettyHttpResponse implements HttpResponse {
         } else {
             throw new IllegalArgumentException("HTTP/2 is not supported now");
         }
+        return this;
     }
 
     @Override
-    public void addHeader(final String name,
-                          final String value) {
+    public NettyHttpResponse addHeader(final String name,
+                                       final String value) {
         if (value != null) {
             headers.add(name, value);
         }
+        return this;
     }
 
     @Override
     @SuppressWarnings("ForLoopReplaceableByForEach")
-    public void setOrAddHeaders(final io.rxmicro.http.HttpHeaders headers) {
+    public NettyHttpResponse setOrAddHeaders(final io.rxmicro.http.HttpHeaders headers) {
         if (headers != EMPTY_HEADERS && headers.isNotEmpty()) {
             if (headers instanceof RepeatableHttpHeaders) {
                 this.headers.setOrAddAll((RepeatableHttpHeaders) headers);
@@ -98,14 +111,16 @@ public final class NettyHttpResponse implements HttpResponse {
                 }
             }
         }
+        return this;
     }
 
     @Override
-    public void setHeader(final String name,
-                          final String value) {
+    public NettyHttpResponse setHeader(final String name,
+                                       final String value) {
         if (value != null) {
             headers.set(name, value);
         }
+        return this;
     }
 
     public HttpVersion getHttpVersion() {
@@ -124,9 +139,34 @@ public final class NettyHttpResponse implements HttpResponse {
         return content;
     }
 
+    public Path getSendFilePath() {
+        return sendFilePath;
+    }
+
     @Override
-    public void setContent(final byte[] content) {
+    public NettyHttpResponse setContent(final byte[] content) {
+        if (this.sendFilePath != null) {
+            throw new InvalidStateException(
+                    "Can't set byte array content, because '?' send file path already set!", this.sendFilePath.toAbsolutePath()
+            );
+        }
         this.content = content;
         setHeader(CONTENT_LENGTH, content.length);
+        return this;
+    }
+
+    @Override
+    public NettyHttpResponse sendFile(final Path path) {
+        if (this.content.length != 0) {
+            throw new InvalidStateException(
+                    "Can't send file, because byte content with ? bytes already set!", this.content.length
+            );
+        }
+        this.sendFilePath = path;
+        return this;
+    }
+
+    public boolean isSendFileResponse() {
+        return this.sendFilePath != null;
     }
 }

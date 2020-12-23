@@ -39,6 +39,7 @@
                         --add-opens java.base/java.lang=rxmicro.reflection
                         --add-opens java.base/java.lang.reflect=rxmicro.reflection
                         --add-opens rxmicro.rest.server/io.rxmicro.rest.server.detail.component=ALL-UNNAMED
+                        --add-opens rxmicro.rest.server/io.rxmicro.rest.server.detail.model.mapping.resource=ALL-UNNAMED
                         --add-opens rxmicro.rest.server/io.rxmicro.rest.server.internal=ALL-UNNAMED
                         --add-opens rxmicro.rest.server/io.rxmicro.rest.server.internal.component.impl=ALL-UNNAMED
                         --add-opens rxmicro.rest.server/io.rxmicro.rest.server.internal.component.impl.error=ALL-UNNAMED

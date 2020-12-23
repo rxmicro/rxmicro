@@ -33,7 +33,6 @@ import io.rxmicro.rest.server.netty.NettyRestServerConfig;
 
 import java.util.ServiceLoader;
 import java.util.concurrent.CountDownLatch;
-import java.util.function.Supplier;
 
 import static io.rxmicro.common.CommonConstants.RX_MICRO_FRAMEWORK_NAME;
 import static io.rxmicro.common.util.Formats.format;
@@ -65,15 +64,16 @@ public final class NettyServerFactory implements ServerFactory {
             final RestServerConfig restServerConfig = getConfig(RestServerConfig.class);
             final RequestIdGenerator requestIdGenerator = restServerConfig.getRequestIdGenerator();
             final NettyRestServerConfig nettyRestServerConfig = getConfig(NettyRestServerConfig.class);
-            final Supplier<NettyRequestHandler> nettyRequestHandlerSupplier = () -> new NettyRequestHandler(
+            final SharableNettyRequestHandler sharableNettyRequestHandler = new SharableNettyRequestHandler(
                     nettyRestServerConfig,
                     requestHandler,
                     requestIdGenerator,
                     responseBuilder,
                     responseContentBuilder,
+                    httpServerConfig,
                     restServerConfig
             );
-            return start(httpServerConfig, nettyRestServerConfig, nettyRequestHandlerSupplier);
+            return start(httpServerConfig, nettyRestServerConfig, sharableNettyRequestHandler);
         } catch (final ClassNotFoundException ex) {
             throw new ConfigException("Required class not found: " + ex.getMessage());
         }
@@ -85,14 +85,14 @@ public final class NettyServerFactory implements ServerFactory {
 
     private ServerInstance start(final HttpServerConfig httpServerConfig,
                                  final NettyRestServerConfig nettyRestServerConfig,
-                                 final Supplier<NettyRequestHandler> nettyRequestHandlerSupplier)
+                                 final SharableNettyRequestHandler sharableNettyRequestHandler)
             throws ClassNotFoundException {
         final CountDownLatch latch = new CountDownLatch(1);
         final Thread thread = new Thread(
                 new NettyServer(
                         httpServerConfig,
                         nettyRestServerConfig,
-                        nettyRequestHandlerSupplier,
+                        sharableNettyRequestHandler,
                         getServerSocketChannelClass(nettyRestServerConfig),
                         newEventLoopGroup(nettyRestServerConfig),
                         newEventLoopGroup(nettyRestServerConfig),

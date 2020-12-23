@@ -35,21 +35,21 @@ import static io.rxmicro.rest.server.detail.model.PathMatcherResult.NO_MATCH;
  * @hidden
  * @since 0.1
  */
-public final class UrlTemplateRequestMappingRule extends AbstractRequestMappingRule {
+public final class WithUrlPathVariablesRequestMappingRule extends AbstractRequestMappingRule {
 
     private final UrlSegments urlSegments;
 
-    public UrlTemplateRequestMappingRule(final String method,
-                                         final UrlSegments urlSegments,
-                                         final boolean httpBody,
-                                         final String versionHeader) {
+    public WithUrlPathVariablesRequestMappingRule(final String method,
+                                                  final UrlSegments urlSegments,
+                                                  final boolean httpBody,
+                                                  final String versionHeader) {
         super(method, httpBody, versionHeader);
         this.urlSegments = require(urlSegments);
     }
 
-    public UrlTemplateRequestMappingRule(final String method,
-                                         final UrlSegments urlSegments,
-                                         final boolean httpBody) {
+    public WithUrlPathVariablesRequestMappingRule(final String method,
+                                                  final UrlSegments urlSegments,
+                                                  final boolean httpBody) {
         super(method, httpBody);
         this.urlSegments = require(urlSegments);
     }
@@ -80,27 +80,5 @@ public final class UrlTemplateRequestMappingRule extends AbstractRequestMappingR
             }
             return new PathMatcher(urlSegments).matches(request.getUri());
         }
-    }
-
-    @Override
-    public int hashCode() {
-        int result = super.hashCode();
-        result = 31 * result + urlSegments.getUrlTemplate().hashCode();
-        return result;
-    }
-
-    @Override
-    public boolean equals(final Object other) {
-        if (this == other) {
-            return true;
-        }
-        if (other == null || getClass() != other.getClass()) {
-            return false;
-        }
-        if (!super.equals(other)) {
-            return false;
-        }
-        final UrlTemplateRequestMappingRule that = (UrlTemplateRequestMappingRule) other;
-        return urlSegments.getUrlTemplate().equals(that.urlSegments.getUrlTemplate());
     }
 }

@@ -62,6 +62,7 @@ module rxmicro.rest.server {
 
     exports io.rxmicro.rest.server.detail.model;
     exports io.rxmicro.rest.server.detail.model.mapping;
+    exports io.rxmicro.rest.server.detail.model.mapping.resource;
     exports io.rxmicro.rest.server.detail.component;
 
     exports io.rxmicro.rest.server.local.component to

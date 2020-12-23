@@ -49,6 +49,12 @@ public enum ExternalModule {
             getMavenProperty("netty.version")
     ),
 
+    EXTERNAL_NETTY_HANDLER_MODULE(
+            "io.netty.handler",
+            "?/.m2/repository/io/netty/netty-handler/?/netty-handler-?.jar",
+            getMavenProperty("netty.version")
+    ),
+
     EXTERNAL_NETTY_TRANSPORT_MODULE(
             "io.netty.transport",
             "?/.m2/repository/io/netty/netty-transport/?/netty-transport-?.jar",

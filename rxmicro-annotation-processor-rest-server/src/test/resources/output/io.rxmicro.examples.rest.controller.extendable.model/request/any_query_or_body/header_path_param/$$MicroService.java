@@ -12,7 +12,7 @@ import io.rxmicro.rest.server.detail.component.RestControllerRegistrar;
 import io.rxmicro.rest.server.detail.model.HttpRequest;
 import io.rxmicro.rest.server.detail.model.HttpResponse;
 import io.rxmicro.rest.server.detail.model.Registration;
-import io.rxmicro.rest.server.detail.model.mapping.UrlTemplateRequestMappingRule;
+import io.rxmicro.rest.server.detail.model.mapping.WithUrlPathVariablesRequestMappingRule;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -53,7 +53,7 @@ public final class $$MicroService extends AbstractRestController {
                         ),
                         this::consumeChild,
                         false,
-                        new UrlTemplateRequestMappingRule(
+                        new WithUrlPathVariablesRequestMappingRule(
                                 "GET",
                                 new UrlSegments(
                                         "/1/?",
@@ -62,7 +62,7 @@ public final class $$MicroService extends AbstractRestController {
                                 false
                         ),
 
-                        new UrlTemplateRequestMappingRule(
+                        new WithUrlPathVariablesRequestMappingRule(
                                 "PUT",
                                 new UrlSegments(
                                         "/1/?",
@@ -80,7 +80,7 @@ public final class $$MicroService extends AbstractRestController {
                         ),
                         this::consumeParent,
                         false,
-                        new UrlTemplateRequestMappingRule(
+                        new WithUrlPathVariablesRequestMappingRule(
                                 "GET",
                                 new UrlSegments(
                                         "/2/?",
@@ -89,7 +89,7 @@ public final class $$MicroService extends AbstractRestController {
                                 false
                         ),
 
-                        new UrlTemplateRequestMappingRule(
+                        new WithUrlPathVariablesRequestMappingRule(
                                 "PUT",
                                 new UrlSegments(
                                         "/2/?",

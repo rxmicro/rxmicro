@@ -18,6 +18,7 @@ package io.rxmicro.rest.server.netty.internal.model;
 
 import io.netty.buffer.ByteBufUtil;
 import io.netty.handler.codec.http.FullHttpRequest;
+import io.netty.util.AttributeKey;
 import io.rxmicro.common.InvalidStateException;
 import io.rxmicro.http.HttpHeaders;
 import io.rxmicro.http.HttpVersion;
@@ -34,6 +35,8 @@ import static io.rxmicro.http.HttpStandardHeaderNames.REQUEST_ID;
  * @since 0.1
  */
 public final class NettyHttpRequest implements HttpRequest, RequestIdSupplier {
+
+    public static final AttributeKey<String> REQUEST_ID_KEY = AttributeKey.valueOf(REQUEST_ID);
 
     private static final byte[] EMPTY = new byte[0];
 

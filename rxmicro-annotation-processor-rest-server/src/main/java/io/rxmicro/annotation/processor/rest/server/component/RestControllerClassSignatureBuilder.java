@@ -19,6 +19,7 @@ package io.rxmicro.annotation.processor.rest.server.component;
 import io.rxmicro.annotation.processor.common.model.EnvironmentContext;
 import io.rxmicro.annotation.processor.rest.server.model.RestControllerClassSignature;
 
+import java.util.Collection;
 import java.util.Set;
 import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.element.TypeElement;
@@ -30,6 +31,6 @@ import javax.lang.model.element.TypeElement;
 public interface RestControllerClassSignatureBuilder {
 
     Set<RestControllerClassSignature> build(EnvironmentContext environmentContext,
-                                            Set<? extends TypeElement> annotations,
+                                            Collection<? extends TypeElement> annotations,
                                             RoundEnvironment roundEnv);
 }

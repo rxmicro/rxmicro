@@ -1,5 +1,5 @@
 <#include "../../common-lib.javaftl">
-<#-- -------------------------------------------------------------------------------------------------------- -->
+<#-- ----------------------------------------------------------------------------------------------------------------------------------- -->
 public final class ${IMPL_CLASS_NAME} extends RestControllerAggregator {
 
     static {
@@ -10,9 +10,11 @@ public final class ${IMPL_CLASS_NAME} extends RestControllerAggregator {
     protected List<AbstractRestController> listAllRestControllers() {
         return List.of(
                 <#list JAVA_REST_CONTROLLER_CLASSES as REST_CONTROLLER>
+                <#-- ------------------------------------------------------------------------------------------------------------------- -->
                 <#if REST_CONTROLLER.type.name() == "BAD_REQUEST_NETTY">
                 // See https://github.com/netty/netty/blob/c10c697e5bf664d9d8d1dcee93569265b19ca03a/codec-http/src/main/java/io/netty/handler/codec/http/HttpRequestDecoder.java#L93
                 new BadHttpRequestRestController(new ExactUrlRequestMappingRule("GET", "/bad-request", false))<#if REST_CONTROLLER?has_next>,</#if>
+                <#-- ------------------------------------------------------------------------------------------------------------------- -->
                 <#elseif REST_CONTROLLER.type.name() == "CORS">
                 new CrossOriginResourceSharingPreflightRestController(Set.of(
                         <#list CORS_RESOURCES as CORS_RESOURCE>
@@ -34,12 +36,65 @@ public final class ${IMPL_CLASS_NAME} extends RestControllerAggregator {
                         )<#if CORS_RESOURCE?has_next>,</#if>
                         </#list>
                 ))<#if REST_CONTROLLER?has_next>,</#if>
+                <#-- ------------------------------------------------------------------------------------------------------------------- -->
                 <#elseif REST_CONTROLLER.type.name() == "HEATH_CHECK">
                 new HttpHealthCheckRestController(
                         <#list HTTP_HEALTH_CHECKS as CHECK>
                         new HttpHealthCheckRegistration("${CHECK.method}", "${CHECK.endpoint}")<#if CHECK?has_next>,</#if>
                         </#list>
                 )<#if REST_CONTROLLER?has_next>,</#if>
+                <#-- ------------------------------------------------------------------------------------------------------------------- -->
+                <#elseif REST_CONTROLLER.type.name() == "STATIC_RESOURCES_STANDARD_CONTROLLER">
+                new StaticResourceRestController(
+                        <#if DECLARED_STATIC_RESOURCES.resourcePathTemplates?has_content>
+                        List.of(
+                                <#list DECLARED_STATIC_RESOURCES.resourcePathTemplates as resourcePathTemplate>
+                                <#if resourcePathTemplate.stateless>
+                                ${resourcePathTemplate.class.simpleName}.INSTANCE<#if resourcePathTemplate?has_next>,</#if>
+                                <#else>
+                                new ${resourcePathTemplate.class.simpleName}("${resourcePathTemplate.urlTemplate}")<#if resourcePathTemplate?has_next>,</#if>
+                                </#if>
+                                </#list>
+                        ),
+                        <#else>
+                        List.of(),
+                        </#if>
+                        <#-- ----------------------------------------------------------------------------------------------------------- -->
+                        <#if DECLARED_STATIC_RESOURCES.customTemplateResourceMapping?has_content>
+                        Map.ofEntries(
+                                <#list DECLARED_STATIC_RESOURCES.customTemplateResourceMapping as entry>
+                                <#if entry.key.stateless>
+                                entry(${entry.key.class.simpleName}.INSTANCE, "${entry.value}")<#if entry?has_next>,</#if>
+                                <#else>
+                                entry(new ${entry.key.class.simpleName}("${entry.key.urlTemplate}"), "${entry.value}")<#if entry?has_next>,</#if>
+                                </#if>
+                                </#list>
+                        ),
+                        <#else>
+                        Map.of(),
+                        </#if>
+                        <#-- ----------------------------------------------------------------------------------------------------------- -->
+                        <#if DECLARED_STATIC_RESOURCES.exactResourcePaths?has_content>
+                        List.of(
+                                <#list DECLARED_STATIC_RESOURCES.exactResourcePaths as exactResourcePath>
+                                "${exactResourcePath}"<#if exactResourcePath?has_next>,</#if>
+                                </#list>
+                        ),
+                        <#else>
+                        List.of(),
+                        </#if>
+                        <#-- ----------------------------------------------------------------------------------------------------------- -->
+                        <#if DECLARED_STATIC_RESOURCES.customExactResourceMapping?has_content>
+                        Map.ofEntries(
+                                <#list DECLARED_STATIC_RESOURCES.customExactResourceMapping as entry>
+                                entry("${entry.key}", "${entry.value}")<#if entry?has_next>,</#if>
+                                </#list>
+                        )
+                        <#else>
+                        Map.of()
+                        </#if>
+                )<#if REST_CONTROLLER?has_next>,</#if>
+                <#-- ------------------------------------------------------------------------------------------------------------------- -->
                 <#else>
                 new ${REST_CONTROLLER.customClassName}()<#if REST_CONTROLLER?has_next>,</#if>
                 </#if>

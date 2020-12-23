@@ -20,6 +20,7 @@ import io.rxmicro.rest.server.local.model.RestControllerRegistrationFilter;
 
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.GeneratedClassRules.GENERATED_CLASS_NAME_PREFIX;
@@ -39,20 +40,20 @@ public abstract class RestControllerAggregator {
     private static final Set<Class<?>> INTERNAL_CLASSES = Set.of(
             CrossOriginResourceSharingPreflightRestController.class,
             HttpHealthCheckRestController.class,
-            BadHttpRequestRestController.class
+            BadHttpRequestRestController.class,
+            StaticResourceRestController.class
     );
 
     public final int register(final RestControllerRegistrar registrar,
-                              final RestControllerRegistrationFilter restControllerRegistrationFilter) {
-        final int[] result = {0};
+                              final RestControllerRegistrationFilter filter) {
+        final AtomicInteger counter = new AtomicInteger(0);
         listAllRestControllers().stream()
-                .filter(s -> INTERNAL_CLASSES.contains(s.getClass()) ||
-                        restControllerRegistrationFilter.test(s.getRestControllerClass()))
+                .filter(s -> INTERNAL_CLASSES.contains(s.getClass()) || filter.test(s.getRestControllerClass()))
                 .forEach(s -> {
                     s.register(registrar);
-                    result[0]++;
+                    counter.set(counter.get() + 1);
                 });
-        return result[0];
+        return counter.get();
     }
 
     protected abstract List<AbstractRestController> listAllRestControllers();

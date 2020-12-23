@@ -28,6 +28,7 @@ import io.rxmicro.annotation.processor.rest.server.model.RestControllerClassSign
 import io.rxmicro.cdi.Factory;
 import io.rxmicro.rest.client.RestClient;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 import javax.annotation.processing.RoundEnvironment;
@@ -60,7 +61,7 @@ public final class RestControllerClassSignatureBuilderImpl implements RestContro
 
     @Override
     public Set<RestControllerClassSignature> build(final EnvironmentContext environmentContext,
-                                                   final Set<? extends TypeElement> annotations,
+                                                   final Collection<? extends TypeElement> annotations,
                                                    final RoundEnvironment roundEnv) {
         final Set<RestControllerClassSignature> result = new HashSet<>();
         final Set<String> processedTypes = new HashSet<>();
@@ -82,9 +83,11 @@ public final class RestControllerClassSignatureBuilderImpl implements RestContro
                                 RestClient.class.getName());
                     }
                 } else {
-                    throw new InterruptProcessingException(candidate,
+                    throw new InterruptProcessingException(
+                            candidate,
                             "Rest controller class must be a class. Current element kind is: ?",
-                            candidate.getKind());
+                            candidate.getKind()
+                    );
                 }
             }
         }

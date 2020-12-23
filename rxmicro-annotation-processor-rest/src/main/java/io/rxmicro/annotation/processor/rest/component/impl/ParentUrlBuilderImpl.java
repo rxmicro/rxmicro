@@ -18,6 +18,7 @@ package io.rxmicro.annotation.processor.rest.component.impl;
 
 import com.google.inject.Singleton;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
+import io.rxmicro.annotation.processor.rest.component.BaseUrlBuilder;
 import io.rxmicro.annotation.processor.rest.component.ParentUrlBuilder;
 import io.rxmicro.annotation.processor.rest.model.ParentUrl;
 import io.rxmicro.rest.BaseUrlPath;
@@ -30,7 +31,7 @@ import javax.lang.model.element.TypeElement;
  * @since 0.1
  */
 @Singleton
-public final class ParentUrlBuilderImpl extends AbstractUrlBuilder implements ParentUrlBuilder {
+public final class ParentUrlBuilderImpl extends BaseUrlBuilder implements ParentUrlBuilder {
 
     @Override
     public ParentUrl build(final TypeElement ownerClass) {

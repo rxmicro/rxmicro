@@ -71,7 +71,7 @@ import io.rxmicro.rest.server.detail.model.HttpRequest;
 import io.rxmicro.rest.server.detail.model.HttpResponse;
 import io.rxmicro.rest.server.detail.model.Registration;
 import io.rxmicro.rest.server.detail.model.mapping.ExactUrlRequestMappingRule;
-import io.rxmicro.rest.server.detail.model.mapping.UrlTemplateRequestMappingRule;
+import io.rxmicro.rest.server.detail.model.mapping.WithUrlPathVariablesRequestMappingRule;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -227,7 +227,7 @@ public final class $$ConsumeMicroService extends AbstractRestController {
                         ),
                         this::consumeHttpBodyWithPathVarRequest,
                         false,
-                        new UrlTemplateRequestMappingRule(
+                        new WithUrlPathVariablesRequestMappingRule(
                                 "POST",
                                 new UrlSegments(
                                         "/consume03/?/?/?/?/?/?/?/?/?/?/?/?/?/?",
@@ -273,7 +273,7 @@ public final class $$ConsumeMicroService extends AbstractRestController {
                         ),
                         this::consumeHttpBodyWithPathVarAndHeadersRequest,
                         false,
-                        new UrlTemplateRequestMappingRule(
+                        new WithUrlPathVariablesRequestMappingRule(
                                 "POST",
                                 new UrlSegments(
                                         "/consume06/?/?/?/?/?/?/?/?/?/?/?/?/?/?",
@@ -291,7 +291,7 @@ public final class $$ConsumeMicroService extends AbstractRestController {
                         ),
                         this::consumeHttpBodyWithPathVarAndInternalsRequest,
                         false,
-                        new UrlTemplateRequestMappingRule(
+                        new WithUrlPathVariablesRequestMappingRule(
                                 "POST",
                                 new UrlSegments(
                                         "/consume07/?/?/?/?/?/?/?/?/?/?/?/?/?/?",
@@ -309,7 +309,7 @@ public final class $$ConsumeMicroService extends AbstractRestController {
                         ),
                         this::consumeHttpBodyWithPathVarAndInternalsAndHeadersRequest,
                         false,
-                        new UrlTemplateRequestMappingRule(
+                        new WithUrlPathVariablesRequestMappingRule(
                                 "POST",
                                 new UrlSegments(
                                         "/consume08/?/?/?/?/?/?/?/?/?/?/?/?/?/?",
@@ -346,7 +346,7 @@ public final class $$ConsumeMicroService extends AbstractRestController {
                         ),
                         this::consumePathVarOnlyRequest,
                         false,
-                        new UrlTemplateRequestMappingRule(
+                        new WithUrlPathVariablesRequestMappingRule(
                                 "GET",
                                 new UrlSegments(
                                         "/consume12/?/?/?/?/?/?/?/?/?/?/?/?/?/?",
@@ -355,7 +355,7 @@ public final class $$ConsumeMicroService extends AbstractRestController {
                                 false
                         ),
 
-                        new UrlTemplateRequestMappingRule(
+                        new WithUrlPathVariablesRequestMappingRule(
                                 "POST",
                                 new UrlSegments(
                                         "/consume12/?/?/?/?/?/?/?/?/?/?/?/?/?/?",
@@ -411,7 +411,7 @@ public final class $$ConsumeMicroService extends AbstractRestController {
                         ),
                         this::consumePathVarAndInternalsRequest,
                         false,
-                        new UrlTemplateRequestMappingRule(
+                        new WithUrlPathVariablesRequestMappingRule(
                                 "GET",
                                 new UrlSegments(
                                         "/consume15/?/?/?/?/?/?/?/?/?/?/?/?/?/?",
@@ -420,7 +420,7 @@ public final class $$ConsumeMicroService extends AbstractRestController {
                                 false
                         ),
 
-                        new UrlTemplateRequestMappingRule(
+                        new WithUrlPathVariablesRequestMappingRule(
                                 "POST",
                                 new UrlSegments(
                                         "/consume15/?/?/?/?/?/?/?/?/?/?/?/?/?/?",
@@ -438,7 +438,7 @@ public final class $$ConsumeMicroService extends AbstractRestController {
                         ),
                         this::consumePathVarAndHeadersRequest,
                         false,
-                        new UrlTemplateRequestMappingRule(
+                        new WithUrlPathVariablesRequestMappingRule(
                                 "GET",
                                 new UrlSegments(
                                         "/consume16/?/?/?/?/?/?/?/?/?/?/?/?/?/?",
@@ -447,7 +447,7 @@ public final class $$ConsumeMicroService extends AbstractRestController {
                                 false
                         ),
 
-                        new UrlTemplateRequestMappingRule(
+                        new WithUrlPathVariablesRequestMappingRule(
                                 "POST",
                                 new UrlSegments(
                                         "/consume16/?/?/?/?/?/?/?/?/?/?/?/?/?/?",
@@ -503,7 +503,7 @@ public final class $$ConsumeMicroService extends AbstractRestController {
                         ),
                         this::consumeQueryOrHttpBodyWithPathVarRequest,
                         false,
-                        new UrlTemplateRequestMappingRule(
+                        new WithUrlPathVariablesRequestMappingRule(
                                 "GET",
                                 new UrlSegments(
                                         "/consume33/?/?/?/?/?/?/?/?/?/?/?/?/?/?",
@@ -512,7 +512,7 @@ public final class $$ConsumeMicroService extends AbstractRestController {
                                 false
                         ),
 
-                        new UrlTemplateRequestMappingRule(
+                        new WithUrlPathVariablesRequestMappingRule(
                                 "POST",
                                 new UrlSegments(
                                         "/consume33/?/?/?/?/?/?/?/?/?/?/?/?/?/?",
@@ -568,7 +568,7 @@ public final class $$ConsumeMicroService extends AbstractRestController {
                         ),
                         this::consumeQueryOrHttpBodyWithPathVarAndHeadersRequest,
                         false,
-                        new UrlTemplateRequestMappingRule(
+                        new WithUrlPathVariablesRequestMappingRule(
                                 "GET",
                                 new UrlSegments(
                                         "/consume36/?/?/?/?/?/?/?/?/?/?/?/?/?/?",
@@ -577,7 +577,7 @@ public final class $$ConsumeMicroService extends AbstractRestController {
                                 false
                         ),
 
-                        new UrlTemplateRequestMappingRule(
+                        new WithUrlPathVariablesRequestMappingRule(
                                 "POST",
                                 new UrlSegments(
                                         "/consume36/?/?/?/?/?/?/?/?/?/?/?/?/?/?",
@@ -595,7 +595,7 @@ public final class $$ConsumeMicroService extends AbstractRestController {
                         ),
                         this::consumeQueryOrHttpBodyWithPathVarAndInternalsRequest,
                         false,
-                        new UrlTemplateRequestMappingRule(
+                        new WithUrlPathVariablesRequestMappingRule(
                                 "GET",
                                 new UrlSegments(
                                         "/consume37/?/?/?/?/?/?/?/?/?/?/?/?/?/?",
@@ -604,7 +604,7 @@ public final class $$ConsumeMicroService extends AbstractRestController {
                                 false
                         ),
 
-                        new UrlTemplateRequestMappingRule(
+                        new WithUrlPathVariablesRequestMappingRule(
                                 "POST",
                                 new UrlSegments(
                                         "/consume37/?/?/?/?/?/?/?/?/?/?/?/?/?/?",
@@ -622,7 +622,7 @@ public final class $$ConsumeMicroService extends AbstractRestController {
                         ),
                         this::consumeQueryOrHttpBodyWithPathVarAndInternalsAndHeadersRequest,
                         false,
-                        new UrlTemplateRequestMappingRule(
+                        new WithUrlPathVariablesRequestMappingRule(
                                 "GET",
                                 new UrlSegments(
                                         "/consume38/?/?/?/?/?/?/?/?/?/?/?/?/?/?",
@@ -631,7 +631,7 @@ public final class $$ConsumeMicroService extends AbstractRestController {
                                 false
                         ),
 
-                        new UrlTemplateRequestMappingRule(
+                        new WithUrlPathVariablesRequestMappingRule(
                                 "POST",
                                 new UrlSegments(
                                         "/consume38/?/?/?/?/?/?/?/?/?/?/?/?/?/?",
@@ -677,7 +677,7 @@ public final class $$ConsumeMicroService extends AbstractRestController {
                         ),
                         this::consumeQueryStringWithPathVarRequest,
                         false,
-                        new UrlTemplateRequestMappingRule(
+                        new WithUrlPathVariablesRequestMappingRule(
                                 "GET",
                                 new UrlSegments(
                                         "/consume43/?/?/?/?/?/?/?/?/?/?/?/?/?/?",
@@ -723,7 +723,7 @@ public final class $$ConsumeMicroService extends AbstractRestController {
                         ),
                         this::consumeQueryStringWithPathVarAndHeadersRequest,
                         false,
-                        new UrlTemplateRequestMappingRule(
+                        new WithUrlPathVariablesRequestMappingRule(
                                 "GET",
                                 new UrlSegments(
                                         "/consume46/?/?/?/?/?/?/?/?/?/?/?/?/?/?",
@@ -741,7 +741,7 @@ public final class $$ConsumeMicroService extends AbstractRestController {
                         ),
                         this::consumeQueryStringWithPathVarAndInternalsRequest,
                         false,
-                        new UrlTemplateRequestMappingRule(
+                        new WithUrlPathVariablesRequestMappingRule(
                                 "GET",
                                 new UrlSegments(
                                         "/consume47/?/?/?/?/?/?/?/?/?/?/?/?/?/?",
@@ -759,7 +759,7 @@ public final class $$ConsumeMicroService extends AbstractRestController {
                         ),
                         this::consumeQueryStringWithPathVarAndInternalsAndHeadersRequest,
                         false,
-                        new UrlTemplateRequestMappingRule(
+                        new WithUrlPathVariablesRequestMappingRule(
                                 "GET",
                                 new UrlSegments(
                                         "/consume48/?/?/?/?/?/?/?/?/?/?/?/?/?/?",

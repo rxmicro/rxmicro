@@ -21,11 +21,13 @@ import io.rxmicro.http.HttpConfig;
 import io.rxmicro.http.ProtocolSchema;
 
 import java.nio.file.Path;
+import java.time.Duration;
 
 import static io.rxmicro.files.Paths.CURRENT_DIRECTORY;
 import static io.rxmicro.files.Paths.createPath;
 import static io.rxmicro.files.Paths.validateDirectory;
 import static io.rxmicro.http.ProtocolSchema.HTTP;
+import static java.time.temporal.ChronoUnit.DAYS;
 
 /**
  * Allows configuring HTTP server options.
@@ -41,9 +43,16 @@ public class HttpServerConfig extends HttpConfig {
      */
     public static final int DEFAULT_HTTP_PORT = 8080;
 
+    /**
+     * Default file content cache duration.
+     */
+    public static final Duration DEFAULT_FILE_CONTENT_CACHE_DURATION = Duration.of(365, DAYS);
+
     private boolean startTimeTrackerEnabled;
 
     private Path rootDirectory;
+
+    private Duration fileContentCacheDuration;
 
     /**
      * Creates a HTTP server config instance with default settings.
@@ -54,6 +63,7 @@ public class HttpServerConfig extends HttpConfig {
         setPort(DEFAULT_HTTP_PORT);
         this.startTimeTrackerEnabled = true;
         this.rootDirectory = createPath(CURRENT_DIRECTORY);
+        this.fileContentCacheDuration = DEFAULT_FILE_CONTENT_CACHE_DURATION;
     }
 
     /**
@@ -80,16 +90,24 @@ public class HttpServerConfig extends HttpConfig {
         return this;
     }
 
+    /**
+     * Returns the root directory for all relative static resources.
+     *
+     * <p>
+     * By default the current directory is used.
+     *
+     * @return the root directory for all relative static resources.
+     */
     public Path getRootDirectory() {
         return rootDirectory;
     }
 
     /**
-     *
+     * Sets the custom root directory.
      *
      * @param rootDirectoryPath the provided root directory path
      * @return the reference to this {@link HttpServerConfig} instance
-     * @throws io.rxmicro.files.ResourceException if the provided path is not directory or not found
+     * @throws io.rxmicro.files.ResourceException if the provided {@link Path} instance not found or is not directory.
      */
     @BuilderMethod
     public HttpServerConfig setRootDirectory(final String rootDirectoryPath) {
@@ -100,16 +118,37 @@ public class HttpServerConfig extends HttpConfig {
     }
 
     /**
-     *
+     * Sets the custom root directory.
      *
      * @param rootDirectoryPath the provided root directory path
      * @return the reference to this {@link HttpServerConfig} instance
-     * @throws io.rxmicro.files.ResourceException if the provided path is not directory or not found
+     * @throws io.rxmicro.files.ResourceException if the provided {@link Path} instance not found or is not directory.
      */
     @BuilderMethod
     public HttpServerConfig setRootDirectory(final Path rootDirectoryPath) {
         validateDirectory(rootDirectoryPath);
         this.rootDirectory = rootDirectoryPath;
+        return this;
+    }
+
+    /**
+     * Returns the file content cache duration.
+     *
+     * @return the file content cache duration.
+     */
+    public Duration getFileContentCacheDuration() {
+        return fileContentCacheDuration;
+    }
+
+    /**
+     * Sets the custom file content cache duration.
+     *
+     * @param fileContentCacheDuration the custom file content cache duration.
+     * @return the reference to this {@link HttpServerConfig} instance
+     */
+    @BuilderMethod
+    public HttpServerConfig setFileContentCacheDuration(final Duration fileContentCacheDuration) {
+        this.fileContentCacheDuration = fileContentCacheDuration;
         return this;
     }
 

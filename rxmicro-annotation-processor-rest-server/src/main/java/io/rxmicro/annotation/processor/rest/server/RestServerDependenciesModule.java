@@ -26,6 +26,7 @@ import io.rxmicro.annotation.processor.common.model.definition.SupportedTypesPro
 import io.rxmicro.annotation.processor.rest.model.RestModelField;
 import io.rxmicro.annotation.processor.rest.model.RestObjectModelClass;
 import io.rxmicro.annotation.processor.rest.server.component.CrossOriginResourceSharingResourceBuilder;
+import io.rxmicro.annotation.processor.rest.server.component.DeclaredStaticResourcesResolver;
 import io.rxmicro.annotation.processor.rest.server.component.HttpHealthCheckBuilder;
 import io.rxmicro.annotation.processor.rest.server.component.ModelReaderBuilder;
 import io.rxmicro.annotation.processor.rest.server.component.ModelWriterBuilder;
@@ -35,7 +36,9 @@ import io.rxmicro.annotation.processor.rest.server.component.RestControllerMetho
 import io.rxmicro.annotation.processor.rest.server.component.RestControllerMethodSignatureBuilder;
 import io.rxmicro.annotation.processor.rest.server.component.RestDocumentationGenerator;
 import io.rxmicro.annotation.processor.rest.server.component.ServerCommonOptionBuilder;
+import io.rxmicro.annotation.processor.rest.server.component.UrlPathMatchTemplateClassResolver;
 import io.rxmicro.annotation.processor.rest.server.component.impl.CrossOriginResourceSharingResourceBuilderImpl;
+import io.rxmicro.annotation.processor.rest.server.component.impl.DeclaredStaticResourcesResolverImpl;
 import io.rxmicro.annotation.processor.rest.server.component.impl.HttpHealthCheckBuilderImpl;
 import io.rxmicro.annotation.processor.rest.server.component.impl.ModelReaderBuilderImpl;
 import io.rxmicro.annotation.processor.rest.server.component.impl.ModelWriterBuilderImpl;
@@ -47,6 +50,7 @@ import io.rxmicro.annotation.processor.rest.server.component.impl.RestServerMode
 import io.rxmicro.annotation.processor.rest.server.component.impl.RestServerModelFieldBuilderImpl;
 import io.rxmicro.annotation.processor.rest.server.component.impl.RestServerModuleGeneratorConfigBuilder;
 import io.rxmicro.annotation.processor.rest.server.component.impl.ServerCommonOptionBuilderImpl;
+import io.rxmicro.annotation.processor.rest.server.component.impl.UrlPathMatchTemplateClassResolverImpl;
 import io.rxmicro.annotation.processor.rest.server.component.impl.method.ConsumerRestControllerMethodBodyBuilder;
 import io.rxmicro.annotation.processor.rest.server.component.impl.method.ProcessorRestControllerMethodBodyBuilder;
 import io.rxmicro.annotation.processor.rest.server.component.impl.method.ProducerRestControllerMethodBodyBuilder;
@@ -93,7 +97,10 @@ public final class RestServerDependenciesModule extends AbstractModule {
         bind(new TypeLiteral<ModelClassHierarchyBuilder<RestModelField, RestObjectModelClass>>() {
         })
                 .to(RestServerModelClassHierarchyBuilder.class);
-
+        bind(DeclaredStaticResourcesResolver.class)
+                .to(DeclaredStaticResourcesResolverImpl.class);
+        bind(UrlPathMatchTemplateClassResolver.class)
+                .to(UrlPathMatchTemplateClassResolverImpl.class);
         bindMethodBodyBuilders();
     }
 

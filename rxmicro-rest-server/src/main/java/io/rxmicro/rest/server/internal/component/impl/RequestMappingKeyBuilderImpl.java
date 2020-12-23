@@ -17,13 +17,14 @@
 package io.rxmicro.rest.server.internal.component.impl;
 
 import io.rxmicro.rest.server.detail.model.HttpRequest;
-import io.rxmicro.rest.server.detail.model.mapping.ExactUrlRequestMappingRule;
+import io.rxmicro.rest.server.detail.model.mapping.RequestMappingRule;
 import io.rxmicro.rest.server.internal.component.RequestMappingKeyBuilder;
 
 import static io.rxmicro.http.HttpStandardHeaderNames.API_VERSION;
 
 /**
- * Example: {@code GET /hello-world v1.0 true}
+ * Example: {@code GET /hello-world v1.0}
+ * Example: {@code POST /hello-world v1.0 <with-body>}
  *
  * @author nedis
  * @since 0.1
@@ -50,13 +51,13 @@ public final class RequestMappingKeyBuilderImpl implements RequestMappingKeyBuil
     }
 
     @Override
-    public String build(final ExactUrlRequestMappingRule registration) {
+    public String build(final RequestMappingRule requestMappingRule) {
         final StringBuilder keyBuilder = new StringBuilder(DEFAULT_REQUEST_MAPPING_KEY_BUILDER_CAPACITY)
-                .append(registration.getMethod()).append(" '")
-                .append(registration.getUri()).append("' ");
-        registration.getVersionHeaderValue().ifPresent(versionHeader ->
+                .append(requestMappingRule.getMethod()).append(" '")
+                .append(requestMappingRule.getUri()).append("' ");
+        requestMappingRule.getVersionHeaderValue().ifPresent(versionHeader ->
                 keyBuilder.append(API_VERSION).append("='").append(versionHeader).append("' "));
-        if (registration.hasHttpBody()) {
+        if (requestMappingRule.hasHttpBody()) {
             keyBuilder.append(WITH_BODY);
         }
         return keyBuilder.toString();

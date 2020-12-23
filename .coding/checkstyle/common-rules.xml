@@ -37,12 +37,12 @@
     </module>
     <module name="FileLength">
         <property name="id" value="XmlFileLength"/>
-        <property name="max" value="1000"/>
+        <property name="max" value="1500"/>
         <property name="fileExtensions" value="xml"/>
     </module>
     <module name="FileLength">
         <property name="id" value="PropertiesFileLength"/>
-        <property name="max" value="100"/>
+        <property name="max" value="1500"/>
         <property name="fileExtensions" value="properties"/>
     </module>
     <module name="FileTabCharacter">

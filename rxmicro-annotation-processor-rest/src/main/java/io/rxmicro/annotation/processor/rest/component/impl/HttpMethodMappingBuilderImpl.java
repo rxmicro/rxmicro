@@ -19,6 +19,7 @@ package io.rxmicro.annotation.processor.rest.component.impl;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
+import io.rxmicro.annotation.processor.rest.component.BaseUrlBuilder;
 import io.rxmicro.annotation.processor.rest.component.HttpMethodMappingBuilder;
 import io.rxmicro.annotation.processor.rest.component.PathVariableExtractor;
 import io.rxmicro.annotation.processor.rest.model.HttpMethodMapping;
@@ -47,7 +48,7 @@ import static java.util.stream.Collectors.toList;
  * @since 0.1
  */
 @Singleton
-public final class HttpMethodMappingBuilderImpl extends AbstractUrlBuilder implements HttpMethodMappingBuilder {
+public final class HttpMethodMappingBuilderImpl extends BaseUrlBuilder implements HttpMethodMappingBuilder {
 
     @Inject
     private PathVariableExtractor pathVariableExtractor;

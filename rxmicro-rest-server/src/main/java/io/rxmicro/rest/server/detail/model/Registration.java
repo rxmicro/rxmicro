@@ -58,6 +58,20 @@ public final class Registration {
         this.requestMappingRules = List.of(requestMappingRules);
     }
 
+    public Registration(final String parentUrl,
+                        final String methodName,
+                        final List<Class<?>> paramTypes,
+                        final BiFunction<PathVariableMapping, HttpRequest, CompletionStage<HttpResponse>> method,
+                        final boolean corsRequestPossible,
+                        final List<RequestMappingRule> requestMappingRules) {
+        this.parentUrl = parentUrl;
+        this.methodName = methodName;
+        this.paramTypes = paramTypes;
+        this.method = method;
+        this.corsRequestPossible = corsRequestPossible;
+        this.requestMappingRules = List.copyOf(requestMappingRules);
+    }
+
     public String getMethodName() {
         return methodName;
     }

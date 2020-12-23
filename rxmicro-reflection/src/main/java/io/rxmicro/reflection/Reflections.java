@@ -952,6 +952,31 @@ public final class Reflections {
         return instantiate(targetClass, new Class[0], new Object[0]);
     }
 
+    /**
+     * Returns the {@code methodNameCandidate} if the specified class contains the public method with name: {@code methodNameCandidate}.
+     * Otherwise throws {@link CheckedWrapperException} exception
+     *
+     * @param clazz the specified class
+     * @param methodNameCandidate the method name candidate
+     * @return the {@code methodNameCandidate} if the specified class contains the public method with name: {@code methodNameCandidate}.
+     * @throws CheckedWrapperException if the specified class does not contain the public method with name: {@code methodNameCandidate}.
+     */
+    public static String getValidatedMethodName(final Class<?> clazz,
+                                                final String methodNameCandidate) {
+        try {
+            return clazz.getMethod(methodNameCandidate).getName();
+        } catch (final NoSuchMethodException ignore) {
+            for (final Method method : clazz.getMethods()) {
+                if (method.getName().equals(methodNameCandidate)) {
+                    return methodNameCandidate;
+                }
+            }
+            throw new CheckedWrapperException(new NoSuchMethodException(
+                    format("'?' class does not contain public method with name: '?'!", clazz.getName(), methodNameCandidate)
+            ));
+        }
+    }
+
     private static boolean isValidInstance(final Member member,
                                            final Object instance) {
         if (instance == null) {

@@ -22,13 +22,13 @@ import io.rxmicro.rest.server.detail.model.HttpRequest;
 import io.rxmicro.rest.server.detail.model.HttpResponse;
 import io.rxmicro.rest.server.detail.model.Registration;
 import io.rxmicro.rest.server.detail.model.mapping.ExactUrlRequestMappingRule;
-import io.rxmicro.rest.server.detail.model.mapping.RequestMappingRule;
 
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.CompletionStage;
 
 import static java.util.concurrent.CompletableFuture.completedStage;
+import static java.util.stream.Collectors.toList;
 
 /**
  * Used by generated code that created by the {@code RxMicro Annotation Processor}.
@@ -57,7 +57,7 @@ public final class HttpHealthCheckRestController extends AbstractRestController 
                         false,
                         httpHealthCheckRegistrations.stream()
                                 .map(r -> new ExactUrlRequestMappingRule(r.getMethod(), r.getEndpoint(), false))
-                                .toArray(RequestMappingRule[]::new)
+                                .collect(toList())
                 )
         );
     }

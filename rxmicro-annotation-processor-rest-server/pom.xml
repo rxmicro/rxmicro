@@ -78,6 +78,8 @@
                         rxmicro.annotation.processor.rest.server/io.rxmicro.annotation.processor.rest.server.success=ALL-UNNAMED
                         --add-opens
                         rxmicro.annotation.processor.rest.server/io.rxmicro.annotation.processor.rest.server.failed=ALL-UNNAMED
+                        --add-opens
+                        rxmicro.annotation.processor.rest.server/io.rxmicro.annotation.processor.rest.server.component.impl=ALL-UNNAMED
                         --add-opens java.base/java.lang=com.google.guice
                     </argLine>
                 </configuration>

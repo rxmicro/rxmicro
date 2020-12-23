@@ -61,8 +61,10 @@ module rxmicro.rest.server.netty {
     requires transitive io.netty.codec;
     requires transitive io.netty.codec.http;
     requires transitive io.netty.common;
+    requires transitive io.netty.handler;
     // For sun.misc.Unsafe
     requires jdk.unsupported;
+    requires rxmicro.files;
 
     exports io.rxmicro.rest.server.netty;
 

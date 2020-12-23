@@ -37,6 +37,7 @@ import static io.rxmicro.annotation.processor.integration.test.ExternalModule.EX
 import static io.rxmicro.annotation.processor.integration.test.ExternalModule.EXTERNAL_NETTY_CODEC_HTTP_MODULE;
 import static io.rxmicro.annotation.processor.integration.test.ExternalModule.EXTERNAL_NETTY_CODEC_MODULE;
 import static io.rxmicro.annotation.processor.integration.test.ExternalModule.EXTERNAL_NETTY_COMMON_MODULE;
+import static io.rxmicro.annotation.processor.integration.test.ExternalModule.EXTERNAL_NETTY_HANDLER_MODULE;
 import static io.rxmicro.annotation.processor.integration.test.ExternalModule.EXTERNAL_NETTY_TRANSPORT_MODULE;
 import static io.rxmicro.annotation.processor.integration.test.ExternalModule.EXTERNAL_REACTIVE_STREAMS_MODULE;
 import static io.rxmicro.annotation.processor.integration.test.ExternalModule.EXTERNAL_REACTOR_CORE_MODULE;
@@ -66,6 +67,7 @@ final class RestController_SuccessCompilation_IntegrationTest extends AbstractRx
         addExternalModule(EXTERNAL_NETTY_CODEC_HTTP_MODULE);
         addExternalModule(EXTERNAL_NETTY_CODEC_MODULE);
         addExternalModule(EXTERNAL_NETTY_BUFFER_MODULE);
+        addExternalModule(EXTERNAL_NETTY_HANDLER_MODULE);
         addExternalModule(EXTERNAL_NETTY_TRANSPORT_MODULE);
 
         addExternalModule(EXTERNAL_REACTIVE_STREAMS_MODULE);

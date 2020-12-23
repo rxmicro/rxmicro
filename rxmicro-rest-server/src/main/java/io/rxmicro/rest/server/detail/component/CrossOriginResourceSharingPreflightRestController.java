@@ -24,8 +24,7 @@ import io.rxmicro.rest.server.detail.model.HttpRequest;
 import io.rxmicro.rest.server.detail.model.HttpResponse;
 import io.rxmicro.rest.server.detail.model.Registration;
 import io.rxmicro.rest.server.detail.model.mapping.ExactUrlRequestMappingRule;
-import io.rxmicro.rest.server.detail.model.mapping.RequestMappingRule;
-import io.rxmicro.rest.server.detail.model.mapping.UrlTemplateRequestMappingRule;
+import io.rxmicro.rest.server.detail.model.mapping.WithUrlPathVariablesRequestMappingRule;
 import io.rxmicro.rest.server.local.component.PathMatcher;
 
 import java.util.Arrays;
@@ -49,6 +48,7 @@ import static io.rxmicro.http.HttpStandardHeaderNames.VARY;
 import static io.rxmicro.rest.model.HttpMethod.OPTIONS;
 import static java.util.concurrent.CompletableFuture.completedStage;
 import static java.util.function.Function.identity;
+import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toUnmodifiableMap;
 
 /**
@@ -76,27 +76,28 @@ public final class CrossOriginResourceSharingPreflightRestController extends Abs
 
     @Override
     public void register(final RestControllerRegistrar registrar) {
+        final List<Class<?>> paramTypes = List.of(PathVariableMapping.class, HttpRequest.class);
         registrar.register(
                 this,
                 new Registration(
                         "",
                         "handle",
-                        List.of(PathVariableMapping.class, HttpRequest.class),
+                        paramTypes,
                         this::handle,
                         false,
                         exactUrlMapping.keySet().stream()
                                 .map(u -> new ExactUrlRequestMappingRule(OPTIONS.name(), u, false))
-                                .toArray(RequestMappingRule[]::new)
+                                .collect(toList())
                 ),
                 new Registration(
                         "",
                         "handle",
-                        List.of(PathVariableMapping.class, HttpRequest.class),
+                        paramTypes,
                         this::handle,
                         false,
                         urlTemplateMapping.stream()
-                                .map(r -> new UrlTemplateRequestMappingRule(OPTIONS.name(), r.getUrlSegments(), false))
-                                .toArray(RequestMappingRule[]::new)
+                                .map(r -> new WithUrlPathVariablesRequestMappingRule(OPTIONS.name(), r.getUrlSegments(), false))
+                                .collect(toList())
                 )
         );
     }

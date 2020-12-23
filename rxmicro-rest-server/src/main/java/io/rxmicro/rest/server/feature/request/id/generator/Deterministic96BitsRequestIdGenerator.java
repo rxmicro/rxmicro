@@ -135,7 +135,7 @@ public final class Deterministic96BitsRequestIdGenerator implements RequestIdGen
         convertDeterministicValueToByteArray(deterministicValue, sourceBytes);
         convertCounterValueToByteArray(sourceBytes);
         final byte[] checksumBytes = getMessageDigest(checksumAlgorithm).digest(sourceBytes);
-        final int checksumStartIndex = (int) (deterministicValue % ((long)checksumBytes.length - 4L));
+        final int checksumStartIndex = (int) (deterministicValue % ((long) checksumBytes.length - 4L));
         return shuffleBitsAndEncode(sourceBytes, checksumBytes, checksumStartIndex);
     }
 

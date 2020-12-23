@@ -46,7 +46,7 @@ public class InternalNettyConfiguratorBuilder {
     public static final int DEFAULT_AGGREGATOR_CONTENT_LENGTH_IN_BYTES = 64 * 1024;
 
     /**
-     * The channel handler name for {@link NettyRequestHandler}.
+     * The channel handler name for {@link SharableNettyRequestHandler}.
      */
     protected static final String NETTY_RX_MICRO_REQUEST_HANDLER_NAME = "nettyRxMicroRequestHandler";
 

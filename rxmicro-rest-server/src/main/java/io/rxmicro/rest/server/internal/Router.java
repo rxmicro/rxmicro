@@ -26,11 +26,12 @@ import io.rxmicro.rest.server.detail.model.HttpRequest;
 import io.rxmicro.rest.server.detail.model.HttpResponse;
 import io.rxmicro.rest.server.detail.model.PathMatcherResult;
 import io.rxmicro.rest.server.detail.model.Registration;
+import io.rxmicro.rest.server.detail.model.mapping.AnyPathFragmentRequestMappingRule;
 import io.rxmicro.rest.server.detail.model.mapping.ExactUrlRequestMappingRule;
-import io.rxmicro.rest.server.detail.model.mapping.RequestMappingRule;
-import io.rxmicro.rest.server.detail.model.mapping.UrlTemplateRequestMappingRule;
+import io.rxmicro.rest.server.detail.model.mapping.WithUrlPathVariablesRequestMappingRule;
 import io.rxmicro.rest.server.internal.component.ComponentResolver;
 import io.rxmicro.rest.server.internal.component.RequestMappingKeyBuilder;
+import io.rxmicro.rest.server.internal.component.RequestMappingRuleVerifier;
 import io.rxmicro.rest.server.local.component.DynamicRestControllerRegistrar;
 import io.rxmicro.rest.server.local.component.RequestHandler;
 import io.rxmicro.rest.server.local.model.RestControllerMethod;
@@ -61,12 +62,15 @@ public final class Router implements DynamicRestControllerRegistrar, RequestHand
     private final Map<String, RestControllerMethod> exactUrlRestControllerMap =
             new ConcurrentHashMap<>();
 
-    private final List<Map.Entry<UrlTemplateRequestMappingRule, RestControllerMethod>> urlTemplateRestControllers =
+    private final List<Map.Entry<WithUrlPathVariablesRequestMappingRule, RestControllerMethod>> urlTemplateRestControllers =
+            new CopyOnWriteArrayList<>();
+
+    private final List<Map.Entry<AnyPathFragmentRequestMappingRule, RestControllerMethod>> staticResourceTemplateRestControllers =
             new CopyOnWriteArrayList<>();
 
     private final Set<AbstractRestController> registeredRestControllers = new HashSet<>();
 
-    private final Set<RequestMappingRule> registeredRequestMappingRules = new HashSet<>();
+    private final RequestMappingRuleVerifier requestMappingRuleVerifier;
 
     private final ComponentResolver componentResolver;
 
@@ -82,6 +86,7 @@ public final class Router implements DynamicRestControllerRegistrar, RequestHand
         this.componentResolver = componentResolver;
         this.restServerConfig = componentResolver.getRestServerConfig();
         this.requestMappingKeyBuilder = componentResolver.getRequestMappingKeyBuilder();
+        this.requestMappingRuleVerifier = new RequestMappingRuleVerifier(requestMappingKeyBuilder);
         this.handlerNotFoundStage = completedStage(
                 componentResolver.getHttpErrorResponseBodyBuilder().build(
                         componentResolver.getHttpResponseBuilder(),
@@ -131,14 +136,14 @@ public final class Router implements DynamicRestControllerRegistrar, RequestHand
                     registration.isCorsRequestPossible()
             );
             registration.getRequestMappingRules().forEach(requestMapping -> {
-                if (!registeredRequestMappingRules.add(requestMapping)) {
-                    throw new ConfigException("Request mapping '?' not unique", requestMapping);
-                }
-                if (requestMapping.isExactUrlRequestMappingRule()) {
+                requestMappingRuleVerifier.verifyThatRequestMappingRuleIsUnique(requestMapping, method);
+                if (requestMapping instanceof WithUrlPathVariablesRequestMappingRule) {
+                    urlTemplateRestControllers.add(entry((WithUrlPathVariablesRequestMappingRule) requestMapping, method));
+                } else if (requestMapping instanceof AnyPathFragmentRequestMappingRule) {
+                    staticResourceTemplateRestControllers.add(entry((AnyPathFragmentRequestMappingRule) requestMapping, method));
+                } else {
                     final String requestMappingKey = requestMappingKeyBuilder.build((ExactUrlRequestMappingRule) requestMapping);
                     exactUrlRestControllerMap.put(requestMappingKey, method);
-                } else {
-                    urlTemplateRestControllers.add(entry((UrlTemplateRequestMappingRule) requestMapping, method));
                 }
                 LOGGER.info("Mapped ? onto ?", () -> requestMapping, () -> getMethodName(method));
             });
@@ -157,7 +162,7 @@ public final class Router implements DynamicRestControllerRegistrar, RequestHand
     public void clear() {
         exactUrlRestControllerMap.clear();
         registeredRestControllers.clear();
-        registeredRequestMappingRules.clear();
+        requestMappingRuleVerifier.reset();
     }
 
     @Override
@@ -172,12 +177,26 @@ public final class Router implements DynamicRestControllerRegistrar, RequestHand
         if (restControllerMethod != null) {
             return restControllerMethod.call(NO_PATH_VARIABLES, request);
         }
-        for (final var entry : urlTemplateRestControllers) {
-            final PathMatcherResult match = entry.getKey().match(request);
-            if (match.matches()) {
-                return entry.getValue().call(newPathVariableMapping(entry, match), request);
+        if (!urlTemplateRestControllers.isEmpty()) {
+            for (final var entry : urlTemplateRestControllers) {
+                final PathMatcherResult match = entry.getKey().match(request);
+                if (match.matches()) {
+                    return entry.getValue().call(newPathVariableMapping(entry, match), request);
+                }
             }
         }
+        if (!staticResourceTemplateRestControllers.isEmpty()) {
+            for (final var entry : staticResourceTemplateRestControllers) {
+                if (entry.getKey().match(request)) {
+                    return entry.getValue().call(NO_PATH_VARIABLES, request);
+                }
+            }
+        }
+        return returnNotFoundHandler(request, requestMappingKey);
+    }
+
+    private CompletionStage<HttpResponse> returnNotFoundHandler(final HttpRequest request,
+                                                                final String requestMappingKey) {
         if (OPTIONS.name().equals(request.getMethod())) {
             LOGGER.error(request, "CORS not allowed: Handler not found: ?", requestMappingKey);
             return corsNotAllowedStage;
@@ -188,7 +207,7 @@ public final class Router implements DynamicRestControllerRegistrar, RequestHand
     }
 
     private PathVariableMapping newPathVariableMapping(
-            final Map.Entry<UrlTemplateRequestMappingRule, RestControllerMethod> entry,
+            final Map.Entry<WithUrlPathVariablesRequestMappingRule, RestControllerMethod> entry,
             final PathMatcherResult match) {
         return new PathVariableMapping(
                 entry.getKey().getVariables(),

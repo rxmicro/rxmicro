@@ -9,7 +9,7 @@ import io.rxmicro.rest.server.detail.model.HttpRequest;
 import io.rxmicro.rest.server.detail.model.HttpResponse;
 import io.rxmicro.rest.server.detail.model.Registration;
 import io.rxmicro.rest.server.detail.model.mapping.ExactUrlRequestMappingRule;
-import io.rxmicro.rest.server.detail.model.mapping.UrlTemplateRequestMappingRule;
+import io.rxmicro.rest.server.detail.model.mapping.WithUrlPathVariablesRequestMappingRule;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -91,7 +91,7 @@ public final class $$ComplexCORSMicroService extends AbstractRestController {
                         ),
                         this::handler3,
                         true,
-                        new UrlTemplateRequestMappingRule(
+                        new WithUrlPathVariablesRequestMappingRule(
                                 "GET",
                                 new UrlSegments(
                                         "/?",
@@ -100,7 +100,7 @@ public final class $$ComplexCORSMicroService extends AbstractRestController {
                                 false
                         ),
 
-                        new UrlTemplateRequestMappingRule(
+                        new WithUrlPathVariablesRequestMappingRule(
                                 "HEAD",
                                 new UrlSegments(
                                         "/?",
@@ -109,7 +109,7 @@ public final class $$ComplexCORSMicroService extends AbstractRestController {
                                 false
                         ),
 
-                        new UrlTemplateRequestMappingRule(
+                        new WithUrlPathVariablesRequestMappingRule(
                                 "POST",
                                 new UrlSegments(
                                         "/?",

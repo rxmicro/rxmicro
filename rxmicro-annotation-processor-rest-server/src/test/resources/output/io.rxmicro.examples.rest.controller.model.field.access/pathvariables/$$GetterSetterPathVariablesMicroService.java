@@ -10,7 +10,7 @@ import io.rxmicro.rest.server.detail.component.RestControllerRegistrar;
 import io.rxmicro.rest.server.detail.model.HttpRequest;
 import io.rxmicro.rest.server.detail.model.HttpResponse;
 import io.rxmicro.rest.server.detail.model.Registration;
-import io.rxmicro.rest.server.detail.model.mapping.UrlTemplateRequestMappingRule;
+import io.rxmicro.rest.server.detail.model.mapping.WithUrlPathVariablesRequestMappingRule;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -48,7 +48,7 @@ public final class $$GetterSetterPathVariablesMicroService extends AbstractRestC
                         ),
                         this::put,
                         false,
-                        new UrlTemplateRequestMappingRule(
+                        new WithUrlPathVariablesRequestMappingRule(
                                 "PUT",
                                 new UrlSegments(
                                         "/path-variables/gettersetter/?/?/?/?/?/?/?/?/?/?/?/?/?/?",
