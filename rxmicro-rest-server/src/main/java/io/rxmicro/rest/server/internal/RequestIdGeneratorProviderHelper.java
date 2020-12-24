@@ -16,12 +16,12 @@
 
 package io.rxmicro.rest.server.internal;
 
+import io.rxmicro.common.CheckedWrapperException;
 import io.rxmicro.logger.Logger;
 import io.rxmicro.rest.server.RequestIdGeneratorProvider;
 import io.rxmicro.rest.server.RestServerConfig;
 import io.rxmicro.rest.server.feature.RequestIdGenerator;
 
-import java.util.concurrent.CancellationException;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
@@ -53,8 +53,8 @@ public final class RequestIdGeneratorProviderHelper {
                 preferredRequestIdGenerator.getNextId();
                 return preferredRequestIdGenerator;
             });
-            return future.get(restServerConfig.getWaitingForRequestIdGeneratorInitTimeoutInMillis(), MILLISECONDS);
-        } catch (final InterruptedException | ExecutionException | TimeoutException | CancellationException exception) {
+            return future.get(restServerConfig.getRequestIdGeneratorInitTimeout().toMillis(), MILLISECONDS);
+        } catch (final TimeoutException exception) {
             if (fallbackRequestIdGeneratorSupplier != null) {
                 final RequestIdGenerator fallbackRequestIdGenerator = fallbackRequestIdGeneratorSupplier.get();
                 logger.warn(
@@ -66,6 +66,8 @@ public final class RequestIdGeneratorProviderHelper {
             } else {
                 throw new RequestIdGeneratorProvider.CurrentRequestIdGeneratorCantBeUsedException(exception, preferredRequestIdGenerator);
             }
+        } catch (final InterruptedException | ExecutionException exception) {
+            throw new CheckedWrapperException(exception);
         } finally {
             executorService.shutdownNow();
         }

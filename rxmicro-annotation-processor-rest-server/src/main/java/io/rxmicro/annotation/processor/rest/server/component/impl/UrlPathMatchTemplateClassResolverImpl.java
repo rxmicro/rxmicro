@@ -63,31 +63,31 @@ public final class UrlPathMatchTemplateClassResolverImpl implements UrlPathMatch
                                            final String url) {
         AsteriskPosition position = AsteriskPosition.UNDEFINED;
         PathType pathType = PathType.UNDEFINED;
-        int i = 0;
-        while (i < url.length()) {
-            final char ch = url.charAt(i);
+        int index = 0;
+        while (index < url.length()) {
+            final char ch = url.charAt(index);
             if (ch == '*') {
-                if (i == 0) {
+                if (index == 0) {
                     position = AsteriskPosition.END;
                     if (url.length() > 1) {
                         pathType = getPathType(url.charAt(1));
-                        i++;
+                        index++;
                     } else {
                         throw createInterruptProcessingException(element, url);
                     }
-                } else if (i == url.length() - 1) {
+                } else if (index == url.length() - 1) {
                     if (position == AsteriskPosition.UNDEFINED) {
                         position = AsteriskPosition.START;
                         pathType = getPathType(url.charAt(url.length() - 2));
-                        i++;
+                        index++;
                     } else {
                         throw createInterruptProcessingException(element, url);
                     }
-                } else if (i != url.length() - 2) {
+                } else if (index != url.length() - 2) {
                     throw createInterruptProcessingException(element, url);
                 }
             }
-            i++;
+            index++;
         }
         return convert(position, pathType);
     }

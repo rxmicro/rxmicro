@@ -56,7 +56,6 @@ import static io.rxmicro.annotation.processor.common.util.Elements.asEnumElement
 import static io.rxmicro.annotation.processor.common.util.Elements.findGetters;
 import static io.rxmicro.annotation.processor.common.util.Elements.findSetters;
 import static io.rxmicro.annotation.processor.common.util.ModelTypeElements.asValidatedModelTypeElement;
-import static io.rxmicro.annotation.processor.common.util.Names.getPackageName;
 import static io.rxmicro.annotation.processor.common.util.Types.JAVA_PRIMITIVE_REPLACEMENT;
 import static io.rxmicro.annotation.processor.common.util.validators.TypeValidators.validateGenericType;
 import static io.rxmicro.annotation.processor.config.SupportedOptions.RX_MICRO_MAX_JSON_NESTED_DEPTH;
@@ -110,10 +109,10 @@ public abstract class AbstractModelFieldBuilder<MF extends ModelField, MC extend
     protected final AnnotatedModelElement build(final TypeElement typeElement,
                                                 final VariableElement variableElement) {
         return new AnnotatedModelElement(
-                getPackageName(typeElement),
                 variableElement,
                 findGetters(typeElement, variableElement),
-                findSetters(typeElement, variableElement).stream().findFirst().orElse(null));
+                findSetters(typeElement, variableElement).stream().findFirst().orElse(null)
+        );
     }
 
     protected abstract MF build(ModelFieldType modelFieldType,

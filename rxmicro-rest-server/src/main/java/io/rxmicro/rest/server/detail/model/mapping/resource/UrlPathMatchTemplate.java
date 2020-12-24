@@ -27,6 +27,10 @@ import io.rxmicro.rest.server.detail.model.HttpRequest;
  */
 public abstract class UrlPathMatchTemplate implements Comparable<Object> {
 
+    protected static final int LOWEST_PRIORITY = 1;
+
+    protected static final int HIGHEST_PRIORITY = Integer.MAX_VALUE;
+
     protected final String urlTemplate;
 
     protected final int urlTemplateLength;
@@ -42,7 +46,7 @@ public abstract class UrlPathMatchTemplate implements Comparable<Object> {
 
     public abstract boolean match(HttpRequest request);
 
-    public abstract int order();
+    public abstract int priority();
 
     public boolean isStateless() {
         return false;
@@ -71,7 +75,7 @@ public abstract class UrlPathMatchTemplate implements Comparable<Object> {
             return 1;
         } else {
             final UrlPathMatchTemplate otherUrlPathMatchTemplate = (UrlPathMatchTemplate) other;
-            final int res = order() - otherUrlPathMatchTemplate.order();
+            final int res = otherUrlPathMatchTemplate.priority() - priority();
             return res == 0 ? urlTemplate.compareTo(otherUrlPathMatchTemplate.urlTemplate) : res;
         }
     }

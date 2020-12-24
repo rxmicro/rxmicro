@@ -1005,7 +1005,7 @@ public final class Reflections {
 
     private static Method findMethod(final Class<?> clazz,
                                      final String methodName,
-                                     final Class<?>[] parameterTypes) {
+                                     final Class<?>... parameterTypes) {
         try {
             return clazz.getDeclaredMethod(methodName, parameterTypes);
         } catch (final NoSuchMethodException ex) {

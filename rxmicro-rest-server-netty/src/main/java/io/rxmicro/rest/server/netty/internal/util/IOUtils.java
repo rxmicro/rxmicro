@@ -14,20 +14,27 @@
  * limitations under the License.
  */
 
-package io.rxmicro.rest.server.netty.local;
+package io.rxmicro.rest.server.netty.internal.util;
 
-import static io.rxmicro.rest.server.netty.internal.component.NettyConfiguratorController.getNettyConfiguratorController;
+import java.io.Closeable;
+import java.io.IOException;
 
 /**
  * @author nedis
- * @since 0.7.2
+ * @since 0.8
  */
-public final class NettyConfiguratorControllerResetter {
+public final class IOUtils {
 
-    public static void resetNettyConfiguratorController() {
-        getNettyConfiguratorController().reset();
+    public static void closeQuietly(final Closeable closeable) {
+        if (closeable != null) {
+            try {
+                closeable.close();
+            } catch (final IOException ignore) {
+                // do nothing
+            }
+        }
     }
 
-    private NettyConfiguratorControllerResetter() {
+    private IOUtils() {
     }
 }

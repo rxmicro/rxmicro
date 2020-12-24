@@ -155,8 +155,8 @@ public final class JsonNumber implements Comparable<JsonNumber> {
     }
 
     @Override
-    public int compareTo(final JsonNumber o) {
-        return new BigDecimal(number).compareTo(new BigDecimal(o.number));
+    public int compareTo(final JsonNumber other) {
+        return new BigDecimal(number).compareTo(new BigDecimal(other.number));
     }
 
     /**
@@ -225,9 +225,6 @@ public final class JsonNumber implements Comparable<JsonNumber> {
             } else {
                 return new NumberFormatException("Multiple points: " + number);
             }
-        }
-
-        private JsonNumberValidators() {
         }
     }
 }

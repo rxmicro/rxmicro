@@ -41,7 +41,7 @@ import java.lang.reflect.InaccessibleObjectException;
 import java.util.List;
 
 import static io.rxmicro.config.local.DefaultConfigValueBuilderReSetter.resetDefaultConfigValueStorage;
-import static io.rxmicro.rest.server.netty.local.NettyConfiguratorControllerResetter.resetNettyConfiguratorController;
+import static io.rxmicro.rest.server.netty.local.NettyConfiguratorControllerResetUtils.resetNettyConfiguratorController;
 import static io.rxmicro.runtime.local.AbstractFactory.clearFactories;
 import static io.rxmicro.runtime.local.InstanceContainer.clearContainer;
 import static io.rxmicro.test.junit.local.TestObjects.getTestInstances;

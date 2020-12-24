@@ -28,7 +28,7 @@ import static io.rxmicro.common.util.Requires.require;
  * @author nedis
  * @since 0.1
  */
-public class RestRequestModel {
+public final class RestRequestModel {
 
     public static final RestRequestModel VOID = new RestRequestModel();
 
@@ -73,6 +73,6 @@ public class RestRequestModel {
 
     @Override
     public String toString() {
-        return this == VOID ? "" : format("? ?", getRequiredRequestType().asType(), getRequiredVariableName());
+        return VOID.equals(this) ? "" : format("? ?", getRequiredRequestType().asType(), getRequiredVariableName());
     }
 }

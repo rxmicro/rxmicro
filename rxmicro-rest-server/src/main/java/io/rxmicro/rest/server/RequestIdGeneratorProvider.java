@@ -34,13 +34,13 @@ public interface RequestIdGeneratorProvider {
      * For example, if the entropy source is {@code /dev/random} on various Unix-like operating systems.
      *
      * <p>
-     * By default the RxMicro framework waits {@link RestServerConfig#getWaitingForRequestIdGeneratorInitTimeoutInMillis()} millis before
-     * throwing the {@link CurrentRequestIdGeneratorCantBeUsedException} exception.
+     * To verify that the next request id generation method is not blocked by operation system, the RxMicro framework uses
+     * the {@link RestServerConfig#getRequestIdGeneratorInitTimeout()} config parameter.
      *
      * @param restServerConfig the rest server config instance
      * @return the request id generator instance
      * @see RequestIdGenerator
-     * @see RestServerConfig#getWaitingForRequestIdGeneratorInitTimeoutInMillis()
+     * @see RestServerConfig#getRequestIdGeneratorInitTimeout()
      * @throws CurrentRequestIdGeneratorCantBeUsedException if current request id generator can't be used
      */
     RequestIdGenerator getRequestIdGenerator(RestServerConfig restServerConfig);
@@ -51,8 +51,8 @@ public interface RequestIdGeneratorProvider {
      * For example, if the entropy source is {@code /dev/random} on various Unix-like operating systems.
      *
      * <p>
-     * By default the RxMicro framework waits {@link RestServerConfig#getWaitingForRequestIdGeneratorInitTimeoutInMillis()} millis before
-     * throwing the {@link CurrentRequestIdGeneratorCantBeUsedException} exception.
+     * To verify that the next request id generation method is not blocked by operation system, the RxMicro framework uses
+     * the {@link RestServerConfig#getRequestIdGeneratorInitTimeout()} config parameter.
      *
      * @author nedis
      * @since 0.7.3

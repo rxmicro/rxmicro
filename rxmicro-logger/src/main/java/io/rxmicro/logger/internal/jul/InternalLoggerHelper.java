@@ -43,6 +43,13 @@ public final class InternalLoggerHelper {
         LOGGER.log(new RxMicroLogRecord(GLOBAL_LOGGER_NAME, level, format(template, args)));
     }
 
+    public static void logInternal(final Level level,
+                                   final Throwable throwable,
+                                   final String template,
+                                   final Object... args) {
+        LOGGER.log(new RxMicroLogRecord(GLOBAL_LOGGER_NAME, level, format(template, args), throwable));
+    }
+
     private InternalLoggerHelper() {
     }
 }

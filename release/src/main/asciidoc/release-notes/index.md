@@ -2,6 +2,13 @@
 
 This document contains the *change log* for all RxMicro releases since **0.2**.
 
+## RxMicro v0.8
+
+* Introduce `@StaticResources` annotation.
+* Fix `Deterministic96BitsRequestIdGenerator`.
+* Set `JdkLoggerFactory.INSTANCE` as default logger factory for netty.
+* Update `HttpServerConfig` class.
+
 ## RxMicro v0.7.4
 
 * Add unit tests and remove redundant code

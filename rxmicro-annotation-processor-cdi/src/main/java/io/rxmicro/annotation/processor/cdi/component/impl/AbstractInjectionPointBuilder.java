@@ -38,7 +38,6 @@ import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
 
 import static io.rxmicro.annotation.processor.common.util.Errors.createInternalErrorSupplier;
-import static io.rxmicro.annotation.processor.common.util.Names.getPackageName;
 import static io.rxmicro.annotation.processor.common.util.validators.AnnotationValidators.validateOnlyOneAnnotationPerElement;
 import static io.rxmicro.cdi.local.Annotations.INJECT_ANNOTATIONS;
 
@@ -71,7 +70,7 @@ public abstract class AbstractInjectionPointBuilder {
         final boolean required = isRequired(field);
         final InjectionPoint.Builder injectionPointBuilder = new InjectionPoint.Builder()
                 .setType(type)
-                .setModelField(new InjectionModelField(buildAnnotatedModelElement(beanTypeElement, field), modelName))
+                .setModelField(new InjectionModelField(buildAnnotatedModelElement(field), modelName))
                 .setRequired(required);
         if (type == InjectionPointType.BEAN) {
             injectionPointBuilder.setQualifierRules(beanInjectionPointQualifierRuleBuilder.build(field));
@@ -111,8 +110,7 @@ public abstract class AbstractInjectionPointBuilder {
                 .isPresent();
     }
 
-    private AnnotatedModelElement buildAnnotatedModelElement(final TypeElement typeElement,
-                                                             final VariableElement variableElement) {
-        return new AnnotatedModelElement(getPackageName(typeElement), variableElement);
+    private AnnotatedModelElement buildAnnotatedModelElement(final VariableElement variableElement) {
+        return new AnnotatedModelElement(variableElement);
     }
 }

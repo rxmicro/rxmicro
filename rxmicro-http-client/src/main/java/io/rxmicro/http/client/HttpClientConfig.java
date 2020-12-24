@@ -58,9 +58,9 @@ public class HttpClientConfig extends HttpConfig {
      * Creates a HTTP client config instance with default settings.
      */
     protected HttpClientConfig() {
-        setSchema(HTTP);
-        setHost("localhost");
-        setPort(DEFAULT_HTTP_PORT);
+        super.setSchema(HTTP);
+        super.setHost("localhost");
+        super.setPort(DEFAULT_HTTP_PORT);
     }
 
     /**

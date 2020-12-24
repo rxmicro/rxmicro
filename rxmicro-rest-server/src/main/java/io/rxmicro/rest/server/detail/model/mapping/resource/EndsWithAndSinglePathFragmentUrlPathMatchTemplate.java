@@ -37,8 +37,6 @@ import io.rxmicro.rest.server.detail.model.HttpRequest;
  */
 public final class EndsWithAndSinglePathFragmentUrlPathMatchTemplate extends UrlPathMatchTemplate {
 
-    private static final int ORDER = 2;
-
     public EndsWithAndSinglePathFragmentUrlPathMatchTemplate(final String urlTemplate) {
         super(urlTemplate);
     }
@@ -51,20 +49,21 @@ public final class EndsWithAndSinglePathFragmentUrlPathMatchTemplate extends Url
             return false;
         } else {
             final int shift = length - urlTemplateLength;
-            for (int i = length - 1, j = i - shift; j >= 0; i--, j--) {
-                final char expected = urlTemplate.charAt(j);
+            int uriIndex = length - 1;
+            for (int i = uriIndex - shift; i >= 0; uriIndex--, i--) {
+                final char expected = urlTemplate.charAt(i);
                 if (expected == '*') {
-                    if (uri.charAt(i) == '/') {
+                    if (uri.charAt(uriIndex) == '/') {
                         return false;
                     }
-                    for (int k = i - 1; k > 0; k--) {
-                        if (uri.charAt(k) == '/') {
+                    for (int j = uriIndex - 1; j > 0; j--) {
+                        if (uri.charAt(j) == '/') {
                             return false;
                         }
                     }
                     return true;
                 } else {
-                    final char actual = uri.charAt(i);
+                    final char actual = uri.charAt(uriIndex);
                     if (actual != expected) {
                         return false;
                     }
@@ -75,7 +74,7 @@ public final class EndsWithAndSinglePathFragmentUrlPathMatchTemplate extends Url
     }
 
     @Override
-    public int order() {
-        return ORDER;
+    public int priority() {
+        return LOWEST_PRIORITY + 1;
     }
 }

@@ -20,6 +20,7 @@ import io.rxmicro.common.meta.BuilderMethod;
 import io.rxmicro.config.Config;
 import io.rxmicro.rest.server.feature.RequestIdGenerator;
 
+import java.time.Duration;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -54,7 +55,7 @@ public class RestServerConfig extends Config {
      * @see RequestIdGeneratorProvider#getRequestIdGenerator(RestServerConfig)
      * @see io.rxmicro.rest.server.RequestIdGeneratorProvider.CurrentRequestIdGeneratorCantBeUsedException
      */
-    public static final int DEFAULT_WAITING_FOR_REQUEST_ID_GENERATOR_INIT_TIMEOUT_IN_MILLIS = 3_000;
+    public static final Duration DEFAULT_REQUEST_ID_GENERATOR_INIT_TIMEOUT = Duration.ofMillis(3_000);
 
     private int handlerNotFoundErrorStatusCode = DEFAULT_HANDLER_NOT_FOUND_ERROR_STATUS_CODE;
 
@@ -89,7 +90,7 @@ public class RestServerConfig extends Config {
 
     private boolean enableAdditionalValidations;
 
-    private int waitingForRequestIdGeneratorInitTimeoutInMillis = DEFAULT_WAITING_FOR_REQUEST_ID_GENERATOR_INIT_TIMEOUT_IN_MILLIS;
+    private Duration requestIdGeneratorInitTimeout = DEFAULT_REQUEST_ID_GENERATOR_INIT_TIMEOUT;
 
     /**
      * Configures REST server for development environment.
@@ -320,27 +321,35 @@ public class RestServerConfig extends Config {
     }
 
     /**
-     * Returns the waiting for request id generator initialization timeout in millis.
+     * Returns the request id generator initialization timeout.
      *
-     * @return the waiting for request id generator initialization timeout in millis.
+     * <p>
+     * This timeout is used to verify that the next request id generation method is not blocked by operation system.
+     * For example, if the entropy source is {@code /dev/random} on various Unix-like operating systems.
+     *
+     * @return the request id generator initialization timeout.
      * @see RequestIdGeneratorProvider#getRequestIdGenerator(RestServerConfig)
      * @see io.rxmicro.rest.server.RequestIdGeneratorProvider.CurrentRequestIdGeneratorCantBeUsedException
      */
-    public int getWaitingForRequestIdGeneratorInitTimeoutInMillis() {
-        return waitingForRequestIdGeneratorInitTimeoutInMillis;
+    public Duration getRequestIdGeneratorInitTimeout() {
+        return requestIdGeneratorInitTimeout;
     }
 
     /**
-     * Sets the waiting for request id generator initialization timeout in millis.
+     * Sets the request id generator initialization timeout.
      *
-     * @param waitingForRequestIdGeneratorInitTimeoutInMillis new timeout in millis
+     * <p>
+     * This timeout is used to verify that the next request id generation method is not blocked by operation system.
+     * For example, if the entropy source is {@code /dev/random} on various Unix-like operating systems.
+     *
+     * @param requestIdGeneratorInitTimeout new timeout
      * @return the reference to this  {@link RestServerConfig} instance
      * @see RequestIdGeneratorProvider#getRequestIdGenerator(RestServerConfig)
      * @see io.rxmicro.rest.server.RequestIdGeneratorProvider.CurrentRequestIdGeneratorCantBeUsedException
      */
     @BuilderMethod
-    public RestServerConfig setWaitingForRequestIdGeneratorInitTimeoutInMillis(final int waitingForRequestIdGeneratorInitTimeoutInMillis) {
-        this.waitingForRequestIdGeneratorInitTimeoutInMillis = waitingForRequestIdGeneratorInitTimeoutInMillis;
+    public RestServerConfig setRequestIdGeneratorInitTimeout(final Duration requestIdGeneratorInitTimeout) {
+        this.requestIdGeneratorInitTimeout = requestIdGeneratorInitTimeout;
         return this;
     }
 
@@ -488,7 +497,7 @@ public class RestServerConfig extends Config {
                 ", showRuntimeEnv=" + showRuntimeEnv +
                 ", useFullClassNamesForRouterMappingLogMessages=" + useFullClassNamesForRouterMappingLogMessages +
                 ", enableAdditionalValidations=" + enableAdditionalValidations +
-                ", waitingForRequestIdGeneratorInitTimeoutInMillis=" + waitingForRequestIdGeneratorInitTimeoutInMillis +
+                ", waitingForRequestIdGeneratorInitTimeoutInMillis=" + requestIdGeneratorInitTimeout +
                 '}';
     }
 }

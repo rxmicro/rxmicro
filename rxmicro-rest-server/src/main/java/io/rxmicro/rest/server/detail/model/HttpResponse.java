@@ -16,6 +16,7 @@
 
 package io.rxmicro.rest.server.detail.model;
 
+import io.rxmicro.common.meta.BuilderMethod;
 import io.rxmicro.http.HttpHeaders;
 import io.rxmicro.http.HttpVersion;
 
@@ -56,6 +57,7 @@ public interface HttpResponse {
      * @param status the status code
      * @return the reference to this  {@link HttpResponse} instance
      */
+    @BuilderMethod
     HttpResponse setStatus(int status);
 
     /**
@@ -64,6 +66,7 @@ public interface HttpResponse {
      * @param httpVersion the {@link HttpVersion}
      * @return the reference to this  {@link HttpResponse} instance
      */
+    @BuilderMethod
     HttpResponse setVersion(HttpVersion httpVersion);
 
     /**
@@ -76,6 +79,7 @@ public interface HttpResponse {
      * @param value the specified value
      * @return the reference to this  {@link HttpResponse} instance
      */
+    @BuilderMethod
     HttpResponse addHeader(String name,
                            String value);
 
@@ -89,6 +93,7 @@ public interface HttpResponse {
      * @param value the specified value
      * @return the reference to this  {@link HttpResponse} instance
      */
+    @BuilderMethod
     default HttpResponse addHeader(final String name,
                                    final Object value) {
         if (value != null) {
@@ -107,6 +112,7 @@ public interface HttpResponse {
      * @param value the specified value
      * @return the reference to this  {@link HttpResponse} instance
      */
+    @BuilderMethod
     default HttpResponse addHeader(final String name,
                                    final BigDecimal value) {
         if (value != null) {
@@ -125,6 +131,7 @@ public interface HttpResponse {
      * @param value the specified value
      * @return the reference to this  {@link HttpResponse} instance
      */
+    @BuilderMethod
     default HttpResponse addHeader(final String name,
                                    final List<?> value) {
         if (value != null && !value.isEmpty()) {
@@ -143,6 +150,7 @@ public interface HttpResponse {
      * @param value the specified value
      * @return the reference to this  {@link HttpResponse} instance
      */
+    @BuilderMethod
     default HttpResponse addHeader(final String name,
                                    final Collection<?> value) {
         if (value != null && !value.isEmpty()) {
@@ -157,6 +165,7 @@ public interface HttpResponse {
      * @param headers the {@link HttpHeaders}
      * @return the reference to this  {@link HttpResponse} instance
      */
+    @BuilderMethod
     HttpResponse setOrAddHeaders(HttpHeaders headers);
 
     /**
@@ -169,6 +178,7 @@ public interface HttpResponse {
      * @param value the specified value
      * @return the reference to this  {@link HttpResponse} instance
      */
+    @BuilderMethod
     HttpResponse setHeader(String name,
                            String value);
 
@@ -182,6 +192,7 @@ public interface HttpResponse {
      * @param value the specified value
      * @return the reference to this  {@link HttpResponse} instance
      */
+    @BuilderMethod
     default HttpResponse setHeader(final String name,
                                    final Object value) {
         if (value != null) {
@@ -200,6 +211,7 @@ public interface HttpResponse {
      * @param value the specified value
      * @return the reference to this  {@link HttpResponse} instance
      */
+    @BuilderMethod
     default HttpResponse setHeader(final String name,
                                    final BigDecimal value) {
         if (value != null) {
@@ -218,6 +230,7 @@ public interface HttpResponse {
      * @param value the specified value
      * @return the reference to this  {@link HttpResponse} instance
      */
+    @BuilderMethod
     default HttpResponse setHeader(final String name,
                                    final List<?> value) {
         if (value != null && !value.isEmpty()) {
@@ -236,6 +249,7 @@ public interface HttpResponse {
      * @param value the specified value
      * @return the reference to this  {@link HttpResponse} instance
      */
+    @BuilderMethod
     default HttpResponse setHeader(final String name,
                                    final Collection<?> value) {
         if (value != null && !value.isEmpty()) {
@@ -252,6 +266,7 @@ public interface HttpResponse {
      * @see #sendFile(Path)
      * @throws io.rxmicro.common.InvalidStateException if this response used for sending file
      */
+    @BuilderMethod
     HttpResponse setContent(byte[] content);
 
     /**
@@ -262,6 +277,7 @@ public interface HttpResponse {
      * @see #sendFile(Path)
      * @throws io.rxmicro.common.InvalidStateException if this response used for sending file
      */
+    @BuilderMethod
     default HttpResponse setContent(final String content) {
         return setContent(content.getBytes(StandardCharsets.UTF_8));
     }
@@ -275,5 +291,6 @@ public interface HttpResponse {
      * @see #setContent(String)
      * @throws io.rxmicro.common.InvalidStateException if this response used for sending byte array
      */
+    @BuilderMethod
     HttpResponse sendFile(Path path);
 }

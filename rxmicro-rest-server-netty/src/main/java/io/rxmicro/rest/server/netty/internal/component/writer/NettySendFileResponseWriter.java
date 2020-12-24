@@ -43,6 +43,7 @@ import static io.rxmicro.http.HttpStandardHeaderNames.CONTENT_LENGTH;
 import static io.rxmicro.http.HttpStandardHeaderNames.CONTENT_TYPE;
 import static io.rxmicro.http.HttpStandardHeaderNames.EXPIRES;
 import static io.rxmicro.http.HttpStandardHeaderNames.LAST_MODIFIED;
+import static io.rxmicro.rest.server.netty.internal.util.IOUtils.closeQuietly;
 import static java.nio.file.Files.getLastModifiedTime;
 import static java.time.Instant.now;
 import static java.time.ZoneOffset.UTC;
@@ -91,8 +92,9 @@ public final class NettySendFileResponseWriter extends BaseNettyResponseWriter {
                               final boolean keepAlive) {
         setCommonHeaders(request, response, keepAlive);
         final Path sendFilePath = response.getSendFilePath();
+        RandomAccessFile randomAccessFile = null;
         try {
-            final RandomAccessFile randomAccessFile = new RandomAccessFile(sendFilePath.toFile(), "r");
+            randomAccessFile = new RandomAccessFile(sendFilePath.toFile(), "r");
             final long fileLength = randomAccessFile.length();
             response.setHeader(CONTENT_LENGTH, fileLength);
             response.setHeader(CONTENT_TYPE, MIME_TYPES.getOrDefault(getPathExtension(sendFilePath), UNKNOWN_MIME_TYPE));
@@ -101,6 +103,8 @@ public final class NettySendFileResponseWriter extends BaseNettyResponseWriter {
 
             writeHttpResponseBody(ctx, request, response, startTime, keepAlive, randomAccessFile, fileLength);
         } catch (final IOException exception) {
+            closeQuietly(randomAccessFile);
+            // Delegates exception handling to SharableNettyRequestHandler
             throw new CheckedWrapperException(exception);
         }
     }
@@ -128,6 +132,7 @@ public final class NettySendFileResponseWriter extends BaseNettyResponseWriter {
         if (isSslHandlerPresent) {
             ctx.writeAndFlush(new HttpChunkedInput(new ChunkedFile(randomAccessFile, 0, fileLength, DEFAULT_CHUNK_SIZE)))
                     .addListener((ChannelFutureListener) future -> {
+                        closeQuietly(randomAccessFile);
                         logResponse(request, startTime, response, ctx);
                         if (!keepAlive) {
                             future.channel().close();
@@ -137,6 +142,7 @@ public final class NettySendFileResponseWriter extends BaseNettyResponseWriter {
             ctx.write(new DefaultFileRegion(randomAccessFile.getChannel(), 0, fileLength), ctx.voidPromise());
             ctx.writeAndFlush(LastHttpContent.EMPTY_LAST_CONTENT)
                     .addListener((ChannelFutureListener) future -> {
+                        closeQuietly(randomAccessFile);
                         logResponse(request, startTime, response, ctx);
                         if (!keepAlive) {
                             future.channel().close();

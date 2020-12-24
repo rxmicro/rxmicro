@@ -54,7 +54,7 @@ public final class WithParentClassStructureInitializerImpl extends AbstractProce
             for (final CS classStructureCandidate : classStructureCandidates) {
                 if (!currentItem.equals(classStructureCandidate) &&
                         classStructureCandidate.getModelClass().getJavaFullClassName().equals(javaFullClassName)) {
-                    if (currentItem.setParent(classStructureCandidate)) {
+                    if (currentItem.assignParent(classStructureCandidate)) {
                         debug(
                                 "Set parent class structure:\n?",
                                 () -> getLoggableParentChildRelationFragment(

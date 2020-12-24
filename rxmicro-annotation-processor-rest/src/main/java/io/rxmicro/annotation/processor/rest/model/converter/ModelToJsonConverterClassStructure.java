@@ -45,7 +45,7 @@ public final class ModelToJsonConverterClassStructure extends AbstractModelJsonC
     }
 
     @Override
-    public boolean setParent(final ModelToJsonConverterClassStructure parent) {
+    public boolean assignParent(final ModelToJsonConverterClassStructure parent) {
         this.parent = require(parent);
         return true;
     }

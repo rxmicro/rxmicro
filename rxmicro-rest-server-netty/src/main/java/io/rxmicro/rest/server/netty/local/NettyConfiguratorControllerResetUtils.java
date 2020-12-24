@@ -14,25 +14,20 @@
  * limitations under the License.
  */
 
-package io.rxmicro.annotation.processor.common.model;
+package io.rxmicro.rest.server.netty.local;
 
-import io.rxmicro.annotation.processor.common.model.type.ObjectModelClass;
+import static io.rxmicro.rest.server.netty.internal.component.NettyConfiguratorController.getNettyConfiguratorController;
 
 /**
  * @author nedis
  * @since 0.7.2
  */
-public interface WithParentClassStructure<
-        CS extends ClassStructure & WithParentClassStructure<CS, MF, MC>,
-        MF extends ModelField,
-        MC extends ObjectModelClass<MF>> extends LoggableClassName {
+public final class NettyConfiguratorControllerResetUtils {
 
-    String getTargetFullClassName();
+    public static void resetNettyConfiguratorController() {
+        getNettyConfiguratorController().reset();
+    }
 
-    /**
-     * @return {@code true} if parent was assigned, otherwise {@code false} is returned.
-     */
-    boolean assignParent(CS parent);
-
-    MC getModelClass();
+    private NettyConfiguratorControllerResetUtils() {
+    }
 }

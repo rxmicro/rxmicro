@@ -18,7 +18,6 @@ package io.rxmicro.test.internal;
 
 import io.rxmicro.common.CheckedWrapperException;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.concurrent.CompletableFuture;
@@ -39,7 +38,7 @@ public final class TestedProcessProxy extends Process {
 
     private final Thread outputCatcher;
 
-    private final CompletableFuture<Process> onExit;
+    private final CompletableFuture<Process> onExitCompletableFuture;
 
     public TestedProcessProxy(final Process processWithRedirectedErrorStream) {
         this.process = require(processWithRedirectedErrorStream);
@@ -48,7 +47,7 @@ public final class TestedProcessProxy extends Process {
                 "Process output catcher for pid=" + this.process.pid()
         );
         this.outputCatcher.start();
-        this.onExit = process.onExit()
+        this.onExitCompletableFuture = process.onExit()
                 .thenApply(interruptOutputCatcherAfterProcessExit());
     }
 
@@ -128,7 +127,7 @@ public final class TestedProcessProxy extends Process {
 
     @Override
     public CompletableFuture<Process> onExit() {
-        return onExit;
+        return onExitCompletableFuture;
     }
 
     @Override
@@ -184,12 +183,12 @@ public final class TestedProcessProxy extends Process {
         public void run() {
             try (InputStream inputStream = process.getInputStream()) {
                 inputStream.transferTo(System.out);
-            } catch (final IOException | RuntimeException ex) {
+            } catch (final Throwable throwable) {
                 System.out.println(format(
                         "Can't display process output: process=`?`, message=?",
-                        processInfoToString(process), ex.getMessage()
+                        processInfoToString(process), throwable.getMessage()
                 ));
-                ex.printStackTrace(System.out);
+                throwable.printStackTrace(System.out);
             }
         }
 

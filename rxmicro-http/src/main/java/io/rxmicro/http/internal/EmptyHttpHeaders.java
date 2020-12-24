@@ -16,21 +16,20 @@
 
 package io.rxmicro.http.internal;
 
-import io.rxmicro.http.QueryParams;
+import io.rxmicro.http.HttpHeaders;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
 /**
  * @author nedis
- * @since 0.1
+ * @since 0.8
  */
-public final class EmptyQueryParams implements QueryParams {
+public final class EmptyHttpHeaders implements HttpHeaders {
 
-    public static final EmptyQueryParams INSTANCE = new EmptyQueryParams();
+    public static final EmptyHttpHeaders INSTANCE = new EmptyHttpHeaders();
 
-    private EmptyQueryParams() {
+    private EmptyHttpHeaders() {
     }
 
     @Override
@@ -44,12 +43,22 @@ public final class EmptyQueryParams implements QueryParams {
     }
 
     @Override
-    public Collection<Map.Entry<String, String>> getEntries() {
+    public boolean contains(final String name) {
+        return false;
+    }
+
+    @Override
+    public List<Map.Entry<String, String>> getEntries() {
         return List.of();
     }
 
     @Override
-    public String toString() {
-        return "";
+    public int size() {
+        return 0;
+    }
+
+    @Override
+    public boolean isNotEmpty() {
+        return false;
     }
 }

@@ -48,8 +48,6 @@ import static javax.lang.model.element.Modifier.PRIVATE;
  */
 public final class AnnotatedModelElement {
 
-    private final String modelPackageName;
-
     private final VariableElement field;
 
     private final List<ExecutableElement> getters;
@@ -60,11 +58,9 @@ public final class AnnotatedModelElement {
 
     private final ModelAccessorType writeModelAccessorType;
 
-    public AnnotatedModelElement(final String modelPackageName,
-                                 final VariableElement field,
+    public AnnotatedModelElement(final VariableElement field,
                                  final List<ExecutableElement> getters,
                                  final ExecutableElement setter) {
-        this.modelPackageName = require(modelPackageName);
         this.field = require(field);
         this.getters = require(getters);
         this.setter = setter;
@@ -72,9 +68,7 @@ public final class AnnotatedModelElement {
         this.writeModelAccessorType = getModelAccessorType(() -> setter != null);
     }
 
-    public AnnotatedModelElement(final String modelPackageName,
-                                 final VariableElement constructorArgument) {
-        this.modelPackageName = require(modelPackageName);
+    public AnnotatedModelElement(final VariableElement constructorArgument) {
         this.field = require(constructorArgument);
         this.getters = List.of();
         this.setter = null;

@@ -36,8 +36,6 @@ import io.rxmicro.rest.server.detail.model.HttpRequest;
  */
 public final class StartsWithAndOneOrMorePathFragmentUrlPathMatchTemplate extends UrlPathMatchTemplate {
 
-    private static final int ORDER = 3;
-
     public StartsWithAndOneOrMorePathFragmentUrlPathMatchTemplate(final String urlTemplate) {
         super(urlTemplate);
     }
@@ -63,7 +61,7 @@ public final class StartsWithAndOneOrMorePathFragmentUrlPathMatchTemplate extend
     }
 
     @Override
-    public int order() {
-        return ORDER;
+    public int priority() {
+        return LOWEST_PRIORITY + 2;
     }
 }

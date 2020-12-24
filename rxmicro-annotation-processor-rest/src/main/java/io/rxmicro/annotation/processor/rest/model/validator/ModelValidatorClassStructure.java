@@ -99,7 +99,7 @@ public final class ModelValidatorClassStructure extends ClassStructure
     }
 
     @Override
-    public boolean setParent(final ModelValidatorClassStructure parent) {
+    public boolean assignParent(final ModelValidatorClassStructure parent) {
         this.parent = parent;
         return true;
     }

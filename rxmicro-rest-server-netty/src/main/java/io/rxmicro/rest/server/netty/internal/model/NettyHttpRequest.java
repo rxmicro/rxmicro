@@ -27,6 +27,7 @@ import io.rxmicro.rest.server.detail.model.HttpRequest;
 import io.rxmicro.rest.server.feature.RequestIdGenerator;
 
 import java.net.SocketAddress;
+import java.util.Objects;
 
 import static io.rxmicro.http.HttpStandardHeaderNames.REQUEST_ID;
 
@@ -108,9 +109,9 @@ public final class NettyHttpRequest implements HttpRequest, RequestIdSupplier {
     @Override
     public HttpVersion getVersion() {
         final io.netty.handler.codec.http.HttpVersion httpVersion = request.protocolVersion();
-        if (httpVersion == io.netty.handler.codec.http.HttpVersion.HTTP_1_1) {
+        if (Objects.equals(io.netty.handler.codec.http.HttpVersion.HTTP_1_1, httpVersion)) {
             return HttpVersion.HTTP_1_1;
-        } else if (httpVersion == io.netty.handler.codec.http.HttpVersion.HTTP_1_0) {
+        } else if (Objects.equals(io.netty.handler.codec.http.HttpVersion.HTTP_1_0, httpVersion)) {
             return HttpVersion.HTTP_1_0;
         } else {
             throw new InvalidStateException("Unsupported HTTP version: ?", httpVersion);

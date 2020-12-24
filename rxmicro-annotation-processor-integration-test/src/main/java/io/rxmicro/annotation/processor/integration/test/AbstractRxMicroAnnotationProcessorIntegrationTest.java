@@ -206,24 +206,24 @@ public abstract class AbstractRxMicroAnnotationProcessorIntegrationTest extends 
     }
 
     private static void validateIncludesAndExcludes(final Method method,
-                                                    final IncludeExample[] includeExamples,
-                                                    final ExcludeExample[] excludeExamples) {
-        if (includeExamples.length > 0 && excludeExamples.length > 0) {
+                                                    final List<IncludeExample> includeExamples,
+                                                    final List<ExcludeExample> excludeExamples) {
+        if (!includeExamples.isEmpty() && !excludeExamples.isEmpty()) {
             throw new InvalidStateException("Only includes OR excludes must be specified per test method: ?", method);
         }
     }
 
-    private static Predicate<String> createPackagePredicate(final IncludeExample[] includeExamples,
-                                                            final ExcludeExample[] excludeExamples) {
+    private static Predicate<String> createPackagePredicate(final List<IncludeExample> includeExamples,
+                                                            final List<ExcludeExample> excludeExamples) {
 
-        if (includeExamples.length > 0) {
-            final List<Pattern> patterns = Arrays.stream(includeExamples)
+        if (!includeExamples.isEmpty()) {
+            final List<Pattern> patterns = includeExamples.stream()
                     .map(annotation -> Pattern.compile(annotation.value()))
                     .collect(toList());
             return resource ->
                     patterns.stream().anyMatch(pattern -> pattern.matcher(resource.replace('/', '.')).find());
-        } else if (excludeExamples.length > 0) {
-            final List<Pattern> patterns = Arrays.stream(excludeExamples)
+        } else if (!excludeExamples.isEmpty()) {
+            final List<Pattern> patterns = excludeExamples.stream()
                     .map(annotation -> Pattern.compile(annotation.value()))
                     .collect(toList());
             return resource ->
@@ -241,8 +241,10 @@ public abstract class AbstractRxMicroAnnotationProcessorIntegrationTest extends 
 
         @Override
         public Stream<? extends Arguments> provideArguments(final ExtensionContext extensionContext) {
-            final IncludeExample[] includeExamples = extensionContext.getRequiredTestMethod().getAnnotationsByType(IncludeExample.class);
-            final ExcludeExample[] excludeExamples = extensionContext.getRequiredTestMethod().getAnnotationsByType(ExcludeExample.class);
+            final List<IncludeExample> includeExamples =
+                    List.of(extensionContext.getRequiredTestMethod().getAnnotationsByType(IncludeExample.class));
+            final List<ExcludeExample> excludeExamples =
+                    List.of(extensionContext.getRequiredTestMethod().getAnnotationsByType(ExcludeExample.class));
             validateIncludesAndExcludes(extensionContext.getRequiredTestMethod(), includeExamples, excludeExamples);
             return getOnlyChildrenAtTheFolder(INPUT, r -> r.startsWith("io.rxmicro.examples")).stream()
                     .filter(createPackagePredicate(includeExamples, excludeExamples))
@@ -258,8 +260,10 @@ public abstract class AbstractRxMicroAnnotationProcessorIntegrationTest extends 
 
         @Override
         public Stream<? extends Arguments> provideArguments(final ExtensionContext extensionContext) {
-            final IncludeExample[] includeExamples = extensionContext.getRequiredTestMethod().getAnnotationsByType(IncludeExample.class);
-            final ExcludeExample[] excludeExamples = extensionContext.getRequiredTestMethod().getAnnotationsByType(ExcludeExample.class);
+            final List<IncludeExample> includeExamples =
+                    List.of(extensionContext.getRequiredTestMethod().getAnnotationsByType(IncludeExample.class));
+            final List<ExcludeExample> excludeExamples =
+                    List.of(extensionContext.getRequiredTestMethod().getAnnotationsByType(ExcludeExample.class));
             validateIncludesAndExcludes(extensionContext.getRequiredTestMethod(), includeExamples, excludeExamples);
             return getResourcesAtTheFolderWithAllNestedOnes(ERROR, r -> !r.endsWith(".class")).stream()
                     .filter(createPackagePredicate(includeExamples, excludeExamples))

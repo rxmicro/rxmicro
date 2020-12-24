@@ -37,6 +37,7 @@ import static io.rxmicro.logger.internal.jul.InternalLoggerHelper.logInternal;
 import static io.rxmicro.logger.internal.jul.LevelMappings.fixLevelValue;
 import static java.lang.System.lineSeparator;
 import static java.util.function.Function.identity;
+import static java.util.logging.Level.SEVERE;
 import static java.util.stream.Collectors.joining;
 
 /**
@@ -53,8 +54,8 @@ public final class JULLoggerImplProvider implements LoggerImplProvider {
         // Workaround for https://bugs.openjdk.java.net/browse/JDK-6448699
         try {
             Class.forName("io.rxmicro.logger.jul.SystemConsoleHandler", true, ClassLoader.getSystemClassLoader());
-        } catch (final Throwable throwable) {
-            throwable.printStackTrace();
+        } catch (final LinkageError | ClassNotFoundException | SecurityException throwable) {
+            logInternal(SEVERE, throwable, "Can't register io.rxmicro.logger.jul.SystemConsoleHandler: ?", throwable.getMessage());
         }
     }
 

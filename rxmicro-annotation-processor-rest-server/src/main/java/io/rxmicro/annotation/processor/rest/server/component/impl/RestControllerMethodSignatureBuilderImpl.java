@@ -91,10 +91,11 @@ public final class RestControllerMethodSignatureBuilderImpl
                 .stream()
                 .map(method -> getRestControllerMethodSignature(restControllerModule, parentUrl, method))
                 .collect(Collectors.toList());
-        if (doesContainCompilationErrors()) {
+        if (!doesContainCompilationErrors()) {
+            return methods;
+        } else {
             throw new InterruptProcessingBecauseAFewErrorsFoundException();
         }
-        return methods;
     }
 
     private RestControllerMethodSignature getRestControllerMethodSignature(final ModuleElement restControllerModule,

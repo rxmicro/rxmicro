@@ -31,7 +31,6 @@ import java.util.List;
 import java.util.Map;
 
 import static io.netty.buffer.Unpooled.wrappedBuffer;
-import static io.rxmicro.http.HttpHeaders.EMPTY_HEADERS;
 import static io.rxmicro.http.HttpStandardHeaderNames.CONTENT_LENGTH;
 
 /**
@@ -100,7 +99,7 @@ public final class NettyHttpResponse implements HttpResponse {
     @Override
     @SuppressWarnings("ForLoopReplaceableByForEach")
     public NettyHttpResponse setOrAddHeaders(final io.rxmicro.http.HttpHeaders headers) {
-        if (headers != EMPTY_HEADERS && headers.isNotEmpty()) {
+        if (headers.isNotEmpty()) {
             if (headers instanceof RepeatableHttpHeaders) {
                 this.headers.setOrAddAll((RepeatableHttpHeaders) headers);
             } else {

@@ -35,8 +35,6 @@ public final class AnySingleUrlPathMatchTemplate extends UrlPathMatchTemplate {
 
     public static final AnySingleUrlPathMatchTemplate INSTANCE = new AnySingleUrlPathMatchTemplate();
 
-    private static final int ORDER = Integer.MAX_VALUE - 1;
-
     private AnySingleUrlPathMatchTemplate() {
         super("/*");
     }
@@ -47,8 +45,8 @@ public final class AnySingleUrlPathMatchTemplate extends UrlPathMatchTemplate {
     }
 
     @Override
-    public int order() {
-        return ORDER;
+    public int priority() {
+        return HIGHEST_PRIORITY - 1;
     }
 
     @Override

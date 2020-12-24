@@ -46,7 +46,7 @@ public final class ModelFromJsonConverterClassStructure extends AbstractModelJso
     }
 
     @Override
-    public boolean setParent(final ModelFromJsonConverterClassStructure parent) {
+    public boolean assignParent(final ModelFromJsonConverterClassStructure parent) {
         this.parent = require(parent);
         return true;
     }

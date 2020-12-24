@@ -21,7 +21,6 @@ import io.rxmicro.http.server.HttpServerConfig;
 import java.lang.annotation.Documented;
 import java.lang.annotation.Repeatable;
 import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 import static java.lang.annotation.ElementType.MODULE;
@@ -80,7 +79,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * @since 0.8
  */
 @Documented
-@Retention(RetentionPolicy.SOURCE)
+@Retention(SOURCE)
 @Target({MODULE, TYPE})
 @Repeatable(StaticResources.List.class)
 public @interface StaticResources {

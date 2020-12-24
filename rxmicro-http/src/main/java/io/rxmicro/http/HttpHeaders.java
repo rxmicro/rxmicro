@@ -16,6 +16,7 @@
 
 package io.rxmicro.http;
 
+import io.rxmicro.http.internal.EmptyHttpHeaders;
 import io.rxmicro.http.internal.HttpHeadersImpl;
 
 import java.util.Arrays;
@@ -39,7 +40,7 @@ public interface HttpHeaders {
     /**
      * Empty HTTP headers instance.
      */
-    HttpHeaders EMPTY_HEADERS = new HttpHeadersImpl(List.of());
+    HttpHeaders EMPTY_HEADERS = EmptyHttpHeaders.INSTANCE;
 
     /**
      * Returns the empty HTTP headers instance.

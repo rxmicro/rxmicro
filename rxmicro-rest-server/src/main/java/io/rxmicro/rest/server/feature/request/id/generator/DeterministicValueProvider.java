@@ -31,7 +31,7 @@ public interface DeterministicValueProvider {
      *
      * @see System#currentTimeMillis()
      */
-    DeterministicValueProvider CURRENT_TIME_IN_MILLIS_DETERMINISTIC_VALUE_PROVIDER =
+    DeterministicValueProvider CURRENT_TIME_IN_MILLIS_AS_DETERMINISTIC_VALUE_PROVIDER =
             new CurrentTimeInMillisAsDeterministicValueProvider();
 
     /**

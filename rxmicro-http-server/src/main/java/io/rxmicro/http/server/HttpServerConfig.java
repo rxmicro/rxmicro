@@ -58,9 +58,9 @@ public class HttpServerConfig extends HttpConfig {
      * Creates a HTTP server config instance with default settings.
      */
     public HttpServerConfig() {
-        setSchema(HTTP);
-        setHost("0.0.0.0");
-        setPort(DEFAULT_HTTP_PORT);
+        super.setSchema(HTTP);
+        super.setHost("0.0.0.0");
+        super.setPort(DEFAULT_HTTP_PORT);
         this.startTimeTrackerEnabled = true;
         this.rootDirectory = createPath(CURRENT_DIRECTORY);
         this.fileContentCacheDuration = DEFAULT_FILE_CONTENT_CACHE_DURATION;

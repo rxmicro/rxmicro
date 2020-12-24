@@ -36,8 +36,6 @@ import io.rxmicro.rest.server.detail.model.HttpRequest;
  */
 public final class EndsWithAndOneOrMorePathFragmentUrlPathMatchTemplate extends UrlPathMatchTemplate {
 
-    private static final int ORDER = 4;
-
     public EndsWithAndOneOrMorePathFragmentUrlPathMatchTemplate(final String urlTemplate) {
         super(urlTemplate);
     }
@@ -48,14 +46,19 @@ public final class EndsWithAndOneOrMorePathFragmentUrlPathMatchTemplate extends 
         final int length = uri.length();
         if (length >= urlTemplateLength - 2) {
             final int shift = length - urlTemplateLength;
-            for (int i = length - 1, j = i - shift; i >= 0 && j >= 0; i--, j = i - shift) {
-                final char expected = urlTemplate.charAt(j);
-                if (expected == '*') {
-                    return true;
+            for (int i = length - 1; i >= 0; i--) {
+                final int urlTemplateIndex = i - shift;
+                if (urlTemplateIndex < 0) {
+                    return false;
                 } else {
-                    final char actual = uri.charAt(i);
-                    if (actual != expected) {
-                        return false;
+                    final char expected = urlTemplate.charAt(urlTemplateIndex);
+                    if (expected == '*') {
+                        return true;
+                    } else {
+                        final char actual = uri.charAt(i);
+                        if (actual != expected) {
+                            return false;
+                        }
                     }
                 }
             }
@@ -64,7 +67,7 @@ public final class EndsWithAndOneOrMorePathFragmentUrlPathMatchTemplate extends 
     }
 
     @Override
-    public int order() {
-        return ORDER;
+    public int priority() {
+        return LOWEST_PRIORITY + 3;
     }
 }
