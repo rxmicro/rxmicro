@@ -45,16 +45,11 @@ on:
 
 jobs:
   # -----------------------------------------------------------------------------------------------------
-  # ------------- Run Unit tests on Linux with LTS version of JDK ---------------------------------------
+  # ------------- mvn clean install ---------------------------------------------------------------------
   # -----------------------------------------------------------------------------------------------------
-  verify-on-linux:
-    name: Verify on JDK-${{ matrix.jdk }}/${{ matrix.os }}
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        jdk: [ '11' ]
-        os: [ ubuntu-latest ]
-      fail-fast: false
+  verify-and-build-rxmicro-framework:
+    name: Verify and build rxmicro framework
+    runs-on: ubuntu-latest
 
     steps:
       # https://github.com/actions/checkout/blob/main/README.md
@@ -69,48 +64,26 @@ jobs:
           key: rxmicro-m2-local-${{ runner.os }}-repo
 
       # https://github.com/actions/setup-java/blob/main/README.md
-      - name: Setup JDK ${{ matrix.jdk }}
+      - name: Setup JDK ${{ env.DEFAULT_JDK_LTS_VERSION }}
         uses: actions/setup-java@v1
         with:
-          java-version: ${{ matrix.jdk }}
+          java-version: ${{ env.DEFAULT_JDK_LTS_VERSION }}
 
-      - name: Run all tests
-        run: mvn --fail-at-end verify
+      - name: Build the latest version
+        run: mvn --fail-at-end install
 
-  # -----------------------------------------------------------------------------------------------------
-  # ------------- Run Unit tests on Linux and Windows with the latest version of JDK --------------------
-  # -----------------------------------------------------------------------------------------------------
-  verify-on-linux-and-windows:
-    name: Verify on JDK-${{ matrix.jdk }}/${{ matrix.os }}
-    runs-on: ${{ matrix.os }}
-    needs: verify-on-linux
-    strategy:
-      matrix:
-        # LTS and latest JDK
-        jdk: [ '15' ]
-        os: [ ubuntu-latest, windows-latest ]
-      fail-fast: false
-
-    steps:
-      # https://github.com/actions/checkout/blob/main/README.md
-      - name: Checkout rxmicro repo
-        uses: actions/checkout@v2
-
-      # https://github.com/actions/cache/blob/main/README.md
-      - name: Setup m2 local repo
-        uses: actions/cache@v2
+      # https://github.com/actions/upload-artifact/blob/main/README.md
+      - name: Save the latest version
+        uses: actions/upload-artifact@v2
         with:
-          path: ~/.m2/repository
-          key: rxmicro-m2-local-${{ runner.os }}-repo
+          name: rxmicro-framework
+          path: ~/.m2/repository/io/rxmicro/
+          if-no-files-found: error
+          retention-days: 1
 
-      # https://github.com/actions/setup-java/blob/main/README.md
-      - name: Setup JDK ${{ matrix.jdk }}
-        uses: actions/setup-java@v1
-        with:
-          java-version: ${{ matrix.jdk }}
-
-      - name: Run all tests
-        run: mvn --fail-at-end verify
+      # m2 local repo must not contain the snapshot versions!
+      - name: Clear maven cache
+        run: rm -rf ~/.m2/repository/io/rxmicro/
   # -----------------------------------------------------------------------------------------------------
   # --- Verify Code Quality via Spotbugs, PMD, Checkstyle and Javadoc Tool ------------------------------
   # ------------------ https://spotbugs.github.io/ ------------------------------------------------------
@@ -151,11 +124,20 @@ jobs:
       - name: Verify
         run: mvn --fail-at-end -DskipTests -P ${{ matrix.profile }} package
   # -----------------------------------------------------------------------------------------------------
-  # ------------- Install the latest version of the RxMicro framework to m2 local cache -----------------
+  # ------------- Run Unit tests on Linux and Windows with the latest version of JDK --------------------
   # -----------------------------------------------------------------------------------------------------
-  build-latest-rxmicro-framework:
-    name: Build the latest rxmicro framework
-    runs-on: ubuntu-latest
+  verify-on-linux-and-windows:
+    name: Verify on JDK-${{ matrix.jdk }}/${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    needs:
+      - verify-and-build-rxmicro-framework
+      - verify-using-profiles
+    strategy:
+      matrix:
+        # LTS and latest JDK
+        jdk: [ '15' ]
+        os: [ ubuntu-latest, windows-latest ]
+      fail-fast: false
 
     steps:
       # https://github.com/actions/checkout/blob/main/README.md
@@ -170,27 +152,13 @@ jobs:
           key: rxmicro-m2-local-${{ runner.os }}-repo
 
       # https://github.com/actions/setup-java/blob/main/README.md
-      - name: Setup JDK ${{ env.DEFAULT_JDK_LTS_VERSION }}
+      - name: Setup JDK ${{ matrix.jdk }}
         uses: actions/setup-java@v1
         with:
-          java-version: ${{ env.DEFAULT_JDK_LTS_VERSION }}
+          java-version: ${{ matrix.jdk }}
 
-      - name: Prepare
-        run: mvn -DskipTests install
-
-      # https://github.com/actions/upload-artifact/blob/main/README.md
-      - name: Save latest rxmicro artefacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: rxmicro-framework
-          path: ~/.m2/repository/io/rxmicro/
-          if-no-files-found: error
-          retention-days: 1
-
-      # m2 local repo must not contain the snapshot versions!
-      - name: Remove latest rxmicro artefacts
-        run: rm -rf ~/.m2/repository/io/rxmicro/
-
+      - name: Run all tests
+        run: mvn --fail-at-end verify
   # -----------------------------------------------------------------------------------------------------
   # ------------- Verify examples using the latest RxMicro framework ------------------------------------
   # ------------- https://github.com/rxmicro/rxmicro-usage/tree/master/examples -------------------------
@@ -198,7 +166,9 @@ jobs:
   verify-examples:
     name: Verify ${{ matrix.group }} examples
     runs-on: ubuntu-latest
-    needs: build-latest-rxmicro-framework
+    needs:
+      - verify-and-build-rxmicro-framework
+      - verify-using-profiles
     strategy:
       matrix:
         group:
@@ -222,10 +192,6 @@ jobs:
             install-graalvm: true
       fail-fast: false
     steps:
-      # https://github.com/actions/checkout/blob/main/README.md
-      - name: Checkout rxmicro repo
-        uses: actions/checkout@v2
-
       # https://github.com/actions/cache/blob/main/README.md
       - name: Setup m2 local repo
         uses: actions/cache@v2
@@ -263,15 +229,12 @@ jobs:
           name: rxmicro-framework
           path: ~/.m2/repository/io/rxmicro/
 
-      # Print dir tree with file size for debug purposes
-      - name: Show downloaded rxmicro artifacts
-        run: |
-          sudo apt install tree
-          tree -ahD ~/.m2/repository/io/rxmicro/
+      - name: Resolve RxMicro Framework Version
+        run: find ~/.m2/repository/io/rxmicro/rxmicro/ -maxdepth 1 -type d -name "*-SNAPSHOT" -printf "%f\n" > RXMICRO_VERSION.txt
 
       - name: Verify ${{ matrix.group }}
         run: |
-          LATEST_VERSION=$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)
+          LATEST_VERSION=$(cat RXMICRO_VERSION.txt)
           export GRAALVM_HOME=~/GraalVM
           cd rxmicro-usage/examples/${{ matrix.group }}
           mvn --fail-at-end -Drxmicro.version=$LATEST_VERSION verify
@@ -292,7 +255,7 @@ jobs:
           retention-days: 1
 
       # m2 local repo must not contain the snapshot versions!
-      - name: Remove latest rxmicro artefacts
+      - name: Clear maven cache
         run: rm -rf ~/.m2/repository/io/rxmicro/
   # -----------------------------------------------------------------------------------------------------
   # ------------- Merge jacoco.exec and Upload Coverage Report ------------------------------------------
@@ -301,9 +264,10 @@ jobs:
     name: Upload Coverage Report
     runs-on: ubuntu-latest
     needs:
-      - verify-examples
-      - verify-on-linux-and-windows
+      - verify-and-build-rxmicro-framework
       - verify-using-profiles
+      - verify-on-linux-and-windows
+      - verify-examples
 
     steps:
       # https://github.com/actions/checkout/blob/main/README.md
