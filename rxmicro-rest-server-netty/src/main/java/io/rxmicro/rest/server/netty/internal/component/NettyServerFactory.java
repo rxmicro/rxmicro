@@ -23,10 +23,12 @@ import io.rxmicro.logger.Logger;
 import io.rxmicro.logger.LoggerFactory;
 import io.rxmicro.rest.server.ServerInstance;
 import io.rxmicro.rest.server.detail.component.HttpResponseBuilder;
+import io.rxmicro.rest.server.local.component.DefaultHttpErrorResponseBodyBuilder;
 import io.rxmicro.rest.server.local.component.HttpErrorResponseBodyBuilder;
 import io.rxmicro.rest.server.local.component.RequestHandler;
 import io.rxmicro.rest.server.local.component.ServerFactory;
 
+import java.util.Optional;
 import java.util.ServiceLoader;
 import java.util.concurrent.CountDownLatch;
 
@@ -47,7 +49,8 @@ public final class NettyServerFactory implements ServerFactory {
             new NettyHttpResponseBuilder();
 
     private final HttpErrorResponseBodyBuilder responseContentBuilder =
-            getImplementation(HttpErrorResponseBodyBuilder.class, true, ServiceLoader::load);
+            Optional.ofNullable(getImplementation(HttpErrorResponseBodyBuilder.class, false, ServiceLoader::load))
+                    .orElseGet(DefaultHttpErrorResponseBodyBuilder::new);
 
     @Override
     public ServerInstance startNewServer(final RequestHandler requestHandler) {
@@ -60,7 +63,7 @@ public final class NettyServerFactory implements ServerFactory {
             );
             return start(sharableNettyRequestHandler);
         } catch (final ClassNotFoundException ex) {
-            throw new ConfigException("Required class not found: " + ex.getMessage());
+            throw new ConfigException("Required class not found: ?", ex.getMessage());
         }
     }
 

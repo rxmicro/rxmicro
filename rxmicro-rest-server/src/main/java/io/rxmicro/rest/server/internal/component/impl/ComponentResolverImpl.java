@@ -20,11 +20,14 @@ import io.rxmicro.rest.server.RestServerConfig;
 import io.rxmicro.rest.server.detail.component.HttpResponseBuilder;
 import io.rxmicro.rest.server.internal.component.ComponentResolver;
 import io.rxmicro.rest.server.internal.component.RequestMappingKeyBuilder;
+import io.rxmicro.rest.server.local.component.DefaultHttpErrorResponseBodyBuilder;
 import io.rxmicro.rest.server.local.component.HttpErrorResponseBodyBuilder;
 import io.rxmicro.rest.server.local.component.ServerFactory;
 
+import java.util.Optional;
 import java.util.ServiceLoader;
 
+import static io.rxmicro.config.Configs.getConfig;
 import static io.rxmicro.runtime.local.Implementations.getImplementation;
 
 /**
@@ -36,19 +39,16 @@ public final class ComponentResolverImpl implements ComponentResolver {
     private final HttpResponseBuilder httpResponseBuilder =
             getImplementation(HttpResponseBuilder.class, true, ServiceLoader::load);
 
-    private final HttpErrorResponseBodyBuilder httpErrorResponseBodyBuilder =
-            getImplementation(HttpErrorResponseBodyBuilder.class, true, ServiceLoader::load);
-
     private final ServerFactory serverFactory =
             getImplementation(ServerFactory.class, true, ServiceLoader::load);
 
-    private final RestServerConfig restServerConfig;
+    private final HttpErrorResponseBodyBuilder httpErrorResponseBodyBuilder =
+            Optional.ofNullable(getImplementation(HttpErrorResponseBodyBuilder.class, false, ServiceLoader::load))
+                    .orElseGet(DefaultHttpErrorResponseBodyBuilder::new);
+
+    private final RestServerConfig restServerConfig = getConfig(RestServerConfig.class);
 
     private final RequestMappingKeyBuilder requestMappingKeyBuilder = new RequestMappingKeyBuilderImpl();
-
-    public ComponentResolverImpl(final RestServerConfig restServerConfig) {
-        this.restServerConfig = restServerConfig;
-    }
 
     @Override
     public HttpResponseBuilder getHttpResponseBuilder() {
