@@ -40,13 +40,12 @@ public final class NettyByteArrayResponseWriter extends BaseNettyResponseWriter 
 
     public void writeResponse(final ChannelHandlerContext ctx,
                               final NettyHttpRequest request,
-                              final NettyHttpResponse response,
-                              final long startTime) {
+                              final NettyHttpResponse response) {
         final boolean keepAlive = isKeepAlive(request);
         setCommonHeaders(request, response, keepAlive);
         ctx.writeAndFlush(response.toHttpResponseWithBody())
                 .addListener((ChannelFutureListener) future -> {
-                    logResponse(request, startTime, response, ctx);
+                    logResponse(ctx, request, response);
                     if (!keepAlive) {
                         future.channel().close();
                     }

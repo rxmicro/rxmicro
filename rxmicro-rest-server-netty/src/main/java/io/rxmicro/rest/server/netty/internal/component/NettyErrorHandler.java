@@ -44,10 +44,10 @@ final class NettyErrorHandler extends ErrorHandler {
         this.responseContentBuilder = responseContentBuilder;
     }
 
-    NettyHttpResponse build(final String requestId,
-                            final ChannelHandlerContext ctx,
+    NettyHttpResponse build(final ChannelHandlerContext ctx,
+                            final String requestId,
                             final Throwable cause) {
-        logInternalError(requestId, "Request handling failed: message=?, Channel=?, IP=?", ctx, cause);
+        logInternalError(ctx, requestId, "Request handling failed: message=?, Channel=?, IP=?", cause);
         return (NettyHttpResponse) responseContentBuilder.build(
                 responseBuilder,
                 HttpResponseStatus.INTERNAL_SERVER_ERROR.code(),
@@ -55,15 +55,15 @@ final class NettyErrorHandler extends ErrorHandler {
         );
     }
 
-    void logInternalError(final String requestId,
-                          final ChannelHandlerContext ctx,
+    void logInternalError(final ChannelHandlerContext ctx,
+                          final String requestId,
                           final Throwable cause) {
-        logInternalError(requestId, "Netty channel error: message=?, Channel=?, IP=?", ctx, cause);
+        logInternalError(ctx, requestId, "Netty channel error: message=?, Channel=?, IP=?", cause);
     }
 
-    private void logInternalError(final String requestId,
+    private void logInternalError(final ChannelHandlerContext ctx,
+                                  final String requestId,
                                   final String messageTemplate,
-                                  final ChannelHandlerContext ctx,
                                   final Throwable cause) {
         LOGGER.error(
                 () -> requestId,

@@ -39,6 +39,8 @@ public final class NettyHttpRequest implements HttpRequest, RequestIdSupplier {
 
     public static final AttributeKey<String> REQUEST_ID_KEY = AttributeKey.valueOf(REQUEST_ID);
 
+    public static final AttributeKey<Long> START_PROCESSING_REQUEST_TIME_KEY = AttributeKey.valueOf("START_PROCESSING_REQUEST_TIME");
+
     private static final byte[] EMPTY = new byte[0];
 
     private final SocketAddress remoteAddress;

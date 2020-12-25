@@ -38,6 +38,7 @@ import io.rxmicro.rest.server.netty.internal.model.NettyHttpResponse;
 
 import static io.rxmicro.http.ProtocolSchema.HTTPS;
 import static io.rxmicro.rest.server.netty.internal.model.NettyHttpRequest.REQUEST_ID_KEY;
+import static io.rxmicro.rest.server.netty.internal.model.NettyHttpRequest.START_PROCESSING_REQUEST_TIME_KEY;
 
 /**
  * @author nedis
@@ -86,21 +87,21 @@ final class SharableNettyRequestHandler extends SimpleChannelInboundHandler<Full
     @Override
     protected void channelRead0(final ChannelHandlerContext ctx,
                                 final FullHttpRequest msg) {
-        final long startTime = System.nanoTime();
+        ctx.channel().attr(START_PROCESSING_REQUEST_TIME_KEY).set(System.nanoTime());
         final NettyHttpRequest request = nettyByteArrayRequestReader.read(ctx, msg);
         try {
             requestHandler.handle(request)
                     .thenAccept(response -> {
                         final NettyHttpResponse nettyHttpResponse = (NettyHttpResponse) response;
                         if (nettyHttpResponse.isSendFileResponse()) {
-                            nettySendFileResponseWriter.writeResponse(ctx, request, nettyHttpResponse, startTime);
+                            nettySendFileResponseWriter.writeResponse(ctx, request, nettyHttpResponse);
                         } else {
-                            nettyByteArrayResponseWriter.writeResponse(ctx, request, nettyHttpResponse, startTime);
+                            nettyByteArrayResponseWriter.writeResponse(ctx, request, nettyHttpResponse);
                         }
                     })
-                    .exceptionally(th -> handleError(ctx, request, th, startTime));
+                    .exceptionally(th -> handleError(ctx, request, th));
         } catch (final Throwable th) {
-            handleError(ctx, request, th, startTime);
+            handleError(ctx, request, th);
         }
     }
 
@@ -108,18 +109,17 @@ final class SharableNettyRequestHandler extends SimpleChannelInboundHandler<Full
     public void exceptionCaught(final ChannelHandlerContext ctx,
                                 final Throwable cause) {
         final String requestId = ctx.channel().attr(REQUEST_ID_KEY).get();
-        nettyErrorHandler.logInternalError(requestId, ctx, cause);
+        nettyErrorHandler.logInternalError(ctx, requestId, cause);
         ctx.close(ctx.voidPromise());
     }
 
     @SuppressWarnings("SameReturnValue")
     private Void handleError(final ChannelHandlerContext ctx,
                              final NettyHttpRequest request,
-                             final Throwable cause,
-                             final long startTime) {
+                             final Throwable cause) {
         final String requestId = ctx.channel().attr(REQUEST_ID_KEY).get();
-        final NettyHttpResponse errorResponse = nettyErrorHandler.build(requestId, ctx, cause);
-        nettyByteArrayResponseWriter.writeResponse(ctx, request, errorResponse, startTime);
+        final NettyHttpResponse response = nettyErrorHandler.build(ctx, requestId, cause);
+        nettyByteArrayResponseWriter.writeResponse(ctx, request, response);
         return null;
     }
 }

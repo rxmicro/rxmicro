@@ -87,8 +87,7 @@ public final class NettySendFileResponseWriter extends BaseNettyResponseWriter {
 
     public void writeResponse(final ChannelHandlerContext ctx,
                               final NettyHttpRequest request,
-                              final NettyHttpResponse response,
-                              final long startTime) {
+                              final NettyHttpResponse response) {
         final boolean keepAlive = isKeepAlive(request);
         setCommonHeaders(request, response, keepAlive);
         final Path sendFilePath = response.getSendFilePath();
@@ -101,7 +100,7 @@ public final class NettySendFileResponseWriter extends BaseNettyResponseWriter {
             setCacheHeaders(response, sendFilePath);
             ctx.write(response.toHttpResponseWithoutBody());
 
-            writeHttpResponseBody(ctx, request, response, startTime, keepAlive, randomAccessFile, fileLength);
+            writeHttpResponseBody(ctx, request, response, keepAlive, randomAccessFile, fileLength);
         } catch (final IOException exception) {
             closeQuietly(randomAccessFile);
             // Delegates exception handling to SharableNettyRequestHandler
@@ -125,7 +124,6 @@ public final class NettySendFileResponseWriter extends BaseNettyResponseWriter {
     private void writeHttpResponseBody(final ChannelHandlerContext ctx,
                                        final NettyHttpRequest request,
                                        final NettyHttpResponse response,
-                                       final long startTime,
                                        final boolean keepAlive,
                                        final RandomAccessFile randomAccessFile,
                                        final long fileLength) throws IOException {
@@ -133,7 +131,7 @@ public final class NettySendFileResponseWriter extends BaseNettyResponseWriter {
             ctx.writeAndFlush(new HttpChunkedInput(new ChunkedFile(randomAccessFile, 0, fileLength, DEFAULT_CHUNK_SIZE)))
                     .addListener((ChannelFutureListener) future -> {
                         closeQuietly(randomAccessFile);
-                        logResponse(request, startTime, response, ctx);
+                        logResponse(ctx, request, response);
                         if (!keepAlive) {
                             future.channel().close();
                         }
@@ -143,7 +141,7 @@ public final class NettySendFileResponseWriter extends BaseNettyResponseWriter {
             ctx.writeAndFlush(LastHttpContent.EMPTY_LAST_CONTENT)
                     .addListener((ChannelFutureListener) future -> {
                         closeQuietly(randomAccessFile);
-                        logResponse(request, startTime, response, ctx);
+                        logResponse(ctx, request, response);
                         if (!keepAlive) {
                             future.channel().close();
                         }

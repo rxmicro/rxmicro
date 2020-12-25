@@ -17,7 +17,6 @@
 package io.rxmicro.rest.server.netty.internal.component.writer;
 
 import io.netty.channel.ChannelHandlerContext;
-import io.netty.handler.codec.http.HttpHeaderValues;
 import io.rxmicro.config.Secrets;
 import io.rxmicro.logger.Logger;
 import io.rxmicro.rest.server.netty.NettyRestServerConfig;
@@ -26,12 +25,15 @@ import io.rxmicro.rest.server.netty.internal.model.NettyHttpResponse;
 
 import java.time.Duration;
 
+import static io.netty.handler.codec.http.HttpHeaderValues.CLOSE;
+import static io.netty.handler.codec.http.HttpHeaderValues.KEEP_ALIVE;
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.http.HttpStandardHeaderNames.CONNECTION;
 import static io.rxmicro.http.HttpStandardHeaderNames.CONTENT_LENGTH;
 import static io.rxmicro.http.HttpStandardHeaderNames.REQUEST_ID;
 import static io.rxmicro.http.HttpVersion.HTTP_1_0;
 import static io.rxmicro.http.local.PredefinedUrls.HTTP_HEALTH_CHECK_ENDPOINT;
+import static io.rxmicro.rest.server.netty.internal.model.NettyHttpRequest.START_PROCESSING_REQUEST_TIME_KEY;
 import static java.lang.System.lineSeparator;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.util.stream.Collectors.joining;
@@ -81,61 +83,60 @@ class BaseNettyResponseWriter {
         }
         if (keepAlive) {
             if (request.getVersion() == HTTP_1_0) {
-                response.setHeader(CONNECTION, HttpHeaderValues.KEEP_ALIVE);
+                response.setHeader(CONNECTION, KEEP_ALIVE);
             }
         } else {
-            response.setHeader(CONNECTION, HttpHeaderValues.CLOSE);
+            response.setHeader(CONNECTION, CLOSE);
         }
     }
 
-    final void logResponse(final NettyHttpRequest request,
-                           final long startTime,
-                           final NettyHttpResponse httpResponse,
-                           final ChannelHandlerContext ctx) {
+    final void logResponse(final ChannelHandlerContext ctx,
+                           final NettyHttpRequest request,
+                           final NettyHttpResponse response) {
         if (logger.isTraceEnabled()) {
             if (disableLoggerMessagesForHttpHealthChecks && HTTP_HEALTH_CHECK_ENDPOINT.equals(request.getUri())) {
                 return;
             }
-            traceResponse(request, startTime, httpResponse, ctx);
+            traceResponse(ctx, request, response);
         } else if (logger.isDebugEnabled()) {
             if (disableLoggerMessagesForHttpHealthChecks && HTTP_HEALTH_CHECK_ENDPOINT.equals(request.getUri())) {
                 return;
             }
-            debugResponse(request, startTime, httpResponse, ctx);
+            debugResponse(ctx, request, response);
         }
     }
 
-    private void traceResponse(final NettyHttpRequest request,
-                               final long startTime,
-                               final NettyHttpResponse httpResponse,
-                               final ChannelHandlerContext ctx) {
+    private void traceResponse(final ChannelHandlerContext ctx,
+                               final NettyHttpRequest request,
+                               final NettyHttpResponse response) {
+        final Long startTime = ctx.channel().attr(START_PROCESSING_REQUEST_TIME_KEY).get();
         logger.trace(
                 request,
                 "HTTP response: (Channel=?, Duration=?):\n? ?\n?\n\n?",
                 nettyRestServerConfig.getChannelIdType().getId(ctx.channel().id()),
-                startTime == 0L ? "undefined" : format(Duration.ofNanos(System.nanoTime() - startTime)),
-                httpResponse.getHttpVersion(),
-                httpResponse.getStatus(),
-                httpResponse.getHeaders().getEntries().stream()
+                startTime == null ? "undefined" : format(Duration.ofNanos(System.nanoTime() - startTime)),
+                response.getHttpVersion(),
+                response.getStatus(),
+                response.getHeaders().getEntries().stream()
                         .map(e -> format("?: ?", e.getKey(), secrets.hideIfSecret(e.getValue())))
                         .collect(joining(lineSeparator())),
-                httpResponse.isSendFileResponse() ? "<file content>" :
-                        httpResponse.getContentLength() > 0 ?
-                                secrets.hideAllSecretsIn(new String(httpResponse.getContent(), UTF_8)) :
+                response.isSendFileResponse() ? "<file content>" :
+                        response.getContentLength() > 0 ?
+                                secrets.hideAllSecretsIn(new String(response.getContent(), UTF_8)) :
                                 ""
         );
     }
 
-    private void debugResponse(final NettyHttpRequest request,
-                               final long startTime,
-                               final NettyHttpResponse httpResponse,
-                               final ChannelHandlerContext ctx) {
+    private void debugResponse(final ChannelHandlerContext ctx,
+                               final NettyHttpRequest request,
+                               final NettyHttpResponse response) {
+        final Long startTime = ctx.channel().attr(START_PROCESSING_REQUEST_TIME_KEY).get();
         logger.debug(
                 request,
                 "HTTP response: Channel=?, Content=? bytes, Duration=?",
                 nettyRestServerConfig.getChannelIdType().getId(ctx.channel().id()),
-                httpResponse.getHeaders().getValue(CONTENT_LENGTH),
-                startTime == 0L ? "undefined" : format(Duration.ofNanos(System.nanoTime() - startTime))
+                response.getHeaders().getValue(CONTENT_LENGTH),
+                startTime == null ? "undefined" : format(Duration.ofNanos(System.nanoTime() - startTime))
         );
     }
 }
