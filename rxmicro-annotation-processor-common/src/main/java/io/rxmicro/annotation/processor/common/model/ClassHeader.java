@@ -217,6 +217,13 @@ public final class ClassHeader {
             return this;
         }
 
+        @BuilderMethod
+        public Builder addStaticImport(final String className,
+                                       final String methodOrFieldName) {
+            staticImports.add(format("?.?", className, methodOrFieldName));
+            return this;
+        }
+
         private void validateMethodName(final Class<?> className,
                                         final String methodOrFieldName) {
             getValidatedMethodName(className, methodOrFieldName);
@@ -231,13 +238,6 @@ public final class ClassHeader {
                         "'?' class does not contain public field or method with '?' name!", className, methodOrFieldName
                 );
             }
-        }
-
-        @BuilderMethod
-        public Builder addStaticImport(final String className,
-                                       final String methodOrFieldName) {
-            staticImports.add(format("?.?", className, methodOrFieldName));
-            return this;
         }
 
         private Stream<TypeMirror> expand(final TypeMirror type) {
