@@ -20,7 +20,9 @@ import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;
 import io.rxmicro.config.Secrets;
 import io.rxmicro.logger.Logger;
+import io.rxmicro.rest.server.RestServerConfig;
 import io.rxmicro.rest.server.netty.NettyRestServerConfig;
+import io.rxmicro.rest.server.netty.internal.component.NettyErrorHandler;
 import io.rxmicro.rest.server.netty.internal.model.NettyHttpRequest;
 import io.rxmicro.rest.server.netty.internal.model.NettyHttpResponse;
 
@@ -33,9 +35,9 @@ public final class NettyByteArrayResponseWriter extends BaseNettyResponseWriter 
     public NettyByteArrayResponseWriter(final Logger logger,
                                         final Secrets secrets,
                                         final NettyRestServerConfig nettyRestServerConfig,
-                                        final boolean returnGeneratedRequestId,
-                                        final boolean disableLoggerMessagesForHttpHealthChecks) {
-        super(logger, secrets, nettyRestServerConfig, disableLoggerMessagesForHttpHealthChecks, returnGeneratedRequestId);
+                                        final RestServerConfig restServerConfig,
+                                        final NettyErrorHandler nettyErrorHandler) {
+        super(logger, secrets, nettyRestServerConfig, restServerConfig, nettyErrorHandler);
     }
 
     public void writeResponse(final ChannelHandlerContext ctx,
@@ -44,11 +46,6 @@ public final class NettyByteArrayResponseWriter extends BaseNettyResponseWriter 
         final boolean keepAlive = isKeepAlive(request);
         setCommonHeaders(request, response, keepAlive);
         ctx.writeAndFlush(response.toHttpResponseWithBody())
-                .addListener((ChannelFutureListener) future -> {
-                    logResponse(ctx, request, response);
-                    if (!keepAlive) {
-                        future.channel().close();
-                    }
-                });
+                .addListener((ChannelFutureListener) future -> afterResponseWritten(ctx, future, request, response, keepAlive));
     }
 }

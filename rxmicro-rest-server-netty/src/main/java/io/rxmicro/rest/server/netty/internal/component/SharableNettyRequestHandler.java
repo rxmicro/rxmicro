@@ -36,6 +36,7 @@ import io.rxmicro.rest.server.netty.internal.component.writer.NettySendFileRespo
 import io.rxmicro.rest.server.netty.internal.model.NettyHttpRequest;
 import io.rxmicro.rest.server.netty.internal.model.NettyHttpResponse;
 
+import static io.rxmicro.common.util.Requires.require;
 import static io.rxmicro.http.ProtocolSchema.HTTPS;
 import static io.rxmicro.rest.server.netty.internal.model.NettyHttpRequest.REQUEST_ID_KEY;
 import static io.rxmicro.rest.server.netty.internal.model.NettyHttpRequest.START_PROCESSING_REQUEST_TIME_KEY;
@@ -66,22 +67,19 @@ final class SharableNettyRequestHandler extends SimpleChannelInboundHandler<Full
                                 final HttpErrorResponseBodyBuilder responseContentBuilder,
                                 final HttpServerConfig httpServerConfig,
                                 final RestServerConfig restServerConfig) {
-        this.requestHandler = requestHandler;
-
+        this.requestHandler = require(requestHandler);
         final Secrets secrets = Secrets.getDefaultInstance();
-        final boolean disableLoggerMessagesForHttpHealthChecks = restServerConfig.isDisableLoggerMessagesForHttpHealthChecks();
-        final boolean returnGeneratedRequestId = restServerConfig.isReturnGeneratedRequestId();
+        this.nettyErrorHandler = new NettyErrorHandler(nettyRestServerConfig, responseBuilder, responseContentBuilder);
         this.nettyByteArrayRequestReader = new NettyByteArrayRequestReader(
-                LOGGER, requestIdGenerator, secrets, nettyRestServerConfig, disableLoggerMessagesForHttpHealthChecks
+                LOGGER, requestIdGenerator, secrets, nettyRestServerConfig, restServerConfig
         );
         this.nettyByteArrayResponseWriter = new NettyByteArrayResponseWriter(
-                LOGGER, secrets, nettyRestServerConfig, returnGeneratedRequestId, disableLoggerMessagesForHttpHealthChecks
+                LOGGER, secrets, nettyRestServerConfig, restServerConfig, nettyErrorHandler
         );
         this.nettySendFileResponseWriter = new NettySendFileResponseWriter(
                 httpServerConfig.getSchema() == HTTPS,
-                LOGGER, secrets, httpServerConfig, nettyRestServerConfig, returnGeneratedRequestId, disableLoggerMessagesForHttpHealthChecks
+                LOGGER, secrets, httpServerConfig, nettyRestServerConfig, restServerConfig, nettyErrorHandler
         );
-        this.nettyErrorHandler = new NettyErrorHandler(nettyRestServerConfig, responseBuilder, responseContentBuilder);
     }
 
     @Override

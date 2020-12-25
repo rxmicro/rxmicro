@@ -16,10 +16,13 @@
 
 package io.rxmicro.rest.server.netty.internal.component.writer;
 
+import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelHandlerContext;
 import io.rxmicro.config.Secrets;
 import io.rxmicro.logger.Logger;
+import io.rxmicro.rest.server.RestServerConfig;
 import io.rxmicro.rest.server.netty.NettyRestServerConfig;
+import io.rxmicro.rest.server.netty.internal.component.NettyErrorHandler;
 import io.rxmicro.rest.server.netty.internal.model.NettyHttpRequest;
 import io.rxmicro.rest.server.netty.internal.model.NettyHttpResponse;
 
@@ -33,6 +36,7 @@ import static io.rxmicro.http.HttpStandardHeaderNames.CONTENT_LENGTH;
 import static io.rxmicro.http.HttpStandardHeaderNames.REQUEST_ID;
 import static io.rxmicro.http.HttpVersion.HTTP_1_0;
 import static io.rxmicro.http.local.PredefinedUrls.HTTP_HEALTH_CHECK_ENDPOINT;
+import static io.rxmicro.rest.server.netty.internal.model.NettyHttpRequest.REQUEST_ID_KEY;
 import static io.rxmicro.rest.server.netty.internal.model.NettyHttpRequest.START_PROCESSING_REQUEST_TIME_KEY;
 import static java.lang.System.lineSeparator;
 import static java.nio.charset.StandardCharsets.UTF_8;
@@ -44,26 +48,26 @@ import static java.util.stream.Collectors.joining;
  */
 class BaseNettyResponseWriter {
 
-    private final Logger logger;
+    final Logger logger;
 
-    private final Secrets secrets;
+    final Secrets secrets;
 
-    private final NettyRestServerConfig nettyRestServerConfig;
+    final NettyRestServerConfig nettyRestServerConfig;
 
-    private final boolean disableLoggerMessagesForHttpHealthChecks;
+    final RestServerConfig restServerConfig;
 
-    private final boolean returnGeneratedRequestId;
+    final NettyErrorHandler nettyErrorHandler;
 
     BaseNettyResponseWriter(final Logger logger,
                             final Secrets secrets,
                             final NettyRestServerConfig nettyRestServerConfig,
-                            final boolean disableLoggerMessagesForHttpHealthChecks,
-                            final boolean returnGeneratedRequestId) {
+                            final RestServerConfig restServerConfig,
+                            final NettyErrorHandler nettyErrorHandler) {
         this.logger = logger;
         this.secrets = secrets;
         this.nettyRestServerConfig = nettyRestServerConfig;
-        this.disableLoggerMessagesForHttpHealthChecks = disableLoggerMessagesForHttpHealthChecks;
-        this.returnGeneratedRequestId = returnGeneratedRequestId;
+        this.restServerConfig = restServerConfig;
+        this.nettyErrorHandler = nettyErrorHandler;
     }
 
     final boolean isKeepAlive(final NettyHttpRequest httpRequest) {
@@ -75,7 +79,7 @@ class BaseNettyResponseWriter {
                                 final NettyHttpResponse response,
                                 final boolean keepAlive) {
         if (request.isRequestIdGenerated()) {
-            if (returnGeneratedRequestId) {
+            if (restServerConfig.isReturnGeneratedRequestId()) {
                 response.setHeader(REQUEST_ID, request.getRequestId());
             }
         } else {
@@ -90,16 +94,33 @@ class BaseNettyResponseWriter {
         }
     }
 
-    final void logResponse(final ChannelHandlerContext ctx,
-                           final NettyHttpRequest request,
-                           final NettyHttpResponse response) {
+    final void afterResponseWritten(final ChannelHandlerContext ctx,
+                                    final ChannelFuture future,
+                                    final NettyHttpRequest request,
+                                    final NettyHttpResponse response,
+                                    final boolean keepAlive) {
+        if (future.isSuccess()) {
+            logResponse(ctx, request, response);
+            if (!keepAlive) {
+                future.channel().close(ctx.voidPromise());
+            }
+        } else {
+            final String requestId = ctx.channel().attr(REQUEST_ID_KEY).get();
+            nettyErrorHandler.logInternalError(ctx, requestId, future.cause());
+            future.channel().close(ctx.voidPromise());
+        }
+    }
+
+    private void logResponse(final ChannelHandlerContext ctx,
+                             final NettyHttpRequest request,
+                             final NettyHttpResponse response) {
         if (logger.isTraceEnabled()) {
-            if (disableLoggerMessagesForHttpHealthChecks && HTTP_HEALTH_CHECK_ENDPOINT.equals(request.getUri())) {
+            if (restServerConfig.isDisableLoggerMessagesForHttpHealthChecks() && HTTP_HEALTH_CHECK_ENDPOINT.equals(request.getUri())) {
                 return;
             }
             traceResponse(ctx, request, response);
         } else if (logger.isDebugEnabled()) {
-            if (disableLoggerMessagesForHttpHealthChecks && HTTP_HEALTH_CHECK_ENDPOINT.equals(request.getUri())) {
+            if (restServerConfig.isDisableLoggerMessagesForHttpHealthChecks() && HTTP_HEALTH_CHECK_ENDPOINT.equals(request.getUri())) {
                 return;
             }
             debugResponse(ctx, request, response);

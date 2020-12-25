@@ -28,7 +28,7 @@ import io.rxmicro.rest.server.netty.internal.model.NettyHttpResponse;
  * @author nedis
  * @since 0.7
  */
-final class NettyErrorHandler extends ErrorHandler {
+public final class NettyErrorHandler extends ErrorHandler {
 
     private final NettyRestServerConfig nettyRestServerConfig;
 
@@ -44,9 +44,9 @@ final class NettyErrorHandler extends ErrorHandler {
         this.responseContentBuilder = responseContentBuilder;
     }
 
-    NettyHttpResponse build(final ChannelHandlerContext ctx,
-                            final String requestId,
-                            final Throwable cause) {
+    public NettyHttpResponse build(final ChannelHandlerContext ctx,
+                                   final String requestId,
+                                   final Throwable cause) {
         logInternalError(ctx, requestId, "Request handling failed: message=?, Channel=?, IP=?", cause);
         return (NettyHttpResponse) responseContentBuilder.build(
                 responseBuilder,
@@ -55,9 +55,9 @@ final class NettyErrorHandler extends ErrorHandler {
         );
     }
 
-    void logInternalError(final ChannelHandlerContext ctx,
-                          final String requestId,
-                          final Throwable cause) {
+    public void logInternalError(final ChannelHandlerContext ctx,
+                                 final String requestId,
+                                 final Throwable cause) {
         logInternalError(ctx, requestId, "Netty channel error: message=?, Channel=?, IP=?", cause);
     }
 

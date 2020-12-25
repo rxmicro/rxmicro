@@ -27,7 +27,9 @@ import io.rxmicro.common.ImpossibleException;
 import io.rxmicro.config.Secrets;
 import io.rxmicro.logger.Logger;
 import io.rxmicro.rest.server.HttpServerConfig;
+import io.rxmicro.rest.server.RestServerConfig;
 import io.rxmicro.rest.server.netty.NettyRestServerConfig;
+import io.rxmicro.rest.server.netty.internal.component.NettyErrorHandler;
 import io.rxmicro.rest.server.netty.internal.model.NettyHttpRequest;
 import io.rxmicro.rest.server.netty.internal.model.NettyHttpResponse;
 
@@ -78,9 +80,9 @@ public final class NettySendFileResponseWriter extends BaseNettyResponseWriter {
                                        final Secrets secrets,
                                        final HttpServerConfig httpServerConfig,
                                        final NettyRestServerConfig nettyRestServerConfig,
-                                       final boolean returnGeneratedRequestId,
-                                       final boolean disableLoggerMessagesForHttpHealthChecks) {
-        super(logger, secrets, nettyRestServerConfig, disableLoggerMessagesForHttpHealthChecks, returnGeneratedRequestId);
+                                       final RestServerConfig restServerConfig,
+                                       final NettyErrorHandler nettyErrorHandler) {
+        super(logger, secrets, nettyRestServerConfig, restServerConfig, nettyErrorHandler);
         this.isSslHandlerPresent = isSslHandlerPresent;
         this.fileContentCacheDuration = httpServerConfig.getFileContentCacheDuration();
     }
@@ -130,22 +132,18 @@ public final class NettySendFileResponseWriter extends BaseNettyResponseWriter {
         if (isSslHandlerPresent) {
             ctx.writeAndFlush(new HttpChunkedInput(new ChunkedFile(randomAccessFile, 0, fileLength, DEFAULT_CHUNK_SIZE)))
                     .addListener((ChannelFutureListener) future -> {
-                        closeQuietly(randomAccessFile);
-                        logResponse(ctx, request, response);
-                        if (!keepAlive) {
-                            future.channel().close();
-                        }
-                    });
+                                closeQuietly(randomAccessFile);
+                                afterResponseWritten(ctx, future, request, response, keepAlive);
+                            }
+                    );
         } else {
             ctx.write(new DefaultFileRegion(randomAccessFile.getChannel(), 0, fileLength), ctx.voidPromise());
             ctx.writeAndFlush(LastHttpContent.EMPTY_LAST_CONTENT)
                     .addListener((ChannelFutureListener) future -> {
-                        closeQuietly(randomAccessFile);
-                        logResponse(ctx, request, response);
-                        if (!keepAlive) {
-                            future.channel().close();
-                        }
-                    });
+                                closeQuietly(randomAccessFile);
+                                afterResponseWritten(ctx, future, request, response, keepAlive);
+                            }
+                    );
         }
     }
 }

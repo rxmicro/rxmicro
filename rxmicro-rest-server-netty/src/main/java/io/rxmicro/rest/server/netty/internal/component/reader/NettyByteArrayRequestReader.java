@@ -20,6 +20,7 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.http.FullHttpRequest;
 import io.rxmicro.config.Secrets;
 import io.rxmicro.logger.Logger;
+import io.rxmicro.rest.server.RestServerConfig;
 import io.rxmicro.rest.server.feature.RequestIdGenerator;
 import io.rxmicro.rest.server.netty.NettyRestServerConfig;
 import io.rxmicro.rest.server.netty.internal.model.NettyHttpRequest;
@@ -46,18 +47,18 @@ public final class NettyByteArrayRequestReader {
 
     private final NettyRestServerConfig nettyRestServerConfig;
 
-    private final boolean disableLoggerMessagesForHttpHealthChecks;
+    private final RestServerConfig restServerConfig;
 
     public NettyByteArrayRequestReader(final Logger logger,
                                        final RequestIdGenerator requestIdGenerator,
                                        final Secrets secrets,
                                        final NettyRestServerConfig nettyRestServerConfig,
-                                       final boolean disableLoggerMessagesForHttpHealthChecks) {
+                                       final RestServerConfig restServerConfig) {
         this.logger = logger;
         this.requestIdGenerator = requestIdGenerator;
         this.secrets = secrets;
         this.nettyRestServerConfig = nettyRestServerConfig;
-        this.disableLoggerMessagesForHttpHealthChecks = disableLoggerMessagesForHttpHealthChecks;
+        this.restServerConfig = restServerConfig;
     }
 
     public NettyHttpRequest read(final ChannelHandlerContext ctx,
@@ -75,12 +76,12 @@ public final class NettyByteArrayRequestReader {
     private void logRequest(final NettyHttpRequest request,
                             final ChannelHandlerContext ctx) {
         if (logger.isTraceEnabled()) {
-            if (disableLoggerMessagesForHttpHealthChecks && HTTP_HEALTH_CHECK_ENDPOINT.equals(request.getUri())) {
+            if (restServerConfig.isDisableLoggerMessagesForHttpHealthChecks() && HTTP_HEALTH_CHECK_ENDPOINT.equals(request.getUri())) {
                 return;
             }
             traceRequest(request, ctx);
         } else if (logger.isDebugEnabled()) {
-            if (disableLoggerMessagesForHttpHealthChecks && HTTP_HEALTH_CHECK_ENDPOINT.equals(request.getUri())) {
+            if (restServerConfig.isDisableLoggerMessagesForHttpHealthChecks() && HTTP_HEALTH_CHECK_ENDPOINT.equals(request.getUri())) {
                 return;
             }
             debugRequest(request, ctx);
