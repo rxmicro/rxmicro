@@ -20,7 +20,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import io.rxmicro.annotation.processor.common.component.IterableContainerElementExtractor;
 import io.rxmicro.annotation.processor.common.component.NumberValidators;
-import io.rxmicro.annotation.processor.common.component.impl.AbstractProcessorComponent;
+import io.rxmicro.annotation.processor.common.component.impl.BaseProcessorComponent;
 import io.rxmicro.annotation.processor.common.util.Elements;
 import io.rxmicro.annotation.processor.rest.component.AnnotationValueValidator;
 import io.rxmicro.annotation.processor.rest.model.RestModelField;
@@ -55,7 +55,7 @@ import javax.lang.model.type.TypeMirror;
  * @since 0.1
  */
 @Singleton
-public final class AnnotationValueValidatorImpl extends AbstractProcessorComponent
+public final class AnnotationValueValidatorImpl extends BaseProcessorComponent
         implements AnnotationValueValidator {
 
     @Inject

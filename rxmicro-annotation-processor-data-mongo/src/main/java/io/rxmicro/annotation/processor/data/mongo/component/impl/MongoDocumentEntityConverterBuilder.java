@@ -18,7 +18,7 @@ package io.rxmicro.annotation.processor.data.mongo.component.impl;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import io.rxmicro.annotation.processor.common.component.impl.AbstractProcessorComponent;
+import io.rxmicro.annotation.processor.common.component.impl.BaseProcessorComponent;
 import io.rxmicro.annotation.processor.common.model.ClassStructure;
 import io.rxmicro.annotation.processor.common.model.definition.SupportedTypesProvider;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
@@ -47,7 +47,7 @@ import static java.util.stream.Collectors.toSet;
  * @since 0.1
  */
 @Singleton
-public final class MongoDocumentEntityConverterBuilder extends AbstractProcessorComponent
+public final class MongoDocumentEntityConverterBuilder extends BaseProcessorComponent
         implements EntityConverterBuilder<MongoDataModelField, MongoDataObjectModelClass> {
 
     @Inject

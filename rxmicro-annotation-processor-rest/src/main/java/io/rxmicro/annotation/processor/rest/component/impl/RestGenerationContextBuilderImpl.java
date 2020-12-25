@@ -20,7 +20,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import io.rxmicro.annotation.processor.common.component.ModelClassHierarchyBuilder;
 import io.rxmicro.annotation.processor.common.component.ModelFieldBuilder;
-import io.rxmicro.annotation.processor.common.component.impl.AbstractProcessorComponent;
+import io.rxmicro.annotation.processor.common.component.impl.BaseProcessorComponent;
 import io.rxmicro.annotation.processor.common.model.EnvironmentContext;
 import io.rxmicro.annotation.processor.common.model.ModelFieldBuilderOptions;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
@@ -54,7 +54,7 @@ import static java.util.stream.Collectors.toList;
  * @since 0.1
  */
 @Singleton
-public final class RestGenerationContextBuilderImpl extends AbstractProcessorComponent
+public final class RestGenerationContextBuilderImpl extends BaseProcessorComponent
         implements RestGenerationContextBuilder {
 
     @Inject

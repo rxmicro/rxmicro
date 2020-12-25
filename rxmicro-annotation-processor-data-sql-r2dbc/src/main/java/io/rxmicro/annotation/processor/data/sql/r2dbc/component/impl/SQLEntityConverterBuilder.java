@@ -17,7 +17,7 @@
 package io.rxmicro.annotation.processor.data.sql.r2dbc.component.impl;
 
 import com.google.inject.Singleton;
-import io.rxmicro.annotation.processor.common.component.impl.AbstractProcessorComponent;
+import io.rxmicro.annotation.processor.common.component.impl.BaseProcessorComponent;
 import io.rxmicro.annotation.processor.common.model.ClassStructure;
 import io.rxmicro.annotation.processor.data.component.EntityConverterBuilder;
 import io.rxmicro.annotation.processor.data.model.DataGenerationContext;
@@ -35,7 +35,7 @@ import java.util.Set;
  */
 @Singleton
 public class SQLEntityConverterBuilder<DMF extends SQLDataModelField, DMC extends SQLDataObjectModelClass<DMF>>
-        extends AbstractProcessorComponent
+        extends BaseProcessorComponent
         implements EntityConverterBuilder<DMF, DMC> {
 
     @Override

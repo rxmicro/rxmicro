@@ -33,7 +33,7 @@ import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentH
  * @since 0.1
  */
 @Singleton
-public final class MethodResultBuilderImpl extends AbstractProcessorComponent
+public final class MethodResultBuilderImpl extends BaseProcessorComponent
         implements MethodResultBuilder {
 
     @Inject

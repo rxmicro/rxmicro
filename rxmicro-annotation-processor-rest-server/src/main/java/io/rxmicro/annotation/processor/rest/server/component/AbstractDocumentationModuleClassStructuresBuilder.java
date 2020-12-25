@@ -16,7 +16,7 @@
 
 package io.rxmicro.annotation.processor.rest.server.component;
 
-import io.rxmicro.annotation.processor.common.component.impl.AbstractProcessorComponent;
+import io.rxmicro.annotation.processor.common.component.impl.BaseProcessorComponent;
 import io.rxmicro.annotation.processor.common.model.DocumentStructure;
 import io.rxmicro.annotation.processor.common.model.EnvironmentContext;
 import io.rxmicro.annotation.processor.config.DocumentationType;
@@ -29,7 +29,7 @@ import java.util.Set;
  * @author nedis
  * @since 0.1
  */
-public abstract class AbstractDocumentationModuleClassStructuresBuilder extends AbstractProcessorComponent {
+public abstract class AbstractDocumentationModuleClassStructuresBuilder extends BaseProcessorComponent {
 
     public abstract Set<? extends DocumentStructure> build(EnvironmentContext environmentContext,
                                                            RestControllerClassStructureStorage restControllerClassStructureStorage,

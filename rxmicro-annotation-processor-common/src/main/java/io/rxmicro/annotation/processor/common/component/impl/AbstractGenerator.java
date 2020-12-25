@@ -33,7 +33,7 @@ import java.util.List;
  * @author nedis
  * @since 0.1
  */
-public abstract class AbstractGenerator extends AbstractProcessorComponent {
+public abstract class AbstractGenerator extends BaseProcessorComponent {
 
     private Configuration cfg;
 

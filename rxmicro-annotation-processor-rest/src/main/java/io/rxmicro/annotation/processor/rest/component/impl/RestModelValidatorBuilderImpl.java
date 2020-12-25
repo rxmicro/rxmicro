@@ -18,7 +18,7 @@ package io.rxmicro.annotation.processor.rest.component.impl;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import io.rxmicro.annotation.processor.common.component.impl.AbstractProcessorComponent;
+import io.rxmicro.annotation.processor.common.component.impl.BaseProcessorComponent;
 import io.rxmicro.annotation.processor.common.model.type.ModelClass;
 import io.rxmicro.annotation.processor.common.model.type.ObjectModelClass;
 import io.rxmicro.annotation.processor.rest.component.AnnotationValueConverter;
@@ -50,7 +50,7 @@ import static java.util.stream.Collectors.joining;
  * @since 0.1
  */
 @Singleton
-public final class RestModelValidatorBuilderImpl extends AbstractProcessorComponent
+public final class RestModelValidatorBuilderImpl extends BaseProcessorComponent
         implements RestModelValidatorBuilder {
 
     @Inject

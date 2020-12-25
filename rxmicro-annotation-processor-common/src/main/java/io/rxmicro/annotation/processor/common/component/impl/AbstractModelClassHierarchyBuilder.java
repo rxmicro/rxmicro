@@ -44,7 +44,7 @@ import static java.util.stream.Collectors.toMap;
  * @since 0.7.2
  */
 public abstract class AbstractModelClassHierarchyBuilder<MF extends ModelField, MC extends ObjectModelClass<MF>>
-        extends AbstractProcessorComponent
+        extends BaseProcessorComponent
         implements ModelClassHierarchyBuilder<MF, MC> {
 
     @Override

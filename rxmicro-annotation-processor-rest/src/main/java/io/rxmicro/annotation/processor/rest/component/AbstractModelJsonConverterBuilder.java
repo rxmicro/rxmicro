@@ -16,7 +16,7 @@
 
 package io.rxmicro.annotation.processor.rest.component;
 
-import io.rxmicro.annotation.processor.common.component.impl.AbstractProcessorComponent;
+import io.rxmicro.annotation.processor.common.component.impl.BaseProcessorComponent;
 import io.rxmicro.annotation.processor.common.model.type.ObjectModelClass;
 import io.rxmicro.annotation.processor.rest.model.AbstractModelJsonConverterClassStructure;
 import io.rxmicro.annotation.processor.rest.model.HttpMethodMapping;
@@ -38,7 +38,7 @@ import static io.rxmicro.common.util.ExCollectors.toOrderedSet;
  * @since 0.1
  */
 public abstract class AbstractModelJsonConverterBuilder<T extends AbstractModelJsonConverterClassStructure>
-        extends AbstractProcessorComponent {
+        extends BaseProcessorComponent {
 
     protected abstract T newInstance(RestObjectModelClass modelClass,
                                      ExchangeFormat exchangeFormat,

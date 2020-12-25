@@ -19,7 +19,7 @@ package io.rxmicro.annotation.processor.data.component.impl;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import io.rxmicro.annotation.processor.common.component.ModelFieldBuilder;
-import io.rxmicro.annotation.processor.common.component.impl.AbstractProcessorComponent;
+import io.rxmicro.annotation.processor.common.component.impl.BaseProcessorComponent;
 import io.rxmicro.annotation.processor.common.model.ModelFieldBuilderOptions;
 import io.rxmicro.annotation.processor.data.component.DataGenerationContextBuilder;
 import io.rxmicro.annotation.processor.data.model.DataGenerationContext;
@@ -45,7 +45,7 @@ import static java.util.stream.Collectors.toSet;
  */
 @Singleton
 public final class DataGenerationContextBuilderImpl<DMF extends DataModelField, DMC extends DataObjectModelClass<DMF>>
-        extends AbstractProcessorComponent
+        extends BaseProcessorComponent
         implements DataGenerationContextBuilder<DMF, DMC> {
 
     @Inject

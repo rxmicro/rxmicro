@@ -16,7 +16,7 @@
 
 package io.rxmicro.annotation.processor.data.component.impl;
 
-import io.rxmicro.annotation.processor.common.component.impl.AbstractProcessorComponent;
+import io.rxmicro.annotation.processor.common.component.impl.BaseProcessorComponent;
 import io.rxmicro.annotation.processor.common.model.ClassHeader;
 import io.rxmicro.annotation.processor.common.model.EnvironmentContext;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingBecauseAFewErrorsFoundException;
@@ -45,7 +45,7 @@ import static io.rxmicro.annotation.processor.common.util.Annotations.getPresent
  * @since 0.1
  */
 public abstract class AbstractDataClassStructureBuilder<DMF extends DataModelField, DMC extends DataObjectModelClass<DMF>>
-        extends AbstractProcessorComponent
+        extends BaseProcessorComponent
         implements DataClassStructureBuilder<DMF, DMC> {
 
     protected final <DRM extends DataRepositoryMethod> List<DRM> buildMethods(

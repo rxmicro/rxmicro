@@ -31,7 +31,7 @@ import static io.rxmicro.annotation.processor.common.util.Numbers.removeUndersco
  * @since 0.1
  */
 @Singleton
-public final class NumberValidatorsImpl extends AbstractProcessorComponent implements NumberValidators {
+public final class NumberValidatorsImpl extends BaseProcessorComponent implements NumberValidators {
 
     private static final String ERROR_MESSAGE_PREFIX = "Annotation '@?' has invalid parameter: ";
 

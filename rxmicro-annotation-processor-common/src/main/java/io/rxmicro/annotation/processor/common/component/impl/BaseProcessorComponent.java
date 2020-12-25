@@ -39,16 +39,15 @@ import static io.rxmicro.annotation.processor.config.SupportedOptions.RX_MICRO_L
 import static io.rxmicro.common.util.Formats.format;
 
 /**
- * TODO Rename from AbstractProcessorComponent to BaseProcessorComponent and remove abstract modifier
  *
  * @author nedis
  * @since 0.1
  */
-public abstract class AbstractProcessorComponent {
+public class BaseProcessorComponent {
 
     private LogLevel level;
 
-    protected AbstractProcessorComponent() {
+    protected BaseProcessorComponent() {
         // This is basic class designed for extension only.
     }
 

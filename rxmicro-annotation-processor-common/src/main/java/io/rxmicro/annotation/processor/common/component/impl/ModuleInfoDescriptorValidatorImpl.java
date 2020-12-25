@@ -48,7 +48,7 @@ import static java.util.stream.Collectors.joining;
  * @since 0.7
  */
 @Singleton
-public final class ModuleInfoDescriptorValidatorImpl extends AbstractProcessorComponent implements ModuleInfoDescriptorValidator {
+public final class ModuleInfoDescriptorValidatorImpl extends BaseProcessorComponent implements ModuleInfoDescriptorValidator {
 
     @Override
     public void validate(final ModuleElement moduleElement) {

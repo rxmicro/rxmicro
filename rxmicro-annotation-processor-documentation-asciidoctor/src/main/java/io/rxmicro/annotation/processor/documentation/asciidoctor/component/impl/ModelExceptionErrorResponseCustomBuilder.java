@@ -21,7 +21,7 @@ import com.google.inject.Singleton;
 import com.sun.source.tree.MethodTree;
 import com.sun.source.util.Trees;
 import io.rxmicro.annotation.processor.common.component.ModelFieldBuilder;
-import io.rxmicro.annotation.processor.common.component.impl.AbstractProcessorComponent;
+import io.rxmicro.annotation.processor.common.component.impl.BaseProcessorComponent;
 import io.rxmicro.annotation.processor.common.model.EnvironmentContext;
 import io.rxmicro.annotation.processor.common.model.ModelFieldBuilderOptions;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
@@ -56,7 +56,7 @@ import static java.util.stream.Collectors.joining;
  * @since 0.7
  */
 @Singleton
-public final class ModelExceptionErrorResponseCustomBuilder extends AbstractProcessorComponent {
+public final class ModelExceptionErrorResponseCustomBuilder extends BaseProcessorComponent {
 
     @Inject
     private ModelFieldBuilder<RestModelField, RestObjectModelClass> modelFieldBuilder;

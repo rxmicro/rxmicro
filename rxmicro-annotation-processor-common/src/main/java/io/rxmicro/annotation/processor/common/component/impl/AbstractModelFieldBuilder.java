@@ -71,7 +71,7 @@ import static java.util.Collections.unmodifiableMap;
  * @since 0.1
  */
 public abstract class AbstractModelFieldBuilder<MF extends ModelField, MC extends ObjectModelClass<MF>>
-        extends AbstractProcessorComponent implements ModelFieldBuilder<MF, MC> {
+        extends BaseProcessorComponent implements ModelFieldBuilder<MF, MC> {
 
     private int maxNestedLevel = -1;
 

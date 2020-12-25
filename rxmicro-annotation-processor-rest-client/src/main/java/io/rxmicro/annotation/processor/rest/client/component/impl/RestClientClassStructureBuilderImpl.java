@@ -18,7 +18,7 @@ package io.rxmicro.annotation.processor.rest.client.component.impl;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import io.rxmicro.annotation.processor.common.component.impl.AbstractProcessorComponent;
+import io.rxmicro.annotation.processor.common.component.impl.BaseProcessorComponent;
 import io.rxmicro.annotation.processor.common.model.ClassHeader;
 import io.rxmicro.annotation.processor.common.model.DefaultConfigProxyValue;
 import io.rxmicro.annotation.processor.common.model.EnvironmentContext;
@@ -55,7 +55,7 @@ import static java.util.stream.Collectors.toSet;
  * @since 0.1
  */
 @Singleton
-public final class RestClientClassStructureBuilderImpl extends AbstractProcessorComponent implements RestClientClassStructureBuilder {
+public final class RestClientClassStructureBuilderImpl extends BaseProcessorComponent implements RestClientClassStructureBuilder {
 
     @Inject
     private RestClientMethodBuilder restClientMethodBuilder;

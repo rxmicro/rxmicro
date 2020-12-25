@@ -17,7 +17,7 @@
 package io.rxmicro.annotation.processor.rest.server.component.impl;
 
 import com.google.inject.Singleton;
-import io.rxmicro.annotation.processor.common.component.impl.AbstractProcessorComponent;
+import io.rxmicro.annotation.processor.common.component.impl.BaseProcessorComponent;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
 import io.rxmicro.annotation.processor.rest.model.ParentUrl;
 import io.rxmicro.annotation.processor.rest.model.StaticHeaders;
@@ -38,7 +38,7 @@ import static io.rxmicro.http.HttpStandardHeaderNames.LOCATION;
  * @since 0.1
  */
 @Singleton
-public final class ServerCommonOptionBuilderImpl extends AbstractProcessorComponent implements ServerCommonOptionBuilder {
+public final class ServerCommonOptionBuilderImpl extends BaseProcessorComponent implements ServerCommonOptionBuilder {
 
     @Override
     public StaticHeaders getStaticHeaders(final Element element,

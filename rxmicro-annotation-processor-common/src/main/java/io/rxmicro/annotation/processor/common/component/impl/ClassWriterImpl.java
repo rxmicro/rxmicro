@@ -33,7 +33,7 @@ import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentH
  * @since 0.1
  */
 @Singleton
-public final class ClassWriterImpl extends AbstractProcessorComponent implements ClassWriter {
+public final class ClassWriterImpl extends BaseProcessorComponent implements ClassWriter {
 
     @Override
     public void write(final SourceCode sourceCode,

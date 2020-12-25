@@ -17,7 +17,7 @@
 package io.rxmicro.annotation.processor.documentation.component.impl;
 
 import com.google.inject.Singleton;
-import io.rxmicro.annotation.processor.common.component.impl.AbstractProcessorComponent;
+import io.rxmicro.annotation.processor.common.component.impl.BaseProcessorComponent;
 import io.rxmicro.annotation.processor.documentation.component.ProjectMetaDataProviderResolver;
 import io.rxmicro.annotation.processor.documentation.component.impl.model.MavenPOMProjectMetaDataProvider;
 import io.rxmicro.annotation.processor.documentation.model.ProjectMetaDataProvider;
@@ -52,7 +52,7 @@ import static javax.tools.StandardLocation.SOURCE_OUTPUT;
  * @since 0.1
  */
 @Singleton
-public final class ProjectMetaDataProviderResolverImpl extends AbstractProcessorComponent implements ProjectMetaDataProviderResolver {
+public final class ProjectMetaDataProviderResolverImpl extends BaseProcessorComponent implements ProjectMetaDataProviderResolver {
 
     @Override
     public ProjectMetaDataProvider resolve() {

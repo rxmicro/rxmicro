@@ -19,7 +19,7 @@ package io.rxmicro.annotation.processor.rest.server.component.impl;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import io.rxmicro.annotation.processor.common.component.DocumentationGenerator;
-import io.rxmicro.annotation.processor.common.component.impl.AbstractProcessorComponent;
+import io.rxmicro.annotation.processor.common.component.impl.BaseProcessorComponent;
 import io.rxmicro.annotation.processor.common.model.DocumentStructure;
 import io.rxmicro.annotation.processor.common.model.EnvironmentContext;
 import io.rxmicro.annotation.processor.common.model.error.InternalErrorException;
@@ -42,7 +42,7 @@ import static io.rxmicro.annotation.processor.common.util.ServiceLoaderImplement
  * @since 0.1
  */
 @Singleton
-public final class RestDocumentationGeneratorImpl extends AbstractProcessorComponent
+public final class RestDocumentationGeneratorImpl extends BaseProcessorComponent
         implements RestDocumentationGenerator {
 
     @Inject

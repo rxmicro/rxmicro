@@ -16,7 +16,7 @@
 
 package io.rxmicro.annotation.processor.rest.component;
 
-import io.rxmicro.annotation.processor.common.component.impl.AbstractProcessorComponent;
+import io.rxmicro.annotation.processor.common.component.impl.BaseProcessorComponent;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
 
 import javax.lang.model.element.Element;
@@ -25,7 +25,7 @@ import javax.lang.model.element.Element;
  * @author nedis
  * @since 0.1
  */
-public class BaseUrlBuilder extends AbstractProcessorComponent {
+public class BaseUrlBuilder extends BaseProcessorComponent {
 
     protected BaseUrlBuilder() {
         // This is basic class designed for extension only.

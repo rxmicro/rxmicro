@@ -32,7 +32,7 @@ import static io.rxmicro.annotation.processor.common.util.LoggerMessages.getLogg
  * @since 0.7.2
  */
 @Singleton
-public final class WithParentClassStructureInitializerImpl extends AbstractProcessorComponent
+public final class WithParentClassStructureInitializerImpl extends BaseProcessorComponent
         implements WithParentClassStructureInitializer {
 
     @Override

@@ -16,7 +16,7 @@
 
 package io.rxmicro.annotation.processor.rest.server.component.impl;
 
-import io.rxmicro.annotation.processor.common.component.impl.AbstractProcessorComponent;
+import io.rxmicro.annotation.processor.common.component.impl.BaseProcessorComponent;
 import io.rxmicro.annotation.processor.rest.model.MappedRestObjectModelClass;
 import io.rxmicro.annotation.processor.rest.model.RestObjectModelClass;
 import io.rxmicro.annotation.processor.rest.model.converter.ReaderType;
@@ -36,7 +36,7 @@ import static io.rxmicro.common.util.ExCollectors.toOrderedSet;
  * @since 0.1
  */
 public abstract class AbstractRestControllerModelBuilder<T extends AbstractRestControllerModelClassStructure>
-        extends AbstractProcessorComponent {
+        extends BaseProcessorComponent {
 
     protected abstract T newInstance(ReaderType readerType,
                                      RestObjectModelClass modelClass,

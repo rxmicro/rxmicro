@@ -18,7 +18,7 @@ package io.rxmicro.annotation.processor.rest.component.impl.builder;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import io.rxmicro.annotation.processor.common.component.impl.AbstractProcessorComponent;
+import io.rxmicro.annotation.processor.common.component.impl.BaseProcessorComponent;
 import io.rxmicro.annotation.processor.common.model.AnnotatedModelElement;
 import io.rxmicro.annotation.processor.common.model.ModelFieldType;
 import io.rxmicro.annotation.processor.common.model.definition.SupportedTypesProvider;
@@ -36,7 +36,7 @@ import javax.lang.model.element.VariableElement;
  * @since 0.5
  */
 @Singleton
-public final class PathVariableRestModelFieldBuilder extends AbstractProcessorComponent implements RestModelFieldBuilder<PathVariable> {
+public final class PathVariableRestModelFieldBuilder extends BaseProcessorComponent implements RestModelFieldBuilder<PathVariable> {
 
     @Inject
     private SupportedTypesProvider supportedTypesProvider;

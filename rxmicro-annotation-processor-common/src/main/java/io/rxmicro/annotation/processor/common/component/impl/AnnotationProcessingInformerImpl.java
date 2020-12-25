@@ -31,7 +31,7 @@ import static java.math.RoundingMode.HALF_UP;
  * @since 0.1
  */
 @Singleton
-public final class AnnotationProcessingInformerImpl extends AbstractProcessorComponent implements AnnotationProcessingInformer {
+public final class AnnotationProcessingInformerImpl extends BaseProcessorComponent implements AnnotationProcessingInformer {
 
     private long classesGenerationStartedTime;
 

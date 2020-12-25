@@ -17,7 +17,7 @@
 package io.rxmicro.annotation.processor.data.sql.component.impl.builder;
 
 import com.google.inject.Inject;
-import io.rxmicro.annotation.processor.common.component.impl.AbstractProcessorComponent;
+import io.rxmicro.annotation.processor.common.component.impl.BaseProcessorComponent;
 import io.rxmicro.annotation.processor.common.model.ClassHeader;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
 import io.rxmicro.annotation.processor.data.model.Variable;
@@ -46,7 +46,7 @@ import static java.util.stream.Collectors.toSet;
  * @author nedis
  * @since 0.1
  */
-public abstract class AbstractSQLBuilder extends AbstractProcessorComponent {
+public abstract class AbstractSQLBuilder extends BaseProcessorComponent {
 
     @Inject
     private Set<SelectSQLOperatorReader> selectSQLOperatorReaders;

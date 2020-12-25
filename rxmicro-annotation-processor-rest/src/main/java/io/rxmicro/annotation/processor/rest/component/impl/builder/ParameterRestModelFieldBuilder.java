@@ -18,7 +18,7 @@ package io.rxmicro.annotation.processor.rest.component.impl.builder;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import io.rxmicro.annotation.processor.common.component.impl.AbstractProcessorComponent;
+import io.rxmicro.annotation.processor.common.component.impl.BaseProcessorComponent;
 import io.rxmicro.annotation.processor.common.model.AnnotatedModelElement;
 import io.rxmicro.annotation.processor.common.model.ModelFieldType;
 import io.rxmicro.annotation.processor.common.model.definition.SupportedTypesProvider;
@@ -45,7 +45,7 @@ import static io.rxmicro.http.local.HttpValidators.validateParameterName;
  * @since 0.5
  */
 @Singleton
-public final class ParameterRestModelFieldBuilder extends AbstractProcessorComponent implements RestModelFieldBuilder<Parameter> {
+public final class ParameterRestModelFieldBuilder extends BaseProcessorComponent implements RestModelFieldBuilder<Parameter> {
 
     @Inject
     private SupportedTypesProvider supportedTypesProvider;

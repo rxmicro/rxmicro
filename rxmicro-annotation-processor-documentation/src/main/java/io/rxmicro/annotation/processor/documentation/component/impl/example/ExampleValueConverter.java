@@ -16,7 +16,7 @@
 
 package io.rxmicro.annotation.processor.documentation.component.impl.example;
 
-import io.rxmicro.annotation.processor.common.component.impl.AbstractProcessorComponent;
+import io.rxmicro.annotation.processor.common.component.impl.BaseProcessorComponent;
 import io.rxmicro.annotation.processor.rest.model.RestModelField;
 import io.rxmicro.documentation.Example;
 
@@ -26,7 +26,7 @@ import java.util.Locale;
  * @author nedis
  * @since 0.1
  */
-public abstract class ExampleValueConverter extends AbstractProcessorComponent {
+public abstract class ExampleValueConverter extends BaseProcessorComponent {
 
     protected static final Object ERROR_DETECTED = "error";
 

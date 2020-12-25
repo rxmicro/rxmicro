@@ -51,7 +51,7 @@ import static java.util.stream.Collectors.toList;
  * @author nedis
  * @since 0.1
  */
-public abstract class AbstractModuleClassStructuresBuilder extends AbstractProcessorComponent {
+public abstract class AbstractModuleClassStructuresBuilder extends BaseProcessorComponent {
 
     @Inject
     private SourceCodeGenerator sourceCodeGenerator;

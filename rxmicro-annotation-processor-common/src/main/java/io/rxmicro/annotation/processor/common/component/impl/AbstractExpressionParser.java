@@ -27,7 +27,7 @@ import static io.rxmicro.common.util.Formats.format;
  * @author nedis
  * @since 0.1
  */
-public abstract class AbstractExpressionParser extends AbstractProcessorComponent {
+public abstract class AbstractExpressionParser extends BaseProcessorComponent {
 
     protected final void extractTemplateAndVariables(final Element owner,
                                                      final StringBuilder templateBuilder,

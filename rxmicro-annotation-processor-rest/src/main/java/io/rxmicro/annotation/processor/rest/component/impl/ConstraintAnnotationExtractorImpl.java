@@ -17,7 +17,7 @@
 package io.rxmicro.annotation.processor.rest.component.impl;
 
 import com.google.inject.Singleton;
-import io.rxmicro.annotation.processor.common.component.impl.AbstractProcessorComponent;
+import io.rxmicro.annotation.processor.common.component.impl.BaseProcessorComponent;
 import io.rxmicro.annotation.processor.common.model.error.InternalErrorException;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
 import io.rxmicro.annotation.processor.common.model.type.ModelClass;
@@ -53,7 +53,7 @@ import static java.lang.annotation.ElementType.PARAMETER;
  * @since 0.1
  */
 @Singleton
-public final class ConstraintAnnotationExtractorImpl extends AbstractProcessorComponent
+public final class ConstraintAnnotationExtractorImpl extends BaseProcessorComponent
         implements ConstraintAnnotationExtractor {
 
     @Override

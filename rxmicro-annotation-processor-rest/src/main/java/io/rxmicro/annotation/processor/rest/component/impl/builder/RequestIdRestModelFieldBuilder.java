@@ -17,7 +17,7 @@
 package io.rxmicro.annotation.processor.rest.component.impl.builder;
 
 import com.google.inject.Singleton;
-import io.rxmicro.annotation.processor.common.component.impl.AbstractProcessorComponent;
+import io.rxmicro.annotation.processor.common.component.impl.BaseProcessorComponent;
 import io.rxmicro.annotation.processor.common.model.AnnotatedModelElement;
 import io.rxmicro.annotation.processor.common.model.ModelFieldType;
 import io.rxmicro.annotation.processor.rest.component.RestModelFieldBuilder;
@@ -37,7 +37,7 @@ import static io.rxmicro.http.HttpStandardHeaderNames.REQUEST_ID;
  * @since 0.5
  */
 @Singleton
-public final class RequestIdRestModelFieldBuilder extends AbstractProcessorComponent implements RestModelFieldBuilder<RequestId> {
+public final class RequestIdRestModelFieldBuilder extends BaseProcessorComponent implements RestModelFieldBuilder<RequestId> {
 
     @Override
     public RestModelField build(final ModelFieldType modelFieldType,

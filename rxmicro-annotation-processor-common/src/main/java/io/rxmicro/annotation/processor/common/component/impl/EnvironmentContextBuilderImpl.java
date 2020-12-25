@@ -57,7 +57,7 @@ import static java.util.stream.Collectors.toSet;
  * @since 0.1
  */
 @Singleton
-public final class EnvironmentContextBuilderImpl extends AbstractProcessorComponent
+public final class EnvironmentContextBuilderImpl extends BaseProcessorComponent
         implements EnvironmentContextBuilder {
 
     @Inject

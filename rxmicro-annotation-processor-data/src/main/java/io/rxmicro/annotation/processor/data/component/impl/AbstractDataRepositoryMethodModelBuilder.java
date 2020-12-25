@@ -19,7 +19,7 @@ package io.rxmicro.annotation.processor.data.component.impl;
 import com.google.inject.Inject;
 import io.reactivex.rxjava3.core.Single;
 import io.rxmicro.annotation.processor.common.component.MethodBodyGenerator;
-import io.rxmicro.annotation.processor.common.component.impl.AbstractProcessorComponent;
+import io.rxmicro.annotation.processor.common.component.impl.BaseProcessorComponent;
 import io.rxmicro.annotation.processor.common.model.ClassHeader;
 import io.rxmicro.annotation.processor.common.model.definition.SupportedTypesProvider;
 import io.rxmicro.annotation.processor.common.model.definition.TypeDefinition;
@@ -62,7 +62,7 @@ import static java.util.stream.Collectors.toList;
  */
 public abstract class AbstractDataRepositoryMethodModelBuilder
         <DMF extends DataModelField, DRM extends DataRepositoryMethod, DMC extends DataObjectModelClass<DMF>>
-        extends AbstractProcessorComponent
+        extends BaseProcessorComponent
         implements DataRepositoryMethodModelBuilder<DMF, DRM, DMC> {
 
     @Inject

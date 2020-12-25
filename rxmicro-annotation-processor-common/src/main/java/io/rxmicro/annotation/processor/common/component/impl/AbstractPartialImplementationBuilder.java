@@ -52,7 +52,7 @@ import static javax.lang.model.element.Modifier.STATIC;
  * @author nedis
  * @since 0.1
  */
-public abstract class AbstractPartialImplementationBuilder extends AbstractProcessorComponent {
+public abstract class AbstractPartialImplementationBuilder extends BaseProcessorComponent {
 
     protected final void validateInterfaceType(final Element element,
                                                final Class<? extends Annotation> markerAnnotationType,
