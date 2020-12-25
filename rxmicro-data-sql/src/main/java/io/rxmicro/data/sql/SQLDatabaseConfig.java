@@ -60,7 +60,7 @@ public class SQLDatabaseConfig extends Config {
     private Duration connectTimeout;
 
     /**
-     * The default constructor.
+     * Creates an SQL config instance with default settings.
      */
     public SQLDatabaseConfig() {
         host = DEFAULT_HOST;

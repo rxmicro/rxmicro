@@ -49,28 +49,47 @@ public class SQLPooledDatabaseConfig extends SQLDatabaseConfig {
     public static final int DEFAULT_MAX_POOL_SIZE = 5;
 
     /**
-     * Default max idle time in seconds.
+     * Default max idle duration.
      */
-    public static final int DEFAULT_MAX_IDLE_TIME_IN_SECONDS = 30 * 60;
+    public static final Duration DEFAULT_MAX_IDLE_DURATION = Duration.ofMinutes(30);
 
-    private int acquireRetry = DEFAULT_ACQUIRE_RETRY;
+    /**
+     * Default validation query.
+     */
+    public static final String DEFAULT_VALIDATION_QUERY = "SELECT 2+2";
 
-    private int initialSize = DEFAULT_INIT_POOL_SIZE;
+    private int acquireRetry;
 
-    private int maxSize = DEFAULT_MAX_POOL_SIZE;
+    private int initialSize;
 
-    private String validationQuery = "SELECT 2+2";
+    private int maxSize;
 
-    private Duration maxIdleTime = Duration.ofSeconds(DEFAULT_MAX_IDLE_TIME_IN_SECONDS);
+    private String validationQuery;
 
-    // ZERO indicates no-timeout
-    private Duration maxCreateConnectionTime = Duration.ZERO;
+    private Duration maxIdleTime;
 
-    // ZERO indicates no-timeout
-    private Duration maxAcquireTime = Duration.ZERO;
+    private Duration maxCreateConnectionTime;
 
-    // ZERO indicates no-timeout
-    private Duration maxLifeTime = Duration.ZERO;
+    private Duration maxAcquireTime;
+
+    private Duration maxLifeTime;
+
+    /**
+     * Creates a pooled SQL config instance with default settings.
+     */
+    public SQLPooledDatabaseConfig() {
+        this.acquireRetry = DEFAULT_ACQUIRE_RETRY;
+        this.initialSize = DEFAULT_INIT_POOL_SIZE;
+        this.maxSize = DEFAULT_MAX_POOL_SIZE;
+        this.validationQuery = DEFAULT_VALIDATION_QUERY;
+        this.maxIdleTime = DEFAULT_MAX_IDLE_DURATION;
+        // ZERO indicates no-timeout
+        this.maxCreateConnectionTime = Duration.ZERO;
+        // ZERO indicates no-timeout
+        this.maxAcquireTime = Duration.ZERO;
+        // ZERO indicates no-timeout
+        this.maxLifeTime = Duration.ZERO;
+    }
 
     /**
      * Returns the number of retries if the first connection acquire attempt fails.

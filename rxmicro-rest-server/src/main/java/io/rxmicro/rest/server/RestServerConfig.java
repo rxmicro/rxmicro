@@ -27,6 +27,7 @@ import java.util.List;
 import java.util.Set;
 
 import static io.rxmicro.common.util.Requires.require;
+import static io.rxmicro.rest.server.PredefinedRequestIdGeneratorProvider.DEFAULT_96_BIT;
 
 /**
  * Allows configuring a REST server options.
@@ -80,7 +81,7 @@ public class RestServerConfig extends Config {
             )
     );
 
-    private RequestIdGeneratorProvider requestIdGeneratorProvider = PredefinedRequestIdGeneratorProvider.DEFAULT_96_BIT;
+    private RequestIdGeneratorProvider requestIdGeneratorProvider = DEFAULT_96_BIT;
 
     private boolean returnGeneratedRequestId = true;
 

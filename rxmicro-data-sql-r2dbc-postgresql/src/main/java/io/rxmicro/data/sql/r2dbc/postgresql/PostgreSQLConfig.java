@@ -41,7 +41,7 @@ import static io.rxmicro.common.util.Formats.format;
 public final class PostgreSQLConfig extends SQLPooledDatabaseConfig {
 
     /**
-     * Default PostgreSQL port.
+     * Default Postgre SQL port.
      */
     public static final int DEFAULT_POSTGRESQL_PORT = 5432;
 

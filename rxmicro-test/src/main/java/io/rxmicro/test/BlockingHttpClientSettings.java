@@ -24,7 +24,6 @@ import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
-import static io.rxmicro.http.client.HttpClientConfig.DEFAULT_HTTP_CLIENT_TIMEOUT_VALUE_IN_SECONDS;
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
@@ -112,7 +111,7 @@ public @interface BlockingHttpClientSettings {
      *
      * @return the request timeout in {@code SECONDS}
      */
-    int requestTimeout() default DEFAULT_HTTP_CLIENT_TIMEOUT_VALUE_IN_SECONDS;
+    int requestTimeout() default 10;
 
     /**
      * Returns follow redirect option for the {@link BlockingHttpClient}.
