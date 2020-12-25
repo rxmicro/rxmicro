@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. https://rxmicro.io
+ * Copyright (c) 2020. http://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,12 +14,14 @@
  * limitations under the License.
  */
 
-module examples.rest.client.expressions {
-    requires rxmicro.rest.client.jdk;
-    requires rxmicro.rest.client.exchange.json;
+package io.rxmicro.examples.rest.controller.static_resources.complex;
 
-    // tag::content[]
-    exports io.rxmicro.examples.rest.client.expressions to
-            rxmicro.reflection;
-    // end::content[]
+public final class Response {
+
+    final String message;
+
+    public Response(final String message) {
+        this.message = message;
+    }
 }
+

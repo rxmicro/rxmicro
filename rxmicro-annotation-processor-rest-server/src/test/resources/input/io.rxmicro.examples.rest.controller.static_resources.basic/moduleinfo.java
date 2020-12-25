@@ -14,12 +14,10 @@
  * limitations under the License.
  */
 
-module examples.rest.client.expressions {
-    requires rxmicro.rest.client.jdk;
-    requires rxmicro.rest.client.exchange.json;
+import io.rxmicro.rest.server.StaticResources;
 
-    // tag::content[]
-    exports io.rxmicro.examples.rest.client.expressions to
-            rxmicro.reflection;
-    // end::content[]
+@StaticResources("/module/resource1.txt")
+@StaticResources("/module/resource2.txt")
+module examples.rest.controller.static_resources.basic{
+    requires rxmicro.rest.server;
 }
