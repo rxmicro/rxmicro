@@ -45,15 +45,49 @@ on:
 
 jobs:
   # -----------------------------------------------------------------------------------------------------
-  # ------------- Run Unit tests on Linux and Windows with LTS and latest version of JDK ----------------
+  # ------------- Run Unit tests on Linux with LTS version of JDK ---------------------------------------
   # -----------------------------------------------------------------------------------------------------
-  verify-on-linux-and-windows:
+  verify-on-linux:
     name: Verify on JDK-${{ matrix.jdk }}/${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
+        jdk: [ '11' ]
+        os: [ ubuntu-latest ]
+      fail-fast: false
+
+    steps:
+      # https://github.com/actions/checkout/blob/main/README.md
+      - name: Checkout rxmicro repo
+        uses: actions/checkout@v2
+
+      # https://github.com/actions/cache/blob/main/README.md
+      - name: Setup m2 local repo
+        uses: actions/cache@v2
+        with:
+          path: ~/.m2/repository
+          key: rxmicro-m2-local-${{ runner.os }}-repo
+
+      # https://github.com/actions/setup-java/blob/main/README.md
+      - name: Setup JDK ${{ matrix.jdk }}
+        uses: actions/setup-java@v1
+        with:
+          java-version: ${{ matrix.jdk }}
+
+      - name: Run all tests
+        run: mvn --fail-at-end verify
+
+  # -----------------------------------------------------------------------------------------------------
+  # ------------- Run Unit tests on Linux and Windows with the latest version of JDK --------------------
+  # -----------------------------------------------------------------------------------------------------
+  verify-on-linux-and-windows:
+    name: Verify on JDK-${{ matrix.jdk }}/${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    needs: verify-on-linux
+    strategy:
+      matrix:
         # LTS and latest JDK
-        jdk: [ '11', '15' ]
+        jdk: [ '15' ]
         os: [ ubuntu-latest, windows-latest ]
       fail-fast: false
 
