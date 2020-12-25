@@ -26,6 +26,10 @@ import io.rxmicro.rest.Version;
 
 import javax.lang.model.element.TypeElement;
 
+import static io.rxmicro.annotation.processor.config.SupportedOptions.RX_MICRO_STRICT_MODE;
+import static io.rxmicro.annotation.processor.config.SupportedOptions.RX_MICRO_STRICT_MODE_DEFAULT_VALUE;
+import static io.rxmicro.common.util.UrlPaths.normalizeUrlPath;
+
 /**
  * @author nedis
  * @since 0.1
@@ -46,13 +50,26 @@ public final class ParentUrlBuilderImpl extends BaseUrlBuilder implements Parent
             final String urlPath = baseUrlPath.value();
             validate(ownerClass, urlPath, "Base url path is invalid: ");
             if (baseUrlPath.position() == BaseUrlPath.Position.AFTER_VERSION) {
-                builder.addAfterVersionUrlPath(urlPath);
+                builder.addAfterVersionUrlPath(getNormalizeUrlPath(ownerClass, urlPath));
             } else {
                 validateBeforePosition(ownerClass, version);
-                builder.addBeforeVersionUrlPath(urlPath);
+                builder.addBeforeVersionUrlPath(getNormalizeUrlPath(ownerClass, urlPath));
             }
         }
         return builder.build();
+    }
+
+    private String getNormalizeUrlPath(final TypeElement ownerClass,
+                                       final String urlPath) {
+        final String normalizeUrlPath = normalizeUrlPath(urlPath);
+        if (!normalizeUrlPath.equals(urlPath) && getBooleanOption(RX_MICRO_STRICT_MODE, RX_MICRO_STRICT_MODE_DEFAULT_VALUE)) {
+            throw new InterruptProcessingException(
+                    ownerClass,
+                    "Invalid base url path: Expected '?', but actual is '?'!",
+                    normalizeUrlPath, urlPath
+            );
+        }
+        return normalizeUrlPath;
     }
 
     private void validateBeforePosition(final TypeElement ownerClass,

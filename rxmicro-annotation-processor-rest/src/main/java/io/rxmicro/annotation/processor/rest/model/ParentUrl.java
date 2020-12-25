@@ -94,7 +94,7 @@ public final class ParentUrl {
         private Version version;
 
         public void addBeforeVersionUrlPath(final String beforeVersionUrlPath) {
-            this.beforeVersionUrlPaths.add(normalizeUrlPath(beforeVersionUrlPath));
+            this.beforeVersionUrlPaths.add(beforeVersionUrlPath);
         }
 
         public void setVersion(final Version version) {
@@ -102,7 +102,7 @@ public final class ParentUrl {
         }
 
         public void addAfterVersionUrlPath(final String afterVersionUrlPath) {
-            this.afterVersionUrlPaths.add(normalizeUrlPath(afterVersionUrlPath));
+            this.afterVersionUrlPaths.add(afterVersionUrlPath);
         }
 
         public ParentUrl build() {

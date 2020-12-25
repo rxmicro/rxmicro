@@ -147,21 +147,21 @@ public final class DeclaredStaticResourcesResolverImpl extends BaseUrlBuilder im
                     validateNotNull(owner, value, format("? can't be null!", name));
                     validateNotEmpty(owner, value, format("? can't be empty string!", name));
                     validateThatPathIsTrimmedValue(owner, value, format("? must not contain space characters!", name));
-                    final String validName;
+                    final String normalizeUrlPath;
                     if (startsWith(value, '*')) {
                         // Remove first '/' character
-                        validName = normalizeUrlPath(value).substring(1);
+                        normalizeUrlPath = normalizeUrlPath(value).substring(1);
                     } else {
-                        validName = normalizeUrlPath(value);
+                        normalizeUrlPath = normalizeUrlPath(value);
                     }
-                    if (!validName.equals(value) && getBooleanOption(RX_MICRO_STRICT_MODE, RX_MICRO_STRICT_MODE_DEFAULT_VALUE)) {
+                    if (!normalizeUrlPath.equals(value) && getBooleanOption(RX_MICRO_STRICT_MODE, RX_MICRO_STRICT_MODE_DEFAULT_VALUE)) {
                         throw new InterruptProcessingException(
                                 owner,
                                 "Invalid static resource ?: Expected '?', but actual is '?'!",
-                                name, validName, value
+                                name, normalizeUrlPath, value
                         );
                     }
-                    return validName;
+                    return normalizeUrlPath;
                 })
                 .collect(toList());
     }

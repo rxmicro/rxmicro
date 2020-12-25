@@ -16,7 +16,6 @@
 
 package io.rxmicro.annotation.processor.integration.test;
 
-import io.rxmicro.common.util.UrlPaths;
 import io.rxmicro.files.ResourceException;
 
 import java.io.BufferedReader;
@@ -34,6 +33,7 @@ import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 import static io.rxmicro.common.util.Formats.format;
+import static io.rxmicro.common.util.UrlPaths.normalizeUrlPath;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 /**
@@ -108,7 +108,7 @@ public final class ClasspathResources {
     }
 
     private static String normalize(final String path) {
-        return UrlPaths.normalizeUrlPath(path).substring(1);
+        return normalizeUrlPath(path).substring(1);
     }
 
     private ClasspathResources() {

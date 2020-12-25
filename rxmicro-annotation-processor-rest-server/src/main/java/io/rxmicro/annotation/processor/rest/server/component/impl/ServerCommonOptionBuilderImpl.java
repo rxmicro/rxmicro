@@ -17,6 +17,7 @@
 package io.rxmicro.annotation.processor.rest.server.component.impl;
 
 import com.google.inject.Singleton;
+import io.rxmicro.annotation.processor.common.component.impl.AbstractProcessorComponent;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
 import io.rxmicro.annotation.processor.rest.model.ParentUrl;
 import io.rxmicro.annotation.processor.rest.model.StaticHeaders;
@@ -27,6 +28,8 @@ import io.rxmicro.rest.SetHeader;
 import java.util.Arrays;
 import javax.lang.model.element.Element;
 
+import static io.rxmicro.annotation.processor.config.SupportedOptions.RX_MICRO_STRICT_MODE;
+import static io.rxmicro.annotation.processor.config.SupportedOptions.RX_MICRO_STRICT_MODE_DEFAULT_VALUE;
 import static io.rxmicro.common.util.UrlPaths.normalizeUrlPath;
 import static io.rxmicro.http.HttpStandardHeaderNames.LOCATION;
 
@@ -35,7 +38,7 @@ import static io.rxmicro.http.HttpStandardHeaderNames.LOCATION;
  * @since 0.1
  */
 @Singleton
-public final class ServerCommonOptionBuilderImpl implements ServerCommonOptionBuilder {
+public final class ServerCommonOptionBuilderImpl extends AbstractProcessorComponent implements ServerCommonOptionBuilder {
 
     @Override
     public StaticHeaders getStaticHeaders(final Element element,
@@ -55,6 +58,16 @@ public final class ServerCommonOptionBuilderImpl implements ServerCommonOptionBu
         if (value.contains("${")) {
             throw new InterruptProcessingException(element, "Expressions not supported here. Remove redundant expressions!");
         } else if (LOCATION.equalsIgnoreCase(name)) {
+            if (getBooleanOption(RX_MICRO_STRICT_MODE, RX_MICRO_STRICT_MODE_DEFAULT_VALUE)) {
+                final String normalizeUrlPath = normalizeUrlPath(value);
+                if (!value.equals(normalizeUrlPath)) {
+                    throw new InterruptProcessingException(
+                            element,
+                            "Invalid '?' header value: Expected '?', but actual is '?'!",
+                            LOCATION, normalizeUrlPath, value
+                    );
+                }
+            }
             final String parent = parentUrl.getFullUrlPath("");
             if (value.startsWith(parent)) {
                 return value;
