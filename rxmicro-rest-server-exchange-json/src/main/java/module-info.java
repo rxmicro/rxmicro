@@ -51,8 +51,5 @@ module rxmicro.rest.server.exchange.json {
     requires transitive rxmicro.exchange.json;
     requires transitive rxmicro.rest.server;
 
-    exports io.rxmicro.rest.server.exchange.json.local to
-            rxmicro.test;
-
     provides HttpErrorResponseBodyBuilder with JsonHttpErrorResponseBodyBuilder;
 }

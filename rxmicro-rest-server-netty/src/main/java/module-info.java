@@ -17,8 +17,10 @@
 import io.rxmicro.common.model.UnNamedModuleFixer;
 import io.rxmicro.rest.server.detail.component.HttpResponseBuilder;
 import io.rxmicro.rest.server.local.component.HttpErrorResponseBodyBuilder;
+import io.rxmicro.rest.server.local.component.ServerConfigurationResetController;
 import io.rxmicro.rest.server.local.component.ServerFactory;
 import io.rxmicro.rest.server.netty.internal.component.NettyHttpResponseBuilder;
+import io.rxmicro.rest.server.netty.internal.component.NettyServerConfigurationResetController;
 import io.rxmicro.rest.server.netty.internal.component.NettyServerFactory;
 import io.rxmicro.rest.server.netty.internal.test.NettyServerUnNamedModuleFixer;
 
@@ -68,12 +70,10 @@ module rxmicro.rest.server.netty {
 
     exports io.rxmicro.rest.server.netty;
 
-    exports io.rxmicro.rest.server.netty.local to
-            rxmicro.test.junit;
-
     uses HttpErrorResponseBodyBuilder;
 
     provides ServerFactory with NettyServerFactory;
+    provides ServerConfigurationResetController with NettyServerConfigurationResetController;
     provides HttpResponseBuilder with NettyHttpResponseBuilder;
     provides UnNamedModuleFixer with NettyServerUnNamedModuleFixer;
 }

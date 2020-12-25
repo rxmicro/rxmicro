@@ -14,16 +14,20 @@
  * limitations under the License.
  */
 
-package io.rxmicro.rest.server.exchange.json.local;
+package io.rxmicro.rest.server.netty.internal.component;
+
+import io.rxmicro.rest.server.local.component.ServerConfigurationResetController;
+
+import static io.rxmicro.rest.server.netty.internal.component.NettyConfiguratorController.getNettyConfiguratorController;
 
 /**
  * @author nedis
- * @since 0.1
+ * @since 0.8
  */
-public final class JsonExchangeServerConstants {
+public final class NettyServerConfigurationResetController implements ServerConfigurationResetController {
 
-    public static final String MESSAGE = "message";
-
-    private JsonExchangeServerConstants() {
+    @Override
+    public void resetConfiguration() {
+        getNettyConfiguratorController().reset();
     }
 }

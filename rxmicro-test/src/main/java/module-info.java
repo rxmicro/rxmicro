@@ -47,11 +47,10 @@ module rxmicro.test {
     requires transitive rxmicro.data.mongo;
     requires transitive rxmicro.data.sql.r2dbc.postgresql;
     requires transitive rxmicro.json;
+    requires transitive rxmicro.exchange.json;
     requires transitive rxmicro.rest.server;
-    requires transitive rxmicro.rest.server.netty;
     requires transitive rxmicro.rest.client;
     requires transitive rxmicro.cdi;
-    requires static rxmicro.rest.server.exchange.json;
 
     requires java.net.http;
     requires org.mongodb.driver.reactivestreams;

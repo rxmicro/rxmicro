@@ -27,7 +27,7 @@ import java.util.TreeMap;
 
 import static io.rxmicro.common.util.ExCollections.unmodifiableList;
 import static io.rxmicro.common.util.Formats.format;
-import static io.rxmicro.rest.server.exchange.json.local.JsonExchangeServerConstants.MESSAGE;
+import static io.rxmicro.exchange.json.JsonExchangeConstants.MESSAGE;
 import static io.rxmicro.test.json.internal.JsonConverter.convertIfNecessary;
 import static java.util.stream.Collectors.toList;
 

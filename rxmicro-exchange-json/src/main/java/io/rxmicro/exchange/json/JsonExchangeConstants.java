@@ -29,6 +29,11 @@ public final class JsonExchangeConstants {
      */
     public static final String CONTENT_TYPE_APPLICATION_JSON = "application/json";
 
+    /**
+     * Default property name for error json objects.
+     */
+    public static final String MESSAGE = "message";
+
     private JsonExchangeConstants() {
     }
 }

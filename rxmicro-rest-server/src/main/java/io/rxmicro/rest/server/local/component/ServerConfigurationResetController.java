@@ -14,20 +14,15 @@
  * limitations under the License.
  */
 
-package io.rxmicro.rest.server.netty.local;
-
-import static io.rxmicro.rest.server.netty.internal.component.NettyConfiguratorController.getNettyConfiguratorController;
+package io.rxmicro.rest.server.local.component;
 
 /**
+ * Allows resetting the static server config for test environment.
+ *
  * @author nedis
- * @since 0.7.2
+ * @since 0.8
  */
-public final class NettyConfiguratorControllerResetUtils {
+public interface ServerConfigurationResetController {
 
-    public static void resetNettyConfiguratorController() {
-        getNettyConfiguratorController().reset();
-    }
-
-    private NettyConfiguratorControllerResetUtils() {
-    }
+    void resetConfiguration();
 }
