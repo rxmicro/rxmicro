@@ -86,7 +86,7 @@ public class RestServerConfig extends Config {
 
     private boolean showRuntimeEnv;
 
-    private boolean useFullClassNamesForRouterMappingLogMessages = true;
+    private boolean useFullClassNamesForRouterMappingLogMessages;
 
     private boolean enableAdditionalValidations;
 
