@@ -16,8 +16,10 @@
 
 package io.rxmicro.annotation.processor.common.model;
 
+import io.rxmicro.annotation.processor.common.model.error.InternalErrorException;
 import io.rxmicro.annotation.processor.common.model.type.ObjectModelClass;
 import io.rxmicro.annotation.processor.common.util.Names;
+import io.rxmicro.common.CheckedWrapperException;
 import io.rxmicro.common.InvalidStateException;
 import io.rxmicro.common.meta.BuilderMethod;
 
@@ -39,6 +41,8 @@ import static io.rxmicro.annotation.processor.common.util.Names.getSimpleName;
 import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getTypes;
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.Requires.require;
+import static io.rxmicro.reflection.Reflections.getValidatedFieldName;
+import static io.rxmicro.reflection.Reflections.getValidatedMethodName;
 import static java.lang.System.lineSeparator;
 import static java.util.Map.entry;
 import static java.util.stream.Collectors.toMap;
@@ -204,8 +208,29 @@ public final class ClassHeader {
         @BuilderMethod
         public Builder addStaticImport(final Class<?> className,
                                        final String methodOrFieldName) {
+            try {
+                validateMethodName(className, methodOrFieldName);
+            } catch (final CheckedWrapperException ignore) {
+                validateFieldName(className, methodOrFieldName);
+            }
             addStaticImport(className.getName(), methodOrFieldName);
             return this;
+        }
+
+        private void validateMethodName(final Class<?> className,
+                                        final String methodOrFieldName) {
+            getValidatedMethodName(className, methodOrFieldName);
+        }
+
+        private void validateFieldName(final Class<?> className,
+                                       final String methodOrFieldName) {
+            try {
+                getValidatedFieldName(className, methodOrFieldName);
+            } catch (final CheckedWrapperException ignore) {
+                throw new InternalErrorException(
+                        "'?' class does not contain public field or method with '?' name!", className, methodOrFieldName
+                );
+            }
         }
 
         @BuilderMethod

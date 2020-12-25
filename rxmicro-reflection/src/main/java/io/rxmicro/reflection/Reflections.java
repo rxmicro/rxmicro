@@ -954,7 +954,7 @@ public final class Reflections {
 
     /**
      * Returns the {@code methodNameCandidate} if the specified class contains the public method with name: {@code methodNameCandidate}.
-     * Otherwise throws {@link CheckedWrapperException} exception
+     * Otherwise throws {@link CheckedWrapperException} exception.
      *
      * @param clazz the specified class
      * @param methodNameCandidate the method name candidate
@@ -973,6 +973,31 @@ public final class Reflections {
             }
             throw new CheckedWrapperException(new NoSuchMethodException(
                     format("'?' class does not contain public method with name: '?'!", clazz.getName(), methodNameCandidate)
+            ));
+        }
+    }
+
+    /**
+     * Returns the {@code fieldNameCandidate} if the specified class contains the public field with name: {@code fieldNameCandidate}.
+     * Otherwise throws {@link CheckedWrapperException} exception.
+     *
+     * @param clazz the specified class
+     * @param fieldNameCandidate the field name candidate
+     * @return the {@code fieldNameCandidate} if the specified class contains the public field with name: {@code fieldNameCandidate}.
+     * @throws CheckedWrapperException if the specified class does not contain the public field with name: {@code fieldNameCandidate}.
+     */
+    public static String getValidatedFieldName(final Class<?> clazz,
+                                               final String fieldNameCandidate) {
+        try {
+            return clazz.getField(fieldNameCandidate).getName();
+        } catch (final NoSuchFieldException ignore) {
+            for (final Field field : clazz.getFields()) {
+                if (field.getName().equals(fieldNameCandidate)) {
+                    return fieldNameCandidate;
+                }
+            }
+            throw new CheckedWrapperException(new NoSuchFieldException(
+                    format("'?' class does not contain public field with name: '?'!", clazz.getName(), fieldNameCandidate)
             ));
         }
     }
