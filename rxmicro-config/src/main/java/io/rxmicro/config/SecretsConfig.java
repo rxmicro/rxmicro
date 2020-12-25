@@ -31,6 +31,7 @@ import static io.rxmicro.common.util.Requires.require;
  * @since 0.3
  */
 @SuppressWarnings("UnusedReturnValue")
+@SingletonConfigClass
 public final class SecretsConfig extends Config {
 
     private String regex = ";";

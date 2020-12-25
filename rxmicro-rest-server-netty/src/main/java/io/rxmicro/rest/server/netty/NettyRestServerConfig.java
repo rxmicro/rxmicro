@@ -21,6 +21,7 @@ import io.netty.handler.codec.http.HttpObjectAggregator;
 import io.netty.handler.codec.http.HttpServerCodec;
 import io.rxmicro.common.meta.BuilderMethod;
 import io.rxmicro.config.Config;
+import io.rxmicro.config.SingletonConfigClass;
 
 import static io.rxmicro.common.util.Requires.require;
 
@@ -37,6 +38,7 @@ import static io.rxmicro.common.util.Requires.require;
  * @since 0.1
  */
 @SuppressWarnings("UnusedReturnValue")
+@SingletonConfigClass
 public final class NettyRestServerConfig extends Config {
 
     private NettyTransport transport = NettyTransport.AUTO;

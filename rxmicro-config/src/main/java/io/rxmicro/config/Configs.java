@@ -26,6 +26,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
+import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.config.Config.getDefaultNameSpace;
 import static io.rxmicro.config.ConfigSource.DEFAULT_CONFIG_VALUES;
 import static io.rxmicro.config.ConfigSource.ENVIRONMENT_VARIABLES;
@@ -76,19 +77,12 @@ public final class Configs {
      * @param <T> config type
      * @return the config instance
      * @throws ConfigException if Configs are not built
+     * @throws IllegalArgumentException if the requested config class marked as singleton config class and
+     *                                  the requested namespace is not default namespace
      */
-    @SuppressWarnings("unchecked")
     public static <T extends Config> T getConfig(final String namespace,
                                                  final Class<T> configClass) {
-        if (instance == null) {
-            throw new ConfigException(
-                    "Configs are not built. Use Configs.Builder to build configuration");
-        }
-        return (T) instance.storage.computeIfAbsent(namespace, n -> {
-            final Config config = instance.loader.getEnvironmentConfig(namespace, configClass, instance.commandLineArgs);
-            config.validate(namespace);
-            return config;
-        });
+        return getConfig(namespace, getDefaultNameSpace(configClass).equals(namespace), configClass);
     }
 
     /**
@@ -100,9 +94,33 @@ public final class Configs {
      * @param configClass the requested config class
      * @param <T> the config type
      * @return the config instance
+     * @throws ConfigException if Configs are not built
      */
     public static <T extends Config> T getConfig(final Class<T> configClass) {
-        return getConfig(getDefaultNameSpace(configClass), configClass);
+        return getConfig(getDefaultNameSpace(configClass), true, configClass);
+    }
+
+    @SuppressWarnings("unchecked")
+    private static <T extends Config> T getConfig(final String namespace,
+                                                  final boolean defaultNamespace,
+                                                  final Class<T> configClass) {
+        if (instance == null) {
+            throw new ConfigException(
+                    "Configs are not built. Use Configs.Builder to build configuration");
+        }
+        if (!defaultNamespace && configClass.isAnnotationPresent(SingletonConfigClass.class)) {
+            throw new IllegalArgumentException(format(
+                    "'?' config class defined as singleton! " +
+                            "It means that this config class can be used only with '?' namespace, but actual namespace is '?'!" +
+                            "Use default namespace or remove '@?' annotation!",
+                    configClass.getName(), getDefaultNameSpace(configClass), namespace, SingletonConfigClass.class.getSimpleName()
+            ));
+        }
+        return (T) instance.storage.computeIfAbsent(namespace, n -> {
+            final Config config = instance.loader.getEnvironmentConfig(namespace, configClass, instance.commandLineArgs);
+            config.validate(namespace);
+            return config;
+        });
     }
 
     private Map<String, String> commandLineArgsToMap(final List<String> commandLineArgs) {

@@ -19,6 +19,7 @@ package io.rxmicro.test.dbunit;
 import io.rxmicro.common.meta.BuilderMethod;
 import io.rxmicro.config.ConfigException;
 import io.rxmicro.config.Configs;
+import io.rxmicro.config.SingletonConfigClass;
 import io.rxmicro.test.local.model.BaseTestConfig;
 
 import java.util.ArrayList;
@@ -35,6 +36,7 @@ import static io.rxmicro.test.dbunit.DatabaseType.POSTGRES;
  * @author nedis
  * @since 0.7
  */
+@SingletonConfigClass
 public final class TestDatabaseConfig extends BaseTestConfig implements Cloneable {
 
     /**

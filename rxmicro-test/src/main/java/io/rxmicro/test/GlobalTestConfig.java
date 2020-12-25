@@ -17,6 +17,7 @@
 package io.rxmicro.test;
 
 import io.rxmicro.common.meta.BuilderMethod;
+import io.rxmicro.config.SingletonConfigClass;
 import io.rxmicro.test.local.model.BaseTestConfig;
 
 import java.time.Duration;
@@ -28,6 +29,7 @@ import java.util.TimeZone;
  * @author nedis
  * @since 0.7
  */
+@SingletonConfigClass
 public final class GlobalTestConfig extends BaseTestConfig {
 
     /**

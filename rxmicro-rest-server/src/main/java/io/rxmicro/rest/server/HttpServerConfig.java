@@ -17,6 +17,7 @@
 package io.rxmicro.rest.server;
 
 import io.rxmicro.common.meta.BuilderMethod;
+import io.rxmicro.config.SingletonConfigClass;
 import io.rxmicro.http.HttpConfig;
 import io.rxmicro.http.ProtocolSchema;
 
@@ -36,6 +37,7 @@ import static java.time.temporal.ChronoUnit.DAYS;
  * @since 0.1
  */
 @SuppressWarnings("UnusedReturnValue")
+@SingletonConfigClass
 public final class HttpServerConfig extends HttpConfig {
 
     /**

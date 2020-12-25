@@ -17,6 +17,7 @@
 package io.rxmicro.test.dbunit;
 
 import io.rxmicro.common.meta.BuilderMethod;
+import io.rxmicro.config.SingletonConfigClass;
 import io.rxmicro.test.local.model.BaseTestConfig;
 
 import java.time.Duration;
@@ -27,6 +28,7 @@ import java.time.Duration;
  * @author nedis
  * @since 0.7
  */
+@SingletonConfigClass
 public final class TestValueProviderConfig extends BaseTestConfig {
 
     /**
