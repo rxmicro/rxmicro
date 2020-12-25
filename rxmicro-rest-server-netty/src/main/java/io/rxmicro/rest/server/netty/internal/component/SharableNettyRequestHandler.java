@@ -20,16 +20,11 @@ import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.codec.http.FullHttpRequest;
-import io.rxmicro.config.Secrets;
 import io.rxmicro.logger.Logger;
 import io.rxmicro.logger.LoggerFactory;
-import io.rxmicro.rest.server.HttpServerConfig;
-import io.rxmicro.rest.server.RestServerConfig;
 import io.rxmicro.rest.server.detail.component.HttpResponseBuilder;
-import io.rxmicro.rest.server.feature.RequestIdGenerator;
 import io.rxmicro.rest.server.local.component.HttpErrorResponseBodyBuilder;
 import io.rxmicro.rest.server.local.component.RequestHandler;
-import io.rxmicro.rest.server.netty.NettyRestServerConfig;
 import io.rxmicro.rest.server.netty.internal.component.reader.NettyByteArrayRequestReader;
 import io.rxmicro.rest.server.netty.internal.component.writer.NettyByteArrayResponseWriter;
 import io.rxmicro.rest.server.netty.internal.component.writer.NettySendFileResponseWriter;
@@ -37,7 +32,6 @@ import io.rxmicro.rest.server.netty.internal.model.NettyHttpRequest;
 import io.rxmicro.rest.server.netty.internal.model.NettyHttpResponse;
 
 import static io.rxmicro.common.util.Requires.require;
-import static io.rxmicro.http.ProtocolSchema.HTTPS;
 import static io.rxmicro.rest.server.netty.internal.model.NettyHttpRequest.REQUEST_ID_KEY;
 import static io.rxmicro.rest.server.netty.internal.model.NettyHttpRequest.START_PROCESSING_REQUEST_TIME_KEY;
 
@@ -60,26 +54,14 @@ final class SharableNettyRequestHandler extends SimpleChannelInboundHandler<Full
 
     private final NettyErrorHandler nettyErrorHandler;
 
-    SharableNettyRequestHandler(final NettyRestServerConfig nettyRestServerConfig,
-                                final RequestHandler requestHandler,
-                                final RequestIdGenerator requestIdGenerator,
+    SharableNettyRequestHandler(final RequestHandler requestHandler,
                                 final HttpResponseBuilder responseBuilder,
-                                final HttpErrorResponseBodyBuilder responseContentBuilder,
-                                final HttpServerConfig httpServerConfig,
-                                final RestServerConfig restServerConfig) {
+                                final HttpErrorResponseBodyBuilder responseContentBuilder) {
         this.requestHandler = require(requestHandler);
-        final Secrets secrets = Secrets.getDefaultInstance();
-        this.nettyErrorHandler = new NettyErrorHandler(nettyRestServerConfig, responseBuilder, responseContentBuilder);
-        this.nettyByteArrayRequestReader = new NettyByteArrayRequestReader(
-                LOGGER, requestIdGenerator, secrets, nettyRestServerConfig, restServerConfig
-        );
-        this.nettyByteArrayResponseWriter = new NettyByteArrayResponseWriter(
-                LOGGER, secrets, nettyRestServerConfig, restServerConfig, nettyErrorHandler
-        );
-        this.nettySendFileResponseWriter = new NettySendFileResponseWriter(
-                httpServerConfig.getSchema() == HTTPS,
-                LOGGER, secrets, httpServerConfig, nettyRestServerConfig, restServerConfig, nettyErrorHandler
-        );
+        this.nettyErrorHandler = new NettyErrorHandler(responseBuilder, responseContentBuilder);
+        this.nettyByteArrayRequestReader = new NettyByteArrayRequestReader(LOGGER);
+        this.nettyByteArrayResponseWriter = new NettyByteArrayResponseWriter(LOGGER, nettyErrorHandler);
+        this.nettySendFileResponseWriter = new NettySendFileResponseWriter(LOGGER, nettyErrorHandler);
     }
 
     @Override

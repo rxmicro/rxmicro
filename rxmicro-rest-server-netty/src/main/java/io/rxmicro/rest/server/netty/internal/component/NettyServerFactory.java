@@ -21,15 +21,11 @@ import io.netty.util.internal.logging.JdkLoggerFactory;
 import io.rxmicro.config.ConfigException;
 import io.rxmicro.logger.Logger;
 import io.rxmicro.logger.LoggerFactory;
-import io.rxmicro.rest.server.HttpServerConfig;
-import io.rxmicro.rest.server.RestServerConfig;
 import io.rxmicro.rest.server.ServerInstance;
 import io.rxmicro.rest.server.detail.component.HttpResponseBuilder;
-import io.rxmicro.rest.server.feature.RequestIdGenerator;
 import io.rxmicro.rest.server.local.component.HttpErrorResponseBodyBuilder;
 import io.rxmicro.rest.server.local.component.RequestHandler;
 import io.rxmicro.rest.server.local.component.ServerFactory;
-import io.rxmicro.rest.server.netty.NettyRestServerConfig;
 
 import java.util.ServiceLoader;
 import java.util.concurrent.CountDownLatch;
@@ -37,9 +33,6 @@ import java.util.concurrent.CountDownLatch;
 import static io.rxmicro.common.CommonConstants.RX_MICRO_FRAMEWORK_NAME;
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.Requires.require;
-import static io.rxmicro.config.Configs.getConfig;
-import static io.rxmicro.rest.server.netty.internal.util.NettyTransportFactory.getServerSocketChannelClass;
-import static io.rxmicro.rest.server.netty.internal.util.NettyTransportFactory.newEventLoopGroup;
 import static io.rxmicro.runtime.local.Implementations.getImplementation;
 
 /**
@@ -60,20 +53,12 @@ public final class NettyServerFactory implements ServerFactory {
     public ServerInstance startNewServer(final RequestHandler requestHandler) {
         try {
             initNettyFactories();
-            final HttpServerConfig httpServerConfig = getConfig(HttpServerConfig.class);
-            final RestServerConfig restServerConfig = getConfig(RestServerConfig.class);
-            final RequestIdGenerator requestIdGenerator = restServerConfig.getRequestIdGenerator();
-            final NettyRestServerConfig nettyRestServerConfig = getConfig(NettyRestServerConfig.class);
             final SharableNettyRequestHandler sharableNettyRequestHandler = new SharableNettyRequestHandler(
-                    nettyRestServerConfig,
                     requestHandler,
-                    requestIdGenerator,
                     responseBuilder,
-                    responseContentBuilder,
-                    httpServerConfig,
-                    restServerConfig
+                    responseContentBuilder
             );
-            return start(httpServerConfig, nettyRestServerConfig, sharableNettyRequestHandler);
+            return start(sharableNettyRequestHandler);
         } catch (final ClassNotFoundException ex) {
             throw new ConfigException("Required class not found: " + ex.getMessage());
         }
@@ -83,21 +68,11 @@ public final class NettyServerFactory implements ServerFactory {
         InternalLoggerFactory.setDefaultFactory(JdkLoggerFactory.INSTANCE);
     }
 
-    private ServerInstance start(final HttpServerConfig httpServerConfig,
-                                 final NettyRestServerConfig nettyRestServerConfig,
-                                 final SharableNettyRequestHandler sharableNettyRequestHandler)
+    private ServerInstance start(final SharableNettyRequestHandler sharableNettyRequestHandler)
             throws ClassNotFoundException {
         final CountDownLatch latch = new CountDownLatch(1);
         final Thread thread = new Thread(
-                new NettyServer(
-                        httpServerConfig,
-                        nettyRestServerConfig,
-                        sharableNettyRequestHandler,
-                        getServerSocketChannelClass(nettyRestServerConfig),
-                        newEventLoopGroup(nettyRestServerConfig),
-                        newEventLoopGroup(nettyRestServerConfig),
-                        latch
-                ),
+                new NettyServer(sharableNettyRequestHandler, latch),
                 format("?-NettyServerController", RX_MICRO_FRAMEWORK_NAME)
         );
         thread.start();

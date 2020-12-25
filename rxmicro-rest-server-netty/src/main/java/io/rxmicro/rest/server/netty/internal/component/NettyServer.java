@@ -32,8 +32,11 @@ import java.util.concurrent.CountDownLatch;
 import static io.rxmicro.common.CommonConstants.NANOS_IN_1_MILLIS;
 import static io.rxmicro.common.local.StartTimeStampHelper.START_TIME_STAMP;
 import static io.rxmicro.common.util.Requires.require;
+import static io.rxmicro.config.Configs.getConfig;
 import static io.rxmicro.rest.server.netty.internal.component.NettyConfiguratorController.getNettyConfiguratorController;
 import static io.rxmicro.rest.server.netty.internal.util.NettyTransportFactory.getCurrentNettyTransport;
+import static io.rxmicro.rest.server.netty.internal.util.NettyTransportFactory.getServerSocketChannelClass;
+import static io.rxmicro.rest.server.netty.internal.util.NettyTransportFactory.newEventLoopGroup;
 
 /**
  * @author nedis
@@ -57,19 +60,14 @@ final class NettyServer implements Runnable {
 
     private final CountDownLatch latch;
 
-    NettyServer(final HttpServerConfig httpServerConfig,
-                final NettyRestServerConfig nettyRestServerConfig,
-                final SharableNettyRequestHandler sharableNettyRequestHandler,
-                final Class<? extends ServerSocketChannel> serverSocketChannelClass,
-                final EventLoopGroup serverGroup,
-                final EventLoopGroup workerGroup,
-                final CountDownLatch latch) {
-        this.httpServerConfig = httpServerConfig;
-        this.nettyRestServerConfig = require(nettyRestServerConfig);
-        this.sharableNettyRequestHandler = sharableNettyRequestHandler;
-        this.serverSocketChannelClass = require(serverSocketChannelClass);
-        this.serverGroup = require(serverGroup);
-        this.workerGroup = require(workerGroup);
+    NettyServer(final SharableNettyRequestHandler sharableNettyRequestHandler,
+                final CountDownLatch latch) throws ClassNotFoundException {
+        this.httpServerConfig = getConfig(HttpServerConfig.class);
+        this.nettyRestServerConfig = getConfig(NettyRestServerConfig.class);
+        this.sharableNettyRequestHandler = require(sharableNettyRequestHandler);
+        this.serverSocketChannelClass = getServerSocketChannelClass(this.nettyRestServerConfig);
+        this.serverGroup = newEventLoopGroup(this.nettyRestServerConfig);
+        this.workerGroup = newEventLoopGroup(this.nettyRestServerConfig);
         this.latch = latch;
     }
 

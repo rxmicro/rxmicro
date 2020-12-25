@@ -18,10 +18,7 @@ package io.rxmicro.rest.server.netty.internal.component.writer;
 
 import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;
-import io.rxmicro.config.Secrets;
 import io.rxmicro.logger.Logger;
-import io.rxmicro.rest.server.RestServerConfig;
-import io.rxmicro.rest.server.netty.NettyRestServerConfig;
 import io.rxmicro.rest.server.netty.internal.component.NettyErrorHandler;
 import io.rxmicro.rest.server.netty.internal.model.NettyHttpRequest;
 import io.rxmicro.rest.server.netty.internal.model.NettyHttpResponse;
@@ -33,11 +30,8 @@ import io.rxmicro.rest.server.netty.internal.model.NettyHttpResponse;
 public final class NettyByteArrayResponseWriter extends BaseNettyResponseWriter {
 
     public NettyByteArrayResponseWriter(final Logger logger,
-                                        final Secrets secrets,
-                                        final NettyRestServerConfig nettyRestServerConfig,
-                                        final RestServerConfig restServerConfig,
                                         final NettyErrorHandler nettyErrorHandler) {
-        super(logger, secrets, nettyRestServerConfig, restServerConfig, nettyErrorHandler);
+        super(logger, nettyErrorHandler);
     }
 
     public void writeResponse(final ChannelHandlerContext ctx,

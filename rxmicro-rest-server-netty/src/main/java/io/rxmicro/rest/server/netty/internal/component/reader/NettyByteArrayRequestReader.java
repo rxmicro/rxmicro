@@ -26,6 +26,7 @@ import io.rxmicro.rest.server.netty.NettyRestServerConfig;
 import io.rxmicro.rest.server.netty.internal.model.NettyHttpRequest;
 
 import static io.rxmicro.common.util.Formats.format;
+import static io.rxmicro.config.Configs.getConfig;
 import static io.rxmicro.http.HttpStandardHeaderNames.REQUEST_ID;
 import static io.rxmicro.http.local.PredefinedUrls.HTTP_HEALTH_CHECK_ENDPOINT;
 import static io.rxmicro.rest.server.netty.internal.model.NettyHttpRequest.REQUEST_ID_KEY;
@@ -49,16 +50,12 @@ public final class NettyByteArrayRequestReader {
 
     private final RestServerConfig restServerConfig;
 
-    public NettyByteArrayRequestReader(final Logger logger,
-                                       final RequestIdGenerator requestIdGenerator,
-                                       final Secrets secrets,
-                                       final NettyRestServerConfig nettyRestServerConfig,
-                                       final RestServerConfig restServerConfig) {
+    public NettyByteArrayRequestReader(final Logger logger) {
         this.logger = logger;
-        this.requestIdGenerator = requestIdGenerator;
-        this.secrets = secrets;
-        this.nettyRestServerConfig = nettyRestServerConfig;
-        this.restServerConfig = restServerConfig;
+        this.secrets = Secrets.getDefaultInstance();
+        this.nettyRestServerConfig = getConfig(NettyRestServerConfig.class);
+        this.restServerConfig = getConfig(RestServerConfig.class);
+        this.requestIdGenerator = this.restServerConfig.getRequestIdGenerator();
     }
 
     public NettyHttpRequest read(final ChannelHandlerContext ctx,

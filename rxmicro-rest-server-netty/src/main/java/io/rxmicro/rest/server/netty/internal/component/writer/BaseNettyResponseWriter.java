@@ -31,6 +31,7 @@ import java.time.Duration;
 import static io.netty.handler.codec.http.HttpHeaderValues.CLOSE;
 import static io.netty.handler.codec.http.HttpHeaderValues.KEEP_ALIVE;
 import static io.rxmicro.common.util.Formats.format;
+import static io.rxmicro.config.Configs.getConfig;
 import static io.rxmicro.http.HttpStandardHeaderNames.CONNECTION;
 import static io.rxmicro.http.HttpStandardHeaderNames.CONTENT_LENGTH;
 import static io.rxmicro.http.HttpStandardHeaderNames.REQUEST_ID;
@@ -52,22 +53,19 @@ class BaseNettyResponseWriter {
 
     final Secrets secrets;
 
+    final NettyErrorHandler nettyErrorHandler;
+
     final NettyRestServerConfig nettyRestServerConfig;
 
     final RestServerConfig restServerConfig;
 
-    final NettyErrorHandler nettyErrorHandler;
-
     BaseNettyResponseWriter(final Logger logger,
-                            final Secrets secrets,
-                            final NettyRestServerConfig nettyRestServerConfig,
-                            final RestServerConfig restServerConfig,
                             final NettyErrorHandler nettyErrorHandler) {
         this.logger = logger;
-        this.secrets = secrets;
-        this.nettyRestServerConfig = nettyRestServerConfig;
-        this.restServerConfig = restServerConfig;
+        this.secrets = Secrets.getDefaultInstance();
         this.nettyErrorHandler = nettyErrorHandler;
+        this.nettyRestServerConfig = getConfig(NettyRestServerConfig.class);
+        this.restServerConfig = getConfig(RestServerConfig.class);
     }
 
     final boolean isKeepAlive(final NettyHttpRequest httpRequest) {

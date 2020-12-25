@@ -24,11 +24,8 @@ import io.netty.handler.codec.http.LastHttpContent;
 import io.netty.handler.stream.ChunkedFile;
 import io.rxmicro.common.CheckedWrapperException;
 import io.rxmicro.common.ImpossibleException;
-import io.rxmicro.config.Secrets;
 import io.rxmicro.logger.Logger;
 import io.rxmicro.rest.server.HttpServerConfig;
-import io.rxmicro.rest.server.RestServerConfig;
-import io.rxmicro.rest.server.netty.NettyRestServerConfig;
 import io.rxmicro.rest.server.netty.internal.component.NettyErrorHandler;
 import io.rxmicro.rest.server.netty.internal.model.NettyHttpRequest;
 import io.rxmicro.rest.server.netty.internal.model.NettyHttpResponse;
@@ -39,12 +36,14 @@ import java.nio.file.Path;
 import java.time.Duration;
 import java.util.Map;
 
+import static io.rxmicro.config.Configs.getConfig;
 import static io.rxmicro.files.PropertiesResources.loadProperties;
 import static io.rxmicro.http.HttpStandardHeaderNames.CACHE_CONTROL;
 import static io.rxmicro.http.HttpStandardHeaderNames.CONTENT_LENGTH;
 import static io.rxmicro.http.HttpStandardHeaderNames.CONTENT_TYPE;
 import static io.rxmicro.http.HttpStandardHeaderNames.EXPIRES;
 import static io.rxmicro.http.HttpStandardHeaderNames.LAST_MODIFIED;
+import static io.rxmicro.http.ProtocolSchema.HTTPS;
 import static io.rxmicro.rest.server.netty.internal.util.IOUtils.closeQuietly;
 import static java.nio.file.Files.getLastModifiedTime;
 import static java.time.Instant.now;
@@ -75,15 +74,11 @@ public final class NettySendFileResponseWriter extends BaseNettyResponseWriter {
 
     private final Duration fileContentCacheDuration;
 
-    public NettySendFileResponseWriter(final boolean isSslHandlerPresent,
-                                       final Logger logger,
-                                       final Secrets secrets,
-                                       final HttpServerConfig httpServerConfig,
-                                       final NettyRestServerConfig nettyRestServerConfig,
-                                       final RestServerConfig restServerConfig,
+    public NettySendFileResponseWriter(final Logger logger,
                                        final NettyErrorHandler nettyErrorHandler) {
-        super(logger, secrets, nettyRestServerConfig, restServerConfig, nettyErrorHandler);
-        this.isSslHandlerPresent = isSslHandlerPresent;
+        super(logger, nettyErrorHandler);
+        final HttpServerConfig httpServerConfig = getConfig(HttpServerConfig.class);
+        this.isSslHandlerPresent = httpServerConfig.getSchema() == HTTPS;
         this.fileContentCacheDuration = httpServerConfig.getFileContentCacheDuration();
     }
 

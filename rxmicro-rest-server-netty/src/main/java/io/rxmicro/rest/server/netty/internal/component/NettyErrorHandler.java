@@ -24,24 +24,25 @@ import io.rxmicro.rest.server.local.component.HttpErrorResponseBodyBuilder;
 import io.rxmicro.rest.server.netty.NettyRestServerConfig;
 import io.rxmicro.rest.server.netty.internal.model.NettyHttpResponse;
 
+import static io.rxmicro.config.Configs.getConfig;
+
 /**
  * @author nedis
  * @since 0.7
  */
 public final class NettyErrorHandler extends ErrorHandler {
 
-    private final NettyRestServerConfig nettyRestServerConfig;
-
     private final HttpResponseBuilder responseBuilder;
 
     private final HttpErrorResponseBodyBuilder responseContentBuilder;
 
-    NettyErrorHandler(final NettyRestServerConfig nettyRestServerConfig,
-                      final HttpResponseBuilder responseBuilder,
+    private final NettyRestServerConfig nettyRestServerConfig;
+
+    NettyErrorHandler(final HttpResponseBuilder responseBuilder,
                       final HttpErrorResponseBodyBuilder responseContentBuilder) {
-        this.nettyRestServerConfig = nettyRestServerConfig;
         this.responseBuilder = responseBuilder;
         this.responseContentBuilder = responseContentBuilder;
+        this.nettyRestServerConfig = getConfig(NettyRestServerConfig.class);
     }
 
     public NettyHttpResponse build(final ChannelHandlerContext ctx,
