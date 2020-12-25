@@ -22,12 +22,13 @@ import io.rxmicro.http.client.HttpClientConfig;
 import io.rxmicro.http.client.HttpClientContentConverter;
 import io.rxmicro.http.client.HttpClientFactory;
 
-import java.util.Optional;
 import java.util.ServiceLoader;
 import java.util.function.Function;
 
+import static io.rxmicro.common.RxMicroModule.RX_MICRO_REST_CLIENT_JDK_MODULE;
 import static io.rxmicro.common.util.Formats.format;
-import static io.rxmicro.runtime.local.Implementations.getImplementation;
+import static io.rxmicro.runtime.local.Implementations.getOptionalImplementation;
+import static io.rxmicro.runtime.local.Implementations.getRequiredTestImplementation;
 
 /**
  * @author nedis
@@ -38,9 +39,9 @@ public final class HttpClientBuilder {
     public HttpClient build(final Class<?> loggerClass,
                             final HttpClientConfig httpClientConfig) {
         final HttpClientFactory httpClientFactory =
-                getImplementation(HttpClientFactory.class, true, ServiceLoader::load);
+                getRequiredTestImplementation(HttpClientFactory.class, ServiceLoader::load, RX_MICRO_REST_CLIENT_JDK_MODULE);
         final HttpClientContentConverter converter =
-                Optional.ofNullable(getImplementation(HttpClientContentConverter.class, false, ServiceLoader::load))
+                getOptionalImplementation(HttpClientContentConverter.class, ServiceLoader::load)
                         .orElseGet(DefaultHttpClientContentConverter::new);
         return httpClientFactory.create(loggerClass, httpClientConfig, DisabledSecretsImpl.INSTANCE, converter);
     }

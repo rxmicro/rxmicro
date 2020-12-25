@@ -25,7 +25,7 @@ import java.lang.annotation.Annotation;
 import java.util.ServiceLoader;
 import java.util.Set;
 
-import static io.rxmicro.runtime.local.Implementations.getImplementation;
+import static io.rxmicro.runtime.local.Implementations.getOptionalImplementation;
 
 /**
  * @author nedis
@@ -46,10 +46,7 @@ abstract class AbstractJUnitTestExtension {
     }
 
     void resetServerConfigurationIfPossible() {
-        final ServerConfigurationResetController serverConfigurationResetController =
-                getImplementation(ServerConfigurationResetController.class, false, ServiceLoader::load);
-        if (serverConfigurationResetController != null) {
-            serverConfigurationResetController.resetConfiguration();
-        }
+        getOptionalImplementation(ServerConfigurationResetController.class, ServiceLoader::load)
+                .ifPresent(ServerConfigurationResetController::resetConfiguration);
     }
 }

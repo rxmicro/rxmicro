@@ -28,14 +28,13 @@ import io.rxmicro.rest.server.local.component.HttpErrorResponseBodyBuilder;
 import io.rxmicro.rest.server.local.component.RequestHandler;
 import io.rxmicro.rest.server.local.component.ServerFactory;
 
-import java.util.Optional;
 import java.util.ServiceLoader;
 import java.util.concurrent.CountDownLatch;
 
 import static io.rxmicro.common.CommonConstants.RX_MICRO_FRAMEWORK_NAME;
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.Requires.require;
-import static io.rxmicro.runtime.local.Implementations.getImplementation;
+import static io.rxmicro.runtime.local.Implementations.getOptionalImplementation;
 
 /**
  * @author nedis
@@ -49,7 +48,7 @@ public final class NettyServerFactory implements ServerFactory {
             new NettyHttpResponseBuilder();
 
     private final HttpErrorResponseBodyBuilder responseContentBuilder =
-            Optional.ofNullable(getImplementation(HttpErrorResponseBodyBuilder.class, false, ServiceLoader::load))
+            getOptionalImplementation(HttpErrorResponseBodyBuilder.class, ServiceLoader::load)
                     .orElseGet(DefaultHttpErrorResponseBodyBuilder::new);
 
     @Override

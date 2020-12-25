@@ -24,11 +24,12 @@ import io.rxmicro.rest.server.local.component.DefaultHttpErrorResponseBodyBuilde
 import io.rxmicro.rest.server.local.component.HttpErrorResponseBodyBuilder;
 import io.rxmicro.rest.server.local.component.ServerFactory;
 
-import java.util.Optional;
 import java.util.ServiceLoader;
 
+import static io.rxmicro.common.RxMicroModule.RX_MICRO_REST_SERVER_NETTY_MODULE;
 import static io.rxmicro.config.Configs.getConfig;
-import static io.rxmicro.runtime.local.Implementations.getImplementation;
+import static io.rxmicro.runtime.local.Implementations.getOptionalImplementation;
+import static io.rxmicro.runtime.local.Implementations.getRequiredRuntimeImplementation;
 
 /**
  * @author nedis
@@ -37,13 +38,13 @@ import static io.rxmicro.runtime.local.Implementations.getImplementation;
 public final class ComponentResolverImpl implements ComponentResolver {
 
     private final HttpResponseBuilder httpResponseBuilder =
-            getImplementation(HttpResponseBuilder.class, true, ServiceLoader::load);
+            getRequiredRuntimeImplementation(HttpResponseBuilder.class, ServiceLoader::load, RX_MICRO_REST_SERVER_NETTY_MODULE);
 
     private final ServerFactory serverFactory =
-            getImplementation(ServerFactory.class, true, ServiceLoader::load);
+            getRequiredRuntimeImplementation(ServerFactory.class, ServiceLoader::load, RX_MICRO_REST_SERVER_NETTY_MODULE);
 
     private final HttpErrorResponseBodyBuilder httpErrorResponseBodyBuilder =
-            Optional.ofNullable(getImplementation(HttpErrorResponseBodyBuilder.class, false, ServiceLoader::load))
+            getOptionalImplementation(HttpErrorResponseBodyBuilder.class, ServiceLoader::load)
                     .orElseGet(DefaultHttpErrorResponseBodyBuilder::new);
 
     private final RestServerConfig restServerConfig = getConfig(RestServerConfig.class);
