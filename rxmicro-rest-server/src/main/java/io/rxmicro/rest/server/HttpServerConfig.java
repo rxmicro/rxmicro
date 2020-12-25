@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package io.rxmicro.http.server;
+package io.rxmicro.rest.server;
 
 import io.rxmicro.common.meta.BuilderMethod;
 import io.rxmicro.http.HttpConfig;
@@ -36,7 +36,7 @@ import static java.time.temporal.ChronoUnit.DAYS;
  * @since 0.1
  */
 @SuppressWarnings("UnusedReturnValue")
-public class HttpServerConfig extends HttpConfig {
+public final class HttpServerConfig extends HttpConfig {
 
     /**
      * Default HTTP port.

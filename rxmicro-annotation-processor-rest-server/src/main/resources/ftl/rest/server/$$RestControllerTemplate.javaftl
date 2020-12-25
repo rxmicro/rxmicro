@@ -68,7 +68,7 @@ public final class ${PREFIX}${JAVA_CLASS_NAME} extends ${PARENT_CLASS_NAME} {
                         ${CORS_ENABLED?c},
                         <#list METHOD.httpMethodMappings as MAPPING>
                         <#if MAPPING.urlSegmentsPresent>
-                        new UrlTemplateRequestMappingRule(
+                        new WithUrlPathVariablesRequestMappingRule(
                                 "${MAPPING.method}",
                                 new UrlSegments(
                                         "${MAPPING.urlSegments.urlTemplate}",

@@ -17,7 +17,7 @@
 package io.rxmicro.test.local.component;
 
 import io.rxmicro.config.Config;
-import io.rxmicro.http.server.HttpServerConfig;
+import io.rxmicro.rest.server.HttpServerConfig;
 
 import java.util.Collection;
 

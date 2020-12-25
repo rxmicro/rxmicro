@@ -18,7 +18,7 @@ package io.rxmicro.test.junit.internal;
 
 import io.rxmicro.cdi.BeanFactory;
 import io.rxmicro.config.Config;
-import io.rxmicro.http.server.HttpServerConfig;
+import io.rxmicro.rest.server.HttpServerConfig;
 import io.rxmicro.rest.server.RestServerConfig;
 import io.rxmicro.rest.server.local.model.ServerContainer;
 import io.rxmicro.test.BlockingHttpClient;

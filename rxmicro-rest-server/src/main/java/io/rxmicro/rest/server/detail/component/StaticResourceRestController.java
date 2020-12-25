@@ -17,11 +17,11 @@
 package io.rxmicro.rest.server.detail.component;
 
 import io.rxmicro.config.ConfigException;
-import io.rxmicro.http.server.HttpServerConfig;
 import io.rxmicro.logger.Logger;
 import io.rxmicro.logger.LoggerFactory;
 import io.rxmicro.rest.model.HttpMethod;
 import io.rxmicro.rest.model.PathVariableMapping;
+import io.rxmicro.rest.server.HttpServerConfig;
 import io.rxmicro.rest.server.detail.model.HttpRequest;
 import io.rxmicro.rest.server.detail.model.HttpResponse;
 import io.rxmicro.rest.server.detail.model.Registration;

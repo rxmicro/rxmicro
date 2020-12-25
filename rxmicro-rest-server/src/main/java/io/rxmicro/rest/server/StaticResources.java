@@ -16,8 +16,6 @@
 
 package io.rxmicro.rest.server;
 
-import io.rxmicro.http.server.HttpServerConfig;
-
 import java.lang.annotation.Documented;
 import java.lang.annotation.Repeatable;
 import java.lang.annotation.Retention;

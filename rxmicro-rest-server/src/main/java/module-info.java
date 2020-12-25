@@ -51,10 +51,10 @@ import io.rxmicro.rest.server.local.test.ServerUnNamedModuleFixer;
  * @since 0.1
  */
 module rxmicro.rest.server {
-    requires transitive rxmicro.http.server;
     requires transitive rxmicro.rest;
     requires transitive rxmicro.logger;
     requires transitive rxmicro.config;
+    requires rxmicro.files;
 
     exports io.rxmicro.rest.server;
     exports io.rxmicro.rest.server.feature;

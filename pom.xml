@@ -65,7 +65,6 @@
         <module>rxmicro-http</module>
         <module>rxmicro-http-client</module>
         <module>rxmicro-http-client-jdk</module>
-        <module>rxmicro-http-server</module>
         <module>rxmicro-rest</module>
         <module>rxmicro-rest-client</module>
         <module>rxmicro-rest-client-jdk</module>
