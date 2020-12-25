@@ -5,6 +5,9 @@
     },
     {
       "pattern": "\\QMETA-INF/services/io.rxmicro.rest.server.local.component.ServerFactory\\E"
+    },
+    {
+      "pattern": "\\Qmime-types.properties\\E"
     }
   ],
   "bundles": []

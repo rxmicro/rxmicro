@@ -13,7 +13,7 @@
     "name": "io.rxmicro.rest.server.netty.internal.component.NettyClientConnectionController"
   },
   {
-    "name": "io.rxmicro.rest.server.netty.internal.component.NettyRequestHandler",
+    "name": "io.rxmicro.rest.server.netty.internal.component.SharableNettyRequestHandler",
     "methods": [
       {
         "name": "exceptionCaught",
