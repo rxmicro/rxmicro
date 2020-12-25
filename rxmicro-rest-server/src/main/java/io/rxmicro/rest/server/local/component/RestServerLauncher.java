@@ -45,15 +45,15 @@ public final class RestServerLauncher {
 
     public static ServerContainer launchWithoutRestControllers(final Map<String, Config> configs) {
         new Configs.Builder().withConfigs(configs).build();
-        return launch0(null);
+        return launch(null);
     }
 
     public static ServerContainer launchWithFilter(final RestControllerRegistrationFilter filter) {
         new Configs.Builder().buildIfNotConfigured();
-        return launch0(require(filter));
+        return launch(require(filter));
     }
 
-    private static ServerContainer launch0(final RestControllerRegistrationFilter filter) {
+    private static ServerContainer launch(final RestControllerRegistrationFilter filter) {
         final RestControllerAggregator restControllerAggregator = instantiate(REST_CONTROLLER_AGGREGATOR_IMPL_FULL_CLASS_NAME);
         final ComponentResolver componentResolver = new ComponentResolverImpl();
         final Router router = new Router(componentResolver);
