@@ -42,6 +42,7 @@ import static io.rxmicro.annotation.processor.integration.test.ExternalModule.EX
 import static io.rxmicro.annotation.processor.integration.test.ExternalModule.EXTERNAL_NETTY_CODEC_HTTP_MODULE;
 import static io.rxmicro.annotation.processor.integration.test.ExternalModule.EXTERNAL_NETTY_CODEC_MODULE;
 import static io.rxmicro.annotation.processor.integration.test.ExternalModule.EXTERNAL_NETTY_COMMON_MODULE;
+import static io.rxmicro.annotation.processor.integration.test.ExternalModule.EXTERNAL_NETTY_HANDLER_MODULE;
 import static io.rxmicro.annotation.processor.integration.test.ExternalModule.EXTERNAL_NETTY_TRANSPORT_MODULE;
 import static io.rxmicro.annotation.processor.integration.test.ExternalModule.EXTERNAL_OPENTEST4J_MODULE;
 import static io.rxmicro.annotation.processor.integration.test.ExternalModule.EXTERNAL_R2DBC_POOL_MODULE;
@@ -96,6 +97,7 @@ final class TestFixers_SuccessCompilation_IntegrationTest extends AbstractRxMicr
         addExternalModule(EXTERNAL_NETTY_CODEC_HTTP_MODULE);
         addExternalModule(EXTERNAL_NETTY_CODEC_MODULE);
         addExternalModule(EXTERNAL_NETTY_BUFFER_MODULE);
+        addExternalModule(EXTERNAL_NETTY_HANDLER_MODULE);
         addExternalModule(EXTERNAL_NETTY_TRANSPORT_MODULE);
 
         addExternalModule(EXTERNAL_JUNIT_JUPITER_API_MODULE);
