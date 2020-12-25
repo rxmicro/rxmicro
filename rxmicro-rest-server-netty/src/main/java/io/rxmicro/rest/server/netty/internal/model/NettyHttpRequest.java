@@ -51,17 +51,17 @@ public final class NettyHttpRequest implements HttpRequest, RequestIdSupplier {
 
     private final String queryString;
 
-    private final FullHttpRequest request;
+    private final FullHttpRequest fullHttpRequest;
 
     private HttpHeaders httpHeaders;
 
     private Boolean contentPresent;
 
     public NettyHttpRequest(final RequestIdGenerator requestIdGenerator,
-                            final FullHttpRequest request,
+                            final FullHttpRequest fullHttpRequest,
                             final SocketAddress remoteAddress) {
         this.remoteAddress = remoteAddress;
-        final String requestIdHeaderValue = request.headers().get(REQUEST_ID);
+        final String requestIdHeaderValue = fullHttpRequest.headers().get(REQUEST_ID);
         if (requestIdHeaderValue != null) {
             this.requestId = requestIdHeaderValue;
             this.requestIdGenerated = false;
@@ -69,7 +69,7 @@ public final class NettyHttpRequest implements HttpRequest, RequestIdSupplier {
             this.requestId = requestIdGenerator.getNextId();
             this.requestIdGenerated = true;
         }
-        final String uri = request.uri();
+        final String uri = fullHttpRequest.uri();
         final int index = uri.indexOf('?');
         if (index > 0) {
             this.uri = uri.substring(0, index);
@@ -78,7 +78,7 @@ public final class NettyHttpRequest implements HttpRequest, RequestIdSupplier {
             this.uri = uri;
             this.queryString = "";
         }
-        this.request = request;
+        this.fullHttpRequest = fullHttpRequest;
     }
 
     @Override
@@ -93,7 +93,7 @@ public final class NettyHttpRequest implements HttpRequest, RequestIdSupplier {
 
     @Override
     public String getMethod() {
-        return request.method().name();
+        return fullHttpRequest.method().name();
     }
 
     @Override
@@ -108,7 +108,7 @@ public final class NettyHttpRequest implements HttpRequest, RequestIdSupplier {
 
     @Override
     public HttpVersion getVersion() {
-        final io.netty.handler.codec.http.HttpVersion httpVersion = request.protocolVersion();
+        final io.netty.handler.codec.http.HttpVersion httpVersion = fullHttpRequest.protocolVersion();
         if (Objects.equals(io.netty.handler.codec.http.HttpVersion.HTTP_1_1, httpVersion)) {
             return HttpVersion.HTTP_1_1;
         } else if (Objects.equals(io.netty.handler.codec.http.HttpVersion.HTTP_1_0, httpVersion)) {
@@ -121,7 +121,7 @@ public final class NettyHttpRequest implements HttpRequest, RequestIdSupplier {
     @Override
     public HttpHeaders getHeaders() {
         if (httpHeaders == null) {
-            httpHeaders = new NettyReadOnlyHttpHeaders(requestId, requestIdGenerated, request.headers());
+            httpHeaders = new NettyReadOnlyHttpHeaders(requestId, requestIdGenerated, fullHttpRequest.headers());
         }
         return httpHeaders;
     }
@@ -129,7 +129,7 @@ public final class NettyHttpRequest implements HttpRequest, RequestIdSupplier {
     @Override
     public boolean isContentPresent() {
         if (contentPresent == null) {
-            contentPresent = request.content().readableBytes() > 0;
+            contentPresent = fullHttpRequest.content().readableBytes() > 0;
         }
         return contentPresent;
     }
@@ -137,10 +137,14 @@ public final class NettyHttpRequest implements HttpRequest, RequestIdSupplier {
     @Override
     public byte[] getContent() {
         if (isContentPresent()) {
-            return ByteBufUtil.getBytes(request.content());
+            return ByteBufUtil.getBytes(fullHttpRequest.content());
         } else {
             return EMPTY;
         }
+    }
+
+    public FullHttpRequest getFullHttpRequest() {
+        return fullHttpRequest;
     }
 
     public boolean isRequestIdGenerated() {

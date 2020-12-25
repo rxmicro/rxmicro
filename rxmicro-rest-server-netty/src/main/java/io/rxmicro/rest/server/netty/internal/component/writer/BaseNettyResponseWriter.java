@@ -64,6 +64,11 @@ class BaseNettyResponseWriter {
         this.returnGeneratedRequestId = returnGeneratedRequestId;
     }
 
+    final boolean isKeepAlive(final NettyHttpRequest httpRequest) {
+        final String value = httpRequest.getFullHttpRequest().headers().getAsString(CONNECTION);
+        return !"close".equalsIgnoreCase(value);
+    }
+
     final void setCommonHeaders(final NettyHttpRequest request,
                                 final NettyHttpResponse response,
                                 final boolean keepAlive) {

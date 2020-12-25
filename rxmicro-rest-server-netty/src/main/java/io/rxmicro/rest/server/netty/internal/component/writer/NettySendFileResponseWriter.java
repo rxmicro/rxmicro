@@ -88,8 +88,8 @@ public final class NettySendFileResponseWriter extends BaseNettyResponseWriter {
     public void writeResponse(final ChannelHandlerContext ctx,
                               final NettyHttpRequest request,
                               final NettyHttpResponse response,
-                              final long startTime,
-                              final boolean keepAlive) {
+                              final long startTime) {
+        final boolean keepAlive = isKeepAlive(request);
         setCommonHeaders(request, response, keepAlive);
         final Path sendFilePath = response.getSendFilePath();
         RandomAccessFile randomAccessFile = null;

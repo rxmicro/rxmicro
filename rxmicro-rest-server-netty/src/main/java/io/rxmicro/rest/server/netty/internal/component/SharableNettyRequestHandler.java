@@ -36,7 +36,6 @@ import io.rxmicro.rest.server.netty.internal.component.writer.NettySendFileRespo
 import io.rxmicro.rest.server.netty.internal.model.NettyHttpRequest;
 import io.rxmicro.rest.server.netty.internal.model.NettyHttpResponse;
 
-import static io.rxmicro.http.HttpStandardHeaderNames.CONNECTION;
 import static io.rxmicro.http.ProtocolSchema.HTTPS;
 import static io.rxmicro.rest.server.netty.internal.model.NettyHttpRequest.REQUEST_ID_KEY;
 
@@ -87,7 +86,6 @@ final class SharableNettyRequestHandler extends SimpleChannelInboundHandler<Full
     @Override
     protected void channelRead0(final ChannelHandlerContext ctx,
                                 final FullHttpRequest msg) {
-        final boolean keepAlive = isKeepAlive(msg);
         final long startTime = System.nanoTime();
         final NettyHttpRequest request = nettyByteArrayRequestReader.read(ctx, msg);
         try {
@@ -95,20 +93,15 @@ final class SharableNettyRequestHandler extends SimpleChannelInboundHandler<Full
                     .thenAccept(response -> {
                         final NettyHttpResponse nettyHttpResponse = (NettyHttpResponse) response;
                         if (nettyHttpResponse.isSendFileResponse()) {
-                            nettySendFileResponseWriter.writeResponse(ctx, request, nettyHttpResponse, startTime, keepAlive);
+                            nettySendFileResponseWriter.writeResponse(ctx, request, nettyHttpResponse, startTime);
                         } else {
-                            nettyByteArrayResponseWriter.writeResponse(ctx, request, nettyHttpResponse, startTime, keepAlive);
+                            nettyByteArrayResponseWriter.writeResponse(ctx, request, nettyHttpResponse, startTime);
                         }
                     })
-                    .exceptionally(th -> handleError(ctx, request, th, startTime, keepAlive));
+                    .exceptionally(th -> handleError(ctx, request, th, startTime));
         } catch (final Throwable th) {
-            handleError(ctx, request, th, startTime, keepAlive);
+            handleError(ctx, request, th, startTime);
         }
-    }
-
-    private boolean isKeepAlive(final FullHttpRequest msg) {
-        final String value = msg.headers().getAsString(CONNECTION);
-        return !"close".equalsIgnoreCase(value);
     }
 
     @Override
@@ -123,11 +116,10 @@ final class SharableNettyRequestHandler extends SimpleChannelInboundHandler<Full
     private Void handleError(final ChannelHandlerContext ctx,
                              final NettyHttpRequest request,
                              final Throwable cause,
-                             final long startTime,
-                             final boolean keepAlive) {
+                             final long startTime) {
         final String requestId = ctx.channel().attr(REQUEST_ID_KEY).get();
         final NettyHttpResponse errorResponse = nettyErrorHandler.build(requestId, ctx, cause);
-        nettyByteArrayResponseWriter.writeResponse(ctx, request, errorResponse, startTime, keepAlive);
+        nettyByteArrayResponseWriter.writeResponse(ctx, request, errorResponse, startTime);
         return null;
     }
 }
