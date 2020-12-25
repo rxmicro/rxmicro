@@ -47,7 +47,7 @@
     <dependencies>
         <dependency>
             <groupId>io.rxmicro</groupId>
-            <artifactId>rxmicro-config</artifactId>
+            <artifactId>rxmicro-runtime</artifactId>
             <version>0.8-SNAPSHOT</version>
         </dependency>
     </dependencies>

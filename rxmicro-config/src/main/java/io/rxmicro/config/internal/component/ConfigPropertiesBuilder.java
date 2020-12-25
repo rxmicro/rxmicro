@@ -26,7 +26,7 @@ import io.rxmicro.config.internal.model.MapConfigProperties;
 import java.lang.reflect.Method;
 
 import static io.rxmicro.common.util.Strings.unCapitalize;
-import static io.rxmicro.runtime.local.Beans.findPublicSetters;
+import static io.rxmicro.reflection.Reflections.findPublicSetters;
 import static java.util.stream.Collectors.toList;
 
 /**

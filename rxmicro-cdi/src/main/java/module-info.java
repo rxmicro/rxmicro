@@ -46,7 +46,7 @@
  * @since 0.1
  */
 module rxmicro.cdi {
-    requires transitive rxmicro.config;
+    requires transitive rxmicro.runtime;
     requires rxmicro.files;
     requires rxmicro.json;
 

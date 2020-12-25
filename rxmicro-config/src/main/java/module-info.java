@@ -58,7 +58,8 @@ import io.rxmicro.config.internal.test.ConfigUnNamedModuleFixer;
  * @since 0.1
  */
 module rxmicro.config {
-    requires transitive rxmicro.runtime;
+    requires transitive rxmicro.common;
+    requires transitive rxmicro.logger;
     requires transitive rxmicro.reflection;
     requires rxmicro.files;
 

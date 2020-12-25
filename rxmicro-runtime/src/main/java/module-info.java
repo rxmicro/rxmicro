@@ -48,9 +48,7 @@ import io.rxmicro.runtime.local.test.RuntimeUnNamedModuleFixer;
  * @since 0.1
  */
 module rxmicro.runtime {
-    requires transitive rxmicro.common;
-    requires transitive rxmicro.reflection;
-    requires transitive rxmicro.logger;
+    requires transitive rxmicro.config;
 
     exports io.rxmicro.runtime;
 

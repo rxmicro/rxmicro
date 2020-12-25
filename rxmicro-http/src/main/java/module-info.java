@@ -48,7 +48,7 @@ import io.rxmicro.http.local.test.HttpUnNamedModuleFixer;
  * @since 0.1
  */
 module rxmicro.http {
-    requires transitive rxmicro.config;
+    requires transitive rxmicro.runtime;
 
     exports io.rxmicro.http;
     exports io.rxmicro.http.error;

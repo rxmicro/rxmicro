@@ -25,6 +25,7 @@ import java.lang.reflect.Member;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
@@ -32,6 +33,7 @@ import java.util.function.Predicate;
 import static io.rxmicro.common.util.ExCollections.unmodifiableOrderedSet;
 import static io.rxmicro.common.util.Formats.format;
 import static java.lang.reflect.Modifier.isFinal;
+import static java.lang.reflect.Modifier.isPublic;
 import static java.lang.reflect.Modifier.isStatic;
 import static java.util.Collections.unmodifiableList;
 import static java.util.stream.Collectors.joining;
@@ -1000,6 +1002,34 @@ public final class Reflections {
                     format("'?' class does not contain public field with name: '?'!", clazz.getName(), fieldNameCandidate)
             ));
         }
+    }
+
+    /**
+     * Finds the public setters for the specified class.
+     *
+     * @param classInstance the specified class
+     * @return the public setters for the specified class.
+     */
+    public static List<Method> findPublicSetters(final Class<?> classInstance) {
+        final Set<String> methodNames = new HashSet<>();
+        final List<Method> methods = new ArrayList<>();
+        Class<?> current = classInstance;
+        while (current != null && current != Object.class) {
+            for (final Method method : current.getDeclaredMethods()) {
+                if (isPublicSetter(method) &&
+                        methodNames.add(method.getName() + method.getParameterTypes()[0].getName())) {
+                    methods.add(method);
+                }
+            }
+            current = current.getSuperclass();
+        }
+        return methods;
+    }
+
+    private static boolean isPublicSetter(final Method method) {
+        return method.getName().startsWith("set") &&
+                isPublic(method.getModifiers()) &&
+                method.getParameterCount() == 1;
     }
 
     private static boolean isValidInstance(final Member member,

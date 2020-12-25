@@ -55,6 +55,7 @@ module rxmicro.rest.server {
     requires transitive rxmicro.rest;
     requires transitive rxmicro.logger;
     requires transitive rxmicro.config;
+    requires transitive rxmicro.runtime;
     requires rxmicro.files;
 
     exports io.rxmicro.rest.server;

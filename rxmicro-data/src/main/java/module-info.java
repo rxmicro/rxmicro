@@ -49,7 +49,7 @@ import io.rxmicro.data.local.test.DataUnNamedModuleFixer;
  */
 @SuppressWarnings("JavaRequiresAutoModule")
 module rxmicro.data {
-    requires transitive rxmicro.config;
+    requires transitive rxmicro.runtime;
     requires transitive rxmicro.model;
 
     requires transitive org.reactivestreams;
