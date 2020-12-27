@@ -16,27 +16,33 @@
 
 package io.rxmicro.logger.internal.jul.config.adapter;
 
+import io.rxmicro.common.InvalidStateException;
+import io.rxmicro.logger.LoggerEvent;
+import io.rxmicro.logger.LoggerEventBuilder;
 import io.rxmicro.logger.RequestIdSupplier;
 import io.rxmicro.logger.impl.AbstractLogger;
 import io.rxmicro.logger.internal.jul.InternalLoggerHelper;
 
+import java.util.Arrays;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 import java.util.logging.Level;
 import java.util.logging.LogRecord;
 
+import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.Requires.require;
 
 /**
  * @author nedis
  * @since 0.7
  */
-public final class RxMicroLogRecord extends LogRecord {
+public final class RxMicroLogRecord extends LogRecord implements LoggerEvent {
 
     private static final RequestIdSupplier UNDEFINED_REQUEST_ID_SUPPLIER = () -> null;
 
-    private final RequestIdSupplier requestIdSupplier;
+    private RequestIdSupplier requestIdSupplier;
 
     private String threadName;
 
@@ -45,6 +51,10 @@ public final class RxMicroLogRecord extends LogRecord {
     private String fileName;
 
     private int lineNumber;
+
+    private RxMicroLogRecord() {
+        super(Level.OFF, "null");
+    }
 
     public RxMicroLogRecord(final String loggerName,
                             final Level level,
@@ -193,6 +203,169 @@ public final class RxMicroLogRecord extends LogRecord {
                     nextFrameInValid = true;
                 }
                 return false;
+            }
+        }
+    }
+
+    /**
+     * @author nedis
+     * @since 0.8
+     */
+    public static final class Builder implements LoggerEventBuilder {
+
+        private final RxMicroLogRecord record = new RxMicroLogRecord();
+
+        private String messageOrTemplate;
+
+        private Object[] templateArgs;
+
+        private boolean areTemplateArgsSuppliers;
+
+        private boolean built;
+
+        @Override
+        public Builder setRequestIdSupplier(final RequestIdSupplier requestIdSupplier) {
+            validateBuilderState();
+            record.requestIdSupplier = require(requestIdSupplier);
+            return this;
+        }
+
+        @Override
+        public LoggerEventBuilder setStackFrame(final String sourceClassName,
+                                                final String sourceMethodName,
+                                                final String sourceFileName,
+                                                final int sourceLineNumber) {
+            if (sourceLineNumber <= 0) {
+                throw new IllegalArgumentException("'sourceLineNumber' parameter must be > 0!");
+            }
+            validateBuilderState();
+            record.setStackFrame(require(sourceClassName), require(sourceMethodName), require(sourceFileName), sourceLineNumber);
+            return this;
+        }
+
+        @Override
+        public Builder setMessage(final String message) {
+            validateBuilderState();
+            validateMessageState();
+            messageOrTemplate = require(message);
+            record.setMessage(messageOrTemplate);
+            return this;
+        }
+
+        @Override
+        public LoggerEventBuilder setMessage(final String template,
+                                             final Object... args) {
+            validateBuilderState();
+            validateMessageState();
+            messageOrTemplate = require(template);
+            templateArgs = args;
+            areTemplateArgsSuppliers = false;
+            return this;
+        }
+
+        @Override
+        public LoggerEventBuilder setMessage(final String template,
+                                             final Supplier<?>... suppliers) {
+            validateBuilderState();
+            validateMessageState();
+            messageOrTemplate = require(template);
+            templateArgs = suppliers;
+            areTemplateArgsSuppliers = true;
+            return this;
+        }
+
+        @Override
+        public Builder setThreadId(final long threadId) {
+            if (threadId <= 0) {
+                throw new IllegalArgumentException("'threadId' parameter must be > 0!");
+            }
+            validateBuilderState();
+            // See LogRecord#MIN_SEQUENTIAL_THREAD_ID and LogRecord#defaultThreadID()
+            if (threadId < Integer.MAX_VALUE / 2) {
+                record.setThreadID((int) threadId);
+            }
+            return this;
+        }
+
+        @Override
+        public Builder setThreadName(final String threadName) {
+            validateBuilderState();
+            record.setThreadName(threadName);
+            return this;
+        }
+
+        @Override
+        public Builder setThrowable(final Throwable throwable) {
+            validateBuilderState();
+            record.setThrown(require(throwable));
+            return this;
+        }
+
+        @Override
+        public LoggerEvent build() {
+            validateBuilderState();
+            built = true;
+            if (templateArgs != null) {
+                return new RxMicroLogRecordHolder(record, messageOrTemplate, templateArgs, areTemplateArgsSuppliers);
+            } else {
+                return record;
+            }
+        }
+
+        private void validateBuilderState() {
+            if (built) {
+                throw new InvalidStateException("The logger event already built! Create a new instance of the logger event builder!");
+            }
+        }
+
+        private void validateMessageState() {
+            if (messageOrTemplate != null) {
+                throw new InvalidStateException(
+                        "Message already set: ?!",
+                        templateArgs == null ?
+                                messageOrTemplate :
+                                RxMicroLogRecordHolder.getFormattedMessage(messageOrTemplate, templateArgs, areTemplateArgsSuppliers)
+                );
+            }
+        }
+    }
+
+    /**
+     * @author nedis
+     * @since 0.8
+     */
+    public static final class RxMicroLogRecordHolder implements LoggerEvent {
+
+        private final RxMicroLogRecord record;
+
+        private final String template;
+
+        private final Object[] args;
+
+        private final boolean areTemplateArgsSuppliers;
+
+        private RxMicroLogRecordHolder(final RxMicroLogRecord record,
+                                       final String template,
+                                       final Object[] args,
+                                       final boolean areTemplateArgsSuppliers) {
+            this.record = record;
+            this.template = template;
+            this.args = args;
+            this.areTemplateArgsSuppliers = areTemplateArgsSuppliers;
+        }
+
+        public RxMicroLogRecord getRecord() {
+            record.setMessage(getFormattedMessage(template, args, areTemplateArgsSuppliers));
+            return record;
+        }
+
+        private static String getFormattedMessage(final String template,
+                                                  final Object[] args,
+                                                  final boolean areTemplateArgsSuppliers) {
+            if (areTemplateArgsSuppliers) {
+                return format(template, Arrays.stream(args).map(o -> ((Supplier<?>) o).get()).toArray());
+            } else {
+                return format(template, args);
             }
         }
     }

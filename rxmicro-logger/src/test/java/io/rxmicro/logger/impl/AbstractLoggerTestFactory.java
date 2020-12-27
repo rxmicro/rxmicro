@@ -17,6 +17,7 @@
 package io.rxmicro.logger.impl;
 
 import io.rxmicro.logger.Logger;
+import io.rxmicro.logger.LoggerEvent;
 import io.rxmicro.logger.RequestIdSupplier;
 
 import java.util.function.Consumer;
@@ -32,6 +33,19 @@ final class AbstractLoggerTestFactory {
     static final Throwable THROWABLE = new Throwable("test");
 
     static final RequestIdSupplier REQUEST_ID_SUPPLIER = () -> "TestRequestId";
+
+    static final LoggerEvent LOGGER_EVENT = new LoggerEvent() {
+    };
+
+    static Stream<Consumer<Logger>> createLoggerEventStream() {
+        return Stream.of(
+                logger -> logger.trace(LOGGER_EVENT),
+                logger -> logger.debug(LOGGER_EVENT),
+                logger -> logger.info(LOGGER_EVENT),
+                logger -> logger.warn(LOGGER_EVENT),
+                logger -> logger.error(LOGGER_EVENT)
+        );
+    }
 
     static Stream<Consumer<Logger>> createMessageOnlyStream() {
         return Stream.of(

@@ -55,27 +55,14 @@ final class JULLogger extends AbstractLogger {
     @Override
     protected void log(final Level level,
                        final LoggerEvent loggerEvent) {
-        final JULLoggerEvent event = (JULLoggerEvent) loggerEvent;
-        final String message = event.message != null ? event.message : "null";
         final RxMicroLogRecord record;
-        if (event.requestIdSupplier != null) {
-            record = new RxMicroLogRecord(event.requestIdSupplier, name, getJulLevel(level), message);
+        if (loggerEvent instanceof RxMicroLogRecord.RxMicroLogRecordHolder) {
+            record = ((RxMicroLogRecord.RxMicroLogRecordHolder) loggerEvent).getRecord();
         } else {
-            record = new RxMicroLogRecord(name, getJulLevel(level), message);
+            record = (RxMicroLogRecord) loggerEvent;
         }
-        if (event.isStackFramePresent()) {
-            record.setStackFrame(event.sourceClassName, event.sourceMethodName, event.sourceFileName, event.sourceLineNumber);
-        }
-        // See LogRecord#MIN_SEQUENTIAL_THREAD_ID and LogRecord#defaultThreadID()
-        if (event.threadId != 0 && event.threadId < Integer.MAX_VALUE / 2) {
-            record.setThreadID((int) event.threadId);
-        }
-        if (event.threadName != null) {
-            record.setThreadName(event.threadName);
-        }
-        if (event.throwable != null) {
-            record.setThrown(event.throwable);
-        }
+        record.setLoggerName(name);
+        record.setLevel(getJulLevel(level));
         logger.log(record);
     }
 

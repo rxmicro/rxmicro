@@ -33,6 +33,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.mockito.ArgumentCaptor.forClass;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 
@@ -75,6 +76,56 @@ final class JULLoggerTest {
 
     @Test
     @Order(3)
+    void log_the_specified_logger_event_with_exact_message() {
+        final Thread thread = new Thread(mock(Runnable.class), "thread-1") {
+            @Override
+            public long getId() {
+                return 1L;
+            }
+        };
+
+        julLogger.log(Level.DEBUG, new RxMicroLogRecord.Builder()
+                .setRequestIdSupplier(requestIdSupplier)
+                .setStackFrame("Class", "method", "file", 15)
+                .setMessage("message")
+                .setThread(thread)
+                .setThrowable(throwable)
+                .build());
+
+        ArgumentCaptor<RxMicroLogRecord> argumentCaptor = forClass(RxMicroLogRecord.class);
+        verify(realLogger).log(argumentCaptor.capture());
+        final RxMicroLogRecord record = argumentCaptor.getValue();
+
+        assertEquals(java.util.logging.Level.FINE, record.getLevel());
+        assertEquals("message", record.getMessage());
+        assertEquals(requestIdSupplier.getRequestId(), record.getRequestId());
+        assertSame(throwable, record.getThrown());
+        assertEquals("Class", record.getSourceClassName());
+        assertEquals("method", record.getSourceMethodName());
+        assertEquals("file", record.getFileName());
+        assertEquals(15, record.getLineNumber());
+        assertEquals(1, record.getThreadID());
+        assertEquals("thread-1", record.getThreadName());
+    }
+
+    @Test
+    @Order(4)
+    void log_the_specified_logger_event_with_message_template() {
+
+        julLogger.log(Level.DEBUG, new RxMicroLogRecord.Builder()
+                .setMessage("message: ?-?", 1, 2)
+                .build());
+
+        ArgumentCaptor<RxMicroLogRecord> argumentCaptor = forClass(RxMicroLogRecord.class);
+        verify(realLogger).log(argumentCaptor.capture());
+        final RxMicroLogRecord record = argumentCaptor.getValue();
+
+        assertEquals(java.util.logging.Level.FINE, record.getLevel());
+        assertEquals("message: 1-2", record.getMessage());
+    }
+
+    @Test
+    @Order(5)
     void log_message_only() {
         julLogger.log(Level.DEBUG, "debug");
 
@@ -89,7 +140,7 @@ final class JULLoggerTest {
     }
 
     @Test
-    @Order(4)
+    @Order(6)
     void log_message_with_throwable() {
         julLogger.log(Level.DEBUG, "debug", throwable);
 
@@ -104,7 +155,7 @@ final class JULLoggerTest {
     }
 
     @Test
-    @Order(5)
+    @Order(7)
     void log_request_id_supplier_with_message() {
         julLogger.log(requestIdSupplier, Level.DEBUG, "debug");
 
@@ -119,7 +170,7 @@ final class JULLoggerTest {
     }
 
     @Test
-    @Order(6)
+    @Order(8)
     void log_request_id_supplier_with_message_and_throwable() {
         julLogger.log(requestIdSupplier, Level.DEBUG, "debug", throwable);
 

@@ -34,17 +34,23 @@ import org.junit.jupiter.params.provider.ArgumentsSource;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.Supplier;
 import java.util.stream.Stream;
 
+import static io.rxmicro.logger.LoggerFactory.newLoggerEventBuilder;
+import static io.rxmicro.logger.impl.AbstractLoggerTestFactory.LOGGER_EVENT;
 import static io.rxmicro.logger.impl.AbstractLoggerTestFactory.REQUEST_ID_SUPPLIER;
 import static io.rxmicro.logger.impl.AbstractLoggerTestFactory.THROWABLE;
 import static io.rxmicro.logger.impl.AbstractLoggerTestFactory.createIsLevelEnabledStream;
+import static io.rxmicro.logger.impl.AbstractLoggerTestFactory.createLoggerEventStream;
 import static io.rxmicro.logger.impl.AbstractLoggerTestFactory.createMessageOnlyStream;
 import static io.rxmicro.logger.impl.AbstractLoggerTestFactory.createRequestIdSupplierWithMessageStream;
 import static io.rxmicro.logger.impl.AbstractLoggerTestFactory.createRequestIdSupplierWithThrowableAndMessageStream;
 import static io.rxmicro.logger.impl.AbstractLoggerTestFactory.createThrowableWithMessageStream;
 import static java.util.function.Function.identity;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.params.provider.Arguments.arguments;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
@@ -119,6 +125,7 @@ final class AbstractLoggerTest {
         loggerConsumer.accept(logger);
 
         verify(logger, times(1)).isLevelEnabled(any(Level.class));
+        verify(logger, never()).log(any(Level.class), any(LoggerEvent.class));
         verify(logger, never()).log(any(Level.class), anyString());
         verify(logger, never()).log(any(Level.class), anyString(), any(Throwable.class));
         verify(logger, never()).log(any(RequestIdSupplier.class), any(Level.class), anyString());
@@ -134,6 +141,7 @@ final class AbstractLoggerTest {
         loggerConsumer.accept(logger);
 
         verify(logger, times(1)).isLevelEnabled(any(Level.class));
+        verify(logger, never()).log(any(Level.class), any(LoggerEvent.class));
         verify(logger, times(1)).log(any(Level.class), anyString());
         verify(logger, never()).log(any(Level.class), eq("123456"), any(Throwable.class));
         verify(logger, never()).log(any(RequestIdSupplier.class), any(Level.class), anyString());
@@ -149,6 +157,7 @@ final class AbstractLoggerTest {
         loggerConsumer.accept(logger);
 
         verify(logger, times(1)).isLevelEnabled(any(Level.class));
+        verify(logger, never()).log(any(Level.class), any(LoggerEvent.class));
         verify(logger, never()).log(any(Level.class), anyString());
         verify(logger, times(1)).log(any(Level.class), eq("123456"), eq(THROWABLE));
         verify(logger, never()).log(any(RequestIdSupplier.class), any(Level.class), anyString());
@@ -164,6 +173,7 @@ final class AbstractLoggerTest {
         loggerConsumer.accept(logger);
 
         verify(logger, times(1)).isLevelEnabled(any(Level.class));
+        verify(logger, never()).log(any(Level.class), any(LoggerEvent.class));
         verify(logger, never()).log(any(Level.class), anyString());
         verify(logger, never()).log(any(Level.class), anyString(), any(Throwable.class));
         verify(logger, times(1)).log(eq(REQUEST_ID_SUPPLIER), any(Level.class), eq("123456"));
@@ -179,6 +189,7 @@ final class AbstractLoggerTest {
         loggerConsumer.accept(logger);
 
         verify(logger, times(1)).isLevelEnabled(any(Level.class));
+        verify(logger, never()).log(any(Level.class), any(LoggerEvent.class));
         verify(logger, never()).log(any(Level.class), anyString());
         verify(logger, never()).log(any(Level.class), anyString(), any(Throwable.class));
         verify(logger, never()).log(any(RequestIdSupplier.class), any(Level.class), anyString());
@@ -186,6 +197,46 @@ final class AbstractLoggerTest {
     }
 
     @Order(6)
+    @ParameterizedTest
+    @ArgumentsSource(LoggerEventsArgumentsProvider.class)
+    void Should_log_the_specified_logger_event(final Consumer<Logger> loggerConsumer) {
+        levelEnabled.set(true);
+
+        loggerConsumer.accept(logger);
+
+        verify(logger, times(1)).isLevelEnabled(any(Level.class));
+        verify(logger, times(1)).log(any(Level.class), eq(LOGGER_EVENT));
+        verify(logger, never()).log(any(Level.class), anyString());
+        verify(logger, never()).log(any(Level.class), anyString(), any(Throwable.class));
+        verify(logger, never()).log(any(RequestIdSupplier.class), any(Level.class), anyString());
+        verify(logger, never()).log(any(RequestIdSupplier.class), any(Level.class), anyString(), any(Throwable.class));
+    }
+
+    @Order(7)
+    @ParameterizedTest
+    @ArgumentsSource(FormattedMessageArgumentsArgumentsProvider.class)
+    void message_building_should_not_invoked_if_logger_is_disabled(final Object arg) {
+        levelEnabled.set(false);
+
+        if (arg instanceof Supplier) {
+            logger.error(newLoggerEventBuilder()
+                    .setMessage("TestTemplate", (Supplier<?>) arg)
+                    .build());
+        } else {
+            logger.error(newLoggerEventBuilder()
+                    .setMessage("TestTemplate", arg)
+                    .build());
+        }
+
+        verify(logger, times(1)).isLevelEnabled(any(Level.class));
+        verify(logger, never()).log(any(Level.class), any(LoggerEvent.class));
+        verify(logger, never()).log(any(Level.class), anyString());
+        verify(logger, never()).log(any(Level.class), anyString(), any(Throwable.class));
+        verify(logger, never()).log(any(RequestIdSupplier.class), any(Level.class), anyString());
+        verify(logger, never()).log(any(RequestIdSupplier.class), any(Level.class), anyString(), any(Throwable.class));
+    }
+
+    @Order(8)
     @ParameterizedTest
     @ArgumentsSource(IsLevelEnabledArgumentsProvider.class)
     void Should_verify_if_level_enabled(final Function<Logger, Boolean> loggerConsumer) {
@@ -209,6 +260,7 @@ final class AbstractLoggerTest {
         @Override
         public Stream<? extends Arguments> provideArguments(final ExtensionContext context) {
             return Stream.of(
+                    createLoggerEventStream(),
                     createMessageOnlyStream(),
                     createThrowableWithMessageStream(),
                     createRequestIdSupplierWithMessageStream(),
@@ -274,6 +326,40 @@ final class AbstractLoggerTest {
         @Override
         public Stream<? extends Arguments> provideArguments(final ExtensionContext context) {
             return createIsLevelEnabledStream().map(Arguments::of);
+        }
+    }
+
+    /**
+     * @author nedis
+     * @since 0.8
+     */
+    public static class LoggerEventsArgumentsProvider implements ArgumentsProvider {
+
+        @Override
+        public Stream<? extends Arguments> provideArguments(final ExtensionContext context) {
+            return createLoggerEventStream().map(Arguments::of);
+        }
+    }
+
+    /**
+     * @author nedis
+     * @since 0.8
+     */
+    public static class FormattedMessageArgumentsArgumentsProvider implements ArgumentsProvider {
+
+        @Override
+        public Stream<? extends Arguments> provideArguments(final ExtensionContext context) {
+            return Stream.of(
+                    arguments(new Object() {
+                        @Override
+                        public String toString() {
+                            return fail("The message should be built only if appropriate logger level is enabled!");
+                        }
+                    }),
+                    arguments((Supplier<Object>) () -> {
+                        return fail("The message should be built only if appropriate logger level is enabled!");
+                    })
+            );
         }
     }
 }

@@ -20,6 +20,7 @@ import io.rxmicro.logger.Logger;
 import io.rxmicro.logger.LoggerEventBuilder;
 import io.rxmicro.logger.impl.LoggerImplProvider;
 import io.rxmicro.logger.internal.jul.config.LoggerConfigBuilder;
+import io.rxmicro.logger.internal.jul.config.adapter.RxMicroLogRecord;
 
 import java.io.BufferedWriter;
 import java.io.ByteArrayInputStream;
@@ -85,7 +86,7 @@ public final class JULLoggerImplProvider implements LoggerImplProvider {
 
     @Override
     public LoggerEventBuilder newLoggerEventBuilder() {
-        return new JULLoggerEvent.Builder();
+        return new RxMicroLogRecord.Builder();
     }
 
     // Simplest version without Unicode and special characters support
