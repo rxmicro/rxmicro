@@ -31,7 +31,7 @@ import static java.time.format.DateTimeFormatter.RFC_1123_DATE_TIME;
  */
 public final class StandardResponseHeaderValueSupplierFactory {
 
-    private static final String SERVER_NAME = format("?-NettyServer/?", RX_MICRO_FRAMEWORK_NAME, getRxMicroVersion());
+    private static final String SERVER_NAME = format("?-netty-rest-server/?", RX_MICRO_FRAMEWORK_NAME, getRxMicroVersion());
 
     public static Supplier<String> serverResponseHeaderValueSupplier() {
         return () -> SERVER_NAME;

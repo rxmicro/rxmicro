@@ -53,7 +53,7 @@ public final class InstanceContainer {
     static {
         setRxMicroVersion();
         getRuntime().addShutdownHook(
-                new Thread(InstanceContainer::closeAll, format("?-CloseableShutdownHook", RX_MICRO_FRAMEWORK_NAME))
+                new Thread(InstanceContainer::closeAll, format("?-closeable-shutdown-hook", RX_MICRO_FRAMEWORK_NAME))
         );
     }
 

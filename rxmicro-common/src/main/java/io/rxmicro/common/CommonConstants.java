@@ -33,7 +33,7 @@ public final class CommonConstants {
     /**
      * The RxMicro framework name: {@value #RX_MICRO_FRAMEWORK_NAME}.
      */
-    public static final String RX_MICRO_FRAMEWORK_NAME = "RxMicro";
+    public static final String RX_MICRO_FRAMEWORK_NAME = "rx-micro";
 
     /**
      * The {@value #RX_MICRO_HOME_VARIABLE_NAME} environment variable.
@@ -94,7 +94,7 @@ public final class CommonConstants {
         public static final String RX_MICRO_VIRTUAL_MODULE_INFO_ANNOTATION_NAME = "ModuleInfo";
 
         /**
-         * The static final field that describes the module name for the virtual descriptor: {@value #RX_MICRO_FRAMEWORK_NAME}.
+         * The static final field that describes the module name for the virtual descriptor: {@value #RX_MICRO_VIRTUAL_MODULE_INFO_NAME}.
          */
         public static final String RX_MICRO_VIRTUAL_MODULE_INFO_NAME = "NAME";
 

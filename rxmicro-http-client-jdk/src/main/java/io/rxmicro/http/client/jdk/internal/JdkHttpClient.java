@@ -88,7 +88,7 @@ final class JdkHttpClient implements HttpClient {
         this.requiredHeaders = List.of(
                 entry(ACCEPT, contentType),
                 entry(CONTENT_TYPE, contentType),
-                entry(USER_AGENT, format("?-JdkHttpClient/?", RX_MICRO_FRAMEWORK_NAME, getRxMicroVersion()))
+                entry(USER_AGENT, format("?-jdk-http-client/?", RX_MICRO_FRAMEWORK_NAME, getRxMicroVersion()))
         );
         this.requestBodyConverter = require(contentConverter.getRequestContentConverter());
         this.responseBodyConverter = require(contentConverter.getResponseContentConverter());
