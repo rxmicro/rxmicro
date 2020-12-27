@@ -55,6 +55,20 @@ public interface Logger {
     /**
      * Log the message at the {@code TRACE} level.
      *
+     * <p>
+     * To build an instance of {@link LoggerEvent} use {@link LoggerEventBuilder#build()} builder method.
+     * To create a new instance of {@link LoggerEventBuilder} use {@link LoggerFactory#newLoggerEventBuilder()} factory method.
+     *
+     * @param loggerEvent the logger event instance with custom log data
+     * @see LoggerFactory#newLoggerEventBuilder()
+     * @see LoggerEventBuilder
+     * @see LoggerEvent
+     */
+    void trace(LoggerEvent loggerEvent);
+
+    /**
+     * Log the message at the {@code TRACE} level.
+     *
      * @param msg the message string to be logged
      */
     void trace(String msg);
@@ -1024,6 +1038,20 @@ public interface Logger {
      * @return {@code true} if this Logger is enabled for the {@code DEBUG} level
      */
     boolean isDebugEnabled();
+
+    /**
+     * Log the message at the {@code DEBUG} level.
+     *
+     * <p>
+     * To build an instance of {@link LoggerEvent} use {@link LoggerEventBuilder#build()} builder method.
+     * To create a new instance of {@link LoggerEventBuilder} use {@link LoggerFactory#newLoggerEventBuilder()} factory method.
+     *
+     * @param loggerEvent the logger event instance with custom log data
+     * @see LoggerFactory#newLoggerEventBuilder()
+     * @see LoggerEventBuilder
+     * @see LoggerEvent
+     */
+    void debug(LoggerEvent loggerEvent);
 
     /**
      * Log the message at the {@code DEBUG} level.
@@ -2001,6 +2029,20 @@ public interface Logger {
     /**
      * Log the message at the {@code INFO} level.
      *
+     * <p>
+     * To build an instance of {@link LoggerEvent} use {@link LoggerEventBuilder#build()} builder method.
+     * To create a new instance of {@link LoggerEventBuilder} use {@link LoggerFactory#newLoggerEventBuilder()} factory method.
+     *
+     * @param loggerEvent the logger event instance with custom log data
+     * @see LoggerFactory#newLoggerEventBuilder()
+     * @see LoggerEventBuilder
+     * @see LoggerEvent
+     */
+    void info(LoggerEvent loggerEvent);
+
+    /**
+     * Log the message at the {@code INFO} level.
+     *
      * @param msg the message string to be logged
      */
     void info(String msg);
@@ -2970,6 +3012,20 @@ public interface Logger {
      * @return {@code true} if this Logger is enabled for the {@code WARN} level
      */
     boolean isWarnEnabled();
+
+    /**
+     * Log the message at the {@code WARN} level.
+     *
+     * <p>
+     * To build an instance of {@link LoggerEvent} use {@link LoggerEventBuilder#build()} builder method.
+     * To create a new instance of {@link LoggerEventBuilder} use {@link LoggerFactory#newLoggerEventBuilder()} factory method.
+     *
+     * @param loggerEvent the logger event instance with custom log data
+     * @see LoggerFactory#newLoggerEventBuilder()
+     * @see LoggerEventBuilder
+     * @see LoggerEvent
+     */
+    void warn(LoggerEvent loggerEvent);
 
     /**
      * Log the message at the {@code WARN} level.
@@ -3944,6 +4000,20 @@ public interface Logger {
      * @return {@code true} if this Logger is enabled for the {@code ERROR} level
      */
     boolean isErrorEnabled();
+
+    /**
+     * Log the message at the {@code ERROR} level.
+     *
+     * <p>
+     * To build an instance of {@link LoggerEvent} use {@link LoggerEventBuilder#build()} builder method.
+     * To create a new instance of {@link LoggerEventBuilder} use {@link LoggerFactory#newLoggerEventBuilder()} factory method.
+     *
+     * @param loggerEvent the logger event instance with custom log data
+     * @see LoggerFactory#newLoggerEventBuilder()
+     * @see LoggerEventBuilder
+     * @see LoggerEvent
+     */
+    void error(LoggerEvent loggerEvent);
 
     /**
      * Log the message at the {@code ERROR} level.

@@ -17,6 +17,7 @@
 package io.rxmicro.logger.internal;
 
 import io.rxmicro.logger.Logger;
+import io.rxmicro.logger.LoggerEventBuilder;
 import io.rxmicro.logger.impl.LoggerImplProvider;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
@@ -77,6 +78,11 @@ final class LoggerImplProviderFactoryHelperTest {
 
         @Override
         public Logger getLogger(final String name) {
+            return null;
+        }
+
+        @Override
+        public LoggerEventBuilder newLoggerEventBuilder() {
             return null;
         }
     }

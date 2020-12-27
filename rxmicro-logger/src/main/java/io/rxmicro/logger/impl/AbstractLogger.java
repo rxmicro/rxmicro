@@ -18,12 +18,18 @@ package io.rxmicro.logger.impl;
 
 import io.rxmicro.logger.Level;
 import io.rxmicro.logger.Logger;
+import io.rxmicro.logger.LoggerEvent;
 import io.rxmicro.logger.RequestIdSupplier;
 
 import java.util.Arrays;
 import java.util.function.Supplier;
 
 import static io.rxmicro.common.util.Formats.format;
+import static io.rxmicro.logger.Level.DEBUG;
+import static io.rxmicro.logger.Level.ERROR;
+import static io.rxmicro.logger.Level.INFO;
+import static io.rxmicro.logger.Level.TRACE;
+import static io.rxmicro.logger.Level.WARN;
 
 /**
  * Abstract logger implementation that delegates the log events to `log` methods.
@@ -41,6 +47,16 @@ public abstract class AbstractLogger implements Logger {
      * @return {@code true} if the specified level is enabled.
      */
     protected abstract boolean isLevelEnabled(Level level);
+
+    /**
+     * Logs the specified {@code loggerEvent} with the specified level.
+     *
+     * @param level the specified level.
+     * @param loggerEvent the specified logger event.
+     * @throws ClassCastException if provided {@code loggerEvent} is not valid
+     */
+    protected abstract void log(Level level,
+                                LoggerEvent loggerEvent);
 
     /**
      * Logs the specified message with the specified level.
@@ -88,22 +104,29 @@ public abstract class AbstractLogger implements Logger {
 
     @Override
     public final boolean isTraceEnabled() {
-        return isLevelEnabled(Level.TRACE);
+        return isLevelEnabled(TRACE);
     }
 
     @Override
-    public void trace(final String msg) {
-        if (isLevelEnabled(Level.TRACE)) {
-            log(Level.TRACE, msg);
+    public final void trace(final LoggerEvent loggerEvent) {
+        if (isLevelEnabled(TRACE)) {
+            log(TRACE, loggerEvent);
+        }
+    }
+
+    @Override
+    public final void trace(final String msg) {
+        if (isLevelEnabled(TRACE)) {
+            log(TRACE, msg);
         }
     }
 
     @Override
     public final void trace(final String msg,
                             final Object arg1) {
-        if (isLevelEnabled(Level.TRACE)) {
+        if (isLevelEnabled(TRACE)) {
             final String finalMessage = getFinalMessage(msg, arg1);
-            log(Level.TRACE, finalMessage);
+            log(TRACE, finalMessage);
         }
     }
 
@@ -111,9 +134,9 @@ public abstract class AbstractLogger implements Logger {
     public final void trace(final String msg,
                             final Object arg1,
                             final Object arg2) {
-        if (isLevelEnabled(Level.TRACE)) {
+        if (isLevelEnabled(TRACE)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2);
-            log(Level.TRACE, finalMessage);
+            log(TRACE, finalMessage);
         }
     }
 
@@ -122,9 +145,9 @@ public abstract class AbstractLogger implements Logger {
                             final Object arg1,
                             final Object arg2,
                             final Object arg3) {
-        if (isLevelEnabled(Level.TRACE)) {
+        if (isLevelEnabled(TRACE)) {
             final String finalMessage = getFinalMessage(format, arg1, arg2, arg3);
-            log(Level.TRACE, finalMessage);
+            log(TRACE, finalMessage);
         }
     }
 
@@ -134,9 +157,9 @@ public abstract class AbstractLogger implements Logger {
                             final Object arg2,
                             final Object arg3,
                             final Object arg4) {
-        if (isLevelEnabled(Level.TRACE)) {
+        if (isLevelEnabled(TRACE)) {
             final String finalMessage = getFinalMessage(format, arg1, arg2, arg3, arg4);
-            log(Level.TRACE, finalMessage);
+            log(TRACE, finalMessage);
         }
     }
 
@@ -147,27 +170,27 @@ public abstract class AbstractLogger implements Logger {
                             final Object arg3,
                             final Object arg4,
                             final Object arg5) {
-        if (isLevelEnabled(Level.TRACE)) {
+        if (isLevelEnabled(TRACE)) {
             final String finalMessage = getFinalMessage(format, arg1, arg2, arg3, arg4, arg5);
-            log(Level.TRACE, finalMessage);
+            log(TRACE, finalMessage);
         }
     }
 
     @Override
     public final void trace(final String format,
                             final Object... arguments) {
-        if (isLevelEnabled(Level.TRACE)) {
+        if (isLevelEnabled(TRACE)) {
             final String finalMessage = getFinalMessage(format, arguments);
-            log(Level.TRACE, finalMessage);
+            log(TRACE, finalMessage);
         }
     }
 
     @Override
     public final void trace(final String msg,
                             final Supplier<?> arg1) {
-        if (isLevelEnabled(Level.TRACE)) {
+        if (isLevelEnabled(TRACE)) {
             final String finalMessage = getFinalMessage(msg, arg1);
-            log(Level.TRACE, finalMessage);
+            log(TRACE, finalMessage);
         }
     }
 
@@ -175,9 +198,9 @@ public abstract class AbstractLogger implements Logger {
     public final void trace(final String msg,
                             final Supplier<?> arg1,
                             final Supplier<?> arg2) {
-        if (isLevelEnabled(Level.TRACE)) {
+        if (isLevelEnabled(TRACE)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2);
-            log(Level.TRACE, finalMessage);
+            log(TRACE, finalMessage);
         }
     }
 
@@ -186,9 +209,9 @@ public abstract class AbstractLogger implements Logger {
                             final Supplier<?> arg1,
                             final Supplier<?> arg2,
                             final Supplier<?> arg3) {
-        if (isLevelEnabled(Level.TRACE)) {
+        if (isLevelEnabled(TRACE)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3);
-            log(Level.TRACE, finalMessage);
+            log(TRACE, finalMessage);
         }
     }
 
@@ -198,9 +221,9 @@ public abstract class AbstractLogger implements Logger {
                             final Supplier<?> arg2,
                             final Supplier<?> arg3,
                             final Supplier<?> arg4) {
-        if (isLevelEnabled(Level.TRACE)) {
+        if (isLevelEnabled(TRACE)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4);
-            log(Level.TRACE, finalMessage);
+            log(TRACE, finalMessage);
         }
     }
 
@@ -211,26 +234,26 @@ public abstract class AbstractLogger implements Logger {
                             final Supplier<?> arg3,
                             final Supplier<?> arg4,
                             final Supplier<?> arg5) {
-        if (isLevelEnabled(Level.TRACE)) {
+        if (isLevelEnabled(TRACE)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4, arg5);
-            log(Level.TRACE, finalMessage);
+            log(TRACE, finalMessage);
         }
     }
 
     @Override
     public final void trace(final String msg,
                             final Supplier<?>... suppliers) {
-        if (isLevelEnabled(Level.TRACE)) {
+        if (isLevelEnabled(TRACE)) {
             final String finalMessage = getFinalMessage(msg, suppliers);
-            log(Level.TRACE, finalMessage);
+            log(TRACE, finalMessage);
         }
     }
 
     @Override
     public final void trace(final Throwable throwable,
                             final String msg) {
-        if (isLevelEnabled(Level.TRACE)) {
-            log(Level.TRACE, msg, throwable);
+        if (isLevelEnabled(TRACE)) {
+            log(TRACE, msg, throwable);
         }
     }
 
@@ -238,9 +261,9 @@ public abstract class AbstractLogger implements Logger {
     public final void trace(final Throwable throwable,
                             final String msg,
                             final Object arg1) {
-        if (isLevelEnabled(Level.TRACE)) {
+        if (isLevelEnabled(TRACE)) {
             final String finalMessage = getFinalMessage(msg, arg1);
-            log(Level.TRACE, finalMessage, throwable);
+            log(TRACE, finalMessage, throwable);
         }
     }
 
@@ -249,9 +272,9 @@ public abstract class AbstractLogger implements Logger {
                             final String msg,
                             final Object arg1,
                             final Object arg2) {
-        if (isLevelEnabled(Level.TRACE)) {
+        if (isLevelEnabled(TRACE)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2);
-            log(Level.TRACE, finalMessage, throwable);
+            log(TRACE, finalMessage, throwable);
         }
     }
 
@@ -261,9 +284,9 @@ public abstract class AbstractLogger implements Logger {
                             final Object arg1,
                             final Object arg2,
                             final Object arg3) {
-        if (isLevelEnabled(Level.TRACE)) {
+        if (isLevelEnabled(TRACE)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3);
-            log(Level.TRACE, finalMessage, throwable);
+            log(TRACE, finalMessage, throwable);
         }
     }
 
@@ -274,9 +297,9 @@ public abstract class AbstractLogger implements Logger {
                             final Object arg2,
                             final Object arg3,
                             final Object arg4) {
-        if (isLevelEnabled(Level.TRACE)) {
+        if (isLevelEnabled(TRACE)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4);
-            log(Level.TRACE, finalMessage, throwable);
+            log(TRACE, finalMessage, throwable);
         }
     }
 
@@ -288,9 +311,9 @@ public abstract class AbstractLogger implements Logger {
                             final Object arg3,
                             final Object arg4,
                             final Object arg5) {
-        if (isLevelEnabled(Level.TRACE)) {
+        if (isLevelEnabled(TRACE)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4, arg5);
-            log(Level.TRACE, finalMessage, throwable);
+            log(TRACE, finalMessage, throwable);
         }
     }
 
@@ -298,9 +321,9 @@ public abstract class AbstractLogger implements Logger {
     public final void trace(final Throwable throwable,
                             final String msg,
                             final Object... arguments) {
-        if (isLevelEnabled(Level.TRACE)) {
+        if (isLevelEnabled(TRACE)) {
             final String finalMessage = getFinalMessage(msg, arguments);
-            log(Level.TRACE, finalMessage, throwable);
+            log(TRACE, finalMessage, throwable);
         }
     }
 
@@ -308,9 +331,9 @@ public abstract class AbstractLogger implements Logger {
     public final void trace(final Throwable throwable,
                             final String msg,
                             final Supplier<?> arg1) {
-        if (isLevelEnabled(Level.TRACE)) {
+        if (isLevelEnabled(TRACE)) {
             final String finalMessage = getFinalMessage(msg, arg1);
-            log(Level.TRACE, finalMessage, throwable);
+            log(TRACE, finalMessage, throwable);
         }
     }
 
@@ -319,9 +342,9 @@ public abstract class AbstractLogger implements Logger {
                             final String msg,
                             final Supplier<?> arg1,
                             final Supplier<?> arg2) {
-        if (isLevelEnabled(Level.TRACE)) {
+        if (isLevelEnabled(TRACE)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2);
-            log(Level.TRACE, finalMessage, throwable);
+            log(TRACE, finalMessage, throwable);
         }
     }
 
@@ -331,9 +354,9 @@ public abstract class AbstractLogger implements Logger {
                             final Supplier<?> arg1,
                             final Supplier<?> arg2,
                             final Supplier<?> arg3) {
-        if (isLevelEnabled(Level.TRACE)) {
+        if (isLevelEnabled(TRACE)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3);
-            log(Level.TRACE, finalMessage, throwable);
+            log(TRACE, finalMessage, throwable);
         }
     }
 
@@ -344,9 +367,9 @@ public abstract class AbstractLogger implements Logger {
                             final Supplier<?> arg2,
                             final Supplier<?> arg3,
                             final Supplier<?> arg4) {
-        if (isLevelEnabled(Level.TRACE)) {
+        if (isLevelEnabled(TRACE)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4);
-            log(Level.TRACE, finalMessage, throwable);
+            log(TRACE, finalMessage, throwable);
         }
     }
 
@@ -358,9 +381,9 @@ public abstract class AbstractLogger implements Logger {
                             final Supplier<?> arg3,
                             final Supplier<?> arg4,
                             final Supplier<?> arg5) {
-        if (isLevelEnabled(Level.TRACE)) {
+        if (isLevelEnabled(TRACE)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4, arg5);
-            log(Level.TRACE, finalMessage, throwable);
+            log(TRACE, finalMessage, throwable);
         }
     }
 
@@ -368,17 +391,17 @@ public abstract class AbstractLogger implements Logger {
     public final void trace(final Throwable throwable,
                             final String msg,
                             final Supplier<?>... suppliers) {
-        if (isLevelEnabled(Level.TRACE)) {
+        if (isLevelEnabled(TRACE)) {
             final String finalMessage = getFinalMessage(msg, suppliers);
-            log(Level.TRACE, finalMessage, throwable);
+            log(TRACE, finalMessage, throwable);
         }
     }
 
     @Override
     public final void trace(final RequestIdSupplier requestIdSupplier,
                             final String msg) {
-        if (isLevelEnabled(Level.TRACE)) {
-            log(requestIdSupplier, Level.TRACE, msg);
+        if (isLevelEnabled(TRACE)) {
+            log(requestIdSupplier, TRACE, msg);
         }
     }
 
@@ -386,9 +409,9 @@ public abstract class AbstractLogger implements Logger {
     public final void trace(final RequestIdSupplier requestIdSupplier,
                             final String msg,
                             final Object arg1) {
-        if (isLevelEnabled(Level.TRACE)) {
+        if (isLevelEnabled(TRACE)) {
             final String finalMessage = getFinalMessage(msg, arg1);
-            log(requestIdSupplier, Level.TRACE, finalMessage);
+            log(requestIdSupplier, TRACE, finalMessage);
         }
     }
 
@@ -397,9 +420,9 @@ public abstract class AbstractLogger implements Logger {
                             final String msg,
                             final Object arg1,
                             final Object arg2) {
-        if (isLevelEnabled(Level.TRACE)) {
+        if (isLevelEnabled(TRACE)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2);
-            log(requestIdSupplier, Level.TRACE, finalMessage);
+            log(requestIdSupplier, TRACE, finalMessage);
         }
     }
 
@@ -409,9 +432,9 @@ public abstract class AbstractLogger implements Logger {
                             final Object arg1,
                             final Object arg2,
                             final Object arg3) {
-        if (isLevelEnabled(Level.TRACE)) {
+        if (isLevelEnabled(TRACE)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3);
-            log(requestIdSupplier, Level.TRACE, finalMessage);
+            log(requestIdSupplier, TRACE, finalMessage);
         }
     }
 
@@ -422,9 +445,9 @@ public abstract class AbstractLogger implements Logger {
                             final Object arg2,
                             final Object arg3,
                             final Object arg4) {
-        if (isLevelEnabled(Level.TRACE)) {
+        if (isLevelEnabled(TRACE)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4);
-            log(requestIdSupplier, Level.TRACE, finalMessage);
+            log(requestIdSupplier, TRACE, finalMessage);
         }
     }
 
@@ -436,9 +459,9 @@ public abstract class AbstractLogger implements Logger {
                             final Object arg3,
                             final Object arg4,
                             final Object arg5) {
-        if (isLevelEnabled(Level.TRACE)) {
+        if (isLevelEnabled(TRACE)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4, arg5);
-            log(requestIdSupplier, Level.TRACE, finalMessage);
+            log(requestIdSupplier, TRACE, finalMessage);
         }
     }
 
@@ -446,9 +469,9 @@ public abstract class AbstractLogger implements Logger {
     public final void trace(final RequestIdSupplier requestIdSupplier,
                             final String msg,
                             final Object... arguments) {
-        if (isLevelEnabled(Level.TRACE)) {
+        if (isLevelEnabled(TRACE)) {
             final String finalMessage = getFinalMessage(msg, arguments);
-            log(requestIdSupplier, Level.TRACE, finalMessage);
+            log(requestIdSupplier, TRACE, finalMessage);
         }
     }
 
@@ -456,9 +479,9 @@ public abstract class AbstractLogger implements Logger {
     public final void trace(final RequestIdSupplier requestIdSupplier,
                             final String msg,
                             final Supplier<?> arg1) {
-        if (isLevelEnabled(Level.TRACE)) {
+        if (isLevelEnabled(TRACE)) {
             final String finalMessage = getFinalMessage(msg, arg1);
-            log(requestIdSupplier, Level.TRACE, finalMessage);
+            log(requestIdSupplier, TRACE, finalMessage);
         }
     }
 
@@ -467,9 +490,9 @@ public abstract class AbstractLogger implements Logger {
                             final String msg,
                             final Supplier<?> arg1,
                             final Supplier<?> arg2) {
-        if (isLevelEnabled(Level.TRACE)) {
+        if (isLevelEnabled(TRACE)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2);
-            log(requestIdSupplier, Level.TRACE, finalMessage);
+            log(requestIdSupplier, TRACE, finalMessage);
         }
     }
 
@@ -479,9 +502,9 @@ public abstract class AbstractLogger implements Logger {
                             final Supplier<?> arg1,
                             final Supplier<?> arg2,
                             final Supplier<?> arg3) {
-        if (isLevelEnabled(Level.TRACE)) {
+        if (isLevelEnabled(TRACE)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3);
-            log(requestIdSupplier, Level.TRACE, finalMessage);
+            log(requestIdSupplier, TRACE, finalMessage);
         }
     }
 
@@ -492,9 +515,9 @@ public abstract class AbstractLogger implements Logger {
                             final Supplier<?> arg2,
                             final Supplier<?> arg3,
                             final Supplier<?> arg4) {
-        if (isLevelEnabled(Level.TRACE)) {
+        if (isLevelEnabled(TRACE)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4);
-            log(requestIdSupplier, Level.TRACE, finalMessage);
+            log(requestIdSupplier, TRACE, finalMessage);
         }
     }
 
@@ -506,9 +529,9 @@ public abstract class AbstractLogger implements Logger {
                             final Supplier<?> arg3,
                             final Supplier<?> arg4,
                             final Supplier<?> arg5) {
-        if (isLevelEnabled(Level.TRACE)) {
+        if (isLevelEnabled(TRACE)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4, arg5);
-            log(requestIdSupplier, Level.TRACE, finalMessage);
+            log(requestIdSupplier, TRACE, finalMessage);
         }
     }
 
@@ -516,9 +539,9 @@ public abstract class AbstractLogger implements Logger {
     public final void trace(final RequestIdSupplier requestIdSupplier,
                             final String msg,
                             final Supplier<?>... suppliers) {
-        if (isLevelEnabled(Level.TRACE)) {
+        if (isLevelEnabled(TRACE)) {
             final String finalMessage = getFinalMessage(msg, suppliers);
-            log(requestIdSupplier, Level.TRACE, finalMessage);
+            log(requestIdSupplier, TRACE, finalMessage);
         }
     }
 
@@ -526,8 +549,8 @@ public abstract class AbstractLogger implements Logger {
     public final void trace(final RequestIdSupplier requestIdSupplier,
                             final Throwable throwable,
                             final String msg) {
-        if (isLevelEnabled(Level.TRACE)) {
-            log(requestIdSupplier, Level.TRACE, msg, throwable);
+        if (isLevelEnabled(TRACE)) {
+            log(requestIdSupplier, TRACE, msg, throwable);
         }
     }
 
@@ -536,9 +559,9 @@ public abstract class AbstractLogger implements Logger {
                             final Throwable throwable,
                             final String msg,
                             final Object arg1) {
-        if (isLevelEnabled(Level.TRACE)) {
+        if (isLevelEnabled(TRACE)) {
             final String finalMessage = getFinalMessage(msg, arg1);
-            log(requestIdSupplier, Level.TRACE, finalMessage, throwable);
+            log(requestIdSupplier, TRACE, finalMessage, throwable);
         }
     }
 
@@ -548,9 +571,9 @@ public abstract class AbstractLogger implements Logger {
                             final String msg,
                             final Object arg1,
                             final Object arg2) {
-        if (isLevelEnabled(Level.TRACE)) {
+        if (isLevelEnabled(TRACE)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2);
-            log(requestIdSupplier, Level.TRACE, finalMessage, throwable);
+            log(requestIdSupplier, TRACE, finalMessage, throwable);
         }
     }
 
@@ -561,9 +584,9 @@ public abstract class AbstractLogger implements Logger {
                             final Object arg1,
                             final Object arg2,
                             final Object arg3) {
-        if (isLevelEnabled(Level.TRACE)) {
+        if (isLevelEnabled(TRACE)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3);
-            log(requestIdSupplier, Level.TRACE, finalMessage, throwable);
+            log(requestIdSupplier, TRACE, finalMessage, throwable);
         }
     }
 
@@ -575,9 +598,9 @@ public abstract class AbstractLogger implements Logger {
                             final Object arg2,
                             final Object arg3,
                             final Object arg4) {
-        if (isLevelEnabled(Level.TRACE)) {
+        if (isLevelEnabled(TRACE)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4);
-            log(requestIdSupplier, Level.TRACE, finalMessage, throwable);
+            log(requestIdSupplier, TRACE, finalMessage, throwable);
         }
     }
 
@@ -590,9 +613,9 @@ public abstract class AbstractLogger implements Logger {
                             final Object arg3,
                             final Object arg4,
                             final Object arg5) {
-        if (isLevelEnabled(Level.TRACE)) {
+        if (isLevelEnabled(TRACE)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4, arg5);
-            log(requestIdSupplier, Level.TRACE, finalMessage, throwable);
+            log(requestIdSupplier, TRACE, finalMessage, throwable);
         }
     }
 
@@ -601,9 +624,9 @@ public abstract class AbstractLogger implements Logger {
                             final Throwable throwable,
                             final String msg,
                             final Object... arguments) {
-        if (isLevelEnabled(Level.TRACE)) {
+        if (isLevelEnabled(TRACE)) {
             final String finalMessage = getFinalMessage(msg, arguments);
-            log(requestIdSupplier, Level.TRACE, finalMessage, throwable);
+            log(requestIdSupplier, TRACE, finalMessage, throwable);
         }
     }
 
@@ -612,9 +635,9 @@ public abstract class AbstractLogger implements Logger {
                             final Throwable throwable,
                             final String msg,
                             final Supplier<?> arg1) {
-        if (isLevelEnabled(Level.TRACE)) {
+        if (isLevelEnabled(TRACE)) {
             final String finalMessage = getFinalMessage(msg, arg1);
-            log(requestIdSupplier, Level.TRACE, finalMessage, throwable);
+            log(requestIdSupplier, TRACE, finalMessage, throwable);
         }
     }
 
@@ -624,9 +647,9 @@ public abstract class AbstractLogger implements Logger {
                             final String msg,
                             final Supplier<?> arg1,
                             final Supplier<?> arg2) {
-        if (isLevelEnabled(Level.TRACE)) {
+        if (isLevelEnabled(TRACE)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2);
-            log(requestIdSupplier, Level.TRACE, finalMessage, throwable);
+            log(requestIdSupplier, TRACE, finalMessage, throwable);
         }
     }
 
@@ -637,9 +660,9 @@ public abstract class AbstractLogger implements Logger {
                             final Supplier<?> arg1,
                             final Supplier<?> arg2,
                             final Supplier<?> arg3) {
-        if (isLevelEnabled(Level.TRACE)) {
+        if (isLevelEnabled(TRACE)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3);
-            log(requestIdSupplier, Level.TRACE, finalMessage, throwable);
+            log(requestIdSupplier, TRACE, finalMessage, throwable);
         }
     }
 
@@ -651,9 +674,9 @@ public abstract class AbstractLogger implements Logger {
                             final Supplier<?> arg2,
                             final Supplier<?> arg3,
                             final Supplier<?> arg4) {
-        if (isLevelEnabled(Level.TRACE)) {
+        if (isLevelEnabled(TRACE)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4);
-            log(requestIdSupplier, Level.TRACE, finalMessage, throwable);
+            log(requestIdSupplier, TRACE, finalMessage, throwable);
         }
     }
 
@@ -666,9 +689,9 @@ public abstract class AbstractLogger implements Logger {
                             final Supplier<?> arg3,
                             final Supplier<?> arg4,
                             final Supplier<?> arg5) {
-        if (isLevelEnabled(Level.TRACE)) {
+        if (isLevelEnabled(TRACE)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4, arg5);
-            log(requestIdSupplier, Level.TRACE, finalMessage, throwable);
+            log(requestIdSupplier, TRACE, finalMessage, throwable);
         }
     }
 
@@ -677,30 +700,37 @@ public abstract class AbstractLogger implements Logger {
                             final Throwable throwable,
                             final String msg,
                             final Supplier<?>... suppliers) {
-        if (isLevelEnabled(Level.TRACE)) {
+        if (isLevelEnabled(TRACE)) {
             final String finalMessage = getFinalMessage(msg, suppliers);
-            log(requestIdSupplier, Level.TRACE, finalMessage, throwable);
+            log(requestIdSupplier, TRACE, finalMessage, throwable);
         }
     }
 
     @Override
     public final boolean isDebugEnabled() {
-        return isLevelEnabled(Level.DEBUG);
+        return isLevelEnabled(DEBUG);
+    }
+
+    @Override
+    public final void debug(final LoggerEvent loggerEvent) {
+        if (isLevelEnabled(DEBUG)) {
+            log(DEBUG, loggerEvent);
+        }
     }
 
     @Override
     public final void debug(final String msg) {
-        if (isLevelEnabled(Level.DEBUG)) {
-            log(Level.DEBUG, msg);
+        if (isLevelEnabled(DEBUG)) {
+            log(DEBUG, msg);
         }
     }
 
     @Override
     public final void debug(final String msg,
                             final Object arg1) {
-        if (isLevelEnabled(Level.DEBUG)) {
+        if (isLevelEnabled(DEBUG)) {
             final String finalMessage = getFinalMessage(msg, arg1);
-            log(Level.DEBUG, finalMessage);
+            log(DEBUG, finalMessage);
         }
     }
 
@@ -708,9 +738,9 @@ public abstract class AbstractLogger implements Logger {
     public final void debug(final String msg,
                             final Object arg1,
                             final Object arg2) {
-        if (isLevelEnabled(Level.DEBUG)) {
+        if (isLevelEnabled(DEBUG)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2);
-            log(Level.DEBUG, finalMessage);
+            log(DEBUG, finalMessage);
         }
     }
 
@@ -719,9 +749,9 @@ public abstract class AbstractLogger implements Logger {
                             final Object arg1,
                             final Object arg2,
                             final Object arg3) {
-        if (isLevelEnabled(Level.DEBUG)) {
+        if (isLevelEnabled(DEBUG)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3);
-            log(Level.DEBUG, finalMessage);
+            log(DEBUG, finalMessage);
         }
     }
 
@@ -731,9 +761,9 @@ public abstract class AbstractLogger implements Logger {
                             final Object arg2,
                             final Object arg3,
                             final Object arg4) {
-        if (isLevelEnabled(Level.DEBUG)) {
+        if (isLevelEnabled(DEBUG)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4);
-            log(Level.DEBUG, finalMessage);
+            log(DEBUG, finalMessage);
         }
     }
 
@@ -744,27 +774,27 @@ public abstract class AbstractLogger implements Logger {
                             final Object arg3,
                             final Object arg4,
                             final Object arg5) {
-        if (isLevelEnabled(Level.DEBUG)) {
+        if (isLevelEnabled(DEBUG)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4, arg5);
-            log(Level.DEBUG, finalMessage);
+            log(DEBUG, finalMessage);
         }
     }
 
     @Override
     public final void debug(final String msg,
                             final Object... arguments) {
-        if (isLevelEnabled(Level.DEBUG)) {
+        if (isLevelEnabled(DEBUG)) {
             final String finalMessage = getFinalMessage(msg, arguments);
-            log(Level.DEBUG, finalMessage);
+            log(DEBUG, finalMessage);
         }
     }
 
     @Override
     public final void debug(final String msg,
                             final Supplier<?> arg1) {
-        if (isLevelEnabled(Level.DEBUG)) {
+        if (isLevelEnabled(DEBUG)) {
             final String finalMessage = getFinalMessage(msg, arg1);
-            log(Level.DEBUG, finalMessage);
+            log(DEBUG, finalMessage);
         }
     }
 
@@ -772,9 +802,9 @@ public abstract class AbstractLogger implements Logger {
     public final void debug(final String msg,
                             final Supplier<?> arg1,
                             final Supplier<?> arg2) {
-        if (isLevelEnabled(Level.DEBUG)) {
+        if (isLevelEnabled(DEBUG)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2);
-            log(Level.DEBUG, finalMessage);
+            log(DEBUG, finalMessage);
         }
     }
 
@@ -783,9 +813,9 @@ public abstract class AbstractLogger implements Logger {
                             final Supplier<?> arg1,
                             final Supplier<?> arg2,
                             final Supplier<?> arg3) {
-        if (isLevelEnabled(Level.DEBUG)) {
+        if (isLevelEnabled(DEBUG)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3);
-            log(Level.DEBUG, finalMessage);
+            log(DEBUG, finalMessage);
         }
     }
 
@@ -795,9 +825,9 @@ public abstract class AbstractLogger implements Logger {
                             final Supplier<?> arg2,
                             final Supplier<?> arg3,
                             final Supplier<?> arg4) {
-        if (isLevelEnabled(Level.DEBUG)) {
+        if (isLevelEnabled(DEBUG)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4);
-            log(Level.DEBUG, finalMessage);
+            log(DEBUG, finalMessage);
         }
     }
 
@@ -808,26 +838,26 @@ public abstract class AbstractLogger implements Logger {
                             final Supplier<?> arg3,
                             final Supplier<?> arg4,
                             final Supplier<?> arg5) {
-        if (isLevelEnabled(Level.DEBUG)) {
+        if (isLevelEnabled(DEBUG)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4, arg5);
-            log(Level.DEBUG, finalMessage);
+            log(DEBUG, finalMessage);
         }
     }
 
     @Override
     public final void debug(final String msg,
                             final Supplier<?>... suppliers) {
-        if (isLevelEnabled(Level.DEBUG)) {
+        if (isLevelEnabled(DEBUG)) {
             final String finalMessage = getFinalMessage(msg, suppliers);
-            log(Level.DEBUG, finalMessage);
+            log(DEBUG, finalMessage);
         }
     }
 
     @Override
     public final void debug(final Throwable throwable,
                             final String msg) {
-        if (isLevelEnabled(Level.DEBUG)) {
-            log(Level.DEBUG, msg, throwable);
+        if (isLevelEnabled(DEBUG)) {
+            log(DEBUG, msg, throwable);
         }
     }
 
@@ -835,9 +865,9 @@ public abstract class AbstractLogger implements Logger {
     public final void debug(final Throwable throwable,
                             final String msg,
                             final Object arg1) {
-        if (isLevelEnabled(Level.DEBUG)) {
+        if (isLevelEnabled(DEBUG)) {
             final String finalMessage = getFinalMessage(msg, arg1);
-            log(Level.DEBUG, finalMessage, throwable);
+            log(DEBUG, finalMessage, throwable);
         }
     }
 
@@ -846,9 +876,9 @@ public abstract class AbstractLogger implements Logger {
                             final String msg,
                             final Object arg1,
                             final Object arg2) {
-        if (isLevelEnabled(Level.DEBUG)) {
+        if (isLevelEnabled(DEBUG)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2);
-            log(Level.DEBUG, finalMessage, throwable);
+            log(DEBUG, finalMessage, throwable);
         }
     }
 
@@ -858,9 +888,9 @@ public abstract class AbstractLogger implements Logger {
                             final Object arg1,
                             final Object arg2,
                             final Object arg3) {
-        if (isLevelEnabled(Level.DEBUG)) {
+        if (isLevelEnabled(DEBUG)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3);
-            log(Level.DEBUG, finalMessage, throwable);
+            log(DEBUG, finalMessage, throwable);
         }
     }
 
@@ -871,9 +901,9 @@ public abstract class AbstractLogger implements Logger {
                             final Object arg2,
                             final Object arg3,
                             final Object arg4) {
-        if (isLevelEnabled(Level.DEBUG)) {
+        if (isLevelEnabled(DEBUG)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4);
-            log(Level.DEBUG, finalMessage, throwable);
+            log(DEBUG, finalMessage, throwable);
         }
     }
 
@@ -885,9 +915,9 @@ public abstract class AbstractLogger implements Logger {
                             final Object arg3,
                             final Object arg4,
                             final Object arg5) {
-        if (isLevelEnabled(Level.DEBUG)) {
+        if (isLevelEnabled(DEBUG)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4, arg5);
-            log(Level.DEBUG, finalMessage, throwable);
+            log(DEBUG, finalMessage, throwable);
         }
     }
 
@@ -895,9 +925,9 @@ public abstract class AbstractLogger implements Logger {
     public final void debug(final Throwable throwable,
                             final String msg,
                             final Object... arguments) {
-        if (isLevelEnabled(Level.DEBUG)) {
+        if (isLevelEnabled(DEBUG)) {
             final String finalMessage = getFinalMessage(msg, arguments);
-            log(Level.DEBUG, finalMessage, throwable);
+            log(DEBUG, finalMessage, throwable);
         }
     }
 
@@ -905,9 +935,9 @@ public abstract class AbstractLogger implements Logger {
     public final void debug(final Throwable throwable,
                             final String msg,
                             final Supplier<?> arg1) {
-        if (isLevelEnabled(Level.DEBUG)) {
+        if (isLevelEnabled(DEBUG)) {
             final String finalMessage = getFinalMessage(msg, arg1);
-            log(Level.DEBUG, finalMessage, throwable);
+            log(DEBUG, finalMessage, throwable);
         }
     }
 
@@ -916,9 +946,9 @@ public abstract class AbstractLogger implements Logger {
                             final String msg,
                             final Supplier<?> arg1,
                             final Supplier<?> arg2) {
-        if (isLevelEnabled(Level.DEBUG)) {
+        if (isLevelEnabled(DEBUG)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2);
-            log(Level.DEBUG, finalMessage, throwable);
+            log(DEBUG, finalMessage, throwable);
         }
     }
 
@@ -928,9 +958,9 @@ public abstract class AbstractLogger implements Logger {
                             final Supplier<?> arg1,
                             final Supplier<?> arg2,
                             final Supplier<?> arg3) {
-        if (isLevelEnabled(Level.DEBUG)) {
+        if (isLevelEnabled(DEBUG)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3);
-            log(Level.DEBUG, finalMessage, throwable);
+            log(DEBUG, finalMessage, throwable);
         }
     }
 
@@ -941,9 +971,9 @@ public abstract class AbstractLogger implements Logger {
                             final Supplier<?> arg2,
                             final Supplier<?> arg3,
                             final Supplier<?> arg4) {
-        if (isLevelEnabled(Level.DEBUG)) {
+        if (isLevelEnabled(DEBUG)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4);
-            log(Level.DEBUG, finalMessage, throwable);
+            log(DEBUG, finalMessage, throwable);
         }
     }
 
@@ -955,9 +985,9 @@ public abstract class AbstractLogger implements Logger {
                             final Supplier<?> arg3,
                             final Supplier<?> arg4,
                             final Supplier<?> arg5) {
-        if (isLevelEnabled(Level.DEBUG)) {
+        if (isLevelEnabled(DEBUG)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4, arg5);
-            log(Level.DEBUG, finalMessage, throwable);
+            log(DEBUG, finalMessage, throwable);
         }
     }
 
@@ -965,17 +995,17 @@ public abstract class AbstractLogger implements Logger {
     public final void debug(final Throwable throwable,
                             final String msg,
                             final Supplier<?>... suppliers) {
-        if (isLevelEnabled(Level.DEBUG)) {
+        if (isLevelEnabled(DEBUG)) {
             final String finalMessage = getFinalMessage(msg, suppliers);
-            log(Level.DEBUG, finalMessage, throwable);
+            log(DEBUG, finalMessage, throwable);
         }
     }
 
     @Override
     public final void debug(final RequestIdSupplier requestIdSupplier,
                             final String msg) {
-        if (isLevelEnabled(Level.DEBUG)) {
-            log(requestIdSupplier, Level.DEBUG, msg);
+        if (isLevelEnabled(DEBUG)) {
+            log(requestIdSupplier, DEBUG, msg);
         }
     }
 
@@ -983,9 +1013,9 @@ public abstract class AbstractLogger implements Logger {
     public final void debug(final RequestIdSupplier requestIdSupplier,
                             final String msg,
                             final Object arg1) {
-        if (isLevelEnabled(Level.DEBUG)) {
+        if (isLevelEnabled(DEBUG)) {
             final String finalMessage = getFinalMessage(msg, arg1);
-            log(requestIdSupplier, Level.DEBUG, finalMessage);
+            log(requestIdSupplier, DEBUG, finalMessage);
         }
     }
 
@@ -994,9 +1024,9 @@ public abstract class AbstractLogger implements Logger {
                             final String msg,
                             final Object arg1,
                             final Object arg2) {
-        if (isLevelEnabled(Level.DEBUG)) {
+        if (isLevelEnabled(DEBUG)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2);
-            log(requestIdSupplier, Level.DEBUG, finalMessage);
+            log(requestIdSupplier, DEBUG, finalMessage);
         }
     }
 
@@ -1006,9 +1036,9 @@ public abstract class AbstractLogger implements Logger {
                             final Object arg1,
                             final Object arg2,
                             final Object arg3) {
-        if (isLevelEnabled(Level.DEBUG)) {
+        if (isLevelEnabled(DEBUG)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3);
-            log(requestIdSupplier, Level.DEBUG, finalMessage);
+            log(requestIdSupplier, DEBUG, finalMessage);
         }
     }
 
@@ -1019,9 +1049,9 @@ public abstract class AbstractLogger implements Logger {
                             final Object arg2,
                             final Object arg3,
                             final Object arg4) {
-        if (isLevelEnabled(Level.DEBUG)) {
+        if (isLevelEnabled(DEBUG)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4);
-            log(requestIdSupplier, Level.DEBUG, finalMessage);
+            log(requestIdSupplier, DEBUG, finalMessage);
         }
     }
 
@@ -1033,9 +1063,9 @@ public abstract class AbstractLogger implements Logger {
                             final Object arg3,
                             final Object arg4,
                             final Object arg5) {
-        if (isLevelEnabled(Level.DEBUG)) {
+        if (isLevelEnabled(DEBUG)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4, arg5);
-            log(requestIdSupplier, Level.DEBUG, finalMessage);
+            log(requestIdSupplier, DEBUG, finalMessage);
         }
     }
 
@@ -1043,9 +1073,9 @@ public abstract class AbstractLogger implements Logger {
     public final void debug(final RequestIdSupplier requestIdSupplier,
                             final String msg,
                             final Object... arguments) {
-        if (isLevelEnabled(Level.DEBUG)) {
+        if (isLevelEnabled(DEBUG)) {
             final String finalMessage = getFinalMessage(msg, arguments);
-            log(requestIdSupplier, Level.DEBUG, finalMessage);
+            log(requestIdSupplier, DEBUG, finalMessage);
         }
     }
 
@@ -1053,9 +1083,9 @@ public abstract class AbstractLogger implements Logger {
     public final void debug(final RequestIdSupplier requestIdSupplier,
                             final String msg,
                             final Supplier<?> arg1) {
-        if (isLevelEnabled(Level.DEBUG)) {
+        if (isLevelEnabled(DEBUG)) {
             final String finalMessage = getFinalMessage(msg, arg1);
-            log(requestIdSupplier, Level.DEBUG, finalMessage);
+            log(requestIdSupplier, DEBUG, finalMessage);
         }
     }
 
@@ -1064,9 +1094,9 @@ public abstract class AbstractLogger implements Logger {
                             final String msg,
                             final Supplier<?> arg1,
                             final Supplier<?> arg2) {
-        if (isLevelEnabled(Level.DEBUG)) {
+        if (isLevelEnabled(DEBUG)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2);
-            log(requestIdSupplier, Level.DEBUG, finalMessage);
+            log(requestIdSupplier, DEBUG, finalMessage);
         }
     }
 
@@ -1076,9 +1106,9 @@ public abstract class AbstractLogger implements Logger {
                             final Supplier<?> arg1,
                             final Supplier<?> arg2,
                             final Supplier<?> arg3) {
-        if (isLevelEnabled(Level.DEBUG)) {
+        if (isLevelEnabled(DEBUG)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3);
-            log(requestIdSupplier, Level.DEBUG, finalMessage);
+            log(requestIdSupplier, DEBUG, finalMessage);
         }
     }
 
@@ -1089,9 +1119,9 @@ public abstract class AbstractLogger implements Logger {
                             final Supplier<?> arg2,
                             final Supplier<?> arg3,
                             final Supplier<?> arg4) {
-        if (isLevelEnabled(Level.DEBUG)) {
+        if (isLevelEnabled(DEBUG)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4);
-            log(requestIdSupplier, Level.DEBUG, finalMessage);
+            log(requestIdSupplier, DEBUG, finalMessage);
         }
     }
 
@@ -1103,9 +1133,9 @@ public abstract class AbstractLogger implements Logger {
                             final Supplier<?> arg3,
                             final Supplier<?> arg4,
                             final Supplier<?> arg5) {
-        if (isLevelEnabled(Level.DEBUG)) {
+        if (isLevelEnabled(DEBUG)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4, arg5);
-            log(requestIdSupplier, Level.DEBUG, finalMessage);
+            log(requestIdSupplier, DEBUG, finalMessage);
         }
     }
 
@@ -1113,9 +1143,9 @@ public abstract class AbstractLogger implements Logger {
     public final void debug(final RequestIdSupplier requestIdSupplier,
                             final String msg,
                             final Supplier<?>... suppliers) {
-        if (isLevelEnabled(Level.DEBUG)) {
+        if (isLevelEnabled(DEBUG)) {
             final String finalMessage = getFinalMessage(msg, suppliers);
-            log(requestIdSupplier, Level.DEBUG, finalMessage);
+            log(requestIdSupplier, DEBUG, finalMessage);
         }
     }
 
@@ -1123,8 +1153,8 @@ public abstract class AbstractLogger implements Logger {
     public final void debug(final RequestIdSupplier requestIdSupplier,
                             final Throwable throwable,
                             final String msg) {
-        if (isLevelEnabled(Level.DEBUG)) {
-            log(requestIdSupplier, Level.DEBUG, msg, throwable);
+        if (isLevelEnabled(DEBUG)) {
+            log(requestIdSupplier, DEBUG, msg, throwable);
         }
     }
 
@@ -1133,9 +1163,9 @@ public abstract class AbstractLogger implements Logger {
                             final Throwable throwable,
                             final String msg,
                             final Object arg1) {
-        if (isLevelEnabled(Level.DEBUG)) {
+        if (isLevelEnabled(DEBUG)) {
             final String finalMessage = getFinalMessage(msg, arg1);
-            log(requestIdSupplier, Level.DEBUG, finalMessage, throwable);
+            log(requestIdSupplier, DEBUG, finalMessage, throwable);
         }
     }
 
@@ -1145,9 +1175,9 @@ public abstract class AbstractLogger implements Logger {
                             final String msg,
                             final Object arg1,
                             final Object arg2) {
-        if (isLevelEnabled(Level.DEBUG)) {
+        if (isLevelEnabled(DEBUG)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2);
-            log(requestIdSupplier, Level.DEBUG, finalMessage, throwable);
+            log(requestIdSupplier, DEBUG, finalMessage, throwable);
         }
     }
 
@@ -1158,9 +1188,9 @@ public abstract class AbstractLogger implements Logger {
                             final Object arg1,
                             final Object arg2,
                             final Object arg3) {
-        if (isLevelEnabled(Level.DEBUG)) {
+        if (isLevelEnabled(DEBUG)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3);
-            log(requestIdSupplier, Level.DEBUG, finalMessage, throwable);
+            log(requestIdSupplier, DEBUG, finalMessage, throwable);
         }
     }
 
@@ -1172,9 +1202,9 @@ public abstract class AbstractLogger implements Logger {
                             final Object arg2,
                             final Object arg3,
                             final Object arg4) {
-        if (isLevelEnabled(Level.DEBUG)) {
+        if (isLevelEnabled(DEBUG)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4);
-            log(requestIdSupplier, Level.DEBUG, finalMessage, throwable);
+            log(requestIdSupplier, DEBUG, finalMessage, throwable);
         }
     }
 
@@ -1187,9 +1217,9 @@ public abstract class AbstractLogger implements Logger {
                             final Object arg3,
                             final Object arg4,
                             final Object arg5) {
-        if (isLevelEnabled(Level.DEBUG)) {
+        if (isLevelEnabled(DEBUG)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4, arg5);
-            log(requestIdSupplier, Level.DEBUG, finalMessage, throwable);
+            log(requestIdSupplier, DEBUG, finalMessage, throwable);
         }
     }
 
@@ -1198,9 +1228,9 @@ public abstract class AbstractLogger implements Logger {
                             final Throwable throwable,
                             final String msg,
                             final Object... arguments) {
-        if (isLevelEnabled(Level.DEBUG)) {
+        if (isLevelEnabled(DEBUG)) {
             final String finalMessage = getFinalMessage(msg, arguments);
-            log(requestIdSupplier, Level.DEBUG, finalMessage, throwable);
+            log(requestIdSupplier, DEBUG, finalMessage, throwable);
         }
     }
 
@@ -1209,9 +1239,9 @@ public abstract class AbstractLogger implements Logger {
                             final Throwable throwable,
                             final String msg,
                             final Supplier<?> arg1) {
-        if (isLevelEnabled(Level.DEBUG)) {
+        if (isLevelEnabled(DEBUG)) {
             final String finalMessage = getFinalMessage(msg, arg1);
-            log(requestIdSupplier, Level.DEBUG, finalMessage, throwable);
+            log(requestIdSupplier, DEBUG, finalMessage, throwable);
         }
     }
 
@@ -1221,9 +1251,9 @@ public abstract class AbstractLogger implements Logger {
                             final String msg,
                             final Supplier<?> arg1,
                             final Supplier<?> arg2) {
-        if (isLevelEnabled(Level.DEBUG)) {
+        if (isLevelEnabled(DEBUG)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2);
-            log(requestIdSupplier, Level.DEBUG, finalMessage, throwable);
+            log(requestIdSupplier, DEBUG, finalMessage, throwable);
         }
     }
 
@@ -1234,9 +1264,9 @@ public abstract class AbstractLogger implements Logger {
                             final Supplier<?> arg1,
                             final Supplier<?> arg2,
                             final Supplier<?> arg3) {
-        if (isLevelEnabled(Level.DEBUG)) {
+        if (isLevelEnabled(DEBUG)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3);
-            log(requestIdSupplier, Level.DEBUG, finalMessage, throwable);
+            log(requestIdSupplier, DEBUG, finalMessage, throwable);
         }
     }
 
@@ -1248,9 +1278,9 @@ public abstract class AbstractLogger implements Logger {
                             final Supplier<?> arg2,
                             final Supplier<?> arg3,
                             final Supplier<?> arg4) {
-        if (isLevelEnabled(Level.DEBUG)) {
+        if (isLevelEnabled(DEBUG)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4);
-            log(requestIdSupplier, Level.DEBUG, finalMessage, throwable);
+            log(requestIdSupplier, DEBUG, finalMessage, throwable);
         }
     }
 
@@ -1263,9 +1293,9 @@ public abstract class AbstractLogger implements Logger {
                             final Supplier<?> arg3,
                             final Supplier<?> arg4,
                             final Supplier<?> arg5) {
-        if (isLevelEnabled(Level.DEBUG)) {
+        if (isLevelEnabled(DEBUG)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4, arg5);
-            log(requestIdSupplier, Level.DEBUG, finalMessage, throwable);
+            log(requestIdSupplier, DEBUG, finalMessage, throwable);
         }
     }
 
@@ -1274,30 +1304,37 @@ public abstract class AbstractLogger implements Logger {
                             final Throwable throwable,
                             final String msg,
                             final Supplier<?>... suppliers) {
-        if (isLevelEnabled(Level.DEBUG)) {
+        if (isLevelEnabled(DEBUG)) {
             final String finalMessage = getFinalMessage(msg, suppliers);
-            log(requestIdSupplier, Level.DEBUG, finalMessage, throwable);
+            log(requestIdSupplier, DEBUG, finalMessage, throwable);
         }
     }
 
     @Override
     public final boolean isInfoEnabled() {
-        return isLevelEnabled(Level.INFO);
+        return isLevelEnabled(INFO);
+    }
+
+    @Override
+    public final void info(final LoggerEvent loggerEvent) {
+        if (isLevelEnabled(INFO)) {
+            log(INFO, loggerEvent);
+        }
     }
 
     @Override
     public final void info(final String msg) {
-        if (isLevelEnabled(Level.INFO)) {
-            log(Level.INFO, msg);
+        if (isLevelEnabled(INFO)) {
+            log(INFO, msg);
         }
     }
 
     @Override
     public final void info(final String msg,
                            final Object arg1) {
-        if (isLevelEnabled(Level.INFO)) {
+        if (isLevelEnabled(INFO)) {
             final String finalMessage = getFinalMessage(msg, arg1);
-            log(Level.INFO, finalMessage);
+            log(INFO, finalMessage);
         }
     }
 
@@ -1305,9 +1342,9 @@ public abstract class AbstractLogger implements Logger {
     public final void info(final String msg,
                            final Object arg1,
                            final Object arg2) {
-        if (isLevelEnabled(Level.INFO)) {
+        if (isLevelEnabled(INFO)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2);
-            log(Level.INFO, finalMessage);
+            log(INFO, finalMessage);
         }
     }
 
@@ -1316,9 +1353,9 @@ public abstract class AbstractLogger implements Logger {
                            final Object arg1,
                            final Object arg2,
                            final Object arg3) {
-        if (isLevelEnabled(Level.INFO)) {
+        if (isLevelEnabled(INFO)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3);
-            log(Level.INFO, finalMessage);
+            log(INFO, finalMessage);
         }
     }
 
@@ -1328,9 +1365,9 @@ public abstract class AbstractLogger implements Logger {
                            final Object arg2,
                            final Object arg3,
                            final Object arg4) {
-        if (isLevelEnabled(Level.INFO)) {
+        if (isLevelEnabled(INFO)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4);
-            log(Level.INFO, finalMessage);
+            log(INFO, finalMessage);
         }
     }
 
@@ -1341,27 +1378,27 @@ public abstract class AbstractLogger implements Logger {
                            final Object arg3,
                            final Object arg4,
                            final Object arg5) {
-        if (isLevelEnabled(Level.INFO)) {
+        if (isLevelEnabled(INFO)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4, arg5);
-            log(Level.INFO, finalMessage);
+            log(INFO, finalMessage);
         }
     }
 
     @Override
     public final void info(final String msg,
                            final Object... arguments) {
-        if (isLevelEnabled(Level.INFO)) {
+        if (isLevelEnabled(INFO)) {
             final String finalMessage = getFinalMessage(msg, arguments);
-            log(Level.INFO, finalMessage);
+            log(INFO, finalMessage);
         }
     }
 
     @Override
     public final void info(final String msg,
                            final Supplier<?> arg1) {
-        if (isLevelEnabled(Level.INFO)) {
+        if (isLevelEnabled(INFO)) {
             final String finalMessage = getFinalMessage(msg, arg1);
-            log(Level.INFO, finalMessage);
+            log(INFO, finalMessage);
         }
     }
 
@@ -1369,9 +1406,9 @@ public abstract class AbstractLogger implements Logger {
     public final void info(final String msg,
                            final Supplier<?> arg1,
                            final Supplier<?> arg2) {
-        if (isLevelEnabled(Level.INFO)) {
+        if (isLevelEnabled(INFO)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2);
-            log(Level.INFO, finalMessage);
+            log(INFO, finalMessage);
         }
     }
 
@@ -1380,9 +1417,9 @@ public abstract class AbstractLogger implements Logger {
                            final Supplier<?> arg1,
                            final Supplier<?> arg2,
                            final Supplier<?> arg3) {
-        if (isLevelEnabled(Level.INFO)) {
+        if (isLevelEnabled(INFO)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3);
-            log(Level.INFO, finalMessage);
+            log(INFO, finalMessage);
         }
     }
 
@@ -1392,9 +1429,9 @@ public abstract class AbstractLogger implements Logger {
                            final Supplier<?> arg2,
                            final Supplier<?> arg3,
                            final Supplier<?> arg4) {
-        if (isLevelEnabled(Level.INFO)) {
+        if (isLevelEnabled(INFO)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4);
-            log(Level.INFO, finalMessage);
+            log(INFO, finalMessage);
         }
     }
 
@@ -1405,26 +1442,26 @@ public abstract class AbstractLogger implements Logger {
                            final Supplier<?> arg3,
                            final Supplier<?> arg4,
                            final Supplier<?> arg5) {
-        if (isLevelEnabled(Level.INFO)) {
+        if (isLevelEnabled(INFO)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4, arg5);
-            log(Level.INFO, finalMessage);
+            log(INFO, finalMessage);
         }
     }
 
     @Override
     public final void info(final String msg,
                            final Supplier<?>... suppliers) {
-        if (isLevelEnabled(Level.INFO)) {
+        if (isLevelEnabled(INFO)) {
             final String finalMessage = getFinalMessage(msg, suppliers);
-            log(Level.INFO, finalMessage);
+            log(INFO, finalMessage);
         }
     }
 
     @Override
     public final void info(final Throwable throwable,
                            final String msg) {
-        if (isLevelEnabled(Level.INFO)) {
-            log(Level.INFO, msg, throwable);
+        if (isLevelEnabled(INFO)) {
+            log(INFO, msg, throwable);
         }
     }
 
@@ -1432,9 +1469,9 @@ public abstract class AbstractLogger implements Logger {
     public final void info(final Throwable throwable,
                            final String msg,
                            final Object arg1) {
-        if (isLevelEnabled(Level.INFO)) {
+        if (isLevelEnabled(INFO)) {
             final String finalMessage = getFinalMessage(msg, arg1);
-            log(Level.INFO, finalMessage, throwable);
+            log(INFO, finalMessage, throwable);
         }
     }
 
@@ -1443,9 +1480,9 @@ public abstract class AbstractLogger implements Logger {
                            final String msg,
                            final Object arg1,
                            final Object arg2) {
-        if (isLevelEnabled(Level.INFO)) {
+        if (isLevelEnabled(INFO)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2);
-            log(Level.INFO, finalMessage, throwable);
+            log(INFO, finalMessage, throwable);
         }
     }
 
@@ -1455,9 +1492,9 @@ public abstract class AbstractLogger implements Logger {
                            final Object arg1,
                            final Object arg2,
                            final Object arg3) {
-        if (isLevelEnabled(Level.INFO)) {
+        if (isLevelEnabled(INFO)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3);
-            log(Level.INFO, finalMessage, throwable);
+            log(INFO, finalMessage, throwable);
         }
     }
 
@@ -1468,9 +1505,9 @@ public abstract class AbstractLogger implements Logger {
                            final Object arg2,
                            final Object arg3,
                            final Object arg4) {
-        if (isLevelEnabled(Level.INFO)) {
+        if (isLevelEnabled(INFO)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4);
-            log(Level.INFO, finalMessage, throwable);
+            log(INFO, finalMessage, throwable);
         }
     }
 
@@ -1482,9 +1519,9 @@ public abstract class AbstractLogger implements Logger {
                            final Object arg3,
                            final Object arg4,
                            final Object arg5) {
-        if (isLevelEnabled(Level.INFO)) {
+        if (isLevelEnabled(INFO)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4, arg5);
-            log(Level.INFO, finalMessage, throwable);
+            log(INFO, finalMessage, throwable);
         }
     }
 
@@ -1492,9 +1529,9 @@ public abstract class AbstractLogger implements Logger {
     public final void info(final Throwable throwable,
                            final String msg,
                            final Object... arguments) {
-        if (isLevelEnabled(Level.INFO)) {
+        if (isLevelEnabled(INFO)) {
             final String finalMessage = getFinalMessage(msg, arguments);
-            log(Level.INFO, finalMessage, throwable);
+            log(INFO, finalMessage, throwable);
         }
     }
 
@@ -1502,9 +1539,9 @@ public abstract class AbstractLogger implements Logger {
     public final void info(final Throwable throwable,
                            final String msg,
                            final Supplier<?> arg1) {
-        if (isLevelEnabled(Level.INFO)) {
+        if (isLevelEnabled(INFO)) {
             final String finalMessage = getFinalMessage(msg, arg1);
-            log(Level.INFO, finalMessage, throwable);
+            log(INFO, finalMessage, throwable);
         }
     }
 
@@ -1513,9 +1550,9 @@ public abstract class AbstractLogger implements Logger {
                            final String msg,
                            final Supplier<?> arg1,
                            final Supplier<?> arg2) {
-        if (isLevelEnabled(Level.INFO)) {
+        if (isLevelEnabled(INFO)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2);
-            log(Level.INFO, finalMessage, throwable);
+            log(INFO, finalMessage, throwable);
         }
     }
 
@@ -1525,9 +1562,9 @@ public abstract class AbstractLogger implements Logger {
                            final Supplier<?> arg1,
                            final Supplier<?> arg2,
                            final Supplier<?> arg3) {
-        if (isLevelEnabled(Level.INFO)) {
+        if (isLevelEnabled(INFO)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3);
-            log(Level.INFO, finalMessage, throwable);
+            log(INFO, finalMessage, throwable);
         }
     }
 
@@ -1538,9 +1575,9 @@ public abstract class AbstractLogger implements Logger {
                            final Supplier<?> arg2,
                            final Supplier<?> arg3,
                            final Supplier<?> arg4) {
-        if (isLevelEnabled(Level.INFO)) {
+        if (isLevelEnabled(INFO)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4);
-            log(Level.INFO, finalMessage, throwable);
+            log(INFO, finalMessage, throwable);
         }
     }
 
@@ -1552,9 +1589,9 @@ public abstract class AbstractLogger implements Logger {
                            final Supplier<?> arg3,
                            final Supplier<?> arg4,
                            final Supplier<?> arg5) {
-        if (isLevelEnabled(Level.INFO)) {
+        if (isLevelEnabled(INFO)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4, arg5);
-            log(Level.INFO, finalMessage, throwable);
+            log(INFO, finalMessage, throwable);
         }
     }
 
@@ -1562,17 +1599,17 @@ public abstract class AbstractLogger implements Logger {
     public final void info(final Throwable throwable,
                            final String msg,
                            final Supplier<?>... suppliers) {
-        if (isLevelEnabled(Level.INFO)) {
+        if (isLevelEnabled(INFO)) {
             final String finalMessage = getFinalMessage(msg, suppliers);
-            log(Level.INFO, finalMessage, throwable);
+            log(INFO, finalMessage, throwable);
         }
     }
 
     @Override
     public final void info(final RequestIdSupplier requestIdSupplier,
                            final String msg) {
-        if (isLevelEnabled(Level.INFO)) {
-            log(requestIdSupplier, Level.INFO, msg);
+        if (isLevelEnabled(INFO)) {
+            log(requestIdSupplier, INFO, msg);
         }
     }
 
@@ -1580,9 +1617,9 @@ public abstract class AbstractLogger implements Logger {
     public final void info(final RequestIdSupplier requestIdSupplier,
                            final String msg,
                            final Object arg1) {
-        if (isLevelEnabled(Level.INFO)) {
+        if (isLevelEnabled(INFO)) {
             final String finalMessage = getFinalMessage(msg, arg1);
-            log(requestIdSupplier, Level.INFO, finalMessage);
+            log(requestIdSupplier, INFO, finalMessage);
         }
     }
 
@@ -1591,9 +1628,9 @@ public abstract class AbstractLogger implements Logger {
                            final String msg,
                            final Object arg1,
                            final Object arg2) {
-        if (isLevelEnabled(Level.INFO)) {
+        if (isLevelEnabled(INFO)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2);
-            log(requestIdSupplier, Level.INFO, finalMessage);
+            log(requestIdSupplier, INFO, finalMessage);
         }
     }
 
@@ -1603,9 +1640,9 @@ public abstract class AbstractLogger implements Logger {
                            final Object arg1,
                            final Object arg2,
                            final Object arg3) {
-        if (isLevelEnabled(Level.INFO)) {
+        if (isLevelEnabled(INFO)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3);
-            log(requestIdSupplier, Level.INFO, finalMessage);
+            log(requestIdSupplier, INFO, finalMessage);
         }
     }
 
@@ -1616,9 +1653,9 @@ public abstract class AbstractLogger implements Logger {
                            final Object arg2,
                            final Object arg3,
                            final Object arg4) {
-        if (isLevelEnabled(Level.INFO)) {
+        if (isLevelEnabled(INFO)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4);
-            log(requestIdSupplier, Level.INFO, finalMessage);
+            log(requestIdSupplier, INFO, finalMessage);
         }
     }
 
@@ -1630,9 +1667,9 @@ public abstract class AbstractLogger implements Logger {
                            final Object arg3,
                            final Object arg4,
                            final Object arg5) {
-        if (isLevelEnabled(Level.INFO)) {
+        if (isLevelEnabled(INFO)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4, arg5);
-            log(requestIdSupplier, Level.INFO, finalMessage);
+            log(requestIdSupplier, INFO, finalMessage);
         }
     }
 
@@ -1640,9 +1677,9 @@ public abstract class AbstractLogger implements Logger {
     public final void info(final RequestIdSupplier requestIdSupplier,
                            final String msg,
                            final Object... arguments) {
-        if (isLevelEnabled(Level.INFO)) {
+        if (isLevelEnabled(INFO)) {
             final String finalMessage = getFinalMessage(msg, arguments);
-            log(requestIdSupplier, Level.INFO, finalMessage);
+            log(requestIdSupplier, INFO, finalMessage);
         }
     }
 
@@ -1650,9 +1687,9 @@ public abstract class AbstractLogger implements Logger {
     public final void info(final RequestIdSupplier requestIdSupplier,
                            final String msg,
                            final Supplier<?> arg1) {
-        if (isLevelEnabled(Level.INFO)) {
+        if (isLevelEnabled(INFO)) {
             final String finalMessage = getFinalMessage(msg, arg1);
-            log(requestIdSupplier, Level.INFO, finalMessage);
+            log(requestIdSupplier, INFO, finalMessage);
         }
     }
 
@@ -1661,9 +1698,9 @@ public abstract class AbstractLogger implements Logger {
                            final String msg,
                            final Supplier<?> arg1,
                            final Supplier<?> arg2) {
-        if (isLevelEnabled(Level.INFO)) {
+        if (isLevelEnabled(INFO)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2);
-            log(requestIdSupplier, Level.INFO, finalMessage);
+            log(requestIdSupplier, INFO, finalMessage);
         }
     }
 
@@ -1673,9 +1710,9 @@ public abstract class AbstractLogger implements Logger {
                            final Supplier<?> arg1,
                            final Supplier<?> arg2,
                            final Supplier<?> arg3) {
-        if (isLevelEnabled(Level.INFO)) {
+        if (isLevelEnabled(INFO)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3);
-            log(requestIdSupplier, Level.INFO, finalMessage);
+            log(requestIdSupplier, INFO, finalMessage);
         }
     }
 
@@ -1686,9 +1723,9 @@ public abstract class AbstractLogger implements Logger {
                            final Supplier<?> arg2,
                            final Supplier<?> arg3,
                            final Supplier<?> arg4) {
-        if (isLevelEnabled(Level.INFO)) {
+        if (isLevelEnabled(INFO)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4);
-            log(requestIdSupplier, Level.INFO, finalMessage);
+            log(requestIdSupplier, INFO, finalMessage);
         }
     }
 
@@ -1700,9 +1737,9 @@ public abstract class AbstractLogger implements Logger {
                            final Supplier<?> arg3,
                            final Supplier<?> arg4,
                            final Supplier<?> arg5) {
-        if (isLevelEnabled(Level.INFO)) {
+        if (isLevelEnabled(INFO)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4, arg5);
-            log(requestIdSupplier, Level.INFO, finalMessage);
+            log(requestIdSupplier, INFO, finalMessage);
         }
     }
 
@@ -1710,9 +1747,9 @@ public abstract class AbstractLogger implements Logger {
     public final void info(final RequestIdSupplier requestIdSupplier,
                            final String msg,
                            final Supplier<?>... suppliers) {
-        if (isLevelEnabled(Level.INFO)) {
+        if (isLevelEnabled(INFO)) {
             final String finalMessage = getFinalMessage(msg, suppliers);
-            log(requestIdSupplier, Level.INFO, finalMessage);
+            log(requestIdSupplier, INFO, finalMessage);
         }
     }
 
@@ -1720,8 +1757,8 @@ public abstract class AbstractLogger implements Logger {
     public final void info(final RequestIdSupplier requestIdSupplier,
                            final Throwable throwable,
                            final String msg) {
-        if (isLevelEnabled(Level.INFO)) {
-            log(requestIdSupplier, Level.INFO, msg, throwable);
+        if (isLevelEnabled(INFO)) {
+            log(requestIdSupplier, INFO, msg, throwable);
         }
     }
 
@@ -1730,9 +1767,9 @@ public abstract class AbstractLogger implements Logger {
                            final Throwable throwable,
                            final String msg,
                            final Object arg1) {
-        if (isLevelEnabled(Level.INFO)) {
+        if (isLevelEnabled(INFO)) {
             final String finalMessage = getFinalMessage(msg, arg1);
-            log(requestIdSupplier, Level.INFO, finalMessage, throwable);
+            log(requestIdSupplier, INFO, finalMessage, throwable);
         }
     }
 
@@ -1742,9 +1779,9 @@ public abstract class AbstractLogger implements Logger {
                            final String msg,
                            final Object arg1,
                            final Object arg2) {
-        if (isLevelEnabled(Level.INFO)) {
+        if (isLevelEnabled(INFO)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2);
-            log(requestIdSupplier, Level.INFO, finalMessage, throwable);
+            log(requestIdSupplier, INFO, finalMessage, throwable);
         }
     }
 
@@ -1755,9 +1792,9 @@ public abstract class AbstractLogger implements Logger {
                            final Object arg1,
                            final Object arg2,
                            final Object arg3) {
-        if (isLevelEnabled(Level.INFO)) {
+        if (isLevelEnabled(INFO)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3);
-            log(requestIdSupplier, Level.INFO, finalMessage, throwable);
+            log(requestIdSupplier, INFO, finalMessage, throwable);
         }
     }
 
@@ -1769,9 +1806,9 @@ public abstract class AbstractLogger implements Logger {
                            final Object arg2,
                            final Object arg3,
                            final Object arg4) {
-        if (isLevelEnabled(Level.INFO)) {
+        if (isLevelEnabled(INFO)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4);
-            log(requestIdSupplier, Level.INFO, finalMessage, throwable);
+            log(requestIdSupplier, INFO, finalMessage, throwable);
         }
     }
 
@@ -1784,9 +1821,9 @@ public abstract class AbstractLogger implements Logger {
                            final Object arg3,
                            final Object arg4,
                            final Object arg5) {
-        if (isLevelEnabled(Level.INFO)) {
+        if (isLevelEnabled(INFO)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4, arg5);
-            log(requestIdSupplier, Level.INFO, finalMessage, throwable);
+            log(requestIdSupplier, INFO, finalMessage, throwable);
         }
     }
 
@@ -1795,9 +1832,9 @@ public abstract class AbstractLogger implements Logger {
                            final Throwable throwable,
                            final String msg,
                            final Object... arguments) {
-        if (isLevelEnabled(Level.INFO)) {
+        if (isLevelEnabled(INFO)) {
             final String finalMessage = getFinalMessage(msg, arguments);
-            log(requestIdSupplier, Level.INFO, finalMessage, throwable);
+            log(requestIdSupplier, INFO, finalMessage, throwable);
         }
     }
 
@@ -1806,9 +1843,9 @@ public abstract class AbstractLogger implements Logger {
                            final Throwable throwable,
                            final String msg,
                            final Supplier<?> arg1) {
-        if (isLevelEnabled(Level.INFO)) {
+        if (isLevelEnabled(INFO)) {
             final String finalMessage = getFinalMessage(msg, arg1);
-            log(requestIdSupplier, Level.INFO, finalMessage, throwable);
+            log(requestIdSupplier, INFO, finalMessage, throwable);
         }
     }
 
@@ -1818,9 +1855,9 @@ public abstract class AbstractLogger implements Logger {
                            final String msg,
                            final Supplier<?> arg1,
                            final Supplier<?> arg2) {
-        if (isLevelEnabled(Level.INFO)) {
+        if (isLevelEnabled(INFO)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2);
-            log(requestIdSupplier, Level.INFO, finalMessage, throwable);
+            log(requestIdSupplier, INFO, finalMessage, throwable);
         }
     }
 
@@ -1831,9 +1868,9 @@ public abstract class AbstractLogger implements Logger {
                            final Supplier<?> arg1,
                            final Supplier<?> arg2,
                            final Supplier<?> arg3) {
-        if (isLevelEnabled(Level.INFO)) {
+        if (isLevelEnabled(INFO)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3);
-            log(requestIdSupplier, Level.INFO, finalMessage, throwable);
+            log(requestIdSupplier, INFO, finalMessage, throwable);
         }
     }
 
@@ -1845,9 +1882,9 @@ public abstract class AbstractLogger implements Logger {
                            final Supplier<?> arg2,
                            final Supplier<?> arg3,
                            final Supplier<?> arg4) {
-        if (isLevelEnabled(Level.INFO)) {
+        if (isLevelEnabled(INFO)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4);
-            log(requestIdSupplier, Level.INFO, finalMessage, throwable);
+            log(requestIdSupplier, INFO, finalMessage, throwable);
         }
     }
 
@@ -1860,9 +1897,9 @@ public abstract class AbstractLogger implements Logger {
                            final Supplier<?> arg3,
                            final Supplier<?> arg4,
                            final Supplier<?> arg5) {
-        if (isLevelEnabled(Level.INFO)) {
+        if (isLevelEnabled(INFO)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4, arg5);
-            log(requestIdSupplier, Level.INFO, finalMessage, throwable);
+            log(requestIdSupplier, INFO, finalMessage, throwable);
         }
     }
 
@@ -1871,30 +1908,37 @@ public abstract class AbstractLogger implements Logger {
                            final Throwable throwable,
                            final String msg,
                            final Supplier<?>... suppliers) {
-        if (isLevelEnabled(Level.INFO)) {
+        if (isLevelEnabled(INFO)) {
             final String finalMessage = getFinalMessage(msg, suppliers);
-            log(requestIdSupplier, Level.INFO, finalMessage, throwable);
+            log(requestIdSupplier, INFO, finalMessage, throwable);
         }
     }
 
     @Override
     public final boolean isWarnEnabled() {
-        return isLevelEnabled(Level.WARN);
+        return isLevelEnabled(WARN);
+    }
+
+    @Override
+    public final void warn(final LoggerEvent loggerEvent) {
+        if (isLevelEnabled(WARN)) {
+            log(WARN, loggerEvent);
+        }
     }
 
     @Override
     public final void warn(final String msg) {
-        if (isLevelEnabled(Level.WARN)) {
-            log(Level.WARN, msg);
+        if (isLevelEnabled(WARN)) {
+            log(WARN, msg);
         }
     }
 
     @Override
     public final void warn(final String msg,
                            final Object arg1) {
-        if (isLevelEnabled(Level.WARN)) {
+        if (isLevelEnabled(WARN)) {
             final String finalMessage = getFinalMessage(msg, arg1);
-            log(Level.WARN, finalMessage);
+            log(WARN, finalMessage);
         }
     }
 
@@ -1902,9 +1946,9 @@ public abstract class AbstractLogger implements Logger {
     public final void warn(final String msg,
                            final Object arg1,
                            final Object arg2) {
-        if (isLevelEnabled(Level.WARN)) {
+        if (isLevelEnabled(WARN)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2);
-            log(Level.WARN, finalMessage);
+            log(WARN, finalMessage);
         }
     }
 
@@ -1913,9 +1957,9 @@ public abstract class AbstractLogger implements Logger {
                            final Object arg1,
                            final Object arg2,
                            final Object arg3) {
-        if (isLevelEnabled(Level.WARN)) {
+        if (isLevelEnabled(WARN)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3);
-            log(Level.WARN, finalMessage);
+            log(WARN, finalMessage);
         }
     }
 
@@ -1925,9 +1969,9 @@ public abstract class AbstractLogger implements Logger {
                            final Object arg2,
                            final Object arg3,
                            final Object arg4) {
-        if (isLevelEnabled(Level.WARN)) {
+        if (isLevelEnabled(WARN)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4);
-            log(Level.WARN, finalMessage);
+            log(WARN, finalMessage);
         }
     }
 
@@ -1938,27 +1982,27 @@ public abstract class AbstractLogger implements Logger {
                            final Object arg3,
                            final Object arg4,
                            final Object arg5) {
-        if (isLevelEnabled(Level.WARN)) {
+        if (isLevelEnabled(WARN)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4, arg5);
-            log(Level.WARN, finalMessage);
+            log(WARN, finalMessage);
         }
     }
 
     @Override
     public final void warn(final String msg,
                            final Object... arguments) {
-        if (isLevelEnabled(Level.WARN)) {
+        if (isLevelEnabled(WARN)) {
             final String finalMessage = getFinalMessage(msg, arguments);
-            log(Level.WARN, finalMessage);
+            log(WARN, finalMessage);
         }
     }
 
     @Override
     public final void warn(final String msg,
                            final Supplier<?> arg1) {
-        if (isLevelEnabled(Level.WARN)) {
+        if (isLevelEnabled(WARN)) {
             final String finalMessage = getFinalMessage(msg, arg1);
-            log(Level.WARN, finalMessage);
+            log(WARN, finalMessage);
         }
     }
 
@@ -1966,9 +2010,9 @@ public abstract class AbstractLogger implements Logger {
     public final void warn(final String msg,
                            final Supplier<?> arg1,
                            final Supplier<?> arg2) {
-        if (isLevelEnabled(Level.WARN)) {
+        if (isLevelEnabled(WARN)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2);
-            log(Level.WARN, finalMessage);
+            log(WARN, finalMessage);
         }
     }
 
@@ -1977,9 +2021,9 @@ public abstract class AbstractLogger implements Logger {
                            final Supplier<?> arg1,
                            final Supplier<?> arg2,
                            final Supplier<?> arg3) {
-        if (isLevelEnabled(Level.WARN)) {
+        if (isLevelEnabled(WARN)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3);
-            log(Level.WARN, finalMessage);
+            log(WARN, finalMessage);
         }
     }
 
@@ -1989,9 +2033,9 @@ public abstract class AbstractLogger implements Logger {
                            final Supplier<?> arg2,
                            final Supplier<?> arg3,
                            final Supplier<?> arg4) {
-        if (isLevelEnabled(Level.WARN)) {
+        if (isLevelEnabled(WARN)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4);
-            log(Level.WARN, finalMessage);
+            log(WARN, finalMessage);
         }
     }
 
@@ -2002,26 +2046,26 @@ public abstract class AbstractLogger implements Logger {
                            final Supplier<?> arg3,
                            final Supplier<?> arg4,
                            final Supplier<?> arg5) {
-        if (isLevelEnabled(Level.WARN)) {
+        if (isLevelEnabled(WARN)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4, arg5);
-            log(Level.WARN, finalMessage);
+            log(WARN, finalMessage);
         }
     }
 
     @Override
     public final void warn(final String msg,
                            final Supplier<?>... suppliers) {
-        if (isLevelEnabled(Level.WARN)) {
+        if (isLevelEnabled(WARN)) {
             final String finalMessage = getFinalMessage(msg, suppliers);
-            log(Level.WARN, finalMessage);
+            log(WARN, finalMessage);
         }
     }
 
     @Override
     public final void warn(final Throwable throwable,
                            final String msg) {
-        if (isLevelEnabled(Level.WARN)) {
-            log(Level.WARN, msg, throwable);
+        if (isLevelEnabled(WARN)) {
+            log(WARN, msg, throwable);
         }
     }
 
@@ -2029,9 +2073,9 @@ public abstract class AbstractLogger implements Logger {
     public final void warn(final Throwable throwable,
                            final String msg,
                            final Object arg1) {
-        if (isLevelEnabled(Level.WARN)) {
+        if (isLevelEnabled(WARN)) {
             final String finalMessage = getFinalMessage(msg, arg1);
-            log(Level.WARN, finalMessage, throwable);
+            log(WARN, finalMessage, throwable);
         }
     }
 
@@ -2040,9 +2084,9 @@ public abstract class AbstractLogger implements Logger {
                            final String msg,
                            final Object arg1,
                            final Object arg2) {
-        if (isLevelEnabled(Level.WARN)) {
+        if (isLevelEnabled(WARN)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2);
-            log(Level.WARN, finalMessage, throwable);
+            log(WARN, finalMessage, throwable);
         }
     }
 
@@ -2052,9 +2096,9 @@ public abstract class AbstractLogger implements Logger {
                            final Object arg1,
                            final Object arg2,
                            final Object arg3) {
-        if (isLevelEnabled(Level.WARN)) {
+        if (isLevelEnabled(WARN)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3);
-            log(Level.WARN, finalMessage, throwable);
+            log(WARN, finalMessage, throwable);
         }
     }
 
@@ -2065,9 +2109,9 @@ public abstract class AbstractLogger implements Logger {
                            final Object arg2,
                            final Object arg3,
                            final Object arg4) {
-        if (isLevelEnabled(Level.WARN)) {
+        if (isLevelEnabled(WARN)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4);
-            log(Level.WARN, finalMessage, throwable);
+            log(WARN, finalMessage, throwable);
         }
     }
 
@@ -2079,9 +2123,9 @@ public abstract class AbstractLogger implements Logger {
                            final Object arg3,
                            final Object arg4,
                            final Object arg5) {
-        if (isLevelEnabled(Level.WARN)) {
+        if (isLevelEnabled(WARN)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4, arg5);
-            log(Level.WARN, finalMessage, throwable);
+            log(WARN, finalMessage, throwable);
         }
     }
 
@@ -2089,9 +2133,9 @@ public abstract class AbstractLogger implements Logger {
     public final void warn(final Throwable throwable,
                            final String msg,
                            final Object... arguments) {
-        if (isLevelEnabled(Level.WARN)) {
+        if (isLevelEnabled(WARN)) {
             final String finalMessage = getFinalMessage(msg, arguments);
-            log(Level.WARN, finalMessage, throwable);
+            log(WARN, finalMessage, throwable);
         }
     }
 
@@ -2099,9 +2143,9 @@ public abstract class AbstractLogger implements Logger {
     public final void warn(final Throwable throwable,
                            final String msg,
                            final Supplier<?> arg1) {
-        if (isLevelEnabled(Level.WARN)) {
+        if (isLevelEnabled(WARN)) {
             final String finalMessage = getFinalMessage(msg, arg1);
-            log(Level.WARN, finalMessage, throwable);
+            log(WARN, finalMessage, throwable);
         }
     }
 
@@ -2110,9 +2154,9 @@ public abstract class AbstractLogger implements Logger {
                            final String msg,
                            final Supplier<?> arg1,
                            final Supplier<?> arg2) {
-        if (isLevelEnabled(Level.WARN)) {
+        if (isLevelEnabled(WARN)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2);
-            log(Level.WARN, finalMessage, throwable);
+            log(WARN, finalMessage, throwable);
         }
     }
 
@@ -2122,9 +2166,9 @@ public abstract class AbstractLogger implements Logger {
                            final Supplier<?> arg1,
                            final Supplier<?> arg2,
                            final Supplier<?> arg3) {
-        if (isLevelEnabled(Level.WARN)) {
+        if (isLevelEnabled(WARN)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3);
-            log(Level.WARN, finalMessage, throwable);
+            log(WARN, finalMessage, throwable);
         }
     }
 
@@ -2135,9 +2179,9 @@ public abstract class AbstractLogger implements Logger {
                            final Supplier<?> arg2,
                            final Supplier<?> arg3,
                            final Supplier<?> arg4) {
-        if (isLevelEnabled(Level.WARN)) {
+        if (isLevelEnabled(WARN)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4);
-            log(Level.WARN, finalMessage, throwable);
+            log(WARN, finalMessage, throwable);
         }
     }
 
@@ -2149,9 +2193,9 @@ public abstract class AbstractLogger implements Logger {
                            final Supplier<?> arg3,
                            final Supplier<?> arg4,
                            final Supplier<?> arg5) {
-        if (isLevelEnabled(Level.WARN)) {
+        if (isLevelEnabled(WARN)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4, arg5);
-            log(Level.WARN, finalMessage, throwable);
+            log(WARN, finalMessage, throwable);
         }
     }
 
@@ -2159,17 +2203,17 @@ public abstract class AbstractLogger implements Logger {
     public final void warn(final Throwable throwable,
                            final String msg,
                            final Supplier<?>... suppliers) {
-        if (isLevelEnabled(Level.WARN)) {
+        if (isLevelEnabled(WARN)) {
             final String finalMessage = getFinalMessage(msg, suppliers);
-            log(Level.WARN, finalMessage, throwable);
+            log(WARN, finalMessage, throwable);
         }
     }
 
     @Override
     public final void warn(final RequestIdSupplier requestIdSupplier,
                            final String msg) {
-        if (isLevelEnabled(Level.WARN)) {
-            log(requestIdSupplier, Level.WARN, msg);
+        if (isLevelEnabled(WARN)) {
+            log(requestIdSupplier, WARN, msg);
         }
     }
 
@@ -2177,9 +2221,9 @@ public abstract class AbstractLogger implements Logger {
     public final void warn(final RequestIdSupplier requestIdSupplier,
                            final String msg,
                            final Object arg1) {
-        if (isLevelEnabled(Level.WARN)) {
+        if (isLevelEnabled(WARN)) {
             final String finalMessage = getFinalMessage(msg, arg1);
-            log(requestIdSupplier, Level.WARN, finalMessage);
+            log(requestIdSupplier, WARN, finalMessage);
         }
     }
 
@@ -2188,9 +2232,9 @@ public abstract class AbstractLogger implements Logger {
                            final String msg,
                            final Object arg1,
                            final Object arg2) {
-        if (isLevelEnabled(Level.WARN)) {
+        if (isLevelEnabled(WARN)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2);
-            log(requestIdSupplier, Level.WARN, finalMessage);
+            log(requestIdSupplier, WARN, finalMessage);
         }
     }
 
@@ -2200,9 +2244,9 @@ public abstract class AbstractLogger implements Logger {
                            final Object arg1,
                            final Object arg2,
                            final Object arg3) {
-        if (isLevelEnabled(Level.WARN)) {
+        if (isLevelEnabled(WARN)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3);
-            log(requestIdSupplier, Level.WARN, finalMessage);
+            log(requestIdSupplier, WARN, finalMessage);
         }
     }
 
@@ -2213,9 +2257,9 @@ public abstract class AbstractLogger implements Logger {
                            final Object arg2,
                            final Object arg3,
                            final Object arg4) {
-        if (isLevelEnabled(Level.WARN)) {
+        if (isLevelEnabled(WARN)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4);
-            log(requestIdSupplier, Level.WARN, finalMessage);
+            log(requestIdSupplier, WARN, finalMessage);
         }
     }
 
@@ -2227,9 +2271,9 @@ public abstract class AbstractLogger implements Logger {
                            final Object arg3,
                            final Object arg4,
                            final Object arg5) {
-        if (isLevelEnabled(Level.WARN)) {
+        if (isLevelEnabled(WARN)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4, arg5);
-            log(requestIdSupplier, Level.WARN, finalMessage);
+            log(requestIdSupplier, WARN, finalMessage);
         }
     }
 
@@ -2237,9 +2281,9 @@ public abstract class AbstractLogger implements Logger {
     public final void warn(final RequestIdSupplier requestIdSupplier,
                            final String msg,
                            final Object... arguments) {
-        if (isLevelEnabled(Level.WARN)) {
+        if (isLevelEnabled(WARN)) {
             final String finalMessage = getFinalMessage(msg, arguments);
-            log(requestIdSupplier, Level.WARN, finalMessage);
+            log(requestIdSupplier, WARN, finalMessage);
         }
     }
 
@@ -2247,9 +2291,9 @@ public abstract class AbstractLogger implements Logger {
     public final void warn(final RequestIdSupplier requestIdSupplier,
                            final String msg,
                            final Supplier<?> arg1) {
-        if (isLevelEnabled(Level.WARN)) {
+        if (isLevelEnabled(WARN)) {
             final String finalMessage = getFinalMessage(msg, arg1);
-            log(requestIdSupplier, Level.WARN, finalMessage);
+            log(requestIdSupplier, WARN, finalMessage);
         }
     }
 
@@ -2258,9 +2302,9 @@ public abstract class AbstractLogger implements Logger {
                            final String msg,
                            final Supplier<?> arg1,
                            final Supplier<?> arg2) {
-        if (isLevelEnabled(Level.WARN)) {
+        if (isLevelEnabled(WARN)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2);
-            log(requestIdSupplier, Level.WARN, finalMessage);
+            log(requestIdSupplier, WARN, finalMessage);
         }
     }
 
@@ -2270,9 +2314,9 @@ public abstract class AbstractLogger implements Logger {
                            final Supplier<?> arg1,
                            final Supplier<?> arg2,
                            final Supplier<?> arg3) {
-        if (isLevelEnabled(Level.WARN)) {
+        if (isLevelEnabled(WARN)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3);
-            log(requestIdSupplier, Level.WARN, finalMessage);
+            log(requestIdSupplier, WARN, finalMessage);
         }
     }
 
@@ -2283,9 +2327,9 @@ public abstract class AbstractLogger implements Logger {
                            final Supplier<?> arg2,
                            final Supplier<?> arg3,
                            final Supplier<?> arg4) {
-        if (isLevelEnabled(Level.WARN)) {
+        if (isLevelEnabled(WARN)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4);
-            log(requestIdSupplier, Level.WARN, finalMessage);
+            log(requestIdSupplier, WARN, finalMessage);
         }
     }
 
@@ -2297,9 +2341,9 @@ public abstract class AbstractLogger implements Logger {
                            final Supplier<?> arg3,
                            final Supplier<?> arg4,
                            final Supplier<?> arg5) {
-        if (isLevelEnabled(Level.WARN)) {
+        if (isLevelEnabled(WARN)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4, arg5);
-            log(requestIdSupplier, Level.WARN, finalMessage);
+            log(requestIdSupplier, WARN, finalMessage);
         }
     }
 
@@ -2307,9 +2351,9 @@ public abstract class AbstractLogger implements Logger {
     public final void warn(final RequestIdSupplier requestIdSupplier,
                            final String msg,
                            final Supplier<?>... suppliers) {
-        if (isLevelEnabled(Level.WARN)) {
+        if (isLevelEnabled(WARN)) {
             final String finalMessage = getFinalMessage(msg, suppliers);
-            log(requestIdSupplier, Level.WARN, finalMessage);
+            log(requestIdSupplier, WARN, finalMessage);
         }
     }
 
@@ -2317,8 +2361,8 @@ public abstract class AbstractLogger implements Logger {
     public final void warn(final RequestIdSupplier requestIdSupplier,
                            final Throwable throwable,
                            final String msg) {
-        if (isLevelEnabled(Level.WARN)) {
-            log(requestIdSupplier, Level.WARN, msg, throwable);
+        if (isLevelEnabled(WARN)) {
+            log(requestIdSupplier, WARN, msg, throwable);
         }
     }
 
@@ -2327,9 +2371,9 @@ public abstract class AbstractLogger implements Logger {
                            final Throwable throwable,
                            final String msg,
                            final Object arg1) {
-        if (isLevelEnabled(Level.WARN)) {
+        if (isLevelEnabled(WARN)) {
             final String finalMessage = getFinalMessage(msg, arg1);
-            log(requestIdSupplier, Level.WARN, finalMessage, throwable);
+            log(requestIdSupplier, WARN, finalMessage, throwable);
         }
     }
 
@@ -2339,9 +2383,9 @@ public abstract class AbstractLogger implements Logger {
                            final String msg,
                            final Object arg1,
                            final Object arg2) {
-        if (isLevelEnabled(Level.WARN)) {
+        if (isLevelEnabled(WARN)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2);
-            log(requestIdSupplier, Level.WARN, finalMessage, throwable);
+            log(requestIdSupplier, WARN, finalMessage, throwable);
         }
     }
 
@@ -2352,9 +2396,9 @@ public abstract class AbstractLogger implements Logger {
                            final Object arg1,
                            final Object arg2,
                            final Object arg3) {
-        if (isLevelEnabled(Level.WARN)) {
+        if (isLevelEnabled(WARN)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3);
-            log(requestIdSupplier, Level.WARN, finalMessage, throwable);
+            log(requestIdSupplier, WARN, finalMessage, throwable);
         }
     }
 
@@ -2366,9 +2410,9 @@ public abstract class AbstractLogger implements Logger {
                            final Object arg2,
                            final Object arg3,
                            final Object arg4) {
-        if (isLevelEnabled(Level.WARN)) {
+        if (isLevelEnabled(WARN)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4);
-            log(requestIdSupplier, Level.WARN, finalMessage, throwable);
+            log(requestIdSupplier, WARN, finalMessage, throwable);
         }
     }
 
@@ -2381,9 +2425,9 @@ public abstract class AbstractLogger implements Logger {
                            final Object arg3,
                            final Object arg4,
                            final Object arg5) {
-        if (isLevelEnabled(Level.WARN)) {
+        if (isLevelEnabled(WARN)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4, arg5);
-            log(requestIdSupplier, Level.WARN, finalMessage, throwable);
+            log(requestIdSupplier, WARN, finalMessage, throwable);
         }
     }
 
@@ -2392,9 +2436,9 @@ public abstract class AbstractLogger implements Logger {
                            final Throwable throwable,
                            final String msg,
                            final Object... arguments) {
-        if (isLevelEnabled(Level.WARN)) {
+        if (isLevelEnabled(WARN)) {
             final String finalMessage = getFinalMessage(msg, arguments);
-            log(requestIdSupplier, Level.WARN, finalMessage, throwable);
+            log(requestIdSupplier, WARN, finalMessage, throwable);
         }
     }
 
@@ -2403,9 +2447,9 @@ public abstract class AbstractLogger implements Logger {
                            final Throwable throwable,
                            final String msg,
                            final Supplier<?> arg1) {
-        if (isLevelEnabled(Level.WARN)) {
+        if (isLevelEnabled(WARN)) {
             final String finalMessage = getFinalMessage(msg, arg1);
-            log(requestIdSupplier, Level.WARN, finalMessage, throwable);
+            log(requestIdSupplier, WARN, finalMessage, throwable);
         }
     }
 
@@ -2415,9 +2459,9 @@ public abstract class AbstractLogger implements Logger {
                            final String msg,
                            final Supplier<?> arg1,
                            final Supplier<?> arg2) {
-        if (isLevelEnabled(Level.WARN)) {
+        if (isLevelEnabled(WARN)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2);
-            log(requestIdSupplier, Level.WARN, finalMessage, throwable);
+            log(requestIdSupplier, WARN, finalMessage, throwable);
         }
     }
 
@@ -2428,9 +2472,9 @@ public abstract class AbstractLogger implements Logger {
                            final Supplier<?> arg1,
                            final Supplier<?> arg2,
                            final Supplier<?> arg3) {
-        if (isLevelEnabled(Level.WARN)) {
+        if (isLevelEnabled(WARN)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3);
-            log(requestIdSupplier, Level.WARN, finalMessage, throwable);
+            log(requestIdSupplier, WARN, finalMessage, throwable);
         }
     }
 
@@ -2442,9 +2486,9 @@ public abstract class AbstractLogger implements Logger {
                            final Supplier<?> arg2,
                            final Supplier<?> arg3,
                            final Supplier<?> arg4) {
-        if (isLevelEnabled(Level.WARN)) {
+        if (isLevelEnabled(WARN)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4);
-            log(requestIdSupplier, Level.WARN, finalMessage, throwable);
+            log(requestIdSupplier, WARN, finalMessage, throwable);
         }
     }
 
@@ -2457,9 +2501,9 @@ public abstract class AbstractLogger implements Logger {
                            final Supplier<?> arg3,
                            final Supplier<?> arg4,
                            final Supplier<?> arg5) {
-        if (isLevelEnabled(Level.WARN)) {
+        if (isLevelEnabled(WARN)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4, arg5);
-            log(requestIdSupplier, Level.WARN, finalMessage, throwable);
+            log(requestIdSupplier, WARN, finalMessage, throwable);
         }
     }
 
@@ -2468,30 +2512,37 @@ public abstract class AbstractLogger implements Logger {
                            final Throwable throwable,
                            final String msg,
                            final Supplier<?>... suppliers) {
-        if (isLevelEnabled(Level.WARN)) {
+        if (isLevelEnabled(WARN)) {
             final String finalMessage = getFinalMessage(msg, suppliers);
-            log(requestIdSupplier, Level.WARN, finalMessage, throwable);
+            log(requestIdSupplier, WARN, finalMessage, throwable);
         }
     }
 
     @Override
     public final boolean isErrorEnabled() {
-        return isLevelEnabled(Level.ERROR);
+        return isLevelEnabled(ERROR);
+    }
+
+    @Override
+    public final void error(final LoggerEvent loggerEvent) {
+        if (isLevelEnabled(ERROR)) {
+            log(ERROR, loggerEvent);
+        }
     }
 
     @Override
     public final void error(final String msg) {
-        if (isLevelEnabled(Level.ERROR)) {
-            log(Level.ERROR, msg);
+        if (isLevelEnabled(ERROR)) {
+            log(ERROR, msg);
         }
     }
 
     @Override
     public final void error(final String msg,
                             final Object arg1) {
-        if (isLevelEnabled(Level.ERROR)) {
+        if (isLevelEnabled(ERROR)) {
             final String finalMessage = getFinalMessage(msg, arg1);
-            log(Level.ERROR, finalMessage);
+            log(ERROR, finalMessage);
         }
     }
 
@@ -2499,9 +2550,9 @@ public abstract class AbstractLogger implements Logger {
     public final void error(final String msg,
                             final Object arg1,
                             final Object arg2) {
-        if (isLevelEnabled(Level.ERROR)) {
+        if (isLevelEnabled(ERROR)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2);
-            log(Level.ERROR, finalMessage);
+            log(ERROR, finalMessage);
         }
     }
 
@@ -2510,9 +2561,9 @@ public abstract class AbstractLogger implements Logger {
                             final Object arg1,
                             final Object arg2,
                             final Object arg3) {
-        if (isLevelEnabled(Level.ERROR)) {
+        if (isLevelEnabled(ERROR)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3);
-            log(Level.ERROR, finalMessage);
+            log(ERROR, finalMessage);
         }
     }
 
@@ -2522,9 +2573,9 @@ public abstract class AbstractLogger implements Logger {
                             final Object arg2,
                             final Object arg3,
                             final Object arg4) {
-        if (isLevelEnabled(Level.ERROR)) {
+        if (isLevelEnabled(ERROR)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4);
-            log(Level.ERROR, finalMessage);
+            log(ERROR, finalMessage);
         }
     }
 
@@ -2535,27 +2586,27 @@ public abstract class AbstractLogger implements Logger {
                             final Object arg3,
                             final Object arg4,
                             final Object arg5) {
-        if (isLevelEnabled(Level.ERROR)) {
+        if (isLevelEnabled(ERROR)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4, arg5);
-            log(Level.ERROR, finalMessage);
+            log(ERROR, finalMessage);
         }
     }
 
     @Override
     public final void error(final String msg,
                             final Object... arguments) {
-        if (isLevelEnabled(Level.ERROR)) {
+        if (isLevelEnabled(ERROR)) {
             final String finalMessage = getFinalMessage(msg, arguments);
-            log(Level.ERROR, finalMessage);
+            log(ERROR, finalMessage);
         }
     }
 
     @Override
     public final void error(final String msg,
                             final Supplier<?> arg1) {
-        if (isLevelEnabled(Level.ERROR)) {
+        if (isLevelEnabled(ERROR)) {
             final String finalMessage = getFinalMessage(msg, arg1);
-            log(Level.ERROR, finalMessage);
+            log(ERROR, finalMessage);
         }
     }
 
@@ -2563,9 +2614,9 @@ public abstract class AbstractLogger implements Logger {
     public final void error(final String msg,
                             final Supplier<?> arg1,
                             final Supplier<?> arg2) {
-        if (isLevelEnabled(Level.ERROR)) {
+        if (isLevelEnabled(ERROR)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2);
-            log(Level.ERROR, finalMessage);
+            log(ERROR, finalMessage);
         }
     }
 
@@ -2574,9 +2625,9 @@ public abstract class AbstractLogger implements Logger {
                             final Supplier<?> arg1,
                             final Supplier<?> arg2,
                             final Supplier<?> arg3) {
-        if (isLevelEnabled(Level.ERROR)) {
+        if (isLevelEnabled(ERROR)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3);
-            log(Level.ERROR, finalMessage);
+            log(ERROR, finalMessage);
         }
     }
 
@@ -2586,9 +2637,9 @@ public abstract class AbstractLogger implements Logger {
                             final Supplier<?> arg2,
                             final Supplier<?> arg3,
                             final Supplier<?> arg4) {
-        if (isLevelEnabled(Level.ERROR)) {
+        if (isLevelEnabled(ERROR)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4);
-            log(Level.ERROR, finalMessage);
+            log(ERROR, finalMessage);
         }
     }
 
@@ -2599,26 +2650,26 @@ public abstract class AbstractLogger implements Logger {
                             final Supplier<?> arg3,
                             final Supplier<?> arg4,
                             final Supplier<?> arg5) {
-        if (isLevelEnabled(Level.ERROR)) {
+        if (isLevelEnabled(ERROR)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4, arg5);
-            log(Level.ERROR, finalMessage);
+            log(ERROR, finalMessage);
         }
     }
 
     @Override
     public final void error(final String msg,
                             final Supplier<?>... suppliers) {
-        if (isLevelEnabled(Level.ERROR)) {
+        if (isLevelEnabled(ERROR)) {
             final String finalMessage = getFinalMessage(msg, suppliers);
-            log(Level.ERROR, finalMessage);
+            log(ERROR, finalMessage);
         }
     }
 
     @Override
     public final void error(final Throwable throwable,
                             final String msg) {
-        if (isLevelEnabled(Level.ERROR)) {
-            log(Level.ERROR, msg, throwable);
+        if (isLevelEnabled(ERROR)) {
+            log(ERROR, msg, throwable);
         }
     }
 
@@ -2626,9 +2677,9 @@ public abstract class AbstractLogger implements Logger {
     public final void error(final Throwable throwable,
                             final String msg,
                             final Object arg1) {
-        if (isLevelEnabled(Level.ERROR)) {
+        if (isLevelEnabled(ERROR)) {
             final String finalMessage = getFinalMessage(msg, arg1);
-            log(Level.ERROR, finalMessage, throwable);
+            log(ERROR, finalMessage, throwable);
         }
     }
 
@@ -2637,9 +2688,9 @@ public abstract class AbstractLogger implements Logger {
                             final String msg,
                             final Object arg1,
                             final Object arg2) {
-        if (isLevelEnabled(Level.ERROR)) {
+        if (isLevelEnabled(ERROR)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2);
-            log(Level.ERROR, finalMessage, throwable);
+            log(ERROR, finalMessage, throwable);
         }
     }
 
@@ -2649,9 +2700,9 @@ public abstract class AbstractLogger implements Logger {
                             final Object arg1,
                             final Object arg2,
                             final Object arg3) {
-        if (isLevelEnabled(Level.ERROR)) {
+        if (isLevelEnabled(ERROR)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3);
-            log(Level.ERROR, finalMessage, throwable);
+            log(ERROR, finalMessage, throwable);
         }
     }
 
@@ -2662,9 +2713,9 @@ public abstract class AbstractLogger implements Logger {
                             final Object arg2,
                             final Object arg3,
                             final Object arg4) {
-        if (isLevelEnabled(Level.ERROR)) {
+        if (isLevelEnabled(ERROR)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4);
-            log(Level.ERROR, finalMessage, throwable);
+            log(ERROR, finalMessage, throwable);
         }
     }
 
@@ -2676,9 +2727,9 @@ public abstract class AbstractLogger implements Logger {
                             final Object arg3,
                             final Object arg4,
                             final Object arg5) {
-        if (isLevelEnabled(Level.ERROR)) {
+        if (isLevelEnabled(ERROR)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4, arg5);
-            log(Level.ERROR, finalMessage, throwable);
+            log(ERROR, finalMessage, throwable);
         }
     }
 
@@ -2686,9 +2737,9 @@ public abstract class AbstractLogger implements Logger {
     public final void error(final Throwable throwable,
                             final String msg,
                             final Object... arguments) {
-        if (isLevelEnabled(Level.ERROR)) {
+        if (isLevelEnabled(ERROR)) {
             final String finalMessage = getFinalMessage(msg, arguments);
-            log(Level.ERROR, finalMessage, throwable);
+            log(ERROR, finalMessage, throwable);
         }
     }
 
@@ -2696,9 +2747,9 @@ public abstract class AbstractLogger implements Logger {
     public final void error(final Throwable throwable,
                             final String msg,
                             final Supplier<?> arg1) {
-        if (isLevelEnabled(Level.ERROR)) {
+        if (isLevelEnabled(ERROR)) {
             final String finalMessage = getFinalMessage(msg, arg1);
-            log(Level.ERROR, finalMessage, throwable);
+            log(ERROR, finalMessage, throwable);
         }
     }
 
@@ -2707,9 +2758,9 @@ public abstract class AbstractLogger implements Logger {
                             final String msg,
                             final Supplier<?> arg1,
                             final Supplier<?> arg2) {
-        if (isLevelEnabled(Level.ERROR)) {
+        if (isLevelEnabled(ERROR)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2);
-            log(Level.ERROR, finalMessage, throwable);
+            log(ERROR, finalMessage, throwable);
         }
     }
 
@@ -2719,9 +2770,9 @@ public abstract class AbstractLogger implements Logger {
                             final Supplier<?> arg1,
                             final Supplier<?> arg2,
                             final Supplier<?> arg3) {
-        if (isLevelEnabled(Level.ERROR)) {
+        if (isLevelEnabled(ERROR)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3);
-            log(Level.ERROR, finalMessage, throwable);
+            log(ERROR, finalMessage, throwable);
         }
     }
 
@@ -2732,9 +2783,9 @@ public abstract class AbstractLogger implements Logger {
                             final Supplier<?> arg2,
                             final Supplier<?> arg3,
                             final Supplier<?> arg4) {
-        if (isLevelEnabled(Level.ERROR)) {
+        if (isLevelEnabled(ERROR)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4);
-            log(Level.ERROR, finalMessage, throwable);
+            log(ERROR, finalMessage, throwable);
         }
     }
 
@@ -2746,9 +2797,9 @@ public abstract class AbstractLogger implements Logger {
                             final Supplier<?> arg3,
                             final Supplier<?> arg4,
                             final Supplier<?> arg5) {
-        if (isLevelEnabled(Level.ERROR)) {
+        if (isLevelEnabled(ERROR)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4, arg5);
-            log(Level.ERROR, finalMessage, throwable);
+            log(ERROR, finalMessage, throwable);
         }
     }
 
@@ -2756,17 +2807,17 @@ public abstract class AbstractLogger implements Logger {
     public final void error(final Throwable throwable,
                             final String msg,
                             final Supplier<?>... suppliers) {
-        if (isLevelEnabled(Level.ERROR)) {
+        if (isLevelEnabled(ERROR)) {
             final String finalMessage = getFinalMessage(msg, suppliers);
-            log(Level.ERROR, finalMessage, throwable);
+            log(ERROR, finalMessage, throwable);
         }
     }
 
     @Override
     public final void error(final RequestIdSupplier requestIdSupplier,
                             final String msg) {
-        if (isLevelEnabled(Level.ERROR)) {
-            log(requestIdSupplier, Level.ERROR, msg);
+        if (isLevelEnabled(ERROR)) {
+            log(requestIdSupplier, ERROR, msg);
         }
     }
 
@@ -2774,9 +2825,9 @@ public abstract class AbstractLogger implements Logger {
     public final void error(final RequestIdSupplier requestIdSupplier,
                             final String msg,
                             final Object arg1) {
-        if (isLevelEnabled(Level.ERROR)) {
+        if (isLevelEnabled(ERROR)) {
             final String finalMessage = getFinalMessage(msg, arg1);
-            log(requestIdSupplier, Level.ERROR, finalMessage);
+            log(requestIdSupplier, ERROR, finalMessage);
         }
     }
 
@@ -2785,9 +2836,9 @@ public abstract class AbstractLogger implements Logger {
                             final String msg,
                             final Object arg1,
                             final Object arg2) {
-        if (isLevelEnabled(Level.ERROR)) {
+        if (isLevelEnabled(ERROR)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2);
-            log(requestIdSupplier, Level.ERROR, finalMessage);
+            log(requestIdSupplier, ERROR, finalMessage);
         }
     }
 
@@ -2797,9 +2848,9 @@ public abstract class AbstractLogger implements Logger {
                             final Object arg1,
                             final Object arg2,
                             final Object arg3) {
-        if (isLevelEnabled(Level.ERROR)) {
+        if (isLevelEnabled(ERROR)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3);
-            log(requestIdSupplier, Level.ERROR, finalMessage);
+            log(requestIdSupplier, ERROR, finalMessage);
         }
     }
 
@@ -2810,9 +2861,9 @@ public abstract class AbstractLogger implements Logger {
                             final Object arg2,
                             final Object arg3,
                             final Object arg4) {
-        if (isLevelEnabled(Level.ERROR)) {
+        if (isLevelEnabled(ERROR)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4);
-            log(requestIdSupplier, Level.ERROR, finalMessage);
+            log(requestIdSupplier, ERROR, finalMessage);
         }
     }
 
@@ -2824,9 +2875,9 @@ public abstract class AbstractLogger implements Logger {
                             final Object arg3,
                             final Object arg4,
                             final Object arg5) {
-        if (isLevelEnabled(Level.ERROR)) {
+        if (isLevelEnabled(ERROR)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4, arg5);
-            log(requestIdSupplier, Level.ERROR, finalMessage);
+            log(requestIdSupplier, ERROR, finalMessage);
         }
     }
 
@@ -2834,9 +2885,9 @@ public abstract class AbstractLogger implements Logger {
     public final void error(final RequestIdSupplier requestIdSupplier,
                             final String msg,
                             final Object... arguments) {
-        if (isLevelEnabled(Level.ERROR)) {
+        if (isLevelEnabled(ERROR)) {
             final String finalMessage = getFinalMessage(msg, arguments);
-            log(requestIdSupplier, Level.ERROR, finalMessage);
+            log(requestIdSupplier, ERROR, finalMessage);
         }
     }
 
@@ -2844,9 +2895,9 @@ public abstract class AbstractLogger implements Logger {
     public final void error(final RequestIdSupplier requestIdSupplier,
                             final String msg,
                             final Supplier<?> arg1) {
-        if (isLevelEnabled(Level.ERROR)) {
+        if (isLevelEnabled(ERROR)) {
             final String finalMessage = getFinalMessage(msg, arg1);
-            log(requestIdSupplier, Level.ERROR, finalMessage);
+            log(requestIdSupplier, ERROR, finalMessage);
         }
     }
 
@@ -2855,9 +2906,9 @@ public abstract class AbstractLogger implements Logger {
                             final String msg,
                             final Supplier<?> arg1,
                             final Supplier<?> arg2) {
-        if (isLevelEnabled(Level.ERROR)) {
+        if (isLevelEnabled(ERROR)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2);
-            log(requestIdSupplier, Level.ERROR, finalMessage);
+            log(requestIdSupplier, ERROR, finalMessage);
         }
     }
 
@@ -2867,9 +2918,9 @@ public abstract class AbstractLogger implements Logger {
                             final Supplier<?> arg1,
                             final Supplier<?> arg2,
                             final Supplier<?> arg3) {
-        if (isLevelEnabled(Level.ERROR)) {
+        if (isLevelEnabled(ERROR)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3);
-            log(requestIdSupplier, Level.ERROR, finalMessage);
+            log(requestIdSupplier, ERROR, finalMessage);
         }
     }
 
@@ -2880,9 +2931,9 @@ public abstract class AbstractLogger implements Logger {
                             final Supplier<?> arg2,
                             final Supplier<?> arg3,
                             final Supplier<?> arg4) {
-        if (isLevelEnabled(Level.ERROR)) {
+        if (isLevelEnabled(ERROR)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4);
-            log(requestIdSupplier, Level.ERROR, finalMessage);
+            log(requestIdSupplier, ERROR, finalMessage);
         }
     }
 
@@ -2894,9 +2945,9 @@ public abstract class AbstractLogger implements Logger {
                             final Supplier<?> arg3,
                             final Supplier<?> arg4,
                             final Supplier<?> arg5) {
-        if (isLevelEnabled(Level.ERROR)) {
+        if (isLevelEnabled(ERROR)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4, arg5);
-            log(requestIdSupplier, Level.ERROR, finalMessage);
+            log(requestIdSupplier, ERROR, finalMessage);
         }
     }
 
@@ -2904,9 +2955,9 @@ public abstract class AbstractLogger implements Logger {
     public final void error(final RequestIdSupplier requestIdSupplier,
                             final String msg,
                             final Supplier<?>... suppliers) {
-        if (isLevelEnabled(Level.ERROR)) {
+        if (isLevelEnabled(ERROR)) {
             final String finalMessage = getFinalMessage(msg, suppliers);
-            log(requestIdSupplier, Level.ERROR, finalMessage);
+            log(requestIdSupplier, ERROR, finalMessage);
         }
     }
 
@@ -2914,8 +2965,8 @@ public abstract class AbstractLogger implements Logger {
     public final void error(final RequestIdSupplier requestIdSupplier,
                             final Throwable throwable,
                             final String msg) {
-        if (isLevelEnabled(Level.ERROR)) {
-            log(requestIdSupplier, Level.ERROR, msg, throwable);
+        if (isLevelEnabled(ERROR)) {
+            log(requestIdSupplier, ERROR, msg, throwable);
         }
     }
 
@@ -2924,9 +2975,9 @@ public abstract class AbstractLogger implements Logger {
                             final Throwable throwable,
                             final String msg,
                             final Object arg1) {
-        if (isLevelEnabled(Level.ERROR)) {
+        if (isLevelEnabled(ERROR)) {
             final String finalMessage = getFinalMessage(msg, arg1);
-            log(requestIdSupplier, Level.ERROR, finalMessage, throwable);
+            log(requestIdSupplier, ERROR, finalMessage, throwable);
         }
     }
 
@@ -2936,9 +2987,9 @@ public abstract class AbstractLogger implements Logger {
                             final String msg,
                             final Object arg1,
                             final Object arg2) {
-        if (isLevelEnabled(Level.ERROR)) {
+        if (isLevelEnabled(ERROR)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2);
-            log(requestIdSupplier, Level.ERROR, finalMessage, throwable);
+            log(requestIdSupplier, ERROR, finalMessage, throwable);
         }
     }
 
@@ -2949,9 +3000,9 @@ public abstract class AbstractLogger implements Logger {
                             final Object arg1,
                             final Object arg2,
                             final Object arg3) {
-        if (isLevelEnabled(Level.ERROR)) {
+        if (isLevelEnabled(ERROR)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3);
-            log(requestIdSupplier, Level.ERROR, finalMessage, throwable);
+            log(requestIdSupplier, ERROR, finalMessage, throwable);
         }
     }
 
@@ -2963,9 +3014,9 @@ public abstract class AbstractLogger implements Logger {
                             final Object arg2,
                             final Object arg3,
                             final Object arg4) {
-        if (isLevelEnabled(Level.ERROR)) {
+        if (isLevelEnabled(ERROR)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4);
-            log(requestIdSupplier, Level.ERROR, finalMessage, throwable);
+            log(requestIdSupplier, ERROR, finalMessage, throwable);
         }
     }
 
@@ -2978,9 +3029,9 @@ public abstract class AbstractLogger implements Logger {
                             final Object arg3,
                             final Object arg4,
                             final Object arg5) {
-        if (isLevelEnabled(Level.ERROR)) {
+        if (isLevelEnabled(ERROR)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4, arg5);
-            log(requestIdSupplier, Level.ERROR, finalMessage, throwable);
+            log(requestIdSupplier, ERROR, finalMessage, throwable);
         }
     }
 
@@ -2989,9 +3040,9 @@ public abstract class AbstractLogger implements Logger {
                             final Throwable throwable,
                             final String msg,
                             final Object... arguments) {
-        if (isLevelEnabled(Level.ERROR)) {
+        if (isLevelEnabled(ERROR)) {
             final String finalMessage = getFinalMessage(msg, arguments);
-            log(requestIdSupplier, Level.ERROR, finalMessage, throwable);
+            log(requestIdSupplier, ERROR, finalMessage, throwable);
         }
     }
 
@@ -3000,9 +3051,9 @@ public abstract class AbstractLogger implements Logger {
                             final Throwable throwable,
                             final String msg,
                             final Supplier<?> arg1) {
-        if (isLevelEnabled(Level.ERROR)) {
+        if (isLevelEnabled(ERROR)) {
             final String finalMessage = getFinalMessage(msg, arg1);
-            log(requestIdSupplier, Level.ERROR, finalMessage, throwable);
+            log(requestIdSupplier, ERROR, finalMessage, throwable);
         }
     }
 
@@ -3012,9 +3063,9 @@ public abstract class AbstractLogger implements Logger {
                             final String msg,
                             final Supplier<?> arg1,
                             final Supplier<?> arg2) {
-        if (isLevelEnabled(Level.ERROR)) {
+        if (isLevelEnabled(ERROR)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2);
-            log(requestIdSupplier, Level.ERROR, finalMessage, throwable);
+            log(requestIdSupplier, ERROR, finalMessage, throwable);
         }
     }
 
@@ -3025,9 +3076,9 @@ public abstract class AbstractLogger implements Logger {
                             final Supplier<?> arg1,
                             final Supplier<?> arg2,
                             final Supplier<?> arg3) {
-        if (isLevelEnabled(Level.ERROR)) {
+        if (isLevelEnabled(ERROR)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3);
-            log(requestIdSupplier, Level.ERROR, finalMessage, throwable);
+            log(requestIdSupplier, ERROR, finalMessage, throwable);
         }
     }
 
@@ -3039,9 +3090,9 @@ public abstract class AbstractLogger implements Logger {
                             final Supplier<?> arg2,
                             final Supplier<?> arg3,
                             final Supplier<?> arg4) {
-        if (isLevelEnabled(Level.ERROR)) {
+        if (isLevelEnabled(ERROR)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4);
-            log(requestIdSupplier, Level.ERROR, finalMessage, throwable);
+            log(requestIdSupplier, ERROR, finalMessage, throwable);
         }
     }
 
@@ -3054,9 +3105,9 @@ public abstract class AbstractLogger implements Logger {
                             final Supplier<?> arg3,
                             final Supplier<?> arg4,
                             final Supplier<?> arg5) {
-        if (isLevelEnabled(Level.ERROR)) {
+        if (isLevelEnabled(ERROR)) {
             final String finalMessage = getFinalMessage(msg, arg1, arg2, arg3, arg4, arg5);
-            log(requestIdSupplier, Level.ERROR, finalMessage, throwable);
+            log(requestIdSupplier, ERROR, finalMessage, throwable);
         }
     }
 
@@ -3065,9 +3116,9 @@ public abstract class AbstractLogger implements Logger {
                             final Throwable throwable,
                             final String msg,
                             final Supplier<?>... suppliers) {
-        if (isLevelEnabled(Level.ERROR)) {
+        if (isLevelEnabled(ERROR)) {
             final String finalMessage = getFinalMessage(msg, suppliers);
-            log(requestIdSupplier, Level.ERROR, finalMessage, throwable);
+            log(requestIdSupplier, ERROR, finalMessage, throwable);
         }
     }
 

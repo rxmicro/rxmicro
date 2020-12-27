@@ -17,13 +17,16 @@
 package io.rxmicro.logger.impl;
 
 import io.rxmicro.logger.Logger;
+import io.rxmicro.logger.LoggerEvent;
+import io.rxmicro.logger.LoggerEventBuilder;
+import io.rxmicro.logger.LoggerFactory;
 
 /**
  * Basic interface for the all supported {@link Logger} implementations.
  *
  * @author nedis
  * @see Logger
- * @see io.rxmicro.logger.LoggerFactory
+ * @see LoggerFactory
  * @since 0.1
  */
 public interface LoggerImplProvider {
@@ -52,4 +55,21 @@ public interface LoggerImplProvider {
     default Logger getLogger(final Class<?> clazz) {
         return getLogger(clazz.getName());
     }
+
+    /**
+     * Returns a new instance of {@link LoggerEventBuilder}.
+     *
+     * <p>
+     * An instance of {@link LoggerEventBuilder} is useful to build logger event with custom data.
+     *
+     * @return a new instance of {@link LoggerEventBuilder}.
+     * @see LoggerEventBuilder
+     * @see LoggerEvent
+     * @see Logger#trace(LoggerEvent)
+     * @see Logger#debug(LoggerEvent)
+     * @see Logger#info(LoggerEvent)
+     * @see Logger#warn(LoggerEvent)
+     * @see Logger#error(LoggerEvent)
+     */
+    LoggerEventBuilder newLoggerEventBuilder();
 }

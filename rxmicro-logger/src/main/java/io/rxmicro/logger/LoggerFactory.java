@@ -60,6 +60,25 @@ public final class LoggerFactory {
         return LOGGER_IMPL_PROVIDER.getLogger(name);
     }
 
+    /**
+     * Returns a new instance of {@link LoggerEventBuilder}.
+     *
+     * <p>
+     * An instance of {@link LoggerEventBuilder} is useful to build logger event with custom data.
+     *
+     * @return a new instance of {@link LoggerEventBuilder}.
+     * @see LoggerEventBuilder
+     * @see LoggerEvent
+     * @see Logger#trace(LoggerEvent)
+     * @see Logger#debug(LoggerEvent)
+     * @see Logger#info(LoggerEvent)
+     * @see Logger#warn(LoggerEvent)
+     * @see Logger#error(LoggerEvent)
+     */
+    public static LoggerEventBuilder newLoggerEventBuilder() {
+        return LOGGER_IMPL_PROVIDER.newLoggerEventBuilder();
+    }
+
     private LoggerFactory() {
     }
 }

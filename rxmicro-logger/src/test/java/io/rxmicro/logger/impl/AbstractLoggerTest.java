@@ -18,6 +18,7 @@ package io.rxmicro.logger.impl;
 
 import io.rxmicro.logger.Level;
 import io.rxmicro.logger.Logger;
+import io.rxmicro.logger.LoggerEvent;
 import io.rxmicro.logger.RequestIdSupplier;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
@@ -72,6 +73,12 @@ final class AbstractLoggerTest {
         @Override
         protected boolean isLevelEnabled(final Level level) {
             return levelEnabled.get();
+        }
+
+        @Override
+        protected void log(final Level level,
+                           final LoggerEvent loggerEvent) {
+
         }
 
         @Override

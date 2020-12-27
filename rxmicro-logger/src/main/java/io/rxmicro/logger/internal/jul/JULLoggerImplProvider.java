@@ -17,6 +17,7 @@
 package io.rxmicro.logger.internal.jul;
 
 import io.rxmicro.logger.Logger;
+import io.rxmicro.logger.LoggerEventBuilder;
 import io.rxmicro.logger.impl.LoggerImplProvider;
 import io.rxmicro.logger.internal.jul.config.LoggerConfigBuilder;
 
@@ -80,6 +81,11 @@ public final class JULLoggerImplProvider implements LoggerImplProvider {
     @Override
     public Logger getLogger(final String name) {
         return loggerCache.computeIfAbsent(name, JULLogger::new);
+    }
+
+    @Override
+    public LoggerEventBuilder newLoggerEventBuilder() {
+        return new JULLoggerEvent.Builder();
     }
 
     // Simplest version without Unicode and special characters support

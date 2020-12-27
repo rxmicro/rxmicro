@@ -17,6 +17,8 @@
 package io.rxmicro.rest.server.internal;
 
 import io.rxmicro.logger.Logger;
+import io.rxmicro.logger.LoggerEvent;
+import io.rxmicro.logger.LoggerEventBuilder;
 import io.rxmicro.logger.RequestIdSupplier;
 import io.rxmicro.logger.impl.LoggerImplProvider;
 import io.rxmicro.rest.model.PathVariableMapping;
@@ -102,6 +104,11 @@ abstract class AbstractBaseRestControllerMethodTest {
         public Logger getLogger(final String name) {
             return logger;
         }
+
+        @Override
+        public LoggerEventBuilder newLoggerEventBuilder() {
+            return null;
+        }
     }
 
     /**
@@ -125,6 +132,11 @@ abstract class AbstractBaseRestControllerMethodTest {
         @Override
         public boolean isTraceEnabled() {
             return logger.isTraceEnabled();
+        }
+
+        @Override
+        public void trace(final LoggerEvent loggerEvent) {
+            logger.trace(loggerEvent);
         }
 
         @Override
@@ -420,6 +432,11 @@ abstract class AbstractBaseRestControllerMethodTest {
         }
 
         @Override
+        public void debug(final LoggerEvent loggerEvent) {
+            logger.debug(loggerEvent);
+        }
+
+        @Override
         public void debug(final String msg) {
             logger.debug(msg);
         }
@@ -707,6 +724,11 @@ abstract class AbstractBaseRestControllerMethodTest {
         @Override
         public boolean isInfoEnabled() {
             return logger.isInfoEnabled();
+        }
+
+        @Override
+        public void info(final LoggerEvent loggerEvent) {
+            logger.info(loggerEvent);
         }
 
         @Override
@@ -1001,6 +1023,11 @@ abstract class AbstractBaseRestControllerMethodTest {
         }
 
         @Override
+        public void warn(final LoggerEvent loggerEvent) {
+            logger.warn(loggerEvent);
+        }
+
+        @Override
         public void warn(final String msg) {
             logger.warn(msg);
         }
@@ -1290,6 +1317,11 @@ abstract class AbstractBaseRestControllerMethodTest {
         @Override
         public boolean isErrorEnabled() {
             return logger.isErrorEnabled();
+        }
+
+        @Override
+        public void error(final LoggerEvent loggerEvent) {
+            logger.error(loggerEvent);
         }
 
         @Override
