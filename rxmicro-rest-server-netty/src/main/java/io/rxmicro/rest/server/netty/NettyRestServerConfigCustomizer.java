@@ -22,13 +22,14 @@ import static io.rxmicro.rest.server.netty.internal.component.NettyConfiguratorC
  * Allows configuring the application specific configs for netty HTTP server.
  *
  * <ul>
- *     <li>{@link NettyRestServerConfig} must be used for environment specific configs.</li>
+ *     <li>{@link io.rxmicro.netty.runtime.NettyRuntimeConfig} must be used for environment specific configs.</li>
  *     <li>{@link NettyRestServerConfigCustomizer} must be used for application specific configs.</li>
  * </ul>
  *
  * @author nedis
- * @see NettyRestServerConfig
  * @see NettyConfiguratorBuilder
+ * @see io.rxmicro.netty.runtime.NettyRuntimeConfig
+ * @see NettyRestServerConfig
  * @since 0.7.2
  */
 public final class NettyRestServerConfigCustomizer {

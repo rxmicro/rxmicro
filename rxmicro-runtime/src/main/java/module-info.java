@@ -66,6 +66,7 @@ module rxmicro.runtime {
             rxmicro.rest.server,
             rxmicro.rest.server.netty,
             rxmicro.validation,
+            rxmicro.netty.runtime,
             rxmicro.test,
             rxmicro.test.junit,
             rxmicro.annotation.processor;

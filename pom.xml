@@ -98,6 +98,7 @@
         <module>rxmicro-files</module>
         <module>rxmicro-monitoring</module>
 
+        <module>rxmicro-netty-runtime</module>
         <module>rxmicro-netty-native</module>
         <module>rxmicro-netty-native-linux</module>
         <module>rxmicro-netty-native-osx</module>

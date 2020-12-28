@@ -18,6 +18,7 @@ package io.rxmicro.data.mongo.internal;
 
 import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
+import com.mongodb.connection.netty.NettyStreamFactoryFactory;
 import com.mongodb.reactivestreams.client.MongoClient;
 import io.rxmicro.data.mongo.MongoCodecsConfigurator;
 import io.rxmicro.data.mongo.MongoConfig;
@@ -28,6 +29,7 @@ import io.rxmicro.runtime.AutoRelease;
 import static com.mongodb.reactivestreams.client.MongoClients.create;
 import static io.rxmicro.common.util.Requires.require;
 import static io.rxmicro.config.Configs.getConfig;
+import static io.rxmicro.netty.runtime.local.EventLoopGroupFactory.getEventLoopGroupFactory;
 import static io.rxmicro.runtime.local.InstanceContainer.registerAutoRelease;
 
 /**
@@ -35,6 +37,8 @@ import static io.rxmicro.runtime.local.InstanceContainer.registerAutoRelease;
  * @since 0.1
  */
 public final class MongoClientBuilder {
+
+    private static final String MONGO_THREAD_NAME_QUALIFIER = "mongo";
 
     private static final MongoClientBuilder INSTANCE = new MongoClientBuilder();
 
@@ -68,7 +72,7 @@ public final class MongoClientBuilder {
 
     private MongoClient build(final MongoConfig mongoConfig) {
         final String connectionString = mongoConfig.getConnectionString();
-        final MongoClientSettings settings = getMongoClientSettingsBuilder()
+        final MongoClientSettings mongoClientSettings = getMongoClientSettingsBuilder()
                 .applyConnectionString(new ConnectionString(connectionString))
                 .codecRegistry(
                         new RxMicroMongoCodecRegistry(
@@ -76,8 +80,13 @@ public final class MongoClientBuilder {
                                         .withDefaultConfigurationIfNotConfigured()
                         )
                 )
+                .streamFactoryFactory(NettyStreamFactoryFactory.builder()
+                        .socketChannelClass(getEventLoopGroupFactory().getSocketChannelClass())
+                        .eventLoopGroup(getEventLoopGroupFactory().getRequiredWorkerEventLoopGroup(MONGO_THREAD_NAME_QUALIFIER))
+                        .build()
+                )
                 .build();
-        final MongoClient mongoClient = create(settings);
+        final MongoClient mongoClient = create(mongoClientSettings);
         mongoDBClient = new MongoDBClient(this, mongoConfig, connectionString, mongoClient);
         return mongoClient;
     }

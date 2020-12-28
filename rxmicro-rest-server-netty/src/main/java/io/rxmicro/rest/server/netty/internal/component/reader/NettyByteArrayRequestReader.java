@@ -20,9 +20,9 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.http.FullHttpRequest;
 import io.rxmicro.config.Secrets;
 import io.rxmicro.logger.Logger;
+import io.rxmicro.netty.runtime.NettyRuntimeConfig;
 import io.rxmicro.rest.server.RestServerConfig;
 import io.rxmicro.rest.server.feature.RequestIdGenerator;
-import io.rxmicro.rest.server.netty.NettyRestServerConfig;
 import io.rxmicro.rest.server.netty.internal.model.NettyHttpRequest;
 
 import static io.rxmicro.common.util.Formats.format;
@@ -46,14 +46,14 @@ public final class NettyByteArrayRequestReader {
 
     private final Secrets secrets;
 
-    private final NettyRestServerConfig nettyRestServerConfig;
+    private final NettyRuntimeConfig nettyRuntimeConfig;
 
     private final RestServerConfig restServerConfig;
 
     public NettyByteArrayRequestReader(final Logger logger) {
         this.logger = logger;
         this.secrets = Secrets.getDefaultInstance();
-        this.nettyRestServerConfig = getConfig(NettyRestServerConfig.class);
+        this.nettyRuntimeConfig = getConfig(NettyRuntimeConfig.class);
         this.restServerConfig = getConfig(RestServerConfig.class);
         this.requestIdGenerator = this.restServerConfig.getRequestIdGenerator();
     }
@@ -90,7 +90,7 @@ public final class NettyByteArrayRequestReader {
         logger.trace(
                 request,
                 "HTTP request:  (Channel=?, IP=?):\n? ?\n?\n\n?",
-                nettyRestServerConfig.getChannelIdType().getId(ctx.channel().id()),
+                nettyRuntimeConfig.getChannelIdType().getId(ctx.channel().id()),
                 ctx.channel().remoteAddress(),
                 format("? ??",
                         request.getMethod(),
@@ -115,7 +115,7 @@ public final class NettyByteArrayRequestReader {
         logger.debug(
                 request,
                 "HTTP request:  Channel=?, IP=?, Request=?",
-                nettyRestServerConfig.getChannelIdType().getId(ctx.channel().id()),
+                nettyRuntimeConfig.getChannelIdType().getId(ctx.channel().id()),
                 ctx.channel().remoteAddress(),
                 format("? ??",
                         request.getMethod(),

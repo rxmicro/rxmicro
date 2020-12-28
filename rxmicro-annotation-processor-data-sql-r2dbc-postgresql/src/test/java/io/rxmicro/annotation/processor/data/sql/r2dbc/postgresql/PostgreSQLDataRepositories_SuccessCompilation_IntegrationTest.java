@@ -30,6 +30,9 @@ import org.junit.jupiter.params.provider.ArgumentsSource;
 import java.io.IOException;
 import javax.annotation.processing.Processor;
 
+import static io.rxmicro.annotation.processor.integration.test.ExternalModule.EXTERNAL_NETTY_BUFFER_MODULE;
+import static io.rxmicro.annotation.processor.integration.test.ExternalModule.EXTERNAL_NETTY_COMMON_MODULE;
+import static io.rxmicro.annotation.processor.integration.test.ExternalModule.EXTERNAL_NETTY_TRANSPORT_MODULE;
 import static io.rxmicro.annotation.processor.integration.test.ExternalModule.EXTERNAL_R2DBC_POOL_MODULE;
 import static io.rxmicro.annotation.processor.integration.test.ExternalModule.EXTERNAL_R2DBC_POSTGRESQL_MODULE;
 import static io.rxmicro.annotation.processor.integration.test.ExternalModule.EXTERNAL_R2DBC_SPI_MODULE;
@@ -65,6 +68,10 @@ final class PostgreSQLDataRepositories_SuccessCompilation_IntegrationTest extend
         addExternalModule(EXTERNAL_REACTIVE_STREAMS_MODULE);
         addExternalModule(EXTERNAL_REACTOR_CORE_MODULE);
         addExternalModule(EXTERNAL_RX_JAVA_3_MODULE);
+
+        addExternalModule(EXTERNAL_NETTY_COMMON_MODULE);
+        addExternalModule(EXTERNAL_NETTY_BUFFER_MODULE);
+        addExternalModule(EXTERNAL_NETTY_TRANSPORT_MODULE);
     }
 
     @Order(1)

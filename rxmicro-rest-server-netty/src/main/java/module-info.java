@@ -55,6 +55,7 @@ import io.rxmicro.rest.server.netty.internal.component.NettyServerFactory;
 @SuppressWarnings("JavaRequiresAutoModule")
 module rxmicro.rest.server.netty {
     requires transitive rxmicro.rest.server;
+    requires transitive rxmicro.netty.runtime;
 
     requires transitive io.netty.transport;
     requires transitive io.netty.buffer;

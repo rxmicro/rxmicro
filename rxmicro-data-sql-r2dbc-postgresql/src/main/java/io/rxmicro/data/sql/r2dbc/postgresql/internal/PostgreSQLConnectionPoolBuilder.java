@@ -36,6 +36,7 @@ import java.util.function.Function;
 
 import static io.rxmicro.common.util.Requires.require;
 import static io.rxmicro.config.Configs.getConfig;
+import static io.rxmicro.netty.runtime.local.EventLoopGroupFactory.getEventLoopGroupFactory;
 import static io.rxmicro.runtime.local.InstanceContainer.registerAutoRelease;
 
 /**
@@ -48,6 +49,8 @@ import static io.rxmicro.runtime.local.InstanceContainer.registerAutoRelease;
  * @since 0.1
  */
 public final class PostgreSQLConnectionPoolBuilder {
+
+    private static final String POSTGRE_SQL_THREAD_NAME_QUALIFIER = "postgre-sql";
 
     private static final PostgreSQLConnectionPoolBuilder INSTANCE = new PostgreSQLConnectionPoolBuilder();
 
@@ -95,7 +98,10 @@ public final class PostgreSQLConnectionPoolBuilder {
                 .username(postgreSQLConfig.getUser())
                 .password(postgreSQLConfig.getPassword())
                 .database(postgreSQLConfig.getDatabase())
-                .connectTimeout(postgreSQLConfig.getConnectTimeout());
+                .connectTimeout(postgreSQLConfig.getConnectTimeout())
+                .loopResources(new RxMicroLoopResources(
+                        getEventLoopGroupFactory().getRequiredWorkerEventLoopGroup(POSTGRE_SQL_THREAD_NAME_QUALIFIER)
+                ));
         codecRegistrars.forEach(builder::codecRegistrar);
         postgreSQLConfig.getOptions().ifPresent(builder::options);
         return new PostgresqlConnectionFactory(builder.build());

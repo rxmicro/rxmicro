@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package io.rxmicro.rest.server.netty;
+package io.rxmicro.netty.runtime;
 
 import io.netty.channel.ChannelId;
 
@@ -22,7 +22,7 @@ import io.netty.channel.ChannelId;
  * Predefined netty channel id.
  *
  * @author nedis
- * @since 0.7
+ * @since 0.8
  */
 public enum PredefinedNettyChannelIdType implements NettyChannelIdType {
 

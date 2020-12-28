@@ -31,6 +31,7 @@ import io.rxmicro.test.local.component.injector.UserCreatedComponentInjector;
 import io.rxmicro.test.local.component.validator.ComponentTestValidator;
 import io.rxmicro.test.local.model.TestModel;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.extension.AfterAllCallback;
 import org.junit.jupiter.api.extension.AfterEachCallback;
 import org.junit.jupiter.api.extension.BeforeAllCallback;
 import org.junit.jupiter.api.extension.BeforeEachCallback;
@@ -41,6 +42,7 @@ import java.lang.reflect.InaccessibleObjectException;
 import java.util.List;
 
 import static io.rxmicro.config.local.DefaultConfigValueBuilderReSetter.resetDefaultConfigValueStorage;
+import static io.rxmicro.netty.runtime.local.EventLoopGroupFactory.clearEventLoopGroupFactory;
 import static io.rxmicro.runtime.local.AbstractFactory.clearFactories;
 import static io.rxmicro.runtime.local.InstanceContainer.clearContainer;
 import static io.rxmicro.test.junit.local.TestObjects.getTestInstances;
@@ -56,7 +58,7 @@ import static io.rxmicro.test.local.util.TestExceptions.reThrowInaccessibleObjec
  * @link https://junit.org/junit5/docs/current/user-guide/#extensions-execution-order-overview
  */
 public final class RxMicroComponentTestExtension extends AbstractJUnitTestExtension
-        implements BeforeAllCallback, BeforeEachCallback, BeforeTestExecutionCallback, AfterEachCallback {
+        implements BeforeAllCallback, BeforeEachCallback, BeforeTestExecutionCallback, AfterEachCallback, AfterAllCallback {
 
     static {
         componentTestsFix();
@@ -146,5 +148,10 @@ public final class RxMicroComponentTestExtension extends AbstractJUnitTestExtens
         resetDefaultConfigValueStorage();
         resetServerConfigurationIfPossible();
         systemStreamInjector.resetIfNecessary();
+    }
+
+    @Override
+    public void afterAll(final ExtensionContext context) {
+        clearEventLoopGroupFactory();
     }
 }

@@ -47,6 +47,7 @@
 @SuppressWarnings("JavaRequiresAutoModule")
 module rxmicro.data.mongo {
     requires transitive rxmicro.data;
+    requires transitive rxmicro.netty.runtime;
 
     requires transitive org.mongodb.bson;
     requires transitive org.mongodb.driver.reactivestreams;

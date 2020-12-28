@@ -20,6 +20,7 @@ import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelOption;
 import io.netty.handler.codec.http.HttpObjectAggregator;
 import io.netty.handler.codec.http.HttpServerCodec;
+import io.rxmicro.rest.server.netty.NettyRestServerConfig;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -27,6 +28,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
 
+import static io.rxmicro.config.Configs.getConfig;
+import static io.rxmicro.rest.server.netty.NettyRestServerConfig.DEFAULT_BACKLOG_SIZE;
 import static java.util.Map.entry;
 
 /**
@@ -34,16 +37,6 @@ import static java.util.Map.entry;
  * @since 0.7.2
  */
 public class InternalNettyConfiguratorBuilder {
-
-    /**
-     * Default backlog size.
-     */
-    public static final int DEFAULT_BACKLOG_SIZE = 128;
-
-    /**
-     * Default aggregator content length in bytes.
-     */
-    public static final int DEFAULT_AGGREGATOR_CONTENT_LENGTH_IN_BYTES = 64 * 1024;
 
     /**
      * The channel handler name for {@link SharableNettyRequestHandler}.
@@ -66,7 +59,27 @@ public class InternalNettyConfiguratorBuilder {
      * Handler suppliers.
      */
     protected final List<Map.Entry<String, Supplier<ChannelHandler>>> handlerSuppliers = new ArrayList<>(List.of(
-            entry("HttpServerCodec", HttpServerCodec::new),
-            entry("HttpObjectAggregator", () -> new HttpObjectAggregator(DEFAULT_AGGREGATOR_CONTENT_LENGTH_IN_BYTES, true))
+            entry("HttpServerCodec", this::createHttpServerCodec),
+            entry("HttpObjectAggregator", this::createHttpObjectAggregator)
     ));
+
+    private HttpServerCodec createHttpServerCodec() {
+        final NettyRestServerConfig config = getConfig(NettyRestServerConfig.class);
+        return new HttpServerCodec(
+                config.getMaxHttpRequestInitialLineLength(),
+                config.getMaxHttpRequestHeaderSize(),
+                config.getMaxHttpRequestChunkSize(),
+                config.isValidateHttpRequestHeaders(),
+                config.getInitialHttpRequestBufferSize(),
+                config.isAllowDuplicateHttpRequestContentLengths()
+        );
+    }
+
+    private HttpObjectAggregator createHttpObjectAggregator() {
+        final NettyRestServerConfig config = getConfig(NettyRestServerConfig.class);
+        return new HttpObjectAggregator(
+                config.getMaxHttpRequestContentLength(),
+                config.isCloseOnHttpRequestContentExpectationFailed()
+        );
+    }
 }

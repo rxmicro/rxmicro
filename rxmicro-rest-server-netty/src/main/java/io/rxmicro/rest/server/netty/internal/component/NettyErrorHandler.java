@@ -18,10 +18,10 @@ package io.rxmicro.rest.server.netty.internal.component;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.http.HttpResponseStatus;
+import io.rxmicro.netty.runtime.NettyRuntimeConfig;
 import io.rxmicro.rest.server.detail.component.HttpResponseBuilder;
 import io.rxmicro.rest.server.feature.ErrorHandler;
 import io.rxmicro.rest.server.local.component.HttpErrorResponseBodyBuilder;
-import io.rxmicro.rest.server.netty.NettyRestServerConfig;
 import io.rxmicro.rest.server.netty.internal.model.NettyHttpResponse;
 
 import static io.rxmicro.config.Configs.getConfig;
@@ -36,13 +36,13 @@ public final class NettyErrorHandler extends ErrorHandler {
 
     private final HttpErrorResponseBodyBuilder responseContentBuilder;
 
-    private final NettyRestServerConfig nettyRestServerConfig;
+    private final NettyRuntimeConfig nettyRuntimeConfig;
 
     NettyErrorHandler(final HttpResponseBuilder responseBuilder,
                       final HttpErrorResponseBodyBuilder responseContentBuilder) {
         this.responseBuilder = responseBuilder;
         this.responseContentBuilder = responseContentBuilder;
-        this.nettyRestServerConfig = getConfig(NettyRestServerConfig.class);
+        this.nettyRuntimeConfig = getConfig(NettyRuntimeConfig.class);
     }
 
     public NettyHttpResponse build(final ChannelHandlerContext ctx,
@@ -71,7 +71,7 @@ public final class NettyErrorHandler extends ErrorHandler {
                 cause,
                 messageTemplate,
                 cause.getMessage(),
-                nettyRestServerConfig.getChannelIdType().getId(ctx.channel().id()),
+                nettyRuntimeConfig.getChannelIdType().getId(ctx.channel().id()),
                 ctx.channel().remoteAddress()
         );
     }

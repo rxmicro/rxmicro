@@ -65,6 +65,11 @@
             <version>0.8-SNAPSHOT</version>
         </dependency>
         <dependency>
+            <groupId>io.rxmicro</groupId>
+            <artifactId>rxmicro-netty-runtime</artifactId>
+            <version>0.8-SNAPSHOT</version>
+        </dependency>
+        <dependency>
             <groupId>org.mongodb</groupId>
             <artifactId>mongodb-driver-reactivestreams</artifactId>
             <version>${external.lib.mongodb-driver-reactivestreams.version}</version>
@@ -78,11 +83,6 @@
             <groupId>org.mongodb</groupId>
             <artifactId>bson</artifactId>
             <version>${external.lib.bson.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.netty</groupId>
-            <artifactId>netty-transport</artifactId>
-            <version>${netty.version}</version>
         </dependency>
         <dependency>
             <groupId>io.rxmicro</groupId>

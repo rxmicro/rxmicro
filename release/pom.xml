@@ -159,11 +159,16 @@
             <version>0.8-SNAPSHOT</version>
         </dependency>
 
-        <!--            runtime modules                 -->
+        <!--            common modules                 -->
 
         <dependency>
             <groupId>io.rxmicro</groupId>
             <artifactId>rxmicro-common</artifactId>
+            <version>0.8-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>io.rxmicro</groupId>
+            <artifactId>rxmicro-tool-common</artifactId>
             <version>0.8-SNAPSHOT</version>
         </dependency>
         <dependency>
@@ -173,9 +178,56 @@
         </dependency>
         <dependency>
             <groupId>io.rxmicro</groupId>
+            <artifactId>rxmicro-model</artifactId>
+            <version>0.8-SNAPSHOT</version>
+        </dependency>
+
+        <!--            runtime modules                 -->
+
+
+        <dependency>
+            <groupId>io.rxmicro</groupId>
             <artifactId>rxmicro-config</artifactId>
             <version>0.8-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>io.rxmicro</groupId>
+            <artifactId>rxmicro-files</artifactId>
+            <version>0.8-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>io.rxmicro</groupId>
+            <artifactId>rxmicro-logger</artifactId>
+            <version>0.8-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>io.rxmicro</groupId>
+            <artifactId>rxmicro-json</artifactId>
+            <version>0.8-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>io.rxmicro</groupId>
+            <artifactId>rxmicro-exchange-json</artifactId>
+            <version>0.8-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>io.rxmicro</groupId>
+            <artifactId>rxmicro-slf4j-proxy</artifactId>
+            <version>0.8-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>io.rxmicro</groupId>
+            <artifactId>rxmicro-runtime</artifactId>
+            <version>0.8-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>io.rxmicro</groupId>
+            <artifactId>rxmicro-netty-runtime</artifactId>
+            <version>0.8-SNAPSHOT</version>
+        </dependency>
+
+        <!--                cdi                 -->
+
         <dependency>
             <groupId>io.rxmicro</groupId>
             <artifactId>rxmicro-cdi</artifactId>
@@ -210,12 +262,6 @@
             <version>0.8-SNAPSHOT</version>
         </dependency>
 
-        <dependency>
-            <groupId>io.rxmicro</groupId>
-            <artifactId>rxmicro-tool-common</artifactId>
-            <version>0.8-SNAPSHOT</version>
-        </dependency>
-
         <!--            Documentation               -->
 
         <dependency>
@@ -226,18 +272,6 @@
         <dependency>
             <groupId>io.rxmicro</groupId>
             <artifactId>rxmicro-documentation-asciidoctor</artifactId>
-            <version>0.8-SNAPSHOT</version>
-        </dependency>
-
-        <dependency>
-            <groupId>io.rxmicro</groupId>
-            <artifactId>rxmicro-exchange-json</artifactId>
-            <version>0.8-SNAPSHOT</version>
-        </dependency>
-
-        <dependency>
-            <groupId>io.rxmicro</groupId>
-            <artifactId>rxmicro-files</artifactId>
             <version>0.8-SNAPSHOT</version>
         </dependency>
 
@@ -256,36 +290,6 @@
         <dependency>
             <groupId>io.rxmicro</groupId>
             <artifactId>rxmicro-http-client-jdk</artifactId>
-            <version>0.8-SNAPSHOT</version>
-        </dependency>
-
-        <dependency>
-            <groupId>io.rxmicro</groupId>
-            <artifactId>rxmicro-json</artifactId>
-            <version>0.8-SNAPSHOT</version>
-        </dependency>
-
-        <dependency>
-            <groupId>io.rxmicro</groupId>
-            <artifactId>rxmicro-logger</artifactId>
-            <version>0.8-SNAPSHOT</version>
-        </dependency>
-
-        <dependency>
-            <groupId>io.rxmicro</groupId>
-            <artifactId>rxmicro-slf4j-proxy</artifactId>
-            <version>0.8-SNAPSHOT</version>
-        </dependency>
-
-        <dependency>
-            <groupId>io.rxmicro</groupId>
-            <artifactId>rxmicro-model</artifactId>
-            <version>0.8-SNAPSHOT</version>
-        </dependency>
-
-        <dependency>
-            <groupId>io.rxmicro</groupId>
-            <artifactId>rxmicro-monitoring</artifactId>
             <version>0.8-SNAPSHOT</version>
         </dependency>
 
@@ -330,7 +334,7 @@
 
         <dependency>
             <groupId>io.rxmicro</groupId>
-            <artifactId>rxmicro-runtime</artifactId>
+            <artifactId>rxmicro-monitoring</artifactId>
             <version>0.8-SNAPSHOT</version>
         </dependency>
 

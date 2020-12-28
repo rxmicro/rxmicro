@@ -24,8 +24,9 @@ import io.netty.channel.socket.ServerSocketChannel;
 import io.netty.util.concurrent.Future;
 import io.rxmicro.logger.Logger;
 import io.rxmicro.logger.LoggerFactory;
+import io.rxmicro.netty.runtime.NettyRuntimeConfig;
+import io.rxmicro.netty.runtime.local.EventLoopGroupFactory;
 import io.rxmicro.rest.server.HttpServerConfig;
-import io.rxmicro.rest.server.netty.NettyRestServerConfig;
 
 import java.util.concurrent.CountDownLatch;
 
@@ -33,10 +34,8 @@ import static io.rxmicro.common.CommonConstants.NANOS_IN_1_MILLIS;
 import static io.rxmicro.common.local.StartTimeStampHelper.START_TIME_STAMP;
 import static io.rxmicro.common.util.Requires.require;
 import static io.rxmicro.config.Configs.getConfig;
+import static io.rxmicro.netty.runtime.local.EventLoopGroupFactory.getEventLoopGroupFactory;
 import static io.rxmicro.rest.server.netty.internal.component.NettyConfiguratorController.getNettyConfiguratorController;
-import static io.rxmicro.rest.server.netty.internal.util.NettyTransportFactory.getCurrentNettyTransport;
-import static io.rxmicro.rest.server.netty.internal.util.NettyTransportFactory.getServerSocketChannelClass;
-import static io.rxmicro.rest.server.netty.internal.util.NettyTransportFactory.newEventLoopGroup;
 
 /**
  * @author nedis
@@ -46,28 +45,34 @@ final class NettyServer implements Runnable {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(NettyServer.class);
 
+    private static final String DEFAULT_WORKER_THREAD_QUALIFIER = "http";
+
     private final HttpServerConfig httpServerConfig;
 
-    private final NettyRestServerConfig nettyRestServerConfig;
+    private final NettyRuntimeConfig nettyRuntimeConfig;
 
     private final SharableNettyRequestHandler sharableNettyRequestHandler;
 
     private final Class<? extends ServerSocketChannel> serverSocketChannelClass;
 
-    private final EventLoopGroup serverGroup;
+    private final EventLoopGroup acceptorGroup;
 
     private final EventLoopGroup workerGroup;
+
+    private final String currentNettyTransport;
 
     private final CountDownLatch latch;
 
     NettyServer(final SharableNettyRequestHandler sharableNettyRequestHandler,
-                final CountDownLatch latch) throws ClassNotFoundException {
+                final CountDownLatch latch) {
         this.httpServerConfig = getConfig(HttpServerConfig.class);
-        this.nettyRestServerConfig = getConfig(NettyRestServerConfig.class);
+        this.nettyRuntimeConfig = getConfig(NettyRuntimeConfig.class);
         this.sharableNettyRequestHandler = require(sharableNettyRequestHandler);
-        this.serverSocketChannelClass = getServerSocketChannelClass(this.nettyRestServerConfig);
-        this.serverGroup = newEventLoopGroup(this.nettyRestServerConfig);
-        this.workerGroup = newEventLoopGroup(this.nettyRestServerConfig);
+        final EventLoopGroupFactory eventLoopGroupFactory = getEventLoopGroupFactory();
+        this.currentNettyTransport = eventLoopGroupFactory.getCurrentNettyTransport();
+        this.serverSocketChannelClass = eventLoopGroupFactory.getServerSocketChannelClass();
+        this.acceptorGroup = eventLoopGroupFactory.getRequiredAcceptorEventLoopGroup();
+        this.workerGroup = eventLoopGroupFactory.getRequiredWorkerEventLoopGroup(DEFAULT_WORKER_THREAD_QUALIFIER);
         this.latch = latch;
     }
 
@@ -76,9 +81,9 @@ final class NettyServer implements Runnable {
     public void run() {
         try {
             final ServerBootstrap bootstrap = new ServerBootstrap()
-                    .group(serverGroup, workerGroup)
+                    .group(acceptorGroup, workerGroup)
                     .channel(serverSocketChannelClass)
-                    .childHandler(new NettyClientConnectionController(nettyRestServerConfig, sharableNettyRequestHandler));
+                    .childHandler(new NettyClientConnectionController(nettyRuntimeConfig, sharableNettyRequestHandler));
             final NettyConfiguratorController.NettyConfigurator nettyConfigurator = getNettyConfiguratorController().getNettyConfigurator();
             nettyConfigurator.getServerOptions().forEach((o, v) -> bootstrap.option((ChannelOption<Object>) o, v));
             nettyConfigurator.getClientOptions().forEach((o, v) -> bootstrap.childOption((ChannelOption<Object>) o, v));
@@ -91,7 +96,7 @@ final class NettyServer implements Runnable {
             LOGGER.info("Retrieved shutdown request ...");
         } finally {
             final Future<?> workerGroupStopFuture = workerGroup.shutdownGracefully();
-            final Future<?> serverGroupStopFuture = serverGroup.shutdownGracefully()
+            final Future<?> serverGroupStopFuture = acceptorGroup.shutdownGracefully()
                     .addListener(f -> LOGGER.info("Server stopped"));
 
             workerGroupStopFuture.awaitUninterruptibly();
@@ -105,7 +110,7 @@ final class NettyServer implements Runnable {
                     "Server started at ?:? using ? transport in ? millis.",
                     httpServerConfig::getHost,
                     httpServerConfig::getPort,
-                    () -> getCurrentNettyTransport(nettyRestServerConfig),
+                    () -> currentNettyTransport,
                     () -> (System.nanoTime() - START_TIME_STAMP) / NANOS_IN_1_MILLIS
             );
         } else {
@@ -113,7 +118,7 @@ final class NettyServer implements Runnable {
                     "Server started at ?:? using ? transport.",
                     httpServerConfig::getHost,
                     httpServerConfig::getPort,
-                    () -> getCurrentNettyTransport(nettyRestServerConfig)
+                    () -> currentNettyTransport
             );
         }
     }

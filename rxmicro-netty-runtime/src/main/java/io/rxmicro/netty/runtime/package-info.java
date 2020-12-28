@@ -14,25 +14,10 @@
  * limitations under the License.
  */
 
-package io.rxmicro.rest.server.netty;
-
-import io.netty.channel.ChannelId;
-
 /**
- * Allows configuring a netty channel id.
+ * The root package for the {@code rxmicro.netty.runtime} module.
  *
  * @author nedis
- * @see io.netty.channel.ChannelId
- * @see PredefinedNettyChannelIdType
- * @since 0.3
+ * @since 0.8
  */
-public interface NettyChannelIdType {
-
-    /**
-     * Returns the unique string representation of channel id.
-     *
-     * @param channelId channel id
-     * @return the unique string representation of channel id
-     */
-    String getId(ChannelId channelId);
-}
+package io.rxmicro.netty.runtime;

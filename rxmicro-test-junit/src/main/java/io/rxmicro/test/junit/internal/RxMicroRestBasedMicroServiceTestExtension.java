@@ -50,6 +50,7 @@ import java.util.List;
 import java.util.Map;
 
 import static io.rxmicro.config.local.DefaultConfigValueBuilderReSetter.resetDefaultConfigValueStorage;
+import static io.rxmicro.netty.runtime.local.EventLoopGroupFactory.clearEventLoopGroupFactory;
 import static io.rxmicro.rest.server.local.component.RestServerLauncher.launchWithoutRestControllers;
 import static io.rxmicro.runtime.local.AbstractFactory.clearFactories;
 import static io.rxmicro.runtime.local.InstanceContainer.clearContainer;
@@ -206,5 +207,6 @@ public final class RxMicroRestBasedMicroServiceTestExtension extends AbstractJUn
         } else {
             safeInvoke(serverContainer, container -> container.getServerInstance().shutdown());
         }
+        clearEventLoopGroupFactory();
     }
 }

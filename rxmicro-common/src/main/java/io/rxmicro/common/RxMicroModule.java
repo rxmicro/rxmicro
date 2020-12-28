@@ -43,11 +43,6 @@ public enum RxMicroModule {
     RX_MICRO_MODEL_MODULE("rxmicro.model"),
 
     /**
-     * The module that defines common runtime components.
-     */
-    RX_MICRO_RUNTIME_MODULE("rxmicro.runtime"),
-
-    /**
      * The module for flexible configuration of microservice projects to any environment.
      *
      * <p>
@@ -68,9 +63,19 @@ public enum RxMicroModule {
     RX_MICRO_LOGGER_MODULE("rxmicro.logger"),
 
     /**
+     * The module that defines common runtime components.
+     */
+    RX_MICRO_RUNTIME_MODULE("rxmicro.runtime"),
+
+    /**
      * The module to work with file system using sync and async modes.
      */
     RX_MICRO_FILES_MODULE("rxmicro.files"),
+
+    /**
+     * The module that defines netty runtime components.
+     */
+    RX_MICRO_NETTY_RUNTIME_MODULE("rxmicro.netty.runtime"),
 
     /**
      * The module that is an implementation of the <a href="https://en.wikipedia.org/wiki/Dependency_injection">Dependency Injection</a>

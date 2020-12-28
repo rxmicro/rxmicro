@@ -1,0 +1,15 @@
+[
+  {
+    "name": "io.rxmicro.netty.runtime.NettyRuntimeConfig",
+    "allDeclaredMethods": true,
+    "methods": [
+      {
+        "name": "<init>",
+        "parameterTypes": []
+      }
+    ]
+  },
+  {
+    "name": "io.rxmicro.netty.runtime.PredefinedNettyChannelIdType"
+  }
+]

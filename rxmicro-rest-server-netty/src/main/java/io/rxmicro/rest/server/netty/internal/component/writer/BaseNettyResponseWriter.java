@@ -20,8 +20,8 @@ import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelHandlerContext;
 import io.rxmicro.config.Secrets;
 import io.rxmicro.logger.Logger;
+import io.rxmicro.netty.runtime.NettyRuntimeConfig;
 import io.rxmicro.rest.server.RestServerConfig;
-import io.rxmicro.rest.server.netty.NettyRestServerConfig;
 import io.rxmicro.rest.server.netty.internal.component.NettyErrorHandler;
 import io.rxmicro.rest.server.netty.internal.model.NettyHttpRequest;
 import io.rxmicro.rest.server.netty.internal.model.NettyHttpResponse;
@@ -55,7 +55,7 @@ class BaseNettyResponseWriter {
 
     final NettyErrorHandler nettyErrorHandler;
 
-    final NettyRestServerConfig nettyRestServerConfig;
+    final NettyRuntimeConfig nettyRuntimeConfig;
 
     final RestServerConfig restServerConfig;
 
@@ -64,7 +64,7 @@ class BaseNettyResponseWriter {
         this.logger = logger;
         this.secrets = Secrets.getDefaultInstance();
         this.nettyErrorHandler = nettyErrorHandler;
-        this.nettyRestServerConfig = getConfig(NettyRestServerConfig.class);
+        this.nettyRuntimeConfig = getConfig(NettyRuntimeConfig.class);
         this.restServerConfig = getConfig(RestServerConfig.class);
     }
 
@@ -132,7 +132,7 @@ class BaseNettyResponseWriter {
         logger.trace(
                 request,
                 "HTTP response: (Channel=?, Duration=?):\n? ?\n?\n\n?",
-                nettyRestServerConfig.getChannelIdType().getId(ctx.channel().id()),
+                nettyRuntimeConfig.getChannelIdType().getId(ctx.channel().id()),
                 startTime == null ? "undefined" : format(Duration.ofNanos(System.nanoTime() - startTime)),
                 response.getHttpVersion(),
                 response.getStatus(),
@@ -153,7 +153,7 @@ class BaseNettyResponseWriter {
         logger.debug(
                 request,
                 "HTTP response: Channel=?, Content=? bytes, Duration=?",
-                nettyRestServerConfig.getChannelIdType().getId(ctx.channel().id()),
+                nettyRuntimeConfig.getChannelIdType().getId(ctx.channel().id()),
                 response.getHeaders().getValue(CONTENT_LENGTH),
                 startTime == null ? "undefined" : format(Duration.ofNanos(System.nanoTime() - startTime))
         );

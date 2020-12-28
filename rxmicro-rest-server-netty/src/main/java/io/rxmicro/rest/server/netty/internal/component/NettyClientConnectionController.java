@@ -23,7 +23,7 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.util.AttributeKey;
 import io.rxmicro.logger.Logger;
 import io.rxmicro.logger.LoggerFactory;
-import io.rxmicro.rest.server.netty.NettyRestServerConfig;
+import io.rxmicro.netty.runtime.NettyRuntimeConfig;
 
 import java.time.Duration;
 import java.util.List;
@@ -45,15 +45,15 @@ final class NettyClientConnectionController extends ChannelInitializer<SocketCha
 
     private static final Logger LOGGER = LoggerFactory.getLogger(NettyClientConnectionController.class);
 
-    private final NettyRestServerConfig nettyRestServerConfig;
+    private final NettyRuntimeConfig nettyRuntimeConfig;
 
     private final SharableNettyRequestHandler sharableNettyRequestHandler;
 
     private final List<Map.Entry<String, Supplier<ChannelHandler>>> handlerSuppliers;
 
-    NettyClientConnectionController(final NettyRestServerConfig nettyRestServerConfig,
+    NettyClientConnectionController(final NettyRuntimeConfig nettyRuntimeConfig,
                                     final SharableNettyRequestHandler sharableNettyRequestHandler) {
-        this.nettyRestServerConfig = require(nettyRestServerConfig);
+        this.nettyRuntimeConfig = require(nettyRuntimeConfig);
         this.sharableNettyRequestHandler = sharableNettyRequestHandler;
         this.handlerSuppliers = getNettyConfiguratorController().getNettyConfigurator().getHandlerSuppliers();
     }
@@ -64,7 +64,7 @@ final class NettyClientConnectionController extends ChannelInitializer<SocketCha
             ch.attr(CHANNEL_TTL).set(System.nanoTime());
             LOGGER.trace(
                     "Client connection created: Channel=?, IP=?",
-                    nettyRestServerConfig.getChannelIdType().getId(ch.id()), ch.remoteAddress()
+                    nettyRuntimeConfig.getChannelIdType().getId(ch.id()), ch.remoteAddress()
             );
         }
         final ChannelPipeline pipeline = ch.pipeline();
@@ -76,7 +76,7 @@ final class NettyClientConnectionController extends ChannelInitializer<SocketCha
                     if (LOGGER.isTraceEnabled()) {
                         LOGGER.trace(
                                 "Client connection closed: Channel=?, IP=?, TTL=?",
-                                nettyRestServerConfig.getChannelIdType().getId(ch.id()),
+                                nettyRuntimeConfig.getChannelIdType().getId(ch.id()),
                                 ch.remoteAddress(),
                                 format(Duration.ofNanos(System.nanoTime() - ch.attr(CHANNEL_TTL).get()))
                         );

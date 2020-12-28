@@ -79,11 +79,31 @@ final class RxMicroModuleTest {
             if (!ignoreModules.contains(moduleDirectory.getName())) {
                 final String moduleName = moduleDirectory.getName().replace('-', '.');
                 if (RxMicroModule.of(moduleName).isEmpty()) {
-                    fail(format("The ? enum does not contain definition for '?' module",
-                            RxMicroModule.class.getSimpleName(),
-                            moduleName
-                    ));
+                    fail(
+                            format("The ? enum does not contain definition for '?' module",
+                                    RxMicroModule.class.getSimpleName(),
+                                    moduleName
+                            )
+                    );
                 }
+            }
+        }
+    }
+
+    @Test
+    @Order(2)
+    void Should_not_contain_redundant_modules() {
+        final File rootDirectory = getRootDirectory();
+        for (final RxMicroModule rxMicroModule : RxMicroModule.values()) {
+            final File moduleDir = new File(rootDirectory, rxMicroModule.getName().replace('.', '-'));
+            if (!moduleDir.exists()) {
+                fail(
+                        format(
+                                "The ? enum contains redundant module definition: ?",
+                                RxMicroModule.class.getSimpleName(),
+                                rxMicroModule
+                        )
+                );
             }
         }
     }
