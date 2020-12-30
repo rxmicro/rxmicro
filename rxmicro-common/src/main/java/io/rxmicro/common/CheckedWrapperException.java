@@ -62,6 +62,6 @@ public final class CheckedWrapperException extends RxMicroException {
      * @return {@code true} if current instance contains a cause one of the specified throwable class
      */
     public boolean isCause(final Class<? extends Throwable> throwableClass) {
-        return getCause() != null && throwableClass.isAssignableFrom(getCause().getClass());
+        return throwableClass.isAssignableFrom(getCause().getClass());
     }
 }
