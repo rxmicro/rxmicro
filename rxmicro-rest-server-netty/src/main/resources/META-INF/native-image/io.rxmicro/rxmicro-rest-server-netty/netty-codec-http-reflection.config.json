@@ -1,0 +1,8 @@
+[
+  {
+    "name": "io.netty.handler.codec.http.HttpObjectAggregator"
+  },
+  {
+    "name": "io.netty.handler.codec.http.HttpServerCodec"
+  }
+]

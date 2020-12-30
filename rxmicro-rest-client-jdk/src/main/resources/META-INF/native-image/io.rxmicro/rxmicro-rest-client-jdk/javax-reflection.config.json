@@ -1,0 +1,16 @@
+[
+  {
+    "name": "javax.security.auth.x500.X500Principal",
+    "fields": [
+      {"name": "thisX500Name"}
+    ],
+    "methods": [
+      {
+        "name": "<init>",
+        "parameterTypes": [
+          "sun.security.x509.X500Name"
+        ]
+      }
+    ]
+  }
+]

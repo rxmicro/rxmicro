@@ -1,0 +1,11 @@
+[
+  {
+    "name": "io.rxmicro.logger.jul.SystemConsoleHandler",
+    "methods": [
+      {
+        "name": "<init>",
+        "parameterTypes": []
+      }
+    ]
+  }
+]

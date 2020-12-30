@@ -1,0 +1,11 @@
+[
+  {
+    "name": "rxmicro.$$RepositoryFactoryImpl",
+    "methods": [
+      {
+        "name": "<init>",
+        "parameterTypes": []
+      }
+    ]
+  }
+]

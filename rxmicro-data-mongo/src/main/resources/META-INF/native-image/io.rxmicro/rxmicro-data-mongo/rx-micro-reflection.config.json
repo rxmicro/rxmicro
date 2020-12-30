@@ -1,0 +1,12 @@
+[
+  {
+    "name": "io.rxmicro.data.mongo.MongoConfig",
+    "allDeclaredMethods": true,
+    "methods": [
+      {
+        "name": "<init>",
+        "parameterTypes": []
+      }
+    ]
+  }
+]

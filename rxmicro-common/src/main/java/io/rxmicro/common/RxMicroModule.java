@@ -245,8 +245,6 @@ public enum RxMicroModule {
 
     private final String name;
 
-    private final String rootPackage;
-
     /**
      * Returns {@code true} if provided module name is R2DBC module.
      *
@@ -287,7 +285,6 @@ public enum RxMicroModule {
 
     RxMicroModule(final String name) {
         this.name = name;
-        this.rootPackage = "io." + name;
     }
 
     /**
@@ -305,7 +302,16 @@ public enum RxMicroModule {
      * @return the root package of the current RxMicro module name
      */
     public String getRootPackage() {
-        return rootPackage;
+        return "io." + name;
+    }
+
+    /**
+     * Returns the directory name of the RxMicro module.
+     *
+     * @return the directory name of the RxMicro module.
+     */
+    public String getDirectory() {
+        return name.replace('.', '-');
     }
 
     @Override

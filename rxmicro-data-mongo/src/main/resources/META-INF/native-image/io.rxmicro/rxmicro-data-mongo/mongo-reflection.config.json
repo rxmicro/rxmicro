@@ -1,0 +1,24 @@
+[
+  {
+    "name": "com.mongodb.WriteConcern",
+    "allPublicFields": true
+  },
+  {
+    "name": "com.mongodb.connection.netty.NettyStream$1"
+  },
+  {
+    "name": "com.mongodb.connection.netty.NettyStream$InboundBufferHandler",
+    "methods": [
+      {
+        "name": "exceptionCaught",
+        "parameterTypes": [
+          "io.netty.channel.ChannelHandlerContext",
+          "java.lang.Throwable"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "com.mongodb.connection.netty.ReadTimeoutHandler"
+  }
+]
