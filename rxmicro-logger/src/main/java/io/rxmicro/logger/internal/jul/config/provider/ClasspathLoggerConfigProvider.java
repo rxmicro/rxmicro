@@ -20,7 +20,7 @@ import io.rxmicro.logger.internal.jul.config.LoggerConfigProvider;
 
 import java.util.Map;
 
-import static io.rxmicro.files.PropertiesResources.loadProperties;
+import static io.rxmicro.resource.PropertiesResources.loadProperties;
 
 /**
  * @author nedis

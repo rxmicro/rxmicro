@@ -47,7 +47,7 @@
  */
 module rxmicro.cdi {
     requires transitive rxmicro.runtime;
-    requires rxmicro.files;
+    requires transitive rxmicro.resource;
     requires rxmicro.json;
 
     exports io.rxmicro.cdi;

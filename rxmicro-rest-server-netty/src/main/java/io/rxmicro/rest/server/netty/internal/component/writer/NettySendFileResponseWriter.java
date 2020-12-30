@@ -37,13 +37,13 @@ import java.time.Duration;
 import java.util.Map;
 
 import static io.rxmicro.config.Configs.getConfig;
-import static io.rxmicro.files.PropertiesResources.loadProperties;
 import static io.rxmicro.http.HttpStandardHeaderNames.CACHE_CONTROL;
 import static io.rxmicro.http.HttpStandardHeaderNames.CONTENT_LENGTH;
 import static io.rxmicro.http.HttpStandardHeaderNames.CONTENT_TYPE;
 import static io.rxmicro.http.HttpStandardHeaderNames.EXPIRES;
 import static io.rxmicro.http.HttpStandardHeaderNames.LAST_MODIFIED;
 import static io.rxmicro.http.ProtocolSchema.HTTPS;
+import static io.rxmicro.resource.PropertiesResources.loadProperties;
 import static io.rxmicro.rest.server.netty.internal.util.IOUtils.closeQuietly;
 import static java.nio.file.Files.getLastModifiedTime;
 import static java.time.Instant.now;

@@ -21,6 +21,7 @@
  * @since 0.1
  */
 module rxmicro.annotation.processor.cdi {
+    requires rxmicro.resource;
     requires rxmicro.config;
     requires rxmicro.data.mongo;
     requires rxmicro.data.sql.r2dbc.postgresql;

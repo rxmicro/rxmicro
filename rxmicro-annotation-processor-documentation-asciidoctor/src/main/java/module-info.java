@@ -26,7 +26,7 @@ import io.rxmicro.annotation.processor.rest.server.component.AbstractDocumentati
  * @since 0.1
  */
 module rxmicro.annotation.processor.documentation.asciidoctor {
-    requires transitive rxmicro.files;
+    requires transitive rxmicro.resource;
     requires transitive rxmicro.documentation.asciidoctor;
 
     requires jdk.compiler;

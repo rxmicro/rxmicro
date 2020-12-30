@@ -30,8 +30,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import static io.rxmicro.common.util.InputStreamResources.getInputStreamResource;
-import static io.rxmicro.common.util.InputStreamResources.getSupportedInputStreamResources;
+import static io.rxmicro.resource.InputStreamResources.getInputStreamResource;
+import static io.rxmicro.resource.InputStreamResources.getSupportedInputStreamResources;
 import static java.util.Map.entry;
 import static java.util.stream.Collectors.toUnmodifiableMap;
 

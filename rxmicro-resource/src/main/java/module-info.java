@@ -15,7 +15,7 @@
  */
 
 /**
- * The module to work with file system using sync and async modes.
+ * The module to work with external resources (classpath, file, url...) using sync and async modes.
  *
  * <p>
  * This module follows the next package structure rules:
@@ -42,10 +42,11 @@
  * </ul>
  *
  * @author nedis
- * @since 0.1
+ * @since 0.8
  */
-module rxmicro.files {
+module rxmicro.resource {
     requires transitive rxmicro.common;
 
-    exports io.rxmicro.files;
+    exports io.rxmicro.resource;
+    exports io.rxmicro.resource.model;
 }

@@ -31,7 +31,7 @@ import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
 
 import static io.rxmicro.common.util.Formats.format;
-import static io.rxmicro.common.util.InputStreamResources.CLASSPATH_SCHEME;
+import static io.rxmicro.resource.InputStreamResources.CLASSPATH_SCHEME;
 
 /**
  * @author nedis

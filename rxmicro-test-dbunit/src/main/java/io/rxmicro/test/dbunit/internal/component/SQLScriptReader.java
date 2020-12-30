@@ -17,7 +17,7 @@
 package io.rxmicro.test.dbunit.internal.component;
 
 import io.rxmicro.common.CheckedWrapperException;
-import io.rxmicro.common.model.InputStreamResource;
+import io.rxmicro.resource.model.InputStreamResource;
 
 import java.io.BufferedReader;
 import java.io.IOException;

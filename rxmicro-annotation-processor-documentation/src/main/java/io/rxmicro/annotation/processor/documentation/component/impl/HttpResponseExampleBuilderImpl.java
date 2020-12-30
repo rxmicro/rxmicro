@@ -34,7 +34,7 @@ import java.util.Optional;
 import static io.rxmicro.annotation.processor.common.util.Errors.createInternalErrorSupplier;
 import static io.rxmicro.annotation.processor.documentation.model.Constants.HTTP_VERSION;
 import static io.rxmicro.common.util.Formats.format;
-import static io.rxmicro.files.PropertiesResources.loadProperties;
+import static io.rxmicro.resource.PropertiesResources.loadProperties;
 import static io.rxmicro.rest.RequestId.REQUEST_ID_EXAMPLE;
 import static java.lang.System.lineSeparator;
 import static java.util.Map.entry;

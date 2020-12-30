@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package io.rxmicro.common.model;
+package io.rxmicro.resource.model;
 
 import java.io.BufferedInputStream;
 import java.io.InputStream;

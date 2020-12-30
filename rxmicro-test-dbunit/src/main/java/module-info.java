@@ -42,6 +42,7 @@
 @SuppressWarnings("JavaRequiresAutoModule")
 module rxmicro.test.dbunit {
     requires transitive rxmicro.test;
+    requires transitive rxmicro.resource;
 
     requires transitive dbunit;
     requires java.sql;

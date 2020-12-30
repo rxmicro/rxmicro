@@ -97,7 +97,7 @@
         </Or>
     </Match>
     <Match>
-        <Class name="io.rxmicro.files.ClasspathResources"/>
+        <Class name="io.rxmicro.resource.ClasspathResources"/>
         <Method name="readLines" />
         <Or>
             <Bug pattern="NP_LOAD_OF_KNOWN_NULL_VALUE"/>
@@ -106,7 +106,7 @@
         </Or>
     </Match>
     <Match>
-        <Class name="io.rxmicro.files.PropertiesResources"/>
+        <Class name="io.rxmicro.resource.PropertiesResources"/>
         <Method name="loadProperties" />
         <Or>
             <Bug pattern="NP_LOAD_OF_KNOWN_NULL_VALUE"/>

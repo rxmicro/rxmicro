@@ -16,6 +16,8 @@
 
 package io.rxmicro.cdi.resource;
 
+import io.rxmicro.resource.InputStreamResources;
+
 import java.util.Optional;
 
 /**
@@ -39,8 +41,8 @@ public interface ResourceConverter<D> {
      *
      * @param resourcePath the resource path
      * @return the converted resource or {@link Optional#empty()} if resource not found
-     * @see io.rxmicro.common.util.InputStreamResources#CLASSPATH_SCHEME
-     * @see io.rxmicro.common.util.InputStreamResources#FILE_SCHEME
+     * @see InputStreamResources#CLASSPATH_SCHEME
+     * @see InputStreamResources#FILE_SCHEME
      */
     Optional<D> convert(String resourcePath);
 }

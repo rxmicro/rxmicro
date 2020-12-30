@@ -14,7 +14,9 @@
  * limitations under the License.
  */
 
-package io.rxmicro.files;
+package io.rxmicro.resource;
+
+import io.rxmicro.resource.model.ResourceException;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -24,6 +26,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static io.rxmicro.resource.internal.ClassPaths.getNormalizedClassPathResource;
+import static io.rxmicro.resource.internal.ClassPaths.getNullableClassPathResourceStream;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 /**
@@ -43,7 +47,7 @@ public final class ClasspathResources {
      * @throws ResourceException if IO error occurs
      */
     public static Optional<String> readString(final String classPathResource) {
-        final List<String> lines = readLines(classPathResource);
+        final List<String> lines = readLines(getNormalizedClassPathResource(classPathResource));
         return lines.isEmpty() ? Optional.empty() : Optional.of(String.join(System.lineSeparator(), lines));
     }
 
@@ -57,7 +61,7 @@ public final class ClasspathResources {
      */
     public static List<String> readLines(final String classPathResource) {
         try {
-            try (InputStream in = ClasspathResources.class.getClassLoader().getResourceAsStream(classPathResource)) {
+            try (InputStream in = getNullableClassPathResourceStream(classPathResource)) {
                 if (in == null) {
                     return List.of();
                 } else {

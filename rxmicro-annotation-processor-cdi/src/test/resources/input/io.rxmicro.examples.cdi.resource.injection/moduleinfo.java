@@ -17,5 +17,4 @@
 module cdi.resource.injection {
     requires rxmicro.cdi;
     requires rxmicro.json;
-    requires rxmicro.files;
 }

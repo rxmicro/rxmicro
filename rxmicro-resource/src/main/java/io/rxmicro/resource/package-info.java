@@ -14,6 +14,10 @@
  * limitations under the License.
  */
 
-module examples.cdi.errors {
-    requires rxmicro.cdi;
-}
+/**
+ * The root package for the {@code rxmicro.resource} module.
+ *
+ * @author nedis
+ * @since 0.8
+ */
+package io.rxmicro.resource;

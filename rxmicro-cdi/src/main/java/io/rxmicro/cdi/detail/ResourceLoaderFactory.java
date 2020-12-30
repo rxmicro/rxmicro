@@ -17,7 +17,7 @@
 package io.rxmicro.cdi.detail;
 
 import io.rxmicro.cdi.resource.ResourceConverter;
-import io.rxmicro.files.ResourceException;
+import io.rxmicro.resource.model.ResourceException;
 
 import java.util.Optional;
 

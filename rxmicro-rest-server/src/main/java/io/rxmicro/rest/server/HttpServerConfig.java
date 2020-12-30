@@ -20,14 +20,15 @@ import io.rxmicro.common.meta.BuilderMethod;
 import io.rxmicro.config.SingletonConfigClass;
 import io.rxmicro.http.HttpConfig;
 import io.rxmicro.http.ProtocolSchema;
+import io.rxmicro.resource.model.ResourceException;
 
 import java.nio.file.Path;
 import java.time.Duration;
 
-import static io.rxmicro.files.Paths.CURRENT_DIRECTORY;
-import static io.rxmicro.files.Paths.createPath;
-import static io.rxmicro.files.Paths.validateDirectory;
 import static io.rxmicro.http.ProtocolSchema.HTTP;
+import static io.rxmicro.resource.Paths.CURRENT_DIRECTORY;
+import static io.rxmicro.resource.Paths.createPath;
+import static io.rxmicro.resource.Paths.validateDirectory;
 import static java.time.temporal.ChronoUnit.DAYS;
 
 /**
@@ -109,7 +110,7 @@ public final class HttpServerConfig extends HttpConfig {
      *
      * @param rootDirectoryPath the provided root directory path
      * @return the reference to this {@link HttpServerConfig} instance
-     * @throws io.rxmicro.files.ResourceException if the provided {@link Path} instance not found or is not directory.
+     * @throws ResourceException if the provided {@link Path} instance not found or is not directory.
      */
     @BuilderMethod
     public HttpServerConfig setRootDirectory(final String rootDirectoryPath) {
@@ -124,7 +125,7 @@ public final class HttpServerConfig extends HttpConfig {
      *
      * @param rootDirectoryPath the provided root directory path
      * @return the reference to this {@link HttpServerConfig} instance
-     * @throws io.rxmicro.files.ResourceException if the provided {@link Path} instance not found or is not directory.
+     * @throws ResourceException if the provided {@link Path} instance not found or is not directory.
      */
     @BuilderMethod
     public HttpServerConfig setRootDirectory(final Path rootDirectoryPath) {

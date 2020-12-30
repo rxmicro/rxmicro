@@ -47,7 +47,7 @@
 module rxmicro.logger {
     requires transitive rxmicro.reflection;
     requires transitive rxmicro.common;
-    requires rxmicro.files;
+    requires transitive rxmicro.resource;
 
     requires java.logging;
 

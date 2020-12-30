@@ -16,7 +16,7 @@
 
 package io.rxmicro.cdi.resource;
 
-import io.rxmicro.files.ResourceException;
+import io.rxmicro.resource.model.ResourceException;
 
 import java.io.IOException;
 import java.nio.file.NoSuchFileException;
@@ -24,7 +24,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Optional;
 
-import static io.rxmicro.common.util.InputStreamResources.FILE_SCHEME;
+import static io.rxmicro.resource.InputStreamResources.FILE_SCHEME;
 
 /**
  * Base abstract class that converts resource path to the {@link Path} type.

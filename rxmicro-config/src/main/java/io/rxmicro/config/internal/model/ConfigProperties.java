@@ -51,7 +51,7 @@ import static io.rxmicro.config.ConfigSource.SEPARATE_FILE_AT_THE_RXMICRO_CONFIG
 import static io.rxmicro.config.internal.ExternalSourceProviderFactory.getCurrentDir;
 import static io.rxmicro.config.internal.ExternalSourceProviderFactory.getEnvironmentVariables;
 import static io.rxmicro.config.internal.model.PropertyNames.USER_HOME_PROPERTY;
-import static io.rxmicro.files.PropertiesResources.loadProperties;
+import static io.rxmicro.resource.PropertiesResources.loadProperties;
 import static java.util.stream.Collectors.toList;
 
 /**

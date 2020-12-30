@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package io.rxmicro.files;
+package io.rxmicro.resource.model;
 
 import io.rxmicro.common.RxMicroException;
 import io.rxmicro.common.util.Formats;

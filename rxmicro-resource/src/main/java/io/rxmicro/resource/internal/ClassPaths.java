@@ -14,28 +14,28 @@
  * limitations under the License.
  */
 
-package io.rxmicro.cdi.resource;
+package io.rxmicro.resource.internal;
 
-import io.rxmicro.json.JsonHelper;
+import java.io.InputStream;
 
-import java.util.List;
-import java.util.Optional;
-
-import static io.rxmicro.resource.ClasspathResources.readString;
 import static io.rxmicro.resource.InputStreamResources.CLASSPATH_SCHEME;
 
 /**
- * Defines the resource converter that convert text classpath resource to the json array format.
- *
  * @author nedis
- * @see JsonHelper#readJsonArray(String)
- * @since 0.6
+ * @since 0.8
  */
-public final class ClasspathJsonArrayResourceConverter implements ResourceConverter<List<Object>> {
+public final class ClassPaths {
 
-    @Override
-    public Optional<List<Object>> convert(final String resourcePath) {
-        final String classpathUri = resourcePath.substring(CLASSPATH_SCHEME.length());
-        return readString(classpathUri).map(JsonHelper::readJsonArray);
+    private static final int CLASSPATH_SCHEME_SHIFT = CLASSPATH_SCHEME.length();
+
+    public static String getNormalizedClassPathResource(final String classPathResource) {
+        return classPathResource.startsWith(CLASSPATH_SCHEME) ? classPathResource.substring(CLASSPATH_SCHEME_SHIFT) : classPathResource;
+    }
+
+    public static InputStream getNullableClassPathResourceStream(final String classPathResource) {
+        return ClassPaths.class.getClassLoader().getResourceAsStream(getNormalizedClassPathResource(classPathResource));
+    }
+
+    private ClassPaths() {
     }
 }

@@ -20,7 +20,7 @@ import java.nio.file.Path;
 import java.util.Map;
 import java.util.Optional;
 
-import static io.rxmicro.files.PropertiesResources.loadProperties;
+import static io.rxmicro.resource.PropertiesResources.loadProperties;
 
 /**
  * Defines the resource converter that convert text file to the properties format.

@@ -27,7 +27,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import java.util.List;
 import java.util.stream.Stream;
 
-import static io.rxmicro.common.util.InputStreamResources.getInputStreamResource;
+import static io.rxmicro.resource.InputStreamResources.getInputStreamResource;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 

@@ -15,9 +15,9 @@
  */
 
 /**
- * The root package for the {@code rxmicro.files} module.
+ * The package for the {@code rxmicro.resource} module that provides the useful model classes.
  *
  * @author nedis
- * @since 0.4
+ * @since 0.8
  */
-package io.rxmicro.files;
+package io.rxmicro.resource.model;

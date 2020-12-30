@@ -16,8 +16,8 @@
 
 package io.rxmicro.test.dbunit.internal.component;
 
-import io.rxmicro.common.model.InputStreamResource;
 import io.rxmicro.config.ConfigException;
+import io.rxmicro.resource.model.InputStreamResource;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static io.rxmicro.common.util.InputStreamResources.getInputStreamResource;
+import static io.rxmicro.resource.InputStreamResources.getInputStreamResource;
 import static io.rxmicro.test.dbunit.local.DatabaseConnectionHelper.getCurrentDatabaseConnection;
 
 /**

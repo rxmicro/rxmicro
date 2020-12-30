@@ -14,7 +14,9 @@
  * limitations under the License.
  */
 
-package io.rxmicro.files;
+package io.rxmicro.resource;
+
+import io.rxmicro.resource.model.ResourceException;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -27,6 +29,7 @@ import java.util.Optional;
 import java.util.Properties;
 
 import static io.rxmicro.common.util.ExCollections.unmodifiableOrderedMap;
+import static io.rxmicro.resource.internal.ClassPaths.getNullableClassPathResourceStream;
 
 /**
  * Utility class to get properties represented by a {@link Map} from external resource.
@@ -50,7 +53,7 @@ public final class PropertiesResources {
      */
     public static Optional<Map<String, String>> loadProperties(final String classPathResource) {
         try {
-            try (InputStream in = PropertiesResources.class.getClassLoader().getResourceAsStream(classPathResource)) {
+            try (InputStream in = getNullableClassPathResourceStream(classPathResource)) {
                 if (in == null) {
                     return Optional.empty();
                 } else {

@@ -14,7 +14,9 @@
  * limitations under the License.
  */
 
-package io.rxmicro.files;
+package io.rxmicro.resource;
+
+import io.rxmicro.resource.model.ResourceException;
 
 import java.nio.file.Files;
 import java.nio.file.Path;

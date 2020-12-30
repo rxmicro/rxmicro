@@ -22,8 +22,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-import static io.rxmicro.common.util.InputStreamResources.CLASSPATH_SCHEME;
-import static io.rxmicro.files.ClasspathResources.readString;
+import static io.rxmicro.resource.ClasspathResources.readString;
+import static io.rxmicro.resource.InputStreamResources.CLASSPATH_SCHEME;
 import static java.util.stream.Collectors.toList;
 
 public final class ClasspathCSVResourceConverter implements ResourceConverter<List<Integer>> {

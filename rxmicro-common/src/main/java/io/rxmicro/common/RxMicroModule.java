@@ -68,9 +68,9 @@ public enum RxMicroModule {
     RX_MICRO_RUNTIME_MODULE("rxmicro.runtime"),
 
     /**
-     * The module to work with file system using sync and async modes.
+     * The module to work with external resources (classpath, file, url...) using sync and async modes..
      */
-    RX_MICRO_FILES_MODULE("rxmicro.files"),
+    RX_MICRO_RESOURCE_MODULE("rxmicro.resource"),
 
     /**
      * The module that defines netty runtime components.

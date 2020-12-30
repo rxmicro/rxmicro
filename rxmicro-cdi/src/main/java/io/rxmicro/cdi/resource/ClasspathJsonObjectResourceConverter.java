@@ -21,8 +21,8 @@ import io.rxmicro.json.JsonHelper;
 import java.util.Map;
 import java.util.Optional;
 
-import static io.rxmicro.common.util.InputStreamResources.CLASSPATH_SCHEME;
-import static io.rxmicro.files.ClasspathResources.readString;
+import static io.rxmicro.resource.ClasspathResources.readString;
+import static io.rxmicro.resource.InputStreamResources.CLASSPATH_SCHEME;
 
 /**
  * Defines the resource converter that convert text classpath resource to the json object format.

@@ -16,7 +16,7 @@
 
 package io.rxmicro.annotation.processor.integration.test;
 
-import io.rxmicro.files.ResourceException;
+import io.rxmicro.resource.model.ResourceException;
 
 import java.io.BufferedReader;
 import java.io.IOException;

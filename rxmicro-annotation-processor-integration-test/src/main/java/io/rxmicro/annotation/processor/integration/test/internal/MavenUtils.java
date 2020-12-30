@@ -16,7 +16,7 @@
 
 package io.rxmicro.annotation.processor.integration.test.internal;
 
-import io.rxmicro.files.ResourceException;
+import io.rxmicro.resource.model.ResourceException;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
 import org.codehaus.plexus.util.xml.pull.XmlPullParserException;

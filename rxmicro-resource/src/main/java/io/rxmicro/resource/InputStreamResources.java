@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package io.rxmicro.common.util;
+package io.rxmicro.resource;
 
-import io.rxmicro.common.model.InputStreamResource;
+import io.rxmicro.resource.model.InputStreamResource;
 
 import java.io.IOException;
 import java.net.URL;

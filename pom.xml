@@ -59,6 +59,7 @@
         <module>rxmicro-logger</module>
         <module>rxmicro-runtime</module>
         <module>rxmicro-config</module>
+        <module>rxmicro-resource</module>
         <module>rxmicro-cdi</module>
         <module>rxmicro-slf4j-proxy</module>
 
@@ -95,7 +96,6 @@
         <module>rxmicro-test-dbunit</module>
         <module>rxmicro-test-dbunit-junit</module>
 
-        <module>rxmicro-files</module>
         <module>rxmicro-monitoring</module>
 
         <module>rxmicro-netty-runtime</module>

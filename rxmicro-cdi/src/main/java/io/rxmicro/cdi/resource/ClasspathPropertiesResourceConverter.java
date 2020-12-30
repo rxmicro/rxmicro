@@ -19,8 +19,8 @@ package io.rxmicro.cdi.resource;
 import java.util.Map;
 import java.util.Optional;
 
-import static io.rxmicro.common.util.InputStreamResources.CLASSPATH_SCHEME;
-import static io.rxmicro.files.PropertiesResources.loadProperties;
+import static io.rxmicro.resource.InputStreamResources.CLASSPATH_SCHEME;
+import static io.rxmicro.resource.PropertiesResources.loadProperties;
 
 /**
  * Defines the resource converter that convert text classpath resource to the properties format.
