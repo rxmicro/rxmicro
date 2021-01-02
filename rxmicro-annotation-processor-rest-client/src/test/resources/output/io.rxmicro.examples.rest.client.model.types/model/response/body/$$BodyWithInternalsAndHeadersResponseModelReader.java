@@ -2,7 +2,7 @@ package io.rxmicro.examples.rest.client.model.types.model.response.body;
 
 import io.rxmicro.examples.rest.client.model.types.model.Status;
 import io.rxmicro.http.HttpHeaders;
-import io.rxmicro.http.client.ClientHttpResponse;
+import io.rxmicro.rest.client.detail.HttpResponse;
 import io.rxmicro.rest.client.detail.ModelReader;
 import io.rxmicro.rest.model.HttpModelType;
 
@@ -15,13 +15,13 @@ public final class $$BodyWithInternalsAndHeadersResponseModelReader extends Mode
             new $$BodyWithInternalsAndHeadersResponseModelFromJsonConverter();
 
     @Override
-    public BodyWithInternalsAndHeadersResponse readSingle(final ClientHttpResponse response) {
+    public BodyWithInternalsAndHeadersResponse readSingle(final HttpResponse response) {
         final BodyWithInternalsAndHeadersResponse model = bodyWithInternalsAndHeadersResponseModelFromJsonConverter.fromJsonObject(response.getBody());
         readPrimitivesToModel(response, model);
         return model;
     }
 
-    protected void readPrimitivesToModel(final ClientHttpResponse response,
+    protected void readPrimitivesToModel(final HttpResponse response,
                                          final BodyWithInternalsAndHeadersResponse model) {
         model.internalResponseStatusCode = response.getStatusCode();
         model.internalHttpVersion = response.getVersion();

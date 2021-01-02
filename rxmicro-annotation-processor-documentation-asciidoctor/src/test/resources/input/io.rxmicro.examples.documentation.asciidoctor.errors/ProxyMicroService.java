@@ -21,7 +21,7 @@ import io.rxmicro.documentation.SimpleErrorResponse;
 import io.rxmicro.examples.documentation.asciidoctor.errors.model.CustomErrorModelException;
 import io.rxmicro.examples.documentation.asciidoctor.errors.model.NotAcceptableException;
 import io.rxmicro.examples.documentation.asciidoctor.errors.model.Response;
-import io.rxmicro.http.client.HttpClientTimeoutException;
+import io.rxmicro.rest.client.HttpClientTimeoutException;
 import io.rxmicro.rest.method.GET;
 
 import java.util.Optional;

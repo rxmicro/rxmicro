@@ -9,7 +9,7 @@ public final class ${JAVA_MODEL_CLASS.modelReaderImplSimpleClassName} extends Mo
     <#if READER_TYPE.name() == 'SINGLE' || READER_TYPE.name() == 'BOTH'>
 
     @Override
-    public ${JAVA_MODEL_CLASS.javaSimpleClassName} readSingle(final ClientHttpResponse response) {
+    public ${JAVA_MODEL_CLASS.javaSimpleClassName} readSingle(final HttpResponse response) {
         <#if JAVA_MODEL_CLASS.internals?has_content || JAVA_MODEL_CLASS.headerEntries?has_content>
         <#if WITH_BODY>
         final ${JAVA_MODEL_CLASS.javaSimpleClassName} model = ${JAVA_MODEL_CLASS.fromJsonConverterInstanceName}.fromJsonObject(response.getBody());
@@ -29,13 +29,13 @@ public final class ${JAVA_MODEL_CLASS.modelReaderImplSimpleClassName} extends Mo
     <#if READER_TYPE.name() == 'LIST' || READER_TYPE.name() == 'BOTH'>
 
     @Override
-    public List<${JAVA_MODEL_CLASS.javaSimpleClassName}> readList(final ClientHttpResponse response) {
+    public List<${JAVA_MODEL_CLASS.javaSimpleClassName}> readList(final HttpResponse response) {
         return ${JAVA_MODEL_CLASS.fromJsonConverterInstanceName}.fromJsonArray(response.getBody());
     }
     </#if>
     <#if JAVA_MODEL_CLASS.internals?has_content || JAVA_MODEL_CLASS.headerEntries?has_content>
 
-    protected void readPrimitivesToModel(final ClientHttpResponse response,
+    protected void readPrimitivesToModel(final HttpResponse response,
                                          final ${JAVA_MODEL_CLASS.javaSimpleClassName} model) {
         <#list JAVA_MODEL_CLASS.internals as INTERNAL>
         <@setInternal INTERNAL=INTERNAL/>

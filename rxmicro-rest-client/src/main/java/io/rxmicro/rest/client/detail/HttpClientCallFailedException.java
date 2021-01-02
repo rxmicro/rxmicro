@@ -16,7 +16,6 @@
 
 package io.rxmicro.rest.client.detail;
 
-import io.rxmicro.http.client.ClientHttpResponse;
 import io.rxmicro.rest.model.HttpCallFailedException;
 
 /**
@@ -28,12 +27,12 @@ import io.rxmicro.rest.model.HttpCallFailedException;
  */
 final class HttpClientCallFailedException extends HttpCallFailedException {
 
-    HttpClientCallFailedException(final ClientHttpResponse clientHttpResponse) {
+    HttpClientCallFailedException(final HttpResponse httpResponse) {
         super(
-                clientHttpResponse.getStatusCode(),
-                clientHttpResponse.getVersion(),
-                clientHttpResponse.getHeaders(),
-                clientHttpResponse.getBodyAsBytes(),
+                httpResponse.getStatusCode(),
+                httpResponse.getVersion(),
+                httpResponse.getHeaders(),
+                httpResponse.getBodyAsBytes(),
                 null
         );
     }

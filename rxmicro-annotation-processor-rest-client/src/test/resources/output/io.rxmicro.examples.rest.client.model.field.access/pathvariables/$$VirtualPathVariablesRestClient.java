@@ -1,10 +1,10 @@
 package io.rxmicro.examples.rest.client.model.field.access.pathvariables;
 
 import io.rxmicro.examples.rest.client.model.field.access.Status;
-import io.rxmicro.http.client.ClientHttpResponse;
-import io.rxmicro.http.client.HttpClient;
 import io.rxmicro.rest.client.RestClientConfig;
 import io.rxmicro.rest.client.detail.AbstractRestClient;
+import io.rxmicro.rest.client.detail.HttpClient;
+import io.rxmicro.rest.client.detail.HttpResponse;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -36,7 +36,7 @@ public final class $$VirtualPathVariablesRestClient extends AbstractRestClient i
     public CompletionStage<Void> put(final Boolean booleanPathVariable, final Byte bytePathVariable, final Short shortPathVariable, final Integer intPathVariable, final Long longPathVariable, final BigInteger bigIntegerPathVariable, final Float floatPathVariable, final Double doublePathVariable, final BigDecimal decimalPathVariable, final Character charPathVariable, final String stringPathVariable, final Instant instantPathVariable, final Status enumPathVariable) {
         final $$VirtualVirtualPathVariablesRequest virtualRequest = new $$VirtualVirtualPathVariablesRequest(booleanPathVariable, bytePathVariable, shortPathVariable, intPathVariable, longPathVariable, bigIntegerPathVariable, floatPathVariable, doublePathVariable, decimalPathVariable, charPathVariable, stringPathVariable, instantPathVariable, enumPathVariable);
         final String path = virtualVirtualPathVariablesRequestPathBuilder.build("/path-variables/virtual/${a}/${b}/${c}/${d}/${e}/${f}/${g}/${j}/${h}/${i}/${j}/${k}/${l}/${m}", "/path-variables/virtual/?/?/?/?/?/?/?/?/?/?/?/?/?/?", virtualRequest);
-        final CompletableFuture<ClientHttpResponse> response = client
+        final CompletableFuture<HttpResponse> response = client
                 .sendAsync("PUT", path, EMPTY_HEADERS)
                 .handle(throwExceptionIfNotSuccess());
         return response

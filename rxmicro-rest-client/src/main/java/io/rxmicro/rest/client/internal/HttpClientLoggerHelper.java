@@ -16,10 +16,10 @@
 
 package io.rxmicro.rest.client.internal;
 
-import io.rxmicro.http.client.HttpClient;
-import io.rxmicro.http.client.HttpClientConfig;
 import io.rxmicro.logger.Logger;
 import io.rxmicro.logger.LoggerFactory;
+import io.rxmicro.rest.client.RestClientConfig;
+import io.rxmicro.rest.client.detail.HttpClient;
 
 import static java.lang.System.lineSeparator;
 
@@ -31,7 +31,7 @@ public final class HttpClientLoggerHelper {
 
     public static void logClientConfig(final Class<?> restClientInterface,
                                        final HttpClient httpClient,
-                                       final HttpClientConfig config) {
+                                       final RestClientConfig config) {
         final Logger logger = LoggerFactory.getLogger(restClientInterface);
         if (logger.isDebugEnabled()) {
             logger.debug("Http client created: ?Config=? ?Impl class=?",

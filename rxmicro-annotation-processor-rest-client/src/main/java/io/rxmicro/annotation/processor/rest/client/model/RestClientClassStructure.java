@@ -26,8 +26,8 @@ import io.rxmicro.annotation.processor.common.util.Elements;
 import io.rxmicro.annotation.processor.common.util.UsedByFreemarker;
 import io.rxmicro.annotation.processor.rest.model.AbstractSimpleObjectModelClass;
 import io.rxmicro.exchange.json.detail.ModelToJsonConverter;
-import io.rxmicro.http.client.ClientHttpResponse;
-import io.rxmicro.http.client.HttpClient;
+import io.rxmicro.rest.client.detail.HttpClient;
+import io.rxmicro.rest.client.detail.HttpResponse;
 import io.rxmicro.rest.client.detail.ModelReader;
 import io.rxmicro.rest.client.detail.PathBuilder;
 import io.rxmicro.rest.client.detail.RequestModelExtractor;
@@ -171,7 +171,7 @@ public final class RestClientClassStructure extends ClassStructure {
                 .addImports(
                         CompletableFuture.class,
                         HttpClient.class,
-                        ClientHttpResponse.class
+                        HttpResponse.class
                 )
                 .addImports(restClientAbstractClass)
                 .addStaticImport(RequestValidators.class, "validateRequest");

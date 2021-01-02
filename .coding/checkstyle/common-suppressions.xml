@@ -24,11 +24,11 @@
 
     <!-- These classes are a top level ones, which must catch ALL possible types of exceptions and log it -->
     <suppress checks="IllegalCatch"
-              files="LoggerImplProviderFactoryHelper.java|BaseRestControllerMethod.java|NettyRequestHandler.java|InstanceContainer.java"/>
+              files="LoggerImplProviderFactoryHelper.java|BaseRestControllerMethod.java|SharableNettyRequestHandler.java"/>
     <suppress checks="IllegalCatch"
               files="RxMicroAnnotationProcessor.java|AbstractRxMicroProcessor.java|Injects.java|DbUnitTestExtension.java|Safes.java"/>
     <suppress checks="IllegalCatch"
-              files="TestedProcessProxy.java|JULLoggerImplProvider.java"/>
+              files="TestedProcessProxy.java|JULLoggerImplProvider.java|InstanceContainer.java"/>
 
     <!-- Safe.Consumer is basic interface for testing  -->
     <!-- LoggerImplProvider is basic interface for extension  -->

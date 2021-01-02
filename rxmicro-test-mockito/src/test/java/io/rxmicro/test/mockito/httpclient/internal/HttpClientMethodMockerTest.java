@@ -18,8 +18,8 @@ package io.rxmicro.test.mockito.httpclient.internal;
 
 import io.rxmicro.http.HttpHeaders;
 import io.rxmicro.http.QueryParams;
-import io.rxmicro.http.client.ClientHttpResponse;
-import io.rxmicro.http.client.HttpClient;
+import io.rxmicro.rest.client.detail.HttpClient;
+import io.rxmicro.rest.client.detail.HttpResponse;
 import io.rxmicro.rest.model.HttpMethod;
 import io.rxmicro.test.mockito.httpclient.HttpRequestMock;
 import io.rxmicro.test.mockito.httpclient.HttpResponseMock;
@@ -60,12 +60,12 @@ final class HttpClientMethodMockerTest {
     private HttpClient client;
 
     @Mock
-    private ClientHttpResponse expected;
+    private HttpResponse expected;
 
     @Mock
     private HttpResponseMock httpResponseMock;
 
-    static Stream<Function<HttpClient, CompletableFuture<ClientHttpResponse>>> provider() {
+    static Stream<Function<HttpClient, CompletableFuture<HttpResponse>>> provider() {
         return Stream.of(
                 c -> c.sendAsync("GET", "/", HttpHeaders.of().getEntries()),
                 c -> c.sendAsync("HEAD", "/head", HttpHeaders.of("H1", "V1").getEntries()),
@@ -86,7 +86,7 @@ final class HttpClientMethodMockerTest {
     @ParameterizedTest
     @MethodSource("provider")
     @Order(1)
-    void Should_mock_any_request(final Function<HttpClient, CompletableFuture<ClientHttpResponse>> function) {
+    void Should_mock_any_request(final Function<HttpClient, CompletableFuture<HttpResponse>> function) {
         final HttpRequestMock httpRequestMock = new HttpRequestMock.Builder()
                 .setAnyRequest()
                 .build();

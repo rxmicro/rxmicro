@@ -133,20 +133,6 @@ public enum RxMicroModule {
     RX_MICRO_HTTP_MODULE("rxmicro.http"),
 
     /**
-     * The module that provides a low-level reactive HTTP client.
-     */
-    RX_MICRO_HTTP_CLIENT_MODULE("rxmicro.http.client"),
-
-    /**
-     * The module that is a low-level HTTP client implementation module based on
-     * <a href="https://openjdk.java.net/groups/net/httpclient/intro.html">Java HTTP Client</a>.
-     *
-     * <p>
-     * This module can be used for REST based microservice testing.
-     */
-    RX_MICRO_HTTP_CLIENT_JDK_MODULE("rxmicro.http.client.jdk"),
-
-    /**
      * The basic module that defines basic RxMicro annotations, required when using the
      * <a href="https://en.wikipedia.org/wiki/Representational_state_transfer">REST architecture</a> of building program systems.
      */

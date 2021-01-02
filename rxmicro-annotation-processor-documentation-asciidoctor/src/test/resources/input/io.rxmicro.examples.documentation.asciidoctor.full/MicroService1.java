@@ -21,8 +21,8 @@ import io.rxmicro.documentation.SimpleErrorResponse;
 import io.rxmicro.examples.documentation.asciidoctor.full.model.NotAcceptableException;
 import io.rxmicro.examples.documentation.asciidoctor.full.model.Request;
 import io.rxmicro.examples.documentation.asciidoctor.full.model.Response;
-import io.rxmicro.http.client.HttpClientTimeoutException;
 import io.rxmicro.rest.Version;
+import io.rxmicro.rest.client.HttpClientTimeoutException;
 import io.rxmicro.rest.method.GET;
 import io.rxmicro.rest.server.feature.EnableCrossOriginResourceSharing;
 

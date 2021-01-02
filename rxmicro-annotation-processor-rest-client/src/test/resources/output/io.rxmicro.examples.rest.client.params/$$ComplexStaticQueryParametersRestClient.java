@@ -1,9 +1,9 @@
 package io.rxmicro.examples.rest.client.params;
 
-import io.rxmicro.http.client.ClientHttpResponse;
-import io.rxmicro.http.client.HttpClient;
 import io.rxmicro.rest.client.RestClientConfig;
 import io.rxmicro.rest.client.detail.AbstractRestClient;
+import io.rxmicro.rest.client.detail.HttpClient;
+import io.rxmicro.rest.client.detail.HttpResponse;
 import io.rxmicro.rest.client.detail.QueryBuilder;
 
 import java.util.concurrent.CompletableFuture;
@@ -31,7 +31,7 @@ public final class $$ComplexStaticQueryParametersRestClient extends AbstractRest
         queryBuilder.add("parent-param2", "new-parent-param2-value");
         queryBuilder.add("parent-param2", "new-parent-param2-value");
         queryBuilder.add("parent-param1", "new-parent-param1-value");
-        final CompletableFuture<ClientHttpResponse> response = client
+        final CompletableFuture<HttpResponse> response = client
                 .sendAsync("GET", joinPath("/get1", queryBuilder.build()), EMPTY_HEADERS)
                 .handle(throwExceptionIfNotSuccess());
         return response
@@ -47,7 +47,7 @@ public final class $$ComplexStaticQueryParametersRestClient extends AbstractRest
         queryBuilder.add("child-param2", "new-child-param2-value");
         queryBuilder.add("child-param2", "new-child-param2-value");
         queryBuilder.add("child-param1", "new-child-param1-value");
-        final CompletableFuture<ClientHttpResponse> response = client
+        final CompletableFuture<HttpResponse> response = client
                 .sendAsync("GET", joinPath("/get2", queryBuilder.build()), EMPTY_HEADERS)
                 .handle(throwExceptionIfNotSuccess());
         return response
@@ -59,7 +59,7 @@ public final class $$ComplexStaticQueryParametersRestClient extends AbstractRest
         final QueryBuilder queryBuilder = new QueryBuilder();
         queryBuilder.add("parent-param2", "new-child-parent-param2-value");
         queryBuilder.add("parent-param1", "new-child-parent-param1-value");
-        final CompletableFuture<ClientHttpResponse> response = client
+        final CompletableFuture<HttpResponse> response = client
                 .sendAsync("GET", joinPath("/get3", queryBuilder.build()), EMPTY_HEADERS)
                 .handle(throwExceptionIfNotSuccess());
         return response
@@ -74,7 +74,7 @@ public final class $$ComplexStaticQueryParametersRestClient extends AbstractRest
         queryBuilder.add("parent-param2", "new-child-parent-param2-value");
         queryBuilder.add("parent-param1", "new-parent-param1-value");
         queryBuilder.add("parent-param1", "new-child-parent-param1-value");
-        final CompletableFuture<ClientHttpResponse> response = client
+        final CompletableFuture<HttpResponse> response = client
                 .sendAsync("GET", joinPath("/get4", queryBuilder.build()), EMPTY_HEADERS)
                 .handle(throwExceptionIfNotSuccess());
         return response

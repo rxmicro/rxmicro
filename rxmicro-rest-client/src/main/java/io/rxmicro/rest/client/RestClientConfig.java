@@ -17,13 +17,15 @@
 package io.rxmicro.rest.client;
 
 import io.rxmicro.common.meta.BuilderMethod;
+import io.rxmicro.http.HttpConfig;
 import io.rxmicro.http.ProtocolSchema;
-import io.rxmicro.http.client.HttpClientConfig;
 
 import java.time.Duration;
 
 import static io.rxmicro.common.util.Formats.format;
+import static io.rxmicro.common.util.Requires.require;
 import static io.rxmicro.config.Secrets.hideSecretInfo;
+import static io.rxmicro.http.ProtocolSchema.HTTP;
 
 /**
  * Allows configuring a REST client options.
@@ -31,9 +33,102 @@ import static io.rxmicro.config.Secrets.hideSecretInfo;
  * @author nedis
  * @since 0.7
  */
-public class RestClientConfig extends HttpClientConfig {
+public class RestClientConfig extends HttpConfig {
+
+    /**
+     * Default HTTP port.
+     */
+    public static final int DEFAULT_HTTP_PORT = 80;
+
+    /**
+     * Default request timeout.
+     */
+    public static final Duration DEFAULT_REQUEST_TIMEOUT = Duration.ofSeconds(7);
+
+    private String accessKey;
+
+    private boolean followRedirects;
+
+    private Duration requestTimeout;
 
     private boolean enableAdditionalValidations;
+
+    /**
+     * Creates a rest client config instance with default settings.
+     */
+    public RestClientConfig() {
+        super.setSchema(HTTP);
+        super.setHost("localhost");
+        super.setPort(DEFAULT_HTTP_PORT);
+        this.followRedirects = true;
+        this.requestTimeout = DEFAULT_REQUEST_TIMEOUT;
+    }
+
+    /**
+     * Returns the set access key or {@code null} if access key is not configured.
+     *
+     * @return the set access key or {@code null} if access key is not configured
+     */
+    public String getAccessKey() {
+        return accessKey;
+    }
+
+    /**
+     * Sets the access key that can be used for authentication on the server side.
+     *
+     * @param accessKey the access key
+     * @return the reference to this {@link RestClientConfig} instance
+     */
+    @BuilderMethod
+    public RestClientConfig setAccessKey(final String accessKey) {
+        this.accessKey = require(accessKey);
+        return this;
+    }
+
+    /**
+     * Returns {@code true} if current HTTP client must follow redirects.
+     *
+     * @return {@code true} if current HTTP client must follow redirects
+     */
+    public boolean isFollowRedirects() {
+        return followRedirects;
+    }
+
+    /**
+     * Sets that current HTTP client must follow redirects or not.
+     *
+     * @param followRedirects follow redirects or not
+     * @return the reference to this {@link RestClientConfig} instance
+     */
+    @BuilderMethod
+    public RestClientConfig setFollowRedirects(final boolean followRedirects) {
+        this.followRedirects = followRedirects;
+        return this;
+    }
+
+    /**
+     * Returns the request timeout.
+     *
+     * @return the request timeout
+     */
+    public Duration getRequestTimeout() {
+        return requestTimeout;
+    }
+
+    /**
+     * Sets the request timeout.
+     *
+     * <p>
+     * {@link Duration#ZERO} means the infinite timeout
+     *
+     * @param requestTimeout the request timeout
+     * @return the reference to this {@link RestClientConfig} instance
+     */
+    @BuilderMethod
+    public RestClientConfig setRequestTimeout(final Duration requestTimeout) {
+        this.requestTimeout = require(requestTimeout);
+        return this;
+    }
 
     /**
      * Returns {@code true} if additional validations are enabled.
@@ -54,21 +149,6 @@ public class RestClientConfig extends HttpClientConfig {
     public RestClientConfig setEnableAdditionalValidations(final boolean enableAdditionalValidations) {
         this.enableAdditionalValidations = enableAdditionalValidations;
         return this;
-    }
-
-    @Override
-    public RestClientConfig setAccessKey(final String accessKey) {
-        return (RestClientConfig) super.setAccessKey(accessKey);
-    }
-
-    @Override
-    public RestClientConfig setFollowRedirects(final boolean followRedirects) {
-        return (RestClientConfig) super.setFollowRedirects(followRedirects);
-    }
-
-    @Override
-    public RestClientConfig setRequestTimeout(final Duration requestTimeout) {
-        return (RestClientConfig) super.setRequestTimeout(requestTimeout);
     }
 
     @Override

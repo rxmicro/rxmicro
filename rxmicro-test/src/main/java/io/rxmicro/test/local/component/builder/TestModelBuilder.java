@@ -16,11 +16,12 @@
 
 package io.rxmicro.test.local.component.builder;
 
+import io.rxmicro.rest.client.detail.HttpClient;
 import io.rxmicro.test.Alternative;
 import io.rxmicro.test.BlockingHttpClient;
 import io.rxmicro.test.SystemOut;
-import io.rxmicro.test.internal.BlockingHttpClientImpl;
 import io.rxmicro.test.internal.SystemStreamImpl;
+import io.rxmicro.test.internal.http.JdkBlockingHttpClient;
 import io.rxmicro.test.local.InvalidTestConfigException;
 import io.rxmicro.test.local.component.builder.internal.ReplacementExclusion;
 import io.rxmicro.test.local.model.TestModel;
@@ -57,8 +58,8 @@ public final class TestModelBuilder {
             BlockingHttpClient.class,
             Map.of(
                     java.net.http.HttpClient.class, Set.of(MOCK_REPLACEMENT_EXCLUSION),
-                    io.rxmicro.http.client.HttpClient.class, Set.of(MOCK_REPLACEMENT_EXCLUSION),
-                    BlockingHttpClientImpl.class, Set.of()
+                    HttpClient.class, Set.of(MOCK_REPLACEMENT_EXCLUSION),
+                    JdkBlockingHttpClient.class, Set.of()
             ),
             SystemOut.class,
             Map.of(

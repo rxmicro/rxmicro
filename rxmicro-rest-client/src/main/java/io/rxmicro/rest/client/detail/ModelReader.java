@@ -16,7 +16,6 @@
 
 package io.rxmicro.rest.client.detail;
 
-import io.rxmicro.http.client.ClientHttpResponse;
 import io.rxmicro.rest.local.FromStringValueConverter;
 
 import java.util.List;
@@ -30,11 +29,11 @@ import java.util.List;
  */
 public abstract class ModelReader<T> extends FromStringValueConverter {
 
-    public T readSingle(final ClientHttpResponse response) {
+    public T readSingle(final HttpResponse response) {
         throw new AbstractMethodError("The RxMicro Annotation Processor did not generate an implementation of this method!");
     }
 
-    public List<T> readList(final ClientHttpResponse response) {
+    public List<T> readList(final HttpResponse response) {
         throw new AbstractMethodError("The RxMicro Annotation Processor did not generate an implementation of this method!");
     }
 }

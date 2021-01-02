@@ -1,6 +1,6 @@
 package io.rxmicro.examples.processor.all.components.model;
 
-import io.rxmicro.http.client.ClientHttpResponse;
+import io.rxmicro.rest.client.detail.HttpResponse;
 import io.rxmicro.rest.client.detail.ModelReader;
 
 /**
@@ -12,7 +12,7 @@ public final class $$AccountModelReader extends ModelReader<Account> {
             new $$AccountModelFromJsonConverter();
 
     @Override
-    public Account readSingle(final ClientHttpResponse response) {
+    public Account readSingle(final HttpResponse response) {
         return accountModelFromJsonConverter.fromJsonObject(response.getBody());
     }
 }

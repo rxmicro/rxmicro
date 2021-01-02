@@ -1,6 +1,6 @@
 package io.rxmicro.examples.rest.client.model.types.model.response.without_body;
 
-import io.rxmicro.http.client.ClientHttpResponse;
+import io.rxmicro.rest.client.detail.HttpResponse;
 import io.rxmicro.rest.client.detail.ModelReader;
 
 /**
@@ -9,13 +9,13 @@ import io.rxmicro.rest.client.detail.ModelReader;
 public final class $$InternalsOnlyResponseModelReader extends ModelReader<InternalsOnlyResponse> {
 
     @Override
-    public InternalsOnlyResponse readSingle(final ClientHttpResponse response) {
+    public InternalsOnlyResponse readSingle(final HttpResponse response) {
         final InternalsOnlyResponse model = new InternalsOnlyResponse();
         readPrimitivesToModel(response, model);
         return model;
     }
 
-    protected void readPrimitivesToModel(final ClientHttpResponse response,
+    protected void readPrimitivesToModel(final HttpResponse response,
                                          final InternalsOnlyResponse model) {
         model.internalResponseStatusCode = response.getStatusCode();
         model.internalHttpVersion = response.getVersion();

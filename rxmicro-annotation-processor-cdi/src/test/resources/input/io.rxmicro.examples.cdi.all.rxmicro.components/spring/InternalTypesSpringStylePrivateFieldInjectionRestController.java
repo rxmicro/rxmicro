@@ -28,7 +28,7 @@ import io.rxmicro.examples.cdi.all.rxmicro.components.CustomPostgreSQLNamedConfi
 import io.rxmicro.examples.cdi.all.rxmicro.components.component.MongoRepository;
 import io.rxmicro.examples.cdi.all.rxmicro.components.component.PostgreSQLRepository;
 import io.rxmicro.examples.cdi.all.rxmicro.components.component.RestClient;
-import io.rxmicro.http.client.HttpClientConfig;
+import io.rxmicro.rest.client.RestClientConfig;
 import io.rxmicro.rest.method.GET;
 import io.rxmicro.rest.server.HttpServerConfig;
 import io.rxmicro.rest.server.RestServerConfig;
@@ -82,11 +82,11 @@ public final class InternalTypesSpringStylePrivateFieldInjectionRestController {
     private RestClient restClient;
 
     @Autowired
-    private HttpClientConfig httpClientConfig;
+    private RestClientConfig restClientConfig;
 
     @Autowired
-    @Qualifier("custom-http-client")
-    private HttpClientConfig customHttpClientConfig;
+    @Qualifier("custom-rest-client")
+    private RestClientConfig customRestClientConfig;
 
     @Autowired
     private HttpServerConfig httpServerConfig;

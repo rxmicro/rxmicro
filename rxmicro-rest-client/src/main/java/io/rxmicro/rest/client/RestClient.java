@@ -16,8 +16,6 @@
 
 package io.rxmicro.rest.client;
 
-import io.rxmicro.http.client.HttpClientConfig;
-
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;

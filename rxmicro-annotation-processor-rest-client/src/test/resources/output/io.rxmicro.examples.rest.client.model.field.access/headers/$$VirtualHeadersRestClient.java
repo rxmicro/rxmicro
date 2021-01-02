@@ -1,11 +1,11 @@
 package io.rxmicro.examples.rest.client.model.field.access.headers;
 
 import io.rxmicro.examples.rest.client.model.field.access.Status;
-import io.rxmicro.http.client.ClientHttpResponse;
-import io.rxmicro.http.client.HttpClient;
 import io.rxmicro.rest.client.RestClientConfig;
 import io.rxmicro.rest.client.detail.AbstractRestClient;
 import io.rxmicro.rest.client.detail.HeaderBuilder;
+import io.rxmicro.rest.client.detail.HttpClient;
+import io.rxmicro.rest.client.detail.HttpResponse;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -41,7 +41,7 @@ public final class $$VirtualHeadersRestClient extends AbstractRestClient impleme
         final String path = "/headers/virtual";
         final HeaderBuilder headerBuilder = new HeaderBuilder();
         virtualVirtualHeadersRequestRequestModelExtractor.extract(virtualRequest, headerBuilder);
-        final CompletableFuture<ClientHttpResponse> response = client
+        final CompletableFuture<HttpResponse> response = client
                 .sendAsync("PUT", path, headerBuilder.build())
                 .handle(throwExceptionIfNotSuccess());
         return response

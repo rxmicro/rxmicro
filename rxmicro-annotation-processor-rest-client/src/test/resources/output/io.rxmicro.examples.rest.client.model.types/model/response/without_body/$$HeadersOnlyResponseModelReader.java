@@ -2,7 +2,7 @@ package io.rxmicro.examples.rest.client.model.types.model.response.without_body;
 
 import io.rxmicro.examples.rest.client.model.types.model.Status;
 import io.rxmicro.http.HttpHeaders;
-import io.rxmicro.http.client.ClientHttpResponse;
+import io.rxmicro.rest.client.detail.HttpResponse;
 import io.rxmicro.rest.client.detail.ModelReader;
 import io.rxmicro.rest.model.HttpModelType;
 
@@ -12,13 +12,13 @@ import io.rxmicro.rest.model.HttpModelType;
 public final class $$HeadersOnlyResponseModelReader extends ModelReader<HeadersOnlyResponse> {
 
     @Override
-    public HeadersOnlyResponse readSingle(final ClientHttpResponse response) {
+    public HeadersOnlyResponse readSingle(final HttpResponse response) {
         final HeadersOnlyResponse model = new HeadersOnlyResponse();
         readPrimitivesToModel(response, model);
         return model;
     }
 
-    protected void readPrimitivesToModel(final ClientHttpResponse response,
+    protected void readPrimitivesToModel(final HttpResponse response,
                                          final HeadersOnlyResponse model) {
         final HttpHeaders httpHeaders = response.getHeaders();
         model.booleanHeader = toBoolean(httpHeaders.getValue("booleanHeader"), HttpModelType.HEADER, "booleanHeader");

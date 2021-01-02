@@ -1,6 +1,6 @@
 package io.rxmicro.examples.unnamed.module.rest.client.generator.model;
 
-import io.rxmicro.http.client.ClientHttpResponse;
+import io.rxmicro.rest.client.detail.HttpResponse;
 import io.rxmicro.rest.client.detail.ModelReader;
 
 /**
@@ -12,7 +12,7 @@ public final class $$ResponseModelReader extends ModelReader<Response> {
             new $$ResponseModelFromJsonConverter();
 
     @Override
-    public Response readSingle(final ClientHttpResponse response) {
+    public Response readSingle(final HttpResponse response) {
         return responseModelFromJsonConverter.fromJsonObject(response.getBody());
     }
 }

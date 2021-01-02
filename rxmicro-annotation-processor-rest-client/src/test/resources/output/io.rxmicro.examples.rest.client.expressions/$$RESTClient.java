@@ -1,9 +1,9 @@
 package io.rxmicro.examples.rest.client.expressions;
 
-import io.rxmicro.http.client.ClientHttpResponse;
-import io.rxmicro.http.client.HttpClient;
 import io.rxmicro.rest.client.detail.AbstractRestClient;
 import io.rxmicro.rest.client.detail.HeaderBuilder;
+import io.rxmicro.rest.client.detail.HttpClient;
+import io.rxmicro.rest.client.detail.HttpResponse;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -31,7 +31,7 @@ public final class $$RESTClient extends AbstractRestClient implements RESTClient
         headerBuilder.add("Use-Proxy", config.isUseProxy());
         headerBuilder.add("Debug", format("Use-Proxy=?, Mode=?", config.isUseProxy(), config.getMode()));
         headerBuilder.add("Endpoint", format("Schema=?, Host=?, Port=?", config.getSchema(), config.getHost(), config.getPort()));
-        final CompletableFuture<ClientHttpResponse> response = client
+        final CompletableFuture<HttpResponse> response = client
                 .sendAsync("PUT", "/", headerBuilder.build())
                 .handle(throwExceptionIfNotSuccess());
         return response

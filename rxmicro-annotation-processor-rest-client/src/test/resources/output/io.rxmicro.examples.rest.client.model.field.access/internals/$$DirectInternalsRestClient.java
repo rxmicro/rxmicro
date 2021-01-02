@@ -2,10 +2,10 @@ package io.rxmicro.examples.rest.client.model.field.access.internals;
 
 import io.rxmicro.examples.rest.client.model.field.access.internals.direct.$$ResponseModelReader;
 import io.rxmicro.examples.rest.client.model.field.access.internals.direct.Response;
-import io.rxmicro.http.client.ClientHttpResponse;
-import io.rxmicro.http.client.HttpClient;
 import io.rxmicro.rest.client.RestClientConfig;
 import io.rxmicro.rest.client.detail.AbstractRestClient;
+import io.rxmicro.rest.client.detail.HttpClient;
+import io.rxmicro.rest.client.detail.HttpResponse;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
@@ -32,7 +32,7 @@ public final class $$DirectInternalsRestClient extends AbstractRestClient implem
 
     @Override
     public CompletionStage<Response> put() {
-        final CompletableFuture<ClientHttpResponse> response = client
+        final CompletableFuture<HttpResponse> response = client
                 .sendAsync("PUT", "/internals/direct", EMPTY_HEADERS)
                 .handle(throwExceptionIfNotSuccess());
         return response

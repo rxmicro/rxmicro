@@ -40,7 +40,6 @@
                 <configuration>
                     <argLine>
                         @{argLine}
-                        --add-opens rxmicro.common/io.rxmicro.common=ALL-UNNAMED
                         --add-opens rxmicro.common/io.rxmicro.common.util=ALL-UNNAMED
                     </argLine>
                 </configuration>

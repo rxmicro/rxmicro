@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import io.rxmicro.http.client.HttpClientContentConverter;
+import io.rxmicro.rest.client.detail.HttpClientContentConverter;
 import io.rxmicro.rest.client.exchange.json.internal.JsonHttpClientContentConverter;
 
 /**

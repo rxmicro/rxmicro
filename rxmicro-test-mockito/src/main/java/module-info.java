@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import io.rxmicro.http.client.HttpClientContentConverter;
+import io.rxmicro.rest.client.detail.HttpClientContentConverter;
 
 /**
  * The module designed for test writing using the <a href="https://site.mockito.org/">Mockito</a> framework.

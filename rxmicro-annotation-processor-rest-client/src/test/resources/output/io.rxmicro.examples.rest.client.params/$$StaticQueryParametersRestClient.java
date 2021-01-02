@@ -1,9 +1,9 @@
 package io.rxmicro.examples.rest.client.params;
 
-import io.rxmicro.http.client.ClientHttpResponse;
-import io.rxmicro.http.client.HttpClient;
 import io.rxmicro.rest.client.RestClientConfig;
 import io.rxmicro.rest.client.detail.AbstractRestClient;
+import io.rxmicro.rest.client.detail.HttpClient;
+import io.rxmicro.rest.client.detail.HttpResponse;
 import io.rxmicro.rest.client.detail.QueryBuilder;
 
 import java.util.concurrent.CompletableFuture;
@@ -29,7 +29,7 @@ public final class $$StaticQueryParametersRestClient extends AbstractRestClient 
     public CompletableFuture<Void> get1() {
         final QueryBuilder queryBuilder = new QueryBuilder();
         queryBuilder.add("mode", "demo");
-        final CompletableFuture<ClientHttpResponse> response = client
+        final CompletableFuture<HttpResponse> response = client
                 .sendAsync("GET", joinPath("/get1", queryBuilder.build()), EMPTY_HEADERS)
                 .handle(throwExceptionIfNotSuccess());
         return response
@@ -41,7 +41,7 @@ public final class $$StaticQueryParametersRestClient extends AbstractRestClient 
         final QueryBuilder queryBuilder = new QueryBuilder();
         queryBuilder.add("mode", "demo");
         queryBuilder.add("debug", "true");
-        final CompletableFuture<ClientHttpResponse> response = client
+        final CompletableFuture<HttpResponse> response = client
                 .sendAsync("GET", joinPath("/get2", queryBuilder.build()), EMPTY_HEADERS)
                 .handle(throwExceptionIfNotSuccess());
         return response

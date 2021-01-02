@@ -16,8 +16,8 @@
 
 package io.rxmicro.test.mockito.httpclient.internal;
 
-import io.rxmicro.http.client.HttpClient;
-import io.rxmicro.http.client.HttpClientFactory;
+import io.rxmicro.rest.client.detail.HttpClient;
+import io.rxmicro.rest.client.detail.HttpClientFactory;
 import io.rxmicro.test.local.InvalidTestConfigException;
 import io.rxmicro.test.mockito.httpclient.HttpRequestMock;
 import io.rxmicro.test.mockito.httpclient.HttpResponseMock;

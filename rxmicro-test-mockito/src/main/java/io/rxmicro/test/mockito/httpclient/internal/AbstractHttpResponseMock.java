@@ -18,8 +18,8 @@ package io.rxmicro.test.mockito.httpclient.internal;
 
 import io.rxmicro.http.HttpHeaders;
 import io.rxmicro.http.HttpVersion;
-import io.rxmicro.http.client.ClientHttpResponse;
-import io.rxmicro.test.mockito.httpclient.internal.model.ClientHttpResponseImpl;
+import io.rxmicro.rest.client.detail.HttpResponse;
+import io.rxmicro.test.mockito.httpclient.internal.model.HttpResponseImpl;
 
 import java.util.Optional;
 
@@ -57,15 +57,15 @@ public abstract class AbstractHttpResponseMock {
         return returnRequestBody;
     }
 
-    protected ClientHttpResponse getClientHttpResponse() {
+    protected HttpResponse getClientHttpResponse() {
         if (body == null) {
-            return new ClientHttpResponseImpl(status, version, Optional.ofNullable(headers).orElse(EMPTY_HEADERS));
+            return new HttpResponseImpl(status, version, Optional.ofNullable(headers).orElse(EMPTY_HEADERS));
         } else {
-            return new ClientHttpResponseImpl(status, version, Optional.ofNullable(headers).orElse(EMPTY_HEADERS), body);
+            return new HttpResponseImpl(status, version, Optional.ofNullable(headers).orElse(EMPTY_HEADERS), body);
         }
     }
 
-    protected ClientHttpResponse getClientHttpResponse(final Object body) {
-        return new ClientHttpResponseImpl(status, version, Optional.ofNullable(headers).orElse(EMPTY_HEADERS), body);
+    protected HttpResponse getClientHttpResponse(final Object body) {
+        return new HttpResponseImpl(status, version, Optional.ofNullable(headers).orElse(EMPTY_HEADERS), body);
     }
 }

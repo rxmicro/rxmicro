@@ -1,10 +1,10 @@
 package io.rxmicro.examples.rest.client.headers;
 
-import io.rxmicro.http.client.ClientHttpResponse;
-import io.rxmicro.http.client.HttpClient;
 import io.rxmicro.rest.client.RestClientConfig;
 import io.rxmicro.rest.client.detail.AbstractRestClient;
 import io.rxmicro.rest.client.detail.HeaderBuilder;
+import io.rxmicro.rest.client.detail.HttpClient;
+import io.rxmicro.rest.client.detail.HttpResponse;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -29,7 +29,7 @@ public final class $$StaticHeadersRestClient extends AbstractRestClient implemen
     public CompletableFuture<Void> get1() {
         final HeaderBuilder headerBuilder = new HeaderBuilder();
         headerBuilder.add("Mode", "Demo");
-        final CompletableFuture<ClientHttpResponse> response = client
+        final CompletableFuture<HttpResponse> response = client
                 .sendAsync("GET", "/get1", headerBuilder.build())
                 .handle(throwExceptionIfNotSuccess());
         return response
@@ -41,7 +41,7 @@ public final class $$StaticHeadersRestClient extends AbstractRestClient implemen
         final HeaderBuilder headerBuilder = new HeaderBuilder();
         headerBuilder.add("Mode", "Demo");
         headerBuilder.add("Debug", "true");
-        final CompletableFuture<ClientHttpResponse> response = client
+        final CompletableFuture<HttpResponse> response = client
                 .sendAsync("GET", "/get2", headerBuilder.build())
                 .handle(throwExceptionIfNotSuccess());
         return response

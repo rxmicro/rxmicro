@@ -16,11 +16,11 @@
 
 package io.rxmicro.annotation.processor.documentation.model;
 
-import io.rxmicro.http.client.HttpClientTimeoutException;
 import io.rxmicro.http.error.InternalHttpErrorException;
 import io.rxmicro.http.error.PermanentRedirectException;
 import io.rxmicro.http.error.TemporaryRedirectException;
 import io.rxmicro.http.error.ValidationException;
+import io.rxmicro.rest.client.HttpClientTimeoutException;
 
 import java.util.List;
 import java.util.Map;

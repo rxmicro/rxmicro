@@ -21,7 +21,7 @@ import io.rxmicro.annotation.processor.common.model.ClassStructure;
 import io.rxmicro.annotation.processor.common.model.error.InternalErrorException;
 import io.rxmicro.annotation.processor.rest.model.RestObjectModelClass;
 import io.rxmicro.http.HttpHeaders;
-import io.rxmicro.http.client.ClientHttpResponse;
+import io.rxmicro.rest.client.detail.HttpResponse;
 import io.rxmicro.rest.client.detail.ModelReader;
 import io.rxmicro.rest.model.ExchangeFormat;
 import io.rxmicro.rest.model.HttpModelType;
@@ -89,7 +89,7 @@ public final class ModelReaderClassStructure extends ClassStructure {
     public ClassHeader getClassHeader() {
         final ClassHeader.Builder classHeaderBuilder = newClassHeaderBuilder(modelClass.getModelTypeElement())
                 .addImports(
-                        ClientHttpResponse.class,
+                        HttpResponse.class,
                         ModelReader.class,
                         List.class,
                         HttpHeaders.class,

@@ -1,9 +1,9 @@
 package io.rxmicro.examples.rest.client.versioning.url.path;
 
-import io.rxmicro.http.client.ClientHttpResponse;
-import io.rxmicro.http.client.HttpClient;
 import io.rxmicro.rest.client.RestClientConfig;
 import io.rxmicro.rest.client.detail.AbstractRestClient;
+import io.rxmicro.rest.client.detail.HttpClient;
+import io.rxmicro.rest.client.detail.HttpResponse;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -26,7 +26,7 @@ public final class $$OldRestClient extends AbstractRestClient implements OldRest
 
     @Override
     public CompletableFuture<Void> update() {
-        final CompletableFuture<ClientHttpResponse> response = client
+        final CompletableFuture<HttpResponse> response = client
                 .sendAsync("PATCH", "/v1/patch", EMPTY_HEADERS)
                 .handle(throwExceptionIfNotSuccess());
         return response

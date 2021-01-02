@@ -2,10 +2,10 @@ package io.rxmicro.examples.rest.client.path.variables;
 
 import io.rxmicro.examples.rest.client.path.variables.model.$$RequestPathBuilder;
 import io.rxmicro.examples.rest.client.path.variables.model.Request;
-import io.rxmicro.http.client.ClientHttpResponse;
-import io.rxmicro.http.client.HttpClient;
 import io.rxmicro.rest.client.RestClientConfig;
 import io.rxmicro.rest.client.detail.AbstractRestClient;
+import io.rxmicro.rest.client.detail.HttpClient;
+import io.rxmicro.rest.client.detail.HttpResponse;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -35,7 +35,7 @@ public final class $$RESTClient extends AbstractRestClient implements RESTClient
     @Override
     public CompletableFuture<Void> consume(final Request request) {
         final String path = requestPathBuilder.build("/${category}/${class}-${subType}", "/?/?-?", request);
-        final CompletableFuture<ClientHttpResponse> response = client
+        final CompletableFuture<HttpResponse> response = client
                 .sendAsync("GET", path, EMPTY_HEADERS)
                 .handle(throwExceptionIfNotSuccess());
         return response
@@ -46,7 +46,7 @@ public final class $$RESTClient extends AbstractRestClient implements RESTClient
     public CompletableFuture<Void> consume(final String category, final String type, final String subType) {
         final $$VirtualRESTRequest virtualRequest = new $$VirtualRESTRequest(category, type, subType);
         final String path = virtualRESTRequestPathBuilder.build("/${category}/${class}-${subType}", "/?/?-?", virtualRequest);
-        final CompletableFuture<ClientHttpResponse> response = client
+        final CompletableFuture<HttpResponse> response = client
                 .sendAsync("GET", path, EMPTY_HEADERS)
                 .handle(throwExceptionIfNotSuccess());
         return response

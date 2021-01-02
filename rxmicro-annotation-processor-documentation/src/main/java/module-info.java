@@ -25,8 +25,8 @@ import io.rxmicro.annotation.processor.documentation.component.IncludeReferenceS
 @SuppressWarnings("JavaRequiresAutoModule")
 module rxmicro.annotation.processor.documentation {
     requires transitive rxmicro.resource;
-    requires transitive rxmicro.http.client;
     requires transitive rxmicro.documentation;
+    requires transitive rxmicro.rest.client;
 
     requires transitive maven.model;
     requires transitive plexus.utils;

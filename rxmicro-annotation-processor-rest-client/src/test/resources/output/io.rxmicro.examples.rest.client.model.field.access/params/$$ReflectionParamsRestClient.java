@@ -6,10 +6,10 @@ import io.rxmicro.examples.rest.client.model.field.access.params.reflection.$$Re
 import io.rxmicro.examples.rest.client.model.field.access.params.reflection.BodyRequest;
 import io.rxmicro.examples.rest.client.model.field.access.params.reflection.QueryRequest;
 import io.rxmicro.examples.rest.client.model.field.access.params.reflection.Response;
-import io.rxmicro.http.client.ClientHttpResponse;
-import io.rxmicro.http.client.HttpClient;
 import io.rxmicro.rest.client.RestClientConfig;
 import io.rxmicro.rest.client.detail.AbstractRestClient;
+import io.rxmicro.rest.client.detail.HttpClient;
+import io.rxmicro.rest.client.detail.HttpResponse;
 import io.rxmicro.rest.client.detail.QueryBuilder;
 
 import java.util.concurrent.CompletableFuture;
@@ -46,7 +46,7 @@ public final class $$ReflectionParamsRestClient extends AbstractRestClient imple
         final String path = "/params/direct";
         final QueryBuilder queryBuilder = new QueryBuilder();
         queryRequestRequestModelExtractor.extract(request, queryBuilder);
-        final CompletableFuture<ClientHttpResponse> response = client
+        final CompletableFuture<HttpResponse> response = client
                 .sendAsync("GET", joinPath(path, queryBuilder.build()), EMPTY_HEADERS)
                 .handle(throwExceptionIfNotSuccess());
         return response
@@ -57,7 +57,7 @@ public final class $$ReflectionParamsRestClient extends AbstractRestClient imple
     public CompletionStage<Response> put(final BodyRequest request) {
         final String path = "/params/reflection";
         final Object body = bodyRequestModelToJsonConverter.toJson(request);
-        final CompletableFuture<ClientHttpResponse> response = client
+        final CompletableFuture<HttpResponse> response = client
                 .sendAsync("PUT", path, EMPTY_HEADERS, body)
                 .handle(throwExceptionIfNotSuccess());
         return response

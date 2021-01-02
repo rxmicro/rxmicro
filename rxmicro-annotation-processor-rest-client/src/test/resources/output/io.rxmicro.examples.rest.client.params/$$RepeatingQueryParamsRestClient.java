@@ -1,10 +1,10 @@
 package io.rxmicro.examples.rest.client.params;
 
 import io.rxmicro.examples.rest.client.params.model.Status;
-import io.rxmicro.http.client.ClientHttpResponse;
-import io.rxmicro.http.client.HttpClient;
 import io.rxmicro.rest.client.RestClientConfig;
 import io.rxmicro.rest.client.detail.AbstractRestClient;
+import io.rxmicro.rest.client.detail.HttpClient;
+import io.rxmicro.rest.client.detail.HttpResponse;
 import io.rxmicro.rest.client.detail.QueryBuilder;
 
 import java.util.List;
@@ -36,7 +36,7 @@ public final class $$RepeatingQueryParamsRestClient extends AbstractRestClient i
         final String path = "/";
         final QueryBuilder queryBuilder = new QueryBuilder();
         virtualRepeatingQueryParamsRequestRequestModelExtractor.extract(virtualRequest, queryBuilder);
-        final CompletableFuture<ClientHttpResponse> response = client
+        final CompletableFuture<HttpResponse> response = client
                 .sendAsync("PUT", joinPath(path, queryBuilder.build()), EMPTY_HEADERS)
                 .handle(throwExceptionIfNotSuccess());
         return response

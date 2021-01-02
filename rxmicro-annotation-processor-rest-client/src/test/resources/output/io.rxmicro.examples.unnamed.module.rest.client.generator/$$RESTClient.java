@@ -5,11 +5,11 @@ import io.rxmicro.examples.unnamed.module.rest.client.generator.model.$$RequestR
 import io.rxmicro.examples.unnamed.module.rest.client.generator.model.$$ResponseModelReader;
 import io.rxmicro.examples.unnamed.module.rest.client.generator.model.Request;
 import io.rxmicro.examples.unnamed.module.rest.client.generator.model.Response;
-import io.rxmicro.http.client.ClientHttpResponse;
-import io.rxmicro.http.client.HttpClient;
 import io.rxmicro.http.error.ValidationException;
 import io.rxmicro.rest.client.RestClientConfig;
 import io.rxmicro.rest.client.detail.AbstractRestClient;
+import io.rxmicro.rest.client.detail.HttpClient;
+import io.rxmicro.rest.client.detail.HttpResponse;
 import io.rxmicro.rest.client.detail.QueryBuilder;
 
 import java.util.concurrent.CompletableFuture;
@@ -51,7 +51,7 @@ public final class $$RESTClient extends AbstractRestClient implements RESTClient
         final String path = "/";
         final QueryBuilder queryBuilder = new QueryBuilder();
         requestRequestModelExtractor.extract(request, queryBuilder);
-        final CompletableFuture<ClientHttpResponse> response = client
+        final CompletableFuture<HttpResponse> response = client
                 .sendAsync("GET", joinPath(path, queryBuilder.build()), EMPTY_HEADERS)
                 .handle(throwExceptionIfNotSuccess());
         return response

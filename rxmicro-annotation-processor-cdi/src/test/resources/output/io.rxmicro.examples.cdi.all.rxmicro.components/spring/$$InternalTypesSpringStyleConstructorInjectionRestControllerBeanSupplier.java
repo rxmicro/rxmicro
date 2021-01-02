@@ -9,7 +9,7 @@ import io.rxmicro.data.sql.r2dbc.postgresql.PostgreSQLConfig;
 import io.rxmicro.examples.cdi.all.rxmicro.components.component.MongoRepository;
 import io.rxmicro.examples.cdi.all.rxmicro.components.component.PostgreSQLRepository;
 import io.rxmicro.examples.cdi.all.rxmicro.components.component.RestClient;
-import io.rxmicro.http.client.HttpClientConfig;
+import io.rxmicro.rest.client.RestClientConfig;
 import io.rxmicro.rest.server.HttpServerConfig;
 import io.rxmicro.rest.server.RestServerConfig;
 import io.rxmicro.rest.server.netty.NettyRestServerConfig;
@@ -42,8 +42,8 @@ public final class $$InternalTypesSpringStyleConstructorInjectionRestControllerB
         builder.customConnectionFactory = getPostgreSQLConnectionFactory("custom-postgre-sql");
         builder.customConnectionPool = getPostgreSQLConnectionPool("custom-postgre-sql");
         builder.restClient = getRestClient(RestClient.class);
-        builder.httpClientConfig = getConfig("http-client", HttpClientConfig.class);
-        builder.customHttpClientConfig = getConfig("custom-http-client", HttpClientConfig.class);
+        builder.restClientConfig = getConfig("rest-client", RestClientConfig.class);
+        builder.customRestClientConfig = getConfig("custom-rest-client", RestClientConfig.class);
         builder.httpServerConfig = getConfig("http-server", HttpServerConfig.class);
         builder.restServerConfig = getConfig("rest-server", RestServerConfig.class);
         builder.nettyRestServerConfig = getConfig("netty-rest-server", NettyRestServerConfig.class);
@@ -80,9 +80,9 @@ public final class $$InternalTypesSpringStyleConstructorInjectionRestControllerB
 
         private RestClient restClient;
 
-        private HttpClientConfig httpClientConfig;
+        private RestClientConfig restClientConfig;
 
-        private HttpClientConfig customHttpClientConfig;
+        private RestClientConfig customRestClientConfig;
 
         private HttpServerConfig httpServerConfig;
 
@@ -91,7 +91,7 @@ public final class $$InternalTypesSpringStyleConstructorInjectionRestControllerB
         private NettyRestServerConfig nettyRestServerConfig;
 
         private InternalTypesSpringStyleConstructorInjectionRestController build() {
-            return new InternalTypesSpringStyleConstructorInjectionRestController(mongoRepository, mongoConfig, customMongoConfig, mongoClient, customMongoClient, postgreSQLRepository, postgreSQLConfig, customPostgreSQLConfig, connectionFactory, connectionPool, customConnectionFactory, customConnectionPool, restClient, httpClientConfig, customHttpClientConfig, httpServerConfig, restServerConfig, nettyRestServerConfig);
+            return new InternalTypesSpringStyleConstructorInjectionRestController(mongoRepository, mongoConfig, customMongoConfig, mongoClient, customMongoClient, postgreSQLRepository, postgreSQLConfig, customPostgreSQLConfig, connectionFactory, connectionPool, customConnectionFactory, customConnectionPool, restClient, restClientConfig, customRestClientConfig, httpServerConfig, restServerConfig, nettyRestServerConfig);
         }
     }
 }

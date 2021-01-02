@@ -325,18 +325,6 @@
     ]
   },
   {
-    "name": "io.netty.channel.nio.NioEventLoopGroup",
-    "methods": [
-      {
-        "name": "<init>",
-        "parameterTypes": [
-          "int",
-          "java.util.concurrent.ThreadFactory"
-        ]
-      }
-    ]
-  },
-  {
     "name": "io.netty.channel.socket.nio.NioSocketChannel",
     "methods": [
       {

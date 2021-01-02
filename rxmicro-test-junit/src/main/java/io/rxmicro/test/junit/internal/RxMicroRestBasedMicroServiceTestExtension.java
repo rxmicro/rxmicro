@@ -151,7 +151,7 @@ public final class RxMicroRestBasedMicroServiceTestExtension extends AbstractJUn
             final int serverPort = getServerPortHelper().getServerPort(configs.values());
             final BlockingHttpClientConfig config = blockingHttpClientInjector.getConfig(testClass, false, serverPort);
             restBasedMicroServiceTestValidator.validate(testModel, config);
-            blockingHttpClient = getBlockingHttpClientBuilder().build(testClass, config);
+            blockingHttpClient = getBlockingHttpClientBuilder().build(config);
         }
         runtimeContextComponentInjector = injectorFactory.createRuntimeContextComponentInjector();
         userCreatedComponentInjector = injectorFactory.createUserCreatedComponentInjector();

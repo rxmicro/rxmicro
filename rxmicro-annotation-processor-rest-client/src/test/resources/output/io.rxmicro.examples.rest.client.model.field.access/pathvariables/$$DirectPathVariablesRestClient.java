@@ -2,10 +2,10 @@ package io.rxmicro.examples.rest.client.model.field.access.pathvariables;
 
 import io.rxmicro.examples.rest.client.model.field.access.pathvariables.direct.$$RequestPathBuilder;
 import io.rxmicro.examples.rest.client.model.field.access.pathvariables.direct.Request;
-import io.rxmicro.http.client.ClientHttpResponse;
-import io.rxmicro.http.client.HttpClient;
 import io.rxmicro.rest.client.RestClientConfig;
 import io.rxmicro.rest.client.detail.AbstractRestClient;
+import io.rxmicro.rest.client.detail.HttpClient;
+import io.rxmicro.rest.client.detail.HttpResponse;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
@@ -33,7 +33,7 @@ public final class $$DirectPathVariablesRestClient extends AbstractRestClient im
     @Override
     public CompletionStage<Void> put(final Request request) {
         final String path = requestPathBuilder.build("/path-variables/direct/${a}/${b}/${c}/${d}/${e}/${f}/${g}/${j}/${h}/${i}/${j}/${k}/${l}/${m}", "/path-variables/direct/?/?/?/?/?/?/?/?/?/?/?/?/?/?", request);
-        final CompletableFuture<ClientHttpResponse> response = client
+        final CompletableFuture<HttpResponse> response = client
                 .sendAsync("PUT", path, EMPTY_HEADERS)
                 .handle(throwExceptionIfNotSuccess());
         return response

@@ -14,6 +14,9 @@
  * limitations under the License.
  */
 
+import io.rxmicro.rest.client.detail.HttpClientFactory;
+import io.rxmicro.rest.client.jdk.internal.JdkHttpClientFactory;
+
 /**
  * The module that is a REST client implementation module based on
  * <a href="https://openjdk.java.net/groups/net/httpclient/intro.html">Java HTTP Client</a>.
@@ -50,5 +53,8 @@
  */
 module rxmicro.rest.client.jdk {
     requires transitive rxmicro.rest.client;
-    requires transitive rxmicro.http.client.jdk;
+
+    requires java.net.http;
+
+    provides HttpClientFactory with JdkHttpClientFactory;
 }

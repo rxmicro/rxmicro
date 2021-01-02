@@ -28,7 +28,7 @@ import io.rxmicro.examples.cdi.all.rxmicro.components.CustomPostgreSQLNamedConfi
 import io.rxmicro.examples.cdi.all.rxmicro.components.component.MongoRepository;
 import io.rxmicro.examples.cdi.all.rxmicro.components.component.PostgreSQLRepository;
 import io.rxmicro.examples.cdi.all.rxmicro.components.component.RestClient;
-import io.rxmicro.http.client.HttpClientConfig;
+import io.rxmicro.rest.client.RestClientConfig;
 import io.rxmicro.rest.method.GET;
 import io.rxmicro.rest.server.HttpServerConfig;
 import io.rxmicro.rest.server.RestServerConfig;
@@ -63,9 +63,9 @@ public final class InternalTypesJEEStyleMethodInjectionRestController {
 
     private RestClient restClient;
 
-    private HttpClientConfig httpClientConfig;
+    private RestClientConfig restClientConfig;
 
-    private HttpClientConfig customHttpClientConfig;
+    private RestClientConfig customRestClientConfig;
 
     private HttpServerConfig httpServerConfig;
 
@@ -142,13 +142,13 @@ public final class InternalTypesJEEStyleMethodInjectionRestController {
     }
 
     @Inject
-    public void setHttpClientConfig(final HttpClientConfig httpClientConfig) {
-        this.httpClientConfig = httpClientConfig;
+    public void setRestClientConfig(final RestClientConfig restClientConfig) {
+        this.restClientConfig = restClientConfig;
     }
 
     @Inject
-    public void setCustomHttpClientConfig(@Named("custom-http-client") final HttpClientConfig customHttpClientConfig) {
-        this.customHttpClientConfig = customHttpClientConfig;
+    public void setCustomRestClientConfig(@Named("custom-rest-client") final RestClientConfig customRestClientConfig) {
+        this.customRestClientConfig = customRestClientConfig;
     }
 
     @Inject

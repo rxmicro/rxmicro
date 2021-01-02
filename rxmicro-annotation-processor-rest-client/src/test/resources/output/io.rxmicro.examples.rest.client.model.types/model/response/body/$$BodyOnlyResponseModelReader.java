@@ -1,6 +1,6 @@
 package io.rxmicro.examples.rest.client.model.types.model.response.body;
 
-import io.rxmicro.http.client.ClientHttpResponse;
+import io.rxmicro.rest.client.detail.HttpResponse;
 import io.rxmicro.rest.client.detail.ModelReader;
 
 /**
@@ -12,7 +12,7 @@ public final class $$BodyOnlyResponseModelReader extends ModelReader<BodyOnlyRes
             new $$BodyOnlyResponseModelFromJsonConverter();
 
     @Override
-    public BodyOnlyResponse readSingle(final ClientHttpResponse response) {
+    public BodyOnlyResponse readSingle(final HttpResponse response) {
         return bodyOnlyResponseModelFromJsonConverter.fromJsonObject(response.getBody());
     }
 }

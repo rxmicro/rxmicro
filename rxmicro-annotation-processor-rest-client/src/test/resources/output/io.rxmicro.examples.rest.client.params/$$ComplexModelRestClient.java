@@ -4,10 +4,10 @@ import io.rxmicro.examples.rest.client.params.model.$$ComplexRequestModelToJsonC
 import io.rxmicro.examples.rest.client.params.model.$$ComplexResponseModelReader;
 import io.rxmicro.examples.rest.client.params.model.ComplexRequest;
 import io.rxmicro.examples.rest.client.params.model.ComplexResponse;
-import io.rxmicro.http.client.ClientHttpResponse;
-import io.rxmicro.http.client.HttpClient;
 import io.rxmicro.rest.client.RestClientConfig;
 import io.rxmicro.rest.client.detail.AbstractRestClient;
+import io.rxmicro.rest.client.detail.HttpClient;
+import io.rxmicro.rest.client.detail.HttpResponse;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -38,7 +38,7 @@ public final class $$ComplexModelRestClient extends AbstractRestClient implement
     public CompletableFuture<ComplexResponse> post(final ComplexRequest request) {
         final String path = "/";
         final Object body = complexRequestModelToJsonConverter.toJson(request);
-        final CompletableFuture<ClientHttpResponse> response = client
+        final CompletableFuture<HttpResponse> response = client
                 .sendAsync("POST", path, EMPTY_HEADERS, body)
                 .handle(throwExceptionIfNotSuccess());
         return response

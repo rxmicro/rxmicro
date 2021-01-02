@@ -8,10 +8,10 @@ import io.rxmicro.examples.validation.client.all.types.model.$$ResponseConstrain
 import io.rxmicro.examples.validation.client.all.types.model.$$ResponseModelReader;
 import io.rxmicro.examples.validation.client.all.types.model.Request;
 import io.rxmicro.examples.validation.client.all.types.model.Response;
-import io.rxmicro.http.client.ClientHttpResponse;
-import io.rxmicro.http.client.HttpClient;
 import io.rxmicro.rest.client.RestClientConfig;
 import io.rxmicro.rest.client.detail.AbstractRestClient;
+import io.rxmicro.rest.client.detail.HttpClient;
+import io.rxmicro.rest.client.detail.HttpResponse;
 import reactor.core.publisher.Mono;
 
 import java.util.concurrent.CompletableFuture;
@@ -90,7 +90,7 @@ public final class $$RESTClient1 extends AbstractRestClient implements RESTClien
         validateRequest(config.isEnableAdditionalValidations(), virtualREST1RequestConstraintValidator, virtualRequest);
         final String path = "/put1";
         final Object body = virtualREST1RequestModelToJsonConverter.toJson(virtualRequest);
-        final CompletableFuture<ClientHttpResponse> response = client
+        final CompletableFuture<HttpResponse> response = client
                 .sendAsync("PUT", path, EMPTY_HEADERS, body)
                 .handle(throwExceptionIfNotSuccess());
         return response
@@ -102,7 +102,7 @@ public final class $$RESTClient1 extends AbstractRestClient implements RESTClien
         validateRequest(config.isEnableAdditionalValidations(), requestConstraintValidator, request);
         final String path = "/put2";
         final Object body = requestModelToJsonConverter.toJson(request);
-        final CompletableFuture<ClientHttpResponse> response = client
+        final CompletableFuture<HttpResponse> response = client
                 .sendAsync("PUT", path, EMPTY_HEADERS, body)
                 .handle(throwExceptionIfNotSuccess());
         return response
@@ -111,7 +111,7 @@ public final class $$RESTClient1 extends AbstractRestClient implements RESTClien
 
     @Override
     public CompletableFuture<Void> put2() {
-        final CompletableFuture<ClientHttpResponse> response = client
+        final CompletableFuture<HttpResponse> response = client
                 .sendAsync("PUT", "/put3", EMPTY_HEADERS)
                 .handle(throwExceptionIfNotSuccess());
         return response
@@ -124,7 +124,7 @@ public final class $$RESTClient1 extends AbstractRestClient implements RESTClien
         validateRequest(config.isEnableAdditionalValidations(), virtualREST1Request2ConstraintValidator, virtualRequest);
         final String path = "/put4";
         final Object body = virtualREST1Request2ModelToJsonConverter.toJson(virtualRequest);
-        final CompletableFuture<ClientHttpResponse> response = client
+        final CompletableFuture<HttpResponse> response = client
                 .sendAsync("PUT", path, EMPTY_HEADERS, body)
                 .handle(throwExceptionIfNotSuccess());
         return response
@@ -137,7 +137,7 @@ public final class $$RESTClient1 extends AbstractRestClient implements RESTClien
         validateRequest(config.isEnableAdditionalValidations(), requestConstraintValidator, request);
         final String path = "/put5";
         final Object body = requestModelToJsonConverter.toJson(request);
-        final CompletableFuture<ClientHttpResponse> response = client
+        final CompletableFuture<HttpResponse> response = client
                 .sendAsync("PUT", path, EMPTY_HEADERS, body)
                 .handle(throwExceptionIfNotSuccess());
         return response
@@ -147,7 +147,7 @@ public final class $$RESTClient1 extends AbstractRestClient implements RESTClien
 
     @Override
     public CompletableFuture<Response> put6() {
-        final CompletableFuture<ClientHttpResponse> response = client
+        final CompletableFuture<HttpResponse> response = client
                 .sendAsync("PUT", "/put6", EMPTY_HEADERS)
                 .handle(throwExceptionIfNotSuccess());
         return response
@@ -161,7 +161,7 @@ public final class $$RESTClient1 extends AbstractRestClient implements RESTClien
         validateRequest(config.isEnableAdditionalValidations(), virtualREST1Request3ConstraintValidator, virtualRequest);
         final String path = "/put7";
         final Object body = virtualREST1Request3ModelToJsonConverter.toJson(virtualRequest);
-        final CompletableFuture<ClientHttpResponse> response = client
+        final CompletableFuture<HttpResponse> response = client
                 .sendAsync("PUT", path, EMPTY_HEADERS, body)
                 .handle(throwExceptionIfNotSuccess());
         return Mono.fromFuture(response)
@@ -173,7 +173,7 @@ public final class $$RESTClient1 extends AbstractRestClient implements RESTClien
         validateRequest(config.isEnableAdditionalValidations(), requestConstraintValidator, request);
         final String path = "/put8";
         final Object body = requestModelToJsonConverter.toJson(request);
-        final CompletableFuture<ClientHttpResponse> response = client
+        final CompletableFuture<HttpResponse> response = client
                 .sendAsync("PUT", path, EMPTY_HEADERS, body)
                 .handle(throwExceptionIfNotSuccess());
         return Mono.fromFuture(response)
@@ -182,7 +182,7 @@ public final class $$RESTClient1 extends AbstractRestClient implements RESTClien
 
     @Override
     public Mono<Void> put9() {
-        final CompletableFuture<ClientHttpResponse> response = client
+        final CompletableFuture<HttpResponse> response = client
                 .sendAsync("PUT", "/put9", EMPTY_HEADERS)
                 .handle(throwExceptionIfNotSuccess());
         return Mono.fromFuture(response)
@@ -195,7 +195,7 @@ public final class $$RESTClient1 extends AbstractRestClient implements RESTClien
         validateRequest(config.isEnableAdditionalValidations(), virtualREST1Request4ConstraintValidator, virtualRequest);
         final String path = "/put10";
         final Object body = virtualREST1Request4ModelToJsonConverter.toJson(virtualRequest);
-        final CompletableFuture<ClientHttpResponse> response = client
+        final CompletableFuture<HttpResponse> response = client
                 .sendAsync("PUT", path, EMPTY_HEADERS, body)
                 .handle(throwExceptionIfNotSuccess());
         return Mono.fromFuture(response)
@@ -208,7 +208,7 @@ public final class $$RESTClient1 extends AbstractRestClient implements RESTClien
         validateRequest(config.isEnableAdditionalValidations(), requestConstraintValidator, request);
         final String path = "/put11";
         final Object body = requestModelToJsonConverter.toJson(request);
-        final CompletableFuture<ClientHttpResponse> response = client
+        final CompletableFuture<HttpResponse> response = client
                 .sendAsync("PUT", path, EMPTY_HEADERS, body)
                 .handle(throwExceptionIfNotSuccess());
         return Mono.fromFuture(response)
@@ -218,7 +218,7 @@ public final class $$RESTClient1 extends AbstractRestClient implements RESTClien
 
     @Override
     public Mono<Response> put12() {
-        final CompletableFuture<ClientHttpResponse> response = client
+        final CompletableFuture<HttpResponse> response = client
                 .sendAsync("PUT", "/put12", EMPTY_HEADERS)
                 .handle(throwExceptionIfNotSuccess());
         return Mono.fromFuture(response)
@@ -232,7 +232,7 @@ public final class $$RESTClient1 extends AbstractRestClient implements RESTClien
         validateRequest(config.isEnableAdditionalValidations(), virtualREST1Request5ConstraintValidator, virtualRequest);
         final String path = "/put13";
         final Object body = virtualREST1Request5ModelToJsonConverter.toJson(virtualRequest);
-        final CompletableFuture<ClientHttpResponse> response = client
+        final CompletableFuture<HttpResponse> response = client
                 .sendAsync("PUT", path, EMPTY_HEADERS, body)
                 .handle(throwExceptionIfNotSuccess());
         return Completable.fromCompletionStage(response);
@@ -243,7 +243,7 @@ public final class $$RESTClient1 extends AbstractRestClient implements RESTClien
         validateRequest(config.isEnableAdditionalValidations(), requestConstraintValidator, request);
         final String path = "/put14";
         final Object body = requestModelToJsonConverter.toJson(request);
-        final CompletableFuture<ClientHttpResponse> response = client
+        final CompletableFuture<HttpResponse> response = client
                 .sendAsync("PUT", path, EMPTY_HEADERS, body)
                 .handle(throwExceptionIfNotSuccess());
         return Completable.fromCompletionStage(response);
@@ -251,7 +251,7 @@ public final class $$RESTClient1 extends AbstractRestClient implements RESTClien
 
     @Override
     public Completable put15() {
-        final CompletableFuture<ClientHttpResponse> response = client
+        final CompletableFuture<HttpResponse> response = client
                 .sendAsync("PUT", "/put15", EMPTY_HEADERS)
                 .handle(throwExceptionIfNotSuccess());
         return Completable.fromCompletionStage(response);
@@ -263,7 +263,7 @@ public final class $$RESTClient1 extends AbstractRestClient implements RESTClien
         validateRequest(config.isEnableAdditionalValidations(), virtualREST1Request6ConstraintValidator, virtualRequest);
         final String path = "/put16";
         final Object body = virtualREST1Request6ModelToJsonConverter.toJson(virtualRequest);
-        final CompletableFuture<ClientHttpResponse> response = client
+        final CompletableFuture<HttpResponse> response = client
                 .sendAsync("PUT", path, EMPTY_HEADERS, body)
                 .handle(throwExceptionIfNotSuccess());
         return Single.fromCompletionStage(response)
@@ -276,7 +276,7 @@ public final class $$RESTClient1 extends AbstractRestClient implements RESTClien
         validateRequest(config.isEnableAdditionalValidations(), requestConstraintValidator, request);
         final String path = "/put17";
         final Object body = requestModelToJsonConverter.toJson(request);
-        final CompletableFuture<ClientHttpResponse> response = client
+        final CompletableFuture<HttpResponse> response = client
                 .sendAsync("PUT", path, EMPTY_HEADERS, body)
                 .handle(throwExceptionIfNotSuccess());
         return Single.fromCompletionStage(response)
@@ -286,7 +286,7 @@ public final class $$RESTClient1 extends AbstractRestClient implements RESTClien
 
     @Override
     public Single<Response> put18() {
-        final CompletableFuture<ClientHttpResponse> response = client
+        final CompletableFuture<HttpResponse> response = client
                 .sendAsync("PUT", "/put18", EMPTY_HEADERS)
                 .handle(throwExceptionIfNotSuccess());
         return Single.fromCompletionStage(response)

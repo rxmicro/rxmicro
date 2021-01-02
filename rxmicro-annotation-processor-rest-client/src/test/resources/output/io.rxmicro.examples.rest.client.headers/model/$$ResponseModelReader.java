@@ -1,7 +1,7 @@
 package io.rxmicro.examples.rest.client.headers.model;
 
 import io.rxmicro.http.HttpHeaders;
-import io.rxmicro.http.client.ClientHttpResponse;
+import io.rxmicro.rest.client.detail.HttpResponse;
 import io.rxmicro.rest.client.detail.ModelReader;
 import io.rxmicro.rest.model.HttpModelType;
 
@@ -11,13 +11,13 @@ import io.rxmicro.rest.model.HttpModelType;
 public final class $$ResponseModelReader extends ModelReader<Response> {
 
     @Override
-    public Response readSingle(final ClientHttpResponse response) {
+    public Response readSingle(final HttpResponse response) {
         final Response model = new Response();
         readPrimitivesToModel(response, model);
         return model;
     }
 
-    protected void readPrimitivesToModel(final ClientHttpResponse response,
+    protected void readPrimitivesToModel(final HttpResponse response,
                                          final Response model) {
         final HttpHeaders httpHeaders = response.getHeaders();
         model.endpointVersion = toString(httpHeaders.getValue("Endpoint-Version"), HttpModelType.HEADER, "Endpoint-Version");

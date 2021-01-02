@@ -4,11 +4,11 @@ import io.rxmicro.examples.rest.client.model.field.access.headers.reflection.$$R
 import io.rxmicro.examples.rest.client.model.field.access.headers.reflection.$$ResponseModelReader;
 import io.rxmicro.examples.rest.client.model.field.access.headers.reflection.Request;
 import io.rxmicro.examples.rest.client.model.field.access.headers.reflection.Response;
-import io.rxmicro.http.client.ClientHttpResponse;
-import io.rxmicro.http.client.HttpClient;
 import io.rxmicro.rest.client.RestClientConfig;
 import io.rxmicro.rest.client.detail.AbstractRestClient;
 import io.rxmicro.rest.client.detail.HeaderBuilder;
+import io.rxmicro.rest.client.detail.HttpClient;
+import io.rxmicro.rest.client.detail.HttpResponse;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
@@ -41,7 +41,7 @@ public final class $$ReflectionHeadersRestClient extends AbstractRestClient impl
         final String path = "/headers/reflection";
         final HeaderBuilder headerBuilder = new HeaderBuilder();
         requestRequestModelExtractor.extract(request, headerBuilder);
-        final CompletableFuture<ClientHttpResponse> response = client
+        final CompletableFuture<HttpResponse> response = client
                 .sendAsync("PUT", path, headerBuilder.build())
                 .handle(throwExceptionIfNotSuccess());
         return response

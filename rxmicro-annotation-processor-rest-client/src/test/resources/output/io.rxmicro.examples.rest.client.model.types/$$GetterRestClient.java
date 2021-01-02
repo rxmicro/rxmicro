@@ -14,10 +14,10 @@ import io.rxmicro.examples.rest.client.model.types.model.response.without_body.$
 import io.rxmicro.examples.rest.client.model.types.model.response.without_body.HeadersOnlyResponse;
 import io.rxmicro.examples.rest.client.model.types.model.response.without_body.InternalsAndHeadersResponse;
 import io.rxmicro.examples.rest.client.model.types.model.response.without_body.InternalsOnlyResponse;
-import io.rxmicro.http.client.ClientHttpResponse;
-import io.rxmicro.http.client.HttpClient;
 import io.rxmicro.rest.client.RestClientConfig;
 import io.rxmicro.rest.client.detail.AbstractRestClient;
+import io.rxmicro.rest.client.detail.HttpClient;
+import io.rxmicro.rest.client.detail.HttpResponse;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
@@ -62,7 +62,7 @@ public final class $$GetterRestClient extends AbstractRestClient implements Gett
 
     @Override
     public CompletionStage<BodyOnlyResponse> produce01() {
-        final CompletableFuture<ClientHttpResponse> response = client
+        final CompletableFuture<HttpResponse> response = client
                 .sendAsync("GET", "/produce01", EMPTY_HEADERS)
                 .handle(throwExceptionIfNotSuccess());
         return response
@@ -71,7 +71,7 @@ public final class $$GetterRestClient extends AbstractRestClient implements Gett
 
     @Override
     public CompletionStage<BodyWithHeadersResponse> produce02() {
-        final CompletableFuture<ClientHttpResponse> response = client
+        final CompletableFuture<HttpResponse> response = client
                 .sendAsync("GET", "/produce02", EMPTY_HEADERS)
                 .handle(throwExceptionIfNotSuccess());
         return response
@@ -80,7 +80,7 @@ public final class $$GetterRestClient extends AbstractRestClient implements Gett
 
     @Override
     public CompletionStage<BodyWithInternalsResponse> produce03() {
-        final CompletableFuture<ClientHttpResponse> response = client
+        final CompletableFuture<HttpResponse> response = client
                 .sendAsync("GET", "/produce03", EMPTY_HEADERS)
                 .handle(throwExceptionIfNotSuccess());
         return response
@@ -89,7 +89,7 @@ public final class $$GetterRestClient extends AbstractRestClient implements Gett
 
     @Override
     public CompletionStage<BodyWithInternalsAndHeadersResponse> produce04() {
-        final CompletableFuture<ClientHttpResponse> response = client
+        final CompletableFuture<HttpResponse> response = client
                 .sendAsync("GET", "/produce04", EMPTY_HEADERS)
                 .handle(throwExceptionIfNotSuccess());
         return response
@@ -98,7 +98,7 @@ public final class $$GetterRestClient extends AbstractRestClient implements Gett
 
     @Override
     public CompletionStage<HeadersOnlyResponse> produce11() {
-        final CompletableFuture<ClientHttpResponse> response = client
+        final CompletableFuture<HttpResponse> response = client
                 .sendAsync("GET", "/produce11", EMPTY_HEADERS)
                 .handle(throwExceptionIfNotSuccess());
         return response
@@ -107,7 +107,7 @@ public final class $$GetterRestClient extends AbstractRestClient implements Gett
 
     @Override
     public CompletionStage<InternalsOnlyResponse> produce12() {
-        final CompletableFuture<ClientHttpResponse> response = client
+        final CompletableFuture<HttpResponse> response = client
                 .sendAsync("GET", "/produce12", EMPTY_HEADERS)
                 .handle(throwExceptionIfNotSuccess());
         return response
@@ -116,7 +116,7 @@ public final class $$GetterRestClient extends AbstractRestClient implements Gett
 
     @Override
     public CompletionStage<InternalsAndHeadersResponse> produce13() {
-        final CompletableFuture<ClientHttpResponse> response = client
+        final CompletableFuture<HttpResponse> response = client
                 .sendAsync("GET", "/produce13", EMPTY_HEADERS)
                 .handle(throwExceptionIfNotSuccess());
         return response

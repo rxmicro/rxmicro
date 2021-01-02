@@ -30,11 +30,11 @@ import io.rxmicro.examples.rest.client.model.types.model.request.without_body.$$
 import io.rxmicro.examples.rest.client.model.types.model.request.without_body.HeadersOnlyRequest;
 import io.rxmicro.examples.rest.client.model.types.model.request.without_body.PathVarAndHeadersRequest;
 import io.rxmicro.examples.rest.client.model.types.model.request.without_body.PathVarOnlyRequest;
-import io.rxmicro.http.client.ClientHttpResponse;
-import io.rxmicro.http.client.HttpClient;
 import io.rxmicro.rest.client.RestClientConfig;
 import io.rxmicro.rest.client.detail.AbstractRestClient;
 import io.rxmicro.rest.client.detail.HeaderBuilder;
+import io.rxmicro.rest.client.detail.HttpClient;
+import io.rxmicro.rest.client.detail.HttpResponse;
 import io.rxmicro.rest.client.detail.QueryBuilder;
 
 import java.util.concurrent.CompletableFuture;
@@ -115,7 +115,7 @@ public final class $$SenderRestClient extends AbstractRestClient implements Send
     public CompletionStage<Void> consume(final HttpBodyRequest request) {
         final String path = "/consume01";
         final Object body = httpBodyRequestModelToJsonConverter.toJson(request);
-        final CompletableFuture<ClientHttpResponse> response = client
+        final CompletableFuture<HttpResponse> response = client
                 .sendAsync("POST", path, EMPTY_HEADERS, body)
                 .handle(throwExceptionIfNotSuccess());
         return response
@@ -128,7 +128,7 @@ public final class $$SenderRestClient extends AbstractRestClient implements Send
         final HeaderBuilder headerBuilder = new HeaderBuilder();
         httpBodyWithHeadersRequestRequestModelExtractor.extract(request, headerBuilder);
         final Object body = httpBodyWithHeadersRequestModelToJsonConverter.toJson(request);
-        final CompletableFuture<ClientHttpResponse> response = client
+        final CompletableFuture<HttpResponse> response = client
                 .sendAsync("POST", path, headerBuilder.build(), body)
                 .handle(throwExceptionIfNotSuccess());
         return response
@@ -139,7 +139,7 @@ public final class $$SenderRestClient extends AbstractRestClient implements Send
     public CompletionStage<Void> consume(final HttpBodyWithPathVarRequest request) {
         final String path = httpBodyWithPathVarRequestPathBuilder.build("/consume03/${a}/${b}/${c}/${d}/${e}/${f}/${g}/${j}/${h}/${i}/${j}/${k}/${l}/${m}", "/consume03/?/?/?/?/?/?/?/?/?/?/?/?/?/?", request);
         final Object body = httpBodyWithPathVarRequestModelToJsonConverter.toJson(request);
-        final CompletableFuture<ClientHttpResponse> response = client
+        final CompletableFuture<HttpResponse> response = client
                 .sendAsync("POST", path, EMPTY_HEADERS, body)
                 .handle(throwExceptionIfNotSuccess());
         return response
@@ -152,7 +152,7 @@ public final class $$SenderRestClient extends AbstractRestClient implements Send
         final HeaderBuilder headerBuilder = new HeaderBuilder();
         httpBodyWithPathVarAndHeadersRequestRequestModelExtractor.extract(request, headerBuilder);
         final Object body = httpBodyWithPathVarAndHeadersRequestModelToJsonConverter.toJson(request);
-        final CompletableFuture<ClientHttpResponse> response = client
+        final CompletableFuture<HttpResponse> response = client
                 .sendAsync("POST", path, headerBuilder.build(), body)
                 .handle(throwExceptionIfNotSuccess());
         return response
@@ -162,7 +162,7 @@ public final class $$SenderRestClient extends AbstractRestClient implements Send
     @Override
     public CompletionStage<Void> get(final PathVarOnlyRequest request) {
         final String path = pathVarOnlyRequestPathBuilder.build("/consume12/${a}/${b}/${c}/${d}/${e}/${f}/${g}/${j}/${h}/${i}/${j}/${k}/${l}/${m}", "/consume12/?/?/?/?/?/?/?/?/?/?/?/?/?/?", request);
-        final CompletableFuture<ClientHttpResponse> response = client
+        final CompletableFuture<HttpResponse> response = client
                 .sendAsync("GET", path, EMPTY_HEADERS)
                 .handle(throwExceptionIfNotSuccess());
         return response
@@ -172,7 +172,7 @@ public final class $$SenderRestClient extends AbstractRestClient implements Send
     @Override
     public CompletionStage<Void> post(final PathVarOnlyRequest request) {
         final String path = pathVarOnlyRequestPathBuilder.build("/consume12/${a}/${b}/${c}/${d}/${e}/${f}/${g}/${j}/${h}/${i}/${j}/${k}/${l}/${m}", "/consume12/?/?/?/?/?/?/?/?/?/?/?/?/?/?", request);
-        final CompletableFuture<ClientHttpResponse> response = client
+        final CompletableFuture<HttpResponse> response = client
                 .sendAsync("POST", path, EMPTY_HEADERS)
                 .handle(throwExceptionIfNotSuccess());
         return response
@@ -184,7 +184,7 @@ public final class $$SenderRestClient extends AbstractRestClient implements Send
         final String path = "/consume13";
         final HeaderBuilder headerBuilder = new HeaderBuilder();
         headersOnlyRequestRequestModelExtractor.extract(request, headerBuilder);
-        final CompletableFuture<ClientHttpResponse> response = client
+        final CompletableFuture<HttpResponse> response = client
                 .sendAsync("GET", path, headerBuilder.build())
                 .handle(throwExceptionIfNotSuccess());
         return response
@@ -196,7 +196,7 @@ public final class $$SenderRestClient extends AbstractRestClient implements Send
         final String path = "/consume13";
         final HeaderBuilder headerBuilder = new HeaderBuilder();
         headersOnlyRequestRequestModelExtractor.extract(request, headerBuilder);
-        final CompletableFuture<ClientHttpResponse> response = client
+        final CompletableFuture<HttpResponse> response = client
                 .sendAsync("POST", path, headerBuilder.build())
                 .handle(throwExceptionIfNotSuccess());
         return response
@@ -208,7 +208,7 @@ public final class $$SenderRestClient extends AbstractRestClient implements Send
         final String path = pathVarAndHeadersRequestPathBuilder.build("/consume16/${a}/${b}/${c}/${d}/${e}/${f}/${g}/${j}/${h}/${i}/${j}/${k}/${l}/${m}", "/consume16/?/?/?/?/?/?/?/?/?/?/?/?/?/?", request);
         final HeaderBuilder headerBuilder = new HeaderBuilder();
         pathVarAndHeadersRequestRequestModelExtractor.extract(request, headerBuilder);
-        final CompletableFuture<ClientHttpResponse> response = client
+        final CompletableFuture<HttpResponse> response = client
                 .sendAsync("GET", path, headerBuilder.build())
                 .handle(throwExceptionIfNotSuccess());
         return response
@@ -220,7 +220,7 @@ public final class $$SenderRestClient extends AbstractRestClient implements Send
         final String path = pathVarAndHeadersRequestPathBuilder.build("/consume16/${a}/${b}/${c}/${d}/${e}/${f}/${g}/${j}/${h}/${i}/${j}/${k}/${l}/${m}", "/consume16/?/?/?/?/?/?/?/?/?/?/?/?/?/?", request);
         final HeaderBuilder headerBuilder = new HeaderBuilder();
         pathVarAndHeadersRequestRequestModelExtractor.extract(request, headerBuilder);
-        final CompletableFuture<ClientHttpResponse> response = client
+        final CompletableFuture<HttpResponse> response = client
                 .sendAsync("POST", path, headerBuilder.build())
                 .handle(throwExceptionIfNotSuccess());
         return response
@@ -232,7 +232,7 @@ public final class $$SenderRestClient extends AbstractRestClient implements Send
         final String path = "/consume41";
         final QueryBuilder queryBuilder = new QueryBuilder();
         queryStringRequestRequestModelExtractor.extract(request, queryBuilder);
-        final CompletableFuture<ClientHttpResponse> response = client
+        final CompletableFuture<HttpResponse> response = client
                 .sendAsync("GET", joinPath(path, queryBuilder.build()), EMPTY_HEADERS)
                 .handle(throwExceptionIfNotSuccess());
         return response
@@ -245,7 +245,7 @@ public final class $$SenderRestClient extends AbstractRestClient implements Send
         final HeaderBuilder headerBuilder = new HeaderBuilder();
         final QueryBuilder queryBuilder = new QueryBuilder();
         queryStringWithHeadersRequestRequestModelExtractor.extract(request, headerBuilder, queryBuilder);
-        final CompletableFuture<ClientHttpResponse> response = client
+        final CompletableFuture<HttpResponse> response = client
                 .sendAsync("GET", joinPath(path, queryBuilder.build()), headerBuilder.build())
                 .handle(throwExceptionIfNotSuccess());
         return response
@@ -257,7 +257,7 @@ public final class $$SenderRestClient extends AbstractRestClient implements Send
         final String path = queryStringWithPathVarRequestPathBuilder.build("/consume43/${a}/${b}/${c}/${d}/${e}/${f}/${g}/${j}/${h}/${i}/${j}/${k}/${l}/${m}", "/consume43/?/?/?/?/?/?/?/?/?/?/?/?/?/?", request);
         final QueryBuilder queryBuilder = new QueryBuilder();
         queryStringWithPathVarRequestRequestModelExtractor.extract(request, queryBuilder);
-        final CompletableFuture<ClientHttpResponse> response = client
+        final CompletableFuture<HttpResponse> response = client
                 .sendAsync("GET", joinPath(path, queryBuilder.build()), EMPTY_HEADERS)
                 .handle(throwExceptionIfNotSuccess());
         return response
@@ -270,7 +270,7 @@ public final class $$SenderRestClient extends AbstractRestClient implements Send
         final HeaderBuilder headerBuilder = new HeaderBuilder();
         final QueryBuilder queryBuilder = new QueryBuilder();
         queryStringWithPathVarAndHeadersRequestRequestModelExtractor.extract(request, headerBuilder, queryBuilder);
-        final CompletableFuture<ClientHttpResponse> response = client
+        final CompletableFuture<HttpResponse> response = client
                 .sendAsync("GET", joinPath(path, queryBuilder.build()), headerBuilder.build())
                 .handle(throwExceptionIfNotSuccess());
         return response
@@ -280,7 +280,7 @@ public final class $$SenderRestClient extends AbstractRestClient implements Send
     @Override
     public CompletionStage<Void> get(final WithoutAnyFieldsRequest request) {
         final String path = "/consume51";
-        final CompletableFuture<ClientHttpResponse> response = client
+        final CompletableFuture<HttpResponse> response = client
                 .sendAsync("GET", path, EMPTY_HEADERS)
                 .handle(throwExceptionIfNotSuccess());
         return response
@@ -290,7 +290,7 @@ public final class $$SenderRestClient extends AbstractRestClient implements Send
     @Override
     public CompletionStage<Void> post(final WithoutAnyFieldsRequest request) {
         final String path = "/consume51";
-        final CompletableFuture<ClientHttpResponse> response = client
+        final CompletableFuture<HttpResponse> response = client
                 .sendAsync("POST", path, EMPTY_HEADERS)
                 .handle(throwExceptionIfNotSuccess());
         return response

@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import io.rxmicro.http.client.HttpClientContentConverter;
-import io.rxmicro.http.client.HttpClientFactory;
+import io.rxmicro.rest.client.detail.HttpClientContentConverter;
+import io.rxmicro.rest.client.detail.HttpClientFactory;
 
 /**
  * The basic module used to create and run REST clients.
@@ -48,7 +48,6 @@ import io.rxmicro.http.client.HttpClientFactory;
  * @since 0.1
  */
 module rxmicro.rest.client {
-    requires transitive rxmicro.http.client;
     requires transitive rxmicro.rest;
     requires transitive rxmicro.logger;
 

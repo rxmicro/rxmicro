@@ -16,8 +16,6 @@
 
 package io.rxmicro.rest.client.detail;
 
-import io.rxmicro.http.client.ClientHttpResponse;
-
 import java.util.function.BiFunction;
 
 import static io.rxmicro.common.util.Exceptions.reThrow;
@@ -35,7 +33,7 @@ public final class ErrorResponseCheckerHelper {
 
     private static final int MAX_SUPPORTED_SUCCESS_CODE = 299;
 
-    private static final BiFunction<ClientHttpResponse, Throwable, ClientHttpResponse> BI_FUNCTION =
+    private static final BiFunction<HttpResponse, Throwable, HttpResponse> BI_FUNCTION =
             (clientHttpResponse, throwable) -> {
                 if (throwable != null) {
                     return reThrow(throwable);
@@ -49,7 +47,7 @@ public final class ErrorResponseCheckerHelper {
             };
 
     // Used by generated rest client code
-    public static BiFunction<ClientHttpResponse, Throwable, ClientHttpResponse> throwExceptionIfNotSuccess() {
+    public static BiFunction<HttpResponse, Throwable, HttpResponse> throwExceptionIfNotSuccess() {
         return BI_FUNCTION;
     }
 

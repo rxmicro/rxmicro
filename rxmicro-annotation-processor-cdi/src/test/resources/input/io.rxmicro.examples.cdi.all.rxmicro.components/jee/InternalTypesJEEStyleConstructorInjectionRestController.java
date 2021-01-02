@@ -28,7 +28,7 @@ import io.rxmicro.examples.cdi.all.rxmicro.components.CustomPostgreSQLNamedConfi
 import io.rxmicro.examples.cdi.all.rxmicro.components.component.MongoRepository;
 import io.rxmicro.examples.cdi.all.rxmicro.components.component.PostgreSQLRepository;
 import io.rxmicro.examples.cdi.all.rxmicro.components.component.RestClient;
-import io.rxmicro.http.client.HttpClientConfig;
+import io.rxmicro.rest.client.RestClientConfig;
 import io.rxmicro.rest.method.GET;
 import io.rxmicro.rest.server.HttpServerConfig;
 import io.rxmicro.rest.server.RestServerConfig;
@@ -63,9 +63,9 @@ public final class InternalTypesJEEStyleConstructorInjectionRestController {
 
     private final RestClient restClient;
 
-    private final HttpClientConfig httpClientConfig;
+    private final RestClientConfig restClientConfig;
 
-    private final HttpClientConfig customHttpClientConfig;
+    private final RestClientConfig customRestClientConfig;
 
     private final HttpServerConfig httpServerConfig;
 
@@ -87,8 +87,8 @@ public final class InternalTypesJEEStyleConstructorInjectionRestController {
                                                                    @CustomPostgreSQLNamedConfig final ConnectionFactory customConnectionFactory,
                                                                    @CustomPostgreSQLNamedConfig final ConnectionPool customConnectionPool,
                                                                    final RestClient restClient,
-                                                                   final HttpClientConfig httpClientConfig,
-                                                                   @Named("custom-http-client") final HttpClientConfig customHttpClientConfig,
+                                                                   final RestClientConfig restClientConfig,
+                                                                   @Named("custom-rest-client") final RestClientConfig customRestClientConfig,
                                                                    final HttpServerConfig httpServerConfig,
                                                                    final RestServerConfig restServerConfig,
                                                                    final NettyRestServerConfig nettyRestServerConfig) {
@@ -105,8 +105,8 @@ public final class InternalTypesJEEStyleConstructorInjectionRestController {
         this.customConnectionFactory = customConnectionFactory;
         this.customConnectionPool = customConnectionPool;
         this.restClient = restClient;
-        this.httpClientConfig = httpClientConfig;
-        this.customHttpClientConfig = customHttpClientConfig;
+        this.restClientConfig = restClientConfig;
+        this.customRestClientConfig = customRestClientConfig;
         this.httpServerConfig = httpServerConfig;
         this.restServerConfig = restServerConfig;
         this.nettyRestServerConfig = nettyRestServerConfig;

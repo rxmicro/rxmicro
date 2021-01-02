@@ -16,15 +16,15 @@ queryBuilder.add("${PARAM.key}", ${PARAM.value});
 <#-- -------------------------------------------------------------------------------------------------------- -->
 <#-- -------------------------------------------------------------------------------------------------------- -->
 <#if HEADERS?has_content>
-final CompletableFuture<ClientHttpResponse> response = client
+final CompletableFuture<HttpResponse> response = client
         .sendAsync("${HTTP_METHOD}", "${PATH}", headerBuilder.build())
         .handle(throwExceptionIfNotSuccess());
 <#elseif QUERY_PARAMS?has_content>
-final CompletableFuture<ClientHttpResponse> response = client
+final CompletableFuture<HttpResponse> response = client
         .sendAsync("${HTTP_METHOD}", joinPath("${PATH}", queryBuilder.build()), EMPTY_HEADERS)
         .handle(throwExceptionIfNotSuccess());
 <#else>
-final CompletableFuture<ClientHttpResponse> response = client
+final CompletableFuture<HttpResponse> response = client
         .sendAsync("${HTTP_METHOD}", "${PATH}", EMPTY_HEADERS)
         .handle(throwExceptionIfNotSuccess());
 </#if>

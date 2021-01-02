@@ -16,8 +16,8 @@
 
 package io.rxmicro.rest.client.exchange.json.internal;
 
-import io.rxmicro.http.client.HttpClientContentConverter;
 import io.rxmicro.json.JsonHelper;
+import io.rxmicro.rest.client.detail.HttpClientContentConverter;
 
 import java.util.function.Function;
 

@@ -16,24 +16,80 @@
 
 package io.rxmicro.test.local.component.builder;
 
+import io.rxmicro.rest.client.detail.HttpClientContentConverter;
 import io.rxmicro.test.BlockingHttpClient;
-import io.rxmicro.test.internal.BlockingHttpClientImpl;
+import io.rxmicro.test.internal.http.JdkBlockingHttpClient;
 import io.rxmicro.test.local.BlockingHttpClientConfig;
+import io.rxmicro.test.local.InvalidTestConfigException;
+
+import java.util.ServiceLoader;
+import java.util.function.Function;
+
+import static io.rxmicro.common.util.Formats.format;
+import static io.rxmicro.runtime.local.Implementations.getOptionalImplementation;
 
 /**
  * @author nedis
- * @since 0.1
+ * @since 0.8
  */
 public final class BlockingHttpClientBuilder {
 
-    private final HttpClientBuilder httpClientBuilder = new HttpClientBuilder();
+    public BlockingHttpClient build(final BlockingHttpClientConfig blockingHttpClientConfig) {
+        final JdkBlockingHttpClient.Builder builder = new JdkBlockingHttpClient.Builder()
+                .setBlockingHttpClientConfig(blockingHttpClientConfig)
+                .setContentConverter(
+                        getOptionalImplementation(HttpClientContentConverter.class, ServiceLoader::load)
+                                .orElseGet(DefaultHttpClientContentConverter::new)
+                );
+        final String versionValue = blockingHttpClientConfig.getVersionValue();
+        if (!versionValue.isEmpty()) {
+            validateVersionValue(versionValue);
+            builder.setVersion(
+                    blockingHttpClientConfig.getVersionStrategy(),
+                    versionValue
+            );
+        }
+        return builder.build();
+    }
 
-    public BlockingHttpClient build(final Class<?> loggerClass,
-                                    final BlockingHttpClientConfig config) {
-        return new BlockingHttpClientImpl(
-                httpClientBuilder.build(loggerClass, config),
-                config.getVersionValue(),
-                config.getVersionStrategy()
-        );
+    private void validateVersionValue(final String versionValue) {
+        if (!versionValue.equals(versionValue.trim())) {
+            throw new InvalidTestConfigException("Invalid version value: '?'! Expected version value without spaces!", versionValue);
+        }
+    }
+
+    /**
+     * @author nedis
+     * @since 0.8
+     */
+    private static final class DefaultHttpClientContentConverter implements HttpClientContentConverter {
+
+        @Override
+        public Function<Object, byte[]> getRequestContentConverter() {
+            return o -> {
+                if (o == null) {
+                    return new byte[0];
+                } else if (o instanceof byte[]) {
+                    return (byte[]) o;
+                } else {
+                    throw new UnsupportedOperationException(format("Can't convert ? to byte array", o.getClass().getName()));
+                }
+            };
+        }
+
+        @Override
+        public Function<byte[], Object> getResponseContentConverter() {
+            return bytes -> bytes;
+        }
+
+        /**
+         * RFC 2046 states in section 4.5.1:
+         *
+         * The "octet-stream" subtype is used to indicate that a body contains arbitrary binary data.
+         */
+        @Override
+        public String getContentType() {
+            return "application/octet-stream";
+        }
     }
 }

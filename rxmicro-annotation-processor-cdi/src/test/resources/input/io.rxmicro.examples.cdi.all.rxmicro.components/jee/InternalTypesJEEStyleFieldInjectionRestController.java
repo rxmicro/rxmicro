@@ -28,7 +28,7 @@ import io.rxmicro.examples.cdi.all.rxmicro.components.CustomPostgreSQLNamedConfi
 import io.rxmicro.examples.cdi.all.rxmicro.components.component.MongoRepository;
 import io.rxmicro.examples.cdi.all.rxmicro.components.component.PostgreSQLRepository;
 import io.rxmicro.examples.cdi.all.rxmicro.components.component.RestClient;
-import io.rxmicro.http.client.HttpClientConfig;
+import io.rxmicro.rest.client.RestClientConfig;
 import io.rxmicro.rest.method.GET;
 import io.rxmicro.rest.server.HttpServerConfig;
 import io.rxmicro.rest.server.RestServerConfig;
@@ -82,11 +82,11 @@ public final class InternalTypesJEEStyleFieldInjectionRestController {
     RestClient restClient;
 
     @Inject
-    HttpClientConfig httpClientConfig;
+    RestClientConfig restClientConfig;
 
     @Inject
-    @Named("custom-http-client")
-    HttpClientConfig customHttpClientConfig;
+    @Named("custom-rest-client")
+    RestClientConfig customRestClientConfig;
 
     @Inject
     HttpServerConfig httpServerConfig;

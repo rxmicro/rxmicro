@@ -29,49 +29,6 @@
         The module that is a REST client implementation module based on Java HTTP Client.
     </description>
 
-    <profiles>
-        <profile>
-            <id>release</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <artifactId>maven-javadoc-plugin</artifactId>
-                        <configuration>
-                            <skip>true</skip>
-                        </configuration>
-                    </plugin>
-                    <plugin>
-                        <artifactId>maven-jar-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>empty-sources-jar</id>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>jar</goal>
-                                </goals>
-                                <configuration>
-                                    <classifier>sources</classifier>
-                                    <classesDirectory>${basedir}/sources</classesDirectory>
-                                </configuration>
-                            </execution>
-                            <execution>
-                                <id>empty-javadoc-jar</id>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>jar</goal>
-                                </goals>
-                                <configuration>
-                                    <classifier>javadoc</classifier>
-                                    <classesDirectory>${basedir}/src/main/javadoc</classesDirectory>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
-
     <build>
         <plugins>
             <plugin>
@@ -91,11 +48,5 @@
             <artifactId>rxmicro-rest-client</artifactId>
             <version>0.8-SNAPSHOT</version>
         </dependency>
-        <dependency>
-            <groupId>io.rxmicro</groupId>
-            <artifactId>rxmicro-http-client-jdk</artifactId>
-            <version>0.8-SNAPSHOT</version>
-        </dependency>
     </dependencies>
-
 </project>

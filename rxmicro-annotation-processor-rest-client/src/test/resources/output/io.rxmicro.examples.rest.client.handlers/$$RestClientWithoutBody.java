@@ -3,10 +3,10 @@ package io.rxmicro.examples.rest.client.handlers;
 import io.reactivex.rxjava3.core.Completable;
 import io.rxmicro.examples.rest.client.handlers.model.$$RequestRequestModelExtractor;
 import io.rxmicro.examples.rest.client.handlers.model.Request;
-import io.rxmicro.http.client.ClientHttpResponse;
-import io.rxmicro.http.client.HttpClient;
 import io.rxmicro.rest.client.RestClientConfig;
 import io.rxmicro.rest.client.detail.AbstractRestClient;
+import io.rxmicro.rest.client.detail.HttpClient;
+import io.rxmicro.rest.client.detail.HttpResponse;
 import io.rxmicro.rest.client.detail.QueryBuilder;
 import reactor.core.publisher.Mono;
 
@@ -47,7 +47,7 @@ public final class $$RestClientWithoutBody extends AbstractRestClient implements
 
     @Override
     public CompletableFuture<Void> completedFuture1() {
-        final CompletableFuture<ClientHttpResponse> response = client
+        final CompletableFuture<HttpResponse> response = client
                 .sendAsync("GET", "/jse/completedFuture1", EMPTY_HEADERS)
                 .handle(throwExceptionIfNotSuccess());
         return response
@@ -59,7 +59,7 @@ public final class $$RestClientWithoutBody extends AbstractRestClient implements
         final String path = "/jse/completedFuture2";
         final QueryBuilder queryBuilder = new QueryBuilder();
         requestRequestModelExtractor.extract(request, queryBuilder);
-        final CompletableFuture<ClientHttpResponse> response = client
+        final CompletableFuture<HttpResponse> response = client
                 .sendAsync("GET", joinPath(path, queryBuilder.build()), EMPTY_HEADERS)
                 .handle(throwExceptionIfNotSuccess());
         return response
@@ -72,7 +72,7 @@ public final class $$RestClientWithoutBody extends AbstractRestClient implements
         final String path = "/jse/completedFuture3";
         final QueryBuilder queryBuilder = new QueryBuilder();
         virtualWithoutBodyRequestRequestModelExtractor.extract(virtualRequest, queryBuilder);
-        final CompletableFuture<ClientHttpResponse> response = client
+        final CompletableFuture<HttpResponse> response = client
                 .sendAsync("GET", joinPath(path, queryBuilder.build()), EMPTY_HEADERS)
                 .handle(throwExceptionIfNotSuccess());
         return response
@@ -81,7 +81,7 @@ public final class $$RestClientWithoutBody extends AbstractRestClient implements
 
     @Override
     public CompletionStage<Void> completionStage1() {
-        final CompletableFuture<ClientHttpResponse> response = client
+        final CompletableFuture<HttpResponse> response = client
                 .sendAsync("GET", "/jse/completionStage1", EMPTY_HEADERS)
                 .handle(throwExceptionIfNotSuccess());
         return response
@@ -93,7 +93,7 @@ public final class $$RestClientWithoutBody extends AbstractRestClient implements
         final String path = "/jse/completionStage2";
         final QueryBuilder queryBuilder = new QueryBuilder();
         requestRequestModelExtractor.extract(request, queryBuilder);
-        final CompletableFuture<ClientHttpResponse> response = client
+        final CompletableFuture<HttpResponse> response = client
                 .sendAsync("GET", joinPath(path, queryBuilder.build()), EMPTY_HEADERS)
                 .handle(throwExceptionIfNotSuccess());
         return response
@@ -106,7 +106,7 @@ public final class $$RestClientWithoutBody extends AbstractRestClient implements
         final String path = "/jse/completionStage3";
         final QueryBuilder queryBuilder = new QueryBuilder();
         virtualWithoutBodyRequest2RequestModelExtractor.extract(virtualRequest, queryBuilder);
-        final CompletableFuture<ClientHttpResponse> response = client
+        final CompletableFuture<HttpResponse> response = client
                 .sendAsync("GET", joinPath(path, queryBuilder.build()), EMPTY_HEADERS)
                 .handle(throwExceptionIfNotSuccess());
         return response
@@ -115,7 +115,7 @@ public final class $$RestClientWithoutBody extends AbstractRestClient implements
 
     @Override
     public Mono<Void> mono1() {
-        final CompletableFuture<ClientHttpResponse> response = client
+        final CompletableFuture<HttpResponse> response = client
                 .sendAsync("GET", "/spring-reactor/mono1", EMPTY_HEADERS)
                 .handle(throwExceptionIfNotSuccess());
         return Mono.fromFuture(response)
@@ -127,7 +127,7 @@ public final class $$RestClientWithoutBody extends AbstractRestClient implements
         final String path = "/spring-reactor/mono2";
         final QueryBuilder queryBuilder = new QueryBuilder();
         requestRequestModelExtractor.extract(request, queryBuilder);
-        final CompletableFuture<ClientHttpResponse> response = client
+        final CompletableFuture<HttpResponse> response = client
                 .sendAsync("GET", joinPath(path, queryBuilder.build()), EMPTY_HEADERS)
                 .handle(throwExceptionIfNotSuccess());
         return Mono.fromFuture(response)
@@ -140,7 +140,7 @@ public final class $$RestClientWithoutBody extends AbstractRestClient implements
         final String path = "/spring-reactor/mono3";
         final QueryBuilder queryBuilder = new QueryBuilder();
         virtualWithoutBodyRequest3RequestModelExtractor.extract(virtualRequest, queryBuilder);
-        final CompletableFuture<ClientHttpResponse> response = client
+        final CompletableFuture<HttpResponse> response = client
                 .sendAsync("GET", joinPath(path, queryBuilder.build()), EMPTY_HEADERS)
                 .handle(throwExceptionIfNotSuccess());
         return Mono.fromFuture(response)
@@ -149,7 +149,7 @@ public final class $$RestClientWithoutBody extends AbstractRestClient implements
 
     @Override
     public Completable completable1() {
-        final CompletableFuture<ClientHttpResponse> response = client
+        final CompletableFuture<HttpResponse> response = client
                 .sendAsync("GET", "/rxjava3/completable1", EMPTY_HEADERS)
                 .handle(throwExceptionIfNotSuccess());
         return Completable.fromCompletionStage(response);
@@ -160,7 +160,7 @@ public final class $$RestClientWithoutBody extends AbstractRestClient implements
         final String path = "/rxjava3/completable2";
         final QueryBuilder queryBuilder = new QueryBuilder();
         requestRequestModelExtractor.extract(request, queryBuilder);
-        final CompletableFuture<ClientHttpResponse> response = client
+        final CompletableFuture<HttpResponse> response = client
                 .sendAsync("GET", joinPath(path, queryBuilder.build()), EMPTY_HEADERS)
                 .handle(throwExceptionIfNotSuccess());
         return Completable.fromCompletionStage(response);
@@ -172,7 +172,7 @@ public final class $$RestClientWithoutBody extends AbstractRestClient implements
         final String path = "/rxjava3/completable3";
         final QueryBuilder queryBuilder = new QueryBuilder();
         virtualWithoutBodyRequest4RequestModelExtractor.extract(virtualRequest, queryBuilder);
-        final CompletableFuture<ClientHttpResponse> response = client
+        final CompletableFuture<HttpResponse> response = client
                 .sendAsync("GET", joinPath(path, queryBuilder.build()), EMPTY_HEADERS)
                 .handle(throwExceptionIfNotSuccess());
         return Completable.fromCompletionStage(response);

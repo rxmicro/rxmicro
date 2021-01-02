@@ -39,19 +39,19 @@ ${EXTRACTOR}.extract(${MODEL}, queryBuilder);
 <#-- -------------------------------------------------------------------------------------------------------- -->
 <#-- -------------------------------------------------------------------------------------------------------- -->
 <#if (HAS_MODEL_HEADERS || HEADERS?has_content) && (HAS_MODEL_QUERY_PARAMS || QUERY_PARAMS?has_content)>
-final CompletableFuture<ClientHttpResponse> response = client
+final CompletableFuture<HttpResponse> response = client
         .sendAsync("${HTTP_METHOD}", joinPath(path, queryBuilder.build()), headerBuilder.build())
         .handle(throwExceptionIfNotSuccess());
 <#elseif HAS_MODEL_HEADERS || HEADERS?has_content>
-final CompletableFuture<ClientHttpResponse> response = client
+final CompletableFuture<HttpResponse> response = client
         .sendAsync("${HTTP_METHOD}", path, headerBuilder.build())
         .handle(throwExceptionIfNotSuccess());
 <#elseif HAS_MODEL_QUERY_PARAMS || QUERY_PARAMS?has_content>
-final CompletableFuture<ClientHttpResponse> response = client
+final CompletableFuture<HttpResponse> response = client
         .sendAsync("${HTTP_METHOD}", joinPath(path, queryBuilder.build()), EMPTY_HEADERS)
         .handle(throwExceptionIfNotSuccess());
 <#else>
-final CompletableFuture<ClientHttpResponse> response = client
+final CompletableFuture<HttpResponse> response = client
         .sendAsync("${HTTP_METHOD}", path, EMPTY_HEADERS)
         .handle(throwExceptionIfNotSuccess());
 </#if>

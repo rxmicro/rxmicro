@@ -1,6 +1,6 @@
 package io.rxmicro.examples.rest.client.model.field.access.internals.reflection;
 
-import io.rxmicro.http.client.ClientHttpResponse;
+import io.rxmicro.rest.client.detail.HttpResponse;
 import io.rxmicro.rest.client.detail.ModelReader;
 
 import static rxmicro.$$Reflections.setFieldValue;
@@ -11,13 +11,13 @@ import static rxmicro.$$Reflections.setFieldValue;
 public final class $$ResponseModelReader extends ModelReader<Response> {
 
     @Override
-    public Response readSingle(final ClientHttpResponse response) {
+    public Response readSingle(final HttpResponse response) {
         final Response model = new Response();
         readPrimitivesToModel(response, model);
         return model;
     }
 
-    protected void readPrimitivesToModel(final ClientHttpResponse response,
+    protected void readPrimitivesToModel(final HttpResponse response,
                                          final Response model) {
         setFieldValue(model, "internalResponseStatusCode", response.getStatusCode());
         setFieldValue(model, "internalHttpVersion", response.getVersion());

@@ -19,8 +19,8 @@ package io.rxmicro.test.local;
 import io.rxmicro.common.meta.BuilderMethod;
 import io.rxmicro.config.SingletonConfigClass;
 import io.rxmicro.http.ProtocolSchema;
-import io.rxmicro.http.client.HttpClientConfig;
 import io.rxmicro.rest.Version;
+import io.rxmicro.rest.client.RestClientConfig;
 
 import java.time.Duration;
 
@@ -32,7 +32,7 @@ import static io.rxmicro.http.ProtocolSchema.HTTP;
  */
 @SuppressWarnings("UnusedReturnValue")
 @SingletonConfigClass
-public final class BlockingHttpClientConfig extends HttpClientConfig {
+public final class BlockingHttpClientConfig extends RestClientConfig {
 
     private static final int DEFAULT_HTTP_PORT = 8080;
 

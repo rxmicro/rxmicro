@@ -1,10 +1,10 @@
 package io.rxmicro.examples.rest.client.versioning.header;
 
-import io.rxmicro.http.client.ClientHttpResponse;
-import io.rxmicro.http.client.HttpClient;
 import io.rxmicro.rest.client.RestClientConfig;
 import io.rxmicro.rest.client.detail.AbstractRestClient;
 import io.rxmicro.rest.client.detail.HeaderBuilder;
+import io.rxmicro.rest.client.detail.HttpClient;
+import io.rxmicro.rest.client.detail.HttpResponse;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -29,7 +29,7 @@ public final class $$OldRestClient extends AbstractRestClient implements OldRest
     public CompletableFuture<Void> update() {
         final HeaderBuilder headerBuilder = new HeaderBuilder();
         headerBuilder.add("Api-Version", "v1");
-        final CompletableFuture<ClientHttpResponse> response = client
+        final CompletableFuture<HttpResponse> response = client
                 .sendAsync("PATCH", "/patch", headerBuilder.build())
                 .handle(throwExceptionIfNotSuccess());
         return response

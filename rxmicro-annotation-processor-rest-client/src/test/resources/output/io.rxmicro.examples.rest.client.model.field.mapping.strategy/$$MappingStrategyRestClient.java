@@ -1,10 +1,10 @@
 package io.rxmicro.examples.rest.client.model.field.mapping.strategy;
 
-import io.rxmicro.http.client.ClientHttpResponse;
-import io.rxmicro.http.client.HttpClient;
 import io.rxmicro.rest.client.RestClientConfig;
 import io.rxmicro.rest.client.detail.AbstractRestClient;
 import io.rxmicro.rest.client.detail.HeaderBuilder;
+import io.rxmicro.rest.client.detail.HttpClient;
+import io.rxmicro.rest.client.detail.HttpResponse;
 import io.rxmicro.rest.client.detail.QueryBuilder;
 
 import java.math.BigDecimal;
@@ -45,7 +45,7 @@ public final class $$MappingStrategyRestClient extends AbstractRestClient implem
         final HeaderBuilder headerBuilder = new HeaderBuilder();
         final QueryBuilder queryBuilder = new QueryBuilder();
         virtualMappingStrategyRequestRequestModelExtractor.extract(virtualRequest, headerBuilder, queryBuilder);
-        final CompletableFuture<ClientHttpResponse> response = client
+        final CompletableFuture<HttpResponse> response = client
                 .sendAsync("PUT", joinPath(path, queryBuilder.build()), headerBuilder.build())
                 .handle(throwExceptionIfNotSuccess());
         return response
@@ -59,7 +59,7 @@ public final class $$MappingStrategyRestClient extends AbstractRestClient implem
         final HeaderBuilder headerBuilder = new HeaderBuilder();
         final QueryBuilder queryBuilder = new QueryBuilder();
         virtualMappingStrategyRequest2RequestModelExtractor.extract(virtualRequest, headerBuilder, queryBuilder);
-        final CompletableFuture<ClientHttpResponse> response = client
+        final CompletableFuture<HttpResponse> response = client
                 .sendAsync("PUT", joinPath(path, queryBuilder.build()), headerBuilder.build())
                 .handle(throwExceptionIfNotSuccess());
         return response
@@ -73,7 +73,7 @@ public final class $$MappingStrategyRestClient extends AbstractRestClient implem
         final HeaderBuilder headerBuilder = new HeaderBuilder();
         final QueryBuilder queryBuilder = new QueryBuilder();
         virtualMappingStrategyRequest3RequestModelExtractor.extract(virtualRequest, headerBuilder, queryBuilder);
-        final CompletableFuture<ClientHttpResponse> response = client
+        final CompletableFuture<HttpResponse> response = client
                 .sendAsync("PUT", joinPath(path, queryBuilder.build()), headerBuilder.build())
                 .handle(throwExceptionIfNotSuccess());
         return response

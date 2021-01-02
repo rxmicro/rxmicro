@@ -4,10 +4,10 @@ import io.rxmicro.examples.rest.client.params.model.$$RequestRequestModelExtract
 import io.rxmicro.examples.rest.client.params.model.$$ResponseModelReader;
 import io.rxmicro.examples.rest.client.params.model.Request;
 import io.rxmicro.examples.rest.client.params.model.Response;
-import io.rxmicro.http.client.ClientHttpResponse;
-import io.rxmicro.http.client.HttpClient;
 import io.rxmicro.rest.client.RestClientConfig;
 import io.rxmicro.rest.client.detail.AbstractRestClient;
+import io.rxmicro.rest.client.detail.HttpClient;
+import io.rxmicro.rest.client.detail.HttpResponse;
 import io.rxmicro.rest.client.detail.QueryBuilder;
 
 import java.util.concurrent.CompletableFuture;
@@ -43,7 +43,7 @@ public final class $$SimpleUsageRestClient extends AbstractRestClient implements
         final String path = "/get1";
         final QueryBuilder queryBuilder = new QueryBuilder();
         requestRequestModelExtractor.extract(request, queryBuilder);
-        final CompletableFuture<ClientHttpResponse> response = client
+        final CompletableFuture<HttpResponse> response = client
                 .sendAsync("GET", joinPath(path, queryBuilder.build()), EMPTY_HEADERS)
                 .handle(throwExceptionIfNotSuccess());
         return response
@@ -56,7 +56,7 @@ public final class $$SimpleUsageRestClient extends AbstractRestClient implements
         final String path = "/get2";
         final QueryBuilder queryBuilder = new QueryBuilder();
         virtualSimpleUsageRequestRequestModelExtractor.extract(virtualRequest, queryBuilder);
-        final CompletableFuture<ClientHttpResponse> response = client
+        final CompletableFuture<HttpResponse> response = client
                 .sendAsync("GET", joinPath(path, queryBuilder.build()), EMPTY_HEADERS)
                 .handle(throwExceptionIfNotSuccess());
         return response

@@ -17,8 +17,7 @@
 package io.rxmicro.rest.client.detail;
 
 import io.rxmicro.config.Configs;
-import io.rxmicro.http.client.HttpClient;
-import io.rxmicro.http.client.HttpClientConfig;
+import io.rxmicro.rest.client.RestClientConfig;
 import io.rxmicro.rest.client.internal.RestClientBuilder;
 
 import java.util.function.BiFunction;
@@ -42,7 +41,7 @@ public final class RestClientImplFactory {
         new Configs.Builder().buildIfNotConfigured();
     }
 
-    public static <T, C extends HttpClientConfig> T createRestClient(final String namespace,
+    public static <T, C extends RestClientConfig> T createRestClient(final String namespace,
                                                                      final Class<C> configClass,
                                                                      final Class<?> restClientInterface,
                                                                      final BiFunction<HttpClient, C, T> creator) {

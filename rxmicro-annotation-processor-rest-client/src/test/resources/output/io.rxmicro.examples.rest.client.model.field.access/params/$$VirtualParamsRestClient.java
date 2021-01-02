@@ -2,10 +2,10 @@ package io.rxmicro.examples.rest.client.model.field.access.params;
 
 import io.rxmicro.examples.rest.client.model.field.access.Status;
 import io.rxmicro.examples.rest.client.model.field.access.params.direct.nested.Nested;
-import io.rxmicro.http.client.ClientHttpResponse;
-import io.rxmicro.http.client.HttpClient;
 import io.rxmicro.rest.client.RestClientConfig;
 import io.rxmicro.rest.client.detail.AbstractRestClient;
+import io.rxmicro.rest.client.detail.HttpClient;
+import io.rxmicro.rest.client.detail.HttpResponse;
 import io.rxmicro.rest.client.detail.QueryBuilder;
 
 import java.math.BigDecimal;
@@ -46,7 +46,7 @@ public final class $$VirtualParamsRestClient extends AbstractRestClient implemen
         final String path = "/params/virtual";
         final QueryBuilder queryBuilder = new QueryBuilder();
         virtualVirtualParamsRequestRequestModelExtractor.extract(virtualRequest, queryBuilder);
-        final CompletableFuture<ClientHttpResponse> response = client
+        final CompletableFuture<HttpResponse> response = client
                 .sendAsync("GET", joinPath(path, queryBuilder.build()), EMPTY_HEADERS)
                 .handle(throwExceptionIfNotSuccess());
         return response
@@ -58,7 +58,7 @@ public final class $$VirtualParamsRestClient extends AbstractRestClient implemen
         final $$VirtualVirtualParamsRequest2 virtualRequest = new $$VirtualVirtualParamsRequest2(booleanParameter, byteParameter, shortParameter, intParameter, longParameter, bigIntParameter, floatParameter, doubleParameter, decimalParameter, charParameter, stringParameter, instantParameter, enumParameter, booleanParameterList, byteParameterList, shortParameterList, intParameterList, longParameterList, bigIntParameterList, floatParameterList, doubleParameterList, decimalParameterList, charParameterList, stringParameterList, instantParameterList, enumParameterList, booleanParameterSet, byteParameterSet, shortParameterSet, intParameterSet, longParameterSet, bigIntParameterSet, floatParameterSet, doubleParameterSet, decimalParameterSet, charParameterSet, stringParameterSet, instantParameterSet, enumParameterSet, booleanParameterMap, byteParameterMap, shortParameterMap, integerParameterMap, longParameterMap, bigIntegerParameterMap, floatParameterMap, doubleParameterMap, bigDecimalParameterMap, characterParameterMap, stringParameterMap, instantParameterMap, enumParameterMap, nested, nestedList, nestedSet, nestedParameterMap);
         final String path = "/params/virtual";
         final Object body = virtualVirtualParamsRequest2ModelToJsonConverter.toJson(virtualRequest);
-        final CompletableFuture<ClientHttpResponse> response = client
+        final CompletableFuture<HttpResponse> response = client
                 .sendAsync("PUT", path, EMPTY_HEADERS, body)
                 .handle(throwExceptionIfNotSuccess());
         return response

@@ -2,10 +2,10 @@ package io.rxmicro.examples.processor.all.components.component;
 
 import io.rxmicro.examples.processor.all.components.model.$$AccountModelReader;
 import io.rxmicro.examples.processor.all.components.model.Account;
-import io.rxmicro.http.client.ClientHttpResponse;
-import io.rxmicro.http.client.HttpClient;
 import io.rxmicro.rest.client.RestClientConfig;
 import io.rxmicro.rest.client.detail.AbstractRestClient;
+import io.rxmicro.rest.client.detail.HttpClient;
+import io.rxmicro.rest.client.detail.HttpResponse;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -31,7 +31,7 @@ public final class $$RestClient extends AbstractRestClient implements RestClient
 
     @Override
     public CompletableFuture<Account> get() {
-        final CompletableFuture<ClientHttpResponse> response = client
+        final CompletableFuture<HttpResponse> response = client
                 .sendAsync("GET", "/", EMPTY_HEADERS)
                 .handle(throwExceptionIfNotSuccess());
         return response

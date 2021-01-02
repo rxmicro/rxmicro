@@ -16,7 +16,7 @@
 
 package io.rxmicro.test.internal.validator.impl;
 
-import io.rxmicro.http.client.HttpClientFactory;
+import io.rxmicro.rest.client.detail.HttpClientFactory;
 
 import java.lang.reflect.Field;
 import java.util.List;

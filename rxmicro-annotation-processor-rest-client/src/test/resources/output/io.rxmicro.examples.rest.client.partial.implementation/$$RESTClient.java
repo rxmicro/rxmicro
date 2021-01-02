@@ -1,8 +1,8 @@
 package io.rxmicro.examples.rest.client.partial.implementation;
 
-import io.rxmicro.http.client.ClientHttpResponse;
-import io.rxmicro.http.client.HttpClient;
 import io.rxmicro.rest.client.RestClientConfig;
+import io.rxmicro.rest.client.detail.HttpClient;
+import io.rxmicro.rest.client.detail.HttpResponse;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -25,7 +25,7 @@ public final class $$RESTClient extends AbstractRESTClient implements RESTClient
 
     @Override
     public CompletableFuture<Void> generatedMethod() {
-        final CompletableFuture<ClientHttpResponse> response = client
+        final CompletableFuture<HttpResponse> response = client
                 .sendAsync("GET", "/", EMPTY_HEADERS)
                 .handle(throwExceptionIfNotSuccess());
         return response

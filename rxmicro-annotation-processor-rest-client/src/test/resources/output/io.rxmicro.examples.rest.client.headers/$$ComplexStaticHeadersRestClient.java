@@ -1,10 +1,10 @@
 package io.rxmicro.examples.rest.client.headers;
 
-import io.rxmicro.http.client.ClientHttpResponse;
-import io.rxmicro.http.client.HttpClient;
 import io.rxmicro.rest.client.RestClientConfig;
 import io.rxmicro.rest.client.detail.AbstractRestClient;
 import io.rxmicro.rest.client.detail.HeaderBuilder;
+import io.rxmicro.rest.client.detail.HttpClient;
+import io.rxmicro.rest.client.detail.HttpResponse;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -31,7 +31,7 @@ public final class $$ComplexStaticHeadersRestClient extends AbstractRestClient i
         headerBuilder.add("Parent-Header2", "new-Parent-Header2-value");
         headerBuilder.add("Parent-Header2", "new-Parent-Header2-value");
         headerBuilder.add("Parent-Header1", "new-Parent-Header1-value");
-        final CompletableFuture<ClientHttpResponse> response = client
+        final CompletableFuture<HttpResponse> response = client
                 .sendAsync("GET", "/get1", headerBuilder.build())
                 .handle(throwExceptionIfNotSuccess());
         return response
@@ -47,7 +47,7 @@ public final class $$ComplexStaticHeadersRestClient extends AbstractRestClient i
         headerBuilder.add("Child-Header2", "new-Child-Header2-value");
         headerBuilder.add("Child-Header2", "new-Child-Header2-value");
         headerBuilder.add("Child-Header1", "new-Child-Header1-value");
-        final CompletableFuture<ClientHttpResponse> response = client
+        final CompletableFuture<HttpResponse> response = client
                 .sendAsync("GET", "/get2", headerBuilder.build())
                 .handle(throwExceptionIfNotSuccess());
         return response
@@ -59,7 +59,7 @@ public final class $$ComplexStaticHeadersRestClient extends AbstractRestClient i
         final HeaderBuilder headerBuilder = new HeaderBuilder();
         headerBuilder.add("Parent-Header2", "new-Child-Parent-Header2-value");
         headerBuilder.add("Parent-Header1", "new-Child-Parent-Header1-value");
-        final CompletableFuture<ClientHttpResponse> response = client
+        final CompletableFuture<HttpResponse> response = client
                 .sendAsync("GET", "/get3", headerBuilder.build())
                 .handle(throwExceptionIfNotSuccess());
         return response
@@ -74,7 +74,7 @@ public final class $$ComplexStaticHeadersRestClient extends AbstractRestClient i
         headerBuilder.add("Parent-Header2", "new-Child-Parent-Header2-value");
         headerBuilder.add("Parent-Header1", "new-Parent-Header1-value");
         headerBuilder.add("Parent-Header1", "new-Child-Parent-Header1-value");
-        final CompletableFuture<ClientHttpResponse> response = client
+        final CompletableFuture<HttpResponse> response = client
                 .sendAsync("GET", "/get4", headerBuilder.build())
                 .handle(throwExceptionIfNotSuccess());
         return response

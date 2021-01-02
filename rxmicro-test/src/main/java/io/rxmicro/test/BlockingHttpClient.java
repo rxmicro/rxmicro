@@ -18,7 +18,7 @@ package io.rxmicro.test;
 
 import io.rxmicro.http.HttpHeaders;
 import io.rxmicro.http.QueryParams;
-import io.rxmicro.http.client.ClientHttpResponse;
+import io.rxmicro.rest.client.HttpClientTimeoutException;
 import io.rxmicro.runtime.AutoRelease;
 
 import static io.rxmicro.http.HttpHeaders.EMPTY_HEADERS;
@@ -77,7 +77,7 @@ public interface BlockingHttpClient extends AutoRelease {
      * @param headers the custom HTTP request headers
      * @return the received {@link ClientHttpResponse} from the HTTP server
      * @throws NullPointerException is any method parameter is {@code null}
-     * @throws io.rxmicro.http.client.HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
+     * @throws HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
      * @throws IllegalArgumentException is any request parameter is invalid
      */
     default ClientHttpResponse get(final String path,
@@ -91,7 +91,7 @@ public interface BlockingHttpClient extends AutoRelease {
      * @param path the relative URL path
      * @return the received {@link ClientHttpResponse} from the HTTP server
      * @throws NullPointerException is any method parameter is {@code null}
-     * @throws io.rxmicro.http.client.HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
+     * @throws HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
      * @throws IllegalArgumentException is any request parameter is invalid
      */
     default ClientHttpResponse get(final String path) {
@@ -106,7 +106,7 @@ public interface BlockingHttpClient extends AutoRelease {
      * @param parameters the custom HTTP query parameters
      * @return the received {@link ClientHttpResponse} from the HTTP server
      * @throws NullPointerException is any method parameter is {@code null}
-     * @throws io.rxmicro.http.client.HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
+     * @throws HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
      * @throws IllegalArgumentException is any request parameter is invalid
      */
     default ClientHttpResponse get(final String path,
@@ -122,7 +122,7 @@ public interface BlockingHttpClient extends AutoRelease {
      * @param parameters the custom HTTP query parameters
      * @return the received {@link ClientHttpResponse} from the HTTP server
      * @throws NullPointerException is any method parameter is {@code null}
-     * @throws io.rxmicro.http.client.HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
+     * @throws HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
      * @throws IllegalArgumentException is any request parameter is invalid
      */
     default ClientHttpResponse get(final String path,
@@ -139,7 +139,7 @@ public interface BlockingHttpClient extends AutoRelease {
      * @param headers the custom HTTP request headers
      * @return the received {@link ClientHttpResponse} from the HTTP server
      * @throws NullPointerException is any method parameter is {@code null}
-     * @throws io.rxmicro.http.client.HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
+     * @throws HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
      * @throws IllegalArgumentException is any request parameter is invalid
      */
     default ClientHttpResponse head(final String path,
@@ -153,7 +153,7 @@ public interface BlockingHttpClient extends AutoRelease {
      * @param path the relative URL path
      * @return the received {@link ClientHttpResponse} from the HTTP server
      * @throws NullPointerException is any method parameter is {@code null}
-     * @throws io.rxmicro.http.client.HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
+     * @throws HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
      * @throws IllegalArgumentException is any request parameter is invalid
      */
     default ClientHttpResponse head(final String path) {
@@ -168,7 +168,7 @@ public interface BlockingHttpClient extends AutoRelease {
      * @param parameters the custom HTTP query parameters
      * @return the received {@link ClientHttpResponse} from the HTTP server
      * @throws NullPointerException is any method parameter is {@code null}
-     * @throws io.rxmicro.http.client.HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
+     * @throws HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
      * @throws IllegalArgumentException is any request parameter is invalid
      */
     default ClientHttpResponse head(final String path,
@@ -184,7 +184,7 @@ public interface BlockingHttpClient extends AutoRelease {
      * @param parameters the custom HTTP query parameters
      * @return the received {@link ClientHttpResponse} from the HTTP server
      * @throws NullPointerException is any method parameter is {@code null}
-     * @throws io.rxmicro.http.client.HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
+     * @throws HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
      * @throws IllegalArgumentException is any request parameter is invalid
      */
     default ClientHttpResponse head(final String path,
@@ -201,7 +201,7 @@ public interface BlockingHttpClient extends AutoRelease {
      * @param headers the custom HTTP request headers
      * @return the received {@link ClientHttpResponse} from the HTTP server
      * @throws NullPointerException is any method parameter is {@code null}
-     * @throws io.rxmicro.http.client.HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
+     * @throws HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
      * @throws IllegalArgumentException is any request parameter is invalid
      */
     default ClientHttpResponse delete(final String path,
@@ -215,7 +215,7 @@ public interface BlockingHttpClient extends AutoRelease {
      * @param path the relative URL path
      * @return the received {@link ClientHttpResponse} from the HTTP server
      * @throws NullPointerException is any method parameter is {@code null}
-     * @throws io.rxmicro.http.client.HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
+     * @throws HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
      * @throws IllegalArgumentException is any request parameter is invalid
      */
     default ClientHttpResponse delete(final String path) {
@@ -230,7 +230,7 @@ public interface BlockingHttpClient extends AutoRelease {
      * @param parameters the custom HTTP query parameters
      * @return the received {@link ClientHttpResponse} from the HTTP server
      * @throws NullPointerException is any method parameter is {@code null}
-     * @throws io.rxmicro.http.client.HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
+     * @throws HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
      * @throws IllegalArgumentException is any request parameter is invalid
      */
     default ClientHttpResponse delete(final String path,
@@ -246,7 +246,7 @@ public interface BlockingHttpClient extends AutoRelease {
      * @param parameters the custom HTTP query parameters
      * @return the received {@link ClientHttpResponse} from the HTTP server
      * @throws NullPointerException is any method parameter is {@code null}
-     * @throws io.rxmicro.http.client.HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
+     * @throws HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
      * @throws IllegalArgumentException is any request parameter is invalid
      */
     default ClientHttpResponse delete(final String path,
@@ -263,7 +263,7 @@ public interface BlockingHttpClient extends AutoRelease {
      * @param headers the custom HTTP request headers
      * @return the received {@link ClientHttpResponse} from the HTTP server
      * @throws NullPointerException is any method parameter is {@code null}
-     * @throws io.rxmicro.http.client.HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
+     * @throws HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
      * @throws IllegalArgumentException is any request parameter is invalid
      */
     default ClientHttpResponse options(final String path,
@@ -277,7 +277,7 @@ public interface BlockingHttpClient extends AutoRelease {
      * @param path the relative URL path
      * @return the received {@link ClientHttpResponse} from the HTTP server
      * @throws NullPointerException is any method parameter is {@code null}
-     * @throws io.rxmicro.http.client.HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
+     * @throws HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
      * @throws IllegalArgumentException is any request parameter is invalid
      */
     default ClientHttpResponse options(final String path) {
@@ -292,7 +292,7 @@ public interface BlockingHttpClient extends AutoRelease {
      * @param parameters the custom HTTP query parameters
      * @return the received {@link ClientHttpResponse} from the HTTP server
      * @throws NullPointerException is any method parameter is {@code null}
-     * @throws io.rxmicro.http.client.HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
+     * @throws HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
      * @throws IllegalArgumentException is any request parameter is invalid
      */
     default ClientHttpResponse options(final String path,
@@ -308,7 +308,7 @@ public interface BlockingHttpClient extends AutoRelease {
      * @param parameters the custom HTTP query parameters
      * @return the received {@link ClientHttpResponse} from the HTTP server
      * @throws NullPointerException is any method parameter is {@code null}
-     * @throws io.rxmicro.http.client.HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
+     * @throws HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
      * @throws IllegalArgumentException is any request parameter is invalid
      */
     default ClientHttpResponse options(final String path,
@@ -325,7 +325,7 @@ public interface BlockingHttpClient extends AutoRelease {
      * @param headers the custom HTTP request headers
      * @return the received {@link ClientHttpResponse} from the HTTP server
      * @throws NullPointerException is any method parameter is {@code null}
-     * @throws io.rxmicro.http.client.HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
+     * @throws HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
      * @throws IllegalArgumentException is any request parameter is invalid
      */
     default ClientHttpResponse post(final String path,
@@ -339,7 +339,7 @@ public interface BlockingHttpClient extends AutoRelease {
      * @param path the relative URL path
      * @return the received {@link ClientHttpResponse} from the HTTP server
      * @throws NullPointerException is any method parameter is {@code null}
-     * @throws io.rxmicro.http.client.HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
+     * @throws HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
      * @throws IllegalArgumentException is any request parameter is invalid
      */
     default ClientHttpResponse post(final String path) {
@@ -354,7 +354,7 @@ public interface BlockingHttpClient extends AutoRelease {
      * @param parameters the custom HTTP query parameters
      * @return the received {@link ClientHttpResponse} from the HTTP server
      * @throws NullPointerException is any method parameter is {@code null}
-     * @throws io.rxmicro.http.client.HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
+     * @throws HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
      * @throws IllegalArgumentException is any request parameter is invalid
      */
     default ClientHttpResponse post(final String path,
@@ -370,7 +370,7 @@ public interface BlockingHttpClient extends AutoRelease {
      * @param parameters the custom HTTP query parameters
      * @return the received {@link ClientHttpResponse} from the HTTP server
      * @throws NullPointerException is any method parameter is {@code null}
-     * @throws io.rxmicro.http.client.HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
+     * @throws HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
      * @throws IllegalArgumentException is any request parameter is invalid
      */
     default ClientHttpResponse post(final String path,
@@ -386,7 +386,7 @@ public interface BlockingHttpClient extends AutoRelease {
      * @param body the HTTP request body
      * @return the received {@link ClientHttpResponse} from the HTTP server
      * @throws NullPointerException is any method parameter is {@code null}
-     * @throws io.rxmicro.http.client.HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
+     * @throws HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
      * @throws IllegalArgumentException is any request parameter is invalid
      */
     default ClientHttpResponse post(final String path,
@@ -402,7 +402,7 @@ public interface BlockingHttpClient extends AutoRelease {
      * @param body the HTTP request body
      * @return the received {@link ClientHttpResponse} from the HTTP server
      * @throws NullPointerException is any method parameter is {@code null}
-     * @throws io.rxmicro.http.client.HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
+     * @throws HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
      * @throws IllegalArgumentException is any request parameter is invalid
      */
     default ClientHttpResponse post(final String path,
@@ -419,7 +419,7 @@ public interface BlockingHttpClient extends AutoRelease {
      * @param headers the custom HTTP request headers
      * @return the received {@link ClientHttpResponse} from the HTTP server
      * @throws NullPointerException is any method parameter is {@code null}
-     * @throws io.rxmicro.http.client.HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
+     * @throws HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
      * @throws IllegalArgumentException is any request parameter is invalid
      */
     default ClientHttpResponse put(final String path,
@@ -433,7 +433,7 @@ public interface BlockingHttpClient extends AutoRelease {
      * @param path the relative URL path
      * @return the received {@link ClientHttpResponse} from the HTTP server
      * @throws NullPointerException is any method parameter is {@code null}
-     * @throws io.rxmicro.http.client.HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
+     * @throws HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
      * @throws IllegalArgumentException is any request parameter is invalid
      */
     default ClientHttpResponse put(final String path) {
@@ -448,7 +448,7 @@ public interface BlockingHttpClient extends AutoRelease {
      * @param parameters the custom HTTP query parameters
      * @return the received {@link ClientHttpResponse} from the HTTP server
      * @throws NullPointerException is any method parameter is {@code null}
-     * @throws io.rxmicro.http.client.HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
+     * @throws HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
      * @throws IllegalArgumentException is any request parameter is invalid
      */
     default ClientHttpResponse put(final String path,
@@ -464,7 +464,7 @@ public interface BlockingHttpClient extends AutoRelease {
      * @param parameters the custom HTTP query parameters
      * @return the received {@link ClientHttpResponse} from the HTTP server
      * @throws NullPointerException is any method parameter is {@code null}
-     * @throws io.rxmicro.http.client.HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
+     * @throws HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
      * @throws IllegalArgumentException is any request parameter is invalid
      */
     default ClientHttpResponse put(final String path,
@@ -480,7 +480,7 @@ public interface BlockingHttpClient extends AutoRelease {
      * @param body the HTTP request body
      * @return the received {@link ClientHttpResponse} from the HTTP server
      * @throws NullPointerException is any method parameter is {@code null}
-     * @throws io.rxmicro.http.client.HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
+     * @throws HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
      * @throws IllegalArgumentException is any request parameter is invalid
      */
     default ClientHttpResponse put(final String path,
@@ -496,7 +496,7 @@ public interface BlockingHttpClient extends AutoRelease {
      * @param body the HTTP request body
      * @return the received {@link ClientHttpResponse} from the HTTP server
      * @throws NullPointerException is any method parameter is {@code null}
-     * @throws io.rxmicro.http.client.HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
+     * @throws HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
      * @throws IllegalArgumentException is any request parameter is invalid
      */
     default ClientHttpResponse put(final String path,
@@ -513,7 +513,7 @@ public interface BlockingHttpClient extends AutoRelease {
      * @param headers the custom HTTP request headers
      * @return the received {@link ClientHttpResponse} from the HTTP server
      * @throws NullPointerException is any method parameter is {@code null}
-     * @throws io.rxmicro.http.client.HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
+     * @throws HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
      * @throws IllegalArgumentException is any request parameter is invalid
      */
     default ClientHttpResponse patch(final String path,
@@ -527,7 +527,7 @@ public interface BlockingHttpClient extends AutoRelease {
      * @param path the relative URL path
      * @return the received {@link ClientHttpResponse} from the HTTP server
      * @throws NullPointerException is any method parameter is {@code null}
-     * @throws io.rxmicro.http.client.HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
+     * @throws HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
      * @throws IllegalArgumentException is any request parameter is invalid
      */
     default ClientHttpResponse patch(final String path) {
@@ -542,7 +542,7 @@ public interface BlockingHttpClient extends AutoRelease {
      * @param parameters the custom HTTP query parameters
      * @return the received {@link ClientHttpResponse} from the HTTP server
      * @throws NullPointerException is any method parameter is {@code null}
-     * @throws io.rxmicro.http.client.HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
+     * @throws HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
      * @throws IllegalArgumentException is any request parameter is invalid
      */
     default ClientHttpResponse patch(final String path,
@@ -558,7 +558,7 @@ public interface BlockingHttpClient extends AutoRelease {
      * @param parameters the custom HTTP query parameters
      * @return the received {@link ClientHttpResponse} from the HTTP server
      * @throws NullPointerException is any method parameter is {@code null}
-     * @throws io.rxmicro.http.client.HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
+     * @throws HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
      * @throws IllegalArgumentException is any request parameter is invalid
      */
     default ClientHttpResponse patch(final String path,
@@ -574,7 +574,7 @@ public interface BlockingHttpClient extends AutoRelease {
      * @param body the HTTP request body
      * @return the received {@link ClientHttpResponse} from the HTTP server
      * @throws NullPointerException is any method parameter is {@code null}
-     * @throws io.rxmicro.http.client.HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
+     * @throws HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
      * @throws IllegalArgumentException is any request parameter is invalid
      */
     default ClientHttpResponse patch(final String path,
@@ -590,7 +590,7 @@ public interface BlockingHttpClient extends AutoRelease {
      * @param body the HTTP request body
      * @return the received {@link ClientHttpResponse} from the HTTP server
      * @throws NullPointerException is any method parameter is {@code null}
-     * @throws io.rxmicro.http.client.HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
+     * @throws HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
      * @throws IllegalArgumentException is any request parameter is invalid
      */
     default ClientHttpResponse patch(final String path,
@@ -608,7 +608,7 @@ public interface BlockingHttpClient extends AutoRelease {
      * @param headers the custom HTTP request headers
      * @return the received {@link ClientHttpResponse} from the HTTP server
      * @throws NullPointerException is any method parameter is {@code null}
-     * @throws io.rxmicro.http.client.HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
+     * @throws HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
      * @throws IllegalArgumentException is any request parameter is invalid
      */
     ClientHttpResponse send(String method,
@@ -622,7 +622,7 @@ public interface BlockingHttpClient extends AutoRelease {
      * @param path the relative URL path
      * @return the received {@link ClientHttpResponse} from the HTTP server
      * @throws NullPointerException is any method parameter is {@code null}
-     * @throws io.rxmicro.http.client.HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
+     * @throws HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
      * @throws IllegalArgumentException is any request parameter is invalid
      */
     default ClientHttpResponse send(String method,
@@ -639,7 +639,7 @@ public interface BlockingHttpClient extends AutoRelease {
      * @param body the HTTP request body
      * @return the received {@link ClientHttpResponse} from the HTTP server
      * @throws NullPointerException is any method parameter is {@code null}
-     * @throws io.rxmicro.http.client.HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
+     * @throws HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
      * @throws IllegalArgumentException is any request parameter is invalid
      */
     ClientHttpResponse send(String method,
@@ -655,7 +655,7 @@ public interface BlockingHttpClient extends AutoRelease {
      * @param body the HTTP request body
      * @return the received {@link ClientHttpResponse} from the HTTP server
      * @throws NullPointerException is any method parameter is {@code null}
-     * @throws io.rxmicro.http.client.HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
+     * @throws HttpClientTimeoutException if HTTP connect timed out occurs to the HTTP server
      * @throws IllegalArgumentException is any request parameter is invalid
      */
     default ClientHttpResponse send(String method,

@@ -17,10 +17,10 @@
 package io.rxmicro.rest.client.internal;
 
 import io.rxmicro.config.Secrets;
-import io.rxmicro.http.client.HttpClient;
-import io.rxmicro.http.client.HttpClientConfig;
-import io.rxmicro.http.client.HttpClientContentConverter;
-import io.rxmicro.http.client.HttpClientFactory;
+import io.rxmicro.rest.client.RestClientConfig;
+import io.rxmicro.rest.client.detail.HttpClient;
+import io.rxmicro.rest.client.detail.HttpClientContentConverter;
+import io.rxmicro.rest.client.detail.HttpClientFactory;
 import io.rxmicro.runtime.detail.ByTypeInstanceQualifier;
 import io.rxmicro.runtime.local.provider.LazyInstanceProvider;
 
@@ -38,11 +38,11 @@ import static io.rxmicro.runtime.local.InstanceContainer.getSingleton;
 public final class RestClientBuilder {
 
     public HttpClient createHttpClient(final Class<?> restClientInterface,
-                                       final HttpClientConfig httpClientConfig) {
+                                       final RestClientConfig restClientConfig) {
         return getHttpClientFactory()
                 .create(
                         restClientInterface,
-                        httpClientConfig,
+                        restClientConfig,
                         Secrets.getDefaultInstance(),
                         getHttpClientBodyConverter()
                 );

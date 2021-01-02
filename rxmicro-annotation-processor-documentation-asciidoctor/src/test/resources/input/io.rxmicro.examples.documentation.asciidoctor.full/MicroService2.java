@@ -20,9 +20,9 @@ import io.rxmicro.documentation.ModelExceptionErrorResponse;
 import io.rxmicro.documentation.SimpleErrorResponse;
 import io.rxmicro.examples.documentation.asciidoctor.full.model.NotAcceptableException;
 import io.rxmicro.examples.documentation.asciidoctor.full.model.ValidatedRequest;
-import io.rxmicro.http.client.HttpClientTimeoutException;
 import io.rxmicro.rest.PathVariable;
 import io.rxmicro.rest.Version;
+import io.rxmicro.rest.client.HttpClientTimeoutException;
 import io.rxmicro.rest.method.GET;
 
 import java.util.concurrent.CompletableFuture;

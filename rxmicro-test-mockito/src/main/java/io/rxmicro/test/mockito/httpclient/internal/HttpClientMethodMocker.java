@@ -17,8 +17,8 @@
 package io.rxmicro.test.mockito.httpclient.internal;
 
 import io.rxmicro.common.InvalidStateException;
-import io.rxmicro.http.client.HttpClient;
-import io.rxmicro.http.client.HttpClientContentConverter;
+import io.rxmicro.rest.client.detail.HttpClient;
+import io.rxmicro.rest.client.detail.HttpClientContentConverter;
 import io.rxmicro.test.local.InvalidTestConfigException;
 import io.rxmicro.test.mockito.httpclient.HttpRequestMock;
 import io.rxmicro.test.mockito.httpclient.internal.matchers.BodyArgumentMatcher;

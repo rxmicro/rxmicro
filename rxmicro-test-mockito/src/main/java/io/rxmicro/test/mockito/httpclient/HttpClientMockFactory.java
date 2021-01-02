@@ -18,10 +18,10 @@ package io.rxmicro.test.mockito.httpclient;
 
 import io.rxmicro.config.Secrets;
 import io.rxmicro.http.HttpHeaders;
-import io.rxmicro.http.client.HttpClient;
-import io.rxmicro.http.client.HttpClientConfig;
-import io.rxmicro.http.client.HttpClientContentConverter;
-import io.rxmicro.http.client.HttpClientFactory;
+import io.rxmicro.rest.client.RestClientConfig;
+import io.rxmicro.rest.client.detail.HttpClient;
+import io.rxmicro.rest.client.detail.HttpClientContentConverter;
+import io.rxmicro.rest.client.detail.HttpClientFactory;
 import io.rxmicro.test.local.InvalidTestConfigException;
 import io.rxmicro.test.mockito.httpclient.internal.InternalHttpClientMockFactory;
 
@@ -317,7 +317,7 @@ public final class HttpClientMockFactory {
      *
      * <p>
      * This mock will be returned by the specified {@link HttpClientFactory} if the RxMicro framework will invoke
-     * the {@link HttpClientFactory#create(Class, HttpClientConfig, Secrets, HttpClientContentConverter)} method.
+     * the {@link HttpClientFactory#create(Class, RestClientConfig, Secrets, HttpClientContentConverter)} method.
      * The specified HTTP response mock will be returned
      * if the RxMicro framework will pass the specified {@link HttpRequestMock} to this mock.
      *
@@ -347,7 +347,7 @@ public final class HttpClientMockFactory {
      *
      * <p>
      * This mock will be returned by the specified {@link HttpClientFactory} if the RxMicro framework will invoke
-     * the {@link HttpClientFactory#create(Class, HttpClientConfig, Secrets, HttpClientContentConverter)} method.
+     * the {@link HttpClientFactory#create(Class, RestClientConfig, Secrets, HttpClientContentConverter)} method.
      * The specified HTTP response mock will be returned
      * if the RxMicro framework will pass the specified {@link HttpRequestMock} to this mock.
      *
@@ -379,7 +379,7 @@ public final class HttpClientMockFactory {
      *
      * <p>
      * This mock will be returned by the specified {@link HttpClientFactory} if the RxMicro framework will invoke
-     * the {@link HttpClientFactory#create(Class, HttpClientConfig, Secrets, HttpClientContentConverter)} method.
+     * the {@link HttpClientFactory#create(Class, RestClientConfig, Secrets, HttpClientContentConverter)} method.
      * The error signal with the specified {@link Throwable} will be returned
      * if the RxMicro framework will pass the specified {@link HttpRequestMock} to this mock.
      *
@@ -409,7 +409,7 @@ public final class HttpClientMockFactory {
      *
      * <p>
      * This mock will be returned by the specified {@link HttpClientFactory} if the RxMicro framework will invoke
-     * the {@link HttpClientFactory#create(Class, HttpClientConfig, Secrets, HttpClientContentConverter)} method.
+     * the {@link HttpClientFactory#create(Class, RestClientConfig, Secrets, HttpClientContentConverter)} method.
      * The error signal with the specified {@link Throwable} will be returned
      * if the RxMicro framework will pass the specified {@link HttpRequestMock} to this mock.
      *
