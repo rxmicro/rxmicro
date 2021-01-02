@@ -57,5 +57,4 @@ final class RequiredSetConstraintValidatorTest {
                 exception.getMessage()
         );
     }
-
 }

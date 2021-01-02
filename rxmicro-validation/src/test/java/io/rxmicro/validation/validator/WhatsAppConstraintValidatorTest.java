@@ -34,5 +34,4 @@ final class WhatsAppConstraintValidatorTest extends AbstractConstraintValidatorT
     ConstraintValidator<String> instantiate() {
         return new WhatsAppConstraintValidator(true, false);
     }
-
 }

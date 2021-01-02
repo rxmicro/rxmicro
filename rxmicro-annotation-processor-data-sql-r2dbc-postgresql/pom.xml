@@ -103,6 +103,5 @@
             <version>0.8-SNAPSHOT</version>
             <scope>test</scope>
         </dependency>
-
     </dependencies>
 </project>

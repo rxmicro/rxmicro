@@ -21,4 +21,3 @@
  * @since 0.4
  */
 package io.rxmicro.validation;
-

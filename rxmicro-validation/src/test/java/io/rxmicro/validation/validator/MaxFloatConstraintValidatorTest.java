@@ -34,5 +34,4 @@ final class MaxFloatConstraintValidatorTest extends AbstractConstraintValidatorT
     ConstraintValidator<Float> instantiate() {
         return new MaxFloatConstraintValidator("10.1", true);
     }
-
 }

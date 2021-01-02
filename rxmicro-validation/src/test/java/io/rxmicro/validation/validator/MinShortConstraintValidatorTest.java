@@ -34,5 +34,4 @@ final class MinShortConstraintValidatorTest extends AbstractConstraintValidatorT
     ConstraintValidator<Short> instantiate() {
         return new MinShortConstraintValidator(5, true);
     }
-
 }

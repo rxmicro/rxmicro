@@ -39,4 +39,3 @@ options, where:
 * *${r"${CUSTOM_MESSAGE}"}* - custom message, which will be used instead of `"Handler not found"`;
 ====
 </#if>
-

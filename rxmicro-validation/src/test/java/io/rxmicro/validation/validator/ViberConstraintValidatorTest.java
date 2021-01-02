@@ -34,5 +34,4 @@ final class ViberConstraintValidatorTest extends AbstractConstraintValidatorTest
     ConstraintValidator<String> instantiate() {
         return new ViberConstraintValidator(true, false);
     }
-
 }

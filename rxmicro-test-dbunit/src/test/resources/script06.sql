@@ -7,4 +7,3 @@ INSERT INTO public.account (id,email) VALUES
     (nextval('account_seq'),'richard;hendricks;@piedpiper.com');
 
 DELETE FROM public.order;
-

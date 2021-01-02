@@ -34,5 +34,4 @@ final class MinLongConstraintValidatorTest extends AbstractConstraintValidatorTe
     ConstraintValidator<Long> instantiate() {
         return new MinLongConstraintValidator(5L, true);
     }
-
 }

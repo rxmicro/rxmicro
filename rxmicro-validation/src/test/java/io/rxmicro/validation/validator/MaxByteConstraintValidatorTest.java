@@ -34,5 +34,4 @@ final class MaxByteConstraintValidatorTest extends AbstractConstraintValidatorTe
     ConstraintValidator<Byte> instantiate() {
         return new MaxByteConstraintValidator(10, true);
     }
-
 }

@@ -34,5 +34,4 @@ final class MinDoubleConstraintValidatorTest extends AbstractConstraintValidator
     ConstraintValidator<Double> instantiate() {
         return new MinDoubleConstraintValidator("3.3", true);
     }
-
 }

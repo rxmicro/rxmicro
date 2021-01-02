@@ -34,5 +34,4 @@ final class MaxShortConstraintValidatorTest extends AbstractConstraintValidatorT
     ConstraintValidator<Short> instantiate() {
         return new MaxShortConstraintValidator(10, true);
     }
-
 }

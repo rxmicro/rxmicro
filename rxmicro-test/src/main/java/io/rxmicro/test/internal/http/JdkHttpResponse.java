@@ -81,4 +81,3 @@ final class JdkHttpResponse implements ClientHttpResponse {
         return response.body();
     }
 }
-

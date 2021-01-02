@@ -51,10 +51,11 @@
     <module name="LineLength">
         <property name="max" value="140"/>
     </module>
-    <module name="NewlineAtEndOfFile">
+    <!-- Using Checkstyle_NewlineAtEndOfFile_Test instead -->
+    <!--module name="NewlineAtEndOfFile">
         <property name="lineSeparator" value="lf"/>
         <property name="fileExtensions" value="java, properties, xml, yml, json, javaftl"/>
-    </module>
+    </module-->
     <module name="OrderedProperties">
         <property name="fileExtensions" value="properties"/>
     </module>

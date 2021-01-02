@@ -133,7 +133,6 @@ options, where:
 * *${CUSTOM_MESSAGE}* - custom message, which will be used instead of `"Handler not found"`;
 ====
 
-
 // ------------------------------------------------------------- Introduction | License -------------------------------------------------------------
 === License
 

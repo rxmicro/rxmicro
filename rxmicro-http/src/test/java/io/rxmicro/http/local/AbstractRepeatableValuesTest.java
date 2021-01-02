@@ -229,7 +229,6 @@ final class AbstractRepeatableValuesTest {
 
     /**
      * @author nedis
-     *
      * @since 0.1
      */
     private static final class Headers extends AbstractRepeatableValues<Headers> implements RepeatableValues<Headers> {

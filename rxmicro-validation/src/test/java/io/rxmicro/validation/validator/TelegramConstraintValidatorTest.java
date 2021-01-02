@@ -34,5 +34,4 @@ final class TelegramConstraintValidatorTest extends AbstractConstraintValidatorT
     ConstraintValidator<String> instantiate() {
         return new TelegramConstraintValidator(true, false);
     }
-
 }

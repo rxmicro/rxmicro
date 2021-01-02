@@ -38,15 +38,34 @@ public final class StringIterator {
     private int index;
 
     /**
-     * Creates a new {@link StringIterator} instance for the specified string.
+     * Creates a new {@link StringIterator} instance for the specified string with init iteration index equals to {@code -1}.
      *
      * @param string the specified string
+     * @see #StringIterator(String, boolean)
      * @throws NullPointerException if the specified string is {@code null}
      */
     public StringIterator(final String string) {
+        this(string, true);
+    }
+
+    /**
+     * Creates a new {@link StringIterator} instance for the specified string.
+     *
+     * <p>
+     * If {@code startFromFirstCharacter} is {@code true}, than the init value of iterator index is {@code -1},
+     * otherwise the init value of iterator index is {@code string.length()}
+     *
+     * @param string the specified string
+     * @param startFromFirstCharacter the boolean flag that indicates the init value of the iteration index.
+     *         If {@code startFromFirstCharacter} is {@code true}, than the init value of iterator index is {@code -1},
+     *         otherwise the init value of iterator index is {@code string.length()}.
+     * @throws NullPointerException if the specified string is {@code null}
+     */
+    public StringIterator(final String string,
+                          final boolean startFromFirstCharacter) {
         this.string = string;
         this.length = string.length();
-        this.index = -1;
+        this.index = startFromFirstCharacter ? -1 : this.length;
     }
 
     /**
@@ -85,12 +104,25 @@ public final class StringIterator {
     }
 
     /**
+     * Returns the next character in the iteration or {@link #NO_MORE_CHARACTERS_PRESENT} if the next character not found.
+     *
+     * @return the next character in the iteration or {@link #NO_MORE_CHARACTERS_PRESENT} if the next character not found.
+     */
+    public char getNext() {
+        if (index < length - 1) {
+            return string.charAt(index + 1);
+        } else {
+            return NO_MORE_CHARACTERS_PRESENT;
+        }
+    }
+
+    /**
      * Returns {@code true} if the iteration has more elements when traversing the list in the reverse direction.
      *
      * @return {@code true} if the iteration has more elements when traversing the list in the reverse direction.
      */
     public boolean previous() {
-        return index-- >= 0;
+        return --index >= 0;
     }
 
     /**
@@ -110,5 +142,13 @@ public final class StringIterator {
      */
     public String getSource() {
         return string;
+    }
+
+    @Override
+    public String toString() {
+        return "StringIterator{" +
+                "string='" + string + '\'' +
+                ", index=" + index +
+                '}';
     }
 }

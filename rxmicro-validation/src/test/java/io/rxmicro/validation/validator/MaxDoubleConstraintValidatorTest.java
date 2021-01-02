@@ -34,5 +34,4 @@ final class MaxDoubleConstraintValidatorTest extends AbstractConstraintValidator
     ConstraintValidator<Double> instantiate() {
         return new MaxDoubleConstraintValidator("10.1", true);
     }
-
 }

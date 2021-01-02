@@ -111,5 +111,4 @@
             <classifier>osx-x86_64</classifier>
         </dependency>
     </dependencies>
-
 </project>

@@ -34,5 +34,4 @@ final class MinIntConstraintValidatorTest extends AbstractConstraintValidatorTes
     ConstraintValidator<Integer> instantiate() {
         return new MinIntConstraintValidator(3, true);
     }
-
 }

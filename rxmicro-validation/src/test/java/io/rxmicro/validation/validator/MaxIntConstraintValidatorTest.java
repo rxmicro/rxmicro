@@ -34,5 +34,4 @@ final class MaxIntConstraintValidatorTest extends AbstractConstraintValidatorTes
     ConstraintValidator<Integer> instantiate() {
         return new MaxIntConstraintValidator(10, true);
     }
-
 }

@@ -57,5 +57,4 @@ final class RequiredListConstraintValidatorTest {
                 exception.getMessage()
         );
     }
-
 }

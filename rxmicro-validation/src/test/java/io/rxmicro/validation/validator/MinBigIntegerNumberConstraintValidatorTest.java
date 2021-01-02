@@ -36,5 +36,4 @@ final class MinBigIntegerNumberConstraintValidatorTest extends AbstractConstrain
     ConstraintValidator<BigInteger> instantiate() {
         return new MinBigIntegerNumberConstraintValidator("3", true);
     }
-
 }

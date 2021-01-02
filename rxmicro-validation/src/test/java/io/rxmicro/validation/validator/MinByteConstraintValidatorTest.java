@@ -34,5 +34,4 @@ final class MinByteConstraintValidatorTest extends AbstractConstraintValidatorTe
     ConstraintValidator<Byte> instantiate() {
         return new MinByteConstraintValidator(3, true);
     }
-
 }
