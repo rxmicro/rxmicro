@@ -14,7 +14,9 @@
  * limitations under the License.
  */
 
-package io.rxmicro.common;
+package io.rxmicro.release;
+
+import io.rxmicro.common.InvalidStateException;
 
 import java.io.File;
 

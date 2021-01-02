@@ -24,7 +24,6 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>release</artifactId>
-    <packaging>pom</packaging>
 
     <profiles>
         <profile>
@@ -280,16 +279,6 @@
         <dependency>
             <groupId>io.rxmicro</groupId>
             <artifactId>rxmicro-http</artifactId>
-            <version>0.8-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>io.rxmicro</groupId>
-            <artifactId>rxmicro-http-client</artifactId>
-            <version>0.8-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>io.rxmicro</groupId>
-            <artifactId>rxmicro-http-client-jdk</artifactId>
             <version>0.8-SNAPSHOT</version>
         </dependency>
 

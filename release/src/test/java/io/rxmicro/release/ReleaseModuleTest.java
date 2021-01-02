@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package io.rxmicro.common;
+package io.rxmicro.release;
 
 import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Model;
@@ -35,7 +35,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
-import static io.rxmicro.common.TestUtil.getRootDirectory;
 import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toSet;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -51,7 +50,7 @@ final class ReleaseModuleTest {
     @Test
     @Order(1)
     void pom_xml_of_release_module_should_contain_all_dependencies() throws IOException, XmlPullParserException {
-        final File rootDirectory = getRootDirectory();
+        final File rootDirectory = TestUtil.getRootDirectory();
         final File pomXml = new File(rootDirectory.getAbsolutePath() + "/release/pom.xml");
         if (!pomXml.exists()) {
             fail("pom.xml of release module not found. Is it valid root directory: " + rootDirectory.getAbsolutePath() + "?");

@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 
-package io.rxmicro.common;
+package io.rxmicro.release;
 
+import io.rxmicro.common.RxMicroModule;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.MethodOrderer;
@@ -26,7 +27,6 @@ import org.junit.jupiter.api.TestMethodOrder;
 import java.io.File;
 import java.util.Set;
 
-import static io.rxmicro.common.TestUtil.getRootDirectory;
 import static io.rxmicro.common.util.Formats.format;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -70,7 +70,7 @@ final class RxMicroModuleTest {
     @Test
     @Order(1)
     void Should_contain_all_declared_modules() {
-        final File rootDirectory = getRootDirectory();
+        final File rootDirectory = TestUtil.getRootDirectory();
         final File[] modules = rootDirectory.listFiles((dir, name) -> name.startsWith("rxmicro-"));
         if (modules == null) {
             fail("Module directories not found. Is it valid root directory: " + rootDirectory.getAbsolutePath() + "?");
@@ -93,7 +93,7 @@ final class RxMicroModuleTest {
     @Test
     @Order(2)
     void Should_not_contain_redundant_modules() {
-        final File rootDirectory = getRootDirectory();
+        final File rootDirectory = TestUtil.getRootDirectory();
         for (final RxMicroModule rxMicroModule : RxMicroModule.values()) {
             final File moduleDir = new File(rootDirectory, rxMicroModule.getName().replace('.', '-'));
             if (!moduleDir.exists()) {
