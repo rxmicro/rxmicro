@@ -45,7 +45,7 @@ final class NettyServer implements Runnable {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(NettyServer.class);
 
-    private static final String DEFAULT_WORKER_THREAD_QUALIFIER = "http";
+    private static final String DEFAULT_WORKER_THREAD_QUALIFIER = "http-server";
 
     private final HttpServerConfig httpServerConfig;
 
