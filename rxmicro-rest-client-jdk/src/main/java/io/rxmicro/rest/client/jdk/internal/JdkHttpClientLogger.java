@@ -43,8 +43,8 @@ final class JdkHttpClientLogger {
 
     private final Secrets secrets;
 
-    public JdkHttpClientLogger(final Class<?> loggerClass,
-                               final Secrets secrets) {
+    JdkHttpClientLogger(final Class<?> loggerClass,
+                        final Secrets secrets) {
         this.logger = LoggerFactory.getLogger(loggerClass);
         this.secrets = secrets;
     }

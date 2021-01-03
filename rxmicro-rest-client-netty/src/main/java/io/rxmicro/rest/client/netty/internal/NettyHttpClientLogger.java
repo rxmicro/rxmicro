@@ -43,8 +43,8 @@ final class NettyHttpClientLogger {
 
     private final Secrets secrets;
 
-    public NettyHttpClientLogger(final Class<?> loggerClass,
-                                 final Secrets secrets) {
+    NettyHttpClientLogger(final Class<?> loggerClass,
+                          final Secrets secrets) {
         this.logger = LoggerFactory.getLogger(loggerClass);
         this.secrets = secrets;
     }
