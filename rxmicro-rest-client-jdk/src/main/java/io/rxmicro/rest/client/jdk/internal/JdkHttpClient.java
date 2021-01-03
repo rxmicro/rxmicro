@@ -17,8 +17,6 @@
 package io.rxmicro.rest.client.jdk.internal;
 
 import io.rxmicro.config.Secrets;
-import io.rxmicro.logger.Logger;
-import io.rxmicro.logger.LoggerFactory;
 import io.rxmicro.rest.client.HttpClientTimeoutException;
 import io.rxmicro.rest.client.RestClientConfig;
 import io.rxmicro.rest.client.detail.HttpClient;
@@ -45,15 +43,10 @@ import static io.rxmicro.common.util.Requires.require;
 import static io.rxmicro.common.util.Strings.startsWith;
 import static io.rxmicro.http.HttpStandardHeaderNames.ACCEPT;
 import static io.rxmicro.http.HttpStandardHeaderNames.CONTENT_TYPE;
-import static io.rxmicro.http.HttpStandardHeaderNames.REQUEST_ID;
 import static io.rxmicro.http.HttpStandardHeaderNames.USER_AGENT;
-import static io.rxmicro.logger.RequestIdSupplier.UNDEFINED_REQUEST_ID;
 import static io.rxmicro.runtime.detail.RxMicroRuntime.getRxMicroVersion;
 import static java.lang.String.CASE_INSENSITIVE_ORDER;
-import static java.lang.System.lineSeparator;
-import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.util.Map.entry;
-import static java.util.stream.Collectors.joining;
 
 /**
  * @author nedis
@@ -61,13 +54,11 @@ import static java.util.stream.Collectors.joining;
  */
 final class JdkHttpClient implements HttpClient {
 
-    private final Logger logger;
+    private final JdkHttpClientLogger logger;
 
     private final java.net.http.HttpClient client;
 
     private final String connectionString;
-
-    private final Secrets secrets;
 
     private final Function<Object, byte[]> requestBodyConverter;
 
@@ -85,9 +76,8 @@ final class JdkHttpClient implements HttpClient {
                   final RestClientConfig restClientConfig,
                   final Secrets secrets,
                   final HttpClientContentConverter contentConverter) {
-        this.logger = LoggerFactory.getLogger(loggerClass);
+        this.logger = new JdkHttpClientLogger(loggerClass, secrets);
         this.connectionString = restClientConfig.getConnectionString();
-        this.secrets = secrets;
 
         final String contentType = require(contentConverter.getContentType());
         this.acceptHeader = entry(ACCEPT, contentType);
@@ -96,11 +86,14 @@ final class JdkHttpClient implements HttpClient {
 
         this.requestBodyConverter = require(contentConverter.getRequestContentConverter());
         this.responseBodyConverter = require(contentConverter.getResponseContentConverter());
-        this.client = java.net.http.HttpClient.newBuilder()
+        final java.net.http.HttpClient.Builder builder = java.net.http.HttpClient.newBuilder()
                 .followRedirects(restClientConfig.isFollowRedirects() ?
                         java.net.http.HttpClient.Redirect.ALWAYS :
-                        java.net.http.HttpClient.Redirect.NEVER)
-                .build();
+                        java.net.http.HttpClient.Redirect.NEVER);
+        if (!restClientConfig.getConnectTimeout().isZero()) {
+            builder.connectTimeout(restClientConfig.getConnectTimeout());
+        }
+        this.client = builder.build();
         this.timeout = restClientConfig.getRequestTimeout();
     }
 
@@ -174,18 +167,15 @@ final class JdkHttpClient implements HttpClient {
                                                                                final byte[] requestBody) {
         CompletableFuture<HttpResponse<byte[]>> response = client.sendAsync(request, ofByteArray());
         if (logger.isTraceEnabled()) {
-            response = trace(request, requestBody, response);
+            response = logger.trace(request, requestBody, response);
         } else if (logger.isDebugEnabled()) {
-            response = debug(request, response);
+            response = logger.debug(request, requestBody, response);
         }
         return response
                 .handle((resp, throwable) -> {
                     if (throwable != null) {
                         if (isInstanceOf(throwable, HttpTimeoutException.class)) {
-                            throw new HttpClientTimeoutException(
-                                    "HTTP connect timed out to ?",
-                                    request.uri()
-                            );
+                            throw new HttpClientTimeoutException("HTTP connect timed out to ?", request.uri());
                         } else {
                             reThrow(throwable);
                         }
@@ -195,75 +185,12 @@ final class JdkHttpClient implements HttpClient {
                 .thenApply(resp -> new JdkHttpResponse(resp, responseBodyConverter));
     }
 
-    private CompletableFuture<HttpResponse<byte[]>> trace(final HttpRequest request,
-                                                          final byte[] requestBody,
-                                                          final CompletableFuture<HttpResponse<byte[]>> response) {
-        final String requestId = request.headers().firstValue(REQUEST_ID).orElse(UNDEFINED_REQUEST_ID);
-        final long startTime = System.nanoTime();
-        logger.trace(
-                () -> requestId,
-                "HTTP request sent:\n? ?\n?\n\n?",
-                format("? ?", request.method(), secrets.hideAllSecretsIn(request.uri().toString())),
-                request.version().map(Enum::toString).orElse(""),
-                request.headers().map().entrySet().stream()
-                        .flatMap(e -> e.getValue().stream().map(v -> entry(e.getKey(), v)))
-                        .map(e -> format("?: ?", e.getKey(), secrets.hideIfSecret(e.getValue())))
-                        .collect(joining(lineSeparator())),
-                requestBody != null ?
-                        secrets.hideAllSecretsIn(new String(requestBody, UTF_8)) :
-                        ""
-        );
-        return response.whenComplete((resp, th) -> {
-            if (resp != null) {
-                logger.trace(
-                        () -> requestId,
-                        "HTTP response received (Duration=?):\n? ?\n?\n\n?",
-                        format(Duration.ofNanos(System.nanoTime() - startTime)),
-                        resp.version(),
-                        resp.statusCode(),
-                        resp.headers().map().entrySet().stream()
-                                .flatMap(e -> e.getValue().stream().map(v -> entry(e.getKey(), v)))
-                                .map(e -> format("?: ?", e.getKey(), secrets.hideIfSecret(e.getValue())))
-                                .collect(joining(lineSeparator())),
-                        resp.body().length > 0 ?
-                                secrets.hideAllSecretsIn(new String(resp.body(), UTF_8)) :
-                                ""
-                );
-            }
-        });
-    }
-
-    private CompletableFuture<HttpResponse<byte[]>> debug(final HttpRequest request,
-                                                          final CompletableFuture<HttpResponse<byte[]>> response) {
-        final String requestId = request.headers().firstValue(REQUEST_ID).orElse(UNDEFINED_REQUEST_ID);
-        final String uri = request.uri().toString();
-        final int index = uri.indexOf('?');
-        final long startTime = System.nanoTime();
-        logger.debug(
-                () -> requestId,
-                "HTTP request sent: '?'",
-                format("? ?", request.method(),
-                        index != -1 ? uri.substring(0, index) : uri));
-        return response.whenComplete((resp, th) -> {
-            if (resp != null) {
-                logger.debug(
-                        () -> requestId,
-                        "HTTP response received (Duration=?): '?/?', Content=? bytes",
-                        format(Duration.ofNanos(System.nanoTime() - startTime)),
-                        resp.statusCode(),
-                        resp.version(),
-                        resp.body().length
-                );
-            }
-        });
-    }
-
     private HttpResponse.BodyHandler<byte[]> ofByteArray() {
         return responseInfo -> HttpResponse.BodySubscribers.ofByteArray();
     }
 
     @Override
     public void release() {
-        logger.info("? released", getClass().getSimpleName());
+        // do nothing
     }
 }

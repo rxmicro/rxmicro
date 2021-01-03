@@ -22,9 +22,6 @@ import io.rxmicro.rest.client.jdk.internal.JdkHttpClientFactory;
  * <a href="https://openjdk.java.net/groups/net/httpclient/intro.html">Java HTTP Client</a>.
  *
  * <p>
- * This module requires {@code rxmicro.http.client.jdk} module.
- *
- * <p>
  * This module follows the next package structure rules:
  * <ul>
  *     <li>
