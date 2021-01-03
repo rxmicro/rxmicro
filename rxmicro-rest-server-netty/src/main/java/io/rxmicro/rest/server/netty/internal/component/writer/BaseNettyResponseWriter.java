@@ -100,12 +100,12 @@ class BaseNettyResponseWriter {
         if (future.isSuccess()) {
             logResponse(ctx, request, response);
             if (!keepAlive) {
-                future.channel().close(ctx.voidPromise());
+                future.channel().close();
             }
         } else {
             final String requestId = ctx.channel().attr(REQUEST_ID_KEY).get();
             nettyErrorHandler.logInternalError(ctx, requestId, future.cause());
-            future.channel().close(ctx.voidPromise());
+            future.channel().close();
         }
     }
 

@@ -90,7 +90,7 @@ final class SharableNettyRequestHandler extends SimpleChannelInboundHandler<Full
                                 final Throwable cause) {
         final String requestId = ctx.channel().attr(REQUEST_ID_KEY).get();
         nettyErrorHandler.logInternalError(ctx, requestId, cause);
-        ctx.close(ctx.voidPromise());
+        ctx.close();
     }
 
     @SuppressWarnings("SameReturnValue")
