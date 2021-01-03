@@ -1,0 +1,36 @@
+[
+  {
+    "name": "javax.net.ssl.SSLEngine",
+    "methods": [
+      {
+        "name": "getApplicationProtocol",
+        "parameterTypes": []
+      },
+      {
+        "name": "getHandshakeApplicationProtocol",
+        "parameterTypes": []
+      },
+      {
+        "name": "getHandshakeApplicationProtocolSelector",
+        "parameterTypes": []
+      },
+      {
+        "name": "setHandshakeApplicationProtocolSelector",
+        "parameterTypes": [
+          "java.util.function.BiFunction"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "javax.net.ssl.SSLParameters",
+    "methods": [
+      {
+        "name": "setApplicationProtocols",
+        "parameterTypes": [
+          "java.lang.String[]"
+        ]
+      }
+    ]
+  }
+]

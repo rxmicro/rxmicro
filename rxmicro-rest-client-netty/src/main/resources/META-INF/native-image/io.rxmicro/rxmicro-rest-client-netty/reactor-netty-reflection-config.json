@@ -1,0 +1,38 @@
+[
+  {
+    "name": "reactor.netty.resources.DefaultPooledConnectionProvider$PooledConnectionAllocator$PooledConnectionInitializer"
+  },
+  {
+    "name": "reactor.netty.tcp.SslProvider$SslReadHandler",
+    "methods": [
+      {
+        "name": "channelActive",
+        "parameterTypes": [
+          "io.netty.channel.ChannelHandlerContext"
+        ]
+      },
+      {
+        "name": "channelReadComplete",
+        "parameterTypes": [
+          "io.netty.channel.ChannelHandlerContext"
+        ]
+      },
+      {
+        "name": "channelRegistered",
+        "parameterTypes": [
+          "io.netty.channel.ChannelHandlerContext"
+        ]
+      },
+      {
+        "name": "userEventTriggered",
+        "parameterTypes": [
+          "io.netty.channel.ChannelHandlerContext",
+          "java.lang.Object"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "reactor.netty.transport.TransportConfig$TransportChannelInitializer"
+  }
+]

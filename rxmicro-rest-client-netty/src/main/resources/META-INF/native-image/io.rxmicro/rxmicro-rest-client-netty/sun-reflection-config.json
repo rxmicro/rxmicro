@@ -1,0 +1,11 @@
+[
+  {
+    "name": "sun.security.ssl.SSLContextImpl$TLSContext",
+    "methods": [
+      {
+        "name": "<init>",
+        "parameterTypes": []
+      }
+    ]
+  }
+]

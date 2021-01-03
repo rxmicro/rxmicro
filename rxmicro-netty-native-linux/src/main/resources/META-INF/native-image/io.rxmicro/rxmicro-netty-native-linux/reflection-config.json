@@ -1,6 +1,15 @@
 [
   {
-    "name": "io.netty.channel.epoll.Epoll"
+    "name": "io.netty.util.internal.NativeLibraryUtil",
+    "methods": [
+      {
+        "name": "loadLibrary",
+        "parameterTypes": [
+          "java.lang.String",
+          "boolean"
+        ]
+      }
+    ]
   },
   {
     "name": "io.netty.channel.epoll.EpollEventLoopGroup",

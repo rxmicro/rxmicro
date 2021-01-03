@@ -473,5 +473,75 @@
         "parameterTypes": []
       }
     ]
+  },
+  {
+    "name": "io.netty.channel.ChannelHandlerAdapter",
+    "methods": [
+      {
+        "name": "exceptionCaught",
+        "parameterTypes": [
+          "io.netty.channel.ChannelHandlerContext",
+          "java.lang.Throwable"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "io.netty.channel.ChannelOutboundHandlerAdapter",
+    "methods": [
+      {
+        "name": "bind",
+        "parameterTypes": [
+          "io.netty.channel.ChannelHandlerContext",
+          "java.net.SocketAddress",
+          "io.netty.channel.ChannelPromise"
+        ]
+      },
+      {
+        "name": "close",
+        "parameterTypes": [
+          "io.netty.channel.ChannelHandlerContext",
+          "io.netty.channel.ChannelPromise"
+        ]
+      },
+      {
+        "name": "connect",
+        "parameterTypes": [
+          "io.netty.channel.ChannelHandlerContext",
+          "java.net.SocketAddress",
+          "java.net.SocketAddress",
+          "io.netty.channel.ChannelPromise"
+        ]
+      },
+      {
+        "name": "deregister",
+        "parameterTypes": [
+          "io.netty.channel.ChannelHandlerContext",
+          "io.netty.channel.ChannelPromise"
+        ]
+      },
+      {
+        "name": "disconnect",
+        "parameterTypes": [
+          "io.netty.channel.ChannelHandlerContext",
+          "io.netty.channel.ChannelPromise"
+        ]
+      },
+      {
+        "name": "flush",
+        "parameterTypes": [
+          "io.netty.channel.ChannelHandlerContext"
+        ]
+      },
+      {
+        "name": "read",
+        "parameterTypes": [
+          "io.netty.channel.ChannelHandlerContext"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "io.netty.channel.epoll.Epoll"
   }
 ]
