@@ -39,15 +39,6 @@ import static org.junit.jupiter.api.Assertions.fail;
 final class RxMicroModuleTest {
 
     private final Set<String> ignoreModules = Set.of(
-            // rxmicro-slf4j-proxy is a workaround module, so it was excluded from this list
-            "rxmicro-slf4j-proxy",
-
-            // native modules do not contain any code
-            "rxmicro-netty-native",
-            "rxmicro-netty-native-all",
-            "rxmicro-netty-native-linux",
-            "rxmicro-netty-native-osx",
-
             // annotation processor modules are system modules and must be ignored
             "rxmicro-annotation-processor",
             "rxmicro-annotation-processor-integration-test",

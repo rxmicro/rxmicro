@@ -78,6 +78,26 @@ public enum RxMicroModule {
     RX_MICRO_NETTY_RUNTIME_MODULE("rxmicro.netty.runtime"),
 
     /**
+     * The Netty native transports for current platforms.
+     */
+    RX_MICRO_NETTY_NATIVE_MODULE("rxmicro.netty.native"),
+
+    /**
+     * The Netty native transports for OSX and Linux platforms.
+     */
+    RX_MICRO_NETTY_NATIVE_ALL_MODULE("rxmicro.netty.native.all"),
+
+    /**
+     * The Netty native transports for Linux platforms.
+     */
+    RX_MICRO_NETTY_NATIVE_LINUX_MODULE("rxmicro.netty.native.linux"),
+
+    /**
+     * The Netty native transports for OSX platforms.
+     */
+    RX_MICRO_NETTY_NATIVE_OSX_MODULE("rxmicro.netty.native.osx"),
+
+    /**
      * The module that is an implementation of the <a href="https://en.wikipedia.org/wiki/Dependency_injection">Dependency Injection</a>
      * design pattern, that is integrated to the RxMicro framework.
      */
@@ -229,7 +249,23 @@ public enum RxMicroModule {
      * The module designed for test writing using the <a href="https://junit.org/junit5/">JUnit 5</a> and
      * <a href="https://site.mockito.org/">Mockito</a> frameworks.
      */
-    RX_MICRO_TEST_MOCKITO_JUNIT_MODULE("rxmicro.test.mockito.junit");
+    RX_MICRO_TEST_MOCKITO_JUNIT_MODULE("rxmicro.test.mockito.junit"),
+
+    /**
+     * The rxmicro.slf4j.proxy unnamed module.
+     *
+     * <p>
+     * Unfortunately some db drivers removed support of JUL,
+     * so the RxMicro framework requires a org.slf4j proxy to enable logging without slf4j-api:
+     * <a href="http://www.slf4j.org">http://www.slf4j.org</a>.
+     *
+     * <p>
+     * Read more:
+     * <a href="https://github.com/mongodb/mongo-java-driver/commit/6a163f715fe08ed8d39acac3d11c896ae547df73">
+     *     https://github.com/mongodb/mongo-java-driver/commit/6a163f715fe08ed8d39acac3d11c896ae547df73
+     * </a>
+     */
+    RX_MICRO_SLF4J_PROXY_MODULE("rxmicro.slf4j.proxy");
 
     private final String name;
 
