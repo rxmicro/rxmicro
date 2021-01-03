@@ -28,6 +28,7 @@ import java.util.ServiceLoader;
 
 import static io.rxmicro.common.RxMicroModule.RX_MICRO_REST_CLIENT_EXCHANGE_JSON_MODULE;
 import static io.rxmicro.common.RxMicroModule.RX_MICRO_REST_CLIENT_JDK_MODULE;
+import static io.rxmicro.common.RxMicroModule.RX_MICRO_REST_CLIENT_NETTY_MODULE;
 import static io.rxmicro.runtime.local.Implementations.getRequiredRuntimeImplementation;
 import static io.rxmicro.runtime.local.InstanceContainer.getSingleton;
 
@@ -54,7 +55,8 @@ public final class RestClientBuilder {
                 new LazyInstanceProvider<>(
                         HttpClientContentConverter.class,
                         () -> getRequiredRuntimeImplementation(
-                                HttpClientContentConverter.class, ServiceLoader::load, RX_MICRO_REST_CLIENT_EXCHANGE_JSON_MODULE
+                                HttpClientContentConverter.class, ServiceLoader::load,
+                                RX_MICRO_REST_CLIENT_EXCHANGE_JSON_MODULE
                         )
                 )
         );
@@ -67,7 +69,7 @@ public final class RestClientBuilder {
                         HttpClientFactory.class,
                         () -> getRequiredRuntimeImplementation(
                                 HttpClientFactory.class, ServiceLoader::load,
-                                RX_MICRO_REST_CLIENT_JDK_MODULE
+                                RX_MICRO_REST_CLIENT_JDK_MODULE, RX_MICRO_REST_CLIENT_NETTY_MODULE
                         )
                 )
         );

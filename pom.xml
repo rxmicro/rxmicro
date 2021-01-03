@@ -67,6 +67,7 @@
         <module>rxmicro-rest</module>
         <module>rxmicro-rest-client</module>
         <module>rxmicro-rest-client-jdk</module>
+        <module>rxmicro-rest-client-netty</module>
         <module>rxmicro-rest-server</module>
         <module>rxmicro-rest-server-netty</module>
         <module>rxmicro-validation</module>
@@ -140,6 +141,8 @@
         <external.lib.rxjava.version>3.0.8</external.lib.rxjava.version>
         <external.lib.projectreactor.version>3.4.1</external.lib.projectreactor.version>
         <external.lib.reactivestreams.version>1.0.3</external.lib.reactivestreams.version>
+
+        <external.lib.reactor-netty.version>1.0.2</external.lib.reactor-netty.version>
 
         <internal.mongo-driver.version>4.1.1</internal.mongo-driver.version>
         <external.lib.mongodb-driver-reactivestreams.version>${internal.mongo-driver.version}

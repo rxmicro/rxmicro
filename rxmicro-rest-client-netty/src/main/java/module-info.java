@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-import io.rxmicro.common.model.UnNamedModuleFixer;
-import io.rxmicro.runtime.local.test.RuntimeUnNamedModuleFixer;
+import io.rxmicro.rest.client.detail.HttpClientFactory;
+import io.rxmicro.rest.client.netty.internal.NettyHttpClientFactory;
 
 /**
- * The module that defines common runtime components.
+ * The module that is a REST client implementation module based on <a href="https://netty.io/">Netty</a>.
  *
  * <p>
  * This module follows the next package structure rules:
  * <ul>
  *     <li>
- *         {@code io.rxmicro.runtime} - is root module package that contains:
+ *         {@code io.rxmicro.rest.client.netty} - is root module package that contains:
  *         <ul>
  *             <li>
  *                 {@code internal} - is sub package with classes for current module use only.
@@ -45,37 +45,25 @@ import io.rxmicro.runtime.local.test.RuntimeUnNamedModuleFixer;
  * </ul>
  *
  * @author nedis
- * @since 0.1
+ * @since 0.8
  */
-module rxmicro.runtime {
-    requires transitive rxmicro.config;
+@SuppressWarnings("JavaRequiresAutoModule")
+module rxmicro.rest.client.netty {
+    requires transitive rxmicro.rest.client;
+    requires transitive rxmicro.netty.runtime;
 
-    exports io.rxmicro.runtime;
+    requires transitive reactor.core;
+    requires reactor.netty.core;
+    requires reactor.netty.http;
 
-    exports io.rxmicro.runtime.detail;
+    requires io.netty.transport;
+    requires io.netty.buffer;
+    requires io.netty.codec;
+    requires io.netty.codec.http;
+    requires io.netty.common;
+    requires io.netty.handler;
+    // For sun.misc.Unsafe
+    requires jdk.unsupported;
 
-    exports io.rxmicro.runtime.local to
-            rxmicro.config,
-            rxmicro.data,
-            rxmicro.data.mongo,
-            rxmicro.data.sql.r2dbc.postgresql,
-            rxmicro.cdi,
-            rxmicro.rest.client,
-            rxmicro.rest.server,
-            rxmicro.rest.server.netty,
-            rxmicro.validation,
-            rxmicro.netty.runtime,
-            rxmicro.test,
-            rxmicro.test.junit,
-            rxmicro.annotation.processor;
-    exports io.rxmicro.runtime.local.provider to
-            rxmicro.data,
-            rxmicro.data.mongo,
-            rxmicro.data.sql.r2dbc.postgresql,
-            rxmicro.rest.client,
-            rxmicro.test;
-    exports io.rxmicro.runtime.local.error to
-            rxmicro.cdi;
-
-    provides UnNamedModuleFixer with RuntimeUnNamedModuleFixer;
+    provides HttpClientFactory with NettyHttpClientFactory;
 }

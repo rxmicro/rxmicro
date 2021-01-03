@@ -61,9 +61,10 @@ module rxmicro.netty.runtime {
     exports io.rxmicro.netty.runtime;
 
     exports io.rxmicro.netty.runtime.local to
-            rxmicro.rest.server.netty,
             rxmicro.data.mongo,
             rxmicro.data.sql.r2dbc.postgresql,
+            rxmicro.rest.server.netty,
+            rxmicro.rest.client.netty,
             rxmicro.test.junit;
 
     provides UnNamedModuleFixer with NettyRuntimeUnNamedModuleFixer;

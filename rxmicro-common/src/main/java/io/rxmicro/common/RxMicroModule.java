@@ -146,11 +146,13 @@ public enum RxMicroModule {
     /**
      * The module that is a REST client implementation module based on
      * <a href="https://openjdk.java.net/groups/net/httpclient/intro.html">Java HTTP Client</a>.
-     *
-     * <p>
-     * This module requires {@code rxmicro.http.client.jdk} module.
      */
     RX_MICRO_REST_CLIENT_JDK_MODULE("rxmicro.rest.client.jdk"),
+
+    /**
+     * The module that is a REST client implementation module based on <a href="https://netty.io/">Netty</a>.
+     */
+    RX_MICRO_REST_CLIENT_NETTY_MODULE("rxmicro.rest.client.netty"),
 
     /**
      * The basic HTTP server module used to create REST controllers and run REST-based microservices.

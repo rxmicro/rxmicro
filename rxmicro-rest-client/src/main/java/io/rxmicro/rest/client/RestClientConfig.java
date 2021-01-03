@@ -41,6 +41,11 @@ public class RestClientConfig extends HttpConfig {
     public static final int DEFAULT_HTTP_PORT = 80;
 
     /**
+     * Default connect timeout.
+     */
+    public static final Duration DEFAULT_CONNECT_TIMEOUT = Duration.ofSeconds(3);
+
+    /**
      * Default request timeout.
      */
     public static final Duration DEFAULT_REQUEST_TIMEOUT = Duration.ofSeconds(7);
@@ -48,6 +53,8 @@ public class RestClientConfig extends HttpConfig {
     private String accessKey;
 
     private boolean followRedirects;
+
+    private Duration connectTimeout;
 
     private Duration requestTimeout;
 
@@ -61,6 +68,7 @@ public class RestClientConfig extends HttpConfig {
         super.setHost("localhost");
         super.setPort(DEFAULT_HTTP_PORT);
         this.followRedirects = true;
+        this.connectTimeout = DEFAULT_CONNECT_TIMEOUT;
         this.requestTimeout = DEFAULT_REQUEST_TIMEOUT;
     }
 
@@ -103,6 +111,30 @@ public class RestClientConfig extends HttpConfig {
     @BuilderMethod
     public RestClientConfig setFollowRedirects(final boolean followRedirects) {
         this.followRedirects = followRedirects;
+        return this;
+    }
+
+    /**
+     * Returns the connect timeout.
+     *
+     * @return the connect timeout.
+     */
+    public Duration getConnectTimeout() {
+        return connectTimeout;
+    }
+
+    /**
+     * Sets the connect timeout.
+     *
+     * <p>
+     * {@link Duration#ZERO} means the infinite timeout
+     *
+     * @param connectTimeout the connect timeout.
+     * @return the reference to this {@link RestClientConfig} instance
+     */
+    @BuilderMethod
+    public RestClientConfig setConnectTimeout(final Duration connectTimeout) {
+        this.connectTimeout = connectTimeout;
         return this;
     }
 
@@ -173,10 +205,11 @@ public class RestClientConfig extends HttpConfig {
 
     @Override
     public String toString() {
-        return "RestClientConfig {connectionString=" + getConnectionString() +
-                ", accessKey=" + hideSecretInfo(getAccessKey()) +
-                ", followRedirects=" + isFollowRedirects() +
-                ", requestTimeout=" + format(getRequestTimeout()) +
+        return "RestClientConfig{connectionString=" + getConnectionString() +
+                ", accessKey='" + hideSecretInfo(accessKey) + '\'' +
+                ", followRedirects=" + followRedirects +
+                ", connectTimeout=" + format(connectTimeout) +
+                ", requestTimeout=" + format(requestTimeout) +
                 ", enableAdditionalValidations=" + enableAdditionalValidations +
                 '}';
     }
