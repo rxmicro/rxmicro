@@ -19,6 +19,7 @@ package io.rxmicro.reflection;
 import io.rxmicro.common.CheckedWrapperException;
 import io.rxmicro.reflection.internal.FinalFieldUpdater;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Member;
@@ -664,7 +665,153 @@ public final class Reflections {
     /**
      * Creates an instance of the target class using provided constructor arguments.
      *
+     * @param targetClass the target class
+     * @param <T> created type
+     * @return an instance of the target class using provided constructor arguments.
+     * @throws SecurityException If a security manager, <i>s</i>, is present and the caller's class loader is not the same as or
+     *              an ancestor of the class loader for the current class and invocation of
+     *              {@link SecurityManager#checkPackageAccess s.checkPackageAccess()} denies access to the package of this class.
+     * @throws CheckedWrapperException
+     * <ul>
+     *     <li>
+     *         if the underlying constructor with the specified argument types is not defined or
+     *     </li>
+     *     <li>
+     *         if this {@code Constructor} object is enforcing Java language access control and the underlying constructor is inaccessible.
+     *     </li>
+     *     <li>
+     *         if the class that declares the underlying constructor represents an abstract class or interface or annotation.
+     *     </li>
+     *     <li>
+     *         if the underlying constructor throws an exception.
+     *     </li>
+     * </ul>
+     * @throws IllegalArgumentException
+     * <ul>
+     *     <li>
+     *         if the number of actual and formal parameters differ
+     *     </li>
+     *     <li>
+     *         if an unwrapping conversion for primitive arguments fails
+     *     </li>
+     *     <li>
+     *         if after possible unwrapping, a parameter value cannot be converted to the corresponding formal parameter type
+     *         by a method invocation conversion;
+     *     </li>
+     *     <li>
+     *         if this constructor pertains to an enum type
+     *     </li>
+     * </ul>
+     * @throws ExceptionInInitializerError if the initialization provoked by this method fails.
+     */
+    public static <T> T instantiate(final Class<T> targetClass) {
+        return instantiate(targetClass, false, new Class[0], new Object[0]);
+    }
+
+    /**
+     * Creates an instance of the target class using provided constructor arguments.
+     *
+     * @param targetClass the target class
+     * @param setAccessibleIfRequired the flag that activates access to not public constructor.
+     * @param <T> created type
+     * @return an instance of the target class using provided constructor arguments.
+     * @throws SecurityException If a security manager, <i>s</i>, is present and the caller's class loader is not the same as or
+     *              an ancestor of the class loader for the current class and invocation of
+     *              {@link SecurityManager#checkPackageAccess s.checkPackageAccess()} denies access to the package of this class.
+     * @throws CheckedWrapperException
+     * <ul>
+     *     <li>
+     *         if the underlying constructor with the specified argument types is not defined or
+     *     </li>
+     *     <li>
+     *         if this {@code Constructor} object is enforcing Java language access control and the underlying constructor is inaccessible.
+     *     </li>
+     *     <li>
+     *         if the class that declares the underlying constructor represents an abstract class or interface or annotation.
+     *     </li>
+     *     <li>
+     *         if the underlying constructor throws an exception.
+     *     </li>
+     * </ul>
+     * @throws IllegalArgumentException
+     * <ul>
+     *     <li>
+     *         if the number of actual and formal parameters differ
+     *     </li>
+     *     <li>
+     *         if an unwrapping conversion for primitive arguments fails
+     *     </li>
+     *     <li>
+     *         if after possible unwrapping, a parameter value cannot be converted to the corresponding formal parameter type
+     *         by a method invocation conversion;
+     *     </li>
+     *     <li>
+     *         if this constructor pertains to an enum type
+     *     </li>
+     * </ul>
+     * @throws ExceptionInInitializerError if the initialization provoked by this method fails.
+     */
+    public static <T> T instantiate(final Class<T> targetClass,
+                                    final boolean setAccessibleIfRequired) {
+        return instantiate(targetClass, setAccessibleIfRequired, new Class[0], new Object[0]);
+    }
+
+    /**
+     * Creates an instance of the target class using provided constructor arguments.
+     *
      * @param targetClassName the target class full name.
+     * @param constructorArgs constructor argument values.
+     * @param <T> created type
+     * @return an instance of the target class using provided constructor arguments.
+     * @throws SecurityException If a security manager, <i>s</i>, is present and the caller's class loader is not the same as or
+     *              an ancestor of the class loader for the current class and invocation of
+     *              {@link SecurityManager#checkPackageAccess s.checkPackageAccess()} denies access to the package of this class.
+     * @throws CheckedWrapperException
+     * <ul>
+     *     <li>
+     *         If class not found by name.
+     *     </li>
+     *     <li>
+     *         if the underlying constructor with the specified argument types is not defined or
+     *     </li>
+     *     <li>
+     *         if this {@code Constructor} object is enforcing Java language access control and the underlying constructor is inaccessible.
+     *     </li>
+     *     <li>
+     *         if the class that declares the underlying constructor represents an abstract class or interface or annotation.
+     *     </li>
+     *     <li>
+     *         if the underlying constructor throws an exception.
+     *     </li>
+     * </ul>
+     * @throws IllegalArgumentException
+     * <ul>
+     *     <li>
+     *         if the number of actual and formal parameters differ
+     *     </li>
+     *     <li>
+     *         if an unwrapping conversion for primitive arguments fails
+     *     </li>
+     *     <li>
+     *         if after possible unwrapping, a parameter value cannot be converted to the corresponding formal parameter type
+     *         by a method invocation conversion;
+     *     </li>
+     *     <li>
+     *         if this constructor pertains to an enum type
+     *     </li>
+     * </ul>
+     * @throws ExceptionInInitializerError if the initialization provoked by this method fails.
+     */
+    public static <T> T instantiate(final String targetClassName,
+                                    final Object... constructorArgs) {
+        return instantiate(targetClassName, false, constructorArgs);
+    }
+
+    /**
+     * Creates an instance of the target class using provided constructor arguments.
+     *
+     * @param targetClassName the target class full name.
+     * @param setAccessibleIfRequired the flag that activates access to not public constructor.
      * @param constructorArgs constructor argument values.
      * @param <T> created type
      * @return an instance of the target class using provided constructor arguments.
@@ -709,9 +856,10 @@ public final class Reflections {
      */
     @SuppressWarnings("unchecked")
     public static <T> T instantiate(final String targetClassName,
+                                    final boolean setAccessibleIfRequired,
                                     final Object... constructorArgs) {
         try {
-            return (T) instantiate(Class.forName(targetClassName), constructorArgs);
+            return (T) instantiate(Class.forName(targetClassName), setAccessibleIfRequired, constructorArgs);
         } catch (final ClassNotFoundException ex) {
             throw new CheckedWrapperException(ex, "Class ? not found", targetClassName);
         }
@@ -721,6 +869,7 @@ public final class Reflections {
      * Creates an instance of the target class using provided constructor arguments.
      *
      * @param targetClassName the target class full name.
+     * @param setAccessibleIfRequired the flag that activates access to not public constructor.
      * @param argTypes array of constructor argument types.
      * @param constructorArgs constructor argument values.
      * @param <T> created type
@@ -766,10 +915,11 @@ public final class Reflections {
      */
     @SuppressWarnings("unchecked")
     public static <T> T instantiate(final String targetClassName,
+                                    final boolean setAccessibleIfRequired,
                                     final Class<?>[] argTypes,
                                     final Object... constructorArgs) {
         try {
-            return (T) instantiate(Class.forName(targetClassName), argTypes, constructorArgs);
+            return (T) instantiate(Class.forName(targetClassName), setAccessibleIfRequired, argTypes, constructorArgs);
         } catch (final ClassNotFoundException ex) {
             throw new CheckedWrapperException(ex, "Class ? not found", targetClassName);
         }
@@ -779,6 +929,7 @@ public final class Reflections {
      * Creates an instance of the target class using provided constructor arguments.
      *
      * @param targetClass the target class
+     * @param setAccessibleIfRequired the flag that activates access to not public constructor.
      * @param constructorArgs constructor argument values.
      * @param <T> created type
      * @return an instance of the target class using provided constructor arguments.
@@ -822,6 +973,7 @@ public final class Reflections {
      * @throws ExceptionInInitializerError if the initialization provoked by this method fails.
      */
     public static <T> T instantiate(final Class<T> targetClass,
+                                    final boolean setAccessibleIfRequired,
                                     final Object... constructorArgs) {
         final Class<?>[] argTypes = Arrays.stream(constructorArgs)
                 .peek(arg -> {
@@ -836,13 +988,14 @@ public final class Reflections {
                 })
                 .map(Object::getClass)
                 .toArray(Class[]::new);
-        return instantiate(targetClass, argTypes, constructorArgs);
+        return instantiate(targetClass, setAccessibleIfRequired, argTypes, constructorArgs);
     }
 
     /**
      * Creates an instance of the target class using provided constructor arguments.
      *
      * @param targetClass the target class
+     * @param setAccessibleIfRequired the flag that activates access to not public constructor.
      * @param argTypes array of constructor argument types.
      * @param constructorArgs constructor argument values.
      * @param <T> created type
@@ -884,15 +1037,30 @@ public final class Reflections {
      * @throws ExceptionInInitializerError if the initialization provoked by this method fails.
      */
     public static <T> T instantiate(final Class<T> targetClass,
+                                    final boolean setAccessibleIfRequired,
                                     final Class<?>[] argTypes,
                                     final Object... constructorArgs) {
         try {
-            return targetClass.getConstructor(argTypes).newInstance(constructorArgs);
+            Constructor<T> constructor;
+            try {
+                constructor = targetClass.getConstructor(argTypes);
+            } catch (final NoSuchMethodException exception) {
+                if (setAccessibleIfRequired) {
+                    constructor = targetClass.getDeclaredConstructor(argTypes);
+                    if (!constructor.canAccess(null)) {
+                        constructor.setAccessible(true);
+                    }
+                } else {
+                    throw exception;
+                }
+            }
+            return constructor.newInstance(constructorArgs);
         } catch (final NoSuchMethodException ex) {
             throw new CheckedWrapperException(
                     ex,
-                    "Class ? must contain a required constructor: public <init>(?)",
+                    "Class ? must contain a required constructor: ?<init>(?)",
                     targetClass.getName(),
+                    setAccessibleIfRequired ? "" : "public ",
                     Arrays.stream(argTypes)
                             .map(Class::getName)
                             .collect(joining(","))
@@ -906,52 +1074,6 @@ public final class Reflections {
                     targetClass.getName(), ex.getTargetException().getMessage()
             );
         }
-    }
-
-    /**
-     * Creates an instance of the target class using provided constructor arguments.
-     *
-     * @param targetClass the target class
-     * @param <T> created type
-     * @return an instance of the target class using provided constructor arguments.
-     * @throws SecurityException If a security manager, <i>s</i>, is present and the caller's class loader is not the same as or
-     *              an ancestor of the class loader for the current class and invocation of
-     *              {@link SecurityManager#checkPackageAccess s.checkPackageAccess()} denies access to the package of this class.
-     * @throws CheckedWrapperException
-     * <ul>
-     *     <li>
-     *         if the underlying constructor with the specified argument types is not defined or
-     *     </li>
-     *     <li>
-     *         if this {@code Constructor} object is enforcing Java language access control and the underlying constructor is inaccessible.
-     *     </li>
-     *     <li>
-     *         if the class that declares the underlying constructor represents an abstract class or interface or annotation.
-     *     </li>
-     *     <li>
-     *         if the underlying constructor throws an exception.
-     *     </li>
-     * </ul>
-     * @throws IllegalArgumentException
-     * <ul>
-     *     <li>
-     *         if the number of actual and formal parameters differ
-     *     </li>
-     *     <li>
-     *         if an unwrapping conversion for primitive arguments fails
-     *     </li>
-     *     <li>
-     *         if after possible unwrapping, a parameter value cannot be converted to the corresponding formal parameter type
-     *         by a method invocation conversion;
-     *     </li>
-     *     <li>
-     *         if this constructor pertains to an enum type
-     *     </li>
-     * </ul>
-     * @throws ExceptionInInitializerError if the initialization provoked by this method fails.
-     */
-    public static <T> T instantiate(final Class<T> targetClass) {
-        return instantiate(targetClass, new Class[0], new Object[0]);
     }
 
     /**
