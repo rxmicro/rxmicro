@@ -1,6 +1,12 @@
 [
   {
     "name": "io.rxmicro.http.HttpConfig",
-    "allDeclaredMethods": true
+    "allDeclaredMethods": true,
+    "methods": [
+      {
+        "name": "<init>",
+        "parameterTypes": []
+      }
+    ]
   }
 ]

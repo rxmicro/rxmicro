@@ -25,6 +25,7 @@ import reactor.netty.http.client.HttpResponseDecoderSpec;
  * @author nedis
  * @since 0.8
  */
+@SuppressWarnings("UnusedReturnValue")
 public interface NettyClientConfiguratorBuilder {
 
     /**
