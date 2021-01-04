@@ -31,13 +31,20 @@ import static io.rxmicro.config.Networks.validatePort;
  * @since 0.1
  */
 @SuppressWarnings("UnusedReturnValue")
-public abstract class HttpConfig extends Config {
+public class HttpConfig extends Config {
 
     private ProtocolSchema schema;
 
     private String host;
 
     private int port;
+
+    /**
+     * This is basic class designed for extension only.
+     */
+    protected HttpConfig() {
+        // This is basic class designed for extension only.
+    }
 
     /**
      * Returns the protocol schema.
