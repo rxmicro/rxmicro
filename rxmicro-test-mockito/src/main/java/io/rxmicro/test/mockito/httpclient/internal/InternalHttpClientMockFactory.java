@@ -73,7 +73,7 @@ public final class InternalHttpClientMockFactory {
         validate(httpClientFactory, httpRequestMock);
         final HttpClient client = mock(HttpClient.class);
         HTTP_CLIENT_METHOD_MOCKER.mock(httpRequestMock, client, responseModel, logMockParams);
-        when(httpClientFactory.create(any(), any(), any(), any())).thenReturn(client);
+        when(httpClientFactory.create(any(), any(), any(), any(), any())).thenReturn(client);
         return client;
     }
 

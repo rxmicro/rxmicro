@@ -18,21 +18,17 @@ package io.rxmicro.rest.client.netty.internal;
 
 import io.netty.handler.codec.http.HttpHeaders;
 import io.netty.handler.codec.http.HttpMethod;
-import io.netty.handler.ssl.SslContextBuilder;
 import io.netty.handler.timeout.ReadTimeoutException;
 import io.rxmicro.config.Secrets;
-import io.rxmicro.http.ProtocolSchema;
 import io.rxmicro.rest.client.HttpClientTimeoutException;
 import io.rxmicro.rest.client.RestClientConfig;
 import io.rxmicro.rest.client.detail.HttpClientContentConverter;
 import io.rxmicro.rest.client.detail.HttpResponse;
 import reactor.core.publisher.Mono;
 import reactor.netty.ByteBufMono;
-import reactor.netty.http.HttpProtocol;
 import reactor.netty.http.client.HttpClient;
 import reactor.netty.http.client.HttpClient.RequestSender;
 import reactor.netty.http.client.HttpClientResponse;
-import reactor.netty.resources.ConnectionProvider;
 
 import java.util.List;
 import java.util.Map;
@@ -43,7 +39,6 @@ import java.util.function.BiFunction;
 import java.util.function.Function;
 
 import static io.netty.buffer.Unpooled.wrappedBuffer;
-import static io.netty.channel.ChannelOption.CONNECT_TIMEOUT_MILLIS;
 import static io.netty.handler.codec.http.HttpHeaderValues.CLOSE;
 import static io.rxmicro.common.CommonConstants.RX_MICRO_FRAMEWORK_NAME;
 import static io.rxmicro.common.util.ExCollectors.toTreeSet;
@@ -55,7 +50,6 @@ import static io.rxmicro.http.HttpStandardHeaderNames.CONTENT_LENGTH;
 import static io.rxmicro.http.HttpStandardHeaderNames.CONTENT_TYPE;
 import static io.rxmicro.http.HttpStandardHeaderNames.HOST;
 import static io.rxmicro.http.HttpStandardHeaderNames.USER_AGENT;
-import static io.rxmicro.netty.runtime.local.EventLoopGroupFactory.getEventLoopGroupFactory;
 import static io.rxmicro.runtime.detail.RxMicroRuntime.getRxMicroVersion;
 import static java.lang.String.CASE_INSENSITIVE_ORDER;
 
@@ -64,8 +58,6 @@ import static java.lang.String.CASE_INSENSITIVE_ORDER;
  * @since 0.8
  */
 final class NettyHttpClient implements io.rxmicro.rest.client.detail.HttpClient {
-
-    private static final String DEFAULT_WORKER_THREAD_QUALIFIER = "http-client";
 
     private static final Set<String> RESTRICTED_HEADER_NAMES =
             List.of(
@@ -87,39 +79,17 @@ final class NettyHttpClient implements io.rxmicro.rest.client.detail.HttpClient 
     private final Function<byte[], Object> responseBodyConverter;
 
     NettyHttpClient(final Class<?> loggerClass,
+                    final String namespace,
                     final RestClientConfig config,
                     final Secrets secrets,
                     final HttpClientContentConverter contentConverter) {
         this.logger = new NettyHttpClientLogger(loggerClass, secrets);
         this.config = config;
-        this.client = buildImmutableClient(config);
+        this.client = new NettyHttpClientBuilder(config, namespace).build();
         this.contentType = require(contentConverter.getContentType());
         this.userAgent = format("?-netty-http-client/?", RX_MICRO_FRAMEWORK_NAME, getRxMicroVersion());
         this.requestBodyConverter = require(contentConverter.getRequestContentConverter());
         this.responseBodyConverter = require(contentConverter.getResponseContentConverter());
-    }
-
-    private HttpClient buildImmutableClient(final RestClientConfig config) {
-        final ConnectionProvider connectionProvider = ConnectionProvider.builder("rx-micro-netty-http-pool")
-                // Add pool config here
-                .build();
-        HttpClient client = HttpClient.create(connectionProvider)
-                .host(config.getHost())
-                .port(config.getPort())
-                .followRedirect(config.isFollowRedirects())
-                .protocol(HttpProtocol.HTTP11)
-                .runOn(getEventLoopGroupFactory().getRequiredWorkerEventLoopGroup(DEFAULT_WORKER_THREAD_QUALIFIER));
-        if (config.getSchema() == ProtocolSchema.HTTPS) {
-            final SslContextBuilder sslContextBuilder = SslContextBuilder.forClient();
-            client = client.secure(spec -> spec.sslContext(sslContextBuilder));
-        }
-        if (!config.getConnectTimeout().isZero()) {
-            client = client.option(CONNECT_TIMEOUT_MILLIS, (int) config.getConnectTimeout().toMillis());
-        }
-        if (!config.getRequestTimeout().isZero()) {
-            client = client.responseTimeout(config.getRequestTimeout());
-        }
-        return client;
     }
 
     @Override

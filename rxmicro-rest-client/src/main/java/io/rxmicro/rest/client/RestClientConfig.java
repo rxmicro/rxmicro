@@ -17,7 +17,6 @@
 package io.rxmicro.rest.client;
 
 import io.rxmicro.common.meta.BuilderMethod;
-import io.rxmicro.http.HttpConfig;
 import io.rxmicro.http.ProtocolSchema;
 
 import java.time.Duration;
@@ -33,7 +32,7 @@ import static io.rxmicro.http.ProtocolSchema.HTTP;
  * @author nedis
  * @since 0.7
  */
-public class RestClientConfig extends HttpConfig {
+public class RestClientConfig extends HttpClientConnectionPoolConfig {
 
     /**
      * Default HTTP port.
@@ -54,11 +53,11 @@ public class RestClientConfig extends HttpConfig {
 
     private boolean followRedirects;
 
+    private boolean enableAdditionalValidations;
+
     private Duration connectTimeout;
 
     private Duration requestTimeout;
-
-    private boolean enableAdditionalValidations;
 
     /**
      * Creates a rest client config instance with default settings.
@@ -183,6 +182,7 @@ public class RestClientConfig extends HttpConfig {
         return this;
     }
 
+
     @Override
     public RestClientConfig setSchema(final ProtocolSchema schema) {
         return (RestClientConfig) super.setSchema(schema);
@@ -204,6 +204,41 @@ public class RestClientConfig extends HttpConfig {
     }
 
     @Override
+    public RestClientConfig setEvictionInterval(final Duration evictionInterval) {
+        return (RestClientConfig) super.setEvictionInterval(evictionInterval);
+    }
+
+    @Override
+    public RestClientConfig setMaxConnections(final int maxConnections) {
+        return (RestClientConfig) super.setMaxConnections(maxConnections);
+    }
+
+    @Override
+    public RestClientConfig setPendingAcquireMaxCount(final int pendingAcquireMaxCount) {
+        return (RestClientConfig) super.setPendingAcquireMaxCount(pendingAcquireMaxCount);
+    }
+
+    @Override
+    public RestClientConfig setPendingAcquireTimeout(final Duration pendingAcquireTimeout) {
+        return (RestClientConfig) super.setPendingAcquireTimeout(pendingAcquireTimeout);
+    }
+
+    @Override
+    public RestClientConfig setMaxIdleTime(final Duration maxIdleTime) {
+        return (RestClientConfig) super.setMaxIdleTime(maxIdleTime);
+    }
+
+    @Override
+    public RestClientConfig setMaxLifeTime(final Duration maxLifeTime) {
+        return (RestClientConfig) super.setMaxLifeTime(maxLifeTime);
+    }
+
+    @Override
+    public RestClientConfig setLeasingStrategy(final LeasingStrategy leasingStrategy) {
+        return (RestClientConfig) super.setLeasingStrategy(leasingStrategy);
+    }
+
+    @Override
     public String toString() {
         return "RestClientConfig{connectionString=" + getConnectionString() +
                 ", accessKey='" + hideSecretInfo(accessKey) + '\'' +
@@ -211,6 +246,13 @@ public class RestClientConfig extends HttpConfig {
                 ", connectTimeout=" + format(connectTimeout) +
                 ", requestTimeout=" + format(requestTimeout) +
                 ", enableAdditionalValidations=" + enableAdditionalValidations +
+                ", evictionInterval=" + getEvictionInterval() +
+                ", maxConnections=" + getMaxConnections() +
+                ", pendingAcquireMaxCount=" + getPendingAcquireMaxCount() +
+                ", pendingAcquireTimeout=" + getPendingAcquireTimeout() +
+                ", maxIdleTime=" + getMaxIdleTime() +
+                ", maxLifeTime=" + getMaxLifeTime() +
+                ", leasingStrategy=" + getLeasingStrategy() +
                 '}';
     }
 }

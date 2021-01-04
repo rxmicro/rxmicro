@@ -30,9 +30,10 @@ public final class NettyHttpClientFactory implements HttpClientFactory {
 
     @Override
     public HttpClient create(final Class<?> loggerClass,
+                             final String namespace,
                              final RestClientConfig restClientConfig,
                              final Secrets secrets,
                              final HttpClientContentConverter contentConverter) {
-        return new NettyHttpClient(loggerClass, restClientConfig, secrets, contentConverter);
+        return new NettyHttpClient(loggerClass, namespace, restClientConfig, secrets, contentConverter);
     }
 }

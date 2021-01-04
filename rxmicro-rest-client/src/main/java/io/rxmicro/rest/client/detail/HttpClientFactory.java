@@ -34,12 +34,14 @@ public interface HttpClientFactory {
      * Creates a new instance of low-level reactive {@link HttpClient}.
      *
      * @param loggerClass the logger class
+     * @param namespace the config name space
      * @param restClientConfig the HTTP client config. See {@link RestClientConfig}
      * @param secrets the specified secrets. See {@link Secrets}
      * @param contentConverter the specified content converter. See {@link HttpClientContentConverter}
      * @return a new instance of low-level reactive {@link HttpClient}
      */
     HttpClient create(Class<?> loggerClass,
+                      String namespace,
                       RestClientConfig restClientConfig,
                       Secrets secrets,
                       HttpClientContentConverter contentConverter);

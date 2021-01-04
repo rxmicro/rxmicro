@@ -39,10 +39,12 @@ import static io.rxmicro.runtime.local.InstanceContainer.getSingleton;
 public final class RestClientBuilder {
 
     public HttpClient createHttpClient(final Class<?> restClientInterface,
+                                       final String namespace,
                                        final RestClientConfig restClientConfig) {
         return getHttpClientFactory()
                 .create(
                         restClientInterface,
+                        namespace,
                         restClientConfig,
                         Secrets.getDefaultInstance(),
                         getHttpClientBodyConverter()

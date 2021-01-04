@@ -46,7 +46,7 @@ public final class RestClientImplFactory {
                                                                      final Class<?> restClientInterface,
                                                                      final BiFunction<HttpClient, C, T> creator) {
         final C config = getConfig(namespace, configClass);
-        final HttpClient httpClient = BUILDER.createHttpClient(restClientInterface, config);
+        final HttpClient httpClient = BUILDER.createHttpClient(restClientInterface, namespace, config);
         logClientConfig(restClientInterface, httpClient, config);
         registerAutoRelease(httpClient);
         return creator.apply(httpClient, config);
