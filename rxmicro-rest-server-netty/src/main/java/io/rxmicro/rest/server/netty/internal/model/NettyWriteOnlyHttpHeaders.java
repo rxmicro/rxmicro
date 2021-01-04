@@ -17,6 +17,7 @@
 package io.rxmicro.rest.server.netty.internal.model;
 
 import io.netty.handler.codec.http.HttpHeaders;
+import io.rxmicro.http.local.AbstractHttpHeaders;
 import io.rxmicro.http.local.AbstractRepeatableValues;
 import io.rxmicro.http.local.RepeatableHttpHeaders;
 
@@ -36,6 +37,11 @@ public final class NettyWriteOnlyHttpHeaders extends AbstractRepeatableValues<Re
 
     HttpHeaders toHttpHeaders() {
         return new NettyReadableHttpHeaders();
+    }
+
+    @Override
+    public String toString() {
+        return AbstractHttpHeaders.toString(this);
     }
 
     /**

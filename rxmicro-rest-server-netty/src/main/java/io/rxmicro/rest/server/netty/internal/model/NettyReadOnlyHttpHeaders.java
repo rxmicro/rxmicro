@@ -16,7 +16,7 @@
 
 package io.rxmicro.rest.server.netty.internal.model;
 
-import io.rxmicro.http.HttpHeaders;
+import io.rxmicro.http.local.AbstractHttpHeaders;
 
 import java.util.List;
 import java.util.Map;
@@ -24,16 +24,14 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static io.rxmicro.common.util.ExCollections.unmodifiableList;
-import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.http.HttpStandardHeaderNames.REQUEST_ID;
 import static java.util.Map.entry;
-import static java.util.stream.Collectors.joining;
 
 /**
  * @author nedis
  * @since 0.1
  */
-public final class NettyReadOnlyHttpHeaders implements HttpHeaders {
+public final class NettyReadOnlyHttpHeaders extends AbstractHttpHeaders {
 
     private final String requestId;
 
@@ -101,12 +99,5 @@ public final class NettyReadOnlyHttpHeaders implements HttpHeaders {
     @Override
     public boolean isNotEmpty() {
         return requestIdGenerated || !httpHeaders.isEmpty();
-    }
-
-    @Override
-    public String toString() {
-        return getEntries().stream()
-                .map(e -> format("?=?", e.getKey(), e.getValue()))
-                .collect(joining(", "));
     }
 }

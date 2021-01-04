@@ -16,22 +16,20 @@
 
 package io.rxmicro.test.internal.http;
 
-import io.rxmicro.http.HttpHeaders;
+import io.rxmicro.http.local.AbstractHttpHeaders;
 
 import java.util.List;
 import java.util.Map;
 
 import static io.rxmicro.common.util.ExCollections.unmodifiableList;
-import static io.rxmicro.common.util.Formats.format;
 import static java.util.Map.entry;
-import static java.util.stream.Collectors.joining;
 import static java.util.stream.Collectors.toList;
 
 /**
  * @author nedis
  * @since 0.8
  */
-final class JdkHttpHeaders implements HttpHeaders {
+final class JdkHttpHeaders extends AbstractHttpHeaders {
 
     private final java.net.http.HttpHeaders httpHeaders;
 
@@ -73,12 +71,5 @@ final class JdkHttpHeaders implements HttpHeaders {
     @Override
     public boolean isNotEmpty() {
         return !httpHeaders.map().isEmpty();
-    }
-
-    @Override
-    public String toString() {
-        return getEntries().stream()
-                .map(e -> format("?=?", e.getKey(), e.getValue()))
-                .collect(joining(", "));
     }
 }

@@ -18,8 +18,8 @@ package io.rxmicro.rest.client.netty.internal;
 
 import io.rxmicro.rest.client.netty.NettyClientConfiguratorBuilder;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author nedis
@@ -27,7 +27,7 @@ import java.util.Map;
  */
 public class NettyCustomizer {
 
-    protected static final Map<String, NettyClientConfiguratorBuilder> NETTY_CLIENT_CONFIGURATOR_BUILDERS = new HashMap<>();
+    protected static final Map<String, NettyClientConfiguratorBuilder> NETTY_CLIENT_CONFIGURATOR_BUILDERS = new ConcurrentHashMap<>();
 
     protected NettyCustomizer() {
         // This is basic class designed for extension only.

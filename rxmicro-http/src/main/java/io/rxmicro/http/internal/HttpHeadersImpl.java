@@ -16,16 +16,15 @@
 
 package io.rxmicro.http.internal;
 
+import io.rxmicro.http.local.AbstractHttpHeaders;
 import io.rxmicro.http.local.AbstractRepeatableValues;
 import io.rxmicro.http.local.RepeatableHttpHeaders;
 
 import java.util.Collection;
 import java.util.Map;
 
-import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.http.HttpValues.objectToString;
 import static io.rxmicro.http.local.HttpValidators.validateHeaderName;
-import static java.util.stream.Collectors.joining;
 
 /**
  * @author nedis
@@ -41,8 +40,6 @@ public final class HttpHeadersImpl extends AbstractRepeatableValues<RepeatableHt
 
     @Override
     public String toString() {
-        return getEntries().stream()
-                .map(e -> format("?: ?", e.getKey(), e.getValue()))
-                .collect(joining(", "));
+        return AbstractHttpHeaders.toString(this);
     }
 }

@@ -55,9 +55,12 @@ module rxmicro.http {
 
     exports io.rxmicro.http.local to
             rxmicro.rest.client,
+            rxmicro.rest.client.jdk,
+            rxmicro.rest.client.netty,
             rxmicro.rest.server,
             rxmicro.rest.server.netty,
             rxmicro.monitoring,
+            rxmicro.test,
             rxmicro.annotation.processor.rest;
 
     provides UnNamedModuleFixer with HttpUnNamedModuleFixer;

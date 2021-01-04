@@ -16,7 +16,7 @@
 
 package io.rxmicro.http.internal;
 
-import io.rxmicro.http.HttpHeaders;
+import io.rxmicro.http.local.AbstractHttpHeaders;
 
 import java.util.List;
 import java.util.Map;
@@ -25,7 +25,7 @@ import java.util.Map;
  * @author nedis
  * @since 0.8
  */
-public final class EmptyHttpHeaders implements HttpHeaders {
+public final class EmptyHttpHeaders extends AbstractHttpHeaders {
 
     public static final EmptyHttpHeaders INSTANCE = new EmptyHttpHeaders();
 

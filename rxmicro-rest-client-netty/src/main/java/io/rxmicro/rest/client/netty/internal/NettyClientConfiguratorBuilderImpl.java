@@ -17,18 +17,16 @@
 package io.rxmicro.rest.client.netty.internal;
 
 import io.netty.channel.ChannelOption;
-import io.rxmicro.common.CheckedWrapperException;
 import io.rxmicro.rest.client.netty.NettyClientConfiguratorBuilder;
 import reactor.netty.http.client.HttpResponseDecoderSpec;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
 import static io.rxmicro.common.util.Requires.require;
+import static io.rxmicro.reflection.Reflections.instantiate;
 
 /**
  * @author nedis
@@ -45,35 +43,31 @@ public final class NettyClientConfiguratorBuilderImpl implements NettyClientConf
     HttpResponseDecoderSpec httpResponseDecoderSpec;
 
     public NettyClientConfiguratorBuilderImpl(final String namespace) {
+        validateState(namespace);
         this.namespace = namespace;
     }
 
     @Override
     public <T> NettyClientConfiguratorBuilder setClientOption(final ChannelOption<T> option,
                                                               final T value) {
-        if (PROCESSED_NAMESPACES.contains(namespace)) {
-            throw new IllegalStateException("Netty configurator already built! " +
-                    "Any customizations must be done before building of the netty configurator!");
-        }
+        validateState(namespace);
         clientOptions.put(require(option), require(value));
         return this;
     }
 
     @Override
     public HttpResponseDecoderSpec getHttpResponseDecoderSpec() {
+        validateState(namespace);
+        if (httpResponseDecoderSpec == null) {
+            httpResponseDecoderSpec = instantiate(HttpResponseDecoderSpec.class, true);
+        }
+        return httpResponseDecoderSpec;
+    }
+
+    private void validateState(final String namespace) {
         if (PROCESSED_NAMESPACES.contains(namespace)) {
             throw new IllegalStateException("Netty configurator already built! " +
                     "Any customizations must be done before building of the netty configurator!");
         }
-        if (httpResponseDecoderSpec == null) {
-            try {
-                final Constructor<HttpResponseDecoderSpec> constructor = HttpResponseDecoderSpec.class.getDeclaredConstructor();
-                constructor.setAccessible(true);
-                httpResponseDecoderSpec = constructor.newInstance();
-            } catch (final NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException exception) {
-                throw new CheckedWrapperException(exception);
-            }
-        }
-        return httpResponseDecoderSpec;
     }
 }

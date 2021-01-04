@@ -36,6 +36,9 @@
                 <configuration>
                     <argLine>
                         @{argLine}
+                        --add-opens java.base/java.lang=rxmicro.reflection
+                        --add-opens java.base/java.lang.reflect=rxmicro.reflection
+                        --add-opens rxmicro.rest.client.netty/io.rxmicro.rest.client.netty.internal=ALL-UNNAMED
                     </argLine>
                 </configuration>
             </plugin>
@@ -95,6 +98,11 @@
         </dependency>
         <dependency>
             <groupId>io.netty</groupId>
+            <artifactId>netty-codec-http2</artifactId>
+            <version>${netty.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.netty</groupId>
             <artifactId>netty-codec-socks</artifactId>
             <version>${netty.version}</version>
         </dependency>
@@ -127,6 +135,30 @@
             <groupId>io.netty</groupId>
             <artifactId>netty-transport</artifactId>
             <version>${netty.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-transport-native-unix-common</artifactId>
+            <version>${netty.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.tomakehurst</groupId>
+            <artifactId>wiremock-jre8</artifactId>
+            <version>${wiremock-jre8.version}</version>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-api</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>io.rxmicro</groupId>
+            <artifactId>rxmicro-slf4j-proxy</artifactId>
+            <version>0.8-SNAPSHOT</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 </project>

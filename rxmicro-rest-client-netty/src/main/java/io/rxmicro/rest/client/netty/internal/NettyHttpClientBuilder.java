@@ -18,7 +18,6 @@ package io.rxmicro.rest.client.netty.internal;
 
 import io.netty.channel.ChannelOption;
 import io.netty.handler.ssl.SslContextBuilder;
-import io.rxmicro.common.InvalidStateException;
 import io.rxmicro.http.ProtocolSchema;
 import io.rxmicro.rest.client.LeasingStrategy;
 import io.rxmicro.rest.client.RestClientConfig;
@@ -89,10 +88,9 @@ final class NettyHttpClientBuilder {
 
         if (config.getLeasingStrategy() == LeasingStrategy.FIFO) {
             builder.fifo();
-        } else if (config.getLeasingStrategy() == LeasingStrategy.LIFO) {
-            builder.lifo();
         } else {
-            throw new InvalidStateException("Unsupported leasing strategy: '?'!", config.getLeasingStrategy());
+            // if (config.getLeasingStrategy() == LeasingStrategy.LIFO)
+            builder.lifo();
         }
         return builder.build();
     }
@@ -100,7 +98,7 @@ final class NettyHttpClientBuilder {
     @SuppressWarnings("unchecked")
     private HttpClient customizeClient(final HttpClient client) {
         final NettyClientConfiguratorBuilderImpl builder =
-                (NettyClientConfiguratorBuilderImpl) NETTY_CLIENT_CONFIGURATOR_BUILDERS.get(namespace);
+                (NettyClientConfiguratorBuilderImpl) NETTY_CLIENT_CONFIGURATOR_BUILDERS.remove(namespace);
         if (builder == null || builder.clientOptions.isEmpty() && builder.httpResponseDecoderSpec == null) {
             return client;
         } else {

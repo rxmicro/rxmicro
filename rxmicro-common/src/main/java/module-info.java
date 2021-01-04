@@ -58,16 +58,18 @@ module rxmicro.common {
             rxmicro.runtime,
             rxmicro.config,
             rxmicro.rest,
+            rxmicro.rest.client.netty,
             rxmicro.rest.server,
             rxmicro.rest.server.netty,
             rxmicro.json,
             rxmicro.exchange.json,
             rxmicro.test,
+            rxmicro.test.junit,
             rxmicro.test.mockito,
             rxmicro.annotation.processor,
             rxmicro.annotation.processor.common,
             rxmicro.annotation.processor.cdi,
-            rxmicro.annotation.processor.documentation, rxmicro.test.junit, rxmicro.rest.client.netty;
+            rxmicro.annotation.processor.documentation;
 
     provides UnNamedModuleFixer with CommonUnNamedModuleFixer;
 }

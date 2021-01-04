@@ -39,7 +39,6 @@ import java.util.function.BiFunction;
 import java.util.function.Function;
 
 import static io.netty.buffer.Unpooled.wrappedBuffer;
-import static io.netty.handler.codec.http.HttpHeaderValues.CLOSE;
 import static io.rxmicro.common.CommonConstants.RX_MICRO_FRAMEWORK_NAME;
 import static io.rxmicro.common.util.ExCollectors.toTreeSet;
 import static io.rxmicro.common.util.Formats.format;
@@ -59,6 +58,10 @@ import static java.lang.String.CASE_INSENSITIVE_ORDER;
  */
 final class NettyHttpClient implements io.rxmicro.rest.client.detail.HttpClient {
 
+    static final String DEFAULT_USER_AGENT = format("?-netty-http-client/?", RX_MICRO_FRAMEWORK_NAME, getRxMicroVersion());
+
+    private static final byte[] EMPTY_BYTE_ARRAY = new byte[0];
+
     private static final Set<String> RESTRICTED_HEADER_NAMES =
             List.of(
                     CONNECTION, CONTENT_LENGTH, HOST
@@ -71,8 +74,6 @@ final class NettyHttpClient implements io.rxmicro.rest.client.detail.HttpClient 
     private final HttpClient client;
 
     private final String contentType;
-
-    private final String userAgent;
 
     private final Function<Object, byte[]> requestBodyConverter;
 
@@ -87,7 +88,6 @@ final class NettyHttpClient implements io.rxmicro.rest.client.detail.HttpClient 
         this.config = config;
         this.client = new NettyHttpClientBuilder(config, namespace).build();
         this.contentType = require(contentConverter.getContentType());
-        this.userAgent = format("?-netty-http-client/?", RX_MICRO_FRAMEWORK_NAME, getRxMicroVersion());
         this.requestBodyConverter = require(contentConverter.getRequestContentConverter());
         this.responseBodyConverter = require(contentConverter.getResponseContentConverter());
     }
@@ -98,12 +98,10 @@ final class NettyHttpClient implements io.rxmicro.rest.client.detail.HttpClient 
                                                      final List<Map.Entry<String, String>> headers) {
         final RequestSender sender = createRequestSender(method, path, headers, null);
         final long startTime = System.nanoTime();
-        return sender.responseSingle((BiFunction<HttpClientResponse, ByteBufMono, Mono<HttpResponse>>) (response, byteBufMono) ->
-                byteBufMono.asByteArray().map(responseBodyBytes -> buildNettyHttpResponse(startTime, response, responseBodyBytes)))
+        return sender.responseSingle(createResponseMapping(startTime))
                 .onErrorMap(createTimeoutHandler(path))
                 .toFuture();
     }
-
 
     @Override
     public CompletableFuture<HttpResponse> sendAsync(final String method,
@@ -115,9 +113,7 @@ final class NettyHttpClient implements io.rxmicro.rest.client.detail.HttpClient 
         final long startTime = System.nanoTime();
         return sender
                 .send(Mono.just(wrappedBuffer(requestBody)))
-                .responseSingle((BiFunction<HttpClientResponse, ByteBufMono, Mono<HttpResponse>>) (response, byteBufMono) ->
-                        byteBufMono.asByteArray().map(responseBodyBytes -> buildNettyHttpResponse(startTime, response, responseBodyBytes))
-                )
+                .responseSingle(createResponseMapping(startTime))
                 .onErrorMap(createTimeoutHandler(path))
                 .toFuture();
     }
@@ -142,7 +138,6 @@ final class NettyHttpClient implements io.rxmicro.rest.client.detail.HttpClient 
                             final List<Map.Entry<String, String>> headers,
                             final byte[] requestBody) {
         nettyHeaders.set(HOST, config.getHost());
-        nettyHeaders.set(CONNECTION, CLOSE);
         if (!headers.isEmpty()) {
             final Set<String> addedHeaders = new TreeSet<>(CASE_INSENSITIVE_ORDER);
             headers.forEach(e -> {
@@ -166,7 +161,7 @@ final class NettyHttpClient implements io.rxmicro.rest.client.detail.HttpClient 
                 nettyHeaders.set(CONTENT_LENGTH, 0);
             }
             if (!addedHeaders.contains(USER_AGENT)) {
-                nettyHeaders.set(USER_AGENT, userAgent);
+                nettyHeaders.set(USER_AGENT, DEFAULT_USER_AGENT);
             }
         } else {
             nettyHeaders.set(ACCEPT, contentType);
@@ -176,8 +171,15 @@ final class NettyHttpClient implements io.rxmicro.rest.client.detail.HttpClient 
             } else {
                 nettyHeaders.set(CONTENT_LENGTH, 0);
             }
-            nettyHeaders.set(USER_AGENT, userAgent);
+            nettyHeaders.set(USER_AGENT, DEFAULT_USER_AGENT);
         }
+    }
+
+    private BiFunction<HttpClientResponse, ByteBufMono, Mono<HttpResponse>> createResponseMapping(final long startTime) {
+        return (response, byteBufMono) -> byteBufMono
+                .asByteArray()
+                .defaultIfEmpty(EMPTY_BYTE_ARRAY)
+                .map(responseBodyBytes -> buildNettyHttpResponse(startTime, response, responseBodyBytes));
     }
 
     private NettyHttpResponse buildNettyHttpResponse(final long startTime,
