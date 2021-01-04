@@ -27,7 +27,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * Denotes that an interface is a dynamic generated REST client.
  *
  * @author nedis
- * @see HttpClientConfig
+ * @see RestClientConfig
  * @see RestClientFactory
  * @since 0.1
  */

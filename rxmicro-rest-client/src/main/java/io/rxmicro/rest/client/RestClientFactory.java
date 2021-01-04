@@ -27,7 +27,7 @@ import static io.rxmicro.common.util.GeneratedClassRules.GENERATED_CLASS_NAME_PR
  *
  * @author nedis
  * @see RestClient
- * @see HttpClientConfig
+ * @see RestClientConfig
  * @since 0.1
  */
 public abstract class RestClientFactory extends AbstractFactory {
