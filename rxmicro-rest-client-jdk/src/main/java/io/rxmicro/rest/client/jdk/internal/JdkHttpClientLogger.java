@@ -100,13 +100,11 @@ final class JdkHttpClientLogger {
                                                   final CompletableFuture<HttpResponse<byte[]>> response) {
         final String requestId = request.headers().firstValue(REQUEST_ID).orElse(UNDEFINED_REQUEST_ID);
         final String uri = request.uri().toString();
-        final int index = uri.indexOf('?');
         final long startTime = System.nanoTime();
         logger.debug(
                 () -> requestId,
                 "HTTP request sent: '?'?",
-                format("? ?", request.method(),
-                        index != -1 ? uri.substring(0, index) : uri),
+                format("? ?", request.method(), uri),
                 requestBody == null ? "" : format(" with ? request body bytes", requestBody.length)
         );
         return response.whenComplete((resp, th) -> {

@@ -135,6 +135,7 @@
         <mockito.version>3.6.28</mockito.version>
         <compile.google.testing.version>0.19</compile.google.testing.version>
         <dbunit.version>2.7.0</dbunit.version>
+        <wiremock-jre8.version>2.27.2</wiremock-jre8.version>
         <!-- Runtime Libraries -->
         <netty.version>4.1.55.Final</netty.version>
 

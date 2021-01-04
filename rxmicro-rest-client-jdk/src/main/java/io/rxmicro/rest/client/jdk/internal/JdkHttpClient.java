@@ -19,15 +19,14 @@ package io.rxmicro.rest.client.jdk.internal;
 import io.rxmicro.config.Secrets;
 import io.rxmicro.rest.client.HttpClientTimeoutException;
 import io.rxmicro.rest.client.RestClientConfig;
-import io.rxmicro.rest.client.detail.HttpClient;
 import io.rxmicro.rest.client.detail.HttpClientContentConverter;
 
 import java.net.URI;
+import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpRequest.BodyPublishers;
 import java.net.http.HttpResponse;
 import java.net.http.HttpTimeoutException;
-import java.time.Duration;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -40,61 +39,53 @@ import static io.rxmicro.common.util.Exceptions.isInstanceOf;
 import static io.rxmicro.common.util.Exceptions.reThrow;
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.Requires.require;
-import static io.rxmicro.common.util.Strings.startsWith;
 import static io.rxmicro.http.HttpStandardHeaderNames.ACCEPT;
 import static io.rxmicro.http.HttpStandardHeaderNames.CONTENT_TYPE;
 import static io.rxmicro.http.HttpStandardHeaderNames.USER_AGENT;
 import static io.rxmicro.runtime.detail.RxMicroRuntime.getRxMicroVersion;
 import static java.lang.String.CASE_INSENSITIVE_ORDER;
-import static java.util.Map.entry;
 
 /**
  * @author nedis
  * @since 0.8
  */
-final class JdkHttpClient implements HttpClient {
+final class JdkHttpClient implements io.rxmicro.rest.client.detail.HttpClient {
+
+    static final String DEFAULT_USER_AGENT = format("?-jdk-http-client/?", RX_MICRO_FRAMEWORK_NAME, getRxMicroVersion());
 
     private final JdkHttpClientLogger logger;
 
-    private final java.net.http.HttpClient client;
+    private final RestClientConfig config;
+
+    private final HttpClient client;
 
     private final String connectionString;
+
+    private final String contentType;
 
     private final Function<Object, byte[]> requestBodyConverter;
 
     private final Function<byte[], Object> responseBodyConverter;
 
-    private final Map.Entry<String, String> acceptHeader;
-
-    private final Map.Entry<String, String> contentTypeHeader;
-
-    private final Map.Entry<String, String> userAgentHeader;
-
-    private final Duration timeout;
 
     JdkHttpClient(final Class<?> loggerClass,
-                  final RestClientConfig restClientConfig,
+                  final RestClientConfig config,
                   final Secrets secrets,
                   final HttpClientContentConverter contentConverter) {
+        this.config = config;
         this.logger = new JdkHttpClientLogger(loggerClass, secrets);
-        this.connectionString = restClientConfig.getConnectionString();
-
-        final String contentType = require(contentConverter.getContentType());
-        this.acceptHeader = entry(ACCEPT, contentType);
-        this.contentTypeHeader = entry(CONTENT_TYPE, contentType);
-        this.userAgentHeader = entry(USER_AGENT, format("?-jdk-http-client/?", RX_MICRO_FRAMEWORK_NAME, getRxMicroVersion()));
-
+        this.connectionString = config.getConnectionString();
+        this.contentType = require(contentConverter.getContentType());
         this.requestBodyConverter = require(contentConverter.getRequestContentConverter());
         this.responseBodyConverter = require(contentConverter.getResponseContentConverter());
-        final java.net.http.HttpClient.Builder builder = java.net.http.HttpClient.newBuilder()
-                .followRedirects(restClientConfig.isFollowRedirects() ?
-                        java.net.http.HttpClient.Redirect.ALWAYS :
-                        java.net.http.HttpClient.Redirect.NEVER);
-        if (!restClientConfig.getConnectTimeout().isZero()) {
-            builder.connectTimeout(restClientConfig.getConnectTimeout());
+        final HttpClient.Builder builder = HttpClient.newBuilder()
+                .followRedirects(config.isFollowRedirects() ?
+                        HttpClient.Redirect.ALWAYS :
+                        HttpClient.Redirect.NEVER);
+        if (!config.getConnectTimeout().isZero()) {
+            builder.connectTimeout(config.getConnectTimeout());
         }
         this.client = builder.build();
-        this.timeout = restClientConfig.getRequestTimeout();
     }
 
     @Override
@@ -122,44 +113,40 @@ final class JdkHttpClient implements HttpClient {
     private HttpRequest.Builder newRequestBuilder(final String path,
                                                   final List<Map.Entry<String, String>> headers,
                                                   final boolean withBody) {
-        final HttpRequest.Builder requestBuilder;
-        if (startsWith(path, '/')) {
-            requestBuilder = HttpRequest.newBuilder().uri(URI.create(connectionString + path));
-        } else {
-            requestBuilder = HttpRequest.newBuilder().uri(URI.create(connectionString + '/' + path));
-        }
+        final HttpRequest.Builder requestBuilder = HttpRequest.newBuilder()
+                .uri(URI.create(connectionString + path))
+                .version(HttpClient.Version.HTTP_1_1);
         setHeaders(requestBuilder, headers, withBody);
-        if (!timeout.isZero()) {
-            requestBuilder.timeout(timeout);
+        if (!config.getRequestTimeout().isZero()) {
+            requestBuilder.timeout(config.getRequestTimeout());
         }
-        requestBuilder.version(java.net.http.HttpClient.Version.HTTP_1_1);
         return requestBuilder;
     }
 
     private void setHeaders(final HttpRequest.Builder requestBuilder,
                             final List<Map.Entry<String, String>> headers,
                             final boolean withBody) {
-        final Set<String> addedHeaders = headers.isEmpty() ? Set.of() : new TreeSet<>(CASE_INSENSITIVE_ORDER);
         if (!headers.isEmpty()) {
+            final Set<String> addedHeaders = new TreeSet<>(CASE_INSENSITIVE_ORDER);
             headers.forEach(e -> {
                 addedHeaders.add(e.getKey());
                 requestBuilder.header(e.getKey(), e.getValue());
             });
-            if (!addedHeaders.contains(acceptHeader.getKey())) {
-                requestBuilder.header(acceptHeader.getKey(), acceptHeader.getValue());
+            if (!addedHeaders.contains(ACCEPT)) {
+                requestBuilder.header(ACCEPT, contentType);
             }
-            if (withBody && !addedHeaders.contains(contentTypeHeader.getKey())) {
-                requestBuilder.header(contentTypeHeader.getKey(), contentTypeHeader.getValue());
+            if (withBody && !addedHeaders.contains(CONTENT_TYPE)) {
+                requestBuilder.header(CONTENT_TYPE, contentType);
             }
-            if (!addedHeaders.contains(userAgentHeader.getKey())) {
-                requestBuilder.header(userAgentHeader.getKey(), userAgentHeader.getValue());
+            if (!addedHeaders.contains(USER_AGENT)) {
+                requestBuilder.header(USER_AGENT, DEFAULT_USER_AGENT);
             }
         } else {
-            requestBuilder.header(acceptHeader.getKey(), acceptHeader.getValue());
+            requestBuilder.header(ACCEPT, contentType);
             if (withBody) {
-                requestBuilder.header(contentTypeHeader.getKey(), contentTypeHeader.getValue());
+                requestBuilder.header(CONTENT_TYPE, contentType);
             }
-            requestBuilder.header(userAgentHeader.getKey(), userAgentHeader.getValue());
+            requestBuilder.header(USER_AGENT, DEFAULT_USER_AGENT);
         }
     }
 

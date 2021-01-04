@@ -100,12 +100,10 @@ final class NettyHttpClientLogger {
                final HttpHeaders nettyHeaders,
                final byte[] requestBodyBytes) {
         final String requestId = Optional.ofNullable(nettyHeaders.get(REQUEST_ID)).orElse(UNDEFINED_REQUEST_ID);
-        final int index = path.indexOf('?');
         logger.debug(
                 () -> requestId,
                 "HTTP request sent: '?'?",
-                format("? ?", method,
-                        index != -1 ? path.substring(0, index) : path),
+                format("? ?", method, path),
                 requestBodyBytes == null ? "" : format(" with ? request body bytes", requestBodyBytes.length)
         );
     }

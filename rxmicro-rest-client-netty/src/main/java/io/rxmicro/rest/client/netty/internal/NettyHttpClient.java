@@ -73,6 +73,8 @@ final class NettyHttpClient implements io.rxmicro.rest.client.detail.HttpClient 
 
     private final HttpClient client;
 
+    private final String host;
+
     private final String contentType;
 
     private final Function<Object, byte[]> requestBodyConverter;
@@ -86,10 +88,19 @@ final class NettyHttpClient implements io.rxmicro.rest.client.detail.HttpClient 
                     final HttpClientContentConverter contentConverter) {
         this.logger = new NettyHttpClientLogger(loggerClass, secrets);
         this.config = config;
+        this.host = buildHostHeader(config);
         this.client = new NettyHttpClientBuilder(config, namespace).build();
         this.contentType = require(contentConverter.getContentType());
         this.requestBodyConverter = require(contentConverter.getRequestContentConverter());
         this.responseBodyConverter = require(contentConverter.getResponseContentConverter());
+    }
+
+    private String buildHostHeader(final RestClientConfig config) {
+        if (config.getPort() == config.getSchema().getPort()) {
+            return config.getHost();
+        } else {
+            return format("?:?", config.getHost(), config.getPort());
+        }
     }
 
     @Override
@@ -137,7 +148,7 @@ final class NettyHttpClient implements io.rxmicro.rest.client.detail.HttpClient 
     private void setHeaders(final HttpHeaders nettyHeaders,
                             final List<Map.Entry<String, String>> headers,
                             final byte[] requestBody) {
-        nettyHeaders.set(HOST, config.getHost());
+        nettyHeaders.set(HOST, host);
         if (!headers.isEmpty()) {
             final Set<String> addedHeaders = new TreeSet<>(CASE_INSENSITIVE_ORDER);
             headers.forEach(e -> {
