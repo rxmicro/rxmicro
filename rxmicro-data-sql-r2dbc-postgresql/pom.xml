@@ -66,6 +66,10 @@
                     <groupId>io.netty</groupId>
                     <artifactId>netty-transport-native-kqueue</artifactId>
                 </exclusion>
+                <exclusion>
+                    <groupId>io.projectreactor.netty</groupId>
+                    <artifactId>reactor-netty</artifactId>
+                </exclusion>
             </exclusions>
         </dependency>
         <dependency>
@@ -74,8 +78,35 @@
             <version>0.8-SNAPSHOT</version>
         </dependency>
         <dependency>
+            <groupId>io.projectreactor.netty</groupId>
+            <artifactId>reactor-netty-core</artifactId>
+            <version>${external.lib.reactor-netty.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>io.netty</groupId>
+                    <artifactId>netty-transport-native-epoll</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>io.netty</groupId>
+                    <artifactId>netty-transport-native-kqueue</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!-- netty dependencies -->
+        <dependency>
             <groupId>io.netty</groupId>
-            <artifactId>netty-transport-native-unix-common</artifactId>
+            <artifactId>netty-common</artifactId>
+            <version>${netty.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-codec</artifactId>
+            <version>${netty.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-codec-dns</artifactId>
             <version>${netty.version}</version>
         </dependency>
         <dependency>
@@ -86,6 +117,16 @@
         <dependency>
             <groupId>io.netty</groupId>
             <artifactId>netty-handler-proxy</artifactId>
+            <version>${netty.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-resolver</artifactId>
+            <version>${netty.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-resolver-dns</artifactId>
             <version>${netty.version}</version>
         </dependency>
         <dependency>
