@@ -28,4 +28,8 @@ import java.util.Map;
 public class NettyCustomizer {
 
     protected static final Map<String, NettyClientConfiguratorBuilder> NETTY_CLIENT_CONFIGURATOR_BUILDERS = new HashMap<>();
+
+    protected NettyCustomizer() {
+        // This is basic class designed for extension only.
+    }
 }
