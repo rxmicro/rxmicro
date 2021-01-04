@@ -307,7 +307,7 @@ jobs:
           LATEST_VERSION=$(cat RXMICRO_VERSION.txt)
           export GRAALVM_HOME=~/GraalVM
           cd rxmicro-usage/examples/group-graalvm/${{ matrix.group }}
-          mvn --fail-at-end -Drxmicro.version=$LATEST_VERSION -P {{ matrix.maven-profile }} verify
+          mvn --fail-at-end -Drxmicro.version=$LATEST_VERSION -P ${{ matrix.maven-profile }} verify
 
       - name: Collect jacoco metadata
         run: |
