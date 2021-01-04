@@ -14,20 +14,20 @@
  * limitations under the License.
  */
 
-package io.rxmicro.rest.server.netty.internal.component;
+package io.rxmicro.rest.client.netty.internal;
 
 import io.rxmicro.common.local.ConfigurationResetController;
 
-import static io.rxmicro.rest.server.netty.internal.component.NettyConfiguratorController.getNettyConfiguratorController;
+import static io.rxmicro.rest.client.netty.internal.NettyClientConfiguratorBuilderImpl.PROCESSED_NAMESPACES;
 
 /**
  * @author nedis
  * @since 0.8
  */
-public final class NettyServerConfigurationResetController implements ConfigurationResetController {
+public final class NettyHttpClientConfigurationResetController implements ConfigurationResetController {
 
     @Override
     public void resetConfiguration() {
-        getNettyConfiguratorController().reset();
+        PROCESSED_NAMESPACES.clear();
     }
 }

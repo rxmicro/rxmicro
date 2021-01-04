@@ -23,8 +23,10 @@ import reactor.netty.http.client.HttpResponseDecoderSpec;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Set;
 
 import static io.rxmicro.common.util.Requires.require;
 
@@ -34,19 +36,35 @@ import static io.rxmicro.common.util.Requires.require;
  */
 public final class NettyClientConfiguratorBuilderImpl implements NettyClientConfiguratorBuilder {
 
+    static final Set<String> PROCESSED_NAMESPACES = new HashSet<>();
+
+    final String namespace;
+
     final Map<ChannelOption<?>, Object> clientOptions = new LinkedHashMap<>();
 
     HttpResponseDecoderSpec httpResponseDecoderSpec;
 
+    public NettyClientConfiguratorBuilderImpl(final String namespace) {
+        this.namespace = namespace;
+    }
+
     @Override
     public <T> NettyClientConfiguratorBuilder setClientOption(final ChannelOption<T> option,
                                                               final T value) {
+        if (PROCESSED_NAMESPACES.contains(namespace)) {
+            throw new IllegalStateException("Netty configurator already built! " +
+                    "Any customizations must be done before building of the netty configurator!");
+        }
         clientOptions.put(require(option), require(value));
         return this;
     }
 
     @Override
     public HttpResponseDecoderSpec getHttpResponseDecoderSpec() {
+        if (PROCESSED_NAMESPACES.contains(namespace)) {
+            throw new IllegalStateException("Netty configurator already built! " +
+                    "Any customizations must be done before building of the netty configurator!");
+        }
         if (httpResponseDecoderSpec == null) {
             try {
                 final Constructor<HttpResponseDecoderSpec> constructor = HttpResponseDecoderSpec.class.getDeclaredConstructor();

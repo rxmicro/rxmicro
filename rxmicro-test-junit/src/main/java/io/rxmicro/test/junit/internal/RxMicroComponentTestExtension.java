@@ -146,7 +146,7 @@ public final class RxMicroComponentTestExtension extends AbstractJUnitTestExtens
         clearContainer();
         clearFactories();
         resetDefaultConfigValueStorage();
-        resetServerConfigurationIfPossible();
+        resetConfigurationIfPossible();
         systemStreamInjector.resetIfNecessary();
     }
 

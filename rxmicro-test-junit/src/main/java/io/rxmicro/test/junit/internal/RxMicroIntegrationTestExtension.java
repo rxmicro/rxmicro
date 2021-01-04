@@ -99,6 +99,6 @@ public final class RxMicroIntegrationTestExtension extends AbstractJUnitTestExte
         clearFactories();
         resetDefaultConfigValueStorage();
         clearEventLoopGroupFactory();
-        resetServerConfigurationIfPossible();
+        resetConfigurationIfPossible();
     }
 }

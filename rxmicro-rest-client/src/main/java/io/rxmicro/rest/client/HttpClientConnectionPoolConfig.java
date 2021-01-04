@@ -178,7 +178,7 @@ public class HttpClientConnectionPoolConfig extends HttpConfig {
      * Default to {@link #DEFAULT_POOL_ACQUIRE_TIMEOUT}.
      *
      * @param pendingAcquireTimeout the maximum time after which a pending acquire
-     * must complete or the {@link TimeoutException} will be thrown (resolution: ms)
+     *         must complete or the {@link TimeoutException} will be thrown (resolution: ms)
      * @return the reference to this {@link HttpClientConnectionPoolConfig} instance
      * @throws NullPointerException if pendingAcquireTimeout is null
      */

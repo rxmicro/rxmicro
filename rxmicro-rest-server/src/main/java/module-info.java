@@ -17,7 +17,6 @@
 import io.rxmicro.common.model.UnNamedModuleFixer;
 import io.rxmicro.rest.server.detail.component.HttpResponseBuilder;
 import io.rxmicro.rest.server.local.component.HttpErrorResponseBodyBuilder;
-import io.rxmicro.rest.server.local.component.ServerConfigurationResetController;
 import io.rxmicro.rest.server.local.component.ServerFactory;
 import io.rxmicro.rest.server.local.test.ServerUnNamedModuleFixer;
 
@@ -79,7 +78,6 @@ module rxmicro.rest.server {
 
     uses HttpResponseBuilder;
     uses ServerFactory;
-    uses ServerConfigurationResetController;
     uses HttpErrorResponseBodyBuilder;
 
     provides UnNamedModuleFixer with ServerUnNamedModuleFixer;

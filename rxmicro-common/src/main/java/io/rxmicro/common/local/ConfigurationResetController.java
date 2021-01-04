@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-package io.rxmicro.rest.server.local.component;
+package io.rxmicro.common.local;
 
 /**
- * Allows resetting the static server config for test environment.
+ * Allows resetting the static config for test environment.
  *
  * @author nedis
  * @since 0.8
  */
-public interface ServerConfigurationResetController {
+public interface ConfigurationResetController {
 
     void resetConfiguration();
 }

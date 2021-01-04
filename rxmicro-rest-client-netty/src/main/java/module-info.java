@@ -14,7 +14,9 @@
  * limitations under the License.
  */
 
+import io.rxmicro.common.local.ConfigurationResetController;
 import io.rxmicro.rest.client.detail.HttpClientFactory;
+import io.rxmicro.rest.client.netty.internal.NettyHttpClientConfigurationResetController;
 import io.rxmicro.rest.client.netty.internal.NettyHttpClientFactory;
 
 /**
@@ -66,4 +68,5 @@ module rxmicro.rest.client.netty {
     requires jdk.unsupported;
 
     provides HttpClientFactory with NettyHttpClientFactory;
+    provides ConfigurationResetController with NettyHttpClientConfigurationResetController;
 }

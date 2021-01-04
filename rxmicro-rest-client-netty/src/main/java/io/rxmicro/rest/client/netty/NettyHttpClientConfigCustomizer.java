@@ -37,7 +37,7 @@ public final class NettyHttpClientConfigCustomizer extends NettyCustomizer {
      * @return the {@link NettyClientConfiguratorBuilder} instance
      */
     public static NettyClientConfiguratorBuilder getNettyClientConfiguratorBuilder(final String namespace) {
-        return NETTY_CLIENT_CONFIGURATOR_BUILDERS.computeIfAbsent(namespace, v -> new NettyClientConfiguratorBuilderImpl());
+        return NETTY_CLIENT_CONFIGURATOR_BUILDERS.computeIfAbsent(namespace, v -> new NettyClientConfiguratorBuilderImpl(namespace));
     }
 
     /**

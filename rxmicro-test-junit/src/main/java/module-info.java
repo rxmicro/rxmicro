@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+import io.rxmicro.common.local.ConfigurationResetController;
 import io.rxmicro.test.junit.internal.JUnitRxMicroTestExtension;
 import io.rxmicro.test.local.component.RxMicroTestExtension;
 
@@ -55,6 +56,8 @@ module rxmicro.test.junit {
     exports io.rxmicro.test.junit.internal to
             org.junit.jupiter.params,
             org.junit.jupiter.api;
+
+    uses ConfigurationResetController;
 
     provides RxMicroTestExtension with JUnitRxMicroTestExtension;
 }

@@ -67,7 +67,7 @@ module rxmicro.common {
             rxmicro.annotation.processor,
             rxmicro.annotation.processor.common,
             rxmicro.annotation.processor.cdi,
-            rxmicro.annotation.processor.documentation;
+            rxmicro.annotation.processor.documentation, rxmicro.test.junit, rxmicro.rest.client.netty;
 
     provides UnNamedModuleFixer with CommonUnNamedModuleFixer;
 }

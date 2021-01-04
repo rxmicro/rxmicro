@@ -37,6 +37,7 @@ public interface NettyClientConfiguratorBuilder {
      * @see ChannelOption
      * @see java.util.Map
      * @throws NullPointerException if {@code option} or {@code value} is {@code null}
+     * @throws IllegalStateException if Netty configurator already built
      */
     <T> NettyClientConfiguratorBuilder setClientOption(ChannelOption<T> option,
                                                        T value);
@@ -45,6 +46,7 @@ public interface NettyClientConfiguratorBuilder {
      * Returns the {@link HttpResponseDecoderSpec} instance to configure netty decoder settings.
      *
      * @return the {@link HttpResponseDecoderSpec} instance to configure netty decoder settings.
+     * @throws IllegalStateException if Netty configurator already built
      */
     HttpResponseDecoderSpec getHttpResponseDecoderSpec();
 }

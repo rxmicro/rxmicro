@@ -19,8 +19,10 @@ package io.rxmicro.runtime.local;
 import io.rxmicro.common.RxMicroException;
 import io.rxmicro.common.RxMicroModule;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Optional;
 import java.util.ServiceLoader;
 import java.util.function.Function;
@@ -28,6 +30,7 @@ import java.util.function.Function;
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.runtime.internal.RuntimeVersion.setRxMicroVersion;
 import static java.util.stream.Collectors.joining;
+import static java.util.stream.Collectors.toList;
 
 /**
  * @author nedis
@@ -45,15 +48,20 @@ public final class Implementations {
         return getRequiredImplementation(serviceInterface, serviceLoader, "runtime module path", possibleImplementationModules);
     }
 
-    public static <T> T getRequiredTestImplementation(final Class<T> serviceInterface,
-                                                      final Function<Class<T>, ServiceLoader<T>> serviceLoader,
-                                                      final RxMicroModule... possibleImplementationModules) {
-        return getRequiredImplementation(serviceInterface, serviceLoader, "test class path", possibleImplementationModules);
-    }
-
     public static <T> Optional<T> getOptionalImplementation(final Class<T> serviceInterface,
                                                             final Function<Class<T>, ServiceLoader<T>> serviceLoader) {
         return Optional.ofNullable(getImplementation(serviceInterface, serviceLoader));
+    }
+
+    public static <T> List<T> getAllImplementations(final Class<T> serviceInterface,
+                                                    final Function<Class<T>, ServiceLoader<T>> serviceLoader) {
+        final ServiceLoader<T> loader = serviceLoader.apply(serviceInterface);
+        final Iterator<T> iterator = loader.iterator();
+        final List<T> implementations = new ArrayList<>();
+        while (iterator.hasNext()) {
+            implementations.add(iterator.next());
+        }
+        return implementations;
     }
 
     private static <T> T getRequiredImplementation(final Class<T> serviceInterface,
@@ -92,27 +100,21 @@ public final class Implementations {
 
     private static <T> T getImplementation(final Class<T> serviceInterface,
                                            final Function<Class<T>, ServiceLoader<T>> serviceLoader) {
-        final ServiceLoader<T> loader = serviceLoader.apply(serviceInterface);
-        final Iterator<T> iterator = loader.iterator();
-        T impl = null;
-
-        while (iterator.hasNext()) {
-            final T item = iterator.next();
-            if (impl != null) {
-                throw new ImplementationLoadFailedException(
-                        "Detected a few implementations of '?' component: '?' and '?'! " +
-                                "The RxMicro framework requires only one implementation per runtime! " +
-                                "Remove '?' or '?' module from module path!",
-                        serviceInterface.getName(),
-                        impl.getClass().getName(),
-                        item.getClass().getName(),
-                        impl.getClass().getModule().getName(),
-                        item.getClass().getModule().getName()
-                );
-            }
-            impl = item;
+        final List<T> implementations = getAllImplementations(serviceInterface, serviceLoader);
+        if (implementations.isEmpty()) {
+            return null;
+        } else if (implementations.size() == 1) {
+            return implementations.get(0);
+        } else {
+            throw new ImplementationLoadFailedException(
+                    "Detected a few implementations of '?' component: ?! " +
+                            "The RxMicro framework requires only one module from ? list per runtime! " +
+                            "Remove redundant module(s) from module path!",
+                    serviceInterface.getName(),
+                    implementations.stream().map(i -> i.getClass().getName()).collect(toList()),
+                    implementations.stream().map(i -> i.getClass().getModule().getName()).collect(toList())
+            );
         }
-        return impl;
     }
 
     private Implementations() {

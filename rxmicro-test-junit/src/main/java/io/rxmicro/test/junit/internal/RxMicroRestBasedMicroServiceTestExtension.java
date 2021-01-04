@@ -194,7 +194,7 @@ public final class RxMicroRestBasedMicroServiceTestExtension extends AbstractJUn
         clearContainer();
         clearFactories();
         resetDefaultConfigValueStorage();
-        resetServerConfigurationIfPossible();
+        resetConfigurationIfPossible();
         serverContainer.unregisterAllRestControllers();
         systemStreamInjector.resetIfNecessary();
     }

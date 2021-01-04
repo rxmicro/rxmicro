@@ -16,7 +16,7 @@
 
 package io.rxmicro.test.junit.internal;
 
-import io.rxmicro.rest.server.local.component.ServerConfigurationResetController;
+import io.rxmicro.common.local.ConfigurationResetController;
 import io.rxmicro.test.junit.RxMicroComponentTest;
 import io.rxmicro.test.junit.RxMicroIntegrationTest;
 import io.rxmicro.test.junit.RxMicroRestBasedMicroServiceTest;
@@ -25,7 +25,7 @@ import java.lang.annotation.Annotation;
 import java.util.ServiceLoader;
 import java.util.Set;
 
-import static io.rxmicro.runtime.local.Implementations.getOptionalImplementation;
+import static io.rxmicro.runtime.local.Implementations.getAllImplementations;
 
 /**
  * @author nedis
@@ -45,8 +45,8 @@ abstract class AbstractJUnitTestExtension {
         return beforeTestInvoker;
     }
 
-    void resetServerConfigurationIfPossible() {
-        getOptionalImplementation(ServerConfigurationResetController.class, ServiceLoader::load)
-                .ifPresent(ServerConfigurationResetController::resetConfiguration);
+    void resetConfigurationIfPossible() {
+        getAllImplementations(ConfigurationResetController.class, ServiceLoader::load)
+                .forEach(ConfigurationResetController::resetConfiguration);
     }
 }

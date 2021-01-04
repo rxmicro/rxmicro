@@ -31,6 +31,7 @@ import java.util.Map;
 import static io.netty.channel.ChannelOption.CONNECT_TIMEOUT_MILLIS;
 import static io.rxmicro.common.CommonConstants.RX_MICRO_FRAMEWORK_NAME;
 import static io.rxmicro.netty.runtime.local.EventLoopGroupFactory.getEventLoopGroupFactory;
+import static io.rxmicro.rest.client.netty.internal.NettyClientConfiguratorBuilderImpl.PROCESSED_NAMESPACES;
 import static io.rxmicro.rest.client.netty.internal.NettyCustomizer.NETTY_CLIENT_CONFIGURATOR_BUILDERS;
 
 /**
@@ -72,6 +73,7 @@ final class NettyHttpClientBuilder {
         if (!config.getRequestTimeout().isZero()) {
             client = client.responseTimeout(config.getRequestTimeout());
         }
+        PROCESSED_NAMESPACES.add(namespace);
         return client;
     }
 

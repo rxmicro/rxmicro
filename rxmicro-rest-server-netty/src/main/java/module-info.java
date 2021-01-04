@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
+import io.rxmicro.common.local.ConfigurationResetController;
 import io.rxmicro.rest.server.detail.component.HttpResponseBuilder;
 import io.rxmicro.rest.server.local.component.HttpErrorResponseBodyBuilder;
-import io.rxmicro.rest.server.local.component.ServerConfigurationResetController;
 import io.rxmicro.rest.server.local.component.ServerFactory;
 import io.rxmicro.rest.server.netty.internal.component.NettyHttpResponseBuilder;
 import io.rxmicro.rest.server.netty.internal.component.NettyServerConfigurationResetController;
@@ -71,6 +71,6 @@ module rxmicro.rest.server.netty {
     uses HttpErrorResponseBodyBuilder;
 
     provides ServerFactory with NettyServerFactory;
-    provides ServerConfigurationResetController with NettyServerConfigurationResetController;
+    provides ConfigurationResetController with NettyServerConfigurationResetController;
     provides HttpResponseBuilder with NettyHttpResponseBuilder;
 }
