@@ -42,7 +42,7 @@ import static java.util.Map.entry;
  *     <li>
  *         {@code serverOptions} contains:
  *          <ul>
- *              <li>{@link ChannelOption#SO_BACKLOG} = {@value InternalNettyConfiguratorBuilder#DEFAULT_BACKLOG_SIZE}</li>
+ *              <li>{@link ChannelOption#SO_BACKLOG} = {@value NettyRestServerConfig#DEFAULT_BACKLOG_SIZE}</li>
  *          </ul>
  *     </li>
  *     <li>
@@ -50,7 +50,7 @@ import static java.util.Map.entry;
  *         <ul>
  *             <li>{@link io.netty.handler.codec.http.HttpServerCodec} with default settings</li>
  *             <li>{@link io.netty.handler.codec.http.HttpObjectAggregator} with {@code maxContentLength} =
- *                  {@value InternalNettyConfiguratorBuilder#DEFAULT_AGGREGATOR_CONTENT_LENGTH_IN_BYTES} bytes and
+ *                  {@value NettyRestServerConfig#DEFAULT_AGGREGATOR_CONTENT_LENGTH_IN_BYTES} bytes and
  *                  {@code closeOnExpectationFailed} = {@code true}</li>
  *         </ul>
  *     </li>
