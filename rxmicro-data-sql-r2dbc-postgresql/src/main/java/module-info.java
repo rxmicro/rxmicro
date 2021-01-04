@@ -52,7 +52,7 @@
 module rxmicro.data.sql.r2dbc.postgresql {
     requires transitive rxmicro.data.sql.r2dbc;
     requires transitive rxmicro.netty.runtime;
-    requires reactor.netty;
+    requires reactor.netty.core;
 
     requires transitive r2dbc.postgresql;
     requires transitive r2dbc.pool;
