@@ -150,10 +150,12 @@ jobs:
   # ------------- Verify examples using the latest RxMicro framework ------------------------------------
   # ------------- https://github.com/rxmicro/rxmicro-usage/tree/master/examples -------------------------
   # -----------------------------------------------------------------------------------------------------
-  verify-examples:
+  verify-rxmicro-examples:
     name: Verify ${{ matrix.group }} examples
     runs-on: ubuntu-latest
-    needs: build-latest-rxmicro-framework
+    needs:
+      - build-latest-rxmicro-framework
+      - verify-using-profiles
     strategy:
       matrix:
         group:
@@ -171,16 +173,83 @@ jobs:
           - group-unnamed-module
           - group-validation
           - quick-start
-        install-graalvm: [ false ]
-        include:
-          - group: group-graalvm
-            install-graalvm: true
       fail-fast: false
     steps:
-      # https://github.com/actions/checkout/blob/main/README.md
-      - name: Checkout rxmicro repo
-        uses: actions/checkout@v2
+      # https://github.com/actions/cache/blob/main/README.md
+      - name: Setup m2 local repo
+        uses: actions/cache@v2
+        with:
+          path: ~/.m2/repository
+          key: rxmicro-m2-local-${{ runner.os }}-repo
 
+      - name: Checkout examples
+        run: git clone https://github.com/rxmicro/rxmicro-usage
+
+      # https://github.com/actions/setup-java/blob/main/README.md
+      - name: Setup JDK ${{ env.DEFAULT_JDK_LTS_VERSION }}
+        uses: actions/setup-java@v1
+        with:
+          java-version: ${{ env.DEFAULT_JDK_LTS_VERSION }}
+
+      # https://github.com/actions/download-artifact/blob/main/README.md
+      - name: Download latest rxmicro artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: rxmicro-framework
+          path: ~/.m2/repository/io/rxmicro/
+
+      - name: Resolve RxMicro Framework Version
+        run: find ~/.m2/repository/io/rxmicro/rxmicro/ -maxdepth 1 -type d -name "*-SNAPSHOT" -printf "%f\n" > RXMICRO_VERSION.txt
+
+      - name: Verify ${{ matrix.group }}
+        run: |
+          LATEST_VERSION=$(cat RXMICRO_VERSION.txt)
+          cd rxmicro-usage/examples/${{ matrix.group }}
+          mvn --fail-at-end -Drxmicro.version=$LATEST_VERSION verify
+
+      - name: Collect jacoco metadata
+        run: |
+          mkdir -p ~/jacoco
+          cp rxmicro-usage/tool/src/main/java/CopyJacocoExec.java CopyJacocoExec.java
+          java CopyJacocoExec.java rxmicro-usage/examples/${{ matrix.group }} ~/jacoco
+
+      # https://github.com/actions/upload-artifact/blob/main/README.md
+      - name: Save collected jacoco metadata
+        uses: actions/upload-artifact@v2
+        with:
+          name: jacoco-${{ matrix.group }}-meta-data
+          path: ~/jacoco
+          if-no-files-found: ignore
+          retention-days: 1
+
+      # m2 local repo must not contain the snapshot versions!
+      - name: Clear maven cache
+        run: rm -rf ~/.m2/repository/io/rxmicro/
+  # -----------------------------------------------------------------------------------------------------
+  # ------------- Verify examples using the latest RxMicro framework ------------------------------------
+  # ------------- https://github.com/rxmicro/rxmicro-usage/tree/master/examples -------------------------
+  # -----------------------------------------------------------------------------------------------------
+  verify-graalvm-examples:
+    name: Verify ${{ matrix.group }} examples
+    runs-on: ubuntu-latest
+    needs:
+      - build-latest-rxmicro-framework
+      - verify-using-profiles
+    strategy:
+      matrix:
+        group:
+          - graalvm-native-image-config
+          - graalvm-native-image-mongo-data-repository
+          - graalvm-native-image-postgres-data-repository
+          - graalvm-native-image-quick-start
+        maven-profile: ['default']
+        include:
+          - group: graalvm-native-image-rest-client
+            maven-profile: 'jdk-http-client'
+          - group: graalvm-native-image-rest-client
+            maven-profile: 'netty-http-client'
+      fail-fast: false
+    steps:
       # https://github.com/actions/cache/blob/main/README.md
       - name: Setup m2 local repo
         uses: actions/cache@v2
@@ -200,7 +269,6 @@ jobs:
       # https://www.graalvm.org/downloads/
       # https://www.graalvm.org/docs/getting-started/#native-images
       - name: Install Graalvm and Native Image
-        if: ${{ matrix.install-graalvm }}
         run: |
           GRAAL_VM_BUILD=graalvm-ce-java11-linux-amd64-${{env.GRAAL_VM_VERSION}}
           DOWNLOAD_LINK=https://github.com/graalvm/graalvm-ce-builds/releases/download/vm-${{env.GRAAL_VM_VERSION}}/${GRAAL_VM_BUILD}.tar.gz
@@ -209,7 +277,7 @@ jobs:
           tar --strip-components=1 -xvzf ~/GraalVM/${GRAAL_VM_BUILD}.tar.gz -C ~/GraalVM
           rm -f ~/GraalVM/${GRAAL_VM_BUILD}.tar.gz
           ~/GraalVM/bin/gu install native-image
-          find rxmicro-usage/examples/${{ matrix.group }}/ -maxdepth 1 -type d -exec ln -s ~/GraalVM/bin/native-image {}/native-image \;
+          find rxmicro-usage/examples/group-graalvm/${{ matrix.group }}/ -maxdepth 1 -type d -exec ln -s ~/GraalVM/bin/native-image {}/native-image \;
 
       # https://github.com/actions/download-artifact/blob/main/README.md
       - name: Download latest rxmicro artifacts
@@ -218,21 +286,33 @@ jobs:
           name: rxmicro-framework
           path: ~/.m2/repository/io/rxmicro/
 
-      # Print dir tree with file size for debug purposes
-      - name: Show downloaded rxmicro artifacts
-        run: |
-          sudo apt install tree
-          tree -ahD ~/.m2/repository/io/rxmicro/
+      - name: Resolve RxMicro Framework Version
+        run: find ~/.m2/repository/io/rxmicro/rxmicro/ -maxdepth 1 -type d -name "*-SNAPSHOT" -printf "%f\n" > RXMICRO_VERSION.txt
 
       - name: Verify ${{ matrix.group }}
         run: |
-          LATEST_VERSION=$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)
+          LATEST_VERSION=$(cat RXMICRO_VERSION.txt)
           export GRAALVM_HOME=~/GraalVM
-          cd rxmicro-usage/examples/${{ matrix.group }}
-          mvn --fail-at-end -Drxmicro.version=$LATEST_VERSION verify
+          cd rxmicro-usage/examples/group-graalvm/${{ matrix.group }}
+          mvn --fail-at-end -Drxmicro.version=$LATEST_VERSION -P ${{ matrix.maven-profile }} verify
+
+      - name: Collect jacoco metadata
+        run: |
+          mkdir -p ~/jacoco
+          cp rxmicro-usage/tool/src/main/java/CopyJacocoExec.java CopyJacocoExec.java
+          java CopyJacocoExec.java rxmicro-usage/examples/group-graalvm/${{ matrix.group }} ~/jacoco
+
+      # https://github.com/actions/upload-artifact/blob/main/README.md
+      - name: Save collected jacoco metadata
+        uses: actions/upload-artifact@v2
+        with:
+          name: jacoco-${{ matrix.group }}-meta-data
+          path: ~/jacoco
+          if-no-files-found: ignore
+          retention-days: 1
 
       # m2 local repo must not contain the snapshot versions!
-      - name: Remove latest rxmicro artefacts
+      - name: Clear maven cache
         run: rm -rf ~/.m2/repository/io/rxmicro/
   # -----------------------------------------------------------------------------------------------------
   # ------------- Update User Guide (User Guide must use the latest RxMicro framework version) ----------
@@ -321,7 +401,8 @@ jobs:
     needs:
       - verify-using-profiles
       - verify-on-linux-windows-and-macos
-      - verify-examples
+      - verify-rxmicro-examples
+      - verify-graalvm-examples
       - update-user-guide
 
     steps:
