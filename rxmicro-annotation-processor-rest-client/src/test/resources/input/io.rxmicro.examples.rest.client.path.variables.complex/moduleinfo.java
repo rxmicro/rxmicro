@@ -15,6 +15,6 @@
  */
 
 module examples.rest.client.path.variables.complex {
-    requires rxmicro.rest.client.jdk;
+    requires rxmicro.rest.client;
     requires rxmicro.rest.client.exchange.json;
 }

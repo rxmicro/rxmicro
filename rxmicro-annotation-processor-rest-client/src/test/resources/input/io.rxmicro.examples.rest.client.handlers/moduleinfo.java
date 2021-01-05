@@ -15,7 +15,7 @@
  */
 
 module examples.rest.client.handlers {
-    requires rxmicro.rest.client.jdk;
+    requires rxmicro.rest.client;
     requires rxmicro.rest.client.exchange.json;
     requires reactor.core;
     requires io.reactivex.rxjava3;
