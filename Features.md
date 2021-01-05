@@ -92,7 +92,7 @@ Metrics                                                 | TODO
 All date time class support                             | TODO
 `Transfer-Encoding` support                             | TODO
 File upload support                                     | TODO
-Send file support                                       | TODO
+Send file support                                       | **Supported**
 
 ## Rest client features
 
@@ -117,8 +117,8 @@ Base URL Path                                           | **Supported**
 Follow redirects                                        | **Supported**
 Request timeout                                         | **Supported**
 Partial Implementation                                  | **Supported**
-SSL                                                     | TODO
-Security                                                | TODO
+SSL                                                     | **Supported**
+Security                                                | **Supported**
 Circuit Breakers                                        | TODO
 Fallback                                                | TODO
 Retry                                                   | TODO
