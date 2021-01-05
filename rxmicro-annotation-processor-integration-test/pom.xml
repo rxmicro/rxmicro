@@ -118,7 +118,7 @@
         <dependency>
             <groupId>com.google.testing.compile</groupId>
             <artifactId>compile-testing</artifactId>
-            <version>${compile.google.testing.version}</version>
+            <version>${google.compile-testing.version}</version>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>

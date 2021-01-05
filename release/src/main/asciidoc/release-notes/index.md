@@ -8,6 +8,25 @@ This document contains the *change log* for all RxMicro releases since **0.2**.
 * Fix `Deterministic96BitsRequestIdGenerator`.
 * Set `JdkLoggerFactory.INSTANCE` as default logger factory for netty.
 * Update `HttpServerConfig` class.
+* Add default implementation for `HttpErrorResponseBodyBuilder`.
+* Update dependency hierarchy: now `rxmicro.runtime` module depends on `rxmicro.config` one.
+* Add `LoggerEvent` and `LoggerEventBuilder` interfaces that must be used to build logger event with custom data.
+* Introduce `rxmicro.netty.runtime` module.
+* Add ability configuring the netty event loop groups.
+* Rename `rxmicro.files` module to `rxmicro.resource` one.
+* Remove `rxmicro.http.client` and `rxmicro.http-client.jdk` modules.
+* Moves logic from `rxmicro.http.client` and `rxmicro.http.client.jdk` to `rxmicro.rest.client` and `rxmicro.http.rest.jdk` modules.
+* Rename `ClientHttpResponse` interface to `HttpResponse` one.
+* Provide a separate jdk http client for test environment: 
+  Now it is not necessary to add `rxmicro.http.rest.jdk` dependency to test scope if rest based or integration test will be written!
+* Remove unsupported void promises for `rxmicro.rest.server.netty` module.
+* Introduce `rxmicro.rest.client.netty` module.
+* Dependency updates:
+  * `guava`: 30.0-jre -> 30.1-jre 
+  * `netty`: 4.1.55.Final -> 4.1.56.Final
+  * `rxjava`: 3.0.8 -> 3.0.9
+* Source code tool updates:
+  * `checkstyle`: 8.38 -> 8.39
 
 ## RxMicro v0.7.4
 
