@@ -51,7 +51,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 )
 @ReadMore(
         caption = "What is request id?",
-        link = "https://docs.rxmicro.io/latest/user-guide/rest-controller.html#rest-controller-rqeuest-id-section"
+        link = "https://docs.rxmicro.io/latest/user-guide/monitoring.html#monitoring-request-id-section"
 )
 public @interface RequestId {
 
