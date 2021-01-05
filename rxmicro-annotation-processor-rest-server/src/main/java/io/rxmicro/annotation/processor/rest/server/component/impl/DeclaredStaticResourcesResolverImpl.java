@@ -104,7 +104,7 @@ public final class DeclaredStaticResourcesResolverImpl extends BaseUrlBuilder im
         if (staticResources.value().length != 0 && staticResources.urls().length != 0) {
             throw new InterruptProcessingException(
                     owner,
-                    "'value' and 'urls' annotation parameters of '@?' annotation are aliases and can't be used together!" +
+                    "'value' and 'urls' annotation parameters of '@?' annotation are aliases and can't be used together! " +
                             "Remove 'value' or 'urls' annotation parameter!",
                     StaticResources.class.getSimpleName()
             );
