@@ -38,7 +38,6 @@ import io.rxmicro.annotation.processor.rest.server.model.RestControllerClassStru
 import io.rxmicro.annotation.processor.rest.server.model.RestControllerClassStructureStorage;
 import io.rxmicro.annotation.processor.rest.server.model.RestControllerMethod;
 import io.rxmicro.documentation.DocumentationDefinition;
-import io.rxmicro.documentation.IntroductionDefinition;
 import io.rxmicro.documentation.ModelExceptionErrorResponse;
 import io.rxmicro.documentation.ResourceDefinition;
 import io.rxmicro.documentation.SimpleErrorResponse;
@@ -58,6 +57,8 @@ import static io.rxmicro.annotation.processor.common.util.Errors.createInternalE
 import static io.rxmicro.annotation.processor.documentation.asciidoctor.component.CharacteristicsReader.REQUIRED_RESTRICTION;
 import static io.rxmicro.annotation.processor.documentation.asciidoctor.component.DocumentedModelFieldBuilder.buildApiVersionHeaderDocumentedModelField;
 import static io.rxmicro.common.RxMicroModule.RX_MICRO_VALIDATION_MODULE;
+import static io.rxmicro.documentation.DocumentationDefinition.GenerationOutput.RESOURCES_SECTION;
+import static io.rxmicro.documentation.IntroductionDefinition.Section.ERROR_MODEL;
 import static io.rxmicro.json.JsonHelper.toJsonString;
 import static io.rxmicro.rest.model.HttpModelType.HEADER;
 import static io.rxmicro.rest.model.HttpModelType.PARAMETER;
@@ -206,14 +207,17 @@ public final class ResponsesBuilderImpl implements ResponsesBuilder {
 
     private List<ReadMoreModel> getShowErrorCauseReadMoreLinks(final DocumentationDefinition documentationDefinition,
                                                                final ResourceDefinition resourceDefinition) {
-        return Arrays.stream(documentationDefinition.introduction().sectionOrder())
-                .anyMatch(s -> s == IntroductionDefinition.Section.ERROR_MODEL) && resourceDefinition.withReadMore() ?
-                List.of(new ReadMoreModel(
-                        "_(How to activate the displaying of the detailed error message?)_",
-                        "internal-error-message-read-more",
-                        true
-                )) :
-                List.of();
+        if (resourceDefinition.withReadMore() &&
+                Arrays.stream(documentationDefinition.introduction().sectionOrder()).anyMatch(s -> s == ERROR_MODEL) &&
+                Arrays.stream(documentationDefinition.output()).noneMatch(o -> RESOURCES_SECTION == o)) {
+            return List.of(new ReadMoreModel(
+                    "_(How to activate the displaying of the detailed error message?)_",
+                    "internal-error-message-read-more",
+                    true
+            ));
+        } else {
+            return List.of();
+        }
     }
 
     private Response addValidationErrorResponse(final ResourceDefinition resourceDefinition) {

@@ -566,8 +566,6 @@ a|
 * [small]#`required: true`#
 a|`Internal Server Error` value (by default) or the detailed cause of the arisen internal server error.
 
-.Read more:
-* [small]#xref:internal-error-message-read-more[__(How to activate the displaying of the detailed error message?)__]#
 |===
 
 // -------------------------------------------- Micro Service1 | GET /${category}/${type} | Response 504 --------------------------------------------
@@ -620,7 +618,5 @@ a|
 * [small]#`required: true`#
 a|Code: 504
 
-.Read more:
-* [small]#xref:internal-error-message-read-more[__(How to activate the displaying of the detailed error message?)__]#
 |===
 

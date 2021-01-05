@@ -433,8 +433,6 @@ a|
 * [small]#`required: true`#
 a|`Internal Server Error` value (by default) or the detailed cause of the arisen internal server error.
 
-.Read more:
-* [small]#xref:internal-error-message-read-more[__(How to activate the displaying of the detailed error message?)__]#
 |===
 
 // ------------------------------------------------ Micro Service2 | GET /latest/test | Response 504 ------------------------------------------------
@@ -487,7 +485,5 @@ a|
 * [small]#`required: true`#
 a|`Gateway Timeout` value (by default) or contains external rest micro service endpoint, which is not available now.
 
-.Read more:
-* [small]#xref:internal-error-message-read-more[__(How to activate the displaying of the detailed error message?)__]#
 |===
 
