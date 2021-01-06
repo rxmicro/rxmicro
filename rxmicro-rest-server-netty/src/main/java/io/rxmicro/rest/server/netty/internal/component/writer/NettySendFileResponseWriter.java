@@ -108,7 +108,7 @@ public final class NettySendFileResponseWriter extends BaseNettyResponseWriter {
     private String getPathExtension(final Path sendFilePath) {
         final String name = String.valueOf(sendFilePath.getFileName());
         final int index = name.lastIndexOf('.');
-        return index != -1 ? name.substring(index) : name;
+        return index != -1 ? name.substring(index + 1) : name;
     }
 
     private void setCacheHeaders(final NettyHttpResponse response,
