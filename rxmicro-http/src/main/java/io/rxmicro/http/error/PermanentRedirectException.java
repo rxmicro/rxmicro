@@ -18,6 +18,8 @@ package io.rxmicro.http.error;
 
 import io.rxmicro.common.util.Formats;
 
+import static io.rxmicro.http.HttpStatuses.PERMANENT_REDIRECT_308;
+
 /**
  * A class that signals the need to perform Permanent Redirect ({@code 308}).
  *
@@ -29,7 +31,7 @@ public final class PermanentRedirectException extends RedirectException {
     /**
      * Status code for the all instances of the current exception type.
      */
-    public static final int STATUS_CODE = 308;
+    public static final int STATUS_CODE = PERMANENT_REDIRECT_308;
 
     /**
      * Creates a Permanent Redirect instance with new URL path.

@@ -18,6 +18,8 @@ package io.rxmicro.http.error;
 
 import io.rxmicro.common.util.Formats;
 
+import static io.rxmicro.http.HttpStatuses.INTERNAL_SERVER_ERROR_500;
+
 /**
  * A class signaling that an internal error has occurred during execution.
  *
@@ -29,7 +31,7 @@ public final class InternalHttpErrorException extends HttpErrorException {
     /**
      * Status code for the all instances of the current exception type.
      */
-    public static final int STATUS_CODE = 500;
+    public static final int STATUS_CODE = INTERNAL_SERVER_ERROR_500;
 
     /**
      * Creates an internal HTTP error with error message.

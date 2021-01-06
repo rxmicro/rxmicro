@@ -44,6 +44,8 @@ import java.util.stream.Stream;
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.http.HttpHeaders.of;
 import static io.rxmicro.http.HttpStandardHeaderNames.ACCESS_CONTROL_ALLOW_ORIGIN;
+import static io.rxmicro.http.HttpStatuses.BAD_REQUEST_400;
+import static io.rxmicro.http.HttpStatuses.INTERNAL_SERVER_ERROR_500;
 import static io.rxmicro.http.HttpVersion.HTTP_1_1;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
@@ -212,7 +214,7 @@ final class BaseRestControllerMethod_HttpCallFailedException_IntegrationTest ext
     private static class ThrowServerErrorHttpCallFailedExceptionWithBodyArgumentsProvider implements ArgumentsProvider {
 
         private static final HttpCallFailedException HTTP_CALL_FAILED_EXCEPTION =
-                new HttpCallFailedException(500, HTTP_1_1, of("Header1", "value1"), null, "<body>") {
+                new HttpCallFailedException(INTERNAL_SERVER_ERROR_500, HTTP_1_1, of("Header1", "value1"), null, "<body>") {
 
                 };
 
@@ -243,7 +245,7 @@ final class BaseRestControllerMethod_HttpCallFailedException_IntegrationTest ext
     private static class ThrowServerErrorHttpCallFailedExceptionWithoutBodyArgumentsProvider implements ArgumentsProvider {
 
         private static final HttpCallFailedException HTTP_CALL_FAILED_EXCEPTION =
-                new HttpCallFailedException(500, HTTP_1_1, of("Header1", "value1"), null, "") {
+                new HttpCallFailedException(INTERNAL_SERVER_ERROR_500, HTTP_1_1, of("Header1", "value1"), null, "") {
 
                 };
 
@@ -273,7 +275,7 @@ final class BaseRestControllerMethod_HttpCallFailedException_IntegrationTest ext
     private static class ThrowClientErrorHttpCallFailedExceptionWithBodyArgumentsProvider implements ArgumentsProvider {
 
         private static final HttpCallFailedException HTTP_CALL_FAILED_EXCEPTION =
-                new HttpCallFailedException(400, HTTP_1_1, of("Header1", "value1"), null, "<body>") {
+                new HttpCallFailedException(BAD_REQUEST_400, HTTP_1_1, of("Header1", "value1"), null, "<body>") {
 
                 };
 

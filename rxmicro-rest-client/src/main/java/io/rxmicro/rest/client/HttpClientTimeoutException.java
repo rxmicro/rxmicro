@@ -20,6 +20,8 @@ import io.rxmicro.common.util.Formats;
 import io.rxmicro.http.error.HttpErrorException;
 import io.rxmicro.rest.client.detail.HttpClient;
 
+import static io.rxmicro.http.HttpStatuses.GATEWAY_TIMEOUT_504;
+
 /**
  * A class signaling that the HTTP client didn’t receive a response from the server in given time.
  *
@@ -32,7 +34,7 @@ public final class HttpClientTimeoutException extends HttpErrorException {
     /**
      * Status code for the all instances of the current exception type.
      */
-    public static final int STATUS_CODE = 504;
+    public static final int STATUS_CODE = GATEWAY_TIMEOUT_504;
 
     /**
      * Creates a HTTP error with error message.

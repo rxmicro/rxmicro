@@ -47,6 +47,7 @@ import java.util.stream.Stream;
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.http.HttpStandardHeaderNames.ACCESS_CONTROL_ALLOW_ORIGIN;
 import static io.rxmicro.http.HttpStandardHeaderNames.LOCATION;
+import static io.rxmicro.http.HttpStatuses.TEMPORARY_REDIRECT_307;
 import static java.util.concurrent.CompletableFuture.failedStage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -241,7 +242,7 @@ final class BaseRestControllerMethod_Redirect_IntegrationTest extends AbstractBa
     private static final class UserRedirectException extends HttpErrorException {
 
         private UserRedirectException() {
-            super(307);
+            super(TEMPORARY_REDIRECT_307);
         }
     }
 }

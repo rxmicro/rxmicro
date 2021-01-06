@@ -18,6 +18,8 @@ package io.rxmicro.http.error;
 
 import io.rxmicro.common.util.Formats;
 
+import static io.rxmicro.http.HttpStatuses.TEMPORARY_REDIRECT_307;
+
 /**
  * A class that signals the need to perform Temporary Redirect ({@code 307}).
  *
@@ -29,7 +31,7 @@ public final class TemporaryRedirectException extends RedirectException {
     /**
      * Status code for the all instances of the current exception type.
      */
-    public static final int STATUS_CODE = 307;
+    public static final int STATUS_CODE = TEMPORARY_REDIRECT_307;
 
     /**
      * Creates a Temporary Redirect instance with new URL path.

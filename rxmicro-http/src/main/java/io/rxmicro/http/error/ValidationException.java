@@ -20,6 +20,7 @@ import io.rxmicro.common.util.Formats;
 
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.Strings.capitalize;
+import static io.rxmicro.http.HttpStatuses.BAD_REQUEST_400;
 
 /**
  * A class signaling that the client has sent a {@code Bad Request}.
@@ -32,7 +33,7 @@ public final class ValidationException extends HttpErrorException {
     /**
      * Status code for the all instances of the current exception type.
      */
-    public static final int STATUS_CODE = 400;
+    public static final int STATUS_CODE = BAD_REQUEST_400;
 
     /**
      * Creates a {@code Bad Request} HTTP error with error message.
