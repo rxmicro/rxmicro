@@ -20,7 +20,7 @@
     <parent>
         <artifactId>rxmicro</artifactId>
         <groupId>io.rxmicro</groupId>
-        <version>0.8-SNAPSHOT</version>
+        <version>0.9-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>rxmicro-annotation-processor-data-mongo</artifactId>
@@ -89,18 +89,18 @@
         <dependency>
             <groupId>io.rxmicro</groupId>
             <artifactId>rxmicro-data-mongo</artifactId>
-            <version>0.8-SNAPSHOT</version>
+            <version>0.9-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>io.rxmicro</groupId>
             <artifactId>rxmicro-annotation-processor-data</artifactId>
-            <version>0.8-SNAPSHOT</version>
+            <version>0.9-SNAPSHOT</version>
         </dependency>
 
         <dependency>
             <groupId>io.rxmicro</groupId>
             <artifactId>rxmicro-annotation-processor-integration-test</artifactId>
-            <version>0.8-SNAPSHOT</version>
+            <version>0.9-SNAPSHOT</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
