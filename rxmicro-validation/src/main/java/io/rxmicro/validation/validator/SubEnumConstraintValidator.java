@@ -19,6 +19,7 @@ package io.rxmicro.validation.validator;
 import io.rxmicro.http.error.ValidationException;
 import io.rxmicro.rest.model.HttpModelType;
 import io.rxmicro.validation.ConstraintValidator;
+import io.rxmicro.validation.base.ParametrizedConstraintValidator;
 
 import java.util.HashSet;
 import java.util.List;
@@ -32,6 +33,7 @@ import java.util.Set;
  * @see io.rxmicro.validation.constraint.SubEnum
  * @since 0.1
  */
+@ParametrizedConstraintValidator
 public class SubEnumConstraintValidator<T extends Enum<T>> implements ConstraintValidator<T> {
 
     private final Set<String> allowed;

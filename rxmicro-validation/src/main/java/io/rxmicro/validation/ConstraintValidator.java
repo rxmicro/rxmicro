@@ -68,7 +68,7 @@ public interface ConstraintValidator<T> {
      * <p>
      * If the {@code iterable} is {@code null} validator does not throw {@link ValidationException}.
      *
-     * @param iterable          the iterable to validate
+     * @param iterable      the iterable to validate
      * @param httpModelType the http model type
      * @param modelName     the parameter or header name
      * @throws ValidationException if value does not pass the constraint
@@ -92,11 +92,11 @@ public interface ConstraintValidator<T> {
      * <p>
      * If the {@code iterable} is {@code null} validator does not throw {@link ValidationException}.
      *
-     * @param models the model list to validate
+     * @param iterable the iterable to validate
      * @throws ValidationException if value does not pass the constraint
      */
-    default void validateIterable(final Iterable<T> models) {
-        validateIterable(models, null, null);
+    default void validateIterable(final Iterable<T> iterable) {
+        validateIterable(iterable, null, null);
     }
 
     /**

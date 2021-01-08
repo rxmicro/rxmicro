@@ -67,27 +67,27 @@ public final class AnnotationValueValidatorImpl extends BaseProcessorComponent
     @Override
     public void validate(final ModelConstraintAnnotation modelConstraintAnnotation,
                          final RestModelField restModelField) {
-        if (Enumeration.class.getName().equals(modelConstraintAnnotation.getAnnotationFullName())) {
+        if (Enumeration.class.getName().equals(modelConstraintAnnotation.getConstraintAnnotationFullName())) {
             validateEnumeration(restModelField);
-        } else if (MaxDouble.class.getName().equals(modelConstraintAnnotation.getAnnotationFullName())) {
+        } else if (MaxDouble.class.getName().equals(modelConstraintAnnotation.getConstraintAnnotationFullName())) {
             if (Float.class.getName().equals(restModelField.getFieldClass().toString())) {
                 final double value = restModelField.getAnnotation(MaxDouble.class).value();
                 numberValidators.validateFloat(restModelField, value, MaxDouble.class);
             }
-        } else if (MinDouble.class.getName().equals(modelConstraintAnnotation.getAnnotationFullName())) {
+        } else if (MinDouble.class.getName().equals(modelConstraintAnnotation.getConstraintAnnotationFullName())) {
             if (Float.class.getName().equals(restModelField.getFieldClass().toString())) {
                 final double value = restModelField.getAnnotation(MinDouble.class).value();
                 numberValidators.validateFloat(restModelField, value, MinDouble.class);
             }
-        } else if (MaxInt.class.getName().equals(modelConstraintAnnotation.getAnnotationFullName()) ||
-                MinInt.class.getName().equals(modelConstraintAnnotation.getAnnotationFullName())) {
+        } else if (MaxInt.class.getName().equals(modelConstraintAnnotation.getConstraintAnnotationFullName()) ||
+                MinInt.class.getName().equals(modelConstraintAnnotation.getConstraintAnnotationFullName())) {
             validateMinMaxInt(modelConstraintAnnotation, restModelField);
-        } else if (MaxNumber.class.getName().equals(modelConstraintAnnotation.getAnnotationFullName()) ||
-                MinNumber.class.getName().equals(modelConstraintAnnotation.getAnnotationFullName())) {
+        } else if (MaxNumber.class.getName().equals(modelConstraintAnnotation.getConstraintAnnotationFullName()) ||
+                MinNumber.class.getName().equals(modelConstraintAnnotation.getConstraintAnnotationFullName())) {
             validateMinMaxNumber(modelConstraintAnnotation, restModelField);
-        } else if (Pattern.class.getName().equals(modelConstraintAnnotation.getAnnotationFullName())) {
+        } else if (Pattern.class.getName().equals(modelConstraintAnnotation.getConstraintAnnotationFullName())) {
             validateRegExpSyntax(restModelField);
-        } else if (SubEnum.class.getName().equals(modelConstraintAnnotation.getAnnotationFullName())) {
+        } else if (SubEnum.class.getName().equals(modelConstraintAnnotation.getConstraintAnnotationFullName())) {
             validateEnumConstants(restModelField);
         }
         // Add new validation here
@@ -97,7 +97,7 @@ public final class AnnotationValueValidatorImpl extends BaseProcessorComponent
                                    final RestModelField restModelField) {
         final long value;
         final Class<? extends Annotation> annotation;
-        if (MaxInt.class.getName().equals(modelConstraintAnnotation.getAnnotationFullName())) {
+        if (MaxInt.class.getName().equals(modelConstraintAnnotation.getConstraintAnnotationFullName())) {
             value = restModelField.getAnnotation(MaxInt.class).value();
             annotation = MaxInt.class;
         } else {
@@ -117,7 +117,7 @@ public final class AnnotationValueValidatorImpl extends BaseProcessorComponent
                                       final RestModelField restModelField) {
         final String value;
         final Class<? extends Annotation> annotation;
-        if (MaxNumber.class.getName().equals(modelConstraintAnnotation.getAnnotationFullName())) {
+        if (MaxNumber.class.getName().equals(modelConstraintAnnotation.getConstraintAnnotationFullName())) {
             value = restModelField.getAnnotation(MaxNumber.class).value();
             annotation = MaxNumber.class;
         } else {

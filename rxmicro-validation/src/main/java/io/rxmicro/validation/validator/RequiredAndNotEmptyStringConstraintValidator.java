@@ -28,14 +28,14 @@ import io.rxmicro.rest.model.HttpModelType;
  * @see io.rxmicro.validation.constraint.NullableArrayItem
  * @since 0.7
  */
-public class RequiredAndNotEmptyStringConstraintValidator extends RequiredConstraintValidator<String> {
+public class RequiredAndNotEmptyStringConstraintValidator extends RequiredConstraintValidator {
 
     @Override
-    public void validate(final String actual,
+    public void validate(final Object actual,
                          final HttpModelType httpModelType,
                          final String modelName) {
         super.validate(actual, httpModelType, modelName);
-        if (actual.length() == 0) {
+        if (((String) actual).length() == 0) {
             throw new ValidationException("Invalid ? \"?\": Empty string is not valid value!", httpModelType, modelName);
         }
     }

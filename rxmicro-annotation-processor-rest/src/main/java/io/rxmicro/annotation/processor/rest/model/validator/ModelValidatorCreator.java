@@ -32,11 +32,24 @@ public final class ModelValidatorCreator {
 
     private final String constructorArgs;
 
+    private final String validatedType;
+
     ModelValidatorCreator(final String className,
                           final String instanceName,
                           final String constructorArgs) {
         this.className = require(className);
         this.instanceName = require(instanceName);
+        this.validatedType = null;
+        this.constructorArgs = require(constructorArgs);
+    }
+
+    ModelValidatorCreator(final String className,
+                          final String instanceName,
+                          final String validatedType,
+                          final String constructorArgs) {
+        this.className = require(className);
+        this.instanceName = require(instanceName);
+        this.validatedType = require(validatedType);
         this.constructorArgs = require(constructorArgs);
     }
 
@@ -44,25 +57,36 @@ public final class ModelValidatorCreator {
                           final String instanceName) {
         this.className = require(className);
         this.instanceName = require(instanceName);
+        this.validatedType = null;
         this.constructorArgs = null;
     }
 
-    @UsedByFreemarker
+    @UsedByFreemarker("$$RestModelValidatorTemplate.javaftl")
     public String getClassName() {
         return className;
     }
 
-    @UsedByFreemarker
+    @UsedByFreemarker("$$RestModelValidatorTemplate.javaftl")
     public String getInstanceName() {
         return instanceName;
     }
 
-    @UsedByFreemarker
+    @UsedByFreemarker("$$RestModelValidatorTemplate.javaftl")
     public String getConstructorArgs() {
-        return constructorArgs;
+        return require(constructorArgs);
     }
 
-    @UsedByFreemarker
+    @UsedByFreemarker("$$RestModelValidatorTemplate.javaftl")
+    public boolean isValidatedTypePresent() {
+        return validatedType != null;
+    }
+
+    @UsedByFreemarker("$$RestModelValidatorTemplate.javaftl")
+    public String getValidatedType() {
+        return require(validatedType);
+    }
+
+    @UsedByFreemarker("$$RestModelValidatorTemplate.javaftl")
     public boolean isStateless() {
         return constructorArgs == null;
     }

@@ -154,8 +154,7 @@ public final class RestModelValidatorBuilderImpl extends BaseProcessorComponent
             final String constructorArg = getConstructorArgs(builder, modelFieldType, constraintConstructorArg, m.isIterableConstraint());
             final boolean validateIterable = m.isIterableConstraint() ? false : modelFieldType.isIterable();
 
-            builder.add(restModelField, m.getAnnotationSimpleName(),
-                    m.getJavaFullName(), constructorArg, validateIterable);
+            builder.add(restModelField, modelFieldType, m, constructorArg, validateIterable);
         });
         if (modelFieldType.isObject()) {
             builder.add(restModelField, modelFieldType.asObject().getJavaSimpleClassName(), false);
@@ -172,8 +171,8 @@ public final class RestModelValidatorBuilderImpl extends BaseProcessorComponent
                 restModelField.getFieldElement(), builder.getClassHeaderBuilder(),
                 entry.getValue().getValue()
         );
-        if (MinNumber.class.getSimpleName().equals(modelConstraintAnnotation.getAnnotationSimpleName()) ||
-                MaxNumber.class.getSimpleName().equals(modelConstraintAnnotation.getAnnotationSimpleName())) {
+        if (MinNumber.class.getName().equals(modelConstraintAnnotation.getConstraintAnnotationFullName()) ||
+                MaxNumber.class.getName().equals(modelConstraintAnnotation.getConstraintAnnotationFullName())) {
             return removeUnderscoresIfPresent(result);
         } else {
             return result;

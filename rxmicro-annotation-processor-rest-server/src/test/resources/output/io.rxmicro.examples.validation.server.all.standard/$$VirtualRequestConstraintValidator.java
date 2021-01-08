@@ -280,8 +280,8 @@ public final class $$VirtualRequestConstraintValidator implements ConstraintVali
     private final TruncatedTimeInstantConstraintValidator instantParameterTruncatedTimeTruncatedTimeInstantConstraintValidator =
             new TruncatedTimeInstantConstraintValidator(Truncated.MILLIS);
 
-    private final SubEnumConstraintValidator colorParameterSubEnumSubEnumConstraintValidator =
-            new SubEnumConstraintValidator(Color.class, List.of("RED", "BLUE"), List.of());
+    private final SubEnumConstraintValidator<Color> colorParameterSubEnumSubEnumConstraintValidator =
+            new SubEnumConstraintValidator<>(Color.class, List.of("RED", "BLUE"), List.of());
 
     private final MaxSizeListConstraintValidator booleanValuesMaxSizeMaxSizeListConstraintValidator =
             new MaxSizeListConstraintValidator(50, true);
@@ -508,8 +508,8 @@ public final class $$VirtualRequestConstraintValidator implements ConstraintVali
     private final SizeListConstraintValidator colorsSizeSizeListConstraintValidator =
             new SizeListConstraintValidator(12);
 
-    private final SubEnumConstraintValidator colorsSubEnumSubEnumConstraintValidator =
-            new SubEnumConstraintValidator(Color.class, List.of("RED", "BLUE"), List.of());
+    private final SubEnumConstraintValidator<Color> colorsSubEnumSubEnumConstraintValidator =
+            new SubEnumConstraintValidator<>(Color.class, List.of("RED", "BLUE"), List.of());
 
     private final MaxSizeSetConstraintValidator booleanSetMaxSizeMaxSizeSetConstraintValidator =
             new MaxSizeSetConstraintValidator(50, true);
@@ -736,8 +736,8 @@ public final class $$VirtualRequestConstraintValidator implements ConstraintVali
     private final SizeSetConstraintValidator colorSetSizeSizeSetConstraintValidator =
             new SizeSetConstraintValidator(12);
 
-    private final SubEnumConstraintValidator colorSetSubEnumSubEnumConstraintValidator =
-            new SubEnumConstraintValidator(Color.class, List.of("RED", "BLUE"), List.of());
+    private final SubEnumConstraintValidator<Color> colorSetSubEnumSubEnumConstraintValidator =
+            new SubEnumConstraintValidator<>(Color.class, List.of("RED", "BLUE"), List.of());
 
     private final MaxSizeMapConstraintValidator booleanMapMaxSizeMaxSizeMapConstraintValidator =
             new MaxSizeMapConstraintValidator(50, true);
@@ -964,8 +964,8 @@ public final class $$VirtualRequestConstraintValidator implements ConstraintVali
     private final SizeMapConstraintValidator colorMapSizeSizeMapConstraintValidator =
             new SizeMapConstraintValidator(12);
 
-    private final SubEnumConstraintValidator colorMapSubEnumSubEnumConstraintValidator =
-            new SubEnumConstraintValidator(Color.class, List.of("RED", "BLUE"), List.of());
+    private final SubEnumConstraintValidator<Color> colorMapSubEnumSubEnumConstraintValidator =
+            new SubEnumConstraintValidator<>(Color.class, List.of("RED", "BLUE"), List.of());
 
     private final CountryCodeConstraintValidator countryCodeAlpha2CountryCodeCountryCodeConstraintValidator =
             new CountryCodeConstraintValidator(Format.ISO_3166_1_ALPHA_2);

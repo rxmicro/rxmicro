@@ -16,6 +16,7 @@
 
 package io.rxmicro.annotation.processor.rest.model.validator;
 
+import io.rxmicro.validation.base.ParametrizedConstraintValidator;
 import io.rxmicro.validation.constraint.MaxSize;
 import io.rxmicro.validation.constraint.MinSize;
 import io.rxmicro.validation.constraint.Size;
@@ -28,20 +29,19 @@ import javax.lang.model.element.AnnotationValue;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
 
-import static io.rxmicro.annotation.processor.common.util.Names.getSimpleName;
 import static io.rxmicro.common.util.Requires.require;
 
 /**
  * @author nedis
  * @since 0.1
  */
-public final class ModelConstraintAnnotation {
+public final class ModelConstraintAnnotation implements ModelValidatorCreatorDescriptor {
 
     private static final Set<String> ITERABLE_VALIDATOR_CONSTRAINT_CLASS_NAMES = Set.of(
-            Size.class.getSimpleName(),
-            MinSize.class.getSimpleName(),
-            MaxSize.class.getSimpleName(),
-            UniqueItems.class.getSimpleName()
+            Size.class.getName(),
+            MinSize.class.getName(),
+            MaxSize.class.getName(),
+            UniqueItems.class.getName()
     );
 
     private final Map<? extends ExecutableElement, ? extends AnnotationValue> elementValues;
@@ -62,20 +62,22 @@ public final class ModelConstraintAnnotation {
         return elementValues;
     }
 
-    public String getAnnotationSimpleName() {
-        return getSimpleName(annotationMirror.getAnnotationType().toString());
-    }
-
-    public String getAnnotationFullName() {
+    @Override
+    public String getConstraintAnnotationFullName() {
         return annotationMirror.getAnnotationType().toString();
     }
 
     public boolean isIterableConstraint() {
-        return ITERABLE_VALIDATOR_CONSTRAINT_CLASS_NAMES.contains(getAnnotationSimpleName());
+        return ITERABLE_VALIDATOR_CONSTRAINT_CLASS_NAMES.contains(getConstraintAnnotationFullName());
     }
 
-    public String getJavaFullName() {
+    @Override
+    public String getValidatorFullClassName() {
         return validatorType.asType().toString();
     }
 
+    @Override
+    public boolean isParametrizedConstraintValidator() {
+        return validatorType.getAnnotation(ParametrizedConstraintValidator.class) != null;
+    }
 }

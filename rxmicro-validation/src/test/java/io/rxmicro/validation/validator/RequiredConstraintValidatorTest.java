@@ -37,7 +37,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 final class RequiredConstraintValidatorTest {
 
-    private final RequiredConstraintValidator<Object> validator = new RequiredConstraintValidator<>();
+    private final RequiredConstraintValidator validator = new RequiredConstraintValidator();
 
     @Test
     @Order(11)

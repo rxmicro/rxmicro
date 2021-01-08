@@ -19,6 +19,7 @@ package io.rxmicro.annotation.processor.rest.model.validator;
 import io.rxmicro.annotation.processor.common.model.ClassHeader;
 import io.rxmicro.annotation.processor.common.model.ClassStructure;
 import io.rxmicro.annotation.processor.common.model.WithParentClassStructure;
+import io.rxmicro.annotation.processor.common.model.type.ModelClass;
 import io.rxmicro.annotation.processor.rest.model.RestModelField;
 import io.rxmicro.annotation.processor.rest.model.RestObjectModelClass;
 import io.rxmicro.http.error.ValidationException;
@@ -37,6 +38,7 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Stream;
 
+import static io.rxmicro.annotation.processor.common.model.ClassHeader.newClassHeaderBuilder;
 import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.REFLECTIONS_FULL_CLASS_NAME;
 import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.getModelTransformerFullClassName;
 import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.getModelTransformerInstanceName;
@@ -169,8 +171,7 @@ public final class ModelValidatorClassStructure extends ClassStructure
     @SuppressWarnings("UnusedReturnValue")
     public static final class Builder {
 
-        private static final String STANDARD_VALIDATOR_PACKAGE =
-                getPackageName(RequiredConstraintValidator.class.getName());
+        private static final String STANDARD_VALIDATOR_PACKAGE = getPackageName(RequiredConstraintValidator.class.getName());
 
         private final ClassHeader.Builder classHeaderBuilder;
 
@@ -188,7 +189,7 @@ public final class ModelValidatorClassStructure extends ClassStructure
 
         public Builder(final RestObjectModelClass modelClass) {
             this.modelClass = require(modelClass);
-            classHeaderBuilder = ClassHeader.newClassHeaderBuilder(getPackageName(modelClass.getModelTypeElement()));
+            classHeaderBuilder = newClassHeaderBuilder(getPackageName(modelClass.getModelTypeElement()));
         }
 
         public boolean isValidatorsNotFound() {
@@ -208,31 +209,38 @@ public final class ModelValidatorClassStructure extends ClassStructure
         public void add(final RestModelField restModelField,
                         final String typeSimpleClassName,
                         final boolean validateIterable) {
-            final String instanceName =
-                    getModelTransformerInstanceName(typeSimpleClassName, ConstraintValidator.class);
+            final String instanceName = getModelTransformerInstanceName(typeSimpleClassName, ConstraintValidator.class);
             modelFieldValidatorsMap.computeIfAbsent(restModelField, m -> new ArrayList<>())
                     .add(new ModelValidator(instanceName, getValidationMethodName(restModelField, validateIterable)));
         }
 
         public void add(final RestModelField restModelField,
-                        final String constraintAnnotationSimpleName,
-                        final String validatorClassOriginal,
+                        final ModelClass modelFieldType,
+                        final ModelValidatorCreatorDescriptor modelValidatorCreatorDescriptor,
                         final String constructorArgs,
                         final boolean validateIterable) {
             final boolean isStateless = (constructorArgs == null || constructorArgs.isEmpty()) &&
-                    getPackageName(validatorClassOriginal).equals(STANDARD_VALIDATOR_PACKAGE);
-            final String validatorClass = getValidatorClassName(validatorClassOriginal);
+                    getPackageName(modelValidatorCreatorDescriptor.getValidatorFullClassName()).equals(STANDARD_VALIDATOR_PACKAGE);
+            final String validatorClass = getValidatorClassName(modelValidatorCreatorDescriptor.getValidatorFullClassName());
             final String instanceName;
             if (isStateless) {
                 instanceName = getDefaultVarName(getSimpleName(validatorClass));
-                stateLessValidatorMap.putIfAbsent(validatorClass,
-                        new ModelValidatorCreator(validatorClass, instanceName));
+                stateLessValidatorMap.putIfAbsent(validatorClass, new ModelValidatorCreator(validatorClass, instanceName));
             } else {
-                instanceName = format("???",
+                instanceName = format(
+                        "???",
                         restModelField.getFieldName(),
-                        constraintAnnotationSimpleName,
-                        getSimpleName(validatorClass));
-                modelValidatorCreators.add(new ModelValidatorCreator(validatorClass, instanceName, constructorArgs));
+                        getSimpleName(modelValidatorCreatorDescriptor.getConstraintAnnotationFullName()),
+                        getSimpleName(validatorClass)
+                );
+                if (modelValidatorCreatorDescriptor.isParametrizedConstraintValidator()) {
+                    final String validatedType = modelFieldType.isIterable() ?
+                            modelFieldType.asIterable().getElementModelClass().getJavaSimpleClassName() :
+                            modelFieldType.getJavaSimpleClassName();
+                    modelValidatorCreators.add(new ModelValidatorCreator(validatorClass, instanceName, validatedType, constructorArgs));
+                } else {
+                    modelValidatorCreators.add(new ModelValidatorCreator(validatorClass, instanceName, constructorArgs));
+                }
             }
             modelFieldValidatorsMap.computeIfAbsent(restModelField, m -> new ArrayList<>())
                     .add(new ModelValidator(instanceName, getValidationMethodName(restModelField, validateIterable)));
@@ -272,7 +280,8 @@ public final class ModelValidatorClassStructure extends ClassStructure
                             .map(e -> new ModelFieldValidatorsInvoker(e.getKey(), e.getValue()))
                             .collect(toList()),
                     stdValidatorClassImports,
-                    childrenValidators);
+                    childrenValidators
+            );
         }
     }
 }

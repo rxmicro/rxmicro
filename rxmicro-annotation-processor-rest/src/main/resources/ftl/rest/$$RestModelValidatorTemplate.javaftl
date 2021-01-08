@@ -17,8 +17,8 @@ public final class ${JAVA_MODEL_CLASS.modelValidatorImplSimpleClassName} impleme
     private final ${CREATOR.className} ${CREATOR.instanceName} =
             getStatelessValidator(${CREATOR.className}.class);
     <#else>
-    private final ${CREATOR.className} ${CREATOR.instanceName} =
-            new ${CREATOR.className}(${CREATOR.constructorArgs});
+    private final ${CREATOR.className}<#if CREATOR.validatedTypePresent><${CREATOR.validatedType}></#if> ${CREATOR.instanceName} =
+            new ${CREATOR.className}<#if CREATOR.validatedTypePresent><></#if>(${CREATOR.constructorArgs});
     </#if>
 
     </#list>
