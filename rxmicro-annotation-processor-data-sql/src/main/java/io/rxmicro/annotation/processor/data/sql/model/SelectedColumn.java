@@ -38,7 +38,8 @@ public final class SelectedColumn {
         return new SelectedColumn(null, require(expression));
     }
 
-    public static SelectedColumn buildExpressionWithAlias(final String expression, final String alias) {
+    public static SelectedColumn buildExpressionWithAlias(final String expression,
+                                                          final String alias) {
         return new SelectedColumn(require(alias), require(expression));
     }
 

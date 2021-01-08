@@ -76,7 +76,8 @@ public final class SQLFieldsOrderExtractorImpl implements SQLFieldsOrderExtracto
         return result;
     }
 
-    private void addColumnTokensToResult(final List<SelectedColumn> result, final List<String> columnTokens) {
+    private void addColumnTokensToResult(final List<SelectedColumn> result,
+                                         final List<String> columnTokens) {
         if (!columnTokens.isEmpty()) {
             result.add(build(columnTokens));
             columnTokens.clear();
@@ -94,7 +95,12 @@ public final class SQLFieldsOrderExtractorImpl implements SQLFieldsOrderExtracto
                         List.of();
                 return SelectedColumn.buildExpressionWithAlias(joinTokensToSQL(expressions), alias);
             } else {
-                return SelectedColumn.buildExpression(joinTokensToSQL(columnTokens));
+                // 'tableNameOrAlias.columnName' expression must be evaluated as 'tableNameOrAlias.columnName AS columnName'
+                if (columnTokens.size() == 3 && ".".equals(columnTokens.get(1))) {
+                    return SelectedColumn.buildExpressionWithAlias(joinTokensToSQL(columnTokens), columnTokens.get(2));
+                } else {
+                    return SelectedColumn.buildExpression(joinTokensToSQL(columnTokens));
+                }
             }
         }
     }
