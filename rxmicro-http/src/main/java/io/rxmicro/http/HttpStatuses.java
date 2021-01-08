@@ -262,7 +262,7 @@ public final class HttpStatuses {
     public static final int AUTHENTICATION_TIMEOUT_419 = 419;
 
     /**
-     * Enhance Your Calm (Twitter)
+     * Enhance Your Calm (Twitter).
      */
     public static final int ENHANCE_YOUR_CALM_420 = 420;
 
@@ -312,7 +312,7 @@ public final class HttpStatuses {
     public static final int REQUEST_HEADER_FIELDS_TOO_LARGE_431 = 431;
 
     /**
-     * No Response (Nginx)
+     * No Response (Nginx).
      */
     public static final int NO_RESPONSE_444 = 444;
 
@@ -322,7 +322,7 @@ public final class HttpStatuses {
     public static final int RETRY_WITH_449 = 449;
 
     /**
-     * Blocked by Windows Parental Controls (Microsoft)
+     * Blocked by Windows Parental Controls (Microsoft).
      */
     public static final int BLOCKED_BY_WINDOWS_PARENTAL_CONTROLS_450 = 450;
 
