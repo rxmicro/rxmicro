@@ -23,6 +23,10 @@ import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingExc
 import io.rxmicro.annotation.processor.documentation.component.DescriptionReader;
 import io.rxmicro.annotation.processor.documentation.component.ExternalResourceReader;
 import io.rxmicro.annotation.processor.documentation.component.IncludeReferenceSyntaxProvider;
+import io.rxmicro.annotation.processor.documentation.model.AnnotationValueProvider;
+import io.rxmicro.annotation.processor.documentation.model.provider.DescriptionAnnotationValueProvider;
+import io.rxmicro.annotation.processor.documentation.model.provider.IncludeDescriptionAnnotationValueProvider;
+import io.rxmicro.annotation.processor.documentation.model.provider.SimpleErrorResponseDescriptionAnnotationValueProvider;
 import io.rxmicro.documentation.Description;
 import io.rxmicro.documentation.IncludeDescription;
 import io.rxmicro.documentation.IncludeMode;
@@ -37,7 +41,7 @@ import javax.lang.model.element.Element;
  * @since 0.1
  */
 @Singleton
-public final class DescriptionReaderImpl implements DescriptionReader {
+public final class DescriptionReaderImpl extends BaseDocumentationReader implements DescriptionReader {
 
     @Inject
     private PathVariablesResolver pathVariablesResolver;
@@ -55,11 +59,13 @@ public final class DescriptionReaderImpl implements DescriptionReader {
         final IncludeDescription includeDescription = element.getAnnotation(IncludeDescription.class);
         validate(element, description, includeDescription);
         if (description != null) {
-            return Optional.of(description.value());
+            final AnnotationValueProvider provider = new DescriptionAnnotationValueProvider(description);
+            return Optional.of(resolveString(element, provider, false));
         }
         if (includeDescription != null) {
+            final AnnotationValueProvider provider = new IncludeDescriptionAnnotationValueProvider(includeDescription);
             return Optional.of(readIncludedDescription(
-                    element, projectDirectory, includeDescription.resource(), includeDescription.includeMode())
+                    element, projectDirectory, resolveString(element, provider, true), includeDescription.includeMode())
             );
         }
         return Optional.empty();
@@ -73,11 +79,13 @@ public final class DescriptionReaderImpl implements DescriptionReader {
         final IncludeDescription includeDescription = simpleErrorResponse.includeDescription();
         validate(element, description, includeDescription);
         if (!description.isEmpty()) {
-            return Optional.of(description);
+            final AnnotationValueProvider provider = new SimpleErrorResponseDescriptionAnnotationValueProvider(simpleErrorResponse);
+            return Optional.of(resolveString(element, provider, false));
         }
         if (!includeDescription.resource().isEmpty()) {
+            final IncludeDescriptionAnnotationValueProvider provider = new IncludeDescriptionAnnotationValueProvider(includeDescription);
             return Optional.of(readIncludedDescription(
-                    element, projectDirectory, includeDescription.resource(), includeDescription.includeMode())
+                    element, projectDirectory, resolveString(element, provider, true), includeDescription.includeMode())
             );
         }
         return Optional.empty();

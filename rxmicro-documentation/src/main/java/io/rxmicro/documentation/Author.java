@@ -69,6 +69,29 @@ public @interface Author {
     String email() default DEFAULT_EMAIL;
 
     /**
+     * Returns the variable definitions for the provided author name and(or) email, using key-value format.
+     *
+     * <p>
+     * For example:
+     *
+     * <pre>
+     * {@code
+     * @Author(
+     *      name = "${firstName}-${lastName}",
+     *      email = "${firstName}-${lastName}@gmail.com",
+     *      variables = {
+     *          "${firstName}", EXTERNAL_CONSTANT_FIRST_NAME,
+     *          "${lastName}", EXTERNAL_CONSTANT_LAST_NAME
+     *      }
+     * )
+     * }
+     * </pre>
+     *
+     * @return the variable definitions for the provided author name and(or) email, using key-value format.
+     */
+    String[] variables() default {};
+
+    /**
      * Defines several {@link Author} annotations on the same element.
      *
      * @author nedis

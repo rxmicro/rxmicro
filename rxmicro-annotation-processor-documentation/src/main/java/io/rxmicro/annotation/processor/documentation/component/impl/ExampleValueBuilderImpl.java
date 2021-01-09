@@ -22,6 +22,7 @@ import io.rxmicro.annotation.processor.common.model.definition.SupportedTypesPro
 import io.rxmicro.annotation.processor.documentation.component.ExampleValueBuilder;
 import io.rxmicro.annotation.processor.documentation.component.impl.example.ExampleValueConverter;
 import io.rxmicro.annotation.processor.documentation.component.impl.example.TypeExampleBuilder;
+import io.rxmicro.annotation.processor.documentation.model.provider.ExampleAnnotationValueProvider;
 import io.rxmicro.annotation.processor.rest.model.RestModelField;
 import io.rxmicro.documentation.Example;
 
@@ -30,6 +31,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import javax.lang.model.element.Element;
 import javax.lang.model.type.DeclaredType;
 import javax.lang.model.type.TypeMirror;
 
@@ -41,7 +43,7 @@ import static java.util.stream.Collectors.toUnmodifiableList;
  * @since 0.1
  */
 @Singleton
-public final class ExampleValueBuilderImpl implements ExampleValueBuilder {
+public final class ExampleValueBuilderImpl extends BaseDocumentationReader implements ExampleValueBuilder {
 
     private final Map<RestModelField, List<Object>> cache = new HashMap<>();
 
@@ -62,11 +64,16 @@ public final class ExampleValueBuilderImpl implements ExampleValueBuilder {
     private List<Object> extractExampleFromField(final RestModelField restModelField) {
         final Example[] examples = restModelField.getAnnotationsByType(Example.class);
         if (examples.length > 0) {
+            final Element owner = restModelField.getFieldElement();
             return Arrays.stream(examples)
                     .map(example -> exampleValueConverters.stream()
                             .filter(b -> b.isSupported(restModelField))
-                            .map(b -> b.convert(restModelField, example.value())).findFirst()
-                            .orElse(example.value())
+                            .map(b -> b.convert(
+                                    restModelField,
+                                    resolveString(owner, new ExampleAnnotationValueProvider(example), false))
+                            )
+                            .findFirst()
+                            .orElse(resolveString(owner, new ExampleAnnotationValueProvider(example), false))
                     )
                     .collect(toUnmodifiableList());
         } else {

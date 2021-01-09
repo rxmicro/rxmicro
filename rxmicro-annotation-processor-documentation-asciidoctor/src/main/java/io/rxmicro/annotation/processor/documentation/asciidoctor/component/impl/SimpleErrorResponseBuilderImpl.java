@@ -21,10 +21,12 @@ import com.google.inject.Singleton;
 import io.rxmicro.annotation.processor.documentation.asciidoctor.component.SimpleErrorResponseBuilder;
 import io.rxmicro.annotation.processor.documentation.asciidoctor.model.Response;
 import io.rxmicro.annotation.processor.documentation.component.DescriptionReader;
+import io.rxmicro.annotation.processor.documentation.model.AnnotationValueProvider;
 import io.rxmicro.annotation.processor.documentation.model.ProjectMetaData;
 import io.rxmicro.annotation.processor.documentation.model.ReadMoreModel;
 import io.rxmicro.annotation.processor.documentation.model.StandardHttpError;
 import io.rxmicro.annotation.processor.documentation.model.StandardHttpErrorStorage;
+import io.rxmicro.annotation.processor.documentation.model.provider.SimpleErrorResponseExampleErrorMessageAnnotationValueProvider;
 import io.rxmicro.documentation.ResourceDefinition;
 import io.rxmicro.documentation.SimpleErrorResponse;
 
@@ -61,10 +63,11 @@ public final class SimpleErrorResponseBuilderImpl extends AbstractErrorResponseB
                         responseBuilder::setDescription,
                         () -> standardHttpErrorStorage.get(status).ifPresent(e -> responseBuilder.setDescription(e.getDescription()))
                 );
+        final AnnotationValueProvider provider = new SimpleErrorResponseExampleErrorMessageAnnotationValueProvider(simpleErrorResponse);
         if (resourceDefinition.withExamples()) {
             setResponseExample(
                     resourceDefinition,
-                    Optional.of(simpleErrorResponse.exampleErrorMessage())
+                    Optional.of(resolveString(owner, provider, false))
                             .filter(v -> !v.isEmpty())
                             .orElseGet(() ->
                                     standardHttpErrorStorage.get(status).map(StandardHttpError::getExampleErrorMessage).orElse("")),
@@ -76,7 +79,7 @@ public final class SimpleErrorResponseBuilderImpl extends AbstractErrorResponseB
             responseBuilder.setHeaders(List.of(buildApiVersionHeaderDocumentedModelField(true)));
         }
         if (resourceDefinition.withBodyParametersDescriptionTable()) {
-            final String messageDescription = Optional.of(simpleErrorResponse.exampleErrorMessage())
+            final String messageDescription = Optional.of(resolveString(owner, provider, false))
                     .filter(v -> !v.isEmpty())
                     .orElseGet(() ->
                             standardHttpErrorStorage.get(status).map(StandardHttpError::getMessageDescription).orElse(""));

@@ -49,6 +49,28 @@ public @interface Example {
     String value();
 
     /**
+     * Returns the variable definitions for the provided example value, using key-value format.
+     *
+     * <p>
+     * For example:
+     *
+     * <pre>
+     * {@code
+     * @Example(
+     *      value = "${key}.${value}",
+     *      variables = {
+     *          "${key}", EXTERNAL_CONSTANT_KEY,
+     *          "${value}", EXTERNAL_CONSTANT_VALUE
+     *      }
+     * )
+     * }
+     * </pre>
+     *
+     * @return the variable definitions for the provided example value, using key-value format.
+     */
+    String[] variables() default {};
+
+    /**
      * Defines several {@link Example} annotations on the same element.
      *
      * @author nedis

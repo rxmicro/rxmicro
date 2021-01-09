@@ -42,6 +42,8 @@ module rxmicro.annotation.processor.documentation {
     exports io.rxmicro.annotation.processor.documentation.model to
             freemarker,
             rxmicro.annotation.processor.documentation.asciidoctor;
+    exports io.rxmicro.annotation.processor.documentation.model.provider to
+            rxmicro.annotation.processor.documentation.asciidoctor;
 
     opens io.rxmicro.annotation.processor.documentation
             to com.google.guice;

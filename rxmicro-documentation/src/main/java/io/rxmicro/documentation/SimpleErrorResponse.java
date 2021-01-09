@@ -53,6 +53,30 @@ public @interface SimpleErrorResponse {
     String description() default "";
 
     /**
+     * Returns the variable definitions for the provided error description and(or) exampleErrorMessage, using key-value format.
+     *
+     * <p>
+     * For example:
+     *
+     * <pre>
+     * {@code
+     * @SimpleErrorResponse(
+     *      status = 404,
+     *      description = "If ${key} = ${value} than this field contains true, otherwise false",
+     *      variables = {
+     *          "${key}", EXTERNAL_CONSTANT_KEY,
+     *          "${value}", EXTERNAL_CONSTANT_VALUE
+     *      },
+     *      exampleErrorMessage = "${key}-${value}"
+     * )
+     * }
+     * </pre>
+     *
+     * @return the variable definitions for the provided error description and(or) exampleErrorMessage, using key-value format.
+     */
+    String[] variables() default {};
+
+    /**
      * Returns the included description if it is necessary add a complex formatted description.
      *
      * @return the included description

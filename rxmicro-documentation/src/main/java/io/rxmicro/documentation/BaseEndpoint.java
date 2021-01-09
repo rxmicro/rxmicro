@@ -56,4 +56,25 @@ public @interface BaseEndpoint {
      * @return the basic endpoint
      */
     String value();
+
+    /**
+     * Returns the variable definitions for the provided basic endpoint, using key-value format.
+     *
+     * <p>
+     * For example:
+     *
+     * <pre>
+     * {@code
+     * @BaseEndpoint(
+     *      value = "/directory/${sub}",
+     *      variables = {
+     *          "${sub}", EXTERNAL_CONSTANT_SUB_DIR
+     *      }
+     * )
+     * }
+     * </pre>
+     *
+     * @return the variable definitions for the provided basic endpoint, using key-value format.
+     */
+    String[] variables() default {};
 }

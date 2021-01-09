@@ -1,0 +1,334 @@
+= Variable Support
+Richard Hendricks <Richard.Hendricks@piedpiper.com>
+0.0.1, 2021-01-09
+:icons: font
+:sectanchors: 
+:sectlinks: 
+:toc: left
+:toclevels: 3
+:sectnums: 
+:sectnumlevels: 5
+
+// ----------------------------------------------------- Variable Support Title and Description -----------------------------------------------------
+This document describes *the Variable Support*.
+
+*Project* _Description_
+
+<<<
+// ------------------------------------------------------------------ Introduction ------------------------------------------------------------------
+== Introduction
+
+// ---------------------------------------------------------- Introduction | Common concept ----------------------------------------------------------
+=== Common concept
+
+*The Variable Support* is organized around https://en.wikipedia.org/wiki/Representational_state_transfer[REST^]
+and built using the https://rxmicro.io[RxMicro^] framework. +
+*The Variable Support* has predictable resource-oriented URLs, accepts and returns http://www.json.org/[JSON-encoded^]
+requests/responses, and uses standard HTTP response codes, and verbs. +
+
+[TIP]
+====
+For requests and responses without body *the Variable Support* returns the empty body instead of the empty json object: `{}`. +
+So *the Variable Support* could accept and return json object or empty body only.
+====
+
+You could use your favorite HTTP/REST library for your programming language to use *The Variable Support*.
+
+// ---------------------------------------------------------- Introduction | Base Endpoint ----------------------------------------------------------
+=== Variable Support base endpoint
+
+*The Variable Support* is available at `https://api.rxmicro.io/v0.0.1`.
+
+// ------------------------------------------------------------ Introduction | HTTP Verbs ------------------------------------------------------------
+=== HTTP Verbs
+
+*The Variable Support* uses HTTP verbs appropriate to each action. +
+
+[cols="2", options="header"]
+|===
+|*Verb*
+|*Description*
+
+|GET
+|_Retrieving resource(s)_.
+
+|POST
+|_Creating resource(s)_.
+
+|PUT
+|_Full updating resource(s)_.
+
+|PATCH
+|_Partial updating resource(s)_.
+
+|DELETE
+|_Deleting resource(s)_.
+|===
+
+// ----------------------------------------------------------- Introduction | Error model -----------------------------------------------------------
+=== Error model
+
+*The Variable Support* uses conventional https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html[HTTP response codes^]
+to indicate the success or failure of an API request. +
+In general:
+
+- Codes in the `2xx` range indicate success.
+- Codes in the `4xx` range indicate an error that failed given the information provided (e.g., a required parameter was omitted or has invalid format, etc.).
+- Codes in the `5xx` range indicate an internal error with *the Variable Support* servers.
+
+TIP: Successes differ from errors in that their body may not be a simple response object with a message.
+
+If error occurs, *the Variable Support* returns correspond HTTP status code and standard JSON error model:
+
+[source,json]
+----
+{
+    "message": "'name' is required"
+}
+----
+
+Message field provides detailed cause of the arisen error.
+
+[NOTE]
+====
+[[internal-error-message-read-more]]
+By default, *the Variable Support* hides the cause of the arisen server error. +
+Thus, if internal error occurs (Errors with code in the `5xx` range), the value of message field will be `Internal Server Error`, `Gateway Timeout`, etc. +
+To activate the displaying of the detailed cause of the arisen server error, start REST server with `RestServerConfig.hideInternalErrorMessage=*false*` option.
+====
+
+
+// ---------------------------------------------------- Introduction | Default Not Found Handler ----------------------------------------------------
+=== Default Not Found Handler
+
+If *The Variable Support* does not have a route that matches the current HTTP request, by default it invokes _Default Not Found Handler_ and returns a `HTTP/1.1 400 Bad Request` response with default JSON body:
+
+[source,json]
+----
+{
+    "message": "Handler not found"
+}
+----
+
+[TIP]
+====
+Other *REST* frameworks typically use a `HTTP/1.1 404 Not Found` response to inform the client of a missing request handler. +
+However, when developing the REST-based micro services, `HTTP/1.1 404 Not Found` response is very often used as a business value.
+For example, if the resource requested by its identifier is absent at the database, then the client receives `HTTP/1.1 404 Not Found` response.
+
+_Thus, on the client side, if the server returns `HTTP/1.1 404 Not Found` response, it is not possible to determine the reason: there is no request handler or there is no object in the database._ +
+Therefore, in order to unambiguously determine the cause of the error, the RxMicro framework by default uses exactly `HTTP/1.1 400 Bad Request` response in case the handler is absent.
+====
+
+*Default Not Found Handler* could be configured. +
+_(If it necessary You could use `HTTP/1.1 404 Not Found` response status code instead of `HTTP/1.1 400 Bad Request`)_.
+
+[NOTE]
+====
+To use custom _Default Not Found Handler_ start REST server with
+`RestServerConfig.handlerNotFoundErrorStatusCode=*${CUSTOM_STATUS_CODE}*`
+and/or
+`RestServerConfig.handlerNotFoundErrorMessage=*${CUSTOM_MESSAGE}*`
+options, where:
+
+* *${CUSTOM_STATUS_CODE}* - custom status code, which will be used instead of `HTTP/1.1 400 Bad Request`;
+* *${CUSTOM_MESSAGE}* - custom message, which will be used instead of `"Handler not found"`;
+====
+
+// ------------------------------------------------------------- Introduction | License -------------------------------------------------------------
+=== License
+
+*The Variable Support* is licensed under the https://www.apache.org/licenses/LICENSE-2.0[Apache License 2.0^].
+
+// ---------------------------------------------------------- Introduction | Specification ----------------------------------------------------------
+=== Specification
+
+*The Variable Support* documentation built using https://asciidoctor.org/docs/[Ascii Doctor^] markup language.
+
+<<<
+// ------------------------------------------------------------------ Micro Service ------------------------------------------------------------------
+== Micro Service
+
+<<<
+// -------------------------------------------------------------- Micro Service | PUT / --------------------------------------------------------------
+=== PUT /
+
+include::/absolute/path/to/included/description[]
+
+// --------------------------------------------------------- Micro Service | PUT / | Request ---------------------------------------------------------
+==== Request
+
+// ---------------------------------------------------- Micro Service | PUT / | Request | Example ----------------------------------------------------
+===== HTTP Request Example
+
+[source,http]
+----
+PUT / HTTP/1.1
+Host: api.rxmicro.io/v0.0.1
+Accept: application/json
+Content-Type: application/json
+Content-Length: 20
+
+{
+  "data": "test"
+}
+----
+
+// ------------------------------------------------ Micro Service | PUT / | Request | Body Parameters ------------------------------------------------
+===== HTTP Request Body Parameters Description
+
+[cols="25%,9%,28%,32%"]
+|===
+^|*Name* |*Type* |*Restrictions*| *Description*
+|*data*
+|`string`
+a|
+* [small]#`optional: true`#
+a|test
+
+|===
+
+// -------------------------------------------------- Micro Service | PUT / | Request | JSON Schema --------------------------------------------------
+===== HTTP Request Body JSON Schema
+
+[small]#https://json-schema.org/[_(Read more about JSON Schema)_^]#
+
+[source,json]
+----
+{
+  "$schema": "http://json-schema.org/schema#",
+  "type": "object",
+  "description": "include::/absolute/path/to/included/description[]",
+  "properties": {
+    "data": {
+      "type": "string",
+      "examples": [
+        "test"
+      ]
+    }
+  },
+  "minProperties": 0,
+  "maxProperties": 1
+}
+----
+
+// ------------------------------------------------------ Micro Service | PUT / | Response 200 ------------------------------------------------------
+==== Response 200
+
+// ------------------------------------------------- Micro Service | PUT / | Response 200 | Example -------------------------------------------------
+===== HTTP Response Example
+
+[source,http]
+----
+HTTP/1.1 200 OK
+Content-Length: 0
+Request-Id: 62jJeu8x1310662
+
+----
+
+// ------------------------------------------------------ Micro Service | PUT / | Response 485 ------------------------------------------------------
+==== Response 485
+
+test
+
+// ------------------------------------------------- Micro Service | PUT / | Response 485 | Example -------------------------------------------------
+===== HTTP Response Example
+
+[source,http]
+----
+HTTP/1.1 485 
+Content-Type: application/json
+Content-Length: 23
+Request-Id: 62jJeu8x1310662
+
+{
+  "message": "test"
+}
+----
+
+// ------------------------------------------------- Micro Service | PUT / | Response 485 | Headers -------------------------------------------------
+===== HTTP Response Headers Description
+
+[cols="25%,9%,28%,32%"]
+|===
+^|*Name* |*Type* |*Restrictions*| *Description*
+|*Request-Id*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`unique: true`#
+a|An unique request string identifier.
+
+.Read more:
+* [small]#https://docs.rxmicro.io/latest/user-guide/monitoring.html#monitoring-request-id-section[_What is request id?_^]#
+|===
+
+// --------------------------------------------- Micro Service | PUT / | Response 485 | Body Parameters ---------------------------------------------
+===== HTTP Response Body Parameters Description
+
+[cols="25%,9%,28%,32%"]
+|===
+^|*Name* |*Type* |*Restrictions*| *Description*
+|*message*
+|`string`
+a|
+* [small]#`required: true`#
+a|test
+
+|===
+
+// ------------------------------------------------------ Micro Service | PUT / | Response 500 ------------------------------------------------------
+==== Response 500
+
+If internal server error detected.
+
+// ------------------------------------------------- Micro Service | PUT / | Response 500 | Example -------------------------------------------------
+===== HTTP Response Example
+
+[source,http]
+----
+HTTP/1.1 500 Internal Server Error
+Content-Type: application/json
+Content-Length: 33
+Request-Id: 62jJeu8x1310662
+
+{
+  "message": "Internal Error"
+}
+----
+
+// ------------------------------------------------- Micro Service | PUT / | Response 500 | Headers -------------------------------------------------
+===== HTTP Response Headers Description
+
+[cols="25%,9%,28%,32%"]
+|===
+^|*Name* |*Type* |*Restrictions*| *Description*
+|*Request-Id*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`unique: true`#
+a|An unique request string identifier.
+
+.Read more:
+* [small]#https://docs.rxmicro.io/latest/user-guide/monitoring.html#monitoring-request-id-section[_What is request id?_^]#
+|===
+
+// --------------------------------------------- Micro Service | PUT / | Response 500 | Body Parameters ---------------------------------------------
+===== HTTP Response Body Parameters Description
+
+[cols="25%,9%,28%,32%"]
+|===
+^|*Name* |*Type* |*Restrictions*| *Description*
+|*message*
+|`string`
+a|
+* [small]#`required: true`#
+a|`Internal Server Error` value (by default) or the detailed cause of the arisen internal server error.
+
+.Read more:
+* [small]#xref:internal-error-message-read-more[__(How to activate the displaying of the detailed error message?)__]#
+|===
+

@@ -56,4 +56,26 @@ public @interface DocumentationVersion {
      * @return the version of REST-based microservice
      */
     String value();
+
+    /**
+     * Returns the variable definitions for the provided version of REST-based microservice, using key-value format.
+     *
+     * <p>
+     * For example:
+     *
+     * <pre>
+     * {@code
+     * @DocumentationVersion(
+     *      value = "${major}.${minor}",
+     *      variables = {
+     *          "${major}", EXTERNAL_CONSTANT_MAJOR_VERSION,
+     *          "${minor}", EXTERNAL_CONSTANT_MINOR_VERSION
+     *      }
+     * )
+     * }
+     * </pre>
+     *
+     * @return the variable definitions for the provided version of REST-based microservice, using key-value format.
+     */
+    String[] variables() default {};
 }

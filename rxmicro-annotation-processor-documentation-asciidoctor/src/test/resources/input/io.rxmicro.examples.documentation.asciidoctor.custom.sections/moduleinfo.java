@@ -30,7 +30,7 @@ import io.rxmicro.documentation.ResourceGroupDefinition;
                         IntroductionDefinition.Section.CUSTOM_SECTION
                 },
                 customSection = {
-                        "$PROJECT_DIR/src/main/asciidoc/_fragment/" +
+                        "${PROJECT-DIR}/src/main/asciidoc/_fragment/" +
                                 "custom-introduction-content.asciidoc"
                 },
                 includeMode = IncludeMode.INLINE_CONTENT
@@ -40,7 +40,7 @@ import io.rxmicro.documentation.ResourceGroupDefinition;
                         ResourceGroupDefinition.Section.CUSTOM_SECTION
                 },
                 customSection = {
-                        "$PROJECT_DIR/src/main/asciidoc/_fragment/" +
+                        "${PROJECT-DIR}/src/main/asciidoc/_fragment/" +
                                 "custom-resource-group-content.asciidoc"
                 },
                 includeMode = IncludeMode.INLINE_CONTENT

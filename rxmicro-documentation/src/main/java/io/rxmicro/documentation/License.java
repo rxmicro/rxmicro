@@ -69,6 +69,29 @@ public @interface License {
     String url() default DEFAULT_LICENSE_URL;
 
     /**
+     * Returns the variable definitions for the provided license name and(or) url, using key-value format.
+     *
+     * <p>
+     * For example:
+     *
+     * <pre>
+     * {@code
+     * @License(
+     *      name = "${firstName} ${lastName} Licence",
+     *      url = "http://${firstName}.${lastName}.licence.org",
+     *      variables = {
+     *          "${firstName}", EXTERNAL_CONSTANT_FIRST_NAME,
+     *          "${lastName}", EXTERNAL_CONSTANT_LAST_NAME
+     *      }
+     * )
+     * }
+     * </pre>
+     *
+     * @return the variable definitions for the provided license name and(or) url, using key-value format.
+     */
+    String[] variables() default {};
+
+    /**
      * Defines several {@link License} annotations on the same element.
      *
      * @author nedis

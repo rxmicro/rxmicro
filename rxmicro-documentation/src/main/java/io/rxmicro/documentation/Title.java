@@ -58,4 +58,26 @@ public @interface Title {
      * @return the title
      */
     String value();
+
+    /**
+     * Returns the variable definitions for the provided title, using key-value format.
+     *
+     * <p>
+     * For example:
+     *
+     * <pre>
+     * {@code
+     * @Title(
+     *      value = "If ${key} = ${value} than this field contains true, otherwise false",
+     *      variables = {
+     *          "${key}", EXTERNAL_CONSTANT_KEY,
+     *          "${value}", EXTERNAL_CONSTANT_VALUE
+     *      }
+     * )
+     * }
+     * </pre>
+     *
+     * @return the variable definitions for the provided title, using key-value format.
+     */
+    String[] variables() default {};
 }

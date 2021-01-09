@@ -23,6 +23,8 @@ import io.rxmicro.annotation.processor.documentation.asciidoctor.model.Response;
 import io.rxmicro.annotation.processor.documentation.model.ReadMoreModel;
 import io.rxmicro.annotation.processor.documentation.model.StandardHttpError;
 import io.rxmicro.annotation.processor.documentation.model.StandardHttpErrorStorage;
+import io.rxmicro.annotation.processor.documentation.model.provider.DescriptionAnnotationValueProvider;
+import io.rxmicro.annotation.processor.documentation.model.provider.ExampleAnnotationValueProvider;
 import io.rxmicro.documentation.Description;
 import io.rxmicro.documentation.Example;
 import io.rxmicro.documentation.ResourceDefinition;
@@ -80,12 +82,12 @@ public final class ModelExceptionErrorResponseStandardBuilder extends AbstractEr
         final Optional<VariableElement> messageParameterOptional = getMessageParameter(constructors.get(0));
         if (messageParameterOptional.isPresent()) {
             final String exampleErrorMessage = Optional.ofNullable(messageParameterOptional.get().getAnnotation(Example.class))
-                    .map(Example::value)
+                    .map(a -> resolveString(owner, new ExampleAnnotationValueProvider(a), false))
                     .orElseGet(() -> standardHttpErrorStorage.get(status)
                             .map(StandardHttpError::getExampleErrorMessage)
                             .orElse(""));
             final String messageDescription = Optional.ofNullable(messageParameterOptional.get().getAnnotation(Description.class))
-                    .map(Description::value)
+                    .map(a -> resolveString(owner, new DescriptionAnnotationValueProvider(a), false))
                     .orElseGet(() -> standardHttpErrorStorage.get(status)
                             .map(StandardHttpError::getMessageDescription)
                             .orElse(""));

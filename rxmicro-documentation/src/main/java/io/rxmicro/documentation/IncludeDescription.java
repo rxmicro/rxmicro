@@ -65,6 +65,27 @@ public @interface IncludeDescription {
     String resource();
 
     /**
+     * Returns the variable definitions for the provided resource name, using key-value format.
+     *
+     * <p>
+     * For example:
+     *
+     * <pre>
+     * {@code
+     * @IncludeDescription(
+     *      resource = "/${home}/destination",
+     *      variables = {
+     *          "${home}", EXTERNAL_CONSTANT_HOME_DIRECTORY
+     *      }
+     * )
+     * }
+     * </pre>
+     *
+     * @return the variable definitions for the provided resource name, using key-value format.
+     */
+    String[] variables() default {};
+
+    /**
      * Returns the include mode. See {@link IncludeMode} for details.
      *
      * @return the include mode.

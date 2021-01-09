@@ -18,6 +18,7 @@ package io.rxmicro.annotation.processor.documentation.component.impl;
 
 import com.google.inject.Singleton;
 import io.rxmicro.annotation.processor.documentation.component.TitleReader;
+import io.rxmicro.annotation.processor.documentation.model.provider.TitleAnnotationValueProvider;
 import io.rxmicro.common.util.Strings;
 import io.rxmicro.documentation.Title;
 
@@ -37,11 +38,12 @@ import static java.util.stream.Collectors.joining;
  * @since 0.1
  */
 @Singleton
-public final class TitleReaderImpl implements TitleReader {
+public final class TitleReaderImpl extends BaseDocumentationReader implements TitleReader {
 
     @Override
     public Optional<String> getTitle(final Element element) {
-        return Optional.ofNullable(element.getAnnotation(Title.class)).map(Title::value);
+        return Optional.ofNullable(element.getAnnotation(Title.class))
+                .map(title -> resolveString(element, new TitleAnnotationValueProvider(title), false));
     }
 
     @Override

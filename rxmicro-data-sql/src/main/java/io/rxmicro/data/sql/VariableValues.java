@@ -61,6 +61,17 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  *     </li>
  * </ol>
  *
+ * <p>
+ * Example:
+ * <pre>
+ * {@code
+ * @VariableValues(value = {
+ *         "${table}", TABLE_NAME
+ * })
+ *
+ * }
+ * </pre>
+ *
  * @author nedis
  * @see Delete
  * @see Insert
@@ -75,6 +86,16 @@ public @interface VariableValues {
 
     /**
      * Must be even item counts.
+     *
+     * <p>
+     * Example:
+     * <pre>
+     * {@code
+     * @VariableValues(value = {
+     *         "${table}", TABLE_NAME
+     * })
+     * }
+     * </pre>
      *
      * @return pairs of 'name, value', which is used to resolve variables in the all SQL queries per interface
      */

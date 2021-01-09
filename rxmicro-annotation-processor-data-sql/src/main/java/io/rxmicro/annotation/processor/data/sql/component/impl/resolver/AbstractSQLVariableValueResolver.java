@@ -48,6 +48,8 @@ import javax.lang.model.element.TypeElement;
 import static io.rxmicro.annotation.processor.common.model.ModelFieldBuilderOptions.DEFAULT_OPTIONS;
 import static io.rxmicro.annotation.processor.common.model.ModelFieldType.UNDEFINED;
 import static io.rxmicro.annotation.processor.common.util.Annotations.getAnnotationClassParameter;
+import static io.rxmicro.annotation.processor.common.util.validators.VariableDefinitionValidators.validateThatVariablesContainEvenItemCount;
+import static io.rxmicro.annotation.processor.common.util.validators.VariableDefinitionValidators.validateVariableNameFormat;
 import static io.rxmicro.annotation.processor.data.sql.component.impl.resolver.SQLVariableValueCalculatorProvider.VARIABLE_RESOLVER_PROVIDER;
 import static io.rxmicro.common.util.Formats.FORMAT_PLACEHOLDER_TOKEN;
 import static io.rxmicro.data.sql.SupportedVariables.ALL_SUPPORTED_VARIABLES;
@@ -156,14 +158,10 @@ public abstract class AbstractSQLVariableValueResolver
     private void setVariables(final Element owner,
                               final VariableValuesMap variableValuesMap,
                               final String... variables) {
-        if (variables.length % 2 == 1) {
-            throw new InterruptProcessingException(
-                    owner,
-                    "Variable values must contains even item count: key1, value1, key2, value2,..."
-            );
-        }
+        validateThatVariablesContainEvenItemCount(owner, VariableValues.class, "value", variables);
         for (int i = 0; i < variables.length; i += 2) {
             final String variableName = variables[i];
+            validateVariableNameFormat(owner, VariableValues.class, "value", variableName);
             final String variableValue = variables[i + 1];
             validateVariableValue(owner, variableValuesMap, variableName, variableValue);
             variableValuesMap.put(variableName, variableValue);

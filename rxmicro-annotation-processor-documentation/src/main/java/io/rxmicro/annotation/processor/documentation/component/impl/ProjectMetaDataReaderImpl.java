@@ -26,6 +26,12 @@ import io.rxmicro.annotation.processor.documentation.model.AuthorMetaData;
 import io.rxmicro.annotation.processor.documentation.model.LicenseMetaData;
 import io.rxmicro.annotation.processor.documentation.model.ProjectMetaData;
 import io.rxmicro.annotation.processor.documentation.model.ProjectMetaDataProvider;
+import io.rxmicro.annotation.processor.documentation.model.provider.AuthorEmailAnnotationValueProvider;
+import io.rxmicro.annotation.processor.documentation.model.provider.AuthorNameAnnotationValueProvider;
+import io.rxmicro.annotation.processor.documentation.model.provider.BaseEndpointAnnotationValueProvider;
+import io.rxmicro.annotation.processor.documentation.model.provider.DocumentationVersionAnnotationValueProvider;
+import io.rxmicro.annotation.processor.documentation.model.provider.LicenseNameAnnotationValueProvider;
+import io.rxmicro.annotation.processor.documentation.model.provider.LicenseUrlAnnotationValueProvider;
 import io.rxmicro.documentation.Author;
 import io.rxmicro.documentation.BaseEndpoint;
 import io.rxmicro.documentation.DocumentationVersion;
@@ -47,7 +53,7 @@ import static io.rxmicro.documentation.DocumentationConstants.DEFAULT_LICENSE_UR
  * @since 0.1
  */
 @Singleton
-public final class ProjectMetaDataReaderImpl implements ProjectMetaDataReader {
+public final class ProjectMetaDataReaderImpl extends BaseDocumentationReader implements ProjectMetaDataReader {
 
     @Inject
     private TitleReader titleReader;
@@ -69,10 +75,12 @@ public final class ProjectMetaDataReaderImpl implements ProjectMetaDataReader {
         descriptionReader.readDescription(currentModule, projectMetaDataProvider.getProjectDirectory())
                 .or(projectMetaDataProvider::getDescription)
                 .ifPresent(builder::setDescription);
-        Optional.ofNullable(currentModule.getAnnotation(DocumentationVersion.class)).map(DocumentationVersion::value)
+        Optional.ofNullable(currentModule.getAnnotation(DocumentationVersion.class))
+                .map(a -> resolveString(currentModule, new DocumentationVersionAnnotationValueProvider(a), false))
                 .or(projectMetaDataProvider::getVersion)
                 .ifPresent(builder::setVersion);
-        Optional.ofNullable(currentModule.getAnnotation(BaseEndpoint.class)).map(BaseEndpoint::value)
+        Optional.ofNullable(currentModule.getAnnotation(BaseEndpoint.class))
+                .map(a -> resolveString(currentModule, new BaseEndpointAnnotationValueProvider(a), false))
                 .or(projectMetaDataProvider::getBaseEndpoint).ifPresent(builder::setBaseEndpoint);
         return builder
                 .setAuthors(getAuthors(currentModule, projectMetaDataProvider))
@@ -85,7 +93,10 @@ public final class ProjectMetaDataReaderImpl implements ProjectMetaDataReader {
         final Author[] annotationAuthors = currentModule.getAnnotationsByType(Author.class);
         if (annotationAuthors.length > 0) {
             return Arrays.stream(annotationAuthors)
-                    .map(a -> new AuthorMetaData(a.name(), a.email()))
+                    .map(a -> new AuthorMetaData(
+                            resolveString(currentModule, new AuthorNameAnnotationValueProvider(a), false),
+                            resolveString(currentModule, new AuthorEmailAnnotationValueProvider(a), false)
+                    ))
                     .collect(Collectors.toList());
         }
         final List<AuthorMetaData> providerAuthors = projectMetaDataProvider.getAuthors();
@@ -100,7 +111,10 @@ public final class ProjectMetaDataReaderImpl implements ProjectMetaDataReader {
         final License[] annotationLicenses = currentModule.getAnnotationsByType(License.class);
         if (annotationLicenses.length > 0) {
             return Arrays.stream(annotationLicenses)
-                    .map(a -> new LicenseMetaData(a.name(), a.url()))
+                    .map(a -> new LicenseMetaData(
+                            resolveString(currentModule, new LicenseNameAnnotationValueProvider(a), false),
+                            resolveString(currentModule, new LicenseUrlAnnotationValueProvider(a), false)
+                    ))
                     .collect(Collectors.toList());
         }
         final List<LicenseMetaData> providerLicenses = projectMetaDataProvider.getLicenses();

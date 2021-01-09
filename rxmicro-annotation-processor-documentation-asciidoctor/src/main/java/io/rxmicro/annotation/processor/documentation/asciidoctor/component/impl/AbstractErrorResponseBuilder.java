@@ -20,6 +20,7 @@ import com.google.inject.Inject;
 import io.rxmicro.annotation.processor.documentation.asciidoctor.model.DocumentedModelField;
 import io.rxmicro.annotation.processor.documentation.asciidoctor.model.Response;
 import io.rxmicro.annotation.processor.documentation.component.HttpResponseExampleBuilder;
+import io.rxmicro.annotation.processor.documentation.component.impl.BaseDocumentationReader;
 import io.rxmicro.annotation.processor.documentation.model.ReadMoreModel;
 import io.rxmicro.documentation.ResourceDefinition;
 
@@ -32,7 +33,7 @@ import static java.util.Map.entry;
  * @author nedis
  * @since 0.7
  */
-public abstract class AbstractErrorResponseBuilder {
+public abstract class AbstractErrorResponseBuilder extends BaseDocumentationReader {
 
     @Inject
     private HttpResponseExampleBuilder httpResponseExampleBuilder;

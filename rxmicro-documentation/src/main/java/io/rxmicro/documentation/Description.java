@@ -68,4 +68,26 @@ public @interface Description {
      * @return the description
      */
     String value();
+
+    /**
+     * Returns the variable definitions for the provided description, using key-value format.
+     *
+     * <p>
+     * For example:
+     *
+     * <pre>
+     * {@code
+     * @Description(
+     *      value = "If ${key} = ${value} than this field contains true, otherwise false",
+     *      variables = {
+     *          "${key}", EXTERNAL_CONSTANT_KEY,
+     *          "${value}", EXTERNAL_CONSTANT_VALUE
+     *      }
+     * )
+     * }
+     * </pre>
+     *
+     * @return the variable definitions for the provided description, using key-value format.
+     */
+    String[] variables() default {};
 }

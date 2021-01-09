@@ -29,22 +29,22 @@ public final class PathVariables {
     /**
      * Current user directory.
      */
-    public static final String USER_DIR = "$USER_DIR";
+    public static final String USER_DIR = "${USER-DIR}";
 
     /**
      * Project home directory.
      */
-    public static final String PROJECT_DIR = "$PROJECT_DIR";
+    public static final String PROJECT_DIR = "${PROJECT-DIR}";
 
     /**
      * Temp directory provided by OS.
      */
-    public static final String TEMP_DIR = "$TEMP_DIR";
+    public static final String TEMP_DIR = "${TEMP-DIR}";
 
     /**
      * User home directory.
      */
-    public static final String USER_HOME = "$USER_HOME";
+    public static final String USER_HOME = "${USER-HOME}";
 
     /**
      * All supported variables.
