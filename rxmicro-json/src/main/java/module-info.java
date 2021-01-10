@@ -48,4 +48,5 @@ module rxmicro.json {
     requires transitive rxmicro.common;
 
     exports io.rxmicro.json;
+    exports io.rxmicro.json.wrapper;
 }
