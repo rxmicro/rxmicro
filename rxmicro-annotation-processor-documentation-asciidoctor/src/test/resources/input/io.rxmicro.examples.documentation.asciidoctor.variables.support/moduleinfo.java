@@ -17,6 +17,7 @@
 import io.rxmicro.documentation.Author;
 import io.rxmicro.documentation.BaseEndpoint;
 import io.rxmicro.documentation.Description;
+import io.rxmicro.documentation.DocumentationDefinition;
 import io.rxmicro.documentation.DocumentationVersion;
 import io.rxmicro.documentation.License;
 import io.rxmicro.documentation.Title;
@@ -63,6 +64,9 @@ import io.rxmicro.documentation.Title;
         variables = {
                 "${version}", "2.0"
         }
+)
+@DocumentationDefinition(
+        withGeneratedDate = false
 )
 module examples.documentation.asciidoctor.variables.support {
     requires rxmicro.rest.server.netty;
