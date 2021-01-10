@@ -49,6 +49,13 @@ public final class BlockingHttpClientBuilder {
                     versionValue
             );
         }
+        final String baseUrlPath = blockingHttpClientConfig.getBaseUrlPath();
+        if (!baseUrlPath.isEmpty()) {
+            builder.setBaseUrl(
+                    baseUrlPath,
+                    blockingHttpClientConfig.getBaseUrlPosition()
+            );
+        }
         return builder.build();
     }
 

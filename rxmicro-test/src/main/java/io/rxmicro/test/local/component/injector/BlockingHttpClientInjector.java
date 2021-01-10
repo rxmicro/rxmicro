@@ -57,6 +57,8 @@ public final class BlockingHttpClientInjector {
                 getPresentOrDefaultAnnotation(blockingHttpClientField, BlockingHttpClientSettings.class);
         validateConfig(settings);
         return new BlockingHttpClientConfig()
+                .setBaseUrlPath(settings.baseUrlPath())
+                .setBaseUrlPosition(settings.baseUrlPosition())
                 .setVersionStrategy(settings.versionStrategy())
                 .setVersionValue(settings.versionValue())
                 .setSchema(settings.schema())

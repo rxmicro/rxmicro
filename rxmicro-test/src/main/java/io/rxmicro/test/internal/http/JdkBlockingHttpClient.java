@@ -18,6 +18,7 @@ package io.rxmicro.test.internal.http;
 
 import io.rxmicro.common.meta.BuilderMethod;
 import io.rxmicro.http.HttpHeaders;
+import io.rxmicro.rest.BaseUrlPath;
 import io.rxmicro.rest.Version;
 import io.rxmicro.rest.client.detail.HttpClientContentConverter;
 import io.rxmicro.test.BlockingHttpClient;
@@ -28,6 +29,7 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -70,10 +72,12 @@ public final class JdkBlockingHttpClient implements BlockingHttpClient {
 
     private final Map.Entry<String, String> versionHeader;
 
-    private final String urlPathVersionValue;
+    private final String baseUrlPath;
 
     private JdkBlockingHttpClient(final BlockingHttpClientConfig config,
                                   final HttpClientContentConverter contentConverter,
+                                  final String baseUrlPath,
+                                  final BaseUrlPath.Position baseUrlPosition,
                                   final String versionValue,
                                   final Version.Strategy versionStrategy) {
         this.config = config;
@@ -81,13 +85,22 @@ public final class JdkBlockingHttpClient implements BlockingHttpClient {
         this.acceptHeader = entry(ACCEPT, contentType);
         this.contentTypeHeader = entry(CONTENT_TYPE, contentType);
         this.userAgentHeader = entry(USER_AGENT, format("?-test-jdk-http-client/?", RX_MICRO_FRAMEWORK_NAME, getRxMicroVersion()));
+        final List<String> baseUrlFragments = new ArrayList<>();
+        if (baseUrlPath != null) {
+            baseUrlFragments.add(baseUrlPath);
+        }
         if (versionStrategy == Version.Strategy.URL_PATH) {
-            this.urlPathVersionValue = versionValue;
+            if (baseUrlPath != null) {
+                final int index = baseUrlPosition == BaseUrlPath.Position.BEFORE_VERSION ? 1 : 0;
+                baseUrlFragments.add(index, versionValue);
+            } else {
+                baseUrlFragments.add(versionValue);
+            }
             this.versionHeader = null;
         } else {
-            this.urlPathVersionValue = null;
             this.versionHeader = Optional.ofNullable(versionValue).map(v -> entry(API_VERSION, v)).orElse(null);
         }
+        this.baseUrlPath = baseUrlFragments.isEmpty() ? null : String.join("", baseUrlFragments);
         this.requestBodyConverter = require(contentConverter.getRequestContentConverter());
         this.responseBodyConverter = require(contentConverter.getResponseContentConverter());
         this.client = HttpClient.newBuilder()
@@ -122,8 +135,8 @@ public final class JdkBlockingHttpClient implements BlockingHttpClient {
 
     private String getValidPath(final String path) {
         final String normalizeUrlPath = normalizeUrlPath(nonNull(path, "path"));
-        if (urlPathVersionValue != null && !normalizeUrlPath.startsWith(urlPathVersionValue)) {
-            return urlPathVersionValue + normalizeUrlPath;
+        if (baseUrlPath != null && !normalizeUrlPath.startsWith(baseUrlPath)) {
+            return baseUrlPath + normalizeUrlPath;
         } else {
             return normalizeUrlPath;
         }
@@ -207,6 +220,10 @@ public final class JdkBlockingHttpClient implements BlockingHttpClient {
 
         private Version.Strategy versionStrategy;
 
+        private String baseUrlPath;
+
+        private BaseUrlPath.Position baseUrlPosition;
+
         @BuilderMethod
         public Builder setBlockingHttpClientConfig(final BlockingHttpClientConfig blockingHttpClientConfig) {
             this.blockingHttpClientConfig = require(blockingHttpClientConfig);
@@ -231,8 +248,18 @@ public final class JdkBlockingHttpClient implements BlockingHttpClient {
             return this;
         }
 
+        @BuilderMethod
+        public Builder setBaseUrl(final String baseUrlPath,
+                                  final BaseUrlPath.Position baseUrlPosition) {
+            this.baseUrlPath = normalizeUrlPath(baseUrlPath);
+            this.baseUrlPosition = require(baseUrlPosition);
+            return this;
+        }
+
         public JdkBlockingHttpClient build() {
-            return new JdkBlockingHttpClient(blockingHttpClientConfig, contentConverter, versionValue, versionStrategy);
+            return new JdkBlockingHttpClient(
+                    blockingHttpClientConfig, contentConverter, baseUrlPath, baseUrlPosition, versionValue, versionStrategy
+            );
         }
     }
 }

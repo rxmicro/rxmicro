@@ -19,6 +19,7 @@ package io.rxmicro.test.local;
 import io.rxmicro.common.meta.BuilderMethod;
 import io.rxmicro.config.SingletonConfigClass;
 import io.rxmicro.http.ProtocolSchema;
+import io.rxmicro.rest.BaseUrlPath;
 import io.rxmicro.rest.Version;
 import io.rxmicro.rest.client.RestClientConfig;
 
@@ -36,6 +37,10 @@ public final class BlockingHttpClientConfig extends RestClientConfig {
 
     private static final int DEFAULT_HTTP_PORT = 8080;
 
+    private String baseUrlPath = "";
+
+    private BaseUrlPath.Position baseUrlPosition = BaseUrlPath.Position.AFTER_VERSION;
+
     private Version.Strategy versionStrategy = Version.Strategy.URL_PATH;
 
     private String versionValue = "";
@@ -48,6 +53,26 @@ public final class BlockingHttpClientConfig extends RestClientConfig {
         setSchema(HTTP);
         setHost("localhost");
         setPort(DEFAULT_HTTP_PORT);
+    }
+
+    public String getBaseUrlPath() {
+        return baseUrlPath;
+    }
+
+    @BuilderMethod
+    public BlockingHttpClientConfig setBaseUrlPath(final String baseUrlPath) {
+        this.baseUrlPath = baseUrlPath;
+        return this;
+    }
+
+    public BaseUrlPath.Position getBaseUrlPosition() {
+        return baseUrlPosition;
+    }
+
+    @BuilderMethod
+    public BlockingHttpClientConfig setBaseUrlPosition(final BaseUrlPath.Position baseUrlPosition) {
+        this.baseUrlPosition = baseUrlPosition;
+        return this;
     }
 
     @BuilderMethod

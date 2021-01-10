@@ -18,6 +18,7 @@ package io.rxmicro.test;
 
 import io.rxmicro.common.model.Option;
 import io.rxmicro.http.ProtocolSchema;
+import io.rxmicro.rest.BaseUrlPath;
 import io.rxmicro.rest.Version;
 
 import java.lang.annotation.Documented;
@@ -86,6 +87,23 @@ public @interface BlockingHttpClientSettings {
      *          The field must be a final, a static and a member of test class.
      */
     String randomPortProvider() default "";
+
+    /**
+     * Returns the base url path.
+     *
+     * @return the base url path.
+     * @see BaseUrlPath
+     */
+    String baseUrlPath() default "";
+
+    /**
+     * Returns the position of the base url according to {@link Version} if {@link Version.Strategy#URL_PATH} is used.
+     *
+     * @return the position of the base url according to {@link Version} if {@link Version.Strategy#URL_PATH} is used
+     * @see BaseUrlPath
+     * @see BaseUrlPath.Position
+     */
+    BaseUrlPath.Position baseUrlPosition() default BaseUrlPath.Position.AFTER_VERSION;
 
     /**
      * Returns the current API version or empty string if not defined.
