@@ -63,16 +63,16 @@ public final class JavaBeanConfigProperties extends ConfigProperties {
         final String messageTemplate = "Discovered properties from default config storage: ?";
         if (storage.hasDefaultStringValuesStorage()) {
             if (isRuntimeStrictModeEnabled()) {
-                validateRedundantProperties(storage.getDefaultStringValuesStorage(), "default config storage", true);
+                validateRedundantProperties(storage.getDefaultStringValuesStorage(), "default config storage", true, false);
             }
-            properties.forEach(p -> p.resolve(storage.getDefaultStringValuesStorage(), true).ifPresent(resolvedEntries::add));
+            properties.forEach(p -> p.resolve(storage.getDefaultStringValuesStorage(), true, false).ifPresent(resolvedEntries::add));
             debugMessageBuilder.append(messageTemplate, storage.getDefaultStringValuesStorage());
         }
         if (storage.hasDefaultSupplierValuesStorage()) {
             if (isRuntimeStrictModeEnabled()) {
-                validateRedundantProperties(storage.getDefaultSupplierValuesStorage(), "default config storage", true);
+                validateRedundantProperties(storage.getDefaultSupplierValuesStorage(), "default config storage", true, false);
             }
-            properties.forEach(p -> p.resolve(storage.getDefaultSupplierValuesStorage(), true)
+            properties.forEach(p -> p.resolve(storage.getDefaultSupplierValuesStorage(), true, false)
                     .ifPresent(e -> resolvedEntries.add(entry(e.getKey(), String.valueOf(e.getValue())))));
             debugMessageBuilder.append(messageTemplate, storage.getDefaultSupplierValuesStorage());
         }
@@ -91,10 +91,10 @@ public final class JavaBeanConfigProperties extends ConfigProperties {
         final Optional<Map<String, String>> resourceOptional = propertiesSupplier.get();
         if (resourceOptional.isPresent()) {
             if (isRuntimeStrictModeEnabled()) {
-                validateRedundantProperties(resourceOptional.get(), format("'?' ?", resourceName, resourceType), useFullName);
+                validateRedundantProperties(resourceOptional.get(), format("'?' ?", resourceName, resourceType), useFullName, false);
             }
             final Set<Map.Entry<String, String>> resolvedEntries = new LinkedHashSet<>();
-            properties.forEach(p -> p.resolve(resourceOptional.get(), useFullName).ifPresent(resolvedEntries::add));
+            properties.forEach(p -> p.resolve(resourceOptional.get(), useFullName, false).ifPresent(resolvedEntries::add));
             if (!resolvedEntries.isEmpty()) {
                 debugMessageBuilder.addResolvedEntries(resolvedEntries);
                 debugMessageBuilder.append("Discovered properties from '?' ?: ?", resourceName, resourceType, resolvedEntries);
@@ -112,7 +112,8 @@ public final class JavaBeanConfigProperties extends ConfigProperties {
                             .map(e -> entry(e.getKey().toString(), e.getValue().toString()))
                             .collect(toMap(Map.Entry::getKey, Map.Entry::getValue)),
                     "Java system properties",
-                    true
+                    true,
+                    false
             );
         }
         final Set<Map.Entry<String, String>> resolvedEntries = new LinkedHashSet<>();
@@ -126,12 +127,13 @@ public final class JavaBeanConfigProperties extends ConfigProperties {
     @Override
     protected void loadFromMap(final Map<String, String> map,
                                final String sourceName,
-                               final DebugMessageBuilder debugMessageBuilder) {
+                               final DebugMessageBuilder debugMessageBuilder,
+                               final boolean isEnvironmentVariable) {
         if (isRuntimeStrictModeEnabled()) {
-            validateRedundantProperties(map, sourceName, true);
+            validateRedundantProperties(map, sourceName, true, isEnvironmentVariable);
         }
         final Set<Map.Entry<String, String>> resolvedEntries = new LinkedHashSet<>();
-        properties.forEach(p -> p.resolve(map, true).ifPresent(resolvedEntries::add));
+        properties.forEach(p -> p.resolve(map, true, isEnvironmentVariable).ifPresent(resolvedEntries::add));
         if (!resolvedEntries.isEmpty()) {
             debugMessageBuilder.addResolvedEntries(resolvedEntries);
             debugMessageBuilder.append("Discovered properties from ?: ?", sourceName, resolvedEntries);
@@ -140,16 +142,28 @@ public final class JavaBeanConfigProperties extends ConfigProperties {
 
     private void validateRedundantProperties(final Map<String, ?> map,
                                              final String sourceName,
-                                             final boolean useFullName) {
+                                             final boolean useFullName,
+                                             final boolean isEnvironmentVariable) {
+        final String prefix1 = namespace + '.';
+        final String prefix2 = isEnvironmentVariable ? upperNamespace + '_' : null;
         final Map<String, ?> mapCopy;
         if (useFullName) {
             mapCopy = map.entrySet().stream()
-                    .filter(e -> e.getKey().startsWith(namespace + "."))
+                    .filter(e -> {
+                        boolean result = e.getKey().startsWith(prefix1);
+                        if (!result && isEnvironmentVariable) {
+                            result = e.getKey().startsWith(prefix2);
+                        }
+                        return result;
+                    })
                     .collect(toMap(Map.Entry::getKey, Map.Entry::getValue));
         } else {
             mapCopy = new HashMap<>(map);
         }
         properties.forEach(p -> mapCopy.remove(p.getPropertyName(useFullName)));
+        if (isEnvironmentVariable) {
+            properties.forEach(p -> mapCopy.remove(p.getSystemVariablePropertyName()));
+        }
         if (!mapCopy.isEmpty()) {
             throw new ConfigException(
                     "Detected redundant property(ies) defined at ? for the namespace: '?': ?",

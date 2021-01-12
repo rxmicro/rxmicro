@@ -23,8 +23,11 @@ import java.util.Optional;
 import java.util.Properties;
 import java.util.function.Supplier;
 
+import static io.rxmicro.common.util.Strings.splitByCamelCase;
 import static io.rxmicro.config.internal.Converters.convertToType;
 import static io.rxmicro.reflection.Reflections.invokeMethod;
+import static java.lang.String.join;
+import static java.util.Locale.ENGLISH;
 import static java.util.Map.entry;
 
 /**
@@ -36,6 +39,8 @@ public final class ConfigProperty implements Comparable<ConfigProperty> {
     private final String propertyName;
 
     private final String fullPropertyName;
+
+    private final String systemPropertyFullPropertyName;
 
     private final Method propertySetter;
 
@@ -49,6 +54,9 @@ public final class ConfigProperty implements Comparable<ConfigProperty> {
                           final Object configInstance) {
         this.propertyName = propertyName;
         this.fullPropertyName = namespace + "." + propertyName;
+        this.systemPropertyFullPropertyName =
+                namespace.toUpperCase(ENGLISH).replace('-', '_') + '_' +
+                        join("_", splitByCamelCase(propertyName)).toUpperCase(ENGLISH);
         this.propertySetter = propertySetter;
         this.configInstance = configInstance;
     }
@@ -57,16 +65,26 @@ public final class ConfigProperty implements Comparable<ConfigProperty> {
         return useFullName ? fullPropertyName : propertyName;
     }
 
+    public String getSystemVariablePropertyName() {
+        return systemPropertyFullPropertyName;
+    }
+
     public <T> Optional<Map.Entry<String, T>> resolve(final Map<String, T> properties,
-                                                      final boolean useFullName) {
+                                                      final boolean useFullName,
+                                                      final boolean isEnvironmentVariable) {
         final String property = useFullName ? fullPropertyName : propertyName;
         final T value = properties.get(property);
         if (value != null) {
             propertyValue = value;
             return Optional.of(entry(property, value));
-        } else {
-            return Optional.empty();
+        } else if (isEnvironmentVariable) {
+            final T envVarValue = properties.get(systemPropertyFullPropertyName);
+            if (envVarValue != null) {
+                propertyValue = envVarValue;
+                return Optional.of(entry(property, envVarValue));
+            }
         }
+        return Optional.empty();
     }
 
     public Optional<Map.Entry<String, String>> resolve(final Properties properties,

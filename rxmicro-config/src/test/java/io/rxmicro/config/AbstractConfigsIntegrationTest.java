@@ -62,7 +62,10 @@ public abstract class AbstractConfigsIntegrationTest {
         System.setProperty(USER_HOME_PROPERTY, mkDir("home/"));
         mkDir("home/.rxmicro/");
         setCurrentDir(mkDir("current/"));
-        setEnvironmentVariables(Map.of("test.environmentVariables", "environmentVariables"));
+        setEnvironmentVariables(Map.of(
+                "test.environmentVariables", "environmentVariables",
+                "TEST_NORMALIZED_ENVIRONMENT_VARIABLES", "normalizedEnvironmentVariables"
+        ));
         System.setProperty("test.javaSystemProperties", "javaSystemProperties");
 
         final String root = TEMP_DIRECTORY.toString();

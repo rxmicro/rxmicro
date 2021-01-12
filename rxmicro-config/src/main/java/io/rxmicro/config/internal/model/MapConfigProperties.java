@@ -89,7 +89,7 @@ public final class MapConfigProperties extends ConfigProperties {
         final Optional<Map<String, String>> resourceOptional = propertiesSupplier.get();
         if (resourceOptional.isPresent()) {
             if (useFullName) {
-                loadFromMap(resourceOptional.get(), format("'?' ?", resourceName, resourceType), debugMessageBuilder);
+                loadFromMap(resourceOptional.get(), format("'?' ?", resourceName, resourceType), debugMessageBuilder, false);
             } else {
                 final Set<Map.Entry<String, String>> resolvedEntries = resourceOptional.get().entrySet();
                 addResolvedEntries(resolvedEntries, format("'?' ?", resourceName, resourceType), debugMessageBuilder);
@@ -113,12 +113,20 @@ public final class MapConfigProperties extends ConfigProperties {
     @Override
     protected void loadFromMap(final Map<String, String> map,
                                final String sourceName,
-                               final DebugMessageBuilder debugMessageBuilder) {
-        final String prefix = namespace + ".";
+                               final DebugMessageBuilder debugMessageBuilder,
+                               final boolean isEnvironmentVariable) {
+        final String prefix1 = namespace + '.';
+        final String prefix2 = isEnvironmentVariable ? upperNamespace + '_' : null;
         final Set<Map.Entry<String, String>> resolvedEntries = map.entrySet()
                 .stream()
-                .filter(e -> e.getKey().startsWith(prefix))
-                .map(e -> entry(e.getKey().substring(prefix.length()), e.getValue()))
+                .filter(e -> {
+                    boolean result = e.getKey().startsWith(prefix1);
+                    if (!result && isEnvironmentVariable) {
+                        result = e.getKey().startsWith(prefix2);
+                    }
+                    return result;
+                })
+                .map(e -> entry(e.getKey().substring(prefix1.length()), e.getValue()))
                 .collect(toOrderedSet());
         addResolvedEntries(resolvedEntries, sourceName, debugMessageBuilder);
     }

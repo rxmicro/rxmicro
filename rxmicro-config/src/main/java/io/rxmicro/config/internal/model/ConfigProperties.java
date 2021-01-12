@@ -52,6 +52,7 @@ import static io.rxmicro.config.internal.ExternalSourceProviderFactory.getCurren
 import static io.rxmicro.config.internal.ExternalSourceProviderFactory.getEnvironmentVariables;
 import static io.rxmicro.config.internal.model.PropertyNames.USER_HOME_PROPERTY;
 import static io.rxmicro.resource.PropertiesResources.loadProperties;
+import static java.util.Locale.ENGLISH;
 import static java.util.stream.Collectors.toList;
 
 /**
@@ -74,8 +75,11 @@ public abstract class ConfigProperties {
 
     protected final String namespace;
 
+    protected final String upperNamespace;
+
     public ConfigProperties(final String namespace) {
         this.namespace = namespace;
+        this.upperNamespace = namespace.toUpperCase(ENGLISH).replace('-', '_');
     }
 
     protected abstract Logger getLogger();
@@ -164,16 +168,17 @@ public abstract class ConfigProperties {
 
     protected final void loadFromCommandLineArguments(final Map<String, String> commandLineArgs,
                                                       final DebugMessageBuilder debugMessageBuilder) {
-        loadFromMap(commandLineArgs, "command line arguments", debugMessageBuilder);
+        loadFromMap(commandLineArgs, "command line arguments", debugMessageBuilder, false);
     }
 
     protected final void loadFromEnvironmentVariables(final DebugMessageBuilder debugMessageBuilder) {
-        loadFromMap(SYSTEM_ENV, "environment variables", debugMessageBuilder);
+        loadFromMap(SYSTEM_ENV, "environment variables", debugMessageBuilder, true);
     }
 
     protected abstract void loadFromMap(Map<String, String> map,
                                         String sourceName,
-                                        DebugMessageBuilder debugMessageBuilder);
+                                        DebugMessageBuilder debugMessageBuilder,
+                                        boolean isEnvironmentVariable);
 
     public abstract void setProperties();
 

@@ -37,6 +37,7 @@ public final class Configs_using_java_beans_IntegrationTest extends AbstractConf
         assertEquals("rxmicroClassPathResource", config.getRxmicroClassPathResource());
         assertEquals("separateClassPathResource", config.getSeparateClassPathResource());
         assertEquals("environmentVariables", config.getEnvironmentVariables());
+        assertEquals("normalizedEnvironmentVariables", config.getNormalizedEnvironmentVariables());
         assertEquals("rxmicroFileAtTheHomeDir", config.getRxmicroFileAtTheHomeDir());
         assertEquals("rxmicroFileAtTheRxmicroConfigDir", config.getRxmicroFileAtTheRxmicroConfigDir());
         assertEquals("rxmicroFileAtTheCurrentDir", config.getRxmicroFileAtTheCurrentDir());
@@ -62,6 +63,8 @@ public final class Configs_using_java_beans_IntegrationTest extends AbstractConf
         private String separateClassPathResource;
 
         private String environmentVariables;
+
+        private String normalizedEnvironmentVariables;
 
         private String rxmicroFileAtTheHomeDir;
 
@@ -112,6 +115,15 @@ public final class Configs_using_java_beans_IntegrationTest extends AbstractConf
 
         public TestConfig setEnvironmentVariables(final String environmentVariables) {
             this.environmentVariables = environmentVariables;
+            return this;
+        }
+
+        public String getNormalizedEnvironmentVariables() {
+            return normalizedEnvironmentVariables;
+        }
+
+        public TestConfig setNormalizedEnvironmentVariables(final String normalizedEnvironmentVariables) {
+            this.normalizedEnvironmentVariables = normalizedEnvironmentVariables;
             return this;
         }
 

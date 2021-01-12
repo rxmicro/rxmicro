@@ -37,6 +37,7 @@ public final class Configs_using_map_IntegrationTest extends AbstractConfigsInte
         assertEquals("rxmicroClassPathResource", config.getString("rxmicroClassPathResource"));
         assertEquals("separateClassPathResource", config.getString("separateClassPathResource"));
         assertEquals("environmentVariables", config.getString("environmentVariables"));
+        assertEquals("normalizedEnvironmentVariables", config.getString("NORMALIZED_ENVIRONMENT_VARIABLES"));
         assertEquals("rxmicroFileAtTheHomeDir", config.getString("rxmicroFileAtTheHomeDir"));
         assertEquals("rxmicroFileAtTheRxmicroConfigDir", config.getString("rxmicroFileAtTheRxmicroConfigDir"));
         assertEquals("rxmicroFileAtTheCurrentDir", config.getString("rxmicroFileAtTheCurrentDir"));
