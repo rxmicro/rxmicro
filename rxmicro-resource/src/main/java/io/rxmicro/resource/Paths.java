@@ -52,11 +52,11 @@ public final class Paths {
      */
     public static Path createPath(final String path) {
         if (HOME_DIRECTORY.equals(path)) {
-            return Path.of(System.getProperty("user.home"));
+            return Path.of(System.getProperty("user.home")).toAbsolutePath();
         } else if (CURRENT_DIRECTORY.equals(path)) {
-            return Path.of(System.getProperty("user.dir"));
+            return Path.of(System.getProperty("user.dir")).toAbsolutePath();
         } else {
-            return Path.of(path);
+            return Path.of(path).toAbsolutePath();
         }
     }
 

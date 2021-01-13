@@ -18,9 +18,11 @@ package io.rxmicro.config.internal;
 
 import io.rxmicro.config.ConfigException;
 import io.rxmicro.config.internal.component.ToCustomTypeConverter;
+import io.rxmicro.resource.Paths;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.nio.file.Path;
 import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -101,6 +103,8 @@ public final class Converters {
         map.put(ZoneOffset.class, ZoneOffset::of);
         map.put(ZoneId.class, ZoneId::of);
         map.put(Period.class, Period::parse);
+        // File path
+        map.put(Path.class, Paths::createPath);
         // Collections
         map.put(List.class, s -> List.of(getConvertedWithoutTypeDefinitionValues(s)));
         map.put(Set.class, s -> Set.of(getConvertedWithoutTypeDefinitionValues(s)));
