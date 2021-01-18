@@ -24,7 +24,6 @@ import io.netty.channel.socket.ServerSocketChannel;
 import io.netty.util.concurrent.Future;
 import io.rxmicro.logger.Logger;
 import io.rxmicro.logger.LoggerFactory;
-import io.rxmicro.netty.runtime.NettyRuntimeConfig;
 import io.rxmicro.netty.runtime.local.EventLoopGroupFactory;
 import io.rxmicro.rest.server.HttpServerConfig;
 
@@ -49,8 +48,6 @@ final class NettyServer implements Runnable {
 
     private final HttpServerConfig httpServerConfig;
 
-    private final NettyRuntimeConfig nettyRuntimeConfig;
-
     private final SharableNettyRequestHandler sharableNettyRequestHandler;
 
     private final Class<? extends ServerSocketChannel> serverSocketChannelClass;
@@ -66,7 +63,6 @@ final class NettyServer implements Runnable {
     NettyServer(final SharableNettyRequestHandler sharableNettyRequestHandler,
                 final CountDownLatch latch) {
         this.httpServerConfig = getConfig(HttpServerConfig.class);
-        this.nettyRuntimeConfig = getConfig(NettyRuntimeConfig.class);
         this.sharableNettyRequestHandler = require(sharableNettyRequestHandler);
         final EventLoopGroupFactory eventLoopGroupFactory = getEventLoopGroupFactory();
         this.currentNettyTransport = eventLoopGroupFactory.getCurrentNettyTransport();
@@ -83,7 +79,11 @@ final class NettyServer implements Runnable {
             final ServerBootstrap bootstrap = new ServerBootstrap()
                     .group(acceptorGroup, workerGroup)
                     .channel(serverSocketChannelClass)
-                    .childHandler(new NettyClientConnectionController(nettyRuntimeConfig, sharableNettyRequestHandler));
+                    .childHandler(
+                            new NettyClientConnectionController(
+                                    sharableNettyRequestHandler
+                            )
+                    );
             final NettyConfiguratorController.NettyConfigurator nettyConfigurator = getNettyConfiguratorController().getNettyConfigurator();
             nettyConfigurator.getServerOptions().forEach((o, v) -> bootstrap.option((ChannelOption<Object>) o, v));
             nettyConfigurator.getClientOptions().forEach((o, v) -> bootstrap.childOption((ChannelOption<Object>) o, v));

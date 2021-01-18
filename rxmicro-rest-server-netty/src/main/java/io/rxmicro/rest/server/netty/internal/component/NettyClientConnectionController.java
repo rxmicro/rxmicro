@@ -24,6 +24,7 @@ import io.netty.util.AttributeKey;
 import io.rxmicro.logger.Logger;
 import io.rxmicro.logger.LoggerFactory;
 import io.rxmicro.netty.runtime.NettyRuntimeConfig;
+import io.rxmicro.rest.server.RestServerConfig;
 
 import java.time.Duration;
 import java.util.List;
@@ -31,9 +32,10 @@ import java.util.Map;
 import java.util.function.Supplier;
 
 import static io.rxmicro.common.util.Formats.format;
-import static io.rxmicro.common.util.Requires.require;
+import static io.rxmicro.config.Configs.getConfig;
 import static io.rxmicro.rest.server.netty.internal.component.InternalNettyConfiguratorBuilder.NETTY_RX_MICRO_REQUEST_HANDLER_NAME;
 import static io.rxmicro.rest.server.netty.internal.component.NettyConfiguratorController.getNettyConfiguratorController;
+import static io.rxmicro.rest.server.netty.internal.util.HealthCheckTools.isHealthCheckToolAddress;
 
 /**
  * @author nedis
@@ -45,25 +47,28 @@ final class NettyClientConnectionController extends ChannelInitializer<SocketCha
 
     private static final Logger LOGGER = LoggerFactory.getLogger(NettyClientConnectionController.class);
 
+    private final RestServerConfig restServerConfig;
+
     private final NettyRuntimeConfig nettyRuntimeConfig;
 
     private final SharableNettyRequestHandler sharableNettyRequestHandler;
 
     private final List<Map.Entry<String, Supplier<ChannelHandler>>> handlerSuppliers;
 
-    NettyClientConnectionController(final NettyRuntimeConfig nettyRuntimeConfig,
-                                    final SharableNettyRequestHandler sharableNettyRequestHandler) {
-        this.nettyRuntimeConfig = require(nettyRuntimeConfig);
+    NettyClientConnectionController(final SharableNettyRequestHandler sharableNettyRequestHandler) {
+        this.restServerConfig = getConfig(RestServerConfig.class);
+        this.nettyRuntimeConfig = getConfig(NettyRuntimeConfig.class);
         this.sharableNettyRequestHandler = sharableNettyRequestHandler;
         this.handlerSuppliers = getNettyConfiguratorController().getNettyConfigurator().getHandlerSuppliers();
     }
 
     @Override
     protected void initChannel(final SocketChannel ch) {
-        if (LOGGER.isTraceEnabled()) {
+        final boolean traceConnection = LOGGER.isTraceEnabled() && !isHealthCheckToolAddress(restServerConfig, ch);
+        if (traceConnection) {
             ch.attr(CHANNEL_TTL).set(System.nanoTime());
             LOGGER.trace(
-                    "Client connection created: Channel=?, IP=?",
+                    "Client connection created: Channel=?, Socket=?",
                     nettyRuntimeConfig.getChannelIdType().getId(ch.id()), ch.remoteAddress()
             );
         }
@@ -73,14 +78,14 @@ final class NettyClientConnectionController extends ChannelInitializer<SocketCha
         }
         pipeline.addLast(NETTY_RX_MICRO_REQUEST_HANDLER_NAME, sharableNettyRequestHandler);
         ch.closeFuture().addListener(future -> {
-                    if (LOGGER.isTraceEnabled()) {
-                        LOGGER.trace(
-                                "Client connection closed: Channel=?, IP=?, TTL=?",
-                                nettyRuntimeConfig.getChannelIdType().getId(ch.id()),
-                                ch.remoteAddress(),
-                                format(Duration.ofNanos(System.nanoTime() - ch.attr(CHANNEL_TTL).get()))
-                        );
-                    }
+            if (traceConnection) {
+                LOGGER.trace(
+                        "Client connection closed: Channel=?, Socket=?, TTL=?",
+                        nettyRuntimeConfig.getChannelIdType().getId(ch.id()),
+                        ch.remoteAddress(),
+                        format(Duration.ofNanos(System.nanoTime() - ch.attr(CHANNEL_TTL).get()))
+                );
+            }
                 }
         );
     }

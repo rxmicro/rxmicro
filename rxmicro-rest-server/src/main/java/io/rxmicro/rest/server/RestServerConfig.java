@@ -18,6 +18,7 @@ package io.rxmicro.rest.server;
 
 import io.rxmicro.common.meta.BuilderMethod;
 import io.rxmicro.config.Config;
+import io.rxmicro.config.ConfigException;
 import io.rxmicro.config.SingletonConfigClass;
 import io.rxmicro.rest.server.feature.RequestIdGenerator;
 
@@ -26,6 +27,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
+import static io.rxmicro.common.util.ExCollections.unmodifiableOrderedSet;
 import static io.rxmicro.common.util.Requires.require;
 import static io.rxmicro.rest.server.PredefinedRequestIdGeneratorProvider.DEFAULT_96_BIT;
 
@@ -86,6 +88,8 @@ public class RestServerConfig extends Config {
     private boolean returnGeneratedRequestId = true;
 
     private boolean disableLoggerMessagesForHttpHealthChecks = true;
+
+    private Set<String> healthCheckToolAddresses = Set.of();
 
     private boolean showRuntimeEnv;
 
@@ -483,6 +487,37 @@ public class RestServerConfig extends Config {
         return this;
     }
 
+    /**
+     * Returns ip addresses for http health check.
+     *
+     * @return ip addresses for http health check
+     */
+    public Set<String> getHealthCheckToolAddresses() {
+        return healthCheckToolAddresses;
+    }
+
+    /**
+     * Sets ip addresses for http health check.
+     *
+     * @param healthCheckToolAddresses ip addresses for http health check.
+     * @return the reference to this {@link RestServerConfig} instance
+     */
+    @BuilderMethod
+    public RestServerConfig setHealthCheckToolAddresses(final Set<String> healthCheckToolAddresses) {
+        this.healthCheckToolAddresses = unmodifiableOrderedSet(healthCheckToolAddresses);
+        return this;
+    }
+
+    @Override
+    protected void validate(final String namespace) {
+        if (!disableLoggerMessagesForHttpHealthChecks && !healthCheckToolAddresses.isEmpty()) {
+            throw new ConfigException(
+                    "'healthCheckToolAddresses' parameter for ? namespace must be empty, " +
+                            "because 'disableLoggerMessagesForHttpHealthChecks' is 'false'! Remove redundant parameter!"
+            );
+        }
+    }
+
     @Override
     public String toString() {
         return "RestServerConfig{" +
@@ -501,6 +536,7 @@ public class RestServerConfig extends Config {
                 ", useFullClassNamesForRouterMappingLogMessages=" + useFullClassNamesForRouterMappingLogMessages +
                 ", enableAdditionalValidations=" + enableAdditionalValidations +
                 ", waitingForRequestIdGeneratorInitTimeoutInMillis=" + requestIdGeneratorInitTimeout +
+                ", healthCheckToolAddresses=" + healthCheckToolAddresses +
                 '}';
     }
 }

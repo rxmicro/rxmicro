@@ -16,6 +16,8 @@
 
 package io.rxmicro.http.local;
 
+import java.util.Set;
+
 /**
  * @author nedis
  * @since 0.3
@@ -26,6 +28,11 @@ public final class PredefinedUrls {
      * The predefined URL path for http health check
      */
     public static final String HTTP_HEALTH_CHECK_ENDPOINT = "/http-health-check";
+
+    /**
+     * All supported health check urls.
+     */
+    public static final Set<String> HEALTH_CHECK_URLS = Set.of(HTTP_HEALTH_CHECK_ENDPOINT);
 
     private PredefinedUrls() {
     }

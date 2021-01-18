@@ -16,7 +16,10 @@
 
 package io.rxmicro.rest.server.detail.component;
 
+import io.rxmicro.logger.Logger;
+import io.rxmicro.logger.LoggerFactory;
 import io.rxmicro.rest.model.PathVariableMapping;
+import io.rxmicro.rest.server.RestServerConfig;
 import io.rxmicro.rest.server.detail.model.HttpHealthCheckRegistration;
 import io.rxmicro.rest.server.detail.model.HttpRequest;
 import io.rxmicro.rest.server.detail.model.HttpResponse;
@@ -27,6 +30,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.CompletionStage;
 
+import static io.rxmicro.config.Configs.getConfig;
 import static java.util.concurrent.CompletableFuture.completedStage;
 import static java.util.stream.Collectors.toList;
 
@@ -39,10 +43,15 @@ import static java.util.stream.Collectors.toList;
  */
 public final class HttpHealthCheckRestController extends AbstractRestController {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(HttpHealthCheckRestController.class);
+
     private final Set<HttpHealthCheckRegistration> httpHealthCheckRegistrations;
+
+    private final RestServerConfig restServerConfig;
 
     public HttpHealthCheckRestController(final HttpHealthCheckRegistration... httpHealthCheckRegistrations) {
         this.httpHealthCheckRegistrations = Set.of(httpHealthCheckRegistrations);
+        this.restServerConfig = getConfig(RestServerConfig.class);
     }
 
     @Override
@@ -69,6 +78,9 @@ public final class HttpHealthCheckRestController extends AbstractRestController 
 
     private CompletionStage<HttpResponse> handle(final PathVariableMapping pathVariableMapping,
                                                  final HttpRequest request) {
+        if (!restServerConfig.isDisableLoggerMessagesForHttpHealthChecks()) {
+            LOGGER.trace(request, "http health check successful");
+        }
         return completedStage(httpResponseBuilder.build());
     }
 }

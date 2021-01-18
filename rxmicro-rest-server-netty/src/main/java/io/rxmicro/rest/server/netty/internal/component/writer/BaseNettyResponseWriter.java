@@ -36,9 +36,10 @@ import static io.rxmicro.http.HttpStandardHeaderNames.CONNECTION;
 import static io.rxmicro.http.HttpStandardHeaderNames.CONTENT_LENGTH;
 import static io.rxmicro.http.HttpStandardHeaderNames.REQUEST_ID;
 import static io.rxmicro.http.HttpVersion.HTTP_1_0;
-import static io.rxmicro.http.local.PredefinedUrls.HTTP_HEALTH_CHECK_ENDPOINT;
+import static io.rxmicro.http.local.PredefinedUrls.HEALTH_CHECK_URLS;
 import static io.rxmicro.rest.server.netty.internal.model.NettyHttpRequest.REQUEST_ID_KEY;
 import static io.rxmicro.rest.server.netty.internal.model.NettyHttpRequest.START_PROCESSING_REQUEST_TIME_KEY;
+import static io.rxmicro.rest.server.netty.internal.util.HealthCheckTools.isHealthCheckToolAddress;
 import static java.lang.System.lineSeparator;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.util.stream.Collectors.joining;
@@ -113,12 +114,14 @@ class BaseNettyResponseWriter {
                              final NettyHttpRequest request,
                              final NettyHttpResponse response) {
         if (logger.isTraceEnabled()) {
-            if (restServerConfig.isDisableLoggerMessagesForHttpHealthChecks() && HTTP_HEALTH_CHECK_ENDPOINT.equals(request.getUri())) {
+            if (isHealthCheckToolAddress(restServerConfig, ctx.channel()) ||
+                    restServerConfig.isDisableLoggerMessagesForHttpHealthChecks() && HEALTH_CHECK_URLS.contains(request.getUri())) {
                 return;
             }
             traceResponse(ctx, request, response);
         } else if (logger.isDebugEnabled()) {
-            if (restServerConfig.isDisableLoggerMessagesForHttpHealthChecks() && HTTP_HEALTH_CHECK_ENDPOINT.equals(request.getUri())) {
+            if (isHealthCheckToolAddress(restServerConfig, ctx.channel()) ||
+                    restServerConfig.isDisableLoggerMessagesForHttpHealthChecks() && HEALTH_CHECK_URLS.contains(request.getUri())) {
                 return;
             }
             debugResponse(ctx, request, response);
@@ -131,8 +134,9 @@ class BaseNettyResponseWriter {
         final Long startTime = ctx.channel().attr(START_PROCESSING_REQUEST_TIME_KEY).get();
         logger.trace(
                 request,
-                "HTTP response: (Channel=?, Duration=?):\n? ?\n?\n\n?",
+                "HTTP response: (Channel=?, Socket=?, Duration=?):\n? ?\n?\n\n?",
                 nettyRuntimeConfig.getChannelIdType().getId(ctx.channel().id()),
+                ctx.channel().remoteAddress(),
                 startTime == null ? "undefined" : format(Duration.ofNanos(System.nanoTime() - startTime)),
                 response.getHttpVersion(),
                 response.getStatus(),
@@ -152,8 +156,9 @@ class BaseNettyResponseWriter {
         final Long startTime = ctx.channel().attr(START_PROCESSING_REQUEST_TIME_KEY).get();
         logger.debug(
                 request,
-                "HTTP response: Channel=?, Content=? bytes, Duration=?",
+                "HTTP response: Channel=?, Socket=?, Content=? bytes, Duration=?",
                 nettyRuntimeConfig.getChannelIdType().getId(ctx.channel().id()),
+                ctx.channel().remoteAddress(),
                 response.getHeaders().getValue(CONTENT_LENGTH),
                 startTime == null ? "undefined" : format(Duration.ofNanos(System.nanoTime() - startTime))
         );

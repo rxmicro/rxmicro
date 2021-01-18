@@ -28,8 +28,9 @@ import io.rxmicro.rest.server.netty.internal.model.NettyHttpRequest;
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.config.Configs.getConfig;
 import static io.rxmicro.http.HttpStandardHeaderNames.REQUEST_ID;
-import static io.rxmicro.http.local.PredefinedUrls.HTTP_HEALTH_CHECK_ENDPOINT;
+import static io.rxmicro.http.local.PredefinedUrls.HEALTH_CHECK_URLS;
 import static io.rxmicro.rest.server.netty.internal.model.NettyHttpRequest.REQUEST_ID_KEY;
+import static io.rxmicro.rest.server.netty.internal.util.HealthCheckTools.isHealthCheckToolAddress;
 import static java.lang.System.lineSeparator;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.util.stream.Collectors.joining;
@@ -42,13 +43,13 @@ public final class NettyByteArrayRequestReader {
 
     private final Logger logger;
 
-    private final RequestIdGenerator requestIdGenerator;
-
     private final Secrets secrets;
 
     private final NettyRuntimeConfig nettyRuntimeConfig;
 
     private final RestServerConfig restServerConfig;
+
+    private final RequestIdGenerator requestIdGenerator;
 
     public NettyByteArrayRequestReader(final Logger logger) {
         this.logger = logger;
@@ -73,12 +74,14 @@ public final class NettyByteArrayRequestReader {
     private void logRequest(final NettyHttpRequest request,
                             final ChannelHandlerContext ctx) {
         if (logger.isTraceEnabled()) {
-            if (restServerConfig.isDisableLoggerMessagesForHttpHealthChecks() && HTTP_HEALTH_CHECK_ENDPOINT.equals(request.getUri())) {
+            if (isHealthCheckToolAddress(restServerConfig, ctx.channel()) ||
+                    restServerConfig.isDisableLoggerMessagesForHttpHealthChecks() && HEALTH_CHECK_URLS.contains(request.getUri())) {
                 return;
             }
             traceRequest(request, ctx);
         } else if (logger.isDebugEnabled()) {
-            if (restServerConfig.isDisableLoggerMessagesForHttpHealthChecks() && HTTP_HEALTH_CHECK_ENDPOINT.equals(request.getUri())) {
+            if (isHealthCheckToolAddress(restServerConfig, ctx.channel()) ||
+                    restServerConfig.isDisableLoggerMessagesForHttpHealthChecks() && HEALTH_CHECK_URLS.contains(request.getUri())) {
                 return;
             }
             debugRequest(request, ctx);
@@ -89,15 +92,15 @@ public final class NettyByteArrayRequestReader {
                               final ChannelHandlerContext ctx) {
         logger.trace(
                 request,
-                "HTTP request:  (Channel=?, IP=?):\n? ?\n?\n\n?",
+                "HTTP request: (Channel=?, Socket=?):\n? ?\n?\n\n?",
                 nettyRuntimeConfig.getChannelIdType().getId(ctx.channel().id()),
                 ctx.channel().remoteAddress(),
                 format("? ??",
                         request.getMethod(),
                         request.getUri(),
                         request.isQueryStringPresent() ?
-                                "" :
-                                "?" + secrets.hideAllSecretsIn(request.getQueryString())
+                                '?' + secrets.hideAllSecretsIn(request.getQueryString()) :
+                                ""
                 ),
                 request.getVersion().getText(),
                 request.getHeaders().getEntries().stream()
@@ -114,15 +117,15 @@ public final class NettyByteArrayRequestReader {
                               final ChannelHandlerContext ctx) {
         logger.debug(
                 request,
-                "HTTP request:  Channel=?, IP=?, Request=?",
+                "HTTP request:  Channel=?, Socket=?, Request=?",
                 nettyRuntimeConfig.getChannelIdType().getId(ctx.channel().id()),
                 ctx.channel().remoteAddress(),
                 format("? ??",
                         request.getMethod(),
                         request.getUri(),
                         request.isQueryStringPresent() ?
-                                "" :
-                                "?" + secrets.hideAllSecretsIn(request.getQueryString())
+                                '?' + secrets.hideAllSecretsIn(request.getQueryString()) :
+                                ""
                 )
         );
     }
