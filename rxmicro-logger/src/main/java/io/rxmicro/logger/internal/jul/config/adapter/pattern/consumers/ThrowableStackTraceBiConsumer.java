@@ -33,7 +33,6 @@ public final class ThrowableStackTraceBiConsumer implements BiConsumer<StringBui
         if (record.getThrown() != null) {
             final StringWriter sw = new StringWriter();
             final PrintWriter pw = new PrintWriter(sw);
-            pw.println();
             record.getThrown().printStackTrace(pw);
             pw.close();
             messageBuilder.append(sw.toString());

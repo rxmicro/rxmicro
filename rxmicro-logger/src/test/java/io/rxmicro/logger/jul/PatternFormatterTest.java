@@ -132,7 +132,6 @@ final class PatternFormatterTest {
         assertEquals(
                 List.of(
                         "1577934245123 [INFO] LoggerName: message",
-                        "",
                         "java.lang.Exception: Test exception",
                         "\tat package.Class.method(Class.java:15)",
                         "\tat Launcher.main(Launcher.java:10)",
