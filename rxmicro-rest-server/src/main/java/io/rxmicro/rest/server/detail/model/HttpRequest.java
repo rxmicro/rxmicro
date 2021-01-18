@@ -76,7 +76,7 @@ public interface HttpRequest extends RequestIdSupplier {
      * @return {@code true} if the current HTTP request contains a query string
      */
     default boolean isQueryStringPresent() {
-        return getQueryString().isEmpty();
+        return !getQueryString().isEmpty();
     }
 
     /**
