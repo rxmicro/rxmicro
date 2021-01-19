@@ -31,7 +31,6 @@ env:
 
 on:
   push:
-    branches: [ master ]
     paths:
       - 'rxmicro-*/src/main/java/**'
       - 'rxmicro-*/src/test/java/**'
