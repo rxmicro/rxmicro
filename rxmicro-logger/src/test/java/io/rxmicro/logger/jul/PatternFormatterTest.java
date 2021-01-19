@@ -195,8 +195,8 @@ final class PatternFormatterTest {
     void Should_ignore_lineSeparator() {
         final LogRecord record = new LogRecord(INFO, "\nPattern \r\nformatter \rmust \nignore \nall \r\nline separators\r");
         assertEquals(
-                "Pattern formatter must ignore all line separators",
-                new PatternFormatter("%message", true, IGNORE_REPLACEMENT).format(record)
+                "Pattern formatter must ignore all line separators" + lineSeparator(),
+                new PatternFormatter("%message%n", true, IGNORE_REPLACEMENT).format(record)
         );
     }
 
@@ -205,8 +205,8 @@ final class PatternFormatterTest {
     void Should_replace_lineSeparator() {
         final LogRecord record = new LogRecord(INFO, "\nPattern \r\nformatter \rmust \nreplace \nall \r\nline separators\r");
         assertEquals(
-                "|Pattern |formatter |must |replace |all |line separators|",
-                new PatternFormatter("%message", true, "|").format(record)
+                "|Pattern |formatter |must |replace |all |line separators|" + lineSeparator(),
+                new PatternFormatter("%message%n", true, "|").format(record)
         );
     }
 
@@ -216,8 +216,8 @@ final class PatternFormatterTest {
     void Should_replace_lineSeparator_on_Windows() {
         final LogRecord record = new LogRecord(INFO, "Pattern formatter \r\n must replace windows specific \r\n line separators");
         assertEquals(
-                "Pattern formatter \\r\\n must replace windows specific \\r\\n line separators",
-                new PatternFormatter("%message", true, null).format(record)
+                "Pattern formatter \\r\\n must replace windows specific \\r\\n line separators" + lineSeparator(),
+                new PatternFormatter("%message%n", true, null).format(record)
         );
     }
 
@@ -227,8 +227,25 @@ final class PatternFormatterTest {
     void Should_replace_lineSeparator_on_Linux_or_Osx() {
         final LogRecord record = new LogRecord(INFO, "Pattern formatter \n must replace linux/osx specific \n line separators");
         assertEquals(
-                "Pattern formatter \\n must replace linux/osx specific \\n line separators",
-                new PatternFormatter("%message", true, null).format(record)
+                "Pattern formatter \\n must replace linux/osx specific \\n line separators" + lineSeparator(),
+                new PatternFormatter("%message%n", true, null).format(record)
+        );
+    }
+
+    @Order(10)
+    @Test
+    void Should_replace_lineSeparator_with_stack_trace() {
+        final Exception exception = new Exception("Test exception");
+        exception.setStackTrace(new StackTraceElement[]{
+                new StackTraceElement("Launcher", "main", "Launcher.java", 10)
+        });
+        final LogRecord record = new LogRecord(INFO, "\nPattern \r\nformatter \rmust \nreplace \nall \r\nline separators");
+        record.setThrown(exception);
+
+        assertEquals(
+                "|Pattern |formatter |must |replace |all |line separators|" +
+                        "java.lang.Exception: Test exception|\tat Launcher.main(Launcher.java:10)|" + lineSeparator(),
+                new PatternFormatter("%message%n", true, "|").format(record)
         );
     }
 

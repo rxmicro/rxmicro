@@ -17,6 +17,7 @@
 package io.rxmicro.logger.internal.message;
 
 import static io.rxmicro.common.util.Environments.isCurrentOsWindows;
+import static java.lang.System.lineSeparator;
 
 /**
  * This impl replaces the {@code '\r\n'} or {@code '\n'} characters by {@code replacement}.
@@ -26,7 +27,7 @@ import static io.rxmicro.common.util.Environments.isCurrentOsWindows;
  */
 public final class ReplaceLineSeparatorMessageBuilder extends MessageBuilder {
 
-    private static final String DEFAULT_REPLACEMENT = isCurrentOsWindows() ? "\\r\\n" : "\\n";
+    public static final String DEFAULT_REPLACEMENT = isCurrentOsWindows() ? "\\r\\n" : "\\n";
 
     private final String replacement;
 
@@ -62,5 +63,10 @@ public final class ReplaceLineSeparatorMessageBuilder extends MessageBuilder {
             }
         }
         return this;
+    }
+
+    @Override
+    public String build() {
+        return stringBuilder.append(lineSeparator()).toString();
     }
 }

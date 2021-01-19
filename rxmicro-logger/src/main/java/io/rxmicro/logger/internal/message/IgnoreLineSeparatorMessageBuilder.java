@@ -16,6 +16,8 @@
 
 package io.rxmicro.logger.internal.message;
 
+import static java.lang.System.lineSeparator;
+
 /**
  * This impl ignores the {@code '\n'} or {@code '\r'} characters.
  *
@@ -38,5 +40,10 @@ public final class IgnoreLineSeparatorMessageBuilder extends MessageBuilder {
             }
         }
         return this;
+    }
+
+    @Override
+    public String build() {
+        return stringBuilder.append(lineSeparator()).toString();
     }
 }

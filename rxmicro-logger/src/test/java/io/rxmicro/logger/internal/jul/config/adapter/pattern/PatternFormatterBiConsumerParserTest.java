@@ -71,7 +71,7 @@ final class PatternFormatterBiConsumerParserTest {
     })
     void Should_throw_PatternFormatterParseException(final String pattern,
                                                      final String expectedMessage) {
-        final PatternFormatterParseException exception = assertThrows(PatternFormatterParseException.class, () -> parser.parse(pattern));
+        final PatternFormatterParseException exception = assertThrows(PatternFormatterParseException.class, () -> parser.parse(pattern, false));
         assertEquals(expectedMessage, exception.getMessage());
     }
 }

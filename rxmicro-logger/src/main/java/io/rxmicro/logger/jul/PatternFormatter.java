@@ -329,6 +329,7 @@ public final class PatternFormatter extends Formatter {
 
     private static String resolvePattern() {
         return Optional.ofNullable(getLogManager().getProperty(Formats.format("?.pattern", FULL_CLASS_NAME)))
+                .filter(value -> !value.isEmpty())
                 .orElse(DEFAULT_PATTERN);
     }
 
@@ -352,14 +353,14 @@ public final class PatternFormatter extends Formatter {
                             final String replacement) {
         List<BiConsumer<MessageBuilder, LogRecord>> biConsumers;
         try {
-            biConsumers = new PatternFormatterBiConsumerParser().parse(pattern);
+            biConsumers = new PatternFormatterBiConsumerParser().parse(pattern, singleLineEnabled);
         } catch (final PatternFormatterParseException ex) {
             logInternal(
                     Level.SEVERE,
                     "The '?' pattern is invalid: ?. Set '?' as pattern for all log messages!",
                     pattern, ex.getMessage(), DEFAULT_PATTERN
             );
-            biConsumers = new PatternFormatterBiConsumerParser().parse(DEFAULT_PATTERN);
+            biConsumers = new PatternFormatterBiConsumerParser().parse(DEFAULT_PATTERN, singleLineEnabled);
         }
         this.biConsumers = biConsumers;
         if (singleLineEnabled) {

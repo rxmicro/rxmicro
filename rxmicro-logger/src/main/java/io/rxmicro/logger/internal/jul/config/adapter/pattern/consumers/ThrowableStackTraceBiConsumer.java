@@ -23,11 +23,19 @@ import java.io.StringWriter;
 import java.util.function.BiConsumer;
 import java.util.logging.LogRecord;
 
+import static java.lang.System.lineSeparator;
+
 /**
  * @author nedis
  * @since 0.7
  */
 public final class ThrowableStackTraceBiConsumer implements BiConsumer<MessageBuilder, LogRecord> {
+
+    private final boolean singleLineEnabled;
+
+    public ThrowableStackTraceBiConsumer(final boolean singleLineEnabled) {
+        this.singleLineEnabled = singleLineEnabled;
+    }
 
     @Override
     public void accept(final MessageBuilder messageBuilder,
@@ -37,6 +45,9 @@ public final class ThrowableStackTraceBiConsumer implements BiConsumer<MessageBu
             final PrintWriter pw = new PrintWriter(sw);
             record.getThrown().printStackTrace(pw);
             pw.flush();
+            if (singleLineEnabled) {
+                messageBuilder.append(lineSeparator());
+            }
             messageBuilder.append(sw.toString());
         }
     }

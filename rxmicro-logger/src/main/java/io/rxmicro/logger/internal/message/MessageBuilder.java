@@ -62,7 +62,7 @@ public class MessageBuilder {
         return this;
     }
 
-    public final String build() {
+    public String build() {
         return stringBuilder.toString();
     }
 }

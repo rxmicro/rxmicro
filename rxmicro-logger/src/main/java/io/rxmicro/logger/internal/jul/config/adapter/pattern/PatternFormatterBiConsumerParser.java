@@ -118,7 +118,8 @@ public final class PatternFormatterBiConsumerParser {
         );
     }
 
-    public List<BiConsumer<MessageBuilder, LogRecord>> parse(final String pattern) {
+    public List<BiConsumer<MessageBuilder, LogRecord>> parse(final String pattern,
+                                                             final boolean singleLineEnabled) {
         final List<BiConsumer<MessageBuilder, LogRecord>> list = new ArrayList<>();
         final StringIterator iterator = new StringIterator(pattern);
         final StringBuilder stringConstantBuilder = new StringBuilder();
@@ -148,7 +149,10 @@ public final class PatternFormatterBiConsumerParser {
         if (stringConstantBuilder.length() > 0) {
             list.add(new StringConstantBiConsumer(stringConstantBuilder.toString()));
         }
-        list.add(new ThrowableStackTraceBiConsumer());
+        if (singleLineEnabled && list.get(list.size() - 1) instanceof PlatformDependentLineSeparatorBiConsumer) {
+            list.remove(list.size() - 1);
+        }
+        list.add(new ThrowableStackTraceBiConsumer(singleLineEnabled));
         return unmodifiableList(list);
     }
 
