@@ -44,8 +44,8 @@ import static io.rxmicro.logger.internal.jul.SystemConsoleHandlerHelper.getPrope
  *         are forwarded to the standard output stream ({@link System#out}). And log messages with {@code ERROR} levels are forwarded to
  *         the standard error stream ({@link System#err}).
  *
- *         {@link SystemConsoleHandler} component uses the {@link SystemConsoleHandler}.{@code errStreamFor} option to detect the log level
- *         that must be forwarded to the standard error stream ({@link System#err}).
+ *         {@link SystemConsoleHandler} component uses the {@code io.rxmicro.logger.jul.SystemConsoleHandler.errStreamFor} option to
+ *         detect the log level that must be forwarded to the standard error stream ({@link System#err}).
  *     </li>
  *     <li>
  *         {@value #STD_OUT} - this stream means that all log messages are forwarded to the standard output stream ({@link System#out}).
@@ -67,15 +67,16 @@ import static io.rxmicro.logger.internal.jul.SystemConsoleHandlerHelper.getPrope
  * If properties are not defined (or have invalid values) then the specified default values are used.
  * <ul>
  *      <li>
- *          {@code io.rxmicro.logger.jul.SystemConsoleHandler.stream} specifies the output stream for the {@code Handler} (defaults to {@value #AUTO}).
+ *          {@code io.rxmicro.logger.jul.SystemConsoleHandler.stream} specifies the output stream for the {@code Handler}
+ *          (defaults to {@value #AUTO}).
  *      </li>
  *      <li>
- *          {@code io.rxmicro.logger.jul.SystemConsoleHandler.errStreamFor} specifies the log levels that must be forwarded to the standard error stream
- *          ({@link System#err}) (defaults to {@code ERROR}).
+ *          {@code io.rxmicro.logger.jul.SystemConsoleHandler.errStreamFor} specifies the log levels that must be forwarded
+ *          to the standard error stream ({@link System#err}) (defaults to {@code ERROR}).
  *          This option is used only with {@code io.rxmicro.logger.jul.SystemConsoleHandler.stream} = {@value #AUTO}!
  *          For several values use {@code ,} separator, for example:
  *          {@code io.rxmicro.logger.jul.SystemConsoleHandler.errStreamFor=ERROR, WARN}!
- *          The {@link SystemConsoleHandler}.{@code errStreamFor} supports all logging levels from the following sets:
+ *          The {@code io.rxmicro.logger.jul.SystemConsoleHandler.errStreamFor} supports all logging levels from the following sets:
  *          <ul>
  *              <li>
  *                  The RxMicro log level set:
@@ -133,6 +134,10 @@ public final class SystemConsoleHandler extends Handler {
      * <p>
      * Log messages with 'TRACE', 'DEBUG', 'INFO' and 'WARN' levels are forwarded to the standard output stream ({@link System#out}).
      * Log messages with 'ERROR' levels are forwarded to the standard error stream ({@link System#err}).
+     *
+     * <p>
+     * {@link SystemConsoleHandler} component uses the {@code io.rxmicro.logger.jul.SystemConsoleHandler.errStreamFor} option to
+     * detect the log level that must be forwarded to the standard error stream ({@link System#err}).
      *
      * @see System#out
      * @see System#err
@@ -193,6 +198,8 @@ public final class SystemConsoleHandler extends Handler {
     }
 
     /**
+     * Auto stream handler.
+     *
      * @author nedis
      * @since 0.9
      */
