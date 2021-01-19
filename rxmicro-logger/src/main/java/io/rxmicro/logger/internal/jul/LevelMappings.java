@@ -29,7 +29,7 @@ import static java.util.stream.Collectors.toUnmodifiableMap;
  * @author nedis
  * @since 0.1
  */
-final class LevelMappings {
+public final class LevelMappings {
 
     private static final java.util.logging.Level[] JUL_LEVELS = {
             /* Level.OFF   -> */ java.util.logging.Level.OFF,
