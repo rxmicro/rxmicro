@@ -18,6 +18,7 @@ package io.rxmicro.logger.internal.jul.config.adapter.pattern.consumers;
 
 import io.rxmicro.logger.internal.jul.config.adapter.pattern.AbstractBiConsumer;
 import io.rxmicro.logger.internal.jul.config.adapter.pattern.BiConsumerArguments;
+import io.rxmicro.logger.internal.message.MessageBuilder;
 
 import java.util.logging.LogRecord;
 
@@ -35,7 +36,7 @@ public final class LoggerLevelBiConsumer extends AbstractBiConsumer {
     }
 
     @Override
-    public void accept(final StringBuilder messageBuilder,
+    public void accept(final MessageBuilder messageBuilder,
                        final LogRecord record) {
         messageBuilder.append(getRxMicroLevel(record.getLevel()));
     }

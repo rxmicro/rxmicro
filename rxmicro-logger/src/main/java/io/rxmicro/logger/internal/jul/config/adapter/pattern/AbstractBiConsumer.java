@@ -16,6 +16,7 @@
 
 package io.rxmicro.logger.internal.jul.config.adapter.pattern;
 
+import io.rxmicro.logger.internal.message.MessageBuilder;
 import io.rxmicro.logger.jul.PatternFormatterParseException;
 
 import java.util.Arrays;
@@ -27,7 +28,7 @@ import java.util.logging.LogRecord;
  * @author nedis
  * @since 0.7
  */
-public abstract class AbstractBiConsumer implements BiConsumer<StringBuilder, LogRecord> {
+public abstract class AbstractBiConsumer implements BiConsumer<MessageBuilder, LogRecord> {
 
     protected final ConversionSpecifier conversionSpecifier;
 

@@ -18,12 +18,14 @@ package io.rxmicro.logger.jul;
 
 import io.rxmicro.logger.internal.jul.config.adapter.RxMicroLogRecord;
 import io.rxmicro.logger.internal.jul.config.adapter.pattern.consumers.RelativeTimeBiConsumer;
+import io.rxmicro.logger.internal.message.MessageBuilder;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.condition.EnabledOnOs;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -34,11 +36,15 @@ import java.util.List;
 import java.util.function.BiConsumer;
 import java.util.logging.LogRecord;
 
+import static io.rxmicro.logger.jul.PatternFormatter.IGNORE_REPLACEMENT;
 import static java.lang.System.lineSeparator;
 import static java.util.logging.Level.INFO;
 import static java.util.stream.Collectors.joining;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.condition.OS.LINUX;
+import static org.junit.jupiter.api.condition.OS.MAC;
+import static org.junit.jupiter.api.condition.OS.WINDOWS;
 
 /**
  * @author nedis
@@ -100,7 +106,7 @@ final class PatternFormatterTest {
                 expectedMessage + lineSeparator() :
                 expectedMessage;
 
-        final PatternFormatter patternFormatter = assertDoesNotThrow(() -> new PatternFormatter(pattern));
+        final PatternFormatter patternFormatter = assertDoesNotThrow(() -> new PatternFormatter(pattern, false, null));
         assertEquals(
                 validExpected,
                 patternFormatter.format(record)
@@ -126,7 +132,7 @@ final class PatternFormatterTest {
         record.setStackFrame("package.Class", "method", "Class.java", 15);
         record.setThrown(exception);
 
-        final PatternFormatter patternFormatter = assertDoesNotThrow(() -> new PatternFormatter(pattern));
+        final PatternFormatter patternFormatter = assertDoesNotThrow(() -> new PatternFormatter(pattern, false, null));
         setRelativeTimeStart(patternFormatter);
 
         assertEquals(
@@ -145,7 +151,7 @@ final class PatternFormatterTest {
     @Test
     void toString_should_display_all_configured_consumers() {
         final String pattern = "%logger %class %date %file %line %message %method %n %level %relative %thread %requestId";
-        final PatternFormatter patternFormatter = assertDoesNotThrow(() -> new PatternFormatter(pattern));
+        final PatternFormatter patternFormatter = assertDoesNotThrow(() -> new PatternFormatter(pattern, false, null));
 
         assertEquals(
                 "PatternFormatter{biConsumers=[" +
@@ -159,7 +165,7 @@ final class PatternFormatterTest {
     @Test
     void Should_use_default_pattern_if_the_specified_one_is_invalid() {
         final String pattern = "%logger{";
-        final PatternFormatter patternFormatter = assertDoesNotThrow(() -> new PatternFormatter(pattern));
+        final PatternFormatter patternFormatter = assertDoesNotThrow(() -> new PatternFormatter(pattern, false, null));
 
         assertEquals(
                 "PatternFormatter{biConsumers=[%d{yyyy-MM-dd HH:mm:ss.SSS}, ' [', %p, '] ', %c{full}, ': ', %m, %n, %throwable]}",
@@ -177,10 +183,52 @@ final class PatternFormatterTest {
 
         final String pattern = "%logger{0} (%file:%line) {%thread} %requestId";
 
-        final PatternFormatter patternFormatter = assertDoesNotThrow(() -> new PatternFormatter(pattern));
+        final PatternFormatter patternFormatter = assertDoesNotThrow(() -> new PatternFormatter(pattern, false, null));
         assertEquals(
                 "LoggerName (null:null) {Thread#15} unsupported-request-id-feature",
                 patternFormatter.format(record)
+        );
+    }
+
+    @Order(6)
+    @Test
+    void Should_ignore_lineSeparator() {
+        final LogRecord record = new LogRecord(INFO, "\nPattern \r\nformatter \rmust \nignore \nall \r\nline separators\r");
+        assertEquals(
+                "Pattern formatter must ignore all line separators",
+                new PatternFormatter("%message", true, IGNORE_REPLACEMENT).format(record)
+        );
+    }
+
+    @Order(7)
+    @Test
+    void Should_replace_lineSeparator() {
+        final LogRecord record = new LogRecord(INFO, "\nPattern \r\nformatter \rmust \nreplace \nall \r\nline separators\r");
+        assertEquals(
+                "|Pattern |formatter |must |replace |all |line separators|",
+                new PatternFormatter("%message", true, "|").format(record)
+        );
+    }
+
+    @EnabledOnOs(value = WINDOWS, disabledReason = "This test uses Windows specific line separator")
+    @Order(8)
+    @Test
+    void Should_replace_lineSeparator_on_Windows() {
+        final LogRecord record = new LogRecord(INFO, "Pattern formatter \r\n must replace windows specific \r\n line separators");
+        assertEquals(
+                "Pattern formatter \\r\\n must replace windows specific \\r\\n line separators",
+                new PatternFormatter("%message", true, null).format(record)
+        );
+    }
+
+    @EnabledOnOs(value = {LINUX, MAC}, disabledReason = "This test uses Linux/OSX specific line separator")
+    @Order(9)
+    @Test
+    void Should_replace_lineSeparator_on_Linux_or_Osx() {
+        final LogRecord record = new LogRecord(INFO, "Pattern formatter \n must replace linux/osx specific \n line separators");
+        assertEquals(
+                "Pattern formatter \\n must replace linux/osx specific \\n line separators",
+                new PatternFormatter("%message", true, null).format(record)
         );
     }
 
@@ -190,8 +238,8 @@ final class PatternFormatterTest {
         if (!biConsumersField.canAccess(patternFormatter)) {
             biConsumersField.setAccessible(true);
         }
-        final BiConsumer<StringBuilder, LogRecord> biConsumer =
-                ((List<BiConsumer<StringBuilder, LogRecord>>) biConsumersField.get(patternFormatter)).stream()
+        final BiConsumer<MessageBuilder, LogRecord> biConsumer =
+                ((List<BiConsumer<MessageBuilder, LogRecord>>) biConsumersField.get(patternFormatter)).stream()
                         .filter(c -> c instanceof RelativeTimeBiConsumer)
                         .findFirst()
                         .orElseThrow();

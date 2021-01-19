@@ -31,6 +31,7 @@ import io.rxmicro.logger.internal.jul.config.adapter.pattern.consumers.RequestId
 import io.rxmicro.logger.internal.jul.config.adapter.pattern.consumers.StringConstantBiConsumer;
 import io.rxmicro.logger.internal.jul.config.adapter.pattern.consumers.ThreadNameBiConsumer;
 import io.rxmicro.logger.internal.jul.config.adapter.pattern.consumers.ThrowableStackTraceBiConsumer;
+import io.rxmicro.logger.internal.message.MessageBuilder;
 import io.rxmicro.logger.jul.PatternFormatterParseException;
 
 import java.util.ArrayList;
@@ -81,7 +82,7 @@ import static java.util.stream.Collectors.toList;
  */
 public final class PatternFormatterBiConsumerParser {
 
-    private final Map<ConversionSpecifier, Function<BiConsumerArguments, BiConsumer<StringBuilder, LogRecord>>> biConsumerBuilderMap;
+    private final Map<ConversionSpecifier, Function<BiConsumerArguments, BiConsumer<MessageBuilder, LogRecord>>> biConsumerBuilderMap;
 
     public PatternFormatterBiConsumerParser() {
         this.biConsumerBuilderMap = Map.ofEntries(
@@ -117,8 +118,8 @@ public final class PatternFormatterBiConsumerParser {
         );
     }
 
-    public List<BiConsumer<StringBuilder, LogRecord>> parse(final String pattern) {
-        final List<BiConsumer<StringBuilder, LogRecord>> list = new ArrayList<>();
+    public List<BiConsumer<MessageBuilder, LogRecord>> parse(final String pattern) {
+        final List<BiConsumer<MessageBuilder, LogRecord>> list = new ArrayList<>();
         final StringIterator iterator = new StringIterator(pattern);
         final StringBuilder stringConstantBuilder = new StringBuilder();
         while (iterator.next()) {

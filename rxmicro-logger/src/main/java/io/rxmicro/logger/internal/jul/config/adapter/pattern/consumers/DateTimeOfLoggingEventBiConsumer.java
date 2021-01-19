@@ -18,6 +18,7 @@ package io.rxmicro.logger.internal.jul.config.adapter.pattern.consumers;
 
 import io.rxmicro.logger.internal.jul.config.adapter.pattern.AbstractBiConsumer;
 import io.rxmicro.logger.internal.jul.config.adapter.pattern.BiConsumerArguments;
+import io.rxmicro.logger.internal.message.MessageBuilder;
 import io.rxmicro.logger.jul.PatternFormatterParseException;
 
 import java.time.DateTimeException;
@@ -79,7 +80,7 @@ public final class DateTimeOfLoggingEventBiConsumer extends AbstractBiConsumer {
     }
 
     @Override
-    public void accept(final StringBuilder messageBuilder,
+    public void accept(final MessageBuilder messageBuilder,
                        final LogRecord record) {
         final LocalDateTime localDateTime = ofInstant(record.getInstant(), zoneId);
         messageBuilder.append(localDateTime.format(dateTimeFormatter));

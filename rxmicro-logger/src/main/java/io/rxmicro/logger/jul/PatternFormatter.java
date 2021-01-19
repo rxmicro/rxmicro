@@ -18,16 +18,21 @@ package io.rxmicro.logger.jul;
 
 import io.rxmicro.common.util.Formats;
 import io.rxmicro.logger.internal.jul.config.adapter.pattern.PatternFormatterBiConsumerParser;
+import io.rxmicro.logger.internal.message.IgnoreLineSeparatorMessageBuilder;
+import io.rxmicro.logger.internal.message.MessageBuilder;
+import io.rxmicro.logger.internal.message.ReplaceLineSeparatorMessageBuilder;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.function.BiConsumer;
+import java.util.function.Supplier;
 import java.util.logging.Formatter;
 import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.LogRecord;
 
 import static io.rxmicro.logger.internal.jul.InternalLoggerHelper.logInternal;
+import static java.util.logging.LogManager.getLogManager;
 
 /**
  * This class supports conversion specifiers that can be used as format control expressions.
@@ -36,6 +41,29 @@ import static io.rxmicro.logger.internal.jul.InternalLoggerHelper.logInternal;
  * Each conversion specifier starts with a percent sign {@code '%'} and is followed by optional format modifiers,
  * a conversion word and optional parameters between braces.
  * The conversion word controls the data field to convert, e.g. logger name or date format.
+ *
+ * <p>
+ * <b>Configuration:</b>
+ * By default each {@link PatternFormatter} is initialized using the following {@link LogManager} configuration properties.
+ * If properties are not defined (or have invalid values) then the specified default values are used.
+ * <ul>
+ *      <li>
+ *          {@code io.rxmicro.logger.jul.PatternFormatter.pattern} specifies the pattern for the logged messages
+ *          (defaults to {@value #DEFAULT_PATTERN}).
+ *      </li>
+ *      <li>
+ *          {@code io.rxmicro.logger.jul.PatternFormatter.singleLine} indicates that all logged messages must be formatted as single line,
+ *          i.e. the {@code '\r\n'} or {@code '\n'} characters must be replaced. (defaults to {@code false}).
+ *      </li>
+ *      <li>
+ *          {@code io.rxmicro.logger.jul.PatternFormatter.replacement} specifies the string that must be used as replacement for
+ *          the {@code '\r\n'} or {@code '\n'} characters.
+ *          This parameter is ignored if {@code io.rxmicro.logger.jul.PatternFormatter.singleLine} is not {@code true}.
+ *          If this parameter is {@value #IGNORE_REPLACEMENT}, than the {@code '\r\n'} or {@code '\n'} characters will be ignored.
+ *          (defaults to platform specific strings:
+ *          {@code "\\r\\n"} for Windows, {@code "\\n"} for Linux and Osx)
+ *      </li>
+ * </ul>
  *
  * <p>
  * The {@link PatternFormatter} supports the following conversion specifiers:
@@ -288,23 +316,41 @@ public final class PatternFormatter extends Formatter {
      */
     public static final String DEFAULT_PATTERN = "%d{yyyy-MM-dd HH:mm:ss.SSS} [%p] %c: %m%n";
 
-    private static final int DEFAULT_MESSAGE_BUILDER_CAPACITY = 200;
+    /**
+     * Ignore replacement constant.
+     */
+    public static final String IGNORE_REPLACEMENT = "ignore";
 
-    private final List<BiConsumer<StringBuilder, LogRecord>> biConsumers;
+    private static final String FULL_CLASS_NAME = PatternFormatter.class.getName();
+
+    private final List<BiConsumer<MessageBuilder, LogRecord>> biConsumers;
+
+    private final Supplier<MessageBuilder> messageBuilderSupplier;
 
     private static String resolvePattern() {
-        final LogManager manager = LogManager.getLogManager();
-        return Optional.ofNullable(manager.getProperty(Formats.format("?.pattern", PatternFormatter.class.getName())))
+        return Optional.ofNullable(getLogManager().getProperty(Formats.format("?.pattern", FULL_CLASS_NAME)))
                 .orElse(DEFAULT_PATTERN);
+    }
+
+    private static boolean isSingleLineEnabled() {
+        return Boolean.parseBoolean(getLogManager().getProperty(Formats.format("?.singleLine", FULL_CLASS_NAME)));
+    }
+
+    private static String resolveReplacement() {
+        return getLogManager().getProperty(Formats.format("?.replacement", FULL_CLASS_NAME));
     }
 
     /**
      * Creates an instance of {@link PatternFormatter} class with the specified pattern.
      *
      * @param pattern the specified pattern.
+     * @param singleLineEnabled flag that indicates that current {@link PatternFormatter} must format message as single line.
+     * @param replacement the specified replacement or {@code null} if must be default value
      */
-    public PatternFormatter(final String pattern) {
-        List<BiConsumer<StringBuilder, LogRecord>> biConsumers;
+    public PatternFormatter(final String pattern,
+                            final boolean singleLineEnabled,
+                            final String replacement) {
+        List<BiConsumer<MessageBuilder, LogRecord>> biConsumers;
         try {
             biConsumers = new PatternFormatterBiConsumerParser().parse(pattern);
         } catch (final PatternFormatterParseException ex) {
@@ -316,10 +362,24 @@ public final class PatternFormatter extends Formatter {
             biConsumers = new PatternFormatterBiConsumerParser().parse(DEFAULT_PATTERN);
         }
         this.biConsumers = biConsumers;
+        if (singleLineEnabled) {
+            if (replacement == null) {
+                // Default replacement
+                this.messageBuilderSupplier = ReplaceLineSeparatorMessageBuilder::new;
+            } else if (IGNORE_REPLACEMENT.equals(replacement)) {
+                this.messageBuilderSupplier = IgnoreLineSeparatorMessageBuilder::new;
+            } else {
+                this.messageBuilderSupplier = () -> new ReplaceLineSeparatorMessageBuilder(replacement);
+            }
+        } else {
+            this.messageBuilderSupplier = MessageBuilder::new;
+        }
+
     }
 
     /**
-     * Creates an instance of {@link PatternFormatter} class with the pattern resolved from properties file.
+     * Creates an instance of {@link PatternFormatter} class with the {@code pattern} and {@code singleLineEnabled} parameters
+     * resolved from properties file.
      *
      * <p>
      * If configuration file contains the following property:
@@ -327,18 +387,29 @@ public final class PatternFormatter extends Formatter {
      * io.rxmicro.logger.jul.PatternFormatter.pattern=${CUSTOM_PATTERN}
      * </code></pre>
      * then {@code ${CUSTOM_PATTERN}} will be used as pattern instead of default one: '{@value #DEFAULT_PATTERN}'
+     *
+     * <p>
+     * If configuration file contains the following property:
+     * {@code io.rxmicro.logger.jul.PatternFormatter.singleLine=true}
+     * then the current instance formats all messages as single line, i.e. replaces the {@code '\r\n'} or {@code '\n'}
+     * characters by {@code "\\n"} for Linux and Osx or {@code "\\r\\n"} for Windows string.
+     *
+     * <p>
+     * If configuration file contains the following property:
+     * {@code io.rxmicro.logger.jul.PatternFormatter.replacement=ANY_PROVIDED_STRING}
+     * then the provided string is used as replacement for the {@code '\r\n'} or {@code '\n'} characters.
      */
     public PatternFormatter() {
-        this(resolvePattern());
+        this(resolvePattern(), isSingleLineEnabled(), resolveReplacement());
     }
 
     @Override
     public String format(final LogRecord record) {
-        final StringBuilder messageBuilder = new StringBuilder(DEFAULT_MESSAGE_BUILDER_CAPACITY);
-        for (final BiConsumer<StringBuilder, LogRecord> biConsumer : biConsumers) {
+        final MessageBuilder messageBuilder = messageBuilderSupplier.get();
+        for (final BiConsumer<MessageBuilder, LogRecord> biConsumer : biConsumers) {
             biConsumer.accept(messageBuilder, record);
         }
-        return messageBuilder.toString();
+        return messageBuilder.build();
     }
 
     @Override

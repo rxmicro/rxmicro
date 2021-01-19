@@ -16,6 +16,8 @@
 
 package io.rxmicro.logger.internal.jul.config.adapter.pattern.consumers;
 
+import io.rxmicro.logger.internal.message.MessageBuilder;
+
 import java.util.function.BiConsumer;
 import java.util.logging.LogRecord;
 
@@ -25,7 +27,7 @@ import static io.rxmicro.common.util.Formats.format;
  * @author nedis
  * @since 0.7
  */
-public final class StringConstantBiConsumer implements BiConsumer<StringBuilder, LogRecord> {
+public final class StringConstantBiConsumer implements BiConsumer<MessageBuilder, LogRecord> {
 
     private final String value;
 
@@ -34,7 +36,7 @@ public final class StringConstantBiConsumer implements BiConsumer<StringBuilder,
     }
 
     @Override
-    public void accept(final StringBuilder messageBuilder,
+    public void accept(final MessageBuilder messageBuilder,
                        final LogRecord record) {
         messageBuilder.append(value);
     }

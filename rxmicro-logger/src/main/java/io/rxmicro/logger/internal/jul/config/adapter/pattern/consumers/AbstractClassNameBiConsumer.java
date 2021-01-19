@@ -18,6 +18,7 @@ package io.rxmicro.logger.internal.jul.config.adapter.pattern.consumers;
 
 import io.rxmicro.logger.internal.jul.config.adapter.pattern.AbstractBiConsumer;
 import io.rxmicro.logger.internal.jul.config.adapter.pattern.BiConsumerArguments;
+import io.rxmicro.logger.internal.message.MessageBuilder;
 
 import java.util.List;
 import java.util.logging.LogRecord;
@@ -58,15 +59,15 @@ abstract class AbstractClassNameBiConsumer extends AbstractBiConsumer {
     }
 
     @Override
-    public final void accept(final StringBuilder messageBuilder,
+    public final void accept(final MessageBuilder messageBuilder,
                              final LogRecord record) {
         if (fullName) {
-            messageBuilder.append(getName(record));
+            messageBuilder.appendWithoutTransformation(getName(record));
         } else {
             final String fullName = getName(record);
             final int index = fullName.lastIndexOf('.');
             final String shortName = index != -1 ? fullName.substring(index + 1) : fullName;
-            messageBuilder.append(shortName);
+            messageBuilder.appendWithoutTransformation(shortName);
         }
     }
 

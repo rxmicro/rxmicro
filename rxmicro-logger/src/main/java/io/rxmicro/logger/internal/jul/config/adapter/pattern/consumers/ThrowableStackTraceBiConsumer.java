@@ -16,6 +16,8 @@
 
 package io.rxmicro.logger.internal.jul.config.adapter.pattern.consumers;
 
+import io.rxmicro.logger.internal.message.MessageBuilder;
+
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.function.BiConsumer;
@@ -25,16 +27,16 @@ import java.util.logging.LogRecord;
  * @author nedis
  * @since 0.7
  */
-public final class ThrowableStackTraceBiConsumer implements BiConsumer<StringBuilder, LogRecord> {
+public final class ThrowableStackTraceBiConsumer implements BiConsumer<MessageBuilder, LogRecord> {
 
     @Override
-    public void accept(final StringBuilder messageBuilder,
+    public void accept(final MessageBuilder messageBuilder,
                        final LogRecord record) {
         if (record.getThrown() != null) {
             final StringWriter sw = new StringWriter();
             final PrintWriter pw = new PrintWriter(sw);
             record.getThrown().printStackTrace(pw);
-            pw.close();
+            pw.flush();
             messageBuilder.append(sw.toString());
         }
     }
