@@ -18,15 +18,16 @@ package io.rxmicro.rest.server.netty.internal.component.writer;
 
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelHandlerContext;
-import io.rxmicro.config.Secrets;
 import io.rxmicro.logger.Logger;
 import io.rxmicro.netty.runtime.NettyRuntimeConfig;
 import io.rxmicro.rest.server.RestServerConfig;
 import io.rxmicro.rest.server.netty.internal.component.NettyErrorHandler;
 import io.rxmicro.rest.server.netty.internal.model.NettyHttpRequest;
 import io.rxmicro.rest.server.netty.internal.model.NettyHttpResponse;
+import io.rxmicro.rest.server.netty.internal.util.HttpFragmentBuilder;
 
 import java.time.Duration;
+import java.util.Optional;
 
 import static io.netty.handler.codec.http.HttpHeaderValues.CLOSE;
 import static io.netty.handler.codec.http.HttpHeaderValues.KEEP_ALIVE;
@@ -34,15 +35,13 @@ import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.config.Configs.getConfig;
 import static io.rxmicro.http.HttpStandardHeaderNames.CONNECTION;
 import static io.rxmicro.http.HttpStandardHeaderNames.CONTENT_LENGTH;
+import static io.rxmicro.http.HttpStandardHeaderNames.CONTENT_TYPE;
 import static io.rxmicro.http.HttpStandardHeaderNames.REQUEST_ID;
 import static io.rxmicro.http.HttpVersion.HTTP_1_0;
 import static io.rxmicro.http.local.PredefinedUrls.HEALTH_CHECK_URLS;
 import static io.rxmicro.rest.server.netty.internal.model.NettyHttpRequest.REQUEST_ID_KEY;
 import static io.rxmicro.rest.server.netty.internal.model.NettyHttpRequest.START_PROCESSING_REQUEST_TIME_KEY;
 import static io.rxmicro.rest.server.netty.internal.util.HealthCheckTools.isHealthCheckToolAddress;
-import static java.lang.System.lineSeparator;
-import static java.nio.charset.StandardCharsets.UTF_8;
-import static java.util.stream.Collectors.joining;
 
 /**
  * @author nedis
@@ -52,21 +51,21 @@ class BaseNettyResponseWriter {
 
     final Logger logger;
 
-    final Secrets secrets;
-
     final NettyErrorHandler nettyErrorHandler;
 
     final NettyRuntimeConfig nettyRuntimeConfig;
 
     final RestServerConfig restServerConfig;
 
+    final HttpFragmentBuilder httpFragmentBuilder;
+
     BaseNettyResponseWriter(final Logger logger,
                             final NettyErrorHandler nettyErrorHandler) {
         this.logger = logger;
-        this.secrets = Secrets.getDefaultInstance();
         this.nettyErrorHandler = nettyErrorHandler;
         this.nettyRuntimeConfig = getConfig(NettyRuntimeConfig.class);
         this.restServerConfig = getConfig(RestServerConfig.class);
+        this.httpFragmentBuilder = new HttpFragmentBuilder(this.restServerConfig);
     }
 
     final boolean isKeepAlive(final NettyHttpRequest httpRequest) {
@@ -136,17 +135,12 @@ class BaseNettyResponseWriter {
                 request,
                 "HTTP response: (Channel=?, Socket=?, Duration=?):\n? ?\n?\n\n?",
                 nettyRuntimeConfig.getChannelIdType().getId(ctx.channel().id()),
-                ctx.channel().remoteAddress(),
+                httpFragmentBuilder.buildRemoteClientSocket(ctx, request),
                 startTime == null ? "undefined" : format(Duration.ofNanos(System.nanoTime() - startTime)),
                 response.getHttpVersion(),
                 response.getStatus(),
-                response.getHeaders().getEntries().stream()
-                        .map(e -> format("?: ?", e.getKey(), secrets.hideIfSecret(e.getValue())))
-                        .collect(joining(lineSeparator())),
-                response.isSendFileResponse() ? "<file content>" :
-                        response.getContentLength() > 0 ?
-                                secrets.hideAllSecretsIn(new String(response.getContent(), UTF_8)) :
-                                ""
+                httpFragmentBuilder.buildHeaders(false, response.getHeaders()),
+                httpFragmentBuilder.buildBody(response)
         );
     }
 
@@ -156,10 +150,11 @@ class BaseNettyResponseWriter {
         final Long startTime = ctx.channel().attr(START_PROCESSING_REQUEST_TIME_KEY).get();
         logger.debug(
                 request,
-                "HTTP response: Channel=?, Socket=?, Content=? bytes, Duration=?",
+                "HTTP response: Channel=?, Socket=?, Body=? bytes, ContentType=?, Duration=?",
                 nettyRuntimeConfig.getChannelIdType().getId(ctx.channel().id()),
-                ctx.channel().remoteAddress(),
-                response.getHeaders().getValue(CONTENT_LENGTH),
+                httpFragmentBuilder.buildRemoteClientSocket(ctx, request),
+                Optional.ofNullable(response.getHeaders().getValue(CONTENT_LENGTH)).orElse("0"),
+                Optional.ofNullable(response.getHeaders().getValue(CONTENT_TYPE)).orElse("undefined"),
                 startTime == null ? "undefined" : format(Duration.ofNanos(System.nanoTime() - startTime))
         );
     }

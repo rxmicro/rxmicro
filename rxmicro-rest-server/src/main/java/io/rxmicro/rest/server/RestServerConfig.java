@@ -99,6 +99,9 @@ public class RestServerConfig extends Config {
 
     private Duration requestIdGeneratorInitTimeout = DEFAULT_REQUEST_ID_GENERATOR_INIT_TIMEOUT;
 
+    // Read more: https://www.nginx.com/resources/wiki/start/topics/examples/forwarded/
+    private List<String> forwardedHeaderNames = List.of("Forwarded");
+
     /**
      * Configures REST server for development environment.
      *
@@ -505,6 +508,45 @@ public class RestServerConfig extends Config {
     @BuilderMethod
     public RestServerConfig setHealthCheckToolAddresses(final Set<String> healthCheckToolAddresses) {
         this.healthCheckToolAddresses = unmodifiableOrderedSet(healthCheckToolAddresses);
+        return this;
+    }
+
+    /**
+     * Returns the header names that must be used to get real user IP address if an HTTP reverse proxy is used.
+     *
+     * <p>
+     * These header names used if {@code DEBUG} log level is enabled for HTTP request tracing.
+     *
+     * <p>
+     * Read more:
+     * <a href="https://www.nginx.com/resources/wiki/start/topics/examples/forwarded/">
+     *     https://www.nginx.com/resources/wiki/start/topics/examples/forwarded/
+     * </a>
+     *
+     * @return the header names that must be used to get real user IP address if an HTTP reverse proxy is used.
+     */
+    public List<String> getForwardedHeaderNames() {
+        return forwardedHeaderNames;
+    }
+
+    /**
+     * Sets header names that must be used to get real user IP address if an HTTP reverse proxy is used.
+     *
+     * <p>
+     * These header names used if {@code DEBUG} log level is enabled for HTTP request tracing.
+     *
+     * <p>
+     * Read more:
+     * <a href="https://www.nginx.com/resources/wiki/start/topics/examples/forwarded/">
+     *     https://www.nginx.com/resources/wiki/start/topics/examples/forwarded/
+     * </a>
+     *
+     * @param forwardedHeaderNames the header names.
+     * @return the reference to this {@link RestServerConfig} instance
+     */
+    @BuilderMethod
+    public RestServerConfig setForwardedHeaderNames(final List<String> forwardedHeaderNames) {
+        this.forwardedHeaderNames = List.copyOf(forwardedHeaderNames);
         return this;
     }
 

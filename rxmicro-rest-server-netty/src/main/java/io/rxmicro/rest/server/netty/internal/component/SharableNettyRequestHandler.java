@@ -73,7 +73,7 @@ final class SharableNettyRequestHandler extends SimpleChannelInboundHandler<Full
             requestHandler.handle(request)
                     .thenAccept(response -> {
                         final NettyHttpResponse nettyHttpResponse = (NettyHttpResponse) response;
-                        if (nettyHttpResponse.isSendFileResponse()) {
+                        if (nettyHttpResponse.isFileContent()) {
                             nettySendFileResponseWriter.writeResponse(ctx, request, nettyHttpResponse);
                         } else {
                             nettyByteArrayResponseWriter.writeResponse(ctx, request, nettyHttpResponse);

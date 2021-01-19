@@ -37,7 +37,7 @@ import static io.rxmicro.http.HttpStandardHeaderNames.CONTENT_LENGTH;
  * @author nedis
  * @since 0.1
  */
-public final class NettyHttpResponse implements HttpResponse {
+public final class NettyHttpResponse implements HttpResponse, HttpContentHolder {
 
     private final NettyWriteOnlyHttpHeaders headers = new NettyWriteOnlyHttpHeaders();
 
@@ -134,6 +134,12 @@ public final class NettyHttpResponse implements HttpResponse {
         return content.length;
     }
 
+    @Override
+    public boolean isContentPresent() {
+        return content.length > 0;
+    }
+
+    @Override
     public byte[] getContent() {
         return content;
     }
@@ -165,7 +171,8 @@ public final class NettyHttpResponse implements HttpResponse {
         return this;
     }
 
-    public boolean isSendFileResponse() {
+    @Override
+    public boolean isFileContent() {
         return this.sendFilePath != null;
     }
 }

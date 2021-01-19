@@ -78,14 +78,14 @@ final class NettyClientConnectionController extends ChannelInitializer<SocketCha
         }
         pipeline.addLast(NETTY_RX_MICRO_REQUEST_HANDLER_NAME, sharableNettyRequestHandler);
         ch.closeFuture().addListener(future -> {
-            if (traceConnection) {
-                LOGGER.trace(
-                        "Client connection closed: Channel=?, Socket=?, TTL=?",
-                        nettyRuntimeConfig.getChannelIdType().getId(ch.id()),
-                        ch.remoteAddress(),
-                        format(Duration.ofNanos(System.nanoTime() - ch.attr(CHANNEL_TTL).get()))
-                );
-            }
+                    if (traceConnection) {
+                        LOGGER.trace(
+                                "Client connection closed: Channel=?, Socket=?, TTL=?",
+                                nettyRuntimeConfig.getChannelIdType().getId(ch.id()),
+                                ch.remoteAddress(),
+                                format(Duration.ofNanos(System.nanoTime() - ch.attr(CHANNEL_TTL).get()))
+                        );
+                    }
                 }
         );
     }

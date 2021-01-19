@@ -35,7 +35,7 @@ import static io.rxmicro.http.HttpStandardHeaderNames.REQUEST_ID;
  * @author nedis
  * @since 0.1
  */
-public final class NettyHttpRequest implements HttpRequest, RequestIdSupplier {
+public final class NettyHttpRequest implements HttpRequest, RequestIdSupplier, HttpContentHolder {
 
     public static final AttributeKey<String> REQUEST_ID_KEY = AttributeKey.valueOf(REQUEST_ID);
 
@@ -143,6 +143,11 @@ public final class NettyHttpRequest implements HttpRequest, RequestIdSupplier {
         } else {
             return EMPTY;
         }
+    }
+
+    @Override
+    public boolean isFileContent() {
+        return false;
     }
 
     public FullHttpRequest getFullHttpRequest() {
