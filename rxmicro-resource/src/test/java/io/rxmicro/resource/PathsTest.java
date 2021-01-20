@@ -23,10 +23,13 @@ import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.condition.EnabledOnOs;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.condition.OS.LINUX;
+import static org.junit.jupiter.api.condition.OS.MAC;
 
 /**
  * @author nedis
@@ -46,6 +49,7 @@ final class PathsTest {
         System.setProperty("user.dir", "/tmp/work-dir");
     }
 
+    @EnabledOnOs(value = {LINUX, MAC}, disabledReason = "This test verifies path using Unix style only!")
     @Order(1)
     @ParameterizedTest
     @CsvSource(delimiter = ';', value = {
