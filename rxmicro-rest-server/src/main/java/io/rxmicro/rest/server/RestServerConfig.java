@@ -100,7 +100,7 @@ public class RestServerConfig extends Config {
     private Duration requestIdGeneratorInitTimeout = DEFAULT_REQUEST_ID_GENERATOR_INIT_TIMEOUT;
 
     // Read more: https://www.nginx.com/resources/wiki/start/topics/examples/forwarded/
-    private List<String> forwardedHeaderNames = List.of("Forwarded");
+    private List<String> forwardedHeaderNames = List.of("Forwarded", "X-Forwarded-For", "X-Real-IP");
 
     /**
      * Configures REST server for development environment.
