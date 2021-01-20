@@ -21,7 +21,6 @@ import io.rxmicro.resource.model.ResourceException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
-import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -79,9 +78,11 @@ public final class PropertiesResources {
      */
     public static Optional<Map<String, String>> loadProperties(final Path filePath) {
         try {
-            return Optional.of(loadProperties(Files.newInputStream(filePath)));
-        } catch (final NoSuchFileException ignore) {
-            return Optional.empty();
+            if (Files.exists(filePath)) {
+                return Optional.of(loadProperties(Files.newInputStream(filePath)));
+            } else {
+                return Optional.empty();
+            }
         } catch (final IOException ex) {
             throw new ResourceException(ex, "Can't read from file resource: ?", filePath.toAbsolutePath());
         }
