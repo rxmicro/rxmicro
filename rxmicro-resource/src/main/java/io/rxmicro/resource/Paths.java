@@ -51,13 +51,21 @@ public final class Paths {
      * @throws java.nio.file.InvalidPathException if the path string cannot be converted to a {@link Path} instance
      */
     public static Path createPath(final String path) {
-        if (HOME_DIRECTORY.equals(path)) {
-            return Path.of(System.getProperty("user.home")).toAbsolutePath();
-        } else if (CURRENT_DIRECTORY.equals(path)) {
-            return Path.of(System.getProperty("user.dir")).toAbsolutePath();
-        } else {
-            return Path.of(path).toAbsolutePath();
+        if (path.length() == 1) {
+            if (HOME_DIRECTORY.equals(path)) {
+                return Path.of(System.getProperty("user.home")).toAbsolutePath();
+            } else if (CURRENT_DIRECTORY.equals(path)) {
+                return Path.of(System.getProperty("user.dir")).toAbsolutePath();
+            }
         }
+        String normalizedPath = path;
+        if (normalizedPath.startsWith(HOME_DIRECTORY)) {
+            normalizedPath = System.getProperty("user.home") + normalizedPath.substring(1);
+        }
+        if (normalizedPath.startsWith(CURRENT_DIRECTORY + "/")) {
+            normalizedPath = System.getProperty("user.dir") + normalizedPath.substring(1);
+        }
+        return Path.of(normalizedPath).toAbsolutePath();
     }
 
     /**
