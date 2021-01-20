@@ -48,8 +48,6 @@ import static java.util.stream.Collectors.joining;
  */
 public final class JULLoggerImplProvider implements LoggerImplProvider {
 
-    private final LoggerConfigBuilder loggerConfigBuilder = new LoggerConfigBuilder();
-
     private final Map<String, Logger> loggerCache = new ConcurrentHashMap<>();
 
     static {
@@ -63,7 +61,7 @@ public final class JULLoggerImplProvider implements LoggerImplProvider {
 
     @Override
     public void setup() throws IOException {
-        final Map<String, String> config = loggerConfigBuilder.build();
+        final Map<String, String> config = new LoggerConfigBuilder().build();
         final byte[] configBytes = toConfigBytes(config);
         LogManager.getLogManager().readConfiguration(new ByteArrayInputStream(configBytes));
 
