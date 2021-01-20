@@ -34,6 +34,7 @@ import java.util.logging.LogManager;
 import java.util.stream.Stream;
 
 import static io.rxmicro.common.util.Formats.format;
+import static io.rxmicro.logger.LoggerConfigSources.getLoggerConfigSources;
 import static io.rxmicro.logger.LoggerConstants.CONFIGURATION_PROPERTIES_HIDE;
 import static io.rxmicro.logger.internal.jul.InternalLoggerHelper.logInternal;
 import static io.rxmicro.logger.internal.jul.LevelMappings.fixLevelValue;
@@ -61,7 +62,7 @@ public final class JULLoggerImplProvider implements LoggerImplProvider {
 
     @Override
     public void setup() throws IOException {
-        final Map<String, String> config = new LoggerConfigBuilder().build();
+        final Map<String, String> config = new LoggerConfigBuilder(getLoggerConfigSources()).build();
         final byte[] configBytes = toConfigBytes(config);
         LogManager.getLogManager().readConfiguration(new ByteArrayInputStream(configBytes));
 

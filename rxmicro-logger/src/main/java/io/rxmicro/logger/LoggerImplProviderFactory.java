@@ -62,6 +62,15 @@ public final class LoggerImplProviderFactory {
     }
 
     /**
+     * Returns {@code true} if {@link LoggerImplProvider} already initialized.
+     *
+     * @return {@code true} if {@link LoggerImplProvider} already initialized
+     */
+    static boolean isLoggerFactoryInitialized() {
+        return loggerFactoryInitialized;
+    }
+
+    /**
      * Sets the {@link LoggerImplProvider} instance.
      *
      * <p>

@@ -16,8 +16,10 @@
 
 package io.rxmicro.logger.internal.jul.config;
 
+import io.rxmicro.logger.LoggerConfigSource;
 import io.rxmicro.logger.internal.jul.config.provider.ClasspathLoggerConfigProvider;
 import io.rxmicro.logger.internal.jul.config.provider.DefaultLoggerConfigProvider;
+import io.rxmicro.logger.internal.jul.config.provider.FileLoggerConfigProvider;
 import io.rxmicro.logger.internal.jul.config.provider.JavaSystemPropertiesLoggerConfigProvider;
 import io.rxmicro.logger.internal.jul.config.provider.SystemVariablesLoggerConfigProvider;
 
@@ -26,27 +28,46 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import static io.rxmicro.logger.LoggerConfigSource.CLASS_PATH_RESOURCE;
+import static io.rxmicro.logger.LoggerConfigSource.DEFAULT;
+import static io.rxmicro.logger.LoggerConfigSource.ENVIRONMENT_VARIABLES;
+import static io.rxmicro.logger.LoggerConfigSource.FILE_AT_THE_CURRENT_DIR;
+import static io.rxmicro.logger.LoggerConfigSource.FILE_AT_THE_HOME_DIR;
+import static io.rxmicro.logger.LoggerConfigSource.FILE_AT_THE_RXMICRO_CONFIG_DIR;
+import static io.rxmicro.logger.LoggerConfigSource.JAVA_SYSTEM_PROPERTIES;
+import static io.rxmicro.logger.LoggerConfigSource.TEST_CLASS_PATH_RESOURCE;
+import static io.rxmicro.resource.Paths.createPath;
+import static java.util.Map.entry;
+import static java.util.stream.Collectors.toList;
+
 /**
  * @author nedis
  * @since 0.7
  */
 public final class LoggerConfigBuilder {
 
-    private static final String JAVA_LOGGING_TEST_PROPERTIES = "jul.test.properties";
+    private final List<LoggerConfigProvider> customLoggerConfigProviders;
 
-    private static final String JAVA_LOGGING_PROPERTIES = "jul.properties";
+    public LoggerConfigBuilder(final List<LoggerConfigSource> loggerConfigSources) {
+        final Map<LoggerConfigSource, LoggerConfigProvider> loggerConfigProviderMap = getLoggerConfigProviderMap();
+        customLoggerConfigProviders = loggerConfigSources.stream().map(loggerConfigProviderMap::get).collect(toList());
+    }
 
-    // From lowest to highest priority
-    private final LoggerConfigProvider[] customLoggerConfigProviders = {
-            new DefaultLoggerConfigProvider(),
-            new ClasspathLoggerConfigProvider(JAVA_LOGGING_PROPERTIES),
-            new ClasspathLoggerConfigProvider(JAVA_LOGGING_TEST_PROPERTIES),
-            new SystemVariablesLoggerConfigProvider(),
-            new JavaSystemPropertiesLoggerConfigProvider()
-    };
+    private Map<LoggerConfigSource, LoggerConfigProvider> getLoggerConfigProviderMap() {
+        return Map.ofEntries(
+                entry(DEFAULT, new DefaultLoggerConfigProvider()),
+                entry(CLASS_PATH_RESOURCE, new ClasspathLoggerConfigProvider("jul.properties")),
+                entry(TEST_CLASS_PATH_RESOURCE, new ClasspathLoggerConfigProvider("jul.test.properties")),
+                entry(FILE_AT_THE_HOME_DIR, new FileLoggerConfigProvider(createPath("~/jul.properties"))),
+                entry(FILE_AT_THE_CURRENT_DIR, new FileLoggerConfigProvider(createPath("./jul.properties"))),
+                entry(FILE_AT_THE_RXMICRO_CONFIG_DIR, new FileLoggerConfigProvider(createPath("~/.rxmicro/jul.properties"))),
+                entry(ENVIRONMENT_VARIABLES, new SystemVariablesLoggerConfigProvider()),
+                entry(JAVA_SYSTEM_PROPERTIES, new JavaSystemPropertiesLoggerConfigProvider())
+        );
+    }
 
     public Map<String, String> build() {
-        final List<Map<String, String>> configs = new ArrayList<>(customLoggerConfigProviders.length);
+        final List<Map<String, String>> configs = new ArrayList<>(customLoggerConfigProviders.size());
         for (final LoggerConfigProvider customLoggerConfigProvider : customLoggerConfigProviders) {
             final Map<String, String> customConfiguration = customLoggerConfigProvider.getConfiguration();
             if (!customConfiguration.isEmpty()) {
