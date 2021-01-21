@@ -119,9 +119,9 @@ public @interface ResourceDefinition {
     boolean withInternalErrorResponse() default true;
 
     /**
-     * Returns {@code true} if the RxMicro framework must generates standard {@code Request-Id} HTTP header.
+     * Returns {@code true} if the RxMicro framework must generates a documentation standard {@code Request-Id} HTTP header.
      *
-     * @return {@code true} if the RxMicro framework must generates standard {@code Request-Id} HTTP header
+     * @return {@code true} if the RxMicro framework must generates a documentation standard {@code Request-Id} HTTP header
      */
     boolean withRequestIdResponseHeader() default true;
 }
