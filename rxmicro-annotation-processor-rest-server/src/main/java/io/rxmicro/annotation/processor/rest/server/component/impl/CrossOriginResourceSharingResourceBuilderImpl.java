@@ -97,14 +97,11 @@ public final class CrossOriginResourceSharingResourceBuilderImpl
                 final CrossOriginResourceSharingResourceProxy.Builder builder =
                         newBuilder(exactUrlMap, urlTemplateMap, enableCORS, httpMethodMapping);
                 builder.addMethod(httpMethodMapping.getMethod());
-                method.getFromHttpDataType().ifPresent(t -> {
-                    RestObjectModelClass restObjectModelClass = fromHttpDataModelMap.get(t.getQualifiedName().toString());
-                    while (restObjectModelClass != null) {
-                        restObjectModelClass.getHeaderEntries().stream()
-                                .map(e -> e.getKey().getModelName()).forEach(builder::addHeader);
-                        restObjectModelClass = restObjectModelClass.getParent().orElse(null);
-                    }
-                });
+                method.getFromHttpDataType().ifPresent(t ->
+                        fromHttpDataModelMap.get(t.getQualifiedName().toString()).getAllDeclaredHeadersStream()
+                                .map(e -> e.getKey().getModelName())
+                                .forEach(builder::addHeader)
+                );
             }
         }
     }
