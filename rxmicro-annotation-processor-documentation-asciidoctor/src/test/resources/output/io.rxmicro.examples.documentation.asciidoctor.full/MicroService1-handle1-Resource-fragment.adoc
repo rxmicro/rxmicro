@@ -13,7 +13,7 @@ GET /${category}/${type}?phone=12254359430&lat=34.06382&lng=-118.29634&created=1
 Host: api.rxmicro.io
 Accept: application/json
 Api-Version: latest
-Request-Id: 62jJeu8x1310662
+Content-Length: 0
 Mode: Production
 Use-Proxy: true
 
@@ -53,16 +53,6 @@ a|
 * [small]#`expected: latest`#
 a|Api version required header, value of which is used by the RxMicro framework framework to define appropriate request handler.
 
-|*Request-Id*
-|`string`
-a|
-* [small]#`optional: true`#
-
-* [small]#`unique: true`#
-a|An unique request string identifier.
-
-.Read more:
-* [small]#https://docs.rxmicro.io/latest/user-guide/monitoring.html#monitoring-request-id-section[_What is request id?_^]#
 |*Mode*
 |`string`
 a|

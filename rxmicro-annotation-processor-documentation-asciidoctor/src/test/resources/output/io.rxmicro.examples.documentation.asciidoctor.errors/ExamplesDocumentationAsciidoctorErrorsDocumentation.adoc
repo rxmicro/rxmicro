@@ -2,11 +2,11 @@
 GeneratedBy RxMicroAnnotationProcessor <rxmicro.io@gmail.com>
 1.0-SNAPSHOT
 :icons: font
-:sectanchors: 
-:sectlinks: 
+:sectanchors:
+:sectlinks:
 :toc: left
 :toclevels: 3
-:sectnums: 
+:sectnums:
 :sectnumlevels: 5
 
 // ----------------------------------------- Examples Documentation Asciidoctor Errors Title and Description -----------------------------------------
@@ -30,6 +30,7 @@ This document describes *the Examples Documentation Asciidoctor Errors*.
 ----
 GET / HTTP/1.1
 Accept: application/json
+Content-Length: 0
 
 ----
 

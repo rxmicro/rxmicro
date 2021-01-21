@@ -12,6 +12,7 @@
 GET /latest/${category}/${type} HTTP/1.1
 Host: api.rxmicro.io
 Accept: application/json
+Content-Length: 0
 
 ----
 

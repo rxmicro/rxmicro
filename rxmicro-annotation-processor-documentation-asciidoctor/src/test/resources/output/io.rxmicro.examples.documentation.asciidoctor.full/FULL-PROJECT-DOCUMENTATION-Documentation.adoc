@@ -1,8 +1,8 @@
 = FULL-PROJECT-DOCUMENTATION-
 Richard Hendricks <richard.hendricks@piedpiper.com>; Bertram Gilfoyle <bertram.gilfoyle@piedpiper.com>; Dinesh Chugtai <dinesh.chugtai@piedpiper.com>
 1.0-SNAPSHOT
-:sectanchors: 
-:sectlinks: 
+:sectanchors:
+:sectlinks:
 :toc: right
 :toc-title: TOC-TITLE
 :toclevels: 2
@@ -172,6 +172,7 @@ Current version is `latest`.
 GET /latest/${category}/${type} HTTP/1.1
 Host: api.rxmicro.io
 Accept: application/json
+Content-Length: 0
 
 ----
 
@@ -415,6 +416,7 @@ a|Code: 504
 GET /latest/test?validBoolean=true&inValidBoolean=false&validInstant=2187-04-10T23:40:15.789Z&inValidInstant=1987-04-10T23:40:15.789Z&status=created&validEnum=new&inValidEnum=string&validBigDecimal=34.06382&bigDecimal=987654321.987654321&inValidBigDecimal=3.1415926535897932384626433832795028841971&validInteger=100&inValidInteger=1000000000&validDouble=100.0&inValidDouble=3.1415926535&validString=SGVsbG8gd29ybGQh&inValidString=string&validItems=string&inValidItems=string&ip=8.8.8.8&character=y HTTP/1.1
 Host: api.rxmicro.io
 Accept: application/json
+Content-Length: 0
 
 ----
 
@@ -925,7 +927,7 @@ GET /${category}/${type}?phone=12254359430&lat=34.06382&lng=-118.29634&created=1
 Host: api.rxmicro.io
 Accept: application/json
 Api-Version: latest
-Request-Id: 62jJeu8x1310662
+Content-Length: 0
 Mode: Production
 Use-Proxy: true
 
@@ -965,16 +967,6 @@ a|
 * [small]#`expected: latest`#
 a|Api version required header, value of which is used by the RxMicro framework framework to define appropriate request handler.
 
-|*Request-Id*
-|`string`
-a|
-* [small]#`optional: true`#
-
-* [small]#`unique: true`#
-a|An unique request string identifier.
-
-.Read more:
-* [small]#https://docs.rxmicro.io/latest/user-guide/monitoring.html#monitoring-request-id-section[_What is request id?_^]#
 |*Mode*
 |`string`
 a|
@@ -1548,7 +1540,7 @@ GET /${category}-${type}?phone=12254359430&lat=34.06382&lng=-118.29634&created=1
 Host: api.rxmicro.io
 Accept: application/json
 Api-Version: latest
-Request-Id: 62jJeu8x1310662
+Content-Length: 0
 Mode: Production
 Use-Proxy: true
 
@@ -1588,16 +1580,6 @@ a|
 * [small]#`expected: latest`#
 a|Api version required header, value of which is used by the RxMicro framework framework to define appropriate request handler.
 
-|*Request-Id*
-|`string`
-a|
-* [small]#`optional: true`#
-
-* [small]#`unique: true`#
-a|An unique request string identifier.
-
-.Read more:
-* [small]#https://docs.rxmicro.io/latest/user-guide/monitoring.html#monitoring-request-id-section[_What is request id?_^]#
 |*Mode*
 |`string`
 a|

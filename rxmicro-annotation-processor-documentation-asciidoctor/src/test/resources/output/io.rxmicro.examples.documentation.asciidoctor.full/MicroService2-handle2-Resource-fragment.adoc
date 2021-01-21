@@ -12,6 +12,7 @@
 GET /latest/test?validBoolean=true&inValidBoolean=false&validInstant=2187-04-10T23:40:15.789Z&inValidInstant=1987-04-10T23:40:15.789Z&status=created&validEnum=new&inValidEnum=string&validBigDecimal=34.06382&bigDecimal=987654321.987654321&inValidBigDecimal=3.1415926535897932384626433832795028841971&validInteger=100&inValidInteger=1000000000&validDouble=100.0&inValidDouble=3.1415926535&validString=SGVsbG8gd29ybGQh&inValidString=string&validItems=string&inValidItems=string&ip=8.8.8.8&character=y HTTP/1.1
 Host: api.rxmicro.io
 Accept: application/json
+Content-Length: 0
 
 ----
 
