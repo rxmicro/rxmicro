@@ -30,6 +30,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.Predicate;
+import java.util.stream.Stream;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.TypeMirror;
 
@@ -97,8 +98,7 @@ public abstract class RestObjectModelClass extends ObjectModelClass<RestModelFie
 
     @Override
     public boolean isReadReflectionRequired() {
-        final Predicate<RestModelField> predicate = m ->
-                m.getModelReadAccessorType() == REFLECTION;
+        final Predicate<RestModelField> predicate = m -> m.getModelReadAccessorType() == REFLECTION;
         return super.isReadReflectionRequired() ||
                 pathVariables.keySet().stream().anyMatch(predicate) ||
                 headers.keySet().stream().anyMatch(predicate) ||
@@ -107,8 +107,7 @@ public abstract class RestObjectModelClass extends ObjectModelClass<RestModelFie
 
     @Override
     public boolean isWriteReflectionRequired() {
-        final Predicate<RestModelField> predicate = m ->
-                m.getModelWriteAccessorType() == REFLECTION;
+        final Predicate<RestModelField> predicate = m -> m.getModelWriteAccessorType() == REFLECTION;
         return super.isWriteReflectionRequired() ||
                 pathVariables.keySet().stream().anyMatch(predicate) ||
                 headers.keySet().stream().anyMatch(predicate) ||
@@ -129,18 +128,15 @@ public abstract class RestObjectModelClass extends ObjectModelClass<RestModelFie
             "$$RestJsonModelWriterTemplate.javaftl"
     )
     public boolean isHeaderReadReflectionRequired() {
-        return headers.keySet().stream().anyMatch(m ->
-                m.getModelReadAccessorType() == REFLECTION);
+        return headers.keySet().stream().anyMatch(m -> m.getModelReadAccessorType() == REFLECTION);
     }
 
     public boolean isInternalsReadReflectionRequired() {
-        return internals.keySet().stream().anyMatch(m ->
-                m.getModelReadAccessorType() == REFLECTION);
+        return internals.keySet().stream().anyMatch(m -> m.getModelReadAccessorType() == REFLECTION);
     }
 
     public boolean isPathVariablesReadReflectionRequired() {
-        return pathVariables.keySet().stream().anyMatch(m ->
-                m.getModelReadAccessorType() == REFLECTION);
+        return pathVariables.keySet().stream().anyMatch(m -> m.getModelReadAccessorType() == REFLECTION);
     }
 
     public boolean isParamsWriteReflectionRequired() {
@@ -254,5 +250,27 @@ public abstract class RestObjectModelClass extends ObjectModelClass<RestModelFie
     @Override
     public Collection<Map.Entry<RestModelField, ModelClass>> getAllOrderedDeclaredFields() {
         return allFieldsInDeclaredOrder.entrySet();
+    }
+
+    /**
+     * Returns header entries from current class and all parents.
+     * Parent headers returned first.
+     */
+    public final Stream<Map.Entry<RestModelField, ModelClass>> getAllDeclaredHeadersStream() {
+        return Stream.concat(
+                getAllParents().stream().flatMap(p -> ((RestObjectModelClass) p).getHeaderEntries().stream()),
+                getHeaderEntries().stream()
+        );
+    }
+
+    /**
+     * Returns path variable entries from current class and all parents.
+     * Parent path variables returned first.
+     */
+    public final Stream<Map.Entry<RestModelField, ModelClass>> getAllDeclaredPathVariablesStream() {
+        return Stream.concat(
+                getAllParents().stream().flatMap(p -> ((RestObjectModelClass) p).getPathVariableEntries().stream()),
+                getPathVariableEntries().stream()
+        );
     }
 }

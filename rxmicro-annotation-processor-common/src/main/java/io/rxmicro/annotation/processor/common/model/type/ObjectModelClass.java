@@ -164,4 +164,15 @@ public abstract class ObjectModelClass<T extends ModelField> extends ModelClass 
     public Collection<Map.Entry<T, ModelClass>> getAllOrderedDeclaredFields() {
         return params.entrySet();
     }
+
+    /**
+     * Returns path variable entries from current class and all parents.
+     * Parent path variables returned first.
+     */
+    public final Stream<Map.Entry<T, ModelClass>> getAllDeclaredParametersStream() {
+        return Stream.concat(
+                getAllParents().stream().flatMap(p -> p.getParamEntries().stream()),
+                getParamEntries().stream()
+        );
+    }
 }
