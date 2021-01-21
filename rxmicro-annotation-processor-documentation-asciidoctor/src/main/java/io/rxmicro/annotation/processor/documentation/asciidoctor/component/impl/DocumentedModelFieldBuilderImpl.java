@@ -76,7 +76,7 @@ public final class DocumentedModelFieldBuilderImpl implements DocumentedModelFie
         } else if (httpModelType == HttpModelType.HEADER) {
             return List.of(entry(
                     "@null",
-                    restObjectModelClass.getAllDeclaredHeadersStream()
+                    restObjectModelClass.getAllDeclaredHeadersStream(true)
                             .map(entry -> buildDocumentedModelField(
                                     environmentContext, withStandardDescriptions, projectDirectory, entry, null, withReadMore
                             ))

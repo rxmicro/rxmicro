@@ -152,7 +152,7 @@ public final class HttpRequestExampleBuilderImpl implements HttpRequestExampleBu
 
         method.getFromHttpDataType().flatMap(t ->
                 restControllerClassStructureStorage.getModelReaderClassStructure(t.asType().toString())).ifPresent(cl ->
-                cl.getModelClass().getAllDeclaredHeadersStream().forEach(e ->
+                cl.getModelClass().getAllDeclaredHeadersStream(true).forEach(e ->
                         stringBuilder.append(
                                 format("?: ??",
                                         e.getKey().getModelName(),

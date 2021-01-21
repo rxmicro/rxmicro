@@ -40,6 +40,7 @@ import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.ge
 import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.getModelTransformerSimpleClassName;
 import static io.rxmicro.common.util.ExCollections.join;
 import static io.rxmicro.common.util.ExCollectors.toUnmodifiableOrderedMap;
+import static io.rxmicro.http.HttpStandardHeaderNames.REQUEST_ID;
 import static java.util.function.Function.identity;
 import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toMap;
@@ -256,11 +257,11 @@ public abstract class RestObjectModelClass extends ObjectModelClass<RestModelFie
      * Returns header entries from current class and all parents.
      * Parent headers returned first.
      */
-    public final Stream<Map.Entry<RestModelField, ModelClass>> getAllDeclaredHeadersStream() {
+    public final Stream<Map.Entry<RestModelField, ModelClass>> getAllDeclaredHeadersStream(final boolean excludeRequestIdHeader) {
         return Stream.concat(
                 getAllParents().stream().flatMap(p -> ((RestObjectModelClass) p).getHeaderEntries().stream()),
                 getHeaderEntries().stream()
-        );
+        ).filter(e -> !excludeRequestIdHeader || !REQUEST_ID.equals(e.getKey().getModelName()));
     }
 
     /**

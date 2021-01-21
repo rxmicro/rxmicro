@@ -98,7 +98,7 @@ public final class CrossOriginResourceSharingResourceBuilderImpl
                         newBuilder(exactUrlMap, urlTemplateMap, enableCORS, httpMethodMapping);
                 builder.addMethod(httpMethodMapping.getMethod());
                 method.getFromHttpDataType().ifPresent(t ->
-                        fromHttpDataModelMap.get(t.getQualifiedName().toString()).getAllDeclaredHeadersStream()
+                        fromHttpDataModelMap.get(t.getQualifiedName().toString()).getAllDeclaredHeadersStream(false)
                                 .map(e -> e.getKey().getModelName())
                                 .forEach(builder::addHeader)
                 );
