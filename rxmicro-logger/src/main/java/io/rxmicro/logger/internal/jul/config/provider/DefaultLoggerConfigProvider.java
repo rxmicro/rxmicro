@@ -38,6 +38,7 @@ public final class DefaultLoggerConfigProvider implements LoggerConfigProvider {
         final Map<String, String> properties = new LinkedHashMap<>();
         properties.put(".level", DEFAULT_LOGGER_ROOT_LEVEL);
         properties.put("handlers", handler);
+        properties.put(handler + ".level", "ALL");
         return unmodifiableOrderedMap(properties);
     }
 }
