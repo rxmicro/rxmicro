@@ -96,13 +96,13 @@ public final class JsonSchemaBuilderImpl implements JsonSchemaBuilder {
         builder.put(TYPE, "object");
         readDescription(builder, projectDirectory, modelField, restObjectModelClass);
         final JsonObjectBuilder propertiesBuilder = new JsonObjectBuilder();
-        for (final Map.Entry<RestModelField, ModelClass> entry : restObjectModelClass.getParamEntries()) {
-            propertiesBuilder.put(entry.getKey().getModelName(), getJsonSchema(environmentContext, projectDirectory, entry));
-        }
+        restObjectModelClass.getAllDeclaredParametersStream().forEach(entry ->
+                propertiesBuilder.put(entry.getKey().getModelName(), getJsonSchema(environmentContext, projectDirectory, entry))
+        );
         final Map<String, Object> properties = propertiesBuilder.build();
         builder.put(PROPERTIES, properties);
         if (environmentContext.isRxMicroModuleEnabled(RX_MICRO_VALIDATION_MODULE)) {
-            final List<String> required = restObjectModelClass.getParamEntries().stream()
+            final List<String> required = restObjectModelClass.getAllDeclaredParametersStream()
                     .filter(e -> e.getKey().getAnnotation(Nullable.class) == null)
                     .map(e -> e.getKey().getModelName())
                     .collect(Collectors.toList());

@@ -67,7 +67,7 @@ public final class DocumentedModelFieldBuilderImpl implements DocumentedModelFie
         if (httpModelType == HttpModelType.PATH) {
             return List.of(entry(
                     "@null",
-                    restObjectModelClass.getPathVariableEntries().stream()
+                    restObjectModelClass.getAllDeclaredPathVariablesStream()
                             .map(entry -> buildDocumentedModelField(
                                     environmentContext, withStandardDescriptions, projectDirectory, entry, null, withReadMore
                             ))
@@ -76,7 +76,7 @@ public final class DocumentedModelFieldBuilderImpl implements DocumentedModelFie
         } else if (httpModelType == HttpModelType.HEADER) {
             return List.of(entry(
                     "@null",
-                    restObjectModelClass.getHeaderEntries().stream()
+                    restObjectModelClass.getAllDeclaredHeadersStream()
                             .map(entry -> buildDocumentedModelField(
                                     environmentContext, withStandardDescriptions, projectDirectory, entry, null, withReadMore
                             ))
@@ -102,7 +102,7 @@ public final class DocumentedModelFieldBuilderImpl implements DocumentedModelFie
                                        final RestObjectModelClass restObjectModelClass,
                                        final boolean withReadMore) {
         final List<DocumentedModelField> list = new ArrayList<>();
-        for (final Map.Entry<RestModelField, ModelClass> entry : restObjectModelClass.getParamEntries()) {
+        restObjectModelClass.getAllDeclaredParametersStream().forEach(entry -> {
             if (entry.getValue().isObject()) {
                 list.add(buildDocumentedModelField(
                         environmentContext, withStandardDescriptions, projectDirectory, entry, OBJECT, withReadMore
@@ -133,7 +133,7 @@ public final class DocumentedModelFieldBuilderImpl implements DocumentedModelFie
                         environmentContext, withStandardDescriptions, projectDirectory, entry, null, withReadMore
                 ));
             }
-        }
+        });
         entryList.add(entry(name, list));
     }
 

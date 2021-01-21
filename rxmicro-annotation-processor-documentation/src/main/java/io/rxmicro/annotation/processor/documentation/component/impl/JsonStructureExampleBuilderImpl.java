@@ -20,7 +20,6 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import io.rxmicro.annotation.processor.common.model.error.InternalErrorException;
 import io.rxmicro.annotation.processor.common.model.type.IterableModelClass;
-import io.rxmicro.annotation.processor.common.model.type.ModelClass;
 import io.rxmicro.annotation.processor.documentation.component.ExampleValueBuilder;
 import io.rxmicro.annotation.processor.documentation.component.JsonStructureExampleBuilder;
 import io.rxmicro.annotation.processor.rest.model.RestModelField;
@@ -49,7 +48,7 @@ public final class JsonStructureExampleBuilderImpl implements JsonStructureExamp
 
     private Map<String, Object> buildJsonObject(final RestObjectModelClass restObjectModelClass) {
         final JsonObjectBuilder jsonObjectBuilder = new JsonObjectBuilder();
-        for (final Map.Entry<RestModelField, ModelClass> entry : restObjectModelClass.getParamEntries()) {
+        restObjectModelClass.getAllDeclaredParametersStream().forEach(entry -> {
             if (entry.getValue().isObject()) {
                 jsonObjectBuilder.put(entry.getKey().getModelName(), buildJsonObject(entry.getValue().asObject()));
             } else if (entry.getValue().isIterable()) {
@@ -57,7 +56,7 @@ public final class JsonStructureExampleBuilderImpl implements JsonStructureExamp
             } else {
                 jsonObjectBuilder.put(entry.getKey().getModelName(), exampleValueBuilder.getExample(entry.getKey()));
             }
-        }
+        });
         return jsonObjectBuilder.build();
     }
 

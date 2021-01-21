@@ -78,7 +78,7 @@ public final class HttpResponseExampleBuilderImpl implements HttpResponseExample
                 method.getToHttpDataType()
                         .stream()
                         .flatMap(t -> restControllerClassStructureStorage.getModelWriterClassStructure(t.asType().toString())
-                                .stream().flatMap(cl -> cl.getModelClass().getHeaderEntries().stream())
+                                .stream().flatMap(cl -> cl.getModelClass().getAllDeclaredHeadersStream())
                                 .map(e -> entry(e.getKey().getModelName(), exampleValueBuilder.getExample(e.getKey())))).collect(toList());
         final Optional<String> body = getJsonBodyExample(restControllerClassStructureStorage, method);
         return buildExample(

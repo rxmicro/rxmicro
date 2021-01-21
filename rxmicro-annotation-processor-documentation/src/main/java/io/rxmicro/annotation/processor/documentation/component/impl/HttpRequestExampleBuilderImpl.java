@@ -18,22 +18,17 @@ package io.rxmicro.annotation.processor.documentation.component.impl;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import io.rxmicro.annotation.processor.common.model.type.ModelClass;
 import io.rxmicro.annotation.processor.documentation.component.ExampleValueBuilder;
 import io.rxmicro.annotation.processor.documentation.component.HttpRequestExampleBuilder;
 import io.rxmicro.annotation.processor.documentation.component.JsonStructureExampleBuilder;
 import io.rxmicro.annotation.processor.documentation.model.ProjectMetaData;
 import io.rxmicro.annotation.processor.rest.model.HttpMethodMapping;
 import io.rxmicro.annotation.processor.rest.model.ParentUrl;
-import io.rxmicro.annotation.processor.rest.model.RestModelField;
 import io.rxmicro.annotation.processor.rest.server.model.ModelReaderClassStructure;
 import io.rxmicro.annotation.processor.rest.server.model.RestControllerClassStructureStorage;
 import io.rxmicro.annotation.processor.rest.server.model.RestControllerMethod;
-import io.rxmicro.rest.model.HttpMethod;
 
-import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
 import javax.lang.model.element.TypeElement;
 
 import static io.rxmicro.annotation.processor.common.util.Errors.createInternalErrorSupplier;
@@ -47,12 +42,6 @@ import static java.lang.System.lineSeparator;
  */
 @Singleton
 public final class HttpRequestExampleBuilderImpl implements HttpRequestExampleBuilder {
-
-    private static final Set<String> SUPPORTED_HTTP_BODY_METHODS = Set.of(
-            HttpMethod.POST.name(),
-            HttpMethod.PUT.name(),
-            HttpMethod.PATCH.name()
-    );
 
     @Inject
     private JsonStructureExampleBuilder jsonStructureExampleBuilder;
@@ -86,7 +75,7 @@ public final class HttpRequestExampleBuilderImpl implements HttpRequestExampleBu
         if (body != null) {
             stringBuilder.append(format("Content-Type: application/json?", lineSeparator()));
             stringBuilder.append(format("Content-Length: ??", getContentLength(body), lineSeparator()));
-        } else if (httpMethodMapping.isHttpBody() || SUPPORTED_HTTP_BODY_METHODS.contains(httpMethodMapping.getMethod())) {
+        } else {
             stringBuilder.append(format("Content-Length: 0?", lineSeparator()));
         }
         addCustomHeaders(stringBuilder, method, restControllerClassStructureStorage);
@@ -127,12 +116,12 @@ public final class HttpRequestExampleBuilderImpl implements HttpRequestExampleBu
                                     requestModel.get().asType())
                             );
             final StringBuilder queryBuilder = new StringBuilder();
-            for (final Map.Entry<RestModelField, ModelClass> entry : modelReaderClassStructure.getModelClass().getParamEntries()) {
+            modelReaderClassStructure.getModelClass().getAllDeclaredParametersStream().forEach(entry -> {
                 if (queryBuilder.length() > 0) {
                     queryBuilder.append('&');
                 }
                 queryBuilder.append(entry.getKey().getModelName()).append('=').append(exampleValueBuilder.getExample(entry.getKey()));
-            }
+            });
             return queryBuilder.length() > 0 ? "?" + queryBuilder.toString() : "";
         }
         return "";
@@ -163,11 +152,15 @@ public final class HttpRequestExampleBuilderImpl implements HttpRequestExampleBu
 
         method.getFromHttpDataType().flatMap(t ->
                 restControllerClassStructureStorage.getModelReaderClassStructure(t.asType().toString())).ifPresent(cl ->
-                cl.getModelClass().getHeaderEntries().forEach(e ->
+                cl.getModelClass().getAllDeclaredHeadersStream().forEach(e ->
                         stringBuilder.append(
                                 format("?: ??",
                                         e.getKey().getModelName(),
                                         exampleValueBuilder.getExample(e.getKey()),
-                                        lineSeparator()))));
+                                        lineSeparator()
+                                )
+                        )
+                )
+        );
     }
 }
