@@ -36,6 +36,7 @@ import java.util.stream.Stream;
 
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.config.Config.RX_MICRO_CONFIG_DIRECTORY_NAME;
+import static io.rxmicro.config.Config.RX_MICRO_CONFIG_ENVIRONMENT_VARIABLE_PREFIX;
 import static io.rxmicro.config.Config.RX_MICRO_CONFIG_FILE_NAME;
 import static io.rxmicro.config.ConfigSource.DEFAULT_CONFIG_VALUES;
 import static io.rxmicro.config.ConfigSource.ENVIRONMENT_VARIABLES;
@@ -73,13 +74,18 @@ public abstract class ConfigProperties {
 
     protected static final Map<String, Optional<Map<String, String>>> RESOURCE_CACHE = new WeakHashMap<>();
 
+    protected static final String ENVIRONMENT_VARIABLE_PREFIX =
+            Optional.ofNullable(SYSTEM_ENV.get(RX_MICRO_CONFIG_ENVIRONMENT_VARIABLE_PREFIX))
+                    .map(v -> v.endsWith("_") ? v : v + '_')
+                    .orElse("");
+
     protected final String namespace;
 
     protected final String upperNamespace;
 
     public ConfigProperties(final String namespace) {
         this.namespace = namespace;
-        this.upperNamespace = namespace.toUpperCase(ENGLISH).replace('-', '_');
+        this.upperNamespace = ENVIRONMENT_VARIABLE_PREFIX + namespace.toUpperCase(ENGLISH).replace('-', '_');
     }
 
     protected abstract Logger getLogger();

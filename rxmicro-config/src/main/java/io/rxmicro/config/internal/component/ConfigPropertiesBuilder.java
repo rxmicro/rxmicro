@@ -19,15 +19,8 @@ package io.rxmicro.config.internal.component;
 import io.rxmicro.config.AsMapConfig;
 import io.rxmicro.config.Config;
 import io.rxmicro.config.internal.model.ConfigProperties;
-import io.rxmicro.config.internal.model.ConfigProperty;
 import io.rxmicro.config.internal.model.JavaBeanConfigProperties;
 import io.rxmicro.config.internal.model.MapConfigProperties;
-
-import java.lang.reflect.Method;
-
-import static io.rxmicro.common.util.Strings.unCapitalize;
-import static io.rxmicro.reflection.Reflections.findPublicSetters;
-import static java.util.stream.Collectors.toList;
 
 /**
  * @author nedis
@@ -35,23 +28,12 @@ import static java.util.stream.Collectors.toList;
  */
 public final class ConfigPropertiesBuilder {
 
-    private static final int GETTER_PREFIX_LENGTH = "get".length();
-
     public ConfigProperties build(final String namespace,
                                   final Config config) {
         if (config instanceof AsMapConfig) {
             return new MapConfigProperties(namespace, (AsMapConfig) config);
         } else {
-            return new JavaBeanConfigProperties(
-                    namespace,
-                    findPublicSetters(config.getClass()).stream()
-                            .map(method -> new ConfigProperty(namespace, getPropertyName(method), method, config))
-                            .collect(toList())
-            );
+            return new JavaBeanConfigProperties(namespace, config);
         }
-    }
-
-    private String getPropertyName(final Method method) {
-        return unCapitalize(method.getName().substring(GETTER_PREFIX_LENGTH));
     }
 }

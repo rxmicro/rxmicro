@@ -16,10 +16,12 @@
 
 package io.rxmicro.config.internal.model;
 
+import io.rxmicro.config.Config;
 import io.rxmicro.config.ConfigException;
 import io.rxmicro.logger.Logger;
 import io.rxmicro.logger.LoggerFactory;
 
+import java.lang.reflect.Method;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
@@ -31,8 +33,11 @@ import java.util.function.Supplier;
 import static io.rxmicro.common.local.RxMicroEnvironment.isRuntimeStrictModeEnabled;
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.Strings.capitalize;
+import static io.rxmicro.common.util.Strings.unCapitalize;
 import static io.rxmicro.config.internal.model.AbstractDefaultConfigValueBuilder.getCurrentDefaultConfigValueStorage;
+import static io.rxmicro.reflection.Reflections.findPublicSetters;
 import static java.util.Map.entry;
+import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toMap;
 
 /**
@@ -41,14 +46,22 @@ import static java.util.stream.Collectors.toMap;
  */
 public final class JavaBeanConfigProperties extends ConfigProperties {
 
+    private static final int GETTER_PREFIX_LENGTH = "get".length();
+
     private static final Logger LOGGER = LoggerFactory.getLogger(JavaBeanConfigProperties.class);
 
     private final Collection<ConfigProperty> properties;
 
     public JavaBeanConfigProperties(final String namespace,
-                                    final Collection<ConfigProperty> properties) {
+                                    final Config config) {
         super(namespace);
-        this.properties = properties;
+        this.properties = findPublicSetters(config.getClass()).stream()
+                .map(method -> new ConfigProperty(namespace, upperNamespace, getPropertyName(method), method, config))
+                .collect(toList());
+    }
+
+    private String getPropertyName(final Method method) {
+        return unCapitalize(method.getName().substring(GETTER_PREFIX_LENGTH));
     }
 
     @Override

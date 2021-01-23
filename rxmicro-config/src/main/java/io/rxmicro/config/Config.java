@@ -74,6 +74,36 @@ public abstract class Config {
     public static final String RX_MICRO_CONFIG_FILE_NAME = "rxmicro";
 
     /**
+     * Allows defining the prefix name that will be used for all environment variable source for configs.
+     *
+     * <p>
+     * The RxMicro framework allows using the environment variables for configuring the config instances.
+     * By default the <code>${namespace}.${propertyName}=${propertyValue}</code> format is used.
+     *
+     * <p>
+     * But some tools add the additional restrictions for environment variables:
+     *
+     * <p>
+     * Environment variable names used by the utilities in the Shell and Utilities volume of IEEE Std 1003.1-2001 consist solely of
+     * uppercase letters, digits, and the '_' (underscore) from the characters defined in Portable Character Set and do not begin with
+     * a digit. Other characters may be permitted by an implementation; applications shall tolerate the presence of such names.
+     *
+     * <p>
+     * So the RxMicro framework must support both:
+     * <ul>
+     *     <li>{@code export TEST_CONFIG_CLASS_PROPERTY_NAME=value}</li>
+     *     <li>{@code export test-config-class.propertyName=value}</li>
+     * </ul>
+     * environment variable names for the {@code propertyName} that defined at the {@code TestConfigClassConfig} class.
+     *
+     * <p>
+     * If {@value #RX_MICRO_CONFIG_ENVIRONMENT_VARIABLE_PREFIX} is defined the RxMicro framework will expect the following
+     * environment variable name for the {@code propertyName} that defined at the {@code TestConfigClassConfig} class:
+     * {@code export ${RX_MICRO_CONFIG_ENVIRONMENT_VARIABLE_PREFIX}_TEST_CONFIG_CLASS_PROPERTY_NAME=value}
+     */
+    public static final String RX_MICRO_CONFIG_ENVIRONMENT_VARIABLE_PREFIX = "RX_MICRO_CONFIG_ENVIRONMENT_VARIABLE_PREFIX";
+
+    /**
      * Default name for config directory.
      *
      * <p>

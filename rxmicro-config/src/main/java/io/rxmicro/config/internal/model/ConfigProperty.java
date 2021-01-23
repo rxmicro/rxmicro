@@ -49,14 +49,13 @@ public final class ConfigProperty implements Comparable<ConfigProperty> {
     private Object propertyValue;
 
     public ConfigProperty(final String namespace,
+                          final String upperNamespace,
                           final String propertyName,
                           final Method propertySetter,
                           final Object configInstance) {
         this.propertyName = propertyName;
         this.fullPropertyName = namespace + "." + propertyName;
-        this.systemPropertyFullPropertyName =
-                namespace.toUpperCase(ENGLISH).replace('-', '_') + '_' +
-                        join("_", splitByCamelCase(propertyName)).toUpperCase(ENGLISH);
+        this.systemPropertyFullPropertyName = upperNamespace + '_' + join("_", splitByCamelCase(propertyName)).toUpperCase(ENGLISH);
         this.propertySetter = propertySetter;
         this.configInstance = configInstance;
     }
