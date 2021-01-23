@@ -257,8 +257,8 @@ public final class Configs {
          * Recommended order for docker or kubernetes environments:
          * <ol>
          *     <li>Hardcoded config using annotations.</li>
-         *     <li>Config from env variables.</li>
          *     <li>Config from file: {@code ~/.rxmicro/${name_space}.properties}</li>
+         *     <li>Config from env variables.</li>
          * </ol>
          *
          * @return the reference to this {@link Builder} instance
@@ -266,8 +266,8 @@ public final class Configs {
         public Builder withContainerConfigSources() {
             withOrderedConfigSources(
                     DEFAULT_CONFIG_VALUES,
-                    ENVIRONMENT_VARIABLES,
-                    SEPARATE_FILE_AT_THE_RXMICRO_CONFIG_DIR
+                    SEPARATE_FILE_AT_THE_RXMICRO_CONFIG_DIR,
+                    ENVIRONMENT_VARIABLES
             );
             return this;
         }
