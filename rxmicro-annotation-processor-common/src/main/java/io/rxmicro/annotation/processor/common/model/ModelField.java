@@ -28,6 +28,7 @@ import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.ElementVisitor;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.Name;
+import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.TypeMirror;
 
 import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getElements;
@@ -118,7 +119,7 @@ public abstract class ModelField implements Comparable<ModelField>, Element {
 
     @Override
     public final int hashCode() {
-        return getFieldName().hashCode();
+        return getFieldFullName().hashCode();
     }
 
     @Override
@@ -130,12 +131,12 @@ public abstract class ModelField implements Comparable<ModelField>, Element {
             return false;
         }
         final ModelField that = (ModelField) other;
-        return getFieldName().equals(that.getFieldName());
+        return getFieldFullName().equals(that.getFieldFullName());
     }
 
     @Override
     public String toString() {
-        return format("?: ?", getClass().getSimpleName(), getFieldElement());
+        return format("?: ?", getClass().getSimpleName(), getFieldFullName());
     }
 
     @Override
@@ -186,5 +187,12 @@ public abstract class ModelField implements Comparable<ModelField>, Element {
     @Override
     public int compareTo(final ModelField other) {
         return getFieldName().compareTo(other.getFieldName());
+    }
+
+    private String getFieldFullName() {
+        return format(
+                "?.?",
+                ((TypeElement) getFieldElement().getEnclosingElement()).getQualifiedName().toString(), getFieldName()
+        );
     }
 }
