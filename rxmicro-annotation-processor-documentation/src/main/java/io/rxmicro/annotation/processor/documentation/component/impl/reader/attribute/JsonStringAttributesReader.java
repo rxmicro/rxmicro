@@ -20,6 +20,7 @@ import io.rxmicro.annotation.processor.common.model.ModelField;
 import io.rxmicro.json.JsonObjectBuilder;
 import io.rxmicro.validation.constraint.DomainName;
 import io.rxmicro.validation.constraint.Email;
+import io.rxmicro.validation.constraint.EndsWith;
 import io.rxmicro.validation.constraint.Enumeration;
 import io.rxmicro.validation.constraint.HostName;
 import io.rxmicro.validation.constraint.IP;
@@ -29,6 +30,7 @@ import io.rxmicro.validation.constraint.MinLength;
 import io.rxmicro.validation.constraint.Pattern;
 import io.rxmicro.validation.constraint.Phone;
 import io.rxmicro.validation.constraint.Skype;
+import io.rxmicro.validation.constraint.StartsWith;
 import io.rxmicro.validation.constraint.Telegram;
 import io.rxmicro.validation.constraint.URI;
 import io.rxmicro.validation.constraint.URLEncoded;
@@ -77,6 +79,10 @@ public final class JsonStringAttributesReader {
 
     private static final String DOMAIN_NAME = "domainName";
 
+    private static final String STARTS_WITH = "startsWith";
+
+    private static final String ENDS_WITH = "endsWith";
+
     private final List<BiConsumer<ModelField, JsonObjectBuilder>> biConsumers = List.of(
 
             (modelField, builder) -> {
@@ -117,14 +123,14 @@ public final class JsonStringAttributesReader {
 
             (modelField, builder) -> {
                 final Email email = modelField.getAnnotation(Email.class);
-                if (email != null) {
+                if (email != null && !email.off()) {
                     builder.put(FORMAT, EMAIL);
                 }
             },
 
             (modelField, builder) -> {
                 final IP ip = modelField.getAnnotation(IP.class);
-                if (ip != null) {
+                if (ip != null && !ip.off()) {
                     if (ip.value().length == 1) {
                         builder.put(FORMAT, ip.value()[0].getJsonFormat());
                     } else {
@@ -135,64 +141,78 @@ public final class JsonStringAttributesReader {
 
             (modelField, builder) -> {
                 final Phone phone = modelField.getAnnotation(Phone.class);
-                if (phone != null) {
+                if (phone != null && !phone.off()) {
                     builder.put(FORMAT, PHONE);
                 }
             },
 
             (modelField, builder) -> {
                 final Telegram telegram = modelField.getAnnotation(Telegram.class);
-                if (telegram != null) {
+                if (telegram != null && !telegram.off()) {
                     builder.put(FORMAT, TELEGRAM);
                 }
             },
 
             (modelField, builder) -> {
                 final Viber viber = modelField.getAnnotation(Viber.class);
-                if (viber != null) {
+                if (viber != null && !viber.off()) {
                     builder.put(FORMAT, VIBER);
                 }
             },
 
             (modelField, builder) -> {
                 final WhatsApp whatsApp = modelField.getAnnotation(WhatsApp.class);
-                if (whatsApp != null) {
+                if (whatsApp != null && !whatsApp.off()) {
                     builder.put(FORMAT, WHATSAPP);
                 }
             },
 
             (modelField, builder) -> {
                 final Skype skype = modelField.getAnnotation(Skype.class);
-                if (skype != null) {
+                if (skype != null && !skype.off()) {
                     builder.put(FORMAT, SKYPE);
                 }
             },
 
             (modelField, builder) -> {
                 final URI uri = modelField.getAnnotation(URI.class);
-                if (uri != null) {
+                if (uri != null && !uri.off()) {
                     builder.put(FORMAT, URI);
                 }
             },
 
             (modelField, builder) -> {
                 final URLEncoded urlEncoded = modelField.getAnnotation(URLEncoded.class);
-                if (urlEncoded != null) {
+                if (urlEncoded != null && !urlEncoded.off()) {
                     builder.put(FORMAT, URL_ENCODED);
                 }
             },
 
             (modelField, builder) -> {
                 final HostName hostName = modelField.getAnnotation(HostName.class);
-                if (hostName != null) {
+                if (hostName != null && !hostName.off()) {
                     builder.put(FORMAT, HOSTNAME);
                 }
             },
 
             (modelField, builder) -> {
                 final DomainName domainName = modelField.getAnnotation(DomainName.class);
-                if (domainName != null) {
+                if (domainName != null && !domainName.off()) {
                     builder.put(FORMAT, DOMAIN_NAME);
+                }
+            },
+
+            (modelField, builder) -> {
+                final StartsWith startsWith = modelField.getAnnotation(StartsWith.class);
+                if (startsWith != null && !startsWith.off()) {
+                    builder.put(STARTS_WITH, startsWith.value());
+                }
+            },
+
+            (modelField, builder) -> {
+                final EndsWith endsWith = modelField.getAnnotation(EndsWith.class);
+                if (endsWith != null && !endsWith.off()) {
+                    builder.put(ENDS_WITH, endsWith.value());
                 }
             }
     );

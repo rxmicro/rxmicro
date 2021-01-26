@@ -25,6 +25,7 @@ import io.rxmicro.validation.constraint.CountryCode;
 import io.rxmicro.validation.constraint.DigitsOnly;
 import io.rxmicro.validation.constraint.DomainName;
 import io.rxmicro.validation.constraint.Email;
+import io.rxmicro.validation.constraint.EndsWith;
 import io.rxmicro.validation.constraint.HostName;
 import io.rxmicro.validation.constraint.IP;
 import io.rxmicro.validation.constraint.LatinAlphabetOnly;
@@ -35,6 +36,7 @@ import io.rxmicro.validation.constraint.MinLength;
 import io.rxmicro.validation.constraint.Pattern;
 import io.rxmicro.validation.constraint.Phone;
 import io.rxmicro.validation.constraint.Skype;
+import io.rxmicro.validation.constraint.StartsWith;
 import io.rxmicro.validation.constraint.Telegram;
 import io.rxmicro.validation.constraint.URI;
 import io.rxmicro.validation.constraint.URLEncoded;
@@ -254,6 +256,22 @@ public final class StringPrimitiveConstraintReader extends ConstraintReader {
                     restrictions.add("format: whatsapp number");
                     descriptionBuilder.append("Whatsapp number in the international format.");
                     getReadMore(WhatsApp.class).ifPresent(readMores::add);
+                }
+            },
+
+            (annotated, restrictions, readMores, descriptionBuilder) -> {
+                final StartsWith startsWith = annotated.getAnnotation(StartsWith.class);
+                if (startsWith != null && !startsWith.off()) {
+                    restrictions.add(format("startsWith: '?'", startsWith.value()));
+                    getReadMore(StartsWith.class).ifPresent(readMores::add);
+                }
+            },
+
+            (annotated, restrictions, readMores, descriptionBuilder) -> {
+                final EndsWith endsWith = annotated.getAnnotation(EndsWith.class);
+                if (endsWith != null && !endsWith.off()) {
+                    restrictions.add(format("endsWith: '?'", endsWith.value()));
+                    getReadMore(EndsWith.class).ifPresent(readMores::add);
                 }
             }
     );
