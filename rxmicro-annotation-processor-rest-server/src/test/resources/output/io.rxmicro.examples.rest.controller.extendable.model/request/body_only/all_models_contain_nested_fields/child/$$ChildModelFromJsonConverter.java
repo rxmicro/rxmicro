@@ -27,7 +27,7 @@ public final class $$ChildModelFromJsonConverter extends ModelFromJsonConverter<
     public void readParamsToModel(final Map<String, Object> params,
                                   final Child model) {
         parentConverter.readParamsToModel(params, model);
-        model.childParameter = toString(params.get("childParameter"), "childParameter");
         model.childNestedParameter = convertToObjectIfNotNull(nestedModelFromJsonConverter, params.get("childNestedParameter"), "childNestedParameter");
+        model.childParameter = toString(params.get("childParameter"), "childParameter");
     }
 }

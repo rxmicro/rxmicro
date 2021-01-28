@@ -28,7 +28,7 @@ public final class $$ChildModelToJsonConverter extends ModelToJsonConverter<Chil
     public void putValuesToBuilder(final Child model,
                                    final JsonObjectBuilder builder) {
         parentConverter.putValuesToBuilder(model, builder);
-        builder.put("childParameter", model.childParameter);
         builder.put("childNestedParameter", convertFromObjectIfNotNull(nestedModelToJsonConverter, model.childNestedParameter));
+        builder.put("childParameter", model.childParameter);
     }
 }

@@ -34,161 +34,161 @@ Content-Type: application/json
 Content-Length: 4450
 
 {
+  "maxNumberShort": 15000,
+  "instantTruncatedTimeMillis": "1987-04-10T23:40:15Z",
   "instantTruncatedTimeMinutes": "1987-04-10T23:00:00Z",
-  "lat1kmBigDecimal": 34.06,
-  "aLong": 1000000000000,
-  "exampleList": [
-    "item1",
-    "item2"
-  ],
-  "instantPastOrPresent": "1987-04-10T23:40:15.789Z",
-  "aDouble": 3.1415926535,
-  "subEnumWithExample": "BLUE",
-  "urlEncodedString": "string",
+  "aBoolean": false,
+  "exampleEnum": "BLUE",
+  "base64URLEncodedUrl": "SGVsbG8gd29ybGQh",
+  "lng1kmBigDecimal": -118.30,
+  "uppercaseString": "UPPERCASE",
   "maxIntByte": 15,
-  "minNumberLong": 500000000000,
-  "exampleBigDecimal": 2.9876543210987654321098765432109876543210,
-  "lat11cmBigDecimal": 34.063821,
+  "minSize5List": [
+    1000000000
+  ],
+  "hostNameString": "rxmicro.io",
+  "minNumberByte": 5,
+  "maxLength2String": "string",
+  "enumerationWithExampleChar": "y",
+  "instantTruncatedTimeHours": "1987-04-10T00:00:00Z",
+  "optional": "string",
+  "aString": "string",
+  "maxIntShort": 15000,
+  "minIntByte": 5,
+  "uriString": "https://rxmicro.io",
+  "instantFutureOrPresent": "2187-04-10T23:40:15.789Z",
+  "lng11cmBigDecimal": -118.296339,
+  "instantPastOrPresent": "1987-04-10T23:40:15.789Z",
+  "whatsAppWithPlusString": "+12257117934",
+  "exampleShort": 7000,
+  "minNumberShort": 5000,
+  "minIntShort": 5000,
+  "minNumberDouble": 1.1234567890,
+  "minNumberFloat": 1.1,
+  "subEnumExclude": "RED",
+  "lng111mBigDecimal": -118.296,
+  "minNumberBigInteger": 500000000000000000000,
+  "aByte": 10,
+  "maxIntInteger": 2000000000,
+  "maxNumberBigInteger": 2000000000000000000000,
+  "maxIntDouble": 6.7815926535,
+  "minIntFloat": 1.1,
+  "lng1mBigDecimal": -118.29634,
+  "aCharacter": "y",
+  "minIntDouble": 1.123456789,
+  "patternString": "hello",
+  "exampleFloat": 2.78,
+  "assertFalse": false,
+  "exampleInstant": "2020-04-10T23:40:15.789Z",
+  "ip6": "2001:db8:85a3::8a2e:370:7334",
+  "ip4": "8.8.8.8",
+  "lowercaseString": "string",
+  "telegramString": "12256782613",
   "instantPast": "1987-04-10T23:40:15.789Z",
-  "colorEnum": "RED",
+  "lat1kmBigDecimal": 34.06,
+  "maxNumberLong": 2000000000000,
+  "exampleLong": 700000000000,
+  "urlEncodedString": "string",
+  "latinAlphabetOnlyString": "Latin alphabet only!",
+  "anInstant": "1987-04-10T23:40:15.789Z",
+  "lat11cmBigDecimal": 34.063821,
+  "exampleBigDecimal": 2.9876543210987654321098765432109876543210,
+  "enumerationChar": "y",
+  "lng11kmBigDecimal": -118.3,
+  "subEnumWithExample": "BLUE",
   "requiredNestedList": [
     {
       "string": "string"
     }
   ],
-  "minIntByte": 5,
-  "lng1cmBigDecimal": -118.2963390,
-  "exampleInteger": 700000000,
-  "aBigDecimal": 3.1415926535897932384626433832795028841971,
-  "minIntFloat": 1.1,
-  "lng11mBigDecimal": -118.2963,
-  "phoneWithPlusString": "+12254359430",
-  "ip": "8.8.8.8",
-  "exampleLong": 700000000000,
-  "digitsOnlyString": "9876",
-  "optional": "string",
-  "size5List": [
+  "maxSize5List": [
     1000000000
   ],
   "optionalNested": {
     "string": "string"
   },
-  "lat111mBigDecimal": 34.064,
-  "maxIntDouble": 6.7815926535,
-  "exampleShort": 7000,
-  "minNumberShort": 5000,
-  "instantFuture": "2187-04-10T23:40:15.789Z",
+  "base64URLEncodedBase": "SGVsbG8gd29ybGQh",
   "enumerationString": "new",
-  "lng11cmBigDecimal": -118.296339,
-  "patternString": "hello",
-  "whatsAppString": "12257117934",
-  "base64URLEncodedUrl": "SGVsbG8gd29ybGQh",
-  "lng11kmBigDecimal": -118.3,
-  "lowercaseString": "string",
-  "viberWithPlusString": "+12257111123",
-  "maxNumberDouble": 6.7815926535,
-  "aCharacter": "y",
-  "minSize5List": [
-    1000000000
-  ],
-  "telegramWithPlusString": "+12256782613",
-  "maxIntShort": 15000,
-  "exampleInstant": "2020-04-10T23:40:15.789Z",
-  "maxIntInteger": 2000000000,
-  "maxNumberLong": 2000000000000,
-  "assertTrue": true,
-  "instantTruncatedTimeHours": "1987-04-10T00:00:00Z",
-  "maxIntFloat": 6.78,
-  "exampleFloat": 2.78,
-  "lng1kmBigDecimal": -118.30,
-  "anInstant": "1987-04-10T23:40:15.789Z",
-  "minNumberFloat": 1.1,
-  "maxSize5List": [
-    1000000000
-  ],
-  "minNumberDouble": 1.1234567890,
-  "subEnumExclude": "RED",
-  "aBigInteger": 1000000000000000000000,
+  "exampleBigInteger": 700000000000000000000,
+  "subEnumInclude": "GREEN",
   "optionalNestedList": [
     {
       "string": "string"
     }
   ],
-  "enumerationChar": "y",
-  "lng111mBigDecimal": -118.296,
-  "enumerationWithExampleChar": "y",
+  "minNumberLong": 500000000000,
+  "exampleInteger": 700000000,
+  "aDouble": 3.1415926535,
+  "lng1cmBigDecimal": -118.2963390,
+  "numericBigDecimal": 987654321.98765,
+  "exampleList": [
+    "item1",
+    "item2"
+  ],
   "minIntInteger": 500000000,
-  "phoneString": "12254359430",
-  "viberString": "12257111123",
-  "aByte": 10,
-  "lat11mBigDecimal": 34.0638,
-  "minIntShort": 5000,
-  "telegramString": "12256782613",
+  "maxIntFloat": 6.78,
   "optionalList": [
     "string"
   ],
-  "maxLength2String": "string",
-  "instantFutureOrPresent": "2187-04-10T23:40:15.789Z",
   "minNumberBigDecimal": 1.1234567890123456789012345678901234567890,
-  "minNumberBigInteger": 500000000000000000000,
-  "minIntDouble": 1.123456789,
-  "uppercaseString": "UPPERCASE",
-  "maxNumberShort": 15000,
-  "exampleEnum": "BLUE",
-  "lat111kmBigDecimal": 34,
+  "ip": "8.8.8.8",
+  "lat11mBigDecimal": 34.0638,
   "minIntLong": 500000000000,
-  "maxIntLong": 2000000000000,
-  "aString": "string",
-  "uriString": "https://rxmicro.io",
-  "maxNumberBigDecimal": 6.7815926535897932384626433832795028841971,
-  "maxNumberInteger": 2000000000,
-  "minNumberByte": 5,
-  "minNumberInteger": 500000000,
-  "exampleByte": 7,
-  "uniqueItemsList": [
-    1000000000
-  ],
-  "lat1cmBigDecimal": 34.0638210,
-  "countryCodeAlpha3": "USA",
-  "maxNumberByte": 15,
-  "assertFalse": false,
-  "base64URLEncodedBase": "SGVsbG8gd29ybGQh",
-  "exampleCharacter": "h",
-  "anInteger": 1000000000,
-  "countryCodeAlpha2": "US",
-  "hostNameString": "rxmicro.io",
-  "aShort": 10000,
-  "exampleBigInteger": 700000000000000000000,
-  "maxNumberFloat": 6.78,
-  "lat1mBigDecimal": 34.06382,
-  "requiredNested": {
-    "string": "string"
-  },
-  "instantTruncatedTimeMillis": "1987-04-10T23:40:15Z",
-  "exampleBoolean": true,
-  "skypeString": "rxmicro.io",
-  "exampleDouble": 2.789654321,
-  "lng111kmBigDecimal": -118,
-  "aBoolean": false,
-  "length2String": "string",
-  "numericBigDecimal": 987654321.98765,
+  "lat111mBigDecimal": 34.064,
+  "phoneString": "12254359430",
+  "viberString": "12257111123",
+  "telegramWithPlusString": "+12256782613",
   "aList": [
     1000000000
   ],
-  "lng1mBigDecimal": -118.29634,
-  "subEnumInclude": "GREEN",
-  "aFloat": 3.14,
+  "size5List": [
+    1000000000
+  ],
+  "exampleCharacter": "h",
+  "exampleDouble": 2.789654321,
+  "whatsAppString": "12257117934",
   "minLength2String": "string",
-  "emailString": "welcome@rxmicro.io",
-  "ip4": "8.8.8.8",
-  "ip6": "2001:db8:85a3::8a2e:370:7334",
+  "aFloat": 3.14,
+  "maxNumberByte": 15,
   "lat11kmBigDecimal": 34.1,
-  "maxNumberBigInteger": 2000000000000000000000,
-  "whatsAppWithPlusString": "+12257117934",
-  "exampleString": "hello",
-  "latinAlphabetOnlyString": "Latin alphabet only!",
+  "emailString": "welcome@rxmicro.io",
+  "aBigInteger": 1000000000000000000000,
+  "lat1mBigDecimal": 34.06382,
+  "lng11mBigDecimal": -118.2963,
+  "instantFuture": "2187-04-10T23:40:15.789Z",
+  "requiredNested": {
+    "string": "string"
+  },
+  "exampleBoolean": true,
   "instantTruncatedTimeSeconds": "1987-04-10T23:40:00Z",
-  "countryCodeNumeric": "840"
+  "aLong": 1000000000000,
+  "exampleString": "hello",
+  "aBigDecimal": 3.1415926535897932384626433832795028841971,
+  "skypeString": "rxmicro.io",
+  "countryCodeNumeric": "840",
+  "anInteger": 1000000000,
+  "length2String": "string",
+  "maxNumberBigDecimal": 6.7815926535897932384626433832795028841971,
+  "lat111kmBigDecimal": 34,
+  "assertTrue": true,
+  "maxNumberFloat": 6.78,
+  "aShort": 10000,
+  "uniqueItemsList": [
+    1000000000
+  ],
+  "digitsOnlyString": "9876",
+  "lat1cmBigDecimal": 34.0638210,
+  "viberWithPlusString": "+12257111123",
+  "maxIntLong": 2000000000000,
+  "maxNumberDouble": 6.7815926535,
+  "phoneWithPlusString": "+12254359430",
+  "minNumberInteger": 500000000,
+  "lng111kmBigDecimal": -118,
+  "exampleByte": 7,
+  "colorEnum": "RED",
+  "maxNumberInteger": 2000000000,
+  "countryCodeAlpha2": "US",
+  "countryCodeAlpha3": "USA"
 }
 ----
 
@@ -198,6 +198,30 @@ Content-Length: 4450
 [cols="25%,9%,28%,32%"]
 |===
 ^|*Name* |*Type* |*Restrictions*| *Description*
+|*maxNumberShort*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: int16`#
+
+* [small]#`maximum: 15,000`#
+
+* [small]#`exclusiveMaximum: false`#
+a|
+
+|*instantTruncatedTimeMillis*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: UTC`#
+
+* [small]#`truncated: millis`#
+a|
+
+.Read more:
+* [small]#https://en.wikipedia.org/wiki/Coordinated_Universal_Time[_What is UTC?_^]#
 |*instantTruncatedTimeMinutes*
 |`string`
 a|
@@ -210,70 +234,50 @@ a|
 
 .Read more:
 * [small]#https://en.wikipedia.org/wiki/Coordinated_Universal_Time[_What is UTC?_^]#
-|*lat1kmBigDecimal*
+|*aBoolean*
+|`boolean`
+a|
+* [small]#`required: true`#
+a|
+
+|*exampleEnum*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`enum: [RED, GREEN, BLUE]`#
+a|
+
+|*base64URLEncodedUrl*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: base64Encoded`#
+
+* [small]#`alphabet: URL`#
+a|
+
+.Read more:
+* [small]#https://tools.ietf.org/html/rfc4648#section-5[_What is Base64 Url Encoding?_^]#
+|*lng1kmBigDecimal*
 |`number`
 a|
 * [small]#`required: true`#
 
 * [small]#`format: decimal`#
-a|Latitude of GPS location point.
+a|Longitude of GPS location point.
 
 .Read more:
-* [small]#https://en.wikipedia.org/wiki/Latitude[_What is latitude?_^]#
-|*aLong*
-|`number`
-a|
-* [small]#`required: true`#
-
-* [small]#`format: int64`#
-a|
-
-|*exampleList*
-|`array`
-a|
-* [small]#`required: true`#
-a|
-
-|*instantPastOrPresent*
+* [small]#https://en.wikipedia.org/wiki/Longitude[_What is longitude?_^]#
+|*uppercaseString*
 |`string`
 a|
 * [small]#`required: true`#
 
-* [small]#`format: UTC`#
-
-* [small]#`past: true`#
-
-* [small]#`present: true`#
+* [small]#`uppercase: true`#
 a|
 
-.Read more:
-* [small]#https://en.wikipedia.org/wiki/Coordinated_Universal_Time[_What is UTC?_^]#
-|*aDouble*
-|`number`
-a|
-* [small]#`required: true`#
-
-* [small]#`format: double`#
-a|
-
-|*subEnumWithExample*
-|`string`
-a|
-* [small]#`required: true`#
-
-* [small]#`enum: [GREEN, BLUE]`#
-a|
-
-|*urlEncodedString*
-|`string`
-a|
-* [small]#`required: true`#
-
-* [small]#`format: urlEncoded`#
-a|
-
-.Read more:
-* [small]#https://en.wikipedia.org/wiki/Percent-encoding[_What is URL encoded value?_^]#
 |*maxIntByte*
 |`number`
 a|
@@ -286,60 +290,92 @@ a|
 * [small]#`exclusiveMaximum: false`#
 a|
 
-|*minNumberLong*
-|`number`
+|*minSize5List*
+|`array`
 a|
 * [small]#`required: true`#
 
-* [small]#`format: int64`#
-
-* [small]#`minimum: 500,000,000,000`#
+* [small]#`minSize: 5`#
 
 * [small]#`exclusiveMinimum: false`#
 a|
 
-|*exampleBigDecimal*
-|`number`
+|*hostNameString*
+|`string`
 a|
 * [small]#`required: true`#
 
-* [small]#`format: decimal`#
-a|
-
-|*lat11cmBigDecimal*
-|`number`
-a|
-* [small]#`required: true`#
-
-* [small]#`format: decimal`#
-a|Latitude of GPS location point.
+* [small]#`format: hostname`#
+a|Well-formed hostname
 
 .Read more:
-* [small]#https://en.wikipedia.org/wiki/Latitude[_What is latitude?_^]#
-|*instantPast*
+* [small]#https://tools.ietf.org/html/rfc1034#section-3.1[_What is hostname format?_^]#
+|*minNumberByte*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: int8`#
+
+* [small]#`minimum: 5`#
+
+* [small]#`exclusiveMinimum: false`#
+a|
+
+|*maxLength2String*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`maxLength: 2`#
+
+* [small]#`exclusiveMaximum: false`#
+a|
+
+|*enumerationWithExampleChar*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`enum: [y, n]`#
+
+* [small]#`format: character`#
+a|
+
+|*instantTruncatedTimeHours*
 |`string`
 a|
 * [small]#`required: true`#
 
 * [small]#`format: UTC`#
 
-* [small]#`past: true`#
+* [small]#`truncated: hours`#
 a|
 
 .Read more:
 * [small]#https://en.wikipedia.org/wiki/Coordinated_Universal_Time[_What is UTC?_^]#
-|*colorEnum*
+|*optional*
+|`string`
+a|
+* [small]#`optional: true`#
+a|
+
+|*aString*
 |`string`
 a|
 * [small]#`required: true`#
-
-* [small]#`enum: [RED, GREEN, BLUE]`#
 a|
 
-|*requiredNestedList*
-|`array`
+|*maxIntShort*
+|`number`
 a|
 * [small]#`required: true`#
+
+* [small]#`format: int16`#
+
+* [small]#`maximum: 15,000`#
+
+* [small]#`exclusiveMaximum: false`#
 a|
 
 |*minIntByte*
@@ -354,7 +390,31 @@ a|
 * [small]#`exclusiveMinimum: false`#
 a|
 
-|*lng1cmBigDecimal*
+|*uriString*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: uri`#
+a|
+
+.Read more:
+* [small]#https://en.wikipedia.org/wiki/Uniform_Resource_Identifier[_What is URI?_^]#
+|*instantFutureOrPresent*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: UTC`#
+
+* [small]#`future: true`#
+
+* [small]#`present: true`#
+a|
+
+.Read more:
+* [small]#https://en.wikipedia.org/wiki/Coordinated_Universal_Time[_What is UTC?_^]#
+|*lng11cmBigDecimal*
 |`number`
 a|
 * [small]#`required: true`#
@@ -364,125 +424,30 @@ a|Longitude of GPS location point.
 
 .Read more:
 * [small]#https://en.wikipedia.org/wiki/Longitude[_What is longitude?_^]#
-|*exampleInteger*
-|`number`
-a|
-* [small]#`required: true`#
-
-* [small]#`format: int32`#
-a|
-
-|*aBigDecimal*
-|`number`
-a|
-* [small]#`required: true`#
-
-* [small]#`format: decimal`#
-a|
-
-|*minIntFloat*
-|`number`
-a|
-* [small]#`required: true`#
-
-* [small]#`format: float`#
-
-* [small]#`minimum: 1.1`#
-
-* [small]#`exclusiveMinimum: true`#
-a|
-
-|*lng11mBigDecimal*
-|`number`
-a|
-* [small]#`required: true`#
-
-* [small]#`format: decimal`#
-a|Longitude of GPS location point.
-
-.Read more:
-* [small]#https://en.wikipedia.org/wiki/Longitude[_What is longitude?_^]#
-|*phoneWithPlusString*
+|*instantPastOrPresent*
 |`string`
 a|
 * [small]#`required: true`#
 
-* [small]#`format: phone number`#
-a|Phone number in the international format.
+* [small]#`format: UTC`#
+
+* [small]#`past: true`#
+
+* [small]#`present: true`#
+a|
 
 .Read more:
-* [small]#https://en.wikipedia.org/wiki/National_conventions_for_writing_telephone_numbers[_What is phone number format?_^]#
-|*ip*
+* [small]#https://en.wikipedia.org/wiki/Coordinated_Universal_Time[_What is UTC?_^]#
+|*whatsAppWithPlusString*
 |`string`
 a|
 * [small]#`required: true`#
 
-* [small]#`format: ip`#
-
-* [small]#`version: [ipv4, ipv6]`#
-a|IP address of version 4 or 6.
+* [small]#`format: whatsapp number`#
+a|Whatsapp number in the international format.
 
 .Read more:
-* [small]#https://en.wikipedia.org/wiki/IPv4[_What is IP version 4?_^]#
-* [small]#https://en.wikipedia.org/wiki/IPv6[_What is IP version 6?_^]#
-|*exampleLong*
-|`number`
-a|
-* [small]#`required: true`#
-
-* [small]#`format: int64`#
-a|
-
-|*digitsOnlyString*
-|`string`
-a|
-* [small]#`required: true`#
-
-* [small]#`format: digitsOnly`#
-a|
-
-|*optional*
-|`string`
-a|
-* [small]#`optional: true`#
-a|
-
-|*size5List*
-|`array`
-a|
-* [small]#`required: true`#
-
-* [small]#`size: 5`#
-a|
-
-|*optionalNested*
-|`object`
-a|
-* [small]#`optional: true`#
-a|
-
-|*lat111mBigDecimal*
-|`number`
-a|
-* [small]#`required: true`#
-
-* [small]#`format: decimal`#
-a|Latitude of GPS location point.
-
-.Read more:
-* [small]#https://en.wikipedia.org/wiki/Latitude[_What is latitude?_^]#
-|*maxIntDouble*
-|`number`
-a|
-* [small]#`required: true`#
-
-* [small]#`format: double`#
-
-* [small]#`maximum: 6.782`#
-
-* [small]#`exclusiveMaximum: true`#
-a|
-
+* [small]#https://en.wikipedia.org/wiki/National_conventions_for_writing_telephone_numbers[_What is whatsapp number format?_^]#
 |*exampleShort*
 |`number`
 a|
@@ -503,266 +468,16 @@ a|
 * [small]#`exclusiveMinimum: false`#
 a|
 
-|*instantFuture*
-|`string`
-a|
-* [small]#`required: true`#
-
-* [small]#`format: UTC`#
-
-* [small]#`future: true`#
-a|
-
-.Read more:
-* [small]#https://en.wikipedia.org/wiki/Coordinated_Universal_Time[_What is UTC?_^]#
-|*enumerationString*
-|`string`
-a|
-* [small]#`required: true`#
-
-* [small]#`enum: [new, old]`#
-a|
-
-|*lng11cmBigDecimal*
-|`number`
-a|
-* [small]#`required: true`#
-
-* [small]#`format: decimal`#
-a|Longitude of GPS location point.
-
-.Read more:
-* [small]#https://en.wikipedia.org/wiki/Longitude[_What is longitude?_^]#
-|*patternString*
-|`string`
-a|
-* [small]#`required: true`#
-
-* [small]#`format: regex`#
-
-* [small]#`pattern: /hello/`#
-
-* [small]#`flags: []`#
-a|
-
-.Read more:
-* [small]#https://www.regular-expressions.info/[_What is regular expressions?_^]#
-|*whatsAppString*
-|`string`
-a|
-* [small]#`required: true`#
-
-* [small]#`format: whatsapp number`#
-a|Whatsapp number in the international format.
-
-.Read more:
-* [small]#https://en.wikipedia.org/wiki/National_conventions_for_writing_telephone_numbers[_What is whatsapp number format?_^]#
-|*base64URLEncodedUrl*
-|`string`
-a|
-* [small]#`required: true`#
-
-* [small]#`format: base64Encoded`#
-
-* [small]#`alphabet: URL`#
-a|
-
-.Read more:
-* [small]#https://tools.ietf.org/html/rfc4648#section-5[_What is Base64 Url Encoding?_^]#
-|*lng11kmBigDecimal*
-|`number`
-a|
-* [small]#`required: true`#
-
-* [small]#`format: decimal`#
-a|Longitude of GPS location point.
-
-.Read more:
-* [small]#https://en.wikipedia.org/wiki/Longitude[_What is longitude?_^]#
-|*lowercaseString*
-|`string`
-a|
-* [small]#`required: true`#
-
-* [small]#`lowercase: true`#
-a|
-
-|*viberWithPlusString*
-|`string`
-a|
-* [small]#`required: true`#
-
-* [small]#`format: viber number`#
-a|Viber number in the international format.
-
-.Read more:
-* [small]#https://en.wikipedia.org/wiki/National_conventions_for_writing_telephone_numbers[_What is viber number format?_^]#
-|*maxNumberDouble*
-|`number`
-a|
-* [small]#`required: true`#
-
-* [small]#`format: double`#
-
-* [small]#`maximum: 6.782`#
-
-* [small]#`exclusiveMaximum: false`#
-a|
-
-|*aCharacter*
-|`string`
-a|
-* [small]#`required: true`#
-
-* [small]#`format: character`#
-a|
-
-|*minSize5List*
-|`array`
-a|
-* [small]#`required: true`#
-
-* [small]#`minSize: 5`#
-
-* [small]#`exclusiveMinimum: false`#
-a|
-
-|*telegramWithPlusString*
-|`string`
-a|
-* [small]#`required: true`#
-
-* [small]#`format: telegram number`#
-a|Telegram number in the international format.
-
-.Read more:
-* [small]#https://en.wikipedia.org/wiki/National_conventions_for_writing_telephone_numbers[_What is telegram number format?_^]#
-|*maxIntShort*
+|*minIntShort*
 |`number`
 a|
 * [small]#`required: true`#
 
 * [small]#`format: int16`#
 
-* [small]#`maximum: 15,000`#
-
-* [small]#`exclusiveMaximum: false`#
-a|
-
-|*exampleInstant*
-|`string`
-a|
-* [small]#`required: true`#
-
-* [small]#`format: UTC`#
-a|
-
-.Read more:
-* [small]#https://en.wikipedia.org/wiki/Coordinated_Universal_Time[_What is UTC?_^]#
-|*maxIntInteger*
-|`number`
-a|
-* [small]#`required: true`#
-
-* [small]#`format: int32`#
-
-* [small]#`maximum: 2,000,000,000`#
-
-* [small]#`exclusiveMaximum: false`#
-a|
-
-|*maxNumberLong*
-|`number`
-a|
-* [small]#`required: true`#
-
-* [small]#`format: int64`#
-
-* [small]#`maximum: 2,000,000,000,000`#
-
-* [small]#`exclusiveMaximum: false`#
-a|
-
-|*assertTrue*
-|`boolean`
-a|
-* [small]#`required: true`#
-
-* [small]#`expected: true`#
-a|Must be `true`.
-
-|*instantTruncatedTimeHours*
-|`string`
-a|
-* [small]#`required: true`#
-
-* [small]#`format: UTC`#
-
-* [small]#`truncated: hours`#
-a|
-
-.Read more:
-* [small]#https://en.wikipedia.org/wiki/Coordinated_Universal_Time[_What is UTC?_^]#
-|*maxIntFloat*
-|`number`
-a|
-* [small]#`required: true`#
-
-* [small]#`format: float`#
-
-* [small]#`maximum: 6.78`#
-
-* [small]#`exclusiveMaximum: true`#
-a|
-
-|*exampleFloat*
-|`number`
-a|
-* [small]#`required: true`#
-
-* [small]#`format: float`#
-a|
-
-|*lng1kmBigDecimal*
-|`number`
-a|
-* [small]#`required: true`#
-
-* [small]#`format: decimal`#
-a|Longitude of GPS location point.
-
-.Read more:
-* [small]#https://en.wikipedia.org/wiki/Longitude[_What is longitude?_^]#
-|*anInstant*
-|`string`
-a|
-* [small]#`required: true`#
-
-* [small]#`format: UTC`#
-a|
-
-.Read more:
-* [small]#https://en.wikipedia.org/wiki/Coordinated_Universal_Time[_What is UTC?_^]#
-|*minNumberFloat*
-|`number`
-a|
-* [small]#`required: true`#
-
-* [small]#`format: float`#
-
-* [small]#`minimum: 1.1`#
+* [small]#`minimum: 5,000`#
 
 * [small]#`exclusiveMinimum: false`#
-a|
-
-|*maxSize5List*
-|`array`
-a|
-* [small]#`required: true`#
-
-* [small]#`maxSize: 5`#
-
-* [small]#`exclusiveMaximum: false`#
 a|
 
 |*minNumberDouble*
@@ -777,38 +492,24 @@ a|
 * [small]#`exclusiveMinimum: false`#
 a|
 
+|*minNumberFloat*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: float`#
+
+* [small]#`minimum: 1.1`#
+
+* [small]#`exclusiveMinimum: false`#
+a|
+
 |*subEnumExclude*
 |`string`
 a|
 * [small]#`required: true`#
 
 * [small]#`enum: [RED]`#
-a|
-
-|*aBigInteger*
-|`number`
-a|
-* [small]#`required: true`#
-
-* [small]#`format: integer`#
-a|
-
-|*optionalNestedList*
-|`array`
-a|
-* [small]#`required: true`#
-
-* [small]#`optionalItem: true`#
-a|
-
-|*enumerationChar*
-|`string`
-a|
-* [small]#`required: true`#
-
-* [small]#`enum: [y, n]`#
-
-* [small]#`format: character`#
 a|
 
 |*lng111mBigDecimal*
@@ -821,132 +522,6 @@ a|Longitude of GPS location point.
 
 .Read more:
 * [small]#https://en.wikipedia.org/wiki/Longitude[_What is longitude?_^]#
-|*enumerationWithExampleChar*
-|`string`
-a|
-* [small]#`required: true`#
-
-* [small]#`enum: [y, n]`#
-
-* [small]#`format: character`#
-a|
-
-|*minIntInteger*
-|`number`
-a|
-* [small]#`required: true`#
-
-* [small]#`format: int32`#
-
-* [small]#`minimum: 500,000,000`#
-
-* [small]#`exclusiveMinimum: false`#
-a|
-
-|*phoneString*
-|`string`
-a|
-* [small]#`required: true`#
-
-* [small]#`format: phone number`#
-a|Phone number in the international format.
-
-.Read more:
-* [small]#https://en.wikipedia.org/wiki/National_conventions_for_writing_telephone_numbers[_What is phone number format?_^]#
-|*viberString*
-|`string`
-a|
-* [small]#`required: true`#
-
-* [small]#`format: viber number`#
-a|Viber number in the international format.
-
-.Read more:
-* [small]#https://en.wikipedia.org/wiki/National_conventions_for_writing_telephone_numbers[_What is viber number format?_^]#
-|*aByte*
-|`number`
-a|
-* [small]#`required: true`#
-
-* [small]#`format: int8`#
-a|
-
-|*lat11mBigDecimal*
-|`number`
-a|
-* [small]#`required: true`#
-
-* [small]#`format: decimal`#
-a|Latitude of GPS location point.
-
-.Read more:
-* [small]#https://en.wikipedia.org/wiki/Latitude[_What is latitude?_^]#
-|*minIntShort*
-|`number`
-a|
-* [small]#`required: true`#
-
-* [small]#`format: int16`#
-
-* [small]#`minimum: 5,000`#
-
-* [small]#`exclusiveMinimum: false`#
-a|
-
-|*telegramString*
-|`string`
-a|
-* [small]#`required: true`#
-
-* [small]#`format: telegram number`#
-a|Telegram number in the international format.
-
-.Read more:
-* [small]#https://en.wikipedia.org/wiki/National_conventions_for_writing_telephone_numbers[_What is telegram number format?_^]#
-|*optionalList*
-|`array`
-a|
-* [small]#`required: true`#
-
-* [small]#`optionalItem: true`#
-a|
-
-|*maxLength2String*
-|`string`
-a|
-* [small]#`required: true`#
-
-* [small]#`maxLength: 2`#
-
-* [small]#`exclusiveMaximum: false`#
-a|
-
-|*instantFutureOrPresent*
-|`string`
-a|
-* [small]#`required: true`#
-
-* [small]#`format: UTC`#
-
-* [small]#`future: true`#
-
-* [small]#`present: true`#
-a|
-
-.Read more:
-* [small]#https://en.wikipedia.org/wiki/Coordinated_Universal_Time[_What is UTC?_^]#
-|*minNumberBigDecimal*
-|`number`
-a|
-* [small]#`required: true`#
-
-* [small]#`format: decimal`#
-
-* [small]#`minimum: 1.123`#
-
-* [small]#`exclusiveMinimum: false`#
-a|
-
 |*minNumberBigInteger*
 |`number`
 a|
@@ -957,6 +532,80 @@ a|
 * [small]#`minimum: 500,000,000,000,000,000,000`#
 
 * [small]#`exclusiveMinimum: false`#
+a|
+
+|*aByte*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: int8`#
+a|
+
+|*maxIntInteger*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: int32`#
+
+* [small]#`maximum: 2,000,000,000`#
+
+* [small]#`exclusiveMaximum: false`#
+a|
+
+|*maxNumberBigInteger*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: integer`#
+
+* [small]#`maximum: 2,000,000,000,000,000,000,000`#
+
+* [small]#`exclusiveMaximum: false`#
+a|
+
+|*maxIntDouble*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: double`#
+
+* [small]#`maximum: 6.782`#
+
+* [small]#`exclusiveMaximum: true`#
+a|
+
+|*minIntFloat*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: float`#
+
+* [small]#`minimum: 1.1`#
+
+* [small]#`exclusiveMinimum: true`#
+a|
+
+|*lng1mBigDecimal*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: decimal`#
+a|Longitude of GPS location point.
+
+.Read more:
+* [small]#https://en.wikipedia.org/wiki/Longitude[_What is longitude?_^]#
+|*aCharacter*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: character`#
 a|
 
 |*minIntDouble*
@@ -971,35 +620,392 @@ a|
 * [small]#`exclusiveMinimum: true`#
 a|
 
-|*uppercaseString*
+|*patternString*
 |`string`
 a|
 * [small]#`required: true`#
 
-* [small]#`uppercase: true`#
+* [small]#`format: regex`#
+
+* [small]#`pattern: /hello/`#
+
+* [small]#`flags: []`#
 a|
 
-|*maxNumberShort*
+.Read more:
+* [small]#https://www.regular-expressions.info/[_What is regular expressions?_^]#
+|*exampleFloat*
 |`number`
 a|
 * [small]#`required: true`#
 
-* [small]#`format: int16`#
-
-* [small]#`maximum: 15,000`#
-
-* [small]#`exclusiveMaximum: false`#
+* [small]#`format: float`#
 a|
 
-|*exampleEnum*
+|*assertFalse*
+|`boolean`
+a|
+* [small]#`required: true`#
+
+* [small]#`expected: false`#
+a|Must be `false`.
+
+|*exampleInstant*
 |`string`
 a|
 * [small]#`required: true`#
 
-* [small]#`enum: [RED, GREEN, BLUE]`#
+* [small]#`format: UTC`#
 a|
 
-|*lat111kmBigDecimal*
+.Read more:
+* [small]#https://en.wikipedia.org/wiki/Coordinated_Universal_Time[_What is UTC?_^]#
+|*ip6*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: ip`#
+
+* [small]#`version: ipv6`#
+a|IP address of version 6.
+
+.Read more:
+* [small]#https://en.wikipedia.org/wiki/IPv6[_What is IP version 6?_^]#
+|*ip4*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: ip`#
+
+* [small]#`version: ipv4`#
+a|IP address of version 4.
+
+.Read more:
+* [small]#https://en.wikipedia.org/wiki/IPv4[_What is IP version 4?_^]#
+|*lowercaseString*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`lowercase: true`#
+a|
+
+|*telegramString*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: telegram number`#
+a|Telegram number in the international format.
+
+.Read more:
+* [small]#https://en.wikipedia.org/wiki/National_conventions_for_writing_telephone_numbers[_What is telegram number format?_^]#
+|*instantPast*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: UTC`#
+
+* [small]#`past: true`#
+a|
+
+.Read more:
+* [small]#https://en.wikipedia.org/wiki/Coordinated_Universal_Time[_What is UTC?_^]#
+|*lat1kmBigDecimal*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: decimal`#
+a|Latitude of GPS location point.
+
+.Read more:
+* [small]#https://en.wikipedia.org/wiki/Latitude[_What is latitude?_^]#
+|*maxNumberLong*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: int64`#
+
+* [small]#`maximum: 2,000,000,000,000`#
+
+* [small]#`exclusiveMaximum: false`#
+a|
+
+|*exampleLong*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: int64`#
+a|
+
+|*urlEncodedString*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: urlEncoded`#
+a|
+
+.Read more:
+* [small]#https://en.wikipedia.org/wiki/Percent-encoding[_What is URL encoded value?_^]#
+|*latinAlphabetOnlyString*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`alphabet: latinOnly`#
+
+* [small]#`allowsUppercase: true`#
+
+* [small]#`allowsLowercase: true`#
+
+* [small]#`allowsDigits: true`#
+
+* [small]#`allowsPunctuations: true`#
+a|
+
+|*anInstant*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: UTC`#
+a|
+
+.Read more:
+* [small]#https://en.wikipedia.org/wiki/Coordinated_Universal_Time[_What is UTC?_^]#
+|*lat11cmBigDecimal*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: decimal`#
+a|Latitude of GPS location point.
+
+.Read more:
+* [small]#https://en.wikipedia.org/wiki/Latitude[_What is latitude?_^]#
+|*exampleBigDecimal*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: decimal`#
+a|
+
+|*enumerationChar*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`enum: [y, n]`#
+
+* [small]#`format: character`#
+a|
+
+|*lng11kmBigDecimal*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: decimal`#
+a|Longitude of GPS location point.
+
+.Read more:
+* [small]#https://en.wikipedia.org/wiki/Longitude[_What is longitude?_^]#
+|*subEnumWithExample*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`enum: [GREEN, BLUE]`#
+a|
+
+|*requiredNestedList*
+|`array`
+a|
+* [small]#`required: true`#
+a|
+
+|*maxSize5List*
+|`array`
+a|
+* [small]#`required: true`#
+
+* [small]#`maxSize: 5`#
+
+* [small]#`exclusiveMaximum: false`#
+a|
+
+|*optionalNested*
+|`object`
+a|
+* [small]#`optional: true`#
+a|
+
+|*base64URLEncodedBase*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: base64Encoded`#
+
+* [small]#`alphabet: BASE`#
+a|
+
+.Read more:
+* [small]#https://tools.ietf.org/html/rfc4648#section-4[_What is Base64 Encoding?_^]#
+|*enumerationString*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`enum: [new, old]`#
+a|
+
+|*exampleBigInteger*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: integer`#
+a|
+
+|*subEnumInclude*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`enum: [GREEN, BLUE]`#
+a|
+
+|*optionalNestedList*
+|`array`
+a|
+* [small]#`required: true`#
+
+* [small]#`optionalItem: true`#
+a|
+
+|*minNumberLong*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: int64`#
+
+* [small]#`minimum: 500,000,000,000`#
+
+* [small]#`exclusiveMinimum: false`#
+a|
+
+|*exampleInteger*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: int32`#
+a|
+
+|*aDouble*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: double`#
+a|
+
+|*lng1cmBigDecimal*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: decimal`#
+a|Longitude of GPS location point.
+
+.Read more:
+* [small]#https://en.wikipedia.org/wiki/Longitude[_What is longitude?_^]#
+|*numericBigDecimal*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: decimal`#
+
+* [small]#`precision: 2`#
+
+* [small]#`scale: 5`#
+a|
+
+|*exampleList*
+|`array`
+a|
+* [small]#`required: true`#
+a|
+
+|*minIntInteger*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: int32`#
+
+* [small]#`minimum: 500,000,000`#
+
+* [small]#`exclusiveMinimum: false`#
+a|
+
+|*maxIntFloat*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: float`#
+
+* [small]#`maximum: 6.78`#
+
+* [small]#`exclusiveMaximum: true`#
+a|
+
+|*optionalList*
+|`array`
+a|
+* [small]#`required: true`#
+
+* [small]#`optionalItem: true`#
+a|
+
+|*minNumberBigDecimal*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: decimal`#
+
+* [small]#`minimum: 1.123`#
+
+* [small]#`exclusiveMinimum: false`#
+a|
+
+|*ip*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: ip`#
+
+* [small]#`version: [ipv4, ipv6]`#
+a|IP address of version 4 or 6.
+
+.Read more:
+* [small]#https://en.wikipedia.org/wiki/IPv4[_What is IP version 4?_^]#
+* [small]#https://en.wikipedia.org/wiki/IPv6[_What is IP version 6?_^]#
+|*lat11mBigDecimal*
 |`number`
 a|
 * [small]#`required: true`#
@@ -1021,99 +1027,7 @@ a|
 * [small]#`exclusiveMinimum: false`#
 a|
 
-|*maxIntLong*
-|`number`
-a|
-* [small]#`required: true`#
-
-* [small]#`format: int64`#
-
-* [small]#`maximum: 2,000,000,000,000`#
-
-* [small]#`exclusiveMaximum: false`#
-a|
-
-|*aString*
-|`string`
-a|
-* [small]#`required: true`#
-a|
-
-|*uriString*
-|`string`
-a|
-* [small]#`required: true`#
-
-* [small]#`format: uri`#
-a|
-
-.Read more:
-* [small]#https://en.wikipedia.org/wiki/Uniform_Resource_Identifier[_What is URI?_^]#
-|*maxNumberBigDecimal*
-|`number`
-a|
-* [small]#`required: true`#
-
-* [small]#`format: decimal`#
-
-* [small]#`maximum: 6.782`#
-
-* [small]#`exclusiveMaximum: false`#
-a|
-
-|*maxNumberInteger*
-|`number`
-a|
-* [small]#`required: true`#
-
-* [small]#`format: int32`#
-
-* [small]#`maximum: 2,000,000,000`#
-
-* [small]#`exclusiveMaximum: false`#
-a|
-
-|*minNumberByte*
-|`number`
-a|
-* [small]#`required: true`#
-
-* [small]#`format: int8`#
-
-* [small]#`minimum: 5`#
-
-* [small]#`exclusiveMinimum: false`#
-a|
-
-|*minNumberInteger*
-|`number`
-a|
-* [small]#`required: true`#
-
-* [small]#`format: int32`#
-
-* [small]#`minimum: 500,000,000`#
-
-* [small]#`exclusiveMinimum: false`#
-a|
-
-|*exampleByte*
-|`number`
-a|
-* [small]#`required: true`#
-
-* [small]#`format: int8`#
-a|
-
-|*uniqueItemsList*
-|`array`
-a|
-* [small]#`required: true`#
-
-* [small]#`uniqueItems: true`#
-a|
-
-|*lat1cmBigDecimal*
+|*lat111mBigDecimal*
 |`number`
 a|
 * [small]#`required: true`#
@@ -1123,18 +1037,94 @@ a|Latitude of GPS location point.
 
 .Read more:
 * [small]#https://en.wikipedia.org/wiki/Latitude[_What is latitude?_^]#
-|*countryCodeAlpha3*
+|*phoneString*
 |`string`
 a|
 * [small]#`required: true`#
 
-* [small]#`format: countryCode`#
-
-* [small]#`ISO 3166-1: alpha-3`#
-a|Three-letter country code according to ISO 3166-1 alpha3 standard.
+* [small]#`format: phone number`#
+a|Phone number in the international format.
 
 .Read more:
-* [small]#https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3[_What is ISO 3166-1 alpha3?_^]#
+* [small]#https://en.wikipedia.org/wiki/National_conventions_for_writing_telephone_numbers[_What is phone number format?_^]#
+|*viberString*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: viber number`#
+a|Viber number in the international format.
+
+.Read more:
+* [small]#https://en.wikipedia.org/wiki/National_conventions_for_writing_telephone_numbers[_What is viber number format?_^]#
+|*telegramWithPlusString*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: telegram number`#
+a|Telegram number in the international format.
+
+.Read more:
+* [small]#https://en.wikipedia.org/wiki/National_conventions_for_writing_telephone_numbers[_What is telegram number format?_^]#
+|*aList*
+|`array`
+a|
+* [small]#`required: true`#
+a|
+
+|*size5List*
+|`array`
+a|
+* [small]#`required: true`#
+
+* [small]#`size: 5`#
+a|
+
+|*exampleCharacter*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: character`#
+a|
+
+|*exampleDouble*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: double`#
+a|
+
+|*whatsAppString*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: whatsapp number`#
+a|Whatsapp number in the international format.
+
+.Read more:
+* [small]#https://en.wikipedia.org/wiki/National_conventions_for_writing_telephone_numbers[_What is whatsapp number format?_^]#
+|*minLength2String*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`minLength: 2`#
+
+* [small]#`exclusiveMinimum: false`#
+a|
+
+|*aFloat*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: float`#
+a|
+
 |*maxNumberByte*
 |`number`
 a|
@@ -1147,90 +1137,32 @@ a|
 * [small]#`exclusiveMaximum: false`#
 a|
 
-|*assertFalse*
-|`boolean`
-a|
-* [small]#`required: true`#
-
-* [small]#`expected: false`#
-a|Must be `false`.
-
-|*base64URLEncodedBase*
-|`string`
-a|
-* [small]#`required: true`#
-
-* [small]#`format: base64Encoded`#
-
-* [small]#`alphabet: BASE`#
-a|
-
-.Read more:
-* [small]#https://tools.ietf.org/html/rfc4648#section-4[_What is Base64 Encoding?_^]#
-|*exampleCharacter*
-|`string`
-a|
-* [small]#`required: true`#
-
-* [small]#`format: character`#
-a|
-
-|*anInteger*
+|*lat11kmBigDecimal*
 |`number`
 a|
 * [small]#`required: true`#
 
-* [small]#`format: int32`#
-a|
+* [small]#`format: decimal`#
+a|Latitude of GPS location point.
 
-|*countryCodeAlpha2*
+.Read more:
+* [small]#https://en.wikipedia.org/wiki/Latitude[_What is latitude?_^]#
+|*emailString*
 |`string`
 a|
 * [small]#`required: true`#
 
-* [small]#`format: countryCode`#
-
-* [small]#`ISO 3166-1: alpha-2`#
-a|Two-letter country code according to ISO 3166-1 alpha2 standard.
+* [small]#`format: email`#
+a|Well-formed email address
 
 .Read more:
-* [small]#https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2[_What is ISO 3166-1 alpha2?_^]#
-|*hostNameString*
-|`string`
-a|
-* [small]#`required: true`#
-
-* [small]#`format: hostname`#
-a|Well-formed hostname
-
-.Read more:
-* [small]#https://tools.ietf.org/html/rfc1034#section-3.1[_What is hostname format?_^]#
-|*aShort*
-|`number`
-a|
-* [small]#`required: true`#
-
-* [small]#`format: int16`#
-a|
-
-|*exampleBigInteger*
+* [small]#https://tools.ietf.org/html/rfc5322#section-3.4.1[_What is email format?_^]#
+|*aBigInteger*
 |`number`
 a|
 * [small]#`required: true`#
 
 * [small]#`format: integer`#
-a|
-
-|*maxNumberFloat*
-|`number`
-a|
-* [small]#`required: true`#
-
-* [small]#`format: float`#
-
-* [small]#`maximum: 6.78`#
-
-* [small]#`exclusiveMaximum: false`#
 a|
 
 |*lat1mBigDecimal*
@@ -1243,210 +1175,38 @@ a|Latitude of GPS location point.
 
 .Read more:
 * [small]#https://en.wikipedia.org/wiki/Latitude[_What is latitude?_^]#
-|*requiredNested*
-|`object`
+|*lng11mBigDecimal*
+|`number`
 a|
 * [small]#`required: true`#
-a|
 
-|*instantTruncatedTimeMillis*
+* [small]#`format: decimal`#
+a|Longitude of GPS location point.
+
+.Read more:
+* [small]#https://en.wikipedia.org/wiki/Longitude[_What is longitude?_^]#
+|*instantFuture*
 |`string`
 a|
 * [small]#`required: true`#
 
 * [small]#`format: UTC`#
 
-* [small]#`truncated: millis`#
+* [small]#`future: true`#
 a|
 
 .Read more:
 * [small]#https://en.wikipedia.org/wiki/Coordinated_Universal_Time[_What is UTC?_^]#
+|*requiredNested*
+|`object`
+a|
+* [small]#`required: true`#
+a|
+
 |*exampleBoolean*
 |`boolean`
 a|
 * [small]#`required: true`#
-a|
-
-|*skypeString*
-|`string`
-a|
-* [small]#`required: true`#
-
-* [small]#`format: skype`#
-a|Skype name
-
-|*exampleDouble*
-|`number`
-a|
-* [small]#`required: true`#
-
-* [small]#`format: double`#
-a|
-
-|*lng111kmBigDecimal*
-|`number`
-a|
-* [small]#`required: true`#
-
-* [small]#`format: decimal`#
-a|Longitude of GPS location point.
-
-.Read more:
-* [small]#https://en.wikipedia.org/wiki/Longitude[_What is longitude?_^]#
-|*aBoolean*
-|`boolean`
-a|
-* [small]#`required: true`#
-a|
-
-|*length2String*
-|`string`
-a|
-* [small]#`required: true`#
-
-* [small]#`length: 2`#
-a|
-
-|*numericBigDecimal*
-|`number`
-a|
-* [small]#`required: true`#
-
-* [small]#`format: decimal`#
-
-* [small]#`precision: 2`#
-
-* [small]#`scale: 5`#
-a|
-
-|*aList*
-|`array`
-a|
-* [small]#`required: true`#
-a|
-
-|*lng1mBigDecimal*
-|`number`
-a|
-* [small]#`required: true`#
-
-* [small]#`format: decimal`#
-a|Longitude of GPS location point.
-
-.Read more:
-* [small]#https://en.wikipedia.org/wiki/Longitude[_What is longitude?_^]#
-|*subEnumInclude*
-|`string`
-a|
-* [small]#`required: true`#
-
-* [small]#`enum: [GREEN, BLUE]`#
-a|
-
-|*aFloat*
-|`number`
-a|
-* [small]#`required: true`#
-
-* [small]#`format: float`#
-a|
-
-|*minLength2String*
-|`string`
-a|
-* [small]#`required: true`#
-
-* [small]#`minLength: 2`#
-
-* [small]#`exclusiveMinimum: false`#
-a|
-
-|*emailString*
-|`string`
-a|
-* [small]#`required: true`#
-
-* [small]#`format: email`#
-a|Well-formed email address
-
-.Read more:
-* [small]#https://tools.ietf.org/html/rfc5322#section-3.4.1[_What is email format?_^]#
-|*ip4*
-|`string`
-a|
-* [small]#`required: true`#
-
-* [small]#`format: ip`#
-
-* [small]#`version: ipv4`#
-a|IP address of version 4.
-
-.Read more:
-* [small]#https://en.wikipedia.org/wiki/IPv4[_What is IP version 4?_^]#
-|*ip6*
-|`string`
-a|
-* [small]#`required: true`#
-
-* [small]#`format: ip`#
-
-* [small]#`version: ipv6`#
-a|IP address of version 6.
-
-.Read more:
-* [small]#https://en.wikipedia.org/wiki/IPv6[_What is IP version 6?_^]#
-|*lat11kmBigDecimal*
-|`number`
-a|
-* [small]#`required: true`#
-
-* [small]#`format: decimal`#
-a|Latitude of GPS location point.
-
-.Read more:
-* [small]#https://en.wikipedia.org/wiki/Latitude[_What is latitude?_^]#
-|*maxNumberBigInteger*
-|`number`
-a|
-* [small]#`required: true`#
-
-* [small]#`format: integer`#
-
-* [small]#`maximum: 2,000,000,000,000,000,000,000`#
-
-* [small]#`exclusiveMaximum: false`#
-a|
-
-|*whatsAppWithPlusString*
-|`string`
-a|
-* [small]#`required: true`#
-
-* [small]#`format: whatsapp number`#
-a|Whatsapp number in the international format.
-
-.Read more:
-* [small]#https://en.wikipedia.org/wiki/National_conventions_for_writing_telephone_numbers[_What is whatsapp number format?_^]#
-|*exampleString*
-|`string`
-a|
-* [small]#`required: true`#
-a|
-
-|*latinAlphabetOnlyString*
-|`string`
-a|
-* [small]#`required: true`#
-
-* [small]#`alphabet: latinOnly`#
-
-* [small]#`allowsUppercase: true`#
-
-* [small]#`allowsLowercase: true`#
-
-* [small]#`allowsDigits: true`#
-
-* [small]#`allowsPunctuations: true`#
 a|
 
 |*instantTruncatedTimeSeconds*
@@ -1461,6 +1221,36 @@ a|
 
 .Read more:
 * [small]#https://en.wikipedia.org/wiki/Coordinated_Universal_Time[_What is UTC?_^]#
+|*aLong*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: int64`#
+a|
+
+|*exampleString*
+|`string`
+a|
+* [small]#`required: true`#
+a|
+
+|*aBigDecimal*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: decimal`#
+a|
+
+|*skypeString*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: skype`#
+a|Skype name
+
 |*countryCodeNumeric*
 |`string`
 a|
@@ -1473,6 +1263,216 @@ a|Three-digit country code according to ISO 3166-1 numeric standard.
 
 .Read more:
 * [small]#https://en.wikipedia.org/wiki/ISO_3166-1_numeric[_What is ISO 3166-1 numeric?_^]#
+|*anInteger*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: int32`#
+a|
+
+|*length2String*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`length: 2`#
+a|
+
+|*maxNumberBigDecimal*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: decimal`#
+
+* [small]#`maximum: 6.782`#
+
+* [small]#`exclusiveMaximum: false`#
+a|
+
+|*lat111kmBigDecimal*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: decimal`#
+a|Latitude of GPS location point.
+
+.Read more:
+* [small]#https://en.wikipedia.org/wiki/Latitude[_What is latitude?_^]#
+|*assertTrue*
+|`boolean`
+a|
+* [small]#`required: true`#
+
+* [small]#`expected: true`#
+a|Must be `true`.
+
+|*maxNumberFloat*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: float`#
+
+* [small]#`maximum: 6.78`#
+
+* [small]#`exclusiveMaximum: false`#
+a|
+
+|*aShort*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: int16`#
+a|
+
+|*uniqueItemsList*
+|`array`
+a|
+* [small]#`required: true`#
+
+* [small]#`uniqueItems: true`#
+a|
+
+|*digitsOnlyString*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: digitsOnly`#
+a|
+
+|*lat1cmBigDecimal*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: decimal`#
+a|Latitude of GPS location point.
+
+.Read more:
+* [small]#https://en.wikipedia.org/wiki/Latitude[_What is latitude?_^]#
+|*viberWithPlusString*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: viber number`#
+a|Viber number in the international format.
+
+.Read more:
+* [small]#https://en.wikipedia.org/wiki/National_conventions_for_writing_telephone_numbers[_What is viber number format?_^]#
+|*maxIntLong*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: int64`#
+
+* [small]#`maximum: 2,000,000,000,000`#
+
+* [small]#`exclusiveMaximum: false`#
+a|
+
+|*maxNumberDouble*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: double`#
+
+* [small]#`maximum: 6.782`#
+
+* [small]#`exclusiveMaximum: false`#
+a|
+
+|*phoneWithPlusString*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: phone number`#
+a|Phone number in the international format.
+
+.Read more:
+* [small]#https://en.wikipedia.org/wiki/National_conventions_for_writing_telephone_numbers[_What is phone number format?_^]#
+|*minNumberInteger*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: int32`#
+
+* [small]#`minimum: 500,000,000`#
+
+* [small]#`exclusiveMinimum: false`#
+a|
+
+|*lng111kmBigDecimal*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: decimal`#
+a|Longitude of GPS location point.
+
+.Read more:
+* [small]#https://en.wikipedia.org/wiki/Longitude[_What is longitude?_^]#
+|*exampleByte*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: int8`#
+a|
+
+|*colorEnum*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`enum: [RED, GREEN, BLUE]`#
+a|
+
+|*maxNumberInteger*
+|`number`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: int32`#
+
+* [small]#`maximum: 2,000,000,000`#
+
+* [small]#`exclusiveMaximum: false`#
+a|
+
+|*countryCodeAlpha2*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: countryCode`#
+
+* [small]#`ISO 3166-1: alpha-2`#
+a|Two-letter country code according to ISO 3166-1 alpha2 standard.
+
+.Read more:
+* [small]#https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2[_What is ISO 3166-1 alpha2?_^]#
+|*countryCodeAlpha3*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`format: countryCode`#
+
+* [small]#`ISO 3166-1: alpha-3`#
+a|Three-letter country code according to ISO 3166-1 alpha3 standard.
+
+.Read more:
+* [small]#https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3[_What is ISO 3166-1 alpha3?_^]#
 |===
 
 // ------------------------------------- Micro Service | POST / | Request | "requiredNestedList" Item Parameters -------------------------------------
@@ -1542,11 +1542,397 @@ a|
   "$schema": "http://json-schema.org/schema#",
   "type": "object",
   "properties": {
+    "maxNumberShort": {
+      "type": "number",
+      "format": "int16",
+      "maximum": 15000,
+      "exclusiveMaximum": false,
+      "examples": [
+        15000
+      ]
+    },
+    "instantTruncatedTimeMillis": {
+      "type": "string",
+      "format": "date-time",
+      "examples": [
+        "1987-04-10T23:40:15Z"
+      ]
+    },
     "instantTruncatedTimeMinutes": {
       "type": "string",
       "format": "date-time",
       "examples": [
         "1987-04-10T23:00:00Z"
+      ]
+    },
+    "aBoolean": {
+      "type": "boolean",
+      "examples": [
+        false
+      ]
+    },
+    "exampleEnum": {
+      "type": "string",
+      "enum": [
+        "RED",
+        "GREEN",
+        "BLUE"
+      ],
+      "examples": [
+        "BLUE"
+      ]
+    },
+    "base64URLEncodedUrl": {
+      "type": "string",
+      "examples": [
+        "SGVsbG8gd29ybGQh"
+      ]
+    },
+    "lng1kmBigDecimal": {
+      "type": "number",
+      "format": "decimal",
+      "minimum": -180,
+      "exclusiveMinimum": false,
+      "maximum": 180,
+      "exclusiveMaximum": false,
+      "examples": [
+        -118.30
+      ]
+    },
+    "uppercaseString": {
+      "type": "string",
+      "examples": [
+        "UPPERCASE"
+      ]
+    },
+    "maxIntByte": {
+      "type": "number",
+      "format": "int8",
+      "maximum": 15,
+      "exclusiveMaximum": false,
+      "examples": [
+        15
+      ]
+    },
+    "minSize5List": {
+      "type": "array",
+      "minItems": 5,
+      "items": {
+        "type": "number",
+        "examples": [
+          1000000000
+        ]
+      }
+    },
+    "hostNameString": {
+      "type": "string",
+      "format": "hostname",
+      "examples": [
+        "rxmicro.io"
+      ]
+    },
+    "minNumberByte": {
+      "type": "number",
+      "format": "int8",
+      "minimum": 5,
+      "exclusiveMinimum": false,
+      "examples": [
+        5
+      ]
+    },
+    "maxLength2String": {
+      "type": "string",
+      "maxLength": 2,
+      "examples": [
+        "string"
+      ]
+    },
+    "enumerationWithExampleChar": {
+      "type": "string",
+      "enum": [
+        "y",
+        "n"
+      ],
+      "examples": [
+        "y"
+      ]
+    },
+    "instantTruncatedTimeHours": {
+      "type": "string",
+      "format": "date-time",
+      "examples": [
+        "1987-04-10T00:00:00Z"
+      ]
+    },
+    "optional": {
+      "type": "string",
+      "examples": [
+        "string"
+      ]
+    },
+    "aString": {
+      "type": "string",
+      "examples": [
+        "string"
+      ]
+    },
+    "maxIntShort": {
+      "type": "number",
+      "format": "int16",
+      "maximum": 15000,
+      "exclusiveMaximum": false,
+      "examples": [
+        15000
+      ]
+    },
+    "minIntByte": {
+      "type": "number",
+      "format": "int8",
+      "minimum": 5,
+      "exclusiveMinimum": false,
+      "examples": [
+        5
+      ]
+    },
+    "uriString": {
+      "type": "string",
+      "format": "uri",
+      "examples": [
+        "https://rxmicro.io"
+      ]
+    },
+    "instantFutureOrPresent": {
+      "type": "string",
+      "format": "date-time",
+      "examples": [
+        "2187-04-10T23:40:15.789Z"
+      ]
+    },
+    "lng11cmBigDecimal": {
+      "type": "number",
+      "format": "decimal",
+      "minimum": -180,
+      "exclusiveMinimum": false,
+      "maximum": 180,
+      "exclusiveMaximum": false,
+      "examples": [
+        -118.296339
+      ]
+    },
+    "instantPastOrPresent": {
+      "type": "string",
+      "format": "date-time",
+      "examples": [
+        "1987-04-10T23:40:15.789Z"
+      ]
+    },
+    "whatsAppWithPlusString": {
+      "type": "string",
+      "format": "whatsapp",
+      "examples": [
+        "+12257117934"
+      ]
+    },
+    "exampleShort": {
+      "type": "number",
+      "format": "int16",
+      "examples": [
+        7000
+      ]
+    },
+    "minNumberShort": {
+      "type": "number",
+      "format": "int16",
+      "minimum": 5000,
+      "exclusiveMinimum": false,
+      "examples": [
+        5000
+      ]
+    },
+    "minIntShort": {
+      "type": "number",
+      "format": "int16",
+      "minimum": 5000,
+      "exclusiveMinimum": false,
+      "examples": [
+        5000
+      ]
+    },
+    "minNumberDouble": {
+      "type": "number",
+      "format": "double",
+      "minimum": 1.1234567890,
+      "exclusiveMinimum": false,
+      "examples": [
+        1.1234567890
+      ]
+    },
+    "minNumberFloat": {
+      "type": "number",
+      "format": "float",
+      "minimum": 1.1,
+      "exclusiveMinimum": false,
+      "examples": [
+        1.1
+      ]
+    },
+    "subEnumExclude": {
+      "type": "string",
+      "enum": [
+        "RED"
+      ],
+      "examples": [
+        "RED"
+      ]
+    },
+    "lng111mBigDecimal": {
+      "type": "number",
+      "format": "decimal",
+      "minimum": -180,
+      "exclusiveMinimum": false,
+      "maximum": 180,
+      "exclusiveMaximum": false,
+      "examples": [
+        -118.296
+      ]
+    },
+    "minNumberBigInteger": {
+      "type": "number",
+      "format": "integer",
+      "minimum": 500000000000000000000,
+      "exclusiveMinimum": false,
+      "examples": [
+        500000000000000000000
+      ]
+    },
+    "aByte": {
+      "type": "number",
+      "format": "int8",
+      "examples": [
+        10
+      ]
+    },
+    "maxIntInteger": {
+      "type": "number",
+      "format": "int32",
+      "maximum": 2000000000,
+      "exclusiveMaximum": false,
+      "examples": [
+        2000000000
+      ]
+    },
+    "maxNumberBigInteger": {
+      "type": "number",
+      "format": "integer",
+      "maximum": 2000000000000000000000,
+      "exclusiveMaximum": false,
+      "examples": [
+        2000000000000000000000
+      ]
+    },
+    "maxIntDouble": {
+      "type": "number",
+      "format": "double",
+      "maximum": 6.7815926535,
+      "exclusiveMaximum": false,
+      "examples": [
+        6.7815926535
+      ]
+    },
+    "minIntFloat": {
+      "type": "number",
+      "format": "float",
+      "minimum": 1.1,
+      "exclusiveMinimum": false,
+      "examples": [
+        1.1
+      ]
+    },
+    "lng1mBigDecimal": {
+      "type": "number",
+      "format": "decimal",
+      "minimum": -180,
+      "exclusiveMinimum": false,
+      "maximum": 180,
+      "exclusiveMaximum": false,
+      "examples": [
+        -118.29634
+      ]
+    },
+    "aCharacter": {
+      "type": "string",
+      "examples": [
+        "y"
+      ]
+    },
+    "minIntDouble": {
+      "type": "number",
+      "format": "double",
+      "minimum": 1.123456789,
+      "exclusiveMinimum": false,
+      "examples": [
+        1.123456789
+      ]
+    },
+    "patternString": {
+      "type": "string",
+      "pattern": "hello",
+      "examples": [
+        "hello"
+      ]
+    },
+    "exampleFloat": {
+      "type": "number",
+      "format": "float",
+      "examples": [
+        2.78
+      ]
+    },
+    "assertFalse": {
+      "type": "boolean",
+      "examples": [
+        false
+      ]
+    },
+    "exampleInstant": {
+      "type": "string",
+      "format": "date-time",
+      "examples": [
+        "2020-04-10T23:40:15.789Z"
+      ]
+    },
+    "ip6": {
+      "type": "string",
+      "format": "ipv6",
+      "examples": [
+        "2001:db8:85a3::8a2e:370:7334"
+      ]
+    },
+    "ip4": {
+      "type": "string",
+      "format": "ipv4",
+      "examples": [
+        "8.8.8.8"
+      ]
+    },
+    "lowercaseString": {
+      "type": "string",
+      "examples": [
+        "string"
+      ]
+    },
+    "telegramString": {
+      "type": "string",
+      "format": "telegram",
+      "examples": [
+        "12256782613"
+      ]
+    },
+    "instantPast": {
+      "type": "string",
+      "format": "date-time",
+      "examples": [
+        "1987-04-10T23:40:15.789Z"
       ]
     },
     "lat1kmBigDecimal": {
@@ -1560,45 +1946,20 @@ a|
         34.06
       ]
     },
-    "aLong": {
+    "maxNumberLong": {
+      "type": "number",
+      "format": "int64",
+      "maximum": 2000000000000,
+      "exclusiveMaximum": false,
+      "examples": [
+        2000000000000
+      ]
+    },
+    "exampleLong": {
       "type": "number",
       "format": "int64",
       "examples": [
-        1000000000000
-      ]
-    },
-    "exampleList": {
-      "type": "array",
-      "items": {
-        "type": "number",
-        "examples": [
-          "item1",
-          "item2"
-        ]
-      }
-    },
-    "instantPastOrPresent": {
-      "type": "string",
-      "format": "date-time",
-      "examples": [
-        "1987-04-10T23:40:15.789Z"
-      ]
-    },
-    "aDouble": {
-      "type": "number",
-      "format": "double",
-      "examples": [
-        3.1415926535
-      ]
-    },
-    "subEnumWithExample": {
-      "type": "string",
-      "enum": [
-        "GREEN",
-        "BLUE"
-      ],
-      "examples": [
-        "BLUE"
+        700000000000
       ]
     },
     "urlEncodedString": {
@@ -1608,29 +1969,17 @@ a|
         "string"
       ]
     },
-    "maxIntByte": {
-      "type": "number",
-      "format": "int8",
-      "maximum": 15,
-      "exclusiveMaximum": false,
+    "latinAlphabetOnlyString": {
+      "type": "string",
       "examples": [
-        15
+        "Latin alphabet only!"
       ]
     },
-    "minNumberLong": {
-      "type": "number",
-      "format": "int64",
-      "minimum": 500000000000,
-      "exclusiveMinimum": false,
+    "anInstant": {
+      "type": "string",
+      "format": "date-time",
       "examples": [
-        500000000000
-      ]
-    },
-    "exampleBigDecimal": {
-      "type": "number",
-      "format": "decimal",
-      "examples": [
-        2.9876543210987654321098765432109876543210
+        "1987-04-10T23:40:15.789Z"
       ]
     },
     "lat11cmBigDecimal": {
@@ -1644,22 +1993,42 @@ a|
         34.063821
       ]
     },
-    "instantPast": {
-      "type": "string",
-      "format": "date-time",
+    "exampleBigDecimal": {
+      "type": "number",
+      "format": "decimal",
       "examples": [
-        "1987-04-10T23:40:15.789Z"
+        2.9876543210987654321098765432109876543210
       ]
     },
-    "colorEnum": {
+    "enumerationChar": {
       "type": "string",
       "enum": [
-        "RED",
+        "y",
+        "n"
+      ],
+      "examples": [
+        "y"
+      ]
+    },
+    "lng11kmBigDecimal": {
+      "type": "number",
+      "format": "decimal",
+      "minimum": -180,
+      "exclusiveMinimum": false,
+      "maximum": 180,
+      "exclusiveMaximum": false,
+      "examples": [
+        -118.3
+      ]
+    },
+    "subEnumWithExample": {
+      "type": "string",
+      "enum": [
         "GREEN",
         "BLUE"
       ],
       "examples": [
-        "RED"
+        "BLUE"
       ]
     },
     "requiredNestedList": {
@@ -1681,96 +2050,8 @@ a|
         "maxProperties": 1
       }
     },
-    "minIntByte": {
-      "type": "number",
-      "format": "int8",
-      "minimum": 5,
-      "exclusiveMinimum": false,
-      "examples": [
-        5
-      ]
-    },
-    "lng1cmBigDecimal": {
-      "type": "number",
-      "format": "decimal",
-      "minimum": -180,
-      "exclusiveMinimum": false,
-      "maximum": 180,
-      "exclusiveMaximum": false,
-      "examples": [
-        -118.2963390
-      ]
-    },
-    "exampleInteger": {
-      "type": "number",
-      "format": "int32",
-      "examples": [
-        700000000
-      ]
-    },
-    "aBigDecimal": {
-      "type": "number",
-      "format": "decimal",
-      "examples": [
-        3.1415926535897932384626433832795028841971
-      ]
-    },
-    "minIntFloat": {
-      "type": "number",
-      "format": "float",
-      "minimum": 1.1,
-      "exclusiveMinimum": false,
-      "examples": [
-        1.1
-      ]
-    },
-    "lng11mBigDecimal": {
-      "type": "number",
-      "format": "decimal",
-      "minimum": -180,
-      "exclusiveMinimum": false,
-      "maximum": 180,
-      "exclusiveMaximum": false,
-      "examples": [
-        -118.2963
-      ]
-    },
-    "phoneWithPlusString": {
-      "type": "string",
-      "format": "phone",
-      "examples": [
-        "+12254359430"
-      ]
-    },
-    "ip": {
-      "type": "string",
-      "format": "ipv4, ipv6",
-      "examples": [
-        "8.8.8.8"
-      ]
-    },
-    "exampleLong": {
-      "type": "number",
-      "format": "int64",
-      "examples": [
-        700000000000
-      ]
-    },
-    "digitsOnlyString": {
-      "type": "string",
-      "examples": [
-        "9876"
-      ]
-    },
-    "optional": {
-      "type": "string",
-      "examples": [
-        "string"
-      ]
-    },
-    "size5List": {
+    "maxSize5List": {
       "type": "array",
-      "minItems": 5,
       "maxItems": 5,
       "items": {
         "type": "number",
@@ -1795,47 +2076,10 @@ a|
       "minProperties": 1,
       "maxProperties": 1
     },
-    "lat111mBigDecimal": {
-      "type": "number",
-      "format": "decimal",
-      "minimum": -90,
-      "exclusiveMinimum": false,
-      "maximum": 90,
-      "exclusiveMaximum": false,
-      "examples": [
-        34.064
-      ]
-    },
-    "maxIntDouble": {
-      "type": "number",
-      "format": "double",
-      "maximum": 6.7815926535,
-      "exclusiveMaximum": false,
-      "examples": [
-        6.7815926535
-      ]
-    },
-    "exampleShort": {
-      "type": "number",
-      "format": "int16",
-      "examples": [
-        7000
-      ]
-    },
-    "minNumberShort": {
-      "type": "number",
-      "format": "int16",
-      "minimum": 5000,
-      "exclusiveMinimum": false,
-      "examples": [
-        5000
-      ]
-    },
-    "instantFuture": {
+    "base64URLEncodedBase": {
       "type": "string",
-      "format": "date-time",
       "examples": [
-        "2187-04-10T23:40:15.789Z"
+        "SGVsbG8gd29ybGQh"
       ]
     },
     "enumerationString": {
@@ -1848,216 +2092,21 @@ a|
         "new"
       ]
     },
-    "lng11cmBigDecimal": {
-      "type": "number",
-      "format": "decimal",
-      "minimum": -180,
-      "exclusiveMinimum": false,
-      "maximum": 180,
-      "exclusiveMaximum": false,
-      "examples": [
-        -118.296339
-      ]
-    },
-    "patternString": {
-      "type": "string",
-      "pattern": "hello",
-      "examples": [
-        "hello"
-      ]
-    },
-    "whatsAppString": {
-      "type": "string",
-      "format": "whatsapp",
-      "examples": [
-        "12257117934"
-      ]
-    },
-    "base64URLEncodedUrl": {
-      "type": "string",
-      "examples": [
-        "SGVsbG8gd29ybGQh"
-      ]
-    },
-    "lng11kmBigDecimal": {
-      "type": "number",
-      "format": "decimal",
-      "minimum": -180,
-      "exclusiveMinimum": false,
-      "maximum": 180,
-      "exclusiveMaximum": false,
-      "examples": [
-        -118.3
-      ]
-    },
-    "lowercaseString": {
-      "type": "string",
-      "examples": [
-        "string"
-      ]
-    },
-    "viberWithPlusString": {
-      "type": "string",
-      "format": "viber",
-      "examples": [
-        "+12257111123"
-      ]
-    },
-    "maxNumberDouble": {
-      "type": "number",
-      "format": "double",
-      "maximum": 6.7815926535,
-      "exclusiveMaximum": false,
-      "examples": [
-        6.7815926535
-      ]
-    },
-    "aCharacter": {
-      "type": "string",
-      "examples": [
-        "y"
-      ]
-    },
-    "minSize5List": {
-      "type": "array",
-      "minItems": 5,
-      "items": {
-        "type": "number",
-        "examples": [
-          1000000000
-        ]
-      }
-    },
-    "telegramWithPlusString": {
-      "type": "string",
-      "format": "telegram",
-      "examples": [
-        "+12256782613"
-      ]
-    },
-    "maxIntShort": {
-      "type": "number",
-      "format": "int16",
-      "maximum": 15000,
-      "exclusiveMaximum": false,
-      "examples": [
-        15000
-      ]
-    },
-    "exampleInstant": {
-      "type": "string",
-      "format": "date-time",
-      "examples": [
-        "2020-04-10T23:40:15.789Z"
-      ]
-    },
-    "maxIntInteger": {
-      "type": "number",
-      "format": "int32",
-      "maximum": 2000000000,
-      "exclusiveMaximum": false,
-      "examples": [
-        2000000000
-      ]
-    },
-    "maxNumberLong": {
-      "type": "number",
-      "format": "int64",
-      "maximum": 2000000000000,
-      "exclusiveMaximum": false,
-      "examples": [
-        2000000000000
-      ]
-    },
-    "assertTrue": {
-      "type": "boolean",
-      "examples": [
-        true
-      ]
-    },
-    "instantTruncatedTimeHours": {
-      "type": "string",
-      "format": "date-time",
-      "examples": [
-        "1987-04-10T00:00:00Z"
-      ]
-    },
-    "maxIntFloat": {
-      "type": "number",
-      "format": "float",
-      "maximum": 6.78,
-      "exclusiveMaximum": false,
-      "examples": [
-        6.78
-      ]
-    },
-    "exampleFloat": {
-      "type": "number",
-      "format": "float",
-      "examples": [
-        2.78
-      ]
-    },
-    "lng1kmBigDecimal": {
-      "type": "number",
-      "format": "decimal",
-      "minimum": -180,
-      "exclusiveMinimum": false,
-      "maximum": 180,
-      "exclusiveMaximum": false,
-      "examples": [
-        -118.30
-      ]
-    },
-    "anInstant": {
-      "type": "string",
-      "format": "date-time",
-      "examples": [
-        "1987-04-10T23:40:15.789Z"
-      ]
-    },
-    "minNumberFloat": {
-      "type": "number",
-      "format": "float",
-      "minimum": 1.1,
-      "exclusiveMinimum": false,
-      "examples": [
-        1.1
-      ]
-    },
-    "maxSize5List": {
-      "type": "array",
-      "maxItems": 5,
-      "items": {
-        "type": "number",
-        "examples": [
-          1000000000
-        ]
-      }
-    },
-    "minNumberDouble": {
-      "type": "number",
-      "format": "double",
-      "minimum": 1.1234567890,
-      "exclusiveMinimum": false,
-      "examples": [
-        1.1234567890
-      ]
-    },
-    "subEnumExclude": {
-      "type": "string",
-      "enum": [
-        "RED"
-      ],
-      "examples": [
-        "RED"
-      ]
-    },
-    "aBigInteger": {
+    "exampleBigInteger": {
       "type": "number",
       "format": "integer",
       "examples": [
-        1000000000000000000000
+        700000000000000000000
+      ]
+    },
+    "subEnumInclude": {
+      "type": "string",
+      "enum": [
+        "GREEN",
+        "BLUE"
+      ],
+      "examples": [
+        "GREEN"
       ]
     },
     "optionalNestedList": {
@@ -2079,17 +2128,30 @@ a|
         "maxProperties": 1
       }
     },
-    "enumerationChar": {
-      "type": "string",
-      "enum": [
-        "y",
-        "n"
-      ],
+    "minNumberLong": {
+      "type": "number",
+      "format": "int64",
+      "minimum": 500000000000,
+      "exclusiveMinimum": false,
       "examples": [
-        "y"
+        500000000000
       ]
     },
-    "lng111mBigDecimal": {
+    "exampleInteger": {
+      "type": "number",
+      "format": "int32",
+      "examples": [
+        700000000
+      ]
+    },
+    "aDouble": {
+      "type": "number",
+      "format": "double",
+      "examples": [
+        3.1415926535
+      ]
+    },
+    "lng1cmBigDecimal": {
       "type": "number",
       "format": "decimal",
       "minimum": -180,
@@ -2097,18 +2159,25 @@ a|
       "maximum": 180,
       "exclusiveMaximum": false,
       "examples": [
-        -118.296
+        -118.2963390
       ]
     },
-    "enumerationWithExampleChar": {
-      "type": "string",
-      "enum": [
-        "y",
-        "n"
-      ],
+    "numericBigDecimal": {
+      "type": "number",
+      "format": "decimal",
       "examples": [
-        "y"
+        987654321.98765
       ]
+    },
+    "exampleList": {
+      "type": "array",
+      "items": {
+        "type": "number",
+        "examples": [
+          "item1",
+          "item2"
+        ]
+      }
     },
     "minIntInteger": {
       "type": "number",
@@ -2117,6 +2186,71 @@ a|
       "exclusiveMinimum": false,
       "examples": [
         500000000
+      ]
+    },
+    "maxIntFloat": {
+      "type": "number",
+      "format": "float",
+      "maximum": 6.78,
+      "exclusiveMaximum": false,
+      "examples": [
+        6.78
+      ]
+    },
+    "optionalList": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "examples": [
+          "string"
+        ]
+      }
+    },
+    "minNumberBigDecimal": {
+      "type": "number",
+      "format": "decimal",
+      "minimum": 1.1234567890123456789012345678901234567890,
+      "exclusiveMinimum": false,
+      "examples": [
+        1.1234567890123456789012345678901234567890
+      ]
+    },
+    "ip": {
+      "type": "string",
+      "format": "ipv4, ipv6",
+      "examples": [
+        "8.8.8.8"
+      ]
+    },
+    "lat11mBigDecimal": {
+      "type": "number",
+      "format": "decimal",
+      "minimum": -90,
+      "exclusiveMinimum": false,
+      "maximum": 90,
+      "exclusiveMaximum": false,
+      "examples": [
+        34.0638
+      ]
+    },
+    "minIntLong": {
+      "type": "number",
+      "format": "int64",
+      "minimum": 500000000000,
+      "exclusiveMinimum": false,
+      "examples": [
+        500000000000
+      ]
+    },
+    "lat111mBigDecimal": {
+      "type": "number",
+      "format": "decimal",
+      "minimum": -90,
+      "exclusiveMinimum": false,
+      "maximum": 90,
+      "exclusiveMaximum": false,
+      "examples": [
+        34.064
       ]
     },
     "phoneString": {
@@ -2133,204 +2267,15 @@ a|
         "12257111123"
       ]
     },
-    "aByte": {
-      "type": "number",
-      "format": "int8",
-      "examples": [
-        10
-      ]
-    },
-    "lat11mBigDecimal": {
-      "type": "number",
-      "format": "decimal",
-      "minimum": -90,
-      "exclusiveMinimum": false,
-      "maximum": 90,
-      "exclusiveMaximum": false,
-      "examples": [
-        34.0638
-      ]
-    },
-    "minIntShort": {
-      "type": "number",
-      "format": "int16",
-      "minimum": 5000,
-      "exclusiveMinimum": false,
-      "examples": [
-        5000
-      ]
-    },
-    "telegramString": {
+    "telegramWithPlusString": {
       "type": "string",
       "format": "telegram",
       "examples": [
-        "12256782613"
+        "+12256782613"
       ]
     },
-    "optionalList": {
+    "aList": {
       "type": "array",
-      "items": {
-        "type": "string",
-        "examples": [
-          "string"
-        ]
-      }
-    },
-    "maxLength2String": {
-      "type": "string",
-      "maxLength": 2,
-      "examples": [
-        "string"
-      ]
-    },
-    "instantFutureOrPresent": {
-      "type": "string",
-      "format": "date-time",
-      "examples": [
-        "2187-04-10T23:40:15.789Z"
-      ]
-    },
-    "minNumberBigDecimal": {
-      "type": "number",
-      "format": "decimal",
-      "minimum": 1.1234567890123456789012345678901234567890,
-      "exclusiveMinimum": false,
-      "examples": [
-        1.1234567890123456789012345678901234567890
-      ]
-    },
-    "minNumberBigInteger": {
-      "type": "number",
-      "format": "integer",
-      "minimum": 500000000000000000000,
-      "exclusiveMinimum": false,
-      "examples": [
-        500000000000000000000
-      ]
-    },
-    "minIntDouble": {
-      "type": "number",
-      "format": "double",
-      "minimum": 1.123456789,
-      "exclusiveMinimum": false,
-      "examples": [
-        1.123456789
-      ]
-    },
-    "uppercaseString": {
-      "type": "string",
-      "examples": [
-        "UPPERCASE"
-      ]
-    },
-    "maxNumberShort": {
-      "type": "number",
-      "format": "int16",
-      "maximum": 15000,
-      "exclusiveMaximum": false,
-      "examples": [
-        15000
-      ]
-    },
-    "exampleEnum": {
-      "type": "string",
-      "enum": [
-        "RED",
-        "GREEN",
-        "BLUE"
-      ],
-      "examples": [
-        "BLUE"
-      ]
-    },
-    "lat111kmBigDecimal": {
-      "type": "number",
-      "format": "decimal",
-      "minimum": -90,
-      "exclusiveMinimum": false,
-      "maximum": 90,
-      "exclusiveMaximum": false,
-      "examples": [
-        34
-      ]
-    },
-    "minIntLong": {
-      "type": "number",
-      "format": "int64",
-      "minimum": 500000000000,
-      "exclusiveMinimum": false,
-      "examples": [
-        500000000000
-      ]
-    },
-    "maxIntLong": {
-      "type": "number",
-      "format": "int64",
-      "maximum": 2000000000000,
-      "exclusiveMaximum": false,
-      "examples": [
-        2000000000000
-      ]
-    },
-    "aString": {
-      "type": "string",
-      "examples": [
-        "string"
-      ]
-    },
-    "uriString": {
-      "type": "string",
-      "format": "uri",
-      "examples": [
-        "https://rxmicro.io"
-      ]
-    },
-    "maxNumberBigDecimal": {
-      "type": "number",
-      "format": "decimal",
-      "maximum": 6.7815926535897932384626433832795028841971,
-      "exclusiveMaximum": false,
-      "examples": [
-        6.7815926535897932384626433832795028841971
-      ]
-    },
-    "maxNumberInteger": {
-      "type": "number",
-      "format": "int32",
-      "maximum": 2000000000,
-      "exclusiveMaximum": false,
-      "examples": [
-        2000000000
-      ]
-    },
-    "minNumberByte": {
-      "type": "number",
-      "format": "int8",
-      "minimum": 5,
-      "exclusiveMinimum": false,
-      "examples": [
-        5
-      ]
-    },
-    "minNumberInteger": {
-      "type": "number",
-      "format": "int32",
-      "minimum": 500000000,
-      "exclusiveMinimum": false,
-      "examples": [
-        500000000
-      ]
-    },
-    "exampleByte": {
-      "type": "number",
-      "format": "int8",
-      "examples": [
-        7
-      ]
-    },
-    "uniqueItemsList": {
-      "type": "array",
-      "uniqueItems": true,
       "items": {
         "type": "number",
         "examples": [
@@ -2338,21 +2283,49 @@ a|
         ]
       }
     },
-    "lat1cmBigDecimal": {
-      "type": "number",
-      "format": "decimal",
-      "minimum": -90,
-      "exclusiveMinimum": false,
-      "maximum": 90,
-      "exclusiveMaximum": false,
-      "examples": [
-        34.0638210
-      ]
+    "size5List": {
+      "type": "array",
+      "minItems": 5,
+      "maxItems": 5,
+      "items": {
+        "type": "number",
+        "examples": [
+          1000000000
+        ]
+      }
     },
-    "countryCodeAlpha3": {
+    "exampleCharacter": {
       "type": "string",
       "examples": [
-        "USA"
+        "h"
+      ]
+    },
+    "exampleDouble": {
+      "type": "number",
+      "format": "double",
+      "examples": [
+        2.789654321
+      ]
+    },
+    "whatsAppString": {
+      "type": "string",
+      "format": "whatsapp",
+      "examples": [
+        "12257117934"
+      ]
+    },
+    "minLength2String": {
+      "type": "string",
+      "minLength": 2,
+      "examples": [
+        "string"
+      ]
+    },
+    "aFloat": {
+      "type": "number",
+      "format": "float",
+      "examples": [
+        3.14
       ]
     },
     "maxNumberByte": {
@@ -2364,65 +2337,29 @@ a|
         15
       ]
     },
-    "assertFalse": {
-      "type": "boolean",
-      "examples": [
-        false
-      ]
-    },
-    "base64URLEncodedBase": {
-      "type": "string",
-      "examples": [
-        "SGVsbG8gd29ybGQh"
-      ]
-    },
-    "exampleCharacter": {
-      "type": "string",
-      "examples": [
-        "h"
-      ]
-    },
-    "anInteger": {
+    "lat11kmBigDecimal": {
       "type": "number",
-      "format": "int32",
+      "format": "decimal",
+      "minimum": -90,
+      "exclusiveMinimum": false,
+      "maximum": 90,
+      "exclusiveMaximum": false,
       "examples": [
-        1000000000
+        34.1
       ]
     },
-    "countryCodeAlpha2": {
+    "emailString": {
       "type": "string",
+      "format": "email",
       "examples": [
-        "US"
+        "welcome@rxmicro.io"
       ]
     },
-    "hostNameString": {
-      "type": "string",
-      "format": "hostname",
-      "examples": [
-        "rxmicro.io"
-      ]
-    },
-    "aShort": {
-      "type": "number",
-      "format": "int16",
-      "examples": [
-        10000
-      ]
-    },
-    "exampleBigInteger": {
+    "aBigInteger": {
       "type": "number",
       "format": "integer",
       "examples": [
-        700000000000000000000
-      ]
-    },
-    "maxNumberFloat": {
-      "type": "number",
-      "format": "float",
-      "maximum": 6.78,
-      "exclusiveMaximum": false,
-      "examples": [
-        6.78
+        1000000000000000000000
       ]
     },
     "lat1mBigDecimal": {
@@ -2434,6 +2371,24 @@ a|
       "exclusiveMaximum": false,
       "examples": [
         34.06382
+      ]
+    },
+    "lng11mBigDecimal": {
+      "type": "number",
+      "format": "decimal",
+      "minimum": -180,
+      "exclusiveMinimum": false,
+      "maximum": 180,
+      "exclusiveMaximum": false,
+      "examples": [
+        -118.2963
+      ]
+    },
+    "instantFuture": {
+      "type": "string",
+      "format": "date-time",
+      "examples": [
+        "2187-04-10T23:40:15.789Z"
       ]
     },
     "requiredNested": {
@@ -2452,17 +2407,37 @@ a|
       "minProperties": 1,
       "maxProperties": 1
     },
-    "instantTruncatedTimeMillis": {
-      "type": "string",
-      "format": "date-time",
-      "examples": [
-        "1987-04-10T23:40:15Z"
-      ]
-    },
     "exampleBoolean": {
       "type": "boolean",
       "examples": [
         true
+      ]
+    },
+    "instantTruncatedTimeSeconds": {
+      "type": "string",
+      "format": "date-time",
+      "examples": [
+        "1987-04-10T23:40:00Z"
+      ]
+    },
+    "aLong": {
+      "type": "number",
+      "format": "int64",
+      "examples": [
+        1000000000000
+      ]
+    },
+    "exampleString": {
+      "type": "string",
+      "examples": [
+        "hello"
+      ]
+    },
+    "aBigDecimal": {
+      "type": "number",
+      "format": "decimal",
+      "examples": [
+        3.1415926535897932384626433832795028841971
       ]
     },
     "skypeString": {
@@ -2472,11 +2447,135 @@ a|
         "rxmicro.io"
       ]
     },
-    "exampleDouble": {
+    "countryCodeNumeric": {
+      "type": "string",
+      "examples": [
+        "840"
+      ]
+    },
+    "anInteger": {
+      "type": "number",
+      "format": "int32",
+      "examples": [
+        1000000000
+      ]
+    },
+    "length2String": {
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 2,
+      "examples": [
+        "string"
+      ]
+    },
+    "maxNumberBigDecimal": {
+      "type": "number",
+      "format": "decimal",
+      "maximum": 6.7815926535897932384626433832795028841971,
+      "exclusiveMaximum": false,
+      "examples": [
+        6.7815926535897932384626433832795028841971
+      ]
+    },
+    "lat111kmBigDecimal": {
+      "type": "number",
+      "format": "decimal",
+      "minimum": -90,
+      "exclusiveMinimum": false,
+      "maximum": 90,
+      "exclusiveMaximum": false,
+      "examples": [
+        34
+      ]
+    },
+    "assertTrue": {
+      "type": "boolean",
+      "examples": [
+        true
+      ]
+    },
+    "maxNumberFloat": {
+      "type": "number",
+      "format": "float",
+      "maximum": 6.78,
+      "exclusiveMaximum": false,
+      "examples": [
+        6.78
+      ]
+    },
+    "aShort": {
+      "type": "number",
+      "format": "int16",
+      "examples": [
+        10000
+      ]
+    },
+    "uniqueItemsList": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "number",
+        "examples": [
+          1000000000
+        ]
+      }
+    },
+    "digitsOnlyString": {
+      "type": "string",
+      "examples": [
+        "9876"
+      ]
+    },
+    "lat1cmBigDecimal": {
+      "type": "number",
+      "format": "decimal",
+      "minimum": -90,
+      "exclusiveMinimum": false,
+      "maximum": 90,
+      "exclusiveMaximum": false,
+      "examples": [
+        34.0638210
+      ]
+    },
+    "viberWithPlusString": {
+      "type": "string",
+      "format": "viber",
+      "examples": [
+        "+12257111123"
+      ]
+    },
+    "maxIntLong": {
+      "type": "number",
+      "format": "int64",
+      "maximum": 2000000000000,
+      "exclusiveMaximum": false,
+      "examples": [
+        2000000000000
+      ]
+    },
+    "maxNumberDouble": {
       "type": "number",
       "format": "double",
+      "maximum": 6.7815926535,
+      "exclusiveMaximum": false,
       "examples": [
-        2.789654321
+        6.7815926535
+      ]
+    },
+    "phoneWithPlusString": {
+      "type": "string",
+      "format": "phone",
+      "examples": [
+        "+12254359430"
+      ]
+    },
+    "minNumberInteger": {
+      "type": "number",
+      "format": "int32",
+      "minimum": 500000000,
+      "exclusiveMinimum": false,
+      "examples": [
+        500000000
       ]
     },
     "lng111kmBigDecimal": {
@@ -2490,272 +2589,173 @@ a|
         -118
       ]
     },
-    "aBoolean": {
-      "type": "boolean",
-      "examples": [
-        false
-      ]
-    },
-    "length2String": {
-      "type": "string",
-      "minLength": 2,
-      "maxLength": 2,
-      "examples": [
-        "string"
-      ]
-    },
-    "numericBigDecimal": {
+    "exampleByte": {
       "type": "number",
-      "format": "decimal",
+      "format": "int8",
       "examples": [
-        987654321.98765
+        7
       ]
     },
-    "aList": {
-      "type": "array",
-      "items": {
-        "type": "number",
-        "examples": [
-          1000000000
-        ]
-      }
-    },
-    "lng1mBigDecimal": {
-      "type": "number",
-      "format": "decimal",
-      "minimum": -180,
-      "exclusiveMinimum": false,
-      "maximum": 180,
-      "exclusiveMaximum": false,
-      "examples": [
-        -118.29634
-      ]
-    },
-    "subEnumInclude": {
+    "colorEnum": {
       "type": "string",
       "enum": [
+        "RED",
         "GREEN",
         "BLUE"
       ],
       "examples": [
-        "GREEN"
+        "RED"
       ]
     },
-    "aFloat": {
+    "maxNumberInteger": {
       "type": "number",
-      "format": "float",
-      "examples": [
-        3.14
-      ]
-    },
-    "minLength2String": {
-      "type": "string",
-      "minLength": 2,
-      "examples": [
-        "string"
-      ]
-    },
-    "emailString": {
-      "type": "string",
-      "format": "email",
-      "examples": [
-        "welcome@rxmicro.io"
-      ]
-    },
-    "ip4": {
-      "type": "string",
-      "format": "ipv4",
-      "examples": [
-        "8.8.8.8"
-      ]
-    },
-    "ip6": {
-      "type": "string",
-      "format": "ipv6",
-      "examples": [
-        "2001:db8:85a3::8a2e:370:7334"
-      ]
-    },
-    "lat11kmBigDecimal": {
-      "type": "number",
-      "format": "decimal",
-      "minimum": -90,
-      "exclusiveMinimum": false,
-      "maximum": 90,
+      "format": "int32",
+      "maximum": 2000000000,
       "exclusiveMaximum": false,
       "examples": [
-        34.1
+        2000000000
       ]
     },
-    "maxNumberBigInteger": {
-      "type": "number",
-      "format": "integer",
-      "maximum": 2000000000000000000000,
-      "exclusiveMaximum": false,
-      "examples": [
-        2000000000000000000000
-      ]
-    },
-    "whatsAppWithPlusString": {
-      "type": "string",
-      "format": "whatsapp",
-      "examples": [
-        "+12257117934"
-      ]
-    },
-    "exampleString": {
+    "countryCodeAlpha2": {
       "type": "string",
       "examples": [
-        "hello"
+        "US"
       ]
     },
-    "latinAlphabetOnlyString": {
+    "countryCodeAlpha3": {
       "type": "string",
       "examples": [
-        "Latin alphabet only!"
-      ]
-    },
-    "instantTruncatedTimeSeconds": {
-      "type": "string",
-      "format": "date-time",
-      "examples": [
-        "1987-04-10T23:40:00Z"
-      ]
-    },
-    "countryCodeNumeric": {
-      "type": "string",
-      "examples": [
-        "840"
+        "USA"
       ]
     }
   },
   "required": [
+    "maxNumberShort",
+    "instantTruncatedTimeMillis",
     "instantTruncatedTimeMinutes",
-    "lat1kmBigDecimal",
-    "aLong",
-    "exampleList",
-    "instantPastOrPresent",
-    "aDouble",
-    "subEnumWithExample",
-    "urlEncodedString",
+    "aBoolean",
+    "exampleEnum",
+    "base64URLEncodedUrl",
+    "lng1kmBigDecimal",
+    "uppercaseString",
     "maxIntByte",
-    "minNumberLong",
-    "exampleBigDecimal",
-    "lat11cmBigDecimal",
-    "instantPast",
-    "colorEnum",
-    "requiredNestedList",
+    "minSize5List",
+    "hostNameString",
+    "minNumberByte",
+    "maxLength2String",
+    "enumerationWithExampleChar",
+    "instantTruncatedTimeHours",
+    "aString",
+    "maxIntShort",
     "minIntByte",
-    "lng1cmBigDecimal",
-    "exampleInteger",
-    "aBigDecimal",
-    "minIntFloat",
-    "lng11mBigDecimal",
-    "phoneWithPlusString",
-    "ip",
-    "exampleLong",
-    "digitsOnlyString",
-    "size5List",
-    "lat111mBigDecimal",
-    "maxIntDouble",
+    "uriString",
+    "instantFutureOrPresent",
+    "lng11cmBigDecimal",
+    "instantPastOrPresent",
+    "whatsAppWithPlusString",
     "exampleShort",
     "minNumberShort",
-    "instantFuture",
-    "enumerationString",
-    "lng11cmBigDecimal",
-    "patternString",
-    "whatsAppString",
-    "base64URLEncodedUrl",
-    "lng11kmBigDecimal",
-    "lowercaseString",
-    "viberWithPlusString",
-    "maxNumberDouble",
-    "aCharacter",
-    "minSize5List",
-    "telegramWithPlusString",
-    "maxIntShort",
-    "exampleInstant",
-    "maxIntInteger",
-    "maxNumberLong",
-    "assertTrue",
-    "instantTruncatedTimeHours",
-    "maxIntFloat",
-    "exampleFloat",
-    "lng1kmBigDecimal",
-    "anInstant",
-    "minNumberFloat",
-    "maxSize5List",
+    "minIntShort",
     "minNumberDouble",
+    "minNumberFloat",
     "subEnumExclude",
-    "aBigInteger",
-    "optionalNestedList",
-    "enumerationChar",
     "lng111mBigDecimal",
-    "enumerationWithExampleChar",
+    "minNumberBigInteger",
+    "aByte",
+    "maxIntInteger",
+    "maxNumberBigInteger",
+    "maxIntDouble",
+    "minIntFloat",
+    "lng1mBigDecimal",
+    "aCharacter",
+    "minIntDouble",
+    "patternString",
+    "exampleFloat",
+    "assertFalse",
+    "exampleInstant",
+    "ip6",
+    "ip4",
+    "lowercaseString",
+    "telegramString",
+    "instantPast",
+    "lat1kmBigDecimal",
+    "maxNumberLong",
+    "exampleLong",
+    "urlEncodedString",
+    "latinAlphabetOnlyString",
+    "anInstant",
+    "lat11cmBigDecimal",
+    "exampleBigDecimal",
+    "enumerationChar",
+    "lng11kmBigDecimal",
+    "subEnumWithExample",
+    "requiredNestedList",
+    "maxSize5List",
+    "base64URLEncodedBase",
+    "enumerationString",
+    "exampleBigInteger",
+    "subEnumInclude",
+    "optionalNestedList",
+    "minNumberLong",
+    "exampleInteger",
+    "aDouble",
+    "lng1cmBigDecimal",
+    "numericBigDecimal",
+    "exampleList",
     "minIntInteger",
+    "maxIntFloat",
+    "optionalList",
+    "minNumberBigDecimal",
+    "ip",
+    "lat11mBigDecimal",
+    "minIntLong",
+    "lat111mBigDecimal",
     "phoneString",
     "viberString",
-    "aByte",
-    "lat11mBigDecimal",
-    "minIntShort",
-    "telegramString",
-    "optionalList",
-    "maxLength2String",
-    "instantFutureOrPresent",
-    "minNumberBigDecimal",
-    "minNumberBigInteger",
-    "minIntDouble",
-    "uppercaseString",
-    "maxNumberShort",
-    "exampleEnum",
-    "lat111kmBigDecimal",
-    "minIntLong",
-    "maxIntLong",
-    "aString",
-    "uriString",
-    "maxNumberBigDecimal",
-    "maxNumberInteger",
-    "minNumberByte",
-    "minNumberInteger",
-    "exampleByte",
-    "uniqueItemsList",
-    "lat1cmBigDecimal",
-    "countryCodeAlpha3",
-    "maxNumberByte",
-    "assertFalse",
-    "base64URLEncodedBase",
-    "exampleCharacter",
-    "anInteger",
-    "countryCodeAlpha2",
-    "hostNameString",
-    "aShort",
-    "exampleBigInteger",
-    "maxNumberFloat",
-    "lat1mBigDecimal",
-    "requiredNested",
-    "instantTruncatedTimeMillis",
-    "exampleBoolean",
-    "skypeString",
-    "exampleDouble",
-    "lng111kmBigDecimal",
-    "aBoolean",
-    "length2String",
-    "numericBigDecimal",
+    "telegramWithPlusString",
     "aList",
-    "lng1mBigDecimal",
-    "subEnumInclude",
-    "aFloat",
+    "size5List",
+    "exampleCharacter",
+    "exampleDouble",
+    "whatsAppString",
     "minLength2String",
-    "emailString",
-    "ip4",
-    "ip6",
+    "aFloat",
+    "maxNumberByte",
     "lat11kmBigDecimal",
-    "maxNumberBigInteger",
-    "whatsAppWithPlusString",
-    "exampleString",
-    "latinAlphabetOnlyString",
+    "emailString",
+    "aBigInteger",
+    "lat1mBigDecimal",
+    "lng11mBigDecimal",
+    "instantFuture",
+    "requiredNested",
+    "exampleBoolean",
     "instantTruncatedTimeSeconds",
-    "countryCodeNumeric"
+    "aLong",
+    "exampleString",
+    "aBigDecimal",
+    "skypeString",
+    "countryCodeNumeric",
+    "anInteger",
+    "length2String",
+    "maxNumberBigDecimal",
+    "lat111kmBigDecimal",
+    "assertTrue",
+    "maxNumberFloat",
+    "aShort",
+    "uniqueItemsList",
+    "digitsOnlyString",
+    "lat1cmBigDecimal",
+    "viberWithPlusString",
+    "maxIntLong",
+    "maxNumberDouble",
+    "phoneWithPlusString",
+    "minNumberInteger",
+    "lng111kmBigDecimal",
+    "exampleByte",
+    "colorEnum",
+    "maxNumberInteger",
+    "countryCodeAlpha2",
+    "countryCodeAlpha3"
   ],
   "minProperties": 126,
   "maxProperties": 128

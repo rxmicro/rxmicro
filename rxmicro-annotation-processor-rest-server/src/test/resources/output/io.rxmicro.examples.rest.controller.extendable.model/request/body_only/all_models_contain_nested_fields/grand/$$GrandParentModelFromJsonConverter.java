@@ -15,7 +15,7 @@ public final class $$GrandParentModelFromJsonConverter extends ModelFromJsonConv
 
     public void readParamsToModel(final Map<String, Object> params,
                                   final GrandParent model) {
-        model.grandParameter = toString(params.get("grandParameter"), "grandParameter");
         model.grandNestedParameter = convertToObjectIfNotNull(nestedModelFromJsonConverter, params.get("grandNestedParameter"), "grandNestedParameter");
+        model.grandParameter = toString(params.get("grandParameter"), "grandParameter");
     }
 }

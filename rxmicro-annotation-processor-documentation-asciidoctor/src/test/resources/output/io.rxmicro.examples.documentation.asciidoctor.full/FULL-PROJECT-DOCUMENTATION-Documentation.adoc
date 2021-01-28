@@ -1048,7 +1048,7 @@ a|
 ----
 HTTP/1.1 200 OK
 Content-Type: application/json
-Content-Length: 158
+Content-Length: 154
 Request-Id: 62jJeu8x1310662
 
 {
@@ -1057,7 +1057,7 @@ Request-Id: 62jJeu8x1310662
   "nestedList": [
     {
       "level": 20,
-      "status": "created",
+      "status": "new",
       "mask": [
         255
       ]
@@ -1242,7 +1242,7 @@ a|
               "undefined"
             ],
             "examples": [
-              "created"
+              "new"
             ]
           },
           "mask": {
@@ -1661,7 +1661,7 @@ a|
 ----
 HTTP/1.1 200 OK
 Content-Type: application/json
-Content-Length: 158
+Content-Length: 154
 Request-Id: 62jJeu8x1310662
 
 {
@@ -1670,7 +1670,7 @@ Request-Id: 62jJeu8x1310662
   "nestedList": [
     {
       "level": 20,
-      "status": "created",
+      "status": "new",
       "mask": [
         255
       ]
@@ -1855,7 +1855,7 @@ a|
               "undefined"
             ],
             "examples": [
-              "created"
+              "new"
             ]
           },
           "mask": {
