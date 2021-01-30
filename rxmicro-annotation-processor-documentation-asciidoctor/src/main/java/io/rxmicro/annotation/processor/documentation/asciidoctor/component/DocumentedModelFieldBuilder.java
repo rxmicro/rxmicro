@@ -39,13 +39,14 @@ import static io.rxmicro.json.JsonTypes.STRING;
  */
 public interface DocumentedModelFieldBuilder {
 
-    static DocumentedModelField buildApiVersionHeaderDocumentedModelField(final boolean required) {
+    static DocumentedModelField buildRequestIdHeaderDocumentedModelField(final boolean required) {
         return new DocumentedModelField(
                 REQUEST_ID,
                 STRING,
                 List.of(required ? REQUIRED_RESTRICTION : OPTIONAL_RESTRICTION, "unique: true"),
                 "An unique request string identifier.",
-                List.of(new ReadMoreModel(getReadMore(RequestId.class).orElseThrow())));
+                List.of(new ReadMoreModel(getReadMore(RequestId.class).orElseThrow()))
+        );
     }
 
     List<Map.Entry<String, List<DocumentedModelField>>> buildComplex(EnvironmentContext environmentContext,

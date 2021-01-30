@@ -36,7 +36,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import static io.rxmicro.annotation.processor.documentation.asciidoctor.component.DocumentedModelFieldBuilder.buildApiVersionHeaderDocumentedModelField;
+import static io.rxmicro.annotation.processor.documentation.asciidoctor.component.DocumentedModelFieldBuilder.buildRequestIdHeaderDocumentedModelField;
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.http.HttpStandardHeaderNames.REQUEST_ID;
 import static io.rxmicro.json.JsonTypes.ARRAY;
@@ -145,7 +145,7 @@ public final class DocumentedModelFieldBuilderImpl implements DocumentedModelFie
                                                            final String jsonType,
                                                            final boolean withReadMore) {
         if (entry.getKey().isHttpHeader() && REQUEST_ID.equalsIgnoreCase(entry.getKey().getModelName())) {
-            return buildApiVersionHeaderDocumentedModelField(false);
+            return buildRequestIdHeaderDocumentedModelField(false);
         } else {
             final Characteristics characteristics = characteristicsReader.read(environmentContext, entry);
             final RestModelField field = entry.getKey();

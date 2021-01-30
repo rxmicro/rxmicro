@@ -18,30 +18,51 @@ package io.rxmicro.annotation.processor.documentation.asciidoctor.component.impl
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import io.rxmicro.annotation.processor.common.component.ModelFieldBuilder;
 import io.rxmicro.annotation.processor.common.model.EnvironmentContext;
+import io.rxmicro.annotation.processor.common.model.ModelFieldBuilderOptions;
 import io.rxmicro.annotation.processor.common.model.error.InterruptProcessingException;
 import io.rxmicro.annotation.processor.documentation.asciidoctor.component.ModelExceptionErrorResponseBuilder;
 import io.rxmicro.annotation.processor.documentation.asciidoctor.model.Response;
 import io.rxmicro.annotation.processor.documentation.component.DescriptionReader;
+import io.rxmicro.annotation.processor.documentation.component.HttpResponseExampleBuilder;
 import io.rxmicro.annotation.processor.documentation.model.ProjectMetaData;
 import io.rxmicro.annotation.processor.documentation.model.ReadMoreModel;
 import io.rxmicro.annotation.processor.documentation.model.StandardHttpErrorStorage;
+import io.rxmicro.annotation.processor.rest.model.RestModelField;
+import io.rxmicro.annotation.processor.rest.model.RestObjectModelClass;
 import io.rxmicro.documentation.ModelExceptionErrorResponse;
 import io.rxmicro.documentation.ResourceDefinition;
+import io.rxmicro.rest.Header;
+import io.rxmicro.rest.Parameter;
+import io.rxmicro.rest.PathVariable;
+import io.rxmicro.rest.RemoteAddress;
+import io.rxmicro.rest.RepeatHeader;
+import io.rxmicro.rest.RepeatQueryParameter;
+import io.rxmicro.rest.RequestBody;
+import io.rxmicro.rest.RequestId;
+import io.rxmicro.rest.RequestMethod;
+import io.rxmicro.rest.RequestUrlPath;
+import io.rxmicro.rest.ResponseBody;
+import io.rxmicro.rest.ResponseStatusCode;
 
+import java.lang.annotation.Annotation;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.Modifier;
+import javax.lang.model.element.ModuleElement;
+import javax.lang.model.element.PackageElement;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
 import javax.lang.model.type.TypeKind;
 
+import static io.rxmicro.annotation.processor.common.model.ModelFieldType.REST_SERVER_RESPONSE;
 import static io.rxmicro.annotation.processor.common.util.Annotations.getRequiredAnnotationClassParameter;
 import static io.rxmicro.annotation.processor.common.util.Elements.allFields;
 import static io.rxmicro.annotation.processor.common.util.Elements.allModelFields;
-import static io.rxmicro.annotation.processor.documentation.asciidoctor.component.DocumentedModelFieldBuilder.buildApiVersionHeaderDocumentedModelField;
+import static io.rxmicro.common.local.DeniedPackages.isDeniedPackage;
 import static io.rxmicro.documentation.asciidoctor.AsciidoctorDocumentationConstants.STATUS_CODE_STATIC_FIELD_NAME;
 
 /**
@@ -51,6 +72,19 @@ import static io.rxmicro.documentation.asciidoctor.AsciidoctorDocumentationConst
 @Singleton
 public final class ModelExceptionErrorResponseBuilderImpl implements ModelExceptionErrorResponseBuilder {
 
+    private static final Set<Class<? extends Annotation>> UNSUPPORTED_ANNOTATION_CLASSES = Set.of(
+            ResponseStatusCode.class,
+            ResponseBody.class,
+            RequestUrlPath.class,
+            RequestMethod.class,
+            RequestId.class,
+            RequestBody.class,
+            RepeatQueryParameter.class,
+            RepeatHeader.class,
+            RemoteAddress.class,
+            PathVariable.class
+    );
+
     @Inject
     private DescriptionReader descriptionReader;
 
@@ -58,10 +92,16 @@ public final class ModelExceptionErrorResponseBuilderImpl implements ModelExcept
     private StandardHttpErrorStorage standardHttpErrorStorage;
 
     @Inject
+    private ModelFieldBuilder<RestModelField, RestObjectModelClass> modelFieldBuilder;
+
+    @Inject
     private ModelExceptionErrorResponseStandardBuilder modelExceptionErrorResponseStandardBuilder;
 
     @Inject
     private ModelExceptionErrorResponseCustomBuilder modelExceptionErrorResponseCustomBuilder;
+
+    @Inject
+    private HttpResponseExampleBuilder httpResponseExampleBuilder;
 
     @Override
     public Response buildResponse(final EnvironmentContext environmentContext,
@@ -79,18 +119,27 @@ public final class ModelExceptionErrorResponseBuilderImpl implements ModelExcept
                         responseBuilder::setDescription,
                         () -> standardHttpErrorStorage.get(status).ifPresent(e -> responseBuilder.setDescription(e.getDescription()))
                 );
-        if (resourceDefinition.withHeadersDescriptionTable() && resourceDefinition.withRequestIdResponseHeader()) {
-            responseBuilder.setHeaders(List.of(buildApiVersionHeaderDocumentedModelField(true)));
-        }
-        final List<VariableElement> customExceptionFields = allModelFields(exceptionTypeElement, false);
-        if (customExceptionFields.isEmpty()) {
-            modelExceptionErrorResponseStandardBuilder.setStandardErrorResponse(
+        if (isRxMicroExceptionClass(exceptionTypeElement)) {
+            modelExceptionErrorResponseStandardBuilder.setResponseBodyAndExamples(
                     owner, resourceDefinition, showErrorCauseReadMoreLinks, exceptionTypeElement, status, responseBuilder
             );
         } else {
-            modelExceptionErrorResponseCustomBuilder.setCustomErrorResponse(
-                    environmentContext, resourceDefinition, projectMetaData, exceptionTypeElement, status, responseBuilder
+            final RestObjectModelClass modelClass = getModelClass(environmentContext, exceptionTypeElement);
+            if (resourceDefinition.withExamples()) {
+                responseBuilder.setExample(httpResponseExampleBuilder.build(resourceDefinition, status, modelClass));
+            }
+            modelExceptionErrorResponseCustomBuilder.setResponseHeaders(
+                    environmentContext, resourceDefinition, projectMetaData, exceptionTypeElement, modelClass, responseBuilder
             );
+            if (isCustomParamsPresent(owner, exceptionTypeElement)) {
+                modelExceptionErrorResponseCustomBuilder.setResponseBody(
+                        environmentContext, resourceDefinition, projectMetaData, exceptionTypeElement, modelClass, responseBuilder
+                );
+            } else {
+                modelExceptionErrorResponseStandardBuilder.setResponseBodyAndExamples(
+                        owner, resourceDefinition, showErrorCauseReadMoreLinks, exceptionTypeElement, status, responseBuilder
+                );
+            }
         }
         return responseBuilder.build();
     }
@@ -109,5 +158,51 @@ public final class ModelExceptionErrorResponseBuilderImpl implements ModelExcept
                             "Required static final int field: '?.STATUS_CODE' not defined",
                             exceptionTypeElement.asType().toString());
                 }).getConstantValue();
+    }
+
+    private boolean isRxMicroExceptionClass(final TypeElement exceptionTypeElement) {
+        return isDeniedPackage(((PackageElement) exceptionTypeElement.getEnclosingElement()).getQualifiedName().toString());
+    }
+
+    private RestObjectModelClass getModelClass(final EnvironmentContext environmentContext,
+                                               final TypeElement exceptionTypeElement) {
+        final ModuleElement currentModule = environmentContext.getCurrentModule();
+        final ModelFieldBuilderOptions options = new ModelFieldBuilderOptions()
+                .setWithFieldsFromParentClasses(false)
+                .setAccessViaReflectionMustBeDetected(false);
+        return modelFieldBuilder.build(REST_SERVER_RESPONSE, currentModule, Set.of(exceptionTypeElement), options)
+                .get(exceptionTypeElement);
+    }
+
+    private boolean isCustomParamsPresent(final Element owner,
+                                          final TypeElement exceptionTypeElement) {
+        boolean paramsPresent = false;
+        for (final VariableElement field : allModelFields(exceptionTypeElement, false)) {
+            if (field.getAnnotation(Parameter.class) != null) {
+                if (field.getAnnotation(Header.class) != null) {
+                    throw new InterruptProcessingException(
+                            owner,
+                            "A '?.?' can't annotated by '@?' and '@?'! Remove one of these annotations!",
+                            exceptionTypeElement.getQualifiedName(), field.getSimpleName(),
+                            Parameter.class.getSimpleName(), Header.class.getSimpleName()
+                    );
+                }
+                paramsPresent = true;
+            } else {
+                for (final Class<? extends Annotation> annotationClass : UNSUPPORTED_ANNOTATION_CLASSES) {
+                    if (field.getAnnotation(annotationClass) != null) {
+                        throw new InterruptProcessingException(
+                                owner,
+                                "'@?' annotation can be used for field: '?.?'! Remove unsupported annotation!",
+                                annotationClass.getName(), exceptionTypeElement.getQualifiedName(), field.getSimpleName()
+                        );
+                    }
+                }
+                if (field.getAnnotation(Header.class) == null) {
+                    paramsPresent = true;
+                }
+            }
+        }
+        return paramsPresent;
     }
 }

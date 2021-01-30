@@ -49,17 +49,18 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.TreeSet;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import javax.lang.model.element.TypeElement;
 
 import static io.rxmicro.annotation.processor.common.util.Errors.createInternalErrorSupplier;
 import static io.rxmicro.annotation.processor.documentation.asciidoctor.component.CharacteristicsReader.REQUIRED_RESTRICTION;
-import static io.rxmicro.annotation.processor.documentation.asciidoctor.component.DocumentedModelFieldBuilder.buildApiVersionHeaderDocumentedModelField;
+import static io.rxmicro.annotation.processor.documentation.asciidoctor.component.DocumentedModelFieldBuilder.buildRequestIdHeaderDocumentedModelField;
 import static io.rxmicro.common.RxMicroModule.RX_MICRO_VALIDATION_MODULE;
 import static io.rxmicro.documentation.DocumentationDefinition.GenerationOutput.RESOURCES_SECTION;
 import static io.rxmicro.documentation.IntroductionDefinition.Section.ERROR_MODEL;
+import static io.rxmicro.exchange.json.JsonExchangeConstants.MESSAGE;
+import static io.rxmicro.http.HttpStandardHeaderNames.REQUEST_ID;
 import static io.rxmicro.json.JsonHelper.toJsonString;
+import static io.rxmicro.json.JsonTypes.STRING;
 import static io.rxmicro.rest.model.HttpModelType.HEADER;
 import static io.rxmicro.rest.model.HttpModelType.PARAMETER;
 import static java.util.Map.entry;
@@ -179,15 +180,17 @@ public final class ResponsesBuilderImpl implements ResponsesBuilder {
                                                             final RestObjectModelClass cl,
                                                             final boolean withReadMore) {
         if (resourceDefinition.withRequestIdResponseHeader()) {
-            return Stream.concat(
-                    Stream.of(buildApiVersionHeaderDocumentedModelField(true)),
-                    documentedModelFieldBuilder.buildSimple(
-                            environmentContext,
-                            resourceDefinition.withStandardDescriptions(),
-                            projectMetaData.getProjectDirectory(),
-                            cl, HEADER, withReadMore
-                    ).stream()
-            ).collect(Collectors.toList());
+            final List<DocumentedModelField> headers = documentedModelFieldBuilder.buildSimple(
+                    environmentContext,
+                    resourceDefinition.withStandardDescriptions(),
+                    projectMetaData.getProjectDirectory(),
+                    cl, HEADER, withReadMore
+            );
+            // Add Request-Id header if not defined!
+            if (headers.stream().noneMatch(f -> f.getName().equalsIgnoreCase(REQUEST_ID))) {
+                headers.add(0, buildRequestIdHeaderDocumentedModelField(true));
+            }
+            return headers;
         } else {
             return documentedModelFieldBuilder.buildSimple(
                     environmentContext,
@@ -255,14 +258,14 @@ public final class ResponsesBuilderImpl implements ResponsesBuilder {
         }
         if (resourceDefinition.withHeadersDescriptionTable() &&
                 resourceDefinition.withRequestIdResponseHeader()) {
-            responseBuilder.setHeaders(List.of(buildApiVersionHeaderDocumentedModelField(true)));
+            responseBuilder.setHeaders(List.of(buildRequestIdHeaderDocumentedModelField(true)));
         }
         if (resourceDefinition.withBodyParametersDescriptionTable()) {
             responseBuilder.setParameters(List.of(
                     entry("Body", List.of(
                             new DocumentedModelField(
-                                    "message",
-                                    "string",
+                                    MESSAGE,
+                                    STRING,
                                     List.of(REQUIRED_RESTRICTION),
                                     standardHttpError.getMessageDescription(),
                                     readMoreLinks

@@ -22,20 +22,21 @@ import io.rxmicro.documentation.SimpleErrorResponse;
  * @author nedis
  * @since 0.9
  */
-public final class SimpleErrorResponseExampleErrorMessageAnnotationValueProvider
-        extends AbstractSimpleErrorResponseAnnotationValueProvider {
+public final class SimpleErrorResponseParamNamesAnnotationValueProvider extends AbstractSimpleErrorResponseAnnotationValueProvider {
 
-    public SimpleErrorResponseExampleErrorMessageAnnotationValueProvider(final SimpleErrorResponse annotation) {
+    private int index;
+
+    public SimpleErrorResponseParamNamesAnnotationValueProvider(final SimpleErrorResponse annotation) {
         super(annotation);
     }
 
     @Override
     public String getAnnotationValueParameterName() {
-        return "exampleErrorMessage";
+        return "paramNames";
     }
 
     @Override
     public String getValue() {
-        return annotation.exampleErrorMessage();
+        return annotation.paramNames()[index++];
     }
 }

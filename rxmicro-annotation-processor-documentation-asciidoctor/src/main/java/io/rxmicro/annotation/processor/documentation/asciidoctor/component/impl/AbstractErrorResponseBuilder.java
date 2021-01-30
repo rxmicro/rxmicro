@@ -27,6 +27,8 @@ import io.rxmicro.documentation.ResourceDefinition;
 import java.util.List;
 
 import static io.rxmicro.annotation.processor.documentation.asciidoctor.component.CharacteristicsReader.REQUIRED_RESTRICTION;
+import static io.rxmicro.exchange.json.JsonExchangeConstants.MESSAGE;
+import static io.rxmicro.json.JsonTypes.STRING;
 import static java.util.Map.entry;
 
 /**
@@ -36,7 +38,7 @@ import static java.util.Map.entry;
 public abstract class AbstractErrorResponseBuilder extends BaseDocumentationReader {
 
     @Inject
-    private HttpResponseExampleBuilder httpResponseExampleBuilder;
+    protected HttpResponseExampleBuilder httpResponseExampleBuilder;
 
     protected final void setResponseExample(final ResourceDefinition resourceDefinition,
                                             final String exampleErrorMessage,
@@ -62,8 +64,8 @@ public abstract class AbstractErrorResponseBuilder extends BaseDocumentationRead
         responseBuilder.setParameters(List.of(
                 entry("Body", List.of(
                         new DocumentedModelField(
-                                "message",
-                                "string",
+                                MESSAGE,
+                                STRING,
                                 List.of(REQUIRED_RESTRICTION),
                                 description,
                                 showErrorCauseReadMoreLinks

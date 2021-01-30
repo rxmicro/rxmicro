@@ -21,6 +21,7 @@ import io.rxmicro.annotation.processor.rest.server.model.RestControllerClassStru
 import io.rxmicro.annotation.processor.rest.server.model.RestControllerMethod;
 import io.rxmicro.documentation.ResourceDefinition;
 
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -43,6 +44,11 @@ public interface HttpResponseExampleBuilder {
 
     String buildErrorExample(ResourceDefinition resourceDefinition,
                              int statusCode);
+
+    String buildErrorExample(ResourceDefinition resourceDefinition,
+                             int statusCode,
+                             Map<String, String> headers,
+                             Map<String, String> params);
 
     Optional<String> getJsonBodyExample(RestControllerClassStructureStorage restControllerClassStructureStorage,
                                         RestControllerMethod method);

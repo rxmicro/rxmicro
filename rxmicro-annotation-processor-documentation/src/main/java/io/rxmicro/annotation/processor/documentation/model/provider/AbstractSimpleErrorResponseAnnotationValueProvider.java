@@ -20,6 +20,10 @@ import io.rxmicro.annotation.processor.documentation.model.AnnotationValueProvid
 import io.rxmicro.documentation.SimpleErrorResponse;
 
 import java.lang.annotation.Annotation;
+import java.util.Arrays;
+import java.util.stream.Stream;
+
+import static java.util.function.Function.identity;
 
 /**
  * @author nedis
@@ -45,9 +49,15 @@ abstract class AbstractSimpleErrorResponseAnnotationValueProvider implements Ann
 
     @Override
     public final String[] getAllValues() {
-        return new String[]{
-                annotation.description(),
-                annotation.exampleErrorMessage()
-        };
+        return Stream.of(
+                Stream.of(annotation.description()),
+                Arrays.stream(annotation.paramNames()),
+                Arrays.stream(annotation.paramValueExamples()),
+                Arrays.stream(annotation.paramDescriptions()),
+                Arrays.stream(annotation.headerNames()),
+                Arrays.stream(annotation.headerValueExamples()),
+                Arrays.stream(annotation.headerDescriptions())
+        ).flatMap(identity())
+                .toArray(String[]::new);
     }
 }

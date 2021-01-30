@@ -25,7 +25,6 @@ import io.rxmicro.rest.server.detail.model.HttpResponse;
 import io.rxmicro.rest.server.local.component.HttpErrorResponseBodyBuilder;
 
 import java.util.Map;
-import java.util.Optional;
 
 import static io.rxmicro.common.CommonConstants.RX_MICRO_FRAMEWORK_NAME;
 import static io.rxmicro.exchange.json.JsonExchangeConstants.CONTENT_TYPE_APPLICATION_JSON;
@@ -58,10 +57,11 @@ public final class JsonHttpErrorResponseBodyBuilder implements HttpErrorResponse
                               final HttpErrorException exception) {
         final HttpResponse response = httpResponseBuilder.build();
         response.setStatus(exception.getStatusCode());
-        final Optional<Map<String, Object>> responseData = exception.getResponseData();
-        if (responseData.isPresent()) {
+        exception.getResponseHeaders().forEach(response::setHeader);
+        final Map<String, Object> responseBody = exception.getResponseBody();
+        if (!responseBody.isEmpty()) {
             response.setHeader(CONTENT_TYPE, CONTENT_TYPE_APPLICATION_JSON);
-            response.setContent(toJsonString(responseData.get()));
+            response.setContent(toJsonString(responseBody));
         }
         return response;
     }

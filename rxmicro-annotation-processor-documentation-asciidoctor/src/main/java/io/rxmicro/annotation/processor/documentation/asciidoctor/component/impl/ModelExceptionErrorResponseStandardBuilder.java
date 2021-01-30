@@ -50,12 +50,12 @@ public final class ModelExceptionErrorResponseStandardBuilder extends AbstractEr
     @Inject
     private StandardHttpErrorStorage standardHttpErrorStorage;
 
-    void setStandardErrorResponse(final Element owner,
-                                  final ResourceDefinition resourceDefinition,
-                                  final List<ReadMoreModel> showErrorCauseReadMoreLinks,
-                                  final TypeElement exceptionTypeElement,
-                                  final int status,
-                                  final Response.Builder responseBuilder) {
+    void setResponseBodyAndExamples(final Element owner,
+                                    final ResourceDefinition resourceDefinition,
+                                    final List<ReadMoreModel> showErrorCauseReadMoreLinks,
+                                    final TypeElement exceptionTypeElement,
+                                    final int status,
+                                    final Response.Builder responseBuilder) {
         final Map.Entry<String, String> entry = getExampleErrorMessageWithDescription(owner, exceptionTypeElement, status);
         final String exampleErrorMessage = entry.getKey();
         if (resourceDefinition.withExamples()) {

@@ -34,6 +34,11 @@ import java.util.Optional;
 import static io.rxmicro.annotation.processor.common.util.Errors.createInternalErrorSupplier;
 import static io.rxmicro.annotation.processor.documentation.model.Constants.HTTP_VERSION;
 import static io.rxmicro.common.util.Formats.format;
+import static io.rxmicro.exchange.json.JsonExchangeConstants.CONTENT_TYPE_APPLICATION_JSON;
+import static io.rxmicro.exchange.json.JsonExchangeConstants.MESSAGE;
+import static io.rxmicro.http.HttpStandardHeaderNames.CONTENT_LENGTH;
+import static io.rxmicro.http.HttpStandardHeaderNames.CONTENT_TYPE;
+import static io.rxmicro.http.HttpStandardHeaderNames.REQUEST_ID;
 import static io.rxmicro.resource.PropertiesResources.loadProperties;
 import static io.rxmicro.rest.RequestId.REQUEST_ID_EXAMPLE;
 import static java.lang.System.lineSeparator;
@@ -105,7 +110,7 @@ public final class HttpResponseExampleBuilderImpl implements HttpResponseExample
     public String buildErrorExample(final ResourceDefinition resourceDefinition,
                                     final int statusCode,
                                     final String message) {
-        final String body = JsonHelper.toJsonString(Map.of("message", message), true);
+        final String body = JsonHelper.toJsonString(Map.of(MESSAGE, message), true);
         return buildExample(
                 resourceDefinition,
                 statusCode,
@@ -122,6 +127,25 @@ public final class HttpResponseExampleBuilderImpl implements HttpResponseExample
                 statusCode,
                 List.of(),
                 null
+        );
+    }
+
+    @Override
+    public String buildErrorExample(final ResourceDefinition resourceDefinition,
+                                    final int statusCode,
+                                    final Map<String, String> headers,
+                                    final Map<String, String> params) {
+        final String body;
+        if (params.isEmpty()) {
+            body = null;
+        } else {
+            body = JsonHelper.toJsonString(params, true);
+        }
+        return buildExample(
+                resourceDefinition,
+                statusCode,
+                headers.entrySet().stream().map(e -> entry(e.getKey(), (Object) e.getValue())).collect(toList()),
+                body
         );
     }
 
@@ -146,13 +170,16 @@ public final class HttpResponseExampleBuilderImpl implements HttpResponseExample
         final StringBuilder httpMessageBuilder = new StringBuilder();
         httpMessageBuilder.append(format("? ? ??", HTTP_VERSION, statusCode, getStatusMessage(statusCode), lineSeparator()));
         if (body != null) {
-            httpMessageBuilder.append("Content-Type: application/json").append(lineSeparator());
-            httpMessageBuilder.append(format("Content-Length: ?", getContentLength(body))).append(lineSeparator());
+            if (customHeaders.stream().noneMatch(e -> e.getKey().equalsIgnoreCase(CONTENT_TYPE))) {
+                httpMessageBuilder.append(format("?: ?", CONTENT_TYPE, CONTENT_TYPE_APPLICATION_JSON)).append(lineSeparator());
+            }
+            httpMessageBuilder.append(format("?: ?", CONTENT_LENGTH, getContentLength(body))).append(lineSeparator());
         } else {
-            httpMessageBuilder.append("Content-Length: 0").append(lineSeparator());
+            httpMessageBuilder.append(format("?: 0", CONTENT_LENGTH)).append(lineSeparator());
         }
-        if (resourceDefinition.withRequestIdResponseHeader()) {
-            httpMessageBuilder.append(format("Request-Id: ?", REQUEST_ID_EXAMPLE)).append(lineSeparator());
+        if (resourceDefinition.withRequestIdResponseHeader() &&
+                customHeaders.stream().noneMatch(e -> e.getKey().equalsIgnoreCase(REQUEST_ID))) {
+            httpMessageBuilder.append(format("?: ?", REQUEST_ID, REQUEST_ID_EXAMPLE)).append(lineSeparator());
         }
         customHeaders.forEach(e -> httpMessageBuilder.append(format("?: ?", e.getKey(), e.getValue())).append(lineSeparator()));
         if (body != null) {

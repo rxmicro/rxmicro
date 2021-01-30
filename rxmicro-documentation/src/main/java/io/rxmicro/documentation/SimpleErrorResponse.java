@@ -67,7 +67,12 @@ public @interface SimpleErrorResponse {
      *          "${key}", EXTERNAL_CONSTANT_KEY,
      *          "${value}", EXTERNAL_CONSTANT_VALUE
      *      },
-     *      exampleErrorMessage = "${key}-${value}"
+     *      paramNames = {"${key}-${value}"},
+     *      paramValueExamples = {"${key}-${value}"},
+     *      paramDescriptions = {"${key}-${value}"},
+     *      headerNames = {"${key}-${value}"},
+     *      headerValueExamples = {"${key}-${value}"},
+     *      headerDescriptions = {"${key}-${value}"}
      * )
      * }
      * </pre>
@@ -84,11 +89,174 @@ public @interface SimpleErrorResponse {
     IncludeDescription includeDescription() default @IncludeDescription(resource = "");
 
     /**
-     * Returns the example of error message.
+     * Returns the param names.
      *
-     * @return the example of error message
+     * <p>
+     * For example: If microservice must return error HTTP response with the following body content:
+     * <pre>
+     * {@code
+     * {
+     *     "message": "Internal error",
+     *     "readMore": "https://rxmicro.io/doc/read-more.html"
+     * }
+     * }
+     * </pre>
+     * than it is necessary to configure {@link SimpleErrorResponse} annotation:
+     * <pre>
+     * {@code
+     * @SimpleErrorResponse}(
+     *      paramNames = {"message", "readMore"},
+     *      paramValueExamples = {"Internal error", "https://rxmicro.io/doc/read-more.html"}
+     * )
+     * }
+     * </pre>
+     *
+     * <p>
+     * Note: If {@code paramNames} exist that {@code paramValueExamples} must be provided as well!
+     *
+     * <p>
+     * Param type is resolved automatically using provided param value examples.
+     * For example: If {@code paramValueExamples = {"true"}}, than the RxMicro framework will resolve param as param with boolean type!
+     *
+     * @return the param names.
+     * @since 0.9
      */
-    String exampleErrorMessage() default "";
+    String[] paramNames() default {};
+
+    /**
+     * Returns the required characteristics for the provided params.
+     *
+     * <p>
+     * If {@code true}, than parameter is required, otherwise this parameter is optional!
+     *
+     * <p>
+     * By default if {@code paramsRequired() = {}}, than all provided params are {@code required}, i.e.
+     * {@code undefined} state is equal to the {@code required} state!
+     *
+     * @return the required characteristics for the provided params.
+     * @since 0.9
+     */
+    boolean[] paramsRequired() default {};
+
+    /**
+     * Returns the descriptions for the provided parameters.
+     *
+     * @return the descriptions for the provided parameters.
+     * @since 0.9
+     */
+    String[] paramDescriptions() default {};
+
+    /**
+     * Returns the param value examples.
+     *
+     * <p>
+     * For example: If microservice must return error HTTP response with the following body content:
+     * <pre>
+     * {@code
+     * {
+     *     "message": "Internal error",
+     *     "readMore": "https://rxmicro.io/doc/read-more.html"
+     * }
+     * }
+     * </pre>
+     * than it is necessary to configure {@link SimpleErrorResponse} annotation:
+     * <pre>
+     * {@code
+     * @SimpleErrorResponse}(
+     *      paramNames = {"message", "readMore"},
+     *      paramValueExamples = {"Internal error", "https://rxmicro.io/doc/read-more.html"}
+     * )
+     * }
+     * </pre>
+     *
+     * <p>
+     * Note: If {@code paramValueExamples} exist that {@code paramNames} must be provided as well!
+     *
+     * @return the param value examples.
+     * @since 0.9
+     */
+    String[] paramValueExamples() default {};
+
+    /**
+     * Returns the header names.
+     *
+     * <p>
+     * For example: If microservice must return error HTTP response with the following HTTP headers:
+     * <pre>
+     * {@code
+     * Error-Code: 67
+     * Error-Message: Not acceptable
+     * }
+     * </pre>
+     * than it is necessary to configure {@link SimpleErrorResponse} annotation:
+     * <pre>
+     * {@code
+     * @SimpleErrorResponse}(
+     *      headerNames = {"Error-Code", "Error-Message"},
+     *      headerValueExamples = {"67", "Not acceptable"}
+     * )
+     * }
+     * </pre>
+     *
+     * <p>
+     * Note: If {@code headerNames} exist that {@code headerValueExamples} must be provided as well!
+     *
+     * @return the header names.
+     * @since 0.9
+     */
+    String[] headerNames() default {};
+
+    /**
+     * Returns the header value examples.
+     *
+     * <p>
+     * For example: If microservice must return error HTTP response with the following HTTP headers:
+     * <pre>
+     * {@code
+     * Error-Code: 67
+     * Error-Message: Not acceptable
+     * }
+     * </pre>
+     * than it is necessary to configure {@link SimpleErrorResponse} annotation:
+     * <pre>
+     * {@code
+     * @SimpleErrorResponse}(
+     *      headerNames = {"Error-Code", "Error-Message"},
+     *      headerValueExamples = {"67", "Not acceptable"}
+     * )
+     * }
+     * </pre>
+     *
+     * <p>
+     * Note: If {@code headerValueExamples} exist that {@code headerNames} must be provided as well!
+     *
+     * @return the header value examples.
+     * @since 0.9
+     */
+    String[] headerValueExamples() default {};
+
+    /**
+     * Returns the required characteristics for the provided headers.
+     *
+     * <p>
+     * If {@code true}, than header is required, otherwise this header is optional!
+     *
+     * <p>
+     * By default if {@code headersRequired() = {}}, than all provided headers are {@code required}, i.e.
+     * {@code undefined} state is equal to the {@code required} state!
+     *
+     * @return the required characteristics for the provided headers.
+     * @since 0.9
+     */
+    boolean[] headersRequired() default {};
+
+    /**
+     * Returns the descriptions for the provided headers.
+     *
+     * @return the descriptions for the provided headers.
+     * @since 0.9
+     */
+    String[] headerDescriptions() default {};
 
     /**
      * Defines several {@link SimpleErrorResponse} annotations on the same element.

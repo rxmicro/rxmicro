@@ -22,7 +22,6 @@ import io.rxmicro.rest.server.detail.component.HttpResponseBuilder;
 import io.rxmicro.rest.server.detail.model.HttpResponse;
 
 import java.util.Map;
-import java.util.Optional;
 
 import static io.rxmicro.http.HttpStandardHeaderNames.CONTENT_TYPE;
 
@@ -50,10 +49,11 @@ public final class DefaultHttpErrorResponseBodyBuilder implements HttpErrorRespo
                               final HttpErrorException exception) {
         final HttpResponse response = httpResponseBuilder.build();
         response.setStatus(exception.getStatusCode());
-        final Optional<Map<String, Object>> responseData = exception.getResponseData();
-        if (responseData.isPresent()) {
+        exception.getResponseHeaders().forEach(response::setHeader);
+        final Map<String, Object> responseBody = exception.getResponseBody();
+        if (!responseBody.isEmpty()) {
             response.setHeader(CONTENT_TYPE, DEFAULT_CONTENT_TYPE);
-            response.setContent(String.valueOf(responseData.get()));
+            response.setContent(String.valueOf(responseBody));
         }
         return response;
     }
