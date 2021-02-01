@@ -22,7 +22,8 @@ import io.rxmicro.documentation.SimpleErrorResponse;
  * @author nedis
  * @since 0.9
  */
-public final class SimpleErrorResponseHeaderValueExamplesAnnotationValueProvider extends AbstractSimpleErrorResponseAnnotationValueProvider {
+public final class SimpleErrorResponseHeaderValueExamplesAnnotationValueProvider
+        extends AbstractSimpleErrorResponseAnnotationValueProvider {
 
     private int index;
 
