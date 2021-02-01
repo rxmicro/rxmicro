@@ -33,20 +33,7 @@ import io.rxmicro.annotation.processor.rest.model.RestModelField;
 import io.rxmicro.annotation.processor.rest.model.RestObjectModelClass;
 import io.rxmicro.documentation.ModelExceptionErrorResponse;
 import io.rxmicro.documentation.ResourceDefinition;
-import io.rxmicro.rest.Header;
-import io.rxmicro.rest.Parameter;
-import io.rxmicro.rest.PathVariable;
-import io.rxmicro.rest.RemoteAddress;
-import io.rxmicro.rest.RepeatHeader;
-import io.rxmicro.rest.RepeatQueryParameter;
-import io.rxmicro.rest.RequestBody;
-import io.rxmicro.rest.RequestId;
-import io.rxmicro.rest.RequestMethod;
-import io.rxmicro.rest.RequestUrlPath;
-import io.rxmicro.rest.ResponseBody;
-import io.rxmicro.rest.ResponseStatusCode;
 
-import java.lang.annotation.Annotation;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
@@ -71,19 +58,6 @@ import static io.rxmicro.documentation.asciidoctor.AsciidoctorDocumentationConst
  */
 @Singleton
 public final class ModelExceptionErrorResponseBuilderImpl implements ModelExceptionErrorResponseBuilder {
-
-    private static final Set<Class<? extends Annotation>> UNSUPPORTED_ANNOTATION_CLASSES = Set.of(
-            ResponseStatusCode.class,
-            ResponseBody.class,
-            RequestUrlPath.class,
-            RequestMethod.class,
-            RequestId.class,
-            RequestBody.class,
-            RepeatQueryParameter.class,
-            RepeatHeader.class,
-            RemoteAddress.class,
-            PathVariable.class
-    );
 
     @Inject
     private DescriptionReader descriptionReader;
@@ -129,11 +103,11 @@ public final class ModelExceptionErrorResponseBuilderImpl implements ModelExcept
                 responseBuilder.setExample(httpResponseExampleBuilder.build(resourceDefinition, status, modelClass));
             }
             modelExceptionErrorResponseCustomBuilder.setResponseHeaders(
-                    environmentContext, resourceDefinition, projectMetaData, exceptionTypeElement, modelClass, responseBuilder
+                    environmentContext, resourceDefinition, projectMetaData, modelClass, responseBuilder
             );
-            if (isCustomParamsPresent(owner, exceptionTypeElement)) {
+            if (isCustomParamsPresent(exceptionTypeElement)) {
                 modelExceptionErrorResponseCustomBuilder.setResponseBody(
-                        environmentContext, resourceDefinition, projectMetaData, exceptionTypeElement, modelClass, responseBuilder
+                        environmentContext, resourceDefinition, projectMetaData, modelClass, responseBuilder
                 );
             } else {
                 modelExceptionErrorResponseStandardBuilder.setResponseBodyAndExamples(
@@ -174,35 +148,7 @@ public final class ModelExceptionErrorResponseBuilderImpl implements ModelExcept
                 .get(exceptionTypeElement);
     }
 
-    private boolean isCustomParamsPresent(final Element owner,
-                                          final TypeElement exceptionTypeElement) {
-        boolean paramsPresent = false;
-        for (final VariableElement field : allModelFields(exceptionTypeElement, false)) {
-            if (field.getAnnotation(Parameter.class) != null) {
-                if (field.getAnnotation(Header.class) != null) {
-                    throw new InterruptProcessingException(
-                            owner,
-                            "A '?.?' can't annotated by '@?' and '@?'! Remove one of these annotations!",
-                            exceptionTypeElement.getQualifiedName(), field.getSimpleName(),
-                            Parameter.class.getSimpleName(), Header.class.getSimpleName()
-                    );
-                }
-                paramsPresent = true;
-            } else {
-                for (final Class<? extends Annotation> annotationClass : UNSUPPORTED_ANNOTATION_CLASSES) {
-                    if (field.getAnnotation(annotationClass) != null) {
-                        throw new InterruptProcessingException(
-                                owner,
-                                "'@?' annotation can be used for field: '?.?'! Remove unsupported annotation!",
-                                annotationClass.getName(), exceptionTypeElement.getQualifiedName(), field.getSimpleName()
-                        );
-                    }
-                }
-                if (field.getAnnotation(Header.class) == null) {
-                    paramsPresent = true;
-                }
-            }
-        }
-        return paramsPresent;
+    private boolean isCustomParamsPresent(final TypeElement exceptionTypeElement) {
+        return !allModelFields(exceptionTypeElement, false).isEmpty();
     }
 }

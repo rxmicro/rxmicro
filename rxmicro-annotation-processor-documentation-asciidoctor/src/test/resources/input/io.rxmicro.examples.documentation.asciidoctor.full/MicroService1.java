@@ -31,21 +31,23 @@ import java.util.concurrent.CompletableFuture;
 
 @EnableCrossOriginResourceSharing
 @Version(value = "latest", strategy = Version.Strategy.HEADER)
-@SimpleErrorResponse(status = 404, description = "If object is not found", exampleErrorMessage = "Object not found")
+@SimpleErrorResponse(status = 404, description = "If object is not found", paramNames = "message", paramValueExamples = "Object not found")
 @ModelExceptionErrorResponse(HttpClientTimeoutException.class)
 @ModelExceptionErrorResponse(NotAcceptableException.class)
-@SimpleErrorResponse(status = 406, description = "406", exampleErrorMessage = "Code: 406")
+@SimpleErrorResponse(status = 406, description = "406", paramNames = "message", paramValueExamples = "Code: 406")
 final class MicroService1 {
 
     @GET("/${category}/${type}")
     @ModelExceptionErrorResponse(NotAcceptableException.class)
-    @SimpleErrorResponse(status = 504, description = "504", exampleErrorMessage = "Code: 504")
+    @SimpleErrorResponse(status = 504, description = "504", paramNames = "message", paramValueExamples = "Code: 504")
     CompletableFuture<Optional<Response>> handle1(final Request request) {
         return CompletableFuture.completedFuture(Optional.empty());
     }
 
     @GET("/${category}-${type}")
-    @SimpleErrorResponse(status = 404, description = "If Handler is not found", exampleErrorMessage = "Handler not found")
+    @SimpleErrorResponse(
+            status = 404, description = "If Handler is not found", paramNames = "message", paramValueExamples = "Handler not found"
+    )
     CompletableFuture<Optional<Response>> handle2(final Request request) {
         return CompletableFuture.completedFuture(Optional.empty());
     }

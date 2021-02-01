@@ -28,12 +28,12 @@ import io.rxmicro.rest.method.GET;
 import java.util.concurrent.CompletableFuture;
 
 @Version(value = "latest", strategy = Version.Strategy.URL_PATH)
-@SimpleErrorResponse(status = 504, description = "504", exampleErrorMessage = "Code: 504")
+@SimpleErrorResponse(status = 504, description = "504", paramNames = "message", paramValueExamples = "Code: 504")
 final class MicroService2 {
 
     @GET("/${category}/${type}")
     @ModelExceptionErrorResponse(NotAcceptableException.class)
-    @SimpleErrorResponse(status = 406, description = "406", exampleErrorMessage = "Code: 406")
+    @SimpleErrorResponse(status = 406, description = "406", paramNames = "message", paramValueExamples = "Code: 406")
     CompletableFuture<Void> handle1(final @PathVariable String category,
                                     final @PathVariable String type) {
         return CompletableFuture.completedFuture(null);

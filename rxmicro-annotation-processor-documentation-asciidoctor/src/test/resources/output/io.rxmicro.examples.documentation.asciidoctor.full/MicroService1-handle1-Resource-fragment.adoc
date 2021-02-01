@@ -468,7 +468,7 @@ a|An unique request string identifier.
 |`string`
 a|
 * [small]#`required: true`#
-a|Object not found
+a|'message' parameter
 
 |===
 
@@ -606,7 +606,7 @@ a|An unique request string identifier.
 |`string`
 a|
 * [small]#`required: true`#
-a|Code: 504
+a|'message' parameter
 
 |===
 

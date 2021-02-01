@@ -19,6 +19,7 @@ package io.rxmicro.rest.server.internal.component.impl;
 import io.rxmicro.http.error.HttpErrorException;
 import io.rxmicro.logger.RequestIdSupplier;
 import io.rxmicro.rest.model.HttpCallFailedException;
+import io.rxmicro.rest.server.RestServerConfig;
 import io.rxmicro.rest.server.detail.component.HttpResponseBuilder;
 import io.rxmicro.rest.server.detail.model.HttpResponse;
 import io.rxmicro.rest.server.internal.component.ErrorHttpResponseBuilder;
@@ -47,18 +48,15 @@ public final class ErrorHttpResponseBuilderImpl implements ErrorHttpResponseBuil
     public ErrorHttpResponseBuilderImpl(final HttpResponseBuilder httpResponseBuilder,
                                         final HttpErrorResponseBodyBuilder httpErrorResponseBodyBuilder,
                                         final String parentUrl,
-                                        final boolean hideInternalErrorMessage,
-                                        final boolean logHttpErrorExceptions) {
+                                        final RestServerConfig restServerConfig) {
         this.redirectHttpResponseBuilder =
                 new RedirectHttpResponseBuilder(httpResponseBuilder, parentUrl);
         this.httpCallFailedHttpResponseBuilder =
-                new HttpCallFailedHttpResponseBuilder(httpResponseBuilder, httpErrorResponseBodyBuilder, hideInternalErrorMessage);
+                new HttpCallFailedHttpResponseBuilder(httpResponseBuilder, httpErrorResponseBodyBuilder, restServerConfig);
         this.anyHttpErrorHttpResponseBuilder =
-                new AnyHttpErrorHttpResponseBuilder(
-                        httpResponseBuilder, httpErrorResponseBodyBuilder, logHttpErrorExceptions
-                );
+                new AnyHttpErrorHttpResponseBuilder(httpResponseBuilder, httpErrorResponseBodyBuilder, restServerConfig);
         this.throwableHttpResponseBuilder =
-                new ThrowableHttpResponseBuilder(httpResponseBuilder, httpErrorResponseBodyBuilder, hideInternalErrorMessage);
+                new ThrowableHttpResponseBuilder(httpResponseBuilder, httpErrorResponseBodyBuilder, restServerConfig);
     }
 
     @Override

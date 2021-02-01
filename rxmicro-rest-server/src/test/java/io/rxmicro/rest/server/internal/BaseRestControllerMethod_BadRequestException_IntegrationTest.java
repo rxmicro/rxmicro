@@ -20,6 +20,8 @@ import io.rxmicro.http.HttpHeaders;
 import io.rxmicro.http.error.HttpErrorException;
 import io.rxmicro.http.error.ValidationException;
 import io.rxmicro.logger.Logger;
+import io.rxmicro.logger.LoggerEvent;
+import io.rxmicro.logger.LoggerEventBuilder;
 import io.rxmicro.rest.model.PathVariableMapping;
 import io.rxmicro.rest.server.detail.model.HttpRequest;
 import io.rxmicro.rest.server.detail.model.HttpResponse;
@@ -78,9 +80,16 @@ final class BaseRestControllerMethod_BadRequestException_IntegrationTest extends
     @Mock
     private Logger logger;
 
+    @Mock
+    private LoggerEventBuilder loggerEventBuilder;
+
+    @Mock
+    private LoggerEvent loggerEvent;
+
     @BeforeEach
     void beforeEach() {
         setLoggerMock(logger);
+        setLoggerEventBuilderMock(loggerEventBuilder);
     }
 
     @ParameterizedTest
@@ -90,6 +99,12 @@ final class BaseRestControllerMethod_BadRequestException_IntegrationTest extends
         when(request.getHeaders()).thenReturn(httpHeaders);
         when(httpErrorResponseBodyBuilder.build(any(), any(HttpErrorException.class))).thenReturn(httpResponse);
         when(restServerConfig.isLogHttpErrorExceptions()).thenReturn(true);
+        when(loggerEventBuilder.build()).thenReturn(loggerEvent);
+        when(loggerEventBuilder.setMessage(
+                "HTTP error: status=?, message=?, class=?",
+                400, "'name' is required", ValidationException.class.getName())
+        ).thenReturn(loggerEventBuilder);
+        when(loggerEventBuilder.setRequestIdSupplier(request)).thenReturn(loggerEventBuilder);
 
         final BaseRestControllerMethod method = build(
                 "",
@@ -100,11 +115,8 @@ final class BaseRestControllerMethod_BadRequestException_IntegrationTest extends
         assertSame(httpResponse, actualResponse);
         verify(httpErrorResponseBodyBuilder).build(httpResponseBuilder, ThrowValidationExceptionArgumentsProvider.VALIDATION_EXCEPTION);
         verify(httpResponse, never()).setHeader(eq(ACCESS_CONTROL_ALLOW_ORIGIN), anyString());
-        verify(logger).error(
-                request,
-                "HTTP error: status=?, content=?, class=?",
-                400, "{message='name' is required}", ValidationException.class.getName()
-        );
+
+        verify(logger).error(loggerEvent);
     }
 
     /**

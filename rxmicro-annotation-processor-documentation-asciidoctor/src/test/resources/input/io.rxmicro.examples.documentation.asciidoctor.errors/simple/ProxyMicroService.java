@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. https://rxmicro.io
+ * Copyright (c) 2020. http://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package io.rxmicro.examples.documentation.asciidoctor.errors;
+package io.rxmicro.examples.documentation.asciidoctor.errors.simple;
 
 import io.rxmicro.documentation.ModelExceptionErrorResponse;
 import io.rxmicro.documentation.SimpleErrorResponse;
-import io.rxmicro.examples.documentation.asciidoctor.errors.model.CustomErrorModelException;
-import io.rxmicro.examples.documentation.asciidoctor.errors.model.NotAcceptableException;
-import io.rxmicro.examples.documentation.asciidoctor.errors.model.Response;
+import io.rxmicro.examples.documentation.asciidoctor.errors.simple.model.CustomErrorModelException;
+import io.rxmicro.examples.documentation.asciidoctor.errors.simple.model.NotAcceptableException;
+import io.rxmicro.examples.documentation.asciidoctor.errors.simple.model.Response;
 import io.rxmicro.rest.client.HttpClientTimeoutException;
 import io.rxmicro.rest.method.GET;
 
@@ -40,7 +40,8 @@ final class ProxyMicroService {
     @SimpleErrorResponse(
             status = 404,                               // <2>
             description = "If data not found",          // <3>
-            exampleErrorMessage = "Data not found!"     // <4>
+            paramNames = "message",
+            paramValueExamples = "Data not found!"      // <4>
     )
     @ModelExceptionErrorResponse(HttpClientTimeoutException.class)  // <5>
     @ModelExceptionErrorResponse(NotAcceptableException.class)      // <6>

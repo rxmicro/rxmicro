@@ -28,5 +28,7 @@ module examples.documentation.asciidoctor.errors {
     requires rxmicro.rest.server.exchange.json;
     requires rxmicro.rest.client.jdk;
     requires rxmicro.rest.client.exchange.json;
+    requires rxmicro.validation;
+
     requires static rxmicro.documentation.asciidoctor;
 }

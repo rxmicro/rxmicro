@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. https://rxmicro.io
+ * Copyright (c) 2020. http://rxmicro.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,9 +14,17 @@
  * limitations under the License.
  */
 
-package io.rxmicro.examples.documentation.asciidoctor.errors.model;
+package io.rxmicro.examples.documentation.asciidoctor.errors.simple;
 
-public final class Response {
+import io.rxmicro.examples.documentation.asciidoctor.errors.simple.model.Response;
+import io.rxmicro.rest.client.RestClient;
+import io.rxmicro.rest.method.GET;
 
-    String data;
+import java.util.concurrent.CompletableFuture;
+
+@RestClient
+public interface ExternalMicroService {
+
+    @GET("/")
+    CompletableFuture<Response> get();
 }

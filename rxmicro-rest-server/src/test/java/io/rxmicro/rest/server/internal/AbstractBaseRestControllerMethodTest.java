@@ -83,6 +83,10 @@ abstract class AbstractBaseRestControllerMethodTest {
         MOCK_LOGGER_IMPL_PROVIDER.setLogger(logger);
     }
 
+    protected final void setLoggerEventBuilderMock(final LoggerEventBuilder loggerEventBuilder) {
+        MOCK_LOGGER_IMPL_PROVIDER.setLoggerEventBuilder(loggerEventBuilder);
+    }
+
     /**
      * @author nedis
      *
@@ -92,8 +96,14 @@ abstract class AbstractBaseRestControllerMethodTest {
 
         private final ProxyLogger logger = new ProxyLogger();
 
+        private LoggerEventBuilder loggerEventBuilder;
+
         private void setLogger(final Logger logger) {
             this.logger.setLogger(logger);
+        }
+
+        public void setLoggerEventBuilder(final LoggerEventBuilder loggerEventBuilder) {
+            this.loggerEventBuilder = loggerEventBuilder;
         }
 
         @Override
@@ -107,7 +117,7 @@ abstract class AbstractBaseRestControllerMethodTest {
 
         @Override
         public LoggerEventBuilder newLoggerEventBuilder() {
-            return null;
+            return loggerEventBuilder;
         }
     }
 

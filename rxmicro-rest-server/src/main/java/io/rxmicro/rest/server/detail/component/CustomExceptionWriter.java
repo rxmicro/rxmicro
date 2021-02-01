@@ -14,22 +14,30 @@
  * limitations under the License.
  */
 
-package io.rxmicro.examples.documentation.asciidoctor.errors.model;
+package io.rxmicro.rest.server.detail.component;
 
-import io.rxmicro.documentation.Description;
-import io.rxmicro.documentation.Example;
 import io.rxmicro.http.error.HttpErrorException;
+import io.rxmicro.rest.server.detail.model.HttpResponse;
 
-// tag::content[]
-@Description("This error response indicates that the API " +
-        "is not able to generate any of the client's preferred media types, " +
-        "as indicated by the Accept request header.") // <2>
-public final class NotAcceptableException extends HttpErrorException {
+/**
+ * @author nedis
+ * @since 0.9
+ */
+public abstract class CustomExceptionWriter<T extends HttpErrorException> extends ModelWriter<T> {
 
-    public static final int STATUS_CODE = 406; // <1>
+    private final ModelWriter<T> modelWriter;
 
-    public NotAcceptableException(@Example("Not-Acceptable") final String message) { // <3>
-        super(STATUS_CODE, message);
+    public CustomExceptionWriter(final ModelWriter<T> modelWriter) {
+        this.modelWriter = modelWriter;
+    }
+
+    @Override
+    public final void write(final T model,
+                            final HttpResponse response) {
+        modelWriter.write(model, response);
+    }
+
+    public void validate(final T exception) {
+
     }
 }
-// end::content[]

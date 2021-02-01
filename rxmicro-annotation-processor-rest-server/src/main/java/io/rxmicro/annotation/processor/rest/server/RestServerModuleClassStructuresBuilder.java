@@ -37,6 +37,7 @@ import io.rxmicro.annotation.processor.rest.model.MappedRestObjectModelClass;
 import io.rxmicro.annotation.processor.rest.model.RestGenerationContext;
 import io.rxmicro.annotation.processor.rest.model.VirtualTypeClassStructure;
 import io.rxmicro.annotation.processor.rest.server.component.CrossOriginResourceSharingResourceBuilder;
+import io.rxmicro.annotation.processor.rest.server.component.CustomExceptionMappedRestObjectModelClassBuilder;
 import io.rxmicro.annotation.processor.rest.server.component.DeclaredStaticResourcesResolver;
 import io.rxmicro.annotation.processor.rest.server.component.HttpHealthCheckBuilder;
 import io.rxmicro.annotation.processor.rest.server.component.ModelReaderBuilder;
@@ -98,6 +99,9 @@ public final class RestServerModuleClassStructuresBuilder extends AbstractModule
 
     @Inject
     private ModelWriterBuilder modelWriterBuilder;
+
+    @Inject
+    private CustomExceptionMappedRestObjectModelClassBuilder customExceptionMappedRestObjectModelClassBuilder;
 
     @Inject
     private RestModelValidatorBuilder restModelValidatorBuilder;
@@ -193,7 +197,8 @@ public final class RestServerModuleClassStructuresBuilder extends AbstractModule
                                 Set.of(),
                                 Set.of(),
                                 httpHealthCheckBuilder.build(environmentContext, Set.of()),
-                                declaredStaticResources
+                                declaredStaticResources,
+                                Set.of()
                         )
                 );
             } else {
@@ -229,7 +234,8 @@ public final class RestServerModuleClassStructuresBuilder extends AbstractModule
                 restControllerClassStructures,
                 crossOriginResourceSharingResourceBuilder.build(restControllerClassStructures, restGenerationContext),
                 httpHealthCheckBuilder.build(environmentContext, restControllerClassStructures),
-                declaredStaticResources
+                declaredStaticResources,
+                restControllerClassStructureStorage.getCustomExceptionModelWriters()
         ));
         if (!environmentContext.get(RestServerModuleGeneratorConfig.class).getDocumentationTypes().isEmpty()) {
             restDocumentationGenerator.generate(environmentContext, restControllerClassStructureStorage, restControllerClassStructures);
@@ -274,13 +280,39 @@ public final class RestServerModuleClassStructuresBuilder extends AbstractModule
                                                                                final RestGenerationContext generationContext) {
         final ExchangeFormat exchangeFormat =
                 environmentContext.get(RestServerModuleGeneratorConfig.class).getExchangeFormatModule().getExchangeFormat();
-        final RestControllerClassStructureStorage.Builder builder = new RestControllerClassStructureStorage.Builder()
+        final List<MappedRestObjectModelClass> customExceptionModels =
+                customExceptionMappedRestObjectModelClassBuilder.build(environmentContext);
+        final RestControllerClassStructureStorage.Builder builder = new RestControllerClassStructureStorage.Builder();
+        addValidators(environmentContext, generationContext, customExceptionModels, builder);
+        addModelReadersAndWriters(exchangeFormat, customExceptionModels, generationContext, builder);
+        addModelJsonConverters(exchangeFormat, customExceptionModels, generationContext, builder);
+
+        setParentsForExistingChildren(builder);
+        logRestControllerClassStructureStorage(builder);
+        return builder.build();
+    }
+
+    private void addModelReadersAndWriters(final ExchangeFormat exchangeFormat,
+                                           final List<MappedRestObjectModelClass> customExceptionModels,
+                                           final RestGenerationContext generationContext,
+                                           final RestControllerClassStructureStorage.Builder builder) {
+        builder
                 .addModelReaders(
                         modelReaderBuilder.build(generationContext.getFromHttpDataModelClasses(), exchangeFormat)
                 )
                 .addModelWriters(
                         modelWriterBuilder.build(generationContext.getToHttpDataModelClasses(), exchangeFormat)
                 )
+                .addCustomExceptionModelWriters(
+                        modelWriterBuilder.build(customExceptionModels, exchangeFormat)
+                );
+    }
+
+    private void addModelJsonConverters(final ExchangeFormat exchangeFormat,
+                                        final List<MappedRestObjectModelClass> customExceptionModels,
+                                        final RestGenerationContext generationContext,
+                                        final RestControllerClassStructureStorage.Builder builder) {
+        builder
                 .addModelFromJsonConverters(
                         restModelFromJsonConverterBuilder.buildFromJson(
                                 generationContext.getFromHttpDataModelClasses(), exchangeFormat, false
@@ -290,32 +322,39 @@ public final class RestServerModuleClassStructuresBuilder extends AbstractModule
                         restModelToJsonConverterBuilder.buildToJson(
                                 generationContext.getToHttpDataModelClasses(), exchangeFormat, false
                         )
+                )
+                .addModelToJsonConverters(
+                        restModelToJsonConverterBuilder.buildToJson(customExceptionModels, exchangeFormat, false)
                 );
-        addValidators(environmentContext, generationContext, builder);
-        setParentsForExistingChildren(builder);
-        logRestControllerClassStructureStorage(builder);
-        return builder.build();
     }
 
     private void addValidators(final EnvironmentContext environmentContext,
                                final RestGenerationContext generationContext,
+                               final List<MappedRestObjectModelClass> customExceptionModels,
                                final RestControllerClassStructureStorage.Builder builder) {
         if (environmentContext.get(RestServerModuleGeneratorConfig.class).isGenerateRequestValidators()) {
             builder.addRequestValidators(
                     restModelValidatorBuilder.build(generationContext.getFromHttpDataModelClasses().stream()
                             .map(MappedRestObjectModelClass::getModelClass)
-                            .filter(m -> isAnnotationPerPackageHierarchyAbsent(
-                                    m.getModelTypeElement(), DisableValidation.class))
-                            .collect(toList()))
+                            .filter(m -> isAnnotationPerPackageHierarchyAbsent(m.getModelTypeElement(), DisableValidation.class))
+                            .collect(toList())
+                    )
             );
         }
         if (environmentContext.get(RestServerModuleGeneratorConfig.class).isGenerateResponseValidators()) {
             builder.addResponseValidators(
                     restModelValidatorBuilder.build(generationContext.getToHttpDataModelClasses().stream()
                             .map(MappedRestObjectModelClass::getModelClass)
-                            .filter(m -> isAnnotationPerPackageHierarchyAbsent(
-                                    m.getModelTypeElement(), DisableValidation.class))
-                            .collect(toList()))
+                            .filter(m -> isAnnotationPerPackageHierarchyAbsent(m.getModelTypeElement(), DisableValidation.class))
+                            .collect(toList())
+                    )
+            );
+            builder.addCustomExceptionModelValidators(
+                    restModelValidatorBuilder.build(customExceptionModels.stream()
+                            .map(MappedRestObjectModelClass::getModelClass)
+                            .filter(m -> isAnnotationPerPackageHierarchyAbsent(m.getModelTypeElement(), DisableValidation.class))
+                            .collect(toList())
+                    )
             );
         }
     }

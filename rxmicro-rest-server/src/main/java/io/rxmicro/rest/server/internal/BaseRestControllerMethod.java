@@ -49,8 +49,7 @@ public abstract class BaseRestControllerMethod {
                 baseRestController.httpResponseBuilder,
                 baseRestController.httpErrorResponseBodyBuilder,
                 parentUrl,
-                baseRestController.restServerConfig.isHideInternalErrorMessage(),
-                baseRestController.restServerConfig.isLogHttpErrorExceptions()
+                baseRestController.restServerConfig
         );
     }
 

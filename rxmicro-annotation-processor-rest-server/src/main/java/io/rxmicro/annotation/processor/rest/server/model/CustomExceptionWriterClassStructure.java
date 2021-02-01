@@ -18,85 +18,78 @@ package io.rxmicro.annotation.processor.rest.server.model;
 
 import io.rxmicro.annotation.processor.common.model.ClassHeader;
 import io.rxmicro.annotation.processor.common.model.ClassStructure;
-import io.rxmicro.annotation.processor.common.model.error.InternalErrorException;
 import io.rxmicro.annotation.processor.common.util.UsedByFreemarker;
 import io.rxmicro.annotation.processor.rest.model.RestObjectModelClass;
-import io.rxmicro.rest.model.ExchangeFormat;
+import io.rxmicro.rest.server.detail.component.CustomExceptionWriter;
+import io.rxmicro.validation.ConstraintValidator;
+import io.rxmicro.validation.detail.ResponseValidators;
 
+import java.io.Writer;
 import java.util.HashMap;
 import java.util.Map;
 
 import static io.rxmicro.annotation.processor.common.model.ClassHeader.newClassHeaderBuilder;
 import static io.rxmicro.annotation.processor.common.util.GeneratedClassNames.getModelTransformerFullClassName;
-import static io.rxmicro.common.util.Requires.require;
+import static io.rxmicro.common.util.GeneratedClassRules.GENERATED_CLASS_NAME_PREFIX;
 
 /**
  * @author nedis
  * @since 0.1
  */
-public abstract class AbstractRestControllerModelClassStructure extends ClassStructure {
+public final class CustomExceptionWriterClassStructure extends ClassStructure {
 
-    final RestObjectModelClass modelClass;
+    private final RestObjectModelClass modelClass;
 
-    private final ExchangeFormat exchangeFormat;
+    private final boolean withValidator;
 
-    AbstractRestControllerModelClassStructure(final RestObjectModelClass modelClass,
-                                              final ExchangeFormat exchangeFormat) {
-        this.modelClass = require(modelClass);
-        this.exchangeFormat = require(exchangeFormat);
-    }
-
-    public final RestObjectModelClass getModelClass() {
-        return modelClass;
+    public CustomExceptionWriterClassStructure(final RestObjectModelClass modelClass,
+                                               final boolean withValidator) {
+        this.modelClass = modelClass;
+        this.withValidator = withValidator;
     }
 
     @Override
-    public final String getTargetFullClassName() {
+    public String getTargetFullClassName() {
         return getModelTransformerFullClassName(
                 modelClass.getModelTypeElement(),
-                getBaseTransformerClass()
+                CustomExceptionWriter.class
         );
     }
 
     @Override
-    public final String getTemplateName() {
-        if (exchangeFormat == ExchangeFormat.JSON_EXCHANGE_FORMAT) {
-            return "rest/server/$$RestJson" + getBaseTransformerClass().getSimpleName() + "Template.javaftl";
-        } else {
-            throw new InternalErrorException("Not impl yet");
-        }
+    public String getTemplateName() {
+        return "rest/server/$$RestCustomExceptionModelWriterTemplate.javaftl";
     }
 
     @Override
     public Map<String, Object> getTemplateVariables() {
         final Map<String, Object> map = new HashMap<>();
+        map.put("PREFIX", GENERATED_CLASS_NAME_PREFIX);
         map.put("JAVA_MODEL_CLASS", modelClass);
-        customize(map);
+        map.put("WITH_VALIDATOR", withValidator);
         return map;
     }
 
     @Override
     public ClassHeader getClassHeader() {
         final ClassHeader.Builder builder = newClassHeaderBuilder(modelClass.getModelTypeElement())
-                .addImports(modelClass.getModelFieldTypes());
-        addRequiredImports(builder);
+                .addImports(modelClass.getModelFieldTypes())
+                .addImports(CustomExceptionWriter.class)
+                .addImports(getModelTransformerFullClassName(modelClass.getModelTypeElement(), Writer.class));
+        if (withValidator) {
+            builder
+                    .addStaticImport(ResponseValidators.class, "validateResponse")
+                    .addImports(getModelTransformerFullClassName(modelClass.getModelTypeElement(), ConstraintValidator.class));
+        }
         return builder.build();
     }
 
-    public final String getModelFullClassName() {
-        return modelClass.getJavaFullClassName();
-    }
-
     @UsedByFreemarker("$$RestControllerAggregatorTemplate.javaftl")
-    public final String getModelSimpleClassName() {
+    public String getModelSimpleClassName() {
         return modelClass.getJavaSimpleClassName();
     }
 
-    protected abstract Class<?> getBaseTransformerClass();
-
-    protected void customize(final Map<String, Object> map) {
-        // Sub classes can add additional attributes to template map
+    public String getModelFullClassName() {
+        return modelClass.getJavaFullClassName();
     }
-
-    protected abstract void addRequiredImports(ClassHeader.Builder classHeaderBuilder);
 }

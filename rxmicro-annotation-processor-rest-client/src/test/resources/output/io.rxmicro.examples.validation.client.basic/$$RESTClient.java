@@ -41,6 +41,6 @@ public final class $$RESTClient extends AbstractRestClient implements RESTClient
                 .handle(throwExceptionIfNotSuccess());
         return response
                 .thenApply(resp -> responseModelReader.readSingle(resp))
-                .whenComplete((resp, th) -> validateIfResponseExists(true, responseConstraintValidator, resp));
+                .whenComplete((resp, th) -> validateIfResponseExists(responseConstraintValidator, resp));
     }
 }

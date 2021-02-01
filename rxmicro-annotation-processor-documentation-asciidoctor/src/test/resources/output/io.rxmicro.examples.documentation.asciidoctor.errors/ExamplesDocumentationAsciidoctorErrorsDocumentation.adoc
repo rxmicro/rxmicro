@@ -13,6 +13,195 @@ GeneratedBy RxMicroAnnotationProcessor <rxmicro.io@gmail.com>
 This document describes *the Examples Documentation Asciidoctor Errors*.
 
 <<<
+// -------------------------------------------------------------- Complex Micro Service --------------------------------------------------------------
+== Complex Micro Service
+
+<<<
+// ---------------------------------------------------------- Complex Micro Service | GET / ----------------------------------------------------------
+=== GET /
+
+// ----------------------------------------------------- Complex Micro Service | GET / | Request -----------------------------------------------------
+==== Request
+
+// ------------------------------------------------ Complex Micro Service | GET / | Request | Example ------------------------------------------------
+===== HTTP Request Example
+
+[source,http]
+----
+GET / HTTP/1.1
+Accept: application/json
+Content-Length: 0
+
+----
+
+
+// -------------------------------------------------- Complex Micro Service | GET / | Response 200 --------------------------------------------------
+==== Response 200
+
+// --------------------------------------------- Complex Micro Service | GET / | Response 200 | Example ---------------------------------------------
+===== HTTP Response Example
+
+[source,http]
+----
+HTTP/1.1 200 OK
+Content-Length: 0
+Request-Id: 62jJeu8x1310662
+
+----
+
+// -------------------------------------------------- Complex Micro Service | GET / | Response 429 --------------------------------------------------
+==== Response 429
+
+Too Many Requests
+
+// --------------------------------------------- Complex Micro Service | GET / | Response 429 | Example ---------------------------------------------
+===== HTTP Response Example
+
+[source,http]
+----
+HTTP/1.1 429 Too Many Requests
+Content-Length: 0
+Request-Id: 62jJeu8x1310662
+Retry-After: 3600
+
+----
+
+// --------------------------------------------- Complex Micro Service | GET / | Response 429 | Headers ---------------------------------------------
+===== HTTP Response Headers Description
+
+[cols="25%,9%,28%,32%"]
+|===
+^|*Name* |*Type* |*Restrictions*| *Description*
+|*Request-Id*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`unique: true`#
+a|An unique request string identifier.
+
+.Read more:
+* [small]#https://docs.rxmicro.io/latest/user-guide/monitoring.html#monitoring-request-id-section[_What is request id?_^]#
+|*Retry-After*
+|`number`
+a|
+* [small]#`optional: true`#
+a|Indicates how long to wait before making a new request.
+
+|===
+
+// -------------------------------------------------- Complex Micro Service | GET / | Response 499 --------------------------------------------------
+==== Response 499
+
+CustomWithInternalsException description!
+
+// --------------------------------------------- Complex Micro Service | GET / | Response 499 | Example ---------------------------------------------
+===== HTTP Response Example
+
+[source,http]
+----
+HTTP/1.1 499 
+Content-Type: application/json
+Content-Length: 3
+Request-Id: 62jJeu8x1310662
+
+{
+}
+----
+
+// --------------------------------------------- Complex Micro Service | GET / | Response 499 | Headers ---------------------------------------------
+===== HTTP Response Headers Description
+
+[cols="25%,9%,28%,32%"]
+|===
+^|*Name* |*Type* |*Restrictions*| *Description*
+|*Request-Id*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`unique: true`#
+a|An unique request string identifier.
+
+.Read more:
+* [small]#https://docs.rxmicro.io/latest/user-guide/monitoring.html#monitoring-request-id-section[_What is request id?_^]#
+|===
+
+// ----------------------------------------- Complex Micro Service | GET / | Response 499 | Body Parameters -----------------------------------------
+===== HTTP Response Body Parameters Description
+
+[cols="25%,9%,28%,32%"]
+|===
+^|*Name* |*Type* |*Restrictions*| *Description*
+|===
+
+// -------------------------------------------------- Complex Micro Service | GET / | Response 500 --------------------------------------------------
+==== Response 500
+
+Internal Server Error
+
+// --------------------------------------------- Complex Micro Service | GET / | Response 500 | Example ---------------------------------------------
+===== HTTP Response Example
+
+[source,http]
+----
+HTTP/1.1 500 Internal Server Error
+Content-Type: application/json
+Content-Length: 91
+Request-Id: 62jJeu8x1310662
+Retry-After: 3600
+
+{
+  "message": "NullPointerException",
+  "readMore": "https://example.com/read-more.html"
+}
+----
+
+// --------------------------------------------- Complex Micro Service | GET / | Response 500 | Headers ---------------------------------------------
+===== HTTP Response Headers Description
+
+[cols="25%,9%,28%,32%"]
+|===
+^|*Name* |*Type* |*Restrictions*| *Description*
+|*Request-Id*
+|`string`
+a|
+* [small]#`required: true`#
+
+* [small]#`unique: true`#
+a|An unique request string identifier.
+
+.Read more:
+* [small]#https://docs.rxmicro.io/latest/user-guide/monitoring.html#monitoring-request-id-section[_What is request id?_^]#
+|*Retry-After*
+|`number`
+a|
+* [small]#`optional: true`#
+a|Indicates how long to wait before making a new request.
+
+|===
+
+// ----------------------------------------- Complex Micro Service | GET / | Response 500 | Body Parameters -----------------------------------------
+===== HTTP Response Body Parameters Description
+
+[cols="25%,9%,28%,32%"]
+|===
+^|*Name* |*Type* |*Restrictions*| *Description*
+|*message*
+|`string`
+a|
+* [small]#`required: true`#
+a|The detailed cause of error
+
+|*readMore*
+|`string`
+a|
+* [small]#`optional: true`#
+a|'readMore' parameter
+
+|===
+
+<<<
 // --------------------------------------------------------------- Proxy Micro Service ---------------------------------------------------------------
 == Proxy Micro Service
 
@@ -80,7 +269,7 @@ a|An unique request string identifier.
 |*data*
 |`string`
 a|
-* [small]#`optional: true`#
+* [small]#`required: true`#
 a|
 
 |===
@@ -103,7 +292,10 @@ a|
       ]
     }
   },
-  "minProperties": 0,
+  "required": [
+    "data"
+  ],
+  "minProperties": 1,
   "maxProperties": 1
 }
 ----
@@ -156,7 +348,7 @@ a|An unique request string identifier.
 |`string`
 a|
 * [small]#`required: true`#
-a|Data not found!
+a|'message' parameter
 
 |===
 
@@ -224,11 +416,11 @@ Custom description
 ----
 HTTP/1.1 410 Gone
 Content-Type: application/json
-Content-Length: 48
+Content-Length: 54
 Request-Id: 62jJeu8x1310662
 
 {
-  "nextAttemptAfter": "2222-01-01T10:00:00Z"
+  "next_attempt_after": "2187-04-10T23:40:15.789Z"
 }
 ----
 
@@ -248,6 +440,12 @@ a|An unique request string identifier.
 
 .Read more:
 * [small]#https://docs.rxmicro.io/latest/user-guide/monitoring.html#monitoring-request-id-section[_What is request id?_^]#
+|*Debug*
+|`boolean`
+a|
+* [small]#`optional: true`#
+a|Debug header example description
+
 |===
 
 // ------------------------------------------ Proxy Micro Service | GET / | Response 410 | Body Parameters ------------------------------------------
@@ -256,12 +454,14 @@ a|An unique request string identifier.
 [cols="25%,9%,28%,32%"]
 |===
 ^|*Name* |*Type* |*Restrictions*| *Description*
-|*nextAttemptAfter*
+|*next_attempt_after*
 |`string`
 a|
-* [small]#`optional: true`#
+* [small]#`required: true`#
 
 * [small]#`format: UTC`#
+
+* [small]#`future: true`#
 a|The client must repeat some action after this instant
 
 .Read more:
@@ -287,24 +487,6 @@ Request-Id: 62jJeu8x1310662
   "message": "Request Timeout"
 }
 ----
-
-// ---------------------------------------------- Proxy Micro Service | GET / | Response 504 | Headers ----------------------------------------------
-===== HTTP Response Headers Description
-
-[cols="25%,9%,28%,32%"]
-|===
-^|*Name* |*Type* |*Restrictions*| *Description*
-|*Request-Id*
-|`string`
-a|
-* [small]#`required: true`#
-
-* [small]#`unique: true`#
-a|An unique request string identifier.
-
-.Read more:
-* [small]#https://docs.rxmicro.io/latest/user-guide/monitoring.html#monitoring-request-id-section[_What is request id?_^]#
-|===
 
 // ------------------------------------------ Proxy Micro Service | GET / | Response 504 | Body Parameters ------------------------------------------
 ===== HTTP Response Body Parameters Description

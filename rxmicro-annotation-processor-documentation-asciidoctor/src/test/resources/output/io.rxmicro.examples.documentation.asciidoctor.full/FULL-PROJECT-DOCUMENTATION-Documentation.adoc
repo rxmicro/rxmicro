@@ -397,7 +397,7 @@ a|An unique request string identifier.
 |`string`
 a|
 * [small]#`required: true`#
-a|Code: 504
+a|'message' parameter
 
 |===
 
@@ -859,24 +859,6 @@ Request-Id: 62jJeu8x1310662
   "message": "Request Timeout"
 }
 ----
-
-// ------------------------------------------- Micro Service2 | GET /latest/test | Response 504 | Headers -------------------------------------------
-===== HTTP Response Headers Description
-
-[cols="25%,9%,28%,32%"]
-|===
-^|*Name* |*Type* |*Restrictions*| *Description*
-|*Request-Id*
-|`string`
-a|
-* [small]#`required: true`#
-
-* [small]#`unique: true`#
-a|An unique request string identifier.
-
-.Read more:
-* [small]#https://docs.rxmicro.io/latest/user-guide/monitoring.html#monitoring-request-id-section[_What is request id?_^]#
-|===
 
 // --------------------------------------- Micro Service2 | GET /latest/test | Response 504 | Body Parameters ---------------------------------------
 ===== HTTP Response Body Parameters Description
@@ -1382,7 +1364,7 @@ a|An unique request string identifier.
 |`string`
 a|
 * [small]#`required: true`#
-a|Object not found
+a|'message' parameter
 
 |===
 
@@ -1520,7 +1502,7 @@ a|An unique request string identifier.
 |`string`
 a|
 * [small]#`required: true`#
-a|Code: 504
+a|'message' parameter
 
 |===
 
@@ -1995,7 +1977,7 @@ a|An unique request string identifier.
 |`string`
 a|
 * [small]#`required: true`#
-a|Handler not found
+a|'message' parameter
 
 |===
 
@@ -2104,24 +2086,6 @@ Request-Id: 62jJeu8x1310662
   "message": "Request Timeout"
 }
 ----
-
-// --------------------------------------- Micro Service1 | GET /${category}-${type} | Response 504 | Headers ---------------------------------------
-===== HTTP Response Headers Description
-
-[cols="25%,9%,28%,32%"]
-|===
-^|*Name* |*Type* |*Restrictions*| *Description*
-|*Request-Id*
-|`string`
-a|
-* [small]#`required: true`#
-
-* [small]#`unique: true`#
-a|An unique request string identifier.
-
-.Read more:
-* [small]#https://docs.rxmicro.io/latest/user-guide/monitoring.html#monitoring-request-id-section[_What is request id?_^]#
-|===
 
 // ----------------------------------- Micro Service1 | GET /${category}-${type} | Response 504 | Body Parameters -----------------------------------
 ===== HTTP Response Body Parameters Description

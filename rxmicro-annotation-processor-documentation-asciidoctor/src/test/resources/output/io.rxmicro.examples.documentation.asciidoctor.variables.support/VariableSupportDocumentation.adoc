@@ -238,11 +238,12 @@ test
 ----
 HTTP/1.1 485 
 Content-Type: application/json
-Content-Length: 23
+Content-Length: 20
 Request-Id: 62jJeu8x1310662
+test: test
 
 {
-  "message": "test"
+  "test": "test"
 }
 ----
 
@@ -262,6 +263,12 @@ a|An unique request string identifier.
 
 .Read more:
 * [small]#https://docs.rxmicro.io/latest/user-guide/monitoring.html#monitoring-request-id-section[_What is request id?_^]#
+|*test*
+|`string`
+a|
+* [small]#`required: true`#
+a|${var}
+
 |===
 
 // --------------------------------------------- Micro Service | PUT / | Response 485 | Body Parameters ---------------------------------------------
@@ -270,11 +277,11 @@ a|An unique request string identifier.
 [cols="25%,9%,28%,32%"]
 |===
 ^|*Name* |*Type* |*Restrictions*| *Description*
-|*message*
+|*test*
 |`string`
 a|
 * [small]#`required: true`#
-a|test
+a|${var}
 
 |===
 

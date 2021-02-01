@@ -17,6 +17,7 @@
 package io.rxmicro.annotation.processor.rest.server.model;
 
 import io.rxmicro.annotation.processor.common.model.ClassStructure;
+import io.rxmicro.annotation.processor.common.model.error.InternalErrorException;
 import io.rxmicro.annotation.processor.rest.model.AbstractModelJsonConverterClassStructure;
 import io.rxmicro.annotation.processor.rest.model.converter.ModelFromJsonConverterClassStructure;
 import io.rxmicro.annotation.processor.rest.model.converter.ModelToJsonConverterClassStructure;
@@ -52,19 +53,22 @@ public final class RestControllerClassStructureStorage {
 
     private final Map<String, ModelToJsonConverterClassStructure> modelToJsonConverterMap;
 
-    private RestControllerClassStructureStorage(
-            final Map<String, ModelValidatorClassStructure> requestValidatorMap,
-            final Map<String, ModelValidatorClassStructure> responseValidatorMap,
-            final Map<String, ModelReaderClassStructure> modelReaderMap,
-            final Map<String, ModelWriterClassStructure> modelWriterMap,
-            final Map<String, ModelFromJsonConverterClassStructure> modelFromJsonConverterMap,
-            final Map<String, ModelToJsonConverterClassStructure> modelToJsonConverterMap) {
+    private final Set<CustomExceptionWriterClassStructure> customExceptionModelWriters;
+
+    private RestControllerClassStructureStorage(final Map<String, ModelValidatorClassStructure> requestValidatorMap,
+                                                final Map<String, ModelValidatorClassStructure> responseValidatorMap,
+                                                final Map<String, ModelReaderClassStructure> modelReaderMap,
+                                                final Map<String, ModelWriterClassStructure> modelWriterMap,
+                                                final Map<String, ModelFromJsonConverterClassStructure> modelFromJsonConverterMap,
+                                                final Map<String, ModelToJsonConverterClassStructure> modelToJsonConverterMap,
+                                                final Set<CustomExceptionWriterClassStructure> customExceptionModelWriters) {
         this.requestValidatorMap = require(requestValidatorMap);
         this.responseValidatorMap = require(responseValidatorMap);
         this.modelReaderMap = require(modelReaderMap);
         this.modelWriterMap = require(modelWriterMap);
         this.modelFromJsonConverterMap = require(modelFromJsonConverterMap);
         this.modelToJsonConverterMap = require(modelToJsonConverterMap);
+        this.customExceptionModelWriters = require(customExceptionModelWriters);
     }
 
     public boolean isRequestValidatorPresent(final String fullClassName) {
@@ -91,6 +95,10 @@ public final class RestControllerClassStructureStorage {
         return Optional.ofNullable(modelWriterMap.get(fullClassName));
     }
 
+    public Set<CustomExceptionWriterClassStructure> getCustomExceptionModelWriters() {
+        return customExceptionModelWriters;
+    }
+
     public Set<ClassStructure> getAll() {
         return Stream.of(
                 requestValidatorMap.values().stream().map(s -> (ClassStructure) s),
@@ -98,7 +106,8 @@ public final class RestControllerClassStructureStorage {
                 modelReaderMap.values().stream().map(s -> (ClassStructure) s),
                 modelWriterMap.values().stream().map(s -> (ClassStructure) s),
                 modelFromJsonConverterMap.values().stream().map(s -> (ClassStructure) s),
-                modelToJsonConverterMap.values().stream().map(s -> (ClassStructure) s)
+                modelToJsonConverterMap.values().stream().map(s -> (ClassStructure) s),
+                customExceptionModelWriters.stream().map(s -> (ClassStructure) s)
         ).flatMap(identity()).collect(Collectors.toSet());
     }
 
@@ -113,48 +122,68 @@ public final class RestControllerClassStructureStorage {
 
         private final Set<ModelValidatorClassStructure> responseValidators = new TreeSet<>();
 
+        private final Set<ModelValidatorClassStructure> customExceptionModelValidators = new TreeSet<>();
+
         private final Set<ModelReaderClassStructure> modelReaders = new TreeSet<>();
 
         private final Set<ModelWriterClassStructure> modelWriters = new TreeSet<>();
+
+        private final Set<CustomExceptionWriterClassStructure> customExceptionModelWriters = new TreeSet<>();
 
         private final Set<ModelFromJsonConverterClassStructure> modelFromJsonConverters = new TreeSet<>();
 
         private final Set<ModelToJsonConverterClassStructure> modelToJsonConverters = new TreeSet<>();
 
-        public void addRequestValidators(
-                final Set<ModelValidatorClassStructure> requestValidators) {
+        public void addRequestValidators(final Set<ModelValidatorClassStructure> requestValidators) {
             this.requestValidators.addAll(requestValidators);
         }
 
-        public void addResponseValidators(
-                final Set<ModelValidatorClassStructure> responseValidators) {
+        public void addResponseValidators(final Set<ModelValidatorClassStructure> responseValidators) {
             this.responseValidators.addAll(responseValidators);
         }
 
         @BuilderMethod
-        public Builder addModelReaders(
-                final Set<ModelReaderClassStructure> modelReaders) {
+        public Builder addModelReaders(final Set<ModelReaderClassStructure> modelReaders) {
             this.modelReaders.addAll(modelReaders);
             return this;
         }
 
         @BuilderMethod
-        public Builder addModelWriters(
-                final Set<ModelWriterClassStructure> modelWriters) {
+        public Builder addModelWriters(final Set<ModelWriterClassStructure> modelWriters) {
             this.modelWriters.addAll(modelWriters);
             return this;
         }
 
         @BuilderMethod
-        public Builder addModelFromJsonConverters(
-                final Set<ModelFromJsonConverterClassStructure> modelFromJsonConverters) {
+        public Builder addCustomExceptionModelWriters(final Set<ModelWriterClassStructure> modelWriters) {
+            this.modelWriters.addAll(modelWriters);
+            for (final ModelWriterClassStructure modelWriter : modelWriters) {
+                final boolean isValidatorGenerated = this.customExceptionModelValidators.stream().anyMatch(cs ->
+                        cs.getModelClass().getJavaFullClassName().equals(modelWriter.getModelClass().getJavaFullClassName()));
+                this.customExceptionModelWriters.add(
+                        new CustomExceptionWriterClassStructure(modelWriter.getModelClass(), isValidatorGenerated)
+                );
+            }
+            return this;
+        }
+
+        public void addCustomExceptionModelValidators(final Set<ModelValidatorClassStructure> responseValidators) {
+            if (!this.customExceptionModelWriters.isEmpty()) {
+                throw new InternalErrorException(
+                        "'addCustomExceptionModelValidators' method must be invoked before 'addCustomExceptionModelWriters' one!"
+                );
+            }
+            this.customExceptionModelValidators.addAll(responseValidators);
+        }
+
+        @BuilderMethod
+        public Builder addModelFromJsonConverters(final Set<ModelFromJsonConverterClassStructure> modelFromJsonConverters) {
             this.modelFromJsonConverters.addAll(modelFromJsonConverters);
             return this;
         }
 
         @BuilderMethod
-        public Builder addModelToJsonConverters(
-                final Set<ModelToJsonConverterClassStructure> modelToJsonConverters) {
+        public Builder addModelToJsonConverters(final Set<ModelToJsonConverterClassStructure> modelToJsonConverters) {
             this.modelToJsonConverters.addAll(modelToJsonConverters);
             return this;
         }
@@ -189,7 +218,10 @@ public final class RestControllerClassStructureStorage {
                             ModelValidatorClassStructure::getModelFullClassName,
                             identity()
                     )),
-                    responseValidators.stream().collect(toMap(
+                    Stream.concat(
+                            responseValidators.stream(),
+                            customExceptionModelValidators.stream()
+                    ).collect(toMap(
                             ModelValidatorClassStructure::getModelFullClassName,
                             identity()
                     )),
@@ -208,7 +240,8 @@ public final class RestControllerClassStructureStorage {
                     modelToJsonConverters.stream().collect(toMap(
                             AbstractModelJsonConverterClassStructure::getModelFullClassName,
                             identity()
-                    ))
+                    )),
+                    customExceptionModelWriters
             );
         }
     }

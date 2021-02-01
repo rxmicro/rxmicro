@@ -28,7 +28,12 @@ public final class MicroService {
     @SimpleErrorResponse(
             status = 485,
             description = "${var}",
-            exampleErrorMessage = "${var}",
+            paramNames = "${var}",
+            paramValueExamples = "${var}",
+            paramDescriptions = "${var}",
+            headerNames = "${var}",
+            headerValueExamples = "${var}",
+            headerDescriptions = "${var}",
             variables = {
                     "${var}", "test"
             }

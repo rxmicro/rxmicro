@@ -21,6 +21,7 @@ import io.rxmicro.annotation.processor.common.model.type.ObjectModelClass;
 import io.rxmicro.annotation.processor.common.util.UsedByFreemarker;
 import io.rxmicro.annotation.processor.rest.model.RestModelField;
 import io.rxmicro.annotation.processor.rest.model.RestObjectModelClass;
+import io.rxmicro.rest.server.detail.component.CustomExceptionWriter;
 import io.rxmicro.rest.server.detail.component.ModelReader;
 import io.rxmicro.rest.server.detail.component.ModelWriter;
 
@@ -56,5 +57,10 @@ public final class RestServerObjectModelClass extends RestObjectModelClass {
     )
     public String getModelWriterImplSimpleClassName() {
         return getModelTransformerSimpleClassName(getModelTypeElement(), ModelWriter.class);
+    }
+
+    @UsedByFreemarker("$$RestCustomExceptionModelWriterTemplate.javaftl")
+    public String getCustomExceptionWriterImplSimpleClassName() {
+        return getModelTransformerSimpleClassName(getJavaSimpleClassName(), CustomExceptionWriter.class);
     }
 }

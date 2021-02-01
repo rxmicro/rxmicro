@@ -19,13 +19,6 @@ package io.rxmicro.http.error;
 import io.rxmicro.common.RxMicroException;
 import io.rxmicro.common.util.Formats;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
-import static io.rxmicro.common.util.ExCollections.unmodifiableOrderedMap;
-import static io.rxmicro.common.util.Formats.format;
-import static io.rxmicro.common.util.Requires.require;
-
 /**
  * Base exception for all not success HTTP response statuses.
  *
@@ -114,7 +107,7 @@ public abstract class HttpErrorException extends RxMicroException {
      */
     protected HttpErrorException(final int statusCode,
                                  final String message) {
-        super(false, false, message);
+        super(true, false, message);
         this.statusCode = statusCode;
     }
 
@@ -140,7 +133,7 @@ public abstract class HttpErrorException extends RxMicroException {
     protected HttpErrorException(final int statusCode,
                                  final String message,
                                  final Object... args) {
-        super(false, false, message, args);
+        super(true, false, message, args);
         this.statusCode = statusCode;
     }
 
@@ -157,7 +150,7 @@ public abstract class HttpErrorException extends RxMicroException {
      * @param statusCode the status code
      */
     protected HttpErrorException(final int statusCode) {
-        super(false, false);
+        super(true, false);
         this.statusCode = statusCode;
     }
 
@@ -213,81 +206,5 @@ public abstract class HttpErrorException extends RxMicroException {
      */
     public final boolean isServerErrorCode() {
         return statusCode >= MIN_SUPPORTED_SERVER_ERROR_CODE && statusCode < MAX_SUPPORTED_SERVER_ERROR_CODE;
-    }
-
-    /**
-     * Returns the {@link Map} with the response headers.
-     *
-     * <p>
-     * Sub classes can provide custom response headers.
-     *
-     * <p>
-     * By default empty map is returned!
-     *
-     * @return the {@link Map} with the response headers.
-     * @since 0.9
-     */
-    public Map<String, Object> getResponseHeaders() {
-        return Map.of();
-    }
-
-    /**
-     * Returns the {@link Map} of the response body.
-     *
-     * <p>
-     * If exception message set, this method returns {@code Map.of("message", message)}, otherwise it returns the empty map!
-     *
-     * <p>
-     * Sub classes can provide custom response body.
-     *
-     * @return the {@link Map} of the response body
-     * @since 0.9
-     */
-    public Map<String, Object> getResponseBody() {
-        return orderedMapWithoutNulls("message", getMessage());
-    }
-
-    /**
-     * Creates a new short-lived unmodifiable ordered map using provided arguments as {@code key}s and {@code value}s.
-     *
-     * <p>
-     * The provided arguments must contain even item count:
-     * each odd item is interpret as {@code key} and each even item is interpret as {@code value}!
-     *
-     * <p>
-     * If value is {@code null}, that the pair of key and value is ignored and is not added to the returned map!
-     *
-     * <p>
-     * This method must be used by sub classes which overrides {@link #getResponseHeaders()} or {@link #getResponseBody()} methods!
-     *
-     * @param args the provided arguments
-     * @return a new short-lived unmodifiable ordered map using provided arguments as {@code key}s and {@code value}s.
-     * @throws IllegalArgumentException if the provided arguments contain the odd item count or
-     *                                  if any odd item (that is interpret as {@code key}) is not of {@link String} type.
-     * @throws NullPointerException if any odd item (that is interpret as {@code key}) is {@code null}
-     * @since 0.9
-     */
-    protected final Map<String, Object> orderedMapWithoutNulls(final Object... args) {
-        final Map<String, Object> map = new LinkedHashMap<>();
-        for (int i = 0; i < args.length; i += 2) {
-            try {
-                final String name = (String) args[i];
-                if (i + 1 < args.length) {
-                    final Object value = args[i + 1];
-                    if (value != null) {
-                        map.put(require(name, "Expected non-null key by ? index!", i), value);
-                    }
-                } else {
-                    throw new IllegalArgumentException(
-                            format("Expected an even item count for the provided arguments, but actual is ?!", args.length)
-                    );
-                }
-            } catch (final ClassCastException ignore) {
-                throw new IllegalArgumentException(
-                        format("Expected string key by ? index, by actual is ?!", i, args[i].getClass().getName())
-                );
-            }
-        }
-        return unmodifiableOrderedMap(map);
     }
 }

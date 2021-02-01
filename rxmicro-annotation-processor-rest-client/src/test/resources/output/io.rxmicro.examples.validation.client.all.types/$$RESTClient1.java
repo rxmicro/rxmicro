@@ -129,7 +129,7 @@ public final class $$RESTClient1 extends AbstractRestClient implements RESTClien
                 .handle(throwExceptionIfNotSuccess());
         return response
                 .thenApply(resp -> responseModelReader.readSingle(resp))
-                .whenComplete((resp, th) -> validateIfResponseExists(true, responseConstraintValidator, resp));
+                .whenComplete((resp, th) -> validateIfResponseExists(responseConstraintValidator, resp));
     }
 
     @Override
@@ -142,7 +142,7 @@ public final class $$RESTClient1 extends AbstractRestClient implements RESTClien
                 .handle(throwExceptionIfNotSuccess());
         return response
                 .thenApply(resp -> responseModelReader.readSingle(resp))
-                .whenComplete((resp, th) -> validateIfResponseExists(true, responseConstraintValidator, resp));
+                .whenComplete((resp, th) -> validateIfResponseExists(responseConstraintValidator, resp));
     }
 
     @Override
@@ -152,7 +152,7 @@ public final class $$RESTClient1 extends AbstractRestClient implements RESTClien
                 .handle(throwExceptionIfNotSuccess());
         return response
                 .thenApply(resp -> responseModelReader.readSingle(resp))
-                .whenComplete((resp, th) -> validateIfResponseExists(true, responseConstraintValidator, resp));
+                .whenComplete((resp, th) -> validateIfResponseExists(responseConstraintValidator, resp));
     }
 
     @Override
@@ -200,7 +200,7 @@ public final class $$RESTClient1 extends AbstractRestClient implements RESTClien
                 .handle(throwExceptionIfNotSuccess());
         return Mono.fromFuture(response)
                 .map(resp -> responseModelReader.readSingle(resp))
-                .doOnSuccess(resp -> validateResponse(true, responseConstraintValidator, resp));
+                .doOnSuccess(resp -> validateResponse(responseConstraintValidator, resp));
     }
 
     @Override
@@ -213,7 +213,7 @@ public final class $$RESTClient1 extends AbstractRestClient implements RESTClien
                 .handle(throwExceptionIfNotSuccess());
         return Mono.fromFuture(response)
                 .map(resp -> responseModelReader.readSingle(resp))
-                .doOnSuccess(resp -> validateResponse(true, responseConstraintValidator, resp));
+                .doOnSuccess(resp -> validateResponse(responseConstraintValidator, resp));
     }
 
     @Override
@@ -223,7 +223,7 @@ public final class $$RESTClient1 extends AbstractRestClient implements RESTClien
                 .handle(throwExceptionIfNotSuccess());
         return Mono.fromFuture(response)
                 .map(resp -> responseModelReader.readSingle(resp))
-                .doOnSuccess(resp -> validateResponse(true, responseConstraintValidator, resp));
+                .doOnSuccess(resp -> validateResponse(responseConstraintValidator, resp));
     }
 
     @Override
@@ -268,7 +268,7 @@ public final class $$RESTClient1 extends AbstractRestClient implements RESTClien
                 .handle(throwExceptionIfNotSuccess());
         return Single.fromCompletionStage(response)
                 .map(resp -> responseModelReader.readSingle(resp))
-                .doOnSuccess(resp -> validateResponse(true, responseConstraintValidator, resp));
+                .doOnSuccess(resp -> validateResponse(responseConstraintValidator, resp));
     }
 
     @Override
@@ -281,7 +281,7 @@ public final class $$RESTClient1 extends AbstractRestClient implements RESTClien
                 .handle(throwExceptionIfNotSuccess());
         return Single.fromCompletionStage(response)
                 .map(resp -> responseModelReader.readSingle(resp))
-                .doOnSuccess(resp -> validateResponse(true, responseConstraintValidator, resp));
+                .doOnSuccess(resp -> validateResponse(responseConstraintValidator, resp));
     }
 
     @Override
@@ -291,6 +291,6 @@ public final class $$RESTClient1 extends AbstractRestClient implements RESTClien
                 .handle(throwExceptionIfNotSuccess());
         return Single.fromCompletionStage(response)
                 .map(resp -> responseModelReader.readSingle(resp))
-                .doOnSuccess(resp -> validateResponse(true, responseConstraintValidator, resp));
+                .doOnSuccess(resp -> validateResponse(responseConstraintValidator, resp));
     }
 }

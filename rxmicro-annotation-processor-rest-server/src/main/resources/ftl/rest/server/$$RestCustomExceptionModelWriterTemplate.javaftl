@@ -1,0 +1,22 @@
+<#include "../../common-lib.javaftl">
+<#-- -------------------------------------------------------------------------------------------------------- -->
+public final class ${JAVA_MODEL_CLASS.customExceptionWriterImplSimpleClassName} extends CustomExceptionWriter<${JAVA_MODEL_CLASS.javaSimpleClassName}>{
+    <#if WITH_VALIDATOR>
+
+    private final ${JAVA_MODEL_CLASS.modelValidatorImplSimpleClassName} validator;
+    </#if>
+
+    public ${JAVA_MODEL_CLASS.customExceptionWriterImplSimpleClassName}(final boolean humanReadableOutput){
+        super(new ${JAVA_MODEL_CLASS.modelWriterImplSimpleClassName}(humanReadableOutput));
+        <#if WITH_VALIDATOR>
+        validator = new ${JAVA_MODEL_CLASS.modelValidatorImplSimpleClassName}();
+        </#if>
+    }
+    <#if WITH_VALIDATOR>
+
+    @Override
+    public void validate(final ${JAVA_MODEL_CLASS.javaSimpleClassName} exception) {
+        validateResponse(validator, exception);
+    }
+    </#if>
+}

@@ -14,17 +14,9 @@
  * limitations under the License.
  */
 
-package io.rxmicro.examples.documentation.asciidoctor.errors;
+package io.rxmicro.examples.documentation.asciidoctor.errors.simple.model;
 
-import io.rxmicro.examples.documentation.asciidoctor.errors.model.Response;
-import io.rxmicro.rest.client.RestClient;
-import io.rxmicro.rest.method.GET;
+public final class Response {
 
-import java.util.concurrent.CompletableFuture;
-
-@RestClient
-public interface ExternalMicroService {
-
-    @GET("/")
-    CompletableFuture<Response> get();
+    String data;
 }

@@ -21,10 +21,13 @@ import io.rxmicro.annotation.processor.common.model.ClassStructure;
 import io.rxmicro.annotation.processor.common.model.EnvironmentContext;
 import io.rxmicro.annotation.processor.common.util.UsedByFreemarker;
 import io.rxmicro.common.RxMicroModule;
+import io.rxmicro.config.Configs;
 import io.rxmicro.rest.model.UrlSegments;
+import io.rxmicro.rest.server.RestServerConfig;
 import io.rxmicro.rest.server.detail.component.AbstractRestController;
 import io.rxmicro.rest.server.detail.component.BadHttpRequestRestController;
 import io.rxmicro.rest.server.detail.component.CrossOriginResourceSharingPreflightRestController;
+import io.rxmicro.rest.server.detail.component.CustomExceptionWriters;
 import io.rxmicro.rest.server.detail.component.HttpHealthCheckRestController;
 import io.rxmicro.rest.server.detail.component.RestControllerAggregator;
 import io.rxmicro.rest.server.detail.component.StaticResourceRestController;
@@ -68,14 +71,18 @@ public final class RestControllerAggregatorClassStructure extends ClassStructure
 
     private final boolean isRestServerNetty;
 
+    private final Set<CustomExceptionWriterClassStructure> customExceptionModelWriters;
+
     public RestControllerAggregatorClassStructure(final EnvironmentContext environmentContext,
                                                   final Collection<RestControllerClassStructure> classStructures,
                                                   final Set<CrossOriginResourceSharingResource> resources,
                                                   final Set<HttpHealthCheck> httpHealthChecks,
-                                                  final DeclaredStaticResources declaredStaticResources) {
+                                                  final DeclaredStaticResources declaredStaticResources,
+                                                  final Set<CustomExceptionWriterClassStructure> customExceptionModelWriters) {
         this.crossOriginResourceSharingResources = require(resources);
         this.httpHealthChecks = require(httpHealthChecks);
         this.declaredStaticResources = declaredStaticResources;
+        this.customExceptionModelWriters = require(customExceptionModelWriters);
         this.classStructures = new TreeSet<>(Comparator.comparing(RestControllerClassStructure::getTargetFullClassName));
         this.classStructures.addAll(require(classStructures));
         this.isRestServerNetty = environmentContext.isRxMicroModuleEnabled(RxMicroModule.RX_MICRO_REST_SERVER_NETTY_MODULE);
@@ -115,6 +122,7 @@ public final class RestControllerAggregatorClassStructure extends ClassStructure
             restControllerModels.add(new RestControllerModel(STATIC_RESOURCES_STANDARD_CONTROLLER));
             map.put("DECLARED_STATIC_RESOURCES", declaredStaticResources);
         }
+        map.put("CUSTOM_EXCEPTION_MODEL_WRITERS", customExceptionModelWriters);
         return map;
     }
 
@@ -138,6 +146,16 @@ public final class RestControllerAggregatorClassStructure extends ClassStructure
         }
         if (declaredStaticResources.exist()) {
             customizeClassHeaderBuilderForDeclaredStaticResources(classHeaderBuilder);
+        }
+        if (!customExceptionModelWriters.isEmpty()) {
+            classHeaderBuilder
+                    .addStaticImport(CustomExceptionWriters.class, "registerCustomExceptionWriter")
+                    .addStaticImport(Configs.class, "getConfig")
+                    .addImports(RestServerConfig.class);
+            customExceptionModelWriters.forEach(structure -> {
+                classHeaderBuilder.addImports(structure.getModelFullClassName());
+                classHeaderBuilder.addImports(structure.getTargetFullClassName());
+            });
         }
         return classHeaderBuilder.build();
     }

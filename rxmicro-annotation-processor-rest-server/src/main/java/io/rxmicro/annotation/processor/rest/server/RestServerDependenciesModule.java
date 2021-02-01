@@ -26,6 +26,7 @@ import io.rxmicro.annotation.processor.common.model.definition.SupportedTypesPro
 import io.rxmicro.annotation.processor.rest.model.RestModelField;
 import io.rxmicro.annotation.processor.rest.model.RestObjectModelClass;
 import io.rxmicro.annotation.processor.rest.server.component.CrossOriginResourceSharingResourceBuilder;
+import io.rxmicro.annotation.processor.rest.server.component.CustomExceptionMappedRestObjectModelClassBuilder;
 import io.rxmicro.annotation.processor.rest.server.component.DeclaredStaticResourcesResolver;
 import io.rxmicro.annotation.processor.rest.server.component.HttpHealthCheckBuilder;
 import io.rxmicro.annotation.processor.rest.server.component.ModelReaderBuilder;
@@ -38,6 +39,7 @@ import io.rxmicro.annotation.processor.rest.server.component.RestDocumentationGe
 import io.rxmicro.annotation.processor.rest.server.component.ServerCommonOptionBuilder;
 import io.rxmicro.annotation.processor.rest.server.component.UrlPathMatchTemplateClassResolver;
 import io.rxmicro.annotation.processor.rest.server.component.impl.CrossOriginResourceSharingResourceBuilderImpl;
+import io.rxmicro.annotation.processor.rest.server.component.impl.CustomExceptionMappedRestObjectModelClassBuilderImpl;
 import io.rxmicro.annotation.processor.rest.server.component.impl.DeclaredStaticResourcesResolverImpl;
 import io.rxmicro.annotation.processor.rest.server.component.impl.HttpHealthCheckBuilderImpl;
 import io.rxmicro.annotation.processor.rest.server.component.impl.ModelReaderBuilderImpl;
@@ -79,6 +81,8 @@ public final class RestServerDependenciesModule extends AbstractModule {
                 .to(ModelReaderBuilderImpl.class);
         bind(ModelWriterBuilder.class)
                 .to(ModelWriterBuilderImpl.class);
+        bind(CustomExceptionMappedRestObjectModelClassBuilder.class)
+                .to(CustomExceptionMappedRestObjectModelClassBuilderImpl.class);
         bind(CrossOriginResourceSharingResourceBuilder.class)
                 .to(CrossOriginResourceSharingResourceBuilderImpl.class);
         bind(new TypeLiteral<ModelFieldBuilder<RestModelField, RestObjectModelClass>>() {

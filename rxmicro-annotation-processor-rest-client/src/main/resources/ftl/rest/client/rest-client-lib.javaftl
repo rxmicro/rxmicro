@@ -49,19 +49,19 @@ return Completable.fromCompletionStage(response);
 return Mono.fromFuture(response)
         .map(resp -> ${RESPONSE_READER}.readSingle(resp))<#if !GENERATE_RESPONSE_VALIDATORS>;</#if>
         <#if GENERATE_RESPONSE_VALIDATORS>
-        .doOnSuccess(resp -> validateResponse(true, ${RESPONSE_MODEL_CLASS.modelValidatorInstanceName}, resp));
+        .doOnSuccess(resp -> validateResponse(${RESPONSE_MODEL_CLASS.modelValidatorInstanceName}, resp));
         </#if>
 <#elseif RETURN.future>
 return response
         .thenApply(resp -> ${RESPONSE_READER}.readSingle(resp))<#if !GENERATE_RESPONSE_VALIDATORS>;</#if>
         <#if GENERATE_RESPONSE_VALIDATORS>
-        .whenComplete((resp, th) -> validateIfResponseExists(true, ${RESPONSE_MODEL_CLASS.modelValidatorInstanceName}, resp));
+        .whenComplete((resp, th) -> validateIfResponseExists(${RESPONSE_MODEL_CLASS.modelValidatorInstanceName}, resp));
         </#if>
 <#elseif RETURN.single>
 return Single.fromCompletionStage(response)
         .map(resp -> ${RESPONSE_READER}.readSingle(resp))<#if !GENERATE_RESPONSE_VALIDATORS>;</#if>
         <#if GENERATE_RESPONSE_VALIDATORS>
-        .doOnSuccess(resp -> validateResponse(true, ${RESPONSE_MODEL_CLASS.modelValidatorInstanceName}, resp));
+        .doOnSuccess(resp -> validateResponse(${RESPONSE_MODEL_CLASS.modelValidatorInstanceName}, resp));
         </#if>
 <#else>
 //"The RxMicro framework does not know how to generate this method";
@@ -72,19 +72,19 @@ return Single.fromCompletionStage(response)
 return Mono.fromFuture(response)
         .map(resp -> ${RESPONSE_READER}.readList(resp))<#if !GENERATE_RESPONSE_VALIDATORS>;</#if>
         <#if GENERATE_RESPONSE_VALIDATORS>
-        .doOnSuccess(resp -> validateResponse(true, ${RESPONSE_MODEL_CLASS.modelValidatorInstanceName}, resp));
+        .doOnSuccess(resp -> validateResponse(${RESPONSE_MODEL_CLASS.modelValidatorInstanceName}, resp));
         </#if>
 <#elseif RETURN.future>
 return response
         .thenApply(resp -> ${RESPONSE_READER}.readList(resp))<#if !GENERATE_RESPONSE_VALIDATORS>;</#if>
         <#if GENERATE_RESPONSE_VALIDATORS>
-        .whenComplete((resp, th) -> validateIfResponseExists(true, ${RESPONSE_MODEL_CLASS.modelValidatorInstanceName}, resp));
+        .whenComplete((resp, th) -> validateIfResponseExists(${RESPONSE_MODEL_CLASS.modelValidatorInstanceName}, resp));
         </#if>
 <#elseif RETURN.single>
 return Single.fromCompletionStage(response)
         .map(resp -> ${RESPONSE_READER}.readList(resp))<#if !GENERATE_RESPONSE_VALIDATORS>;</#if>
         <#if GENERATE_RESPONSE_VALIDATORS>
-        .doOnSuccess(resp -> validateResponse(true, ${RESPONSE_MODEL_CLASS.modelValidatorInstanceName}, resp));
+        .doOnSuccess(resp -> validateResponse(${RESPONSE_MODEL_CLASS.modelValidatorInstanceName}, resp));
         </#if>
 <#else>
 //"The RxMicro framework does not know how to generate this method";
