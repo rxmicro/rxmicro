@@ -155,6 +155,8 @@ public abstract class AbstractSQLVariableValueResolver
 
     protected abstract Class<?> getEntityClass(ParsedSQL<A> parsedSQL);
 
+    // validateThatVariablesContainEvenItemCount method ensures that IndexOutOfBoundException will not be thrown!
+    @SuppressWarnings("lgtm[java/index-out-of-bounds]")
     private void setVariables(final Element owner,
                               final VariableValuesMap variableValuesMap,
                               final String... variables) {
