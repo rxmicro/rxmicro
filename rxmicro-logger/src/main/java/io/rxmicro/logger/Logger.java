@@ -4227,7 +4227,8 @@ public interface Logger {
      * @throws NullPointerException if {@code format} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    void error(String format, Supplier<?>... suppliers);
+    void error(String format,
+               Supplier<?>... suppliers);
 
     /**
      * Log the message with the throwable at the {@code ERROR} level.
@@ -4350,7 +4351,9 @@ public interface Logger {
      * @throws NullPointerException if {@code format} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    void error(Throwable throwable, String format, Object... arguments);
+    void error(Throwable throwable,
+               String format,
+               Object... arguments);
 
     /**
      * Log the message with the throwable at the {@code ERROR} level according to the specified format and argument.
@@ -4589,7 +4592,9 @@ public interface Logger {
      * @throws NullPointerException if {@code format} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    void error(RequestIdSupplier requestIdSupplier, String format, Object... arguments);
+    void error(RequestIdSupplier requestIdSupplier,
+               String format,
+               Object... arguments);
 
     /**
      * Log the message at the {@code ERROR} level according to the specified format and argument.
@@ -4841,7 +4846,10 @@ public interface Logger {
      * @throws NullPointerException if {@code format} is {@code null}
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      */
-    void error(RequestIdSupplier requestIdSupplier, Throwable throwable, String format, Object... arguments);
+    void error(RequestIdSupplier requestIdSupplier,
+               Throwable throwable,
+               String format,
+               Object... arguments);
 
     /**
      * Log the message with the throwable at the {@code ERROR} level according to the specified format and argument.

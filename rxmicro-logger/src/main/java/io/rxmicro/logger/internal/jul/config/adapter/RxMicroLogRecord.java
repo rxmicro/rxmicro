@@ -54,6 +54,7 @@ public final class RxMicroLogRecord extends LogRecord implements LoggerEvent {
 
     private RxMicroLogRecord() {
         super(Level.OFF, "null");
+        needToInferCaller = true;
     }
 
     public RxMicroLogRecord(final String loggerName,
@@ -356,6 +357,9 @@ public final class RxMicroLogRecord extends LogRecord implements LoggerEvent {
 
         public RxMicroLogRecord getRecord() {
             record.setMessage(getFormattedMessage(template, args, areTemplateArgsSuppliers));
+            if (record.getThreadName() == null) {
+                record.setThreadName(Thread.currentThread().getName());
+            }
             return record;
         }
 
