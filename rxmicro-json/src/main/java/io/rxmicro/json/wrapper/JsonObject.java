@@ -24,6 +24,7 @@ import java.math.BigDecimal;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 
 import static io.rxmicro.common.util.Requires.require;
@@ -401,6 +402,23 @@ public final class JsonObject implements Iterable<Map.Entry<String, Object>> {
      */
     public boolean isEmpty() {
         return map.isEmpty();
+    }
+
+    @Override
+    public boolean equals(final Object other) {
+        if (this == other) {
+            return true;
+        }
+        if (other == null || getClass() != other.getClass()) {
+            return false;
+        }
+        final JsonObject entries = (JsonObject) other;
+        return map.equals(entries.map);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(map);
     }
 
     @Override

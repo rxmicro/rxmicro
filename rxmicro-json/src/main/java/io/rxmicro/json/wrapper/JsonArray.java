@@ -24,6 +24,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 
 import static io.rxmicro.common.util.Requires.require;
 import static io.rxmicro.json.JsonTypes.asJsonArray;
@@ -309,6 +310,23 @@ public final class JsonArray implements Iterable<Object> {
      */
     public boolean isEmpty() {
         return list.isEmpty();
+    }
+
+    @Override
+    public boolean equals(final Object other) {
+        if (this == other) {
+            return true;
+        }
+        if (other == null || getClass() != other.getClass()) {
+            return false;
+        }
+        final JsonArray objects = (JsonArray) other;
+        return list.equals(objects.list);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(list);
     }
 
     @Override
