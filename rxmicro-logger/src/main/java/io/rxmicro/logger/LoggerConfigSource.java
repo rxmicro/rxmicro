@@ -40,6 +40,7 @@ public enum LoggerConfigSource {
      * <code>
      * .level=INFO
      * handlers=io.rxmicro.logger.jul.SystemConsoleHandler
+     * io.rxmicro.logger.jul.SystemConsoleHandler.level=ALL
      * </code>
      * </pre>
      */
