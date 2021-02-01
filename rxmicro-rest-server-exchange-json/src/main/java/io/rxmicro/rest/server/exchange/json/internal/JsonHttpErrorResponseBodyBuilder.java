@@ -20,6 +20,7 @@ import io.rxmicro.http.error.HttpErrorException;
 import io.rxmicro.json.JsonException;
 import io.rxmicro.json.JsonHelper;
 import io.rxmicro.rest.model.HttpCallFailedException;
+import io.rxmicro.rest.server.RestServerConfig;
 import io.rxmicro.rest.server.detail.component.HttpResponseBuilder;
 import io.rxmicro.rest.server.detail.model.HttpResponse;
 import io.rxmicro.rest.server.local.component.HttpErrorResponseBodyBuilder;
@@ -27,6 +28,7 @@ import io.rxmicro.rest.server.local.component.HttpErrorResponseBodyBuilder;
 import java.util.Map;
 
 import static io.rxmicro.common.CommonConstants.RX_MICRO_FRAMEWORK_NAME;
+import static io.rxmicro.config.Configs.getConfig;
 import static io.rxmicro.exchange.json.JsonExchangeConstants.CONTENT_TYPE_APPLICATION_JSON;
 import static io.rxmicro.exchange.json.JsonExchangeConstants.MESSAGE;
 import static io.rxmicro.http.HttpStandardHeaderNames.CONTENT_TYPE;
@@ -40,6 +42,8 @@ import static io.rxmicro.json.JsonTypes.isJsonObject;
  * @since 0.1
  */
 public final class JsonHttpErrorResponseBodyBuilder implements HttpErrorResponseBodyBuilder {
+
+    private final RestServerConfig restServerConfig = getConfig(RestServerConfig.class);
 
     @Override
     public HttpResponse build(final HttpResponseBuilder httpResponseBuilder,
@@ -57,11 +61,9 @@ public final class JsonHttpErrorResponseBodyBuilder implements HttpErrorResponse
                               final HttpErrorException exception) {
         final HttpResponse response = httpResponseBuilder.build();
         response.setStatus(exception.getStatusCode());
-        exception.getResponseHeaders().forEach(response::setHeader);
-        final Map<String, Object> responseBody = exception.getResponseBody();
-        if (!responseBody.isEmpty()) {
+        if (exception.getMessage() != null) {
             response.setHeader(CONTENT_TYPE, CONTENT_TYPE_APPLICATION_JSON);
-            response.setContent(toJsonString(responseBody));
+            response.setContent(createErrorJson(exception.getMessage()));
         }
         return response;
     }
@@ -100,6 +102,6 @@ public final class JsonHttpErrorResponseBodyBuilder implements HttpErrorResponse
     }
 
     private String createErrorJson(final String message) {
-        return toJsonString(Map.of(MESSAGE, message));
+        return toJsonString(Map.of(MESSAGE, message), restServerConfig.isHumanReadableOutput());
     }
 }
