@@ -2,6 +2,30 @@
 
 This document contains the *change log* for all RxMicro releases since **0.2**.
 
+## RxMicro v0.9
+
+* Add status code constants.
+* Fix `Missing alias for expression` issue.
+* Add variable support for documentation annotations.
+* Add JSON wrapper classes: `JsonObject` and `JsonArray`.
+* Add base url for `@BlockingHttpClientSettings` annotation.
+* Add UPPERCASE environment variables support for configs.
+* Add config converter for `java.nio.file.Path` type.
+* Add `auto` stream for `SystemConsoleHandler` component.
+* Add `singleLine` parameter for `PatternFormatter` component.
+* Add `forwardedHeaderNames` parameter for `RestServerConfig` class.
+* Add `LoggerConfigSource` logic that allows configuring the sources of the logger configuration.
+* Exclude `Request-Id` header from documentation: 
+  `Request-Id` header must be present for http response only!
+* Add `RX_MICRO_CONFIG_ENVIRONMENT_VARIABLE_PREFIX` environment variable.
+* Refactor `AsMapConfig` class.
+* Add `@StartsWith` constraint.
+* Add `@EndsWith` constraint.
+* Add params and headers support for the `@SimpleErrorResponse` annotation.
+* Refactor custom exception classes: 
+  The RxMicro framework generates ModelWriters and validators for custom exception types instead of using overridden methods!
+
+
 ## RxMicro v0.8
 
 * Introduce `@StaticResources` annotation.
