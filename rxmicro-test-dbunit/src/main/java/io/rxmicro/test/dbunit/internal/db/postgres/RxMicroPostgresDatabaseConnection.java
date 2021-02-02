@@ -37,12 +37,6 @@ public final class RxMicroPostgresDatabaseConnection extends DatabaseConnection 
     }
 
     public RxMicroPostgresDatabaseConnection(final Connection connection,
-                                             final String schema) throws DatabaseUnitException {
-        super(connection, schema);
-        customize();
-    }
-
-    public RxMicroPostgresDatabaseConnection(final Connection connection,
                                              final String schema,
                                              final boolean validate) throws DatabaseUnitException {
         super(connection, schema, validate);
