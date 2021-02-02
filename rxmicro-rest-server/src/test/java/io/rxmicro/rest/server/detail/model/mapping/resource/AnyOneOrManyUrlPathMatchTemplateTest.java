@@ -43,7 +43,7 @@ final class AnyOneOrManyUrlPathMatchTemplateTest {
 
     @Test
     @Order(1)
-    void Should_always_return_true(){
+    void Should_always_return_true() {
         final UrlPathMatchTemplate template = AnyOneOrManyUrlPathMatchTemplate.INSTANCE;
         assertTrue(template.match(request));
     }

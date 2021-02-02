@@ -65,7 +65,7 @@ final class StartsWithAndSinglePathFragmentUrlPathMatchTemplateTest {
             "/parent/child*;       /parent/child_folder1"
     })
     void Should_return_true(final String urlTemplate,
-                            final String url){
+                            final String url) {
         when(request.getUri()).thenReturn(url);
         final UrlPathMatchTemplate template = new StartsWithAndSinglePathFragmentUrlPathMatchTemplate(urlTemplate);
         assertTrue(template.match(request));
@@ -95,7 +95,7 @@ final class StartsWithAndSinglePathFragmentUrlPathMatchTemplateTest {
             "/parent/child*;       /folder1"
     })
     void Should_return_false(final String urlTemplate,
-                            final String url){
+                             final String url) {
         when(request.getUri()).thenReturn(url);
         final UrlPathMatchTemplate template = new StartsWithAndSinglePathFragmentUrlPathMatchTemplate(urlTemplate);
         assertFalse(template.match(request));
@@ -103,7 +103,7 @@ final class StartsWithAndSinglePathFragmentUrlPathMatchTemplateTest {
 
     @Test
     @Order(3)
-    void Should_throw_ImpossibleException_if_provided_urlTemplate_does_not_contain_asterisk(){
+    void Should_throw_ImpossibleException_if_provided_urlTemplate_does_not_contain_asterisk() {
         when(request.getUri()).thenReturn("/static/image.jpg");
         final UrlPathMatchTemplate template = new StartsWithAndSinglePathFragmentUrlPathMatchTemplate("/static");
         final ImpossibleException exception = assertThrows(ImpossibleException.class, () -> template.match(request));

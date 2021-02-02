@@ -57,7 +57,7 @@ final class EndsWithAndSinglePathFragmentUrlPathMatchTemplateTest {
             "*/image/image.jpg;     /static/image/image.jpg"
     })
     void Should_return_true(final String urlTemplate,
-                            final String url){
+                            final String url) {
         when(request.getUri()).thenReturn(url);
         final UrlPathMatchTemplate template = new EndsWithAndSinglePathFragmentUrlPathMatchTemplate(urlTemplate);
         assertTrue(template.match(request));
@@ -75,7 +75,7 @@ final class EndsWithAndSinglePathFragmentUrlPathMatchTemplateTest {
             "*.jpg;            /static/a/b/c/d/e/f/g/h/i/j/k/l/m/n/o/p/q/r/s/t/u/v/w/x/y/z/image.jpg",
     })
     void Should_return_false(final String urlTemplate,
-                            final String url){
+                             final String url) {
         when(request.getUri()).thenReturn(url);
         final UrlPathMatchTemplate template = new EndsWithAndSinglePathFragmentUrlPathMatchTemplate(urlTemplate);
         assertFalse(template.match(request));
@@ -83,7 +83,7 @@ final class EndsWithAndSinglePathFragmentUrlPathMatchTemplateTest {
 
     @Test
     @Order(3)
-    void Should_throw_ImpossibleException_if_provided_urlTemplate_does_not_contain_asterisk(){
+    void Should_throw_ImpossibleException_if_provided_urlTemplate_does_not_contain_asterisk() {
         when(request.getUri()).thenReturn("/image.jpg");
         final UrlPathMatchTemplate template = new EndsWithAndSinglePathFragmentUrlPathMatchTemplate(".jpg");
         final ImpossibleException exception = assertThrows(ImpossibleException.class, () -> template.match(request));

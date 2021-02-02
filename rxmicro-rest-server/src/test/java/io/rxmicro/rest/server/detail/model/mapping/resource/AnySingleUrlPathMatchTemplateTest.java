@@ -53,7 +53,7 @@ final class AnySingleUrlPathMatchTemplateTest {
             "/static-code.js",
             "/static-static-static-static-static-static-static"
     })
-    void Should_return_true(final String url){
+    void Should_return_true(final String url) {
         lenient().when(request.getUri()).thenReturn(url);
         final UrlPathMatchTemplate template = AnySingleUrlPathMatchTemplate.INSTANCE;
         assertTrue(template.match(request));
@@ -73,7 +73,7 @@ final class AnySingleUrlPathMatchTemplateTest {
             "/static/a/b/c/d/e/f/g/h/i/j/k/l/m/n/o/p/q/r/s/t/u/v/w/x/y/z/image.jpg",
             "/static/folder1"
     })
-    void Should_return_false(final String url){
+    void Should_return_false(final String url) {
         when(request.getUri()).thenReturn(url);
         final UrlPathMatchTemplate template = AnySingleUrlPathMatchTemplate.INSTANCE;
         assertFalse(template.match(request));

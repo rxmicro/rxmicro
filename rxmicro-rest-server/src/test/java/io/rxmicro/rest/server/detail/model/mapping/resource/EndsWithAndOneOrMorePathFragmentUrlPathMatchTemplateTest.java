@@ -59,7 +59,7 @@ final class EndsWithAndOneOrMorePathFragmentUrlPathMatchTemplateTest {
             "**/image/image.jpg;     /static/a/b/c/d/e/f/g/h/i/j/k/l/m/n/o/p/q/r/s/t/u/v/w/x/y/z/image/image.jpg"
     })
     void Should_return_true(final String urlTemplate,
-                            final String url){
+                            final String url) {
         when(request.getUri()).thenReturn(url);
         final UrlPathMatchTemplate template = new EndsWithAndOneOrMorePathFragmentUrlPathMatchTemplate(urlTemplate);
         assertTrue(template.match(request));
@@ -79,7 +79,7 @@ final class EndsWithAndOneOrMorePathFragmentUrlPathMatchTemplateTest {
             "**/image/image.jpg;    /static/a/b/c/d/e/f/g/h/i/j/k/l/m/n/o/p/q/r/s/t/u/v/w/x/y/z-image/image.jpg"
     })
     void Should_return_false(final String urlTemplate,
-                             final String url){
+                             final String url) {
         when(request.getUri()).thenReturn(url);
         final UrlPathMatchTemplate template = new EndsWithAndOneOrMorePathFragmentUrlPathMatchTemplate(urlTemplate);
         assertFalse(template.match(request));

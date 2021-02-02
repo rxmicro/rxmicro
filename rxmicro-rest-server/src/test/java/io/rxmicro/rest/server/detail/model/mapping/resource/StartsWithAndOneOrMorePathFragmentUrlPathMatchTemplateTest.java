@@ -74,7 +74,7 @@ final class StartsWithAndOneOrMorePathFragmentUrlPathMatchTemplateTest {
             "/parent/child**;       /parent/child_folder1"
     })
     void Should_return_true(final String urlTemplate,
-                            final String url){
+                            final String url) {
         when(request.getUri()).thenReturn(url);
         final UrlPathMatchTemplate template = new StartsWithAndOneOrMorePathFragmentUrlPathMatchTemplate(urlTemplate);
         assertTrue(template.match(request));
@@ -99,7 +99,7 @@ final class StartsWithAndOneOrMorePathFragmentUrlPathMatchTemplateTest {
             "/parent/child**;       /folder1"
     })
     void Should_return_false(final String urlTemplate,
-                             final String url){
+                             final String url) {
         when(request.getUri()).thenReturn(url);
         final UrlPathMatchTemplate template = new StartsWithAndOneOrMorePathFragmentUrlPathMatchTemplate(urlTemplate);
         assertFalse(template.match(request));

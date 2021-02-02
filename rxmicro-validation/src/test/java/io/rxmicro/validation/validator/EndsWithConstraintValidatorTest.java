@@ -36,7 +36,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  */
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-final class EndsWithConstraintValidatorTest extends AbstractConstraintValidatorTest<String>{
+final class EndsWithConstraintValidatorTest extends AbstractConstraintValidatorTest<String> {
 
     @Override
     ConstraintValidator<String> instantiate() {
