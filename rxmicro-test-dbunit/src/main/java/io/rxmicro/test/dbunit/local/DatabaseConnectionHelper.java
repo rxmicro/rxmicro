@@ -16,11 +16,13 @@
 
 package io.rxmicro.test.dbunit.local;
 
+import io.rxmicro.common.ImpossibleException;
 import io.rxmicro.logger.Logger;
 import io.rxmicro.logger.LoggerFactory;
 import org.dbunit.database.DatabaseConnection;
 
 import java.sql.SQLException;
+import java.util.Optional;
 import java.util.function.Supplier;
 
 import static io.rxmicro.common.util.Requires.require;
@@ -38,14 +40,24 @@ public final class DatabaseConnectionHelper {
 
     private static final Supplier<Object> CURRENT_THREAD_NAME_SUPPLIER = () -> Thread.currentThread().getName();
 
+    private static DatabaseConnection sharedDatabaseConnection;
+
     public static DatabaseConnection getCurrentDatabaseConnection() {
-        final DatabaseConnection connection = getDatabaseConnectionFromThreadLocal();
+        final DatabaseConnection connection = DATABASE_CONNECTION_THREAD_LOCAL.get();
         return require(connection, "Database connection is not configured for thread: '?'!", CURRENT_THREAD_NAME_SUPPLIER);
     }
 
-    public static void setCurrentDatabaseConnection(final DatabaseConnection connection) {
-        require(connection, "Database connection is not configured for thread: '?'!", CURRENT_THREAD_NAME_SUPPLIER);
-        final DatabaseConnection prevDatabaseConnection = getDatabaseConnectionFromThreadLocal();
+    public static Optional<DatabaseConnection> getSharedDatabaseConnection() {
+        return Optional.ofNullable(sharedDatabaseConnection);
+    }
+
+    public static void setCurrentDatabaseConnection(final DatabaseConnection connection,
+                                                    final boolean shared) {
+        require(connection, "Database connection must not be null for thread: '?'!", CURRENT_THREAD_NAME_SUPPLIER);
+        if (shared) {
+            setSharedDatabaseConnection(connection);
+        }
+        final DatabaseConnection prevDatabaseConnection = DATABASE_CONNECTION_THREAD_LOCAL.get();
         if (prevDatabaseConnection != null) {
             closeDatabaseConnection(prevDatabaseConnection);
         }
@@ -53,11 +65,15 @@ public final class DatabaseConnectionHelper {
     }
 
     public static boolean isCurrentDatabaseConnectionPresent() {
-        return getDatabaseConnectionFromThreadLocal() != null;
+        return DATABASE_CONNECTION_THREAD_LOCAL.get() != null;
+    }
+
+    public static boolean isCurrentDatabaseConnectionShared() {
+        return sharedDatabaseConnection != null && DATABASE_CONNECTION_THREAD_LOCAL.get() == sharedDatabaseConnection;
     }
 
     public static void releaseCurrentDatabaseConnection() {
-        final DatabaseConnection databaseConnection = getDatabaseConnectionFromThreadLocal();
+        final DatabaseConnection databaseConnection = DATABASE_CONNECTION_THREAD_LOCAL.get();
         try {
             if (databaseConnection != null) {
                 closeDatabaseConnection(databaseConnection);
@@ -69,17 +85,30 @@ public final class DatabaseConnectionHelper {
         }
     }
 
-    public static void closeDatabaseConnection(final DatabaseConnection connection) {
+    private static void setSharedDatabaseConnection(final DatabaseConnection connection) {
+        if (sharedDatabaseConnection != null) {
+            throw new ImpossibleException("Shared connection must be singleton!");
+        }
+        sharedDatabaseConnection = connection;
+        Runtime.getRuntime().addShutdownHook(new Thread(
+                () -> forceCloseDatabaseConnection(sharedDatabaseConnection),
+                "Close shared database connection hook"
+        ));
+    }
+
+    private static void closeDatabaseConnection(final DatabaseConnection connection) {
+        if (connection != sharedDatabaseConnection) {
+            forceCloseDatabaseConnection(connection);
+        }
+    }
+
+    private static void forceCloseDatabaseConnection(final DatabaseConnection connection) {
         removeDatabaseConnectionFromSettingCache(connection);
         try {
             connection.close();
         } catch (final SQLException ex) {
             LOGGER.warn(ex, "Close connection failed: ?", ex.getMessage());
         }
-    }
-
-    private static DatabaseConnection getDatabaseConnectionFromThreadLocal() {
-        return DATABASE_CONNECTION_THREAD_LOCAL.get();
     }
 
     private DatabaseConnectionHelper() {

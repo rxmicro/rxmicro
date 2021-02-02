@@ -44,14 +44,16 @@ import java.util.List;
 import java.util.Optional;
 
 import static io.rxmicro.common.util.Exceptions.reThrow;
+import static io.rxmicro.config.Configs.getConfig;
 import static io.rxmicro.test.dbunit.TestDatabaseConfig.getCurrentTestDatabaseConfig;
 import static io.rxmicro.test.dbunit.TestDatabaseConfig.releaseCurrentTestDatabaseConfig;
 import static io.rxmicro.test.dbunit.junit.RetrieveConnectionStrategy.PER_ALL_TEST_CLASSES;
 import static io.rxmicro.test.dbunit.junit.RetrieveConnectionStrategy.PER_TEST_CLASS;
 import static io.rxmicro.test.dbunit.junit.RetrieveConnectionStrategy.PER_TEST_METHOD;
 import static io.rxmicro.test.dbunit.local.DatabaseConnectionFactory.createNewDatabaseConnection;
-import static io.rxmicro.test.dbunit.local.DatabaseConnectionHelper.closeDatabaseConnection;
+import static io.rxmicro.test.dbunit.local.DatabaseConnectionHelper.getSharedDatabaseConnection;
 import static io.rxmicro.test.dbunit.local.DatabaseConnectionHelper.isCurrentDatabaseConnectionPresent;
+import static io.rxmicro.test.dbunit.local.DatabaseConnectionHelper.isCurrentDatabaseConnectionShared;
 import static io.rxmicro.test.dbunit.local.DatabaseConnectionHelper.releaseCurrentDatabaseConnection;
 import static io.rxmicro.test.dbunit.local.DatabaseConnectionHelper.setCurrentDatabaseConnection;
 import static io.rxmicro.test.junit.local.TestObjects.getOwnerTestClass;
@@ -67,8 +69,6 @@ import static io.rxmicro.test.local.util.Annotations.getRequiredAnnotation;
 public final class DbUnitTestExtension implements
         BeforeAllCallback, BeforeEachCallback, BeforeTestExecutionCallback,
         AfterTestExecutionCallback, AfterAllCallback {
-
-    private static DatabaseConnection sharedDatabaseConnection;
 
     private final DatabaseStateInitializer databaseStateInitializer = new DatabaseStateInitializer();
 
@@ -103,15 +103,13 @@ public final class DbUnitTestExtension implements
     }
 
     private void setSharedDatabaseConnection() {
-        if (sharedDatabaseConnection == null) {
-            sharedDatabaseConnection = createNewDatabaseConnection(Configs.getConfig(TestDatabaseConfig.class));
-            Runtime.getRuntime().addShutdownHook(new Thread(
-                    () -> closeDatabaseConnection(sharedDatabaseConnection),
-                    "Close shared database connection hook"
-            ));
-        }
-        if (!isCurrentDatabaseConnectionPresent()) {
-            setCurrentDatabaseConnection(sharedDatabaseConnection);
+        final Optional<DatabaseConnection> sharedDatabaseConnectionOptional = getSharedDatabaseConnection();
+        if (sharedDatabaseConnectionOptional.isPresent()) {
+            // Shared database connection is already set, so 'shared' must be `false`!
+            setCurrentDatabaseConnection(sharedDatabaseConnectionOptional.get(), false);
+        } else {
+            final DatabaseConnection sharedDatabaseConnection = createNewDatabaseConnection(getConfig(TestDatabaseConfig.class));
+            setCurrentDatabaseConnection(sharedDatabaseConnection, true);
         }
     }
 
@@ -119,8 +117,10 @@ public final class DbUnitTestExtension implements
     public void beforeEach(final ExtensionContext context) {
         // It is necessary to set connection after @BeforeAll, before @BeforeEach and only once per class.
         // See https://junit.org/junit5/docs/current/user-guide/#extensions-execution-order-overview
-        if (!isCurrentDatabaseConnectionPresent() && retrieveConnectionStrategy == PER_TEST_CLASS) {
-            setCurrentDatabaseConnection(createNewDatabaseConnection(getCurrentTestDatabaseConfig()));
+        if (retrieveConnectionStrategy == PER_TEST_CLASS) {
+            if (!isCurrentDatabaseConnectionPresent() || isCurrentDatabaseConnectionShared()) {
+                setCurrentDatabaseConnection(createNewDatabaseConnection(getCurrentTestDatabaseConfig()), false);
+            }
         }
     }
 
@@ -133,7 +133,7 @@ public final class DbUnitTestExtension implements
                     .build();
         }
         if (retrieveConnectionStrategy == PER_TEST_METHOD) {
-            setCurrentDatabaseConnection(createNewDatabaseConnection(getCurrentTestDatabaseConfig()));
+            setCurrentDatabaseConnection(createNewDatabaseConnection(getCurrentTestDatabaseConfig()), false);
         }
         final Method testMethod = context.getRequiredTestMethod();
         Optional.ofNullable(testMethod.getAnnotation(RollbackChanges.class)).ifPresent(rollbackChangesController::startTestTransaction);
@@ -184,8 +184,8 @@ public final class DbUnitTestExtension implements
     @Override
     public void afterAll(final ExtensionContext context) {
         if (retrieveConnectionStrategy == PER_TEST_CLASS) {
-            releaseCurrentDatabaseConnection();
             releaseCurrentTestDatabaseConfig();
+            releaseCurrentDatabaseConnection();
         }
     }
 }
