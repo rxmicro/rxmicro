@@ -16,12 +16,13 @@
 
 package io.rxmicro.test.dbunit.local.component;
 
-import io.rxmicro.common.CheckedWrapperException;
 import io.rxmicro.test.dbunit.RollbackChanges;
+import org.dbunit.database.DatabaseConnection;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 
+import static io.rxmicro.test.dbunit.internal.ExceptionReThrowers.convertToCheckedWrapperException;
 import static io.rxmicro.test.dbunit.local.DatabaseConnectionHelper.getCurrentDatabaseConnection;
 
 /**
@@ -38,8 +39,9 @@ public final class RollbackChangesController {
 
     @SuppressWarnings("MagicConstant")
     public void startTestTransaction(final RollbackChanges rollbackChanges) {
+        final DatabaseConnection databaseConnection = getCurrentDatabaseConnection();
         try {
-            final Connection connection = getCurrentDatabaseConnection().getConnection();
+            final Connection connection = databaseConnection.getConnection();
             previousAutoCommitState = connection.getAutoCommit();
             connection.setAutoCommit(false);
             if (rollbackChanges.isolationLevel() != RollbackChanges.IsolationLevel.DEFAULT) {
@@ -47,7 +49,7 @@ public final class RollbackChangesController {
                 connection.setTransactionIsolation(rollbackChanges.isolationLevel().getLevel());
             }
         } catch (final SQLException ex) {
-            throw new CheckedWrapperException(ex);
+            throw convertToCheckedWrapperException(databaseConnection, ex);
         }
         testTransactionStarted = true;
     }
@@ -57,8 +59,9 @@ public final class RollbackChangesController {
     }
 
     public void rollbackChanges() {
+        final DatabaseConnection databaseConnection = getCurrentDatabaseConnection();
         try {
-            final Connection connection = getCurrentDatabaseConnection().getConnection();
+            final Connection connection = databaseConnection.getConnection();
             connection.rollback();
             if (previousAutoCommitState != connection.getAutoCommit()) {
                 connection.setAutoCommit(previousAutoCommitState);
@@ -68,7 +71,7 @@ public final class RollbackChangesController {
                 connection.setTransactionIsolation(previousIsolationLevel);
             }
         } catch (final SQLException ex) {
-            throw new CheckedWrapperException(ex);
+            throw convertToCheckedWrapperException(databaseConnection, ex);
         } finally {
             testTransactionStarted = false;
         }

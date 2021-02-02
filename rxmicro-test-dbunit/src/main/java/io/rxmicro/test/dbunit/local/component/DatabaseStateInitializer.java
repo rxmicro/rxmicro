@@ -16,11 +16,11 @@
 
 package io.rxmicro.test.dbunit.local.component;
 
-import io.rxmicro.common.CheckedWrapperException;
 import io.rxmicro.test.dbunit.InitialDataSet;
 import io.rxmicro.test.dbunit.internal.component.AbstractDatabaseStateChanger;
 import io.rxmicro.test.dbunit.internal.data.TestValueProvider;
 import org.dbunit.DatabaseUnitException;
+import org.dbunit.database.DatabaseConnection;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.ReplacementDataSet;
 import org.dbunit.operation.DatabaseOperation;
@@ -31,6 +31,7 @@ import java.util.Map;
 
 import static io.rxmicro.test.dbunit.Expressions.NULL_VALUE;
 import static io.rxmicro.test.dbunit.internal.DataSetLoaders.loadIDataSet;
+import static io.rxmicro.test.dbunit.internal.ExceptionReThrowers.convertToCheckedWrapperException;
 import static io.rxmicro.test.dbunit.internal.TestValueProviders.getAllTestValueProviders;
 import static io.rxmicro.test.dbunit.internal.data.ExpressionValueResolver.asExpression;
 import static io.rxmicro.test.dbunit.local.DatabaseConnectionHelper.getCurrentDatabaseConnection;
@@ -43,14 +44,15 @@ import static java.util.stream.Collectors.toList;
 public final class DatabaseStateInitializer extends AbstractDatabaseStateChanger {
 
     public void initWith(final InitialDataSet initialDataSet) {
+        final DatabaseConnection databaseConnection = getCurrentDatabaseConnection();
         IDataSet dataSet = loadIDataSet(initialDataSet.value());
         try {
             dataSet = decorateWithReplacementDataSet(dataSet);
-            executeBeforeStatementsAndScripts(initialDataSet);
+            executeBeforeStatementsAndScripts(databaseConnection, initialDataSet);
             final DatabaseOperation operation = initialDataSet.initDatabaseStrategy().getOperation();
-            operation.execute(getCurrentDatabaseConnection(), dataSet);
+            operation.execute(databaseConnection, dataSet);
         } catch (final DatabaseUnitException | SQLException ex) {
-            throw new CheckedWrapperException(ex);
+            throw convertToCheckedWrapperException(databaseConnection, ex);
         }
     }
 
@@ -63,16 +65,19 @@ public final class DatabaseStateInitializer extends AbstractDatabaseStateChanger
         return replacementDataSet;
     }
 
-    private void executeBeforeStatementsAndScripts(final InitialDataSet initialDataSet) throws SQLException {
+    private void executeBeforeStatementsAndScripts(final DatabaseConnection databaseConnection,
+                                                   final InitialDataSet initialDataSet) throws SQLException {
         if (initialDataSet.executeStatementsBefore().length > 0) {
-            executeJdbcStatements(Arrays.stream(initialDataSet.executeStatementsBefore())
-                    .filter(s -> !s.trim().isEmpty())
-                    .collect(toList()));
+            executeJdbcStatements(
+                    databaseConnection,
+                    Arrays.stream(initialDataSet.executeStatementsBefore()).filter(s -> !s.trim().isEmpty()).collect(toList())
+            );
         }
         if (initialDataSet.executeScriptsBefore().length > 0) {
-            executeSqlScripts(Arrays.stream(initialDataSet.executeScriptsBefore())
-                    .filter(s -> !s.trim().isEmpty())
-                    .collect(toList()));
+            executeSqlScripts(
+                    databaseConnection,
+                    Arrays.stream(initialDataSet.executeScriptsBefore()).filter(s -> !s.trim().isEmpty()).collect(toList())
+            );
         }
     }
 }

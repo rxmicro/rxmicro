@@ -16,13 +16,15 @@
 
 package io.rxmicro.test.dbunit.local.component;
 
-import io.rxmicro.common.CheckedWrapperException;
 import io.rxmicro.test.dbunit.InitialDataSet;
 import io.rxmicro.test.dbunit.internal.component.AbstractDatabaseStateChanger;
+import org.dbunit.database.DatabaseConnection;
 
 import java.sql.SQLException;
 import java.util.Arrays;
 
+import static io.rxmicro.test.dbunit.internal.ExceptionReThrowers.convertToCheckedWrapperException;
+import static io.rxmicro.test.dbunit.local.DatabaseConnectionHelper.getCurrentDatabaseConnection;
 import static java.util.stream.Collectors.toList;
 
 /**
@@ -32,19 +34,22 @@ import static java.util.stream.Collectors.toList;
 public final class DatabaseStateRestorer extends AbstractDatabaseStateChanger {
 
     public void restoreStateIfEnabled(final InitialDataSet initialDataSet) {
+        final DatabaseConnection databaseConnection = getCurrentDatabaseConnection();
         try {
             if (initialDataSet.executeStatementsAfter().length > 0) {
-                executeJdbcStatements(Arrays.stream(initialDataSet.executeStatementsAfter())
-                        .filter(s -> !s.trim().isEmpty())
-                        .collect(toList()));
+                executeJdbcStatements(
+                        databaseConnection,
+                        Arrays.stream(initialDataSet.executeStatementsAfter()).filter(s -> !s.trim().isEmpty()).collect(toList())
+                );
             }
             if (initialDataSet.executeScriptsAfter().length > 0) {
-                executeSqlScripts(Arrays.stream(initialDataSet.executeScriptsAfter())
-                        .filter(s -> !s.trim().isEmpty())
-                        .collect(toList()));
+                executeSqlScripts(
+                        databaseConnection,
+                        Arrays.stream(initialDataSet.executeScriptsAfter()).filter(s -> !s.trim().isEmpty()).collect(toList())
+                );
             }
         } catch (final SQLException ex) {
-            throw new CheckedWrapperException(ex);
+            throw convertToCheckedWrapperException(databaseConnection, ex);
         }
     }
 }

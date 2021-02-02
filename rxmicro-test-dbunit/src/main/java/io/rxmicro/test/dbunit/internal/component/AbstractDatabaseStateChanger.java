@@ -18,6 +18,7 @@ package io.rxmicro.test.dbunit.internal.component;
 
 import io.rxmicro.config.ConfigException;
 import io.rxmicro.resource.model.InputStreamResource;
+import org.dbunit.database.DatabaseConnection;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -27,7 +28,6 @@ import java.util.List;
 import java.util.Optional;
 
 import static io.rxmicro.resource.InputStreamResources.getInputStreamResource;
-import static io.rxmicro.test.dbunit.local.DatabaseConnectionHelper.getCurrentDatabaseConnection;
 
 /**
  * @author nedis
@@ -37,8 +37,9 @@ public abstract class AbstractDatabaseStateChanger {
 
     private final SQLScriptReader sqlScriptReader = new SQLScriptReader();
 
-    protected final void executeJdbcStatements(final List<String> sqlStatements) throws SQLException {
-        final Connection connection = getCurrentDatabaseConnection().getConnection();
+    protected final void executeJdbcStatements(final DatabaseConnection databaseConnection,
+                                               final List<String> sqlStatements) throws SQLException {
+        final Connection connection = databaseConnection.getConnection();
         try (Statement statement = connection.createStatement()) {
             for (final String sqlStatement : sqlStatements) {
                 statement.addBatch(sqlStatement);
@@ -47,9 +48,10 @@ public abstract class AbstractDatabaseStateChanger {
         }
     }
 
-    protected final void executeSqlScripts(final List<String> sqlScripts) throws SQLException {
+    protected final void executeSqlScripts(final DatabaseConnection databaseConnection,
+                                           final List<String> sqlScripts) throws SQLException {
         final List<String> statements = readJdbcStatements(sqlScripts);
-        executeJdbcStatements(statements);
+        executeJdbcStatements(databaseConnection, statements);
     }
 
     private List<String> readJdbcStatements(final List<String> sqlScripts) {

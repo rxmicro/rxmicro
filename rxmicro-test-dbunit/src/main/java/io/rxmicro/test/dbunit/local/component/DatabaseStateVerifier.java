@@ -16,13 +16,13 @@
 
 package io.rxmicro.test.dbunit.local.component;
 
-import io.rxmicro.common.CheckedWrapperException;
 import io.rxmicro.test.dbunit.ExpectedDataSet;
 import io.rxmicro.test.dbunit.internal.component.OrderByColumnExtractor;
 import io.rxmicro.test.dbunit.internal.component.RxMicroDefaultFailureHandler;
 import org.dbunit.DatabaseUnitException;
 import org.dbunit.assertion.DbUnitAssert;
 import org.dbunit.assertion.FailureHandler;
+import org.dbunit.database.DatabaseConnection;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.ITable;
 import org.dbunit.dataset.ITableIterator;
@@ -37,6 +37,7 @@ import java.util.Set;
 
 import static io.rxmicro.test.dbunit.Expressions.NULL_VALUE;
 import static io.rxmicro.test.dbunit.internal.DataSetLoaders.loadIDataSet;
+import static io.rxmicro.test.dbunit.internal.ExceptionReThrowers.convertToCheckedWrapperException;
 import static io.rxmicro.test.dbunit.internal.data.ExpressionValueResolver.asExpression;
 import static io.rxmicro.test.dbunit.local.DatabaseConnectionHelper.getCurrentDatabaseConnection;
 
@@ -54,11 +55,12 @@ public final class DatabaseStateVerifier {
 
     public void verifyExpected(final ExpectedDataSet expectedDataSetAnnotation) {
         final IDataSet expectedDataSet = loadIDataSet(expectedDataSetAnnotation.value());
+        final DatabaseConnection databaseConnection = getCurrentDatabaseConnection();
         try {
-            final IDataSet actualDataSet = getCurrentDatabaseConnection().createDataSet();
+            final IDataSet actualDataSet = databaseConnection.createDataSet();
             assertEquals(expectedDataSet, actualDataSet, expectedDataSetAnnotation);
         } catch (final SQLException | DatabaseUnitException ex) {
-            throw new CheckedWrapperException(ex);
+            throw convertToCheckedWrapperException(databaseConnection, ex);
         }
     }
 

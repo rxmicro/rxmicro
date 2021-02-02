@@ -18,6 +18,7 @@ package io.rxmicro.test.dbunit.local;
 
 import io.rxmicro.common.CheckedWrapperException;
 import io.rxmicro.common.ImpossibleException;
+import io.rxmicro.common.InvalidStateException;
 import io.rxmicro.test.dbunit.TestDatabaseConfig;
 import org.dbunit.database.DatabaseConnection;
 
@@ -26,6 +27,11 @@ import java.lang.reflect.InvocationTargetException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+
+import static io.rxmicro.common.util.Formats.format;
 
 /**
  * @author nedis
@@ -36,20 +42,26 @@ public final class DatabaseConnectionFactory {
     private static final ConnectionProvider CONNECTION_PROVIDER = config ->
             DriverManager.getConnection(config.getJdbcUrl(), config.getUser(), config.getPassword().toString());
 
+    private static final Map<DatabaseConnection, String> CONNECTION_SETTINGS_CACHE = new HashMap<>();
+
     public static DatabaseConnection createNewDatabaseConnection(final TestDatabaseConfig config) {
         try {
             final Connection connection = CONNECTION_PROVIDER.getConnection(config);
+            final DatabaseConnection databaseConnection;
             if (config.isSchemaPresent()) {
                 final Constructor<? extends DatabaseConnection> constructor =
-                        config.getType().getDatabaseConnectionClass()
-                                .getDeclaredConstructor(Connection.class, String.class, Boolean.TYPE);
-                return constructor.newInstance(connection, config.getSchema(), true);
+                        config.getType().getDatabaseConnectionClass().getDeclaredConstructor(Connection.class, String.class, Boolean.TYPE);
+                databaseConnection = constructor.newInstance(connection, config.getSchema(), true);
             } else {
                 final Constructor<? extends DatabaseConnection> constructor =
-                        config.getType().getDatabaseConnectionClass()
-                                .getDeclaredConstructor(Connection.class);
-                return constructor.newInstance(connection);
+                        config.getType().getDatabaseConnectionClass().getDeclaredConstructor(Connection.class);
+                databaseConnection = constructor.newInstance(connection);
             }
+            CONNECTION_SETTINGS_CACHE.put(
+                    databaseConnection,
+                    format("??user=?&password=?", config.getJdbcUrl(), '?', config.getUser(), config.getPassword())
+            );
+            return databaseConnection;
         } catch (final SQLException ex) {
             throw new CheckedWrapperException(ex, "Can't retrieve jdbc connection using url: '?': ?", config.getJdbcUrl(), ex.getMessage());
         } catch (final InvocationTargetException ex) {
@@ -61,6 +73,16 @@ public final class DatabaseConnectionFactory {
         } catch (final IllegalAccessException ex) {
             throw new ImpossibleException(ex, "Required constructor must be accessible!");
         }
+    }
+
+    public static String getCashedConnectionSetting(final DatabaseConnection databaseConnection) {
+        return Optional.ofNullable(CONNECTION_SETTINGS_CACHE.get(databaseConnection)).orElseThrow(() -> {
+            throw new InvalidStateException("Connection setting was removed or not created for ? connection", databaseConnection);
+        });
+    }
+
+    static void removeDatabaseConnectionFromSettingCache(final DatabaseConnection databaseConnection) {
+        CONNECTION_SETTINGS_CACHE.remove(databaseConnection);
     }
 
     private DatabaseConnectionFactory() {

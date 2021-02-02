@@ -24,6 +24,7 @@ import java.sql.SQLException;
 import java.util.function.Supplier;
 
 import static io.rxmicro.common.util.Requires.require;
+import static io.rxmicro.test.dbunit.local.DatabaseConnectionFactory.removeDatabaseConnectionFromSettingCache;
 
 /**
  * @author nedis
@@ -69,6 +70,7 @@ public final class DatabaseConnectionHelper {
     }
 
     public static void closeDatabaseConnection(final DatabaseConnection connection) {
+        removeDatabaseConnectionFromSettingCache(connection);
         try {
             connection.close();
         } catch (final SQLException ex) {
