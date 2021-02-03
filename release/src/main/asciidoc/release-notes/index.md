@@ -2,6 +2,8 @@
 
 This document contains the *change log* for all RxMicro releases since **0.2**.
 
+<!--- DON'T FORGET TO UPDATE DEPENDENCIES BEFORE RELEASING THE RX MICRO FRAMEWORK! --->
+
 ## RxMicro v0.9
 
 * Add status code constants.
