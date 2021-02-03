@@ -21,7 +21,7 @@
     <parent>
         <artifactId>rxmicro</artifactId>
         <groupId>io.rxmicro</groupId>
-        <version>0.9-SNAPSHOT</version>
+        <version>0.10-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>rxmicro-rest-client-netty</artifactId>
@@ -49,12 +49,12 @@
         <dependency>
             <groupId>io.rxmicro</groupId>
             <artifactId>rxmicro-rest-client</artifactId>
-            <version>0.9-SNAPSHOT</version>
+            <version>0.10-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>io.rxmicro</groupId>
             <artifactId>rxmicro-netty-runtime</artifactId>
-            <version>0.9-SNAPSHOT</version>
+            <version>0.10-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>io.projectreactor</groupId>
@@ -157,7 +157,7 @@
         <dependency>
             <groupId>io.rxmicro</groupId>
             <artifactId>rxmicro-slf4j-proxy</artifactId>
-            <version>0.9-SNAPSHOT</version>
+            <version>0.10-SNAPSHOT</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

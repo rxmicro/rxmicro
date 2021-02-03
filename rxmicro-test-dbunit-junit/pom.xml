@@ -21,7 +21,7 @@
     <parent>
         <artifactId>rxmicro</artifactId>
         <groupId>io.rxmicro</groupId>
-        <version>0.9-SNAPSHOT</version>
+        <version>0.10-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>rxmicro-test-dbunit-junit</artifactId>
@@ -52,12 +52,12 @@
         <dependency>
             <groupId>io.rxmicro</groupId>
             <artifactId>rxmicro-test-junit</artifactId>
-            <version>0.9-SNAPSHOT</version>
+            <version>0.10-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>io.rxmicro</groupId>
             <artifactId>rxmicro-test-dbunit</artifactId>
-            <version>0.9-SNAPSHOT</version>
+            <version>0.10-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -106,7 +106,7 @@
         <dependency>
             <groupId>io.rxmicro</groupId>
             <artifactId>rxmicro-slf4j-proxy</artifactId>
-            <version>0.9-SNAPSHOT</version>
+            <version>0.10-SNAPSHOT</version>
         </dependency>
     </dependencies>
 </project>
