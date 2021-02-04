@@ -161,10 +161,42 @@ public abstract class Config {
     /**
      * Validates the config instance state after injection all properties.
      *
-     * @param namespace the namespace
+     * <p>
+     * By default this implementation joins exceptions returned by {@link #getAllFoundConfigExceptions(String)} method and
+     * throws a single {@link ConfigException} instance with joined messages and suppressed stacktraces.
+     *
+     * <p>
+     * Note: If it is necessary to interrupt the launching of microservice as soon as possible,
+     * You must override {@link #validate(String)} method instead of {@link #getAllFoundConfigExceptions(String)} one!
+     *
+     * <p>
+     * Note: If it is necessary to view all detected config errors per config instance,
+     * You must override {@link #getAllFoundConfigExceptions(String)} method instead of {@link #validate(String)} one!
+     *
+     * @param namespace the config namespace
      * @throws ConfigException if current config instance has invalid state
+     * @see #getAllFoundConfigExceptions(String)
      */
     protected void validate(final String namespace) {
-        // do nothing, but child classes can require additional validation logic
+        final List<ConfigException> exceptions = getAllFoundConfigExceptions(namespace);
+        if (!exceptions.isEmpty()) {
+            final ConfigException exception = new ConfigException(
+                    "'?' config contains the following validation errors:\n?",
+                    namespace, exceptions.stream().map(Throwable::getMessage).collect(joining("\n"))
+            );
+            exceptions.forEach(exception::addSuppressed);
+            throw exception;
+        }
+    }
+
+    /**
+     * Returns the exception list that must be joined to the single {@link ConfigException} instance.
+     *
+     * @param namespace the config namespace
+     * @return the exception list that must be joined to the single {@link ConfigException} instance.
+     * @see #validate(String)
+     */
+    protected List<ConfigException> getAllFoundConfigExceptions(final String namespace) {
+        return List.of();
     }
 }
