@@ -174,8 +174,8 @@ public abstract class Config {
      * You must override {@link #getAllFoundConfigExceptions(String)} method instead of {@link #validate(String)} one!
      *
      * @param namespace the config namespace
-     * @throws ConfigException if current config instance has invalid state
      * @see #getAllFoundConfigExceptions(String)
+     * @throws ConfigException if current config instance has invalid state
      */
     protected void validate(final String namespace) {
         final List<ConfigException> exceptions = getAllFoundConfigExceptions(namespace);

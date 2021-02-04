@@ -27,21 +27,15 @@ import static io.rxmicro.common.util.Requires.require;
  * <p>
  * For example:
  * You can use the {@link ArgumentSupplier} instance
- *
  * <pre>
  * {@code
- * LOGGER.debug("Message with ?, ?, ?, ? arguments", arg1, arg2, arg3, new ArgumentSupplier(() -> complexCalculationForDebugOnly()));
- * }
+ * LOGGER.debug("Message with ?, ?, ?, ? arguments", arg1, arg2, arg3, new ArgumentSupplier(() -> complexCalculationForDebugOnly()));}
  * </pre>
- *
  * instead of creation a few {@link Supplier}s:
- *
  * <pre>
  * {@code
- * LOGGER.debug("Message with ?, ?, ?, ? arguments", () -> arg1, () -> arg2, () -> arg3, () -> complexCalculationForDebugOnly());
- * }
+ * LOGGER.debug("Message with ?, ?, ?, ? arguments", () -> arg1, () -> arg2, () -> arg3, () -> complexCalculationForDebugOnly());}
  * </pre>
- *
  * if only one message argument must be calculated when {@link Level#DEBUG} or {@link Level#TRACE} level enabled!
  *
  * @author nedis
