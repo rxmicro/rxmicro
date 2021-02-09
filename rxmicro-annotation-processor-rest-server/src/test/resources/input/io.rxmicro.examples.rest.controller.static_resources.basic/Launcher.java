@@ -24,7 +24,7 @@ import io.rxmicro.rest.server.StaticResources;
 @StaticResources("/not_found.txt")
 public final class Launcher {
 
-    private Launcher(){
+    private Launcher() {
     }
 
     public static void main(final String[] args) {

@@ -22,7 +22,7 @@ import io.rxmicro.rest.server.StaticResources;
 @StaticResources("/provider/resource2.txt")
 public final class StaticResourceProvider {
 
-    private StaticResourceProvider(){
+    private StaticResourceProvider() {
     }
 }
 

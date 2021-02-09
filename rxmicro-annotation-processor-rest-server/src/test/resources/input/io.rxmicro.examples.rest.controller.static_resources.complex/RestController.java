@@ -35,7 +35,7 @@ import static java.util.concurrent.CompletableFuture.completedStage;
 public final class RestController {
 
     @GET("/say-hello-world")
-    CompletionStage<Response> getHelloWorld(){
+    CompletionStage<Response> getHelloWorld() {
         return completedStage(new Response("Hello world!"));
     }
 }

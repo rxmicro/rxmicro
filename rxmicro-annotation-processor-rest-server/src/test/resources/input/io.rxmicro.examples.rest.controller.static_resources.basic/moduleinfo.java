@@ -18,6 +18,6 @@ import io.rxmicro.rest.server.StaticResources;
 
 @StaticResources("/module/resource1.txt")
 @StaticResources("/module/resource2.txt")
-module examples.rest.controller.static_resources.basic{
+module examples.rest.controller.static_resources.basic {
     requires rxmicro.rest.server;
 }

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-module examples.rest.controller.static_resources.complex{
+module examples.rest.controller.static_resources.complex {
     requires rxmicro.rest.server;
     requires rxmicro.rest.server.exchange.json;
 }

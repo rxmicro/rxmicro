@@ -227,7 +227,7 @@ public final class $$VirtualRequestConstraintValidator implements ConstraintVali
             new MinBigDecimalNumberConstraintValidator("3.1", true);
 
     private final NumericConstraintValidator decimalParameterNumericNumericConstraintValidator =
-            new NumericConstraintValidator(5, 2);
+            new NumericConstraintValidator(2, 5);
 
     private final EnumerationCharacterConstraintValidator charParameterEnumerationEnumerationCharacterConstraintValidator =
             new EnumerationCharacterConstraintValidator(List.of("y", "n"));
@@ -413,7 +413,7 @@ public final class $$VirtualRequestConstraintValidator implements ConstraintVali
             new MinSizeListConstraintValidator(2, true);
 
     private final NumericConstraintValidator decimalsNumericNumericConstraintValidator =
-            new NumericConstraintValidator(5, 2);
+            new NumericConstraintValidator(2, 5);
 
     private final SizeListConstraintValidator decimalsSizeSizeListConstraintValidator =
             new SizeListConstraintValidator(12);
@@ -641,7 +641,7 @@ public final class $$VirtualRequestConstraintValidator implements ConstraintVali
             new MinSizeSetConstraintValidator(2, true);
 
     private final NumericConstraintValidator decimalSetNumericNumericConstraintValidator =
-            new NumericConstraintValidator(5, 2);
+            new NumericConstraintValidator(2, 5);
 
     private final SizeSetConstraintValidator decimalSetSizeSizeSetConstraintValidator =
             new SizeSetConstraintValidator(12);
@@ -869,7 +869,7 @@ public final class $$VirtualRequestConstraintValidator implements ConstraintVali
             new MinSizeMapConstraintValidator(2, true);
 
     private final NumericConstraintValidator decimalMapNumericNumericConstraintValidator =
-            new NumericConstraintValidator(5, 2);
+            new NumericConstraintValidator(2, 5);
 
     private final SizeMapConstraintValidator decimalMapSizeSizeMapConstraintValidator =
             new SizeMapConstraintValidator(12);
