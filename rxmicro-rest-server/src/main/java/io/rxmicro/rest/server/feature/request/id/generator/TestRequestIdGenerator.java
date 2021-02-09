@@ -19,10 +19,10 @@ package io.rxmicro.rest.server.feature.request.id.generator;
 import io.rxmicro.rest.server.feature.RequestIdGenerator;
 
 /**
- * This request id generator always returns the {@value #TEST_REQUEST_ID} value as request id!
+ * This request id generator always returns the {@value #TEST_REQUEST_ID} value as request id.
  *
  * <p>
- * The RxMicro team recommends to use this request id generator for testing purposes only!
+ * The RxMicro team recommends to use this request id generator for testing purposes only.
  *
  * @author nedis
  * @since 0.10

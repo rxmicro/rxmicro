@@ -123,10 +123,10 @@ public enum PredefinedRequestIdGeneratorProvider implements RequestIdGeneratorPr
     ),
 
     /**
-     * This request id generator always returns the {@value TestRequestIdGenerator#TEST_REQUEST_ID} value as request id!
+     * This request id generator always returns the {@value TestRequestIdGenerator#TEST_REQUEST_ID} value as request id.
      *
      * <p>
-     * The RxMicro team recommends to use this request id generator for testing purposes only!
+     * The RxMicro team recommends to use this request id generator for testing purposes only.
      */
     TEST(TestRequestIdGenerator::new);
 
