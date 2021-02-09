@@ -16,6 +16,7 @@
 
 package io.rxmicro.validation.constraint;
 
+import io.rxmicro.validation.base.ConstraintParametersOrder;
 import io.rxmicro.validation.base.ConstraintRule;
 import io.rxmicro.validation.validator.MinBigDecimalNumberConstraintValidator;
 import io.rxmicro.validation.validator.MinBigIntegerNumberConstraintValidator;
@@ -80,6 +81,10 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
                 MinDoubleConstraintValidator.class
         }
 )
+@ConstraintParametersOrder({
+        "value",
+        "inclusive"
+})
 public @interface MinNumber {
 
     /**

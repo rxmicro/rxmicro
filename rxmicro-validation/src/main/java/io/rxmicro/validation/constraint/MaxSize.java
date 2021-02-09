@@ -16,6 +16,7 @@
 
 package io.rxmicro.validation.constraint;
 
+import io.rxmicro.validation.base.ConstraintParametersOrder;
 import io.rxmicro.validation.base.ConstraintRule;
 import io.rxmicro.validation.validator.MaxSizeListConstraintValidator;
 import io.rxmicro.validation.validator.MaxSizeMapConstraintValidator;
@@ -61,6 +62,10 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
                 MaxSizeMapConstraintValidator.class
         }
 )
+@ConstraintParametersOrder({
+        "value",
+        "inclusive"
+})
 public @interface MaxSize {
 
     /**

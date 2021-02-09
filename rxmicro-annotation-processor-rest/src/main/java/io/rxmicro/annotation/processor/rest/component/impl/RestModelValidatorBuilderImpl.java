@@ -19,6 +19,7 @@ package io.rxmicro.annotation.processor.rest.component.impl;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import io.rxmicro.annotation.processor.common.component.impl.BaseProcessorComponent;
+import io.rxmicro.annotation.processor.common.model.error.InternalErrorException;
 import io.rxmicro.annotation.processor.common.model.type.ModelClass;
 import io.rxmicro.annotation.processor.common.model.type.ObjectModelClass;
 import io.rxmicro.annotation.processor.rest.component.AnnotationValueConverter;
@@ -29,6 +30,7 @@ import io.rxmicro.annotation.processor.rest.model.RestModelField;
 import io.rxmicro.annotation.processor.rest.model.RestObjectModelClass;
 import io.rxmicro.annotation.processor.rest.model.validator.ModelConstraintAnnotation;
 import io.rxmicro.annotation.processor.rest.model.validator.ModelValidatorClassStructure;
+import io.rxmicro.validation.base.ConstraintParametersOrder;
 import io.rxmicro.validation.constraint.MaxNumber;
 import io.rxmicro.validation.constraint.MinNumber;
 import io.rxmicro.validation.constraint.Nullable;
@@ -36,14 +38,16 @@ import io.rxmicro.validation.constraint.Nullable;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Stream;
 import javax.lang.model.element.AnnotationValue;
 import javax.lang.model.element.ExecutableElement;
 
 import static io.rxmicro.annotation.processor.common.util.Numbers.removeUnderscoresIfPresent;
+import static io.rxmicro.common.util.Formats.format;
 import static java.util.function.Function.identity;
-import static java.util.stream.Collectors.joining;
+import static java.util.stream.Collectors.toMap;
 
 /**
  * @author nedis
@@ -147,10 +151,7 @@ public final class RestModelValidatorBuilderImpl extends BaseProcessorComponent
         restModelRequiredValidatorBuilder.addRequiredValidator(builder, restModelField, modelFieldType);
         constraintAnnotationExtractor.extract(restModelField, modelFieldType).forEach(m -> {
             annotationValueValidator.validate(m, restModelField);
-            final String constraintConstructorArg = m.getElementValues().entrySet().stream()
-                    .filter(e -> !"off".equals(e.getKey().getSimpleName().toString()))
-                    .map(e -> convertAnnotationValue(builder, restModelField, m, e))
-                    .collect(joining(", "));
+            final String constraintConstructorArg = getConstraintConstructorArguments(builder, restModelField, m);
             final String constructorArg = getConstructorArgs(builder, modelFieldType, constraintConstructorArg, m.isIterableConstraint());
             final boolean validateIterable = m.isIterableConstraint() ? false : modelFieldType.isIterable();
 
@@ -161,6 +162,51 @@ public final class RestModelValidatorBuilderImpl extends BaseProcessorComponent
         } else if (modelFieldType.isIterable() && modelFieldType.asIterable().isObjectIterable()) {
             builder.add(restModelField, modelFieldType.asIterable().getElementModelClass().getJavaSimpleClassName(), true);
         }
+    }
+
+    private String getConstraintConstructorArguments(final ModelValidatorClassStructure.Builder builder,
+                                                     final RestModelField restModelField,
+                                                     final ModelConstraintAnnotation annotation) {
+        final List<String> parameterOrder = annotation.getParameterOrder();
+        final Map<String, String> map = annotation.getElementValues().entrySet().stream()
+                .filter(e -> !"off".equals(e.getKey().getSimpleName().toString()))
+                .collect(toMap(
+                        e -> e.getKey().getSimpleName().toString(),
+                        e -> convertAnnotationValue(builder, restModelField, annotation, e)
+                ));
+        if (parameterOrder.isEmpty()) {
+            if (map.isEmpty()) {
+                return "";
+            } else if (map.size() == 1) {
+                return map.entrySet().iterator().next().getValue();
+            } else {
+                throw createInvalidConstraintParametersOrderError(annotation, "parameterOrder.isEmpty && map.size > 0");
+            }
+        } else if (parameterOrder.size() != map.size()) {
+            throw createInvalidConstraintParametersOrderError(annotation, "parameterOrder.size != map.size");
+        } else {
+            final StringBuilder argsBuilder = new StringBuilder();
+            for (final String parameter : parameterOrder) {
+                if (argsBuilder.length() > 0) {
+                    argsBuilder.append(", ");
+                }
+                argsBuilder.append(Optional.ofNullable(map.get(parameter)).orElseThrow(() -> {
+                    throw createInvalidConstraintParametersOrderError(annotation, format("'?' parameter not defined!", parameter));
+                }));
+            }
+            return argsBuilder.toString();
+        }
+    }
+
+    private InternalErrorException createInvalidConstraintParametersOrderError(final ModelConstraintAnnotation annotation,
+                                                                               final String details) {
+        return new InternalErrorException(
+                "The '@?' constraint annotation does not annotated by '@?' annotation, or '@?' annotation has invalid arguments: ?",
+                annotation.getConstraintAnnotationFullName(),
+                ConstraintParametersOrder.class.getName(),
+                ConstraintParametersOrder.class.getName(),
+                details
+        );
     }
 
     private String convertAnnotationValue(final ModelValidatorClassStructure.Builder builder,

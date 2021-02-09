@@ -16,6 +16,7 @@
 
 package io.rxmicro.validation.constraint;
 
+import io.rxmicro.validation.base.ConstraintParametersOrder;
 import io.rxmicro.validation.base.ConstraintRule;
 import io.rxmicro.validation.internal.SelfDocumented;
 import io.rxmicro.validation.validator.SubEnumConstraintValidator;
@@ -46,6 +47,10 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
         validatorClass = SubEnumConstraintValidator.class
 )
 @SelfDocumented
+@ConstraintParametersOrder({
+        "include",
+        "exclude"
+})
 public @interface SubEnum {
 
     /**

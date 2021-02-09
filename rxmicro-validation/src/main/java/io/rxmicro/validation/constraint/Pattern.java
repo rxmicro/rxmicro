@@ -17,6 +17,7 @@
 package io.rxmicro.validation.constraint;
 
 import io.rxmicro.common.meta.ReadMore;
+import io.rxmicro.validation.base.ConstraintParametersOrder;
 import io.rxmicro.validation.base.ConstraintRule;
 import io.rxmicro.validation.internal.SelfDocumented;
 import io.rxmicro.validation.validator.PatternConstraintValidator;
@@ -52,6 +53,10 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
         caption = "What is regular expressions?",
         link = "https://www.regular-expressions.info/"
 )
+@ConstraintParametersOrder({
+        "regexp",
+        "flags"
+})
 public @interface Pattern {
 
     /**

@@ -16,6 +16,7 @@
 
 package io.rxmicro.validation.constraint;
 
+import io.rxmicro.validation.base.ConstraintParametersOrder;
 import io.rxmicro.validation.base.ConstraintRule;
 import io.rxmicro.validation.validator.MinLengthConstraintValidator;
 
@@ -45,6 +46,10 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
         supportedTypes = String.class,
         validatorClass = MinLengthConstraintValidator.class
 )
+@ConstraintParametersOrder({
+        "value",
+        "inclusive"
+})
 public @interface MinLength {
 
     /**

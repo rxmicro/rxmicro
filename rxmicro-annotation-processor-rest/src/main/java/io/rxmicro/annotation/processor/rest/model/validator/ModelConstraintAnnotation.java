@@ -16,13 +16,16 @@
 
 package io.rxmicro.annotation.processor.rest.model.validator;
 
+import io.rxmicro.validation.base.ConstraintParametersOrder;
 import io.rxmicro.validation.base.ParametrizedConstraintValidator;
 import io.rxmicro.validation.constraint.MaxSize;
 import io.rxmicro.validation.constraint.MinSize;
 import io.rxmicro.validation.constraint.Size;
 import io.rxmicro.validation.constraint.UniqueItems;
 
+import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.AnnotationValue;
@@ -60,6 +63,14 @@ public final class ModelConstraintAnnotation implements ModelValidatorCreatorDes
 
     public Map<? extends ExecutableElement, ? extends AnnotationValue> getElementValues() {
         return elementValues;
+    }
+
+    public List<String> getParameterOrder() {
+        return Optional
+                .ofNullable(annotationMirror.getAnnotationType().asElement().getAnnotation(ConstraintParametersOrder.class))
+                .map(ConstraintParametersOrder::value)
+                .map(List::of)
+                .orElse(List.of());
     }
 
     @Override

@@ -16,6 +16,7 @@
 
 package io.rxmicro.validation.constraint;
 
+import io.rxmicro.validation.base.ConstraintParametersOrder;
 import io.rxmicro.validation.base.ConstraintRule;
 import io.rxmicro.validation.validator.NumericConstraintValidator;
 
@@ -45,6 +46,10 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
         supportedTypes = BigDecimal.class,
         validatorClass = NumericConstraintValidator.class
 )
+@ConstraintParametersOrder({
+        "precision",
+        "scale"
+})
 public @interface Numeric {
 
     /**

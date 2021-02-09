@@ -17,6 +17,7 @@
 package io.rxmicro.validation.constraint;
 
 import io.rxmicro.common.meta.ReadMore;
+import io.rxmicro.validation.base.ConstraintParametersOrder;
 import io.rxmicro.validation.base.ConstraintRule;
 import io.rxmicro.validation.internal.SelfDocumented;
 import io.rxmicro.validation.validator.ViberConstraintValidator;
@@ -52,6 +53,10 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
         caption = "What is viber number format?",
         link = "https://en.wikipedia.org/wiki/National_conventions_for_writing_telephone_numbers"
 )
+@ConstraintParametersOrder({
+        "withoutPlus",
+        "allowsSpaces"
+})
 public @interface Viber {
 
     /**
