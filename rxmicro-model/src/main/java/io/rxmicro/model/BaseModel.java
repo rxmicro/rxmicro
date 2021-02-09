@@ -18,12 +18,15 @@ package io.rxmicro.model;
 
 import io.rxmicro.common.CheckedWrapperException;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.InaccessibleObjectException;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.reflection.Reflections.allFields;
 import static io.rxmicro.reflection.Reflections.getFieldValue;
+import static java.lang.reflect.Modifier.isStatic;
 
 /**
  * Defines a basic model class that overrides {@link Object#toString()} method that reads all model field values using {@code reflection}.
@@ -42,9 +45,10 @@ public class BaseModel {
 
     @Override
     public String toString() {
+        final Predicate<Field> modelFieldsPredicate = field -> !isStatic(field.getModifiers());
         try {
             return getClass().getSimpleName() + '{' +
-                    allFields(getClass(), field -> true).stream()
+                    allFields(getClass(), modelFieldsPredicate).stream()
                             .map(field -> new Pair(field.getName(), getFieldValue(this, field)))
                             .map(e -> format(
                                     "?=?",
