@@ -88,11 +88,9 @@ public final class ModelExceptionErrorResponseBuilderImpl implements ModelExcept
         final int status = extractStatusCode(owner, exceptionTypeElement);
         final Response.Builder responseBuilder = new Response.Builder()
                 .setCode(status);
-        descriptionReader.readDescription(exceptionTypeElement, projectMetaData.getProjectDirectory())
-                .ifPresentOrElse(
-                        responseBuilder::setDescription,
-                        () -> standardHttpErrorStorage.get(status).ifPresent(e -> responseBuilder.setDescription(e.getDescription()))
-                );
+        setDescription(
+                owner, exceptionTypeElement, status, projectMetaData.getProjectDirectory(), responseBuilder, modelExceptionErrorResponse
+        );
         if (isRxMicroExceptionClass(exceptionTypeElement)) {
             modelExceptionErrorResponseStandardBuilder.setResponseBodyAndExamples(
                     owner, resourceDefinition, showErrorCauseReadMoreLinks, exceptionTypeElement, status, responseBuilder
@@ -116,6 +114,25 @@ public final class ModelExceptionErrorResponseBuilderImpl implements ModelExcept
             }
         }
         return responseBuilder.build();
+    }
+
+    private void setDescription(final Element owner,
+                                final TypeElement exceptionTypeElement,
+                                final int status,
+                                final String projectDirectory,
+                                final Response.Builder responseBuilder,
+                                final ModelExceptionErrorResponse modelExceptionErrorResponse) {
+        descriptionReader.readDescription(owner, projectDirectory, modelExceptionErrorResponse)
+                .ifPresentOrElse(
+                        responseBuilder::setDescription,
+                        () -> {
+                            descriptionReader.readDescription(exceptionTypeElement, projectDirectory)
+                                    .ifPresentOrElse(
+                                            responseBuilder::setDescription,
+                                            () -> standardHttpErrorStorage.get(status)
+                                                    .ifPresent(e -> responseBuilder.setDescription(e.getDescription()))
+                                    );
+                        });
     }
 
     private int extractStatusCode(final Element owner,

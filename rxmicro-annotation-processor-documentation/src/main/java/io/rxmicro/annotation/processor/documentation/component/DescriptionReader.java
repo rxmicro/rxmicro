@@ -16,6 +16,7 @@
 
 package io.rxmicro.annotation.processor.documentation.component;
 
+import io.rxmicro.documentation.ModelExceptionErrorResponse;
 import io.rxmicro.documentation.SimpleErrorResponse;
 
 import java.util.Optional;
@@ -33,4 +34,8 @@ public interface DescriptionReader {
     Optional<String> readDescription(Element element,
                                      String projectDirectory,
                                      SimpleErrorResponse simpleErrorResponse);
+
+    Optional<String> readDescription(Element element,
+                                     String projectDirectory,
+                                     ModelExceptionErrorResponse modelExceptionErrorResponse);
 }

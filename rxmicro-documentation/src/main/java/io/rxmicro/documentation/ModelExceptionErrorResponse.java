@@ -53,6 +53,51 @@ public @interface ModelExceptionErrorResponse {
     Class<? extends HttpErrorException> value();
 
     /**
+     * Returns the custom description for the current http error exception.
+     *
+     * <p>
+     * If the custom description is not set, the {@code RxMicro Annotation Processor} will analyze the current http error exception class,
+     * provided by the {@link #value()} annotation parameter to get a description.
+     *
+     * @return the custom description for the current http error exception.
+     */
+    String description() default "";
+
+    /**
+     * Returns the custom included description if it is necessary add a complex formatted description.
+     *
+     * <p>
+     * If the custom description is not set, the {@code RxMicro Annotation Processor} will analyze the current http error exception class,
+     * provided by the {@link #value()} annotation parameter to get a description.
+     *
+     * @return the custom included description
+     */
+    IncludeDescription includeDescription() default @IncludeDescription(resource = "");
+
+    /**
+     * Returns the variable definitions for the provided error description, using key-value format.
+     *
+     * <p>
+     * For example:
+     *
+     * <pre>
+     * {@code
+     * @ModelExceptionErrorResponse(
+     *      value = CustomExceptionClass.class,
+     *      description = "If ${key} = ${value} than this field contains true, otherwise false",
+     *      variables = {
+     *          "${key}", EXTERNAL_CONSTANT_KEY,
+     *          "${value}", EXTERNAL_CONSTANT_VALUE
+     *      }
+     * )
+     * }
+     * </pre>
+     *
+     * @return the variable definitions for the provided error description, using key-value format.
+     */
+    String[] variables() default {};
+
+    /**
      * Defines several {@link ModelExceptionErrorResponse} annotations on the same element.
      *
      * @author nedis

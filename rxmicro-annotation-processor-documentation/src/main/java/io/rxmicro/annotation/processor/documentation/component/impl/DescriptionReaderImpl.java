@@ -26,10 +26,12 @@ import io.rxmicro.annotation.processor.documentation.component.IncludeReferenceS
 import io.rxmicro.annotation.processor.documentation.model.AnnotationValueProvider;
 import io.rxmicro.annotation.processor.documentation.model.provider.DescriptionAnnotationValueProvider;
 import io.rxmicro.annotation.processor.documentation.model.provider.IncludeDescriptionAnnotationValueProvider;
+import io.rxmicro.annotation.processor.documentation.model.provider.ModelExceptionErrorResponseAnnotationValueProvider;
 import io.rxmicro.annotation.processor.documentation.model.provider.SimpleErrorResponseDescriptionAnnotationValueProvider;
 import io.rxmicro.documentation.Description;
 import io.rxmicro.documentation.IncludeDescription;
 import io.rxmicro.documentation.IncludeMode;
+import io.rxmicro.documentation.ModelExceptionErrorResponse;
 import io.rxmicro.documentation.SimpleErrorResponse;
 
 import java.util.List;
@@ -80,6 +82,26 @@ public final class DescriptionReaderImpl extends BaseDocumentationReader impleme
         validate(element, description, includeDescription);
         if (!description.isEmpty()) {
             final AnnotationValueProvider provider = new SimpleErrorResponseDescriptionAnnotationValueProvider(simpleErrorResponse);
+            return Optional.of(resolveString(element, provider, false));
+        }
+        if (!includeDescription.resource().isEmpty()) {
+            final IncludeDescriptionAnnotationValueProvider provider = new IncludeDescriptionAnnotationValueProvider(includeDescription);
+            return Optional.of(readIncludedDescription(
+                    element, projectDirectory, resolveString(element, provider, true), includeDescription.includeMode())
+            );
+        }
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional<String> readDescription(final Element element,
+                                            final String projectDirectory,
+                                            final ModelExceptionErrorResponse modelExceptionErrorResponse) {
+        final String description = modelExceptionErrorResponse.description();
+        final IncludeDescription includeDescription = modelExceptionErrorResponse.includeDescription();
+        validate(element, description, includeDescription);
+        if (!description.isEmpty()) {
+            final AnnotationValueProvider provider = new ModelExceptionErrorResponseAnnotationValueProvider(modelExceptionErrorResponse);
             return Optional.of(resolveString(element, provider, false));
         }
         if (!includeDescription.resource().isEmpty()) {
