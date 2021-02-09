@@ -23,6 +23,7 @@ import io.rxmicro.rest.server.feature.request.id.generator.Deterministic96BitsRe
 import io.rxmicro.rest.server.feature.request.id.generator.DeterministicValueProvider;
 import io.rxmicro.rest.server.feature.request.id.generator.PartlyRandom96BitsRequestIdGenerator;
 import io.rxmicro.rest.server.feature.request.id.generator.RandomRequestIdGenerator;
+import io.rxmicro.rest.server.feature.request.id.generator.TestRequestIdGenerator;
 import io.rxmicro.rest.server.internal.RequestIdGeneratorProviderHelper;
 
 import java.util.UUID;
@@ -119,7 +120,15 @@ public enum PredefinedRequestIdGeneratorProvider implements RequestIdGeneratorPr
     DEFAULT_96_BIT(
             PARTLY_RANDOM_96_BITS.requestIdGeneratorSupplier,
             DETERMINISTIC_96_BITS.requestIdGeneratorSupplier
-    );
+    ),
+
+    /**
+     * This request id generator always returns the {@value TestRequestIdGenerator#TEST_REQUEST_ID} value as request id!
+     *
+     * <p>
+     * The RxMicro team recommends to use this request id generator for testing purposes only!
+     */
+    TEST(TestRequestIdGenerator::new);
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PredefinedRequestIdGeneratorProvider.class);
 
