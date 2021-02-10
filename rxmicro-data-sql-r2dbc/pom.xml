@@ -68,7 +68,7 @@
         <dependency>
             <groupId>io.reactivex.rxjava3</groupId>
             <artifactId>rxjava</artifactId>
-            <version>${external.lib.rxjava.version}</version>
+            <version>${external.lib.rxjava3.version}</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>

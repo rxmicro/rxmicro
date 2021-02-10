@@ -76,7 +76,7 @@ public enum ExternalModule {
     EXTERNAL_RX_JAVA_3_MODULE(
             "io.reactivex.rxjava3",
             "?/.m2/repository/io/reactivex/rxjava3/rxjava/?/rxjava-?.jar",
-            getMavenProperty("external.lib.rxjava.version")
+            getMavenProperty("external.lib.rxjava3.version")
     ),
 
     EXTERNAL_MONGO_DB_DRIVER_CORE_MODULE(

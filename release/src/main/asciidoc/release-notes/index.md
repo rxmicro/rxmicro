@@ -4,6 +4,22 @@ This document contains the *change log* for all RxMicro releases since **0.2**.
 
 <!--- DON'T FORGET TO UPDATE DEPENDENCIES BEFORE RELEASING THE RX MICRO FRAMEWORK! --->
 
+## RxMicro v0.10
+
+* Dependency updates:
+  * `junit`: 5.7.0 -> 5.7.1
+  * `junit-platform`: 1.7.0 -> 1.7.1
+  * `mockito`: 3.6.28 -> 3.7.7
+  * `netty`: 4.1.56.Final -> 4.1.59.Final
+  * `rxjava`: 3.0.9 -> 3.0.10
+  * `projectreactor`: 3.4.1 -> 3.4.2
+  * `reactor-netty`: 1.0.2 -> 1.0.3
+  * `mongo-driver`: 4.1.1 -> 4.2.0
+* Source code tool updates:
+  * `spotbugs`: 4.2.0 -> 4.2.1
+  * `pmd`: 6.30.0 -> 6.31.0
+  * `checkstyle`: 8.39 -> 8.40
+  
 ## RxMicro v0.9
 
 * Add status code constants.

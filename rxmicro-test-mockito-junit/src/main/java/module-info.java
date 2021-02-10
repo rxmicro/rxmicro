@@ -45,7 +45,7 @@ module rxmicro.test.mockito.junit {
     requires transitive rxmicro.test.junit;
     requires transitive rxmicro.test.mockito;
 
-    requires transitive mockito.junit.jupiter;
+    requires transitive org.mockito.junit.jupiter;
 
     exports io.rxmicro.test.mockito.junit;
 
