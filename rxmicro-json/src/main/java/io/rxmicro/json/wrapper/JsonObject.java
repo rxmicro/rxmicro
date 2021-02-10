@@ -34,6 +34,7 @@ import static io.rxmicro.json.JsonTypes.asJsonNumber;
 import static io.rxmicro.json.JsonTypes.asJsonObject;
 import static io.rxmicro.json.JsonTypes.asJsonString;
 import static io.rxmicro.json.internal.util.Assertions.requirePropertyValue;
+import static io.rxmicro.json.internal.util.UpdatableJsonUtils.asUpdatableJsonObject;
 import static java.util.Collections.unmodifiableMap;
 
 /**
@@ -356,6 +357,19 @@ public final class JsonObject implements Iterable<Map.Entry<String, Object>> {
      */
     public Map<String, Object> getIntervalView() {
         return unmodifiableMap(map);
+    }
+
+    /**
+     * Returns a new updatable copy of the current {@link JsonObject} instance.
+     *
+     * <p>
+     * The {@link io.rxmicro.json.JsonHelper#readJson(String)} method returns an unmodifiable json object.
+     * If it is necessary to extend or change json object that was read, use {@link #asUpdatable()} method!
+     *
+     * @return a new updatable copy of the current {@link JsonObject} instance.
+     */
+    public JsonObject asUpdatable() {
+        return asUpdatableJsonObject(map);
     }
 
     @Override

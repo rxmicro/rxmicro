@@ -32,6 +32,7 @@ import static io.rxmicro.json.JsonTypes.asJsonBoolean;
 import static io.rxmicro.json.JsonTypes.asJsonNumber;
 import static io.rxmicro.json.JsonTypes.asJsonObject;
 import static io.rxmicro.json.JsonTypes.asJsonString;
+import static io.rxmicro.json.internal.util.UpdatableJsonUtils.asUpdatableJsonArray;
 import static java.util.Collections.unmodifiableList;
 
 /**
@@ -264,6 +265,19 @@ public final class JsonArray implements Iterable<Object> {
      */
     public List<Object> getIntervalView() {
         return unmodifiableList(list);
+    }
+
+    /**
+     * Returns a new updatable copy of the current {@link JsonArray} instance.
+     *
+     * <p>
+     * The {@link io.rxmicro.json.JsonHelper#readJson(String)} method returns an unmodifiable json object.
+     * If it is necessary to extend or change json object that was read, use {@link #asUpdatable()} method!
+     *
+     * @return a new updatable copy of the current {@link JsonArray} instance.
+     */
+    public JsonArray asUpdatable() {
+        return asUpdatableJsonArray(list);
     }
 
     @Override
