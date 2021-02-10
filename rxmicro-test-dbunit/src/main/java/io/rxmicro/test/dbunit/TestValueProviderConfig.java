@@ -58,4 +58,11 @@ public final class TestValueProviderConfig extends BaseTestConfig {
         this.nowInstantGenerationDiscreteStep = nowInstantGenerationDiscreteStep;
         return this;
     }
+
+    @Override
+    public String toString() {
+        return "TestValueProviderConfig{" +
+                "nowInstantGenerationDiscreteStep=" + nowInstantGenerationDiscreteStep +
+                '}';
+    }
 }

@@ -69,8 +69,6 @@ final class NettyHttpClient implements io.rxmicro.rest.client.detail.HttpClient 
 
     private final NettyHttpClientLogger logger;
 
-    private final RestClientConfig config;
-
     private final HttpClient client;
 
     private final String host;
@@ -87,7 +85,6 @@ final class NettyHttpClient implements io.rxmicro.rest.client.detail.HttpClient 
                     final Secrets secrets,
                     final HttpClientContentConverter contentConverter) {
         this.logger = new NettyHttpClientLogger(loggerClass, secrets);
-        this.config = config;
         this.host = buildHostHeader(config);
         this.client = new NettyHttpClientBuilder(config, namespace).build();
         this.contentType = require(contentConverter.getContentType());
@@ -218,5 +215,14 @@ final class NettyHttpClient implements io.rxmicro.rest.client.detail.HttpClient 
     @Override
     public void release() {
         // do nothing
+    }
+
+    @Override
+    public String toString() {
+        return "NettyHttpClient{" +
+                "client=" + client +
+                ", host='" + host + '\'' +
+                ", contentType='" + contentType + '\'' +
+                '}';
     }
 }

@@ -87,4 +87,12 @@ public final class GlobalTestConfig extends BaseTestConfig {
         this.timestampTimeZone = timestampTimeZone;
         return this;
     }
+
+    @Override
+    public String toString() {
+        return "GlobalTestConfig{" +
+                "defaultInstantCompareDelta=" + defaultInstantCompareDelta +
+                ", timestampTimeZone=" + timestampTimeZone +
+                '}';
+    }
 }

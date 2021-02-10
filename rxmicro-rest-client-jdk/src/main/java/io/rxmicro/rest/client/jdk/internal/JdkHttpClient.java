@@ -180,4 +180,14 @@ final class JdkHttpClient implements io.rxmicro.rest.client.detail.HttpClient {
     public void release() {
         // do nothing
     }
+
+    @Override
+    public String toString() {
+        return "JdkHttpClient{" +
+                "config=" + config +
+                ", client=" + client +
+                ", connectionString='" + connectionString + '\'' +
+                ", contentType='" + contentType + '\'' +
+                '}';
+    }
 }

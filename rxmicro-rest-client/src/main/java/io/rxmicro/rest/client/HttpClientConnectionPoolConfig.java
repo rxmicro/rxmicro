@@ -252,8 +252,8 @@ public class HttpClientConnectionPoolConfig extends HttpConfig {
 
     @Override
     public String toString() {
-        return "HttpClientConnectionPoolConfig{" +
-                "evictionInterval=" + evictionInterval +
+        return "HttpClientConnectionPoolConfig{connectionString=" + getConnectionString() +
+                ", evictionInterval=" + evictionInterval +
                 ", maxConnections=" + maxConnections +
                 ", pendingAcquireMaxCount=" + pendingAcquireMaxCount +
                 ", pendingAcquireTimeout=" + pendingAcquireTimeout +

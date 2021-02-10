@@ -569,16 +569,17 @@ public class RestServerConfig extends Config {
                 ", corsNotAllowedErrorMessage='" + corsNotAllowedErrorMessage + '\'' +
                 ", humanReadableOutput=" + humanReadableOutput +
                 ", hideInternalErrorMessage=" + hideInternalErrorMessage +
-                ", logNotServerErrors=" + logHttpErrorExceptions +
+                ", logHttpErrorExceptions=" + logHttpErrorExceptions +
                 ", staticResponseHeaders=" + staticResponseHeaders +
-                ", generatorType=" + requestIdGeneratorProvider +
+                ", requestIdGeneratorProvider=" + requestIdGeneratorProvider +
                 ", returnGeneratedRequestId=" + returnGeneratedRequestId +
                 ", disableLoggerMessagesForHttpHealthChecks=" + disableLoggerMessagesForHttpHealthChecks +
+                ", healthCheckToolAddresses=" + healthCheckToolAddresses +
                 ", showRuntimeEnv=" + showRuntimeEnv +
                 ", useFullClassNamesForRouterMappingLogMessages=" + useFullClassNamesForRouterMappingLogMessages +
                 ", enableAdditionalValidations=" + enableAdditionalValidations +
-                ", waitingForRequestIdGeneratorInitTimeoutInMillis=" + requestIdGeneratorInitTimeout +
-                ", healthCheckToolAddresses=" + healthCheckToolAddresses +
+                ", requestIdGeneratorInitTimeout=" + requestIdGeneratorInitTimeout +
+                ", forwardedHeaderNames=" + forwardedHeaderNames +
                 '}';
     }
 }

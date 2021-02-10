@@ -25,6 +25,8 @@ import io.rxmicro.rest.client.RestClientConfig;
 
 import java.time.Duration;
 
+import static io.rxmicro.common.util.Formats.format;
+import static io.rxmicro.config.Secrets.hideSecretInfo;
 import static io.rxmicro.http.ProtocolSchema.HTTP;
 
 /**
@@ -124,5 +126,28 @@ public final class BlockingHttpClientConfig extends RestClientConfig {
     @Override
     public BlockingHttpClientConfig setConnectionString(final String connectionString) {
         return (BlockingHttpClientConfig) super.setConnectionString(connectionString);
+    }
+
+    @Override
+    public String toString() {
+        return "BlockingHttpClientConfig{" +
+                "connectionString=" + getConnectionString() +
+                ", accessKey='" + hideSecretInfo(getAccessKey()) + '\'' +
+                ", followRedirects=" + isFollowRedirects() +
+                ", connectTimeout=" + format(getConnectTimeout()) +
+                ", requestTimeout=" + format(getRequestTimeout()) +
+                ", enableAdditionalValidations=" + isEnableAdditionalValidations() +
+                ", evictionInterval=" + getEvictionInterval() +
+                ", maxConnections=" + getMaxConnections() +
+                ", pendingAcquireMaxCount=" + getPendingAcquireMaxCount() +
+                ", pendingAcquireTimeout=" + getPendingAcquireTimeout() +
+                ", maxIdleTime=" + getMaxIdleTime() +
+                ", maxLifeTime=" + getMaxLifeTime() +
+                ", leasingStrategy=" + getLeasingStrategy() +
+                ", baseUrlPath='" + baseUrlPath + '\'' +
+                ", baseUrlPosition=" + baseUrlPosition +
+                ", versionStrategy=" + versionStrategy +
+                ", versionValue='" + versionValue + '\'' +
+                '}';
     }
 }

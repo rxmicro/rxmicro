@@ -22,6 +22,7 @@ import java.time.Duration;
 import java.util.Map;
 
 import static io.rxmicro.common.util.Requires.require;
+import static io.rxmicro.config.Secrets.hideSecretInfo;
 
 /**
  * Allows configuring SQL DB pool options.
@@ -320,5 +321,26 @@ public class SQLPooledDatabaseConfig extends SQLDatabaseConfig {
     @Override
     public SQLPooledDatabaseConfig setConnectTimeout(final Duration connectTimeout) {
         return (SQLPooledDatabaseConfig) super.setConnectTimeout(connectTimeout);
+    }
+
+    @Override
+    public String toString() {
+        return "SQLPooledDatabaseConfig{" +
+                "options=" + getOptions() +
+                ", host='" + getHost() + '\'' +
+                ", port=" + getPort() +
+                ", user='" + getUser() + '\'' +
+                ", password=" + hideSecretInfo(getPassword().toString()) +
+                ", database='" + getDatabase() + '\'' +
+                ", connectTimeout=" + getConnectTimeout() +
+                ", acquireRetry=" + acquireRetry +
+                ", initialSize=" + initialSize +
+                ", maxSize=" + maxSize +
+                ", validationQuery='" + validationQuery + '\'' +
+                ", maxIdleTime=" + maxIdleTime +
+                ", maxCreateConnectionTime=" + maxCreateConnectionTime +
+                ", maxAcquireTime=" + maxAcquireTime +
+                ", maxLifeTime=" + maxLifeTime +
+                '}';
     }
 }

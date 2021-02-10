@@ -344,4 +344,18 @@ public final class TestDatabaseConfig extends BaseTestConfig implements Cloneabl
             );
         }
     }
+
+    @Override
+    public String toString() {
+        return "TestDatabaseConfig{" +
+                "type=" + type +
+                ", jdbcDriver='" + jdbcDriver + '\'' +
+                ", host='" + host + '\'' +
+                ", port=" + port +
+                ", database='" + database + '\'' +
+                ", schema='" + schema + '\'' +
+                ", user='" + user + '\'' +
+                ", password=" + password +
+                '}';
+    }
 }

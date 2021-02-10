@@ -29,6 +29,7 @@ import java.util.Optional;
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.Requires.require;
 import static io.rxmicro.config.Networks.validatePort;
+import static io.rxmicro.config.Secrets.hideSecretInfo;
 
 /**
  * Allows configuring SQL DB options.
@@ -243,5 +244,18 @@ public class SQLDatabaseConfig extends Config {
                     getClass().getName(), namespace, properties
             );
         }
+    }
+
+    @Override
+    public String toString() {
+        return "SQLDatabaseConfig{" +
+                "options=" + options +
+                ", host='" + host + '\'' +
+                ", port=" + port +
+                ", user='" + user + '\'' +
+                ", password=" + hideSecretInfo(password.toString()) +
+                ", database='" + database + '\'' +
+                ", connectTimeout=" + connectTimeout +
+                '}';
     }
 }

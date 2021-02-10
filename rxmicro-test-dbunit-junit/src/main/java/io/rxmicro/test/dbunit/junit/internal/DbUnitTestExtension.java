@@ -18,6 +18,8 @@ package io.rxmicro.test.dbunit.junit.internal;
 
 import io.rxmicro.common.CheckedWrapperException;
 import io.rxmicro.config.Configs;
+import io.rxmicro.logger.Logger;
+import io.rxmicro.logger.LoggerFactory;
 import io.rxmicro.test.dbunit.ExpectedDataSet;
 import io.rxmicro.test.dbunit.InitialDataSet;
 import io.rxmicro.test.dbunit.RollbackChanges;
@@ -33,6 +35,7 @@ import io.rxmicro.test.local.component.builder.TestModelBuilder;
 import io.rxmicro.test.local.model.TestModel;
 import org.dbunit.database.DatabaseConnection;
 import org.junit.jupiter.api.extension.AfterAllCallback;
+import org.junit.jupiter.api.extension.AfterEachCallback;
 import org.junit.jupiter.api.extension.AfterTestExecutionCallback;
 import org.junit.jupiter.api.extension.BeforeAllCallback;
 import org.junit.jupiter.api.extension.BeforeEachCallback;
@@ -56,19 +59,46 @@ import static io.rxmicro.test.dbunit.local.DatabaseConnectionHelper.isCurrentDat
 import static io.rxmicro.test.dbunit.local.DatabaseConnectionHelper.isCurrentDatabaseConnectionShared;
 import static io.rxmicro.test.dbunit.local.DatabaseConnectionHelper.releaseCurrentDatabaseConnection;
 import static io.rxmicro.test.dbunit.local.DatabaseConnectionHelper.setCurrentDatabaseConnection;
+import static io.rxmicro.test.junit.local.LoggerUtils.logAfterAll;
+import static io.rxmicro.test.junit.local.LoggerUtils.logAfterEach;
+import static io.rxmicro.test.junit.local.LoggerUtils.logAfterTestExecution;
+import static io.rxmicro.test.junit.local.LoggerUtils.logBeforeAll;
+import static io.rxmicro.test.junit.local.LoggerUtils.logBeforeEach;
+import static io.rxmicro.test.junit.local.LoggerUtils.logBeforeTestExecution;
 import static io.rxmicro.test.junit.local.TestObjects.getOwnerTestClass;
 import static io.rxmicro.test.junit.local.TestObjects.getTestInstances;
 import static io.rxmicro.test.local.component.StatelessComponentFactory.getConfigResolver;
 import static io.rxmicro.test.local.util.Annotations.getRequiredAnnotation;
 
 /**
+ * Execution order:
+ * (Read more: https://junit.org/junit5/docs/current/user-guide/#extensions-execution-order-overview)
+ *
+ * 1) BeforeAllCallback.beforeAll
+ * 2) @BeforeAll
+ * 3) LifecycleMethodExecutionExceptionHandler.handleBeforeAllMethodExecutionException
+ * 4) BeforeEachCallback.beforeEach
+ * 5) @BeforeEach
+ * 6) LifecycleMethodExecutionExceptionHandler.handleBeforeEachMethodExecutionException
+ * 7) BeforeTestExecutionCallback.beforeTestExecution
+ * 8) @Test
+ * 9) TestExecutionExceptionHandler.handleTestExecutionException
+ * 10) AfterTestExecutionCallback.afterTestExecution
+ * 11) @AfterEach
+ * 12) LifecycleMethodExecutionExceptionHandler.handleAfterEachMethodExecutionException
+ * 13) AfterEachCallback.afterEach
+ * 14) @AfterAll
+ * 15) LifecycleMethodExecutionExceptionHandler.handleAfterAllMethodExecutionException
+ * 16) AfterAllCallback.afterAll
+ *
  * @author nedis
  * @since 0.7
- * @link https://junit.org/junit5/docs/current/user-guide/#extensions-execution-order-overview
  */
 public final class DbUnitTestExtension implements
         BeforeAllCallback, BeforeEachCallback, BeforeTestExecutionCallback,
-        AfterTestExecutionCallback, AfterAllCallback {
+        AfterTestExecutionCallback, AfterEachCallback, AfterAllCallback {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(DbUnitTestExtension.class);
 
     private final DatabaseStateInitializer databaseStateInitializer = new DatabaseStateInitializer();
 
@@ -84,6 +114,7 @@ public final class DbUnitTestExtension implements
 
     @Override
     public void beforeAll(final ExtensionContext context) {
+        logBeforeAll(LOGGER, context);
         final Class<?> testClass = getOwnerTestClass(context);
         retrieveConnectionStrategy = getRequiredAnnotation(testClass, DbUnitTest.class).retrieveConnectionStrategy();
         testModel = new TestModelBuilder(false).build(testClass);
@@ -115,6 +146,7 @@ public final class DbUnitTestExtension implements
 
     @Override
     public void beforeEach(final ExtensionContext context) {
+        logBeforeEach(LOGGER, context);
         // It is necessary to set connection after @BeforeAll, before @BeforeEach and only once per class.
         // See https://junit.org/junit5/docs/current/user-guide/#extensions-execution-order-overview
         if (retrieveConnectionStrategy == PER_TEST_CLASS) {
@@ -138,10 +170,12 @@ public final class DbUnitTestExtension implements
         final Method testMethod = context.getRequiredTestMethod();
         Optional.ofNullable(testMethod.getAnnotation(RollbackChanges.class)).ifPresent(rollbackChangesController::startTestTransaction);
         Optional.ofNullable(testMethod.getAnnotation(InitialDataSet.class)).ifPresent(databaseStateInitializer::initWith);
+        logBeforeTestExecution(LOGGER, context);
     }
 
     @Override
     public void afterTestExecution(final ExtensionContext context) {
+        logAfterTestExecution(LOGGER, context);
         final Method testMethod = context.getRequiredTestMethod();
         boolean success = false;
         try {
@@ -182,10 +216,16 @@ public final class DbUnitTestExtension implements
     }
 
     @Override
+    public void afterEach(final ExtensionContext context) {
+        logAfterEach(LOGGER, context);
+    }
+
+    @Override
     public void afterAll(final ExtensionContext context) {
         if (retrieveConnectionStrategy == PER_TEST_CLASS) {
             releaseCurrentTestDatabaseConfig();
             releaseCurrentDatabaseConnection();
         }
+        logAfterAll(LOGGER, context);
     }
 }

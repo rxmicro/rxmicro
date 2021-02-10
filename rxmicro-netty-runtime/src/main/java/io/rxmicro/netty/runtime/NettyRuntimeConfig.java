@@ -312,6 +312,7 @@ public final class NettyRuntimeConfig extends Config {
                 ", acceptorThreadCount=" + acceptorThreadCount +
                 ", acceptorThreadNameCategory='" + acceptorThreadNameCategory + '\'' +
                 ", acceptorThreadPriority=" + acceptorThreadPriority +
+                ", workerThreadDaemon=" + workerThreadDaemon +
                 ", workerThreadCount=" + workerThreadCount +
                 ", workerThreadNameCategory='" + workerThreadNameCategory + '\'' +
                 ", workerThreadPriority=" + workerThreadPriority +

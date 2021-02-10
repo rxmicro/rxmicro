@@ -129,5 +129,12 @@ public final class MongoClientBuilder {
             LOGGER.info("Mongo client closed: connectionString='?'", connectionString);
             builder.mongoDBClient = null;
         }
+
+        @Override
+        public String toString() {
+            return "MongoDBClient{" +
+                    "connectionString='" + connectionString + '\'' +
+                    '}';
+        }
     }
 }

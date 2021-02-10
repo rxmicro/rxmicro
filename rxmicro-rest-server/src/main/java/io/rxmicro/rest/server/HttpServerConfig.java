@@ -174,4 +174,14 @@ public final class HttpServerConfig extends HttpConfig {
     public HttpServerConfig setConnectionString(final String connectionString) {
         return (HttpServerConfig) super.setConnectionString(connectionString);
     }
+
+    @Override
+    public String toString() {
+        return "HttpServerConfig{" +
+                "connectionString='" + getConnectionString() +
+                ", startTimeTrackerEnabled=" + startTimeTrackerEnabled +
+                ", rootDirectory=" + rootDirectory +
+                ", fileContentCacheDuration=" + fileContentCacheDuration +
+                '}';
+    }
 }

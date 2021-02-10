@@ -23,7 +23,6 @@ import io.rxmicro.runtime.detail.InstanceQualifier;
 import io.rxmicro.runtime.local.provider.NotUniqueInstanceProvider;
 import io.rxmicro.runtime.local.provider.ProxyInstanceProvider;
 
-import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Optional;
@@ -37,6 +36,7 @@ import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.Requires.require;
 import static io.rxmicro.runtime.internal.RuntimeVersion.setRxMicroVersion;
 import static java.lang.Runtime.getRuntime;
+import static java.util.Comparator.comparing;
 
 /**
  * @author nedis
@@ -59,6 +59,7 @@ public final class InstanceContainer {
 
     public static void registerAutoRelease(final AutoRelease autoRelease) {
         AUTO_RELEASES.add(require(autoRelease, format("autoRelease couldn't be null")));
+        LOGGER.debug("A new auto release instance registered: '?'!", autoRelease);
     }
 
     @SafeVarargs
@@ -132,10 +133,15 @@ public final class InstanceContainer {
                 .filter(p -> interfaceType.isAssignableFrom(p.getType()) &&
                         p.getClass() != NotUniqueInstanceProvider.class)
                 .map(p -> (T) p.getInstance())
-                .collect(toTreeSet(Comparator.comparing(o -> o.getClass().getName())));
+                .collect(toTreeSet(comparing(o -> o.getClass().getName())));
     }
 
     public static void clearContainer() {
+        if (LOGGER.isTraceEnabled()) {
+            LOGGER.trace("The following components were removed: ? ", COMPONENT_MAP);
+        } else {
+            LOGGER.debug("? components were removed successfully", COMPONENT_MAP.size());
+        }
         COMPONENT_MAP.clear();
         closeAll();
     }
@@ -144,6 +150,7 @@ public final class InstanceContainer {
         for (final AutoRelease autoRelease : AUTO_RELEASES) {
             try {
                 autoRelease.release();
+                LOGGER.debug("The '?' auto release instance released successful!", autoRelease);
             } catch (final Throwable throwable) {
                 LOGGER.error(throwable, "Error during close: ?", throwable.getMessage());
             }

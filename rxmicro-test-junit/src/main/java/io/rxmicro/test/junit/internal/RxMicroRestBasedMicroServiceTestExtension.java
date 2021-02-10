@@ -18,6 +18,8 @@ package io.rxmicro.test.junit.internal;
 
 import io.rxmicro.cdi.BeanFactory;
 import io.rxmicro.config.Config;
+import io.rxmicro.logger.Logger;
+import io.rxmicro.logger.LoggerFactory;
 import io.rxmicro.rest.server.HttpServerConfig;
 import io.rxmicro.rest.server.RestServerConfig;
 import io.rxmicro.rest.server.local.model.ServerContainer;
@@ -40,6 +42,7 @@ import io.rxmicro.test.local.component.validator.RestBasedMicroServiceTestValida
 import io.rxmicro.test.local.model.TestModel;
 import org.junit.jupiter.api.extension.AfterAllCallback;
 import org.junit.jupiter.api.extension.AfterEachCallback;
+import org.junit.jupiter.api.extension.AfterTestExecutionCallback;
 import org.junit.jupiter.api.extension.BeforeAllCallback;
 import org.junit.jupiter.api.extension.BeforeEachCallback;
 import org.junit.jupiter.api.extension.BeforeTestExecutionCallback;
@@ -55,6 +58,12 @@ import static io.rxmicro.rest.server.local.component.RestServerLauncher.launchWi
 import static io.rxmicro.runtime.local.AbstractFactory.clearFactories;
 import static io.rxmicro.runtime.local.InstanceContainer.clearContainer;
 import static io.rxmicro.test.HttpServers.getRandomFreePort;
+import static io.rxmicro.test.junit.local.LoggerUtils.logAfterAll;
+import static io.rxmicro.test.junit.local.LoggerUtils.logAfterEach;
+import static io.rxmicro.test.junit.local.LoggerUtils.logAfterTestExecution;
+import static io.rxmicro.test.junit.local.LoggerUtils.logBeforeAll;
+import static io.rxmicro.test.junit.local.LoggerUtils.logBeforeEach;
+import static io.rxmicro.test.junit.local.LoggerUtils.logBeforeTestExecution;
 import static io.rxmicro.test.junit.local.TestObjects.getOwnerTestClass;
 import static io.rxmicro.test.junit.local.TestObjects.getTestInstances;
 import static io.rxmicro.test.local.UnNamedModuleFixers.restBasedMicroServiceTestsFix;
@@ -67,12 +76,34 @@ import static io.rxmicro.test.local.util.Safes.safeInvoke;
 import static io.rxmicro.test.local.util.TestExceptions.reThrowInaccessibleObjectException;
 
 /**
+ * Execution order:
+ * (Read more: https://junit.org/junit5/docs/current/user-guide/#extensions-execution-order-overview)
+ *
+ * 1) BeforeAllCallback.beforeAll
+ * 2) @BeforeAll
+ * 3) LifecycleMethodExecutionExceptionHandler.handleBeforeAllMethodExecutionException
+ * 4) BeforeEachCallback.beforeEach
+ * 5) @BeforeEach
+ * 6) LifecycleMethodExecutionExceptionHandler.handleBeforeEachMethodExecutionException
+ * 7) BeforeTestExecutionCallback.beforeTestExecution
+ * 8) @Test
+ * 9) TestExecutionExceptionHandler.handleTestExecutionException
+ * 10) AfterTestExecutionCallback.afterTestExecution
+ * 11) @AfterEach
+ * 12) LifecycleMethodExecutionExceptionHandler.handleAfterEachMethodExecutionException
+ * 13) AfterEachCallback.afterEach
+ * 14) @AfterAll
+ * 15) LifecycleMethodExecutionExceptionHandler.handleAfterAllMethodExecutionException
+ * 16) AfterAllCallback.afterAll
+ *
  * @author nedis
  * @since 0.1
- * @link https://junit.org/junit5/docs/current/user-guide/#extensions-execution-order-overview
  */
-public final class RxMicroRestBasedMicroServiceTestExtension extends AbstractJUnitTestExtension
-        implements BeforeAllCallback, BeforeEachCallback, BeforeTestExecutionCallback, AfterEachCallback, AfterAllCallback {
+public final class RxMicroRestBasedMicroServiceTestExtension extends BaseJUnitTestExtension implements
+        BeforeAllCallback, BeforeEachCallback, BeforeTestExecutionCallback,
+        AfterTestExecutionCallback, AfterEachCallback, AfterAllCallback {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(RxMicroRestBasedMicroServiceTestExtension.class);
 
     static {
         restBasedMicroServiceTestsFix();
@@ -105,6 +136,7 @@ public final class RxMicroRestBasedMicroServiceTestExtension extends AbstractJUn
 
     @Override
     public void beforeAll(final ExtensionContext context) {
+        logBeforeAll(LOGGER, context);
         final Class<?> testClass = getOwnerTestClass(context);
         final RxMicroRestBasedMicroServiceTest annotation = getRequiredAnnotation(testClass, RxMicroRestBasedMicroServiceTest.class);
         waitForTestHttpServerStopped = annotation.waitForTestHttpServerStopped();
@@ -162,6 +194,7 @@ public final class RxMicroRestBasedMicroServiceTestExtension extends AbstractJUn
 
     @Override
     public void beforeEach(final ExtensionContext context) {
+        logBeforeEach(LOGGER, context);
         final List<Object> testInstances = getTestInstances(context);
 
         runtimeContextComponentInjector.injectIfFound(testInstances);
@@ -180,13 +213,16 @@ public final class RxMicroRestBasedMicroServiceTestExtension extends AbstractJUn
 
         serverContainer.register(restControllerInstanceResolver.getRestControllerClasses());
         try {
-            userCreatedComponentInjector.injectIfFound(
-                    testInstances,
-                    restControllerInstanceResolver.getRestControllerInstances()
-            );
+            userCreatedComponentInjector.injectIfFound(testInstances, restControllerInstanceResolver.getRestControllerInstances());
         } catch (final InaccessibleObjectException ex) {
             reThrowInaccessibleObjectException(ex);
         }
+        logBeforeTestExecution(LOGGER, context);
+    }
+
+    @Override
+    public void afterTestExecution(final ExtensionContext context) {
+        logAfterTestExecution(LOGGER, context);
     }
 
     @Override
@@ -197,6 +233,7 @@ public final class RxMicroRestBasedMicroServiceTestExtension extends AbstractJUn
         resetConfigurationIfPossible();
         serverContainer.unregisterAllRestControllers();
         systemStreamInjector.resetIfNecessary();
+        logAfterEach(LOGGER, context);
     }
 
     @Override
@@ -208,5 +245,6 @@ public final class RxMicroRestBasedMicroServiceTestExtension extends AbstractJUn
             safeInvoke(serverContainer, container -> container.getServerInstance().shutdown());
         }
         clearEventLoopGroupFactory();
+        logAfterAll(LOGGER, context);
     }
 }

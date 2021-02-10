@@ -31,7 +31,7 @@ import static io.rxmicro.runtime.local.Implementations.getAllImplementations;
  * @author nedis
  * @since 0.7
  */
-abstract class AbstractJUnitTestExtension {
+class BaseJUnitTestExtension {
 
     static final Set<Class<? extends Annotation>> SUPPORTED_TEST_ANNOTATIONS = Set.of(
             RxMicroIntegrationTest.class,
@@ -41,11 +41,11 @@ abstract class AbstractJUnitTestExtension {
 
     private final BeforeTestInvoker beforeTestInvoker = new BeforeTestInvoker();
 
-    BeforeTestInvoker getBeforeTestInvoker() {
+    final BeforeTestInvoker getBeforeTestInvoker() {
         return beforeTestInvoker;
     }
 
-    void resetConfigurationIfPossible() {
+    final void resetConfigurationIfPossible() {
         getAllImplementations(ConfigurationResetController.class, ServiceLoader::load)
                 .forEach(ConfigurationResetController::resetConfiguration);
     }

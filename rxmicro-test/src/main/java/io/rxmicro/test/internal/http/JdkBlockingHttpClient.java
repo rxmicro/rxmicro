@@ -205,6 +205,21 @@ public final class JdkBlockingHttpClient implements BlockingHttpClient {
 
     }
 
+    @Override
+    public String toString() {
+        return "JdkBlockingHttpClient{" +
+                "config=" + config +
+                ", client=" + client +
+                ", requestBodyConverter=" + requestBodyConverter +
+                ", responseBodyConverter=" + responseBodyConverter +
+                ", acceptHeader=" + acceptHeader +
+                ", contentTypeHeader=" + contentTypeHeader +
+                ", userAgentHeader=" + userAgentHeader +
+                ", versionHeader=" + versionHeader +
+                ", baseUrlPath='" + baseUrlPath + '\'' +
+                '}';
+    }
+
     /**
      * @author nedis
      * @since 0.8

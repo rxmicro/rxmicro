@@ -18,6 +18,8 @@ package io.rxmicro.test.junit.internal;
 
 import io.rxmicro.cdi.BeanFactory;
 import io.rxmicro.config.Configs;
+import io.rxmicro.logger.Logger;
+import io.rxmicro.logger.LoggerFactory;
 import io.rxmicro.test.junit.RxMicroComponentTest;
 import io.rxmicro.test.local.component.TestedComponentResolver;
 import io.rxmicro.test.local.component.builder.TestModelBuilder;
@@ -33,6 +35,7 @@ import io.rxmicro.test.local.model.TestModel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.AfterAllCallback;
 import org.junit.jupiter.api.extension.AfterEachCallback;
+import org.junit.jupiter.api.extension.AfterTestExecutionCallback;
 import org.junit.jupiter.api.extension.BeforeAllCallback;
 import org.junit.jupiter.api.extension.BeforeEachCallback;
 import org.junit.jupiter.api.extension.BeforeTestExecutionCallback;
@@ -45,6 +48,12 @@ import static io.rxmicro.config.local.DefaultConfigValueBuilderReSetter.resetDef
 import static io.rxmicro.netty.runtime.local.EventLoopGroupFactory.clearEventLoopGroupFactory;
 import static io.rxmicro.runtime.local.AbstractFactory.clearFactories;
 import static io.rxmicro.runtime.local.InstanceContainer.clearContainer;
+import static io.rxmicro.test.junit.local.LoggerUtils.logAfterAll;
+import static io.rxmicro.test.junit.local.LoggerUtils.logAfterEach;
+import static io.rxmicro.test.junit.local.LoggerUtils.logAfterTestExecution;
+import static io.rxmicro.test.junit.local.LoggerUtils.logBeforeAll;
+import static io.rxmicro.test.junit.local.LoggerUtils.logBeforeEach;
+import static io.rxmicro.test.junit.local.LoggerUtils.logBeforeTestExecution;
 import static io.rxmicro.test.junit.local.TestObjects.getTestInstances;
 import static io.rxmicro.test.local.UnNamedModuleFixers.componentTestsFix;
 import static io.rxmicro.test.local.component.StatelessComponentFactory.getConfigResolver;
@@ -53,12 +62,34 @@ import static io.rxmicro.test.local.util.Modules.isRequiredModule;
 import static io.rxmicro.test.local.util.TestExceptions.reThrowInaccessibleObjectException;
 
 /**
+ * Execution order:
+ * (Read more: https://junit.org/junit5/docs/current/user-guide/#extensions-execution-order-overview)
+ *
+ * 1) BeforeAllCallback.beforeAll
+ * 2) @BeforeAll
+ * 3) LifecycleMethodExecutionExceptionHandler.handleBeforeAllMethodExecutionException
+ * 4) BeforeEachCallback.beforeEach
+ * 5) @BeforeEach
+ * 6) LifecycleMethodExecutionExceptionHandler.handleBeforeEachMethodExecutionException
+ * 7) BeforeTestExecutionCallback.beforeTestExecution
+ * 8) @Test
+ * 9) TestExecutionExceptionHandler.handleTestExecutionException
+ * 10) AfterTestExecutionCallback.afterTestExecution
+ * 11) @AfterEach
+ * 12) LifecycleMethodExecutionExceptionHandler.handleAfterEachMethodExecutionException
+ * 13) AfterEachCallback.afterEach
+ * 14) @AfterAll
+ * 15) LifecycleMethodExecutionExceptionHandler.handleAfterAllMethodExecutionException
+ * 16) AfterAllCallback.afterAll
+ *
  * @author nedis
  * @since 0.1
- * @link https://junit.org/junit5/docs/current/user-guide/#extensions-execution-order-overview
  */
-public final class RxMicroComponentTestExtension extends AbstractJUnitTestExtension
-        implements BeforeAllCallback, BeforeEachCallback, BeforeTestExecutionCallback, AfterEachCallback, AfterAllCallback {
+public final class RxMicroComponentTestExtension extends BaseJUnitTestExtension implements
+        BeforeAllCallback, BeforeEachCallback, BeforeTestExecutionCallback,
+        AfterTestExecutionCallback, AfterEachCallback, AfterAllCallback {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(RxMicroComponentTestExtension.class);
 
     static {
         componentTestsFix();
@@ -82,6 +113,7 @@ public final class RxMicroComponentTestExtension extends AbstractJUnitTestExtens
 
     @Override
     public void beforeAll(final ExtensionContext context) {
+        logBeforeAll(LOGGER, context);
         final Class<?> testClass = context.getRequiredTestClass();
         final Class<?> componentClass = getRequiredAnnotation(testClass, RxMicroComponentTest.class).value();
         final TestModelBuilder testModelBuilder = new TestModelBuilder(
@@ -111,6 +143,7 @@ public final class RxMicroComponentTestExtension extends AbstractJUnitTestExtens
 
     @Override
     public void beforeEach(final ExtensionContext context) {
+        logBeforeEach(LOGGER, context);
         final List<Object> testInstances = getTestInstances(context);
         testedComponentResolver.verifyState(testInstances, BeforeEach.class);
 
@@ -132,13 +165,16 @@ public final class RxMicroComponentTestExtension extends AbstractJUnitTestExtens
         }
         final Object testedComponentInstance = testedComponentResolver.getTestedComponentInstance(testInstances);
         try {
-            userCreatedComponentInjector.injectIfFound(
-                    testInstances,
-                    List.of(testedComponentInstance)
-            );
+            userCreatedComponentInjector.injectIfFound(testInstances, List.of(testedComponentInstance));
         } catch (final InaccessibleObjectException ex) {
             reThrowInaccessibleObjectException(ex);
         }
+        logBeforeTestExecution(LOGGER, context);
+    }
+
+    @Override
+    public void afterTestExecution(final ExtensionContext context) {
+        logAfterTestExecution(LOGGER, context);
     }
 
     @Override
@@ -148,10 +184,12 @@ public final class RxMicroComponentTestExtension extends AbstractJUnitTestExtens
         resetDefaultConfigValueStorage();
         resetConfigurationIfPossible();
         systemStreamInjector.resetIfNecessary();
+        logAfterEach(LOGGER, context);
     }
 
     @Override
     public void afterAll(final ExtensionContext context) {
         clearEventLoopGroupFactory();
+        logAfterAll(LOGGER, context);
     }
 }

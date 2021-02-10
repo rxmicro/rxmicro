@@ -22,6 +22,7 @@ import java.time.Duration;
 import java.util.Map;
 
 import static io.rxmicro.common.util.Formats.format;
+import static io.rxmicro.config.Secrets.hideSecretInfo;
 
 /**
  * Allows configuring the environment specific configs for PostgreSQL database.
@@ -130,5 +131,26 @@ public final class PostgreSQLConfig extends SQLPooledDatabaseConfig {
     @Override
     public PostgreSQLConfig setConnectTimeout(final Duration connectTimeout) {
         return (PostgreSQLConfig) super.setConnectTimeout(connectTimeout);
+    }
+
+    @Override
+    public String toString() {
+        return "PostgreSQLConfig{" +
+                "options=" + getOptions() +
+                ", host='" + getHost() + '\'' +
+                ", port=" + getPort() +
+                ", user='" + getUser() + '\'' +
+                ", password=" + hideSecretInfo(getPassword().toString()) +
+                ", database='" + getDatabase() + '\'' +
+                ", connectTimeout=" + getConnectTimeout() +
+                ", acquireRetry=" + getAcquireRetry() +
+                ", initialSize=" + getInitialSize() +
+                ", maxSize=" + getMaxSize() +
+                ", validationQuery='" + getValidationQuery() + '\'' +
+                ", maxIdleTime=" + getMaxIdleTime() +
+                ", maxCreateConnectionTime=" + getMaxCreateConnectionTime() +
+                ", maxAcquireTime=" + getMaxAcquireTime() +
+                ", maxLifeTime=" + getMaxLifeTime() +
+                '}';
     }
 }

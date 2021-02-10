@@ -80,8 +80,7 @@ final class BeforeTestInvoker {
 
     private void validateRedundantAnnotation(final Method method) {
         if (method.isAnnotationPresent(BeforeThisTest.class)) {
-            throw new InvalidTestConfigException("Redundant annotation: '@?'. Remove it",
-                    BeforeThisTest.class.getName());
+            throw new InvalidTestConfigException("Redundant annotation: '@?'. Remove it", BeforeThisTest.class.getName());
         }
     }
 

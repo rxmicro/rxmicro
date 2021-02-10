@@ -169,5 +169,12 @@ public final class PostgreSQLConnectionPoolBuilder {
             LOGGER.info("Pool disposed: connectionString='?'", postgreSQLConfig.getConnectionString());
             builder.postgreSQLConnectionPool = null;
         }
+
+        @Override
+        public String toString() {
+            return "PostgreSQLConnectionPool{" +
+                    "postgreSQLConfig=" + postgreSQLConfig +
+                    '}';
+        }
     }
 }

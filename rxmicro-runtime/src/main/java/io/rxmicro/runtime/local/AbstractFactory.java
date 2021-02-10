@@ -17,6 +17,8 @@
 package io.rxmicro.runtime.local;
 
 import io.rxmicro.common.InvalidStateException;
+import io.rxmicro.logger.Logger;
+import io.rxmicro.logger.LoggerFactory;
 import io.rxmicro.runtime.detail.ByTypeInstanceQualifier;
 import io.rxmicro.runtime.detail.InstanceQualifier;
 import io.rxmicro.runtime.local.provider.EagerInstanceProvider;
@@ -41,6 +43,8 @@ import static io.rxmicro.runtime.local.InstanceContainer.registerSingleton;
  */
 public abstract class AbstractFactory {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(AbstractFactory.class);
+
     private static final Map<String, AbstractFactory> FACTORIES = new HashMap<>();
 
     static {
@@ -48,6 +52,11 @@ public abstract class AbstractFactory {
     }
 
     public static void clearFactories() {
+        if (LOGGER.isTraceEnabled()) {
+            LOGGER.trace("The following factories were removed: ? ", FACTORIES);
+        } else {
+            LOGGER.debug("? factories were removed successfully", FACTORIES.size());
+        }
         FACTORIES.clear();
     }
 
