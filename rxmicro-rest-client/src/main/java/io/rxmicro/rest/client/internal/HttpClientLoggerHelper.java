@@ -34,7 +34,7 @@ public final class HttpClientLoggerHelper {
                                        final RestClientConfig config) {
         final Logger logger = LoggerFactory.getLogger(restClientInterface);
         if (logger.isDebugEnabled()) {
-            logger.debug("Http client created: ?Config=? ?Impl class=?",
+            logger.debug("Http client created: ?\tConfig=? ?\tImpl class=?",
                     lineSeparator(),
                     config,
                     lineSeparator(),
