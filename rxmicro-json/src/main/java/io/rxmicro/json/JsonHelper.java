@@ -18,6 +18,8 @@ package io.rxmicro.json;
 
 import io.rxmicro.json.internal.reader.JsonReader;
 import io.rxmicro.json.internal.writer.JsonWriter;
+import io.rxmicro.json.wrapper.JsonArray;
+import io.rxmicro.json.wrapper.JsonObject;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -143,6 +145,28 @@ public final class JsonHelper {
     }
 
     /**
+     * Converts the {@link JsonObject} instance to the string representation of json object.
+     *
+     * @param jsonObject    the {@link JsonObject} instance with data.
+     * @param humanReadable the human readable or not output
+     * @return the string representation of json object
+     */
+    public static String toJsonString(final JsonObject jsonObject,
+                                      final boolean humanReadable) {
+        return JsonWriter.toJsonString(jsonObject.getIntervalView(), humanReadable);
+    }
+
+    /**
+     * Converts the {@link JsonObject} instance to the string representation of json object.
+     *
+     * @param jsonObject the {@link JsonObject} instance with data.
+     * @return the string representation of json object
+     */
+    public static String toJsonString(final JsonObject jsonObject) {
+        return toJsonString(jsonObject, DEFAULT_HUMAN_READABLE_OUTPUT);
+    }
+
+    /**
      * Converts the java {@link List}{@code <Object>} instance to the string representation of json array.
      *
      * @param jsonArray     the java {@link List}{@code <Object>} instance with data. See type conversion for more information
@@ -167,6 +191,18 @@ public final class JsonHelper {
     }
 
     /**
+     * Converts the {@link JsonArray} instance to the string representation of json array.
+     *
+     * @param jsonArray     the {@link JsonArray} instance with data.
+     * @param humanReadable the human readable or not output
+     * @return the string representation of json array
+     */
+    public static String toJsonString(final JsonArray jsonArray,
+                                      final boolean humanReadable) {
+        return JsonWriter.toJsonString(jsonArray.getIntervalView(), humanReadable);
+    }
+
+    /**
      * Converts the java {@link List}{@code <Object>} instance to string representation of json array.
      *
      * @param jsonArray the java {@link List}{@code <Object>} instance with data. See type conversion for more information
@@ -183,6 +219,16 @@ public final class JsonHelper {
      * @return the string representation of json array
      */
     public static String toJsonString(final Collection<Object> jsonArray) {
+        return toJsonString(jsonArray, DEFAULT_HUMAN_READABLE_OUTPUT);
+    }
+
+    /**
+     * Converts the {@link JsonArray} instance to the string representation of json array.
+     *
+     * @param jsonArray the {@link JsonArray} instance with data.
+     * @return the string representation of json array
+     */
+    public static String toJsonString(final JsonArray jsonArray) {
         return toJsonString(jsonArray, DEFAULT_HUMAN_READABLE_OUTPUT);
     }
 
