@@ -28,7 +28,7 @@ public final class ExternalSourceProviderFactory {
 
     private static Map<String, String> environmentVariables = System.getenv();
 
-    private static String currentDir = "";
+    private static String currentDir = ".";
 
     public static Map<String, String> getEnvironmentVariables() {
         return environmentVariables;
