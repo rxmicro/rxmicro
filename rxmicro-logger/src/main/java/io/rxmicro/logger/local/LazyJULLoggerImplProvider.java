@@ -24,6 +24,8 @@ import io.rxmicro.logger.internal.jul.JULLoggerImplProvider;
 import static io.rxmicro.logger.internal.LoggerImplProviderFactoryHelper.createAndSetupLoggerImplProvider;
 
 /**
+ * Designed for annotation processor environment only!
+ *
  * @author nedis
  * @since 0.10
  */

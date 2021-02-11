@@ -66,7 +66,7 @@ public final class LoggerImplProviderFactory {
      *
      * @return {@code true} if {@link LoggerImplProvider} already initialized
      */
-    static boolean isLoggerFactoryInitialized() {
+    public static boolean isLoggerFactoryInitialized() {
         return loggerFactoryInitialized;
     }
 
