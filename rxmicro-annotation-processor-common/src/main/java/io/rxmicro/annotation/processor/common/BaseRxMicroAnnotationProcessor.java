@@ -22,7 +22,12 @@ import io.rxmicro.annotation.processor.common.component.impl.AbstractRxMicroProc
 import io.rxmicro.annotation.processor.common.model.AnnotationProcessorType;
 import io.rxmicro.annotation.processor.common.model.EnvironmentContext;
 import io.rxmicro.annotation.processor.common.model.SourceCode;
+import io.rxmicro.logger.Logger;
+import io.rxmicro.logger.LoggerEventBuilder;
+import io.rxmicro.logger.impl.LoggerImplProvider;
+import io.rxmicro.logger.local.LazyJULLoggerImplProvider;
 
+import java.lang.invoke.MethodHandles;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -34,9 +39,11 @@ import javax.tools.Diagnostic;
 import static io.rxmicro.annotation.processor.common.model.AnnotationProcessorType.PROJECT_COMPILE;
 import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getElements;
 import static io.rxmicro.annotation.processor.common.util.ProcessingEnvironmentHelper.getMessager;
+import static io.rxmicro.annotation.processor.common.util.Stubs.stub;
 import static io.rxmicro.annotation.processor.config.SupportedOptions.RX_MICRO_BUILD_UNNAMED_MODULE;
 import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.common.util.Requires.require;
+import static io.rxmicro.logger.LoggerImplProviderFactory.setLoggerImplFactory;
 
 /**
  * @author nedis
@@ -57,26 +64,31 @@ public class BaseRxMicroAnnotationProcessor extends AbstractRxMicroProcessor {
     }
 
     @Override
-    public boolean process(final EnvironmentContextBuilder environmentContextBuilder,
-                           final Set<? extends TypeElement> annotations,
-                           final RoundEnvironment roundEnv) {
-        final Optional<ModuleElement> moduleElementOptional = getCurrentModule(annotations, roundEnv);
-        if (moduleElementOptional.isPresent()) {
-            final ModuleElement currentModule = moduleElementOptional.get();
-            if (currentModule.isUnnamed() && moduleClassStructuresBuilder.isUnnamedModuleDisabled()) {
+    public final boolean process(final EnvironmentContextBuilder environmentContextBuilder,
+                                 final Set<? extends TypeElement> annotations,
+                                 final RoundEnvironment roundEnv) {
+        setLoggerImplFactory(new AnnotationProcessorLoggerImplProvider());
+        try {
+            final Optional<ModuleElement> moduleElementOptional = getCurrentModule(annotations, roundEnv);
+            if (moduleElementOptional.isPresent()) {
+                final ModuleElement currentModule = moduleElementOptional.get();
+                if (currentModule.isUnnamed() && moduleClassStructuresBuilder.isUnnamedModuleDisabled()) {
+                    displayModuleError();
+                    return false;
+                } else {
+                    final EnvironmentContext environmentContext =
+                            environmentContextBuilder.build(roundEnv, currentModule);
+                    final List<SourceCode> sourceCodes =
+                            moduleClassStructuresBuilder.buildSourceCode(environmentContext, annotations, roundEnv);
+                    generateClasses(sourceCodes);
+                    return true;
+                }
+            } else {
                 displayModuleError();
                 return false;
-            } else {
-                final EnvironmentContext environmentContext =
-                        environmentContextBuilder.build(roundEnv, currentModule);
-                final List<SourceCode> sourceCodes =
-                        moduleClassStructuresBuilder.buildSourceCode(environmentContext, annotations, roundEnv);
-                generateClasses(sourceCodes);
-                return true;
             }
-        } else {
-            displayModuleError();
-            return false;
+        } finally {
+            setLoggerImplFactory(new LazyJULLoggerImplProvider());
         }
     }
 
@@ -101,5 +113,27 @@ public class BaseRxMicroAnnotationProcessor extends AbstractRxMicroProcessor {
                 .flatMap(a -> roundEnv.getElementsAnnotatedWith(a).stream())
                 .flatMap(e -> Optional.ofNullable(getElements().getModuleOf(e)).stream())
                 .findFirst();
+    }
+
+    /**
+     * @author nedis
+     * @since 0.10
+     */
+    private static final class AnnotationProcessorLoggerImplProvider implements LoggerImplProvider {
+
+        @Override
+        public void setup() {
+            // do nothing
+        }
+
+        @Override
+        public Logger getLogger(final String name) {
+            return stub(Logger.class, MethodHandles.lookup());
+        }
+
+        @Override
+        public LoggerEventBuilder newLoggerEventBuilder() {
+            return stub(LoggerEventBuilder.class, MethodHandles.lookup());
+        }
     }
 }

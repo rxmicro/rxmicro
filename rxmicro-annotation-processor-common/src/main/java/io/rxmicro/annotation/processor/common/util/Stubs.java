@@ -101,7 +101,9 @@ public final class Stubs {
         }
 
         @Override
-        public Object invoke(final Object proxy, final Method method, final Object[] args) throws Throwable {
+        public Object invoke(final Object proxy,
+                             final Method method,
+                             final Object[] args) throws Throwable {
             if ("toString".equals(method.getName()) && method.getParameterCount() == 0) {
                 return format("? Stub", interfaceClass.getSimpleName());
             } else if (method.getDeclaringClass() == Object.class) {
@@ -118,7 +120,9 @@ public final class Stubs {
                         .invokeWithArguments(args);
             } else {
                 final Class<?> returnType = method.getReturnType();
-                if (returnType.isEnum()) {
+                if (returnType == interfaceClass) {
+                    return proxy;
+                } else if (returnType.isEnum()) {
                     final Object[] enumConstants = returnType.getEnumConstants();
                     return enumConstants.length > 0 ? enumConstants[0] : null;
                 } else {

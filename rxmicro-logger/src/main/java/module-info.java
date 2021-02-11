@@ -55,6 +55,9 @@ module rxmicro.logger {
     exports io.rxmicro.logger.impl;
     exports io.rxmicro.logger.jul;
 
+    exports io.rxmicro.logger.local to
+            rxmicro.annotation.processor.common;
+
     exports io.rxmicro.logger.internal to
             rxmicro.reflection;
 
