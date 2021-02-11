@@ -292,7 +292,7 @@ public abstract class ConfigProperties {
         @Override
         public String toString() {
             if (commandLineArgs.isEmpty()) {
-                return commandLineArgs.toString();
+                return configSources.toString();
             } else {
                 return Stream.concat(
                         configSources.stream().map(Objects::toString),
