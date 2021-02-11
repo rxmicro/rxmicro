@@ -33,6 +33,10 @@ import static io.rxmicro.logger.internal.jul.LevelMappings.getJulLevel;
  */
 final class JULLogger extends AbstractLogger {
 
+    static {
+        JDK6448699Bug.fix();
+    }
+
     private final java.util.logging.Logger logger;
 
     private final String name;

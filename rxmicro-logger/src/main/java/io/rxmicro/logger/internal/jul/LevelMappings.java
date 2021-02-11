@@ -31,6 +31,10 @@ import static java.util.stream.Collectors.toUnmodifiableMap;
  */
 public final class LevelMappings {
 
+    static {
+        JDK6448699Bug.fix();
+    }
+
     private static final java.util.logging.Level[] JUL_LEVELS = {
             /* Level.OFF   -> */ java.util.logging.Level.OFF,
             /* Level.ERROR -> */ java.util.logging.Level.SEVERE,

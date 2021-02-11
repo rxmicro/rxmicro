@@ -44,6 +44,10 @@ import static io.rxmicro.reflection.Reflections.instantiate;
  */
 public final class SystemConsoleHandlerHelper {
 
+    static {
+        JDK6448699Bug.fix();
+    }
+
     private static final String FULL_CLASS_NAME = SystemConsoleHandler.class.getName();
 
     public static Optional<String> getPropertyValue(final LogManager manager,

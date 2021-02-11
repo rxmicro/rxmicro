@@ -30,6 +30,10 @@ import static java.util.logging.Logger.GLOBAL_LOGGER_NAME;
  */
 public final class InternalLoggerHelper {
 
+    static {
+        JDK6448699Bug.fix();
+    }
+
     private static final Logger LOGGER = Logger.getGlobal();
 
     public static void logInternal(final Level level,
