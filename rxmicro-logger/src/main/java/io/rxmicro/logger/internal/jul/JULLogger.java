@@ -97,4 +97,12 @@ final class JULLogger extends AbstractLogger {
                        final Throwable throwable) {
         logger.log(new RxMicroLogRecord(requestIdSupplier, name, getJulLevel(level), message, throwable));
     }
+
+    @Override
+    public String toString() {
+        return "JULLogger{" +
+                "name='" + name + '\'' +
+                "level='" + logger.getLevel() + '\'' +
+                '}';
+    }
 }

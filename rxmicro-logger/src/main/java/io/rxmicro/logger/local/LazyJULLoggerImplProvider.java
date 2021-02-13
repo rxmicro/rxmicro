@@ -21,7 +21,13 @@ import io.rxmicro.logger.LoggerEventBuilder;
 import io.rxmicro.logger.impl.LoggerImplProvider;
 import io.rxmicro.logger.internal.jul.JULLoggerImplProvider;
 
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+import java.util.function.Supplier;
+
+import static io.rxmicro.common.util.Formats.format;
 import static io.rxmicro.logger.internal.LoggerImplProviderFactoryHelper.createAndSetupLoggerImplProvider;
+import static java.lang.reflect.Proxy.newProxyInstance;
 
 /**
  * Designed for annotation processor environment only!
@@ -31,7 +37,11 @@ import static io.rxmicro.logger.internal.LoggerImplProviderFactoryHelper.createA
  */
 public final class LazyJULLoggerImplProvider implements LoggerImplProvider {
 
-    private LoggerImplProvider loggerImplProvider;
+    private final ClassLoader classLoader = LoggerImplProvider.class.getClassLoader();
+
+    private final Class<?>[] loggerInterfaces = new Class[]{Logger.class};
+
+    private final LoggerImplProviderSupplier supplier = new LoggerImplProviderSupplier();
 
     @Override
     public void setup() {
@@ -40,18 +50,73 @@ public final class LazyJULLoggerImplProvider implements LoggerImplProvider {
 
     @Override
     public Logger getLogger(final String name) {
-        return getLoggerImplProvider().getLogger(name);
+        return (Logger) newProxyInstance(classLoader, loggerInterfaces, new LoggerInvocationHandler(name, supplier));
     }
 
     @Override
     public LoggerEventBuilder newLoggerEventBuilder() {
-        return getLoggerImplProvider().newLoggerEventBuilder();
+        return supplier.get().newLoggerEventBuilder();
     }
 
-    private LoggerImplProvider getLoggerImplProvider() {
-        if (loggerImplProvider == null) {
-            loggerImplProvider = createAndSetupLoggerImplProvider(JULLoggerImplProvider.class);
+    /**
+     * Designed for annotation processor environment only!
+     *
+     * @author nedis
+     * @since 0.10
+     */
+    private static final class LoggerImplProviderSupplier implements Supplier<LoggerImplProvider> {
+
+        private LoggerImplProvider loggerImplProvider;
+
+        @Override
+        public LoggerImplProvider get() {
+            if (loggerImplProvider == null) {
+                synchronized (this) {
+                    if (loggerImplProvider == null) {
+                        loggerImplProvider = createAndSetupLoggerImplProvider(JULLoggerImplProvider.class);
+                    }
+                }
+            }
+            return loggerImplProvider;
         }
-        return loggerImplProvider;
+    }
+
+    /**
+     * Designed for annotation processor environment only!
+     *
+     * @author nedis
+     * @since 0.10
+     */
+    private static final class LoggerInvocationHandler implements InvocationHandler {
+
+        private final String name;
+
+        private final Supplier<LoggerImplProvider> loggerImplProviderSupplier;
+
+        private Logger logger;
+
+        private LoggerInvocationHandler(final String name,
+                                        final Supplier<LoggerImplProvider> loggerImplProviderSupplier) {
+            this.loggerImplProviderSupplier = loggerImplProviderSupplier;
+            this.name = name;
+        }
+
+        @Override
+        public Object invoke(final Object proxy,
+                             final Method method,
+                             final Object[] args) throws Throwable {
+            if ("toString".equals(method.getName()) && method.getParameterCount() == 0) {
+                return format("? Lazy Proxy for '?'", Logger.class.getSimpleName(), getLogger());
+            } else {
+                return method.invoke(getLogger(), args);
+            }
+        }
+
+        private Logger getLogger() {
+            if (logger == null) {
+                logger = loggerImplProviderSupplier.get().getLogger(name);
+            }
+            return logger;
+        }
     }
 }
