@@ -141,6 +141,19 @@ public class AsMapConfig extends Config implements Map<String, Object> {
     }
 
     /**
+     * Returns {@code true} if values to which the specified key is mapped has {@link String} type.
+     *
+     * <p>
+     * Note: If value not found by key, this method returns {@code false}.
+     *
+     * @param key the key whose associated value is to be checked.
+     * @return {@code true} if values to which the specified key is mapped has {@link String} type.
+     */
+    public boolean isString(final String key) {
+        return map.get(key) instanceof String;
+    }
+
+    /**
      * Returns the {@link String} value to which the specified key is mapped.
      *
      * @param key the key whose associated value is to be returned
@@ -148,7 +161,7 @@ public class AsMapConfig extends Config implements Map<String, Object> {
      * @throws ClassCastException if the value is of an inappropriate type for this map.
      * @throws ConfigException if the value is not found by the provided key.
      */
-    public String getString(final Object key) {
+    public String getString(final String key) {
         return (String) getRequired(key);
     }
 
@@ -161,8 +174,21 @@ public class AsMapConfig extends Config implements Map<String, Object> {
      *        {@code null} if this map contains no mapping for the key
      * @throws ClassCastException if the value is of an inappropriate type for this map.
      */
-    public Optional<String> getOptionalString(final Object key) {
+    public Optional<String> getOptionalString(final String key) {
         return Optional.ofNullable((String) get(key));
+    }
+
+    /**
+     * Returns {@code true} if values to which the specified key is mapped has {@link Boolean} type.
+     *
+     * <p>
+     * Note: If value not found by key, this method returns {@code false}.
+     *
+     * @param key the key whose associated value is to be checked.
+     * @return {@code true} if values to which the specified key is mapped has {@link Boolean} type.
+     */
+    public boolean isBoolean(final String key) {
+        return map.get(key) instanceof Boolean;
     }
 
     /**
@@ -173,7 +199,7 @@ public class AsMapConfig extends Config implements Map<String, Object> {
      * @throws ClassCastException if the value is of an inappropriate type for this map.
      * @throws ConfigException if the value is not found by the provided key.
      */
-    public boolean getBoolean(final Object key) {
+    public boolean getBoolean(final String key) {
         return (Boolean) getRequired(key);
     }
 
@@ -186,8 +212,21 @@ public class AsMapConfig extends Config implements Map<String, Object> {
      *        {@code null} if this map contains no mapping for the key
      * @throws ClassCastException if the value is of an inappropriate type for this map.
      */
-    public Optional<Boolean> getOptionalBoolean(final Object key) {
+    public Optional<Boolean> getOptionalBoolean(final String key) {
         return Optional.ofNullable((Boolean) get(key));
+    }
+
+    /**
+     * Returns {@code true} if values to which the specified key is mapped has {@link BigInteger} type.
+     *
+     * <p>
+     * Note: If value not found by key, this method returns {@code false}.
+     *
+     * @param key the key whose associated value is to be checked.
+     * @return {@code true} if values to which the specified key is mapped has {@link BigInteger} type.
+     */
+    public boolean isBigInteger(final String key) {
+        return map.get(key) instanceof BigInteger;
     }
 
     /**
@@ -198,7 +237,7 @@ public class AsMapConfig extends Config implements Map<String, Object> {
      * @throws ClassCastException if the value is of an inappropriate type for this map.
      * @throws ConfigException if the value is not found by the provided key.
      */
-    public BigInteger getBigInteger(final Object key) {
+    public BigInteger getBigInteger(final String key) {
         return (BigInteger) getRequired(key);
     }
 
@@ -211,8 +250,21 @@ public class AsMapConfig extends Config implements Map<String, Object> {
      *        {@code null} if this map contains no mapping for the key
      * @throws ClassCastException if the value is of an inappropriate type for this map.
      */
-    public Optional<BigInteger> getOptionalBigInteger(final Object key) {
+    public Optional<BigInteger> getOptionalBigInteger(final String key) {
         return Optional.ofNullable((BigInteger) get(key));
+    }
+
+    /**
+     * Returns {@code true} if values to which the specified key is mapped has {@link Long} type.
+     *
+     * <p>
+     * Note: If value not found by key, this method returns {@code false}.
+     *
+     * @param key the key whose associated value is to be checked.
+     * @return {@code true} if values to which the specified key is mapped has {@link Long} type.
+     */
+    public boolean isLong(final String key) {
+        return map.get(key) instanceof Long;
     }
 
     /**
@@ -223,7 +275,7 @@ public class AsMapConfig extends Config implements Map<String, Object> {
      * @throws ClassCastException if the value is of an inappropriate type for this map.
      * @throws ConfigException if the value is not found by the provided key.
      */
-    public Long getLong(final Object key) {
+    public Long getLong(final String key) {
         return (Long) getRequired(key);
     }
 
@@ -236,7 +288,7 @@ public class AsMapConfig extends Config implements Map<String, Object> {
      *        {@code null} if this map contains no mapping for the key
      * @throws ClassCastException if the value is of an inappropriate type for this map.
      */
-    public Optional<Long> getOptionalLong(final Object key) {
+    public Optional<Long> getOptionalLong(final String key) {
         return Optional.ofNullable((Long) get(key));
     }
 
@@ -248,7 +300,7 @@ public class AsMapConfig extends Config implements Map<String, Object> {
      * @throws ClassCastException if the value is of an inappropriate type for this map.
      * @throws ConfigException if the value is not found by the provided key.
      */
-    public Integer getInteger(final Object key) {
+    public Integer getInteger(final String key) {
         return ((Number) getRequired(key)).intValue();
     }
 
@@ -261,7 +313,7 @@ public class AsMapConfig extends Config implements Map<String, Object> {
      *        {@code null} if this map contains no mapping for the key
      * @throws ClassCastException if the value is of an inappropriate type for this map.
      */
-    public Optional<Integer> getOptionalInteger(final Object key) {
+    public Optional<Integer> getOptionalInteger(final String key) {
         return Optional.ofNullable((Number) get(key)).map(Number::intValue);
     }
 
@@ -273,7 +325,7 @@ public class AsMapConfig extends Config implements Map<String, Object> {
      * @throws ClassCastException if the value is of an inappropriate type for this map.
      * @throws ConfigException if the value is not found by the provided key.
      */
-    public Short getShort(final Object key) {
+    public Short getShort(final String key) {
         return ((Number) getRequired(key)).shortValue();
     }
 
@@ -286,8 +338,21 @@ public class AsMapConfig extends Config implements Map<String, Object> {
      *        {@code null} if this map contains no mapping for the key
      * @throws ClassCastException if the value is of an inappropriate type for this map.
      */
-    public Optional<Short> getOptionalShort(final Object key) {
+    public Optional<Short> getOptionalShort(final String key) {
         return Optional.ofNullable((Number) get(key)).map(Number::shortValue);
+    }
+
+    /**
+     * Returns {@code true} if values to which the specified key is mapped has {@link BigDecimal} type.
+     *
+     * <p>
+     * Note: If value not found by key, this method returns {@code false}.
+     *
+     * @param key the key whose associated value is to be checked.
+     * @return {@code true} if values to which the specified key is mapped has {@link BigDecimal} type.
+     */
+    public boolean isBigDecimal(final String key) {
+        return map.get(key) instanceof BigDecimal;
     }
 
     /**
@@ -298,7 +363,7 @@ public class AsMapConfig extends Config implements Map<String, Object> {
      * @throws ClassCastException if the value is of an inappropriate type for this map.
      * @throws ConfigException if the value is not found by the provided key.
      */
-    public BigDecimal getBigDecimal(final Object key) {
+    public BigDecimal getBigDecimal(final String key) {
         return (BigDecimal) getRequired(key);
     }
 
@@ -311,7 +376,7 @@ public class AsMapConfig extends Config implements Map<String, Object> {
      *        {@code null} if this map contains no mapping for the key
      * @throws ClassCastException if the value is of an inappropriate type for this map.
      */
-    public Optional<BigDecimal> getOptionalBigDecimal(final Object key) {
+    public Optional<BigDecimal> getOptionalBigDecimal(final String key) {
         return Optional.ofNullable((BigDecimal) get(key));
     }
 
@@ -323,7 +388,7 @@ public class AsMapConfig extends Config implements Map<String, Object> {
      * @throws ClassCastException if the value is of an inappropriate type for this map.
      * @throws ConfigException if the value is not found by the provided key.
      */
-    public Double getDouble(final Object key) {
+    public Double getDouble(final String key) {
         return ((Number) getRequired(key)).doubleValue();
     }
 
@@ -336,7 +401,7 @@ public class AsMapConfig extends Config implements Map<String, Object> {
      *        {@code null} if this map contains no mapping for the key
      * @throws ClassCastException if the value is of an inappropriate type for this map.
      */
-    public Optional<Double> getOptionalDouble(final Object key) {
+    public Optional<Double> getOptionalDouble(final String key) {
         return Optional.ofNullable((Number) get(key)).map(Number::doubleValue);
     }
 
@@ -348,7 +413,7 @@ public class AsMapConfig extends Config implements Map<String, Object> {
      * @throws ClassCastException if the value is of an inappropriate type for this map.
      * @throws ConfigException if the value is not found by the provided key.
      */
-    public Float getFloat(final Object key) {
+    public Float getFloat(final String key) {
         return ((Number) getRequired(key)).floatValue();
     }
 
@@ -361,8 +426,21 @@ public class AsMapConfig extends Config implements Map<String, Object> {
      *        {@code null} if this map contains no mapping for the key
      * @throws ClassCastException if the value is of an inappropriate type for this map.
      */
-    public Optional<Float> getOptionalFloat(final Object key) {
+    public Optional<Float> getOptionalFloat(final String key) {
         return Optional.ofNullable((Number) get(key)).map(Number::floatValue);
+    }
+
+    /**
+     * Returns {@code true} if values to which the specified key is mapped has {@link Map} type.
+     *
+     * <p>
+     * Note: If value not found by key, this method returns {@code false}.
+     *
+     * @param key the key whose associated value is to be checked.
+     * @return {@code true} if values to which the specified key is mapped has {@link Map} type.
+     */
+    public boolean isMap(final String key) {
+        return map.get(key) instanceof Map;
     }
 
     /**
@@ -374,7 +452,7 @@ public class AsMapConfig extends Config implements Map<String, Object> {
      * @throws ConfigException if the value is not found by the provided key.
      */
     @SuppressWarnings("unchecked")
-    public Map<String, String> getMap(final Object key) {
+    public Map<String, String> getMap(final String key) {
         return (Map<String, String>) getRequired(key);
     }
 
@@ -388,8 +466,21 @@ public class AsMapConfig extends Config implements Map<String, Object> {
      * @throws ClassCastException if the value is of an inappropriate type for this map.
      */
     @SuppressWarnings("unchecked")
-    public Optional<Map<String, String>> getOptionalMap(final Object key) {
+    public Optional<Map<String, String>> getOptionalMap(final String key) {
         return Optional.ofNullable((Map<String, String>) get(key));
+    }
+
+    /**
+     * Returns {@code true} if values to which the specified key is mapped has {@link List} type.
+     *
+     * <p>
+     * Note: If value not found by key, this method returns {@code false}.
+     *
+     * @param key the key whose associated value is to be checked.
+     * @return {@code true} if values to which the specified key is mapped has {@link List} type.
+     */
+    public boolean isList(final String key) {
+        return map.get(key) instanceof List;
     }
 
     /**
@@ -401,7 +492,7 @@ public class AsMapConfig extends Config implements Map<String, Object> {
      * @throws ConfigException if the value is not found by the provided key.
      */
     @SuppressWarnings("unchecked")
-    public List<String> getList(final Object key) {
+    public List<String> getList(final String key) {
         return (List<String>) getRequired(key);
     }
 
@@ -415,11 +506,11 @@ public class AsMapConfig extends Config implements Map<String, Object> {
      * @throws ClassCastException if the value is of an inappropriate type for this map.
      */
     @SuppressWarnings("unchecked")
-    public Optional<List<String>> getOptionalList(final Object key) {
+    public Optional<List<String>> getOptionalList(final String key) {
         return Optional.ofNullable((List<String>) get(key));
     }
 
-    private Object getRequired(final Object key) {
+    private Object getRequired(final String key) {
         final Object value = get(key);
         if (value == null) {
             throw new ConfigException("Required value for '?' not defined!", key);
