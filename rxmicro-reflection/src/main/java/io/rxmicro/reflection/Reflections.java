@@ -24,11 +24,13 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Member;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.function.BiPredicate;
 import java.util.function.Predicate;
 
 import static io.rxmicro.common.util.ExCollections.unmodifiableOrderedSet;
@@ -1146,6 +1148,35 @@ public final class Reflections {
             current = current.getSuperclass();
         }
         return methods;
+    }
+
+    /**
+     * Copies all not static field values from the {@code source} to the {@code destination} using provided {@code predicate} with
+     * {@link Field} instance and previous value of this field from destination instance.
+     *
+     * <p>
+     * For each not static field before coping this method invokes the provided {@code predicate}.
+     * The provided {@code predicate} contains {@link Field} instance and previous value that was extracted from destination instance.
+     * If the provided {@code predicate} returns {@code true} the previous value will be overridden using a new value from the
+     * {@code source}, otherwise the copy operation for this field will be skipped.
+     *
+     * @param source the source instance
+     * @param destination the destination instance
+     * @param predicate the predicate with {@link Field} instance and previous value of this field from destination instance.
+     * @param <T> the instance type
+     */
+    public static <T> void copyAllFields(final T source,
+                                         final T destination,
+                                         final BiPredicate<Field, Object> predicate) {
+        final Set<Field> sourceFields = Set.of(source.getClass().getDeclaredFields());
+        for (final Field field : destination.getClass().getDeclaredFields()) {
+            if (sourceFields.contains(field) && !Modifier.isStatic(field.getModifiers())) {
+                Object prevValue = getFieldValue(destination, field);
+                if (predicate.test(field, prevValue)) {
+                    setFieldValue(destination, field, getFieldValue(source, field));
+                }
+            }
+        }
     }
 
     private static boolean isPublicSetter(final Method method) {
