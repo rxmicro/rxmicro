@@ -74,7 +74,7 @@ public final class StringIterator {
      * @return {@code true} if the iteration has more elements.
      */
     public boolean next() {
-        return ++index < string.length();
+        return ++index < length;
     }
 
     /**
