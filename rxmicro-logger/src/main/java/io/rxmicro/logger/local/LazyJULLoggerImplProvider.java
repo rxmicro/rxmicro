@@ -66,7 +66,7 @@ public final class LazyJULLoggerImplProvider implements LoggerImplProvider {
      */
     private static final class LoggerImplProviderSupplier implements Supplier<LoggerImplProvider> {
 
-        private LoggerImplProvider loggerImplProvider;
+        private volatile LoggerImplProvider loggerImplProvider;
 
         @Override
         public LoggerImplProvider get() {
