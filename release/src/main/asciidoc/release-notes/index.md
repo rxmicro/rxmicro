@@ -7,18 +7,23 @@ This document contains the *change log* for all RxMicro releases since **0.2**.
 ## RxMicro v0.10
 
 * Dependency updates:
+  * `guice`: 4.2.3 -> 5.0.1
+  * `freemarker`: 2.3.30 -> 2.3.31
   * `junit`: 5.7.0 -> 5.7.1
   * `junit-platform`: 1.7.0 -> 1.7.1
-  * `mockito`: 3.6.28 -> 3.7.7
-  * `netty`: 4.1.56.Final -> 4.1.59.Final
-  * `rxjava`: 3.0.9 -> 3.0.10
-  * `projectreactor`: 3.4.1 -> 3.4.2
-  * `reactor-netty`: 1.0.2 -> 1.0.3
-  * `mongo-driver`: 4.1.1 -> 4.2.0
+  * `mockito`: 3.6.28 -> 3.8.0
+  * `netty`: 4.1.56.Final -> 4.1.60.Final
+  * `rxjava`: 3.0.9 -> 3.0.11
+  * `projectreactor`: 3.4.1 -> 3.4.4
+  * `reactor-netty`: 1.0.2 -> 1.0.5
+  * `mongo-driver`: 4.1.1 -> 4.2.2
+  * `r2dbc-spi`: 0.8.3.RELEASE -> 0.8.4.RELEASE
+  * `r2dbc-postgresql`: 0.8.6.RELEASE -> 0.8.7.RELEASE
+  * `r2dbc-pool`: 0.8.5.RELEASE -> 0.8.6.RELEASE
 * Source code tool updates:
-  * `spotbugs`: 4.2.0 -> 4.2.1
-  * `pmd`: 6.30.0 -> 6.31.0
-  * `checkstyle`: 8.39 -> 8.40
+  * `spotbugs`: 4.2.0 -> 4.2.2
+  * `pmd`: 6.30.0 -> 6.32.0
+  * `checkstyle`: 8.39 -> 8.41
   
 ## RxMicro v0.9
 
