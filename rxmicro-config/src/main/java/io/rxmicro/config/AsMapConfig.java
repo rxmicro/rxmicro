@@ -171,7 +171,7 @@ public class AsMapConfig extends Config implements Map<String, Object> {
      *
      * @param key the key whose associated value is to be returned
      * @return the {@link String} value to which the specified key is mapped, or
-     *        {@code null} if this map contains no mapping for the key
+     *         {@code null} if this map contains no mapping for the key
      * @throws ClassCastException if the value is of an inappropriate type for this map.
      */
     public Optional<String> getOptionalString(final String key) {
@@ -209,7 +209,7 @@ public class AsMapConfig extends Config implements Map<String, Object> {
      *
      * @param key the key whose associated value is to be returned
      * @return the {@link Boolean} value to which the specified key is mapped, or
-     *        {@code null} if this map contains no mapping for the key
+     *         {@code null} if this map contains no mapping for the key
      * @throws ClassCastException if the value is of an inappropriate type for this map.
      */
     public Optional<Boolean> getOptionalBoolean(final String key) {
@@ -247,7 +247,7 @@ public class AsMapConfig extends Config implements Map<String, Object> {
      *
      * @param key the key whose associated value is to be returned
      * @return the {@link BigInteger} value to which the specified key is mapped, or
-     *        {@code null} if this map contains no mapping for the key
+     *         {@code null} if this map contains no mapping for the key
      * @throws ClassCastException if the value is of an inappropriate type for this map.
      */
     public Optional<BigInteger> getOptionalBigInteger(final String key) {
@@ -285,7 +285,7 @@ public class AsMapConfig extends Config implements Map<String, Object> {
      *
      * @param key the key whose associated value is to be returned
      * @return the {@link Long} value to which the specified key is mapped, or
-     *        {@code null} if this map contains no mapping for the key
+     *         {@code null} if this map contains no mapping for the key
      * @throws ClassCastException if the value is of an inappropriate type for this map.
      */
     public Optional<Long> getOptionalLong(final String key) {
@@ -310,7 +310,7 @@ public class AsMapConfig extends Config implements Map<String, Object> {
      *
      * @param key the key whose associated value is to be returned
      * @return the {@link Integer} value to which the specified key is mapped, or
-     *        {@code null} if this map contains no mapping for the key
+     *         {@code null} if this map contains no mapping for the key
      * @throws ClassCastException if the value is of an inappropriate type for this map.
      */
     public Optional<Integer> getOptionalInteger(final String key) {
@@ -335,7 +335,7 @@ public class AsMapConfig extends Config implements Map<String, Object> {
      *
      * @param key the key whose associated value is to be returned
      * @return the {@link Short} value to which the specified key is mapped, or
-     *        {@code null} if this map contains no mapping for the key
+     *         {@code null} if this map contains no mapping for the key
      * @throws ClassCastException if the value is of an inappropriate type for this map.
      */
     public Optional<Short> getOptionalShort(final String key) {
@@ -373,7 +373,7 @@ public class AsMapConfig extends Config implements Map<String, Object> {
      *
      * @param key the key whose associated value is to be returned
      * @return the {@link BigDecimal} value to which the specified key is mapped, or
-     *        {@code null} if this map contains no mapping for the key
+     *         {@code null} if this map contains no mapping for the key
      * @throws ClassCastException if the value is of an inappropriate type for this map.
      */
     public Optional<BigDecimal> getOptionalBigDecimal(final String key) {
@@ -398,7 +398,7 @@ public class AsMapConfig extends Config implements Map<String, Object> {
      *
      * @param key the key whose associated value is to be returned
      * @return the {@link Double} value to which the specified key is mapped, or
-     *        {@code null} if this map contains no mapping for the key
+     *         {@code null} if this map contains no mapping for the key
      * @throws ClassCastException if the value is of an inappropriate type for this map.
      */
     public Optional<Double> getOptionalDouble(final String key) {
@@ -423,7 +423,7 @@ public class AsMapConfig extends Config implements Map<String, Object> {
      *
      * @param key the key whose associated value is to be returned
      * @return the {@link Float} value to which the specified key is mapped, or
-     *        {@code null} if this map contains no mapping for the key
+     *         {@code null} if this map contains no mapping for the key
      * @throws ClassCastException if the value is of an inappropriate type for this map.
      */
     public Optional<Float> getOptionalFloat(final String key) {
@@ -462,7 +462,7 @@ public class AsMapConfig extends Config implements Map<String, Object> {
      *
      * @param key the key whose associated value is to be returned
      * @return the {@link Map}{@code <String, String>}  value to which the specified key is mapped, or
-     *        {@code null} if this map contains no mapping for the key
+     *         {@code null} if this map contains no mapping for the key
      * @throws ClassCastException if the value is of an inappropriate type for this map.
      */
     @SuppressWarnings("unchecked")
@@ -502,7 +502,7 @@ public class AsMapConfig extends Config implements Map<String, Object> {
      *
      * @param key the key whose associated value is to be returned
      * @return the {@link List}{@code <String>}  value to which the specified key is mapped, or
-     *        {@code null} if this map contains no mapping for the key
+     *         {@code null} if this map contains no mapping for the key
      * @throws ClassCastException if the value is of an inappropriate type for this map.
      */
     @SuppressWarnings("unchecked")
