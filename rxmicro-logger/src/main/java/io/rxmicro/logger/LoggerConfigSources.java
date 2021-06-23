@@ -34,7 +34,7 @@ import static io.rxmicro.logger.internal.jul.InternalLoggerHelper.logInternal;
 public final class LoggerConfigSources {
 
     // Default logger config source order.
-    private static List<LoggerConfigSource> loggerConfigSources = List.of(
+    private static List<LoggerConfigSource> currentLoggerConfigSources = List.of(
             DEFAULT,
             CLASS_PATH_RESOURCE,
             TEST_CLASS_PATH_RESOURCE
@@ -61,7 +61,7 @@ public final class LoggerConfigSources {
                     LoggerImplProviderFactory.class.getSimpleName()
             );
         }
-        LoggerConfigSources.loggerConfigSources = List.of(loggerConfigSources);
+        currentLoggerConfigSources = List.of(loggerConfigSources);
     }
 
     /**
@@ -70,7 +70,7 @@ public final class LoggerConfigSources {
      * @return the configured logger config sources.
      */
     public static List<LoggerConfigSource> getLoggerConfigSources() {
-        return loggerConfigSources;
+        return currentLoggerConfigSources;
     }
 
     private LoggerConfigSources() {
