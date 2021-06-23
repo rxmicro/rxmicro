@@ -167,7 +167,7 @@ public final class JsonNumber implements Comparable<JsonNumber> {
      */
     private static final class JsonNumberValidators {
 
-        private static void validateJsonNumber(final String number) {
+        static void validateJsonNumber(final String number) {
             if (number.isEmpty()) {
                 throw new NumberFormatException("Empty string is not valid number!");
             }
@@ -225,6 +225,9 @@ public final class JsonNumber implements Comparable<JsonNumber> {
             } else {
                 return new NumberFormatException("Multiple points: " + number);
             }
+        }
+
+        private JsonNumberValidators() {
         }
     }
 }
