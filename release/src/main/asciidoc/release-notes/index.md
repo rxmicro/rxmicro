@@ -8,22 +8,25 @@ This document contains the *change log* for all RxMicro releases since **0.2**.
 
 * Dependency updates:
   * `guice`: 4.2.3 -> 5.0.1
+  * `guava`: 30.1-jre -> 30.1.1-jre
   * `freemarker`: 2.3.30 -> 2.3.31
-  * `junit`: 5.7.0 -> 5.7.1
-  * `junit-platform`: 1.7.0 -> 1.7.1
-  * `mockito`: 3.6.28 -> 3.8.0
-  * `netty`: 4.1.56.Final -> 4.1.60.Final
-  * `rxjava`: 3.0.9 -> 3.0.11
-  * `projectreactor`: 3.4.1 -> 3.4.4
-  * `reactor-netty`: 1.0.2 -> 1.0.5
-  * `mongo-driver`: 4.1.1 -> 4.2.2
-  * `r2dbc-spi`: 0.8.3.RELEASE -> 0.8.4.RELEASE
-  * `r2dbc-postgresql`: 0.8.6.RELEASE -> 0.8.7.RELEASE
-  * `r2dbc-pool`: 0.8.5.RELEASE -> 0.8.6.RELEASE
+  * `maven-model`: 3.6.3 -> 3.8.1
+  * `junit`: 5.7.0 -> 5.7.2
+  * `junit-platform`: 1.7.0 -> 1.7.2
+  * `mockito`: 3.6.28 -> 3.11.2
+  * `wiremock`: 2.27.2 -> 2.28.1
+  * `netty`: 4.1.56.Final -> 4.1.65.Final
+  * `rxjava`: 3.0.9 -> 3.0.13
+  * `projectreactor`: 3.4.1 -> 3.4.7
+  * `reactor-netty`: 1.0.2 -> 1.0.8
+  * `mongo-driver`: 4.1.1 -> 4.2.3
+  * `r2dbc-spi`: 0.8.3.RELEASE -> 0.8.5.RELEASE
+  * `r2dbc-postgresql`: 0.8.6.RELEASE -> 0.8.8.RELEASE
+  * `r2dbc-pool`: 0.8.5.RELEASE -> 0.8.7.RELEASE
 * Source code tool updates:
-  * `spotbugs`: 4.2.0 -> 4.2.2
-  * `pmd`: 6.30.0 -> 6.32.0
-  * `checkstyle`: 8.39 -> 8.41
+  * `spotbugs`: 4.2.0 -> 4.2.3
+  * `pmd`: 6.30.0 -> 6.35.0
+  * `checkstyle`: 8.39 -> 8.43
   
 ## RxMicro v0.9
 

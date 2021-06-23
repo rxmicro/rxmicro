@@ -127,41 +127,41 @@
         <!-- Used By Annotation Processor libraries -->
         <freemarker.version>2.3.31</freemarker.version>
         <google.guice.version>5.0.1</google.guice.version>
-        <google.guava.version>30.1-jre</google.guava.version>
-        <maven-model.version>3.6.3</maven-model.version>
+        <google.guava.version>30.1.1-jre</google.guava.version>
+        <maven-model.version>3.8.1</maven-model.version>
         <!-- Test libraries -->
-        <junit.version>5.7.1</junit.version>
-        <junit-platform.version>1.7.1</junit-platform.version>
-        <mockito.version>3.7.7</mockito.version>
+        <junit.version>5.7.2</junit.version>
+        <junit-platform.version>1.7.2</junit-platform.version>
+        <mockito.version>3.11.2</mockito.version>
         <google.compile-testing.version>0.19</google.compile-testing.version>
         <dbunit.version>2.7.0</dbunit.version>
-        <wiremock-jre8.version>2.27.2</wiremock-jre8.version>
+        <wiremock-jre8.version>2.28.1</wiremock-jre8.version>
         <!-- Runtime Libraries -->
-        <netty.version>4.1.60.Final</netty.version>
+        <netty.version>4.1.65.Final</netty.version>
 
-        <external.lib.rxjava3.version>3.0.11</external.lib.rxjava3.version>
-        <external.lib.projectreactor.version>3.4.4</external.lib.projectreactor.version>
+        <external.lib.rxjava3.version>3.0.13</external.lib.rxjava3.version>
+        <external.lib.projectreactor.version>3.4.7</external.lib.projectreactor.version>
         <external.lib.reactivestreams.version>1.0.3</external.lib.reactivestreams.version>
 
-        <external.lib.reactor-netty.version>1.0.5</external.lib.reactor-netty.version>
+        <external.lib.reactor-netty.version>1.0.8</external.lib.reactor-netty.version>
 
-        <mongo-driver.version>4.2.2</mongo-driver.version>
+        <mongo-driver.version>4.2.3</mongo-driver.version>
         <external.lib.mongodb-driver-reactivestreams.version>${mongo-driver.version}</external.lib.mongodb-driver-reactivestreams.version>
         <external.lib.mongodb-driver-core.version>${mongo-driver.version}</external.lib.mongodb-driver-core.version>
         <external.lib.bson.version>${mongo-driver.version}</external.lib.bson.version>
 
-        <external.lib.r2dbc-spi.version>0.8.4.RELEASE</external.lib.r2dbc-spi.version>
-        <external.lib.r2dbc-postgresql.version>0.8.6.RELEASE</external.lib.r2dbc-postgresql.version>
-        <external.lib.r2dbc-pool.version>0.8.5.RELEASE</external.lib.r2dbc-pool.version>
+        <external.lib.r2dbc-spi.version>0.8.5.RELEASE</external.lib.r2dbc-spi.version>
+        <external.lib.r2dbc-postgresql.version>0.8.8.RELEASE</external.lib.r2dbc-postgresql.version>
+        <external.lib.r2dbc-pool.version>0.8.7.RELEASE</external.lib.r2dbc-pool.version>
         <!-- Tests -->
         <external.lib.junit-platform-commons.version>${junit-platform.version}</external.lib.junit-platform-commons.version>
         <external.lib.apiguardian-api.version>1.1.0</external.lib.apiguardian-api.version>
         <external.lib.opentest4j.version>1.2.0</external.lib.opentest4j.version>
 
         <!-- Code quality -->
-        <spotbugs.version>4.2.2</spotbugs.version>
-        <pmd.version>6.32.0</pmd.version>
-        <checkstyle.version>8.41</checkstyle.version>
+        <spotbugs.version>4.2.3</spotbugs.version>
+        <pmd.version>6.35.0</pmd.version>
+        <checkstyle.version>8.43</checkstyle.version>
 
         <!-- Maven core plugins -->
         <maven-clean-plugin.version>3.1.0</maven-clean-plugin.version>
