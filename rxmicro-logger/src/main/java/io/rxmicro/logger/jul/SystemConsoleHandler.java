@@ -153,9 +153,9 @@ public final class SystemConsoleHandler extends Handler {
         final LogManager manager = LogManager.getLogManager();
         final String stream = getConfiguredStream(manager);
         final PatternFormatter formatter = new PatternFormatter();
-        if (stream.equals(STD_ERR)) {
+        if (STD_ERR.equals(stream)) {
             handler = new StreamHandler(System.err, formatter);
-        } else if (stream.equals(STD_OUT)) {
+        } else if (STD_OUT.equals(stream)) {
             handler = new StreamHandler(System.out, formatter);
         } else {
             handler = new AutoStreamHandler(manager, formatter);
