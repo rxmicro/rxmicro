@@ -1171,7 +1171,7 @@ public final class Reflections {
         final Set<Field> sourceFields = Set.of(source.getClass().getDeclaredFields());
         for (final Field field : destination.getClass().getDeclaredFields()) {
             if (sourceFields.contains(field) && !Modifier.isStatic(field.getModifiers())) {
-                Object prevValue = getFieldValue(destination, field);
+                final Object prevValue = getFieldValue(destination, field);
                 if (predicate.test(field, prevValue)) {
                     setFieldValue(destination, field, getFieldValue(source, field));
                 }
