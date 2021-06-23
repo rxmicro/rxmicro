@@ -73,7 +73,7 @@ jobs:
           java-version: ${{ env.DEFAULT_JDK_LTS_VERSION }}
 
       - name: Verify
-        run: mvn --fail-at-end -DskipTests -P ${{ matrix.profile }} package
+        run: mvn --fail-at-end -DskipTests -P ${{ matrix.profile }} verify
   # -----------------------------------------------------------------------------------------------------
   # ------------- Run Unit tests on Linux, Windows and MacOS with all supported JDK versions ------------
   # -----------------------------------------------------------------------------------------------------
