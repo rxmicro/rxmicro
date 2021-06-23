@@ -16,6 +16,8 @@
 
 package io.rxmicro.logger;
 
+import io.rxmicro.common.meta.BuilderMethod;
+
 import java.util.function.Supplier;
 
 /**
@@ -41,6 +43,7 @@ public interface LoggerEventBuilder {
      * @throws NullPointerException if the specified {@code requestIdSupplier} is {@code null}.
      * @throws io.rxmicro.common.InvalidStateException if the logger event already built.
      */
+    @BuilderMethod
     LoggerEventBuilder setRequestIdSupplier(RequestIdSupplier requestIdSupplier);
 
     /**
@@ -56,6 +59,7 @@ public interface LoggerEventBuilder {
      * @throws IllegalArgumentException if specified {@code sourceLineNumber} is invalid.
      * @throws io.rxmicro.common.InvalidStateException if the logger event already built.
      */
+    @BuilderMethod
     LoggerEventBuilder setStackFrame(String sourceClassName,
                                      String sourceMethodName,
                                      String sourceFileName,
@@ -69,6 +73,7 @@ public interface LoggerEventBuilder {
      * @throws NullPointerException if the specified {@code message} is {@code null}.
      * @throws io.rxmicro.common.InvalidStateException if the logger event already built.
      */
+    @BuilderMethod
     LoggerEventBuilder setMessage(String message);
 
     /**
@@ -87,6 +92,7 @@ public interface LoggerEventBuilder {
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      * @throws io.rxmicro.common.InvalidStateException if the logger event already built.
      */
+    @BuilderMethod
     LoggerEventBuilder setMessage(String template,
                                   Supplier<?>... suppliers);
 
@@ -106,6 +112,7 @@ public interface LoggerEventBuilder {
      * @throws IllegalArgumentException if detected a redundant placeholder or missing argument
      * @throws io.rxmicro.common.InvalidStateException if the logger event already built.
      */
+    @BuilderMethod
     LoggerEventBuilder setMessage(String template,
                                   Object... args);
 
@@ -117,6 +124,7 @@ public interface LoggerEventBuilder {
      * @throws IllegalArgumentException if specified {@code threadId} is invalid.
      * @throws io.rxmicro.common.InvalidStateException if the logger event already built.
      */
+    @BuilderMethod
     LoggerEventBuilder setThreadId(long threadId);
 
     /**
@@ -127,6 +135,7 @@ public interface LoggerEventBuilder {
      * @throws NullPointerException if the specified {@code threadName} is {@code null}.
      * @throws io.rxmicro.common.InvalidStateException if the logger event already built.
      */
+    @BuilderMethod
     LoggerEventBuilder setThreadName(String threadName);
 
     /**
@@ -137,6 +146,7 @@ public interface LoggerEventBuilder {
      * @throws NullPointerException if the specified {@code thread} is {@code null}.
      * @throws io.rxmicro.common.InvalidStateException if the logger event already built.
      */
+    @BuilderMethod
     default LoggerEventBuilder setThread(final Thread thread) {
         return setThreadId(thread.getId())
                 .setThreadName(thread.getName());
@@ -150,6 +160,7 @@ public interface LoggerEventBuilder {
      * @throws NullPointerException if the specified {@code throwable} is {@code null}.
      * @throws io.rxmicro.common.InvalidStateException if the logger event already built.
      */
+    @BuilderMethod
     LoggerEventBuilder setThrowable(Throwable throwable);
 
     /**
