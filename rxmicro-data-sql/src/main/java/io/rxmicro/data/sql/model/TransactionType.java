@@ -66,6 +66,7 @@ public enum TransactionType {
      *
      * @param fullClassName the specified full class name
      * @return the enum constant of the {@link TransactionType} type
+     * @throws IllegalArgumentException if the provided full class name is not a name of transaction class
      */
     public static TransactionType byClassName(final String fullClassName) {
         for (final TransactionType transactionType : TransactionType.values()) {

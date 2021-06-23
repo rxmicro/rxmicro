@@ -173,6 +173,7 @@ public final class Configs {
          * @param namespace the custom namespace
          * @param config the created by developer config instance
          * @return the reference to this {@link Builder} instance
+         * @throws ConfigException if the provided namespace is already configured
          */
         public Builder withConfig(final String namespace,
                                   final Config config) {
