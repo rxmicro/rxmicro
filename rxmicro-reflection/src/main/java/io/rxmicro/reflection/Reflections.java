@@ -24,7 +24,6 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Member;
 import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -1170,7 +1169,7 @@ public final class Reflections {
                                          final BiPredicate<Field, Object> predicate) {
         final Set<Field> sourceFields = Set.of(source.getClass().getDeclaredFields());
         for (final Field field : destination.getClass().getDeclaredFields()) {
-            if (sourceFields.contains(field) && !Modifier.isStatic(field.getModifiers())) {
+            if (sourceFields.contains(field) && !isStatic(field.getModifiers())) {
                 final Object prevValue = getFieldValue(destination, field);
                 if (predicate.test(field, prevValue)) {
                     setFieldValue(destination, field, getFieldValue(source, field));
