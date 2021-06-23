@@ -39,7 +39,7 @@ public final class LazyJULLoggerImplProvider implements LoggerImplProvider {
 
     private final ClassLoader classLoader = LoggerImplProvider.class.getClassLoader();
 
-    private final Class<?>[] loggerInterfaces = new Class[]{Logger.class};
+    private final Class<?>[] loggerInterfaces = {Logger.class};
 
     private final LoggerImplProviderSupplier supplier = new LoggerImplProviderSupplier();
 
